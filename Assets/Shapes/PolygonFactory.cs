@@ -13,6 +13,7 @@ namespace Shapes
 
         // regular polygons
         [HideInInspector] public Polygon tetra, icosahedron0, tri, hex;
+        [HideInInspector] public Line line;
         
         void Awake()
         {
@@ -25,7 +26,11 @@ namespace Shapes
 
         // INIT
         void BuildPolygons()
-        {
+        {   
+            line = new GameObject("Line").AddComponent<Line>();
+            AddMesh(line.gameObject, line, mainMat);
+            line.rend = line.gameObject.GetComponent<Renderer>();
+            
             tetra = NewPoly(mainMat);
             Polyhedra.VertsAndFaces tetraVertsAndFaces = Polyhedra.NewTetraVertsAndFaces(1);
 

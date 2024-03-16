@@ -7,8 +7,10 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
+    public static Main Instance;
+    
     public static float AgeU = 1.38f * Mathf.Pow(10, 10); // age of Universe in years
-    public static double MassU = 1.50f * Mathf.Pow(10, 53);
+    public static double MassU = 1.50f * Mathf.Pow(10, 53); // Baryonic matter in kg
     public static float moment = 4.50f * Mathf.Pow(10, -10);
     public const int NumDiv = 1000;
 
@@ -16,6 +18,8 @@ public class Main : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
+        
         // map the adjusted time scale analytically, so that adjusted values can be looked up in reverse
         for (int i = NumDiv; i > 0; i--)
         {

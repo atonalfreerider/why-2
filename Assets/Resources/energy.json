@@ -1,0 +1,32 @@
+[
+    {
+        "name" : "Baryonic Matter",
+        "start" : 13800000000,
+        "end" : 1000000000,
+        "mass" : "1.5E+53"
+    },
+    {
+        "name" : "Milky Way",
+        "start" : 12700000000,
+        "end" : 1000000000,
+        "mass" : "2.3E+42"
+    },
+    {
+        "name" : "Protosun",
+        "start" : 11000000000,
+        "end" : 4550000000,
+        "mass" : "1.0E+31"
+    },
+    {
+        "name" : "Sun",
+        "start" : 4550000000,
+        "end" : 1000000000,
+        "mass" : "2.0E+30"
+    },
+    {
+        "name" : "Earth",
+        "start" : 4500000000,
+        "end" : 50000,
+        "mass" : "5.97E+24"
+    }
+]

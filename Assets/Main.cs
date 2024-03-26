@@ -76,6 +76,22 @@ public class Main : MonoBehaviour
 
         return closestKey;
     }
+    
+    public float FromArbitrary(float arbitrary)
+    {
+        if (adjustedTimeMap.ContainsKey(arbitrary))
+        {
+            return AgeU * adjustedTimeMap[arbitrary];
+        }
+
+        foreach (KeyValuePair<float,float> keyValuePair in adjustedTimeMap)
+        {
+            if(Mathf.Abs(arbitrary-keyValuePair.Key) < .0001f)
+                return AgeU * keyValuePair.Value;
+        }
+
+        return 0;
+    }
 
     /// <summary>
     /// An arbitrary mapping Ft(t) = t^(t^(-1.4 - 2.39t)). This scales Energy, Life, and Human history in even thirds

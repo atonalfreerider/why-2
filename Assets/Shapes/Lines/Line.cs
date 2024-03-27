@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Shapes.Lines
@@ -9,6 +10,9 @@ namespace Shapes.Lines
         {
             int skinLen = (points.Length - 1) * n * 2;
             int indLen = (points.Length - 1) * 3 * n + (points.Length - 2) * 3;
+
+            if (indLen <= 0) return; // overflow
+            
             if (closed)
             {
                 skinLen += 2 * n;
@@ -81,7 +85,7 @@ namespace Shapes.Lines
                 linearD += Vector3.Distance(points[ii], points[ii + 1]);
             }
 
-            int numPts = System.Convert.ToInt32(.3f * linearD / .01f);
+            int numPts = System.Convert.ToInt32(.1f * linearD / .01f);
             Vector3[] curvePts = new Vector3[numPts + 1];
             for (int ii = 0; ii <= numPts; ii++)
             {

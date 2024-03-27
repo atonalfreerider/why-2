@@ -8,7 +8,7 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     public static Main Instance;
-    
+
     public static float AgeU = 1.38f * Mathf.Pow(10, 10); // age of Universe in years
     public static double MassU = 1.50f * Mathf.Pow(10, 53); // Baryonic matter in kg
     public static float moment = 4.50f * Mathf.Pow(10, -10);
@@ -19,11 +19,12 @@ public class Main : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        
+
         // map the adjusted time scale analytically, so that adjusted values can be looked up in reverse
         for (int i = NumDiv; i > 0; i--)
         {
             float val = (float)i / NumDiv;
+            val = Mathf.Round(val * 1000) / 1000f;
             adjustedTimeMap.Add(val, Ft(val));
         }
     }
@@ -47,7 +48,7 @@ public class Main : MonoBehaviour
 
             GameObject tick = NewTick(Color.white, 1, label);
             tick.transform.SetParent(transform, false);
-            tick.transform.Rotate(Vector3.up , -360 * (float)i / numTicks - 90);
+            tick.transform.Rotate(Vector3.up, -360 * (float)i / numTicks - 90);
             tick.transform.Translate(Vector3.left * 2);
         }
     }
@@ -74,7 +75,40 @@ public class Main : MonoBehaviour
             }
         }
 
+        float closest = adjustedTimeMap[closestKey];
+        if (closest > prct)
+        {
+            float prev = closestKey - 1f / NumDiv;
+            prev = RoundToThree(prev);
+            return Mathf.Lerp(prev, closestKey,
+                (prct - adjustedTimeMap[prev]) / (adjustedTimeMap[closestKey] - adjustedTimeMap[prev]));
+        }
+
+        if (closest < prct)
+        {
+            float next = closestKey + 1f / NumDiv;
+            next = RoundToThree(next);
+            return Mathf.Lerp(closestKey, next,
+                (prct - adjustedTimeMap[closestKey]) / (adjustedTimeMap[next] - adjustedTimeMap[closestKey]));
+        }
+
         return closestKey;
+    }
+
+    public float FromArbitrary(float arbitrary)
+    {
+        if (adjustedTimeMap.ContainsKey(arbitrary))
+        {
+            return AgeU * adjustedTimeMap[arbitrary];
+        }
+
+        foreach (KeyValuePair<float, float> keyValuePair in adjustedTimeMap)
+        {
+            if (Mathf.Abs(arbitrary - keyValuePair.Key) < .0001f)
+                return AgeU * keyValuePair.Value;
+        }
+
+        return 0;
     }
 
     /// <summary>
@@ -105,5 +139,10 @@ public class Main : MonoBehaviour
         tick.SetColor(shade);
 
         return newTick;
+    }
+    
+    public static float RoundToThree(float val)
+    {
+        return Mathf.Round(val * 1000) / 1000f;
     }
 }

@@ -1,0 +1,3000 @@
+{
+  "100": {
+    "Denmark": {
+      "Item1": 619,
+      "Item2": 9
+    },
+    "France": {
+      "Item1": 675,
+      "Item2": 150
+    },
+    "Spain": {
+      "Item1": 825,
+      "Item2": 61
+    },
+    "Holy Roman Empire": {
+      "Item1": 1066,
+      "Item2": 78
+    },
+    "Indians": {
+      "Item1": 1493,
+      "Item2": 51
+    },
+    "Chinese": {
+      "Item1": 1544,
+      "Item2": 58
+    }
+  },
+  "150": {
+    "Denmark": {
+      "Item1": 600,
+      "Item2": 16
+    },
+    "France": {
+      "Item1": 672,
+      "Item2": 187
+    },
+    "Spain": {
+      "Item1": 859,
+      "Item2": 101
+    },
+    "Holy Roman Empire": {
+      "Item1": 1063,
+      "Item2": 165
+    },
+    "Indians": {
+      "Item1": 1610,
+      "Item2": 19
+    },
+    "Chinese": {
+      "Item1": 1629,
+      "Item2": 30
+    }
+  },
+  "200": {
+    "Denmark": {
+      "Item1": 565,
+      "Item2": 45
+    },
+    "France": {
+      "Item1": 667,
+      "Item2": 309
+    },
+    "Spain": {
+      "Item1": 976,
+      "Item2": 15
+    },
+    "Holy Roman Empire": {
+      "Item1": 1043,
+      "Item2": 135
+    },
+    "Indians": {
+      "Item1": 1598,
+      "Item2": 17
+    },
+    "Chinese": {
+      "Item1": 1625,
+      "Item2": 58
+    }
+  },
+  "250": {
+    "Denmark": {
+      "Item1": 518,
+      "Item2": 46
+    },
+    "France": {
+      "Item1": 637,
+      "Item2": 254
+    },
+    "Spain": {
+      "Item1": 891,
+      "Item2": 33
+    },
+    "Holy Roman Empire": {
+      "Item1": 979,
+      "Item2": 92
+    },
+    "Indians": {
+      "Item1": 1536,
+      "Item2": 25
+    },
+    "Chinese": {
+      "Item1": 1577,
+      "Item2": 114
+    }
+  },
+  "300": {
+    "Denmark": {
+      "Item1": 386,
+      "Item2": 64
+    },
+    "France": {
+      "Item1": 569,
+      "Item2": 174
+    },
+    "Spain": {
+      "Item1": 743,
+      "Item2": 105
+    },
+    "Holy Roman Empire": {
+      "Item1": 900,
+      "Item2": 138
+    },
+    "Papacy": {
+      "Item1": 1072,
+      "Item2": 14
+    },
+    "Indians": {
+      "Item1": 1521,
+      "Item2": 28
+    },
+    "Chinese": {
+      "Item1": 1607,
+      "Item2": 86
+    }
+  },
+  "350": {
+    "Denmark": {
+      "Item1": 326,
+      "Item2": 59
+    },
+    "France": {
+      "Item1": 540,
+      "Item2": 172
+    },
+    "Spain": {
+      "Item1": 712,
+      "Item2": 153
+    },
+    "Holy Roman Empire": {
+      "Item1": 991,
+      "Item2": 137
+    },
+    "Papacy": {
+      "Item1": 1165,
+      "Item2": 18
+    },
+    "Indians": {
+      "Item1": 1545,
+      "Item2": 56
+    },
+    "Chinese": {
+      "Item1": 1665,
+      "Item2": 34
+    }
+  },
+  "400": {
+    "Denmark": {
+      "Item1": 242,
+      "Item2": 112
+    },
+    "France": {
+      "Item1": 464,
+      "Item2": 138
+    },
+    "Spain": {
+      "Item1": 602,
+      "Item2": 170
+    },
+    "Holy Roman Empire": {
+      "Item1": 884,
+      "Item2": 175
+    },
+    "Papacy": {
+      "Item1": 1090,
+      "Item2": 7
+    },
+    "Indians": {
+      "Item1": 1510,
+      "Item2": 42
+    },
+    "Chinese": {
+      "Item1": 1674,
+      "Item2": 25
+    }
+  },
+  "450": {
+    "Denmark": {
+      "Item1": 162,
+      "Item2": 65
+    },
+    "France": {
+      "Item1": 312,
+      "Item2": 107
+    },
+    "Spain": {
+      "Item1": 419,
+      "Item2": 137
+    },
+    "Holy Roman Empire": {
+      "Item1": 670,
+      "Item2": 209
+    },
+    "Papacy": {
+      "Item1": 949,
+      "Item2": 9
+    },
+    "Indians": {
+      "Item1": 1489,
+      "Item2": 41
+    },
+    "Chinese": {
+      "Item1": 1671,
+      "Item2": 28
+    }
+  },
+  "500": {
+    "Denmark": {
+      "Item1": 140,
+      "Item2": 60
+    },
+    "France": {
+      "Item1": 245,
+      "Item2": 75
+    },
+    "Spain": {
+      "Item1": 320,
+      "Item2": 99
+    },
+    "Holy Roman Empire": {
+      "Item1": 503,
+      "Item2": 198
+    },
+    "Papacy": {
+      "Item1": 768,
+      "Item2": 11
+    },
+    "Indians": {
+      "Item1": 1443,
+      "Item2": 32
+    },
+    "Chinese": {
+      "Item1": 1614,
+      "Item2": 85
+    }
+  },
+  "550": {
+    "Norway": {
+      "Item1": 150,
+      "Item2": 25
+    },
+    "Denmark": {
+      "Item1": 175,
+      "Item2": 33
+    },
+    "France": {
+      "Item1": 237,
+      "Item2": 70
+    },
+    "Spain": {
+      "Item1": 307,
+      "Item2": 82
+    },
+    "Holy Roman Empire": {
+      "Item1": 454,
+      "Item2": 112
+    },
+    "Papacy": {
+      "Item1": 736,
+      "Item2": 21
+    },
+    "Romans": {
+      "Item1": 757,
+      "Item2": 19
+    },
+    "Indians": {
+      "Item1": 1231,
+      "Item2": 40
+    },
+    "Chinese": {
+      "Item1": 1541,
+      "Item2": 158
+    }
+  },
+  "600": {
+    "Norway": {
+      "Item1": 170,
+      "Item2": 24
+    },
+    "Denmark": {
+      "Item1": 194,
+      "Item2": 22
+    },
+    "France": {
+      "Item1": 237,
+      "Item2": 55
+    },
+    "Spain": {
+      "Item1": 292,
+      "Item2": 36
+    },
+    "Holy Roman Empire": {
+      "Item1": 344,
+      "Item2": 198
+    },
+    "Papacy": {
+      "Item1": 618,
+      "Item2": 21
+    },
+    "Romans": {
+      "Item1": 639,
+      "Item2": 46
+    },
+    "Indians": {
+      "Item1": 1151,
+      "Item2": 56
+    },
+    "Chinese": {
+      "Item1": 1560,
+      "Item2": 139
+    }
+  },
+  "650": {
+    "Norway": {
+      "Item1": 185,
+      "Item2": 24
+    },
+    "Denmark": {
+      "Item1": 209,
+      "Item2": 20
+    },
+    "France": {
+      "Item1": 248,
+      "Item2": 71
+    },
+    "Spain": {
+      "Item1": 319,
+      "Item2": 24
+    },
+    "Holy Roman Empire": {
+      "Item1": 343,
+      "Item2": 181
+    },
+    "Papacy": {
+      "Item1": 615,
+      "Item2": 33
+    },
+    "Romans": {
+      "Item1": 691,
+      "Item2": 54
+    },
+    "Indians": {
+      "Item1": 1189,
+      "Item2": 75
+    },
+    "Chinese": {
+      "Item1": 1663,
+      "Item2": 36
+    }
+  },
+  "700": {
+    "Norway": {
+      "Item1": 180,
+      "Item2": 24
+    },
+    "Denmark": {
+      "Item1": 204,
+      "Item2": 19
+    },
+    "France": {
+      "Item1": 242,
+      "Item2": 69
+    },
+    "Spain": {
+      "Item1": 311,
+      "Item2": 24
+    },
+    "Holy Roman Empire": {
+      "Item1": 335,
+      "Item2": 72
+    },
+    "Papacy": {
+      "Item1": 512,
+      "Item2": 47
+    },
+    "Romans": {
+      "Item1": 656,
+      "Item2": 70
+    },
+    "Indians": {
+      "Item1": 1006,
+      "Item2": 65
+    },
+    "Chinese": {
+      "Item1": 1687,
+      "Item2": 12
+    }
+  },
+  "750": {
+    "Norway": {
+      "Item1": 148,
+      "Item2": 32
+    },
+    "Denmark": {
+      "Item1": 180,
+      "Item2": 22
+    },
+    "France": {
+      "Item1": 202,
+      "Item2": 86
+    },
+    "Spain": {
+      "Item1": 288,
+      "Item2": 23
+    },
+    "Holy Roman Empire": {
+      "Item1": 311,
+      "Item2": 117
+    },
+    "Papacy": {
+      "Item1": 511,
+      "Item2": 147
+    },
+    "Romans": {
+      "Item1": 771,
+      "Item2": 88
+    },
+    "Indians": {
+      "Item1": 1006,
+      "Item2": 88
+    },
+    "Chinese": {
+      "Item1": 1685,
+      "Item2": 14
+    }
+  },
+  "800": {
+    "Norway": {
+      "Item1": 112,
+      "Item2": 28
+    },
+    "Denmark": {
+      "Item1": 140,
+      "Item2": 41
+    },
+    "France": {
+      "Item1": 181,
+      "Item2": 92
+    },
+    "Spain": {
+      "Item1": 273,
+      "Item2": 61
+    },
+    "Holy Roman Empire": {
+      "Item1": 334,
+      "Item2": 185
+    },
+    "Papacy": {
+      "Item1": 860,
+      "Item2": 0
+    },
+    "Romans": {
+      "Item1": 927,
+      "Item2": 127
+    },
+    "Indians": {
+      "Item1": 1322,
+      "Item2": 0
+    },
+    "Chinese": {
+      "Item1": 1661,
+      "Item2": 38
+    }
+  },
+  "850": {
+    "Norway": {
+      "Item1": 87,
+      "Item2": 30
+    },
+    "Denmark": {
+      "Item1": 117,
+      "Item2": 37
+    },
+    "Normandy": {
+      "Item1": 154,
+      "Item2": 32
+    },
+    "France": {
+      "Item1": 186,
+      "Item2": 123
+    },
+    "Spain": {
+      "Item1": 309,
+      "Item2": 40
+    },
+    "Holy Roman Empire": {
+      "Item1": 349,
+      "Item2": 392
+    },
+    "Papacy": {
+      "Item1": 777,
+      "Item2": 177
+    },
+    "Romans": {
+      "Item1": 990,
+      "Item2": 154
+    },
+    "Indians": {
+      "Item1": 1419,
+      "Item2": 71
+    },
+    "Chinese": {
+      "Item1": 1623,
+      "Item2": 76
+    }
+  },
+  "900": {
+    "Norway": {
+      "Item1": 59,
+      "Item2": 26
+    },
+    "Denmark": {
+      "Item1": 85,
+      "Item2": 53
+    },
+    "Normandy": {
+      "Item1": 138,
+      "Item2": 113
+    },
+    "France": {
+      "Item1": 251,
+      "Item2": 121
+    },
+    "Spain": {
+      "Item1": 372,
+      "Item2": 19
+    },
+    "Holy Roman Empire": {
+      "Item1": 391,
+      "Item2": 410
+    },
+    "Papacy": {
+      "Item1": 801,
+      "Item2": 111
+    },
+    "Romans": {
+      "Item1": 947,
+      "Item2": 141
+    },
+    "Indians": {
+      "Item1": 1498,
+      "Item2": 47
+    },
+    "Chinese": {
+      "Item1": 1593,
+      "Item2": 106
+    }
+  },
+  "950": {
+    "Norway": {
+      "Item1": 26,
+      "Item2": 21
+    },
+    "Denmark": {
+      "Item1": 47,
+      "Item2": 81
+    },
+    "Normandy": {
+      "Item1": 128,
+      "Item2": 116
+    },
+    "France": {
+      "Item1": 244,
+      "Item2": 109
+    },
+    "Spain": {
+      "Item1": 353,
+      "Item2": 17
+    },
+    "Holy Roman Empire": {
+      "Item1": 370,
+      "Item2": 457
+    },
+    "Papacy": {
+      "Item1": 827,
+      "Item2": 68
+    },
+    "Romans": {
+      "Item1": 922,
+      "Item2": 173
+    },
+    "Arabs": {
+      "Item1": 1095,
+      "Item2": 51
+    },
+    "Indians": {
+      "Item1": 1525,
+      "Item2": 29
+    },
+    "Chinese": {
+      "Item1": 1576,
+      "Item2": 123
+    }
+  },
+  "1000": {
+    "Norway": {
+      "Item1": 12,
+      "Item2": 35
+    },
+    "Denmark": {
+      "Item1": 47,
+      "Item2": 79
+    },
+    "Normandy": {
+      "Item1": 126,
+      "Item2": 89
+    },
+    "France": {
+      "Item1": 215,
+      "Item2": 86
+    },
+    "Holy Roman Empire": {
+      "Item1": 301,
+      "Item2": 368
+    },
+    "Papacy": {
+      "Item1": 669,
+      "Item2": 75
+    },
+    "Romans": {
+      "Item1": 744,
+      "Item2": 387
+    },
+    "Arabs": {
+      "Item1": 1131,
+      "Item2": 121
+    },
+    "Indians": {
+      "Item1": 1532,
+      "Item2": 43
+    },
+    "Chinese": {
+      "Item1": 1575,
+      "Item2": 124
+    }
+  },
+  "1050": {
+    "Norway": {
+      "Item1": 17,
+      "Item2": 38
+    },
+    "Denmark": {
+      "Item1": 55,
+      "Item2": 72
+    },
+    "Normandy": {
+      "Item1": 127,
+      "Item2": 48
+    },
+    "France": {
+      "Item1": 175,
+      "Item2": 114
+    },
+    "Holy Roman Empire": {
+      "Item1": 289,
+      "Item2": 265
+    },
+    "Papacy": {
+      "Item1": 554,
+      "Item2": 77
+    },
+    "Romans": {
+      "Item1": 631,
+      "Item2": 511
+    },
+    "Arabs": {
+      "Item1": 1142,
+      "Item2": 166
+    },
+    "Indians": {
+      "Item1": 1496,
+      "Item2": 48
+    },
+    "Chinese": {
+      "Item1": 1544,
+      "Item2": 155
+    }
+  },
+  "1100": {
+    "Norway": {
+      "Item1": 46,
+      "Item2": 62
+    },
+    "Denmark": {
+      "Item1": 108,
+      "Item2": 110
+    },
+    "France": {
+      "Item1": 218,
+      "Item2": 120
+    },
+    "Holy Roman Empire": {
+      "Item1": 338,
+      "Item2": 146
+    },
+    "Papacy": {
+      "Item1": 484,
+      "Item2": 87
+    },
+    "Bulgaria": {
+      "Item1": 571,
+      "Item2": 43
+    },
+    "Romans": {
+      "Item1": 614,
+      "Item2": 565
+    },
+    "Arabs": {
+      "Item1": 1179,
+      "Item2": 199
+    },
+    "Indians": {
+      "Item1": 1440,
+      "Item2": 73
+    },
+    "Chinese": {
+      "Item1": 1513,
+      "Item2": 186
+    }
+  },
+  "1150": {
+    "Norway": {
+      "Item1": 25,
+      "Item2": 88
+    },
+    "Denmark": {
+      "Item1": 113,
+      "Item2": 93
+    },
+    "France": {
+      "Item1": 206,
+      "Item2": 130
+    },
+    "Holy Roman Empire": {
+      "Item1": 336,
+      "Item2": 128
+    },
+    "Papacy": {
+      "Item1": 464,
+      "Item2": 63
+    },
+    "Bulgaria": {
+      "Item1": 527,
+      "Item2": 136
+    },
+    "Romans": {
+      "Item1": 663,
+      "Item2": 388
+    },
+    "Arabs": {
+      "Item1": 1051,
+      "Item2": 287
+    },
+    "Indians": {
+      "Item1": 1374,
+      "Item2": 105
+    },
+    "Chinese": {
+      "Item1": 1479,
+      "Item2": 220
+    }
+  },
+  "1200": {
+    "Norway": {
+      "Item1": 22,
+      "Item2": 64
+    },
+    "Denmark": {
+      "Item1": 86,
+      "Item2": 80
+    },
+    "Franks": {
+      "Item1": 166,
+      "Item2": 436
+    },
+    "Bulgaria": {
+      "Item1": 602,
+      "Item2": 104
+    },
+    "Romans": {
+      "Item1": 706,
+      "Item2": 257
+    },
+    "Arabs": {
+      "Item1": 963,
+      "Item2": 382
+    },
+    "Indians": {
+      "Item1": 1345,
+      "Item2": 116
+    },
+    "Chinese": {
+      "Item1": 1461,
+      "Item2": 238
+    }
+  },
+  "1250": {
+    "Norway": {
+      "Item1": 19,
+      "Item2": 33
+    },
+    "Denmark": {
+      "Item1": 52,
+      "Item2": 65
+    },
+    "Franks": {
+      "Item1": 117,
+      "Item2": 521
+    },
+    "Romans": {
+      "Item1": 638,
+      "Item2": 175
+    },
+    "Arabs": {
+      "Item1": 813,
+      "Item2": 518
+    },
+    "Indians": {
+      "Item1": 1331,
+      "Item2": 111
+    },
+    "Chinese": {
+      "Item1": 1442,
+      "Item2": 257
+    }
+  },
+  "1300": {
+    "Norway": {
+      "Item1": 21,
+      "Item2": 28
+    },
+    "Denmark": {
+      "Item1": 49,
+      "Item2": 60
+    },
+    "Franks": {
+      "Item1": 109,
+      "Item2": 212
+    },
+    "Teutons": {
+      "Item1": 321,
+      "Item2": 143
+    },
+    "Lombards": {
+      "Item1": 464,
+      "Item2": 108
+    },
+    "Romans": {
+      "Item1": 572,
+      "Item2": 166
+    },
+    "Arabs": {
+      "Item1": 738,
+      "Item2": 555
+    },
+    "Indians": {
+      "Item1": 1293,
+      "Item2": 109
+    },
+    "Chinese": {
+      "Item1": 1402,
+      "Item2": 297
+    }
+  },
+  "1350": {
+    "Norway": {
+      "Item1": 27,
+      "Item2": 20
+    },
+    "Denmark": {
+      "Item1": 47,
+      "Item2": 22
+    },
+    "Franks": {
+      "Item1": 69,
+      "Item2": 191
+    },
+    "Teutons": {
+      "Item1": 260,
+      "Item2": 128
+    },
+    "Lombards": {
+      "Item1": 388,
+      "Item2": 92
+    },
+    "Romans": {
+      "Item1": 480,
+      "Item2": 361
+    },
+    "Sassanian Persians": {
+      "Item1": 841,
+      "Item2": 78
+    },
+    "Arabs": {
+      "Item1": 919,
+      "Item2": 404
+    },
+    "Indians": {
+      "Item1": 1323,
+      "Item2": 120
+    },
+    "Huns": {
+      "Item1": 1443,
+      "Item2": 21
+    },
+    "Chinese": {
+      "Item1": 1464,
+      "Item2": 235
+    }
+  },
+  "1400": {
+    "Norway": {
+      "Item1": 22,
+      "Item2": 23
+    },
+    "Denmark": {
+      "Item1": 45,
+      "Item2": 23
+    },
+    "Franks": {
+      "Item1": 68,
+      "Item2": 158
+    },
+    "Teutons": {
+      "Item1": 226,
+      "Item2": 125
+    },
+    "Lombards": {
+      "Item1": 351,
+      "Item2": 68
+    },
+    "Romans": {
+      "Item1": 419,
+      "Item2": 371
+    },
+    "Sassanian Persians": {
+      "Item1": 790,
+      "Item2": 241
+    },
+    "Arabs": {
+      "Item1": 1031,
+      "Item2": 313
+    },
+    "Indians": {
+      "Item1": 1344,
+      "Item2": 133
+    },
+    "Huns": {
+      "Item1": 1477,
+      "Item2": 73
+    },
+    "Chinese": {
+      "Item1": 1550,
+      "Item2": 149
+    }
+  },
+  "1450": {
+    "Norway": {
+      "Item1": 19,
+      "Item2": 14
+    },
+    "Denmark": {
+      "Item1": 33,
+      "Item2": 14
+    },
+    "Franks": {
+      "Item1": 47,
+      "Item2": 138
+    },
+    "Teutons": {
+      "Item1": 185,
+      "Item2": 196
+    },
+    "Romans": {
+      "Item1": 381,
+      "Item2": 382
+    },
+    "Sassanian Persians": {
+      "Item1": 763,
+      "Item2": 237
+    },
+    "Arabs": {
+      "Item1": 1000,
+      "Item2": 264
+    },
+    "Indians": {
+      "Item1": 1264,
+      "Item2": 40
+    },
+    "Huns": {
+      "Item1": 1304,
+      "Item2": 289
+    },
+    "Chinese": {
+      "Item1": 1593,
+      "Item2": 106
+    }
+  },
+  "1500": {
+    "Denmark": {
+      "Item1": 15,
+      "Item2": 13
+    },
+    "Franks": {
+      "Item1": 28,
+      "Item2": 90
+    },
+    "Teutons": {
+      "Item1": 118,
+      "Item2": 264
+    },
+    "Romans": {
+      "Item1": 382,
+      "Item2": 262
+    },
+    "Sassanian Persians": {
+      "Item1": 644,
+      "Item2": 304
+    },
+    "Arabs": {
+      "Item1": 948,
+      "Item2": 221
+    },
+    "Indians": {
+      "Item1": 1169,
+      "Item2": 59
+    },
+    "Huns": {
+      "Item1": 1228,
+      "Item2": 364
+    },
+    "Chinese": {
+      "Item1": 1592,
+      "Item2": 107
+    }
+  },
+  "1550": {
+    "Franks": {
+      "Item1": 0,
+      "Item2": 116
+    },
+    "Teutons": {
+      "Item1": 116,
+      "Item2": 140
+    },
+    "Western Romans": {
+      "Item1": 256,
+      "Item2": 106
+    },
+    "Romans": {
+      "Item1": 362,
+      "Item2": 181
+    },
+    "Sassanian Persians": {
+      "Item1": 543,
+      "Item2": 132
+    },
+    "Indians": {
+      "Item1": 675,
+      "Item2": 109
+    },
+    "Huns": {
+      "Item1": 784,
+      "Item2": 814
+    },
+    "Chinese": {
+      "Item1": 1598,
+      "Item2": 101
+    }
+  },
+  "1600": {
+    "Franks": {
+      "Item1": 0,
+      "Item2": 96
+    },
+    "Teutons": {
+      "Item1": 96,
+      "Item2": 153
+    },
+    "Western Romans": {
+      "Item1": 249,
+      "Item2": 147
+    },
+    "Romans": {
+      "Item1": 396,
+      "Item2": 125
+    },
+    "Sassanian Persians": {
+      "Item1": 521,
+      "Item2": 159
+    },
+    "Indians": {
+      "Item1": 680,
+      "Item2": 336
+    },
+    "Huns": {
+      "Item1": 1016,
+      "Item2": 564
+    },
+    "Chinese": {
+      "Item1": 1580,
+      "Item2": 119
+    }
+  },
+  "1650": {
+    "Franks": {
+      "Item1": 0,
+      "Item2": 66
+    },
+    "Teutons": {
+      "Item1": 66,
+      "Item2": 274
+    },
+    "Romans": {
+      "Item1": 340,
+      "Item2": 304
+    },
+    "Sassanian Persians": {
+      "Item1": 644,
+      "Item2": 192
+    },
+    "Indians": {
+      "Item1": 836,
+      "Item2": 359
+    },
+    "Huns": {
+      "Item1": 1195,
+      "Item2": 334
+    },
+    "Chinese": {
+      "Item1": 1529,
+      "Item2": 170
+    }
+  },
+  "1700": {
+    "Franks": {
+      "Item1": 0,
+      "Item2": 28
+    },
+    "Teutons": {
+      "Item1": 28,
+      "Item2": 378
+    },
+    "Romans": {
+      "Item1": 406,
+      "Item2": 403
+    },
+    "Sassanian Persians": {
+      "Item1": 809,
+      "Item2": 169
+    },
+    "Indians": {
+      "Item1": 978,
+      "Item2": 331
+    },
+    "Huns": {
+      "Item1": 1309,
+      "Item2": 151
+    },
+    "Chinese": {
+      "Item1": 1460,
+      "Item2": 239
+    }
+  },
+  "1750": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 337
+    },
+    "Romans": {
+      "Item1": 337,
+      "Item2": 571
+    },
+    "Sassanian Persians": {
+      "Item1": 908,
+      "Item2": 211
+    },
+    "Indians": {
+      "Item1": 1119,
+      "Item2": 273
+    },
+    "Huns": {
+      "Item1": 1392,
+      "Item2": 98
+    },
+    "Chinese": {
+      "Item1": 1490,
+      "Item2": 209
+    }
+  },
+  "1800": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 245
+    },
+    "Romans": {
+      "Item1": 245,
+      "Item2": 800
+    },
+    "Sassanian Persians": {
+      "Item1": 1045,
+      "Item2": 189
+    },
+    "Indians": {
+      "Item1": 1234,
+      "Item2": 220
+    },
+    "Huns": {
+      "Item1": 1454,
+      "Item2": 69
+    },
+    "Chinese": {
+      "Item1": 1523,
+      "Item2": 176
+    }
+  },
+  "1850": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 178
+    },
+    "Romans": {
+      "Item1": 178,
+      "Item2": 968
+    },
+    "Parthians": {
+      "Item1": 1146,
+      "Item2": 132
+    },
+    "Indians": {
+      "Item1": 1278,
+      "Item2": 208
+    },
+    "Huns": {
+      "Item1": 1486,
+      "Item2": 53
+    },
+    "Chinese": {
+      "Item1": 1539,
+      "Item2": 160
+    }
+  },
+  "1900": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 138
+    },
+    "Romans": {
+      "Item1": 138,
+      "Item2": 1034
+    },
+    "Parthians": {
+      "Item1": 1172,
+      "Item2": 103
+    },
+    "Indians": {
+      "Item1": 1275,
+      "Item2": 228
+    },
+    "Huns": {
+      "Item1": 1503,
+      "Item2": 34
+    },
+    "Chinese": {
+      "Item1": 1537,
+      "Item2": 162
+    }
+  },
+  "1950": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 104
+    },
+    "Romans": {
+      "Item1": 104,
+      "Item2": 1004
+    },
+    "Parthians": {
+      "Item1": 1108,
+      "Item2": 179
+    },
+    "Indians": {
+      "Item1": 1287,
+      "Item2": 216
+    },
+    "Huns": {
+      "Item1": 1503,
+      "Item2": 16
+    },
+    "Chinese": {
+      "Item1": 1519,
+      "Item2": 180
+    }
+  },
+  "2000": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 86
+    },
+    "Romans": {
+      "Item1": 86,
+      "Item2": 1035
+    },
+    "Parthians": {
+      "Item1": 1121,
+      "Item2": 210
+    },
+    "Indians": {
+      "Item1": 1331,
+      "Item2": 175
+    },
+    "Huns": {
+      "Item1": 1506,
+      "Item2": 31
+    },
+    "Chinese": {
+      "Item1": 1537,
+      "Item2": 162
+    }
+  },
+  "2050": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 21
+    },
+    "Romans": {
+      "Item1": 1059,
+      "Item2": 1
+    },
+    "Egyptians2": {
+      "Item1": 1060,
+      "Item2": 17
+    },
+    "Parthians": {
+      "Item1": 1077,
+      "Item2": 248
+    },
+    "Indians": {
+      "Item1": 1325,
+      "Item2": 129
+    },
+    "Huns": {
+      "Item1": 1454,
+      "Item2": 88
+    },
+    "Chinese": {
+      "Item1": 1542,
+      "Item2": 157
+    }
+  },
+  "2100": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 11
+    },
+    "Romans": {
+      "Item1": 11,
+      "Item2": 1035
+    },
+    "Greeks": {
+      "Item1": 1046,
+      "Item2": 47
+    },
+    "Egyptians2": {
+      "Item1": 1093,
+      "Item2": 21
+    },
+    "Parthians": {
+      "Item1": 1114,
+      "Item2": 177
+    },
+    "Bactria": {
+      "Item1": 1291,
+      "Item2": 63
+    },
+    "Indians": {
+      "Item1": 1354,
+      "Item2": 88
+    },
+    "Huns": {
+      "Item1": 1442,
+      "Item2": 35
+    },
+    "Chinese": {
+      "Item1": 1477,
+      "Item2": 222
+    }
+  },
+  "2150": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 43
+    },
+    "Romans": {
+      "Item1": 43,
+      "Item2": 888
+    },
+    "Greeks": {
+      "Item1": 931,
+      "Item2": 95
+    },
+    "Egyptians2": {
+      "Item1": 1026,
+      "Item2": 31
+    },
+    "Seleucids": {
+      "Item1": 1057,
+      "Item2": 85
+    },
+    "Parthians": {
+      "Item1": 1142,
+      "Item2": 124
+    },
+    "Bactria": {
+      "Item1": 1266,
+      "Item2": 53
+    },
+    "Indians": {
+      "Item1": 1319,
+      "Item2": 102
+    },
+    "Huns": {
+      "Item1": 1421,
+      "Item2": 33
+    },
+    "Chinese": {
+      "Item1": 1454,
+      "Item2": 245
+    }
+  },
+  "2200": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 77
+    },
+    "Romans": {
+      "Item1": 77,
+      "Item2": 544
+    },
+    "Greeks": {
+      "Item1": 621,
+      "Item2": 215
+    },
+    "Egyptians2": {
+      "Item1": 836,
+      "Item2": 28
+    },
+    "Phoenicians": {
+      "Item1": 864,
+      "Item2": 246
+    },
+    "Seleucids": {
+      "Item1": 1110,
+      "Item2": 147
+    },
+    "Bactria": {
+      "Item1": 1257,
+      "Item2": 59
+    },
+    "Indians": {
+      "Item1": 1316,
+      "Item2": 97
+    },
+    "Huns": {
+      "Item1": 1413,
+      "Item2": 38
+    },
+    "Chinese": {
+      "Item1": 1451,
+      "Item2": 248
+    }
+  },
+  "2250": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 56
+    },
+    "Romans": {
+      "Item1": 56,
+      "Item2": 343
+    },
+    "Greeks": {
+      "Item1": 399,
+      "Item2": 423
+    },
+    "Egyptians2": {
+      "Item1": 822,
+      "Item2": 69
+    },
+    "Phoenicians": {
+      "Item1": 891,
+      "Item2": 259
+    },
+    "Seleucids": {
+      "Item1": 1150,
+      "Item2": 166
+    },
+    "Indians": {
+      "Item1": 1316,
+      "Item2": 121
+    },
+    "Huns": {
+      "Item1": 1438,
+      "Item2": 41
+    },
+    "Chinese": {
+      "Item1": 1479,
+      "Item2": 220
+    }
+  },
+  "2300": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 36
+    },
+    "Romans": {
+      "Item1": 36,
+      "Item2": 181
+    },
+    "Greeks": {
+      "Item1": 217,
+      "Item2": 673
+    },
+    "Egyptians2": {
+      "Item1": 890,
+      "Item2": 30
+    },
+    "Phoenicians": {
+      "Item1": 920,
+      "Item2": 224
+    },
+    "Iranians": {
+      "Item1": 1144,
+      "Item2": 215
+    },
+    "Indians": {
+      "Item1": 1359,
+      "Item2": 109
+    },
+    "Huns": {
+      "Item1": 1468,
+      "Item2": 68
+    },
+    "Chinese": {
+      "Item1": 1536,
+      "Item2": 163
+    }
+  },
+  "2350": {
+    "Teutons": {
+      "Item1": 0,
+      "Item2": 28
+    },
+    "Romans": {
+      "Item1": 28,
+      "Item2": 130
+    },
+    "Greeks": {
+      "Item1": 158,
+      "Item2": 734
+    },
+    "Phoenicians": {
+      "Item1": 892,
+      "Item2": 125
+    },
+    "Iranians": {
+      "Item1": 1017,
+      "Item2": 422
+    },
+    "Indians": {
+      "Item1": 1439,
+      "Item2": 51
+    },
+    "Huns": {
+      "Item1": 1490,
+      "Item2": 57
+    },
+    "Chinese": {
+      "Item1": 1547,
+      "Item2": 152
+    }
+  },
+  "2400": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 132
+    },
+    "Greeks": {
+      "Item1": 132,
+      "Item2": 562
+    },
+    "Egyptians": {
+      "Item1": 694,
+      "Item2": 47
+    },
+    "Phoenicians": {
+      "Item1": 741,
+      "Item2": 81
+    },
+    "Iranians": {
+      "Item1": 822,
+      "Item2": 609
+    },
+    "Indians": {
+      "Item1": 1431,
+      "Item2": 27
+    },
+    "Huns": {
+      "Item1": 1458,
+      "Item2": 54
+    },
+    "Chinese": {
+      "Item1": 1512,
+      "Item2": 187
+    }
+  },
+  "2450": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 97
+    },
+    "Greeks": {
+      "Item1": 97,
+      "Item2": 478
+    },
+    "Egyptians": {
+      "Item1": 575,
+      "Item2": 20
+    },
+    "Phoenicians": {
+      "Item1": 595,
+      "Item2": 94
+    },
+    "Amorites": {
+      "Item1": 689,
+      "Item2": 26
+    },
+    "Iranians": {
+      "Item1": 715,
+      "Item2": 684
+    },
+    "Indians": {
+      "Item1": 1399,
+      "Item2": 49
+    },
+    "Huns": {
+      "Item1": 1448,
+      "Item2": 45
+    },
+    "Chinese": {
+      "Item1": 1493,
+      "Item2": 206
+    }
+  },
+  "2500": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 77
+    },
+    "Greeks": {
+      "Item1": 77,
+      "Item2": 378
+    },
+    "Egyptians": {
+      "Item1": 455,
+      "Item2": 32
+    },
+    "Lydians": {
+      "Item1": 487,
+      "Item2": 62
+    },
+    "Phoenicians": {
+      "Item1": 549,
+      "Item2": 94
+    },
+    "Amorites": {
+      "Item1": 643,
+      "Item2": 48
+    },
+    "Iranians": {
+      "Item1": 691,
+      "Item2": 680
+    },
+    "Indians": {
+      "Item1": 1371,
+      "Item2": 84
+    },
+    "Huns": {
+      "Item1": 1455,
+      "Item2": 46
+    },
+    "Chinese": {
+      "Item1": 1501,
+      "Item2": 198
+    }
+  },
+  "2550": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 64
+    },
+    "Greeks": {
+      "Item1": 64,
+      "Item2": 267
+    },
+    "Egyptians": {
+      "Item1": 331,
+      "Item2": 44
+    },
+    "Lydians": {
+      "Item1": 375,
+      "Item2": 162
+    },
+    "Phoenicians": {
+      "Item1": 537,
+      "Item2": 37
+    },
+    "Hebrews": {
+      "Item1": 574,
+      "Item2": 10
+    },
+    "Assyrians": {
+      "Item1": 584,
+      "Item2": 49
+    },
+    "Amorites": {
+      "Item1": 633,
+      "Item2": 156
+    },
+    "Iranians": {
+      "Item1": 789,
+      "Item2": 575
+    },
+    "Indians": {
+      "Item1": 1364,
+      "Item2": 104
+    },
+    "Huns": {
+      "Item1": 1468,
+      "Item2": 27
+    },
+    "Chinese": {
+      "Item1": 1495,
+      "Item2": 204
+    }
+  },
+  "2600": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 44
+    },
+    "Greeks": {
+      "Item1": 44,
+      "Item2": 232
+    },
+    "Egyptians": {
+      "Item1": 276,
+      "Item2": 128
+    },
+    "Lydians": {
+      "Item1": 404,
+      "Item2": 130
+    },
+    "Phoenicians": {
+      "Item1": 534,
+      "Item2": 37
+    },
+    "Hebrews": {
+      "Item1": 571,
+      "Item2": 8
+    },
+    "Assyrians": {
+      "Item1": 579,
+      "Item2": 100
+    },
+    "Amorites": {
+      "Item1": 679,
+      "Item2": 281
+    },
+    "Iranians": {
+      "Item1": 960,
+      "Item2": 428
+    },
+    "Indians": {
+      "Item1": 1388,
+      "Item2": 107
+    },
+    "Huns": {
+      "Item1": 1495,
+      "Item2": 15
+    },
+    "Chinese": {
+      "Item1": 1510,
+      "Item2": 189
+    }
+  },
+  "2650": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 39
+    },
+    "Greeks": {
+      "Item1": 39,
+      "Item2": 206
+    },
+    "Egyptians": {
+      "Item1": 245,
+      "Item2": 115
+    },
+    "Ethiopians": {
+      "Item1": 360,
+      "Item2": 31
+    },
+    "Lydians": {
+      "Item1": 391,
+      "Item2": 57
+    },
+    "Phoenicians": {
+      "Item1": 448,
+      "Item2": 95
+    },
+    "Hebrews": {
+      "Item1": 543,
+      "Item2": 12
+    },
+    "Assyrians": {
+      "Item1": 555,
+      "Item2": 419
+    },
+    "Amorites": {
+      "Item1": 974,
+      "Item2": 125
+    },
+    "Iranians": {
+      "Item1": 1099,
+      "Item2": 220
+    },
+    "Indians": {
+      "Item1": 1319,
+      "Item2": 120
+    },
+    "Huns": {
+      "Item1": 1439,
+      "Item2": 45
+    },
+    "Chinese": {
+      "Item1": 1484,
+      "Item2": 215
+    }
+  },
+  "2700": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 21
+    },
+    "Greeks": {
+      "Item1": 21,
+      "Item2": 166
+    },
+    "Egyptians": {
+      "Item1": 187,
+      "Item2": 63
+    },
+    "Ethiopians": {
+      "Item1": 250,
+      "Item2": 52
+    },
+    "Phoenicians": {
+      "Item1": 302,
+      "Item2": 117
+    },
+    "Hebrews": {
+      "Item1": 419,
+      "Item2": 18
+    },
+    "Assyrians": {
+      "Item1": 437,
+      "Item2": 644
+    },
+    "Amorites": {
+      "Item1": 1081,
+      "Item2": 48
+    },
+    "Iranians": {
+      "Item1": 1129,
+      "Item2": 144
+    },
+    "Indians": {
+      "Item1": 1273,
+      "Item2": 142
+    },
+    "Huns": {
+      "Item1": 1415,
+      "Item2": 54
+    },
+    "Chinese": {
+      "Item1": 1469,
+      "Item2": 230
+    }
+  },
+  "2750": {
+    "Romans": {
+      "Item1": 0,
+      "Item2": 14
+    },
+    "Greeks": {
+      "Item1": 14,
+      "Item2": 176
+    },
+    "Egyptians": {
+      "Item1": 190,
+      "Item2": 43
+    },
+    "Ethiopians": {
+      "Item1": 233,
+      "Item2": 82
+    },
+    "Phoenicians": {
+      "Item1": 315,
+      "Item2": 52
+    },
+    "Syrians": {
+      "Item1": 367,
+      "Item2": 62
+    },
+    "Hebrews": {
+      "Item1": 429,
+      "Item2": 14
+    },
+    "Assyrians": {
+      "Item1": 443,
+      "Item2": 653
+    },
+    "Amorites": {
+      "Item1": 1096,
+      "Item2": 67
+    },
+    "Iranians": {
+      "Item1": 1163,
+      "Item2": 97
+    },
+    "Indians": {
+      "Item1": 1260,
+      "Item2": 162
+    },
+    "Huns": {
+      "Item1": 1422,
+      "Item2": 57
+    },
+    "Chinese": {
+      "Item1": 1479,
+      "Item2": 220
+    }
+  },
+  "2800": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 167
+    },
+    "Egyptians": {
+      "Item1": 167,
+      "Item2": 55
+    },
+    "Ethiopians": {
+      "Item1": 222,
+      "Item2": 87
+    },
+    "Phoenicians": {
+      "Item1": 309,
+      "Item2": 45
+    },
+    "Syrians": {
+      "Item1": 354,
+      "Item2": 141
+    },
+    "Hebrews": {
+      "Item1": 495,
+      "Item2": 25
+    },
+    "Assyrians": {
+      "Item1": 520,
+      "Item2": 602
+    },
+    "Amorites": {
+      "Item1": 1122,
+      "Item2": 97
+    },
+    "Iranians": {
+      "Item1": 1219,
+      "Item2": 79
+    },
+    "Indians": {
+      "Item1": 1298,
+      "Item2": 166
+    },
+    "Huns": {
+      "Item1": 1464,
+      "Item2": 57
+    },
+    "Chinese": {
+      "Item1": 1521,
+      "Item2": 178
+    }
+  },
+  "2850": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 145
+    },
+    "Egyptians": {
+      "Item1": 145,
+      "Item2": 53
+    },
+    "Ethiopians": {
+      "Item1": 198,
+      "Item2": 87
+    },
+    "Phoenicians": {
+      "Item1": 285,
+      "Item2": 119
+    },
+    "Syrians": {
+      "Item1": 404,
+      "Item2": 134
+    },
+    "Hebrews": {
+      "Item1": 538,
+      "Item2": 25
+    },
+    "Assyrians": {
+      "Item1": 563,
+      "Item2": 504
+    },
+    "Amorites": {
+      "Item1": 1067,
+      "Item2": 181
+    },
+    "Iranians": {
+      "Item1": 1248,
+      "Item2": 51
+    },
+    "Indians": {
+      "Item1": 1299,
+      "Item2": 192
+    },
+    "Huns": {
+      "Item1": 1491,
+      "Item2": 59
+    },
+    "Chinese": {
+      "Item1": 1550,
+      "Item2": 149
+    }
+  },
+  "2900": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 125
+    },
+    "Egyptians": {
+      "Item1": 125,
+      "Item2": 82
+    },
+    "Ethiopians": {
+      "Item1": 207,
+      "Item2": 60
+    },
+    "Phoenicians": {
+      "Item1": 267,
+      "Item2": 168
+    },
+    "Syrians": {
+      "Item1": 435,
+      "Item2": 74
+    },
+    "Hebrews": {
+      "Item1": 509,
+      "Item2": 60
+    },
+    "Assyrians": {
+      "Item1": 569,
+      "Item2": 265
+    },
+    "Amorites": {
+      "Item1": 834,
+      "Item2": 331
+    },
+    "Iranians": {
+      "Item1": 1165,
+      "Item2": 132
+    },
+    "Indians": {
+      "Item1": 1297,
+      "Item2": 183
+    },
+    "Huns": {
+      "Item1": 1480,
+      "Item2": 57
+    },
+    "Chinese": {
+      "Item1": 1537,
+      "Item2": 162
+    }
+  },
+  "2950": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 154
+    },
+    "Egyptians": {
+      "Item1": 154,
+      "Item2": 81
+    },
+    "Ethiopians": {
+      "Item1": 235,
+      "Item2": 37
+    },
+    "Phoenicians": {
+      "Item1": 272,
+      "Item2": 191
+    },
+    "Syrians": {
+      "Item1": 463,
+      "Item2": 32
+    },
+    "Hebrews": {
+      "Item1": 495,
+      "Item2": 63
+    },
+    "Assyrians": {
+      "Item1": 558,
+      "Item2": 199
+    },
+    "Amorites": {
+      "Item1": 757,
+      "Item2": 431
+    },
+    "Iranians": {
+      "Item1": 1188,
+      "Item2": 107
+    },
+    "Indians": {
+      "Item1": 1295,
+      "Item2": 184
+    },
+    "Huns": {
+      "Item1": 1479,
+      "Item2": 54
+    },
+    "Chinese": {
+      "Item1": 1533,
+      "Item2": 166
+    }
+  },
+  "3000": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 147
+    },
+    "Egyptians": {
+      "Item1": 147,
+      "Item2": 79
+    },
+    "Ethiopians": {
+      "Item1": 226,
+      "Item2": 33
+    },
+    "Hittites": {
+      "Item1": 259,
+      "Item2": 55
+    },
+    "Phoenicians": {
+      "Item1": 314,
+      "Item2": 123
+    },
+    "Hebrews": {
+      "Item1": 437,
+      "Item2": 123
+    },
+    "Assyrians": {
+      "Item1": 560,
+      "Item2": 311
+    },
+    "Amorites": {
+      "Item1": 871,
+      "Item2": 290
+    },
+    "Iranians": {
+      "Item1": 1161,
+      "Item2": 58
+    },
+    "Indians": {
+      "Item1": 1219,
+      "Item2": 251
+    },
+    "Huns": {
+      "Item1": 1470,
+      "Item2": 63
+    },
+    "Chinese": {
+      "Item1": 1533,
+      "Item2": 166
+    }
+  },
+  "3050": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 175
+    },
+    "Egyptians": {
+      "Item1": 175,
+      "Item2": 107
+    },
+    "Hittites": {
+      "Item1": 282,
+      "Item2": 123
+    },
+    "Phoenicians": {
+      "Item1": 405,
+      "Item2": 93
+    },
+    "Hebrews": {
+      "Item1": 498,
+      "Item2": 105
+    },
+    "Assyrians": {
+      "Item1": 603,
+      "Item2": 357
+    },
+    "Amorites": {
+      "Item1": 960,
+      "Item2": 174
+    },
+    "Iranians": {
+      "Item1": 1134,
+      "Item2": 79
+    },
+    "Indians": {
+      "Item1": 1213,
+      "Item2": 247
+    },
+    "Huns": {
+      "Item1": 1460,
+      "Item2": 73
+    },
+    "Chinese": {
+      "Item1": 1533,
+      "Item2": 166
+    }
+  },
+  "3100": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 176
+    },
+    "Egyptians": {
+      "Item1": 176,
+      "Item2": 147
+    },
+    "Hittites": {
+      "Item1": 323,
+      "Item2": 166
+    },
+    "Phoenicians": {
+      "Item1": 489,
+      "Item2": 65
+    },
+    "Hebrews": {
+      "Item1": 554,
+      "Item2": 71
+    },
+    "Assyrians": {
+      "Item1": 625,
+      "Item2": 444
+    },
+    "Amorites": {
+      "Item1": 1069,
+      "Item2": 96
+    },
+    "Iranians": {
+      "Item1": 1165,
+      "Item2": 70
+    },
+    "Indians": {
+      "Item1": 1235,
+      "Item2": 197
+    },
+    "Huns": {
+      "Item1": 1432,
+      "Item2": 76
+    },
+    "Chinese": {
+      "Item1": 1508,
+      "Item2": 191
+    }
+  },
+  "3150": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 149
+    },
+    "Egyptians": {
+      "Item1": 149,
+      "Item2": 216
+    },
+    "Hittites": {
+      "Item1": 365,
+      "Item2": 179
+    },
+    "Phoenicians": {
+      "Item1": 544,
+      "Item2": 77
+    },
+    "Hebrews": {
+      "Item1": 621,
+      "Item2": 104
+    },
+    "Assyrians": {
+      "Item1": 725,
+      "Item2": 424
+    },
+    "Amorites": {
+      "Item1": 1149,
+      "Item2": 54
+    },
+    "Iranians": {
+      "Item1": 1203,
+      "Item2": 68
+    },
+    "Indians": {
+      "Item1": 1271,
+      "Item2": 156
+    },
+    "Huns": {
+      "Item1": 1427,
+      "Item2": 50
+    },
+    "Chinese": {
+      "Item1": 1477,
+      "Item2": 222
+    }
+  },
+  "3200": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 131
+    },
+    "Aegeans": {
+      "Item1": 131,
+      "Item2": 68
+    },
+    "Egyptians": {
+      "Item1": 199,
+      "Item2": 380
+    },
+    "Hittites": {
+      "Item1": 579,
+      "Item2": 195
+    },
+    "Phoenicians": {
+      "Item1": 774,
+      "Item2": 71
+    },
+    "Hebrews": {
+      "Item1": 845,
+      "Item2": 60
+    },
+    "Assyrians": {
+      "Item1": 905,
+      "Item2": 170
+    },
+    "Amorites": {
+      "Item1": 1075,
+      "Item2": 70
+    },
+    "Iranians": {
+      "Item1": 1145,
+      "Item2": 88
+    },
+    "Indians": {
+      "Item1": 1233,
+      "Item2": 163
+    },
+    "Huns": {
+      "Item1": 1396,
+      "Item2": 35
+    },
+    "Chinese": {
+      "Item1": 1431,
+      "Item2": 268
+    }
+  },
+  "3250": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 97
+    },
+    "Aegeans": {
+      "Item1": 97,
+      "Item2": 92
+    },
+    "Egyptians": {
+      "Item1": 189,
+      "Item2": 475
+    },
+    "Hittites": {
+      "Item1": 664,
+      "Item2": 215
+    },
+    "Phoenicians": {
+      "Item1": 879,
+      "Item2": 36
+    },
+    "Hebrews": {
+      "Item1": 915,
+      "Item2": 17
+    },
+    "Assyrians": {
+      "Item1": 932,
+      "Item2": 78
+    },
+    "Amorites": {
+      "Item1": 1010,
+      "Item2": 78
+    },
+    "Iranians": {
+      "Item1": 1088,
+      "Item2": 134
+    },
+    "Indians": {
+      "Item1": 1222,
+      "Item2": 168
+    },
+    "Huns": {
+      "Item1": 1390,
+      "Item2": 72
+    },
+    "Chinese": {
+      "Item1": 1462,
+      "Item2": 237
+    }
+  },
+  "3300": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 80
+    },
+    "Aegeans": {
+      "Item1": 80,
+      "Item2": 149
+    },
+    "Egyptians": {
+      "Item1": 229,
+      "Item2": 532
+    },
+    "Hittites": {
+      "Item1": 761,
+      "Item2": 138
+    },
+    "Phoenicians": {
+      "Item1": 899,
+      "Item2": 46
+    },
+    "Assyrians": {
+      "Item1": 945,
+      "Item2": 41
+    },
+    "Amorites": {
+      "Item1": 986,
+      "Item2": 78
+    },
+    "Iranians": {
+      "Item1": 1064,
+      "Item2": 169
+    },
+    "Indians": {
+      "Item1": 1233,
+      "Item2": 177
+    },
+    "Huns": {
+      "Item1": 1410,
+      "Item2": 101
+    },
+    "Chinese": {
+      "Item1": 1511,
+      "Item2": 188
+    }
+  },
+  "3350": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 69
+    },
+    "Aegeans": {
+      "Item1": 69,
+      "Item2": 194
+    },
+    "Egyptians": {
+      "Item1": 263,
+      "Item2": 448
+    },
+    "Hittites": {
+      "Item1": 711,
+      "Item2": 183
+    },
+    "Phoenicians": {
+      "Item1": 894,
+      "Item2": 28
+    },
+    "Assyrians": {
+      "Item1": 922,
+      "Item2": 31
+    },
+    "Amorites": {
+      "Item1": 953,
+      "Item2": 147
+    },
+    "Iranians": {
+      "Item1": 1100,
+      "Item2": 172
+    },
+    "Indians": {
+      "Item1": 1272,
+      "Item2": 187
+    },
+    "Huns": {
+      "Item1": 1459,
+      "Item2": 81
+    },
+    "Chinese": {
+      "Item1": 1540,
+      "Item2": 159
+    }
+  },
+  "3400": {
+    "Greeks": {
+      "Item1": 0,
+      "Item2": 66
+    },
+    "Aegeans": {
+      "Item1": 66,
+      "Item2": 232
+    },
+    "Egyptians": {
+      "Item1": 298,
+      "Item2": 375
+    },
+    "Hittites": {
+      "Item1": 673,
+      "Item2": 225
+    },
+    "Amorites": {
+      "Item1": 898,
+      "Item2": 181
+    },
+    "Iranians": {
+      "Item1": 1079,
+      "Item2": 172
+    },
+    "Indians": {
+      "Item1": 1251,
+      "Item2": 239
+    },
+    "Huns": {
+      "Item1": 1490,
+      "Item2": 80
+    },
+    "Chinese": {
+      "Item1": 1570,
+      "Item2": 129
+    }
+  },
+  "3450": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 360
+    },
+    "Egyptians": {
+      "Item1": 360,
+      "Item2": 334
+    },
+    "Hittites": {
+      "Item1": 694,
+      "Item2": 192
+    },
+    "Amorites": {
+      "Item1": 886,
+      "Item2": 175
+    },
+    "Iranians": {
+      "Item1": 1061,
+      "Item2": 204
+    },
+    "Indians": {
+      "Item1": 1265,
+      "Item2": 218
+    },
+    "Huns": {
+      "Item1": 1483,
+      "Item2": 137
+    },
+    "Chinese": {
+      "Item1": 1620,
+      "Item2": 79
+    }
+  },
+  "3500": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 394
+    },
+    "Egyptians": {
+      "Item1": 394,
+      "Item2": 333
+    },
+    "Hittites": {
+      "Item1": 727,
+      "Item2": 192
+    },
+    "Amorites": {
+      "Item1": 919,
+      "Item2": 195
+    },
+    "Iranians": {
+      "Item1": 1114,
+      "Item2": 225
+    },
+    "Indians": {
+      "Item1": 1339,
+      "Item2": 162
+    },
+    "Huns": {
+      "Item1": 1501,
+      "Item2": 139
+    },
+    "Chinese": {
+      "Item1": 1640,
+      "Item2": 59
+    }
+  },
+  "3550": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 369
+    },
+    "Egyptians": {
+      "Item1": 369,
+      "Item2": 293
+    },
+    "Hittites": {
+      "Item1": 662,
+      "Item2": 175
+    },
+    "Amorites": {
+      "Item1": 837,
+      "Item2": 242
+    },
+    "Iranians": {
+      "Item1": 1079,
+      "Item2": 246
+    },
+    "Indians": {
+      "Item1": 1325,
+      "Item2": 134
+    },
+    "Huns": {
+      "Item1": 1459,
+      "Item2": 153
+    },
+    "Chinese": {
+      "Item1": 1612,
+      "Item2": 87
+    }
+  },
+  "3600": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 311
+    },
+    "Egyptians": {
+      "Item1": 311,
+      "Item2": 270
+    },
+    "Hittites": {
+      "Item1": 581,
+      "Item2": 200
+    },
+    "Amorites": {
+      "Item1": 781,
+      "Item2": 306
+    },
+    "Iranians": {
+      "Item1": 1087,
+      "Item2": 265
+    },
+    "Indians": {
+      "Item1": 1352,
+      "Item2": 91
+    },
+    "Huns": {
+      "Item1": 1443,
+      "Item2": 182
+    },
+    "Chinese": {
+      "Item1": 1625,
+      "Item2": 74
+    }
+  },
+  "3650": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 162
+    },
+    "Egyptians": {
+      "Item1": 162,
+      "Item2": 425
+    },
+    "Hittites": {
+      "Item1": 587,
+      "Item2": 167
+    },
+    "Amorites": {
+      "Item1": 754,
+      "Item2": 327
+    },
+    "Iranians": {
+      "Item1": 1081,
+      "Item2": 262
+    },
+    "Indians": {
+      "Item1": 1343,
+      "Item2": 129
+    },
+    "Huns": {
+      "Item1": 1472,
+      "Item2": 132
+    },
+    "Chinese": {
+      "Item1": 1604,
+      "Item2": 95
+    }
+  },
+  "3700": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 218
+    },
+    "Egyptians": {
+      "Item1": 218,
+      "Item2": 339
+    },
+    "Hittites": {
+      "Item1": 557,
+      "Item2": 152
+    },
+    "Amorites": {
+      "Item1": 709,
+      "Item2": 370
+    },
+    "Iranians": {
+      "Item1": 1079,
+      "Item2": 231
+    },
+    "Indians": {
+      "Item1": 1310,
+      "Item2": 168
+    },
+    "Huns": {
+      "Item1": 1478,
+      "Item2": 98
+    },
+    "Chinese": {
+      "Item1": 1576,
+      "Item2": 123
+    }
+  },
+  "3750": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 344
+    },
+    "Egyptians": {
+      "Item1": 344,
+      "Item2": 241
+    },
+    "Hittites": {
+      "Item1": 585,
+      "Item2": 158
+    },
+    "Amorites": {
+      "Item1": 743,
+      "Item2": 312
+    },
+    "Iranians": {
+      "Item1": 1055,
+      "Item2": 251
+    },
+    "Indians": {
+      "Item1": 1306,
+      "Item2": 132
+    },
+    "Huns": {
+      "Item1": 1438,
+      "Item2": 117
+    },
+    "Chinese": {
+      "Item1": 1555,
+      "Item2": 144
+    }
+  },
+  "3800": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 386
+    },
+    "Egyptians": {
+      "Item1": 386,
+      "Item2": 319
+    },
+    "Hittites": {
+      "Item1": 705,
+      "Item2": 126
+    },
+    "Amorites": {
+      "Item1": 831,
+      "Item2": 289
+    },
+    "Iranians": {
+      "Item1": 1120,
+      "Item2": 241
+    },
+    "Indians": {
+      "Item1": 1361,
+      "Item2": 78
+    },
+    "Huns": {
+      "Item1": 1439,
+      "Item2": 106
+    },
+    "Chinese": {
+      "Item1": 1545,
+      "Item2": 154
+    }
+  },
+  "3850": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 323
+    },
+    "Egyptians": {
+      "Item1": 323,
+      "Item2": 540
+    },
+    "Hittites": {
+      "Item1": 863,
+      "Item2": 89
+    },
+    "Amorites": {
+      "Item1": 952,
+      "Item2": 247
+    },
+    "Iranians": {
+      "Item1": 1199,
+      "Item2": 184
+    },
+    "Indians": {
+      "Item1": 1383,
+      "Item2": 93
+    },
+    "Huns": {
+      "Item1": 1476,
+      "Item2": 95
+    },
+    "Chinese": {
+      "Item1": 1571,
+      "Item2": 128
+    }
+  },
+  "3900": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 247
+    },
+    "Egyptians": {
+      "Item1": 247,
+      "Item2": 658
+    },
+    "Hittites": {
+      "Item1": 905,
+      "Item2": 44
+    },
+    "Amorites": {
+      "Item1": 949,
+      "Item2": 253
+    },
+    "Iranians": {
+      "Item1": 1202,
+      "Item2": 205
+    },
+    "Indians": {
+      "Item1": 1407,
+      "Item2": 110
+    },
+    "Huns": {
+      "Item1": 1517,
+      "Item2": 75
+    },
+    "Chinese": {
+      "Item1": 1592,
+      "Item2": 107
+    }
+  },
+  "3950": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 244
+    },
+    "Egyptians": {
+      "Item1": 244,
+      "Item2": 722
+    },
+    "Hittites": {
+      "Item1": 966,
+      "Item2": 49
+    },
+    "Amorites": {
+      "Item1": 1015,
+      "Item2": 178
+    },
+    "Iranians": {
+      "Item1": 1193,
+      "Item2": 177
+    },
+    "Indians": {
+      "Item1": 1370,
+      "Item2": 136
+    },
+    "Huns": {
+      "Item1": 1506,
+      "Item2": 70
+    },
+    "Chinese": {
+      "Item1": 1576,
+      "Item2": 123
+    }
+  },
+  "4000": {
+    "Aegeans": {
+      "Item1": 0,
+      "Item2": 222
+    },
+    "Egyptians": {
+      "Item1": 222,
+      "Item2": 805
+    },
+    "Hittites": {
+      "Item1": 1027,
+      "Item2": 48
+    },
+    "Amorites": {
+      "Item1": 1075,
+      "Item2": 134
+    },
+    "Iranians": {
+      "Item1": 1209,
+      "Item2": 124
+    },
+    "Indians": {
+      "Item1": 1333,
+      "Item2": 138
+    },
+    "Huns": {
+      "Item1": 1471,
+      "Item2": 86
+    },
+    "Chinese": {
+      "Item1": 1557,
+      "Item2": 142
+    }
+  }
+}

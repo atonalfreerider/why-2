@@ -1,29 +1,30 @@
-# graphics-util
+# why
 
-A Unity utility for procedural graphics.
+A causality graph that starts at the big bang, and ends at the present moment. The graph has three sections:
 
-Includes a mesh combiner and polygon pool to accelerate graphical performance.
+- RED: All matter in the Universe
+- GREEN: All life on Earth
+- BLUE: All of human history
 
-There must be a PolygonFactory and a PolygonPoolMonoBehaviour attached to a gameobject, and the MainMat must be assigned (e.g. Default-Material)
+![plot](./first-three.png)
 
-To instantiate
+The radial scale displays two dimensions:
+- Angular dimension clockwise on a logarithmic scale that places the big bang at 6, the creation of life at 10, and human history at 3
+- Radial dimension is a mass/distance scale for matter, relational scale for species, and West to East location and population for human society
 
-```
-Instantiate(PolygonFactory.Instance.icosahedron0)
-```
+Sources:
 
+https://people.cs.umass.edu/~immerman/stanford/universe.html
+https://en.wikipedia.org/wiki/Observable_universe#/media/File:Home_in_Relation_to_Everything-Observable_Universe.png
+https://en.wikipedia.org/wiki/Chronology_of_the_universe
+https://en.wikipedia.org/wiki/Geologic_time_scale
 
-To combine
+Phylogenetic Timetree:
+http://www.timetree.org/book
 
-```
-combiner = new GameObject().AddComponent<MeshCombiner>();
-List<MeshFilter> fiters = new List<MeshFilter>();
+Human History:
+https://www.thehistomap.com/about
 
-// populate filters with instantiated objects using .GetComponent<MeshFilter>()
-
-combiner.Init(fiters.ToArray(), transform, Color.white);
-combiner.RecreateCombines();
-combiner.SetDisplayStateCombinesAndIndividuals(true, false);
-```
-
-The combiner makes use of a polygon pool so that recently created gameobjects are recycled.
+Population data:
+https://ourworldindata.org/population-growth-over-time
+https://econosystemics.com/?p=9

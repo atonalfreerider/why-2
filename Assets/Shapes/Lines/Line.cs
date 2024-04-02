@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Shapes.Lines
@@ -85,7 +84,7 @@ namespace Shapes.Lines
                 linearD += Vector3.Distance(points[ii], points[ii + 1]);
             }
 
-            int numPts = System.Convert.ToInt32(.1f * linearD / .01f);
+            int numPts = System.Convert.ToInt32(3 * linearD);
             Vector3[] curvePts = new Vector3[numPts + 1];
             for (int ii = 0; ii <= numPts; ii++)
             {

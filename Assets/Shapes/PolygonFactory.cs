@@ -122,5 +122,16 @@ namespace Shapes
             meshRend.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
             basePoly.meshFilter = filter;
         }
+        
+        public static LineRenderer NewLine(string lineName, float W, Color color)
+        {
+            LineRenderer newLine = new GameObject(lineName).AddComponent<LineRenderer>();
+            newLine.material = Instance.mainMat;
+            newLine.startColor = color;
+            newLine.endColor = color;
+            newLine.startWidth = W;
+            newLine.endWidth = W;
+            return newLine;
+        }
     }
 }

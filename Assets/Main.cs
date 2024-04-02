@@ -1,7 +1,6 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
-using Shapes;
 using Shapes.Lines;
 using UnityEngine;
 
@@ -131,16 +130,15 @@ public class Main : MonoBehaviour
         whatText.Size = 1;
         whatText.Color = shade;
 
-        Line tick = Instantiate(PolygonFactory.Instance.line);
-        tick.DrawLine(new[] { Vector3.zero, new Vector3(.1f, 0, 0) }, weight * .01f, true, 2);
-
-        tick.transform.SetParent(newTick.transform, false);
+        StaticLink tick = Instantiate(StaticLink.prototypeStaticLink, newTick.transform);
         tick.gameObject.SetActive(true);
+        tick.LW = weight * .01f;
+        tick.DrawFromTo(Vector3.zero, new Vector3(.1f, 0, 0));
         tick.SetColor(shade);
 
         return newTick;
     }
-    
+
     public static float RoundToThree(float val)
     {
         return Mathf.Round(val * 1000) / 1000f;

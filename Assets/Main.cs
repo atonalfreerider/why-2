@@ -31,7 +31,7 @@ public class Main : MonoBehaviour
     void Start()
     {
         const int numTicks = 30;
-        for (int i = 9; i < numTicks; i++)
+        for (int i = 10; i < numTicks; i++)
         {
             float val = (float)i / numTicks;
             float adj = Ft(val) * AgeU;
@@ -45,7 +45,16 @@ public class Main : MonoBehaviour
                 _ => ""
             };
 
-            GameObject tick = NewTick(Color.white, 1, label);
+            float weight = adj switch
+            {
+                > 1000000000 => 1,
+                > 1000000 => .5f,
+                > 1000 => .25f,
+                > 1 => .25f,
+                _ => .25f
+            };
+
+            GameObject tick = NewTick(Color.white, weight, label);
             tick.transform.SetParent(transform, false);
             tick.transform.Rotate(Vector3.up, -360 * (float)i / numTicks - 90);
             tick.transform.Translate(Vector3.left * 2);
@@ -122,18 +131,20 @@ public class Main : MonoBehaviour
     {
         GameObject newTick = new GameObject(tLabel);
 
-        TextBox whatText = TextBox.Create(tLabel);
-        whatText.transform.SetParent(newTick.transform, false);
-        whatText.transform.Rotate(Vector3.right, 90);
-        whatText.transform.Translate(Vector3.right * .12f);
-        whatText.gameObject.SetActive(true);
-        whatText.Size = 1;
-        whatText.Color = shade;
+        float length = .1f * weight;
+
+        TextBox textBox = TextBox.Create(tLabel);
+        textBox.transform.SetParent(newTick.transform, false);
+        textBox.transform.Rotate(Vector3.right, 90);
+        textBox.transform.Translate(Vector3.right * (length + .02f));
+        textBox.gameObject.SetActive(true);
+        textBox.Size = weight;
+        textBox.Color = shade;
 
         StaticLink tick = Instantiate(StaticLink.prototypeStaticLink, newTick.transform);
         tick.gameObject.SetActive(true);
         tick.LW = weight * .01f;
-        tick.DrawFromTo(Vector3.zero, new Vector3(.1f, 0, 0));
+        tick.DrawFromTo(Vector3.zero, new Vector3(length, 0, 0));
         tick.SetColor(shade);
 
         return newTick;

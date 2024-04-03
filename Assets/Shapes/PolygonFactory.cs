@@ -13,8 +13,7 @@ namespace Shapes
 
         // regular polygons
         [HideInInspector] public Polygon tetra, icosahedron0, tri, hex;
-        [HideInInspector] public Line line;
-        
+
         void Awake()
         {
             Instance = this;
@@ -26,11 +25,7 @@ namespace Shapes
 
         // INIT
         void BuildPolygons()
-        {   
-            line = new GameObject("Line").AddComponent<Line>();
-            AddMesh(line.gameObject, line, mainMat);
-            line.rend = line.gameObject.GetComponent<Renderer>();
-            
+        {
             tetra = NewPoly(mainMat);
             Polyhedra.VertsAndFaces tetraVertsAndFaces = Polyhedra.NewTetraVertsAndFaces(1);
 
@@ -39,14 +34,14 @@ namespace Shapes
             tetra.SetColor(Color.white);
             tetra.transform.SetParent(transform, false);
             tetra.gameObject.SetActive(false);
-            
+
             hex = NewPoly(mainMat);
             hex.DrawRegPoly(1, 6, Mathf.PI / 6f, 1, 0);
             hex.name = "hexagon";
             hex.SetColor(Color.white);
             hex.transform.SetParent(transform, false);
             hex.gameObject.SetActive(false);
-            
+
             icosahedron0 = NewPoly(mainMat);
             Polyhedra.VertsAndFaces ivaf = Polyhedra.NewIcoVertsAndFaces(1, 0);
             Polyhedra.NewPolyhedron(icosahedron0, ivaf.verts, ivaf.faces, false);
@@ -54,7 +49,7 @@ namespace Shapes
             icosahedron0.SetColor(Color.white);
             icosahedron0.transform.SetParent(transform, false);
             icosahedron0.gameObject.SetActive(false);
-            
+
             // regular polygons
             tri = NewPoly(mainMat);
             tri.DrawRegPoly(1, 3, 0, 1, 0);
@@ -72,7 +67,7 @@ namespace Shapes
 
             return newPoly;
         }
-        
+
         public static Circle NewCirclePoly(Material passMat)
         {
             Circle newPoly = new GameObject("CirclePolygon").AddComponent<Circle>();
@@ -103,7 +98,7 @@ namespace Shapes
                 new(-b * .5f, 0, 0)
             };
 
-            int[] indList = {0, 1, 2};
+            int[] indList = { 0, 1, 2 };
 
             newTri.Draw3DPoly(skinList, indList);
             newTri.SetColor(passColor);
@@ -121,17 +116,6 @@ namespace Shapes
             meshRend.receiveShadows = false;
             meshRend.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
             basePoly.meshFilter = filter;
-        }
-        
-        public static LineRenderer NewLine(string lineName, float W, Color color)
-        {
-            LineRenderer newLine = new GameObject(lineName).AddComponent<LineRenderer>();
-            newLine.material = Instance.mainMat;
-            newLine.startColor = color;
-            newLine.endColor = color;
-            newLine.startWidth = W;
-            newLine.endWidth = W;
-            return newLine;
         }
     }
 }

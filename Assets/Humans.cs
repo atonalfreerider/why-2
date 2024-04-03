@@ -6,14 +6,19 @@ using UnityEngine;
 
 public class Humans : MonoBehaviour
 {
-    void Start()
+    //         YA              Name          W-E  Power 
+    Dictionary<int, Dictionary<string, Tuple<int, int>>> powerByYearsAgo;
+
+    void Awake()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("powerByYearsAgo");
 
-        //         YA              Name          W-E  Power 
-        Dictionary<int, Dictionary<string, Tuple<int, int>>> powerByYearsAgo =
+        powerByYearsAgo =
             JsonConvert.DeserializeObject<Dictionary<int, Dictionary<string, Tuple<int, int>>>>(textAsset.text);
+    }
 
+    void Start()
+    {
         GameObject humans = new GameObject("Humans");
         humans.transform.SetParent(transform, false);
 
@@ -22,18 +27,18 @@ public class Humans : MonoBehaviour
             GameObject tick = Main.NewTick(Color.white, .25f, i + " kYA");
             tick.transform.SetParent(humans.transform, false);
             tick.transform.Rotate(Vector3.up, 180);
-            tick.transform.Translate(Vector3.forward * (4-i) * .5f);
+            tick.transform.Translate(Vector3.forward * (4 - i) * .5f);
         }
-        
+
         Dictionary<string, Tuple<Vector3, Vector3>> previousSlice = new();
         const float yearScale = .0005f;
         const float popScale = .000001f;
         foreach ((int yearsAgo, Dictionary<string, Tuple<int, int>> slice) in powerByYearsAgo)
         {
-            float popMillions = yearsAgo > 330 
-                ? PreIndustrial(yearsAgo) 
+            float popMillions = yearsAgo > 330
+                ? PreIndustrial(yearsAgo)
                 : PostIndustrial(yearsAgo);
-            
+
             float zPos = (4000 - yearsAgo) * -yearScale;
             Dictionary<string, Tuple<Vector3, Vector3>> thisSlice = new();
             foreach ((string name, Tuple<int, int> power) in slice)
@@ -78,7 +83,7 @@ public class Humans : MonoBehaviour
 
     static float PostIndustrial(int yearsAgo)
     {
-        return 12188 + -2093 * Mathf.Log(yearsAgo) + 
+        return 12188 + -2093 * Mathf.Log(yearsAgo) +
             yearsAgo - 50; // artifical correction
     }
 }

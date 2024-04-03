@@ -9,7 +9,9 @@ using UnityEngine;
 
 public class Life : MonoBehaviour
 {
-    void Start()
+    Dictionary<string, List<Vector3>> branchesByLabel;
+
+    void Awake()
     {
         TextAsset newickText = Resources.Load<TextAsset>("TimetreeOfLife2009");
 
@@ -67,7 +69,7 @@ public class Life : MonoBehaviour
             slices.Add(angle, slice);
         }
 
-        Dictionary<string, List<Vector3>> branchesByLabel = new();
+        branchesByLabel = new Dictionary<string, List<Vector3>>();
         float lastAngle = -1;
         foreach (float angle in anglePositions)
         {
@@ -113,7 +115,13 @@ public class Life : MonoBehaviour
 
             lastAngle = angle;
         }
+    }
 
+    void Start()
+    {
+        GameObject lifeContainer = new GameObject("Life");
+        lifeContainer.transform.SetParent(transform, false);
+        
         List<MeshFilter> linkFilters = new();
         foreach ((string label, List<Vector3> line) in branchesByLabel)
         {
@@ -125,6 +133,7 @@ public class Life : MonoBehaviour
             if (label == "Hominidae")
             {
                 l.SetColor(Color.blue);
+                l.transform.SetParent(lifeContainer.transform, false);
             }
             else
             {
@@ -132,9 +141,8 @@ public class Life : MonoBehaviour
             }
         }
 
-
-        MeshCombiner meshCombiner = gameObject.AddComponent<MeshCombiner>();
-        meshCombiner.Init(linkFilters.ToArray(), transform, Color.green);
+        MeshCombiner meshCombiner = lifeContainer.AddComponent<MeshCombiner>();
+        meshCombiner.Init(linkFilters.ToArray(), lifeContainer.transform, Color.green);
         meshCombiner.RecreateCombines();
         meshCombiner.SetDisplayStateCombinesAndIndividuals(true, false);
 

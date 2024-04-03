@@ -7,16 +7,21 @@ using UnityEngine;
 
 public class Energy : MonoBehaviour
 {
-    void Start()
+    List<EnergyItem> energyItems;
+    
+    Dictionary<string, List<Vector2>> innerWedgesByName;
+    Dictionary<string, List<Vector2>> outerWedgesByName;
+    
+    void Awake()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("energy");
-        List<EnergyItem> energyItems = JsonConvert.DeserializeObject<List<EnergyItem>>(textAsset.text);
+        energyItems = JsonConvert.DeserializeObject<List<EnergyItem>>(textAsset.text);
 
-        Dictionary<string, List<Vector2>> innerWedgesByName = energyItems.ToDictionary(
+        innerWedgesByName = energyItems.ToDictionary(
             energyItem => energyItem.name,
             _ => new List<Vector2>());
 
-        Dictionary<string, List<Vector2>> outerWedgesByName = energyItems.ToDictionary(
+        outerWedgesByName = energyItems.ToDictionary(
             energyItem => energyItem.name,
             _ => new List<Vector2>());
 
@@ -75,14 +80,17 @@ public class Energy : MonoBehaviour
                 outerWedge.Add(new Vector2(outer.x, outer.y));
             }
         }
+    }
 
+    void Start()
+    {
+        GameObject itemGO = new GameObject("Energy");
+        itemGO.transform.SetParent(transform, false);
+        
         foreach (EnergyItem energyItem in energyItems)
         {
             List<Vector2> innerWedge = innerWedgesByName[energyItem.name];
             List<Vector2> outerWedge = outerWedgesByName[energyItem.name];
-
-            GameObject itemGO = new GameObject(energyItem.name);
-            itemGO.transform.SetParent(transform, false);
 
             List<int> indices = new();
             List<Vector3> verts = new();
@@ -118,6 +126,7 @@ public class Energy : MonoBehaviour
             }
 
             Polygon wedge = PolygonFactory.NewPoly(PolygonFactory.Instance.mainMat);
+            wedge.transform.SetParent(itemGO.transform);
             wedge.name = energyItem.name;
             wedge.Draw3DPoly(verts.ToArray(), indices.ToArray());
 
@@ -170,7 +179,7 @@ public class Energy : MonoBehaviour
                 +158710,
                 -29144
             };
-            
+
             double outVal = polyCoeff[0];
             for (int i = 1; i < polyCoeff.Length; i++)
             {

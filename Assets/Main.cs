@@ -9,8 +9,6 @@ public class Main : MonoBehaviour
     public static Main Instance;
 
     public static float AgeU = 1.38f * Mathf.Pow(10, 10); // age of Universe in years
-    public static double MassU = 1.50f * Mathf.Pow(10, 53); // Baryonic matter in kg
-    public static float moment = 4.50f * Mathf.Pow(10, -10);
     public const int NumDiv = 1000;
 
     readonly Dictionary<float, float> adjustedTimeMap = new();
@@ -30,6 +28,9 @@ public class Main : MonoBehaviour
 
     void Start()
     {
+        GameObject timeline = new GameObject("Timeline");
+        timeline.transform.SetParent(transform, false);
+        
         const int numTicks = 30;
         for (int i = 10; i < numTicks; i++)
         {
@@ -55,7 +56,7 @@ public class Main : MonoBehaviour
             };
 
             GameObject tick = NewTick(Color.white, weight, label);
-            tick.transform.SetParent(transform, false);
+            tick.transform.SetParent(timeline.transform, false);
             tick.transform.Rotate(Vector3.up, -360 * (float)i / numTicks - 90);
             tick.transform.Translate(Vector3.left * 2);
         }

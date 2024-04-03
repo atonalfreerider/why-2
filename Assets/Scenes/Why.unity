@@ -452,7 +452,6 @@ MonoBehaviour:
   icosahedron0: {fileID: 0}
   tri: {fileID: 0}
   hex: {fileID: 0}
-  line: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

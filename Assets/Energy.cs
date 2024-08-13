@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class Energy : MonoBehaviour
 {
+    public Material DistanceOpacityMat;
+    
     List<EnergyItem> energyItems;
     
     Dictionary<string, List<Vector2>> innerWedgesByName;
@@ -125,7 +127,7 @@ public class Energy : MonoBehaviour
                 indices.Add(i * 4 + 2);
             }
 
-            Polygon wedge = PolygonFactory.NewPoly(PolygonFactory.Instance.mainMat);
+            Polygon wedge = PolygonFactory.NewPoly(DistanceOpacityMat);
             wedge.transform.SetParent(itemGO.transform);
             wedge.name = energyItem.name;
             wedge.Draw3DPoly(verts.ToArray(), indices.ToArray());

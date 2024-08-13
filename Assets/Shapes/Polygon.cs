@@ -172,6 +172,8 @@ namespace Shapes
 
             ChangeColorProperties(color);
         }
+        
+        
 
         public void SetColor(Color color, float animationDuration)
         {

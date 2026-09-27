@@ -134,7 +134,7 @@ namespace Why.Matter
         public const float GrowthScale = 0.6f;
 
         /// <summary>Exponential growth rate of the envelope per unit of arc since the Big Bang.</summary>
-        public const float GrowthRate = 5.4f;
+        public const float GrowthRate = 6.4f;
 
         /// <summary>The stacked bands may use at most this fraction of the envelope (early universe).</summary>
         public const float CapFraction = 0.7f;
@@ -145,11 +145,11 @@ namespace Why.Matter
         /// blends into the next, so the whole fan fades smoothly to transparent black.
         /// </summary>
         public const int EnvelopeStrips = 16;
-        const float EnvelopeAlpha0 = 0.42f;
+        const float EnvelopeAlpha0 = 0.5f;
         const float EnvelopeAlphaWidth = 3f;
 
         /// <summary><see cref="HandoffBias"/> exponent of the envelope: the expanding universe dissolves first.</summary>
-        public const float EnvelopeHandoffExponent = 2f;
+        public const float EnvelopeHandoffExponent = 1f;
 
         // --- sampling ---
         /// <summary>Base arc step: dense enough to bend smoothly around the ring.</summary>
@@ -682,7 +682,7 @@ namespace Why.Matter
         public static float EnvelopeAlpha(float u, float stackOuter, float envelope)
         {
             float spread = Mathf.Max(0, envelope - stackOuter);
-            return EnvelopeAlpha0 / Mathf.Pow(1 + spread / EnvelopeAlphaWidth, 0.3f) *
+            return EnvelopeAlpha0 / Mathf.Pow(1 + spread / EnvelopeAlphaWidth, 0.18f) *
                    HandoffBias(u, EnvelopeHandoffExponent);
         }
 

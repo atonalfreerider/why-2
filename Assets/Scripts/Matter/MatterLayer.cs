@@ -114,6 +114,7 @@ namespace Why.Matter
 
             BuildFills(layout, s);
             BuildEnvelope(layout, s);
+            BuildFilaments(layout, s);
             BuildEdges(layout, s);
             BuildLineage(layout, s);
             BuildBurst(layout);
@@ -229,6 +230,40 @@ namespace Why.Matter
             }
 
             envelope.AddBand(inner, outer, colsIn, colsOut, id, EnvelopeIntensity, MatterLayout.StripNoise(k));
+        }
+
+        /// <summary>
+        /// The cosmic web fanning out: thin filaments that leave the Big Bang together and diverge with the
+        /// expanding envelope, each at a fixed fraction of its width, fading outward to transparent black.
+        /// </summary>
+        void BuildFilaments(MatterLayout layout, Sampled s)
+        {
+            const int count = 56;
+            float y = GraphStyle.MatterY + 0.002f;
+            int m = s.U.Count;
+            List<LinePoint> pts = new List<LinePoint>(m);
+            System.Random rng = new System.Random(1377);
+            for (int k = 0; k < count; k++)
+            {
+                // denser near the stack, sparser toward the edge of the observable fan
+                float f = Mathf.Pow((k + 0.5f) / count, 1.6f);
+                float wobble = 0.015f + 0.03f * (float)rng.NextDouble();
+                float phase = (float)(rng.NextDouble() * Mathf.PI * 2);
+                float brightness = 0.55f + 0.45f * (float)rng.NextDouble();
+                pts.Clear();
+                for (int j = 0; j < m; j++)
+                {
+                    float so = s.StackOuter[j], width = s.Envelope[j] - so;
+                    if (width <= 1e-4f) continue;
+                    float u = s.U[j];
+                    // filaments braid slightly as they spread (filaments of the cosmic web are not straight)
+                    float ff = Mathf.Clamp01(f + wobble * Mathf.Sin(phase + u * 180f) * f);
+                    float a = MatterLayout.EnvelopeAlpha(u, so, s.Envelope[j]) * Mathf.Pow(1 - ff, 1.4f) * brightness;
+                    pts.Add(new LinePoint(new Vector3(u, y, so + width * ff), Tint(Mathf.Clamp01(a * 1.3f)), 0.9f, 0, 0.9f));
+                }
+
+                lines.AddPolyline(pts, layout.UniverseEnvelopeId);
+            }
         }
 
         /// <summary>Thin red edge lines between the bands (brighter for our lineage).</summary>

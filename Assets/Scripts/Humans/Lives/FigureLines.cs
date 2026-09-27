@@ -21,6 +21,12 @@ namespace Why.Humans.Lives
     {
         const double StepYears = 1;
 
+        /// <summary>Longer lives are data errors (a missing death year read as 0, say) and are skipped.</summary>
+        const double MaxLifeYears = 125;
+
+        /// <summary>Figure ids of a civ end where its lifeline ids begin (<see cref="GraphIds"/>).</summary>
+        const int MaxFiguresPerCiv = GraphIds.CivLifelineBase - GraphIds.CivFigureBase;
+
         // look: bright, wide, blooming
         const float WidthPx = 2f;
         const float ChildWidthPx = 1.4f;
@@ -34,6 +40,8 @@ namespace Why.Humans.Lives
         const float BaseValue = 6f;
         const float BasePerProminence = 0.4f;
         const float MaxProminence = 10f;
+        const float DefaultProminence = 5f;
+        const int DefaultTier = 2;
 
         // near the top of the ranking: the most prominent closest to the center
         const float OffsetNear = 0.1f;
@@ -48,7 +56,7 @@ namespace Why.Humans.Lives
         /// <summary>Every drawn figure's lifeline by year, for modules that follow or connect figures.</summary>
         public readonly FigurePaths Paths = new FigurePaths();
 
-        /// <summary>Figures drawn / skipped (unknown stream, or no band during their life).</summary>
+        /// <summary>Figures drawn / skipped (unknown stream, no band during their life, or implausible dates).</summary>
         public int Drawn { get; private set; }
 
         public int Skipped { get; private set; }
@@ -61,11 +69,11 @@ namespace Why.Humans.Lives
 
         sealed class FigureDto
         {
+            // nullable, so one incomplete entry cannot break the whole file
             public string id, name, gender, civ, role, blurb;
-            public double born;
-            public double? died;
-            public float prominence = 5;
-            public int tier = 2;
+            public double? born, died;
+            public float? prominence;
+            public int? tier;
         }
 
         sealed class FigureFile
@@ -108,20 +116,27 @@ namespace Why.Humans.Lives
                 // the k-th figure of a stream keeps its id whether or not earlier ones could be drawn
                 perCiv.TryGetValue(f.civ, out int k);
                 perCiv[f.civ] = k + 1;
-                if (world.ById.TryGetValue(f.civ, out Civ civ) && Draw(f, civ, k, addLabel)) Drawn++;
-                else Skipped++;
+                if (f.born.HasValue && k < MaxFiguresPerCiv && world.ById.TryGetValue(f.civ, out Civ civ) &&
+                    Draw(f, f.born.Value, civ, k, addLabel))
+                {
+                    Drawn++;
+                }
+                else
+                {
+                    Skipped++;
+                }
             }
         }
 
-        bool Draw(FigureDto f, Civ civ, int k, Action<LabelSpec> addLabel)
+        bool Draw(FigureDto f, double born, Civ civ, int k, Action<LabelSpec> addLabel)
         {
             double now = world.NowYear;
             double end = f.died ?? now; // the living run into the present moment
-            if (end <= f.born) return false;
+            if (end <= born || end - born > MaxLifeYears) return false;
 
             bool male = string.Equals(f.gender, "m", StringComparison.OrdinalIgnoreCase);
             float side = male ? 1f : -1f;
-            float prominence = Mathf.Clamp(f.prominence, 1f, MaxProminence);
+            float prominence = Mathf.Clamp(f.prominence ?? DefaultProminence, 1f, MaxProminence);
             float baseValue = Mathf.Min(10f, BaseValue + BasePerProminence * prominence);
             float wealth = prominence / MaxProminence;
             float jitter = ((k * 0.618034f) % 1f - 0.5f) * OffsetJitter;
@@ -133,17 +148,17 @@ namespace Why.Humans.Lives
             pts.Clear();
             pathYears.Clear();
             pathPoints.Clear();
-            int steps = Math.Max(1, (int)Math.Ceiling((end - f.born) / StepYears));
+            int steps = Math.Max(1, (int)Math.Ceiling((end - born) / StepYears));
             for (int i = 0; i <= steps; i++)
             {
-                double t = Math.Min(end, f.born + i * StepYears);
+                double t = Math.Min(end, born + i * StepYears);
                 if (!Locate(civ, t, out float u, out float center, out float envWomen, out float envMen))
                 {
                     Flush(id); // outside every band: a gap, if the figure outlived its stream or came early
                     continue;
                 }
 
-                float age = (float)(t - f.born);
+                float age = (float)(t - born);
                 bool adult = age >= SmvModel.AdultAge;
                 float value = SmvModel.Value(male, baseValue, age, false, 0, wealth);
                 float env = male ? envMen : envWomen;
@@ -165,7 +180,7 @@ namespace Why.Humans.Lives
             Flush(id);
             if (peakValue < 0) return false;
             Paths.Add(f.id, pathYears, pathPoints);
-            Register(f, civ, id, peak, addLabel);
+            Register(f, born, id, peak, addLabel);
             return true;
         }
 
@@ -178,11 +193,11 @@ namespace Why.Humans.Lives
         /// <summary>Clock arc, band center and envelope of the figure's stream at a moment, or of the first parent alive then.</summary>
         bool Locate(Civ civ, double year, out float u, out float center, out float envWomen, out float envMen)
         {
-            if (Locate(streams[civ.Index], year, out u, out center, out envWomen, out envMen)) return true;
+            if (Locate(Stream(civ), year, out u, out center, out envWomen, out envMen)) return true;
             foreach (string pid in civ.Parents)
             {
                 if (pid != null && world.ById.TryGetValue(pid, out Civ parent) && parent != civ &&
-                    Locate(streams[parent.Index], year, out u, out center, out envWomen, out envMen))
+                    Locate(Stream(parent), year, out u, out center, out envWomen, out envMen))
                 {
                     return true;
                 }
@@ -194,29 +209,33 @@ namespace Why.Humans.Lives
         /// <summary>From the stream's grid where it has one (exactly where its lifelines are), else from the model.</summary>
         bool Locate(CivLives s, double year, out float u, out float center, out float envWomen, out float envMen)
         {
+            u = center = envWomen = envMen = 0;
+            if (s == null) return false;
             if (s.Grid != null && year >= s.Grid.Time(0) && year <= s.LineEnd)
             {
                 s.Grid.At(year, out u, out center, out envWomen, out envMen);
                 return true;
             }
 
-            u = 0;
             if (!s.Sample(year, out center, out envWomen, out envMen)) return false;
             u = DeepTime.Arc(world.NowYear - year);
             return true;
         }
 
-        void Register(FigureDto f, Civ civ, int id, Vector3 peak, Action<LabelSpec> addLabel)
+        /// <summary>The simulated stream of a civ (null if it has none).</summary>
+        CivLives Stream(Civ civ) => civ.Index >= 0 && civ.Index < streams.Length ? streams[civ.Index] : null;
+
+        void Register(FigureDto f, double born, int id, Vector3 peak, Action<LabelSpec> addLabel)
         {
-            int tier = Mathf.Clamp(f.tier, 1, 3);
+            int tier = Mathf.Clamp(f.tier ?? DefaultTier, 1, 3);
             string name = string.IsNullOrEmpty(f.name) ? f.id : f.name;
             Anchor anchor = new Anchor
             {
                 Key = "figure:" + f.id,
-                Label = name + " (" + Years(f.born, f.died) + ")",
+                Label = name + " (" + Years(born, f.died) + ")",
                 Blurb = f.blurb,
                 Level = GraphLevel.Humans,
-                YearsAgo = world.NowYear - f.born,
+                YearsAgo = world.NowYear - born,
                 EndYearsAgo = f.died.HasValue ? Math.Max(0, world.NowYear - f.died.Value) : 0,
                 Y = peak.y,
                 Rho = peak.z,

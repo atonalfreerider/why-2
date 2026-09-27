@@ -15,9 +15,12 @@ namespace Why.Humans.Lives
     /// (300,000 years of prehistory) only pay for the moments somebody is alive; values between cells are
     /// interpolated linearly. One instance per stream and thread.
     ///
-    /// Envelope = half band width x <see cref="Margin"/> x clamp(population / peak population,
-    /// <see cref="MinFill"/>, 1): lifelines fill their band in proportion to the stream's population, so their
-    /// outline is the population curve. The men's side narrows by <see cref="CivWars.MaleFactor"/>.
+    /// Envelope = half band width x <see cref="Margin"/> x clamp(density / peak density, <see cref="MinFill"/>, 1),
+    /// where the density is the stream's population per unit of band width (<see cref="Density"/>). Between the
+    /// clamps the envelope is therefore proportional to the stream's population, so the outline of its lifelines
+    /// is the population curve. (The band itself already widens with world population, so scaling it by
+    /// population / peak population as well would count the growth twice and squeeze early lives into the band's
+    /// center.) The men's side narrows by <see cref="CivWars.MaleFactor"/>.
     /// </summary>
     public sealed class CivEnvelope
     {
@@ -46,16 +49,22 @@ namespace Why.Humans.Lives
 
         readonly HumanWorld world;
         readonly CivWars wars;
-        readonly double peakPopulation;
+        readonly double peakDensity;
         readonly double[] times;
         readonly float[] u, center, women, men;
         readonly bool[] done;
 
-        public CivEnvelope(HumanWorld world, Civ civ, CivWars wars, double peakPopulation, double start, double end)
+        /// <param name="world">the shared human model</param>
+        /// <param name="civ">the stream</param>
+        /// <param name="wars">the stream's wars (the men's side of the envelope)</param>
+        /// <param name="peakDensity">largest <see cref="Density"/> over the stream's span (a full envelope)</param>
+        /// <param name="start">first calendar year of the grid</param>
+        /// <param name="end">last calendar year of the grid</param>
+        public CivEnvelope(HumanWorld world, Civ civ, CivWars wars, double peakDensity, double start, double end)
         {
             this.world = world;
             this.wars = wars;
-            this.peakPopulation = peakPopulation;
+            this.peakDensity = peakDensity;
             Civ = civ;
 
             // the band slides out of its parent (and dissolves) within EmergeYears of its first (last) sample
@@ -166,25 +175,40 @@ namespace Why.Humans.Lives
             done[k] = true;
             double year = times[k];
             u[k] = DeepTime.Arc(world.NowYear - year);
-            if (Sample(world, Civ, wars, peakPopulation, year, out center[k], out women[k], out men[k])) return;
+            if (Sample(world, Civ, wars, peakDensity, year, out center[k], out women[k], out men[k])) return;
 
             // just outside the band (rounding at the ends of the span): hold the nearest moment, empty
             (double s, double e) = world.Span(Civ);
             double inside = Math.Min(Math.Max(year, s + 1e-3), e - 1e-3);
-            Sample(world, Civ, wars, peakPopulation, inside, out center[k], out float _, out float _);
+            Sample(world, Civ, wars, peakDensity, inside, out center[k], out float _, out float _);
             women[k] = men[k] = 0;
         }
 
+        /// <summary>
+        /// People per rho unit of band width at a calendar year. The same for every stream at a given moment: a
+        /// stream's population (<see cref="HumanWorld.Population"/>) and its band width are both its power share
+        /// times a world quantity (world population, layer width).
+        /// </summary>
+        public static double Density(HumanWorld world, double year) =>
+            world.WorldPopulation(year) / Math.Max(world.LayerWidth(year), 1e-6);
+
         /// <summary>Band center and envelope of a stream at a calendar year, straight from the shared model.</summary>
-        public static bool Sample(HumanWorld world, Civ civ, CivWars wars, double peakPopulation, double year,
+        /// <param name="world">the shared human model</param>
+        /// <param name="civ">the stream</param>
+        /// <param name="wars">the stream's wars (the men's side)</param>
+        /// <param name="peakDensity">largest <see cref="Density"/> over the stream's span</param>
+        /// <param name="year">calendar year</param>
+        /// <param name="bandCenter">rho of the band center</param>
+        /// <param name="envWomen">envelope of the women's (inner) side, rho units</param>
+        /// <param name="envMen">envelope of the men's (outer) side, rho units</param>
+        public static bool Sample(HumanWorld world, Civ civ, CivWars wars, double peakDensity, double year,
             out float bandCenter, out float envWomen, out float envMen)
         {
             bandCenter = envWomen = envMen = 0;
             if (!world.TryUnits(civ, year, out float lo, out float width)) return false;
             float perUnit = world.RhoPerUnit(year);
             bandCenter = HumanWorld.HumanRho0 + (lo + 0.5f * width) * perUnit;
-            double population = world.WorldPopulation(year) * width / HumanWorld.TotalUnits;
-            float fill = Mathf.Clamp((float)(population / Math.Max(peakPopulation, 1.0)), MinFill, 1f);
+            float fill = Mathf.Clamp((float)(Density(world, year) / Math.Max(peakDensity, 1e-9)), MinFill, 1f);
             envWomen = 0.5f * width * perUnit * Margin * fill;
             envMen = envWomen * wars.MaleFactor(year);
             return true;

@@ -125,8 +125,8 @@ namespace Why.Humans.Lives
         /// <summary>People a coarse line stands for (a fine line stands for this / <see cref="FineFactor"/>).</summary>
         public double PeoplePerLine { get; private set; }
 
-        /// <summary>Largest population of the stream (the envelope's reference).</summary>
-        public double PeakPopulation { get; private set; }
+        /// <summary>Largest population per unit of band width over the stream's span (the envelope's reference, see <see cref="CivEnvelope"/>).</summary>
+        public double PeakDensity { get; private set; }
 
         /// <summary>Births simulated over the stream's span (people).</summary>
         public double TotalBirths { get; private set; }
@@ -184,7 +184,7 @@ namespace Why.Humans.Lives
 
         /// <summary>Envelope of this stream at any year it exists (figures use it outside the grid).</summary>
         public bool Sample(double year, out float center, out float envWomen, out float envMen) =>
-            CivEnvelope.Sample(world, Civ, Wars, PeakPopulation, year, out center, out envWomen, out envMen);
+            CivEnvelope.Sample(world, Civ, Wars, PeakDensity, year, out center, out envWomen, out envMen);
 
         /// <summary>
         /// Alpha multiplier where the stream's lines end: its dissolution, or prehistory's hand-over to the first
@@ -255,25 +255,24 @@ namespace Why.Humans.Lives
             for (int i = 0; i < cells; i++)
             {
                 double year = spanStart + (i + 0.5) * cdfStep;
-                double population = world.Population(Civ, year);
-                peak = Math.Max(peak, population);
-                cdf[i + 1] = cdf[i] + population * world.BirthRatePer1000(year) / 1000.0 * cdfStep;
+                peak = Math.Max(peak, CivEnvelope.Density(world, year));
+                cdf[i + 1] = cdf[i] + world.Population(Civ, year) * world.BirthRatePer1000(year) / 1000.0 * cdfStep;
             }
 
             // the envelope's reference also covers what is drawn after the last birth (US figures after 1950)
-            for (double year = birthEnd; year < end; year += CdfCellYears)
+            for (double year = birthEnd; year <= end; year += CdfCellYears)
             {
-                peak = Math.Max(peak, world.Population(Civ, year));
+                peak = Math.Max(peak, CivEnvelope.Density(world, year));
             }
 
-            PeakPopulation = Math.Max(peak, 1);
+            PeakDensity = Math.Max(peak, 1);
             TotalBirths = cdf[cells];
             if (TotalBirths <= 0) return false;
 
             PeoplePerLine = RoundPeoplePerLine(TotalBirths / MaxCoarseLines);
             int coarse = Math.Max(1, (int)Math.Round(TotalBirths / PeoplePerLine));
             People = new Person[coarse * FineFactor];
-            Grid = new CivEnvelope(world, Civ, Wars, PeakPopulation, spanStart, LineEnd);
+            Grid = new CivEnvelope(world, Civ, Wars, PeakDensity, spanStart, LineEnd);
             return true;
         }
 

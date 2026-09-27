@@ -20,6 +20,10 @@ namespace Why.Director
     /// typewriter first), Left = previous, P = pause/resume autoplay, Esc = exit. Moving the camera or
     /// re-scaling from elsewhere pauses autoplay so the viewer can look around; Next / Back return to the
     /// narration and resume it. The tour is loaded and validated one frame after the graph has loaded.
+    ///
+    /// On a portrait screen the popup is a full-width sheet docked at the bottom (or at the top when the
+    /// anchor sits low), and anchors are framed a little above the middle so the sheet rarely has to move.
+    /// When the screen flips orientation mid-tour, the current stop is re-framed and the panel re-placed.
     /// </summary>
     public sealed class DirectorMode : GraphModule
     {
@@ -49,6 +53,15 @@ namespace Why.Director
 
         const float RelocateCooldown = 1.5f;
         const float CaptionSize = 14f;
+
+        /// <summary>
+        /// Portrait: anchors are framed this far (normalized device y) above the middle of the screen (58% of the
+        /// height), so the bottom sheet (up to ~45% of the height) stays clear of them.
+        /// </summary>
+        const float PortraitAnchorLift = 0.16f;
+
+        /// <summary>Portrait: views pitched at least this much (degrees) lift their anchor by sliding along the ground.</summary>
+        const float LiftAlongGroundPitch = 45f;
 
         /// <summary>Highlight markers are dropped where the lens has faded the content below this.</summary>
         const float MarkerMinVisibility = 0.15f;
@@ -91,6 +104,7 @@ namespace Why.Director
             root = graphRoot;
             root.TourRequested += StartTour;
             root.FocusChanged += OnFocusChanged;
+            root.OrientationChanged += OnOrientationChanged;
             BuildUi();
         }
 
@@ -124,6 +138,7 @@ namespace Why.Director
             if (root == null) return;
             root.TourRequested -= StartTour;
             root.FocusChanged -= OnFocusChanged;
+            root.OrientationChanged -= OnOrientationChanged;
             if (active) ExitTour();
         }
 
@@ -266,6 +281,43 @@ namespace Why.Director
             if (active && !focusing && autoplay) SetAutoplay(false, true);
         }
 
+        /// <summary>
+        /// The screen flipped between landscape and portrait (V, or a window resized by hand): frame the current
+        /// stop again for the new shape and move the panel (re-laid out at its new width) to a fitting slot. The
+        /// step keeps its clock, typewriter and highlight.
+        /// </summary>
+        void OnOrientationChanged()
+        {
+            if (!active || steps == null) return;
+            ViewPreset preset;
+            Anchor anchor = null;
+            bool card = true;
+            if (index < 0)
+            {
+                preset = TitlePreset();
+            }
+            else if (index >= steps.Count)
+            {
+                preset = EndPreset();
+                Anchors.TryGet("now", out anchor);
+            }
+            else
+            {
+                ResolvedStep s = steps[index];
+                preset = s.Preset ?? root.CurrentPreset ?? ViewPresets.All[0];
+                anchor = s.Target;
+                card = false;
+            }
+
+            bool hasTarget = Frame(preset, anchor, out Vector2 placeAt);
+            panel.Relocate(size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, card));
+            relocateTimer = RelocateCooldown;
+        }
+
+        ViewPreset TitlePreset() => steps.Count > 0 && steps[0].Preset != null ? steps[0].Preset : ViewPresets.All[0];
+
+        static ViewPreset EndPreset() => ResolvedStep.FindPreset("overview") ?? ViewPresets.All[0];
+
         // ------------------------------------------------------------------ steps
 
         void GoTo(int stop)
@@ -286,8 +338,7 @@ namespace Why.Director
 
         void ShowTitleCard()
         {
-            ViewPreset first = steps.Count > 0 && steps[0].Preset != null ? steps[0].Preset : ViewPresets.All[0];
-            Frame(first, null, out _);
+            Frame(TitlePreset(), null, out _);
             Highlighter.Clear();
             stepDuration = TitleCardSeconds;
 
@@ -331,9 +382,8 @@ namespace Why.Director
 
         void ShowEndCard()
         {
-            ViewPreset overview = ResolvedStep.FindPreset("overview") ?? ViewPresets.All[0];
             Anchors.TryGet("now", out Anchor now);
-            bool hasTarget = Frame(overview, now, out Vector2 placeAt);
+            bool hasTarget = Frame(EndPreset(), now, out Vector2 placeAt);
             target = now;
 
             List<Anchor> lineage = new List<Anchor>();
@@ -378,13 +428,36 @@ namespace Why.Director
             CameraPose pose = preset.Pose();
             bool wholeGraph = preset.Polar && preset.PolarArc < 0;
             pose.Target = Vector3.Lerp(pose.Target, world, wholeGraph ? WholeGraphFraming : AnchorFraming);
+            Camera cam = root.Rig.Cam;
+            if (ScreenLayout.IsPortrait) pose.Target += PortraitLift(pose, cam.fieldOfView);
             root.Rig.FlyTo(pose, TransitionSeconds);
 
-            Camera cam = root.Rig.Cam;
-            Vector2 size = CanvasSize;
-            PanelPlacement.ViewportUnderPose(pose, cam.fieldOfView, cam.aspect, world, out Vector2 viewport);
+            // the screen's aspect and canvas size, not the camera's and the canvas rect's: right after an orientation
+            // flip those may not have caught up yet
+            Vector2 size = UiFactory.CanvasSize;
+            PanelPlacement.ViewportUnderPose(pose, cam.fieldOfView, ScreenLayout.Aspect, world, out Vector2 viewport);
             PanelPlacement.ClampToScreen(Vector2.Scale(viewport, size), false, size, out canvasPoint, out _);
             return true;
+        }
+
+        /// <summary>
+        /// Moves a pose's target so what was at the middle of the screen shows exactly <see cref="PortraitAnchorLift"/>
+        /// higher (normalized device y). Steep views slide back along the ground, toward the camera: the old middle
+        /// is then d sin(pitch) / ((distance + d cos(pitch)) tan(fov / 2)) above the new one, solved for d. Shallow
+        /// views (below <see cref="LiftAlongGroundPitch"/>, where that slide would be long and change the depth a lot)
+        /// slide straight down the screen instead, which keeps the depth.
+        /// </summary>
+        static Vector3 PortraitLift(CameraPose pose, float fovDegrees)
+        {
+            float tan = Mathf.Tan(fovDegrees * 0.5f * Mathf.Deg2Rad);
+            if (pose.Pitch < LiftAlongGroundPitch)
+            {
+                return Quaternion.Euler(pose.Pitch, pose.Yaw, 0) * Vector3.down * (PortraitAnchorLift * pose.Distance * tan);
+            }
+
+            float sin = Mathf.Sin(pose.Pitch * Mathf.Deg2Rad), cos = Mathf.Cos(pose.Pitch * Mathf.Deg2Rad);
+            float d = PortraitAnchorLift * tan * pose.Distance / (sin - PortraitAnchorLift * tan * cos);
+            return Quaternion.Euler(0, pose.Yaw, 0) * Vector3.back * d;
         }
 
         void Highlight(Anchor main, List<Anchor> others, float glow, float dim)

@@ -9,12 +9,16 @@ namespace Why.UI
 {
     /// <summary>
     /// Shared measurements, neutral colors and small builders for the on-screen UI. Sizes are reference
-    /// pixels of the 1920x1080 canvas. Hue stays reserved for the three levels of the graph.
+    /// pixels of the 1920x1080 canvas (in portrait, of the 500x889 canvas, see UiFactory.PortraitReference).
+    /// Hue stays reserved for the three levels of the graph.
     /// </summary>
     public static class HudKit
     {
         /// <summary>Distance of every corner block from the screen edge.</summary>
         public const float Margin = 24f;
+
+        /// <summary>Distance of every block from the screen edge on a portrait screen (every pixel of width counts).</summary>
+        public const float PortraitMargin = 16f;
 
         /// <summary>Space between neighboring blocks.</summary>
         public const float Gap = 10f;
@@ -142,5 +146,17 @@ namespace Why.UI
         /// <summary>True while the pointer is over an input-taking UI element.</summary>
         public static bool PointerOverUi() =>
             EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+
+        /// <summary>
+        /// Insets of the safe area (notches, rounded corners) from the bottom and top screen edges, in the canvas
+        /// units of a canvas with this scale factor. Zero on desktop screens.
+        /// </summary>
+        public static void SafeInsets(float scaleFactor, out float bottom, out float top)
+        {
+            Rect safe = ScreenLayout.SafeArea;
+            float k = 1f / Mathf.Max(scaleFactor, 1e-4f);
+            bottom = Mathf.Max(0, safe.yMin) * k;
+            top = Mathf.Max(0, ScreenLayout.Height - safe.yMax) * k;
+        }
     }
 }

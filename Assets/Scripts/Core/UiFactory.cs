@@ -19,6 +19,17 @@ namespace Why
         public static readonly Color ButtonHover = new Color(1f, 1f, 1f, 0.14f);
         public static readonly Color ButtonActive = new Color(1f, 1f, 1f, 0.24f);
 
+        /// <summary>Landscape canvases: 1080p reference pixels, matched to the screen height.</summary>
+        public static readonly Vector2 LandscapeReference = new Vector2(1920, 1080);
+
+        /// <summary>
+        /// Portrait canvases: a 1080x1920 phone frame is 500 x 889 canvas units, i.e. everything designed in
+        /// 1080p pixels is drawn 2.16x larger, so a 9:16 recording stays legible on a phone (13-unit HUD text
+        /// becomes 28 px, the tour's 17-unit narration 37 px). Screens of another portrait shape expand the canvas
+        /// (at least this wide and this tall), so the portrait layouts always have this much room.
+        /// </summary>
+        public static readonly Vector2 PortraitReference = new Vector2(500, 500 * 16f / 9f);
+
         static Sprite rounded;
 
         /// <summary>A 9-sliced rounded rectangle sprite generated once.</summary>
@@ -61,10 +72,14 @@ namespace Why
             go.AddComponent<InputSystemUIInputModule>();
         }
 
-        /// <summary>A screen-space overlay canvas scaled from a 1920x1080 reference.</summary>
+        /// <summary>
+        /// A screen-space overlay canvas scaled from a 1920x1080 reference, or in portrait from
+        /// <see cref="PortraitReference"/>; it follows orientation changes by itself (<see cref="CanvasLayout"/>).
+        /// </summary>
         public static Canvas CreateCanvas(string name, int sortingOrder, Transform parent = null)
         {
             EnsureEventSystem();
+            ScreenLayout.Refresh();
             GameObject go = new GameObject(name, typeof(RectTransform));
             if (parent != null) go.transform.SetParent(parent, false);
             Canvas canvas = go.AddComponent<Canvas>();
@@ -72,11 +87,43 @@ namespace Why
             canvas.sortingOrder = sortingOrder;
             CanvasScaler scaler = go.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920, 1080);
-            scaler.matchWidthOrHeight = 1f;
+            ApplyLayout(scaler);
+            go.AddComponent<CanvasLayout>();
             go.AddComponent<GraphicRaycaster>();
             return canvas;
         }
+
+        /// <summary>
+        /// Sets a scaler's reference for the current orientation (landscape: height-matched 1080p; portrait:
+        /// expanded to at least <see cref="PortraitReference"/>).
+        /// </summary>
+        public static void ApplyLayout(CanvasScaler scaler)
+        {
+            bool portrait = ScreenLayout.IsPortrait;
+            scaler.referenceResolution = portrait ? PortraitReference : LandscapeReference;
+            scaler.screenMatchMode = portrait
+                ? CanvasScaler.ScreenMatchMode.Expand
+                : CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            scaler.matchWidthOrHeight = portrait ? 0f : 1f;
+        }
+
+        /// <summary>
+        /// Scale factor a canvas made by <see cref="CreateCanvas"/> gets on the current screen (what its scaler
+        /// computes). Layouts use it on the frame the screen changes, before the canvas itself has caught up.
+        /// </summary>
+        public static float CanvasScale
+        {
+            get
+            {
+                float w = Mathf.Max(ScreenLayout.Width, 1), h = Mathf.Max(ScreenLayout.Height, 1);
+                return ScreenLayout.IsPortrait
+                    ? Mathf.Min(w / PortraitReference.x, h / PortraitReference.y)
+                    : h / LandscapeReference.y;
+            }
+        }
+
+        /// <summary>Size (canvas units) of a canvas made by <see cref="CreateCanvas"/> on the current screen.</summary>
+        public static Vector2 CanvasSize => new Vector2(ScreenLayout.Width, ScreenLayout.Height) / CanvasScale;
 
         public static RectTransform Rect(Transform parent, string name)
         {

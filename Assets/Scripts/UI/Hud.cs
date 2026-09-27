@@ -12,6 +12,11 @@ namespace Why.UI
     /// white; the legend swatches are the only hue. While the tour runs, the title, preset bar and the
     /// tour / help buttons step aside for the director (its panel has its own controls, and a help sheet
     /// would sit over the narration while autoplay moves on beneath it).
+    ///
+    /// On a portrait screen (500x889 canvas units at 9:16, so the text reads on a phone) the same blocks re-flow
+    /// in place: the title wraps beside the buttons at the top, the preset bar becomes full-width rows along the
+    /// bottom edge (above the safe area) with the legend and readout stacked above it, and the help sheet stacks
+    /// its columns.
     /// </summary>
     public sealed class Hud : GraphModule
     {
@@ -24,6 +29,9 @@ namespace Why.UI
         const float TitleWidth = 560f;
         const float TopButtonHeight = 30f;
 
+        /// <summary>Height of the title block (brand, title, a two-line subtitle).</summary>
+        const float TitleHeight = 90f;
+
         /// <summary>A left click that moves further than this (1080p pixels) is a drag, not a click.</summary>
         const float ClickSlopPx = 6f;
 
@@ -34,8 +42,8 @@ namespace Why.UI
         const float FocusDim = 0.6f;
 
         GraphRoot root;
-        Canvas overlay;
-        RectTransform canvasRect;
+        Canvas hudCanvas, overlay;
+        RectTransform canvasRect, titleBlock, tourRect, helpRect;
         UiFade hudFade, titleFade, presetFade, topButtonsFade;
         TextMeshProUGUI presetTitle, presetSubtitle;
         HudPresetBar presetBar;
@@ -45,7 +53,9 @@ namespace Why.UI
         HudStats stats;
 
         Vector2 laidOutSize;
-        float legendBottomWithBar = HudKit.Margin;
+        int laidOutVersion = -1;
+        float titleWidth = TitleWidth;
+        float legendBottomWithBar = HudKit.Margin, legendBottomAlone = HudKit.Margin;
         bool loaded, tourWasActive, ownsHighlight, pressValid;
         IdRange focusIds = IdRange.Empty;
         Vector2 pressPosition;
@@ -55,7 +65,8 @@ namespace Why.UI
         public override void Init(GraphRoot graphRoot)
         {
             root = graphRoot;
-            canvasRect = (RectTransform)UiFactory.CreateCanvas("Hud", SortingOrder, transform).transform;
+            hudCanvas = UiFactory.CreateCanvas("Hud", SortingOrder, transform);
+            canvasRect = (RectTransform)hudCanvas.transform;
             RectTransform content = UiFactory.Rect(canvasRect, "Content").Fill();
 
             // built while active so every text can be measured; the fades are created afterwards
@@ -91,9 +102,9 @@ namespace Why.UI
 
         void BuildTitle(RectTransform parent)
         {
-            RectTransform block = UiFactory.Rect(parent, "Title")
+            RectTransform block = titleBlock = UiFactory.Rect(parent, "Title")
                 .Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(HudKit.Margin, -HudKit.Margin + 2),
-                    new Vector2(TitleWidth, 90));
+                    new Vector2(TitleWidth, TitleHeight));
 
             TextMeshProUGUI brand = HudKit.Line(block, "Brand", "WHY", HudKit.SizeSmall, GraphStyle.TextDim, FontStyles.Bold);
             brand.characterSpacing = 30;
@@ -115,16 +126,24 @@ namespace Why.UI
             string faint = "<color=#" + UiFactory.Hex(GraphStyle.TextDim) + ">";
             Button tour = TopButton(group, "TourButton", "Guided tour  " + faint + "(T)</color>", root.RequestTour);
             ((Image)tour.targetGraphic).color = new Color(1, 1, 1, 0.1f);
-            RectTransform tourRect = (RectTransform)tour.transform;
-            tourRect.anchoredPosition = new Vector2(-HudKit.Margin, -HudKit.Margin);
-
+            tourRect = (RectTransform)tour.transform;
             Button helpButton = TopButton(group, "HelpButton", "Help  " + faint + "(H)</color>", () => help.Toggle());
-            ((RectTransform)helpButton.transform).anchoredPosition =
-                new Vector2(-HudKit.Margin - tourRect.sizeDelta.x - HudKit.Gap * 0.6f, -HudKit.Margin);
+            helpRect = (RectTransform)helpButton.transform;
+            PlaceTopButtons(HudKit.Margin, HudKit.Margin);
 
             topButtonsFade = new UiFade(group.gameObject, 1, 4f, true);
             return HudKit.Margin + TopButtonHeight + HudKit.Gap;
         }
+
+        /// <summary>Tour and help buttons, right-aligned this far from the right and top screen edges.</summary>
+        void PlaceTopButtons(float right, float top)
+        {
+            tourRect.anchoredPosition = new Vector2(-right, -top);
+            helpRect.anchoredPosition = new Vector2(-right - tourRect.sizeDelta.x - HudKit.Gap * 0.6f, -top);
+        }
+
+        /// <summary>Width of the tour and help buttons together.</summary>
+        float TopButtonsWidth => tourRect.sizeDelta.x + HudKit.Gap * 0.6f + helpRect.sizeDelta.x;
 
         static Button TopButton(RectTransform parent, string name, string label, System.Action onClick)
         {
@@ -168,10 +187,15 @@ namespace Why.UI
             hudFade.Tick(dt);
             if (!loaded) return;
 
+            // the canvas size alone misses a flip near square (hysteresis) and safe-area changes; on the frame the
+            // screen changes the canvas rect may still have the old size, so that layout uses the size the scaler
+            // gives the canvas on the new screen (no frame laid out for the old shape)
             Vector2 size = canvasRect.rect.size;
-            if (size != laidOutSize)
+            if (size != laidOutSize || laidOutVersion != ScreenLayout.Version)
             {
-                laidOutSize = size;
+                if (laidOutVersion != ScreenLayout.Version) size = UiFactory.CanvasSize;
+                laidOutSize = canvasRect.rect.size;
+                laidOutVersion = ScreenLayout.Version;
                 Relayout(size);
             }
 
@@ -269,16 +293,33 @@ namespace Why.UI
             bool newTitle = title != presetTitle.text;
             presetTitle.text = title;
             presetSubtitle.text = preset.Subtitle ?? "";
-            HudKit.FitText(presetSubtitle, TitleWidth);
+            HudKit.FitText(presetSubtitle, titleWidth);
             if (newTitle && !root.TourActive) titleFade.Replay();
+        }
+
+        void Relayout(Vector2 size)
+        {
+            bool portrait = ScreenLayout.IsPortrait;
+            if (portrait) RelayoutPortrait(size);
+            else RelayoutLandscape(size);
+            help.Layout(size, portrait);
+            legend.SetBottom(LegendBottom, true);
         }
 
         /// <summary>
         /// Keep the preset bar centered but clear of the legend; when the screen is too narrow for both on
         /// one line, the bar takes the bottom edge (scaled to fit) and the legend moves above it.
         /// </summary>
-        void Relayout(Vector2 size)
+        void RelayoutLandscape(Vector2 size)
         {
+            // the corner blocks at their authored places (they move in portrait)
+            PlaceTitle(HudKit.Margin, HudKit.Margin, TitleWidth);
+            PlaceTopButtons(HudKit.Margin, HudKit.Margin);
+            stats.Place(HudKit.Margin, HudKit.Margin + TopButtonHeight + HudKit.Gap);
+            legend.SetLeft(HudKit.Margin);
+            legendBottomAlone = HudKit.Margin;
+            presetBar.SingleRow();
+
             float barWidth = presetBar.Width;
             float clearOfLegend = HudKit.Margin + legend.Width + HudKit.Gap * 2;
             float left = Mathf.Max((size.x - barWidth) * 0.5f, clearOfLegend);
@@ -293,12 +334,46 @@ namespace Why.UI
                 presetBar.Place((size.x - barWidth * scale) * 0.5f, HudKit.Margin, scale);
                 legendBottomWithBar = HudKit.Margin + HudPresetBar.Height * scale + HudKit.Gap;
             }
+        }
 
-            legend.SetBottom(LegendBottom, true);
+        /// <summary>
+        /// Portrait: title top-left (wrapping beside the buttons), buttons and stats top-right; along the
+        /// bottom edge the preset bar in full-width rows, with the legend and the lifeline readout above it.
+        /// Everything stays inside the safe area.
+        /// </summary>
+        void RelayoutPortrait(Vector2 size)
+        {
+            const float m = HudKit.PortraitMargin;
+            HudKit.SafeInsets(UiFactory.CanvasScale, out float safeBottom, out float safeTop);
+            float top = m + safeTop;
+            PlaceTitle(m, top, Mathf.Max(160f, size.x - 2 * m - TopButtonsWidth - HudKit.Gap * 2));
+            PlaceTopButtons(m, top);
+            stats.Place(m, top + TopButtonHeight + HudKit.Gap);
+            legend.SetLeft(m);
+
+            float bottom = m + safeBottom;
+            float barHeight = presetBar.Flow(size.x - 2 * m);
+            presetBar.Place(m, bottom, 1);
+            legendBottomWithBar = bottom + barHeight + HudKit.Gap;
+            legendBottomAlone = bottom;
+        }
+
+        /// <summary>
+        /// The title block's top-left corner (canvas units from the top-left) and wrapping width. Beside the
+        /// portrait buttons a long title (a followed figure's name) ends in an ellipsis instead of running under them.
+        /// </summary>
+        void PlaceTitle(float left, float top, float width)
+        {
+            titleWidth = width;
+            titleBlock.anchoredPosition = new Vector2(left, -top + 2);
+            titleBlock.sizeDelta = new Vector2(width, TitleHeight);
+            presetTitle.rectTransform.sizeDelta = new Vector2(width, presetTitle.rectTransform.sizeDelta.y);
+            presetTitle.overflowMode = ScreenLayout.IsPortrait ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
+            HudKit.FitText(presetSubtitle, width);
         }
 
         /// <summary>The legend only makes room for the preset bar while the bar is shown (not during the tour).</summary>
-        float LegendBottom => presetFade.Shown ? legendBottomWithBar : HudKit.Margin;
+        float LegendBottom => presetFade.Shown ? legendBottomWithBar : legendBottomAlone;
 
         /// <summary>Preset buttons explain their view; labels with an anchor explain what they mark.</summary>
         void UpdateTooltip(Vector2 canvasSize, float dt)

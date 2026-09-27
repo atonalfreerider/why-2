@@ -28,6 +28,7 @@ namespace Why.UI
         double shownPeople = -1;
         string shownContext;
         float bottom, bottomTarget;
+        float left = HudKit.Margin;
 
         /// <summary>Legend width in reference pixels (the preset bar keeps clear of it).</summary>
         public float Width { get; }
@@ -89,11 +90,18 @@ namespace Why.UI
             ApplyBottom();
         }
 
+        /// <summary>Distance of the legend and the readout from the left screen edge (canvas units).</summary>
+        public void SetLeft(float x)
+        {
+            left = Mathf.Round(x);
+            ApplyBottom();
+        }
+
         void ApplyBottom()
         {
             float y = Mathf.Round(bottom);
-            legend.anchoredPosition = new Vector2(HudKit.Margin, y);
-            readout.anchoredPosition = new Vector2(HudKit.Margin, y + Height + HudKit.Gap);
+            legend.anchoredPosition = new Vector2(left, y);
+            readout.anchoredPosition = new Vector2(left, y + Height + HudKit.Gap);
         }
 
         /// <summary>Follow <see cref="HumansLod"/>: show what one lifeline stands for, hide when none are drawn.</summary>

@@ -37,6 +37,11 @@ namespace Why.Director
     /// typewriter, transport buttons and a thin autoplay progress bar. Content changes fade and slide the
     /// panel out and back in (CanvasGroup, smoothstep, unscaled time); the slot is chosen when the new
     /// content is laid out, so the panel lands on the side of the screen away from its target.
+    ///
+    /// On a portrait screen the panel is a full-width sheet (the canvas width minus
+    /// <see cref="PanelPlacement.PortraitSideMargin"/> on each side) with a little less padding; its type is
+    /// the landscape type, which the zoomed portrait canvas already draws at phone size (the 17-unit narration
+    /// is 37 px on a 1080x1920 frame).
     /// </summary>
     public sealed class TourPanel
     {
@@ -52,6 +57,11 @@ namespace Why.Director
         const float BodySize = 17f;
         const float FootnoteSize = 13f;
         const float FooterHeight = 32f;
+
+        // portrait: the same panel as a sheet (canvas units of the zoomed portrait canvas), a little tighter
+        const float PortraitMaxWidth = 760f;
+        const float PortraitStepPadding = 20f;
+        const float PortraitCardPadding = 28f;
         const float InSeconds = 0.42f;
         const float OutSeconds = 0.2f;
         const float SlideDistance = 28f;
@@ -166,11 +176,15 @@ namespace Why.Director
             else phase = Phase.Out;
         }
 
-        /// <summary>Moves the current content to another slot (out and back in), keeping the typewriter.</summary>
+        /// <summary>
+        /// Moves the content to another slot (out and back in), keeping the typewriter. While one content slides
+        /// out for the next (after Next / Back), the next one is what moves; a panel that is hiding stays hidden.
+        /// </summary>
         public void Relocate(Func<Vector2, PanelSlot> placement)
         {
-            if (content == null || phase == Phase.Hidden) return;
-            Present(content, placement);
+            PanelContent moving = pendingContent ?? content;
+            if (moving == null || phase == Phase.Hidden || (phase == Phase.Out && pendingContent == null)) return;
+            Present(moving, placement);
         }
 
         /// <summary>Slides the panel out and deactivates it.</summary>
@@ -282,11 +296,25 @@ namespace Why.Director
             Tick(0);
         }
 
+        /// <summary>
+        /// Width of the panel for this content: fixed in landscape, a full-width sheet in portrait (measured on the
+        /// canvas size the screen gives, so this does not wait for the canvas to be re-scaled after an orientation
+        /// change).
+        /// </summary>
+        static float PanelWidth(PanelContent c, bool portrait)
+        {
+            if (!portrait) return c.Card ? CardWidth : StepWidth;
+            return Mathf.Min(PanelPlacement.PortraitSheetWidth(UiFactory.CanvasSize.x), PortraitMaxWidth);
+        }
+
         /// <summary>Positions every element for the content (top-down) and returns the panel size.</summary>
         Vector2 Layout(PanelContent c)
         {
-            float width = c.Card ? CardWidth : StepWidth;
-            float pad = c.Card ? CardPadding : StepPadding;
+            bool portrait = ScreenLayout.IsPortrait;
+            float width = PanelWidth(c, portrait);
+            float pad = c.Card
+                ? portrait ? PortraitCardPadding : CardPadding
+                : portrait ? PortraitStepPadding : StepPadding;
             float inner = width - 2 * pad;
             TextAlignmentOptions align = c.Card ? TextAlignmentOptions.Top : TextAlignmentOptions.TopLeft;
             float y = pad;

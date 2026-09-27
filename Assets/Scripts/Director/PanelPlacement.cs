@@ -11,13 +11,20 @@ namespace Why.Director
         LeftBottom,
         RightTop,
         RightMiddle,
-        RightBottom
+        RightBottom,
+
+        /// <summary>Portrait: a full-width sheet docked at the top edge.</summary>
+        Top,
+
+        /// <summary>Portrait: a full-width sheet docked at the bottom edge, above the HUD legend.</summary>
+        Bottom
     }
 
     /// <summary>
     /// Screen geometry for the director: projecting anchors under a camera pose, clamping off-screen
     /// targets to the screen edge, and choosing a panel slot that never covers what the panel points at.
-    /// Positions are canvas units with the origin at the bottom-left corner of the canvas.
+    /// Positions are canvas units with the origin at the bottom-left corner of the canvas. Landscape uses
+    /// the side slots; a portrait screen (500 canvas units wide) docks the panel as a top or bottom sheet.
     /// </summary>
     public static class PanelPlacement
     {
@@ -33,6 +40,25 @@ namespace Why.Director
         /// <summary>Inset of clamped (off-screen) arrow tips from the screen edge.</summary>
         public const float EdgeInset = 44f;
 
+        /// <summary>Portrait: distance of the sheets from the left and right screen edges.</summary>
+        public const float PortraitSideMargin = 10f;
+
+        /// <summary>Portrait: distance of the top sheet from the top edge (the HUD title steps aside during the tour).</summary>
+        public const float PortraitTopMargin = 18f;
+
+        /// <summary>
+        /// Portrait: distance of the bottom sheet from the bottom edge. During the tour the HUD keeps only the
+        /// legend (16 + ~62 units) and, while lifelines show, the readout above it (+10 + ~33) down there; the
+        /// sheet sits just above both (the HUD and the director share the portrait canvas units).
+        /// </summary>
+        public const float PortraitBottomMargin = 130f;
+
+        /// <summary>
+        /// Portrait: targets below this share of the screen height send the sheet to the top (the bottom sheet
+        /// reaches up to ~45% of a 9:16 screen with the longest narration).
+        /// </summary>
+        const float PortraitLowTarget = 0.5f;
+
         public static Vector2 SlotAnchor(PanelSlot slot)
         {
             switch (slot)
@@ -43,6 +69,8 @@ namespace Why.Director
                 case PanelSlot.RightTop: return new Vector2(1, 1);
                 case PanelSlot.RightMiddle: return new Vector2(1, 0.5f);
                 case PanelSlot.RightBottom: return new Vector2(1, 0);
+                case PanelSlot.Top: return new Vector2(0.5f, 1);
+                case PanelSlot.Bottom: return new Vector2(0.5f, 0);
                 default: return new Vector2(0.5f, 0.5f);
             }
         }
@@ -50,6 +78,8 @@ namespace Why.Director
         /// <summary>anchoredPosition of a panel in a slot (its pivot equals the slot anchor).</summary>
         public static Vector2 SlotOffset(PanelSlot slot)
         {
+            if (slot == PanelSlot.Top) return new Vector2(0, -PortraitTopMargin);
+            if (slot == PanelSlot.Bottom) return new Vector2(0, PortraitBottomMargin);
             Vector2 a = SlotAnchor(slot);
             float x = a.x < 0.25f ? SideMargin : a.x > 0.75f ? -SideMargin : 0;
             float y = a.y > 0.75f ? -EdgeMargin : a.y < 0.25f ? EdgeMargin : 0;
@@ -59,11 +89,15 @@ namespace Why.Director
         /// <summary>Direction a panel slides in from: its nearest screen edge (cards rise from below).</summary>
         public static Vector2 SlideDirection(PanelSlot slot)
         {
+            if (slot == PanelSlot.Top) return Vector2.up;
             Vector2 a = SlotAnchor(slot);
             if (a.x < 0.25f) return Vector2.left;
             if (a.x > 0.75f) return Vector2.right;
             return Vector2.down;
         }
+
+        /// <summary>Width of a portrait sheet on a canvas this wide.</summary>
+        public static float PortraitSheetWidth(float canvasWidth) => canvasWidth - 2 * PortraitSideMargin;
 
         /// <summary>The rectangle a panel of this size occupies in a slot.</summary>
         public static Rect SlotRect(PanelSlot slot, Vector2 size, Vector2 canvas)
@@ -80,6 +114,7 @@ namespace Why.Director
         /// </summary>
         public static PanelSlot Choose(Vector2 size, Vector2 canvas, bool hasTarget, Vector2 target, bool preferCenter)
         {
+            if (ScreenLayout.IsPortrait) return ChoosePortrait(size, canvas, hasTarget, target, preferCenter);
             if (!hasTarget) return preferCenter ? PanelSlot.Center : PanelSlot.LeftMiddle;
 
             bool right = target.x > canvas.x * 0.5f;
@@ -98,7 +133,28 @@ namespace Why.Director
             PanelSlot[] candidates = preferCenter
                 ? new[] { PanelSlot.Center, opposite, oppositeCorner, sameSideCorner }
                 : new[] { opposite, oppositeCorner, sameSideCorner, oppositeSameHeight, PanelSlot.Center };
+            return FirstClear(candidates, size, canvas, target);
+        }
 
+        /// <summary>
+        /// Portrait: the panel is a full-width sheet, so only its height is free. It docks at the bottom (above
+        /// the legend) unless the target is low on the screen, then at the top; cards prefer the center.
+        /// </summary>
+        static PanelSlot ChoosePortrait(Vector2 size, Vector2 canvas, bool hasTarget, Vector2 target, bool preferCenter)
+        {
+            if (!hasTarget) return preferCenter ? PanelSlot.Center : PanelSlot.Bottom;
+            bool low = target.y < canvas.y * PortraitLowTarget;
+            PanelSlot away = low ? PanelSlot.Top : PanelSlot.Bottom;
+            PanelSlot other = low ? PanelSlot.Bottom : PanelSlot.Top;
+            PanelSlot[] candidates = preferCenter
+                ? new[] { PanelSlot.Center, away, other }
+                : new[] { away, other };
+            return FirstClear(candidates, size, canvas, target);
+        }
+
+        /// <summary>The first candidate that keeps <see cref="Clearance"/> from the target, else the farthest one.</summary>
+        static PanelSlot FirstClear(PanelSlot[] candidates, Vector2 size, Vector2 canvas, Vector2 target)
+        {
             PanelSlot best = candidates[0];
             float bestDistance = -1;
             foreach (PanelSlot slot in candidates)
@@ -125,8 +181,9 @@ namespace Why.Director
 
         /// <summary>
         /// Viewport position (0..1) of a world point seen from a camera pose (mirrors CameraRig's pose to
-        /// transform mapping), so the panel can be placed for where a flight will end. Points behind the
-        /// pose are pushed far out in their direction; returns false for those.
+        /// transform mapping), so the panel can be placed for where a flight will end. fovDegrees is the
+        /// vertical field of view and aspect the screen's width / height (below 1 in portrait). Points behind
+        /// the pose are pushed far out in their direction; returns false for those.
         /// </summary>
         public static bool ViewportUnderPose(CameraPose pose, float fovDegrees, float aspect, Vector3 world,
             out Vector2 viewport)

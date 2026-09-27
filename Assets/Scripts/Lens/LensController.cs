@@ -16,6 +16,12 @@ namespace Why.Lens
         /// <summary>Log offset as a fraction of the window's geometric center: small = log, large = linear.</summary>
         static readonly float[] LinearityLevels = { 0.02f, 0.35f, 6f };
 
+        /// <summary>
+        /// Portrait: the unrolled span per unit of camera distance, relative to landscape (a turned portrait view
+        /// fits ~0.7 distance units of timeline between its bars, a landscape view ~1.5 across its width).
+        /// </summary>
+        const float PortraitSpan = 0.5f;
+
         GraphRoot root;
         double yaOld, yaNew;
         int linearity = 1;
@@ -57,7 +63,9 @@ namespace Why.Lens
         {
             Vector3 target = root.Rig.Pose.Target;
             float u = ArcAt(target);
-            float span = Mathf.Clamp(root.Rig.Pose.Distance / (2f * Mathf.PI * GraphStyle.R0) * 0.55f, 0.003f, 0.2f);
+            // a portrait view shows about half the stretch of path a landscape view shows from the same distance
+            float distance = root.Rig.Pose.Distance * (ScreenLayout.IsPortrait ? PortraitSpan : 1f);
+            float span = Mathf.Clamp(distance / (2f * Mathf.PI * GraphStyle.R0) * 0.55f, 0.003f, 0.2f);
             yaOld = DeepTime.YearsAgo(Mathf.Min(1f, u + span));
             yaNew = DeepTime.YearsAgo(Mathf.Max(DeepTime.NowArc, u - span));
             linearity = 1;

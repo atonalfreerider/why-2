@@ -7,11 +7,16 @@ namespace Why
     /// <summary>
     /// Orbit camera for a graph spanning many orders of magnitude: exponential zoom toward the cursor,
     /// orbit (right drag), pan (middle drag / shift+left drag / WASD), smooth flights between poses.
-    /// Near/far planes follow the zoom level to keep depth precision.
+    /// Near/far planes follow the zoom level to keep depth precision. Everything works in screen pixels and
+    /// the vertical field of view, so it behaves the same on a portrait screen; when the screen flips
+    /// orientation, GraphRoot flies it to the current preset's framing for the new shape.
     /// </summary>
     [RequireComponent(typeof(Camera))]
     public sealed class CameraRig : MonoBehaviour
     {
+        /// <summary>Vertical field of view (degrees), set by GraphRoot; view presets frame against it.</summary>
+        public const float FieldOfView = 45f;
+
         public float OrbitSensitivity = 0.25f;
         public float ZoomPerNotch = 0.18f;
         public float MinDistance = 0.02f;

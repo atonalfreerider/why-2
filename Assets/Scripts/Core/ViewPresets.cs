@@ -3,11 +3,63 @@ using UnityEngine;
 
 namespace Why
 {
+    /// <summary>How an unrolled preset frames its subject on a portrait (9:16) screen.</summary>
+    public enum PortraitFraming
+    {
+        /// <summary>
+        /// The camera turns 90 degrees to look along the timeline into the past: the past recedes to the top
+        /// of the screen, the present is near at the bottom, and relevance (rho) spreads across. For views of a
+        /// stretch of time with things splitting off outward, which is most of them.
+        /// </summary>
+        Turn,
+
+        /// <summary>
+        /// The landscape orientation stays and the time window is compressed to the narrow width (heights get
+        /// a little more room): for views whose message is height - the strata of domination, lifelines
+        /// rising and falling - which would collapse if the timeline ran down the screen.
+        /// </summary>
+        Narrow
+    }
+
     /// <summary>
-    /// A named way of looking at the graph: which period is unrolled and how, plus a camera pose.
+    /// A named way of looking at the graph: which period is unrolled and how, plus a camera pose. On a
+    /// portrait screen (<see cref="ScreenLayout.IsPortrait"/>) the same preset frames its subject for the tall
+    /// frame (see <see cref="PortraitFraming"/>); landscape framing is exactly the authored one.
     /// </summary>
     public sealed class ViewPreset
     {
+        /// <summary>Aspect (width / height) the landscape framings were authored for.</summary>
+        const float LandscapeAspect = 16f / 9f;
+
+        /// <summary>
+        /// Portrait: the screen band (normalized device y, -1 bottom .. 1 top) a turned timeline (or a polar arc's
+        /// band of relevance) is fitted into, clear of the HUD on the 500x889 portrait canvas: the title block with
+        /// a three-line subtitle ends at 0.76, the preset bar (four rows) and the legend reach up to -0.51 (the
+        /// lifeline readout, while shown, to -0.42 at the left).
+        /// </summary>
+        const float PortraitTop = 0.76f, PortraitBottom = -0.48f;
+
+        /// <summary>
+        /// Portrait pitch range of turned views: steep enough that perspective does not crush the far (older)
+        /// end of the timeline (at 50 degrees the far end still shows at ~0.6x the scale of the near end).
+        /// </summary>
+        const float TurnMinPitch = 50, TurnMaxPitch = 60;
+
+        /// <summary>Narrow views step back this much from their landscape distance.</summary>
+        const float NarrowPullback = 1.25f;
+
+        /// <summary>Share of the screen width a narrowed time window fills.</summary>
+        const float NarrowFill = 0.92f;
+
+        /// <summary>Narrow views stretch heights this much: the tall frame has room for them.</summary>
+        const float NarrowHeight = 1.5f;
+
+        /// <summary>
+        /// Turned views: the inner edge of the frame's narrowest (nearest) row stays this many world units inside
+        /// the base path, room for the time axis and its labels; the rest of the width shows relevance.
+        /// </summary>
+        const float PortraitInnerMargin = 0.4f;
+
         public string Id;
         public string Title;
         public string Subtitle;
@@ -38,6 +90,25 @@ namespace Why
         /// <summary>For polar presets: the arc the camera looks at (0.5 = 12 o'clock); &lt;0 = whole clock.</summary>
         public float PolarArc = -1;
 
+        /// <summary>How an unrolled preset frames its subject on a portrait screen.</summary>
+        public PortraitFraming Portrait = PortraitFraming.Turn;
+
+        /// <summary>
+        /// Polar presets on a portrait screen keep their orientation and step back until this many world units
+        /// across the target fit the narrow width (unless <see cref="PortraitRho"/> frames them).
+        /// </summary>
+        public float PortraitWidth = 10;
+
+        /// <summary>
+        /// Polar presets that look at one arc of the clock, on a portrait screen: the band of relevance (data rho,
+        /// x = inner .. y = outer) fitted between the title block and the bottom bar, so it fills the tall frame
+        /// instead of shrinking to fit <see cref="PortraitWidth"/> across. Unused while y &lt;= x.
+        /// </summary>
+        public Vector2 PortraitRho;
+
+        /// <summary>Pitch on a portrait screen for polar presets (0 = <see cref="Pitch"/>).</summary>
+        public float PortraitPitch;
+
         public WarpState Warp()
         {
             if (Polar)
@@ -49,6 +120,13 @@ namespace Why
                 return s;
             }
 
+            if (ScreenLayout.IsPortrait && Portrait == PortraitFraming.Narrow)
+            {
+                // the stretch of time the landscape view shows, squeezed into the portrait width
+                float narrow = Length * Mathf.Min(1f, NarrowExtent() / LandscapeExtent());
+                return WarpState.Window(YaOld, YaNew, LogOffset, narrow, 1, RhoScale, YScale * NarrowHeight);
+            }
+
             return WarpState.Window(YaOld, YaNew, LogOffset, Length, 1, RhoScale, YScale);
         }
 
@@ -56,15 +134,17 @@ namespace Why
         public CameraPose Pose()
         {
             WarpState w = Warp();
+            bool portrait = ScreenLayout.IsPortrait;
             if (Polar && PolarArc < 0)
             {
-                // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face
+                // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face;
+                // on a portrait screen the branch hangs down toward the viewer, so only the width needs room
                 return new CameraPose
                 {
                     Target = new Vector3(1.6f, TargetY, -2.4f),
                     Yaw = 0 + YawOffset,
                     Pitch = Pitch,
-                    Distance = Distance
+                    Distance = portrait ? PolarPortraitDistance() : Distance
                 };
             }
 
@@ -73,7 +153,96 @@ namespace Why
             // look outward from inside the path: past on the left, present on the right
             Vector3 n = GraphWarp.NormalAt(u, w);
             float yaw = Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + YawOffset;
-            return new CameraPose { Target = target, Yaw = yaw, Pitch = Pitch, Distance = Distance };
+            CameraPose pose = new CameraPose { Target = target, Yaw = yaw, Pitch = Pitch, Distance = Distance };
+            if (!portrait) return pose;
+
+            if (Polar) PolarArcPortrait(ref pose);
+            else if (Portrait == PortraitFraming.Narrow) pose.Distance = Distance * NarrowPullback;
+            else Turn(ref pose);
+            return pose;
+        }
+
+        static float TanHalfFov => Mathf.Tan(CameraRig.FieldOfView * 0.5f * Mathf.Deg2Rad);
+
+        /// <summary>Portrait aspect used for framing (clamped: a near-square window still frames sensibly).</summary>
+        static float PortraitAspect => Mathf.Clamp(ScreenLayout.Aspect, 0.4f, 1f);
+
+        /// <summary>World units of the timeline the landscape view shows across the screen (at most the window).</summary>
+        float LandscapeExtent() => Mathf.Min(Length, 2f * Distance * TanHalfFov * LandscapeAspect);
+
+        /// <summary>World units of the timeline a narrow view fits across the portrait width.</summary>
+        float NarrowExtent()
+        {
+            float across = 2f * Distance * NarrowPullback * TanHalfFov * PortraitAspect;
+            return NarrowFill * across / Mathf.Max(0.3f, Mathf.Cos(YawOffset * Mathf.Deg2Rad));
+        }
+
+        /// <summary>Polar presets on a portrait screen: step back until <see cref="PortraitWidth"/> fits across.</summary>
+        float PolarPortraitDistance() => Mathf.Max(Distance, PortraitWidth / (2f * TanHalfFov * PortraitAspect));
+
+        /// <summary>
+        /// A polar preset that looks at one arc of the clock, on a portrait screen: it keeps its orientation and,
+        /// with <see cref="PortraitRho"/> set, looks down more steeply with its band of relevance filling the frame
+        /// between the bars (stepping back until the arc's landscape width fits would show the far side of the
+        /// clock in the tall frame). Without it, the view steps back until <see cref="PortraitWidth"/> fits across.
+        /// </summary>
+        void PolarArcPortrait(ref CameraPose pose)
+        {
+            if (PortraitPitch > 0) pose.Pitch = PortraitPitch;
+            if (PortraitRho.y <= PortraitRho.x)
+            {
+                pose.Distance = PolarPortraitDistance();
+                return;
+            }
+
+            // the camera looks outward, so the band runs up the screen from its inner to its outer edge
+            float extent = (PortraitRho.y - PortraitRho.x) * RhoScale;
+            float middle = ((PortraitRho.x + PortraitRho.y) * 0.5f - TargetRho) * RhoScale;
+            FitAlongView(ref pose, extent, middle);
+        }
+
+        /// <summary>
+        /// Portrait framing of an unrolled window: look along the timeline into the past (the present is near,
+        /// at the bottom of the screen), steep enough that the far end is not crushed by perspective, and far
+        /// enough that the stretch of time the landscape view showed fits between the title block and the
+        /// bottom bar. Relevance (rho) then runs across the screen, outward to the right: the view slides
+        /// outward until the narrowest (nearest) row starts just inside the base path, so the width shows what
+        /// splits off rather than the empty inside of the path.
+        /// </summary>
+        void Turn(ref CameraPose pose)
+        {
+            pose.Yaw -= 90;
+            pose.Pitch = Mathf.Clamp(Pitch, TurnMinPitch, TurnMaxPitch);
+            float nearEnd = FitAlongView(ref pose, LandscapeExtent(), 0);
+
+            float cos = Mathf.Cos(pose.Pitch * Mathf.Deg2Rad);
+            float halfWidthNear = (pose.Distance + nearEnd * cos) * TanHalfFov * PortraitAspect;
+            float outward = Mathf.Max(0, halfWidthNear - PortraitInnerMargin - TargetRho * RhoScale);
+            pose.Target += Quaternion.Euler(0, pose.Yaw, 0) * Vector3.right * outward;
+        }
+
+        /// <summary>
+        /// Fits a stretch of the target's height plane that runs along the view (extent world units, its middle
+        /// middleAhead units in front of the target) between PortraitBottom and PortraitTop: sets the distance
+        /// and moves the target along the view. Returns where the stretch's near end lies relative to the new
+        /// target (world units in front of it; negative, toward the camera).
+        /// </summary>
+        static float FitAlongView(ref CameraPose pose, float extent, float middleAhead)
+        {
+            float t = TanHalfFov;
+            float sin = Mathf.Sin(pose.Pitch * Mathf.Deg2Rad), cos = Mathf.Cos(pose.Pitch * Mathf.Deg2Rad);
+
+            // a point r world units further along the view than the target projects to
+            // y = r sin / ((D + r cos) t); solve for the distance D and the target that put the ends of the
+            // extent at PortraitBottom and PortraitTop
+            float kTop = PortraitTop / (sin - PortraitTop * t * cos);
+            float kBottom = PortraitBottom / (sin - PortraitBottom * t * cos);
+            float distance = extent / (t * (kTop - kBottom));
+            float targetToFarEnd = kTop * t * distance;
+            Vector3 ahead = Quaternion.Euler(0, pose.Yaw, 0) * Vector3.forward;
+            pose.Target += ahead * (middleAhead + extent * 0.5f - targetToFarEnd);
+            pose.Distance = distance;
+            return kBottom * t * distance;
         }
     }
 
@@ -111,7 +280,8 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "overview", Title = "Everything", Subtitle = "From the Big Bang to this moment",
-                    Key = KeyCode.Alpha1, Polar = true, Pitch = 62, Distance = 22f, TargetY = GraphStyle.LifeY, StrataEmphasis = 0.6f
+                    Key = KeyCode.Alpha1, Polar = true, Pitch = 62, Distance = 22f, TargetY = GraphStyle.LifeY, StrataEmphasis = 0.6f,
+                    PortraitWidth = 13.5f
                 },
                 new ViewPreset
                 {
@@ -135,7 +305,8 @@ namespace Why
                 {
                     Id = "life", Title = "Life", Subtitle = "4.2 billion years of evolution",
                     Key = KeyCode.Alpha3, Polar = true, PolarArc = 0.47f, TargetRho = 1.2f,
-                    TargetY = GraphStyle.LifeY, Pitch = 55, Distance = 7.5f
+                    TargetY = GraphStyle.LifeY, Pitch = 55, Distance = 7.5f,
+                    PortraitPitch = 70, PortraitRho = new Vector2(-1.5f, 4.5f)
                 },
                 new ViewPreset
                 {
@@ -180,7 +351,8 @@ namespace Why
                     Id = "footprint", Title = "Human footprint",
                     Subtitle = "Humans above the livestock and crops they raise, above the minerals they extract",
                     Key = KeyCode.Alpha9, YaOld = Ya(-3100), YaNew = 0, LogOffset = 400, Length = 14, YScale = 6f,
-                    TargetRho = 2.0f, TargetY = GraphStyle.FarmY, Pitch = 16, Distance = 11, YawOffset = -18
+                    TargetRho = 2.0f, TargetY = GraphStyle.FarmY, Pitch = 16, Distance = 11, YawOffset = -18,
+                    Portrait = PortraitFraming.Narrow
                 },
                 new ViewPreset
                 {
@@ -188,7 +360,8 @@ namespace Why
                     Subtitle = "Gender-separated lifelines rising and falling with social market value",
                     Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14,
                     RhoScale = 2.5f, YScale = 3f, StrataEmphasis = 0.1f,
-                    TargetRho = 0.7f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 8f
+                    TargetRho = 0.7f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 8f,
+                    Portrait = PortraitFraming.Narrow
                 },
                 new ViewPreset
                 {

@@ -30,6 +30,9 @@ namespace Why.UI
 
         public void Toggle() => fade.Show(!fade.Shown);
 
+        /// <summary>Anchor the panel's top-right corner this far from the right and top screen edges (canvas units).</summary>
+        public void Place(float right, float top) => panel.anchoredPosition = new Vector2(-right, -top);
+
         public void Tick(float dt, GraphRoot root)
         {
             fade.Tick(dt);

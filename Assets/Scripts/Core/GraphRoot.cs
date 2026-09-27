@@ -29,10 +29,15 @@ namespace Why
 
     /// <summary>
     /// Bootstraps the causality graph: camera and post-processing, layers and modules, asynchronous
-    /// loading, and focus transitions between <see cref="ViewPresets"/>.
+    /// loading, and focus transitions between <see cref="ViewPresets"/>. It also follows the shape of the
+    /// screen (<see cref="ScreenLayout"/>): when it flips between landscape and portrait the current view is
+    /// re-framed for the new shape, and V toggles a 9:16 window for recording phone videos.
     /// </summary>
     public sealed class GraphRoot : MonoBehaviour
     {
+        /// <summary>Seconds the camera takes to re-frame the view after the screen changes orientation.</summary>
+        public const float ReframeSeconds = 0.9f;
+
         public static GraphRoot Instance { get; private set; }
 
         public CameraRig Rig { get; private set; }
@@ -56,6 +61,12 @@ namespace Why
         /// <summary>Raised when something (HUD button, key) asks for the guided tour.</summary>
         public event Action TourRequested;
 
+        /// <summary>
+        /// Raised (in LateUpdate, once every canvas has been re-scaled) after the screen flipped between landscape
+        /// and portrait and the current preset has been re-framed; e.g. the director re-frames its step.
+        /// </summary>
+        public event Action OrientationChanged;
+
         /// <summary>Set by the director while the guided tour runs (HUD dims its own controls).</summary>
         public bool TourActive { get; set; }
 
@@ -63,6 +74,8 @@ namespace Why
 
         readonly List<GraphLayer> layers = new List<GraphLayer>();
         readonly List<GraphModule> modules = new List<GraphModule>();
+        int layoutVersion, orientationVersion;
+        bool reframePending;
 
         void Awake()
         {
@@ -71,6 +84,11 @@ namespace Why
             GraphWarp.Set(WarpState.Polar);
             QualitySettings.vSyncCount = 1;
             Application.targetFrameRate = -1;
+
+            // the first view, the canvases and the modules' layouts all depend on the shape of the screen
+            ScreenLayout.Refresh();
+            layoutVersion = ScreenLayout.Version;
+            orientationVersion = ScreenLayout.OrientationVersion;
 
             SetupCamera();
             SetupPostProcessing();
@@ -184,6 +202,7 @@ namespace Why
         void Update()
         {
             float dt = Time.unscaledDeltaTime;
+            FollowScreen();
             GraphWarp.Tick(dt);
             Highlighter.Tick(dt);
 
@@ -193,6 +212,7 @@ namespace Why
             }
 
             Keyboard kb = Keyboard.current;
+            if (kb != null && kb.vKey.wasPressedThisFrame) ScreenLayout.ToggleVertical();
             if (kb != null && AllowPresetKeys && IsLoaded)
             {
                 foreach (ViewPreset p in ViewPresets.All)
@@ -201,6 +221,44 @@ namespace Why
                     if (KeyPressed(kb, p.Key)) Focus(p);
                 }
             }
+        }
+
+        void LateUpdate()
+        {
+            // after every canvas scaler has run this frame, so listeners measure the new canvas sizes
+            if (!reframePending) return;
+            reframePending = false;
+            Reframe();
+        }
+
+        /// <summary>
+        /// Labels re-place when the screen changes size (the camera may not move); a flip between landscape and
+        /// portrait re-frames the view in LateUpdate.
+        /// </summary>
+        void FollowScreen()
+        {
+            ScreenLayout.Refresh();
+            if (layoutVersion == ScreenLayout.Version) return;
+            layoutVersion = ScreenLayout.Version;
+            Labels.MarkDirty();
+            if (orientationVersion == ScreenLayout.OrientationVersion) return;
+            orientationVersion = ScreenLayout.OrientationVersion;
+            reframePending = true;
+        }
+
+        /// <summary>
+        /// Re-applies the current preset for the new screen shape (presets frame differently in portrait) without
+        /// announcing a focus change, then tells the modules.
+        /// </summary>
+        void Reframe()
+        {
+            if (CurrentPreset != null)
+            {
+                GraphWarp.AnimateTo(CurrentPreset.Warp(), ReframeSeconds);
+                Rig.FlyTo(CurrentPreset.Pose(), ReframeSeconds);
+            }
+
+            OrientationChanged?.Invoke();
         }
 
         static bool KeyPressed(Keyboard kb, KeyCode code)
@@ -246,7 +304,7 @@ namespace Why
             cam.backgroundColor = GraphStyle.Background;
             cam.allowHDR = true;
             cam.allowMSAA = true;
-            cam.fieldOfView = 45;
+            cam.fieldOfView = CameraRig.FieldOfView;
             UniversalAdditionalCameraData data = cam.GetUniversalAdditionalCameraData();
             data.renderPostProcessing = true;
             data.antialiasing = AntialiasingMode.None;

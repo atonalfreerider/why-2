@@ -16,6 +16,10 @@ namespace Why.UI
         const int SortingOrder = 30000;
 
         const float BarWidth = 300f;
+
+        /// <summary>Width of the title card and its lines; narrower on a portrait canvas (500 units wide) to fit it.</summary>
+        const float CardWidth = 640f;
+
         const float HoldSeconds = 0.55f;
         const float FadeSeconds = 0.8f;
 
@@ -35,6 +39,8 @@ namespace Why.UI
         CanvasGroup group;
         RectTransform barFill;
         TextMeshProUGUI status;
+        RectTransform[] widthFitted;
+        int fittedVersion = -1;
         string loaderStatus;
         float shownProgress;
         bool loaded;
@@ -67,18 +73,18 @@ namespace Why.UI
             backdrop.gameObject.AddComponent<Image>().color = GraphStyle.Background;
 
             RectTransform card = UiFactory.Rect(rt, "Card")
-                .Place(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0, 20), new Vector2(640, 220));
+                .Place(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(0, 20), new Vector2(CardWidth, 220));
 
             TextMeshProUGUI title = UiFactory.Text(card, "Title", "WHY", 64, GraphStyle.Text,
                 TextAlignmentOptions.Center, FontStyles.Bold);
             title.characterSpacing = 28;
-            title.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(640, 80));
+            title.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(CardWidth, 80));
 
             TextMeshProUGUI subtitle = UiFactory.Text(card, "Subtitle", "From the Big Bang to this moment", 17,
                 GraphStyle.TextDim, TextAlignmentOptions.Center);
             subtitle.characterSpacing = 4;
             subtitle.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -86),
-                new Vector2(640, 28));
+                new Vector2(CardWidth, 28));
 
             Image track = UiFactory.Rect(card, "Track")
                 .Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -140), new Vector2(BarWidth, 2))
@@ -98,13 +104,24 @@ namespace Why.UI
             status.textWrappingMode = TextWrappingModes.NoWrap;
             status.overflowMode = TextOverflowModes.Ellipsis;
             status.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -154),
-                new Vector2(640, 24));
+                new Vector2(CardWidth, 24));
+            widthFitted = new[] { card, title.rectTransform, subtitle.rectTransform, status.rectTransform };
+            FitWidth();
             FollowLoaderStatus();
+        }
+
+        /// <summary>The card and its lines at most the canvas width (less the HUD margins): a portrait canvas is narrower.</summary>
+        void FitWidth()
+        {
+            fittedVersion = ScreenLayout.Version;
+            float width = Mathf.Min(CardWidth, UiFactory.CanvasSize.x - 2 * HudKit.Margin);
+            foreach (RectTransform r in widthFitted) r.sizeDelta = new Vector2(width, r.sizeDelta.y);
         }
 
         void Update()
         {
             float dt = Mathf.Min(Time.unscaledDeltaTime, MaxStep);
+            if (fittedVersion != ScreenLayout.Version) FitWidth();
             if (loaded && doneTime < 0) doneTime = Time.unscaledTime;
             bool done = doneTime >= 0;
 

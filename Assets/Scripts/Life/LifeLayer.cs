@@ -380,7 +380,7 @@ namespace Why.Life
                 // a clade is anchored at its crown (where it starts to diversify); a single leaf at its stem
                 double stemYa = node == 0 ? tree.RootAgeMya * 1e6 : tree.AgeMya[tree.Parent[node]] * 1e6;
                 double crownYa = tree.AgeMya[node] * 1e6;
-                double ya = crownYa > 0 ? crownYa : stemYa;
+                double ya = tree.IsLeaf(node) ? stemYa : crownYa;
                 float u = DeepTime.Arc(ya);
                 Anchor anchor = new Anchor
                 {

@@ -108,7 +108,8 @@ namespace Why.Life
             }
 
             RootAgeMya = maxLeafDepth;
-            for (int i = 0; i < n; i++) AgeMya[i] = Math.Max(0, RootAgeMya - Depth[i]);
+            // leaves are extant (float rounding would otherwise give them ages of a few thousand years)
+            for (int i = 0; i < n; i++) AgeMya[i] = Children[i].Count == 0 ? 0 : Math.Max(0, RootAgeMya - Depth[i]);
         }
 
         /// <summary>Index of the first leaf with this label, or -1.</summary>

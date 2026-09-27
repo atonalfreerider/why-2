@@ -41,6 +41,7 @@ namespace Why.Axis
         Mesh mesh;
         bool dirty;
 
+        /// <summary>Creates an empty mesh builder with room for the expected number of segments.</summary>
         public DynamicLineMesh(int capacitySegments = 256)
         {
             vertices = new List<Vertex>(capacitySegments * 4);
@@ -48,6 +49,7 @@ namespace Why.Axis
             indices = new List<int>(capacitySegments * 6);
         }
 
+        /// <summary>Number of segments added so far (4 vertices each).</summary>
         public int SegmentCount => baseAlpha.Count / 2;
 
         /// <summary>Adds a segment from a to b; the alpha of each end is its full (level of detail = 1) opacity.</summary>

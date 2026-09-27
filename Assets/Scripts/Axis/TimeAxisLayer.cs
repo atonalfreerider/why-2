@@ -9,13 +9,17 @@ using Debug = UnityEngine.Debug;
 namespace Why.Axis
 {
     /// <summary>
-    /// The clock face. A thin neutral base ring runs around the whole clock just inside the content; tick
-    /// marks name "nice" moments at every scale (13.8 Ga ... 1 CE ... 2000 ... 1 second ago ... the Planck
-    /// time) so the super-logarithmic clock stays legible; a glowing "Now" beacon rises through all three
-    /// levels at the present moment, and a faint seam marks the Big Bang where the ring closes.
+    /// The clock face and time axis. A thin neutral base line runs just inside the content along the whole
+    /// path: around the clock from the Big Bang (6 o'clock) to 3 o'clock, then down the straight human
+    /// branch to the present. Tick marks name "nice" moments at every scale (13.8 Ga ... 1 CE ... 2000 ...
+    /// 1 second ago) so the super-logarithmic clock and the near-linear branch stay legible; a glowing "Now"
+    /// beacon rises through all three levels at the tip of the branch, and a faint post marks where time
+    /// begins at the Big Bang.
     ///
     /// Scaffolding only: no hue, low intensity, highlight id 0. Everything lives in data space, so the
-    /// same geometry reads as a clock face in polar views and as a ruler in unrolled ones.
+    /// same geometry reads as a clock face in polar views and as a ruler in unrolled ones. The base line is
+    /// dimmer around the clock, where the red matter lineage already traces the path right beside it, and
+    /// brightens along the branch, where life and matter have dissolved and it is the path's only floor.
     ///
     /// Level of detail is per tick and view dependent: a tick fades as a tick of equal or higher rank gets
     /// close on screen, which works for the polar clock and for any unrolled window alike. A tick's label
@@ -43,6 +47,10 @@ namespace Why.Axis
         const float ArcStep = 0.0025f;
         const double RingLogOffset = 300;
         const double RingMaxLn = 0.005;
+
+        // base line opacity around the clock (beside the matter lineage) and along the human branch
+        const float RingAlphaClock = 0.3f;
+        const float RingAlphaBranch = 0.55f;
 
         // level of detail: a tick fades in as its nearest equal-or-higher-rank neighbor moves from
         // FadeStartPx to FadeFullPx away on screen (1080p reference pixels)
@@ -77,7 +85,7 @@ namespace Why.Axis
         int[] tickSegment;       // tick -> segment in tickMesh
         int[] gridSegment;       // tick -> vertical grid segment, or -1
         LabelSpec[] labels;      // tick -> label, or null
-        bool[] nudge;            // tick -> label shifted toward the present (the Big Bang tick, beside the seam)
+        bool[] nudge;            // tick -> label shifted toward the present (the Big Bang tick, beside its post)
         Vector3[] screen;        // tick -> screen position of its base, per view
 
         int lastCam = -1, lastWarp = -1, lastWidth, lastHeight;
@@ -96,28 +104,38 @@ namespace Why.Axis
                       $"({ticks.Length} ticks, {labelCount} labels, {lines.VertexCount + tickMesh.SegmentCount * 4} vertices)");
         }
 
-        // --- ring, seam and beacon (static) ---------------------------------------------------------------
+        // --- base line, Big Bang post and beacon (static) --------------------------------------------------
 
+        /// <summary>The base line from the Big Bang to now, handing over from the clock to the human branch.</summary>
         void BuildRing()
         {
-            List<Vector3> pts = new List<Vector3>(1600);
+            List<LinePoint> pts = new List<LinePoint>(4096);
             float u = 1f;
-            pts.Add(new Vector3(u, AxisY, RingRho));
+            pts.Add(RingPoint(u));
             while (u > DeepTime.NowArc)
             {
                 float step = ArcStep;
                 double d = Math.Abs(LnAge(u) - LnAge(u - step));
                 if (d > RingMaxLn) step = Mathf.Max(step * (float)(RingMaxLn / d), 1e-5f);
                 u = Mathf.Max(u - step, DeepTime.NowArc);
-                pts.Add(new Vector3(u, AxisY, RingRho));
+                pts.Add(RingPoint(u));
             }
 
-            lines.AddPolyline(pts, Tint(GraphStyle.Axis, 0.5f), 1.1f, 0.0008f, GraphIds.None);
+            lines.AddPolyline(pts, GraphIds.None);
+        }
+
+        static LinePoint RingPoint(float u)
+        {
+            float alpha = Mathf.Lerp(RingAlphaBranch, RingAlphaClock, GraphStyle.HandoffFade(u));
+            return new LinePoint(new Vector3(u, AxisY, RingRho), Tint(GraphStyle.Axis, alpha), 1.1f, 0.0008f);
         }
 
         static double LnAge(float u) => Math.Log(DeepTime.YearsAgo(Math.Max(u, 0)) + RingLogOffset);
 
-        /// <summary>A faint vertical seam at the Big Bang, where the ring closes beside the present.</summary>
+        /// <summary>
+        /// A faint vertical post at the Big Bang where time begins, answering the "Now" beacon at the other
+        /// end of the path (a left edge through all three levels in unrolled views of the early universe).
+        /// </summary>
         void BuildSeam()
         {
             lines.AddSegment(new Vector3(1f, AxisY, 0), new Vector3(1f, GraphStyle.HumansY + GraphStyle.SmvHeight, 0),
@@ -216,9 +234,8 @@ namespace Why.Axis
                     SizePx = st.LabelSize,
                     Color = st.LabelColor,
                     Align = TextAlignmentOptions.Center,
-                    AnchorKey = t.YearsAgo >= 1 / TimeTicks.SecondsPerYear
-                        ? "time:" + t.YearsAgo.ToString("R", CultureInfo.InvariantCulture)
-                        : null
+                    // hover tooltip and click-to-focus through the core's dynamic "time:" anchors
+                    AnchorKey = "time:" + t.YearsAgo.ToString("R", CultureInfo.InvariantCulture)
                 };
                 nudge[i] = t.YearsAgo >= DeepTime.AgeU;
                 ctx.Labels.Add(labels[i]);
@@ -286,12 +303,13 @@ namespace Why.Axis
             lastWidth = width;
             lastHeight = height;
 
+            // GraphWarp.ToWorld without a state uses the current warp with its derived frame cached, so this
+            // loop does not re-derive the junction frame for every tick
             Camera cam = rig.Cam;
-            WarpState warp = GraphWarp.Current;
             float ui = LabelSystem.UiScale;
             for (int i = 0; i < ticks.Length; i++)
             {
-                screen[i] = cam.WorldToScreenPoint(GraphWarp.ToWorld(ticks[i].U, AxisY, TickRho, warp));
+                screen[i] = cam.WorldToScreenPoint(GraphWarp.ToWorld(ticks[i].U, AxisY, TickRho));
             }
 
             float margin = 200 * ui;
@@ -308,7 +326,7 @@ namespace Why.Axis
                 LabelSpec label = labels[i];
                 if (label == null) continue;
                 if (label.Hidden ? fade > LabelShowAbove : fade < LabelHideBelow) label.Hidden = !label.Hidden;
-                if (!label.Hidden) PlaceLabel(i, label, cam, warp);
+                if (!label.Hidden) PlaceLabel(i, label, cam);
             }
 
             tickMesh.Apply();
@@ -329,12 +347,12 @@ namespace Why.Axis
         /// <summary>
         /// Centers the label just past the inner end of its tick, along the tick's on-screen direction, so
         /// it never covers the ring or the content outside it: beside the tick at 3 and 9 o'clock, under it
-        /// at 12 o'clock and in unrolled views, above it at 6 o'clock.
+        /// at 12 o'clock and in unrolled views, above it at 6 o'clock, left of it along the human branch.
         /// </summary>
-        void PlaceLabel(int i, LabelSpec label, Camera cam, WarpState warp)
+        void PlaceLabel(int i, LabelSpec label, Camera cam)
         {
             Vector3 d = label.Data;
-            Vector3 end = cam.WorldToScreenPoint(GraphWarp.ToWorld(d.x, d.y, d.z, warp));
+            Vector3 end = cam.WorldToScreenPoint(GraphWarp.ToWorld(d));
             if (end.z <= 0) return;
 
             Vector2 dir = Direction(screen[i], end, new Vector2(0, -1));
@@ -344,8 +362,8 @@ namespace Why.Axis
 
             if (nudge[i])
             {
-                // step toward the present so the label sits beside the seam and the beacon, not across them
-                Vector3 ahead = cam.WorldToScreenPoint(GraphWarp.ToWorld(d.x - 0.003f, d.y, d.z, warp));
+                // step toward the present so the label sits beside the Big Bang post, not across it
+                Vector3 ahead = cam.WorldToScreenPoint(GraphWarp.ToWorld(d.x - 0.003f, d.y, d.z));
                 if (ahead.z > 0) offset += Direction(end, ahead, Vector2.zero) * (halfW + LabelGapPx);
             }
 

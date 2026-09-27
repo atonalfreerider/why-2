@@ -37,6 +37,7 @@ namespace Why.Axis
         /// <summary>Index of the nearest younger tick with a rank >= this one, or -1.</summary>
         public int Younger;
 
+        /// <summary>Visual weight (tick length, width, label size) derived from <see cref="Rank"/>.</summary>
         public TickClass Class =>
             Rank >= TimeTicks.MajorRank ? TickClass.Major
             : Rank >= TimeTicks.MediumRank ? TickClass.Medium
@@ -51,14 +52,20 @@ namespace Why.Axis
     }
 
     /// <summary>
-    /// The catalog of axis ticks at every scale: billions of years, geologic and archaeological time, the
-    /// calendar of recorded history, and the present quadrant of the super-log clock where the last months
-    /// shrink to days, seconds and finally the Planck time. Pure and thread safe.
+    /// The catalog of axis ticks at every scale: billions of years and geologic and archaeological time
+    /// around the clock, the calendar of recorded history along the straight human branch, and the last
+    /// months, days, hours and seconds before now, which surface when a lens unrolls the present.
+    /// Pure and thread safe.
     /// </summary>
     public static class TimeTicks
     {
+        /// <summary>Lowest rank of a major tick (long, bright, labeled in <see cref="GraphStyle.Text"/>).</summary>
         public const float MajorRank = 24;
+
+        /// <summary>Lowest rank of a medium tick.</summary>
         public const float MediumRank = 8;
+
+        /// <summary>Lowest rank of a minor tick; below it ticks are fine detail with label priority under 1.</summary>
         public const float MinorRank = 3;
 
         /// <summary>Rank of the "now" tick: it always survives level of detail.</summary>
@@ -68,7 +75,6 @@ namespace Why.Axis
         public const double SecondsPerYear = 365.25 * 86400;
 
         const double DaysPerYear = 365.25;
-        const double PlanckTimeSeconds = 5.39e-44;
 
         /// <summary>Two ticks closer than this in ln(years ago) are one moment; the higher rank wins.</summary>
         const double DuplicateLn = 0.004;
@@ -214,8 +220,15 @@ namespace Why.Axis
             return astronomicalYear < 1000 ? astronomicalYear.ToString(c) + " CE" : astronomicalYear.ToString(c);
         }
 
-        // --- the present quadrant: months to the Planck time ---------------------------------------------
+        // --- the present: months to a second ago ------------------------------------------------------------
 
+        /// <summary>
+        /// The last months down to one second before now. On the base path they crowd into the tip of the
+        /// human branch and level of detail hides them; a lens unrolled over the present spreads them out.
+        /// Nothing shorter is added: every view keeps a time log offset of at least a week (the lens in log
+        /// mode), and in the shader's float math anything well under a second ago rounds onto that offset,
+        /// so it lands exactly on now.
+        /// </summary>
         static void AddPresent(List<TimeTick> list)
         {
             AddAgo(list, 0.5, 10, "6 months ago");
@@ -233,16 +246,6 @@ namespace Why.Axis
             AddAgo(list, 60 / SecondsPerYear, 14, "1 min ago");
             AddAgo(list, 10 / SecondsPerYear, 5, "10 s ago");
             AddAgo(list, 1 / SecondsPerYear, 27, "1 second ago");
-
-            // below a second the clock keeps shrinking: each tick is another factor of a thousand
-            AddAgo(list, 0.1 / SecondsPerYear, 4, "0.1 s ago");
-            AddAgo(list, 1e-3 / SecondsPerYear, 10, "1 ms ago");
-            AddAgo(list, 1e-6 / SecondsPerYear, 9, "1 µs ago");
-            AddAgo(list, 1e-9 / SecondsPerYear, 13, "1 ns ago");
-            AddAgo(list, 1e-12 / SecondsPerYear, 4, "1 ps ago");
-            AddAgo(list, 1e-15 / SecondsPerYear, 5, "1 fs ago");
-            AddAgo(list, 1e-18 / SecondsPerYear, 4, "1 as ago");
-            AddAgo(list, PlanckTimeSeconds / SecondsPerYear, 25, "Planck time");
 
             // the present moment itself; its label is the "Now" beacon
             list.Add(new TimeTick { YearsAgo = 0, Rank = NowRank, Text = null });

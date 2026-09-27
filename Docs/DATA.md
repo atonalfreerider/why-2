@@ -1,4 +1,4 @@
-# why-2 data
+﻿# why-2 data
 
 All runtime data lives in `Assets/Resources` and is loaded as `TextAsset`s by the layers. Every file
 below was either part of the original projects (why-2 and smv) or authored for this version from
@@ -65,8 +65,25 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 * The United States 1950-now is simulated in detail from the UN age pyramids with marriage, divorce,
   births and partner counts; children's lines start from their parents.
 
+## The hierarchy of human domination
+
+* `Data/domestication.json` - life under human control, drawn in green directly beneath the
+  civilizations: global cropland and pasture (HYDE 3.2/3.3), livestock biomass by type in megatonnes of
+  carbon (Bar-On et al. 2018, Greenspoon et al. 2023, FAO), crop, human and wild-mammal biomass, and
+  35 domestications (dog, sheep, cattle, wheat, rice, maize...) each tied to its wild family in the tree
+  of life (`wildFamily` = exact leaf label), so the thread rises out of that family at the moment of
+  domestication. Livestock is drawn on the same mass scale as the human layer.
+* `Data/extraction.json` - matter under human control, drawn in red beneath the farm layer: annual global
+  extraction of fossil fuels, metal ores and non-metallic minerals (UN IRP Global Material Flows,
+  Krausmann et al. 2009/2018; rough historical estimates before 1900), 16 materials with first use
+  (each rises out of Earth's matter band), and 30 extraction milestones.
+* `Data/figures.json` also carries `influencedBy` (figure ids) and `influenceNote` - well-established
+  direct influences (teacher and student, succession, acknowledged intellectual debt) drawn as threads
+  between lifelines.
+
 ## Director - `Data/tour.json`
 
 `{ "title", "steps": [{ "id", "title", "text", "focus", "anchor", "highlight", "hold" }] }` - `focus` is a
 view preset id, `anchor`/`highlight` are anchor keys (`matter:`, `epoch:`, `clade:`, `lifeevent:`,
-`leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`, `time:<yearsAgo>`, `now`).
+`leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`, `farm:`, `domestication:`, `extraction:`,
+`extractionevent:`, `resource:`, `time:<yearsAgo>`, `now`).

@@ -444,6 +444,32 @@
                       "hold":  14
                   },
                   {
+                      "id":  "farm_rises",
+                      "title":  "Life under human control",
+                      "text":  "Farming turned wild families into servants. Wheat, sheep, goats and cattle left the green tree of life about 10,500 years ago and rose into a new layer just beneath people: livestock and crops. Today livestock outweighs all wild mammals more than ten to one.",
+                      "focus":  "footprint",
+                      "anchor":  "domestication:wheat_barley",
+                      "highlight":  [
+                                        "domestication:cattle",
+                                        "domestication:sheep",
+                                        "farm:all"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "matter_rises",
+                      "title":  "Matter under human control",
+                      "text":  "Beneath the farms lies the matter we dig up. Copper smelting, then bronze and iron, drew metal out of Earth's red layer; coal, oil and concrete turned a trickle into about 100 billion tonnes a year. Humans on top, the life we farm below, the matter we extract below that.",
+                      "focus":  "footprint",
+                      "anchor":  "extractionevent:copper_smelting",
+                      "highlight":  [
+                                        "extractionevent:bronze_age",
+                                        "extractionevent:iron_smelting",
+                                        "extraction:all"
+                                    ],
+                      "hold":  13
+                  },
+                  {
                       "id":  "civ_streams",
                       "title":  "Streams of power",
                       "text":  "In the blue layer, those first civilizations are each drawn as a stream whose width is its relative power, taken from John Sparks's 1931 Histomap and, for the last century, from shares of world GDP. When the Histomap begins, in 2000 BCE, Egyptian, Mesopotamian, Anatolian, Indian and Chinese peoples already flow side by side.",
@@ -647,6 +673,31 @@
                                         "civ:indians"
                                     ],
                       "hold":  14
+                  },
+                  {
+                      "id":  "explosion",
+                      "title":  "The explosion",
+                      "text":  "For most of history the human branch was a thin thread. After 1800, coal, medicine and fertilizer let population leap from one to eight billion - and every layer beneath us exploded with it: livestock, cropland, fuels, ores and sand.",
+                      "focus":  "footprint",
+                      "anchor":  "extractionevent:great_acceleration",
+                      "highlight":  [
+                                        "farm:all",
+                                        "extraction:all"
+                                    ],
+                      "hold":  12
+                  },
+                  {
+                      "id":  "people_threads",
+                      "title":  "Follow people through time",
+                      "text":  "Every famous life is a glowing line inside its civilization, and threads show who shaped whom - Newton to Einstein, teacher to student. Press F for the people alive at any moment you look at, and follow any of them from birth to death.",
+                      "focus":  "modern",
+                      "anchor":  "figure:albert_einstein",
+                      "highlight":  [
+                                        "figure:isaac_newton",
+                                        "figure:marie_curie",
+                                        "figure:charles_darwin"
+                                    ],
+                      "hold":  12
                   },
                   {
                       "id":  "smv_intro",

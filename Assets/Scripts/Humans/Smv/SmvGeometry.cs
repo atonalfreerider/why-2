@@ -103,6 +103,8 @@ namespace Why.Humans.Smv
         /// <summary>Every lifeline into <see cref="Fine"/>, the coarse subset also into <see cref="Coarse"/>.</summary>
         public void BuildLifelines()
         {
+            Color32 men = Tint(GraphStyle.HumansMale, 1), women = Tint(GraphStyle.HumansFemale, 1);
+            float[] center = sim.Center, envelope = sim.Envelope;
             foreach (SmvPerson p in sim.People)
             {
                 int n = p.SampleCount;
@@ -112,7 +114,7 @@ namespace Why.Humans.Smv
                 Thin(m);
 
                 bool coarse = InCoarseTier(p);
-                Color color = p.Male ? GraphStyle.HumansMale : GraphStyle.HumansFemale;
+                Color32 tint = p.Male ? men : women;
                 finePts.Clear();
                 coarsePts.Clear();
                 for (int j = 0; j < m; j++)
@@ -120,20 +122,22 @@ namespace Why.Humans.Smv
                     if (!keep[j]) continue;
                     Vector3 data = new Vector3(bu[j], by[j], br[j]);
                     bool child = bt[j] - p.Birth < SmvModel.AdultAge;
-                    float lift = Mathf.Clamp01((by[j] - GraphStyle.HumansY) / GraphStyle.SmvHeight);
+                    float lift = Clamp01((by[j] - GraphStyle.HumansY) / GraphStyle.SmvHeight);
                     float intensity = child ? ChildIntensity : 0.65f + 0.7f * lift;
+
+                    // per-line alpha by how crowded the line's distance from the center is
                     int k = bk[j];
-                    float offset = Mathf.Abs(br[j] - sim.Center[k]) / Mathf.Max(sim.Envelope[k], 1e-4f);
-                    float spread = Mathf.Lerp(CoreAlpha, EdgeAlpha, Mathf.SmoothStep(0, 1,
-                        (offset - CoreOffset) / (SpreadOffset - CoreOffset)));
+                    float offset = Math.Abs(br[j] - center[k]) / Math.Max(envelope[k], 1e-4f);
+                    float f = Clamp01((offset - CoreOffset) / (SpreadOffset - CoreOffset));
+                    float spread = CoreAlpha + (EdgeAlpha - CoreAlpha) * f * f * (3 - 2 * f);
 
                     float widthWorld = child ? ChildWidthWorld : AdultWidthWorld;
-                    finePts.Add(new LinePoint(data, Tint(color, spread * (child ? FineChildAlpha : FineAdultAlpha)),
+                    finePts.Add(new LinePoint(data, WithAlpha(tint, spread * (child ? FineChildAlpha : FineAdultAlpha)),
                         child ? FineChildPx : FineAdultPx, widthWorld, intensity));
                     if (coarse)
                     {
                         coarsePts.Add(new LinePoint(data,
-                            Tint(color, spread * (child ? CoarseChildAlpha : CoarseAdultAlpha)),
+                            WithAlpha(tint, spread * (child ? CoarseChildAlpha : CoarseAdultAlpha)),
                             child ? CoarseChildPx : CoarseAdultPx, widthWorld, intensity));
                     }
                 }
@@ -172,13 +176,16 @@ namespace Why.Humans.Smv
             by[0] = p.StartY;
             br[0] = p.StartRho;
             bk[0] = p.FirstStep;
+            float[] sy = sim.SampleY, sr = sim.SampleRho;
+            double t0 = sim.StartTime;
+            int first = p.FirstStep, o = p.SampleOffset;
             for (int i = 0; i < n; i++)
             {
-                int k = p.FirstStep + i;
-                bt[i + 1] = sim.TimeOf(k);
+                int k = first + i;
+                bt[i + 1] = t0 + k * SmvSimulation.Step;
                 bu[i + 1] = stepU[k];
-                by[i + 1] = sim.SampleY[p.SampleOffset + i];
-                br[i + 1] = sim.SampleRho[p.SampleOffset + i];
+                by[i + 1] = sy[o + i];
+                br[i + 1] = sr[o + i];
                 bk[i + 1] = k;
             }
 
@@ -335,7 +342,15 @@ namespace Why.Humans.Smv
         }
 
         static Color32 Tint(Color c, float alpha) =>
-            new Color32((byte)(Mathf.Clamp01(c.r) * 255f), (byte)(Mathf.Clamp01(c.g) * 255f),
-                (byte)(Mathf.Clamp01(c.b) * 255f), (byte)(Mathf.Clamp01(alpha) * 255f));
+            new Color32((byte)(Clamp01(c.r) * 255f), (byte)(Clamp01(c.g) * 255f), (byte)(Clamp01(c.b) * 255f),
+                (byte)(Clamp01(alpha) * 255f));
+
+        static Color32 WithAlpha(Color32 c, float alpha)
+        {
+            c.a = (byte)(Clamp01(alpha) * 255f);
+            return c;
+        }
+
+        static float Clamp01(float x) => x < 0f ? 0f : x > 1f ? 1f : x;
     }
 }

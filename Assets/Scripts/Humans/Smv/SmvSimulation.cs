@@ -48,6 +48,12 @@ namespace Why.Humans.Smv
         internal int ValueBin;          // value histogram bin (ranking)
         internal bool Placed;           // smoothing state initialized
 
+        // value evaluation (see SmvSimulation.Rank): last exact value, its step, and the slope per step
+        internal float ExactValue;
+        internal float ValueSlope;
+        internal int ExactStep = -1;
+        internal bool StateChanged;     // children or partners changed since the last exact value
+
         public int SampleCount => LastStep >= FirstStep ? LastStep - FirstStep + 1 : 0;
     }
 
@@ -138,8 +144,10 @@ namespace Why.Humans.Smv
         float[] partnerCurve = Array.Empty<float>(); // [person * Bands + band]
         double[] weights = new double[1024];
 
-        // per-step working sets
-        readonly List<SmvPerson> alive = new List<SmvPerson>(8192);
+        // per-step working sets (arrays: the hot loops run over them hundreds of times)
+        SmvPerson[] byIndex = Array.Empty<SmvPerson>();
+        SmvPerson[] alive = new SmvPerson[4096];
+        int aliveCount;
         readonly List<SmvPerson> newborns = new List<SmvPerson>(64);
         readonly int[][] binRank = { new int[ValueBins], new int[ValueBins] };
         readonly int[] adults = new int[2];
@@ -366,6 +374,7 @@ namespace Why.Humans.Smv
             SampleRho = new float[total];
             Center = new float[StepCount];
             Envelope = new float[StepCount];
+            byIndex = People.ToArray();
         }
 
         // ------------------------------------------------------------------ 3. life course
@@ -397,12 +406,13 @@ namespace Why.Humans.Smv
 
                 // leave: the dead
                 int w = 0;
-                for (int i = 0; i < alive.Count; i++)
+                for (int i = 0; i < aliveCount; i++)
                 {
                     if (alive[i].LastStep >= k) alive[w++] = alive[i];
                 }
 
-                alive.RemoveRange(w, alive.Count - w);
+                Array.Clear(alive, w, aliveCount - w);
+                aliveCount = w;
 
                 // enter: newborns and immigrants
                 newborns.Clear();
@@ -410,7 +420,8 @@ namespace Why.Humans.Smv
                 {
                     SmvPerson p = byEntry[next++];
                     if (p.SampleCount == 0) continue;
-                    alive.Add(p);
+                    if (aliveCount == alive.Length) Array.Resize(ref alive, alive.Length * 2);
+                    alive[aliveCount++] = p;
                     if (p.Immigrant) p.Partners = (int)Math.Round(PartnerCurve(p, (float)(t - p.Birth)));
                     else newborns.Add(p);
                 }
@@ -418,12 +429,12 @@ namespace Why.Humans.Smv
                 UpdateStates(t, k);
                 foreach (SmvPerson c in newborns) PlaceNewborn(c, t, k, center, envelope);
 
-                marriageDue += data.Marriage.At(t) / 1000.0 * alive.Count * Step;
+                marriageDue += data.Marriage.At(t) / 1000.0 * aliveCount * Step;
                 for (; marriageDue >= 1; marriageDue -= 1) Marry(t);
-                divorceDue += data.Divorce.At(t) / 1000.0 * alive.Count * Step;
+                divorceDue += data.Divorce.At(t) / 1000.0 * aliveCount * Step;
                 for (; divorceDue >= 1; divorceDue -= 1) Divorce(t);
 
-                Rank(t);
+                Rank(t, k);
                 Place(t, k, center, envelope, aOff, aY);
             }
         }
@@ -440,12 +451,17 @@ namespace Why.Humans.Smv
             wives.Clear();
             marriedMothers.Clear();
             singleMothers.Clear();
-            foreach (SmvPerson p in alive)
+            for (int i = 0; i < aliveCount; i++)
             {
-                if (p.Spouse >= 0 && People[p.Spouse].LastStep < k) p.Spouse = -1;
+                SmvPerson p = alive[i];
+                if (p.Spouse >= 0 && byIndex[p.Spouse].LastStep < k) p.Spouse = -1;
                 float age = (float)(t - p.Birth);
                 if (age < SmvModel.AdultAge) continue;
-                if (p.Spouse < 0 && p.Partners + 0.5f < PartnerCurve(p, age)) p.Partners++;
+                if (p.Spouse < 0 && p.Partners + 0.5f < PartnerCurve(p, age))
+                {
+                    p.Partners++;
+                    p.StateChanged = true;
+                }
 
                 if (p.Male)
                 {
@@ -501,13 +517,14 @@ namespace Why.Humans.Smv
 
             c.Mother = mother.Index;
             mother.Children++;
+            mother.StateChanged = true;
             mother.LastBirth = t;
             BirthsWithMother++;
 
             SmvPerson father = null;
             if (mother.Spouse >= 0)
             {
-                father = People[mother.Spouse];
+                father = byIndex[mother.Spouse];
             }
             else
             {
@@ -523,6 +540,7 @@ namespace Why.Humans.Smv
             {
                 c.Father = father.Index;
                 father.Children++;
+                father.StateChanged = true;
             }
 
             // born on the mother's line; smoothing then carries it into the children's core
@@ -555,8 +573,9 @@ namespace Why.Humans.Smv
             SmvPerson man = Pick(singleMen, p =>
             {
                 if (p.Spouse >= 0 || !SmvModel.CanPair(vw, p.Value)) return 0;
-                double dv = (p.Value - vw) / 1.5;
                 double da = (t - p.Birth - idealAge) / 4.0;
+                if (da * da > 16) return 0; // beyond four standard deviations of the age gap
+                double dv = (p.Value - vw) / 1.5;
                 return SmvModel.Attraction(p.Value) * Math.Exp(-0.5 * (dv * dv + da * da));
             });
             if (man == null) return;
@@ -577,7 +596,7 @@ namespace Why.Humans.Smv
                 return (years < 1 ? 0.3 : 1.0) / (1 + years / 6);
             });
             if (wife == null) return;
-            People[wife.Spouse].Spouse = -1;
+            byIndex[wife.Spouse].Spouse = -1;
             wife.Spouse = -1;
             Divorces++;
         }
@@ -601,7 +620,7 @@ namespace Why.Humans.Smv
         /// sex becomes their offset from the band center, and married couples share one mirrored offset,
         /// drawn closer the longer they have been married.
         /// </summary>
-        void Rank(double t)
+        void Rank(double t, int k)
         {
             for (int s = 0; s < 2; s++)
             {
@@ -609,8 +628,9 @@ namespace Why.Humans.Smv
                 adults[s] = 0;
             }
 
-            foreach (SmvPerson p in alive)
+            for (int i = 0; i < aliveCount; i++)
             {
+                SmvPerson p = alive[i];
                 float age = (float)(t - p.Birth);
                 if (age < SmvModel.AdultAge)
                 {
@@ -618,7 +638,7 @@ namespace Why.Humans.Smv
                     continue;
                 }
 
-                p.Value = SmvModel.Value(p.Male, p.Base, age, p.Children > 0, p.Partners, p.Wealth);
+                p.Value = ValueAt(p, age, k);
                 int s = p.Male ? 1 : 0;
                 p.ValueBin = Math.Min(ValueBins - 1, Math.Max(0, (int)(p.Value * (ValueBins / 10f))));
                 binRank[s][p.ValueBin]++;
@@ -638,23 +658,49 @@ namespace Why.Humans.Smv
                 }
             }
 
-            foreach (SmvPerson p in alive)
+            for (int i = 0; i < aliveCount; i++)
             {
+                SmvPerson p = alive[i];
                 if (t - p.Birth < SmvModel.AdultAge) continue;
                 int s = p.Male ? 1 : 0;
                 p.RankOffset = Offset(binRank[s][p.ValueBin]++, adults[s], p.Spouse >= 0);
             }
 
-            foreach (SmvPerson wife in alive)
+            for (int i = 0; i < aliveCount; i++)
             {
+                SmvPerson wife = alive[i];
                 if (wife.Male || wife.Spouse < 0) continue;
-                SmvPerson husband = People[wife.Spouse];
+                SmvPerson husband = byIndex[wife.Spouse];
                 float years = (float)(t - wife.MarriedAt);
                 float closeness = 1f - 0.4f * Math.Min(1f, years / 25f);
                 float shared = 0.5f * (wife.RankOffset + husband.RankOffset) * closeness;
                 wife.RankOffset = shared;
                 husband.RankOffset = shared;
             }
+        }
+
+        /// <summary>
+        /// An adult's social market value at step k. <see cref="SmvModel.Value"/> is evaluated exactly
+        /// every other step (people alternate, so the work is spread evenly) and right after anything
+        /// that changes it discontinuously (a child, a partner, adulthood); in between, the value moves
+        /// on along the slope of its last two exact evaluations. Value is a smooth function of age between
+        /// such events, so this halves the cost of the model's evaluation without changing the picture.
+        /// </summary>
+        float ValueAt(SmvPerson p, float age, int k)
+        {
+            bool fresh = p.ExactStep < 0 || p.StateChanged || k - p.ExactStep > 2;
+            if (fresh || ((k + p.Index) & 1) == 0)
+            {
+                float v = SmvModel.Value(p.Male, p.Base, age, p.Children > 0, p.Partners, p.Wealth);
+                p.ValueSlope = fresh ? 0f : (v - p.ExactValue) / (k - p.ExactStep);
+                p.ExactValue = v;
+                p.ExactStep = k;
+                p.StateChanged = false;
+                return v;
+            }
+
+            float guess = p.ExactValue + p.ValueSlope * (k - p.ExactStep);
+            return guess < 0f ? 0f : guess > 10f ? 10f : guess;
         }
 
         /// <summary><see cref="SmvModel.RankOffset"/> through a lookup table (rank k of n).</summary>
@@ -681,8 +727,9 @@ namespace Why.Humans.Smv
         void Place(double t, int k, float center, float envelope, float aOff, float aY)
         {
             float[] ys = SampleY, rhos = SampleRho;
-            foreach (SmvPerson p in alive)
+            for (int j = 0; j < aliveCount; j++)
             {
+                SmvPerson p = alive[j];
                 float age = (float)(t - p.Birth);
                 float off, y;
                 if (age < SmvModel.AdultAge)

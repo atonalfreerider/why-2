@@ -1,738 +1,746 @@
 {
-  "title": "Why: from the Big Bang to this moment",
-  "steps": [
-    {
-      "id": "welcome",
-      "title": "Why are you here, right now?",
-      "text": "This ring is a single chain of causes. It begins with the Big Bang and ends at this exact moment, with you watching. Follow along and we will trace, link by link, how each thing that happened made the next one possible.",
-      "focus": "overview",
-      "anchor": "now",
-      "highlight": [],
-      "hold": 12
-    },
-    {
-      "id": "read_clock",
-      "title": "A clock of deep time",
-      "text": "Because the story spans 13.8 billion years, time runs clockwise on a stretched, super-logarithmic clock: the Big Bang at 6 o'clock, life around 10, all recorded history squeezed near 2 to 3, and the last quarter holding only the last few years, shrinking to seconds as it closes on the present back at 6.",
-      "focus": "overview",
-      "anchor": "epoch:big_bang",
-      "highlight": [
-        "lifeevent:earliest_life",
-        "civ:egyptians",
-        "now"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "three_levels",
-      "title": "Red, green, blue: three levels",
-      "text": "Color means only one thing here: red is matter, green is life, blue is humans. They are stacked in that order too, matter at the bottom, life above it and humans on top, because each level grew out of the one beneath it.",
-      "focus": "overview",
-      "anchor": "matter:universe",
-      "highlight": [
-        "clade:life",
-        "civ:egyptians"
-      ],
-      "hold": 12
-    },
-    {
-      "id": "relevance",
-      "title": "Inside means closer to us",
-      "text": "Distance from the center measures relevance to us. The inner track is our own lineage: universe, Milky Way, Sun, Earth, first cells, animals, apes, civilizations. Everything that split off along the way - other galaxies, planets, species and peoples - drifts outward and fades.",
-      "focus": "overview",
-      "anchor": "matter:earth",
-      "highlight": [
-        "matter:milky_way",
-        "matter:sun",
-        "clade:hominidae"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "rescale",
-      "title": "Zoom into any era",
-      "text": "Because no single scale fits everything, the graph can be re-scaled: focusing on a period unrolls that part of the ring into a straight timeline, so a billion years or a single lifetime can fill the screen. The tour will do this as we go; afterwards, try it yourself.",
-      "focus": "overview",
-      "anchor": "time:66e6",
-      "highlight": [],
-      "hold": 14
-    },
-    {
-      "id": "big_bang",
-      "title": "The Big Bang",
-      "text": "13.8 billion years ago all space, matter and energy began expanding from an extremely hot, dense state. In a split second, inflation likely stretched tiny quantum ripples into the seeds of every future galaxy. Every atom in your body traces back to here, so the red layer runs under everything else.",
-      "focus": "cosmos",
-      "anchor": "epoch:big_bang",
-      "highlight": [
-        "matter:universe",
-        "epoch:inflation"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "one_in_a_billion",
-      "title": "One in a billion survives",
-      "text": "As the universe cooled, quarks bound into protons and neutrons, and matter and antimatter annihilated almost completely: about one extra matter particle per billion survived. In the first minutes some survivors fused into helium, leaving about 75% hydrogen and 25% helium by mass - the raw material of every later star.",
-      "focus": "cosmos",
-      "anchor": "epoch:hadron_epoch",
-      "highlight": [
-        "epoch:quark_epoch",
-        "epoch:bbn"
-      ],
-      "hold": 16
-    },
-    {
-      "id": "first_light",
-      "title": "First light, then darkness",
-      "text": "About 380,000 years in, electrons joined those nuclei to make the first atoms, and light broke free; we still see it as the cosmic microwave background. Then came the Dark Ages: no stars for about 100 million years, while gravity quietly pulled gas and dark matter into denser clumps.",
-      "focus": "cosmos",
-      "anchor": "epoch:recombination",
-      "highlight": [
-        "epoch:matter_radiation_equality",
-        "epoch:dark_ages"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "first_stars",
-      "title": "The first stars ignite",
-      "text": "Those clumps grew dense enough to ignite the first stars. Made only of hydrogen and helium, most were probably short-lived giants whose fusion and explosions forged and scattered the first carbon, oxygen and iron - the elements that planets, and eventually life, would need.",
-      "focus": "cosmos",
-      "anchor": "epoch:first_stars",
-      "highlight": [
-        "matter:first_stars"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "galaxies_split",
-      "title": "Matter splits and spreads",
-      "text": "Stars gathered into the first galaxies, and here the red layer branches: most ordinary matter stayed behind as thin intergalactic gas, and other galaxies drifted outward, away from our track. As space keeps expanding - faster since dark energy took over - the red layer spreads out and dissipates.",
-      "focus": "cosmos",
-      "anchor": "epoch:first_galaxies",
-      "highlight": [
-        "matter:intergalactic_gas",
-        "matter:local_group",
-        "epoch:dark_energy"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "milky_way",
-      "title": "Our galaxy, the Milky Way",
-      "text": "One of those galaxies became ours. From about 13.6 billion years ago the Milky Way grew by merging with smaller galaxies, and generation after generation of its stars lived and died, enriching its gas with the carbon, oxygen and iron that would one day build the Sun, the Earth and you.",
-      "focus": "cosmos",
-      "anchor": "matter:milky_way",
-      "highlight": [
-        "epoch:milky_way_forms",
-        "epoch:gaia_enceladus",
-        "epoch:cosmic_noon"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "solar_nebula",
-      "title": "A cloud collapses",
-      "text": "4.6 billion years ago, a cold cloud of gas and dust in the Milky Way's disk, enriched by all those earlier stars, collapsed under its own gravity. Most of it fell inward to form the Sun, and the rest flattened into a spinning disk where the planets would grow.",
-      "focus": "stars",
-      "anchor": "matter:solar_nebula",
-      "highlight": [
-        "epoch:solar_nebula_collapse"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "sun_planets",
-      "title": "The Sun and its planets",
-      "text": "The Sun ignited and now holds 99.86% of the solar system's mass; it has shone steadily for over 4.5 billion years and powers nearly all life on Earth. The leftover disk built Jupiter and the other planets, which split off here onto their own outer tracks.",
-      "focus": "stars",
-      "anchor": "matter:sun",
-      "highlight": [
-        "epoch:solar_system_forms",
-        "matter:other_planets"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "earth_forms",
-      "title": "Earth takes shape",
-      "text": "In that disk, about 4.54 billion years ago, colliding planetesimals built the Earth, at just the right distance from the Sun for liquid water. It melted and separated into an iron core and a rocky mantle, and the churning core would later power a magnetic field that shields the air and oceans.",
-      "focus": "earth",
-      "anchor": "matter:earth",
-      "highlight": [
-        "epoch:earth_accretion"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "moon",
-      "title": "A collision makes the Moon",
-      "text": "Soon after, in the leading theory, a Mars-sized body called Theia struck the young Earth, and the debris formed the Moon. Its gravity steadies Earth's tilt, keeping seasons and climate more stable, and raises the tides that shaped coastlines and early life.",
-      "focus": "earth",
-      "anchor": "matter:moon",
-      "highlight": [
-        "epoch:moon_impact"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "origin_of_life",
-      "title": "Life begins",
-      "text": "Zircon crystals hint that Earth had liquid water by 4.4 billion years ago, and near 10 o'clock the green layer begins: carbon traces in Greenland rocks suggest microbes lived by 3.7 billion years ago. Every living thing descends from one common ancestor whose genetic code we all still share.",
-      "focus": "life",
-      "anchor": "lifeevent:earliest_life",
-      "highlight": [
-        "clade:life",
-        "epoch:first_oceans"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "tree_of_life",
-      "title": "Reading the tree of life",
-      "text": "From that ancestor grows the green layer, the tree of life, ending in about 1,600 living groups, mostly families. Our lineage runs along the inside track and every branch that split away bends outward; within each branch, groups are ordered by food chain, with top predators toward the inside.",
-      "focus": "life",
-      "anchor": "clade:life",
-      "highlight": [
-        "clade:bacteria",
-        "clade:archaea",
-        "clade:eukaryotes"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "photosynthesis",
-      "title": "Harvesting sunlight",
-      "text": "Early microbes lived on chemical energy or simpler, oxygen-free photosynthesis until, probably by 3 billion years ago, cyanobacteria learned to split water with sunlight. Water and light were almost everywhere, so life's energy supply soared, and the waste product, oxygen, would remake the planet.",
-      "focus": "life",
-      "anchor": "lifeevent:oxygenic_photosynthesis",
-      "highlight": [
-        "clade:cyanobacteria",
-        "leaf:Nostocaceae"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "great_oxidation",
-      "title": "Oxygen fills the air",
-      "text": "About 2.4 billion years ago that oxygen finally built up in the air. It poisoned many microbes and likely set off a long ice age, but it also let an ozone shield form and made energy-hungry life possible. Life had changed the matter of the planet, and the planet changed life in return.",
-      "focus": "life",
-      "anchor": "lifeevent:great_oxidation",
-      "highlight": [
-        "epoch:great_oxidation",
-        "clade:cyanobacteria"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "eukaryotes",
-      "title": "A cell inside a cell",
-      "text": "Oxygen made breathing a powerful new way to get energy. By about 1.65 billion years ago an archaeon had likely taken in an oxygen-breathing bacterium that became the mitochondrion, and the extra energy let these complex cells grow large - the step toward plants, fungi, animals and brains.",
-      "focus": "life",
-      "anchor": "lifeevent:first_eukaryotes",
-      "highlight": [
-        "clade:eukaryotes",
-        "clade:archaea",
-        "clade:proteobacteria"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "multicellular",
-      "title": "Cells build bodies",
-      "text": "With energy to spare, cells began cooperating as bodies. The red alga Bangiomorpha, about a billion years old, is the first known organism to reproduce sexually, and complex cells branched into green plants, fungi and animals - fungi are closer kin to us than to plants.",
-      "focus": "life",
-      "anchor": "lifeevent:first_multicellular",
-      "highlight": [
-        "clade:green_plants",
-        "clade:fungi",
-        "clade:animals"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "cambrian",
-      "title": "The Cambrian explosion",
-      "text": "After Snowball Earth, when ice reached the tropics, the thaws flooded the seas with nutrients. Soft Ediacaran creatures appeared, then from about 539 million years ago most animal body plans arose within some 20 million years; eyes, shells and predators set off an arms race that shaped every later animal.",
-      "focus": "complex_life",
-      "anchor": "lifeevent:cambrian_explosion",
-      "highlight": [
-        "lifeevent:snowball_earth",
-        "epoch:snowball_earth",
-        "lifeevent:ediacaran_biota"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "vertebrates",
-      "title": "A backbone and a brain",
-      "text": "The Cambrian seas held our own branch, the chordates: small swimmers with a stiff rod along the back. Pressed by that arms race, their descendants grew a skull around a larger brain and a backbone, then hinged jaws that made them active predators - the blueprint for fish, dinosaurs and us.",
-      "focus": "complex_life",
-      "anchor": "clade:vertebrates",
-      "highlight": [
-        "clade:chordates",
-        "clade:jawed_vertebrates",
-        "leaf:Myxinidae"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "land_plants",
-      "title": "Plants green the land",
-      "text": "Meanwhile, about 470 million years ago, plants crept onto land. As they spread they turned bare rock into soil and drew carbon dioxide from the air, and within about 85 million years the first forests stood. The continents were now livable for animals.",
-      "focus": "complex_life",
-      "anchor": "lifeevent:first_land_plants",
-      "highlight": [
-        "clade:plants",
-        "lifeevent:first_forests"
-      ],
-      "hold": 13
-    },
-    {
-      "id": "tetrapods",
-      "title": "Fins become legs",
-      "text": "Following the plants, lobe-finned fish, whose sturdy fin bones became our arm and leg bones, gave rise to four-limbed tetrapods about 370 million years ago. They came through the Late Devonian extinction and carried the vertebrate body onto land - the path that leads to us.",
-      "focus": "complex_life",
-      "anchor": "clade:tetrapods",
-      "highlight": [
-        "clade:lobe_finned_fish",
-        "lifeevent:tetrapods_on_land",
-        "lifeevent:late_devonian_extinction"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "amniotes",
-      "title": "The egg that left the water",
-      "text": "Amphibians still had to return to water to breed. Amniotes solved this with eggs that carry their own water, which let them conquer dry land; their lineage then split in two, one side leading to reptiles and birds, the other, our inner track, to mammals.",
-      "focus": "complex_life",
-      "anchor": "clade:amniotes",
-      "highlight": [
-        "clade:amphibians",
-        "clade:reptiles",
-        "clade:mammals"
-      ],
-      "hold": 13
-    },
-    {
-      "id": "great_dying",
-      "title": "The Great Dying",
-      "text": "About 252 million years ago, on the supercontinent Pangaea, huge Siberian eruptions heated and acidified the planet. The Great Dying killed over 80 percent of marine species, the worst extinction known; matter reset life, and in the recovering world dinosaurs and mammals arose.",
-      "focus": "complex_life",
-      "anchor": "lifeevent:end_permian_extinction",
-      "highlight": [
-        "epoch:great_dying",
-        "epoch:pangaea"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "dinosaurs",
-      "title": "The age of dinosaurs",
-      "text": "Dinosaurs appeared about 233 million years ago, and after the end-Triassic extinction they ruled the land for some 135 million years. The first mammals, small nocturnal insect eaters, survived in their shadow thanks to warm blood, fur and keen hearing.",
-      "focus": "mammals",
-      "anchor": "lifeevent:first_dinosaurs",
-      "highlight": [
-        "clade:archosaurs",
-        "lifeevent:end_triassic_extinction",
-        "lifeevent:first_mammals"
-      ],
-      "hold": 13
-    },
-    {
-      "id": "chicxulub",
-      "title": "The asteroid",
-      "text": "Then, 66 million years ago, an asteroid about 10 km wide struck what is now Mexico's Yucatan. The impact winter killed about three-quarters of species, including every dinosaur except the birds. Watch the red layer strike the green: without this impact, mammals - and we - might never have had our turn.",
-      "focus": "mammals",
-      "anchor": "epoch:chicxulub",
-      "highlight": [
-        "lifeevent:end_cretaceous_extinction",
-        "clade:birds"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "mammals_radiate",
-      "title": "Mammals inherit the Earth",
-      "text": "With the dinosaurs gone, placental mammals radiated into the empty niches: whales, bats, horses, cats, dogs and primates. Notice the food chain order within each branch: hunters such as cats sit toward the inside, the plant eaters they prey on farther out.",
-      "focus": "mammals",
-      "anchor": "clade:placentals",
-      "highlight": [
-        "clade:mammals",
-        "clade:carnivorans",
-        "leaf:Felidae",
-        "clade:whales_dolphins"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "primates",
-      "title": "Life in the trees",
-      "text": "One small branch took to the trees. Primates gained grasping hands and forward-facing eyes; many added keen color vision and big social groups that rewarded social intelligence, and apes went further, with bigger brains and long childhoods for learning.",
-      "focus": "mammals",
-      "anchor": "clade:primates",
-      "highlight": [
-        "clade:anthropoids",
-        "clade:apes"
-      ],
-      "hold": 13
-    },
-    {
-      "id": "hominins",
-      "title": "Standing up",
-      "text": "As cooling climates opened African forests into woodland and grassland, our lineage split from the chimpanzees' by about 7 million years ago. Walking upright freed the hands for carrying - and, eventually, for making tools.",
-      "focus": "hominins",
-      "anchor": "lifeevent:first_hominins",
-      "highlight": [
-        "clade:hominidae",
-        "leaf:Hominidae",
-        "lifeevent:grasslands_spread"
-      ],
-      "hold": 12
-    },
-    {
-      "id": "tools_fire",
-      "title": "Tools, fire and bigger brains",
-      "text": "Free hands made the oldest known stone tools, 3.3 million years old, opening up meat and marrow to fuel larger brains. Homo erectus spread out of Africa, cooking with fire released still more energy from food, and swinging ice-age climates rewarded adaptable minds.",
-      "focus": "hominins",
-      "anchor": "lifeevent:first_stone_tools",
-      "highlight": [
-        "lifeevent:homo_erectus",
-        "lifeevent:control_of_fire",
-        "epoch:ice_ages"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "homo_sapiens",
-      "title": "Our species",
-      "text": "About 300,000 years ago our own species appears in Africa. With language and shared culture, knowledge could build up faster than genes could change - a new kind of evolution, and the reason a third, blue layer is about to rise above the green.",
-      "focus": "hominins",
-      "anchor": "lifeevent:homo_sapiens",
-      "highlight": [
-        "leaf:Hominidae"
-      ],
-      "hold": 13
-    },
-    {
-      "id": "out_of_africa",
-      "title": "Out of Africa",
-      "text": "Carrying that culture, modern humans spread from Africa to Asia, Europe, Australia and later the Americas, starting around 70,000 years ago and mixing with Neanderthals and Denisovans, who later vanished. Every culture outside Africa descends from these migrations.",
-      "focus": "prehistory",
-      "anchor": "lifeevent:out_of_africa",
-      "highlight": [],
-      "hold": 14
-    },
-    {
-      "id": "agriculture",
-      "title": "Farming changes everything",
-      "text": "When the last ice age ended 11,700 years ago, the stable Holocene climate made farming possible. People domesticated grasses such as wheat and rice, whose large seeds store food, and began herding animals; food surpluses led to villages, cities, writing and the first civilizations.",
-      "focus": "prehistory",
-      "anchor": "lifeevent:agriculture",
-      "highlight": [
-        "epoch:holocene",
-        "clade:grasses",
-        "leaf:Poaceae",
-        "clade:flowering_plants"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "civ_streams",
-      "title": "Streams of power",
-      "text": "In the blue layer, those first civilizations are each drawn as a stream whose width is its relative power, taken from John Sparks's 1931 Histomap and, for the last century, from shares of world GDP. When the Histomap begins, in 2000 BCE, Egyptian, Mesopotamian, Anatolian, Indian and Chinese peoples already flow side by side.",
-      "focus": "civilizations",
-      "anchor": "civ:chinese",
-      "highlight": [
-        "civ:egyptians",
-        "civ:amorites",
-        "civ:hittites",
-        "civ:indians"
-      ],
-      "hold": 16
-    },
-    {
-      "id": "population_curve",
-      "title": "People inside the streams",
-      "text": "Look inside a stream: a population curve split by sex, men on one side and women on the other. Each thin line is a lifespan that rises and falls with modeled social market value, and each stands for N people - the count is on screen. Famous people, like Hatshepsut and Hammurabi, glow.",
-      "focus": "civilizations",
-      "anchor": "civ:egyptians",
-      "highlight": [
-        "figure:hatshepsut",
-        "figure:hammurabi"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "lifespans_gender",
-      "title": "Short lives and the gender gap",
-      "text": "Why are so many lines short? Ancient life expectancy at birth was only about 26 years, mostly because so many children died; adults who reached 15 often lived into their 40s to 60s. Compare the two halves too: women's small edge in lifespan grew as childbirth became safer, to about five years today.",
-      "focus": "civilizations",
-      "anchor": "civ:greeks",
-      "highlight": [
-        "civ:romans"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "bronze_age",
-      "title": "Collapse and rebirth",
-      "text": "Streams collide and split. Egypt and the Hittites fought to a draw at Kadesh and signed one of the oldest known peace treaties, yet around 1200 BCE the Late Bronze Age collapse brought down the Hittites and the Aegean palaces. In time, from the wreckage grew the Greek city-states.",
-      "focus": "civilizations",
-      "anchor": "war:bronze_age_collapse",
-      "highlight": [
-        "war:kadesh",
-        "civ:hittites",
-        "civ:aegeans",
-        "civ:greeks"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "axial_age",
-      "title": "An age of big ideas",
-      "text": "As Iron Age states grew larger and richer, thinkers across Eurasia asked how to live well: Confucius and Laozi in China, the Buddha in India, Socrates in Greece. Their ideas outlived every empire on this map and still guide billions of people.",
-      "focus": "civilizations",
-      "anchor": "figure:confucius",
-      "highlight": [
-        "figure:laozi",
-        "figure:buddha",
-        "figure:socrates"
-      ],
-      "hold": 13
-    },
-    {
-      "id": "alexander",
-      "title": "Empires rise and split",
-      "text": "Cyrus the Great built Persia into the largest empire yet. Alexander the Great conquered it in under a decade, but when he died at 32 his empire split among his generals: watch Greek rule flow into Ptolemaic Egypt and the Seleucid Empire, carrying Greek culture from Egypt to India.",
-      "focus": "civilizations",
-      "anchor": "figure:alexander_the_great",
-      "highlight": [
-        "figure:cyrus_the_great",
-        "war:alexander",
-        "civ:seleucids",
-        "civ:egyptians2"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "rome",
-      "title": "Rome unites the Mediterranean",
-      "text": "Rome absorbed Greek culture, destroyed its rival Carthage in the Punic Wars and, after Julius Caesar's civil war, became an empire under Augustus, uniting the Mediterranean with roads, law and Latin. Its eastern half, Byzantium, kept Greek learning alive until 1453.",
-      "focus": "civilizations",
-      "anchor": "civ:romans",
-      "highlight": [
-        "war:punic_wars",
-        "civ:phoenicians",
-        "figure:julius_caesar",
-        "figure:augustus"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "faiths",
-      "title": "Faiths that outlast empires",
-      "text": "The scriptures of little Israel and Judah shaped Christianity, which spread along Rome's roads after Jesus and Paul, and Islam, which united Arabia under Muhammad. Arab caliphates then stretched from Spain to India, preserving Greek science and carrying Indian numerals west.",
-      "focus": "civilizations",
-      "anchor": "figure:jesus",
-      "highlight": [
-        "civ:hebrews",
-        "figure:paul_the_apostle",
-        "figure:muhammad",
-        "civ:arabs"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "fall_of_rome",
-      "title": "One stream becomes many",
-      "text": "Steppe nomads such as the Huns pushed Germanic peoples into a weakened Rome, and by 476 the Western Empire had fallen. Watch one stream split into many: the Franks, whose realm peaked under Charlemagne, and other Germanic kingdoms became the roots of France, Germany, England and much of Europe.",
-      "focus": "civilizations",
-      "anchor": "war:fall_of_western_rome",
-      "highlight": [
-        "civ:western_romans",
-        "civ:huns",
-        "civ:teutons",
-        "civ:franks",
-        "figure:charlemagne"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "mongols",
-      "title": "The Mongol storm",
-      "text": "In the 1200s Genghis Khan and his heirs built the largest contiguous land empire in history. Linking Eurasia, it carried trade, ideas and the Black Death; as it fractured, new powers grew from its edges, among them Muscovy, later Russia, and the Ottoman Turks.",
-      "focus": "civilizations",
-      "anchor": "civ:mongols",
-      "highlight": [
-        "figure:genghis_khan",
-        "war:mongol_conquests",
-        "civ:russia",
-        "civ:ottomans"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "printing",
-      "title": "Printing, science, new worlds",
-      "text": "Around 1450 Gutenberg's printing press made books cheap, and printed ideas spread faster than any ruler could stop them, fueling Luther's Reformation and the science of Galileo and Newton. Meanwhile Columbus's 1492 voyage linked Europe and the Americas, reshaping trade, crops and peoples.",
-      "focus": "civilizations",
-      "anchor": "figure:gutenberg",
-      "highlight": [
-        "figure:martin_luther",
-        "figure:galileo",
-        "figure:isaac_newton",
-        "figure:columbus"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "revolutions",
-      "title": "Revolutions of freedom and steam",
-      "text": "Printing, science and trade fed two revolutions in the late 1700s. Britain's American colonies declared independence in 1776, while James Watt's steam engines helped launch Britain's Industrial Revolution; machines multiplied what each worker could make, and the British, then American, streams swelled with power.",
-      "focus": "civilizations",
-      "anchor": "civ:united_states",
-      "highlight": [
-        "war:american_revolution",
-        "figure:george_washington",
-        "civ:britain",
-        "figure:james_watt"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "longer_lives",
-      "title": "Longer lives, more people",
-      "text": "Industry funded science, and science lengthened lives. Germ theory, vaccines, antibiotics and high-yield crops cut child deaths and more than doubled life expectancy since 1800, to over 70 years today - so lifelines grow long, and the world population balloons past 8 billion.",
-      "focus": "modern",
-      "anchor": "figure:louis_pasteur",
-      "highlight": [
-        "figure:alexander_fleming",
-        "figure:jonas_salk",
-        "figure:norman_borlaug"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "world_wars",
-      "title": "Industrial war",
-      "text": "The same industry made war industrial. World War I killed about 20 million people and World War II about 75 million; in this model roughly a quarter of German and a fifth of Soviet military-age men die, a scar you can see as a gap on the men's side of those streams.",
-      "focus": "modern",
-      "anchor": "war:ww2",
-      "highlight": [
-        "war:ww1",
-        "figure:adolf_hitler",
-        "figure:winston_churchill",
-        "figure:joseph_stalin",
-        "figure:franklin_d_roosevelt"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "new_balance",
-      "title": "Power shifts again",
-      "text": "By 1945 the United States was by far the widest stream, now measured by share of world GDP; afterwards Japan and Germany rebuilt into economic giants. Since Deng Xiaoping's reforms began in 1978, China has grown into the largest economy by purchasing power, and India is rising fast.",
-      "focus": "modern",
-      "anchor": "figure:deng_xiaoping",
-      "highlight": [
-        "civ:chinese",
-        "civ:united_states",
-        "civ:japan",
-        "civ:indians"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "smv_intro",
-      "title": "Zoom into one stream",
-      "text": "Now let's zoom into one stream: the United States from 1950 to today. Here the population is simulated in detail from UN age pyramids and US marriage and divorce rates, men on one side and women on the other.",
-      "focus": "smv",
-      "anchor": "smv:us",
-      "highlight": [
-        "civ:united_states"
-      ],
-      "hold": 12
-    },
-    {
-      "id": "smv_lifelines",
-      "title": "How to read a lifeline",
-      "text": "Each line follows a life from birth to death. From age 18 its height follows a modeled social market value: in this model women's value peaks young, men's rises with wealth into middle age, and having children lowers both. It is a model of a popular idea, drawn so it can be examined - not a measurement.",
-      "focus": "smv",
-      "anchor": "smv:us",
-      "highlight": [],
-      "hold": 15
-    },
-    {
-      "id": "smv_scale",
-      "title": "One line, many people",
-      "text": "No screen could draw hundreds of millions of Americans, so each line stands for N people - watch the count on screen change as you zoom. Higher-value lines run nearest the center line between the two halves, and married couples are drawn in toward it, side by side.",
-      "focus": "smv",
-      "anchor": "smv:us",
-      "highlight": [
-        "gen:boomers"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "baby_boom",
-      "title": "The baby boom",
-      "text": "When World War II ended, returning soldiers, early marriages and prosperity produced the baby boom: US births surged from 1946 to 1964. Children's lines start from their parents' lines, so you can watch the boomers branch from the Greatest and Silent generations.",
-      "focus": "smv",
-      "anchor": "gen:boomers",
-      "highlight": [
-        "gen:greatest",
-        "gen:silent",
-        "war:ww2"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "divorce",
-      "title": "Marriage and divorce",
-      "text": "From 1960 to 1980 the US divorce rate more than doubled, and the marriage rate later fell by over a third. Watch more paired lines come apart, often after children have branched from them; Millennials, Gen Z and Generation Alpha inherit a world of later marriages and fewer children.",
-      "focus": "smv",
-      "anchor": "gen:genx",
-      "highlight": [
-        "gen:millennials",
-        "gen:genz",
-        "gen:alpha"
-      ],
-      "hold": 14
-    },
-    {
-      "id": "last_quarter",
-      "title": "The last quarter: years to seconds",
-      "text": "Past 3 o'clock the clock slows almost to a stop: a year ago sits near 3:05, a day ago near 3:26, an hour ago near 3:34, a second ago near 3:52, and from about 4 o'clock on, everything happened less than a thousandth of a second ago. Other lines fade so our own lineage leads cleanly into now.",
-      "focus": "present",
-      "anchor": "time:1",
-      "highlight": [
-        "now"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "convergence",
-      "title": "Everything arrives here",
-      "text": "At the glowing Now beacon, all three layers arrive together. Your hydrogen dates from the Big Bang and your carbon and oxygen from stars; 3.7 billion years of life and every empire, war and family in blue shaped your world. Every line on this ring either ended along the way or led here, to you.",
-      "focus": "present",
-      "anchor": "now",
-      "highlight": [
-        "matter:earth",
-        "clade:hominidae",
-        "smv:us"
-      ],
-      "hold": 15
-    },
-    {
-      "id": "ring_closes",
-      "title": "The ring closes",
-      "text": "Now step back: the present sits at 6 o'clock, right beside the Big Bang where the tour began. The ring closes because everything before led to this moment - and this moment is where the next chain of causes begins. Explore any era yourself and follow the lines from cause to effect.",
-      "focus": "overview",
-      "anchor": "now",
-      "highlight": [
-        "epoch:big_bang"
-      ],
-      "hold": 14
-    }
-  ]
+    "title":  "Why: from the Big Bang to this moment",
+    "steps":  [
+                  {
+                      "id":  "welcome",
+                      "title":  "Why are you here, right now?",
+                      "text":  "This path is a single chain of causes. It begins with the Big Bang and ends at this exact moment, with you watching. Follow along and we will trace, link by link, how each thing that happened made the next one possible.",
+                      "focus":  "overview",
+                      "anchor":  "now",
+                      "highlight":  [
+
+                                    ],
+                      "hold":  12
+                  },
+                  {
+                      "id":  "read_clock",
+                      "title":  "A clock that becomes a road",
+                      "text":  "Because the story spans 13.8 billion years, deep time runs clockwise on a stretched, super-logarithmic clock: the Big Bang at 6 o'clock, life around 10. At 3 o'clock, 5,000 years ago, it stops being a clock: human history leaves the circle on a straight line, one steady step per year, all the way to now.",
+                      "focus":  "overview",
+                      "anchor":  "epoch:big_bang",
+                      "highlight":  [
+                                        "lifeevent:earliest_life",
+                                        "civ:egyptians",
+                                        "now"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "three_levels",
+                      "title":  "Red, green, blue: three levels",
+                      "text":  "Color means only one thing here: red is matter, green is life, blue is humans. They are stacked in that order too, matter at the bottom, life above it and humans on top, because each level grew out of the one beneath it.",
+                      "focus":  "overview",
+                      "anchor":  "matter:universe",
+                      "highlight":  [
+                                        "clade:life",
+                                        "civ:egyptians"
+                                    ],
+                      "hold":  12
+                  },
+                  {
+                      "id":  "relevance",
+                      "title":  "Inside means closer to us",
+                      "text":  "Distance from the inner track measures relevance to us. The inner track is our own lineage: universe, Milky Way, Sun, Earth, first cells, animals, apes, civilizations. Everything that split off along the way - other galaxies, planets, species and peoples - drifts outward and fades.",
+                      "focus":  "overview",
+                      "anchor":  "matter:earth",
+                      "highlight":  [
+                                        "matter:milky_way",
+                                        "matter:sun",
+                                        "clade:hominidae"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "rescale",
+                      "title":  "Zoom into any era",
+                      "text":  "Because no single scale fits everything, the graph can be re-scaled: focusing on a period straightens that part of the path into a timeline of its own, so a billion years or a single lifetime can fill the screen. The tour will do this as we go; afterwards press U or the number keys.",
+                      "focus":  "overview",
+                      "anchor":  "time:66e6",
+                      "highlight":  [
+
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "big_bang",
+                      "title":  "The Big Bang",
+                      "text":  "13.8 billion years ago all space, matter and energy began expanding from an extremely hot, dense state. In a split second, inflation likely stretched tiny quantum ripples into the seeds of every future galaxy. Every atom in your body traces back to here, so the red layer runs under everything else.",
+                      "focus":  "cosmos",
+                      "anchor":  "epoch:big_bang",
+                      "highlight":  [
+                                        "matter:universe",
+                                        "epoch:inflation"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "one_in_a_billion",
+                      "title":  "One in a billion survives",
+                      "text":  "As the universe cooled, quarks bound into protons and neutrons, and matter and antimatter annihilated almost completely: about one extra matter particle per billion survived. In the first minutes some survivors fused into helium, leaving about 75% hydrogen and 25% helium by mass - the raw material of every later star.",
+                      "focus":  "cosmos",
+                      "anchor":  "epoch:hadron_epoch",
+                      "highlight":  [
+                                        "epoch:quark_epoch",
+                                        "epoch:bbn"
+                                    ],
+                      "hold":  16
+                  },
+                  {
+                      "id":  "first_light",
+                      "title":  "First light, then darkness",
+                      "text":  "About 380,000 years in, electrons joined those nuclei to make the first atoms, and light broke free; we still see it as the cosmic microwave background. Then came the Dark Ages: no stars for about 100 million years, while gravity quietly pulled gas and dark matter into denser clumps.",
+                      "focus":  "cosmos",
+                      "anchor":  "epoch:recombination",
+                      "highlight":  [
+                                        "epoch:matter_radiation_equality",
+                                        "epoch:dark_ages"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "first_stars",
+                      "title":  "The first stars ignite",
+                      "text":  "Those clumps grew dense enough to ignite the first stars. Made only of hydrogen and helium, most were probably short-lived giants whose fusion and explosions forged and scattered the first carbon, oxygen and iron - the elements that planets, and eventually life, would need.",
+                      "focus":  "cosmos",
+                      "anchor":  "epoch:first_stars",
+                      "highlight":  [
+                                        "matter:first_stars"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "galaxies_split",
+                      "title":  "Matter splits and spreads",
+                      "text":  "Stars gathered into the first galaxies, and here the red layer branches: most ordinary matter stayed behind as thin intergalactic gas, and other galaxies drifted outward, away from our track. As space keeps expanding - faster since dark energy took over - the red layer spreads out and dissipates.",
+                      "focus":  "cosmos",
+                      "anchor":  "epoch:first_galaxies",
+                      "highlight":  [
+                                        "matter:intergalactic_gas",
+                                        "matter:local_group",
+                                        "epoch:dark_energy"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "milky_way",
+                      "title":  "Our galaxy, the Milky Way",
+                      "text":  "One of those galaxies became ours. From about 13.6 billion years ago the Milky Way grew by merging with smaller galaxies, and generation after generation of its stars lived and died, enriching its gas with the carbon, oxygen and iron that would one day build the Sun, the Earth and you.",
+                      "focus":  "cosmos",
+                      "anchor":  "matter:milky_way",
+                      "highlight":  [
+                                        "epoch:milky_way_forms",
+                                        "epoch:gaia_enceladus",
+                                        "epoch:cosmic_noon"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "solar_nebula",
+                      "title":  "A cloud collapses",
+                      "text":  "4.6 billion years ago, a cold cloud of gas and dust in the Milky Way's disk, enriched by all those earlier stars, collapsed under its own gravity. Most of it fell inward to form the Sun, and the rest flattened into a spinning disk where the planets would grow.",
+                      "focus":  "stars",
+                      "anchor":  "matter:solar_nebula",
+                      "highlight":  [
+                                        "epoch:solar_nebula_collapse"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "sun_planets",
+                      "title":  "The Sun and its planets",
+                      "text":  "The Sun ignited and now holds 99.86% of the solar system's mass; it has shone steadily for over 4.5 billion years and powers nearly all life on Earth. The leftover disk built Jupiter and the other planets, which split off here onto their own outer tracks.",
+                      "focus":  "stars",
+                      "anchor":  "matter:sun",
+                      "highlight":  [
+                                        "epoch:solar_system_forms",
+                                        "matter:other_planets"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "earth_forms",
+                      "title":  "Earth takes shape",
+                      "text":  "In that disk, about 4.54 billion years ago, colliding planetesimals built the Earth, at just the right distance from the Sun for liquid water. It melted and separated into an iron core and a rocky mantle, and the churning core would later power a magnetic field that shields the air and oceans.",
+                      "focus":  "earth",
+                      "anchor":  "matter:earth",
+                      "highlight":  [
+                                        "epoch:earth_accretion"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "moon",
+                      "title":  "A collision makes the Moon",
+                      "text":  "Soon after, in the leading theory, a Mars-sized body called Theia struck the young Earth, and the debris formed the Moon. Its gravity steadies Earth's tilt, keeping seasons and climate more stable, and raises the tides that shaped coastlines and early life.",
+                      "focus":  "earth",
+                      "anchor":  "matter:moon",
+                      "highlight":  [
+                                        "epoch:moon_impact"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "origin_of_life",
+                      "title":  "Life begins",
+                      "text":  "Zircon crystals hint that Earth had liquid water by 4.4 billion years ago, and near 10 o'clock the green layer begins: carbon traces in Greenland rocks suggest microbes lived by 3.7 billion years ago. Every living thing descends from one common ancestor whose genetic code we all still share.",
+                      "focus":  "life",
+                      "anchor":  "lifeevent:earliest_life",
+                      "highlight":  [
+                                        "clade:life",
+                                        "epoch:first_oceans"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "tree_of_life",
+                      "title":  "Reading the tree of life",
+                      "text":  "From that ancestor grows the green layer, the tree of life, ending in about 1,600 living groups, mostly families. Our lineage runs along the inside track and every branch that split away bends outward; within each branch, groups are ordered by food chain, with top predators toward the inside.",
+                      "focus":  "life",
+                      "anchor":  "clade:life",
+                      "highlight":  [
+                                        "clade:bacteria",
+                                        "clade:archaea",
+                                        "clade:eukaryotes"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "photosynthesis",
+                      "title":  "Harvesting sunlight",
+                      "text":  "Early microbes lived on chemical energy or simpler, oxygen-free photosynthesis until, probably by 3 billion years ago, cyanobacteria learned to split water with sunlight. Water and light were almost everywhere, so life's energy supply soared, and the waste product, oxygen, would remake the planet.",
+                      "focus":  "life",
+                      "anchor":  "lifeevent:oxygenic_photosynthesis",
+                      "highlight":  [
+                                        "clade:cyanobacteria",
+                                        "leaf:Nostocaceae"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "great_oxidation",
+                      "title":  "Oxygen fills the air",
+                      "text":  "About 2.4 billion years ago that oxygen finally built up in the air. It poisoned many microbes and likely set off a long ice age, but it also let an ozone shield form and made energy-hungry life possible. Life had changed the matter of the planet, and the planet changed life in return.",
+                      "focus":  "life",
+                      "anchor":  "lifeevent:great_oxidation",
+                      "highlight":  [
+                                        "epoch:great_oxidation",
+                                        "clade:cyanobacteria"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "eukaryotes",
+                      "title":  "A cell inside a cell",
+                      "text":  "Oxygen made breathing a powerful new way to get energy. By about 1.65 billion years ago an archaeon had likely taken in an oxygen-breathing bacterium that became the mitochondrion, and the extra energy let these complex cells grow large - the step toward plants, fungi, animals and brains.",
+                      "focus":  "life",
+                      "anchor":  "lifeevent:first_eukaryotes",
+                      "highlight":  [
+                                        "clade:eukaryotes",
+                                        "clade:archaea",
+                                        "clade:proteobacteria"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "multicellular",
+                      "title":  "Cells build bodies",
+                      "text":  "With energy to spare, cells began cooperating as bodies. The red alga Bangiomorpha, about a billion years old, is the first known organism to reproduce sexually, and complex cells branched into green plants, fungi and animals - fungi are closer kin to us than to plants.",
+                      "focus":  "life",
+                      "anchor":  "lifeevent:first_multicellular",
+                      "highlight":  [
+                                        "clade:green_plants",
+                                        "clade:fungi",
+                                        "clade:animals"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "cambrian",
+                      "title":  "The Cambrian explosion",
+                      "text":  "After Snowball Earth, when ice reached the tropics, the thaws flooded the seas with nutrients. Soft Ediacaran creatures appeared, then from about 539 million years ago most animal body plans arose within some 20 million years; eyes, shells and predators set off an arms race that shaped every later animal.",
+                      "focus":  "complex_life",
+                      "anchor":  "lifeevent:cambrian_explosion",
+                      "highlight":  [
+                                        "lifeevent:snowball_earth",
+                                        "epoch:snowball_earth",
+                                        "lifeevent:ediacaran_biota"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "vertebrates",
+                      "title":  "A backbone and a brain",
+                      "text":  "The Cambrian seas held our own branch, the chordates: small swimmers with a stiff rod along the back. Pressed by that arms race, their descendants grew a skull around a larger brain and a backbone, then hinged jaws that made them active predators - the blueprint for fish, dinosaurs and us.",
+                      "focus":  "complex_life",
+                      "anchor":  "clade:vertebrates",
+                      "highlight":  [
+                                        "clade:chordates",
+                                        "clade:jawed_vertebrates",
+                                        "leaf:Myxinidae"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "land_plants",
+                      "title":  "Plants green the land",
+                      "text":  "Meanwhile, about 470 million years ago, plants crept onto land. As they spread they turned bare rock into soil and drew carbon dioxide from the air, and within about 85 million years the first forests stood. The continents were now livable for animals.",
+                      "focus":  "complex_life",
+                      "anchor":  "lifeevent:first_land_plants",
+                      "highlight":  [
+                                        "clade:plants",
+                                        "lifeevent:first_forests"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "tetrapods",
+                      "title":  "Fins become legs",
+                      "text":  "Following the plants, lobe-finned fish, whose sturdy fin bones became our arm and leg bones, gave rise to four-limbed tetrapods about 370 million years ago. They came through the Late Devonian extinction and carried the vertebrate body onto land - the path that leads to us.",
+                      "focus":  "complex_life",
+                      "anchor":  "clade:tetrapods",
+                      "highlight":  [
+                                        "clade:lobe_finned_fish",
+                                        "lifeevent:tetrapods_on_land",
+                                        "lifeevent:late_devonian_extinction"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "amniotes",
+                      "title":  "The egg that left the water",
+                      "text":  "Amphibians still had to return to water to breed. Amniotes solved this with eggs that carry their own water, which let them conquer dry land; their lineage then split in two, one side leading to reptiles and birds, the other, our inner track, to mammals.",
+                      "focus":  "complex_life",
+                      "anchor":  "clade:amniotes",
+                      "highlight":  [
+                                        "clade:amphibians",
+                                        "clade:reptiles",
+                                        "clade:mammals"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "great_dying",
+                      "title":  "The Great Dying",
+                      "text":  "About 252 million years ago, on the supercontinent Pangaea, huge Siberian eruptions heated and acidified the planet. The Great Dying killed over 80 percent of marine species, the worst extinction known; matter reset life, and in the recovering world dinosaurs and mammals arose.",
+                      "focus":  "complex_life",
+                      "anchor":  "lifeevent:end_permian_extinction",
+                      "highlight":  [
+                                        "epoch:great_dying",
+                                        "epoch:pangaea"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "dinosaurs",
+                      "title":  "The age of dinosaurs",
+                      "text":  "Dinosaurs appeared about 233 million years ago, and after the end-Triassic extinction they ruled the land for some 135 million years. The first mammals, small nocturnal insect eaters, survived in their shadow thanks to warm blood, fur and keen hearing.",
+                      "focus":  "mammals",
+                      "anchor":  "lifeevent:first_dinosaurs",
+                      "highlight":  [
+                                        "clade:archosaurs",
+                                        "lifeevent:end_triassic_extinction",
+                                        "lifeevent:first_mammals"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "chicxulub",
+                      "title":  "The asteroid",
+                      "text":  "Then, 66 million years ago, an asteroid about 10 km wide struck what is now Mexico's Yucatan. The impact winter killed about three-quarters of species, including every dinosaur except the birds. Watch the red layer strike the green: without this impact, mammals - and we - might never have had our turn.",
+                      "focus":  "mammals",
+                      "anchor":  "epoch:chicxulub",
+                      "highlight":  [
+                                        "lifeevent:end_cretaceous_extinction",
+                                        "clade:birds"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "mammals_radiate",
+                      "title":  "Mammals inherit the Earth",
+                      "text":  "With the dinosaurs gone, placental mammals radiated into the empty niches: whales, bats, horses, cats, dogs and primates. Notice the food chain order within each branch: hunters such as cats sit toward the inside, the plant eaters they prey on farther out.",
+                      "focus":  "mammals",
+                      "anchor":  "clade:placentals",
+                      "highlight":  [
+                                        "clade:mammals",
+                                        "clade:carnivorans",
+                                        "leaf:Felidae",
+                                        "clade:whales_dolphins"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "primates",
+                      "title":  "Life in the trees",
+                      "text":  "One small branch took to the trees. Primates gained grasping hands and forward-facing eyes; many added keen color vision and big social groups that rewarded social intelligence, and apes went further, with bigger brains and long childhoods for learning.",
+                      "focus":  "mammals",
+                      "anchor":  "clade:primates",
+                      "highlight":  [
+                                        "clade:anthropoids",
+                                        "clade:apes"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "hominins",
+                      "title":  "Standing up",
+                      "text":  "As cooling climates opened African forests into woodland and grassland, our lineage split from the chimpanzees' by about 7 million years ago. Walking upright freed the hands for carrying - and, eventually, for making tools.",
+                      "focus":  "hominins",
+                      "anchor":  "lifeevent:first_hominins",
+                      "highlight":  [
+                                        "clade:hominidae",
+                                        "leaf:Hominidae",
+                                        "lifeevent:grasslands_spread"
+                                    ],
+                      "hold":  12
+                  },
+                  {
+                      "id":  "tools_fire",
+                      "title":  "Tools, fire and bigger brains",
+                      "text":  "Free hands made the oldest known stone tools, 3.3 million years old, opening up meat and marrow to fuel larger brains. Homo erectus spread out of Africa, cooking with fire released still more energy from food, and swinging ice-age climates rewarded adaptable minds.",
+                      "focus":  "hominins",
+                      "anchor":  "lifeevent:first_stone_tools",
+                      "highlight":  [
+                                        "lifeevent:homo_erectus",
+                                        "lifeevent:control_of_fire",
+                                        "epoch:ice_ages"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "homo_sapiens",
+                      "title":  "Our species",
+                      "text":  "About 300,000 years ago our own species appears in Africa. With language and shared culture, knowledge could build up faster than genes could change - a new kind of evolution, and the reason a third, blue layer is about to rise above the green.",
+                      "focus":  "hominins",
+                      "anchor":  "lifeevent:homo_sapiens",
+                      "highlight":  [
+                                        "leaf:Hominidae"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "out_of_africa",
+                      "title":  "Out of Africa",
+                      "text":  "Carrying that culture, modern humans spread from Africa to Asia, Europe, Australia and later the Americas, starting around 70,000 years ago and mixing with Neanderthals and Denisovans, who later vanished. Every culture outside Africa descends from these migrations.",
+                      "focus":  "prehistory",
+                      "anchor":  "lifeevent:out_of_africa",
+                      "highlight":  [
+
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "agriculture",
+                      "title":  "Farming changes everything",
+                      "text":  "When the last ice age ended 11,700 years ago, the stable Holocene climate made farming possible. People domesticated grasses such as wheat and rice, whose large seeds store food, and began herding animals; food surpluses led to villages, cities, writing and the first civilizations.",
+                      "focus":  "prehistory",
+                      "anchor":  "lifeevent:agriculture",
+                      "highlight":  [
+                                        "epoch:holocene",
+                                        "clade:grasses",
+                                        "leaf:Poaceae",
+                                        "clade:flowering_plants"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "civ_streams",
+                      "title":  "Streams of power",
+                      "text":  "In the blue layer, those first civilizations are each drawn as a stream whose width is its relative power, taken from John Sparks's 1931 Histomap and, for the last century, from shares of world GDP. When the Histomap begins, in 2000 BCE, Egyptian, Mesopotamian, Anatolian, Indian and Chinese peoples already flow side by side.",
+                      "focus":  "civilizations",
+                      "anchor":  "civ:chinese",
+                      "highlight":  [
+                                        "civ:egyptians",
+                                        "civ:amorites",
+                                        "civ:hittites",
+                                        "civ:indians"
+                                    ],
+                      "hold":  16
+                  },
+                  {
+                      "id":  "population_curve",
+                      "title":  "People inside the streams",
+                      "text":  "Look inside a stream: a population curve split by sex, men on one side and women on the other. Each thin line is a lifespan that rises and falls with modeled social market value, and each stands for N people - the count is on screen. Famous people, like Hatshepsut and Hammurabi, glow.",
+                      "focus":  "civilizations",
+                      "anchor":  "civ:egyptians",
+                      "highlight":  [
+                                        "figure:hatshepsut",
+                                        "figure:hammurabi"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "lifespans_gender",
+                      "title":  "Short lives and the gender gap",
+                      "text":  "Why are so many lines short? Ancient life expectancy at birth was only about 26 years, mostly because so many children died; adults who reached 15 often lived into their 40s to 60s. Compare the two halves too: women's small edge in lifespan grew as childbirth became safer, to about five years today.",
+                      "focus":  "civilizations",
+                      "anchor":  "civ:greeks",
+                      "highlight":  [
+                                        "civ:romans"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "bronze_age",
+                      "title":  "Collapse and rebirth",
+                      "text":  "Streams collide and split. Egypt and the Hittites fought to a draw at Kadesh and signed one of the oldest known peace treaties, yet around 1200 BCE the Late Bronze Age collapse brought down the Hittites and the Aegean palaces. In time, from the wreckage grew the Greek city-states.",
+                      "focus":  "civilizations",
+                      "anchor":  "war:bronze_age_collapse",
+                      "highlight":  [
+                                        "war:kadesh",
+                                        "civ:hittites",
+                                        "civ:aegeans",
+                                        "civ:greeks"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "axial_age",
+                      "title":  "An age of big ideas",
+                      "text":  "As Iron Age states grew larger and richer, thinkers across Eurasia asked how to live well: Confucius and Laozi in China, the Buddha in India, Socrates in Greece. Their ideas outlived every empire on this map and still guide billions of people.",
+                      "focus":  "civilizations",
+                      "anchor":  "figure:confucius",
+                      "highlight":  [
+                                        "figure:laozi",
+                                        "figure:buddha",
+                                        "figure:socrates"
+                                    ],
+                      "hold":  13
+                  },
+                  {
+                      "id":  "alexander",
+                      "title":  "Empires rise and split",
+                      "text":  "Cyrus the Great built Persia into the largest empire yet. Alexander the Great conquered it in under a decade, but when he died at 32 his empire split among his generals: watch Greek rule flow into Ptolemaic Egypt and the Seleucid Empire, carrying Greek culture from Egypt to India.",
+                      "focus":  "civilizations",
+                      "anchor":  "figure:alexander_the_great",
+                      "highlight":  [
+                                        "figure:cyrus_the_great",
+                                        "war:alexander",
+                                        "civ:seleucids",
+                                        "civ:egyptians2"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "rome",
+                      "title":  "Rome unites the Mediterranean",
+                      "text":  "Rome absorbed Greek culture, destroyed its rival Carthage in the Punic Wars and, after Julius Caesar's civil war, became an empire under Augustus, uniting the Mediterranean with roads, law and Latin. Its eastern half, Byzantium, kept Greek learning alive until 1453.",
+                      "focus":  "civilizations",
+                      "anchor":  "civ:romans",
+                      "highlight":  [
+                                        "war:punic_wars",
+                                        "civ:phoenicians",
+                                        "figure:julius_caesar",
+                                        "figure:augustus"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "faiths",
+                      "title":  "Faiths that outlast empires",
+                      "text":  "The scriptures of little Israel and Judah shaped Christianity, which spread along Rome's roads after Jesus and Paul, and Islam, which united Arabia under Muhammad. Arab caliphates then stretched from Spain to India, preserving Greek science and carrying Indian numerals west.",
+                      "focus":  "civilizations",
+                      "anchor":  "figure:jesus",
+                      "highlight":  [
+                                        "civ:hebrews",
+                                        "figure:paul_the_apostle",
+                                        "figure:muhammad",
+                                        "civ:arabs"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "fall_of_rome",
+                      "title":  "One stream becomes many",
+                      "text":  "Steppe nomads such as the Huns pushed Germanic peoples into a weakened Rome, and by 476 the Western Empire had fallen. Watch one stream split into many: the Franks, whose realm peaked under Charlemagne, and other Germanic kingdoms became the roots of France, Germany, England and much of Europe.",
+                      "focus":  "civilizations",
+                      "anchor":  "war:fall_of_western_rome",
+                      "highlight":  [
+                                        "civ:western_romans",
+                                        "civ:huns",
+                                        "civ:teutons",
+                                        "civ:franks",
+                                        "figure:charlemagne"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "mongols",
+                      "title":  "The Mongol storm",
+                      "text":  "In the 1200s Genghis Khan and his heirs built the largest contiguous land empire in history. Linking Eurasia, it carried trade, ideas and the Black Death; as it fractured, new powers grew from its edges, among them Muscovy, later Russia, and the Ottoman Turks.",
+                      "focus":  "civilizations",
+                      "anchor":  "civ:mongols",
+                      "highlight":  [
+                                        "figure:genghis_khan",
+                                        "war:mongol_conquests",
+                                        "civ:russia",
+                                        "civ:ottomans"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "printing",
+                      "title":  "Printing, science, new worlds",
+                      "text":  "Around 1450 Gutenberg's printing press made books cheap, and printed ideas spread faster than any ruler could stop them, fueling Luther's Reformation and the science of Galileo and Newton. Meanwhile Columbus's 1492 voyage linked Europe and the Americas, reshaping trade, crops and peoples.",
+                      "focus":  "civilizations",
+                      "anchor":  "figure:gutenberg",
+                      "highlight":  [
+                                        "figure:martin_luther",
+                                        "figure:galileo",
+                                        "figure:isaac_newton",
+                                        "figure:columbus"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "revolutions",
+                      "title":  "Revolutions of freedom and steam",
+                      "text":  "Printing, science and trade fed two revolutions in the late 1700s. Britain's American colonies declared independence in 1776, while James Watt's steam engines helped launch Britain's Industrial Revolution; machines multiplied what each worker could make, and the British, then American, streams swelled with power.",
+                      "focus":  "civilizations",
+                      "anchor":  "civ:united_states",
+                      "highlight":  [
+                                        "war:american_revolution",
+                                        "figure:george_washington",
+                                        "civ:britain",
+                                        "figure:james_watt"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "longer_lives",
+                      "title":  "Longer lives, more people",
+                      "text":  "Industry funded science, and science lengthened lives. Germ theory, vaccines, antibiotics and high-yield crops cut child deaths and more than doubled life expectancy since 1800, to over 70 years today - so lifelines grow long, and the world population balloons past 8 billion.",
+                      "focus":  "modern",
+                      "anchor":  "figure:louis_pasteur",
+                      "highlight":  [
+                                        "figure:alexander_fleming",
+                                        "figure:jonas_salk",
+                                        "figure:norman_borlaug"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "world_wars",
+                      "title":  "Industrial war",
+                      "text":  "The same industry made war industrial. World War I killed about 20 million people and World War II about 75 million; in this model roughly a quarter of German and a fifth of Soviet military-age men die, a scar you can see as a gap on the men's side of those streams.",
+                      "focus":  "modern",
+                      "anchor":  "war:ww2",
+                      "highlight":  [
+                                        "war:ww1",
+                                        "figure:adolf_hitler",
+                                        "figure:winston_churchill",
+                                        "figure:joseph_stalin",
+                                        "figure:franklin_d_roosevelt"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "new_balance",
+                      "title":  "Power shifts again",
+                      "text":  "By 1945 the United States was by far the widest stream, now measured by share of world GDP; afterwards Japan and Germany rebuilt into economic giants. Since Deng Xiaoping's reforms began in 1978, China has grown into the largest economy by purchasing power, and India is rising fast.",
+                      "focus":  "modern",
+                      "anchor":  "figure:deng_xiaoping",
+                      "highlight":  [
+                                        "civ:chinese",
+                                        "civ:united_states",
+                                        "civ:japan",
+                                        "civ:indians"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "smv_intro",
+                      "title":  "Zoom into one stream",
+                      "text":  "Now let's zoom into one stream: the United States from 1950 to today. Here the population is simulated in detail from UN age pyramids and US marriage and divorce rates, men on one side and women on the other.",
+                      "focus":  "smv",
+                      "anchor":  "smv:us",
+                      "highlight":  [
+                                        "civ:united_states"
+                                    ],
+                      "hold":  12
+                  },
+                  {
+                      "id":  "smv_lifelines",
+                      "title":  "How to read a lifeline",
+                      "text":  "Each line follows a life from birth to death. From age 18 its height follows a modeled social market value: in this model women's value peaks young, men's rises with wealth into middle age, and having children lowers both. It is a model of a popular idea, drawn so it can be examined - not a measurement.",
+                      "focus":  "smv",
+                      "anchor":  "smv:us",
+                      "highlight":  [
+
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "smv_scale",
+                      "title":  "One line, many people",
+                      "text":  "No screen could draw hundreds of millions of Americans, so each line stands for N people - watch the count on screen change as you zoom. Higher-value lines run nearest the center line between the two halves, and married couples are drawn in toward it, side by side.",
+                      "focus":  "smv",
+                      "anchor":  "smv:us",
+                      "highlight":  [
+                                        "gen:boomers"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "baby_boom",
+                      "title":  "The baby boom",
+                      "text":  "When World War II ended, returning soldiers, early marriages and prosperity produced the baby boom: US births surged from 1946 to 1964. Children's lines start from their parents' lines, so you can watch the boomers branch from the Greatest and Silent generations.",
+                      "focus":  "smv",
+                      "anchor":  "gen:boomers",
+                      "highlight":  [
+                                        "gen:greatest",
+                                        "gen:silent",
+                                        "war:ww2"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "divorce",
+                      "title":  "Marriage and divorce",
+                      "text":  "From 1960 to 1980 the US divorce rate more than doubled, and the marriage rate later fell by over a third. Watch more paired lines come apart, often after children have branched from them; Millennials, Gen Z and Generation Alpha inherit a world of later marriages and fewer children.",
+                      "focus":  "smv",
+                      "anchor":  "gen:genx",
+                      "highlight":  [
+                                        "gen:millennials",
+                                        "gen:genz",
+                                        "gen:alpha"
+                                    ],
+                      "hold":  14
+                  },
+                  {
+                      "id":  "branch_tip",
+                      "title":  "The end of the branch",
+                      "text":  "The human branch runs straight to its tip. The last century is a thin slice of it, the last year a hairline, the last second invisible - yet every line in blue is still arriving here. Life and matter faded out before the branch began; what they made possible continues in us.",
+                      "focus":  "present",
+                      "anchor":  "now",
+                      "highlight":  [
+                                        "now"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "convergence",
+                      "title":  "Everything arrives here",
+                      "text":  "At the glowing Now beacon, all three layers arrive together. Your hydrogen dates from the Big Bang and your carbon and oxygen from stars; 3.7 billion years of life and every empire, war and family in blue shaped your world. Every line on this graph either ended along the way or led here, to you.",
+                      "focus":  "present",
+                      "anchor":  "now",
+                      "highlight":  [
+                                        "matter:earth",
+                                        "clade:hominidae",
+                                        "smv:us"
+                                    ],
+                      "hold":  15
+                  },
+                  {
+                      "id":  "step_back",
+                      "title":  "Step back",
+                      "text":  "Now step back: from the Big Bang at 6 o'clock, around the clock of deep time and down the human branch, everything before led to this moment - and this moment is where the next chain of causes begins. Explore any era yourself and follow the lines from cause to effect.",
+                      "focus":  "overview",
+                      "anchor":  "now",
+                      "highlight":  [
+                                        "epoch:big_bang"
+                                    ],
+                      "hold":  14
+                  }
+              ]
 }

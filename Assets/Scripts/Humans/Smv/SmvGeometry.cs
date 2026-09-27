@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Why.Humans.Smv
@@ -15,7 +16,8 @@ namespace Why.Humans.Smv
     /// outlines; <see cref="Surfaces"/> - their faint fills.</item>
     /// </list>
     /// Samples are thinned where a line barely changes, so quarter-year simulation steps cost only where
-    /// something happens (a marriage, a child, a rank change).
+    /// something happens (a marriage, a child, a rank change). Lines are thinned and styled in parallel
+    /// (each line is independent) and appended to the builders in birth order.
     /// </summary>
     public sealed class SmvGeometry
     {
@@ -71,14 +73,6 @@ namespace Why.Humans.Smv
         readonly int civIndex;
         readonly float[] stepU;
 
-        // per-line scratch buffers (reused)
-        double[] bt = new double[512];
-        float[] bu = new float[512], by = new float[512], br = new float[512];
-        int[] bk = new int[512];
-        bool[] keep = new bool[512];
-        readonly List<LinePoint> finePts = new List<LinePoint>(512);
-        readonly List<LinePoint> coarsePts = new List<LinePoint>(512);
-
         public SmvGeometry(SmvSimulation sim, int civIndex)
         {
             this.sim = sim;
@@ -103,18 +97,61 @@ namespace Why.Humans.Smv
         /// <summary>Every lifeline into <see cref="Fine"/>, the coarse subset also into <see cref="Coarse"/>.</summary>
         public void BuildLifelines()
         {
-            Color32 men = Tint(GraphStyle.HumansMale, 1), women = Tint(GraphStyle.HumansFemale, 1);
-            float[] center = sim.Center, envelope = sim.Envelope;
-            foreach (SmvPerson p in sim.People)
+            SmvPerson[] people = sim.People.ToArray();
+            LinePoint[][] fine = new LinePoint[people.Length][];
+            LinePoint[][] coarse = new LinePoint[people.Length][];
+            int workers = Math.Max(1, Math.Min(4, Environment.ProcessorCount - 1));
+            Parallel.For(0, workers, w =>
             {
+                LineShaper shaper = new LineShaper(this);
+                for (int i = w; i < people.Length; i += workers) shaper.Shape(people[i], out fine[i], out coarse[i]);
+            });
+
+            for (int i = 0; i < people.Length; i++)
+            {
+                if (fine[i] == null) continue;
+                SmvPerson p = people[i];
+                RawSamples += p.SampleCount;
+                Fine.AddPolyline(fine[i], Id(p));
+                FinePoints += fine[i].Length;
+                if (coarse[i] == null) continue;
+                Coarse.AddPolyline(coarse[i], Id(p));
+                CoarsePoints += coarse[i].Length;
+                CoarseLines++;
+            }
+        }
+
+        /// <summary>Thins and styles one line at a time with its own scratch buffers (one per worker).</summary>
+        sealed class LineShaper
+        {
+            readonly SmvGeometry owner;
+            readonly SmvSimulation sim;
+            readonly Color32 men = Tint(GraphStyle.HumansMale, 1), women = Tint(GraphStyle.HumansFemale, 1);
+            readonly List<LinePoint> finePts = new List<LinePoint>(512);
+            readonly List<LinePoint> coarsePts = new List<LinePoint>(512);
+            double[] bt = new double[512];
+            float[] bu = new float[512], by = new float[512], br = new float[512];
+            int[] bk = new int[512];
+            bool[] keep = new bool[512];
+
+            public LineShaper(SmvGeometry owner)
+            {
+                this.owner = owner;
+                sim = owner.sim;
+            }
+
+            /// <summary>The kept, styled points of a person's line in both tiers (null when not drawn).</summary>
+            public void Shape(SmvPerson p, out LinePoint[] fine, out LinePoint[] coarse)
+            {
+                fine = coarse = null;
                 int n = p.SampleCount;
-                if (n == 0) continue;
+                if (n == 0) return;
                 int m = Gather(p, n);
-                RawSamples += n;
                 Thin(m);
 
-                bool coarse = InCoarseTier(p);
+                bool inCoarse = InCoarseTier(p);
                 Color32 tint = p.Male ? men : women;
+                float[] center = sim.Center, envelope = sim.Envelope;
                 finePts.Clear();
                 coarsePts.Clear();
                 for (int j = 0; j < m; j++)
@@ -134,7 +171,7 @@ namespace Why.Humans.Smv
                     float widthWorld = child ? ChildWidthWorld : AdultWidthWorld;
                     finePts.Add(new LinePoint(data, WithAlpha(tint, spread * (child ? FineChildAlpha : FineAdultAlpha)),
                         child ? FineChildPx : FineAdultPx, widthWorld, intensity));
-                    if (coarse)
+                    if (inCoarse)
                     {
                         coarsePts.Add(new LinePoint(data,
                             WithAlpha(tint, spread * (child ? CoarseChildAlpha : CoarseAdultAlpha)),
@@ -142,114 +179,109 @@ namespace Why.Humans.Smv
                     }
                 }
 
-                Fine.AddPolyline(finePts, Id(p));
-                FinePoints += finePts.Count;
-                if (coarse)
+                fine = finePts.ToArray();
+                if (inCoarse) coarse = coarsePts.ToArray();
+            }
+
+            /// <summary>
+            /// Fills the scratch buffers with a line's points: its start (birth or arrival), one sample per
+            /// step, and its end (death, or now). Returns the point count.
+            /// </summary>
+            int Gather(SmvPerson p, int n)
+            {
+                int m = n + 2;
+                if (bt.Length < m)
                 {
-                    Coarse.AddPolyline(coarsePts, Id(p));
-                    CoarsePoints += coarsePts.Count;
-                    CoarseLines++;
+                    int size = m * 2;
+                    bt = new double[size];
+                    bu = new float[size];
+                    by = new float[size];
+                    br = new float[size];
+                    bk = new int[size];
+                    keep = new bool[size];
                 }
-            }
-        }
 
-        /// <summary>
-        /// Fills the scratch buffers with a line's points: its start (birth or arrival), one sample per
-        /// step, and its end (death, or now). Returns the point count.
-        /// </summary>
-        int Gather(SmvPerson p, int n)
-        {
-            int m = n + 2;
-            if (bt.Length < m)
-            {
-                int size = m * 2;
-                bt = new double[size];
-                bu = new float[size];
-                by = new float[size];
-                br = new float[size];
-                bk = new int[size];
-                keep = new bool[size];
-            }
-
-            bt[0] = p.Enter;
-            bu[0] = U(p.Enter);
-            by[0] = p.StartY;
-            br[0] = p.StartRho;
-            bk[0] = p.FirstStep;
-            float[] sy = sim.SampleY, sr = sim.SampleRho;
-            double t0 = sim.StartTime;
-            int first = p.FirstStep, o = p.SampleOffset;
-            for (int i = 0; i < n; i++)
-            {
-                int k = first + i;
-                bt[i + 1] = t0 + k * SmvSimulation.Step;
-                bu[i + 1] = stepU[k];
-                by[i + 1] = sy[o + i];
-                br[i + 1] = sr[o + i];
-                bk[i + 1] = k;
-            }
-
-            double end = Math.Min(p.Death, sim.NowYear);
-            bt[m - 1] = end;
-            bu[m - 1] = U(end);
-            by[m - 1] = by[m - 2];
-            br[m - 1] = br[m - 2];
-            bk[m - 1] = p.LastStep;
-            if (end - bt[m - 2] < 1e-6) m--;
-            if (bt[1] - bt[0] < 1e-6)
-            {
-                // the first sample falls exactly on the start: drop the duplicate
-                Array.Copy(bt, 1, bt, 0, m - 1);
-                Array.Copy(bu, 1, bu, 0, m - 1);
-                Array.Copy(by, 1, by, 0, m - 1);
-                Array.Copy(br, 1, br, 0, m - 1);
-                Array.Copy(bk, 1, bk, 0, m - 1);
-                m--;
-            }
-
-            return m;
-        }
-
-        /// <summary>
-        /// Keeps only the points a straight segment cannot stand in for. Each segment from the last kept
-        /// point (the anchor) is extended while every skipped point stays within the tolerance of it; the
-        /// allowed slopes form a "sleeve" that narrows with each skipped point, so the test is O(1) per
-        /// point (exact for the vertical-distance criterion) and the whole pass is linear.
-        /// </summary>
-        void Thin(int m)
-        {
-            for (int j = 0; j < m; j++) keep[j] = false;
-            keep[0] = true;
-            keep[m - 1] = true;
-            int a = 0;
-            float loY = float.NegativeInfinity, hiY = float.PositiveInfinity;
-            float loR = float.NegativeInfinity, hiR = float.PositiveInfinity;
-            for (int i = 1; i < m; i++)
-            {
-                double dt = bt[i] - bt[a];
-                if (dt <= 1e-9) continue;
-                float inv = (float)(1.0 / dt);
-                float dy = by[i] - by[a], dr = br[i] - br[a];
-                float sy = dy * inv, sr = dr * inv;
-                if (i - a > MaxGap || sy < loY || sy > hiY || sr < loR || sr > hiR)
+                bt[0] = p.Enter;
+                bu[0] = owner.U(p.Enter);
+                by[0] = p.StartY;
+                br[0] = p.StartRho;
+                bk[0] = p.FirstStep;
+                float[] sy = sim.SampleY, sr = sim.SampleRho;
+                float[] stepU = owner.stepU;
+                double t0 = sim.StartTime;
+                int first = p.FirstStep, o = p.SampleOffset;
+                for (int i = 0; i < n; i++)
                 {
-                    // the previous point becomes the anchor; the segment to its neighbor always fits
-                    a = i - 1;
-                    keep[a] = true;
-                    loY = loR = float.NegativeInfinity;
-                    hiY = hiR = float.PositiveInfinity;
-                    dt = bt[i] - bt[a];
+                    int k = first + i;
+                    bt[i + 1] = t0 + k * SmvSimulation.Step;
+                    bu[i + 1] = stepU[k];
+                    by[i + 1] = sy[o + i];
+                    br[i + 1] = sr[o + i];
+                    bk[i + 1] = k;
+                }
+
+                double end = Math.Min(p.Death, sim.NowYear);
+                bt[m - 1] = end;
+                bu[m - 1] = owner.U(end);
+                by[m - 1] = by[m - 2];
+                br[m - 1] = br[m - 2];
+                bk[m - 1] = p.LastStep;
+                if (end - bt[m - 2] < 1e-6) m--;
+                if (bt[1] - bt[0] < 1e-6)
+                {
+                    // the first sample falls exactly on the start: drop the duplicate
+                    Array.Copy(bt, 1, bt, 0, m - 1);
+                    Array.Copy(bu, 1, bu, 0, m - 1);
+                    Array.Copy(by, 1, by, 0, m - 1);
+                    Array.Copy(br, 1, br, 0, m - 1);
+                    Array.Copy(bk, 1, bk, 0, m - 1);
+                    m--;
+                }
+
+                return m;
+            }
+
+            /// <summary>
+            /// Keeps only the points a straight segment cannot stand in for. Each segment from the last kept
+            /// point (the anchor) is extended while every skipped point stays within the tolerance of it; the
+            /// allowed slopes form a sleeve that narrows with each skipped point, so the test is O(1) per
+            /// point (exact for the vertical-distance criterion) and the whole pass is linear.
+            /// </summary>
+            void Thin(int m)
+            {
+                for (int j = 0; j < m; j++) keep[j] = false;
+                keep[0] = true;
+                keep[m - 1] = true;
+                int a = 0;
+                float loY = float.NegativeInfinity, hiY = float.PositiveInfinity;
+                float loR = float.NegativeInfinity, hiR = float.PositiveInfinity;
+                for (int i = 1; i < m; i++)
+                {
+                    double dt = bt[i] - bt[a];
                     if (dt <= 1e-9) continue;
-                    inv = (float)(1.0 / dt);
-                    dy = by[i] - by[a];
-                    dr = br[i] - br[a];
-                }
+                    float inv = (float)(1.0 / dt);
+                    float dy = by[i] - by[a], dr = br[i] - br[a];
+                    float sy = dy * inv, sr = dr * inv;
+                    if (i - a > MaxGap || sy < loY || sy > hiY || sr < loR || sr > hiR)
+                    {
+                        // the previous point becomes the anchor; the segment to its neighbor always fits
+                        a = i - 1;
+                        keep[a] = true;
+                        loY = loR = float.NegativeInfinity;
+                        hiY = hiR = float.PositiveInfinity;
+                        dt = bt[i] - bt[a];
+                        if (dt <= 1e-9) continue;
+                        inv = (float)(1.0 / dt);
+                        dy = by[i] - by[a];
+                        dr = br[i] - br[a];
+                    }
 
-                // later segments from the anchor must pass within the tolerance of point i
-                loY = Math.Max(loY, (dy - TolY) * inv);
-                hiY = Math.Min(hiY, (dy + TolY) * inv);
-                loR = Math.Max(loR, (dr - TolRho) * inv);
-                hiR = Math.Min(hiR, (dr + TolRho) * inv);
+                    // later segments from the anchor must pass within the tolerance of point i
+                    loY = Math.Max(loY, (dy - TolY) * inv);
+                    hiY = Math.Min(hiY, (dy + TolY) * inv);
+                    loR = Math.Max(loR, (dr - TolRho) * inv);
+                    hiR = Math.Min(hiR, (dr + TolRho) * inv);
+                }
             }
         }
 

@@ -53,6 +53,7 @@ namespace Why.Humans.Smv
         internal float ValueSlope;
         internal int ExactStep = -1;
         internal bool StateChanged;     // children or partners changed since the last exact value
+        internal bool PartnersDone;     // reached the end of the partner curve (no more increments)
 
         public int SampleCount => LastStep >= FirstStep ? LastStep - FirstStep + 1 : 0;
     }
@@ -457,10 +458,18 @@ namespace Why.Humans.Smv
                 if (p.Spouse >= 0 && byIndex[p.Spouse].LastStep < k) p.Spouse = -1;
                 float age = (float)(t - p.Birth);
                 if (age < SmvModel.AdultAge) continue;
-                if (p.Spouse < 0 && p.Partners + 0.5f < PartnerCurve(p, age))
+                if (p.Spouse < 0 && !p.PartnersDone)
                 {
-                    p.Partners++;
-                    p.StateChanged = true;
+                    float curve = PartnerCurve(p, age);
+                    if (p.Partners + 0.5f < curve)
+                    {
+                        p.Partners++;
+                        p.StateChanged = true;
+                    }
+                    else if (age > PartnerTable.BandMidAge[PartnerTable.Bands - 1])
+                    {
+                        p.PartnersDone = true; // the curve is flat from here on
+                    }
                 }
 
                 if (p.Male)
@@ -617,8 +626,7 @@ namespace Why.Humans.Smv
         /// <summary>
         /// Values and value ranks for this step. Ranks come from a counting sort over value bins (linear per
         /// step; ties within a bin keep the population order): every adult's rank among the adults of their
-        /// sex becomes their offset from the band center, and married couples share one mirrored offset,
-        /// drawn closer the longer they have been married.
+        /// sex becomes their offset from the band center (couples are joined in <see cref="Place"/>).
         /// </summary>
         void Rank(double t, int k)
         {
@@ -664,18 +672,6 @@ namespace Why.Humans.Smv
                 if (t - p.Birth < SmvModel.AdultAge) continue;
                 int s = p.Male ? 1 : 0;
                 p.RankOffset = Offset(binRank[s][p.ValueBin]++, adults[s], p.Spouse >= 0);
-            }
-
-            for (int i = 0; i < aliveCount; i++)
-            {
-                SmvPerson wife = alive[i];
-                if (wife.Male || wife.Spouse < 0) continue;
-                SmvPerson husband = byIndex[wife.Spouse];
-                float years = (float)(t - wife.MarriedAt);
-                float closeness = 1f - 0.4f * Math.Min(1f, years / 25f);
-                float shared = 0.5f * (wife.RankOffset + husband.RankOffset) * closeness;
-                wife.RankOffset = shared;
-                husband.RankOffset = shared;
             }
         }
 
@@ -723,7 +719,11 @@ namespace Why.Humans.Smv
             return table;
         }
 
-        /// <summary>Writes every living person's sample: smoothed toward their target place in the stream.</summary>
+        /// <summary>
+        /// Writes every living person's sample, smoothed toward their target place in the stream. Married
+        /// couples share one mirrored offset (the mean of their rank offsets), drawn closer the longer they
+        /// have been married, so their lines run parallel around the middle.
+        /// </summary>
         void Place(double t, int k, float center, float envelope, float aOff, float aY)
         {
             float[] ys = SampleY, rhos = SampleRho;
@@ -740,6 +740,13 @@ namespace Why.Humans.Smv
                 else
                 {
                     off = p.RankOffset;
+                    if (p.Spouse >= 0)
+                    {
+                        float years = (float)(t - p.MarriedAt);
+                        float closeness = 1f - 0.4f * Math.Min(1f, years / 25f);
+                        off = 0.5f * (off + byIndex[p.Spouse].RankOffset) * closeness;
+                    }
+
                     y = SmvModel.Height(p.Value, age);
                 }
 

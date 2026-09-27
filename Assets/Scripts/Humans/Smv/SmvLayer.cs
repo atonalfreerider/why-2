@@ -36,9 +36,12 @@ namespace Why.Humans.Smv
         /// <summary>Civilization block used when the United States stream is missing from the human world.</summary>
         const int FallbackCivIndex = 99;
 
-        // level of detail: on-screen length (px) of 1950 -> now along the stream
+        // level of detail. Visible at all once 1950 -> now spans a couple of hundred pixels along the stream;
+        // the fine tier once the population's cross-section (envelope width plus value height) spreads over
+        // several hundred pixels, or when the camera is deep inside the era.
         const float CoarseFromPx = 80, CoarseFullPx = 220;
-        const float FineFromPx = 950, FineFullPx = 1600;
+        const float FineFromSpreadPx = 380, FineFullSpreadPx = 650;
+        const float FineFromEraPx = 3500, FineFullEraPx = 6000;
         const float FadeSpeed = 1.8f;
 
         static readonly Generation[] FallbackGenerations =
@@ -68,8 +71,16 @@ namespace Why.Humans.Smv
         readonly List<LabelSpec> labels = new List<LabelSpec>();
         bool labelsShown = true;
 
-        /// <summary>Data-space points along the stream from 1950 to now, projected to measure the on-screen era.</summary>
-        Vector3[] eraProbe = Array.Empty<Vector3>();
+        /// <summary>
+        /// Cross-sections of the population along the stream from 1950 to now (data space), projected every
+        /// frame to measure how large the era and its population appear on screen.
+        /// </summary>
+        struct EraProbe
+        {
+            public Vector3 Mid, Inner, Outer, Base, Top;
+        }
+
+        EraProbe[] eraProbe = Array.Empty<EraProbe>();
 
         // band lookup state (worker thread)
         HumanWorld world;
@@ -252,12 +263,21 @@ namespace Why.Humans.Smv
         {
             const int n = 12;
             double end = sim.NowYear - 1;
-            eraProbe = new Vector3[n];
+            eraProbe = new EraProbe[n];
             for (int i = 0; i < n; i++)
             {
                 double year = firstMid + (end - firstMid) * i / (n - 1);
                 int k = sim.StepAt(year);
-                eraProbe[i] = new Vector3(geo.U(year), GraphStyle.HumansY + GraphStyle.SmvHeight * 0.4f, sim.Center[k]);
+                float u = geo.U(year), c = sim.Center[k], e = sim.Envelope[k];
+                float y = GraphStyle.HumansY;
+                eraProbe[i] = new EraProbe
+                {
+                    Mid = new Vector3(u, y + GraphStyle.SmvHeight * 0.4f, c),
+                    Inner = new Vector3(u, y, c - e),
+                    Outer = new Vector3(u, y, c + e),
+                    Base = new Vector3(u, y, c),
+                    Top = new Vector3(u, y + GraphStyle.SmvHeight, c)
+                };
             }
         }
 
@@ -286,19 +306,22 @@ namespace Why.Humans.Smv
 
         /// <summary>
         /// Level of detail by what is on screen: nothing while 1950 - now is a sliver (the whole clock, the
-        /// civilizations), the coarse tier once it spans a couple of hundred pixels, the fine tier in the smv
-        /// view or when the camera is close to the stream.
+        /// civilizations), the coarse tier (1 line = 1,000,000 people) once it spans a couple of hundred
+        /// pixels, the fine tier (1 line = 100,000) in the smv view or once the camera is close enough that
+        /// the population spreads over several hundred pixels - lines per pixel stay readable.
         /// </summary>
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (fineMat == null) return;
-            float px = EraPixels(rig, GraphWarp.Current);
+            Measure(rig, GraphWarp.Current, out float eraPx, out float spreadPx);
 
             GraphRoot root = GraphRoot.Instance;
             bool preset = root != null && root.CurrentPreset != null && root.CurrentPreset.Id == PresetId;
-            float fineTarget = Mathf.Max(preset ? SmoothStep(CoarseFullPx, 2 * CoarseFullPx, px) : 0,
-                SmoothStep(FineFromPx, FineFullPx, px));
-            float coarseTarget = SmoothStep(CoarseFromPx, CoarseFullPx, px) * (1 - fineTarget);
+            float visible = SmoothStep(CoarseFromPx, CoarseFullPx, eraPx);
+            float close = Mathf.Max(SmoothStep(FineFromSpreadPx, FineFullSpreadPx, spreadPx),
+                SmoothStep(FineFromEraPx, FineFullEraPx, eraPx));
+            float fineTarget = visible * (preset ? 1f : close);
+            float coarseTarget = visible * (1 - fineTarget);
 
             float step = Time.unscaledDeltaTime * FadeSpeed;
             fineAlpha = Mathf.MoveTowards(fineAlpha, fineTarget, step);
@@ -316,32 +339,47 @@ namespace Why.Humans.Smv
         }
 
         /// <summary>
-        /// Screen length (px) of the stream from 1950 to now, counting only the parts in front of the camera
-        /// and overlapping the screen; 0 when the era is out of the focused window.
+        /// On-screen size of the era: <paramref name="eraPx"/> is the length of the stream from 1950 to now
+        /// (only the parts in front of the camera and overlapping the screen), <paramref name="spreadPx"/>
+        /// the largest cross-section of the population near the screen (envelope width plus value height).
+        /// Both are 0 when the era is outside the lens window.
         /// </summary>
-        float EraPixels(CameraRig rig, WarpState warp)
+        void Measure(CameraRig rig, WarpState warp, out float eraPx, out float spreadPx)
         {
-            if (eraProbe.Length < 2 || rig == null || rig.Cam == null) return 0;
-            if (GraphWarp.FocusFade(eraProbe[eraProbe.Length / 2].x, warp) < 0.3f) return 0;
+            eraPx = spreadPx = 0;
+            if (eraProbe.Length < 2 || rig == null || rig.Cam == null) return;
+            if (GraphWarp.FocusFade(eraProbe[eraProbe.Length / 2].Mid.x, warp) < 0.3f) return;
 
             Camera cam = rig.Cam;
             Rect screen = new Rect(0, 0, Screen.width, Screen.height);
-            float total = 0;
-            Vector3 prev = cam.WorldToScreenPoint(GraphWarp.ToWorld(eraProbe[0]));
-            for (int i = 1; i < eraProbe.Length; i++)
+            Rect near = new Rect(-0.25f * screen.width, -0.25f * screen.height, 1.5f * screen.width, 1.5f * screen.height);
+            Vector3 prev = Vector3.zero;
+            for (int i = 0; i < eraProbe.Length; i++)
             {
-                Vector3 s = cam.WorldToScreenPoint(GraphWarp.ToWorld(eraProbe[i]));
-                if (prev.z > 0 && s.z > 0)
+                EraProbe probe = eraProbe[i];
+                Vector3 s = cam.WorldToScreenPoint(GraphWarp.ToWorld(probe.Mid));
+                if (i > 0 && prev.z > 0 && s.z > 0)
                 {
                     Rect box = Rect.MinMaxRect(Mathf.Min(prev.x, s.x), Mathf.Min(prev.y, s.y),
                         Mathf.Max(prev.x, s.x), Mathf.Max(prev.y, s.y));
-                    if (box.Overlaps(screen)) total += Vector2.Distance(prev, s);
+                    if (box.Overlaps(screen)) eraPx += Vector2.Distance(prev, s);
+                }
+
+                if (s.z > 0 && near.Contains(s))
+                {
+                    float across = ScreenDistance(cam, probe.Inner, probe.Outer) + ScreenDistance(cam, probe.Base, probe.Top);
+                    spreadPx = Mathf.Max(spreadPx, across);
                 }
 
                 prev = s;
             }
+        }
 
-            return total;
+        static float ScreenDistance(Camera cam, Vector3 a, Vector3 b)
+        {
+            Vector3 sa = cam.WorldToScreenPoint(GraphWarp.ToWorld(a));
+            Vector3 sb = cam.WorldToScreenPoint(GraphWarp.ToWorld(b));
+            return sa.z > 0 && sb.z > 0 ? Vector2.Distance(sa, sb) : 0;
         }
 
         void ShowLabels(GraphContext ctx, bool show)

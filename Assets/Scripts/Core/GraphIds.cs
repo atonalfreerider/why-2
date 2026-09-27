@@ -10,6 +10,12 @@ namespace Why
 
         public const int MatterBase = 1;
         public const int LifeBase = 10_000;
+
+        /// <summary>Livestock and farm biomass layer (20 000 .. 29 999).</summary>
+        public const int FarmBase = 20_000;
+
+        /// <summary>Mineral extraction layer (30 000 .. 39 999).</summary>
+        public const int ExtractionBase = 30_000;
         public const int CivBase = 1_000_000;
         public const int CivBlock = 100_000;
         public const int CivFigureBase = 1;

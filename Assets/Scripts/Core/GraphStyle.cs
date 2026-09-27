@@ -16,6 +16,12 @@ namespace Why
         public const float LifeY = 0.35f;
         public const float HumansY = 0.7f;
 
+        // the hierarchy of human domination along the human branch, directly beneath the civilizations:
+        // livestock and farm biomass (life under human control), then mineral extraction (matter under
+        // human control)
+        public const float FarmY = 0.57f;
+        public const float ExtractionY = 0.44f;
+
         /// <summary>Height range used by human lifelines for social market value (0..10 maps to 0..SmvHeight).</summary>
         public const float SmvHeight = 0.3f;
 

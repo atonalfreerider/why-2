@@ -55,7 +55,7 @@ namespace Why
                 // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face
                 return new CameraPose
                 {
-                    Target = new Vector3(0.5f, TargetY, -1.7f),
+                    Target = new Vector3(1.6f, TargetY, -1.4f),
                     Yaw = 0 + YawOffset,
                     Pitch = Pitch,
                     Distance = Distance
@@ -105,7 +105,7 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "overview", Title = "Everything", Subtitle = "From the Big Bang to this moment",
-                    Key = KeyCode.Alpha1, Polar = true, Pitch = 64, Distance = 17.5f, TargetY = GraphStyle.LifeY
+                    Key = KeyCode.Alpha1, Polar = true, Pitch = 64, Distance = 21f, TargetY = GraphStyle.LifeY
                 },
                 new ViewPreset
                 {
@@ -160,27 +160,27 @@ namespace Why
                     // the human branch time mapping (near linear), as a lens so the rest of the clock straightens away
                     Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 3000 BCE to now",
                     Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 3000, Length = 13,
-                    TargetRho = 1.1f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 9
+                    TargetRho = 1.3f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 11
                 },
                 new ViewPreset
                 {
                     Id = "modern", Title = "Modern era", Subtitle = "1776 to now",
                     Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14,
-                    RhoScale = 2f, TargetRho = 0.9f, TargetY = GraphStyle.HumansY, Pitch = 55, Distance = 10
+                    TargetRho = 2.4f, TargetY = GraphStyle.HumansY, Pitch = 55, Distance = 12
                 },
                 new ViewPreset
                 {
                     Id = "smv", Title = "United States 1950 - now",
                     Subtitle = "Gender-separated lifelines rising and falling with social market value",
                     Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14,
-                    RhoScale = 6f, YScale = 3f,
-                    TargetRho = 0.4f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 7.5f
+                    RhoScale = 2.5f, YScale = 3f,
+                    TargetRho = 0.7f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 8f
                 },
                 new ViewPreset
                 {
                     Id = "present", Title = "The present moment", Subtitle = "Where every line arrives",
-                    Key = KeyCode.Alpha8, YaOld = 150, YaNew = 0, LogOffset = 80, Length = 9, RhoScale = 2f, TargetRho = 0.7f,
-                    TargetY = GraphStyle.HumansY, Pitch = 40, Distance = 5.5f
+                    Key = KeyCode.Alpha8, YaOld = 150, YaNew = 0, LogOffset = 80, Length = 9, TargetRho = 2.2f,
+                    TargetY = GraphStyle.HumansY, Pitch = 40, Distance = 8f
                 },
             };
         }

@@ -305,12 +305,21 @@ namespace Why.Humans
 
         // ---------------------------------------------------------------- geometry
 
-        /// <summary>Total radial width of the human layer at a year (grows with log world population).</summary>
+        /// <summary>Width of the human layer today (world units at rhoScale 1).</summary>
+        public const float WidthNow = 7f;
+
+        /// <summary>Exponent of the width/population relation (1 = proportional).</summary>
+        public const double WidthExponent = 0.8;
+
+        /// <summary>
+        /// Total radial width of the human layer at a year. It follows world population almost linearly,
+        /// so the stream of humanity starts as a thread and explodes outward with population growth.
+        /// </summary>
         public float LayerWidth(double year)
         {
             double pop = Math.Max(WorldPopulation(year), 1e4);
-            float t = (float)((Math.Log10(pop) - 4.5) / (9.95 - 4.5));
-            return Mathf.Lerp(0.18f, 2.8f, Mathf.Clamp01(t));
+            double now = Math.Max(WorldPopulation(NowYear), 1e9);
+            return (float)(0.004 + WidthNow * Math.Pow(pop / now, WidthExponent));
         }
 
         public float RhoPerUnit(double year) => LayerWidth(year) / TotalUnits;

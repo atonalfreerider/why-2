@@ -28,7 +28,10 @@ namespace Why.Life
         public const string CladesPath = "Data/life_clades";
 
         /// <summary>Radial extent of the fully grown root system (world units at rhoScale 1).</summary>
-        public const float TotalWidth = 2.8f;
+        public const float TotalWidth = 3.6f;
+
+        /// <summary>Radius over which the roots fade toward transparent black (no outer border).</summary>
+        const float OuterFade = 2.0f;
 
         /// <summary>How much more space a lineage claims as it ages (1 + RootGrowth * age^2).</summary>
         const float RootGrowth = 40f;
@@ -218,7 +221,7 @@ namespace Why.Life
 
             LineagePathLength = 0;
             for (int x = us; x >= 0; x = tree.Parent[x]) LineagePathLength++;
-            float maxRho = TotalWidth;
+
 
             // --- geometry: one polyline per lineage ---
             lines = new LineMeshBuilder(160_000);
@@ -253,11 +256,12 @@ namespace Why.Life
                     int node = chain[ci];
 
                     float rho = RhoAt(l, u);
-                    float relevance = 1f - Mathf.Clamp01(rho / maxRho);
+                    // relevance: the farther from our lineage, the fainter - fading out to transparent black
+                    float relevance = Mathf.Exp(-Mathf.Pow(rho / OuterFade, 2.2f));
                     float handoff = GraphStyle.HandoffFade(u);
                     float fade = ours ? OurFade(u, uSapiens, uHandoff) : handoff * handoff * handoff;
-                    float alpha = (ours ? 1f : 0.08f + 0.3f * relevance * relevance) * fade;
-                    float intensity = ours ? 2.2f : 0.4f + 0.4f * relevance;
+                    float alpha = (ours ? 1f : 0.46f * relevance) * fade;
+                    float intensity = ours ? 2.2f : 0.35f + 0.55f * relevance;
                     float widthWorld = 0.0006f * Mathf.Log(1 + leaves[node], 2) + (ours ? 0.004f : 0f);
                     pts.Add(new LinePoint(new Vector3(u, y, rho), Tint(alpha), ours ? 2.2f : 1f, widthWorld, intensity));
                     ids.Add(GraphIds.LifeNode(pre[node]));
@@ -354,7 +358,7 @@ namespace Why.Life
                     Data = new Vector3(u0 - 0.004f, GraphStyle.LifeY, rho),
                     Priority = isUs ? 60 : 0.2f + (tr?.T ?? 2) * 0.02f,
                     SizePx = isUs ? 15 : 10.5f,
-                    Color = isUs ? GraphStyle.Text : GraphStyle.TextDim,
+                    Color = isUs ? GraphStyle.Text : Faded(GraphStyle.TextDim, rho, 0.2f),
                     PixelOffset = new Vector2(4, 6),
                     AnchorKey = a.Key,
                     HandoffFade = !isUs,
@@ -403,7 +407,7 @@ namespace Why.Life
                     Data = anchor.Data,
                     Priority = c.tier == 1 ? 40 : c.tier == 2 ? 20 : 8,
                     SizePx = c.tier == 1 ? 15 : c.tier == 2 ? 13 : 11.5f,
-                    Color = GraphStyle.Text,
+                    Color = Faded(GraphStyle.Text, anchor.Rho, 0.35f),
                     PixelOffset = new Vector2(6, 9),
                     AnchorKey = anchor.Key,
                     HandoffFade = c.id != "hominidae",
@@ -467,6 +471,13 @@ namespace Why.Life
         }
 
         static Color32 Tint(float alpha) => new Color32(255, 255, 255, (byte)Mathf.Clamp(alpha * 255f, 0, 255));
+
+        /// <summary>Label color that fades with distance from our lineage, like the roots themselves.</summary>
+        static Color Faded(Color c, float rho, float floor)
+        {
+            c.a *= floor + (1f - floor) * Mathf.Exp(-Mathf.Pow(Mathf.Max(0, rho) / OuterFade, 2.2f));
+            return c;
+        }
 
         static T ParseOr<T>(string json, T fallback) where T : class
         {

@@ -42,11 +42,14 @@ with `uH = Arc(5000 years ago)`, `L = 6` world units and `CH = 3000` years (near
 ```
 ya   = AgeU * Ft(u)                                 // years ago, recomputed in the shader
 sLin = kLin * (lnYaF - ln(ya + C))                  // lens time: log for small C, ~linear for large C
-s    = lerp(sigma(u) - sigma(uF), sLin, unroll)
+q    = (sLin(yaH) - sLin(AgeU)) / sigmaH            // how much the lens stretches the circle part
+m    = (q^(unroll^2) - 1) / (q - 1)                 // time remap: trails unroll, circle part grows geometrically
+s    = lerp(sigma(u) - sigma(uF), sLin, m)
 ```
 
-Geometry: the circle part's curvature is scaled by `(1 - unroll)` around the focus (radius
-`R' = R0 / (1 - unroll)`), the branch stays straight. The CPU derives the junction frame
+Geometry: the circle part bends around the focus with radius `R' = R0 q^(unroll^2) / (1 - unroll)`
+(the denominator floored at `1e-3 q`), so it always turns `(1 - unroll)` of the clock's 270 degrees and
+unrolling only ever opens the clock; the branch stays straight. The CPU derives the junction frame
 (`_WhyJ`: position and tangent where circle meets branch, at `s = sH`); the shader then places
 `s >= sH` on the line `PJ + TJ (s - sH) + rho' NJ` and `s < sH` on the circle through the junction.
 At `unroll = 0` this is the base path; at `unroll = 1` the lens window is a straight timeline tangent

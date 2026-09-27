@@ -243,6 +243,10 @@ namespace Why
         struct Derived
         {
             public float SigmaF, SH, BendRadius, LensC, LensLnYaF;
+
+            /// <summary>Blend from base time to lens time (0..1): trails Unroll, see Derive.</summary>
+            public float Remap;
+
             public Vector2 PJ, TJ, PF, TF, NF;
         }
 
@@ -256,9 +260,21 @@ namespace Why
             d.SigmaF = BasePath.Sigma(uF, ShaderYearsAgo(uF));
             BasePath.Frame(d.SigmaF, out d.PF, out d.TF, out d.NF);
 
+            // The circle part (Big Bang -> junction) is SigmaHandoff long on the base path and `stretch` times
+            // that in the lens (5x for cosmos: it maps the last 4.5 billion years to ~40 units; 177x for smv).
+            // Blending those lengths linearly while the radius only grew as R0 / (1 - unroll) wound the path
+            // into extra turns (1.2 for cosmos, 33 for smv) before it snapped straight at the end. Instead the
+            // time remap trails the straightening and grows the circle part geometrically, as
+            // stretch^(unroll^2), and the radius keeps its whole turn at (1 - unroll) x the clock's 270 degrees:
+            // the path only ever opens, and no point doubles back. Fully unrolled the radius is R0 / 1e-3 as
+            // before (the shader's sin() stays precise) and both end states are unchanged.
             float sLinH = s.KLin * (d.LensLnYaF - Mathf.Log((float)BasePath.HandoffYearsAgo + d.LensC));
-            d.SH = Mathf.Lerp(BasePath.SigmaHandoff - d.SigmaF, sLinH, unroll);
-            d.BendRadius = GraphStyle.R0 / Mathf.Max(1f - unroll, 1e-3f);
+            float sLinB = s.KLin * (d.LensLnYaF - Mathf.Log((float)DeepTime.AgeU + d.LensC));
+            float stretch = Mathf.Max((sLinH - sLinB) / BasePath.SigmaHandoff, 1e-3f);
+            float grow = Mathf.Pow(stretch, unroll * unroll); // circle part length / SigmaHandoff
+            d.Remap = Mathf.Abs(stretch - 1f) > 1e-4f ? (grow - 1f) / (stretch - 1f) : unroll * unroll;
+            d.SH = Mathf.Lerp(BasePath.SigmaHandoff - d.SigmaF, sLinH, d.Remap);
+            d.BendRadius = GraphStyle.R0 * grow / Mathf.Max(1f - unroll, Mathf.Min(1e-3f * Mathf.Max(stretch, 1f), 1f));
 
             if (d.SigmaF <= BasePath.SigmaHandoff)
             {
@@ -298,7 +314,7 @@ namespace Why
             Derived d = Derive(s);
             current = d;
             currentVersion = Version;
-            Shader.SetGlobalVector(WarpA, new Vector4(d.SigmaF, GraphStyle.R0, Mathf.Clamp01(s.Unroll), s.YScale));
+            Shader.SetGlobalVector(WarpA, new Vector4(d.SigmaF, GraphStyle.R0, d.Remap, s.YScale));
             Shader.SetGlobalVector(WarpB, new Vector4(d.LensC, d.LensLnYaF, s.KLin, s.RhoScale));
             Shader.SetGlobalVector(WarpC, new Vector4(s.FadeHalfLength, Mathf.Max(s.FadeSoftness, 1e-4f), s.FadeAmount, d.SH));
             Shader.SetGlobalVector(JId, new Vector4(d.PJ.x, d.PJ.y, d.TJ.x, d.TJ.y));
@@ -337,7 +353,7 @@ namespace Why
             u = Mathf.Max(u, 1e-4f);
             float ya = ShaderYearsAgo(u);
             float sLin = s.KLin * (d.LensLnYaF - Mathf.Log(ya + d.LensC));
-            float arc = Mathf.Lerp(BasePath.Sigma(u, ya) - d.SigmaF, sLin, Mathf.Clamp01(s.Unroll));
+            float arc = Mathf.Lerp(BasePath.Sigma(u, ya) - d.SigmaF, sLin, d.Remap);
             Vector2 nj = new Vector2(-d.TJ.y, d.TJ.x);
             float rhoW = rho * s.RhoScale;
 

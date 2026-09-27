@@ -6,7 +6,7 @@
 // The base path is a circle of radius R0 from the Big Bang (6 o'clock) clockwise to 3 o'clock, where
 // the human era leaves the circle on a straight tangent line with near-linear time up to the present.
 // A lens (unroll) straightens the path around a focus and re-maps time to a window.
-float4 _WhyWarpA;   // sigma at focus, R0, unroll, yScale
+float4 _WhyWarpA;   // sigma at focus, R0, time remap (base -> lens, trails unroll), yScale
 float4 _WhyWarpB;   // lens log offset C, ln(yaF + C), kLin, rhoScale
 float4 _WhyWarpC;   // fade half length, fade softness, fade amount, s at the circle/line junction
 float4 _WhyJ;       // junction frame: position.xz, tangent (toward the present).xz

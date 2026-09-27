@@ -238,7 +238,7 @@ namespace Why.Domination
             if (fills == null) return;
             fillMat = GraphMaterials.Surface(GraphStyle.Life, 1f, GraphMaterials.QueueHumans - 20, false, 0f, 4f);
             fillMat.SetFloat("_EdgeSoft", 0.25f);
-            fillMat.SetFloat("_Alpha", 0.55f);
+            fillMat.SetFloat("_Alpha", 0.3f);
             AddMesh("FarmStreams", fills.ToMesh("FarmStreams"), fillMat);
             lineMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueHumans - 19, true, 0f, 1f);
             AddMesh("FarmLines", lines.ToMesh("FarmLines"), lineMat);

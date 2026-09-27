@@ -165,8 +165,16 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "modern", Title = "Modern era", Subtitle = "1776 to now",
-                    Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14,
-                    TargetRho = 2.4f, TargetY = GraphStyle.HumansY, Pitch = 55, Distance = 12
+                    Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14, YScale = 2f,
+                    TargetRho = 2.4f, TargetY = GraphStyle.HumansY, Pitch = 50, Distance = 12
+                },
+                new ViewPreset
+                {
+                    // the strata of domination seen edge-on: humans above the life they farm above the matter they dig
+                    Id = "footprint", Title = "Human footprint",
+                    Subtitle = "Humans above the livestock and crops they raise, above the minerals they extract",
+                    Key = KeyCode.Alpha9, YaOld = Ya(-3100), YaNew = 0, LogOffset = 400, Length = 14, YScale = 6f,
+                    TargetRho = 2.0f, TargetY = GraphStyle.FarmY, Pitch = 16, Distance = 11, YawOffset = -18
                 },
                 new ViewPreset
                 {

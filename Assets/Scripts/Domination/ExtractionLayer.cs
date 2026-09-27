@@ -223,7 +223,7 @@ namespace Why.Domination
             if (fills == null) return;
             fillMat = GraphMaterials.Surface(GraphStyle.Matter, 1f, GraphMaterials.QueueHumans - 40, false, 0f, 4f);
             fillMat.SetFloat("_EdgeSoft", 0.25f);
-            fillMat.SetFloat("_Alpha", 0.5f);
+            fillMat.SetFloat("_Alpha", 0.4f);
             AddMesh("ExtractionStreams", fills.ToMesh("ExtractionStreams"), fillMat);
             lineMat = GraphMaterials.Line(GraphStyle.Matter, 1f, GraphMaterials.QueueHumans - 39, true, 0f, 1f);
             AddMesh("ExtractionLines", lines.ToMesh("ExtractionLines"), lineMat);

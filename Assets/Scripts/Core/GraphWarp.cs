@@ -78,11 +78,14 @@ namespace Why
         {
             // Lens parameters are irrelevant while nothing is unrolled; snap them so the unroll animation
             // straightens directly into the target window instead of sweeping through others.
+            // The focus has no effect on the base path either, so the path unrolls around its final focus
+            // instead of sliding along while it straightens.
             if (a.Unroll < 1e-3f)
             {
                 a.LogOffset = b.LogOffset;
                 a.FocusYearsAgo = b.FocusYearsAgo;
                 a.KLin = b.KLin;
+                a.FocusArc = b.FocusArc;
             }
 
             if (b.Unroll < 1e-3f)
@@ -90,6 +93,7 @@ namespace Why
                 b.LogOffset = a.LogOffset;
                 b.FocusYearsAgo = a.FocusYearsAgo;
                 b.KLin = a.KLin;
+                b.FocusArc = a.FocusArc;
             }
 
             return new WarpState

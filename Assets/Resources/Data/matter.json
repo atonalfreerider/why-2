@@ -1,0 +1,424 @@
+{
+  "ageOfUniverseYears": 13787000000,
+  "items": [
+    {
+      "id": "universe",
+      "name": "Observable universe",
+      "startYa": 13787000000,
+      "endYa": 0,
+      "massKg": 1.5e53,
+      "rank": 9,
+      "parent": null,
+      "inPath": true,
+      "blurb": "All the ordinary matter we can see: the hydrogen, helium and heavier atoms of hundreds of billions of galaxies. Gravity gathered it into stars and galaxies even as expanding space thinned and cooled it.",
+      "source": "Wikipedia: Observable universe (ordinary matter ~1.5e53 kg; mass is the total, of which the other bands are subsets). Dark matter (~5x more mass) is not counted here."
+    },
+    {
+      "id": "intergalactic_gas",
+      "name": "Intergalactic gas (cosmic web)",
+      "startYa": 13637000000,
+      "endYa": 0,
+      "massKg": 1.2e53,
+      "rank": 8,
+      "parent": "universe",
+      "inPath": false,
+      "blurb": "Most ordinary matter never ended up inside galaxies. It lies in thin, hot filaments of gas between them - the cosmic web - which still streams into galaxies like ours and fuels new stars.",
+      "source": "Wikipedia: Warm-hot intergalactic medium; Macquart et al. 2020 (missing baryons). Roughly 80% of baryons; becomes distinct as the first galaxies condense out of it."
+    },
+    {
+      "id": "first_stars",
+      "name": "First stars (Population III)",
+      "startYa": 13687000000,
+      "endYa": 12800000000,
+      "massKg": 3e47,
+      "rank": 7,
+      "parent": "universe",
+      "inPath": false,
+      "blurb": "The first generation of stars, made only of hydrogen and helium. Most were short-lived giants that exploded within a few million years, scattering the first carbon, oxygen and iron into the gas that built galaxies.",
+      "source": "Wikipedia: Stellar population (Population III). None directly observed; formation assumed to fade by ~1 Gyr after the Big Bang. Mass is an order-of-magnitude guess (range ~1e46-1e48 kg)."
+    },
+    {
+      "id": "local_group",
+      "name": "Local Group (other galaxies)",
+      "startYa": 13500000000,
+      "endYa": 0,
+      "massKg": 2.6e41,
+      "rank": 6,
+      "parent": "universe",
+      "inPath": false,
+      "blurb": "Andromeda, Triangulum, the Magellanic Clouds and dozens of dwarf galaxies, bound together with the Milky Way by gravity. Andromeda is approaching and may merge with our galaxy in the next several billion years.",
+      "source": "Wikipedia: Local Group; Andromeda Galaxy. Baryonic (stars + gas) estimate ~1.3e11 solar masses, dominated by Andromeda; oldest member stars are ~13+ Gyr old."
+    },
+    {
+      "id": "milky_way",
+      "name": "Milky Way",
+      "startYa": 13600000000,
+      "endYa": 0,
+      "massKg": 1.4e41,
+      "rank": 5,
+      "parent": "universe",
+      "inPath": true,
+      "blurb": "Our galaxy: a barred spiral of 100-400 billion stars. Generations of stars were born and died here, each enriching the gas with the carbon, oxygen and iron that later formed the Sun, Earth and us.",
+      "source": "Wikipedia: Milky Way (age ~13.6 Gyr from its oldest stars); Licquia & Newman 2015 (stellar mass ~6e10 solar masses) plus ~1e10 solar masses of gas. Excludes dark matter halo (~1e12 solar masses)."
+    },
+    {
+      "id": "solar_nebula",
+      "name": "Solar nebula",
+      "startYa": 4600000000,
+      "endYa": 4567000000,
+      "massKg": 2.1e30,
+      "rank": 4,
+      "parent": "milky_way",
+      "inPath": true,
+      "blurb": "A slowly spinning cloud of gas and dust that collapsed under its own gravity. Most of it fell inward to make the Sun; the rest flattened into a disk where the planets grew.",
+      "source": "Wikipedia: Formation and evolution of the Solar System. About one solar mass plus a disk of ~0.01-0.1 solar masses; consumed or dispersed within a few million years."
+    },
+    {
+      "id": "sun",
+      "name": "Sun",
+      "startYa": 4570000000,
+      "endYa": 0,
+      "massKg": 1.989e30,
+      "rank": 3,
+      "parent": "solar_nebula",
+      "inPath": true,
+      "blurb": "Our star holds 99.86% of the solar system's mass. Its steady hydrogen fusion has bathed Earth in light and warmth for over 4.5 billion years - the energy source for nearly all life.",
+      "source": "Wikipedia: Sun (mass 1.989e30 kg). Protosun forms ~4.57 Ga; steady main-sequence hydrogen fusion reached within ~50 Myr."
+    },
+    {
+      "id": "other_planets",
+      "name": "Other planets and small bodies",
+      "startYa": 4568000000,
+      "endYa": 0,
+      "massKg": 2.67e27,
+      "rank": 2,
+      "parent": "solar_nebula",
+      "inPath": false,
+      "blurb": "Jupiter, Saturn, the other planets, asteroids and comets. Jupiter's gravity shaped the inner solar system, steering asteroids and comets that may have delivered some of Earth's water.",
+      "source": "NASA Planetary Fact Sheet (sum of planet masses except Earth ~2.66e27 kg; asteroids and comets add little). Start = oldest meteorite solids, 4.568 Ga (Connelly et al. 2012)."
+    },
+    {
+      "id": "earth",
+      "name": "Earth",
+      "startYa": 4540000000,
+      "endYa": 0,
+      "massKg": 5.972e24,
+      "rank": 0,
+      "parent": "sun",
+      "inPath": true,
+      "blurb": "Our home planet: a rocky world at the right distance from the Sun for liquid water. Its oceans, atmosphere, moving plates and magnetic field set the stage for life - the green layer.",
+      "source": "Wikipedia: Earth; Age of Earth (4.54 +/- 0.05 Ga). Parent is the Sun's band to keep our path continuous; physically Earth accreted from the disk left orbiting the young Sun."
+    },
+    {
+      "id": "moon",
+      "name": "Moon",
+      "startYa": 4510000000,
+      "endYa": 0,
+      "massKg": 7.342e22,
+      "rank": 1,
+      "parent": "earth",
+      "inPath": false,
+      "blurb": "Formed from the debris of a giant impact on the young Earth. Its gravity raises the tides and steadies Earth's axial tilt, keeping seasons and climate more stable over time.",
+      "source": "Wikipedia: Moon; Giant-impact hypothesis (formation estimates ~4.51-4.43 Ga)."
+    }
+  ],
+  "epochs": [
+    {
+      "id": "big_bang",
+      "name": "Big Bang",
+      "ya": 13787000000,
+      "afterBigBangYears": 0,
+      "tier": 1,
+      "blurb": "Everything we can observe - all space, matter and energy - begins expanding from an extremely hot, dense state. Every atom in your body traces back to this moment.",
+      "source": "Planck 2018 (age 13.787 +/- 0.020 Gyr)"
+    },
+    {
+      "id": "planck_epoch",
+      "name": "Planck epoch",
+      "ya": 13787000000,
+      "afterBigBangYears": 3.17e-51,
+      "tier": 3,
+      "blurb": "The first 10^-43 seconds. Gravity and quantum effects were so entangled that current physics cannot describe this moment; all four forces of nature may have acted as one.",
+      "source": "Wikipedia: Planck epoch (ends ~1e-43 s)"
+    },
+    {
+      "id": "inflation",
+      "name": "Cosmic inflation",
+      "ya": 13787000000,
+      "afterBigBangYears": 3.17e-44,
+      "tier": 2,
+      "blurb": "In the leading theory, starting around 10^-36 seconds, space ballooned enormously in a split second, stretching tiny quantum ripples into the seeds of every later galaxy, including ours.",
+      "source": "Wikipedia: Cosmic inflation (~1e-36 to 1e-32 s; Guth 1981)"
+    },
+    {
+      "id": "quark_epoch",
+      "name": "Quark epoch",
+      "ya": 13787000000,
+      "afterBigBangYears": 3.17e-20,
+      "tier": 3,
+      "blurb": "By 10^-12 seconds the forces of nature had separated and particles gained mass through the Higgs field. The universe was a seething soup of quarks, gluons, electrons and light.",
+      "source": "Wikipedia: Quark epoch (~1e-12 to 1e-6 s)"
+    },
+    {
+      "id": "hadron_epoch",
+      "name": "Protons and neutrons form",
+      "ya": 13787000000,
+      "afterBigBangYears": 3.17e-14,
+      "tier": 2,
+      "blurb": "At about a microsecond, quarks bound into protons and neutrons. Matter and antimatter annihilated almost completely; about one extra matter particle per billion survived to build everything.",
+      "source": "Wikipedia: Hadron epoch (~1e-6 to 1 s); Baryon asymmetry"
+    },
+    {
+      "id": "bbn",
+      "name": "Big Bang nucleosynthesis",
+      "ya": 13787000000,
+      "afterBigBangYears": 5.7e-6,
+      "tier": 1,
+      "blurb": "In the first minutes, protons and neutrons fused into nuclei: about 75% hydrogen and 25% helium by mass, with traces of lithium. Heavier elements would have to wait for stars.",
+      "source": "Wikipedia: Big Bang nucleosynthesis (~10 s to 20 min; marker at ~3 min)"
+    },
+    {
+      "id": "matter_radiation_equality",
+      "name": "Matter-radiation equality",
+      "ya": 13786953000,
+      "afterBigBangYears": 47000,
+      "tier": 2,
+      "blurb": "About 47,000 years in, matter's gravity began to outweigh radiation. Dark matter, about five times more massive than ordinary matter, could now clump into the scaffolding for galaxies.",
+      "source": "Wikipedia: Chronology of the universe (~47 kyr; Planck 2018 z_eq ~3400)"
+    },
+    {
+      "id": "recombination",
+      "name": "Recombination (CMB released)",
+      "ya": 13786620000,
+      "afterBigBangYears": 380000,
+      "tier": 1,
+      "blurb": "About 380,000 years in, the universe cooled enough for electrons to join nuclei, forming the first neutral atoms. Light was set free; we still see it today as the cosmic microwave background.",
+      "source": "Planck 2018 (z ~1090); Wikipedia: Recombination (cosmology)"
+    },
+    {
+      "id": "dark_ages",
+      "name": "Cosmic Dark Ages",
+      "ya": 13777000000,
+      "afterBigBangYears": 10000000,
+      "tier": 3,
+      "blurb": "With no stars yet, the universe went dark for over 100 million years. Gravity quietly pulled hydrogen, helium and dark matter into denser and denser clumps.",
+      "source": "Wikipedia: Chronology of the universe (Dark Ages ~0.38-150 Myr; marker placed near the middle of the period on a log scale)"
+    },
+    {
+      "id": "first_stars",
+      "name": "First stars",
+      "ya": 13687000000,
+      "afterBigBangYears": 100000000,
+      "tier": 1,
+      "blurb": "The first stars ignite inside clumps of dark matter and gas. Their fusion and explosions forged the first carbon, oxygen and iron, seeding every later generation of stars.",
+      "source": "Wikipedia: Stellar population (Population III); model-based timing ~100-200 Myr"
+    },
+    {
+      "id": "first_galaxies",
+      "name": "First galaxies",
+      "ya": 13637000000,
+      "afterBigBangYears": 150000000,
+      "tier": 2,
+      "blurb": "Stars and gas gather in dark-matter halos to form the first small galaxies. JWST has already confirmed bright galaxies only about 300 million years after the Big Bang.",
+      "source": "Wikipedia: Galaxy formation and evolution; JWST JADES-GS-z14-0 and MoM-z14 (z ~14, ~280-290 Myr)"
+    },
+    {
+      "id": "milky_way_forms",
+      "name": "Milky Way begins",
+      "ya": 13600000000,
+      "afterBigBangYears": 187000000,
+      "tier": 1,
+      "blurb": "The oldest stars of our galaxy form as gas clouds and small protogalaxies merge. Billions of years of mergers built the Milky Way, the galaxy that would one day hold the Sun.",
+      "source": "Wikipedia: Milky Way (age ~13.6 Gyr from oldest stars)"
+    },
+    {
+      "id": "reionization",
+      "name": "Reionization",
+      "ya": 13117000000,
+      "afterBigBangYears": 670000000,
+      "tier": 2,
+      "blurb": "Ultraviolet light from early stars and galaxies stripped electrons from the hydrogen fog between galaxies, clearing it so light could travel freely. Mostly finished by about 1 billion years.",
+      "source": "Planck 2018 (midpoint z ~7.7); Wikipedia: Reionization (~0.15-1 Gyr)"
+    },
+    {
+      "id": "cosmic_noon",
+      "name": "Cosmic noon",
+      "ya": 10300000000,
+      "afterBigBangYears": 3487000000,
+      "tier": 2,
+      "blurb": "Star formation across the universe peaks at roughly ten times today's rate. Many of the heavy elements later found in the Sun and Earth were forged during this busy era.",
+      "source": "Madau & Dickinson 2014 (peak star formation at z ~1.9, ~3.5 Gyr after the Big Bang)"
+    },
+    {
+      "id": "gaia_enceladus",
+      "name": "Gaia-Enceladus merger",
+      "ya": 10000000000,
+      "afterBigBangYears": 3787000000,
+      "tier": 3,
+      "blurb": "The young Milky Way swallows a dwarf galaxy. The collision puffed up the early disk; afterwards the calmer thin disk, where the Sun would later be born, could grow.",
+      "source": "Helmi et al. 2018; Belokurov et al. 2018 (merger ~8-11 Gyr ago)"
+    },
+    {
+      "id": "dark_energy",
+      "name": "Dark energy takes over",
+      "ya": 5000000000,
+      "afterBigBangYears": 8787000000,
+      "tier": 2,
+      "blurb": "Around this time dark energy overtakes the pull of matter and cosmic expansion begins to speed up. Distant galaxies recede ever faster; in the far future only our Local Group will remain in view.",
+      "source": "Wikipedia: Accelerating expansion of the universe (Riess 1998, Perlmutter 1999). Acceleration began ~6 Ga (z ~0.65); dark energy density passed matter ~3.5-4 Ga (z ~0.3); marker at ~5 Ga."
+    },
+    {
+      "id": "solar_nebula_collapse",
+      "name": "Solar nebula collapses",
+      "ya": 4600000000,
+      "afterBigBangYears": 9187000000,
+      "tier": 2,
+      "blurb": "A cold cloud of gas and dust in the Milky Way's disk, enriched by earlier generations of stars, collapses. Short-lived isotopes hint that a nearby massive star or supernova added fresh material.",
+      "source": "Wikipedia: Formation and evolution of the Solar System"
+    },
+    {
+      "id": "solar_system_forms",
+      "name": "Solar system forms",
+      "ya": 4568000000,
+      "afterBigBangYears": 9219000000,
+      "tier": 1,
+      "blurb": "The oldest solids in meteorites date to 4.568 billion years ago: the Sun is born and its disk begins condensing into grains that grow into asteroids and planets.",
+      "source": "Connelly et al. 2012 (calcium-aluminium-rich inclusions, 4567.3 Ma)"
+    },
+    {
+      "id": "earth_accretion",
+      "name": "Earth forms",
+      "ya": 4540000000,
+      "afterBigBangYears": 9247000000,
+      "tier": 1,
+      "blurb": "Colliding planetesimals build the Earth, which melts and separates into an iron core and rocky mantle. The churning core later powers the magnetic field that shields life.",
+      "source": "Wikipedia: Age of Earth (4.54 +/- 0.05 Ga)"
+    },
+    {
+      "id": "moon_impact",
+      "name": "Moon-forming impact",
+      "ya": 4510000000,
+      "afterBigBangYears": 9277000000,
+      "tier": 1,
+      "blurb": "A Mars-sized body, Theia, strikes the young Earth and the debris forms the Moon. The Moon later steadies Earth's tilt and drives the tides that shaped coastlines and early life.",
+      "source": "Wikipedia: Giant-impact hypothesis (estimates ~4.51-4.43 Ga)"
+    },
+    {
+      "id": "first_oceans",
+      "name": "Oldest zircons and first oceans",
+      "ya": 4400000000,
+      "afterBigBangYears": 9387000000,
+      "tier": 2,
+      "blurb": "Tiny zircon crystals from Jack Hills, Australia, the oldest known pieces of Earth, suggest liquid water and early crust existed by 4.4 billion years ago - the stage on which life would appear.",
+      "source": "Wilde et al. 2001 (Jack Hills zircon, 4.404 Ga)"
+    },
+    {
+      "id": "late_heavy_bombardment",
+      "name": "Late Heavy Bombardment",
+      "ya": 4100000000,
+      "afterBigBangYears": 9687000000,
+      "tier": 3,
+      "blurb": "A proposed spike in asteroid and comet impacts on the inner planets, about 4.1 to 3.8 billion years ago, recorded in the Moon's craters. Impacts may have delivered water and organics; the spike itself is debated.",
+      "source": "Wikipedia: Late Heavy Bombardment"
+    },
+    {
+      "id": "oldest_rocks",
+      "name": "Oldest rocks",
+      "ya": 4030000000,
+      "afterBigBangYears": 9757000000,
+      "tier": 3,
+      "blurb": "The Acasta Gneiss in northern Canada, about 4.03 billion years old, is among the oldest intact rocks on Earth: evidence that lasting continental crust had begun to form.",
+      "source": "Bowring & Williams 1999 (Acasta Gneiss, ~4.03 Ga)"
+    },
+    {
+      "id": "first_cratons",
+      "name": "First continents (cratons)",
+      "ya": 3600000000,
+      "afterBigBangYears": 10187000000,
+      "tier": 2,
+      "blurb": "Stable continental cores such as the Kaapvaal and Pilbara cratons form. Weathering of the new land began drawing carbon dioxide from the air and feeding minerals to the seas.",
+      "source": "Wikipedia: Craton; Vaalbara (~3.6-2.7 Ga)"
+    },
+    {
+      "id": "geodynamo",
+      "name": "Magnetic shield",
+      "ya": 3450000000,
+      "afterBigBangYears": 10337000000,
+      "tier": 3,
+      "blurb": "Magnetized minerals in ancient South African rocks show Earth had a magnetic field at least 3.45 billion years ago. It deflects the solar wind, helping Earth keep its air and oceans.",
+      "source": "Tarduno et al. 2010 (Kaapvaal dacites, ~3.4-3.45 Ga); possible older evidence ~3.7 Ga from Isua, Greenland (Nichols et al. 2024)"
+    },
+    {
+      "id": "great_oxidation",
+      "name": "Great Oxidation Event",
+      "ya": 2400000000,
+      "afterBigBangYears": 11387000000,
+      "tier": 1,
+      "blurb": "Oxygen made by microbes, long soaked up by dissolved iron and volcanic gases, finally builds up in the air. It destroys warming methane, likely triggering the long Huronian ice age, and later allows an ozone shield.",
+      "source": "Wikipedia: Great Oxidation Event (~2.4-2.1 Ga); Huronian glaciation"
+    },
+    {
+      "id": "rodinia",
+      "name": "Supercontinent Rodinia",
+      "ya": 1100000000,
+      "afterBigBangYears": 12687000000,
+      "tier": 3,
+      "blurb": "The continents assemble into the supercontinent Rodinia. Its breakup from about 750 million years ago increased coastlines and weathering, possibly helping trigger Snowball Earth.",
+      "source": "Wikipedia: Rodinia (~1.1 Ga to ~750-633 Ma)"
+    },
+    {
+      "id": "snowball_earth",
+      "name": "Snowball Earth",
+      "ya": 717000000,
+      "afterBigBangYears": 13070000000,
+      "tier": 2,
+      "blurb": "Ice sheets reach the tropics in the Sturtian and Marinoan glaciations, 717 to 635 million years ago. Volcanic carbon dioxide eventually melted them, and complex animal life appeared within tens of millions of years.",
+      "source": "Wikipedia: Snowball Earth; Cryogenian"
+    },
+    {
+      "id": "pangaea",
+      "name": "Pangaea",
+      "ya": 335000000,
+      "afterBigBangYears": 13452000000,
+      "tier": 2,
+      "blurb": "Nearly all land joins as the supercontinent Pangaea, about 335 million years ago. Its breakup from about 175 million years ago opened the Atlantic Ocean and set the continents drifting toward today's map.",
+      "source": "Wikipedia: Pangaea"
+    },
+    {
+      "id": "great_dying",
+      "name": "Great Dying",
+      "ya": 251900000,
+      "afterBigBangYears": 13535100000,
+      "tier": 2,
+      "blurb": "Huge Siberian Traps eruptions heat and acidify the planet, likely triggering the Permian-Triassic extinction: about 80% of marine species vanish, opening the way for the dinosaurs.",
+      "source": "Wikipedia: Permian-Triassic extinction event (251.9 Ma)"
+    },
+    {
+      "id": "chicxulub",
+      "name": "Chicxulub impact",
+      "ya": 66000000,
+      "afterBigBangYears": 13721000000,
+      "tier": 1,
+      "blurb": "An asteroid about 10 km wide strikes what is now Mexico's Yucatan. The impact winter ended the age of the non-avian dinosaurs and cleared the way for mammals - and eventually us.",
+      "source": "Wikipedia: Chicxulub crater (66.0 Ma)"
+    },
+    {
+      "id": "ice_ages",
+      "name": "Quaternary ice ages begin",
+      "ya": 2580000,
+      "afterBigBangYears": 13784420000,
+      "tier": 2,
+      "blurb": "Earth enters a cycle of ice ages as drifting continents and falling carbon dioxide cool the planet. Swinging climates reshaped the landscapes that early humans had to adapt to.",
+      "source": "Wikipedia: Quaternary glaciation (2.58 Ma)"
+    },
+    {
+      "id": "holocene",
+      "name": "Holocene begins",
+      "ya": 11700,
+      "afterBigBangYears": 13786988300,
+      "tier": 1,
+      "blurb": "The last ice age ends and a stable, warm climate begins. This steady Holocene climate made farming possible, and with it the rise of human civilizations.",
+      "source": "Wikipedia: Holocene (11,700 years before 2000 CE)"
+    }
+  ]
+}

@@ -157,9 +157,9 @@ namespace Why
                 },
                 new ViewPreset
                 {
-                    // the human branch is already a straight, near-linear timeline: just look along it
+                    // the human branch time mapping (near linear), as a lens so the rest of the clock straightens away
                     Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 3000 BCE to now",
-                    Key = KeyCode.Alpha5, Polar = true, PolarArc = DeepTime.Arc(Ya(-300)), YaOld = Ya(-3000), YaNew = 0,
+                    Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 3000, Length = 13,
                     TargetRho = 1.1f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 9
                 },
                 new ViewPreset
@@ -179,8 +179,8 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "present", Title = "The present moment", Subtitle = "Where every line arrives",
-                    Key = KeyCode.Alpha8, Polar = true, PolarArc = DeepTime.NowArc, TargetRho = 0.9f,
-                    TargetY = GraphStyle.HumansY, Pitch = 42, Distance = 3.2f
+                    Key = KeyCode.Alpha8, YaOld = 150, YaNew = 0, LogOffset = 80, Length = 9, RhoScale = 2f, TargetRho = 0.7f,
+                    TargetY = GraphStyle.HumansY, Pitch = 40, Distance = 5.5f
                 },
             };
         }

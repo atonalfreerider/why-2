@@ -429,8 +429,9 @@ namespace Why.Humans.Smv
         }
 
         /// <summary>
-        /// Widowhood, partner counts (singles catch up with their partner curve) and this step's candidate
-        /// lists for births, marriages and divorces - one pass over the living.
+        /// Widowhood, partner counts (single adults catch up with their partner curve, one partner per step
+        /// at most; children drop out of sex encounters) and this step's candidate lists for births,
+        /// marriages and divorces - one pass over the living.
         /// </summary>
         void UpdateStates(double t, int k)
         {
@@ -443,9 +444,8 @@ namespace Why.Humans.Smv
             {
                 if (p.Spouse >= 0 && People[p.Spouse].LastStep < k) p.Spouse = -1;
                 float age = (float)(t - p.Birth);
-                if (age < 15) continue;
-                if (p.Spouse < 0 && p.Partners + 0.5f < PartnerCurve(p, age)) p.Partners++;
                 if (age < SmvModel.AdultAge) continue;
+                if (p.Spouse < 0 && p.Partners + 0.5f < PartnerCurve(p, age)) p.Partners++;
 
                 if (p.Male)
                 {
@@ -718,9 +718,10 @@ namespace Why.Humans.Smv
         }
 
         /// <summary>
-        /// Weighted random choice (null when every weight is zero). Weights are at most 1, so rejection
-        /// sampling finds a choice in a few tries without scanning the list; a full scan is the fallback
-        /// (e.g. when few candidates qualify). Both draw exactly from the weighted distribution.
+        /// Weighted random choice (null when every weight is zero). Every weight function used here is
+        /// bounded by 1 (products of SmvModel curves and Gaussians), so rejection sampling finds a choice in
+        /// a few tries without scanning the list; a full scan is the fallback (e.g. when few candidates
+        /// qualify). Both draw exactly from the weighted distribution.
         /// </summary>
         SmvPerson Pick(List<SmvPerson> list, Func<SmvPerson, double> weight)
         {

@@ -28,16 +28,20 @@ namespace Why.Humans.Smv
         const int MaxGap = 24;
 
         // fine tier: dense, so each line is faint and density reads as brightness
-        const float FineAdultAlpha = 0.2f;
-        const float FineChildAlpha = 0.07f;
+        const float FineAdultAlpha = 0.16f;
+        const float FineChildAlpha = 0.06f;
         const float FineAdultPx = 1.0f;
         const float FineChildPx = 0.6f;
 
-        // coarse tier: ten times fewer lines, each one bolder
+        // coarse tier: ten times fewer lines, each one bolder (as bold as the other streams' lifelines)
         const float CoarseAdultAlpha = 0.55f;
         const float CoarseChildAlpha = 0.22f;
-        const float CoarseAdultPx = 1.5f;
+        const float CoarseAdultPx = 1.4f;
         const float CoarseChildPx = 0.9f;
+
+        // a little world width so lines thicken when the camera comes very close
+        const float AdultWidthWorld = 0.0004f;
+        const float ChildWidthWorld = 0.00025f;
 
         // Lines crowd near the band center (high value ranks, married couples, children): per-line alpha
         // there drops to CoreAlpha and rises to EdgeAlpha where lines spread out, so the core glows without
@@ -123,13 +127,14 @@ namespace Why.Humans.Smv
                     float spread = Mathf.Lerp(CoreAlpha, EdgeAlpha, Mathf.SmoothStep(0, 1,
                         (offset - CoreOffset) / (SpreadOffset - CoreOffset)));
 
+                    float widthWorld = child ? ChildWidthWorld : AdultWidthWorld;
                     finePts.Add(new LinePoint(data, Tint(color, spread * (child ? FineChildAlpha : FineAdultAlpha)),
-                        child ? FineChildPx : FineAdultPx, 0, intensity));
+                        child ? FineChildPx : FineAdultPx, widthWorld, intensity));
                     if (coarse)
                     {
                         coarsePts.Add(new LinePoint(data,
                             Tint(color, spread * (child ? CoarseChildAlpha : CoarseAdultAlpha)),
-                            child ? CoarseChildPx : CoarseAdultPx, 0, intensity));
+                            child ? CoarseChildPx : CoarseAdultPx, widthWorld, intensity));
                     }
                 }
 

@@ -441,6 +441,7 @@ namespace Why.Matter
                 Color = color,
                 PixelOffset = new Vector2(6, 8),
                 AnchorKey = a.Key,
+                HandoffFade = true,
                 Ids = ownIds
             });
         }
@@ -498,13 +499,17 @@ namespace Why.Matter
                 EnvelopeRhoFade, EnvelopeNoiseScale);
             envelopeMat.SetFloat("_EdgeSoft", 0f);
             envelopeMat.SetFloat("_NoiseContrast", 2f);
+            // the clock ends at 3 o'clock: matter dissolves before the straight human branch
+            GraphMaterials.FadeBeforeHumanBranch(envelopeMat);
             AddMesh("MatterEnvelope", envelope.ToMesh("MatterEnvelope"), envelopeMat);
 
             fillMat = GraphMaterials.Surface(GraphStyle.Matter, 1f, GraphMaterials.QueueMatter, false, 0f, 3f);
             fillMat.SetFloat("_EdgeSoft", 0.22f);
+            GraphMaterials.FadeBeforeHumanBranch(fillMat);
             AddMesh("MatterBands", fills.ToMesh("MatterBands"), fillMat);
 
             lineMat = GraphMaterials.Line(GraphStyle.Matter, 1f, GraphMaterials.QueueMatter + 1, true, 0f, 1f);
+            GraphMaterials.FadeBeforeHumanBranch(lineMat);
             AddMesh("MatterLines", lines.ToMesh("MatterLines"), lineMat);
 
             Highlighter.SetPersistent("matter", new[] { (Layout.PathIds, LineageGlow) });

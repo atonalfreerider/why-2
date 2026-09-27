@@ -55,7 +55,7 @@ namespace Why
                 // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face
                 return new CameraPose
                 {
-                    Target = new Vector3(0.6f, TargetY, -0.9f),
+                    Target = new Vector3(0.5f, TargetY, -1.7f),
                     Yaw = 0 + YawOffset,
                     Pitch = Pitch,
                     Distance = Distance
@@ -105,7 +105,7 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "overview", Title = "Everything", Subtitle = "From the Big Bang to this moment",
-                    Key = KeyCode.Alpha1, Polar = true, Pitch = 64, Distance = 15.5f, TargetY = GraphStyle.LifeY
+                    Key = KeyCode.Alpha1, Polar = true, Pitch = 64, Distance = 17.5f, TargetY = GraphStyle.LifeY
                 },
                 new ViewPreset
                 {

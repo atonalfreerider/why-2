@@ -10,6 +10,7 @@ Shader "Why/Line"
         _FlowFreq ("Flow Frequency (per arc)", Float) = 60
         _FlowSpeed ("Flow Speed", Float) = 0.35
         _RhoFade ("Radial Fade Distance (0 = off)", Float) = 0
+        _HandoffFade ("Fade Out Before The Human Branch", Float) = 0
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 5
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 1
     }
@@ -49,6 +50,7 @@ Shader "Why/Line"
                 float _FlowFreq;
                 float _FlowSpeed;
                 float _RhoFade;
+                float _HandoffFade;
                 float _SrcBlend;
                 float _DstBlend;
             CBUFFER_END
@@ -145,6 +147,7 @@ Shader "Why/Line"
                 WhyHighlight(IN.p.w, glow, alphaMul);
                 float rhoFade = _RhoFade > 0 ? exp(-max(IN.pos.z, 0) / _RhoFade) : 1.0;
                 float a = IN.color.a * _Alpha * _Color.a * WhyFocusFade(sLin) * alphaMul * subPixel * rhoFade;
+                a *= lerp(1.0, WhyHandoffFade(IN.pos.x), _HandoffFade);
                 OUT.color = float4(IN.color.rgb * _Color.rgb * IN.q.x * glow, a);
                 OUT.edge = float3(IN.p.x * halfW * miter, width * 0.5 * miter, IN.pos.x);
                 OUT.flow = IN.q.y * _Flow;

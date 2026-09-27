@@ -1,0 +1,655 @@
+{
+  "epochYear": 2024,
+  "totalWidth": 1699,
+  "civs": [
+    {
+      "id": "aegeans",
+      "key": "Aegeans",
+      "name": "Aegeans (Minoans & Mycenaeans)",
+      "region": "Crete, the Aegean islands and mainland Greece",
+      "startYear": -1976,
+      "endYear": -1176,
+      "parents": [],
+      "blurb": "Minoan Crete and Mycenaean Greece built palace economies and sea trade across the Aegean. Their collapse around 1200 BCE left the Greek-speaking world that later produced classical Greece.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "egyptians",
+      "key": "Egyptians",
+      "name": "Egyptians",
+      "region": "Nile valley",
+      "startYear": -1976,
+      "endYear": -376,
+      "parents": [],
+      "blurb": "Farming the Nile's yearly flood let Egypt build one of the first states, with writing, pyramids and a 365-day calendar. Its wealth and know-how shaped its neighbors for 3,000 years.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "hittites",
+      "key": "Hittites",
+      "name": "Hittites",
+      "region": "Anatolia (central Turkey)",
+      "startYear": -1976,
+      "endYear": -976,
+      "parents": [],
+      "blurb": "Hittite kings in Anatolia fielded chariot armies and made one of the earliest known peace treaties, with Egypt (c. 1259 BCE). Their fall around 1180 BCE opened Syria to new states.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "amorites",
+      "key": "Amorites",
+      "name": "Amorites (Babylon)",
+      "region": "Mesopotamia and Syria",
+      "startYear": -1976,
+      "endYear": -426,
+      "parents": [],
+      "blurb": "Amorite dynasties ruled Babylon, where Hammurabi issued his famous law code. Babylonian math, astronomy and law were inherited by Assyria, Persia and the Greeks.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "iranians",
+      "key": "Iranians",
+      "name": "Iranians (Elam, Medes, Persia)",
+      "region": "Iranian plateau",
+      "startYear": -1976,
+      "endYear": -276,
+      "parents": [],
+      "blurb": "Elam, then the Medes and Persians, ruled the Iranian plateau. Persia's Achaemenid Empire, with its roads, provinces and religious tolerance, became a model for later empires.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "indians",
+      "key": "Indians",
+      "name": "India",
+      "region": "Indian subcontinent",
+      "startYear": -1976,
+      "endYear": null,
+      "parents": [],
+      "blurb": "From the Indus cities to the Mauryas, Mughals and today's republic, India gave the world decimal numerals with zero, Buddhism and cotton cloth, and is now the most populous nation.",
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates"
+    },
+    {
+      "id": "huns",
+      "key": "Huns",
+      "name": "Huns (steppe nomads)",
+      "region": "Central Asian steppe",
+      "startYear": -1976,
+      "endYear": 674,
+      "parents": [],
+      "blurb": "Horse-riding nomads of the Eurasian steppe, from the Xiongnu to the Huns. Their raids spurred China's walls, and their push west drove the migrations that helped topple Western Rome.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "chinese",
+      "key": "Chinese",
+      "name": "China",
+      "region": "China (Yellow and Yangtze river valleys)",
+      "startYear": -1976,
+      "endYear": null,
+      "parents": [],
+      "blurb": "One of the oldest continuous civilizations: paper, printing, the compass and gunpowder spread west from China. Reunified and industrialized, it is now the largest economy by purchasing power.",
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates"
+    },
+    {
+      "id": "greeks",
+      "key": "Greeks",
+      "name": "Greeks",
+      "region": "Greece, the Aegean and Mediterranean colonies",
+      "startYear": -1376,
+      "endYear": -76,
+      "parents": [
+        "aegeans"
+      ],
+      "blurb": "Heirs of the Aegean world, Greek city-states pioneered democracy, philosophy, theater and mathematical proof. Alexander spread Greek culture from Egypt to India, and Rome absorbed it.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "assyrians",
+      "key": "Assyrians",
+      "name": "Assyrians",
+      "region": "Northern Mesopotamia (upper Tigris)",
+      "startYear": -1326,
+      "endYear": -526,
+      "parents": [
+        "amorites"
+      ],
+      "blurb": "Assyria built one of the first great military empires, with iron weapons, mass deportations and Nineveh's library. Nineveh's fall in 612 BCE made room for Babylon and then Persia.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "phoenicians",
+      "key": "Phoenicians",
+      "name": "Phoenicians & Carthage",
+      "region": "Levant coast (Lebanon), later the western Mediterranean",
+      "startYear": -1326,
+      "endYear": -176,
+      "parents": [],
+      "blurb": "Seafaring traders of Tyre and Sidon spread the alphabet that became Greek and Latin letters. Their colony Carthage rivaled Rome until its destruction in 146 BCE.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "hebrews",
+      "key": "Hebrews",
+      "name": "Hebrews (Israel & Judah)",
+      "region": "Southern Levant",
+      "startYear": -1226,
+      "endYear": -526,
+      "parents": [],
+      "blurb": "The kingdoms of Israel and Judah were small, but their scriptures and belief in one God shaped Judaism, then Christianity and Islam - faiths of over half of humanity today.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "ethiopians",
+      "key": "Ethiopians",
+      "name": "Kush (Nubia)",
+      "region": "Upper Nile (Nubia, modern Sudan)",
+      "startYear": -976,
+      "endYear": -626,
+      "parents": [
+        "egyptians"
+      ],
+      "blurb": "The Kingdom of Kush, called Ethiopia by the Greeks, absorbed Egyptian culture and ruled Egypt itself as its 25th dynasty (c. 744-656 BCE) until Assyria drove it south.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "syrians",
+      "key": "Syrians",
+      "name": "Syrians (Aramaeans)",
+      "region": "Syria",
+      "startYear": -926,
+      "endYear": -726,
+      "parents": [
+        "hittites"
+      ],
+      "blurb": "Aramaean and Neo-Hittite kingdoms rose in Syria after the Hittite collapse. Assyria conquered them, but their Aramaic became the common tongue of the Near East for 1,000 years.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "romans",
+      "key": "Romans",
+      "name": "Romans / Byzantium",
+      "region": "Italy and the Mediterranean; later Constantinople",
+      "startYear": -726,
+      "endYear": 1474,
+      "parents": [
+        "greeks"
+      ],
+      "blurb": "Rome grew from a city-state into an empire uniting the Mediterranean with roads, law and Latin. Its eastern half, Byzantium, kept Greek learning alive until Constantinople fell in 1453.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "lydians",
+      "key": "Lydians",
+      "name": "Lydians",
+      "region": "Western Anatolia",
+      "startYear": -626,
+      "endYear": -476,
+      "parents": [],
+      "blurb": "Lydia in western Anatolia struck the first known coins, from electrum, around 600 BCE. Coined money spread to the Greeks and to the Persians, who conquered Lydia in 546 BCE.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "teutons",
+      "key": "Teutons",
+      "name": "Teutons (Germanic peoples)",
+      "region": "Northern and central Europe",
+      "startYear": -326,
+      "endYear": 724,
+      "parents": [],
+      "blurb": "Germanic peoples of northern Europe migrated into the weakening Roman world. Goths, Franks, Saxons and others founded the kingdoms from which much of modern Europe grew.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "egyptians2",
+      "key": "Egyptians2",
+      "name": "Ptolemaic Egypt",
+      "region": "Nile valley (Alexandria)",
+      "startYear": -276,
+      "endYear": -26,
+      "parents": [
+        "egyptians",
+        "greeks"
+      ],
+      "blurb": "After Alexander, his general Ptolemy made Egypt a Greek-ruled kingdom. Alexandria's Library and Museum made it the ancient world's center of learning, a role it kept under Rome after 30 BCE.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "seleucids",
+      "key": "Seleucids",
+      "name": "Seleucid Empire",
+      "region": "Syria, Mesopotamia and Iran",
+      "startYear": -226,
+      "endYear": -126,
+      "parents": [
+        "greeks",
+        "iranians"
+      ],
+      "blurb": "The largest successor state of Alexander's empire, stretching from Syria to Afghanistan. It planted Greek cities across Asia but lost the east to Parthia and the west to Rome.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "bactria",
+      "key": "Bactria",
+      "name": "Greco-Bactria",
+      "region": "Bactria (northern Afghanistan and Central Asia)",
+      "startYear": -176,
+      "endYear": -76,
+      "parents": [
+        "seleucids"
+      ],
+      "blurb": "Greek settlers in Bactria broke away from the Seleucids and pushed into India. Their blend of Greek and Indian art later shaped Gandharan Buddhist sculpture.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "parthians",
+      "key": "Parthians",
+      "name": "Parthians",
+      "region": "Iran and Mesopotamia",
+      "startYear": -126,
+      "endYear": 174,
+      "parents": [
+        "seleucids",
+        "iranians"
+      ],
+      "blurb": "Iranian horsemen who took Persia from the Seleucids and held off Rome for centuries. As Silk Road middlemen, they profited from the trade between Rome and Han China.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "sassanian_persians",
+      "key": "Sassanian Persians",
+      "name": "Sasanian Persia",
+      "region": "Iran and Mesopotamia",
+      "startYear": 224,
+      "endYear": 674,
+      "parents": [
+        "parthians"
+      ],
+      "blurb": "The Sasanians revived Persian power and fought Rome and Byzantium for 400 years. Their mutual exhaustion let Arab armies take Persia and Byzantium's eastern provinces in the 630s-650s.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "franks",
+      "key": "Franks",
+      "name": "Franks",
+      "region": "Gaul and western Germany",
+      "startYear": 324,
+      "endYear": 824,
+      "parents": [
+        "teutons",
+        "romans"
+      ],
+      "blurb": "A Germanic people who took over Roman Gaul. Under Charlemagne they united much of western Europe, and the division of his empire in 843 created the cores of France and Germany.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "western_romans",
+      "key": "Western Romans",
+      "name": "Western Roman Empire",
+      "region": "Italy and the western Mediterranean",
+      "startYear": 424,
+      "endYear": 474,
+      "parents": [
+        "romans"
+      ],
+      "blurb": "The western half of the divided Roman Empire, overrun by Germanic kingdoms by 476. Its fall left the Church and new kingdoms to rebuild western Europe.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "arabs",
+      "key": "Arabs",
+      "name": "Arabs (Caliphates)",
+      "region": "Arabia, then the Middle East, North Africa and Spain",
+      "startYear": 524,
+      "endYear": 1074,
+      "parents": [
+        "sassanian_persians",
+        "romans"
+      ],
+      "blurb": "United by Islam in the 600s, Arab caliphates conquered from Spain to India. Baghdad's scholars preserved Greek science and spread Indian numerals, feeding Europe's later revival.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "denmark",
+      "key": "Denmark",
+      "name": "Denmark",
+      "region": "Scandinavia (Denmark)",
+      "startYear": 524,
+      "endYear": null,
+      "parents": [
+        "teutons"
+      ],
+      "blurb": "Danish Vikings raided and settled across the North Sea, and Cnut ruled England, Denmark and Norway. Later a small kingdom, Denmark now ranks near the top in wealth and well-being.",
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates"
+    },
+    {
+      "id": "norway",
+      "key": "Norway",
+      "name": "Norway",
+      "region": "Scandinavia (Norway) and the North Atlantic",
+      "startYear": 574,
+      "endYear": 1474,
+      "parents": [
+        "teutons"
+      ],
+      "blurb": "Norse seafarers from Norway settled Iceland and Greenland and reached North America around 1000. Norway later joined the Kalmar Union (1397) and stayed under the Danish crown until 1814.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "lombards",
+      "key": "Lombards",
+      "name": "Lombards",
+      "region": "Northern Italy",
+      "startYear": 624,
+      "endYear": 724,
+      "parents": [
+        "teutons"
+      ],
+      "blurb": "A Germanic people who took much of Italy in 568, splitting it from Byzantium. Frankish wars against them (754-774) handed land to the popes, creating the Papal States.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "bulgaria",
+      "key": "Bulgaria",
+      "name": "Bulgaria",
+      "region": "Balkans (lower Danube)",
+      "startYear": 824,
+      "endYear": 924,
+      "parents": [
+        "huns",
+        "romans"
+      ],
+      "blurb": "Turkic Bulgars merged with Slavs to found a Balkan empire that rivaled Byzantium. Its Christian literature in the new Cyrillic script later spread to the Serbs and to Russia.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "papacy",
+      "key": "Papacy",
+      "name": "Papacy",
+      "region": "Rome and central Italy",
+      "startYear": 874,
+      "endYear": 1724,
+      "parents": [
+        "romans",
+        "franks"
+      ],
+      "blurb": "The bishops of Rome inherited Roman prestige and, with Frankish help, ruled central Italy. Popes crowned emperors and launched the Crusades, shaping medieval Europe's politics.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "holy_roman_empire",
+      "key": "Holy Roman Empire",
+      "name": "Holy Roman Empire / Germany",
+      "region": "Central Europe (Germany)",
+      "startYear": 874,
+      "endYear": null,
+      "parents": [
+        "franks"
+      ],
+      "blurb": "The eastern part of Charlemagne's empire grew into a loose empire of German states that lasted until 1806. Prussia unified Germany in 1871, an industrial power at the center of two world wars.",
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates; continues as Germany (1949-1974 widths count West and East Germany together)"
+    },
+    {
+      "id": "france",
+      "key": "France",
+      "name": "France",
+      "region": "France",
+      "startYear": 874,
+      "endYear": null,
+      "parents": [
+        "franks"
+      ],
+      "blurb": "West Francia grew into France, long western Europe's most populous state. Its 1789 Revolution spread ideas of rights and nationhood, and Napoleon's wars redrew the map of Europe.",
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates"
+    },
+    {
+      "id": "normandy",
+      "key": "Normandy",
+      "name": "Normandy (Normans)",
+      "region": "Northern France, later England and southern Italy",
+      "startYear": 974,
+      "endYear": 1174,
+      "parents": [
+        "norway",
+        "denmark",
+        "france"
+      ],
+      "blurb": "Vikings granted land by the Frankish king in 911 became the Normans, who conquered England in 1066 and southern Italy, tying Scandinavia, France and England together.",
+      "source": "Histomap (Sparks 1931)"
+    },
+    {
+      "id": "spain",
+      "key": "Spain",
+      "name": "Spain",
+      "region": "Iberian peninsula",
+      "startYear": 1074,
+      "endYear": null,
+      "parents": [
+        "teutons",
+        "arabs"
+      ],
+      "blurb": "Christian kingdoms retook Iberia from Muslim rule by 1492, the year Columbus sailed. Spain's empire linked the Americas to Europe and Asia, reshaping world trade, crops and peoples.",
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates"
+    },
+    {
+      "id": "united_states",
+      "key": "United States",
+      "name": "United States",
+      "region": "North America",
+      "startYear": 1774,
+      "endYear": null,
+      "parents": [
+        "britain"
+      ],
+      "blurb": "Born from Britain's American colonies in 1776, the US grew through land, immigration and industry into the largest economy of the 20th century and a leader in science and technology.",
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (Maddison Project GDP shares as a guide; subjective before 1820); 1949-2024 = approx. share of world GDP (PPP), Maddison Project / IMF WEO. Drawn from the 1774 slice (the thirteen colonies on the eve of independence)"
+    },
+    {
+      "id": "britain",
+      "key": "Britain",
+      "name": "Britain",
+      "region": "Great Britain (England, later the United Kingdom)",
+      "startYear": 1074,
+      "endYear": null,
+      "parents": [
+        "teutons",
+        "denmark",
+        "normandy"
+      ],
+      "blurb": "Anglo-Saxon England, remade by the Norman conquest of 1066, developed Parliament and then the Industrial Revolution. Its empire and language carried both around the globe.",
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (Maddison Project GDP shares as a guide; subjective before 1820); 1949-2024 = approx. share of world GDP (PPP), Maddison Project / IMF WEO. England until 1707, then Great Britain / the United Kingdom; drawn from 1074, just after the Norman conquest"
+    },
+    {
+      "id": "russia",
+      "key": "Russia",
+      "name": "Russia",
+      "region": "Eastern Europe and northern Asia",
+      "startYear": 1474,
+      "endYear": null,
+      "parents": [
+        "romans",
+        "mongols"
+      ],
+      "blurb": "Muscovy threw off Mongol overlordship in 1480 and expanded across Eurasia to the Pacific. As the USSR it industrialized fast, helped defeat Nazi Germany and rivaled the US for decades.",
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (Maddison Project GDP shares as a guide; subjective before 1820); 1949-2024 = approx. share of world GDP (PPP), Maddison Project / IMF WEO. Drawn from 1474 (Muscovy under Ivan III); 1949 and 1974 widths are the whole USSR"
+    },
+    {
+      "id": "japan",
+      "key": "Japan",
+      "name": "Japan",
+      "region": "Japanese archipelago",
+      "startYear": 1724,
+      "endYear": null,
+      "parents": [
+        "chinese"
+      ],
+      "blurb": "Around 600 Japan's court drew on Chinese writing, Buddhism and law to build a state. After 1868 it industrialized at record speed, built an empire, and rebuilt after 1945 into an economic giant.",
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (Maddison Project GDP shares as a guide; subjective before 1820); 1949-2024 = approx. share of world GDP (PPP), Maddison Project / IMF WEO. Japan's state dates from c. 600, but before 1724 the digitized Chinese band fills the map's eastern edge, so the stream is drawn from 1724"
+    },
+    {
+      "id": "ottomans",
+      "key": "Ottomans",
+      "name": "Ottoman Empire",
+      "region": "Anatolia, the Balkans, the Middle East and North Africa",
+      "startYear": 1324,
+      "endYear": 1874,
+      "parents": [
+        "romans",
+        "arabs",
+        "mongols"
+      ],
+      "blurb": "A Turkish state that rose as Mongol power fractured Anatolia, took Constantinople in 1453 and ruled three continents. Its breakup after World War I created modern Turkey and many Arab states.",
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (subjective; Maddison Project GDP shares as a guide). Drawn 1324-1874: the empire lasted until 1922, but the next slice (1924) falls after its end"
+    },
+    {
+      "id": "mongols",
+      "key": "Mongols",
+      "name": "Mongols",
+      "region": "Mongolian steppe, then China, Persia and Russia",
+      "startYear": 1224,
+      "endYear": 1324,
+      "parents": [
+        "huns"
+      ],
+      "blurb": "Genghis Khan united the steppe tribes in 1206 and his heirs built the largest contiguous land empire in history. Linking Eurasia, it spread trade, ideas and the Black Death.",
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (subjective). Drawn 1224-1324 (50-year slices); the unified empire split into khanates after 1260 and the Yuan fell in 1368"
+    }
+  ],
+  "extension": {
+    "950": {
+      "Britain": {"Item1": 3, "Item2": 18}
+    },
+    "900": {
+      "Britain": {"Item1": 29, "Item2": 25}
+    },
+    "850": {
+      "Britain": {"Item1": 37, "Item2": 45}
+    },
+    "800": {
+      "Britain": {"Item1": 72, "Item2": 35},
+      "Mongols": {"Item1": 1443, "Item2": 210}
+    },
+    "750": {
+      "Britain": {"Item1": 103, "Item2": 40},
+      "Mongols": {"Item1": 1252, "Item2": 425}
+    },
+    "700": {
+      "Britain": {"Item1": 135, "Item2": 40},
+      "Ottomans": {"Item1": 746, "Item2": 8},
+      "Mongols": {"Item1": 1339, "Item2": 340}
+    },
+    "650": {
+      "Britain": {"Item1": 135, "Item2": 45},
+      "Ottomans": {"Item1": 765, "Item2": 25}
+    },
+    "600": {
+      "Britain": {"Item1": 115, "Item2": 50},
+      "Ottomans": {"Item1": 705, "Item2": 35}
+    },
+    "550": {
+      "Britain": {"Item1": 110, "Item2": 35},
+      "Russia": {"Item1": 782, "Item2": 25},
+      "Ottomans": {"Item1": 827, "Item2": 70}
+    },
+    "500": {
+      "Britain": {"Item1": 95, "Item2": 40},
+      "Russia": {"Item1": 785, "Item2": 35},
+      "Ottomans": {"Item1": 840, "Item2": 120}
+    },
+    "450": {
+      "Britain": {"Item1": 112, "Item2": 45},
+      "Russia": {"Item1": 964, "Item2": 50},
+      "Ottomans": {"Item1": 1034, "Item2": 125}
+    },
+    "400": {
+      "Britain": {"Item1": 182, "Item2": 55},
+      "Russia": {"Item1": 1103, "Item2": 45},
+      "Ottomans": {"Item1": 1168, "Item2": 95}
+    },
+    "350": {
+      "Britain": {"Item1": 246, "Item2": 75},
+      "Russia": {"Item1": 1189, "Item2": 60},
+      "Ottomans": {"Item1": 1269, "Item2": 85}
+    },
+    "300": {
+      "Britain": {"Item1": 281, "Item2": 100},
+      "Russia": {"Item1": 1092, "Item2": 85},
+      "Ottomans": {"Item1": 1197, "Item2": 70},
+      "Japan": {"Item1": 1694, "Item2": 5}
+    },
+    "250": {
+      "United States": {"Item1": 351, "Item2": 10},
+      "Britain": {"Item1": 373, "Item2": 140},
+      "Russia": {"Item1": 1077, "Item2": 120},
+      "Ottomans": {"Item1": 1217, "Item2": 55},
+      "Japan": {"Item1": 1692, "Item2": 7}
+    },
+    "200": {
+      "United States": {"Item1": 283, "Item2": 35},
+      "Britain": {"Item1": 330, "Item2": 230},
+      "Russia": {"Item1": 1184, "Item2": 150},
+      "Ottomans": {"Item1": 1354, "Item2": 45},
+      "Japan": {"Item1": 1684, "Item2": 14}
+    },
+    "150": {
+      "United States": {"Item1": 173, "Item2": 150},
+      "Britain": {"Item1": 335, "Item2": 260},
+      "Russia": {"Item1": 1234, "Item2": 140},
+      "Ottomans": {"Item1": 1394, "Item2": 35},
+      "Japan": {"Item1": 1661, "Item2": 38}
+    },
+    "100": {
+      "United States": {"Item1": 72, "Item2": 340},
+      "Britain": {"Item1": 424, "Item2": 190},
+      "Russia": {"Item1": 1150, "Item2": 100},
+      "Japan": {"Item1": 1610, "Item2": 80}
+    },
+    "75": {
+      "United States": {"Item1": 2, "Item2": 464},
+      "Britain": {"Item1": 472, "Item2": 110},
+      "Denmark": {"Item1": 618, "Item2": 9},
+      "France": {"Item1": 715, "Item2": 70},
+      "Spain": {"Item1": 846, "Item2": 20},
+      "Holy Roman Empire": {"Item1": 1045, "Item2": 85},
+      "Russia": {"Item1": 1136, "Item2": 163},
+      "Indians": {"Item1": 1468, "Item2": 71},
+      "Chinese": {"Item1": 1545, "Item2": 78},
+      "Japan": {"Item1": 1629, "Item2": 51}
+    },
+    "50": {
+      "United States": {"Item1": 46, "Item2": 375},
+      "Britain": {"Item1": 492, "Item2": 71},
+      "Denmark": {"Item1": 620, "Item2": 7},
+      "France": {"Item1": 714, "Item2": 73},
+      "Spain": {"Item1": 842, "Item2": 29},
+      "Holy Roman Empire": {"Item1": 1034, "Item2": 100},
+      "Russia": {"Item1": 1140, "Item2": 160},
+      "Indians": {"Item1": 1423, "Item2": 53},
+      "Chinese": {"Item1": 1482, "Item2": 78},
+      "Japan": {"Item1": 1566, "Item2": 133}
+    },
+    "25": {
+      "United States": {"Item1": 55, "Item2": 357},
+      "Britain": {"Item1": 500, "Item2": 56},
+      "Denmark": {"Item1": 620, "Item2": 6},
+      "France": {"Item1": 722, "Item2": 58},
+      "Spain": {"Item1": 841, "Item2": 31},
+      "Holy Roman Empire": {"Item1": 1043, "Item2": 82},
+      "Russia": {"Item1": 1198, "Item2": 44},
+      "Indians": {"Item1": 1331, "Item2": 76},
+      "Chinese": {"Item1": 1413, "Item2": 153},
+      "Japan": {"Item1": 1572, "Item2": 127}
+    },
+    "0": {
+      "United States": {"Item1": 106, "Item2": 255},
+      "Britain": {"Item1": 510, "Item2": 37},
+      "Denmark": {"Item1": 621, "Item2": 4},
+      "France": {"Item1": 732, "Item2": 37},
+      "Spain": {"Item1": 844, "Item2": 24},
+      "Holy Roman Empire": {"Item1": 1046, "Item2": 54},
+      "Russia": {"Item1": 1106, "Item2": 59},
+      "Indians": {"Item1": 1171, "Item2": 138},
+      "Chinese": {"Item1": 1315, "Item2": 319},
+      "Japan": {"Item1": 1640, "Item2": 59}
+    }
+  }
+}

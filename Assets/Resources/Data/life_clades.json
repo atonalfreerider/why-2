@@ -1,0 +1,1018 @@
+{
+  "clades": [
+    {
+      "id": "life",
+      "name": "All life",
+      "mrca": [
+        "Enterobacteriaceae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 4200.0,
+      "leafCount": 1610,
+      "tier": 1,
+      "blurb": "The last universal common ancestor of every living thing. Its genetic code, still shared by all life today, is the unbroken thread that connects the first cells to you."
+    },
+    {
+      "id": "bacteria",
+      "name": "Bacteria",
+      "mrca": [
+        "Thermotogaceae",
+        "Enterobacteriaceae"
+      ],
+      "treeAgeMya": 4187.7,
+      "leafCount": 89,
+      "tier": 1,
+      "blurb": "Single cells that invented most of life's chemistry. Bacteria built Earth's oxygen and nutrient cycles, and one of them was absorbed to become the mitochondria that power our cells."
+    },
+    {
+      "id": "cyanobacteria",
+      "name": "Cyanobacteria",
+      "mrca": [
+        "Gloeobacteraceae",
+        "Nostocaceae"
+      ],
+      "treeAgeMya": 1179.5,
+      "leafCount": 6,
+      "tier": 2,
+      "blurb": "The first organisms to split water with sunlight, releasing oxygen as waste. Their oxygen remade the atmosphere, and one captured as a chloroplast went on to power every plant."
+    },
+    {
+      "id": "proteobacteria",
+      "name": "Proteobacteria",
+      "mrca": [
+        "Enterobacteriaceae",
+        "Rickettsiaceae"
+      ],
+      "treeAgeMya": 2504.0,
+      "leafCount": 37,
+      "tier": 3,
+      "blurb": "A vast bacterial group including E. coli and nitrogen-fixing Rhizobium. An ancient member was engulfed by another cell and became the mitochondrion, the power plant of complex life."
+    },
+    {
+      "id": "archaea",
+      "name": "Archaea",
+      "mrca": [
+        "Nanoarchaeum",
+        "Halobacteriaceae"
+      ],
+      "treeAgeMya": 3806.0,
+      "leafCount": 13,
+      "tier": 1,
+      "blurb": "Microbes of hot springs, salt flats and our own guts, including methane makers. An archaeon likely hosted the bacterium that became the mitochondrion, forming the first complex cell."
+    },
+    {
+      "id": "eukaryotes",
+      "name": "Eukaryotes",
+      "mrca": [
+        "Diplomonadida",
+        "Hominidae"
+      ],
+      "treeAgeMya": 1594.0,
+      "leafCount": 1508,
+      "tier": 1,
+      "blurb": "Cells with a nucleus and energy-producing mitochondria. That extra energy let cells grow large and complex, the necessary step toward seaweeds, fungi, animals and brains."
+    },
+    {
+      "id": "diatoms",
+      "name": "Diatoms",
+      "mrca": [
+        "Bacillariophycidae",
+        "Radial_Centrics_Group"
+      ],
+      "treeAgeMya": 207.5,
+      "leafCount": 9,
+      "tier": 3,
+      "blurb": "Single-celled algae in glass shells that make roughly a fifth of Earth's oxygen today. Their sinking remains feed the deep sea and store carbon on the ocean floor."
+    },
+    {
+      "id": "green_plants",
+      "name": "Green plants",
+      "mrca": [
+        "Chlorophyta",
+        "Poaceae"
+      ],
+      "treeAgeMya": 936.0,
+      "leafCount": 470,
+      "tier": 2,
+      "blurb": "Green algae and their land-plant descendants, powered by chloroplasts inherited from an engulfed cyanobacterium. One freshwater branch would eventually turn the continents green."
+    },
+    {
+      "id": "plants",
+      "name": "Land plants",
+      "mrca": [
+        "Marchantiales",
+        "Poaceae"
+      ],
+      "treeAgeMya": 593.4,
+      "leafCount": 469,
+      "tier": 1,
+      "blurb": "Plants that left the water, with waxy skins, pores and protected embryos. By building soils and feeding on air and sunlight, they made the land livable for animals."
+    },
+    {
+      "id": "mosses",
+      "name": "Mosses",
+      "mrca": [
+        "Sphagnaceae",
+        "Polytrichaceae"
+      ],
+      "treeAgeMya": 378.0,
+      "leafCount": 59,
+      "tier": 3,
+      "blurb": "Small, water-loving plants that were among the first to carpet the land. Peat moss bogs lock away enormous amounts of carbon, shaping climate to this day."
+    },
+    {
+      "id": "euphyllophytes",
+      "name": "Ferns and seed plants",
+      "mrca": [
+        "Equisetaceae",
+        "Poaceae"
+      ],
+      "treeAgeMya": 466.5,
+      "leafCount": 366,
+      "tier": 2,
+      "blurb": "Vascular plants with true, many-veined leaves: ferns, horsetails and seed plants. Broad leaves and internal plumbing let plants grow tall and raise the first forests."
+    },
+    {
+      "id": "seed_plants",
+      "name": "Seed plants",
+      "mrca": [
+        "Cycadaceae",
+        "Poaceae"
+      ],
+      "treeAgeMya": 355.2,
+      "leafCount": 345,
+      "tier": 2,
+      "blurb": "Plants that pack an embryo and its food inside a tough seed. No longer needing water to reproduce, they spread across dry land, and their seeds later became our grain."
+    },
+    {
+      "id": "gymnosperms",
+      "name": "Conifers and kin",
+      "mrca": [
+        "Pinaceae",
+        "Cycadaceae"
+      ],
+      "treeAgeMya": 355.2,
+      "leafCount": 12,
+      "tier": 3,
+      "blurb": "Conifers, cycads and ginkgo, the naked-seed plants. They dominated forests in the age of dinosaurs and still blanket vast northern lands with timber and carbon stores."
+    },
+    {
+      "id": "flowering_plants",
+      "name": "Flowering plants",
+      "mrca": [
+        "Amborellales",
+        "Poaceae"
+      ],
+      "treeAgeMya": 174.9,
+      "leafCount": 333,
+      "tier": 1,
+      "blurb": "Plants that recruited animals as pollinators with flowers and wrapped their seeds in fruit. They now dominate the land and supply nearly all human food."
+    },
+    {
+      "id": "grasses",
+      "name": "Grasses",
+      "mrca": [
+        "Poaceae",
+        "Poaceae"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 2,
+      "blurb": "Wind-pollinated plants that regrow from the base, surviving grazing and fire. Grasslands shaped grazing mammals and our ancestors, and wheat, rice and maize now feed humanity."
+    },
+    {
+      "id": "fungi",
+      "name": "Fungi",
+      "mrca": [
+        "Chytridiomycota",
+        "Agaricomycotina"
+      ],
+      "treeAgeMya": 1156.0,
+      "leafCount": 14,
+      "tier": 1,
+      "blurb": "Organisms that digest food outside their bodies and recycle the dead. Partnering with roots, fungi helped plants settle the land, and they are closer kin to animals than to plants."
+    },
+    {
+      "id": "mushrooms",
+      "name": "Mushroom-forming fungi",
+      "mrca": [
+        "Agaricomycotina",
+        "Agaricomycotina"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 3,
+      "blurb": "Fungi that make mushrooms, including the white rots that learned to break down wood's tough lignin. Wood decay recycles forest carbon and may have slowed the burial of coal."
+    },
+    {
+      "id": "animals",
+      "name": "Animals",
+      "mrca": [
+        "Hexactinnellida",
+        "Hominidae"
+      ],
+      "treeAgeMya": 1020.0,
+      "leafCount": 989,
+      "tier": 1,
+      "blurb": "Multicellular organisms that feed on other living things, and most can move. Specialized cells for movement and sensing set the stage for muscles, nerves and, eventually, minds."
+    },
+    {
+      "id": "cnidarians",
+      "name": "Cnidarians",
+      "mrca": [
+        "Hydrozoa",
+        "Other_Anthozoa"
+      ],
+      "treeAgeMya": 640.4,
+      "leafCount": 7,
+      "tier": 2,
+      "blurb": "Jellyfish, corals and anemones, armed with stinging cells and simple nerve nets. Reef-building corals create habitats that shelter about a quarter of all ocean species."
+    },
+    {
+      "id": "bilaterians",
+      "name": "Bilaterians",
+      "mrca": [
+        "Platyhelmintha",
+        "Hominidae"
+      ],
+      "treeAgeMya": 802.0,
+      "leafCount": 978,
+      "tier": 2,
+      "blurb": "Animals with a head end and a tail end, a left and a right side, and usually a gut running end to end. A head packed with senses drove the evolution of brains and purposeful movement."
+    },
+    {
+      "id": "protostomes",
+      "name": "Protostomes",
+      "mrca": [
+        "Annelida",
+        "Formicidae"
+      ],
+      "treeAgeMya": 790.0,
+      "leafCount": 395,
+      "tier": 2,
+      "blurb": "Worms, mollusks, arthropods and their kin, named for embryos in which the first opening often becomes the mouth. Shells, armor and jointed legs later made them most of all animal species."
+    },
+    {
+      "id": "mollusks",
+      "name": "Mollusks",
+      "mrca": [
+        "Dentaliidae",
+        "Octopodidae-1"
+      ],
+      "treeAgeMya": 500.0,
+      "leafCount": 26,
+      "tier": 2,
+      "blurb": "Soft-bodied animals, often with shells: snails, clams, tusk shells and cephalopods. Their shells built reefs and limestone, and they have fed coastal peoples for millennia."
+    },
+    {
+      "id": "cephalopods",
+      "name": "Squid, octopuses and cuttlefish",
+      "mrca": [
+        "Octopodidae-1",
+        "Loliginidae"
+      ],
+      "treeAgeMya": 400.0,
+      "leafCount": 19,
+      "tier": 3,
+      "blurb": "Cephalopods with large brains, camera-like eyes and color-changing skin. They evolved intelligence independently of vertebrates, showing that minds can arise more than once."
+    },
+    {
+      "id": "arthropods",
+      "name": "Arthropods",
+      "mrca": [
+        "Chilopoda",
+        "Formicidae"
+      ],
+      "treeAgeMya": 698.5,
+      "leafCount": 360,
+      "tier": 2,
+      "blurb": "Animals with jointed legs and a hard outer skeleton they molt to grow. Armor and versatile limbs made them the most diverse animals and among the first to live on land."
+    },
+    {
+      "id": "spiders",
+      "name": "Spiders",
+      "mrca": [
+        "Hypochilidae",
+        "Theraphosidae"
+      ],
+      "treeAgeMya": 392.0,
+      "leafCount": 26,
+      "tier": 3,
+      "blurb": "Eight-legged predators that spin silk for traps, shelters and egg cases. As leading insect hunters, spiders help keep insect populations, including crop pests, in check."
+    },
+    {
+      "id": "crustaceans",
+      "name": "Crabs, shrimp and barnacles",
+      "mrca": [
+        "Astacidae",
+        "Lepadidae"
+      ],
+      "treeAgeMya": 459.0,
+      "leafCount": 44,
+      "tier": 3,
+      "blurb": "Crabs, lobsters, crayfish, shrimp and barnacles, armored crustaceans of seas and fresh waters. Shrimp and their kin are vital links in aquatic food chains, and their fisheries feed millions of people."
+    },
+    {
+      "id": "insects",
+      "name": "Insects",
+      "mrca": [
+        "Paraneoptera",
+        "Formicidae"
+      ],
+      "treeAgeMya": 352.0,
+      "leafCount": 281,
+      "tier": 1,
+      "blurb": "Six-legged arthropods and the first animals to fly. Flight and metamorphosis made them the most diverse animals on Earth, pollinating plants and recycling the dead."
+    },
+    {
+      "id": "beetles",
+      "name": "Beetles",
+      "mrca": [
+        "Cupedidae",
+        "Coccinellidae"
+      ],
+      "treeAgeMya": 251.0,
+      "leafCount": 183,
+      "tier": 2,
+      "blurb": "The most species-rich animal group, shielded by hardened front wings. Beetles fill nearly every land niche, from recycling dung and wood to pollinating flowers and eating our crops."
+    },
+    {
+      "id": "flies",
+      "name": "Flies and mosquitoes",
+      "mrca": [
+        "Deuterophelbiidae",
+        "Muscidae"
+      ],
+      "treeAgeMya": 227.0,
+      "leafCount": 51,
+      "tier": 3,
+      "blurb": "Insects that fly on one pair of wings, the second reduced to balancing knobs. They pollinate and decompose, and mosquitoes spread diseases, like malaria, that shaped human history."
+    },
+    {
+      "id": "butterflies_moths",
+      "name": "Butterflies and moths",
+      "mrca": [
+        "Lepidoptera",
+        "Lepidoptera"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 3,
+      "blurb": "Insects with scale-covered wings whose caterpillars eat plants and whose adults pollinate flowers. Silk spun by the silkworm moth later tied civilizations together along the Silk Road."
+    },
+    {
+      "id": "bees_ants_wasps",
+      "name": "Bees, ants and wasps",
+      "mrca": [
+        "Apidae",
+        "Chrysididae"
+      ],
+      "treeAgeMya": 170.0,
+      "leafCount": 22,
+      "tier": 3,
+      "blurb": "Stinging insects, many of which evolved complex societies. Bees pollinate a large share of crops and wild plants, and ant colonies move soil and seeds worldwide."
+    },
+    {
+      "id": "deuterostomes",
+      "name": "Deuterostomes",
+      "mrca": [
+        "Temnopleuridae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 802.0,
+      "leafCount": 583,
+      "tier": 2,
+      "blurb": "The branch of animals holding sea urchins, acorn worms and chordates. Our lineage runs through here: in these embryos the first opening becomes the anus, not the mouth."
+    },
+    {
+      "id": "sea_urchins",
+      "name": "Sea urchins and sand dollars",
+      "mrca": [
+        "Temnopleuridae",
+        "Echinothuriidae"
+      ],
+      "treeAgeMya": 245.0,
+      "leafCount": 27,
+      "tier": 3,
+      "blurb": "Spiny echinoderms with five-part symmetry, from kelp grazers to burrowing sand dollars. Where predators such as sea otters disappear, urchin swarms can strip entire kelp forests bare."
+    },
+    {
+      "id": "chordates",
+      "name": "Chordates",
+      "mrca": [
+        "Cephalochordata",
+        "Hominidae"
+      ],
+      "treeAgeMya": 797.0,
+      "leafCount": 555,
+      "tier": 2,
+      "blurb": "Animals with a stiffening rod along the back, a nerve cord above it and gill slits. This body plan, first found in small swimmers, became the blueprint for every vertebrate."
+    },
+    {
+      "id": "vertebrates",
+      "name": "Vertebrates",
+      "mrca": [
+        "Myxinidae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 608.0,
+      "leafCount": 553,
+      "tier": 1,
+      "blurb": "Chordates with a backbone and a skull protecting a larger brain. New kinds of embryonic cells built complex heads and senses, the basis for fish, dinosaurs and us."
+    },
+    {
+      "id": "jawed_vertebrates",
+      "name": "Jawed vertebrates",
+      "mrca": [
+        "Chimaeridae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 526.5,
+      "leafCount": 551,
+      "tier": 2,
+      "blurb": "Vertebrates with hinged jaws and paired fins. Jaws turned filter-feeders into active predators, sparking an arms race that shaped all later vertebrates, including us."
+    },
+    {
+      "id": "sharks_rays",
+      "name": "Sharks and rays",
+      "mrca": [
+        "Carcharhinidae",
+        "Rajidae"
+      ],
+      "treeAgeMya": 393.0,
+      "leafCount": 54,
+      "tier": 2,
+      "blurb": "Fish with cartilage skeletons and keen senses, even for electric fields. Sharks have hunted the oceans for hundreds of millions of years, and as top predators they keep marine food webs in balance."
+    },
+    {
+      "id": "bony_fish",
+      "name": "Bony fish",
+      "mrca": [
+        "Polypteriformes",
+        "Hominidae"
+      ],
+      "treeAgeMya": 454.6,
+      "leafCount": 494,
+      "tier": 2,
+      "blurb": "Vertebrates with bony skeletons and air-filled lungs or swim bladders. Strictly speaking this group also includes every land vertebrate, since we descend from bony fish."
+    },
+    {
+      "id": "ray_finned_fish",
+      "name": "Ray-finned fish",
+      "mrca": [
+        "Polypteriformes",
+        "Cypriniformes"
+      ],
+      "treeAgeMya": 407.0,
+      "leafCount": 28,
+      "tier": 2,
+      "blurb": "Fish whose fins are supported by thin bony rays, from sturgeon to salmon. They make up about half of all vertebrate species and are a major source of human food."
+    },
+    {
+      "id": "lobe_finned_fish",
+      "name": "Lobe-finned fish",
+      "mrca": [
+        "Actinistia",
+        "Hominidae"
+      ],
+      "treeAgeMya": 430.0,
+      "leafCount": 466,
+      "tier": 3,
+      "blurb": "Coelacanths, lungfish and their descendants, with fleshy fins built on sturdy bones. Those fin bones became the legs and arms of every land vertebrate, including us."
+    },
+    {
+      "id": "tetrapods",
+      "name": "Tetrapods",
+      "mrca": [
+        "Rhinatrematidae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 361.2,
+      "leafCount": 462,
+      "tier": 1,
+      "blurb": "Four-limbed vertebrates whose ancestors crawled out of the water. Limbs, lungs and necks opened the land to vertebrates, leading to amphibians, reptiles, birds and mammals."
+    },
+    {
+      "id": "amphibians",
+      "name": "Amphibians",
+      "mrca": [
+        "Rhinatrematidae",
+        "Ranidae"
+      ],
+      "treeAgeMya": 294.0,
+      "leafCount": 76,
+      "tier": 2,
+      "blurb": "Frogs, salamanders and caecilians, most of which still return to water to breed. Their thin, permeable skin makes them early warning signs of environmental change."
+    },
+    {
+      "id": "amniotes",
+      "name": "Amniotes",
+      "mrca": [
+        "Tachyglossidae",
+        "Crocodylidae"
+      ],
+      "treeAgeMya": 324.5,
+      "leafCount": 386,
+      "tier": 2,
+      "blurb": "Vertebrates whose eggs carry their own water and membranes, freeing reproduction from ponds. This let them conquer dry land and split into the reptile-bird and mammal lines."
+    },
+    {
+      "id": "reptiles",
+      "name": "Reptiles",
+      "mrca": [
+        "Sphenodontia",
+        "Crocodylidae"
+      ],
+      "treeAgeMya": 274.9,
+      "leafCount": 237,
+      "tier": 2,
+      "blurb": "Scaly amniotes: lizards, snakes, turtles, crocodiles and, by descent, birds. Watertight skin and shelled eggs let them rule dry lands through the age of dinosaurs."
+    },
+    {
+      "id": "snakes",
+      "name": "Snakes",
+      "mrca": [
+        "Leptotyphlopidae",
+        "Viperidae"
+      ],
+      "treeAgeMya": 159.9,
+      "leafCount": 22,
+      "tier": 3,
+      "blurb": "Legless squamates that swallow prey whole, some with potent venom. One hypothesis holds that the danger of snakes sharpened the keen eyesight of our primate ancestors."
+    },
+    {
+      "id": "turtles",
+      "name": "Turtles",
+      "mrca": [
+        "Chelidae",
+        "Cheloniidae"
+      ],
+      "treeAgeMya": 207.0,
+      "leafCount": 14,
+      "tier": 3,
+      "blurb": "Reptiles that grew their ribs into a protective shell. The design proved so durable that turtles came through the asteroid extinction that ended the dinosaurs."
+    },
+    {
+      "id": "archosaurs",
+      "name": "Archosaurs",
+      "mrca": [
+        "Crocodylidae",
+        "Corvidae"
+      ],
+      "treeAgeMya": 219.2,
+      "leafCount": 168,
+      "tier": 2,
+      "blurb": "The ruling reptiles: crocodilians, pterosaurs, dinosaurs and birds. After the end-Triassic extinction, dinosaurs among them dominated the land for 135 million years."
+    },
+    {
+      "id": "crocodilians",
+      "name": "Crocodilians",
+      "mrca": [
+        "Gavialidae",
+        "Alligatoridae"
+      ],
+      "treeAgeMya": 102.6,
+      "leafCount": 3,
+      "tier": 3,
+      "blurb": "Crocodiles, alligators and gharials, patient ambush predators whose body plan has changed little for tens of millions of years. They are the closest living relatives of birds."
+    },
+    {
+      "id": "birds",
+      "name": "Birds",
+      "mrca": [
+        "Struthionidae",
+        "Corvidae"
+      ],
+      "treeAgeMya": 119.0,
+      "leafCount": 165,
+      "tier": 1,
+      "blurb": "The dinosaurs that survived: feathered, warm-blooded and flying. After the asteroid impact they spread into nearly every habitat as hunters, seed carriers and pollinators."
+    },
+    {
+      "id": "birds_of_prey",
+      "name": "Birds of prey",
+      "mrca": [
+        "Accipitridae",
+        "Falconidae"
+      ],
+      "treeAgeMya": 76.3,
+      "leafCount": 5,
+      "tier": 3,
+      "blurb": "Hawks, eagles, ospreys, falcons and New World vultures, hunters with hooked beaks and sharp eyes. They sit atop many food chains, and people trained them to hunt."
+    },
+    {
+      "id": "parrots",
+      "name": "Parrots",
+      "mrca": [
+        "Psittaciformes",
+        "Psittaciformes"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 3,
+      "blurb": "Big-brained birds with strong curved beaks and grasping feet. Their vocal mimicry and problem solving evolved independently of primates, a parallel path to intelligence."
+    },
+    {
+      "id": "songbirds",
+      "name": "Songbirds",
+      "mrca": [
+        "Menuridae",
+        "Corvidae"
+      ],
+      "treeAgeMya": 63.9,
+      "leafCount": 73,
+      "tier": 3,
+      "blurb": "Birds with a complex voice box and learned songs, nearly half of all bird species. How young songbirds learn to sing is a leading model for how human children learn to speak."
+    },
+    {
+      "id": "mammals",
+      "name": "Mammals",
+      "mrca": [
+        "Tachyglossidae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 220.2,
+      "leafCount": 149,
+      "tier": 1,
+      "blurb": "Warm-blooded vertebrates with hair that nurse their young with milk. Long parental care and big brains let learning pass between generations, setting the stage for culture."
+    },
+    {
+      "id": "monotremes",
+      "name": "Monotremes",
+      "mrca": [
+        "Tachyglossidae",
+        "Ornithorhynchidae"
+      ],
+      "treeAgeMya": 49.1,
+      "leafCount": 2,
+      "tier": 3,
+      "blurb": "The platypus and echidnas, mammals that still lay eggs. They preserve traits of the earliest mammals, a living window onto how milk and fur began."
+    },
+    {
+      "id": "marsupials",
+      "name": "Marsupials",
+      "mrca": [
+        "Didelphidae",
+        "Macropodidae"
+      ],
+      "treeAgeMya": 78.1,
+      "leafCount": 20,
+      "tier": 2,
+      "blurb": "Mammals that give birth early and nurse their young in a pouch. Isolated in Australia and South America, they evolved kangaroos, koalas, opossums and wombats."
+    },
+    {
+      "id": "placentals",
+      "name": "Placental mammals",
+      "mrca": [
+        "Proboscidea",
+        "Hominidae"
+      ],
+      "treeAgeMya": 104.7,
+      "leafCount": 127,
+      "tier": 2,
+      "blurb": "Mammals that nourish their young inside the womb through a placenta. After the dinosaurs vanished they radiated into whales, bats, elephants, horses and primates."
+    },
+    {
+      "id": "carnivorans",
+      "name": "Carnivorans",
+      "mrca": [
+        "Felidae",
+        "Canidae"
+      ],
+      "treeAgeMya": 52.9,
+      "leafCount": 16,
+      "tier": 2,
+      "blurb": "Meat-eating mammals with shearing teeth: cats, dogs, bears, seals and weasels. As top predators they shape whole ecosystems, and wolves became our first domestic partner."
+    },
+    {
+      "id": "cats",
+      "name": "Cats",
+      "mrca": [
+        "Felidae",
+        "Felidae"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 3,
+      "blurb": "Stealthy hunters with retractable claws and superb night vision. Wildcats that hunted rodents in early farmers' grain stores moved in with people and became house cats."
+    },
+    {
+      "id": "dogs",
+      "name": "Dogs, wolves and foxes",
+      "mrca": [
+        "Canidae",
+        "Canidae"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 3,
+      "blurb": "Endurance hunters that often live in cooperative packs. Wolves drawn to Ice Age human camps became dogs, the first animals people domesticated, later helping us hunt, herd and guard."
+    },
+    {
+      "id": "bears",
+      "name": "Bears",
+      "mrca": [
+        "Ursidae",
+        "Ursidae"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 3,
+      "blurb": "Large, mostly omnivorous carnivorans, from polar bears to giant pandas. Competing with people for caves may have helped drive Ice Age cave bears extinct, and bears loom large in human myth."
+    },
+    {
+      "id": "even_toed_ungulates",
+      "name": "Even-toed ungulates and whales",
+      "mrca": [
+        "Camelidae",
+        "Bovidae"
+      ],
+      "treeAgeMya": 67.3,
+      "leafCount": 24,
+      "tier": 2,
+      "blurb": "Hoofed mammals such as pigs, camels, deer, cattle and hippos, plus their seagoing offshoot, the whales. Cattle, sheep, goats and pigs became the backbone of farming."
+    },
+    {
+      "id": "whales_dolphins",
+      "name": "Whales and dolphins",
+      "mrca": [
+        "Delphinidae",
+        "Balaenidae"
+      ],
+      "treeAgeMya": 32.3,
+      "leafCount": 14,
+      "tier": 3,
+      "blurb": "Mammals whose hoofed, hippo-related ancestors returned to the sea about 50 million years ago. Their descendants include the blue whale, the largest animal ever, and big-brained, social dolphins."
+    },
+    {
+      "id": "bats",
+      "name": "Bats",
+      "mrca": [
+        "Pteropodidae",
+        "Vespertilionidae"
+      ],
+      "treeAgeMya": 62.0,
+      "leafCount": 18,
+      "tier": 3,
+      "blurb": "The only mammals capable of true flight, many hunting by echolocation. Bats pollinate plants and eat vast numbers of insects, and some carry viruses that can spill over to people."
+    },
+    {
+      "id": "rodents",
+      "name": "Rodents",
+      "mrca": [
+        "Sciuridae",
+        "Muridae"
+      ],
+      "treeAgeMya": 86.4,
+      "leafCount": 31,
+      "tier": 2,
+      "blurb": "Gnawing mammals with ever-growing front teeth, the most species-rich mammal group. Rats and mice followed farmers into granaries and helped spread plague across civilizations."
+    },
+    {
+      "id": "primates",
+      "name": "Primates",
+      "mrca": [
+        "Lemuridae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 77.5,
+      "leafCount": 14,
+      "tier": 1,
+      "blurb": "Tree-dwelling mammals with grasping hands, forward-facing eyes and large brains. Life among the branches refined vision and dexterity, the tools later used for making tools."
+    },
+    {
+      "id": "anthropoids",
+      "name": "Monkeys and apes",
+      "mrca": [
+        "Cebidae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 44.2,
+      "leafCount": 6,
+      "tier": 3,
+      "blurb": "Anthropoid primates: mostly daytime foragers with bigger brains and keen color vision. Life in large, complex social groups rewarded social intelligence and communication."
+    },
+    {
+      "id": "apes",
+      "name": "Apes",
+      "mrca": [
+        "Hylobatidae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 18.8,
+      "leafCount": 2,
+      "tier": 2,
+      "blurb": "Tailless primates, the gibbons and great apes, with flexible shoulders for swinging below branches. Larger brains and long childhoods set the stage for the human lineage."
+    },
+    {
+      "id": "hominidae",
+      "name": "Great apes and humans",
+      "mrca": [
+        "Hominidae",
+        "Hominidae"
+      ],
+      "treeAgeMya": 0.0,
+      "leafCount": 1,
+      "tier": 1,
+      "blurb": "Orangutans, gorillas, chimpanzees and humans. In one branch, walking upright freed the hands for carrying and toolmaking, the start of the human story."
+    }
+  ],
+  "events": [
+    {
+      "id": "earliest_life",
+      "name": "Earliest evidence of life",
+      "mya": 3700,
+      "tier": 1,
+      "blurb": "Carbon traces in Greenland rocks suggest microbes lived on Earth by 3.7 billion years ago, soon after the planet cooled. All later life, including us, descends from early cells like these."
+    },
+    {
+      "id": "oxygenic_photosynthesis",
+      "name": "Oxygen-making photosynthesis",
+      "mya": 3000,
+      "tier": 2,
+      "blurb": "Probably by about 3 billion years ago, cyanobacteria began using sunlight to split water, releasing oxygen as waste. This abundant new energy source would remake the planet."
+    },
+    {
+      "id": "great_oxidation",
+      "name": "Great Oxidation Event",
+      "mya": 2400,
+      "tier": 1,
+      "blurb": "Oxygen from cyanobacteria finally built up in the air. It poisoned many microbes, but it formed the ozone shield and made possible the energy-hungry life that followed."
+    },
+    {
+      "id": "first_eukaryotes",
+      "name": "First complex cells",
+      "mya": 1650,
+      "tier": 1,
+      "blurb": "The oldest widely accepted fossils of cells with a nucleus. A merger with an oxygen-breathing bacterium, the future mitochondrion, gave them energy to grow large and complex."
+    },
+    {
+      "id": "first_multicellular",
+      "name": "Early multicellular life",
+      "mya": 1050,
+      "tier": 2,
+      "blurb": "Bangiomorpha, a red alga, is the oldest multicellular organism assigned to a living group and the first known to reproduce sexually. Multicellular bodies, which arose several times, led to seaweeds, plants and animals."
+    },
+    {
+      "id": "snowball_earth",
+      "name": "Snowball Earth",
+      "mya": 717,
+      "tier": 2,
+      "blurb": "In two great freezes between about 717 and 635 million years ago, ice reached the tropics and may have covered nearly the whole planet. The thaws flooded the seas with nutrients before large animals appeared."
+    },
+    {
+      "id": "ediacaran_biota",
+      "name": "Ediacaran biota",
+      "mya": 575,
+      "tier": 2,
+      "blurb": "Soft-bodied, often quilted organisms spread across the sea floor, the first large, complex life. Some were early animals, and their burrows and mats set the stage for the Cambrian."
+    },
+    {
+      "id": "cambrian_explosion",
+      "name": "Cambrian explosion",
+      "mya": 538.8,
+      "tier": 1,
+      "blurb": "Within about 20 million years most animal body plans appear, with eyes, shells and predators. The arms race between hunters and hunted drove innovations that shaped all later animals."
+    },
+    {
+      "id": "ordovician_biodiversification",
+      "name": "Great Ordovician Biodiversification",
+      "mya": 475,
+      "tier": 3,
+      "blurb": "Marine animal diversity rose several-fold as reefs, plankton and filter-feeders flourished. The ocean ecosystems it built dominated the seas for about 200 million years, until the end-Permian extinction."
+    },
+    {
+      "id": "first_land_plants",
+      "name": "First land plants",
+      "mya": 470,
+      "tier": 2,
+      "blurb": "Fossil spores show plants resembling liverworts moving onto land. As they spread they turned rock into soil and drew down carbon dioxide, preparing the continents for animals."
+    },
+    {
+      "id": "end_ordovician_extinction",
+      "name": "End-Ordovician mass extinction",
+      "mya": 443.8,
+      "tier": 2,
+      "blurb": "A sharp ice age drained shallow seas and wiped out about 85 percent of marine species, the first of the Big Five mass extinctions. Survivors restocked the Silurian seas."
+    },
+    {
+      "id": "first_forests",
+      "name": "First forests",
+      "mya": 385,
+      "tier": 3,
+      "blurb": "Tree-sized plants such as Archaeopteris formed the first forests. Deep roots built thick soils and pulled carbon dioxide from the air, cooling the climate and reshaping the oceans."
+    },
+    {
+      "id": "late_devonian_extinction",
+      "name": "Late Devonian mass extinction",
+      "mya": 372,
+      "tier": 2,
+      "blurb": "Pulses of extinction, possibly tied to oxygen-starved seas, killed most reef builders and many armored fish. The survivors included the fish lineage that would walk on land."
+    },
+    {
+      "id": "tetrapods_on_land",
+      "name": "Tetrapods walk on land",
+      "mya": 370,
+      "tier": 2,
+      "blurb": "Fish with limb-like fins, relatives of Tiktaalik, gave rise to four-limbed tetrapods. Their descendants carried the vertebrate body onto land, the path that eventually led to us."
+    },
+    {
+      "id": "end_permian_extinction",
+      "name": "End-Permian mass extinction",
+      "mya": 251.9,
+      "tier": 1,
+      "blurb": "The Great Dying: massive Siberian volcanism heated and acidified the oceans, killing over 80 percent of marine species. The recovering world gave rise to dinosaurs and mammals."
+    },
+    {
+      "id": "first_dinosaurs",
+      "name": "First dinosaurs",
+      "mya": 233,
+      "tier": 2,
+      "blurb": "Small, two-legged dinosaurs such as Eoraptor appear in South America. Upright limbs and efficient breathing helped them take over after the end-Triassic extinction."
+    },
+    {
+      "id": "first_mammals",
+      "name": "First mammals",
+      "mya": 225,
+      "tier": 2,
+      "blurb": "The first mammals and their close kin, small nocturnal insect eaters, evolved from cynodont ancestors. Warm blood, fur and keen hearing let them survive in the shadow of dinosaurs."
+    },
+    {
+      "id": "end_triassic_extinction",
+      "name": "End-Triassic mass extinction",
+      "mya": 201.4,
+      "tier": 2,
+      "blurb": "Vast volcanic eruptions as the supercontinent Pangaea split apart upset the climate and killed about three-quarters of species. Dinosaurs emerged as the dominant land animals."
+    },
+    {
+      "id": "first_flowers",
+      "name": "First flowering plants",
+      "mya": 130,
+      "tier": 2,
+      "blurb": "The earliest fossil flowers and flowering-plant pollen appear. Partnering with insect pollinators, flowering plants soon came to dominate most land ecosystems."
+    },
+    {
+      "id": "end_cretaceous_extinction",
+      "name": "End-Cretaceous mass extinction",
+      "mya": 66.0,
+      "tier": 1,
+      "blurb": "An asteroid struck Chicxulub, Mexico, killing about three-quarters of species, including all dinosaurs except birds. Small surviving mammals inherited the Earth, opening the path to primates."
+    },
+    {
+      "id": "grasslands_spread",
+      "name": "Grasslands spread",
+      "mya": 20,
+      "tier": 3,
+      "blurb": "As the Miocene climate cooled and dried, grasslands spread across the continents. Grazing animals with tough teeth evolved, and African forests opened into savannas."
+    },
+    {
+      "id": "first_hominins",
+      "name": "First hominins",
+      "mya": 7,
+      "tier": 1,
+      "blurb": "By about 7 million years ago our lineage had split from that of chimpanzees; Sahelanthropus may be one of its first members. Walking upright freed the hands for carrying and tools."
+    },
+    {
+      "id": "first_stone_tools",
+      "name": "First stone tools",
+      "mya": 3.3,
+      "tier": 2,
+      "blurb": "Stone tools from Lomekwi, Kenya, show early hominins deliberately flaking rock. Sharp edges opened access to meat and marrow, food that could fuel larger brains."
+    },
+    {
+      "id": "homo_erectus",
+      "name": "Homo erectus",
+      "mya": 1.9,
+      "tier": 2,
+      "blurb": "Tall, long-legged and larger-brained, Homo erectus was among the first hominins to leave Africa, spreading across Asia. Endurance walking and better tools let it thrive in many habitats."
+    },
+    {
+      "id": "control_of_fire",
+      "name": "Control of fire",
+      "mya": 1.0,
+      "tier": 2,
+      "blurb": "Burned bone and ash in Wonderwerk Cave hint at fire use about a million years ago. Cooking released more energy from food, fueling bigger brains, while fire gave warmth and safety."
+    },
+    {
+      "id": "homo_sapiens",
+      "name": "Homo sapiens",
+      "mya": 0.3,
+      "tier": 1,
+      "blurb": "The oldest fossils of our species, from Jebel Irhoud, Morocco, date to about 300,000 years ago. Language and shared culture let knowledge build faster than genes could change."
+    },
+    {
+      "id": "out_of_africa",
+      "name": "Out of Africa",
+      "mya": 0.07,
+      "tier": 2,
+      "blurb": "Modern humans spread from Africa to Asia, Europe, Australia and later the Americas, mixing with Neanderthals and Denisovans, who later vanished. Every culture on Earth grew from these migrations."
+    },
+    {
+      "id": "agriculture",
+      "name": "Agriculture begins",
+      "mya": 0.012,
+      "tier": 1,
+      "blurb": "In the Fertile Crescent and several other regions, people began farming grasses like wheat and herding animals. Food surpluses led to villages, cities, writing and civilization."
+    }
+  ]
+}

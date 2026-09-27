@@ -9,25 +9,25 @@ namespace Why
     [Serializable]
     public struct WarpState
     {
-        /// <summary>Focus arc: the point of the ring that stays fixed while unrolling.</summary>
+        /// <summary>Focus arc: the point of the path that stays fixed while unrolling.</summary>
         public float FocusArc;
 
-        /// <summary>0 = polar clock, 1 = the focused period is a straight timeline.</summary>
+        /// <summary>0 = the base path (clock + straight human branch), 1 = the lens window is a straight timeline.</summary>
         public float Unroll;
 
-        /// <summary>Log offset in years: small = logarithmic unrolled time, large = linear.</summary>
+        /// <summary>Lens log offset in years: small = logarithmic time, large = linear.</summary>
         public double LogOffset;
 
-        /// <summary>Years ago at the center of the unrolled window.</summary>
+        /// <summary>Years ago at the center of the lens window.</summary>
         public double FocusYearsAgo;
 
-        /// <summary>World units per ln unit of (yearsAgo + LogOffset) in the unrolled layout.</summary>
+        /// <summary>World units per ln unit of (yearsAgo + LogOffset) in the lens.</summary>
         public float KLin;
 
         public float RhoScale;
         public float YScale;
 
-        /// <summary>Half length (world units) of the unrolled window; content beyond fades.</summary>
+        /// <summary>Half length (world units) of the lens window; content beyond fades.</summary>
         public float FadeHalfLength;
 
         public float FadeSoftness;
@@ -76,8 +76,8 @@ namespace Why
 
         public static WarpState Lerp(WarpState a, WarpState b, float t)
         {
-            // Unrolled-space parameters are irrelevant while the ring is polar; snap them so the unroll
-            // animation straightens directly into the target window instead of sweeping through others.
+            // Lens parameters are irrelevant while nothing is unrolled; snap them so the unroll animation
+            // straightens directly into the target window instead of sweeping through others.
             if (a.Unroll < 1e-3f)
             {
                 a.LogOffset = b.LogOffset;
@@ -119,12 +119,19 @@ namespace Why
     /// <summary>
     /// Owns the current warp, animates it, pushes it to the shaders, and mirrors the vertex shader's
     /// data -> world mapping on the CPU (labels, anchors, picking, camera framing).
+    ///
+    /// The base path is a circle from the Big Bang (6 o'clock) clockwise to 3 o'clock, where the human
+    /// era leaves the circle on a straight tangent branch with near-linear time up to the present. The
+    /// lens (Unroll) straightens the path around a focus and re-maps time to a window.
     /// </summary>
     public static class GraphWarp
     {
         static readonly int WarpA = Shader.PropertyToID("_WhyWarpA");
         static readonly int WarpB = Shader.PropertyToID("_WhyWarpB");
         static readonly int WarpC = Shader.PropertyToID("_WhyWarpC");
+        static readonly int JId = Shader.PropertyToID("_WhyJ");
+        static readonly int BaseAId = Shader.PropertyToID("_WhyBaseA");
+        static readonly int BaseBId = Shader.PropertyToID("_WhyBaseB");
         static readonly int LnAge = Shader.PropertyToID("_WhyLnAge");
 
         static WarpState from = WarpState.Polar;
@@ -172,14 +179,128 @@ namespace Why
             Push();
         }
 
+        // ------------------------------------------------------------------ base path
+
+        /// <summary>
+        /// The unwarped path: a circle of radius R0 from the Big Bang (6 o'clock) clockwise to 3 o'clock,
+        /// then a straight human branch tangent to the circle with near-linear time up to the present.
+        /// </summary>
+        public static class BasePath
+        {
+            /// <summary>Years ago at which the path leaves the circle (the dawn of civilizations, ~3000 BCE).</summary>
+            public const double HandoffYearsAgo = 5000;
+
+            /// <summary>Clockwise angle travelled on the circle from the Big Bang to the handoff (3 o'clock).</summary>
+            public const float HandoffAngle = 1.5f * Mathf.PI;
+
+            /// <summary>Length of the straight human branch (world units).</summary>
+            public const float BranchLength = 6f;
+
+            /// <summary>Log offset of the branch's time axis (large = linear; this is mostly linear).</summary>
+            public const double BranchLogOffset = 3000;
+
+            /// <summary>Clock arc of the handoff (3 o'clock).</summary>
+            public static readonly float HandoffArc = DeepTime.Arc(HandoffYearsAgo);
+
+            public static readonly float SigmaHandoff = GraphStyle.R0 * HandoffAngle;
+            public static readonly float SigmaPerArc = SigmaHandoff / (1f - HandoffArc);
+            static readonly double lnYaHC = Math.Log(HandoffYearsAgo + BranchLogOffset);
+            static readonly double lnCH = Math.Log(BranchLogOffset);
+            public static readonly float SigmaPerLn = (float)(BranchLength / (lnYaHC - lnCH));
+            public static readonly float LnHandoffC = (float)lnYaHC;
+
+            /// <summary>Arc length along the base path from the Big Bang (shader float math).</summary>
+            public static float Sigma(float u, float ya)
+            {
+                if (u >= HandoffArc) return (1f - u) * SigmaPerArc;
+                return SigmaHandoff + SigmaPerLn * (LnHandoffC - Mathf.Log(ya + (float)BranchLogOffset));
+            }
+
+            /// <summary>Position, tangent (toward the present) and outward normal of the unwarped path (xz).</summary>
+            public static void Frame(float sigma, out Vector2 p, out Vector2 t, out Vector2 n)
+            {
+                if (sigma <= SigmaHandoff)
+                {
+                    float theta = 2f * Mathf.PI - sigma / GraphStyle.R0;
+                    n = new Vector2(Mathf.Sin(theta), -Mathf.Cos(theta));
+                    t = new Vector2(-Mathf.Cos(theta), -Mathf.Sin(theta));
+                    p = GraphStyle.R0 * n;
+                    return;
+                }
+
+                // at 3 o'clock: outward is +x, toward the present is -z
+                n = new Vector2(1, 0);
+                t = new Vector2(0, -1);
+                p = new Vector2(GraphStyle.R0, 0) + t * (sigma - SigmaHandoff);
+            }
+        }
+
+        /// <summary>Warp quantities derived from a state (what the shader receives).</summary>
+        struct Derived
+        {
+            public float SigmaF, SH, BendRadius, LensC, LensLnYaF;
+            public Vector2 PJ, TJ, PF, TF, NF;
+        }
+
+        static Derived Derive(WarpState s)
+        {
+            Derived d;
+            float unroll = Mathf.Clamp01(s.Unroll);
+            d.LensC = (float)Math.Max(s.LogOffset, 1e-9);
+            d.LensLnYaF = (float)Math.Log(Math.Max(s.FocusYearsAgo, 0) + Math.Max(s.LogOffset, 1e-9));
+            float uF = Mathf.Max(s.FocusArc, 1e-4f);
+            d.SigmaF = BasePath.Sigma(uF, ShaderYearsAgo(uF));
+            BasePath.Frame(d.SigmaF, out d.PF, out d.TF, out d.NF);
+
+            float sLinH = s.KLin * (d.LensLnYaF - Mathf.Log((float)BasePath.HandoffYearsAgo + d.LensC));
+            d.SH = Mathf.Lerp(BasePath.SigmaHandoff - d.SigmaF, sLinH, unroll);
+            d.BendRadius = GraphStyle.R0 / Mathf.Max(1f - unroll, 1e-3f);
+
+            if (d.SigmaF <= BasePath.SigmaHandoff)
+            {
+                // the focus is on the circle: walk the (straightening) circle to the junction
+                float phi = d.SH / d.BendRadius;
+                float sh = Mathf.Sin(phi * 0.5f);
+                d.PJ = d.PF + d.TF * (d.BendRadius * Mathf.Sin(phi)) - d.NF * (2f * d.BendRadius * sh * sh);
+                d.TJ = d.TF * Mathf.Cos(phi) - d.NF * Mathf.Sin(phi);
+            }
+            else
+            {
+                // the focus is on the straight branch: the junction lies behind it on the same line
+                d.PJ = d.PF + d.TF * d.SH;
+                d.TJ = d.TF;
+            }
+
+            return d;
+        }
+
+        static Derived current;
+        static int currentVersion = -1;
+
+        static Derived CurrentDerived()
+        {
+            if (currentVersion != Version)
+            {
+                current = Derive(Current);
+                currentVersion = Version;
+            }
+
+            return current;
+        }
+
         public static void Push()
         {
             WarpState s = Current;
-            double c = Math.Max(s.LogOffset, 1e-9);
-            float lnYaF = (float)Math.Log(Math.Max(s.FocusYearsAgo, 0) + c);
-            Shader.SetGlobalVector(WarpA, new Vector4(s.FocusArc, GraphStyle.R0, Mathf.Clamp01(s.Unroll), s.YScale));
-            Shader.SetGlobalVector(WarpB, new Vector4((float)c, lnYaF, s.KLin, s.RhoScale));
-            Shader.SetGlobalVector(WarpC, new Vector4(s.FadeHalfLength, Mathf.Max(s.FadeSoftness, 1e-4f), s.FadeAmount, 0));
+            Derived d = Derive(s);
+            current = d;
+            currentVersion = Version;
+            Shader.SetGlobalVector(WarpA, new Vector4(d.SigmaF, GraphStyle.R0, Mathf.Clamp01(s.Unroll), s.YScale));
+            Shader.SetGlobalVector(WarpB, new Vector4(d.LensC, d.LensLnYaF, s.KLin, s.RhoScale));
+            Shader.SetGlobalVector(WarpC, new Vector4(s.FadeHalfLength, Mathf.Max(s.FadeSoftness, 1e-4f), s.FadeAmount, d.SH));
+            Shader.SetGlobalVector(JId, new Vector4(d.PJ.x, d.PJ.y, d.TJ.x, d.TJ.y));
+            Shader.SetGlobalVector(BaseAId, new Vector4(BasePath.HandoffArc, BasePath.SigmaPerArc, BasePath.SigmaHandoff, BasePath.SigmaPerLn));
+            Shader.SetGlobalVector(BaseBId, new Vector4((float)BasePath.BranchLogOffset, BasePath.LnHandoffC, d.BendRadius,
+                GraphStyle.HandoffFadeStartArc));
             Shader.SetGlobalFloat(LnAge, (float)DeepTime.LnAgeU);
         }
 
@@ -192,38 +313,45 @@ namespace Why
             return Mathf.Exp(g + (float)DeepTime.LnAgeU);
         }
 
-        /// <summary>Unrolled time coordinate (world units from the focus) - also drives the focus fade.</summary>
+        /// <summary>Lens time coordinate (world units from the focus, positive toward the present) - drives the focus fade.</summary>
         public static float UnrolledS(float u, WarpState s)
         {
             float c = (float)Math.Max(s.LogOffset, 1e-9);
             float lnYaF = (float)Math.Log(Math.Max(s.FocusYearsAgo, 0) + c);
-            return s.KLin * (Mathf.Log(ShaderYearsAgo(u) + c) - lnYaF);
+            return s.KLin * (lnYaF - Mathf.Log(ShaderYearsAgo(u) + c));
         }
 
-        public static Vector3 ToWorld(float u, float y, float rho) => ToWorld(u, y, rho, Current);
+        public static Vector3 ToWorld(float u, float y, float rho) => ToWorld(u, y, rho, CurrentDerived(), Current);
 
-        public static Vector3 ToWorld(Vector3 data) => ToWorld(data.x, data.y, data.z, Current);
+        public static Vector3 ToWorld(Vector3 data) => ToWorld(data.x, data.y, data.z, CurrentDerived(), Current);
 
         /// <summary>Exact mirror of WhyToWorld in WhyCommon.hlsl.</summary>
-        public static Vector3 ToWorld(float u, float y, float rho, WarpState s)
+        public static Vector3 ToWorld(float u, float y, float rho, WarpState s) => ToWorld(u, y, rho, Derive(s), s);
+
+        static Vector3 ToWorld(float u, float y, float rho, Derived d, WarpState s)
         {
-            float r0 = GraphStyle.R0;
-            float unroll = Mathf.Clamp01(s.Unroll);
-            float sPolar = r0 * 2f * Mathf.PI * (u - s.FocusArc);
-            float sLin = UnrolledS(u, s);
-            float arc = Mathf.Lerp(sPolar, sLin, unroll);
-            float R = r0 / Mathf.Max(1f - unroll, 1e-3f);
-            float dphi = arc / R;
+            u = Mathf.Max(u, 1e-4f);
+            float ya = ShaderYearsAgo(u);
+            float sLin = s.KLin * (d.LensLnYaF - Mathf.Log(ya + d.LensC));
+            float arc = Mathf.Lerp(BasePath.Sigma(u, ya) - d.SigmaF, sLin, Mathf.Clamp01(s.Unroll));
+            Vector2 nj = new Vector2(-d.TJ.y, d.TJ.x);
             float rhoW = rho * s.RhoScale;
 
-            float thF = 2f * Mathf.PI * s.FocusArc;
-            Vector2 n = new Vector2(Mathf.Sin(thF), -Mathf.Cos(thF));
-            Vector2 tan = new Vector2(Mathf.Cos(thF), Mathf.Sin(thF));
+            Vector2 p;
+            if (arc >= d.SH)
+            {
+                p = d.PJ + d.TJ * (arc - d.SH) + nj * rhoW;
+            }
+            else
+            {
+                float R = d.BendRadius;
+                float phi = (arc - d.SH) / R;
+                float sh = Mathf.Sin(phi * 0.5f);
+                Vector2 c = d.PJ + d.TJ * (R * Mathf.Sin(phi)) - nj * (2f * R * sh * sh);
+                Vector2 n = nj * Mathf.Cos(phi) + d.TJ * Mathf.Sin(phi);
+                p = c + n * rhoW;
+            }
 
-            float sh = Mathf.Sin(dphi * 0.5f);
-            float along = (R + rhoW) * Mathf.Sin(dphi);
-            float outward = rhoW * Mathf.Cos(dphi) - 2f * R * sh * sh;
-            Vector2 p = r0 * n + tan * along + n * outward;
             return new Vector3(p.x, y * s.YScale, p.y);
         }
 
@@ -237,18 +365,67 @@ namespace Why
             return 1 - s.FadeAmount * k;
         }
 
-        /// <summary>Outward normal of the ring (world xz) at the focus.</summary>
+        /// <summary>Outward normal of the path (world xz) at the focus.</summary>
         public static Vector3 FocusNormal(WarpState s)
         {
-            float thF = 2f * Mathf.PI * s.FocusArc;
-            return new Vector3(Mathf.Sin(thF), 0, -Mathf.Cos(thF));
+            Derived d = Derive(s);
+            return new Vector3(d.NF.x, 0, d.NF.y);
         }
 
-        /// <summary>Tangent of the ring (world xz) at the focus, pointing into the past.</summary>
+        /// <summary>Tangent of the path (world xz) at the focus, pointing into the past.</summary>
         public static Vector3 FocusTangent(WarpState s)
         {
-            float thF = 2f * Mathf.PI * s.FocusArc;
-            return new Vector3(Mathf.Cos(thF), 0, Mathf.Sin(thF));
+            Derived d = Derive(s);
+            return new Vector3(-d.TF.x, 0, -d.TF.y);
+        }
+
+        /// <summary>Outward normal of the path (world xz) at an arc under a warp (camera framing, picking).</summary>
+        public static Vector3 NormalAt(float u, WarpState s)
+        {
+            Vector3 a = ToWorld(u, 0, 0, s);
+            Vector3 b = ToWorld(u, 0, 0.05f, s);
+            Vector3 n = b - a;
+            n.y = 0;
+            return n.sqrMagnitude > 1e-12f ? n.normalized : FocusNormal(s);
+        }
+
+        /// <summary>
+        /// Approximate inverse of the current warp: the arc and relevance under a world position (xz),
+        /// found by searching along the path. Used for picking and the lens.
+        /// </summary>
+        public static void Inverse(Vector3 world, out float u, out float rho)
+        {
+            WarpState s = Current;
+            Derived d = CurrentDerived();
+            Vector2 q = new Vector2(world.x, world.z);
+            float best = float.MaxValue, bestU = 0.5f;
+            const int n = 800;
+            for (int i = 0; i <= n; i++)
+            {
+                float ui = Mathf.Lerp(DeepTime.NowArc, 1f, i / (float)n);
+                Vector3 p = ToWorld(ui, 0, 0, d, s);
+                float dd = (new Vector2(p.x, p.z) - q).sqrMagnitude;
+                if (dd < best)
+                {
+                    best = dd;
+                    bestU = ui;
+                }
+            }
+
+            // refine with a ternary search around the best sample
+            float lo = Mathf.Max(DeepTime.NowArc, bestU - 1f / n), hi = Mathf.Min(1f, bestU + 1f / n);
+            for (int it = 0; it < 40; it++)
+            {
+                float m1 = lo + (hi - lo) / 3f, m2 = hi - (hi - lo) / 3f;
+                Vector3 p1 = ToWorld(m1, 0, 0, d, s), p2 = ToWorld(m2, 0, 0, d, s);
+                if ((new Vector2(p1.x, p1.z) - q).sqrMagnitude < (new Vector2(p2.x, p2.z) - q).sqrMagnitude) hi = m2;
+                else lo = m1;
+            }
+
+            u = 0.5f * (lo + hi);
+            Vector3 b = ToWorld(u, 0, 0, d, s);
+            Vector3 nrm = NormalAt(u, s);
+            rho = Vector3.Dot(world - b, nrm) / Mathf.Max(s.RhoScale, 1e-4f);
         }
     }
 }

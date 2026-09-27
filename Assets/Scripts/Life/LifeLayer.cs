@@ -1,15 +1,23 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Why.Life
 {
     /// <summary>
-    /// GREEN layer: the tree of life (TimeTree of Life 2009, 1610 families, root 4.2 Ga) as a radial
-    /// phylogram. Time runs along the clock; each lineage keeps its own radial track. Children are
-    /// ordered by food chain (top predators inside) with our own lineage (-> Hominidae) always first, so
-    /// the inner track is the path that leads to us and every other branch peels off outward.
+    /// GREEN layer: the tree of life (TimeTree of Life 2009, 1610 families, root 4.2 Ga) drawn as an
+    /// expanding set of roots. Time runs along the clock. Children are ordered by food chain (top
+    /// predators inside) with our own lineage (-> Hominidae) always first, so the inner track is the path
+    /// that leads to us.
+    ///
+    /// Layout: a lineage is a chain of first children from a split down to a leaf. Each lineage is born
+    /// beside its parent with zero weight and gains weight gradually; its radius is the summed weight of
+    /// the living lineages inside it. The tree therefore widens only as lineages multiply - there is no
+    /// fixed outer edge. Life dissolves before the straight human branch at 3 o'clock, except our own
+    /// lineage, which stays lit until Homo sapiens rises into the human layer (300,000 years ago).
     ///
     /// Everything is computed on a worker thread and uploaded as one mesh (one draw call).
     /// </summary>
@@ -19,24 +27,33 @@ namespace Why.Life
         public const string TraitsPath = "Data/life_traits";
         public const string CladesPath = "Data/life_clades";
 
-        /// <summary>Radial spacing between leaf tracks.</summary>
-        public const float TrackSpacing = 0.0016f;
+        /// <summary>Radial extent of the fully grown root system (world units at rhoScale 1).</summary>
+        public const float TotalWidth = 2.8f;
 
-        const float ArcStep = 0.0025f;
+        /// <summary>How much more space a lineage claims as it ages (1 + RootGrowth * age^2).</summary>
+        const float RootGrowth = 40f;
+
+        const float GridStep = 0.001f;
         const string Us = "Hominidae";
+        const double SapiensYearsAgo = 300_000;
 
         public override int Order => 10;
         public override IEnumerable<string> RequiredTexts => new[] { TreePath, TraitsPath, CladesPath };
 
         public PhyloTree Tree { get; private set; }
-        public int[] Preorder { get; private set; }     // node -> preorder index
-        public int[] SubtreeSize { get; private set; }  // node -> number of nodes in subtree
-        public float[] Rho { get; private set; }        // node -> radial track
         public int LineagePathLength { get; private set; }
 
         LineMeshBuilder lines;
-        SurfaceMeshBuilder veil;
-        Material lineMat, veilMat;
+        Material lineMat;
+
+        // lineage layout
+        int lineageCount;
+        int[] nodeLineage;          // node -> lineage
+        float[] lineageBirthU;      // lineage -> arc where it branches off
+        float[] lineageRamp;        // lineage -> arc over which it gains full weight
+        float gridTop, gridBottom, growthSpan, prefixTotal = 1f, logK = 1f, logNorm = 1f;
+        int gridCount;
+        float[] prefix;             // [grid * lineageCount + lineage] = summed weight inside the lineage
 
         sealed class Trait
         {
@@ -71,6 +88,7 @@ namespace Why.Life
 
         public override void Prepare(GraphContext ctx)
         {
+            Stopwatch sw = Stopwatch.StartNew();
             string newick = ctx.Text(TreePath);
             if (string.IsNullOrEmpty(newick)) return;
             PhyloTree tree = PhyloTree.ParseNewick(newick);
@@ -119,22 +137,19 @@ namespace Why.Life
                 });
             }
 
-            // --- preorder numbering, leaf tracks ---
+            // --- preorder numbering (highlight ids) and lineages (first-child chains) ---
             int[] pre = new int[n];
             int[] size = new int[n];
-            float[] rho = new float[n];
-            int counter = 0, leafIndex = 0;
+            List<int> order = new List<int>(n);
             Stack<int> stack = new Stack<int>();
             stack.Push(0);
-            List<int> order = new List<int>(n);
             while (stack.Count > 0)
             {
                 int x = stack.Pop();
-                pre[x] = counter++;
+                pre[x] = order.Count;
                 order.Add(x);
                 List<int> ch = tree.Children[x];
                 for (int k = ch.Count - 1; k >= 0; k--) stack.Push(ch[k]);
-                if (ch.Count == 0) rho[x] = TrackSpacing * leafIndex++;
             }
 
             for (int k = order.Count - 1; k >= 0; k--)
@@ -142,114 +157,169 @@ namespace Why.Life
                 int x = order[k];
                 size[x] = 1;
                 foreach (int c in tree.Children[x]) size[x] += size[c];
-                if (!tree.IsLeaf(x)) rho[x] = rho[tree.Children[x][0]]; // the first (innermost) child continues straight
             }
 
-            Preorder = pre;
-            SubtreeSize = size;
-            Rho = rho;
-            int pathLen = 0;
-            for (int x = us; x >= 0; x = tree.Parent[x]) pathLen++;
-            LineagePathLength = pathLen;
-            float maxRho = TrackSpacing * Math.Max(1, leafIndex - 1);
-
-            // --- geometry ---
-            lines = new LineMeshBuilder(260_000);
-            List<LinePoint> pts = new List<LinePoint>(512);
-            float y = GraphStyle.LifeY;
-            for (int v = 1; v < n; v++)
+            float uHandoff = GraphWarp.BasePath.HandoffArc;
+            float uRoot = DeepTime.Arc(tree.RootAgeMya * 1e6);
+            float[] nodeU = new float[n];
+            for (int i = 0; i < n; i++) nodeU[i] = tree.IsLeaf(i) ? 0f : DeepTime.Arc(tree.AgeMya[i] * 1e6);
+            nodeLineage = new int[n];
+            List<int> lineageStart = new List<int>();
+            List<float> births = new List<float>();
+            foreach (int x in order) // preorder: lineages are numbered in inner-to-outer order
             {
-                int p = tree.Parent[v];
-                float u0 = DeepTime.Arc(tree.AgeMya[p] * 1e6);
-                float u1 = tree.IsLeaf(v) ? DeepTime.NowArc : DeepTime.Arc(tree.AgeMya[v] * 1e6);
-                if (u0 <= u1) continue;
-
-                bool lineage = onPath[v];
-                float relevance = 1f - rho[v] / maxRho;                     // 1 inside .. 0 outside
-                float widthWorld = 0.0006f * Mathf.Log(1 + leaves[v], 2) + (lineage ? 0.004f : 0f);
-                float intensity = lineage ? 2.2f : 0.45f + 0.45f * relevance;
-                float baseAlpha = lineage ? 1f : 0.14f + 0.36f * relevance * relevance;
-                float widthPx = lineage ? 2.2f : 1f;
-
-                pts.Clear();
-                float r0 = rho[p], r1 = rho[v];
-                float span = u0 - u1;
-                // lineages split off with an S-curve over a short arc, then keep their track
-                float bend = Mathf.Abs(r1 - r0) > 1e-6f ? Mathf.Min(span * 0.5f, 0.012f + 1.2f * Mathf.Abs(r1 - r0) * 0.05f) : 0f;
-                if (bend > 0)
+                int p = tree.Parent[x];
+                if (p < 0 || tree.Children[p][0] != x)
                 {
-                    const int bendSteps = 10;
-                    for (int k = 0; k <= bendSteps; k++)
-                    {
-                        float f = k / (float)bendSteps;
-                        float e = f * f * (3 - 2 * f);
-                        float u = u0 - bend * f;
-                        pts.Add(new LinePoint(new Vector3(u, y, Mathf.Lerp(r0, r1, e)),
-                            Tint(baseAlpha * PresentFade(u, lineage)), widthPx, widthWorld, intensity));
-                    }
+                    nodeLineage[x] = lineageStart.Count;
+                    lineageStart.Add(x);
+                    births.Add(p < 0 ? uRoot : nodeU[p]);
                 }
                 else
                 {
-                    pts.Add(new LinePoint(new Vector3(u0, y, r1), Tint(baseAlpha * PresentFade(u0, lineage)), widthPx,
-                        widthWorld, intensity));
+                    nodeLineage[x] = nodeLineage[p];
                 }
-
-                float uStart = u0 - bend;
-                int steps = Mathf.Max(1, Mathf.CeilToInt((uStart - u1) / ArcStep));
-                for (int k = 1; k <= steps; k++)
-                {
-                    float u = Mathf.Lerp(uStart, u1, k / (float)steps);
-                    pts.Add(new LinePoint(new Vector3(u, y, r1), Tint(baseAlpha * PresentFade(u, lineage)), widthPx,
-                        widthWorld, intensity));
-                }
-
-                lines.AddPolyline(pts, GraphIds.LifeNode(pre[v]), lineage ? 1f : 0f);
             }
 
-            // --- a faint veil under the branches: the extent of life at each moment ---
-            veil = new SurfaceMeshBuilder();
-            BuildVeil(tree, rho, y, maxRho);
+            lineageCount = lineageStart.Count;
+            lineageBirthU = births.ToArray();
+            lineageRamp = new float[lineageCount];
+            for (int l = 0; l < lineageCount; l++)
+            {
+                lineageRamp[l] = l == 0 ? 0f : Mathf.Clamp(0.45f * (lineageBirthU[l] - uHandoff), 0.004f, 0.05f);
+            }
+
+            // --- summed inner weight of every lineage on a fine arc grid ---
+            gridTop = uRoot;
+            gridBottom = uHandoff;
+            growthSpan = Mathf.Max(uRoot - uHandoff, 1e-3f);
+            gridCount = Mathf.CeilToInt((gridTop - gridBottom) / GridStep) + 1;
+            prefix = new float[gridCount * lineageCount];
+            float total = 0;
+            for (int g = 0; g < gridCount; g++)
+            {
+                float u = GridU(g);
+                float sum = 0;
+                int row = g * lineageCount;
+                for (int l = 0; l < lineageCount; l++)
+                {
+                    prefix[row + l] = sum;
+                    sum += Weight(l, u);
+                }
+
+                total = Mathf.Max(total, sum);
+            }
+
+            // map summed weight to radius logarithmically: early, deep structure and the lineages nearest
+            // us get room, the crowded outer bundles of recent families are compressed
+            prefixTotal = Mathf.Max(total, 1f);
+            logK = prefixTotal * 0.004f;
+            logNorm = TotalWidth / Mathf.Log(1f + prefixTotal / logK);
+
+            LineagePathLength = 0;
+            for (int x = us; x >= 0; x = tree.Parent[x]) LineagePathLength++;
+            float maxRho = TotalWidth;
+
+            // --- geometry: one polyline per lineage ---
+            lines = new LineMeshBuilder(160_000);
+            List<LinePoint> pts = new List<LinePoint>(512);
+            List<float> ids = new List<float>(512);
+            float y = GraphStyle.LifeY;
+            float uSapiens = DeepTime.Arc(SapiensYearsAgo);
+            for (int l = 0; l < lineageCount; l++)
+            {
+                bool ours = l == 0;
+                float uBirth = lineageBirthU[l];
+                float uEnd = uHandoff;
+                if (uBirth <= uEnd) continue;
+
+                // the chain of nodes along this lineage, oldest first
+                List<int> chain = new List<int>();
+                for (int x = lineageStart[l]; ; x = tree.Children[x][0])
+                {
+                    chain.Add(x);
+                    if (tree.IsLeaf(x)) break;
+                }
+
+                pts.Clear();
+                ids.Clear();
+                int ci = 0;
+                float rampEnd = uBirth - lineageRamp[l];
+                float u = uBirth;
+                while (true)
+                {
+                    // advance to the node that covers this arc (a node's own edge ends at its split)
+                    while (ci < chain.Count - 1 && u < nodeU[chain[ci]]) ci++;
+                    int node = chain[ci];
+
+                    float rho = RhoAt(l, u);
+                    float relevance = 1f - Mathf.Clamp01(rho / maxRho);
+                    float handoff = GraphStyle.HandoffFade(u);
+                    float fade = ours ? OurFade(u, uSapiens, uHandoff) : handoff * handoff * handoff;
+                    float alpha = (ours ? 1f : 0.08f + 0.3f * relevance * relevance) * fade;
+                    float intensity = ours ? 2.2f : 0.4f + 0.4f * relevance;
+                    float widthWorld = 0.0006f * Mathf.Log(1 + leaves[node], 2) + (ours ? 0.004f : 0f);
+                    pts.Add(new LinePoint(new Vector3(u, y, rho), Tint(alpha), ours ? 2.2f : 1f, widthWorld, intensity));
+                    ids.Add(GraphIds.LifeNode(pre[node]));
+
+                    if (u <= uEnd) break;
+                    float step = u > rampEnd ? GridStep : GridStep * 2.5f;
+                    u = Mathf.Max(uEnd, u - step);
+                }
+
+                lines.AddPolyline(pts, ids, ours ? 1f : 0f);
+            }
 
             // --- anchors and labels ---
-            RegisterLeaves(ctx, tree, traits, pre, rho, leaves);
-            RegisterClades(ctx, tree, cladeFile, pre, size, rho, us);
+            RegisterLeaves(ctx, tree, traits, pre);
+            RegisterClades(ctx, tree, cladeFile, pre, size);
             RegisterEvents(ctx, cladeFile);
 
             ctx.Share("life.layer", this);
+            Debug.Log($"[Why] LifeLayer.Prepare {sw.ElapsedMilliseconds} ms ({lineageCount} lineages, {lines.VertexCount / 2} points)");
         }
 
-        void BuildVeil(PhyloTree tree, float[] rho, float y, float maxRho)
+        float GridU(int g) => gridTop - g * GridStep;
+
+        /// <summary>
+        /// Space a lineage claims at an arc: 0 before it branches off, easing in, then growing with the square
+        /// of its age. Ancient splits therefore open wide gaps between bundles while recent splits stay tight,
+        /// and the whole system keeps diverging like roots instead of running in parallel tracks.
+        /// </summary>
+        float Weight(int l, float u)
         {
-            // outermost track alive at each sampled arc
-            const int samples = 420;
-            float uStart = DeepTime.Arc(tree.RootAgeMya * 1e6);
-            float[] outer = new float[samples + 1];
-            float[] us = new float[samples + 1];
-            for (int s = 0; s <= samples; s++) us[s] = Mathf.Lerp(uStart, DeepTime.NowArc, s / (float)samples);
-            for (int v = 1; v < tree.Count; v++)
-            {
-                float u0 = DeepTime.Arc(tree.AgeMya[tree.Parent[v]] * 1e6);
-                for (int s = 0; s <= samples; s++)
-                {
-                    if (us[s] <= u0 && rho[v] > outer[s]) outer[s] = rho[v];
-                }
-            }
-
-            List<Vector3> inner = new List<Vector3>(samples + 1), outerPts = new List<Vector3>(samples + 1);
-            List<Color32> cols = new List<Color32>(samples + 1);
-            for (int s = 0; s <= samples; s++)
-            {
-                inner.Add(new Vector3(us[s], y - 0.002f, -0.01f));
-                outerPts.Add(new Vector3(us[s], y - 0.002f, outer[s] + 0.02f));
-                float f = s / (float)samples;
-                cols.Add(Tint(Mathf.SmoothStep(0, 1, f * 8) * PresentFade(us[s], false)));
-            }
-
-            veil.AddBand(inner, outerPts, cols, GraphIds.LifeNode(0), 1f, 0f);
+            float b = lineageBirthU[l];
+            if (u > b) return 0f;
+            float age = (b - u) / growthSpan;
+            float growth = 1f + RootGrowth * age * age;
+            float r = lineageRamp[l];
+            if (r <= 0) return growth;
+            float t = Mathf.Clamp01((b - u) / r);
+            return t * t * (3 - 2 * t) * growth;
         }
 
-        void RegisterLeaves(GraphContext ctx, PhyloTree tree, Dictionary<string, Trait> traits, int[] pre, float[] rho,
-            int[] leaves)
+        /// <summary>Radial position of a lineage at an arc (interpolated on the grid).</summary>
+        public float RhoAt(int lineage, float u)
+        {
+            float gf = Mathf.Clamp((gridTop - u) / GridStep, 0, gridCount - 1);
+            int g0 = Mathf.Min((int)gf, gridCount - 2);
+            float t = gf - g0;
+            float a = prefix[g0 * lineageCount + lineage];
+            float b = prefix[(g0 + 1) * lineageCount + lineage];
+            return logNorm * Mathf.Log(1f + (a + (b - a) * t) / logK);
+        }
+
+        /// <summary>Radial position of a node's lineage at an arc.</summary>
+        public float NodeRho(int node, float u) => RhoAt(nodeLineage[node], Mathf.Clamp(u, gridBottom, gridTop));
+
+        /// <summary>Our lineage stays lit until Homo sapiens rises into the human layer, then hands over.</summary>
+        static float OurFade(float u, float uSapiens, float uHandoff)
+        {
+            float t = Mathf.Clamp01((u - uHandoff) / Mathf.Max(uSapiens - uHandoff, 1e-5f));
+            return 0.25f + 0.75f * t * t * (3 - 2 * t);
+        }
+
+        void RegisterLeaves(GraphContext ctx, PhyloTree tree, Dictionary<string, Trait> traits, int[] pre)
         {
             for (int v = 0; v < tree.Count; v++)
             {
@@ -258,6 +328,8 @@ namespace Why.Life
                 traits.TryGetValue(label, out Trait tr);
                 string display = tr != null && !string.IsNullOrEmpty(tr.Common) ? $"{tr.Common} ({label})" : label;
                 double splitYa = tree.AgeMya[tree.Parent[v]] * 1e6;
+                float u0 = DeepTime.Arc(splitYa);
+                float rho = NodeRho(v, u0 - 0.004f);
                 Anchor a = new Anchor
                 {
                     Key = "leaf:" + label,
@@ -267,30 +339,31 @@ namespace Why.Life
                     YearsAgo = splitYa,
                     EndYearsAgo = 0,
                     Y = GraphStyle.LifeY,
-                    Rho = rho[v],
+                    Rho = rho,
                     Ids = IdRange.Single(GraphIds.LifeNode(pre[v])),
                     Tier = 3
                 };
                 Anchors.Register(a);
 
-                // label the family where its own branch begins
-                float u0 = DeepTime.Arc(splitYa);
-                float priority = label == Us ? 60 : 0.2f + (tr?.T ?? 2) * 0.02f;
+                // label the family where its own branch begins (only where life is still visible)
+                if (GraphStyle.HandoffFade(u0 - 0.004f) < 0.3f && label != Us) continue;
+                bool isUs = label == Us;
                 ctx.Labels.Add(new LabelSpec
                 {
                     Text = display,
-                    Data = new Vector3(u0 - 0.004f, GraphStyle.LifeY, rho[v]),
-                    Priority = priority,
-                    SizePx = label == Us ? 15 : 10.5f,
-                    Color = label == Us ? GraphStyle.Text : GraphStyle.TextDim,
+                    Data = new Vector3(u0 - 0.004f, GraphStyle.LifeY, rho),
+                    Priority = isUs ? 60 : 0.2f + (tr?.T ?? 2) * 0.02f,
+                    SizePx = isUs ? 15 : 10.5f,
+                    Color = isUs ? GraphStyle.Text : GraphStyle.TextDim,
                     PixelOffset = new Vector2(4, 6),
                     AnchorKey = a.Key,
+                    HandoffFade = !isUs,
                     Ids = a.Ids
                 });
             }
         }
 
-        void RegisterClades(GraphContext ctx, PhyloTree tree, CladeFile file, int[] pre, int[] size, float[] rho, int us)
+        void RegisterClades(GraphContext ctx, PhyloTree tree, CladeFile file, int[] pre, int[] size)
         {
             foreach (CladeDto c in file.clades)
             {
@@ -304,19 +377,21 @@ namespace Why.Life
                     continue;
                 }
 
-                // a clade begins where its stem branch splits from its parent
-                double ya = node == 0 ? tree.RootAgeMya * 1e6 : tree.AgeMya[tree.Parent[node]] * 1e6;
+                // a clade is anchored at its crown (where it starts to diversify); a single leaf at its stem
+                double stemYa = node == 0 ? tree.RootAgeMya * 1e6 : tree.AgeMya[tree.Parent[node]] * 1e6;
                 double crownYa = tree.AgeMya[node] * 1e6;
+                double ya = crownYa > 0 ? crownYa : stemYa;
+                float u = DeepTime.Arc(ya);
                 Anchor anchor = new Anchor
                 {
                     Key = "clade:" + c.id,
                     Label = c.name ?? c.id,
                     Blurb = c.blurb,
                     Level = GraphLevel.Life,
-                    YearsAgo = crownYa > 0 ? crownYa : ya,
+                    YearsAgo = ya,
                     EndYearsAgo = 0,
                     Y = GraphStyle.LifeY,
-                    Rho = rho[node],
+                    Rho = NodeRho(node, u),
                     Ids = new IdRange(GraphIds.LifeNode(pre[node]), GraphIds.LifeNode(pre[node] + size[node] - 1)),
                     Tier = c.tier
                 };
@@ -325,17 +400,18 @@ namespace Why.Life
                 ctx.Labels.Add(new LabelSpec
                 {
                     Text = anchor.Label,
-                    Data = new Vector3(anchor.U, GraphStyle.LifeY, rho[node]),
+                    Data = anchor.Data,
                     Priority = c.tier == 1 ? 40 : c.tier == 2 ? 20 : 8,
                     SizePx = c.tier == 1 ? 15 : c.tier == 2 ? 13 : 11.5f,
                     Color = GraphStyle.Text,
                     PixelOffset = new Vector2(6, 9),
                     AnchorKey = anchor.Key,
+                    HandoffFade = c.id != "hominidae",
                     Ids = anchor.Ids
                 });
             }
 
-            // the whole tree and our lineage are always addressable
+            // our whole lineage is always addressable
             Anchors.Register(new Anchor
             {
                 Key = "clade:_lineage", Label = "Our lineage", Level = GraphLevel.Life,
@@ -382,32 +458,15 @@ namespace Why.Life
             lineMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueLife + 1, true, 0f, 1f);
             AddMesh("TreeOfLife", lines.ToMesh("TreeOfLife"), lineMat);
 
-            veilMat = GraphMaterials.Surface(new Color(GraphStyle.Life.r, GraphStyle.Life.g, GraphStyle.Life.b, 0.06f),
-                1f, GraphMaterials.QueueLife, true, 0f);
-            veilMat.SetFloat("_EdgeSoft", 0.35f);
-            AddMesh("LifeVeil", veil.ToMesh("LifeVeil"), veilMat);
-
             Highlighter.SetPersistent("life", new[]
             {
                 (new IdRange(GraphIds.LifeNode(0), GraphIds.LifeNode(LineagePathLength - 1)), 1.6f)
             });
 
             lines = null;
-            veil = null;
         }
 
         static Color32 Tint(float alpha) => new Color32(255, 255, 255, (byte)Mathf.Clamp(alpha * 255f, 0, 255));
-
-        /// <summary>
-        /// The last quadrant of the clock is the last few years shrinking to "now": every extant family
-        /// is still alive there, so all lines except our own lineage dissipate into the present.
-        /// </summary>
-        public static float PresentFade(float u, bool lineage)
-        {
-            if (lineage) return 1f;
-            float f = Mathf.Clamp01((u - 0.16f) / (0.27f - 0.16f));
-            return 0.12f + 0.88f * f * f * (3 - 2 * f);
-        }
 
         static T ParseOr<T>(string json, T fallback) where T : class
         {

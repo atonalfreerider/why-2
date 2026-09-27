@@ -8,6 +8,11 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
+# "powershell -File" passes "a,b,c" as a single string; split it ourselves
+$Folders = @($Folders | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+foreach ($f in $Folders) {
+    if (-not (Test-Path (Join-Path $root ('Assets\' + ($f -replace '/', '\'))))) { Write-Output "warning: folder not found: Assets/$f" }
+}
 $src = Join-Path $root 'Assembly-CSharp.csproj'
 if ($Editor -and (Test-Path (Join-Path $root 'Assembly-CSharp-Editor.csproj'))) {
     $src = Join-Path $root 'Assembly-CSharp-Editor.csproj'
@@ -42,6 +47,7 @@ Set-Content -Path $out -Value $xml -Encoding UTF8
 Push-Location $root
 try {
     $log = & dotnet build $out -nologo -v q -clp:NoSummary 2>&1
+    if ($log -match 'CS2008') { Write-Output 'COMPILE FAILED (no source files matched the folders)'; exit 1 }
     $errors = $log | Where-Object { $_ -match ': error ' } | ForEach-Object { $_ -replace '\s*\[[^\]]*\.csproj\]$', '' } | Sort-Object -Unique
     $warnings = $log | Where-Object { $_ -match ': warning CS' -and $_ -notmatch 'CS0169|CS0414|CS0649|CS8618' } | ForEach-Object { $_ -replace '\s*\[[^\]]*\.csproj\]$', '' } | Sort-Object -Unique
     $warnings | Select-Object -First 30 | ForEach-Object { Write-Output $_ }

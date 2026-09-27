@@ -125,5 +125,15 @@ namespace Why
 
         /// <summary>Fades a material in or out (level of detail) without touching its color.</summary>
         public static void SetAlpha(Material m, float alpha) => m.SetFloat("_Alpha", Mathf.Clamp01(alpha));
+
+        /// <summary>
+        /// Makes a material dissolve before the straight human branch (life and matter layers): alpha goes
+        /// to 0 at the 3 o'clock handoff (see GraphStyle.HandoffFade).
+        /// </summary>
+        public static Material FadeBeforeHumanBranch(Material m)
+        {
+            m.SetFloat("_HandoffFade", 1f);
+            return m;
+        }
     }
 }

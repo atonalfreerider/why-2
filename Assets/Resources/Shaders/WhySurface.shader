@@ -6,6 +6,7 @@ Shader "Why/Surface"
         [HDR] _Color ("Color", Color) = (1, 1, 1, 1)
         _Alpha ("Alpha", Range(0, 1)) = 1
         _RhoFade ("Radial Fade Distance (0 = off)", Float) = 0
+        _HandoffFade ("Fade Out Before The Human Branch", Float) = 0
         _EdgeSoft ("Edge Softness (across band)", Range(0, 0.5)) = 0.15
         _NoiseScale ("Noise Scale", Float) = 3
         _NoiseContrast ("Noise Contrast", Float) = 1.6
@@ -44,6 +45,7 @@ Shader "Why/Surface"
                 float4 _Color;
                 float _Alpha;
                 float _RhoFade;
+                float _HandoffFade;
                 float _EdgeSoft;
                 float _NoiseScale;
                 float _NoiseContrast;
@@ -78,6 +80,7 @@ Shader "Why/Surface"
                 WhyHighlight(IN.p.x, glow, alphaMul);
                 float rhoFade = _RhoFade > 0 ? exp(-max(IN.pos.z, 0) / _RhoFade) : 1.0;
                 float a = IN.color.a * _Alpha * _Color.a * WhyFocusFade(sLin) * alphaMul * rhoFade;
+                a *= lerp(1.0, WhyHandoffFade(IN.pos.x), _HandoffFade);
                 OUT.color = float4(IN.color.rgb * _Color.rgb * IN.p.y * glow, a);
                 OUT.band = float2(IN.p.z, IN.p.w);
                 return OUT;

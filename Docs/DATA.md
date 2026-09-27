@@ -1,0 +1,72 @@
+# why-2 data
+
+All runtime data lives in `Assets/Resources` and is loaded as `TextAsset`s by the layers. Every file
+below was either part of the original projects (why-2 and smv) or authored for this version from
+mainstream sources and then checked by an independent reviewer pass. Values marked approximate are
+modeled, not measured; the graph is an education tool about cause and effect, not a primary source.
+
+## Matter (red) - `Data/matter.json`
+
+```json
+{ "ageOfUniverseYears": 13.787e9,
+  "items":  [{ "id", "name", "startYa", "endYa", "massKg", "rank", "parent", "inPath", "blurb", "source" }],
+  "epochs": [{ "id", "name", "ya", "afterBigBangYears", "tier", "blurb", "source" }] }
+```
+
+* `items` are the bands of the red layer. `rank` orders them radially (0 = innermost = Earth). Bands with
+  `inPath` form our lineage: universe -> Milky Way -> solar nebula -> Sun -> Earth.
+* `epochs` are cosmic and geologic markers (Big Bang ... Chicxulub impact).
+* Sources: Planck 2018; Wikipedia *Chronology of the universe*, *Observable universe*, *Milky Way*,
+  *Formation and evolution of the Solar System*; Immerman, *The universe*
+  (people.cs.umass.edu/~immerman/stanford/universe.html). Replaces the original `energy.json`.
+
+## Life (green)
+
+* `TimetreeOfLife2009.txt` - the TimeTree of Life (Hedges & Kumar 2009) family-level Newick tree:
+  1610 leaves, ultrametric, root at 4200 Ma. Unchanged from the original project.
+* `Data/life_traits.json` - `{ "<leaf label>": { "t": 1.0-5.0, "role": "...", "common": "..." } }`, the
+  trophic level (food-chain position), ecological role and a lay common name for every leaf. Used to
+  order branches with top predators on the inside track. Hominidae is fixed at 5.0 (the reference point).
+* `Data/life_clades.json` -
+  `{ "clades": [{ "id", "name", "mrca": [leafA, leafB], "treeAgeMya", "leafCount", "tier", "blurb" }],
+     "events": [{ "id", "name", "mya", "tier", "blurb" }] }`. A clade is the most recent common
+  ancestor of two leaves; events are dated milestones (Great Oxidation, Cambrian explosion, the Big Five
+  extinctions, first hominins, agriculture...).
+
+## Humans (blue)
+
+* `powerByYearsAgo.json` - digitized from John B. Sparks' *Histomap* (1931): for every 50 years from
+  4000 to 100 years before 2024, each stream's left position and width in Histomap units
+  (1699 units = 100% of world power). The digitization is partial (not every stream of the chart).
+* `Data/civilizations.json` -
+  `{ "epochYear": 2024, "totalWidth": 1699, "civs": [{ "id", "key", "name", "region", "startYear",
+     "endYear", "parents", "blurb", "source" }], "extension": { "<yearsAgo>": { "<key>": { "Item1", "Item2" } } } }`.
+  Metadata for every stream, causal `parents`, and an extension that (a) adds streams missing from the
+  digitization (United States, Britain, Russia, Japan, Ottomans, Mongols) and (b) continues all streams
+  from 1924 to 2024 using approximate shares of world GDP (Maddison Project) as the power proxy.
+* `Data/demography.json` - world population (HYDE 3.2 / Our World in Data / UN WPP), crude birth rates,
+  era life tables (survival by age, female advantage), sex ratio at birth, major wars with approximate
+  male excess mortality ("the gender difference, especially with war"), and US generations.
+* `Data/figures.json` - famous historical figures `{ "id", "name", "born", "died", "gender", "civ",
+  "prominence", "tier", "role", "blurb" }` drawn as highlighted lifelines in their civilization.
+* `Data/smv/*.csv` - from the smv project: UN World Population Prospects single-age population of the
+  United States by sex, 1950-2022 (thousands); US marriages and divorces per 1000 (Our World in Data /
+  CDC NCHS); single-parent homes (US Census); number of sexual partners by age and sex (bedbible.com,
+  CDC NSFG key statistics).
+
+### Modeling notes
+
+* Civilization population is approximated as world population x relative power share. Relative power is
+  not population, but it is the only per-civilization series available across 4000 years.
+* Lifelines are statistical: each line represents N people (shown on screen), born in proportion to the
+  stream's births, living a lifespan drawn from the era's life table, shortened for men during wars.
+* "Social market value" follows the storyline in the smv README (see `Assets/Scripts/Humans/Shared/SmvModel.cs`
+  for every parameter). It is a model of an idea, drawn so it can be examined, not a measurement.
+* The United States 1950-now is simulated in detail from the UN age pyramids with marriage, divorce,
+  births and partner counts; children's lines start from their parents.
+
+## Director - `Data/tour.json`
+
+`{ "title", "steps": [{ "id", "title", "text", "focus", "anchor", "highlight", "hold" }] }` - `focus` is a
+view preset id, `anchor`/`highlight` are anchor keys (`matter:`, `epoch:`, `clade:`, `lifeevent:`,
+`leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`, `time:<yearsAgo>`, `now`).

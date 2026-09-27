@@ -52,10 +52,10 @@ namespace Why
             WarpState w = Warp();
             if (Polar && PolarArc < 0)
             {
-                // whole clock, seen from 6 o'clock looking north so the clock reads like a clock face
+                // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face
                 return new CameraPose
                 {
-                    Target = new Vector3(0, TargetY, 0.35f),
+                    Target = new Vector3(0.6f, TargetY, -0.9f),
                     Yaw = 0 + YawOffset,
                     Pitch = Pitch,
                     Distance = Distance
@@ -64,14 +64,8 @@ namespace Why
 
             float u = Polar ? PolarArc : DeepTime.Arc(w.FocusYearsAgo);
             Vector3 target = GraphWarp.ToWorld(u, TargetY, TargetRho, w);
-            // look outward from inside the ring: past on the left, present on the right
-            Vector3 n = GraphWarp.FocusNormal(w);
-            if (Polar)
-            {
-                float th = 2f * Mathf.PI * PolarArc;
-                n = new Vector3(Mathf.Sin(th), 0, -Mathf.Cos(th));
-            }
-
+            // look outward from inside the path: past on the left, present on the right
+            Vector3 n = GraphWarp.NormalAt(u, w);
             float yaw = Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + YawOffset;
             return new CameraPose { Target = target, Yaw = yaw, Pitch = Pitch, Distance = Distance };
         }
@@ -110,8 +104,8 @@ namespace Why
             {
                 new ViewPreset
                 {
-                    Id = "overview", Title = "The whole clock", Subtitle = "Big Bang to this moment",
-                    Key = KeyCode.Alpha1, Polar = true, Pitch = 62, Distance = 10.5f, TargetY = GraphStyle.LifeY
+                    Id = "overview", Title = "Everything", Subtitle = "From the Big Bang to this moment",
+                    Key = KeyCode.Alpha1, Polar = true, Pitch = 64, Distance = 15.5f, TargetY = GraphStyle.LifeY
                 },
                 new ViewPreset
                 {
@@ -163,9 +157,10 @@ namespace Why
                 },
                 new ViewPreset
                 {
-                    Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 2000 BCE to 1924",
-                    Key = KeyCode.Alpha5, YaOld = Ya(-2050), YaNew = Ya(1935), LogOffset = 2e4, Length = 16,
-                    TargetRho = 1.0f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 11
+                    // the human branch is already a straight, near-linear timeline: just look along it
+                    Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 3000 BCE to now",
+                    Key = KeyCode.Alpha5, Polar = true, PolarArc = DeepTime.Arc(Ya(-300)), YaOld = Ya(-3000), YaNew = 0,
+                    TargetRho = 1.1f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 9
                 },
                 new ViewPreset
                 {
@@ -183,9 +178,9 @@ namespace Why
                 },
                 new ViewPreset
                 {
-                    Id = "present", Title = "The present moment", Subtitle = "Years, days, seconds... now",
-                    Key = KeyCode.Alpha8, Polar = true, PolarArc = 0.1f, TargetRho = 0.6f,
-                    TargetY = GraphStyle.LifeY, Pitch = 48, Distance = 4.5f
+                    Id = "present", Title = "The present moment", Subtitle = "Where every line arrives",
+                    Key = KeyCode.Alpha8, Polar = true, PolarArc = DeepTime.NowArc, TargetRho = 0.9f,
+                    TargetY = GraphStyle.HumansY, Pitch = 42, Distance = 3.2f
                 },
             };
         }

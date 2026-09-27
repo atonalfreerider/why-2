@@ -97,6 +97,23 @@ namespace Why
             AddIndices(baseIndex, n);
         }
 
+        /// <summary>Adds a polyline with per-point styling and per-point highlight ids.</summary>
+        public void AddPolyline(IReadOnlyList<LinePoint> points, IReadOnlyList<float> ids, float flow)
+        {
+            int n = Mathf.Min(points.Count, ids.Count);
+            if (n < 2) return;
+            int baseIndex = vertices.Count;
+            for (int i = 0; i < n; i++)
+            {
+                LinePoint lp = points[i];
+                Vector3 prev = points[i > 0 ? i - 1 : i].Data;
+                Vector3 next = points[i < n - 1 ? i + 1 : i].Data;
+                AddPair(lp.Data, prev, next, lp.Color, lp.WidthPx, lp.WidthWorld, ids[i], lp.Intensity, flow);
+            }
+
+            AddIndices(baseIndex, n);
+        }
+
         /// <summary>Adds a straight segment (two points).</summary>
         public void AddSegment(Vector3 a, Vector3 b, Color32 color, float widthPx, float widthWorld, float id,
             float intensity = 1)

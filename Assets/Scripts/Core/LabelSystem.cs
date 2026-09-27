@@ -18,6 +18,7 @@ namespace Why
         public string AnchorKey;          // tooltip/blurb source, optional
         public IdRange Ids = IdRange.Empty; // label brightens when these ids are highlighted
         public bool Hidden;               // toggled by layers for level of detail
+        public bool HandoffFade;          // life/matter labels dissolve before the human branch
 
         internal float Width;             // estimated width in px at SizePx
     }
@@ -132,6 +133,7 @@ namespace Why
                 LabelSpec s = specs[i];
                 if (s.Hidden) continue;
                 float fade = GraphWarp.FocusFade(s.Data.x, warp);
+                if (s.HandoffFade) fade *= GraphStyle.HandoffFade(s.Data.x);
                 if (fade < 0.35f) continue;
 
                 Vector3 world = GraphWarp.ToWorld(s.Data.x, s.Data.y, s.Data.z, warp);

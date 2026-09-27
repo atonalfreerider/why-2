@@ -1,6 +1,7 @@
 # why-2 architecture
 
-A causality graph from the Big Bang to the present moment, rendered as a clock-like ring.
+A causality graph from the Big Bang to the present moment: a clock of deep time that becomes a straight
+human branch at 3 o'clock.
 This document is the contract between the core (`Assets/Scripts/Core`, `Assets/Resources/Shaders`) and the
 layers (`Matter`, `Life`, `Humans`, `Director`, `UI`).
 
@@ -8,7 +9,7 @@ layers (`Matter`, `Life`, `Humans`, `Director`, `UI`).
 
 | Axis / channel | Meaning |
 | --- | --- |
-| Angle (clockwise) | Time on the super-logarithmic clock `Ft(t) = t^(t^(-1.4 - 2.39t))`: Big Bang at 6 o'clock (`u = 1`), life around 10, recorded history near 2-3, the last few years shrinking to seconds from 3 o'clock back to the present moment at 6 o'clock (`u -> 0`). |
+| Path (clockwise) | Time. From the Big Bang at 6 o'clock (`u = 1`) the path runs clockwise around a circle on the super-logarithmic clock `Ft(t) = t^(t^(-1.4 - 2.39t))` (life begins near 10 o'clock). At 3 o'clock (5000 years ago, the dawn of civilizations) it is not a clock anymore: the human branch leaves the circle on a straight tangent line with near-linear time, ending at the present moment. Life and matter dissolve before the branch; only our lineage rises into it. |
 | Radius (`rho`) | Relevance to us. `rho = 0` is the inner track (our lineage). Other matter, species and peoples split off outward and fade. |
 | Height (`y`) | Hierarchy: matter (bottom), life (middle), humans (top). Inside the human layer, lifelines rise and fall with modeled social market value. |
 | Hue | Exclusively the level: red = matter, green = life, blue = humans. Everything else (text, UI, ticks) is neutral grey/white. |
@@ -21,33 +22,45 @@ Every vertex is stored in **data space** `(u, y, rho)`:
 
 * `u` - clock arc in `[0, 1]`, `u = DeepTime.Arc(yearsAgo)`; `1` = Big Bang, `0` = now.
 * `y` - height (`GraphStyle.MatterY`, `LifeY`, `HumansY` + offsets).
-* `rho` - radial offset outward from the base ring (`>= 0` for content, negative for axis labels).
+* `rho` - offset outward from the base path (`>= 0` for content, negative for axis labels).
 
 The vertex shader (`Assets/Resources/Shaders/WhyCommon.hlsl`, mirrored exactly by `GraphWarp.ToWorld` in C#)
-maps data space to world space through the **warp**, driven by global shader parameters:
+maps data space to world space through the **warp**.
 
-* `uF` focus arc, `R0` base radius, `unroll` in `[0, 1]`, `yScale`
-* `C` log offset in years, `lnYaF = ln(yaF + C)`, `kLin` world units per ln unit, `rhoScale`
+**Base path** (`GraphWarp.BasePath`): arc length `sigma(u)` from the Big Bang -
 
 ```
-ya     = AgeU * Ft(u)                         // years ago, recomputed in the shader
-sPolar = R0 * 2pi * (u - uF)                  // arc length from the focus on the clock
-sLin   = kLin * (ln(ya + C) - lnYaF)          // unrolled time: log for small C, ~linear for large C
-s      = lerp(sPolar, sLin, unroll)
-R      = R0 / (1 - unroll)                    // the ring straightens as it unrolls
-dphi   = s / R
-world  = R0*N + T*(R + rho')*sin(dphi) + N*(rho'*cos(dphi) - 2R*sin^2(dphi/2)),  rho' = rho*rhoScale
+sigma = (1 - u) / (1 - uH) * R0 * 3pi/2                          (u >= uH, the circle: 6 -> 3 o'clock)
+sigma = sigmaH + L * (ln(yaH + CH) - ln(ya + CH)) / ln((yaH + CH) / CH)   (u < uH, the straight branch)
 ```
 
-`N`/`T` are the outward normal / tangent of the ring at the focus angle `2pi*uF`. At `unroll = 0` this
-is exactly the polar clock; at `unroll = 1` the focused period is a straight timeline tangent to the
-ring (past to the left, present to the right when viewed from inside the ring). Re-scaling the graph
-is therefore just animating these globals (`GraphWarp.AnimateTo`), with zero mesh rebuilds.
+with `uH = Arc(5000 years ago)`, `L = 6` world units and `CH = 3000` years (near-linear time).
+
+**Lens** (`WarpState`): a focus `uF`, `unroll` in `[0, 1]`, and a time window (`C` log offset,
+`lnYaF = ln(yaF + C)`, `kLin` world units per ln unit). Arc length from the focus:
+
+```
+ya   = AgeU * Ft(u)                                 // years ago, recomputed in the shader
+sLin = kLin * (lnYaF - ln(ya + C))                  // lens time: log for small C, ~linear for large C
+s    = lerp(sigma(u) - sigma(uF), sLin, unroll)
+```
+
+Geometry: the circle part's curvature is scaled by `(1 - unroll)` around the focus (radius
+`R' = R0 / (1 - unroll)`), the branch stays straight. The CPU derives the junction frame
+(`_WhyJ`: position and tangent where circle meets branch, at `s = sH`); the shader then places
+`s >= sH` on the line `PJ + TJ (s - sH) + rho' NJ` and `s < sH` on the circle through the junction.
+At `unroll = 0` this is the base path; at `unroll = 1` the lens window is a straight timeline tangent
+at the focus (past to the left, present to the right when viewed from inside). Re-scaling is only
+animating these globals (`GraphWarp.AnimateTo`), with zero mesh rebuilds.
+
+**Handoff fade**: `GraphStyle.HandoffFade(u)` (C#) / `WhyHandoffFade(u)` with material property
+`_HandoffFade = 1` (`GraphMaterials.FadeBeforeHumanBranch`) dissolve life and matter between 5 million
+years ago and the handoff. Labels opt in with `LabelSpec.HandoffFade`.
 
 ## Rendering
 
 * URP (`Assets/Settings/WhyURP.asset`), HDR, MSAA 4x, post-processing volume created at runtime
-  (bloom, ACES tonemapping, vignette).
+  (bloom, neutral tonemapping, vignette).
 * `Why/Line` - screen-space expanded polylines with miter joins and analytic anti-aliasing; width is
   `widthPx + widthWorld * pixelsPerUnit`, so lines never vanish at huge scale and thicken close up.
   Additive blending, HDR color -> bloom.

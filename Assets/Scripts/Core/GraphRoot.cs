@@ -53,6 +53,14 @@ namespace Why
         public event Action Loaded;
         public event Action<ViewPreset> FocusChanged;
 
+        /// <summary>Raised when something (HUD button, key) asks for the guided tour.</summary>
+        public event Action TourRequested;
+
+        /// <summary>Set by the director while the guided tour runs (HUD dims its own controls).</summary>
+        public bool TourActive { get; set; }
+
+        public void RequestTour() => TourRequested?.Invoke();
+
         readonly List<GraphLayer> layers = new List<GraphLayer>();
         readonly List<GraphModule> modules = new List<GraphModule>();
 

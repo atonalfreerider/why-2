@@ -38,6 +38,26 @@ namespace Why
         /// <summary>HDR glow multiplier applied to highlighted geometry.</summary>
         public const float HighlightGlow = 5f;
 
+        /// <summary>Years ago at which life and matter start dissolving ahead of the human branch.</summary>
+        public const double HandoffFadeStartYearsAgo = 5e6;
+
+        static float handoffFadeStartArc = -1;
+
+        public static float HandoffFadeStartArc =>
+            handoffFadeStartArc >= 0 ? handoffFadeStartArc : handoffFadeStartArc = DeepTime.Arc(HandoffFadeStartYearsAgo);
+
+        /// <summary>
+        /// The clock is not a clock by the end: at 3 o'clock the human branch leaves on a straight line, and
+        /// the underlying life and matter layers must have faded out by then. 1 before the fade, 0 at the
+        /// handoff (mirrors WhyHandoffFade in the shaders).
+        /// </summary>
+        public static float HandoffFade(float u)
+        {
+            float uH = GraphWarp.BasePath.HandoffArc;
+            float t = Mathf.Clamp01((u - uH) / Mathf.Max(HandoffFadeStartArc - uH, 1e-5f));
+            return t * t * (3 - 2 * t);
+        }
+
         public static Color Level(GraphLevel level)
         {
             switch (level)

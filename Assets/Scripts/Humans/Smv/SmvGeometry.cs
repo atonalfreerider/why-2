@@ -8,16 +8,22 @@ namespace Why.Humans.Smv
     /// <summary>
     /// Turns a finished <see cref="SmvSimulation"/> into a few big meshes in data space (worker thread):
     /// <list type="bullet">
-    /// <item><see cref="Fine"/> - every lifeline (1 line = the simulation's people per line) plus the thin
-    /// links from fathers to their newborns;</item>
+    /// <item><see cref="FineParts"/> - every lifeline (1 line = the simulation's people per line), split into
+    /// one mesh per worker (contiguous birth-order ranges) so the lines are appended in parallel;</item>
+    /// <item><see cref="Links"/> - the thin links from fathers to their newborns (fine tier);</item>
     /// <item><see cref="Coarse"/> - every <see cref="CoarseStride"/>-th person of each sex, drawn bolder, for
     /// the zoomed-out view (the same lines, so the two tiers crossfade without anything jumping);</item>
     /// <item><see cref="Markers"/> - the gender-separated population curves and the generation planes'
     /// outlines; <see cref="Surfaces"/> - their faint fills.</item>
     /// </list>
     /// Samples are thinned where a line barely changes, so quarter-year simulation steps cost only where
-    /// something happens (a marriage, a child, a rank change). Lines are thinned and styled in parallel
-    /// (each line is independent) and appended to the builders in birth order.
+    /// something happens (a marriage, a child, a rank change).
+    ///
+    /// Additive lines accumulate light, and thousands of them crowd the same cross-section of the stream
+    /// (children near the center, high value ranks, married couples). Each point's alpha therefore follows
+    /// the local density of lines around it (a coarse histogram of the cross-section over time): lone lives
+    /// in the sparse outskirts are drawn clearly, crowded ones faintly, so dense regions glow instead of
+    /// burning out into a saturated slab.
     /// </summary>
     public sealed class SmvGeometry
     {
@@ -29,15 +35,16 @@ namespace Why.Humans.Smv
         const float TolRho = 0.0015f;
         const int MaxGap = 24;
 
-        // fine tier: dense, so each line is faint and density reads as brightness
-        const float FineAdultAlpha = 0.16f;
-        const float FineChildAlpha = 0.06f;
+        // Alpha of a lone line and the density (fine lines per histogram bin) at which it has halved:
+        // a = max / (1 + d / half). The coarse tier sees a tenth of the density.
+        const float FineMaxAlpha = 0.32f;
+        const float FineHalfDensity = 1.7f;
+        const float CoarseMaxAlpha = 0.6f;
+        const float CoarseHalfDensity = 2.0f;
+        const float ChildAlphaScale = 0.5f;
+
         const float FineAdultPx = 1.0f;
         const float FineChildPx = 0.6f;
-
-        // coarse tier: ten times fewer lines, each one bolder (as bold as the other streams' lifelines)
-        const float CoarseAdultAlpha = 0.55f;
-        const float CoarseChildAlpha = 0.22f;
         const float CoarseAdultPx = 1.4f;
         const float CoarseChildPx = 0.9f;
 
@@ -45,19 +52,22 @@ namespace Why.Humans.Smv
         const float AdultWidthWorld = 0.0004f;
         const float ChildWidthWorld = 0.00025f;
 
-        // Lines crowd near the band center (high value ranks, married couples, children): per-line alpha
-        // there drops to CoreAlpha and rises to EdgeAlpha where lines spread out, so the core glows without
-        // burning out and the sparse outskirts still read as individual lives.
-        const float CoreAlpha = 0.5f;
-        const float EdgeAlpha = 1.25f;
-        const float CoreOffset = 0.04f;
-        const float SpreadOffset = 0.45f;
-
         const float ChildIntensity = 0.6f;
         const float LinkAlpha = 0.16f;
         const float LinkPx = 0.8f;
 
-        public readonly LineMeshBuilder Fine;
+        // density histogram of the cross-section: signed offset (-1.1..1.1 envelopes) x value height, one
+        // slice per DensityStride simulation steps
+        const int DensityStride = 4;
+        const int OffsetBins = 44;
+        const int HeightBins = 20;
+        const float OffsetRange = 1.1f;
+
+        /// <summary>Most workers used to shape and append lines (each fills its own fine mesh).</summary>
+        const int MaxWorkers = 4;
+
+        public IReadOnlyList<LineMeshBuilder> FineParts => fineParts;
+        public readonly LineMeshBuilder Links = new LineMeshBuilder(8192);
         public readonly LineMeshBuilder Coarse;
         public readonly LineMeshBuilder Markers = new LineMeshBuilder(4096);
         public readonly SurfaceMeshBuilder Surfaces = new SurfaceMeshBuilder();
@@ -68,17 +78,20 @@ namespace Why.Humans.Smv
         public int FinePoints { get; private set; }
         public int CoarsePoints { get; private set; }
         public int CoarseLines { get; private set; }
+        public int LinkCount { get; private set; }
 
         readonly SmvSimulation sim;
         readonly int civIndex;
         readonly float[] stepU;
+        LineMeshBuilder[] fineParts = Array.Empty<LineMeshBuilder>();
+        float[] density = Array.Empty<float>();
+        int densitySlices;
 
         public SmvGeometry(SmvSimulation sim, int civIndex)
         {
             this.sim = sim;
             this.civIndex = civIndex;
-            // thinning keeps about one sample in seven (measured); the coarse tier holds a tenth of the lines
-            Fine = new LineMeshBuilder(Math.Max(1024, sim.SampleY.Length / 6));
+            // thinning keeps about one sample in six (measured); the coarse tier holds a tenth of the lines
             Coarse = new LineMeshBuilder(Math.Max(1024, sim.SampleY.Length / 60));
             stepU = new float[sim.StepCount];
             for (int k = 0; k < sim.StepCount; k++) stepU[k] = U(sim.TimeOf(k));
@@ -94,31 +107,136 @@ namespace Why.Humans.Smv
 
         // ------------------------------------------------------------------ lifelines
 
-        /// <summary>Every lifeline into <see cref="Fine"/>, the coarse subset also into <see cref="Coarse"/>.</summary>
+        /// <summary>
+        /// Every lifeline into <see cref="FineParts"/>, the coarse subset also into <see cref="Coarse"/>. Lines
+        /// are independent, so each worker thins, styles and appends a contiguous birth-order range of people
+        /// (balanced by sample count) into its own mesh builder; the small coarse tier is appended afterwards
+        /// in birth order.
+        /// </summary>
         public void BuildLifelines()
         {
+            BuildDensity();
             SmvPerson[] people = sim.People.ToArray();
-            LinePoint[][] fine = new LinePoint[people.Length][];
+            int workers = Math.Max(1, Math.Min(MaxWorkers, Environment.ProcessorCount - 1));
+            int[] bounds = SplitBySamples(people, workers);
             LinePoint[][] coarse = new LinePoint[people.Length][];
-            int workers = Math.Max(1, Math.Min(4, Environment.ProcessorCount - 1));
+            fineParts = new LineMeshBuilder[workers];
+            int[] raw = new int[workers], kept = new int[workers];
+
             Parallel.For(0, workers, w =>
             {
+                int samples = 0;
+                for (int i = bounds[w]; i < bounds[w + 1]; i++) samples += people[i].SampleCount;
+                // thinning keeps about one sample in six (measured)
+                LineMeshBuilder builder = new LineMeshBuilder(Math.Max(1024, samples / 5));
                 LineShaper shaper = new LineShaper(this);
-                for (int i = w; i < people.Length; i += workers) shaper.Shape(people[i], out fine[i], out coarse[i]);
+                for (int i = bounds[w]; i < bounds[w + 1]; i++)
+                {
+                    SmvPerson p = people[i];
+                    kept[w] += shaper.Shape(p, builder, Id(p), out coarse[i]);
+                    raw[w] += p.SampleCount;
+                }
+
+                fineParts[w] = builder;
             });
+
+            for (int w = 0; w < workers; w++)
+            {
+                RawSamples += raw[w];
+                FinePoints += kept[w];
+            }
 
             for (int i = 0; i < people.Length; i++)
             {
-                if (fine[i] == null) continue;
-                SmvPerson p = people[i];
-                RawSamples += p.SampleCount;
-                Fine.AddPolyline(fine[i], Id(p));
-                FinePoints += fine[i].Length;
                 if (coarse[i] == null) continue;
-                Coarse.AddPolyline(coarse[i], Id(p));
+                Coarse.AddPolyline(coarse[i], Id(people[i]));
                 CoarsePoints += coarse[i].Length;
                 CoarseLines++;
             }
+        }
+
+        /// <summary>Contiguous ranges of people with about the same number of samples each.</summary>
+        static int[] SplitBySamples(SmvPerson[] people, int parts)
+        {
+            long total = 0;
+            foreach (SmvPerson p in people) total += p.SampleCount;
+            int[] bounds = new int[parts + 1];
+            long acc = 0;
+            int part = 1;
+            for (int i = 0; i < people.Length && part < parts; i++)
+            {
+                acc += people[i].SampleCount;
+                if (acc * parts >= total * part) bounds[part++] = i + 1;
+            }
+
+            for (; part <= parts; part++) bounds[part] = people.Length;
+            return bounds;
+        }
+
+        // ------------------------------------------------------------------ density
+
+        /// <summary>
+        /// Counts the lines in each cell of the stream's cross-section (signed offset from the center in
+        /// envelopes x value height) once a year, then blurs each slice (3 x 3) so the density varies
+        /// smoothly along a line.
+        /// </summary>
+        void BuildDensity()
+        {
+            const int cells = OffsetBins * HeightBins;
+            densitySlices = sim.StepCount / DensityStride + 1;
+            float[] counts = new float[densitySlices * cells];
+            float[] ys = sim.SampleY, rhos = sim.SampleRho, center = sim.Center, envelope = sim.Envelope;
+            foreach (SmvPerson p in sim.People)
+            {
+                int first = (p.FirstStep + DensityStride - 1) / DensityStride * DensityStride;
+                for (int k = first; k <= p.LastStep; k += DensityStride)
+                {
+                    int i = p.SampleOffset + k - p.FirstStep;
+                    counts[k / DensityStride * cells + Cell(ys[i], rhos[i], center[k], envelope[k])]++;
+                }
+            }
+
+            density = new float[counts.Length];
+            for (int s = 0; s < densitySlices; s++)
+            {
+                int o = s * cells;
+                for (int h = 0; h < HeightBins; h++)
+                {
+                    for (int b = 0; b < OffsetBins; b++)
+                    {
+                        float sum = 0;
+                        for (int dh = -1; dh <= 1; dh++)
+                        {
+                            int hh = h + dh;
+                            if (hh < 0 || hh >= HeightBins) continue;
+                            for (int db = -1; db <= 1; db++)
+                            {
+                                int bb = b + db;
+                                if (bb >= 0 && bb < OffsetBins) sum += counts[o + hh * OffsetBins + bb];
+                            }
+                        }
+
+                        density[o + h * OffsetBins + b] = sum / 9f;
+                    }
+                }
+            }
+        }
+
+        static int Cell(float y, float rho, float center, float envelope)
+        {
+            float offset = (rho - center) / Math.Max(envelope, 1e-4f);
+            int b = (int)((offset + OffsetRange) * (OffsetBins / (2f * OffsetRange)));
+            int h = (int)((y - GraphStyle.HumansY) * (HeightBins / GraphStyle.SmvHeight));
+            b = b < 0 ? 0 : b >= OffsetBins ? OffsetBins - 1 : b;
+            h = h < 0 ? 0 : h >= HeightBins ? HeightBins - 1 : h;
+            return h * OffsetBins + b;
+        }
+
+        /// <summary>Lines per cell around a sample at step k (blurred).</summary>
+        float DensityAt(int k, float y, float rho)
+        {
+            int s = Math.Min(densitySlices - 1, (k + DensityStride / 2) / DensityStride);
+            return density[s * OffsetBins * HeightBins + Cell(y, rho, sim.Center[k], sim.Envelope[k])];
         }
 
         /// <summary>Thins and styles one line at a time with its own scratch buffers (one per worker).</summary>
@@ -140,18 +258,22 @@ namespace Why.Humans.Smv
                 sim = owner.sim;
             }
 
-            /// <summary>The kept, styled points of a person's line in both tiers (null when not drawn).</summary>
-            public void Shape(SmvPerson p, out LinePoint[] fine, out LinePoint[] coarse)
+            /// <summary>
+            /// Thins and styles a person's line, appends it to the fine tier's builder and returns the points
+            /// kept there (0 when the line is not drawn); <paramref name="coarse"/> receives the coarse tier's
+            /// points (null unless the person is in it).
+            /// </summary>
+            public int Shape(SmvPerson p, LineMeshBuilder fine, float id, out LinePoint[] coarse)
             {
-                fine = coarse = null;
+                coarse = null;
                 int n = p.SampleCount;
-                if (n == 0) return;
+                if (n == 0) return 0;
                 int m = Gather(p, n);
+                if (m < 2) return 0;
                 Thin(m);
 
                 bool inCoarse = InCoarseTier(p);
                 Color32 tint = p.Male ? men : women;
-                float[] center = sim.Center, envelope = sim.Envelope;
                 finePts.Clear();
                 coarsePts.Clear();
                 for (int j = 0; j < m; j++)
@@ -161,26 +283,24 @@ namespace Why.Humans.Smv
                     bool child = bt[j] - p.Birth < SmvModel.AdultAge;
                     float lift = Clamp01((by[j] - GraphStyle.HumansY) / GraphStyle.SmvHeight);
                     float intensity = child ? ChildIntensity : 0.65f + 0.7f * lift;
-
-                    // per-line alpha by how crowded the line's distance from the center is
-                    int k = bk[j];
-                    float offset = Math.Abs(br[j] - center[k]) / Math.Max(envelope[k], 1e-4f);
-                    float f = Clamp01((offset - CoreOffset) / (SpreadOffset - CoreOffset));
-                    float spread = CoreAlpha + (EdgeAlpha - CoreAlpha) * f * f * (3 - 2 * f);
-
                     float widthWorld = child ? ChildWidthWorld : AdultWidthWorld;
-                    finePts.Add(new LinePoint(data, WithAlpha(tint, spread * (child ? FineChildAlpha : FineAdultAlpha)),
-                        child ? FineChildPx : FineAdultPx, widthWorld, intensity));
+                    float d = owner.DensityAt(bk[j], by[j], br[j]);
+                    float childScale = child ? ChildAlphaScale : 1f;
+
+                    float fineAlpha = childScale * FineMaxAlpha / (1f + d / FineHalfDensity);
+                    finePts.Add(new LinePoint(data, WithAlpha(tint, fineAlpha), child ? FineChildPx : FineAdultPx,
+                        widthWorld, intensity));
                     if (inCoarse)
                     {
-                        coarsePts.Add(new LinePoint(data,
-                            WithAlpha(tint, spread * (child ? CoarseChildAlpha : CoarseAdultAlpha)),
+                        float coarseAlpha = childScale * CoarseMaxAlpha / (1f + d / (CoarseStride * CoarseHalfDensity));
+                        coarsePts.Add(new LinePoint(data, WithAlpha(tint, coarseAlpha),
                             child ? CoarseChildPx : CoarseAdultPx, widthWorld, intensity));
                     }
                 }
 
-                fine = finePts.ToArray();
+                fine.AddPolyline(finePts, id);
                 if (inCoarse) coarse = coarsePts.ToArray();
+                return finePts.Count;
             }
 
             /// <summary>
@@ -305,8 +425,8 @@ namespace Why.Humans.Smv
                     sim.SampleRho[f.SampleOffset + kf - f.FirstStep]);
                 Vector3 to = new Vector3(stepU[kc], sim.SampleY[c.SampleOffset + kc - c.FirstStep],
                     sim.SampleRho[c.SampleOffset + kc - c.FirstStep]);
-                Fine.AddSegment(from, to, tint, LinkPx, 0, Id(c), 0.8f);
-                FinePoints += 2;
+                Links.AddSegment(from, to, tint, LinkPx, 0, Id(c), 0.8f);
+                LinkCount++;
             }
         }
 

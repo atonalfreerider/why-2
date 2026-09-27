@@ -45,6 +45,7 @@ namespace Why.Humans.Smv
         internal float OffsetSmooth;    // signed offset from the band center (fraction of the envelope)
         internal float HeightSmooth;
         internal float RankOffset;      // target offset from the rank (before smoothing)
+        internal int RankStep = -1;     // step at which RankOffset was taken
         internal int ValueBin;          // value histogram bin (ranking)
         internal bool Placed;           // smoothing state initialized
 
@@ -99,6 +100,9 @@ namespace Why.Humans.Smv
 
         /// <summary>Random draws tried before a weighted pick scans its whole candidate list.</summary>
         const int RejectionTries = 40;
+
+        /// <summary>Steps between exact evaluations of a person's value (see <see cref="ValueAt"/>).</summary>
+        const int ExactEvery = 4;
 
         /// <summary>Value histogram resolution for ranking (0..10 in steps of about 0.01).</summary>
         const int ValueBins = 1024;
@@ -423,8 +427,15 @@ namespace Why.Humans.Smv
                     if (p.SampleCount == 0) continue;
                     if (aliveCount == alive.Length) Array.Resize(ref alive, alive.Length * 2);
                     alive[aliveCount++] = p;
-                    if (p.Immigrant) p.Partners = (int)Math.Round(PartnerCurve(p, (float)(t - p.Birth)));
-                    else newborns.Add(p);
+                    if (!p.Immigrant)
+                    {
+                        newborns.Add(p);
+                    }
+                    else if (t - p.Birth >= SmvModel.AdultAge)
+                    {
+                        // adult immigrants arrive with their partner history (minors have none yet)
+                        p.Partners = (int)Math.Round(PartnerCurve(p, (float)(t - p.Birth)));
+                    }
                 }
 
                 UpdateStates(t, k);
@@ -624,9 +635,10 @@ namespace Why.Humans.Smv
         }
 
         /// <summary>
-        /// Values and value ranks for this step. Ranks come from a counting sort over value bins (linear per
-        /// step; ties within a bin keep the population order): every adult's rank among the adults of their
-        /// sex becomes their offset from the band center (couples are joined in <see cref="Place"/>).
+        /// Values for this step and the counting sort that ranks them: bin counts become the rank of each
+        /// value bin's first member (linear per step). Every adult's rank among the adults of their sex is
+        /// taken from its bin while placing (<see cref="RankOffsetAt"/>), and becomes their offset from the
+        /// band center.
         /// </summary>
         void Rank(double t, int k)
         {
@@ -665,27 +677,34 @@ namespace Why.Humans.Smv
                     acc += count;
                 }
             }
+        }
 
-            for (int i = 0; i < aliveCount; i++)
-            {
-                SmvPerson p = alive[i];
-                if (t - p.Birth < SmvModel.AdultAge) continue;
-                int s = p.Male ? 1 : 0;
-                p.RankOffset = Offset(binRank[s][p.ValueBin]++, adults[s], p.Spouse >= 0);
-            }
+        /// <summary>
+        /// An adult's rank offset at step k (<see cref="SmvModel.RankOffset"/> of their value rank), taken
+        /// from their value bin once per step - on demand, because a spouse may need it first. Ties within a
+        /// bin are ranked in the order they are taken.
+        /// </summary>
+        float RankOffsetAt(SmvPerson p, int k)
+        {
+            if (p.RankStep == k) return p.RankOffset;
+            int s = p.Male ? 1 : 0;
+            p.RankOffset = Offset(binRank[s][p.ValueBin]++, adults[s], p.Spouse >= 0);
+            p.RankStep = k;
+            return p.RankOffset;
         }
 
         /// <summary>
         /// An adult's social market value at step k. <see cref="SmvModel.Value"/> is evaluated exactly
-        /// every other step (people alternate, so the work is spread evenly) and right after anything
-        /// that changes it discontinuously (a child, a partner, adulthood); in between, the value moves
-        /// on along the slope of its last two exact evaluations. Value is a smooth function of age between
-        /// such events, so this halves the cost of the model's evaluation without changing the picture.
+        /// once a year (every <see cref="ExactEvery"/> steps; people are staggered, so the work is spread
+        /// evenly) and right after anything that changes it discontinuously (a child, a partner, adulthood);
+        /// in between, the value moves on along the slope of its last two exact evaluations. Value is a
+        /// smooth function of age between such events (and lines are smoothed over months), so this cuts
+        /// the cost of the model's evaluation to a quarter without changing the picture.
         /// </summary>
         float ValueAt(SmvPerson p, float age, int k)
         {
-            bool fresh = p.ExactStep < 0 || p.StateChanged || k - p.ExactStep > 2;
-            if (fresh || ((k + p.Index) & 1) == 0)
+            bool fresh = p.ExactStep < 0 || p.StateChanged || k - p.ExactStep > ExactEvery;
+            if (fresh || (k + p.Index) % ExactEvery == 0)
             {
                 float v = SmvModel.Value(p.Male, p.Base, age, p.Children > 0, p.Partners, p.Wealth);
                 p.ValueSlope = fresh ? 0f : (v - p.ExactValue) / (k - p.ExactStep);
@@ -739,12 +758,12 @@ namespace Why.Humans.Smv
                 }
                 else
                 {
-                    off = p.RankOffset;
+                    off = RankOffsetAt(p, k);
                     if (p.Spouse >= 0)
                     {
                         float years = (float)(t - p.MarriedAt);
                         float closeness = 1f - 0.4f * Math.Min(1f, years / 25f);
-                        off = 0.5f * (off + byIndex[p.Spouse].RankOffset) * closeness;
+                        off = 0.5f * (off + RankOffsetAt(byIndex[p.Spouse], k)) * closeness;
                     }
 
                     y = SmvModel.Height(p.Value, age);

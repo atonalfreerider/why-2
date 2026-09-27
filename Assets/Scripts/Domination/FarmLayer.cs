@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using Why.Humans;
-using Why.Life;
 using Debug = UnityEngine.Debug;
 
 namespace Why.Domination
@@ -13,8 +12,8 @@ namespace Why.Domination
     /// Livestock and farm biomass - life under human control - drawn directly beneath the civilization layer
     /// (green: it is still life). Livestock is stacked from the inner track on the same mass scale as the
     /// human layer (humans ~60 MtC = the human layer's width today), so its greater weight is visible;
-    /// cropland lies outside it and fades to black. Domesticated species rise out of their wild families in
-    /// the tree of life at the moment of domestication: cause and effect across levels.
+    /// cropland lies outside it and fades to black. Each domestication is anchored (with a small label) where
+    /// the species enters the farm layer, for the tour and tooltips.
     /// </summary>
     public sealed class FarmLayer : GraphLayer
     {
@@ -136,7 +135,7 @@ namespace Why.Domination
                 Ids = new IdRange(GraphIds.FarmBase, GraphIds.FarmBase + 99)
             });
 
-            DrawDomestications(ctx, domestications, animalStack, cropStack, animals, now);
+            RegisterDomestications(ctx, domestications, animalStack, cropStack, animals, now);
             Debug.Log($"[Why] FarmLayer.Prepare {sw.ElapsedMilliseconds} ms ({animals.Count} livestock streams, " +
                       $"{domestications.Count} domestications)");
         }
@@ -160,37 +159,36 @@ namespace Why.Domination
             }
         }
 
-        /// <summary>A glowing thread rises from each wild family in the tree of life into the farm layer.</summary>
-        void DrawDomestications(GraphContext ctx, List<Domestication> list, StackedStreams.Built animals,
+        /// <summary>
+        /// Anchors (for the tour and tooltips) and small labels where each domestication lands in the farm
+        /// layer. No threads are drawn from the tree of life: seen side-on in the unrolled human-era views they
+        /// read as tall green spikes over the early civilizations.
+        /// </summary>
+        void RegisterDomestications(GraphContext ctx, List<Domestication> list, StackedStreams.Built animals,
             StackedStreams.Built crops, List<Stream> animalStreams, double now)
         {
-            LifeLayer life = ctx.Shared<LifeLayer>("life.layer");
-            List<LinePoint> pts = new List<LinePoint>(32);
             foreach (Domestication d in list)
             {
                 if (d == null || string.IsNullOrEmpty(d.id) || d.yearsAgo <= 0) continue;
                 double year = now - d.yearsAgo;
-                float u0 = DeepTime.Arc(d.yearsAgo);
-                float rhoLife = 0;
-                if (life?.Tree != null && !string.IsNullOrEmpty(d.wildFamily))
-                {
-                    int leaf = life.Tree.FindLeaf(d.wildFamily);
-                    if (leaf >= 0) rhoLife = life.NodeRho(leaf, u0);
-                }
 
                 // where it lands: its livestock stream, or the cropland
                 int streamIndex = animalStreams.FindIndex(s => s.Id == d.group);
                 double landYear = Math.Min(now, year + Math.Max(300, d.yearsAgo * 0.08));
                 float rhoFarm;
+                IdRange ids = IdRange.Single(GraphIds.FarmBase + 100 + list.IndexOf(d));
                 if (streamIndex >= 0)
                 {
                     (float lo, float hi) = animals.BandAt(streamIndex, landYear);
                     rhoFarm = 0.5f * (lo + hi);
+                    int built = animals.Streams.FindIndex(s => s.stream.Id == d.group);
+                    if (built >= 0) ids = animals.Streams[built].ids;
                 }
                 else if (crops != null && d.kind == "plant")
                 {
                     (float lo, float hi) = crops.BandAt(0, landYear);
                     rhoFarm = 0.5f * (lo + hi);
+                    if (crops.Streams.Count > 0) ids = crops.Streams[0].ids;
                 }
                 else
                 {
@@ -198,28 +196,12 @@ namespace Why.Domination
                 }
 
                 float u1 = DeepTime.Arc(Math.Max(now - landYear, 1e-6));
-                pts.Clear();
-                const int steps = 24;
-                for (int k = 0; k <= steps; k++)
-                {
-                    float t = k / (float)steps;
-                    float e = t * t * (3 - 2 * t);
-                    float u = Mathf.Lerp(u0, u1, e);
-                    float yy = Mathf.Lerp(GraphStyle.LifeY, GraphStyle.FarmY, Mathf.Sin(t * Mathf.PI * 0.5f));
-                    float rho = Mathf.Lerp(rhoLife, rhoFarm, e);
-                    byte a = (byte)(255 * (0.25f + 0.65f * t));
-                    pts.Add(new LinePoint(new Vector3(u, yy, rho), new Color32(255, 255, 255, a), 1.4f, 0, 2.2f));
-                }
-
-                int id = GraphIds.FarmBase + 100 + list.IndexOf(d);
-                lines.AddPolyline(pts, id, 1f);
-
                 Anchor anchor = new Anchor
                 {
                     Key = "domestication:" + d.id, Label = d.name + " domesticated", Level = GraphLevel.Life,
                     Blurb = d.blurb + (string.IsNullOrEmpty(d.region) ? "" : " (" + d.region + ")"),
                     YearsAgo = d.yearsAgo, EndYearsAgo = d.yearsAgo, Y = GraphStyle.FarmY, Rho = rhoFarm,
-                    Ids = IdRange.Single(id), Tier = 2
+                    Ids = ids, Tier = 2
                 };
                 Anchors.Register(anchor);
                 AddLabel(ctx, new LabelSpec

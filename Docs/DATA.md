@@ -85,9 +85,9 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 * `Data/domestication.json` - life under human control, drawn in green directly beneath the
   civilizations: global cropland and pasture (HYDE 3.2/3.3), livestock biomass by type in megatonnes of
   carbon (Bar-On et al. 2018, Greenspoon et al. 2023, FAO), crop, human and wild-mammal biomass, and
-  35 domestications (dog, sheep, cattle, wheat, rice, maize...) each tied to its wild family in the tree
-  of life (`wildFamily` = exact leaf label), so the thread rises out of that family at the moment of
-  domestication. Livestock is drawn on the same mass scale as the human layer.
+  35 domestications (dog, sheep, cattle, wheat, rice, maize...), each anchored where the species enters
+  the farm layer (`wildFamily` = the exact leaf label of its wild family in the tree of life, which stays
+  lit until the moment of domestication). Livestock is drawn on the same mass scale as the human layer.
 * `Data/extraction.json` - matter under human control, drawn in red beneath the farm layer: annual global
   extraction of fossil fuels, metal ores and non-metallic minerals (UN IRP Global Material Flows,
   Krausmann et al. 2009/2018; rough historical estimates before 1900), 16 materials with first use

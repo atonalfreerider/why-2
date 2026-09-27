@@ -269,10 +269,11 @@ namespace Why.Life
                     float fade = ours ? OurFade(u, uSapiens, uHandoff)
                         : uDomesticated > 0 ? DomesticatedFade(u, uDomesticated, handoff)
                         : handoff * handoff * handoff;
-                    float alpha = (ours ? 1f : 0.46f * relevance) * fade;
-                    float intensity = ours ? 2.2f : 0.35f + 0.55f * relevance;
+                    // attention on our direct ancestors: the rest of the biosphere is a quiet backdrop
+                    float alpha = (ours ? 1f : 0.2f * relevance) * fade;
+                    float intensity = ours ? 3f : 0.25f + 0.3f * relevance;
                     float widthWorld = 0.0006f * Mathf.Log(1 + leaves[node], 2) + (ours ? 0.004f : 0f);
-                    pts.Add(new LinePoint(new Vector3(u, y, rho), Tint(alpha), ours ? 2.2f : 1f, widthWorld, intensity));
+                    pts.Add(new LinePoint(new Vector3(u, y, rho), Tint(alpha), ours ? 2.8f : 1f, widthWorld, intensity));
                     ids.Add(GraphIds.LifeNode(pre[node]));
 
                     if (u <= uEnd) break;
@@ -285,7 +286,7 @@ namespace Why.Life
 
             // --- anchors and labels ---
             RegisterLeaves(ctx, tree, traits, pre);
-            RegisterClades(ctx, tree, cladeFile, pre, size);
+            RegisterClades(ctx, tree, cladeFile, pre, size, onPath);
             RegisterEvents(ctx, cladeFile);
 
             ctx.Share("life.layer", this);
@@ -408,7 +409,7 @@ namespace Why.Life
             }
         }
 
-        void RegisterClades(GraphContext ctx, PhyloTree tree, CladeFile file, int[] pre, int[] size)
+        void RegisterClades(GraphContext ctx, PhyloTree tree, CladeFile file, int[] pre, int[] size, bool[] onPath)
         {
             foreach (CladeDto c in file.clades)
             {
@@ -442,13 +443,15 @@ namespace Why.Life
                 };
                 Anchors.Register(anchor);
 
+                bool ancestral = onPath[node];
                 ctx.Labels.Add(new LabelSpec
                 {
                     Text = anchor.Label,
                     Data = anchor.Data,
-                    Priority = c.tier == 1 ? 40 : c.tier == 2 ? 20 : 8,
+                    // our ancestors (clades that contain us) lead; the rest of the biosphere recedes
+                    Priority = (c.tier == 1 ? 40 : c.tier == 2 ? 20 : 8) + (ancestral ? 30 : 0),
                     SizePx = c.tier == 1 ? 15 : c.tier == 2 ? 13 : 11.5f,
-                    Color = Faded(GraphStyle.Text, anchor.Rho, 0.35f),
+                    Color = ancestral ? GraphStyle.Text : Faded(GraphStyle.TextDim, anchor.Rho, 0.3f),
                     PixelOffset = new Vector2(6, 9),
                     AnchorKey = anchor.Key,
                     HandoffFade = c.id != "hominidae",
@@ -505,7 +508,7 @@ namespace Why.Life
 
             Highlighter.SetPersistent("life", new[]
             {
-                (new IdRange(GraphIds.LifeNode(0), GraphIds.LifeNode(LineagePathLength - 1)), 1.6f)
+                (new IdRange(GraphIds.LifeNode(0), GraphIds.LifeNode(LineagePathLength - 1)), 2.2f)
             });
 
             lines = null;

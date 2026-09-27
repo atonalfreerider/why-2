@@ -166,15 +166,15 @@ namespace Why
                 {
                     Id = "modern", Title = "Modern era", Subtitle = "1776 to now",
                     Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14,
-                    TargetRho = 1.3f, TargetY = GraphStyle.HumansY, Pitch = 58, Distance = 10
+                    RhoScale = 2f, TargetRho = 0.9f, TargetY = GraphStyle.HumansY, Pitch = 55, Distance = 10
                 },
                 new ViewPreset
                 {
                     Id = "smv", Title = "United States 1950 - now",
                     Subtitle = "Gender-separated lifelines rising and falling with social market value",
                     Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14,
-                    RhoScale = 2.5f, YScale = 1.6f,
-                    TargetRho = 1.5f, TargetY = GraphStyle.HumansY, Pitch = 38, Distance = 8
+                    RhoScale = 6f, YScale = 3f,
+                    TargetRho = 0.4f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 7.5f
                 },
                 new ViewPreset
                 {

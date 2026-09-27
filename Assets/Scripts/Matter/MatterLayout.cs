@@ -689,8 +689,11 @@ namespace Why.Matter
         /// <summary>Fraction (0..1) of the envelope's width at the inner edge of strip k (strips thicken outward).</summary>
         public static float StripEdge(int k) => Mathf.Pow(k / (float)EnvelopeStrips, 1.35f);
 
-        /// <summary>Relative opacity of envelope strip k: densest next to the stack, fading outward.</summary>
-        public static float StripAlpha(int k) => Mathf.Pow(1 - (k + 0.5f) / EnvelopeStrips, 1.2f);
+        /// <summary>
+        /// Relative opacity at the inner edge of envelope strip k: densest next to the stack, fading outward
+        /// continuously to exactly 0 at the outer boundary.
+        /// </summary>
+        public static float StripEdgeAlpha(int k) => Mathf.Pow(Mathf.Clamp01(1 - k / (float)EnvelopeStrips), 1.2f);
 
         /// <summary>Noise amount of envelope strip k: the outer wisps break up into nebula.</summary>
         public static float StripNoise(int k) => 0.3f + 0.7f * k / (EnvelopeStrips - 1f);

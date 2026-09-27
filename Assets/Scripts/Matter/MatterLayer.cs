@@ -212,19 +212,23 @@ namespace Why.Matter
         void AddEnvelopeStrip(Sampled s, int k, int from, int to, int id)
         {
             float f0 = MatterLayout.StripEdge(k), f1 = MatterLayout.StripEdge(k + 1);
-            float stripAlpha = MatterLayout.StripAlpha(k);
+            // each strip blends into the next, and the outermost reaches exactly zero: the universe fans out
+            // to transparent black with no border
+            float alphaIn = MatterLayout.StripEdgeAlpha(k), alphaOut = MatterLayout.StripEdgeAlpha(k + 1);
             int count = to - from + 1;
             List<Vector3> inner = new List<Vector3>(count), outer = new List<Vector3>(count);
-            List<Color32> cols = new List<Color32>(count);
+            List<Color32> colsIn = new List<Color32>(count), colsOut = new List<Color32>(count);
             for (int j = from; j <= to; j++)
             {
                 float so = s.StackOuter[j], width = s.Envelope[j] - so;
                 inner.Add(new Vector3(s.U[j], GraphStyle.MatterY, so + width * f0));
                 outer.Add(new Vector3(s.U[j], GraphStyle.MatterY, so + width * f1));
-                cols.Add(Tint(MatterLayout.EnvelopeAlpha(s.U[j], so, s.Envelope[j]) * stripAlpha));
+                float a = MatterLayout.EnvelopeAlpha(s.U[j], so, s.Envelope[j]);
+                colsIn.Add(Tint(a * alphaIn));
+                colsOut.Add(Tint(a * alphaOut));
             }
 
-            envelope.AddBand(inner, outer, cols, id, EnvelopeIntensity, MatterLayout.StripNoise(k));
+            envelope.AddBand(inner, outer, colsIn, colsOut, id, EnvelopeIntensity, MatterLayout.StripNoise(k));
         }
 
         /// <summary>Thin red edge lines between the bands (brighter for our lineage).</summary>

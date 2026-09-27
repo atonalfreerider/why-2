@@ -242,12 +242,6 @@ namespace Why
                 cam = new GameObject("Main Camera") { tag = "MainCamera" }.AddComponent<Camera>();
             }
 
-            // retire legacy controllers that may still be on the camera
-            foreach (MonoBehaviour mb in cam.GetComponents<MonoBehaviour>())
-            {
-                if (mb != null && mb.GetType().Name == "CameraControl") mb.enabled = false;
-            }
-
             cam.clearFlags = CameraClearFlags.SolidColor;
             cam.backgroundColor = GraphStyle.Background;
             cam.allowHDR = true;

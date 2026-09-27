@@ -101,6 +101,7 @@ namespace Why.Lens
                 YaNew = yaNew,
                 LogOffset = logOffset,
                 Length = 12,
+                StrataEmphasis = 0.35f,
                 TargetRho = RhoAt(root.Rig.Pose.Target),
                 TargetY = root.Rig.Pose.Target.y,
                 Pitch = Mathf.Clamp(root.Rig.Pose.Pitch, 25, 75),

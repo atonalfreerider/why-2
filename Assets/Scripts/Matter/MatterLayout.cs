@@ -131,10 +131,10 @@ namespace Why.Matter
         public const float BurstTau = 0.02f;
 
         /// <summary>E grows by GrowthScale * (exp(GrowthRate * tau) - 1): a logarithmic spiral.</summary>
-        public const float GrowthScale = 0.55f;
+        public const float GrowthScale = 0.6f;
 
         /// <summary>Exponential growth rate of the envelope per unit of arc since the Big Bang.</summary>
-        public const float GrowthRate = 3.7f;
+        public const float GrowthRate = 5.4f;
 
         /// <summary>The stacked bands may use at most this fraction of the envelope (early universe).</summary>
         public const float CapFraction = 0.7f;
@@ -142,11 +142,11 @@ namespace Why.Matter
         // --- the rest of the universe: radial strips that thin out and break up outward ---
         /// <summary>
         /// Number of radial strips the envelope is drawn with (alpha falls and noise rises outward). A strip
-        /// has one alpha across its width, so enough strips keep the steps between them invisible.
+        /// blends into the next, so the whole fan fades smoothly to transparent black.
         /// </summary>
-        public const int EnvelopeStrips = 12;
-        const float EnvelopeAlpha0 = 0.5f;
-        const float EnvelopeAlphaWidth = 1.5f;
+        public const int EnvelopeStrips = 16;
+        const float EnvelopeAlpha0 = 0.42f;
+        const float EnvelopeAlphaWidth = 3f;
 
         /// <summary><see cref="HandoffBias"/> exponent of the envelope: the expanding universe dissolves first.</summary>
         public const float EnvelopeHandoffExponent = 2f;
@@ -682,7 +682,7 @@ namespace Why.Matter
         public static float EnvelopeAlpha(float u, float stackOuter, float envelope)
         {
             float spread = Mathf.Max(0, envelope - stackOuter);
-            return EnvelopeAlpha0 / Mathf.Pow(1 + spread / EnvelopeAlphaWidth, 0.55f) *
+            return EnvelopeAlpha0 / Mathf.Pow(1 + spread / EnvelopeAlphaWidth, 0.3f) *
                    HandoffBias(u, EnvelopeHandoffExponent);
         }
 

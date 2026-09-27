@@ -31,9 +31,19 @@ namespace Why.Domination
         public override int Order => 41;
         public override IEnumerable<string> RequiredTexts => new[] { DataPath };
 
+        const float FillAlpha = 0.4f;
+
         SurfaceMeshBuilder fills;
         LineMeshBuilder lines;
         Material fillMat, lineMat;
+        readonly List<LabelSpec> labels = new List<LabelSpec>();
+        readonly StrataEmphasis emphasis = new StrataEmphasis(new IdRange(GraphIds.ExtractionBase, GraphIds.ExtractionBase + 9999));
+
+        void AddLabel(GraphContext ctx, LabelSpec spec)
+        {
+            ctx.Labels.Add(spec);
+            lock (labels) labels.Add(spec);
+        }
 
         sealed class Material_
         {
@@ -106,7 +116,7 @@ namespace Why.Domination
                     YearsAgo = DeepTime.YearsAgo(label.x), EndYearsAgo = 0, Y = y, Rho = label.z, Ids = ids, Tier = 2
                 };
                 Anchors.Register(a);
-                ctx.Labels.Add(new LabelSpec
+                AddLabel(ctx, new LabelSpec
                 {
                     Text = stream.Name, Data = label, Priority = 16, SizePx = 12.5f, Color = GraphStyle.Text,
                     AnchorKey = a.Key, Ids = ids
@@ -121,7 +131,7 @@ namespace Why.Domination
                 YearsAgo = now - 1850, EndYearsAgo = 0, Y = y, Rho = stack.OuterAt(1900) * 0.5f,
                 Ids = new IdRange(GraphIds.ExtractionBase, GraphIds.ExtractionBase + 99), Tier = 1
             });
-            ctx.Labels.Add(new LabelSpec
+            AddLabel(ctx, new LabelSpec
             {
                 Text = "MINERAL EXTRACTION", Data = new Vector3(DeepTime.Arc(now - 1750), y, stack.OuterAt(1750) + 0.05f),
                 Priority = 32, SizePx = 12, Color = GraphStyle.TextDim, AnchorKey = "extraction:all",
@@ -176,7 +186,7 @@ namespace Why.Domination
                     Ids = IdRange.Single(id), Tier = 2
                 };
                 Anchors.Register(anchor);
-                ctx.Labels.Add(new LabelSpec
+                AddLabel(ctx, new LabelSpec
                 {
                     Text = mat.name, Data = new Vector3(u1, GraphStyle.ExtractionY, rhoTo), Priority = 7, SizePx = 11,
                     Color = GraphStyle.TextDim, PixelOffset = new Vector2(4, -8), AnchorKey = anchor.Key, Ids = anchor.Ids
@@ -184,7 +194,7 @@ namespace Why.Domination
             }
         }
 
-        static void RegisterEvents(GraphContext ctx, List<Event_> events)
+        void RegisterEvents(GraphContext ctx, List<Event_> events)
         {
             foreach (Event_ e in events)
             {
@@ -196,7 +206,7 @@ namespace Why.Domination
                     Tier = e.tier
                 };
                 Anchors.Register(a);
-                ctx.Labels.Add(new LabelSpec
+                AddLabel(ctx, new LabelSpec
                 {
                     Text = e.name, Data = a.Data, Priority = e.tier == 1 ? 14 : e.tier == 2 ? 6 : 2, SizePx = 11,
                     Color = GraphStyle.TextDim, Align = TMPro.TextAlignmentOptions.Right, PixelOffset = new Vector2(-6, 0),
@@ -223,12 +233,19 @@ namespace Why.Domination
             if (fills == null) return;
             fillMat = GraphMaterials.Surface(GraphStyle.Matter, 1f, GraphMaterials.QueueHumans - 40, false, 0f, 4f);
             fillMat.SetFloat("_EdgeSoft", 0.25f);
-            fillMat.SetFloat("_Alpha", 0.4f);
+            fillMat.SetFloat("_Alpha", FillAlpha);
             AddMesh("ExtractionStreams", fills.ToMesh("ExtractionStreams"), fillMat);
             lineMat = GraphMaterials.Line(GraphStyle.Matter, 1f, GraphMaterials.QueueHumans - 39, true, 0f, 1f);
             AddMesh("ExtractionLines", lines.ToMesh("ExtractionLines"), lineMat);
             fills = null;
             lines = null;
+
+            emphasis.Add(fillMat, FillAlpha);
+            emphasis.Add(lineMat, 1f);
+            lock (labels) labels.ForEach(emphasis.Add);
         }
+
+        /// <summary>Faint in human-focused views unless the director points at the extraction layer.</summary>
+        public override void Tick(GraphContext ctx, CameraRig rig) => emphasis.Tick(Time.unscaledDeltaTime);
     }
 }

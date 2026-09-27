@@ -36,9 +36,19 @@ namespace Why.Domination
         public override int Order => 40;
         public override IEnumerable<string> RequiredTexts => new[] { DataPath };
 
+        const float FillAlpha = 0.3f;
+
         SurfaceMeshBuilder fills;
         LineMeshBuilder lines;
         Material fillMat, lineMat;
+        readonly List<LabelSpec> labels = new List<LabelSpec>();
+        readonly StrataEmphasis emphasis = new StrataEmphasis(new IdRange(GraphIds.FarmBase, GraphIds.ExtractionBase - 1));
+
+        void AddLabel(GraphContext ctx, LabelSpec spec)
+        {
+            ctx.Labels.Add(spec);
+            lock (labels) labels.Add(spec);
+        }
 
         sealed class Domestication
         {
@@ -119,7 +129,7 @@ namespace Why.Domination
                 YearsAgo = now - 1800, EndYearsAgo = 0, Y = y, Rho = animalStack.OuterAt(1800) * 0.5f,
                 Ids = new IdRange(GraphIds.FarmBase, GraphIds.FarmBase + 99), Tier = 1
             });
-            ctx.Labels.Add(new LabelSpec
+            AddLabel(ctx, new LabelSpec
             {
                 Text = "LIVESTOCK & CROPS", Data = new Vector3(DeepTime.Arc(now - 1700), y, animalStack.OuterAt(1700) + 0.05f),
                 Priority = 32, SizePx = 12, Color = GraphStyle.TextDim, AnchorKey = "farm:all",
@@ -142,7 +152,7 @@ namespace Why.Domination
                     YearsAgo = DeepTime.YearsAgo(label.x), EndYearsAgo = 0, Y = label.y, Rho = label.z, Ids = ids, Tier = 2
                 };
                 Anchors.Register(a);
-                ctx.Labels.Add(new LabelSpec
+                AddLabel(ctx, new LabelSpec
                 {
                     Text = stream.Name, Data = label, Priority = 16, SizePx = 12.5f, Color = GraphStyle.Text,
                     AnchorKey = a.Key, Ids = ids
@@ -212,7 +222,7 @@ namespace Why.Domination
                     Ids = IdRange.Single(id), Tier = 2
                 };
                 Anchors.Register(anchor);
-                ctx.Labels.Add(new LabelSpec
+                AddLabel(ctx, new LabelSpec
                 {
                     Text = d.name, Data = new Vector3(u1, GraphStyle.FarmY, rhoFarm), Priority = 7, SizePx = 11,
                     Color = GraphStyle.TextDim, PixelOffset = new Vector2(4, -8), AnchorKey = anchor.Key, Ids = anchor.Ids
@@ -238,12 +248,19 @@ namespace Why.Domination
             if (fills == null) return;
             fillMat = GraphMaterials.Surface(GraphStyle.Life, 1f, GraphMaterials.QueueHumans - 20, false, 0f, 4f);
             fillMat.SetFloat("_EdgeSoft", 0.25f);
-            fillMat.SetFloat("_Alpha", 0.3f);
+            fillMat.SetFloat("_Alpha", FillAlpha);
             AddMesh("FarmStreams", fills.ToMesh("FarmStreams"), fillMat);
             lineMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueHumans - 19, true, 0f, 1f);
             AddMesh("FarmLines", lines.ToMesh("FarmLines"), lineMat);
             fills = null;
             lines = null;
+
+            emphasis.Add(fillMat, FillAlpha);
+            emphasis.Add(lineMat, 1f);
+            lock (labels) labels.ForEach(emphasis.Add);
         }
+
+        /// <summary>Faint in human-focused views unless the director points at the farm layer.</summary>
+        public override void Tick(GraphContext ctx, CameraRig rig) => emphasis.Tick(Time.unscaledDeltaTime);
     }
 }

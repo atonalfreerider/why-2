@@ -61,8 +61,8 @@ namespace Why.Matter
         const float BandLabelArc = 0.0012f;
 
         // envelope rendering and level of detail
-        const float EnvelopeRhoFade = 6f;
-        const float EnvelopeNoiseScale = 1.1f;
+        const float EnvelopeRhoFade = 60f;
+        const float EnvelopeNoiseScale = 0.35f;
         const float EnvelopeIntensity = 1.1f;
         const float EnvelopeAlphaClose = 0.4f;
         const float EnvelopeLodNear = 1.5f;

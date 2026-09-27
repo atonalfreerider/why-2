@@ -202,6 +202,7 @@ namespace Why.Figures
                 Length = 10,
                 RhoScale = 1.5f,
                 YScale = 2f,
+                StrataEmphasis = 0.12f,
                 TargetRho = a.Rho,
                 TargetY = a.Y,
                 Pitch = 42,

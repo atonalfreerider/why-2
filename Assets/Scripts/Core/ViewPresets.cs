@@ -22,6 +22,12 @@ namespace Why
         public float RhoScale = 1;
         public float YScale = 1;
 
+        /// <summary>
+        /// Emphasis (0..1) of the strata beneath the civilizations (livestock and crops, mineral extraction).
+        /// Human-focused views keep them faint unless the director is pointing at them.
+        /// </summary>
+        public float StrataEmphasis = 1;
+
         // camera framing
         public float TargetRho = 0.5f;
         public float TargetY = GraphStyle.LifeY;
@@ -105,7 +111,7 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "overview", Title = "Everything", Subtitle = "From the Big Bang to this moment",
-                    Key = KeyCode.Alpha1, Polar = true, Pitch = 62, Distance = 22f, TargetY = GraphStyle.LifeY
+                    Key = KeyCode.Alpha1, Polar = true, Pitch = 62, Distance = 22f, TargetY = GraphStyle.LifeY, StrataEmphasis = 0.6f
                 },
                 new ViewPreset
                 {
@@ -159,13 +165,13 @@ namespace Why
                 {
                     // the human branch time mapping (near linear), as a lens so the rest of the clock straightens away
                     Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 3000 BCE to now",
-                    Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 400, Length = 13,
+                    Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 400, Length = 13, StrataEmphasis = 0.15f,
                     TargetRho = 1.3f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 11
                 },
                 new ViewPreset
                 {
                     Id = "modern", Title = "Modern era", Subtitle = "1776 to now",
-                    Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14, YScale = 2f,
+                    Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14, YScale = 2f, StrataEmphasis = 0.15f,
                     TargetRho = 2.4f, TargetY = GraphStyle.HumansY, Pitch = 50, Distance = 12
                 },
                 new ViewPreset
@@ -181,13 +187,13 @@ namespace Why
                     Id = "smv", Title = "United States 1950 - now",
                     Subtitle = "Gender-separated lifelines rising and falling with social market value",
                     Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14,
-                    RhoScale = 2.5f, YScale = 3f,
+                    RhoScale = 2.5f, YScale = 3f, StrataEmphasis = 0.1f,
                     TargetRho = 0.7f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 8f
                 },
                 new ViewPreset
                 {
                     Id = "present", Title = "The present moment", Subtitle = "Where every line arrives",
-                    Key = KeyCode.Alpha8, YaOld = 150, YaNew = 0, LogOffset = 80, Length = 9, TargetRho = 2.2f,
+                    Key = KeyCode.Alpha8, YaOld = 150, YaNew = 0, LogOffset = 80, Length = 9, TargetRho = 2.2f, StrataEmphasis = 0.15f,
                     TargetY = GraphStyle.HumansY, Pitch = 40, Distance = 8f
                 },
             };

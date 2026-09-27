@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -49,9 +50,22 @@ namespace Why.Director
 
             string json = asset.text;
             Resources.UnloadAsset(asset);
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                // a value of the wrong type (e.g. "hold": null) skips that member instead of discarding the
+                // whole tour; malformed JSON syntax still falls back to the built-in tour below
+                Error = (sender, args) =>
+                {
+                    if (args.ErrorContext.Error is JsonReaderException) return;
+                    Debug.LogWarning($"[Why] director: '{ResourcePath}' at {args.ErrorContext.Path}: " +
+                                     args.ErrorContext.Error.Message);
+                    args.ErrorContext.Handled = true;
+                }
+            };
+
             try
             {
-                TourScript script = JsonConvert.DeserializeObject<TourScript>(json.TrimStart('\uFEFF'));
+                TourScript script = JsonConvert.DeserializeObject<TourScript>(json.TrimStart('\uFEFF'), settings);
                 if (script != null && Normalize(script)) return script;
                 Debug.LogWarning($"[Why] director: '{ResourcePath}' has no steps, using the built-in tour");
             }
@@ -74,6 +88,7 @@ namespace Why.Director
                 s.Id = string.IsNullOrEmpty(s.Id) ? "step" + (i + 1) : s.Id;
                 s.Title = s.Title ?? "";
                 s.Text = s.Text ?? "";
+                s.Focus = s.Focus?.Trim();
                 s.HighlightKeys = s.HighlightKeys ?? new List<string>();
                 s.HighlightKeys.RemoveAll(string.IsNullOrWhiteSpace);
             }
@@ -158,13 +173,25 @@ namespace Why.Director
         public const float ReadingPause = 2f;
 
         /// <summary>
+        /// Distance from a lens window's center (fraction of its half length) beyond which an anchor is
+        /// refitted: the window edge, where the lens starts fading. Presets may deliberately put anchors near
+        /// their edge (the cosmos view packs the early universe against the Big Bang), and those stay as they are.
+        /// </summary>
+        const double FitThreshold = 1.0;
+
+        /// <summary>Where a widened window puts the anchor (fraction of its half length from the center).</summary>
+        const double FitTarget = 0.85;
+
+        /// <summary>
         /// Resolves every step of a script. Call after the graph is loaded (anchors are registered while
-        /// layers build); logs one warning per step with unresolved keys and counts them.
+        /// layers build); logs one warning per step with unresolved keys and counts them. Lens presets whose
+        /// window does not contain the step's anchor are widened (see <see cref="FitToAnchor"/>).
         /// </summary>
         public static List<ResolvedStep> ResolveAll(TourScript script, out int unresolved)
         {
             List<ResolvedStep> result = new List<ResolvedStep>(script.Steps.Count);
             List<string> problems = new List<string>();
+            List<string> widened = new List<string>();
             unresolved = 0;
             foreach (TourStep step in script.Steps)
             {
@@ -198,6 +225,14 @@ namespace Why.Director
                     r.Highlights.Add(a);
                 }
 
+                ViewPreset fitted = FitToAnchor(r.Preset, r.Target);
+                if (fitted != r.Preset)
+                {
+                    widened.Add($"{step.Id} ({step.Focus}: {DeepTime.FormatShort(fitted.YaOld, DeepTime.NowYear)} to " +
+                                $"{DeepTime.FormatShort(fitted.YaNew, DeepTime.NowYear)})");
+                    r.Preset = fitted;
+                }
+
                 if (problems.Count > 0)
                 {
                     unresolved += problems.Count;
@@ -207,7 +242,62 @@ namespace Why.Director
                 result.Add(r);
             }
 
+            if (widened.Count > 0)
+            {
+                Debug.Log($"[Why] director: widened the time window of {widened.Count} steps whose anchor lies " +
+                          $"outside their view: {string.Join(", ", widened)}");
+            }
+
             return result;
+        }
+
+        /// <summary>
+        /// Lens presets fade everything outside their time window, so an arrow at an anchor beyond it would
+        /// point at nothing and the camera would drift off the window. Returns a copy of the preset whose
+        /// window is extended (in lens time, on the anchor's side only) until the anchor sits well inside it,
+        /// or the preset itself when it is polar, already contains the anchor, or there is nothing to fit.
+        /// </summary>
+        public static ViewPreset FitToAnchor(ViewPreset preset, Anchor anchor)
+        {
+            if (preset == null || anchor == null || preset.Polar) return preset;
+
+            // the lens window in ln(yearsAgo + C), exactly as WarpState.Window lays it out
+            double c = Math.Max(preset.LogOffset, 1e-9);
+            double lo = Math.Log(Math.Max(preset.YaNew, 0) + c);
+            double hi = Math.Log(Math.Max(preset.YaOld, 0) + c);
+            if (hi - lo < 1e-9) return preset;
+            double x = Math.Log(Math.Max(anchor.YearsAgo, 0) + c);
+            double center = 0.5 * (lo + hi), half = 0.5 * (hi - lo);
+            if (Math.Abs(x - center) <= FitThreshold * half) return preset;
+
+            // move only the edge on the anchor's side so the anchor lands at FitTarget of the new half length
+            double yaOld = preset.YaOld, yaNew = preset.YaNew;
+            if (x > center) yaOld = Math.Min(DeepTime.AgeU, Math.Exp((2 * x - (1 - FitTarget) * lo) / (1 + FitTarget)) - c);
+            else yaNew = Math.Max(0, Math.Exp((2 * x - (1 - FitTarget) * hi) / (1 + FitTarget)) - c);
+
+            // e.g. "now" on the present edge of a window that already ends now
+            if (yaOld <= preset.YaOld && yaNew >= preset.YaNew) return preset;
+
+            ViewPreset fitted = Copy(preset);
+            fitted.YaOld = Math.Max(yaOld, preset.YaOld);
+            fitted.YaNew = Math.Min(yaNew, preset.YaNew);
+            return fitted;
+        }
+
+        /// <summary>
+        /// A field-by-field copy of a preset (by reflection, so fields added to ViewPreset later carry over).
+        /// It keeps the id, so the HUD and the layers treat it as the original view.
+        /// </summary>
+        static ViewPreset Copy(ViewPreset source)
+        {
+            ViewPreset copy = new ViewPreset();
+            foreach (FieldInfo f in typeof(ViewPreset).GetFields(BindingFlags.Instance | BindingFlags.Public |
+                                                                 BindingFlags.NonPublic))
+            {
+                f.SetValue(copy, f.GetValue(source));
+            }
+
+            return copy;
         }
 
         /// <summary>The preset with this id, or null (ViewPresets.Get silently falls back to the overview).</summary>

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
@@ -17,7 +18,8 @@ namespace Why.Director
     ///
     /// Controls: T (or GraphRoot.RequestTour) starts; Right / Space / Enter = next (completes the
     /// typewriter first), Left = previous, P = pause/resume autoplay, Esc = exit. Moving the camera or
-    /// re-scaling from elsewhere pauses autoplay so the viewer can look around.
+    /// re-scaling from elsewhere pauses autoplay so the viewer can look around; Next / Back return to the
+    /// narration and resume it. The tour is loaded and validated one frame after the graph has loaded.
     /// </summary>
     public sealed class DirectorMode : GraphModule
     {
@@ -47,6 +49,9 @@ namespace Why.Director
 
         const float RelocateCooldown = 1.5f;
         const float CaptionSize = 14f;
+
+        /// <summary>Highlight markers are dropped where the lens has faded the content below this.</summary>
+        const float MarkerMinVisibility = 0.15f;
 
         /// <summary>Our lineage through the three levels, lit on the end card.</summary>
         static readonly string[] LineageKeys = { "matter:_lineage", "clade:_lineage", "civ:_lineage" };
@@ -92,6 +97,26 @@ namespace Why.Director
         public override void OnLoaded(GraphRoot graphRoot)
         {
             if (startRequested) StartTour();
+            else StartCoroutine(ValidateNextFrame());
+        }
+
+        /// <summary>Loads and validates the tour right after loading, so tour problems are logged without starting it.</summary>
+        IEnumerator ValidateNextFrame()
+        {
+            yield return null; // keep the few milliseconds off the frame that finishes loading
+            EnsureTour();
+        }
+
+        /// <summary>Loads Data/tour.json and resolves it against the graph once (anchors exist only after loading).</summary>
+        void EnsureTour()
+        {
+            if (steps != null) return;
+            Stopwatch sw = Stopwatch.StartNew();
+            script = TourScript.Load();
+            steps = ResolvedStep.ResolveAll(script, out int unresolved);
+            Debug.Log($"[Why] director: tour '{script.Title}' ({steps.Count} steps) loaded in " +
+                      $"{sw.ElapsedMilliseconds} ms, " +
+                      (unresolved > 0 ? $"{unresolved} unresolved keys" : "all keys resolved"));
         }
 
         void OnDestroy()
@@ -139,16 +164,9 @@ namespace Why.Director
             }
 
             startRequested = false;
-            if (steps == null)
-            {
-                // loaded lazily: anchors only exist once every layer has built
-                Stopwatch sw = Stopwatch.StartNew();
-                script = TourScript.Load();
-                steps = ResolvedStep.ResolveAll(script, out int unresolved);
-                Debug.Log($"[Why] director: tour '{script.Title}' ({steps.Count} steps) loaded in " +
-                          $"{sw.ElapsedMilliseconds} ms, " +
-                          (unresolved > 0 ? $"{unresolved} unresolved keys" : "all keys resolved"));
-            }
+            EnsureTour();
+            // a HUD button that started the tour must not keep the selection (Space / Enter would click it)
+            ReleaseUiFocus();
 
             active = true;
             savedPresetKeys = root.AllowPresetKeys;
@@ -196,13 +214,28 @@ namespace Why.Director
         void Advance()
         {
             ReleaseUiFocus();
-            if (active && index < steps.Count) GoTo(index + 1);
+            if (!active || index >= steps.Count) return;
+            ResumeAfterExploring();
+            GoTo(index + 1);
         }
 
         void Previous()
         {
             ReleaseUiFocus();
-            if (active && index > -1) GoTo(index - 1);
+            if (!active || index <= -1) return;
+            ResumeAfterExploring();
+            GoTo(index - 1);
+        }
+
+        /// <summary>
+        /// Navigating back to the narration ends a pause that looking around caused; a pause the viewer chose
+        /// (P or the pause button) stays until they resume.
+        /// </summary>
+        void ResumeAfterExploring()
+        {
+            if (!pausedByViewer) return;
+            autoplay = true;
+            pausedByViewer = false;
         }
 
         void TogglePause()
@@ -318,8 +351,9 @@ namespace Why.Director
                 Card = true,
                 Kicker = "End of the tour",
                 Title = "This moment is the result of everything before it.",
-                Body = lit + "Explore it on your own: scroll to zoom, right-drag to orbit, 1 to 8 to re-scale, " +
-                       "U to unroll the clock where you look, T to take the tour again.",
+                Body = lit + "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to " +
+                       "re-scale. U unrolls the clock where you look ([ and ] widen or narrow the window, L " +
+                       "switches between log and linear time). H lists every control; T takes the tour again.",
                 PrimaryLabel = "Explore",
                 Primary = ExitTour,
                 SecondaryLabel = "Restart",
@@ -470,14 +504,19 @@ namespace Why.Director
             }
 
             arrow.Markers.Clear();
+            WarpState warp = GraphWarp.Current;
             foreach (Anchor m in arrowMarkers)
             {
-                Vector3 sp = cam.WorldToScreenPoint(m.World);
+                // content beyond a lens window has faded away: a ring there would mark empty space
+                float u = m.U;
+                float visible = GraphWarp.FocusFade(u, warp);
+                if (visible < MarkerMinVisibility) continue;
+                Vector3 sp = cam.WorldToScreenPoint(GraphWarp.ToWorld(u, m.Y, m.Rho));
                 if (sp.z <= 0) continue;
                 Vector2 p = new Vector2(sp.x, sp.y) / scale;
                 if (p.x < 0 || p.y < 0 || p.x > size.x || p.y > size.y) continue;
                 if (arrowTarget != null && (p - tip).sqrMagnitude < 24f * 24f) continue;
-                arrow.Markers.Add(p);
+                arrow.Markers.Add(new Vector3(p.x, p.y, visible));
             }
 
             arrow.Animate(dt);
@@ -549,12 +588,19 @@ namespace Why.Director
             relocateTimer = RelocateCooldown;
         }
 
+        /// <summary>The anchor's label and, unless the label already carries a date, when it happened (dim).</summary>
         static string CaptionText(Anchor a)
         {
-            // "now" and "time:" anchors are labeled with their date already
-            if (a.Key == "now" || a.Key.StartsWith("time:", System.StringComparison.Ordinal)) return a.Label;
+            string label = string.IsNullOrEmpty(a.Label) ? a.Key : a.Label;
+            // "now", "time:" and figures ("Name (born-died)") are labeled with their dates already
+            if (a.Key == "now" || a.Key.StartsWith("time:", System.StringComparison.Ordinal)) return label;
+            foreach (char ch in label)
+            {
+                if (char.IsDigit(ch)) return label;
+            }
+
             string when = DeepTime.FormatYearsAgo(a.YearsAgo, DeepTime.NowYear);
-            return $"{a.Label}    <color=#{UiFactory.Hex(GraphStyle.TextDim)}>{when}</color>";
+            return $"{label}    <color=#{UiFactory.Hex(GraphStyle.TextDim)}>{when}</color>";
         }
 
         static bool TextFieldFocused()

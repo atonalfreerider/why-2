@@ -32,7 +32,7 @@ namespace Why.Director
         bool clamped, hasTarget;
         float opacity, reveal, clock;
 
-        readonly List<Vector2> markers = new List<Vector2>();
+        readonly List<Vector3> markers = new List<Vector3>();
         readonly List<Vector2> curve = new List<Vector2>();
         readonly List<float> lengths = new List<float>();
         readonly List<Vector2> strip = new List<Vector2>();
@@ -70,8 +70,11 @@ namespace Why.Director
             opacity = Mathf.Clamp01(markerAlpha);
         }
 
-        /// <summary>Canvas positions of secondary markers (the step's other highlights).</summary>
-        public List<Vector2> Markers => markers;
+        /// <summary>
+        /// Secondary markers (the step's other highlights): canvas position in x, y and an opacity in z (how
+        /// visible the marked content is, e.g. fading toward the edge of a lens window).
+        /// </summary>
+        public List<Vector3> Markers => markers;
 
         /// <summary>Advances the animation and schedules a mesh rebuild (call once per frame while shown).</summary>
         public void Animate(float dt)
@@ -87,11 +90,13 @@ namespace Why.Director
             if (o <= 0.002f) return;
 
             Color white = color;
-            foreach (Vector2 m in markers)
+            foreach (Vector3 m in markers)
             {
+                Vector2 p = m;
+                float mo = o * m.z;
                 float pulse = 0.5f + 0.5f * Mathf.Sin(clock * 2.6f + m.x * 0.013f);
-                UiStroke.Ring(vh, m, 6.5f + 1.2f * pulse, 0.6f, Fade(white, o * (0.3f + 0.2f * pulse)), 28);
-                UiStroke.Disc(vh, m, 1.6f, Fade(white, o * 0.55f), 10);
+                UiStroke.Ring(vh, p, 6.5f + 1.2f * pulse, 0.6f, Fade(white, mo * (0.3f + 0.2f * pulse)), 28);
+                UiStroke.Disc(vh, p, 1.6f, Fade(white, mo * 0.55f), 10);
             }
 
             if (!hasTarget) return;

@@ -61,7 +61,7 @@ namespace Why.UI
         {
             Button b = UiFactory.Button(parent, name, label, fontSize, () =>
             {
-                if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
+                ReleaseSelection();
                 onClick?.Invoke();
             });
             b.navigation = new Navigation { mode = Navigation.Mode.None };
@@ -127,6 +127,16 @@ namespace Why.UI
             if (selected == null) return false;
             TMP_InputField field = selected.GetComponent<TMP_InputField>();
             return field != null && field.isFocused;
+        }
+
+        /// <summary>
+        /// Deselect whatever UI element was clicked: a selected button would be "submitted" again by Space or
+        /// Enter, keys that belong to the graph and the director.
+        /// </summary>
+        public static void ReleaseSelection()
+        {
+            EventSystem es = EventSystem.current;
+            if (es != null && es.currentSelectedGameObject != null) es.SetSelectedGameObject(null);
         }
 
         /// <summary>True while the pointer is over an input-taking UI element.</summary>

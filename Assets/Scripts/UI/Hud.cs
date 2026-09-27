@@ -9,8 +9,9 @@ namespace Why.UI
     /// The on-screen UI around the graph (everything except the guided tour's own panel): the current
     /// view's title, the preset bar, the level legend with the lifeline readout, the tour and help
     /// buttons, label tooltips and click-to-focus, the controls sheet and F3 stats. All neutral grey and
-    /// white; the legend swatches are the only hue. While the tour runs, the title and preset bar step
-    /// aside for the director.
+    /// white; the legend swatches are the only hue. While the tour runs, the title, preset bar and the
+    /// tour / help buttons step aside for the director (its panel has its own controls, and a help sheet
+    /// would sit over the narration while autoplay moves on beneath it).
     /// </summary>
     public sealed class Hud : GraphModule
     {
@@ -35,7 +36,7 @@ namespace Why.UI
         GraphRoot root;
         Canvas overlay;
         RectTransform canvasRect;
-        UiFade hudFade, titleFade, presetFade, tourButtonFade;
+        UiFade hudFade, titleFade, presetFade, topButtonsFade;
         TextMeshProUGUI presetTitle, presetSubtitle;
         HudPresetBar presetBar;
         HudLegend legend;
@@ -44,6 +45,7 @@ namespace Why.UI
         HudStats stats;
 
         Vector2 laidOutSize;
+        float legendBottomWithBar = HudKit.Margin;
         bool loaded, tourWasActive, ownsHighlight, pressValid;
         IdRange focusIds = IdRange.Empty;
         Vector2 pressPosition;
@@ -109,17 +111,18 @@ namespace Why.UI
         /// <summary>Tour and help buttons, top-right. Returns the y below them (for the stats panel).</summary>
         float BuildTopButtons(RectTransform parent)
         {
+            RectTransform group = UiFactory.Rect(parent, "TopButtons").Fill();
             string faint = "<color=#" + UiFactory.Hex(GraphStyle.TextDim) + ">";
-            Button tour = TopButton(parent, "TourButton", "Guided tour  " + faint + "(T)</color>", root.RequestTour);
+            Button tour = TopButton(group, "TourButton", "Guided tour  " + faint + "(T)</color>", root.RequestTour);
             ((Image)tour.targetGraphic).color = new Color(1, 1, 1, 0.1f);
             RectTransform tourRect = (RectTransform)tour.transform;
             tourRect.anchoredPosition = new Vector2(-HudKit.Margin, -HudKit.Margin);
 
-            Button helpButton = TopButton(parent, "HelpButton", "Help  " + faint + "(H)</color>", () => help.Toggle());
+            Button helpButton = TopButton(group, "HelpButton", "Help  " + faint + "(H)</color>", () => help.Toggle());
             ((RectTransform)helpButton.transform).anchoredPosition =
                 new Vector2(-HudKit.Margin - tourRect.sizeDelta.x - HudKit.Gap * 0.6f, -HudKit.Margin);
 
-            tourButtonFade = new UiFade(tour.gameObject, 1, 4f, true);
+            topButtonsFade = new UiFade(group.gameObject, 1, 4f, true);
             return HudKit.Margin + TopButtonHeight + HudKit.Gap;
         }
 
@@ -151,7 +154,8 @@ namespace Why.UI
 
                 titleFade.Show(!tour);
                 presetFade.Show(!tour);
-                tourButtonFade.Show(!tour);
+                topButtonsFade.Show(!tour);
+                legend.SetBottom(LegendBottom, false);
             }
 
             HandleKeys(tour);
@@ -173,7 +177,7 @@ namespace Why.UI
 
             titleFade.Tick(dt);
             presetFade.Tick(dt);
-            tourButtonFade.Tick(dt);
+            topButtonsFade.Tick(dt);
             legend.Tick(dt);
             help.Tick(dt);
             stats.Tick(dt, root);
@@ -185,7 +189,8 @@ namespace Why.UI
             Keyboard kb = Keyboard.current;
             if (kb == null || HudKit.TypingInField()) return;
 
-            if (kb.hKey.wasPressedThisFrame || kb.slashKey.wasPressedThisFrame) help.Toggle();
+            // during the tour Esc belongs to the director (it would close the sheet and exit the tour at once)
+            if (!tour && (kb.hKey.wasPressedThisFrame || kb.slashKey.wasPressedThisFrame)) help.Toggle();
             if (kb.f3Key.wasPressedThisFrame) stats.Toggle();
             if (kb.escapeKey.wasPressedThisFrame)
             {
@@ -280,14 +285,20 @@ namespace Why.UI
             if (left + barWidth <= size.x - HudKit.Margin)
             {
                 presetBar.Place(left, HudKit.Margin, 1);
-                legend.SetBottom(HudKit.Margin);
-                return;
+                legendBottomWithBar = HudKit.Margin;
+            }
+            else
+            {
+                float scale = Mathf.Min(1f, (size.x - 2 * HudKit.Margin) / barWidth);
+                presetBar.Place((size.x - barWidth * scale) * 0.5f, HudKit.Margin, scale);
+                legendBottomWithBar = HudKit.Margin + HudPresetBar.Height * scale + HudKit.Gap;
             }
 
-            float scale = Mathf.Min(1f, (size.x - 2 * HudKit.Margin) / barWidth);
-            presetBar.Place((size.x - barWidth * scale) * 0.5f, HudKit.Margin, scale);
-            legend.SetBottom(HudKit.Margin + HudPresetBar.Height * scale + HudKit.Gap);
+            legend.SetBottom(LegendBottom, true);
         }
+
+        /// <summary>The legend only makes room for the preset bar while the bar is shown (not during the tour).</summary>
+        float LegendBottom => presetFade.Shown ? legendBottomWithBar : HudKit.Margin;
 
         /// <summary>Preset buttons explain their view; labels with an anchor explain what they mark.</summary>
         void UpdateTooltip(Vector2 canvasSize, float dt)

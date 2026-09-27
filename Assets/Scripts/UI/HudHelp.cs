@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -35,7 +34,11 @@ namespace Why.UI
             Button close = backdrop.gameObject.AddComponent<Button>();
             close.transition = Selectable.Transition.None;
             close.navigation = new Navigation { mode = Navigation.Mode.None };
-            close.onClick.AddListener(() => Show(false));
+            close.onClick.AddListener(() =>
+            {
+                HudKit.ReleaseSelection();
+                Show(false);
+            });
 
             RectTransform panel = HudKit.FramedPanel(root, "Panel", 0.94f, true);
             float columnWidth = KeyWidth + ActionWidth;
@@ -68,16 +71,16 @@ namespace Why.UI
                 Section("Time lens", new[]
                 {
                     Row("U", "unroll the timeline around what you are looking at; again to roll it back"),
-                    Row("[   ]", "widen / narrow the unrolled time window"),
-                    Row("L", "cycle log, mixed and linear time"),
+                    Row("[   ]", "unrolled: widen / narrow the time window"),
+                    Row("L", "unrolled: cycle log, mixed and linear time"),
                 }),
                 Section("Guide and details", new[]
                 {
                     Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
-                    Row("F", "famous people alive at the moment you are looking at; click one to follow their life"),
+                    Row("F", "show / hide the people alive at the moment you are looking at; click one to follow their life"),
                     Row("Hover a label", "what it is, when, and why it matters"),
                     Row("Click a label", "focus and highlight it"),
-                    Row("Esc", "clear the highlight, close this sheet"),
+                    Row("Esc", "clear the highlight, stop following, close this sheet"),
                     Row("H   ?", "this help"),
                     Row("F3", "frame rate and build stats"),
                 }),
@@ -103,16 +106,26 @@ namespace Why.UI
         static (string heading, (string key, string action)[] rows) Section(string heading,
             (string key, string action)[] rows) => (heading, rows);
 
-        /// <summary>One row per numbered preset: "1  Everything - From the Big Bang to this moment".</summary>
+        /// <summary>
+        /// One row per numbered preset ("1  Everything"), in key order: the catalog is ordered by period, and
+        /// keys added later (e.g. 9) sit between others there.
+        /// </summary>
         static (string key, string action)[] ViewRows()
         {
-            List<(string, string)> rows = new List<(string, string)>();
+            // (key order with 0 last, catalog position as the tie-break: List.Sort is not stable)
+            List<(int order, int index, string key, string title)> numbered = new List<(int, int, string, string)>();
             foreach (ViewPreset p in ViewPresets.All)
             {
                 string key = HudKit.KeyName(p.Key);
-                if (key != null) rows.Add((key, p.Title));
+                if (key == null) continue;
+                int digit = p.Key - KeyCode.Alpha0;
+                numbered.Add((digit == 0 ? 10 : digit, numbered.Count, key, p.Title));
             }
 
+            numbered.Sort((a, b) => a.order != b.order ? a.order.CompareTo(b.order) : a.index.CompareTo(b.index));
+
+            List<(string, string)> rows = new List<(string, string)>();
+            foreach ((int order, int index, string key, string title) in numbered) rows.Add((key, title));
             rows.Add(("Bottom bar", "every view, including the unnumbered ones"));
             return rows.ToArray();
         }

@@ -18,12 +18,16 @@ namespace Why.UI
         const float ItemGap = 22f;
         const float RowGap = 6f;
 
+        /// <summary>How quickly the legend eases to a new height (per second, exponential).</summary>
+        const float MoveRate = 9f;
+
         readonly RectTransform legend;
         readonly RectTransform readout;
         readonly TextMeshProUGUI readoutText;
         readonly UiFade readoutFade;
         double shownPeople = -1;
         string shownContext;
+        float bottom, bottomTarget;
 
         /// <summary>Legend width in reference pixels (the preset bar keeps clear of it).</summary>
         public float Width { get; }
@@ -52,9 +56,10 @@ namespace Why.UI
             legend.Place(Vector2.zero, Vector2.zero, new Vector2(HudKit.Margin, HudKit.Margin), new Vector2(Width, Height));
 
             readout = HudKit.FramedPanel(parent, "LifelineReadout", 0.62f);
+            readout.Place(Vector2.zero, Vector2.zero, Vector2.zero, readout.sizeDelta);
             readoutText = HudKit.Line(readout, "Text", "", HudKit.SizeSmall, GraphStyle.Text);
             readoutFade = new UiFade(readout.gameObject, 0, 4f, false);
-            SetBottom(HudKit.Margin);
+            SetBottom(HudKit.Margin, true);
         }
 
         float Swatch(string name, Color color, float x, float rowHeight)
@@ -72,18 +77,37 @@ namespace Why.UI
             return x + size.x;
         }
 
-        /// <summary>Move the legend (and the readout above it) so its bottom edge sits at y (canvas units).</summary>
-        public void SetBottom(float y)
+        /// <summary>
+        /// Move the legend (and the readout above it) so its bottom edge sits at y (canvas units), at once or
+        /// easing there (e.g. when the preset bar beneath it steps aside for the tour).
+        /// </summary>
+        public void SetBottom(float y, bool instant)
         {
-            legend.anchoredPosition = new Vector2(HudKit.Margin, Mathf.Round(y));
-            readout.Place(Vector2.zero, Vector2.zero, new Vector2(HudKit.Margin, Mathf.Round(y + Height + HudKit.Gap)),
-                readout.sizeDelta);
+            bottomTarget = Mathf.Round(y);
+            if (!instant) return;
+            bottom = bottomTarget;
+            ApplyBottom();
+        }
+
+        void ApplyBottom()
+        {
+            float y = Mathf.Round(bottom);
+            legend.anchoredPosition = new Vector2(HudKit.Margin, y);
+            readout.anchoredPosition = new Vector2(HudKit.Margin, y + Height + HudKit.Gap);
         }
 
         /// <summary>Follow <see cref="HumansLod"/>: show what one lifeline stands for, hide when none are drawn.</summary>
         public void Tick(float dt)
         {
+            if (bottom != bottomTarget)
+            {
+                bottom = Mathf.Lerp(bottom, bottomTarget, 1f - Mathf.Exp(-MoveRate * dt));
+                if (Mathf.Abs(bottom - bottomTarget) < 0.5f) bottom = bottomTarget;
+                ApplyBottom();
+            }
+
             double people = HumansLod.PeoplePerLine;
+            if (double.IsNaN(people) || double.IsInfinity(people)) people = 0;
             string context = HumansLod.Context ?? "";
             if (people != shownPeople || context != shownContext)
             {

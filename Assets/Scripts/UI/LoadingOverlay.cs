@@ -19,8 +19,14 @@ namespace Why.UI
         const float HoldSeconds = 0.55f;
         const float FadeSeconds = 0.8f;
 
-        /// <summary>Layer class names in the loader status ("CivBandsLayer") read as words ("civ bands").</summary>
-        static readonly Regex LayerName = new Regex(@"\b([A-Z][A-Za-z]*?)Layer\b");
+        /// <summary>Longest step the animations take per frame, so a long frame cannot skip the fade.</summary>
+        const float MaxStep = 1f / 30f;
+
+        /// <summary>
+        /// Layer class names in the loader status ("CivBandsLayer", "HumanWorldLoader") read as words
+        /// ("civ bands", "human world").
+        /// </summary>
+        static readonly Regex LayerName = new Regex(@"\b([A-Z][A-Za-z]*?)(?:Layer|Loader)\b");
 
         static readonly Regex CamelHump = new Regex("(?<=[a-z])(?=[A-Z])");
 
@@ -29,8 +35,9 @@ namespace Why.UI
         CanvasGroup group;
         RectTransform barFill;
         TextMeshProUGUI status;
-        string shownStatus;
+        string loaderStatus;
         float shownProgress;
+        bool loaded;
         float doneTime = -1;
 
         public override int Order => -10;
@@ -43,9 +50,10 @@ namespace Why.UI
 
         public override void OnLoaded(GraphRoot graphRoot)
         {
-            doneTime = Time.unscaledTime;
+            // the hold starts on the next frame: this runs at the end of the (long) upload frame
+            loaded = true;
             group.blocksRaycasts = false;
-            SetStatus("built in " + root.LoadSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s");
+            status.text = "built in " + root.LoadSeconds.ToString("0.0", CultureInfo.InvariantCulture) + " s";
         }
 
         void Build()
@@ -87,23 +95,26 @@ namespace Why.UI
             fill.raycastTarget = false;
 
             status = UiFactory.Text(card, "Status", "", HudKit.SizeSmall, HudKit.TextFaint, TextAlignmentOptions.Center);
+            status.textWrappingMode = TextWrappingModes.NoWrap;
+            status.overflowMode = TextOverflowModes.Ellipsis;
             status.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -154),
                 new Vector2(640, 24));
-            SetStatus(Pretty(root.LoadStatus));
+            FollowLoaderStatus();
         }
 
         void Update()
         {
-            float dt = Time.unscaledDeltaTime;
+            float dt = Mathf.Min(Time.unscaledDeltaTime, MaxStep);
+            if (loaded && doneTime < 0) doneTime = Time.unscaledTime;
             bool done = doneTime >= 0;
 
-            float target = done ? 1f : root.LoadProgress;
+            float target = loaded ? 1f : root.LoadProgress;
             shownProgress = Mathf.Lerp(shownProgress, target, 1f - Mathf.Exp(-dt * 10f));
             barFill.anchorMax = new Vector2(shownProgress, 1);
 
             if (!done)
             {
-                SetStatus(Pretty(root.LoadStatus));
+                FollowLoaderStatus();
                 return;
             }
 
@@ -115,19 +126,20 @@ namespace Why.UI
             enabled = false;
         }
 
-        void SetStatus(string text)
+        /// <summary>Show the loader's status in words, re-formatting only when it changes.</summary>
+        void FollowLoaderStatus()
         {
-            if (text == shownStatus) return;
-            shownStatus = text;
-            status.text = text;
+            string raw = root.LoadStatus;
+            if (raw == loaderStatus) return;
+            loaderStatus = raw;
+            status.text = Pretty(raw);
         }
 
-        /// <summary>"Building LifeLayer, CivBandsLayer" -> "Building life, civ bands".</summary>
-        static string Pretty(string loaderStatus)
+        /// <summary>"Building LifeLayer, HumanWorldLoader" -> "Building life, human world".</summary>
+        static string Pretty(string raw)
         {
-            if (string.IsNullOrEmpty(loaderStatus)) return "";
-            return LayerName.Replace(loaderStatus,
-                m => CamelHump.Replace(m.Groups[1].Value, " ").ToLowerInvariant());
+            if (string.IsNullOrEmpty(raw)) return "";
+            return LayerName.Replace(raw, m => CamelHump.Replace(m.Groups[1].Value, " ").ToLowerInvariant());
         }
     }
 }

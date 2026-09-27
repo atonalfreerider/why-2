@@ -124,6 +124,7 @@ namespace Why.Humans.Bands
         readonly List<Vector3> inner = new List<Vector3>(2048);
         readonly List<Vector3> outer = new List<Vector3>(2048);
         readonly List<Color32> colors = new List<Color32>(2048);
+        readonly List<Color32> outerColors = new List<Color32>(2048);
         readonly List<LinePoint> pts = new List<LinePoint>(2048);
         readonly List<LinePoint> pts2 = new List<LinePoint>(2048);
         readonly List<double> knots = new List<double>(128);
@@ -178,6 +179,7 @@ namespace Why.Humans.Bands
             inner.Clear();
             outer.Clear();
             colors.Clear();
+            outerColors.Clear();
             pts.Clear();
             for (int i = 0; i < samples.Count; i++)
             {
@@ -187,13 +189,12 @@ namespace Why.Humans.Bands
                 float handOffFade = 1f - SmoothStep(fadeStart, end, s.Year);
                 inner.Add(new Vector3(s.U, GraphStyle.HumansY, lo));
                 outer.Add(new Vector3(s.U, GraphStyle.HumansY, hi));
+                // humanity spans the whole layer: it fades across to nothing at the outer boundary (no rim)
                 colors.Add(Tint(HumanityFillAlpha * handOffFade));
-                pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, hi), Tint(OuterHumanityEdgeAlpha * handOffFade),
-                    EdgeWidthPx, EdgeWidthWorld, EdgeIntensity));
+                outerColors.Add(Tint(0));
             }
 
-            Fill.AddBand(inner, outer, colors, id, 1f, HumanityNoise);
-            Lines.AddPolyline(pts, id);
+            Fill.AddBand(inner, outer, colors, outerColors, id, 1f, HumanityNoise);
 
             // label at the log-middle of prehistory
             double midYa = Math.Sqrt((now - start) * (now - handOff));
@@ -293,19 +294,25 @@ namespace Why.Humans.Bands
             colors.Clear();
             pts.Clear();
             pts2.Clear();
+            outerColors.Clear();
             for (int i = 0; i < samples.Count; i++)
             {
                 StreamSample s = samples[i];
                 if (!Band(c, s.Year, out float lo, out float hi, out float share)) continue;
                 float w = hi - lo;
+                // no hard outer border: streams fade with their position across the layer, and the layer's
+                // own outer boundary dissolves into transparent black
+                float layer = Mathf.Max(world.LayerWidth(s.Year), 1e-4f);
+                float fadeLo = OuterFade(lo / layer), fadeHi = OuterFade(hi / layer);
                 inner.Add(new Vector3(s.U, GraphStyle.HumansY, lo));
                 outer.Add(new Vector3(s.U, GraphStyle.HumansY, hi));
-                colors.Add(Tint(CivFillAlpha));
-                Color32 edge = Tint(EdgeAlphaFor(w));
-                pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, lo), edge, EdgeWidthPx, EdgeWidthWorld,
-                    EdgeIntensity));
-                pts2.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, hi), edge, EdgeWidthPx, EdgeWidthWorld,
-                    EdgeIntensity));
+                colors.Add(Tint(CivFillAlpha * fadeLo));
+                outerColors.Add(Tint(CivFillAlpha * fadeHi));
+                float edgeAlpha = EdgeAlphaFor(w);
+                pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, lo), Tint(edgeAlpha * fadeLo), EdgeWidthPx,
+                    EdgeWidthWorld, EdgeIntensity));
+                pts2.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, hi), Tint(edgeAlpha * fadeHi), EdgeWidthPx,
+                    EdgeWidthWorld, EdgeIntensity));
 
                 if (share > info.MaxShare) info.MaxShare = share;
                 if (w > widest)
@@ -323,7 +330,7 @@ namespace Why.Humans.Bands
                 }
             }
 
-            Fill.AddBand(inner, outer, colors, id, intensity);
+            Fill.AddBand(inner, outer, colors, outerColors, id, intensity);
             Lines.AddPolyline(pts, id);
             Lines.AddPolyline(pts2, id);
 
@@ -346,6 +353,16 @@ namespace Why.Humans.Bands
             rhoHi = HumanWorld.HumanRho0 + (lo + width) * k;
             share = width / HumanWorld.TotalUnits;
             return true;
+        }
+
+        /// <summary>
+        /// Fade by relative position across the human layer (0 inner .. 1 outer boundary): full inside, easing
+        /// to a third toward the outer side, and to nothing right at the layer's outer boundary.
+        /// </summary>
+        static float OuterFade(float x)
+        {
+            float toward = Mathf.Lerp(1f, 0.35f, SmoothStep(0.55f, 1f, x));
+            return toward * (1f - SmoothStep(0.97f, 1.0f, x));
         }
 
         /// <summary>Edge alpha of a band of the given width (rho): narrow, crowded bands have softer edges.</summary>

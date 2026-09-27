@@ -1,0 +1,513 @@
+{
+  "series": {
+    "fossil_fuels": [
+      [-8000, 0.0001], [-4000, 0.001], [-1000, 0.01], [-200, 0.05], [100, 0.1], [500, 0.2],
+      [1000, 0.35], [1100, 1.0], [1300, 1.2], [1500, 1.5], [1600, 2.5], [1650, 4.5],
+      [1700, 6], [1750, 10.5], [1775, 13], [1800, 17], [1815, 28], [1830, 42],
+      [1840, 62], [1850, 92], [1860, 150], [1870, 225], [1880, 355], [1890, 520],
+      [1900, 870], [1913, 1450], [1920, 1420], [1929, 1780], [1940, 2150], [1950, 2500],
+      [1955, 3250], [1960, 4050], [1965, 5050], [1970, 6100], [1973, 6950], [1975, 7050],
+      [1979, 8000], [1980, 8000], [1985, 8500], [1990, 9400], [1995, 9700], [2000, 10100],
+      [2005, 11900], [2010, 13600], [2013, 14800], [2015, 15000], [2019, 15600], [2020, 15000],
+      [2023, 16500]
+    ],
+    "metal_ores": [
+      [-8000, 0.00001], [-5000, 0.0005], [-3000, 0.01], [-2000, 0.05], [-1200, 0.12], [-800, 0.25],
+      [-500, 0.5], [-200, 1.2], [1, 2.5], [160, 2.3], [400, 1.0], [600, 0.7],
+      [800, 0.9], [1000, 1.3], [1100, 2.2], [1200, 2.4], [1300, 2.7], [1400, 2.8],
+      [1500, 3.2], [1550, 3.8], [1600, 4.2], [1700, 4.8], [1750, 6], [1800, 7.5],
+      [1850, 25], [1860, 38], [1870, 55], [1880, 85], [1890, 130], [1900, 200],
+      [1910, 300], [1920, 310], [1929, 420], [1940, 520], [1950, 700], [1960, 1300],
+      [1965, 1800], [1970, 2500], [1975, 2900], [1980, 3200], [1985, 3300], [1990, 3700],
+      [1995, 4000], [2000, 4700], [2005, 5800], [2010, 7300], [2015, 8600], [2019, 9600],
+      [2020, 9700], [2023, 10400]
+    ],
+    "non_metallic_minerals": [
+      [-8000, 0.2], [-6000, 1], [-4000, 5], [-3000, 12], [-2500, 20], [-2000, 25],
+      [-1000, 40], [-500, 55], [1, 90], [500, 90], [1000, 110], [1300, 150],
+      [1500, 170], [1600, 210], [1700, 250], [1750, 300], [1800, 380], [1850, 600],
+      [1870, 800], [1890, 1100], [1900, 1400], [1910, 1700], [1920, 1800], [1929, 2300],
+      [1940, 2800], [1950, 3200], [1955, 4200], [1960, 5500], [1965, 7200], [1970, 9500],
+      [1975, 11500], [1980, 13000], [1985, 14500], [1990, 16500], [1995, 18500], [2000, 22000],
+      [2005, 29000], [2010, 37000], [2015, 44000], [2019, 49000], [2020, 49500], [2023, 53000]
+    ]
+  },
+  "materials": [
+    {
+      "id": "copper",
+      "name": "Copper",
+      "category": "metal_ores",
+      "firstYearsAgo": 7000,
+      "unit": "Mt of copper metal (mine output)",
+      "series": [
+        [-5000, 0.00002], [-3000, 0.0006], [-2000, 0.003], [-1000, 0.006], [-100, 0.012],
+        [1, 0.015], [300, 0.008], [600, 0.003], [1080, 0.013], [1500, 0.01],
+        [1700, 0.012], [1800, 0.018], [1850, 0.055], [1900, 0.495], [1920, 0.96],
+        [1929, 1.9], [1950, 2.5], [1960, 4.2], [1970, 6.4], [1980, 7.8],
+        [1990, 9.0], [2000, 13.2], [2010, 16.0], [2020, 20.6], [2023, 22.0]
+      ],
+      "blurb": "Among the first metals smelted from rock. Copper made tools, then wires to carry power and messages; mines now move hundreds of tonnes of rock for each tonne of copper."
+    },
+    {
+      "id": "tin",
+      "name": "Tin (for bronze)",
+      "category": "metal_ores",
+      "firstYearsAgo": 5000,
+      "unit": "Mt of tin metal",
+      "series": [
+        [-3000, 0.00001], [-2000, 0.0002], [-1000, 0.0004], [1, 0.001], [500, 0.0006],
+        [1000, 0.001], [1500, 0.002], [1700, 0.005], [1800, 0.009], [1850, 0.018],
+        [1900, 0.085], [1929, 0.19], [1950, 0.17], [1970, 0.23], [1980, 0.245],
+        [1990, 0.22], [2000, 0.28], [2010, 0.265], [2020, 0.264], [2023, 0.29]
+      ],
+      "blurb": "Rare tin, alloyed with copper, made bronze. Its scarcity pulled Bronze Age traders across seas and continents; today about half of all tin becomes solder for electronics."
+    },
+    {
+      "id": "iron_ore",
+      "name": "Iron ore",
+      "category": "metal_ores",
+      "firstYearsAgo": 3200,
+      "unit": "Mt of iron ore (usable ore)",
+      "series": [
+        [-1200, 0.002], [-800, 0.03], [-500, 0.15], [-200, 0.4], [1, 0.8],
+        [400, 0.5], [700, 0.4], [1000, 0.7], [1100, 1.0], [1500, 1.2],
+        [1700, 1.8], [1800, 3], [1850, 11], [1880, 43], [1900, 95],
+        [1913, 177], [1929, 200], [1950, 247], [1960, 520], [1970, 770],
+        [1980, 890], [1990, 980], [2000, 1060], [2010, 1900], [2023, 2500]
+      ],
+      "blurb": "Iron ore is found almost everywhere. Iron gave farmers and armies cheap tools and weapons, then rails, ships and skyscrapers; about 2.5 billion tonnes are mined a year."
+    },
+    {
+      "id": "lead",
+      "name": "Lead",
+      "category": "metal_ores",
+      "firstYearsAgo": 6000,
+      "unit": "Mt of lead metal",
+      "series": [
+        [-4000, 0.00002], [-3000, 0.0002], [-2000, 0.001], [-1000, 0.003], [-500, 0.01],
+        [-200, 0.04], [1, 0.08], [160, 0.07], [400, 0.02], [700, 0.005],
+        [1000, 0.03], [1500, 0.06], [1700, 0.09], [1800, 0.13], [1850, 0.22],
+        [1900, 0.85], [1929, 1.7], [1950, 1.7], [1970, 3.4], [1980, 3.6],
+        [1990, 3.4], [2000, 3.1], [2010, 4.1], [2020, 4.4], [2023, 4.5]
+      ],
+      "blurb": "Soft, easy to smelt and often mined for the silver it hides. Rome piped water through it and leaded petrol spread it worldwide; its smoke is frozen in Greenland ice."
+    },
+    {
+      "id": "silver",
+      "name": "Silver",
+      "category": "metal_ores",
+      "firstYearsAgo": 5500,
+      "unit": "Mt of silver metal",
+      "series": [
+        [-3500, 0.000002], [-3000, 0.000005], [-2000, 0.00002], [-1000, 0.00004], [-500, 0.00008],
+        [-200, 0.00015], [1, 0.0002], [400, 0.00005], [1000, 0.00005], [1200, 0.00006],
+        [1500, 0.00007], [1550, 0.0002], [1600, 0.00045], [1700, 0.0004], [1800, 0.0009],
+        [1825, 0.0005], [1875, 0.002], [1900, 0.0056], [1929, 0.008], [1950, 0.0063],
+        [1970, 0.0093], [1990, 0.016], [2000, 0.018], [2010, 0.023], [2023, 0.026]
+      ],
+      "blurb": "The money metal of empires. Laurion paid for Athens' navy and Potosi's silver flooded the world economy; today over half goes to industry, from electronics to solar panels."
+    },
+    {
+      "id": "gold",
+      "name": "Gold",
+      "category": "metal_ores",
+      "firstYearsAgo": 6500,
+      "unit": "Mt of gold metal",
+      "series": [
+        [-4500, 0.0000001], [-3000, 0.000001], [-1500, 0.000002], [-500, 0.000004], [1, 0.00001],
+        [500, 0.000004], [1000, 0.000004], [1500, 0.000006], [1700, 0.00001], [1750, 0.000025],
+        [1800, 0.000018], [1850, 0.00006], [1853, 0.00028], [1900, 0.00039], [1929, 0.0006],
+        [1940, 0.00114], [1950, 0.00076], [1970, 0.00148], [1980, 0.0012], [1990, 0.00218],
+        [2000, 0.00259], [2010, 0.00256], [2020, 0.00303], [2023, 0.003]
+      ],
+      "blurb": "Too soft for tools, gold became wealth itself. Its pursuit drove conquests and gold rushes; nearly all gold ever mined, over 200,000 tonnes, still exists."
+    },
+    {
+      "id": "coal",
+      "name": "Coal",
+      "category": "fossil_fuels",
+      "firstYearsAgo": 2200,
+      "unit": "Mt of coal (hard coal and lignite)",
+      "series": [
+        [-200, 0.03], [1000, 0.3], [1100, 0.8], [1500, 1.2], [1600, 1.8],
+        [1700, 5], [1800, 15], [1830, 38], [1850, 85], [1870, 210],
+        [1890, 480], [1900, 770], [1913, 1340], [1920, 1300], [1950, 1810],
+        [1960, 2600], [1970, 3000], [1980, 3800], [1990, 4700], [2000, 4700],
+        [2010, 7300], [2013, 8100], [2019, 8000], [2020, 7700], [2023, 8900]
+      ],
+      "blurb": "Fossilized forest. Coal freed industry from firewood and muscle, powering steam, steel and electricity, and it is still the largest single source of fossil CO2."
+    },
+    {
+      "id": "oil",
+      "name": "Crude oil",
+      "category": "fossil_fuels",
+      "firstYearsAgo": 165,
+      "unit": "Mt of crude oil",
+      "series": [
+        [1860, 0.07], [1870, 0.8], [1880, 4.1], [1890, 10.5], [1900, 20.5],
+        [1910, 44], [1920, 95], [1929, 205], [1940, 294], [1950, 523],
+        [1960, 1053], [1970, 2336], [1973, 2860], [1975, 2730], [1979, 3230], [1983, 2760],
+        [1990, 3170], [2000, 3610], [2010, 3950], [2019, 4480], [2020, 4200],
+        [2023, 4500]
+      ],
+      "blurb": "Dense liquid energy that moves the world. Oil made cars, planes, plastics and global trade possible, and made the countries that hold it pivotal in world politics."
+    },
+    {
+      "id": "natural_gas",
+      "name": "Natural gas",
+      "category": "fossil_fuels",
+      "firstYearsAgo": 203,
+      "unit": "Mt of natural gas (about 0.73 Mt per billion cubic meters)",
+      "series": [
+        [1821, 0.0001], [1880, 0.5], [1890, 2.5], [1900, 3.5], [1910, 10.5],
+        [1920, 17], [1929, 44], [1940, 62], [1950, 140], [1960, 345],
+        [1970, 735], [1980, 1060], [1990, 1450], [2000, 1770], [2010, 2320],
+        [2019, 2920], [2020, 2820], [2023, 2960]
+      ],
+      "blurb": "Methane from deep rock. Gas heats homes, runs power plants and feeds the fertilizer factories that grow much of our food; leaked methane is a potent warming gas."
+    },
+    {
+      "id": "cement",
+      "name": "Limestone for lime and cement",
+      "category": "non_metallic_minerals",
+      "firstYearsAgo": 9000,
+      "unit": "Mt of cement plus lime (lime only before about 1850)",
+      "series": [
+        [-7000, 0.001], [-3000, 0.02], [-1000, 0.1], [-200, 0.5], [100, 1.5],
+        [500, 0.8], [1000, 1.0], [1300, 1.8], [1600, 3], [1750, 5],
+        [1800, 7], [1850, 11], [1880, 15], [1900, 30], [1913, 65],
+        [1929, 100], [1950, 180], [1960, 390], [1970, 670], [1980, 1010],
+        [1990, 1260], [2000, 1900], [2010, 3620], [2014, 4550], [2023, 4530]
+      ],
+      "blurb": "Burned limestone. Lime plaster is over 9,000 years old and Roman concrete still stands; modern cement is the glue of cities and emits about 8 percent of human CO2."
+    },
+    {
+      "id": "sand_gravel",
+      "name": "Sand, gravel and crushed rock",
+      "category": "non_metallic_minerals",
+      "firstYearsAgo": 5000,
+      "unit": "Mt of sand, gravel and crushed rock (aggregates)",
+      "series": [
+        [-3000, 4], [-1000, 15], [1, 35], [500, 35], [1000, 45],
+        [1500, 70], [1700, 100], [1800, 150], [1850, 250], [1900, 650],
+        [1929, 1100], [1950, 1700], [1960, 3000], [1970, 5500], [1980, 7500],
+        [1990, 9500], [2000, 13000], [2010, 24000], [2015, 30000], [2020, 37000],
+        [2023, 40000]
+      ],
+      "blurb": "The most-mined material on Earth. Sand and gravel become concrete, asphalt and glass; demand now outruns what rivers deliver, driving beach loss and illegal sand mining."
+    },
+    {
+      "id": "phosphate",
+      "name": "Phosphate rock",
+      "category": "non_metallic_minerals",
+      "firstYearsAgo": 177,
+      "unit": "Mt of phosphate rock",
+      "series": [
+        [1847, 0.02], [1870, 0.5], [1890, 1.5], [1900, 3.2], [1913, 7],
+        [1929, 11], [1938, 12], [1950, 24], [1960, 42], [1970, 85],
+        [1980, 138], [1988, 160], [1995, 130], [2000, 133], [2010, 180],
+        [2015, 230], [2020, 223], [2023, 220]
+      ],
+      "blurb": "Mined phosphate became the fertilizer that lets farms feed billions. It is finite and unevenly spread: Morocco holds most of the world's known reserves."
+    },
+    {
+      "id": "potash",
+      "name": "Potash",
+      "category": "non_metallic_minerals",
+      "firstYearsAgo": 163,
+      "unit": "Mt of K2O equivalent",
+      "series": [
+        [1861, 0.002], [1880, 0.07], [1900, 0.3], [1913, 1.1], [1929, 1.8],
+        [1938, 2.9], [1950, 4.5], [1960, 9], [1970, 17], [1980, 28],
+        [1988, 30], [1995, 23], [2000, 26], [2010, 34], [2020, 43],
+        [2023, 39]
+      ],
+      "blurb": "Potassium salts left by ancient dried-up seas. Mined potash replaced wood ash as fertilizer and helped yields soar; Canada, Russia and Belarus dominate supply."
+    },
+    {
+      "id": "uranium",
+      "name": "Uranium",
+      "category": "metal_ores",
+      "firstYearsAgo": 82,
+      "unit": "Mt of uranium content",
+      "series": [
+        [1942, 0.0005], [1945, 0.0015], [1950, 0.005], [1955, 0.02], [1959, 0.048],
+        [1965, 0.032], [1970, 0.032], [1975, 0.042], [1980, 0.069], [1990, 0.049],
+        [1995, 0.034], [2000, 0.036], [2005, 0.042], [2010, 0.054], [2016, 0.063],
+        [2020, 0.048], [2023, 0.054]
+      ],
+      "blurb": "A heavy metal whose atoms can split. It gave the world nuclear weapons in 1945 and, from the 1950s, low-carbon nuclear power, along with waste that lasts millennia."
+    },
+    {
+      "id": "bauxite",
+      "name": "Aluminium (bauxite)",
+      "category": "metal_ores",
+      "firstYearsAgo": 138,
+      "unit": "Mt of bauxite ore",
+      "series": [
+        [1886, 0.01], [1900, 0.09], [1913, 0.54], [1929, 2.1], [1940, 4.4],
+        [1943, 13.8], [1950, 8.2], [1960, 27], [1970, 60], [1980, 93],
+        [1990, 113], [2000, 136], [2010, 220], [2015, 290], [2020, 380],
+        [2023, 400]
+      ],
+      "blurb": "Aluminium ore. Electricity turns this red clay into a light, rustproof metal for planes, cans and cables; smelting it uses roughly 3 percent of the world's electricity."
+    },
+    {
+      "id": "lithium",
+      "name": "Lithium",
+      "category": "metal_ores",
+      "firstYearsAgo": 70,
+      "unit": "Mt of lithium content",
+      "series": [
+        [1954, 0.001], [1960, 0.002], [1970, 0.004], [1980, 0.006], [1990, 0.007],
+        [2000, 0.014], [2005, 0.021], [2010, 0.028], [2015, 0.032], [2018, 0.095],
+        [2020, 0.082], [2021, 0.107], [2022, 0.146], [2023, 0.18]
+      ],
+      "blurb": "The lightest metal. Once used in grease, glass and bombs, lithium now stores energy in phone and car batteries; mine output more than doubled from 2020 to 2023."
+    }
+  ],
+  "events": [
+    {
+      "id": "ochre_mining",
+      "name": "Ochre mining",
+      "yearsAgo": 43000,
+      "category": "non_metallic_minerals",
+      "tier": 3,
+      "blurb": "People dug red ochre at Lion Cavern in Eswatini about 43,000 years ago. The pigment served for decoration, ritual and glue: the first mining was for meaning, not metal."
+    },
+    {
+      "id": "native_copper",
+      "name": "Native copper hammered",
+      "yearsAgo": 10000,
+      "category": "metal_ores",
+      "tier": 3,
+      "blurb": "In Anatolia, people hammered lumps of pure native copper into beads and awls. Metal was found, not yet made, but it showed that some rocks could be reshaped."
+    },
+    {
+      "id": "copper_smelting",
+      "name": "Copper smelting",
+      "yearsAgo": 7000,
+      "category": "metal_ores",
+      "tier": 1,
+      "blurb": "At Belovode in Serbia, people heated green copper ore until metal ran out. Smelting turned rock into material by fire: the root of all metallurgy, and of mining's smoke."
+    },
+    {
+      "id": "varna_gold",
+      "name": "Gold of Varna",
+      "yearsAgo": 6500,
+      "category": "metal_ores",
+      "tier": 2,
+      "blurb": "At Varna by the Black Sea, graves held about 6 kg of gold, the oldest large gold hoard known, most of it in a few rich burials. Rare metal became a badge of wealth and rank."
+    },
+    {
+      "id": "flint_mines",
+      "name": "Neolithic flint mines",
+      "yearsAgo": 6400,
+      "category": "non_metallic_minerals",
+      "tier": 2,
+      "blurb": "Farmers sank shafts over 10 meters deep with antler picks at Spiennes and later Grimes Graves to reach flint for axes. Axes cleared forests for fields: mining fed farming."
+    },
+    {
+      "id": "lost_wax_casting",
+      "name": "Lost-wax casting",
+      "yearsAgo": 6000,
+      "category": "metal_ores",
+      "tier": 3,
+      "blurb": "Smiths modeled objects in wax, coated them in clay and poured molten metal in. Lost-wax casting turned copper, and later gold and bronze, into intricate idols and jewelry."
+    },
+    {
+      "id": "bronze_age",
+      "name": "Bronze Age",
+      "yearsAgo": 5000,
+      "category": "metal_ores",
+      "tier": 1,
+      "blurb": "Adding tin to copper made bronze, harder and easier to cast. Tin was rare, so long-distance trade routes, palaces and professional armies grew up around metal."
+    },
+    {
+      "id": "great_pyramid",
+      "name": "Great Pyramid quarried",
+      "yearsAgo": 4580,
+      "category": "non_metallic_minerals",
+      "tier": 2,
+      "blurb": "Egypt quarried about 6 million tonnes of stone for Khufu's pyramid. Organized states could now move mountains of rock, a scale of extraction unthinkable to villages."
+    },
+    {
+      "id": "iron_smelting",
+      "name": "Iron Age",
+      "yearsAgo": 3200,
+      "category": "metal_ores",
+      "tier": 1,
+      "blurb": "When the Bronze Age collapse disrupted the tin trade, smiths increasingly turned to iron, whose ore is found almost everywhere. Cheap iron tools and weapons spread to farmers and armies alike."
+    },
+    {
+      "id": "laurion_silver",
+      "name": "Laurion silver",
+      "yearsAgo": 2507,
+      "category": "metal_ores",
+      "tier": 2,
+      "blurb": "A rich silver strike at Laurion paid for the Athenian warships that beat Persia at Salamis in 480 BCE. The mines were worked by thousands of enslaved people."
+    },
+    {
+      "id": "chinese_cast_iron",
+      "name": "Chinese cast iron",
+      "yearsAgo": 2500,
+      "category": "metal_ores",
+      "tier": 2,
+      "blurb": "Chinese blast furnaces poured liquid iron into molds over 1,500 years before Europe. Cast plows and tools raised farm output; the Han state later made iron a government monopoly."
+    },
+    {
+      "id": "roman_mining_peak",
+      "name": "Roman mining peak",
+      "yearsAgo": 2000,
+      "category": "metal_ores",
+      "tier": 1,
+      "blurb": "Rome mined lead, silver, copper and gold across Spain and Britain on an industrial scale. Lead smoke from its smelters is still measurable in Greenland ice cores."
+    },
+    {
+      "id": "antonine_plague",
+      "name": "Antonine Plague: mining falls",
+      "yearsAgo": 1859,
+      "category": "metal_ores",
+      "tier": 3,
+      "blurb": "Around 165 CE plague swept the Roman Empire. Greenland ice records a sharp drop in lead pollution: fewer workers and a shrinking economy meant less metal for centuries."
+    },
+    {
+      "id": "song_coal_iron",
+      "name": "Song China coal and iron",
+      "yearsAgo": 946,
+      "category": "fossil_fuels",
+      "tier": 2,
+      "blurb": "With north China's forests depleted, Song ironworks turned to coal, making perhaps 100,000 tonnes of iron a year by 1078: an industrial surge 700 years before Britain's."
+    },
+    {
+      "id": "medieval_silver",
+      "name": "Medieval silver rushes",
+      "yearsAgo": 856,
+      "category": "metal_ores",
+      "tier": 3,
+      "blurb": "Silver found at Freiberg in Saxony set off mining rushes across central Europe. New coins fueled trade and towns, and flooded mines drove new pumps and machines."
+    },
+    {
+      "id": "potosi",
+      "name": "Potosi silver",
+      "yearsAgo": 479,
+      "category": "metal_ores",
+      "tier": 1,
+      "blurb": "Potosi's Cerro Rico became the richest silver mine on Earth, worked by forced Indigenous labor and toxic mercury. Its silver reached Europe and China: the first global money."
+    },
+    {
+      "id": "coke_iron",
+      "name": "Coke-fired iron",
+      "yearsAgo": 315,
+      "category": "fossil_fuels",
+      "tier": 2,
+      "blurb": "Abraham Darby smelted iron with coke made from coal instead of charcoal. Iron was no longer limited by forests, opening the way to mass iron and the industrial age."
+    },
+    {
+      "id": "newcomen_engine",
+      "name": "Newcomen steam pump",
+      "yearsAgo": 312,
+      "category": "fossil_fuels",
+      "tier": 1,
+      "blurb": "The first practical steam engine pumped water from a coal mine. Coal ran the pump that let miners dig deeper for more coal: the feedback loop that ignited the Industrial Revolution."
+    },
+    {
+      "id": "steam_railways",
+      "name": "Coal-fired railways",
+      "yearsAgo": 199,
+      "category": "fossil_fuels",
+      "tier": 2,
+      "blurb": "Steam locomotives, born in coal mines, began hauling coal and people on the Stockton and Darlington line. Railways joined markets and multiplied demand for coal and iron."
+    },
+    {
+      "id": "superphosphate",
+      "name": "Mined fertilizer",
+      "yearsAgo": 182,
+      "category": "non_metallic_minerals",
+      "tier": 3,
+      "blurb": "Treating phosphate rock with acid made superphosphate, the first factory fertilizer. Farms began to depend on minerals mined in distant lands to grow food."
+    },
+    {
+      "id": "gold_rushes",
+      "name": "Gold rushes",
+      "yearsAgo": 176,
+      "category": "metal_ores",
+      "tier": 3,
+      "blurb": "Gold in California drew some 300,000 people, remaking the American West while Native Californians were displaced and killed. Rushes in Australia and South Africa followed."
+    },
+    {
+      "id": "bessemer_steel",
+      "name": "Bessemer steel",
+      "yearsAgo": 168,
+      "category": "metal_ores",
+      "tier": 1,
+      "blurb": "Blowing air through molten pig iron made steel cheap and fast. Steel rails, ships, bridges and skyscrapers followed, and demand for iron ore and coal soared."
+    },
+    {
+      "id": "drake_well",
+      "name": "Oil drilling begins",
+      "yearsAgo": 165,
+      "category": "fossil_fuels",
+      "tier": 1,
+      "blurb": "Edwin Drake drilled one of the first commercial oil wells in Pennsylvania. Kerosene first replaced whale oil in lamps; within decades petroleum fueled cars, ships and wars."
+    },
+    {
+      "id": "hall_heroult",
+      "name": "Electric aluminium",
+      "yearsAgo": 138,
+      "category": "metal_ores",
+      "tier": 2,
+      "blurb": "Hall and Heroult independently learned to split aluminium from its ore with electricity. A metal once pricier than silver became cheap enough for planes, cans and power lines."
+    },
+    {
+      "id": "open_pit_copper",
+      "name": "Open-pit mining",
+      "yearsAgo": 118,
+      "category": "metal_ores",
+      "tier": 3,
+      "blurb": "Bingham Canyon in Utah began mass-mining copper ore of about 2 percent metal with steam shovels. Leaner ore means bigger holes: open pits now move billions of tonnes of rock."
+    },
+    {
+      "id": "british_peak_coal",
+      "name": "Britain's peak coal",
+      "yearsAgo": 111,
+      "category": "fossil_fuels",
+      "tier": 3,
+      "blurb": "British coal output peaked near 290 million tonnes, dug by over a million miners. Britain's coal age then faded, but world coal output kept growing to a record in 2023."
+    },
+    {
+      "id": "manhattan_uranium",
+      "name": "Uranium for the bomb",
+      "yearsAgo": 82,
+      "category": "metal_ores",
+      "tier": 2,
+      "blurb": "The Manhattan Project gathered uranium from Congo, Canada and Colorado to build the atomic bomb. Uranium mining became a strategic industry, and later fuel for nuclear power."
+    },
+    {
+      "id": "great_acceleration",
+      "name": "The Great Acceleration",
+      "yearsAgo": 74,
+      "category": "non_metallic_minerals",
+      "tier": 1,
+      "blurb": "After 1950, cars, highways, cities and cheap oil multiplied extraction. Humans now dig more sand, gravel and rock each year than all the world's rivers carry to the sea."
+    },
+    {
+      "id": "china_concrete",
+      "name": "China's concrete boom",
+      "yearsAgo": 12,
+      "category": "non_metallic_minerals",
+      "tier": 2,
+      "blurb": "China used more cement in 2011-2013 than the US did in the whole 20th century. By about 2020, everything humans have built outweighed all living things on Earth."
+    },
+    {
+      "id": "lithium_boom",
+      "name": "Lithium boom",
+      "yearsAgo": 8,
+      "category": "metal_ores",
+      "tier": 2,
+      "blurb": "Electric cars and grid batteries sent lithium demand soaring. Output from Australian rock and South American salt flats rose more than fivefold between 2015 and 2023."
+    }
+  ],
+  "sources": "Totals 1970-2023: UN IRP Global Material Flows Database and Global Resources Outlook 2019 and 2024. Totals 1900-1970: Krausmann et al. 2009 (Ecological Economics 68:2696) and Krausmann et al. 2018 (Global Environmental Change 52:131). Fossil fuels: Energy Institute Statistical Review of World Energy 2024; Etemad and Luciani, World Energy Production 1800-1985; Smil, Energy Transitions and Energy and Civilization. Metals, cement, phosphate, potash, bauxite, lithium: USGS Historical Statistics for Mineral and Material Commodities (DS 140) and Mineral Commodity Summaries 2024. Ancient metals: Hong et al. 1994 (Science 265:1841, lead) and 1996 (Science 272:246, copper) from Greenland ice; McConnell et al. 2018 (PNAS 115:5726, Roman lead and the Antonine Plague); Patterson 1972 on ancient silver. Pre-1800 coal: Hatcher, History of the British Coal Industry; Hartwell 1962/1967 on Song iron and coal. Uranium: World Nuclear Association and OECD/IAEA Red Book. Sand and gravel: UNEP 2019, Sand and Sustainability. Built mass vs biomass: Elhacham et al. 2020 (Nature 588:442). China cement: Smil, Making the Modern World.",
+  "notes": "All values are global extraction in megatonnes per year at calendar years (BCE negative); yearsAgo and firstYearsAgo count back from 2024. The three category series follow economy-wide material flow accounting: fossil_fuels = coal, oil, natural gas and peat; metal_ores = gross run-of-mine ore (so they far exceed the metal content shown in the material series); non_metallic_minerals = sand, gravel, crushed rock, limestone, clay, salt, gypsum and fertilizer minerals. 1970-2023 is close to the IRP database (revised 2024 values); 1900-1970 follows Krausmann and commodity statistics; 1700-1900 is reconstructed from national coal, iron and metal output and is rough (within perhaps a factor of 1.5-2). Everything before 1700 is an order-of-magnitude reconstruction: metals are scaled to the Greenland ice-core lead and copper pollution records and to estimates of Roman, Song and early modern output; non-metallic minerals are population (HYDE) times a guessed per-person use of stone, clay and lime; fossil fuels before 1700 are tiny amounts of bitumen, Chinese and English coal and (in the 1600s) Dutch peat. Intentional dips: the Roman metal peak (around 1 CE) and its post-Roman decline, the 1920 postwar slump and the 2020 pandemic; world coal output also plateaued after 2013 before new records in 2022-2023. Each material carries an extra 'unit' field because its series is in its commonly reported unit (metal content for most metals, gross ore for iron ore and bauxite, K2O for potash, cement plus lime for limestone), so materials do not sum to the category totals. Iron ore is usable ore as reported by USGS; up to 2000 China's output is counted as crude ore as USGS then reported it (inflating world totals by roughly 10 percent), while 2010 and 2023 use China's usable-ore equivalent, so the 2000-2010 jump reflects China's steel boom. Natural gas is converted at about 0.73 Mt per billion cubic meters. Uranium before 1990 includes rough estimates for the Soviet bloc."
+}

@@ -55,7 +55,7 @@ namespace Why
                 // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face
                 return new CameraPose
                 {
-                    Target = new Vector3(1.6f, TargetY, -1.4f),
+                    Target = new Vector3(1.6f, TargetY, -2.4f),
                     Yaw = 0 + YawOffset,
                     Pitch = Pitch,
                     Distance = Distance
@@ -105,7 +105,7 @@ namespace Why
                 new ViewPreset
                 {
                     Id = "overview", Title = "Everything", Subtitle = "From the Big Bang to this moment",
-                    Key = KeyCode.Alpha1, Polar = true, Pitch = 64, Distance = 21f, TargetY = GraphStyle.LifeY
+                    Key = KeyCode.Alpha1, Polar = true, Pitch = 62, Distance = 22f, TargetY = GraphStyle.LifeY
                 },
                 new ViewPreset
                 {
@@ -159,7 +159,7 @@ namespace Why
                 {
                     // the human branch time mapping (near linear), as a lens so the rest of the clock straightens away
                     Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 3000 BCE to now",
-                    Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 3000, Length = 13,
+                    Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 400, Length = 13,
                     TargetRho = 1.3f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 11
                 },
                 new ViewPreset

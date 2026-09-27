@@ -26,6 +26,7 @@ namespace Why.Life
         public const string TreePath = "TimetreeOfLife2009";
         public const string TraitsPath = "Data/life_traits";
         public const string CladesPath = "Data/life_clades";
+        public const string DomesticationPath = "Data/domestication";
 
         /// <summary>Radial extent of the fully grown root system (world units at rhoScale 1).</summary>
         public const float TotalWidth = 3.6f;
@@ -41,7 +42,7 @@ namespace Why.Life
         const double SapiensYearsAgo = 300_000;
 
         public override int Order => 10;
-        public override IEnumerable<string> RequiredTexts => new[] { TreePath, TraitsPath, CladesPath };
+        public override IEnumerable<string> RequiredTexts => new[] { TreePath, TraitsPath, CladesPath, DomesticationPath };
 
         public PhyloTree Tree { get; private set; }
         public int LineagePathLength { get; private set; }
@@ -100,6 +101,7 @@ namespace Why.Life
 
             Dictionary<string, Trait> traits = ParseOr(ctx.Text(TraitsPath), new Dictionary<string, Trait>());
             CladeFile cladeFile = ParseOr(ctx.Text(CladesPath), new CladeFile());
+            Dictionary<string, double> domesticated = DomesticatedFamilies(ctx.Text(DomesticationPath));
 
             // --- ordering: our lineage first, then by food-chain position (top predators inside) ---
             int us = tree.FindLeaf(Us);
@@ -244,6 +246,11 @@ namespace Why.Life
                     if (tree.IsLeaf(x)) break;
                 }
 
+                // families people domesticated stay lit until that moment, then rise into the farm layer
+                float uDomesticated = domesticated.TryGetValue(tree.Label[chain[chain.Count - 1]] ?? "", out double domYa)
+                    ? DeepTime.Arc(domYa)
+                    : -1f;
+
                 pts.Clear();
                 ids.Clear();
                 int ci = 0;
@@ -259,7 +266,9 @@ namespace Why.Life
                     // relevance: the farther from our lineage, the fainter - fading out to transparent black
                     float relevance = Mathf.Exp(-Mathf.Pow(rho / OuterFade, 2.2f));
                     float handoff = GraphStyle.HandoffFade(u);
-                    float fade = ours ? OurFade(u, uSapiens, uHandoff) : handoff * handoff * handoff;
+                    float fade = ours ? OurFade(u, uSapiens, uHandoff)
+                        : uDomesticated > 0 ? DomesticatedFade(u, uDomesticated, handoff)
+                        : handoff * handoff * handoff;
                     float alpha = (ours ? 1f : 0.46f * relevance) * fade;
                     float intensity = ours ? 2.2f : 0.35f + 0.55f * relevance;
                     float widthWorld = 0.0006f * Mathf.Log(1 + leaves[node], 2) + (ours ? 0.004f : 0f);
@@ -315,6 +324,38 @@ namespace Why.Life
 
         /// <summary>Radial position of a node's lineage at an arc.</summary>
         public float NodeRho(int node, float u) => RhoAt(nodeLineage[node], Mathf.Clamp(u, gridBottom, gridTop));
+
+        /// <summary>Fully lit until domestication, then gone within a short arc (the thread rises into the farm layer).</summary>
+        static float DomesticatedFade(float u, float uDomesticated, float handoff)
+        {
+            float t = Mathf.Clamp01((u - (uDomesticated - 0.004f)) / 0.004f);
+            return Mathf.Max(handoff * handoff * handoff, 0.9f * t * t * (3 - 2 * t));
+        }
+
+        /// <summary>Wild families that were domesticated (leaf label -> earliest domestication, years ago).</summary>
+        static Dictionary<string, double> DomesticatedFamilies(string json)
+        {
+            Dictionary<string, double> map = new Dictionary<string, double>();
+            if (string.IsNullOrEmpty(json)) return map;
+            try
+            {
+                Newtonsoft.Json.Linq.JToken list = Newtonsoft.Json.Linq.JObject.Parse(json)["domestications"];
+                if (list == null) return map;
+                foreach (Newtonsoft.Json.Linq.JToken d in list)
+                {
+                    string family = (string)d["wildFamily"];
+                    double ya = (double?)d["yearsAgo"] ?? 0;
+                    if (string.IsNullOrEmpty(family) || ya <= 0) continue;
+                    map[family] = map.TryGetValue(family, out double prev) ? Math.Max(prev, ya) : ya;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[Why] could not read domestications: {e.Message}");
+            }
+
+            return map;
+        }
 
         /// <summary>Our lineage stays lit until Homo sapiens rises into the human layer, then hands over.</summary>
         static float OurFade(float u, float uSapiens, float uHandoff)

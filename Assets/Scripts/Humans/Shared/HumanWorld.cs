@@ -306,7 +306,7 @@ namespace Why.Humans
         // ---------------------------------------------------------------- geometry
 
         /// <summary>Width of the human layer today (world units at rhoScale 1).</summary>
-        public const float WidthNow = 7f;
+        public const float WidthNow = 5f;
 
         /// <summary>Exponent of the width/population relation (1 = proportional).</summary>
         public const double WidthExponent = 0.8;

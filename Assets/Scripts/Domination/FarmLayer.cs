@@ -25,7 +25,7 @@ namespace Why.Domination
 
         /// <summary>Cropland today (Mha) and the width it maps to.</summary>
         const double CroplandMhaNow = 1600;
-        const float CroplandWidthNow = 3.5f;
+        const float CroplandWidthNow = 2.2f;
 
         static readonly (string key, string name)[] Livestock =
         {

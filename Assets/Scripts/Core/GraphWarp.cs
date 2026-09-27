@@ -198,10 +198,10 @@ namespace Why
             public const float HandoffAngle = 1.5f * Mathf.PI;
 
             /// <summary>Length of the straight human branch (world units).</summary>
-            public const float BranchLength = 6f;
+            public const float BranchLength = 8f;
 
-            /// <summary>Log offset of the branch's time axis (large = linear; this is mostly linear).</summary>
-            public const double BranchLogOffset = 3000;
+            /// <summary>Log offset of the branch time axis: log-linear, so the explosion of the last centuries has room.</summary>
+            public const double BranchLogOffset = 400;
 
             /// <summary>Clock arc of the handoff (3 o'clock).</summary>
             public static readonly float HandoffArc = DeepTime.Arc(HandoffYearsAgo);

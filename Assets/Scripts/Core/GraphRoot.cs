@@ -133,8 +133,9 @@ namespace Why
             LoadProgress = 0.1f;
             yield return null;
 
-            // 2. prepare every layer concurrently on worker threads, in Order groups
-            foreach (IGrouping<int, GraphLayer> group in layers.GroupBy(l => l.Order).OrderBy(g => g.Key))
+            // 2. prepare layers concurrently on worker threads in dependency tiers: everything below Order 30
+            // (axis, matter, life, the human world model) is independent; above that, each ten is a tier
+            foreach (IGrouping<int, GraphLayer> group in layers.GroupBy(l => l.Order < 30 ? 0 : l.Order / 10).OrderBy(g => g.Key))
             {
                 LoadStatus = "Building " + string.Join(", ", group.Select(l => l.GetType().Name));
                 List<(GraphLayer layer, Task task)> tasks = group

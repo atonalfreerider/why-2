@@ -112,6 +112,8 @@ namespace Why.Director
             layer.gameObject.AddComponent<Canvas>();
             RectTransform arrowRect = UiFactory.Rect(layer, "Arrow").Fill();
             arrowRect.pivot = Vector2.zero; // local coordinates = canvas units from the bottom-left corner
+            // custom graphics do not get a CanvasRenderer automatically: without one nothing is drawn
+            arrowRect.gameObject.AddComponent<CanvasRenderer>();
             arrow = arrowRect.gameObject.AddComponent<AttentionArrow>();
             arrow.raycastTarget = false;
 

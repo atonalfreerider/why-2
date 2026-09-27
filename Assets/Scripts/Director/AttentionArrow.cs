@@ -13,6 +13,7 @@ namespace Why.Director
     /// Coordinates are canvas units relative to this graphic's rect, whose pivot is its bottom-left corner.
     /// The mesh is rebuilt every frame while visible, so the arrow lives on its own sub-canvas.
     /// </summary>
+    [RequireComponent(typeof(CanvasRenderer))]
     public sealed class AttentionArrow : MaskableGraphic
     {
         public const float RingRadius = 15f;

@@ -51,6 +51,19 @@ namespace Why.Matter
         /// <summary>The same moments as clock arcs.</summary>
         public float UStart, UFull, UDecay, UEnd;
 
+        /// <summary>
+        /// Arc where the band's group branches off: the start of its outermost ancestor that formed together
+        /// with it (the solar nebula for the Sun, planets, Earth and Moon). The group opens gradually from here,
+        /// over <see cref="BranchLength"/> of arc.
+        /// </summary>
+        public float UBranch, BranchLength = MatterLayout.BranchArc;
+
+        /// <summary>
+        /// Mean density (kg/m^3) of the band's own region: its matter minus what formed out of it, over its
+        /// volume minus theirs (the space between the stars for the Milky Way). 0 when the data has no size.
+        /// </summary>
+        public double OwnDensity;
+
         // style (alpha and HDR intensity only: the hue is always the matter red)
         public float FillAlpha, FillIntensity, Noise;
         public float LineAlpha, LineIntensity, LineWidthPx;
@@ -83,6 +96,13 @@ namespace Why.Matter
             if (u <= UEnd) return 0;
             return rise * (1 - Smooth((UDecay - u) / Mathf.Max(UDecay - UEnd, 1e-9f)));
         }
+
+        /// <summary>
+        /// Opening of the band's group at arc u (0..1 over <see cref="BranchLength"/> after <see cref="UBranch"/>):
+        /// at the scale of the expanded universe a group that forms within a few million years would otherwise
+        /// open as a radial wall; this way it splits off like a root.
+        /// </summary>
+        public float Branch(float u) => Smooth((UBranch - u) / BranchLength);
 
         static float Smooth(float t)
         {
@@ -120,20 +140,45 @@ namespace Why.Matter
         /// <summary>...and at most this fraction of the item's lifetime.</summary>
         const double TransitionLifeFraction = 0.4;
 
+        /// <summary>
+        /// Bands that form within this arc of their parent belong to its group. A group straight out of the
+        /// universe opens over this arc: the flare of the young universe (see <see cref="MatterBand.Branch"/>).
+        /// </summary>
+        public const float BranchArc = 0.1f;
+
+        /// <summary>
+        /// A group that forms inside an older body (the solar system inside the Milky Way) opens over this much
+        /// longer arc (4.6 billion to about 20 million years ago), so it splits off like a root at a gentle angle
+        /// instead of pushing a wall through the expanded universe.
+        /// </summary>
+        public const float NestedBranchArc = 0.25f;
+
+        /// <summary>Every region keeps at least this fraction of its nominal width for itself.</summary>
+        public const float MinOwnFraction = 0.4f;
+
         /// <summary>A child of the root holding at least this fraction of all matter fills the envelope.</summary>
         const double EnvelopeMassFraction = 0.5;
 
-        // --- envelope E(tau), tau = arc since the Big Bang: a fast initial burst, then exponential growth ---
+        // --- envelope E(u): a fast initial burst, then the real expansion of space (the cosmic scale factor),
+        // which does most of its growth in the first few billion years (6 to 12 o'clock), and a tail that
+        // keeps the fan opening toward the present ---
         /// <summary>Width the envelope reaches in the initial burst.</summary>
         public const float BurstWidth = 0.9f;
 
         /// <summary>Arc over which the initial burst happens.</summary>
         public const float BurstTau = 0.02f;
 
-        /// <summary>E grows by GrowthScale * (exp(GrowthRate * tau) - 1): a logarithmic spiral.</summary>
-        public const float GrowthScale = 0.6f;
+        /// <summary>Envelope width today from the expansion of space alone (scale factor a = 1).</summary>
+        public const float CosmicWidth = 24f;
 
-        /// <summary>Exponential growth rate of the envelope per unit of arc since the Big Bang.</summary>
+        // flat Lambda-CDM (Planck 2018): dark-energy fraction and Hubble time 1/H0 in years (the matter
+        // fraction only sets a constant prefactor, which the normalization to a = 1 today cancels)
+        const double OmegaL = 0.69, HubbleTimeYears = 14.4e9;
+
+        /// <summary>The tail grows by GrowthScale * (exp(GrowthRate * tau) - 1), tau = arc since the Big Bang.</summary>
+        public const float GrowthScale = 0.25f;
+
+        /// <summary>Exponential growth rate of the tail per unit of arc since the Big Bang.</summary>
         public const float GrowthRate = 6.4f;
 
         /// <summary>The stacked bands may use at most this fraction of the envelope (early universe).</summary>
@@ -385,6 +430,7 @@ namespace Why.Matter
                 MatterItem pathNext = Path.Count > 1 ? Path[1] : null;
                 band.Width = band.IsRootHome ? (pathNext != null ? WidthOf(pathNext) : 4 * MinWidth) : WidthOf(band.Item);
                 band.IsHomeNow = !band.IsRootHome && band.Item == homeNow && homeNow.EndYa <= 0;
+                band.OwnDensity = band.IsRootHome ? 0 : OwnDensityOf(band);
                 Style(band);
             }
 
@@ -453,19 +499,21 @@ namespace Why.Matter
                 band.FillAlpha = 0.36f;
                 band.FillIntensity = 1.3f;
                 band.Noise = 0.35f;
-                band.LineAlpha = 0.5f;
-                band.LineIntensity = 1.2f;
-                band.LineWidthPx = 1.1f;
+                band.LineAlpha = 0.3f;
+                band.LineIntensity = 1f;
+                band.LineWidthPx = 1f;
                 band.HandoffExponent = 2f;
             }
             else if (band.InPath)
             {
-                band.FillAlpha = Mathf.Min(0.45f, 0.2f + 0.05f * band.PathDepth);
-                band.FillIntensity = 1.25f;
+                // calm fills (the density factor below sets the contrast); the contour lines carry the glow
+                band.FillAlpha = band.IsHomeNow ? 0.34f : Mathf.Min(0.28f, 0.14f + 0.03f * band.PathDepth);
+                band.FillIntensity = 1f;
                 band.Noise = Mathf.Clamp01(diffuse);
-                band.LineAlpha = 0.85f;
-                band.LineIntensity = 1.5f;
-                band.LineWidthPx = 1.4f;
+                // the density profile shows the regions; the contours stay as fine, quiet strands
+                band.LineAlpha = 0.45f;
+                band.LineIntensity = 0.9f;
+                band.LineWidthPx = 1.1f;
                 // our home (Earth) stays lit up to the handoff, the rest of our lineage a little less long
                 band.HandoffExponent = band.IsHomeNow ? 0f : 1f;
             }
@@ -474,11 +522,112 @@ namespace Why.Matter
                 band.FillAlpha = 0.15f;
                 band.FillIntensity = 0.9f;
                 band.Noise = Mathf.Clamp01(diffuse);
-                band.LineAlpha = 0.42f;
-                band.LineIntensity = 1f;
+                band.LineAlpha = 0.22f;
+                band.LineIntensity = 0.8f;
                 band.LineWidthPx = 1f;
                 band.HandoffExponent = 2f;
             }
+
+            // brightness follows the real density of the band's own region, so the gaps show: Earth and the
+            // Sun glow, the space between the stars is faint and the space between the galaxies nearly dark,
+            // while the contour lines keep every region readable
+            if (!band.IsRootHome)
+            {
+                float density = DensityFactor(band.OwnDensity);
+                band.FillAlpha *= density;
+                band.LineAlpha *= Mathf.Lerp(0.45f, 1f, density);
+            }
+        }
+
+        /// <summary>Mass of a hydrogen atom (kg): densities are quoted as atoms per cubic metre.</summary>
+        const double HydrogenKg = 1.6735e-27;
+
+        // brightness from density: log10(kg/m^3) mapped from the cosmic mean (-28) to rock (+4)
+        const double DensityDexLow = -28, DensityDexHigh = 4;
+        const float DensityFloor = 0.06f, DensityGamma = 0.85f;
+
+        static double VolumeOf(MatterItem item)
+        {
+            double r = item.SizeM * 0.5;
+            return 4.0 / 3.0 * Math.PI * r * r * r;
+        }
+
+        double OwnDensityOf(MatterBand band)
+        {
+            MatterItem item = band.Item;
+            if (item.SizeM <= 0 || item.MassKg <= 0) return 0;
+            double mass = item.MassKg, volume = VolumeOf(item);
+            // a body that ends hands its matter to what forms out of it (the solar nebula): its own mean density
+            if (item.EndYa > 0) return mass / volume;
+            double ownMass = mass, ownVolume = volume;
+            foreach (int c in band.Children)
+            {
+                MatterItem child = Bands[c].Item;
+                if (child.MassKg <= 0 || child.SizeM <= 0) continue;
+                ownMass -= child.MassKg;
+                ownVolume -= VolumeOf(child);
+            }
+
+            // children that hold nearly everything (or overlap) fall back to the whole body's mean density
+            if (ownMass < 0.01 * mass || ownVolume < 0.01 * volume) return mass / volume;
+            return ownMass / ownVolume;
+        }
+
+        /// <summary>
+        /// Brightness factor (<see cref="DensityFloor"/> .. 1) from a density in kg/m^3: about 1 for Earth and the
+        /// Sun (10^3), 0.3 for the space between the stars (10^-22), under 0.1 between the galaxies (10^-28).
+        /// </summary>
+        public static float DensityFactor(double kgPerM3)
+        {
+            if (kgPerM3 <= 0) return 1f;
+            float t = Mathf.Clamp01((float)((Math.Log10(kgPerM3) - DensityDexLow) / (DensityDexHigh - DensityDexLow)));
+            return DensityFloor + (1 - DensityFloor) * Mathf.Pow(t, DensityGamma);
+        }
+
+        /// <summary>
+        /// A density as atoms (hydrogen masses) per cubic metre: "3x10^30" for Earth, "~0.3" for the space between
+        /// galaxies. <paramref name="rich"/> gives TextMeshPro rich text for labels ("10&lt;sup&gt;30&lt;/sup&gt;
+        /// atoms/m&lt;sup&gt;3&lt;/sup&gt;"), otherwise plain text for tooltips. Null when unknown.
+        /// </summary>
+        public static string DensityText(double kgPerM3, bool rich)
+        {
+            if (kgPerM3 <= 0) return null;
+            double n = kgPerM3 / HydrogenKg;
+            System.Globalization.CultureInfo inv = System.Globalization.CultureInfo.InvariantCulture;
+            string value;
+            if (n >= 0.095 && n < 9.5)
+            {
+                value = "~" + n.ToString(n < 1 ? "0.0" : "0", inv);
+            }
+            else
+            {
+                // one significant figure: 3x10^30 (Earth), 8x10^29 (the Sun)
+                int exponent = (int)Math.Floor(Math.Log10(n));
+                int mantissa = (int)Math.Round(n / Math.Pow(10, exponent));
+                if (mantissa >= 10)
+                {
+                    mantissa = 1;
+                    exponent++;
+                }
+
+                string power = rich ? "10<sup>" + exponent.ToString(inv) + "</sup>" : "10^" + exponent.ToString(inv);
+                value = mantissa == 1 ? power : mantissa.ToString(inv) + "\u00d7" + power;
+            }
+
+            return value + (rich ? " atoms/m<sup>3</sup>" : " atoms per cubic metre");
+        }
+
+        /// <summary>
+        /// Unbound structures (superclusters, the universe) thin out as space expands: their brightness falls
+        /// with the growth of the envelope since they formed. Bound bodies keep their density.
+        /// </summary>
+        public float ExpansionDim(MatterBand band, float u)
+        {
+            if (band.IsRootHome || band.Item.Bound) return 1f;
+            float formed = Envelope(Mathf.Min(band.UFull, BigBangArc - BurstTau));
+            float now = Envelope(u);
+            if (now <= formed || formed <= 1e-5f) return 1f;
+            return Mathf.Clamp(Mathf.Pow(formed / now, 0.3f), 0.2f, 1f);
         }
 
         /// <summary>
@@ -546,6 +695,22 @@ namespace Why.Matter
                 band.UEnd = band.EndYa > 0 ? DeepTime.Arc(band.EndYa) : 0;
             }
 
+            // a group branches off where its outermost member starts: walk up while the parent formed
+            // within BranchArc (the root's direct children open with the universe itself)
+            foreach (MatterBand band in Bands)
+            {
+                MatterBand top = band;
+                while (top.Parent >= 0 && !Bands[top.Parent].IsRootHome &&
+                       Bands[top.Parent].UStart - top.UStart < BranchArc)
+                {
+                    top = Bands[top.Parent];
+                }
+
+                band.UBranch = band.IsRootHome ? band.UStart : top.UStart;
+                bool nested = top.Parent >= 0 && !Bands[top.Parent].IsRootHome;
+                band.BranchLength = nested ? NestedBranchArc : BranchArc;
+            }
+
             EnvelopeItemArc = EnvelopeItem != null ? DeepTime.Arc(EnvelopeItem.StartYa) : 0;
         }
 
@@ -555,15 +720,30 @@ namespace Why.Matter
             Math.Max(0, Math.Min(TransitionLifeFraction * life, TransitionAgeFraction * atYa));
 
         /// <summary>
-        /// Outer edge of the red layer at arc u: a fast initial burst, then exponential growth with the arc
-        /// since the Big Bang (a logarithmic spiral around the clock).
+        /// Outer edge of the red layer at arc u: a fast initial burst, then the expansion of space itself
+        /// (<see cref="ScaleFactor"/>), plus a tail that keeps growing with the arc since the Big Bang.
         /// </summary>
         public float Envelope(float u)
         {
             float tau = BigBangArc - u;
             if (tau <= 0) return 0;
-            return BurstWidth * (1 - Mathf.Exp(-tau / BurstTau)) + GrowthScale * (Mathf.Exp(GrowthRate * tau) - 1);
+            return BurstWidth * (1 - Mathf.Exp(-tau / BurstTau)) + CosmicWidth * ScaleFactor(u) +
+                   GrowthScale * (Mathf.Exp(GrowthRate * tau) - 1);
         }
+
+        /// <summary>
+        /// Cosmic scale factor at arc u (1 today), for a flat Lambda-CDM universe:
+        /// a(t) proportional to sinh^(2/3)(1.5 sqrt(OL) t / tH), normalized to 1 at the age of the universe in the data.
+        /// </summary>
+        public float ScaleFactor(float u)
+        {
+            double t = BigBangYa - DeepTime.YearsAgo(u);
+            if (t <= 0) return 0;
+            return (float)(RawScaleFactor(t) / RawScaleFactor(BigBangYa));
+        }
+
+        static double RawScaleFactor(double t) =>
+            Math.Pow(Math.Sinh(1.5 * Math.Sqrt(OmegaL) * t / HubbleTimeYears), 2.0 / 3.0);
 
         /// <summary>
         /// Radial layout at arc u: inner / outer edge of every band's own part (index = stack order), the
@@ -599,7 +779,10 @@ namespace Why.Matter
                 MatterBand band = Bands[i];
                 float sum = 0;
                 foreach (int c in band.Children) sum += footprint[c];
-                footprint[i] = Mathf.Max(band.Width * band.Ramp(u), sum);
+                // a region is as wide as its own matter or what formed out of it, and always keeps some room
+                // of its own (the Local Group is barely heavier than the Milky Way, but must stay visible)
+                float width = band.Width * band.Ramp(u) * band.Branch(u);
+                footprint[i] = Mathf.Max(width, sum + MinOwnFraction * width);
                 own[i] = footprint[i] - sum;
             }
 
@@ -614,15 +797,16 @@ namespace Why.Matter
         }
 
         /// <summary>
-        /// Scale applied to the whole stack: the bands grow with the young universe (at most
-        /// <see cref="CapFraction"/> of the envelope) until they reach their nominal widths. It depends only
-        /// on the expansion, so a forming band pushes the bands outside it outward instead of squeezing them.
+        /// Scale applied to the whole stack: the bodies take <see cref="CapFraction"/> of the envelope and grow
+        /// with it. It depends only on the expansion, so a forming band pushes the bands outside it outward
+        /// instead of squeezing them.
         /// </summary>
         public float StackScale(float u)
         {
+            // the nested bodies grow with the expanding universe for its whole history, so everything from
+            // Earth to Laniakea fans out together as a set of diverging contours
             if (nominalStackMax <= 1e-9f) return 1;
-            float x = CapFraction * Envelope(u) / nominalStackMax;
-            return x > 100 ? 1 : x / Mathf.Pow(1 + x * x * x * x, 0.25f); // smooth min(1, x)
+            return CapFraction * Envelope(u) / nominalStackMax;
         }
 
         /// <summary>

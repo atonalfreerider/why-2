@@ -7,11 +7,14 @@
       "startYa": 13787000000,
       "endYa": 0,
       "massKg": 1.5e53,
-      "rank": 9,
+      "rank": 11,
       "parent": null,
       "inPath": true,
       "blurb": "All the ordinary matter we can see: the hydrogen, helium and heavier atoms of hundreds of billions of galaxies. Gravity gathered it into stars and galaxies even as expanding space thinned and cooled it.",
-      "source": "Wikipedia: Observable universe (ordinary matter ~1.5e53 kg; mass is the total, of which the other bands are subsets). Dark matter (~5x more mass) is not counted here."
+      "source": "Wikipedia: Observable universe (ordinary matter ~1.5e53 kg; mass is the total, of which the other bands are subsets). Dark matter (~5x more mass) is not counted here.",
+      "sizeM": 8.8e26,
+      "bound": false,
+      "icon": "universe"
     },
     {
       "id": "intergalactic_gas",
@@ -19,11 +22,14 @@
       "startYa": 13637000000,
       "endYa": 0,
       "massKg": 1.2e53,
-      "rank": 8,
+      "rank": 10,
       "parent": "universe",
       "inPath": false,
       "blurb": "Most ordinary matter never ended up inside galaxies. It lies in thin, hot filaments of gas between them - the cosmic web - which still streams into galaxies like ours and fuels new stars.",
-      "source": "Wikipedia: Warm-hot intergalactic medium; Macquart et al. 2020 (missing baryons). Roughly 80% of baryons; becomes distinct as the first galaxies condense out of it."
+      "source": "Wikipedia: Warm-hot intergalactic medium; Macquart et al. 2020 (missing baryons). Roughly 80% of baryons; becomes distinct as the first galaxies condense out of it.",
+      "sizeM": 8.8e26,
+      "bound": false,
+      "icon": "cosmic_web"
     },
     {
       "id": "first_stars",
@@ -31,23 +37,29 @@
       "startYa": 13687000000,
       "endYa": 12800000000,
       "massKg": 3e47,
-      "rank": 7,
+      "rank": 9,
       "parent": "universe",
       "inPath": false,
       "blurb": "The first generation of stars, made only of hydrogen and helium. Most were short-lived giants that exploded within a few million years, scattering the first carbon, oxygen and iron into the gas that built galaxies.",
-      "source": "Wikipedia: Stellar population (Population III). None directly observed; formation assumed to fade by ~1 Gyr after the Big Bang. Mass is an order-of-magnitude guess (range ~1e46-1e48 kg)."
+      "source": "Wikipedia: Stellar population (Population III). None directly observed; formation assumed to fade by ~1 Gyr after the Big Bang. Mass is an order-of-magnitude guess (range ~1e46-1e48 kg).",
+      "sizeM": 1e22,
+      "bound": true,
+      "icon": "first_stars"
     },
     {
       "id": "local_group",
       "name": "Local Group (other galaxies)",
-      "startYa": 13500000000,
+      "startYa": 13620000000,
       "endYa": 0,
       "massKg": 2.6e41,
       "rank": 6,
-      "parent": "universe",
-      "inPath": false,
+      "parent": "virgo_supercluster",
+      "inPath": true,
       "blurb": "Andromeda, Triangulum, the Magellanic Clouds and dozens of dwarf galaxies, bound together with the Milky Way by gravity. Andromeda is approaching and may merge with our galaxy in the next several billion years.",
-      "source": "Wikipedia: Local Group; Andromeda Galaxy. Baryonic (stars + gas) estimate ~1.3e11 solar masses, dominated by Andromeda; oldest member stars are ~13+ Gyr old."
+      "source": "Wikipedia: Local Group; Andromeda Galaxy. Baryonic (stars + gas) estimate ~1.3e11 solar masses, dominated by Andromeda; oldest member stars are ~13+ Gyr old.",
+      "sizeM": 9.5e22,
+      "bound": true,
+      "icon": "galaxy_group"
     },
     {
       "id": "milky_way",
@@ -56,10 +68,13 @@
       "endYa": 0,
       "massKg": 1.4e41,
       "rank": 5,
-      "parent": "universe",
+      "parent": "local_group",
       "inPath": true,
       "blurb": "Our galaxy: a barred spiral of 100-400 billion stars. Generations of stars were born and died here, each enriching the gas with the carbon, oxygen and iron that later formed the Sun, Earth and us.",
-      "source": "Wikipedia: Milky Way (age ~13.6 Gyr from its oldest stars); Licquia & Newman 2015 (stellar mass ~6e10 solar masses) plus ~1e10 solar masses of gas. Excludes dark matter halo (~1e12 solar masses)."
+      "source": "Wikipedia: Milky Way (age ~13.6 Gyr from its oldest stars); Licquia & Newman 2015 (stellar mass ~6e10 solar masses) plus ~1e10 solar masses of gas. Excludes dark matter halo (~1e12 solar masses).",
+      "sizeM": 9.5e20,
+      "bound": true,
+      "icon": "galaxy"
     },
     {
       "id": "solar_nebula",
@@ -71,7 +86,10 @@
       "parent": "milky_way",
       "inPath": true,
       "blurb": "A slowly spinning cloud of gas and dust that collapsed under its own gravity. Most of it fell inward to make the Sun; the rest flattened into a disk where the planets grew.",
-      "source": "Wikipedia: Formation and evolution of the Solar System. About one solar mass plus a disk of ~0.01-0.1 solar masses; consumed or dispersed within a few million years."
+      "source": "Wikipedia: Formation and evolution of the Solar System. About one solar mass plus a disk of ~0.01-0.1 solar masses; consumed or dispersed within a few million years.",
+      "sizeM": 300000000000000.0,
+      "bound": true,
+      "icon": "nebula"
     },
     {
       "id": "sun",
@@ -83,7 +101,10 @@
       "parent": "solar_nebula",
       "inPath": true,
       "blurb": "Our star holds 99.86% of the solar system's mass. Its steady hydrogen fusion has bathed Earth in light and warmth for over 4.5 billion years - the energy source for nearly all life.",
-      "source": "Wikipedia: Sun (mass 1.989e30 kg). Protosun forms ~4.57 Ga; steady main-sequence hydrogen fusion reached within ~50 Myr."
+      "source": "Wikipedia: Sun (mass 1.989e30 kg). Protosun forms ~4.57 Ga; steady main-sequence hydrogen fusion reached within ~50 Myr.",
+      "sizeM": 1392700000.0,
+      "bound": true,
+      "icon": "sun"
     },
     {
       "id": "other_planets",
@@ -95,7 +116,10 @@
       "parent": "solar_nebula",
       "inPath": false,
       "blurb": "Jupiter, Saturn, the other planets, asteroids and comets. Jupiter's gravity shaped the inner solar system, steering asteroids and comets that may have delivered some of Earth's water.",
-      "source": "NASA Planetary Fact Sheet (sum of planet masses except Earth ~2.66e27 kg; asteroids and comets add little). Start = oldest meteorite solids, 4.568 Ga (Connelly et al. 2012)."
+      "source": "NASA Planetary Fact Sheet (sum of planet masses except Earth ~2.66e27 kg; asteroids and comets add little). Start = oldest meteorite solids, 4.568 Ga (Connelly et al. 2012).",
+      "sizeM": 9000000000000.0,
+      "bound": true,
+      "icon": "planets"
     },
     {
       "id": "earth",
@@ -107,7 +131,10 @@
       "parent": "sun",
       "inPath": true,
       "blurb": "Our home planet: a rocky world at the right distance from the Sun for liquid water. Its oceans, atmosphere, moving plates and magnetic field set the stage for life - the green layer.",
-      "source": "Wikipedia: Earth; Age of Earth (4.54 +/- 0.05 Ga). Parent is the Sun's band to keep our path continuous; physically Earth accreted from the disk left orbiting the young Sun."
+      "source": "Wikipedia: Earth; Age of Earth (4.54 +/- 0.05 Ga). Parent is the Sun's band to keep our path continuous; physically Earth accreted from the disk left orbiting the young Sun.",
+      "sizeM": 12742000.0,
+      "bound": true,
+      "icon": "earth"
     },
     {
       "id": "moon",
@@ -119,7 +146,40 @@
       "parent": "earth",
       "inPath": false,
       "blurb": "Formed from the debris of a giant impact on the young Earth. Its gravity raises the tides and steadies Earth's axial tilt, keeping seasons and climate more stable over time.",
-      "source": "Wikipedia: Moon; Giant-impact hypothesis (formation estimates ~4.51-4.43 Ga)."
+      "source": "Wikipedia: Moon; Giant-impact hypothesis (formation estimates ~4.51-4.43 Ga).",
+      "sizeM": 3474800.0,
+      "bound": true,
+      "icon": "moon"
+    },
+    {
+      "id": "laniakea",
+      "name": "Laniakea Supercluster",
+      "startYa": 13700000000,
+      "endYa": 0,
+      "massKg": 3e46,
+      "rank": 8,
+      "parent": "universe",
+      "inPath": true,
+      "blurb": "Our home supercluster: about 100,000 galaxies spread over 520 million light-years, all flowing toward the Great Attractor. Not held together by gravity, it thins out as space expands.",
+      "source": "Tully et al. 2014, Nature (Laniakea: ~1e17 solar masses total; baryonic share ~15%)",
+      "sizeM": 4.9e24,
+      "bound": false,
+      "icon": "laniakea"
+    },
+    {
+      "id": "virgo_supercluster",
+      "name": "Virgo Supercluster",
+      "startYa": 13650000000,
+      "endYa": 0,
+      "massKg": 4.4e44,
+      "rank": 7,
+      "parent": "laniakea",
+      "inPath": true,
+      "blurb": "The Local Supercluster: the Virgo Cluster and the groups around it, about 110 million light-years across. Our Local Group sits near its edge, falling slowly toward Virgo.",
+      "source": "Wikipedia: Virgo Supercluster (~1.5e15 solar masses total; baryonic share ~15%)",
+      "sizeM": 1.04e24,
+      "bound": false,
+      "icon": "supercluster"
     }
   ],
   "epochs": [
@@ -172,7 +232,7 @@
       "id": "bbn",
       "name": "Big Bang nucleosynthesis",
       "ya": 13787000000,
-      "afterBigBangYears": 5.7e-6,
+      "afterBigBangYears": 5.7e-06,
       "tier": 1,
       "blurb": "In the first minutes, protons and neutrons fused into nuclei: about 75% hydrogen and 25% helium by mass, with traces of lithium. Heavier elements would have to wait for stars.",
       "source": "Wikipedia: Big Bang nucleosynthesis (~10 s to 20 min; marker at ~3 min)"

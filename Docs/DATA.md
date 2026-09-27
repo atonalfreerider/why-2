@@ -9,15 +9,30 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 
 ```json
 { "ageOfUniverseYears": 13.787e9,
-  "items":  [{ "id", "name", "startYa", "endYa", "massKg", "rank", "parent", "inPath", "blurb", "source" }],
+  "items":  [{ "id", "name", "startYa", "endYa", "massKg", "rank", "parent", "inPath", "blurb", "source",
+               "sizeM", "bound", "icon" }],
   "epochs": [{ "id", "name", "ya", "afterBigBangYears", "tier", "blurb", "source" }] }
 ```
 
 * `items` are the bands of the red layer. `rank` orders them radially (0 = innermost = Earth). Bands with
-  `inPath` form our lineage: universe -> Milky Way -> solar nebula -> Sun -> Earth.
+  `inPath` form our lineage, nested through `parent`: universe -> Laniakea Supercluster -> Virgo
+  Supercluster -> Local Group -> Milky Way -> solar nebula -> Sun -> Earth.
+* `sizeM` (diameter, metres) with `massKg` gives each band's density. A band is shaded by the density of
+  its *own* region (its matter minus what formed out of it, over its volume minus theirs), from about
+  3x10^30 atoms/m^3 for Earth to 2x10^5 between the stars and ~0.3 between the galaxies, so the gaps
+  between the contours read as orders of magnitude. The fan labels quote these densities.
+* `bound: false` marks structures gravity does not hold together (superclusters, the universe): they
+  thin out and dim as space expands.
+* `icon` names the glyph drawn beside the item's labels (`Core/Icons.cs`: universe, cosmic_web,
+  first_stars, laniakea, supercluster, galaxy_group, galaxy, nebula, sun, planets, earth, moon).
+* The red envelope follows the real expansion of space: a flat Lambda-CDM scale factor
+  (Omega_Lambda 0.69, 1/H0 = 14.4 Gyr), so most of the fan opens in the first few billion years.
+  Groups that form inside an older body (the solar system inside the Milky Way) open gradually over a
+  long arc, so there is no step in scale anywhere.
 * `epochs` are cosmic and geologic markers (Big Bang ... Chicxulub impact).
-* Sources: Planck 2018; Wikipedia *Chronology of the universe*, *Observable universe*, *Milky Way*,
-  *Formation and evolution of the Solar System*; Immerman, *The universe*
+* Sources: Planck 2018; Tully et al. 2014 (*The Laniakea supercluster of galaxies*, Nature);
+  Wikipedia *Chronology of the universe*, *Observable universe*, *Virgo Supercluster*, *Local Group*,
+  *Milky Way*, *Formation and evolution of the Solar System*; Immerman, *The universe*
   (people.cs.umass.edu/~immerman/stanford/universe.html). Replaces the original `energy.json`.
 
 ## Life (green)

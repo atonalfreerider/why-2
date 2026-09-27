@@ -85,6 +85,15 @@ namespace Why.Matter
         /// <summary>Where the numbers come from.</summary>
         [JsonProperty("source")] public string Source;
 
+        /// <summary>Diameter in metres (0 = unknown); with the mass it sets how dense, and so how bright, a body is.</summary>
+        [JsonProperty("sizeM")] public double SizeM;
+
+        /// <summary>False for structures gravity does not hold together (superclusters, the universe): they expand and thin out.</summary>
+        [JsonProperty("bound")] public bool Bound = true;
+
+        /// <summary>Icon shown beside the item's labels (an icon id from Why.Icons, e.g. "sun", "galaxy").</summary>
+        [JsonProperty("icon")] public string Icon;
+
         /// <summary>The name, or the id when the name is missing.</summary>
         public string DisplayName => string.IsNullOrEmpty(Name) ? Id : Name;
     }

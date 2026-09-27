@@ -60,6 +60,21 @@ namespace Why.Matter
         /// <summary>A band is labeled at least this far (arc) after it starts to form.</summary>
         const float BandLabelArc = 0.0012f;
 
+        // our home bodies are labeled again out in the fan, where they have grown and dimmed (years ago, by
+        // depth along our lineage: Laniakea, Virgo, Local Group, Milky Way, solar nebula, Sun, Earth). The
+        // outer bodies are labeled in the upper-left quadrant (9 to 11 o'clock), where the young universe has
+        // already fanned out; the Sun and Earth once their branch has opened (12 to 1 o'clock)
+        static readonly double[] FanLabelYearsAgo = { 9e9, 6e9, 4e9, 2.5e9, 0, 3.5e8, 1.5e8 };
+
+        // icon-only markers along each of our home bodies' contours (years ago), their minimum arc from the
+        // fan label, and their label priority (below every named label)
+        static readonly double[] IconMarkYearsAgo = { 1.1e10, 1e9, 2e7 };
+        const float IconMarkMinGap = 0.025f;
+        const float IconMarkPriority = 5f;
+
+        /// <summary>A band narrower than this (data units) counts as absent when shading its neighbours.</summary>
+        const float MinFillWidth = 1e-4f;
+
         // envelope rendering and level of detail
         const float EnvelopeRhoFade = 60f;
         const float EnvelopeNoiseScale = 0.35f;
@@ -114,7 +129,6 @@ namespace Why.Matter
 
             BuildFills(layout, s);
             BuildEnvelope(layout, s);
-            BuildFilaments(layout, s);
             BuildEdges(layout, s);
             BuildLineage(layout, s);
             BuildBurst(layout);
@@ -163,29 +177,88 @@ namespace Why.Matter
             return s;
         }
 
-        /// <summary>One filled band per body of matter over its lifetime.</summary>
+        /// <summary>
+        /// One filled band per body of matter over its lifetime, shaded as a continuous density profile: each
+        /// band is drawn as two halves, from the boundary (where it meets its neighbour's density) to its own
+        /// density at the middle and back. Dense bodies peak, the space between them dips into a soft gap, and
+        /// there is no step at any boundary.
+        /// </summary>
         void BuildFills(MatterLayout layout, Sampled s)
         {
             float y = GraphStyle.MatterY;
-            List<Vector3> inner = new List<Vector3>(s.U.Count), outer = new List<Vector3>(s.U.Count);
-            List<Color32> cols = new List<Color32>(s.U.Count);
+            int n = layout.Bands.Count, m = s.U.Count;
+
+            // on-screen brightness of every band's own region at every sample (-1 where it has no width),
+            // including the lineage's persistent glow, which the shader applies on top of the vertex colour
+            float[][] own = new float[n][];
+            for (int b = 0; b < n; b++)
+            {
+                MatterBand band = layout.Bands[b];
+                float glow = band.InPath ? LineageGlow : 1f;
+                own[b] = new float[m];
+                for (int j = 0; j < m; j++)
+                {
+                    float u = s.U[j];
+                    bool present = band.AliveAt(u) && s.Outer[b][j] - s.Inner[b][j] > MinFillWidth;
+                    own[b][j] = present
+                        ? band.FillAlpha * band.FillIntensity * glow *
+                          MatterLayout.HandoffBias(u, band.HandoffExponent) * layout.ExpansionDim(band, u)
+                        : -1f;
+                }
+            }
+
+            List<Vector3> inner = new List<Vector3>(m), mid = new List<Vector3>(m), outer = new List<Vector3>(m);
+            List<Color32> edgeIn = new List<Color32>(m), centre = new List<Color32>(m), edgeOut = new List<Color32>(m);
             foreach (MatterBand band in layout.Bands)
             {
+                int b = band.Index;
+                float unglow = band.InPath ? 1f / LineageGlow : 1f;
                 inner.Clear();
+                mid.Clear();
                 outer.Clear();
-                cols.Clear();
-                for (int j = 0; j < s.U.Count; j++)
+                edgeIn.Clear();
+                centre.Clear();
+                edgeOut.Clear();
+                for (int j = 0; j < m; j++)
                 {
                     float u = s.U[j];
                     if (!band.AliveAt(u)) continue;
-                    inner.Add(new Vector3(u, y, s.Inner[band.Index][j]));
-                    outer.Add(new Vector3(u, y, s.Outer[band.Index][j]));
-                    cols.Add(Tint(band.FillAlpha * MatterLayout.HandoffBias(u, band.HandoffExponent)));
+                    float ri = s.Inner[b][j], ro = s.Outer[b][j];
+                    float a = Mathf.Max(0, own[b][j]);
+
+                    // neighbours: the nearest band inside / outside with width here; beyond the stack, the envelope
+                    float aIn = a, aOut = EnvelopeInnerBrightness(s, j);
+                    for (int k = b - 1; k >= 0; k--)
+                    {
+                        if (own[k][j] < 0) continue;
+                        aIn = own[k][j];
+                        break;
+                    }
+
+                    for (int k = b + 1; k < n; k++)
+                    {
+                        if (own[k][j] < 0) continue;
+                        aOut = own[k][j];
+                        break;
+                    }
+
+                    inner.Add(new Vector3(u, y, ri));
+                    mid.Add(new Vector3(u, y, 0.5f * (ri + ro)));
+                    outer.Add(new Vector3(u, y, ro));
+                    edgeIn.Add(Tint(0.5f * (a + aIn) * unglow));
+                    centre.Add(Tint(a * unglow));
+                    edgeOut.Add(Tint(0.5f * (a + aOut) * unglow));
                 }
 
-                fills.AddBand(inner, outer, cols, band.Id, band.FillIntensity, band.Noise);
+                // the colours carry brightness (alpha x intensity), so both halves use intensity 1
+                fills.AddBand(inner, mid, edgeIn, centre, band.Id, 1f, band.Noise);
+                fills.AddBand(mid, outer, centre, edgeOut, band.Id, 1f, band.Noise);
             }
         }
+
+        /// <summary>Brightness of the envelope's innermost strip at sample j, in the fills' terms.</summary>
+        static float EnvelopeInnerBrightness(Sampled s, int j) =>
+            MatterLayout.EnvelopeAlpha(s.U[j], s.StackOuter[j], s.Envelope[j]) * EnvelopeIntensity;
 
         /// <summary>
         /// The rest of the universe beyond the stack, as radial strips that thin out and break up into
@@ -232,40 +305,6 @@ namespace Why.Matter
             envelope.AddBand(inner, outer, colsIn, colsOut, id, EnvelopeIntensity, MatterLayout.StripNoise(k));
         }
 
-        /// <summary>
-        /// The cosmic web fanning out: thin filaments that leave the Big Bang together and diverge with the
-        /// expanding envelope, each at a fixed fraction of its width, fading outward to transparent black.
-        /// </summary>
-        void BuildFilaments(MatterLayout layout, Sampled s)
-        {
-            const int count = 56;
-            float y = GraphStyle.MatterY + 0.002f;
-            int m = s.U.Count;
-            List<LinePoint> pts = new List<LinePoint>(m);
-            System.Random rng = new System.Random(1377);
-            for (int k = 0; k < count; k++)
-            {
-                // denser near the stack, sparser toward the edge of the observable fan
-                float f = Mathf.Pow((k + 0.5f) / count, 1.6f);
-                float wobble = 0.015f + 0.03f * (float)rng.NextDouble();
-                float phase = (float)(rng.NextDouble() * Mathf.PI * 2);
-                float brightness = 0.55f + 0.45f * (float)rng.NextDouble();
-                pts.Clear();
-                for (int j = 0; j < m; j++)
-                {
-                    float so = s.StackOuter[j], width = s.Envelope[j] - so;
-                    if (width <= 1e-4f) continue;
-                    float u = s.U[j];
-                    // filaments braid slightly as they spread (filaments of the cosmic web are not straight)
-                    float ff = Mathf.Clamp01(f + wobble * Mathf.Sin(phase + u * 180f) * f);
-                    float a = MatterLayout.EnvelopeAlpha(u, so, s.Envelope[j]) * Mathf.Pow(1 - ff, 1.4f) * brightness;
-                    pts.Add(new LinePoint(new Vector3(u, y, so + width * ff), Tint(Mathf.Clamp01(a * 1.3f)), 0.9f, 0, 0.9f));
-                }
-
-                lines.AddPolyline(pts, layout.UniverseEnvelopeId);
-            }
-        }
-
         /// <summary>Thin red edge lines between the bands (brighter for our lineage).</summary>
         void BuildEdges(MatterLayout layout, Sampled s)
         {
@@ -282,7 +321,8 @@ namespace Why.Matter
                     // a band squeezed to nothing (forming, ending, or covered by its children) loses its edge
                     float full = 0.3f * band.Width * layout.StackScale(u);
                     float presence = full > 1e-6f ? Mathf.Clamp01((outer - inner) / full) : 0;
-                    float alpha = band.LineAlpha * presence * MatterLayout.HandoffBias(u, band.HandoffExponent);
+                    float alpha = band.LineAlpha * presence * MatterLayout.HandoffBias(u, band.HandoffExponent) *
+                                  layout.ExpansionDim(band, u);
                     pts.Add(new LinePoint(new Vector3(u, y, outer), Tint(alpha), band.LineWidthPx, 0,
                         band.LineIntensity));
                 }
@@ -437,7 +477,7 @@ namespace Why.Matter
             float uUniverse = layout.BigBangArc - UniverseLabelArc;
             layout.Evaluate(uUniverse, inner, outer, out float so, out float env);
             AddItemLabel(ctx, universe, new Vector3(uUniverse, y, so + 0.4f * (env - so)),
-                new IdRange(layout.BurstId, layout.RootHome.Id), 36, 14, GraphStyle.Text);
+                new IdRange(layout.BurstId, layout.RootHome.Id), 36, 14, GraphStyle.Text, root.Icon);
 
             // the envelope item (intergalactic gas): the envelope once it forms. Anchored where it takes over
             // the envelope, labeled a little later where the envelope has widened
@@ -454,7 +494,8 @@ namespace Why.Matter
                 Anchors.Register(a);
                 float uGas = layout.EnvelopeItemArc - EnvelopeItemLabelArc;
                 layout.Evaluate(uGas, inner, outer, out so, out env);
-                AddItemLabel(ctx, a, new Vector3(uGas, y, so + 0.3f * (env - so)), a.Ids, 16, 12, GraphStyle.TextDim);
+                AddItemLabel(ctx, a, new Vector3(uGas, y, so + 0.3f * (env - so)), a.Ids, 16, 12, GraphStyle.TextDim,
+                    gas.Icon);
             }
 
             // stacked bands: labeled where they have formed, anchored at their start
@@ -466,16 +507,47 @@ namespace Why.Matter
                 if (!band.Extant) u = Mathf.Max(u, 0.5f * (band.UFull + band.UDecay));
                 layout.Evaluate(u, inner, outer, out _, out _);
                 float rho = 0.5f * (inner[band.Index] + outer[band.Index]);
+                string density = MatterLayout.DensityText(band.OwnDensity, false);
+                string blurb = density == null ? item.Blurb
+                    : (item.Blurb + " Average density here: about " + density + ".").TrimStart();
                 Anchor a = new Anchor
                 {
-                    Key = "matter:" + item.Id, Label = item.DisplayName, Blurb = item.Blurb, Level = GraphLevel.Matter,
+                    Key = "matter:" + item.Id, Label = item.DisplayName, Blurb = blurb, Level = GraphLevel.Matter,
                     YearsAgo = item.StartYa, EndYearsAgo = Math.Max(0, item.EndYa), Y = y, Rho = rho,
                     Ids = band.Ids, Tier = band.InPath ? 1 : 2
                 };
                 Anchors.Register(a);
                 float priority = band.IsHomeNow ? 46 : band.InPath ? 36 : 16;
                 AddItemLabel(ctx, a, new Vector3(u, y, rho), IdRange.Single(band.Id), priority, band.InPath ? 14 : 12,
-                    band.InPath ? GraphStyle.Text : GraphStyle.TextDim);
+                    band.InPath ? GraphStyle.Text : GraphStyle.TextDim, item.Icon);
+
+                // our home bodies again, out in the fan where they have grown and thinned, with the density of
+                // their own region so the gaps between the contours read as orders of magnitude
+                if (!band.InPath || !band.Extant || item.StartYa <= 0) continue;
+                int fanIndex = band.PathDepth - 1;
+                if (fanIndex < 0 || fanIndex >= FanLabelYearsAgo.Length || FanLabelYearsAgo[fanIndex] <= 0) continue;
+                double fanYa = Math.Min(0.5 * item.StartYa, FanLabelYearsAgo[fanIndex]);
+                float uFan = DeepTime.Arc(fanYa);
+                if (uFan <= GraphStyle.HandoffFadeStartArc || uFan >= band.UFull) continue;
+                layout.Evaluate(uFan, inner, outer, out _, out _);
+                string richDensity = MatterLayout.DensityText(band.OwnDensity, true);
+                string fanText = richDensity == null ? a.Label
+                    : a.Label + "  <size=80%><alpha=#AA>" + richDensity + "</size>";
+                AddItemLabel(ctx, a, new Vector3(uFan, y, 0.5f * (inner[band.Index] + outer[band.Index])),
+                    IdRange.Single(band.Id), priority - 4, 13, GraphStyle.TextDim, item.Icon, fanText);
+
+                // icon-only markers further along the fan (low priority: they appear as space allows), so every
+                // contour can be told apart wherever the eye lands
+                foreach (double markYa in IconMarkYearsAgo)
+                {
+                    float uMark = DeepTime.Arc(markYa);
+                    if (uMark <= GraphStyle.HandoffFadeStartArc || Mathf.Abs(uMark - uFan) < IconMarkMinGap) continue;
+                    // only where the band has opened up enough to hold an icon
+                    if (uMark > band.UBranch - 0.6f * band.BranchLength || uMark >= band.UFull) continue;
+                    layout.Evaluate(uMark, inner, outer, out _, out _);
+                    AddItemLabel(ctx, a, new Vector3(uMark, y, 0.5f * (inner[band.Index] + outer[band.Index])),
+                        IdRange.Single(band.Id), IconMarkPriority, 12, GraphStyle.TextDim, item.Icon, "");
+                }
             }
 
             // the whole lineage, for the director
@@ -490,18 +562,25 @@ namespace Why.Matter
             });
         }
 
-        /// <summary>Item label; it brightens only when the item's own geometry is highlighted.</summary>
+        /// <summary>
+        /// Item label with the item's icon; it brightens only when the item's own geometry is highlighted.
+        /// <paramref name="text"/> overrides the anchor's name ("" = icon only).
+        /// </summary>
         static void AddItemLabel(GraphContext ctx, Anchor a, Vector3 data, IdRange ownIds, float priority, float size,
-            Color color)
+            Color color, string icon, string text = null)
         {
+            // an icon-only marker sits right on its strand and uses the brighter text colour (no words beside it)
+            bool iconOnly = text != null && text.Length == 0;
             ctx.Labels.Add(new LabelSpec
             {
-                Text = a.Label,
+                Text = text ?? a.Label,
+                Icon = string.IsNullOrEmpty(icon) ? null : icon,
                 Data = data,
                 Priority = priority,
                 SizePx = size,
-                Color = color,
-                PixelOffset = new Vector2(6, 8),
+                Color = iconOnly ? GraphStyle.Text : color,
+                Align = iconOnly ? TextAlignmentOptions.Center : TextAlignmentOptions.Left,
+                PixelOffset = iconOnly ? Vector2.zero : new Vector2(6, 8),
                 AnchorKey = a.Key,
                 HandoffFade = true,
                 Ids = ownIds
@@ -567,7 +646,8 @@ namespace Why.Matter
             AddMesh("MatterEnvelope", envelope.ToMesh("MatterEnvelope"), envelopeMat);
 
             fillMat = GraphMaterials.Surface(GraphStyle.Matter, 1f, GraphMaterials.QueueMatter, false, 0f, 3f);
-            fillMat.SetFloat("_EdgeSoft", 0.22f);
+            // no edge softening: the density profile is continuous across the halves and the bands already
+            fillMat.SetFloat("_EdgeSoft", 0f);
             GraphMaterials.FadeBeforeHumanBranch(fillMat);
             AddMesh("MatterBands", fills.ToMesh("MatterBands"), fillMat);
 

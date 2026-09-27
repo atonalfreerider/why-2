@@ -28,10 +28,15 @@ namespace Why.Humans.Bands
         public static void Register(GraphContext ctx, HumanWorld world, BandGeometry geometry)
         {
             foreach (StreamInfo s in geometry.Streams) RegisterStream(ctx, world, s);
-            RegisterLineage(world);
+            RegisterLineage();
             foreach (WarInfo w in geometry.Wars) RegisterWar(ctx, world, w);
         }
 
+        /// <summary>
+        /// The anchor sits on the band where the stream's data begins (its first Histomap slice), so the
+        /// director's arrow lands on the stream; it spans the stream's own data years (emergence and
+        /// dissolution are drawing, not history).
+        /// </summary>
         static void RegisterStream(GraphContext ctx, HumanWorld world, StreamInfo s)
         {
             Civ c = s.Civ;
@@ -45,14 +50,15 @@ namespace Why.Humans.Bands
                 Label = c.Name,
                 Blurb = blurb,
                 Level = GraphLevel.Humans,
-                YearsAgo = world.NowYear - s.Start,
-                EndYearsAgo = c.Extant ? 0 : Math.Max(0, world.NowYear - s.End),
+                YearsAgo = world.NowYear - c.StartYear,
+                EndYearsAgo = c.Extant ? 0 : Math.Max(0, world.NowYear - c.EndYear),
                 Y = GraphStyle.HumansY,
                 Rho = s.AnchorRho,
                 Ids = new IdRange(GraphIds.Civ(c.Index), GraphIds.CivEnd(c.Index)),
                 Tier = humanity || s.MaxShare > Tier1Share ? 1 : 2
             };
             Anchors.Register(anchor);
+            if (!s.HasLabel) return;
 
             float importance = Mathf.Clamp01((float)s.MaxShare / 0.5f);
             ctx.Labels.Add(new LabelSpec
@@ -68,7 +74,7 @@ namespace Why.Humans.Bands
             });
         }
 
-        static void RegisterLineage(HumanWorld world)
+        static void RegisterLineage()
         {
             Anchors.Register(new Anchor
             {

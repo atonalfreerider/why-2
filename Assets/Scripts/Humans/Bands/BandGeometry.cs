@@ -9,16 +9,16 @@ namespace Why.Humans.Bands
     {
         public Civ Civ;
 
-        /// <summary>Calendar span that was drawn (emergence and dissolution included).</summary>
-        public double Start, End;
-
         /// <summary>Largest share of world power (0..1) the stream ever held.</summary>
         public double MaxShare;
+
+        /// <summary>True when the stream has a label position (it was drawn).</summary>
+        public bool HasLabel;
 
         /// <summary>Arc and band center of the stream at its widest moment (label position).</summary>
         public float LabelU, LabelRho;
 
-        /// <summary>Band center 20% into the span (anchor position).</summary>
+        /// <summary>Band center at the stream's first data slice (anchor position, on the band).</summary>
         public float AnchorRho;
     }
 
@@ -56,11 +56,14 @@ namespace Why.Humans.Bands
         const float CivIntensityMin = 0.85f;
         const float CivIntensityRange = 0.3f;
 
-        // edges
+        // edges: additive, so where many thin streams crowd (the early branch, a few pixels wide in the
+        // overview) each edge steps back instead of the bundle saturating into a blob
         const float EdgeAlpha = 0.5f;
         const float EdgeWidthPx = 0.9f;
         const float EdgeWidthWorld = 0.0004f;
         const float EdgeIntensity = 0.75f;
+        const float EdgeFullWidth = 0.08f;     // band width (rho) at which edges reach full alpha
+        const float EdgeNarrowAlpha = 0.3f;    // share of the edge alpha left on a band of zero width
         const float OuterHumanityEdgeAlpha = 0.35f;
 
         // our path (the inner edge of the human layer)
@@ -104,11 +107,11 @@ namespace Why.Humans.Bands
         const float WarTickWidthPx = 1.2f;
         const float WarLineWidthPx = 1.0f;
         const float WarIntensityMin = 0.8f;
-        const float WarIntensityMax = 1.9f;
+        const float WarIntensityMax = 1.6f;
         const float WarIntensityPerDecade = 0.3f;
 
         public readonly SurfaceMeshBuilder Fill = new SurfaceMeshBuilder();
-        public readonly LineMeshBuilder Lines = new LineMeshBuilder(48_000);
+        public readonly LineMeshBuilder Lines = new LineMeshBuilder(40_000);
         public readonly LineMeshBuilder LifeLines = new LineMeshBuilder(64);
         public readonly List<StreamInfo> Streams = new List<StreamInfo>();
         public readonly List<WarInfo> Wars = new List<WarInfo>();
@@ -124,6 +127,9 @@ namespace Why.Humans.Bands
         readonly List<LinePoint> pts = new List<LinePoint>(2048);
         readonly List<LinePoint> pts2 = new List<LinePoint>(2048);
         readonly List<double> knots = new List<double>(128);
+
+        /// <summary>Our path: the level jump, the inner edge of prehistory, then the inner envelope of history.</summary>
+        readonly List<LinePoint> path = new List<LinePoint>(2048);
 
         // smoothed inner envelope of the layer (Histomap units) on a regular grid of years
         double envStart;
@@ -164,11 +170,11 @@ namespace Why.Humans.Bands
             double start = h.StartYear;
             double handOff = world.HistomapStartYear;
             double end = handOff + HumanWorld.EmergeYears; // HumanWorld keeps the band until here
-            StreamSampler.Build(now, start, end, false, null, start, handOff - 2 * HumanWorld.EmergeYears,
-                double.PositiveInfinity, samples);
+            double fadeStart = handOff - 2 * HumanWorld.EmergeYears;
+            StreamSampler.Build(now, start, end, false, null, start, fadeStart, double.PositiveInfinity, samples);
 
             int id = GraphIds.Civ(h.Index);
-            StreamInfo info = new StreamInfo { Civ = h, Start = start, End = handOff, MaxShare = 1 };
+            StreamInfo info = new StreamInfo { Civ = h, MaxShare = 1 };
             inner.Clear();
             outer.Clear();
             colors.Clear();
@@ -178,7 +184,7 @@ namespace Why.Humans.Bands
                 StreamSample s = samples[i];
                 if (!world.TryBand(h, s.Year, out float lo, out float hi)) continue;
                 // the prehistoric stream fades out while the first civilizations emerge inside it
-                float handOffFade = 1f - SmoothStep(handOff - 2 * HumanWorld.EmergeYears, end, s.Year);
+                float handOffFade = 1f - SmoothStep(fadeStart, end, s.Year);
                 inner.Add(new Vector3(s.U, GraphStyle.HumansY, lo));
                 outer.Add(new Vector3(s.U, GraphStyle.HumansY, hi));
                 colors.Add(Tint(HumanityFillAlpha * handOffFade));
@@ -189,11 +195,12 @@ namespace Why.Humans.Bands
             Fill.AddBand(inner, outer, colors, id, 1f, HumanityNoise);
             Lines.AddPolyline(pts, id);
 
-            // label at the log-middle of prehistory, anchor 20% into the span
+            // label at the log-middle of prehistory
             double midYa = Math.Sqrt((now - start) * (now - handOff));
+            info.HasLabel = true;
             info.LabelU = DeepTime.Arc(midYa);
             info.LabelRho = Center(h, now - midYa);
-            info.AnchorRho = Center(h, start + 0.2 * (handOff - start));
+            info.AnchorRho = Center(h, start);
             Streams.Add(info);
 
             BuildJump(h, start, handOff);
@@ -208,12 +215,12 @@ namespace Why.Humans.Bands
         {
             float uTop = DeepTime.Arc(now - start);
             float uBottom = DeepTime.Arc(Math.Max(JumpBaseYearsAgo, now - start + 1));
-            world.TryBand(h, start, out float lo, out float hi);
+            if (!world.TryBand(h, start, out float lo, out float hi)) return;
             float width = hi - lo;
 
             // connector: leaves the Hominidae track at LifeY tangentially and merges into the inner edge of
             // the human layer at the moment Homo sapiens appears; green fades into blue on the way up
-            pts.Clear();
+            path.Clear();
             pts2.Clear();
             inner.Clear();
             outer.Clear();
@@ -225,7 +232,7 @@ namespace Why.Humans.Bands
                 float u = Mathf.Lerp(uBottom, uTop, f);
                 float y = Mathf.Lerp(GraphStyle.LifeY, GraphStyle.HumansY, e);
                 Vector3 p = new Vector3(u, y, lo);
-                pts.Add(new LinePoint(p, Tint(e), JumpWidthPx, JumpWidthWorld, JumpIntensity));
+                path.Add(new LinePoint(p, Tint(e), JumpWidthPx, JumpWidthWorld, JumpIntensity));
                 pts2.Add(new LinePoint(p, Tint(1f - e), JumpWidthPx, JumpWidthWorld, JumpIntensity));
 
                 // the sheet opens from the lineage to the full width of the new stream
@@ -255,11 +262,9 @@ namespace Why.Humans.Bands
             {
                 StreamSample s = samples[i];
                 if (!world.TryBand(h, s.Year, out float l, out float _)) continue;
-                pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, l), Tint(PathAlpha), PathWidthPx,
+                path.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, l), Tint(PathAlpha), PathWidthPx,
                     PathWidthWorld, PrehistoryPathIntensity));
             }
-
-            Lines.AddPolyline(pts, CivBandsLayer.LineageId, 1f);
         }
 
         // ------------------------------------------------------------------ civilization streams
@@ -276,7 +281,7 @@ namespace Why.Humans.Bands
 
             int id = GraphIds.Civ(c.Index);
             float intensity = CivIntensityMin + CivIntensityRange * Frac(c.Index * 0.618034f);
-            StreamInfo info = new StreamInfo { Civ = c, Start = start, End = end };
+            StreamInfo info = new StreamInfo { Civ = c, AnchorRho = Center(c, c.StartYear) };
 
             // the label goes where the band is widest, preferably away from the ends of its span
             double inStart = start + 0.1 * (end - start), inEnd = end - 0.1 * (end - start);
@@ -291,19 +296,17 @@ namespace Why.Humans.Bands
             for (int i = 0; i < samples.Count; i++)
             {
                 StreamSample s = samples[i];
-                if (!world.TryBand(c, s.Year, out float lo, out float hi)) continue;
-                float fade = StreamSampler.PresentFade(s.U);
+                if (!Band(c, s.Year, out float lo, out float hi, out float share)) continue;
+                float w = hi - lo;
                 inner.Add(new Vector3(s.U, GraphStyle.HumansY, lo));
                 outer.Add(new Vector3(s.U, GraphStyle.HumansY, hi));
-                colors.Add(Tint(CivFillAlpha * fade));
-                Color32 edge = Tint(EdgeAlpha * fade);
+                colors.Add(Tint(CivFillAlpha));
+                Color32 edge = Tint(EdgeAlphaFor(w));
                 pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, lo), edge, EdgeWidthPx, EdgeWidthWorld,
                     EdgeIntensity));
                 pts2.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, hi), edge, EdgeWidthPx, EdgeWidthWorld,
                     EdgeIntensity));
 
-                float w = hi - lo;
-                double share = w / Math.Max(world.LayerWidth(s.Year), 1e-6f);
                 if (share > info.MaxShare) info.MaxShare = share;
                 if (w > widest)
                 {
@@ -324,11 +327,30 @@ namespace Why.Humans.Bands
             Lines.AddPolyline(pts, id);
             Lines.AddPolyline(pts2, id);
 
+            info.HasLabel = widest > 0;
             info.LabelU = widestInside > 0 ? insideU : wideU;
             info.LabelRho = widestInside > 0 ? insideRho : wideRho;
-            info.AnchorRho = Center(c, start + 0.2 * (end - start));
             Streams.Add(info);
         }
+
+        /// <summary>
+        /// Band of a stream in rho (exactly <see cref="HumanWorld.TryBand"/>) and its share of world power,
+        /// evaluating the layer width only once.
+        /// </summary>
+        bool Band(Civ c, double year, out float rhoLo, out float rhoHi, out float share)
+        {
+            rhoLo = rhoHi = share = 0;
+            if (!world.TryUnits(c, year, out float lo, out float width)) return false;
+            float k = world.RhoPerUnit(year);
+            rhoLo = HumanWorld.HumanRho0 + lo * k;
+            rhoHi = HumanWorld.HumanRho0 + (lo + width) * k;
+            share = width / HumanWorld.TotalUnits;
+            return true;
+        }
+
+        /// <summary>Edge alpha of a band of the given width (rho): narrow, crowded bands have softer edges.</summary>
+        static float EdgeAlphaFor(float width) =>
+            EdgeAlpha * Mathf.Lerp(EdgeNarrowAlpha, 1f, SmoothStep(0, EdgeFullWidth, width));
 
         // ------------------------------------------------------------------ our path
 
@@ -381,22 +403,28 @@ namespace Why.Humans.Bands
             return Mathf.Lerp(envelope[i], envelope[i + 1], (float)(x - i));
         }
 
-        /// <summary>Our path from the first civilizations to the present moment.</summary>
+        /// <summary>
+        /// Our path from the first civilizations to the present moment, appended to the level jump and the
+        /// prehistoric inner edge so the whole path from the tree of life to now is one continuous line.
+        /// </summary>
         void BuildHistoryPath()
         {
             double gridEnd = envStart + (envelope.Length - 1) * EnvelopeGridYears;
             StreamSampler.Build(now, envStart, gridEnd, true, null, envStart, double.PositiveInfinity,
                 StreamSampler.MaxYearStep, samples);
-            pts.Clear();
+
+            // the prehistoric part ends at the hand-over, where the history part begins
+            float lastU = path.Count > 0 ? path[path.Count - 1].Data.x : float.MaxValue;
             for (int i = 0; i < samples.Count; i++)
             {
                 StreamSample s = samples[i];
+                if (s.U >= lastU) continue;
                 float rho = world.Rho(EnvelopeUnits(s.Year), s.Year);
-                pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, rho), Tint(PathAlpha), PathWidthPx,
+                path.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, rho), Tint(PathAlpha), PathWidthPx,
                     PathWidthWorld, HistoryPathIntensity));
             }
 
-            Lines.AddPolyline(pts, CivBandsLayer.LineageId, 1f);
+            Lines.AddPolyline(path, CivBandsLayer.LineageId, 1f);
         }
 
         // ------------------------------------------------------------------ lineage links
@@ -524,23 +552,16 @@ namespace Why.Humans.Bands
         void AddWarMark(Civ c, double a, double b, int id, float intensity)
         {
             float y = GraphStyle.HumansY + WarY;
-            if (!world.TryBand(c, a, out float lo, out float hi)) return;
-            float uA = DeepTime.Arc(now - a);
-            Color32 tick = Tint(WarAlpha * StreamSampler.PresentFade(uA));
-            Lines.AddSegment(new Vector3(uA, y, lo), new Vector3(uA, y, hi), tick, WarTickWidthPx, EdgeWidthWorld, id,
-                intensity);
+            AddWarTick(c, a, y, WarAlpha, id, intensity);
             if (b - a < 1) return;
+            AddWarTick(c, b, y, WarEndTickAlpha * WarAlpha, id, intensity);
 
-            if (world.TryBand(c, b, out float blo, out float bhi))
-            {
-                float uB = DeepTime.Arc(now - b);
-                Lines.AddSegment(new Vector3(uB, y, blo), new Vector3(uB, y, bhi),
-                    Tint(WarEndTickAlpha * WarAlpha * StreamSampler.PresentFade(uB)), WarTickWidthPx, EdgeWidthWorld,
-                    id, intensity);
-            }
-
-            // through the span: a center line and a faint overlay on the band
-            StreamSampler.Build(now, a, b, false, null, a, double.PositiveInfinity, 1, samples);
+            // through the span: a center line and a faint overlay on the band, sampled like the stream itself
+            knots.Clear();
+            foreach (Civ.Sample s in c.Samples) knots.Add(s.Year);
+            double first = c.Samples[0].Year, last = c.Samples[c.Samples.Count - 1].Year;
+            StreamSampler.Build(now, a, b, false, knots, first, c.Extant ? double.PositiveInfinity : last,
+                StreamSampler.MaxYearStep, samples);
             pts.Clear();
             inner.Clear();
             outer.Clear();
@@ -549,16 +570,24 @@ namespace Why.Humans.Bands
             {
                 StreamSample s = samples[i];
                 if (!world.TryBand(c, s.Year, out float l, out float h)) continue;
-                float fade = StreamSampler.PresentFade(s.U);
-                pts.Add(new LinePoint(new Vector3(s.U, y, 0.5f * (l + h)), Tint(WarLineAlpha * WarAlpha * fade),
+                pts.Add(new LinePoint(new Vector3(s.U, y, 0.5f * (l + h)), Tint(WarLineAlpha * WarAlpha),
                     WarLineWidthPx, EdgeWidthWorld, intensity));
                 inner.Add(new Vector3(s.U, GraphStyle.HumansY + 0.002f, l));
                 outer.Add(new Vector3(s.U, GraphStyle.HumansY + 0.002f, h));
-                colors.Add(Tint(WarOverlayAlpha * fade));
+                colors.Add(Tint(WarOverlayAlpha));
             }
 
             Lines.AddPolyline(pts, id);
             Fill.AddBand(inner, outer, colors, id, intensity);
+        }
+
+        /// <summary>A short tick across a stream at one moment (skipped where the stream has no width yet).</summary>
+        void AddWarTick(Civ c, double year, float y, float alpha, int id, float intensity)
+        {
+            if (!world.TryBand(c, year, out float lo, out float hi) || hi - lo < 1e-5f) return;
+            float u = DeepTime.Arc(now - year);
+            Lines.AddSegment(new Vector3(u, y, lo), new Vector3(u, y, hi), Tint(alpha), WarTickWidthPx, EdgeWidthWorld, id,
+                intensity);
         }
 
         // ------------------------------------------------------------------ helpers

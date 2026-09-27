@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Why.Humans.Bands
 {
     /// <summary>
-    /// A moment of a stream: its calendar year and its clock arc. Both are kept because the last quarter of
-    /// the clock (the final years shrinking to seconds and to "now") is closer to the present than a calendar
-    /// year in double precision can express, so the tail is sampled in arc instead of in time.
+    /// A moment of a stream: its calendar year and its clock arc. Both are kept because the present moment
+    /// (<see cref="DeepTime.NowArc"/>, far less than a second ago) is closer to now than a calendar year in
+    /// double precision can express, so the last stretch to the present is sampled in arc instead of in time.
     /// </summary>
     public struct StreamSample
     {
@@ -27,8 +27,10 @@ namespace Why.Humans.Bands
     /// <item>content: every data slice (knot) exactly, at most <see cref="MaxYearStep"/> years apart inside
     /// the Histomap era, and a fine step while a stream emerges from or dissolves into its neighbors;</item>
     /// <item>unrolled time: at most <see cref="LnStep"/> in ln(yearsAgo + <see cref="LnOffset"/>), so
-    /// curves stay smooth in the most stretched preset windows (log offsets down to 400 years);</item>
-    /// <item>the clock: at most <see cref="ArcStep"/> in u, so polylines bend smoothly around the ring.</item>
+    /// curves stay smooth in the most stretched lens windows;</item>
+    /// <item>the clock: at most <see cref="ArcStep"/> in u, so prehistoric humanity bends smoothly around
+    /// the circle. The human branch after the 3 o'clock handoff is straight under every warp, which is why
+    /// the final stretch to the present needs only a few samples.</item>
     /// </list>
     /// Thread safe (pure math).
     /// </summary>
@@ -49,9 +51,15 @@ namespace Why.Humans.Bands
         public const double LnOffset = 300;
 
         /// <summary>
+        /// Arc step from the last data year to the present moment. That stretch (the last few years) lies on the
+        /// straight end of the human branch, where streams are constant, so a coarse step is exact.
+        /// </summary>
+        const float TailArcStep = 0.025f;
+
+        /// <summary>
         /// Fills <paramref name="output"/> with samples from <paramref name="start"/> to
-        /// <paramref name="gridEnd"/> (calendar years) and, when <paramref name="toPresent"/> is set, on along
-        /// the clock to the present moment (<see cref="DeepTime.NowArc"/>).
+        /// <paramref name="gridEnd"/> (calendar years) and, when <paramref name="toPresent"/> is set, on to the
+        /// present moment (<see cref="DeepTime.NowArc"/>).
         /// </summary>
         /// <param name="nowYear">the present (fractional calendar year)</param>
         /// <param name="start">first calendar year</param>
@@ -61,12 +69,15 @@ namespace Why.Humans.Bands
         /// <param name="fineBefore">years before this are sampled with <see cref="FineYearStep"/> (emergence)</param>
         /// <param name="fineAfter">years after this are sampled with <see cref="FineYearStep"/> (dissolution)</param>
         /// <param name="maxYearStep">cap on the regular step (PositiveInfinity for deep time)</param>
-        /// <param name="output">cleared, then filled in chronological order</param>
+        /// <param name="output">cleared, then filled in chronological order (empty for invalid spans)</param>
         public static void Build(double nowYear, double start, double gridEnd, bool toPresent,
             IReadOnlyList<double> knots, double fineBefore, double fineAfter, double maxYearStep,
             List<StreamSample> output)
         {
             output.Clear();
+            if (!IsFinite(start) || !IsFinite(gridEnd) || !IsFinite(nowYear)) return;
+            if (!(maxYearStep > 0)) maxYearStep = MaxYearStep;
+
             int k = 0;
             double year = start;
             while (true)
@@ -89,11 +100,11 @@ namespace Why.Humans.Bands
                 year = next;
             }
 
-            if (!toPresent || output.Count == 0) return;
+            if (!toPresent) return;
 
             // the tail: constant content, sampled along the clock down to the present moment
             StreamSample last = output[output.Count - 1];
-            int n = Mathf.CeilToInt((last.U - DeepTime.NowArc) / ArcStep);
+            int n = Mathf.CeilToInt((last.U - DeepTime.NowArc) / TailArcStep);
             for (int i = 1; i <= n; i++)
             {
                 float u = Mathf.Lerp(last.U, DeepTime.NowArc, i / (float)n);
@@ -122,17 +133,6 @@ namespace Why.Humans.Bands
             output.Add(new StreamSample(year, u));
         }
 
-        /// <summary>
-        /// The last quarter of the clock is the last few years shrinking to "now": the streams are constant
-        /// there, so their fills and edges calm down toward the present (our path does not).
-        /// </summary>
-        public static float PresentFade(float u)
-        {
-            const float Start = 0.245f; // about a year ago
-            const float End = 0.17f;    // well under a second ago
-            const float Floor = 0.35f;
-            float f = Mathf.Clamp01((u - End) / (Start - End));
-            return Mathf.Lerp(Floor, 1f, f * f * (3f - 2f * f));
-        }
+        static bool IsFinite(double x) => !double.IsNaN(x) && !double.IsInfinity(x);
     }
 }

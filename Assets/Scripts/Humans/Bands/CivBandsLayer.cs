@@ -20,19 +20,21 @@ namespace Why.Humans.Bands
     /// </summary>
     public sealed class CivBandsLayer : GraphLayer
     {
-        /// <summary>Highlight id of our path (the connector and the inner edge of the human layer).</summary>
+        /// <summary>
+        /// Highlight id of our path (the connector and the inner edge of the human layer). This layer uses the
+        /// free range 990 000 .. 999 999 just below the civilization blocks, so highlighting a civilization
+        /// never lights our path or its wars, and vice versa.
+        /// </summary>
         public const int LineageId = 999_999;
 
-        /// <summary>
-        /// First highlight id of the war marks (one id per war, in demography.json order). Lies in the free
-        /// range between the tree of life and the civilization blocks (see Docs/ARCHITECTURE.md).
-        /// </summary>
+        /// <summary>First highlight id of the war marks (one id per war, in demography.json order).</summary>
         public const int WarIdBase = 990_000;
 
         /// <summary>Anchor key of our path through the human layer.</summary>
         public const string LineageAnchor = "civ:_lineage";
 
-        // band fill level of detail: the fill steps back when lifelines drawn inside the bands matter
+        // band fill level of detail: the fill steps back in the presets where the lifelines drawn inside the
+        // bands are the subject (the same presets in which the lifelines layer shows people)
         const float CivilizationsFillAlpha = 0.6f;
         const float ModernFillAlpha = 0.45f;
         const float SmvFillAlpha = 0.3f;
@@ -52,7 +54,7 @@ namespace Why.Humans.Bands
         public override int Order => 30;
 
         BandGeometry geometry;
-        Material fillMat, lineMat, lifeMat;
+        Material fillMat;
         float fillAlpha = 1f, appliedAlpha = -1f;
 
         public override void Prepare(GraphContext ctx)
@@ -81,20 +83,21 @@ namespace Why.Humans.Bands
             fillMat.SetFloat("_EdgeSoft", FillEdgeSoft);
             AddMesh("CivBands", geometry.Fill.ToMesh("CivBands"), fillMat);
 
-            lineMat = GraphMaterials.Line(GraphStyle.Humans, 1f, GraphMaterials.QueueHumans + 1, true, LineRhoFade, 1f);
+            Material lineMat = GraphMaterials.Line(GraphStyle.Humans, 1f, GraphMaterials.QueueHumans + 1, true,
+                LineRhoFade, 1f);
             AddMesh("CivEdges", geometry.Lines.ToMesh("CivEdges"), lineMat);
 
             // the lower half of the level jump still belongs to the life lineage it rises out of
-            lifeMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueHumans + 1, true, 0f, 1f);
+            Material lifeMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueHumans + 1, true, 0f, 1f);
             AddMesh("HumansJump", geometry.LifeLines.ToMesh("HumansJump"), lifeMat);
 
             geometry = null;
         }
 
         /// <summary>
-        /// Level of detail: in the civilizations, modern and smv presets, and whenever the camera is close,
-        /// the band fills fade back so the population curves and lifelines inside them stay readable. Edges,
-        /// links and our path keep their strength.
+        /// Level of detail: in the human presets (prehistory, civilizations, modern, present, smv), and
+        /// whenever the camera is close, the band fills fade back so the population curves and lifelines
+        /// inside them stay readable. Edges, links and our path keep their strength.
         /// </summary>
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -112,8 +115,10 @@ namespace Why.Humans.Bands
             float byPreset;
             switch (preset)
             {
+                case "prehistory":
                 case "civilizations": byPreset = CivilizationsFillAlpha; break;
-                case "modern": byPreset = ModernFillAlpha; break;
+                case "modern":
+                case "present": byPreset = ModernFillAlpha; break;
                 case "smv": byPreset = SmvFillAlpha; break;
                 default: byPreset = 1f; break;
             }

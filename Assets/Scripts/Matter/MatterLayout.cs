@@ -42,7 +42,7 @@ namespace Why.Matter
         /// <summary>Depth along our lineage (0 = root, 1 = galaxy ...), or -1 when not on our path.</summary>
         public int PathDepth = -1;
 
-        /// <summary>The innermost path item that still exists (Earth): it stays bright up to now.</summary>
+        /// <summary>The innermost path item that still exists (Earth): it stays lit up to the human branch.</summary>
         public bool IsHomeNow;
 
         /// <summary>Formation starts / completes, decay starts / completes (years ago; EndYa 0 = extant).</summary>
@@ -55,11 +55,20 @@ namespace Why.Matter
         public float FillAlpha, FillIntensity, Noise;
         public float LineAlpha, LineIntensity, LineWidthPx;
 
-        /// <summary>Alpha multiplier left in the last quadrant of the clock (the last years shrinking to now).</summary>
-        public float PresentFloor;
+        /// <summary>
+        /// How early the band dissolves ahead of the human branch, on top of the materials' handoff fade
+        /// (see <see cref="MatterLayout.HandoffBias"/>): 0 = our home (Earth) stays lit up to 3 o'clock,
+        /// larger = the bulk of matter is gone sooner.
+        /// </summary>
+        public float HandoffExponent;
 
+        /// <summary>True for our lineage (universe, galaxy, solar nebula, Sun, Earth).</summary>
         public bool InPath => PathDepth >= 0;
+
+        /// <summary>True when the band still exists today.</summary>
         public bool Extant => EndYa <= 0;
+
+        /// <summary>Highlight ids of the band and everything that formed out of it.</summary>
         public IdRange Ids => new IdRange(Id, LastId);
 
         /// <summary>True while the band exists at arc u (including its transitions).</summary>
@@ -88,6 +97,8 @@ namespace Why.Matter
     /// matter that formed out of it, so other matter splits off outward along the way without disturbing
     /// the bands outside. Beyond the stack the rest of the universe (the intergalactic gas, once it forms)
     /// fills an envelope that expands exponentially with time since the Big Bang.
+    /// The layer runs from the Big Bang (6 o'clock) clockwise to the 3 o'clock handoff, where the clock
+    /// becomes the straight human branch: matter has dissolved by then, so nothing is laid out beyond it.
     /// Pure math on data structs: safe on a worker thread and usable outside Unity.
     /// </summary>
     public sealed class MatterLayout
@@ -99,6 +110,7 @@ namespace Why.Matter
         /// <summary>log10 of the mass (kg) that maps to zero width.</summary>
         public const float FloorDex = 22f;
 
+        /// <summary>Narrowest nominal band (tiny or massless items stay visible).</summary>
         public const float MinWidth = 0.01f;
 
         // --- formation / decay transitions ---
@@ -121,16 +133,23 @@ namespace Why.Matter
         /// <summary>E grows by GrowthScale * (exp(GrowthRate * tau) - 1): a logarithmic spiral.</summary>
         public const float GrowthScale = 0.55f;
 
+        /// <summary>Exponential growth rate of the envelope per unit of arc since the Big Bang.</summary>
         public const float GrowthRate = 3.7f;
 
         /// <summary>The stacked bands may use at most this fraction of the envelope (early universe).</summary>
         public const float CapFraction = 0.7f;
 
         // --- the rest of the universe: radial strips that thin out and break up outward ---
-        /// <summary>Number of radial strips the envelope is drawn with (alpha falls and noise rises outward).</summary>
-        public const int EnvelopeStrips = 6;
+        /// <summary>
+        /// Number of radial strips the envelope is drawn with (alpha falls and noise rises outward). A strip
+        /// has one alpha across its width, so enough strips keep the steps between them invisible.
+        /// </summary>
+        public const int EnvelopeStrips = 12;
         const float EnvelopeAlpha0 = 0.5f;
         const float EnvelopeAlphaWidth = 1.5f;
+
+        /// <summary><see cref="HandoffBias"/> exponent of the envelope: the expanding universe dissolves first.</summary>
+        public const float EnvelopeHandoffExponent = 2f;
 
         // --- sampling ---
         /// <summary>Base arc step: dense enough to bend smoothly around the ring.</summary>
@@ -138,9 +157,11 @@ namespace Why.Matter
 
         const int TransitionSamples = 16;
 
-        // --- the last quadrant: the last years shrinking to now ---
-        const float PresentFadeStart = 0.27f;
-        const float PresentFadeEnd = 0.16f;
+        /// <summary>
+        /// Arc where the red layer ends: the 3 o'clock handoff to the straight human branch. The materials'
+        /// handoff fade is exactly 0 from there on, so geometry beyond it would only cost fill rate.
+        /// </summary>
+        public static float EndArc => Mathf.Max(DeepTime.NowArc, GraphWarp.BasePath.HandoffArc);
 
         /// <summary>Stacked bands, innermost first.</summary>
         public readonly List<MatterBand> Bands = new List<MatterBand>();
@@ -435,7 +456,7 @@ namespace Why.Matter
                 band.LineAlpha = 0.5f;
                 band.LineIntensity = 1.2f;
                 band.LineWidthPx = 1.1f;
-                band.PresentFloor = 0.05f;
+                band.HandoffExponent = 2f;
             }
             else if (band.InPath)
             {
@@ -445,7 +466,8 @@ namespace Why.Matter
                 band.LineAlpha = 0.85f;
                 band.LineIntensity = 1.5f;
                 band.LineWidthPx = 1.4f;
-                band.PresentFloor = band.IsHomeNow ? 1f : 0.3f;
+                // our home (Earth) stays lit up to the handoff, the rest of our lineage a little less long
+                band.HandoffExponent = band.IsHomeNow ? 0f : 1f;
             }
             else
             {
@@ -455,7 +477,7 @@ namespace Why.Matter
                 band.LineAlpha = 0.42f;
                 band.LineIntensity = 1f;
                 band.LineWidthPx = 1f;
-                band.PresentFloor = 0.05f;
+                band.HandoffExponent = 2f;
             }
         }
 
@@ -488,13 +510,14 @@ namespace Why.Matter
 
                 if (firstChild <= 0) continue;
                 parent.DecayYa = firstChild;
-                double handover = firstChild - parent.EndYa;
+                // every child forming in the handover window is complete when the parent is gone, so the
+                // stack keeps its width (a late child gets a shorter ramp instead of one running past now)
                 foreach (int c in parent.Children)
                 {
                     MatterBand child = Bands[c];
                     if (child.StartYa <= parent.StartYa && child.StartYa > parent.EndYa)
                     {
-                        child.FullYa = child.StartYa - handover;
+                        child.FullYa = parent.EndYa;
                     }
                 }
             }
@@ -603,15 +626,17 @@ namespace Why.Matter
         }
 
         /// <summary>
-        /// Arc samples from the Big Bang to now (descending): a uniform base step plus dense samples inside
-        /// every formation / decay window and right after the Big Bang, where the clock is compressed.
+        /// Arc samples from the Big Bang to the handoff (descending, <see cref="EndArc"/> last): a uniform
+        /// base step plus dense samples inside every formation / decay window and right after the Big Bang,
+        /// where the clock is compressed.
         /// </summary>
         public List<float> Samples()
         {
             List<float> s = new List<float>(1024);
-            float top = BigBangArc, bottom = DeepTime.NowArc;
+            float top = BigBangArc, bottom = EndArc;
             int n = Mathf.Max(2, Mathf.CeilToInt((top - bottom) / ArcStep));
-            for (int k = 0; k <= n; k++) s.Add(top - (top - bottom) * k / n);
+            for (int k = 0; k < n; k++) s.Add(top - (top - bottom) * k / n);
+            s.Add(bottom); // exactly: top - (top - bottom) can round below it and would be filtered out
 
             for (float d = 2e-5f; d < 4 * BurstTau; d *= 1.5f) s.Add(top - d);
 
@@ -642,23 +667,23 @@ namespace Why.Matter
         }
 
         /// <summary>
-        /// The last quadrant of the clock is the last few years shrinking to "now": the bulk of matter
-        /// fades there (to <paramref name="floor"/>) so the present stays readable.
+        /// Per-vertex dissolve ahead of the human branch, multiplied onto the materials' own handoff fade
+        /// (<see cref="GraphMaterials.FadeBeforeHumanBranch"/>): with exponent 2 the bulk of matter fades as
+        /// the cube of <see cref="GraphStyle.HandoffFade"/> (like the life layer's other lineages) and is
+        /// gone well before 3 o'clock, while our home (exponent 0) stays lit until the handoff itself.
         /// </summary>
-        public static float PresentFade(float u, float floor)
-        {
-            float f = Mathf.Clamp01((u - PresentFadeEnd) / (PresentFadeStart - PresentFadeEnd));
-            return floor + (1 - floor) * f * f * (3 - 2 * f);
-        }
+        public static float HandoffBias(float u, float exponent) =>
+            exponent <= 0 ? 1f : Mathf.Pow(GraphStyle.HandoffFade(u), exponent);
 
         /// <summary>
         /// Opacity of the rest of the universe at arc u: dense and bright right after the Big Bang, thinning
-        /// as it spreads over a wider envelope, and nearly gone in the last quadrant.
+        /// as it spreads over a wider envelope, and dissolving first ahead of the human branch.
         /// </summary>
         public static float EnvelopeAlpha(float u, float stackOuter, float envelope)
         {
             float spread = Mathf.Max(0, envelope - stackOuter);
-            return EnvelopeAlpha0 / Mathf.Pow(1 + spread / EnvelopeAlphaWidth, 0.55f) * PresentFade(u, 0.03f);
+            return EnvelopeAlpha0 / Mathf.Pow(1 + spread / EnvelopeAlphaWidth, 0.55f) *
+                   HandoffBias(u, EnvelopeHandoffExponent);
         }
 
         /// <summary>Fraction (0..1) of the envelope's width at the inner edge of strip k (strips thicken outward).</summary>

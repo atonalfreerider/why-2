@@ -7,8 +7,13 @@ namespace Why.Matter
     /// <summary>Contents of Data/matter.json: the bands of matter and the cosmic / geologic epochs.</summary>
     public sealed class MatterFile
     {
+        /// <summary>Age of the universe in the data (years); the clock itself uses <see cref="DeepTime.AgeU"/>.</summary>
         [JsonProperty("ageOfUniverseYears")] public double AgeOfUniverseYears = 13.787e9;
+
+        /// <summary>The bodies of matter (bands), from the whole universe to Earth.</summary>
         [JsonProperty("items")] public List<MatterItem> Items = new List<MatterItem>();
+
+        /// <summary>Cosmic and geologic moments (ticks on the inner ring).</summary>
         [JsonProperty("epochs")] public List<MatterEpoch> Epochs = new List<MatterEpoch>();
 
         /// <summary>Parses matter.json; returns null (and reports why) when the text is missing or invalid.</summary>
@@ -50,7 +55,10 @@ namespace Why.Matter
     /// </summary>
     public sealed class MatterItem
     {
+        /// <summary>Stable id; anchors are "matter:&lt;id&gt;".</summary>
         [JsonProperty("id")] public string Id;
+
+        /// <summary>Display name.</summary>
         [JsonProperty("name")] public string Name;
 
         /// <summary>When the item forms (years ago).</summary>
@@ -59,23 +67,35 @@ namespace Why.Matter
         /// <summary>When the item ends (years ago); 0 = still exists.</summary>
         [JsonProperty("endYa")] public double EndYa;
 
+        /// <summary>Ordinary (baryonic) mass in kg; sets the band width on a log scale.</summary>
         [JsonProperty("massKg")] public double MassKg;
 
         /// <summary>Radial rank in the source data: 0 = innermost (Earth) ... 9 = the whole universe.</summary>
         [JsonProperty("rank")] public int Rank;
 
+        /// <summary>Id of the item this one formed out of (null for the universe).</summary>
         [JsonProperty("parent")] public string Parent;
+
+        /// <summary>True for our lineage (universe, Milky Way, solar nebula, Sun, Earth).</summary>
         [JsonProperty("inPath")] public bool InPath;
+
+        /// <summary>One or two sentences for the tooltip and the director.</summary>
         [JsonProperty("blurb")] public string Blurb;
+
+        /// <summary>Where the numbers come from.</summary>
         [JsonProperty("source")] public string Source;
 
+        /// <summary>The name, or the id when the name is missing.</summary>
         public string DisplayName => string.IsNullOrEmpty(Name) ? Id : Name;
     }
 
     /// <summary>A moment of cosmic or geologic history shown as a tick on the inner ring.</summary>
     public sealed class MatterEpoch
     {
+        /// <summary>Stable id; anchors are "epoch:&lt;id&gt;".</summary>
         [JsonProperty("id")] public string Id;
+
+        /// <summary>Display name.</summary>
         [JsonProperty("name")] public string Name;
 
         /// <summary>When it happened (years ago).</summary>
@@ -84,10 +104,16 @@ namespace Why.Matter
         /// <summary>Time after the Big Bang (years), for the moments the clock cannot resolve.</summary>
         [JsonProperty("afterBigBangYears")] public double? AfterBigBangYears;
 
+        /// <summary>Label level of detail: 1 = always, 2 = mid zoom, 3 = close.</summary>
         [JsonProperty("tier")] public int Tier = 2;
+
+        /// <summary>One or two sentences for the tooltip and the director.</summary>
         [JsonProperty("blurb")] public string Blurb;
+
+        /// <summary>Where the date comes from.</summary>
         [JsonProperty("source")] public string Source;
 
+        /// <summary>The name, or the id when the name is missing.</summary>
         public string DisplayName => string.IsNullOrEmpty(Name) ? Id : Name;
     }
 }

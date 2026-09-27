@@ -9,16 +9,19 @@ using Debug = UnityEngine.Debug;
 namespace Why.Matter
 {
     /// <summary>
-    /// RED layer: all the matter in the universe, from the Big Bang (6 o'clock) clockwise around the whole
-    /// clock to now. The inner track is our current home (universe, Milky Way, solar nebula, Sun, Earth);
-    /// other matter splits off outward along the way, and the rest of the universe fills an envelope that
-    /// expands exponentially and dissipates underneath the life and human layers.
+    /// RED layer: all the matter in the universe, from the Big Bang (6 o'clock) clockwise around the clock
+    /// to 3 o'clock, where the straight human branch leaves the circle. The inner track is our current home
+    /// (universe, Milky Way, solar nebula, Sun, Earth); other matter splits off outward along the way, and
+    /// the rest of the universe fills an envelope that expands exponentially and dissipates underneath the
+    /// life and human layers. Ahead of the handoff the bulk dissolves first and Earth last, so matter is
+    /// gone by the time the human civilizations begin.
     ///
     /// Built on a worker thread (<see cref="MatterLayout"/>) into three meshes: band fills, the expanding
     /// envelope and the lines (band edges, our lineage with the causal flow pulse, the Big Bang, epochs).
     /// </summary>
     public sealed class MatterLayer : GraphLayer
     {
+        /// <summary>Resources path of matter.json (the bands of matter and the epochs).</summary>
         public const string DataPath = "Data/matter";
 
         // lineage (our path along the inner edge)
@@ -29,6 +32,9 @@ namespace Why.Matter
         // Big Bang burst
         const int BurstRays = 36;
         const float BurstIntensity = 4.5f;
+
+        /// <summary>A ray reaches full brightness 1 / BurstIgnite of the way out.</summary>
+        const float BurstIgnite = 4f;
 
         // epochs: ticks across the inner edge, labels inside the ring
         const float EpochRho = -0.08f;
@@ -43,6 +49,9 @@ namespace Why.Matter
 
         /// <summary>First highlight id index of the epoch ticks (after the bands).</summary>
         const int EpochIdBase = 100;
+
+        /// <summary>Last matter id index: matter owns the ids 1..999 (<see cref="GraphIds.Matter"/>).</summary>
+        const int MaxMatterIndex = 998;
 
         // item labels: the universe and the cosmic web are labeled out in the envelope, this far along
         const float UniverseLabelArc = 0.22f;
@@ -170,7 +179,7 @@ namespace Why.Matter
                     if (!band.AliveAt(u)) continue;
                     inner.Add(new Vector3(u, y, s.Inner[band.Index][j]));
                     outer.Add(new Vector3(u, y, s.Outer[band.Index][j]));
-                    cols.Add(Tint(band.FillAlpha * MatterLayout.PresentFade(u, band.PresentFloor)));
+                    cols.Add(Tint(band.FillAlpha * MatterLayout.HandoffBias(u, band.HandoffExponent)));
                 }
 
                 fills.AddBand(inner, outer, cols, band.Id, band.FillIntensity, band.Noise);
@@ -234,7 +243,7 @@ namespace Why.Matter
                     // a band squeezed to nothing (forming, ending, or covered by its children) loses its edge
                     float full = 0.3f * band.Width * layout.StackScale(u);
                     float presence = full > 1e-6f ? Mathf.Clamp01((outer - inner) / full) : 0;
-                    float alpha = band.LineAlpha * presence * MatterLayout.PresentFade(u, band.PresentFloor);
+                    float alpha = band.LineAlpha * presence * MatterLayout.HandoffBias(u, band.HandoffExponent);
                     pts.Add(new LinePoint(new Vector3(u, y, outer), Tint(alpha), band.LineWidthPx, 0,
                         band.LineIntensity));
                 }
@@ -244,17 +253,20 @@ namespace Why.Matter
         }
 
         /// <summary>
-        /// Our lineage along the inner edge of the clock, from the Big Bang to now: one segment per home
-        /// (universe, galaxy, solar nebula, Sun, Earth), bright and carrying the causal flow pulse.
+        /// Our lineage along the inner edge of the clock, from the Big Bang to the handoff: one segment per
+        /// home (universe, galaxy, solar nebula, Sun, Earth), bright and carrying the causal flow pulse.
         /// </summary>
         void BuildLineage(MatterLayout layout, Sampled s)
         {
             float y = GraphStyle.MatterY;
+            float end = MatterLayout.EndArc;
             List<LinePoint> pts = new List<LinePoint>(s.U.Count);
             for (int p = 0; p < layout.Path.Count; p++)
             {
                 float from = p == 0 ? layout.BigBangArc : DeepTime.Arc(layout.Path[p].StartYa);
-                float to = p + 1 < layout.Path.Count ? DeepTime.Arc(layout.Path[p + 1].StartYa) : DeepTime.NowArc;
+                float to = p + 1 < layout.Path.Count ? DeepTime.Arc(layout.Path[p + 1].StartYa) : end;
+                from = Mathf.Max(from, end);
+                to = Mathf.Max(to, end);
                 if (from <= to) continue;
                 pts.Clear();
                 pts.Add(LineagePoint(from, y));
@@ -271,12 +283,15 @@ namespace Why.Matter
         static LinePoint LineagePoint(float u, float y) =>
             new LinePoint(new Vector3(u, y, 0), Tint(1), LineageWidthPx, LineageWidthWorld, LineageIntensity);
 
-        /// <summary>A radiant burst where every band begins and the ring closes onto "now".</summary>
+        /// <summary>
+        /// A radiant burst at 6 o'clock where the clock and every band begin. Rays are laid out in world
+        /// units around the Big Bang (converted to arc with the circle's own scale, so they stay round).
+        /// </summary>
         void BuildBurst(MatterLayout layout)
         {
             System.Random rng = new System.Random(13787);
             float u0 = layout.BigBangArc;
-            float arcPerUnit = 1f / (2f * Mathf.PI * GraphStyle.R0);
+            float arcPerUnit = 1f / GraphWarp.BasePath.SigmaPerArc;
             List<LinePoint> pts = new List<LinePoint>(8);
             for (int k = 0; k < BurstRays; k++)
             {
@@ -291,7 +306,10 @@ namespace Why.Matter
                     Vector3 p = new Vector3(u0 + r * Mathf.Cos(theta) * arcPerUnit, GraphStyle.MatterY,
                         r * Mathf.Sin(theta));
                     float fade = 1 - t;
-                    pts.Add(new LinePoint(p, Tint(fade * fade), 0.5f + 1.7f * fade, 0, BurstIntensity));
+                    // rays ignite just off the center: dozens of additive rays piled up at one point would
+                    // saturate every channel and bloom into a white blob instead of a red burst
+                    float ignite = Mathf.Clamp01(t * BurstIgnite);
+                    pts.Add(new LinePoint(p, Tint(ignite * fade * fade), 0.5f + 1.7f * fade, 0, BurstIntensity));
                 }
 
                 lines.AddPolyline(pts, layout.BurstId);
@@ -315,17 +333,20 @@ namespace Why.Matter
         static List<EpochMark> PlaceEpochs(MatterLayout layout, MatterFile file)
         {
             List<EpochMark> marks = new List<EpochMark>(file.Epochs.Count);
+            // epoch ids follow the band ids (never overlapping them) and stay inside the matter range
+            int idBase = Math.Max(EpochIdBase, layout.AllIds.Max - GraphIds.MatterBase + 1);
             for (int e = 0; e < file.Epochs.Count; e++)
             {
                 MatterEpoch epoch = file.Epochs[e];
                 float u = DeepTime.Arc(epoch.Ya);
                 bool atBigBang = layout.BigBangArc - u < EpochClusterArc;
+                int id = idBase + e <= MaxMatterIndex ? GraphIds.Matter(idBase + e) : GraphIds.None;
                 marks.Add(new EpochMark
                 {
                     Epoch = epoch,
                     U = u,
                     AtBigBang = atBigBang,
-                    Ids = atBigBang ? IdRange.Single(layout.BurstId) : IdRange.Single(GraphIds.Matter(EpochIdBase + e))
+                    Ids = IdRange.Single(atBigBang ? layout.BurstId : id)
                 });
             }
 
@@ -379,12 +400,12 @@ namespace Why.Matter
             AddItemLabel(ctx, universe, new Vector3(uUniverse, y, so + 0.4f * (env - so)),
                 new IdRange(layout.BurstId, layout.RootHome.Id), 36, 14, GraphStyle.Text);
 
-            // the envelope item (intergalactic gas): the envelope once it forms
+            // the envelope item (intergalactic gas): the envelope once it forms. Anchored where it takes over
+            // the envelope, labeled a little later where the envelope has widened
             MatterItem gas = layout.EnvelopeItem;
             if (gas != null)
             {
-                float uGas = layout.EnvelopeItemArc - EnvelopeItemLabelArc;
-                layout.Evaluate(uGas, inner, outer, out so, out env);
+                layout.Evaluate(layout.EnvelopeItemArc, inner, outer, out so, out env);
                 Anchor a = new Anchor
                 {
                     Key = "matter:" + gas.Id, Label = gas.DisplayName, Blurb = gas.Blurb, Level = GraphLevel.Matter,
@@ -392,7 +413,9 @@ namespace Why.Matter
                     Ids = layout.IdsOf(gas), Tier = 2
                 };
                 Anchors.Register(a);
-                AddItemLabel(ctx, a, new Vector3(uGas, y, a.Rho), a.Ids, 16, 12, GraphStyle.TextDim);
+                float uGas = layout.EnvelopeItemArc - EnvelopeItemLabelArc;
+                layout.Evaluate(uGas, inner, outer, out so, out env);
+                AddItemLabel(ctx, a, new Vector3(uGas, y, so + 0.3f * (env - so)), a.Ids, 16, 12, GraphStyle.TextDim);
             }
 
             // stacked bands: labeled where they have formed, anchored at their start
@@ -483,9 +506,10 @@ namespace Why.Matter
         {
             CultureInfo c = CultureInfo.InvariantCulture;
             double seconds = years * 3.15576e7;
-            if (seconds < 1) return "10<sup>" + Math.Round(Math.Log10(seconds)).ToString("0", c) + "</sup> s";
-            if (seconds < 120) return seconds.ToString("0", c) + " s";
+            if (seconds < 0.1) return "10<sup>" + Math.Round(Math.Log10(seconds)).ToString("0", c) + "</sup> s";
+            if (seconds < 120) return seconds.ToString(seconds < 10 ? "0.#" : "0", c) + " s";
             if (seconds < 7200) return (seconds / 60).ToString("0", c) + " min";
+            if (seconds < 172800) return (seconds / 3600).ToString("0", c) + " hours";
             if (years < 1) return (seconds / 86400).ToString("0", c) + " days";
             if (years < 1e6) return years.ToString("#,0", c) + " years";
             return (years / 1e6).ToString("0.#", c) + " million years";

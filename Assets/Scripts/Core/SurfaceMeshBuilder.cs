@@ -60,6 +60,36 @@ namespace Why
             }
         }
 
+        /// <summary>
+        /// Adds a band with separate colors on its inner and outer edge (e.g. fading to transparent on the
+        /// outside so a layer has no hard border).
+        /// </summary>
+        public void AddBand(IReadOnlyList<Vector3> inner, IReadOnlyList<Vector3> outer, IReadOnlyList<Color32> innerColors,
+            IReadOnlyList<Color32> outerColors, float id, float intensity = 1, float noise = 0)
+        {
+            int n = Mathf.Min(inner.Count, outer.Count);
+            if (n < 2) return;
+            int b = vertices.Count;
+            for (int i = 0; i < n; i++)
+            {
+                Color32 ci = innerColors[Mathf.Min(i, innerColors.Count - 1)];
+                Color32 co = outerColors[Mathf.Min(i, outerColors.Count - 1)];
+                vertices.Add(new Vertex { Pos = inner[i], Color = ci, P = new Vector4(id, intensity, 0, noise) });
+                vertices.Add(new Vertex { Pos = outer[i], Color = co, P = new Vector4(id, intensity, 1, noise) });
+            }
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                int a = b + i * 2;
+                indices.Add(a);
+                indices.Add(a + 2);
+                indices.Add(a + 1);
+                indices.Add(a + 1);
+                indices.Add(a + 2);
+                indices.Add(a + 3);
+            }
+        }
+
         /// <summary>Adds a single triangle.</summary>
         public void AddTriangle(Vector3 a, Vector3 b, Vector3 c, Color32 color, float id, float intensity = 1,
             float noise = 0)

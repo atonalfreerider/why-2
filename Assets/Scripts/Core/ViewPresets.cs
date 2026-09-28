@@ -80,6 +80,12 @@ namespace Why
         /// </summary>
         public float StrataEmphasis = 1;
 
+        /// <summary>
+        /// Emphasis (0..1) of the matter (red) layer. Life-focused views dim it so the tree of life reads
+        /// against it; whenever the director points at matter it comes back to full strength.
+        /// </summary>
+        public float MatterEmphasis = 1;
+
         // camera framing
         public float TargetRho = 0.5f;
         public float TargetY = GraphStyle.LifeY;
@@ -257,6 +263,9 @@ namespace Why
     /// <summary>The preset catalog. Ids are referenced by the director's tour.json.</summary>
     public static class ViewPresets
     {
+        /// <summary>Matter emphasis of the life-focused views: the red layer recedes behind the tree of life.</summary>
+        const float LifeMatterEmphasis = 0.45f;
+
         static List<ViewPreset> all;
 
         public static IReadOnlyList<ViewPreset> All => all ??= Build();
@@ -305,26 +314,26 @@ namespace Why
                 {
                     Id = "life", Title = "Life", Subtitle = "4.2 billion years of evolution",
                     Key = KeyCode.Alpha3, Polar = true, PolarArc = 0.47f, TargetRho = 1.2f,
-                    TargetY = GraphStyle.LifeY, Pitch = 55, Distance = 7.5f,
+                    TargetY = GraphStyle.LifeY, Pitch = 55, Distance = 7.5f, MatterEmphasis = LifeMatterEmphasis,
                     PortraitPitch = 70, PortraitRho = new Vector2(-1.5f, 4.5f)
                 },
                 new ViewPreset
                 {
                     Id = "complex_life", Title = "Complex life", Subtitle = "The last billion years",
                     YaOld = 1.0e9, YaNew = 2e3, LogOffset = 3e6, Length = 14,
-                    TargetRho = 1.2f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 11
+                    TargetRho = 1.2f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 11, MatterEmphasis = LifeMatterEmphasis
                 },
                 new ViewPreset
                 {
                     Id = "mammals", Title = "Mammals", Subtitle = "The last 250 million years",
                     YaOld = 2.5e8, YaNew = 2e3, LogOffset = 1e6, Length = 14,
-                    TargetRho = 0.8f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 10
+                    TargetRho = 0.8f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 10, MatterEmphasis = LifeMatterEmphasis
                 },
                 new ViewPreset
                 {
                     Id = "hominins", Title = "Hominins", Subtitle = "The last 10 million years",
                     Key = KeyCode.Alpha4, YaOld = 1.0e7, YaNew = 1e3, LogOffset = 5e4, Length = 12,
-                    TargetRho = 0.3f, TargetY = GraphStyle.LifeY, Pitch = 55, Distance = 7
+                    TargetRho = 0.3f, TargetY = GraphStyle.LifeY, Pitch = 55, Distance = 7, MatterEmphasis = LifeMatterEmphasis
                 },
                 new ViewPreset
                 {

@@ -95,7 +95,13 @@ namespace Why.Matter
         SurfaceMeshBuilder fills, envelope;
         LineMeshBuilder lines;
         Material fillMat, envelopeMat, lineMat;
-        float envelopeLod = -1;
+        float envelopeLod = -1, emphasis = -1;
+
+        /// <summary>How fast (per second) the red layer eases to a view's matter emphasis.</summary>
+        const float EmphasisSpeed = 1.6f;
+
+        /// <summary>Line opacity at zero emphasis (lines keep this much while the fills dim fully).</summary>
+        const float LineEmphasisFloor = 0.5f;
 
         /// <summary>Layout evaluated at every sample: per band inner / outer edge, and the envelope.</summary>
         sealed class Sampled
@@ -666,11 +672,23 @@ namespace Why.Matter
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (envelopeMat == null || rig == null) return;
+
+            // emphasis: life-focused views dim the red layer, unless the director points at matter
+            float target = 1f;
+            GraphRoot root = GraphRoot.Instance;
+            if (root != null && root.CurrentPreset != null) target = root.CurrentPreset.MatterEmphasis;
+            if (Layout != null && Highlighter.IsHighlighted(Layout.AllIds)) target = 1f;
+            float next = emphasis < 0 ? target : Mathf.MoveTowards(emphasis, target, Time.unscaledDeltaTime * EmphasisSpeed);
+
             float t = Mathf.InverseLerp(EnvelopeLodNear, EnvelopeLodFar, rig.Pose.Distance);
             float lod = Mathf.Lerp(EnvelopeAlphaClose, 1f, t * t * (3 - 2 * t));
-            if (Mathf.Abs(lod - envelopeLod) < 0.01f) return;
+            if (Mathf.Abs(lod - envelopeLod) < 0.01f && Mathf.Abs(next - emphasis) < 1e-3f) return;
             envelopeLod = lod;
-            GraphMaterials.SetAlpha(envelopeMat, lod);
+            emphasis = next;
+            GraphMaterials.SetAlpha(envelopeMat, lod * emphasis);
+            GraphMaterials.SetAlpha(fillMat, emphasis);
+            // our lineage and the contours dim less: the strands stay readable
+            GraphMaterials.SetAlpha(lineMat, Mathf.Lerp(LineEmphasisFloor, 1f, emphasis));
         }
 
         static Color32 Tint(float alpha) => new Color32(255, 255, 255, (byte)Mathf.Clamp(alpha * 255f, 0, 255));

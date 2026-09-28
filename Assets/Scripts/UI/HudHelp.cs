@@ -83,6 +83,7 @@ namespace Why.UI
                 Section("Guide and details", new[]
                 {
                     Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
+                    Row("M", "in the tour: mute / unmute the spoken narration"),
                     Row("F", "show / hide the people alive at the moment you are looking at; click one to follow their life"),
                     Row("Hover a label", "what it is, when, and why it matters"),
                     Row("Click a label", "focus and highlight it"),

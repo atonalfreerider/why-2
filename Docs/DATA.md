@@ -102,3 +102,12 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 view preset id, `anchor`/`highlight` are anchor keys (`matter:`, `epoch:`, `clade:`, `lifeevent:`,
 `leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`, `farm:`, `domestication:`, `extraction:`,
 `extractionevent:`, `resource:`, `time:<yearsAgo>`, `now`).
+
+* `Data/tour_narration.json` - `{ "model", "generated", "steps": [{ "id", "narration" }] }`: the spoken
+  script, one entry per tour step (60-110 words each), written by `Tools/generate-narration.ps1` with
+  the OpenAI API from the steps' on-screen text and the four threads of the story (the three levels and
+  how each rests on the ones before, the one-way arrow of cause and effect, how scale works, the chain of
+  causes leading to the viewer).
+* `Audio/Tour/<step id>.ogg` - the narration voiced by `Tools/synthesize-narration.ps1` with the Cartesia
+  API (voice "Clive - Measured Expert", mono Vorbis via ffmpeg, streamed at runtime; see
+  `Scripts/Editor/NarrationImport.cs`). A step without a clip is read silently at the usual pace.

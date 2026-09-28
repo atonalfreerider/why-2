@@ -164,8 +164,11 @@ namespace Why.Director
         /// <summary>Resolved highlight anchors (the arrow target is not repeated).</summary>
         public readonly List<Anchor> Highlights = new List<Anchor>();
 
-        /// <summary>Autoplay duration: max(hold, reading time).</summary>
+        /// <summary>Autoplay duration: max(hold, reading time, narration clip + pause).</summary>
         public float Duration;
+
+        /// <summary>The recorded narration for this stop (Resources/Audio/Tour), or null when none exists.</summary>
+        public AudioClip Narration;
 
         /// <summary>Reading time for autoplay: seconds per character plus a pause.</summary>
         public const float SecondsPerCharacter = 0.06f;

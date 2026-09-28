@@ -17,9 +17,11 @@ namespace Why.Director
     /// attention arrow pointing at it.
     ///
     /// Controls: T (or GraphRoot.RequestTour) starts; Right / Space / Enter = next (completes the
-    /// typewriter first), Left = previous, P = pause/resume autoplay, Esc = exit. Moving the camera or
-    /// re-scaling from elsewhere pauses autoplay so the viewer can look around; Next / Back return to the
-    /// narration and resume it. The tour is loaded and validated one frame after the graph has loaded.
+    /// typewriter first), Left = previous, P = pause/resume autoplay, M = mute the spoken narration, Esc =
+    /// exit. Moving the camera or re-scaling from elsewhere pauses autoplay (and the voice) so the viewer
+    /// can look around; Next / Back return to the narration and resume it. Each stop is spoken by its
+    /// recorded clip (<see cref="TourNarrator"/>) and lasts at least as long. The tour is loaded and
+    /// validated one frame after the graph has loaded.
     ///
     /// On a portrait screen the popup is a full-width sheet docked at the bottom (or at the top when the
     /// anchor sits low), and anchors are framed a little above the middle so the sheet rarely has to move.
@@ -85,6 +87,7 @@ namespace Why.Director
 
         bool active, startRequested, autoplay, pausedByViewer, focusing, savedPresetKeys, attentionShown;
         float stepAge, autoClock, stepDuration, relocateTimer;
+        TourNarrator narrator;
 
         // what the step wants the arrow to show, and what it currently shows (switched while invisible)
         Anchor target, arrowTarget;
@@ -128,6 +131,19 @@ namespace Why.Director
             Stopwatch sw = Stopwatch.StartNew();
             script = TourScript.Load();
             steps = ResolvedStep.ResolveAll(script, out int unresolved);
+
+            // the spoken narration: a stop lasts at least as long as its clip
+            narrator ??= new TourNarrator(gameObject, root.Rig != null ? root.Rig.Cam : Camera.main);
+            int spoken = 0;
+            foreach (ResolvedStep s in steps)
+            {
+                s.Narration = TourNarrator.ClipFor(s.Step.Id);
+                if (s.Narration == null) continue;
+                spoken++;
+                s.Duration = Mathf.Max(s.Duration, s.Narration.length + TourNarrator.PauseAfter);
+            }
+
+            Debug.Log($"[Why] director: {spoken} of {steps.Count} stops have narration clips");
             Debug.Log($"[Why] director: tour '{script.Title}' ({steps.Count} steps) loaded in " +
                       $"{sw.ElapsedMilliseconds} ms, " +
                       (unresolved > 0 ? $"{unresolved} unresolved keys" : "all keys resolved"));
@@ -201,6 +217,7 @@ namespace Why.Director
             root.AllowPresetKeys = savedPresetKeys;
             Highlighter.Clear();
             panel.Hide();
+            narrator?.Stop();
             target = null;
             markers.Clear();
             stepVersion++;
@@ -259,10 +276,20 @@ namespace Why.Director
             SetAutoplay(!autoplay, false);
         }
 
+        void ToggleNarration()
+        {
+            ReleaseUiFocus();
+            narrator?.ToggleMute();
+            RefreshTransport();
+        }
+
         void SetAutoplay(bool on, bool byViewer)
         {
             autoplay = on;
             pausedByViewer = !on && byViewer;
+            // the narration pauses with the tour, so voice and progress stay together
+            if (on) narrator?.Resume();
+            else narrator?.Pause();
             if (on) autoClock = Mathf.Min(autoClock, Mathf.Max(0, stepDuration - ResumeGrace));
             RefreshTransport();
         }
@@ -272,6 +299,7 @@ namespace Why.Director
             string status = autoplay ? "Autoplay  \u00B7  P to pause"
                 : pausedByViewer ? "Exploring  \u00B7  P to resume"
                 : "Paused  \u00B7  P to resume";
+            if (narrator != null && narrator.Muted) status += "  \u00B7  muted (M)";
             panel.SetTransport(autoplay, status);
         }
 
@@ -340,6 +368,7 @@ namespace Why.Director
         {
             Frame(TitlePreset(), null, out _);
             Highlighter.Clear();
+            narrator.Stop();
             stepDuration = TitleCardSeconds;
 
             float seconds = 0;
@@ -352,7 +381,7 @@ namespace Why.Director
                 Title = script.Title,
                 Body = $"{steps.Count} stops through 13.8 billion years of cause and effect, about {minutes} minutes. " +
                        "The narration moves on by itself; move the camera at any time to pause and look around.",
-                Footnote = "Space or \u2192 next      \u2190 back      P pause      Esc leave",
+                Footnote = "Space or \u2192 next      \u2190 back      P pause      M mute      Esc leave",
                 PrimaryLabel = "Begin",
                 Primary = Advance,
                 SecondaryLabel = "Close",
@@ -368,6 +397,7 @@ namespace Why.Director
             markers.AddRange(s.Highlights);
             Highlight(s.Target, s.Highlights, GraphStyle.HighlightGlow, HighlightDim);
             stepDuration = s.Duration;
+            narrator.Play(s.Narration);
 
             string section = string.IsNullOrEmpty(preset.Title) ? "" : "   \u00B7   " + preset.Title;
             panel.Present(new PanelContent
@@ -393,6 +423,7 @@ namespace Why.Director
             }
 
             Highlight(null, lineage, GraphStyle.HighlightGlow * 0.6f, 0.45f);
+            narrator.Stop();
             stepDuration = 0;
 
             string lit = lineage.Count > 0 ? "The glowing path is the chain of causes that led to you. " : "";
@@ -499,6 +530,7 @@ namespace Why.Director
                      kb.enterKey.wasPressedThisFrame || kb.numpadEnterKey.wasPressedThisFrame) Next();
             else if (kb.leftArrowKey.wasPressedThisFrame) Previous();
             else if (kb.pKey.wasPressedThisFrame) TogglePause();
+            else if (kb.mKey.wasPressedThisFrame) ToggleNarration();
         }
 
         void TickAutoplay(float dt)

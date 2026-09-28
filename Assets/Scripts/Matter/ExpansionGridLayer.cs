@@ -7,35 +7,62 @@ using Debug = UnityEngine.Debug;
 namespace Why.Matter
 {
     /// <summary>
-    /// A faint scale grid drawn on space itself beneath the RED layer: a log-radial fan of rays that all burst
-    /// out of the Big Bang. Ray j (0 .. <see cref="Orders"/>) runs at rho_j = S(u) * r^(j - Orders): ray 0, just
-    /// outside our lineage, is our world's scale, and every ray outward stands for a scale ten times larger, up
-    /// to 10^38. The gap between neighbouring rays therefore grows by the constant factor r outward: exponentially
-    /// growing grid space, with the inside curve (rho = 0) where we live.
+    /// A faint scale grid drawn on space itself beneath the RED layer: the expansion of space by 38 orders of magnitude
+    /// from the Big Bang to the start of the biosphere, drawn as a pinwheel of lines around the clock that keeps
+    /// subdividing with the same branching logic as the tree of life (<see cref="Why.Life.LifeLayer"/>).
     ///
-    /// The opening S(u) (<see cref="Fan.Opening"/>) is 0 at the Big Bang and bursts out of it (the outermost rays
-    /// leave the cusp almost perpendicular to the clock, the inner ones hug our track: the fan opens like a horn),
-    /// then keeps opening, ever more gently, about one and a half times as wide as the red envelope, until it holds
-    /// still at the start of the biosphere; from there every ray runs parallel to the clock, receding, until the
-    /// grid dissolves ahead of the human branch. A ray shows only once the gap to its inner neighbour has opened
-    /// beyond a few pixels (<see cref="CrowdGap"/>), so finer rays keep emerging from the expanding space along our
-    /// track, and as its gap widens a ray grows thicker and fainter: the outer rays are broad and faint, the inner
-    /// ones thin and crisp.
+    /// Lines: every grid line is a circumferential-to-radial curve, a member of one family indexed by its departure arc
+    /// sigma*: rho = <see cref="Bend"/> sigma^2 / (sigma* - sigma) (<see cref="Grove.Radius"/>). Out of the cusp it hugs
+    /// the clock (rho ~ sigma^2 / sigma*: flat, then bending outward ever more steeply) and at sigma* it is exactly
+    /// radial and shoots straight away from the clock's centre, so every line is the same hook at the scale of its
+    /// departure: tiny out of the cusp, wide later (ever expanding and scaling space). The family is ordered by sigma*
+    /// at every arc length (an earlier departure always lies farther out), so lines are level sets that can never cross,
+    /// however many generations are packed between two of them. The radial tail is drawn to a cap (<see cref="TailReach"/>
+    /// times the red envelope) and fades to nothing on the way: the fan has no border. Our track (rho = 0, sigma* at
+    /// infinity) never departs: it is the inside spiral the whole fan follows.
     ///
-    /// Rungs (the circumferential lines) are the orthogonal trajectories of the rays: close to the Big Bang they
-    /// are circles around the cusp, from the biosphere on straight lines across the parallel rays. They leave our
-    /// track at equal steps of ln(arc since the Big Bang), so they grow larger and farther apart with the distance
-    /// from the cusp (a steady beat once the fan has settled). Each is a chain of short, fine dashes, one per cell,
-    /// open around the rays it crosses (the sketch's cross-strokes, not a lattice); they too show only where the
-    /// cells are resolvable, fading toward the fan's outer edge.
+    /// Departures spiral around the clock: <see cref="BigBangLines"/> lines are born at the Big Bang itself with
+    /// departures log-spaced from just after the cusp (<see cref="FirstDeparture"/>: the outermost, nearly radial at
+    /// once) to the biosphere (the innermost, departing last). Orders of magnitude: arc k (1 .. <see cref="Orders"/>) at
+    /// arc length sigma_k, geometrically spaced from <see cref="FirstArcSigma"/> to the biosphere, one per order of
+    /// magnitude of expansion. At every arc, in every gap between neighbouring running lines (our track counts as the
+    /// innermost) that has opened wider than <see cref="BirthGap"/>, a new line is born with its departure at the
+    /// geometric mean of its neighbours' (<see cref="Grove.Grow"/>), which places it at the log-midpoint of the gap
+    /// running parallel to the flow of the bundle (along the clock, deep in the bundle) and fading in over a share of
+    /// the stretch to the next arc: the departure angles keep subdividing and the space between is filled in the same
+    /// recursive pattern, again and again. A line is only born while it still runs along the clock
+    /// (<see cref="BirthSlope"/>): the fan of spokes beyond the bundle is space that has already expanded, not a nursery.
+    /// Each contained line stands for a scale one order of magnitude down from the lines that contain it
+    /// (<see cref="GridLine.Depth"/>), so the hierarchy has many levels and many lines: the count is capped only by
+    /// what the finest level of detail can resolve (<see cref="BirthGap"/>) and the vertex budget. A line whose
+    /// departure would fall past the biosphere never departs: it eases into parallel there (<see cref="SettleLength"/>),
+    /// and from the biosphere on nothing is born and nothing departs; the remaining bundle runs parallel to the handoff
+    /// and dissolves ahead of the human branch.
     ///
-    /// Scaffolding, not content: neutral grey (hue belongs to the levels, and a red lattice would read as more
-    /// matter contours), low alpha, far below the bloom threshold, drawn beneath the matter surfaces so the red
-    /// veils it, and dimmed where the fan reaches beyond the red envelope into open space, where nothing veils it.
-    /// Every position and opacity is a smooth function of the clock, so nothing pops. The grid is schematic (the
-    /// clock is not physical time, and space never stopped expanding); the anchor's blurb tells the real
-    /// expansion. It builds its own <see cref="MatterLayout"/> (the Big Bang's arc and the envelope) because it
-    /// prepares concurrently with <see cref="MatterLayer"/>.
+    /// Rungs: at every order-of-magnitude arc, short dashes across the gaps between neighbouring lines (within each
+    /// tier), light, hidden where the arcs or the lines crowd within a few pixels (never a solid block at the cusp).
+    ///
+    /// Look and level of detail: a line's weight follows the space around it (its gap to its neighbours at the same arc
+    /// length; along a tail, the spacing of the spokes). As it splays out it grows thicker and fainter with that space
+    /// (<see cref="LineWidthPerGap"/>, <see cref="Fainter"/>: roughly constant ink), so the outer spokes are broad, soft
+    /// and faint and the contained lines thin and crisp; tails fade outward. Every line has a scale: how far its
+    /// departure lies from its neighbours' at birth (<see cref="GridLine.Spacing"/>; the space between two lines is
+    /// proportional to it everywhere, in the bundle and along the tails), which sorts the generations into
+    /// <see cref="Tiers"/> classes of size (<see cref="CrowdGap"/> at the overview, then <see cref="TierRatio"/> finer
+    /// each). Within a class only lines of that class or coarser count as neighbours, so each class is a complete,
+    /// consistent grid at every arc length. The meshes are the same <see cref="Tiers"/> bands of space: every stretch
+    /// of every line (and every rung) is drawn into the mesh of the space it has there, crossfading into the next finer
+    /// mesh over the lower part of the band (<see cref="Share"/>), and <see cref="Tick"/> fades a mesh in once its band
+    /// spans a few pixels on screen and lets it recede again as finer ones come in. So a line shows exactly where its
+    /// space is resolved at the current zoom: the overview shows the coarse pinwheel of the Big Bang's lines and their
+    /// first generations, with finer spokes emerging out of the expanding space between them as it opens far out, and
+    /// every closer view reveals the finer contained generations deeper in the bundle while the coarse lines become the
+    /// broad, faint background: constant new grid lines at every zoom, none crowding into a block.
+    /// Scaffolding, not content: neutral grey (hue belongs to the levels), low alpha, far below the bloom threshold,
+    /// drawn beneath the matter surfaces so the red veils it, and dimmed where it reaches beyond the red envelope into
+    /// open space, where nothing veils it. The grid is schematic (the clock is not physical time, and space never
+    /// stopped expanding); the anchor's blurb tells the real expansion. It builds its own <see cref="MatterLayout"/> (the
+    /// Big Bang's arc and the envelope) because it prepares concurrently with <see cref="MatterLayer"/>.
     /// </summary>
     public sealed class ExpansionGridLayer : GraphLayer
     {
@@ -48,105 +75,171 @@ namespace Why.Matter
         /// </summary>
         public static readonly int GridId = GraphIds.Matter(998);
 
-        // --- the fan: S(s) = Scale * F(s / sb), s = arc length along the clock from the Big Bang and sb its value at the
-        // biosphere, F(x) = Burst * (1 - (1 - x)^3) + (1 - Burst) * (6x^5 - 15x^4 + 10x^3) ---
-        /// <summary>Years ago at which the fan has opened fully and its rays run parallel: the start of the biosphere.</summary>
+        // --- the clock stretch of the grid ---
+        /// <summary>Years ago at which the biosphere starts: the last departure, the last arc, the last birth.</summary>
         public const double BiosphereYearsAgo = 4.0e9;
 
-        /// <summary>Orders of magnitude from our world's scale (ray 0) to the outermost ray.</summary>
+        /// <summary>Orders of magnitude: one arc each, from the Big Bang to the biosphere.</summary>
         public const int Orders = 38;
 
-        /// <summary>The fan's opening from the biosphere on, relative to the red envelope there (~20 data units, so ~26).</summary>
-        const float EnvelopeReach = 1.3f;
+        /// <summary>Arc length (world units) of the first arc out of the cusp; the arcs are geometric from here to the biosphere.</summary>
+        const float FirstArcSigma = 0.01f;
+
+        // --- the lines ---
+        /// <summary>Lines born at the Big Bang itself, their departures log-spaced from <see cref="FirstDeparture"/> to the biosphere.</summary>
+        const int BigBangLines = 8;
+
+        /// <summary>Departure arc length of the outermost Big Bang line: nearly radial straight out of the cusp.</summary>
+        const float FirstDeparture = 0.02f;
 
         /// <summary>
-        /// Radius of ray 0, our world's scale, once the fan has opened (data units): just outside our lineage. With
-        /// the opening it sets the ratio r between neighbouring rays (~1.17), and so which rays open wide enough to
-        /// show: from ray 7 or so (~0.2 units out) on, so the labelled ray 10 shows too.
+        /// Amplitude of the family, rho = Bend sigma^2 / (sigma* - sigma): at 0.5 a line has risen a quarter of its
+        /// departure arc length halfway there and turns through 45 degrees about two thirds of the way.
         /// </summary>
-        public const float InnerScale = 0.07f;
+        const float Bend = 0.5f;
 
         /// <summary>
-        /// Share of the burst in the opening. The burst, an ease-out, gives the fan its slope at the Big Bang,
-        /// 3 * Burst * Scale / sb (~9: the outermost ray leaves the cusp ~84 degrees from the clock); the rest, a
-        /// smootherstep, keeps the fan opening visibly all the way to the biosphere (a pure ease-out has all but
-        /// settled two hours of the clock earlier, after reaching far out into the dark around 7 o'clock) and 1.3 to
-        /// 1.8 times as wide as the red envelope on the way. Both parts' slope and curvature ease to 0 at the
-        /// biosphere, so the rays bend smoothly into parallel.
+        /// A gap between neighbouring lines bears a new line at an arc once it has opened this wide (world units): what
+        /// the finest tier can just resolve (<see cref="TierGap"/> of <see cref="Tiers"/> - 1), so every line that is
+        /// born can be seen somewhere.
         /// </summary>
-        const double Burst = 0.5;
-
-        // --- crowding: a line shows where the gap to its neighbour (world units, perpendicular to it) has opened beyond
-        // CrowdGap, fully from EmergeRange times that; beyond it, it widens and fades with the gap ---
-        /// <summary>
-        /// Gap below which a line is hidden (world units): ~2 px in the overview, so sub-pixel lines never pile up
-        /// into a solid block at the cusp or along our track.
-        /// </summary>
-        const float CrowdGap = 0.03f;
-
-        /// <summary>A line fades in while its gap grows from <see cref="CrowdGap"/> to this many times that.</summary>
-        const float EmergeRange = 2.5f;
-
-        /// <summary>Opacity falls as (gap / CrowdGap)^-Fainter: a ray 100 times wider apart than the finest is ~5 times fainter.</summary>
-        const float Fainter = 0.35f;
-
-        /// <summary>World width of a ray per unit of its gap: the outermost rays are ~0.1 units (a few pixels) wide.</summary>
-        const float RayWidthPerGap = 0.025f;
+        const float BirthGap = 0.00044f;
 
         /// <summary>
-        /// World width of a rung per unit of the smaller side of its cells (the gap to the neighbouring rung or between
-        /// the rays it crosses): the strokes stay fine along our track, where the rays crowd, and broaden far out.
+        /// A line is only born where its outward slope (rho per unit along the clock) is still below this: it starts out
+        /// running along the clock and bends out later (it departs at least 2.4 times farther along than its birth).
         /// </summary>
-        const float RungWidthPerGap = 0.015f;
+        const float BirthSlope = 1f;
 
-        /// <summary>World widths are capped here (world units), so the far rungs stay lines, not bars.</summary>
-        const float MaxWidthWorld = 0.12f;
+        /// <summary>
+        /// Least ratio between a new line's departure and either neighbour's: the departure angles subdivide until the
+        /// spokes are this close in arc length, then the gap is full.
+        /// </summary>
+        const float MinDepartRatio = 1.001f;
+
+        /// <summary>
+        /// A line born next to our track departs this many times farther along the clock than the line outside it
+        /// (the ladder of departures continues inward past the innermost Big Bang line, beyond the biosphere).
+        /// </summary>
+        const float TrackDepartRatio = 2f;
+
+        /// <summary>A line that never departs is only born where its outward slope at the biosphere stays below this (rho per unit along the clock): it settles, it does not shoot.</summary>
+        const float MaxSettleSlope = 2f;
+
+        /// <summary>
+        /// A line still bending at the biosphere eases into parallel there: its outward slope decays over this many
+        /// world units along the clock (e-folding), so the bundle settles without a corner.
+        /// </summary>
+        const float SettleLength = 0.5f;
+
+        /// <summary>Most lines in all (a guard; the birth gap keeps them under it).</summary>
+        const int MaxLines = 6000;
+
+        /// <summary>Most vertices over all tiers (32-bit indices; the finest, latest lines are dropped first) ...</summary>
+        const int MaxVertices = 600_000;
+
+        /// <summary>... of which this many are kept for the rungs (the finest rungs are dropped first).</summary>
+        const int RungVertices = 120_000;
+
+        // --- the radial tails ---
+        /// <summary>A departing line is drawn out to this many times the red envelope at its departure ...</summary>
+        const float TailReach = 2.5f;
+
+        /// <summary>... at least this far (data units of rho: the cusp's brush of spokes) and at most <see cref="TailCap"/>.</summary>
+        const float TailFloor = 1f;
+
+        const float TailCap = 60f;
+
+        /// <summary>A tail fades from this fraction of its reach to nothing at the cap: the spokes fan out to infinity, no border.</summary>
+        const float TailFadeStart = 0.3f;
+
+        /// <summary>Outward slope (world, rho per unit along the clock) at which a line leaves the bundle and its tail is sampled by rho.</summary>
+        const float ExitSlope = 3f;
+
+        // --- tiers: bands of space (world units), each a mesh of its own; a line's scale (how far its departure lies from
+        // its neighbours') sorts it into the same bands as a class, which decides its neighbours ---
+        /// <summary>Bands of space; tier 0 is the overview's, the last holds lines ~110 times finer (a 110x zoom).</summary>
+        public const int Tiers = 7;
+
+        /// <summary>Scale of tier 0 (world units): ~3 px at the overview distance. Geometry with less space around it belongs to a finer tier, so lines never pile up into a solid block.</summary>
+        const float CrowdGap = 0.05f;
+
+        /// <summary>Each finer tier holds space this many times finer than the one before.</summary>
+        const float TierRatio = 2.2f;
+
+        /// <summary>
+        /// A stretch of a line whose space has just entered a tier's band is shared with the next finer tier, fading
+        /// over into its own as its space grows by this ratio (below <see cref="TierRatio"/>): the seams between the
+        /// meshes are invisible while both are on, and a line whose finer stretches are off at the current zoom fades
+        /// out softly where its space drops below what the zoom resolves.
+        /// </summary>
+        const float EmergeRatio = 1.4f;
+
+        /// <summary>A tier fades in as its scale grows from <see cref="TierOffPx"/> to this many pixels on screen ...</summary>
+        const float TierOnPx = 3f;
+
+        /// <summary>... and is gone below this many.</summary>
+        const float TierOffPx = 1.5f;
+
+        /// <summary>
+        /// Once the next finer tier is fully in (this tier's scale spans TierOnPx x TierRatio pixels), a tier recedes as
+        /// (pixels / that)^-Recede: zoomed in ten times past its own scale it is at a third, the broad, faint background
+        /// of the crisp lines of the moment.
+        /// </summary>
+        const float Recede = 0.5f;
+
+        /// <summary>Opacity falls as (space / scale)^-Fainter: a line whose space has opened 100 times beyond the scale it was born into is 10 times fainter (and, until the width cap, 100 times wider: its ink grows only as the square root of its space).</summary>
+        const float Fainter = 0.5f;
+
+        /// <summary>
+        /// Within a tier, each generation (level) below the tier's shallowest is this much fainter: the pinwheel's own
+        /// spokes are the boldest, the lines that formed between them lighter, the ones between those lighter still,
+        /// like the marks of a ruler, at every zoom.
+        /// </summary>
+        const float LevelFade = 0.8f;
+
+        /// <summary>World width of a line per unit of its space (on top of <see cref="WidthPx"/>): a line 30 px from its neighbours is ~3 px wide, the old spokes far out broader still.</summary>
+        const float LineWidthPerGap = 0.06f;
+
+        /// <summary>World width of a rung per unit of the smaller side of its cell.</summary>
+        const float StrokeWidthPerGap = 0.012f;
+
+        /// <summary>World widths are capped here (world units: ~3.5 px at the overview, ~11 px at the earth preset), so the far spokes stay soft lines, not bars.</summary>
+        const float MaxWidthWorld = 0.06f;
 
         const float WidthPx = 1f;
 
-        /// <summary>The outermost rays fade out over this many orders (the fan has no hard outer border).</summary>
-        const float OuterOrders = 4f;
-
-        // --- rungs: coordinate w = ln(s / sb) up to the biosphere, continued linearly (s - sb) / sb after it ---
         /// <summary>
-        /// Rung step in w: each rung leaves our track 1.2 times farther from the Big Bang than the one before, and
-        /// once the fan has settled they follow at a steady 0.18 sb (~0.8 world units along the track).
+        /// A newborn line fades in over this fraction of the stretch to the next arc, and its neighbours feel its
+        /// presence (their gaps halve) over the same stretch: nothing pops at an arc.
         /// </summary>
-        const double RungStep = 0.18232155679395462; // ln 1.2
+        const float BirthRamp = 0.6f;
 
-        /// <summary>Rungs leaving our track closer than this to the Big Bang (world units) are too crowded to be seen anywhere.</summary>
-        const float FirstRungSigma = 0.05f;
+        /// <summary>Samples along a line's ramp (its steps are capped to this share of the ramp, so the fade is smooth).</summary>
+        const int RampSamples = 8;
 
-        /// <summary>Rungs start this far (in ln rho) inside ray 0, where every ray is still crowded ...</summary>
-        const float RungInnerMargin = 1f;
+        /// <summary>Widest space a line can have to a neighbour still running along the clock (world units; a guard against a neighbour shooting off).</summary>
+        const float OpenGap = 1000f;
 
-        /// <summary>... with this many samples up to ray 0 (then <see cref="CellSamples"/> per cell between neighbouring rays).</summary>
-        const int RungInnerSamples = 4;
+        // --- rungs ---
+        /// <summary>Weight of the rungs: quieter than the lines, so the arcs read as marks between them.</summary>
+        const float StrokeWeight = 0.35f;
 
-        /// <summary>
-        /// Fraction of a cell left open at either end of a rung's dash, where it crosses a ray: the rungs read as the
-        /// sketch's short cross-strokes between neighbouring rays rather than as a lattice of long spokes and rings.
-        /// </summary>
-        const float DashGap = 0.17f;
+        /// <summary>A rung spans a gap up to this many times the arcs' own spacing there; taller cells are being torn open by a departure.</summary>
+        const float RungReach = 4f;
 
-        /// <summary>Fraction of a cell over which a dash fades in (and out) at its ends: short, so the strokes read as separate.</summary>
-        const float DashRamp = 0.07f;
-
-        /// <summary>Samples of a rung per cell: the ray, the dash's start, its full-strength start, middle and end, and its end.</summary>
-        const int CellSamples = 6;
+        /// <summary>Fraction of a cell left open at either end of a rung, where the arc crosses a line.</summary>
+        const float DashGap = 0.12f;
 
         // --- opacity: the material carries the grid's opacity, vertices a 0..1 profile (full byte precision) ---
         /// <summary>Opacity of the grid at full weight (before the level of detail and the fades).</summary>
-        const float GridAlpha = 0.3f;
+        const float GridAlpha = 0.4f;
 
         /// <summary>HDR multiplier of the neutral tone: ~0.48 at most, far below the bloom threshold.</summary>
         const float GridIntensity = 0.7f;
 
-        const float RayWeight = 1f;
-        const float RungWeight = 1f;
-
-        /// <summary>Radial e-folding of the material's fade (data units of rho): the far fan dissolves into the dark.</summary>
-        const float GridRhoFade = 20f;
+        /// <summary>Radial e-folding of the material's fade (data units of rho): the far spokes dissolve into the dark.</summary>
+        const float GridRhoFade = 30f;
 
         /// <summary>
         /// Opacity of the grid out in open space, beyond the red envelope, relative to inside it: there no red veils
@@ -159,11 +252,11 @@ namespace Why.Matter
         const float OpenSpaceSpan = 0.6f;
 
         /// <summary>
-        /// Weight of the settled grid, relative to the fan: from the biosphere on the story's scale is earthly, so the
-        /// parallel rays recede (reached over <see cref="SettleSpan"/>), leaving the late red layer and the life layer
+        /// Weight of the settled bundle, relative to the fan: from the biosphere on the story's scale is earthly, so the
+        /// parallel lines recede (reached over <see cref="SettleSpan"/>), leaving the late red layer and the life layer
         /// above it unstriped.
         /// </summary>
-        const float SettledWeight = 0.5f;
+        const float SettledWeight = 0.3f;
 
         /// <summary>World units along the clock after the biosphere over which the grid recedes to <see cref="SettledWeight"/>.</summary>
         const float SettleSpan = 1.5f;
@@ -171,68 +264,80 @@ namespace Why.Matter
         /// <summary>Geometry fainter than this (vertex alpha after the radial fade) is left out.</summary>
         const float CullAlpha = 0.01f;
 
+        /// <summary>A line is split into separate polylines where it is invisible for at least this many samples in a tier.</summary>
+        const int SplitSamples = 4;
+
         /// <summary>
         /// The grid dissolves ahead of the human branch as HandoffFade^this on top of the material's own handoff
-        /// fade: the vast far fan is gone well before the branch.
+        /// fade: the bundle is gone well before the branch.
         /// </summary>
         const float HandoffExponent = 2f;
 
-        // --- sampling along the clock: geometric steps out of the cusp, at most MaxStep of arc length, and at most
-        // LensLnStep of lens time ---
-        /// <summary>First sample after the cusp (world units along the clock); the rays fan out of it as straight lines.</summary>
-        const float CuspSigma = 1e-3f;
+        // --- sampling: a line is walked in world steps of RelStep times its distance out of the cusp (at most MaxStep,
+        // at least MinStep), turning at most TurnDegrees per step; its tail is walked in rho ---
+        const float RelStep = 0.05f;
+        const float MinStep = 5e-4f;
 
-        /// <summary>Largest step relative to the arc length since the Big Bang: the fan opens self-similarly out of the cusp.</summary>
-        const float RelativeStep = 0.05f;
+        /// <summary>Largest step in the bundle (the turn limit takes over in the bends; along the clock the chord error is well under a pixel).</summary>
+        const float MaxStep = 0.1f;
 
-        /// <summary>Largest step (world units along the clock): the far rays sweep wide arcs.</summary>
-        const float MaxStep = 0.03f;
+        /// <summary>Largest step once the lines run parallel (they only bend with the clock: a third of a pixel of chord error at the overview).</summary>
+        const float SettledStep = 0.25f;
 
-        /// <summary>
-        /// Largest step in ln(yearsAgo + <see cref="LensLogOffset"/>): lens time of the presets that still show
-        /// matter (the smallest of their log offsets), so unrolled windows stay smooth too.
-        /// </summary>
-        const double LensLnStep = 0.04;
+        /// <summary>Samples of the red envelope's width over the clock (looked up per point instead of evaluating the cosmic scale factor).</summary>
+        const int EnvelopeSamples = 2048;
 
-        const double LensLogOffset = 1e6;
+        const float TurnDegrees = 4f;
+        const int TurnHalvings = 5;
+
+        /// <summary>A tail is sampled every TailRel of its radius (it is straight: rho along the normal), at least <see cref="MinStep"/>.</summary>
+        const float TailRel = 0.18f;
+
+        /// <summary>Newton steps inverting a line's rise for a tail sample (its rise is convex in the arc length).</summary>
+        const int TailNewton = 6;
+
+        /// <summary>Most points on one line (a guard: the steps above give a few hundred).</summary>
+        const int MaxPoints = 2048;
 
         // --- labels ---
-        /// <summary>Rays that carry an order-of-magnitude label, and how far through the fan's opening (0 .. 1) each sits.</summary>
+        /// <summary>Arcs that carry an order-of-magnitude label ...</summary>
         static readonly int[] LabelOrders = { 38, 30, 20, 10 };
 
-        static readonly float[] LabelAlong = { 0.08f, 0.25f, 0.5f, 0.75f };
+        /// <summary>... this fraction of the arc length from the Big Bang outward: at the top of the bundle, below the spokes.</summary>
+        const float LabelRhoFrac = 0.35f;
 
-        /// <summary>The inflation label sits this far out of the cusp (world units along the clock), clear of the Big Bang's glow.</summary>
-        const float InflationLabelSigma = 0.25f;
+        /// <summary>Radius of the "our world's scale" label at the biosphere, just outside our track (data units).</summary>
+        const float WorldLabelRho = 0.05f;
 
         const float OrderPriority = 2.5f;
-        const float InflationPriority = 3f;
         const float WorldPriority = 2f;
         const float LabelSize = 11f;
 
-        // --- level of detail: the grid is the overview's story (distance 22); it recedes as the camera comes close, to
-        // about half in the lens presets (distances 7 - 10), where the settled rays would otherwise stripe the matter ---
-        const float LodNear = 5f;
-        const float LodFar = 18f;
-        const float AlphaClose = 0.4f;
+        /// <summary>Line ids standing for our track (rho = 0, never departs) and for no line at all.</summary>
+        public const int Track = -1, None = -2;
 
         const string Blurb =
-            "A schematic scale grid on space itself. Our track is our world's scale, and each ray outward stands for " +
-            "a scale ten times larger than the one inside it: 38 orders of magnitude in all, about as many as " +
-            "separate the Planck length, the smallest scale current physics can describe, from our world's. All of " +
-            "it started together at the Big Bang and fanned out as space expanded: inflation stretched space about " +
-            "10^26-fold in roughly 10^-32 seconds, space has grown about 1,100-fold since the cosmic microwave " +
-            "background was released 380,000 years after the Big Bang, and today the expansion is accelerating. The " +
-            "grid steadies at the start of the biosphere only as a visual cue that the story's scale shifts from the " +
-            "cosmic to the earthly: space itself has never stopped expanding.";
+            "A schematic grid on space itself, grown like the tree of life. Our track is our world's scale, and space " +
+            "opens outward from it: every grid line starts out running along the clock and bends outward until it points " +
+            "straight away from it, splaying off to infinity; each arc across the bundle marks another order of magnitude " +
+            "of expansion, 38 of them from the Big Bang to the start of the biosphere, about as many as separate the " +
+            "Planck length, the smallest scale current physics can describe, from our world's. At every one, wherever " +
+            "the space between two lines has opened wide enough, a new line forms between them, one order of magnitude " +
+            "finer than the lines around it, the way new lineages branch off in the tree of life, and it too bends " +
+            "outward in its turn: the grid keeps dividing as space expands, finer lines inside finer lines, the closer " +
+            "you look. The real expansion was not so even: inflation stretched space about 10^26-fold in roughly 10^-32 " +
+            "seconds, space has grown about 1,100-fold since the cosmic microwave background was released 380,000 years " +
+            "after the Big Bang, and today the expansion is accelerating. The grid settles into parallel lines at the " +
+            "start of the biosphere only as a visual cue that the story's scale shifts from the cosmic to the earthly: " +
+            "space itself has never stopped expanding.";
 
         public override int Order => 6;
         public override IEnumerable<string> RequiredTexts => new[] { MatterLayer.DataPath };
 
-        /// <summary>The fan along the clock: its opening, growth and rays (plain math, safe on any thread).</summary>
-        public readonly struct Fan
+        /// <summary>The clock stretch of the grid: arc lengths from the Big Bang to the biosphere and to the end of the red layer (plain math, safe on any thread).</summary>
+        public readonly struct Clock
         {
-            /// <summary>Clock arc of the Big Bang, the cusp every ray starts from.</summary>
+            /// <summary>Clock arc of the Big Bang, the cusp every line starts from.</summary>
             public readonly float BigBangArc;
 
             /// <summary>Clock arc of the start of the biosphere, where the fan holds still.</summary>
@@ -241,98 +346,390 @@ namespace Why.Matter
             /// <summary>Arc length along the clock from the Big Bang to the biosphere (world units).</summary>
             public readonly float BiosphereSigma;
 
-            /// <summary>Opening of the fan from the biosphere on: the radius of the outermost ray (data units).</summary>
-            public readonly float Scale;
+            /// <summary>Arc length from the Big Bang to the end of the red layer (the handoff).</summary>
+            public readonly float EndSigma;
 
-            /// <summary>ln of the ratio r between the radii of neighbouring rays.</summary>
-            public readonly float LnRatio;
-
-            /// <summary>The fan out of the Big Bang at <paramref name="bigBangArc"/>, opening to <see cref="EnvelopeReach"/> times the red envelope at the biosphere.</summary>
-            public Fan(float bigBangArc, float envelopeAtBiosphere)
+            public Clock(float bigBangArc)
             {
                 BigBangArc = bigBangArc;
                 BiosphereArc = Mathf.Min(DeepTime.Arc(BiosphereYearsAgo), bigBangArc - 1e-3f);
                 BiosphereSigma = (bigBangArc - BiosphereArc) * GraphWarp.BasePath.SigmaPerArc;
-                Scale = Mathf.Max(EnvelopeReach * envelopeAtBiosphere, 4 * InnerScale);
-                LnRatio = Mathf.Log(Scale / InnerScale) / Orders;
+                EndSigma = (bigBangArc - MatterLayout.EndArc) * GraphWarp.BasePath.SigmaPerArc;
             }
-
-            /// <summary>Ratio between the radii (and the gaps) of neighbouring rays.</summary>
-            public float Ratio => Mathf.Exp(LnRatio);
 
             /// <summary>Arc length along the clock from the Big Bang at arc u (world units; the circle part of the base path).</summary>
             public float Sigma(float u) => (BigBangArc - u) * GraphWarp.BasePath.SigmaPerArc;
 
             /// <summary>Arc at arc length s from the Big Bang (inverse of <see cref="Sigma"/>).</summary>
             public float ArcOf(float s) => BigBangArc - s / GraphWarp.BasePath.SigmaPerArc;
+        }
 
-            /// <summary>Opening S at arc length s: 0 at the Big Bang, <see cref="Scale"/> from the biosphere on.</summary>
-            public float Opening(float s) => (float)(Scale * Shape(Math.Min(Math.Max(s / (double)BiosphereSigma, 0), 1)));
+        /// <summary>
+        /// A line of the grid: the member of the family with departure <see cref="Depart"/> (its vertical asymptote),
+        /// drawn from arc length <see cref="Born"/> on (<see cref="Grove.Radius"/>). A line whose departure lies past the
+        /// biosphere never departs: it eases into parallel there.
+        /// </summary>
+        public struct GridLine
+        {
+            /// <summary>Arc length where it is born (0: the Big Bang) and where it departs (its vertical asymptote).</summary>
+            public float Born, Depart;
 
-            /// <summary>Growth rate of the opening, d ln S / ds per world unit along the clock (~1 / s near the cusp, 0 from the biosphere on).</summary>
-            public float Growth(float s)
-            {
-                if (s >= BiosphereSigma) return 0;
-                double x = Math.Max(s / (double)BiosphereSigma, 1e-12);
-                return (float)(ShapeSlope(x) / (Shape(x) * BiosphereSigma));
-            }
+            /// <summary>The line inside it at birth (<see cref="Track"/>: our track).</summary>
+            public int Parent;
 
-            /// <summary>The opening's profile F(x), x = s / sb in 0 .. 1: 0 at the Big Bang, 1 with zero slope and curvature at the biosphere.</summary>
-            static double Shape(double x)
-            {
-                double rest = 1 - x;
-                return Burst * (1 - rest * rest * rest) + (1 - Burst) * x * x * x * (10 + x * (6 * x - 15));
-            }
+            /// <summary>The order-of-magnitude arc it is born on (0: the Big Bang).</summary>
+            public int Arc;
 
-            /// <summary>dF / dx = (1 - x)^2 (3 Burst + 30 (1 - Burst) x^2).</summary>
-            static double ShapeSlope(double x)
-            {
-                double rest = 1 - x;
-                return rest * rest * (3 * Burst + 30 * (1 - Burst) * x * x);
-            }
-
-            /// <summary>Radius of a ray relative to the opening: r^(order - Orders), 1 for the outermost ray.</summary>
-            public float Reach(float order) => Mathf.Exp((order - Orders) * LnRatio);
-
-            /// <summary>Radius of ray <paramref name="order"/> at arc length s (data units of rho).</summary>
-            public float Rho(float order, float s) => Opening(s) * Reach(order);
+            /// <summary>Its level: one more than the deeper of the two lines it was born between (0: out of the Big Bang). It stands for a scale 10^-Depth of theirs.</summary>
+            public int Depth;
 
             /// <summary>
-            /// Perpendicular world distance from a ray at radius rho (arc length s) to its inner neighbour, rho / r:
-            /// the radial gap, foreshortened where the rays leave the clock steeply (near the cusp).
+            /// Its scale (world units): the arc length between its departure and the nearer of its neighbours' at birth,
+            /// which its space is proportional to along its bundle run and its tail; for a line that never departs, the
+            /// space that spacing opens by the biosphere (<see cref="Grove.ScaleOf"/>) ...
             /// </summary>
-            public float Gap(float rho, float s)
-            {
-                float h = 1 + rho / GraphStyle.R0;
-                float climb = rho * Growth(s);
-                return rho * (1 - Mathf.Exp(-LnRatio)) * h / Mathf.Sqrt(h * h + climb * climb);
-            }
+            public float Spacing;
 
-            /// <summary>Rung coordinate at arc length s: ln(s / sb) up to the biosphere, continued linearly (C1) after it.</summary>
-            public double Rung(float s) =>
-                s <= BiosphereSigma ? Math.Log(Math.Max(s, 1e-9f) / (double)BiosphereSigma) : (s - BiosphereSigma) / (double)BiosphereSigma;
+            /// <summary>... and its class: the tier that scale falls in (the coarsest whose threshold it reaches; 0 for the Big Bang's lines). Only lines of its class or coarser are its neighbours.</summary>
+            public int Tier;
+        }
 
-            /// <summary>Arc length at which the rung with coordinate w leaves our track (inverse of <see cref="Rung"/>).</summary>
-            public float SigmaOfRung(double w) => (float)(w <= 0 ? BiosphereSigma * Math.Exp(w) : BiosphereSigma * (1 + w));
+        /// <summary>A rung: the dash of arc <see cref="Arc"/> across the gap between two lines neighbouring in class <see cref="Tier"/> (<see cref="Track"/>: our track).</summary>
+        public struct Rung
+        {
+            public int Arc, Inner, Outer, Tier;
+        }
+
+        /// <summary>
+        /// The lines, grown arc by arc (plain data, safe on any thread): their geometry and, for every stretch between
+        /// two arcs, the running lines inner to outer (the neighbours of every line at every arc length).
+        /// </summary>
+        public sealed class Grove
+        {
+            /// <summary>The lines, in the order they were born (the Big Bang's first, inner to outer).</summary>
+            public readonly List<GridLine> Lines = new List<GridLine>(1024);
 
             /// <summary>
-            /// Slope of a rung, d s / d ln(rho / S): the orthogonal trajectory of the rays through (s, rho) in the
-            /// world metric of the clock (tangential lengths grow as (R0 + rho) / R0). Near the cusp this traces a
-            /// circle around it; from the biosphere on it is 0 (straight across the parallel rays).
+            /// The running lines of each class (its own and the coarser ones: its neighbours), inner to outer, after the
+            /// births of arc k, valid from arc k to arc k + 1: Running[t][Start[t][k] .. Start[t][k + 1]) (k = 0: out of
+            /// the Big Bang, before the first arc). A line stays listed until the first arc past its departure. The finest
+            /// class's list holds every line.
             /// </summary>
-            public float RungSlope(float s, float rho)
+            public readonly List<int>[] Running = new List<int>[Tiers];
+
+            public readonly int[][] Start = new int[Tiers][];
+
+            /// <summary>Arc length of arc k (index 1 .. Orders; 0 is the Big Bang).</summary>
+            public readonly float[] ArcSigma = new float[Orders + 1];
+
+            /// <summary>The rungs of every arc, tier by tier, inner to outer.</summary>
+            public readonly List<Rung> Rungs = new List<Rung>(16384);
+
+            /// <summary>Lines born on arc k.</summary>
+            public readonly int[] Births = new int[Orders + 1];
+
+            /// <summary>Departure of the last line to have departed before stretch k (its tail is the space beyond the outermost running line); 0 while none has.</summary>
+            public readonly float[] LastDeparture = new float[Orders + 2];
+
+            /// <summary>Deepest level of any line, and the shallowest in each tier.</summary>
+            public int MaxDepth;
+
+            public readonly int[] MinDepth = new int[Tiers];
+
+            readonly Clock clock;
+
+            Grove(Clock clock)
             {
-                float g = Growth(s);
-                if (g <= 0) return 0;
-                float h = 1 + rho / GraphStyle.R0;
-                float climb = rho * g;
-                return -rho * climb / (h * h + climb * climb);
+                this.clock = clock;
+                for (int t = 0; t < Tiers; t++)
+                {
+                    Running[t] = new List<int>(4096);
+                    Start[t] = new int[Orders + 2];
+                    MinDepth[t] = int.MaxValue;
+                }
+            }
+
+            /// <summary>Radius of line <paramref name="id"/> at arc length s (infinite from its departure on).</summary>
+            public float Rho(int id, float s) => Radius(Lines[id].Depart, s);
+
+            /// <summary>Outward slope d rho / d s of line <paramref name="id"/> at arc length s.</summary>
+            public float Slope(int id, float s) => RadiusSlope(Lines[id].Depart, s);
+
+            /// <summary>Radius of a neighbour (<see cref="Track"/>: 0, <see cref="None"/>: infinite) at arc length s.</summary>
+            public float NeighbourRho(int id, float s) => id == Track ? 0 : id == None ? float.PositiveInfinity : Rho(id, s);
+
+            /// <summary>
+            /// The family: radius at arc length s of the line departing at <paramref name="depart"/>, Bend s^2 / (depart - s),
+            /// decreasing in the departure at every s (lines never cross). A line departing past the biosphere follows the
+            /// hyperbola to the biosphere, then its slope eases away into parallel.
+            /// </summary>
+            public float Radius(float depart, float s)
+            {
+                if (depart <= clock.BiosphereSigma)
+                {
+                    if (s >= depart) return float.PositiveInfinity;
+                    return Bend * s * s / (depart - s);
+                }
+
+                float sb = Mathf.Min(s, clock.BiosphereSigma);
+                float rho = Bend * sb * sb / (depart - sb);
+                if (s <= clock.BiosphereSigma) return rho;
+                return rho + RadiusSlope(depart, clock.BiosphereSigma) * SettleLength * (1 - Mathf.Exp(-(s - clock.BiosphereSigma) / SettleLength));
+            }
+
+            /// <summary>Outward slope of the family: Bend s (2 depart - s) / (depart - s)^2, decaying past the biosphere for a line that never departs.</summary>
+            public float RadiusSlope(float depart, float s)
+            {
+                if (depart <= clock.BiosphereSigma)
+                {
+                    if (s >= depart) return float.PositiveInfinity;
+                    float d = depart - s;
+                    return Bend * s * (2 * depart - s) / (d * d);
+                }
+
+                float sb = Mathf.Min(s, clock.BiosphereSigma), db = depart - sb;
+                float slope = Bend * sb * (2 * depart - sb) / (db * db);
+                return s <= clock.BiosphereSigma ? slope : slope * Mathf.Exp(-(s - clock.BiosphereSigma) / SettleLength);
+            }
+
+            /// <summary>Whether a line departs (at or before the biosphere) rather than easing into parallel.</summary>
+            public bool Departs(int id) => Lines[id].Depart <= clock.BiosphereSigma;
+
+            /// <summary>
+            /// Scale of a line departing at <paramref name="depart"/> whose departure lies <paramref name="spacing"/> from its
+            /// neighbours': the spacing itself (its space is at least that along its tail, and nearly that in the bundle
+            /// as it departs); for a line that never departs, the space that spacing opens between the family's members
+            /// at the biosphere, Bend sb^2 spacing / (depart - sb)^2.
+            /// </summary>
+            public float ScaleOf(float depart, float spacing)
+            {
+                float sb = clock.BiosphereSigma;
+                if (depart <= sb) return spacing;
+                float d = depart - sb;
+                return spacing * Mathf.Min(Bend * sb * sb / (d * d), 1f);
+            }
+
+            /// <summary>Length of the stretch from arc k to the next (the last arc's: from the one before).</summary>
+            public float StretchLength(int k) => k < Orders ? ArcSigma[k + 1] - ArcSigma[k] : ArcSigma[k] - ArcSigma[k - 1];
+
+            /// <summary>How far a line has faded in at arc length s: 1 for the Big Bang's, a newborn's ramp over <see cref="BirthRamp"/> of its stretch.</summary>
+            public float Ramp(int id, float s)
+            {
+                GridLine line = Lines[id];
+                return line.Arc == 0 ? 1f : Smooth((s - line.Born) / (BirthRamp * StretchLength(line.Arc)));
+            }
+
+            /// <summary>The stretch (index into <see cref="Start"/>) containing arc length s, from <paramref name="k"/> on.</summary>
+            public int Stretch(float s, int k)
+            {
+                while (k < Orders && ArcSigma[k + 1] <= s) k++;
+                return k;
+            }
+
+            /// <summary>
+            /// Position of line <paramref name="id"/> in tier <paramref name="tier"/>'s running order of stretch
+            /// <paramref name="k"/>, searched from <paramref name="from"/> on (a line's position never moves inward from
+            /// one stretch to the next: births inside it push it outward, departures happen beyond it); -1 when it is not
+            /// running there.
+            /// </summary>
+            public int Position(int tier, int id, int k, int from)
+            {
+                List<int> running = Running[tier];
+                int end = Start[tier][k + 1];
+                for (int i = Mathf.Max(from, Start[tier][k]); i < end; i++)
+                {
+                    if (running[i] == id) return i;
+                }
+
+                return -1;
+            }
+
+            /// <summary>The running line of tier <paramref name="tier"/> at position <paramref name="p"/> of stretch k: <see cref="Track"/> inside the first, <see cref="None"/> beyond the last.</summary>
+            public int At(int tier, int k, int p) => p < Start[tier][k] ? Track : p >= Start[tier][k + 1] ? None : Running[tier][p];
+
+            /// <summary>Relative weight of a line by its level within its tier: the shallowest generation of the tier is full, each deeper one <see cref="LevelFade"/> fainter.</summary>
+            public float LevelWeight(int id)
+            {
+                GridLine line = Lines[id];
+                return Mathf.Pow(LevelFade, line.Depth - MinDepth[line.Tier]);
+            }
+
+            /// <summary>
+            /// Grows the lines: the Big Bang's out of the cusp, then arc by arc a new line in every gap between
+            /// neighbouring running lines (our track the innermost) that has opened beyond <see cref="BirthGap"/>, with
+            /// its departure at the geometric mean of its neighbours' (next to our track, <see cref="TrackDepartRatio"/>
+            /// times farther), as long as the spokes stay <see cref="MinDepartRatio"/> apart and the newborn still runs
+            /// along the clock (<see cref="BirthSlope"/>). Nothing is born on the biosphere's arc.
+            /// </summary>
+            public static Grove Grow(Clock clock)
+            {
+                Grove grove = new Grove(clock);
+                float sb = clock.BiosphereSigma;
+                for (int k = 1; k <= Orders; k++)
+                    grove.ArcSigma[k] = sb * Mathf.Pow(FirstArcSigma / sb, (Orders - k) / (float)(Orders - 1));
+
+                // the Big Bang's lines, inner (departing at the biosphere) to outer (nearly radial out of the cusp): the
+                // pinwheel's own spokes, all in the overview's tier
+                List<int>[] running = new List<int>[Tiers];
+                for (int t = 0; t < Tiers; t++) running[t] = new List<int>(1024);
+                for (int j = 0; j < BigBangLines; j++)
+                {
+                    float depart = sb * Mathf.Pow(FirstDeparture / sb, j / (float)(BigBangLines - 1));
+                    float next = sb * Mathf.Pow(FirstDeparture / sb, (j + 1) / (float)(BigBangLines - 1));
+                    grove.Lines.Add(new GridLine { Born = 0, Depart = depart, Parent = Track, Arc = 0, Spacing = depart - next });
+                    for (int t = 0; t < Tiers; t++) running[t].Add(j);
+                }
+
+                grove.MinDepth[0] = 0;
+                for (int t = 0; t < Tiers; t++) grove.Running[t].AddRange(running[t]);
+                List<int> all = running[Tiers - 1];
+                float[] rho = new float[MaxLines];
+                int[] before = new int[Tiers];
+                for (int k = 1; k <= Orders; k++)
+                {
+                    float s = grove.ArcSigma[k];
+                    // departed lines leave from the outer end (the lists run inner to outer, departures outer first)
+                    grove.LastDeparture[k] = grove.LastDeparture[k - 1];
+                    for (int t = 0; t < Tiers; t++)
+                    {
+                        List<int> list = running[t];
+                        while (list.Count > 0 && grove.Lines[list[list.Count - 1]].Depart <= s)
+                        {
+                            grove.LastDeparture[k] = Mathf.Max(grove.LastDeparture[k], grove.Lines[list[list.Count - 1]].Depart);
+                            list.RemoveAt(list.Count - 1);
+                        }
+                    }
+
+                    for (int c = 0; c < all.Count; c++) rho[c] = grove.Rho(all[c], s);
+                    // the rungs of every tier: between lines neighbouring within the tier (our track the innermost)
+                    for (int t = 0; t < Tiers; t++)
+                    {
+                        List<int> list = running[t];
+                        for (int c = 0; c < list.Count; c++) grove.Rungs.Add(new Rung { Arc = k, Inner = c > 0 ? list[c - 1] : Track, Outer = list[c], Tier = t });
+                    }
+
+                    // births, outer gap first so the positions inside stay valid while inserting: a newborn joins the
+                    // running lines of its tier and every finer one, inside the same neighbours
+                    for (int c = all.Count - 1; c >= 0 && k < Orders; c--)
+                    {
+                        int inner = c > 0 ? all[c - 1] : Track, outer = all[c];
+                        float gap = rho[c] - (c > 0 ? rho[c - 1] : 0);
+                        if (gap < BirthGap) continue;
+                        GridLine outerLine = grove.Lines[outer];
+                        float departOut = outerLine.Depart, depart, spacing;
+                        int depth = outerLine.Depth;
+                        if (inner == Track)
+                        {
+                            depart = departOut * TrackDepartRatio;
+                            spacing = depart - departOut;
+                        }
+                        else
+                        {
+                            GridLine innerLine = grove.Lines[inner];
+                            if (innerLine.Depart < departOut * MinDepartRatio * MinDepartRatio) continue;
+                            depart = Mathf.Sqrt(innerLine.Depart * departOut);
+                            spacing = Mathf.Min(depart - departOut, innerLine.Depart - depart);
+                            depth = Mathf.Max(depth, innerLine.Depth);
+                        }
+
+                        // born still running along the clock; a line that never departs must not be shooting out at the
+                        // biosphere either (it would bend back into parallel)
+                        if (grove.RadiusSlope(depart, s) > BirthSlope) continue;
+                        if (depart > sb && grove.RadiusSlope(depart, sb) > MaxSettleSlope) continue;
+                        if (grove.Lines.Count >= MaxLines) break;
+                        spacing = grove.ScaleOf(depart, spacing);
+                        int tier = TierOf(spacing), id = grove.Lines.Count;
+                        grove.Lines.Add(new GridLine
+                        {
+                            Born = s, Depart = depart, Parent = inner, Arc = k, Depth = depth + 1, Spacing = spacing, Tier = tier
+                        });
+                        // its position in each tier's list: after the lines inside it that belong to the tier
+                        for (int t = 0; t < Tiers; t++) before[t] = 0;
+                        for (int i = 0; i < c; i++) before[grove.Lines[all[i]].Tier]++;
+                        for (int t = 1; t < Tiers; t++) before[t] += before[t - 1];
+                        for (int t = tier; t < Tiers; t++) running[t].Insert(before[t], id);
+                        grove.Births[k]++;
+                        grove.MaxDepth = Mathf.Max(grove.MaxDepth, depth + 1);
+                        grove.MinDepth[tier] = Mathf.Min(grove.MinDepth[tier], depth + 1);
+                    }
+
+                    for (int t = 0; t < Tiers; t++)
+                    {
+                        grove.Start[t][k] = grove.Running[t].Count;
+                        grove.Running[t].AddRange(running[t]);
+                    }
+                }
+
+                for (int t = 0; t < Tiers; t++)
+                {
+                    grove.Start[t][Orders + 1] = grove.Running[t].Count;
+                    if (grove.MinDepth[t] == int.MaxValue) grove.MinDepth[t] = 0;
+                }
+
+                grove.LastDeparture[Orders + 1] = grove.LastDeparture[Orders];
+                return grove;
             }
         }
 
-        LineMeshBuilder lines;
-        Material material;
-        float lod = -1;
+        /// <summary>One sample of a line: where it is, the space around it and its opacity there.</summary>
+        struct Sample
+        {
+            /// <summary>Arc and radius (data space).</summary>
+            public float U, Rho;
+
+            /// <summary>The space around the line here (world units): its gap to a neighbour, or the spacing of the spokes along its tail. It decides the mesh the sample is drawn in (<see cref="Share"/>).</summary>
+            public float Spread;
+
+            /// <summary>Opacity profile (0..1) before the tiers' share: fainter the wider its space beyond its class's scale, times its level, the birth ramp, the tail fade, open space, the handoff and the settled bundle.</summary>
+            public float Alpha;
+        }
+
+        /// <summary>The red envelope's width sampled over the clock from the handoff to the Big Bang (plain math, safe on any thread).</summary>
+        readonly struct Envelope
+        {
+            readonly float[] width;
+            readonly float u0, du;
+
+            public Envelope(MatterLayout layout)
+            {
+                u0 = MatterLayout.EndArc;
+                du = (layout.BigBangArc - u0) / (EnvelopeSamples - 1);
+                width = new float[EnvelopeSamples];
+                for (int i = 0; i < EnvelopeSamples; i++) width[i] = layout.Envelope(u0 + du * i);
+            }
+
+            /// <summary>Width of the envelope at arc u (linear between samples).</summary>
+            public float At(float u)
+            {
+                float x = Mathf.Clamp((u - u0) / du, 0, EnvelopeSamples - 1.001f);
+                int i = (int)x;
+                return width[i] + (width[i + 1] - width[i]) * (x - i);
+            }
+        }
+
+        /// <summary>What every sample of a line needs: the line's class scale and level, and where it is drawn.</summary>
+        readonly struct Walk
+        {
+            public readonly Grove Grove;
+            public readonly Clock Clock;
+            public readonly Envelope Envelope;
+            public readonly int Id;
+            public readonly float Scale, Level;
+
+            public Walk(Grove grove, Clock clock, Envelope envelope, int id)
+            {
+                Grove = grove;
+                Clock = clock;
+                Envelope = envelope;
+                Id = id;
+                Scale = TierGap(grove.Lines[id].Tier);
+                Level = grove.LevelWeight(id);
+            }
+        }
+
+        LineMeshBuilder[] tiers;
+        Material[] materials;
+        readonly float[] lod = new float[Tiers];
 
         public override void Prepare(GraphContext ctx)
         {
@@ -347,214 +744,379 @@ namespace Why.Matter
             MatterLayout layout = MatterLayout.Build(file);
             if (layout.IsEmpty) return;
 
-            float uBio = Mathf.Min(DeepTime.Arc(BiosphereYearsAgo), layout.BigBangArc - 1e-3f);
-            Fan fan = new Fan(layout.BigBangArc, layout.Envelope(uBio));
-            List<float> ss = Samples(fan);
-            LineMeshBuilder builder = new LineMeshBuilder((Orders + 1) * ss.Count / 2 + 32 * CellSamples * Orders);
-            int rayCount = BuildRays(builder, fan, layout, ss);
-            int rungCount = BuildRungs(builder, fan, layout);
+            Clock clock = new Clock(layout.BigBangArc);
+            Envelope envelope = new Envelope(layout);
+            Grove grove = Grove.Grow(clock);
+            LineMeshBuilder[] builders = new LineMeshBuilder[Tiers];
+            for (int t = 0; t < Tiers; t++) builders[t] = new LineMeshBuilder(t < 3 ? 16384 : 49152);
+            int[] lineCount = new int[Tiers];
+            int drawn = BuildLines(builders, clock, envelope, grove, lineCount, out int departing);
+            int rungCount = BuildRungs(builders, clock, envelope, grove);
 
-            Register(ctx, fan, layout.BigBangYa);
-            lines = builder;
+            Register(ctx, clock, grove, layout.BigBangYa);
+            tiers = builders;
 
-            Debug.Log($"[Why] ExpansionGridLayer.Prepare {sw.Elapsed.TotalMilliseconds:0.0} ms: {rayCount} rays over " +
-                      $"{ss.Count} samples (ratio {fan.Ratio:0.000}, opening {fan.Scale:0.0}), {rungCount} rungs, " +
-                      $"{builder.VertexCount} vertices");
-        }
-
-        /// <summary>
-        /// Arc lengths from the Big Bang (0, the cusp) to the end of the red layer, ascending: geometric steps out of
-        /// the cusp, at most <see cref="MaxStep"/>, tighter where the clock compresses time (lens windows unroll the
-        /// late clock), with the biosphere exactly.
-        /// </summary>
-        static List<float> Samples(Fan fan)
-        {
-            float end = fan.Sigma(MatterLayout.EndArc), bio = fan.BiosphereSigma;
-            List<float> s = new List<float>(Mathf.CeilToInt(end / MaxStep) + 256) { 0 };
-            for (float x = CuspSigma; x < end;)
+            int vertices = 0;
+            string perTier = "";
+            for (int t = 0; t < Tiers; t++)
             {
-                s.Add(x);
-                float step = Mathf.Min(MaxStep, RelativeStep * x);
-                double d = Math.Abs(LensLn(fan.ArcOf(x)) - LensLn(fan.ArcOf(x + step)));
-                if (d > LensLnStep) step *= (float)(LensLnStep / d);
-                // land on the biosphere exactly (where the rays turn parallel) in one or two steps
-                float toBio = bio - x;
-                if (toBio > 1e-5f && toBio < 1.5f * step) step = toBio > step ? 0.5f * toBio : toBio;
-                // the last step ends exactly at the end and is between half and one and a half steps long
-                if (x + 1.5f * step >= end) break;
-                x += step;
+                vertices += builders[t].VertexCount;
+                perTier += (t > 0 ? ", " : "") + $"tier {t} (space >= {TierGap(t):0.0000}): {lineCount[t]} lines of the class, {builders[t].VertexCount} vertices";
             }
 
-            s.Add(end);
-            return s;
+            Debug.Log($"[Why] ExpansionGridLayer.Prepare {sw.Elapsed.TotalMilliseconds:0.0} ms: {grove.Lines.Count} lines " +
+                      $"({BigBangLines} out of the Big Bang, {departing} departing, {grove.Lines.Count - departing} settling into parallel, " +
+                      $"{grove.MaxDepth + 1} levels), {drawn} drawn, {rungCount} rungs, {vertices} vertices; {perTier}");
         }
 
-        static double LensLn(float u) => Math.Log(DeepTime.YearsAgo(Math.Max(u, 0)) + LensLogOffset);
+        /// <summary>A line's angular neighbours among the spokes: the nearest departures on either side (for the spacing of its tail).</summary>
+        struct Spoke
+        {
+            public float Depart;
+            public int Id;
+        }
+
+        static readonly Comparison<Spoke> ByDeparture = (a, b) => a.Depart.CompareTo(b.Depart);
 
         /// <summary>
-        /// The rays, outermost first. Each starts where it first shows (one sample before) and ends where it has
-        /// faded out (far out, or at the handoff); rays too crowded to show anywhere are left out.
+        /// The lines. Each is walked from its birth along its curve in world steps (turning at most a few degrees per
+        /// step) until it leaves the bundle (<see cref="ExitSlope"/>) or, never departing, to the end of the red layer;
+        /// a departing line's tail is then walked outward in rho to its cap. A point's weight follows the space around
+        /// it: its gap to its neighbours at the same arc length in the bundle, the spacing of the spokes along its tail.
+        /// Every stretch is then drawn into the tier of the space it has there (<see cref="Emit"/>).
         /// </summary>
-        static int BuildRays(LineMeshBuilder builder, Fan fan, MatterLayout layout, List<float> ss)
+        static int BuildLines(LineMeshBuilder[] builders, Clock clock, Envelope envelope, Grove grove, int[] lineCount, out int departing)
         {
-            int m = ss.Count;
-            float[] us = new float[m], opening = new float[m], fade = new float[m], envelope = new float[m];
-            for (int i = 0; i < m; i++)
+            int total = grove.Lines.Count;
+            // the spokes in departure order: each tail's spacing is the arc length to its nearest spoke either side
+            // among the spokes of its own tier or coarser (the ones drawn with it)
+            List<Spoke> spokes = new List<Spoke>(total);
+            for (int id = 0; id < total; id++)
+                if (grove.Departs(id)) spokes.Add(new Spoke { Depart = grove.Lines[id].Depart, Id = id });
+            spokes.Sort(ByDeparture);
+            departing = spokes.Count;
+            float[] spacing = new float[total];
+            for (int i = 0; i < spokes.Count; i++)
             {
-                us[i] = fan.ArcOf(ss[i]);
-                opening[i] = fan.Opening(ss[i]);
-                fade[i] = Handoff(us[i]) * Settle(fan, ss[i]);
-                envelope[i] = layout.Envelope(us[i]);
-            }
-
-            List<LinePoint> pts = new List<LinePoint>(m);
-            int count = 0;
-            for (int j = Orders; j >= 0; j--)
-            {
-                float reach = fan.Reach(j), edge = Edge(j - Orders);
-                pts.Clear();
-                int first = -1, last = -1;
-                for (int i = 1; i < m; i++)
+                int tier = grove.Lines[spokes[i].Id].Tier;
+                float d = float.PositiveInfinity;
+                for (int j = i - 1; j >= 0; j--)
                 {
-                    float rho = opening[i] * reach;
-                    float gap = fan.Gap(rho, ss[i]);
-                    float alpha = RayWeight * edge * Emerge(gap) * Faint(gap) * Unveiled(rho, envelope[i]) * fade[i];
-                    float width = Mathf.Min(RayWidthPerGap * gap, MaxWidthWorld);
-                    pts.Add(new LinePoint(new Vector3(us[i], GraphStyle.MatterY, rho), Tint(alpha), WidthPx, width));
-                    if (alpha * Mathf.Exp(-rho / GridRhoFade) < CullAlpha) continue;
-                    if (first < 0) first = i - 1;
-                    last = i - 1;
+                    if (grove.Lines[spokes[j].Id].Tier > tier) continue;
+                    d = spokes[i].Depart - spokes[j].Depart;
+                    break;
                 }
 
-                if (first < 0) continue;
-                // keep one invisible point on either side, so the ray fades in and out along a whole segment
-                int from = Mathf.Max(first - 1, 0), to = Mathf.Min(last + 1, pts.Count - 1);
-                if (to - from < 1) continue;
-                if (to < pts.Count - 1) pts.RemoveRange(to + 1, pts.Count - 1 - to);
-                if (from > 0) pts.RemoveRange(0, from);
-                builder.AddPolyline(pts, GridId);
+                for (int j = i + 1; j < spokes.Count; j++)
+                {
+                    if (grove.Lines[spokes[j].Id].Tier > tier) continue;
+                    d = Mathf.Min(d, spokes[j].Depart - spokes[i].Depart);
+                    break;
+                }
+
+                spacing[spokes[i].Id] = float.IsInfinity(d) ? spokes[i].Depart : d;
+            }
+
+            List<Sample> samples = new List<Sample>(512);
+            List<LinePoint> pts = new List<LinePoint>(512);
+            int count = 0, vertices = 0, budget = MaxVertices - RungVertices;
+            for (int id = 0; id < total && vertices < budget; id++)
+            {
+                GridLine line = grove.Lines[id];
+                bool departs = grove.Departs(id);
+                float end = departs ? line.Depart : clock.EndSigma;
+                samples.Clear();
+                int k = line.Arc, pos = grove.Start[line.Tier][k];
+                Walk walk = new Walk(grove, clock, envelope, id);
+
+                // the run: from birth along the curve, in world steps, turning at most TurnDegrees per step
+                float s = line.Born, rho = grove.Rho(id, s), heading = float.NaN;
+                float ramp = line.Arc > 0 ? BirthRamp * grove.StretchLength(line.Arc) : 0;
+                float spread = AddRun(samples, walk, k, ref pos, s, rho);
+                while (samples.Count < MaxPoints)
+                {
+                    float slope = grove.Slope(id, s), h = 1 + rho / GraphStyle.R0;
+                    if (departs && slope > ExitSlope * h) break;
+                    if (s >= end - 1e-6f) break;
+                    float step = Mathf.Clamp(RelStep * (s + rho), MinStep, s >= clock.BiosphereSigma ? SettledStep : MaxStep);
+                    float ds = step / Mathf.Sqrt(h * h + slope * slope);
+                    // fine steps while fading in
+                    if (s - line.Born < ramp) ds = Mathf.Min(ds, ramp / RampSamples);
+                    // land exactly on the biosphere and on the end; never reach a departure (the exit comes first)
+                    if (s < clock.BiosphereSigma && s + ds > clock.BiosphereSigma) ds = clock.BiosphereSigma - s;
+                    if (s + ds > end) ds = departs ? 0.5f * (end - s) : end - s;
+                    float s1 = s + ds, rho1 = grove.Rho(id, s1), hd = Heading(s, rho, s1, rho1);
+                    for (int t = 0; t < TurnHalvings && !float.IsNaN(heading) && Mathf.Abs(Mathf.DeltaAngle(heading, hd)) > TurnDegrees; t++)
+                    {
+                        ds *= 0.5f;
+                        s1 = s + ds;
+                        rho1 = grove.Rho(id, s1);
+                        hd = Heading(s, rho, s1, rho1);
+                    }
+
+                    heading = hd;
+                    s = s1;
+                    rho = rho1;
+                    int k1 = grove.Stretch(s, k);
+                    if (k1 != k)
+                    {
+                        pos = grove.Start[line.Tier][k1] + (pos - grove.Start[line.Tier][k]);
+                        k = k1;
+                    }
+
+                    spread = AddRun(samples, walk, k, ref pos, s, rho);
+                }
+
+                // the tail: outward in rho to the cap set where the line leaves the bundle (its fade ends exactly at that
+                // cap), the spacing of the spokes growing with the radius
+                if (departs)
+                {
+                    float rhoExit = rho, rhoMax = TailReachAt(envelope.At(clock.ArcOf(s)));
+                    while (rho < rhoMax - 0.5f * MinStep && samples.Count < MaxPoints)
+                    {
+                        float target = Mathf.Min(rho + Mathf.Max(MinStep, TailRel * rho), rhoMax);
+                        s = Invert(grove, id, s, target, line.Depart);
+                        float next = grove.Rho(id, s);
+                        // the cap within float resolution of the arc length: done
+                        if (next <= rho) break;
+                        rho = next;
+                        float angular = (GraphStyle.R0 + rho) / GraphStyle.R0 * spacing[id];
+                        float blend = Smooth((rho - rhoExit) / Mathf.Max(rhoExit, MinStep));
+                        Add(samples, walk, s, rho, LogLerp(spread, angular, blend), rhoMax);
+                    }
+                }
+
+                if (!Emit(builders, samples, pts, ref vertices, budget)) continue;
+                lineCount[line.Tier]++;
                 count++;
             }
 
+            if (vertices >= budget) Debug.LogWarning("[Why] ExpansionGridLayer: vertex budget reached, the finest lines are left out");
             return count;
         }
 
         /// <summary>
-        /// The rungs: orthogonal trajectories of the rays, integrated outward (RK4 in t = ln(rho / S)) from where they
-        /// leave our track, at equal steps of the rung coordinate. A rung shows where the gap to the rung inside it
-        /// (toward the Big Bang) and the gap between the rays it crosses have both opened beyond the crowding gap, and
-        /// it is drawn as a chain of dashes, one per cell between neighbouring rays, open where it crosses a ray that
-        /// shows.
+        /// Appends a sample of a line in the bundle: its space is its gap to one of its neighbours at the same arc length
+        /// among the lines of its class or coarser, whichever side gives it more weight at its class's scale (a line
+        /// shows where it has room on either side: a packed group of lines is drawn as its two boundary lines, never as
+        /// a block), a newborn neighbour counting only as far as it has faded in (its gap blends in from the gap to the
+        /// line beyond it); the outermost line while no spoke has departed yet is as spaced as its inner gap. Returns
+        /// the space.
         /// </summary>
-        static int BuildRungs(LineMeshBuilder builder, Fan fan, MatterLayout layout)
+        static float AddRun(List<Sample> samples, in Walk walk, int k, ref int pos, float s, float rho)
         {
-            float end = fan.Sigma(MatterLayout.EndArc);
-            int kFirst = (int)Math.Floor(fan.Rung(FirstRungSigma) / RungStep);
-            int kLast = (int)Math.Floor(fan.Rung(end) / RungStep);
-            if (fan.SigmaOfRung(kLast * RungStep) >= end) kLast--;
-            int rungs = kLast - kFirst + 1;
-            if (rungs < 2) return 0;
+            Grove grove = walk.Grove;
+            int tier = grove.Lines[walk.Id].Tier;
+            pos = grove.Position(tier, walk.Id, k, pos);
+            float inner = Gap(grove, k, grove.At(tier, k, pos - 1), grove.At(tier, k, pos - 2), s, rho);
+            float outer = grove.At(tier, k, pos + 1) == None && grove.LastDeparture[k] <= 0
+                ? inner
+                : Gap(grove, k, grove.At(tier, k, pos + 1), grove.At(tier, k, pos + 2), s, rho);
+            // the side that gives the line more weight is its room
+            float spread = Weight(inner, walk.Scale) >= Weight(outer, walk.Scale) ? inner : outer;
+            Add(samples, walk, s, rho, spread, TailReachAt(walk.Envelope.At(walk.Clock.ArcOf(s))));
+            return spread;
+        }
 
-            // the grid of t shared by every rung, so neighbours meet each ray at the same index: a short run inside
-            // ray 0, then per cell its inner ray, the dash (start, full strength, middle, full strength, end), and the
-            // outermost ray last; open[i] is the ray whose crossing leaves sample i open (-1: none)
-            int n = RungInnerSamples + CellSamples * Orders + 1;
-            float[] ts = new float[n];
-            int[] open = new int[n];
-            float t0 = -Orders * fan.LnRatio;
-            for (int i = 0; i < RungInnerSamples; i++)
+        /// <summary>Weight of a line with a space of <paramref name="gap"/> around it at scale <paramref name="scale"/>: hidden while crowded, crisp once resolved, fainter the wider.</summary>
+        public static float Weight(float gap, float scale) => Emerge(gap, scale, TierRatio) * Faint(gap, scale);
+
+        /// <summary>Space (world units) from a point of a line to a neighbour, blended from the space to the line beyond it while the neighbour is fading in.</summary>
+        static float Gap(Grove grove, int k, int neighbour, int beyond, float s, float rho)
+        {
+            float gap = Space(grove, k, neighbour, s, rho);
+            if (neighbour < 0) return gap;
+            float ramp = grove.Ramp(neighbour, s);
+            return ramp >= 1 ? gap : LogLerp(Space(grove, k, beyond, s, rho), gap, ramp);
+        }
+
+        /// <summary>Geometric interpolation between two spaces (both floored just above zero).</summary>
+        static float LogLerp(float a, float b, float t) =>
+            Mathf.Exp(Mathf.Lerp(Mathf.Log(Mathf.Max(a, 1e-6f)), Mathf.Log(Mathf.Max(b, 1e-6f)), t));
+
+        /// <summary>
+        /// Space (world units) between the point (s, rho) of a line and a neighbouring line in stretch k: the difference
+        /// in radius foreshortened by the neighbour's slope (the distance to its curve), which for a neighbour that has
+        /// departed is the distance along the clock to its radial tail, growing from nothing where it departed; our
+        /// track is flat (<see cref="Track"/>), and beyond the outermost running line lies the tail of the last spoke to
+        /// have departed (<see cref="None"/>; open space before any has).
+        /// </summary>
+        static float Space(Grove grove, int k, int neighbour, float s, float rho)
+        {
+            float h = 1 + rho / GraphStyle.R0;
+            if (neighbour == Track) return rho;
+            if (neighbour == None) return grove.LastDeparture[k] > 0 ? (s - grove.LastDeparture[k]) * h : OpenGap;
+            float depart = grove.Lines[neighbour].Depart;
+            if (s >= depart) return (s - depart) * h;
+            float d = Mathf.Abs(grove.Radius(depart, s) - rho), m = grove.RadiusSlope(depart, s) / h;
+            return Mathf.Min(d / Mathf.Sqrt(1 + m * m), OpenGap);
+        }
+
+        /// <summary>Radius to which a spoke is drawn where the red envelope is <paramref name="envelope"/> wide.</summary>
+        static float TailReachAt(float envelope) => Mathf.Clamp(TailReach * envelope, TailFloor, TailCap);
+
+        /// <summary>
+        /// Appends a sample at arc length s, radius rho, with the space <paramref name="spread"/> around it, on a tail
+        /// capped at <paramref name="reach"/>: its opacity (before the tiers' share) is the line's weight for that space
+        /// at its class's scale (fainter the wider) times its level, its birth ramp, the fade along the tail, open space
+        /// beyond the red envelope, the handoff and the settled bundle.
+        /// </summary>
+        static void Add(List<Sample> samples, in Walk walk, float s, float rho, float spread, float reach)
+        {
+            float u = walk.Clock.ArcOf(s);
+            float alpha = Faint(spread, walk.Scale) * walk.Level * walk.Grove.Ramp(walk.Id, s) * TailFade(rho, reach) *
+                          Unveiled(rho, walk.Envelope.At(u)) * Handoff(u) * Settle(walk.Clock, s);
+            samples.Add(new Sample { U = u, Rho = rho, Spread = spread, Alpha = alpha });
+        }
+
+        /// <summary>
+        /// Draws a line into the tiers: every stretch into the mesh of the space it has there (<see cref="Share"/>), so
+        /// it shows wherever the zoom resolves that space, thin and crisp where it has just been resolved, thicker and
+        /// fainter as its space widens beyond its scale. Runs are trimmed to where they show (one invisible point on
+        /// either side) and split where the line is invisible for a while. Returns whether anything was drawn.
+        /// </summary>
+        static bool Emit(LineMeshBuilder[] builders, List<Sample> samples, List<LinePoint> pts, ref int vertices, int budget)
+        {
+            bool drawn = false;
+            for (int t = 0; t < Tiers; t++)
             {
-                ts[i] = t0 - RungInnerMargin * (1 - i / (float)RungInnerSamples);
-                open[i] = -1;
-            }
-
-            for (int j = 0; j < Orders; j++)
-            {
-                int i = RungInnerSamples + CellSamples * j;
-                float tj = t0 + j * fan.LnRatio;
-                ts[i] = tj;
-                ts[i + 1] = tj + DashGap * fan.LnRatio;
-                ts[i + 2] = tj + (DashGap + DashRamp) * fan.LnRatio;
-                ts[i + 3] = tj + 0.5f * fan.LnRatio;
-                ts[i + 4] = tj + (1 - DashGap - DashRamp) * fan.LnRatio;
-                ts[i + 5] = tj + (1 - DashGap) * fan.LnRatio;
-                open[i] = open[i + 1] = j;
-                open[i + 2] = open[i + 3] = open[i + 4] = -1;
-                open[i + 5] = j + 1;
-            }
-
-            ts[n - 1] = 0;
-            open[n - 1] = Orders;
-
-            float[] sig = new float[rungs * n];
-            for (int k = 0; k < rungs; k++)
-            {
-                float s = fan.SigmaOfRung((kFirst + k) * RungStep);
-                sig[k * n] = s;
-                for (int i = 1; i < n; i++) sig[k * n + i] = s = Step(fan, ts[i - 1], s, ts[i] - ts[i - 1]);
-            }
-
-            List<LinePoint> pts = new List<LinePoint>(n);
-            int count = 0;
-            // the innermost rung only serves as the neighbour of the next one
-            for (int k = 1; k < rungs; k++)
-            {
-                pts.Clear();
                 int first = -1, last = -1;
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i <= samples.Count; i++)
                 {
-                    float scale = Mathf.Exp(ts[i]), s = sig[k * n + i], inner = sig[(k - 1) * n + i];
-                    float rho = scale * fan.Opening(s), u = fan.ArcOf(s);
-                    float gap = Distance(s, rho, inner, scale * fan.Opening(inner));
-                    float cellGap = fan.Gap(rho, s), cells = Emerge(cellGap);
-                    float alpha = RungWeight * Edge(ts[i] / fan.LnRatio) * Emerge(gap) * Faint(gap) * cells *
-                                  Unveiled(rho, layout.Envelope(u)) * Handoff(u) * Settle(fan, s);
-                    // open around a ray it crosses, as deep as that ray shows
-                    if (open[i] >= 0) alpha *= 1 - cells * Edge(open[i] - Orders);
-                    float width = Mathf.Min(RungWidthPerGap * Mathf.Min(gap, cellGap), MaxWidthWorld);
-                    pts.Add(new LinePoint(new Vector3(u, GraphStyle.MatterY, rho), Tint(alpha), WidthPx, width));
-                    if (alpha * Mathf.Exp(-rho / GridRhoFade) < CullAlpha) continue;
-                    if (first < 0) first = i;
-                    last = i;
-                }
+                    bool visible = i < samples.Count && Alpha(samples[i], t) * Mathf.Exp(-samples[i].Rho / GridRhoFade) >= CullAlpha;
+                    if (visible)
+                    {
+                        if (first < 0) first = Mathf.Max(i - 1, 0);
+                        last = i;
+                        continue;
+                    }
 
-                if (first < 0) continue;
-                int from = Mathf.Max(first - 1, 0), to = Mathf.Min(last + 1, pts.Count - 1);
-                if (to < pts.Count - 1) pts.RemoveRange(to + 1, pts.Count - 1 - to);
-                if (from > 0) pts.RemoveRange(0, from);
-                builder.AddPolyline(pts, GridId);
-                count++;
+                    if (first < 0 || (i < samples.Count && i - last < SplitSamples)) continue;
+                    int to = Mathf.Min(last + 1, samples.Count - 1);
+                    if (to - first >= 1 && vertices + 2 * (to - first + 1) <= budget)
+                    {
+                        pts.Clear();
+                        for (int j = first; j <= to; j++)
+                        {
+                            Sample p = samples[j];
+                            float width = Mathf.Min(LineWidthPerGap * p.Spread, MaxWidthWorld);
+                            pts.Add(new LinePoint(new Vector3(p.U, GraphStyle.MatterY, p.Rho), Tint(Alpha(p, t)), WidthPx, width));
+                        }
+
+                        builders[t].AddPolyline(pts, GridId);
+                        vertices += 2 * pts.Count;
+                        drawn = true;
+                    }
+
+                    first = last = -1;
+                }
             }
 
+            return drawn;
+        }
+
+        /// <summary>Opacity of a sample in tier <paramref name="tier"/>'s mesh: its profile times the tier's share of its space.</summary>
+        static float Alpha(in Sample sample, int tier) => sample.Alpha * Share(sample.Spread, tier);
+
+        /// <summary>
+        /// Share of geometry with a space of <paramref name="gap"/> around it that tier <paramref name="tier"/>'s mesh
+        /// draws: the tier whose band the space falls in draws it, fading in over <see cref="EmergeRatio"/> from the
+        /// bottom of the band, and the next finer tier draws the remainder, so the two sum to one while both are on
+        /// and the geometry fades out softly where the finer one is off.
+        /// </summary>
+        public static float Share(float gap, int tier)
+        {
+            int own = TierOf(gap);
+            if (own == tier) return Emerge(gap, TierGap(tier), EmergeRatio);
+            return own == tier - 1 ? 1 - Emerge(gap, TierGap(own), EmergeRatio) : 0;
+        }
+
+        /// <summary>
+        /// The arc length past <paramref name="s"/> at which line <paramref name="id"/> reaches radius <paramref name="rho"/>
+        /// (Newton from an Euler guess: the rise is convex, so the iteration closes in from above).
+        /// </summary>
+        static float Invert(Grove grove, int id, float s, float rho, float depart)
+        {
+            float lo = s, hi = depart;
+            float x = Mathf.Min(s + (rho - grove.Rho(id, s)) / grove.Slope(id, s), 0.5f * (s + depart));
+            for (int i = 0; i < TailNewton; i++)
+            {
+                float f = grove.Rho(id, x) - rho;
+                if (f > 0) hi = x;
+                else lo = x;
+                float next = x - f / grove.Slope(id, x);
+                // a step out of the bracket (or past the asymptote) falls back to bisection
+                x = next > lo && next < hi ? next : 0.5f * (lo + hi);
+            }
+
+            return Mathf.Max(x, s + 1e-9f);
+        }
+
+        /// <summary>
+        /// The rungs: at each arc, in each class, a dash across every gap between lines neighbouring in the class (our
+        /// track the innermost) that is not being torn open by a departure, open where it would touch the lines, drawn
+        /// into the tier of its cell (the smaller of the gap and the arcs' own spacing there), so it appears with that
+        /// tier once the zoom resolves the cell, fainter and wider with it. A dash needs no crossfade between meshes:
+        /// it is drawn whole into one, tier by tier from the coarsest, so the vertex budget cuts the finest rungs first.
+        /// </summary>
+        static int BuildRungs(LineMeshBuilder[] builders, Clock clock, Envelope envelopes, Grove grove)
+        {
+            // the tier of every rung's cell first, so the meshes fill from the coarsest
+            List<Rung> rungs = grove.Rungs;
+            int[] tier = new int[rungs.Count];
+            for (int i = 0; i < rungs.Count; i++)
+            {
+                Rung rung = rungs[i];
+                float s = grove.ArcSigma[rung.Arc];
+                float rhoIn = grove.NeighbourRho(rung.Inner, s), gap = grove.Rho(rung.Outer, s) - rhoIn;
+                float spacing = (s - grove.ArcSigma[rung.Arc - 1]) * (1 + rhoIn / GraphStyle.R0), cell = Mathf.Min(gap, spacing);
+                tier[i] = gap > RungReach * spacing || cell < TierGap(Tiers - 1) ? -1 : TierOf(cell);
+            }
+
+            List<LinePoint> pts = new List<LinePoint>(2);
+            int count = 0, vertices = 0;
+            for (int t = 0; t < Tiers; t++) vertices += builders[t].VertexCount;
+            for (int t = 0; t < Tiers && vertices + 4 <= MaxVertices; t++)
+            {
+                for (int i = 0; i < rungs.Count && vertices + 4 <= MaxVertices; i++)
+                {
+                    if (tier[i] != t) continue;
+                    Rung rung = rungs[i];
+                    float s = grove.ArcSigma[rung.Arc], u = clock.ArcOf(s), envelope = envelopes.At(u);
+                    float rhoIn = grove.NeighbourRho(rung.Inner, s), rhoOut = grove.Rho(rung.Outer, s), gap = rhoOut - rhoIn;
+                    // the arcs' own spacing along the clock, in the world
+                    float cell = Mathf.Min(gap, (s - grove.ArcSigma[rung.Arc - 1]) * (1 + rhoIn / GraphStyle.R0));
+                    // as faint as the fainter of the two lines it joins (by level; our track counts as full)
+                    float level = Mathf.Min(grove.LevelWeight(rung.Outer), rung.Inner == Track ? 1f : grove.LevelWeight(rung.Inner));
+                    float alpha = StrokeWeight * level * Faint(gap, TierGap(rung.Tier)) * TailFade(rhoIn, TailReachAt(envelope)) *
+                                  Unveiled(rhoIn, envelope) * Handoff(u) * Settle(clock, s);
+                    if (alpha * Mathf.Exp(-rhoIn / GridRhoFade) < CullAlpha) continue;
+                    float width = Mathf.Min(StrokeWidthPerGap * cell, MaxWidthWorld);
+                    pts.Clear();
+                    pts.Add(new LinePoint(new Vector3(u, GraphStyle.MatterY, rhoIn + DashGap * gap), Tint(alpha), WidthPx, width));
+                    pts.Add(new LinePoint(new Vector3(u, GraphStyle.MatterY, rhoOut - DashGap * gap), Tint(alpha), WidthPx, width));
+                    builders[t].AddPolyline(pts, GridId);
+                    vertices += 4;
+                    count++;
+                }
+            }
+
+            if (vertices + 4 > MaxVertices) Debug.Log("[Why] ExpansionGridLayer: vertex budget reached, the finest rungs are left out");
             return count;
         }
 
-        /// <summary>One RK4 step of a rung's arc length s over dt of ln(rho / S), starting at t.</summary>
-        static float Step(Fan fan, float t, float s, float dt)
+        /// <summary>
+        /// World heading (degrees, up to a constant) of the segment between two points of the clock's circle part, (arc length,
+        /// rho) each: the clock turns clockwise under it.
+        /// </summary>
+        static float Heading(float s0, float rho0, float s1, float rho1)
         {
-            float k1 = Slope(fan, t, s);
-            float k2 = Slope(fan, t + 0.5f * dt, s + 0.5f * dt * k1);
-            float k3 = Slope(fan, t + 0.5f * dt, s + 0.5f * dt * k2);
-            float k4 = Slope(fan, t + dt, s + dt * k3);
-            return Mathf.Max(s + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4), 1e-7f);
+            float across = rho1 - rho0, along = (GraphStyle.R0 + 0.5f * (rho0 + rho1)) * (s1 - s0) / GraphStyle.R0;
+            return (Mathf.Atan2(across, along) - 0.5f * (s0 + s1) / GraphStyle.R0) * Mathf.Rad2Deg;
         }
 
-        static float Slope(Fan fan, float t, float s)
-        {
-            s = Mathf.Max(s, 1e-7f);
-            return fan.RungSlope(s, Mathf.Exp(t) * fan.Opening(s));
-        }
-
-        /// <summary>World distance between two points of the clock's circle part, (arc length, rho) each.</summary>
-        static float Distance(float s0, float rho0, float s1, float rho1)
-        {
-            float r0 = GraphStyle.R0 + rho0, r1 = GraphStyle.R0 + rho1;
-            float dphi = (s1 - s0) / GraphStyle.R0;
-            return Mathf.Sqrt(Mathf.Max(r0 * r0 + r1 * r1 - 2 * r0 * r1 * Mathf.Cos(dphi), 0));
-        }
-
-        /// <summary>The grid's anchor (the Big Bang, where space starts expanding), orders of magnitude on a few rays, a note on inflation and one on our world's scale.</summary>
-        static void Register(GraphContext ctx, Fan fan, double bigBangYa)
+        /// <summary>The grid's anchor (the Big Bang, where space starts expanding), orders of magnitude on a few arcs and a note on our world's scale.</summary>
+        static void Register(GraphContext ctx, Clock clock, Grove grove, double bigBangYa)
         {
             // the tooltip's time span reads "13.8 billion years ago - now": space has expanded ever since
             Anchors.Register(new Anchor
@@ -564,20 +1126,13 @@ namespace Why.Matter
                 Ids = IdRange.Single(GridId), Tier = 2
             });
 
-            for (int k = 0; k < LabelOrders.Length; k++)
+            foreach (int k in LabelOrders)
             {
-                float s = LabelAlong[k] * fan.BiosphereSigma;
-                AddLabel(ctx, "×10<sup>" + LabelOrders[k] + "</sup>",
-                    new Vector3(fan.ArcOf(s), GraphStyle.MatterY, fan.Rho(LabelOrders[k], s)), OrderPriority);
+                float s = grove.ArcSigma[k];
+                AddLabel(ctx, "×10<sup>" + k + "</sup>", new Vector3(clock.ArcOf(s), GraphStyle.MatterY, LabelRhoFrac * s), OrderPriority);
             }
 
-            AddLabel(ctx, "our world's scale",
-                new Vector3(fan.BiosphereArc, GraphStyle.MatterY, fan.Rho(0, fan.BiosphereSigma)), WorldPriority);
-
-            // among the rays bursting out of the cusp, just clear of the Big Bang's glow
-            AddLabel(ctx, "inflation: ×10<sup>26</sup> in 10<sup>-32</sup> s",
-                new Vector3(fan.ArcOf(InflationLabelSigma), GraphStyle.MatterY, fan.Rho(Orders - 4, InflationLabelSigma)),
-                InflationPriority);
+            AddLabel(ctx, "our world's scale", new Vector3(clock.BiosphereArc, GraphStyle.MatterY, WorldLabelRho), WorldPriority);
         }
 
         static void AddLabel(GraphContext ctx, string text, Vector3 data, float priority)
@@ -598,40 +1153,71 @@ namespace Why.Matter
 
         public override void Upload(GraphContext ctx)
         {
-            if (lines == null) return;
+            if (tiers == null) return;
             // neutral like the axes: hue is reserved for the levels, and grey reads as space, not as matter
             Color color = GraphStyle.Axis;
             color.a = GridAlpha;
-            // beneath the envelope and the band fills (QueueMatter, alpha blended: they veil it) and the matter
-            // lines (QueueMatter + 1); additive like the other lines
-            material = GraphMaterials.Line(color, GridIntensity, GraphMaterials.QueueMatter - 1, true, GridRhoFade, 0f);
-            GraphMaterials.FadeBeforeHumanBranch(material);
-            AddMesh("MatterExpansionGrid", lines.ToMesh("MatterExpansionGrid"), material);
-            lines = null;
+            materials = new Material[Tiers];
+            for (int t = 0; t < Tiers; t++)
+            {
+                // beneath the envelope and the band fills (QueueMatter, alpha blended: they veil it) and the matter
+                // lines (QueueMatter + 1); additive like the other lines. The finer tiers start hidden; Tick reveals them
+                Material m = GraphMaterials.Line(color, GridIntensity, GraphMaterials.QueueMatter - 1, true, GridRhoFade, 0f);
+                GraphMaterials.FadeBeforeHumanBranch(m);
+                lod[t] = t == 0 ? 1f : 0f;
+                GraphMaterials.SetAlpha(m, lod[t]);
+                materials[t] = m;
+                AddMesh("MatterExpansionGrid" + t, tiers[t].ToMesh("MatterExpansionGrid" + t), m);
+            }
+
+            tiers = null;
         }
-
-        /// <summary>Level of detail: the grid recedes when the camera comes close.</summary>
-        public override void Tick(GraphContext ctx, CameraRig rig)
-        {
-            if (material == null || rig == null) return;
-            float t = Mathf.InverseLerp(LodNear, LodFar, rig.Pose.Distance);
-            float target = Mathf.Lerp(AlphaClose, 1f, t * t * (3 - 2 * t));
-            if (Mathf.Abs(target - lod) < 0.01f) return;
-            lod = target;
-            GraphMaterials.SetAlpha(material, lod);
-        }
-
-        /// <summary>Opacity of a line whose gap to its neighbour is <paramref name="gap"/> world units: 0 while crowded, 1 once resolvable.</summary>
-        public static float Emerge(float gap) => Smooth(Mathf.Log(Mathf.Max(gap, 1e-9f) / CrowdGap) / Mathf.Log(EmergeRange));
-
-        /// <summary>Relative opacity of a resolvable line: fainter the wider apart it is from its neighbour.</summary>
-        public static float Faint(float gap) => Mathf.Pow(Mathf.Max(gap / CrowdGap, 1f), -Fainter);
 
         /// <summary>
-        /// Relative opacity at <paramref name="orders"/> (0 at the outermost ray, negative inward): the last
-        /// <see cref="OuterOrders"/> fade out toward the fan's edge, so it has no hard border.
+        /// Level of detail: a finer tier fades in once its band of space spans a few pixels on screen (at the depth of
+        /// the camera's target), so every zoom reveals the stretches of lines that it resolves, the next generation of
+        /// contained lines, without crowding, and a tier recedes once the next finer one is in, so the coarse, widely
+        /// spaced lines become the background of the crisp ones.
         /// </summary>
-        public static float Edge(float orders) => Smooth((1 - orders) / OuterOrders);
+        public override void Tick(GraphContext ctx, CameraRig rig)
+        {
+            if (materials == null || rig == null || rig.Cam == null) return;
+            float pixelsPerUnit = Screen.height / (2f * Mathf.Max(rig.Pose.Distance, 1e-3f) * Mathf.Tan(rig.Cam.fieldOfView * 0.5f * Mathf.Deg2Rad));
+            for (int t = 0; t < Tiers; t++)
+            {
+                float target = TierAlpha(t, pixelsPerUnit);
+                if (Mathf.Abs(target - lod[t]) < 0.01f) continue;
+                lod[t] = target;
+                GraphMaterials.SetAlpha(materials[t], target);
+            }
+        }
+
+        /// <summary>Opacity of a tier at a pixel density: in once its band of space spans <see cref="TierOnPx"/>, receding once the next tier is in too (tier 0 never fades out).</summary>
+        public static float TierAlpha(int tier, float pixelsPerUnit)
+        {
+            float px = TierGap(tier) * pixelsPerUnit;
+            float fadeIn = tier == 0 ? 1f : Smooth((px - TierOffPx) / (TierOnPx - TierOffPx));
+            return fadeIn * Mathf.Pow(Mathf.Max(px / (TierOnPx * TierRatio), 1f), -Recede);
+        }
+
+        /// <summary>Scale of tier <paramref name="tier"/> (world units): the bottom of its band of space.</summary>
+        public static float TierGap(int tier) => CrowdGap / Mathf.Pow(TierRatio, tier);
+
+        /// <summary>The tier of a space or a scale: the coarsest whose band it reaches (the finest for anything finer).</summary>
+        public static int TierOf(float scale)
+        {
+            int tier = Mathf.CeilToInt(Mathf.Log(CrowdGap / Mathf.Max(scale, 1e-9f)) / Mathf.Log(TierRatio) - 1e-4f);
+            return Mathf.Clamp(tier, 0, Tiers - 1);
+        }
+
+        /// <summary>Opacity of a line whose space is <paramref name="gap"/> world units, for a threshold <paramref name="crowd"/>: 0 while crowded, 1 once <paramref name="ratio"/> times wider.</summary>
+        public static float Emerge(float gap, float crowd, float ratio) => Smooth(Mathf.Log(Mathf.Max(gap, 1e-9f) / crowd) / Mathf.Log(ratio));
+
+        /// <summary>Relative opacity of a resolvable line: fainter the wider its space has opened beyond its own scale.</summary>
+        public static float Faint(float gap, float scale) => Mathf.Pow(Mathf.Max(gap / scale, 1f), -Fainter);
+
+        /// <summary>Relative opacity at radius rho of a spoke capped at <paramref name="rhoMax"/>: 1 up to <see cref="TailFadeStart"/> of it, 0 at the cap.</summary>
+        public static float TailFade(float rho, float rhoMax) => 1 - Smooth((rho - TailFadeStart * rhoMax) / Mathf.Max((1 - TailFadeStart) * rhoMax, 1e-3f));
 
         /// <summary>Relative opacity at radius rho where the red envelope is <paramref name="envelope"/> wide: 1 inside it, <see cref="OpenSpaceAlpha"/> well beyond it.</summary>
         public static float Unveiled(float rho, float envelope) =>
@@ -640,7 +1226,7 @@ namespace Why.Matter
         static float Handoff(float u) => Mathf.Pow(GraphStyle.HandoffFade(u), HandoffExponent);
 
         /// <summary>Relative weight at arc length s: 1 while the fan opens, receding to <see cref="SettledWeight"/> once it has settled.</summary>
-        static float Settle(Fan fan, float s) => 1 - (1 - SettledWeight) * Smooth((s - fan.BiosphereSigma) / SettleSpan);
+        static float Settle(Clock clock, float s) => 1 - (1 - SettledWeight) * Smooth((s - clock.BiosphereSigma) / SettleSpan);
 
         static float Smooth(float t)
         {

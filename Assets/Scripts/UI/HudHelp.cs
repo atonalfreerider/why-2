@@ -90,6 +90,7 @@ namespace Why.UI
                     Row("Esc", "clear the highlight, stop following, close this sheet"),
                     Row("V", "vertical 9:16 window for recording phone videos; again to go back"),
                     Row("H   ?", "this help"),
+                    Row("G", "scale probe: point at the red layer to read metres from us and metres per unit"),
                     Row("F3", "frame rate and build stats"),
                 }),
             });

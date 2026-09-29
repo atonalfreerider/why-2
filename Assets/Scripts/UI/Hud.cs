@@ -1,7 +1,9 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Why.Matter;
 
 namespace Why.UI
 {
@@ -56,7 +58,8 @@ namespace Why.UI
         int laidOutVersion = -1;
         float titleWidth = TitleWidth;
         float legendBottomWithBar = HudKit.Margin, legendBottomAlone = HudKit.Margin;
-        bool loaded, tourWasActive, ownsHighlight, pressValid;
+        bool loaded, tourWasActive, ownsHighlight, pressValid, probing;
+        readonly object probeKey = new object();
         IdRange focusIds = IdRange.Empty;
         Vector2 pressPosition;
         LabelSpec resolvedLabel;
@@ -216,6 +219,7 @@ namespace Why.UI
             // during the tour Esc belongs to the director (it would close the sheet and exit the tour at once)
             if (!tour && (kb.hKey.wasPressedThisFrame || kb.slashKey.wasPressedThisFrame)) help.Toggle();
             if (kb.f3Key.wasPressedThisFrame) stats.Toggle();
+            if (kb.gKey.wasPressedThisFrame) probing = !probing;
             if (kb.escapeKey.wasPressedThisFrame)
             {
                 if (help.Open) help.Show(false);
@@ -391,12 +395,60 @@ namespace Why.UI
             {
                 tooltip.ShowAnchor(label, anchor, label.Text);
             }
+            else if (probing && !help.Open && TryProbe(mouse.position.ReadValue(), out string heading, out string metaText, out string body))
+            {
+                tooltip.Update(probeKey, heading, metaText, body);
+            }
             else
             {
                 tooltip.Hide();
             }
 
             tooltip.Tick(pointer, canvasSize, dt);
+        }
+
+        /// <summary>
+        /// The scale probe (G): the point of the matter plane under the cursor, read off the physical map the
+        /// grid is drawn from (<see cref="MatterScale"/>): metres from our lineage, metres and years per world unit.
+        /// </summary>
+        bool TryProbe(Vector2 screen, out string heading, out string metaText, out string body)
+        {
+            heading = metaText = body = null;
+            if (HudKit.PointerOverUi() || root.Rig == null || root.Rig.Cam == null) return false;
+            MatterScale scale = root.Context.Shared<MatterScale>(ExpansionGridLayer.ScaleKey);
+            if (scale == null) return false;
+
+            // the matter plane under the cursor, then back through the warp to the clock
+            Ray ray = root.Rig.Cam.ScreenPointToRay(screen);
+            float planeY = GraphStyle.MatterY * GraphWarp.Current.YScale;
+            if (Mathf.Abs(ray.direction.y) < 1e-5f) return false;
+            float along = (planeY - ray.origin.y) / ray.direction.y;
+            if (along <= 0) return false;
+            GraphWarp.Inverse(ray.GetPoint(along), out float u, out float rho);
+            if (u < MatterLayout.EndArc || rho < -0.15f) return false;
+            float envelope = scale.EnvelopeAt(u);
+            if (rho > 1.25f * envelope) return false;
+            rho = Mathf.Max(rho, 0);
+
+            double log10Radius = scale.Log10Radius(u, rho);
+            double log10Scale = Math.Log10(Math.Max(scale.MetresPerUnit(u, rho), 1e-300));
+            double log10Years = Math.Log10(Math.Max(MatterScale.YearsPerUnit(u), 1e-300));
+            MatterScale.Knot region = scale.Region(u, rho);
+            bool beyond = log10Radius > scale.Log10UniverseRadius(u);
+
+            heading = Power(log10Radius) + " m from our lineage";
+            string when = DeepTime.FormatYearsAgo(DeepTime.YearsAgo(u), root.Context.NowYear).ToUpperInvariant();
+            metaText = when + "    " + (beyond ? "BEYOND THE OBSERVABLE UNIVERSE" : "INSIDE: " + region.Name.ToUpperInvariant());
+            body = "1 unit of the graph outward = " + Power(log10Scale) + " m\n" +
+                   "1 unit along the clock = " + Power(log10Years) + " years";
+            return true;
+        }
+
+        /// <summary>10^N with one decimal, and the plain number for small exponents ("10^21.5 m", "36 m").</summary>
+        static string Power(double log10)
+        {
+            if (log10 < 3) return Math.Pow(10, log10).ToString("0.#", System.Globalization.CultureInfo.InvariantCulture);
+            return "10^" + log10.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
         }
 
         /// <summary>The hovered label's anchor, resolved once per label ("time:" anchors are built on demand).</summary>

@@ -21,10 +21,13 @@ the real expansion of space (a Lambda-CDM scale factor), so it billows out acros
 every nested body grows with it as a contour that splits off smoothly, never in steps. Each region is
 shaded by its real density, so the gaps between the contours read as orders of magnitude - from 3x10^30
 atoms/m^3 in Earth to 2x10^5 between the stars and ~0.3 between the galaxies - and every strand carries
-an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). Beneath it a faint grid of rays
-fans out of the Big Bang, one per order of magnitude from our world's scale out to 10^38, with new fans
-starting at every order of magnitude, until it steadies at the biosphere. Matter dissolves before the
-human branch.
+an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). Beneath it a faint grid draws
+the physical scale of that map: shells at every round distance from our lineage (10, 100, 1000 metres ...
+out to the edge of the observable universe), which enter at the envelope as the universe grows past them,
+and rays that follow the matter a round distance from us today back toward the Big Bang, fanning out with
+the expansion of space. Between neighbouring lines the distance grows tenfold, finer lines appear as you
+zoom, and the probe (G) reads real numbers anywhere: metres from us, metres per unit of the graph. Matter
+dissolves before the human branch.
 
 **Green - life.** The TimeTree of Life (1610 families) drawn as an expanding set of roots. Branches are
 ordered by food chain with the top predator on the inside track, so the innermost root is the one that
@@ -72,6 +75,7 @@ project); children's lines start from their parents.
 | L | cycle log / mixed / linear time in the unrolled window |
 | T | guided tour (director mode): Space / Right next, Left back, P pause, M mute the narration, Esc exit |
 | F | people of this time: famous figures alive at the moment you are looking at; click one to follow their life |
+| G | scale probe: point at the red layer to read the distance from us in metres, and how many metres (and years) one unit of the graph stands for there |
 | V | vertical mode: a 9:16 layout for recording phone videos (again to go back) |
 | H | help |
 | Hover / click a label | details / focus and highlight it |

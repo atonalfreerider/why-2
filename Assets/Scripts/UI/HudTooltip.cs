@@ -73,6 +73,21 @@ namespace Why.UI
             Layout();
         }
 
+        /// <summary>Show free text that changes every frame (the scale probe): re-lays out while already showing.</summary>
+        public void Update(object key, string heading, string metaText, string bodyText)
+        {
+            if (!IsShowing(key))
+            {
+                Show(key, heading, metaText, bodyText);
+                return;
+            }
+
+            if (title.text != heading) title.text = heading ?? "";
+            if (meta.text != metaText) meta.text = metaText ?? "";
+            if (body.text != bodyText) body.text = bodyText ?? "";
+            Layout();
+        }
+
         public void Hide()
         {
             source = null;

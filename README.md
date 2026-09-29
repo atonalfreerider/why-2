@@ -53,7 +53,7 @@ project); children's lines start from their parents.
 | | |
 | --- | --- |
 | ![The cosmic fan](Docs/images/cosmos.jpg) | ![The tree of life](Docs/images/life.jpg) |
-| **The cosmic fan.** Our home bodies expand with the universe, each strand marked with an icon and its density; the expansion grid fans out of the Big Bang beneath them. | **Life.** The roots of the tree of life, our direct ancestors glowing on the inside track. |
+| **The cosmic fan.** Our home bodies expand with the universe, each strand marked with an icon and its density; beneath them the scale grid, one line per order of magnitude of distance from us. | **Life.** The roots of the tree of life, our direct ancestors glowing on the inside track. |
 | ![Civilizations](Docs/images/civilizations.jpg) | ![Human footprint](Docs/images/footprint.jpg) |
 | **Civilizations.** Streams sized by relative power, starting as a thread and exploding with population; famous figures glow. | **Human footprint.** Humans on top, the livestock and crops they raise beneath, the minerals they mine beneath that. |
 | ![United States](Docs/images/smv.jpg) | ![Following Isaac Newton](Docs/images/figure.jpg) |

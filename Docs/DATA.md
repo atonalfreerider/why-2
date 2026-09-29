@@ -29,6 +29,12 @@ modeled, not measured; the graph is an education tool about cause and effect, no
   (Omega_Lambda 0.69, 1/H0 = 14.4 Gyr), so most of the fan opens in the first few billion years.
   Groups that form inside an older body (the solar system inside the Milky Way) open gradually over a
   long arc, so there is no step in scale anywhere.
+* The same numbers make the layer a map with a definite scale (`Scripts/Matter/MatterScale.cs`): each
+  lineage body's band ends at its real radius (`sizeM` / 2, unbound structures and the observable
+  universe, 4.4e26 m, scaled back by the scale factor), the inner track is 1 m by convention, and the
+  distance from our lineage grows exponentially with rho between those knots. The scale grid draws
+  shells at every round distance (10^N m, with log-ruler steps between) and comoving rays; the HUD's
+  probe (G) reads metres from us and metres per world unit at any point.
 * `epochs` are cosmic and geologic markers (Big Bang ... Chicxulub impact).
 * Sources: Planck 2018; Tully et al. 2014 (*The Laniakea supercluster of galaxies*, Nature);
   Wikipedia *Chronology of the universe*, *Observable universe*, *Virgo Supercluster*, *Local Group*,

@@ -439,8 +439,15 @@ namespace Why.UI
             heading = Power(log10Radius) + " m from our lineage";
             string when = DeepTime.FormatYearsAgo(DeepTime.YearsAgo(u), root.Context.NowYear).ToUpperInvariant();
             metaText = when + "    " + (beyond ? "BEYOND THE OBSERVABLE UNIVERSE" : "INSIDE: " + region.Name.ToUpperInvariant());
+
+            // the nearest shell of the grid, so a line on screen can be checked against its number
+            int shell = (int)Math.Round(log10Radius);
+            float shellRho = scale.Rho(u, shell);
+            string nearest = shellRho >= 0
+                ? "nearest shell: 10^" + shell + " m, " + (shellRho - rho).ToString("+0.00;-0.00", System.Globalization.CultureInfo.InvariantCulture) + " units from here"
+                : "nearest shell: none (beyond the universe)";
             body = "1 unit of the graph outward = " + Power(log10Scale) + " m\n" +
-                   "1 unit along the clock = " + Power(log10Years) + " years";
+                   "1 unit along the clock = " + Power(log10Years) + " years\n" + nearest;
             return true;
         }
 

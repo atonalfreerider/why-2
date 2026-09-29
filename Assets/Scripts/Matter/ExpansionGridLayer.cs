@@ -45,7 +45,19 @@ namespace Why.Matter
         const int MaxDecade = 26;
 
         /// <summary>Relative weight of the three classes of line: decades, the 2..9 steps, the 0.1 steps.</summary>
-        static readonly float[] ClassWeight = { 1f, 0.45f, 0.22f };
+        static readonly float[] ClassWeight = { 1f, 0.55f, 0.2f, 0.12f };
+
+        /// <summary>The finest class (0.01 steps) is only generated from this decade outward, where the map can resolve it.</summary>
+        const int HundredthsFromDecade = 21;
+
+        /// <summary>The coarsest tier a class is baked into: the finer steps are details of the closer tiers.</summary>
+        static readonly int[] ClassFirstTier = { 0, 0, 1, 2 };
+
+        /// <summary>
+        /// A decade line keeps this much of its opacity after the finer lines have taken over between it and
+        /// the next decade, so the orders of magnitude stay readable; every other class fades out.
+        /// </summary>
+        const float DecadeFloor = 0.3f;
 
         /// <summary>Rays are a little stronger than shells: they are the matter, the shells the ruler.</summary>
         const float RayWeight = 1f, ShellWeight = 0.7f;
@@ -64,7 +76,7 @@ namespace Why.Matter
         const float EmergeRatio = 2.5f;
 
         /// <summary>Fainter as the gap opens beyond the threshold: opacity ~ (gap / crowd)^-Fainter.</summary>
-        const float Fainter = 0.6f;
+        const float Fainter = 1.2f;
 
         /// <summary>World width of a line as a fraction of its gap, capped: wider as space opens.</summary>
         const float WidthPerGap = 0.05f, MaxWidthWorld = 0.08f, WidthPx = 1f;
@@ -165,10 +177,11 @@ namespace Why.Matter
             int shells = 0, rays = 0;
             Thinner thin = new Thinner();
             Trace trace = new Trace(samples.Count);
-            foreach ((double log10, int cls) in Values())
+            foreach ((double log10, int cls, double step) in Values())
             {
-                if (BuildLine(builders, thin, trace, samples, log10, cls, false)) shells++;
-                if (BuildLine(builders, thin, trace, samples, log10, cls, true)) rays++;
+                if (BuildLine(builders, thin, trace, samples, log10, cls, step, false)) shells++;
+                // the rays mark matter, coarsely: decades and the 2..9 steps only
+                if (cls <= 1 && BuildLine(builders, thin, trace, samples, log10, cls, step, true)) rays++;
             }
 
             Register(ctx, samples, layout.BigBangYa);
@@ -182,14 +195,26 @@ namespace Why.Matter
         }
 
         /// <summary>All values drawn (log10 metres) with their class: decades, 2..9 steps, 0.1 steps.</summary>
-        static IEnumerable<(double log10, int cls)> Values()
+        /// <summary>
+        /// All values drawn (log10 metres) with their class and their spacing to the next line of the ruler
+        /// (decades): the log ruler, one class per level: 10^n, 2..9 x 10^n, the 0.1 steps, and (out in the
+        /// fan, where the map is wide enough for them to ever resolve) the 0.01 steps.
+        /// </summary>
+        static IEnumerable<(double log10, int cls, double step)> Values()
         {
             for (int n = 0; n <= MaxDecade; n++)
             {
-                for (int tenth = 10; tenth < 100; tenth++)
+                int finest = n >= HundredthsFromDecade ? 3 : 2;
+                int steps = finest == 3 ? 1000 : 100;
+                int unit = steps / 10;
+                for (int m = unit; m < steps; m++)
                 {
-                    int cls = tenth == 10 ? 0 : tenth % 10 == 0 ? 1 : 2;
-                    yield return (n + Math.Log10(tenth / 10.0), cls);
+                    int cls = m == unit ? 0 : m % unit == 0 ? 1 : m % (unit / 10) == 0 ? 2 : 3;
+                    // a decade is judged against the next decade; a finer line against its nearest neighbour
+                    // of its own class or coarser
+                    int coarse = cls == 1 ? unit : cls == 2 ? unit / 10 : cls == 3 ? 1 : steps;
+                    double step = cls == 0 ? 1 : Math.Log10((m + coarse) / (double)m);
+                    yield return (n + Math.Log10(m / (double)unit), cls, step);
                 }
             }
         }
@@ -236,10 +261,9 @@ namespace Why.Matter
         /// anything was drawn.
         /// </summary>
         static bool BuildLine(LineMeshBuilder[] builders, Thinner thin, Trace trace, List<Sample> samples, double log10, int cls,
-            bool ray)
+            double step, bool ray)
         {
             float weight = ClassWeight[cls] * (ray ? RayWeight : ShellWeight);
-            double step = cls == 0 ? 1 : cls == 1 ? Math.Log10((Math.Round(Math.Pow(10, log10 % 1)) + 1) / Math.Round(Math.Pow(10, log10 % 1))) : 0.05;
 
             // the line's place on the map and everything about its opacity that does not depend on the tier
             for (int j = 0; j < samples.Count; j++)
@@ -270,15 +294,14 @@ namespace Why.Matter
             bool drawn = false;
             for (int t = 0; t < Tiers; t++)
             {
-                // the 0.1 steps are a detail of the closer tiers
-                if (cls == 2 && t == 0) continue;
+                if (t < ClassFirstTier[cls]) continue;
                 float crowd = CrowdGap / Mathf.Pow(Zoom, t);
                 thin.Reset();
                 bool drawnHere = false;
                 for (int j = 0; j < samples.Count; j++)
                 {
                     float gap = trace.Gap[j];
-                    float alpha = gap > 0 ? trace.Base[j] * Emerge(gap, crowd) * Faint(gap, crowd) : 0;
+                    float alpha = gap > 0 ? trace.Base[j] * Emerge(gap, crowd) * Faint(gap, crowd, cls) : 0;
                     if (alpha > CullAlpha)
                     {
                         thin.Add(samples[j].U, trace.Rho[j], alpha, trace.Width[j]);
@@ -505,7 +528,15 @@ namespace Why.Matter
         static float Emerge(float gap, float crowd) => Smooth(Mathf.Log(Mathf.Max(gap, 1e-9f) / crowd) / Mathf.Log(EmergeRatio));
 
         /// <summary>Fainter as the gap opens beyond the threshold: the widest-spaced lines are the softest.</summary>
-        static float Faint(float gap, float crowd) => Mathf.Pow(Mathf.Max(gap / (crowd * EmergeRatio), 1f), -Fainter);
+        static float Faint(float gap, float crowd, int cls)
+        {
+            // a line is at its strongest just as it resolves; once its gap has opened far beyond that the finer
+            // lines between it and its neighbours carry the grid, and it is redundant: it fades out fast
+            // (a bell in log gap: a line lives in a band of about one zoom step around the resolution limit)
+            float excess = Mathf.Log(Mathf.Max(gap / (crowd * EmergeRatio), 1f));
+            float faint = Mathf.Exp(-Fainter * excess * excess);
+            return cls == 0 ? Mathf.Max(faint, DecadeFloor) : faint;
+        }
 
         static float Smooth(float t)
         {

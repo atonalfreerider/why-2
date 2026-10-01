@@ -50,6 +50,14 @@ namespace Why.Economy.UI
         /// </summary>
         const float PersonDistance = 4f, PortraitPullback = 1.25f;
 
+        /// <summary>
+        /// Where the person's point lands across a landscape screen (0 left .. 1 right): a little right of the middle.
+        /// Time runs left to right on the road, so more of the life that led to the year shows, and the void beyond the
+        /// present that a recent year leaves on the right goes under the inspector's column (the right fifth). A portrait
+        /// screen keeps it centered (the inspector is a sheet across the width).
+        /// </summary>
+        const float PersonScreenX = 0.62f;
+
         const float FadeSpeed = 4f;
 
         /// <summary>The road's view with every line drawn in detail; the station whose diagram shows the person (their
@@ -76,7 +84,7 @@ namespace Why.Economy.UI
         TextMeshProUGUI yearText, readoutText;
         Button prev, next;
         UiFade chipFade, readoutFade;
-        HudProbe probe;
+        HudBlocks hud;
         EconomyModel model;
         SmvPopulation pop;
         YearSeries trust;
@@ -117,7 +125,7 @@ namespace Why.Economy.UI
             trust = model?.Data?.Games?.Tribes?.TrustSeries();
             circuitStation = EconomyStage.Get(EconomyStage.Circuit);
             mindStation = EconomyStage.Get(EconomyStage.Mind);
-            probe = new HudProbe(root);
+            hud = new HudBlocks(root);
             loaded = true;
         }
 
@@ -201,6 +209,13 @@ namespace Why.Economy.UI
             float distance = PersonDistance * (ScreenLayout.IsPortrait ? PortraitPullback : 1f);
             pose.Target = world;
             pose.Distance = Mathf.Min(pose.Distance, distance);
+            if (!ScreenLayout.IsPortrait)
+            {
+                // slide the view along its own right so the point lands at PersonScreenX (it stays at the target's depth)
+                float across = 2f * pose.Distance * Mathf.Tan(CameraRig.FieldOfView * 0.5f * Mathf.Deg2Rad) * ScreenLayout.Aspect;
+                pose.Target += Quaternion.Euler(0, pose.Yaw, 0) * Vector3.right * ((0.5f - PersonScreenX) * across);
+            }
+
             root.Rig.FlyTo(pose, FlySeconds);
         }
 
@@ -241,7 +256,7 @@ namespace Why.Economy.UI
 
             // the size the canvas has on this screen (on the frame the screen changes shape, the canvas itself may still
             // have its old size); the HUD's blocks as they are now (they move with the orientation, the F3 stats, ...)
-            HudFrame frame = probe.Measure(canvasRect, UiFactory.CanvasSize);
+            HudFrame frame = hud.Measure(canvasRect, UiFactory.CanvasSize);
             if (!dirty && frame.Near(laidOutFrame)) return;
             dirty = false;
             laidOutFrame = frame;
@@ -265,17 +280,19 @@ namespace Why.Economy.UI
             chipBox = EconomyUiLayout.Chip(f, chipSize);
             Place(chip, chipBox, f);
 
-            // the readout: one line, shorter on a portrait screen
+            // the readout: one line, shorter on a portrait screen; measured while active (a hidden fade deactivates it,
+            // and an inactive text may not measure), hidden again below when it has no place on this screen
             readoutText.text = YearFacts.Line(model?.Lives, trust, EconomyState.Year, f.Portrait, UiFactory.Hex(GraphStyle.Text));
             bool hasReadout = readoutText.text.Length > 0;
+            if (hasReadout) readoutFade.Show(true);
             Vector2 text = hasReadout ? HudKit.FitText(readoutText) : Vector2.zero;
             readoutSize = new Vector2(Mathf.Ceil(text.x + 2 * HudKit.Pad), ReadoutHeight);
             HudKit.PlaceTopLeft(readoutText.rectTransform, HudKit.Pad, 0, new Vector2(text.x, ReadoutHeight));
             readoutBox = hasReadout ? EconomyUiLayout.Readout(f, chipBox, readoutSize) : UiBox.Empty;
-            readoutFade.Show(!readoutBox.IsEmpty && model?.Lives != null && model.Lives.Ready);
+            readoutFade.Show(!readoutBox.IsEmpty);
             if (!readoutBox.IsEmpty) Place(readout, readoutBox, f);
 
-            Occupied = readoutBox.IsEmpty ? chipBox : Union(chipBox, readoutBox);
+            Occupied = UiBox.Union(chipBox, readoutBox);
             checkPending = true;
         }
 
@@ -283,12 +300,6 @@ namespace Why.Economy.UI
         static void Place(RectTransform rt, UiBox box, HudFrame f)
         {
             rt.Place(Vector2.one, Vector2.one, new Vector2(-(f.Canvas.x - box.Right), -box.Y), new Vector2(box.W, box.H));
-        }
-
-        static UiBox Union(UiBox a, UiBox b)
-        {
-            float x = Mathf.Min(a.X, b.X), y = Mathf.Min(a.Y, b.Y);
-            return new UiBox(x, y, Mathf.Max(a.Right, b.Right) - x, Mathf.Max(a.Bottom, b.Bottom) - y);
         }
 
         /// <summary>
@@ -312,7 +323,7 @@ namespace Why.Economy.UI
 
         void Compare(string name, RectTransform rt, UiBox planned)
         {
-            UiBox actual = probe.Box(canvasRect, rt);
+            UiBox actual = hud.Box(canvasRect, rt);
             if (!actual.IsEmpty && !actual.Near(planned) && laidOutFrame.Canvas == canvasRect.rect.size)
             {
                 problems.Add(name + " drawn at " + actual + ", laid out at " + planned);

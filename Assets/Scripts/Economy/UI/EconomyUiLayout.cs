@@ -29,6 +29,15 @@ namespace Why.Economy.UI
         /// <summary>True when the two boxes share area (touching edges do not count).</summary>
         public bool Overlaps(UiBox o) => !IsEmpty && !o.IsEmpty && X < o.Right && o.X < Right && Y < o.Bottom && o.Y < Bottom;
 
+        /// <summary>The smallest box around both (an empty box adds nothing).</summary>
+        public static UiBox Union(UiBox a, UiBox b)
+        {
+            if (a.IsEmpty) return b;
+            if (b.IsEmpty) return a;
+            float x = Mathf.Min(a.X, b.X), y = Mathf.Min(a.Y, b.Y);
+            return new UiBox(x, y, Mathf.Max(a.Right, b.Right) - x, Mathf.Max(a.Bottom, b.Bottom) - y);
+        }
+
         /// <summary>True when the two boxes share a stretch of x.</summary>
         public bool OverlapsX(float x0, float x1) => !IsEmpty && X < x1 && x0 < Right;
 
@@ -44,7 +53,7 @@ namespace Why.Economy.UI
     /// The screen as the economy's own UI sees it: the canvas, its orientation and safe insets, the HUD's spacing, and the
     /// boxes of everything the economy's panels must keep clear of (the HUD's title, its tour and help buttons, the F3
     /// stats, the legend and lifeline readout, the preset bar, the games panel). Measured from the live UI each frame
-    /// (see <see cref="HudProbe"/>); hidden blocks are empty.
+    /// (see <see cref="HudBlocks"/>); hidden blocks are empty.
     /// </summary>
     public struct HudFrame
     {

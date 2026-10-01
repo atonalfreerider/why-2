@@ -17,7 +17,9 @@ namespace Why.Economy.UI
     /// A click projects every line coarsely (one sample every <see cref="MinStride"/> steps, i.e. every two years, more
     /// sparsely if that would exceed <see cref="MaxProjections"/>), measures the cursor's distance to each projected
     /// segment, keeps the <see cref="Candidates"/> nearest lines, and refines them at the full quarter-year resolution
-    /// around their nearest segment.
+    /// around their nearest segment. Where lines lie a pixel apart (the bundle seen from afar) the nearest is a matter
+    /// of chance, so a line the viewer already selected wins within <see cref="PreferSlackPx"/>: a click on the glowing
+    /// line keeps it.
     /// </summary>
     public sealed class LifelinePicker
     {
@@ -31,8 +33,17 @@ namespace Why.Economy.UI
         /// </summary>
         public const int MinStride = 8;
 
-        /// <summary>Lines refined at full resolution after the coarse pass (the nearest by their chords).</summary>
-        public const int Candidates = 4;
+        /// <summary>
+        /// Lines refined at full resolution after the coarse pass (the nearest by their chords). A two-year chord strays
+        /// a pixel or more from a bending line, and in the zoomed-out bundle a dozen lines pass within a pixel of a
+        /// click: with four (or eight) candidates the line under the cursor was sometimes not among them (a click right
+        /// on a sample found another line 1.1 px away in the overview). Sixteen cost ~270 projections more per click.
+        /// </summary>
+        public const int Candidates = 16;
+
+        /// <summary>A preferred line (the selected person's) wins when it is at most this many pixels further away than
+        /// the nearest line: about the width of a drawn line.</summary>
+        public const float PreferSlackPx = 1.5f;
 
         /// <summary>Clip w below which a sample counts as behind the camera.</summary>
         const float MinClipW = 1e-4f;
@@ -100,17 +111,18 @@ namespace Why.Economy.UI
         /// The person whose line passes nearest the screen point (pixels, origin bottom-left, like the mouse) under a camera
         /// and a warp, within <paramref name="radiusPx"/>. <paramref name="coarseOnly"/> limits the search to the lines of
         /// the zoomed-out tier (<see cref="SmvGeometry.InCoarseTier"/>), the only ones drawn while it shows.
+        /// <paramref name="prefer"/> (a person, or -1) wins over a nearer line within <see cref="PreferSlackPx"/>.
         /// </summary>
         public bool Pick(SmvPopulation population, Camera cam, WarpState warp, Vector2 point, float radiusPx,
-            bool coarseOnly, out Hit hit)
+            bool coarseOnly, int prefer, out Hit hit)
         {
             hit = new Hit { Person = -1, Step = -1, DistancePx = float.PositiveInfinity };
             LastProjections = 0;
-            return Prepare(population, cam, warp) && Pick(point, radiusPx, coarseOnly, out hit);
+            return Prepare(population, cam, warp) && Pick(point, radiusPx, coarseOnly, prefer, out hit);
         }
 
         /// <summary>A pick with the projection of the last <see cref="Prepare"/>.</summary>
-        public bool Pick(Vector2 point, float radiusPx, bool coarseOnly, out Hit hit)
+        public bool Pick(Vector2 point, float radiusPx, bool coarseOnly, int prefer, out Hit hit)
         {
             hit = new Hit { Person = -1, Step = -1, DistancePx = float.PositiveInfinity };
             LastProjections = 0;
@@ -145,20 +157,42 @@ namespace Why.Economy.UI
             for (int i = 0; i < Candidates; i++)
             {
                 if (candidate[i] < 0) continue;
-                SmvPerson p = sim.People[candidate[i]];
-                int from = Math.Max(p.FirstStep, candidateStep[i] - stride);
-                int to = Math.Min(p.LastStep, candidateStep[i] + stride);
-                float d = Nearest(sim, p, from, to, 1, point, out int step, ref projections);
+                float d = Refine(sim, sim.People[candidate[i]], candidateStep[i], stride, point, out int step, ref projections);
                 if (d < hit.DistancePx)
                 {
                     hit.DistancePx = d;
-                    hit.Person = p.Index;
+                    hit.Person = candidate[i];
                     hit.Step = step;
+                }
+            }
+
+            // the selected line keeps the click when it is about as near as the nearest
+            if (prefer >= 0 && prefer < sim.People.Count && prefer != hit.Person)
+            {
+                SmvPerson p = sim.People[prefer];
+                if (p.SampleCount > 0 && (!coarseOnly || SmvGeometry.InCoarseTier(p)))
+                {
+                    Nearest(sim, p, p.FirstStep, p.LastStep, stride, point, out int near, ref projections);
+                    float d = Refine(sim, p, near, stride, point, out int step, ref projections);
+                    if (d <= radiusPx && d <= hit.DistancePx + PreferSlackPx)
+                    {
+                        hit.DistancePx = d;
+                        hit.Person = prefer;
+                        hit.Step = step;
+                    }
                 }
             }
 
             LastProjections = projections;
             return hit.Person >= 0 && hit.DistancePx <= radiusPx;
+        }
+
+        /// <summary>A line's distance at full resolution within a stride of a step (its nearest coarse segment).</summary>
+        float Refine(SmvSimulation sim, SmvPerson p, int around, int stride, Vector2 point, out int step, ref int projections)
+        {
+            int from = Math.Max(p.FirstStep, around - stride);
+            int to = Math.Min(p.LastStep, around + stride);
+            return Nearest(sim, p, from, to, 1, point, out step, ref projections);
         }
 
         /// <summary>Screen position (pixels, origin bottom-left) of a person's line at a step under the last

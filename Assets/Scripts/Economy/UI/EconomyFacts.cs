@@ -23,7 +23,11 @@ namespace Why.Economy.UI
         /// <summary>Drives listed per pole (the strongest first).</summary>
         public const int TopDrives = 3;
 
-        /// <summary>Money rows of an adult year, in display order (two columns read down: income, then what is left).</summary>
+        /// <summary>
+        /// Money rows of an adult year, in display order: read down the columns, income and its taxes come first, then
+        /// what is left and where it goes, then the balance sheet and where it ranks (two columns of six in the landscape
+        /// panel, three of four in the portrait sheet).
+        /// </summary>
         public const int MoneyRows = 12;
 
         static readonly CultureInfo Ci = CultureInfo.InvariantCulture;
@@ -33,9 +37,9 @@ namespace Why.Economy.UI
         /// <summary>Generations when the human world (demography.json) has none; as the population layer draws them.</summary>
         static readonly (string name, int from, int to)[] FallbackGenerations =
         {
-            ("Greatest Generation", 1901, 1927), ("Silent Generation", 1928, 1945), ("Baby Boomers", 1946, 1964),
-            ("Generation X", 1965, 1980), ("Millennials", 1981, 1996), ("Generation Z", 1997, 2012),
-            ("Generation Alpha", 2013, 2030)
+            ("Lost Generation", 1883, 1900), ("Greatest Generation", 1901, 1927), ("Silent Generation", 1928, 1945),
+            ("Baby Boomers", 1946, 1964), ("Generation X", 1965, 1980), ("Millennials", 1981, 1996),
+            ("Generation Z", 1997, 2012), ("Generation Alpha", 2013, 2030)
         };
 
         public int Person = -1;
@@ -53,11 +57,16 @@ namespace Why.Economy.UI
         /// <summary>Role of a notable person (owner, heir, striver ...) and the model's sentence on why; null otherwise.</summary>
         public string Role, RoleWhy;
 
+        /// <summary>The year the role's sentence describes (the last simulated year: notables are picked there).</summary>
+        public int RoleYear;
+
         /// <summary>"IN 2025  ·  AGE 64" (with why another year is shown) and the year's household and work.</summary>
         public string YearHeading = "", Status = "";
 
-        /// <summary>Money of the year: labels and values (adults only), and how to read the dollars.</summary>
-        public readonly string[] MoneyLabels = new string[MoneyRows], MoneyValues = new string[MoneyRows];
+        /// <summary>Money of the year: labels, shorter labels for the portrait sheet's narrow columns, and values (adults
+        /// only), and how to read the dollars.</summary>
+        public readonly string[] MoneyLabels = new string[MoneyRows], MoneyShort = new string[MoneyRows],
+            MoneyValues = new string[MoneyRows];
 
         public string MoneyNote = "";
 
@@ -71,6 +80,9 @@ namespace Why.Economy.UI
 
         public float Fantasy;
         public string SpendingTotal = "";
+
+        /// <summary>"SPENDING $122K  ·  FANTASY 22%" (for a child: the household's shares, no dollars).</summary>
+        public string SpendingHeading = "";
 
         /// <summary>The mind: share of fear in the spending's motive, reason (the higher OS), future orientation, agency,
         /// material autonomy; the population's means of reason and future that year; the cut of agency for control.</summary>
@@ -119,6 +131,7 @@ namespace Why.Economy.UI
             f.Title = (final.Adult ? p.Male ? "Man" : "Woman" : p.Male ? "Boy" : "Girl") + ", born " + YearOf(p.Birth);
             f.Meta = MetaLine(lives, world, p, s);
             f.Role = lives.RoleOf(person);
+            f.RoleYear = lives.LastYear;
             foreach (Notable n in lives.Notables)
             {
                 if (n.Person == person) f.RoleWhy = n.Why;
@@ -221,18 +234,18 @@ namespace Why.Economy.UI
         void FillMoney(EconomyData data, PersonYear s, int year)
         {
             float rate = s.Disposable > 0 ? s.Saving / s.Disposable : 0;
-            Set(0, "Wages", Money(s.Wages));
-            Set(1, "Business", Money(s.Business));
-            Set(2, "Capital income", Money(s.CapitalIncome));
-            Set(3, "Transfers", Money(s.Transfers));
-            Set(4, "Taxes", Money(s.Taxes));
-            Set(5, "Wealth group", GroupName(data, s.WealthGroup));
-            Set(6, "Disposable", Money(s.Disposable));
-            Set(7, "Spending", Money(s.Spending));
-            Set(8, "Saving", Money(s.Saving) + (s.Disposable > 0 ? " (" + Pct(rate) + ")" : ""));
-            Set(9, "Net worth", Money(s.Wealth));
-            Set(10, "Debt", Money(s.Debt));
-            Set(11, "Income rank", s.IncomeRank >= 0.5f
+            Set(0, "Wages", "Wages", Money(s.Wages));
+            Set(1, "Business", "Business", Money(s.Business));
+            Set(2, "Capital income", "Capital", Money(s.CapitalIncome));
+            Set(3, "Transfers", "Transfers", Money(s.Transfers));
+            Set(4, "Taxes", "Taxes", Money(s.Taxes));
+            Set(5, "Disposable", "Disposable", Money(s.Disposable));
+            Set(6, "Spending", "Spending", Money(s.Spending));
+            Set(7, "Saving", "Saving", Money(s.Saving) + (s.Disposable > 0 ? " (" + Pct(rate) + ")" : ""));
+            Set(8, "Net worth", "Net worth", Money(s.Wealth));
+            Set(9, "Debt", "Debt", Money(s.Debt));
+            Set(10, "Wealth group", "Wealth", GroupName(data, s.WealthGroup));
+            Set(11, "Income rank", "Income", s.IncomeRank >= 0.5f
                 ? "top " + Pct(Math.Max(0.01f, 1 - s.IncomeRank))
                 : "bottom " + Pct(Math.Max(0.01f, s.IncomeRank)));
 
@@ -245,9 +258,10 @@ namespace Why.Economy.UI
             MoneyNote = dollars + "; a couple's money is split evenly between them.";
         }
 
-        void Set(int row, string label, string value)
+        void Set(int row, string label, string shortLabel, string value)
         {
             MoneyLabels[row] = label;
+            MoneyShort[row] = shortLabel;
             MoneyValues[row] = value;
         }
 
@@ -277,6 +291,8 @@ namespace Why.Economy.UI
 
             Fantasy = Clamp01(s.Fantasy);
             SpendingTotal = s.Adult ? Money(s.Spending) : "";
+            SpendingHeading = (s.Adult ? "SPENDING  " + SpendingTotal : "THE HOUSEHOLD'S SPENDING") + "  \u00B7  FANTASY " +
+                              Pct(Fantasy);
         }
 
         void FillMind(EconomicLives lives, PersonYear s, int year)

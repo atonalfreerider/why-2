@@ -15,14 +15,15 @@ namespace Why.Economy.UI
     /// not during the tour) picks the line nearest the cursor within about ten pixels (<see cref="LifelinePicker"/>) and
     /// selects that person (<see cref="EconomyState.Person"/>); a click on empty road clears the selection, like the HUD's
     /// own click-to-focus. The selected person's lifeline glows (their cross in the mind map too: it shares the line's id)
-    /// and a panel shows their life at <see cref="EconomyState.Year"/>, or the nearest year of their life
+    /// and is drawn once more over the bundle so it reads in its densest part (<see cref="PersonLine"/>), and a panel
+    /// shows their life at <see cref="EconomyState.Year"/>, or the nearest year of their life
     /// (<see cref="PersonPanel"/>), refreshed whenever the shared state changes. The × button or Esc closes it.
     ///
     /// Landscape: a column at the right edge under the year chip, down to the first HUD block beneath it, scaled to fit.
     /// Portrait: a compact full-width sheet under the HUD's title and the year's readout. The panel and the glow belong to
-    /// the road and the mind map: at the other stations (the money circuit and the games, whose own panel docks at the
-    /// right) they step aside, and they come back with the camera. During the tour the director owns attention and the
-    /// panel hides.
+    /// the road and the mind map: at the other stations (the money circuit and the games) they step aside, and they come
+    /// back with the camera. The panel also waits while the games panel is up (it docks at the same edge, in the games and
+    /// tribes views). During the tour the director owns attention and the panel hides.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class PersonInspector : GraphModule
@@ -47,8 +48,9 @@ namespace Why.Economy.UI
         GraphRoot root;
         RectTransform canvasRect;
         PersonPanel panel;
+        PersonLine line;
         UiFade fade;
-        HudProbe probe;
+        HudBlocks hud;
         RectTransform helpSheet;
         EconomyModel model;
         SmvPopulation pop;
@@ -73,6 +75,7 @@ namespace Why.Economy.UI
             Canvas canvas = UiFactory.CreateCanvas("PersonInspector", SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
             panel = new PersonPanel(canvasRect, Close);
+            line = new PersonLine(transform);
 
             // created last: a hidden fade deactivates the panel (texts are measured while it is shown)
             fade = new UiFade(panel.Rect.gameObject, 0, FadeSpeed, true);
@@ -85,7 +88,7 @@ namespace Why.Economy.UI
             world = root.Context.Shared<HumanWorld>(HumanWorld.SharedKey);
             circuitStation = EconomyStage.Get(EconomyStage.Circuit);
             mindStation = EconomyStage.Get(EconomyStage.Mind);
-            probe = new HudProbe(root);
+            hud = new HudBlocks(root);
             foreach (GraphModule m in root.Modules)
             {
                 if (m is Hud) helpSheet = m.transform.Find("HudOverlay/Help") as RectTransform;
@@ -94,7 +97,11 @@ namespace Why.Economy.UI
             loaded = model?.Lives != null && pop != null;
         }
 
-        void OnDestroy() => panel?.Dispose();
+        void OnDestroy()
+        {
+            panel?.Dispose();
+            line?.Dispose();
+        }
 
         /// <summary>The × button and Esc: nobody is selected any more.</summary>
         static void Close()
@@ -124,7 +131,10 @@ namespace Why.Economy.UI
             Vector3 target = root.Rig != null ? root.Rig.Pose.Target : Vector3.zero;
             bool here = !EconomyControls.AtStations(target, circuitStation) || EconomyControls.NearMind(target, mindStation);
             SyncHighlight(tour ? -1 : here ? EconomyState.Person : -1);
-            bool show = !tour && here && facts != null;
+
+            // the games panel docks at the right edge too (in the games and tribes views, wherever the camera has
+            // since wandered): the person waits until it has gone
+            bool show = !tour && here && facts != null && !hud.GamesPanelShown;
             if (show != fade.Shown)
             {
                 fade.Show(show); // activates the panel before its texts are measured
@@ -181,7 +191,7 @@ namespace Why.Economy.UI
             bool coarseOnly = !(perLine > 0 && perLine < SmvLayer.PeoplePerCoarseLine * 0.5);
             Stopwatch sw = Stopwatch.StartNew();
             bool hit = picker.Pick(pop, root.Rig.Cam, GraphWarp.Current, position, PickRadiusPx * LabelSystem.UiScale,
-                coarseOnly, out LifelinePicker.Hit found);
+                coarseOnly, EconomyState.Person, out LifelinePicker.Hit found);
             if (sw.ElapsedMilliseconds > SlowPickMs)
             {
                 Debug.Log($"[Why] PersonInspector: pick took {sw.ElapsedMilliseconds} ms ({picker.LastProjections} projections)");
@@ -203,8 +213,9 @@ namespace Why.Economy.UI
         }
 
         /// <summary>
-        /// Lights a person's lifeline (or none, -1). Replaces only a highlight this module set and that is still showing;
-        /// the HUD's and the director's are theirs.
+        /// Lights a person's lifeline (or none, -1): the highlighter's glow on their line (dimming the rest) and the line
+        /// drawn once more over the bundle (<see cref="PersonLine"/>). Replaces only a highlight this module set and that
+        /// is still showing; the HUD's and the director's are theirs.
         /// </summary>
         void SyncHighlight(int person)
         {
@@ -212,6 +223,7 @@ namespace Why.Economy.UI
             if (ownsHighlight && Highlighter.HasHighlight && Highlighter.IsHighlighted(highlightRanges[0])) Highlighter.Clear();
             ownsHighlight = false;
             highlighted = person;
+            line.Show(pop, model.Lives, person);
             if (person < 0 || person >= pop.Sim.People.Count) return;
             highlightRanges[0] = IdRange.Single(pop.Id(pop.Sim.People[person]));
             Highlighter.Set(highlightRanges, GraphStyle.HighlightGlow, PersonDim);
@@ -221,6 +233,7 @@ namespace Why.Economy.UI
         void LateUpdate()
         {
             fade.Tick(Time.unscaledDeltaTime);
+            line.Tick(Time.unscaledDeltaTime);
             if (!loaded) return;
             if (pickPending)
             {
@@ -242,7 +255,7 @@ namespace Why.Economy.UI
         /// </summary>
         void Layout()
         {
-            HudFrame f = probe.Measure(canvasRect, UiFactory.CanvasSize);
+            HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
             UiBox above = EconomyControls.Occupied;
             float width = f.Portrait ? Mathf.Max(200f, f.Canvas.x - 2 * f.Margin) : PersonPanel.LandscapeWidth;
             bool refill = contentDirty || f.Portrait != laidOutCompact || Mathf.Abs(width - laidOutWidth) > 0.5f;
@@ -281,7 +294,7 @@ namespace Why.Economy.UI
             problems.Clear();
             EconomyUiLayout.Check(laidOutFrame, "person inspector", panelBox, problems);
             if (panelBox.Overlaps(laidOutAbove)) problems.Add("person inspector " + panelBox + " overlaps the year controls " + laidOutAbove);
-            UiBox drawn = probe.Box(canvasRect, panel.Rect);
+            UiBox drawn = hud.Box(canvasRect, panel.Rect);
             if (!drawn.IsEmpty && !drawn.Near(panelBox) && laidOutFrame.Canvas == canvasRect.rect.size)
             {
                 problems.Add("person inspector drawn at " + drawn + ", laid out at " + panelBox);

@@ -17,8 +17,8 @@ namespace Why.Economy.UI
     ///
     /// Text is neutral grey and white at 13 - 14 px; hue appears only as small swatches and bars that carry the scene's
     /// meanings (rose desire, ice fear, gold capital and control, blue people). <see cref="Layout"/> places everything for
-    /// a width: the landscape column, or a compact full-width sheet on a portrait screen (three money columns, two
-    /// spending columns, no notes, no lifetime charts).
+    /// a width: the landscape column, or a compact full-width sheet on a portrait screen (three money columns with short
+    /// labels, two spending columns, the three gauges in one row, no notes, no lifetime charts).
     /// </summary>
     public sealed class PersonPanel
     {
@@ -35,10 +35,17 @@ namespace Why.Economy.UI
         /// <summary>Bars: thickness, the swatch dot, the fantasy underline, the tick of a gauge.</summary>
         const float BarHeight = 7f, SwatchSize = 8f, FantasyLine = 2f, TickWidth = 2f, TickOverhang = 3f;
 
-        /// <summary>Columns of the bar rows: names, percentages and values (reference pixels).</summary>
-        const float CategoryName = 112f, CompactCategoryName = 92f, PercentWidth = 36f;
+        /// <summary>
+        /// Columns of the bar rows (reference pixels): a category's swatch and name (the longest, "Self-improvement",
+        /// is ~102 px at 13 px), its percent; a gauge's name ("Reason (higher OS)" ~116 px) and value, and in the
+        /// portrait sheet's single row of three gauges the short names ("Reason", "Future", "Agency"); the poles' ends.
+        /// </summary>
+        const float CategoryName = 124f, PercentWidth = 36f;
 
-        const float GaugeLabel = 122f, CompactGaugeLabel = 112f, ValueWidth = 40f, PoleLabel = 82f;
+        const float GaugeLabel = 126f, ValueWidth = 40f, CompactGaugeLabel = 54f, CompactValueWidth = 30f, PoleLabel = 82f;
+
+        static readonly string[] GaugeNames = { "Reason (higher OS)", "Future orientation", "Agency" };
+        static readonly string[] CompactGaugeNames = { "Reason", "Future", "Agency" };
 
         /// <summary>The lifetime charts: height, label and value columns; texture size (the record has at most 81 years).</summary>
         const float SparkHeight = 22f, SparkLabel = 70f, SparkValue = 92f;
@@ -46,6 +53,11 @@ namespace Why.Economy.UI
         const int SparkTexels = 24, MaxYears = 128;
 
         const float FontSmall = HudKit.SizeSmall, FontBody = HudKit.SizeBody;
+
+        /// <summary>Space kept between a money label and its value (reference pixels).</summary>
+        const float LabelValueGap = 6f;
+
+        static readonly System.Globalization.CultureInfo Ci = System.Globalization.CultureInfo.InvariantCulture;
 
         static readonly Color Track = new Color(1, 1, 1, 0.07f);
         static readonly Color GaugeColor = new Color(0.86f, 0.87f, 0.90f, 0.6f);
@@ -105,6 +117,7 @@ namespace Why.Economy.UI
             {
                 moneyLabels[i] = HudKit.Line(Rect, "MoneyLabel" + i, "", FontSmall, dim, FontStyles.Normal,
                     TextAlignmentOptions.MidlineLeft);
+                moneyLabels[i].overflowMode = TextOverflowModes.Ellipsis;
                 moneyValues[i] = HudKit.Line(Rect, "MoneyValue" + i, "", FontSmall, text, FontStyles.Normal,
                     TextAlignmentOptions.MidlineRight);
             }
@@ -127,9 +140,6 @@ namespace Why.Economy.UI
             reason.Extra = Plain(reason.Track.transform, "Mean", TickColor);
             future.Extra = Plain(future.Track.transform, "Mean", TickColor);
             agency.Extra = Plain(agency.Track.transform, "Cut", TickColor);
-            reason.Name.text = "Reason (higher OS)";
-            future.Name.text = "Future orientation";
-            agency.Name.text = "Agency";
             gaugeLegend = Wrapped("GaugeLegend", FontSmall - 1, HudKit.TextFaint);
             gaugeLegend.text = "Tick: the population's mean that year; for agency, the cut for being in control.";
             verdict = Wrapped("Verdict", FontSmall, text);
@@ -241,19 +251,21 @@ namespace Why.Economy.UI
             kicker.text = "ONE LIFELINE  \u00B7  " + HudKit.FormatCount(peoplePerLine).ToUpperInvariant() + " PEOPLE";
             title.text = Escape(f.Title);
             meta.text = Escape(f.Meta);
+            // the role's sentence describes the last simulated year: say so when another year is shown
+            string roleYear = f.RoleYear != f.Year
+                ? " <color=#" + UiFactory.Hex(HudKit.TextFaint) + ">(" + f.RoleYear.ToString(Ci) + ")</color>"
+                : "";
             role.text = f.Role != null
-                ? "<color=#" + textHex + "><b>" + Escape(f.Role.ToUpperInvariant()) + "</b></color>  " + Escape(f.RoleWhy ?? "")
+                ? "<color=#" + textHex + "><b>" + Escape(f.Role.ToUpperInvariant()) + "</b></color>" + roleYear + "  " +
+                  Escape(f.RoleWhy ?? "")
                 : "";
             yearHeading.text = Escape(f.YearHeading);
             status.text = Escape(f.Status);
-            for (int i = 0; i < PersonFacts.MoneyRows; i++)
-            {
-                moneyLabels[i].text = Escape(f.MoneyLabels[i] ?? "");
-                moneyValues[i].text = Escape(f.MoneyValues[i] ?? "");
-            }
+            // the money labels depend on the width (Layout)
+            for (int i = 0; i < PersonFacts.MoneyRows; i++) moneyValues[i].text = Escape(f.MoneyValues[i] ?? "");
 
             moneyNote.text = Escape(f.MoneyNote);
-            spendingHeading.text = "SPENDING  " + Escape(f.SpendingTotal) + "  \u00B7  FANTASY " + PersonFacts.Pct(f.Fantasy);
+            spendingHeading.text = Escape(f.SpendingHeading);
             for (int c = 0; c < categories.Length; c++)
             {
                 Bar b = categories[c];
@@ -268,9 +280,9 @@ namespace Why.Economy.UI
             poles.Extra.color = new Color(EconomyStyle.Fear.r, EconomyStyle.Fear.g, EconomyStyle.Fear.b, BarAlpha);
             poles.Name.text = "Desire " + PersonFacts.Pct(1 - f.FearShare);
             poles.Value.text = PersonFacts.Pct(f.FearShare) + " Fear";
-            reason.Value.text = f.Reason.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
-            future.Value.text = f.Future.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
-            agency.Value.text = f.Agency.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+            reason.Value.text = f.Reason.ToString("0.00", Ci);
+            future.Value.text = f.Future.ToString("0.00", Ci);
+            agency.Value.text = f.Agency.ToString("0.00", Ci);
             reason.Fill.color = GaugeColor;
             future.Fill.color = GaugeColor;
             Color person = f.InControl ? EconomyStyle.Capital : GraphStyle.Humans;
@@ -279,8 +291,7 @@ namespace Why.Economy.UI
             wants.text = "<color=#" + dimHex + ">Wants</color>   " + Escape(f.Wants);
             fears.text = "<color=#" + dimHex + ">Fears</color>   " + Escape(f.Fears);
 
-            lifeHeading.text = "LIFETIME  " + f.LifeFirstYear.ToString(System.Globalization.CultureInfo.InvariantCulture) +
-                               " - " + f.LifeLastYear.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            lifeHeading.text = "LIFETIME  " + f.LifeFirstYear.ToString(Ci) + " - " + f.LifeLastYear.ToString(Ci);
             agencySpark.Value.text = Escape(f.AgencyPeak);
             wealthSpark.Value.text = Escape(f.WealthPeak);
             DrawAgency(f);
@@ -412,9 +423,14 @@ namespace Why.Economy.UI
                 y += 4;
                 for (int i = 0; i < PersonFacts.MoneyRows; i++)
                 {
+                    // the value right-aligned at its measured width, the label in what is left (an ellipsis rather
+                    // than running under the value)
                     float cx = x + i / rows * (cell + ColumnGap), cy = y + i % rows * Row;
-                    HudKit.PlaceTopLeft(moneyLabels[i].rectTransform, cx, cy, new Vector2(cell, Row));
-                    HudKit.PlaceTopLeft(moneyValues[i].rectTransform, cx, cy, new Vector2(cell, Row));
+                    moneyLabels[i].text = Escape((compact ? f.MoneyShort[i] : f.MoneyLabels[i]) ?? "");
+                    float value = Mathf.Min(cell, HudKit.Measure(moneyValues[i], moneyValues[i].text).x);
+                    HudKit.PlaceTopLeft(moneyLabels[i].rectTransform, cx, cy,
+                        new Vector2(Mathf.Max(0, cell - value - LabelValueGap), Row));
+                    HudKit.PlaceTopLeft(moneyValues[i].rectTransform, cx + cell - value, cy, new Vector2(value, Row));
                 }
 
                 y += rows * Row;
@@ -429,10 +445,9 @@ namespace Why.Economy.UI
             {
                 int columns = compact ? 2 : 1, rows = (categories.Length + columns - 1) / columns;
                 float cell = (inner - (columns - 1) * ColumnGap) / columns;
-                float name = compact ? CompactCategoryName : CategoryName;
                 for (int c = 0; c < categories.Length; c++)
                 {
-                    PlaceCategory(categories[c], x + c / rows * (cell + ColumnGap), y + c % rows * Row, cell, name,
+                    PlaceCategory(categories[c], x + c / rows * (cell + ColumnGap), y + c % rows * Row, cell, CategoryName,
                         f.CategoryShares[c], f.CategoryFantasy[c]);
                 }
 
@@ -447,15 +462,28 @@ namespace Why.Economy.UI
             y += HeadingRow + 2;
             PlacePoles(x, y, inner, f.FearShare);
             y += Row;
-            float label = compact ? CompactGaugeLabel : GaugeLabel;
             ShowBar(reason, adult);
             ShowBar(future, adult);
             ShowBar(agency, adult);
-            if (adult)
+            string[] gaugeNames = compact ? CompactGaugeNames : GaugeNames;
+            reason.Name.text = gaugeNames[0];
+            future.Name.text = gaugeNames[1];
+            agency.Name.text = gaugeNames[2];
+            if (adult && compact)
             {
-                PlaceGauge(reason, x, y, inner, label, f.Reason, f.MeanReason);
-                PlaceGauge(future, x, y + Row, inner, label, f.Future, f.MeanFuture);
-                PlaceGauge(agency, x, y + 2 * Row, inner, label, f.Agency, f.ControlCut);
+                // the portrait sheet: the three gauges side by side
+                float cell = (inner - 2 * ColumnGap) / 3;
+                PlaceGauge(reason, x, y, cell, CompactGaugeLabel, CompactValueWidth, f.Reason, f.MeanReason);
+                PlaceGauge(future, x + cell + ColumnGap, y, cell, CompactGaugeLabel, CompactValueWidth, f.Future, f.MeanFuture);
+                PlaceGauge(agency, x + 2 * (cell + ColumnGap), y, cell, CompactGaugeLabel, CompactValueWidth, f.Agency,
+                    f.ControlCut);
+                y += Row;
+            }
+            else if (adult)
+            {
+                PlaceGauge(reason, x, y, inner, GaugeLabel, ValueWidth, f.Reason, f.MeanReason);
+                PlaceGauge(future, x, y + Row, inner, GaugeLabel, ValueWidth, f.Future, f.MeanFuture);
+                PlaceGauge(agency, x, y + 2 * Row, inner, GaugeLabel, ValueWidth, f.Agency, f.ControlCut);
                 y += 3 * Row;
             }
 
@@ -552,12 +580,13 @@ namespace Why.Economy.UI
         }
 
         /// <summary>A gauge from 0 to 1 with a tick (a mean, or the cut for control); no tick when it is negative.</summary>
-        static void PlaceGauge(Bar b, float x, float y, float width, float labelWidth, float value, float tick)
+        static void PlaceGauge(Bar b, float x, float y, float width, float labelWidth, float valueWidth, float value,
+            float tick)
         {
             ShowBar(b, true);
             HudKit.PlaceTopLeft(b.Name.rectTransform, x, y, new Vector2(labelWidth - 4, Row));
-            HudKit.PlaceTopLeft(b.Value.rectTransform, x + width - ValueWidth, y, new Vector2(ValueWidth, Row));
-            float track = Mathf.Max(10, width - labelWidth - ValueWidth - 6);
+            HudKit.PlaceTopLeft(b.Value.rectTransform, x + width - valueWidth, y, new Vector2(valueWidth, Row));
+            float track = Mathf.Max(10, width - labelWidth - valueWidth - 6);
             HudKit.PlaceTopLeft(b.Track.rectTransform, x + labelWidth, y + (Row - BarHeight) * 0.5f, new Vector2(track, BarHeight));
             HudKit.PlaceTopLeft(b.Fill.rectTransform, 0, 0, new Vector2(track * Mathf.Clamp01(value), BarHeight));
             Show(b.Extra, tick >= 0);

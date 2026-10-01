@@ -4,18 +4,22 @@ using Why.UI;
 namespace Why.Economy.UI
 {
     /// <summary>
-    /// Measures where the HUD's blocks (and the games panel) are, in the canvas units of another canvas, so the economy's
-    /// controls and inspector keep clear of them however the HUD has laid itself out (landscape or portrait, a scaled or
-    /// wrapped preset bar, the legend moved up, the F3 stats shown). The blocks are found once by the names the HUD gives
-    /// them; a block that is inactive (faded out) or missing measures as empty, so the layout falls back to the HUD's
-    /// authored sizes (<see cref="EconomyUiLayout"/>). Reading the boxes allocates nothing.
+    /// Where the HUD's blocks (and the games panel) are on screen right now, in the canvas units of another canvas: the
+    /// runtime input of the economy controls' and the person inspector's layout, so they keep clear of the HUD however it
+    /// has laid itself out (landscape or portrait, a scaled or wrapped preset bar, the legend moved up, the F3 stats
+    /// shown). The blocks are found once by the names the HUD and the games panel give them; a block that is inactive
+    /// (faded out) or missing measures as empty, and the layout then falls back to the HUD's authored sizes
+    /// (<see cref="EconomyUiLayout"/>). Measuring allocates nothing (a few corner transforms per frame).
     /// </summary>
-    public sealed class HudProbe
+    public sealed class HudBlocks
     {
         readonly RectTransform title, subtitle, tour, help, stats, legend, readout, presetBar, games;
         readonly Vector3[] corners = new Vector3[4];
 
-        public HudProbe(GraphRoot root)
+        /// <summary>The missing HUD is reported once per session, not by every module that measures it.</summary>
+        static bool reportedMissing;
+
+        public HudBlocks(GraphRoot root)
         {
             if (root == null) return;
             foreach (GraphModule m in root.Modules)
@@ -38,10 +42,16 @@ namespace Why.Economy.UI
                     games = Find(m.transform, "GamesPanel/Games");
                 }
             }
+
+            if ((title == null || presetBar == null) && !reportedMissing)
+            {
+                reportedMissing = true;
+                Debug.LogWarning("[Why] economy UI: the HUD's blocks were not found by name; laying out with its authored sizes");
+            }
         }
 
-        /// <summary>True when the HUD itself was found (otherwise every block measures empty).</summary>
-        public bool FoundHud => title != null && presetBar != null;
+        /// <summary>True while the games panel is on screen (shown, or still fading out).</summary>
+        public bool GamesPanelShown => games != null && games.gameObject.activeInHierarchy;
 
         static RectTransform Find(Transform parent, string path) => parent.Find(path) as RectTransform;
 
@@ -62,7 +72,7 @@ namespace Why.Economy.UI
                 SafeBottom = portrait ? safeBottom : 0,
                 Margin = portrait ? HudKit.PortraitMargin : HudKit.Margin,
                 Gap = HudKit.Gap,
-                TopButtons = Union(Box(canvas, tour), Box(canvas, help)),
+                TopButtons = UiBox.Union(Box(canvas, tour), Box(canvas, help)),
                 DevStats = Box(canvas, stats),
                 Legend = Box(canvas, legend),
                 Readout = Box(canvas, readout),
@@ -71,7 +81,7 @@ namespace Why.Economy.UI
             };
 
             // the subtitle may wrap past the title block's authored height
-            f.Title = Union(Box(canvas, title), Box(canvas, subtitle));
+            f.Title = UiBox.Union(Box(canvas, title), Box(canvas, subtitle));
             return f;
         }
 
@@ -86,14 +96,6 @@ namespace Why.Economy.UI
             float x0 = Mathf.Min(a.x, b.x) - r.xMin, x1 = Mathf.Max(a.x, b.x) - r.xMin;
             float top = r.yMax - Mathf.Max(a.y, b.y), bottom = r.yMax - Mathf.Min(a.y, b.y);
             return new UiBox(x0, top, x1 - x0, bottom - top);
-        }
-
-        static UiBox Union(UiBox a, UiBox b)
-        {
-            if (a.IsEmpty) return b;
-            if (b.IsEmpty) return a;
-            float x = Mathf.Min(a.X, b.X), y = Mathf.Min(a.Y, b.Y);
-            return new UiBox(x, y, Mathf.Max(a.Right, b.Right) - x, Mathf.Max(a.Bottom, b.Bottom) - y);
         }
     }
 }

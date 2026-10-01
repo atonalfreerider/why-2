@@ -29,13 +29,12 @@ namespace Why.Economy
                     Key = KeyCode.Alpha1, TargetY = 0.5f, Pitch = 26, Distance = 13.5f, YawOffset = -6,
                     PortraitWidth = 12f
                 }),
-                Timeline(new ViewPreset
+                OnRoad(new ViewPreset
                 {
                     Id = "industries", Title = "Where value is created",
                     Subtitle = "Value added by industry (2025 dollars): the bright part of each band is what owners keep",
-                    Key = KeyCode.Alpha2, TargetY = 0.32f, Pitch = 10, Distance = 10.5f, YawOffset = -4,
-                    PortraitWidth = 12f
-                }),
+                    Key = KeyCode.Alpha2, Pitch = 8, Distance = 9.5f, PortraitWidth = 9f
+                }, 2001, 0.36f, -6),
                 Station(circuit, new ViewPreset
                 {
                     Id = "circuit", Title = "The money circuit",
@@ -87,6 +86,21 @@ namespace Why.Economy
             p.YScale = EconomyStyle.YScale;
             p.TargetRho = EconomyStyle.FramingRho;
             p.StrataEmphasis = 0;
+            return p;
+        }
+
+        /// <summary>
+        /// A view of one stretch of the road: the shared lens, the camera looking outward at a calendar year and height
+        /// (data y) of the population's center line, turned by <paramref name="yawOffset"/> degrees.
+        /// </summary>
+        static ViewPreset OnRoad(ViewPreset p, double year, float y, float yawOffset)
+        {
+            Timeline(p);
+            WarpState w = EconomyStage.TimelineWarp();
+            float u = EconomyStage.U(year);
+            Vector3 n = GraphWarp.NormalAt(u, w);
+            p.FixedTarget = GraphWarp.ToWorld(u, y, EconomyStyle.FramingRho, w);
+            p.FixedYaw = Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + yawOffset;
             return p;
         }
 

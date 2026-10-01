@@ -35,9 +35,10 @@ namespace Why.Economy.Layers
     ///
     /// The diagram stands in the station's plane z = 0; the floor lies in front of it (toward the viewer), because
     /// from the views' cameras, 10 degrees above the station, a floor behind the diagram would sit behind its lower
-    /// rungs. One round of both games is played every <see cref="RoundSeconds"/> while the station is in view; a change
-    /// of the games' settings (<see cref="EconomyState.SetGames"/>) restarts both games and recomputes the evolution
-    /// (on a worker thread). Everything is deterministic: games are seeded by their number.
+    /// rungs. The labels show only while the camera looks at this station (<see cref="LabelDistance"/>). One round of
+    /// both games is played every <see cref="RoundSeconds"/> while the station is in view; a change of the games'
+    /// settings (<see cref="EconomyState.SetGames"/>) restarts both games and recomputes the evolution (on a worker
+    /// thread). Everything is deterministic: games are seeded by their number.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class GamesLayer : GraphLayer
@@ -77,6 +78,9 @@ namespace Why.Economy.Layers
 
         const float MemberRadius = 0.052f, AlphaRadius = 0.085f;
 
+        /// <summary>Largest dot radius as a share of the spacing between members (large tribes get smaller dots).</summary>
+        const float MemberFill = 0.42f, AlphaFill = 0.55f;
+
         /// <summary>Space kept free inside a pyramid's outline around the member dots.</summary>
         const float PyramidInset = 0.2f;
 
@@ -92,15 +96,26 @@ namespace Why.Economy.Layers
         /// <summary>
         /// The floor's caption sits behind the stream between the two ladders' feet, where both views have room for it.
         /// </summary>
-        const float FloorCaptionX = 0.25f;
+        const float FloorCaptionX = 0.6f;
 
         /// <summary>Headings and captions above each half.</summary>
         const float HeadingY = 5.25f, CaptionY = 4.98f;
 
-        /// <summary>The station's center (for "is it in view") and how close the camera's target must be to play.</summary>
+        /// <summary>
+        /// The station's center (for "is it in view") and how close the camera's target must be to play: the games' own
+        /// views and the mind station's next door (one station spacing away, the games standing behind it) play; the
+        /// circuit's views, two spacings away, do not.
+        /// </summary>
         static readonly Vector3 CenterLocal = new Vector3(0, EconomyStyle.StationHeight * 0.5f, 0);
 
-        const float NearDistance = 25f;
+        const float NearDistance = 1.5f * EconomyStyle.StationSpacing;
+
+        /// <summary>
+        /// The station's labels show only while the camera's target is this close to its center (the games' own views and
+        /// their anchors). Fixed labels never fade with distance, and from the next station's views the games stand small
+        /// in the background, where their labels would crowd that station's own.
+        /// </summary>
+        const float LabelDistance = 0.75f * EconomyStyle.StationSpacing;
 
         // ------------------------------------------------------------------ the games
 
@@ -133,6 +148,12 @@ namespace Why.Economy.Layers
         const int Generations = 200, GamesPerPair = 200;
 
         const float DefaultMutation = 0.01f;
+
+        /// <summary>
+        /// The ranges <see cref="EconomyState.SetGames"/> keeps the chance of a mistake and of meeting again in; the data's
+        /// values are clamped the same way, so the first evolution is the one the state will ask for.
+        /// </summary>
+        const float MaxNoise = 0.5f, MaxContinuation = 0.999f;
 
         /// <summary>The evolving strategies in the stream's order from the front (nearest the viewer) to the back.</summary>
         static readonly PdStrategy[] StreamOrder =
@@ -199,6 +220,7 @@ namespace Why.Economy.Layers
         GamesSetup.Source mixSource, membersSource;
         PdStrategy[] membersA, membersB;
         Vector3[] dotsA, dotsB;
+        float memberRadius = MemberRadius, alphaRadius = AlphaRadius;
         float distrust, alphaSway, mutation;
         bool specNoise, specContinuation;
         float dataNoise, dataContinuation;
@@ -233,10 +255,12 @@ namespace Why.Economy.Layers
         Task<List<float[]>> evolving;
 
         // live labels
-        LabelSpec personALabel, personBLabel, scoreLabel, efficiencyLabel, shadowLabel;
-        LabelSpec tribeALabel, tribeBLabel, tribeRoundLabel, floorCaption;
+        LabelSpec personHeading, personALabel, personBLabel, scoreLabel, efficiencyLabel, shadowLabel;
+        LabelSpec tribeHeading, tribeCaption, tribeALabel, tribeBLabel, tribeRoundLabel, floorCaption;
         readonly LabelSpec[] rowLabelsA = new LabelSpec[LadderRows], rowLabelsB = new LabelSpec[LadderRows];
         readonly LabelSpec[] bandLabels = new LabelSpec[StreamOrder.Length];
+        readonly List<LabelSpec> labels = new List<LabelSpec>(80);
+        bool labelsShown = true, hidePersonHeadings, hideTribeHeadings;
         Anchor evolutionAnchor, forgivenessAnchor;
 
         // ------------------------------------------------------------------ prepare (worker thread)
@@ -256,17 +280,21 @@ namespace Why.Economy.Layers
             int tribeSize = Mathf.Clamp(Mathf.RoundToInt(GamesSetup.Spec(data, "tribeSize", DefaultTribeSize)), 6, 120);
             specNoise = GamesSetup.HasSpec(data, "noise");
             specContinuation = GamesSetup.HasSpec(data, "continuation");
-            dataNoise = GamesSetup.Spec(data, "noise", EconomyState.Noise);
-            dataContinuation = GamesSetup.Spec(data, "continuation", EconomyState.Continuation);
+            dataNoise = Mathf.Clamp(GamesSetup.Spec(data, "noise", EconomyState.Noise), 0f, MaxNoise);
+            dataContinuation = Mathf.Clamp(GamesSetup.Spec(data, "continuation", EconomyState.Continuation), 0f,
+                MaxContinuation);
 
             mix = GamesSetup.Mix(model, out mixSource);
             membersA = GamesSetup.Tribe(model, 0, tribeSize, mix, MembersSeed, out membersSource);
             membersB = GamesSetup.Tribe(model, 1, tribeSize, mix, MembersSeed + SeedStride, out GamesSetup.Source sourceB);
             if (sourceB != membersSource) membersSource = GamesSetup.Source.Default;
-            dotsA = MemberDots(TribeAX, membersA.Length);
-            dotsB = MemberDots(TribeBX, membersB.Length);
+            dotsA = MemberDots(TribeAX, membersA.Length, out float spacing);
+            dotsB = MemberDots(TribeBX, membersB.Length, out _);
+            memberRadius = Mathf.Min(MemberRadius, MemberFill * spacing);
+            alphaRadius = Mathf.Min(AlphaRadius, AlphaFill * spacing);
 
-            // the settings the scene will start with (EconomyState's choices, the data's noise and shadow of the future)
+            // the settings the scene will most likely start with (EconomyState's choices, the data's noise and shadow of
+            // the future); Upload takes them again once EconomyLoaderLayer has reset the state
             settings = new Settings(EconomyState.StrategyA, EconomyState.StrategyB, specNoise ? dataNoise : EconomyState.Noise,
                 specContinuation ? dataContinuation : EconomyState.Continuation);
             evolution = Evolve(settings);
@@ -285,6 +313,11 @@ namespace Why.Economy.Layers
 
             AddLabels(ctx);
             PlaceBandLabels(evolution);
+            foreach (LabelSpec band in bandLabels)
+            {
+                ctx.Labels.Add(band); // placed and ranked first (see AddLabels)
+                labels.Add(band);
+            }
             RegisterAnchors(tribeSize);
             Debug.Log($"[Why] GamesLayer.Prepare {sw.ElapsedMilliseconds} ms: mix from {mixSource}, tribes of {tribeSize} " +
                       $"from {membersSource}, evolution {evolution.Count} generations");
@@ -293,8 +326,12 @@ namespace Why.Economy.Layers
         List<float[]> Evolve(Settings s) => GamesSetup.Evolve(StreamOrder, pay, mix, s.Noise, s.Continuation, Generations,
             GamesPerPair, mutation, EvolutionSeed);
 
-        /// <summary>Member dots of a pyramid, top row first: the alpha alone at the apex, then rows one wider each.</summary>
-        static Vector3[] MemberDots(float centerX, int count)
+        /// <summary>
+        /// Member dots of a pyramid, top row first: the alpha alone at the apex, then rows one wider each. A last row that
+        /// is not full spreads its members over the full row's width, so the pyramid keeps its base corners. The spacing
+        /// is the smallest distance between neighbors (for the dots' size).
+        /// </summary>
+        static Vector3[] MemberDots(float centerX, int count, out float spacing)
         {
             int rows = 1;
             while (rows * (rows + 1) / 2 < count) rows++;
@@ -302,13 +339,15 @@ namespace Why.Economy.Layers
             float rowStep = rows > 1 ? (top - bottom) / (rows - 1) : 0;
             float halfAtBottom = HalfBase * (ApexY - bottom) / (ApexY - BaseY) - PyramidInset;
             float dx = rows > 1 ? 2 * halfAtBottom / (rows - 1) : 0;
+            spacing = rows > 1 ? Mathf.Min(dx, rowStep) : float.MaxValue;
             Vector3[] dots = new Vector3[count];
             int k = 0;
             for (int r = 0; r < rows && k < count; r++)
             {
-                int inRow = Math.Min(r + 1, count - k);
+                int full = r + 1, inRow = Math.Min(full, count - k);
+                float step = inRow > 1 ? dx * (full - 1) / (inRow - 1) : 0;
                 float y = top - r * rowStep;
-                for (int j = 0; j < inRow; j++) dots[k++] = new Vector3(centerX + (j - (inRow - 1) * 0.5f) * dx, y, 0);
+                for (int j = 0; j < inRow; j++) dots[k++] = new Vector3(centerX + (j - (inRow - 1) * 0.5f) * step, y, 0);
             }
 
             return dots;
@@ -368,8 +407,7 @@ namespace Why.Economy.Layers
             // the Pareto arrow's full height (always both cooperating), and the level of always both defecting
             Arrow(lines, new Vector3(ParetoX, ParetoBottom, 0), new Vector3(ParetoX, ParetoTop + ArrowHead, 0), ArrowHead,
                 Tint(Gold, 0.4f), 1.2f, IdPareto);
-            float floorShare = pay.R > 0 ? pay.P / pay.R : 0;
-            float y = Mathf.Lerp(ParetoBottom, ParetoTop, floorShare);
+            float y = Mathf.Lerp(ParetoBottom, ParetoTop, DefectionShare);
             lines.AddSegment(new Vector3(ParetoX - 0.1f, y, 0), new Vector3(ParetoX + 0.1f, y, 0), Tint(Red, 0.9f), 1.6f, 0,
                 IdPareto, 1.3f);
 
@@ -380,6 +418,9 @@ namespace Why.Economy.Layers
         }
 
         static Vector3 Rung(float x, int row) => new Vector3(x, LadderBaseY + row * LadderStep, 0);
+
+        /// <summary>Share of the best joint payoff that always both defecting earns: the Pareto arrow's red tick.</summary>
+        float DefectionShare => pay.R > 0 ? Mathf.Clamp01(pay.P / pay.R) : 0;
 
         void DrawPyramids(LineMeshBuilder lines)
         {
@@ -485,7 +526,7 @@ namespace Why.Economy.Layers
                 float x = Mathf.Lerp(FloorLeft, FloorRight, best / (float)(count - 1));
                 LabelSpec label = bandLabels[j];
                 label.Data = station.World(x, FloorY, FloorNear + depth * (below + share * 0.5f));
-                label.Hidden = share < MinBandLabelShare;
+                label.Hidden = !labelsShown || share < MinBandLabelShare;
                 if (!uploaded) label.Priority = 12 + 20 * share;
                 if (StreamOrder[j] == PdStrategy.GenerousTitForTat && forgivenessAnchor != null) forgivenessAnchor.Fixed = label.Data;
             }
@@ -521,8 +562,8 @@ namespace Why.Economy.Layers
             // many rounds: two people
             IdRange ladder = new IdRange(IdLadder, IdPersonB);
             float midLeft = 0.5f * (BrainA.x + BrainB.x);
-            Add(ctx, "Many rounds: tit for tat and the shadow of the future", new Vector3(midLeft, HeadingY, 0), 14, text, center,
-                34, "game:ladder", ladder);
+            personHeading = Add(ctx, "Many rounds: tit for tat and the shadow of the future", new Vector3(midLeft, HeadingY, 0),
+                14, text, center, 34, "game:ladder", ladder);
             shadowLabel = Add(ctx, ShadowText(settings), new Vector3(midLeft, CaptionY, 0), 12, dim, center, 30, "game:ladder",
                 ladder);
             personALabel = Add(ctx, PersonText("A", settings.A), new Vector3(BrainA.x, BrainA.y - BrainRadius - 0.2f, 0), 13,
@@ -535,15 +576,15 @@ namespace Why.Economy.Layers
             Add(ctx, "PARETO EFFICIENT", new Vector3(ParetoX, ParetoTop + ArrowHead + 0.13f, 0), 12, Gold, center, 31,
                 "game:pareto", pareto);
             efficiencyLabel = Add(ctx, Percents[0], new Vector3(ParetoX, ParetoBottom, 0), 12, Gold, left, 28, "game:pareto",
-                pareto, new Vector2(11, 0));
-            efficiencyLabel.Hidden = true;
+                pareto, new Vector2(11, 0), true);
 
             // many rounds: two tribes
             IdRange tribes = new IdRange(IdTribeA, IdTitForTat);
             float midRight = 0.5f * (TribeAX + TribeBX);
-            Add(ctx, "Many rounds: tribe against tribe", new Vector3(midRight, HeadingY, 0), 14, text, center, 34, "game:tribes",
+            tribeHeading = Add(ctx, "Many rounds: tribe against tribe", new Vector3(midRight, HeadingY, 0), 14, text, center, 34,
+                "game:tribes", tribes);
+            tribeCaption = Add(ctx, TribeCaption(), new Vector3(midRight, CaptionY, 0), 12, dim, center, 30, "game:tribes",
                 tribes);
-            Add(ctx, TribeCaption(), new Vector3(midRight, CaptionY, 0), 12, dim, center, 30, "game:tribes", tribes);
             tribeALabel = Add(ctx, TribeText("A", -1), new Vector3(TribeAX, BaseY - 0.22f, 0), 13, text, center, 32,
                 "game:tribes", IdRange.Single(IdTribeA));
             tribeBLabel = Add(ctx, TribeText("B", -1), new Vector3(TribeBX, BaseY - 0.22f, 0), 13, text, center, 32,
@@ -564,29 +605,41 @@ namespace Why.Economy.Layers
                 Vector3 rung = Rung(TribeLadderX, row);
                 IdRange ids = IdRange.Single(IdTribeLadder);
                 rowLabelsA[row] = Add(ctx, Percents[0], new Vector3(rung.x - RungHalf - 0.05f, rung.y, 0), 11, dim, right, 12,
-                    "game:tribes", ids);
+                    "game:tribes", ids, default, true);
                 rowLabelsB[row] = Add(ctx, Percents[0], new Vector3(rung.x + RungHalf + 0.05f, rung.y, 0), 11, dim, left, 12,
-                    "game:tribes", ids);
-                rowLabelsA[row].Hidden = rowLabelsB[row].Hidden = true;
+                    "game:tribes", ids, default, true);
             }
 
             // the floor
             IdRange evolutionIds = new IdRange(IdEvolution, IdEvolutionFrame);
             floorCaption = Add(ctx, FloorText(settings), new Vector3(FloorCaptionX, FloorY, FloorFar + 0.2f), 12, dim, center, 27,
                 "game:evolution", evolutionIds);
+            // the bands' labels are handed to the label system by Prepare once PlaceBandLabels has placed and ranked them:
+            // the label system sorts labels by priority when it takes them, possibly while this thread is still running
             for (int j = 0; j < StreamOrder.Length; j++)
             {
                 PdStrategy s = StreamOrder[j];
                 string anchor = s == PdStrategy.GenerousTitForTat ? "game:forgiveness" : "game:evolution";
-                bandLabels[j] = Add(ctx, PrisonersDilemma.Name(s), new Vector3(0, FloorY, FloorNear), 12, text, center, 12, anchor,
+                bandLabels[j] = Label(PrisonersDilemma.Name(s), new Vector3(0, FloorY, FloorNear), 12, text, center, 12, anchor,
                     IdRange.Single(IdEvolution + j));
             }
         }
 
+        /// <summary>A label at a local point of the station, handed to the label system finished (hidden or not).</summary>
         LabelSpec Add(GraphContext ctx, string text, Vector3 local, float size, Color color, TextAlignmentOptions align,
-            float priority, string anchor, IdRange ids, Vector2 offset = default)
+            float priority, string anchor, IdRange ids, Vector2 offset = default, bool hidden = false)
         {
-            LabelSpec spec = new LabelSpec
+            LabelSpec spec = Label(text, local, size, color, align, priority, anchor, ids, offset);
+            spec.Hidden = hidden;
+            ctx.Labels.Add(spec);
+            labels.Add(spec);
+            return spec;
+        }
+
+        /// <summary>A label at a local point of the station (a world position: the station is not warped).</summary>
+        LabelSpec Label(string text, Vector3 local, float size, Color color, TextAlignmentOptions align, float priority,
+            string anchor, IdRange ids, Vector2 offset = default) =>
+            new LabelSpec
             {
                 Text = text,
                 Data = station.World(local),
@@ -599,9 +652,6 @@ namespace Why.Economy.Layers
                 Ids = ids,
                 PixelOffset = offset
             };
-            ctx.Labels.Add(spec);
-            return spec;
-        }
 
         void RegisterAnchors(int tribeSize)
         {
@@ -622,8 +672,7 @@ namespace Why.Economy.Layers
             Register("game:pareto", "Pareto efficient",
                 $"How close the pair comes to the best they can do together: their joint payoff so far divided by what " +
                 $"always cooperating pays ({r} each per round). No outcome makes both better off than mutual cooperation; " +
-                $"defecting forever earns {Percents[Mathf.RoundToInt(100 * (pay.R > 0 ? pay.P / pay.R : 0))]} of it " +
-                "(the red tick).",
+                $"defecting forever earns {Percent(DefectionShare)} of it (the red tick).",
                 new Vector3(ParetoX, ParetoTop, 0), IdRange.Single(IdPareto));
             string members = membersSource == GamesSetup.Source.Population
                 ? "Their members are adults of the modeled population in 2025, Democrats in tribe A and Republicans in " +
@@ -634,8 +683,8 @@ namespace Why.Economy.Layers
                 $"Two tribes of {tribeSize}. Every round each member of tribe A meets a random member of tribe B. Members " +
                 "follow their own strategy, but what they remember is what their tribe received last round, so a few " +
                 "defections are repaid by many. Groups compete harder than individuals: distrust of the other tribe adds " +
-                $"{Percents[Mathf.RoundToInt(100 * distrust)]} to every member's chance of defecting, and after the alpha " +
-                $"defects the members follow with {Percents[Mathf.RoundToInt(100 * alphaSway)]} more. " + members +
+                $"{Percent(distrust)} to every member's chance of defecting, and after the alpha defects the members " +
+                $"follow with {Percent(alphaSway)} more. " + members +
                 " Each diamond's cells are filled by how likely each outcome was.",
                 new Vector3(TribeLadderX, 2.5f, 0), new IdRange(IdTribeA, IdTitForTat));
             evolutionAnchor = Register("game:evolution", "Evolution of strategies", EvolutionBlurb(evolution),
@@ -680,36 +729,36 @@ namespace Why.Economy.Layers
         string ShadowText(Settings s)
         {
             float w = s.Continuation;
-            string mean = w < 0.999f ? (1f / (1f - w)).ToString("0", Ci) : "many";
-            return "Meet again with chance w = " + w.ToString("0.00", Ci) + " (about " + mean + " rounds); tit for tat holds " +
-                   "when w >= " + pay.ShadowThreshold.ToString("0.00", Ci);
+            int mean = w < MaxContinuation ? Mathf.RoundToInt(1f / (1f - w)) : 0;
+            string length = mean == 1 ? "a single round" : mean > 1 ? "about " + mean.ToString(Ci) + " rounds" : "many rounds";
+            return "Meet again with chance w = " + w.ToString("0.00", Ci) + " (" + length + "); tit for tat holds when w >= " +
+                   pay.ShadowThreshold.ToString("0.00", Ci);
         }
 
         string TribeCaption() =>
-            "Members answer what their tribe received last round  \u00B7  distrust " +
-            Percents[Mathf.RoundToInt(100 * distrust)] + "  \u00B7  alpha sway " + Percents[Mathf.RoundToInt(100 * alphaSway)];
+            "Members answer what their tribe received last round  \u00B7  distrust " + Percent(distrust) +
+            "  \u00B7  alpha sway " + Percent(alphaSway);
 
         static string TribeText(string who, float cooperation) =>
-            cooperation < 0
-                ? "Tribe " + who
-                : "Tribe " + who + "  \u00B7  cooperates " + Percents[Mathf.RoundToInt(100 * cooperation)];
+            cooperation < 0 ? "Tribe " + who : "Tribe " + who + "  \u00B7  cooperates " + Percent(cooperation);
 
         static string FloorText(Settings s) =>
-            "Evolution: strategies spread by their payoff (noise " + Percents[Mathf.RoundToInt(100 * s.Noise)] + ", w " +
+            "Evolution: strategies spread by their payoff (noise " + Percent(s.Noise) + ", w " +
             s.Continuation.ToString("0.00", Ci) + ")";
 
         string ScoreText()
         {
             int n = rounds.Count;
-            string head = n == 0 ? "Round 0" : n >= personLength ? "Last round, " + n.ToString(Ci) : "Round " + n.ToString(Ci);
+            string head = "Round " + n.ToString(Ci) + (n > 0 && n >= personLength ? ", the last" : "");
             return head + "     A " + totalA.ToString("0", Ci) + " : B " + totalB.ToString("0", Ci);
         }
 
-        static string EvolutionBlurb(List<float[]> gens)
+        string EvolutionBlurb(List<float[]> gens)
         {
             StringBuilder sb = new StringBuilder(
                 "Strategies spread in proportion to the payoff they earn against the current mix (replicator dynamics, " +
-                "1% mutation), starting from the population's mix on the left. Each band's width is a strategy's share. ");
+                Num(100 * mutation) + "% mutation), starting from the population's mix on the left. Each band's width " +
+                "is a strategy's share. ");
             if (gens != null && gens.Count > 0)
             {
                 float[] last = gens[gens.Count - 1];
@@ -726,8 +775,7 @@ namespace Why.Economy.Layers
                     if (best < 0) break;
                     used[best] = true;
                     if (item > 0) sb.Append(", ");
-                    sb.Append(GamesSetup.ShortName(StreamOrder[best])).Append(' ')
-                        .Append(Percents[Mathf.Clamp(Mathf.RoundToInt(100 * last[best]), 0, 100)]);
+                    sb.Append(GamesSetup.ShortName(StreamOrder[best])).Append(' ').Append(Percent(last[best]));
                 }
 
                 sb.Append('.');
@@ -735,6 +783,9 @@ namespace Why.Economy.Layers
 
             return sb.ToString();
         }
+
+        /// <summary>A share as a whole percent, clamped to 0% .. 100% (no number formatting).</summary>
+        static string Percent(float share) => Percents[Mathf.Clamp(Mathf.RoundToInt(100 * share), 0, 100)];
 
         static string[] BuildPercents()
         {
@@ -763,13 +814,17 @@ namespace Why.Economy.Layers
             staticFills = floorFills = null;
             staticLines = floorLines = null;
 
-            // the games start from the data's mistakes and shadow of the future (EconomyLoaderLayer reset the state)
+            // the games start from the data's mistakes and shadow of the future. EconomyLoaderLayer reset the state after
+            // Prepare had read it (it may have held a previous visit's choices), so the settings are taken again here;
+            // StartGames recomputes the evolution if they differ from the ones Prepare evolved
             if (specNoise || specContinuation)
             {
                 EconomyState.SetGames(EconomyState.StrategyA, EconomyState.StrategyB,
                     specNoise ? dataNoise : EconomyState.Noise, specContinuation ? dataContinuation : EconomyState.Continuation);
             }
 
+            settings = Settings.Current;
+            seenVersion = EconomyState.Version;
             StartGames();
             BuildLive(out Mesh fill, out Mesh line);
             liveFill = AddStationMesh("GamesLive", fill, liveFillMat);
@@ -835,12 +890,44 @@ namespace Why.Economy.Layers
             PollEvolution();
 
             // play only while the station is in view; otherwise the last state stays drawn
-            bool near = rig == null || (rig.Pose.Target - station.World(CenterLocal)).sqrMagnitude < NearDistance * NearDistance;
-            if (near) Advance(Mathf.Min(Time.unscaledDeltaTime, MaxFrameSeconds));
+            Vector3 fromCenter = rig != null ? rig.Pose.Target - station.World(CenterLocal) : Vector3.zero;
+            FrameLabels(fromCenter);
+            if (fromCenter.sqrMagnitude < NearDistance * NearDistance)
+            {
+                Advance(Mathf.Min(Time.unscaledDeltaTime, MaxFrameSeconds));
+            }
 
             if (!liveDirty) return;
             liveDirty = false;
             RebuildLive();
+        }
+
+        /// <summary>
+        /// Which labels the view has room for, from the camera's target relative to the station's center: none while the
+        /// camera looks at another station (<see cref="LabelDistance"/>); on a portrait screen, where only the half the
+        /// camera looks at fits across and the two halves' captions would run into each other at its edge, not the other
+        /// half's heading and caption.
+        /// </summary>
+        void FrameLabels(Vector3 fromCenter)
+        {
+            bool shown = fromCenter.sqrMagnitude < LabelDistance * LabelDistance;
+            bool portrait = ScreenLayout.IsPortrait, lookingRight = Vector3.Dot(fromCenter, station.Right) > 0;
+            bool hidePersons = portrait && lookingRight, hideTribes = portrait && !lookingRight;
+            if (shown == labelsShown && hidePersons == hidePersonHeadings && hideTribes == hideTribeHeadings) return;
+            labelsShown = shown;
+            hidePersonHeadings = hidePersons;
+            hideTribeHeadings = hideTribes;
+
+            foreach (LabelSpec label in labels) label.Hidden = !shown;
+            if (shown)
+            {
+                personHeading.Hidden = shadowLabel.Hidden = hidePersons;
+                tribeHeading.Hidden = tribeCaption.Hidden = hideTribes;
+            }
+
+            PlaceBandLabels(evolution); // the bands' labels by their width
+            liveDirty = true; // the live labels (efficiency, the tribes' rows) with this frame's rebuild
+            labelSystem.MarkDirty();
         }
 
         /// <summary>Restarts both games for the current settings and, if they changed it, the evolution.</summary>
@@ -983,9 +1070,9 @@ namespace Why.Economy.Layers
             }
 
             labelSystem.SetText(scoreLabel, ScoreText());
-            labelSystem.SetText(efficiencyLabel, Percents[Mathf.RoundToInt(100 * efficiency)]);
+            labelSystem.SetText(efficiencyLabel, Percent(efficiency));
             efficiencyLabel.Data = station.World(ParetoX, tip, 0);
-            efficiencyLabel.Hidden = n == 0;
+            efficiencyLabel.Hidden = !labelsShown || n == 0;
         }
 
         /// <summary>
@@ -1041,7 +1128,7 @@ namespace Why.Economy.Layers
             {
                 int k = first + row;
                 bool shown = k < n;
-                rowLabelsA[row].Hidden = rowLabelsB[row].Hidden = !shown;
+                rowLabelsA[row].Hidden = rowLabelsB[row].Hidden = !labelsShown || !shown;
                 if (!shown) continue;
                 TribeGame.Round r = played[k];
                 float fade = first > 0 && row < ScrollFade.Length ? ScrollFade[row] : 1f;
@@ -1050,8 +1137,8 @@ namespace Why.Economy.Layers
                 bool latest = k == n - 1;
                 DiamondOutline(lines, c, RungHalf, RungHalf, Tint(GraphStyle.Text, (latest ? 0.95f : 0.42f) * fade),
                     latest ? 1.6f : 1f, IdTribeLadder, latest ? 1.3f : 1f);
-                labelSystem.SetText(rowLabelsA[row], Percents[Mathf.RoundToInt(100 * r.CoopAB)]);
-                labelSystem.SetText(rowLabelsB[row], Percents[Mathf.RoundToInt(100 * r.CoopBA)]);
+                labelSystem.SetText(rowLabelsA[row], Percent(r.CoopAB));
+                labelSystem.SetText(rowLabelsB[row], Percent(r.CoopBA));
             }
 
             DrawMembers(fills, lines, true, dotsA, IdTribeA);
@@ -1060,8 +1147,7 @@ namespace Why.Economy.Layers
             TribeGame.Round now = n > 0 ? played[n - 1] : default;
             labelSystem.SetText(tribeALabel, TribeText("A", n > 0 ? now.CoopAB : -1));
             labelSystem.SetText(tribeBLabel, TribeText("B", n > 0 ? now.CoopBA : -1));
-            labelSystem.SetText(tribeRoundLabel, (n >= TribeRoundsPerGame ? "Last round, " : "Round ") + n.ToString(Ci) +
-                                                 " of " + TribeRoundsPerGame.ToString(Ci));
+            labelSystem.SetText(tribeRoundLabel, "Round " + n.ToString(Ci) + " of " + TribeRoundsPerGame.ToString(Ci));
         }
 
         /// <summary>A tribe's members: light after cooperating, red after defecting, grey before their first round.</summary>
@@ -1073,8 +1159,8 @@ namespace Why.Economy.Layers
                 Color32 color = !played ? Tint(GraphStyle.TextDim, 0.55f)
                     : move == PdMove.Cooperate ? Tint(Light, 0.95f) : Tint(Red, 0.95f);
                 bool alpha = i == 0;
-                Disc(fills, dots[i], alpha ? AlphaRadius : MemberRadius, alpha ? 20 : 12, color, id, played ? 1.2f : 1f);
-                if (alpha) Circle(lines, dots[i], AlphaRadius + 0.035f, 24, Tint(GraphStyle.Text, 0.7f), 1.2f, id, 1.2f);
+                Disc(fills, dots[i], alpha ? alphaRadius : memberRadius, alpha ? 20 : 12, color, id, played ? 1.2f : 1f);
+                if (alpha) Circle(lines, dots[i], alphaRadius * 1.4f, 24, Tint(GraphStyle.Text, 0.7f), 1.2f, id, 1.2f);
             }
         }
 
@@ -1102,7 +1188,8 @@ namespace Why.Economy.Layers
 
             if (!settings.SameEvolution(evolvingFor))
             {
-                StartEvolution(); // the settings moved on while this ran
+                // the settings moved on while this ran: evolve for them, unless they came back to what is drawn
+                if (!settings.SameEvolution(evolvedFor)) StartEvolution();
                 return;
             }
 

@@ -17,7 +17,8 @@ namespace Why.Economy.UI
     /// Landscape: a framed panel at the right edge, vertically centered (clear of the title top-left, the legend
     /// bottom-left, the tour and help buttons top-right and the preset bar along the bottom). Portrait: a full-width
     /// sheet docked under the HUD's title (above the station's headings; the bottom of a portrait screen belongs to the
-    /// HUD's preset rows and legend), two steppers per row, each rule cut to one line.
+    /// HUD's preset rows and legend), two steppers per row and nothing else: with the rules the sheet would reach down
+    /// over the station's headings.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class GamesPanel : GraphModule
@@ -241,6 +242,8 @@ namespace Why.Economy.UI
             title.gameObject.SetActive(true);
             HudKit.PlaceTopLeft(title.rectTransform, HudKit.Pad, y, new Vector2(inner, TitleHeight));
             y += TitleHeight + RowGap + 2;
+            ruleA.gameObject.SetActive(true);
+            ruleB.gameObject.SetActive(true);
             foreach (Stepper s in steppers)
             {
                 PlaceStepper(s, HudKit.Pad, y, inner, NameWidth);
@@ -248,8 +251,8 @@ namespace Why.Economy.UI
             }
 
             y += RowGap;
-            y = PlaceRule(ruleA, y, inner, true) + 4;
-            y = PlaceRule(ruleB, y, inner, true) + RowGap + 2;
+            y = PlaceRule(ruleA, y, inner) + 4;
+            y = PlaceRule(ruleB, y, inner) + RowGap + 2;
             hint.gameObject.SetActive(true);
             HudKit.PlaceTopLeft(hint.rectTransform, HudKit.Pad, y, new Vector2(inner, 16));
             y += 16 + HudKit.Pad - 2;
@@ -257,7 +260,10 @@ namespace Why.Economy.UI
             panel.Place(new Vector2(1, 0.5f), new Vector2(1, 0.5f), new Vector2(-HudKit.Margin, 0), new Vector2(w, y));
         }
 
-        /// <summary>A full-width sheet under the HUD's title: the two strategies on one row, the two numbers on the next.</summary>
+        /// <summary>
+        /// A full-width sheet under the HUD's title: the two strategies on one row, the two numbers on the next (the title,
+        /// rules and hint stay in the landscape panel).
+        /// </summary>
         void LayoutPortrait(Vector2 size)
         {
             const float m = HudKit.PortraitMargin;
@@ -271,9 +277,9 @@ namespace Why.Economy.UI
             y += RowHeight + RowGap;
             PlaceStepper(steppers[2], HudKit.Pad, y, half, PortraitNumberName);
             PlaceStepper(steppers[3], right, y, half, PortraitNumberName);
-            y += RowHeight + RowGap + 2;
-            y = PlaceRule(ruleA, y, inner, false) + 2;
-            y = PlaceRule(ruleB, y, inner, false) + HudKit.Pad - 4;
+            y += RowHeight + HudKit.Pad - 2;
+            ruleA.gameObject.SetActive(false);
+            ruleB.gameObject.SetActive(false);
             hint.gameObject.SetActive(false);
 
             float top = m + safeTop + HudTitleHeight + HudKit.Gap;
@@ -294,12 +300,12 @@ namespace Why.Economy.UI
             HudKit.PlaceTopLeft((RectTransform)s.Next.transform, width - ArrowWidth, 2, new Vector2(ArrowWidth, RowHeight - 4));
         }
 
-        /// <summary>A strategy's rule below y, wrapped (landscape) or cut to one line; returns the y below it.</summary>
-        static float PlaceRule(TextMeshProUGUI rule, float y, float width, bool wrap)
+        /// <summary>A strategy's rule below y, wrapped to the width; returns the y below it.</summary>
+        static float PlaceRule(TextMeshProUGUI rule, float y, float width)
         {
-            rule.textWrappingMode = wrap ? TextWrappingModes.Normal : TextWrappingModes.NoWrap;
-            rule.overflowMode = wrap ? TextOverflowModes.Overflow : TextOverflowModes.Ellipsis;
-            float height = wrap ? HudKit.Measure(rule, rule.text, width).y : HudKit.SizeSmall + 5;
+            rule.textWrappingMode = TextWrappingModes.Normal;
+            rule.overflowMode = TextOverflowModes.Overflow;
+            float height = HudKit.Measure(rule, rule.text, width).y;
             HudKit.PlaceTopLeft(rule.rectTransform, HudKit.Pad, y, new Vector2(width, height));
             return y + height;
         }

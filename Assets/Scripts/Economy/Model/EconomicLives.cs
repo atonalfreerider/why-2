@@ -260,6 +260,13 @@ namespace Why.Economy.Model
         /// </summary>
         const float ControlGold = 0.9f, NearGold = 0.08f;
 
+        /// <summary>
+        /// The gold of the lines of people in control: capital gold (<see cref="EconomyStyle.Capital"/>) with less green and
+        /// blue, because a line is mixed (additively) with the blue lines under it, which bring their own blue: the deeper
+        /// gold keeps the sum gold where the palette's own turns cream (see <see cref="ControlGlow"/>).
+        /// </summary>
+        static readonly Color LineGold = new Color(1f, 0.6f, 0.06f);
+
         /// <summary>Agency below which nobody is tinted at all (DESIGN: agency 0.3 = barely).</summary>
         const float GoldFrom = 0.3f;
 
@@ -270,12 +277,14 @@ namespace Why.Economy.Model
         /// Brightness of the lines of people in control (x, on top of the agency glow) and of every other adult line in
         /// this scene. Lines add up where they cross (additive blending), and the dense bundle of overlapping blue lines
         /// swallows a gold line of the same brightness: with the DESIGN's x (1 + 0.6 agency) alone, 140 of the people
-        /// view's ~190,000 bundle pixels came out gold for 12% of the lines. With the gold lines 3x as bright and
-        /// the others at 0.7 (the bundle keeps its overall brightness), ~10% of the bundle's colored pixels are gold:
-        /// few lines, clearly gold (measured on the harness's people and overview renders; brighter still washes the
-        /// gold out to white in the tone mapping).
+        /// view's ~190,000 bundle pixels came out gold for 12% of the lines. Gold 3x as bright over the others at 0.7 in
+        /// the palette's gold still read as cream (the blue under a line adds as much blue as the gold adds red): of the
+        /// lit pixels of the harness's renders (lifelines only), 0.3% (people view) and 1.5% (overview) were saturated
+        /// gold (hue 20-65 degrees, saturation 0.3+). Gold 5x as bright over the others at 0.5, in
+        /// <see cref="LineGold"/>, makes it 4% and 10%, with the bundle about as bright overall (12% of the lines x 5 +
+        /// 88% x 0.5, against x 3 and x 0.7) and only a faint bloom around the gold.
         /// </summary>
-        const float ControlGlow = 3f, RestBrightness = 0.7f;
+        const float ControlGlow = 5f, RestBrightness = 0.5f;
 
         /// <summary>Heavy fantasy spending dims a line: from this share, by up to <see cref="FantasyDim"/> at
         /// <see cref="FantasyFull"/> (DESIGN).</summary>
@@ -367,7 +376,7 @@ namespace Why.Economy.Model
 
                 ControlThreshold = LivesReport.CalibrateControl(inputs, store, offset, firstYear, yearCount, years, FirstYear,
                     calibrationYear, out _, out string controlNote);
-                Color c = EconomyStyle.Capital;
+                Color c = LineGold;
                 gold = new Color32((byte)(255 * Mathf.Clamp01(c.r)), (byte)(255 * Mathf.Clamp01(c.g)), (byte)(255 * Mathf.Clamp01(c.b)), 255);
 
                 // readable from here on (nothing else reads the lives until Prepare returns)

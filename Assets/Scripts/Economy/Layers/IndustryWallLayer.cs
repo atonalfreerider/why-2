@@ -25,7 +25,8 @@ namespace Why.Economy.Layers
     /// labor share.
     ///
     /// The wall stands on the population's center line (data rho), in the vertical plane of the road; everything is in
-    /// data space, so the lens straightens it with the road.
+    /// data space, so the lens straightens it with the road. Its geometry (<see cref="WallGeometry"/>) is shared under
+    /// <see cref="WallGeometry.SharedKey"/>, so the money threads land exactly on its bands.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class IndustryWallLayer : GraphLayer
@@ -41,9 +42,6 @@ namespace Why.Economy.Layers
         /// <summary>Base year of the GDP price index the wall is drawn in (industries.json deflator: 2025 = 100).</summary>
         const int PriceYear = 2025;
 
-        /// <summary>Year the wages share is scaled to (the year of the industries' compShare).</summary>
-        const double ShareYear = 2024;
-
         /// <summary>Industry labels are staggered across these years so they do not all crowd at the present end.</summary>
         const int LabelYearLatest = 2022, LabelYearStep = 7, LabelStagger = 5;
 
@@ -55,14 +53,6 @@ namespace Why.Economy.Layers
         readonly List<LabelSpec> labels = new List<LabelSpec>();
 
         Material fillMat, lineMat;
-
-        /// <summary>The wall at a sample year: per industry, the bottom of wages, upkeep, owners and the band's top.</summary>
-        sealed class Column
-        {
-            public double Year;
-            public float U, Rho;
-            public float[] Lo, Upkeep, Owners, Hi;
-        }
 
         public override void Prepare(GraphContext ctx)
         {
@@ -76,8 +66,10 @@ namespace Why.Economy.Layers
 
             EconomyData data = model.Data;
             SmvPopulation pop = ctx.Shared<SmvPopulation>(SmvPopulation.SharedKey);
-            List<Column> wall = BuildColumns(data, pop, ctx.NowYear);
-            if (wall.Count < 2) return;
+            WallGeometry geometry = WallGeometry.Build(data, pop, ctx.NowYear);
+            if (!geometry.IsValid) return;
+            ctx.Share(WallGeometry.SharedKey, geometry);
+            IReadOnlyList<WallColumn> wall = geometry.Columns;
 
             fills = new SurfaceMeshBuilder();
             lines = new LineMeshBuilder(wall.Count * (data.Industries.Count + 2));
@@ -88,77 +80,7 @@ namespace Why.Economy.Layers
                       $"{wall.Count} years");
         }
 
-        /// <summary>The wall sampled every year from the first year of data to now.</summary>
-        static List<Column> BuildColumns(EconomyData data, SmvPopulation pop, double now)
-        {
-            IReadOnlyList<Industry> inds = data.Industries;
-            int n = inds.Count;
-            List<double> years = new List<double>();
-            for (int y = data.FirstYear; y < now; y++) years.Add(y);
-            years.Add(now);
-
-            // real value added (2025 dollars) per industry and year, and the largest total
-            double[,] real = new double[years.Count, n];
-            double max = 0;
-            for (int j = 0; j < years.Count; j++)
-            {
-                double total = 0;
-                for (int i = 0; i < n; i++)
-                {
-                    double v = Math.Max(0, data.Real(inds[i].ValueAdded.GrowthAt(years[j]), years[j]));
-                    real[j, i] = v;
-                    total += v;
-                }
-
-                max = Math.Max(max, total);
-            }
-
-            if (max <= 0) return new List<Column>();
-            float scale = (float)((EconomyStyle.WallTopY - EconomyStyle.GroundY) / max);
-            double laborRef = data.LaborShare.IsEmpty ? 1 : data.LaborShare.At(ShareYear);
-
-            List<Column> columns = new List<Column>(years.Count);
-            for (int j = 0; j < years.Count; j++)
-            {
-                double year = years[j];
-                double labor = data.LaborShare.IsEmpty || laborRef <= 0 ? 1 : data.LaborShare.At(year) / laborRef;
-                Column c = new Column
-                {
-                    Year = year,
-                    U = EconomyStage.U(year),
-                    Rho = CenterAt(pop, year) + EconomyStyle.WallRhoOffset,
-                    Lo = new float[n], Upkeep = new float[n], Owners = new float[n], Hi = new float[n]
-                };
-
-                float acc = EconomyStyle.GroundY;
-                for (int i = 0; i < n; i++)
-                {
-                    Industry ind = inds[i];
-                    float h = (float)real[j, i] * scale;
-                    double upkeep = Math.Min(1, ind.TaxShare + ind.DepShare);
-                    double wages = Math.Max(0, Math.Min(1 - upkeep, ind.CompShare * labor));
-                    c.Lo[i] = acc;
-                    c.Upkeep[i] = acc + (float)(h * wages);
-                    c.Owners[i] = c.Upkeep[i] + (float)(h * upkeep);
-                    c.Hi[i] = acc + h;
-                    c.Owners[i] = Mathf.Min(c.Owners[i], c.Hi[i]);
-                    acc += h;
-                }
-
-                columns.Add(c);
-            }
-
-            return columns;
-        }
-
-        /// <summary>The population's center line (data rho) at a year; the framing default before it exists.</summary>
-        static float CenterAt(SmvPopulation pop, double year)
-        {
-            if (pop?.Sim == null || pop.Sim.StepCount == 0) return EconomyStyle.FramingRho;
-            return pop.Sim.Center[pop.Sim.StepAt(year)];
-        }
-
-        void BuildBands(EconomyData data, List<Column> wall)
+        void BuildBands(EconomyData data, IReadOnlyList<WallColumn> wall)
         {
             int m = wall.Count;
             List<Vector3> a = new List<Vector3>(m), b = new List<Vector3>(m);
@@ -176,13 +98,13 @@ namespace Why.Economy.Layers
             }
         }
 
-        void AddPart(List<Column> wall, int industry, Func<Column, float> lo, Func<Column, float> hi, Color32 color,
-            float intensity, int id, List<Vector3> a, List<Vector3> b, List<Color32> colors)
+        void AddPart(IReadOnlyList<WallColumn> wall, int industry, Func<WallColumn, float> lo, Func<WallColumn, float> hi,
+            Color32 color, float intensity, int id, List<Vector3> a, List<Vector3> b, List<Color32> colors)
         {
             a.Clear();
             b.Clear();
             colors.Clear();
-            foreach (Column c in wall)
+            foreach (WallColumn c in wall)
             {
                 a.Add(new Vector3(c.U, lo(c), c.Rho));
                 b.Add(new Vector3(c.U, Mathf.Max(lo(c), hi(c)), c.Rho));
@@ -193,7 +115,7 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>Thin lines between industries, brighter ones on top of each tier and a gold line along the top.</summary>
-        void BuildEdges(EconomyData data, List<Column> wall)
+        void BuildEdges(EconomyData data, IReadOnlyList<WallColumn> wall)
         {
             IReadOnlyList<Industry> inds = data.Industries;
             List<LinePoint> pts = new List<LinePoint>(wall.Count);
@@ -206,7 +128,7 @@ namespace Why.Economy.Layers
                 float width = wallTop ? 1.8f : tierTop ? 1.3f : 0.7f;
                 float intensity = wallTop ? 1.8f : tierTop ? 1.1f : 0.8f;
                 pts.Clear();
-                foreach (Column c in wall)
+                foreach (WallColumn c in wall)
                 {
                     pts.Add(new LinePoint(new Vector3(c.U, c.Hi[i], c.Rho), color, width, 0, intensity));
                 }
@@ -217,17 +139,17 @@ namespace Why.Economy.Layers
             // the ground line the wall stands on
             pts.Clear();
             Color32 ground = Tint(GraphStyle.AxisDim, 0.5f);
-            foreach (Column c in wall) pts.Add(new LinePoint(new Vector3(c.U, EconomyStyle.GroundY, c.Rho), ground, 1f));
+            foreach (WallColumn c in wall) pts.Add(new LinePoint(new Vector3(c.U, EconomyStyle.GroundY, c.Rho), ground, 1f));
             lines.AddPolyline(pts, GraphIds.None);
         }
 
         // ------------------------------------------------------------------ labels and anchors
 
-        void Register(GraphContext ctx, EconomyData data, List<Column> wall)
+        void Register(GraphContext ctx, EconomyData data, IReadOnlyList<WallColumn> wall)
         {
             CultureInfo ci = CultureInfo.InvariantCulture;
             IReadOnlyList<Industry> inds = data.Industries;
-            Column now = wall[wall.Count - 1];
+            WallColumn now = wall[wall.Count - 1];
             // headline numbers for the latest full year (the circuit's calibration year): the last year of the data is a
             // partial-year estimate
             int last = data.Circuit != null && data.Circuit.Year > 0 ? Math.Min(data.LastYear, data.Circuit.Year) : data.LastYear;
@@ -245,7 +167,7 @@ namespace Why.Economy.Layers
             {
                 Industry ind = inds[i];
                 int labelYear = LabelYearLatest - LabelYearStep * (rankInTier[i] % LabelStagger);
-                Column c = ColumnAt(wall, labelYear);
+                WallColumn c = ColumnAt(wall, labelYear);
                 double va = ind.ValueAdded.GrowthAt(last);
                 double share = gdpLast > 0 ? va / gdpLast : 0;
                 IdRange ids = EconomyIds.Industries(i, i);
@@ -340,7 +262,7 @@ namespace Why.Economy.Layers
                 Tier = 1
             });
 
-            Column c1950 = ColumnAt(wall, 1950);
+            WallColumn c1950 = ColumnAt(wall, 1950);
             Anchors.Register(new Anchor
             {
                 Key = "wall:1950",
@@ -358,10 +280,10 @@ namespace Why.Economy.Layers
             });
         }
 
-        static Column ColumnAt(List<Column> wall, double year)
+        static WallColumn ColumnAt(IReadOnlyList<WallColumn> wall, double year)
         {
-            Column best = wall[0];
-            foreach (Column c in wall)
+            WallColumn best = wall[0];
+            foreach (WallColumn c in wall)
             {
                 if (Math.Abs(c.Year - year) < Math.Abs(best.Year - year)) best = c;
             }

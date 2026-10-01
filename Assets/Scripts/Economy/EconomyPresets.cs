@@ -13,6 +13,20 @@ namespace Why.Economy
     {
         static double Ya(double calendarYear) => DeepTime.NowYear - calendarYear;
 
+        /// <summary>
+        /// The people view: close to the population from the mid 1990s to now (the camera on mid-2011, a little above the
+        /// lifelines' base, looking down 36 degrees and turned slightly toward the past), near enough that the gold lines of
+        /// the people in control read as lines at 1920x1080 while the bundle fills the middle of the screen and the wall's
+        /// top floors, where the money threads rise from, the bottom quarter. The present end of the road stays in the
+        /// frame with the wall's tier labels beside it (at distance 3.9 and yaw -6 the bundle ran off the right edge
+        /// around 2024 and the tier labels were cut). On a portrait screen it steps back until
+        /// <see cref="PeoplePortraitWidth"/> world units (about 25 years, 1999 - 2024) fit the width; the lens stays the
+        /// shared one (a narrowed lens would move the road from under the fixed target).
+        /// </summary>
+        const double PeopleYear = 2011.5;
+
+        const float PeopleHeight = 0.04f, PeoplePitch = 36f, PeopleDistance = 4.8f, PeopleYaw = -3f, PeoplePortraitWidth = 5f;
+
         public static List<ViewPreset> Build()
         {
             Station circuit = EconomyStage.Get(EconomyStage.Circuit);
@@ -47,13 +61,13 @@ namespace Why.Economy
                     Subtitle = "Profits, payouts and who receives them; the companies that keep the most",
                     Key = KeyCode.Alpha4, Pitch = 14, Distance = 7f, PortraitWidth = w * 0.6f
                 }, new Vector3(-w * 0.22f, h * 0.5f, 0)),
-                Timeline(new ViewPreset
+                OnRoad(new ViewPreset
                 {
                     Id = "people", Title = "Who owns their path",
                     Subtitle = "Each line many people; gold lines own capital and steer their own lives",
-                    Key = KeyCode.Alpha5, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30,
-                    Distance = 8.5f, PopulationDetail = true, Portrait = PortraitFraming.Narrow
-                }),
+                    Key = KeyCode.Alpha5, Pitch = PeoplePitch, Distance = PeopleDistance, PopulationDetail = true,
+                    PortraitWidth = PeoplePortraitWidth
+                }, PeopleYear, GraphStyle.HumansY + PeopleHeight, PeopleYaw),
                 Station(mind, new ViewPreset
                 {
                     Id = "mind", Title = "Desire and fear",

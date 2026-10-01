@@ -119,8 +119,10 @@ namespace Why
         /// (instead of along time toward the present): each point's flow is 2 + its distance from the start
         /// times <paramref name="phasePerUnit"/>, which the line shader reads as a path phase (pulses per phase
         /// unit = the material's _FlowFreq). For money flowing between things that are not apart in time.
+        /// <paramref name="startPhase"/> (>= 0) shifts the path's pulses, so many paths that start together do not
+        /// pulse in step.
         /// </summary>
-        public void AddFlowPath(IReadOnlyList<LinePoint> points, float id, float phasePerUnit = 1)
+        public void AddFlowPath(IReadOnlyList<LinePoint> points, float id, float phasePerUnit = 1, float startPhase = 0)
         {
             int n = points.Count;
             if (n < 2) return;
@@ -133,7 +135,7 @@ namespace Why
                 Vector3 prev = points[i > 0 ? i - 1 : i].Data;
                 Vector3 next = points[i < n - 1 ? i + 1 : i].Data;
                 AddPair(lp.Data, prev, next, lp.Color, lp.WidthPx, lp.WidthWorld, id, lp.Intensity,
-                    2f + distance * phasePerUnit);
+                    2f + Mathf.Max(0, startPhase) + distance * phasePerUnit);
             }
 
             AddIndices(baseIndex, n);

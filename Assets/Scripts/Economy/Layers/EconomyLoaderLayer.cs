@@ -47,6 +47,7 @@ namespace Why.Economy.Layers
             if (model == null) return;
             EconomyState.SetYearRange(model.Data.LastYear);
             if (model.Lives.Ready && model.Lives.Log.Length > 0) Debug.Log("[Why] economic lives: " + model.Lives.Log);
+            else if (model.Lives.Log.Length > 0) Debug.LogWarning("[Why] economic lives not simulated: " + model.Lives.Log);
             if (model.Log.Length > 0) Debug.Log("[Why] economy model: " + model.Log);
         }
     }

@@ -247,6 +247,12 @@ namespace Why.Economy.Data
         }
 
         /// <summary>
+        /// One key of rows shaped [year, {"key": value, ...}] as a series (empty when no row has it): how the files
+        /// write several quantities over time (circuit.json incomeHistory, personalHistory, groupEquityHistory).
+        /// </summary>
+        public static YearSeries Keyed(List<JArray> rows, string key) => new YearSeries(KeyedPoints(rows, key));
+
+        /// <summary>
         /// Points of one key from rows shaped [year, {"key": value, ...}] (how shares over time are written in the
         /// files).
         /// </summary>
@@ -444,6 +450,21 @@ namespace Why.Economy.Data
         [JsonProperty("marketCapTotal")] public double MarketCapTotal;
         [JsonProperty("top10MarketCapShare")] public double Top10MarketCapShare;
 
+        /// <summary>
+        /// Rows [year, {"gdp", "compensation", "corporateProfits", "dividends", ...}]: GDI by type of income, $B (BEA NIPA
+        /// 1.10; profits, dividends and retained earnings of domestic industries).
+        /// </summary>
+        [JsonProperty("incomeHistory")] public List<JArray> IncomeHistory;
+
+        /// <summary>
+        /// Rows [year, {"pce", "disposableIncome", "saving", "savingRate", "personalTaxes", "governmentSocialBenefits",
+        /// ...}]: personal income and outlays, $B (BEA NIPA 2.1 / 2.6; the income detail from 1988).
+        /// </summary>
+        [JsonProperty("personalHistory")] public List<JArray> PersonalHistory;
+
+        /// <summary>Rows [year, {"top1": share, ...}]: wealth groups' shares of corporate equity (DFA, from 1989).</summary>
+        [JsonProperty("groupEquityHistory")] public List<JArray> GroupEquityHistory;
+
         public double IncomeOf(string key) => Income != null && Income.TryGetValue(key, out double v) ? v : 0;
         public double PersonalOf(string key) => Personal != null && Personal.TryGetValue(key, out double v) ? v : 0;
         public double GovernmentOf(string key) => Government != null && Government.TryGetValue(key, out double v) ? v : 0;
@@ -468,6 +489,13 @@ namespace Why.Economy.Data
         [JsonProperty("taxShare")] public double TaxShare;
         [JsonProperty("consumptionShare")] public double ConsumptionShare;
         [JsonProperty("debtShare")] public double DebtShare;
+
+        /// <summary>Share of pension entitlements (DB + DC): how equity held through pensions is attributed.</summary>
+        [JsonProperty("pensionShare")] public double PensionShare;
+
+        /// <summary>The group's saving / disposable income in the file's year (may be negative).</summary>
+        [JsonProperty("savingRate")] public double SavingRate;
+
         [JsonProperty("note")] public string Note;
 
         [JsonIgnore] public int Index;
@@ -496,6 +524,9 @@ namespace Why.Economy.Data
     {
         [JsonProperty("year")] public int Year;
         [JsonProperty("flows")] public List<JArray> FlowRows;
+
+        /// <summary>Per industry: "output", "intermediate", "valueAdded", "compensation", ... ($B, the table's year).</summary>
+        [JsonProperty("accounts")] public Dictionary<string, Dictionary<string, double>> Accounts;
 
         /// <summary>Flows as (supplier id, user id, $B).</summary>
         public IEnumerable<(string from, string to, double value)> Flows()
@@ -551,6 +582,10 @@ namespace Why.Economy.Data
         [JsonProperty("fantasy")] public double Fantasy;
 
         [JsonProperty("items")] public List<SpendingItem> Items;
+
+        /// <summary>Flows that are not consumption but belong to the category (interest on consumer debt, transfers paid).</summary>
+        [JsonProperty("outsidePce")] public List<SpendingItem> OutsidePce;
+
         [JsonProperty("blurb")] public string Blurb;
         [JsonProperty("note")] public string Note;
 
@@ -601,6 +636,15 @@ namespace Why.Economy.Data
         /// <summary>Which industries receive the money (weights sum to 1).</summary>
         [JsonProperty("industries")] public Dictionary<string, double> Industries;
 
+        /// <summary>Money outside personal consumption (interest paid, transfers paid), $B; used when there is no pce.</summary>
+        [JsonProperty("usd")] public double Usd;
+
+        /// <summary>Share of the money that buys imports (leaves the country); the industry weights cover the rest.</summary>
+        [JsonProperty("importShare")] public double ImportShare;
+
+        /// <summary>The item's money in the file year, $B (pce, or usd for flows outside consumption).</summary>
+        public double Amount => Pce != 0 ? Pce : Usd;
+
         [JsonProperty("note")] public string Note;
     }
 
@@ -611,7 +655,16 @@ namespace Why.Economy.Data
         [JsonProperty("spendingMean")] public double SpendingMean;
         [JsonProperty("shares")] public Dictionary<string, double> Shares;
 
+        /// <summary>
+        /// Shares of the quintile's spending by category rescaled to PCE (the survey misses most vice and third-party
+        /// health spending); the six spending categories, without saving.
+        /// </summary>
+        [JsonProperty("pceBasisShares")] public Dictionary<string, double> PceBasisShares;
+
         public double ShareOf(string category) => Shares != null && Shares.TryGetValue(category, out double v) ? v : 0;
+
+        public double PceBasisShareOf(string category) =>
+            PceBasisShares != null && PceBasisShares.TryGetValue(category, out double v) ? v : 0;
     }
 
     /// <summary>A headline market (lottery, sports betting, gyms ...) for labels.</summary>

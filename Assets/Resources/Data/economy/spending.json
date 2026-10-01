@@ -23,7 +23,7 @@
     "savingRate": 0.0458,
     "nonresidentSpendingRemoved": 208.9,
     "tradeMarginScale": 1.445,
-    "note": "Nonresidents' spending in the US (BEA line 338, $208.9B in 2025) is subtracted from the items visitors buy (college tuition and housing for foreign students; hotels, restaurants, shopping, recreation and local transport for tourists, using an approximate visitor-spending mix), so items are US residents' spending and sum to PCE. Goods are split at purchaser prices into producer, trade and freight margins; recalled margin shapes by kind of good are scaled by tradeMarginScale so all goods margins equal the trade sector's PCE in the 2024 Use table ($3,189B of $6,262B goods, grown to 2025)."
+    "note": "Nonresidents' spending in the US (BEA line 338, $208.9B in 2025) is subtracted from the items visitors buy (college tuition and housing for foreign students; hotels, restaurants, shopping, recreation and local transport for tourists, using an approximate visitor-spending mix), so items are US residents' spending and sum to PCE. Goods are split at purchaser prices into producer, trade and freight margins; recalled margin shapes by kind of good are scaled by tradeMarginScale so all goods margins equal the trade sector's PCE in the 2024 Use table ($3,189B of $6,262B goods, grown to 2025). Vintage: every NIPA level here is from before the 30-Sep-2026 annual update, which revised the 2025 saving rate to 5.4% (from 4.6%); revised PCE detail and DPI levels were not available, so the pre-update set is kept for consistency."
   },
   "categoryIds": ["necessities", "escapism", "jeopardy", "status", "growth", "collective", "saving"],
   "categories": [
@@ -37,10 +37,10 @@
       "fearShare": 0.5,
       "mind": {"x": 0.0, "y": 0.45, "z": 0.35},
       "fantasy": 0.05,
-      "pce": 7622.0,
-      "shareOfPce": 0.3637,
+      "pce": 7678.3,
+      "shareOfPce": 0.3664,
       "blurb": "Food at home, a basic home, utilities, getting to work, basic clothes and a phone: the floor every household pays for first.",
-      "note": "Design defaults kept (x 0, y 0.45, z 0.35; fearShare 0.5: as much fleeing hunger and cold as wanting food and a home). Basic level = CE 2024 second-quintile mean as a share of the all-unit mean (shelter 0.729, vehicles 0.548, apparel 0.664, furnishings 0.580); the rest of those lines is status. Desire/fear weights follow the money: shelter and utilities are about half, food a third. Owners' imputed rent ($1,823B of this category) is a BEA imputation, not a cash outlay. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "note": "Design defaults kept (x 0, y 0.45, z 0.35; fearShare 0.5: as much fleeing hunger and cold as wanting food and a home). Basic level = CE 2024 second-quintile mean as a share of the all-unit mean (shelter 0.729, vehicles 0.548, apparel 0.664, furnishings 0.580); the rest of those lines is status. Desire/fear weights follow the money: shelter and utilities are about half, food a third. Owners' imputed rent ($1,822B of this category) is a BEA imputation, not a cash outlay. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
       "items": [
         {
           "id": "food_cereals_bakery",
@@ -114,7 +114,7 @@
           "importShare": 0.006,
           "fantasy": 0.05,
           "bea": "NIPA 2.4.5U line 160",
-          "note": "BEA imputed rent of owner-occupied homes x 0.729: the rent owners 'pay themselves'; not a cash outlay."
+          "note": "BEA imputed rent of owner-occupied homes x 0.729: the rent owners 'pay themselves'; not a cash outlay. Includes a -0.4B rounding residual (BEA detail lines and items are rounded to $0.1B) so that items sum exactly to PCE."
         },
         {
           "id": "power_gas",
@@ -240,13 +240,13 @@
         },
         {
           "id": "devices",
-          "name": "Computers, phones & software (half)",
-          "pce": 252.7,
-          "industries": {"federal": 0.0038, "state_local": 0.0079, "agriculture": 0.0011, "oil_gas": 0.0035, "mining_metals": 0.0013, "utilities": 0.0089, "construction": 0.0042, "manufacturing": 0.0201, "transport": 0.043, "trade": 0.4639, "banking": 0.0178, "finance": 0.0027, "insurance": 0.0129, "real_estate": 0.0463, "health": 0.0023, "legal": 0.0135, "professional": 0.0977, "education": 0.0018, "entertainment": 0.0036, "hospitality": 0.0072, "other_services": 0.0079, "hardware": 0.02, "software": 0.1925, "internet": 0.006, "media_telecom": 0.0101},
-          "importShare": 0.4598,
+          "name": "Computers, phones & software",
+          "pce": 309.0,
+          "industries": {"federal": 0.0037, "state_local": 0.0078, "agriculture": 0.0011, "oil_gas": 0.0034, "mining_metals": 0.0013, "utilities": 0.0087, "construction": 0.0041, "manufacturing": 0.0199, "transport": 0.0404, "trade": 0.4433, "banking": 0.0177, "finance": 0.0026, "insurance": 0.0125, "real_estate": 0.0455, "health": 0.0022, "legal": 0.0138, "professional": 0.0998, "education": 0.0018, "entertainment": 0.0036, "hospitality": 0.0072, "other_services": 0.0078, "hardware": 0.0175, "software": 0.2183, "internet": 0.0057, "media_telecom": 0.0103},
+          "importShare": 0.4209,
           "fantasy": 0.15,
           "bea": "NIPA 2.4.5U lines 49, 50, 51, 71",
-          "note": "PCs, tablets, phones; half of BEA \"computer software and accessories\" (the other half is in escapism as games)."
+          "note": "PCs, tablets, phones; three quarters of BEA \"computer software and accessories\" (the other quarter is in escapism as games)."
         },
         {
           "id": "household_supplies",
@@ -342,9 +342,9 @@
       "fear": {"starvation": 0.05, "isolation": 0.6, "murder": 0.1, "exposure": 0.1, "childless": 0.15},
       "fearShare": 0.15,
       "mind": {"x": -0.7, "y": 0.15, "z": 0.1},
-      "fantasy": 0.63,
-      "pce": 1892.5,
-      "shareOfPce": 0.0903,
+      "fantasy": 0.62,
+      "pce": 1836.2,
+      "shareOfPce": 0.0876,
       "blurb": "Alcohol, tobacco, gambling losses, screens, games, shows and pets: paying to feel good now or to stop feeling bad.",
       "note": "fearShare 0.15 (x -0.7) instead of the design's -0.8: escape is partly flight from stress and loneliness (coping motives; negative reinforcement when relieving stress, research/psychology.json), so isolation carries most of the fear weight. Illicit drugs (~$146B, RAND 2016) and most legal cannabis are outside PCE and appear only in markets. Gambling is net losses (wagers less prizes), not handle. Attention sold to advertisers (US internet ads $295B) is paid by firms, not households, and is a market label only. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
       "items": [
@@ -417,12 +417,12 @@
         {
           "id": "video_games_software",
           "name": "Video games & digital media",
-          "pce": 129.6,
-          "industries": {"federal": 0.0036, "state_local": 0.0075, "agriculture": 0.001, "oil_gas": 0.003, "mining_metals": 0.0013, "utilities": 0.0084, "construction": 0.0039, "manufacturing": 0.0193, "transport": 0.031, "trade": 0.3654, "banking": 0.0183, "finance": 0.0025, "insurance": 0.0114, "real_estate": 0.0435, "health": 0.0019, "legal": 0.0141, "professional": 0.1026, "education": 0.0018, "entertainment": 0.0062, "hospitality": 0.0069, "other_services": 0.0074, "hardware": 0.0088, "software": 0.2552, "internet": 0.0053, "media_telecom": 0.0697},
-          "importShare": 0.2201,
+          "pce": 73.3,
+          "industries": {"federal": 0.0035, "state_local": 0.0074, "agriculture": 0.001, "oil_gas": 0.003, "mining_metals": 0.0014, "utilities": 0.0086, "construction": 0.004, "manufacturing": 0.0193, "transport": 0.0303, "trade": 0.3572, "banking": 0.0189, "finance": 0.0026, "insurance": 0.0114, "real_estate": 0.0441, "health": 0.0018, "legal": 0.0137, "professional": 0.0996, "education": 0.0018, "entertainment": 0.0081, "hospitality": 0.0069, "other_services": 0.0074, "hardware": 0.0083, "software": 0.2219, "internet": 0.0057, "media_telecom": 0.1121},
+          "importShare": 0.2001,
           "fantasy": 0.7,
           "bea": "NIPA 2.4.5U lines 44, 50",
-          "note": "Half of BEA \"computer software and accessories\" (assumed games) + discs and permanent digital downloads."
+          "note": "A quarter of BEA \"computer software and accessories\" (assumed games; Circana put all 2024 US video game spending at $58.7B, consoles and accessories included, recalled, so games cannot be half of this $225B line) + discs and permanent digital downloads."
         },
         {
           "id": "toys_games_hobbies",
@@ -563,8 +563,8 @@
           "id": "interest_consumer_debt",
           "name": "Interest on consumer debt (cards, auto, student)",
           "usd": 577.7,
-          "industries": {"banking": 0.85, "finance": 0.15},
-          "note": "BEA personal interest payments (non-mortgage), NIPA 2.6, 2025. Routed to banking (banks, card issuers, auto lenders) and finance (student-loan and other nonbank lenders): approximate split. Mortgage interest (~$505B) is inside owners' imputed rent in BEA accounting."
+          "industries": {"federal": 0.09, "banking": 0.76, "finance": 0.15},
+          "note": "BEA personal interest payments (non-mortgage), NIPA 2.6, 2025. Approximate routing: federal 0.09 (interest on federally held student loans, roughly 90% of student debt; the series fell $54B in 2020 when that interest was set to 0% and stepped up $46B SAAR in Sept 2023 when it resumed), banking 0.76 (banks, card issuers, credit unions, bank auto lenders) and finance 0.15 (captive auto finance, consumer-finance and private student lenders). Mortgage interest (~$505B) is inside owners' imputed rent in BEA accounting."
         }
       ],
       "blurb": "Doctors, hospitals, drugs, insurance, lawyers, bank charges and interest on debt: paying to escape a threat.",
@@ -1088,8 +1088,11 @@
           "id": "transfers_paid",
           "name": "Transfers paid: remittances abroad, fees & fines",
           "usd": 286.8,
-          "industries": {"state_local": 0.5, "federal": 0.5},
-          "note": "BEA personal current transfer payments, NIPA 2.6, 2025: to government (fees, fines, donations) and to the rest of the world (net remittances). The government/abroad split is not in the research data; weights are a placeholder (the remittance part leaves the country)."
+          "toGovernment": 148.0,
+          "toRestOfWorld": 138.9,
+          "industries": {"federal": 0.5, "state_local": 0.5},
+          "importShare": 0.4843,
+          "note": "BEA personal current transfer payments, NIPA 2.6, 2025 (monthly average of the cited nipa20600.csv): to government $148.0B (fees, fines, donations; W062RC) and to the rest of the world $138.9B (net remittances; B070RC). importShare is the part that leaves the country; the industry weights cover the government part, split federal/state_local 0.5/0.5 as a placeholder (no split in the research data)."
         }
       ],
       "blurb": "Congregations, charities, unions, civic groups and gifts beyond the household: money spent on the group.",
@@ -1260,89 +1263,89 @@
     }
   ],
   "history": [
-    [1950, {"necessities": 0.5022, "escapism": 0.0747, "jeopardy": 0.1195, "status": 0.1729, "growth": 0.0144, "collective": 0.0232, "saving": 0.0931}],
-    [1951, {"necessities": 0.4916, "escapism": 0.0743, "jeopardy": 0.1202, "status": 0.1673, "growth": 0.0144, "collective": 0.023, "saving": 0.1092}],
-    [1952, {"necessities": 0.4872, "escapism": 0.0745, "jeopardy": 0.1228, "status": 0.1661, "growth": 0.0147, "collective": 0.0237, "saving": 0.111}],
-    [1953, {"necessities": 0.4832, "escapism": 0.0738, "jeopardy": 0.126, "status": 0.1683, "growth": 0.015, "collective": 0.0239, "saving": 0.1098}],
-    [1954, {"necessities": 0.4843, "escapism": 0.0743, "jeopardy": 0.1288, "status": 0.1689, "growth": 0.0155, "collective": 0.0249, "saving": 0.1033}],
-    [1955, {"necessities": 0.4879, "escapism": 0.073, "jeopardy": 0.1293, "status": 0.1736, "growth": 0.0154, "collective": 0.024, "saving": 0.0968}],
-    [1956, {"necessities": 0.4766, "escapism": 0.0723, "jeopardy": 0.1302, "status": 0.1694, "growth": 0.0155, "collective": 0.0245, "saving": 0.1115}],
-    [1957, {"necessities": 0.4751, "escapism": 0.0723, "jeopardy": 0.1311, "status": 0.169, "growth": 0.0156, "collective": 0.0248, "saving": 0.1121}],
-    [1958, {"necessities": 0.4722, "escapism": 0.073, "jeopardy": 0.1333, "status": 0.1668, "growth": 0.0158, "collective": 0.0249, "saving": 0.114}],
-    [1959, {"necessities": 0.4756, "escapism": 0.0732, "jeopardy": 0.1355, "status": 0.1716, "growth": 0.0161, "collective": 0.0248, "saving": 0.1032}],
-    [1960, {"necessities": 0.4725, "escapism": 0.0733, "jeopardy": 0.1407, "status": 0.1718, "growth": 0.0163, "collective": 0.0246, "saving": 0.1008}],
-    [1961, {"necessities": 0.4626, "escapism": 0.0728, "jeopardy": 0.1431, "status": 0.168, "growth": 0.0162, "collective": 0.0244, "saving": 0.1129}],
-    [1962, {"necessities": 0.4598, "escapism": 0.0722, "jeopardy": 0.1449, "status": 0.1704, "growth": 0.0162, "collective": 0.0246, "saving": 0.1119}],
-    [1963, {"necessities": 0.4586, "escapism": 0.0721, "jeopardy": 0.1488, "status": 0.1718, "growth": 0.0163, "collective": 0.0249, "saving": 0.1075}],
-    [1964, {"necessities": 0.4496, "escapism": 0.0712, "jeopardy": 0.1521, "status": 0.1698, "growth": 0.0162, "collective": 0.0249, "saving": 0.1162}],
-    [1965, {"necessities": 0.4484, "escapism": 0.0715, "jeopardy": 0.1534, "status": 0.1708, "growth": 0.0163, "collective": 0.025, "saving": 0.1146}],
-    [1966, {"necessities": 0.4469, "escapism": 0.0732, "jeopardy": 0.1558, "status": 0.1705, "growth": 0.0166, "collective": 0.0253, "saving": 0.1117}],
-    [1967, {"necessities": 0.4373, "escapism": 0.0723, "jeopardy": 0.1571, "status": 0.1674, "growth": 0.0169, "collective": 0.0259, "saving": 0.1231}],
-    [1968, {"necessities": 0.4384, "escapism": 0.0729, "jeopardy": 0.162, "status": 0.1709, "growth": 0.0169, "collective": 0.0257, "saving": 0.1132}],
-    [1969, {"necessities": 0.4373, "escapism": 0.073, "jeopardy": 0.167, "status": 0.1708, "growth": 0.0169, "collective": 0.0256, "saving": 0.1094}],
-    [1970, {"necessities": 0.4233, "escapism": 0.0723, "jeopardy": 0.1681, "status": 0.1655, "growth": 0.0167, "collective": 0.026, "saving": 0.1281}],
-    [1971, {"necessities": 0.4189, "escapism": 0.0698, "jeopardy": 0.1687, "status": 0.1655, "growth": 0.0163, "collective": 0.0262, "saving": 0.1346}],
-    [1972, {"necessities": 0.4216, "escapism": 0.0705, "jeopardy": 0.172, "status": 0.1691, "growth": 0.0166, "collective": 0.0264, "saving": 0.1238}],
-    [1973, {"necessities": 0.4169, "escapism": 0.07, "jeopardy": 0.1693, "status": 0.1673, "growth": 0.0163, "collective": 0.0255, "saving": 0.1347}],
-    [1974, {"necessities": 0.419, "escapism": 0.071, "jeopardy": 0.1719, "status": 0.1636, "growth": 0.0161, "collective": 0.0255, "saving": 0.1329}],
-    [1975, {"necessities": 0.4135, "escapism": 0.0711, "jeopardy": 0.1771, "status": 0.1631, "growth": 0.0158, "collective": 0.0252, "saving": 0.1342}],
-    [1976, {"necessities": 0.4203, "escapism": 0.072, "jeopardy": 0.1802, "status": 0.1695, "growth": 0.0161, "collective": 0.0258, "saving": 0.1161}],
-    [1977, {"necessities": 0.4232, "escapism": 0.0715, "jeopardy": 0.1847, "status": 0.172, "growth": 0.0162, "collective": 0.0257, "saving": 0.1067}],
-    [1978, {"necessities": 0.4183, "escapism": 0.0711, "jeopardy": 0.1893, "status": 0.1724, "growth": 0.0161, "collective": 0.0256, "saving": 0.1072}],
-    [1979, {"necessities": 0.422, "escapism": 0.0716, "jeopardy": 0.1906, "status": 0.1713, "growth": 0.0158, "collective": 0.0257, "saving": 0.103}],
-    [1980, {"necessities": 0.4186, "escapism": 0.0699, "jeopardy": 0.1934, "status": 0.1658, "growth": 0.0153, "collective": 0.0259, "saving": 0.1111}],
-    [1981, {"necessities": 0.4116, "escapism": 0.0692, "jeopardy": 0.1962, "status": 0.1637, "growth": 0.0149, "collective": 0.0276, "saving": 0.1168}],
-    [1982, {"necessities": 0.4014, "escapism": 0.0685, "jeopardy": 0.2047, "status": 0.1619, "growth": 0.015, "collective": 0.0289, "saving": 0.1196}],
-    [1983, {"necessities": 0.4009, "escapism": 0.0696, "jeopardy": 0.2181, "status": 0.1659, "growth": 0.0156, "collective": 0.0292, "saving": 0.1007}],
-    [1984, {"necessities": 0.3937, "escapism": 0.0689, "jeopardy": 0.2148, "status": 0.1655, "growth": 0.0156, "collective": 0.0294, "saving": 0.1121}],
-    [1985, {"necessities": 0.3977, "escapism": 0.0697, "jeopardy": 0.2267, "status": 0.169, "growth": 0.0161, "collective": 0.0297, "saving": 0.0911}],
-    [1986, {"necessities": 0.3929, "escapism": 0.0707, "jeopardy": 0.23, "status": 0.1718, "growth": 0.0162, "collective": 0.0307, "saving": 0.0877}],
-    [1987, {"necessities": 0.3946, "escapism": 0.0725, "jeopardy": 0.2335, "status": 0.1755, "growth": 0.017, "collective": 0.0315, "saving": 0.0754}],
-    [1988, {"necessities": 0.3864, "escapism": 0.0726, "jeopardy": 0.2334, "status": 0.1745, "growth": 0.0169, "collective": 0.0322, "saving": 0.084}],
-    [1989, {"necessities": 0.3834, "escapism": 0.0733, "jeopardy": 0.2385, "status": 0.1731, "growth": 0.0168, "collective": 0.0322, "saving": 0.0827}],
-    [1990, {"necessities": 0.3791, "escapism": 0.0738, "jeopardy": 0.2427, "status": 0.171, "growth": 0.0167, "collective": 0.0332, "saving": 0.0835}],
-    [1991, {"necessities": 0.37, "escapism": 0.0735, "jeopardy": 0.2499, "status": 0.167, "growth": 0.0163, "collective": 0.0342, "saving": 0.0891}],
-    [1992, {"necessities": 0.3627, "escapism": 0.0728, "jeopardy": 0.2534, "status": 0.1658, "growth": 0.0164, "collective": 0.0351, "saving": 0.0938}],
-    [1993, {"necessities": 0.3662, "escapism": 0.0748, "jeopardy": 0.2598, "status": 0.1684, "growth": 0.0167, "collective": 0.0356, "saving": 0.0785}],
-    [1994, {"necessities": 0.3706, "escapism": 0.0765, "jeopardy": 0.2603, "status": 0.1705, "growth": 0.0172, "collective": 0.0368, "saving": 0.0681}],
-    [1995, {"necessities": 0.3678, "escapism": 0.0777, "jeopardy": 0.2634, "status": 0.1687, "growth": 0.0172, "collective": 0.0367, "saving": 0.0685}],
-    [1996, {"necessities": 0.369, "escapism": 0.0786, "jeopardy": 0.2655, "status": 0.1686, "growth": 0.0173, "collective": 0.0375, "saving": 0.0635}],
-    [1997, {"necessities": 0.3677, "escapism": 0.0788, "jeopardy": 0.2693, "status": 0.1692, "growth": 0.0178, "collective": 0.0367, "saving": 0.0605}],
-    [1998, {"necessities": 0.3609, "escapism": 0.0784, "jeopardy": 0.27, "status": 0.169, "growth": 0.0181, "collective": 0.0388, "saving": 0.0648}],
-    [1999, {"necessities": 0.3685, "escapism": 0.0812, "jeopardy": 0.273, "status": 0.1721, "growth": 0.0185, "collective": 0.0407, "saving": 0.046}],
-    [2000, {"necessities": 0.3682, "escapism": 0.0809, "jeopardy": 0.2762, "status": 0.1709, "growth": 0.0187, "collective": 0.0422, "saving": 0.0429}],
-    [2001, {"necessities": 0.3658, "escapism": 0.0798, "jeopardy": 0.2749, "status": 0.1692, "growth": 0.0188, "collective": 0.0447, "saving": 0.0468}],
-    [2002, {"necessities": 0.3583, "escapism": 0.0792, "jeopardy": 0.2742, "status": 0.1675, "growth": 0.0188, "collective": 0.0462, "saving": 0.0558}],
-    [2003, {"necessities": 0.3586, "escapism": 0.0801, "jeopardy": 0.2767, "status": 0.1675, "growth": 0.0191, "collective": 0.0461, "saving": 0.0519}],
-    [2004, {"necessities": 0.3602, "escapism": 0.0812, "jeopardy": 0.2801, "status": 0.1677, "growth": 0.0191, "collective": 0.0452, "saving": 0.0465}],
-    [2005, {"necessities": 0.3702, "escapism": 0.0826, "jeopardy": 0.2897, "status": 0.1706, "growth": 0.0194, "collective": 0.0451, "saving": 0.0224}],
-    [2006, {"necessities": 0.3655, "escapism": 0.0827, "jeopardy": 0.2897, "status": 0.1683, "growth": 0.0194, "collective": 0.0466, "saving": 0.0278}],
-    [2007, {"necessities": 0.3645, "escapism": 0.083, "jeopardy": 0.293, "status": 0.1677, "growth": 0.0195, "collective": 0.0471, "saving": 0.0252}],
-    [2008, {"necessities": 0.3592, "escapism": 0.0809, "jeopardy": 0.2878, "status": 0.1622, "growth": 0.0191, "collective": 0.0494, "saving": 0.0414}],
-    [2009, {"necessities": 0.3463, "escapism": 0.0799, "jeopardy": 0.2885, "status": 0.1596, "growth": 0.0188, "collective": 0.0496, "saving": 0.0573}],
-    [2010, {"necessities": 0.3466, "escapism": 0.0793, "jeopardy": 0.2887, "status": 0.159, "growth": 0.0186, "collective": 0.0485, "saving": 0.0593}],
-    [2011, {"necessities": 0.3473, "escapism": 0.0778, "jeopardy": 0.2848, "status": 0.1579, "growth": 0.0182, "collective": 0.0485, "saving": 0.0655}],
-    [2012, {"necessities": 0.3408, "escapism": 0.0772, "jeopardy": 0.2799, "status": 0.1564, "growth": 0.0178, "collective": 0.0492, "saving": 0.0787}],
-    [2013, {"necessities": 0.3519, "escapism": 0.08, "jeopardy": 0.288, "status": 0.1621, "growth": 0.0182, "collective": 0.0501, "saving": 0.0497}],
-    [2014, {"necessities": 0.3472, "escapism": 0.0799, "jeopardy": 0.2884, "status": 0.162, "growth": 0.0182, "collective": 0.0495, "saving": 0.0548}],
-    [2015, {"necessities": 0.3375, "escapism": 0.0806, "jeopardy": 0.2927, "status": 0.1631, "growth": 0.0181, "collective": 0.0496, "saving": 0.0584}],
-    [2016, {"necessities": 0.3359, "escapism": 0.0817, "jeopardy": 0.2955, "status": 0.1644, "growth": 0.0184, "collective": 0.0505, "saving": 0.0536}],
-    [2017, {"necessities": 0.3345, "escapism": 0.0815, "jeopardy": 0.2952, "status": 0.1632, "growth": 0.0184, "collective": 0.0496, "saving": 0.0576}],
-    [2018, {"necessities": 0.3322, "escapism": 0.0806, "jeopardy": 0.2932, "status": 0.1616, "growth": 0.0183, "collective": 0.0496, "saving": 0.0645}],
-    [2019, {"necessities": 0.328, "escapism": 0.0804, "jeopardy": 0.2919, "status": 0.1605, "growth": 0.0183, "collective": 0.048, "saving": 0.0729}],
-    [2020, {"necessities": 0.3068, "escapism": 0.0718, "jeopardy": 0.2646, "status": 0.1396, "growth": 0.0163, "collective": 0.0478, "saving": 0.1531}],
-    [2021, {"necessities": 0.3223, "escapism": 0.0771, "jeopardy": 0.27, "status": 0.1532, "growth": 0.0174, "collective": 0.0442, "saving": 0.1158}],
-    [2022, {"necessities": 0.3539, "escapism": 0.0849, "jeopardy": 0.2875, "status": 0.1698, "growth": 0.0191, "collective": 0.0513, "saving": 0.0335}],
-    [2023, {"necessities": 0.338, "escapism": 0.0829, "jeopardy": 0.2892, "status": 0.1664, "growth": 0.0187, "collective": 0.0489, "saving": 0.0559}],
-    [2024, {"necessities": 0.3329, "escapism": 0.0821, "jeopardy": 0.2967, "status": 0.1651, "growth": 0.0187, "collective": 0.0501, "saving": 0.0544}],
-    [2025, {"necessities": 0.3334, "escapism": 0.0828, "jeopardy": 0.3042, "status": 0.1662, "growth": 0.0189, "collective": 0.0487, "saving": 0.0458}],
-    [2026, {"necessities": 0.3367, "escapism": 0.084, "jeopardy": 0.3112, "status": 0.167, "growth": 0.019, "collective": 0.0493, "saving": 0.0328}]
+    [1950, {"necessities": 0.5037, "escapism": 0.0732, "jeopardy": 0.1195, "status": 0.1729, "growth": 0.0144, "collective": 0.0232, "saving": 0.0931}],
+    [1951, {"necessities": 0.493, "escapism": 0.0729, "jeopardy": 0.1202, "status": 0.1673, "growth": 0.0144, "collective": 0.023, "saving": 0.1092}],
+    [1952, {"necessities": 0.4886, "escapism": 0.0731, "jeopardy": 0.1228, "status": 0.1661, "growth": 0.0147, "collective": 0.0237, "saving": 0.111}],
+    [1953, {"necessities": 0.4847, "escapism": 0.0724, "jeopardy": 0.126, "status": 0.1682, "growth": 0.015, "collective": 0.0239, "saving": 0.1098}],
+    [1954, {"necessities": 0.4858, "escapism": 0.0728, "jeopardy": 0.1288, "status": 0.1689, "growth": 0.0155, "collective": 0.0249, "saving": 0.1033}],
+    [1955, {"necessities": 0.4894, "escapism": 0.0715, "jeopardy": 0.1293, "status": 0.1736, "growth": 0.0154, "collective": 0.024, "saving": 0.0968}],
+    [1956, {"necessities": 0.4781, "escapism": 0.0708, "jeopardy": 0.1302, "status": 0.1694, "growth": 0.0155, "collective": 0.0245, "saving": 0.1115}],
+    [1957, {"necessities": 0.4766, "escapism": 0.0708, "jeopardy": 0.1311, "status": 0.169, "growth": 0.0156, "collective": 0.0248, "saving": 0.1121}],
+    [1958, {"necessities": 0.4736, "escapism": 0.0716, "jeopardy": 0.1333, "status": 0.1668, "growth": 0.0158, "collective": 0.0249, "saving": 0.114}],
+    [1959, {"necessities": 0.477, "escapism": 0.0718, "jeopardy": 0.1355, "status": 0.1716, "growth": 0.0161, "collective": 0.0248, "saving": 0.1032}],
+    [1960, {"necessities": 0.4739, "escapism": 0.0719, "jeopardy": 0.1407, "status": 0.1718, "growth": 0.0163, "collective": 0.0246, "saving": 0.1008}],
+    [1961, {"necessities": 0.4639, "escapism": 0.0714, "jeopardy": 0.1432, "status": 0.168, "growth": 0.0162, "collective": 0.0244, "saving": 0.1129}],
+    [1962, {"necessities": 0.4611, "escapism": 0.0709, "jeopardy": 0.1449, "status": 0.1704, "growth": 0.0162, "collective": 0.0246, "saving": 0.1119}],
+    [1963, {"necessities": 0.46, "escapism": 0.0707, "jeopardy": 0.1488, "status": 0.1718, "growth": 0.0163, "collective": 0.0249, "saving": 0.1075}],
+    [1964, {"necessities": 0.4512, "escapism": 0.0697, "jeopardy": 0.1521, "status": 0.1698, "growth": 0.0162, "collective": 0.0249, "saving": 0.1161}],
+    [1965, {"necessities": 0.4501, "escapism": 0.0699, "jeopardy": 0.1534, "status": 0.1707, "growth": 0.0163, "collective": 0.025, "saving": 0.1146}],
+    [1966, {"necessities": 0.4486, "escapism": 0.0715, "jeopardy": 0.1558, "status": 0.1705, "growth": 0.0166, "collective": 0.0253, "saving": 0.1117}],
+    [1967, {"necessities": 0.439, "escapism": 0.0704, "jeopardy": 0.1571, "status": 0.1675, "growth": 0.0169, "collective": 0.0259, "saving": 0.1232}],
+    [1968, {"necessities": 0.4403, "escapism": 0.071, "jeopardy": 0.162, "status": 0.1709, "growth": 0.0169, "collective": 0.0257, "saving": 0.1132}],
+    [1969, {"necessities": 0.4393, "escapism": 0.071, "jeopardy": 0.167, "status": 0.1708, "growth": 0.0169, "collective": 0.0256, "saving": 0.1094}],
+    [1970, {"necessities": 0.4253, "escapism": 0.0704, "jeopardy": 0.1681, "status": 0.1654, "growth": 0.0167, "collective": 0.026, "saving": 0.1281}],
+    [1971, {"necessities": 0.4207, "escapism": 0.068, "jeopardy": 0.1687, "status": 0.1655, "growth": 0.0163, "collective": 0.0262, "saving": 0.1346}],
+    [1972, {"necessities": 0.4237, "escapism": 0.0684, "jeopardy": 0.172, "status": 0.1691, "growth": 0.0166, "collective": 0.0264, "saving": 0.1238}],
+    [1973, {"necessities": 0.419, "escapism": 0.0679, "jeopardy": 0.1693, "status": 0.1673, "growth": 0.0163, "collective": 0.0255, "saving": 0.1347}],
+    [1974, {"necessities": 0.421, "escapism": 0.0691, "jeopardy": 0.1719, "status": 0.1636, "growth": 0.016, "collective": 0.0255, "saving": 0.1329}],
+    [1975, {"necessities": 0.4154, "escapism": 0.0692, "jeopardy": 0.1771, "status": 0.1631, "growth": 0.0158, "collective": 0.0252, "saving": 0.1342}],
+    [1976, {"necessities": 0.4223, "escapism": 0.0699, "jeopardy": 0.1802, "status": 0.1695, "growth": 0.0162, "collective": 0.0258, "saving": 0.1161}],
+    [1977, {"necessities": 0.4252, "escapism": 0.0695, "jeopardy": 0.1847, "status": 0.172, "growth": 0.0162, "collective": 0.0257, "saving": 0.1067}],
+    [1978, {"necessities": 0.4204, "escapism": 0.069, "jeopardy": 0.1893, "status": 0.1724, "growth": 0.0161, "collective": 0.0256, "saving": 0.1072}],
+    [1979, {"necessities": 0.4241, "escapism": 0.0696, "jeopardy": 0.1906, "status": 0.1712, "growth": 0.0158, "collective": 0.0257, "saving": 0.103}],
+    [1980, {"necessities": 0.4204, "escapism": 0.0681, "jeopardy": 0.1934, "status": 0.1658, "growth": 0.0153, "collective": 0.0259, "saving": 0.1111}],
+    [1981, {"necessities": 0.4134, "escapism": 0.0674, "jeopardy": 0.1962, "status": 0.1637, "growth": 0.0149, "collective": 0.0276, "saving": 0.1168}],
+    [1982, {"necessities": 0.403, "escapism": 0.0669, "jeopardy": 0.2047, "status": 0.1619, "growth": 0.015, "collective": 0.0289, "saving": 0.1196}],
+    [1983, {"necessities": 0.4027, "escapism": 0.0678, "jeopardy": 0.2181, "status": 0.1659, "growth": 0.0156, "collective": 0.0292, "saving": 0.1007}],
+    [1984, {"necessities": 0.3954, "escapism": 0.0671, "jeopardy": 0.2148, "status": 0.1655, "growth": 0.0156, "collective": 0.0295, "saving": 0.1121}],
+    [1985, {"necessities": 0.3996, "escapism": 0.0678, "jeopardy": 0.2267, "status": 0.169, "growth": 0.0161, "collective": 0.0297, "saving": 0.0911}],
+    [1986, {"necessities": 0.3949, "escapism": 0.0687, "jeopardy": 0.23, "status": 0.1718, "growth": 0.0162, "collective": 0.0307, "saving": 0.0877}],
+    [1987, {"necessities": 0.3968, "escapism": 0.0703, "jeopardy": 0.2335, "status": 0.1755, "growth": 0.017, "collective": 0.0315, "saving": 0.0754}],
+    [1988, {"necessities": 0.3885, "escapism": 0.0705, "jeopardy": 0.2334, "status": 0.1745, "growth": 0.0169, "collective": 0.0322, "saving": 0.084}],
+    [1989, {"necessities": 0.3854, "escapism": 0.0712, "jeopardy": 0.2385, "status": 0.1731, "growth": 0.0169, "collective": 0.0322, "saving": 0.0827}],
+    [1990, {"necessities": 0.381, "escapism": 0.0718, "jeopardy": 0.2427, "status": 0.171, "growth": 0.0168, "collective": 0.0332, "saving": 0.0835}],
+    [1991, {"necessities": 0.3719, "escapism": 0.0716, "jeopardy": 0.2499, "status": 0.167, "growth": 0.0163, "collective": 0.0342, "saving": 0.0891}],
+    [1992, {"necessities": 0.3646, "escapism": 0.0709, "jeopardy": 0.2534, "status": 0.1658, "growth": 0.0164, "collective": 0.0351, "saving": 0.0938}],
+    [1993, {"necessities": 0.3681, "escapism": 0.0729, "jeopardy": 0.2598, "status": 0.1684, "growth": 0.0167, "collective": 0.0356, "saving": 0.0785}],
+    [1994, {"necessities": 0.3728, "escapism": 0.0743, "jeopardy": 0.2603, "status": 0.1705, "growth": 0.0172, "collective": 0.0368, "saving": 0.0681}],
+    [1995, {"necessities": 0.37, "escapism": 0.0754, "jeopardy": 0.2634, "status": 0.1687, "growth": 0.0172, "collective": 0.0368, "saving": 0.0685}],
+    [1996, {"necessities": 0.3712, "escapism": 0.0763, "jeopardy": 0.2656, "status": 0.1686, "growth": 0.0173, "collective": 0.0375, "saving": 0.0635}],
+    [1997, {"necessities": 0.37, "escapism": 0.0765, "jeopardy": 0.2693, "status": 0.1692, "growth": 0.0178, "collective": 0.0367, "saving": 0.0605}],
+    [1998, {"necessities": 0.3633, "escapism": 0.0761, "jeopardy": 0.27, "status": 0.1689, "growth": 0.0181, "collective": 0.0388, "saving": 0.0648}],
+    [1999, {"necessities": 0.3709, "escapism": 0.0788, "jeopardy": 0.273, "status": 0.1721, "growth": 0.0185, "collective": 0.0407, "saving": 0.046}],
+    [2000, {"necessities": 0.3707, "escapism": 0.0784, "jeopardy": 0.2762, "status": 0.1709, "growth": 0.0187, "collective": 0.0422, "saving": 0.0429}],
+    [2001, {"necessities": 0.3682, "escapism": 0.0774, "jeopardy": 0.2749, "status": 0.1692, "growth": 0.0188, "collective": 0.0447, "saving": 0.0468}],
+    [2002, {"necessities": 0.3607, "escapism": 0.0768, "jeopardy": 0.2742, "status": 0.1675, "growth": 0.0188, "collective": 0.0462, "saving": 0.0558}],
+    [2003, {"necessities": 0.3611, "escapism": 0.0776, "jeopardy": 0.2767, "status": 0.1675, "growth": 0.0191, "collective": 0.0461, "saving": 0.0519}],
+    [2004, {"necessities": 0.3626, "escapism": 0.0787, "jeopardy": 0.2801, "status": 0.1677, "growth": 0.0192, "collective": 0.0452, "saving": 0.0465}],
+    [2005, {"necessities": 0.3728, "escapism": 0.08, "jeopardy": 0.2897, "status": 0.1706, "growth": 0.0194, "collective": 0.0451, "saving": 0.0224}],
+    [2006, {"necessities": 0.3682, "escapism": 0.0801, "jeopardy": 0.2897, "status": 0.1683, "growth": 0.0194, "collective": 0.0466, "saving": 0.0277}],
+    [2007, {"necessities": 0.3671, "escapism": 0.0804, "jeopardy": 0.293, "status": 0.1677, "growth": 0.0195, "collective": 0.0471, "saving": 0.0252}],
+    [2008, {"necessities": 0.3616, "escapism": 0.0785, "jeopardy": 0.2878, "status": 0.1622, "growth": 0.0191, "collective": 0.0494, "saving": 0.0414}],
+    [2009, {"necessities": 0.3485, "escapism": 0.0777, "jeopardy": 0.2885, "status": 0.1596, "growth": 0.0188, "collective": 0.0496, "saving": 0.0573}],
+    [2010, {"necessities": 0.3488, "escapism": 0.0771, "jeopardy": 0.2887, "status": 0.159, "growth": 0.0186, "collective": 0.0485, "saving": 0.0593}],
+    [2011, {"necessities": 0.3494, "escapism": 0.0757, "jeopardy": 0.2848, "status": 0.1579, "growth": 0.0182, "collective": 0.0485, "saving": 0.0655}],
+    [2012, {"necessities": 0.3429, "escapism": 0.0751, "jeopardy": 0.2799, "status": 0.1564, "growth": 0.0178, "collective": 0.0492, "saving": 0.0787}],
+    [2013, {"necessities": 0.354, "escapism": 0.0779, "jeopardy": 0.288, "status": 0.1621, "growth": 0.0182, "collective": 0.0501, "saving": 0.0497}],
+    [2014, {"necessities": 0.3493, "escapism": 0.0778, "jeopardy": 0.2884, "status": 0.162, "growth": 0.0182, "collective": 0.0495, "saving": 0.0548}],
+    [2015, {"necessities": 0.3395, "escapism": 0.0786, "jeopardy": 0.2927, "status": 0.1631, "growth": 0.0181, "collective": 0.0496, "saving": 0.0584}],
+    [2016, {"necessities": 0.3381, "escapism": 0.0797, "jeopardy": 0.2954, "status": 0.1644, "growth": 0.0184, "collective": 0.0504, "saving": 0.0536}],
+    [2017, {"necessities": 0.3367, "escapism": 0.0794, "jeopardy": 0.2952, "status": 0.1632, "growth": 0.0183, "collective": 0.0496, "saving": 0.0576}],
+    [2018, {"necessities": 0.3344, "escapism": 0.0785, "jeopardy": 0.2932, "status": 0.1616, "growth": 0.0182, "collective": 0.0496, "saving": 0.0645}],
+    [2019, {"necessities": 0.3301, "escapism": 0.0783, "jeopardy": 0.2919, "status": 0.1605, "growth": 0.0183, "collective": 0.048, "saving": 0.0729}],
+    [2020, {"necessities": 0.3091, "escapism": 0.0695, "jeopardy": 0.2646, "status": 0.1396, "growth": 0.0163, "collective": 0.0478, "saving": 0.1531}],
+    [2021, {"necessities": 0.3249, "escapism": 0.0746, "jeopardy": 0.2699, "status": 0.1532, "growth": 0.0174, "collective": 0.0442, "saving": 0.1158}],
+    [2022, {"necessities": 0.3564, "escapism": 0.0823, "jeopardy": 0.2875, "status": 0.1698, "growth": 0.0191, "collective": 0.0514, "saving": 0.0335}],
+    [2023, {"necessities": 0.3405, "escapism": 0.0804, "jeopardy": 0.2892, "status": 0.1664, "growth": 0.0187, "collective": 0.0489, "saving": 0.0559}],
+    [2024, {"necessities": 0.3354, "escapism": 0.0797, "jeopardy": 0.2967, "status": 0.165, "growth": 0.0187, "collective": 0.0501, "saving": 0.0544}],
+    [2025, {"necessities": 0.3358, "escapism": 0.0803, "jeopardy": 0.3042, "status": 0.1662, "growth": 0.019, "collective": 0.0487, "saving": 0.0458}],
+    [2026, {"necessities": 0.3392, "escapism": 0.0815, "jeopardy": 0.3112, "status": 0.167, "growth": 0.019, "collective": 0.0493, "saving": 0.0328}]
   ],
   "historyNote": "Shares of disposable personal income, 1950-2026 (2026 = Jan-Jul SAAR). Saving = personal saving / DPI. The other six: each BEA major type of PCE (Tables 2.3.5/2.8.5) is split into categories with its 2025 split from the items (historyMapping), so the 2025 row reproduces the items exactly; interest paid (non-mortgage) is added to jeopardy and transfers paid (DPI - PCE - interest - saving) to collective. Before 1959 BEA has only total services; it is split with the 1959 service mix. BEA books the nonresident deduction in other services, so that type carries a small negative escapism weight. Within-type mixes are held at 2025 values, so shifts inside a type (e.g. more gambling within recreation) are not captured. 1950-1987 come from an older BEA vintage than 1988-2026.",
   "historyMapping": {
     "motor_vehicles": {"necessities": 0.6262, "status": 0.3738},
     "furnishings": {"necessities": 0.7567, "status": 0.2433},
-    "rec_goods": {"necessities": 0.3105, "escapism": 0.4844, "status": 0.1446, "growth": 0.0605},
+    "rec_goods": {"necessities": 0.3911, "escapism": 0.4037, "status": 0.1446, "growth": 0.0605},
     "other_durables": {"necessities": 0.1197, "jeopardy": 0.3299, "status": 0.5209, "growth": 0.0295},
     "food_off_premises": {"necessities": 0.8471, "escapism": 0.1529},
     "clothing": {"necessities": 0.664, "status": 0.336},
@@ -1378,7 +1381,7 @@
       "consumerUnitsK": 27139.0,
       "people": 1.6,
       "homeowner": 0.43,
-      "pceBasisShares": {"necessities": 0.4798, "escapism": 0.0782, "jeopardy": 0.3214, "status": 0.0701, "growth": 0.0224, "collective": 0.0281}
+      "pceBasisShares": {"necessities": 0.4827, "escapism": 0.0758, "jeopardy": 0.321, "status": 0.07, "growth": 0.0224, "collective": 0.0281}
     },
     {
       "id": "q2",
@@ -1393,7 +1396,7 @@
       "consumerUnitsK": 27186.0,
       "people": 2.1,
       "homeowner": 0.58,
-      "pceBasisShares": {"necessities": 0.4602, "escapism": 0.0831, "jeopardy": 0.3423, "status": 0.0694, "growth": 0.0087, "collective": 0.0363}
+      "pceBasisShares": {"necessities": 0.4632, "escapism": 0.0806, "jeopardy": 0.3419, "status": 0.0694, "growth": 0.0087, "collective": 0.0362}
     },
     {
       "id": "q3",
@@ -1408,7 +1411,7 @@
       "consumerUnitsK": 26959.0,
       "people": 2.5,
       "homeowner": 0.62,
-      "pceBasisShares": {"necessities": 0.3996, "escapism": 0.0829, "jeopardy": 0.3229, "status": 0.1452, "growth": 0.0116, "collective": 0.0378}
+      "pceBasisShares": {"necessities": 0.4022, "escapism": 0.0804, "jeopardy": 0.3228, "status": 0.1452, "growth": 0.0116, "collective": 0.0378}
     },
     {
       "id": "q4",
@@ -1423,7 +1426,7 @@
       "consumerUnitsK": 27205.0,
       "people": 2.9,
       "homeowner": 0.74,
-      "pceBasisShares": {"necessities": 0.344, "escapism": 0.0889, "jeopardy": 0.317, "status": 0.2002, "growth": 0.0156, "collective": 0.0343}
+      "pceBasisShares": {"necessities": 0.3466, "escapism": 0.0863, "jeopardy": 0.317, "status": 0.2002, "growth": 0.0156, "collective": 0.0343}
     },
     {
       "id": "q5",
@@ -1438,11 +1441,18 @@
       "consumerUnitsK": 27272.0,
       "people": 3.2,
       "homeowner": 0.88,
-      "pceBasisShares": {"necessities": 0.2616, "escapism": 0.0995, "jeopardy": 0.2661, "status": 0.2938, "growth": 0.0318, "collective": 0.0472}
+      "pceBasisShares": {"necessities": 0.2638, "escapism": 0.0967, "jeopardy": 0.2664, "status": 0.294, "growth": 0.0319, "collective": 0.0472}
     }
   ],
-  "byQuintileNote": "BLS CE 2024, quintiles of income before taxes (27.1-27.3M consumer units each). incomeMean = CE income after taxes less estimated Social Security/Medicare payroll deductions (CE all-unit $6684 spread by wages + 2 x self-employment income), the NIPA disposable-income concept. spendingMean = CE spending excluding pensions and Social Security. shares = category spending / incomeMean, with saving = 1 - spending / income (retirement contributions count as saving); negative for the bottom 40%: CE under-reports income at the bottom, and many there are retirees and students drawing on assets or family. Category rules follow research (ceSurvey2024ModelCategoriesByQuintile): basic level = second-quintile mean; status = food away, shelter above basic, travel; jeopardy includes household-paid health premiums, vehicle finance charges and insurance. The survey misses most vice spending (alcohol ~22% of PCE, tobacco ~41%, lottery ~8%, casino losses ~0%) and third-party health care and imputed rent, so ceToPce gives national PCE items / (CE mean x units) per category, and pceBasisShares rescales each quintile's CE categories by it (shares of spending, PCE basis).",
-  "ceToPce": {"necessities": 1.5, "escapism": 3.03, "jeopardy": 4.77, "status": 2.09, "growth": 1.88, "collective": 2.66},
+  "byQuintileNote": "BLS CE 2024, quintiles of income before taxes (27.0-27.3M consumer units each). incomeMean = CE income after taxes less estimated Social Security/Medicare payroll deductions (CE all-unit $6684 spread by wages + 2 x self-employment income), the NIPA disposable-income concept. spendingMean = CE spending excluding pensions and Social Security. shares = category spending / incomeMean, with saving = 1 - spending / income (retirement contributions count as saving); negative for the bottom 40%: CE under-reports income at the bottom, and many there are retirees and students drawing on assets or family. Category rules follow research (ceSurvey2024ModelCategoriesByQuintile): basic level = second-quintile mean; status = food away, shelter above basic, travel; jeopardy includes household-paid health premiums, vehicle finance charges and insurance. The survey misses most vice spending (alcohol ~22% of PCE, tobacco ~41%, lottery ~8%, casino losses ~0%) and third-party health care and imputed rent, so ceToPce gives national PCE items / (CE mean x units) per category, and pceBasisShares rescales each quintile's CE categories by it (shares of spending, PCE basis).",
+  "ceToPce": {
+    "necessities": 1.51,
+    "escapism": 2.94,
+    "jeopardy": 4.77,
+    "status": 2.09,
+    "growth": 1.88,
+    "collective": 2.66
+  },
   "markets": [
     {
       "id": "lottery_sales",
@@ -1476,8 +1486,8 @@
       "category": "escapism",
       "usd": 71.9,
       "year": 2024,
-      "source": "American Gaming Association, Commercial Gaming Revenue Tracker, full-year 2024 (Feb 2025) (recalled)",
-      "note": "2024 split ~ land-based casino $49.7B, sports betting $13.7B, iGaming $8.4B. 2025 reported as another record (~$78-80B; not verified this session). Excludes tribal casinos."
+      "source": "American Gaming Association, Commercial Gaming Revenue Tracker, full-year 2024 (Feb 2025) (verified-secondary)",
+      "note": "2024 split ~ land-based casino $49.7B, sports betting $13.7B, iGaming $8.4B. 2025 = $78.7B record (AGA, verified-secondary). Excludes tribal casinos."
     },
     {
       "id": "casino_tribal",
@@ -1485,7 +1495,7 @@
       "category": "escapism",
       "usd": 43.9,
       "year": 2024,
-      "source": "National Indian Gaming Commission, FY2024 GGR release (2025) (recalled)",
+      "source": "National Indian Gaming Commission, FY2024 GGR release (2025) (verified-secondary)",
       "note": "Commercial ($71.9B) + tribal ($43.9B) = $115.8B vs PCE casino gambling $152.1B (2024): BEA casino line also includes casino hotel/other gaming adjustments - definitions differ."
     },
     {
@@ -1504,7 +1514,7 @@
       "usd": 13.7,
       "year": 2024,
       "source": "AGA Commercial Gaming Revenue Tracker 2024 (recalled)",
-      "note": "2025 ~+15-20% (not verified)"
+      "note": "2025 = $16.96B (AGA, verified-secondary), +24% vs 2024"
     },
     {
       "id": "prediction_markets",
@@ -1546,9 +1556,9 @@
       "id": "cannabis_legal",
       "name": "Legal cannabis",
       "category": "escapism",
-      "usd": 31.0,
+      "usd": 30.1,
       "year": 2024,
-      "source": "MJBizDaily / Whitney Economics / BDSA estimates for 2024 ($29-32B range) (recalled)",
+      "source": "Whitney Economics / BDSA 2024 actual (consensus $30.1B) (verified-secondary)",
       "note": "Mostly outside PCE detail; CE survey captures ~5%."
     },
     {
@@ -1733,7 +1743,7 @@
       "category": "jeopardy",
       "usd": 5300.0,
       "year": 2024,
-      "source": "CMS Office of the Actuary, NHE 2024 (Dec 2025): ~$5.3T, +7.2%, ~18% of GDP, ~$15,500 per person (recalled)",
+      "source": "CMS Office of the Actuary / Health Affairs: NHE 2024 $5.3T, +7.2%, 18.0% of GDP, $15,474 per person (verified-secondary)",
       "note": "Sibling-verified CMS projection: $5.7T in 2025 (research/flows.json (sibling research file, this session)). NHE 2023 = $4.87T, 17.6% of GDP (recalled)."
     },
     {
@@ -1742,7 +1752,7 @@
       "category": "jeopardy",
       "usd": 506.0,
       "year": 2023,
-      "source": "CMS NHE 2023: out-of-pocket $505.7B (+7.0%), ~10.4% of NHE (recalled)",
+      "source": "CMS NHE 2023: out-of-pocket $505.7B (+7.0%), ~10.4% of NHE (verified-secondary)",
       "note": "2024 ~ $540B (est., not verified). CE 2024 healthcare $6,197/CU x 135.76M = $841B incl. premiums paid by households ($4,055/CU)."
     },
     {
@@ -1785,8 +1795,8 @@
       "category": "jeopardy",
       "usd": 1060.0,
       "year": 2024,
-      "source": "NAIC / S&P Global Market Intelligence 2024 US P&C DPW (~$1.0-1.1T) (recalled)",
-      "note": "Personal auto ~ $330B, homeowners ~ $150B (2024, recalled). PCE shows only the net service charge (premiums less normal losses): MV $108.8B, household $19.8B."
+      "source": "NAIC 2024 Market Share Reports: ~$1.06T P&C direct premiums written; private passenger auto $344.11B (verified-secondary)",
+      "note": "Personal auto ~$344B (NAIC DPW; S&P $358.8B), homeowners ~$170B (S&P $169.6B; NAIC $173.2B) in 2024 - replaces recalled ~$330B / ~$150B. PCE shows only the net service charge (premiums less normal losses): MV $108.8B, household $19.8B."
     },
     {
       "id": "consumer_interest",
@@ -1890,8 +1900,8 @@
       "category": "collective",
       "usd": 392.0,
       "year": 2024,
-      "source": "Giving USA 2025 (individuals ~$392B of ~$592B total 2024) (recalled)",
-      "note": "CE cash contributions $2,292/CU = $311B (incl. support to non-household members); churches $781/CU."
+      "source": "Giving USA 2025 (individuals ~$392B of ~$592B total 2024) (verified-secondary)",
+      "note": "CE cash contributions $2,292/CU = $311B (incl. support to non-household members); churches $781/CU. Giving USA 2026: total giving $617.2B in 2025."
     },
     {
       "id": "nonprofits",
@@ -1907,7 +1917,8 @@
       "category": "collective",
       "usd": 286.8,
       "year": 2025,
-      "source": "BEA NIPA Table 2.6 (personal current transfer payments), via US-chartbook mirror nipa20600.csv"
+      "source": "BEA NIPA Table 2.6 (personal current transfer payments), via US-chartbook mirror nipa20600.csv",
+      "note": "To government $148.0B (fees, fines, donations), to the rest of the world $138.9B (net remittances)."
     },
     {
       "id": "personal_saving",
@@ -1916,7 +1927,7 @@
       "usd": 1046.8,
       "year": 2025,
       "source": "BEA NIPA Table 2.6, via US-chartbook mirror nipa20600.csv",
-      "note": "Saving rate 4.6% (2025), 3.0% (July 2026)."
+      "note": "Saving rate 4.6% (2025) and 3.0% (July 2026) in this pre-update vintage; BEA's Sept-2026 annual update revised 2025 to 5.4% (2023 6.1%, 2024 6.3%; Aug 2026 4.1%), per the research data editor."
     },
     {
       "id": "crypto_net_buying",
@@ -1928,5 +1939,12 @@
       "note": "~14% of US adults own crypto (Gallup 2025, recalled)."
     }
   ],
-  "marketsNote": "Headline markets for labels. Each has its own definition (sales, handle, net losses, revenue, all payers); do not sum them with each other or with items. Sources marked (recalled) are from the research agent's memory of the named publication and are not verified this session."
+  "marketsNote": "Headline markets for labels. Each has its own definition (sales, handle, net losses, revenue, all payers); do not sum them with each other or with items. Sources marked (recalled) are from the research agent's memory of the named publication and are not verified this session; (verified-secondary) means the figure was checked against a secondary copy of the publisher's release by the research data editor.",
+  "corrections": [
+    "2026-10-01 verifier: games share of BEA line 50 (computer software and accessories, $225.0B in 2025) cut from 1/2 to 1/4. At 1/2, video_games_software ($129.6B) was more than twice the file's own video_games market: Circana put all 2024 US video game spending at $58.7B, consoles and accessories included, and BEA line 50 grew from $94.7B (2017) to $225.0B while games grew far less. video_games_software 129.6 -> 73.3 (importShare 0.2201 -> 0.2001); devices 252.7 -> 309.0 (importShare 0.4598 -> 0.4209; renamed from 'Computers, phones & software (half)'); escapism 1892.5 -> 1836.2 (shareOfPce 0.0903 -> 0.0876, fantasy 0.63 -> 0.62); necessities 7622.0 -> 7678.3 (0.3637 -> 0.3664). Re-derived from the same build: historyMapping.rec_goods (necessities 0.3105 -> 0.3911, escapism 0.4844 -> 0.4037); every history row (necessities +0.0013..+0.0026 and escapism -0.0013..-0.0026 of DPI; 2025: 0.3334 -> 0.3359 and 0.0828 -> 0.0803); ceToPce (necessities 1.50 -> 1.51, escapism 3.03 -> 2.94); pceBasisShares (escapism about -0.0025 and necessities about +0.0027 in every quintile). Both items' industry weights changed slightly. The 1/4 share is approximate (Circana content was about $51B, plus accessories). History rows now use largest-remainder rounding, so every share is within 0.0001 of its exact value. The old method put the whole residual on the largest share, which left 2025 necessities 0.0001 off the items; other years move by at most 0.0001.",
+    "2026-10-01 verifier: outsidePce interest_consumer_debt routing banking 0.85 / finance 0.15 -> federal 0.09 / banking 0.76 / finance 0.15. The note had sent student-loan interest to nonbank lenders, but about 90% of student debt is federally held. The cited NIPA 2.6 series shows that interest inside personal interest payments: it fell $53.5B in 2020 when federal student-loan interest was set to 0%, and the monthly SAAR rose $46B from Aug to Sept 2023 when it resumed. The split stays approximate.",
+    "2026-10-01 verifier: outsidePce transfers_paid. The note claimed the government/abroad split was not in the research data, but the cited mirror nipa20600.csv has it (W062RC, B070RC; 2025 monthly average): to government $148.0B, to the rest of the world (net remittances) $138.9B, total $286.8B. Added toGovernment, toRestOfWorld and importShare 0.4843 (the part that leaves the country); the federal/state_local 0.5/0.5 weights now cover only the government part (still a placeholder). The transfers_paid market note gives the split.",
+    "2026-10-01 verifier: markets refreshed from research/spending.json as updated by its data editor at 18:45 (after this file was built at 18:31): cannabis_legal 31.0 -> 30.1 (Whitney Economics/BDSA 2024 actual). Sources of casino_commercial, casino_tribal, national_health_expenditures, health_out_of_pocket, pc_insurance_premiums and charitable_giving are now marked (verified-secondary). Notes updated: casino_commercial (2025 $78.7B), sports_betting_revenue (2025 $16.96B), pc_insurance_premiums (auto ~$344B, homeowners ~$170B instead of the recalled ~$330B / ~$150B), charitable_giving (2025 total $617.2B). marketsNote explains the new tag.",
+    "2026-10-01 verifier: notes. The necessities note said owners' imputed rent was $1,823B; the item is $1,822.3B, now $1,822B. owner_rent_basic is 2500.3 x 0.729 = 1822.7 less the -0.4 rounding residual of the item set, and its note now says so. byQuintileNote said 27.1-27.3M consumer units per quintile, but q3 has 26.96M, now 27.0-27.3M. personal_saving and totals.note now record that BEA's 30-Sep-2026 annual update revised the 2025 saving rate to 5.4% (from 4.6%), per the research data editor; the file keeps the pre-update levels so its identities hold."
+  ]
 }

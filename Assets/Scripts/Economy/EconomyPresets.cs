@@ -14,16 +14,18 @@ namespace Why.Economy
         static double Ya(double calendarYear) => DeepTime.NowYear - calendarYear;
 
         /// <summary>
-        /// The people view: close to the population from the late 1990s to now (the camera on 2011, a little above the
+        /// The people view: close to the population from the mid 1990s to now (the camera on mid-2011, a little above the
         /// lifelines' base, looking down 36 degrees and turned slightly toward the past), near enough that the gold lines of
         /// the people in control read as lines at 1920x1080 while the bundle fills the middle of the screen and the wall's
-        /// top floors, where the money threads rise from, the bottom quarter. On a portrait screen it steps back until
-        /// <see cref="PeoplePortraitWidth"/> world units (about twenty years) fit the width; the lens stays the shared one
-        /// (a narrowed lens would move the road from under the fixed target).
+        /// top floors, where the money threads rise from, the bottom quarter. The present end of the road stays in the
+        /// frame with the wall's tier labels beside it (at distance 3.9 and yaw -6 the bundle ran off the right edge
+        /// around 2024 and the tier labels were cut). On a portrait screen it steps back until
+        /// <see cref="PeoplePortraitWidth"/> world units (about 25 years, 1999 - 2024) fit the width; the lens stays the
+        /// shared one (a narrowed lens would move the road from under the fixed target).
         /// </summary>
-        const double PeopleYear = 2011;
+        const double PeopleYear = 2011.5;
 
-        const float PeopleHeight = 0.04f, PeoplePitch = 36f, PeopleDistance = 3.9f, PeopleYaw = -6f, PeoplePortraitWidth = 4f;
+        const float PeopleHeight = 0.04f, PeoplePitch = 36f, PeopleDistance = 4.8f, PeopleYaw = -3f, PeoplePortraitWidth = 5f;
 
         public static List<ViewPreset> Build()
         {

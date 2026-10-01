@@ -88,9 +88,10 @@ namespace Why.Economy.Layers
 
         /// <summary>
         /// The findings' labels stand above the lifelines this many years before the findings' year, inside the people view
-        /// (which ends at the present) and apart from each other: the people in control's, then the fantasy's.
+        /// (which ends at the present) and apart from each other: the people in control's (right-aligned, so it ends near
+        /// the year it tells of, clear of the Generation Alpha marker's name around 2010), then the fantasy's.
         /// </summary>
-        const int OwnersLabelYears = 7, FantasyLabelYears = 18;
+        const int OwnersLabelYears = 3, FantasyLabelYears = 18;
 
         /// <summary>
         /// The threads' own labels stand at the sheaves nearest these years, where the gap between the wall's top and the
@@ -135,8 +136,9 @@ namespace Why.Economy.Layers
         const float MinWidthPx = 0.7f, MaxWidthPx = 2.6f, MinAlpha = 0.1f, MaxAlpha = 1f;
 
         /// <summary>
-        /// The sampled threads: alpha (before the density factor) and HDR intensity. Each is faint: they are seen together,
-        /// as the sheaf's colors, with the largest sums of money standing out.
+        /// The sampled threads: alpha (their material's, times each thread's own by its dollars, before the density
+        /// factor) and HDR intensity. Each is faint: they are seen together, as the sheaf's colors, with the largest sums
+        /// of money standing out.
         /// </summary>
         const float SampleAlpha = 0.045f, SampleIntensity = 1f;
 
@@ -264,7 +266,7 @@ namespace Why.Economy.Layers
             EconomyModel model = ctx.Shared<EconomyModel>(EconomyModel.SharedKey);
             pop = ctx.Shared<SmvPopulation>(SmvPopulation.SharedKey);
             wall = ctx.Shared<WallGeometry>(WallGeometry.SharedKey);
-            if (model == null || pop?.Sim == null || wall == null || !wall.IsValid || !model.Lives.Ready)
+            if (model?.Data == null || model.Lives?.Ready != true || pop?.Sim == null || wall == null || !wall.IsValid)
             {
                 Debug.LogWarning("[Why] MoneyThreadsLayer: no lives, population or wall; threads skipped");
                 return;
@@ -283,14 +285,20 @@ namespace Why.Economy.Layers
             }
 
             pendingSample = new LineMeshBuilder(sampled * sheaves.Count / 3 * (MaxSpendingThreads + 2) * ThreadPoints);
-            Look look = new Look(SampleAlpha, 1f, SampleIntensity, -1, false);
+
+            // the sample's faintness is the material's (SampleAlpha): the vertices keep the dollars' alpha at full 8-bit
+            // precision (at ~0.03 per vertex most threads truncated to 0-6 of 255, the smallest to nothing)
+            Look look = new Look(1f, 1f, SampleIntensity, -1, false);
             List<SmvPerson> people = pop.Sim.People;
             foreach (int year in sheaves)
             {
                 for (int i = 0; i < people.Count; i++)
                 {
                     if (!Sampled(i) || !lives.TryGet(i, year, out PersonYear r) || !r.Adult) continue;
-                    double across = SheafHalfYears * r.IncomeRank + SheafJitterYears * (2 * Hash01(i, 11) - 1);
+
+                    // within its half (the jitter must not carry income across the gap into the spending half)
+                    double across = Math.Max(0, Math.Min(SheafHalfYears,
+                        SheafHalfYears * r.IncomeRank + SheafJitterYears * (2 * Hash01(i, 11) - 1)));
                     double middle = year + 0.5, half = 0.5 * SheafGapYears;
                     AddPerson(pendingSample, people[i], year, middle - half - SheafHalfYears + across, middle + half + across, r,
                         look);
@@ -443,10 +451,12 @@ namespace Why.Economy.Layers
             int o = Mathf.Clamp(group, 0, 3) * n;
             float total = cdf[o + n - 1];
             if (total <= 0) return -1;
+
+            // strictly above: an industry with no weight (a step of 0 in the cumulative weights) is never drawn
             float x = Hash01(person, year * 31 + 7) * total;
             for (int i = 0; i < n; i++)
             {
-                if (cdf[o + i] >= x) return i;
+                if (cdf[o + i] > x) return i;
             }
 
             return n - 1;
@@ -742,9 +752,11 @@ namespace Why.Economy.Layers
             RegisterThreads(ctx, "threads:spending", "Spending", SpendingBlurb(agg, year), spendingYear,
                 new IdRange(EconomyIds.Thread + KindSpending, lastKind), "spending falls back into them");
 
-            // the people in control: among the gold lines
+            // the people in control: among the gold lines. Focusing it (a click on its label, the tour's end card) lights
+            // the lifelines, among which the gold ones stand out; the capital threads' id alone would dim the gold lines
+            // with everything else (the people in control are no contiguous id range)
             Vector3 o = f.OwnersPoint;
-            IdRange capital = IdRange.Single(EconomyIds.Thread + KindCapital);
+            IdRange lifelines = pop.LineIds;
             Anchors.Register(new Anchor
             {
                 Key = "people:owners",
@@ -755,7 +767,7 @@ namespace Why.Economy.Layers
                 EndYearsAgo = ctx.NowYear - (year + 0.5),
                 Y = o.y,
                 Rho = o.z,
-                Ids = capital,
+                Ids = lifelines,
                 Tier = 1
             });
             AddLabel(ctx, new LabelSpec
@@ -769,7 +781,7 @@ namespace Why.Economy.Layers
                 PixelOffset = new Vector2(0, 14),
                 Align = TMPro.TextAlignmentOptions.Right,
                 AnchorKey = "people:owners",
-                Ids = capital
+                Ids = lifelines
             });
 
             // fantasy: the share of spending that buys a fantasy, by income
@@ -862,7 +874,8 @@ namespace Why.Economy.Layers
                 }
             }
 
-            return "Money rising from the industries to the people, drawn for one adult line in six every four years, from " +
+            return "Money rising from the industries to the people, drawn for one adult line in " + Words(SampleStride) +
+                   " every " + Words(SheafStep) + " years, from " +
                    "each person's largest source of income: wages (blue) from the industry they work in, business and capital " +
                    "income (gold) from what owners keep (their own business; dividends from every industry's profits, rent " +
                    "from real estate, interest from banks, as their wealth group holds them), benefits (steel) from the " +
@@ -876,10 +889,12 @@ namespace Why.Economy.Layers
             System.Text.StringBuilder s = new System.Text.StringBuilder();
             s.Append("Money falling from each person back into the industries: a thread for each of their largest spending " +
                      "categories (up to three), to the industry that receives most of that category's money (");
+            bool first = true;
             for (int c = 0; c < categoryIndustry.Length; c++)
             {
                 if (categoryIndustry[c] < 0) continue;
-                if (c > 0) s.Append(", ");
+                if (!first) s.Append(", ");
+                first = false;
                 s.Append((data.Categories[c].Name ?? data.Categories[c].Id).ToLowerInvariant()).Append(" to ")
                     .Append(data.Industries[categoryIndustry[c]].Name);
             }
@@ -900,12 +915,14 @@ namespace Why.Economy.Layers
             bool sameFear = Mathf.Abs(f.Fear[0] - f.Fear[1]) < SameShare;
             string buys = sameFantasy && sameFear
                 ? "What sets them apart is not what they buy: "
-                : "What they buy: ";
+                : "They buy differently: ";
             return $"{Percent(f.Share)} of adults in {f.Year.ToString(Ci)} steer their own path in this model (the share " +
                    "calibrated to the evidence): they own a business or hold years of spending in savings, save, carry little " +
                    "debt and decide by reason. Their lines are gold. " + buys +
-                   $"fantasy takes {Percent(f.Fantasy[0])} of their spending and {Percent(f.Fantasy[1])} of everyone else's, " +
-                   $"fear moves {Percent(f.Fear[0])} and {Percent(f.Fear[1])}. What does: reason ({F2(f.Reason[0])} against " +
+                   $"fantasy takes {Percent(f.Fantasy[0])} of their spending ({Percent(f.Fantasy[1])} of everyone else's) " +
+                   $"and fear moves {Percent(f.Fear[0])} of it ({Percent(f.Fear[1])}). " +
+                   (sameFantasy && sameFear ? "What does" : "What else sets them apart") +
+                   $": reason ({F2(f.Reason[0])} against " +
                    $"{F2(f.Reason[1])}), age ({f.Age[0].ToString("0", Ci)} against {f.Age[1].ToString("0", Ci)}), " +
                    $"an inheritance ({Percent(f.Inherited[0])} received one, against {Percent(f.Inherited[1])}) and a " +
                    $"business of their own ({Percent(f.SelfEmployed[0])} self-employed, against {Percent(f.SelfEmployed[1])}).";
@@ -913,9 +930,13 @@ namespace Why.Economy.Layers
 
         static string FantasyBlurb(Findings f, PopulationYear a)
         {
+            float rise = f.FantasyByQuintile[4] - f.FantasyByQuintile[0];
+            string trend = rise >= SameShare ? "rises with income"
+                : rise <= -SameShare ? "falls with income"
+                : "barely moves with income";
             System.Text.StringBuilder s = new System.Text.StringBuilder();
             s.Append("The share of spending that buys a fantasy (an escape, a status signal, a lottery ticket: each category's " +
-                     "fantasy content) rises with income: ").Append(Percent(f.FantasyByQuintile[0]))
+                     "fantasy content) ").Append(trend).Append(": ").Append(Percent(f.FantasyByQuintile[0]))
                 .Append(" for the poorest fifth of households, ").Append(Percent(f.FantasyByQuintile[4]))
                 .Append(" for the richest (by fifth:");
             for (int q = 0; q < 5; q++) s.Append(' ').Append(Percent(f.FantasyByQuintile[q]));
@@ -926,18 +947,26 @@ namespace Why.Economy.Layers
                     .Append('.');
             }
 
-            s.Append(" The people in control buy as much of it as anyone (").Append(Percent(f.Fantasy[0])).Append(" against ")
-                .Append(Percent(f.Fantasy[1])).Append("): fantasy is bought at every level.");
+            bool same = Mathf.Abs(f.Fantasy[0] - f.Fantasy[1]) < SameShare;
+            s.Append(same ? " The people in control buy as much of it as anyone (" : " The people in control spend ")
+                .Append(Percent(f.Fantasy[0])).Append(same ? " against " : " of their money on it, everyone else ")
+                .Append(Percent(f.Fantasy[1])).Append(same ? "): fantasy is bought at every level." : ".");
             return s.ToString();
         }
+
+        static readonly string[] NumberWords =
+            { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten" };
+
+        /// <summary>A small count in words, as the blurbs' prose has it (digits from eleven on).</summary>
+        static string Words(int n) => n >= 0 && n < NumberWords.Length ? NumberWords[n] : n.ToString(Ci);
 
         static string Percent(double share) => (100 * share).ToString("0", Ci) + "%";
 
         static string F2(float v) => v.ToString("0.00", Ci);
 
         static string Hex(Color c) =>
-            ((int)(Mathf.Clamp01(c.r) * 255)).ToString("X2") + ((int)(Mathf.Clamp01(c.g) * 255)).ToString("X2") +
-            ((int)(Mathf.Clamp01(c.b) * 255)).ToString("X2");
+            ((int)(Mathf.Clamp01(c.r) * 255)).ToString("X2", Ci) + ((int)(Mathf.Clamp01(c.g) * 255)).ToString("X2", Ci) +
+            ((int)(Mathf.Clamp01(c.b) * 255)).ToString("X2", Ci);
 
         void AddLabel(GraphContext ctx, LabelSpec spec)
         {
@@ -966,8 +995,8 @@ namespace Why.Economy.Layers
         {
             if (pendingSample == null) return;
             circuitStation = EconomyStage.Get(EconomyStage.Circuit);
-            sampleMat = ThreadMaterial(EconomyStyle.QueueThreads);
-            personMat = ThreadMaterial(EconomyStyle.QueueThreads + 1);
+            sampleMat = ThreadMaterial(EconomyStyle.QueueThreads, SampleAlpha, true);
+            personMat = ThreadMaterial(EconomyStyle.QueueThreads + 1, 1f, false);
             sampleRenderer = AddMesh("MoneyThreads", pendingSample.ToMesh("MoneyThreads"), sampleMat);
             sampleFilter = sampleRenderer.GetComponent<MeshFilter>();
             pendingSample = null;
@@ -980,9 +1009,15 @@ namespace Why.Economy.Layers
             RebuildPerson(EconomyState.Person);
         }
 
-        static Material ThreadMaterial(int queue)
+        /// <summary>
+        /// A line material with flow pulses; <paramref name="alpha"/> scales every thread drawn with it. The sample adds up
+        /// (a sheaf's colors are the sum of its money); the inspected person's few threads are blended over what lies
+        /// behind them instead, so they keep their own colors over the gold wall (added to it, they all paled toward
+        /// white where they cross it).
+        /// </summary>
+        static Material ThreadMaterial(int queue, float alpha, bool additive)
         {
-            Material m = GraphMaterials.Line(Color.white, 1f, queue, true, 0, 1f);
+            Material m = GraphMaterials.Line(new Color(1f, 1f, 1f, alpha), 1f, queue, additive, 0, 1f);
             m.SetFloat("_FlowFreq", FlowFreq);
             m.SetFloat("_FlowSpeed", FlowSpeed);
             return m;
@@ -1043,6 +1078,8 @@ namespace Why.Economy.Layers
         {
             if (sampleFilter != null && sampleFilter.sharedMesh != null) Destroy(sampleFilter.sharedMesh);
             if (personFilter != null && personFilter.sharedMesh != null) Destroy(personFilter.sharedMesh);
+            if (sampleMat != null) Destroy(sampleMat);
+            if (personMat != null) Destroy(personMat);
         }
 
         /// <summary>

@@ -61,6 +61,10 @@ namespace Why.Economy.Model
         public float Age;
         public bool Adult, Married, Employed, SelfEmployed, Homeowner, InControl;
 
+        /// <summary>Lives in a household of its own (a couple, a single parent, a single homeowner or a single who does
+        /// not share a home): the unit of homeownership.</summary>
+        public bool OwnHousehold;
+
         /// <summary>Index of the industry the person works in (EconomyData.Industries), or -1.</summary>
         public short Industry;
 
@@ -127,8 +131,9 @@ namespace Why.Economy.Model
         /// <summary>Received this year from a spouse's or a parent's estate ($).</summary>
         public float Inherited;
 
-        /// <summary>A large uninsured loss this year (jeopardy realized: illness, lawsuit, fraud; the household's, split
-        /// evenly), $; and whether unpayable consumer debt was discharged (bankruptcy, charge-off).</summary>
+        /// <summary>A large uninsured bill this year (jeopardy realized: illness, lawsuit, repair, fraud; part of the
+        /// spending, in jeopardy; the household's, split evenly), $; and whether unpayable consumer debt was discharged
+        /// (bankruptcy, charge-off).</summary>
         public float Loss;
 
         public bool Discharged;
@@ -189,8 +194,9 @@ namespace Why.Economy.Model
         /// <summary>Shares of net worth by wealth group (bottom 50%, 50-90%, 90-99%, top 1% of adults; couples split evenly).</summary>
         public readonly float[] WealthShares = new float[4];
 
-        /// <summary>Owner-occupied share of households of their own; employment rate of adults; self-employed share of the
-        /// employed; adults with material autonomy; adults saving 10%+ of disposable income.</summary>
+        /// <summary>Owner-occupied share of households of their own (<see cref="PersonYear.OwnHousehold"/>); employment
+        /// rate of adults; self-employed share of the employed; adults with material autonomy; adults saving 10%+ of
+        /// disposable income.</summary>
         public float Homeownership, EmploymentRate, SelfEmployedShare, AutonomyShare, SaverShare;
 
         /// <summary>Households hit by a large uninsured loss this year, and households whose consumer debt was discharged

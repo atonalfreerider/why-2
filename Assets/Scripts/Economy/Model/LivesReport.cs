@@ -298,10 +298,13 @@ namespace Why.Economy.Model
             Range(run, y0, c => c.OtherTransfers, out double oLo, out double oHi);
             Range(run, y0, c => c.SocialSecurity, out double sLo, out double sHi);
             Range(run, y0, c => c.SavingShift * 100, out double shLo, out double shHi);
+            Range(run, y0, c => c.EarningsMale, out double emLo, out double emHi);
+            Range(run, y0, c => c.EarningsFemale, out double efLo, out double efHi);
             sb.Append($"calibration x(min..max over years): compensation {F2(wLo)}..{F2(wHi)}, business {F2(bLo)}..{F2(bHi)}, ")
                 .Append($"capital {F2(kLo)}..{F2(kHi)}, taxes {F2(tLo)}..{F2(tHi)}, other transfers {F2(oLo)}..{F2(oHi)}, ")
                 .Append($"social security {F2(sLo)}..{F2(sHi)}; saving-rate shift {shLo.ToString("+0.0;-0.0", Inv)}..")
-                .Append($"{shHi.ToString("+0.0;-0.0", Inv)} pp\n");
+                .Append($"{shHi.ToString("+0.0;-0.0", Inv)} pp; median earnings men {F2(emLo)}..{F2(emHi)}, women {F2(efLo)}..")
+                .Append($"{F2(efHi)}\n");
             YearCalibration c25 = Cal(run, y0, Math.Min(2025, y1));
             if (c25 != null)
             {
@@ -394,6 +397,7 @@ namespace Why.Economy.Model
                 Checks(sb, lives, inp, sim, checkYear, ck);
             }
 
+            Money(sb, run, y0, checkYear);
             Thesis(sb, lives, inp, sim, traits, run, Math.Min(inp.InControlYear, y1));
             if (inp.Warnings.Count > 0)
             {
@@ -413,7 +417,8 @@ namespace Why.Economy.Model
                 .Append($"(data {LivesInputs.Rate(inp.SelfEmployment, year, 0).ToString("0.0", Inv)}%), debt/DPI {Pct(debtRatio)} ")
                 .Append($"(data {LivesInputs.Rate(inp.DebtToIncome, year, 0).ToString("0", Inv)}%), consumer debt/DPI {Pct(credit)} ")
                 .Append($"(consumer credit {LivesInputs.Rate(inp.ConsumerCreditToIncome, year, 0).ToString("0", Inv)}%), ")
-                .Append($"net worth {T(a.Wealth)}T (DFA {inp.DfaNetWorth().ToString("0", Inv)}T, 2026Q1), autonomy {Pct(a.AutonomyShare)} of adults ")
+                .Append($"net worth {T(a.Wealth)}T (DFA {inp.DfaNetWorth().ToString("0", Inv)}T, 2026Q1, incl. ~8T of cars and furniture the ")
+                .Append($"model does not hold), autonomy {Pct(a.AutonomyShare)} of adults ")
                 .Append($"(anchors: runway 3y+ {Pct(inp.Target("runway_3y", 0.268))} of families, business owners ")
                 .Append($"{Pct(inp.Target("business_owners", 0.13))}), saving 10%+ {Pct(a.SaverShare)} ({Pct(inp.Target("saving_10pct", 0.3))} of ")
                 .Append($"households), large uninsured losses {P1(a.LossShare)}% of households ({T(a.Losses)}T), debt discharged ")
@@ -434,7 +439,7 @@ namespace Why.Economy.Model
                     adults++;
                     if (r.Wealth * inp.Prices(2025, year) >= 1e6) millionaires++;
                     bool counted = !r.Married || !people[i].Male;
-                    if (counted && (r.Married || r.Age >= 25 || r.Kids > 0))
+                    if (counted && r.OwnHousehold)
                     {
                         int band = r.Age < 35 ? 0 : r.Age < 45 ? 1 : r.Age < 55 ? 2 : r.Age < 65 ? 3 : 4;
                         hh[band]++;
@@ -442,7 +447,8 @@ namespace Why.Economy.Model
                     }
                 }
 
-                if (lives.TryGet(i, nwYear, out PersonYear w) && w.Adult && (!w.Married || !people[i].Male))
+                // SCF families: a household's primary economic unit (singles sharing a home with family are part of it)
+                if (lives.TryGet(i, nwYear, out PersonYear w) && w.Adult && w.OwnHousehold && (!w.Married || !people[i].Male))
                 {
                     double household = w.Married ? 2 * w.Wealth : w.Wealth;
                     int band = w.Age < 35 ? 0 : w.Age < 45 ? 1 : w.Age < 55 ? 2 : w.Age < 65 ? 3 : w.Age < 75 ? 4 : 5;
@@ -459,7 +465,7 @@ namespace Why.Economy.Model
             }
 
             sb.Append($"; dollar millionaires {Pct(millionaires / Math.Max(1, adults))} of adults ({P1(inp.Target("millionaire_adults", 0.089))}%, UBS)\n");
-            sb.Append($"median household net worth by age {nwYear} $K (SCF 2022):");
+            sb.Append($"median household net worth by age {nwYear} $K (SCF 2022, which leaves out the DFA's $18T of DB pensions):");
             double[] nwAges = { 28, 39.5, 49.5, 59.5, 69.5, 80 };
             string[] nwBands = { "<35", "35-44", "45-54", "55-64", "65-74", "75+" };
             for (int k = 0; k < 6; k++)
@@ -471,6 +477,32 @@ namespace Why.Economy.Model
             }
 
             sb.Append('\n');
+        }
+
+        /// <summary>
+        /// The money check: everyone's net worth may change only by saving, holding gains, business closures, debt
+        /// discharged, balance sheets brought in and estates leaving the record; the largest unexplained yearly change
+        /// shows whether any money was made or lost elsewhere (0 up to rounding).
+        /// </summary>
+        static void Money(StringBuilder sb, LivesSimulation run, int y0, int year)
+        {
+            if (run.MoneyNetWorth == null || run.MoneyNetWorth.Length == 0) return;
+            double worst = 0;
+            int worstYear = y0;
+            for (int k = 1; k < run.MoneyNetWorth.Length; k++)
+            {
+                double r = Math.Abs(run.MoneyResidual(k));
+                if (r <= worst) continue;
+                worst = r;
+                worstYear = y0 + k;
+            }
+
+            int c = Math.Max(0, Math.Min(run.MoneyNetWorth.Length - 1, year - y0));
+            sb.Append($"money check: net worth moves only by saving, holding gains, closures, discharges, arrivals and estates; ")
+                .Append($"largest unexplained change ${worst.ToString("0.0", Inv)}B ({worstYear}); {y0 + c}: net worth ")
+                .Append($"{T(run.MoneyNetWorth[c])}T, saving {T(run.MoneySaving[c])}T, holding gains {T(run.MoneyGains[c])}T, ")
+                .Append($"business closures -{T(run.MoneyClosures[c])}T, debt discharged +{T(run.MoneyDischarged[c])}T, arrivals ")
+                .Append($"+{T(run.MoneyArrivals[c])}T, estates {T(run.MoneyEstates[c])}T\n");
         }
 
         /// <summary>

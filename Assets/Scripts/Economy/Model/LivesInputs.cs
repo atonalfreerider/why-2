@@ -39,30 +39,63 @@ namespace Why.Economy.Model
         // ---------------------------------------------------------------- income ratios to compensation (fallbacks)
 
         /// <summary>
-        /// Personal income components relative to employee compensation, for the years before the data's own year
-        /// (circuit.json "personal" gives 2025 exactly and replaces the last row): proprietors' income, capital income
-        /// (interest + dividends + rental income of persons), transfers received (government social benefits + from
-        /// business) and taxes paid (personal current taxes + contributions for social insurance). 1988-2024 are
-        /// circuit.json personalHistory (BEA NIPA 2.6), copied here because EconomyData does not expose that block;
-        /// 1950-1980 are BEA NIPA 2.1 / 1.10 values from circuit.json incomeHistory (proprietors, rental, dividends of
-        /// domestic industries) and recalled NIPA 2.1 lines (personal interest, transfers, taxes; about +-15%).
-        /// Columns: year, proprietors, capital, transfers, taxes.
+        /// Personal income components relative to employee compensation, every year (circuit.json "personal" gives the
+        /// circuit's year exactly and replaces its row): proprietors' income, capital income (interest + dividends +
+        /// rental income of persons), transfers received (government social benefits + from business) and taxes paid
+        /// (personal current taxes + contributions for social insurance). Columns: year, proprietors, capital, transfers,
+        /// taxes. Copied from circuit.json because EconomyData does not expose those blocks yet (replace the table with
+        /// CircuitFile.IncomeHistory / PersonalHistory once they are merged in):
+        /// <list type="bullet">
+        /// <item>1988-2025: personalHistory (BEA NIPA 2.6, every component), exact.</item>
+        /// <item>1950-1987: proprietors / compensation from incomeHistory (NIPA 1.10); transfers interpolated between
+        /// recalled NIPA 2.1 anchors (1950 .088, 1955 .070, 1960 .085, 1965 .092, 1970 .120, 1975 .180 after the 1972-74
+        /// benefit raises and the recession, 1980 .172, 1985 .177; about +-10%) and taxes between 1950 .170, 1960 .221,
+        /// 1970 .240, 1980 .287 (+-10%); capital is what makes disposable income equal personalHistory's DPI of the year
+        /// (DPI - compensation - proprietors - transfers + taxes), so disposable income, outlays and saving match NIPA
+        /// every year and the recall errors of the other two land in capital income (its 1951-53 dip mirrors the
+        /// Korean War tax rise that the tax anchors smooth over).</item>
+        /// </list>
         /// </summary>
         static readonly double[][] IncomeRatioRows =
         {
-            new[] { 1950, 0.2370, 0.1668, 0.088, 0.170 },
-            new[] { 1960, 0.1679, 0.1785, 0.085, 0.221 },
-            new[] { 1970, 0.1248, 0.1825, 0.120, 0.240 },
-            new[] { 1980, 0.1058, 0.2163, 0.172, 0.287 },
-            new[] { 1988, 0.1104, 0.2953, 0.1688, 0.2942 },
-            new[] { 1990, 0.1057, 0.3092, 0.1787, 0.3008 },
-            new[] { 2000, 0.1289, 0.2804, 0.1860, 0.3321 },
-            new[] { 2010, 0.1399, 0.2752, 0.2934, 0.2803 },
-            new[] { 2020, 0.1379, 0.3145, 0.3652, 0.3188 },
-            new[] { 2021, 0.1400, 0.3150, 0.3410, 0.3300 },
-            new[] { 2022, 0.1380, 0.3200, 0.2900, 0.3450 },
-            new[] { 2024, 0.1346, 0.3475, 0.3031, 0.3268 },
-            new[] { 2025, 0.1341, 0.3390, 0.3149, 0.3340 }
+            new[] { 1950, 0.2370, 0.2027, 0.0880, 0.1700 }, new[] { 1951, 0.2294, 0.1386, 0.0844, 0.1751 },
+            new[] { 1952, 0.2138, 0.1312, 0.0808, 0.1802 }, new[] { 1953, 0.1951, 0.1485, 0.0772, 0.1853 },
+            new[] { 1954, 0.1975, 0.1896, 0.0736, 0.1904 }, new[] { 1955, 0.1921, 0.1966, 0.0700, 0.1955 },
+            new[] { 1956, 0.1836, 0.1922, 0.0730, 0.2006 }, new[] { 1957, 0.1820, 0.2005, 0.0760, 0.2057 },
+            new[] { 1958, 0.1896, 0.2281, 0.0790, 0.2108 }, new[] { 1959, 0.1759, 0.2192, 0.0820, 0.2159 },
+            new[] { 1960, 0.1679, 0.2160, 0.0850, 0.2210 }, new[] { 1961, 0.1713, 0.2315, 0.0864, 0.2229 },
+            new[] { 1962, 0.1661, 0.2267, 0.0878, 0.2248 }, new[] { 1963, 0.1609, 0.2268, 0.0892, 0.2267 },
+            new[] { 1964, 0.1572, 0.2470, 0.0906, 0.2286 }, new[] { 1965, 0.1571, 0.2468, 0.0920, 0.2305 },
+            new[] { 1966, 0.1512, 0.2169, 0.0976, 0.2324 }, new[] { 1967, 0.1443, 0.2172, 0.1032, 0.2343 },
+            new[] { 1968, 0.1391, 0.2016, 0.1088, 0.2362 }, new[] { 1969, 0.1318, 0.1826, 0.1144, 0.2381 },
+            new[] { 1970, 0.1248, 0.2177, 0.1200, 0.2400 }, new[] { 1971, 0.1262, 0.2363, 0.1320, 0.2447 },
+            new[] { 1972, 0.1300, 0.2071, 0.1440, 0.2494 }, new[] { 1973, 0.1384, 0.2005, 0.1560, 0.2541 },
+            new[] { 1974, 0.1264, 0.2045, 0.1680, 0.2588 }, new[] { 1975, 0.1248, 0.2485, 0.1800, 0.2635 },
+            new[] { 1976, 0.1250, 0.2334, 0.1784, 0.2682 }, new[] { 1977, 0.1239, 0.2256, 0.1768, 0.2729 },
+            new[] { 1978, 0.1261, 0.2172, 0.1752, 0.2776 }, new[] { 1979, 0.1214, 0.2150, 0.1736, 0.2823 },
+            new[] { 1980, 0.1058, 0.2574, 0.1720, 0.2870 }, new[] { 1981, 0.1002, 0.2739, 0.1730, 0.2879 },
+            new[] { 1982, 0.0904, 0.3104, 0.1740, 0.2888 }, new[] { 1983, 0.0925, 0.3283, 0.1750, 0.2897 },
+            new[] { 1984, 0.1030, 0.3251, 0.1760, 0.2906 }, new[] { 1985, 0.1010, 0.3141, 0.1770, 0.2915 },
+            new[] { 1986, 0.1008, 0.3120, 0.1743, 0.2924 }, new[] { 1987, 0.1052, 0.2858, 0.1715, 0.2933 },
+            new[] { 1988, 0.1104, 0.2953, 0.1688, 0.2942 }, new[] { 1989, 0.1086, 0.3126, 0.1733, 0.3035 },
+            new[] { 1990, 0.1057, 0.3092, 0.1787, 0.3008 }, new[] { 1991, 0.1027, 0.3035, 0.1936, 0.2953 },
+            new[] { 1992, 0.1091, 0.2879, 0.2039, 0.2911 }, new[] { 1993, 0.1121, 0.2861, 0.2077, 0.2950 },
+            new[] { 1994, 0.1140, 0.2889, 0.2069, 0.2999 }, new[] { 1995, 0.1146, 0.2986, 0.2105, 0.3052 },
+            new[] { 1996, 0.1231, 0.3014, 0.2104, 0.3152 }, new[] { 1997, 0.1240, 0.3002, 0.2028, 0.3226 },
+            new[] { 1998, 0.1263, 0.2993, 0.1940, 0.3268 }, new[] { 1999, 0.1289, 0.2804, 0.1899, 0.3282 },
+            new[] { 2000, 0.1289, 0.2803, 0.1860, 0.3321 }, new[] { 2001, 0.1376, 0.2756, 0.1975, 0.3266 },
+            new[] { 2002, 0.1418, 0.2626, 0.2095, 0.2940 }, new[] { 2003, 0.1413, 0.2617, 0.2121, 0.2806 },
+            new[] { 2004, 0.1433, 0.2592, 0.2115, 0.2795 }, new[] { 2005, 0.1386, 0.2629, 0.2146, 0.2952 },
+            new[] { 2006, 0.1405, 0.2781, 0.2158, 0.3048 }, new[] { 2007, 0.1263, 0.2909, 0.2193, 0.3115 },
+            new[] { 2008, 0.1192, 0.3031, 0.2427, 0.3098 }, new[] { 2009, 0.1209, 0.2817, 0.2767, 0.2728 },
+            new[] { 2010, 0.1399, 0.2752, 0.2934, 0.2803 }, new[] { 2011, 0.1493, 0.2933, 0.2867, 0.2882 },
+            new[] { 2012, 0.1517, 0.3079, 0.2758, 0.2871 }, new[] { 2013, 0.1530, 0.2900, 0.2744, 0.3149 },
+            new[] { 2014, 0.1481, 0.3001, 0.2748, 0.3178 }, new[] { 2015, 0.1389, 0.3037, 0.2769, 0.3243 },
+            new[] { 2016, 0.1354, 0.3044, 0.2786, 0.3208 }, new[] { 2017, 0.1370, 0.3121, 0.2739, 0.3211 },
+            new[] { 2018, 0.1365, 0.3159, 0.2716, 0.3136 }, new[] { 2019, 0.1359, 0.3179, 0.2749, 0.3166 },
+            new[] { 2020, 0.1379, 0.3146, 0.3652, 0.3188 }, new[] { 2021, 0.1448, 0.3202, 0.3711, 0.3390 },
+            new[] { 2022, 0.1390, 0.3277, 0.3079, 0.3680 }, new[] { 2023, 0.1367, 0.3505, 0.2996, 0.3263 },
+            new[] { 2024, 0.1346, 0.3476, 0.3031, 0.3268 }, new[] { 2025, 0.1341, 0.3390, 0.3149, 0.3340 }
         };
 
         /// <summary>
@@ -106,7 +139,7 @@ namespace Why.Economy.Model
         public readonly YearSeries Cpi, Gdp, Population, LaborShare, Awi, EarnMale, EarnFemale, ProfileMale, ProfileFemale;
         public readonly YearSeries LfprMale, LfprFemale, Unemployment, EmpPrimeMale, EmpPrimeFemale, SelfEmployment;
         public readonly YearSeries SsAverage, SsReplacement, CardApr, Mortgage30, Treasury10, EquityReturn, HousePrice, MedianHomePrice;
-        public readonly YearSeries Homeownership, HomeownershipByAge, PovertyLine, MedianHouseholdIncome, SavingRate;
+        public readonly YearSeries Homeownership, HomeownershipByAge, PovertyLine, MedianHouseholdIncome, SavingRate, Households;
         public readonly YearSeries TaxRate, TransferShare, SavingByPercentile, NetWorthByAge;
         public readonly YearSeries Top1Wealth, Top10Wealth, Bottom50Wealth, Top1WealthWid, Top10WealthWid, Bottom50WealthWid;
         public readonly YearSeries DebtToIncome, ConsumerCreditToIncome, Top1Income;
@@ -248,6 +281,7 @@ namespace Why.Economy.Model
             HousePrice = Series("housePriceIndex");
             MedianHomePrice = Series("medianHomePrice");
             Homeownership = Series("homeownership");
+            Households = Series("households");
             HomeownershipByAge = Series("homeownershipByAge");
             PovertyLine = Series("povertyLineFamily4");
             MedianHouseholdIncome = Series("medianHouseholdIncome");

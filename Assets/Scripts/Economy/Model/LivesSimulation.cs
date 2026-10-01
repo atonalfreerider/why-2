@@ -21,6 +21,9 @@ namespace Why.Economy.Model
 
         public double EmploymentScaleMale = 1, EmploymentScaleFemale = 1, SelfEmploymentOffset, HomeOffset;
 
+        /// <summary>Per sex: the factor that puts the median earner at the year's median earnings.</summary>
+        public double EarningsMale = 1, EarningsFemale = 1;
+
         /// <summary>Common shift of the reason logits that keeps the adults' mean at os.higher.share.</summary>
         public double ReasonShift;
 
@@ -32,31 +35,35 @@ namespace Why.Economy.Model
 
     /// <summary>
     /// Pass B of the economic lives: the year-major simulation from the first to the last year with data. Each year
-    /// (evaluated at mid-year): deaths pass their estates on (spouse first, else living children equally), marriages
-    /// pool households (the wife's index heads a couple), then
+    /// (evaluated at mid-year): deaths pass their estates on (spouse first, else living children equally, else
+    /// grandchildren, parents or siblings), marriages pool households (the wife's index heads a couple), as many
+    /// households as the census counts have a home of their own, then
     /// <list type="number">
     /// <item>individual income: employment (a persistent latent against the era's employment rate by sex and age),
     /// self-employment (a propensity against the era's rate), the industry worked in (sticky, tilted by earnings
-    /// rank toward well-paid industries), earnings (the era's median by sex x the age profile x the person's rank on a
-    /// lognormal with a Pareto top tail), capital income on financial wealth and homes, Social Security from the
-    /// career's indexed earnings with spouse and survivor benefits;</item>
+    /// rank toward well-paid industries), earnings (the age profile x the person's rank on a lognormal with a Pareto
+    /// top tail, scaled so each sex's median earner earns the era's median), capital income on financial wealth and
+    /// homes, Social Security from the career's indexed earnings with spouse and survivor benefits;</item>
     /// <item>households: transfers (Medicare to 65+, means-tested support by income percentile), taxes by income
     /// percentile, disposable income;</item>
     /// <item>saving rate (by income percentile + traits + life stage + children, shifted so the aggregate matches the
-    /// year's personal saving rate), spending, and its split into the six categories (the income quintile's shares x
-    /// personality, drive and life-stage tilts, scaled so the population's shares match the year's data);</item>
+    /// year's personal saving rate, large uninsured bills included), spending, and its split into the six categories
+    /// (the income quintile's shares x personality, drive and life-stage tilts, scaled so the population's shares
+    /// match the year's data);</item>
     /// <item>the state of mind: fear share and fantasy share of spending, reason (propensity + maturity - stress,
     /// centered on os.higher.share), future orientation and agency (psyche.json agency rule);</item>
     /// <item>the balance sheet: mortgage principal, consumer debt, financial assets with returns (richer households
-    /// hold more stocks), large uninsured losses (jeopardy realized) and debt discharge, homes (bought by renters at a
-    /// pace that keeps the era's homeownership rate), business equity of the self-employed.</item>
+    /// hold more stocks), debt discharge, homes (bought by renters at a pace that keeps the era's homeownership rate),
+    /// business equity of the self-employed.</item>
     /// </list>
+    /// Money is conserved: net worth changes only by saving, holding gains, business closures, debt discharged,
+    /// balance sheets brought into the record and estates leaving it (the yearly money check).
     /// After the years, a parallel pass per year builds what nothing later depends on: tribes, cooperation (the
     /// person's strategy against the year's partners), wealth groups, children's household fields and the totals.
     /// Every income total is scaled to the year's data (compensation = labor share x GDP; other components by their
-    /// ratio to compensation, exact in the circuit's year). Random draws come from each person's own stream, a fixed
-    /// number per adult-year; parallel loops only write their own person or household, and every sum is taken in a
-    /// fixed order, so results do not depend on threads.
+    /// yearly ratio to compensation, which makes disposable income NIPA's, exact in the circuit's year). Random draws
+    /// come from each person's own stream, a fixed number per adult-year; parallel loops only write their own person or
+    /// household, and every sum is taken in a fixed order, so results do not depend on threads.
     /// </summary>
     internal sealed class LivesSimulation
     {
@@ -94,23 +101,33 @@ namespace Why.Economy.Model
         const double IndustryPaySteer = 0.8;
 
         /// <summary>
-        /// Within-age dispersion of log earnings (CPS all workers incl. part time: lognormal sd ~0.85 overall, of which
-        /// age explains a part); the yearly transitory part (DESIGN 0.12); above the 99th rank a Pareto tail with
-        /// index <see cref="TailAlpha"/> (top wage earners, missing in survey medians).
+        /// Dispersion of log earnings by rank (CPS all workers incl. part time: lognormal sd ~0.85); the yearly
+        /// transitory part (DESIGN 0.12); above the 99th rank a Pareto tail with index <see cref="TailAlpha"/> (top
+        /// earners, missing in survey medians). With the medians matched to the data, these give earners a mean of
+        /// 1.6-1.7 times the median (wages + proprietors' income per worker with earnings over the CPS median, ~1.6 in
+        /// 2025) and the top 1% of earners 11-15% of earnings (Piketty-Saez-Zucman wage income ~10-12% recently, less
+        /// before 1980: the shape is held fixed). A sd of 0.72 with an index of 1.6 gave 1.43 and 6-12%: the national
+        /// total then lifted every earner, the median ones ~18% above the data, and left too little at the top.
         /// </summary>
-        const double EarningsSigma = 0.72, EarningsNoise = 0.12, TailRank = 0.99, TailAlpha = 1.6;
+        const double EarningsSigma = 0.85, EarningsNoise = 0.12, TailRank = 0.99, TailAlpha = 1.4;
 
         /// <summary>The age profiles are relative to the peak; the all-ages median sits at 0.79 (men) / 0.82 (women) of
         /// it (history.json ageEarnings notes).</summary>
         const double ProfileMedianMale = 0.79, ProfileMedianFemale = 0.82;
 
-        /// <summary>Self-employment: persistence (logit; spells last years) and the pull of earnings rank (owners are
-        /// concentrated at the top, SCF).</summary>
-        const double SelfEmploymentPersistence = 2.5, SelfEmploymentRank = 0.4;
+        /// <summary>Self-employment: persistence (logit; spells last years: 25-30% of the self-employed stop in a year,
+        /// in line with CPS year-to-year exit rates of ~20-30%; 2.5 made half of them stop every year) and the pull of
+        /// earnings rank (owners are concentrated at the top, SCF).</summary>
+        const double SelfEmploymentPersistence = 4.5, SelfEmploymentRank = 0.4;
 
-        /// <summary>Private business equity valued at this multiple of business income (judgment; a small business
-        /// sells for ~2-4x its earnings).</summary>
-        const double BusinessMultiple = 3;
+        /// <summary>
+        /// Private business equity: a going concern is worth this multiple of its income (DFA 2025: private business
+        /// equity $16.0T against $2.1T of proprietors' income, ~7.6) and grows into that value at this rate a year; when
+        /// nobody in the household runs it any more it closes or is sold for <see cref="BusinessExit"/> of it (most small
+        /// businesses close; the ones sold fetch ~2-4x earnings, so ~0.3 x 7 on average; judgment). The value created
+        /// while it runs is a holding gain, like a stock's; only the exit share becomes money.
+        /// </summary>
+        const double BusinessMultiple = 7, BusinessGrowth = 0.3, BusinessExit = 0.3;
 
         /// <summary>Imputed and actual net rent per dollar of home value (NIPA rental income of persons ~$1.1T on ~$48T of
         /// household real estate, 2025); scaled with the rest of capital income to the year's total.</summary>
@@ -130,8 +147,12 @@ namespace Why.Economy.Model
         /// credit lines ~a fifth of income, home-equity lines).</summary>
         const double DebtLimitIncome = 0.2, DebtLimitEquity = 0.3;
 
-        /// <summary>Minimum principal repaid on consumer debt per year (credit cards ~1-3% a month; judgment, yearly).</summary>
-        const double CardPrincipal = 0.03;
+        /// <summary>
+        /// Principal due on consumer debt per year, in the debt-service measure: installment loans of 5-10 years and card
+        /// minimums of 1-3% a month, ~15% of the balance a year (the Fed's consumer debt service ratio, ~5.5% of DPI on
+        /// credit of ~22% of DPI, implies ~25% a year with interest; judgment).
+        /// </summary>
+        const double CardPrincipal = 0.15;
 
         /// <summary>Homeowners from this age sell (moving to care, to family) at this yearly rate (judgment).</summary>
         const double SaleAge = 80, SaleRate = 0.04;
@@ -139,6 +160,14 @@ namespace Why.Economy.Model
         /// <summary>Singles below this age without children are counted as living with family: no household of their own
         /// for housing, and no dissaving or borrowing (the family covers the gap; Census: most 18-24s live with parents).</summary>
         const double OwnHouseholdAge = 25;
+
+        /// <summary>
+        /// Who among the singles keeps a home of their own: a lasting personal draw (sd 1) plus this much per year of age
+        /// up to <see cref="AloneAgeTop"/> and per sd of earnings rank (living alone rises with age and means:
+        /// one-person households are 29% of households, most of them past 50; young singles share with partners,
+        /// roommates and parents; the very old who sold their home move in with family or into care; judgment).
+        /// </summary>
+        const double AloneAge = 0.04, AloneAgeTop = 65, AloneRank = 0.3;
 
         /// <summary>Bounds of a household's saving rate (of disposable income; judgment).</summary>
         const double SavingRateMin = -0.8, SavingRateMax = 0.85;
@@ -187,13 +216,17 @@ namespace Why.Economy.Model
         const double InitialWealthOffset = 0.35;
 
         /// <summary>
-        /// Jeopardy realized: each household-year a large uninsured loss (an illness, a lawsuit, a job lost with its
-        /// savings, a fraud) strikes with this chance and costs a uniform 0.25-1.5 years of disposable income, paid from
-        /// financial assets, then borrowed (judgment; ~4 in 10 adults faced a major unexpected expense in a year and
-        /// ~1 in 5 households carry medical debt, SHED / Census SIPP, recalled). A capital loss, not spending: it moves
-        /// wealth, not the saving rate.
+        /// Jeopardy realized: each household-year a large uninsured bill (an illness, a lawsuit, a repair, a fraud)
+        /// strikes with this chance and costs a uniform 0.25-1.5 years of disposable income, paid from financial assets,
+        /// then borrowed (judgment; ~4 in 10 adults faced a major unexpected expense in a year and ~1 in 5 households
+        /// carry medical debt, SHED / Census SIPP, recalled). An outlay within jeopardy, inside the year's saving
+        /// calibration: it moves money from the unlucky to the industries, and the aggregate saving rate stays the
+        /// data's.
         /// </summary>
         const double ShockRate = 0.04, ShockMin = 0.25, ShockMax = 1.5;
+
+        /// <summary>Index of jeopardy among the spending categories (EconomyData.CategoryIds).</summary>
+        const int JeopardyIndex = 2;
 
         /// <summary>Consumer debt above this many years of disposable income is discharged down to
         /// <see cref="DefaultKeep"/> of it (bankruptcy, charge-off; ~0.5-1% of households a year, recalled).</summary>
@@ -226,6 +259,20 @@ namespace Why.Economy.Model
         /// <summary>Estates that found no heir ($B, nominal, summed over the years).</summary>
         public double UnclaimedEstates;
 
+        /// <summary>
+        /// The money check of each year ($B, nominal): the net worth of everyone alive at the year's end, and the flows
+        /// that may move it: saving, holding gains (stock prices, home prices, businesses growing into their value),
+        /// businesses closed below that value, consumer debt discharged, balance sheets brought into the record
+        /// (1946's households, immigrants) and estates leaving it (no heir: lost; a negative estate: forgiven). Anything
+        /// else that changed net worth is a leak (<see cref="MoneyResidual"/>).
+        /// </summary>
+        public double[] MoneyNetWorth, MoneySaving, MoneyGains, MoneyClosures, MoneyDischarged, MoneyArrivals, MoneyEstates;
+
+        /// <summary>Per year: the change of net worth that the flows do not explain ($B; 0 up to rounding).</summary>
+        public double MoneyResidual(int k) => k <= 0 || MoneyNetWorth == null ? 0
+            : MoneyNetWorth[k] - MoneyNetWorth[k - 1] - (MoneySaving[k] + MoneyGains[k] - MoneyClosures[k] + MoneyDischarged[k] +
+                                                       MoneyArrivals[k] + MoneyEstates[k]);
+
         // ---------------------------------------------------------------- per person, fixed (from the traits)
 
         readonly double[] zRank;
@@ -247,6 +294,7 @@ namespace Why.Economy.Model
         readonly int[] spouse, prevSpouse, head;
         readonly short[] industry;
         readonly byte[] mortAge;
+        readonly float[] aloneZ;
         readonly float[] empLatent, career, ssRel, survivorRel, save1, save2, prevDebtService, prevBuffer, ownReason;
 
         // per person, this year
@@ -258,7 +306,7 @@ namespace Why.Economy.Model
         readonly double[] hhMarket, hhSs, hhMed, hhOther, hhTax, hhYd, hhSaving, hhSpending, hhPct, hhS0, hhInterest;
         readonly double[] hhRaw, hhShare, hhFloor;
         readonly bool[] housing, dependent;
-        readonly double[] buyScore, buyPrice, shocks;
+        readonly double[] buyScore, buyPrice, shocks, gainH, dischargedH;
         readonly bool[] defaults;
 
         // ---------------------------------------------------------------- tables and year scratch
@@ -271,6 +319,7 @@ namespace Why.Economy.Model
         readonly double[] baseAlign = new double[LivesInputs.Spend];
         readonly List<int> aliveList = new List<int>(), adultList = new List<int>(), headList = new List<int>();
         readonly List<double> shapesMale = new List<double>(), shapesFemale = new List<double>();
+        readonly List<int> heirs = new List<int>();
         int[] spouseOf, headOf, peopleCount;
 
         /// <summary>The people alive in each year, ascending (from <c>yearStart[y - y0]</c>), and those whose last year was
@@ -323,6 +372,7 @@ namespace Why.Economy.Model
             industry = new short[n];
             mortAge = new byte[n];
             empLatent = new float[n];
+            aloneZ = new float[n];
             career = new float[n];
             ssRel = new float[n];
             survivorRel = new float[n];
@@ -363,6 +413,8 @@ namespace Why.Economy.Model
             buyScore = new double[n];
             buyPrice = new double[n];
             shocks = new double[n];
+            gainH = new double[n];
+            dischargedH = new double[n];
             defaults = new bool[n];
             InheritedReal = new float[n];
             int industries = Math.Max(1, inp.IndustryCount);
@@ -385,6 +437,7 @@ namespace Why.Economy.Model
                 ssRel[i] = -1;
                 save1[i] = save2[i] = float.NaN;
                 rng[i] = new Random(LivesMath.SeedOf(seed, i, 1));
+                aloneZ[i] = (float)LivesMath.Normal(new Random(LivesMath.SeedOf(seed, i, 4)));
                 PrepareTraits(i);
             }
 
@@ -533,6 +586,13 @@ namespace Why.Economy.Model
             int years = y1 - y0 + 1;
             Years = new PopulationYear[years];
             Calibration = new YearCalibration[years];
+            MoneyNetWorth = new double[years];
+            MoneySaving = new double[years];
+            MoneyGains = new double[years];
+            MoneyClosures = new double[years];
+            MoneyDischarged = new double[years];
+            MoneyArrivals = new double[years];
+            MoneyEstates = new double[years];
             System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
             for (int y = y0; y <= y1; y++)
             {
@@ -709,20 +769,18 @@ namespace Why.Economy.Model
                 if (!adult[i] && head[i] >= 0 && adult[head[i]]) kids[head[i]]++;
             }
 
-            for (int k = 0; k < headCount; k++)
-            {
-                int h = heads[k];
-                housing[h] = spouse[h] >= 0 || age[h] >= OwnHouseholdAge || kids[h] > 0;
-                dependent[h] = !housing[h];
-            }
+            OwnHouseholds(y);
 
             // first appearance as an adult: the balance sheet the person arrives with, and the household's home
             for (int k = 0; k < headCount; k++)
             {
                 int h = heads[k], sp = spouse[h];
+                if (initialized[h] && (sp < 0 || initialized[sp])) continue;
+                double before = NetWorth(h) + (sp >= 0 ? NetWorth(sp) : 0);
                 bool brought = !initialized[h] && Arrive(h, y);
                 if (sp >= 0 && !initialized[sp]) brought |= Arrive(sp, y);
                 if (brought) ArriveHome(h, y);
+                MoneyArrivals[y - y0] += (NetWorth(h) + (sp >= 0 ? NetWorth(sp) : 0) - before) * ppl / 1e9;
             }
 
             // industries: the year's employment shares, and a steer toward them for new hires
@@ -747,6 +805,43 @@ namespace Why.Economy.Model
             }
         }
 
+        /// <summary>
+        /// Which households have a home of their own (the unit of homeownership): couples, single parents and single
+        /// homeowners always; of the other singles from <see cref="OwnHouseholdAge"/>, as many as make the year's number
+        /// of households (history.json households), those with the strongest pull to live alone first (age, means and
+        /// a lasting personal draw); the rest share a home (a partner, roommates, family). Without this every single
+        /// adult would be a household: ~30% more households than the census counts, and as many too many homes.
+        /// Singles under 25 without children live with family (dependents: no dissaving or borrowing).
+        /// </summary>
+        void OwnHouseholds(int y)
+        {
+            int housed = 0, candidates = 0;
+            EnsureSort(headCount);
+            for (int k = 0; k < headCount; k++)
+            {
+                int h = heads[k];
+                bool single = spouse[h] < 0 && kids[h] == 0;
+                bool owner = house[h] > 0;
+                dependent[h] = single && !owner && age[h] < OwnHouseholdAge;
+                housing[h] = !single || owner;
+                if (housing[h])
+                {
+                    housed++;
+                }
+                else if (!dependent[h])
+                {
+                    sortBuffer[candidates] = h;
+                    double pull = aloneZ[h] + AloneAge * (Math.Min(age[h], AloneAgeTop) - 45) + AloneRank * zRank[h];
+                    sortKeys[candidates++] = -pull + h * 1e-9;
+                }
+            }
+
+            double households = inp.Households.IsEmpty ? 0 : inp.Households.At(y) * 1e6 / ppl;
+            int want = households > 0 ? Math.Min(candidates, Math.Max(0, (int)Math.Round(households) - housed)) : candidates;
+            if (want < candidates) Array.Sort(sortKeys, sortBuffer, 0, candidates);
+            for (int k = 0; k < want; k++) housing[sortBuffer[k]] = true;
+        }
+
         void EnsureSort(int count)
         {
             if (sortBuffer.Length >= count) return;
@@ -757,8 +852,9 @@ namespace Why.Economy.Model
         /// <summary>
         /// A person's first year as an adult: someone already adult when the record starts (1946) or arriving as an
         /// adult immigrant brings a balance sheet (SCF 2022 median net worth by age, moved to the year with the wage
-        /// index and the lower wealth-to-income ratio of the era, spread by rank; immigrants bring a quarter) and a
-        /// career record for Social Security. Those growing up in the model start with what they inherited.
+        /// index and the lower wealth-to-income ratio of the era, spread by rank; immigrants bring a quarter) and, for
+        /// those adult in 1946, a career record for Social Security. Those growing up in the model start with what they
+        /// inherited.
         /// </summary>
         bool Arrive(int i, int y)
         {
@@ -775,7 +871,9 @@ namespace Why.Economy.Model
             double awi = inp.WageIndex(y), awi22 = inp.WageIndex(2022);
             double median = MedianEarnings(p.Male, y);
             double employ = p.Male ? 0.85 : 0.4;
-            double working = LivesMath.Clamp(a - 22, 0, 40);
+            // the record of covered earnings: a career before 1946 for those already adult then; none for immigrants
+            // (Social Security counts US earnings only, so those who arrive late get little or none of it)
+            double working = y == y0 ? LivesMath.Clamp(a - 22, 0, 40) : 0;
             career[i] = (float)(working * 0.85 * (median > 0 && awi > 0 ? median / awi : 1) * Math.Exp(EarningsSigma * zr) * employ);
 
             // net worth: the SCF median at this age (2022 dollars), the era's level, the person's place; all financial
@@ -808,11 +906,29 @@ namespace Why.Economy.Model
             if (y > y0) ownRate *= ImmigrantOwnership;
             if (!housing[h] || r.NextDouble() >= ownRate) return;
 
+            // a household that already has a home keeps it (an arriving spouse moves in)
+            if (house[h] > 0 || (sp >= 0 && house[sp] > 0)) return;
+
             double income = Math.Exp(0.4 * zRank[h]) * MedianEarnings(people[h].Male, y) * (sp >= 0 ? 1.6 : 1.0);
             double price = HomePrice(y, income);
             double loan = price * LivesMath.Clamp(0.75 - 0.025 * (a - 30), 0, 0.75);
             double assets = fin[h] + (sp >= 0 ? fin[sp] : 0);
-            double f = Math.Max(0.02 * price, assets - (price - loan));
+            double f;
+            if (y > y0)
+            {
+                // immigrants pay the equity from what they bring (keeping 2% of the price) and borrow the rest; with
+                // less than the minimum down payment they rent
+                double equity = Math.Min(price - loan, assets - 0.02 * price);
+                if (equity < MinDownPayment * price) return;
+                loan = price - equity;
+                f = assets - equity;
+            }
+            else
+            {
+                // the record's opening balance sheets (1946): the home comes with the household's place
+                f = Math.Max(0.02 * price, assets - (price - loan));
+            }
+
             Split(h, sp, f, price, loan, debt[h] + (sp >= 0 ? debt[sp] : 0), biz[h] + (sp >= 0 ? biz[sp] : 0),
                 (byte)LivesMath.Clamp(a - 30, 0, MortgageTerm));
         }
@@ -836,7 +952,12 @@ namespace Why.Economy.Model
             return 0.85 * medianPrice * LivesMath.Clamp(Math.Pow(rel, 0.7), 0.35, 6);
         }
 
-        /// <summary>A death: the estate goes to the surviving spouse, else to the living children equally, else nobody.</summary>
+        /// <summary>
+        /// A death: the estate goes to the surviving spouse; else equally to the living children; else, in the order of
+        /// intestacy, to the living grandchildren, the living parents or the living siblings; else to nobody in the
+        /// record (charity, relatives outside it: counted in <see cref="UnclaimedEstates"/>). A negative estate dies
+        /// with its owner (the creditors' loss).
+        /// </summary>
         void Bequeath(int i, int y)
         {
             int sp = prevSpouse[i];
@@ -854,31 +975,67 @@ namespace Why.Economy.Model
             }
             else if (estate > 0)
             {
-                int heirs = 0;
-                foreach (int c in children[i])
+                heirs.Clear();
+                foreach (int c in children[i]) AddHeir(c);
+                bool fromParent = heirs.Count > 0;
+                if (heirs.Count == 0)
                 {
-                    if (alive[c]) heirs++;
-                }
-
-                if (heirs > 0)
-                {
-                    double part = estate / heirs, real = part * inp.Prices(2025, y);
                     foreach (int c in children[i])
                     {
-                        if (!alive[c]) continue;
+                        foreach (int g in children[c]) AddHeir(g);
+                    }
+                }
+
+                SmvPerson p = people[i];
+                if (heirs.Count == 0)
+                {
+                    AddHeir(p.Mother);
+                    AddHeir(p.Father);
+                }
+
+                if (heirs.Count == 0)
+                {
+                    if (p.Mother >= 0 && p.Mother < n)
+                    {
+                        foreach (int c in children[p.Mother]) AddHeir(c);
+                    }
+
+                    if (p.Father >= 0 && p.Father < n)
+                    {
+                        foreach (int c in children[p.Father]) AddHeir(c);
+                    }
+                }
+
+                if (heirs.Count > 0)
+                {
+                    double part = estate / heirs.Count, real = part * inp.Prices(2025, y);
+                    foreach (int c in heirs)
+                    {
                         fin[c] += part;
                         inheritedNow[c] += part;
-                        InheritedReal[c] += (float)real;
+                        if (fromParent) InheritedReal[c] += (float)real;
                     }
                 }
                 else
                 {
                     UnclaimedEstates += estate * ppl / 1e9;
+                    MoneyEstates[y - y0] -= estate * ppl / 1e9;
                 }
+            }
+            else
+            {
+                MoneyEstates[y - y0] -= estate * ppl / 1e9;   // debts that die with their owner
             }
 
             fin[i] = house[i] = mort[i] = debt[i] = biz[i] = 0;
+
+            void AddHeir(int c)
+            {
+                if (c >= 0 && c < n && c != i && alive[c] && !heirs.Contains(c)) heirs.Add(c);
+            }
         }
+
+        double NetWorth(int i) => fin[i] + house[i] - mort[i] - debt[i] + biz[i];
 
         void SellHome(int i)
         {
@@ -906,6 +1063,12 @@ namespace Why.Economy.Model
             coverage = inp.SocialSecurityCoverage(y);
             Parallel.For(0, adultList.Count, k => Individual(adultList[k], cal));
 
+            // earnings: the median earner of each sex earns the year's median. The rank's lognormal is centered on the
+            // whole cohort, but employment favors the higher ranks (most where few women worked), so the earners'
+            // median and the female/male ratio would otherwise run high (1950: women 0.66 of men instead of 0.52)
+            cal.EarningsMale = MedianScale(true, y);
+            cal.EarningsFemale = MedianScale(false, y);
+
             // reason: the adults' mean is the population's share of decisions by the higher OS every year
             // (psyche.json os.higher.share; Newton steps on a common shift of the logits, from last year's)
             double shift = previous?.ReasonShift ?? 0;
@@ -929,12 +1092,17 @@ namespace Why.Economy.Model
             foreach (int i in adultList)
             {
                 selfEmployed[i] = employed[i] && draws[i * Draws + 5] < LivesMath.Sigmoid(cal.SelfEmploymentOffset + seScore[i]);
-                if (!selfEmployed[i] && biz[i] > 0)
-                {
-                    // the business is sold
-                    fin[i] += biz[i];
-                    biz[i] = 0;
-                }
+            }
+
+            // a business nobody in the household runs any more closes or is sold: it fetches a share of its going-concern
+            // value (a couple holds it half each, so it ends only when neither spouse runs it)
+            foreach (int i in adultList)
+            {
+                int sp = spouse[i];
+                if (selfEmployed[i] || (sp >= 0 && selfEmployed[sp]) || biz[i] <= 0) continue;
+                fin[i] += BusinessExit * biz[i];
+                MoneyClosures[y - y0] += (1 - BusinessExit) * biz[i] * ppl / 1e9;
+                biz[i] = 0;
             }
         }
 
@@ -1000,6 +1168,35 @@ namespace Why.Economy.Model
             bool jobless = !employed[i] && a < 62 && a >= 22;
             double stress = StressDebt * prevDebtService[i] + (jobless ? StressJobless : 0) + StressBuffer * prevBuffer[i];
             reasonLogit[i] = sampler.ReasonLogit[i] + sampler.ReasonOffset + TraitSampler.Maturity(a) - stress;
+        }
+
+        /// <summary>
+        /// Scales the raw earnings of one sex so the median of those with earnings (employees and the self-employed)
+        /// is the year's median of all workers with earnings (history.json earningsMedianMale / earningsMedianFemale);
+        /// the year's totals are scaled to the national accounts afterwards, which keeps the ratio of the medians.
+        /// Returns the factor (1 when the series or the earners are missing).
+        /// </summary>
+        double MedianScale(bool male, int y)
+        {
+            double want = inp.Dollars(male ? inp.EarnMale : inp.EarnFemale, y);
+            EnsureSort(adultList.Count);
+            int count = 0;
+            foreach (int i in adultList)
+            {
+                if (people[i].Male == male && rawEarn[i] > 0) sortKeys[count++] = rawEarn[i];
+            }
+
+            if (want <= 0 || count == 0) return 1;
+            Array.Sort(sortKeys, 0, count);
+            double median = count % 2 == 1 ? sortKeys[count / 2] : 0.5 * (sortKeys[count / 2 - 1] + sortKeys[count / 2]);
+            if (median <= 0) return 1;
+            double scale = want / median;
+            foreach (int i in adultList)
+            {
+                if (people[i].Male == male) rawEarn[i] *= scale;
+            }
+
+            return scale;
         }
 
         /// <summary>
@@ -1308,6 +1505,17 @@ namespace Why.Economy.Model
                 return scratch;
             }, scratch => { });
 
+            // jeopardy realized: a large uninsured bill strikes some households. It is an outlay within jeopardy (NIPA
+            // counts the care, the lawyers and the repairs it buys in PCE), paid from savings or borrowed beyond the
+            // household's limit, and the year's saving calibration includes it: the money reaches the industries
+            // instead of vanishing from the household sector (as a capital loss it took ~3% of DPI a year, more than
+            // half of personal saving, and drained net worth)
+            for (int k = 0; k < headCount; k++)
+            {
+                int h = heads[k], o = h * Draws;
+                shocks[h] = draws[o + 8] < ShockRate ? (ShockMin + (ShockMax - ShockMin) * draws[o + 9]) * Math.Max(hhYd[h], 1) : 0;
+            }
+
             // the year's saving rate: one shift for everyone (Newton steps on the piecewise-linear total, from last
             // year's shift; borrowing limits and the rate's bounds flatten it)
             double target = LivesInputs.Rate(inp.SavingRate, y, 7) / 100;
@@ -1330,7 +1538,7 @@ namespace Why.Economy.Model
                         bound = true;
                     }
 
-                    total += saving;
+                    total += saving - shocks[h];
                     if (!bound) d += yd;
                 }
 
@@ -1344,12 +1552,12 @@ namespace Why.Economy.Model
             {
                 int h = heads[k];
                 double rate = LivesMath.Clamp(hhS0[h] + shift, SavingRateMin, SavingRateMax);
-                hhSaving[h] = Math.Max(hhYd[h] * rate, hhFloor[h]);
+                hhSaving[h] = Math.Max(hhYd[h] * rate, hhFloor[h]) - shocks[h];
                 hhSpending[h] = Math.Max(0, hhYd[h] - hhSaving[h]);
             }
 
             // spending shares: income's base x tilts, then one factor per category for the year's data (iterative
-            // proportional fitting from last year's factors)
+            // proportional fitting from last year's factors); a shock's bill is jeopardy on top of the household's mix
             Parallel.For(0, headCount, () => new Scratch(), (k, state, scratch) =>
             {
                 CategoryTilts(heads[k], scratch);
@@ -1362,7 +1570,7 @@ namespace Why.Economy.Model
             for (int iter = 0; iter < 12; iter++)
             {
                 Array.Clear(mean, 0, LivesInputs.Spend);
-                double total = 0;
+                double total = 0, fixedJeopardy = 0;
                 for (int k = 0; k < headCount; k++)
                 {
                     int h = heads[k];
@@ -1372,19 +1580,25 @@ namespace Why.Economy.Model
                     double sum = 0;
                     for (int j = 0; j < LivesInputs.Spend; j++) sum += factor[j] * hhRaw[o + j];
                     if (sum <= 0) continue;
-                    double w = spend / sum;
+                    double regular = Math.Max(0, spend - shocks[h]), w = regular / sum;
                     for (int j = 0; j < LivesInputs.Spend; j++) mean[j] += w * factor[j] * hhRaw[o + j];
+                    mean[JeopardyIndex] += spend - regular;
+                    fixedJeopardy += spend - regular;
                     total += spend;
                 }
 
                 if (total <= 0) break;
                 double err = 0;
+                fixedJeopardy /= total;
                 for (int j = 0; j < LivesInputs.Spend; j++)
                 {
                     mean[j] /= total;
                     if (mean[j] <= 0 || categoryTarget[j] <= 0) continue;
-                    factor[j] *= categoryTarget[j] / mean[j];
                     err = Math.Max(err, Math.Abs(mean[j] - categoryTarget[j]));
+                    double fix = j == JeopardyIndex ? fixedJeopardy : 0;
+                    factor[j] *= mean[j] - fix > 1e-9 && categoryTarget[j] > fix
+                        ? (categoryTarget[j] - fix) / (mean[j] - fix)
+                        : categoryTarget[j] / mean[j];
                 }
 
                 if (err < 2e-4) break;
@@ -1393,9 +1607,17 @@ namespace Why.Economy.Model
             for (int k = 0; k < headCount; k++)
             {
                 int h = heads[k], o = h * LivesInputs.Spend;
-                double sum = 0;
+                double sum = 0, spend = hhSpending[h];
                 for (int j = 0; j < LivesInputs.Spend; j++) sum += factor[j] * hhRaw[o + j];
-                for (int j = 0; j < LivesInputs.Spend; j++) hhShare[o + j] = sum > 0 ? factor[j] * hhRaw[o + j] / sum : 1.0 / LivesInputs.Spend;
+                if (sum <= 0 || spend <= 0)
+                {
+                    for (int j = 0; j < LivesInputs.Spend; j++) hhShare[o + j] = 1.0 / LivesInputs.Spend;
+                    continue;
+                }
+
+                double regular = Math.Max(0, spend - shocks[h]);
+                for (int j = 0; j < LivesInputs.Spend; j++) hhShare[o + j] = regular * factor[j] * hhRaw[o + j] / sum / spend;
+                hhShare[o + JeopardyIndex] += (spend - regular) / spend;
             }
         }
 
@@ -1743,6 +1965,22 @@ namespace Why.Economy.Model
             }
 
             peopleCount[y - y0] = aliveList.Count;
+
+            // the money check: everyone's net worth, and the year's flows in household order
+            double unit = ppl / 1e9, worth = 0, saving = 0, gains = 0, discharged = 0;
+            foreach (int i in aliveList) worth += NetWorth(i);
+            for (int k = 0; k < headCount; k++)
+            {
+                int h = heads[k];
+                saving += hhSaving[h];
+                gains += gainH[h];
+                discharged += dischargedH[h];
+            }
+
+            MoneyNetWorth[y - y0] = worth * unit;
+            MoneySaving[y - y0] = saving * unit;
+            MoneyGains[y - y0] = gains * unit;
+            MoneyDischarged[y - y0] = discharged * unit;
         }
 
         /// <summary>Rewrites the balance-sheet fields of an adult's record (after a purchase).</summary>
@@ -1782,11 +2020,14 @@ namespace Why.Economy.Model
                 lambda = 0.5 * (lambda + traits[sp].Lambda);
             }
 
-            // the year's saving: scheduled mortgage principal, then consumer debt, then financial assets
+            // the year's saving: scheduled mortgage principal (the principal part of the level payment that Mind counts
+            // as debt service: small early in the loan, large late), then consumer debt, then financial assets
             double cash = hhSaving[h];
             if (mg > 0)
             {
-                double principal = Math.Min(mg, mg / Math.Max(1, MortgageTerm - mAge));
+                double left = Math.Max(1, MortgageTerm - mAge);
+                double principal = mortgageRate > 1e-6 ? mg * mortgageRate / (Math.Pow(1 + mortgageRate, left) - 1) : mg / left;
+                principal = Math.Min(mg, principal);
                 mg -= principal;
                 cash -= principal;
                 if (mAge < 255) mAge++;
@@ -1806,24 +2047,13 @@ namespace Why.Economy.Model
                 db += need - drawn;
             }
 
-            // jeopardy realized: a large uninsured loss, paid from assets, then borrowed; unpayable debt is discharged
+            // unpayable consumer debt is discharged (a large uninsured bill was paid from the saving above)
             int o = h * Draws;
             double yd = Math.Max(hhYd[h], 1);
-            if (draws[o + 8] < ShockRate)
-            {
-                double loss = (ShockMin + (ShockMax - ShockMin) * draws[o + 9]) * yd;
-                double paid = Math.Min(f, loss);
-                f -= paid;
-                db += loss - paid;
-                shocks[h] = loss;
-            }
-            else
-            {
-                shocks[h] = 0;
-            }
-
+            dischargedH[h] = 0;
             if (db > DefaultLimit * yd && f < db)
             {
+                dischargedH[h] = db - DefaultKeep * yd;
                 db = DefaultKeep * yd;
                 defaults[h] = true;
             }
@@ -1834,6 +2064,7 @@ namespace Why.Economy.Model
 
             // returns: the price gains of stocks (dividends and interest were paid as income), home prices
             double q = EquityShare(f / members, yearAwi, lambda);
+            double before = f + hs + bz;
             f = Math.Max(0, f * (1 + q * equityPrice));
             hs *= homeGrowth;
             if (mg <= 1e-6)
@@ -1843,7 +2074,8 @@ namespace Why.Economy.Model
             }
 
             // a business is worth a multiple of its income while its owner runs it
-            if (anySelf) bz = 0.8 * bz + 0.2 * BusinessMultiple * bizIncome;
+            if (anySelf) bz += BusinessGrowth * (BusinessMultiple * bizIncome - bz);
+            gainH[h] = f + hs + bz - before;
 
             // elderly owners sell; underwater and unaffordable homes are lost
             double a = sp >= 0 ? Math.Max(age[h], age[sp]) : age[h];
@@ -1862,7 +2094,9 @@ namespace Why.Economy.Model
             {
                 double price = HomePrice(year, hhYd[h]);
                 buyPrice[h] = price;
-                double ageFit = a < 25 ? -1.5 : a < 35 ? 0 : a < 45 ? -0.2 : a < 55 ? -0.7 : a < 65 ? -1.1 : -1.8;
+                // by age: renters buy most at 25-34 (HVS 2025 ownership by age, 37 / 62 / 70 / 75 / 79%, is matched
+                // within ~4 points with these weights; judgment)
+                double ageFit = a < 25 ? -1.0 : a < 35 ? 0.6 : a < 45 ? -0.2 : a < 55 ? -0.7 : a < 65 ? -1.1 : -1.8;
                 double afford = f >= DownPayment * price ? 1.2 : f >= MinDownPayment * price ? 0 : -1.5;
                 buyScore[h] = ageFit + afford + 1.5 * (hhPct[h] / 100 - 0.5) + (sp >= 0 ? 0.6 : 0) + 0.3 * Math.Min(2, kids[h]);
             }
@@ -1911,6 +2145,7 @@ namespace Why.Economy.Model
                 r.Employed = employed[i];
                 r.SelfEmployed = selfEmployed[i];
                 r.Homeowner = house[i] > 0;
+                r.OwnHousehold = housing[h];
                 r.Industry = employed[i] ? industry[i] : (short)-1;
                 r.Wages = (float)((wage[h] + (sp >= 0 ? wage[sp] : 0)) * share);
                 r.Business = (float)((business[h] + (sp >= 0 ? business[sp] : 0)) * share);
@@ -2146,7 +2381,7 @@ namespace Why.Economy.Model
                 households++;
                 if (r.Loss > 0) shocked++;
                 if (r.Discharged) discharged++;
-                if (!r.Married && r.Age < OwnHouseholdAge && r.Kids == 0) continue;
+                if (!r.OwnHousehold) continue;
                 own++;
                 if (r.Homeowner) owners++;
             }

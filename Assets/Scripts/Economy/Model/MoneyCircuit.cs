@@ -69,8 +69,9 @@ namespace Why.Economy.Model
 
         /// <summary>
         /// What the money is: "value" (industry -> income type), "wages", "owners" (capital income to a group), "payout"
-        /// (to holders abroad), "retained", "tax", "transfer", "keep" (recipient -> household), "credit", "spend", "save",
-        /// "public", "invest", "export", "lend", "repay", "return" (use -> industry), "import" (use -> abroad).
+        /// (to holders abroad), "retained", "tax", "transfer" (social benefits), "interest" (on public debt), "keep"
+        /// (recipient -> household), "credit", "spend", "save", "public", "invest", "export", "lend", "repay", "return"
+        /// (use -> industry), "import" (use -> abroad).
         /// </summary>
         public string Kind;
 
@@ -225,9 +226,6 @@ namespace Why.Economy.Model
             publicNode = Add("public", "Public goods", CircuitColumn.Uses, "public", "gov");
             investmentNode = Add("investment", "Investment", CircuitColumn.Uses, "investment", "capital");
             exportsNode = Add("exports", "Exports", CircuitColumn.Uses, "exports", "neutral");
-
-            // personal taxes before BEA's personal-income detail: from the circuit's own disposable income, spliced
-            cal.SpliceTaxes(y => Run(y, true).TaxEstimate);
         }
 
         int Add(string id, string name, CircuitColumn column, string kind, string level, float fear = -1)
@@ -241,7 +239,13 @@ namespace Why.Economy.Model
         /// <summary>Year of the calibration (circuit.json "year").</summary>
         public int CalibrationYear => cal.Year;
 
-        /// <summary>The circuit of a calendar year (clamped to the data's years).</summary>
+        /// <summary>What the calibration could not use from the files and how it filled in (for the console).</summary>
+        public IReadOnlyList<string> Warnings => cal.Warnings;
+
+        /// <summary>
+        /// The circuit of a calendar year (clamped to the data's years). Computed outside the lock; when two threads
+        /// build the same year at once, both get the instance cached first.
+        /// </summary>
         public CircuitYear Build(int year)
         {
             year = Math.Max(data.FirstYear, Math.Min(data.LastYear, year));
@@ -251,7 +255,12 @@ namespace Why.Economy.Model
             }
 
             CircuitYear built = Compute(year);
-            lock (gate) cache[year] = built;
+            lock (gate)
+            {
+                if (cache.TryGetValue(year, out CircuitYear first)) return first;
+                cache[year] = built;
+            }
+
             return built;
         }
 
@@ -267,7 +276,7 @@ namespace Why.Economy.Model
             public double Corporate, Proprietors, Rental, NetInterest, Other;
             public double CorporateTaxes, Dividends, Buybacks, Retained, Payouts, PayoutsAbroad, ForeignShare;
             public double[] GWages, GPayouts, GBusiness, GRent, GInterest, GPretax, GTax, GTaxOnWages, GAfterTax;
-            public double PersonalTaxes, Contributions, Transfers, PublicInterest, TaxEstimate;
+            public double PersonalTaxes, Contributions, Transfers, PublicInterest;
             public double[] GTransfers, GPublicInterest, GHousehold, GSpend, GSaving;
             public double Government, Purse, Purchases, Borrow, Repay;
             public double Disposable, SavingRate, Spending, DisposableData;
@@ -279,11 +288,8 @@ namespace Why.Economy.Model
             public double PublicImports, InvestmentImports, Imports;
         }
 
-        /// <summary>
-        /// The year's amounts. With <paramref name="incomeOnly"/> it stops once households' income before taxes is known
-        /// (enough for <see cref="Flows.TaxEstimate"/>, the tax splice).
-        /// </summary>
-        Flows Run(int year, bool incomeOnly = false)
+        /// <summary>The year's amounts.</summary>
+        Flows Run(int year)
         {
             Flows f = new Flows { Year = year };
             IReadOnlyList<Industry> inds = data.Industries;
@@ -399,7 +405,6 @@ namespace Why.Economy.Model
             f.GRent = new double[groups];
             f.GInterest = new double[groups];
             f.GPretax = new double[groups];
-            double pretax = 0;
             for (int g = 0; g < groups; g++)
             {
                 Group grp = cal.Groups[g];
@@ -409,27 +414,15 @@ namespace Why.Economy.Model
                 f.GRent[g] = f.Rental * estate[g];
                 f.GInterest[g] = f.NetInterest * interest[g];
                 f.GPretax[g] = f.GWages[g] + f.GPayouts[g] + f.GBusiness[g] + f.GRent[g] + f.GInterest[g];
-                pretax += f.GPretax[g];
             }
 
             f.Transfers = cal.Transfers.At(year) * gdp;
             f.PublicInterest = cal.PublicInterest.At(year) * gdp;
             f.DisposableData = cal.Disposable.At(year) * gdp;
-            f.TaxEstimate = Math.Max(0.1 * pretax, pretax + f.Transfers + f.PublicInterest - f.DisposableData);
-            if (incomeOnly) return f;
 
             // personal current taxes (by the groups' tax shares) and contributions for social insurance (by wages)
-            if (year >= cal.TaxDataYear)
-            {
-                f.PersonalTaxes = cal.PersonalTaxes.At(year) * gdp;
-                f.Contributions = cal.Contributions.At(year) * gdp;
-            }
-            else
-            {
-                double total = f.TaxEstimate * cal.TaxSplice;
-                f.Contributions = total * cal.ContributionFraction;
-                f.PersonalTaxes = total - f.Contributions;
-            }
+            f.PersonalTaxes = cal.PersonalTaxes.At(year) * gdp;
+            f.Contributions = cal.Contributions.At(year) * gdp;
 
             f.GTax = new double[groups];
             f.GTaxOnWages = new double[groups];
@@ -496,32 +489,20 @@ namespace Why.Economy.Model
 
             f.Mix = FitMix(f.GSpend, f.Category);
 
-            // 7. trade and lending: uses buy imports (their 2025 import shares scaled by the economy's imports); abroad
-            // the dollars buy exports and the rest is lent back; savings go to those who spend more than they earn,
-            // abroad when the world buys more from the US than it sells, to the state's deficit and to firms
-            // (the uses' own import shares say who buys imports; their sum is scaled to the economy's imports, which
-            // also come in through the supply chains of domestic products)
+            // 7. trade and lending: uses buy imports (the uses' own import shares say who buys them; their sum is scaled
+            // to the year's imports, which also come in through the supply chains of domestic products); abroad the
+            // dollars buy exports and the rest is lent back; savings go to those who spend more than they earn, abroad
+            // when the world buys more from the US than it sells, to the state's deficit and to firms. Investment
+            // grows with what firms borrow, so the import split is redone until the lending settles.
             double reinvest = f.Retained + (f.Depreciation - f.DepreciationGov);
-            double raw = cal.InvestmentImportShareOf(reinvest) + f.Purchases * CircuitCalibration.PublicImportShare;
-            for (int c = 0; c < cats; c++) raw += f.Category[c] * cal.CategoryImports[c];
-            f.ImportScale = raw > 0 ? cal.Imports.At(year) * gdp / raw : 1;
+            double importTarget = cal.Imports.At(year) * gdp;
             f.CategoryImports = new double[cats];
-            for (int c = 0; c < cats; c++)
-            {
-                f.CategoryImports[c] = f.Category[c] * Math.Min(MaxImportShare, cal.CategoryImports[c] * f.ImportScale);
-                f.Imports += f.CategoryImports[c];
-            }
-
-            f.PublicImports = f.Purchases * Math.Min(MaxImportShare, CircuitCalibration.PublicImportShare * f.ImportScale);
-            f.Imports += f.PublicImports;
-            double investmentImportShare = Math.Min(MaxImportShare, CircuitCalibration.InvestmentImportShare * f.ImportScale);
             f.ExportDemand = cal.Exports.At(year) * gdp;
             double available = Math.Max(0, f.PositiveSaving + f.Repay - f.Credit);
             for (int it = 0; it < LendingIterations; it++)
             {
-                f.Investment = reinvest + f.LentToFirms;
-                f.InvestmentImports = f.Investment * investmentImportShare;
-                double abroadIn = f.PayoutsAbroad + f.Imports + f.InvestmentImports;
+                SplitImports(f, reinvest + f.LentToFirms, importTarget);
+                double abroadIn = f.PayoutsAbroad + f.Imports;
                 f.SavingLentAbroad = Math.Min(available, Math.Max(0, f.ExportDemand - abroadIn));
                 abroadIn += f.SavingLentAbroad;
                 f.Exports = Math.Min(f.ExportDemand, abroadIn);
@@ -530,10 +511,32 @@ namespace Why.Economy.Model
                 f.LentToFirms = Math.Max(0, f.ForeignLending + f.SavingToBorrowing - f.Borrow);
             }
 
-            f.Investment = reinvest + f.LentToFirms;
-            f.InvestmentImports = f.Investment * investmentImportShare;
-            f.Imports += f.InvestmentImports;
+            SplitImports(f, reinvest + f.LentToFirms, importTarget);
             return f;
+        }
+
+        /// <summary>
+        /// Who buys the year's imports: each spending category, public goods and investment at their own import shares,
+        /// all scaled together so they add up to <paramref name="target"/> (no use spends more than
+        /// <see cref="MaxImportShare"/> of its money abroad). Sets the investment and every import amount.
+        /// </summary>
+        void SplitImports(Flows f, double investment, double target)
+        {
+            int cats = f.Category.Length;
+            f.Investment = investment;
+            double raw = investment * CircuitCalibration.InvestmentImportShare + f.Purchases * CircuitCalibration.PublicImportShare;
+            for (int c = 0; c < cats; c++) raw += f.Category[c] * cal.CategoryImports[c];
+            f.ImportScale = raw > 0 ? target / raw : 1;
+            f.Imports = 0;
+            for (int c = 0; c < cats; c++)
+            {
+                f.CategoryImports[c] = f.Category[c] * Math.Min(MaxImportShare, cal.CategoryImports[c] * f.ImportScale);
+                f.Imports += f.CategoryImports[c];
+            }
+
+            f.PublicImports = f.Purchases * Math.Min(MaxImportShare, CircuitCalibration.PublicImportShare * f.ImportScale);
+            f.InvestmentImports = investment * Math.Min(MaxImportShare, CircuitCalibration.InvestmentImportShare * f.ImportScale);
+            f.Imports += f.PublicImports + f.InvestmentImports;
         }
 
         /// <summary>Year of the industries' compShare (as the wall scales wages by the labor share).</summary>
@@ -730,7 +733,8 @@ namespace Why.Economy.Model
             for (int g = 0; g < groups; g++)
             {
                 links.Add(groupNode[g], householdNode[g], f.GAfterTax[g], "keep");
-                links.Add(governmentNode, householdNode[g], f.GTransfers[g] + f.GPublicInterest[g], "transfer");
+                links.Add(governmentNode, householdNode[g], f.GTransfers[g], "transfer");
+                links.Add(governmentNode, householdNode[g], f.GPublicInterest[g], "interest");
                 if (f.GSaving[g] < 0) links.Add(creditNode, householdNode[g], -f.GSaving[g], "credit");
             }
 
@@ -928,10 +932,15 @@ namespace Why.Economy.Model
             Node(c, purseNode).Blurb =
                 $"Public purse: {Money(f.Purse)} of taxes left in {ys} after social benefits and interest" +
                 (f.Repay > 0 ? $"; {Money(f.Repay)} more than the state buys repays its debt." : ", for public goods.");
+            string state = f.Borrow > 0
+                ? $"the state borrows {Money(f.Borrow)} (its deficit, {Pct(f.Borrow / gdp)} of GDP)"
+                : "the state borrows nothing" + (f.Repay > 0 ? $" (it repays {Money(f.Repay)} of its debt)" : "");
+            string lenders = f.ForeignLending > 0
+                ? $"{Money(f.SavingToBorrowing)} of household savings and {Money(f.ForeignLending)} lent from abroad"
+                : $"{Money(f.SavingToBorrowing)} of household savings";
             Node(c, borrowingNode).Blurb =
-                $"Borrowing: in {ys} the state borrows {Money(f.Borrow)} (its deficit, {Pct(f.Borrow / gdp)} of GDP) and firms " +
-                $"{Money(f.LentToFirms)}, from {Money(f.SavingToBorrowing)} of household savings and {Money(f.ForeignLending)} " +
-                "lent from abroad, through banks, funds and bond markets." +
+                $"Borrowing: in {ys} {state} and firms {Money(f.LentToFirms)}, from {lenders}, through banks, funds and " +
+                "bond markets." +
                 (c.Nodes[borrowingNode].Out > c.Nodes[borrowingNode].In * 1.001
                     ? $" The other {Money(c.Nodes[borrowingNode].Out - c.Nodes[borrowingNode].In)} comes from firms' own " +
                       "savings and the Federal Reserve, which the circuit does not draw."
@@ -1006,18 +1015,28 @@ namespace Why.Economy.Model
             s.Append("Wages: industry shares scaled by the labor share, then x").Append(f.WageFactor.ToString("0.000", Ci))
                 .Append(" to match BEA compensation. Net buybacks: the 2025 share of GDP (")
                 .Append(Pct(cal.BuybackShare)).Append(") from 1985, none before 1982; larger in 1985-2019 in reality.\n");
-            if (y < cal.TaxDataYear)
+            if (y < cal.Year)
             {
-                s.Append("Personal taxes before ").Append(cal.TaxDataYear.ToString(Ci))
-                    .Append(": what matches BEA's disposable income, spliced (x").Append(cal.TaxSplice.ToString("0.00", Ci))
-                    .Append("); social benefits from an approximate history.\n");
+                s.Append("From BEA's annual tables carried in code (CircuitHistory): government purchases, exports and imports");
+                if (y < cal.PersonalDataYear) s.Append(", personal taxes, contributions and social benefits");
+                s.Append(". ");
+            }
+            else
+            {
+                s.Append("Exports and imports: approximate shares of GDP (the files do not have them). ");
             }
 
-            s.Append("Approximate history (CircuitHistory): government purchases, federal interest, exports and imports, " +
-                     "the foreign share of equity");
+            s.Append("Approximate: federal interest (all of it paid to households here; in reality about a third goes " +
+                     "abroad and to the Federal Reserve) and the foreign share of equity");
             s.Append(y < cal.Year
                 ? ".\n"
                 : $" ({calYear}: the data's {Pct(cal.File.ForeignEquityShare)}; ~22% of US-issued equity by another reading).\n");
+            if (f.Borrow > 0)
+            {
+                s.Append("The state's receipts leave out its fees, fines and income on its own assets (about 1% of GDP), so " +
+                         "its deficit reads somewhat larger than BEA's net borrowing.\n");
+            }
+
             s.Append("Household disposable income is ").Append(Pct(Math.Abs(1 - c.DisposableRatio)))
                 .Append(c.DisposableRatio < 1 ? " below" : " above")
                 .Append(" BEA's: interest paid in kind by banks and insurers and income from abroad are not drawn. Saving rate ")

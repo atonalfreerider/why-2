@@ -27,7 +27,8 @@ namespace Why.Economy.Layers
     ///
     /// The diagram follows <see cref="EconomyState.Year"/>: when it changes the year is rebuilt (meshes, label texts and
     /// positions, anchors). Labels only show while the camera looks at this station (<see cref="LabelRange"/>), and the
-    /// station's meshes fade out while the camera is elsewhere, so nothing of it shows in the timeline's views.
+    /// station's meshes fade out while the camera is elsewhere, so nothing of it shows in the timeline's views; while
+    /// the camera looks at the stations, the timeline's own labels (its end stands in front of this one) step aside.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class CircuitLayer : GraphLayer
@@ -38,8 +39,8 @@ namespace Why.Economy.Layers
         /// The diagram's proportions for a screen shape: the five columns' x (industries, split, recipients, households,
         /// uses), the height of the industries column (the year's GDP; a year whose tallest column would be higher than
         /// <see cref="MaxColumnHeight"/> is drawn at a smaller scale) and the bottom of the return arcs. A portrait screen
-        /// sees about 10.5 units across at the circuit view, so its columns stand closer and taller and its labels are
-        /// shorter.
+        /// sees about 10.5 units across at the circuit view, so its columns stand closer and taller, a little left of
+        /// the middle (the uses' labels on the right are the longest), and its labels are shorter.
         /// </summary>
         sealed class Frame
         {
@@ -49,19 +50,40 @@ namespace Why.Economy.Layers
             /// <summary>The skyline behind the first columns: left edge, spacing and width of the towers, the tallest.</summary>
             public float SkylineLeft, SkylineStep, TowerWidth, TallestTower;
 
+            /// <summary>
+            /// Least height between two node labels of a column (local units: about one label line at the circuit view's
+            /// distance, larger in portrait where labels are drawn larger), so a thin node's label is not dropped.
+            /// </summary>
+            public float LabelSpacing;
+
+            /// <summary>The same for the labels of the skyline's towers (seen closer, in the capture view).</summary>
+            public float TowerLabelSpacing;
+
+            /// <summary>
+            /// The columns stand closer than a node label is wide: the labels of the middle columns (to the right of
+            /// their bars) also keep <see cref="LabelSpacing"/> from those of the column before, which reach over.
+            /// </summary>
+            public bool LabelsReachNextColumn;
+
+            /// <summary>Labels of the end columns stand this far from their bars, clear of the arcs beside them.</summary>
+            public float EndLabelGap;
+
             public bool Portrait;
         }
 
         static readonly Frame Landscape = new Frame
         {
             ColumnX = new[] { -4.4f, -2.2f, 0f, 2.2f, 4.4f }, IndustriesHeight = 4.2f, MaxColumnHeight = 5.3f,
-            ReturnBottom = -1.2f, SkylineLeft = -5.25f, SkylineStep = 0.19f, TowerWidth = 0.15f, TallestTower = 3f
+            ReturnBottom = -1.2f, SkylineLeft = -5.25f, SkylineStep = 0.19f, TowerWidth = 0.15f, TallestTower = 3f,
+            LabelSpacing = 0.22f, TowerLabelSpacing = 0.17f, EndLabelGap = 0.4f
         };
 
         static readonly Frame Tall = new Frame
         {
-            ColumnX = new[] { -2.85f, -1.425f, 0f, 1.425f, 2.85f }, IndustriesHeight = 5.6f, MaxColumnHeight = 7f,
-            ReturnBottom = -1.6f, SkylineLeft = -3.3f, SkylineStep = 0.11f, TowerWidth = 0.085f, TallestTower = 3.6f, Portrait = true
+            ColumnX = new[] { -2.85f, -1.54f, -0.23f, 1.09f, 2.4f }, IndustriesHeight = 5.6f, MaxColumnHeight = 7f,
+            ReturnBottom = -1.6f, SkylineLeft = -3.3f, SkylineStep = 0.11f, TowerWidth = 0.085f, TallestTower = 3.6f,
+            LabelSpacing = 0.3f, TowerLabelSpacing = 0.2f, LabelsReachNextColumn = true, EndLabelGap = 0.36f,
+            Portrait = true
         };
 
         /// <summary>In a portrait frame every other column heading stands this much higher (they would touch).</summary>
@@ -106,8 +128,8 @@ namespace Why.Economy.Layers
         const int ArcPoints = 2 * (HookSamples + DropSamples + CornerSamples) + RunSamples + 2;
         const float ReturnAlpha = 0.32f, ReturnIntensity = 0.75f;
 
-        /// <summary>Labels of the end columns stand this far from their bars, clear of the arcs beside them.</summary>
-        const float EndLabelGap = 0.4f;
+        /// <summary>Passes that push a column's crowded node labels apart (see <see cref="Frame.LabelSpacing"/>).</summary>
+        const int LabelSpreadPasses = 24;
 
         /// <summary>The ground line the diagram stands on, across the station.</summary>
         const float GroundHalfWidth = 5.6f;
@@ -123,8 +145,11 @@ namespace Why.Economy.Layers
         /// </summary>
         const float BackdropNear = 3.5f, BackdropFar = 6.5f;
 
-        /// <summary>How much the ribbons and the flow lines recede while the skyline is the subject (the capture view).</summary>
-        const float CaptureRibbonAlpha = 0.45f, CaptureLineAlpha = 0.5f;
+        /// <summary>
+        /// How much the ribbons and the flow lines recede while the skyline is the subject (the capture view looks at the
+        /// towers through the first columns of the diagram).
+        /// </summary>
+        const float CaptureRibbonAlpha = 0.25f, CaptureLineAlpha = 0.3f;
 
         /// <summary>Render queues from QueueStations + this: after the other stations' diagrams (see Upload).</summary>
         const int BackdropQueueOffset = 10;
@@ -145,7 +170,7 @@ namespace Why.Economy.Layers
         /// The skyline's opacity while the Sankey is the subject (it stands behind it, readable through it); full while
         /// the skyline is (see <see cref="CaptureLocal"/>).
         /// </summary>
-        const float SkylineDimAlpha = 0.28f;
+        const float SkylineDimAlpha = 0.2f;
 
         /// <summary>
         /// The capture view looks at this local point; the skyline is the subject while the camera's target is near it
@@ -167,6 +192,19 @@ namespace Why.Economy.Layers
         const float FadeNear = 8f, FadeFar = 11f;
 
         static readonly Vector3 CenterLocal = new Vector3(0, EconomyStyle.StationHeight * 0.5f, 0);
+
+        /// <summary>
+        /// While the camera's target is less than this far before the station along the road (local z), the camera looks
+        /// at the stations, not the road: the timeline's labels, whose end stands between the camera and this diagram,
+        /// are hidden (<see cref="LabelSystem.DataLabelsHidden"/>). Half the gap between the road's end and the station.
+        /// </summary>
+        const float StationsAhead = EconomyStyle.FirstStationGap * 0.5f;
+
+        /// <summary>
+        /// Priorities of the skyline's labels: above every node label (they are only shown while the skyline is the
+        /// subject, where the towers stand among the first columns' labels), below the diagram's title.
+        /// </summary>
+        const float CaptionPriority = 48, TowerPriority = 47;
 
         // ------------------------------------------------------------------ texts
 
@@ -200,7 +238,7 @@ namespace Why.Economy.Layers
         // the year's geometry (rebuilt), the static frame and skyline (built once)
         SurfaceMeshBuilder pendingFills, skylineFills, backdropFills;
         LineMeshBuilder pendingLines, frameLines, skylineLines;
-        MeshFilter fillFilter, lineFilter, backdropFilter, skylineFillFilter, skylineLineFilter;
+        MeshFilter fillFilter, lineFilter, backdropFilter, frameFilter, skylineFillFilter, skylineLineFilter;
         List<Company> companies = new List<Company>();
         Frame skylineFrame;
         Material fillMat, lineMat, frameMat, skylineFillMat, skylineLineMat, backdropMat;
@@ -216,7 +254,7 @@ namespace Why.Economy.Layers
         Anchor skylineAnchor;
         readonly List<LabelSpec> labels = new List<LabelSpec>(64);
         Anchor loopAnchor, returnsAnchor;
-        bool towersShown;
+        bool towersShown, atStations;
 
         /// <summary>Where the year's nodes and links ended up (station-local), for labels and anchors.</summary>
         sealed class Layout
@@ -263,6 +301,7 @@ namespace Why.Economy.Layers
             PlaceSkyline();
             // handed over placed and ranked: the label system sorts labels by priority when it takes them
             foreach (LabelSpec spec in labels) ctx.Labels.Add(spec);
+            foreach (string w in circuit.Warnings) Debug.LogWarning("[Why] money circuit: " + w);
             shown = year;
             Debug.Log($"[Why] CircuitLayer.Prepare {sw.ElapsedMilliseconds} ms: {year.Year}, {year.Nodes.Count} nodes, " +
                       $"{year.Links.Count} links, imbalance {(100 * year.Imbalance).ToString("0.0", Ci)}% at {year.ImbalanceNode}; " +
@@ -700,6 +739,7 @@ namespace Why.Economy.Layers
                 case "retained": return GoldDim;
                 case "tax":
                 case "transfer":
+                case "interest":
                 case "public":
                 case "repay":
                 case "keep":
@@ -803,7 +843,7 @@ namespace Why.Economy.Layers
                 float margin = Margin(co);
                 string text = co.Name + "  " + dim + MoneyCircuit.Money(co.MarketCap) +
                               (margin >= 0 ? " · " + Percent(margin) + " margin" : "") + "</color>";
-                LabelSpec spec = Label(text, Vector3.zero, 11, GraphStyle.Text, TextAlignmentOptions.Left, 26 - i,
+                LabelSpec spec = Label(text, Vector3.zero, 11, GraphStyle.Text, TextAlignmentOptions.Left, TowerPriority - i,
                     "capture:" + Key(co.Name), IdRange.Single(EconomyIds.Capture + i), new Vector2(4, 6));
                 spec.Hidden = true; // shown while the skyline is the subject (Tick)
                 labels.Add(spec);
@@ -814,7 +854,8 @@ namespace Why.Economy.Layers
             string caption = $"The {companies.Count.ToString(Ci)} most valuable US companies: {MoneyCircuit.Money(total)}" +
                              (market > 0 ? $" of the {MoneyCircuit.Money(market)} stock market" : "") +
                              (share > 0 ? $"; the top 10 hold {Percent((float)share)}" : "");
-            captionLabel = Label(caption, Vector3.zero, 12, Gold, TextAlignmentOptions.Center, 30, "capture:skyline", all);
+            captionLabel = Label(caption, Vector3.zero, 12, Gold, TextAlignmentOptions.Center, CaptionPriority, "capture:skyline",
+                all);
             captionLabel.Hidden = true;
             labels.Add(captionLabel);
             towerLabels.Add(captionLabel);
@@ -866,14 +907,30 @@ namespace Why.Economy.Layers
         {
             if (companies.Count == 0) return;
             Frame f = skylineFrame ?? frame;
+
+            // each label at its tower's top, pushed apart where two towers are nearly as tall (their labels would collide)
+            int labeled = towerLabels.Count - 1;
+            float[] labelY = new float[labeled];
+            for (int i = 0; i < labeled; i++) labelY[i] = TowerHeight(f, i);
+            for (int pass = 0; pass < LabelSpreadPasses; pass++)
+            {
+                bool moved = false;
+                for (int i = 1; i < labeled; i++)
+                {
+                    float overlap = f.TowerLabelSpacing - (labelY[i - 1] - labelY[i]);
+                    if (overlap <= 1e-4f) continue;
+                    labelY[i - 1] += overlap * 0.5f;
+                    labelY[i] -= overlap * 0.5f;
+                    moved = true;
+                }
+
+                if (!moved) break;
+            }
+
             for (int i = 0; i < towerAnchors.Count; i++)
             {
                 float h = TowerHeight(f, i);
-                if (i < LabeledTowers && i < towerLabels.Count - 1)
-                {
-                    towerLabels[i].Data = station.World(TowerX(f, i) + f.TowerWidth * 0.5f, h, SkylineZ);
-                }
-
+                if (i < labeled) towerLabels[i].Data = station.World(TowerX(f, i) + f.TowerWidth * 0.5f, labelY[i], SkylineZ);
                 towerAnchors[i].Y = h * 0.5f;
                 towerAnchors[i].Fixed = station.World(TowerX(f, i), h * 0.5f, SkylineZ);
             }
@@ -998,6 +1055,7 @@ namespace Why.Economy.Layers
         void ApplyYear(CircuitYear c, bool live)
         {
             float half = BarWidth * 0.5f;
+            float[] labelY = SpreadLabels(c);
             foreach (CircuitNode n in c.Nodes)
             {
                 LabelSpec spec = nodeLabels[n.Index];
@@ -1006,8 +1064,8 @@ namespace Why.Economy.Layers
                 float y = visible ? 0.5f * (layout.NodeTop[n.Index] + layout.NodeBottom[n.Index]) : 0;
                 bool left = n.Column == CircuitColumn.Industries;
                 bool end = left || n.Column == CircuitColumn.Uses;
-                float gap = end ? EndLabelGap : half + 0.05f;
-                spec.Data = station.World(left ? x - gap : x + gap, y, -0.01f);
+                float gap = end ? frame.EndLabelGap : half + 0.05f;
+                spec.Data = station.World(left ? x - gap : x + gap, labelY[n.Index], -0.01f);
                 if (!live) spec.Priority = Priority(c, n); // the label system ranks labels once, when it takes them
                 spec.Hidden = !visible;
                 SetText(spec, NodeText(c, n), live);
@@ -1045,6 +1103,61 @@ namespace Why.Economy.Layers
             returnsAnchor.Y = 0.5f * (ReturnTop + frame.ReturnBottom);
             returnsAnchor.Fixed = station.World(0, returnsAnchor.Y, ReturnZ);
             if (live) labelSystem.MarkDirty();
+        }
+
+        /// <summary>
+        /// Heights of the node labels: each at its bar's middle, pushed apart within its column (equally up and down)
+        /// until neighbours are at least <see cref="Frame.LabelSpacing"/> apart, so a thin node keeps its label; where
+        /// labels reach over the next column (<see cref="Frame.LabelsReachNextColumn"/>), a middle column's labels also
+        /// step out of the way of the previous column's.
+        /// </summary>
+        float[] SpreadLabels(CircuitYear c)
+        {
+            float[] y = new float[c.Nodes.Count];
+            float spacing = frame.LabelSpacing;
+            List<int> column = new List<int>(c.Nodes.Count), before = new List<int>(c.Nodes.Count);
+            int last = frame.ColumnX.Length - 1;
+            for (int k = 0; k <= last; k++)
+            {
+                before.Clear();
+                if (frame.LabelsReachNextColumn && k > (int)CircuitColumn.Income && k < last) before.AddRange(column);
+                column.Clear();
+                foreach (CircuitNode n in c.Nodes)
+                {
+                    if ((int)n.Column != k || !layout.Visible[n.Index]) continue;
+                    y[n.Index] = 0.5f * (layout.NodeTop[n.Index] + layout.NodeBottom[n.Index]);
+                    column.Add(n.Index); // stacked in list order: top to bottom
+                }
+
+                for (int pass = 0; pass < LabelSpreadPasses; pass++)
+                {
+                    bool moved = false;
+                    foreach (int i in column)
+                    {
+                        foreach (int j in before)
+                        {
+                            float d = y[i] - y[j];
+                            if (Mathf.Abs(d) >= spacing - 1e-4f) continue;
+                            y[i] += (d >= 0 ? 1 : -1) * (spacing - Mathf.Abs(d));
+                            moved = true;
+                        }
+                    }
+
+                    for (int i = 1; i < column.Count; i++)
+                    {
+                        int above = column[i - 1], below = column[i];
+                        float overlap = spacing - (y[above] - y[below]);
+                        if (overlap <= 1e-4f) continue;
+                        y[above] += overlap * 0.5f;
+                        y[below] -= overlap * 0.5f;
+                        moved = true;
+                    }
+
+                    if (!moved) break;
+                }
+            }
+
+            return y;
         }
 
         void SetText(LabelSpec spec, string text, bool live)
@@ -1150,7 +1263,7 @@ namespace Why.Economy.Layers
             backdropFilter = AddStationMesh("CircuitBackdrop", backdropFills.ToMesh("CircuitBackdrop"), backdropMat);
             skylineFillFilter = AddStationMesh("CaptureSkyline", skylineFills.ToMesh("CaptureSkyline"), skylineFillMat);
             skylineLineFilter = AddStationMesh("CaptureSkylineLines", skylineLines.ToMesh("CaptureSkylineLines"), skylineLineMat);
-            AddStationMesh("CircuitFrame", frameLines.ToMesh("CircuitFrame"), frameMat);
+            frameFilter = AddStationMesh("CircuitFrame", frameLines.ToMesh("CircuitFrame"), frameMat);
             fillFilter = AddStationMesh("Circuit", pendingFills.ToMesh("Circuit"), fillMat);
             lineFilter = AddStationMesh("CircuitFlows", pendingLines.ToMesh("CircuitFlows"), lineMat);
             pendingFills = skylineFills = backdropFills = null;
@@ -1192,10 +1305,15 @@ namespace Why.Economy.Layers
 
         void OnDestroy()
         {
-            foreach (MeshFilter f in new[] { fillFilter, lineFilter, skylineFillFilter, skylineLineFilter })
+            MeshFilter[] filters =
+                { fillFilter, lineFilter, backdropFilter, frameFilter, skylineFillFilter, skylineLineFilter };
+            foreach (MeshFilter f in filters)
             {
                 if (f != null && f.sharedMesh != null) Destroy(f.sharedMesh);
             }
+
+            // the label system may outlive this scene: give the timeline its labels back
+            if (atStations && labelSystem != null) labelSystem.DataLabelsHidden = false;
         }
 
         // ------------------------------------------------------------------ live (main thread)
@@ -1218,6 +1336,15 @@ namespace Why.Economy.Layers
 
             if (rig == null) return;
             CameraPose pose = rig.Pose;
+
+            // looking at the stations: the road's labels (its end stands in front of this diagram) step aside
+            bool stations = Vector3.Dot(pose.Target - station.Origin, station.Forward) > -StationsAhead;
+            if (stations != atStations)
+            {
+                atStations = stations;
+                labelSystem.DataLabelsHidden = stations;
+            }
+
             float d = Vector3.Distance(pose.Target, station.World(CenterLocal));
             float alpha = 1 - Mathf.SmoothStep(0, 1, Mathf.InverseLerp(FadeNear, FadeFar, d));
             Vector3 local = Quaternion.Inverse(station.Rotation) * (pose.Target - station.Origin);

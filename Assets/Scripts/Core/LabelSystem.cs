@@ -94,7 +94,22 @@ namespace Why
 
         CameraRig rig;
         int lastCam = -1, lastWarp = -1, lastHighlightHash, frame;
-        bool dirty = true;
+        bool dirty = true, dataLabelsHidden;
+
+        /// <summary>
+        /// While true only fixed (world-space) labels are placed: a scene sets it while the camera looks at a diagram
+        /// that stands beyond the timeline's end, so the timeline's own labels in front of it do not crowd its view.
+        /// </summary>
+        public bool DataLabelsHidden
+        {
+            get => dataLabelsHidden;
+            set
+            {
+                if (value == dataLabelsHidden) return;
+                dataLabelsHidden = value;
+                dirty = true;
+            }
+        }
 
         /// <summary>
         /// Pixel sizes are authored for a 1080p screen: scaled by the short side, and
@@ -275,7 +290,7 @@ namespace Why
             for (int i = 0; i < specs.Count && placed.Count < MaxVisible; i++)
             {
                 LabelSpec s = specs[i];
-                if (s.Hidden) continue;
+                if (s.Hidden || (dataLabelsHidden && !s.Fixed)) continue;
                 if (s.Fixed && s.FixedRange > 0 && (rig.Pose.Target - s.Data).sqrMagnitude > s.FixedRange * s.FixedRange) continue;
                 float fade = s.Fixed ? 1f : GraphWarp.FocusFade(s.Data.x, warp);
                 if (s.HandoffFade && !s.Fixed) fade *= GraphStyle.HandoffFade(s.Data.x);

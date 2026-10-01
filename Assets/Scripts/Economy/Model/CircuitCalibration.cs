@@ -34,17 +34,11 @@ namespace Why.Economy.Model
         /// </summary>
         public const double InvestmentImportShare = 0.15, PublicImportShare = 0.03;
 
-        /// <summary>Imports bought by an amount of investment at <see cref="InvestmentImportShare"/>.</summary>
-        public double InvestmentImportShareOf(double investment) => investment * InvestmentImportShare;
-
         /// <summary>
         /// Net share buybacks start with the SEC's rule 10b-18 (November 1982), which made them safe from manipulation
         /// charges; they ramp up to the calibration year's share of GDP over <see cref="BuybackRampYears"/>.
         /// </summary>
         public const int BuybackStartYear = 1982, BuybackRampYears = 3;
-
-        /// <summary>Years of the personal-income detail averaged to splice the tax share before it starts.</summary>
-        const int TaxSpliceYears = 5;
 
         // ------------------------------------------------------------------ the data
 
@@ -76,17 +70,14 @@ namespace Why.Economy.Model
         public readonly double BuybackShare;
 
         /// <summary>
-        /// Personal current taxes, contributions for social insurance, social benefits, disposable income (shares of GDP).
+        /// Personal current taxes, contributions for social insurance, social benefits, disposable income (shares of GDP;
+        /// the first three carried back before the files' personal-income detail with BEA's history, see
+        /// <see cref="CircuitHistory"/>).
         /// </summary>
         public readonly YearSeries PersonalTaxes, Contributions, Transfers, Disposable;
 
-        /// <summary>First year with personal taxes in the data, and the splice factor applied before it.</summary>
-        public readonly int TaxDataYear;
-
-        public double TaxSplice { get; private set; } = 1;
-
-        /// <summary>Share of contributions in personal taxes + contributions at <see cref="TaxDataYear"/> (held before it).</summary>
-        public readonly double ContributionFraction;
+        /// <summary>First year of the files' personal-income detail (taxes and benefits before it: CircuitHistory).</summary>
+        public readonly int PersonalDataYear;
 
         /// <summary>Saving / disposable income (spending.json history, else personal history).</summary>
         public readonly YearSeries SavingRate;
@@ -157,16 +148,17 @@ namespace Why.Economy.Model
             (CorporateTaxes, Dividends, Retained) = CorporateMix(income);
             BuybackShare = calGdp > 0 ? File.IncomeOf("buybacks") / calGdp : 0;
 
-            PersonalTaxes = CircuitHistory.ShareOfGdp(personal, "personalTaxes", gdp, (Year, File.PersonalOf("personalTaxes")));
-            Contributions = CircuitHistory.ShareOfGdp(personal, "socialInsuranceContributions", gdp,
-                (Year, File.PersonalOf("socialInsuranceContributions")));
+            YearSeries taxData = CircuitHistory.ShareOfGdp(personal, "personalTaxes", gdp,
+                (Year, File.PersonalOf("personalTaxes")));
+            PersonalTaxes = CircuitHistory.Splice(taxData, CircuitHistory.PersonalTaxes);
+            Contributions = CircuitHistory.Splice(
+                CircuitHistory.ShareOfGdp(personal, "socialInsuranceContributions", gdp,
+                    (Year, File.PersonalOf("socialInsuranceContributions"))), CircuitHistory.Contributions);
             Transfers = CircuitHistory.Splice(
                 CircuitHistory.ShareOfGdp(personal, "governmentSocialBenefits", gdp,
                     (Year, File.PersonalOf("governmentSocialBenefits"))), CircuitHistory.Transfers);
             Disposable = CircuitHistory.ShareOfGdp(personal, "disposableIncome", gdp, (Year, File.PersonalOf("disposableIncome")));
-            TaxDataYear = PersonalTaxes.IsEmpty ? int.MaxValue : (int)PersonalTaxes.FirstYear;
-            double taxes = PersonalTaxes.At(TaxDataYear), contributions = Contributions.At(TaxDataYear);
-            ContributionFraction = taxes + contributions > 0 ? contributions / (taxes + contributions) : 0.4;
+            PersonalDataYear = taxData.Count > 1 ? (int)taxData.FirstYear : Year;
 
             int saving = Array.IndexOf(EconomyData.CategoryIds, "saving");
             YearSeries spendingSaving = saving >= 0 && saving < data.CategoryHistory.Count
@@ -226,26 +218,6 @@ namespace Why.Economy.Model
             PublicWeights = ValueAddedContent(data, "government");
             InvestmentWeights = ValueAddedContent(data, "investment");
             ExportWeights = ValueAddedContent(data, "exports");
-        }
-
-        /// <summary>
-        /// Personal taxes before the personal-income detail starts come from the circuit itself (what makes its
-        /// disposable income match BEA's), scaled by the ratio of data to that estimate over the first years with data.
-        /// </summary>
-        public void SpliceTaxes(Func<int, double> estimate)
-        {
-            if (TaxDataYear == int.MaxValue) return;
-            double sum = 0;
-            int count = 0;
-            for (int y = TaxDataYear; y < TaxDataYear + TaxSpliceYears; y++)
-            {
-                double e = estimate(y), d = (PersonalTaxes.At(y) + Contributions.At(y)) * Data.Gdp.GrowthAt(y);
-                if (e <= 0 || d <= 0) continue;
-                sum += d / e;
-                count++;
-            }
-
-            if (count > 0) TaxSplice = sum / count;
         }
 
         // ------------------------------------------------------------------ helpers

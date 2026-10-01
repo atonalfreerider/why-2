@@ -58,8 +58,10 @@ namespace Why.Economy
                 {
                     Id = "mind", Title = "Desire and fear",
                     Subtitle = "Toward what we want, away from what we fear: where the money of each mind goes",
-                    Key = KeyCode.Alpha6, Pitch = 18, Distance = 12f, PortraitWidth = w * 1.05f
-                }, new Vector3(0, h * 0.5f, w * 0.15f)),
+                    Key = KeyCode.Alpha6, Pitch = 12, Distance = 13f, PortraitWidth = w * 1.36f
+                    // the target stands deep enough that the circuit's labels (14 around it) stay out of range even
+                    // where the portrait camera stands behind the circuit; the poles' arrows fit across in portrait
+                }, new Vector3(0, h * 0.48f, w * 0.25f)),
                 Station(games, new ViewPreset
                 {
                     Id = "games", Title = "Cooperation",

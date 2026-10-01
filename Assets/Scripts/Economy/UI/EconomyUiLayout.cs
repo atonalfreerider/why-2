@@ -84,7 +84,9 @@ namespace Why.Economy.UI
     /// panel's sheet docks in its views, so it steps aside there);</item>
     /// <item>the inspector hangs below them at the right edge (landscape), or spans the width under them (portrait, a top
     /// sheet), down to the first HUD block beneath it in its column (the preset bar, the legend, the readout) and scaled
-    /// down when its content is taller than that room.</item>
+    /// down when its content is taller than that room. The portrait sheet takes at most <see cref="PortraitShare"/> of
+    /// the room, so a strip of the graph stays visible beneath it (<see cref="PersonRegion"/>: where the N key frames a
+    /// person).</item>
     /// </list>
     /// <see cref="Check"/> lists any overlap with the HUD's blocks: the modules run it after every layout (a runtime
     /// self-check that logs once per layout).
@@ -100,9 +102,34 @@ namespace Why.Economy.UI
         /// <summary>Gap between the year chip and the readout beneath it (they read as one block).</summary>
         public const float ChipGap = 6f;
 
+        /// <summary>Width of the inspector's landscape column (reference pixels; <see cref="PersonPanel"/> lays out for it).</summary>
+        public const float LandscapeInspectorWidth = 360f;
+
         /// <summary>Smallest scale the inspector is drawn at to fit (below it the content would be unreadable; it then
         /// runs past its room instead, which <see cref="Check"/> reports).</summary>
         public const float MinScale = 0.6f;
+
+        /// <summary>
+        /// Share of the room between the year controls and the HUD's bottom blocks the portrait sheet may take. The
+        /// people's band sits in the middle of a portrait screen: a sheet down to the legend (the whole room, ~470 of 889
+        /// canvas units at 1080x1920) hid it, and with it the line the viewer had just clicked or N had just framed. A
+        /// third of the room (~150 units, 330 px) stays for the graph.
+        /// </summary>
+        public const float PortraitShare = 0.66f;
+
+        /// <summary>
+        /// Smallest scale of the portrait sheet within its share: 13-unit text stays ~22 px on a 1080x1920 frame (the
+        /// HUD's is 28). Content taller than that runs further down (the self-check does not object: it is still
+        /// inside the room).
+        /// </summary>
+        public const float PortraitMinScale = 0.8f;
+
+        /// <summary>
+        /// How far the N key moves a person's point from the middle of the free region toward the future, as a share of
+        /// the region's half extent: more of the life that led to the year shows, and less of the void past the present
+        /// (0.55 puts it ~62% across a 1080p landscape screen, beside the inspector, and ~78% across a portrait one).
+        /// </summary>
+        public const float FutureShift = 0.55f;
 
         /// <summary>Top of the controls column: below the tour and help buttons, and below the F3 stats while they show.</summary>
         public static float ControlsTop(HudFrame f)
@@ -133,21 +160,81 @@ namespace Why.Economy.UI
         public static float TitleBottom(HudFrame f) =>
             f.Title.IsEmpty ? f.Margin + f.SafeTop + TitleHeight : f.Title.Bottom;
 
+        /// <summary>Width of the inspector as drawn: the landscape column, or the portrait sheet across the screen.</summary>
+        public static float InspectorWidth(HudFrame f) =>
+            f.Portrait ? Mathf.Max(1, f.Canvas.x - 2 * f.Margin) : LandscapeInspectorWidth;
+
         /// <summary>
-        /// The inspector below <paramref name="above"/> (the readout, or the chip when the readout is hidden): at the right
-        /// edge <paramref name="width"/> wide in landscape, the full width in portrait (under the title too). Its content is
-        /// <paramref name="height"/> tall at scale 1; <paramref name="scale"/> shrinks it into the room down to the first HUD
-        /// block beneath it in its column. The box is the panel as drawn (scaled).
+        /// Top of the inspector: below <paramref name="above"/> (the year controls: the readout, or the chip when the
+        /// readout is hidden), and in portrait below the HUD's title too.
         /// </summary>
-        public static UiBox Inspector(HudFrame f, UiBox above, float width, float height, out float scale)
+        public static float InspectorTop(HudFrame f, UiBox above)
         {
             float top = (above.IsEmpty ? ControlsTop(f) : above.Bottom) + f.Gap;
-            if (f.Portrait) top = Mathf.Max(top, TitleBottom(f) + f.Gap);
-            float w = f.Portrait ? Mathf.Max(1, f.Canvas.x - 2 * f.Margin) : width;
-            float x0 = f.Canvas.x - f.Margin - w;
-            float limit = RoomBelow(f, top, x0, x0 + w);
-            scale = Mathf.Clamp(height > 0 ? (limit - top) / height : 1, MinScale, 1);
-            return new UiBox(f.Canvas.x - f.Margin - w * scale, top, w * scale, height * scale);
+            return f.Portrait ? Mathf.Max(top, TitleBottom(f) + f.Gap) : top;
+        }
+
+        /// <summary>The y where the inspector's room ends: the first HUD block beneath it in its column.</summary>
+        public static float InspectorLimit(HudFrame f, UiBox above)
+        {
+            float w = InspectorWidth(f), x0 = f.Canvas.x - f.Margin - w;
+            return RoomBelow(f, InspectorTop(f, above), x0, x0 + w);
+        }
+
+        /// <summary>
+        /// The scale the inspector is drawn at for content <paramref name="height"/> tall at scale 1 (laid out at
+        /// <see cref="InspectorWidth"/>): landscape shrinks it into its room (not below <see cref="MinScale"/>); the
+        /// portrait sheet into <see cref="PortraitShare"/> of the room (not below <see cref="PortraitMinScale"/>), and
+        /// into the whole room (not below <see cref="MinScale"/>) when even that is too tall.
+        /// </summary>
+        public static float InspectorScale(HudFrame f, UiBox above, float height)
+        {
+            if (height <= 0) return 1;
+            float room = InspectorLimit(f, above) - InspectorTop(f, above);
+            if (!f.Portrait) return Mathf.Clamp(room / height, MinScale, 1);
+            float scale = Mathf.Min(1, Mathf.Max(PortraitMinScale, room * PortraitShare / height));
+            return height * scale <= room ? scale : Mathf.Clamp(room / height, MinScale, 1);
+        }
+
+        /// <summary>
+        /// The inspector as drawn: content laid out <paramref name="width"/> wide and <paramref name="height"/> tall,
+        /// drawn at <paramref name="scale"/>, its right edge at the margin. (The portrait sheet lays its content out at
+        /// <see cref="InspectorWidth"/> / scale, so it still spans the screen when scaled.)
+        /// </summary>
+        public static UiBox InspectorBox(HudFrame f, UiBox above, float width, float height, float scale) =>
+            new UiBox(f.Canvas.x - f.Margin - width * scale, InspectorTop(f, above), width * scale, height * scale);
+
+        /// <summary>
+        /// The part of the canvas the inspector leaves to the graph, where the N key frames a person: left of the
+        /// landscape column (the full height), or in portrait the strip between the sheet and the HUD's bottom blocks.
+        /// The sheet is <paramref name="sheet"/> while it is shown (the next person's is about as tall), else taken at its
+        /// largest share of the room (<see cref="PortraitShare"/>; a sheet at <see cref="PortraitMinScale"/> may run a
+        /// little further).
+        /// </summary>
+        public static UiBox PersonRegion(HudFrame f, UiBox above, UiBox sheet)
+        {
+            if (!f.Portrait)
+            {
+                float right = f.Canvas.x - f.Margin - LandscapeInspectorWidth - f.Gap;
+                return new UiBox(0, 0, Mathf.Max(1, right), f.Canvas.y);
+            }
+
+            float top = InspectorTop(f, above), limit = InspectorLimit(f, above);
+            float sheetBottom = top + (limit - top) * PortraitShare;
+            if (!sheet.IsEmpty) sheetBottom = Mathf.Max(sheetBottom, sheet.Bottom);
+            sheetBottom = Mathf.Min(sheetBottom + f.Gap, limit - 1);
+            return new UiBox(0, sheetBottom, f.Canvas.x, limit - sheetBottom);
+        }
+
+        /// <summary>
+        /// Where (canvas units) the N key puts a person's point: the middle of <see cref="PersonRegion"/>, moved toward
+        /// the future by <see cref="FutureShift"/> of its half extent. <paramref name="past"/> is the direction of the
+        /// past on screen (unit; x right, y down).
+        /// </summary>
+        public static Vector2 PersonFocus(HudFrame f, UiBox above, UiBox sheet, Vector2 past)
+        {
+            UiBox r = PersonRegion(f, above, sheet);
+            return new Vector2(r.X + r.W * 0.5f * (1 - FutureShift * past.x), r.Y + r.H * 0.5f * (1 - FutureShift * past.y));
         }
 
         /// <summary>

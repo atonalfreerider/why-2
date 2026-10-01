@@ -18,17 +18,19 @@ namespace Why.Economy.UI
     /// Text is neutral grey and white at 13 - 14 px; hue appears only as small swatches and bars that carry the scene's
     /// meanings (rose desire, ice fear, gold capital and control, blue people). <see cref="Layout"/> places everything for
     /// a width: the landscape column, or a compact full-width sheet on a portrait screen (three money columns with short
-    /// labels, two spending columns, the three gauges in one row, no notes, no lifetime charts).
+    /// labels, two spending columns, the three gauges in one row, tighter sections; no kicker, notes, legends, mind heading
+    /// or lifetime charts).
     /// </summary>
     public sealed class PersonPanel
     {
         /// <summary>Width of the landscape column (reference pixels).</summary>
-        public const float LandscapeWidth = 360f;
+        public const float LandscapeWidth = EconomyUiLayout.LandscapeInspectorWidth;
 
         const float Pad = HudKit.Pad;
 
-        /// <summary>A line of 13 - 14 px text; a small caps heading; space between sections.</summary>
-        const float Row = 18f, HeadingRow = 16f, SectionGap = 10f;
+        /// <summary>A line of 13 - 14 px text; a small caps heading; space between sections (closer in the portrait sheet,
+        /// where every unit of height hides the graph).</summary>
+        const float Row = 18f, HeadingRow = 16f, SectionGap = 10f, CompactSectionGap = 6f;
 
         const float CloseSize = 22f, ColumnGap = 14f;
 
@@ -394,19 +396,24 @@ namespace Why.Economy.UI
             PersonFacts f = facts;
             if (f == null) return 0;
             float inner = width - 2 * Pad, x = Pad, y = Pad - 2;
+            float gap = compact ? CompactSectionGap : SectionGap;
             bool adult = !f.Child;
 
-            // who
-            Line(kicker, x, y, inner - CloseSize - 6, HeadingRow);
+            // who (the portrait sheet leaves out the kicker: the HUD's readout says what one line stands for)
             HudKit.PlaceTopLeft(close, width - Pad - CloseSize + 4, Pad - 6, new Vector2(CloseSize, CloseSize));
-            y += HeadingRow + 2;
+            if (Show(kicker, !compact))
+            {
+                Line(kicker, x, y, inner - CloseSize - 6, HeadingRow);
+                y += HeadingRow + 2;
+            }
+
             title.fontSize = compact ? HudKit.SizeTitle - 2 : HudKit.SizeTitle;
-            y = Block(title, x, y, inner) + 2;
+            y = Block(title, x, y, compact ? inner - CloseSize - 6 : inner) + 2;
             y = Block(meta, x, y, inner);
             y = Show(role, f.Role != null) ? Block(role, x, y + 6, inner) : y;
 
             // the year
-            y += SectionGap;
+            y += gap;
             Line(yearHeading, x, y, inner, HeadingRow);
             y += HeadingRow + 2;
             y = Block(status, x, y, inner);
@@ -439,7 +446,7 @@ namespace Why.Economy.UI
             y = Show(moneyNote, adult && !compact) ? Block(moneyNote, x, y + 3, inner) : y;
 
             // spending
-            y += SectionGap;
+            y += gap;
             Line(spendingHeading, x, y, inner, HeadingRow);
             y += HeadingRow + 2;
             {
@@ -456,10 +463,14 @@ namespace Why.Economy.UI
 
             y = Show(spendingLegend, !compact) ? Block(spendingLegend, x, y + 3, inner) : y;
 
-            // the mind
-            y += SectionGap;
-            Line(mindHeading, x, y, inner, HeadingRow);
-            y += HeadingRow + 2;
+            // the mind (in the portrait sheet without its heading: the desire / fear bar names itself)
+            y += gap;
+            if (Show(mindHeading, !compact))
+            {
+                Line(mindHeading, x, y, inner, HeadingRow);
+                y += HeadingRow + 2;
+            }
+
             PlacePoles(x, y, inner, f.FearShare);
             y += Row;
             ShowBar(reason, adult);

@@ -20,7 +20,9 @@ namespace Why.Economy.UI
     /// (<see cref="PersonPanel"/>), refreshed whenever the shared state changes. The × button or Esc closes it.
     ///
     /// Landscape: a column at the right edge under the year chip, down to the first HUD block beneath it, scaled to fit.
-    /// Portrait: a compact full-width sheet under the HUD's title and the year's readout. The panel and the glow belong to
+    /// Portrait: a compact full-width sheet under the HUD's title and the year's readout, scaled into two thirds of the
+    /// room above the HUD's bottom blocks so a strip of the people stays in view beneath it (where the N key frames the
+    /// person, see <see cref="EconomyUiLayout.PersonRegion"/>). The panel and the glow belong to
     /// the road and the mind map: at the other stations (the money circuit and the games) they step aside, and they come
     /// back with the camera. The panel also waits while the games panel is up (it docks at the same edge, in the games and
     /// tribes views). During the tour the director owns attention and the panel hides.
@@ -45,6 +47,15 @@ namespace Why.Economy.UI
         /// <summary>A pick slower than this (milliseconds) is logged: the budget is a frame or two.</summary>
         const long SlowPickMs = 40;
 
+        /// <summary>No person's line lit by this module yet (unlike -1, "nobody", it never equals a selection).</summary>
+        const int NoneHighlighted = int.MinValue;
+
+        /// <summary>
+        /// The panel's canvas box while it is shown (empty otherwise), for the N key's framing of the next person (see
+        /// <see cref="EconomyUiLayout.PersonRegion"/>). Canvas units of any canvas made by <see cref="UiFactory.CreateCanvas"/>.
+        /// </summary>
+        public static UiBox Shown { get; private set; } = UiBox.Empty;
+
         GraphRoot root;
         RectTransform canvasRect;
         PersonPanel panel;
@@ -66,7 +77,10 @@ namespace Why.Economy.UI
         PersonFacts facts;
         HudFrame laidOutFrame;
         UiBox laidOutAbove, panelBox;
-        float laidOutWidth, contentHeight, panelScale = 1;
+
+        /// <summary>The panel's width on this screen, its content's height laid out at that width, the width the content
+        /// is laid out at now (wider than the sheet by 1 / scale in portrait), its height there, and the scale.</summary>
+        float baseWidth, baseHeight, layoutWidth, contentHeight, panelScale = 1;
         string loggedProblems = "";
 
         public override void Init(GraphRoot graphRoot)
@@ -99,6 +113,7 @@ namespace Why.Economy.UI
 
         void OnDestroy()
         {
+            Shown = UiBox.Empty;
             panel?.Dispose();
             line?.Dispose();
         }
@@ -197,6 +212,9 @@ namespace Why.Economy.UI
                 Debug.Log($"[Why] PersonInspector: pick took {sw.ElapsedMilliseconds} ms ({picker.LastProjections} projections)");
             }
 
+            // a click on the selected line lights it again: a label's focus may have taken the glow meanwhile (and the
+            // HUD clears that focus on this same click), while the selection itself does not change
+            if (hit && found.Person == highlighted) highlighted = NoneHighlighted;
             EconomyState.SetPerson(hit ? found.Person : -1);
         }
 
@@ -242,23 +260,30 @@ namespace Why.Economy.UI
                 if (EconomyState.Version != seenVersion) Refresh();
             }
 
-            if (!fade.Shown || facts == null) return;
+            if (!fade.Shown || facts == null)
+            {
+                Shown = UiBox.Empty;
+                return;
+            }
+
             if (checkPending) SelfCheck();
             Layout();
+            Shown = panelBox;
         }
 
         // ------------------------------------------------------------------ layout
 
         /// <summary>
-        /// Fills and sizes the panel for the screen's shape when the facts changed, then places it under the year controls
-        /// whenever the HUD's blocks or the controls moved (see <see cref="EconomyUiLayout.Inspector"/>).
+        /// Fills and sizes the panel for the screen's shape when the facts changed, then scales and places it under the
+        /// year controls whenever the HUD's blocks or the controls moved (see <see cref="EconomyUiLayout.InspectorScale"/>).
+        /// A scaled portrait sheet lays its content out wider by 1 / scale, so it still spans the screen (and wraps less).
         /// </summary>
         void Layout()
         {
             HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
             UiBox above = EconomyControls.Occupied;
-            float width = f.Portrait ? Mathf.Max(200f, f.Canvas.x - 2 * f.Margin) : PersonPanel.LandscapeWidth;
-            bool refill = contentDirty || f.Portrait != laidOutCompact || Mathf.Abs(width - laidOutWidth) > 0.5f;
+            float width = EconomyUiLayout.InspectorWidth(f);
+            bool refill = contentDirty || f.Portrait != laidOutCompact || Mathf.Abs(width - baseWidth) > 0.5f;
             if (!refill && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
 
             if (refill)
@@ -266,19 +291,26 @@ namespace Why.Economy.UI
                 if (contentDirty) panel.Fill(facts, pop.Sim.PeoplePerLine);
                 contentDirty = false;
                 laidOutCompact = f.Portrait;
-                laidOutWidth = width;
-                contentHeight = panel.Layout(width, f.Portrait);
+                baseWidth = layoutWidth = width;
+                baseHeight = contentHeight = panel.Layout(width, f.Portrait);
             }
 
             laidOutFrame = f;
             laidOutAbove = above;
-            panelBox = EconomyUiLayout.Inspector(f, above, width, contentHeight, out panelScale);
+            panelScale = EconomyUiLayout.InspectorScale(f, above, baseHeight);
+            float wanted = f.Portrait ? baseWidth / panelScale : baseWidth;
+            if (Mathf.Abs(wanted - layoutWidth) > 0.5f)
+            {
+                layoutWidth = wanted;
+                contentHeight = panel.Layout(layoutWidth, f.Portrait);
+            }
 
-            // landscape grows to the left from its top-right corner, the portrait sheet to the right from its top-left
+            panelBox = EconomyUiLayout.InspectorBox(f, above, layoutWidth, contentHeight, panelScale);
+
+            // anchored by its top-right corner at the right margin (scaled toward it); the portrait sheet spans the width
             RectTransform rt = panel.Rect;
-            Vector2 size = new Vector2(width, contentHeight);
-            if (f.Portrait) rt.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(panelBox.X, -panelBox.Y), size);
-            else rt.Place(Vector2.one, Vector2.one, new Vector2(-(f.Canvas.x - panelBox.Right), -panelBox.Y), size);
+            rt.Place(Vector2.one, Vector2.one, new Vector2(-(f.Canvas.x - panelBox.Right), -panelBox.Y),
+                new Vector2(layoutWidth, contentHeight));
             rt.localScale = new Vector3(panelScale, panelScale, 1);
             checkPending = true;
         }
@@ -300,7 +332,12 @@ namespace Why.Economy.UI
                 problems.Add("person inspector drawn at " + drawn + ", laid out at " + panelBox);
             }
 
-            if (panelScale <= EconomyUiLayout.MinScale + 1e-3f) problems.Add("person inspector shrunk to its smallest scale");
+            float room = EconomyUiLayout.InspectorLimit(laidOutFrame, laidOutAbove) - panelBox.Y;
+            if (panelBox.H > room + 0.5f)
+            {
+                problems.Add("person inspector " + panelBox + " runs past its room of " +
+                             room.ToString("0", System.Globalization.CultureInfo.InvariantCulture) + " units");
+            }
             string text = string.Join("; ", problems);
             if (text == loggedProblems) return;
             loggedProblems = text;

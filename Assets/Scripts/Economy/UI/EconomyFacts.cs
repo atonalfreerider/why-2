@@ -202,7 +202,10 @@ namespace Why.Economy.UI
             }
             else if (requested < first)
             {
-                when += " (NOT YET HERE IN " + requested.ToString(Ci) + ")";
+                // the record starts at birth, or at arrival for an immigrant born before the year asked for
+                when += p.Immigrant && p.Birth < requested + 1
+                    ? " (ARRIVED " + YearOf(p.Enter) + ")"
+                    : " (NOT YET BORN IN " + requested.ToString(Ci) + ")";
             }
 
             return when + "  \u00B7  AGE " + Math.Max(0, Math.Floor(s.Age)).ToString("0", Ci);

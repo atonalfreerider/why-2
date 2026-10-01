@@ -19,7 +19,9 @@ namespace Why.Economy.UI
     /// <item>N meets the next notable person of the model (owner, heir, striver, escapist, the indebted ...): it selects
     /// them (<see cref="EconomyState.Person"/>; the inspector shows them and lights their lifeline) and flies the camera to
     /// their line at the year, unless the mind map is the view (their cross lights up there). From the other stations the
-    /// view turns to the people first, where every line is drawn in detail;</item>
+    /// view turns to the people first, where every line is drawn in detail. The point lands in the room the inspector
+    /// leaves (left of its column; in portrait the strip under its sheet), moved toward the future so the life that led
+    /// to the year shows (<see cref="PersonFraming"/>);</item>
     /// <item>the YEAR CHIP ("2025  ‹ ›", the arrows click) at the right edge under the HUD's tour and help buttons, and
     /// beneath it the year's readout: the share of adults in control of their path, the fantasy and fear shares of the
     /// money spent, and trust in others (General Social Survey).</item>
@@ -49,14 +51,6 @@ namespace Why.Economy.UI
         /// narrow views do (ViewPreset.NarrowPullback).
         /// </summary>
         const float PersonDistance = 4f, PortraitPullback = 1.25f;
-
-        /// <summary>
-        /// Where the person's point lands across a landscape screen (0 left .. 1 right): a little right of the middle.
-        /// Time runs left to right on the road, so more of the life that led to the year shows, and the void beyond the
-        /// present that a recent year leaves on the right goes under the inspector's column (the right fifth). A portrait
-        /// screen keeps it centered (the inspector is a sheet across the width).
-        /// </summary>
-        const float PersonScreenX = 0.62f;
 
         const float FadeSpeed = 4f;
 
@@ -93,6 +87,13 @@ namespace Why.Economy.UI
         int seenVersion = -1, shownYear = int.MinValue;
         HudFrame laidOutFrame;
         Vector2 chipSize, readoutSize;
+
+        /// <summary>The readout's text, made again only for another year or screen shape (the layout also runs while the
+        /// HUD's blocks move).</summary>
+        string readoutLine = "";
+
+        int readoutYear = int.MinValue;
+        bool readoutCompact;
         UiBox chipBox, readoutBox;
         string loggedProblems = "";
         readonly List<string> problems = new List<string>();
@@ -205,18 +206,19 @@ namespace Why.Economy.UI
             }
 
             // where the line will be once any running re-scale (e.g. the portrait people view's lens) has finished
-            if (!LifelinePicker.WorldAt(pop, person, EconomyState.Year, GraphWarp.Target, out Vector3 world)) return;
+            WarpState warp = GraphWarp.Target;
+            if (!LifelinePicker.WorldAt(pop, person, EconomyState.Year, warp, out Vector3 world)) return;
             float distance = PersonDistance * (ScreenLayout.IsPortrait ? PortraitPullback : 1f);
             pose.Target = world;
             pose.Distance = Mathf.Min(pose.Distance, distance);
-            if (!ScreenLayout.IsPortrait)
-            {
-                // slide the view along its own right so the point lands at PersonScreenX (it stays at the target's depth)
-                float across = 2f * pose.Distance * Mathf.Tan(CameraRig.FieldOfView * 0.5f * Mathf.Deg2Rad) * ScreenLayout.Aspect;
-                pose.Target += Quaternion.Euler(0, pose.Yaw, 0) * Vector3.right * ((0.5f - PersonScreenX) * across);
-            }
 
-            root.Rig.FlyTo(pose, FlySeconds);
+            // the point in the room the inspector leaves (left of its column; under the portrait sheet), moved toward
+            // the future: more of the life that led to the year shows, less of the void past the present
+            HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
+            Vector2 past = PersonFraming.PastDirection(pop, person, EconomyState.Year, warp, pose);
+            Vector2 focus = EconomyUiLayout.PersonFocus(f, Occupied, PersonInspector.Shown, past);
+            root.Rig.FlyTo(PersonFraming.Frame(pose, PersonFraming.ToScreenFraction(focus, f.Canvas), ScreenLayout.Aspect),
+                FlySeconds);
         }
 
         /// <summary>True while the camera looks at the stations beyond the road's end rather than at the road.</summary>
@@ -282,8 +284,15 @@ namespace Why.Economy.UI
 
             // the readout: one line, shorter on a portrait screen; measured while active (a hidden fade deactivates it,
             // and an inactive text may not measure), hidden again below when it has no place on this screen
-            readoutText.text = YearFacts.Line(model?.Lives, trust, EconomyState.Year, f.Portrait, UiFactory.Hex(GraphStyle.Text));
-            bool hasReadout = readoutText.text.Length > 0;
+            if (readoutYear != EconomyState.Year || readoutCompact != f.Portrait)
+            {
+                readoutYear = EconomyState.Year;
+                readoutCompact = f.Portrait;
+                readoutLine = YearFacts.Line(model?.Lives, trust, readoutYear, readoutCompact, UiFactory.Hex(GraphStyle.Text));
+            }
+
+            if (readoutText.text != readoutLine) readoutText.text = readoutLine;
+            bool hasReadout = readoutLine.Length > 0;
             if (hasReadout) readoutFade.Show(true);
             Vector2 text = hasReadout ? HudKit.FitText(readoutText) : Vector2.zero;
             readoutSize = new Vector2(Mathf.Ceil(text.x + 2 * HudKit.Pad), ReadoutHeight);

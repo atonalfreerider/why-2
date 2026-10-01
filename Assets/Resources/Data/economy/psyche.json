@@ -1,0 +1,1375 @@
+{
+  "vintage": "Literature through mid-2026 as recalled by the research agent (web search was unavailable; psychology values are recall unless tagged), Big Five age/sex gradients computed from SAPA bfi (n=2,800) and openpsychometrics TIPI (n=1,798), GSS 1972-2024 (Release 3), Fed SHED 2024 (verified), SCF 2022, CPS self-employment through Aug 2026, UBS Global Wealth Report 2025, BEA personal saving rates after the 30-Sep-2026 annual update; money-implied drive weights and fantasy shares from spending.json (BEA PCE 2025, pre-update levels). Compiled 2026-10-01.",
+  "sources": [
+    "research/psychology.json (cognitive biases, neurochemistry, dual process, motivation frameworks, hierarchy, trait distributions, spending-shift coefficients), research agent, 2026-10-01",
+    "research/behavior.json (ATUS time use, SHED, SCF, CPS self-employment, Gallup engagement, GSS 1972-2024, gambling, NSDUH, mobility), research agent, 2026-10-01, with the data editor's corrections (research/critique.md)",
+    "Assets/Resources/Data/economy/spending.json (category desire/fear weights, fearShare and fantasy; BEA PCE 2025)",
+    "SAPA bfi via https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/psych/bfi.csv; TIPI via https://raw.githubusercontent.com/vincentarelbundock/Rdatasets/master/csv/heplots/TIPI.csv",
+    "NORC General Social Survey 1972-2024 cumulative file, Release 3 (https://github.com/kjhealy/gssr)",
+    "Federal Reserve, Economic Well-Being of U.S. Households in 2024 (SHED, May 2025); Survey of Consumer Finances 2022",
+    "BLS American Time Use Survey 2023-2024 (recalled); BLS CPS self-employment (via bdecon/US-chartbook)",
+    "Killingsworth & Gilbert 2010 Science; Kahneman et al. 2004 Science; Frederick 2005 JEP; Wood, Quinn & Kashy 2002",
+    "Brown, Imai, Vieider & Camerer 2024 JEL (loss aversion meta); Tversky & Kahneman 1992; Laibson 1997; Meier & Sprenger 2010; Madrian & Shea 2001 QJE",
+    "Berridge & Robinson 2016 Am Psychol; Schultz, Dayan & Montague 1997 Science; Dickerson & Kemeny 2004; Eisenegger et al. 2010 Nature; Nave, Camerer & McCullough 2015",
+    "Kenrick et al. 2010 Perspect Psych Sci; Tay & Diener 2011 JPSP; Henrich & Gil-White 2001; Cheng et al. 2013 JPSP; Mech 1999 Can J Zool; Boehm 1999",
+    "Soto et al. 2011 JPSP; Roberts, Walton & Viechtbauer 2006 Psych Bull; Costa, Terracciano & McCrae 2001 JPSP",
+    "Nyhus & Webley 2001 Eur J Pers; Brown & Taylor 2014 J Econ Psych; Gladstone, Matz & Lemaire 2019 Psych Sci"
+  ],
+  "basisLegend": {
+    "github-data": "computed this session from data hosted on GitHub",
+    "verified": "checked against the primary report (GitHub copy)",
+    "verified-secondary": "checked against a verbatim copy of primary text in another repository",
+    "recalled": "from the research agent's (or this author's) memory of the named publication; not verified this session",
+    "derived": "computed here from the numbers named in the note",
+    "judgment": "a modeling choice; the note says what it rests on"
+  },
+  "corrections": [
+    "2026-10-01 verifier: traits.lossAversion.sd 0.95 -> 0.94. A lognormal with median 1.8 and logSd 0.45 has mean 1.8 x exp(0.45^2 / 2) = 1.992 and sd 1.992 x sqrt(exp(0.45^2) - 1) = 0.944, which rounds to 0.94; the mean 1.99 was already right.",
+    "2026-10-01 verifier: desiresNote said the money base was '$21.8T with saving'. $21.8T is household outlays (PCE $20,955B + consumer interest $577.7B in jeopardy + transfers paid $286.8B in collective, spending.json outsidePce); with saving ($1,046.8B) the base is $22,866B = disposable income. Recomputing from spending.json on that $22.9T base reproduces every desire and fear money weight and fearShareOfMoney 0.541, so only the text changed.",
+    "2026-10-01 verifier: biases.availability note credited the ~1,600 extra road deaths in the 12 months after 9/11 to Gigerenzer 2004. That paper estimated ~350 for the last three months of 2001; the 12-month figure (1,595, research/psychology.json dread_risk) is Gigerenzer 2006 Risk Analysis. Note and source corrected; value unchanged.",
+    "2026-10-01 verifier: biases.ego_depletion source listed 'Hagger et al. 2010, 2016 Perspect Psych Sci'. The 2010 meta-analysis (d = 0.62) is in Psychological Bulletin; only the 2016 multi-lab replication is in Perspectives. Citation split; values unchanged.",
+    "2026-10-01 verifier: agency.targets.financial_plan source said '28-37% across 2019-2024 waves'; research/behavior.json financialPlanningAndLiteracy gives the Schwab range for 2021-2024. Text aligned to the research; value 0.35 unchanged.",
+    "2026-10-01 verifier: os.jointDetail.purpose note said 'workers ranking meaningful work first'. The research table it comes from (behavior.json gssJobValues) gives a share of GSS respondents and is not restricted to workers. Wording corrected; value 0.444 unchanged."
+  ],
+  "lifeStageForm": "Each drive's strength by age is m(age) = floor + (1 - floor) * exp(-0.5 * ((age - peakAge) / spread)^2), multiplying its baseline weight. peakAge and spread are in years.",
+  "desires": [
+    {
+      "id": "food",
+      "name": "Food",
+      "blurb": "Wanting to eat and to enjoy it: hunger hormones set the need, dopamine makes food cues wanted, opioids make eating liked; served by groceries, restaurants and delivery.",
+      "chemicals": ["dopamine", "endorphins"],
+      "weight": 0.21,
+      "lifeStage": {"peakAge": 20, "spread": 30, "floor": 0.7},
+      "note": "Energy needs peak in the late teens and twenties (Dietary Guidelines, recalled); hunger is a daily signal at every age, hence the high floor. The market problem is over-consumption, not scarcity: adult obesity 40.3% (NHANES 2021-23), food insecurity 13.5% of households (USDA 2023, recalled). Weight: see desiresNote.",
+      "source": "Berridge & Kringelbach 2015 Neuron; Cummings et al. 2001; spending.json (money)"
+    },
+    {
+      "id": "collective",
+      "name": "Collective",
+      "blurb": "Belonging to a family, circle, congregation, team or tribe and being valued in it; served by restaurants and bars, religion and charities, sports fandom, social media and pets.",
+      "chemicals": ["oxytocin", "endorphins", "dopamine"],
+      "weight": 0.22,
+      "lifeStage": {"peakAge": 20, "spread": 35, "floor": 0.65},
+      "note": "Peer belonging is most intense in adolescence and early adulthood (social reward sensitivity; time with friends highest at ages 15-24 in ATUS-based studies, Kannan & Veazie 2023); family and civic belonging keep it high later, hence the broad bump. Kenrick's affiliation motive (Kenrick et al. 2010).",
+      "source": "Kenrick et al. 2010; Holt-Lunstad et al. 2010; spending.json (money)"
+    },
+    {
+      "id": "law",
+      "name": "Law",
+      "blurb": "Order, fairness and safety: wanting rules that are kept and cheaters punished; served by police, courts, insurance, legal services and the state, mostly paid through taxes.",
+      "chemicals": ["serotonin", "oxytocin"],
+      "weight": 0.07,
+      "lifeStage": {"peakAge": 65, "spread": 25, "floor": 0.5},
+      "note": "Valuing security, conformity and tradition rises with age (Schwartz value surveys, recalled), as do agreeableness and conscientiousness (bfi github-data: A 4.64 at 20-29 -> 4.98 at 50-59). The punishment side of fairness: low serotonin makes people reject unfair offers more (Crockett et al. 2008).",
+      "source": "Kenrick et al. 2010 (self-protection); Crockett et al. 2008 Science; spending.json (money)"
+    },
+    {
+      "id": "shelter",
+      "name": "Shelter",
+      "blurb": "A safe, warm, private home base; served by rent and mortgages, utilities, furnishings and home insurance, and above the basic level it is the largest status good.",
+      "chemicals": ["serotonin", "endorphins"],
+      "weight": 0.3,
+      "lifeStage": {"peakAge": 35, "spread": 15, "floor": 0.5},
+      "note": "Household formation and the first home: median first-time buyer age 40 in 2025 (29 in 1981; NAR, verified-secondary); under-35 homeownership 37.4% (2024). Housing is the largest item in both necessities and status, which is why shelter carries the largest money weight.",
+      "source": "NAR Profile of Home Buyers and Sellers 2025; Census HVS; spending.json (money)"
+    },
+    {
+      "id": "sex",
+      "name": "Sex",
+      "blurb": "Mating: attraction, sex and keeping a partner; served by beauty, fashion, fitness, dating apps, restaurants, jewelry and weddings.",
+      "chemicals": ["dopamine", "testosterone", "oxytocin", "endorphins"],
+      "weight": 0.2,
+      "lifeStage": {"peakAge": 25, "spread": 10, "floor": 0.15},
+      "note": "Mate seeking peaks at 18-35: median age at first marriage 28.6 (women) and 30.2 (men) in 2024; 53% of 18-29s have used dating apps (Pew 2023). The retreat from mating is real: 24% of 18-29s had no sex in the past year (GSS 2024, ~12% around 2000). Priming men with mates does not reliably raise luxury spending (failed replications), but status display to mates is real at population level.",
+      "source": "Kenrick et al. 2010 (mate acquisition and retention); GSS 2024; spending.json (money)"
+    }
+  ],
+  "desiresNote": "weight = share of the desire side of household money in 2025 (derived): each spending.json category's 2025 dollars (PCE plus consumer interest in jeopardy and transfers paid in collective, $21.8T of outlays; $22.9T with saving, equal to disposable income) times (1 - fearShare) times its desire weights, summed and normalized: food 0.209, collective 0.218, law 0.070, shelter 0.301, sex 0.203. Stated prevalence does not separate desires (everyone eats, wants a home and company), so the revealed money split is used alone. Law is low because households buy order mostly through taxes (government purchases $5.3T in 2025, not household money) and express it as fear of violence (jeopardy); its weight is a floor.",
+  "fears": [
+    {
+      "id": "starvation",
+      "name": "Starvation",
+      "blurb": "Fear of going without: hunger and, in a money economy, destitution, losing the income that buys food; served by jobs, savings, insurance and food aid.",
+      "chemicals": ["cortisol"],
+      "weight": 0.22,
+      "lifeStage": {"peakAge": 22, "spread": 25, "floor": 0.4},
+      "note": "Mostly a state, not an age: the model raises it with a thin buffer. Young adults hold the least (median net worth under 35: $39K, SCF 2022); 37% of adults could not cover $400 with cash (SHED 2024). Actual starvation risk is near zero; the fear is of ruin.",
+      "source": "Fed SHED 2024; SCF 2022; USDA ERS 2023 (recalled)"
+    },
+    {
+      "id": "isolation",
+      "name": "Isolation",
+      "blurb": "Fear of exclusion and loneliness, a real mortality risk; served by social media, messaging, bars, congregations and pets, often as substitutes for company.",
+      "chemicals": ["cortisol", "oxytocin"],
+      "weight": 0.23,
+      "lifeStage": {"peakAge": 80, "spread": 20, "floor": 0.5},
+      "note": "Calibrated to real risk: isolation +29%, loneliness +26%, living alone +32% odds of death (Holt-Lunstad et al. 2015). Rises in old age (living alone: 25% at 75, 42% at 89; IPUMS 2018) and for singles; a second peak among the young (25% of men 15-34 lonely daily, Gallup 2024; 12% of adults have no close friend, 2021 vs 3% in 1990) is left to the singles modifier.",
+      "source": "Holt-Lunstad, Smith & Layton 2010; Holt-Lunstad et al. 2015; US Surgeon General 2023 (recalled)"
+    },
+    {
+      "id": "murder",
+      "name": "Murder",
+      "blurb": "Fear of violence and predation, from assault and robbery to war; served by police, defense, courts, security systems, guns and gated or car-based living.",
+      "chemicals": ["adrenaline", "cortisol", "testosterone"],
+      "weight": 0.2,
+      "lifeStage": {"peakAge": 20, "spread": 35, "floor": 0.6},
+      "note": "Actual risk peaks at 15-24 (young men are most victims and offenders; Daly & Wilson 1988), while stated fear is higher among women and older adults (the fear-victimization paradox, recalled), hence the flat shape. A large perception gap: 33% are afraid to walk alone at night (GSS 2024) with homicide near 5 per 100,000 (2024, recalled); availability and negativity bias in media inflate it.",
+      "source": "GSS 2024 (fear); Daly & Wilson 1988; Gigerenzer 2004 (dread risk)"
+    },
+    {
+      "id": "exposure",
+      "name": "Exposure",
+      "blurb": "Fear of being unprotected from the elements and disease: homelessness, cold, heat, illness and injury; served by housing, utilities, health care and insurance.",
+      "chemicals": ["cortisol", "adrenaline"],
+      "weight": 0.29,
+      "lifeStage": {"peakAge": 75, "spread": 20, "floor": 0.5},
+      "note": "Illness and frailty rise steeply with age (health spending per person is highest after 65, recalled); the young face it as rent burden (22.6M cost-burdened renter households, Harvard JCHS 2023 data; 771,480 homeless in Jan 2024, HUD, recalled), hence the floor. Kenrick's self-protection and disease avoidance motives.",
+      "source": "Kenrick et al. 2010; HUD AHAR 2024 (recalled); spending.json (jeopardy, necessities)"
+    },
+    {
+      "id": "childless",
+      "name": "Childless",
+      "blurb": "Fear of ending without children or a family line, of not finding a partner or having kids in time; served by dating, fertility services, weddings and family-sized homes.",
+      "chemicals": ["cortisol", "oxytocin"],
+      "weight": 0.06,
+      "lifeStage": {"peakAge": 37, "spread": 6, "floor": 0.0, "peakAgeWomen": 35, "spreadWomen": 5, "peakAgeMen": 41, "spreadMen": 7},
+      "note": "Applies only to people without children; women 28-42, men 32-50 (fertility window and later male partnering). Increasingly a choice: 47% of non-parents under 50 say they are unlikely ever to have children (Pew 2024; 37% in 2018); fertility 1.60 (CDC 2024), a record low; ~15% of women 40-44 never gave birth (CPS 2016).",
+      "source": "Pew Research Center 2024; CDC NCHS 2024 births; Kenrick et al. 2010 (parenting)"
+    }
+  ],
+  "fearsNote": "weight = 0.5 x money-implied share + 0.5 x stated-prevalence share (derived). Money: spending.json 2025 dollars times fearShare times each category's fear weights: starvation 0.210, isolation 0.160, murder 0.203, exposure 0.361, childless 0.065. Stated prevalence (share of adults who face or feel it now), normalized: no $400 cash buffer 0.37 (SHED 2024, verified), report loneliness 0.50 (US Surgeon General 2023, recalled), afraid to walk alone at night 0.328 (GSS 2024, github-data; mixed-mode survey), exposure 0.35 and childless 0.10 (judgment: renters' cost burden ~17% of households plus the $400-shock and health-cost exposure; ~15% of women 40-44 childless, CPS 2016, and Pew 2024). Money undercounts isolation (people pay for substitutes, not for company) and overcounts exposure (housing and health are large necessities). Fear motivates 54% of household money by spending.json's fearShare weights.",
+  "poleBalance": {
+    "fearShareOfMoney": 0.541,
+    "desireWeightsMoney": {"food": 0.209, "collective": 0.218, "law": 0.07, "shelter": 0.301, "sex": 0.203},
+    "fearWeightsMoney": {"starvation": 0.21, "isolation": 0.16, "murder": 0.203, "exposure": 0.361, "childless": 0.065},
+    "fearWeightsStated": {"starvation": 0.225, "isolation": 0.303, "murder": 0.199, "exposure": 0.212, "childless": 0.061},
+    "note": "Derived from spending.json (2025 dollars incl. consumer interest, transfers paid and saving, weighted by each category's fearShare and desire/fear weights, which are that file's judgments). About half of household money answers a fear, mostly health care, insurance, interest and the basic home."
+  },
+  "chemicals": [
+    {
+      "id": "dopamine",
+      "name": "Dopamine",
+      "pole": "desire",
+      "notebookSide": "reward",
+      "function": "Wanting and learning: incentive salience for cues that predict reward and the reward prediction error (better or worse than expected) that teaches what to chase; it drives effort toward goals, not the pleasure of getting them.",
+      "markets": ["gambling and sports betting", "social media feeds", "mobile and loot-box games", "trading apps and crypto", "flash sales", "dating apps", "new-product launches"],
+      "caveat": "\"Dopamine = pleasure\", \"dopamine hits\" and \"dopamine detox\" are pop myths: dopamine-depleted rats still like sugar, and dopamine signals surprise and wanting, peaking for uncertain rewards (p ~0.5), which is exactly what slot machines and feeds exploit.",
+      "grade": "A (prediction error, wanting); B (consumer mapping)",
+      "source": "Schultz, Dayan & Montague 1997 Science; Berridge & Robinson 1998, 2016; Fiorillo, Tobler & Schultz 2003 Science; Knutson et al. 2007 Neuron"
+    },
+    {
+      "id": "serotonin",
+      "name": "Serotonin",
+      "pole": "desire",
+      "notebookSide": "reward",
+      "function": "Patience and restraint: waiting for delayed rewards, inhibiting impulses, processing aversive events and feeling secure in one's rank; low serotonin makes punishment of unfairness more impulsive.",
+      "markets": ["antidepressants", "wellness and supplements", "carbohydrate comfort food", "sunlight and travel"],
+      "caveat": "Not a \"happiness chemical\", and the low-serotonin theory of depression lacks consistent evidence (Moncrieff et al. 2022); antidepressants work for some people by other routes. About 13% of US adults used an antidepressant in the past month (NCHS 2015-18, recalled).",
+      "grade": "B",
+      "source": "Miyazaki et al. 2014 Curr Biol; Crockett et al. 2008 Science; Raleigh et al. 1991; Moncrieff et al. 2022 Mol Psychiatry"
+    },
+    {
+      "id": "oxytocin",
+      "name": "Oxytocin",
+      "pole": "desire",
+      "notebookSide": "reward",
+      "function": "Bonding: pair bonds, parenting and attention to people; it raises trust and cooperation inside the group and defensiveness toward out-groups (parochial altruism), with vasopressin in mate guarding.",
+      "markets": ["family and belonging ads", "brand communities", "pets", "team sports fandom", "religion", "messaging and likes", "weddings", "baby products"],
+      "caveat": "Not a universal \"love\" or \"trust hormone\": the famous nasal-spray trust result (45% vs 21% maximal trust, Kosfeld et al. 2005) did not replicate in large studies, and human intranasal studies are underpowered; the strong evidence is in animals.",
+      "grade": "A (animal bonding); C (human intranasal behavior)",
+      "source": "Insel & Young 2001; De Dreu et al. 2010 Science; Nave, Camerer & McCullough 2015 Perspect Psych Sci; Declerck et al. 2020; Walum, Waldman & Young 2016"
+    },
+    {
+      "id": "endorphins",
+      "name": "Endorphins",
+      "pole": "desire",
+      "notebookSide": "reward",
+      "function": "Liking and relief: endogenous opioids (with endocannabinoids) make rewards pleasurable in small hedonic hotspots, dull pain, make the end of a threat feel good, and bond people through laughter, touch and moving together.",
+      "markets": ["comfort food (sugar and fat)", "alcohol", "chocolate", "music and concerts", "spas and massage", "gyms", "painkillers", "cannabis"],
+      "caveat": "The \"endorphin rush\" is overstated: the runner's high is largely endocannabinoid, and claims that social pain is the same as physical pain are partly contested. Alcohol's pull runs partly through opioids (naltrexone blunts it).",
+      "grade": "A- (animal hotspots); B (human)",
+      "source": "Pecina & Berridge 2005; Berridge & Kringelbach 2015 Neuron; Leknes et al. 2008; Manninen et al. 2017 J Neurosci; Fuss et al. 2015 PNAS"
+    },
+    {
+      "id": "cortisol",
+      "name": "Cortisol",
+      "pole": "fear",
+      "notebookSide": "fear",
+      "function": "The stress hormone of the HPA axis: it mobilizes energy under threat, responds most to threats that are uncontrollable or socially evaluative, and when chronic it shortens time horizons and harms health.",
+      "markets": ["insurance", "security systems and guns", "pharma ads", "news", "\"peace of mind\" financial products", "debt relief", "stress relief (CBD, meditation apps)", "alcohol"],
+      "caveat": "Not simply \"bad\": acute stress is adaptive and performance needs some; saliva and blood levels are noisy proxies for brain signaling; \"cortisol belly\" claims oversimplify.",
+      "grade": "A (stress physiology); B (consumer link)",
+      "source": "Dickerson & Kemeny 2004 Psych Bull; Sapolsky 2005 Science; Porcelli & Delgado 2009 Psych Sci; Coates & Herbert 2008 PNAS"
+    },
+    {
+      "id": "adrenaline",
+      "name": "Adrenaline",
+      "pole": "fear",
+      "notebookSide": "fear",
+      "function": "Fight or flight: adrenaline and noradrenaline raise arousal, vigilance and urgency, amplify whatever emotion is present and stamp it into memory; performance follows an inverted U.",
+      "markets": ["horror and action media", "theme parks", "extreme sports", "energy drinks", "live sports betting", "countdown timers", "breaking-news alerts"],
+      "caveat": "Arousal is not specific to fear (thrills use it too); \"adrenaline junkie\" is not a personality type; the inverted U (Yerkes-Dodson) is often overgeneralized and misattribution-of-arousal studies are small.",
+      "grade": "A (physiology); C (consumer specifics)",
+      "source": "McGaugh 2004 Annu Rev Neurosci; Aston-Jones & Cohen 2005; Cannon 1915"
+    },
+    {
+      "id": "testosterone",
+      "name": "Testosterone",
+      "pole": "desire",
+      "notebookSide": "fear",
+      "function": "Status seeking: it rises after winning (the winner effect), motivates the pursuit and defense of rank, raises risk taking, and can make people fairer when fairness earns status.",
+      "poleNote": "The notebook draws it on the fear side with cortisol and adrenaline, because it powers defense when status is challenged (dominance is fear-induced deference, and the dual-hormone view pairs high testosterone with low cortisol). Here it sits on the desire pole because its core is approach toward rank and mates; the fear of losing status is carried by cortisol.",
+      "markets": ["luxury cars and watches", "sports and sports betting", "trading and crypto", "fitness and supplements", "testosterone clinics", "\"alpha\" self-help", "men's grooming"],
+      "caveat": "Not simply aggression: given testosterone, people made fairer ultimatum offers, while believing they had it made them less fair (Eisenegger et al. 2010); \"T-boosters\" do not make alphas; power-pose hormone effects failed to replicate; dual-hormone effects are small and inconsistent (Dekkers et al. 2019).",
+      "grade": "B",
+      "source": "Mazur & Booth 1998 BBS; Eisenegger et al. 2010 Nature; Carre & Archer 2018; Dekkers et al. 2019; Ranehill et al. 2015"
+    }
+  ],
+  "chemicalsNote": "No molecule maps to one emotion: effects depend on receptor, region, dose, context and person, and blood or saliva levels poorly index brain signaling. Use these as labels for latent states (wanting, liking/relief, patience, bonding, stress, arousal, dominance drive), not as chemistry. Hunger hormones (ghrelin, leptin) and sex steroids also matter but are not in the notebook's seven.",
+  "modes": [
+    {
+      "id": "converse",
+      "name": "Converse",
+      "blurb": "Talking with people: reading minds, trading news, laughing; among the happiest moments of the day.",
+      "chemicals": ["oxytocin", "endorphins", "dopamine"],
+      "share": 0.14,
+      "os": "mixed",
+      "affect": 0.6,
+      "network": "mentalizing (default-mode) and language networks",
+      "timeFrame": "present",
+      "note": "Estimate. Lower bound from ATUS: socializing and communicating 0.58 h plus calls, mail and e-mail 0.15 h = 0.73 h of 15.0 waking hours = 0.049; talk during work, meals and care raises it to about the research prior 0.15.",
+      "source": "BLS ATUS 2023-24 (recalled); Kahneman et al. 2004 (DRM); research/psychology.json prior"
+    },
+    {
+      "id": "learn",
+      "name": "Learn",
+      "blurb": "Taking in new information and practicing skills, driven by prediction errors and rewarded by flow when challenge matches skill.",
+      "chemicals": ["dopamine"],
+      "share": 0.05,
+      "os": "higher",
+      "affect": 0.3,
+      "network": "hippocampal memory system with frontoparietal control",
+      "timeFrame": "past to future",
+      "note": "ATUS: educational activities 0.45 h plus reading for personal interest 0.27 h = 0.72 h of 15.0 waking hours = 0.048 (persons 15+, students included); learning on the job adds a little (research prior 0.07). Reading for pleasure on a given day fell from 28% (2004) to 16% (2023).",
+      "source": "BLS ATUS 2023-24 (recalled); Sonke et al. 2025 iScience (recalled)"
+    },
+    {
+      "id": "task",
+      "name": "Task",
+      "blurb": "Attention on the job at hand, from paid work and chores to shopping and care, partly habitual (about 43% of daily behaviors run on habit).",
+      "chemicals": ["dopamine", "adrenaline"],
+      "share": 0.34,
+      "os": "mixed",
+      "affect": 0.1,
+      "network": "frontoparietal control (novel tasks), dorsolateral striatum (habits)",
+      "timeFrame": "present",
+      "note": "Derived: on-task share of waking samples 0.531 (Killingsworth & Gilbert 2010) minus converse 0.14 and learn 0.05. ATUS task activities (work 3.6 h, household 2.0 h, purchasing 0.65 h, care 0.7 h) fill 6.95 h = 0.46 of waking time, and the mind wanders during about a third to half of it. Work brings flow in 54% of samples but low affect (Csikszentmihalyi & LeFevre 1989).",
+      "source": "Killingsworth & Gilbert 2010 Science; BLS ATUS (recalled); Wood, Quinn & Kashy 2002"
+    },
+    {
+      "id": "deep_thought",
+      "name": "Deep thought",
+      "blurb": "Deliberate planning and reflection: simulating futures, weighing options, reappraising; the mind's eye turning memory and a model of the world into strategy.",
+      "chemicals": ["serotonin"],
+      "share": 0.05,
+      "os": "higher",
+      "affect": 0.2,
+      "network": "default-mode network coupled with frontoparietal control (prospection)",
+      "timeFrame": "future",
+      "note": "Estimate (no direct measure): purposeful prospection is a small part of experience samples. Counted inside the 46.9% of waking samples in which the mind is off the task at hand, which bounds deep thought plus rumination from above (0.05 + 0.12 = 0.17 of 0.469).",
+      "source": "Seligman et al. 2013 (prospection); Buckner, Andrews-Hanna & Schacter 2008; research prior 0.05"
+    },
+    {
+      "id": "rumination",
+      "name": "Rumination",
+      "blurb": "Going over threats, losses and grievances without resolving them; minds that wander to unpleasant topics are measurably less happy.",
+      "chemicals": ["cortisol"],
+      "share": 0.12,
+      "os": "default",
+      "affect": -0.5,
+      "network": "default-mode network (hyperconnected in depression), subgenual cingulate",
+      "timeFrame": "past",
+      "note": "Derived: mind wandering 46.9% of waking samples x 26.5% to unpleasant topics = 12.4% (Killingsworth & Gilbert 2010); wandering explained 10.8% of within-person variance in happiness vs 4.6% for activity.",
+      "source": "Killingsworth & Gilbert 2010 Science; Kaiser et al. 2015 JAMA Psychiatry"
+    }
+  ],
+  "modesNote": "Shares of waking time (15.0 h a day for persons 15+, ATUS sleep 9.0 h). The five modes cover 0.70: on-task 0.53 (converse, learn, task) and 0.17 of internally directed thought (deep thought, rumination). The other 0.30 is daydreaming: pleasant (42.5%) or neutral (31%) mind wandering (0.469 x 0.735 = 0.345, less the deep thought counted above), the mind's own fantasy channel; people are no happier daydreaming pleasant things than staying on task.",
+  "modeResidual": {
+    "id": "daydream",
+    "name": "Daydream",
+    "share": 0.3,
+    "os": "default",
+    "affect": 0.0,
+    "note": "Derived: 0.469 - 0.124 rumination - 0.05 deep thought = 0.295.",
+    "source": "Killingsworth & Gilbert 2010 Science"
+  },
+  "mindsEye": [
+    {
+      "id": "memory",
+      "name": "Memory",
+      "timeFrame": "past",
+      "blurb": "Episodic memory in the hippocampus and medial temporal lobe, the same system that builds possible futures.",
+      "source": "Schacter & Addis 2007"
+    },
+    {
+      "id": "world_state",
+      "name": "World state",
+      "timeFrame": "present",
+      "blurb": "A running 3D model of the present that predicts the senses; the salience network flags what matters and switches modes.",
+      "source": "Friston 2010; Seeley et al. 2007; Barrett 2017 (framework, grade C)"
+    },
+    {
+      "id": "strategy",
+      "name": "Strategy",
+      "timeFrame": "future",
+      "blurb": "Prospection toward a goal: simulating futures and choosing a path, with lateral prefrontal control holding the plan.",
+      "source": "Seligman et al. 2013; Hare, Camerer & Rangel 2009"
+    }
+  ],
+  "os": {
+    "higher": {
+      "name": "Higher OS: reason",
+      "decisions": ["long-term strategy", "network building and curation", "forgiveness"],
+      "share": 0.4,
+      "range": [0.3, 0.55],
+      "constructs": [
+        "System 2 / cognitive reflection",
+        "trait self-control and conscientiousness",
+        "internal locus of control",
+        "prospection and planning"
+      ],
+      "levers": [
+        "sleep and lower stress",
+        "a savings buffer (slack)",
+        "if-then plans (d ~0.65)",
+        "defaults and commitment devices (SEED: +81% savings)",
+        "cross-group contact",
+        "cooling-off periods and courts in place of personal revenge"
+      ],
+      "note": "share = population mean share of economic decisions made deliberately (an evidence-informed modeling parameter; no survey measures it). Anchors: 43% of daily behaviors are habits, so at most ~57% are deliberate (Wood, Quinn & Kashy 2002); on-task attention 53% (Killingsworth & Gilbert 2010); the average person overrides intuition on 41% of Cognitive Reflection Test items (mean 1.24 of 3) and 17% on all three (Frederick 2005); ~55% are time-consistent and ~1/3 present-biased (Meier & Sprenger 2010); 35% have a written financial plan. Central 0.40, range 0.30-0.55. For the agency threshold reason >= 0.6, roughly 17-39% of adults should qualify (CRT 3 of 3 vs 2+ of 3).",
+      "grade": "B (constructs); judgment (share)",
+      "source": "Frederick 2005 JEP; Wood, Quinn & Kashy 2002; Killingsworth & Gilbert 2010; Meier & Sprenger 2010; Gollwitzer & Sheeran 2006; Ashraf, Karlan & Yin 2006"
+    },
+    "default": {
+      "name": "Default OS: emotion",
+      "decisions": ["revenge", "violence", "emotional punishment"],
+      "share": 0.6,
+      "range": [0.45, 0.7],
+      "constructs": [
+        "System 1 / affect heuristic",
+        "habits and cues",
+        "naive realism and solipsism",
+        "altruistic punishment beyond deterrence"
+      ],
+      "stateModifiers": [
+        "sleep loss (+60% amygdala reactivity after one night, Yoo et al. 2007)",
+        "hunger",
+        "acute stress",
+        "intoxication",
+        "cognitive load",
+        "social threat"
+      ],
+      "note": "share = 1 - higher. Not bad in itself: fast, cheap and usually right in familiar settings. It turns costly under threat: unfair offers below ~20% are rejected about half the time, and punishing defectors activates the reward striatum (Sanfey et al. 2003; de Quervain et al. 2004).",
+      "grade": "B (constructs); judgment (share)",
+      "source": "Kahneman 2011; Evans & Stanovich 2013; Sanfey et al. 2003 Science; de Quervain et al. 2004 Science"
+    },
+    "joint": ["romantic partnership", "life purpose", "parenting"],
+    "jointDetail": [
+      {
+        "id": "partnership",
+        "name": "Romantic partnership",
+        "share": 0.663,
+        "note": "Adults 25-54 married or cohabiting 66.3%, married 53.8% (GSS 2024; married 82.8% in 1972). Stronger social ties raise survival odds by 1.5x (Holt-Lunstad et al. 2010).",
+        "source": "GSS 1972-2024 (github-data); Holt-Lunstad, Smith & Layton 2010"
+      },
+      {
+        "id": "purpose",
+        "name": "Life purpose",
+        "share": 0.444,
+        "note": "share = respondents ranking meaningful work first among job traits (GSS 2014; high income 28%). One SD more purpose: ~15% lower mortality hazard (Hill & Turiano 2014); lowest vs highest purpose HR ~2.4 (Alimujiang et al. 2019).",
+        "source": "GSS (github-data); Hill & Turiano 2014; Alimujiang et al. 2019 (recalled)"
+      },
+      {
+        "id": "parenting",
+        "name": "Parenting",
+        "share": 0.854,
+        "note": "share = adults 40-49 with at least one child (GSS 2024: 14.6% childless). Low moment-to-moment affect but high meaning (DRM: child care 3.2 vs relaxing 3.9); fertility 1.60 (CDC 2024).",
+        "source": "GSS 2024 (github-data); Kahneman et al. 2004; CDC NCHS 2024 (recalled)"
+      }
+    ],
+    "note": "Science supports a continuum of reflective vs reactive control that shifts with state, not two literal operating systems (Melnikoff & Bargh 2018 \"the mythical number two\"); the joint domains need both: feelings to bond, reason to keep the bond through defections (generous tit-for-tat)."
+  },
+  "signals": [
+    {
+      "id": "relief",
+      "name": "Relief",
+      "blurb": "The good feeling when pain or threat ends: opioid relief pleasure plus a better-than-expected surprise; markets sell relief (painkillers, alcohol, comfort food, debt consolidation), which fixes the feeling, not the cause.",
+      "chemicals": ["endorphins", "dopamine"],
+      "share": 0.0,
+      "note": "Negative reinforcement: escape purchases that relieve stress get repeated. 17.1% of people 12+ had a substance use disorder in 2023 (NSDUH, recalled).",
+      "source": "Leknes et al. 2008; Berridge & Kringelbach 2015; SAMHSA NSDUH 2023 (recalled)"
+    },
+    {
+      "id": "satisfaction",
+      "name": "Satisfaction",
+      "blurb": "Liking once a need is met, carried by opioid hotspots rather than dopamine; it fades with hedonic adaptation, which keeps the wanting going.",
+      "chemicals": ["endorphins", "serotonin", "oxytocin"],
+      "share": 0.0,
+      "note": "Marriage happiness returns toward baseline within ~2 years (Lucas 2007); well-being still rises with log income with no plateau for most (Killingsworth, Kahneman & Mellers 2023). Only 23.4% of adults said \"very happy\" in 2024 vs 30-36% in 1972-2018 (GSS, mixed-mode caveat).",
+      "source": "Berridge & Kringelbach 2015; Lucas 2007; GSS 2024 (github-data)"
+    },
+    {
+      "id": "pain",
+      "name": "Pain",
+      "blurb": "Pay attention inside, now: the insula turns body states into feelings, and hunger, loneliness and even a high price register as pain-like signals that demand action.",
+      "chemicals": ["cortisol", "adrenaline"],
+      "share": 0.0,
+      "note": "pay attention inside, now. Loneliness works like hunger, an aversive signal to reconnect (Cacioppo & Patrick 2008); insula activity to a price predicts not buying (Knutson et al. 2007). 20.9% of adults had chronic pain in 2021 (CDC NHIS, recalled); unpleasant mind wandering takes 12% of waking time.",
+      "source": "Craig 2009 Nat Rev Neurosci; Knutson et al. 2007 Neuron; Cacioppo & Patrick 2008"
+    }
+  ],
+  "signalsNote": "\"All sensations are signals\" matches interoception and predictive-processing accounts (feelings as the brain's predictions about the body; Barrett 2017, a framework). Wanting (dopamine) is the anticipation; satisfaction and relief are the outcome. share is 0: these are momentary states without a population share.",
+  "hierarchy": [
+    {
+      "id": "alpha",
+      "name": "Alpha",
+      "blurb": "The top of a group's rank order, reached by dominance (deference won by fear) or prestige (deference freely given for skill and generosity); both predict influence, and the \"alpha wolf\" comes from captive wolves: wild packs are families led by the parents.",
+      "chemicals": ["testosterone", "serotonin", "dopamine"],
+      "share": 0.2,
+      "dominanceShare": 0.1,
+      "prestigeShare": 0.1,
+      "note": "Dominance alphas exploit when unpunished and buy visible status and risky assets; prestige leaders cooperate, teach, play generous tit-for-tat and spend on growth and giving.",
+      "source": "Henrich & Gil-White 2001; Cheng et al. 2013 JPSP; Mech 1999 Can J Zool"
+    },
+    {
+      "id": "beta",
+      "name": "Beta",
+      "blurb": "Mid-rank conformists who follow norms and leaders, most people; about half of public-goods players are conditional cooperators who give when others give.",
+      "chemicals": ["oxytocin", "serotonin"],
+      "share": 0.55,
+      "note": "Anchored to ~50% conditional cooperators and ~30% free riders (Fischbacher, Gachter & Fehr 2001). Buys by social proof and mainstream status goods.",
+      "source": "Fischbacher, Gachter & Fehr 2001 Econ Letters"
+    },
+    {
+      "id": "omega",
+      "name": "Omega",
+      "blurb": "Low-rank or excluded members under chronic subordination stress; low rank harms health when hierarchies are stable and support is lacking, and the Whitehall gradient runs through every grade.",
+      "chemicals": ["cortisol"],
+      "share": 0.15,
+      "note": "Whitehall I: lowest grades had ~3x the 10-year mortality of the highest. Cross-checks: 12% of adults have no close friend (2021), 9.7% call themselves lower class (GSS 2024). Spends on escape and pays the penalties (fees, interest).",
+      "source": "Sapolsky 2005 Science; Marmot et al. 1978/1984; Survey Center on American Life 2021"
+    },
+    {
+      "id": "anti_alpha",
+      "name": "Anti-alpha",
+      "blurb": "Coalitions that cut would-be dominants down by ridicule, ostracism and desertion, which keeps mobile foragers egalitarian (a reverse dominance hierarchy); in games, the costly punishers of free riders and bullies.",
+      "chemicals": ["oxytocin", "dopamine"],
+      "share": 0.1,
+      "note": "Boehm surveyed ~50 forager societies. Costly peer punishment sustains contributions in public-goods games (Fehr & Gachter 2000, 2002) and punishing a defector activates the reward striatum; where civic norms are weak, punishment turns antisocial (Herrmann, Thoni & Gachter 2008).",
+      "source": "Boehm 1999 Hierarchy in the Forest; Fehr & Gachter 2002 Nature; Herrmann et al. 2008 Science"
+    }
+  ],
+  "hierarchyNote": "Dominance vs prestige: two independent routes to status (Henrich & Gil-White 2001; Cheng et al. 2013), so the model should score each person on both rather than assign one rank. Sociometric status (respect in one's own groups) predicts well-being more than income (Anderson et al. 2012). Alpha, beta and omega are folk terms popularized from Schenkel's 1947 captive wolves and Mech's 1970 book, which Mech has since disowned (Mech 1999); anti-alpha matches Boehm's reverse dominance hierarchy well. Shares are speculative design priors (research hierarchyRolesForModel: dominance 0.10, prestige 0.10, beta 0.55, omega 0.15, anti-alpha 0.10).",
+  "biases": [
+    {
+      "id": "present_bias",
+      "name": "Present bias",
+      "param": "beta (weight on every future period vs now)",
+      "value": 0.8,
+      "range": [0.5, 1.0],
+      "effect": "Now beats later: overspending, undersaving, credit-card debt, unused gyms; about a third of people are present-biased, half time-consistent.",
+      "exploit": "Buy now pay later, teaser rates, free trials that auto-renew, instant delivery, deferred billing, payday loans.",
+      "category": "escapism",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Field consumption estimates 0.7-0.9 (Laibson, Repetto & Tobacman 2007: 0.70; Shui & Ausubel 2004: ~0.8); money in the lab ~0.95-1.0. The individual distribution is in traits.presentBiasBeta.",
+      "source": "Laibson 1997 QJE; Laibson, Repetto & Tobacman 2007; Meier & Sprenger 2010; Augenblick, Niederle & Sprenger 2015; Cohen et al. 2020 JEL"
+    },
+    {
+      "id": "hyperbolic_discounting",
+      "name": "Hyperbolic discounting",
+      "param": "k per day in V = A / (1 + kD)",
+      "value": 0.01,
+      "range": [0.002, 0.05],
+      "effect": "Value falls steeply for short delays and slowly for long ones, so preferences reverse as a reward gets close; k is about twice as high in addiction and gambling disorder.",
+      "exploit": "\"Only $X a day\" reframing, instant gratification, rewards on the spot, delayed costs.",
+      "category": "escapism",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "B",
+      "note": "Shape robust; k varies by orders of magnitude across samples and amounts (larger sums discounted less).",
+      "source": "Mazur 1987; Ainslie 1975; Kirby, Petry & Bickel 1999; Green & Myerson 2004; MacKillop et al. 2011"
+    },
+    {
+      "id": "loss_aversion",
+      "name": "Loss aversion",
+      "param": "lambda (weight of losses vs equal gains)",
+      "value": 1.96,
+      "range": [1.31, 2.25],
+      "effect": "Losses weigh about twice as much as gains: people overinsure small risks, avoid stocks, hold losers and fight to keep what they have.",
+      "exploit": "\"Don't miss out\", \"you're losing $X a month\", free trials then feature loss, extended warranties, insurance upsells, loss-framed scarcity.",
+      "category": "jeopardy",
+      "pole": "fear",
+      "replication": "robust",
+      "grade": "A- (existence); B (size)",
+      "note": "Meta-analytic mean 1.96 (CI ~1.8-2.1, 607 estimates; Brown et al. 2024); classic 2.25 (Tversky & Kahneman 1992); a Bayesian meta finds ~1.3 (Walasek et al. 2024). About 10-15% of people show lambda < 1.",
+      "source": "Brown, Imai, Vieider & Camerer 2024 JEL; Tversky & Kahneman 1992; Walasek, Mullett & Stewart 2024; Gal & Rucker 2018"
+    },
+    {
+      "id": "probability_weighting",
+      "name": "Probability weighting",
+      "param": "gamma in w(p) = p^g / (p^g + (1-p)^g)^(1/g)",
+      "value": 0.61,
+      "range": [0.5, 0.75],
+      "effect": "Small chances feel bigger than they are (w(0.01) ~0.055, 5.5x): lottery tickets and long-shot bets on the desire side, warranties and flight insurance on the fear side.",
+      "exploit": "Jackpot ads when prizes roll over, scratchers at checkout, parlays and \"boosted\" long shots, \"you could win\".",
+      "category": "escapism",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Losses gamma ~0.69. Do not extrapolate to jackpot odds (1 in 292M): treat as probability neglect with a cap. 47% of adults bought a lottery ticket in the past year (Gallup, approx.); lotteries return ~60% of sales as prizes while buyers believe ~29%.",
+      "source": "Tversky & Kahneman 1992; Prelec 1998; Wu & Gonzalez 1996; Lockwood, Allcott, Taubinsky & Sial 2024"
+    },
+    {
+      "id": "optimism",
+      "name": "Optimism bias",
+      "param": "share of people showing unrealistic optimism",
+      "value": 0.8,
+      "range": [0.6, 0.85],
+      "effect": "People expect better than average outcomes for themselves (health, marriage, career, business), so they under-save and under-insure; newlyweds put their own divorce odds near 0% vs ~50% overall.",
+      "exploit": "Aspirational \"this could be you\" ads, franchise and MLM recruiting, underpriced risk.",
+      "category": "saving",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "B",
+      "note": "Phenomenon robust; the asymmetric belief-updating mechanism is contested (Shah et al. 2016).",
+      "source": "Weinstein 1980 JPSP; Sharot 2011 Curr Biol; Baker & Emery 1993"
+    },
+    {
+      "id": "overconfidence",
+      "name": "Overconfidence",
+      "param": "net annual return gap, most active traders vs market (pp)",
+      "value": -6.5,
+      "range": [-7.0, -2.0],
+      "effect": "Most people rate themselves above average (93% of US student drivers) and trade too much: the most active fifth earned 11.4% vs 17.9% for the market (1991-96); men trade 45% more than women.",
+      "exploit": "Zero-commission gamified trading apps, confetti and leaderboards, options and crypto marketing, \"anyone can\" courses.",
+      "category": "saving",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A",
+      "note": "81% of founders rate their own success odds at 70% or more while about half of new establishments survive five years. Dunning-Kruger is partly a statistical artifact (grade C+).",
+      "source": "Barber & Odean 2000 J Finance, 2001 QJE; Svenson 1981; Cooper, Woo & Dunkelberg 1988"
+    },
+    {
+      "id": "social_comparison",
+      "name": "Social comparison",
+      "param": "neighbors' earnings effect / own earnings effect on happiness",
+      "value": -1.0,
+      "range": [-1.2, -0.5],
+      "effect": "Happiness depends on income relative to neighbors about as much as on income itself, so visible consumption tracks the reference group and cascades down from the top.",
+      "exploit": "Status display ads, influencer lifestyles, \"keeping up\", financing for visible goods, neighbor comparisons in bills.",
+      "category": "status",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Fear side: falling behind. A $1,000 larger neighbor lottery prize raises local bankruptcies 2.4% (Agarwal et al. 2020); pay below the unit median lowers satisfaction, pay above does not raise it (Card et al. 2012).",
+      "source": "Luttmer 2005 QJE; Card, Mas, Moretti & Saez 2012 AER; Agarwal, Mikhed & Scholnick 2020 RFS; Charles, Hurst & Roussanov 2009"
+    },
+    {
+      "id": "hedonic_adaptation",
+      "name": "Hedonic adaptation",
+      "param": "years to return toward baseline after marriage",
+      "value": 2.0,
+      "range": [1.0, 3.0],
+      "effect": "The lift from a purchase or life event fades, so the next upgrade is needed to feel the same: a treadmill for status and novelty spending.",
+      "exploit": "Novelty marketing, yearly model refreshes, subscription \"surprise\" boxes, lifestyle inflation.",
+      "category": "status",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "B+",
+      "note": "Adaptation is incomplete for unemployment, disability, widowhood and chronic pain (Lucas et al. 2004). The famous lottery-winner study had 22 winners; Swedish lottery data show small lasting life-satisfaction gains.",
+      "source": "Lucas 2007; Lucas, Clark, Georgellis & Diener 2004; Brickman et al. 1978; Lindqvist, Ostling & Cesarini 2020"
+    },
+    {
+      "id": "default_effect",
+      "name": "Default effect",
+      "param": "401(k) participation of new hires under automatic enrollment",
+      "value": 0.86,
+      "range": [0.37, 0.86],
+      "effect": "People stay with whatever is pre-set: participation jumped from 37% (opt in) to 86% (auto-enroll), and most stayed at the default 3% rate and money-market fund.",
+      "exploit": "Pre-checked boxes, auto-renewal, default add-ons, negative-option billing; or, for good, auto-saving and auto-escalation.",
+      "category": "saving",
+      "pole": "fear",
+      "replication": "robust",
+      "grade": "A",
+      "note": "Inertia partly reflects loss aversion relative to the default (hence pole fear), plus effort and implied endorsement. Meta-analytic d = 0.68 (58 studies). Much \"control\" in the data is defaults, not choice.",
+      "source": "Madrian & Shea 2001 QJE; Jachimowicz et al. 2019; Johnson & Goldstein 2003 Science; Thaler & Benartzi 2004"
+    },
+    {
+      "id": "mental_accounting",
+      "name": "Mental accounting",
+      "param": "marginal propensity to spend on food out of SNAP (cash ~0.1)",
+      "value": 0.55,
+      "range": [0.5, 0.6],
+      "effect": "Money is not fungible in the mind: labeled money (food stamps, refunds, windfalls, gift cards) is spent on what the label says.",
+      "exploit": "Gift cards and store credit, \"found money\" promotions, rewards points, tax-refund season sales.",
+      "category": "necessities",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Tax refunds are spent at 35-60% (Souleles 1999).",
+      "source": "Hastings & Shapiro 2018 AER; Thaler 1985, 1999; Souleles 1999 AER"
+    },
+    {
+      "id": "sunk_cost",
+      "name": "Sunk cost",
+      "param": "attendance ratio, full-price vs discounted season tickets",
+      "value": 1.24,
+      "range": [1.0, 1.24],
+      "effect": "Having paid makes people keep using, keep going and keep investing: full-price season ticket holders came to 4.11 plays vs 3.32 in the first half season.",
+      "exploit": "Up-front annual fees, loyalty tiers, \"don't lose your progress or streak\", sunk memberships.",
+      "category": "status",
+      "pole": "fear",
+      "replication": "robust",
+      "grade": "B",
+      "note": "value derived: 4.11 / 3.32 = 1.24. Replicated in Many Labs 1 (small to moderate); field effects fade with time.",
+      "source": "Arkes & Blumer 1985; Klein et al. 2014 (Many Labs 1); Ho, Png & Reza 2018"
+    },
+    {
+      "id": "anchoring",
+      "name": "Anchoring",
+      "param": "ratio of median estimates after a high vs low anchor",
+      "value": 1.8,
+      "range": [1.0, 2.0],
+      "effect": "The first number seen pulls judgments toward it: list prices, \"was\" prices and suggested tips set what feels fair.",
+      "exploit": "MSRP and \"compare at\" prices, decoy high tiers, suggested tip and donation amounts, opening offers.",
+      "category": "status",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A (informative); C (incidental)",
+      "note": "value derived: median estimates 45% vs 25% after anchors of 65 vs 10 (Tversky & Kahneman 1974). Informative anchors replicate strongly; incidental ones (Social Security digits) weakly, hence the range down to 1.0.",
+      "source": "Tversky & Kahneman 1974 Science; Ariely, Loewenstein & Prelec 2003; Maniadis, Tufano & List 2014; Klein et al. 2014"
+    },
+    {
+      "id": "availability",
+      "name": "Availability",
+      "param": "relative rise in flood-insurance take-up the year after a local flood",
+      "value": 0.09,
+      "range": [0.05, 0.12],
+      "effect": "Vivid, recent events feel likely: insurance and security sell after disasters and crime stories, and the effect decays to baseline over about nine years.",
+      "exploit": "Fear ads after disasters and news events, security systems after local crime coverage.",
+      "category": "jeopardy",
+      "pole": "fear",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Dread risk: ~1,600 extra US road deaths in the year after 9/11 as people avoided flying (Gigerenzer 2006; ~350 in the first three months, Gigerenzer 2004).",
+      "source": "Gallagher 2014 AEJ Applied; Tversky & Kahneman 1973; Gigerenzer 2004 Psych Sci; Gigerenzer 2006 Risk Anal"
+    },
+    {
+      "id": "herding",
+      "name": "Herding (social proof)",
+      "param": "share complying with a descriptive norm (vs 0.351 without)",
+      "value": 0.441,
+      "range": [0.351, 0.493],
+      "effect": "People do what others like them do: one early up-vote raises final ratings 25%, and manias in stocks, crypto and fashion feed on it.",
+      "exploit": "\"Most popular\", \"X people are viewing this\", reviews, bestseller lists, influencer follower counts.",
+      "category": "saving",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "B+",
+      "note": "Hotel towel reuse 35.1% (standard message), 44.1% (descriptive norm), 49.3% (same-room norm). Asch conformity has declined since the 1950s (Bond & Smith 1996).",
+      "source": "Goldstein, Cialdini & Griskevicius 2008 JCR; Muchnik, Aral & Taylor 2013 Science; Salganik, Dodds & Watts 2006"
+    },
+    {
+      "id": "scarcity",
+      "name": "Scarcity mindset",
+      "param": "cognitive drop under a financial-worry prime, IQ points (original claim)",
+      "value": 13.0,
+      "range": [0.0, 13.0],
+      "effect": "The claim: money worries tax mental bandwidth and worsen decisions. Large preregistered replications find effects near zero.",
+      "exploit": "Payday loans, rent-to-own and high-fee products aimed at people with no slack.",
+      "category": "jeopardy",
+      "pole": "fear",
+      "replication": "mixed",
+      "grade": "C-",
+      "modelUse": "Do not apply a cognitive tax; model poverty through real constraints (liquidity, fees, time, stress).",
+      "note": "value is the original claim, not an estimate to use: a minority of 20 preregistered replications succeeded (O'Donnell et al. 2021); no payday effect on cognition (Carvalho, Meier & Wang 2016).",
+      "source": "Mani, Mullainathan, Shafir & Zhao 2013 Science; Carvalho, Meier & Wang 2016 AER; O'Donnell et al. 2021 PNAS"
+    },
+    {
+      "id": "ego_depletion",
+      "name": "Ego depletion (cautionary)",
+      "param": "Cohen d in multi-lab replications",
+      "value": 0.04,
+      "range": [0.0, 0.1],
+      "effect": "The claim that willpower is a fuel tank that runs down with use failed: 23 labs found d = 0.04 and 36 labs ~0.06, against d = 0.62 in the biased earlier literature.",
+      "exploit": "\"Decision fatigue\" stories used to justify checkout upsells.",
+      "category": "escapism",
+      "pole": "desire",
+      "replication": "failed",
+      "grade": "D",
+      "modelUse": "Do not model self-control as a depleting resource; use state effects of stress, sleep, hunger and load instead.",
+      "note": "Listed as a warning. Other failed or weakened findings marketers still cite: money priming, mating primes for luxury spending, power posing, mortality salience, the hungry-judges effect.",
+      "source": "Baumeister et al. 1998; Hagger et al. 2010 Psych Bull; Hagger et al. 2016 Perspect Psych Sci; Vohs et al. 2021 Psych Sci"
+    },
+    {
+      "id": "negativity_bias",
+      "name": "Negativity bias in attention",
+      "param": "relative click-through gain per negative word in a headline",
+      "value": 0.023,
+      "range": [0.01, 0.03],
+      "effect": "Bad is stronger than good: threat and outrage capture attention, so attention platforms amplify negative and out-group content (+67% odds of sharing per out-group word).",
+      "exploit": "Outrage and threat headlines, algorithmic amplification of out-group animosity, fear-based news and political ads.",
+      "category": "escapism",
+      "pole": "fear",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "The money is advertisers' ($295B of US internet ads in 2025); households pay with attention. A 4-week Facebook break raised well-being by 0.09 SD (Allcott et al. 2020).",
+      "source": "Robertson et al. 2023 Nat Hum Behav; Rathje, Van Bavel & van der Linden 2021 PNAS; Baumeister et al. 2001; Allcott et al. 2020 AER"
+    },
+    {
+      "id": "variable_reward",
+      "name": "Variable reward",
+      "param": "reward probability at which dopamine anticipation peaks",
+      "value": 0.5,
+      "range": [0.5, 0.5],
+      "effect": "Uncertain rewards are wanted most: unpredictable payoffs keep people pulling, scrolling and checking.",
+      "exploit": "Slot machines, loot boxes, pull-to-refresh feeds, likes, notifications, mystery boxes, dating-app matches.",
+      "category": "escapism",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "B+",
+      "note": "Robust in animals (Fiorillo et al. 2003); human social-media posting fits reward learning moderately well (Lindstrom et al. 2021).",
+      "source": "Skinner 1957; Fiorillo, Tobler & Schultz 2003 Science; Lindstrom et al. 2021 Nat Commun"
+    },
+    {
+      "id": "payment_decoupling",
+      "name": "Pain of paying (decoupling)",
+      "param": "willingness-to-pay premium, card vs cash",
+      "value": 0.64,
+      "range": [0.0, 1.13],
+      "effect": "Paying by card, phone or app hurts less than cash, so people spend more; the original premium was large, later studies find much less.",
+      "exploit": "Stored cards, one-click checkout, in-game coins and gems, buy now pay later.",
+      "category": "status",
+      "pole": "desire",
+      "replication": "mixed",
+      "grade": "C+",
+      "note": "Direction usually holds; size shrinks in later studies.",
+      "source": "Prelec & Simester 2001; Prelec & Loewenstein 1998; Feinberg 1986"
+    },
+    {
+      "id": "ingroup_favoritism",
+      "name": "In-group favoritism",
+      "param": "Cohen d, cooperation with in-group vs out-group",
+      "value": 0.32,
+      "range": [0.25, 0.4],
+      "effect": "People cooperate and spend more within their own group (family, team, party, brand tribe), more so when membership is public.",
+      "exploit": "Identity marketing, \"buy American\", fan merchandise, political and lifestyle brands.",
+      "category": "collective",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Fear side: out-group threat (oxytocin raises both in-group trust and out-group defensiveness).",
+      "source": "Balliet, Wu & De Dreu 2014 Psych Bull; Tajfel et al. 1971"
+    },
+    {
+      "id": "planning_fallacy",
+      "name": "Planning fallacy",
+      "param": "actual / predicted completion time",
+      "value": 1.64,
+      "range": [1.3, 2.0],
+      "effect": "People underestimate how long and how much their own projects will take (thesis: 55.5 days actual vs 33.9 predicted), so courses, renovations and debt payoffs run late and over budget.",
+      "exploit": "Prepaid courses and memberships that go unused (\"breakage\"), low-teaser installment plans, \"finish in 30 days\" programs.",
+      "category": "growth",
+      "pole": "desire",
+      "replication": "robust",
+      "grade": "A-",
+      "note": "Related naivete: monthly gym members paid ~$17 per visit when $10 per visit was offered (DellaVigna & Malmendier 2006).",
+      "source": "Buehler, Griffin & Ross 1994 JPSP; Flyvbjerg 2003; DellaVigna & Malmendier 2006 AER"
+    }
+  ],
+  "biasesNote": "value and range follow each bias's param (units differ). replication: robust = replicated in large or multi-lab studies; mixed = direction holds but size shrank or replications split; failed = multi-lab replications near zero. category = the spending category the bias moves most; pole = the drive it works through. Any single behavioral lever should be small in the model: government nudge units find ~1.4 pp average effects (DellaVigna & Linos 2022).",
+  "traits": {
+    "conscientiousness": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": 0.1,
+      "sexDiff": 0.1,
+      "note": "z-score. Rises 20-65 (bfi 4.24 at 20-29 -> 4.39 at 50-59, sd 0.95; TIPI +0.17 sd per decade; Soto et al. 2011 ~+0.1 sd per decade). Women slightly higher (bfi d 0.20, TIPI -0.02, literature ~0.1).",
+      "source": "github-data bfi/TIPI; Roberts et al. 2006; Soto et al. 2011; Costa et al. 2001"
+    },
+    "neuroticism": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": -0.1,
+      "sexDiff": 0.4,
+      "note": "z-score. Falls with age (bfi 3.20 at 20-29 -> 2.70 at 50-59, sd 1.2; TIPI -0.15 sd per decade). Women higher: bfi d 0.27, TIPI 0.43, literature ~0.4.",
+      "source": "github-data bfi/TIPI; Costa, Terracciano & McCrae 2001; Roberts et al. 2006"
+    },
+    "agreeableness": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": 0.1,
+      "sexDiff": 0.35,
+      "note": "z-score. Rises with age (bfi 4.64 -> 4.98 from the 20s to the 50s, +0.13 sd per decade; TIPI +0.21; Soto et al. 2011 ~+0.09). Women higher: bfi d 0.45, TIPI 0.32.",
+      "source": "github-data bfi/TIPI; Soto et al. 2011; Schmitt et al. 2008"
+    },
+    "openness": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": -0.02,
+      "sexDiff": 0.0,
+      "note": "z-score. Flat in adulthood, slight decline in old age (literature; bfi/TIPI samples show a small rise but few people over 60). Sex difference near zero overall (bfi -0.13, TIPI 0.06; men higher in intellect, women in aesthetics and feelings).",
+      "source": "github-data bfi/TIPI; Roberts et al. 2006; Soto et al. 2011"
+    },
+    "extraversion": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": 0.0,
+      "sexDiff": 0.1,
+      "note": "z-score. Net flat: social vitality falls slightly with age while social dominance rises 20-40 (bfi r with age 0.06, TIPI 0.13, online samples). Women slightly higher (bfi 0.23, TIPI 0.15, literature ~0.1: women warmer and more gregarious, men more assertive).",
+      "source": "github-data bfi/TIPI; Roberts et al. 2006; Costa et al. 2001"
+    },
+    "presentBiasBeta": {
+      "mean": 0.92,
+      "sd": 0.14,
+      "ageSlope": 0.007,
+      "sexDiff": 0.0,
+      "distribution": "mixture",
+      "clamp": [0.5, 1.05],
+      "mixture": {"timeConsistent": 0.55, "presentBiased": 0.35, "presentBiasedMean": 0.75, "presentBiasedSd": 0.1, "futureBiased": 0.1, "futureBiasedMean": 1.05},
+      "note": "Moments of the research mixture (55% beta = 1, 35% ~N(0.75, 0.1), 10% ~1.05; Meier & Sprenger 2010, Augenblick et al. 2015): mean 0.917, sd 0.140 (derived; the research table's summary 0.88 / 0.13 does not match its own mixture). A plain normal cannot reproduce \"half time-consistent\", so sample the mixture. Field consumption estimates of a representative beta are lower (0.7-0.8; see biases.present_bias); the per-person calibration absorbs the level. ageSlope: patience +0.05 sd per decade (speculative) x sd. No robust sex difference.",
+      "source": "Meier & Sprenger 2010 AEJ Applied; Augenblick, Niederle & Sprenger 2015 QJE; Cohen et al. 2020 JEL"
+    },
+    "lossAversion": {
+      "mean": 1.99,
+      "sd": 0.94,
+      "ageSlope": 0.05,
+      "sexDiff": 0.05,
+      "distribution": "lognormal",
+      "median": 1.8,
+      "logMean": 0.588,
+      "logSd": 0.45,
+      "note": "Lognormal, median 1.8, sigma 0.45 (research): mean 1.99 matches the Brown et al. 2024 meta-analytic 1.96, and ~10% fall below 1 (Gaechter et al. 2022: 10-15%). Sample lambda = exp(logMean + logSd z). Rises slightly with age (+0.05 sd per decade, speculative); women slightly higher in some studies, inconsistent.",
+      "source": "Brown, Imai, Vieider & Camerer 2024 JEL; Gaechter, Johnson & Herrmann 2022"
+    },
+    "internalLocus": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": 0.03,
+      "sexDiff": -0.05,
+      "share": 0.654,
+      "note": "z-score; share = adults saying hard work matters most for getting ahead (GSS 2024: 65.4%, 11.4% luck or help, 64.3% in 1973). US students drifted ~0.8 sd toward external control 1960-2002 (Twenge et al. 2004). More internal into middle age, more external in old age. No US-representative Rotter-scale distribution exists.",
+      "source": "GSS getahead (github-data); Rotter 1966; Twenge, Zhang & Im 2004; Specht et al. 2013"
+    },
+    "socialComparison": {
+      "mean": 0,
+      "sd": 1,
+      "ageSlope": -0.08,
+      "sexDiff": 0.1,
+      "note": "z-score of comparison orientation (INCOM scale mean 3.5, sd 0.65). Declines with age; women slightly higher; correlates with neuroticism ~0.3 (speculative sizes).",
+      "source": "Gibbons & Buunk 1999 JPSP; research/psychology.json traitCovariateShifts"
+    }
+  },
+  "traitsNote": "Big Five are z-scores (mean 0, sd 1). ageSlope = change of the mean per decade after age 20 in the trait's own units (sd for z-scores, beta and lambda units otherwise), linear 20-70. sexDiff = women's mean minus men's. Age and sex values from the bfi (SAPA, n=2,800) and TIPI (n=1,798) samples computed by the research agent, checked against large-sample literature; online convenience samples with few people over 60.",
+  "traitCorrelations": {
+    "order": ["conscientiousness", "neuroticism", "agreeableness", "openness", "extraversion", "internalLocus", "socialComparison", "lossAversion", "presentBiasBeta"],
+    "matrix": [
+      [1.0, -0.23, 0.26, 0.2, 0.26, 0.25, -0.05, 0.05, 0.15],
+      [-0.23, 1.0, -0.19, -0.09, -0.22, -0.4, 0.3, 0.1, -0.1],
+      [0.26, -0.19, 1.0, 0.15, 0.46, 0.0, 0.0, 0.0, 0.0],
+      [0.2, -0.09, 0.15, 1.0, 0.21, 0.15, 0.05, -0.05, 0.1],
+      [0.26, -0.22, 0.46, 0.21, 1.0, 0.0, 0.0, 0.0, 0.0],
+      [0.25, -0.4, 0.0, 0.15, 0.0, 1.0, -0.15, -0.05, 0.15],
+      [-0.05, 0.3, 0.0, 0.05, 0.0, -0.15, 1.0, 0.05, -0.05],
+      [0.05, 0.1, 0.0, -0.05, 0.0, -0.05, 0.05, 1.0, 0.0],
+      [0.15, -0.1, 0.0, 0.1, 0.0, 0.15, -0.05, 0.0, 1.0]
+    ],
+    "minEigenvalue": 0.486,
+    "note": "Big Five cells from SAPA bfi (github-data); locus, comparison, loss aversion and beta (proxied by the research \"patience\" row) from research/psychology.json traitCorrelationMatrix (recalled/speculative). Agreeableness and extraversion vs those four are not in the research and are set to 0. Positive definite; sample with a Cholesky factor."
+  },
+  "tilts": {
+    "necessities": {
+      "conscientiousness": 0.0,
+      "neuroticism": 0.0,
+      "agreeableness": 0.0,
+      "openness": 0.0,
+      "extraversion": 0.0,
+      "presentBias": 0.0,
+      "socialComparison": 0.0,
+      "lossAversion": 0.0,
+      "reason": 0.0
+    },
+    "escapism": {
+      "conscientiousness": -0.1,
+      "neuroticism": 0.1,
+      "agreeableness": -0.03,
+      "openness": 0.05,
+      "extraversion": 0.08,
+      "presentBias": 0.09,
+      "socialComparison": 0.05,
+      "lossAversion": -0.03,
+      "reason": -0.06
+    },
+    "jeopardy": {
+      "conscientiousness": 0.03,
+      "neuroticism": 0.12,
+      "agreeableness": -0.02,
+      "openness": -0.02,
+      "extraversion": -0.03,
+      "presentBias": -0.04,
+      "socialComparison": 0.0,
+      "lossAversion": 0.12,
+      "reason": 0.02
+    },
+    "status": {
+      "conscientiousness": -0.03,
+      "neuroticism": 0.03,
+      "agreeableness": -0.05,
+      "openness": 0.0,
+      "extraversion": 0.1,
+      "presentBias": 0.04,
+      "socialComparison": 0.25,
+      "lossAversion": 0.0,
+      "reason": -0.04
+    },
+    "growth": {
+      "conscientiousness": 0.09,
+      "neuroticism": 0.0,
+      "agreeableness": 0.0,
+      "openness": 0.11,
+      "extraversion": 0.0,
+      "presentBias": -0.05,
+      "socialComparison": 0.03,
+      "lossAversion": -0.01,
+      "reason": 0.1
+    },
+    "collective": {
+      "conscientiousness": 0.02,
+      "neuroticism": -0.03,
+      "agreeableness": 0.12,
+      "openness": 0.03,
+      "extraversion": 0.05,
+      "presentBias": 0.0,
+      "socialComparison": -0.03,
+      "lossAversion": 0.0,
+      "reason": 0.02
+    },
+    "saving": {
+      "conscientiousness": 0.13,
+      "neuroticism": -0.03,
+      "agreeableness": 0.0,
+      "openness": 0.0,
+      "extraversion": -0.07,
+      "presentBias": -0.1,
+      "socialComparison": -0.07,
+      "lossAversion": 0.03,
+      "reason": 0.06
+    }
+  },
+  "tiltsMethod": "Log-multipliers of each category's spending share per +1 sd of a trait (presentBias per -0.1 of beta, i.e. more present-biased; reason per +1 sd of the adult distribution of reason); apply share_c = base_c x exp(sum of tilts), then renormalize and recalibrate to the data each year. Derived from research spendingShiftCoefficients (signs from the literature, sizes speculative): escapism, status and collective map one to one; growth = mean of income_building and self_improvement; jeopardy = 0.75 x jeopardy_avoidance + 0.10 x jeopardy_penalty + 0.15 x the saving tilt (shares of 2025 jeopardy money in care and insurance, interest and bank fees, and asset fees in spending.json); saving = ln(1 + saving_rate_pp / 15), a typical saver's rate; presentBias = research row x 0.71 (0.1 / beta sd 0.14). Agreeableness and reason are judgments (not in the research). Necessities have no tilts: they are the floor that absorbs the renormalization. Interest on debt also arises from simulated debt, so keep the penalty channel small to avoid double counting.",
+  "tiltNotes": {
+    "necessities": "No direct trait effect: income (the CE quintile base shares) sets the floor; trait tilts elsewhere shrink or grow it through renormalization.",
+    "escapism": "Conscientiousness lowers it (self-control predicts less substance use and compulsive buying; Moffitt et al. 2011), neuroticism raises it (coping, compensatory consumption), extraversion raises it (bars, going out; Gladstone et al. 2019), present bias raises it (temptation goods). Reason lowers it a little: literacy and self-control biases explain ~43% of lottery spending (Lockwood et al. 2024).",
+    "jeopardy": "Neuroticism and loss aversion raise it (precaution, insurance, warranties, more health care use); present bias lowers precaution but raises fees and interest (Meier & Sprenger 2010), net slightly negative because care and insurance are three quarters of the money; conscientiousness lowers penalties (Brown & Taylor 2014) but adds precaution and asset fees, net slightly positive. Low agreeableness goes with more legal conflict (Miller & Lynam 2001, recalled).",
+    "status": "Social comparison is the main driver (Charles, Hurst & Roussanov 2009; Bertrand & Morse 2016; Kuhn et al. 2011), extraversion adds restaurants and visible goods (Gladstone et al. 2019); agreeableness and conscientiousness slightly lower it.",
+    "growth": "Openness raises education, books and culture (Gladstone et al. 2019), conscientiousness and reason raise human-capital investment (planning; Ameriks, Caplin & Leahy 2003, recalled); present bias lowers it.",
+    "collective": "Agreeableness raises giving (empathy and prosocial values; Bekkers & Wiepking 2011, recalled), extraversion adds community participation; neuroticism and social comparison slightly lower it.",
+    "saving": "Conscientiousness raises saving and lowers borrowing (Nyhus & Webley 2001; Brown & Taylor 2014), extraversion and social comparison lower it, present bias lowers it (Laibson et al. 2007), loss aversion raises it a little but shifts it away from stocks (asset_trading -0.2); reason raises it (propensity to plan predicts wealth, Ameriks et al. 2003). Additive rates are in savingRatePp."
+  },
+  "savingRatePp": {"conscientiousness": 2.0, "neuroticism": -0.5, "agreeableness": 0.0, "openness": 0.0, "extraversion": -1.0, "presentBias": -1.4, "socialComparison": -1.0, "lossAversion": 0.5, "reason": 1.0},
+  "savingRatePpNote": "Additive change of the saving rate (percentage points of disposable income) per +1 sd (presentBias per -0.1 of beta), from research spendingShiftCoefficients; agreeableness 0 and reason +1.0 are judgments. Use these in the saving-rate equation; the saving tilt is the same effect as a log-multiplier.",
+  "lifeStageTilts": {
+    "ageBands": ["18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75+"],
+    "savingRatePp": [-0.7, 1.8, 2.8, 2.0, 1.7, -3.6, -8.0],
+    "ceSavingGapPct": [16.3, 24.6, 28.2, 25.5, 24.4, 6.1, -9.0],
+    "note": "Life-cycle saving (derived): CE after-tax income minus adjusted spending by age of reference person (ceSavingGapPct, history.json), centered on its adult-weighted mean 18.5% and scaled by 0.291 to the NIPA personal saving rate (5.4% in 2025 after BEA's Sept-2026 annual update): saving peaks at 35-44 and turns negative after 65. Other life-stage effects come from household composition (children add necessities and growth) and the drives' lifeStage curves; CE category shares by age were not in the research."
+  },
+  "agency": {
+    "thresholds": {
+      "runwayYears": 3,
+      "savingRate": 0.1,
+      "savingYears": 3,
+      "debtService": 0.15,
+      "debtServiceZero": 0.4,
+      "reason": 0.6,
+      "reasonZero": 0.3,
+      "fantasy": 0.15,
+      "fantasyZero": 0.3,
+      "gateAutonomy": 1,
+      "wAutonomy": 0.35,
+      "wSaving": 0.15,
+      "wDebt": 0.1,
+      "wReason": 0.25,
+      "wFantasy": 0.15
+    },
+    "thresholdsNote": "agency = wAutonomy x A + wSaving x S + wDebt x D + wReason x R + wFantasy x F, each component in [0, 1]: A = 1 for a business owner, else min(1, years of spending covered by financial assets / runwayYears); S = clamp(mean saving rate over the last savingYears / savingRate); D = 1 at or below debtService, falling linearly to 0 at debtServiceZero; R = clamp((reason - reasonZero) / (0.6 - reasonZero)), full at the reason threshold; F = 1 at or below the fantasy threshold, falling linearly to 0 at fantasyZero. gateAutonomy = 1 means InControl also requires A = 1 (set 0 to drop the gate). The InControl cut on agency is calibrated so the 2025 adult share equals the in_control target. Autonomy and reason weigh most because the anchors define control as ownership or runway plus a deliberate plan; saving, debt and fantasy are behaviors that build or erode them. Soft fantasy scoring matters: the top income quintile's spending-fantasy share is 0.23 (status goods), so a hard 0.15 cut would exclude most of the wealthy. Debt: 15% is just under the 2007 aggregate peak (15.85%); 40% is near the 43% debt-to-income cap of the original 2014 qualified-mortgage rule (recalled). Saving: the aggregate rate was 5.4% in 2025 after BEA's Sept-2026 revision (4.1% in Aug 2026), so 10% marks a deliberate saver.",
+    "targets": [
+      {
+        "id": "self_employed",
+        "name": "Self-employed (incorporated or not), share of adults",
+        "value": 0.06,
+        "year": 2026,
+        "source": "BLS CPS via bdecon/US-chartbook selfemp.csv (github-data): 16.4M in Aug 2026; adults 18+ from UN WPP 2024 age shares x Census V2025 total",
+        "kind": "control",
+        "basis": "derived",
+        "unit": "share of adults",
+        "note": "9.6% of the labor force; 271.3M adults 18+ in 2026. The unincorporated share of the labor force fell from 8.1% (1989) to 5.6%."
+      },
+      {
+        "id": "business_owners",
+        "name": "Families owning privately held business equity",
+        "value": 0.13,
+        "year": 2022,
+        "source": "Federal Reserve SCF 2022 Bulletin (via research/ownership.json)",
+        "kind": "control",
+        "basis": "recalled",
+        "unit": "share of families",
+        "note": "Ownership is broad but value is concentrated: the top 10% hold 84.6% of private business equity (DFA 2026Q1)."
+      },
+      {
+        "id": "financial_plan",
+        "name": "Adults with a written financial plan",
+        "value": 0.35,
+        "year": 2023,
+        "source": "Charles Schwab Modern Wealth Survey 2023 (recalled; 28-37% across 2021-2024 waves)",
+        "kind": "control",
+        "basis": "recalled",
+        "unit": "share of adults",
+        "range": [0.28, 0.37]
+      },
+      {
+        "id": "runway_3y",
+        "name": "Families whose financial assets cover 3+ years of spending",
+        "value": 0.268,
+        "year": 2022,
+        "source": "Derived from SCF 2022 medians by wealth group (income, financial assets; bdecon/US-chartbook nwcat_median.csv)",
+        "kind": "control",
+        "basis": "derived",
+        "unit": "share of families",
+        "range": [0.2, 0.32],
+        "note": "For each wealth group, need = 3 x spending, spending = income x a spending ratio (1.00, 0.85, 0.75, 0.62, 0.45 from the bottom quarter to the top tenth; judgment from CE 2023 spending/after-tax income by income group and tax shares); share above need with financial assets lognormal around the group median (sigma 1.0; 0.8 gives 0.263, 1.2 gives 0.274). Financial assets include retirement accounts, so most qualifiers are over 55; liquid non-retirement runway is rarer."
+      },
+      {
+        "id": "retirement_on_track",
+        "name": "Non-retirees who think their retirement saving is on track",
+        "value": 0.35,
+        "year": 2024,
+        "source": "Federal Reserve SHED 2024 (verified; 34% in 2023, 31% in 2022)",
+        "kind": "control",
+        "basis": "verified",
+        "unit": "share of non-retired adults"
+      },
+      {
+        "id": "engaged_at_work",
+        "name": "Employees engaged at work",
+        "value": 0.31,
+        "year": 2024,
+        "source": "Gallup, Jan 2025 release (verified-secondary; 17% actively disengaged; 36% peak in 2020)",
+        "kind": "control",
+        "basis": "verified-secondary",
+        "unit": "share of employees"
+      },
+      {
+        "id": "millionaire_adults",
+        "name": "Adults with net worth of $1M or more",
+        "value": 0.089,
+        "year": 2024,
+        "source": "UBS Global Wealth Report 2025: 23.8M US millionaires (verified-secondary) / adults 18+",
+        "kind": "control",
+        "basis": "derived",
+        "unit": "share of adults",
+        "note": "UBS counts individuals (household wealth split among adults), so this runs below the family share (0.19, SCF 2022)."
+      },
+      {
+        "id": "millionaire_families",
+        "name": "Families with net worth of $1M or more",
+        "value": 0.19,
+        "year": 2022,
+        "source": "Derived from SCF 2022 wealth-percentile medians (75-89.9 group median $1.04M; bdecon/US-chartbook)",
+        "kind": "control",
+        "basis": "derived",
+        "unit": "share of families",
+        "range": [0.18, 0.2]
+      },
+      {
+        "id": "saving_10pct",
+        "name": "Households saving 10%+ of disposable income",
+        "value": 0.3,
+        "year": 2024,
+        "source": "Derived from BLS CE 2024 cash saving rates by income quintile (q3 4%, q4 17%, q5 29%) and BEA's distribution of personal saving (bottom 40% dissave; the top 20% does ~80% of net saving)",
+        "kind": "control",
+        "basis": "derived",
+        "unit": "share of households",
+        "range": [0.2, 0.4],
+        "note": "Roughly most of the top two quintiles plus a few in the middle, discounted because CE overstates saving relative to NIPA (personal saving rate 5.4% in 2025 after the Sept-2026 revision; 4.1% in Aug 2026)."
+      },
+      {
+        "id": "reflective_thinkers",
+        "name": "People answering all three Cognitive Reflection Test items correctly",
+        "value": 0.17,
+        "year": 2005,
+        "source": "Frederick 2005 J Econ Perspect (n=3,428; 33% scored 0)",
+        "kind": "control",
+        "basis": "recalled",
+        "unit": "share of respondents"
+      },
+      {
+        "id": "financial_literacy",
+        "name": "Adults answering 4+ of 5 financial-literacy questions correctly",
+        "value": 0.33,
+        "year": 2021,
+        "source": "FINRA Foundation National Financial Capability Study 2021 (recalled; 42% in 2009)",
+        "kind": "control",
+        "basis": "recalled",
+        "unit": "share of adults"
+      },
+      {
+        "id": "in_control",
+        "name": "Adults in control of their life path (model target)",
+        "value": 0.12,
+        "year": 2025,
+        "source": "Derived in agency.note from the control anchors above",
+        "kind": "result",
+        "basis": "derived",
+        "unit": "share of adults",
+        "range": [0.06, 0.18],
+        "note": "0.28 materially autonomous x 0.55 with a deliberate plan x 0.75 with low fantasy and manageable debt."
+      },
+      {
+        "id": "fantasy_lottery",
+        "name": "Adults who bought a lottery ticket in the past year",
+        "value": 0.47,
+        "year": 2024,
+        "source": "Gallup gambling surveys (recalled; 46-49% in 2016-2024, 57% in 2007)",
+        "kind": "fantasy",
+        "basis": "recalled",
+        "unit": "share of adults",
+        "range": [0.44, 0.57],
+        "note": "Lottery sales ~$113B (FY2024, recalled, unverified), ~60% returned as prizes; net losses $61.1B (BEA 2025)."
+      },
+      {
+        "id": "fantasy_lottery_bias",
+        "name": "Share of lottery spending explained by self-control and literacy biases",
+        "value": 0.43,
+        "year": 2024,
+        "source": "Lockwood, Allcott, Taubinsky & Sial 2024 (verified-secondary per research/critique.md): buyers think lotteries return ~29% vs ~60% actual",
+        "kind": "fantasy",
+        "basis": "verified-secondary",
+        "unit": "share of lottery spending"
+      },
+      {
+        "id": "fantasy_sports_betting",
+        "name": "Adults who bet on sports in the past year",
+        "value": 0.19,
+        "year": 2022,
+        "source": "Pew Research Center Sept 2022",
+        "kind": "fantasy",
+        "basis": "recalled",
+        "unit": "share of adults",
+        "note": "Legal handle ~$150B in 2024 (AGA; files differ, $149.6B vs $149.9B) and $166.9B in 2025."
+      },
+      {
+        "id": "fantasy_problem_gambling",
+        "name": "Adults with a gambling problem (severe or mild/moderate)",
+        "value": 0.035,
+        "year": 2023,
+        "source": "National Council on Problem Gambling (recalled): 1.0% severe + ~2.5% mild or moderate",
+        "kind": "fantasy",
+        "basis": "recalled",
+        "unit": "share of adults",
+        "range": [0.03, 0.04]
+      },
+      {
+        "id": "fantasy_escapism_spending",
+        "name": "Escapism share of consumer spending",
+        "value": 0.088,
+        "year": 2025,
+        "source": "spending.json: escapism $1,836B of PCE $20,955B (BEA 2025)",
+        "kind": "fantasy",
+        "basis": "derived",
+        "unit": "share of PCE",
+        "note": "Alcohol, tobacco, gambling losses, screens, games, shows and pets. Illicit drugs (~$146B, RAND 2016) are outside PCE."
+      },
+      {
+        "id": "fantasy_weighted_spending",
+        "name": "Fantasy-weighted share of household spending",
+        "value": 0.185,
+        "year": 2025,
+        "source": "spending.json category fantasy weights x 2025 dollars (saving excluded)",
+        "kind": "fantasy",
+        "basis": "derived",
+        "unit": "share of spending",
+        "note": "Rises with income: 0.12, 0.12, 0.15, 0.18, 0.23 from the bottom to the top quintile (CE 2024 budgets), because status goods carry fantasy too. The fantasy weights are spending.json judgments."
+      },
+      {
+        "id": "fantasy_screen_time",
+        "name": "Waking time watching TV or gaming",
+        "value": 0.213,
+        "year": 2024,
+        "source": "BLS ATUS 2023-24 (recalled): TV 2.7 h + games and computer leisure 0.5 h of 15.0 waking hours, persons 15+",
+        "kind": "fantasy",
+        "basis": "derived",
+        "unit": "share of waking time",
+        "note": "60% of all leisure (5.3 h); internet users 16-64 report ~6.6 h a day online (DataReportal 2025, recalled); exercise, reading and education together take 1.05 h."
+      },
+      {
+        "id": "fantasy_daydream",
+        "name": "Waking time daydreaming (pleasant or neutral mind wandering)",
+        "value": 0.345,
+        "year": 2010,
+        "source": "Killingsworth & Gilbert 2010 Science: 46.9% wandering x 73.5% pleasant or neutral",
+        "kind": "fantasy",
+        "basis": "derived",
+        "unit": "share of waking time"
+      },
+      {
+        "id": "fantasy_substance_use",
+        "name": "People 12+ with a substance use disorder",
+        "value": 0.171,
+        "year": 2023,
+        "source": "SAMHSA NSDUH 2023 (recalled; ~16.8% in 2024)",
+        "kind": "fantasy",
+        "basis": "recalled",
+        "unit": "share of people 12+"
+      },
+      {
+        "id": "fantasy_compulsive_buying",
+        "name": "Adults with compulsive buying",
+        "value": 0.058,
+        "year": 2006,
+        "source": "Koran et al. 2006 Am J Psychiatry (meta-analytic pooled 4.9%, Maraz et al. 2016)",
+        "kind": "fantasy",
+        "basis": "recalled",
+        "unit": "share of adults",
+        "range": [0.049, 0.058]
+      },
+      {
+        "id": "fantasy_influencer",
+        "name": "Gen Z who would become an influencer if given the chance",
+        "value": 0.57,
+        "year": 2023,
+        "source": "Morning Consult 2023 (recalled)",
+        "kind": "fantasy",
+        "basis": "recalled",
+        "unit": "share of Gen Z (13-26)"
+      },
+      {
+        "id": "fantasy_ads",
+        "name": "Advertising spend, share of GDP",
+        "value": 0.0133,
+        "year": 2025,
+        "source": "research/psychology.json: ~$410B total US media advertising (IAB internet $294.6B search-verified + recalled traditional channels) / GDP",
+        "kind": "fantasy",
+        "basis": "derived",
+        "unit": "share of GDP",
+        "range": [0.0124, 0.0146],
+        "note": "The supply side of fantasy; marginal effects are small (median TV ad elasticity ~0.01, Shapiro, Hitsch & Tuchman 2021)."
+      },
+      {
+        "id": "default_doing_okay",
+        "name": "Adults doing at least okay financially",
+        "value": 0.73,
+        "year": 2024,
+        "source": "Federal Reserve SHED 2024 (verified)",
+        "kind": "default",
+        "basis": "verified",
+        "unit": "share of adults"
+      },
+      {
+        "id": "default_cash_400",
+        "name": "Adults who would cover a $400 emergency with cash",
+        "value": 0.63,
+        "year": 2024,
+        "source": "Federal Reserve SHED 2024 (verified; 50% in 2013)",
+        "kind": "default",
+        "basis": "verified",
+        "unit": "share of adults"
+      },
+      {
+        "id": "default_homeowners",
+        "name": "Households owning their home",
+        "value": 0.652,
+        "year": 2026,
+        "source": "Census HVS 2026Q2 via bdecon/US-chartbook (github-data; peak 69.0% in 2004)",
+        "kind": "default",
+        "basis": "github-data",
+        "unit": "share of households"
+      },
+      {
+        "id": "default_stock_owners",
+        "name": "Families owning stock directly or indirectly",
+        "value": 0.58,
+        "year": 2022,
+        "source": "Federal Reserve SCF 2022 (verified-secondary; 31.9% in 1989)",
+        "kind": "default",
+        "basis": "verified-secondary",
+        "unit": "share of families"
+      },
+      {
+        "id": "default_autoenroll",
+        "name": "401(k) participation under automatic enrollment (37% when opt-in)",
+        "value": 0.86,
+        "year": 2001,
+        "source": "Madrian & Shea 2001 QJE",
+        "kind": "default",
+        "basis": "recalled",
+        "unit": "share of new hires",
+        "range": [0.37, 0.86]
+      },
+      {
+        "id": "default_keep_working",
+        "name": "Workers who would keep working even if rich",
+        "value": 0.658,
+        "year": 2024,
+        "source": "GSS richwork 2024 (github-data; 72.5% in 2018)",
+        "kind": "default",
+        "basis": "github-data",
+        "unit": "share of workers"
+      },
+      {
+        "id": "fragile_paycheck",
+        "name": "Households living paycheck to paycheck by account data",
+        "value": 0.24,
+        "year": 2024,
+        "source": "Bank of America Institute 2024 (recalled; self-reported ~67%, PYMNTS 2025)",
+        "kind": "fragile",
+        "basis": "recalled",
+        "unit": "share of households"
+      },
+      {
+        "id": "fragile_no_cash_400",
+        "name": "Adults who could not cover $400 with cash",
+        "value": 0.37,
+        "year": 2024,
+        "source": "Federal Reserve SHED 2024 (verified)",
+        "kind": "fragile",
+        "basis": "verified",
+        "unit": "share of adults"
+      },
+      {
+        "id": "structure_out_earn",
+        "name": "Children of the 1984 cohort out-earning their parents",
+        "value": 0.5,
+        "year": 2014,
+        "source": "Chetty et al. 2017 Science (92% for the 1940 cohort)",
+        "kind": "structure",
+        "basis": "recalled",
+        "unit": "share of birth cohort"
+      },
+      {
+        "id": "structure_bottom_to_top",
+        "name": "Bottom-quintile children reaching the top quintile",
+        "value": 0.075,
+        "year": 2014,
+        "source": "Chetty, Hendren, Kline & Saez 2014 QJE (1980-82 cohorts; rank-rank slope 0.34)",
+        "kind": "structure",
+        "basis": "recalled",
+        "unit": "share of bottom-quintile children"
+      }
+    ],
+    "note": "In control = the model's conjunction of material autonomy (owns a business, or financial assets cover 3+ years of spending), a deliberate path (reason >= 0.6, saving >= 10% over 3 years) and little fantasy or debt drag (fantasy share of spending <= 0.15, debt service < 15% of income). No survey measures the conjunction, so the target is a product of anchors. (1) Autonomy: 27% of families have 3+ years of spending in financial assets (derived, SCF 2022) and 13% own a private business, mostly the same wealthy families (the top 10% hold 85% of private business equity): ~0.28 of adults (0.22-0.32). (2) A deliberate plan among them: 35% of all adults have a written plan and 39% get 2+ CRT items right; planning rises with wealth (Ameriks, Caplin & Leahy 2003), so ~0.55 (0.45-0.65). (3) Low fantasy and manageable debt among those: ~0.75 (0.65-0.85); aggregate debt service is 11.3% of income (Fed DSR 2025Q2) and lowest at the top. Product 0.116 -> 0.12, range 0.06-0.18 (products of the bounds). Cross-checks: engaged 31% x planning 35% = 11%; 9% of adults are dollar millionaires (UBS); 6% are self-employed; the research archetype \"self-directed\" is 10-15%.",
+    "verdict": "The thesis tested. \"Very few follow a life path they control\": supported, about 1 adult in 8 (0.06-0.18). \"A lot of people buy fantasy\": partly. 47% buy lottery tickets and screens take 21% of waking time and 60% of leisure, but escapism is 9% of consumer spending, and fantasy-weighted spending (0.19) rises with income, so the rich buy status fantasy at least as much as the poor buy hope. The alternative to control is mostly drift by default, not ruin: about half are stable default-followers (73% doing at least okay, 63% with $400 in cash, 65% homeowners, 58% of families own stock, largely via defaults such as 401(k) auto-enrollment, 37% -> 86%), and about a quarter are fragile (24% paycheck to paycheck by account data, 37% without $400 in cash). Control is also structurally limited: 50% of the 1984 cohort out-earned their parents (92% for 1940) and 7.5% of bottom-quintile children reach the top quintile."
+  }
+}

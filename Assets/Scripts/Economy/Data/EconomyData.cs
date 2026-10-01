@@ -647,6 +647,31 @@ namespace Why.Economy.Data
 
         [JsonProperty("agency")] public AgencyData Agency = new AgencyData();
 
+        /// <summary>Percentage points of saving rate per +1 sd of a trait (presentBias: per -0.1 of beta; reason: per +0.1 of share).</summary>
+        [JsonProperty("savingRatePp")] public Dictionary<string, double> SavingRatePp = new Dictionary<string, double>();
+
+        /// <summary>Saving rate shifts by age band (percentage points around the mean).</summary>
+        [JsonProperty("lifeStageTilts")] public LifeStageTilts LifeStage = new LifeStageTilts();
+
+        /// <summary>Correlations between the traits, in <see cref="TraitCorrelations.Order"/>.</summary>
+        [JsonProperty("traitCorrelations")] public TraitCorrelations Correlations = new TraitCorrelations();
+
+        /// <summary>Memory, world state and strategy: the mind's eye of the notebook (free-form).</summary>
+        [JsonProperty("mindsEye")] public JToken MindsEye;
+
+        public double SavingPp(string trait) =>
+            SavingRatePp != null && SavingRatePp.TryGetValue(trait, out double v) ? v : 0;
+
+        /// <summary>Share of decisions made by the higher OS (reason) in the population, from os.higher.share.</summary>
+        public double HigherOsShare
+        {
+            get
+            {
+                JToken t = Os?.SelectToken("higher.share");
+                return t != null && (t.Type == JTokenType.Float || t.Type == JTokenType.Integer) ? t.Value<double>() : 0.4;
+            }
+        }
+
         public TraitDistribution Trait(string id) =>
             Traits != null && Traits.TryGetValue(id, out TraitDistribution t) && t != null ? t : new TraitDistribution();
 
@@ -668,7 +693,75 @@ namespace Why.Economy.Data
         /// <summary>Share of waking time (modes) or of the population (ranks) where known; 0 otherwise.</summary>
         [JsonProperty("share")] public double Share;
 
+        /// <summary>For desires and fears: the population's baseline weight within its pole (each pole sums to 1).</summary>
+        [JsonProperty("weight")] public double Weight;
+
+        /// <summary>For desires and fears: when in life it is strongest.</summary>
+        [JsonProperty("lifeStage")] public LifeStageCurve LifeStage;
+
+        [JsonProperty("note")] public string Note;
         [JsonProperty("source")] public string Source;
+    }
+
+    /// <summary>
+    /// How strongly a drive acts over a life: 1 at the peak age, falling as a Gaussian of the given spread (years) to
+    /// the floor.
+    /// </summary>
+    public sealed class LifeStageCurve
+    {
+        [JsonProperty("peakAge")] public double PeakAge = 35;
+        [JsonProperty("spread")] public double Spread = 30;
+        [JsonProperty("floor")] public double Floor = 0.5;
+
+        public double At(double age)
+        {
+            double d = (age - PeakAge) / Math.Max(Spread, 1e-3);
+            return Floor + (1 - Floor) * Math.Exp(-0.5 * d * d);
+        }
+    }
+
+    public sealed class LifeStageTilts
+    {
+        /// <summary>Age bands like "18-24" ... "75+".</summary>
+        [JsonProperty("ageBands")] public string[] AgeBands;
+
+        [JsonProperty("savingRatePp")] public double[] SavingRatePp;
+        [JsonProperty("note")] public string Note;
+
+        /// <summary>Saving rate shift (percentage points) at an age, from the band it falls in (0 when unknown).</summary>
+        public double SavingAt(double age)
+        {
+            if (AgeBands == null || SavingRatePp == null) return 0;
+            for (int i = 0; i < AgeBands.Length && i < SavingRatePp.Length; i++)
+            {
+                string band = AgeBands[i];
+                int dash = band.IndexOf('-');
+                double lo, hi;
+                if (band.EndsWith("+", StringComparison.Ordinal))
+                {
+                    if (!double.TryParse(band.TrimEnd('+'), NumberStyles.Float, CultureInfo.InvariantCulture, out lo)) continue;
+                    hi = double.MaxValue;
+                }
+                else if (dash > 0 &&
+                         double.TryParse(band.Substring(0, dash), NumberStyles.Float, CultureInfo.InvariantCulture, out lo) &&
+                         double.TryParse(band.Substring(dash + 1), NumberStyles.Float, CultureInfo.InvariantCulture, out hi))
+                {
+                    hi += 1;
+                }
+                else continue;
+
+                if (age >= lo && age < hi) return SavingRatePp[i];
+            }
+
+            return 0;
+        }
+    }
+
+    public sealed class TraitCorrelations
+    {
+        [JsonProperty("order")] public string[] Order;
+        [JsonProperty("matrix")] public double[][] Matrix;
+        [JsonProperty("note")] public string Note;
     }
 
     public sealed class Chemical
@@ -714,7 +807,23 @@ namespace Why.Economy.Data
         /// <summary>For yes/no traits: the population share.</summary>
         [JsonProperty("share")] public double Share;
 
+        /// <summary>"normal" (default), "lognormal" (logMean, logSd) or "mixture" (see <see cref="Mixture"/>).</summary>
+        [JsonProperty("distribution")] public string Distribution;
+
+        [JsonProperty("median")] public double Median;
+        [JsonProperty("logMean")] public double LogMean;
+        [JsonProperty("logSd")] public double LogSd;
+
+        /// <summary>[min, max] of sampled values, or null.</summary>
+        [JsonProperty("clamp")] public double[] Clamp;
+
+        /// <summary>Mixture weights and component parameters (e.g. timeConsistent, presentBiased, presentBiasedMean ...).</summary>
+        [JsonProperty("mixture")] public Dictionary<string, double> Mixture;
+
         [JsonProperty("source")] public string Source;
+
+        public double MixtureOf(string key, double fallback) =>
+            Mixture != null && Mixture.TryGetValue(key, out double v) ? v : fallback;
     }
 
     public sealed class AgencyData

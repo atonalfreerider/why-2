@@ -1248,7 +1248,7 @@ namespace Why.Economy.Layers
         public override void Upload(GraphContext ctx)
         {
             if (pendingFills == null) return;
-            // the backdrop draws after every other station (whose queues run to QueueStations + 5) and before this
+            // the backdrop draws after every other station (whose queues run to QueueStations + 9) and before this
             // diagram, so what stands behind it is screened off
             int q = EconomyStyle.QueueStations + BackdropQueueOffset;
             backdropMat = Fills(q);

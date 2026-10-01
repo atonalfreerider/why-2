@@ -126,6 +126,16 @@ namespace Why.Economy.Layers
             { "growth", Side.Left }, { "collective", Side.Left }, { "saving", Side.Right }
         };
 
+        /// <summary>
+        /// Label sides that differ in a portrait frame, whose labels are drawn half again as large over a space seen from
+        /// farther away: social status's label stands right of its circle (below it, it would meet escapism's label or
+        /// stand beside escapism's circle; on the left, the far end of the time axis and the desire arrow).
+        /// </summary>
+        static readonly Dictionary<string, Side> PortraitCategorySides = new Dictionary<string, Side>(StringComparer.Ordinal)
+        {
+            { "status", Side.Right }
+        };
+
         /// <summary>Gap between a circle and its label (local units).</summary>
         const float LabelGap = 0.07f;
 
@@ -224,19 +234,29 @@ namespace Why.Economy.Layers
         /// </summary>
         static readonly Dictionary<string, Vector3> ChemicalPlaces = new Dictionary<string, Vector3>(StringComparer.Ordinal)
         {
-            { "dopamine", new Vector3(-3.35f, 3.55f, -1.1f) },
-            { "endorphins", new Vector3(-3.55f, 0.72f, -1.1f) },
-            { "serotonin", new Vector3(-2.85f, 2.85f, 0.25f) },
+            { "dopamine", new Vector3(-3.42f, 3.55f, -1.1f) },
+            { "endorphins", new Vector3(-3.55f, 0.5f, -1.1f) },
+            { "serotonin", new Vector3(-2.85f, 2.75f, 0.25f) },
             { "testosterone", new Vector3(-2.9f, 1.9f, 0.25f) },
-            { "oxytocin", new Vector3(-0.85f, 3.2f, 1.5f) },
+            { "oxytocin", new Vector3(-0.85f, 3.3f, 1.5f) },
             { "cortisol", new Vector3(3.35f, 3.3f, -1.1f) },
             { "adrenaline", new Vector3(3.5f, 1.15f, -1.1f) },
         };
 
-        /// <summary>Chemicals whose name stands left of their mark (beside the people's cloud, which it would cover).</summary>
+        /// <summary>
+        /// A chemical's name stands on the inward side of its mark (right of the marks on the desire side, left on the
+        /// fear side, clear of the poles' arrows), except these, whose name stands left of the mark: beside the people's
+        /// cloud, which it would cover.
+        /// </summary>
         static readonly HashSet<string> ChemicalLabelsLeft = new HashSet<string>(StringComparer.Ordinal) { "oxytocin" };
 
         const float ChemicalRadius = 0.075f;
+
+        /// <summary>
+        /// Gap between a chemical's mark and its name (pixels at 1080p, before the label zoom): clear of the mark's rays;
+        /// in a portrait frame the mark is smaller and the gap is zoomed, so less does.
+        /// </summary>
+        const float ChemicalLabelGap = 13f, PortraitChemicalLabelGap = 9f;
 
         // ------------------------------------------------------------------ highlight ids
 
@@ -312,11 +332,25 @@ namespace Why.Economy.Layers
         /// <summary>Fantasy share of spending above which a person buys fantasy (see <see cref="DefaultFantasyCut"/>).</summary>
         float fantasyCut = DefaultFantasyCut;
 
+        /// <summary>People one cross stands for (the population's people per lifeline).</summary>
+        double peoplePerLine;
+
+        /// <summary>
+        /// The year each person first received an estate from a parent (<see cref="NoYear"/>: never in the record), so a
+        /// year counts only the bequests made by then. The first parent to die usually leaves everything to the
+        /// surviving spouse, so a parent's death alone does not make an heir.
+        /// </summary>
+        int[] inheritYear = Array.Empty<int>();
+
+        const int NoYear = int.MaxValue;
+
         /// <summary>Category places in the space (station-local), in EconomyData.CategoryIds order.</summary>
         readonly Vector3[] categoryPlace = new Vector3[7];
 
         readonly Category[] categories = new Category[7];
-        readonly Side[] categorySide = new Side[7];
+
+        /// <summary>Label sides of the categories in a landscape and a portrait frame (see <see cref="SideOf"/>).</summary>
+        readonly Side[] categorySide = new Side[7], portraitSide = new Side[7];
 
         /// <summary>The people of the year being built: place, highlight id, in control (reused between years).</summary>
         readonly List<Vector3> peoplePlace = new List<Vector3>(4096);
@@ -338,6 +372,9 @@ namespace Why.Economy.Layers
         readonly LabelSpec[] captionLabels = new LabelSpec[CaptionLines];
         LabelSpec titleLabel, controlLabel, fantasyLabel, strategyLabel;
         readonly List<LabelSpec> driveLabels = new List<LabelSpec>(10);
+
+        /// <summary>The chemicals' names and the side of their marks they stand on (-1 left, +1 right).</summary>
+        readonly List<(LabelSpec label, int side)> chemicalLabels = new List<(LabelSpec, int)>(8);
         Anchor controlAnchor, fantasyAnchor, peopleAnchor, spaceAnchor;
 
         // ------------------------------------------------------------------ prepare (worker thread)
@@ -359,12 +396,16 @@ namespace Why.Economy.Layers
             lives = model.Lives;
             population = ctx.Shared<SmvPopulation>(SmvPopulation.SharedKey);
             portrait = ScreenLayout.IsPortrait;
+            FindInheritances();
             for (int c = 0; c < 7; c++)
             {
                 categories[c] = data.CategoryById(EconomyData.CategoryIds[c]) ?? data.Categories[c];
                 categoryPlace[c] = MindPlace(categories[c].Mind);
                 categorySide[c] = categories[c].Id != null && CategorySides.TryGetValue(categories[c].Id, out Side side) ? side
                     : categoryPlace[c].x < 0 ? Side.Left : Side.Right;
+                portraitSide[c] = categories[c].Id != null && PortraitCategorySides.TryGetValue(categories[c].Id, out side)
+                    ? side
+                    : categorySide[c];
             }
 
             radiusPerRoot = RadiusScale();
@@ -606,7 +647,6 @@ namespace Why.Economy.Layers
             double[] spendQ = new double[5], fantasyQ = new double[5];
             double money = 0, fearMoney = 0;
             Vector3 controlSum = Vector3.zero, controlSq = Vector3.zero, fantasySum = Vector3.zero, fantasySq = Vector3.zero;
-            double mid = year + 0.5;
             for (int i = 0; i < people.Count; i++)
             {
                 if (!lives.TryGet(i, year, out PersonYear r) || !r.Adult) continue;
@@ -617,7 +657,7 @@ namespace Why.Economy.Layers
                 m.FearMean[g] += r.FearShare;
                 m.ReasonMean[g] += r.Reason;
                 m.AgeMean[g] += r.Age;
-                if (lives.InheritedFromParents(i) > 0 && ParentDiedBy(people, p, mid)) m.Inherited[g]++;
+                if (i < inheritYear.Length && inheritYear[i] <= year) m.Inherited[g]++;
                 if (r.SelfEmployed) m.SelfEmployed[g]++;
 
                 float spend = Mathf.Max(0, r.Spending);
@@ -685,12 +725,43 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
-        /// Whether a parent of the person had died by a time: bequests from parents are counted from then on (the model
-        /// passes an estate on in the year of the death).
+        /// Fills <see cref="inheritYear"/> (and <see cref="peoplePerLine"/>) once: for everyone who received an estate
+        /// from a parent, the first year one did.
         /// </summary>
-        static bool ParentDiedBy(List<SmvPerson> people, SmvPerson p, double time) =>
-            (p.Mother >= 0 && p.Mother < people.Count && people[p.Mother].Death <= time) ||
-            (p.Father >= 0 && p.Father < people.Count && people[p.Father].Death <= time);
+        void FindInheritances()
+        {
+            if (lives == null || !lives.Ready || lives.Sim == null) return;
+            peoplePerLine = lives.Sim.PeoplePerLine;
+            List<SmvPerson> people = lives.Sim.People;
+            inheritYear = new int[people.Count];
+            for (int i = 0; i < people.Count; i++)
+            {
+                inheritYear[i] = NoYear;
+                if (lives.InheritedFromParents(i) <= 0) continue;
+                SmvPerson p = people[i];
+                inheritYear[i] = Math.Min(BequestYear(people, i, p.Mother), BequestYear(people, i, p.Father));
+            }
+        }
+
+        /// <summary>
+        /// The year a parent's death left the person an estate, or <see cref="NoYear"/>: the model passes an estate on
+        /// in the first year the parent does not live to see the middle of, and the heir's record of that year shows
+        /// what it received (nothing when a surviving spouse took it all).
+        /// </summary>
+        int BequestYear(List<SmvPerson> people, int heir, int parent)
+        {
+            if (parent < 0 || parent >= people.Count) return NoYear;
+            double death = people[parent].Death;
+            if (double.IsNaN(death) || double.IsInfinity(death)) return NoYear; // still alive
+            int guess = (int)Math.Ceiling(death - 0.5);
+            for (int y = guess - 1; y <= guess + 1; y++)
+            {
+                if (lives.TryGet(parent, y, out _) || !lives.TryGet(parent, y - 1, out _)) continue;
+                return lives.TryGet(heir, y, out PersonYear r) && r.Inherited > 0 ? y : NoYear;
+            }
+
+            return NoYear;
+        }
 
         /// <summary>Mean and standard deviation of places from their sum and sum of squares.</summary>
         static void Spread(Vector3 sum, Vector3 squares, int n, out Vector3 mean, out Vector3 sd)
@@ -860,9 +931,10 @@ namespace Why.Economy.Layers
                 Vector3 place = ChemicalPlace(ch, k);
                 IdRange ids = IdRange.Single(EconomyIds.MindChemical + k);
                 Color hue = Color.Lerp(PoleColor(ch.Pole), GraphStyle.Text, 0.35f);
-                bool before = ChemicalLabelsLeft.Contains(ch.Id);
-                Add(ch.Name ?? ch.Id, place, 11, hue, before ? right : left, ChemicalPriority, "chem:" + ch.Id, ids,
-                    new Vector2(before ? -9 : 9, 0));
+                bool before = place.x > 0 || ChemicalLabelsLeft.Contains(ch.Id);
+                LabelSpec spec = Add(ch.Name ?? ch.Id, place, 11, hue, before ? right : left, ChemicalPriority,
+                    "chem:" + ch.Id, ids);
+                chemicalLabels.Add((spec, before ? -1 : 1));
                 Register("chem:" + ch.Id, ch.Name ?? ch.Id, ChemicalBlurb(ch), place, ids);
             }
         }
@@ -912,12 +984,9 @@ namespace Why.Economy.Layers
             {
                 Category cat = categories[k];
                 IdRange ids = IdRange.Single(EconomyIds.MindCategory + k);
-                Side side = categorySide[k];
-                TextAlignmentOptions align = side == Side.Left ? TextAlignmentOptions.Right
-                    : side == Side.Right ? TextAlignmentOptions.Left : TextAlignmentOptions.Center;
-                Vector2 offset = side == Side.Below ? new Vector2(0, -9) : side == Side.Above ? new Vector2(0, 9) : Vector2.zero;
-                categoryLabels[k] = Add(cat.Name ?? cat.Id, categoryPlace[k], 12, GraphStyle.Text, align,
-                    CategoryPriority + 0.1f * (7 - k), "mind:" + cat.Id, ids, offset);
+                // aligned and offset beside its circle in ApplyYear (the side depends on the frame)
+                categoryLabels[k] = Add(cat.Name ?? cat.Id, categoryPlace[k], 12, GraphStyle.Text, TextAlignmentOptions.Left,
+                    CategoryPriority + 0.1f * (7 - k), "mind:" + cat.Id, ids);
                 categoryAnchors[k] = Register("mind:" + cat.Id, cat.Name ?? cat.Id, cat.Blurb, categoryPlace[k], ids);
             }
 
@@ -947,14 +1016,17 @@ namespace Why.Economy.Layers
         /// What the screen's shape changes (<see cref="portrait"/>): a portrait frame draws labels half again as large
         /// (<see cref="ScreenLayout.PortraitLabelZoom"/>) over a station seen from farther away, so the drives' names
         /// (which would spill out of their arrows; the headings' tooltips keep them) hide, and the far end of the time
-        /// axis is labeled with one word inside the space, clear of the desire arrow. The caption, the categories' and
-        /// the regions' labels follow in <see cref="ApplyYear"/> (shorter texts).
+        /// axis is labeled with one word just above it, clear of the desire arrow and of social status's circle. The
+        /// caption, the categories' and the regions' labels follow in <see cref="ApplyYear"/> (shorter texts; a new
+        /// alignment shows when the text changes, which it does with the frame).
         /// </summary>
         void ApplyFrame(bool live)
         {
             foreach (LabelSpec d in driveLabels) d.Hidden = portrait;
-            strategyLabel.Align = portrait ? TextAlignmentOptions.Left : TextAlignmentOptions.Right;
-            strategyLabel.PixelOffset = portrait ? new Vector2(12, 2) : new Vector2(-12, 2);
+            float gap = portrait ? PortraitChemicalLabelGap : ChemicalLabelGap;
+            foreach ((LabelSpec label, int side) in chemicalLabels) label.PixelOffset = new Vector2(side * gap, 0);
+            strategyLabel.Align = portrait ? TextAlignmentOptions.Center : TextAlignmentOptions.Right;
+            strategyLabel.PixelOffset = portrait ? new Vector2(0, 16) : new Vector2(-12, 2);
             SetText(strategyLabel, portrait ? "STRATEGY" : "STRATEGY: the future", live);
         }
 
@@ -972,6 +1044,11 @@ namespace Why.Economy.Layers
                 Category cat = categories[k];
                 Vector3 c = categoryPlace[k];
                 LabelSpec spec = categoryLabels[k];
+                Side side = SideOf(k);
+                // a new alignment shows when the text changes, which it does with the frame (see CategoryText)
+                spec.Align = side == Side.Left ? TextAlignmentOptions.Right
+                    : side == Side.Right ? TextAlignmentOptions.Left : TextAlignmentOptions.Center;
+                spec.PixelOffset = side == Side.Below ? new Vector2(0, -9) : side == Side.Above ? new Vector2(0, 9) : Vector2.zero;
                 spec.Data = station.World(CategoryLabelPlace(m, k, out _));
                 SetText(spec, CategoryText(cat, m.Spent[k]), live);
 
@@ -987,7 +1064,7 @@ namespace Why.Economy.Layers
             SetText(controlLabel, "owning the path  " + Dim() + Percent(Share(m.Control, m.Adults)) +
                                   (portrait ? "" : " of adults") + "</color>", live);
             SetText(fantasyLabel, "buying fantasy, living in the now  " + Dim() + Percent(Share(m.Fantasy, m.Adults)) +
-                                  " of adults</color>", live);
+                                  (portrait ? "" : " of adults") + "</color>", live);
             controlAnchor.Blurb = ControlBlurb(m);
             fantasyAnchor.Blurb = FantasyBlurb(m);
             peopleAnchor.Blurb = PeopleBlurb(m);
@@ -1013,7 +1090,7 @@ namespace Why.Economy.Layers
         {
             Vector3 c = categoryPlace[k];
             float r = NodeRadiusOf(m, k);
-            Side side = categorySide[k];
+            Side side = SideOf(k);
             Vector3 place = LabelPlace(c, r + LabelGap, side);
             leaderFrom = place;
             bool inCloud = c.x + r > m.CloudLeft && c.x - r < m.CloudRight;
@@ -1031,6 +1108,9 @@ namespace Why.Economy.Layers
 
             return place;
         }
+
+        /// <summary>The side of its circle a category's label stands on in the current frame.</summary>
+        Side SideOf(int k) => portrait ? portraitSide[k] : categorySide[k];
 
         /// <summary>A point beside a circle (or an ellipse's half-width) on one side, in the circle's plane.</summary>
         static Vector3 LabelPlace(Vector3 c, float reach, Side side)
@@ -1257,8 +1337,8 @@ namespace Why.Economy.Layers
 
             return $"In {m.Year.ToString(Ci)}, {Percent(Share(m.Control, m.Adults))} of adults are in control of their path: " +
                    "they own a business or hold years of spending in savings, save steadily, carry little debt, decide by " +
-                   "reason and spend little on fantasy (psyche.json agency rule; the cut is set once so 2025 matches the " +
-                   "evidence, then applied to every year). The gold ring is where they are, reason " +
+                   "reason and spend little on fantasy (the model's agency rule, its cut set once so that 2025 matches " +
+                   "the evidence and then applied to every year). The gold ring is where they are, reason " +
                    $"{F2(m.ReasonMean[1])} against {F2(m.ReasonMean[0])} for the rest. Fear moves " +
                    Compare(m.FearMean[1], m.FearMean[0], "as much of", "less of", "more of") + " their spending as the " +
                    $"rest's ({Percent(m.FearMean[1])} against {Percent(m.FearMean[0])}), and they buy " +
@@ -1288,11 +1368,12 @@ namespace Why.Economy.Layers
         {
             double poorest = m.FantasyByQuintile[0], richest = m.FantasyByQuintile[4];
             return richest > poorest + 0.01 ? "rises with income" : richest < poorest - 0.01 ? "falls with income"
-                : "is the same at every income";
+                : "barely moves with income";
         }
 
         string PeopleBlurb(MindYear m) =>
-            $"Every adult alive in {m.Year.ToString(Ci)}: {m.Adults.ToString("N0", Ci)} crosses, each for 100,000 people. " +
+            $"Every adult alive in {m.Year.ToString(Ci)}: {m.Adults.ToString("N0", Ci)} crosses, each for " +
+            $"{peoplePerLine.ToString("N0", Ci)} people. " +
             "Across: the share of their spending moved by fear rather than desire. Up: the share of their decisions made " +
             "by reason. Deep: their orientation toward the future (patience and saving). Gold: in control of their path. " +
             $"Fear moves {Percent(m.MoneyFear)} of household money.";
@@ -1321,7 +1402,7 @@ namespace Why.Economy.Layers
             string fearNumbers = Percent(m.FearMean[1]) + " vs " + Percent(m.FearMean[0]);
             string reason = "reason " + F2(m.ReasonMean[1]) + " vs " + F2(m.ReasonMean[0]);
             string age = "age " + m.AgeMean[1].ToString("0", Ci) + " vs " + m.AgeMean[0].ToString("0", Ci);
-            string inherited = "inherited " + Percent(m.Inherited[1]) + " vs " + Percent(m.Inherited[0]);
+            string inherited = "inherited from a parent " + Percent(m.Inherited[1]) + " vs " + Percent(m.Inherited[0]);
             string business = "self-employed " + Percent(m.SelfEmployed[1]) + " vs " + Percent(m.SelfEmployed[0]);
             string poorest = Percent(m.FantasyByQuintile[0]), richest = Percent(m.FantasyByQuintile[4]);
             string sep = "  ·  ";
@@ -1470,9 +1551,10 @@ namespace Why.Economy.Layers
 
             if (ScreenLayout.IsPortrait != portrait && shown != null)
             {
+                // the frame moves some labels to other sides of their circles, and their leaders with them
                 portrait = ScreenLayout.IsPortrait;
                 ApplyFrame(true);
-                ApplyYear(shown, true);
+                Rebuild(shown.Year);
             }
 
             if (rig == null) return;

@@ -99,9 +99,23 @@ taller than it is wide: the HUD and tour text grow to phone size, the tour narra
 press V in Play mode or use **Why > Game View > Portrait 1080x1920** (and **Landscape 1920x1080** to go
 back); record with Unity Recorder or any screen recorder. In a built player, V opens a 9:16 window.
 
+## The economy scene
+
+A second scene, `Assets/Scenes/Economy.unity`, builds on the same rendering core and the same United States population
+to model the economy from 1946 to 2026: a **corporate layer** (a wall of value added by industry beneath the people, the
+bright part of each band what owners keep), the **money circuits** that run from industries to owners and workers, through
+taxes and transfers to households, and back into the industries through what people buy, and an **economic life and a
+psychology for every simulated person** - what they earn, own and buy, whether they spend moving toward what they want or
+away from what they fear, and whether they steer their own life path (those who do turn gold). Beyond the present end of
+the timeline stand three stations: the money circuit of any year with the companies that capture the most value, a map of
+the mind behind the money (desire and fear, reason and emotion, now and the future), and the prisoner's dilemma between
+people and between tribes, played live. Keys 1 - 8 change the view, comma and period the year, a click on a lifeline opens a
+person, T starts a 27-stop tour. Data from BEA, the Federal Reserve, BLS and Census; the model, its calibration and what it
+finds are in `Docs/ECONOMY.md`, the data in `Docs/DATA.md`.
+
 ## Project
 
-Unity 6000.6.3f1, URP 17.6. Open `Assets/Scenes/Why.unity` and press Play; everything is built at
+Unity 6000.6.3f1, URP 17.6. Open `Assets/Scenes/Why.unity` (or `Assets/Scenes/Economy.unity`) and press Play; everything is built at
 runtime in about two seconds (the original took about 30 s).
 
 * `Docs/ARCHITECTURE.md` - the rendering core: data space, the GPU warp (clock + branch + lens),

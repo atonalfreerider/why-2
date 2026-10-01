@@ -170,6 +170,39 @@ is keyed off `ScreenLayout.IsPortrait`, so landscape poses and layouts are untou
   birth just under the card to death just above the legend); the camera travels only the share of the lifeline
   that does not fit there.
 
+## Scenes
+
+`GraphRoot` builds one scene, named by its serialized `scene` field: `why` (the causality graph, `Why.unity`, the default)
+or `economy` (`Economy.unity`). Layers and modules are still discovered by reflection, but only those that belong to the
+scene are created: `[GraphScenes("why", "economy")]` on a type lists its scenes, and a type without it belongs to `why`
+only, so new scenes cannot change the causality graph. `ViewPresets` keeps one catalog per scene (`ViewPresets.Initial` is
+the scene's `overview`); the tour (`Data/tour` or `Data/economy/tour`), narration folder, help sheet, legend and title
+follow the scene.
+
+Shared by both scenes: `TimeAxisLayer`, `HumanWorldLoader`, `SmvLayer`, the HUD, the lens, the director and the loading
+overlay. `SmvLayer` publishes the finished United States population as `SmvPopulation` (shared key `smv.population`) and
+asks the shared key `smv.style` for an `ISmvLineStyle`; a layer of another scene with an Order below 30 can publish one to
+run its own model on the finished population (inside `SmvLayer.Prepare`) and restyle every lifeline point. The causality
+graph publishes none, so its lines are unchanged; `SmvSimulation.MarriageLog` records every marriage for such models.
+
+### Stations: geometry beside the timeline
+
+The economy scene draws diagrams in plain world space beyond the present end of its timeline (`EconomyStage`):
+
+* Materials made with `GraphMaterials.Raw` set `_Raw = 1`: `WhyPlace` in `WhyCommon.hlsl` then places vertices through the
+  renderer's transform (`TransformObjectToWorld`) instead of the warp, with no lens fade. The mesh is built in a station's
+  local frame and its GameObject placed with `Station.Place`.
+* `Anchor.Fixed` and `LabelSpec.Fixed` hold world positions; `Anchor.WorldUnder(warp)` resolves either kind. A fixed label
+  with `FixedRange` > 0 is only placed while the camera's target is within that distance, so a station's labels never crowd
+  another view. `LabelSystem.SetText` changes a label's text after it was added (live readouts).
+* `ViewPreset.FixedTarget` / `FixedYaw` aim the camera at a world point under the scene's one shared lens, so the road
+  never moves between views.
+* `LineMeshBuilder.AddFlowPath` writes a path phase into the flow attribute (2 + distance): the line shader then moves
+  flow pulses along the path itself rather than along time.
+
+Label placement is deterministic: equal priorities break ties by text and position (layers add labels from several
+worker threads, so insertion order alone is not reproducible).
+
 ## Data files (`Assets/Resources/Data`)
 
 `matter.json`, `life_traits.json`, `life_clades.json`, `civilizations.json` (+ `../powerByYearsAgo.json`),

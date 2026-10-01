@@ -306,6 +306,18 @@ namespace Why.Economy.Model
             memB = new PdMemory[b.Length];
         }
 
+        /// <summary>
+        /// The last move a member made toward the other tribe (member 0 is the alpha); false while the member has not
+        /// played yet (members of tribe B are drawn at random, so some sit out a round).
+        /// </summary>
+        public bool TryLastMove(bool tribeA, int member, out PdMove move)
+        {
+            PdMemory[] m = tribeA ? memA : memB;
+            bool played = member >= 0 && member < m.Length && m[member].Started;
+            move = played ? m[member].Mine : PdMove.Cooperate;
+            return played;
+        }
+
         /// <summary>Plays one round and returns it (also appended to <see cref="Rounds"/>).</summary>
         public Round Step()
         {

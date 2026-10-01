@@ -1,0 +1,1777 @@
+{
+  "vintage": "BEA GDP by industry: historical 1947-1997 (Nov-16-2021 release), integrated industry accounts 1997-2023 (Sept-2024), annual 2017-2024 (Sept-25-2025), quarterly through 2026Q1 (Jun-2026); all before the Sept-30-2026 annual update, which raised 2025 GDP to $30,861.3B (+0.3%) and is not reflected. NIPA 1.10 (GDI, labor share), 6.16D corporate profits (Apr-9-2026), 2024 Use table (Sept-2025), FTE 2024 (NIPA 6.5D). Companies: fiscal 2025 results, market caps Sept-2026. Overlays: calendar 2025 and guidance to Jul-2026. Built 2026-10-01.",
+  "sources": [
+    "BEA, Value Added by Industry 1947-1997, historical NAICS-based GDP by industry, release Nov 16 2021 (research/rc_gdpind_1947.csv; mirror https://raw.githubusercontent.com/rcberg/macroeconomics/main/data/raw/gdp-industry-1947-1997.csv)",
+    "BEA, Integrated industry-level production account (KLEMS format): Components of value added by industry 1963-1997 and 1997-2023 (research/rc_klems63.csv, rc_klems-industry-1997-2023.csv; mirror https://raw.githubusercontent.com/rcberg/macroeconomics/main/data/raw/klems-industry-1997-2023.csv)",
+    "BEA, GDP by Industry: Value Added by Industry 2017-2024, Sept 25 2025 annual update (research industries.json valueAddedByIndustry; mirror https://raw.githubusercontent.com/ahmdtrdi/P02-CreditScoring/main/data/01-raw/BEA_GDP_2017-2024.csv)",
+    "BEA, GDP by Industry, quarterly value added and real value added by industry through 2026Q1 (Jun 2026 release), via the US-chartbook data mirror (gdpva_nom.csv, gdpva_real.csv, ngdp.csv, gdp.csv; snapshot Sept 13 2026)",
+    "BEA, NIPA Table 1.1.5 GDP and 1.10 GDI by type of income (research/gdpgdi.csv, mirror https://raw.githubusercontent.com/IsaiahDal/isaiahdal.github.io/main/DATA/GDPGDI.csv; research/t11000.csv quarterly 1947-2024)",
+    "BEA, GDP and real GDP (chained 2017 dollars) 1929-2023, via https://raw.githubusercontent.com/datasets/gdp-us/main/data/year.csv (implicit price deflator)",
+    "BEA, Use of Commodities by Industries before redefinitions, summary 2024 (Sept 2025): compensation, taxes on production and imports less subsidies, gross operating surplus (mirror https://raw.githubusercontent.com/EthanSterling04/market-concentration-tail-risk/main/Experiment/Data/IO_Tables/2024.csv)",
+    "BEA, NIPA Table 6.16D Corporate profits by industry, Apr 9 2026 vintage (mirror https://raw.githubusercontent.com/ki3n98/AIS_datathon_2026/main/data/cleaned/corporate_profit_by_industry.csv)",
+    "BEA, NIPA Table 6.5D Full-time equivalent employees by industry 2024 (FRED series A4302C0A173NBEA, N43xxC0A173NBEA; search-verified)",
+    "BLS, Current Employment Statistics annual averages 1988-2025 by industry (US-chartbook ces_ann_raw.csv); SIC-basis CES division totals 1950 and 1970 (recalled: Economic Report of the President, Table B-46 era)",
+    "Damodaran (NYU Stern), Margins by sector (US), January 2026; FactSet S&P 500 sector net profit margins 2025-2026 (research flows.json valueCaptureBySector)",
+    "Company filings FY2025 and market capitalizations Sept 2026 (research flows.json topCompaniesBySector, magnificent7)",
+    "IAB/PwC Internet Advertising Revenue Report, full year 2025 (Apr 2026); Meta, Alphabet, Amazon FY2025 results",
+    "Hyperscaler capex 2025 and 2026 guidance, Nvidia FY2026-FY2027 results, OpenAI and Anthropic revenue run rates (company releases and press via search; research industries.json aiOverlay)",
+    "Labor share: BEA NIPA 1.10 compensation of employees / gross domestic income 1947-2024, via research ownership.json factorIncomeShares_1947_2024"
+  ],
+  "notes": {
+    "gdp": "Nominal GDP, $B, BEA (pre-Sept-30-2026 vintage; 2025 = 30762.1). 2026 is an estimate: 2025 x (H1-2026 / H1-2025) of quarterly nominal GDP SAAR (32175.9 / 30263.9) = 32705.5. The post-update vintage puts 2025 at 30,861.3 and H1-2026 at 31,906.3 / 32,563.0.",
+    "deflator": "GDP implicit price deflator rebased to 2025 = 100: BEA nominal / chained-2017-dollar GDP (datasets/gdp-us, Sept-2024 vintage) for 1946-2016, linked at 2017 to the Jun-2026 vintage quarterly data for 2017-2025 (2025 real growth 2.1%); 2026 = 2025 x the H1-2026 / H1-2025 implicit deflator, with real Q2-2026 from the 1.5% SAAR second estimate.",
+    "laborShare": "Compensation of employees paid / gross domestic income, NIPA 1.10 (annual averages of quarters; research ownership.json factorIncomeShares_1947_2024). 2025 = 2024 x the change in compensation / GDP (51.37% -> 51.18%) because 2025 GDI is not in the research.",
+    "valueAdded": "Industry value added sums to GDP every year (BEA value added by industry is additive in current dollars); differences are rounding only. Pre-1963 detail and pre-2017 software/print publishing splits are estimates; see each industry note.",
+    "shares": "compShare, taxShare: 2024 BEA Use table (trade: 2025 estimate including tariffs). depShare: estimated (no BEA depreciation by industry in the research); private depShares are scaled so that sum(depShare x 2024 value added) equals NIPA private consumption of fixed capital 2024 ($4006B); government uses general government gross operating surplus (= CFC). Owners keep 1 - compShare - taxShare - depShare. gosShare2024 = gross operating surplus / value added (2024).",
+    "employment": "Full-time-equivalent employees, thousands (BEA NIPA 6.5D for 2024). Earlier years convert BLS payroll jobs to FTE with each industry's 2024 FTE/jobs ratio, so they understate past full-time work slightly; 1950 and 1970 splits inside SIC divisions are approximate (+-15%). Excludes the self-employed."
+  },
+  "corrections": [
+    "Verification 2026-10-01: federal and state_local value added 1947-1962 re-split (totals unchanged). The logit split on the federal share of government purchases made state & local value added fall from $16.3B (1950) to $15.6B (1952) and then jump 19% in 1954, because Korean War equipment purchases lifted the federal share of purchases. State & local is now its 1963 ratio (0.716) to state & local consumption and investment (NIPA 1.1.5), federal the rest: 1947 23.4/10.1, 1950 20.6/15.1, 1952 33.2/17.7, 1955 35.0/22.9, 1962 50.4/39.2 (was 20.4/13.1, 19.4/16.3, 35.3/15.6, 36.0/21.9, 51.2/38.4). Notes updated.",
+    "Verification 2026-10-01: state_local blurb said it employs more people than any industry except health care, but in this file trade (19,668) and professional (17,424) have more FTEs than state_local (17,369). Reworded to 17.4 million FTEs, nearly one in eight US employees.",
+    "Verification 2026-10-01: mining_metals profitMargin 0.141 -> 0.14 (the stated blend 0.53 x 23.15% + 0.47 x 3.73% = 14.0%).",
+    "Verification 2026-10-01: software and real_estate notes called 2025 values BEA detail; the software-publisher share (85.9%) and the owner-occupied imputed rent ($2236B) for 2025 are the 2024 within-group shares applied to 2025 totals (research basis_2025). Notes reworded; numbers unchanged."
+  ],
+  "gdp": [
+    [1946,227.5], [1947,249.6], [1948,274.5], [1949,272.5], [1950,299.8], [1951,346.9], [1952,367.3], [1953,389.2],
+    [1954,390.5], [1955,425.5], [1956,449.4], [1957,474.0], [1958,481.2], [1959,521.7], [1960,542.4], [1961,562.2],
+    [1962,603.9], [1963,637.5], [1964,684.5], [1965,742.3], [1966,813.4], [1967,860.0], [1968,940.7], [1969,1017.6],
+    [1970,1073.3], [1971,1164.9], [1972,1279.1], [1973,1425.4], [1974,1545.2], [1975,1684.9], [1976,1873.4], [1977,2081.8],
+    [1978,2351.6], [1979,2627.3], [1980,2857.3], [1981,3207.0], [1982,3343.8], [1983,3634.0], [1984,4037.6], [1985,4339.0],
+    [1986,4579.6], [1987,4855.2], [1988,5236.4], [1989,5641.6], [1990,5963.1], [1991,6158.1], [1992,6520.3], [1993,6858.6],
+    [1994,7287.2], [1995,7639.7], [1996,8073.1], [1997,8577.6], [1998,9062.8], [1999,9631.2], [2000,10251.0], [2001,10581.9],
+    [2002,10929.1], [2003,11456.4], [2004,12217.2], [2005,13039.2], [2006,13815.6], [2007,14474.2], [2008,14769.9], [2009,14478.1],
+    [2010,15049.0], [2011,15599.7], [2012,16254.0], [2013,16880.7], [2014,17608.1], [2015,18295.0], [2016,18804.9], [2017,19612.1],
+    [2018,20656.5], [2019,21540.0], [2020,21375.3], [2021,23725.6], [2022,26054.6], [2023,27811.5], [2024,29298.0], [2025,30762.1],
+    [2026,32705.5]
+  ],
+  "deflator": [
+    [1946,7.98], [1947,8.86], [1948,9.36], [1949,9.34], [1950,9.45], [1951,10.13], [1952,10.3], [1953,10.43],
+    [1954,10.52], [1955,10.7], [1956,11.07], [1957,11.43], [1958,11.69], [1959,11.85], [1960,12.01], [1961,12.14],
+    [1962,12.29], [1963,12.43], [1964,12.62], [1965,12.85], [1966,13.21], [1967,13.59], [1968,14.17], [1969,14.87],
+    [1970,15.65], [1971,16.45], [1972,17.16], [1973,18.1], [1974,19.73], [1975,21.55], [1976,22.74], [1977,24.15],
+    [1978,25.85], [1979,28.0], [1980,30.53], [1981,33.41], [1982,35.48], [1983,36.87], [1984,38.2], [1985,39.41],
+    [1986,40.2], [1987,41.2], [1988,42.65], [1989,44.32], [1990,45.98], [1991,47.53], [1992,48.62], [1993,49.77],
+    [1994,50.83], [1995,51.9], [1996,52.85], [1997,53.76], [1998,54.36], [1999,55.13], [2000,56.38], [2001,57.65],
+    [2002,58.55], [2003,59.7], [2004,61.31], [2005,63.23], [2006,65.18], [2007,66.95], [2008,68.24], [2009,68.66],
+    [2010,69.49], [2011,70.93], [2012,72.25], [2013,73.48], [2014,74.76], [2015,75.45], [2016,76.17], [2017,77.53],
+    [2018,79.31], [2019,80.62], [2020,81.7], [2021,85.43], [2022,91.51], [2023,94.89], [2024,97.25], [2025,100.0],
+    [2026,103.83]
+  ],
+  "laborShare": [
+    [1947,0.5361], [1948,0.525], [1949,0.5329], [1950,0.5298], [1951,0.5406], [1952,0.5513], [1953,0.5585], [1954,0.5526],
+    [1955,0.5448], [1956,0.5524], [1957,0.5537], [1958,0.5509], [1959,0.5483], [1960,0.5544], [1961,0.5515], [1962,0.5502],
+    [1963,0.5485], [1964,0.5493], [1965,0.5467], [1966,0.5557], [1967,0.5624], [1968,0.5661], [1969,0.5752], [1970,0.5837],
+    [1971,0.5756], [1972,0.575], [1973,0.5726], [1974,0.5773], [1975,0.5667], [1976,0.5659], [1977,0.5653], [1978,0.5656],
+    [1979,0.5721], [1980,0.5767], [1981,0.5656], [1982,0.5676], [1983,0.5626], [1984,0.5545], [1985,0.5572], [1986,0.5653],
+    [1987,0.5661], [1988,0.5634], [1989,0.5635], [1990,0.5697], [1991,0.5693], [1992,0.5732], [1993,0.57], [1994,0.561],
+    [1995,0.5568], [1996,0.5515], [1997,0.5501], [1998,0.5566], [1999,0.56], [2000,0.5658], [2001,0.5651], [2002,0.5579],
+    [2003,0.5542], [2004,0.5495], [2005,0.5404], [2006,0.5341], [2007,0.5455], [2008,0.5535], [2009,0.5437], [2010,0.5296],
+    [2011,0.527], [2012,0.5226], [2013,0.523], [2014,0.5217], [2015,0.528], [2016,0.5321], [2017,0.5339], [2018,0.5326],
+    [2019,0.5334], [2020,0.5462], [2021,0.5308], [2022,0.5158], [2023,0.5172], [2024,0.5186], [2025,0.5167]
+  ],
+  "tiers": [
+    {
+      "id": "gov",
+      "name": "Government",
+      "order": 0,
+      "blurb": "The foundation the rest stands on: defense, schools, police, courts and roads, paid for with taxes."
+    },
+    {
+      "id": "raw",
+      "name": "Raw",
+      "order": 1,
+      "blurb": "What is taken from the ground, the fields and the weather: food, fuel, metals and power."
+    },
+    {
+      "id": "make",
+      "name": "Make & move",
+      "order": 2,
+      "blurb": "Building, manufacturing, moving and selling the physical products people buy."
+    },
+    {
+      "id": "services",
+      "name": "Services",
+      "order": 3,
+      "blurb": "Money, protection, law, homes, care and fun: services that sell security, status and time."
+    },
+    {
+      "id": "tech",
+      "name": "Tech",
+      "order": 4,
+      "blurb": "Software, chips and platforms that sell attention and, now, machine intelligence."
+    }
+  ],
+  "industries": [
+    {
+      "id": "federal",
+      "name": "Federal government",
+      "tier": "gov",
+      "level": "gov",
+      "notebook": "Gov",
+      "naics": "GFGD, GFGN, GFE (defense, civilian agencies, federal enterprises such as the Postal Service)",
+      "blurb": "Defense, the civilian agencies and federal enterprises such as the Postal Service: $1.11T of value added in 2025 (3.6% of GDP), almost all of it wages and the wear of public capital.",
+      "valueAdded": [
+        [1947,23.4], [1948,21.2], [1949,20.9], [1950,20.6], [1951,27.8], [1952,33.2], [1953,34.2], [1954,34.2],
+        [1955,35.0], [1956,36.6], [1957,38.4], [1958,40.0], [1959,42.0], [1960,44.8], [1961,46.7], [1962,50.4],
+        [1963,53.6], [1964,56.9], [1965,59.8], [1966,66.1], [1967,71.9], [1968,79.0], [1969,84.4], [1970,90.5],
+        [1971,96.4], [1972,102.6], [1973,106.9], [1974,114.7], [1975,122.2], [1976,131.6], [1977,139.8], [1978,152.1],
+        [1979,163.2], [1980,178.8], [1981,201.1], [1982,219.5], [1983,232.3], [1984,252.3], [1985,269.9], [1986,281.3],
+        [1987,291.9], [1988,312.9], [1989,329.3], [1990,343.7], [1991,365.5], [1992,375.9], [1993,376.7], [1994,381.3],
+        [1995,384.4], [1996,383.4], [1997,390.7], [1998,396.4], [1999,406.0], [2000,423.5], [2001,430.4], [2002,462.5],
+        [2003,498.9], [2004,525.8], [2005,552.4], [2006,576.6], [2007,603.2], [2008,633.7], [2009,664.8], [2010,699.0],
+        [2011,713.8], [2012,715.7], [2013,706.3], [2014,719.3], [2015,734.5], [2016,748.1], [2017,766.5], [2018,796.8],
+        [2019,817.4], [2020,860.4], [2021,901.4], [2022,945.5], [2023,999.8], [2024,1064.9], [2025,1107.6], [2026,1147.5]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.6387,
+      "taxShare": 0.0,
+      "depShare": 0.3563,
+      "gosShare2024": 0.3677,
+      "profitMargin": 0.0,
+      "employment": [[1950,3387], [1970,5796], [1990,5240], [2010,4408], [2024,4263]],
+      "corporateProfits": 0,
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: BEA historical tables give only total government (GDP minus private industries); state & local value added is estimated as state & local consumption expenditures and gross investment (NIPA 1.1.5) x their 1963 ratio (0.716; the ratio stays between 0.71 and 0.73 through 1969), and federal is the rest. This keeps state & local growing through the Korean War, when federal purchases of equipment surged without adding much federal value added. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 3.51%) x the 2026 GDP estimate, +3.6% on 2025. compShare from the 2024 Use table (compensation incl. government enterprises); depShare = general government's gross operating surplus, which the NIPAs set equal to its consumption of fixed capital; taxShare 0: enterprises' net subsidies (-6.8 $B) are netted against their small operating surplus. profitMargin: non-market (no profit). corporateProfits: none (government). Employment: FTE thousands; 2024 BEA NIPA 6.5D (civilian + military); 1950-2010 = CES federal jobs incl. Postal Service + DoD active-duty strength (recalled)."
+    },
+    {
+      "id": "state_local",
+      "name": "State & local government",
+      "tier": "gov",
+      "level": "gov",
+      "notebook": "Gov",
+      "naics": "GSLG, GSLE (public schools and universities, police, hospitals, roads, transit, utilities)",
+      "blurb": "Public schools and universities, police and fire, public hospitals, roads, transit and water: $2.34T of value added in 2025 (7.6% of GDP), employing 17.4 million full-time equivalents in 2024, nearly one in eight US employees.",
+      "valueAdded": [
+        [1947,10.1], [1948,12.0], [1949,13.9], [1950,15.1], [1951,16.7], [1952,17.7], [1953,19.0], [1954,20.9],
+        [1955,22.9], [1956,25.1], [1957,27.7], [1958,30.5], [1959,32.2], [1960,34.1], [1961,37.2], [1962,39.2],
+        [1963,42.5], [1964,46.2], [1965,50.5], [1966,56.0], [1967,61.8], [1968,69.9], [1969,78.1], [1970,88.1],
+        [1971,98.7], [1972,109.3], [1973,120.5], [1974,133.5], [1975,149.7], [1976,160.1], [1977,173.3], [1978,189.6],
+        [1979,207.7], [1980,229.2], [1981,251.9], [1982,274.1], [1983,294.2], [1984,317.1], [1985,346.6], [1986,374.2],
+        [1987,403.2], [1988,436.3], [1989,477.5], [1990,522.5], [1991,558.6], [1992,599.6], [1993,629.7], [1994,661.6],
+        [1995,692.4], [1996,720.6], [1997,754.8], [1998,794.9], [1999,846.4], [2000,899.5], [2001,962.5], [2002,1011.9],
+        [2003,1053.5], [2004,1105.8], [2005,1159.0], [2006,1216.4], [2007,1285.2], [2008,1349.4], [2009,1381.7], [2010,1410.5],
+        [2011,1424.8], [2012,1445.6], [2013,1508.9], [2014,1556.3], [2015,1609.5], [2016,1643.8], [2017,1689.4], [2018,1762.0],
+        [2019,1812.8], [2020,1850.9], [2021,1906.6], [2022,1980.2], [2023,2098.9], [2024,2231.5], [2025,2339.4], [2026,2460.4]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.8538,
+      "taxShare": 0.0,
+      "depShare": 0.1401,
+      "gosShare2024": 0.1635,
+      "profitMargin": 0.0,
+      "employment": [[1950,3497], [1970,8382], [1990,12986], [2010,16651], [2024,17369]],
+      "corporateProfits": 0,
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: BEA historical tables give only total government (GDP minus private industries); state & local value added is estimated as state & local consumption expenditures and gross investment (NIPA 1.1.5) x their 1963 ratio (0.716; the ratio stays between 0.71 and 0.73 through 1969), and federal is the rest. This keeps state & local growing through the Korean War, when federal purchases of equipment surged without adding much federal value added. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 7.52%) x the 2026 GDP estimate, +5.2% on 2025. compShare from the 2024 Use table (compensation incl. government enterprises); depShare = general government's gross operating surplus, which the NIPAs set equal to its consumption of fixed capital; taxShare 0: enterprises' net subsidies (-38.6 $B) are netted against their small operating surplus. profitMargin: non-market (no profit). corporateProfits: none (government). Employment: FTE thousands; 2024 BEA NIPA 6.5D; 1950-2010 = CES state & local jobs (recalled) x the 2024 FTE/jobs ratio (0.853)."
+    },
+    {
+      "id": "agriculture",
+      "name": "Agriculture",
+      "tier": "raw",
+      "level": "life",
+      "notebook": "Agriculture",
+      "naics": "11 (farms, forestry, fishing, hunting)",
+      "blurb": "Farms, ranches, forestry and fishing: $272B of value added in 2025 (0.9% of GDP), down from 6.6% of GDP in 1950.",
+      "valueAdded": [
+        [1947,19.9], [1948,23.2], [1949,18.6], [1950,19.9], [1951,23.0], [1952,22.1], [1953,20.0], [1954,19.6],
+        [1955,18.8], [1956,18.6], [1957,18.4], [1958,20.6], [1959,19.0], [1960,19.9], [1961,20.0], [1962,20.3],
+        [1963,20.5], [1964,19.6], [1965,22.4], [1966,23.4], [1967,22.9], [1968,23.6], [1969,26.3], [1970,27.3],
+        [1971,29.4], [1972,34.3], [1973,52.2], [1974,50.1], [1975,51.4], [1976,50.1], [1977,51.2], [1978,59.5],
+        [1979,70.2], [1980,62.2], [1981,75.7], [1982,71.7], [1983,57.3], [1984,77.0], [1985,77.0], [1986,74.1],
+        [1987,79.3], [1988,78.7], [1989,91.7], [1990,96.1], [1991,88.0], [1992,98.6], [1993,90.5], [1994,105.3],
+        [1995,90.7], [1996,113.6], [1997,108.6], [1998,100.7], [1999,93.3], [2000,98.9], [2001,100.8], [2002,96.7],
+        [2003,115.3], [2004,144.5], [2005,130.2], [2006,127.1], [2007,146.3], [2008,146.5], [2009,129.3], [2010,145.7],
+        [2011,179.9], [2012,179.5], [2013,215.8], [2014,200.6], [2015,182.1], [2016,167.5], [2017,176.8], [2018,177.1],
+        [2019,164.2], [2020,164.4], [2021,230.7], [2022,294.0], [2023,270.4], [2024,269.7], [2025,272.0], [2026,241.5]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.297,
+      "taxShare": 0.03,
+      "depShare": 0.2495,
+      "gosShare2024": 0.673,
+      "profitMargin": 0.0525,
+      "employment": [[1950,2150], [1970,1300], [1990,1250], [2010,1100], [2024,1215]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Deere & Company",
+          "revenue": 45.7,
+          "netIncome": 5.0,
+          "marketCap": 184.5,
+          "year": 2025,
+          "note": "fiscal year ended Oct 2025; market cap 2026 (Sep, approx); farm machinery: BEA books it in manufacturing"
+        },
+        {
+          "name": "Corteva",
+          "revenue": 17.4,
+          "netIncome": 1.2,
+          "marketCap": 52.9,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026 (Sep, approx); seeds and crop chemicals"
+        },
+        {
+          "name": "Archer-Daniels-Midland",
+          "revenue": 80.3,
+          "netIncome": 1.1,
+          "marketCap": 36.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-06-24; crop trading and processing"
+        },
+        {
+          "name": "Tyson Foods",
+          "revenue": 54.4,
+          "netIncome": 0.5,
+          "year": 2025,
+          "note": "fiscal year ended Sep 2025; meat processing"
+        },
+        {
+          "name": "Cal-Maine Foods",
+          "revenue": 4.3,
+          "netIncome": 1.2,
+          "year": 2025,
+          "note": "fiscal year ended May 2025; largest US egg producer, an actual farm business"
+        }
+      ],
+      "consumerFacing": ["fresh food"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 0.74%) x the 2026 GDP estimate, -11.2% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.200 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.673). profitMargin: Damodaran Jan-2026 Farming/Agriculture net margin 5.25%. corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE employees (excludes self-employed farmers and family workers); 2024 BEA NIPA 6.5D; 1950-2010 approximate recalled BEA FTE (+-15%)."
+    },
+    {
+      "id": "oil_gas",
+      "name": "Oil & gas",
+      "tier": "raw",
+      "level": "matter",
+      "notebook": "Oil",
+      "naics": "211, 213, 324 (extraction, drilling and support, refining)",
+      "blurb": "Oil and gas wells, drilling services and refineries: $459B of value added in 2025 (1.5% of GDP), below its 2022 price spike ($623B).",
+      "valueAdded": [
+        [1947,4.2], [1948,6.0], [1949,5.5], [1950,6.2], [1951,7.2], [1952,7.3], [1953,8.0], [1954,8.4],
+        [1955,9.1], [1956,9.9], [1957,9.7], [1958,9.5], [1959,8.6], [1960,8.8], [1961,8.7], [1962,8.6],
+        [1963,8.9], [1964,9.1], [1965,10.0], [1966,10.5], [1967,11.5], [1968,12.2], [1969,12.3], [1970,12.9],
+        [1971,13.7], [1972,14.8], [1973,17.4], [1974,24.5], [1975,28.0], [1976,33.4], [1977,38.5], [1978,43.7],
+        [1979,60.3], [1980,89.7], [1981,121.3], [1982,116.6], [1983,103.4], [1984,103.1], [1985,107.0], [1986,72.7],
+        [1987,75.7], [1988,80.9], [1989,87.0], [1990,99.6], [1991,89.4], [1992,83.1], [1993,90.6], [1994,87.3],
+        [1995,85.3], [1996,100.6], [1997,116.1], [1998,102.8], [1999,100.4], [2000,134.7], [2001,164.1], [2002,135.8],
+        [2003,191.0], [2004,237.0], [2005,323.6], [2006,361.3], [2007,410.8], [2008,486.0], [2009,324.5], [2010,360.5],
+        [2011,440.1], [2012,452.6], [2013,473.4], [2014,508.8], [2015,345.8], [2016,243.3], [2017,325.7], [2018,415.2],
+        [2019,384.3], [2020,207.0], [2021,415.7], [2022,622.6], [2023,550.0], [2024,519.1], [2025,458.6], [2026,538.1]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.1763,
+      "taxShare": 0.1123,
+      "depShare": 0.3742,
+      "gosShare2024": 0.7116,
+      "profitMargin": 0.083,
+      "employment": [[1950,475], [1970,463], [1990,522], [2010,555], [2024,496]],
+      "corporateProfits": 0,
+      "companies": [
+        {
+          "name": "Exxon Mobil",
+          "revenue": 332.3,
+          "netIncome": 28.8,
+          "marketCap": 663.2,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Chevron",
+          "revenue": 189.0,
+          "netIncome": 12.4,
+          "marketCap": 392.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "ConocoPhillips",
+          "netIncome": 8.0,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["gasoline", "heating oil"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). Support activities for mining (213) also serve metal and coal mines; kept here as BEA reports them together. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.65%) x the 2026 GDP estimate, +17.3% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.300 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.712). profitMargin: Damodaran Jan-2026 Oil/Gas (Integrated) 8.30% (E&P 24.0%, oilfield services 4.4%). corporateProfits: not separable in NIPA 6.16D (line \"Petroleum and coal products (refining only, 38.4) + extraction inside Other nonfinancial\"). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.985); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "mining_metals",
+      "name": "Mining & metals",
+      "tier": "raw",
+      "level": "matter",
+      "notebook": "Metals",
+      "naics": "212, 331 (mining except oil and gas, primary metals)",
+      "blurb": "Mines, quarries, steel mills and smelters: $164B of value added in 2025 (0.5% of GDP), down from 3.6% of GDP in 1950.",
+      "valueAdded": [
+        [1947,8.7], [1948,9.8], [1949,8.5], [1950,10.8], [1951,13.1], [1952,11.8], [1953,13.6], [1954,11.9],
+        [1955,14.8], [1956,16.0], [1957,16.5], [1958,13.7], [1959,14.8], [1960,15.2], [1961,14.4], [1962,15.3],
+        [1963,16.3], [1964,18.3], [1965,19.9], [1966,22.1], [1967,21.1], [1968,21.5], [1969,22.8], [1970,23.5],
+        [1971,23.7], [1972,26.7], [1973,31.5], [1974,41.5], [1975,40.0], [1976,42.3], [1977,46.8], [1978,55.4],
+        [1979,63.3], [1980,63.3], [1981,69.2], [1982,54.9], [1983,49.6], [1984,57.7], [1985,51.7], [1986,51.5],
+        [1987,51.7], [1988,63.8], [1989,67.6], [1990,64.7], [1991,61.6], [1992,62.5], [1993,61.9], [1994,69.0],
+        [1995,72.9], [1996,71.8], [1997,74.6], [1998,78.0], [1999,75.6], [2000,75.5], [2001,68.4], [2002,69.0],
+        [2003,68.5], [2004,88.6], [2005,99.0], [2006,114.5], [2007,122.6], [2008,130.2], [2009,102.6], [2010,120.6],
+        [2011,139.3], [2012,132.8], [2013,124.1], [2014,121.5], [2015,108.4], [2016,101.8], [2017,112.1], [2018,120.3],
+        [2019,120.5], [2020,113.6], [2021,142.0], [2022,160.6], [2023,163.0], [2024,157.3], [2025,164.4], [2026,188.4]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.4132,
+      "taxShare": 0.0737,
+      "depShare": 0.2495,
+      "gosShare2024": 0.5143,
+      "profitMargin": 0.14,
+      "employment": [[1950,1848], [1970,1566], [1990,969], [2010,554], [2024,548]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Southern Copper",
+          "revenue": 13.4,
+          "netIncome": 4.3,
+          "marketCap": 171.1,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Newmont",
+          "revenue": 22.7,
+          "netIncome": 7.1,
+          "marketCap": 121.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-30"
+        },
+        {
+          "name": "Freeport-McMoRan",
+          "revenue": 25.9,
+          "netIncome": 2.2,
+          "marketCap": 100.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Nucor",
+          "marketCap": 56.1,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Steel Dynamics",
+          "revenue": 18.2,
+          "netIncome": 1.2,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 0.58%) x the 2026 GDP estimate, +14.6% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.200 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.514). profitMargin: blend of Damodaran Jan-2026 Metals & Mining 23.15% (inflated by 2025 gold/copper prices) and Steel 3.73%, weighted by 2025 value added of mining (53%) and primary metals (47%). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.978); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "utilities",
+      "name": "Utilities",
+      "tier": "raw",
+      "level": "matter",
+      "notebook": "(power)",
+      "naics": "22 (electricity, natural gas distribution, water and sewage)",
+      "blurb": "Power plants, grids, gas pipes to homes, water and sewage: $471B of value added in 2025 (1.5% of GDP), with data centers driving new demand.",
+      "valueAdded": [
+        [1947,3.5], [1948,3.9], [1949,4.4], [1950,4.9], [1951,5.6], [1952,6.1], [1953,6.8], [1954,7.5],
+        [1955,8.1], [1956,8.6], [1957,9.3], [1958,10.0], [1959,11.0], [1960,12.0], [1961,12.6], [1962,13.4],
+        [1963,14.0], [1964,14.9], [1965,15.6], [1966,16.7], [1967,17.5], [1968,19.0], [1969,20.4], [1970,21.7],
+        [1971,24.6], [1972,27.0], [1973,28.9], [1974,30.2], [1975,38.4], [1976,42.9], [1977,47.5], [1978,52.0],
+        [1979,53.7], [1980,60.9], [1981,72.0], [1982,83.2], [1983,94.6], [1984,105.9], [1985,113.6], [1986,117.9],
+        [1987,125.8], [1988,125.3], [1989,138.5], [1990,145.6], [1991,153.8], [1992,160.1], [1993,164.7], [1994,172.4],
+        [1995,176.0], [1996,175.0], [1997,171.5], [1998,163.7], [1999,180.0], [2000,180.1], [2001,181.3], [2002,177.6],
+        [2003,183.9], [2004,199.1], [2005,197.9], [2006,226.7], [2007,231.9], [2008,241.7], [2009,257.8], [2010,279.1],
+        [2011,288.3], [2012,280.7], [2013,287.6], [2014,299.3], [2015,300.5], [2016,303.4], [2017,313.7], [2018,320.4],
+        [2019,331.6], [2020,345.8], [2021,392.9], [2022,440.8], [2023,457.8], [2024,454.4], [2025,471.2], [2026,504.9]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.2276,
+      "taxShare": 0.1875,
+      "depShare": 0.3493,
+      "gosShare2024": 0.5847,
+      "profitMargin": 0.15,
+      "employment": [[1950,537], [1970,668], [1990,729], [2010,545], [2024,584]],
+      "corporateProfits": 56.1,
+      "companies": [
+        {
+          "name": "NextEra Energy",
+          "revenue": 26.3,
+          "netIncome": 6.8,
+          "marketCap": 157.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Southern Company",
+          "revenue": 28.9,
+          "netIncome": 4.3,
+          "marketCap": 94.7,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Duke Energy",
+          "revenue": 32.2,
+          "netIncome": 4.9,
+          "marketCap": 88.4,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Constellation Energy",
+          "revenue": 24.8,
+          "netIncome": 2.3,
+          "marketCap": 90.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        }
+      ],
+      "consumerFacing": ["electricity", "gas", "water"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.54%) x the 2026 GDP estimate, +7.1% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.280 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.585). profitMargin: median net margin of the four largest utilities FY2025 (NextEra 26.0%, Duke 15.2%, Southern 14.9%, Constellation 9.3%); S&P 500 Utilities 17.2% (FactSet Q3-2025); Damodaran net margin not extracted. corporateProfits: 2025, corporate profits with IVA (no CCAdj by industry), NIPA 6.16D Utilities. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.986); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "construction",
+      "name": "Construction",
+      "tier": "make",
+      "level": "capital",
+      "notebook": "Construction",
+      "naics": "23",
+      "blurb": "Builders of homes, offices, factories, data centers and roads: $1.34T of value added in 2025 (4.4% of GDP), close to its 4.3% share of 1950.",
+      "valueAdded": [
+        [1947,8.9], [1948,11.1], [1949,11.2], [1950,12.8], [1951,15.2], [1952,16.4], [1953,17.0], [1954,17.1],
+        [1955,18.4], [1956,20.2], [1957,21.3], [1958,20.9], [1959,22.7], [1960,23.1], [1961,24.1], [1962,25.9],
+        [1963,27.6], [1964,30.3], [1965,33.2], [1966,36.6], [1967,38.2], [1968,41.8], [1969,46.6], [1970,49.4],
+        [1971,54.4], [1972,60.0], [1973,68.0], [1974,72.8], [1975,73.6], [1976,84.2], [1977,92.9], [1978,109.9],
+        [1979,125.1], [1980,131.7], [1981,133.2], [1982,131.0], [1983,139.2], [1984,160.3], [1985,177.3], [1986,197.5],
+        [1987,211.0], [1988,227.8], [1989,241.0], [1990,245.9], [1991,230.0], [1992,235.0], [1993,251.4], [1994,277.7],
+        [1995,292.9], [1996,316.3], [1997,339.6], [1998,379.8], [1999,417.7], [2000,461.2], [2001,486.4], [2002,493.5],
+        [2003,525.2], [2004,584.6], [2005,651.6], [2006,697.1], [2007,715.7], [2008,649.3], [2009,565.4], [2010,525.7],
+        [2011,525.6], [2012,554.9], [2013,594.7], [2014,649.9], [2015,715.3], [2016,776.8], [2017,840.2], [2018,889.1],
+        [2019,953.0], [2020,958.7], [2021,1012.1], [2022,1112.4], [2023,1224.6], [2024,1305.4], [2025,1341.3], [2026,1394.4]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.6123,
+      "taxShare": 0.0114,
+      "depShare": 0.0561,
+      "gosShare2024": 0.3763,
+      "profitMargin": 0.0594,
+      "employment": [[1950,2316], [1970,3516], [1990,5157], [2010,5407], [2024,8040]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "D.R. Horton",
+          "revenue": 34.3,
+          "netIncome": 3.6,
+          "marketCap": 38.6,
+          "year": 2025,
+          "note": "fiscal year ended Sep 2025; market cap 2026-09-14"
+        },
+        {
+          "name": "Lennar",
+          "revenue": 34.2,
+          "netIncome": 2.1,
+          "year": 2025,
+          "note": "fiscal year ended Nov 2025"
+        },
+        {
+          "name": "Quanta Services",
+          "revenue": 28.5,
+          "netIncome": 1.0,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["new homes", "renovation"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 4.26%) x the 2026 GDP estimate, +4.0% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.045 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.376). profitMargin: Damodaran Jan-2026 Engineering/Construction 5.94% (Homebuilding 10.49%). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.980); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "manufacturing",
+      "name": "Manufacturing",
+      "tier": "make",
+      "level": "capital",
+      "notebook": "Products",
+      "naics": "31-33 except 324, 331, 334",
+      "blurb": "Factories making food, cars, planes, medicines, chemicals and household goods: $2.34T of value added in 2025 (7.6% of GDP), down from 23% of GDP in 1950.",
+      "valueAdded": [
+        [1947,53.6], [1948,60.0], [1949,58.8], [1950,67.5], [1951,79.6], [1952,84.2], [1953,91.1], [1954,87.2],
+        [1955,98.1], [1956,101.4], [1957,105.5], [1958,101.2], [1959,114.6], [1960,115.8], [1961,117.1], [1962,129.1],
+        [1963,136.5], [1964,146.1], [1965,160.6], [1966,177.5], [1967,182.1], [1968,200.1], [1969,210.1], [1970,207.1],
+        [1971,219.3], [1972,239.6], [1973,262.8], [1974,272.6], [1975,294.1], [1976,337.1], [1977,382.8], [1978,423.5],
+        [1979,460.7], [1980,472.4], [1981,523.7], [1982,526.8], [1983,576.1], [1984,638.6], [1985,662.5], [1986,688.1],
+        [1987,725.9], [1988,781.8], [1989,827.9], [1990,844.5], [1991,854.5], [1992,892.0], [1993,921.2], [1994,972.4],
+        [1995,1018.3], [1996,1047.3], [1997,1092.0], [1998,1139.8], [1999,1211.5], [2000,1224.8], [2001,1191.4], [2002,1203.0],
+        [2003,1210.0], [2004,1247.1], [2005,1284.2], [2006,1366.8], [2007,1398.1], [2008,1346.2], [2009,1325.6], [2010,1384.9],
+        [2011,1414.1], [2012,1468.5], [2013,1533.2], [2014,1565.9], [2015,1636.8], [2016,1661.2], [2017,1690.5], [2018,1779.9],
+        [2019,1791.7], [2020,1766.3], [2021,1905.9], [2022,2061.9], [2023,2221.5], [2024,2308.7], [2025,2339.8], [2026,2472.2]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.4798,
+      "taxShare": 0.0366,
+      "depShare": 0.1622,
+      "gosShare2024": 0.4837,
+      "profitMargin": 0.08,
+      "employment": [[1950,12387], [1970,15283], [1990,14544], [2010,9687], [2024,10976]],
+      "corporateProfits": 483.0,
+      "companies": [
+        {
+          "name": "Tesla",
+          "revenue": 94.8,
+          "netIncome": 3.8,
+          "marketCap": 1450.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09 (range 1,400-1,501)"
+        },
+        {
+          "name": "Eli Lilly",
+          "revenue": 65.2,
+          "netIncome": 20.6,
+          "marketCap": 1085.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Johnson & Johnson",
+          "revenue": 94.2,
+          "netIncome": 26.8,
+          "marketCap": 648.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Caterpillar",
+          "revenue": 67.6,
+          "netIncome": 8.9,
+          "marketCap": 393.7,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Procter & Gamble",
+          "revenue": 84.3,
+          "netIncome": 16.1,
+          "marketCap": 337.6,
+          "year": 2025,
+          "note": "fiscal year ended Jun 2025; market cap 2026-09-08"
+        }
+      ],
+      "consumerFacing": ["food", "cars", "clothing", "medicines", "household goods"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 7.56%) x the 2026 GDP estimate, +5.7% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.130 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.484). profitMargin: composite of Damodaran Jan-2026 margins (Machinery 13.97%, Drugs 18.54%, Food Processing 2.82%, Auto & Truck 1.29%, Aerospace/Defense 4.99%); unweighted judgment from the flows research. corporateProfits: 2025, corporate profits with IVA (no CCAdj by industry), NIPA 6.16D Manufacturing minus Computer and electronic products minus Petroleum and coal products (still includes primary metals, which 6.16D does not separate). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.973); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "transport",
+      "name": "Transport & warehousing",
+      "tier": "make",
+      "level": "capital",
+      "notebook": "Transport",
+      "naics": "48-49 (incl. pipelines, couriers, warehousing)",
+      "blurb": "Trucks, railroads, airlines, couriers, pipelines and warehouses: $1.02T of value added in 2025 (3.3% of GDP), the circulatory system of the goods economy.",
+      "valueAdded": [
+        [1947,14.1], [1948,15.5], [1949,15.1], [1950,16.7], [1951,19.0], [1952,19.7], [1953,20.6], [1954,19.2],
+        [1955,20.9], [1956,22.0], [1957,22.8], [1958,21.7], [1959,22.9], [1960,23.2], [1961,23.4], [1962,24.9],
+        [1963,25.9], [1964,27.4], [1965,29.7], [1966,32.4], [1967,33.1], [1968,35.8], [1969,38.1], [1970,40.2],
+        [1971,44.2], [1972,48.7], [1973,53.7], [1974,59.0], [1975,59.9], [1976,69.4], [1977,77.0], [1978,87.5],
+        [1979,97.5], [1980,102.6], [1981,110.2], [1982,106.3], [1983,117.9], [1984,131.2], [1985,137.4], [1986,147.2],
+        [1987,153.1], [1988,162.8], [1989,168.6], [1990,174.9], [1991,183.9], [1992,194.7], [1993,207.4], [1994,223.8],
+        [1995,229.3], [1996,237.5], [1997,257.3], [1998,280.0], [1999,290.1], [2000,307.8], [2001,308.0], [2002,305.6],
+        [2003,321.4], [2004,352.0], [2005,375.6], [2006,410.3], [2007,414.0], [2008,427.0], [2009,404.4], [2010,433.5],
+        [2011,452.5], [2012,473.3], [2013,497.4], [2014,533.6], [2015,583.9], [2016,603.0], [2017,635.5], [2018,677.3],
+        [2019,710.0], [2020,639.6], [2021,779.3], [2022,912.1], [2023,946.1], [2024,987.3], [2025,1023.9], [2026,1082.4]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.5848,
+      "taxShare": 0.0547,
+      "depShare": 0.1871,
+      "gosShare2024": 0.3607,
+      "profitMargin": 0.064,
+      "employment": [[1950,2691], [1970,2563], [1990,3291], [2010,3954], [2024,6275]],
+      "corporateProfits": 96.2,
+      "companies": [
+        {
+          "name": "Union Pacific",
+          "netIncome": 7.1,
+          "marketCap": 161.7,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Uber Technologies",
+          "revenue": 52.0,
+          "netIncome": 10.1,
+          "marketCap": 142.4,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09 (low confidence)"
+        },
+        {
+          "name": "UPS",
+          "revenue": 88.7,
+          "marketCap": 87.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Delta Air Lines",
+          "revenue": 63.4,
+          "netIncome": 5.0,
+          "marketCap": 55.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-28"
+        },
+        {
+          "name": "FedEx",
+          "revenue": 89.0,
+          "year": 2026,
+          "note": "fiscal year ended May 2026"
+        }
+      ],
+      "consumerFacing": ["airfare", "rides", "delivery"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 3.31%) x the 2026 GDP estimate, +5.7% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.150 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.361). profitMargin: Damodaran Jan-2026 Trucking 6.38% (Air Transport 4.49%, Railroads reported 31.08%). corporateProfits: 2025, corporate profits with IVA (no CCAdj by industry), NIPA 6.16D Transportation and warehousing. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.946); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "trade",
+      "name": "Wholesale & retail trade",
+      "tier": "make",
+      "level": "capital",
+      "notebook": "Products",
+      "naics": "42, 44-45 (incl. customs duties, which BEA books in wholesale)",
+      "blurb": "Wholesalers and stores, where products reach people: $3.83T of value added in 2025 (12.4% of GDP), including about $264B of tariffs, which BEA books here.",
+      "valueAdded": [
+        [1947,38.8], [1948,41.6], [1949,41.5], [1950,44.7], [1951,49.7], [1952,51.4], [1953,52.8], [1954,53.6],
+        [1955,58.5], [1956,61.5], [1957,65.0], [1958,66.3], [1959,74.0], [1960,76.3], [1961,78.3], [1962,84.0],
+        [1963,87.4], [1964,95.4], [1965,102.5], [1966,111.4], [1967,118.7], [1968,130.7], [1969,141.4], [1970,150.7],
+        [1971,164.2], [1972,180.0], [1973,200.2], [1974,218.3], [1975,241.8], [1976,266.9], [1977,293.8], [1978,330.8],
+        [1979,368.9], [1980,386.2], [1981,425.8], [1982,435.5], [1983,479.9], [1984,538.8], [1985,581.8], [1986,612.2],
+        [1987,632.3], [1988,682.1], [1989,727.6], [1990,747.7], [1991,769.7], [1992,806.6], [1993,865.4], [1994,943.4],
+        [1995,984.5], [1996,1045.3], [1997,1107.4], [1998,1189.6], [1999,1236.3], [2000,1307.3], [2001,1322.1], [2002,1345.0],
+        [2003,1410.3], [2004,1491.6], [2005,1593.5], [2006,1679.3], [2007,1725.6], [2008,1734.2], [2009,1664.4], [2010,1751.1],
+        [2011,1818.4], [2012,1921.2], [2013,2022.4], [2014,2110.3], [2015,2229.8], [2016,2276.1], [2017,2355.0], [2018,2445.7],
+        [2019,2574.4], [2020,2637.5], [2021,2952.3], [2022,3242.2], [2023,3432.4], [2024,3555.3], [2025,3827.2], [2026,4137.6]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.4235,
+      "taxShare": 0.2253,
+      "depShare": 0.0873,
+      "gosShare2024": 0.3684,
+      "profitMargin": 0.035,
+      "employment": [[1950,7264], [1970,11365], [1990,16765], [2010,18018], [2024,19668]],
+      "corporateProfits": 633.0,
+      "companies": [
+        {
+          "name": "Amazon",
+          "revenue": 716.9,
+          "netIncome": 77.7,
+          "marketCap": 2650.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09 (range 2,650-2,780); online retail plus AWS cloud and ads"
+        },
+        {
+          "name": "Walmart",
+          "revenue": 706.4,
+          "netIncome": 22.3,
+          "marketCap": 877.8,
+          "year": 2025,
+          "note": "fiscal year ended Jan 2026; market cap 2026-09"
+        },
+        {
+          "name": "Costco",
+          "revenue": 275.2,
+          "netIncome": 8.1,
+          "marketCap": 409.8,
+          "year": 2025,
+          "note": "fiscal year ended Aug 2025; market cap 2026-09"
+        },
+        {
+          "name": "Home Depot",
+          "revenue": 164.7,
+          "netIncome": 14.2,
+          "marketCap": 287.4,
+          "year": 2025,
+          "note": "fiscal year ended Feb 1 2026; market cap 2026-09"
+        },
+        {
+          "name": "McKesson",
+          "revenue": 403.4,
+          "netIncome": 4.8,
+          "marketCap": 102.8,
+          "year": 2026,
+          "note": "fiscal year ended Mar 2026; market cap 2026-09"
+        }
+      ],
+      "consumerFacing": ["store and online shopping margins"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). Includes customs duties, which BEA books in wholesale trade: $83.6B in 2024, $264.0B in 2025. compShare and taxShare are 2025 estimates: 2024 Use-table compensation and other taxes grown with trade value added excluding duties (+2.6%), plus 2025 duties as production taxes. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 12.65%) x the 2026 GDP estimate, +8.1% on 2025. depShare is an estimate: a capital-intensity prior of 0.070 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.368). profitMargin: composite of FY2025 margins of Walmart 3.2%, Costco 2.9%, Home Depot 8.6%, McKesson 1.2%, Amazon 10.8% (Damodaran Retail General 5.87%, Grocery 1.32%). corporateProfits: 2025, corporate profits with IVA (no CCAdj by industry), NIPA 6.16D Wholesale trade + Retail trade. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.910); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "banking",
+      "name": "Banking",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Banking",
+      "naics": "521-522 (Federal Reserve, banks, credit cards, lenders, payments)",
+      "blurb": "Banks, card networks and lenders that create and move money (incl. the Federal Reserve): $1.09T of value added in 2025 (3.6% of GDP), paid mostly out of the spread between loan and deposit rates.",
+      "valueAdded": [
+        [1947,3.0], [1948,3.4], [1949,3.8], [1950,4.1], [1951,4.6], [1952,5.2], [1953,5.7], [1954,6.2],
+        [1955,6.7], [1956,7.3], [1957,7.8], [1958,8.4], [1959,9.0], [1960,9.7], [1961,10.3], [1962,10.6],
+        [1963,10.9], [1964,11.9], [1965,12.9], [1966,14.3], [1967,16.1], [1968,18.1], [1969,21.9], [1970,24.7],
+        [1971,25.5], [1972,27.2], [1973,30.4], [1974,36.4], [1975,40.6], [1976,44.6], [1977,50.6], [1978,60.2],
+        [1979,68.4], [1980,73.5], [1981,81.4], [1982,85.3], [1983,99.4], [1984,106.2], [1985,115.5], [1986,136.6],
+        [1987,146.2], [1988,146.1], [1989,154.0], [1990,165.5], [1991,183.5], [1992,195.5], [1993,202.4], [1994,204.6],
+        [1995,208.6], [1996,218.1], [1997,233.1], [1998,267.0], [1999,302.5], [2000,321.3], [2001,335.4], [2002,380.2],
+        [2003,398.7], [2004,374.4], [2005,414.1], [2006,429.5], [2007,406.8], [2008,415.4], [2009,409.0], [2010,419.5],
+        [2011,461.5], [2012,519.7], [2013,510.0], [2014,562.6], [2015,585.4], [2016,622.2], [2017,648.9], [2018,686.6],
+        [2019,740.1], [2020,772.8], [2021,844.1], [2022,907.8], [2023,946.6], [2024,1013.3], [2025,1093.3], [2026,1155.7]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.3494,
+      "taxShare": 0.0257,
+      "depShare": 0.1497,
+      "gosShare2024": 0.6249,
+      "profitMargin": 0.2749,
+      "employment": [[1950,627], [1970,1318], [1990,2393], [2010,2511], [2024,2530]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Federal Reserve banks + Other financial",
+        "value": 903.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "JPMorgan Chase",
+          "revenue": 182.4,
+          "netIncome": 57.0,
+          "marketCap": 897.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Visa",
+          "revenue": 40.0,
+          "netIncome": 20.1,
+          "marketCap": 675.3,
+          "year": 2025,
+          "note": "fiscal year ended Sep 2025; market cap 2026-09"
+        },
+        {
+          "name": "Mastercard",
+          "revenue": 32.8,
+          "netIncome": 15.0,
+          "marketCap": 491.7,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Bank of America",
+          "revenue": 113.0,
+          "netIncome": 30.5,
+          "marketCap": 438.4,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Wells Fargo",
+          "revenue": 83.7,
+          "netIncome": 21.3,
+          "marketCap": 260.4,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        }
+      ],
+      "consumerFacing": ["card fees", "loan interest"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: split of the BEA sector total by 1963 shares (detail starts in 1963). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 3.53%) x the 2026 GDP estimate, +5.7% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.120 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.625). profitMargin: Damodaran Jan-2026 Banks (Regional) 27.49% (net income / revenue incl. interest income); S&P 500 Financials 20.2%. corporateProfits: not separable in NIPA 6.16D (line \"Federal Reserve banks + Other financial\", $903.2B in 2025, shared with banking, finance, insurance). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.977); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "finance",
+      "name": "Finance & investing",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Finance",
+      "naics": "523, 525 (securities, asset management, private equity, funds and trusts)",
+      "blurb": "Brokers, investment banks, asset managers and private equity: $506B of value added in 2025 (1.6% of GDP), where 88 cents of each dollar of value added go to its employees.",
+      "valueAdded": [
+        [1947,0.4], [1948,0.5], [1949,0.6], [1950,0.6], [1951,0.7], [1952,0.8], [1953,0.8], [1954,0.9],
+        [1955,1.0], [1956,1.1], [1957,1.1], [1958,1.2], [1959,1.3], [1960,1.4], [1961,1.5], [1962,1.5],
+        [1963,1.6], [1964,1.8], [1965,2.2], [1966,2.7], [1967,3.5], [1968,4.5], [1969,3.8], [1970,2.8],
+        [1971,4.1], [1972,4.7], [1973,3.9], [1974,3.6], [1975,5.3], [1976,5.2], [1977,7.5], [1978,9.5],
+        [1979,10.6], [1980,10.8], [1981,13.6], [1982,14.9], [1983,24.7], [1984,25.5], [1985,32.6], [1986,37.1],
+        [1987,48.8], [1988,50.2], [1989,52.4], [1990,50.8], [1991,54.6], [1992,62.6], [1993,75.2], [1994,70.8],
+        [1995,86.7], [1996,108.5], [1997,128.5], [1998,134.2], [1999,137.5], [2000,148.6], [2001,202.9], [2002,177.6],
+        [2003,163.8], [2004,176.7], [2005,215.1], [2006,246.3], [2007,216.8], [2008,106.4], [2009,192.3], [2010,200.3],
+        [2011,175.5], [2012,242.8], [2013,255.2], [2014,239.7], [2015,239.6], [2016,265.7], [2017,290.2], [2018,292.7],
+        [2019,280.8], [2020,311.4], [2021,380.8], [2022,366.3], [2023,379.5], [2024,424.1], [2025,505.7], [2026,596.0]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.8755,
+      "taxShare": 0.0215,
+      "depShare": 0.0748,
+      "gosShare2024": 0.103,
+      "profitMargin": 0.2437,
+      "employment": [[1950,74], [1970,197], [1990,481], [2010,836], [2024,1096]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other financial",
+        "value": 926.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Morgan Stanley",
+          "revenue": 70.6,
+          "netIncome": 16.9,
+          "marketCap": 339.6,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Goldman Sachs",
+          "revenue": 58.3,
+          "netIncome": 17.2,
+          "marketCap": 308.8,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-10"
+        },
+        {
+          "name": "BlackRock",
+          "revenue": 24.0,
+          "netIncome": 5.5,
+          "marketCap": 168.8,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Blackstone",
+          "revenue": 14.5,
+          "netIncome": 6.0,
+          "marketCap": 93.1,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-22"
+        }
+      ],
+      "consumerFacing": ["fund fees", "brokerage"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: split of the BEA sector total by 1963 shares (detail starts in 1963). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.82%) x the 2026 GDP estimate, +17.9% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.060 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.103). profitMargin: Damodaran Jan-2026 Investments & Asset Management 24.37%. corporateProfits: not separable in NIPA 6.16D (line \"Other financial\", $926.2B in 2025, shared with banking, finance, insurance). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.983); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Insurance",
+      "naics": "524 (life, health, property and casualty carriers, agents and brokers)",
+      "blurb": "Health, life, car and home insurers and their brokers: $843B of value added in 2025 (2.7% of GDP), selling protection against the fears of illness, death and loss.",
+      "valueAdded": [
+        [1947,2.7], [1948,3.0], [1949,3.4], [1950,3.7], [1951,4.1], [1952,4.6], [1953,5.1], [1954,5.5],
+        [1955,6.0], [1956,6.5], [1957,6.9], [1958,7.5], [1959,8.0], [1960,8.6], [1961,9.1], [1962,9.4],
+        [1963,9.7], [1964,10.7], [1965,11.6], [1966,12.3], [1967,13.1], [1968,14.3], [1969,15.7], [1970,17.1],
+        [1971,19.6], [1972,21.9], [1973,23.0], [1974,25.0], [1975,28.4], [1976,31.4], [1977,37.5], [1978,43.9],
+        [1979,46.1], [1980,53.6], [1981,60.1], [1982,68.7], [1983,70.6], [1984,82.2], [1985,81.7], [1986,84.1],
+        [1987,81.8], [1988,99.4], [1989,110.9], [1990,124.4], [1991,137.5], [1992,153.2], [1993,155.8], [1994,172.3],
+        [1995,189.7], [1996,197.5], [1997,215.6], [1998,236.7], [1999,234.4], [2000,274.4], [2001,262.0], [2002,251.2],
+        [2003,280.7], [2004,322.2], [2005,348.3], [2006,372.5], [2007,406.0], [2008,349.4], [2009,365.7], [2010,373.4],
+        [2011,385.4], [2012,406.9], [2013,388.3], [2014,493.3], [2015,565.5], [2016,586.9], [2017,568.9], [2018,595.6],
+        [2019,631.4], [2020,634.6], [2021,637.5], [2022,708.6], [2023,749.6], [2024,791.8], [2025,842.8], [2026,880.0]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.4927,
+      "taxShare": 0.061,
+      "depShare": 0.0873,
+      "gosShare2024": 0.4463,
+      "profitMargin": 0.121,
+      "employment": [[1950,756], [1970,1317], [1990,1992], [2010,2287], [2024,2930]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other financial",
+        "value": 926.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Berkshire Hathaway",
+          "revenue": 371.4,
+          "netIncome": 67.0,
+          "marketCap": 1091.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09; insurance-led conglomerate"
+        },
+        {
+          "name": "UnitedHealth Group",
+          "revenue": 447.6,
+          "netIncome": 12.1,
+          "marketCap": 338.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-25"
+        },
+        {
+          "name": "Chubb",
+          "revenue": 59.4,
+          "netIncome": 10.3,
+          "marketCap": 128.1,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-30"
+        },
+        {
+          "name": "Progressive",
+          "revenue": 87.7,
+          "netIncome": 11.3,
+          "marketCap": 128.1,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-08-20"
+        },
+        {
+          "name": "Elevance Health",
+          "revenue": 199.1,
+          "netIncome": 5.7,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["health, car, home and life premiums"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: split of the BEA sector total by 1963 shares (detail starts in 1963). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 2.69%) x the 2026 GDP estimate, +4.4% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.070 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.446). profitMargin: Damodaran Jan-2026 Insurance (Prop/Cas.) ~12.1% (Life 9.03%, General 18.72%); health insurers far lower (UnitedHealth 2.7%). corporateProfits: not separable in NIPA 6.16D (line \"Other financial\", $926.2B in 2025, shared with banking, finance, insurance). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.977); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "real_estate",
+      "name": "Real estate & rental",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Real estate, Housing",
+      "naics": "531-533 (incl. owner-occupied housing imputed rent, rental and leasing)",
+      "blurb": "Landlords, brokers and rental companies, plus the rent homeowners implicitly pay themselves: $4.24T of value added in 2025 (13.8% of GDP), the largest industry; 53% of it is that imputed rent.",
+      "valueAdded": [
+        [1947,19.7], [1948,21.6], [1949,23.1], [1950,25.4], [1951,28.3], [1952,30.8], [1953,33.8], [1954,36.7],
+        [1955,39.6], [1956,42.1], [1957,45.1], [1958,48.2], [1959,51.6], [1960,55.1], [1961,58.6], [1962,63.3],
+        [1963,67.3], [1964,71.5], [1965,76.2], [1966,81.3], [1967,86.3], [1968,93.1], [1969,101.2], [1970,108.8],
+        [1971,121.2], [1972,132.4], [1973,147.6], [1974,160.4], [1975,176.0], [1976,194.1], [1977,211.6], [1978,239.0],
+        [1979,270.6], [1980,311.5], [1981,350.3], [1982,379.2], [1983,419.8], [1984,466.0], [1985,508.8], [1986,541.8],
+        [1987,565.3], [1988,611.4], [1989,655.5], [1990,697.3], [1991,721.7], [1992,770.0], [1993,815.1], [1994,866.6],
+        [1995,921.5], [1996,969.1], [1997,1035.2], [1998,1072.2], [1999,1161.1], [2000,1230.3], [2001,1329.0], [2002,1400.9],
+        [2003,1451.0], [2004,1519.6], [2005,1633.9], [2006,1696.9], [2007,1836.0], [2008,1944.9], [2009,1936.2], [2010,1997.2],
+        [2011,2058.3], [2012,2119.7], [2013,2215.2], [2014,2274.2], [2015,2338.0], [2016,2419.9], [2017,2525.0], [2018,2683.4],
+        [2019,2805.9], [2020,2915.0], [2021,3152.3], [2022,3472.5], [2023,3807.7], [2024,4052.4], [2025,4238.6], [2026,4457.8]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.0552,
+      "taxShare": 0.0986,
+      "depShare": 0.2744,
+      "gosShare2024": 0.8462,
+      "profitMargin": 0.336,
+      "employment": [[1950,370], [1970,697], [1990,1528], [2010,1805], [2024,2291]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Welltower",
+          "revenue": 9.9,
+          "marketCap": 173.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-02"
+        },
+        {
+          "name": "Prologis",
+          "revenue": 8.8,
+          "netIncome": 3.3,
+          "marketCap": 126.8,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-23"
+        },
+        {
+          "name": "Equinix",
+          "revenue": 9.2,
+          "marketCap": 104.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-21"
+        },
+        {
+          "name": "American Tower",
+          "revenue": 10.6,
+          "netIncome": 2.5,
+          "marketCap": 81.7,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        }
+      ],
+      "consumerFacing": ["rent", "homeowners' own housing"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). Owner-occupied housing imputed rent was about $2236B of the 2025 total (estimated: 2025 housing x its 2024 owner-occupied share, 74%; BEA publishes no 2025 detail): homeowners renting to themselves, no market transaction. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 13.63%) x the 2026 GDP estimate, +5.2% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.220 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.846). profitMargin: S&P 500 Real Estate net margin 33.6% (FactSet Q2-2026); Damodaran R.E.I.T. 38.0%. corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.933); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "health",
+      "name": "Health care & social assistance",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Health",
+      "naics": "62 (doctors, hospitals, nursing homes, social assistance)",
+      "blurb": "Doctors, hospitals, nursing homes and social assistance: $2.37T of value added in 2025 (7.7% of GDP), the largest private employer.",
+      "valueAdded": [
+        [1947,3.8], [1948,4.2], [1949,4.4], [1950,4.8], [1951,5.4], [1952,5.9], [1953,6.5], [1954,6.7],
+        [1955,7.9], [1956,8.3], [1957,9.2], [1958,10.1], [1959,11.2], [1960,11.8], [1961,12.6], [1962,13.7],
+        [1963,14.7], [1964,16.3], [1965,17.6], [1966,19.8], [1967,22.6], [1968,25.5], [1969,29.1], [1970,32.9],
+        [1971,36.4], [1972,40.8], [1973,45.8], [1974,52.2], [1975,61.0], [1976,70.0], [1977,79.1], [1978,89.9],
+        [1979,102.3], [1980,116.1], [1981,133.0], [1982,147.9], [1983,165.9], [1984,181.0], [1985,198.1], [1986,216.1],
+        [1987,245.3], [1988,267.1], [1989,300.2], [1990,336.4], [1991,368.6], [1992,400.4], [1993,430.9], [1994,456.3],
+        [1995,473.3], [1996,491.3], [1997,513.5], [1998,535.8], [1999,566.4], [2000,600.1], [2001,648.1], [2002,700.5],
+        [2003,746.0], [2004,798.2], [2005,837.0], [2006,892.4], [2007,936.5], [2008,1017.2], [2009,1078.8], [2010,1112.3],
+        [2011,1149.9], [2012,1195.1], [2013,1233.0], [2014,1270.2], [2015,1343.6], [2016,1413.8], [2017,1471.3], [2018,1534.7],
+        [2019,1613.9], [2020,1615.1], [2021,1734.2], [2022,1863.0], [2023,2043.7], [2024,2209.4], [2025,2371.0], [2026,2531.8]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.8018,
+      "taxShare": 0.0199,
+      "depShare": 0.0873,
+      "gosShare2024": 0.1783,
+      "profitMargin": 0.063,
+      "employment": [[1950,1173], [1970,3215], [1990,8521], [2010,15351], [2024,20544]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "CVS Health",
+          "revenue": 402.1,
+          "netIncome": 1.8,
+          "year": 2025,
+          "note": "calendar 2025; pharmacies, Aetna insurance and a drug-benefit manager"
+        },
+        {
+          "name": "Kaiser Permanente",
+          "revenue": 127.7,
+          "year": 2025,
+          "note": "calendar 2025; nonprofit"
+        },
+        {
+          "name": "HCA Healthcare",
+          "revenue": 75.6,
+          "netIncome": 6.8,
+          "marketCap": 94.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Tenet Healthcare",
+          "revenue": 21.3,
+          "netIncome": 1.4,
+          "year": 2025,
+          "note": "calendar 2025"
+        },
+        {
+          "name": "Labcorp",
+          "revenue": 13.9,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["doctors", "hospitals", "dentists"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 7.74%) x the 2026 GDP estimate, +6.8% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.070 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.178). profitMargin: Damodaran Jan-2026 Hospitals/Healthcare Facilities 6.30%; S&P 500 Health Care 6.3% (Q2-2026). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.913); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "legal",
+      "name": "Legal services",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Law",
+      "naics": "5411",
+      "blurb": "Law firms and lawyers: $422B of value added in 2025 (1.4% of GDP), sold to businesses and to people in jeopardy.",
+      "valueAdded": [
+        [1947,1.0], [1948,1.1], [1949,1.1], [1950,1.2], [1951,1.5], [1952,1.6], [1953,1.7], [1954,1.9],
+        [1955,2.1], [1956,2.3], [1957,2.5], [1958,2.7], [1959,3.0], [1960,3.1], [1961,3.4], [1962,3.7],
+        [1963,4.0], [1964,4.3], [1965,4.7], [1966,5.3], [1967,5.6], [1968,5.9], [1969,6.5], [1970,7.5],
+        [1971,8.4], [1972,9.4], [1973,10.6], [1974,11.8], [1975,12.9], [1976,14.2], [1977,17.4], [1978,19.1],
+        [1979,21.7], [1980,23.9], [1981,26.3], [1982,30.3], [1983,35.2], [1984,41.7], [1985,47.0], [1986,54.7],
+        [1987,59.7], [1988,70.1], [1989,76.2], [1990,83.4], [1991,85.9], [1992,92.9], [1993,94.3], [1994,94.7],
+        [1995,95.5], [1996,100.4], [1997,104.0], [1998,113.7], [1999,120.8], [2000,129.1], [2001,140.6], [2002,149.2],
+        [2003,165.3], [2004,180.8], [2005,195.1], [2006,204.6], [2007,217.6], [2008,240.8], [2009,212.1], [2010,204.7],
+        [2011,216.1], [2012,217.5], [2013,220.6], [2014,228.3], [2015,242.8], [2016,258.0], [2017,266.4], [2018,277.1],
+        [2019,290.1], [2020,288.6], [2021,327.2], [2022,348.2], [2023,359.0], [2024,387.7], [2025,421.9], [2026,457.2]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.4859,
+      "taxShare": 0.0601,
+      "depShare": 0.0374,
+      "gosShare2024": 0.4542,
+      "profitMargin": 0.3346,
+      "employment": [[1950,154], [1970,277], [1990,884], [2010,1070], [2024,1158]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Kirkland & Ellis",
+          "revenue": 8.8,
+          "year": 2024,
+          "note": "recalled: AmLaw 100 (2025), fiscal 2024 gross revenue; private partnership, no market cap"
+        }
+      ],
+      "consumerFacing": ["lawyers"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: legal services keep their 1963 share of professional, scientific & technical services; computer systems design ramps from 0 in 1950; administrative vs waste services split by 1963 shares. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.40%) x the 2026 GDP estimate, +8.4% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.030 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.454). profitMargin: derived: (gross operating surplus - depreciation) / gross output of legal services, BEA 2024 Use table; includes partners' own labor income (law firms are partnerships, no listed firms). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.961); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "professional",
+      "name": "Professional & business services",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Consulting",
+      "naics": "5412-5414, 5416-5419, 55, 561 (accounting, engineering, consulting, R&D, advertising, HQs, staffing, security)",
+      "blurb": "Consultants, accountants, engineers, R&D labs, ad agencies, corporate headquarters and staffing: $2.96T of value added in 2025 (9.6% of GDP), the consulting and back offices of corporate America.",
+      "valueAdded": [
+        [1947,6.9], [1948,7.6], [1949,7.8], [1950,8.7], [1951,10.1], [1952,10.8], [1953,11.6], [1954,12.0],
+        [1955,13.2], [1956,14.2], [1957,15.3], [1958,15.5], [1959,17.3], [1960,18.0], [1961,19.1], [1962,20.7],
+        [1963,22.0], [1964,24.0], [1965,26.4], [1966,29.6], [1967,31.9], [1968,34.8], [1969,38.3], [1970,40.7],
+        [1971,43.7], [1972,48.4], [1973,55.1], [1974,61.0], [1975,67.1], [1976,76.0], [1977,88.3], [1978,102.6],
+        [1979,119.1], [1980,136.7], [1981,156.9], [1982,167.3], [1983,188.9], [1984,218.6], [1985,246.4], [1986,271.5],
+        [1987,296.2], [1988,322.5], [1989,359.1], [1990,394.0], [1991,397.3], [1992,429.1], [1993,454.6], [1994,483.4],
+        [1995,523.1], [1996,574.7], [1997,639.2], [1998,688.6], [1999,748.7], [2000,835.5], [2001,868.1], [2002,900.1],
+        [2003,934.1], [2004,1005.3], [2005,1082.4], [2006,1161.3], [2007,1247.1], [2008,1318.8], [2009,1248.7], [2010,1313.0],
+        [2011,1376.5], [2012,1455.8], [2013,1501.3], [2014,1578.4], [2015,1660.0], [2016,1691.8], [2017,1787.6], [2018,1896.4],
+        [2019,2001.2], [2020,1984.6], [2021,2239.5], [2022,2491.2], [2023,2675.9], [2024,2812.5], [2025,2955.6], [2026,3137.1]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.7266,
+      "taxShare": 0.0187,
+      "depShare": 0.0873,
+      "gosShare2024": 0.2547,
+      "profitMargin": 0.0703,
+      "employment": [[1950,714], [1970,1855], [1990,8809], [2010,13151], [2024,17424]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Accenture",
+          "revenue": 69.7,
+          "netIncome": 7.8,
+          "marketCap": 121.1,
+          "year": 2025,
+          "note": "fiscal year ended Aug 2025; market cap 2026-09-18"
+        },
+        {
+          "name": "Automatic Data Processing",
+          "revenue": 20.6,
+          "netIncome": 4.1,
+          "marketCap": 102.3,
+          "year": 2025,
+          "note": "fiscal year ended Jun 2025; market cap 2026-09"
+        },
+        {
+          "name": "Deloitte",
+          "revenue": 70.5,
+          "year": 2025,
+          "note": "fiscal year ended May 2025; recalled; global revenue"
+        },
+        {
+          "name": "Booz Allen Hamilton",
+          "revenue": 11.2,
+          "year": 2026,
+          "note": "fiscal year ended Mar 2026"
+        }
+      ],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: legal services keep their 1963 share of professional, scientific & technical services; computer systems design ramps from 0 in 1950; administrative vs waste services split by 1963 shares. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 9.59%) x the 2026 GDP estimate, +6.1% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.070 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.255). profitMargin: Damodaran Jan-2026 Business & Consumer Services 7.03% (Accenture 11.2%, ADP 19.9%). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.945); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "education",
+      "name": "Education (private)",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Self improvement",
+      "naics": "61 (private schools, colleges, training)",
+      "blurb": "Private schools, colleges and training: $347B of value added in 2025 (1.1% of GDP), beside $1.11T of public education in state & local government.",
+      "valueAdded": [
+        [1947,0.8], [1948,1.0], [1949,1.0], [1950,1.1], [1951,1.2], [1952,1.2], [1953,1.3], [1954,1.4],
+        [1955,1.5], [1956,1.7], [1957,1.8], [1958,2.0], [1959,2.2], [1960,2.4], [1961,2.6], [1962,3.0],
+        [1963,3.2], [1964,3.6], [1965,4.1], [1966,4.6], [1967,5.0], [1968,5.7], [1969,6.6], [1970,7.5],
+        [1971,8.5], [1972,9.6], [1973,10.6], [1974,11.2], [1975,12.2], [1976,12.7], [1977,13.2], [1978,14.4],
+        [1979,15.9], [1980,17.9], [1981,19.6], [1982,21.2], [1983,24.1], [1984,26.6], [1985,28.8], [1986,30.4],
+        [1987,33.6], [1988,35.9], [1989,39.0], [1990,41.4], [1991,45.6], [1992,49.0], [1993,53.7], [1994,59.7],
+        [1995,65.2], [1996,70.6], [1997,77.1], [1998,79.9], [1999,87.7], [2000,95.2], [2001,101.7], [2002,106.5],
+        [2003,116.8], [2004,129.0], [2005,133.2], [2006,142.9], [2007,151.5], [2008,167.8], [2009,188.2], [2010,199.0],
+        [2011,206.3], [2012,214.2], [2013,217.0], [2014,224.8], [2015,231.3], [2016,243.2], [2017,245.6], [2018,257.2],
+        [2019,270.3], [2020,255.6], [2021,269.9], [2022,296.1], [2023,316.4], [2024,334.8], [2025,347.2], [2026,362.2]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.8005,
+      "taxShare": 0.04,
+      "depShare": 0.1435,
+      "gosShare2024": 0.1595,
+      "profitMargin": 0.0879,
+      "employment": [[1950,436], [1970,1149], [1990,1527], [2010,2853], [2024,3602]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Bright Horizons",
+          "revenue": 2.9,
+          "netIncome": 0.2,
+          "year": 2025,
+          "note": "calendar 2025"
+        },
+        {
+          "name": "Stride",
+          "revenue": 2.4,
+          "netIncome": 0.3,
+          "year": 2025,
+          "note": "fiscal year ended Jun 2025"
+        },
+        {
+          "name": "Grand Canyon Education",
+          "revenue": 1.1,
+          "netIncome": 0.2,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["tuition", "childcare"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.11%) x the 2026 GDP estimate, +4.3% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.120 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.159). profitMargin: Damodaran Jan-2026 Education 8.79% (most of the industry is nonprofit). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.904); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "entertainment",
+      "name": "Arts, entertainment & recreation",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Entertainment, Gyms",
+      "naics": "71 (performing arts, sports, museums, casinos, amusement parks, gyms)",
+      "blurb": "Live shows, sports, museums, casinos, amusement parks and gyms: $356B of value added in 2025 (1.2% of GDP), the escapism that is sold as experience.",
+      "valueAdded": [
+        [1947,1.6], [1948,1.7], [1949,1.7], [1950,1.7], [1951,1.9], [1952,2.0], [1953,2.2], [1954,2.2],
+        [1955,2.4], [1956,2.5], [1957,2.7], [1958,2.8], [1959,3.1], [1960,3.4], [1961,3.6], [1962,3.8],
+        [1963,4.1], [1964,4.4], [1965,4.6], [1966,4.9], [1967,5.1], [1968,5.6], [1969,5.8], [1970,6.3],
+        [1971,6.7], [1972,7.1], [1973,8.2], [1974,9.0], [1975,10.0], [1976,11.3], [1977,13.4], [1978,15.1],
+        [1979,16.9], [1980,18.2], [1981,20.6], [1982,21.7], [1983,23.9], [1984,25.5], [1985,28.5], [1986,30.8],
+        [1987,33.6], [1988,36.3], [1989,42.0], [1990,48.8], [1991,50.4], [1992,57.6], [1993,59.1], [1994,61.8],
+        [1995,66.7], [1996,71.7], [1997,80.1], [1998,82.8], [1999,90.4], [2000,99.0], [2001,96.7], [2002,103.8],
+        [2003,111.0], [2004,117.8], [2005,122.2], [2006,130.4], [2007,137.4], [2008,143.2], [2009,144.5], [2010,152.4],
+        [2011,158.7], [2012,171.8], [2013,177.2], [2014,187.9], [2015,191.4], [2016,203.9], [2017,213.8], [2018,227.2],
+        [2019,237.1], [2020,171.2], [2021,215.6], [2022,264.0], [2023,303.7], [2024,326.8], [2025,355.8], [2026,379.2]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.5208,
+      "taxShare": 0.119,
+      "depShare": 0.1123,
+      "gosShare2024": 0.3602,
+      "profitMargin": 0.0443,
+      "employment": [[1950,199], [1970,429], [1990,934], [2010,1579], [2024,2159]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Live Nation Entertainment",
+          "revenue": 25.2,
+          "netIncome": 0.5,
+          "year": 2025,
+          "note": "calendar 2025"
+        },
+        {
+          "name": "Las Vegas Sands",
+          "revenue": 13.2,
+          "netIncome": 1.6,
+          "marketCap": 27.3,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09 (low confidence)"
+        },
+        {
+          "name": "TKO Group",
+          "revenue": 4.7,
+          "netIncome": 0.5,
+          "year": 2025,
+          "note": "calendar 2025"
+        },
+        {
+          "name": "DraftKings",
+          "revenue": 6.1,
+          "netIncome": 0.0,
+          "year": 2025,
+          "note": "calendar 2025"
+        },
+        {
+          "name": "Planet Fitness",
+          "revenue": 1.3,
+          "netIncome": 0.2,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["tickets", "gambling", "gyms"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.16%) x the 2026 GDP estimate, +6.6% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.090 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.360). profitMargin: Damodaran Jan-2026 Entertainment 4.43% (Hotel/Gaming 10.38%, Recreation -4.72%). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.825); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "hospitality",
+      "name": "Restaurants, bars & hotels",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "Restaurants, Bars",
+      "naics": "721, 722",
+      "blurb": "Restaurants, bars and hotels: $976B of value added in 2025 (3.2% of GDP), where status and social life are bought by the meal and the night.",
+      "valueAdded": [
+        [1947,6.4], [1948,6.8], [1949,6.9], [1950,7.2], [1951,7.8], [1952,8.2], [1953,8.5], [1954,8.7],
+        [1955,9.2], [1956,9.5], [1957,10.1], [1958,10.3], [1959,11.2], [1960,11.4], [1961,11.7], [1962,12.6],
+        [1963,13.3], [1964,14.5], [1965,15.7], [1966,17.0], [1967,18.4], [1968,20.3], [1969,22.1], [1970,23.7],
+        [1971,25.8], [1972,28.2], [1973,31.1], [1974,32.8], [1975,36.7], [1976,41.8], [1977,46.6], [1978,54.3],
+        [1979,61.8], [1980,65.6], [1981,73.3], [1982,79.2], [1983,88.5], [1984,96.3], [1985,104.9], [1986,114.2],
+        [1987,119.8], [1988,133.7], [1989,143.1], [1990,151.7], [1991,156.1], [1992,161.5], [1993,173.1], [1994,182.4],
+        [1995,190.7], [1996,203.1], [1997,221.6], [1998,239.2], [1999,263.7], [2000,287.5], [2001,294.0], [2002,309.7],
+        [2003,321.1], [2004,343.3], [2005,358.9], [2006,381.0], [2007,396.2], [2008,399.6], [2009,388.5], [2010,403.8],
+        [2011,423.2], [2012,451.0], [2013,475.9], [2014,504.5], [2015,557.5], [2016,587.9], [2017,617.4], [2018,647.4],
+        [2019,685.0], [2020,522.6], [2021,695.4], [2022,806.3], [2023,915.8], [2024,960.4], [2025,976.5], [2026,1033.7]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.5904,
+      "taxShare": 0.1418,
+      "depShare": 0.0873,
+      "gosShare2024": 0.2678,
+      "profitMargin": 0.0937,
+      "employment": [[1950,1478], [1970,2663], [1990,6566], [2010,8964], [2024,11395]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "McDonald's",
+          "revenue": 26.9,
+          "netIncome": 8.6,
+          "marketCap": 165.6,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Starbucks",
+          "revenue": 37.2,
+          "marketCap": 117.7,
+          "year": 2025,
+          "note": "fiscal year ended Sep 2025; market cap 2026-08"
+        },
+        {
+          "name": "Marriott International",
+          "revenue": 26.2,
+          "marketCap": 91.7,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-25"
+        },
+        {
+          "name": "Hilton Worldwide",
+          "revenue": 12.0,
+          "netIncome": 1.5,
+          "year": 2025,
+          "note": "calendar 2025"
+        },
+        {
+          "name": "Chipotle",
+          "revenue": 11.9,
+          "marketCap": 44.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-08"
+        }
+      ],
+      "consumerFacing": ["restaurants", "bars", "hotels"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 3.16%) x the 2026 GDP estimate, +5.9% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.070 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.268). profitMargin: Damodaran Jan-2026 Restaurant/Dining 9.37% (Hotel/Gaming 10.38%). corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.805); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "other_services",
+      "name": "Other services",
+      "tier": "services",
+      "level": "capital",
+      "notebook": "(everyday services)",
+      "naics": "81, 562 (repair, personal care and laundry, religious and civic organizations, private households, waste management)",
+      "blurb": "Repair shops, hair and beauty, laundries, churches and civic groups, and waste collection: $741B of value added in 2025 (2.4% of GDP), the small businesses of everyday life.",
+      "valueAdded": [
+        [1947,7.8], [1948,8.1], [1949,8.3], [1950,9.0], [1951,9.8], [1952,10.1], [1953,10.7], [1954,11.0],
+        [1955,12.1], [1956,13.1], [1957,13.9], [1958,14.4], [1959,15.4], [1960,16.6], [1961,17.3], [1962,18.5],
+        [1963,19.3], [1964,20.6], [1965,21.6], [1966,23.5], [1967,24.8], [1968,26.6], [1969,28.7], [1970,29.9],
+        [1971,32.2], [1972,34.5], [1973,37.5], [1974,40.4], [1975,43.3], [1976,48.3], [1977,52.4], [1978,60.9],
+        [1979,66.5], [1980,74.6], [1981,82.5], [1982,85.0], [1983,94.3], [1984,104.4], [1985,114.9], [1986,125.6],
+        [1987,132.4], [1988,145.8], [1989,158.9], [1990,169.0], [1991,171.0], [1992,182.7], [1993,197.4], [1994,212.9],
+        [1995,225.2], [1996,237.4], [1997,252.2], [1998,271.4], [1999,285.9], [2000,305.8], [2001,294.0], [2002,315.3],
+        [2003,316.0], [2004,329.1], [2005,344.2], [2006,356.7], [2007,366.1], [2008,367.2], [2009,364.8], [2010,376.0],
+        [2011,376.0], [2012,391.4], [2013,403.7], [2014,430.7], [2015,451.0], [2016,463.4], [2017,486.4], [2018,514.7],
+        [2019,536.8], [2020,511.5], [2021,552.8], [2022,624.2], [2023,671.7], [2024,716.6], [2025,741.5], [2026,785.0]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.6799,
+      "taxShare": 0.0576,
+      "depShare": 0.1247,
+      "gosShare2024": 0.2626,
+      "profitMargin": 0.0703,
+      "employment": [[1950,1779], [1970,2876], [1990,4659], [2010,5901], [2024,6707]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Other nonfinancial",
+        "value": 975.2,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Waste Management",
+          "revenue": 25.2,
+          "netIncome": 2.7,
+          "marketCap": 82.5,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09/10 (approx)"
+        },
+        {
+          "name": "Cintas",
+          "revenue": 10.3,
+          "netIncome": 1.8,
+          "marketCap": 80.8,
+          "year": 2025,
+          "note": "fiscal year ended May 2025; market cap 2026-09"
+        },
+        {
+          "name": "Service Corporation International",
+          "revenue": 4.3,
+          "netIncome": 0.5,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["hair and beauty", "car repair", "laundry", "donations"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). Includes waste management and remediation (NAICS 562) and private households. 1947-1962: split of the BEA sector total by 1963 shares (detail starts in 1963). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 2.40%) x the 2026 GDP estimate, +5.9% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.100 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.263). profitMargin: Damodaran Jan-2026 Business & Consumer Services 7.03%. corporateProfits: not separable; inside NIPA 6.16D \"Other nonfinancial\" ($975.2B in 2025). Much of this industry is unincorporated (partnerships, proprietors) or nonprofit. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (1.038); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "hardware",
+      "name": "Computers & chips",
+      "tier": "tech",
+      "level": "capital",
+      "notebook": "AI",
+      "naics": "334 (computers, communications equipment, semiconductors, instruments)",
+      "blurb": "Chips, computers, phones, network gear and instruments made in the US: $318B of value added in 2025 (1.0% of GDP), while most of the chips and phones US firms sell are made abroad.",
+      "valueAdded": [
+        [1947,2.7], [1948,3.0], [1949,2.8], [1950,3.5], [1951,4.4], [1952,5.0], [1953,5.5], [1954,5.0],
+        [1955,5.3], [1956,6.0], [1957,6.7], [1958,6.6], [1959,7.9], [1960,8.2], [1961,8.5], [1962,9.5],
+        [1963,9.8], [1964,10.4], [1965,11.9], [1966,13.9], [1967,14.8], [1968,15.9], [1969,17.1], [1970,16.9],
+        [1971,17.4], [1972,19.4], [1973,22.0], [1974,22.4], [1975,23.7], [1976,27.0], [1977,31.6], [1978,36.5],
+        [1979,41.9], [1980,50.3], [1981,58.0], [1982,61.7], [1983,71.0], [1984,85.1], [1985,89.7], [1986,88.9],
+        [1987,98.5], [1988,107.9], [1989,111.8], [1990,114.8], [1991,116.8], [1992,121.3], [1993,124.9], [1994,140.7],
+        [1995,159.7], [1996,171.9], [1997,195.3], [1998,191.7], [1999,186.7], [2000,225.3], [2001,173.5], [2002,172.9],
+        [2003,193.5], [2004,201.5], [2005,211.1], [2006,224.0], [2007,228.4], [2008,229.7], [2009,218.5], [2010,228.7],
+        [2011,227.3], [2012,227.9], [2013,228.0], [2014,231.5], [2015,242.4], [2016,240.7], [2017,248.7], [2018,259.9],
+        [2019,266.3], [2020,272.7], [2021,288.8], [2022,290.1], [2023,293.8], [2024,299.8], [2025,318.0], [2026,348.0]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.6251,
+      "taxShare": 0.0394,
+      "depShare": 0.2495,
+      "gosShare2024": 0.3356,
+      "profitMargin": 0.3045,
+      "employment": [[1950,593], [1970,1564], [1990,1851], [2010,1051], [2024,998]],
+      "corporateProfits": 154.6,
+      "companies": [
+        {
+          "name": "NVIDIA",
+          "revenue": 215.9,
+          "netIncome": 120.1,
+          "marketCap": 5490.0,
+          "year": 2025,
+          "note": "fiscal year ended Jan 2026; market cap 2026-09 (range 5,300-5,580); fiscal year ends late January"
+        },
+        {
+          "name": "Apple",
+          "revenue": 416.2,
+          "netIncome": 112.0,
+          "marketCap": 4840.0,
+          "year": 2025,
+          "note": "fiscal year ended Sep 2025; market cap 2026-09 (range 4,700-4,900)"
+        },
+        {
+          "name": "Broadcom",
+          "revenue": 63.9,
+          "netIncome": 23.1,
+          "marketCap": 1694.0,
+          "year": 2025,
+          "note": "fiscal year ended Nov 2025; market cap 2026-09"
+        },
+        {
+          "name": "Advanced Micro Devices",
+          "revenue": 34.6,
+          "netIncome": 4.3,
+          "marketCap": 1000.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-21"
+        },
+        {
+          "name": "Intel",
+          "revenue": 52.9,
+          "netIncome": -0.3,
+          "year": 2025,
+          "note": "calendar 2025"
+        }
+      ],
+      "consumerFacing": ["phones", "computers"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 1.06%) x the 2026 GDP estimate, +9.4% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.200 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.336). profitMargin: Damodaran Jan-2026 Semiconductor 30.45%; S&P 500 Information Technology 30.7% (Q2-2026). corporateProfits: 2025, corporate profits with IVA (no CCAdj by industry), NIPA 6.16D Computer and electronic products. Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.973); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "software",
+      "name": "Software & IT services",
+      "tier": "tech",
+      "level": "capital",
+      "notebook": "Social, AI",
+      "naics": "5112 (software publishers; 5132 in NAICS 2022), 5415 (computer systems design)",
+      "blurb": "Software publishers and IT services firms: $965B of value added in 2025 (3.1% of GDP), with net margins around 25% at the large publishers.",
+      "valueAdded": [
+        [1947,0.0], [1948,0.0], [1949,0.0], [1950,0.0], [1951,0.0], [1952,0.1], [1953,0.1], [1954,0.1],
+        [1955,0.2], [1956,0.2], [1957,0.3], [1958,0.4], [1959,0.5], [1960,0.5], [1961,0.7], [1962,0.8],
+        [1963,0.9], [1964,1.1], [1965,1.2], [1966,1.4], [1967,1.5], [1968,1.7], [1969,1.9], [1970,2.1],
+        [1971,2.3], [1972,2.6], [1973,3.0], [1974,3.4], [1975,3.8], [1976,4.5], [1977,5.5], [1978,6.8],
+        [1979,8.5], [1980,9.9], [1981,11.9], [1982,13.7], [1983,16.7], [1984,19.5], [1985,22.7], [1986,25.4],
+        [1987,28.3], [1988,32.4], [1989,37.4], [1990,42.0], [1991,46.3], [1992,52.6], [1993,59.5], [1994,68.0],
+        [1995,75.8], [1996,92.0], [1997,112.8], [1998,132.8], [1999,162.4], [2000,165.4], [2001,171.4], [2002,176.8],
+        [2003,188.6], [2004,205.4], [2005,226.0], [2006,236.5], [2007,272.3], [2008,288.2], [2009,292.3], [2010,314.4],
+        [2011,343.6], [2012,378.0], [2013,389.0], [2014,409.2], [2015,435.7], [2016,468.2], [2017,502.9], [2018,544.7],
+        [2019,596.7], [2020,644.4], [2021,729.6], [2022,766.0], [2023,838.2], [2024,902.4], [2025,965.3], [2026,1023.6]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.6687,
+      "taxShare": 0.0213,
+      "depShare": 0.1123,
+      "gosShare2024": 0.31,
+      "profitMargin": 0.2549,
+      "employment": [[1950,5], [1970,133], [1990,502], [2010,1634], [2024,2861]],
+      "corporateProfits": 0,
+      "companies": [
+        {
+          "name": "Microsoft",
+          "revenue": 331.8,
+          "netIncome": 133.7,
+          "marketCap": 3780.0,
+          "year": 2026,
+          "note": "fiscal year ended Jun 2026; market cap 2026-09 (range 3,700-3,780)"
+        },
+        {
+          "name": "Oracle",
+          "revenue": 67.4,
+          "netIncome": 17.0,
+          "marketCap": 427.0,
+          "year": 2026,
+          "note": "fiscal year ended May 2026; market cap 2026-09 (range 417.7-436.6)"
+        },
+        {
+          "name": "Palantir",
+          "revenue": 4.5,
+          "netIncome": 1.6,
+          "marketCap": 455.8,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Salesforce",
+          "revenue": 41.5,
+          "netIncome": 7.5,
+          "marketCap": 185.4,
+          "year": 2025,
+          "note": "fiscal year ended Jan 2026; market cap 2026-09"
+        }
+      ],
+      "consumerFacing": ["apps", "subscriptions"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). Software publishers are reported by BEA inside \"publishing incl. software\" before 2017; their share is interpolated between anchors 1969 0.00, 1975 0.02, 1980 0.05, 1985 0.11, 1990 0.20, 1997 0.39, 2002 0.50, 2007 0.57, 2012 0.66 (2017-2024 BEA detail; 2025 and 2026 keep the 2024 share, 85.9%, because BEA publishes no quarterly detail). Computer systems design 1947-1962 ramps from 0 in 1950 to its 1963 share of professional services. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 3.13%) x the 2026 GDP estimate, +6.0% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.090 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.310). profitMargin: Damodaran Jan-2026 Software (System & Application) 25.49% (Computer Services 4.45%). corporateProfits: not separable in NIPA 6.16D (line \"Information (software publishers) + Other nonfinancial (computer systems design)\"). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.957); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "internet",
+      "name": "Internet platforms & cloud",
+      "tier": "tech",
+      "level": "capital",
+      "notebook": "Social, AI",
+      "naics": "518, 519 (2017 NAICS: data processing and hosting, internet publishing, web search, social media)",
+      "blurb": "Search, social media, cloud computing and data centers: $591B of value added in 2025 (1.9% of GDP), up from $274B in 2019, selling attention to advertisers.",
+      "valueAdded": [
+        [1947,0.3], [1948,0.4], [1949,0.4], [1950,0.4], [1951,0.4], [1952,0.5], [1953,0.5], [1954,0.5],
+        [1955,0.6], [1956,0.6], [1957,0.7], [1958,0.7], [1959,0.8], [1960,0.8], [1961,0.9], [1962,0.9],
+        [1963,1.0], [1964,1.1], [1965,1.2], [1966,1.3], [1967,1.4], [1968,1.6], [1969,1.8], [1970,1.9],
+        [1971,2.1], [1972,2.4], [1973,2.7], [1974,3.0], [1975,3.3], [1976,3.7], [1977,4.2], [1978,5.0],
+        [1979,5.8], [1980,6.7], [1981,7.8], [1982,8.7], [1983,10.1], [1984,11.1], [1985,12.5], [1986,13.5],
+        [1987,14.2], [1988,15.4], [1989,16.9], [1990,18.5], [1991,19.1], [1992,21.0], [1993,22.4], [1994,24.5],
+        [1995,26.6], [1996,29.0], [1997,32.0], [1998,37.5], [1999,31.7], [2000,27.5], [2001,44.3], [2002,65.0],
+        [2003,67.0], [2004,78.4], [2005,76.4], [2006,86.9], [2007,72.4], [2008,90.5], [2009,94.0], [2010,109.5],
+        [2011,125.0], [2012,117.7], [2013,146.1], [2014,160.6], [2015,178.4], [2016,198.4], [2017,214.2], [2018,226.5],
+        [2019,274.1], [2020,315.6], [2021,369.1], [2022,416.8], [2023,471.2], [2024,529.1], [2025,590.5], [2026,663.9]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.447,
+      "taxShare": 0.0161,
+      "depShare": 0.2744,
+      "gosShare2024": 0.5369,
+      "profitMargin": 0.319,
+      "employment": [[1950,40], [1970,87], [1990,234], [2010,304], [2024,626]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Information",
+        "value": 290.9,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Alphabet",
+          "revenue": 402.8,
+          "netIncome": 132.2,
+          "marketCap": 4130.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09 (range 4,100-4,200)"
+        },
+        {
+          "name": "Meta Platforms",
+          "revenue": 201.0,
+          "netIncome": 60.5,
+          "marketCap": 1700.0,
+          "year": 2025,
+          "note": "calendar 2025; market cap Sept-2026, midpoint of snapshots (range 1,570-1,896)"
+        }
+      ],
+      "consumerFacing": ["free services paid for by ads", "cloud storage"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: split of the BEA sector total by 1963 shares (detail starts in 1963). 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 2.03%) x the 2026 GDP estimate, +12.4% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.220 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.537). profitMargin: revenue-weighted FY2025 net margin of Alphabet (32.8%) and Meta (30.1%), which dominate the industry; Damodaran Software (Internet) -0.93% is pulled down by many small loss-making firms. corporateProfits: not separable in NIPA 6.16D (line \"Information\", $290.9B in 2025, shared with software (publishers), internet, media_telecom). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.942); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    },
+    {
+      "id": "media_telecom",
+      "name": "Media & telecom",
+      "tier": "tech",
+      "level": "capital",
+      "notebook": "Entertainment (media)",
+      "naics": "5111, 512, 515, 517 (newspapers and books, film and music, broadcasting, telecom carriers)",
+      "blurb": "Phone and cable networks, broadcasters, film, music and newspapers: $693B of value added in 2025 (2.3% of GDP), the pipes and the stories.",
+      "valueAdded": [
+        [1947,7.4], [1948,8.0], [1949,8.7], [1950,9.3], [1951,10.1], [1952,10.9], [1953,12.0], [1954,12.3],
+        [1955,13.4], [1956,14.2], [1957,15.2], [1958,15.9], [1959,17.5], [1960,18.3], [1961,19.6], [1962,20.8],
+        [1963,22.5], [1964,24.1], [1965,26.3], [1966,29.0], [1967,30.9], [1968,33.6], [1969,36.6], [1970,39.2],
+        [1971,42.3], [1972,47.3], [1973,51.6], [1974,55.6], [1975,61.7], [1976,70.4], [1977,79.2], [1978,90.4],
+        [1979,100.7], [1980,110.9], [1981,127.8], [1982,139.2], [1983,156.7], [1984,165.7], [1985,182.1], [1986,192.1],
+        [1987,201.8], [1988,209.7], [1989,227.5], [1990,239.7], [1991,248.9], [1992,262.8], [1993,280.7], [1994,294.2],
+        [1995,304.9], [1996,326.2], [1997,324.8], [1998,353.3], [1999,394.1], [2000,392.3], [2001,404.9], [2002,419.1],
+        [2003,425.0], [2004,459.4], [2005,474.4], [2006,477.6], [2007,529.9], [2008,546.5], [2009,524.0], [2010,534.0],
+        [2011,519.1], [2012,519.6], [2013,556.5], [2014,546.5], [2015,585.8], [2016,615.8], [2017,619.3], [2018,628.8],
+        [2019,650.4], [2020,615.4], [2021,650.0], [2022,661.4], [2023,674.4], [2024,683.4], [2025,693.1], [2026,726.9]
+      ],
+      "valueAddedEstimatedFrom": 2026,
+      "compShare": 0.2905,
+      "taxShare": 0.0737,
+      "depShare": 0.2994,
+      "gosShare2024": 0.636,
+      "profitMargin": 0.142,
+      "employment": [[1950,1237], [1970,1846], [1990,2191], [2010,2004], [2024,1596]],
+      "corporateProfits": 0,
+      "corporateProfitsGroup": {
+        "line": "Information",
+        "value": 290.9,
+        "year": 2025
+      },
+      "companies": [
+        {
+          "name": "Netflix",
+          "revenue": 45.2,
+          "netIncome": 11.0,
+          "marketCap": 369.2,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Verizon",
+          "revenue": 138.2,
+          "netIncome": 17.6,
+          "marketCap": 207.8,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        },
+        {
+          "name": "Walt Disney",
+          "revenue": 94.4,
+          "netIncome": 12.4,
+          "marketCap": 187.8,
+          "year": 2025,
+          "note": "fiscal year ended Sep 2025; market cap 2026-09"
+        },
+        {
+          "name": "AT&T",
+          "revenue": 125.6,
+          "netIncome": 23.4,
+          "marketCap": 178.9,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09-01"
+        },
+        {
+          "name": "T-Mobile US",
+          "revenue": 88.3,
+          "netIncome": 11.0,
+          "marketCap": 174.8,
+          "year": 2025,
+          "note": "calendar 2025; market cap 2026-09"
+        }
+      ],
+      "consumerFacing": ["phone and internet plans", "streaming", "cable"],
+      "note": "Value added: BEA GDP by industry (historical 1947-1996, integrated accounts 1997-2016, annual 2017-2024, four-quarter average 2025). 1947-1962: split of the BEA sector total by 1963 shares (detail starts in 1963). Includes newspaper, periodical, book and directory publishing (NAICS 5111, $67.6B in 2025): BEA reports it together with software publishers before 2017, and the software share of that line is estimated (see software). The IO summary code 511 should be split 86% software / 14% print. 2026 (estimate): the industry's share of GDP in 2026Q1 (BEA quarterly value added, SAAR; 2.22%) x the 2026 GDP estimate, +4.9% on 2025. compShare and taxShare from the BEA 2024 Use table (summary level). depShare is an estimate: a capital-intensity prior of 0.240 scaled by 1.247 so private depreciation sums to NIPA 1.10 private CFC 2024 ($4006B), capped at 90% of gross operating surplus (GOS share 0.636). profitMargin: Damodaran Jan-2026 Telecom. Services 14.20% (Broadcasting 2.06%, Entertainment 4.43%). corporateProfits: not separable in NIPA 6.16D (line \"Information\", $290.9B in 2025, shared with software (publishers), internet, media_telecom). Employment: FTE thousands; 2024 BEA NIPA 6.5D (split inside BEA lines with CES 2024 detail); 1990 and 2010 = BLS CES payroll jobs x the 2024 FTE/jobs ratio (0.942); 1950 and 1970 = SIC-basis CES division totals split by approximate shares (+-15%), same ratio."
+    }
+  ],
+  "overlays": [
+    {
+      "id": "social",
+      "name": "Social media & online ads",
+      "year": 2025,
+      "blurb": "Attention sold to advertisers: US online ad revenue in 2025, of which social media ads grew fastest. Revenue, not value added; it sits mostly inside the internet industry and ad agencies.",
+      "revenue": 294.6,
+      "usDigitalAds": 294.6,
+      "usDigitalAdsGrowthPct": 13.9,
+      "usSocialAds": 117.7,
+      "usSocialAdsGrowthPct": 32.6,
+      "usSearchAds": 114.2,
+      "usDisplayAds": 81.6,
+      "usDigitalVideoAds": 78.0,
+      "usRetailMediaAds": 63.4,
+      "usCreatorAds": 37.0,
+      "metaAdRevenueWorldwide": 196.2,
+      "metaRevenueWorldwide": 201.0,
+      "googleAdRevenueWorldwide": 294.7,
+      "googleSearchAdsWorldwide": 224.5,
+      "youtubeAdsWorldwide": 40.4,
+      "alphabetRevenueWorldwide": 402.8,
+      "amazonAdRevenueWorldwide": 68.6,
+      "note": "IAB/PwC Internet Advertising Revenue Report FY2025 (US; categories overlap: social ads also count as display or video); Meta, Alphabet and Amazon FY2025 filings (worldwide; the US+Canada is roughly 40-50% of their ad revenue). Fields are $B unless named Pct."
+    },
+    {
+      "id": "ai",
+      "name": "AI build-out",
+      "year": 2025,
+      "blurb": "The machine-intelligence boom: data-center spending by the four largest cloud companies, the chips it buys and the revenue of the frontier labs. Investment and sales, not value added.",
+      "capex2025": 410.0,
+      "capex2025WithOracle": 443.0,
+      "capex2026": 732.5,
+      "amazonCapex2025": 131.0,
+      "microsoftCapex2025": 95.0,
+      "alphabetCapex2025": 92.0,
+      "metaCapex2025": 72.2,
+      "amazonCapex2026": 220.0,
+      "microsoftCapex2026": 175.0,
+      "alphabetCapex2026": 200.0,
+      "metaCapex2026": 135.0,
+      "nvidiaRevenueFY2026": 215.9,
+      "nvidiaDataCenter": 193.7,
+      "nvidiaDataCenterQ2FY2027": 89.0,
+      "nvidiaDataCenterRunRate2026": 356.0,
+      "openaiRevenue2025": 13.07,
+      "openaiRunRateEnd2025": 20.0,
+      "openaiRunRateAug2026": 40.0,
+      "anthropicRunRateEnd2025": 9.0,
+      "anthropicRunRateApr2026": 30.0,
+      "anthropicRunRateJul2026": 65.0,
+      "usDataCenterConstruction2025": 41.1,
+      "note": "Capex is total company capital spending (about three quarters AI-related in 2026 guidance), calendar years; 2026 = guidance as of late July 2026 (range $720-745B). Nvidia figures are worldwide, fiscal years ending late January; the run rate is 4 x the May-July 2026 quarter. Lab figures are annualized revenue run rates except openaiRevenue2025. Sources: company filings and releases via search (research aiOverlay)."
+    }
+  ]
+}

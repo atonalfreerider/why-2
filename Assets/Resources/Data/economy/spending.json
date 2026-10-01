@@ -1,0 +1,1932 @@
+{
+  "vintage": "BEA NIPA Table 2.4.5U (PCE by type of product) revised Apr 9 2026 and Table 2.6 (personal income and outlays, monthly averaged) through Jul 2026, both before the Sept-2026 annual NIPA update; BEA 2024 summary Use table (Sept 2025 release) for supply chains; BLS Consumer Expenditure Survey 2024 (Sept 2025); Fed DFA 2026Q1; market sizes 2016-2025 as flagged. Compiled 2026-10-01.",
+  "year": 2025,
+  "sources": [
+    "BEA NIPA Table 2.4.5U, Personal Consumption Expenditures by Type of Product, last revised Apr 9 2026 (mirror: https://raw.githubusercontent.com/Budget-Lab-Yale/Tax-Data/main/resources/nipa_2_4_5u.csv)",
+    "BEA NIPA Table 2.6, Personal Income and Its Disposition, monthly, through Jul 2026 (mirror: https://raw.githubusercontent.com/bdecon/US-chartbook/master/chartbook/data/nipa20600.csv)",
+    "BEA NIPA Tables 2.3.5 / 2.8.5 / 2.1, PCE by major type and DPI, 1950-2026 (mirrors: https://raw.githubusercontent.com/jannib69/Bitcoin_Prediction_TFT_LSTM_GRU/main/Data/BEA/.BEA_all_data/T20305_Current%20Dollars.csv, .../T20100_Current%20Dollars.csv, https://raw.githubusercontent.com/bdecon/US-chartbook/master/chartbook/data/nipa20805.csv)",
+    "BEA Input-Output Use table 2024, summary, before redefinitions, producer prices, release Sept 25 2025 (mirror: https://raw.githubusercontent.com/EthanSterling04/market-concentration-tail-risk/main/Experiment/Data/IO_Tables/2024.csv); BEA 2023 Import and Make tables (mirror: https://raw.githubusercontent.com/USEPA/useeior/master/data/); consumer-dollar value-added matrix computed in research/flows.json",
+    "BLS Consumer Expenditure Survey 2024, income quintiles and all-unit detail, released Sept 2025 (mirrors: https://raw.githubusercontent.com/markusstrasser/immigration-research/main/infra/immigration-fiscal/consumer_price_benefit_2026_09_18/derived/cex_quintile_parents.csv, .../cex_detail_all.csv)",
+    "BEA Distribution of Personal Income: saving by income quintile, 2024 (mirror: https://raw.githubusercontent.com/bdecon/US-chartbook/master/chartbook/data/save_dist.csv)",
+    "Federal Reserve Distributional Financial Accounts, 2026Q1, June 2026 (mirror: https://raw.githubusercontent.com/bdecon/US-chartbook/master/chartbook/data/dfa/dfa-income-levels-detail.csv)",
+    "Federal Reserve Z.1 Financial Accounts 2026Q2 (mirror: https://raw.githubusercontent.com/bdecon/US-chartbook/master/chartbook/data/hh_z1_bs_raw.csv)",
+    "Market sizes recalled by the research agent (flagged per market: AGA 2024, NIGC FY2024, NASPL FY2024, Circana 2024, RAND 2019, IAB/PwC 2025, CMS NHE, KFF, Giving USA 2025, CFPB, Pew, The Knot 2025, Marketdata)"
+  ],
+  "note": "Where US households' money goes in 2025, in the notebook's seven categories. Items are BEA PCE lines (US residents, nonresidents' spending removed) and sum to PCE exactly; saving items sum to NIPA personal saving. Interest on consumer debt and transfers paid are outside PCE (outsidePce on jeopardy and collective) but inside the history shares, so the seven history shares of disposable income sum to 1. Item industry weights are the domestic value added captured along the supply chain per dollar (BEA 2024 Use table, Leontief, research/flows.json), renormalized over the 25 industry ids; importShare is the leak abroad per dollar (direct and indirect imports). PCE 2025 = $20954.9B in both NIPA 2.4.5U and 2.6 (consistent with personal outlays $21819.4B = PCE + interest $577.7B + transfers $286.8B); the Q4-2025 SAAR ($21,363B) and the Sept-2026 annual update are not used.",
+  "totals": {
+    "pce": 20954.9,
+    "interestPaid": 577.7,
+    "transfersPaid": 286.8,
+    "outlays": 21819.4,
+    "saving": 1046.8,
+    "disposableIncome": 22866.2,
+    "savingRate": 0.0458,
+    "nonresidentSpendingRemoved": 208.9,
+    "tradeMarginScale": 1.445,
+    "note": "Nonresidents' spending in the US (BEA line 338, $208.9B in 2025) is subtracted from the items visitors buy (college tuition and housing for foreign students; hotels, restaurants, shopping, recreation and local transport for tourists, using an approximate visitor-spending mix), so items are US residents' spending and sum to PCE. Goods are split at purchaser prices into producer, trade and freight margins; recalled margin shapes by kind of good are scaled by tradeMarginScale so all goods margins equal the trade sector's PCE in the 2024 Use table ($3,189B of $6,262B goods, grown to 2025)."
+  },
+  "categoryIds": ["necessities", "escapism", "jeopardy", "status", "growth", "collective", "saving"],
+  "categories": [
+    {
+      "id": "necessities",
+      "name": "Necessities",
+      "notebook": "(base) food, shelter",
+      "bracket": "base",
+      "desire": {"food": 0.35, "collective": 0.1, "law": 0.0, "shelter": 0.5, "sex": 0.05},
+      "fear": {"starvation": 0.35, "isolation": 0.1, "murder": 0.05, "exposure": 0.5, "childless": 0.0},
+      "fearShare": 0.5,
+      "mind": {"x": 0.0, "y": 0.45, "z": 0.35},
+      "fantasy": 0.05,
+      "pce": 7622.0,
+      "shareOfPce": 0.3637,
+      "blurb": "Food at home, a basic home, utilities, getting to work, basic clothes and a phone: the floor every household pays for first.",
+      "note": "Design defaults kept (x 0, y 0.45, z 0.35; fearShare 0.5: as much fleeing hunger and cold as wanting food and a home). Basic level = CE 2024 second-quintile mean as a share of the all-unit mean (shelter 0.729, vehicles 0.548, apparel 0.664, furnishings 0.580); the rest of those lines is status. Desire/fear weights follow the money: shelter and utilities are about half, food a third. Owners' imputed rent ($1,823B of this category) is a BEA imputation, not a cash outlay. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "food_cereals_bakery",
+          "name": "Bread, cereal & baked goods",
+          "pce": 209.8,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0281, "oil_gas": 0.0073, "mining_metals": 0.0044, "utilities": 0.0117, "construction": 0.0048, "manufacturing": 0.1783, "transport": 0.0698, "trade": 0.4606, "banking": 0.018, "finance": 0.0032, "insurance": 0.0154, "real_estate": 0.0454, "health": 0.0021, "legal": 0.0107, "professional": 0.0779, "education": 0.0015, "entertainment": 0.0032, "hospitality": 0.0066, "other_services": 0.0082, "hardware": 0.0046, "software": 0.0119, "internet": 0.007, "media_telecom": 0.0072},
+          "importShare": 0.2185,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 76"
+        },
+        {
+          "id": "food_meat_fish",
+          "name": "Meat, poultry & fish",
+          "pce": 270.7,
+          "industries": {"federal": 0.0039, "state_local": 0.0083, "agriculture": 0.0561, "oil_gas": 0.0073, "mining_metals": 0.0041, "utilities": 0.012, "construction": 0.0048, "manufacturing": 0.1571, "transport": 0.0693, "trade": 0.4571, "banking": 0.0181, "finance": 0.0031, "insurance": 0.0155, "real_estate": 0.0449, "health": 0.0021, "legal": 0.0105, "professional": 0.0763, "education": 0.0015, "entertainment": 0.0032, "hospitality": 0.0066, "other_services": 0.008, "hardware": 0.0043, "software": 0.0118, "internet": 0.0069, "media_telecom": 0.0072},
+          "importShare": 0.2122,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U lines 79, 84"
+        },
+        {
+          "id": "food_dairy_eggs",
+          "name": "Milk, dairy & eggs",
+          "pce": 124.1,
+          "industries": {"federal": 0.004, "state_local": 0.0083, "agriculture": 0.0654, "oil_gas": 0.0073, "mining_metals": 0.0039, "utilities": 0.0121, "construction": 0.0048, "manufacturing": 0.1501, "transport": 0.0692, "trade": 0.4559, "banking": 0.0182, "finance": 0.0031, "insurance": 0.0156, "real_estate": 0.0448, "health": 0.0021, "legal": 0.0104, "professional": 0.0757, "education": 0.0015, "entertainment": 0.0032, "hospitality": 0.0065, "other_services": 0.008, "hardware": 0.0042, "software": 0.0117, "internet": 0.0069, "media_telecom": 0.0071},
+          "importShare": 0.2101,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 85"
+        },
+        {
+          "id": "food_fruit_veg",
+          "name": "Fruit & vegetables",
+          "pce": 183.2,
+          "industries": {"federal": 0.0041, "state_local": 0.0086, "agriculture": 0.1376, "oil_gas": 0.0072, "mining_metals": 0.003, "utilities": 0.0129, "construction": 0.0049, "manufacturing": 0.0955, "transport": 0.068, "trade": 0.4467, "banking": 0.0184, "finance": 0.003, "insurance": 0.0158, "real_estate": 0.0436, "health": 0.0021, "legal": 0.0099, "professional": 0.0716, "education": 0.0015, "entertainment": 0.0031, "hospitality": 0.0064, "other_services": 0.0077, "hardware": 0.0036, "software": 0.0113, "internet": 0.0066, "media_telecom": 0.0069},
+          "importShare": 0.1935,
+          "fantasy": 0.03,
+          "bea": "NIPA 2.4.5U lines 90, 93, 103"
+        },
+        {
+          "id": "food_other",
+          "name": "Snacks, sweets, oils & prepared foods",
+          "pce": 362.9,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0281, "oil_gas": 0.0073, "mining_metals": 0.0044, "utilities": 0.0117, "construction": 0.0048, "manufacturing": 0.1783, "transport": 0.0698, "trade": 0.4606, "banking": 0.018, "finance": 0.0032, "insurance": 0.0154, "real_estate": 0.0454, "health": 0.0021, "legal": 0.0107, "professional": 0.0779, "education": 0.0015, "entertainment": 0.0032, "hospitality": 0.0066, "other_services": 0.0082, "hardware": 0.0046, "software": 0.0119, "internet": 0.007, "media_telecom": 0.0072},
+          "importShare": 0.2185,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U lines 89, 94, 95"
+        },
+        {
+          "id": "drinks_nonalcoholic",
+          "name": "Soft drinks, water & coffee",
+          "pce": 145.2,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0281, "oil_gas": 0.0073, "mining_metals": 0.0044, "utilities": 0.0117, "construction": 0.0048, "manufacturing": 0.1783, "transport": 0.0698, "trade": 0.4606, "banking": 0.018, "finance": 0.0032, "insurance": 0.0154, "real_estate": 0.0454, "health": 0.0021, "legal": 0.0107, "professional": 0.0779, "education": 0.0015, "entertainment": 0.0032, "hospitality": 0.0066, "other_services": 0.0082, "hardware": 0.0046, "software": 0.0119, "internet": 0.007, "media_telecom": 0.0072},
+          "importShare": 0.2185,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U line 96"
+        },
+        {
+          "id": "rent_basic",
+          "name": "Rent (basic level)",
+          "pce": 600.2,
+          "industries": {"federal": 0.0008, "state_local": 0.0017, "agriculture": 0.0002, "oil_gas": 0.0008, "mining_metals": 0.0006, "utilities": 0.0009, "construction": 0.0137, "manufacturing": 0.0043, "transport": 0.0023, "trade": 0.0065, "banking": 0.0381, "finance": 0.0021, "insurance": 0.0057, "real_estate": 0.8973, "health": 0.0001, "legal": 0.0016, "professional": 0.0118, "education": 0.0002, "entertainment": 0.0005, "hospitality": 0.0013, "other_services": 0.0048, "hardware": 0.0004, "software": 0.0018, "internet": 0.0011, "media_telecom": 0.0014},
+          "importShare": 0.006,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U lines 154, 163, 164",
+          "note": "Tenant rent x 0.729 (CE 2024 second-quintile shelter / mean) + farm dwellings + group housing."
+        },
+        {
+          "id": "owner_rent_basic",
+          "name": "Homeowners' housing (basic level)",
+          "pce": 1822.3,
+          "industries": {"federal": 0.0008, "state_local": 0.0017, "agriculture": 0.0002, "oil_gas": 0.0008, "mining_metals": 0.0006, "utilities": 0.0009, "construction": 0.0137, "manufacturing": 0.0043, "transport": 0.0023, "trade": 0.0065, "banking": 0.0381, "finance": 0.0021, "insurance": 0.0057, "real_estate": 0.8973, "health": 0.0001, "legal": 0.0016, "professional": 0.0118, "education": 0.0002, "entertainment": 0.0005, "hospitality": 0.0013, "other_services": 0.0048, "hardware": 0.0004, "software": 0.0018, "internet": 0.0011, "media_telecom": 0.0014},
+          "importShare": 0.006,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 160",
+          "note": "BEA imputed rent of owner-occupied homes x 0.729: the rent owners 'pay themselves'; not a cash outlay."
+        },
+        {
+          "id": "power_gas",
+          "name": "Electricity & natural gas",
+          "pce": 343.4,
+          "industries": {"federal": 0.0328, "state_local": 0.0688, "agriculture": 0.0006, "oil_gas": 0.0271, "mining_metals": 0.0077, "utilities": 0.6009, "construction": 0.0233, "manufacturing": 0.0222, "transport": 0.0367, "trade": 0.0242, "banking": 0.0172, "finance": 0.004, "insurance": 0.0139, "real_estate": 0.0174, "health": 0.0003, "legal": 0.0077, "professional": 0.0558, "education": 0.001, "entertainment": 0.0014, "hospitality": 0.0048, "other_services": 0.0063, "hardware": 0.0022, "software": 0.0119, "internet": 0.007, "media_telecom": 0.0048},
+          "importShare": 0.049,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U line 169"
+        },
+        {
+          "id": "water_trash",
+          "name": "Water, sewer & trash",
+          "pce": 146.8,
+          "industries": {"federal": 0.0104, "state_local": 0.2226, "agriculture": 0.0011, "oil_gas": 0.0282, "mining_metals": 0.0097, "utilities": 0.2013, "construction": 0.0508, "manufacturing": 0.0454, "transport": 0.0389, "trade": 0.0571, "banking": 0.021, "finance": 0.0074, "insurance": 0.0266, "real_estate": 0.0303, "health": 0.0004, "legal": 0.0115, "professional": 0.0833, "education": 0.0018, "entertainment": 0.0027, "hospitality": 0.006, "other_services": 0.1018, "hardware": 0.0043, "software": 0.0186, "internet": 0.0109, "media_telecom": 0.0079},
+          "importShare": 0.068,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U lines 167, 168",
+          "note": "Water/sewer 60% municipal (state_local), trash 60% private waste haulers (other_services): approximate."
+        },
+        {
+          "id": "gasoline",
+          "name": "Gasoline & motor fuel",
+          "pce": 393.1,
+          "industries": {"federal": 0.0024, "state_local": 0.005, "agriculture": 0.001, "oil_gas": 0.4769, "mining_metals": 0.0064, "utilities": 0.0122, "construction": 0.007, "manufacturing": 0.044, "transport": 0.0753, "trade": 0.2067, "banking": 0.014, "finance": 0.0036, "insurance": 0.0117, "real_estate": 0.0281, "health": 0.001, "legal": 0.0087, "professional": 0.0628, "education": 0.0009, "entertainment": 0.0019, "hospitality": 0.0042, "other_services": 0.0055, "hardware": 0.0023, "software": 0.0087, "internet": 0.0051, "media_telecom": 0.0046},
+          "importShare": 0.2491,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U line 114"
+        },
+        {
+          "id": "heating_fuel",
+          "name": "Heating oil & other fuels",
+          "pce": 29.3,
+          "industries": {"federal": 0.003, "state_local": 0.0062, "agriculture": 0.0011, "oil_gas": 0.3182, "mining_metals": 0.0047, "utilities": 0.0116, "construction": 0.0063, "manufacturing": 0.0363, "transport": 0.0768, "trade": 0.3442, "banking": 0.0156, "finance": 0.0035, "insurance": 0.0134, "real_estate": 0.0368, "health": 0.0016, "legal": 0.0097, "professional": 0.07, "education": 0.0012, "entertainment": 0.0026, "hospitality": 0.0054, "other_services": 0.0067, "hardware": 0.0027, "software": 0.0104, "internet": 0.0061, "media_telecom": 0.0059},
+          "importShare": 0.1902,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U line 117"
+        },
+        {
+          "id": "vehicles_basic",
+          "name": "Cars & trucks (basic level)",
+          "pce": 343.9,
+          "industries": {"federal": 0.003, "state_local": 0.0062, "agriculture": 0.0314, "oil_gas": 0.0061, "mining_metals": 0.0047, "utilities": 0.0094, "construction": 0.0071, "manufacturing": 0.1952, "transport": 0.0422, "trade": 0.2838, "banking": 0.0231, "finance": 0.0028, "insurance": 0.0122, "real_estate": 0.2679, "health": 0.0013, "legal": 0.008, "professional": 0.0579, "education": 0.0011, "entertainment": 0.0023, "hospitality": 0.0047, "other_services": 0.0069, "hardware": 0.0039, "software": 0.0086, "internet": 0.005, "media_telecom": 0.0052},
+          "importShare": 0.2313,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 5, 12",
+          "note": "New + used vehicles x 0.548 (CE 2024 second-quintile vehicle outlay / mean). Used vehicles: dealer margins to trade, the vehicle itself from business fleets (rental & leasing, in real_estate)."
+        },
+        {
+          "id": "vehicle_parts",
+          "name": "Tires, parts & accessories",
+          "pce": 131.2,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0231, "oil_gas": 0.0062, "mining_metals": 0.0038, "utilities": 0.0115, "construction": 0.0048, "manufacturing": 0.1488, "transport": 0.056, "trade": 0.5063, "banking": 0.018, "finance": 0.003, "insurance": 0.015, "real_estate": 0.047, "health": 0.0024, "legal": 0.0109, "professional": 0.0794, "education": 0.0016, "entertainment": 0.0034, "hospitality": 0.0067, "other_services": 0.0083, "hardware": 0.0044, "software": 0.0125, "internet": 0.0073, "media_telecom": 0.0075},
+          "importShare": 0.1882,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 20"
+        },
+        {
+          "id": "vehicle_repair",
+          "name": "Car repair & maintenance",
+          "pce": 276.7,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U line 192"
+        },
+        {
+          "id": "vehicle_leasing_parking",
+          "name": "Car leasing, rental, parking & tolls",
+          "pce": 113.9,
+          "industries": {"federal": 0.0012, "state_local": 0.0477, "agriculture": 0.0004, "oil_gas": 0.0055, "mining_metals": 0.0024, "utilities": 0.0075, "construction": 0.0209, "manufacturing": 0.0142, "transport": 0.0096, "trade": 0.0269, "banking": 0.0343, "finance": 0.0034, "insurance": 0.0105, "real_estate": 0.6914, "health": 0.0002, "legal": 0.0043, "professional": 0.0311, "education": 0.0008, "entertainment": 0.0014, "hospitality": 0.0028, "other_services": 0.069, "hardware": 0.0014, "software": 0.0062, "internet": 0.0036, "media_telecom": 0.0033},
+          "importShare": 0.0211,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 194, 197, 198",
+          "note": "Less $4.5B bought by nonresidents."
+        },
+        {
+          "id": "transit_taxi",
+          "name": "Transit, taxis & ride-hailing",
+          "pce": 98.1,
+          "industries": {"federal": 0.0045, "state_local": 0.0859, "agriculture": 0.0009, "oil_gas": 0.0302, "mining_metals": 0.004, "utilities": 0.0171, "construction": 0.0209, "manufacturing": 0.029, "transport": 0.5108, "trade": 0.0369, "banking": 0.0245, "finance": 0.0093, "insurance": 0.0375, "real_estate": 0.047, "health": 0.0003, "legal": 0.0106, "professional": 0.0772, "education": 0.001, "entertainment": 0.0021, "hospitality": 0.0113, "other_services": 0.0117, "hardware": 0.0024, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0076},
+          "importShare": 0.1323,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U lines 201, 203, 204, 205, 206",
+          "note": "Less $7.6B bought by nonresidents."
+        },
+        {
+          "id": "clothing_basic",
+          "name": "Clothing & shoes (basic level)",
+          "pce": 361.0,
+          "industries": {"federal": 0.004, "state_local": 0.0083, "agriculture": 0.0135, "oil_gas": 0.0053, "mining_metals": 0.0027, "utilities": 0.011, "construction": 0.0048, "manufacturing": 0.0926, "transport": 0.0539, "trade": 0.5675, "banking": 0.0181, "finance": 0.003, "insurance": 0.0153, "real_estate": 0.05, "health": 0.0027, "legal": 0.0113, "professional": 0.0818, "education": 0.0018, "entertainment": 0.0037, "hospitality": 0.0071, "other_services": 0.0086, "hardware": 0.0041, "software": 0.0132, "internet": 0.0077, "media_telecom": 0.008},
+          "importShare": 0.1273,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 105, 109",
+          "note": "Clothing and footwear x 0.664 (CE 2024 second-quintile apparel / mean). Less $12.1B bought by nonresidents."
+        },
+        {
+          "id": "laundry_tailoring",
+          "name": "Laundry, dry cleaning & alterations",
+          "pce": 24.7,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U line 311"
+        },
+        {
+          "id": "cell_phone_service",
+          "name": "Phone service",
+          "pce": 185.4,
+          "industries": {"federal": 0.0025, "state_local": 0.0052, "agriculture": 0.0005, "oil_gas": 0.0019, "mining_metals": 0.0016, "utilities": 0.0093, "construction": 0.0043, "manufacturing": 0.0181, "transport": 0.0091, "trade": 0.0238, "banking": 0.0261, "finance": 0.0027, "insurance": 0.0088, "real_estate": 0.043, "health": 0.0003, "legal": 0.0108, "professional": 0.0783, "education": 0.0019, "entertainment": 0.0337, "hospitality": 0.0054, "other_services": 0.0067, "hardware": 0.006, "software": 0.014, "internet": 0.0082, "media_telecom": 0.6778},
+          "importShare": 0.059,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 282"
+        },
+        {
+          "id": "internet_access",
+          "name": "Internet access",
+          "pce": 116.9,
+          "industries": {"federal": 0.0025, "state_local": 0.0052, "agriculture": 0.0005, "oil_gas": 0.0019, "mining_metals": 0.0016, "utilities": 0.0093, "construction": 0.0043, "manufacturing": 0.0181, "transport": 0.0091, "trade": 0.0238, "banking": 0.0261, "finance": 0.0027, "insurance": 0.0088, "real_estate": 0.043, "health": 0.0003, "legal": 0.0108, "professional": 0.0783, "education": 0.0019, "entertainment": 0.0337, "hospitality": 0.0054, "other_services": 0.0067, "hardware": 0.006, "software": 0.014, "internet": 0.0082, "media_telecom": 0.6778},
+          "importShare": 0.059,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 289"
+        },
+        {
+          "id": "devices",
+          "name": "Computers, phones & software (half)",
+          "pce": 252.7,
+          "industries": {"federal": 0.0038, "state_local": 0.0079, "agriculture": 0.0011, "oil_gas": 0.0035, "mining_metals": 0.0013, "utilities": 0.0089, "construction": 0.0042, "manufacturing": 0.0201, "transport": 0.043, "trade": 0.4639, "banking": 0.0178, "finance": 0.0027, "insurance": 0.0129, "real_estate": 0.0463, "health": 0.0023, "legal": 0.0135, "professional": 0.0977, "education": 0.0018, "entertainment": 0.0036, "hospitality": 0.0072, "other_services": 0.0079, "hardware": 0.02, "software": 0.1925, "internet": 0.006, "media_telecom": 0.0101},
+          "importShare": 0.4598,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U lines 49, 50, 51, 71",
+          "note": "PCs, tablets, phones; half of BEA \"computer software and accessories\" (the other half is in escapism as games)."
+        },
+        {
+          "id": "household_supplies",
+          "name": "Cleaning products, paper & linens",
+          "pce": 198.9,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0217, "oil_gas": 0.0066, "mining_metals": 0.0037, "utilities": 0.0114, "construction": 0.0048, "manufacturing": 0.1409, "transport": 0.0678, "trade": 0.5022, "banking": 0.0181, "finance": 0.0032, "insurance": 0.0155, "real_estate": 0.0474, "health": 0.0024, "legal": 0.011, "professional": 0.0794, "education": 0.0016, "entertainment": 0.0034, "hospitality": 0.0069, "other_services": 0.0084, "hardware": 0.0043, "software": 0.0124, "internet": 0.0073, "media_telecom": 0.0075},
+          "importShare": 0.182,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 131"
+        },
+        {
+          "id": "furniture_basic",
+          "name": "Furniture & furnishings (basic level)",
+          "pce": 170.5,
+          "industries": {"federal": 0.004, "state_local": 0.0083, "agriculture": 0.0141, "oil_gas": 0.0058, "mining_metals": 0.0028, "utilities": 0.011, "construction": 0.0049, "manufacturing": 0.0961, "transport": 0.0654, "trade": 0.5518, "banking": 0.0182, "finance": 0.0031, "insurance": 0.0157, "real_estate": 0.0498, "health": 0.0026, "legal": 0.0112, "professional": 0.0814, "education": 0.0017, "entertainment": 0.0036, "hospitality": 0.0072, "other_services": 0.0087, "hardware": 0.0041, "software": 0.013, "internet": 0.0076, "media_telecom": 0.0079},
+          "importShare": 0.1333,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 24",
+          "note": "Furniture and furnishings x 0.580 (CE 2024 second-quintile furnishings / mean)."
+        },
+        {
+          "id": "appliances_housewares",
+          "name": "Appliances, housewares & tools",
+          "pce": 213.5,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0206, "oil_gas": 0.0063, "mining_metals": 0.0036, "utilities": 0.0114, "construction": 0.0048, "manufacturing": 0.1343, "transport": 0.064, "trade": 0.513, "banking": 0.0181, "finance": 0.0031, "insurance": 0.0154, "real_estate": 0.0478, "health": 0.0024, "legal": 0.011, "professional": 0.0798, "education": 0.0017, "entertainment": 0.0034, "hospitality": 0.0069, "other_services": 0.0084, "hardware": 0.0043, "software": 0.0126, "internet": 0.0074, "media_telecom": 0.0076},
+          "importShare": 0.1746,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U lines 29, 32, 35"
+        },
+        {
+          "id": "hygiene",
+          "name": "Toiletries & hygiene products",
+          "pce": 137.4,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.02, "oil_gas": 0.0059, "mining_metals": 0.0035, "utilities": 0.0113, "construction": 0.0048, "manufacturing": 0.1311, "transport": 0.0553, "trade": 0.5258, "banking": 0.018, "finance": 0.003, "insurance": 0.0151, "real_estate": 0.048, "health": 0.0025, "legal": 0.011, "professional": 0.0801, "education": 0.0017, "entertainment": 0.0035, "hospitality": 0.0068, "other_services": 0.0084, "hardware": 0.0043, "software": 0.0127, "internet": 0.0074, "media_telecom": 0.0077},
+          "importShare": 0.1699,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 138, 140"
+        },
+        {
+          "id": "home_services",
+          "name": "Domestic help, moving & home services",
+          "pce": 122.2,
+          "industries": {"federal": 0.0056, "state_local": 0.0117, "agriculture": 0.0009, "oil_gas": 0.0072, "mining_metals": 0.002, "utilities": 0.0078, "construction": 0.0051, "manufacturing": 0.027, "transport": 0.1191, "trade": 0.0719, "banking": 0.0193, "finance": 0.0044, "insurance": 0.0163, "real_estate": 0.05, "health": 0.0006, "legal": 0.0071, "professional": 0.3301, "education": 0.0034, "entertainment": 0.005, "hospitality": 0.0095, "other_services": 0.2426, "hardware": 0.0052, "software": 0.0225, "internet": 0.0132, "media_telecom": 0.0125},
+          "importShare": 0.063,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U lines 328, 329, 330, 331, 332"
+        },
+        {
+          "id": "child_care",
+          "name": "Child care & preschool",
+          "pce": 88.4,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U lines 296, 316"
+        },
+        {
+          "id": "meals_school_work",
+          "name": "Meals at school & work",
+          "pce": 66.9,
+          "industries": {"federal": 0.0202, "state_local": 0.0924, "agriculture": 0.0059, "oil_gas": 0.0093, "mining_metals": 0.0034, "utilities": 0.019, "construction": 0.0158, "manufacturing": 0.0369, "transport": 0.019, "trade": 0.0439, "banking": 0.0199, "finance": 0.0065, "insurance": 0.0167, "real_estate": 0.0516, "health": 0.0014, "legal": 0.0118, "professional": 0.0854, "education": 0.1761, "entertainment": 0.0112, "hospitality": 0.3029, "other_services": 0.0119, "hardware": 0.0028, "software": 0.0157, "internet": 0.0092, "media_telecom": 0.0111},
+          "importShare": 0.0496,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U lines 239, 240, 246"
+        },
+        {
+          "id": "post_paperwork",
+          "name": "Postage, delivery, stationery & paperwork",
+          "pce": 75.3,
+          "industries": {"federal": 0.0378, "state_local": 0.0099, "agriculture": 0.0088, "oil_gas": 0.0104, "mining_metals": 0.0034, "utilities": 0.0117, "construction": 0.0107, "manufacturing": 0.0731, "transport": 0.1157, "trade": 0.2308, "banking": 0.0178, "finance": 0.0042, "insurance": 0.0185, "real_estate": 0.0409, "health": 0.0015, "legal": 0.007, "professional": 0.323, "education": 0.0027, "entertainment": 0.0037, "hospitality": 0.0083, "other_services": 0.009, "hardware": 0.0057, "software": 0.0212, "internet": 0.0124, "media_telecom": 0.0118},
+          "importShare": 0.1173,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U lines 144, 287, 288, 303"
+        },
+        {
+          "id": "abroad_gov_staff",
+          "name": "Living costs abroad (US government staff)",
+          "pce": 13.4,
+          "industries": {"federal": 0.0091, "state_local": 0.019, "agriculture": 0.0082, "oil_gas": 0.0039, "mining_metals": 0.0018, "utilities": 0.0161, "construction": 0.0056, "manufacturing": 0.0376, "transport": 0.0165, "trade": 0.0567, "banking": 0.0227, "finance": 0.0076, "insurance": 0.0151, "real_estate": 0.0578, "health": 0.0016, "legal": 0.0129, "professional": 0.0933, "education": 0.0159, "entertainment": 0.0135, "hospitality": 0.5362, "other_services": 0.0117, "hardware": 0.0021, "software": 0.0143, "internet": 0.0084, "media_telecom": 0.0124},
+          "importShare": 1.0,
+          "fantasy": 0.0,
+          "bea": "NIPA 2.4.5U line 145",
+          "note": "Spent abroad: importShare 1, weights only show what it buys."
+        }
+      ]
+    },
+    {
+      "id": "escapism",
+      "name": "Escapism",
+      "notebook": "ESCAPISM: entertainment, drugs",
+      "bracket": "selfish",
+      "desire": {"food": 0.2, "collective": 0.35, "law": 0.05, "shelter": 0.1, "sex": 0.3},
+      "fear": {"starvation": 0.05, "isolation": 0.6, "murder": 0.1, "exposure": 0.1, "childless": 0.15},
+      "fearShare": 0.15,
+      "mind": {"x": -0.7, "y": 0.15, "z": 0.1},
+      "fantasy": 0.63,
+      "pce": 1892.5,
+      "shareOfPce": 0.0903,
+      "blurb": "Alcohol, tobacco, gambling losses, screens, games, shows and pets: paying to feel good now or to stop feeling bad.",
+      "note": "fearShare 0.15 (x -0.7) instead of the design's -0.8: escape is partly flight from stress and loneliness (coping motives; negative reinforcement when relieving stress, research/psychology.json), so isolation carries most of the fear weight. Illicit drugs (~$146B, RAND 2016) and most legal cannabis are outside PCE and appear only in markets. Gambling is net losses (wagers less prizes), not handle. Attention sold to advertisers (US internet ads $295B) is paid by firms, not households, and is a market label only. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "alcohol_stores",
+          "name": "Beer, wine & spirits (stores)",
+          "pce": 233.9,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0224, "oil_gas": 0.0064, "mining_metals": 0.0038, "utilities": 0.0114, "construction": 0.0048, "manufacturing": 0.1449, "transport": 0.0619, "trade": 0.5043, "banking": 0.018, "finance": 0.0031, "insurance": 0.0153, "real_estate": 0.0472, "health": 0.0024, "legal": 0.0109, "professional": 0.0794, "education": 0.0016, "entertainment": 0.0034, "hospitality": 0.0068, "other_services": 0.0083, "hardware": 0.0044, "software": 0.0124, "internet": 0.0073, "media_telecom": 0.0075},
+          "importShare": 0.1851,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U line 99"
+        },
+        {
+          "id": "alcohol_bars",
+          "name": "Alcohol in bars & restaurants",
+          "pce": 163.9,
+          "industries": {"federal": 0.0091, "state_local": 0.019, "agriculture": 0.0082, "oil_gas": 0.0039, "mining_metals": 0.0018, "utilities": 0.0161, "construction": 0.0056, "manufacturing": 0.0376, "transport": 0.0165, "trade": 0.0567, "banking": 0.0227, "finance": 0.0076, "insurance": 0.0151, "real_estate": 0.0578, "health": 0.0016, "legal": 0.0129, "professional": 0.0933, "education": 0.0159, "entertainment": 0.0135, "hospitality": 0.5362, "other_services": 0.0117, "hardware": 0.0021, "software": 0.0143, "internet": 0.0084, "media_telecom": 0.0124},
+          "importShare": 0.048,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U line 245",
+          "note": "Less $7.6B bought by nonresidents."
+        },
+        {
+          "id": "tobacco",
+          "name": "Tobacco & nicotine",
+          "pce": 111.6,
+          "industries": {"federal": 0.0038, "state_local": 0.0079, "agriculture": 0.04, "oil_gas": 0.0076, "mining_metals": 0.0058, "utilities": 0.0123, "construction": 0.0047, "manufacturing": 0.2483, "transport": 0.053, "trade": 0.4047, "banking": 0.0177, "finance": 0.003, "insurance": 0.0144, "real_estate": 0.0417, "health": 0.0018, "legal": 0.0104, "professional": 0.0753, "education": 0.0014, "entertainment": 0.003, "hospitality": 0.0059, "other_services": 0.0077, "hardware": 0.005, "software": 0.0113, "internet": 0.0066, "media_telecom": 0.0067},
+          "importShare": 0.2764,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U line 141"
+        },
+        {
+          "id": "casinos",
+          "name": "Casinos & sports betting (net losses)",
+          "pce": 159.3,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.9,
+          "bea": "NIPA 2.4.5U line 227",
+          "note": "BEA casino gambling = wagers less prizes (incl. sports betting and online casinos). Less $3.0B bought by nonresidents."
+        },
+        {
+          "id": "lotteries",
+          "name": "Lotteries (net losses)",
+          "pce": 61.1,
+          "industries": {"state_local": 0.3753, "agriculture": 0.0014, "oil_gas": 0.0369, "mining_metals": 0.0131, "utilities": 0.047, "construction": 0.0799, "manufacturing": 0.0638, "transport": 0.0466, "trade": 0.0509, "banking": 0.0227, "finance": 0.0102, "insurance": 0.0378, "real_estate": 0.0264, "health": 0.0006, "legal": 0.0134, "professional": 0.0969, "education": 0.0018, "entertainment": 0.0024, "hospitality": 0.0058, "other_services": 0.0166, "hardware": 0.0056, "software": 0.0226, "internet": 0.0133, "media_telecom": 0.009},
+          "importShare": 0.086,
+          "fantasy": 0.95,
+          "bea": "NIPA 2.4.5U line 228",
+          "note": "Ticket sales less prizes; state lotteries are state enterprises, so the value lands with state & local government."
+        },
+        {
+          "id": "racetrack_bets",
+          "name": "Racetrack betting (net losses)",
+          "pce": 5.9,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.85,
+          "bea": "NIPA 2.4.5U line 229"
+        },
+        {
+          "id": "tv_audio_gear",
+          "name": "TVs, audio gear & cameras",
+          "pce": 94.9,
+          "industries": {"federal": 0.0038, "state_local": 0.0079, "agriculture": 0.0016, "oil_gas": 0.0038, "mining_metals": 0.0015, "utilities": 0.0094, "construction": 0.0059, "manufacturing": 0.0227, "transport": 0.0451, "trade": 0.5093, "banking": 0.0205, "finance": 0.003, "insurance": 0.0142, "real_estate": 0.1355, "health": 0.0024, "legal": 0.0106, "professional": 0.0772, "education": 0.0019, "entertainment": 0.0038, "hospitality": 0.007, "other_services": 0.0671, "hardware": 0.0171, "software": 0.0131, "internet": 0.0077, "media_telecom": 0.0079},
+          "importShare": 0.4193,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U lines 41, 42, 43, 47, 130, 220, 222"
+        },
+        {
+          "id": "video_games_software",
+          "name": "Video games & digital media",
+          "pce": 129.6,
+          "industries": {"federal": 0.0036, "state_local": 0.0075, "agriculture": 0.001, "oil_gas": 0.003, "mining_metals": 0.0013, "utilities": 0.0084, "construction": 0.0039, "manufacturing": 0.0193, "transport": 0.031, "trade": 0.3654, "banking": 0.0183, "finance": 0.0025, "insurance": 0.0114, "real_estate": 0.0435, "health": 0.0019, "legal": 0.0141, "professional": 0.1026, "education": 0.0018, "entertainment": 0.0062, "hospitality": 0.0069, "other_services": 0.0074, "hardware": 0.0088, "software": 0.2552, "internet": 0.0053, "media_telecom": 0.0697},
+          "importShare": 0.2201,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U lines 44, 50",
+          "note": "Half of BEA \"computer software and accessories\" (assumed games) + discs and permanent digital downloads."
+        },
+        {
+          "id": "toys_games_hobbies",
+          "name": "Toys, games & hobbies",
+          "pce": 138.4,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0172, "oil_gas": 0.0056, "mining_metals": 0.0031, "utilities": 0.0112, "construction": 0.0048, "manufacturing": 0.1141, "transport": 0.0547, "trade": 0.5443, "banking": 0.018, "finance": 0.003, "insurance": 0.0152, "real_estate": 0.0489, "health": 0.0026, "legal": 0.0111, "professional": 0.0808, "education": 0.0017, "entertainment": 0.0036, "hospitality": 0.007, "other_services": 0.0085, "hardware": 0.0042, "software": 0.0129, "internet": 0.0076, "media_telecom": 0.0078},
+          "importShare": 0.1517,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U line 127"
+        },
+        {
+          "id": "sporting_guns",
+          "name": "Sporting goods, guns & ammunition",
+          "pce": 135.5,
+          "industries": {"federal": 0.004, "state_local": 0.0084, "agriculture": 0.0181, "oil_gas": 0.0059, "mining_metals": 0.0034, "utilities": 0.0112, "construction": 0.005, "manufacturing": 0.1203, "transport": 0.0582, "trade": 0.4962, "banking": 0.0183, "finance": 0.0032, "insurance": 0.0152, "real_estate": 0.0492, "health": 0.0023, "legal": 0.0111, "professional": 0.0806, "education": 0.0018, "entertainment": 0.0037, "hospitality": 0.007, "other_services": 0.0443, "hardware": 0.0042, "software": 0.013, "internet": 0.0076, "media_telecom": 0.0078},
+          "importShare": 0.159,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U lines 52, 233"
+        },
+        {
+          "id": "pet_products",
+          "name": "Pet food & products",
+          "pce": 116.8,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0224, "oil_gas": 0.0064, "mining_metals": 0.0038, "utilities": 0.0114, "construction": 0.0048, "manufacturing": 0.1449, "transport": 0.0619, "trade": 0.5043, "banking": 0.018, "finance": 0.0031, "insurance": 0.0153, "real_estate": 0.0472, "health": 0.0024, "legal": 0.0109, "professional": 0.0794, "education": 0.0016, "entertainment": 0.0034, "hospitality": 0.0068, "other_services": 0.0083, "hardware": 0.0044, "software": 0.0124, "internet": 0.0073, "media_telecom": 0.0075},
+          "importShare": 0.1851,
+          "fantasy": 0.3,
+          "bea": "NIPA 2.4.5U line 128"
+        },
+        {
+          "id": "vet_pet_services",
+          "name": "Vets & pet care",
+          "pce": 79.6,
+          "industries": {"federal": 0.0061, "state_local": 0.0128, "agriculture": 0.001, "oil_gas": 0.0027, "mining_metals": 0.0017, "utilities": 0.0056, "construction": 0.0034, "manufacturing": 0.0295, "transport": 0.0141, "trade": 0.0396, "banking": 0.0153, "finance": 0.0028, "insurance": 0.0111, "real_estate": 0.0385, "health": 0.0009, "legal": 0.0023, "professional": 0.6118, "education": 0.0045, "entertainment": 0.0052, "hospitality": 0.009, "other_services": 0.1072, "hardware": 0.0077, "software": 0.0317, "internet": 0.0186, "media_telecom": 0.0169},
+          "importShare": 0.0462,
+          "fantasy": 0.2,
+          "bea": "NIPA 2.4.5U line 231"
+        },
+        {
+          "id": "cable_tv",
+          "name": "Cable & satellite TV",
+          "pce": 77.3,
+          "industries": {"federal": 0.0025, "state_local": 0.0052, "agriculture": 0.0005, "oil_gas": 0.0019, "mining_metals": 0.0016, "utilities": 0.0093, "construction": 0.0043, "manufacturing": 0.0181, "transport": 0.0091, "trade": 0.0238, "banking": 0.0261, "finance": 0.0027, "insurance": 0.0088, "real_estate": 0.043, "health": 0.0003, "legal": 0.0108, "professional": 0.0783, "education": 0.0019, "entertainment": 0.0337, "hospitality": 0.0054, "other_services": 0.0067, "hardware": 0.006, "software": 0.014, "internet": 0.0082, "media_telecom": 0.6778},
+          "importShare": 0.059,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U line 219"
+        },
+        {
+          "id": "video_streaming",
+          "name": "Video streaming",
+          "pce": 59.1,
+          "industries": {"federal": 0.0028, "state_local": 0.006, "agriculture": 0.0006, "oil_gas": 0.0019, "mining_metals": 0.0015, "utilities": 0.0072, "construction": 0.0033, "manufacturing": 0.0174, "transport": 0.0103, "trade": 0.0207, "banking": 0.0214, "finance": 0.0023, "insurance": 0.0074, "real_estate": 0.0356, "health": 0.0003, "legal": 0.0149, "professional": 0.1079, "education": 0.0017, "entertainment": 0.0181, "hospitality": 0.0059, "other_services": 0.0058, "hardware": 0.005, "software": 0.0069, "internet": 0.353, "media_telecom": 0.3421},
+          "importShare": 0.05,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U line 224"
+        },
+        {
+          "id": "audio_streaming",
+          "name": "Music streaming & radio",
+          "pce": 12.3,
+          "industries": {"federal": 0.0028, "state_local": 0.0058, "agriculture": 0.0006, "oil_gas": 0.0019, "mining_metals": 0.0015, "utilities": 0.0076, "construction": 0.0035, "manufacturing": 0.0175, "transport": 0.0101, "trade": 0.0213, "banking": 0.0223, "finance": 0.0024, "insurance": 0.0076, "real_estate": 0.037, "health": 0.0003, "legal": 0.0141, "professional": 0.102, "education": 0.0017, "entertainment": 0.0212, "hospitality": 0.0058, "other_services": 0.006, "hardware": 0.0052, "software": 0.0083, "internet": 0.2849, "media_telecom": 0.4086},
+          "importShare": 0.0518,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U line 225"
+        },
+        {
+          "id": "news_magazines",
+          "name": "Newspapers & magazines",
+          "pce": 94.4,
+          "industries": {"federal": 0.0034, "state_local": 0.0071, "agriculture": 0.0008, "oil_gas": 0.0027, "mining_metals": 0.0013, "utilities": 0.0063, "construction": 0.003, "manufacturing": 0.0177, "transport": 0.0275, "trade": 0.1589, "banking": 0.0172, "finance": 0.0022, "insurance": 0.0085, "real_estate": 0.0343, "health": 0.0009, "legal": 0.0171, "professional": 0.1243, "education": 0.0016, "entertainment": 0.0031, "hospitality": 0.0068, "other_services": 0.006, "hardware": 0.0039, "software": 0.0033, "internet": 0.0019, "media_telecom": 0.5402},
+          "importShare": 0.0411,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U line 143"
+        },
+        {
+          "id": "amusement_parks",
+          "name": "Amusement parks & campgrounds",
+          "pce": 80.6,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.8,
+          "bea": "NIPA 2.4.5U line 212",
+          "note": "Less $7.6B bought by nonresidents."
+        },
+        {
+          "id": "live_shows",
+          "name": "Concerts & theater",
+          "pce": 55.9,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U line 215",
+          "note": "Less $4.5B bought by nonresidents."
+        },
+        {
+          "id": "spectator_sports",
+          "name": "Spectator sports",
+          "pce": 41.0,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U line 216",
+          "note": "Less $3.0B bought by nonresidents."
+        },
+        {
+          "id": "movie_theaters",
+          "name": "Movie theaters",
+          "pce": 10.7,
+          "industries": {"federal": 0.0025, "state_local": 0.0052, "agriculture": 0.0005, "oil_gas": 0.0019, "mining_metals": 0.0016, "utilities": 0.0093, "construction": 0.0043, "manufacturing": 0.0181, "transport": 0.0091, "trade": 0.0238, "banking": 0.0261, "finance": 0.0027, "insurance": 0.0088, "real_estate": 0.043, "health": 0.0003, "legal": 0.0108, "professional": 0.0783, "education": 0.0019, "entertainment": 0.0337, "hospitality": 0.0054, "other_services": 0.0067, "hardware": 0.006, "software": 0.014, "internet": 0.0082, "media_telecom": 0.6778},
+          "importShare": 0.059,
+          "fantasy": 0.8,
+          "bea": "NIPA 2.4.5U line 214"
+        },
+        {
+          "id": "cruises_tours",
+          "name": "Cruises & package tours",
+          "pce": 30.7,
+          "industries": {"federal": 0.0067, "state_local": 0.0141, "agriculture": 0.0027, "oil_gas": 0.0141, "mining_metals": 0.0017, "utilities": 0.0094, "construction": 0.0047, "manufacturing": 0.0276, "transport": 0.281, "trade": 0.0339, "banking": 0.0208, "finance": 0.0065, "insurance": 0.0234, "real_estate": 0.0471, "health": 0.0008, "legal": 0.0074, "professional": 0.2934, "education": 0.0057, "entertainment": 0.0058, "hospitality": 0.1383, "other_services": 0.0097, "hardware": 0.004, "software": 0.0183, "internet": 0.0107, "media_telecom": 0.0122},
+          "importShare": 0.0922,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U lines 208, 232"
+        }
+      ]
+    },
+    {
+      "id": "jeopardy",
+      "name": "Jeopardy",
+      "notebook": "JEOPARDY: legal, health, debt",
+      "bracket": "selfish",
+      "desire": {"food": 0.1, "collective": 0.2, "law": 0.4, "shelter": 0.25, "sex": 0.05},
+      "fear": {"starvation": 0.15, "isolation": 0.1, "murder": 0.35, "exposure": 0.35, "childless": 0.05},
+      "fearShare": 0.85,
+      "mind": {"x": 0.7, "y": 0.4, "z": 0.3},
+      "fantasy": 0.1,
+      "pce": 6378.9,
+      "shareOfPce": 0.3044,
+      "outsidePce": [
+        {
+          "id": "interest_consumer_debt",
+          "name": "Interest on consumer debt (cards, auto, student)",
+          "usd": 577.7,
+          "industries": {"banking": 0.85, "finance": 0.15},
+          "note": "BEA personal interest payments (non-mortgage), NIPA 2.6, 2025. Routed to banking (banks, card issuers, auto lenders) and finance (student-loan and other nonbank lenders): approximate split. Mortgage interest (~$505B) is inside owners' imputed rent in BEA accounting."
+        }
+      ],
+      "blurb": "Doctors, hospitals, drugs, insurance, lawyers, bank charges and interest on debt: paying to escape a threat.",
+      "note": "fearShare 0.85 (x 0.7, design 0.8): mostly fear of illness, loss and ruin, but some care is wanted (elective, preventive) and life insurance protects others. y 0.4 and z 0.3 (design 0.35, 0.25) because $1.0T of the category is deliberate, future-facing asset fees. Health care is counted with all payers (insurers, Medicare, Medicaid), as in PCE; households pay ~$0.5T out of pocket (CMS NHE). The financial-sector charges for holding assets (implicit bank and pension services, investment management, brokerage: $1,009B, items flagged assetFee) are PCE, not saving, so they sit here on the notebook's Services -> Jeopardy line; a view can move them next to saving. Interest on consumer debt is outside PCE (outsidePce) but inside the history share. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "physicians",
+          "name": "Doctors",
+          "pce": 836.7,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 174"
+        },
+        {
+          "id": "dentists",
+          "name": "Dentists",
+          "pce": 198.2,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 175"
+        },
+        {
+          "id": "home_health",
+          "name": "Home health care",
+          "pce": 209.2,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 177"
+        },
+        {
+          "id": "outpatient_other",
+          "name": "Outpatient centers, labs & therapists",
+          "pce": 438.2,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 178, 179"
+        },
+        {
+          "id": "hospitals",
+          "name": "Hospitals",
+          "pce": 1599.1,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 183",
+          "note": "Less $1.1B bought by nonresidents."
+        },
+        {
+          "id": "nursing_homes",
+          "name": "Nursing homes",
+          "pce": 269.0,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 187"
+        },
+        {
+          "id": "drugs_rx",
+          "name": "Prescription drugs",
+          "pce": 593.5,
+          "industries": {"federal": 0.0037, "state_local": 0.0078, "agriculture": 0.0463, "oil_gas": 0.008, "mining_metals": 0.0066, "utilities": 0.0126, "construction": 0.0047, "manufacturing": 0.2851, "transport": 0.047, "trade": 0.3719, "banking": 0.0175, "finance": 0.003, "insurance": 0.014, "real_estate": 0.0398, "health": 0.0017, "legal": 0.0102, "professional": 0.0739, "education": 0.0013, "entertainment": 0.0028, "hospitality": 0.0056, "other_services": 0.0075, "hardware": 0.0053, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0064},
+          "importShare": 0.3039,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 123"
+        },
+        {
+          "id": "drugs_otc",
+          "name": "Over-the-counter drugs & supplies",
+          "pce": 135.8,
+          "industries": {"federal": 0.0039, "state_local": 0.0081, "agriculture": 0.0259, "oil_gas": 0.0063, "mining_metals": 0.0042, "utilities": 0.0116, "construction": 0.0048, "manufacturing": 0.1652, "transport": 0.0504, "trade": 0.4947, "banking": 0.0179, "finance": 0.003, "insurance": 0.0148, "real_estate": 0.0462, "health": 0.0023, "legal": 0.0109, "professional": 0.0788, "education": 0.0016, "entertainment": 0.0033, "hospitality": 0.0065, "other_services": 0.0082, "hardware": 0.0045, "software": 0.0123, "internet": 0.0072, "media_telecom": 0.0074},
+          "importShare": 0.2034,
+          "fantasy": 0.3,
+          "bea": "NIPA 2.4.5U lines 124, 125"
+        },
+        {
+          "id": "medical_equipment",
+          "name": "Medical equipment, glasses & contacts",
+          "pce": 99.5,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0152, "oil_gas": 0.005, "mining_metals": 0.0029, "utilities": 0.0111, "construction": 0.0048, "manufacturing": 0.1027, "transport": 0.043, "trade": 0.5681, "banking": 0.0179, "finance": 0.0029, "insurance": 0.0148, "real_estate": 0.0495, "health": 0.0027, "legal": 0.0112, "professional": 0.0815, "education": 0.0018, "entertainment": 0.0037, "hospitality": 0.0069, "other_services": 0.0086, "hardware": 0.0048, "software": 0.0132, "internet": 0.0077, "media_telecom": 0.0079},
+          "importShare": 0.16,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 67, 68"
+        },
+        {
+          "id": "elder_residential_care",
+          "name": "Elder homes & residential treatment",
+          "pce": 72.0,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U lines 318, 319"
+        },
+        {
+          "id": "health_insurance",
+          "name": "Health insurance (insurers' net cost)",
+          "pce": 283.5,
+          "industries": {"federal": 0.0024, "state_local": 0.005, "agriculture": 0.0003, "oil_gas": 0.0008, "mining_metals": 0.0003, "utilities": 0.0021, "construction": 0.0019, "manufacturing": 0.0091, "transport": 0.0041, "trade": 0.0058, "banking": 0.0065, "finance": 0.0078, "insurance": 0.8284, "real_estate": 0.0231, "health": 0.0002, "legal": 0.0083, "professional": 0.0599, "education": 0.001, "entertainment": 0.0014, "hospitality": 0.0043, "other_services": 0.0053, "hardware": 0.0014, "software": 0.0094, "internet": 0.0055, "media_telecom": 0.0057},
+          "importShare": 0.094,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U line 275",
+          "note": "BEA net health insurance: premiums less benefits paid = insurers' administration and profit. Benefits are already counted in doctors, hospitals and drugs."
+        },
+        {
+          "id": "life_insurance",
+          "name": "Life insurance",
+          "pce": 130.3,
+          "industries": {"federal": 0.0024, "state_local": 0.005, "agriculture": 0.0003, "oil_gas": 0.0008, "mining_metals": 0.0003, "utilities": 0.0021, "construction": 0.0019, "manufacturing": 0.0091, "transport": 0.0041, "trade": 0.0058, "banking": 0.0065, "finance": 0.0078, "insurance": 0.8284, "real_estate": 0.0231, "health": 0.0002, "legal": 0.0083, "professional": 0.0599, "education": 0.001, "entertainment": 0.0014, "hospitality": 0.0043, "other_services": 0.0053, "hardware": 0.0014, "software": 0.0094, "internet": 0.0055, "media_telecom": 0.0057},
+          "importShare": 0.094,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U line 271"
+        },
+        {
+          "id": "auto_home_insurance",
+          "name": "Auto & home insurance (net)",
+          "pce": 128.6,
+          "industries": {"federal": 0.0024, "state_local": 0.005, "agriculture": 0.0003, "oil_gas": 0.0008, "mining_metals": 0.0003, "utilities": 0.0021, "construction": 0.0019, "manufacturing": 0.0091, "transport": 0.0041, "trade": 0.0058, "banking": 0.0065, "finance": 0.0078, "insurance": 0.8284, "real_estate": 0.0231, "health": 0.0002, "legal": 0.0083, "professional": 0.0599, "education": 0.001, "entertainment": 0.0014, "hospitality": 0.0043, "other_services": 0.0053, "hardware": 0.0014, "software": 0.0094, "internet": 0.0055, "media_telecom": 0.0057},
+          "importShare": 0.094,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U lines 272, 279",
+          "note": "Premiums less normal losses."
+        },
+        {
+          "id": "legal_services",
+          "name": "Lawyers",
+          "pce": 153.9,
+          "industries": {"federal": 0.0064, "state_local": 0.0135, "agriculture": 0.0011, "oil_gas": 0.0025, "mining_metals": 0.0015, "utilities": 0.0045, "construction": 0.0025, "manufacturing": 0.0301, "transport": 0.013, "trade": 0.0177, "banking": 0.0137, "finance": 0.0024, "insurance": 0.0106, "real_estate": 0.0324, "health": 0.0011, "legal": 0.7379, "education": 0.0047, "entertainment": 0.0049, "hospitality": 0.0091, "other_services": 0.0073, "hardware": 0.0087, "software": 0.0351, "internet": 0.0206, "media_telecom": 0.0187},
+          "importShare": 0.047,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 299"
+        },
+        {
+          "id": "tax_prep",
+          "name": "Tax preparation",
+          "pce": 52.3,
+          "industries": {"federal": 0.0064, "state_local": 0.0135, "agriculture": 0.0011, "oil_gas": 0.0025, "mining_metals": 0.0015, "utilities": 0.0045, "construction": 0.0025, "manufacturing": 0.0301, "transport": 0.013, "trade": 0.0177, "banking": 0.0137, "finance": 0.0024, "insurance": 0.0106, "real_estate": 0.0324, "health": 0.0011, "professional": 0.7379, "education": 0.0047, "entertainment": 0.0049, "hospitality": 0.0091, "other_services": 0.0073, "hardware": 0.0087, "software": 0.0351, "internet": 0.0206, "media_telecom": 0.0187},
+          "importShare": 0.047,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 301"
+        },
+        {
+          "id": "funerals",
+          "name": "Funerals & burial",
+          "pce": 31.6,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.2,
+          "bea": "NIPA 2.4.5U line 306"
+        },
+        {
+          "id": "bank_fees",
+          "name": "Bank, card & account fees",
+          "pce": 138.4,
+          "industries": {"federal": 0.002, "state_local": 0.0041, "agriculture": 0.0004, "oil_gas": 0.0026, "mining_metals": 0.0005, "utilities": 0.0041, "construction": 0.0043, "manufacturing": 0.0079, "transport": 0.0077, "trade": 0.0102, "banking": 0.7619, "finance": 0.0353, "insurance": 0.01, "real_estate": 0.0242, "health": 0.0002, "legal": 0.0084, "professional": 0.0611, "education": 0.0014, "entertainment": 0.0038, "hospitality": 0.0112, "other_services": 0.0051, "hardware": 0.0017, "software": 0.0149, "internet": 0.0087, "media_telecom": 0.0083},
+          "importShare": 0.025,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 259"
+        },
+        {
+          "id": "bank_deposit_services",
+          "name": "Banking paid with low deposit rates",
+          "pce": 530.5,
+          "industries": {"federal": 0.0067, "state_local": 0.014, "agriculture": 0.0006, "oil_gas": 0.0033, "mining_metals": 0.0006, "utilities": 0.0052, "construction": 0.0046, "manufacturing": 0.0097, "transport": 0.0095, "trade": 0.0114, "banking": 0.6023, "finance": 0.1343, "insurance": 0.0181, "real_estate": 0.0305, "health": 0.0004, "legal": 0.0103, "professional": 0.075, "education": 0.0016, "entertainment": 0.0041, "hospitality": 0.0117, "other_services": 0.0062, "hardware": 0.0019, "software": 0.0178, "internet": 0.0104, "media_telecom": 0.0098},
+          "importShare": 0.0286,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U lines 255, 256",
+          "assetFee": true,
+          "note": "BEA 'financial services furnished without payment' of banks and money funds: the interest depositors forgo. An asset-holding cost (assetFee)."
+        },
+        {
+          "id": "pension_fund_services",
+          "name": "Pension fund administration (implicit)",
+          "pce": 84.0,
+          "industries": {"federal": 0.0212, "state_local": 0.0444, "agriculture": 0.0011, "oil_gas": 0.0054, "mining_metals": 0.0009, "utilities": 0.0084, "construction": 0.0052, "manufacturing": 0.0154, "transport": 0.0151, "trade": 0.0148, "banking": 0.1106, "finance": 0.4399, "insurance": 0.0429, "real_estate": 0.0498, "health": 0.0009, "legal": 0.0162, "professional": 0.1176, "education": 0.0022, "entertainment": 0.0051, "hospitality": 0.0135, "other_services": 0.0095, "hardware": 0.0028, "software": 0.0269, "internet": 0.0158, "media_telecom": 0.0144},
+          "importShare": 0.039,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 257",
+          "assetFee": true,
+          "note": "Imputed services of pension funds. An asset-holding cost (assetFee)."
+        },
+        {
+          "id": "investment_fees",
+          "name": "Investment management, brokerage & trust fees",
+          "pce": 394.6,
+          "industries": {"federal": 0.0212, "state_local": 0.0444, "agriculture": 0.0011, "oil_gas": 0.0054, "mining_metals": 0.0009, "utilities": 0.0084, "construction": 0.0052, "manufacturing": 0.0154, "transport": 0.0151, "trade": 0.0148, "banking": 0.1106, "finance": 0.4399, "insurance": 0.0429, "real_estate": 0.0498, "health": 0.0009, "legal": 0.0162, "professional": 0.1176, "education": 0.0022, "entertainment": 0.0051, "hospitality": 0.0135, "other_services": 0.0095, "hardware": 0.0028, "software": 0.0269, "internet": 0.0158, "media_telecom": 0.0144},
+          "importShare": 0.039,
+          "fantasy": 0.3,
+          "bea": "NIPA 2.4.5U lines 260, 268, 269",
+          "assetFee": true,
+          "note": "Portfolio management and advice + securities commissions + trust and custody. An asset-holding cost (assetFee)."
+        }
+      ]
+    },
+    {
+      "id": "status",
+      "name": "Social status",
+      "notebook": "SOCIAL STATUS: housing, online, restaurants, bars, gyms",
+      "bracket": "mating",
+      "desire": {"food": 0.1, "collective": 0.25, "law": 0.0, "shelter": 0.2, "sex": 0.45},
+      "fear": {"starvation": 0.0, "isolation": 0.4, "murder": 0.05, "exposure": 0.15, "childless": 0.4},
+      "fearShare": 0.25,
+      "mind": {"x": -0.5, "y": 0.25, "z": 0.35},
+      "fantasy": 0.43,
+      "pce": 3800.9,
+      "shareOfPce": 0.1814,
+      "blurb": "Housing, cars and clothes above the basic level, restaurants, travel, beauty and gyms: signals of rank and attractiveness.",
+      "note": "Design defaults kept (x -0.5, y 0.25, z 0.35; fearShare 0.25: mostly wanting to rise, partly fear of falling behind and of being passed over). Online status (in-app purchases, subscriptions) is not separable in PCE and sits in escapism (games, streaming). Weddings and dating are spread across restaurants, clothing, jewelry and travel; see markets. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "rent_above_basic",
+          "name": "Rent above the basic level",
+          "pce": 210.5,
+          "industries": {"federal": 0.0008, "state_local": 0.0017, "agriculture": 0.0002, "oil_gas": 0.0008, "mining_metals": 0.0006, "utilities": 0.0009, "construction": 0.0137, "manufacturing": 0.0043, "transport": 0.0023, "trade": 0.0065, "banking": 0.0381, "finance": 0.0021, "insurance": 0.0057, "real_estate": 0.8973, "health": 0.0001, "legal": 0.0016, "professional": 0.0118, "education": 0.0002, "entertainment": 0.0005, "hospitality": 0.0013, "other_services": 0.0048, "hardware": 0.0004, "software": 0.0018, "internet": 0.0011, "media_telecom": 0.0014},
+          "importShare": 0.006,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U line 154",
+          "note": "Tenant rent x 0.271: size, location and amenities beyond the second-quintile level."
+        },
+        {
+          "id": "owner_rent_above_basic",
+          "name": "Homeowners' housing above the basic level",
+          "pce": 677.6,
+          "industries": {"federal": 0.0008, "state_local": 0.0017, "agriculture": 0.0002, "oil_gas": 0.0008, "mining_metals": 0.0006, "utilities": 0.0009, "construction": 0.0137, "manufacturing": 0.0043, "transport": 0.0023, "trade": 0.0065, "banking": 0.0381, "finance": 0.0021, "insurance": 0.0057, "real_estate": 0.8973, "health": 0.0001, "legal": 0.0016, "professional": 0.0118, "education": 0.0002, "entertainment": 0.0005, "hospitality": 0.0013, "other_services": 0.0048, "hardware": 0.0004, "software": 0.0018, "internet": 0.0011, "media_telecom": 0.0014},
+          "importShare": 0.006,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U line 160",
+          "note": "Imputed owner rent x 0.271."
+        },
+        {
+          "id": "vehicles_above_basic",
+          "name": "Cars & trucks above the basic level",
+          "pce": 283.7,
+          "industries": {"federal": 0.003, "state_local": 0.0062, "agriculture": 0.0314, "oil_gas": 0.0061, "mining_metals": 0.0047, "utilities": 0.0094, "construction": 0.0071, "manufacturing": 0.1952, "transport": 0.0422, "trade": 0.2838, "banking": 0.0231, "finance": 0.0028, "insurance": 0.0122, "real_estate": 0.2679, "health": 0.0013, "legal": 0.008, "professional": 0.0579, "education": 0.0011, "entertainment": 0.0023, "hospitality": 0.0047, "other_services": 0.0069, "hardware": 0.0039, "software": 0.0086, "internet": 0.005, "media_telecom": 0.0052},
+          "importShare": 0.2313,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U lines 5, 12",
+          "note": "New + used vehicles x 0.452."
+        },
+        {
+          "id": "boats_rvs_motorcycles",
+          "name": "Boats, RVs & motorcycles",
+          "pce": 100.9,
+          "industries": {"federal": 0.0037, "state_local": 0.0078, "agriculture": 0.0473, "oil_gas": 0.0087, "mining_metals": 0.0067, "utilities": 0.0127, "construction": 0.0047, "manufacturing": 0.2913, "transport": 0.0614, "trade": 0.3504, "banking": 0.0177, "finance": 0.0031, "insurance": 0.0145, "real_estate": 0.0394, "health": 0.0015, "legal": 0.0101, "professional": 0.0734, "education": 0.0013, "entertainment": 0.0027, "hospitality": 0.0057, "other_services": 0.0075, "hardware": 0.0053, "software": 0.0106, "internet": 0.0062, "media_telecom": 0.0063},
+          "importShare": 0.3099,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U line 53"
+        },
+        {
+          "id": "restaurants_full",
+          "name": "Full-service restaurants & bars",
+          "pce": 484.7,
+          "industries": {"federal": 0.0091, "state_local": 0.019, "agriculture": 0.0082, "oil_gas": 0.0039, "mining_metals": 0.0018, "utilities": 0.0161, "construction": 0.0056, "manufacturing": 0.0376, "transport": 0.0165, "trade": 0.0567, "banking": 0.0227, "finance": 0.0076, "insurance": 0.0151, "real_estate": 0.0578, "health": 0.0016, "legal": 0.0129, "professional": 0.0933, "education": 0.0159, "entertainment": 0.0135, "hospitality": 0.5362, "other_services": 0.0117, "hardware": 0.0021, "software": 0.0143, "internet": 0.0084, "media_telecom": 0.0124},
+          "importShare": 0.048,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U lines 243, 244",
+          "note": "Meals at full-service restaurants and drinking places (alcohol is in escapism). Less $18.2B bought by nonresidents."
+        },
+        {
+          "id": "restaurants_fast",
+          "name": "Fast food & limited-service restaurants",
+          "pce": 548.5,
+          "industries": {"federal": 0.0091, "state_local": 0.019, "agriculture": 0.0082, "oil_gas": 0.0039, "mining_metals": 0.0018, "utilities": 0.0161, "construction": 0.0056, "manufacturing": 0.0376, "transport": 0.0165, "trade": 0.0567, "banking": 0.0227, "finance": 0.0076, "insurance": 0.0151, "real_estate": 0.0578, "health": 0.0016, "legal": 0.0129, "professional": 0.0933, "education": 0.0159, "entertainment": 0.0135, "hospitality": 0.5362, "other_services": 0.0117, "hardware": 0.0021, "software": 0.0143, "internet": 0.0084, "media_telecom": 0.0124},
+          "importShare": 0.048,
+          "fantasy": 0.2,
+          "bea": "NIPA 2.4.5U line 242",
+          "note": "Kept in status as in the design (restaurants and bars); arguably convenience. Less $7.6B bought by nonresidents."
+        },
+        {
+          "id": "hotels",
+          "name": "Hotels & motels",
+          "pce": 108.1,
+          "industries": {"federal": 0.0091, "state_local": 0.019, "agriculture": 0.0082, "oil_gas": 0.0039, "mining_metals": 0.0018, "utilities": 0.0161, "construction": 0.0056, "manufacturing": 0.0376, "transport": 0.0165, "trade": 0.0567, "banking": 0.0227, "finance": 0.0076, "insurance": 0.0151, "real_estate": 0.0578, "health": 0.0016, "legal": 0.0129, "professional": 0.0933, "education": 0.0159, "entertainment": 0.0135, "hospitality": 0.5362, "other_services": 0.0117, "hardware": 0.0021, "software": 0.0143, "internet": 0.0084, "media_telecom": 0.0124},
+          "importShare": 0.048,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U line 250",
+          "note": "Less $42.4B bought by nonresidents."
+        },
+        {
+          "id": "air_travel",
+          "name": "Air travel",
+          "pce": 183.4,
+          "industries": {"federal": 0.0056, "state_local": 0.0118, "agriculture": 0.0007, "oil_gas": 0.0285, "mining_metals": 0.0017, "utilities": 0.0094, "construction": 0.0058, "manufacturing": 0.0201, "transport": 0.6296, "trade": 0.0333, "banking": 0.0249, "finance": 0.009, "insurance": 0.0375, "real_estate": 0.0522, "health": 0.0002, "legal": 0.01, "professional": 0.0722, "education": 0.0009, "entertainment": 0.0021, "hospitality": 0.0127, "other_services": 0.0105, "hardware": 0.0016, "software": 0.0079, "internet": 0.0046, "media_telecom": 0.0072},
+          "importShare": 0.143,
+          "fantasy": 0.3,
+          "bea": "NIPA 2.4.5U line 207",
+          "note": "Less $12.1B bought by nonresidents."
+        },
+        {
+          "id": "foreign_travel",
+          "name": "Travel abroad",
+          "pce": 287.3,
+          "industries": {"federal": 0.0078, "state_local": 0.0162, "agriculture": 0.0054, "oil_gas": 0.0134, "mining_metals": 0.0018, "utilities": 0.0135, "construction": 0.0057, "manufacturing": 0.0309, "transport": 0.2528, "trade": 0.0477, "banking": 0.0236, "finance": 0.0081, "insurance": 0.0237, "real_estate": 0.0557, "health": 0.0011, "legal": 0.0117, "professional": 0.0852, "education": 0.0101, "entertainment": 0.0091, "hospitality": 0.3341, "other_services": 0.0112, "hardware": 0.0019, "software": 0.0119, "internet": 0.007, "media_telecom": 0.0104},
+          "importShare": 1.0,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U line 334",
+          "note": "Fares to foreign carriers and spending abroad: importShare 1, weights only show what it buys."
+        },
+        {
+          "id": "clothing_above_basic",
+          "name": "Clothing & shoes above the basic level",
+          "pce": 182.7,
+          "industries": {"federal": 0.004, "state_local": 0.0083, "agriculture": 0.0135, "oil_gas": 0.0053, "mining_metals": 0.0027, "utilities": 0.011, "construction": 0.0048, "manufacturing": 0.0926, "transport": 0.0539, "trade": 0.5675, "banking": 0.0181, "finance": 0.003, "insurance": 0.0153, "real_estate": 0.05, "health": 0.0027, "legal": 0.0113, "professional": 0.0818, "education": 0.0018, "entertainment": 0.0037, "hospitality": 0.0071, "other_services": 0.0086, "hardware": 0.0041, "software": 0.0132, "internet": 0.0077, "media_telecom": 0.008},
+          "importShare": 0.1273,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U lines 105, 109",
+          "note": "Clothing and footwear x 0.336. Less $6.1B bought by nonresidents."
+        },
+        {
+          "id": "jewelry_watches",
+          "name": "Jewelry & watches",
+          "pce": 99.9,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0121, "oil_gas": 0.0047, "mining_metals": 0.0025, "utilities": 0.011, "construction": 0.0048, "manufacturing": 0.0841, "transport": 0.0424, "trade": 0.5886, "banking": 0.018, "finance": 0.0029, "insurance": 0.0149, "real_estate": 0.0505, "health": 0.0028, "legal": 0.0114, "professional": 0.0824, "education": 0.0018, "entertainment": 0.0037, "hospitality": 0.0071, "other_services": 0.0087, "hardware": 0.0041, "software": 0.0134, "internet": 0.0079, "media_telecom": 0.0081},
+          "importShare": 0.1153,
+          "fantasy": 0.8,
+          "bea": "NIPA 2.4.5U line 63",
+          "note": "Less $6.1B bought by nonresidents."
+        },
+        {
+          "id": "luggage_accessories",
+          "name": "Handbags, luggage & accessories",
+          "pce": 46.6,
+          "industries": {"federal": 0.0039, "state_local": 0.0083, "agriculture": 0.0153, "oil_gas": 0.0055, "mining_metals": 0.0029, "utilities": 0.0111, "construction": 0.0048, "manufacturing": 0.1032, "transport": 0.0543, "trade": 0.5561, "banking": 0.0181, "finance": 0.003, "insurance": 0.0152, "real_estate": 0.0495, "health": 0.0027, "legal": 0.0112, "professional": 0.0813, "education": 0.0017, "entertainment": 0.0036, "hospitality": 0.007, "other_services": 0.0086, "hardware": 0.0042, "software": 0.013, "internet": 0.0076, "media_telecom": 0.0079},
+          "importShare": 0.1395,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U line 70",
+          "note": "Less $4.5B bought by nonresidents."
+        },
+        {
+          "id": "cosmetics",
+          "name": "Cosmetics & perfume",
+          "pce": 71.7,
+          "industries": {"federal": 0.0039, "state_local": 0.0082, "agriculture": 0.0141, "oil_gas": 0.0051, "mining_metals": 0.0028, "utilities": 0.0111, "construction": 0.0048, "manufacturing": 0.0961, "transport": 0.0483, "trade": 0.5701, "banking": 0.018, "finance": 0.0029, "insurance": 0.015, "real_estate": 0.0498, "health": 0.0027, "legal": 0.0113, "professional": 0.0817, "education": 0.0018, "entertainment": 0.0037, "hospitality": 0.007, "other_services": 0.0086, "hardware": 0.0041, "software": 0.0132, "internet": 0.0077, "media_telecom": 0.008},
+          "importShare": 0.1304,
+          "fantasy": 0.7,
+          "bea": "NIPA 2.4.5U line 139",
+          "note": "Less $4.5B bought by nonresidents."
+        },
+        {
+          "id": "hair_salons",
+          "name": "Hair salons & barbers",
+          "pce": 96.8,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U line 309"
+        },
+        {
+          "id": "spas_nails",
+          "name": "Nails, spas & other personal care",
+          "pce": 120.3,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.6,
+          "bea": "NIPA 2.4.5U line 310"
+        },
+        {
+          "id": "gyms_clubs",
+          "name": "Gyms, golf & country clubs",
+          "pce": 85.0,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U line 211"
+        },
+        {
+          "id": "furnishings_above_basic",
+          "name": "Furniture & decor above the basic level",
+          "pce": 123.4,
+          "industries": {"federal": 0.004, "state_local": 0.0083, "agriculture": 0.0141, "oil_gas": 0.0058, "mining_metals": 0.0028, "utilities": 0.011, "construction": 0.0049, "manufacturing": 0.0961, "transport": 0.0654, "trade": 0.5518, "banking": 0.0182, "finance": 0.0031, "insurance": 0.0157, "real_estate": 0.0498, "health": 0.0026, "legal": 0.0112, "professional": 0.0814, "education": 0.0017, "entertainment": 0.0036, "hospitality": 0.0072, "other_services": 0.0087, "hardware": 0.0041, "software": 0.013, "internet": 0.0076, "media_telecom": 0.0079},
+          "importShare": 0.1333,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U line 24",
+          "note": "Furniture and furnishings x 0.42."
+        },
+        {
+          "id": "flowers_plants",
+          "name": "Flowers & plants",
+          "pce": 78.1,
+          "industries": {"federal": 0.0041, "state_local": 0.0086, "agriculture": 0.0659, "oil_gas": 0.0056, "mining_metals": 0.0019, "utilities": 0.0115, "construction": 0.0049, "manufacturing": 0.0468, "transport": 0.0641, "trade": 0.555, "banking": 0.0184, "finance": 0.003, "insurance": 0.0159, "real_estate": 0.0494, "health": 0.0027, "legal": 0.0108, "professional": 0.0787, "education": 0.0017, "entertainment": 0.0036, "hospitality": 0.0071, "other_services": 0.0085, "hardware": 0.0036, "software": 0.0128, "internet": 0.0075, "media_telecom": 0.0079},
+          "importShare": 0.1077,
+          "fantasy": 0.4,
+          "bea": "NIPA 2.4.5U line 129"
+        },
+        {
+          "id": "photo_studios",
+          "name": "Photo studios",
+          "pce": 11.7,
+          "industries": {"federal": 0.0064, "state_local": 0.0135, "agriculture": 0.0011, "oil_gas": 0.0025, "mining_metals": 0.0015, "utilities": 0.0045, "construction": 0.0025, "manufacturing": 0.0301, "transport": 0.013, "trade": 0.0177, "banking": 0.0137, "finance": 0.0024, "insurance": 0.0106, "real_estate": 0.0324, "health": 0.0011, "professional": 0.7379, "education": 0.0047, "entertainment": 0.0049, "hospitality": 0.0091, "other_services": 0.0073, "hardware": 0.0087, "software": 0.0351, "internet": 0.0206, "media_telecom": 0.0187},
+          "importShare": 0.047,
+          "fantasy": 0.5,
+          "bea": "NIPA 2.4.5U line 221"
+        }
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "Self-improvement",
+      "notebook": "SELF IMPROVEMENT, PERSONAL INCOME: consulting, wages",
+      "bracket": "mating",
+      "desire": {"food": 0.2, "collective": 0.25, "law": 0.15, "shelter": 0.2, "sex": 0.2},
+      "fear": {"starvation": 0.3, "isolation": 0.2, "murder": 0.1, "exposure": 0.2, "childless": 0.2},
+      "fearShare": 0.35,
+      "mind": {"x": -0.3, "y": 0.85, "z": 0.85},
+      "fantasy": 0.17,
+      "pce": 433.2,
+      "shareOfPce": 0.0207,
+      "blurb": "Tuition, courses, books and lessons: spending now to earn, know or be more later.",
+      "note": "Design defaults kept (x -0.3, y 0.85, z 0.85). Therapy and coaching are not separable in PCE (inside doctors and outpatient care, in jeopardy); the self-improvement industry (~$13B) is a market label. Public schooling is paid by taxes, not households. Foreign students' tuition is subtracted. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "college",
+          "name": "College tuition",
+          "pce": 163.2,
+          "industries": {"federal": 0.0491, "state_local": 0.1029, "agriculture": 0.0036, "oil_gas": 0.0072, "mining_metals": 0.002, "utilities": 0.0122, "construction": 0.0066, "manufacturing": 0.024, "transport": 0.0116, "trade": 0.0178, "banking": 0.0135, "finance": 0.0028, "insurance": 0.0106, "real_estate": 0.0512, "health": 0.0014, "legal": 0.0091, "professional": 0.0661, "education": 0.5425, "entertainment": 0.0108, "hospitality": 0.0085, "other_services": 0.0102, "hardware": 0.0029, "software": 0.015, "internet": 0.0088, "media_telecom": 0.0096},
+          "importShare": 0.036,
+          "fantasy": 0.2,
+          "bea": "NIPA 2.4.5U line 291",
+          "note": "Less $45.0B bought by nonresidents."
+        },
+        {
+          "id": "private_schools",
+          "name": "Private K-12 schools",
+          "pce": 45.4,
+          "industries": {"federal": 0.0491, "state_local": 0.1029, "agriculture": 0.0036, "oil_gas": 0.0072, "mining_metals": 0.002, "utilities": 0.0122, "construction": 0.0066, "manufacturing": 0.024, "transport": 0.0116, "trade": 0.0178, "banking": 0.0135, "finance": 0.0028, "insurance": 0.0106, "real_estate": 0.0512, "health": 0.0014, "legal": 0.0091, "professional": 0.0661, "education": 0.5425, "entertainment": 0.0108, "hospitality": 0.0085, "other_services": 0.0102, "hardware": 0.0029, "software": 0.015, "internet": 0.0088, "media_telecom": 0.0096},
+          "importShare": 0.036,
+          "fantasy": 0.2,
+          "bea": "NIPA 2.4.5U line 295"
+        },
+        {
+          "id": "vocational_courses",
+          "name": "Vocational schools, lessons & test prep",
+          "pce": 88.1,
+          "industries": {"federal": 0.0491, "state_local": 0.1029, "agriculture": 0.0036, "oil_gas": 0.0072, "mining_metals": 0.002, "utilities": 0.0122, "construction": 0.0066, "manufacturing": 0.024, "transport": 0.0116, "trade": 0.0178, "banking": 0.0135, "finance": 0.0028, "insurance": 0.0106, "real_estate": 0.0512, "health": 0.0014, "legal": 0.0091, "professional": 0.0661, "education": 0.5425, "entertainment": 0.0108, "hospitality": 0.0085, "other_services": 0.0102, "hardware": 0.0029, "software": 0.015, "internet": 0.0088, "media_telecom": 0.0096},
+          "importShare": 0.036,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U line 297"
+        },
+        {
+          "id": "college_housing",
+          "name": "College housing",
+          "pce": 36.2,
+          "industries": {"federal": 0.0491, "state_local": 0.1029, "agriculture": 0.0036, "oil_gas": 0.0072, "mining_metals": 0.002, "utilities": 0.0122, "construction": 0.0066, "manufacturing": 0.024, "transport": 0.0116, "trade": 0.0178, "banking": 0.0135, "finance": 0.0028, "insurance": 0.0106, "real_estate": 0.0512, "health": 0.0014, "legal": 0.0091, "professional": 0.0661, "education": 0.5425, "entertainment": 0.0108, "hospitality": 0.0085, "other_services": 0.0102, "hardware": 0.0029, "software": 0.015, "internet": 0.0088, "media_telecom": 0.0096},
+          "importShare": 0.036,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 251",
+          "note": "Less $11.2B bought by nonresidents."
+        },
+        {
+          "id": "books",
+          "name": "Books",
+          "pce": 42.0,
+          "industries": {"federal": 0.0037, "state_local": 0.0078, "agriculture": 0.0011, "oil_gas": 0.0033, "mining_metals": 0.0013, "utilities": 0.0084, "construction": 0.004, "manufacturing": 0.0195, "transport": 0.037, "trade": 0.4112, "banking": 0.0177, "finance": 0.0026, "insurance": 0.012, "real_estate": 0.0443, "health": 0.0021, "legal": 0.0143, "professional": 0.1041, "education": 0.0018, "entertainment": 0.0036, "hospitality": 0.0072, "other_services": 0.0076, "hardware": 0.0038, "software": 0.0088, "internet": 0.0052, "media_telecom": 0.2676},
+          "importShare": 0.0376,
+          "fantasy": 0.2,
+          "bea": "NIPA 2.4.5U lines 60, 69"
+        },
+        {
+          "id": "musical_instruments",
+          "name": "Musical instruments",
+          "pce": 9.1,
+          "industries": {"federal": 0.0039, "state_local": 0.0081, "agriculture": 0.0237, "oil_gas": 0.006, "mining_metals": 0.0039, "utilities": 0.0115, "construction": 0.0048, "manufacturing": 0.1528, "transport": 0.0501, "trade": 0.5084, "banking": 0.0179, "finance": 0.003, "insurance": 0.0148, "real_estate": 0.0468, "health": 0.0024, "legal": 0.0109, "professional": 0.0793, "education": 0.0016, "entertainment": 0.0034, "hospitality": 0.0066, "other_services": 0.0083, "hardware": 0.0045, "software": 0.0125, "internet": 0.0073, "media_telecom": 0.0075},
+          "importShare": 0.1913,
+          "fantasy": 0.3,
+          "bea": "NIPA 2.4.5U line 61"
+        },
+        {
+          "id": "museums_libraries",
+          "name": "Museums & libraries",
+          "pce": 17.7,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 217"
+        },
+        {
+          "id": "professional_dues",
+          "name": "Professional association dues",
+          "pce": 14.2,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 305"
+        },
+        {
+          "id": "job_placement",
+          "name": "Employment agencies",
+          "pce": 1.7,
+          "industries": {"federal": 0.0064, "state_local": 0.0135, "agriculture": 0.0011, "oil_gas": 0.0025, "mining_metals": 0.0015, "utilities": 0.0045, "construction": 0.0025, "manufacturing": 0.0301, "transport": 0.013, "trade": 0.0177, "banking": 0.0137, "finance": 0.0024, "insurance": 0.0106, "real_estate": 0.0324, "health": 0.0011, "professional": 0.7379, "education": 0.0047, "entertainment": 0.0049, "hospitality": 0.0091, "other_services": 0.0073, "hardware": 0.0087, "software": 0.0351, "internet": 0.0206, "media_telecom": 0.0187},
+          "importShare": 0.047,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 302"
+        },
+        {
+          "id": "vocational_rehab",
+          "name": "Vocational rehabilitation",
+          "pce": 15.6,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 321"
+        }
+      ]
+    },
+    {
+      "id": "collective",
+      "name": "Collective",
+      "notebook": "DESIRE: collective, law",
+      "bracket": "base",
+      "desire": {"food": 0.05, "collective": 0.6, "law": 0.3, "shelter": 0.05, "sex": 0.0},
+      "fear": {"starvation": 0.1, "isolation": 0.6, "murder": 0.2, "exposure": 0.1, "childless": 0.0},
+      "fearShare": 0.55,
+      "mind": {"x": 0.1, "y": 0.6, "z": 0.6},
+      "fantasy": 0.1,
+      "pce": 827.4,
+      "shareOfPce": 0.0395,
+      "outsidePce": [
+        {
+          "id": "transfers_paid",
+          "name": "Transfers paid: remittances abroad, fees & fines",
+          "usd": 286.8,
+          "industries": {"state_local": 0.5, "federal": 0.5},
+          "note": "BEA personal current transfer payments, NIPA 2.6, 2025: to government (fees, fines, donations) and to the rest of the world (net remittances). The government/abroad split is not in the research data; weights are a placeholder (the remittance part leaves the country)."
+        }
+      ],
+      "blurb": "Congregations, charities, unions, civic groups and gifts beyond the household: money spent on the group.",
+      "note": "Design defaults kept (x 0.1, y 0.6, z 0.6). Mostly the final consumption of nonprofits serving households ($608B, BEA): what churches, charities, nonprofit schools and hospitals spend beyond what they sell, funded by giving. Personal transfer payments (to government: fees, fines; to the rest of the world: remittances, net) are outside PCE (outsidePce) but inside the history share. Individual giving was ~$392B in 2024 (Giving USA, recalled). Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "union_dues",
+          "name": "Union dues",
+          "pce": 18.5,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 304"
+        },
+        {
+          "id": "family_social_services",
+          "name": "Family, social & emergency services",
+          "pce": 155.0,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 320, 322, 323"
+        },
+        {
+          "id": "civic_religious_giving",
+          "name": "Civic, religious & foundation services",
+          "pce": 45.7,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U lines 324, 325, 326"
+        },
+        {
+          "id": "npish_religious",
+          "name": "Congregations (nonprofit spending)",
+          "pce": 110.9,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 342",
+          "note": "NPISH final consumption: gross output less sales to households, funded by donations, dues and grants."
+        },
+        {
+          "id": "npish_social_services",
+          "name": "Charities' social services",
+          "pce": 129.4,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 342"
+        },
+        {
+          "id": "npish_education",
+          "name": "Nonprofit schools & universities (donor-funded)",
+          "pce": 126.0,
+          "industries": {"federal": 0.0491, "state_local": 0.1029, "agriculture": 0.0036, "oil_gas": 0.0072, "mining_metals": 0.002, "utilities": 0.0122, "construction": 0.0066, "manufacturing": 0.024, "transport": 0.0116, "trade": 0.0178, "banking": 0.0135, "finance": 0.0028, "insurance": 0.0106, "real_estate": 0.0512, "health": 0.0014, "legal": 0.0091, "professional": 0.0661, "education": 0.5425, "entertainment": 0.0108, "hospitality": 0.0085, "other_services": 0.0102, "hardware": 0.0029, "software": 0.015, "internet": 0.0088, "media_telecom": 0.0096},
+          "importShare": 0.036,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 342"
+        },
+        {
+          "id": "npish_health",
+          "name": "Nonprofit hospitals & clinics (charity care)",
+          "pce": 68.8,
+          "industries": {"federal": 0.0235, "state_local": 0.0492, "agriculture": 0.0026, "oil_gas": 0.0043, "mining_metals": 0.0013, "utilities": 0.0079, "construction": 0.0043, "manufacturing": 0.0388, "transport": 0.0144, "trade": 0.025, "banking": 0.0144, "finance": 0.0055, "insurance": 0.0194, "real_estate": 0.0454, "health": 0.5889, "legal": 0.0115, "professional": 0.0837, "education": 0.0014, "entertainment": 0.0039, "hospitality": 0.0171, "other_services": 0.0093, "hardware": 0.0031, "software": 0.0109, "internet": 0.0064, "media_telecom": 0.0078},
+          "importShare": 0.044,
+          "fantasy": 0.05,
+          "bea": "NIPA 2.4.5U line 342"
+        },
+        {
+          "id": "npish_foundations",
+          "name": "Foundations & grant-making",
+          "pce": 54.3,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 342"
+        },
+        {
+          "id": "npish_advocacy",
+          "name": "Advocacy, civic & professional groups",
+          "pce": 73.0,
+          "industries": {"federal": 0.0049, "state_local": 0.0102, "agriculture": 0.0009, "oil_gas": 0.0033, "mining_metals": 0.0026, "utilities": 0.0099, "construction": 0.007, "manufacturing": 0.0271, "transport": 0.0186, "trade": 0.131, "banking": 0.0218, "finance": 0.0044, "insurance": 0.0133, "real_estate": 0.0638, "health": 0.0003, "legal": 0.012, "professional": 0.0872, "education": 0.0033, "entertainment": 0.006, "hospitality": 0.0088, "other_services": 0.5233, "hardware": 0.0035, "software": 0.0173, "internet": 0.0102, "media_telecom": 0.0093},
+          "importShare": 0.043,
+          "fantasy": 0.15,
+          "bea": "NIPA 2.4.5U line 342"
+        },
+        {
+          "id": "npish_arts_recreation",
+          "name": "Nonprofit arts & recreation",
+          "pce": 45.8,
+          "industries": {"federal": 0.0198, "state_local": 0.0415, "agriculture": 0.0078, "oil_gas": 0.0081, "mining_metals": 0.0043, "utilities": 0.0129, "construction": 0.015, "manufacturing": 0.0294, "transport": 0.0195, "trade": 0.0253, "banking": 0.0206, "finance": 0.0056, "insurance": 0.0208, "real_estate": 0.0609, "health": 0.0005, "legal": 0.0123, "professional": 0.089, "education": 0.0078, "entertainment": 0.481, "hospitality": 0.0736, "other_services": 0.0106, "hardware": 0.0026, "software": 0.0135, "internet": 0.0079, "media_telecom": 0.0097},
+          "importShare": 0.043,
+          "fantasy": 0.1,
+          "bea": "NIPA 2.4.5U line 342"
+        }
+      ]
+    },
+    {
+      "id": "saving",
+      "name": "Saving & trading assets",
+      "notebook": "TRADING ASSETS: crypto, real estate",
+      "bracket": "mating",
+      "desire": {"food": 0.15, "collective": 0.15, "law": 0.1, "shelter": 0.4, "sex": 0.2},
+      "fear": {"starvation": 0.4, "isolation": 0.1, "murder": 0.05, "exposure": 0.35, "childless": 0.1},
+      "fearShare": 0.6,
+      "mind": {"x": 0.2, "y": 0.8, "z": 0.95},
+      "fantasy": 0.15,
+      "pce": 1046.8,
+      "blurb": "Net saving into pensions, home equity, stocks, deposits, a business and speculation: buying the future.",
+      "note": "Design defaults kept (x 0.2, y 0.8, z 0.95): saving is mostly fear of a poor old age and loss of the home, with desire for a house and rank. Items split NIPA personal saving 2025 ($1046.8B) into rough uses: each income quintile's 2024 saving (BEA distribution of personal saving: the bottom 40% dissave, the top 20% does ~80% of net saving) is assumed to flow into its assets in proportion to its DFA 2026Q1 holdings (net of matching debts, excluding durables). Crypto is a recalled anchor (low confidence). Industry weights here route the money to intermediaries (banks, funds, insurers, builders), they are not value added; the business item uses the investment supply chain. Fees for holding assets are PCE and sit in jeopardy. Category fantasy = spending-weighted mean of item fantasy (judgment: 0 buys the function, 1 buys the story).",
+      "items": [
+        {
+          "id": "saving_retirement",
+          "name": "Retirement accounts & pensions",
+          "pce": 273.7,
+          "industries": {"finance": 0.8646, "insurance": 0.1354},
+          "importShare": 0.0,
+          "fantasy": 0.05,
+          "note": "DB and DC pension entitlements, life insurance and annuities. Routed to finance (pension funds, asset managers) and insurance by DFA holdings."
+        },
+        {
+          "id": "saving_home",
+          "name": "Home equity: mortgage principal & improvements",
+          "pce": 157.5,
+          "industries": {"construction": 0.471, "banking": 0.529},
+          "importShare": 0.0,
+          "fantasy": 0.15,
+          "note": "Owner-occupied real estate net of mortgages. Split between lenders (principal repaid, CE 2024 $397B) and builders (home improvements, CE 2024 $353B)."
+        },
+        {
+          "id": "saving_stocks",
+          "name": "Stocks & mutual funds",
+          "pce": 347.7,
+          "industries": {"finance": 1.0},
+          "importShare": 0.0,
+          "fantasy": 0.2,
+          "note": "Corporate equities and mutual funds held directly (crypto ETF buying carved out below)."
+        },
+        {
+          "id": "saving_deposits",
+          "name": "Deposits, money funds & bonds",
+          "pce": 140.0,
+          "industries": {"banking": 0.5113, "finance": 0.4887},
+          "importShare": 0.0,
+          "fantasy": 0.0,
+          "note": "Bank deposits (banking) and money-market funds, bonds and other financial assets (finance), net of consumer credit."
+        },
+        {
+          "id": "saving_crypto",
+          "name": "Crypto & speculation",
+          "pce": 30.0,
+          "industries": {"finance": 1.0},
+          "importShare": 0.0,
+          "fantasy": 0.9,
+          "note": "Recalled anchor, low confidence: US spot bitcoin and ether ETF net inflows in 2025 were roughly $31B (Farside/Bloomberg tallies); used as the order of magnitude of households' net crypto buying. Direct exchange buying is not measured."
+        },
+        {
+          "id": "saving_business",
+          "name": "Own business",
+          "pce": 97.9,
+          "industries": {"federal": 0.0033, "state_local": 0.007, "agriculture": 0.0128, "oil_gas": 0.0172, "mining_metals": 0.0026, "utilities": 0.006, "construction": 0.1237, "manufacturing": 0.1445, "transport": 0.0226, "trade": 0.1342, "banking": 0.0128, "finance": 0.002, "insurance": 0.0081, "real_estate": 0.0371, "health": 0.0008, "legal": 0.0281, "professional": 0.2319, "education": 0.0019, "entertainment": 0.0049, "hospitality": 0.0054, "other_services": 0.0051, "hardware": 0.0058, "software": 0.0977, "internet": 0.0573, "media_telecom": 0.0272},
+          "importShare": 0.1761,
+          "fantasy": 0.25,
+          "note": "Equity in private (noncorporate) businesses, invested like nonresidential private fixed investment (2024 Use table) through the supply-chain matrix."
+        }
+      ]
+    }
+  ],
+  "history": [
+    [1950, {"necessities": 0.5022, "escapism": 0.0747, "jeopardy": 0.1195, "status": 0.1729, "growth": 0.0144, "collective": 0.0232, "saving": 0.0931}],
+    [1951, {"necessities": 0.4916, "escapism": 0.0743, "jeopardy": 0.1202, "status": 0.1673, "growth": 0.0144, "collective": 0.023, "saving": 0.1092}],
+    [1952, {"necessities": 0.4872, "escapism": 0.0745, "jeopardy": 0.1228, "status": 0.1661, "growth": 0.0147, "collective": 0.0237, "saving": 0.111}],
+    [1953, {"necessities": 0.4832, "escapism": 0.0738, "jeopardy": 0.126, "status": 0.1683, "growth": 0.015, "collective": 0.0239, "saving": 0.1098}],
+    [1954, {"necessities": 0.4843, "escapism": 0.0743, "jeopardy": 0.1288, "status": 0.1689, "growth": 0.0155, "collective": 0.0249, "saving": 0.1033}],
+    [1955, {"necessities": 0.4879, "escapism": 0.073, "jeopardy": 0.1293, "status": 0.1736, "growth": 0.0154, "collective": 0.024, "saving": 0.0968}],
+    [1956, {"necessities": 0.4766, "escapism": 0.0723, "jeopardy": 0.1302, "status": 0.1694, "growth": 0.0155, "collective": 0.0245, "saving": 0.1115}],
+    [1957, {"necessities": 0.4751, "escapism": 0.0723, "jeopardy": 0.1311, "status": 0.169, "growth": 0.0156, "collective": 0.0248, "saving": 0.1121}],
+    [1958, {"necessities": 0.4722, "escapism": 0.073, "jeopardy": 0.1333, "status": 0.1668, "growth": 0.0158, "collective": 0.0249, "saving": 0.114}],
+    [1959, {"necessities": 0.4756, "escapism": 0.0732, "jeopardy": 0.1355, "status": 0.1716, "growth": 0.0161, "collective": 0.0248, "saving": 0.1032}],
+    [1960, {"necessities": 0.4725, "escapism": 0.0733, "jeopardy": 0.1407, "status": 0.1718, "growth": 0.0163, "collective": 0.0246, "saving": 0.1008}],
+    [1961, {"necessities": 0.4626, "escapism": 0.0728, "jeopardy": 0.1431, "status": 0.168, "growth": 0.0162, "collective": 0.0244, "saving": 0.1129}],
+    [1962, {"necessities": 0.4598, "escapism": 0.0722, "jeopardy": 0.1449, "status": 0.1704, "growth": 0.0162, "collective": 0.0246, "saving": 0.1119}],
+    [1963, {"necessities": 0.4586, "escapism": 0.0721, "jeopardy": 0.1488, "status": 0.1718, "growth": 0.0163, "collective": 0.0249, "saving": 0.1075}],
+    [1964, {"necessities": 0.4496, "escapism": 0.0712, "jeopardy": 0.1521, "status": 0.1698, "growth": 0.0162, "collective": 0.0249, "saving": 0.1162}],
+    [1965, {"necessities": 0.4484, "escapism": 0.0715, "jeopardy": 0.1534, "status": 0.1708, "growth": 0.0163, "collective": 0.025, "saving": 0.1146}],
+    [1966, {"necessities": 0.4469, "escapism": 0.0732, "jeopardy": 0.1558, "status": 0.1705, "growth": 0.0166, "collective": 0.0253, "saving": 0.1117}],
+    [1967, {"necessities": 0.4373, "escapism": 0.0723, "jeopardy": 0.1571, "status": 0.1674, "growth": 0.0169, "collective": 0.0259, "saving": 0.1231}],
+    [1968, {"necessities": 0.4384, "escapism": 0.0729, "jeopardy": 0.162, "status": 0.1709, "growth": 0.0169, "collective": 0.0257, "saving": 0.1132}],
+    [1969, {"necessities": 0.4373, "escapism": 0.073, "jeopardy": 0.167, "status": 0.1708, "growth": 0.0169, "collective": 0.0256, "saving": 0.1094}],
+    [1970, {"necessities": 0.4233, "escapism": 0.0723, "jeopardy": 0.1681, "status": 0.1655, "growth": 0.0167, "collective": 0.026, "saving": 0.1281}],
+    [1971, {"necessities": 0.4189, "escapism": 0.0698, "jeopardy": 0.1687, "status": 0.1655, "growth": 0.0163, "collective": 0.0262, "saving": 0.1346}],
+    [1972, {"necessities": 0.4216, "escapism": 0.0705, "jeopardy": 0.172, "status": 0.1691, "growth": 0.0166, "collective": 0.0264, "saving": 0.1238}],
+    [1973, {"necessities": 0.4169, "escapism": 0.07, "jeopardy": 0.1693, "status": 0.1673, "growth": 0.0163, "collective": 0.0255, "saving": 0.1347}],
+    [1974, {"necessities": 0.419, "escapism": 0.071, "jeopardy": 0.1719, "status": 0.1636, "growth": 0.0161, "collective": 0.0255, "saving": 0.1329}],
+    [1975, {"necessities": 0.4135, "escapism": 0.0711, "jeopardy": 0.1771, "status": 0.1631, "growth": 0.0158, "collective": 0.0252, "saving": 0.1342}],
+    [1976, {"necessities": 0.4203, "escapism": 0.072, "jeopardy": 0.1802, "status": 0.1695, "growth": 0.0161, "collective": 0.0258, "saving": 0.1161}],
+    [1977, {"necessities": 0.4232, "escapism": 0.0715, "jeopardy": 0.1847, "status": 0.172, "growth": 0.0162, "collective": 0.0257, "saving": 0.1067}],
+    [1978, {"necessities": 0.4183, "escapism": 0.0711, "jeopardy": 0.1893, "status": 0.1724, "growth": 0.0161, "collective": 0.0256, "saving": 0.1072}],
+    [1979, {"necessities": 0.422, "escapism": 0.0716, "jeopardy": 0.1906, "status": 0.1713, "growth": 0.0158, "collective": 0.0257, "saving": 0.103}],
+    [1980, {"necessities": 0.4186, "escapism": 0.0699, "jeopardy": 0.1934, "status": 0.1658, "growth": 0.0153, "collective": 0.0259, "saving": 0.1111}],
+    [1981, {"necessities": 0.4116, "escapism": 0.0692, "jeopardy": 0.1962, "status": 0.1637, "growth": 0.0149, "collective": 0.0276, "saving": 0.1168}],
+    [1982, {"necessities": 0.4014, "escapism": 0.0685, "jeopardy": 0.2047, "status": 0.1619, "growth": 0.015, "collective": 0.0289, "saving": 0.1196}],
+    [1983, {"necessities": 0.4009, "escapism": 0.0696, "jeopardy": 0.2181, "status": 0.1659, "growth": 0.0156, "collective": 0.0292, "saving": 0.1007}],
+    [1984, {"necessities": 0.3937, "escapism": 0.0689, "jeopardy": 0.2148, "status": 0.1655, "growth": 0.0156, "collective": 0.0294, "saving": 0.1121}],
+    [1985, {"necessities": 0.3977, "escapism": 0.0697, "jeopardy": 0.2267, "status": 0.169, "growth": 0.0161, "collective": 0.0297, "saving": 0.0911}],
+    [1986, {"necessities": 0.3929, "escapism": 0.0707, "jeopardy": 0.23, "status": 0.1718, "growth": 0.0162, "collective": 0.0307, "saving": 0.0877}],
+    [1987, {"necessities": 0.3946, "escapism": 0.0725, "jeopardy": 0.2335, "status": 0.1755, "growth": 0.017, "collective": 0.0315, "saving": 0.0754}],
+    [1988, {"necessities": 0.3864, "escapism": 0.0726, "jeopardy": 0.2334, "status": 0.1745, "growth": 0.0169, "collective": 0.0322, "saving": 0.084}],
+    [1989, {"necessities": 0.3834, "escapism": 0.0733, "jeopardy": 0.2385, "status": 0.1731, "growth": 0.0168, "collective": 0.0322, "saving": 0.0827}],
+    [1990, {"necessities": 0.3791, "escapism": 0.0738, "jeopardy": 0.2427, "status": 0.171, "growth": 0.0167, "collective": 0.0332, "saving": 0.0835}],
+    [1991, {"necessities": 0.37, "escapism": 0.0735, "jeopardy": 0.2499, "status": 0.167, "growth": 0.0163, "collective": 0.0342, "saving": 0.0891}],
+    [1992, {"necessities": 0.3627, "escapism": 0.0728, "jeopardy": 0.2534, "status": 0.1658, "growth": 0.0164, "collective": 0.0351, "saving": 0.0938}],
+    [1993, {"necessities": 0.3662, "escapism": 0.0748, "jeopardy": 0.2598, "status": 0.1684, "growth": 0.0167, "collective": 0.0356, "saving": 0.0785}],
+    [1994, {"necessities": 0.3706, "escapism": 0.0765, "jeopardy": 0.2603, "status": 0.1705, "growth": 0.0172, "collective": 0.0368, "saving": 0.0681}],
+    [1995, {"necessities": 0.3678, "escapism": 0.0777, "jeopardy": 0.2634, "status": 0.1687, "growth": 0.0172, "collective": 0.0367, "saving": 0.0685}],
+    [1996, {"necessities": 0.369, "escapism": 0.0786, "jeopardy": 0.2655, "status": 0.1686, "growth": 0.0173, "collective": 0.0375, "saving": 0.0635}],
+    [1997, {"necessities": 0.3677, "escapism": 0.0788, "jeopardy": 0.2693, "status": 0.1692, "growth": 0.0178, "collective": 0.0367, "saving": 0.0605}],
+    [1998, {"necessities": 0.3609, "escapism": 0.0784, "jeopardy": 0.27, "status": 0.169, "growth": 0.0181, "collective": 0.0388, "saving": 0.0648}],
+    [1999, {"necessities": 0.3685, "escapism": 0.0812, "jeopardy": 0.273, "status": 0.1721, "growth": 0.0185, "collective": 0.0407, "saving": 0.046}],
+    [2000, {"necessities": 0.3682, "escapism": 0.0809, "jeopardy": 0.2762, "status": 0.1709, "growth": 0.0187, "collective": 0.0422, "saving": 0.0429}],
+    [2001, {"necessities": 0.3658, "escapism": 0.0798, "jeopardy": 0.2749, "status": 0.1692, "growth": 0.0188, "collective": 0.0447, "saving": 0.0468}],
+    [2002, {"necessities": 0.3583, "escapism": 0.0792, "jeopardy": 0.2742, "status": 0.1675, "growth": 0.0188, "collective": 0.0462, "saving": 0.0558}],
+    [2003, {"necessities": 0.3586, "escapism": 0.0801, "jeopardy": 0.2767, "status": 0.1675, "growth": 0.0191, "collective": 0.0461, "saving": 0.0519}],
+    [2004, {"necessities": 0.3602, "escapism": 0.0812, "jeopardy": 0.2801, "status": 0.1677, "growth": 0.0191, "collective": 0.0452, "saving": 0.0465}],
+    [2005, {"necessities": 0.3702, "escapism": 0.0826, "jeopardy": 0.2897, "status": 0.1706, "growth": 0.0194, "collective": 0.0451, "saving": 0.0224}],
+    [2006, {"necessities": 0.3655, "escapism": 0.0827, "jeopardy": 0.2897, "status": 0.1683, "growth": 0.0194, "collective": 0.0466, "saving": 0.0278}],
+    [2007, {"necessities": 0.3645, "escapism": 0.083, "jeopardy": 0.293, "status": 0.1677, "growth": 0.0195, "collective": 0.0471, "saving": 0.0252}],
+    [2008, {"necessities": 0.3592, "escapism": 0.0809, "jeopardy": 0.2878, "status": 0.1622, "growth": 0.0191, "collective": 0.0494, "saving": 0.0414}],
+    [2009, {"necessities": 0.3463, "escapism": 0.0799, "jeopardy": 0.2885, "status": 0.1596, "growth": 0.0188, "collective": 0.0496, "saving": 0.0573}],
+    [2010, {"necessities": 0.3466, "escapism": 0.0793, "jeopardy": 0.2887, "status": 0.159, "growth": 0.0186, "collective": 0.0485, "saving": 0.0593}],
+    [2011, {"necessities": 0.3473, "escapism": 0.0778, "jeopardy": 0.2848, "status": 0.1579, "growth": 0.0182, "collective": 0.0485, "saving": 0.0655}],
+    [2012, {"necessities": 0.3408, "escapism": 0.0772, "jeopardy": 0.2799, "status": 0.1564, "growth": 0.0178, "collective": 0.0492, "saving": 0.0787}],
+    [2013, {"necessities": 0.3519, "escapism": 0.08, "jeopardy": 0.288, "status": 0.1621, "growth": 0.0182, "collective": 0.0501, "saving": 0.0497}],
+    [2014, {"necessities": 0.3472, "escapism": 0.0799, "jeopardy": 0.2884, "status": 0.162, "growth": 0.0182, "collective": 0.0495, "saving": 0.0548}],
+    [2015, {"necessities": 0.3375, "escapism": 0.0806, "jeopardy": 0.2927, "status": 0.1631, "growth": 0.0181, "collective": 0.0496, "saving": 0.0584}],
+    [2016, {"necessities": 0.3359, "escapism": 0.0817, "jeopardy": 0.2955, "status": 0.1644, "growth": 0.0184, "collective": 0.0505, "saving": 0.0536}],
+    [2017, {"necessities": 0.3345, "escapism": 0.0815, "jeopardy": 0.2952, "status": 0.1632, "growth": 0.0184, "collective": 0.0496, "saving": 0.0576}],
+    [2018, {"necessities": 0.3322, "escapism": 0.0806, "jeopardy": 0.2932, "status": 0.1616, "growth": 0.0183, "collective": 0.0496, "saving": 0.0645}],
+    [2019, {"necessities": 0.328, "escapism": 0.0804, "jeopardy": 0.2919, "status": 0.1605, "growth": 0.0183, "collective": 0.048, "saving": 0.0729}],
+    [2020, {"necessities": 0.3068, "escapism": 0.0718, "jeopardy": 0.2646, "status": 0.1396, "growth": 0.0163, "collective": 0.0478, "saving": 0.1531}],
+    [2021, {"necessities": 0.3223, "escapism": 0.0771, "jeopardy": 0.27, "status": 0.1532, "growth": 0.0174, "collective": 0.0442, "saving": 0.1158}],
+    [2022, {"necessities": 0.3539, "escapism": 0.0849, "jeopardy": 0.2875, "status": 0.1698, "growth": 0.0191, "collective": 0.0513, "saving": 0.0335}],
+    [2023, {"necessities": 0.338, "escapism": 0.0829, "jeopardy": 0.2892, "status": 0.1664, "growth": 0.0187, "collective": 0.0489, "saving": 0.0559}],
+    [2024, {"necessities": 0.3329, "escapism": 0.0821, "jeopardy": 0.2967, "status": 0.1651, "growth": 0.0187, "collective": 0.0501, "saving": 0.0544}],
+    [2025, {"necessities": 0.3334, "escapism": 0.0828, "jeopardy": 0.3042, "status": 0.1662, "growth": 0.0189, "collective": 0.0487, "saving": 0.0458}],
+    [2026, {"necessities": 0.3367, "escapism": 0.084, "jeopardy": 0.3112, "status": 0.167, "growth": 0.019, "collective": 0.0493, "saving": 0.0328}]
+  ],
+  "historyNote": "Shares of disposable personal income, 1950-2026 (2026 = Jan-Jul SAAR). Saving = personal saving / DPI. The other six: each BEA major type of PCE (Tables 2.3.5/2.8.5) is split into categories with its 2025 split from the items (historyMapping), so the 2025 row reproduces the items exactly; interest paid (non-mortgage) is added to jeopardy and transfers paid (DPI - PCE - interest - saving) to collective. Before 1959 BEA has only total services; it is split with the 1959 service mix. BEA books the nonresident deduction in other services, so that type carries a small negative escapism weight. Within-type mixes are held at 2025 values, so shifts inside a type (e.g. more gambling within recreation) are not captured. 1950-1987 come from an older BEA vintage than 1988-2026.",
+  "historyMapping": {
+    "motor_vehicles": {"necessities": 0.6262, "status": 0.3738},
+    "furnishings": {"necessities": 0.7567, "status": 0.2433},
+    "rec_goods": {"necessities": 0.3105, "escapism": 0.4844, "status": 0.1446, "growth": 0.0605},
+    "other_durables": {"necessities": 0.1197, "jeopardy": 0.3299, "status": 0.5209, "growth": 0.0295},
+    "food_off_premises": {"necessities": 0.8471, "escapism": 0.1529},
+    "clothing": {"necessities": 0.664, "status": 0.336},
+    "gasoline_energy": {"necessities": 1.0},
+    "other_nondurables": {"necessities": 0.2212, "escapism": 0.2676, "jeopardy": 0.4219, "status": 0.0893},
+    "housing_utilities": {"necessities": 0.7664, "status": 0.2336},
+    "health_care": {"jeopardy": 1.0},
+    "transport_services": {"necessities": 0.7117, "escapism": 0.0105, "status": 0.2778},
+    "recreation_services": {"escapism": 0.8604, "status": 0.118, "growth": 0.0216},
+    "food_services_accommodations": {"necessities": 0.0447, "escapism": 0.1147, "status": 0.8089, "growth": 0.0317},
+    "financial_insurance": {"jeopardy": 1.0},
+    "other_services": {
+      "necessities": 0.3127,
+      "escapism": -0.0145,
+      "jeopardy": 0.1736,
+      "status": 0.2265,
+      "growth": 0.1783,
+      "collective": 0.1233
+    },
+    "npish": {"collective": 1.0}
+  },
+  "byQuintile": [
+    {
+      "id": "q1",
+      "name": "Lowest 20% of income",
+      "incomeMean": 16866,
+      "spendingMean": 34507,
+      "shares": {"necessities": 1.3949, "escapism": 0.1127, "jeopardy": 0.2938, "status": 0.1465, "growth": 0.0519, "collective": 0.0461, "saving": -1.0459},
+      "incomeBeforeTaxes": 16658,
+      "incomeAfterTaxesCE": 17272,
+      "payrollTaxEstimate": 406,
+      "retirementContributionsEstimate": 131,
+      "consumerUnitsK": 27139.0,
+      "people": 1.6,
+      "homeowner": 0.43,
+      "pceBasisShares": {"necessities": 0.4798, "escapism": 0.0782, "jeopardy": 0.3214, "status": 0.0701, "growth": 0.0224, "collective": 0.0281}
+    },
+    {
+      "id": "q2",
+      "name": "Second 20%",
+      "incomeMean": 40932,
+      "spendingMean": 47651,
+      "shares": {"necessities": 0.7808, "escapism": 0.0698, "jeopardy": 0.1825, "status": 0.0846, "growth": 0.0118, "collective": 0.0347, "saving": -0.1642},
+      "incomeBeforeTaxes": 42925,
+      "incomeAfterTaxesCE": 42788,
+      "payrollTaxEstimate": 1856,
+      "retirementContributionsEstimate": 551,
+      "consumerUnitsK": 27186.0,
+      "people": 2.1,
+      "homeowner": 0.58,
+      "pceBasisShares": {"necessities": 0.4602, "escapism": 0.0831, "jeopardy": 0.3423, "status": 0.0694, "growth": 0.0087, "collective": 0.0363}
+    },
+    {
+      "id": "q3",
+      "name": "Middle 20%",
+      "incomeMean": 65445,
+      "spendingMean": 61086,
+      "shares": {"necessities": 0.5509, "escapism": 0.0566, "jeopardy": 0.14, "status": 0.1438, "growth": 0.0127, "collective": 0.0294, "saving": 0.0666},
+      "incomeBeforeTaxes": 74474,
+      "incomeAfterTaxesCE": 69809,
+      "payrollTaxEstimate": 4364,
+      "retirementContributionsEstimate": 1449,
+      "consumerUnitsK": 26959.0,
+      "people": 2.5,
+      "homeowner": 0.62,
+      "pceBasisShares": {"necessities": 0.3996, "escapism": 0.0829, "jeopardy": 0.3229, "status": 0.1452, "growth": 0.0116, "collective": 0.0378}
+    },
+    {
+      "id": "q4",
+      "name": "Fourth 20%",
+      "incomeMean": 101015,
+      "spendingMean": 78656,
+      "shares": {"necessities": 0.4039, "escapism": 0.0517, "jeopardy": 0.117, "status": 0.1688, "growth": 0.0146, "collective": 0.0227, "saving": 0.2213},
+      "incomeBeforeTaxes": 121548,
+      "incomeAfterTaxesCE": 108887,
+      "payrollTaxEstimate": 7872,
+      "retirementContributionsEstimate": 3444,
+      "consumerUnitsK": 27205.0,
+      "people": 2.9,
+      "homeowner": 0.74,
+      "pceBasisShares": {"necessities": 0.344, "escapism": 0.0889, "jeopardy": 0.317, "status": 0.2002, "growth": 0.0156, "collective": 0.0343}
+    },
+    {
+      "id": "q5",
+      "name": "Top 20% of income",
+      "incomeMean": 192181,
+      "spendingMean": 124401,
+      "shares": {"necessities": 0.2575, "escapism": 0.0485, "jeopardy": 0.0824, "status": 0.2078, "growth": 0.0249, "collective": 0.0262, "saving": 0.3527},
+      "incomeBeforeTaxes": 264510,
+      "incomeAfterTaxesCE": 211036,
+      "payrollTaxEstimate": 18854,
+      "retirementContributionsEstimate": 7086,
+      "consumerUnitsK": 27272.0,
+      "people": 3.2,
+      "homeowner": 0.88,
+      "pceBasisShares": {"necessities": 0.2616, "escapism": 0.0995, "jeopardy": 0.2661, "status": 0.2938, "growth": 0.0318, "collective": 0.0472}
+    }
+  ],
+  "byQuintileNote": "BLS CE 2024, quintiles of income before taxes (27.1-27.3M consumer units each). incomeMean = CE income after taxes less estimated Social Security/Medicare payroll deductions (CE all-unit $6684 spread by wages + 2 x self-employment income), the NIPA disposable-income concept. spendingMean = CE spending excluding pensions and Social Security. shares = category spending / incomeMean, with saving = 1 - spending / income (retirement contributions count as saving); negative for the bottom 40%: CE under-reports income at the bottom, and many there are retirees and students drawing on assets or family. Category rules follow research (ceSurvey2024ModelCategoriesByQuintile): basic level = second-quintile mean; status = food away, shelter above basic, travel; jeopardy includes household-paid health premiums, vehicle finance charges and insurance. The survey misses most vice spending (alcohol ~22% of PCE, tobacco ~41%, lottery ~8%, casino losses ~0%) and third-party health care and imputed rent, so ceToPce gives national PCE items / (CE mean x units) per category, and pceBasisShares rescales each quintile's CE categories by it (shares of spending, PCE basis).",
+  "ceToPce": {"necessities": 1.5, "escapism": 3.03, "jeopardy": 4.77, "status": 2.09, "growth": 1.88, "collective": 2.66},
+  "markets": [
+    {
+      "id": "lottery_sales",
+      "name": "Lottery tickets (sales)",
+      "category": "escapism",
+      "usd": 113.0,
+      "year": 2024,
+      "source": "NASPL (North American Association of State & Provincial Lotteries), US sales ~FY2023-24 (recalled)",
+      "note": "Gross sales; ~60% comes back as prizes. Net losses: lottery_net."
+    },
+    {
+      "id": "lottery_net",
+      "name": "Lotteries (net losses)",
+      "category": "escapism",
+      "usd": 61.1,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 228"
+    },
+    {
+      "id": "casino_net",
+      "name": "Casino gambling (net losses)",
+      "category": "escapism",
+      "usd": 162.3,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 227",
+      "note": "Commercial + tribal casinos, sports betting and online casinos, wagers less prizes."
+    },
+    {
+      "id": "casino_commercial",
+      "name": "Commercial casinos, sports betting & iGaming (revenue)",
+      "category": "escapism",
+      "usd": 71.9,
+      "year": 2024,
+      "source": "American Gaming Association, Commercial Gaming Revenue Tracker, full-year 2024 (Feb 2025) (recalled)",
+      "note": "2024 split ~ land-based casino $49.7B, sports betting $13.7B, iGaming $8.4B. 2025 reported as another record (~$78-80B; not verified this session). Excludes tribal casinos."
+    },
+    {
+      "id": "casino_tribal",
+      "name": "Tribal casinos (gross gaming revenue)",
+      "category": "escapism",
+      "usd": 43.9,
+      "year": 2024,
+      "source": "National Indian Gaming Commission, FY2024 GGR release (2025) (recalled)",
+      "note": "Commercial ($71.9B) + tribal ($43.9B) = $115.8B vs PCE casino gambling $152.1B (2024): BEA casino line also includes casino hotel/other gaming adjustments - definitions differ."
+    },
+    {
+      "id": "sports_betting_handle",
+      "name": "Sports betting (handle)",
+      "category": "escapism",
+      "usd": 150.0,
+      "year": 2024,
+      "source": "AGA 2024 (handle ~$149.9B), legal in ~38 states + DC (recalled)",
+      "note": "Amount wagered; ~91% comes back as winnings."
+    },
+    {
+      "id": "sports_betting_revenue",
+      "name": "Sports betting (revenue)",
+      "category": "escapism",
+      "usd": 13.7,
+      "year": 2024,
+      "source": "AGA Commercial Gaming Revenue Tracker 2024 (recalled)",
+      "note": "2025 ~+15-20% (not verified)"
+    },
+    {
+      "id": "prediction_markets",
+      "name": "Prediction markets (volume)",
+      "category": "escapism",
+      "usd": 40.0,
+      "year": 2025,
+      "source": "Company/press reports of 2025 notional volume (Kalshi ~$20-25B, Polymarket ~$15-20B, the latter mostly non-US until its late-2025 US relaunch) (recalled)",
+      "note": "Low confidence; notional volume, not losses."
+    },
+    {
+      "id": "alcohol",
+      "name": "Alcohol",
+      "category": "escapism",
+      "usd": 405.4,
+      "year": 2025,
+      "source": "BEA via https://raw.githubusercontent.com/Budget-Lab-Yale/Tax-Data/main/resources/nipa_2_4_5u.csv lines 99+245",
+      "note": "Stores $233.9B + bars and restaurants $171.5B. Households report only ~22% of this in the CE survey."
+    },
+    {
+      "id": "tobacco",
+      "name": "Tobacco & nicotine",
+      "category": "escapism",
+      "usd": 111.6,
+      "year": 2025,
+      "source": "BEA via https://raw.githubusercontent.com/Budget-Lab-Yale/Tax-Data/main/resources/nipa_2_4_5u.csv line 141",
+      "note": "Includes e-cigarettes. CE survey implies $47.8B."
+    },
+    {
+      "id": "vapes",
+      "name": "E-cigarettes & vapes (tracked retail)",
+      "category": "escapism",
+      "usd": 7.0,
+      "year": 2024,
+      "source": "CDC Foundation/NielsenIQ e-cigarette retail sales tracking (approx., 2023-24) (recalled)",
+      "note": "Order of magnitude only; illicit disposable vapes not fully captured."
+    },
+    {
+      "id": "cannabis_legal",
+      "name": "Legal cannabis",
+      "category": "escapism",
+      "usd": 31.0,
+      "year": 2024,
+      "source": "MJBizDaily / Whitney Economics / BDSA estimates for 2024 ($29-32B range) (recalled)",
+      "note": "Mostly outside PCE detail; CE survey captures ~5%."
+    },
+    {
+      "id": "illicit_drugs",
+      "name": "Illicit drugs",
+      "category": "escapism",
+      "usd": 146.0,
+      "year": 2016,
+      "source": "RAND (Midgette, Davenport, Caulkins, Kilmer 2019), \"What America's Users Spend on Illegal Drugs, 2006-2016\" (recalled)",
+      "note": "Outside PCE (BEA excludes illegal activity). 2016 estimate; cannabis ~$52B, heroin ~$42B, meth ~$27B, cocaine ~$24B."
+    },
+    {
+      "id": "video_streaming",
+      "name": "Video streaming",
+      "category": "escapism",
+      "usd": 59.1,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 224"
+    },
+    {
+      "id": "cable_tv",
+      "name": "Cable & satellite TV",
+      "category": "escapism",
+      "usd": 77.3,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 219"
+    },
+    {
+      "id": "audio_streaming",
+      "name": "Music streaming & radio",
+      "category": "escapism",
+      "usd": 12.3,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 225"
+    },
+    {
+      "id": "video_games",
+      "name": "Video games (content, hardware, accessories)",
+      "category": "escapism",
+      "usd": 58.7,
+      "year": 2024,
+      "source": "Circana (formerly NPD), 2024 annual US video game spending (recalled)",
+      "note": "2025 roughly flat to +2% (~$59-60B; not verified). ~190M Americans play. Mostly content incl. in-app/mobile microtransactions (~half of content)."
+    },
+    {
+      "id": "internet_ads",
+      "name": "Attention sold: US internet advertising",
+      "category": "escapism",
+      "usd": 294.6,
+      "year": 2025,
+      "source": "IAB/PwC Internet Advertising Revenue Report FY2025 (via research/flows.json (sibling research file, this session)) (search-verified-sibling)",
+      "note": "Paid by advertisers, not households (recovered in prices); the price of the attention social media and search sell."
+    },
+    {
+      "id": "dating_apps",
+      "name": "Dating apps (Match Group revenue, global)",
+      "category": "status",
+      "usd": 3.5,
+      "year": 2024,
+      "source": "Match Group FY2024 10-K (revenue ~$3.48B, ~half US) (recalled)",
+      "note": "US consumer spend on dating apps ~$2-3B."
+    },
+    {
+      "id": "pets",
+      "name": "Pets: products & vets",
+      "category": "escapism",
+      "usd": 196.4,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) lines 128, 231"
+    },
+    {
+      "id": "amusement_parks",
+      "name": "Amusement parks & campgrounds",
+      "category": "escapism",
+      "usd": 88.2,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 212"
+    },
+    {
+      "id": "live_entertainment",
+      "name": "Concerts & theater",
+      "category": "escapism",
+      "usd": 60.4,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 215"
+    },
+    {
+      "id": "spectator_sports",
+      "name": "Spectator sports",
+      "category": "escapism",
+      "usd": 44.0,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 216"
+    },
+    {
+      "id": "restaurants",
+      "name": "Restaurants & bars (purchased meals)",
+      "category": "status",
+      "usd": 1260.0,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 236",
+      "note": "Limited-service $556B, full-service $495B, alcohol in meals $172B (escapism)."
+    },
+    {
+      "id": "gyms",
+      "name": "Gyms, golf & country clubs",
+      "category": "status",
+      "usd": 85.0,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 211"
+    },
+    {
+      "id": "jewelry_watches",
+      "name": "Luxury: jewelry & watches",
+      "category": "status",
+      "usd": 106.0,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 63"
+    },
+    {
+      "id": "cosmetics",
+      "name": "Cosmetics & perfume",
+      "category": "status",
+      "usd": 76.2,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 139"
+    },
+    {
+      "id": "personal_care_services",
+      "name": "Hair, nails & spas",
+      "category": "status",
+      "usd": 217.1,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) lines 309, 310"
+    },
+    {
+      "id": "new_vehicles",
+      "name": "New cars & trucks",
+      "category": "status",
+      "usd": 408.5,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 5",
+      "note": "SUVs and pickups are 89% of new-vehicle spending."
+    },
+    {
+      "id": "travel_abroad",
+      "name": "Travel abroad",
+      "category": "status",
+      "usd": 287.3,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 334"
+    },
+    {
+      "id": "weddings",
+      "name": "Weddings",
+      "category": "status",
+      "usd": 66.0,
+      "year": 2024,
+      "source": "Derived: ~2.0M weddings/yr (CDC) x ~$33,000 average cost (The Knot Real Weddings Study 2025) (recalled)",
+      "note": "Order of magnitude."
+    },
+    {
+      "id": "clothing",
+      "name": "Clothing & shoes",
+      "category": "status",
+      "usd": 561.8,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 104",
+      "note": "Two thirds basic (necessities), one third status."
+    },
+    {
+      "id": "health_care_pce",
+      "name": "Health care services (all payers)",
+      "category": "jeopardy",
+      "usd": 3551.6,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 172"
+    },
+    {
+      "id": "national_health_expenditures",
+      "name": "National health expenditures",
+      "category": "jeopardy",
+      "usd": 5300.0,
+      "year": 2024,
+      "source": "CMS Office of the Actuary, NHE 2024 (Dec 2025): ~$5.3T, +7.2%, ~18% of GDP, ~$15,500 per person (recalled)",
+      "note": "Sibling-verified CMS projection: $5.7T in 2025 (research/flows.json (sibling research file, this session)). NHE 2023 = $4.87T, 17.6% of GDP (recalled)."
+    },
+    {
+      "id": "health_out_of_pocket",
+      "name": "Health care paid out of pocket",
+      "category": "jeopardy",
+      "usd": 506.0,
+      "year": 2023,
+      "source": "CMS NHE 2023: out-of-pocket $505.7B (+7.0%), ~10.4% of NHE (recalled)",
+      "note": "2024 ~ $540B (est., not verified). CE 2024 healthcare $6,197/CU x 135.76M = $841B incl. premiums paid by households ($4,055/CU)."
+    },
+    {
+      "id": "health_premiums_households",
+      "name": "Health insurance premiums paid by households",
+      "category": "jeopardy",
+      "usd": 550.5,
+      "year": 2024,
+      "source": "Derived: BLS CE 2024 health insurance $4055 per consumer unit x 135.76M units",
+      "note": "Household share of premiums (worker contributions, individual market, Medicare premiums). Employers pay most premiums."
+    },
+    {
+      "id": "health_insurance_net",
+      "name": "Health insurers' net cost (PCE)",
+      "category": "jeopardy",
+      "usd": 283.5,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 275",
+      "note": "Premiums less benefits: administration and profit."
+    },
+    {
+      "id": "prescription_drugs",
+      "name": "Prescription drugs",
+      "category": "jeopardy",
+      "usd": 593.5,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 123"
+    },
+    {
+      "id": "legal_services",
+      "name": "Legal services (households)",
+      "category": "jeopardy",
+      "usd": 153.9,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 299"
+    },
+    {
+      "id": "pc_insurance_premiums",
+      "name": "Property & casualty insurance premiums (all lines)",
+      "category": "jeopardy",
+      "usd": 1060.0,
+      "year": 2024,
+      "source": "NAIC / S&P Global Market Intelligence 2024 US P&C DPW (~$1.0-1.1T) (recalled)",
+      "note": "Personal auto ~ $330B, homeowners ~ $150B (2024, recalled). PCE shows only the net service charge (premiums less normal losses): MV $108.8B, household $19.8B."
+    },
+    {
+      "id": "consumer_interest",
+      "name": "Interest on consumer debt (non-mortgage)",
+      "category": "jeopardy",
+      "usd": 577.7,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.6 (personal interest payments), via US-chartbook mirror nipa20600.csv"
+    },
+    {
+      "id": "credit_card_interest",
+      "name": "Credit-card interest",
+      "category": "jeopardy",
+      "usd": 165.0,
+      "year": 2025,
+      "source": "Derived: ~$1.25T NY Fed card balances x ~75% revolving x ~18% effective yield; Fed G.19 APR on accounts assessed interest ~22% (recalled); CFPB reported $105B interest + $25B fees in 2022 (derived)",
+      "note": "Derived estimate, range $150-180B."
+    },
+    {
+      "id": "credit_card_late_fees",
+      "name": "Credit-card late fees",
+      "category": "jeopardy",
+      "usd": 14.5,
+      "year": 2022,
+      "source": "CFPB (2023-24 late-fee rulemaking; rule vacated 2025) (recalled)"
+    },
+    {
+      "id": "overdraft_fees",
+      "name": "Overdraft & NSF fees (large banks)",
+      "category": "jeopardy",
+      "usd": 5.8,
+      "year": 2023,
+      "source": "CFPB overdraft/NSF revenue data (2023; ~$12.6B in 2019) (recalled)",
+      "note": "PCE financial service charges and fees (all bank/card/account fees) = $138.4B (2025, github-data)."
+    },
+    {
+      "id": "payday_loan_fees",
+      "name": "Payday loan fees",
+      "category": "jeopardy",
+      "usd": 9.0,
+      "year": 2016,
+      "source": "Pew Charitable Trusts payday lending series (~12M borrowers/yr, ~$9B fees) (recalled)",
+      "note": "Typical $375 loan costs ~$520 in fees over 5 months (Pew). Online/installment lenders since."
+    },
+    {
+      "id": "mortgage_interest",
+      "name": "Mortgage interest (owner-occupiers)",
+      "category": "jeopardy",
+      "usd": 494.9,
+      "year": 2024,
+      "source": "Derived: BLS CE 2024 x consumer units (https://raw.githubusercontent.com/markusstrasser/immigration-research/main/infra/immigration-fiscal/consumer_price_benefit_2026_09_18/derived/cex_detail_all.csv)",
+      "note": "Inside owners' imputed rent in BEA accounting."
+    },
+    {
+      "id": "investment_fees",
+      "name": "Investment management & advice fees",
+      "category": "jeopardy",
+      "usd": 332.3,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 268",
+      "note": "An asset-holding cost; see the saving category."
+    },
+    {
+      "id": "education",
+      "name": "Education services",
+      "category": "growth",
+      "usd": 363.1,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 290",
+      "note": "Higher ed $208B, private K-12 $45B, vocational $88B, day care $21B (necessities)."
+    },
+    {
+      "id": "books",
+      "name": "Books",
+      "category": "growth",
+      "usd": 42.0,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) lines 60, 69"
+    },
+    {
+      "id": "self_improvement",
+      "name": "Self-improvement industry (books, coaching, seminars, apps)",
+      "category": "growth",
+      "usd": 13.4,
+      "year": 2022,
+      "source": "Marketdata LLC, US self-improvement market (~$13.4B 2022, projected ~$14-18B mid-2020s) (recalled)",
+      "note": "Low confidence; definitions vary."
+    },
+    {
+      "id": "mental_health",
+      "name": "Mental health care (all payers)",
+      "category": "jeopardy",
+      "usd": 280.0,
+      "year": 2020,
+      "source": "SAMHSA projections of mental health spending (~$280B in 2020) (recalled)",
+      "note": "Therapy is self-improvement in the notebook, but its money is inside health care (jeopardy) in PCE."
+    },
+    {
+      "id": "charitable_giving",
+      "name": "Charitable giving by individuals",
+      "category": "collective",
+      "usd": 392.0,
+      "year": 2024,
+      "source": "Giving USA 2025 (individuals ~$392B of ~$592B total 2024) (recalled)",
+      "note": "CE cash contributions $2,292/CU = $311B (incl. support to non-household members); churches $781/CU."
+    },
+    {
+      "id": "nonprofits",
+      "name": "Nonprofits' spending for households (NPISH)",
+      "category": "collective",
+      "usd": 608.2,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.4.5U (Apr 9 2026 vintage) line 342"
+    },
+    {
+      "id": "transfers_paid",
+      "name": "Transfers paid (remittances, fees, fines)",
+      "category": "collective",
+      "usd": 286.8,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.6 (personal current transfer payments), via US-chartbook mirror nipa20600.csv"
+    },
+    {
+      "id": "personal_saving",
+      "name": "Personal saving",
+      "category": "saving",
+      "usd": 1046.8,
+      "year": 2025,
+      "source": "BEA NIPA Table 2.6, via US-chartbook mirror nipa20600.csv",
+      "note": "Saving rate 4.6% (2025), 3.0% (July 2026)."
+    },
+    {
+      "id": "crypto_net_buying",
+      "name": "Crypto net buying (spot ETF inflows, proxy)",
+      "category": "saving",
+      "usd": 30.0,
+      "year": 2025,
+      "source": "recalled: US spot bitcoin + ether ETF net inflows 2025 (~$31B; Farside Investors / Bloomberg tallies), low confidence",
+      "note": "~14% of US adults own crypto (Gallup 2025, recalled)."
+    }
+  ],
+  "marketsNote": "Headline markets for labels. Each has its own definition (sales, handle, net losses, revenue, all payers); do not sum them with each other or with items. Sources marked (recalled) are from the research agent's memory of the named publication and are not verified this session."
+}

@@ -21,6 +21,7 @@ namespace Why
         public bool HandoffFade;          // life/matter labels dissolve before the human branch
         public string Icon;               // optional icon id (see Icons), drawn left of the text; Text may then be empty
         public bool Fixed;                // Data is a world position (a diagram beside the timeline), not data space
+        public float FixedRange;          // Fixed labels hide while the camera target is farther than this (world units; 0 = never)
 
         internal float Width;             // estimated width in px at SizePx, icon included
         internal int TextVersion;         // bumped by LabelSystem.SetText so a shown label re-reads its text
@@ -275,6 +276,7 @@ namespace Why
             {
                 LabelSpec s = specs[i];
                 if (s.Hidden) continue;
+                if (s.Fixed && s.FixedRange > 0 && (rig.Pose.Target - s.Data).sqrMagnitude > s.FixedRange * s.FixedRange) continue;
                 float fade = s.Fixed ? 1f : GraphWarp.FocusFade(s.Data.x, warp);
                 if (s.HandoffFade && !s.Fixed) fade *= GraphStyle.HandoffFade(s.Data.x);
                 if (fade < 0.35f) continue;

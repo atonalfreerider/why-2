@@ -174,7 +174,7 @@ namespace Why.Economy.Model
         public double DfaNetWorth()
         {
             double sum = 0;
-            foreach (Group g in Data.Groups) sum += Math.Max(0, g.NetWorth);
+            foreach (Group g in Data.Groups) sum += g.NetWorth > 0 && !double.IsInfinity(g.NetWorth) ? g.NetWorth : 0;
             return sum;
         }
 
@@ -257,48 +257,51 @@ namespace Why.Economy.Model
         public LivesInputs(EconomyData data)
         {
             Data = data;
-            Cpi = Series("cpi");
+            // every series is checked against the range its unit allows (history.json units): points that are not
+            // finite (or not positive, for prices, dollars, counts and indices) are dropped, values outside the range are
+            // clamped, and either is reported in the log
+            Cpi = Positive("cpi");
             Gdp = data.Gdp;
-            Population = Series("population");
+            Population = Positive("population");
             LaborShare = data.LaborShare;
-            Awi = Series("averageWageIndex");
-            EarnMale = Series("earningsMedianMale");
-            EarnFemale = Series("earningsMedianFemale");
-            ProfileMale = Series("ageEarningsMale");
-            ProfileFemale = Series("ageEarningsFemale");
-            LfprMale = Series("lfprMale");
-            LfprFemale = Series("lfprFemale");
-            Unemployment = Series("unemployment");
-            EmpPrimeMale = Series("employmentRate25to54Male");
-            EmpPrimeFemale = Series("employmentRate25to54Female");
-            SelfEmployment = Series("selfEmploymentRate");
-            SsAverage = Series("socialSecurityAvgBenefit");
-            SsReplacement = Series("socialSecurityReplacement");
-            CardApr = Series("creditCardApr");
-            Mortgage30 = Series("mortgageRate30y");
-            Treasury10 = Series("treasury10y");
-            EquityReturn = Series("equityTotalReturn");
-            HousePrice = Series("housePriceIndex");
-            MedianHomePrice = Series("medianHomePrice");
-            Homeownership = Series("homeownership");
-            Households = Series("households");
-            HomeownershipByAge = Series("homeownershipByAge");
-            PovertyLine = Series("povertyLineFamily4");
-            MedianHouseholdIncome = Series("medianHouseholdIncome");
-            SavingRate = Series("savingRate");
-            TaxRate = Series("effectiveTaxRate");
-            TransferShare = Series("transferShareOfIncome");
-            SavingByPercentile = Series("savingRateByPercentile");
-            NetWorthByAge = Series("netWorthByAge");
-            Top1Wealth = Series("top1WealthShare");
-            Top10Wealth = Series("top10WealthShare");
-            Bottom50Wealth = Series("bottom50WealthShare");
-            Top1WealthWid = Series("top1WealthShareWID");
-            Top10WealthWid = Series("top10WealthShareWID");
-            Bottom50WealthWid = Series("bottom50WealthShareWID");
-            DebtToIncome = Series("householdDebtToIncome");
-            ConsumerCreditToIncome = Series("consumerCreditToIncome");
-            Top1Income = Series("top1IncomeShare");
+            Awi = Positive("averageWageIndex");
+            EarnMale = Positive("earningsMedianMale");
+            EarnFemale = Positive("earningsMedianFemale");
+            ProfileMale = Series("ageEarningsMale", 0, 1.5);
+            ProfileFemale = Series("ageEarningsFemale", 0, 1.5);
+            LfprMale = Series("lfprMale", 0, 100);
+            LfprFemale = Series("lfprFemale", 0, 100);
+            Unemployment = Series("unemployment", 0, 50);
+            EmpPrimeMale = Series("employmentRate25to54Male", 0, 100);
+            EmpPrimeFemale = Series("employmentRate25to54Female", 0, 100);
+            SelfEmployment = Series("selfEmploymentRate", 0, 60);
+            SsAverage = Positive("socialSecurityAvgBenefit");
+            SsReplacement = Series("socialSecurityReplacement", 0, 1.5);
+            CardApr = Series("creditCardApr", 0, 60);
+            Mortgage30 = Series("mortgageRate30y", 0, 30);
+            Treasury10 = Series("treasury10y", -2, 25);
+            EquityReturn = Series("equityTotalReturn", -90, 300);
+            HousePrice = Positive("housePriceIndex");
+            MedianHomePrice = Positive("medianHomePrice");
+            Homeownership = Series("homeownership", 0, 100);
+            Households = Positive("households");
+            HomeownershipByAge = Series("homeownershipByAge", 0, 100);
+            PovertyLine = Positive("povertyLineFamily4");
+            MedianHouseholdIncome = Positive("medianHouseholdIncome");
+            SavingRate = Series("savingRate", -30, 50);
+            TaxRate = Series("effectiveTaxRate", -50, 90);
+            TransferShare = Series("transferShareOfIncome", 0, 1000);
+            SavingByPercentile = Series("savingRateByPercentile", -100, 90);
+            NetWorthByAge = Positive("netWorthByAge");
+            Top1Wealth = Series("top1WealthShare", 0, 100);
+            Top10Wealth = Series("top10WealthShare", 0, 100);
+            Bottom50Wealth = Series("bottom50WealthShare", -20, 100);
+            Top1WealthWid = Series("top1WealthShareWID", 0, 100);
+            Top10WealthWid = Series("top10WealthShareWID", 0, 100);
+            Bottom50WealthWid = Series("bottom50WealthShareWID", -20, 100);
+            DebtToIncome = Series("householdDebtToIncome", 0, 1000);
+            ConsumerCreditToIncome = Series("consumerCreditToIncome", 0, 1000);
+            Top1Income = Series("top1IncomeShare", 0, 100);
 
             proprietorsRatio = RatioSeries(1);
             capitalRatio = RatioSeries(2);
@@ -311,19 +314,19 @@ namespace Why.Economy.Model
             // the circuit's year: exact personal income components
             CircuitFile c = data.Circuit ?? new CircuitFile();
             CircuitYear = c.Year > 1900 ? c.Year : 2025;
-            CircuitWages = c.PersonalOf("wages");
-            CircuitCompensation = c.PersonalOf("compensation");
-            CircuitProprietors = c.PersonalOf("proprietors");
-            CircuitCapital = c.PersonalOf("interest") + c.PersonalOf("dividends") + c.PersonalOf("rental");
-            CircuitTransfers = c.PersonalOf("transfers");
-            CircuitTaxes = c.PersonalOf("personalTaxes") + c.PersonalOf("socialInsuranceContributions");
-            CircuitDisposable = c.PersonalOf("disposableIncome");
-            CircuitPce = c.PersonalOf("pce");
-            CircuitOutlays = c.PersonalOf("outlays");
-            if (CircuitOutlays <= 0) CircuitOutlays = CircuitPce + c.PersonalOf("interestPaid") + c.PersonalOf("transferPaymentsPaid");
-            CircuitSaving = c.PersonalOf("saving");
-            CircuitSocialSecurity = c.PersonalOf("socialSecurity");
-            CircuitMedicare = c.PersonalOf("medicare");
+            CircuitWages = Personal(c, "wages");
+            CircuitCompensation = Personal(c, "compensation");
+            CircuitProprietors = Personal(c, "proprietors");
+            CircuitCapital = Personal(c, "interest") + Personal(c, "dividends") + Personal(c, "rental");
+            CircuitTransfers = Personal(c, "transfers");
+            CircuitTaxes = Personal(c, "personalTaxes") + Personal(c, "socialInsuranceContributions");
+            CircuitDisposable = Personal(c, "disposableIncome");
+            CircuitPce = Personal(c, "pce");
+            CircuitOutlays = Personal(c, "outlays");
+            if (CircuitOutlays <= 0) CircuitOutlays = CircuitPce + Personal(c, "interestPaid") + Personal(c, "transferPaymentsPaid");
+            CircuitSaving = Personal(c, "saving");
+            CircuitSocialSecurity = Personal(c, "socialSecurity");
+            CircuitMedicare = Personal(c, "medicare");
             double modeled = LaborShare.At(CircuitYear) * Gdp.GrowthAt(CircuitYear);
             CompensationFactor = CircuitCompensation > 0 && modeled > 0 ? CircuitCompensation / modeled : 1.0;
             if (CircuitCompensation <= 0) Warnings.Add("circuit.json personal.compensation missing: wages follow labor share x GDP");
@@ -331,25 +334,25 @@ namespace Why.Economy.Model
 
             ReadSpending(data);
             ReadPsyche(data.Psyche ?? new PsycheFile(), out TraitCholesky, out TraitCorrelationCO);
-            HigherOsShare = Clamp((data.Psyche ?? new PsycheFile()).HigherOsShare, 0.1, 0.9);
+            HigherOsShare = Clamp(Finite((data.Psyche ?? new PsycheFile()).HigherOsShare, 0.4), 0.1, 0.9);
 
             // agency rule
             AgencyData ag = data.Psyche?.Agency ?? new AgencyData();
-            RunwayYears = Math.Max(0.1, ag.Threshold("runwayYears", 3));
-            SavingTarget = Math.Max(0.01, ag.Threshold("savingRate", 0.1));
-            SavingYears = Clamp(ag.Threshold("savingYears", 3), 1, 3);
-            DebtOk = ag.Threshold("debtService", 0.15);
-            DebtZero = Math.Max(DebtOk + 0.01, ag.Threshold("debtServiceZero", 0.4));
-            ReasonOk = ag.Threshold("reason", 0.6);
-            ReasonZero = Math.Min(ReasonOk - 0.01, ag.Threshold("reasonZero", 0.3));
-            FantasyOk = ag.Threshold("fantasy", 0.15);
-            FantasyZero = Math.Max(FantasyOk + 0.01, ag.Threshold("fantasyZero", 0.3));
-            GateAutonomy = ag.Threshold("gateAutonomy", 1) >= 0.5;
-            WAutonomy = ag.Threshold("wAutonomy", 0.35);
-            WSaving = ag.Threshold("wSaving", 0.15);
-            WDebt = ag.Threshold("wDebt", 0.1);
-            WReason = ag.Threshold("wReason", 0.25);
-            WFantasy = ag.Threshold("wFantasy", 0.15);
+            RunwayYears = Math.Max(0.1, Threshold(ag, "runwayYears", 3));
+            SavingTarget = Math.Max(0.01, Threshold(ag, "savingRate", 0.1));
+            SavingYears = Clamp(Threshold(ag, "savingYears", 3), 1, 3);
+            DebtOk = Threshold(ag, "debtService", 0.15);
+            DebtZero = Math.Max(DebtOk + 0.01, Threshold(ag, "debtServiceZero", 0.4));
+            ReasonOk = Threshold(ag, "reason", 0.6);
+            ReasonZero = Math.Min(ReasonOk - 0.01, Threshold(ag, "reasonZero", 0.3));
+            FantasyOk = Threshold(ag, "fantasy", 0.15);
+            FantasyZero = Math.Max(FantasyOk + 0.01, Threshold(ag, "fantasyZero", 0.3));
+            GateAutonomy = Threshold(ag, "gateAutonomy", 1) >= 0.5;
+            WAutonomy = Math.Max(0, Threshold(ag, "wAutonomy", 0.35));
+            WSaving = Math.Max(0, Threshold(ag, "wSaving", 0.15));
+            WDebt = Math.Max(0, Threshold(ag, "wDebt", 0.1));
+            WReason = Math.Max(0, Threshold(ag, "wReason", 0.25));
+            WFantasy = Math.Max(0, Threshold(ag, "wFantasy", 0.15));
             double wSum = WAutonomy + WSaving + WDebt + WReason + WFantasy;
             if (wSum <= 0)
             {
@@ -386,7 +389,8 @@ namespace Why.Economy.Model
             {
                 foreach (StrategyInfo s in g.Strategies)
                 {
-                    if (s?.Id == null || !Enum.TryParse(s.Id, false, out PdStrategy id) || s.PopulationShare <= 0) continue;
+                    if (s?.Id == null || !Enum.TryParse(s.Id, false, out PdStrategy id) || !(s.PopulationShare > 0) ||
+                        double.IsInfinity(s.PopulationShare)) continue;
                     StrategyTargets[(int)id] += s.PopulationShare;
                     sum += s.PopulationShare;
                 }
@@ -401,10 +405,10 @@ namespace Why.Economy.Model
 
             for (int i = 0; i < 7; i++) StrategyTargets[i] /= sum;
             Payoff = GamesSetup.Payoff(data);
-            Noise = (float)Clamp(GamesSetup.Spec(data, "noise", 0.02f), 0, 0.5);
-            Continuation = (float)Clamp(GamesSetup.Spec(data, "continuation", 0.95f), 0, 0.995);
-            Distrust = (float)Clamp(GamesSetup.Spec(data, "distrust", 0.22f), 0, 1);
-            PartyInheritance = (float)Clamp(GamesSetup.Spec(data, "partyInheritance", 0.6f), 0, 1);
+            Noise = (float)Clamp(Finite(GamesSetup.Spec(data, "noise", 0.02f), 0.02), 0, 0.5);
+            Continuation = (float)Clamp(Finite(GamesSetup.Spec(data, "continuation", 0.95f), 0.95), 0, 0.995);
+            Distrust = (float)Clamp(Finite(GamesSetup.Spec(data, "distrust", 0.22f), 0.22), 0, 1);
+            PartyInheritance = (float)Clamp(Finite(GamesSetup.Spec(data, "partyInheritance", 0.6f), 0.6), 0, 1);
             ReadParties(g.Tribes?.PartyId, out Dem, out Rep, out Ind);
 
             // industries: employment shares and pay
@@ -428,17 +432,109 @@ namespace Why.Economy.Model
 
             double meanLog = weightSum > 0 ? logSum / weightSum : 0;
             for (int i = 0; i < IndustryCount; i++) IndustryPayTilt[i] = pay[i] > 0 ? Math.Log(pay[i]) - meanLog : 0;
+            if (nonFinite > 0) Warnings.Add($"{nonFinite} numbers in the data were not finite (NaN or Infinity): defaults used");
         }
 
         // ---------------------------------------------------------------- lookups
 
         static double Clamp(double x, double lo, double hi) => x < lo ? lo : x > hi ? hi : x;
 
-        YearSeries Series(string id)
+        /// <summary>The value, or the fallback when it is not a finite number (JSON readers accept NaN and Infinity).</summary>
+        double Finite(double x, double fallback)
+        {
+            if (!double.IsNaN(x) && !double.IsInfinity(x)) return x;
+            nonFinite++;
+            return fallback;
+        }
+
+        /// <summary>Numbers read that were not finite (replaced by their defaults; reported in the log).</summary>
+        int nonFinite;
+
+        /// <summary>A circuit.json personal income component ($B; 0 when missing or not finite).</summary>
+        double Personal(CircuitFile c, string key) => Finite(c.PersonalOf(key), 0);
+
+        /// <summary>A psyche.json agency threshold or weight (the fallback when missing or not finite).</summary>
+        double Threshold(AgencyData ag, string key, double fallback) => Finite(ag.Threshold(key, fallback), fallback);
+
+        /// <summary>
+        /// A trait distribution with every number finite (defaults for the rest), a clamp only when it is an interval,
+        /// and the mixture's non-finite entries left out (their fallbacks are used).
+        /// </summary>
+        TraitDistribution Sane(TraitDistribution d)
+        {
+            d ??= new TraitDistribution();
+            Dictionary<string, double> mixture = null;
+            if (d.Mixture != null)
+            {
+                mixture = new Dictionary<string, double>();
+                foreach (KeyValuePair<string, double> kv in d.Mixture)
+                {
+                    if (!double.IsNaN(kv.Value) && !double.IsInfinity(kv.Value)) mixture[kv.Key] = kv.Value;
+                    else nonFinite++;
+                }
+            }
+
+            bool interval = d.Clamp != null && d.Clamp.Length >= 2 && !double.IsNaN(d.Clamp[0]) && !double.IsNaN(d.Clamp[1]) &&
+                            d.Clamp[0] < d.Clamp[1];
+            return new TraitDistribution
+            {
+                Mean = Finite(d.Mean, 0), Sd = Finite(d.Sd, 1), AgeSlope = Finite(d.AgeSlope, 0), SexDiff = Finite(d.SexDiff, 0),
+                Share = Finite(d.Share, 0), Distribution = d.Distribution, Median = Finite(d.Median, 0),
+                LogMean = Finite(d.LogMean, 0), LogSd = Finite(d.LogSd, 0), Clamp = interval ? d.Clamp : null, Mixture = mixture,
+                Source = d.Source
+            };
+        }
+
+        /// <summary>A history series of a price, dollar amount, count or index: only positive, finite points are kept.</summary>
+        YearSeries Positive(string id) => Series(id, double.Epsilon, double.MaxValue);
+
+        /// <summary>
+        /// A history series checked against the range its unit allows: points whose year or value is not finite are
+        /// dropped (and values below <paramref name="lo"/> when it is positive: a price of 0 is no price), values outside
+        /// [<paramref name="lo"/>, <paramref name="hi"/>] are clamped; either is reported in <see cref="Warnings"/>. An
+        /// empty result is the series missing (its fallback is used, see each lookup).
+        /// </summary>
+        YearSeries Series(string id, double lo, double hi)
         {
             YearSeries s = Data.HistorySeries(id);
-            if (s.IsEmpty) Warnings.Add($"history series '{id}' missing: fallback used");
-            return s;
+            if (s.IsEmpty)
+            {
+                Warnings.Add($"history series '{id}' missing: fallback used");
+                return s;
+            }
+
+            List<double[]> points = null;
+            int dropped = 0, clamped = 0;
+            for (int k = 0; k < s.Count; k++)
+            {
+                double x = s.YearAt(k), v = s.ValueAt(k);
+                bool bad = double.IsNaN(x) || double.IsInfinity(x) || double.IsNaN(v) || double.IsInfinity(v) || (lo > 0 && v < lo);
+                double c = bad ? v : Clamp(v, lo, hi);
+                if (!bad && c == v && points == null) continue;
+                if (points == null)
+                {
+                    // the first point that needs a change: copy the good ones before it
+                    points = new List<double[]>(s.Count);
+                    for (int j = 0; j < k; j++) points.Add(new[] { s.YearAt(j), s.ValueAt(j) });
+                }
+
+                if (bad)
+                {
+                    dropped++;
+                    continue;
+                }
+
+                if (c != v) clamped++;
+                points.Add(new[] { x, c });
+            }
+
+            if (points == null) return s;
+            string range = lo > 0
+                ? "positive values"
+                : lo.ToString(CultureInfo.InvariantCulture) + ".." + hi.ToString(CultureInfo.InvariantCulture);
+            Warnings.Add($"history series '{id}': {dropped} points dropped, {clamped} clamped ({range})" +
+                         (points.Count == 0 ? ": fallback used" : ""));
+            return points.Count == 0 ? YearSeries.Empty : new YearSeries(points);
         }
 
         static YearSeries RatioSeries(int column)
@@ -500,13 +596,26 @@ namespace Why.Economy.Model
             return a > 0 && b > 0 ? a / b : 1;
         }
 
-        /// <summary>The SSA average wage index of a year ($; from the median earnings when missing).</summary>
+        /// <summary>
+        /// The wage index of 2025 when no wage series is given (SSA AWI 2025, $72,105) and its real growth a year
+        /// (AWI over the GDP deflator, 1951-2025: +1.75% a year), so a missing series still follows the era's prices.
+        /// </summary>
+        const double FallbackWageIndex2025 = 72_105, FallbackRealWageGrowth = 0.0175;
+
+        /// <summary>
+        /// The SSA average wage index of a year ($): history.json averageWageIndex; else 0.95 x the median earnings of
+        /// men (their ratio is 0.76-1.15 over 1955-2025 in history.json, ~0.95 on average); else the 2025 index moved with
+        /// the GDP deflator and real wage growth.
+        /// </summary>
         public double WageIndex(double year)
         {
             double awi = Dollars(Awi, year);
             if (awi > 0) return awi;
             double m = Dollars(EarnMale, year);
-            return m > 0 ? 1.25 * m : 50_000;
+            if (m > 0) return 0.95 * m;
+            double d1 = Data.Deflator.GrowthAt(year), d0 = Data.Deflator.GrowthAt(2025);
+            double prices = d0 > 0 && d1 > 0 ? d1 / d0 : 1;
+            return FallbackWageIndex2025 * prices * Math.Exp(FallbackRealWageGrowth * (year - 2025));
         }
 
         /// <summary>Employee compensation of persons in a year ($B): labor share x GDP, scaled to the circuit's year.</summary>
@@ -604,7 +713,7 @@ namespace Why.Economy.Model
                 double sum = 0;
                 for (int c = 0; c < Spend && ok; c++)
                 {
-                    QuintileShares[q][c] = Math.Max(0, qs[q]?.ShareOf(EconomyData.CategoryIds[c]) ?? 0);
+                    QuintileShares[q][c] = Math.Max(0, Finite(qs[q]?.ShareOf(EconomyData.CategoryIds[c]) ?? 0, 0));
                     sum += QuintileShares[q][c];
                 }
 
@@ -623,20 +732,20 @@ namespace Why.Economy.Model
             for (int c = 0; c < 7; c++)
             {
                 Category cat = data.Categories.Count > c ? data.Categories[c] : null;
-                FearShare[c] = Clamp(cat?.FearShare ?? 0.5, 0, 1);
-                Fantasy[c] = Clamp(cat?.Fantasy ?? 0, 0, 1);
+                FearShare[c] = Clamp(Finite(cat?.FearShare ?? 0.5, 0.5), 0, 1);
+                Fantasy[c] = Clamp(Finite(cat?.Fantasy ?? 0, 0), 0, 1);
                 CategoryDesire[c] = Weights(cat?.Desire, DesireIds);
                 CategoryFear[c] = Weights(cat?.Fear, FearIds);
             }
         }
 
-        static double[] Weights(Dictionary<string, double> d, string[] ids)
+        double[] Weights(Dictionary<string, double> d, string[] ids)
         {
             double[] w = new double[ids.Length];
             double sum = 0;
             for (int i = 0; i < ids.Length; i++)
             {
-                w[i] = d != null && d.TryGetValue(ids[i], out double v) ? Math.Max(0, v) : 0;
+                w[i] = d != null && d.TryGetValue(ids[i], out double v) ? Math.Max(0, Finite(v, 0)) : 0;
                 sum += w[i];
             }
 
@@ -646,7 +755,7 @@ namespace Why.Economy.Model
 
         void ReadPsyche(PsycheFile p, out double[,] cholesky, out double rCO)
         {
-            for (int i = 0; i < 9; i++) TraitDist[i] = p.Trait(TraitIds[i]);
+            for (int i = 0; i < 9; i++) TraitDist[i] = Sane(p.Trait(TraitIds[i]));
 
             // correlations in this model's trait order (the file may order them differently)
             double[,] r = new double[9, 9];
@@ -662,7 +771,7 @@ namespace Why.Economy.Model
                     for (int j = 0; j < 9; j++)
                     {
                         if (i == j || map[i] < 0 || map[j] < 0 || m[map[i]] == null || m[map[i]].Length <= map[j]) continue;
-                        r[i, j] = Clamp(m[map[i]][map[j]], -0.95, 0.95);
+                        r[i, j] = Clamp(Finite(m[map[i]][map[j]], 0), -0.95, 0.95);
                     }
                 }
             }
@@ -685,10 +794,13 @@ namespace Why.Economy.Model
             for (int c = 0; c < 7; c++)
             {
                 Tilts[c] = new double[TiltKeys.Length];
-                for (int k = 0; k < TiltKeys.Length; k++) Tilts[c][k] = Clamp(p.Tilt(EconomyData.CategoryIds[c], TiltKeys[k]), -1, 1);
+                for (int k = 0; k < TiltKeys.Length; k++)
+                {
+                    Tilts[c][k] = Clamp(Finite(p.Tilt(EconomyData.CategoryIds[c], TiltKeys[k]), 0), -1, 1);
+                }
             }
 
-            for (int k = 0; k < TiltKeys.Length; k++) SavingPp[k] = Clamp(p.SavingPp(TiltKeys[k]), -10, 10);
+            for (int k = 0; k < TiltKeys.Length; k++) SavingPp[k] = Clamp(Finite(p.SavingPp(TiltKeys[k]), 0), -10, 10);
 
             ReadDrives(p.Desires, DesireIds, DesireWeight, DesireStage, "desires");
             ReadDrives(p.Fears, FearIds, FearWeight, FearStage, "fears");
@@ -700,8 +812,17 @@ namespace Why.Economy.Model
             for (int i = 0; i < ids.Length; i++)
             {
                 Drive d = drives?.Find(x => x != null && x.Id == ids[i]);
-                weights[i] = d != null && d.Weight > 0 ? d.Weight : 0;
-                stages[i] = d?.LifeStage ?? new LifeStageCurve { PeakAge = 40, Spread = 40, Floor = 0.8 };
+                weights[i] = d != null && d.Weight > 0 && !double.IsInfinity(d.Weight) ? d.Weight : 0;
+                LifeStageCurve c = d?.LifeStage;
+                stages[i] = c == null
+                    ? new LifeStageCurve { PeakAge = 40, Spread = 40, Floor = 0.8 }
+                    : new LifeStageCurve
+                    {
+                        // a weight that never goes negative or beyond its peak, whatever the file says
+                        PeakAge = Clamp(Finite(c.PeakAge, 40), 0, 110),
+                        Spread = Clamp(Finite(c.Spread, 40), 1, 200),
+                        Floor = Clamp(Finite(c.Floor, 0.8), 0, 1)
+                    };
                 sum += weights[i];
             }
 
@@ -742,9 +863,9 @@ namespace Why.Economy.Model
             ind = new YearSeries(i);
         }
 
-        static double Number(JObject o, string key) =>
+        double Number(JObject o, string key) =>
             o.TryGetValue(key, out JToken v) && (v.Type == JTokenType.Float || v.Type == JTokenType.Integer)
-                ? Math.Max(0, v.Value<double>())
+                ? Math.Max(0, Finite(v.Value<double>(), 0))
                 : 0;
     }
 }

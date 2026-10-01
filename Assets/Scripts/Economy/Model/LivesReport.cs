@@ -336,8 +336,7 @@ namespace Why.Economy.Model
                 PopulationYear a = lives.Aggregate(year);
                 if (a == null) continue;
                 double rate = a.Disposable > 0 ? a.Saving / a.Disposable : 0;
-                string savingData = LivesInputs.Rate(inp.SavingRate, year, 0).ToString("0.0", Inv);
-                string ownData = LivesInputs.Rate(inp.Homeownership, year, 0).ToString("0.0", Inv);
+                string savingData = D1(inp.SavingRate, year), ownData = D1(inp.Homeownership, year);
                 sb.Append(year).Append(' ').Append((a.AdultLines * sim.PeoplePerLine / 1e6).ToString("0.0", Inv).PadLeft(6))
                     .Append(" | ").Append(T(a.Wages)).Append(" (").Append(T(inp.CompensationTarget(year))).Append(')')
                     .Append(" | ").Append(T(a.Business)).Append(" | ").Append(T(a.CapitalIncome))

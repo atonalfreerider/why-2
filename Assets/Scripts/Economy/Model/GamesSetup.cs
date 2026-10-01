@@ -200,8 +200,8 @@ namespace Why.Economy.Model
             for (int i = 0; i < n; i++)
             {
                 if (!lives.TryGet(i, year, out PersonYear state) || !state.Adult) continue;
-                PersonTraits t = lives.Traits(i);
-                if (t == null || (tribe >= 0 && t.Tribe != tribe)) continue;
+                // the tribe of that year (PersonTraits.Tribe is the person's last year's)
+                if (lives.Traits(i) == null || (tribe >= 0 && state.Tribe != tribe)) continue;
                 list.Add(i);
             }
 

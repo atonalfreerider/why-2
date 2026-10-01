@@ -525,7 +525,8 @@ namespace Why.Economy.Model
             LifeStageTiltsAccess lifeStage = new LifeStageTiltsAccess(inp);
             for (int a = 0; a < MaxAge; a++)
             {
-                savingByAge[a] = lifeStage.At(a) / 100;
+                double pp = lifeStage.At(a);
+                savingByAge[a] = double.IsNaN(pp) ? 0 : LivesMath.Clamp(pp / 100, -0.5, 0.5);
                 employmentShape[a] = Table(EmploymentByAge, a);
                 profileMale[a] = LivesInputs.Rate(inp.ProfileMale, a, 0.8);
                 profileFemale[a] = LivesInputs.Rate(inp.ProfileFemale, a, 0.8);
@@ -933,11 +934,14 @@ namespace Why.Economy.Model
                 (byte)LivesMath.Clamp(a - 30, 0, MortgageTerm));
         }
 
-        /// <summary>The era's median earnings at the peak of the age profile ($ per year).</summary>
+        /// <summary>
+        /// The era's median earnings at the peak of the age profile ($ per year); without the median earnings series,
+        /// the wage index x the 2025 ratios of the medians to it (men 0.89, women 0.65; history.json).
+        /// </summary>
         double MedianEarnings(bool male, int y)
         {
             double m = male ? inp.Dollars(inp.EarnMale, y) / ProfileMedianMale : inp.Dollars(inp.EarnFemale, y) / ProfileMedianFemale;
-            return m > 0 ? m : (male ? 0.9 : 0.65) * inp.WageIndex(y) / (male ? ProfileMedianMale : ProfileMedianFemale);
+            return m > 0 ? m : (male ? 0.89 : 0.65) * inp.WageIndex(y) / (male ? ProfileMedianMale : ProfileMedianFemale);
         }
 
         /// <summary>A home's price for a household income: the era's median new home, more for higher incomes.</summary>
@@ -1221,8 +1225,8 @@ namespace Why.Economy.Model
                 }
 
                 double err = target - total;
-                if (Math.Abs(err) < 1e-2) break;
-                double step = d > 1e-9 ? err / d : Math.Sign(err) * 2;
+                if (!(Math.Abs(err) >= 1e-2)) break;   // converged, or not a number
+                double step = d > 1e-9 ? err / d : err > 0 ? 2 : -2;
                 a += step < -2 ? -2 : step > 2 ? 2 : step;
             }
 
@@ -1694,7 +1698,7 @@ namespace Why.Economy.Model
                 if (c == 2)
                 {
                     tilt += LivesMath.Clamp(HealthAgeTilt * (a - 45), -0.25, 0.4);
-                    tilt += Math.Log(1 + hhInterest[h] / (0.15 * spend));
+                    tilt += Math.Log(1 + Math.Max(0, hhInterest[h]) / (0.15 * spend));
                 }
 
                 if (c == 4) tilt += StudentTilt * Math.Max(0, 30 - a);
@@ -1867,6 +1871,7 @@ namespace Why.Economy.Model
                 rec.Agency = (float)agency;
                 rec.Autonomy = (float)autonomy;
                 rec.DebtService = (float)service;
+                rec.Runway = (float)(assets / spend);
                 prevDebtService[i] = (float)LivesMath.Clamp01(service / inp.DebtZero);
                 prevBuffer[i] = (float)buffer;
             }
@@ -2186,16 +2191,15 @@ namespace Why.Economy.Model
         [MethodImpl(LivesMath.Hot)]
         void Finish()
         {
-            // the left-right order of everyone, once (ties by birth order)
+            // the left-right order of everyone, once (ties, common since children inherit the lean, by birth order:
+            // Array.Sort is not stable, and its order of equal keys may differ between runtimes)
             int[] byLean = new int[n];
-            float[] leans = new float[n];
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++) byLean[i] = i;
+            Array.Sort(byLean, (x, y) =>
             {
-                byLean[i] = i;
-                leans[i] = traits[i].Lean;
-            }
-
-            Array.Sort(leans, byLean);
+                int c = traits[x].Lean.CompareTo(traits[y].Lean);
+                return c != 0 ? c : x.CompareTo(y);
+            });
             Parallel.For(0, y1 - y0 + 1, k => Years[k] = FinishYear(y0 + k, byLean));
             spouseOf = headOf = null;
         }

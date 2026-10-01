@@ -58,7 +58,15 @@ namespace Why.Economy.Model
     /// <summary>One person in one calendar year (dollars are nominal, per person; a couple's household is split evenly).</summary>
     public struct PersonYear
     {
+        /// <summary>Age at the year's middle (years).</summary>
         public float Age;
+
+        /// <summary>
+        /// Adult (18+ at mid-year; children carry their household's spending mind, home, wealth group and income rank,
+        /// and no money of their own but what they inherited); married this year (a MarriageLog span covers the
+        /// mid-year); employed or self-employed this year; owns a home (half each in a couple); in control of their path
+        /// (agency at or above <see cref="EconomicLives.ControlThreshold"/> with material autonomy).
+        /// </summary>
         public bool Adult, Married, Employed, SelfEmployed, Homeowner, InControl;
 
         /// <summary>Lives in a household of its own (a couple, a single parent, a single homeowner or a single who does
@@ -113,6 +121,13 @@ namespace Why.Economy.Model
         /// <summary>Debt payments (mortgage and consumer debt) over disposable income.</summary>
         public float DebtService;
 
+        /// <summary>
+        /// Financial runway: the household's financial assets (start of the year) over its spending this year, in years
+        /// (agency's autonomy is this over psyche.json runwayYears; under three months is the thin buffer that raises
+        /// the fears of ruin and exposure and lowers reason the year after).
+        /// </summary>
+        public float Runway;
+
         /// <summary>Share of the person's moves that cooperate with the people they deal with this year (0..1).</summary>
         public float Cooperation;
 
@@ -132,10 +147,10 @@ namespace Why.Economy.Model
         public float Inherited;
 
         /// <summary>A large uninsured bill this year (jeopardy realized: illness, lawsuit, repair, fraud; part of the
-        /// spending, in jeopardy; the household's, split evenly), $; and whether unpayable consumer debt was discharged
-        /// (bankruptcy, charge-off).</summary>
+        /// spending, in jeopardy; the household's, split evenly), $.</summary>
         public float Loss;
 
+        /// <summary>Unpayable consumer debt was discharged this year (bankruptcy, charge-off).</summary>
         public bool Discharged;
 
         /// <summary>Category share by index of EconomyData.CategoryIds (6 = saving rate of disposable income).</summary>
@@ -157,20 +172,34 @@ namespace Why.Economy.Model
     /// <summary>A person worth meeting (the inspector's N key and the tour): who they are in the model and why.</summary>
     public struct Notable
     {
+        /// <summary>Index of the person in the population (SmvSimulation.People; also their lifeline).</summary>
         public int Person;
+
+        /// <summary>The type the person shows: owner, heir, striver, escapist, indebted, retiree, young, forgiver, avenger.</summary>
         public string Role;
+
+        /// <summary>One sentence with the person's numbers in the last simulated year.</summary>
         public string Why;
     }
 
     /// <summary>Population totals of one year (dollars scaled up by the people each line stands for; $B nominal).</summary>
     public sealed class PopulationYear
     {
+        /// <summary>The calendar year (evaluated at its middle).</summary>
         public int Year;
+
+        /// <summary>Adult lines alive (x PeoplePerLine for people).</summary>
         public int AdultLines;
 
         /// <summary>Lines alive (children included) and households (couples and single adults).</summary>
         public int People, Households;
 
+        /// <summary>
+        /// Personal income and outlays ($B): employee compensation, capital income (interest, dividends, rent),
+        /// transfers received (Social Security, Medicare, means-tested), personal taxes and contributions, disposable
+        /// income, outlays (spending incl. interest and large uninsured bills), saving; net worth and debt (mortgages and
+        /// consumer debt) at the year's end.
+        /// </summary>
         public double Wages, CapitalIncome, Transfers, Taxes, Disposable, Spending, Saving, Wealth, Debt;
 
         /// <summary>Proprietors' income and consumer debt ($B).</summary>
@@ -225,15 +254,28 @@ namespace Why.Economy.Model
     {
         /// <summary>
         /// The tint toward capital gold: people in control are clearly gold (at least this much of the way), others only
-        /// tinge toward it as their agency approaches the cut (at most <see cref="NearGold"/>), so few lines are gold.
+        /// tinge toward it as their agency approaches the cut (at most <see cref="NearGold"/>), so few lines are gold and
+        /// the rest stay the population's blue (a tinge of 0.25 on the ~45% of adults above agency 0.3 turned the
+        /// bundle grey: a quarter of its blue pixels in the people view went, while no line read as gold).
         /// </summary>
-        const float ControlGold = 0.9f, NearGold = 0.25f;
+        const float ControlGold = 0.9f, NearGold = 0.08f;
 
         /// <summary>Agency below which nobody is tinted at all (DESIGN: agency 0.3 = barely).</summary>
         const float GoldFrom = 0.3f;
 
         /// <summary>Brightness rises with agency (DESIGN: x (1 + 0.6 agency)), in proportion to the gold blend.</summary>
         const float AgencyGlow = 0.6f;
+
+        /// <summary>
+        /// Brightness of the lines of people in control (x, on top of the agency glow) and of every other adult line in
+        /// this scene. Lines add up where they cross (additive blending), and the dense bundle of overlapping blue lines
+        /// swallows a gold line of the same brightness: with the DESIGN's x (1 + 0.6 agency) alone, 140 of the people
+        /// view's ~190,000 bundle pixels came out gold for 12% of the lines. With the gold lines 3x as bright and
+        /// the others at 0.7 (the bundle keeps its overall brightness), ~10% of the bundle's colored pixels are gold:
+        /// few lines, clearly gold (measured on the harness's people and overview renders; brighter still washes the
+        /// gold out to white in the tone mapping).
+        /// </summary>
+        const float ControlGlow = 3f, RestBrightness = 0.7f;
 
         /// <summary>Heavy fantasy spending dims a line: from this share, by up to <see cref="FantasyDim"/> at
         /// <see cref="FantasyFull"/> (DESIGN).</summary>
@@ -256,15 +298,25 @@ namespace Why.Economy.Model
             this.seed = seed;
         }
 
+        /// <summary>True once <see cref="Prepare"/> has finished without error; every query returns nothing before.</summary>
         public bool Ready => ready;
+
+        /// <summary>The population the lives were run on.</summary>
         public SmvSimulation Sim { get; private set; }
+
+        /// <summary>First and last simulated calendar years (1946 .. the data's last year, 2026 a partial-year estimate).</summary>
         public int FirstYear { get; private set; }
+
         public int LastYear { get; private set; }
+
+        /// <summary>The run's report: calibration, the population against the data, checks, the thesis tested, timings
+        /// (or why nothing was simulated).</summary>
         public string Log { get; private set; } = "";
 
         /// <summary>The agency at or above which an adult with material autonomy is in control (calibrated once).</summary>
         public float ControlThreshold { get; private set; } = 1f;
 
+        /// <summary>People worth meeting, alive in the last year (one per role; deterministic).</summary>
         public IReadOnlyList<Notable> Notables => notables;
 
         readonly List<Notable> notables = new List<Notable>();
@@ -366,7 +418,8 @@ namespace Why.Economy.Model
 
         /// <summary>
         /// A person's drives in a year, each pole normalized to 1 (the individual weights x the drives' life-stage curves
-        /// and the year's state: married, a parent, a thin buffer); false when the person was not simulated that year.
+        /// and the year's state: married, a parent, last year's thin buffer), as the year's spending used them; false
+        /// when the person was not simulated that year. Allocates; for an inspector, not for every frame.
         /// </summary>
         public bool DriveWeights(int person, int year, float[] desires, float[] fears)
         {
@@ -376,11 +429,15 @@ namespace Why.Economy.Model
             bool parent = false;
             foreach (SmvPerson c in ChildrenOf(person))
             {
-                if (c.Birth <= year + 0.5) parent = true;
+                if (c.Birth <= Math.Min(year + 0.5, Sim.NowYear - 1e-3)) parent = true;
             }
 
+            // the buffer the simulation carried into this year: under three months of spending in financial assets
+            // last year (none in a person's first simulated year)
+            double buffer = TryGet(person, year - 1, out PersonYear before) && before.Adult
+                ? LivesMath.Clamp01(1 - 4 * before.Runway)
+                : 0;
             double[] d = new double[5], f = new double[5];
-            double buffer = y.Spending > 0 ? Mathf.Clamp01(1 - 4 * Math.Max(0, y.Wealth) / Math.Max(1, y.Spending)) : 0;
             LivesSimulation.Drives(inputs, traits[person], p.Male, y.Age, y.Married, parent, buffer, d, f);
             for (int k = 0; k < 5; k++)
             {
@@ -412,18 +469,29 @@ namespace Why.Economy.Model
         }
 
         /// <summary>
-        /// Adults' lines lean toward capital gold by their agency: clearly gold in control, a faint tinge as agency
-        /// nears the cut, none below 0.3; brighter with agency, dimmer with heavy fantasy spending. Children and the
-        /// years before the record keep the population's blue. Interpolated between mid-years.
+        /// Adults' lines lean toward capital gold by their agency: clearly gold and glowing in control, a faint tinge as
+        /// agency nears the cut, none below 0.3; dimmer with heavy fantasy spending. Every other adult line keeps the
+        /// population's blue at <see cref="RestBrightness"/> (also before the record and for those who died before it,
+        /// so the bundle has no step at 1946). Children are unchanged. Interpolated between mid-years.
         /// </summary>
         [MethodImpl(LivesMath.Hot)]
         public void Restyle(SmvPerson person, double time, bool child, ref Color32 tint, ref float intensity)
         {
             if (!ready || child || person == null) return;
             int i = person.Index;
-            if (i < 0 || i >= yearCount.Length || yearCount[i] == 0) return;
+            if (i < 0 || i >= yearCount.Length || yearCount[i] == 0)
+            {
+                intensity *= RestBrightness;
+                return;
+            }
+
             double ty = time - 0.5 - firstYear[i];
-            if (ty < -1) return;
+            if (ty < -1)
+            {
+                intensity *= RestBrightness;
+                return;
+            }
+
             int k0 = (int)Math.Floor(ty), last = yearCount[i] - 1;
             float f = (float)(ty - k0);
             if (k0 < 0)
@@ -439,9 +507,16 @@ namespace Why.Economy.Model
             }
 
             ref PersonYear a = ref store[offset[i] + k0];
-            if (!a.Adult) return;
+            if (!a.Adult)
+            {
+                // the months after the 18th birthday, before the first adult mid-year
+                intensity *= RestBrightness;
+                return;
+            }
+
             ref PersonYear b = ref store[offset[i] + Math.Min(last, k0 + 1)];
             float g = Gold(ref a) + (Gold(ref b) - Gold(ref a)) * f;
+            float control = (a.InControl ? 1f : 0f) + ((b.InControl ? 1f : 0f) - (a.InControl ? 1f : 0f)) * f;
             float agency = a.Agency + (b.Agency - a.Agency) * f;
             float fantasy = a.Fantasy + (b.Fantasy - a.Fantasy) * f;
             if (g > 0)
@@ -449,8 +524,8 @@ namespace Why.Economy.Model
                 tint = new Color32(Mix(tint.r, gold.r, g), Mix(tint.g, gold.g, g), Mix(tint.b, gold.b, g), tint.a);
             }
 
-            // the glow of agency goes with the gold, so the blue of everyone else keeps its brightness
-            intensity *= 1f + AgencyGlow * Mathf.Clamp01(agency) * g;
+            // the glow of agency goes with the gold; the people in control glow, everyone else is the dimmer bundle
+            intensity *= (1f + AgencyGlow * Mathf.Clamp01(agency) * g) * (RestBrightness + (ControlGlow - RestBrightness) * control);
             if (fantasy > FantasyFrom) intensity *= 1f - FantasyDim * Mathf.Clamp01((fantasy - FantasyFrom) / (FantasyFull - FantasyFrom));
         }
 

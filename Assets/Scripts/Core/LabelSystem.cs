@@ -172,8 +172,25 @@ namespace Why
                 pending.Clear();
             }
 
-            specs.Sort((a, b) => b.Priority.CompareTo(a.Priority));
+            specs.Sort(ComparePlacementOrder);
             dirty = true;
+        }
+
+        /// <summary>
+        /// Placement order: higher priority first; ties broken by text and then position, so the same graph always
+        /// shows the same labels however the layers' worker threads happened to interleave their Add calls (screenshots
+        /// and recorded videos are reproducible).
+        /// </summary>
+        static int ComparePlacementOrder(LabelSpec a, LabelSpec b)
+        {
+            int c = b.Priority.CompareTo(a.Priority);
+            if (c != 0) return c;
+            c = string.CompareOrdinal(a.Text, b.Text);
+            if (c != 0) return c;
+            c = a.Data.x.CompareTo(b.Data.x);
+            if (c != 0) return c;
+            c = a.Data.y.CompareTo(b.Data.y);
+            return c != 0 ? c : a.Data.z.CompareTo(b.Data.z);
         }
 
         /// <summary>

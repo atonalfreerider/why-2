@@ -13,6 +13,8 @@ namespace Why.UI
     public sealed class HudLegend
     {
         const string Grammar = "around: time (log clock)  |  up: hierarchy  |  inward: relevance to us";
+
+        const string EconomyGrammar = "along: time  |  wall: value added by industry  |  lines: people, height = social value";
         const float SwatchSize = 10f;
         const float SwatchGap = 7f;
         const float ItemGap = 22f;
@@ -43,12 +45,25 @@ namespace Why.UI
             // row 1: level swatches
             float x = HudKit.Pad;
             float rowHeight = HudKit.SizeBody + 6;
-            x = Swatch("Matter", GraphStyle.Matter, x, rowHeight);
-            x = Swatch("Life", GraphStyle.Life, x + ItemGap, rowHeight);
-            x = Swatch("Humans", GraphStyle.Humans, x + ItemGap, rowHeight);
+            bool economy = GraphScene.IsEconomy;
+            if (economy)
+            {
+                // the economy's hues: capital, people, and the two motives money is spent with
+                x = Swatch("Capital", Why.Economy.EconomyStyle.Capital, x, rowHeight);
+                x = Swatch("People", GraphStyle.Humans, x + ItemGap, rowHeight);
+                x = Swatch("Desire", Why.Economy.EconomyStyle.Desire, x + ItemGap, rowHeight);
+                x = Swatch("Fear", Why.Economy.EconomyStyle.Fear, x + ItemGap, rowHeight);
+            }
+            else
+            {
+                x = Swatch("Matter", GraphStyle.Matter, x, rowHeight);
+                x = Swatch("Life", GraphStyle.Life, x + ItemGap, rowHeight);
+                x = Swatch("Humans", GraphStyle.Humans, x + ItemGap, rowHeight);
+            }
 
             // row 2: what the axes mean
-            TextMeshProUGUI grammar = HudKit.Line(legend, "Grammar", Grammar, HudKit.SizeSmall - 0.5f, GraphStyle.TextDim);
+            TextMeshProUGUI grammar = HudKit.Line(legend, "Grammar", economy ? EconomyGrammar : Grammar,
+                HudKit.SizeSmall - 0.5f, GraphStyle.TextDim);
             Vector2 g = HudKit.FitText(grammar);
             HudKit.PlaceTopLeft(grammar.rectTransform, HudKit.Pad, HudKit.Pad + rowHeight + RowGap, g);
 

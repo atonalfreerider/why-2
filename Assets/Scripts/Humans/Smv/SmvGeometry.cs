@@ -66,6 +66,12 @@ namespace Why.Humans.Smv
         /// <summary>Most workers used to shape and append lines (each fills its own fine mesh).</summary>
         const int MaxWorkers = 4;
 
+        /// <summary>
+        /// Optional restyling of every lifeline point (another scene's model, e.g. the economy's); null leaves
+        /// the lines as the causality graph draws them. Called from several worker threads at once.
+        /// </summary>
+        public ISmvLineStyle Style;
+
         public IReadOnlyList<LineMeshBuilder> FineParts => fineParts;
         public readonly LineMeshBuilder Links = new LineMeshBuilder(8192);
         public readonly LineMeshBuilder Coarse;
@@ -287,13 +293,16 @@ namespace Why.Humans.Smv
                     float d = owner.DensityAt(bk[j], by[j], br[j]);
                     float childScale = child ? ChildAlphaScale : 1f;
 
+                    Color32 pointTint = tint;
+                    owner.Style?.Restyle(p, bt[j], child, ref pointTint, ref intensity);
+
                     float fineAlpha = childScale * FineMaxAlpha / (1f + d / FineHalfDensity);
-                    finePts.Add(new LinePoint(data, WithAlpha(tint, fineAlpha), child ? FineChildPx : FineAdultPx,
+                    finePts.Add(new LinePoint(data, WithAlpha(pointTint, fineAlpha), child ? FineChildPx : FineAdultPx,
                         widthWorld, intensity));
                     if (inCoarse)
                     {
                         float coarseAlpha = childScale * CoarseMaxAlpha / (1f + d / (CoarseStride * CoarseHalfDensity));
-                        coarsePts.Add(new LinePoint(data, WithAlpha(tint, coarseAlpha),
+                        coarsePts.Add(new LinePoint(data, WithAlpha(pointTint, coarseAlpha),
                             child ? CoarseChildPx : CoarseAdultPx, widthWorld, intensity));
                     }
                 }

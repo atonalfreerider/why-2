@@ -10,6 +10,7 @@ namespace Why.UI
     /// Full-screen title card shown while the graph builds: "WHY", a subtitle, a thin progress bar and the
     /// loader's status. When loading completes it shows the build time, fades out and disables itself.
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class LoadingOverlay : GraphModule
     {
         /// <summary>Above every other canvas (HUD, director).</summary>

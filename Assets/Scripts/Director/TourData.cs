@@ -29,8 +29,8 @@ namespace Why.Director
     /// <summary>The narrated guide through the whole graph: a title and an ordered list of steps.</summary>
     public sealed class TourScript
     {
-        /// <summary>Resources path of the tour (without extension).</summary>
-        public const string ResourcePath = "Data/tour";
+        /// <summary>Resources path of the current scene's tour (without extension).</summary>
+        public static string ResourcePath => GraphScene.IsEconomy ? "Data/economy/tour" : "Data/tour";
 
         [JsonProperty("title")] public string Title;
         [JsonProperty("steps")] public List<TourStep> Steps = new List<TourStep>();
@@ -97,9 +97,37 @@ namespace Why.Director
             return script.Steps.Count > 0;
         }
 
+        /// <summary>The economy scene's short tour, used when Data/economy/tour.json is unavailable.</summary>
+        static TourScript EconomyBuiltIn()
+        {
+            return new TourScript
+            {
+                Title = "The economy: where money goes, and why",
+                Steps = new List<TourStep>
+                {
+                    Step("welcome", "overview", "now", 10, "Money, people and the things they fear and want",
+                        "Blue lines are people in the United States since 1950, rising and falling with their social " +
+                        "market value. Beneath them stands the wall of industries that pays them; money flows both ways."),
+                    Step("created", "industries", null, 12, "Where value is created",
+                        "Each band is an industry, as tall as the value it adds each year. The bright part of a band " +
+                        "is what its owners keep; the rest pays the people who work in it."),
+                    Step("circuit", "circuit", null, 12, "The circuit",
+                        "Industries pay wages, profits and taxes; households spend what they get back into industries. " +
+                        "Follow the money around once."),
+                    Step("mind", "mind", null, 12, "Desire and fear",
+                        "Every purchase moves toward something wanted or away from something feared. Most money goes to " +
+                        "the present; few minds spend on a future they control."),
+                    Step("games", "games", null, 12, "Cooperation",
+                        "One round of the prisoner's dilemma ends in defection. Meet again and again, and cooperation " +
+                        "can climb, as long as someone forgives."),
+                }
+            };
+        }
+
         /// <summary>A short tour through the main stops, used when Data/tour.json is unavailable.</summary>
         public static TourScript BuiltIn()
         {
+            if (GraphScene.IsEconomy) return EconomyBuiltIn();
             return new TourScript
             {
                 Title = "Why: from the Big Bang to this moment",

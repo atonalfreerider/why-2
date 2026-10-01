@@ -7,6 +7,7 @@ Shader "Why/Surface"
         _Alpha ("Alpha", Range(0, 1)) = 1
         _RhoFade ("Radial Fade Distance (0 = off)", Float) = 0
         _HandoffFade ("Fade Out Before The Human Branch", Float) = 0
+        _Raw ("Object Space (no warp)", Float) = 0
         _EdgeSoft ("Edge Softness (across band)", Range(0, 0.5)) = 0.15
         _NoiseScale ("Noise Scale", Float) = 3
         _NoiseContrast ("Noise Contrast", Float) = 1.6
@@ -46,6 +47,7 @@ Shader "Why/Surface"
                 float _Alpha;
                 float _RhoFade;
                 float _HandoffFade;
+                float _Raw;
                 float _EdgeSoft;
                 float _NoiseScale;
                 float _NoiseContrast;
@@ -72,7 +74,7 @@ Shader "Why/Surface"
             {
                 Varyings OUT;
                 float sLin;
-                float3 w = WhyToWorld(IN.pos, sLin);
+                float3 w = WhyPlace(IN.pos, _Raw, sLin);
                 OUT.posCS = TransformWorldToHClip(w);
                 OUT.world = w;
 

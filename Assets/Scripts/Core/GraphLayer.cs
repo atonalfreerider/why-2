@@ -135,5 +135,15 @@ namespace Why
             m.SetFloat("_HandoffFade", 1f);
             return m;
         }
+
+        /// <summary>
+        /// Makes a material place its vertices in plain object space (through the renderer's transform) instead of
+        /// through the warp: for diagrams that stand beside the timeline (see WhyPlace in the shaders).
+        /// </summary>
+        public static Material Raw(Material m)
+        {
+            m.SetFloat("_Raw", 1f);
+            return m;
+        }
     }
 }

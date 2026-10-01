@@ -25,6 +25,7 @@ namespace Why.Axis
     /// close on screen, which works for the polar clock and for any unrolled window alike. A tick's label
     /// hides with it and is pushed to the inner side of its tick whatever the camera angle.
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class TimeAxisLayer : GraphLayer
     {
         /// <summary>Height of the ring and ticks: just under the matter level, the floor of the graph.</summary>

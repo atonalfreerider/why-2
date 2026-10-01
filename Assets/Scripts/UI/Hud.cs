@@ -20,6 +20,7 @@ namespace Why.UI
     /// bottom edge (above the safe area) with the legend and readout stacked above it, and the help sheet stacks
     /// its columns.
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class Hud : GraphModule
     {
         /// <summary>Below the director's tour panel (50), so a tour card is never covered by a corner block.</summary>
@@ -109,7 +110,8 @@ namespace Why.UI
                 .Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(HudKit.Margin, -HudKit.Margin + 2),
                     new Vector2(TitleWidth, TitleHeight));
 
-            TextMeshProUGUI brand = HudKit.Line(block, "Brand", "WHY", HudKit.SizeSmall, GraphStyle.TextDim, FontStyles.Bold);
+            string brandText = GraphScene.IsEconomy ? "WHY  \u00B7  ECONOMY" : "WHY";
+            TextMeshProUGUI brand = HudKit.Line(block, "Brand", brandText, HudKit.SizeSmall, GraphStyle.TextDim, FontStyles.Bold);
             brand.characterSpacing = 30;
             HudKit.PlaceTopLeft(brand.rectTransform, 0, 0, HudKit.FitText(brand));
 
@@ -219,7 +221,7 @@ namespace Why.UI
             // during the tour Esc belongs to the director (it would close the sheet and exit the tour at once)
             if (!tour && (kb.hKey.wasPressedThisFrame || kb.slashKey.wasPressedThisFrame)) help.Toggle();
             if (kb.f3Key.wasPressedThisFrame) stats.Toggle();
-            if (kb.gKey.wasPressedThisFrame) probing = !probing;
+            if (kb.gKey.wasPressedThisFrame && !GraphScene.IsEconomy) probing = !probing;
             if (kb.escapeKey.wasPressedThisFrame)
             {
                 if (help.Open) help.Show(false);
@@ -271,7 +273,9 @@ namespace Why.UI
             // aim at where the point will be once any running re-scale has finished
             Vector3 data = hasAnchor ? anchor.Data : label.Data;
             CameraPose pose = root.Rig.Pose;
-            pose.Target = GraphWarp.ToWorld(data.x, data.y, data.z, GraphWarp.Target);
+            pose.Target = hasAnchor ? anchor.WorldUnder(GraphWarp.Target)
+                : label.Fixed ? label.Data
+                : GraphWarp.ToWorld(data.x, data.y, data.z, GraphWarp.Target);
             pose.Distance = Mathf.Max(pose.Distance * FocusZoom, Mathf.Min(pose.Distance, FocusMinDistance));
             root.Rig.FlyTo(pose, FocusSeconds);
         }

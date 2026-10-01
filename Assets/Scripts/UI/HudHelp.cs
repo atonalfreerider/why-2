@@ -72,7 +72,7 @@ namespace Why.UI
                 }),
                 Section("Views", ViewRows()),
             });
-            rightHeight = Column(rightColumn, new[]
+            rightHeight = Column(rightColumn, GraphScene.IsEconomy ? EconomySections() : new[]
             {
                 Section("Time lens", new[]
                 {
@@ -99,6 +99,33 @@ namespace Why.UI
 
             // created last: a hidden fade deactivates the sheet, and text must be measured while active
             fade = new UiFade(root.gameObject, 0, 7f, true);
+        }
+
+        /// <summary>The right column of the economy scene: its own details instead of the lens and the figures.</summary>
+        static (string heading, (string key, string action)[] rows)[] EconomySections()
+        {
+            return new[]
+            {
+                Section("People and years", new[]
+                {
+                    Row("Click a lifeline", "look inside one person: income, spending, drives, and the games they play"),
+                    Row("N", "the next notable person (owner, striver, escapist, the indebted ...)"),
+                    Row(",   .", "the year of the money circuit and the mind map (with Shift: ten years)"),
+                    Row("Games panel", "choose two strategies, the noise and the shadow of the future; watch them play"),
+                }),
+                Section("Guide and details", new[]
+                {
+                    Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
+                    Row("M", "in the tour: mute / unmute the spoken narration"),
+                    Row("Hover a label", "what it is, how large, and where the numbers come from"),
+                    Row("Click a label", "focus and highlight it"),
+                    Row("Esc", "clear the highlight, close the person, close this sheet"),
+                    Row("U   [   ]   L", "the time lens, as in the causality graph"),
+                    Row("V", "vertical 9:16 window for recording phone videos; again to go back"),
+                    Row("H   ?", "this help"),
+                    Row("F3", "frame rate and build stats"),
+                }),
+            };
         }
 
         public void Show(bool show) => fade.Show(show);

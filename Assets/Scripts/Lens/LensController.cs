@@ -11,6 +11,7 @@ namespace Why.Lens
     ///
     /// U = unroll here / roll back up, [ and ] = wider / narrower window, L = cycle log / mixed / linear.
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class LensController : GraphModule
     {
         /// <summary>Log offset as a fraction of the window's geometric center: small = log, large = linear.</summary>

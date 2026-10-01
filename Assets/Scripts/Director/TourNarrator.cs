@@ -10,7 +10,7 @@ namespace Why.Director
     /// </summary>
     public sealed class TourNarrator
     {
-        public const string ClipFolder = "Audio/Tour/";
+        public static string ClipFolder => GraphScene.IsEconomy ? "Audio/EconomyTour/" : "Audio/Tour/";
 
         /// <summary>Seconds of silence after a clip before autoplay moves on.</summary>
         public const float PauseAfter = 1.5f;

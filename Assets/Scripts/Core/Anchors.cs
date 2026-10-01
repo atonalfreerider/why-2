@@ -19,12 +19,22 @@ namespace Why
         public IdRange Ids = IdRange.Empty;
         public int Tier = 2;        // 1 = always labeled, 2 = mid zoom, 3 = close
 
+        /// <summary>
+        /// A point of something drawn in plain world space beside the timeline (a diagram of the economy scene):
+        /// the anchor is there under every warp, and <see cref="YearsAgo"/>, <see cref="Y"/> and <see cref="Rho"/>
+        /// only describe the moment it is about.
+        /// </summary>
+        public Vector3? Fixed;
+
         /// <summary>Arc of the anchor point (the start of the thing).</summary>
         public float U => DeepTime.Arc(YearsAgo);
 
         public Vector3 Data => new Vector3(U, Y, Rho);
 
-        public Vector3 World => GraphWarp.ToWorld(U, Y, Rho);
+        public Vector3 World => Fixed ?? GraphWarp.ToWorld(U, Y, Rho);
+
+        /// <summary>Where the anchor is in the world under a warp (e.g. the one a view preset is heading to).</summary>
+        public Vector3 WorldUnder(WarpState warp) => Fixed ?? GraphWarp.ToWorld(U, Y, Rho, warp);
     }
 
     /// <summary>

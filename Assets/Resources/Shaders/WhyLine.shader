@@ -11,6 +11,7 @@ Shader "Why/Line"
         _FlowSpeed ("Flow Speed", Float) = 0.35
         _RhoFade ("Radial Fade Distance (0 = off)", Float) = 0
         _HandoffFade ("Fade Out Before The Human Branch", Float) = 0
+        _Raw ("Object Space (no warp)", Float) = 0
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 5
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 1
     }
@@ -51,6 +52,7 @@ Shader "Why/Line"
                 float _FlowSpeed;
                 float _RhoFade;
                 float _HandoffFade;
+                float _Raw;
                 float _SrcBlend;
                 float _DstBlend;
             CBUFFER_END
@@ -61,7 +63,7 @@ Shader "Why/Line"
                 float3 prev : TEXCOORD0;
                 float3 next : TEXCOORD1;
                 float4 p : TEXCOORD2;   // side, width px, width world, id
-                float2 q : TEXCOORD3;   // intensity, flow
+                float2 q : TEXCOORD3;   // intensity, flow (0..1 along time; 2 + distance along a path, see LineMeshBuilder.AddFlowPath)
                 float4 color : COLOR;
             };
 
@@ -90,10 +92,10 @@ Shader "Why/Line"
                 Varyings OUT;
 
                 float sLin;
-                float3 w = WhyToWorld(IN.pos, sLin);
+                float3 w = WhyPlace(IN.pos, _Raw, sLin);
                 float4 c = TransformWorldToHClip(w);
-                float4 cp = ClipNeighbor(c, TransformWorldToHClip(WhyToWorld(IN.prev)));
-                float4 cn = ClipNeighbor(c, TransformWorldToHClip(WhyToWorld(IN.next)));
+                float4 cp = ClipNeighbor(c, TransformWorldToHClip(WhyPlace(IN.prev, _Raw)));
+                float4 cn = ClipNeighbor(c, TransformWorldToHClip(WhyPlace(IN.next, _Raw)));
 
                 if (c.w < 1e-3)
                 {
@@ -149,8 +151,13 @@ Shader "Why/Line"
                 float a = IN.color.a * _Alpha * _Color.a * WhyFocusFade(sLin) * alphaMul * subPixel * rhoFade;
                 a *= lerp(1.0, WhyHandoffFade(IN.pos.x), _HandoffFade);
                 OUT.color = float4(IN.color.rgb * _Color.rgb * IN.q.x * glow, a);
-                OUT.edge = float3(IN.p.x * halfW * miter, width * 0.5 * miter, IN.pos.x);
-                OUT.flow = IN.q.y * _Flow;
+
+                // flow pulses travel toward smaller phase: along time the phase is the arc u (toward the present);
+                // along a path (flow >= 2) it is minus the distance from the path's start (toward its end)
+                bool path = IN.q.y >= 2.0;
+                float phase = path ? -(IN.q.y - 2.0) : IN.pos.x;
+                OUT.edge = float3(IN.p.x * halfW * miter, width * 0.5 * miter, phase);
+                OUT.flow = (path ? 1.0 : IN.q.y) * _Flow;
                 return OUT;
             }
 

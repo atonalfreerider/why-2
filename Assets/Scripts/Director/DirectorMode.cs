@@ -27,6 +27,7 @@ namespace Why.Director
     /// anchor sits low), and anchors are framed a little above the middle so the sheet rarely has to move.
     /// When the screen flips orientation mid-tour, the current stop is re-framed and the panel re-placed.
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class DirectorMode : GraphModule
     {
         /// <summary>Canvas sorting order: above the HUD.</summary>
@@ -70,6 +71,9 @@ namespace Why.Director
 
         /// <summary>Our lineage through the three levels, lit on the end card.</summary>
         static readonly string[] LineageKeys = { "matter:_lineage", "clade:_lineage", "civ:_lineage" };
+
+        /// <summary>What glows on the economy tour's end card: the owners' lines and the circuit.</summary>
+        static readonly string[] EconomyEndKeys = { "people:owners", "circuit:loop" };
 
         GraphRoot root;
         Canvas canvas;
@@ -379,7 +383,9 @@ namespace Why.Director
                 Card = true,
                 Kicker = "Guided tour",
                 Title = script.Title,
-                Body = $"{steps.Count} stops through 13.8 billion years of cause and effect, about {minutes} minutes. " +
+                Body = (GraphScene.IsEconomy
+                           ? $"{steps.Count} stops through the economy of the United States, from 1946 to this year, about {minutes} minutes. "
+                           : $"{steps.Count} stops through 13.8 billion years of cause and effect, about {minutes} minutes. ") +
                        "The narration moves on by itself; move the camera at any time to pause and look around.",
                 Footnote = "Space or \u2192 next      \u2190 back      P pause      M mute      Esc leave",
                 PrimaryLabel = "Begin",
@@ -417,7 +423,7 @@ namespace Why.Director
             target = now;
 
             List<Anchor> lineage = new List<Anchor>();
-            foreach (string key in LineageKeys)
+            foreach (string key in GraphScene.IsEconomy ? EconomyEndKeys : LineageKeys)
             {
                 if (Anchors.TryGet(key, out Anchor a)) lineage.Add(a);
             }
@@ -426,15 +432,23 @@ namespace Why.Director
             narrator.Stop();
             stepDuration = 0;
 
-            string lit = lineage.Count > 0 ? "The glowing path is the chain of causes that led to you. " : "";
+            bool economy = GraphScene.IsEconomy;
+            string lit = lineage.Count == 0 ? ""
+                : economy ? "The glowing lines own capital: the few who steer their own path. "
+                : "The glowing path is the chain of causes that led to you. ";
             panel.Present(new PanelContent
             {
                 Card = true,
                 Kicker = "End of the tour",
-                Title = "This moment is the result of everything before it.",
-                Body = lit + "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to " +
-                       "re-scale. U unrolls the clock where you look ([ and ] widen or narrow the window, L " +
-                       "switches between log and linear time). H lists every control; T takes the tour again.",
+                Title = economy ? "Every dollar is someone's choice, made in fear or desire."
+                    : "This moment is the result of everything before it.",
+                Body = lit + (economy
+                    ? "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to change the " +
+                      "view. Click a lifeline to look inside one person; comma and period change the year of the " +
+                      "circuit and the mind map. H lists every control; T takes the tour again."
+                    : "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to " +
+                      "re-scale. U unrolls the clock where you look ([ and ] widen or narrow the window, L " +
+                      "switches between log and linear time). H lists every control; T takes the tour again."),
                 PrimaryLabel = "Explore",
                 Primary = ExitTour,
                 SecondaryLabel = "Restart",
@@ -455,7 +469,7 @@ namespace Why.Director
             focusing = false;
             if (anchor == null) return false;
 
-            Vector3 world = GraphWarp.ToWorld(anchor.U, anchor.Y, anchor.Rho, preset.Warp());
+            Vector3 world = anchor.WorldUnder(preset.Warp());
             CameraPose pose = preset.Pose();
             bool wholeGraph = preset.Polar && preset.PolarArc < 0;
             pose.Target = Vector3.Lerp(pose.Target, world, wholeGraph ? WholeGraphFraming : AnchorFraming);

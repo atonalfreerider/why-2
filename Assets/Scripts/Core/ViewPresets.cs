@@ -115,6 +115,23 @@ namespace Why
         /// <summary>Pitch on a portrait screen for polar presets (0 = <see cref="Pitch"/>).</summary>
         public float PortraitPitch;
 
+        /// <summary>
+        /// The United States population (1950 - now) is drawn in full detail (1 line = 100,000 people) in this
+        /// view, whatever its size on screen.
+        /// </summary>
+        public bool PopulationDetail;
+
+        /// <summary>
+        /// A view of something that stands beside the timeline in plain world space (a diagram of the economy
+        /// scene) rather than on it: the camera looks at this world point from <see cref="FixedYaw"/> (degrees,
+        /// 0 = looking along +z), <see cref="Pitch"/> and <see cref="Distance"/>; the warp is still
+        /// <see cref="Warp"/>, so the timeline stays where it was.
+        /// </summary>
+        public Vector3? FixedTarget;
+
+        /// <summary>Camera yaw of a <see cref="FixedTarget"/> view (degrees, 0 = looking along +z).</summary>
+        public float FixedYaw;
+
         public WarpState Warp()
         {
             if (Polar)
@@ -141,6 +158,13 @@ namespace Why
         {
             WarpState w = Warp();
             bool portrait = ScreenLayout.IsPortrait;
+            if (FixedTarget.HasValue)
+            {
+                // a diagram beside the timeline: on a portrait screen step back until its width fits
+                float distance = portrait ? Mathf.Max(Distance, PortraitWidth / (2f * TanHalfFov * PortraitAspect)) : Distance;
+                return new CameraPose { Target = FixedTarget.Value, Yaw = FixedYaw, Pitch = Pitch, Distance = distance };
+            }
+
             if (Polar && PolarArc < 0)
             {
                 // the whole graph (clock + human branch), seen from the south so the clock reads like a clock face;
@@ -260,15 +284,40 @@ namespace Why
         public float Distance;
     }
 
-    /// <summary>The preset catalog. Ids are referenced by the director's tour.json.</summary>
+    /// <summary>
+    /// The preset catalog of the current scene (<see cref="GraphScene"/>). Ids are referenced by the director's
+    /// tour.json; every catalog has an "overview", the first view and the end of its tour.
+    /// </summary>
     public static class ViewPresets
     {
         /// <summary>Matter emphasis of the life-focused views: the red layer recedes behind the tree of life.</summary>
         const float LifeMatterEmphasis = 0.45f;
 
-        static List<ViewPreset> all;
+        static readonly Dictionary<string, List<ViewPreset>> catalogs = new Dictionary<string, List<ViewPreset>>();
 
-        public static IReadOnlyList<ViewPreset> All => all ??= Build();
+        public static IReadOnlyList<ViewPreset> All
+        {
+            get
+            {
+                string scene = GraphScene.Current;
+                if (!catalogs.TryGetValue(scene, out List<ViewPreset> list))
+                {
+                    list = scene == GraphScene.Economy ? Economy.EconomyPresets.Build() : Build();
+                    catalogs[scene] = list;
+                }
+
+                return list;
+            }
+        }
+
+        /// <summary>The view a scene opens with: its overview.</summary>
+        public static ViewPreset Initial => Get("overview");
+
+        /// <summary>
+        /// Drops the cached catalogs (the economy presets are framed on the timeline as it is laid out, see
+        /// <c>EconomyPresets</c>).
+        /// </summary>
+        public static void Invalidate() => catalogs.Clear();
 
         public static ViewPreset Get(string id)
         {
@@ -367,7 +416,7 @@ namespace Why
                 {
                     Id = "smv", Title = "United States 1950 - now",
                     Subtitle = "Gender-separated lifelines rising and falling with social market value",
-                    Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14,
+                    Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14, PopulationDetail = true,
                     RhoScale = 2.5f, YScale = 3f, StrataEmphasis = 0.1f,
                     TargetRho = 0.7f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 8f,
                     Portrait = PortraitFraming.Narrow

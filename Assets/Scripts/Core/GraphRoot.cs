@@ -38,6 +38,12 @@ namespace Why
         /// <summary>Seconds the camera takes to re-frame the view after the screen changes orientation.</summary>
         public const float ReframeSeconds = 0.9f;
 
+        /// <summary>
+        /// Which graph this root builds (<see cref="GraphScene"/>): "why" (the causality graph) or "economy". Only
+        /// layers and modules that belong to it are created (<see cref="GraphScenesAttribute"/>).
+        /// </summary>
+        [SerializeField] string scene = GraphScene.Why;
+
         public static GraphRoot Instance { get; private set; }
 
         public CameraRig Rig { get; private set; }
@@ -80,6 +86,7 @@ namespace Why
         void Awake()
         {
             Instance = this;
+            GraphScene.Set(scene);
             Anchors.Clear();
             GraphWarp.Set(WarpState.Polar);
             QualitySettings.vSyncCount = 1;
@@ -121,7 +128,7 @@ namespace Why
 
         IEnumerator Start()
         {
-            CurrentPreset = ViewPresets.Get("overview");
+            CurrentPreset = ViewPresets.Initial;
             GraphWarp.Set(CurrentPreset.Warp());
             Rig.SetPose(CurrentPreset.Pose());
 
@@ -342,7 +349,8 @@ namespace Why
         static IEnumerable<Type> FindTypes<T>()
         {
             Type baseType = typeof(T);
-            return baseType.Assembly.GetTypes().Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract);
+            return baseType.Assembly.GetTypes()
+                .Where(t => baseType.IsAssignableFrom(t) && !t.IsAbstract && GraphScene.Includes(t));
         }
     }
 }

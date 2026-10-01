@@ -20,6 +20,7 @@ namespace Why.Humans.Smv
     /// The simulation and all geometry run on a worker thread in a few hundred milliseconds (the original
     /// took minutes: one GameObject per segment, LINQ over the population every step).
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class SmvLayer : GraphLayer
     {
         public const string CivId = "united_states";
@@ -147,6 +148,10 @@ namespace Why.Humans.Smv
             SmvSimulation sim = new SmvSimulation(data, BandAt, PeoplePerLine, ctx.NowYear, Seed);
             sim.Run();
             if (sim.People.Count == 0) return;
+
+            // another scene's model of the same people restyles their lines (none in the causality graph)
+            ISmvLineStyle style = ctx.Shared<ISmvLineStyle>(SmvPopulation.StyleKey);
+            style?.Prepare(sim);
             if (sim.People.Count > MaxLines)
             {
                 Debug.LogWarning($"[Why] SmvLayer: {sim.People.Count} lines overflow the lifeline ids reserved " +
@@ -155,7 +160,7 @@ namespace Why.Humans.Smv
 
             long simMs = sw.ElapsedMilliseconds;
 
-            SmvGeometry geo = new SmvGeometry(sim, civIndex);
+            SmvGeometry geo = new SmvGeometry(sim, civIndex) { Style = style };
             geo.BuildLifelines();
             geo.BuildParentLinks();
             double firstMid = data.FirstYear + 0.5;
@@ -166,6 +171,7 @@ namespace Why.Humans.Smv
             foreach (Generation g in generations) geo.BuildGenerationPlane(g.from);
 
             lineIds = new IdRange(GraphIds.Lifeline(civIndex, 0), GraphIds.Lifeline(civIndex, sim.People.Count - 1));
+            ctx.Share(SmvPopulation.SharedKey, new SmvPopulation { Sim = sim, CivIndex = civIndex, LineIds = lineIds });
             RegisterPopulation(ctx, sim, geo, firstMid);
             RegisterGenerations(ctx, sim, geo, civIndex, generations);
             BuildEraProbe(sim, geo, firstMid);
@@ -373,7 +379,8 @@ namespace Why.Humans.Smv
             Measure(rig, GraphWarp.Current, out float eraPx, out float spreadPx, out float centerPx);
 
             GraphRoot root = GraphRoot.Instance;
-            bool preset = root != null && root.CurrentPreset != null && root.CurrentPreset.Id == PresetId;
+            bool preset = root != null && root.CurrentPreset != null &&
+                          (root.CurrentPreset.Id == PresetId || root.CurrentPreset.PopulationDetail);
             float visible = SmoothStep(CoarseFromPx, CoarseFullPx, eraPx);
             float close = Mathf.Max(SmoothStep(FineFromSpreadPx, FineFullSpreadPx, spreadPx),
                 SmoothStep(FineFromEraPx, FineFullEraPx, eraPx));

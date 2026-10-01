@@ -84,6 +84,26 @@ float3 WhyToWorld(float3 data)
     return WhyToWorld(data, sLin);
 }
 
+// Vertex placement for a material: data space through the warp, or (raw > 0.5) plain object space placed by the
+// renderer's transform, for diagrams that stand beside the timeline (the economy scene). Raw geometry is never
+// outside the lens window (sLin = 0).
+float3 WhyPlace(float3 pos, float raw, out float sLin)
+{
+    if (raw > 0.5)
+    {
+        sLin = 0;
+        return TransformObjectToWorld(pos);
+    }
+
+    return WhyToWorld(pos, sLin);
+}
+
+float3 WhyPlace(float3 pos, float raw)
+{
+    float sLin;
+    return WhyPlace(pos, raw, sLin);
+}
+
 // 1 inside the lens window, fading outside it.
 float WhyFocusFade(float sLin)
 {

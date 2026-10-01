@@ -25,6 +25,7 @@ namespace Why.Humans.Smv
         public float PartnerQuantile;   // position in the partner-count distribution (0..1)
         public int Partners;            // lifetime sexual partners so far
         public int Spouse = -1;         // index of the current spouse
+        public int Marriage = -1;       // index of the current marriage in SmvSimulation.MarriageLog
         public double MarriedAt;
         public int Children;
         public double LastBirth = double.NegativeInfinity;
@@ -57,6 +58,18 @@ namespace Why.Humans.Smv
         internal bool PartnersDone;     // reached the end of the partner curve (no more increments)
 
         public int SampleCount => LastStep >= FirstStep ? LastStep - FirstStep + 1 : 0;
+    }
+
+    /// <summary>One marriage of the simulation (indices into <see cref="SmvSimulation.People"/>).</summary>
+    public struct SmvMarriage
+    {
+        public int Wife, Husband;
+
+        /// <summary>Calendar years; End is +infinity while the marriage lasts (to now).</summary>
+        public double Start, End;
+
+        /// <summary>Ended by divorce (otherwise by a death, or still going).</summary>
+        public bool Divorced;
     }
 
     /// <summary>
@@ -113,6 +126,12 @@ namespace Why.Humans.Smv
         static readonly float[][] OffsetTable = BuildOffsetTable();
 
         public readonly List<SmvPerson> People = new List<SmvPerson>();
+
+        /// <summary>
+        /// Every marriage in the order it happened, with how it ended (for models built on the population, e.g.
+        /// the economy scene's households). <see cref="SmvPerson.Marriage"/> indexes the current one.
+        /// </summary>
+        public readonly List<SmvMarriage> MarriageLog = new List<SmvMarriage>();
 
         /// <summary>Real people represented by one lifeline.</summary>
         public readonly double PeoplePerLine;
@@ -466,7 +485,22 @@ namespace Why.Humans.Smv
             for (int i = 0; i < aliveCount; i++)
             {
                 SmvPerson p = alive[i];
-                if (p.Spouse >= 0 && byIndex[p.Spouse].LastStep < k) p.Spouse = -1;
+                if (p.Spouse >= 0 && byIndex[p.Spouse].LastStep < k)
+                {
+                    // widowed: the marriage ended with the spouse's death
+                    if (p.Marriage >= 0)
+                    {
+                        SmvMarriage m = MarriageLog[p.Marriage];
+                        if (double.IsPositiveInfinity(m.End))
+                        {
+                            m.End = Math.Min(t, byIndex[p.Spouse].Death);
+                            MarriageLog[p.Marriage] = m;
+                        }
+                    }
+
+                    p.Spouse = -1;
+                    p.Marriage = -1;
+                }
                 float age = (float)(t - p.Birth);
                 if (age < SmvModel.AdultAge) continue;
                 if (p.Spouse < 0 && !p.PartnersDone)
@@ -603,6 +637,11 @@ namespace Why.Humans.Smv
             woman.Spouse = man.Index;
             man.Spouse = woman.Index;
             woman.MarriedAt = man.MarriedAt = t;
+            woman.Marriage = man.Marriage = MarriageLog.Count;
+            MarriageLog.Add(new SmvMarriage
+            {
+                Wife = woman.Index, Husband = man.Index, Start = t, End = double.PositiveInfinity
+            });
             Marriages++;
         }
 
@@ -616,8 +655,19 @@ namespace Why.Humans.Smv
                 return (years < 1 ? 0.3 : 1.0) / (1 + years / 6);
             });
             if (wife == null) return;
-            byIndex[wife.Spouse].Spouse = -1;
+            if (wife.Marriage >= 0)
+            {
+                SmvMarriage m = MarriageLog[wife.Marriage];
+                m.End = t;
+                m.Divorced = true;
+                MarriageLog[wife.Marriage] = m;
+            }
+
+            SmvPerson husband = byIndex[wife.Spouse];
+            husband.Spouse = -1;
+            husband.Marriage = -1;
             wife.Spouse = -1;
+            wife.Marriage = -1;
             Divorces++;
         }
 

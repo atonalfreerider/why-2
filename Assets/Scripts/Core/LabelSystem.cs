@@ -20,6 +20,7 @@ namespace Why
         public bool Hidden;               // toggled by layers for level of detail
         public bool HandoffFade;          // life/matter labels dissolve before the human branch
         public string Icon;               // optional icon id (see Icons), drawn left of the text; Text may then be empty
+        public bool Fixed;                // Data is a world position (a diagram beside the timeline), not data space
 
         internal float Width;             // estimated width in px at SizePx, icon included
         internal float IconEm;            // icon quad size in em, 0 without a known icon (resolved when the label system takes the spec)
@@ -256,11 +257,11 @@ namespace Why
             {
                 LabelSpec s = specs[i];
                 if (s.Hidden) continue;
-                float fade = GraphWarp.FocusFade(s.Data.x, warp);
-                if (s.HandoffFade) fade *= GraphStyle.HandoffFade(s.Data.x);
+                float fade = s.Fixed ? 1f : GraphWarp.FocusFade(s.Data.x, warp);
+                if (s.HandoffFade && !s.Fixed) fade *= GraphStyle.HandoffFade(s.Data.x);
                 if (fade < 0.35f) continue;
 
-                Vector3 world = GraphWarp.ToWorld(s.Data.x, s.Data.y, s.Data.z, warp);
+                Vector3 world = s.Fixed ? s.Data : GraphWarp.ToWorld(s.Data.x, s.Data.y, s.Data.z, warp);
                 Vector3 sp = cam.WorldToScreenPoint(world);
                 if (sp.z <= cam.nearClipPlane) continue;
                 sp.x += s.PixelOffset.x * UiScale;

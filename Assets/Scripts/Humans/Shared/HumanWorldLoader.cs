@@ -6,6 +6,7 @@ namespace Why.Humans
     /// Builds the shared <see cref="HumanWorld"/> before the human layers (Order 30+) prepare, and
     /// publishes it as <see cref="HumanWorld.SharedKey"/>.
     /// </summary>
+    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class HumanWorldLoader : GraphLayer
     {
         public override int Order => 20;

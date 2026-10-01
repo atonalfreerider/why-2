@@ -38,6 +38,9 @@ namespace Why.Economy.Layers
         /// <summary>Upkeep (taxes, depreciation) is drawn in a neutral grey, not the industry's hue.</summary>
         static readonly Color UpkeepColor = new Color(0.62f, 0.64f, 0.68f);
 
+        /// <summary>Base year of the GDP price index the wall is drawn in (industries.json deflator: 2025 = 100).</summary>
+        const int PriceYear = 2025;
+
         /// <summary>Year the wages share is scaled to (the year of the industries' compShare).</summary>
         const double ShareYear = 2024;
 
@@ -225,7 +228,9 @@ namespace Why.Economy.Layers
             CultureInfo ci = CultureInfo.InvariantCulture;
             IReadOnlyList<Industry> inds = data.Industries;
             Column now = wall[wall.Count - 1];
-            int last = data.LastYear;
+            // headline numbers for the latest full year (the circuit's calibration year): the last year of the data is a
+            // partial-year estimate
+            int last = data.Circuit != null && data.Circuit.Year > 0 ? Math.Min(data.LastYear, data.Circuit.Year) : data.LastYear;
             double gdpLast = data.Gdp.GrowthAt(last);
 
             // industries: a label inside the band, staggered across recent decades within each tier
@@ -324,7 +329,7 @@ namespace Why.Economy.Layers
                 Key = "wall:now",
                 Label = "The economy, " + last.ToString(ci),
                 Blurb = $"{Money(gdpLast, ci)} of value added in {last}: {(realLast / Math.Max(real1950, 1)).ToString("0.0", ci)} " +
-                        $"times the {Money(real1950, ci)} of 1950 in today's dollars. The bright tops of the bands are what " +
+                        $"times the {Money(real1950, ci)} of 1950 in {PriceYear} dollars. The bright tops of the bands are what " +
                         "owners keep; the dim parts pay wages.",
                 Level = GraphLevel.Humans,
                 YearsAgo = 0.5,
@@ -340,7 +345,7 @@ namespace Why.Economy.Layers
             {
                 Key = "wall:1950",
                 Label = "The economy, 1950",
-                Blurb = $"{Money(data.Gdp.GrowthAt(1950), ci)} at the time ({Money(real1950, ci)} in {last} dollars). " +
+                Blurb = $"{Money(data.Gdp.GrowthAt(1950), ci)} at the time ({Money(real1950, ci)} in {PriceYear} dollars). " +
                         $"Manufacturing was {Percent(data, "manufacturing", 1950, ci)} of it; in {last} it is " +
                         $"{Percent(data, "manufacturing", last, ci)}.",
                 Level = GraphLevel.Humans,
@@ -369,9 +374,9 @@ namespace Why.Economy.Layers
             double va = ind.ValueAdded.GrowthAt(year), gdp = data.Gdp.GrowthAt(year);
             StringBuilder s = new StringBuilder();
             if (!string.IsNullOrEmpty(ind.Blurb)) s.Append(ind.Blurb).Append(' ');
-            s.Append(year.ToString(ci)).Append(": ").Append(Money(va, ci)).Append(" of value added (")
-                .Append((gdp > 0 ? 100 * va / gdp : 0).ToString("0.0", ci)).Append("% of GDP; ")
-                .Append(Percent(data, ind.Id, 1950, ci)).Append(" in 1950). Wages take ")
+            s.Append("Share of GDP: ").Append((gdp > 0 ? 100 * va / gdp : 0).ToString("0.0", ci)).Append("% in ")
+                .Append(year.ToString(ci)).Append(" (").Append(Money(va, ci)).Append("), ")
+                .Append(Percent(data, ind.Id, 1950, ci)).Append(" in 1950. Wages take ")
                 .Append((100 * ind.CompShare).ToString("0", ci)).Append("%, owners keep ")
                 .Append((100 * ind.OwnersShare).ToString("0", ci)).Append('%');
             if (ind.ProfitMargin > 0) s.Append("; typical net margin ").Append((100 * ind.ProfitMargin).ToString("0.#", ci)).Append('%');

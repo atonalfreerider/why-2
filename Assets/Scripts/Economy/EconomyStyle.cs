@@ -23,6 +23,14 @@ namespace Why.Economy
         public static readonly Color Desire = new Color(1f, 0.32f, 0.52f);
         public static readonly Color Fear = new Color(0.35f, 0.92f, 1f);
         public static readonly Color Government = new Color(0.72f, 0.76f, 0.84f);
+
+        /// <summary>
+        /// The games' two moves, as the notebook draws them: cooperation light (the people's blue, whitened) and
+        /// defection in the red pen.
+        /// </summary>
+        public static readonly Color Cooperate = new Color(0.78f, 0.86f, 1f);
+
+        public static readonly Color Defect = new Color(1f, 0.24f, 0.2f);
         public static readonly Color People = GraphStyle.Humans;
         public static readonly Color Matter = GraphStyle.Matter;
         public static readonly Color Life = GraphStyle.Life;
@@ -113,14 +121,26 @@ namespace Why.Economy
     /// </summary>
     public static class EconomyIds
     {
-        /// <summary>Industry bands of the wall: + industry index (&lt; 1000).</summary>
+        /// <summary>
+        /// Industry bands of the wall, <see cref="IndustryParts"/> ids per industry so an industry is one contiguous range
+        /// and a tier (whose industries are consecutive) is too: see <see cref="IndustryPart"/>.
+        /// </summary>
         public const int Industry = 40_000;
 
-        /// <summary>The profit (captured) part of an industry's band: + industry index.</summary>
-        public const int IndustryProfit = 41_000;
+        /// <summary>Ids per industry: wages, upkeep (production taxes and depreciation), owners' share, edge line.</summary>
+        public const int IndustryParts = 4;
 
-        /// <summary>Tiers of the wall (government, raw, make, services, tech): + tier index.</summary>
-        public const int Tier = 42_000;
+        public const int PartWages = 0, PartUpkeep = 1, PartOwners = 2, PartEdge = 3;
+
+        /// <summary>Id of one part of an industry's band.</summary>
+        public static int IndustryPart(int industry, int part) => Industry + industry * IndustryParts + part;
+
+        /// <summary>Every id of a run of consecutive industries (one industry, a tier, the whole wall).</summary>
+        public static IdRange Industries(int first, int last) =>
+            new IdRange(IndustryPart(first, 0), IndustryPart(last, IndustryParts - 1));
+
+        /// <summary>The line along the top of the wall.</summary>
+        public const int WallTop = 42_000;
 
         /// <summary>Money threads between the wall and the people: + kind (0 wages, 1 capital income, 2 transfers, 3.. spending categories).</summary>
         public const int Thread = 43_000;

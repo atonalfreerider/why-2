@@ -23,6 +23,7 @@ namespace Why
         public bool Fixed;                // Data is a world position (a diagram beside the timeline), not data space
 
         internal float Width;             // estimated width in px at SizePx, icon included
+        internal int TextVersion;         // bumped by LabelSystem.SetText so a shown label re-reads its text
         internal float IconEm;            // icon quad size in em, 0 without a known icon (resolved when the label system takes the spec)
     }
 
@@ -76,6 +77,7 @@ namespace Why
             public SpriteRenderer Icon;   // created the first time the slot shows an icon, then reused
             public bool IconShown;
             public LabelSpec Spec;
+            public int TextVersion;       // the spec's TextVersion this slot shows
             public float Alpha;
             public float Fade = 1;        // last focus/handoff fade while placed, kept while fading out
             public bool Used;
@@ -119,6 +121,22 @@ namespace Why
         }
 
         public void MarkDirty() => dirty = true;
+
+        /// <summary>
+        /// Main thread: changes the text of a label that was already added (a live readout, a strategy name), re-measures
+        /// it for placement and refreshes it where it is shown.
+        /// </summary>
+        public void SetText(LabelSpec spec, string text)
+        {
+            if (spec == null || spec.Text == text) return;
+            spec.Text = text;
+            bool hasText = !string.IsNullOrEmpty(text);
+            float em = EstimateWidth(text);
+            if (spec.IconEm > 0) em += spec.IconEm * IconGlyphFraction + (hasText ? IconGapEm : 0);
+            spec.Width = em * spec.SizePx;
+            spec.TextVersion++;
+            dirty = true;
+        }
 
         void FlushPending()
         {
@@ -309,6 +327,11 @@ namespace Why
                     }
                 }
 
+                if (slot != null && slot.TextVersion != s.TextVersion)
+                {
+                    Assign(slot, s); // the text changed while shown
+                }
+
                 if (slot == null)
                 {
                     foreach (Slot candidate in slots)
@@ -364,6 +387,7 @@ namespace Why
             TextMeshPro tmp = slot.Tmp;
             if (!tmp.gameObject.activeSelf) tmp.gameObject.SetActive(true);
             tmp.text = s.Text ?? string.Empty;
+            slot.TextVersion = s.TextVersion;
             Sprite sprite = s.IconEm > 0 ? Icons.GetSprite(s.Icon) : null;
             slot.IconShown = sprite != null;
             if (sprite == null)

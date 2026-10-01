@@ -150,6 +150,9 @@ namespace Why.Economy
 
         public const int CircuitLink = 51_000;
 
+        /// <summary>The capture skyline behind the circuit: + company index (the most valuable first).</summary>
+        public const int Capture = 52_000;
+
         /// <summary>The mind map: spending categories, drives, neurochemicals, axes.</summary>
         public const int MindCategory = 60_000;
 

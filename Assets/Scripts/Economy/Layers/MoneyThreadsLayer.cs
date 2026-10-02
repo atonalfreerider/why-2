@@ -36,7 +36,7 @@ namespace Why.Economy.Layers
     /// separate bright mesh with every thread (every source of income) of every adult year, rebuilt when the choice
     /// changes, while the sample dims.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes("economy-retired")]   // retired by the landscape (WP0); deleted by WP5
     public sealed class MoneyThreadsLayer : GraphLayer
     {
         // ------------------------------------------------------------------ sampling

@@ -30,7 +30,7 @@ namespace Why.Economy.Layers
     /// station's meshes fade out while the camera is elsewhere, so nothing of it shows in the timeline's views; while
     /// the camera looks at the stations, the timeline's own labels (its end stands in front of this one) step aside.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes("economy-retired")]   // retired by the landscape (WP0); deleted by WP5
     public sealed class CircuitLayer : GraphLayer
     {
         // ------------------------------------------------------------------ layout (station-local: x -5..5 across, y up)

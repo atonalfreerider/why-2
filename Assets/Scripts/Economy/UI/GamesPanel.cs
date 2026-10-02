@@ -20,7 +20,7 @@ namespace Why.Economy.UI
     /// HUD's preset rows and legend), two steppers per row and nothing else: with the rules the sheet would reach down
     /// over the station's headings.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes("economy-retired")]   // retired by the landscape (WP0); deleted by WP5
     public sealed class GamesPanel : GraphModule
     {
         /// <summary>Above the HUD (40), below the director's tour panel (50) and the HUD's overlay (200).</summary>

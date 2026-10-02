@@ -922,5 +922,23 @@
     },
     "basis": "computed 2026-10-01 (scratchpad games_build/analyze.py, calib2.py); the T=5,R=3,P=1,S=0 matrices at w=0.95, eps=0.01 reproduce research/gametheory.json payoffMatrix_w0p95_eps0p01 exactly"
   },
-  "thesis": "The thesis under test: 'a lot of people buy fantasy and very few actually follow a life path that they control.' On how people treat each other, the games evidence does not support 'very few'. About half of lab subjects play reciprocal, rule-based strategies (modeled Higher OS share 0.52), and reciprocators out-earn defectors against today's mix. What has eroded is the environment those strategies need: a long shadow of the future, and trust. Trust in strangers fell from 0.47 (1972) to 0.25 (2024), and to 0.11 among 18-29s. Marriages and close friendships thinned, and the other party became an out-group. In the model, a reasoner among defectors and mistakes earns 2.3 of a possible 3 points per round. Control over one's dealings is limited by the setting, not only by the self."
+  "thesis": "The thesis under test: 'a lot of people buy fantasy and very few actually follow a life path that they control.' On how people treat each other, the games evidence does not support 'very few'. About half of lab subjects play reciprocal, rule-based strategies (modeled Higher OS share 0.52), and reciprocators out-earn defectors against today's mix. What has eroded is the environment those strategies need: a long shadow of the future, and trust. Trust in strangers fell from 0.47 (1972) to 0.25 (2024), and to 0.11 among 18-29s. Marriages and close friendships thinned, and the other party became an out-group. In the model, a reasoner among defectors and mistakes earns 2.3 of a possible 3 points per round. Control over one's dealings is limited by the setting, not only by the self.",
+  "social": {
+    "rounds": 96, "pairsPerPlayer": 10, "noise": 0.02, "continuation": 0.95,
+    "forgiveness": 0.3333, "higherOsReason": 0.5, "tribalMemory": 0.5, "learning": 0.10, "partnerChoice": 1.0,
+    "affinityBound": 2.0, "incidentRound": 48, "detections": [0, 24, 48, 72, 96], "roundsPerSecond": 4,
+    "affinity": { "tribe": 0.30, "sameGroup": 0.30, "adjacentRung": 0.10, "farRung": -0.15, "sameGeneration": 0.15,
+                  "farGeneration": -0.10, "sameIndustry": 0.25, "sameTier": 0.10, "ownerWorker": -0.20, "classSlope": 0.12,
+                  "tribeMatrix": [[1, -1, -0.25], [-1, 1, -0.25], [-0.25, -0.25, 0.25]],
+                  "ageTrustLogit": [[18, -1.03], [30, -0.03], [40, -0.02], [50, 0.23], [65, 0.41]] },
+    "exposure": { "sameIndustry": 3, "sameTier": 1, "sameGroup": 1, "generation": 0.5 },
+    "strangerCooperation": { "lab": 0.474, "labEraTrust": 0.40 },
+    "notes": {
+      "forgiveness": "generous tit for tat q = 1/3 (Nowak & Sigmund 1992), applied to each player's share of adults on the higher OS (reason >= 0.5)",
+      "tribalMemory": "toward the other party, the default OS repays what its own side received (vicarious retribution: Lickel, Miller, Stenstrom, Denson & Schmader 2006); 0.5 is a design parameter",
+      "partnerChoice": "Rand, Arbesman & Christakis 2011, PNAS 108:19193; learning and partnerChoice are design parameters",
+      "affinity": "groups.md section 3: Balliet, Wu & De Dreu 2014 (d = 0.32); Iyengar & Westwood 2015; ANES thermometers; GSS trust by age; Sally 1995 (0.474)",
+      "pairsPerPlayer": "design parameter: about half of a working player's dealings fall within its industry or tier"
+    }
+  }
 }

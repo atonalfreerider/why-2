@@ -40,7 +40,7 @@ namespace Why.Economy.Layers
     /// settings (<see cref="EconomyState.SetGames"/>) restarts both games and recomputes the evolution (on a worker
     /// thread). Everything is deterministic: games are seeded by their number.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes("economy-retired")]   // retired by the landscape (WP0); deleted by WP5
     public sealed class GamesLayer : GraphLayer
     {
         // ------------------------------------------------------------------ layout (station-local: x -5..5 across, y 0..5 up)

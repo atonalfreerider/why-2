@@ -39,7 +39,7 @@ namespace Why.Economy.Layers
     /// meshes destroyed). The station's meshes fade out while the camera looks elsewhere, and a dark screen behind it
     /// hides the games station that stands farther down the road while the camera looks at this one.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes("economy-retired")]   // retired by the landscape (WP0); deleted by WP5
     public sealed class MindLayer : GraphLayer
     {
         // ------------------------------------------------------------------ the motivation space (station-local)

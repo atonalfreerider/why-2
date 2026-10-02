@@ -1,0 +1,275 @@
+{
+ "vintage": "2026 socioeconomic groups for the land's players (landscape spec 3.1-3.2; groups.md, the sociology pass of the redesign). Model shares computed on EconomicLives seed 2026, 2025 cut. Compiled 2026-10-02.",
+ "note": "Every adult alive in a year lands in exactly one group by the priority rule below, on PersonYear fields only. Thresholds are relative (a rank, a wealth group, the year's median earnings, the Social Security share), so the rule works in every year of the cut. Class is read from the source of income (Gilbert, Wright); within wage earners from household income rank (Pew); occupation is proxied by industry (office vs frontline, after Dingel & Neiman's teleworkable jobs). Generation and party are attributes of the players, not groups. Party (Tribe) is drawn independently of class in this model (groups.md 6.1).",
+ "rule": [
+  "1 WealthGroup == 3: the 1%",
+  "2 employed and self-employed: Earned >= medEarn(Y) or WealthGroup >= 2: business owners; else gig & freelance",
+  "3 employee: IncomeRank >= pmcRank: PMC; IncomeRank < poorRank: working poor; government industry: public servants; office industry: office & knowledge workers; else frontline & trades workers",
+  "4 not employed, age >= retireAge or on Social Security: SS >= ssDependence x (SS + wages + business + capital income): Social Security retirees; else comfortable retirees",
+  "5 not employed, under retireAge, married at mid-year (MarriageLog: Start <= Y + 0.5 < End) to an employed spouse: the spouse's group, anchored on the spouse's industry (Erikson's dominance rule)",
+  "6 not employed otherwise: under youngAge: students & young adults; else out of work",
+  "children: the mother's player, else the father's; with neither: the 1% if WealthGroup 3, PMC if IncomeRank >= pmcRank, else out of work",
+  "medEarn(Y) = median Earned over adults with Employed && !SelfEmployed ($65.6K in 2025)"
+ ],
+ "thresholds": {
+  "pmcRank": 0.8,
+  "poorRank": 0.3,
+  "retireAge": 62,
+  "ssDependence": 0.5,
+  "youngAge": 25
+ },
+ "officeIndustries": [
+  "banking",
+  "finance",
+  "insurance",
+  "real_estate",
+  "legal",
+  "professional",
+  "education",
+  "hardware",
+  "software",
+  "internet",
+  "media_telecom"
+ ],
+ "governmentIndustries": [
+  "federal",
+  "state_local"
+ ],
+ "cells": {
+  "minLines": 10,
+  "richMinLines": 3,
+  "richWealthShare": 0.01,
+  "note": "A cell (group x anchor x party) is a player with at least minLines lines (1M adults), or with at least richMinLines lines holding at least richWealthShare of national net worth. Too small: place cells join their tier (tier:<id>) within the group, tier cells pool into the group's rest, a rest too small joins the group's largest cell; within a cell a D, R or I part that passes the test is its own player, the rest pool into one mixed (M) player or join the largest part."
+ },
+ "generations": [
+  {
+   "id": "silent",
+   "name": "Silent",
+   "before": 1946
+  },
+  {
+   "id": "boomer",
+   "name": "Boomer",
+   "before": 1965
+  },
+  {
+   "id": "genx",
+   "name": "Gen X",
+   "before": 1981
+  },
+  {
+   "id": "millennial",
+   "name": "Millennial",
+   "before": 1997
+  },
+  {
+   "id": "genz",
+   "name": "Gen Z",
+   "before": 9999
+  }
+ ],
+ "pseudoAnchors": [
+  {
+   "id": "pensions",
+   "group": "retired_savings",
+   "name": "Pensions",
+   "angleIndustry": "finance"
+  },
+  {
+   "id": "social_security",
+   "group": "retired_ss",
+   "name": "Social Security",
+   "angleIndustry": "federal"
+  },
+  {
+   "id": "schools",
+   "group": "students",
+   "name": "Schools",
+   "angleIndustry": "education"
+  },
+  {
+   "id": "safety_net",
+   "group": "out_of_work",
+   "name": "Safety net",
+   "angleIndustry": "state_local"
+  }
+ ],
+ "groups": [
+  {
+   "id": "top1",
+   "name": "The 1%",
+   "short": "1%",
+   "rung": 5,
+   "role": "own",
+   "rule": "WealthGroup == 3 (the top 1% of adults by net worth)",
+   "literature": "1",
+   "model2025": 1.0,
+   "where": "The crown when they live on capital; the top of their industry's tallest tower when they work where named companies are (controllers); else a gold plinth on the rim.",
+   "basis": "Fed DFA top 1% of net worth [data]; Gilbert's capitalist class, 1% [v]; model: 31.3% of net worth, DFA 31% [data]."
+  },
+  {
+   "id": "owners",
+   "name": "Business owners",
+   "short": "owners",
+   "rung": 4,
+   "role": "own",
+   "rule": "employed, self-employed, Earned >= the year's median earnings or WealthGroup >= 2",
+   "literature": "3-4",
+   "model2025": 4.1,
+   "where": "Their industry's surplus as proprietors' income: a gold plinth on the rim at their industry's angle.",
+   "basis": "BLS: self-employed about 10% of employed (model 10.3% [data]); Census ABS about 6M employer firms [recalled]; Wright's small employers [recalled]."
+  },
+  {
+   "id": "gig",
+   "name": "Gig & freelance",
+   "short": "gig",
+   "rung": 2,
+   "role": "work",
+   "rule": "self-employed otherwise",
+   "literature": "2.5-4.5",
+   "model2025": 2.8,
+   "where": "Their industry, as thin proprietors' income below the median wage: a gold plinth on the rim.",
+   "basis": "BLS CWS July 2023: independent contractors 7.4% of employed, 11.9M [v]; Pew 2021 platform work [recalled]; Standing's precariat [recalled]."
+  },
+  {
+   "id": "pmc",
+   "name": "Professional-managerial class",
+   "short": "PMC",
+   "rung": 4,
+   "role": "work",
+   "rule": "employee, household IncomeRank >= 0.80",
+   "literature": "15-19",
+   "model2025": 19.7,
+   "where": "Their industry's compensation, top-fifth households: the rim's first row.",
+   "basis": "Pew 2023: 19% of adults in upper-income households [v]; Gilbert's upper middle class 14-15% [v]; Reeves 2017 [recalled]; Ehrenreich & Ehrenreich 1977 [recalled]."
+  },
+  {
+   "id": "public",
+   "name": "Public servants",
+   "short": "public",
+   "rung": 3,
+   "role": "work",
+   "rule": "employee of federal or state & local government (after the PMC and working-poor rules)",
+   "literature": "4-5",
+   "model2025": 4.3,
+   "where": "Federal or state & local compensation: the rim above the government floor.",
+   "basis": "Government about 14.6% of nonfarm payroll [recalled]; union density 32% public vs 6% private [recalled]."
+  },
+  {
+   "id": "office",
+   "name": "Office & knowledge workers",
+   "short": "office",
+   "rung": 3,
+   "role": "work",
+   "rule": "employee in an office industry (banking, finance, insurance, real estate, legal, professional, education, hardware, software, internet, media & telecom)",
+   "literature": "6-10",
+   "model2025": 6.9,
+   "where": "Office-industry compensation, middle households.",
+   "basis": "Dingel & Neiman 2020: 37% of jobs teleworkable [recalled]; what is left of management and professional occupations after the PMC and the public sector."
+  },
+  {
+   "id": "frontline",
+   "name": "Frontline & trades workers",
+   "short": "frontline",
+   "rung": 2,
+   "role": "work",
+   "rule": "employee otherwise",
+   "literature": "20-25",
+   "model2025": 21.6,
+   "where": "Frontline-industry compensation: health, trade, hospitality, manufacturing, construction, transport.",
+   "basis": "Gilbert's working class 30% plus part of the lower middle [v]; the COVID-era essential workers [recalled]."
+  },
+  {
+   "id": "working_poor",
+   "name": "Working poor",
+   "short": "poor",
+   "rung": 1,
+   "role": "work",
+   "rule": "employee, household IncomeRank < 0.30 (checked right after the PMC rule)",
+   "literature": "4-13",
+   "model2025": 6.5,
+   "where": "Low wages in any industry, plus means-tested transfers: the rim's outer row.",
+   "basis": "BLS working poor about 4% of the labor force [recalled]; Gilbert's working poor 13-15% [v]; Pew lower-income 30% of adults [v]."
+  },
+  {
+   "id": "retired_savings",
+   "name": "Comfortable retirees",
+   "short": "comf.ret",
+   "rung": 3,
+   "role": "dependent",
+   "rule": "not employed, 62+ or on Social Security, Social Security < half of cash income",
+   "literature": "11-14",
+   "model2025": 11.0,
+   "where": "Capital (pensions, 401k, home equity) plus Social Security: the rim at finance's angle (pensions).",
+   "basis": "Retirees about 22-25% of adults [recalled]; less than half of their income from Social Security."
+  },
+  {
+   "id": "retired_ss",
+   "name": "Social Security retirees",
+   "short": "ss.ret",
+   "rung": 2,
+   "role": "dependent",
+   "rule": "not employed, 62+ or on Social Security, Social Security >= half of cash income",
+   "literature": "9-11",
+   "model2025": 11.4,
+   "where": "Federal transfers (Social Security, Medicare): the rim above the federal wedge.",
+   "basis": "SSA: 39% of men and 44% of women among beneficiaries 65+ get half or more of their income from Social Security [v]."
+  },
+  {
+   "id": "students",
+   "name": "Students & young adults",
+   "short": "students",
+   "rung": 1,
+   "role": "dependent",
+   "rule": "not employed, under 25, no employed spouse",
+   "literature": "about 4",
+   "model2025": 3.7,
+   "where": "Education and family transfers (not modeled), means-tested transfers: the rim at education's angle (schools).",
+   "basis": "NCES: about 38-40% of 18-24s enrolled; employment-population ratio about 62% [recalled]."
+  },
+  {
+   "id": "out_of_work",
+   "name": "Out of work",
+   "short": "out",
+   "rung": 0,
+   "role": "dependent",
+   "rule": "not employed otherwise (a non-employed spouse of an employed adult takes the spouse's group)",
+   "literature": "6-9",
+   "model2025": 7.1,
+   "where": "The safety net: state & local and federal transfers: the rim above the state & local wedge.",
+   "basis": "Gilbert's underclass 10-12% [v], minus the homemakers the dominance rule assigns to their spouse's class; prime-age participation about 83.4% [recalled]."
+  }
+ ],
+ "sources": [
+  {
+   "text": "Pew Research Center (May 2024), The State of the American Middle Class: lower 30 / middle 51 / upper 19 (2023)",
+   "mark": "v",
+   "url": "https://www.pewresearch.org/race-and-ethnicity/2024/05/31/the-state-of-the-american-middle-class/"
+  },
+  {
+   "text": "BLS, Contingent and Alternative Employment Arrangements, July 2023: independent contractors 7.4% of employed, 11.9M",
+   "mark": "v",
+   "url": "https://www.bls.gov/news.release/conemp.nr0.htm"
+  },
+  {
+   "text": "SSA Fact Sheet: among beneficiaries 65+, 39% of men and 44% of women get half or more of their income from Social Security",
+   "mark": "v",
+   "url": "https://www.ssa.gov/news/assets/materials/press/factsheets/basicfact-alt.pdf"
+  },
+  {
+   "text": "Gilbert's class model: capitalist 1, upper middle 14-15, middle 30, working 30, working poor 13-15, underclass 10-12",
+   "mark": "v",
+   "url": "https://en.wikipedia.org/wiki/Gilbert_model"
+  },
+  {
+   "text": "Erikson (1984), Social class of men, women and families, Sociology 18(4): the dominance rule",
+   "mark": "recalled",
+   "url": ""
+  },
+  {
+   "text": "Dingel & Neiman (2020), How many jobs can be done at home?, Journal of Public Economics 189: about 37% of US jobs",
+   "mark": "recalled",
+   "url": ""
+  }
+ ]
+}

@@ -32,6 +32,18 @@ namespace Why.Economy
 
         public static readonly Color Defect = new Color(1f, 0.24f, 0.2f);
         public static readonly Color People = GraphStyle.Humans;
+
+        /// <summary>Wages: the people's blue, lighter (wage strips, wage arcs and patches on the land).</summary>
+        public static readonly Color Wages = new Color(0.40f, 0.62f, 1.00f);
+
+        /// <summary>Fantasy: white with a breath of rose (glitter over the rivers, mirages over the players).</summary>
+        public static readonly Color Fantasy = new Color(1.00f, 0.95f, 0.97f);
+
+        /// <summary>The state: pale steel (the government floor, taxes, transfers); the same hue as <see cref="Government"/>.</summary>
+        public static readonly Color State = Government;
+
+        /// <summary>A tie in a feud: neutral grey (defection is the light going out, never red: red is raw matter).</summary>
+        public static readonly Color Feud = new Color(0.35f, 0.35f, 0.35f);
         public static readonly Color Matter = GraphStyle.Matter;
         public static readonly Color Life = GraphStyle.Life;
 
@@ -116,8 +128,8 @@ namespace Why.Economy
 
     /// <summary>
     /// Highlight id ranges of the economy scene (all below 2^24, clear of the causality graph's ranges; see
-    /// <see cref="GraphIds"/>). People share their lifeline ids everywhere they are drawn (a point in the mind
-    /// map lights up with its lifeline).
+    /// <see cref="GraphIds"/>). People share their lifeline ids everywhere they are drawn (a dot in the cut or in a
+    /// player lights up with its lifeline). The land's ranges (80,000-95,000) follow the landscape spec's table (7.3).
     /// </summary>
     public static class EconomyIds
     {
@@ -162,5 +174,70 @@ namespace Why.Economy
 
         /// <summary>The games: + element index.</summary>
         public const int Games = 70_000;
+
+        // ------------------------------------------------------------------ the land (SPEC 7.3)
+
+        /// <summary>Sectors: 8 ids per industry (<see cref="LandSector"/>).</summary>
+        public const int LandSectorBase = 80_000, LandSectorParts = 8;
+
+        /// <summary>Parts of a sector's id block.</summary>
+        public const int SectorWages = 0, SectorUpkeep = 1, SectorOwners = 2, SectorEdge = 3, SectorPool = 4, SectorRootsIn = 5,
+            SectorPatches = 6, SectorLabel = 7;
+
+        public const int LandTierBase = 80_200, LandRootBase = 80_300, LandRootMax = 400, LandTowerBase = 80_700, LandCrown = 80_750,
+            LandOverlayBase = 80_760;
+
+        /// <summary>Players: 8 ids per player (<see cref="LandPlayer"/>), fewer than <see cref="LandPlayerMax"/> players.</summary>
+        public const int LandPlayerBase = 81_000, LandPlayerParts = 8, LandPlayerMax = 1_000;
+
+        /// <summary>Parts of a player's id block (1 and 6 are spare).</summary>
+        public const int PlayerDisc = 0, PlayerHead = 2, PlayerMirage = 3, PlayerIncome = 4, PlayerRivulet = 5, PlayerLabel = 7;
+
+        public const int LandRiverBase = 89_000, LandCapitalBase = 89_100, LandTieBase = 90_000, LandTieMax = 4_000,
+            LandCoalitionBase = 94_000, LandCut = 95_000;
+
+        /// <summary>Kinds of capital flows (<see cref="LandCapital"/>).</summary>
+        public const int CapitalPayouts = 0, CapitalSaving = 1, CapitalInvestment = 2, CapitalCredit = 3, CapitalAbroad = 4;
+
+        /// <summary>One part of an industry's sector (wages, upkeep, owners, edge, pool, roots in, patches, label).</summary>
+        public static int LandSector(int industry, int part) => LandSectorBase + LandSectorParts * industry + part;
+
+        /// <summary>Every id of a run of consecutive industries' sectors (one sector, a ring, the whole bowl).</summary>
+        public static IdRange LandSectors(int first, int last) =>
+            new IdRange(LandSector(first, 0), LandSector(last, LandSectorParts - 1));
+
+        /// <summary>A ring's tread (tier 0 gov .. 4 tech).</summary>
+        public static int LandTier(int tier) => LandTierBase + tier;
+
+        /// <summary>A drawn root (k &lt; 400).</summary>
+        public static int LandRoot(int k) => LandRootBase + k;
+
+        /// <summary>A company's tower (capture index).</summary>
+        public static int LandTower(int company) => LandTowerBase + company;
+
+        /// <summary>An overlay (0 the AI scaffold, 1 the ads halo).</summary>
+        public static int LandOverlay(int k) => LandOverlayBase + k;
+
+        /// <summary>One part of a player's glyph (disc, head, mirage, income, rivulet, label).</summary>
+        public static int LandPlayer(int player, int part) => LandPlayerBase + LandPlayerParts * player + part;
+
+        /// <summary>
+        /// Every id of a run of consecutive players: players are sorted by group first, so a group is one range (the 1%
+        /// and business owners, players 0 .. n − 1, are <c>land:owners</c>).
+        /// </summary>
+        public static IdRange LandPlayers(int first, int last) =>
+            new IdRange(LandPlayer(first, 0), LandPlayer(last, LandPlayerParts - 1));
+
+        /// <summary>A river and its canal lane (0-5 categories, 6 taxes, 7 abroad).</summary>
+        public static int LandRiver(int lane) => LandRiverBase + lane;
+
+        /// <summary>A kind of capital flow (payouts, saving, investment, credit, abroad).</summary>
+        public static int LandCapital(int kind) => LandCapitalBase + kind;
+
+        /// <summary>A tie of the season (pair index &lt; 4,000).</summary>
+        public static int LandTie(int pair) => LandTieBase + pair;
+
+        /// <summary>A coalition (its matched number).</summary>
+        public static int LandCoalition(int k) => LandCoalitionBase + k;
     }
 }

@@ -21,9 +21,11 @@ namespace Why.Economy.Data
         public const string PsychePath = "Data/economy/psyche";
         public const string GamesPath = "Data/economy/games";
         public const string HistoryPath = "Data/economy/history";
+        public const string GroupsPath = "Data/economy/groups";
 
         /// <summary>Resources paths of every economy file (a layer's RequiredTexts).</summary>
-        public static readonly string[] Paths = { IndustriesPath, CircuitPath, SpendingPath, PsychePath, GamesPath, HistoryPath };
+        public static readonly string[] Paths =
+            { IndustriesPath, CircuitPath, SpendingPath, PsychePath, GamesPath, HistoryPath, GroupsPath };
 
         /// <summary>The seven uses of household money, in the notebook's terms (see <see cref="Category"/>).</summary>
         public static readonly string[] CategoryIds =
@@ -38,6 +40,9 @@ namespace Why.Economy.Data
         public PsycheFile Psyche { get; private set; }
         public GamesFile Games { get; private set; }
         public Dictionary<string, HistorySeries> History { get; private set; } = new Dictionary<string, HistorySeries>();
+
+        /// <summary>The twelve 2026 socioeconomic groups and the rules that assign them (groups.json; defaults when missing).</summary>
+        public GroupsFile GroupsFile { get; private set; } = new GroupsFile();
 
         public IReadOnlyList<Tier> Tiers => tiers;
         public IReadOnlyList<Industry> Industries => industries;
@@ -60,6 +65,15 @@ namespace Why.Economy.Data
         public int FirstYear { get; private set; } = 1947;
 
         public int LastYear { get; private set; } = 2025;
+
+        /// <summary>
+        /// The first year whose value added is an estimate (the industries' valueAddedEstimatedFrom: H1 annualized), or 0
+        /// when every year is measured.
+        /// </summary>
+        public int EstimatedFrom { get; private set; }
+
+        /// <summary>Whether a year's value added is an estimate (labels then carry "(estimate)").</summary>
+        public bool IsEstimate(int year) => EstimatedFrom > 0 && year >= EstimatedFrom;
 
         public IReadOnlyList<string> Warnings => warnings;
 
@@ -116,17 +130,19 @@ namespace Why.Economy.Data
             d.Games = d.Read<GamesFile>(text, GamesPath) ?? new GamesFile();
             HistoryFile history = d.Read<HistoryFile>(text, HistoryPath);
             d.History = history?.Series ?? new Dictionary<string, HistorySeries>();
+            d.GroupsFile = d.Read<GroupsFile>(text, GroupsPath, optional: true) ?? new GroupsFile();
             d.Build();
             d.Validate();
             return d;
         }
 
-        T Read<T>(Func<string, string> text, string path) where T : class
+        /// <summary>Parses one file; a missing file is a warning unless it is optional (its defaults apply).</summary>
+        T Read<T>(Func<string, string> text, string path, bool optional = false) where T : class
         {
             string json = text?.Invoke(path);
             if (string.IsNullOrEmpty(json))
             {
-                warnings.Add($"missing '{path}'");
+                if (!optional) warnings.Add($"missing '{path}'");
                 return null;
             }
 
@@ -193,6 +209,11 @@ namespace Why.Economy.Data
                 i.Employment = new YearSeries(i.EmploymentPoints);
                 i.Companies = i.Companies ?? new List<Company>();
                 industryById[i.Id] = i;
+                if (i.ValueAddedEstimatedFrom > 0)
+                {
+                    EstimatedFrom = EstimatedFrom == 0 ? i.ValueAddedEstimatedFrom : Math.Min(EstimatedFrom, i.ValueAddedEstimatedFrom);
+                }
+
                 if (!i.ValueAdded.IsEmpty)
                 {
                     first = Math.Min(first, i.ValueAdded.FirstYear);
@@ -368,6 +389,9 @@ namespace Why.Economy.Data
         [JsonProperty("blurb")] public string Blurb;
         [JsonProperty("valueAdded")] public List<double[]> ValueAddedPoints;
 
+        /// <summary>The first year whose value added is estimated (H1 annualized), 0 when none.</summary>
+        [JsonProperty("valueAddedEstimatedFrom")] public int ValueAddedEstimatedFrom;
+
         /// <summary>Shares of value added: compensation of employees, taxes on production, depreciation (latest year).</summary>
         [JsonProperty("compShare")] public double CompShare = 0.55;
 
@@ -394,15 +418,32 @@ namespace Why.Economy.Data
         [JsonIgnore] public double OwnersShare => Math.Max(0, 1 - CompShare - TaxShare - DepShare);
     }
 
+    /// <summary>
+    /// A company (circuit.json capture: the 25 most valuable): worldwide figures of its fiscal year ($B) and its US
+    /// employees (thousands), which split its industry's wages in expectation (named employers).
+    /// </summary>
     public sealed class Company
     {
         [JsonProperty("name")] public string Name;
+
+        /// <summary>Stock ticker; empty for a private company.</summary>
+        [JsonProperty("ticker")] public string Ticker;
+
         [JsonProperty("industry")] public string Industry;
         [JsonProperty("revenue")] public double Revenue;
         [JsonProperty("netIncome")] public double NetIncome;
         [JsonProperty("marketCap")] public double MarketCap;
         [JsonProperty("year")] public int Year;
         [JsonProperty("note")] public string Note;
+
+        /// <summary>US employees (thousands), how the figure is known ("10-K FY2025" or "recalled") and where from.</summary>
+        [JsonProperty("usEmployees")] public double UsEmployees;
+
+        [JsonProperty("usEmployeesBasis")] public string UsEmployeesBasis;
+        [JsonProperty("usEmployeesSource")] public string UsEmployeesSource;
+
+        /// <summary>Whether the US employees are a recalled value (hovers show "≈").</summary>
+        [JsonIgnore] public bool UsEmployeesRecalled => !string.IsNullOrEmpty(UsEmployeesBasis) && UsEmployeesBasis.StartsWith("recalled", StringComparison.Ordinal);
     }
 
     /// <summary>A figure that is not a BEA industry (social media ad revenue, AI investment), kept for labels.</summary>
@@ -524,6 +565,11 @@ namespace Why.Economy.Data
     {
         [JsonProperty("year")] public int Year;
         [JsonProperty("flows")] public List<JArray> FlowRows;
+
+        /// <summary>All intermediate use in the table, and what the 25 industries keep of it (the flows' sum), $B.</summary>
+        [JsonProperty("totalIntermediate")] public double TotalIntermediate;
+
+        [JsonProperty("keptIntermediate")] public double KeptIntermediate;
 
         /// <summary>Per industry: "output", "intermediate", "valueAdded", "compensation", ... ($B, the table's year).</summary>
         [JsonProperty("accounts")] public Dictionary<string, Dictionary<string, double>> Accounts;
@@ -907,6 +953,9 @@ namespace Why.Economy.Data
         [JsonProperty("empirical")] public Dictionary<string, JToken> Empirical;
         [JsonProperty("tribes")] public TribesData Tribes = new TribesData();
 
+        /// <summary>The land's season of tit for tat between the players (SPEC 5; defaults when missing).</summary>
+        [JsonProperty("social")] public SocialData Social = new SocialData();
+
         /// <summary>Simulation settings: noise, continuation, tribeSize, mutation, generations ...</summary>
         [JsonProperty("spec")] public Dictionary<string, double> Spec = new Dictionary<string, double>();
 
@@ -948,7 +997,94 @@ namespace Why.Economy.Data
 
         [JsonProperty("note")] public string Note;
 
+        /// <summary>Affective polarization: the ANES thermometer gap and the distrust index derived from it.</summary>
+        [JsonProperty("affectivePolarization")] public AffectivePolarizationData AffectivePolarization = new AffectivePolarizationData();
+
         public YearSeries TrustSeries() => new YearSeries(Trust);
+    }
+
+    /// <summary>
+    /// How much partisans dislike the other party over time: distrustIndex is the ANES thermometer gap over its 2020
+    /// value (0.50 in 1978, 1.0 from 2020; held at the ends), the season's pol(Y).
+    /// </summary>
+    public sealed class AffectivePolarizationData
+    {
+        [JsonProperty("distrustIndex")] public List<double[]> DistrustIndex;
+        [JsonProperty("thermometerNote")] public string Note;
+
+        /// <summary>The distrust index as a series (empty when missing).</summary>
+        public YearSeries DistrustSeries() => new YearSeries(DistrustIndex);
+    }
+
+    /// <summary>
+    /// games.json social: the parameters of the season of tit for tat between the players (SPEC 5.1-5.6), with their
+    /// notes. Defaults are the spec's values.
+    /// </summary>
+    public sealed class SocialData
+    {
+        [JsonProperty("rounds")] public int Rounds = 96;
+        [JsonProperty("pairsPerPlayer")] public int PairsPerPlayer = 10;
+        [JsonProperty("noise")] public double Noise = 0.02;
+        [JsonProperty("continuation")] public double Continuation = 0.95;
+
+        /// <summary>Generous tit for tat's forgiveness (1/3), applied to each player's higher-OS share.</summary>
+        [JsonProperty("forgiveness")] public double Forgiveness = 0.3333;
+
+        /// <summary>An adult runs on the higher OS at reason at or above this.</summary>
+        [JsonProperty("higherOsReason")] public double HigherOsReason = 0.5;
+
+        [JsonProperty("tribalMemory")] public double TribalMemory = 0.5;
+        [JsonProperty("learning")] public double Learning = 0.10;
+        [JsonProperty("partnerChoice")] public double PartnerChoice = 1.0;
+        [JsonProperty("affinityBound")] public double AffinityBound = 2.0;
+        [JsonProperty("incidentRound")] public int IncidentRound = 48;
+        [JsonProperty("detections")] public int[] Detections = { 0, 24, 48, 72, 96 };
+        [JsonProperty("roundsPerSecond")] public double RoundsPerSecond = 4;
+        [JsonProperty("affinity")] public SocialAffinity Affinity = new SocialAffinity();
+        [JsonProperty("exposure")] public SocialExposure Exposure = new SocialExposure();
+        [JsonProperty("strangerCooperation")] public StrangerCooperation StrangerCooperation = new StrangerCooperation();
+        [JsonProperty("notes")] public Dictionary<string, string> Notes = new Dictionary<string, string>();
+    }
+
+    /// <summary>The affinity A(p, q) of 5.1, logit units.</summary>
+    public sealed class SocialAffinity
+    {
+        [JsonProperty("tribe")] public double Tribe = 0.30;
+        [JsonProperty("sameGroup")] public double SameGroup = 0.30;
+        [JsonProperty("adjacentRung")] public double AdjacentRung = 0.10;
+        [JsonProperty("farRung")] public double FarRung = -0.15;
+        [JsonProperty("sameGeneration")] public double SameGeneration = 0.15;
+        [JsonProperty("farGeneration")] public double FarGeneration = -0.10;
+        [JsonProperty("sameIndustry")] public double SameIndustry = 0.25;
+        [JsonProperty("sameTier")] public double SameTier = 0.10;
+        [JsonProperty("ownerWorker")] public double OwnerWorker = -0.20;
+
+        /// <summary>Own trust per rung above the mean rung.</summary>
+        [JsonProperty("classSlope")] public double ClassSlope = 0.12;
+
+        /// <summary>M: D, R, I against D, R, I.</summary>
+        [JsonProperty("tribeMatrix")] public double[][] TribeMatrix =
+            { new[] { 1, -1, -0.25 }, new[] { -1, 1, -0.25 }, new[] { -0.25, -0.25, 0.25 } };
+
+        /// <summary>GSS trust offsets by age: rows [from age, logit].</summary>
+        [JsonProperty("ageTrustLogit")] public double[][] AgeTrustLogit =
+            { new double[] { 18, -1.03 }, new double[] { 30, -0.03 }, new double[] { 40, -0.02 }, new double[] { 50, 0.23 }, new double[] { 65, 0.41 } };
+    }
+
+    /// <summary>The exposure weights E0(p, q) of 5.1.</summary>
+    public sealed class SocialExposure
+    {
+        [JsonProperty("sameIndustry")] public double SameIndustry = 3;
+        [JsonProperty("sameTier")] public double SameTier = 1;
+        [JsonProperty("sameGroup")] public double SameGroup = 1;
+        [JsonProperty("generation")] public double Generation = 0.5;
+    }
+
+    /// <summary>One-shot cooperation between strangers in the lab (Sally 1995) and the GSS trust of that era.</summary>
+    public sealed class StrangerCooperation
+    {
+        [JsonProperty("lab")] public double Lab = 0.474;
+        [JsonProperty("labEraTrust")] public double LabEraTrust = 0.40;
     }
 
     // ---------------------------------------------------------------------- history.json
@@ -969,5 +1105,144 @@ namespace Why.Economy.Data
         [JsonProperty("note")] public string Note;
 
         [JsonIgnore] public YearSeries Series = YearSeries.Empty;
+    }
+
+    // ---------------------------------------------------------------------- groups.json
+
+    /// <summary>
+    /// The twelve 2026 socioeconomic groups (groups.json; SPEC 3.1-3.2): their names, rungs and rules, the thresholds of
+    /// the priority rule, the office and government industry lists, the player cell rule, the generations and the
+    /// pseudo-anchors of those without an industry, and the sources. Every member has the spec's default, so the scene
+    /// runs the same without the file.
+    /// </summary>
+    public sealed class GroupsFile
+    {
+        [JsonProperty("vintage")] public string Vintage;
+        [JsonProperty("note")] public string Note;
+        [JsonProperty("thresholds")] public GroupThresholds Thresholds = new GroupThresholds();
+
+        /// <summary>Industries whose employees are office and knowledge workers (Dingel and Neiman's teleworkable proxy).</summary>
+        [JsonProperty("officeIndustries")] public List<string> OfficeIndustries = new List<string>
+        {
+            "banking", "finance", "insurance", "real_estate", "legal", "professional", "education", "hardware", "software",
+            "internet", "media_telecom"
+        };
+
+        [JsonProperty("governmentIndustries")] public List<string> GovernmentIndustries = new List<string> { "federal", "state_local" };
+        [JsonProperty("cells")] public CellRule Cells = new CellRule();
+        [JsonProperty("generations")] public List<GenerationInfo> Generations = GenerationInfo.Defaults();
+        [JsonProperty("pseudoAnchors")] public List<PseudoAnchor> PseudoAnchors = PseudoAnchor.Defaults();
+        [JsonProperty("groups")] public List<SocialGroup> Groups = SocialGroup.Defaults();
+        [JsonProperty("sources")] public List<SourceNote> Sources = new List<SourceNote>();
+
+        /// <summary>A group by id (null when unknown).</summary>
+        public SocialGroup Group(string id) => Groups?.Find(g => g != null && g.Id == id);
+    }
+
+    /// <summary>The priority rule's relative thresholds.</summary>
+    public sealed class GroupThresholds
+    {
+        /// <summary>Employees in households at or above this income rank are the PMC, below <see cref="PoorRank"/> the working poor.</summary>
+        [JsonProperty("pmcRank")] public double PmcRank = 0.80;
+
+        [JsonProperty("poorRank")] public double PoorRank = 0.30;
+
+        /// <summary>The not employed from this age (or on Social Security) are retirees.</summary>
+        [JsonProperty("retireAge")] public double RetireAge = 62;
+
+        /// <summary>Retirees whose Social Security is at least this share of their cash income are SS retirees.</summary>
+        [JsonProperty("ssDependence")] public double SsDependence = 0.5;
+
+        /// <summary>The not employed under this age (no employed spouse) are students and young adults.</summary>
+        [JsonProperty("youngAge")] public double YoungAge = 25;
+    }
+
+    /// <summary>The player cell rule (3.1): a cell is a player with this many lines, or fewer rich ones.</summary>
+    public sealed class CellRule
+    {
+        [JsonProperty("minLines")] public int MinLines = 10;
+        [JsonProperty("richMinLines")] public int RichMinLines = 3;
+        [JsonProperty("richWealthShare")] public double RichWealthShare = 0.01;
+    }
+
+    /// <summary>A generation by birth year (Pew cut-offs): born before <see cref="Before"/>.</summary>
+    public sealed class GenerationInfo
+    {
+        [JsonProperty("id")] public string Id;
+        [JsonProperty("name")] public string Name;
+        [JsonProperty("before")] public int Before;
+
+        public static List<GenerationInfo> Defaults() => new List<GenerationInfo>
+        {
+            new GenerationInfo { Id = "silent", Name = "Silent", Before = 1946 },
+            new GenerationInfo { Id = "boomer", Name = "Boomer", Before = 1965 },
+            new GenerationInfo { Id = "genx", Name = "Gen X", Before = 1981 },
+            new GenerationInfo { Id = "millennial", Name = "Millennial", Before = 1997 },
+            new GenerationInfo { Id = "genz", Name = "Gen Z", Before = 9999 }
+        };
+    }
+
+    /// <summary>Where a group without an industry stands: its pseudo-anchor and the sector whose angle it takes.</summary>
+    public sealed class PseudoAnchor
+    {
+        [JsonProperty("id")] public string Id;
+        [JsonProperty("group")] public string Group;
+        [JsonProperty("name")] public string Name;
+        [JsonProperty("angleIndustry")] public string AngleIndustry;
+
+        public static List<PseudoAnchor> Defaults() => new List<PseudoAnchor>
+        {
+            new PseudoAnchor { Id = "pensions", Group = "retired_savings", Name = "Pensions", AngleIndustry = "finance" },
+            new PseudoAnchor { Id = "social_security", Group = "retired_ss", Name = "Social Security", AngleIndustry = "federal" },
+            new PseudoAnchor { Id = "schools", Group = "students", Name = "Schools", AngleIndustry = "education" },
+            new PseudoAnchor { Id = "safety_net", Group = "out_of_work", Name = "Safety net", AngleIndustry = "state_local" }
+        };
+    }
+
+    /// <summary>One of the twelve groups: names, class rung (0-5), role ("own", "work", "dependent"), the rule, the share.</summary>
+    public sealed class SocialGroup
+    {
+        [JsonProperty("id")] public string Id;
+        [JsonProperty("name")] public string Name;
+        [JsonProperty("short")] public string Short;
+        [JsonProperty("rung")] public int Rung;
+        [JsonProperty("role")] public string Role;
+        [JsonProperty("rule")] public string Rule;
+
+        /// <summary>The literature's share of adults, as written ("15-19").</summary>
+        [JsonProperty("literature")] public string Literature;
+
+        /// <summary>The model's share of adults in 2025 (%).</summary>
+        [JsonProperty("model2025")] public double Model2025;
+
+        /// <summary>Where it stands on the land (its money).</summary>
+        [JsonProperty("where")] public string Where;
+
+        [JsonProperty("basis")] public string Basis;
+
+        public static List<SocialGroup> Defaults()
+        {
+            (string id, string name, string shortName, int rung, string role)[] d =
+            {
+                ("top1", "The 1%", "1%", 5, "own"), ("owners", "Business owners", "owners", 4, "own"),
+                ("gig", "Gig & freelance", "gig", 2, "work"), ("pmc", "Professional-managerial class", "PMC", 4, "work"),
+                ("public", "Public servants", "public", 3, "work"), ("office", "Office & knowledge workers", "office", 3, "work"),
+                ("frontline", "Frontline & trades workers", "frontline", 2, "work"), ("working_poor", "Working poor", "poor", 1, "work"),
+                ("retired_savings", "Comfortable retirees", "comf.ret", 3, "dependent"),
+                ("retired_ss", "Social Security retirees", "ss.ret", 2, "dependent"),
+                ("students", "Students & young adults", "students", 1, "dependent"), ("out_of_work", "Out of work", "out", 0, "dependent")
+            };
+            List<SocialGroup> list = new List<SocialGroup>(d.Length);
+            foreach (var g in d) list.Add(new SocialGroup { Id = g.id, Name = g.name, Short = g.shortName, Rung = g.rung, Role = g.role });
+            return list;
+        }
+    }
+
+    /// <summary>A source and how it was checked ("v" verified, "data" in the repo's data, "recalled").</summary>
+    public sealed class SourceNote
+    {
+        [JsonProperty("text")] public string Text;
+        [JsonProperty("mark")] public string Mark;
+        [JsonProperty("url")] public string Url;
     }
 }

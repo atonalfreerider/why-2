@@ -1,4 +1,5 @@
 using UnityEngine;
+using Why.Economy.Land;
 
 namespace Why.Economy
 {
@@ -39,8 +40,8 @@ namespace Why.Economy
     }
 
     /// <summary>
-    /// The economy scene's world layout: the timeline (one lens window shared by every view) and the stations
-    /// beyond its present end. Pure math (no Unity objects), so layers can use it on worker threads.
+    /// The economy scene's world layout: the timeline (one lens window shared by every view), the land on the plaza
+    /// beyond its present end (<see cref="Land"/>) and the retired stations. Pure math (no Unity objects), so layers can use it on worker threads.
     /// </summary>
     public static class EconomyStage
     {
@@ -69,6 +70,18 @@ namespace Why.Economy
             Vector3 d = b - a;
             d.y = 0;
             return d.sqrMagnitude > 1e-10f ? d.normalized : Vector3.forward;
+        }
+
+        /// <summary>
+        /// The land's frame (1.2): the bowl's center on the plaza <see cref="LandStyle.PlazaGap"/> units past the road's end
+        /// (on the ground, y = 0), local +z along the road away from the past.
+        /// </summary>
+        public static LandFrame Land()
+        {
+            Vector3 forward = RoadDirection();
+            Vector3 now = OnRoad(DeepTime.NowYear, 0, EconomyStyle.FramingRho);
+            now.y = 0;
+            return new LandFrame(now + forward * LandStyle.PlazaGap, Quaternion.LookRotation(forward, Vector3.up));
         }
 
         /// <summary>A station by id (<see cref="Circuit"/>, <see cref="Mind"/>, <see cref="Games"/>).</summary>

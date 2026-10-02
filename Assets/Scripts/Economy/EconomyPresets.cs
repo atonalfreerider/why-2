@@ -1,94 +1,122 @@
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
+using Why.Economy.Land;
 
 namespace Why.Economy
 {
     /// <summary>
-    /// The economy scene's views (number keys 1 - 8, the HUD's preset bar, the tour). Every view shares one lens
-    /// (<see cref="EconomyStage.TimelineWarp"/>), so the road from 1946 to now never moves: the timeline views
-    /// look at it from different places, the station views (<see cref="ViewPreset.FixedTarget"/>) at the
-    /// diagrams that stand beyond its present end.
+    /// The economy scene's views (number keys 1 - 8, the HUD's preset bar, the tour; SPEC 7.2): the road (overview), the
+    /// cut through the selected year (section), and nine views of the land, the year opened into a stepped bowl on the
+    /// plaza past the road's end. Every view shares one lens (<see cref="EconomyStage.TimelineWarp"/>), so the road from
+    /// 1946 to now never moves: the land views (<see cref="ViewPreset.FixedTarget"/>) are poses in the land's frame
+    /// (<see cref="EconomyStage.Land"/>: a land-local target, a yaw offset from the frame's, a pitch and a distance).
+    /// What each view asks of the land beside its pose (the transition, a temporary year, the season's round, the
+    /// emphasis) is its <see cref="ViewSpec"/> in <see cref="EconomyViews"/>. These are the starting poses; the land's
+    /// final views are tuned against the harness.
     /// </summary>
     public static class EconomyPresets
     {
         static double Ya(double calendarYear) => DeepTime.NowYear - calendarYear;
 
         /// <summary>
-        /// The people view: close to the population from the mid 1990s to now (the camera on mid-2011, a little above the
-        /// lifelines' base, looking down 36 degrees and turned slightly toward the past), near enough that the gold lines of
-        /// the people in control read as lines at 1920x1080 while the bundle fills the middle of the screen and the wall's
-        /// top floors, where the money threads rise from, the bottom quarter. The present end of the road stays in the
-        /// frame with the wall's tier labels beside it (at distance 3.9 and yaw -6 the bundle ran off the right edge
-        /// around 2024 and the tier labels were cut). On a portrait screen it steps back until
-        /// <see cref="PeoplePortraitWidth"/> world units (about 25 years, 1999 - 2024) fit the width; the lens stays the
-        /// shared one (a narrowed lens would move the road from under the fixed target).
+        /// Data height and rho of the section view's target: the middle of the cut's frame (the ground to above the
+        /// lifelines, the wall's plane to the outer lifelines).
         /// </summary>
-        const double PeopleYear = 2011.5;
-
-        const float PeopleHeight = 0.04f, PeoplePitch = 36f, PeopleDistance = 4.8f, PeopleYaw = -3f, PeoplePortraitWidth = 5f;
+        const float SectionY = 0.55f, SectionRho = EconomyStyle.FramingRho;
 
         public static List<ViewPreset> Build()
         {
-            Station circuit = EconomyStage.Get(EconomyStage.Circuit);
-            Station mind = EconomyStage.Get(EconomyStage.Mind);
-            Station games = EconomyStage.Get(EconomyStage.Games);
-            float h = EconomyStyle.StationHeight, w = EconomyStyle.StationWidth;
+            LandFrame land = EconomyStage.Land();
+            int year = EconomyState.Year;
+            WarpState w = EconomyStage.TimelineWarp();
+            float u1990 = EconomyStage.U(1990);
+            Vector3 n = GraphWarp.NormalAt(u1990, w);
+            Vector3 overviewTarget = 0.5f * (EconomyStage.OnRoad(1990, 0.3f, EconomyStyle.FramingRho) + land.World(0, 1, 0));
 
             return new List<ViewPreset>
             {
-                Timeline(new ViewPreset
+                Fixed(new ViewPreset
                 {
                     Id = "overview", Title = "The economy, 1946 - 2026",
-                    Subtitle = "People above, the industries that pay them below, money flowing between",
-                    Key = KeyCode.Alpha1, TargetY = 0.5f, Pitch = 26, Distance = 13.5f, YawOffset = -6,
-                    PortraitWidth = 12f
-                }),
-                OnRoad(new ViewPreset
+                    Subtitle = "The road of time; one year cut out and opened into a land",
+                    Key = KeyCode.Alpha1, Pitch = 28, Distance = 30, PortraitWidth = 26
+                }, overviewTarget, Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + 20),
+                Fixed(new ViewPreset
                 {
-                    Id = "industries", Title = "Where value is created",
-                    Subtitle = "Value added by industry (2025 dollars): the bright part of each band is what owners keep",
-                    Key = KeyCode.Alpha2, Pitch = 8, Distance = 9.5f, PortraitWidth = 9f
-                }, 2001, 0.36f, -6),
-                Station(circuit, new ViewPreset
+                    Id = "section", Title = "The cut through " + year.ToString(CultureInfo.InvariantCulture),
+                    Subtitle = "Every industry's band and every life that pierces " + year.ToString(CultureInfo.InvariantCulture),
+                    Key = KeyCode.Alpha2, Pitch = 6, Distance = 5.5f, PortraitWidth = 4.5f
+                }, EconomyStage.OnRoad(year + 0.5, SectionY, SectionRho), land.Yaw),
+                OnLand(land, new ViewPreset
                 {
-                    Id = "circuit", Title = "The money circuit",
-                    Subtitle = "Industries pay workers, owners and the state; households spend it back into industries",
-                    Key = KeyCode.Alpha3, Pitch = 8, Distance = 11.5f, PortraitWidth = w * 1.05f
-                }, new Vector3(0, h * 0.5f, 0)),
-                Station(circuit, new ViewPreset
+                    Id = "landscape", Title = "Where value is created",
+                    Subtitle = "Each industry a sector of its stratum, as large as the value it adds; gold is what owners keep",
+                    Key = KeyCode.Alpha3, Pitch = 40, Distance = 16.5f, PortraitWidth = 13.5f
+                }, new Vector3(0, 0.7f, 0.5f), 0),
+                OnLand(land, new ViewPreset
                 {
                     Id = "capture", Title = "Where value is captured",
-                    Subtitle = "Profits, payouts and who receives them; the companies that keep the most",
-                    Key = KeyCode.Alpha4, Pitch = 14, Distance = 7f, PortraitWidth = w * 0.6f
-                }, new Vector3(-w * 0.22f, h * 0.5f, 0)),
-                OnRoad(new ViewPreset
+                    Subtitle = "Profit rises into the crown; the companies that capture the most",
+                    Key = KeyCode.Alpha4, Pitch = 20, Distance = 12, PortraitWidth = 10
+                }, new Vector3(0, 1.6f, 2.0f), -12),
+                OnLand(land, new ViewPreset
                 {
-                    Id = "people", Title = "Who owns their path",
-                    Subtitle = "Each line many people; gold lines own capital and steer their own lives",
-                    Key = KeyCode.Alpha5, Pitch = PeoplePitch, Distance = PeopleDistance, PopulationDetail = true,
-                    PortraitWidth = PeoplePortraitWidth
-                }, PeopleYear, GraphStyle.HumansY + PeopleHeight, PeopleYaw),
-                Station(mind, new ViewPreset
+                    Id = "people", Title = "Who stands where",
+                    Subtitle = "119 players, about 2 million people each, standing where their money comes from",
+                    Key = KeyCode.Alpha5, Pitch = 46, Distance = 12, PortraitWidth = 13
+                }, new Vector3(0, 1.6f, -1.5f), 0),
+                OnLand(land, new ViewPreset
                 {
-                    Id = "mind", Title = "Desire and fear",
-                    Subtitle = "Toward what we want, away from what we fear: where the money of each mind goes",
-                    Key = KeyCode.Alpha6, Pitch = 12, Distance = 13f, PortraitWidth = w * 1.36f
-                    // the target stands deep enough that the circuit's labels (14 around it) stay out of range even
-                    // where the portrait camera stands behind the circuit; the poles' arrows fit across in portrait
-                }, new Vector3(0, h * 0.48f, w * 0.25f)),
-                Station(games, new ViewPreset
+                    Id = "rivers", Title = "Where the money goes",
+                    Subtitle = "Spending runs down into the industries that are paid; ice is fear, rose is desire, glitter is fantasy",
+                    Key = KeyCode.Alpha6, Pitch = 58, Distance = 15, PortraitWidth = 13.5f
+                }, new Vector3(0, 1.0f, 0), 0),
+                OnLand(land, new ViewPreset
                 {
-                    Id = "games", Title = "Cooperation",
-                    Subtitle = "The prisoner's dilemma: one round defects, the shadow of the future climbs",
-                    Key = KeyCode.Alpha7, Pitch = 10, Distance = 10f, PortraitWidth = w * 0.7f
-                }, new Vector3(-w * 0.22f, h * 0.5f, 0)),
-                Station(games, new ViewPreset
+                    Id = "mind", Title = "Desire, fear and fantasy",
+                    Subtitle = "Many buy fantasy; few control their path",
+                    Key = KeyCode.Alpha7, Pitch = 18, Distance = 13, PortraitWidth = 13
+                }, new Vector3(0, 2.0f, -0.6f), 0),
+                OnLand(land, new ViewPreset
                 {
-                    Id = "tribes", Title = "Tribes",
-                    Subtitle = "Groups repay in kind: tit for tat between tribes, and what forgiveness does",
-                    Key = KeyCode.Alpha8, Pitch = 10, Distance = 9f, PortraitWidth = w * 0.6f
-                }, new Vector3(w * 0.25f, h * 0.5f, 0)),
+                    Id = "society", Title = "How people organize",
+                    Subtitle = "Tit for tat between groups: who cooperates, how forgiveness helps, how coalitions form",
+                    Key = KeyCode.Alpha8, Pitch = 64, Distance = 15.5f, PortraitWidth = 13.5f
+                }, new Vector3(0, 1.8f, 0), 0),
+                OnLand(land, new ViewPreset
+                {
+                    Id = "roots", Title = "What each industry stands on",
+                    Subtitle = "Purchases between industries rise into each buyer from below",
+                    Pitch = 10, Distance = 14, PortraitWidth = 14
+                }, new Vector3(0, 0.5f, 0), 0),
+                OnLand(land, new ViewPreset
+                {
+                    Id = "betrayal", Title = "One betrayal",
+                    Subtitle = "Tit for tat echoes it; forgiveness ends it",
+                    Pitch = 64, Distance = 15.5f, PortraitWidth = 13.5f
+                }, new Vector3(0, 1.8f, 0), 0),
+                OnLand(land, new ViewPreset
+                {
+                    Id = "y1972", Title = "The land in 1972",
+                    Subtitle = "The same cut, fifty-three years earlier",
+                    Pitch = 40, Distance = 16.5f, PortraitWidth = 13.5f
+                }, new Vector3(0, 0.7f, 0.5f), 0),
             };
+        }
+
+        /// <summary>A view of the land: the shared lens, the camera on a land-local target, turned from the land's yaw.</summary>
+        static ViewPreset OnLand(LandFrame land, ViewPreset p, Vector3 localTarget, float yawOffset) =>
+            Fixed(p, land.World(localTarget), land.Yaw + yawOffset);
+
+        /// <summary>A view of a world point: the shared lens (the road stays put), the camera at a fixed yaw.</summary>
+        static ViewPreset Fixed(ViewPreset p, Vector3 target, float yaw)
+        {
+            Timeline(p);
+            p.PopulationDetail = false;
+            p.FixedTarget = target;
+            p.FixedYaw = yaw;
+            return p;
         }
 
         /// <summary>A view of the road: the shared lens, the camera looking outward at the population.</summary>
@@ -102,32 +130,6 @@ namespace Why.Economy
             p.YScale = EconomyStyle.YScale;
             p.TargetRho = EconomyStyle.FramingRho;
             p.StrataEmphasis = 0;
-            return p;
-        }
-
-        /// <summary>
-        /// A view of one stretch of the road: the shared lens, the camera looking outward at a calendar year and height
-        /// (data y) of the population's center line, turned by <paramref name="yawOffset"/> degrees.
-        /// </summary>
-        static ViewPreset OnRoad(ViewPreset p, double year, float y, float yawOffset)
-        {
-            Timeline(p);
-            WarpState w = EconomyStage.TimelineWarp();
-            float u = EconomyStage.U(year);
-            Vector3 n = GraphWarp.NormalAt(u, w);
-            p.FixedTarget = GraphWarp.ToWorld(u, y, EconomyStyle.FramingRho, w);
-            p.FixedYaw = Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + yawOffset;
-            return p;
-        }
-
-        /// <summary>A view of a station: the shared lens (the road stays put), the camera on the station.</summary>
-        static ViewPreset Station(Station s, ViewPreset p, Vector3 localTarget)
-        {
-            Timeline(p);
-            p.YaOld = Ya(EconomyStyle.FirstYear);
-            p.PopulationDetail = false;
-            p.FixedTarget = s.World(localTarget);
-            p.FixedYaw = s.Yaw;
             return p;
         }
     }

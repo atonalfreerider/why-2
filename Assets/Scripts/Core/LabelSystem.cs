@@ -11,6 +11,7 @@ namespace Why
         public string Text;               // TextMeshPro rich text allowed; may be empty when Icon is set
         public Vector3 Data;              // (u, y, rho)
         public float Priority = 1;        // higher wins when labels collide
+        public float Rank;                // breaks ties between equal priorities (higher first), e.g. a figure's prominence
         public float SizePx = 13;         // on-screen text height
         public Color Color = GraphStyle.Text;
         public Vector2 PixelOffset;       // screen-space offset from the point
@@ -177,13 +178,15 @@ namespace Why
         }
 
         /// <summary>
-        /// Placement order: higher priority first; ties broken by text and then position, so the same graph always
-        /// shows the same labels however the layers' worker threads happened to interleave their Add calls (screenshots
-        /// and recorded videos are reproducible).
+        /// Placement order: higher priority first, then higher rank; remaining ties broken by text and then position, so
+        /// the same graph always shows the same labels however the layers' worker threads happened to interleave their
+        /// Add calls (screenshots and recorded videos are reproducible).
         /// </summary>
         static int ComparePlacementOrder(LabelSpec a, LabelSpec b)
         {
             int c = b.Priority.CompareTo(a.Priority);
+            if (c != 0) return c;
+            c = b.Rank.CompareTo(a.Rank);
             if (c != 0) return c;
             c = string.CompareOrdinal(a.Text, b.Text);
             if (c != 0) return c;

@@ -255,7 +255,8 @@ namespace Why.Economy.Model
     }
 
     /// <summary>
-    /// Two tribes repaying each other in kind. Every round each member of tribe A meets a random member of tribe B;
+    /// Two tribes repaying each other in kind. Every round each member of tribe A meets one member of tribe B (a new
+    /// random pairing each round, so every member plays once);
     /// members follow their own strategy, but what they remember of the other side is the tribe's experience
     /// (last round's share of defections against them) rather than their own: a member of a tit-for-tat tribe
     /// defects with that share as its chance. The leader (alpha) of each tribe sways its members: after the alpha
@@ -308,7 +309,7 @@ namespace Why.Economy.Model
 
         /// <summary>
         /// The last move a member made toward the other tribe (member 0 is the alpha); false while the member has not
-        /// played yet (members of tribe B are drawn at random, so some sit out a round).
+        /// played yet.
         /// </summary>
         public bool TryLastMove(bool tribeA, int member, out PdMove move)
         {
@@ -318,6 +319,9 @@ namespace Why.Economy.Model
             return played;
         }
 
+        /// <summary>Tribe B's member that meets each member of tribe A this round.</summary>
+        int[] pairing;
+
         /// <summary>Plays one round and returns it (also appended to <see cref="Rounds"/>).</summary>
         public Round Step()
         {
@@ -325,9 +329,19 @@ namespace Why.Economy.Model
             int coopA = 0, coopB = 0;
             float payA = 0, payB = 0;
             PdMove alphaA = PdMove.Cooperate, alphaB = PdMove.Cooperate;
+
+            // every member of each tribe plays once a round: tribe A's in order against tribe B's in a random order
+            if (pairing == null || pairing.Length != n) pairing = new int[n];
+            for (int i = 0; i < n; i++) pairing[i] = i;
+            for (int i = n - 1; i > 0; i--)
+            {
+                int k = rng.Next(i + 1);
+                (pairing[i], pairing[k]) = (pairing[k], pairing[i]);
+            }
+
             for (int i = 0; i < n; i++)
             {
-                int j = rng.Next(n);
+                int j = pairing[i];
                 PdMove ma = Move(A[i], ref memA[i], grievanceA, alphaADefected && i != 0);
                 PdMove mb = Move(B[j], ref memB[j], grievanceB, alphaBDefected && j != 0);
                 float pa = pay.Pay(ma, mb), pb = pay.Pay(mb, ma);

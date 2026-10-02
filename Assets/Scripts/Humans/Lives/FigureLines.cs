@@ -249,6 +249,7 @@ namespace Why.Humans.Lives
                 Text = name,
                 Data = peak,
                 Priority = TierPriority[tier - 1],
+                Rank = Mathf.Clamp(f.prominence ?? DefaultProminence, 1f, MaxProminence),
                 SizePx = TierSize[tier - 1],
                 Color = GraphStyle.Text,
                 PixelOffset = new Vector2(5, 8),

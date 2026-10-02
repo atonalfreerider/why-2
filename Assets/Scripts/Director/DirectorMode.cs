@@ -387,7 +387,9 @@ namespace Why.Director
                            ? $"{steps.Count} stops through the economy of the United States, from 1946 to this year, about {minutes} minutes. "
                            : $"{steps.Count} stops through 13.8 billion years of cause and effect, about {minutes} minutes. ") +
                        "The narration moves on by itself; move the camera at any time to pause and look around.",
-                Footnote = "Space or \u2192 next      \u2190 back      P pause      M mute      Esc leave",
+                Footnote = GraphScene.IsEconomy
+                    ? "Space or \u2192 next      \u2190 back      P pause      Esc leave"
+                    : "Space or \u2192 next      \u2190 back      P pause      M mute      Esc leave",
                 PrimaryLabel = "Begin",
                 Primary = Advance,
                 SecondaryLabel = "Close",

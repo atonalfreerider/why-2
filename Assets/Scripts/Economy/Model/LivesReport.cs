@@ -159,7 +159,7 @@ namespace Why.Economy.Model
             }, i =>
             {
                 lives.TryGet(i, lastYear, out PersonYear r);
-                return $"Inherited {Money(inheritedReal[i])} (2025 dollars) from parents; now worth {Money(r.Wealth)}, " +
+                return $"Inherited {Money(inheritedReal[i])} (2025 dollars) from parents; now worth {Money(r.Wealth * toReal)} (2025 dollars), " +
                        $"agency {r.Agency.ToString("0.00", Inv)}" + (r.InControl ? ", in control." : ", not in control.");
             });
 
@@ -207,7 +207,7 @@ namespace Why.Economy.Model
             }, i =>
             {
                 lives.TryGet(i, lastYear, out PersonYear r);
-                return $"At {r.Age.ToString("0", Inv)} the oldest on Social Security: {Money(r.SocialSecurity)} a year, " +
+                return $"At {Math.Floor(r.Age).ToString("0", Inv)} the oldest on Social Security: {Money(r.SocialSecurity)} a year, " +
                        $"net worth {Money(r.Wealth)}, jeopardy (health, insurance) {Pct(r.Jeopardy)} of spending.";
             });
 
@@ -317,6 +317,18 @@ namespace Why.Economy.Model
                 sb.Append($"; employment scale m {F2(c25.EmploymentScaleMale)} / w {F2(c25.EmploymentScaleFemale)}");
                 sb.Append($"; transfers beyond SS+Medicare {Bn(c25.OtherTransfersTarget)}\n");
             }
+
+            sb.Append("emergency transfers above the trend (2020 on, to households under 6.5 poverty lines):");
+            int emergencies = 0;
+            for (int i = 0; i < run.Calibration.Length; i++)
+            {
+                YearCalibration c = run.Calibration[i];
+                if (c == null || c.StimulusTransfers <= 0) continue;
+                sb.Append(' ').Append(y0 + i).Append(' ').Append(Bn(c.StimulusTransfers));
+                emergencies++;
+            }
+
+            sb.Append(emergencies == 0 ? " none\n" : "\n");
 
             sb.Append("strategy offsets");
             for (int s = 0; s < 7; s++)

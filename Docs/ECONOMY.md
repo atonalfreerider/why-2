@@ -56,7 +56,7 @@ Twenty-five industries in five tiers, with BEA value added for every year from 1
 summing to GDP every year. Each industry splits its value added by its 2024 input-output shares into compensation,
 production taxes, depreciation and the owners' share (net operating surplus: profits, proprietors' income, rent and
 interest); compensation is scaled over time with the economy's labor share. Tech (software, internet platforms,
-chips, media) is about 8% of GDP; services are about 60%.
+chips, media) is about 8% of GDP; services are about half (48%).
 
 ### The money circuit (`circuit.json`, `MoneyCircuit`, `CircuitLayer`)
 
@@ -89,8 +89,11 @@ Every line of the population (4,996 lines, about 200,000 person-years from 1946 
   defect, grim trigger, random), in the population shares lab evidence suggests.
 * **Every year**: employment and earnings by sex, age and rank; self-employment; capital income on what they own; Social
   Security and Medicare by entitlement; the other transfers (Medicaid, SNAP, SSI, the EITC) means-tested, phasing out
-  between one and four times the household's poverty line, and unemployment and veterans' benefits (about a tenth of
-  them) for every adult; taxes by income percentile; married couples (from the population's own marriages) pool
+  between one and four times the household's poverty line (young adults living with family are tested with their
+  parents' household; households headed by someone 65 or older face an asset test), unemployment and veterans'
+  benefits (about a tenth of them) for every adult, and in 2020-21 the emergency transfers above the trend (the stimulus
+  payments, the child tax credit, the expanded unemployment benefits) to every household under 6.5 poverty lines; taxes
+  by income percentile; married couples (from the population's own marriages) pool
   their money and children add needs; spending in the seven categories, tilted by personality and life stage and
   calibrated every year so the population matches the data; saving, debt, homes and inheritance (spouse first, then
   children).

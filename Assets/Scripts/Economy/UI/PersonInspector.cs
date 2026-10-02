@@ -131,6 +131,8 @@ namespace Why.Economy.UI
         {
             if (!loaded) return;
             bool tour = root.TourActive;
+            // the Esc that ends the tour this frame must not also close the person the viewer had open before it
+            bool keysBlocked = tour || tourWasActive;
             if (tour != tourWasActive)
             {
                 tourWasActive = tour;
@@ -138,7 +140,7 @@ namespace Why.Economy.UI
                 if (tour) ownsHighlight = false;
             }
 
-            HandleKeys(tour);
+            HandleKeys(keysBlocked);
             TrackClicks(tour);
             if (EconomyState.Version != seenVersion) Refresh();
 

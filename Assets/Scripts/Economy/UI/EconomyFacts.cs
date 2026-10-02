@@ -96,6 +96,10 @@ namespace Why.Economy.UI
         /// <summary>The life in the record: first and last year, per year agency, in control, net worth ($).</summary>
         public int LifeFirstYear, LifeLastYear;
 
+        /// <summary>Heading of the life charts: "LIFETIME 1961 - 2026", or "SINCE ARRIVING" / "IN THE RECORD" when the
+        /// record starts after birth (an immigrant's arrival, or 1946 for someone born before).</summary>
+        public string LifeHeading = "";
+
         public float[] LifeAgency = Array.Empty<float>(), LifeWealth = Array.Empty<float>();
         public bool[] LifeControl = Array.Empty<bool>();
 
@@ -144,6 +148,9 @@ namespace Why.Economy.UI
             f.FillMind(lives, s, shown);
             f.FillDrives(lives, data, person, shown);
             f.FillLife(lives, person, first, last);
+            bool fromBirth = first <= Math.Floor(p.Birth) + 1;
+            f.LifeHeading = (fromBirth ? "LIFETIME  " : p.Immigrant ? "SINCE ARRIVING  " : "IN THE RECORD  ") +
+                            first.ToString(Ci) + " - " + last.ToString(Ci);
             return f;
         }
 
@@ -202,10 +209,13 @@ namespace Why.Economy.UI
             }
             else if (requested < first)
             {
-                // the record starts at birth, or at arrival for an immigrant born before the year asked for
+                // the record starts at birth (the first year alive at its middle), or at arrival for an immigrant born
+                // before the year asked for
                 when += p.Immigrant && p.Birth < requested + 1
                     ? " (ARRIVED " + YearOf(p.Enter) + ")"
-                    : " (NOT YET BORN IN " + requested.ToString(Ci) + ")";
+                    : requested == (int)Math.Floor(p.Birth)
+                        ? " (BORN LATE IN " + requested.ToString(Ci) + ")"
+                        : " (NOT YET BORN IN " + requested.ToString(Ci) + ")";
             }
 
             return when + "  \u00B7  AGE " + Math.Max(0, Math.Floor(s.Age)).ToString("0", Ci);
@@ -256,8 +266,8 @@ namespace Why.Economy.UI
             double toReal = data.Real(1, year);
             string dollars = year >= 2025 || Math.Abs(toReal - 1) < 0.05
                 ? "Dollars of " + year.ToString(Ci)
-                : "Dollars of " + year.ToString(Ci) + " (one is " + toReal.ToString(toReal < 10 ? "0.0" : "0", Ci) +
-                  " of 2025)";
+                : "Dollars of " + year.ToString(Ci) + " ($1 then bought what $" +
+                  toReal.ToString(toReal < 10 ? "0.00" : "0", Ci) + " buys in 2025)";
             MoneyNote = dollars + "; a couple's money is split evenly between them.";
         }
 

@@ -680,7 +680,7 @@ namespace Why.Economy.Layers
                 : "Their members play the population's mix of strategies" +
                   (mixSource == GamesSetup.Source.Data ? " from the games data." : " (an illustrative default).");
             Register("game:tribes", "Tribe against tribe",
-                $"Two tribes of {tribeSize}. Every round each member of tribe A meets a random member of tribe B. Members " +
+                $"Two tribes of {tribeSize}. Every round each member of tribe A meets one member of tribe B, paired at random. Members " +
                 "follow their own strategy, but what they remember is what their tribe received last round, so a few " +
                 "defections are repaid by many. Groups compete harder than individuals: distrust of the other tribe adds " +
                 $"{Percent(distrust)} to every member's chance of defecting, and after the alpha defects the members " +

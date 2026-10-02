@@ -32,6 +32,9 @@ namespace Why.Economy.Model
 
         /// <summary>Transfers the data has beyond Social Security and Medicare ($B; negative = the ramp undershoots).</summary>
         public double OtherTransfersTarget;
+
+        /// <summary>The part of OtherTransfersTarget above its trend, paid as emergency transfers to most households ($B).</summary>
+        public double StimulusTransfers;
     }
 
     /// <summary>
@@ -45,7 +48,8 @@ namespace Why.Economy.Model
     /// rank toward well-paid industries), earnings (the age profile x the person's rank on a lognormal with a Pareto
     /// top tail, scaled so each sex's median earner earns the era's median), capital income on financial wealth and
     /// homes, Social Security from the career's indexed earnings with spouse and survivor benefits;</item>
-    /// <item>households: transfers (Medicare to 65+, means-tested support by income percentile), taxes by income
+    /// <item>households: transfers (Social Security and Medicare by entitlement; the rest means-tested against the
+    /// household's poverty line, plus a tenth for every adult and emergency transfers above the trend), taxes by income
     /// percentile, disposable income;</item>
     /// <item>saving rate (by income percentile + traits + life stage + children, shifted so the aggregate matches the
     /// year's personal saving rate, large uninsured bills included), spending, and its split into the six categories
@@ -185,6 +189,26 @@ namespace Why.Economy.Model
         /// </summary>
         const double UniversalTransferShare = 0.1, MeansTestEnd = 4, ChildTransfer = 0.6;
 
+        /// <summary>
+        /// Asset test of the means-tested transfers for households headed by someone 65 or older (SSI and Medicaid for
+        /// the aged count savings, with limits of a few thousand dollars): none above this multiple of the household's
+        /// poverty line in financial assets (judgment; the limits are lower, but the model's savings are annual
+        /// averages).
+        /// </summary>
+        const double AssetTestLines = 2;
+
+        /// <summary>
+        /// Emergency transfers (the 2020-21 stimulus payments and the 2021 child tax credit, which BEA records as social
+        /// benefits; the 2001 and 2008 rebates were tax cuts): from StimulusFirstYear, the part of a year's transfers
+        /// beyond Social Security and Medicare above their trend (last year's, grown with the wage index and this slack)
+        /// reached most households, per member in full up to StimulusFull times the poverty line and phasing out at
+        /// StimulusEnd times it (the 2020 payments phased out from $75K single / $150K couple, about 4.5-5 lines;
+        /// judgment). Earlier jumps are the programs' growth (Medicaid from 1966, SSI from 1974), not emergencies.
+        /// </summary>
+        const double StimulusSlack = 1.05, StimulusFull = 4.5, StimulusEnd = 6.5;
+
+        const int StimulusFirstYear = 2020;
+
         /// <summary>Saving rate of the top 1% (circuit.json groups top1 savingRate 0.35, Saez-Zucman) at the 99.5th
         /// income percentile; between the 90th percentile and there, interpolated in log distance to the top.</summary>
         const double TopSavingRate = 0.35;
@@ -317,6 +341,13 @@ namespace Why.Economy.Model
         readonly int[] kids, adults, heads;
         int headCount;
         readonly double[] hhMarket, hhSs, hhMed, hhOther, hhTax, hhYd, hhSaving, hhSpending, hhPct, hhS0, hhInterest;
+
+        /// <summary>Per household: its weight in the year's emergency transfers (members, tapered).</summary>
+        readonly double[] stimulusW;
+
+        /// <summary>Last year's transfers beyond Social Security and Medicare without emergency transfers, and its wage
+        /// index (the trend the emergency test grows).</summary>
+        double otherTrendLast, awiLast;
         readonly double[] hhRaw, hhShare, hhFloor;
         readonly bool[] housing, dependent;
         readonly double[] buyScore, buyPrice, shocks, gainH, dischargedH;
@@ -411,6 +442,7 @@ namespace Why.Economy.Model
             hhSs = new double[n];
             hhMed = new double[n];
             hhOther = new double[n];
+            stimulusW = new double[n];
             hhTax = new double[n];
             hhYd = new double[n];
             hhSaving = new double[n];
@@ -1456,24 +1488,51 @@ namespace Why.Economy.Model
             // other transfers, the year's total beyond Social Security and Medicare: a tenth (unemployment, veterans) to
             // every adult alike, the rest means-tested (Medicaid, CHIP, SNAP, SSI, the EITC): per member in full up to the
             // household's poverty line (the family-of-four line on a square-root scale of household size), tapering to
-            // nothing at MeansTestEnd times it. Market income and Social Security count as income.
+            // nothing at MeansTestEnd times it. Market income and Social Security count as income; a young adult living
+            // with family is tested with the parents' household; households headed by someone 65+ face an asset test.
+            // Emergency transfers above the trend go to most households (StimulusFull, StimulusEnd).
             double poverty = inp.Dollars(inp.PovertyLine, y);
             if (poverty <= 0) poverty = 0.3 * awi;
-            double sumW = 0, sumAdults = 0;
+            double sumW = 0, sumStimulus = 0, sumAdults = 0;
             for (int k = 0; k < headCount; k++)
             {
-                int h = heads[k];
-                double line = poverty * Math.Sqrt(Math.Max(1, adults[h] + kids[h]) / 4.0);
-                double ratio = (hhMarket[h] + hhSs[h]) / line;
-                double taper = Math.Max(0, Math.Min(1, (MeansTestEnd - ratio) / (MeansTestEnd - 1)));
-                hhOther[h] = (adults[h] + ChildTransfer * kids[h]) * taper * poverty / 4;
+                int h = heads[k], tested = h, extra = 0;
+                if (dependent[h])
+                {
+                    int ph = ParentHead(h);
+                    if (ph >= 0)
+                    {
+                        tested = ph;
+                        extra = 1;
+                    }
+                }
+
+                double line = poverty * Math.Sqrt(Math.Max(1, adults[tested] + kids[tested] + extra) / 4.0);
+                double ratio = (hhMarket[tested] + hhSs[tested] + (tested != h ? hhMarket[h] : 0)) / line;
+                int ts = spouse[tested];
+                double assets = fin[tested] + (ts >= 0 ? fin[ts] : 0);
+                bool assetTest = age[tested] >= 65 && assets > AssetTestLines * line;
+                double taper = assetTest ? 0 : Math.Max(0, Math.Min(1, (MeansTestEnd - ratio) / (MeansTestEnd - 1)));
+                double members = adults[h] + ChildTransfer * kids[h];
+                hhOther[h] = members * taper * poverty / 4;
+                stimulusW[h] = members * Math.Max(0, Math.Min(1, (StimulusEnd - ratio) / (StimulusEnd - StimulusFull)));
                 sumW += hhOther[h];
+                sumStimulus += stimulusW[h];
                 sumAdults += adults[h];
             }
 
             double transfers = inp.TransfersTarget(y);
             cal.OtherTransfersTarget = transfers - (ssTotal + medTotal) * unit;
             double other = Math.Max(0, cal.OtherTransfersTarget);
+            double trend = y >= StimulusFirstYear && otherTrendLast > 0 && awiLast > 0
+                ? otherTrendLast * awi / awiLast * StimulusSlack
+                : other;
+            double excess = Math.Max(0, other - trend);
+            otherTrendLast = other - excess;
+            awiLast = awi;
+            other -= excess;
+            cal.StimulusTransfers = excess;
+            double perStimulus = sumStimulus > 0 ? excess / (sumStimulus * unit) : 0;
             double perAdult = sumAdults > 0 ? UniversalTransferShare * other / (sumAdults * unit) : 0;
             cal.OtherTransfers = Scale((1 - UniversalTransferShare) * other, sumW * unit, 0);
 
@@ -1482,7 +1541,7 @@ namespace Why.Economy.Model
             for (int k = 0; k < headCount; k++)
             {
                 int h = heads[k];
-                hhOther[h] = hhOther[h] * cal.OtherTransfers + perAdult * adults[h];
+                hhOther[h] = hhOther[h] * cal.OtherTransfers + perAdult * adults[h] + perStimulus * stimulusW[h];
                 double rate = LivesInputs.Rate(inp.TaxRate, hhPct[h], 20) / 100;
                 hhTax[h] = rate * (hhMarket[h] + 0.5 * hhSs[h]);
                 sumTax += hhTax[h];
@@ -1501,6 +1560,15 @@ namespace Why.Economy.Model
         /// <summary>target / current, or the fallback when either is missing.</summary>
         static double Scale(double target, double current, double fallback) =>
             target > 0 && current > 0 ? target / current : fallback;
+
+        /// <summary>The household head of a living parent (the mother's, else the father's), or -1.</summary>
+        int ParentHead(int i)
+        {
+            SmvPerson p = people[i];
+            if (p.Mother >= 0 && p.Mother < alive.Length && alive[p.Mother] && head[p.Mother] >= 0) return head[p.Mother];
+            if (p.Father >= 0 && p.Father < alive.Length && alive[p.Father] && head[p.Father] >= 0) return head[p.Father];
+            return -1;
+        }
 
         /// <summary>Each household's income percentile (0..100, mid-rank; ties broken by index).</summary>
         [MethodImpl(LivesMath.Hot)]

@@ -81,7 +81,8 @@ namespace Why.UI
             title.characterSpacing = 28;
             title.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(CardWidth, 80));
 
-            TextMeshProUGUI subtitle = UiFactory.Text(card, "Subtitle", "From the Big Bang to this moment", 17,
+            TextMeshProUGUI subtitle = UiFactory.Text(card, "Subtitle",
+                GraphScene.IsEconomy ? "The United States economy, 1946 to now" : "From the Big Bang to this moment", 17,
                 GraphStyle.TextDim, TextAlignmentOptions.Center);
             subtitle.characterSpacing = 4;
             subtitle.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -86),

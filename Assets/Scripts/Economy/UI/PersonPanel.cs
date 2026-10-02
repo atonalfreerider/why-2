@@ -293,7 +293,7 @@ namespace Why.Economy.UI
             wants.text = "<color=#" + dimHex + ">Wants</color>   " + Escape(f.Wants);
             fears.text = "<color=#" + dimHex + ">Fears</color>   " + Escape(f.Fears);
 
-            lifeHeading.text = "LIFETIME  " + f.LifeFirstYear.ToString(Ci) + " - " + f.LifeLastYear.ToString(Ci);
+            lifeHeading.text = f.LifeHeading;
             agencySpark.Value.text = Escape(f.AgencyPeak);
             wealthSpark.Value.text = Escape(f.WealthPeak);
             DrawAgency(f);

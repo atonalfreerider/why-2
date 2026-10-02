@@ -97,6 +97,13 @@ namespace Why.Economy.Land
 
         // ------------------------------------------------------------------ the arrangement (once, on the 2024 table)
 
+        /// <summary>
+        /// Computes the rings' fixed arrangement (2.3: the order and the offset scan on the 2024 table, about 20 ms) once
+        /// per data set, so that <see cref="Build"/> then only places the year's sectors (well under 1 ms). Build calls it
+        /// itself; the land's model layer calls it first to time the two apart. Any thread.
+        /// </summary>
+        public static void EnsureArranged(EconomyData data) => Arrange(data);
+
         static Arrangement Arrange(EconomyData data)
         {
             lock (Gate)
@@ -514,20 +521,29 @@ namespace Why.Economy.Land
         /// own-industry dollars, the direction shares of all kept dollars (supplier on a lower ring: up; the same ring:
         /// within; own; a higher ring: down), the share of between-industry dollars from a higher ring, the share of root
         /// dollars connecting sectors within 90 degrees, and its check (the flows add up to the table's kept total).
-        /// Computed here, from the layout's flow analysis; RootsModel (the drawn roots) reproduces the same numbers.
+        /// Every year prints the table's own dollars and shares (the same 79 roots: the $50B cut applies to the 2024
+        /// table); only the share within 90 degrees follows the year's angles. A year other than the table's adds, before
+        /// the check, the dollars scaled to that year (2.4: F_ij(Y) = F_ij(2024) × VA_j(Y) / VA_j(2024), buyer j):
+        /// "; at 1972 value added $0.66T between industries, own $0.21T". Computed here, from the layout's flow
+        /// analysis; RootsModel (the drawn roots) reproduces the same numbers and the same rule.
         /// </summary>
         public static string RootsLine(EconomyData data, LandGeometry g)
         {
-            double total = 0, own = 0, up = 0, within = 0, down = 0, rootDollars = 0, near = 0;
-            int roots = 0;
+            double total = 0, own = 0, up = 0, within = 0, down = 0, rootDollars = 0, near = 0, scaledBetween = 0, scaledOwn = 0;
+            int roots = 0, tableYear = data.Circuit?.Io != null && data.Circuit.Io.Year > 0 ? data.Circuit.Io.Year : 2024;
             foreach ((int i, int j, double v) in Flows(data))
             {
                 total += v;
+                double vaTable = data.Industries[j].ValueAdded.At(tableYear);
+                double scaled = vaTable > 0 ? v * Math.Max(0, data.Industries[j].ValueAdded.At(g.Year)) / vaTable : 0;
                 if (i == j)
                 {
                     own += v;
+                    scaledOwn += scaled;
                     continue;
                 }
+
+                scaledBetween += scaled;
 
                 int ti = (int)g.Sectors[i].Tier, tj = (int)g.Sectors[j].Tier;
                 if (ti < tj) up += v;
@@ -548,7 +564,10 @@ namespace Why.Economy.Land
                    LandFacts.Percent(within / t, 1) + " own " + LandFacts.Percent(own / t, 1) + " down " +
                    LandFacts.Percent(down / t, 1) + "; " + LandFacts.Percent(down / Math.Max(between, 1e-9)) +
                    " from a higher ring; " + LandFacts.Percent(near / Math.Max(rootDollars, 1e-9)) +
-                   " of root dollars within 90 deg; checks " + (ok ? "1/1 PASS" : "0/1 FAIL (flows " +
+                   " of root dollars within 90 deg" + (g.Year != tableYear
+                       ? "; at " + g.Year.ToString(LandFacts.Ci) + " value added " + LandFacts.Money(scaledBetween) +
+                         " between industries, own " + LandFacts.Money(scaledOwn)
+                       : "") + "; checks " + (ok ? "1/1 PASS" : "0/1 FAIL (flows " +
                                                                     LandFacts.Money(total) + " vs kept " + LandFacts.Money(kept) + ")");
         }
     }

@@ -21,9 +21,10 @@ namespace Why.Economy.Land
         /// <summary>The land layers' fade (0..1): in over the unfold's last 0.2 s, out over the fold's first 0.2 s.</summary>
         public static float Reveal { get; private set; }
 
-        /// <summary>The season's round shown (0..96) and whether it plays.</summary>
+        /// <summary>The season's round shown (0..96).</summary>
         public static int Round { get; private set; } = LandStyle.SeasonRounds;
 
+        /// <summary>Whether the season plays (<see cref="Round"/> advances at <see cref="LandStyle.RoundsPerSecond"/>).</summary>
         public static bool Playing { get; private set; }
 
         /// <summary>The social layer shows the betrayal season (the betrayal view).</summary>
@@ -52,6 +53,14 @@ namespace Why.Economy.Land
             if (i < 0 || i >= eased.Length) return 0;
             return g == LandGroup.Road || g == LandGroup.Cut ? eased[i] : eased[i] * Reveal;
         }
+
+        /// <summary>
+        /// The road's alpha (the time axis, the lifelines and the industry wall): <see cref="Alpha"/> of
+        /// <see cref="LandGroup.Road"/>, 1 before the first preset (1.1: the road dims to 0.35 while the land is open).
+        /// <see cref="Why.Economy.Layers.LandViewLayer"/> hands it to the shared layers each frame
+        /// (<c>TimeAxisLayer.SceneAlpha</c>, <c>SmvLayer.SceneAlpha</c>); <c>IndustryWallLayer</c> reads it itself.
+        /// </summary>
+        public static float RoadAlpha => spec == null ? 1f : Alpha(LandGroup.Road);
 
         /// <summary>Whether a group's labels show: the preset lists the group and its alpha is at least 0.3 (7.2).</summary>
         public static bool LabelsShown(LandGroup g) => spec != null && spec.ShowsLabels(g) && Alpha(g) >= 0.3f;

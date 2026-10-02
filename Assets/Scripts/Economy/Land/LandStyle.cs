@@ -187,6 +187,9 @@ namespace Why.Economy.Land
         /// <summary>Gap between neighbouring discs of a row, a plinth's extra radius, controllers' stacking step on a tower.</summary>
         public const float PackGap = 0.03f, PlinthPad = 0.04f, ControllerStep = 0.06f;
 
+        /// <summary>The capital-only 1% sit on the crown ring at this angle + 360° × k / n (k by key): the first faces the road.</summary>
+        public const float CrownSeatDeg = 270f;
+
         // ------------------------------------------------------------------ 3.4 the player glyph
 
         /// <summary>
@@ -270,11 +273,17 @@ namespace Why.Economy.Land
         /// <summary>The canal's bracket labels stand at this angle.</summary>
         public const float BracketThetaDeg = 250f;
 
+        /// <summary>The five tier names stand on the outer wall at this angle, at each terrace's height (7.3).</summary>
+        public const float TierLabelThetaDeg = 250f;
+
         /// <summary>The abroad pour fades out over this length.</summary>
         public const float AbroadFade = 1.5f;
 
-        /// <summary>The colors of fantasy (white-rose glitter, mirages) and of wages (light blue).</summary>
-        public static readonly Color Wages = new Color(0.40f, 0.62f, 1.00f), Fantasy = new Color(1.00f, 0.95f, 0.97f);
+        /// <summary>
+        /// The colors of fantasy (white-rose glitter, mirages) and of wages (light blue): the scene palette's
+        /// (<see cref="EconomyStyle.Wages"/>, <see cref="EconomyStyle.Fantasy"/>), one definition.
+        /// </summary>
+        public static readonly Color Wages = EconomyStyle.Wages, Fantasy = EconomyStyle.Fantasy;
 
         // ------------------------------------------------------------------ 5 the season
 
@@ -294,6 +303,34 @@ namespace Why.Economy.Land
 
         /// <summary>Signals: pain flash and ring, relief pulse, satisfaction's intensity; the dimming of a selection.</summary>
         public const float PainSeconds = 0.5f, PainRing = 0.25f, ReliefSeconds = 1.0f, SatisfiedIntensity = 1.6f, SelectDim = 0.15f;
+
+        /// <summary>A cooperating tie (m ≥ <see cref="CooperateMutual"/>): alpha 0.15 + 0.6 m, intensity 1 + m (5.5).</summary>
+        public const float TieAlpha0 = 0.15f, TieAlphaMutual = 0.6f, TieIntensity0 = 1f, TieIntensityMutual = 1f;
+
+        /// <summary>A pain flash's intensity, from this down to <see cref="PainIntensity1"/> over <see cref="PainSeconds"/>; the ring's alpha from this to 0.</summary>
+        public const float PainIntensity0 = 3f, PainIntensity1 = 1f, PainRingAlpha = 0.6f;
+
+        /// <summary>
+        /// Signals (5.3): pain when a tie's cooperation (either direction) falls by at least <see cref="PainDrop"/> from the
+        /// last round; relief when a feud (mutual &lt; <see cref="FeudMutual"/>) ends (mutual &gt; <see cref="ReliefEnd"/>).
+        /// </summary>
+        public const float PainDrop = 0.05f, ReliefEnd = 0.20f;
+
+        /// <summary>Satisfaction: mutual ≥ <see cref="CooperateMutual"/> held this many rounds (5.3).</summary>
+        public const int SatisfiedRounds = 12;
+
+        /// <summary>A coalition member's rivulet-side disc ring is brightened by this factor (5.5).</summary>
+        public const float CoalitionBrighten = 1.5f;
+
+        /// <summary>The smallest coalition (CNM community) drawn and logged, in players (5.3).</summary>
+        public const int CoalitionMinPlayers = 3;
+
+        /// <summary>
+        /// The betrayal's measures against the season without it (5.4): players hit = players with a tie differing by at
+        /// least <see cref="HitDelta"/> at any round ≥ R; calm after = the last round with a tie differing by at least
+        /// <see cref="CalmDelta"/>, minus R.
+        /// </summary>
+        public const float HitDelta = 0.05f, CalmDelta = 0.02f;
 
         /// <summary>Playback: rounds per second and the hold at the season's end (s).</summary>
         public const float RoundsPerSecond = 4f, SeasonHoldSeconds = 2f;

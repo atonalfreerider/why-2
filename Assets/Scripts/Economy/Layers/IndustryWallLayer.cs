@@ -363,5 +363,18 @@ namespace Why.Economy.Layers
             fills = null;
             lines = null;
         }
+
+        float appliedRoad = 1f;
+
+        /// <summary>The wall dims with the road while the land is open (1.1, 7.2: <see cref="Land.LandView.RoadAlpha"/>).</summary>
+        public override void Tick(GraphContext ctx, CameraRig rig)
+        {
+            if (fillMat == null) return;
+            float a = Land.LandView.RoadAlpha;
+            if (a == appliedRoad) return;
+            appliedRoad = a;
+            GraphMaterials.SetAlpha(fillMat, a);
+            GraphMaterials.SetAlpha(lineMat, a);
+        }
     }
 }

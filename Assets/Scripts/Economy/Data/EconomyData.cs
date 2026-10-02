@@ -336,6 +336,39 @@ namespace Why.Economy.Data
                 }
             }
 
+            // the twelve groups of groups.json (SPEC 3.1-3.2)
+            GroupsFile gf = GroupsFile;
+            if (gf.Groups == null || gf.Groups.Count != 12) warnings.Add($"groups.json: {gf.Groups?.Count ?? 0} groups (want 12)");
+            if (gf.Generations == null || gf.Generations.Count != 5)
+            {
+                warnings.Add($"groups.json: {gf.Generations?.Count ?? 0} generations (want 5)");
+            }
+
+            if (gf.PseudoAnchors == null || gf.PseudoAnchors.Count != 4)
+            {
+                warnings.Add($"groups.json: {gf.PseudoAnchors?.Count ?? 0} pseudo-anchors (want 4)");
+            }
+
+            HashSet<string> groupIds = new HashSet<string>();
+            if (gf.Groups != null)
+            {
+                foreach (SocialGroup g in gf.Groups)
+                {
+                    if (g == null || string.IsNullOrEmpty(g.Id) || !groupIds.Add(g.Id)) warnings.Add($"groups.json: duplicate or empty group id '{g?.Id}'");
+                }
+            }
+
+            foreach (List<string> list in new[] { gf.OfficeIndustries, gf.GovernmentIndustries })
+            {
+                if (list == null) continue;
+                HashSet<string> seen = new HashSet<string>();
+                foreach (string id in list)
+                {
+                    if (!industryById.ContainsKey(id)) warnings.Add($"groups.json: unknown industry '{id}'");
+                    if (!seen.Add(id)) warnings.Add($"groups.json: industry '{id}' listed twice");
+                }
+            }
+
             // wealth group shares sum to one
             string[] shareFields = { "wage", "business", "equity", "realEstate", "interest", "transfer", "tax", "consumption" };
             foreach (string field in shareFields)
@@ -1038,7 +1071,7 @@ namespace Why.Economy.Data
         [JsonProperty("partnerChoice")] public double PartnerChoice = 1.0;
         [JsonProperty("affinityBound")] public double AffinityBound = 2.0;
         [JsonProperty("incidentRound")] public int IncidentRound = 48;
-        [JsonProperty("detections")] public int[] Detections = { 0, 24, 48, 72, 96 };
+        [JsonProperty("detections", ObjectCreationHandling = ObjectCreationHandling.Replace)] public int[] Detections = { 0, 24, 48, 72, 96 };
         [JsonProperty("roundsPerSecond")] public double RoundsPerSecond = 4;
         [JsonProperty("affinity")] public SocialAffinity Affinity = new SocialAffinity();
         [JsonProperty("exposure")] public SocialExposure Exposure = new SocialExposure();
@@ -1063,11 +1096,11 @@ namespace Why.Economy.Data
         [JsonProperty("classSlope")] public double ClassSlope = 0.12;
 
         /// <summary>M: D, R, I against D, R, I.</summary>
-        [JsonProperty("tribeMatrix")] public double[][] TribeMatrix =
+        [JsonProperty("tribeMatrix", ObjectCreationHandling = ObjectCreationHandling.Replace)] public double[][] TribeMatrix =
             { new[] { 1, -1, -0.25 }, new[] { -1, 1, -0.25 }, new[] { -0.25, -0.25, 0.25 } };
 
         /// <summary>GSS trust offsets by age: rows [from age, logit].</summary>
-        [JsonProperty("ageTrustLogit")] public double[][] AgeTrustLogit =
+        [JsonProperty("ageTrustLogit", ObjectCreationHandling = ObjectCreationHandling.Replace)] public double[][] AgeTrustLogit =
             { new double[] { 18, -1.03 }, new double[] { 30, -0.03 }, new double[] { 40, -0.02 }, new double[] { 50, 0.23 }, new double[] { 65, 0.41 } };
     }
 
@@ -1113,7 +1146,8 @@ namespace Why.Economy.Data
     /// The twelve 2026 socioeconomic groups (groups.json; SPEC 3.1-3.2): their names, rungs and rules, the thresholds of
     /// the priority rule, the office and government industry lists, the player cell rule, the generations and the
     /// pseudo-anchors of those without an industry, and the sources. Every member has the spec's default, so the scene
-    /// runs the same without the file.
+    /// runs the same without the file; a list in the file replaces its default (ObjectCreationHandling.Replace), never
+    /// appends to it.
     /// </summary>
     public sealed class GroupsFile
     {
@@ -1122,18 +1156,18 @@ namespace Why.Economy.Data
         [JsonProperty("thresholds")] public GroupThresholds Thresholds = new GroupThresholds();
 
         /// <summary>Industries whose employees are office and knowledge workers (Dingel and Neiman's teleworkable proxy).</summary>
-        [JsonProperty("officeIndustries")] public List<string> OfficeIndustries = new List<string>
+        [JsonProperty("officeIndustries", ObjectCreationHandling = ObjectCreationHandling.Replace)] public List<string> OfficeIndustries = new List<string>
         {
             "banking", "finance", "insurance", "real_estate", "legal", "professional", "education", "hardware", "software",
             "internet", "media_telecom"
         };
 
-        [JsonProperty("governmentIndustries")] public List<string> GovernmentIndustries = new List<string> { "federal", "state_local" };
+        [JsonProperty("governmentIndustries", ObjectCreationHandling = ObjectCreationHandling.Replace)] public List<string> GovernmentIndustries = new List<string> { "federal", "state_local" };
         [JsonProperty("cells")] public CellRule Cells = new CellRule();
-        [JsonProperty("generations")] public List<GenerationInfo> Generations = GenerationInfo.Defaults();
-        [JsonProperty("pseudoAnchors")] public List<PseudoAnchor> PseudoAnchors = PseudoAnchor.Defaults();
-        [JsonProperty("groups")] public List<SocialGroup> Groups = SocialGroup.Defaults();
-        [JsonProperty("sources")] public List<SourceNote> Sources = new List<SourceNote>();
+        [JsonProperty("generations", ObjectCreationHandling = ObjectCreationHandling.Replace)] public List<GenerationInfo> Generations = GenerationInfo.Defaults();
+        [JsonProperty("pseudoAnchors", ObjectCreationHandling = ObjectCreationHandling.Replace)] public List<PseudoAnchor> PseudoAnchors = PseudoAnchor.Defaults();
+        [JsonProperty("groups", ObjectCreationHandling = ObjectCreationHandling.Replace)] public List<SocialGroup> Groups = SocialGroup.Defaults();
+        [JsonProperty("sources", ObjectCreationHandling = ObjectCreationHandling.Replace)] public List<SourceNote> Sources = new List<SourceNote>();
 
         /// <summary>A group by id (null when unknown).</summary>
         public SocialGroup Group(string id) => Groups?.Find(g => g != null && g.Id == id);

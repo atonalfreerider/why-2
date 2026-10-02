@@ -25,8 +25,13 @@ namespace Why.Economy.Land
             Rotation = rotation;
         }
 
+        /// <summary>The frame's local +x in world space (θ = 0°: to the right, seen from the road).</summary>
         public Vector3 Right => Rotation * Vector3.right;
+
+        /// <summary>The frame's local +y in world space (up).</summary>
         public Vector3 Up => Rotation * Vector3.up;
+
+        /// <summary>The frame's local +z in world space: the road's direction, away from the past (θ = 90°, the far side).</summary>
         public Vector3 Forward => Rotation * Vector3.forward;
 
         /// <summary>World position of a land-local point.</summary>

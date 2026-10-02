@@ -98,6 +98,12 @@ namespace Why.Humans.Smv
         MeshRenderer[] fineRenderers = Array.Empty<MeshRenderer>();
         MeshRenderer coarseRenderer, markerRenderer, surfaceRenderer;
         float fineAlpha, coarseAlpha, crowd = 1f;
+
+        /// <summary>
+        /// A scene's dimming of the lifelines (1 = none), multiplied into the level-of-detail alphas: the economy's land
+        /// views set it each frame to the road's emphasis (0.35 while the land is open); the causality scene never sets it.
+        /// </summary>
+        public static float SceneAlpha = 1f;
         bool published;
 
         // highlight compensation (see HighlightCompensation)
@@ -399,10 +405,11 @@ namespace Why.Humans.Smv
                 : 1f;
             crowd = Mathf.Lerp(crowd, crowdTarget, 1f - Mathf.Exp(-6f * dt));
 
-            Apply(fineMat, fineRenderers, fineAlpha * crowd);
-            Apply(coarseMat, coarseRenderer, coarseAlpha * crowd);
-            Apply(markerMat, markerRenderer, any);
-            Apply(surfaceMat, surfaceRenderer, any);
+            float scene = SceneAlpha;
+            Apply(fineMat, fineRenderers, fineAlpha * crowd * scene);
+            Apply(coarseMat, coarseRenderer, coarseAlpha * crowd * scene);
+            Apply(markerMat, markerRenderer, any * scene);
+            Apply(surfaceMat, surfaceRenderer, any * scene);
             if (any > 0.3f != labelsShown) ShowLabels(ctx, any > 0.3f);
             if (any > 0.003f) CompensateHighlight(dt);
 

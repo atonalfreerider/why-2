@@ -15,7 +15,7 @@ namespace Why.Economy.Layers
     /// money, the season and its controls, the circuit), puts it on screen (<see cref="LandService.Init"/>) and shares it
     /// under <see cref="LandService.SharedKey"/> for the land layers' Prepare (tier 5). Prints the land's log lines
     /// (8.8) for the default year and for every other year the first time it is shown, each tagged "(demo)" while its
-    /// model is a stand-in (<see cref="LandDemo"/>). Order 45: tier 4, after the population (30), beside the wall (40).
+    /// model is a stand-in (<see cref="LandDemo"/>); a year's Betrayal line once its (lazy) betrayal season exists. Order 45: tier 4, after the population (30), beside the wall (40).
     /// Draws only a debug outline of the 25 sectors (the landscape layer replaces it).
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
@@ -40,6 +40,9 @@ namespace Why.Economy.Layers
 
             int year = EconomyState.DefaultYear(Math.Min(EconomyState.MaxYear, Math.Max(model.Data.LastYear, EconomyState.MinYear)));
             SocialSettings settings = EconomyState.DefaultSocial();
+            Stopwatch arrange = Stopwatch.StartNew();
+            LandLayout.EnsureArranged(model.Data);   // once per load: timed apart from the per-year layout (budget 2 ms)
+            double arrangeMs = arrange.Elapsed.TotalMilliseconds;
             double[] ms = new double[5];
             first = Build(model, pop, year, settings, ms);
             Stopwatch part = Stopwatch.StartNew();
@@ -50,9 +53,11 @@ namespace Why.Economy.Layers
             ctx.Share(LandService.SharedKey, first);
             foreach (string line in LandLog.Lines(model, first, controls)) Debug.Log(line);
             logged.Add(year);
-            Debug.Log("[Why] LandModelLayer.Prepare " + sw.ElapsedMilliseconds.ToString(LandFacts.Ci) + " ms: " + year.ToString(LandFacts.Ci) +
-                      " (layout " + Ms(ms[0]) + ", census " + Ms(ms[1]) + ", money " + Ms(ms[2]) + ", season " + Ms(ms[3]) +
-                      ", controls and betrayal " + Ms(controlMs) + ", circuit " + Ms(ms[4]) + ")");
+            if (first.Betrayal != null) betrayalLogged.Add(year);
+            Debug.Log("[Why] LandModelLayer.Prepare " + sw.ElapsedMilliseconds.ToString(LandFacts.Ci) + " ms: " +
+                      year.ToString(LandFacts.Ci) + " (arrangement " + Ms(arrangeMs) + " once, layout " + Ms(ms[0]) + ", census " +
+                      Ms(ms[1]) + ", money " + Ms(ms[2]) + ", season " + Ms(ms[3]) + ", controls and betrayal " + Ms(controlMs) +
+                      ", circuit " + Ms(ms[4]) + ")");
         }
 
         static string Ms(double ms) => ms.ToString("0", LandFacts.Ci) + " ms";
@@ -108,21 +113,38 @@ namespace Why.Economy.Layers
             LandService.Changed += OnChanged;
         }
 
-        /// <summary>A year shown for the first time prints its lines (without the controls).</summary>
+        /// <summary>
+        /// A year shown for the first time prints its lines (without the controls). A preset's year (built blocking:
+        /// y1972, the harness) also computes its betrayal season here, so its Betrayal line prints with the rest; a year
+        /// from the keys, the chip or a click does not (5.6: the betrayal season is lazy, and a year change keeps the main
+        /// thread within 8.6's budget): its Betrayal line prints from <see cref="Tick"/> once something has asked for the
+        /// season (the betrayal view, the tour, the panel).
+        /// </summary>
         void OnChanged(LandSnapshot s)
         {
             if (s == null || model == null) return;
             if (logged.Add(s.Year))
             {
-                if (s.Betrayal == null) LandService.Betrayal(true);
-                foreach (string line in LandLog.Lines(model, LandService.Current, null)) Debug.Log(line);
+                if (s.Blocking && s.Betrayal == null) LandService.Betrayal(true);
+                foreach (string line in LandLog.Lines(model, s, null)) Debug.Log(line);
+                if (s.Betrayal != null) betrayalLogged.Add(s.Year);
             }
 
             Outline(s);
         }
 
+        /// <summary>Years whose Betrayal line has been printed.</summary>
+        readonly HashSet<int> betrayalLogged = new HashSet<int>();
+
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
+            LandSnapshot shown = LandService.Current;
+            if (shown?.Betrayal != null && model != null && logged.Contains(shown.Year) && betrayalLogged.Add(shown.Year))
+            {
+                string line = LandLog.BetrayalLine(shown);
+                if (line != null) Debug.Log(line);
+            }
+
             if (outline == null) return;
             outline.enabled = LandView.Alpha(LandGroup.Sectors) > 0.003f;
             GraphMaterials.SetAlpha(outline.sharedMaterial, LandView.Alpha(LandGroup.Sectors));
@@ -197,18 +219,23 @@ namespace Why.Economy.Layers
                           R96(controls[3].CoPartisan) + "/" + R96(controls[3].CrossPartisan));
             }
 
-            SocialSeasonResult b = s.Betrayal;
-            if (b?.Incident != null && s.Players?.Players != null)
-            {
-                Incident inc = b.Incident.Value;
-                lines.Add("[Why] Betrayal " + y + " r" + inc.Round.ToString(LandFacts.Ci) + Tag(LandDemo.IsDemo(b.Log)) + ": " +
-                          Key(s.Players, inc.From) + " -> " + Key(s.Players, inc.To) + ": " + b.Hit.ToString(LandFacts.Ci) +
-                          " players hit, calm after " + b.CalmAfter.ToString(LandFacts.Ci) + " rounds");
-            }
+            string betrayal = BetrayalLine(s);
+            if (betrayal != null) lines.Add(betrayal);
 
             lines.Add("[Why] Facts " + y + Tag(playersDemo) + ": " + Facts(model, s));
             lines.Add("[Why] Land checks " + y + Tag(playersDemo || moneyDemo || societyDemo) + ": " + s.ChecksLine);
             return lines;
+        }
+
+        /// <summary>"[Why] Betrayal 2025 r48: p -> q: 2 players hit, calm after 7 rounds", or null before the season is computed.</summary>
+        public static string BetrayalLine(LandSnapshot s)
+        {
+            SocialSeasonResult b = s?.Betrayal;
+            if (b?.Incident == null || s.Players?.Players == null) return null;
+            Incident inc = b.Incident.Value;
+            return "[Why] Betrayal " + s.Year.ToString(LandFacts.Ci) + " r" + inc.Round.ToString(LandFacts.Ci) + Tag(LandDemo.IsDemo(b.Log)) +
+                   ": " + Key(s.Players, inc.From) + " -> " + Key(s.Players, inc.To) + ": " + b.Hit.ToString(LandFacts.Ci) +
+                   " players hit, calm after " + b.CalmAfter.ToString(LandFacts.Ci) + " rounds";
         }
 
         static string Tag(bool demo) => demo ? " (demo)" : "";

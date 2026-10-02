@@ -448,7 +448,7 @@ namespace Why.Economy.Land
             double maxShift, EconomyData data, int year)
         {
             Player[] ps = set.Players;
-            int[] byGroup = new int[12];
+            int[] byGroup = new int[12], adultsByGroup = new int[12];
             int rim = 0, plinths = 0, towers = 0, crown = 0, assigned = 0, childCount = 0;
             List<int> sizes = new List<int>(ps.Length);
             List<double> people = new List<double>(ps.Length);
@@ -457,6 +457,7 @@ namespace Why.Economy.Land
             foreach (Player p in ps)
             {
                 byGroup[(int)p.Group]++;
+                adultsByGroup[(int)p.Group] += p.Adults.Length;
                 assigned += p.Adults.Length;
                 childCount += p.Children.Length;
                 sizes.Add(p.Adults.Length);
@@ -498,7 +499,14 @@ namespace Why.Economy.Land
                 .Append(LandFacts.Millions(people.Count > 0 ? people[people.Count - 1] : 0)).Append("; places rim ").Append(rim)
                 .Append(" (plinths ").Append(plinths).Append("), tower ").Append(towers).Append(", crown ").Append(crown)
                 .Append("; max rim shift ").Append(LandFacts.Num(maxShift, 2)).Append(" u; self-employed in government ").Append(selfGov)
-                .Append("; checks ").Append(pass).Append("/3 ").Append(pass == 3 ? "PASS" : "FAIL");
+                .Append("; shares");
+            for (int g = 0; g < 12; g++)
+            {
+                s.Append(g > 0 ? ", " : " ").Append(GroupShort[g]).Append(' ')
+                    .Append(LandFacts.Num(assigned > 0 ? 100.0 * adultsByGroup[g] / assigned : 0, 1));
+            }
+
+            s.Append("; checks ").Append(pass).Append("/3 ").Append(pass == 3 ? "PASS" : "FAIL");
             if (kidCount != childCount) s.Append(" (").Append(kidCount - childCount).Append(" children without a player)");
             return s.ToString();
         }

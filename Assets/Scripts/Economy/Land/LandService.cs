@@ -31,7 +31,7 @@ namespace Why.Economy.Land
         // asynchronous builds (main thread state; the task only returns its snapshot)
         static Task<LandSnapshot> yearTask, societyTask, betrayalTask;
         static int wantedYear = -1;
-        static SocialSettings wantedSettings;
+        static SocialSettings wantedSettings;   // written under Gate (main thread, Init); other threads read it under Gate
         static bool societyPending;
         static int betrayalFor = -1;
 
@@ -50,6 +50,7 @@ namespace Why.Economy.Land
         /// <summary>The model the snapshots are built from (null before <see cref="Init"/>).</summary>
         public static EconomyModel Model => model;
 
+        /// <summary>The population the players are built from (null before <see cref="Init"/>).</summary>
         public static SmvPopulation Population => pop;
 
         /// <summary>
@@ -150,7 +151,12 @@ namespace Why.Economy.Land
         }
 
         /// <summary>A year's snapshot with the current season settings: from the cache at once, else built here (any thread).</summary>
-        public static LandSnapshot BuildBlocking(int year) => BuildBlocking(year, wantedSettings);
+        public static LandSnapshot BuildBlocking(int year)
+        {
+            SocialSettings settings;
+            lock (Gate) settings = wantedSettings;
+            return BuildBlocking(year, settings);
+        }
 
         static LandSnapshot BuildBlocking(int year, SocialSettings settings)
         {
@@ -216,7 +222,7 @@ namespace Why.Economy.Land
         /// <summary>Reruns the season of the snapshot on screen with new settings (blocking, or on a worker).</summary>
         public static void RequestSociety(SocialSettings s, bool blocking)
         {
-            wantedSettings = s;
+            lock (Gate) wantedSettings = s;   // BuildBlocking(int) reads it from any thread
             if (Current == null || model == null) return;
             if (blocking)
             {

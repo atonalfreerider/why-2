@@ -12,7 +12,10 @@ namespace Why.Economy.Layers
     /// finished land builds (<see cref="LandService.Tick"/>) and follows the viewer's year and season settings. It owns
     /// the harness's view overrides (unset in Unity): WHY_ECON_MORPH (seconds: the transition frozen there while it
     /// unfolds), WHY_ECON_ROUND (the held round), WHY_ECON_SELECT (player:&lt;key&gt;, tower:&lt;ticker&gt;, pair:&lt;k&gt;).
-    /// Order 44: before every land layer, so they read this frame's <see cref="LandView"/>. Draws nothing.
+    /// It also dims the road while the land is open (1.1, 7.2): the shared time axis and lifelines take
+    /// <see cref="LandView.RoadAlpha"/> through their <c>SceneAlpha</c> hooks (reset to 1 when the scene unloads); the
+    /// industry wall reads it itself. Order 44: before every land layer, so they read this frame's <see cref="LandView"/>.
+    /// Draws nothing.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class LandViewLayer : GraphLayer
@@ -52,6 +55,7 @@ namespace Why.Economy.Layers
         {
             labels = ctx.Labels;
             LandView.ResetState();
+            Axis.TimeAxisLayer.SceneAlpha = Humans.Smv.SmvLayer.SceneAlpha = 1f;
             storedYear = -1;
             requestedYear = LandService.Current?.Year ?? EconomyState.Year;
             requestedSocial = LandService.Current?.Society?.Settings ?? EconomyState.Social;
@@ -108,6 +112,16 @@ namespace Why.Economy.Layers
             }
 
             LandService.Tick();
+            float road = LandView.RoadAlpha;
+            Axis.TimeAxisLayer.SceneAlpha = road;
+            Humans.Smv.SmvLayer.SceneAlpha = road;
+        }
+
+        /// <summary>The causality scene's road is never dimmed: the hooks go back to 1 with the economy scene.</summary>
+        void OnDestroy()
+        {
+            Axis.TimeAxisLayer.SceneAlpha = 1f;
+            Humans.Smv.SmvLayer.SceneAlpha = 1f;
         }
 
         static bool Same(SocialSettings a, SocialSettings b) =>

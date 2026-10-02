@@ -91,6 +91,14 @@ namespace Why.Axis
 
         int lastCam = -1, lastWarp = -1, lastWidth, lastHeight;
 
+        /// <summary>
+        /// A scene's dimming of the axis and its ticks (1 = none): the economy's land views set it each frame to the road's
+        /// emphasis (0.35 while the land is open); the causality scene never sets it.
+        /// </summary>
+        public static float SceneAlpha = 1f;
+
+        float appliedAlpha = 1f;
+
         public override void Prepare(GraphContext ctx)
         {
             Stopwatch sw = Stopwatch.StartNew();
@@ -293,6 +301,12 @@ namespace Why.Axis
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (ticks == null || rig == null || rig.Cam == null) return;
+            if (material != null && SceneAlpha != appliedAlpha)
+            {
+                appliedAlpha = SceneAlpha;
+                GraphMaterials.SetAlpha(material, appliedAlpha);
+            }
+
             int width = Screen.width, height = Screen.height;
             if (rig.Version == lastCam && GraphWarp.Version == lastWarp && width == lastWidth && height == lastHeight)
             {

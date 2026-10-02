@@ -43,7 +43,7 @@ namespace Why.Economy
         public static readonly Color State = Government;
 
         /// <summary>A tie in a feud: neutral grey (defection is the light going out, never red: red is raw matter).</summary>
-        public static readonly Color Feud = new Color(0.35f, 0.35f, 0.35f);
+        public static readonly Color Feud = new Color(Land.LandStyle.FeudGrey, Land.LandStyle.FeudGrey, Land.LandStyle.FeudGrey);
         public static readonly Color Matter = GraphStyle.Matter;
         public static readonly Color Life = GraphStyle.Life;
 

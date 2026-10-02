@@ -197,7 +197,13 @@ namespace Why.Economy.Land
         /// <summary>Year, the players by index, and each person's player.</summary>
         public int Year; public Player[] Players; public int[] PlayerOfPerson;   // person index -> player, -1
 
-        /// <summary>The body of the "[Why] Players" log line and Σ adults × index.</summary>
+        /// <summary>
+        /// The body of the "[Why] Players" log line (8.8) and Σ adults × index. After "self-employed in government n" the
+        /// body carries each group's share of the year's adults (adult lines, %, one decimal, in group order with the
+        /// line's short names): "; shares 1% 1.0, owners 4.1, gig 2.8, PMC 19.7, public 4.3, office 6.9, frontline 21.6,
+        /// poor 6.5, comf.ret 11.0, ss.ret 11.4, students 3.7, out 7.1; checks 3/3 PASS; checksum ..." (landcheck compares
+        /// them with 3.2 within 0.5 pt).
+        /// </summary>
         public string Log; public double Checksum;
     }
 
@@ -242,6 +248,7 @@ namespace Why.Economy.Land
     /// <summary>The year's money on the land (MoneyRouting.Build): every drawn flow, the canal, pools and the crown.</summary>
     public sealed class MoneyFlows
     {
+        /// <summary>The calendar year the flows are of.</summary>
         public int Year;
 
         /// <summary>Every drawn flow.</summary>

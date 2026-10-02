@@ -44,6 +44,7 @@ namespace Why.Economy.Layers
             LandLayout.EnsureArranged(model.Data);   // once per load: timed apart from the per-year layout (budget 2 ms)
             double arrangeMs = arrange.Elapsed.TotalMilliseconds;
             double[] ms = new double[5];
+            LandService.Init(model, pop, null);   // the season reads the members' records through LandService.Model (WP4)
             first = Build(model, pop, year, settings, ms);
             Stopwatch part = Stopwatch.StartNew();
             first.Betrayal = LandService.BuildBetrayal(model, first);

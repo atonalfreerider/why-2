@@ -938,7 +938,13 @@
       "tribalMemory": "toward the other party, the default OS repays what its own side received (vicarious retribution: Lickel, Miller, Stenstrom, Denson & Schmader 2006); 0.5 is a design parameter",
       "partnerChoice": "Rand, Arbesman & Christakis 2011, PNAS 108:19193; learning and partnerChoice are design parameters",
       "affinity": "groups.md section 3: Balliet, Wu & De Dreu 2014 (d = 0.32); Iyengar & Westwood 2015; ANES thermometers; GSS trust by age; Sally 1995 (0.474)",
-      "pairsPerPlayer": "design parameter: about half of a working player's dealings fall within its industry or tier"
+      "pairsPerPlayer": "design parameter: about half of a working player's dealings fall within its industry or tier. A player's pairs are its pairsPerPlayer highest exposures counting its own cell (as the spec's prototype ranks them), so it names about 9 partners; symmetrized, 916 pairs in 2025 (594 in 1972)",
+      "anchorIndustry": "the industry the exposure and affinity compare is the most common industry of a player's employed members (ties: the lower industry index); players with no employed member have none",
+      "polarization": "pol(Y) is tribes.affectivePolarization.distrustIndex (0.50 to 1978, 1.0 from 2020), times the panel's polarization setting",
+      "standing": "at the last round, from each player's payoff per round: anti-alpha up to 10% (from the top 30% by payoff whose received-minus-given cooperation is in the top quartile), alpha the top 20% of the rest, omega the bottom 15%, beta the rest (psyche.json hierarchy shares). In the 2025 season no prosperous player takes more than it gives, so there is no anti-alpha",
+      "signals": "pain: a tie's cooperation either way falls by 0.05 or more in a round; relief: a feud (mutual cooperation below 0.12) ends (above 0.20); satisfaction: mutual cooperation of at least 0.36 held 12 rounds",
+      "coalitions": "Clauset-Newman-Moore greedy modularity on the pairs weighted by dealings times mutual cooperation, merges of equal gain to the lower index pair; communities of 3 or more players; numbered by size at the last detection and matched back across the detections by member overlap",
+      "betrayal": "the betrayal view's incident: in incidentRound the largest live (mutual >= 0.36) tie from a majority-D player (D share > 0.5) to a majority-R player (R share > 0.5); players hit = any tie differing by 0.05 from the season without it, calm after = the last round with a tie differing by 0.02"
     }
   }
 }

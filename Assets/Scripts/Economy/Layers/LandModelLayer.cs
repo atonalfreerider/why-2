@@ -16,7 +16,7 @@ namespace Why.Economy.Layers
     /// under <see cref="LandService.SharedKey"/> for the land layers' Prepare (tier 5). Prints the land's log lines
     /// (8.8) for the default year and for every other year the first time it is shown, each tagged "(demo)" while its
     /// model is a stand-in (<see cref="LandDemo"/>); a year's Betrayal line once its (lazy) betrayal season exists. Order 45: tier 4, after the population (30), beside the wall (40).
-    /// Draws only a debug outline of the 25 sectors (the landscape layer replaces it).
+    /// Draws nothing (the land layers draw the snapshot).
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class LandModelLayer : GraphLayer
@@ -109,7 +109,6 @@ namespace Why.Economy.Layers
         public override void Upload(GraphContext ctx)
         {
             if (first == null) return;
-            Outline(first);
             LandService.Changed += OnChanged;
         }
 
@@ -129,8 +128,6 @@ namespace Why.Economy.Layers
                 foreach (string line in LandLog.Lines(model, s, null)) Debug.Log(line);
                 if (s.Betrayal != null) betrayalLogged.Add(s.Year);
             }
-
-            Outline(s);
         }
 
         /// <summary>Years whose Betrayal line has been printed.</summary>
@@ -144,47 +141,9 @@ namespace Why.Economy.Layers
                 string line = LandLog.BetrayalLine(shown);
                 if (line != null) Debug.Log(line);
             }
-
-            if (outline == null) return;
-            outline.enabled = LandView.Alpha(LandGroup.Sectors) > 0.003f;
-            GraphMaterials.SetAlpha(outline.sharedMaterial, LandView.Alpha(LandGroup.Sectors));
         }
 
         void OnDestroy() => LandService.Changed -= OnChanged;
-
-        // ---- WP0's debug outline of the 25 sectors: WP1 deletes this block, the two Outline calls and Tick above ----
-        MeshRenderer outline;
-
-        Mesh OutlineMesh(LandSnapshot s)
-        {
-            LineMeshBuilder b = new LineMeshBuilder(2048);
-            List<Vector3> pts = new List<Vector3>();
-            foreach (SectorGeom g in s.Land.Sectors)
-            {
-                pts.Clear();
-                LandFrame.SectorOutline(pts, g, 0.005f, 7.5f);
-                b.AddPolyline(pts, LandMath.Tint(EconomyStyle.Level(model.Data.Industries[g.Industry].Level), 0.7f), 1f, 0,
-                    EconomyIds.LandSector(g.Industry, EconomyIds.SectorEdge));
-            }
-
-            return b.ToMesh("LandSectorOutline");
-        }
-
-        void Outline(LandSnapshot s)
-        {
-            if (outline == null)
-            {
-                Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1f, LandStyle.QueueSectors));
-                outline = AddMesh("LandSectorOutline", OutlineMesh(s), m);
-                EconomyStage.Land().Place(outline.transform);
-                return;
-            }
-
-            MeshFilter f = outline.GetComponent<MeshFilter>();
-            Destroy(f.sharedMesh);
-            f.sharedMesh = OutlineMesh(s);
-        }
-        // ---- end of the debug outline ----
     }
 
     /// <summary>

@@ -116,7 +116,6 @@ namespace Why.UI
                 Section("Guide and details", new[]
                 {
                     Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
-                    Row("M", "in the tour: mute / unmute the spoken narration"),
                     Row("Hover a label", "what it is, how large, and where the numbers come from"),
                     Row("Click a label", "focus and highlight it"),
                     Row("Esc", "clear the highlight, close the person, close this sheet"),

@@ -10,7 +10,8 @@ namespace Why.Economy.Model
     /// <summary>What one simulated year was calibrated with (the model's log reports them).</summary>
     internal sealed class YearCalibration
     {
-        /// <summary>Multipliers that bring the population's raw totals to the year's data ($B targets).</summary>
+        /// <summary>Multipliers that bring the population's raw totals to the year's data ($B targets). OtherTransfers
+        /// is the means-tested transfer per member under the poverty line, in quarters of the family-of-four line.</summary>
         public double Wages = 1, Business = 1, Capital = 1, Taxes = 1, OtherTransfers = 1, SocialSecurity = 1;
 
         /// <summary>Additive shift of every household's saving rate so the aggregate matches the year's rate.</summary>
@@ -175,6 +176,15 @@ namespace Why.Economy.Model
         /// <summary>Saving rate per child under 18 (children add needs; CE spending of parents, judgment).</summary>
         const double ChildSaving = -0.015;
 
+        /// <summary>
+        /// Transfers beyond Social Security and Medicare: the share that is not means-tested (unemployment insurance and
+        /// veterans' benefits, about $0.2T of NIPA's $2.2T in 2025; recalled), paid to every adult alike; and the
+        /// multiple of the household's poverty line at which the means-tested rest (Medicaid, CHIP, SNAP, SSI, the EITC)
+        /// has phased out (they end between 1.4 and 4 times the line; judgment). A child counts as this share of an
+        /// adult (Medicaid spends less per child).
+        /// </summary>
+        const double UniversalTransferShare = 0.1, MeansTestEnd = 4, ChildTransfer = 0.6;
+
         /// <summary>Saving rate of the top 1% (circuit.json groups top1 savingRate 0.35, Saez-Zucman) at the 99.5th
         /// income percentile; between the 90th percentile and there, interpolated in log distance to the top.</summary>
         const double TopSavingRate = 0.35;
@@ -252,6 +262,9 @@ namespace Why.Economy.Model
 
         /// <summary>Per person: bequests received from parents (2025 dollars).</summary>
         public readonly float[] InheritedReal;
+
+        /// <summary>Per person: the first year a bequest from a parent arrived (int.MaxValue: never).</summary>
+        public readonly int[] InheritedYear;
 
         /// <summary>Cooperation of a strategy (row) against another (column) under the games' noise and continuation.</summary>
         public readonly float[,] Coop;
@@ -417,6 +430,8 @@ namespace Why.Economy.Model
             dischargedH = new double[n];
             defaults = new bool[n];
             InheritedReal = new float[n];
+            InheritedYear = new int[n];
+            Array.Fill(InheritedYear, int.MaxValue);
             int industries = Math.Max(1, inp.IndustryCount);
             industryShare = new double[industries];
             industryStock = new double[industries];
@@ -1017,7 +1032,9 @@ namespace Why.Economy.Model
                     {
                         fin[c] += part;
                         inheritedNow[c] += part;
-                        if (fromParent) InheritedReal[c] += (float)real;
+                        if (!fromParent) continue;
+                        InheritedReal[c] += (float)real;
+                        InheritedYear[c] = Math.Min(InheritedYear[c], y);
                     }
                 }
                 else
@@ -1436,32 +1453,36 @@ namespace Why.Economy.Model
 
             Percentiles();
 
-            // other transfers (Medicaid, SNAP, EITC, SSI, unemployment, veterans): CE's transfer share of market income by
-            // percentile, with a floor at half the poverty line per person for those with little market income; retirees
-            // on Social Security get less of it. Scaled to the year's total beyond Social Security and Medicare.
+            // other transfers, the year's total beyond Social Security and Medicare: a tenth (unemployment, veterans) to
+            // every adult alike, the rest means-tested (Medicaid, CHIP, SNAP, SSI, the EITC): per member in full up to the
+            // household's poverty line (the family-of-four line on a square-root scale of household size), tapering to
+            // nothing at MeansTestEnd times it. Market income and Social Security count as income.
             double poverty = inp.Dollars(inp.PovertyLine, y);
             if (poverty <= 0) poverty = 0.3 * awi;
-            double sumW = 0;
+            double sumW = 0, sumAdults = 0;
             for (int k = 0; k < headCount; k++)
             {
                 int h = heads[k];
-                double share = LivesInputs.Rate(inp.TransferShare, hhPct[h], 20) / 100;
-                double floor = 0.5 * poverty / 4 * (adults[h] + 0.6 * kids[h]);
-                double w = share * Math.Max(hhMarket[h], floor) * (hhSs[h] > 0 ? 0.3 : 1);
-                hhOther[h] = w;
-                sumW += w;
+                double line = poverty * Math.Sqrt(Math.Max(1, adults[h] + kids[h]) / 4.0);
+                double ratio = (hhMarket[h] + hhSs[h]) / line;
+                double taper = Math.Max(0, Math.Min(1, (MeansTestEnd - ratio) / (MeansTestEnd - 1)));
+                hhOther[h] = (adults[h] + ChildTransfer * kids[h]) * taper * poverty / 4;
+                sumW += hhOther[h];
+                sumAdults += adults[h];
             }
 
             double transfers = inp.TransfersTarget(y);
             cal.OtherTransfersTarget = transfers - (ssTotal + medTotal) * unit;
-            cal.OtherTransfers = Scale(Math.Max(0, cal.OtherTransfersTarget), sumW * unit, 0);
+            double other = Math.Max(0, cal.OtherTransfersTarget);
+            double perAdult = sumAdults > 0 ? UniversalTransferShare * other / (sumAdults * unit) : 0;
+            cal.OtherTransfers = Scale((1 - UniversalTransferShare) * other, sumW * unit, 0);
 
             // taxes (income, payroll; the effective rate by percentile, scaled to the year's total), disposable income
             double sumTax = 0;
             for (int k = 0; k < headCount; k++)
             {
                 int h = heads[k];
-                hhOther[h] *= cal.OtherTransfers;
+                hhOther[h] = hhOther[h] * cal.OtherTransfers + perAdult * adults[h];
                 double rate = LivesInputs.Rate(inp.TaxRate, hhPct[h], 20) / 100;
                 hhTax[h] = rate * (hhMarket[h] + 0.5 * hhSs[h]);
                 sumTax += hhTax[h];

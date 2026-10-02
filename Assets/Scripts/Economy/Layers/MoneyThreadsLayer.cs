@@ -703,7 +703,7 @@ namespace Why.Economy.Layers
                 f.Fear[g] += r.FearShare;
                 f.Reason[g] += r.Reason;
                 f.Age[g] += r.Age;
-                f.Inherited[g] += lives.InheritedFromParents(i) > 0 ? 1 : 0;
+                f.Inherited[g] += lives.InheritedFromParentsBy(i, year) ? 1 : 0;
                 f.SelfEmployed[g] += r.SelfEmployed ? 1 : 0;
                 int q = Math.Min(4, (int)(r.IncomeRank * 5));
                 fantasyQ[q] += r.Spending * r.Fantasy;

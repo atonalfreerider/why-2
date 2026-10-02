@@ -140,7 +140,7 @@ namespace Why.Economy.Model
         public readonly YearSeries LfprMale, LfprFemale, Unemployment, EmpPrimeMale, EmpPrimeFemale, SelfEmployment;
         public readonly YearSeries SsAverage, SsReplacement, CardApr, Mortgage30, Treasury10, EquityReturn, HousePrice, MedianHomePrice;
         public readonly YearSeries Homeownership, HomeownershipByAge, PovertyLine, MedianHouseholdIncome, SavingRate, Households;
-        public readonly YearSeries TaxRate, TransferShare, SavingByPercentile, NetWorthByAge;
+        public readonly YearSeries TaxRate, SavingByPercentile, NetWorthByAge;
         public readonly YearSeries Top1Wealth, Top10Wealth, Bottom50Wealth, Top1WealthWid, Top10WealthWid, Bottom50WealthWid;
         public readonly YearSeries DebtToIncome, ConsumerCreditToIncome, Top1Income;
         public readonly YearSeries Dem, Rep, Ind;
@@ -290,7 +290,6 @@ namespace Why.Economy.Model
             MedianHouseholdIncome = Positive("medianHouseholdIncome");
             SavingRate = Series("savingRate", -30, 50);
             TaxRate = Series("effectiveTaxRate", -50, 90);
-            TransferShare = Series("transferShareOfIncome", 0, 1000);
             SavingByPercentile = Series("savingRateByPercentile", -100, 90);
             NetWorthByAge = Positive("netWorthByAge");
             Top1Wealth = Series("top1WealthShare", 0, 100);

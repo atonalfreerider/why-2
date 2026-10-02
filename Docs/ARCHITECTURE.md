@@ -194,7 +194,9 @@ The economy scene draws diagrams in plain world space beyond the present end of 
   local frame and its GameObject placed with `Station.Place`.
 * `Anchor.Fixed` and `LabelSpec.Fixed` hold world positions; `Anchor.WorldUnder(warp)` resolves either kind. A fixed label
   with `FixedRange` > 0 is only placed while the camera's target is within that distance, so a station's labels never crowd
-  another view. `LabelSystem.SetText` changes a label's text after it was added (live readouts).
+  another view. `LabelSystem.SetText` changes a label's text after it was added (live readouts). While
+  `LabelSystem.DataLabelsHidden` is set, only fixed labels are placed: the economy scene sets it while the camera looks at
+  the stations (`CircuitLayer`), so the timeline's labels in front of them do not crowd the diagrams.
 * `ViewPreset.FixedTarget` / `FixedYaw` aim the camera at a world point under the scene's one shared lens, so the road
   never moves between views.
 * `LineMeshBuilder.AddFlowPath` writes a path phase into the flow attribute (2 + distance): the line shader then moves

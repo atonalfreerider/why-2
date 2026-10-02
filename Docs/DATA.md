@@ -320,7 +320,7 @@ This file holds 54 household time series, mostly 1946-2026, used to calibrate Ec
 **Caveats**
 
 - `effectiveTaxRate` is low-confidence CBO/ITEP recall, ±3 pp. Calibrate its level to BEA taxes.
-- `savingRateByPercentile` and `transferShareOfIncome` mix BEA and CE data and carry about ±5 pp at the ends.
+- `savingRateByPercentile` and `transferShareOfIncome` mix BEA and CE data and carry about ±5 pp at the ends. `transferShareOfIncome` is cash only (it includes Social Security) and is kept for reference: the lives model pays Social Security and Medicare by entitlement and means-tests the other transfers.
 - Before 1972, these are approximate: self-employment (likely 2-3 pp low), mortgage rates and card APR.
 - DPI is the pre-update vintage.
 - WID shares are flat after 2022 (nowcast).

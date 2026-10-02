@@ -301,7 +301,7 @@ namespace Why.Economy.Model
             Range(run, y0, c => c.EarningsMale, out double emLo, out double emHi);
             Range(run, y0, c => c.EarningsFemale, out double efLo, out double efHi);
             sb.Append($"calibration x(min..max over years): compensation {F2(wLo)}..{F2(wHi)}, business {F2(bLo)}..{F2(bHi)}, ")
-                .Append($"capital {F2(kLo)}..{F2(kHi)}, taxes {F2(tLo)}..{F2(tHi)}, other transfers {F2(oLo)}..{F2(oHi)}, ")
+                .Append($"capital {F2(kLo)}..{F2(kHi)}, taxes {F2(tLo)}..{F2(tHi)}, means-tested transfers {F2(oLo)}..{F2(oHi)} (per poor member, x a quarter of the poverty line), ")
                 .Append($"social security {F2(sLo)}..{F2(sHi)}; saving-rate shift {shLo.ToString("+0.0;-0.0", Inv)}..")
                 .Append($"{shHi.ToString("+0.0;-0.0", Inv)} pp; median earnings men {F2(emLo)}..{F2(emHi)}, women {F2(efLo)}..")
                 .Append($"{F2(efHi)}\n");
@@ -515,7 +515,7 @@ namespace Why.Economy.Model
             List<SmvPerson> people = sim.People;
             double[] sum = new double[2 * 8];
             int[] count = new int[2];
-            double[] fantasyQ = new double[5], spendQ = new double[5];
+            double[] fantasyQ = new double[5], spendQ = new double[5], transfersG = new double[4];
             for (int i = 0; i < people.Count; i++)
             {
                 if (!lives.TryGet(i, year, out PersonYear r) || !r.Adult) continue;
@@ -525,13 +525,14 @@ namespace Why.Economy.Model
                 sum[o + 1] += r.Reason;
                 sum[o + 2] += traits[i].ParentRank;
                 sum[o + 3] += r.Age;
-                sum[o + 4] += lives.InheritedFromParents(i) > 0 ? 1 : 0;
+                sum[o + 4] += lives.InheritedFromParentsBy(i, year) ? 1 : 0;
                 sum[o + 5] += r.FearShare;
                 sum[o + 6] += r.SelfEmployed ? 1 : 0;
                 sum[o + 7] += r.Cooperation;
                 int q = Math.Min(4, (int)(r.IncomeRank * 5));
                 fantasyQ[q] += r.Spending * r.Fantasy;
                 spendQ[q] += r.Spending;
+                transfersG[Math.Min(3, (int)r.WealthGroup)] += r.Transfers;
             }
 
             string Mean(int g, int k) => count[g] > 0 ? (sum[g * 8 + k] / count[g]).ToString(k == 3 ? "0" : "0.00", Inv) : "-";
@@ -542,6 +543,15 @@ namespace Why.Economy.Model
             sb.Append($"fantasy share of spending {F2(lives.Aggregate(year)?.MeanFantasy ?? 0)} ({F2(inp.Target("fantasy_weighted_spending", 0.185))}); ")
                 .Append("by income quintile (psyche.json fantasy_weighted_spending note: 0.12 0.12 0.15 0.18 0.23):");
             for (int q = 0; q < 5; q++) sb.Append(' ').Append(F2(spendQ[q] > 0 ? fantasyQ[q] / spendQ[q] : 0));
+            double transfers = transfersG[0] + transfersG[1] + transfersG[2] + transfersG[3];
+            sb.Append("\ntransfers by wealth group, bottom 50% / 50-90% / 90-99% / top 1% (DFA):");
+            for (int g = 0; g < 4; g++)
+            {
+                double data = g < inp.Data.Groups.Count ? inp.Data.Groups[g].TransferShare : double.NaN;
+                sb.Append(g > 0 ? " /" : "").Append(' ').Append(P1(transfers > 0 ? transfersG[g] / transfers : 0))
+                    .Append(" (").Append(P1(data)).Append(')');
+            }
+
             sb.Append("\nin control % by year (cut fixed in ").Append(year).Append("):");
             for (int y = 1950; y <= lives.LastYear; y += 5)
             {

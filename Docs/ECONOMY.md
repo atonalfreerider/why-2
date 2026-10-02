@@ -16,7 +16,7 @@ Open the scene and press Play. Everything is built at runtime in about two secon
 | **The road** | Time runs along a straight road from 1946 (left) to now (right). Every view of the scene shares this one road, so it never moves; only the camera does. |
 | **People** | The blue lines above the road are the United States population from 1950 to now, exactly as in the causality graph: one line for 100,000 people, women on the inner side and men on the outer side, height = modeled social market value. A line turns **gold** for the years its people are **in control** of their own path (see *Agency* below). |
 | **The industry wall** | Beneath the people stands a wall of the industries that pay them: value added by industry each year in 2025 dollars, stacked in the notebook's order from the ground up - government (the foundation), raw (oil, gas and metals in matter red, farms in life green), manufacturing and infrastructure, services, and tech nearest the people. The wall is as tall as the real economy: it grows almost tenfold along the road. Each industry's band is split by who receives its value: the dim lower part pays wages, a faint sliver pays production taxes and replaces worn-out capital, and the **bright top is what owners keep**. |
-| **Money threads** | Threads connect the wall and the people at sampled years: income rising from the industry a person works in (blue) or owns (gold), spending falling back to the industries that capture it, tinted by motive. Pulses travel with the money. |
+| **Money threads** | Threads of light connect the wall and the people for one adult line in six, every four years from 1950. Income rises to each person from their largest source: wages (light blue) from the band of the industry they work in, business and capital income (gold) from the owners' part of the bands that pay it, benefits (steel) from the federal band. Spending falls back from their largest categories (up to three) into the industry that receives most of each, tinted by motive. Each year is a sheaf two years wide: income on its past half, spending on its present half, people in order of income. Pulses travel with the money. |
 | **Hue** | Gold = capital (corporations, profits, people in control); blue = people; **rose = desire** (money spent moving toward what people want); **ice = fear** (money spent moving away from what people fear); steel = government; red and green only for raw matter and life. Text and axes are neutral grey. |
 | **Stations** | Beyond the present end of the road: the **money circuit** (key 3, and the companies that capture the most in key 4), the **mind** (key 6) and the **games** (keys 7 and 8). They are diagrams in plain world space; their labels show only while the camera is near them. |
 
@@ -35,10 +35,10 @@ Open the scene and press Play. Everything is built at runtime in about two secon
 
 | Input | Action |
 | --- | --- |
-| , and . | the year of the money circuit and the mind map (with Shift: ten years) |
-| Click a lifeline | look inside one person: income, spending, motives, agency, the games they play |
-| N | the next notable person (the owner, the heir, the striver, the escapist, the indebted, the retiree, ...) |
-| Games panel | choose two strategies, the chance of mistakes and the chance of meeting again |
+| , and . | the year of the money circuit, the mind map and the person inspector (with Shift: ten years); the year chip at the right edge does the same, and under it the year's readout (in control, fantasy, fear, trust) |
+| Click a lifeline | look inside one person: who they are, their household and work, income by source, taxes, spending by category, saving, wealth and debt, their motives (fear, reason, the future, agency, their strongest desires and fears), and their whole life as two small charts. Their line and their money threads light up; click empty road, × or Esc to close |
+| N | the next notable person (the owner, the heir, the striver, the escapist, the indebted, the retiree, the young, the forgiver, the avenger), and the camera flies to their line |
+| Games panel | in views 7 and 8: choose two strategies, the chance of mistakes and the chance of meeting again |
 | T | the guided tour (Space / Right next, Left back, P pause, Esc exit) |
 | U, [ ], L, V, H, F3, Esc | the time lens, vertical mode, help, stats and clearing, as in the causality graph |
 
@@ -88,7 +88,9 @@ Every line of the population (4,996 lines, about 200,000 person-years from 1946 
   for repeated dealings with others (tit for tat, generous tit for tat, win-stay lose-shift, always cooperate, always
   defect, grim trigger, random), in the population shares lab evidence suggests.
 * **Every year**: employment and earnings by sex, age and rank; self-employment; capital income on what they own; Social
-  Security; transfers and taxes by income percentile; married couples (from the population's own marriages) pool
+  Security and Medicare by entitlement; the other transfers (Medicaid, SNAP, SSI, the EITC) means-tested, phasing out
+  between one and four times the household's poverty line, and unemployment and veterans' benefits (about a tenth of
+  them) for every adult; taxes by income percentile; married couples (from the population's own marriages) pool
   their money and children add needs; spending in the seven categories, tilted by personality and life stage and
   calibrated every year so the population matches the data; saving, debt, homes and inheritance (spouse first, then
   children).
@@ -104,8 +106,9 @@ on track), and the same cut is applied to every year.
 
 Calibration in 2025 (model vs data): compensation $15.7T (15.7), transfers $4.95T (4.95), personal taxes $5.25T (5.25),
 disposable income $22.9T (22.9), saving rate 5.4% (5.4), homeownership 65% (65), wealth shares top 1% / top 10% /
-bottom 50% about 31 / 66 / 2.5% (31 / 68 / 2.5), dollar millionaires 9% of adults (8.9%), children of the bottom fifth
-reaching the top fifth 7.2% (7.5%). The log of every run (Unity console, `[Why] economic lives`) prints the full table.
+bottom 50% 31 / 68 / 1.5% (Fed DFA 31 / 68 / 2.5; WID 35 / 70 / 1.0), dollar millionaires 11% of adults (8.9%),
+children of the bottom fifth reaching the top fifth 7.2% (7.5%), transfers to the wealth groups bottom 50% / 50 - 90% /
+90 - 99% / top 1% 41 / 43 / 14 / 2% (50 / 40 / 9 / 1). The log of every run (Unity console, `[Why] economic lives`) prints the full table.
 
 ### Games (`games.json`, `PrisonersDilemma`, `GamesLayer`)
 
@@ -121,12 +124,12 @@ floor shows how strategies spread by their payoff over 200 generations (replicat
 These are the model's results for 2025, shown in the scene rather than tuned:
 
 * **Few are in control.** About 12% of adults own the means to steer their own path, by construction of the
-  calibration; the history the same cut produces is the model's own: about 13 - 17% from 1950 to 1975, falling to 9 -
-  10% around 2005 - 2015.
-* **Fantasy does not separate them.** People in control spend the same share on fantasy (0.17) and the same share out
-  of fear (0.55) as everyone else. Fantasy spending *rises* with income (0.14 of spending in the bottom quintile, 0.21
-  in the top). What distinguishes the people in control is reason (0.69 vs 0.36 for everyone else), age (61 vs 47),
-  inheritance (62% inherited money vs 28%) and self-employment (23% vs 4%).
+  calibration; the history the same cut produces is the model's own: about 14 - 17% from 1950 to 1975, falling to
+  about 11% from 1995 to 2015.
+* **Fantasy does not separate them.** People in control spend about the same share on fantasy (0.18 vs 0.17) and out
+  of fear (0.54 vs 0.55) as everyone else. Fantasy spending *rises* with income (0.14 of spending in the bottom quintile,
+  0.21 in the top). What distinguishes the people in control is reason (0.69 vs 0.36 for everyone else), age (61 vs 47),
+  inheritance (60% had inherited from a parent vs 26%) and self-employment (23% vs 4%).
 * **Fear moves more money than desire.** About 54% of household money is spent moving away from something feared:
   health and insurance, debt, legal protection, basic shelter.
 * **Owners keep about a quarter.** Wages take about 51% of GDP; the owners' share (profits, proprietors' income, rent
@@ -135,8 +138,11 @@ These are the model's results for 2025, shown in the scene rather than tuned:
 ## Limitations
 
 * The data's vintage predates BEA's annual update of 30 September 2026 (about 1% on 2025 levels).
-* Household debt in the model is lower than in the data (debt to income 64% vs 91%): car and student installment loans
+* Household debt in the model is lower than in the data (debt to income 66% vs 91%): car and student installment loans
   are not modeled.
+* Transfers reach the bottom half of wealth less than in the data (41% vs 50%): Social Security and Medicare follow age,
+  and the model's retirees are wealthier than the Survey of Consumer Finances finds (median net worth at 65 - 74 about
+  $650K vs $410K in 2022; part of the gap is the defined-benefit pensions the survey leaves out).
 * With one line per 100,000 people, only about 27 lines make the top 1%: its wealth share varies by several points with
   the random seed (the scene's seed is fixed, so it is reproducible).
 * The psychology (drive weights, tilts, the chemicals) is literature-informed modeling; most of it could not be verified
@@ -152,6 +158,10 @@ These are the model's results for 2025, shown in the scene rather than tuned:
 * `SmvLayer` publishes the finished population (`SmvPopulation`) and lets another scene's model restyle its lines
   (`ISmvLineStyle`): `EconomyLoaderLayer` (Order 25) publishes `EconomicLives` as that style, so the lives are simulated
   on the finished population inside `SmvLayer.Prepare` and the lines are drawn with them.
+* `IndustryWallLayer` shares the wall's geometry (`WallGeometry`, key `economy.wall`) so `MoneyThreadsLayer` (Order 50,
+  the tier after it) lands every thread on the right band. The person inspector (`PersonInspector`, `LifelinePicker`,
+  `PersonLine`, `PersonPanel`, `PersonFacts`), the year chip (`EconomyControls`) and the games panel (`GamesPanel`) are
+  modules that share one state, `EconomyState` (year, person, games), and redraw when its version changes.
 * Stations are drawn in plain world space: materials with `_Raw` = 1 place vertices through the renderer's transform
   instead of the warp (`GraphMaterials.Raw`, `WhyPlace` in the shaders); their labels and anchors are `Fixed` in world
   space and hide while the camera is away. Lines can pulse along a path rather than along time

@@ -335,14 +335,6 @@ namespace Why.Economy.Layers
         /// <summary>People one cross stands for (the population's people per lifeline).</summary>
         double peoplePerLine;
 
-        /// <summary>
-        /// The year each person first received an estate from a parent (<see cref="NoYear"/>: never in the record), so a
-        /// year counts only the bequests made by then. The first parent to die usually leaves everything to the
-        /// surviving spouse, so a parent's death alone does not make an heir.
-        /// </summary>
-        int[] inheritYear = Array.Empty<int>();
-
-        const int NoYear = int.MaxValue;
 
         /// <summary>Category places in the space (station-local), in EconomyData.CategoryIds order.</summary>
         readonly Vector3[] categoryPlace = new Vector3[7];
@@ -396,7 +388,7 @@ namespace Why.Economy.Layers
             lives = model.Lives;
             population = ctx.Shared<SmvPopulation>(SmvPopulation.SharedKey);
             portrait = ScreenLayout.IsPortrait;
-            FindInheritances();
+            peoplePerLine = lives != null && lives.Ready && lives.Sim != null ? lives.Sim.PeoplePerLine : 0;
             for (int c = 0; c < 7; c++)
             {
                 categories[c] = data.CategoryById(EconomyData.CategoryIds[c]) ?? data.Categories[c];
@@ -657,7 +649,7 @@ namespace Why.Economy.Layers
                 m.FearMean[g] += r.FearShare;
                 m.ReasonMean[g] += r.Reason;
                 m.AgeMean[g] += r.Age;
-                if (i < inheritYear.Length && inheritYear[i] <= year) m.Inherited[g]++;
+                if (lives.InheritedFromParentsBy(i, year)) m.Inherited[g]++;
                 if (r.SelfEmployed) m.SelfEmployed[g]++;
 
                 float spend = Mathf.Max(0, r.Spending);
@@ -722,45 +714,6 @@ namespace Why.Economy.Layers
             Spread(controlSum, controlSq, m.Control, out m.ControlCenter, out m.ControlSpread);
             Spread(fantasySum, fantasySq, m.Fantasy, out m.FantasyCenter, out m.FantasySpread);
             return m;
-        }
-
-        /// <summary>
-        /// Fills <see cref="inheritYear"/> (and <see cref="peoplePerLine"/>) once: for everyone who received an estate
-        /// from a parent, the first year one did.
-        /// </summary>
-        void FindInheritances()
-        {
-            if (lives == null || !lives.Ready || lives.Sim == null) return;
-            peoplePerLine = lives.Sim.PeoplePerLine;
-            List<SmvPerson> people = lives.Sim.People;
-            inheritYear = new int[people.Count];
-            for (int i = 0; i < people.Count; i++)
-            {
-                inheritYear[i] = NoYear;
-                if (lives.InheritedFromParents(i) <= 0) continue;
-                SmvPerson p = people[i];
-                inheritYear[i] = Math.Min(BequestYear(people, i, p.Mother), BequestYear(people, i, p.Father));
-            }
-        }
-
-        /// <summary>
-        /// The year a parent's death left the person an estate, or <see cref="NoYear"/>: the model passes an estate on
-        /// in the first year the parent does not live to see the middle of, and the heir's record of that year shows
-        /// what it received (nothing when a surviving spouse took it all).
-        /// </summary>
-        int BequestYear(List<SmvPerson> people, int heir, int parent)
-        {
-            if (parent < 0 || parent >= people.Count) return NoYear;
-            double death = people[parent].Death;
-            if (double.IsNaN(death) || double.IsInfinity(death)) return NoYear; // still alive
-            int guess = (int)Math.Ceiling(death - 0.5);
-            for (int y = guess - 1; y <= guess + 1; y++)
-            {
-                if (lives.TryGet(parent, y, out _) || !lives.TryGet(parent, y - 1, out _)) continue;
-                return lives.TryGet(heir, y, out PersonYear r) && r.Inherited > 0 ? y : NoYear;
-            }
-
-            return NoYear;
         }
 
         /// <summary>Mean and standard deviation of places from their sum and sum of squares.</summary>

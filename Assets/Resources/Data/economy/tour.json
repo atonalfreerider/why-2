@@ -148,7 +148,7 @@
     {
       "id": "owners",
       "title": "Who owns their path",
-      "text": "Gold lines are the people in control of their own path: they own a business or years of spending in savings, save steadily, owe little, decide by reason and spend little on fantasy. In 2025 they are about 12% of adults. The same rule finds 13 to 17% in the 1950s and 1960s, and 9 to 10% around 2010.",
+      "text": "Gold lines are the people in control of their own path: they own a business or years of spending in savings, save steadily, owe little, decide by reason and spend little on fantasy. In 2025 they are about 12% of adults. The same rule finds 14 to 17% from 1950 to 1975, and about 11% from 1995 to 2015.",
       "focus": "people",
       "anchor": "people:owners",
       "highlight": [],
@@ -175,7 +175,7 @@
     {
       "id": "fantasy",
       "title": "Buying fantasy",
-      "text": "Nearly two thirds of adults spend more than 15% of their money on fantasy: escapes, status signals, lottery tickets. But fantasy is not the vice of the poor. Its share of spending rises with income, from 14% in the poorest fifth of households to 21% in the richest.",
+      "text": "Two thirds of adults spend more than 15% of their money on fantasy: escapes, status signals, lottery tickets. But fantasy is not the vice of the poor. Its share of spending rises with income, from 14% in the poorest fifth of households to 21% in the richest.",
       "focus": "mind",
       "anchor": "mind:fantasy",
       "highlight": ["mind:escapism", "mind:status"],
@@ -184,7 +184,7 @@
     {
       "id": "control",
       "title": "What sets them apart",
-      "text": "The people in control buy as much fantasy as everyone else (17% of spending) and spend as much out of fear (55%). What sets them apart is reason (0.69 against 0.36), age (61 against 47), money inherited from a parent (62% against 26%) and working for themselves (23% against 4%).",
+      "text": "The people in control buy as much fantasy as everyone else (18% of their spending against 17%) and spend as much out of fear (54% against 55%). What sets them apart is reason (0.69 against 0.36), age (61 against 47), money inherited from a parent (60% against 26%) and working for themselves (23% against 4%).",
       "focus": "mind",
       "anchor": "mind:control",
       "highlight": [],

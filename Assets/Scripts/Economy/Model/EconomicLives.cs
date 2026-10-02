@@ -297,6 +297,7 @@ namespace Why.Economy.Model
         PersonYear[] store = Array.Empty<PersonYear>();
         int[] offset = Array.Empty<int>(), firstYear = Array.Empty<int>(), yearCount = Array.Empty<int>();
         float[] inheritedReal = Array.Empty<float>();
+        int[] inheritedYear = Array.Empty<int>();
         PopulationYear[] years = Array.Empty<PopulationYear>();
         Color32 gold;
         volatile bool ready;
@@ -363,6 +364,7 @@ namespace Why.Economy.Model
                 firstYear = run.FirstYearOf;
                 yearCount = run.YearCount;
                 inheritedReal = run.InheritedReal;
+                inheritedYear = run.InheritedYear;
                 years = run.Years;
                 long yearsMs = sw.ElapsedMilliseconds - traitsMs;
 
@@ -417,6 +419,10 @@ namespace Why.Economy.Model
         /// <summary>Bequests a person received from parents, in 2025 dollars (0 when unknown).</summary>
         public float InheritedFromParents(int person) =>
             ready && person >= 0 && person < inheritedReal.Length ? inheritedReal[person] : 0;
+
+        /// <summary>Whether a person had received a bequest from a parent by the end of a year.</summary>
+        public bool InheritedFromParentsBy(int person, int year) =>
+            ready && person >= 0 && person < inheritedYear.Length && inheritedYear[person] <= year;
 
         /// <summary>Population totals of a year (null when nothing was simulated).</summary>
         public PopulationYear Aggregate(int year)

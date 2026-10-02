@@ -810,7 +810,7 @@
       "note": "AI accelerators; 55.6% net margin. Largest US company by market cap. Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
       "usEmployees": 18,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Apple",
@@ -824,7 +824,7 @@
       "note": "Hardware + services; most hardware assembled abroad (computer_electronics PCE is ~91% imported). Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
       "usEmployees": 85,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Alphabet",
@@ -838,7 +838,7 @@
       "note": "Most profitable US company 2025 (Fortune 500 record). Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
       "usEmployees": 110,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Microsoft",
@@ -850,9 +850,9 @@
       "year": 2026,
       "fiscalPeriod": "FY ended Jun 2026",
       "note": "FY2025 (Jun 2025): revenue $281.7B, NI $101.8B. FY2026 NI includes investment gains. Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
-      "usEmployees": 126,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 125,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (June 30, 2025), Item 1 Human Capital: about 228,000 full-time employees, 125,000 in the U.S. and 103,000 internationally; https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm"
     },
     {
       "name": "Amazon",
@@ -866,7 +866,7 @@
       "note": "Classified by its BEA industry (nonstore retail, trade); most of its profit comes from AWS cloud (internet) and advertising. #1 Fortune 500 2026 by revenue. Most profit comes from AWS (software_internet) and ads, not retail. Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
       "usEmployees": 1000,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "SpaceX",
@@ -880,7 +880,7 @@
       "note": "Listed in 2026 (IPO); market cap Sept 2026 from the research (fool.com). Revenue and net income are not in the research data (0 = unknown). Industry: aerospace manufacturing (BEA 3364) plus Starlink satellite internet.",
       "usEmployees": 13,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); a private company files no 10-K"
     },
     {
       "name": "Meta Platforms",
@@ -894,7 +894,7 @@
       "note": "NI reduced by one-time tax charge. Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
       "usEmployees": 45,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Broadcom",
@@ -908,7 +908,7 @@
       "note": "",
       "usEmployees": 12,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Tesla",
@@ -922,7 +922,7 @@
       "note": "Valuation >> current profits: market prices future (robotaxi/robots) narrative. Market cap: mean of Sept-2026 snapshots (magnificent7 table).",
       "usEmployees": 70,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Berkshire Hathaway",
@@ -934,9 +934,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "Insurance-centered conglomerate (also BNSF rail, BH Energy, manufacturing, retail).",
-      "usEmployees": 330,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 310,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025): Berkshire and its operating subsidiaries employed about 387,800 people, about 80% in the U.S. (about 310 thousand; mostly outside insurance); https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm"
     },
     {
       "name": "Eli Lilly",
@@ -948,9 +948,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "Pharma (GLP-1 drugs); first $1T healthcare company.",
-      "usEmployees": 25,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 23,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: about 50,000 employees, about 27,000 outside the U.S. (about 23 thousand in the U.S.); https://www.sec.gov/Archives/edgar/data/59478/000005947826000013/lly-20251231.htm"
     },
     {
       "name": "Advanced Micro Devices",
@@ -964,7 +964,7 @@
       "note": "Crossed $1T market cap Sept 21, 2026.",
       "usEmployees": 12,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "JPMorgan Chase",
@@ -976,9 +976,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "Largest US bank.",
-      "usEmployees": 200,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 185,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: 318,512 employees, 58% located in the U.S. (about 185 thousand); https://www.sec.gov/Archives/edgar/data/19617/000162828026008131/jpm-20251231.htm"
     },
     {
       "name": "Walmart",
@@ -991,8 +991,8 @@
       "fiscalPeriod": "FY ended Jan 2026",
       "note": "Net sales; total revenue incl. membership ~$713B.",
       "usEmployees": 1600,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (fiscal year ended Jan 31, 2025), Item 1 Human Capital: about 2.1 million associates worldwide, about 1.6 million in the U.S.; https://www.sec.gov/Archives/edgar/data/104169/000010416925000021/wmt-20250131.htm"
     },
     {
       "name": "Visa",
@@ -1004,9 +1004,9 @@
       "year": 2025,
       "fiscalPeriod": "FY ended Sep 2025",
       "note": "Payment network toll: ~50% net margin.",
-      "usEmployees": 13,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 13.6,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Sept 30, 2025), Human Capital: about 34,100 employees, more than 60% outside the U.S. (at most about 13.6 thousand in the U.S.); https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/v-20250930.htm"
     },
     {
       "name": "Exxon Mobil",
@@ -1018,9 +1018,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "Integrated (extraction + refining + chemicals); global revenue.",
-      "usEmployees": 25,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 24,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025): 58 thousand regular employees, over 59% from outside the U.S. (at most about 24 thousand in the U.S.); https://www.sec.gov/Archives/edgar/data/34088/000003408826000045/xom-20251231.htm"
     },
     {
       "name": "Johnson & Johnson",
@@ -1034,7 +1034,7 @@
       "note": "",
       "usEmployees": 50,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Mastercard",
@@ -1046,9 +1046,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "",
-      "usEmployees": 10,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 11.9,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: about 39,800 persons globally, about 70% employed outside the U.S. (about 11.9 thousand in the U.S.); https://www.sec.gov/Archives/edgar/data/1141391/000114139126000013/ma-20251231.htm"
     },
     {
       "name": "Palantir",
@@ -1060,9 +1060,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "Market cap ~100x revenue: extreme narrative premium.",
-      "usEmployees": 3,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 3.2,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: 4,429 full-time employees, 28% outside the United States (about 3.2 thousand in the U.S.); https://investors.palantir.com/files/2025%20FY%20PLTR%2010-K.pdf"
     },
     {
       "name": "Bank of America",
@@ -1074,9 +1074,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "",
-      "usEmployees": 200,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 164,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: about 213,000 employees, 77% located in the U.S. (about 164 thousand); https://www.sec.gov/Archives/edgar/data/70858/000007085826000157/bac-20251231.htm"
     },
     {
       "name": "Oracle",
@@ -1088,9 +1088,9 @@
       "year": 2025,
       "fiscalPeriod": "FY ended May 2026",
       "note": "",
-      "usEmployees": 60,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 58,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (May 31, 2025), Human Capital: about 162,000 full-time employees, about 58,000 in the U.S. and 104,000 internationally; https://www.sec.gov/Archives/edgar/data/1341439/000095017025087926/orcl-20250531.htm"
     },
     {
       "name": "Costco",
@@ -1104,7 +1104,7 @@
       "note": "Membership-fee model: fees ~ majority of operating profit.",
       "usEmployees": 230,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     },
     {
       "name": "Caterpillar",
@@ -1116,9 +1116,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "NI derived from EPS $18.81 x ~472M shares (derived).",
-      "usEmployees": 45,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 51.6,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: about 118,000 full-time persons, about 66,400 outside the U.S. (about 51.6 thousand inside); https://www.sec.gov/Archives/edgar/data/18230/000001823026000008/cat-20251231.htm"
     },
     {
       "name": "Chevron",
@@ -1130,9 +1130,9 @@
       "year": 2025,
       "fiscalPeriod": "CY2025",
       "note": "",
-      "usEmployees": 22,
-      "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployees": 21.5,
+      "usEmployeesBasis": "10-K FY2025",
+      "usEmployeesSource": "10-K FY2025 (Dec 31, 2025), Human Capital: 21,545 U.S. employees including service station employees (19,366 excluding them) of 43,039; https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
     },
     {
       "name": "Netflix",
@@ -1146,7 +1146,7 @@
       "note": "",
       "usEmployees": 9,
       "usEmployeesBasis": "recalled",
-      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); to be replaced from the latest 10-K (Item 1, Human Capital) or annual report"
+      "usEmployeesSource": "recalled US employees in thousands (landscape spec 8.5, +-20%); the latest 10-K reports its headcount without a U.S. split (checked for this build), so the tower hover marks it as approximate"
     }
   ],
   "captureNote": "The 25 most valuable of the US-listed companies priced in the research (flows.json topCompaniesBySector lists the largest or most representative companies of each sector, not a full market-cap ranking) plus SpaceX, market cap Sept 2026 (research snapshots: stocktitan / companiesmarketcap / stockanalysis, $B). Large companies the research did not price (AbbVie, for example) may belong in a complete top 25, so ranks below about 15 are approximate; the top 10 (all above $1,000B) are unlikely to change. Each entry has revenue and net income of the latest fiscal year (company filings; year = calendar year the fiscal year mostly covers, fiscalPeriod gives it). Net income is global and after tax. industry = the 25-id industry list (Visa/Mastercard = banking: card networks sit in BEA credit intermediation). marketCapTotal = Wilshire 5000 total US market cap 2026-09-16; top10MarketCapShare = the first 10 of this list / marketCapTotal (SpaceX may not yet be in the index). mag7ProfitShare = Magnificent-7 latest-FY net income ($639.9B) / NIPA after-tax corporate profits 2025 ($3,382.3B): definitions differ (global vs national, accounting vs NIPA), so read it as an order of magnitude. top10ProfitShareSP500 / top10MarketCapShareSP500: Apollo (Dec 2025). marketCapToGdp uses 2025 GDP (annual update). corporateEquityTotal = all US corporate equity incl. closely held (Z.1 L.224, 2025:Q4).",

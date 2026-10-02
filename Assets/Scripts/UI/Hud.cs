@@ -204,6 +204,7 @@ namespace Why.UI
                 Relayout(size);
             }
 
+            if (GraphScene.IsEconomy) FollowEconomyTitle();
             titleFade.Tick(dt);
             presetFade.Tick(dt);
             topButtonsFade.Tick(dt);
@@ -303,6 +304,21 @@ namespace Why.UI
             presetSubtitle.text = preset.Subtitle ?? "";
             HudKit.FitText(presetSubtitle, titleWidth);
             if (newTitle && !root.TourActive) titleFade.Replay();
+        }
+
+        /// <summary>
+        /// The economy's presets are refreshed in place (the section's title follows the year under the scrubber, "The cut
+        /// through 1990"), so the title line follows the focused preset's title between focus changes, without the fade.
+        /// </summary>
+        void FollowEconomyTitle()
+        {
+            ViewPreset preset = root.CurrentPreset;
+            if (preset == null) return;
+            string title = preset.Title ?? "", subtitle = preset.Subtitle ?? "";
+            if (title == presetTitle.text && subtitle == presetSubtitle.text) return;
+            presetTitle.text = title;
+            presetSubtitle.text = subtitle;
+            HudKit.FitText(presetSubtitle, titleWidth);
         }
 
         void Relayout(Vector2 size)

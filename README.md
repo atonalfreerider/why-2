@@ -102,16 +102,21 @@ back); record with Unity Recorder or any screen recorder. In a built player, V o
 ## The economy scene
 
 A second scene, `Assets/Scenes/Economy.unity`, builds on the same rendering core and the same United States population
-to model the economy from 1946 to 2026: a **corporate layer** (a wall of value added by industry beneath the people, the
-bright part of each band what owners keep), the **money circuits** that run from industries to owners and workers, through
-taxes and transfers to households, and back into the industries through what people buy, and an **economic life and a
-psychology for every simulated person** - what they earn, own and buy, whether they spend moving toward what they want or
-away from what they fear, and whether they steer their own life path (those who do turn gold). Beyond the present end of
-the timeline stand three stations: the money circuit of any year with the companies that capture the most value, a map of
-the mind behind the money (desire and fear, reason and emotion, now and the future), and the prisoner's dilemma between
-people and between tribes, played live. Keys 1 - 8 change the view, comma and period the year, a click on a lifeline opens a
-person, T starts a 27-stop tour. Data from BEA, the Federal Reserve, BLS and Census; the model, its calibration and what it
-finds are in `Docs/ECONOMY.md`, the data in `Docs/DATA.md`.
+to model the economy from 1946 to 2026. Time runs along a road: the people's lifelines above it, a wall of the value
+added by 25 industries beneath, the bright part of each band what owners keep. Every simulated person has an **economic
+life and a psychology**: what they earn, own and buy, whether they spend moving toward what they want or away from what
+they fear, and whether they steer their own life path (those who do turn gold). A glowing **cut** stands across the road
+at one year; past the road's end it opens into a **land**, a stepped bowl whose five terraces are the industries
+(government the floor, tech the highest ring, each industry's area its value added, gold its owners' share), with roots
+underground for what industries buy from each other, towers for the most valuable companies and a gold crown for the
+capital paid out. On the rim stand **116 players**, the twelve 2026 socioeconomic groups split by the industry that pays
+them and by party, each a disc of dots, one per lifeline; their income arrives as arcs in the air, their spending runs
+down the terraces as rivers (ice for fear, rose for desire, glitter for fantasy) into the industries that are paid, and
+they play a deterministic season of tit for tat in which forgiveness lets cooperation climb and coalitions form along the
+land rather than along party. Keys 1 - 8 change the view, comma and period (or the year chip's scrubber) the year, a click
+on a player or a lifeline opens an inspector, T starts a 12-stop tour. Data from BEA, the Federal Reserve, BLS, Census and
+the GSS; the model, its calibration, what it finds and what is measured or modeled are in `Docs/ECONOMY.md`, the data in
+`Docs/DATA.md`.
 
 ## Project
 

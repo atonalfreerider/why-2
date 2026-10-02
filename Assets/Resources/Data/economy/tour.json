@@ -1,248 +1,113 @@
 {
-  "title": "The economy: where money goes, and why",
+  "title": "The economy: one year opened into a land",
   "steps": [
     {
-      "id": "welcome",
-      "title": "Money, and the minds that move it",
-      "text": "Blue lines are the people of the United States since 1950, one line for every 100,000, rising and falling with their social market value. Beneath them stands a wall of the industries that pay them. Money flows both ways between them, every day of every life.",
+      "id": "road",
+      "title": "The road of time",
+      "text": "Time runs along the road: 4996 lines of 100,000 people above the wall of 25 industries that pay them. At the road's end, one year opens into a land.",
       "focus": "overview",
       "anchor": "smv:us",
       "highlight": [],
       "hold": 12
     },
     {
-      "id": "wall_1950",
-      "title": "The economy of 1950",
-      "text": "In 1950 the United States added $300 billion of value: $3.2 trillion in today's dollars. Factories made 22.5% of it and farms almost 7%. The wall is drawn in 2025 dollars, so its height is the real size of the economy.",
-      "focus": "industries",
-      "anchor": "wall:1950",
-      "highlight": ["industry:manufacturing", "industry:agriculture"],
-      "hold": 12
-    },
-    {
-      "id": "wall_now",
-      "title": "Ten times larger",
-      "text": "By 2025 the same economy adds $30.8 trillion a year, almost ten times 1950 after inflation. Manufacturing has fallen to 7.6% of it. The floors follow the notebook: government at the foundation, then raw materials, manufacturing and infrastructure, services, and tech nearest the people.",
-      "focus": "industries",
-      "anchor": "wall:now",
-      "highlight": ["tier:services"],
-      "hold": 13
-    },
-    {
-      "id": "services",
-      "title": "Services: finance, insurance, health, law",
-      "text": "Half of everything is now services: $14.8 trillion of homes, health care, finance, insurance, law, schools and fun. Many of them sell protection from a threat: illness, loss, lawsuits, a bad year.",
-      "focus": "industries",
-      "anchor": "tier:services",
-      "highlight": ["industry:health", "industry:insurance", "industry:finance", "industry:banking", "industry:legal"],
-      "hold": 12
-    },
-    {
-      "id": "created_captured",
-      "title": "Created, and captured",
-      "text": "The dim lower part of each band pays the people who work in the industry; the bright top is what its owners keep. Real estate keeps 57% of its value for owners (half of it the rent homeowners implicitly pay themselves); health care keeps 9% and pays most of the rest in wages.",
-      "focus": "industries",
-      "anchor": "industry:real_estate",
-      "highlight": ["industry:health"],
-      "hold": 14
-    },
-    {
-      "id": "tech",
-      "title": "Tech: social and AI",
-      "text": "Tech adds 8% of the economy, but its platforms keep more of each dollar than almost anyone: internet companies earn 32-cent net margins selling attention to advertisers. In 2026 the four largest cloud companies plan about $730 billion of capital spending, most of it data centers for machine intelligence.",
-      "focus": "industries",
-      "anchor": "tier:tech",
-      "highlight": ["industry:internet", "industry:software", "industry:hardware"],
-      "hold": 14
-    },
-    {
-      "id": "threads_income",
-      "title": "Income rises",
-      "text": "Threads carry money up from the wall to the people: wages from the industry each person works in, and from the bright tops, the owners' share to the people who own the capital. Gold threads are capital income.",
-      "focus": "overview",
-      "anchor": "threads:income",
+      "id": "cut",
+      "title": "The cut through 2025",
+      "text": "Cut the road at 2025: every industry's band of the wall, and the 2,742 adult lives that pierce the year, each a dot.",
+      "focus": "section",
+      "anchor": "land:cut",
       "highlight": [],
       "hold": 12
     },
     {
-      "id": "threads_spending",
-      "title": "Spending falls back",
-      "text": "Spending flows back down into the industries that capture it. Each thread is tinted by the motive behind the money: rose when people move toward something they want, ice when they move away from something they fear.",
-      "focus": "overview",
-      "anchor": "threads:spending",
-      "highlight": [],
-      "hold": 12
-    },
-    {
-      "id": "circuit",
-      "title": "The money circuit",
-      "text": "Follow one year's money around once. Industries add value; it splits into wages, owners' income, taxes and the wear of capital; it reaches households, the state and the world; households spend it; and every dollar returns, underground, to the industries that made what it bought.",
-      "focus": "circuit",
-      "anchor": "circuit:loop",
-      "highlight": [],
-      "hold": 15
-    },
-    {
-      "id": "wages_owners",
-      "title": "Half to work, a quarter to ownership",
-      "text": "In 2025 wages and benefits take $15.7 trillion, 51% of everything produced. Owners take $7.9 trillion, 26%: corporate profits, the income of the self-employed, rent and interest. Corporations paid out $2.4 trillion in dividends and buybacks.",
-      "focus": "circuit",
-      "anchor": "circuit:wages",
-      "highlight": ["circuit:owners"],
-      "hold": 14
-    },
-    {
-      "id": "top_bottom",
-      "title": "One percent and fifty percent",
-      "text": "The top 1%, 1.3 million households, receive $3.3 trillion before taxes: $1.1 trillion from their own businesses and $0.8 trillion of dividends and buybacks. The bottom half, 68 million households, receive $4.0 trillion, almost all of it wages; they get about 1% of the payouts.",
-      "focus": "circuit",
-      "anchor": "circuit:top1",
-      "highlight": ["circuit:bottom50"],
-      "hold": 15
-    },
-    {
-      "id": "government",
-      "title": "The state in the middle",
-      "text": "Government takes in $9 trillion, 29% of the economy, and passes most of it back: $4.9 trillion of social benefits and $1 trillion of interest. What is left, about $3 trillion, buys public goods: defense, schools, roads, police and courts, the notebook's law.",
-      "focus": "circuit",
-      "anchor": "circuit:government",
+      "id": "land",
+      "title": "Where value is created",
+      "text": "The cut lies back and curls into a bowl: government is the floor, tech the highest terrace, the people on the rim. Each industry's area is the value it adds: one square is $1.28T a year. Gold is the owners' share.",
+      "focus": "landscape",
+      "anchor": "land:tier:services",
       "highlight": [],
       "hold": 14
     },
     {
-      "id": "jeopardy",
-      "title": "Jeopardy",
-      "text": "The largest use of household money after necessities is escaping a threat: $6.8 trillion, a third of all spending, on doctors, hospitals, drugs, insurance, lawyers, bank charges and interest on debt. Fear moves 85% of it.",
-      "focus": "circuit",
-      "anchor": "circuit:jeopardy",
+      "id": "roots",
+      "title": "What each industry stands on",
+      "text": "Under every terrace, roots: what each industry buys from the others, $15.85T a year, rising into the buyer from below. 37% of it comes from a supplier on a higher terrace.",
+      "focus": "roots",
+      "anchor": "land:root:professional>trade",
       "highlight": [],
       "hold": 13
-    },
-    {
-      "id": "escapism_status",
-      "title": "Escapism and status",
-      "text": "Escapism (drink, smoke, gambling, screens, shows) takes $1.8 trillion; status (more house, car and clothes than needed, restaurants, travel, beauty, gyms) takes $3.7 trillion. The bottom half spends 11% of its budget on status, the top 1% spends 25%.",
-      "focus": "circuit",
-      "anchor": "circuit:escapism",
-      "highlight": ["circuit:status"],
-      "hold": 14
-    },
-    {
-      "id": "returns",
-      "title": "The loop closes",
-      "text": "Every dollar spent goes back to the industries along their supply chains, and pays wages and profits again. The model's circuit balances within about 1% of the economy in 2025 and within 3% in every year back to 1947.",
-      "focus": "circuit",
-      "anchor": "circuit:returns",
-      "highlight": [],
-      "hold": 12
     },
     {
       "id": "capture",
       "title": "Where value is captured",
-      "text": "The 25 most valuable American companies are worth $38 trillion, half the stock market. NVIDIA alone is worth $5.5 trillion and keeps 56 cents of every dollar it sells. A few companies are valued at more than whole industries add in a year.",
+      "text": "Gold is what owners keep. Payouts rise into the crown, $5.33T a year, and fall on those who own. The towers are the most valuable companies; the four chip and device makers earn 9.2 times what the US hardware industry's owners keep.",
       "focus": "capture",
-      "anchor": "capture:skyline",
-      "highlight": ["capture:nvidia"],
+      "anchor": "land:tower:NVDA",
+      "highlight": ["land:crown"],
       "hold": 14
     },
     {
-      "id": "owners",
-      "title": "Who owns their path",
-      "text": "Gold lines are the people in control of their own path: they own a business or years of spending in savings, save steadily, owe little, decide by reason and spend little on fantasy. In 2025 they are about 12% of adults. The same rule finds 14 to 17% from 1950 to 1975, and about 11% from 1995 to 2015.",
+      "id": "people",
+      "title": "Who stands where",
+      "text": "116 players of the 12 groups of 2026, each about 2.2 million people, standing above whoever pays them. Each dot is a line from the road; gold dots are the people in control of their path.",
       "focus": "people",
-      "anchor": "people:owners",
-      "highlight": [],
-      "hold": 15
-    },
-    {
-      "id": "mind",
-      "title": "Desire and fear",
-      "text": "Here is every adult of 2025 placed by the mind behind their money. Across: how much of their spending moves away from a fear rather than toward a desire. Up: how much they decide by reason, the higher operating system, rather than by feeling. Deep: how far ahead they look.",
-      "focus": "mind",
-      "anchor": "mind:people",
-      "highlight": [],
-      "hold": 15
-    },
-    {
-      "id": "fear",
-      "title": "Fear moves more money",
-      "text": "Starvation, isolation, violence, exposure, dying without children: fear moves 54% of household money, mostly through health care, insurance, debt and basic shelter. Desire (food, belonging, order, a home, a mate) moves the rest.",
-      "focus": "mind",
-      "anchor": "mind:jeopardy",
-      "highlight": ["drive:fear"],
-      "hold": 14
-    },
-    {
-      "id": "fantasy",
-      "title": "Buying fantasy",
-      "text": "Two thirds of adults spend more than 15% of their money on fantasy: escapes, status signals, lottery tickets. But fantasy is not the vice of the poor. Its share of spending rises with income, from 14% in the poorest fifth of households to 21% in the richest.",
-      "focus": "mind",
-      "anchor": "mind:fantasy",
-      "highlight": ["mind:escapism", "mind:status"],
-      "hold": 15
-    },
-    {
-      "id": "control",
-      "title": "What sets them apart",
-      "text": "The people in control buy as much fantasy as everyone else (18% of their spending against 17%) and spend as much out of fear (54% against 55%). What sets them apart is reason (0.69 against 0.36), age (61 against 47), money inherited from a parent (60% against 26%) and working for themselves (23% against 4%).",
-      "focus": "mind",
-      "anchor": "mind:control",
-      "highlight": [],
-      "hold": 16
-    },
-    {
-      "id": "dopamine",
-      "title": "Wanting is not liking",
-      "text": "Dopamine signals wanting and surprise, not pleasure, and it peaks when a reward is uncertain. That is what slot machines, sports bets, feeds and trading apps sell. Cortisol and adrenaline sit on the other side: the stress that insurance, security and the news are built on.",
-      "focus": "mind",
-      "anchor": "chem:dopamine",
-      "highlight": ["chem:cortisol", "chem:adrenaline"],
-      "hold": 14
-    },
-    {
-      "id": "nash",
-      "title": "One round: defect",
-      "text": "Two people, one chance to cooperate or to cheat. Whatever the other does, cheating pays more, so two players who look only at this round both defect and get 1 each, although cooperating would have given both 3. That is the Nash equilibrium.",
-      "focus": "games",
-      "anchor": "game:nash",
+      "anchor": "land:group:pmc",
       "highlight": [],
       "hold": 13
     },
     {
-      "id": "shadow",
-      "title": "The shadow of the future",
-      "text": "When they expect to meet again, the arithmetic changes. Each diamond is a round; cooperation climbs the ladder toward the best both can do. Tit for tat (cooperate first, then repeat the other's last move) cannot be beaten by cheaters once the chance of meeting again is at least two in three.",
-      "focus": "games",
-      "anchor": "game:ladder",
-      "highlight": ["game:pareto"],
-      "hold": 15
+      "id": "rivers",
+      "title": "Where the money goes",
+      "text": "Spending runs down from the rim into the industries that are paid: $21.63T a year. Ice is money spent away from fear: 54% of it. Rose is money spent toward desire; glitter is fantasy.",
+      "focus": "rivers",
+      "anchor": "land:river:jeopardy",
+      "highlight": [],
+      "hold": 13
     },
     {
-      "id": "forgiveness",
-      "title": "Forgiveness",
-      "text": "Mistakes happen. One accidental defection sends two tit-for-tat players into an endless echo of retaliation; grim trigger never forgives at all. Forgiving one defection in three ends the feud and still keeps cheaters from profiting: the higher operating system's good decision.",
-      "focus": "games",
-      "anchor": "game:forgiveness",
+      "id": "mind",
+      "title": "Desire, fear and fantasy",
+      "text": "Mirages are fantasy: 19% of spending, and as much for the 12% in control as for the rest. What sets them apart is reason, 0.70 against 0.36, and where their money comes from.",
+      "focus": "mind",
+      "anchor": "land:group:top1",
+      "highlight": ["land:owners"],
+      "hold": 14
+    },
+    {
+      "id": "society",
+      "title": "How people organize",
+      "text": "Tit for tat between the players: strangers open at 0.333, and forgiveness lets cooperation climb to 0.686 in 12 rounds. Four coalitions form along the land, not along party.",
+      "focus": "society",
+      "anchor": "land:coalition:1",
       "highlight": [],
       "hold": 14
     },
     {
-      "id": "tribes",
-      "title": "Tribes repay in kind",
-      "text": "Groups compete harder than individuals: members remember what their tribe received, so a few defections are repaid by many, and the leader's move spreads. Here the tribes are the model's own Democrats and Republicans. Americans who say most people can be trusted fell from 47% in 1972 to 25% in 2024.",
-      "focus": "tribes",
-      "anchor": "game:tribes",
+      "id": "betrayal",
+      "title": "One betrayal",
+      "text": "One betrayal echoes back and forth between two players; forgiveness ends it after 7 rounds. If nobody forgave, the whole season would settle at 0.425 instead of 0.729.",
+      "focus": "betrayal",
+      "anchor": "land:coalition:1",
       "highlight": [],
-      "hold": 15
+      "hold": 13
     },
     {
-      "id": "evolution",
-      "title": "What survives",
-      "text": "On the floor, strategies spread by what they earn against everyone else. When people meet again and again and mistakes are rare, the forgiving and the reciprocal take over; make the future short and defectors win. Change the settings in the panel and watch it shift.",
-      "focus": "tribes",
-      "anchor": "game:evolution",
+      "id": "y1972",
+      "title": "The land in 1972",
+      "text": "1972: the making terrace was 80% full and services 54%; strangers opened at 0.584 and cooperation reached 0.795.",
+      "focus": "y1972",
+      "anchor": "land:tier:make",
       "highlight": [],
-      "hold": 14
+      "hold": 13
+    },
+    {
+      "id": "any_year",
+      "title": "Any year",
+      "text": "Pick any year with , and . and open it: the land rebuilds for that year. Click a player, a tower or a lifeline to see who they are.",
+      "focus": "overview",
+      "anchor": "land:cut",
+      "highlight": ["land:owners", "land:crown"],
+      "hold": 12
     }
   ]
 }

@@ -21,10 +21,10 @@ namespace Why.Economy.Land
     /// <remarks>
     /// Saving and borrowing are the members' own (a member who saves sends it to the crown; one who dissaves borrows), so a
     /// player can do both: the crown's in and out are the lives' gross flows ($2.16T saved, $0.93T borrowed in 2025), and
-    /// each player's budget still closes. The players' per-category fear and fantasy dollars are re-split here by the
-    /// categories' motives (4.1: fear_pc = s_pc · fs_c · k_p, clamped, the excess spread over the room left) and written
-    /// back into <see cref="Player.CategoryFear"/> and <see cref="Player.CategoryFantasy"/>, so the glyphs, the inspector
-    /// and the rivers agree; each player's totals are unchanged (the census already sums the members' fear and fantasy).
+    /// each player's budget still closes. The players' per-category fear and fantasy dollars are re-split by the categories'
+    /// motives (4.1: fear_pc = s_pc · fs_c · k_p, clamped, the excess spread over the room left) by <see cref="SplitMotives"/>,
+    /// which the census runs as its last step, so <see cref="Build"/> never writes into its input player set; each
+    /// player's totals are unchanged (the census already sums the members' fear and fantasy).
     /// </remarks>
     public static class MoneyRouting
     {
@@ -49,23 +49,12 @@ namespace Why.Economy.Land
             int federal = data.IndustryById("federal")?.Index ?? -1, stateLocal = data.IndustryById("state_local")?.Index ?? -1;
             int banking = data.IndustryById("banking")?.Index ?? -1;
 
-            // ---- 4.1 each player's motives by category; the members' gross saving and borrowing, capital by wealth group
-            double[] catFearShare = new double[6], catFant = new double[6];
-            foreach (Category cat in data.Categories)
-            {
-                int c = SellerMatrix.CategoryIndex(cat);
-                if (c < 0) continue;
-                catFearShare[c] = cat.FearShare;
-                catFant[c] = cat.Fantasy;
-            }
-
+            // ---- the members' gross saving and borrowing, capital by wealth group (4.1's motives are the census's: SplitMotives)
             double[][] mix = CapitalSources.Mix(data, year);
             double[] saveGross = new double[np], borrowGross = new double[np];
             for (int p = 0; p < np; p++)
             {
                 Player pl = players.Players[p];
-                Split(pl.Category, pl.CategoryFear, catFearShare);
-                Split(pl.Category, pl.CategoryFantasy, catFant);
                 foreach (int i in pl.Adults)
                 {
                     if (lives == null || !lives.TryGet(i, year, out PersonYear r)) continue;
@@ -152,6 +141,32 @@ namespace Why.Economy.Land
         static double FinalDemand(EconomyData data, string id, string key) =>
             data.Circuit?.FinalDemand != null && data.Circuit.FinalDemand.TryGetValue(id, out Dictionary<string, double> d) &&
             d != null && d.TryGetValue(key, out double v) ? v : 0;
+
+        /// <summary>
+        /// 4.1, each player's motives by category: re-splits the members' fear and fantasy dollars (<see cref="Player.CategoryFear"/>,
+        /// <see cref="Player.CategoryFantasy"/>, summed by the census from each member's own shares) over the player's categories
+        /// by the categories' motives (spending.json fearShare and fantasy), keeping each player's totals. The census calls it
+        /// once, as the last step of building a player set, so <see cref="Build"/> reads the players and never writes them
+        /// (it is pure), and the glyphs, the inspector and the rivers read the same split.
+        /// </summary>
+        public static void SplitMotives(PlayerSet players, EconomyData data)
+        {
+            if (players?.Players == null || data?.Categories == null) return;
+            double[] catFearShare = new double[6], catFant = new double[6];
+            foreach (Category cat in data.Categories)
+            {
+                int c = SellerMatrix.CategoryIndex(cat);
+                if (c < 0) continue;
+                catFearShare[c] = cat.FearShare;
+                catFant[c] = cat.Fantasy;
+            }
+
+            foreach (Player pl in players.Players)
+            {
+                Split(pl.Category, pl.CategoryFear, catFearShare);
+                Split(pl.Category, pl.CategoryFantasy, catFant);
+            }
+        }
 
         /// <summary>
         /// 4.1: splits a player's motive dollars (their total is the members' own sum, already in <paramref name="part"/>)

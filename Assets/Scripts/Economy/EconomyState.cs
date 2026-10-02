@@ -43,17 +43,6 @@ namespace Why.Economy
         /// <summary>The inspected person (index into the population's people), or -1.</summary>
         public static int Person { get; private set; } = -1;
 
-        /// <summary>Settings of the games station.</summary>
-        public static PdStrategy StrategyA { get; private set; } = PdStrategy.TitForTat;
-
-        public static PdStrategy StrategyB { get; private set; } = PdStrategy.AlwaysDefect;
-
-        /// <summary>Chance that a move comes out the opposite of what was meant (misunderstanding, error).</summary>
-        public static float Noise { get; private set; } = 0.02f;
-
-        /// <summary>The shadow of the future: chance that the pair meets again after a round.</summary>
-        public static float Continuation { get; private set; } = 0.95f;
-
         /// <summary>The selected player (PlayerSet index), tower (capture index) and tie (season pair index); -1 = none.</summary>
         public static int SelectedPlayer { get; private set; } = -1;
 
@@ -100,18 +89,6 @@ namespace Why.Economy
         {
             if (index == Person) return;
             Person = index;
-            Bump();
-        }
-
-        public static void SetGames(PdStrategy a, PdStrategy b, float noise, float continuation)
-        {
-            noise = Math.Max(0f, Math.Min(0.5f, noise));
-            continuation = Math.Max(0f, Math.Min(0.999f, continuation));
-            if (a == StrategyA && b == StrategyB && noise == Noise && continuation == Continuation) return;
-            StrategyA = a;
-            StrategyB = b;
-            Noise = noise;
-            Continuation = continuation;
             Bump();
         }
 
@@ -163,10 +140,6 @@ namespace Why.Economy
             Year = DefaultYear(MaxYear);
             PreviewYear = -1;
             Person = -1;
-            StrategyA = PdStrategy.TitForTat;
-            StrategyB = PdStrategy.AlwaysDefect;
-            Noise = 0.02f;
-            Continuation = 0.95f;
             SelectedPlayer = SelectedTower = SelectedTie = -1;
             Social = DefaultSocial();
             PendingIncident = -1;

@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using Why.Economy.Data;
 
 namespace Why.Economy.Model
 {
     /// <summary>
-    /// What the games station plays with, taken from the scene's model: the payoffs, the mix of strategies people use,
-    /// the members of two tribes, and how the mix evolves when strategies spread by their payoff. The mix comes from the
-    /// simulated population when its economic lives have run (adults of 2025), else from games.json
-    /// (strategies[].populationShare), else from <see cref="DefaultMix"/>. Pure and deterministic (any thread).
+    /// The prisoner's dilemma settings the economic lives play with, taken from games.json: the payoffs, the "spec"
+    /// numbers (noise, chance of meeting again, distrust, party inheritance) and the mix of strategies people use. The mix
+    /// comes from the simulated population when its economic lives have run (adults of 2025), else from games.json
+    /// (strategies[].populationShare), else from <see cref="DefaultMix"/>. The land's season (<c>Land/SocialSeason.cs</c>)
+    /// reads games.json's "social" block instead. Pure and deterministic (any thread).
     /// </summary>
     public static class GamesSetup
     {
@@ -30,11 +29,8 @@ namespace Why.Economy.Model
         /// </summary>
         public static readonly float[] DefaultMix = { 0.30f, 0.20f, 0.15f, 0.10f, 0.10f, 0.15f, 0f };
 
-        /// <summary>Year whose adults stand for "people now" in the tribes and the evolution's starting mix.</summary>
+        /// <summary>Year whose adults stand for "people now" in <see cref="Mix"/>.</summary>
         public const int PopulationYear = 2025;
-
-        /// <summary>Strategies with less than this share of the population are left out of a tribe's description.</summary>
-        const float MinDescribedShare = 0.04f;
 
         /// <summary>
         /// The payoffs of games.json when they make a dilemma (T &gt; R &gt; P &gt; S, 2R &gt; T + S), else Axelrod's.
@@ -88,68 +84,6 @@ namespace Why.Economy.Model
             return (float[])DefaultMix.Clone();
         }
 
-        /// <summary>
-        /// The members of a tribe (member 0 is its alpha). From the simulated population when it is ready: adults of
-        /// <see cref="PopulationYear"/> in that tribe (0 = Democrats, 1 = Republicans) picked evenly through birth order,
-        /// the highest earner among them leading. Otherwise the mix apportioned to the members (largest remainders) and
-        /// shuffled with the seed.
-        /// </summary>
-        public static PdStrategy[] Tribe(EconomyModel model, int tribe, int size, float[] mix, int seed, out Source source)
-        {
-            size = Math.Max(2, size);
-            List<int> members = PopulationMembers(model, tribe);
-            if (members.Count >= size)
-            {
-                EconomicLives lives = model.Lives;
-                PdStrategy[] picked = new PdStrategy[size];
-                int alpha = 0;
-                float bestRank = float.MinValue;
-                for (int k = 0; k < size; k++)
-                {
-                    // evenly through birth order, so every generation of adults is represented
-                    int person = members[(int)((k + 0.5) * members.Count / size)];
-                    PersonTraits t = lives.Traits(person);
-                    picked[k] = t.Strategy;
-                    if (t.Rank > bestRank)
-                    {
-                        bestRank = t.Rank;
-                        alpha = k;
-                    }
-                }
-
-                (picked[0], picked[alpha]) = (picked[alpha], picked[0]);
-                source = Source.Population;
-                return picked;
-            }
-
-            source = Source.Default;
-            return Apportion(mix, size, seed);
-        }
-
-        /// <summary>Strategy counts of a tribe in words, largest first ("tit for tat 7, grim 4, generous 3").</summary>
-        public static string Describe(PdStrategy[] members, int maxItems)
-        {
-            int[] counts = new int[PrisonersDilemma.All.Length];
-            foreach (PdStrategy s in members) counts[(int)s]++;
-            StringBuilder sb = new StringBuilder();
-            for (int item = 0; item < maxItems; item++)
-            {
-                int best = -1;
-                for (int i = 0; i < counts.Length; i++)
-                {
-                    if (counts[i] > 0 && (best < 0 || counts[i] > counts[best])) best = i;
-                }
-
-                if (best < 0 || counts[best] < MinDescribedShare * members.Length) break;
-                if (sb.Length > 0) sb.Append(", ");
-                sb.Append(ShortName((PdStrategy)best)).Append(' ')
-                    .Append(counts[best].ToString(CultureInfo.InvariantCulture));
-                counts[best] = 0;
-            }
-
-            return sb.ToString();
-        }
-
         /// <summary>A strategy's name in two words or fewer, lower case, for running text and small labels.</summary>
         public static string ShortName(PdStrategy s)
         {
@@ -163,28 +97,6 @@ namespace Why.Economy.Model
                 case PdStrategy.Grim: return "grim";
                 default: return "random";
             }
-        }
-
-        /// <summary>
-        /// Strategy shares over generations of the replicator dynamics (<see cref="Replicator"/>) among
-        /// <paramref name="strategies"/>: payoffs estimated over <paramref name="gamesPerPair"/> games per pair of
-        /// strategies with the given mistakes and chance of meeting again (fixed seed), starting from the mix restricted
-        /// to those strategies. Returns generations + 1 rows (the start included), each summing to 1.
-        /// </summary>
-        public static List<float[]> Evolve(PdStrategy[] strategies, PdPayoff pay, float[] mix, float noise, float continuation,
-            int generations, int gamesPerPair, float mutation, int seed)
-        {
-            float[,] payoffs = PrisonersDilemma.PayoffMatrix(strategies, pay, continuation, noise, gamesPerPair, seed);
-            float[] start = new float[strategies.Length];
-            for (int i = 0; i < strategies.Length; i++)
-            {
-                int s = (int)strategies[i];
-                start[i] = mix != null && s < mix.Length ? mix[s] : 1;
-            }
-
-            Replicator r = new Replicator(strategies, payoffs, start, mutation);
-            r.Run(generations);
-            return r.Generations;
         }
 
         // ------------------------------------------------------------------ helpers
@@ -223,50 +135,6 @@ namespace Why.Economy.Model
             if (sum <= 0) return false;
             for (int i = 0; i < shares.Length; i++) shares[i] = Math.Max(0, shares[i]) / sum;
             return true;
-        }
-
-        /// <summary>Members for a mix: counts by largest remainders, then a seeded shuffle.</summary>
-        static PdStrategy[] Apportion(float[] mix, int size, int seed)
-        {
-            int n = PrisonersDilemma.All.Length;
-            int[] counts = new int[n];
-            float[] remainder = new float[n];
-            int given = 0;
-            for (int i = 0; i < n; i++)
-            {
-                float exact = (i < mix.Length ? mix[i] : 0) * size;
-                counts[i] = (int)Math.Floor(exact);
-                remainder[i] = exact - counts[i];
-                given += counts[i];
-            }
-
-            for (; given < size; given++)
-            {
-                int best = 0;
-                for (int i = 1; i < n; i++)
-                {
-                    if (remainder[i] > remainder[best]) best = i;
-                }
-
-                counts[best]++;
-                remainder[best] = -1;
-            }
-
-            PdStrategy[] members = new PdStrategy[size];
-            int k = 0;
-            for (int i = 0; i < n; i++)
-            {
-                for (int c = 0; c < counts[i] && k < size; c++) members[k++] = (PdStrategy)i;
-            }
-
-            Random rng = new Random(seed);
-            for (int i = size - 1; i > 0; i--)
-            {
-                int j = rng.Next(i + 1);
-                (members[i], members[j]) = (members[j], members[i]);
-            }
-
-            return members;
         }
     }
 }

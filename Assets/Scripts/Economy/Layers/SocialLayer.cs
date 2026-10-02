@@ -482,7 +482,8 @@ namespace Why.Economy.Layers
                 Task<SocialSeasonResult> t = incidentTask;
                 incidentTask = null;
                 if (t.IsFaulted) Debug.LogError("[Why] SocialLayer: the betrayal season failed: " + t.Exception?.GetBaseException());
-                else if (t.Result != null && t.Result.Year == c.Year)
+                else if (t.Result != null && t.Result.Year == c.Year && c.Snapshot.Society != null &&
+                         LandService.Same(t.Result.Settings, c.Snapshot.Society.Settings))   // a settings change since: dropped
                 {
                     userSeason = t.Result;
                     userPreset = LandView.PresetId;

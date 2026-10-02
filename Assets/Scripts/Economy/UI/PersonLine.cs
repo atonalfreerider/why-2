@@ -40,7 +40,7 @@ namespace Why.Economy.UI
         /// <summary>Alpha units per second of the fade in and out.</summary>
         const float FadeSpeed = 3f;
 
-        /// <summary>Above the lifelines (QueueHumans + 2), below the money threads (+10) and the stations' overlays.</summary>
+        /// <summary>Above the lifelines (QueueHumans + 2).</summary>
         const int Queue = GraphMaterials.QueueHumans + 3;
 
         readonly MeshRenderer renderer;

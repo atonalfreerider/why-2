@@ -234,6 +234,7 @@ namespace Why.Economy.Land
 
             set.Players = players.ToArray();
             set.PlayerOfPerson = playerOf;
+            MoneyRouting.SplitMotives(set, data);   // 4.1: the motives by category, so the money's build reads and never writes
 
             // ---- places (3.3)
             PlayerPlacement.Stats places = PlayerPlacement.PlaceAll(set, data, land, rec, angleOf);

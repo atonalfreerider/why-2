@@ -185,22 +185,27 @@ asks the shared key `smv.style` for an `ISmvLineStyle`; a layer of another scene
 run its own model on the finished population (inside `SmvLayer.Prepare`) and restyle every lifeline point. The causality
 graph publishes none, so its lines are unchanged; `SmvSimulation.MarriageLog` records every marriage for such models.
 
-### Stations: geometry beside the timeline
+### The landscape: geometry beside the timeline
 
-The economy scene draws diagrams in plain world space beyond the present end of its timeline (`EconomyStage`):
+The economy scene opens one year of its timeline into a land on a plaza beyond the road's end (`EconomyStage.Land()`,
+a `LandFrame`; `Docs/ECONOMY.md`):
 
 * Materials made with `GraphMaterials.Raw` set `_Raw = 1`: `WhyPlace` in `WhyCommon.hlsl` then places vertices through the
-  renderer's transform (`TransformObjectToWorld`) instead of the warp, with no lens fade. The mesh is built in a station's
-  local frame and its GameObject placed with `Station.Place`.
-* `Anchor.Fixed` and `LabelSpec.Fixed` hold world positions; `Anchor.WorldUnder(warp)` resolves either kind. A fixed label
-  with `FixedRange` > 0 is only placed while the camera's target is within that distance, so a station's labels never crowd
-  another view. `LabelSystem.SetText` changes a label's text after it was added (live readouts). While
-  `LabelSystem.DataLabelsHidden` is set, only fixed labels are placed: the economy scene sets it while the camera looks at
-  the stations (`CircuitLayer`), so the timeline's labels in front of them do not crowd the diagrams.
+  renderer's transform (`TransformObjectToWorld`) instead of the warp, with no lens fade. The land's meshes are built in
+  the land's local frame (polar coordinates around the bowl's axis, `LandFrame`) and their GameObjects placed in it.
+* The land's model is a snapshot per year (`Land/LandService`: layout, players, money, season, circuit), built by
+  `LandModelLayer` at load and on a worker when the year changes; the land layers (`LandscapeLayer`, `InhabitantsLayer`,
+  `FlowsLayer`, `SocialLayer`, `SectionLayer`) rebuild from it off the main thread, upload in `Tick` and cross-fade.
+  `LandViewLayer` drives the shared view state (`LandView`: the unfold's clock, each layer group's alpha, the season's
+  round) from the focused preset's `ViewSpec` (`EconomyViews`), so a view change eases material alphas and never rebuilds.
+* `Anchor.Fixed` and `LabelSpec.Fixed` hold world positions; `Anchor.WorldUnder(warp)` resolves either kind. A land label
+  shows while its view lists its label group and the group's alpha is at least 0.3 (`LabelSpec.Hidden`).
+  `LabelSystem.SetText` changes a label's text after it was added (live readouts). While `LabelSystem.DataLabelsHidden`
+  is set, only fixed labels are placed: the economy sets it in every land view, so the road's labels step aside.
 * `ViewPreset.FixedTarget` / `FixedYaw` aim the camera at a world point under the scene's one shared lens, so the road
   never moves between views.
 * `LineMeshBuilder.AddFlowPath` writes a path phase into the flow attribute (2 + distance): the line shader then moves
-  flow pulses along the path itself rather than along time.
+  flow pulses along the path itself rather than along time (the rivers, the canal and the arcs).
 
 Label placement is deterministic: equal priorities break ties by text and position (layers add labels from several
 worker threads, so insertion order alone is not reproducible).

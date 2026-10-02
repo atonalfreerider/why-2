@@ -76,6 +76,13 @@ namespace Why.Economy.Layers
         /// <summary>Mesh roots (the smaller suppliers): a dim steel; root balls: their industry's color.</summary>
         const float MeshRootAlpha = 0.15f;
 
+        /// <summary>
+        /// Root balls (own-industry purchases) at this share of the roots' alpha (WP6): drawn 4x as wide as a river, the
+        /// largest ($1.6T, manufacturing) made a bright white band under the bowl that buried the roots between industries
+        /// and the six root labels; the loops stay, quieter.
+        /// </summary>
+        const float RootBallShare = 0.35f;
+
         /// <summary>An overflowing pool's side wall, a pool's shoreline alpha.</summary>
         const float PoolWallAlpha = 0.10f, ShoreAlpha = 0.9f;
 
@@ -95,6 +102,13 @@ namespace Why.Economy.Layers
         const float AdsAlpha = 0.45f, AdsSocialIntensity = 2.2f;
 
         static readonly Color Steel = EconomyStyle.Government, ScaffoldWhite = new Color(0.86f, 0.92f, 1f);
+
+        /// <summary>
+        /// The roots blend over each other (alpha) rather than adding light (WP6 review): dozens of wide roots overlap under
+        /// the services ring, and added up they made a white band that buried the root labels; blended, the band keeps its
+        /// tier's hue.
+        /// </summary>
+        const bool RootsAdditive = false;
 
         /// <summary>Flow pulses along the roots, toward the buyer (as the money threads pulsed).</summary>
         const float RootFlowFreq = 4f, RootFlowSpeed = 0.8f;
@@ -151,34 +165,46 @@ namespace Why.Economy.Layers
         /// <see cref="CandidateOut"/>, one half step inward (onto the sector), and up to <see cref="CandidateRows"/> rows up
         /// or down, nearest first (a row and an inward step weigh more than an outward step; equal costs keep their order).
         /// </summary>
-        static Vector2[] SectorCandidates
+        static Vector2[] SectorCandidates => sectorCandidates ??= Candidates(CandidateOut, CandidateRows);
+
+        /// <summary>
+        /// The second, wider candidate set (WP6): outward up to <see cref="WideOut"/> half heights and up to
+        /// <see cref="WideRows"/> rows, tried with a sector's shortest text when no place of the first set is clear (a
+        /// phone's narrow frame left one sector of 25 unlabeled in the roots, capture and landscape views).
+        /// </summary>
+        static Vector2[] WideCandidates => wideCandidates ??= Candidates(WideOut, WideRows);
+
+        /// <summary>The wide candidate set once made (see <see cref="WideCandidates"/>).</summary>
+        static Vector2[] wideCandidates;
+
+        /// <summary>How far the wide set steps outward (label heights) and how many rows up or down.</summary>
+        const int WideOut = 9, WideRows = 7;
+
+        /// <summary>A candidate set, nearest first (see <see cref="SectorCandidates"/>).</summary>
+        static Vector2[] Candidates(int outward, int rows)
         {
-            get
+            int n = (2 * outward + 2) * (2 * rows + 1), k = 0;
+            Vector2[] at = new Vector2[n];
+            float[] cost = new float[n];
+            for (int a = -1; a <= 2 * outward; a++)
             {
-                if (sectorCandidates != null) return sectorCandidates;
-                int n = (2 * CandidateOut + 2) * (2 * CandidateRows + 1), k = 0;
-                Vector2[] at = new Vector2[n];
-                float[] cost = new float[n];
-                for (int a = -1; a <= 2 * CandidateOut; a++)
+                for (int b = -rows; b <= rows; b++, k++)
                 {
-                    for (int b = -CandidateRows; b <= CandidateRows; b++, k++)
+                    // insertion sort, stable: a later candidate goes after every earlier one of equal cost
+                    float c = (a < 0 ? 1.5f : 0.5f) * Math.Abs(a) + 1.2f * Math.Abs(b);
+                    int i = k;
+                    for (; i > 0 && cost[i - 1] > c; i--)
                     {
-                        // insertion sort, stable: a later candidate goes after every earlier one of equal cost
-                        float c = (a < 0 ? 1.5f : 0.5f) * Math.Abs(a) + 1.2f * Math.Abs(b);
-                        int i = k;
-                        for (; i > 0 && cost[i - 1] > c; i--)
-                        {
-                            cost[i] = cost[i - 1];
-                            at[i] = at[i - 1];
-                        }
-
-                        cost[i] = c;
-                        at[i] = new Vector2(0.5f * a, b);
+                        cost[i] = cost[i - 1];
+                        at[i] = at[i - 1];
                     }
-                }
 
-                return sectorCandidates = at;
+                    cost[i] = c;
+                    at[i] = new Vector2(0.5f * a, b);
+                }
             }
+
+            return at;
         }
 
         /// <summary>How far a placed label may step outward (label heights) and how many rows up or down.</summary>
@@ -195,6 +221,12 @@ namespace Why.Economy.Layers
         /// it (land units): centered under the root's low point, moved down or up where the six would overlap.
         /// </summary>
         const float RootLabelUp = 0.3f;
+
+        /// <summary>
+        /// A root's label hangs this far below the root's lowest point (land units; WP6 review): at the point itself it stood
+        /// on the band the overlapping roots under the services ring make, and three of the six did not read.
+        /// </summary>
+        const float RootLabelDrop = 0.4f;
 
         /// <summary>A sector's screen radial nearer to horizontal than this (|x| of the unit vector) aligns its label sideways.</summary>
         const float SideAlign = 0.45f;
@@ -559,9 +591,22 @@ namespace Why.Economy.Layers
                 }
             }
 
+            // the shortest text at the wider set of places (WP6)
+            int last = s.Variants.Length - 1;
+            foreach (Vector2 c in WideCandidates)
+            {
+                if (c.x <= CandidateOut && Mathf.Abs(c.y) <= CandidateRows) continue;   // tried above
+                Vector2 shift = d * (c.x * h) + new Vector2(0, c.y * h);
+                Rect r = LabelRect(at + shift, s.Variants[last], s.Spec.SizePx, align);
+                Rect drawn = Drawn(r, align);
+                if (!InFrame(r, align) || Overlaps(drawnRects, drawn)) continue;
+                placedRects.Add(r);
+                drawnRects.Add(drawn);
+                return SetPlace(s, last, shift / scale, align);
+            }
+
             // nothing fits: the shortest text at the edge, inside the frame (the label system drops it unless another
             // layer's label it would have met is gone)
-            int last = s.Variants.Length - 1;
             Rect at0 = LabelRect(at, s.Variants[last], s.Spec.SizePx, align);
             float dx = at0.xMin < FrameMarginPx ? FrameMarginPx - at0.xMin
                 : at0.xMax > Screen.width - FrameMarginPx ? Screen.width - FrameMarginPx - at0.xMax : 0;
@@ -861,7 +906,7 @@ namespace Why.Economy.Layers
                 if (c.Lines[g].VertexCount > 0)
                 {
                     bool roots = g == GRoots;
-                    Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1f, Queues[g] + 1, true, 0, roots ? 1f : 0f));
+                    Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1f, Queues[g] + 1, !roots || RootsAdditive, 0, roots ? 1f : 0f));
                     if (roots)
                     {
                         m.SetFloat("_FlowFreq", RootFlowFreq);
@@ -1068,7 +1113,8 @@ namespace Why.Economy.Layers
             return c;
         }
 
-        static Color TierColor(int t) => t == 0 ? EconomyStyle.Government : t == 1 ? EconomyStyle.Matter : EconomyStyle.Capital;
+        /// <summary>A tier's own color (WP6: low saturation, steel for government; gold is the owners' strips' alone).</summary>
+        static Color TierColor(int t) => LandStyle.TierTint(t);
 
         static Color32 Tint(Color c, float alpha) => LandMath.Tint(c, alpha);
 
@@ -1170,11 +1216,13 @@ namespace Why.Economy.Layers
 
                 float edge = s.Y + EdgeLift;
                 int edgeId = EconomyIds.LandSector(i, EconomyIds.SectorEdge);
-                Arc(lines, s.RWages, s.Theta0, s.Theta1, edge, Tint(hue, StripEdgeAlpha), LandStyle.StripEdgePx, edgeId);
-                Arc(lines, s.RUpkeep, s.Theta0, s.Theta1, edge, Tint(hue, StripEdgeAlpha), LandStyle.StripEdgePx, edgeId);
+                // the strip boundaries and the outline in the tier's own tint: only the owners' strip itself is gold
+                Color tint = TierColor(t);
+                Arc(lines, s.RWages, s.Theta0, s.Theta1, edge, Tint(tint, StripEdgeAlpha), LandStyle.StripEdgePx, edgeId);
+                Arc(lines, s.RUpkeep, s.Theta0, s.Theta1, edge, Tint(tint, StripEdgeAlpha), LandStyle.StripEdgePx, edgeId);
                 pts.Clear();
                 LandFrame.SectorOutline(pts, s, EdgeLift, SectorStep);
-                lines.AddPolyline(pts, Tint(hue, SectorEdgeAlpha), LandStyle.StripEdgePx, 0, edgeId);
+                lines.AddPolyline(pts, Tint(tint, SectorEdgeAlpha), LandStyle.StripEdgePx, 0, edgeId);
             }
         }
 
@@ -1284,7 +1332,7 @@ namespace Why.Economy.Layers
                 switch (r.Kind)
                 {
                     case RootKind.Root:
-                        hue = EconomyStyle.Level(data.Industries[r.From].Level);
+                        hue = RootColor(data, r.From);
                         alpha = LandStyle.RootAlpha;
                         id = EconomyIds.LandRoot(r.Index);
                         break;
@@ -1294,8 +1342,8 @@ namespace Why.Economy.Layers
                         id = EconomyIds.LandSector(r.To, EconomyIds.SectorRootsIn);
                         break;
                     default:
-                        hue = EconomyStyle.Level(data.Industries[r.To].Level);
-                        alpha = LandStyle.RootAlpha;
+                        hue = RootColor(data, r.To);
+                        alpha = LandStyle.RootAlpha * RootBallShare;
                         id = EconomyIds.LandSector(r.To, EconomyIds.SectorRootsIn);
                         break;
                 }
@@ -1306,6 +1354,17 @@ namespace Why.Economy.Layers
                 if (r.Kind == RootKind.Ball) lines.AddPolyline(pts, id);
                 else lines.AddFlowPath(pts, id, LandStyle.RootPulsePerUnit, LandMath.Hash01(r.From + 1, r.To + 1));
             }
+        }
+
+        /// <summary>
+        /// A root's color by its supplier (WP6): matter red or life green for raw suppliers, else the supplier's tier tint
+        /// (<see cref="LandStyle.RootTint"/>): purchases between industries are not capital, so never gold.
+        /// </summary>
+        static Color RootColor(EconomyData data, int industry)
+        {
+            Data.Industry ind = data.Industries[industry];
+            if (ind.Level == "matter" || ind.Level == "life") return EconomyStyle.Level(ind.Level);
+            return LandStyle.RootTint(LandLayout.TierIndex(ind));
         }
 
         // ---- 2.6 corporations
@@ -1568,7 +1627,7 @@ namespace Why.Economy.Layers
                     Label = at, TierStack = t,
                     Anchor = LandFrame.Polar(LandStyle.RingMid(t), LandStyle.TierLabelThetaDeg, LandStyle.TerraceY[t]),
                     Ids = EconomyIds.LandSectors(first, last), Priority = TierPriority, SizePx = TierLabelPx,
-                    Color = Color.Lerp(TierColor(t), Color.white, 0.45f), AnchorTier = 1
+                    Color = Color.Lerp(TierColor(t), Color.white, 0.35f), AnchorTier = 1
                 });
             }
 
@@ -1700,7 +1759,7 @@ namespace Why.Economy.Layers
             });
         }
 
-        /// <summary>Every root's anchor (land:root:from>to); the six largest are labeled at their lowest point.</summary>
+        /// <summary>Every root's anchor (land:root:from>to); the six largest are labeled under their lowest point.</summary>
         static void RootItems(Content c, EconomyData data, LandGeometry land, List<Item> into)
         {
             string est = data.IsEstimate(land.Year) ? " (estimate)" : "";
@@ -1723,7 +1782,7 @@ namespace Why.Economy.Layers
                 {
                     Key = "land:root:" + a.Id + ">" + b.Id, Name = ShortName(a) + " → " + Lower(ShortName(b)), Group = LandGroup.Roots,
                     Text = r.Largest >= 0 ? text : null, Variants = r.Largest >= 0 ? new[] { text } : null, Blurb = blurb,
-                    Label = r.Lowest, Inner = r.Lowest + Vector3.up * RootLabelUp, Anchor = r.Lowest,
+                    Label = r.Lowest - Vector3.up * RootLabelDrop, Inner = r.Lowest + Vector3.up * (RootLabelUp - RootLabelDrop), Anchor = r.Lowest,
                     Ids = IdRange.Single(EconomyIds.LandRoot(r.Index)), Priority = RootPriority, Rank = (float)r.Table,
                     Present = r.Largest >= 0
                 });

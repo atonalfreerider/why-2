@@ -48,29 +48,34 @@ namespace Why.Economy
         static readonly string[] Columns =
             { "overview", "section", "landscape", "roots", "capture", "people", "rivers", "mind", "society", "betrayal", "y1972" };
 
-        /// <summary>The emphasis table: one row per LandGroup (in enum order), one column per preset of <see cref="Columns"/>.</summary>
+        /// <summary>
+        /// The emphasis table: one row per LandGroup (in enum order), one column per preset of <see cref="Columns"/>. WP6
+        /// (legibility): each view shows its own story at full strength and the rest near-invisible (0.02-0.15), where the
+        /// spec's table (7.2) left hundreds of arcs, ties and gold terraces at 0.2-0.6 over every view's story: the rivers
+        /// under the arcs, the towers under the payouts, the coalitions under the ties.
+        /// </summary>
         static readonly float[][] Table =
         {
             //            overview section landscape roots capture people rivers mind society betrayal y1972
             new[] { 1f, 1f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },   // Road
             new[] { 1f, 1f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f },            // Cut
-            new[] { .8f, 0f, 1f, .6f, .6f, .6f, .6f, .35f, .35f, .35f, 1f },          // Terraces
-            new[] { .8f, 0f, 1f, .6f, .8f, .5f, .6f, .3f, .3f, .3f, 1f },             // Sectors
-            new[] { .6f, 0f, .6f, .2f, .6f, .3f, 1f, .6f, .2f, .2f, .6f },            // Pools
-            new[] { .3f, 0f, .6f, 1f, .2f, .1f, .1f, .1f, .05f, .05f, .6f },          // Roots
-            new[] { .8f, 0f, .6f, .3f, 1f, .4f, .3f, .3f, .3f, .3f, .6f },            // Towers
-            new[] { .8f, 0f, .5f, .2f, 1f, .6f, .4f, .4f, .3f, .3f, .5f },            // Crown
-            new[] { .5f, 0f, .6f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, .6f },                  // Overlays
-            new[] { .7f, 0f, .5f, .2f, .6f, 1f, .6f, 1f, 1f, 1f, .5f },               // Glyphs
-            new[] { .5f, 0f, .3f, .1f, .4f, 1f, .4f, 1f, .5f, .5f, .3f },             // Dots
-            new[] { .4f, 0f, .2f, 0f, .3f, .6f, .4f, 1f, .2f, .2f, .2f },             // Mirages
-            new[] { .4f, 0f, .2f, .1f, .6f, 1f, .2f, .3f, .1f, .1f, .2f },            // Income
-            new[] { .4f, 0f, .3f, .1f, 1f, .5f, .3f, .3f, .1f, .1f, .3f },            // CapitalFlows
-            new[] { .6f, 0f, .4f, .1f, .3f, .4f, 1f, .7f, .15f, .15f, .4f },          // Rivers
-            new[] { .4f, 0f, .2f, 0f, .2f, .3f, 1f, 1f, .1f, .1f, .2f },              // Glitter
-            new[] { .4f, 0f, .3f, .1f, .3f, .5f, 1f, .3f, .1f, .1f, .3f },            // Taxes
+            new[] { .8f, 0f, 1f, .35f, .32f, .35f, .4f, .25f, .2f, .2f, 1f },         // Terraces
+            new[] { .8f, 0f, 1f, .45f, 1f, .35f, .25f, .2f, .12f, .12f, 1f },         // Sectors
+            new[] { .5f, 0f, .35f, .05f, .1f, .1f, 1f, .2f, .05f, .05f, .35f },       // Pools
+            new[] { .15f, 0f, .3f, 1f, .05f, .03f, .03f, .03f, .02f, .02f, .3f },     // Roots
+            new[] { .8f, 0f, .45f, .1f, 1f, .35f, .08f, .1f, .1f, .1f, .45f },        // Towers
+            new[] { .8f, 0f, .3f, .05f, 1f, .6f, .1f, .2f, .1f, .1f, .3f },           // Crown
+            new[] { .5f, 0f, .4f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, .4f },                  // Overlays
+            new[] { .7f, 0f, .35f, .1f, .35f, 1f, .35f, 1f, .8f, .8f, .35f },         // Glyphs
+            new[] { .3f, 0f, .2f, .05f, .25f, 1f, .15f, 1f, .3f, .3f, .2f },          // Dots
+            new[] { .15f, 0f, .05f, 0f, .05f, .3f, .05f, 1f, .03f, .03f, .05f },      // Mirages
+            new[] { .1f, 0f, .05f, .03f, .1f, 1f, .04f, .05f, .02f, .02f, .05f },     // Income
+            new[] { .15f, 0f, .05f, .03f, 1f, .4f, .04f, .05f, .02f, .02f, .05f },    // CapitalFlows
+            new[] { .4f, 0f, .15f, .05f, .1f, .15f, 1f, .5f, .06f, .06f, .15f },      // Rivers
+            new[] { .2f, 0f, .05f, 0f, .05f, .05f, 1f, .8f, .03f, .03f, .05f },       // Glitter
+            new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f },       // Taxes
             new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 1f, 0f },                     // Ties
-            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .5f, 0f },                    // Coalitions
+            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .6f, 0f },                    // Coalitions
         };
 
         static Dictionary<string, ViewSpec> specs;
@@ -114,7 +119,7 @@ namespace Why.Economy
             d["y1972"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
             d["y1972"].Year = Year1972;
             d["roots"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Roots };
-            d["capture"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Towers, LandGroup.Crown, LandGroup.Overlays };
+            d["capture"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Towers, LandGroup.Crown, LandGroup.Overlays, LandGroup.CapitalFlows };
             d["people"].Labels = new[] { LandGroup.Terraces, LandGroup.Glyphs };
             d["rivers"].Labels = new[] { LandGroup.Pools, LandGroup.Rivers, LandGroup.Taxes };
             d["mind"].Labels = new[] { LandGroup.Glyphs, LandGroup.Mirages, LandGroup.Rivers };

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 using Why.Economy.Data;
 using Why.Economy.Model;
 using DataIndustry = Why.Economy.Data.Industry;
@@ -436,9 +437,111 @@ namespace Why.Economy.Land
                 }
             }
 
+            Separate(g, towers);
+
             // in capture order: Towers[k].Company == k whenever every company's industry is known (all 25 are)
             return towers.ToArray();
         }
+
+        /// <summary>Passes of the ring-wide separation (a run moved can only close in on the run beyond it).</summary>
+        const int SeparatePasses = 8;
+
+        /// <summary>
+        /// The towers' ring-wide minimum gap: a plinth run reaches past its sector and can touch the towers of the sector
+        /// beside it (2025: hardware's Broadcom and internet's Meta). On each ring, sector runs are moved as blocks (each
+        /// sector keeps its order and spacing) until neighbouring towers of different sectors stand at least
+        /// <see cref="LandStyle.TowerGap"/> apart (arc length at the smaller of their radii, <see cref="Deficit"/>), in up
+        /// to <see cref="SeparatePasses"/> sweeps over the ring's runs in angular order: a plinth run moves away from
+        /// a run that fits its sector, two runs alike share the move. A moved plinth run's plinth follows it (it still
+        /// includes the sector's own arc).
+        /// </summary>
+        static void Separate(LandGeometry g, List<TowerGeom> towers)
+        {
+            for (int t = 0; t < 5; t++)
+            {
+                List<(SectorGeom s, List<TowerGeom> run)> runs = new List<(SectorGeom, List<TowerGeom>)>();
+                foreach (int i in g.RingOrder[t])
+                {
+                    List<TowerGeom> run = towers.FindAll(x => x.Industry == i);
+                    if (run.Count > 0) runs.Add((g.Sectors[i], run));
+                }
+
+                if (runs.Count < 2) continue;
+
+                // angles unwrapped from the side of the ring opposite its run's center (the ring's free arc is there)
+                float start = g.RingOffset[t] - 180f;
+                float Lo(List<TowerGeom> run)
+                {
+                    float v = float.MaxValue;
+                    foreach (TowerGeom x in run) v = Mathf.Min(v, LandMath.Wrap360(x.Theta - start) - HalfDeg(x));
+                    return v;
+                }
+
+                runs.Sort((p, q) =>
+                {
+                    int c = Lo(p.run).CompareTo(Lo(q.run));
+                    return c != 0 ? c : p.s.Industry.CompareTo(q.s.Industry);
+                });
+                for (int pass = 0; pass < SeparatePasses; pass++)
+                {
+                    bool moved = false;
+                    for (int k = 0; k + 1 < runs.Count; k++)
+                    {
+                        (SectorGeom sa, List<TowerGeom> a) = runs[k];
+                        (SectorGeom sb, List<TowerGeom> b) = runs[k + 1];
+                        float deficit = Deficit(a, b, start);
+                        if (deficit <= 1e-4f) continue;
+                        bool ma = !float.IsNaN(sa.Plinth0), mb = !float.IsNaN(sb.Plinth0);
+                        float shareA = ma == mb ? 0.5f : ma ? 1f : 0f;
+                        foreach (TowerGeom x in a) x.Theta -= deficit * shareA;
+                        foreach (TowerGeom x in b) x.Theta += deficit * (1 - shareA);
+                        moved = true;
+                    }
+
+                    if (!moved) break;
+                }
+
+                foreach ((SectorGeom s, List<TowerGeom> run) in runs)
+                {
+                    if (float.IsNaN(s.Plinth0)) continue;
+                    float pad = (float)(LandStyle.TowerGap / 2 / run[0].R * 180 / Math.PI);
+                    float lo = float.MaxValue, hi = float.MinValue;
+                    foreach (TowerGeom x in run)
+                    {
+                        // tower angles relative to the sector's middle (the run never reaches half a turn away)
+                        float rel = LandMath.DeltaDeg(s.Mid, x.Theta);
+                        lo = Mathf.Min(lo, rel - HalfDeg(x));
+                        hi = Mathf.Max(hi, rel + HalfDeg(x));
+                    }
+
+                    s.Plinth0 = Mathf.Min(s.Theta0, s.Mid + lo - pad);
+                    s.Plinth1 = Mathf.Max(s.Theta1, s.Mid + hi + pad);
+                }
+            }
+        }
+
+        /// <summary>
+        /// How far (degrees) run b must move counter-clockwise from run a (angles unwrapped from start) so that every pair
+        /// of their towers stands at least half a side + half a side + <see cref="LandStyle.TowerGap"/> apart in arc length
+        /// at the smaller of the two radii; 0 or less when they already do.
+        /// </summary>
+        static float Deficit(List<TowerGeom> a, List<TowerGeom> b, float start)
+        {
+            float worst = float.MinValue;
+            foreach (TowerGeom x in a)
+            {
+                foreach (TowerGeom y in b)
+                {
+                    float need = (float)((0.5 * (x.Side + y.Side) + LandStyle.TowerGap) / Math.Max(Math.Min(x.R, y.R), 1e-3) * 180 / Math.PI);
+                    worst = Mathf.Max(worst, need - (LandMath.Wrap360(y.Theta - start) - LandMath.Wrap360(x.Theta - start)));
+                }
+            }
+
+            return worst;
+        }
+
+        /// <summary>Half a tower's side as an angle at its radius (degrees).</summary>
+        static float HalfDeg(TowerGeom x) => (float)(x.Side / 2 / Math.Max(x.R, 1e-3) * 180 / Math.PI);
 
         // ------------------------------------------------------------------ the log line and the checks
 
@@ -516,59 +619,9 @@ namespace Why.Economy.Land
         }
 
         /// <summary>
-        /// The body of the "[Why] Roots" line (8.8), from the 2024 input-output table and the year's sector angles: the
-        /// roots of at least <see cref="LandStyle.RootMinB"/> and their share of the between-industry dollars, the
-        /// own-industry dollars, the direction shares of all kept dollars (supplier on a lower ring: up; the same ring:
-        /// within; own; a higher ring: down), the share of between-industry dollars from a higher ring, the share of root
-        /// dollars connecting sectors within 90 degrees, and its check (the flows add up to the table's kept total).
-        /// Every year prints the table's own dollars and shares (the same 79 roots: the $50B cut applies to the 2024
-        /// table); only the share within 90 degrees follows the year's angles. A year other than the table's adds, before
-        /// the check, the dollars scaled to that year (2.4: F_ij(Y) = F_ij(2024) × VA_j(Y) / VA_j(2024), buyer j):
-        /// "; at 1972 value added $0.66T between industries, own $0.21T". Computed here, from the layout's flow
-        /// analysis; RootsModel (the drawn roots) reproduces the same numbers and the same rule.
+        /// The body of the "[Why] Roots" line (8.8) for a year's layout: the input-output table's analysis lives in
+        /// <see cref="RootsModel"/>, whose drawn roots read the same selection (<see cref="RootsModel.Line"/>).
         /// </summary>
-        public static string RootsLine(EconomyData data, LandGeometry g)
-        {
-            double total = 0, own = 0, up = 0, within = 0, down = 0, rootDollars = 0, near = 0, scaledBetween = 0, scaledOwn = 0;
-            int roots = 0, tableYear = data.Circuit?.Io != null && data.Circuit.Io.Year > 0 ? data.Circuit.Io.Year : 2024;
-            foreach ((int i, int j, double v) in Flows(data))
-            {
-                total += v;
-                double vaTable = data.Industries[j].ValueAdded.At(tableYear);
-                double scaled = vaTable > 0 ? v * Math.Max(0, data.Industries[j].ValueAdded.At(g.Year)) / vaTable : 0;
-                if (i == j)
-                {
-                    own += v;
-                    scaledOwn += scaled;
-                    continue;
-                }
-
-                scaledBetween += scaled;
-
-                int ti = (int)g.Sectors[i].Tier, tj = (int)g.Sectors[j].Tier;
-                if (ti < tj) up += v;
-                else if (ti == tj) within += v;
-                else down += v;
-                if (v < LandStyle.RootMinB) continue;
-                roots++;
-                rootDollars += v;
-                if (Math.Abs(LandMath.DeltaDeg((double)g.Sectors[i].Mid, g.Sectors[j].Mid)) <= 90) near += v;
-            }
-
-            double between = total - own, kept = data.Circuit?.Io?.KeptIntermediate ?? 0;
-            bool ok = kept <= 0 || Math.Abs(total / kept - 1) <= 0.001;
-            double t = Math.Max(total, 1e-9);
-            return roots + " roots >= $" + LandStyle.RootMinB.ToString("0", LandFacts.Ci) + "B carry " +
-                   LandFacts.Percent(rootDollars / Math.Max(between, 1e-9), 1) + " of " + LandFacts.Money(between) +
-                   " between industries; own " + LandFacts.Money(own) + "; up " + LandFacts.Percent(up / t, 1) + " within " +
-                   LandFacts.Percent(within / t, 1) + " own " + LandFacts.Percent(own / t, 1) + " down " +
-                   LandFacts.Percent(down / t, 1) + "; " + LandFacts.Percent(down / Math.Max(between, 1e-9)) +
-                   " from a higher ring; " + LandFacts.Percent(near / Math.Max(rootDollars, 1e-9)) +
-                   " of root dollars within 90 deg" + (g.Year != tableYear
-                       ? "; at " + g.Year.ToString(LandFacts.Ci) + " value added " + LandFacts.Money(scaledBetween) +
-                         " between industries, own " + LandFacts.Money(scaledOwn)
-                       : "") + "; checks " + (ok ? "1/1 PASS" : "0/1 FAIL (flows " +
-                                                                    LandFacts.Money(total) + " vs kept " + LandFacts.Money(kept) + ")");
-        }
+        public static string RootsLine(EconomyData data, LandGeometry g) => RootsModel.Line(data, g);
     }
 }

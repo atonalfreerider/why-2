@@ -114,7 +114,7 @@ namespace Why.Economy
             d["y1972"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
             d["y1972"].Year = Year1972;
             d["roots"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Roots };
-            d["capture"].Labels = new[] { LandGroup.Sectors, LandGroup.Towers, LandGroup.Crown, LandGroup.Overlays };
+            d["capture"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Towers, LandGroup.Crown, LandGroup.Overlays };
             d["people"].Labels = new[] { LandGroup.Terraces, LandGroup.Glyphs };
             d["rivers"].Labels = new[] { LandGroup.Pools, LandGroup.Rivers, LandGroup.Taxes };
             d["mind"].Labels = new[] { LandGroup.Glyphs, LandGroup.Mirages, LandGroup.Rivers };

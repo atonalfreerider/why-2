@@ -19,9 +19,11 @@ namespace Why.Economy.UI
     /// residuals are printed, never hidden behind the headline). Generated from the snapshot on screen
     /// (<see cref="LandLegendFacts"/>), refreshed when it changes.
     /// <para>Landscape: a column at the bottom-left above the HUD's legend and lifeline readout (the social panel stands
-    /// above it). Portrait: the same place across the width, compact (the year's readout first, which the bowl leaves no
-    /// room for under the title; no swatches, the HUD's legend has them; no notes, the year chip's tooltip has them); it
-    /// steps aside while a bottom sheet is up (the social panel or an inspector). Hidden on the road views and during the
+    /// above it). Portrait: the same place across the width, compact (no swatches, the HUD's legend has them; no notes, the
+    /// year chip's tooltip has them). Wherever the bowl leaves the year's readout no place under the chip (a portrait
+    /// screen, or a view whose bowl reaches the top right) the legend shows that readout first. It
+    /// steps aside while a bottom sheet is up (the social panel or an inspector). Hidden on the road views (the overview
+    /// only shows it to carry a displaced readout) and during the
     /// tour. Its box is <see cref="Occupied"/>.</para>
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
@@ -48,8 +50,11 @@ namespace Why.Economy.UI
         TextMeshProUGUI heading, readout, units, accounts, notes;
         YearSeries trust;
 
-        /// <summary>Laid out compact: the year's readout first, no swatches or notes (a portrait screen).</summary>
+        /// <summary>Laid out compact: no swatches or notes (a portrait screen with the land in view).</summary>
         bool compact;
+
+        /// <summary>The year's readout first: the year chip has no place for it in this view (<see cref="EconomyControls.ReadoutMoved"/>).</summary>
+        bool withReadout;
         readonly List<Image> swatches = new List<Image>();
         readonly List<TextMeshProUGUI> names = new List<TextMeshProUGUI>();
         UiFade fade;
@@ -108,7 +113,9 @@ namespace Why.Economy.UI
             if (!loaded) return;
             // a portrait bottom sheet covers the legend's place: the legend steps aside while one is up
             bool sheet = ScreenLayout.IsPortrait && (!SocialPanel.Occupied.IsEmpty || PlayerPanel.SheetShown || PersonInspector.SheetShown);
-            bool show = inView && !root.TourActive && LandService.Current != null && !sheet;
+            // the overview shows it only to carry the year's readout when the bowl took the readout's place
+            bool view = inView || EconomyControls.ReadoutMoved && root.CurrentPreset?.Id == "overview";
+            bool show = view && !root.TourActive && LandService.Current != null && !sheet;
             if (show != fade.Shown)
             {
                 fade.Show(show); // activates the panel before its texts are measured
@@ -135,10 +142,11 @@ namespace Why.Economy.UI
             HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
             f.LandLegend = UiBox.Empty;
             float width = f.Portrait ? f.Canvas.x - 2 * f.Margin : EconomyUiLayout.LeftColumnWidth;
-            bool wantCompact = EconomyUiLayout.ReadoutInLegend(f);
-            if (wantCompact != compact) contentDirty = true;
+            bool wantCompact = EconomyUiLayout.ReadoutInLegend(f), wantReadout = EconomyControls.ReadoutMoved;
+            if (wantCompact != compact || wantReadout != withReadout) contentDirty = true;
             if (!contentDirty && f.Near(laidOutFrame) && Mathf.Abs(width - laidOutWidth) < 0.5f) return;
             compact = wantCompact;
+            withReadout = wantReadout;
             if (contentDirty) Fill();
             contentDirty = false;
             laidOutFrame = f;
@@ -173,7 +181,7 @@ namespace Why.Economy.UI
             units.text = LandLegendFacts.Units(s, pop?.Sim?.PeoplePerLine ?? 100_000);
             accounts.text = LandLegendFacts.Accounts(s, LandService.Model?.Data);
             notes.text = LandLegendFacts.Notes(s, LandLegendFacts.NoteLines);
-            readout.text = compact
+            readout.text = withReadout
                 ? YearFacts.Line(LandService.Model?.Lives, trust, s, LandService.Model?.Data, EconomyState.Year, true, UiFactory.Hex(GraphStyle.Text))
                 : "";
         }
@@ -185,8 +193,8 @@ namespace Why.Economy.UI
             Vector2 h = HudKit.FitText(heading);
             HudKit.PlaceTopLeft(heading.rectTransform, pad, y, h);
             y += h.y + RowGap;
-            readout.gameObject.SetActive(compact);
-            if (compact) y = Wrapped(readout, pad, y, inner) + RowGap;
+            readout.gameObject.SetActive(withReadout);
+            if (withReadout) y = Wrapped(readout, pad, y, inner) + RowGap;
             y = Wrapped(units, pad, y, inner) + RowGap + 2;
 
             // the swatches flow in rows (the compact legend leaves them to the HUD's legend)

@@ -634,7 +634,9 @@ namespace Why.Economy.UI
             f.Who(p, s, data);
             f.Money(p, s, data);
             f.MindOf(p, ps, lives, data, s.Year);
-            f.SocietyOf(p, ps, season ?? s.Society, round, data, s.Year);
+            // the season shown is another year's while a new land is being swapped in: then the snapshot's own
+            if (season == null || season.Year != s.Year || season.Standing == null || season.Standing.Length != ps.Length) season = s.Society;
+            f.SocietyOf(p, ps, season, round, data, s.Year);
             f.MembersOf(p, lives, s.Year);
             return f;
         }
@@ -657,7 +659,7 @@ namespace Why.Economy.UI
             Land.Player p = s.Players.Players[player];
             StringBuilder sb = new StringBuilder("Plays as: ");
             sb.Append(Label(p, data)).Append(" (").Append(Land.LandFacts.Millions(p.Adults.Length * 1e5)).Append(" adults)");
-            season = season ?? s.Society;
+            if (season == null || season.Year != s.Year) season = s.Society;
             int coalition = CoalitionOf(season, player, round);
             if (coalition >= 0) sb.Append(Dot).Append("Coalition ").Append((coalition + 1).ToString(Ci));
             if (season?.Standing != null && player < season.Standing.Length)
@@ -941,6 +943,7 @@ namespace Why.Economy.UI
                 int a = s.PairA[k], b = s.PairB[k];
                 if (a != p.Index && b != p.Index) continue;
                 int q = a == p.Index ? b : a;
+                if (q < 0 || q >= all.Length) continue;
                 if (all[q].Group == p.Group) inGroup++;
                 else outGroup++;
                 double e = s.Exposure != null && t < s.Exposure.Length ? s.Exposure[t][k] : 1;

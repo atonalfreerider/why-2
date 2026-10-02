@@ -66,7 +66,7 @@ namespace Why.Economy.UI
         LandPickScene scene;
         CutPickScene cut;
         double[] rootDollars = Array.Empty<double>();
-        int sceneVersion = -1, cutYear = int.MinValue;
+        int sceneVersion = -1, cutYear = int.MinValue, seenRig = -1;
         bool loaded, pressValid;
         Vector2 pressPosition, lastPointer = new Vector2(-1, -1);
         LandHit hover = LandHit.None, pinned = LandHit.None;
@@ -118,9 +118,16 @@ namespace Why.Economy.UI
             Vector2 pointer = mouse != null ? mouse.position.ReadValue() : new Vector2(-1, -1);
             bool overUi = HudKit.PointerOverUi() || root.Labels.Hovered != null;
 
-            // hover: picked again when the pointer moved or the land changed
+            // hover: nothing over the UI or a label
             if (overUi) hover = LandHit.None;
-            else if ((pointer - lastPointer).sqrMagnitude > 0.25f || sceneVersion != LandService.Version) hover = PickAt(pointer);
+            else
+            {
+                // picked again when the pointer, the camera or the land moved
+                int rig = root.Rig != null ? root.Rig.Version : 0;
+                if ((pointer - lastPointer).sqrMagnitude > 0.25f || sceneVersion != LandService.Version || rig != seenRig) hover = PickAt(pointer);
+                seenRig = rig;
+            }
+
             lastPointer = pointer;
 
             Keyboard kb = Keyboard.current;
@@ -456,9 +463,11 @@ namespace Why.Economy.UI
         /// <summary>A tie: who, how they cooperate now and how they opened, whether they share a group.</summary>
         void TieCard(object key, LandHit h, LandSnapshot s)
         {
-            SocialSeasonResult season = SocialLayer.Shown ?? s?.Society;
+            SocialSeasonResult season = SocialLayer.Shown;
+            if (season == null || s == null || season.Year != s.Year) season = s?.Society;
             Player[] ps = s?.Players?.Players;
-            if (season?.PairA == null || ps == null || h.Index >= season.PairA.Length)
+            if (season?.PairA == null || ps == null || h.Index >= season.PairA.Length || season.PairA[h.Index] >= ps.Length ||
+                season.PairB[h.Index] >= ps.Length)
             {
                 card.Hide();
                 return;

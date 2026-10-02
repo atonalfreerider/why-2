@@ -181,7 +181,10 @@ namespace Why.Economy.UI
 
             // Esc with the help sheet open only closes the sheet (the HUD's)
             bool helpOpen = helpSheet != null && helpSheet.gameObject.activeInHierarchy;
-            if (kb.escapeKey.wasPressedThisFrame && !helpOpen && EconomyState.Person >= 0 && !PlayerPanel.Covers) EconomyState.SetPerson(-1);
+            if (kb.escapeKey.wasPressedThisFrame && !helpOpen && EconomyState.Person >= 0 && !PlayerPanel.Covers && PlayerPanel.TakeEsc())
+            {
+                EconomyState.SetPerson(-1);
+            }
         }
 
         /// <summary>

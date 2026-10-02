@@ -23,7 +23,8 @@ namespace Why.Economy.UI
     /// circuit's notes for the year (its approximations and residuals). Beneath it the year's readout (generated:
     /// "2025 · GDP $30.8T · in control 12% · fantasy 19% · fear 54% · trust 25% (GSS) · cooperation 0.73"). On a portrait
     /// screen with the land in view the bowl fills the band under the title: the chip keeps only its year row (dragging
-    /// across it scrubs) and the readout moves into the land legend at the bottom;</item>
+    /// across it scrubs) and the readout moves into the land legend at the bottom, as it does wherever a view's bowl
+    /// reaches the readout's place;</item>
     /// <item>N meets the next notable person of the model (owner, heir, striver, escapist, the indebted ...): it selects
     /// them (<see cref="EconomyState.Person"/>; the inspector shows them and lights their lifeline and their dot). On the
     /// road the camera flies to their line at the year, into the room the inspector leaves (<see cref="PersonFraming"/>);
@@ -70,6 +71,12 @@ namespace Why.Economy.UI
         /// them. Canvas units of any canvas made by <see cref="UiFactory.CreateCanvas"/>.
         /// </summary>
         public static UiBox Occupied { get; private set; } = UiBox.Empty;
+
+        /// <summary>
+        /// True while the year's readout has no place under the chip (the view's bowl reaches there, or a portrait screen
+        /// with the land in view): the land legend shows it instead.
+        /// </summary>
+        public static bool ReadoutMoved { get; private set; }
 
         GraphRoot root;
         RectTransform canvasRect, chip, readout, track, fill, handle;
@@ -142,6 +149,7 @@ namespace Why.Economy.UI
         void OnDestroy()
         {
             Occupied = UiBox.Empty;
+            ReadoutMoved = false;
             EconomyState.SetPreviewYear(-1);
         }
 
@@ -347,6 +355,7 @@ namespace Why.Economy.UI
             if (!loaded || !chipFade.Shown)
             {
                 Occupied = UiBox.Empty;
+                ReadoutMoved = false;
                 tooltip.Hide();
                 tooltip.Tick(Vector2.zero, UiFactory.CanvasSize, dt);
                 return;
@@ -424,6 +433,7 @@ namespace Why.Economy.UI
             readoutSize = new Vector2(Mathf.Ceil(text.x + 2 * HudKit.Pad), Mathf.Max(ReadoutHeight, text.y + 8));
             HudKit.PlaceTopLeft(readoutText.rectTransform, HudKit.Pad, 0, new Vector2(text.x, readoutSize.y));
             readoutBox = hasReadout ? EconomyUiLayout.Readout(f, chipBox, readoutSize) : UiBox.Empty;
+            ReadoutMoved = hasReadout && readoutBox.IsEmpty;
             readoutFade.Show(!readoutBox.IsEmpty);
             if (!readoutBox.IsEmpty) Place(readout, readoutBox, f);
 

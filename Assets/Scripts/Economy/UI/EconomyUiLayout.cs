@@ -177,14 +177,18 @@ namespace Why.Economy.UI
 
         /// <summary>
         /// The year's readout: right-aligned under the chip; in portrait under the title block (beside the title there is
-        /// only room for the chip), or with the land in view in the land legend instead (<see cref="ReadoutInLegend"/>).
+        /// only room for the chip). Empty (the land legend shows it instead) on a portrait screen with the land in view
+        /// (<see cref="ReadoutInLegend"/>) and wherever the view's bowl reaches its place.
         /// </summary>
         public static UiBox Readout(HudFrame f, UiBox chip, Vector2 size)
         {
-            if (!f.Portrait) return new UiBox(f.Canvas.x - f.Margin - size.x, chip.Bottom + ChipGap, size.x, size.y);
             if (ReadoutInLegend(f)) return UiBox.Empty;
-            float top = Mathf.Max(TitleBottom(f), chip.Bottom) + f.Gap;
-            return new UiBox(f.Canvas.x - f.Margin - size.x, top, size.x, size.y);
+            UiBox box = f.Portrait
+                ? new UiBox(f.Canvas.x - f.Margin - size.x, Mathf.Max(TitleBottom(f), chip.Bottom) + f.Gap, size.x, size.y)
+                : new UiBox(f.Canvas.x - f.Margin - size.x, chip.Bottom + ChipGap, size.x, size.y);
+
+            // never over the bowl: where the view's bowl reaches the readout's place it moves into the land legend
+            return box.Overlaps(f.Bowl) ? UiBox.Empty : box;
         }
 
         /// <summary>

@@ -92,6 +92,17 @@ namespace Why.Economy.UI
             if (person < 0) playerFront = true;
         }
 
+        /// <summary>Frame on which an inspector took Esc (one Esc closes one inspector: the one in front).</summary>
+        static int escFrame = -1;
+
+        /// <summary>Takes this frame's Esc for an inspector; false when the other one already took it.</summary>
+        public static bool TakeEsc()
+        {
+            if (escFrame == Time.frameCount) return false;
+            escFrame = Time.frameCount;
+            return true;
+        }
+
         /// <summary>The person inspector's "Plays as" link: the player's inspector comes to the front.</summary>
         public static void BringToFront()
         {
@@ -134,7 +145,8 @@ namespace Why.Economy.UI
         HudBlocks hud;
         EconomyModel model;
         PlayerFacts facts;
-        bool loaded, contentDirty, laidOutSheet, checkPending;
+        bool loaded, contentDirty, laidOutSheet, checkPending, tourWasActive;
+        RectTransform helpSheet;
         int factsPlayer = -2, factsLand = -1, factsRound = -1, seenVersion = -1;
         HudFrame laidOutFrame;
         UiBox laidOutAbove, panelBox;
@@ -205,6 +217,11 @@ namespace Why.Economy.UI
         {
             model = root.Context.Shared<EconomyModel>(EconomyModel.SharedKey);
             hud = new HudBlocks(root);
+            foreach (GraphModule m in root.Modules)
+            {
+                if (m is Hud) helpSheet = m.transform.Find("HudOverlay/Help") as RectTransform;
+            }
+
             loaded = model?.Data != null;
         }
 
@@ -290,7 +307,10 @@ namespace Why.Economy.UI
             bool tour = root.TourActive;
             TrackFront();
             Keyboard kb = Keyboard.current;
-            if (!tour && kb != null && kb.escapeKey.wasPressedThisFrame && Covers && !HudKit.TypingInField()) Close();
+            bool helpOpen = helpSheet != null && helpSheet.gameObject.activeInHierarchy; // Esc closes the HUD's help first
+            if (!tour && !tourWasActive && kb != null && kb.escapeKey.wasPressedThisFrame && Covers && !helpOpen && !HudKit.TypingInField() &&
+                TakeEsc()) Close();
+            tourWasActive = tour;
 
             LandSnapshot s = LandService.Current;
             int player = EconomyState.SelectedPlayer;

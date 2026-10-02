@@ -230,6 +230,23 @@ namespace Why.Economy.Land
         /// <summary>Number of roots (the same every year): the size of the <see cref="EconomyIds.LandRoot"/> range used.</summary>
         public static int RootCount(EconomyData data) => Read(data).Roots.Length;
 
+        /// <summary>
+        /// The root indices (<see cref="RootGeom.Index"/>, ascending) of an industry's roots in and out: what hovering its
+        /// sector lights (2.4). The roots into it are one contiguous range; the roots out of it are spread over the buyers'.
+        /// </summary>
+        public static List<int> RootsOf(EconomyData data, int industry)
+        {
+            Table tab = Read(data);
+            List<int> ks = new List<int>();
+            for (int k = 0; k < tab.Roots.Length; k++)
+            {
+                (int i, int j, double _) = tab.Flows[tab.Roots[k]];
+                if (i == industry || j == industry) ks.Add(k);
+            }
+
+            return ks;
+        }
+
         // ------------------------------------------------------------------ the drawn roots
 
         /// <summary>
@@ -387,7 +404,7 @@ namespace Why.Economy.Land
         const float LowestBand = 0.005f;
 
         /// <summary>Samples of the travel beneath the terraces before smoothing.</summary>
-        const int TravelSamples = 32;
+        const int TravelSamples = 16;
 
         /// <summary>
         /// A root's path: from (r0, th0, y0) to the travel depth, around the bowl (radius lerped, angle the shorter way,

@@ -28,7 +28,10 @@ namespace Why.Economy.Layers
     /// <see cref="LandView.Alpha"/>: no layer but the section layer morphs, so the land fades in with the reveal. A new
     /// year (8.3) rebuilds the builders on a worker (a preset's blocking snapshot: here, in the next Tick), uploads them in
     /// Tick, cross-fades from the old meshes over <see cref="LandStyle.CrossFadeSeconds"/> and reports the swap
-    /// (<see cref="LandService.ReportReady"/>). Order 50: tier 5, after the land's model (45).
+    /// (<see cref="LandService.ReportReady"/>); a new snapshot of the same land (a new season) only reports. A build runs
+    /// in four independent parts (each into its own builders and item lists, joined in a fixed order). The five tier
+    /// labels stand on the outer wall and move along it when their place is out of frame. Order 50: tier 5, after the
+    /// land's model (45).
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class LandscapeLayer : GraphLayer

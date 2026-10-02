@@ -308,8 +308,21 @@ namespace Why.Economy.Layers
             if (wanted == null || building != null && buildingVersion == wanted.Version) return;
             if (wanted.Blocking)
             {
-                Built b = Build(wanted, model, pop, frame);
+                // cleared first: a build that throws must not be retried every frame (that would stop every later layer)
+                LandSnapshot w = wanted;
                 wanted = null;
+                Built b;
+                try
+                {
+                    b = Build(w, model, pop, frame);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[Why] InhabitantsLayer: a blocking rebuild failed: " + e);
+                    LandService.ReportReady(ReadyName, w.Version);
+                    return;
+                }
+
                 Swap(b);
                 return;
             }
@@ -890,21 +903,20 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
-        /// The mind view's thesis line (6), from the lives: "2025 · 12% of adults are in control · fantasy is 19% of
-        /// spending, as much for those in control (18%) as for the rest (17%) · what sets them apart: reason 0.70 vs 0.36,
-        /// and where their money comes from". The comparison word follows the numbers (±10%).
+        /// The mind view's thesis line (6), from the lives: "2025 · 12% of adults are in control · they buy as much fantasy
+        /// as the rest (18% of an adult's spending vs 17%) · what sets them apart: reason 0.70 vs 0.36, and where their
+        /// money comes from". Both fantasy shares are means over adults (the Facts line's basis), so neither can seem to
+        /// sit below a dollar-weighted total. The comparison word follows the numbers (±10%).
         /// </summary>
         static string Thesis(EconomicLives lives, int year, EconomyData data)
         {
             if (lives == null || !lives.Ready || lives.Sim == null) return null;
             int n = lives.Sim.People.Count, adults = 0, control = 0;
-            double spend = 0, fantasy = 0, fantC = 0, fantR = 0, reasonC = 0, reasonR = 0;
+            double fantC = 0, fantR = 0, reasonC = 0, reasonR = 0;
             for (int i = 0; i < n; i++)
             {
                 if (!lives.TryGet(i, year, out PersonYear r) || !r.Adult) continue;
                 adults++;
-                spend += r.Spending;
-                fantasy += r.Spending * r.Fantasy;
                 if (r.InControl)
                 {
                     control++;
@@ -921,12 +933,12 @@ namespace Why.Economy.Layers
             int rest = adults - control;
             if (adults == 0 || control == 0 || rest == 0) return null;
             double fc = fantC / control, fr = fantR / rest;
-            string how = LandFacts.Compare(fc, fr) == 0 ? "as much for those in control (" + LandFacts.Percent(fc) + ") as for the rest ("
-                : (LandFacts.Compare(fc, fr) > 0 ? "more" : "less") + " for those in control (" + LandFacts.Percent(fc) + ") than for the rest (";
+            int cmp = LandFacts.Compare(fc, fr);
+            string how = cmp == 0 ? "they buy as much fantasy as the rest" : cmp > 0 ? "they buy more fantasy than the rest" : "they buy less fantasy than the rest";
             bool estimate = data.Industries.Count > 0 && data.Industries[0].ValueAddedEstimatedFrom > 0 &&
                             year >= data.Industries[0].ValueAddedEstimatedFrom;
             return LandFacts.Year(year, estimate) + " · " + LandFacts.Percent(control / (double)adults) + " of adults are in control · " +
-                   "fantasy is " + LandFacts.Percent(spend > 0 ? fantasy / spend : 0) + " of spending, " + how + LandFacts.Percent(fr) +
+                   how + " (" + LandFacts.Percent(fc) + " of an adult's spending vs " + LandFacts.Percent(fr) +
                    ") · what sets them apart: reason " + LandFacts.Num(reasonC / control, 2) + " vs " + LandFacts.Num(reasonR / rest, 2) +
                    ", and where their money comes from";
         }

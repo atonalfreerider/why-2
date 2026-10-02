@@ -113,7 +113,8 @@ capital paid out. On the rim stand **116 players**, the twelve 2026 socioeconomi
 them and by party, each a disc of dots, one per lifeline; their income arrives as arcs in the air, their spending runs
 down the terraces as rivers (ice for fear, rose for desire, glitter for fantasy) into the industries that are paid, and
 they play a deterministic season of tit for tat in which forgiveness lets cooperation climb and coalitions form along the
-land rather than along party. Keys 1 - 8 change the view, comma and period (or the year chip's scrubber) the year, a click
+land rather than along party (partly by design: dealings follow industry and group, and party is drawn independently of
+class). Keys 1 - 8 change the view, comma and period (or the year chip's scrubber) the year, a click
 on a player or a lifeline opens an inspector, T starts a 12-stop tour. Data from BEA, the Federal Reserve, BLS, Census and
 the GSS; the model, its calibration, what it finds and what is measured or modeled are in `Docs/ECONOMY.md`, the data in
 `Docs/DATA.md`.

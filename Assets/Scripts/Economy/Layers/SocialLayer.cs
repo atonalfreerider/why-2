@@ -557,7 +557,18 @@ namespace Why.Economy.Layers
                 Task<Content> prebuilt = ReferenceEquals(blockingFor, s) ? blockingBuild : null;
                 blockingBuild = null;
                 blockingFor = null;
-                Content c = prebuilt != null ? prebuilt.GetAwaiter().GetResult() : Build(model.Data, s, SeasonOf(s));
+                Content c;
+                try
+                {
+                    c = prebuilt != null ? prebuilt.GetAwaiter().GetResult() : Build(model.Data, s, SeasonOf(s));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[Why] SocialLayer: a blocking rebuild failed: " + e);
+                    LandService.ReportReady(ReadyName, s.Version);
+                    return;
+                }
+
                 Swap(c, 0f);
                 LogRebuild(c);
                 return;

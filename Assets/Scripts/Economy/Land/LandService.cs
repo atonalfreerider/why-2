@@ -319,14 +319,20 @@ namespace Why.Economy.Land
                 LandSnapshot s = Take(ref yearTask);
                 if (s != null && s.Year == wantedYear) Publish(s, false);
                 else if (wantedYear >= 0 && (Current == null || Current.Year != wantedYear)) StartYear(wantedYear);
+                // settings changed while the year was building: its season used the old ones, so rerun it
+                if (Current != null && societyTask == null && !Same(Current.Society?.Settings ?? wantedSettings, wantedSettings))
+                {
+                    RequestSociety(wantedSettings, false);
+                }
             }
 
             if (societyTask != null && societyTask.IsCompleted)
             {
                 LandSnapshot s = Take(ref societyTask);
                 if (s != null && Current != null && s.Year == Current.Year) Publish(s, false);
-                if (societyPending)
+                if (societyPending || Current != null && yearTask == null && !Same(Current.Society?.Settings ?? wantedSettings, wantedSettings))
                 {
+                    // a newer setting, or a season run for a year that is no longer on screen
                     societyPending = false;
                     RequestSociety(wantedSettings, false);
                 }

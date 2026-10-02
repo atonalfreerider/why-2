@@ -40,7 +40,7 @@
     {
       "id": "capture",
       "title": "Where value is captured",
-      "text": "Gold is what owners keep. Payouts rise into the crown, $5.33T a year, and fall on those who own. The towers are the most valuable companies; the four chip and device makers earn 9.2 times what the US hardware industry's owners keep.",
+      "text": "Gold is what owners keep. Payouts rise into the crown, $5.33T a year, and fall on those who own. The towers are the most valuable companies; the four chip and device makers earn 9.2 times, worldwide, what the US hardware industry's owners keep at home.",
       "focus": "capture",
       "anchor": "land:tower:NVDA",
       "highlight": ["land:crown"],
@@ -49,7 +49,7 @@
     {
       "id": "people",
       "title": "Who stands where",
-      "text": "116 players of the 12 groups of 2026, each about 2.2 million people, standing above whoever pays them. Each dot is a line from the road; gold dots are the people in control of their path.",
+      "text": "116 players of the 12 groups of 2026, about 2.2 million people each for the typical one, standing above whoever pays them. Each dot is a line from the road; gold dots are the people in control of their path.",
       "focus": "people",
       "anchor": "land:group:pmc",
       "highlight": [],
@@ -58,7 +58,7 @@
     {
       "id": "rivers",
       "title": "Where the money goes",
-      "text": "Spending runs down from the rim into the industries that are paid: $21.63T a year. Ice is money spent away from fear: 54% of it. Rose is money spent toward desire; glitter is fantasy.",
+      "text": "Spending runs down from the rim into the industries that are paid: $21.63T a year. Ice is money spent away from fear: 54% of it, by each category's judged motive. Rose is money spent toward desire; glitter is fantasy.",
       "focus": "rivers",
       "anchor": "land:river:jeopardy",
       "highlight": [],
@@ -76,7 +76,7 @@
     {
       "id": "society",
       "title": "How people organize",
-      "text": "Tit for tat between the players: strangers open at 0.333, and forgiveness lets cooperation climb to 0.686 in 12 rounds. Four coalitions form along the land, not along party.",
+      "text": "Tit for tat between the players: partners open at 0.333 (strangers would at 0.308), and forgiveness lets cooperation climb to 0.686 in 12 rounds. Four coalitions form along the land, not along party: here people deal mostly within their industry and group, and party only tilts how they open.",
       "focus": "society",
       "anchor": "land:coalition:1",
       "highlight": [],
@@ -94,7 +94,7 @@
     {
       "id": "y1972",
       "title": "The land in 1972",
-      "text": "1972: the making terrace was 80% full and services 54%; strangers opened at 0.584 and cooperation reached 0.795.",
+      "text": "1972: the making terrace was 80% full and services 54%; partners opened at 0.584 and cooperation reached 0.795.",
       "focus": "y1972",
       "anchor": "land:tier:make",
       "highlight": [],

@@ -40,12 +40,12 @@ market value · a dot = 100,000 people".
   feed it most (the ring order and offsets are fixed for all years, so the land never reshuffles).
 * **Roots.** Beneath the terraces the roots are what industries buy from each other (the BEA 2024 Use table): the 79
   flows of at least $50B carry 72.7% of the $15.85T traded between industries, and each rises into its buyer from below.
-  Their direction is counted honestly: 16.7% of root dollars come from a higher ring, 31.3% stay within a ring, 23.7%
-  are an industry's purchases from itself (root balls) and 28.4% flow down. A year other than 2024 scales the 2024 table
+  Their direction is counted honestly: of all $20.76T of purchases, 16.7% rise from a supplier on a lower ring, 31.3%
+  stay within a ring, 23.7% are an industry's purchases from itself (root balls) and 28.4% come down from a higher ring. A year other than 2024 scales the 2024 table
   by each buyer's value added (root labels show the year's dollars: professional services → trade is $654B in the table
   and $704B at 2025 value added).
 * **Pools.** Where households' money is first paid: each industry's pool is as large as the spending it receives directly
-  (the first recipient, 4.2 below). Health care overflows (households pay it $3.75T, 158% of its value added); professional
+  (the first recipient: the money builder, below). Health care overflows (households pay it $3.75T, 158% of its value added); professional
   services (7%), software (14%) and internet platforms (27%) stay nearly dry: they are paid by other industries, along the
   roots, and by advertisers.
 * **Towers.** The 25 most valuable companies stand as gold towers on their sector: height = market value (NVIDIA $5.49T,
@@ -102,6 +102,11 @@ spending; spouse links join married dots; standing marks (alpha, beta, omega) co
 * **Income in the air.** Wages arc from **wage patches** tiling each sector's wage strip (one patch per player, as large
   as its wages there) and from the towers of named employers ($405B in 27 arcs, by the companies' US employees); business
   income rises from the gold strips; capital income falls from the crown; transfers rise from the floor like fountains.
+  The `people` view draws every player's own arcs (arcs under $5B are left out: $187B in 2025). Every other view draws
+  one arc per kind of income, group and rim cluster of players (159 in 2025), starting at the dollar-weighted mean of
+  their sources, so the arcs stay readable; widths stay in dollars. Owners' payouts rise into the crown as 8 sector
+  streams (one per sector paying $250B or more, one per ring for the rest). The capital-only 1% stand on the crown
+  itself: their capital income ($1.21T in 2025) starts and ends there and is not drawn.
 * **Rivers on the ground.** Each player's spending runs inward as a rivulet; rivulets merge into creeks and enter the
   **lip canal**, a ring channel along the rim's inner edge with one lane per spending category. Each lane runs the shorter
   way round to its category's **fall**, drops over the lip and runs down the terraces (water never climbs: 0 uphill
@@ -120,9 +125,11 @@ defections forgiven); tribal memory from the default OS (toward the other party,
 partners who cooperate better than one's average are met more (partner choice). No random numbers: the same year and
 settings give the same season bit for bit.
 
-The `society` view shows the ties over the rim (bright = cooperating, grey = feuding) and the **coalitions** found by
-modularity (CNM) at rounds 0, 24, 48, 72 and 96. Players never move: the land stays the organization, and the
-coalitions are drawn as bands along the rim. The `betrayal` view replays the season with one incident: in round 48 the
+The `society` view shows each player's strongest dealings over the rim (its strongest tie and the ties among the three
+strongest of both players: about 120 of the 916 pairs): blue within a coalition, violet across, grey and broken where a
+pair feuds; brightness and width follow mutual cooperation. The **coalitions** found by modularity (CNM) at rounds 0,
+24, 48, 72 and 96 are colored bands along the rim with one label each. Players never move: the land stays the
+organization. The `betrayal` view replays the season with one incident: in round 48 the
 largest cooperating cross-party tie is broken once, and the season shows how far it echoes.
 
 ### The mind
@@ -131,8 +138,9 @@ The thesis ("many buy fantasy, few control their path") is drawn on the players 
 diagram: fear and desire are the ice and rose lanes and the head rings, reason is the dots' height, fantasy is the
 glitter over the rivers and the mirages over the players, agency is the gold dots, plinths and the crown. The `mind`
 view looks low across the rim so dots and mirages stand in profile, with the neurochemicals labeled at the falls and the
-thesis line: "2025 · 12% of adults are in control · fantasy is 19% of spending, as much for those in control (18%) as
-for the rest (17%) · what sets them apart: reason 0.70 vs 0.36, and where their money comes from". Every comparison word
+thesis line: "2025 · 12% of adults are in control · they buy as much fantasy as the rest (18% of an adult's spending vs
+17%) · what sets them apart: reason 0.70 vs 0.36, and where their money comes from" (both fantasy shares are means over
+adults; the 19% of all spending that buys fantasy is dollar-weighted, so it is not compared with them). Every comparison word
 in a sentence is generated from its numbers with a ±10% band for "about the same".
 
 ## Views and controls
@@ -164,7 +172,7 @@ strength and the rest dimmed; no view rebuilds geometry.
 | N | the next notable person (the owner, the heir, the striver, the escapist, the indebted, the retiree, the young, the forgiver, the avenger); with a player open, its next member |
 | Social panel | views 8 and betrayal: play, step, replay; forgiveness (by the OS / everyone / nobody), mistakes, the chance of meeting again, polarization, partner choice; select a tie and **Betray** to queue an incident at the next round |
 | T | the guided tour, 12 stops (Space / Right next, Left back, P pause, Esc exit) |
-| U, [ ], L, V, H, F3, Esc | the time lens, vertical mode, help, stats and clearing, as in the causality graph |
+| V, H, F3, Esc | vertical mode, help, stats and clearing, as in the causality graph (the time lens is the causality graph's only: every economy view shares one window of time) |
 
 ## The model
 
@@ -244,34 +252,39 @@ deterministic, and logs a line with its checks and a checksum (8.8 of the spec):
 
 ## What the model says (2025)
 
-These are the model's results, shown in the scene rather than tuned:
+These are the model's results, shown in the scene rather than tuned. Two of them rest on judged weights rather than
+measurement: the fear / desire motive and the fantasy share of each spending category (spending.json), so the fear and
+fantasy totals below are the spending mix times those judgments.
 
 * **Few are in control.** 12.0% of adults own the means to steer their own path (by construction of the calibration):
   63% of the 1%, 49% of business owners, 4% of frontline workers. The history the same cut produces is the model's own:
   about 14 - 17% from 1950 to 1975, falling to about 11% from 1995 to 2015.
-* **Fantasy does not separate them.** Fantasy is 19% of spending, and people in control buy as much of it as the rest
-  (0.18 vs 0.17 of their spending). Fantasy rises with income (0.14 of spending in the poorest fifth, 0.21 in the richest).
+* **Fantasy does not separate them.** Fantasy is 19% of all spending (dollar-weighted), and people in control buy as
+  much of it as the rest (on average 0.18 vs 0.17 of an adult's spending). Fantasy rises with income (0.14 of spending in the poorest fifth, 0.21 in the richest).
   What sets the people in control apart is reason (0.70 vs 0.36), age (61 vs 47), inheritance (61% had inherited from a
   parent vs 26%), self-employment (23% vs 4%) and where their money comes from: capital.
-* **Fear moves more money than desire.** 54% of household money is spent moving away from something feared. The
+* **Fear moves more money than desire.** By the categories' judged motive weights, 54% of household money is spent
+  moving away from something feared. The
   jeopardy river alone carries $6.90T, 85% of it fear; it falls next to health care, which receives more from households
   than it adds in value.
 * **Owners keep about a quarter.** Owners keep 26% of GDP. $5.33T a year rises into the crown from the private sectors
   and falls on those who own; $435B leaves for owners abroad.
-* **The bowl stands on roots that flow down as well as up.** $15.85T a year moves between industries; 37% comes from a
-  supplier on a higher terrace and 28.4% of root dollars flow down: the hierarchy is a picture of the notebook's order,
-  not a law of the data, and the land says so.
-* **Cooperation is learned, not given.** Strangers open at 0.333; forgiveness lets cooperation climb to 0.686 in 12
-  rounds and settle at 0.729. If nobody forgave it would settle at 0.425; if everyone did, at 0.868. Without partner
+* **The bowl stands on roots that flow down as well as up.** $15.85T a year moves between industries; 37% of it comes
+  down from a supplier on a higher terrace and only 22% rises from a lower one: the hierarchy is a picture of the
+  notebook's order, not a law of the data, and the land says so.
+* **Cooperation is learned, not given.** Strangers would open at 0.308 (GSS trust); partners, who share an industry,
+  group or generation, open at 0.333; forgiveness lets cooperation climb to 0.686 in 12 rounds and settle at 0.729. If nobody forgave it would settle at 0.425; if everyone did, at 0.868. Without partner
   choice it reaches 0.717. Doubling polarization opens the gap between co-partisans and the other party (0.770 vs 0.685,
   from 0.741 vs 0.699).
 * **Coalitions follow the land, not party.** Four coalitions form (41, 38, 28 and 9 players), with 69-80% of their
   dealings inside: professional services, health and hospitality; the retirees and the safety net; trade, manufacturing
-  and construction; government. They match the anchor industry (NMI 0.56) and not party (0.01).
+  and construction; government. They match the anchor industry (NMI 0.56) and not party (0.01). This is partly by
+  design: who deals with whom follows industry, tier, group and generation, party only tilts how a pair opens, and the
+  model draws party independently of class.
 * **One betrayal echoes and ends.** The round-48 betrayal between two comfortable retirees of opposite parties hits 2
   players and is calm after 7 rounds.
-* **1972 was a different land.** The making terrace was 80% full and services 54%; 80 players; strangers opened at
-  0.584 (trust was higher) and cooperation reached 0.795, higher than in 2025.
+* **1972 was a different land.** The making terrace was 80% full and services 54%; 80 players; partners opened at
+  0.584 (strangers 0.541: trust was higher) and cooperation reached 0.795, higher than in 2025.
 
 ## Limitations
 

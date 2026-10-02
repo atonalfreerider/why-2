@@ -208,7 +208,7 @@ namespace Why.Economy.Layers
                     a.Add(q1 - half);
                     b.Add(q0 + half);
                     b.Add(q1 + half);
-                    one[0] = part == 0 ? LandMath.Tint(hue, WallWagesAlpha)
+                    one[0] = part == 0 ? LandMath.Tint(LandStyle.Wages, WallWagesAlpha)
                         : part == 1 ? LandMath.Tint(WallUpkeepColor, WallUpkeepAlpha) : LandMath.Tint(hue, WallOwnersAlpha);
                     float intensity = LandStyle.CardIntensity * (part == 0 ? WallWagesIntensity : part == 1 ? WallUpkeepIntensity : WallOwnersIntensity);
                     c.Fills.AddBand(a, b, one, EconomyIds.IndustryPart(i, part), intensity);
@@ -220,7 +220,7 @@ namespace Why.Economy.Layers
                 outline.Add(p1 + half);
                 outline.Add(p0 + half);
                 outline.Add(p0 - half);
-                c.Lines.AddPolyline(outline, LandMath.Tint(hue, CardEdgeAlpha), CardEdgePx, 0,
+                c.Lines.AddPolyline(outline, LandMath.Tint(LandStyle.TierTint(inds[i].TierIndex), CardEdgeAlpha), CardEdgePx, 0,
                     EconomyIds.IndustryPart(i, EconomyIds.PartEdge), LandStyle.CardIntensity);
             }
 
@@ -377,10 +377,10 @@ namespace Why.Economy.Layers
                     Beta = LandMath.DeltaDeg(90f, land.RingOffset[t]),
                     VwCard = -0.5f + bar.Wages, VuCard = -0.5f + bar.Wages + bar.Upkeep, VwLin = -0.5f + fw, VuLin = -0.5f + fu,
                     VwArea = (s.RWages - rMid) / Mathf.Max(1e-6f, w), VuArea = (s.RUpkeep - rMid) / Mathf.Max(1e-6f, w),
-                    WagesA = LandMath.Tint(hue, WallWagesAlpha), UpkeepA = LandMath.Tint(WallUpkeepColor, WallUpkeepAlpha),
+                    WagesA = LandMath.Tint(LandStyle.Wages, WallWagesAlpha), UpkeepA = LandMath.Tint(WallUpkeepColor, WallUpkeepAlpha),
                     OwnersA = LandMath.Tint(hue, WallOwnersAlpha), WagesB = LandMath.Tint(LandStyle.Wages, LandStyle.WagesAlpha),
                     UpkeepB = LandMath.Tint(Steel, LandStyle.UpkeepAlpha), OwnersB = LandMath.Tint(hue, LandStyle.OwnersAlpha),
-                    Edge = LandMath.Tint(hue, TileEdgeAlpha),
+                    Edge = LandMath.Tint(LandStyle.TierTint(t), TileEdgeAlpha),
                     IWagesA = LandStyle.CardIntensity * WallWagesIntensity, IUpkeepA = LandStyle.CardIntensity * WallUpkeepIntensity,
                     IOwnersA = LandStyle.CardIntensity * WallOwnersIntensity, IOwnersB = LandStyle.OwnersIntensity * TierIntensity[t] / TierIntensity[2]
                 });

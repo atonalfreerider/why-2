@@ -109,7 +109,7 @@ namespace Why.Economy
                 OnLand(land, new ViewPreset
                 {
                     Id = "capture", Title = "Where value is captured",
-                    Subtitle = "Profit rises into the crown; the companies that capture the most",
+                    Subtitle = "Owners' payouts (dividends, rent, interest) rise into the crown; the companies that capture the most",
                     Key = KeyCode.Alpha4, Pitch = portrait ? CapturePortraitPitch : 20, Distance = 12, PortraitWidth = 12.5f
                 }, portrait ? new Vector3(0, 1.4f, 1.0f) : new Vector3(0, 1.6f, 2.0f), portrait ? 0 : -12),
                 OnLand(land, new ViewPreset
@@ -126,7 +126,7 @@ namespace Why.Economy
                 OnLand(land, new ViewPreset
                 {
                     Id = "mind", Title = "Desire, fear and fantasy",
-                    Subtitle = "Many buy fantasy; few control their path",
+                    Subtitle = "Fantasy is everyone's; reason and capital set the few in control apart",
                     Key = KeyCode.Alpha7, Pitch = portrait ? RaisedPortraitPitch : 18, Distance = 13, PortraitWidth = 13
                 }, new Vector3(0, 2.0f, -0.6f), 0),
                 OnLand(land, new ViewPreset

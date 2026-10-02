@@ -57,7 +57,7 @@ namespace Why.Economy
         static readonly float[][] Table =
         {
             //            overview section landscape roots capture people rivers mind society betrayal y1972
-            new[] { 1f, 1f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },   // Road
+            new[] { 1f, .3f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },  // Road (section .3: the camera stands in the lifelines)
             new[] { 1f, 1f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f },            // Cut
             new[] { .8f, 0f, 1f, .35f, .32f, .35f, .4f, .25f, .2f, .2f, 1f },         // Terraces
             new[] { .8f, 0f, 1f, .45f, 1f, .35f, .25f, .2f, .12f, .12f, 1f },         // Sectors
@@ -70,7 +70,7 @@ namespace Why.Economy
             new[] { .3f, 0f, .2f, .05f, .25f, 1f, .15f, 1f, .3f, .3f, .2f },          // Dots
             new[] { .15f, 0f, .05f, 0f, .05f, .3f, .05f, 1f, .03f, .03f, .05f },      // Mirages
             new[] { .1f, 0f, .05f, .03f, .1f, 1f, .04f, .05f, .02f, .02f, .05f },     // Income
-            new[] { .15f, 0f, .05f, .03f, 1f, .4f, .04f, .05f, .02f, .02f, .05f },    // CapitalFlows
+            new[] { .15f, 0f, .05f, .03f, .6f, .4f, .04f, .05f, .02f, .02f, .05f },   // CapitalFlows (capture .6: the towers first)
             new[] { .4f, 0f, .15f, .05f, .1f, .15f, 1f, .5f, .06f, .06f, .15f },      // Rivers
             new[] { .2f, 0f, .05f, 0f, .05f, .05f, 1f, .8f, .03f, .03f, .05f },       // Glitter
             new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f },       // Taxes
@@ -113,7 +113,7 @@ namespace Why.Economy
             d["overview"].HideRoadLabels = false;
             d["overview"].Labels = new[] { LandGroup.Terraces, LandGroup.Cut };
             d["section"].MorphTarget = 0;
-            d["section"].HideRoadLabels = false;
+            d["section"].HideRoadLabels = true;   // the wall's industry labels would fall on the card's bars
             d["section"].Labels = new[] { LandGroup.Cut };
             d["landscape"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
             d["y1972"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };

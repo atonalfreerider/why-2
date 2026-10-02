@@ -89,7 +89,9 @@ namespace Why.Economy.Layers
             {
                 Industry ind = data.Industries[i];
                 Color hue = EconomyStyle.Level(ind.Level);
-                AddPart(wall, i, c => c.Lo[i], c => c.Upkeep[i], Tint(hue, WagesAlpha), WagesIntensity,
+                // wages are the people's (light blue, as on the land's sectors); only the owners' part takes the level's hue
+                // (gold for capital, red / green for raw matter and life, steel for government)
+                AddPart(wall, i, c => c.Lo[i], c => c.Upkeep[i], Tint(Land.LandStyle.Wages, WagesAlpha), WagesIntensity,
                     EconomyIds.IndustryPart(i, EconomyIds.PartWages), a, b, colors);
                 AddPart(wall, i, c => c.Upkeep[i], c => c.Owners[i], Tint(UpkeepColor, UpkeepAlpha), UpkeepIntensity,
                     EconomyIds.IndustryPart(i, EconomyIds.PartUpkeep), a, b, colors);
@@ -123,7 +125,7 @@ namespace Why.Economy.Layers
             {
                 bool tierTop = i == inds.Count - 1 || inds[i + 1].TierIndex != inds[i].TierIndex;
                 bool wallTop = i == inds.Count - 1;
-                Color hue = wallTop ? EconomyStyle.Capital : EconomyStyle.Level(inds[i].Level);
+                Color hue = wallTop ? EconomyStyle.Capital : Land.LandStyle.TierTint(inds[i].TierIndex);
                 Color32 color = Tint(hue, wallTop ? 0.85f : tierTop ? 0.55f : 0.28f);
                 float width = wallTop ? 1.8f : tierTop ? 1.3f : 0.7f;
                 float intensity = wallTop ? 1.8f : tierTop ? 1.1f : 0.8f;

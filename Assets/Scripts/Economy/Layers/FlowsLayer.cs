@@ -63,7 +63,14 @@ namespace Why.Economy.Layers
         };
 
         /// <summary>Arcs: alpha and intensity of wage, transfer and gold arcs; the tower dot's size (px) and length (u).</summary>
-        const float ArcAlpha = 0.5f, ArcIntensity = 1.2f, GoldIntensity = 1.5f, TowerDotPx = 4f, TowerDotLength = 0.012f;
+        const float ArcAlpha = 0.5f, ArcIntensity = 0.85f, GoldIntensity = 1.5f, TowerDotPx = 4f, TowerDotLength = 0.012f;
+
+        /// <summary>
+        /// Wage arcs: a deeper blue than the wage strips (LandStyle.Wages). Hundreds of per-player arcs in the people view,
+        /// in the strips' light blue at the old intensity (1.2), bloomed into white and could not be told from the steel
+        /// transfers; income arcs now stay under the bloom threshold (<see cref="ArcIntensity"/>).
+        /// </summary>
+        static readonly Color WageArc = new Color(0.22f, 0.50f, 1.0f);
 
         /// <summary>Patches: the border's alpha and width.</summary>
         const float PatchBorderAlpha = 0.45f, PatchBorderPx = 1f;
@@ -460,8 +467,21 @@ namespace Why.Economy.Layers
 
             if (wanted.Blocking)
             {
-                Built b = Build(wanted, model.Data, frame);
+                // cleared first: a build that throws must not be retried every frame (that would stop every later layer)
+                LandSnapshot w = wanted;
                 wanted = null;
+                Built b;
+                try
+                {
+                    b = Build(w, model.Data, frame);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[Why] FlowsLayer: a blocking rebuild failed: " + e);
+                    LandService.ReportReady(ReadyName, w.Version);
+                    return;
+                }
+
                 Swap(b);
                 return;
             }
@@ -810,7 +830,7 @@ namespace Why.Economy.Layers
             {
                 case FlowKind.Wages:
                 case FlowKind.WagesCompany:
-                    return LandStyle.Wages;
+                    return WageArc;
                 case FlowKind.Transfers: return EconomyStyle.Government;
                 default: return EconomyStyle.Capital;
             }
@@ -1596,7 +1616,11 @@ namespace Why.Economy.Layers
 
                 if (biggest == null) continue;
                 Vector3 mid = biggest.Points[biggest.Points.Length / 2];
-                b.Anchors.Add(Anchor("land:flow:" + id, name, year + ": " + name.ToLowerInvariant() + " " + LandFacts.Money(dollars) + " a year" + FlowNote(kind) + DrawnNote(kind) + ".",
+                string crown = (kind == FlowKind.Capital || kind == FlowKind.Saving) && b.CrownLoopDollars > 0
+                    ? "; the capital-only 1% stand on the crown, so their own capital income and saving (" +
+                      LandFacts.Money(b.CrownLoopDollars) + " together) start and end there and are not drawn"
+                    : "";
+                b.Anchors.Add(Anchor("land:flow:" + id, name, year + ": " + name.ToLowerInvariant() + " " + LandFacts.Money(dollars) + " a year" + FlowNote(kind) + DrawnNote(kind) + crown + ".",
                     mid, IdRange.Empty, frame, 3));
             }
         }

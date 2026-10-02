@@ -136,8 +136,41 @@ namespace Why.Economy.Layers
         /// <summary>The root's default flight to a focused preset (s), for the backstop below.</summary>
         const float FocusSeconds = 2.2f;
 
+        /// <summary>Whether the director's tour was running at the last focus or frame (its rising edge resets the state).</summary>
+        bool inTour;
+
+        /// <summary>
+        /// The tour narrates the default year (2025) with the default season and nothing selected: its texts quote that
+        /// year's numbers and its anchors are resolved when the scene loads. So the viewer's own year, social settings,
+        /// selection and inspected person give way when a tour starts (they are not restored after it).
+        /// </summary>
+        void EnterTour()
+        {
+            storedYear = -1;
+            EconomyState.SetSelection(-1, -1, -1);
+            EconomyState.SetPerson(-1);
+            EconomyState.SetPreviewYear(-1);
+            SocialSettings defaults = EconomyState.DefaultSocial();
+            if (!Same(EconomyState.Social, defaults))
+            {
+                EconomyState.SetSocial(defaults);
+                requestedSocial = defaults;
+                LandService.RequestSociety(defaults, false);
+            }
+
+            int year = EconomyState.DefaultYear(EconomyState.MaxYear);
+            if (EconomyState.Year != year) ShowYear(year);
+            seenState = EconomyState.Version;
+        }
+
         public override void OnFocus(ViewPreset preset)
         {
+            if (root != null && root.TourActive && !inTour)
+            {
+                inTour = true;
+                EnterTour();
+            }
+
             // backstop: a preset object held since an older catalog (a copy) flies to the current pose instead
             if (Freshen(preset) && preset.FixedTarget.HasValue && root != null && root.Rig != null)
             {
@@ -180,6 +213,13 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             LandView.Advance(Mathf.Min(MaxStep, Time.unscaledDeltaTime), frozenMorph);
+            if (inTour && (root == null || !root.TourActive)) inTour = false;
+            else if (!inTour && root != null && root.TourActive)
+            {
+                // the tour began without a focus this frame (its title card): reset now
+                inTour = true;
+                EnterTour();
+            }
             if (EconomyState.Version != seenState)
             {
                 // the viewer changed the year (keys, the chip, a click) or the season's settings: build on a worker

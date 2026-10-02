@@ -10,8 +10,10 @@ namespace Why.Lens
     /// the lens makes any period of history examinable at any scale.
     ///
     /// U = unroll here / roll back up, [ and ] = wider / narrower window, L = cycle log / mixed / linear.
+    /// The causality graph only: the economy scene keeps one lens window for every view (EconomyStage), and its cut
+    /// and land are placed in that window.
     /// </summary>
-    [GraphScenes(GraphScene.Why, GraphScene.Economy)]
+    [GraphScenes(GraphScene.Why)]
     public sealed class LensController : GraphModule
     {
         /// <summary>Log offset as a fraction of the window's geometric center: small = log, large = linear.</summary>

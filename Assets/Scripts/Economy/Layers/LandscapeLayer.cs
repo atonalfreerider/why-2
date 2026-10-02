@@ -509,6 +509,7 @@ namespace Why.Economy.Layers
                 if (s.Spec.Hidden) continue;
                 if (s.Variants != null) changed |= PlaceSector(cam, s);   // sectors and roots
                 else if (s.TierStack >= 0) Keep(LabelRect(cam, s.Spec, s.Spec.Text, s.Spec.PixelOffset, s.Spec.Align, out Rect r), r, s.Spec.Align);
+                else if (s.Tower >= 0) changed |= PlaceTower(cam, s);
                 else changed |= KeepInFrame(cam, s);
             }
 
@@ -657,6 +658,42 @@ namespace Why.Economy.Layers
             if ((s.Spec.PixelOffset - offset).sqrMagnitude <= 0.01f) return false;
             s.Spec.PixelOffset = offset;
             return true;
+        }
+
+        /// <summary>Line steps a tower's label tries above its top (then one below), so neighbouring towers' labels stack.</summary>
+        static readonly int[] TowerSteps = { 0, 1, 2, 3, -1, 4 };
+
+        /// <summary>
+        /// A tower's label: the towers of a ring stand close together (Apple beside NVIDIA on hardware's plinth), so a label
+        /// that would cover one kept before steps up a line at a time (<see cref="TowerSteps"/>), shifted sideways into the
+        /// frame; when no step is clear it stays at the top and the label system drops it.
+        /// </summary>
+        bool PlaceTower(Camera cam, Slot s)
+        {
+            float scale = LabelSystem.UiScale, h = s.Spec.SizePx * scale * LineEm + 2 * labels.Padding;
+            foreach (int k in TowerSteps)
+            {
+                Vector2 step = new Vector2(0, k * h / scale);
+                if (!LabelRect(cam, s.Spec, s.Spec.Text, s.Offset + step, s.Spec.Align, out Rect r)) return false;
+                bool visible = r.xMax > 0 && r.xMin < Screen.width && r.yMax > 0 && r.yMin < Screen.height;
+                if (!visible) break;
+                float dx = 0, lo = FrameMarginPx, hi = Screen.width - FrameMarginPx;
+                if (r.width <= hi - lo)
+                {
+                    if (r.xMin < lo) dx = lo - r.xMin;
+                    else if (r.xMax > hi) dx = hi - r.xMax;
+                }
+
+                r.x += dx;
+                if (Overlaps(drawnRects, Drawn(r, s.Spec.Align))) continue;
+                Keep(true, r, s.Spec.Align);
+                Vector2 offset = s.Offset + step + new Vector2(dx / scale, 0);
+                if ((s.Spec.PixelOffset - offset).sqrMagnitude <= 0.01f) return false;
+                s.Spec.PixelOffset = offset;
+                return true;
+            }
+
+            return KeepInFrame(cam, s);
         }
 
         /// <summary>
@@ -856,7 +893,22 @@ namespace Why.Economy.Layers
             }
 
             EconomyData data = model.Data;
-            if (s.Blocking) Show(prebuilt != null ? prebuilt.GetAwaiter().GetResult() : Build(data, s), true);
+            if (s.Blocking)
+            {
+                Content c;
+                try
+                {
+                    c = prebuilt != null ? prebuilt.GetAwaiter().GetResult() : Build(data, s);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[Why] LandscapeLayer: a blocking rebuild failed: " + e);
+                    LandService.ReportReady(ReadyName, s.Version);
+                    return;
+                }
+
+                Show(c, true);
+            }
             else building = Task.Run(() => Build(data, s));
         }
 
@@ -1714,16 +1766,31 @@ namespace Why.Economy.Layers
                     : co.Name + " · " + LandFacts.Money(co.MarketCap) + " · profit " + LandFacts.Money(co.NetIncome) + " on " +
                       LandFacts.Money(co.Revenue) + " (" + LandFacts.Percent(co.Revenue > 0 ? co.NetIncome / co.Revenue : 0) + ")";
                 StringBuilder blurb = new StringBuilder(text);
-                blurb.Append(". Profits earned worldwide; the sector is US value added.");
+                blurb.Append(priv
+                    ? ". Private: drawn as an outline at its valuation, with no public accounts to size it."
+                    : ". Profits are earned worldwide; the sector it stands on is US value added.");
+                if (co.UsEmployees > 0)
+                {
+                    // thousands in the data; "≈" marks a recalled count (no 10-K figure found)
+                    blurb.Append(" US employees ").Append(co.UsEmployeesRecalled ? "≈ " : "")
+                        .Append(co.UsEmployees >= 1000
+                            ? LandFacts.Num(co.UsEmployees / 1000, 1) + "M"
+                            : LandFacts.Num(co.UsEmployees, co.UsEmployees < 10 ? 1 : 0) + "K")
+                        .Append(co.UsEmployeesRecalled ? " (recalled)." : " (" + co.UsEmployeesBasis + ").");
+                }
+
                 if (t != null && ind != null && money != null)
                 {
                     SectorGeom s = land.Sectors[ind.Index];
                     double inflow = money.PoolInflow[ind.Index];
                     if (s.ValueAdded > 0 && inflow / s.ValueAdded < 0.4)
                     {
-                        blurb.Append(' ').Append(co.Name).Append(' ').Append(LandFacts.Money(co.MarketCap)).Append(" · households pay ")
-                            .Append(Lower(ShortName(ind))).Append(' ').Append(LandFacts.Money(inflow))
-                            .Append(" directly: it is paid by advertisers and other industries, along the roots.");
+                        bool attention = ind.Id == "internet" || ind.Id == "media_telecom";
+                        blurb.Append(" Households pay ").Append(Lower(ShortName(ind))).Append(' ').Append(LandFacts.Money(inflow))
+                            .Append(" directly, ").Append(LandFacts.Percent(inflow / s.ValueAdded)).Append(" of its value added: ")
+                            .Append(attention
+                                ? "it is paid mostly by advertisers and other industries, along the roots."
+                                : "it sells mostly to other industries, to investment and abroad, along the roots.");
                     }
                 }
 
@@ -1731,7 +1798,10 @@ namespace Why.Economy.Layers
                 Vector3 foot = t != null ? LandFrame.Polar(t.R, t.Theta, t.BaseY) : Vector3.zero;
                 c.Items.Add(new Item
                 {
-                    Key = key, Name = co.Name, Group = LandGroup.Towers, Text = text, Blurb = blurb.ToString(), Tower = k,
+                    // the label is the name and the value (the towers stand close together on the tech ring; long labels
+                    // collided and dropped Apple, Microsoft and Alphabet); profit and margin are in the hover text
+                    Key = key, Name = co.Name, Group = LandGroup.Towers,
+                    Text = co.Name + " · " + (priv ? "private" : LandFacts.Money(co.MarketCap)), Blurb = blurb.ToString(), Tower = k,
                     Label = t != null ? foot + new Vector3(0, t.Height + TowerLabelLift, 0) : Vector3.zero,
                     Anchor = t != null ? foot + new Vector3(0, 0.5f * t.Height, 0) : Vector3.zero,
                     Ids = IdRange.Single(EconomyIds.LandTower(k)), Priority = 15 + 3 * (float)(co.MarketCap / 1000), Present = t != null,

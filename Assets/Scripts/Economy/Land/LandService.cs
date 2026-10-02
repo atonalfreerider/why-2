@@ -19,7 +19,8 @@ namespace Why.Economy.Land
     /// </summary>
     public static class LandService
     {
-        public const string SharedKey = "economy.land";   // the first snapshot, for Prepare of tier-5 layers
+        /// <summary>Shared key of the first snapshot (LandModelLayer, tier 4), read in Prepare by the tier-5 land layers.</summary>
+        public const string SharedKey = "economy.land";
 
         static readonly object Gate = new object();
         static readonly List<LandSnapshot> cache = new List<LandSnapshot>(LandStyle.CacheYears);   // most recent last
@@ -29,7 +30,11 @@ namespace Why.Economy.Land
         static SmvPopulation pop;
 
         // asynchronous builds (main thread state; the task only returns its snapshot)
-        static Task<LandSnapshot> yearTask, societyTask, betrayalTask;
+        static Task<LandSnapshot> yearTask, societyTask;
+
+        /// <summary>The betrayal season being built on a worker, for the snapshot version <see cref="betrayalFor"/>; the
+        /// main thread stores the finished result (<see cref="Tick"/>), so no worker writes a published snapshot.</summary>
+        static Task<SocialSeasonResult> betrayalTask;
         static int wantedYear = -1;
         static SocialSettings wantedSettings;   // written under Gate (main thread, Init); other threads read it under Gate
         static bool societyPending;
@@ -66,7 +71,8 @@ namespace Why.Economy.Land
                 cache.Clear();
                 layers.Clear();
                 ready.Clear();
-                yearTask = societyTask = betrayalTask = null;
+                yearTask = societyTask = null;
+                betrayalTask = null;
                 wantedYear = -1;
                 societyPending = false;
                 betrayalFor = -1;
@@ -276,11 +282,7 @@ namespace Why.Economy.Land
             {
                 betrayalFor = s.Version;
                 EconomyModel economy = model;
-                betrayalTask = Task.Run(() =>
-                {
-                    s.Betrayal = BuildBetrayal(economy, s);
-                    return s;
-                });
+                betrayalTask = Task.Run(() => BuildBetrayal(economy, s));
             }
 
             return null;
@@ -331,7 +333,10 @@ namespace Why.Economy.Land
 
             if (betrayalTask != null && betrayalTask.IsCompleted)
             {
-                Take(ref betrayalTask);
+                Task<SocialSeasonResult> t = betrayalTask;
+                betrayalTask = null;
+                if (t.IsFaulted) Debug.LogError("[Why] LandService: the betrayal season failed: " + t.Exception?.GetBaseException());
+                else if (Current != null && Current.Version == betrayalFor && Current.Betrayal == null) Current.Betrayal = t.Result;
             }
         }
 

@@ -153,6 +153,7 @@ namespace Why.Economy.Land
         /// <summary>Party label and the members' party shares.</summary>
         public char Tribe;                                              // 'D', 'R', 'I', 'M'
 
+        /// <summary>The adults' party shares: Democrat, Republican, independent.</summary>
         public readonly float[] TribeShares = new float[3];             // D, R, I
 
         /// <summary>The adults' generation shares.</summary>
@@ -170,6 +171,7 @@ namespace Why.Economy.Land
         /// <summary>Spending by the six categories, and its fear and fantasy dollars.</summary>
         public readonly double[] Category = new double[6];             // necessities, escapism, jeopardy, status, growth, collective
 
+        /// <summary>Of each category's dollars, those spent moving away from a fear, and those that buy a fantasy ($B).</summary>
         public readonly double[] CategoryFear = new double[6], CategoryFantasy = new double[6];
 
         /// <summary>The adults' means: the mind (6), in-control share, married and with-children shares, age.</summary>
@@ -336,11 +338,15 @@ namespace Why.Economy.Land
         /// <summary>Year, the publication's version (LandService.Version) and whether it was built blocking (by a preset).</summary>
         public int Year, Version; public bool Blocking;
 
+        /// <summary>The bowl's geometry, the players and the money of the year.</summary>
         public LandGeometry Land; public PlayerSet Players; public MoneyFlows Money;
 
-        public SocialSeasonResult Society, Betrayal;                     // Betrayal: lazy
+        /// <summary>The year's season of tit for tat, and the same season with the round-48 betrayal (computed lazily by
+        /// LandService.Betrayal; null until then).</summary>
+        public SocialSeasonResult Society, Betrayal;
 
-        public CircuitYear Circuit;                                      // MoneyCircuit.Build(Year)
+        /// <summary>The year's national accounts (MoneyCircuit.Build(Year)), for totals and labels.</summary>
+        public CircuitYear Circuit;
 
         /// <summary>The checks of every builder on one line (8.8).</summary>
         public string ChecksLine;

@@ -10,6 +10,7 @@ namespace Why.Economy.Land
     /// </summary>
     public static class LandFacts
     {
+        /// <summary>The culture of every number in the land's text.</summary>
         public static readonly CultureInfo Ci = CultureInfo.InvariantCulture;
 
         /// <summary>Two numbers within this relative band read as "about the same".</summary>

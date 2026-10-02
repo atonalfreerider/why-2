@@ -14,9 +14,10 @@ namespace Why.Economy.Land
     /// </summary>
     public readonly struct LandFrame
     {
-        /// <summary>The bowl's center (world, y = 0) and the frame's rotation.</summary>
+        /// <summary>The bowl's center (world, y = 0).</summary>
         public readonly Vector3 Origin;
 
+        /// <summary>The frame's rotation: local +z along the road (away from the past), +y up.</summary>
         public readonly Quaternion Rotation;
 
         public LandFrame(Vector3 origin, Quaternion rotation)

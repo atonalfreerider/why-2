@@ -97,29 +97,32 @@ namespace Why.Director
             return script.Steps.Count > 0;
         }
 
-        /// <summary>The economy scene's short tour, used when Data/economy/tour.json is unavailable.</summary>
+        /// <summary>
+        /// The economy scene's short tour, used when Data/economy/tour.json is unavailable: steps 1, 3, 5, 7 and 9 of the
+        /// full tour (the road, the land, capture, the rivers, the society; numbers that need the log are left out).
+        /// </summary>
         static TourScript EconomyBuiltIn()
         {
             return new TourScript
             {
-                Title = "The economy: where money goes, and why",
+                Title = "The economy: one year opened into a land",
                 Steps = new List<TourStep>
                 {
-                    Step("welcome", "overview", "now", 10, "Money, people and the things they fear and want",
-                        "Blue lines are people in the United States since 1950, rising and falling with their social " +
-                        "market value. Beneath them stands the wall of industries that pays them; money flows both ways."),
-                    Step("created", "industries", null, 12, "Where value is created",
-                        "Each band is an industry, as tall as the value it adds each year. The bright part of a band " +
-                        "is what its owners keep; the rest pays the people who work in it."),
-                    Step("circuit", "circuit", null, 12, "The circuit",
-                        "Industries pay wages, profits and taxes; households spend what they get back into industries. " +
-                        "Follow the money around once."),
-                    Step("mind", "mind", null, 12, "Desire and fear",
-                        "Every purchase moves toward something wanted or away from something feared. Most money goes to " +
-                        "the present; few minds spend on a future they control."),
-                    Step("games", "games", null, 12, "Cooperation",
-                        "One round of the prisoner's dilemma ends in defection. Meet again and again, and cooperation " +
-                        "can climb, as long as someone forgives."),
+                    Step("road", "overview", "smv:us", 12, "The road of time",
+                        "Time runs along the road: lines of 100,000 people above the wall of 25 industries. At the road's " +
+                        "end, one year opens into a land."),
+                    Step("land", "landscape", "land:tier:services", 12, "Where value is created",
+                        "The cut lies back and curls into a bowl: government is the floor, tech the highest terrace, the " +
+                        "people on the rim. Each industry's area is the value it adds."),
+                    Step("capture", "capture", "land:tower:NVDA", 12, "Where value is captured",
+                        "Gold is what owners keep. Payouts rise into the crown and fall on those who own. The towers are " +
+                        "the most valuable companies."),
+                    Step("rivers", "rivers", "land:river:jeopardy", 12, "Where the money goes",
+                        "Spending runs down into the industries that are paid. Ice is money spent away from fear, rose is " +
+                        "money spent toward desire, glitter is fantasy."),
+                    Step("society", "society", "land:coalition:1", 12, "How people organize",
+                        "Tit for tat: strangers open warily; forgiveness lets cooperation climb. Coalitions form along " +
+                        "the land, not along party."),
                 }
             };
         }

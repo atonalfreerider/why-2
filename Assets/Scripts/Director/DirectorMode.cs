@@ -72,8 +72,8 @@ namespace Why.Director
         /// <summary>Our lineage through the three levels, lit on the end card.</summary>
         static readonly string[] LineageKeys = { "matter:_lineage", "clade:_lineage", "civ:_lineage" };
 
-        /// <summary>What glows on the economy tour's end card: the owners' lines and the circuit.</summary>
-        static readonly string[] EconomyEndKeys = { "people:owners", "circuit:loop" };
+        /// <summary>What glows on the economy tour's end card: the players who own (the 1% and business owners) and the crown.</summary>
+        static readonly string[] EconomyEndKeys = { "land:owners", "land:crown" };
 
         GraphRoot root;
         Canvas canvas;
@@ -436,7 +436,7 @@ namespace Why.Director
 
             bool economy = GraphScene.IsEconomy;
             string lit = lineage.Count == 0 ? ""
-                : economy ? "The glowing lines own capital: the few who steer their own path. "
+                : economy ? "The glowing players own capital: the few who steer their own path. "
                 : "The glowing path is the chain of causes that led to you. ";
             panel.Present(new PanelContent
             {
@@ -446,8 +446,8 @@ namespace Why.Director
                     : "This moment is the result of everything before it.",
                 Body = lit + (economy
                     ? "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to change the " +
-                      "view. Click a lifeline to look inside one person; comma and period change the year of the " +
-                      "circuit and the mind map. H lists every control; T takes the tour again."
+                      "view. Comma and period change the year the land opens; click a player or a lifeline to look " +
+                      "inside it. H lists every control; T takes the tour again."
                     : "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to " +
                       "re-scale. U unrolls the clock where you look ([ and ] widen or narrow the window, L " +
                       "switches between log and linear time). H lists every control; T takes the tour again."),

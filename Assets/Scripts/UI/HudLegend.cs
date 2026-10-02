@@ -14,7 +14,12 @@ namespace Why.UI
     {
         const string Grammar = "around: time (log clock)  |  up: hierarchy  |  inward: relevance to us";
 
-        const string EconomyGrammar = "along: time  |  wall: value added by industry  |  lines: people, height = social value";
+        /// <summary>The economy's grammar line (SPEC 7.6): the road is time, the land is one year.</summary>
+        const string EconomyGrammar =
+            "Road: time  \u00B7  Land: one year  \u00B7  area = value\nwidth = money a year  \u00B7  height = market value  \u00B7  dots: 100,000 people each";
+
+        /// <summary>Space between the economy's six swatches (tighter than the three levels', so the row fits a phone).</summary>
+        const float EconomyItemGap = 13f;
         const float SwatchSize = 10f;
         const float SwatchGap = 7f;
         const float ItemGap = 22f;
@@ -48,11 +53,13 @@ namespace Why.UI
             bool economy = GraphScene.IsEconomy;
             if (economy)
             {
-                // the economy's hues: capital, people, and the two motives money is spent with
+                // the economy's hues: capital, people, the two motives money is spent with, the state, fantasy
                 x = Swatch("Capital", Why.Economy.EconomyStyle.Capital, x, rowHeight);
-                x = Swatch("People", GraphStyle.Humans, x + ItemGap, rowHeight);
-                x = Swatch("Desire", Why.Economy.EconomyStyle.Desire, x + ItemGap, rowHeight);
-                x = Swatch("Fear", Why.Economy.EconomyStyle.Fear, x + ItemGap, rowHeight);
+                x = Swatch("People", GraphStyle.Humans, x + EconomyItemGap, rowHeight);
+                x = Swatch("Desire", Why.Economy.EconomyStyle.Desire, x + EconomyItemGap, rowHeight);
+                x = Swatch("Fear", Why.Economy.EconomyStyle.Fear, x + EconomyItemGap, rowHeight);
+                x = Swatch("State", Why.Economy.EconomyStyle.State, x + EconomyItemGap, rowHeight);
+                x = Swatch("Fantasy", Why.Economy.EconomyStyle.Fantasy, x + EconomyItemGap, rowHeight);
             }
             else
             {

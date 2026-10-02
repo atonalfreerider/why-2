@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
@@ -18,9 +19,11 @@ namespace Why.Economy.UI
     /// next round (<see cref="EconomyState.QueueIncident"/>); and the generated readout of the round on screen
     /// ("Round 96 · cooperation 0.73 (opened at 0.33) · in-group 0.74 / out-group 0.73 · co-partisan 0.74 / cross 0.69 ·
     /// 4 coalitions") with the help line on why tit for tat wins.
-    /// <para>Landscape: a framed panel at the bottom-left, above the HUD's legend. Portrait: a bottom sheet over the
-    /// preset bar, at most <see cref="PortraitShare"/> of the height. The box it takes is <see cref="Occupied"/> (canvas
-    /// units, empty while hidden), for the economy UI's layout (WP5).</para>
+    /// <para>Landscape: a framed panel at the bottom-left, above the land legend and the HUD's legend
+    /// (<see cref="EconomyUiLayout.SocialBox"/>). Portrait: a bottom sheet covering the preset bar while it is up, at most
+    /// <see cref="EconomyUiLayout.SheetShare"/> of the height and never over the bowl, the help line included
+    /// (<see cref="EconomyUiLayout.SheetBox"/>). The box it takes is <see cref="Occupied"/> (canvas units, empty while
+    /// hidden), read by the economy UI's layout (<see cref="HudBlocks"/>).</para>
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class SocialPanel : GraphModule
@@ -31,9 +34,6 @@ namespace Why.Economy.UI
         /// <summary>Landscape width; rows, arrows, the name column; the readout's and the help's widths (reference pixels).</summary>
         const float LandscapeWidth = 380f, RowHeight = 26f, RowGap = 4f, ArrowWidth = 24f, NameWidth = 118f, TitleHeight = 18f,
             ButtonGap = 6f;
-
-        /// <summary>The portrait sheet takes at most this share of the screen's height (7.2: ≤ 38%).</summary>
-        const float PortraitShare = 0.38f;
 
         const float FadeSpeed = 4f;
 
@@ -85,7 +85,9 @@ namespace Why.Economy.UI
         int seenVersion = -1, seenRound = -1, laidOutVersion = -1;
         bool seenPlaying;
         SocialSeasonResult seenSeason;
-        Vector2 laidOutSize;
+        HudFrame laidOutFrame;
+        string loggedProblems = "";
+        readonly List<string> problems = new List<string>();
 
         public override void Init(GraphRoot graphRoot)
         {
@@ -253,7 +255,7 @@ namespace Why.Economy.UI
             if (show != fade.Shown)
             {
                 fade.Show(show);
-                if (show) laidOutVersion = -1;   // measure the texts again now that they are active
+                if (show) laidOutVersion = -1; // measure the texts again now that they are active
             }
 
             if (EconomyState.Version != seenVersion) Sync();
@@ -287,36 +289,49 @@ namespace Why.Economy.UI
                 return;
             }
 
-            Vector2 size = canvasRect.rect.size;
-            if (size == laidOutSize && laidOutVersion == ScreenLayout.Version) return;
-            if (laidOutVersion != ScreenLayout.Version) size = UiFactory.CanvasSize;
-            laidOutSize = canvasRect.rect.size;
+            // the frame without this panel's own box (it keeps clear of the others' and of the bowl)
+            HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
+            f.SocialPanel = UiBox.Empty;
+            if (laidOutVersion == ScreenLayout.Version && f.Near(laidOutFrame)) return;
             laidOutVersion = ScreenLayout.Version;
-            HudFrame f = hud.Measure(canvasRect, size);
-            Occupied = ScreenLayout.IsPortrait ? LayoutPortrait(f) : LayoutLandscape(f);
+            laidOutFrame = f;
+            bool portrait = f.Portrait;
+            if (portrait)
+            {
+                // a bottom sheet in the lower part of the frame (over the preset bar), never over the bowl: laid out wider
+                // by 1 / scale so it still spans the screen when it has to shrink into its room
+                float width = EconomyUiLayout.SheetLayoutWidth(f, 1);
+                float h = Content(width - 2 * HudKit.Pad, false);
+                float scale = EconomyUiLayout.SheetScale(f, EconomyControls.Occupied, h);
+                if (scale < 1)
+                {
+                    width = EconomyUiLayout.SheetLayoutWidth(f, scale);
+                    h = Content(width - 2 * HudKit.Pad, false);
+                }
+
+                Occupied = EconomyUiLayout.SheetBox(f, width, h, scale);
+                Apply(Occupied, width, h, scale);
+            }
+            else
+            {
+                float h = Content(LandscapeWidth - 2 * HudKit.Pad, true);
+                Occupied = EconomyUiLayout.SocialBox(f, LandscapeWidth, h, out float scale);
+                Apply(Occupied, LandscapeWidth, h, scale);
+            }
+
+            problems.Clear();
+            EconomyUiLayout.Check(f, "social panel", Occupied, problems, portrait);
+            string text = string.Join("; ", problems);
+            if (text == loggedProblems) return;
+            loggedProblems = text;
+            if (text.Length > 0) Debug.LogWarning("[Why] SocialPanel layout: " + text);
         }
 
-        /// <summary>One column at the bottom-left, above the HUD's legend (or the screen's bottom margin).</summary>
-        UiBox LayoutLandscape(HudFrame f)
+        /// <summary>Places the panel by its top-left corner at a box, its content laid out at width × height, drawn at a scale.</summary>
+        void Apply(UiBox box, float width, float height, float scale)
         {
-            float w = LandscapeWidth, inner = w - 2 * HudKit.Pad;
-            float h = Content(inner, true);
-            float bottom = !f.Legend.IsEmpty ? f.Legend.Y - f.Gap : f.Canvas.y - f.Margin;
-            if (!f.PresetBar.IsEmpty && f.PresetBar.OverlapsX(f.Margin, f.Margin + w)) bottom = Mathf.Min(bottom, f.PresetBar.Y - f.Gap);
-            float top = Mathf.Max(f.Margin, bottom - h);
-            panel.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(f.Margin, -top), new Vector2(w, h));
-            return new UiBox(f.Margin, top, w, h);
-        }
-
-        /// <summary>A full-width bottom sheet over the preset bar: the buttons, the five steppers two to a row, the readout.</summary>
-        UiBox LayoutPortrait(HudFrame f)
-        {
-            float m = f.Margin, w = Mathf.Max(200f, f.Canvas.x - 2 * m), inner = w - 2 * HudKit.Pad;
-            float h = Mathf.Min(Content(inner, false), PortraitShare * f.Canvas.y);
-            float bottom = !f.PresetBar.IsEmpty ? f.PresetBar.Y - f.Gap : f.Canvas.y - m - f.SafeBottom;
-            float top = Mathf.Max(m + f.SafeTop, bottom - h);
-            panel.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(m, -top), new Vector2(w, h));
-            return new UiBox(m, top, w, h);
+            panel.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(box.X, -box.Y), new Vector2(width, height));
+            panel.localScale = new Vector3(scale, scale, 1);
         }
 
         /// <summary>Places the panel's content in a column of the given inner width; returns the panel's height.</summary>
@@ -360,8 +375,7 @@ namespace Why.Economy.UI
 
             y += RowGap;
             y = Wrapped(readout, y, inner) + RowGap;
-            help.gameObject.SetActive(landscape);
-            if (landscape) y = Wrapped(help, y, inner);
+            y = Wrapped(help, y, inner);
             return y + HudKit.Pad - 2;
         }
 

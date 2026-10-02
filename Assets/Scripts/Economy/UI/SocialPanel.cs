@@ -89,9 +89,13 @@ namespace Why.Economy.UI
         string loggedProblems = "";
         readonly List<string> problems = new List<string>();
 
+        /// <summary>The portrait sheet's content height at a layout width (made once).</summary>
+        Func<float, float> sheetHeightAt;
+
         public override void Init(GraphRoot graphRoot)
         {
             root = graphRoot;
+            sheetHeightAt = w => Content(w - 2 * HudKit.Pad, false);
             Canvas canvas = UiFactory.CreateCanvas("SocialPanel", SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
             panel = HudKit.FramedPanel(canvasRect, "Social", 0.86f, true);
@@ -298,19 +302,12 @@ namespace Why.Economy.UI
             bool portrait = f.Portrait;
             if (portrait)
             {
-                // a bottom sheet in the lower part of the frame (over the preset bar), never over the bowl: laid out wider
-                // by 1 / scale so it still spans the screen when it has to shrink into its room
-                float width = EconomyUiLayout.SheetLayoutWidth(f, 1);
-                float h = Content(width - 2 * HudKit.Pad, false);
-                float scale = EconomyUiLayout.SheetScale(f, EconomyControls.Occupied, h);
-                if (scale < 1)
-                {
-                    width = EconomyUiLayout.SheetLayoutWidth(f, scale);
-                    h = Content(width - 2 * HudKit.Pad, false);
-                }
-
-                Occupied = EconomyUiLayout.SheetBox(f, width, h, scale);
-                Apply(Occupied, width, h, scale);
+                // a bottom sheet in the lower part of the frame (over the preset bar), never over the bowl (above it, under the
+                // title, where the bowl reaches low): laid out wider by 1 / scale so it still spans the screen when it shrinks
+                EconomyUiLayout.Placement p = EconomyUiLayout.SheetPlace(f, EconomyControls.Occupied, sheetHeightAt);
+                float h = Content(p.LayoutWidth - 2 * HudKit.Pad, false);
+                Occupied = p.Box;
+                Apply(Occupied, p.LayoutWidth, h, p.Scale);
             }
             else
             {

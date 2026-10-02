@@ -66,6 +66,12 @@ namespace Why.Economy.UI
         LandPickScene scene;
         CutPickScene cut;
         double[] rootDollars = Array.Empty<double>();
+
+        /// <summary>Per industry: its roots in and out (RootsModel.RootsOf), made on first use per snapshot.</summary>
+        List<int>[] rootsOf = Array.Empty<List<int>>();
+
+        /// <summary>A root's dollars (to keep the largest lit when not all fit), made once.</summary>
+        Func<int, double> rootDollar;
         int sceneVersion = -1, cutYear = int.MinValue, seenRig = -1;
         bool loaded, pressValid;
         Vector2 pressPosition, lastPointer = new Vector2(-1, -1);
@@ -74,7 +80,18 @@ namespace Why.Economy.UI
         string selectedKey;
         int selectionYear = -1, litSignature;
         IdRange litFirst = IdRange.Empty;
-        readonly List<IdRange> ranges = new List<IdRange>(8), scratch = new List<IdRange>(8);
+        readonly List<IdRange> ranges = new List<IdRange>(8), hoverRanges = new List<IdRange>(8), pinnedRanges = new List<IdRange>(8);
+
+        /// <summary>The hits whose ranges <see cref="hoverRanges"/> and <see cref="pinnedRanges"/> hold, and the land they were made for.</summary>
+        LandHit rangesHover = LandHit.None, rangesPinned = LandHit.None;
+
+        int hoverRangesLand = -1, pinnedRangesLand = -1;
+
+        /// <summary>The card's key (the tooltip compares keys by reference): a new one only when the hit or the land changes.</summary>
+        object cardKey = new object();
+
+        LandHit cardHit = LandHit.None;
+        int cardLand = -1;
 
         public override void Init(GraphRoot graphRoot)
         {
@@ -82,6 +99,7 @@ namespace Why.Economy.UI
             Canvas canvas = UiFactory.CreateCanvas("LandPicker", SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
             card = new HudTooltip(canvasRect);
+            rootDollar = k => k >= 0 && k < rootDollars.Length ? rootDollars[k] : 0;
         }
 
         public override void OnLoaded(GraphRoot graphRoot)
@@ -150,6 +168,8 @@ namespace Why.Economy.UI
                 {
                     if (r.Index >= 0 && r.Index < rootDollars.Length) rootDollars[r.Index] = r.Dollars;
                 }
+
+                rootsOf = new List<int>[model.Data.Industries.Count];
             }
 
             if (cutYear != EconomyState.CutYear && pop != null)
@@ -239,7 +259,10 @@ namespace Why.Economy.UI
             pinnedAt = pointer;
         }
 
-        static bool Same(LandHit a, LandHit b) => !a.IsNone && a.Kind == b.Kind && a.Index == b.Index && a.Person == b.Person;
+        static bool Same(LandHit a, LandHit b) => !a.IsNone && Equal(a, b);
+
+        /// <summary>The same thing (or both nothing): what a hit lights and its card depend on no more than this.</summary>
+        static bool Equal(LandHit a, LandHit b) => a.Kind == b.Kind && a.Index == b.Index && a.Person == b.Person;
 
         /// <summary>Focus: the camera flies closer to the thing clicked a second time.</summary>
         void Focus(LandHit h)
@@ -302,9 +325,26 @@ namespace Why.Economy.UI
         void Light()
         {
             LandSnapshot s = LandService.Current;
+            if (!Equal(hover, rangesHover) || hoverRangesLand != LandService.Version)
+            {
+                rangesHover = hover;
+                hoverRangesLand = LandService.Version;
+                RangesOf(hover, s, hoverRanges);
+            }
+
+            if (!Equal(pinned, rangesPinned) || pinnedRangesLand != LandService.Version)
+            {
+                rangesPinned = pinned;
+                pinnedRangesLand = LandService.Version;
+                RangesOf(pinned, s, pinnedRanges);
+            }
+
             ranges.Clear();
-            Add(hover, s);
-            if (!Same(pinned, hover)) Add(pinned, s);
+            foreach (IdRange r in hoverRanges) Add(r);
+            if (!Same(pinned, hover))
+            {
+                foreach (IdRange r in pinnedRanges) Add(r);
+            }
             int player = EconomyState.SelectedPlayer, tower = EconomyState.SelectedTower, tie = EconomyState.SelectedTie;
             if (player >= 0) Add(EconomyIds.LandPlayers(player, player));
             if (tower >= 0) Add(IdRange.Single(EconomyIds.LandTower(tower)));
@@ -330,8 +370,13 @@ namespace Why.Economy.UI
             OwnsHighlight = true;
         }
 
-        void Add(LandHit h, LandSnapshot s)
+        /// <summary>
+        /// What a hit lights (<see cref="LandPick.Ranges"/>), into <paramref name="into"/>: made when the hovered or pinned
+        /// thing or the land changes, not every frame (a sector's roots come from <see cref="RootsOf"/>).
+        /// </summary>
+        void RangesOf(LandHit h, LandSnapshot s, List<IdRange> into)
         {
+            into.Clear();
             if (h.IsNone) return;
             int line = -1;
             if ((h.Kind == PickKind.Dot || h.Kind == PickKind.CutDot) && pop?.Sim != null && h.Person >= 0 && h.Person < pop.Sim.People.Count)
@@ -339,11 +384,16 @@ namespace Why.Economy.UI
                 line = pop.Id(pop.Sim.People[h.Person]);
             }
 
-            List<int> roots = h.Kind == PickKind.Sector || h.Kind == PickKind.Pool || h.Kind == PickKind.CutBar
-                ? RootsModel.RootsOf(model.Data, h.Index)
-                : null;
-            LandPick.Ranges(h, s, roots, line, scratch, k => k < rootDollars.Length ? rootDollars[k] : 0);
-            foreach (IdRange r in scratch) Add(r);
+            List<int> roots = h.Kind == PickKind.Sector || h.Kind == PickKind.Pool || h.Kind == PickKind.CutBar ? RootsOf(h.Index) : null;
+            LandPick.Ranges(h, s, roots, line, into, rootDollar);
+        }
+
+        /// <summary>An industry's roots in and out, kept per snapshot.</summary>
+        List<int> RootsOf(int industry)
+        {
+            Prepare();
+            if (industry < 0 || industry >= rootsOf.Length) return null;
+            return rootsOf[industry] ??= RootsModel.RootsOf(model.Data, industry);
         }
 
         void Add(IdRange r)
@@ -400,6 +450,14 @@ namespace Why.Economy.UI
             string anchorKey = AnchorKey(h, s);
             if (anchorKey != null && Anchors.TryGet(anchorKey, out Anchor a))
             {
+                if (h.Kind == PickKind.Tower)
+                {
+                    // the tower's blurb, then who owns it (the ownership fan's line, 7.5)
+                    string owners = TowerFacts.Owners(s, model.Data, model.Lives, h.Index);
+                    card.Show(key, a.Label, HudKit.LevelName(a.Level).ToUpperInvariant(), owners.Length > 0 ? a.Blurb + "\n\n" + owners : a.Blurb);
+                    return;
+                }
+
                 card.ShowAnchor(key, a, a.Label);
                 return;
             }
@@ -419,14 +477,14 @@ namespace Why.Economy.UI
             }
         }
 
-        /// <summary>One boxed key per hit (the tooltip compares keys by reference): the hit's description.</summary>
-        string cardKeyText;
-
+        /// <summary>The card's key for a hit: the same object while the hit and the land stay the same.</summary>
         object CardKey(LandHit h)
         {
-            string text = h.Kind + ":" + h.Index + ":" + h.Person + ":" + LandService.Version;
-            if (text != cardKeyText) cardKeyText = text;
-            return cardKeyText;
+            if (Equal(h, cardHit) && cardLand == LandService.Version) return cardKey;
+            cardHit = h;
+            cardLand = LandService.Version;
+            cardKey = new object();
+            return cardKey;
         }
 
         /// <summary>The anchor a hit's card shows (the land layers register them with generated blurbs).</summary>

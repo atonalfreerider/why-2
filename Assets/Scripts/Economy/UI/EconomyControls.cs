@@ -101,7 +101,7 @@ namespace Why.Economy.UI
         string readoutLine = "";
 
         int readoutYear = int.MinValue, readoutLand = -1;
-        bool readoutCompact;
+        bool readoutCompact, readoutTowers;
         UiBox chipBox, readoutBox;
         string loggedProblems = "";
         readonly List<string> problems = new List<string>();
@@ -417,13 +417,15 @@ namespace Why.Economy.UI
 
             // the readout: one line, shorter on a portrait screen; measured while active (a hidden fade deactivates it,
             // and an inactive text may not measure), hidden again below when it has no place on this screen
-            if (readoutYear != EconomyState.Year || readoutCompact != f.Portrait || readoutLand != LandService.Version)
+            bool towers = YearFacts.TowersShown(root.CurrentPreset?.Id);
+            if (readoutYear != EconomyState.Year || readoutCompact != f.Portrait || readoutLand != LandService.Version || readoutTowers != towers)
             {
                 readoutYear = EconomyState.Year;
                 readoutCompact = f.Portrait;
                 readoutLand = LandService.Version;
+                readoutTowers = towers;
                 readoutLine = YearFacts.Line(model?.Lives, trust, LandService.Current, model?.Data, readoutYear, readoutCompact,
-                    UiFactory.Hex(GraphStyle.Text));
+                    UiFactory.Hex(GraphStyle.Text), towers);
             }
 
             if (readoutText.text != readoutLine) readoutText.text = readoutLine;

@@ -231,6 +231,110 @@ namespace Why.Economy.Land
         public readonly List<int> WaterLane = new List<int>();
         public readonly List<bool> WaterFall = new List<bool>();
 
+        /// <summary>
+        /// The scene on screen for one camera (<see cref="See"/>): every player's disc center, head and disc radius, every
+        /// water polyline's points, and the box around every tie's arc (its quadratic curve's three control points, which
+        /// bound it). Made by the first pick of a camera pose and reused by the picks that follow until the camera, the
+        /// land's frame or the screen changes: hovering with a still camera projects nothing again, and a pick far from a
+        /// tie skips its arc.
+        /// </summary>
+        public Vector2[] CenterPx = Array.Empty<Vector2>(), HeadPx = Array.Empty<Vector2>();
+
+        /// <summary>Per player: the disc's radius on screen (px) and whether its center and head are in front of the camera.</summary>
+        public float[] DiscRadiusPx = Array.Empty<float>();
+
+        public bool[] PlayerOnScreen = Array.Empty<bool>();
+
+        /// <summary>The water polylines' points on screen, flattened (<see cref="WaterFirst"/>), and whether each is in front.</summary>
+        public Vector2[] WaterPx = Array.Empty<Vector2>();
+
+        public bool[] WaterPxOk = Array.Empty<bool>();
+        public int[] WaterFirst = Array.Empty<int>();
+
+        /// <summary>Per pair of the season: the box of its arc on screen (x0, y0, x1, y1); NaN x0 when it cannot be bounded.</summary>
+        public Vector4[] TieBox = Array.Empty<Vector4>();
+
+        LandProjector seenCam;
+        LandFrame seenFrame;
+        SocialSeasonResult seenSeason;
+        bool seen;
+
+        /// <summary>
+        /// Projects the scene for a camera unless it already is (the same eye, rotation, field of view, screen and frame):
+        /// players, waters and the ties' boxes (see <see cref="CenterPx"/>). Main thread; allocates only when the snapshot's
+        /// sizes change.
+        /// </summary>
+        public void See(LandFrame frame, LandProjector cam)
+        {
+            SocialSeasonResult season = Snapshot?.Society;
+            if (seen && season == seenSeason && SameCamera(cam, seenCam) && frame.Origin == seenFrame.Origin && frame.Rotation == seenFrame.Rotation) return;
+            seen = true;
+            seenCam = cam;
+            seenFrame = frame;
+            seenSeason = season;
+
+            Player[] ps = Snapshot?.Players?.Players ?? Array.Empty<Player>();
+            if (CenterPx.Length != ps.Length)
+            {
+                CenterPx = new Vector2[ps.Length];
+                HeadPx = new Vector2[ps.Length];
+                DiscRadiusPx = new float[ps.Length];
+                PlayerOnScreen = new bool[ps.Length];
+            }
+
+            for (int pi = 0; pi < ps.Length; pi++)
+            {
+                Player p = ps[pi];
+                Vector3 c = Figure.Center(p);
+                bool ok = cam.Project(frame.World(c), out CenterPx[pi]) & cam.Project(frame.World(Figure.Head(p)), out HeadPx[pi]);
+                PlayerOnScreen[pi] = ok;
+                DiscRadiusPx[pi] = ok ? LandPick.DiscPx(p, c, frame, cam, CenterPx[pi]) : 0;
+            }
+
+            int points = 0;
+            foreach (Vector3[] w in Water) points += w.Length;
+            if (WaterPx.Length != points)
+            {
+                WaterPx = new Vector2[points];
+                WaterPxOk = new bool[points];
+            }
+
+            if (WaterFirst.Length != Water.Count + 1) WaterFirst = new int[Water.Count + 1];
+            int k = 0;
+            for (int w = 0; w < Water.Count; w++)
+            {
+                WaterFirst[w] = k;
+                foreach (Vector3 q in Water[w])
+                {
+                    WaterPxOk[k] = cam.Project(frame.World(q), out WaterPx[k]);
+                    k++;
+                }
+            }
+
+            WaterFirst[Water.Count] = k;
+
+            int pairs = season?.PairA?.Length ?? 0;
+            if (TieBox.Length != pairs) TieBox = new Vector4[pairs];
+            for (int t = 0; t < pairs; t++)
+            {
+                int a = season.PairA[t], b = season.PairB[t];
+                TieBox[t] = new Vector4(float.NaN, 0, 0, 0);
+                if (a < 0 || b < 0 || a >= ps.Length || b >= ps.Length || !PlayerOnScreen[a] || !PlayerOnScreen[b]) continue;
+                // the arc is the quadratic curve through the heads with its middle control point at twice its rise: the
+                // three control points' projections bound the arc on screen (all three in front of the camera)
+                Vector3 ha = Figure.Head(ps[a]), hb = Figure.Head(ps[b]);
+                Vector3 mid = 0.5f * (ha + hb);
+                mid.y += 2 * (LandPick.TiePoint(ha, hb, 0.5f).y - mid.y);
+                if (!cam.Project(frame.World(mid), out Vector2 m)) continue;
+                Vector2 pa = HeadPx[a], pb = HeadPx[b];
+                TieBox[t] = new Vector4(Mathf.Min(pa.x, Mathf.Min(pb.x, m.x)), Mathf.Min(pa.y, Mathf.Min(pb.y, m.y)),
+                    Mathf.Max(pa.x, Mathf.Max(pb.x, m.x)), Mathf.Max(pa.y, Mathf.Max(pb.y, m.y)));
+            }
+        }
+
+        static bool SameCamera(LandProjector a, LandProjector b) =>
+            a.Eye == b.Eye && a.Rotation == b.Rotation && a.TanHalf == b.TanHalf && a.Screen == b.Screen;
+
         /// <summary>The snapshot's dots and waters (members' reason from the lives; 0.4 where a member has no year, as drawn).</summary>
         public static LandPickScene Build(LandSnapshot s, EconomicLives lives)
         {
@@ -353,11 +457,11 @@ namespace Why.Economy.Land
     /// canal, the pools and the sectors by a polar hit test of the pointer's ray on the tread planes; the cut's bars and
     /// dots. <see cref="Pick"/> returns the best: a dot first, then the view's subject, then by distance; areas last.
     /// Also: what hovering a hit lights (<see cref="Ranges"/>, a sector with its roots in and out), the year a click on the
-    /// wall means (<see cref="WallYear"/>) and the bowl's box on screen (<see cref="BowlBox"/>), for the panels' layout.
+    /// wall means (<see cref="WallYear"/>) and the land's silhouette on screen (<see cref="BowlOutline"/>), for the panels' layout.
     /// </summary>
     public static class LandPick
     {
-        /// <summary>Points sampled around the rim for the bowl's box.</summary>
+        /// <summary>Points sampled around the rim for the bowl's outline (each of its floor and its rim).</summary>
         const int BowlSamples = 48;
 
         /// <summary>
@@ -394,7 +498,8 @@ namespace Why.Economy.Land
             LandSnapshot s = scene?.Snapshot;
             if (s != null)
             {
-                LandHit player = o.Players ? Players(s, frame, cam, point, o.HeadPx) : LandHit.None;
+                scene.See(frame, cam);
+                LandHit player = o.Players ? Players(scene, frame, point, o.HeadPx) : LandHit.None;
                 if (o.Dots)
                 {
                     // a dot first, unless another player's head is nearer the pointer than the dot
@@ -418,8 +523,8 @@ namespace Why.Economy.Land
                 Consider(player, o.HeadPx, o.PlayersTier, ref best, ref bestTier, ref bestScore);
                 Consider(tower, o.TowerPx, o.TowersTier, ref best, ref bestTier, ref bestScore);
                 if (o.Crown) Consider(Crown(frame, cam, point, o.CrownPx), o.CrownPx, o.CrownTier, ref best, ref bestTier, ref bestScore);
-                if (o.Ties) Consider(Ties(s, frame, cam, point, o.TiePx, round), o.TiePx, o.TiesTier, ref best, ref bestTier, ref bestScore);
-                if (o.Waters) Consider(Waters(scene, frame, cam, point, o.WaterPx), o.WaterPx, o.WatersTier, ref best, ref bestTier, ref bestScore);
+                if (o.Ties) Consider(Ties(scene, frame, cam, point, o.TiePx), o.TiePx, o.TiesTier, ref best, ref bestTier, ref bestScore);
+                if (o.Waters) Consider(Waters(scene, frame, point, o.WaterPx), o.WaterPx, o.WatersTier, ref best, ref bestTier, ref bestScore);
                 if (!best.IsNone) return best;
 
                 Ray ray = cam.RayThrough(point);
@@ -474,13 +579,14 @@ namespace Why.Economy.Land
             LandHit best = LandHit.None;
             Player[] ps = scene.Snapshot?.Players?.Players;
             if (ps == null) return best;
+            scene.See(frame, cam);
             float r2 = radiusPx * radiusPx;
             for (int pi = 0; pi < ps.Length && pi + 1 < scene.FirstDot.Length; pi++)
             {
                 Player p = ps[pi];
-                Vector3 c = Figure.Center(p);
-                if (!cam.Project(frame.World(c), out Vector2 cp)) continue;
-                float rPx = DiscPx(p, c, frame, cam, cp);
+                if (!scene.PlayerOnScreen[pi]) continue;
+                Vector2 cp = scene.CenterPx[pi];
+                float rPx = scene.DiscRadiusPx[pi];
                 if (rPx < discPx) continue;
                 // the pointer must be near the disc (dots float at most 0.28 above it)
                 float reach = rPx + radiusPx + 0.3f * rPx / Mathf.Max(1e-3f, p.Radius);
@@ -502,7 +608,7 @@ namespace Why.Economy.Land
         }
 
         /// <summary>A disc's radius on screen (px): the largest of four rim points' distances from its projected center.</summary>
-        static float DiscPx(Player p, Vector3 center, LandFrame frame, LandProjector cam, Vector2 cp)
+        internal static float DiscPx(Player p, Vector3 center, LandFrame frame, LandProjector cam, Vector2 cp)
         {
             float r = 0;
             for (int k = 0; k < 4; k++)
@@ -515,23 +621,26 @@ namespace Why.Economy.Land
         }
 
         /// <summary>The nearest player within <paramref name="radiusPx"/> of its head, or with the pointer on its disc (0 px).</summary>
-        public static LandHit Players(LandSnapshot s, LandFrame frame, LandProjector cam, Vector2 point, float radiusPx)
+        /// <remarks>Reads the scene's projection for the camera (<see cref="LandPickScene.See"/>, made by the caller).</remarks>
+        public static LandHit Players(LandPickScene scene, LandFrame frame, Vector2 point, float radiusPx)
         {
             LandHit best = LandHit.None;
-            Player[] ps = s.Players?.Players;
-            if (ps == null) return best;
+            Player[] ps = scene.Snapshot?.Players?.Players;
+            if (ps == null || scene.PlayerOnScreen.Length != ps.Length) return best;
             for (int pi = 0; pi < ps.Length; pi++)
             {
-                Player p = ps[pi];
-                Vector3 c = Figure.Center(p), h = Figure.Head(p);
-                if (!cam.Project(frame.World(c), out Vector2 cp) || !cam.Project(frame.World(h), out Vector2 hp)) continue;
+                if (!scene.PlayerOnScreen[pi]) continue;
+                Vector2 cp = scene.CenterPx[pi], hp = scene.HeadPx[pi];
                 // on the disc or the stalk to the head counts as 0; among those the nearest head wins
                 float head = (point - hp).magnitude;
-                float d = Mathf.Max(0, Mathf.Min(SegmentDistance(point, cp, hp), (point - cp).magnitude - DiscPx(p, c, frame, cam, cp)));
+                float d = Mathf.Max(0, Mathf.Min(SegmentDistance(point, cp, hp), (point - cp).magnitude - scene.DiscRadiusPx[pi]));
                 if (d > radiusPx) continue;
                 d += HeadTieBreak * head;
                 if (d >= best.DistancePx) continue;
-                best = new LandHit { Kind = PickKind.Player, Index = pi, Person = -1, Part = -1, DistancePx = d, World = frame.World(h) };
+                best = new LandHit
+                {
+                    Kind = PickKind.Player, Index = pi, Person = -1, Part = -1, DistancePx = d, World = frame.World(Figure.Head(ps[pi]))
+                };
             }
 
             return best;
@@ -548,18 +657,16 @@ namespace Why.Economy.Land
             LandHit best = LandHit.None;
             TowerGeom[] ts = s.Land?.Towers;
             if (ts == null) return best;
-            Vector2[] sq = new Vector2[4];
             foreach (TowerGeom t in ts)
             {
                 Vector3 top = LandFrame.Polar(t.R, t.Theta, t.TopY), foot = LandFrame.Polar(t.R, t.Theta, t.BaseY);
                 if (!cam.Project(frame.World(top), out Vector2 tp) || !cam.Project(frame.World(foot), out Vector2 fp)) continue;
                 Vector3 u = LandFrame.Radial(t.Theta), v = LandFrame.Tangent(t.Theta);
                 float h = 0.5f * Mathf.Max(t.Side, LandStyle.PrivateTowerSide);
-                bool all = true;
-                Vector3[] corners = { -u - v, u - v, u + v, -u + v };
-                for (int k = 0; k < 4 && all; k++) all = cam.Project(frame.World(top + h * corners[k]), out sq[k]);
+                bool all = cam.Project(frame.World(top + h * (-u - v)), out Vector2 q0) & cam.Project(frame.World(top + h * (u - v)), out Vector2 q1) &
+                           cam.Project(frame.World(top + h * (u + v)), out Vector2 q2) & cam.Project(frame.World(top + h * (-u + v)), out Vector2 q3);
                 // inside a top square counts as 0 (the nearest top center breaks ties between neighbors)
-                float d = all && InQuad(point, sq) ? HeadTieBreak * (point - tp).magnitude : SegmentDistance(point, fp, tp);
+                float d = all && InQuad(point, q0, q1, q2, q3) ? HeadTieBreak * (point - tp).magnitude : SegmentDistance(point, fp, tp);
                 if (d > radiusPx || d >= best.DistancePx) continue;
                 best = new LandHit { Kind = PickKind.Tower, Index = t.Company, Person = -1, Part = -1, DistancePx = d, World = frame.World(top) };
             }
@@ -606,20 +713,31 @@ namespace Why.Economy.Land
             return p;
         }
 
-        /// <summary>The nearest tie of the season (its arc polyline, <see cref="LandStyle.TiePoints"/> segments) within the radius.</summary>
-        public static LandHit Ties(LandSnapshot s, LandFrame frame, LandProjector cam, Vector2 point, float radiusPx, int round)
+        /// <summary>
+        /// The nearest tie of the season (its arc polyline, <see cref="LandStyle.TiePoints"/> segments) within the radius;
+        /// a tie whose arc's box on screen (<see cref="LandPickScene.TieBox"/>) is further than the radius is skipped.
+        /// </summary>
+        public static LandHit Ties(LandPickScene scene, LandFrame frame, LandProjector cam, Vector2 point, float radiusPx)
         {
             LandHit best = LandHit.None;
-            SocialSeasonResult season = s.Society;
-            Player[] ps = s.Players?.Players;
+            LandSnapshot s = scene.Snapshot;
+            SocialSeasonResult season = s?.Society;
+            Player[] ps = s?.Players?.Players;
             if (season?.PairA == null || ps == null) return best;
+            scene.See(frame, cam);
             int n = LandStyle.TiePoints;
             for (int k = 0; k < season.PairA.Length; k++)
             {
                 int a = season.PairA[k], b = season.PairB[k];
                 if (a < 0 || b < 0 || a >= ps.Length || b >= ps.Length) continue;
-                Vector3 ha = Figure.Head(ps[a]), hb = Figure.Head(ps[b]);
+                if (k < scene.TieBox.Length)
+                {
+                    Vector4 box = scene.TieBox[k];
+                    if (!float.IsNaN(box.x) && (point.x < box.x - radiusPx || point.x > box.z + radiusPx || point.y < box.y - radiusPx ||
+                                                point.y > box.w + radiusPx)) continue;
+                }
 
+                Vector3 ha = Figure.Head(ps[a]), hb = Figure.Head(ps[b]);
                 Vector2 prev = default;
                 bool hasPrev = false;
                 float d = float.PositiveInfinity;
@@ -650,20 +768,24 @@ namespace Why.Economy.Land
 
         // ------------------------------------------------------------------ water
 
-        /// <summary>The nearest river, distributary, tax river, abroad pour or fall (a fall within the radius wins).</summary>
-        public static LandHit Waters(LandPickScene scene, LandFrame frame, LandProjector cam, Vector2 point, float radiusPx)
+        /// <summary>
+        /// The nearest river, distributary, tax river, abroad pour or fall (a fall within the radius wins), from the scene's
+        /// projection for the camera (<see cref="LandPickScene.See"/>, made by the caller).
+        /// </summary>
+        public static LandHit Waters(LandPickScene scene, LandFrame frame, Vector2 point, float radiusPx)
         {
             LandHit best = LandHit.None;
+            if (scene.WaterFirst.Length != scene.Water.Count + 1) return best;
             for (int w = 0; w < scene.Water.Count; w++)
             {
                 Vector3[] pts = scene.Water[w];
-                Vector2 prev = default;
+                int first = scene.WaterFirst[w];
                 bool hasPrev = false;
                 float d = float.PositiveInfinity;
                 Vector3 at = pts[0];
                 for (int i = 0; i < pts.Length; i++)
                 {
-                    if (!cam.Project(frame.World(pts[i]), out Vector2 p))
+                    if (!scene.WaterPxOk[first + i])
                     {
                         hasPrev = false;
                         continue;
@@ -671,7 +793,7 @@ namespace Why.Economy.Land
 
                     if (hasPrev)
                     {
-                        float di = SegmentDistance(point, prev, p);
+                        float di = SegmentDistance(point, scene.WaterPx[first + i - 1], scene.WaterPx[first + i]);
                         if (di < d)
                         {
                             d = di;
@@ -679,7 +801,6 @@ namespace Why.Economy.Land
                         }
                     }
 
-                    prev = p;
                     hasPrev = true;
                 }
 
@@ -802,14 +923,13 @@ namespace Why.Economy.Land
         /// <summary>The cut's bar (and its strip) whose projected quad holds the pointer.</summary>
         public static LandHit CutBars(CutPickScene cut, LandProjector cam, Vector2 point)
         {
-            Vector2[] q = new Vector2[4];
             for (int i = 0; i < cut.BarLeft.Length; i++)
             {
                 for (int k = 0; k < 3; k++)
                 {
-                    if (!cam.Project(cut.BarLeft[i][k], out q[0]) || !cam.Project(cut.BarRight[i][k], out q[1]) ||
-                        !cam.Project(cut.BarRight[i][k + 1], out q[2]) || !cam.Project(cut.BarLeft[i][k + 1], out q[3])) continue;
-                    if (!InQuad(point, q)) continue;
+                    if (!cam.Project(cut.BarLeft[i][k], out Vector2 q0) || !cam.Project(cut.BarRight[i][k], out Vector2 q1) ||
+                        !cam.Project(cut.BarRight[i][k + 1], out Vector2 q2) || !cam.Project(cut.BarLeft[i][k + 1], out Vector2 q3)) continue;
+                    if (!InQuad(point, q0, q1, q2, q3)) continue;
                     return new LandHit
                     {
                         Kind = PickKind.CutBar, Index = i, Person = -1, Part = k, DistancePx = 0,
@@ -832,7 +952,6 @@ namespace Why.Economy.Land
             if (wall == null || !wall.IsValid) return false;
             IReadOnlyList<WallColumn> cols = wall.Columns;
             int last = wall.IndustryCount - 1;
-            Vector2[] q = new Vector2[4];
             bool hasPrev = false;
             Vector2 pb = default, pt = default;
             for (int j = 0; j < cols.Count; j++)
@@ -842,11 +961,7 @@ namespace Why.Economy.Land
                           cam.Project(GraphWarp.ToWorld(c.U, c.Hi[last], c.Rho, warp), out Vector2 t);
                 if (ok && hasPrev)
                 {
-                    q[0] = pb;
-                    q[1] = b;
-                    q[2] = t;
-                    q[3] = pt;
-                    if (InQuad(point, q))
+                    if (InQuad(point, pb, b, t, pt))
                     {
                         // the share of the way from the previous column, along the quad's middle
                         Vector2 m0 = 0.5f * (pb + pt), m1 = 0.5f * (b + t), d = m1 - m0;
@@ -986,31 +1101,99 @@ namespace Why.Economy.Land
         // ------------------------------------------------------------------ the bowl on screen
 
         /// <summary>
-        /// The bowl's box on screen as fractions of the screen from its top-left corner (x right, y down): the rim and the
-        /// outer wall (radius <see cref="LandStyle.RimR"/>, from the floor to the rim), clipped to the screen; empty (w or h
-        /// 0) when none of it is in front of the camera. The panels keep clear of it (7.2, WP5).
+        /// The bowl's box on screen as fractions of the screen from its top-left corner (x right, y down): the box around
+        /// <see cref="BowlOutline"/>, clipped to the screen; empty (w or h 0) when none of it is in front of the camera.
         /// </summary>
         public static Rect BowlBox(LandFrame frame, LandProjector cam)
         {
+            List<Vector2> hull = new List<Vector2>(2 * BowlSamples + 64);
+            BowlOutline(frame, cam, null, hull, new List<Vector2>(2 * BowlSamples + 64));
             float x0 = float.PositiveInfinity, y0 = float.PositiveInfinity, x1 = float.NegativeInfinity, y1 = float.NegativeInfinity;
-            for (int k = 0; k < BowlSamples; k++)
+            foreach (Vector2 p in hull)
             {
-                float a = 360f * k / BowlSamples;
-                for (int h = 0; h < 2; h++)
-                {
-                    if (!cam.Project(frame.World(LandFrame.Polar(LandStyle.RimR, a, h == 0 ? 0 : LandStyle.RimY)), out Vector2 p)) continue;
-                    x0 = Mathf.Min(x0, p.x);
-                    x1 = Mathf.Max(x1, p.x);
-                    y0 = Mathf.Min(y0, p.y);
-                    y1 = Mathf.Max(y1, p.y);
-                }
+                x0 = Mathf.Min(x0, p.x);
+                x1 = Mathf.Max(x1, p.x);
+                y0 = Mathf.Min(y0, p.y);
+                y1 = Mathf.Max(y1, p.y);
             }
 
             if (x1 < x0) return new Rect(0, 0, 0, 0);
-            float l = Mathf.Clamp01(x0 / cam.Screen.x), r = Mathf.Clamp01(x1 / cam.Screen.x);
-            float top = Mathf.Clamp01(1 - y1 / cam.Screen.y), bottom = Mathf.Clamp01(1 - y0 / cam.Screen.y);
-            return new Rect(l, top, r - l, bottom - top);
+            x0 = Mathf.Clamp01(x0);
+            x1 = Mathf.Clamp01(x1);
+            y0 = Mathf.Clamp01(y0);
+            y1 = Mathf.Clamp01(y1);
+            return x1 > x0 && y1 > y0 ? new Rect(x0, y0, x1 - x0, y1 - y0) : new Rect(0, 0, 0, 0);
         }
+
+        /// <summary>
+        /// The land's silhouette on screen, the panels keep clear of (7.2, WP5): the convex hull of the bowl's outer wall
+        /// (its floor and its rim, radius <see cref="LandStyle.RimR"/>, <see cref="BowlSamples"/> points each), raised by a
+        /// player's height at the rim (the glyphs that stand on it), the crown with its players' heads, and the towers' tops
+        /// (<paramref name="towers"/>, optional). Points in fractions of the screen from its top-left corner (x right, y
+        /// down), in order around the hull, into <paramref name="hull"/> (cleared); <paramref name="scratch"/> holds the
+        /// projected points. Points behind the camera are left out; empty when none is in front. Not clipped to the screen.
+        /// </summary>
+        public static void BowlOutline(LandFrame frame, LandProjector cam, TowerGeom[] towers, List<Vector2> hull, List<Vector2> scratch)
+        {
+            hull.Clear();
+            scratch.Clear();
+            float rimTop = LandStyle.RimY + LandStyle.HeadY + 0.1f, crownTop = LandStyle.CrownY + LandStyle.HeadY + 0.1f;
+            for (int k = 0; k < BowlSamples; k++)
+            {
+                float a = 360f * k / BowlSamples;
+                Outline(frame, cam, LandFrame.Polar(LandStyle.RimR, a, 0), scratch);
+                Outline(frame, cam, LandFrame.Polar(LandStyle.RimR, a, rimTop), scratch);
+                if (k % 4 == 0) Outline(frame, cam, LandFrame.Polar(LandStyle.CrownR, a, crownTop), scratch);
+            }
+
+            if (towers != null)
+            {
+                foreach (TowerGeom t in towers) Outline(frame, cam, LandFrame.Polar(t.R, t.Theta, t.TopY), scratch);
+            }
+
+            ConvexHull(scratch, hull);
+        }
+
+        static void Outline(LandFrame frame, LandProjector cam, Vector3 local, List<Vector2> into)
+        {
+            if (cam.Project(frame.World(local), out Vector2 p)) into.Add(new Vector2(p.x / cam.Screen.x, 1 - p.y / cam.Screen.y));
+        }
+
+        /// <summary>Orders points by x, then y (the monotone chain's sweep).</summary>
+        static readonly Comparison<Vector2> ByXThenY = (a, b) => a.x != b.x ? a.x.CompareTo(b.x) : a.y.CompareTo(b.y);
+
+        /// <summary>
+        /// The convex hull of <paramref name="points"/> (sorted in place) into <paramref name="hull"/> (cleared), in order
+        /// around it (Andrew's monotone chain; collinear points dropped).
+        /// </summary>
+        public static void ConvexHull(List<Vector2> points, List<Vector2> hull)
+        {
+            hull.Clear();
+            int n = points.Count;
+            if (n < 3)
+            {
+                hull.AddRange(points);
+                return;
+            }
+
+            points.Sort(ByXThenY);
+            for (int i = 0; i < n; i++)
+            {
+                while (hull.Count >= 2 && Turn(hull[hull.Count - 2], hull[hull.Count - 1], points[i]) <= 0) hull.RemoveAt(hull.Count - 1);
+                hull.Add(points[i]);
+            }
+
+            int lower = hull.Count + 1;
+            for (int i = n - 2; i >= 0; i--)
+            {
+                while (hull.Count >= lower && Turn(hull[hull.Count - 2], hull[hull.Count - 1], points[i]) <= 0) hull.RemoveAt(hull.Count - 1);
+                hull.Add(points[i]);
+            }
+
+            hull.RemoveAt(hull.Count - 1);
+        }
+
+        static float Turn(Vector2 o, Vector2 a, Vector2 b) => (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
 
         // ------------------------------------------------------------------ geometry
 
@@ -1023,17 +1206,29 @@ namespace Why.Economy.Land
             return (p - (a + t * ab)).magnitude;
         }
 
-        /// <summary>Whether a point lies inside a quadrilateral (corners in order, either winding; convex or not).</summary>
+        /// <summary>Whether a point lies inside a polygon (corners in order, either winding; convex or not).</summary>
         public static bool InQuad(Vector2 p, Vector2[] q)
         {
             bool inside = false;
-            for (int i = 0, j = q.Length - 1; i < q.Length; j = i++)
-            {
-                if ((q[i].y > p.y) != (q[j].y > p.y) &&
-                    p.x < (q[j].x - q[i].x) * (p.y - q[i].y) / (q[j].y - q[i].y + 1e-12f) + q[i].x) inside = !inside;
-            }
-
+            for (int i = 0, j = q.Length - 1; i < q.Length; j = i++) Cross(p, q[i], q[j], ref inside);
             return inside;
+        }
+
+        /// <summary>Whether a point lies inside a quadrilateral of four corners in order (either winding; convex or not).</summary>
+        public static bool InQuad(Vector2 p, Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+        {
+            bool inside = false;
+            Cross(p, a, d, ref inside);
+            Cross(p, b, a, ref inside);
+            Cross(p, c, b, ref inside);
+            Cross(p, d, c, ref inside);
+            return inside;
+        }
+
+        /// <summary>The even-odd rule's step: flips <paramref name="inside"/> when the edge a-b crosses the ray right of p.</summary>
+        static void Cross(Vector2 p, Vector2 a, Vector2 b, ref bool inside)
+        {
+            if ((a.y > p.y) != (b.y > p.y) && p.x < (b.x - a.x) * (p.y - a.y) / (b.y - a.y + 1e-12f) + a.x) inside = !inside;
         }
 
         /// <summary>A hit in words, for logs and the harness ("player frontline|trade|R", "sector trade (owners)").</summary>

@@ -89,12 +89,20 @@ namespace Why.Economy.UI
 
         /// <summary>The panel's width on this screen, its content's height laid out at that width, the width the content
         /// is laid out at now (wider than the sheet by 1 / scale in portrait), its height there, and the scale.</summary>
-        float baseWidth, baseHeight, layoutWidth, contentHeight, panelScale = 1;
+        float layoutWidth, contentHeight, panelScale = 1;
+
+        /// <summary>The panel's height at a layout width, full or compact (the layout's measure; made once).</summary>
+        System.Func<float, bool, float> heightAt;
+
+        /// <summary>The compact (sheet) panel's height at a layout width.</summary>
+        System.Func<float, float> sheetHeightAt;
         string loggedProblems = "";
 
         public override void Init(GraphRoot graphRoot)
         {
             root = graphRoot;
+            heightAt = (w, compact) => panel.Layout(w, compact);
+            sheetHeightAt = w => panel.Layout(w, true);
             Canvas canvas = UiFactory.CreateCanvas("PersonInspector", SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
             panel = new PersonPanel(canvasRect, Close, OpenPlayer);
@@ -327,45 +335,57 @@ namespace Why.Economy.UI
         // ------------------------------------------------------------------ layout
 
         /// <summary>
-        /// Fills and sizes the panel for the screen's shape when the facts changed, then scales and places it under the
-        /// year controls whenever the HUD's blocks, the bowl or the controls moved (see <see cref="EconomyUiLayout.ColumnScale"/>);
-        /// on a portrait screen with the land in view, as a bottom sheet under the bowl (<see cref="EconomyUiLayout.SheetBox"/>).
-        /// A scaled portrait sheet lays its content out wider by 1 / scale, so it still spans the screen (and wraps less).
+        /// Fills the panel when the facts changed, then places it whenever the HUD's blocks, the bowl or the controls moved:
+        /// in landscape where <see cref="EconomyUiLayout.ColumnPlace"/> finds room clear of the bowl (the right column under
+        /// the year controls, the left one, compact, a band under the controls); on a portrait screen with the land in view
+        /// as a bottom sheet under the bowl (<see cref="EconomyUiLayout.SheetBox"/>); on a portrait screen with the road in
+        /// view as the top sheet. A scaled portrait sheet lays its content out wider by 1 / scale, so it still spans the
+        /// screen (and wraps less).
         /// </summary>
         void Layout()
         {
             HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
             UiBox above = EconomyControls.Occupied;
             bool sheet = EconomyUiLayout.BottomSheets(f);
-            float width = sheet ? EconomyUiLayout.SheetLayoutWidth(f, 1) : EconomyUiLayout.InspectorWidth(f);
-            bool refill = contentDirty || f.Portrait != laidOutCompact || sheet != laidOutSheet || Mathf.Abs(width - baseWidth) > 0.5f;
-            if (!refill && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
-
-            if (refill)
-            {
-                if (contentDirty) panel.Fill(facts, pop.Sim.PeoplePerLine);
-                contentDirty = false;
-                laidOutCompact = f.Portrait;
-                laidOutSheet = sheet;
-                baseWidth = layoutWidth = width;
-                baseHeight = contentHeight = panel.Layout(width, f.Portrait);
-            }
-
+            if (!contentDirty && f.Portrait == laidOutCompact && sheet == laidOutSheet && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
+            if (contentDirty) panel.Fill(facts, pop.Sim.PeoplePerLine);
+            contentDirty = false;
+            laidOutCompact = f.Portrait;
+            laidOutSheet = sheet;
             laidOutFrame = f;
             laidOutAbove = above;
-            panelScale = sheet ? EconomyUiLayout.SheetScale(f, above, baseHeight) : EconomyUiLayout.ColumnScale(f, above, baseHeight);
-            float wanted = f.Portrait ? baseWidth / panelScale : baseWidth;
-            if (Mathf.Abs(wanted - layoutWidth) > 0.5f)
+            if (f.Portrait)
             {
-                layoutWidth = wanted;
-                contentHeight = panel.Layout(layoutWidth, f.Portrait);
+                // a sheet (the land in view) or the top sheet (the road): scaled to its room, laid out wider by 1 / scale
+                if (sheet)
+                {
+                    // under the bowl, or above it where the bowl reaches low
+                    EconomyUiLayout.Placement p = EconomyUiLayout.SheetPlace(f, above, sheetHeightAt);
+                    panelScale = p.Scale;
+                    layoutWidth = p.LayoutWidth;
+                    contentHeight = panel.Layout(layoutWidth, true);
+                    panelBox = p.Box;
+                }
+                else
+                {
+                    float width = EconomyUiLayout.InspectorWidth(f);
+                    panelScale = EconomyUiLayout.InspectorScale(f, above, panel.Layout(width, true));
+                    layoutWidth = width / panelScale;
+                    contentHeight = panel.Layout(layoutWidth, true);
+                    panelBox = EconomyUiLayout.InspectorBox(f, above, layoutWidth, contentHeight, panelScale);
+                }
+            }
+            else
+            {
+                // the right column, or the left one, compact, or a band where the bowl takes the column (laid out last as chosen)
+                EconomyUiLayout.Placement p = EconomyUiLayout.ColumnPlace(f, above, EconomyUiLayout.LandscapeInspectorWidth, heightAt);
+                layoutWidth = p.LayoutWidth;
+                panelScale = p.Scale;
+                contentHeight = panel.Layout(layoutWidth, p.Compact);
+                panelBox = p.Box;
             }
 
-            panelBox = sheet
-                ? EconomyUiLayout.SheetBox(f, layoutWidth, contentHeight, panelScale)
-                : EconomyUiLayout.InspectorBox(f, above, layoutWidth, contentHeight, panelScale);
-
-            // anchored by its top-right corner at the right margin (scaled toward it); the portrait sheet spans the width
+            // anchored by its top-right corner (scaled toward it); the portrait sheets span the width
             RectTransform rt = panel.Rect;
             rt.Place(Vector2.one, Vector2.one, new Vector2(-(f.Canvas.x - panelBox.Right), -panelBox.Y),
                 new Vector2(layoutWidth, contentHeight));
@@ -392,7 +412,7 @@ namespace Why.Economy.UI
 
             float room = laidOutSheet
                 ? EconomyUiLayout.SheetBottom(laidOutFrame) - EconomyUiLayout.SheetTopLimit(laidOutFrame, laidOutAbove)
-                : EconomyUiLayout.InspectorLimit(laidOutFrame, laidOutAbove) - panelBox.Y;
+                : EconomyUiLayout.ColumnLimit(laidOutFrame, laidOutAbove, panelBox) - panelBox.Y;
             if (panelBox.H > room + 0.5f)
             {
                 problems.Add("person inspector " + panelBox + " runs past its room of " +

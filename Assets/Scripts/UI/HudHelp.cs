@@ -125,6 +125,7 @@ namespace Why.UI
                     Row("Hover a label", "what it is, how large, and where the numbers come from"),
                     Row("Click a label", "focus and highlight it"),
                     Row("Esc", "close the inspector in front, unpin a card, clear the highlight, close this sheet"),
+                    Row("U   [   ]   L", "the time lens, as in the causality graph"),
                     Row("V", "vertical 9:16 window for recording phone videos; again to go back"),
                     Row("H   ?", "this help"),
                     Row("F3", "frame rate and build stats"),

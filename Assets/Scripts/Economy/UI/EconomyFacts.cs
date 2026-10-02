@@ -437,11 +437,12 @@ namespace Why.Economy.UI
         /// shares of the money spent and the season's cooperation come from the land's snapshot when it shows that year
         /// (<paramref name="land"/>; otherwise fantasy and fear are the adults' means from the lives, and GDP and
         /// cooperation are left out); in control from the lives; trust from the General Social Survey (left out before its
-        /// first year, held at its last reading after it). Compact drops the GSS mark and the companies' note for narrow
-        /// screens. Empty without the lives.
+        /// first year, held at its last reading after it). "companies: 2025 data" only while the view shows the towers
+        /// (<paramref name="towersShown"/>, see <see cref="TowersShown"/>) and the snapshot has them. Compact drops the GSS
+        /// mark and the companies' note for narrow screens. Empty without the lives.
         /// </summary>
         public static string Line(EconomicLives lives, YearSeries trust, Land.LandSnapshot land, EconomyData data, int year,
-            bool compact, string valueHex)
+            bool compact, string valueHex, bool towersShown = true)
         {
             PopulationYear a = lives != null && lives.Ready ? lives.Aggregate(year) : null;
             if (a == null) return "";
@@ -469,7 +470,7 @@ namespace Why.Economy.UI
             }
 
             if (data != null && data.IsEstimate(year)) sb.Append(dot).Append("estimate (H1 annualized)");
-            if (!compact && shown && land.Land?.Towers != null && land.Land.Towers.Length > 0) sb.Append(dot).Append("companies: 2025 data");
+            if (!compact && towersShown && shown && land.Land?.Towers != null && land.Land.Towers.Length > 0) sb.Append(dot).Append("companies: 2025 data");
             return sb.ToString();
         }
 
@@ -491,10 +492,22 @@ namespace Why.Economy.UI
             fantasy = spend > 0 ? x / spend : 0;
         }
 
-        /// <summary>The same readout without markup (logs, tests).</summary>
-        public static string Plain(EconomicLives lives, YearSeries trust, Land.LandSnapshot land, EconomyData data, int year, bool compact)
+        /// <summary>
+        /// Whether a view shows the towers: it opens the land and its emphasis of the towers is at least the pickable
+        /// <see cref="Land.PickOptions.MinAlpha"/> (the section view and the road's own views show none).
+        /// </summary>
+        public static bool TowersShown(string presetId)
         {
-            string rich = Line(lives, trust, land, data, year, compact, "FFFFFF");
+            if (string.IsNullOrEmpty(presetId)) return false;
+            ViewSpec v = EconomyViews.Get(presetId);
+            return v != null && v.MorphTarget > 0 && v.Alpha[(int)Land.LandGroup.Towers] >= Land.PickOptions.MinAlpha;
+        }
+
+        /// <summary>The same readout without markup (logs, tests).</summary>
+        public static string Plain(EconomicLives lives, YearSeries trust, Land.LandSnapshot land, EconomyData data, int year, bool compact,
+            bool towersShown = true)
+        {
+            string rich = Line(lives, trust, land, data, year, compact, "FFFFFF", towersShown);
             return rich.Replace("<color=#FFFFFF>", "").Replace("</color>", "");
         }
 
@@ -510,8 +523,8 @@ namespace Why.Economy.UI
     /// </summary>
     public static class LandLegendFacts
     {
-        /// <summary>Lines of the circuit's notes the legend prints (the rest are in the year chip's tooltip).</summary>
-        public const int NoteLines = 3;
+        /// <summary>The legend prints all of the circuit's notes (collapsed to the first, one tap from the rest, where room is short).</summary>
+        public const int NoteLines = int.MaxValue;
 
         /// <summary>The unit system of the year's land.</summary>
         public static string Units(Land.LandSnapshot s, double peoplePerLine)
@@ -554,6 +567,52 @@ namespace Why.Economy.UI
 
         /// <summary>100000 → "100,000".</summary>
         static string HudCount(double n) => n.ToString("#,0", CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// A tower's owners in the model (7.5, the ownership fan's hover line): "NVIDIA's owners in the model: abroad 18%,
+    /// pensions 12%; of the rest the 1% 50%, the next 9% 37%, the next 40% 12%, the bottom half 1%". The rule is the fan's
+    /// (FlowsLayer.Fan): every adult's capital income × the equity share of its wealth group's capital income
+    /// (<see cref="Land.CapitalSources.EquityFraction"/>, circuit.json groups[]), summed by wealth group; abroad and
+    /// pensions are circuit.json's foreignEquityShare and pensionEquityShare. Pure, so the harness can print it.
+    /// </summary>
+    public static class TowerFacts
+    {
+        static readonly string[] GroupNames = { "the bottom half", "the next 40%", "the next 9%", "the 1%" };
+
+        /// <summary>The owners' line of a company's tower in the snapshot (empty when the snapshot has no such tower).</summary>
+        public static string Owners(Land.LandSnapshot s, EconomyData data, EconomicLives lives, int company)
+        {
+            Land.TowerGeom tower = null;
+            foreach (Land.TowerGeom t in s?.Land?.Towers ?? Array.Empty<Land.TowerGeom>()) tower = t.Company == company ? t : tower;
+            if (tower == null || data == null || s.Players?.Players == null) return "";
+            int groups = Land.CapitalSources.Groups;
+            double[] fraction = new double[groups], byGroup = new double[groups];
+            for (int g = 0; g < groups; g++) fraction[g] = Land.CapitalSources.EquityFraction(data, g);
+            double total = 0;
+            foreach (Land.Player p in s.Players.Players)
+            {
+                foreach (int i in p.Adults)
+                {
+                    if (lives == null || !lives.TryGet(i, s.Year, out PersonYear r) || r.CapitalIncome <= 0) continue;
+                    int g = Math.Min(groups - 1, (int)r.WealthGroup);
+                    double e = r.CapitalIncome * fraction[g];
+                    byGroup[g] += e;
+                    total += e;
+                }
+            }
+
+            double foreign = data.Circuit?.ForeignEquityShare ?? 0, pension = data.Circuit?.PensionEquityShare ?? 0;
+            StringBuilder b = new StringBuilder();
+            b.Append(tower.Name).Append("'s owners in the model: abroad ").Append(Land.LandFacts.Percent(foreign)).Append(", pensions ")
+                .Append(Land.LandFacts.Percent(pension)).Append("; of the rest");
+            for (int g = groups - 1; g >= 0; g--)
+            {
+                b.Append(g < groups - 1 ? ", " : " ").Append(GroupNames[g]).Append(' ').Append(Land.LandFacts.Percent(total > 0 ? byGroup[g] / total : 0));
+            }
+
+            return b.ToString();
+        }
     }
 
     /// <summary>
@@ -911,12 +970,18 @@ namespace Why.Economy.UI
         void SocietyOf(Land.Player p, Land.Player[] all, Land.SocialSeasonResult s, int round, EconomyData data, int year)
         {
             Land.SocialSettings set = s?.Settings ?? Land.SocialSettings.Default;
+            // the season's own rule (SocialSeason.Apply): forgiveness g = q h' and tribal memory mu = mu0 min(1, pol) (1 - h'),
+            // with h' the higher-OS share (1 when everyone forgives) and g = 0 when nobody does
+            Data.SocialData sd = data.Games?.Social ?? new Data.SocialData();
             float h = p.HigherOs;
-            float forgive = set.Forgive == 1 ? 1f / 3 : set.Forgive == 2 ? 0 : h / 3;
+            double hp = set.Forgive == 1 ? 1 : h;
+            double forgive = set.Forgive == 2 ? 0 : sd.Forgiveness * hp;
             double pol = (data.Games?.Tribes?.AffectivePolarization?.DistrustSeries() ?? YearSeries.Empty).At(year) * set.Polarization;
-            double memory = 0.5 * Math.Min(1, pol) * (1 - h);
+            double memory = sd.TribalMemory * Math.Min(1, pol) * (1 - hp);
             Play = "Plays tit for tat; forgives " + Land.LandFacts.Percent(forgive) +
-                   (set.Forgive == 0 ? " of defections (a third of its " + Land.LandFacts.Percent(h) + " on the higher OS)" : " of defections") +
+                   (set.Forgive == 0
+                       ? " of defections (" + Land.LandFacts.Percent(sd.Forgiveness) + " of its " + Land.LandFacts.Percent(h) + " on the higher OS)"
+                       : " of defections") +
                    Dot + "tribal memory " + memory.ToString("0.00", Ci);
             StringBuilder mix = new StringBuilder("Members' own strategies (shown, not played): ");
             int[] order = { 0, 1, 2, 3, 4, 5, 6 };

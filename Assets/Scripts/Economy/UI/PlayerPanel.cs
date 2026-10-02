@@ -150,7 +150,13 @@ namespace Why.Economy.UI
         int factsPlayer = -2, factsLand = -1, factsRound = -1, seenVersion = -1;
         HudFrame laidOutFrame;
         UiBox laidOutAbove, panelBox;
-        float baseWidth, baseHeight, layoutWidth, contentHeight, panelScale = 1;
+        float layoutWidth, contentHeight, panelScale = 1;
+
+        /// <summary>The content's height at a layout width, full or compact (the layout's measure; made once).</summary>
+        Func<float, bool, float> heightAt;
+
+        /// <summary>The compact (sheet) content's height at a layout width.</summary>
+        Func<float, float> sheetHeightAt;
         string loggedProblems = "";
         readonly List<string> problems = new List<string>();
 
@@ -158,6 +164,8 @@ namespace Why.Economy.UI
         {
             root = graphRoot;
             instance = this;
+            heightAt = (w, compact) => Content(w, compact);
+            sheetHeightAt = w => Content(w, true);
             Canvas canvas = UiFactory.CreateCanvas("PlayerPanel", SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
             panel = HudKit.FramedPanel(canvasRect, "PlayerInspector", 0.9f, true);
@@ -353,39 +361,41 @@ namespace Why.Economy.UI
         }
 
         /// <summary>
-        /// Fills the panel when the facts changed and places it: the right column (scaled to its room and clear of the
-        /// bowl) or a portrait bottom sheet under the bowl, laid out wider by 1 / scale so it spans the screen.
+        /// Fills the panel when the facts changed and places it: in landscape where
+        /// <see cref="EconomyUiLayout.ColumnPlace"/> finds room clear of the bowl (the right column, the left one, compact,
+        /// a band under the controls); on a portrait screen a bottom sheet under the bowl, laid out wider by 1 / scale so it
+        /// spans the screen.
         /// </summary>
         void Layout()
         {
             HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
             UiBox above = EconomyControls.Occupied;
             bool sheet = EconomyUiLayout.BottomSheets(f) || f.Portrait;
-            float width = sheet ? EconomyUiLayout.SheetLayoutWidth(f, 1) : EconomyUiLayout.LandscapeInspectorWidth;
-            bool refill = contentDirty || sheet != laidOutSheet || Mathf.Abs(width - baseWidth) > 0.5f;
-            if (!refill && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
-            if (refill)
-            {
-                if (contentDirty) Fill(facts);
-                contentDirty = false;
-                laidOutSheet = sheet;
-                baseWidth = layoutWidth = width;
-                baseHeight = contentHeight = Content(width, sheet);
-            }
-
+            if (!contentDirty && sheet == laidOutSheet && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
+            if (contentDirty) Fill(facts);
+            contentDirty = false;
+            laidOutSheet = sheet;
             laidOutFrame = f;
             laidOutAbove = above;
-            panelScale = sheet ? EconomyUiLayout.SheetScale(f, above, baseHeight) : EconomyUiLayout.ColumnScale(f, above, baseHeight);
-            float wanted = sheet ? EconomyUiLayout.SheetLayoutWidth(f, panelScale) : baseWidth;
-            if (Mathf.Abs(wanted - layoutWidth) > 0.5f)
+            if (sheet)
             {
-                layoutWidth = wanted;
-                contentHeight = Content(layoutWidth, sheet);
+                // under the bowl, or above it where the bowl reaches low (laid out last at the chosen width)
+                EconomyUiLayout.Placement p = EconomyUiLayout.SheetPlace(f, above, sheetHeightAt);
+                panelScale = p.Scale;
+                layoutWidth = p.LayoutWidth;
+                contentHeight = Content(layoutWidth, true);
+                panelBox = p.Box;
+            }
+            else
+            {
+                // the right column, or the left one, compact, or a band where the bowl takes the column (laid out last as chosen)
+                EconomyUiLayout.Placement p = EconomyUiLayout.ColumnPlace(f, above, EconomyUiLayout.LandscapeInspectorWidth, heightAt);
+                layoutWidth = p.LayoutWidth;
+                panelScale = p.Scale;
+                contentHeight = Content(layoutWidth, p.Compact);
+                panelBox = p.Box;
             }
 
-            panelBox = sheet
-                ? EconomyUiLayout.SheetBox(f, layoutWidth, contentHeight, panelScale)
-                : EconomyUiLayout.InspectorBox(f, above, layoutWidth, contentHeight, panelScale);
             panel.Place(Vector2.one, Vector2.one, new Vector2(-(f.Canvas.x - panelBox.Right), -panelBox.Y), new Vector2(layoutWidth, contentHeight));
             panel.localScale = new Vector3(panelScale, panelScale, 1);
             checkPending = true;

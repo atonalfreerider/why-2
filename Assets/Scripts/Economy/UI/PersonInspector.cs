@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Why.Economy.Land;
 using Why.Economy.Model;
 using Why.Humans;
 using Why.Humans.Smv;
@@ -12,25 +13,28 @@ namespace Why.Economy.UI
 {
     /// <summary>
     /// Look inside one lifeline. A left click on the road (released where it was pressed, not over the UI, not on a label,
-    /// not during the tour) picks the line nearest the cursor within about ten pixels (<see cref="LifelinePicker"/>) and
-    /// selects that person (<see cref="EconomyState.Person"/>); a click on empty road clears the selection, like the HUD's
-    /// own click-to-focus. The selected person's lifeline glows (their cross in the mind map too: it shares the line's id)
-    /// and is drawn once more over the bundle so it reads in its densest part (<see cref="PersonLine"/>), and a panel
-    /// shows their life at <see cref="EconomyState.Year"/>, or the nearest year of their life
-    /// (<see cref="PersonPanel"/>), refreshed whenever the shared state changes. The × button or Esc closes it.
+    /// not on something of the land the land's picker took, not during the tour) picks the line nearest the cursor within
+    /// about ten pixels (<see cref="LifelinePicker"/>) and selects that person (<see cref="EconomyState.Person"/>); a click
+    /// on empty road clears the selection, like the HUD's own click-to-focus. In the overview and section views the click
+    /// also sets the year to the one clicked (1.3). A click on a member's dot in the land (<see cref="LandPicker"/>) selects
+    /// the person too. The selected person's lifeline glows, and with it their dot in the cut and in their player (they share
+    /// the line's id), and is drawn once more over the bundle so it reads in its densest part (<see cref="PersonLine"/>);
+    /// a panel shows their life at <see cref="EconomyState.Year"/>, or the nearest year of their life
+    /// (<see cref="PersonPanel"/>), refreshed whenever the shared state changes, with a link to the player they play as
+    /// (it opens the player inspector). The × button or Esc closes it.
     ///
-    /// Landscape: a column at the right edge under the year chip, down to the first HUD block beneath it, scaled to fit.
-    /// Portrait: a compact full-width sheet under the HUD's title and the year's readout, scaled into two thirds of the
-    /// room above the HUD's bottom blocks so a strip of the people stays in view beneath it (where the N key frames the
-    /// person, see <see cref="EconomyUiLayout.PersonRegion"/>). The panel and the glow belong to
-    /// the road and the mind map: at the other stations (the money circuit and the games) they step aside, and they come
-    /// back with the camera. The panel also waits while the games panel is up (it docks at the same edge, in the games and
-    /// tribes views). During the tour the director owns attention and the panel hides.
+    /// The person's and the player's inspectors share one place: the one opened last is in front (<see cref="PlayerPanel.Covers"/>).
+    /// Landscape: a column at the right edge under the year chip, down to the first HUD block beneath it, scaled to fit and
+    /// kept clear of the bowl. Portrait: on the road a compact full-width sheet under the HUD's title and the year's
+    /// readout, scaled into two thirds of the room above the HUD's bottom blocks so a strip of the people stays in view
+    /// beneath it (where the N key frames the person, see <see cref="EconomyUiLayout.PersonRegion"/>); with the land in view
+    /// a bottom sheet under the bowl (<see cref="EconomyUiLayout.SheetBox"/>), which waits while the social panel's sheet is
+    /// up. During the tour the director owns attention and the panel hides.
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class PersonInspector : GraphModule
     {
-        /// <summary>With the year controls above the HUD (40), below the games panel (45), the tour (50), the overlay (200).</summary>
+        /// <summary>With the year controls above the HUD (40), below the social panel (45), the tour (50), the overlay (200).</summary>
         const int SortingOrder = 44;
 
         /// <summary>A left click that moves further than this (1080p pixels) is a drag, not a click (as the HUD's).</summary>
@@ -56,6 +60,12 @@ namespace Why.Economy.UI
         /// </summary>
         public static UiBox Shown { get; private set; } = UiBox.Empty;
 
+        /// <summary>True while the panel is a portrait bottom sheet on screen (the land legend steps aside).</summary>
+        public static bool SheetShown { get; private set; }
+
+        /// <summary>Set by <see cref="Relight"/>: light the person's line again (the land's picker released the highlight).</summary>
+        static bool relight;
+
         GraphRoot root;
         RectTransform canvasRect;
         PersonPanel panel;
@@ -66,29 +76,36 @@ namespace Why.Economy.UI
         EconomyModel model;
         SmvPopulation pop;
         HumanWorld world;
-        Station circuitStation, mindStation;
         readonly LifelinePicker picker = new LifelinePicker();
         readonly IdRange[] highlightRanges = new IdRange[1];
         readonly List<string> problems = new List<string>();
 
-        bool loaded, tourWasActive, ownsHighlight, pressValid, pickPending, contentDirty, checkPending, laidOutCompact;
+        bool loaded, tourWasActive, ownsHighlight, pressValid, pickPending, contentDirty, checkPending, laidOutCompact, laidOutSheet;
         Vector2 pressPosition, pickPosition;
-        int seenVersion = -1, factsPerson = -2, factsYear = int.MinValue, highlighted = -1;
+        int seenVersion = -1, factsPerson = -2, factsYear = int.MinValue, factsLand = -1, highlighted = -1;
         PersonFacts facts;
         HudFrame laidOutFrame;
         UiBox laidOutAbove, panelBox;
 
         /// <summary>The panel's width on this screen, its content's height laid out at that width, the width the content
         /// is laid out at now (wider than the sheet by 1 / scale in portrait), its height there, and the scale.</summary>
-        float baseWidth, baseHeight, layoutWidth, contentHeight, panelScale = 1;
+        float layoutWidth, contentHeight, panelScale = 1;
+
+        /// <summary>The panel's height at a layout width, full or compact (the layout's measure; made once).</summary>
+        System.Func<float, bool, float> heightAt;
+
+        /// <summary>The compact (sheet) panel's height at a layout width.</summary>
+        System.Func<float, float> sheetHeightAt;
         string loggedProblems = "";
 
         public override void Init(GraphRoot graphRoot)
         {
             root = graphRoot;
+            heightAt = (w, compact) => panel.Layout(w, compact);
+            sheetHeightAt = w => panel.Layout(w, true);
             Canvas canvas = UiFactory.CreateCanvas("PersonInspector", SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
-            panel = new PersonPanel(canvasRect, Close);
+            panel = new PersonPanel(canvasRect, Close, OpenPlayer);
             line = new PersonLine(transform);
 
             // created last: a hidden fade deactivates the panel (texts are measured while it is shown)
@@ -100,8 +117,6 @@ namespace Why.Economy.UI
             model = root.Context.Shared<EconomyModel>(EconomyModel.SharedKey);
             pop = root.Context.Shared<SmvPopulation>(SmvPopulation.SharedKey);
             world = root.Context.Shared<HumanWorld>(HumanWorld.SharedKey);
-            circuitStation = EconomyStage.Get(EconomyStage.Circuit);
-            mindStation = EconomyStage.Get(EconomyStage.Mind);
             hud = new HudBlocks(root);
             foreach (GraphModule m in root.Modules)
             {
@@ -114,6 +129,7 @@ namespace Why.Economy.UI
         void OnDestroy()
         {
             Shown = UiBox.Empty;
+            SheetShown = false;
             panel?.Dispose();
             line?.Dispose();
         }
@@ -123,6 +139,15 @@ namespace Why.Economy.UI
         {
             HudKit.ReleaseSelection();
             EconomyState.SetPerson(-1);
+        }
+
+        /// <summary>The "Plays as" link: the person's player is selected and its inspector comes to the front.</summary>
+        void OpenPlayer()
+        {
+            HudKit.ReleaseSelection();
+            if (facts == null || facts.PlayerIndex < 0) return;
+            EconomyState.SetSelection(facts.PlayerIndex, -1, EconomyState.SelectedTie);
+            PlayerPanel.BringToFront();
         }
 
         // ------------------------------------------------------------------ per frame
@@ -142,16 +167,14 @@ namespace Why.Economy.UI
 
             HandleKeys(keysBlocked);
             TrackClicks(tour);
-            if (EconomyState.Version != seenVersion) Refresh();
+            PlayerPanel.TrackFront();
+            if (EconomyState.Version != seenVersion || LandService.Version != factsLand) Refresh();
+            SyncHighlight(tour ? -1 : EconomyState.Person);
 
-            // the person belongs to the road and the mind map (where their cross is drawn)
-            Vector3 target = root.Rig != null ? root.Rig.Pose.Target : Vector3.zero;
-            bool here = !EconomyControls.AtStations(target, circuitStation) || EconomyControls.NearMind(target, mindStation);
-            SyncHighlight(tour ? -1 : here ? EconomyState.Person : -1);
-
-            // the games panel docks at the right edge too (in the games and tribes views, wherever the camera has
-            // since wandered): the person waits until it has gone
-            bool show = !tour && here && facts != null && !hud.GamesPanelShown;
+            // one inspector at a time: the player's when it is in front; on a portrait screen with the land in view the
+            // social panel's sheet holds the bottom (the person waits until it has gone)
+            bool socialSheet = ScreenLayout.IsPortrait && HudBlocks.SocialPanelShown && EconomyControls.IsLandView(root.CurrentPreset);
+            bool show = !tour && facts != null && !PlayerPanel.Covers && !socialSheet;
             if (show != fade.Shown)
             {
                 fade.Show(show); // activates the panel before its texts are measured
@@ -166,13 +189,17 @@ namespace Why.Economy.UI
 
             // Esc with the help sheet open only closes the sheet (the HUD's)
             bool helpOpen = helpSheet != null && helpSheet.gameObject.activeInHierarchy;
-            if (kb.escapeKey.wasPressedThisFrame && !helpOpen && EconomyState.Person >= 0) EconomyState.SetPerson(-1);
+            if (kb.escapeKey.wasPressedThisFrame && !helpOpen && EconomyState.Person >= 0 && !PlayerPanel.Covers && PlayerPanel.TakeEsc())
+            {
+                EconomyState.SetPerson(-1);
+            }
         }
 
         /// <summary>
         /// A left click that is not a drag, not over the UI (the help sheet's backdrop counts), not on a label and not during
         /// the tour is picked in LateUpdate: after the HUD has handled the same click (it clears its own focus on empty
-        /// space), so the person's highlight is set last.
+        /// space) and after the land's picker (a click it took on the land is not the road's), so the person's highlight is
+        /// set last.
         /// </summary>
         void TrackClicks(bool tour)
         {
@@ -196,14 +223,14 @@ namespace Why.Economy.UI
         }
 
         /// <summary>
-        /// Picks the line under a click on the road. At the stations nothing is picked (the road stands behind their
-        /// diagrams). While only the zoomed-out tier of lines is drawn (one line in ten, see SmvLayer), only its lines can
-        /// be picked.
+        /// Picks the line under a click on the road. While only the zoomed-out tier of lines is drawn (one line in ten, see
+        /// SmvLayer), only its lines can be picked. In the overview and section views a line's click also opens its year
+        /// (1.3). A click the land's picker took (a player, a dot, a sector ...) is not the road's.
         /// </summary>
         void Pick(Vector2 position)
         {
             if (root.Rig == null || root.Rig.Cam == null || !model.Lives.Ready) return;
-            if (EconomyControls.AtStations(root.Rig.Pose.Target, circuitStation)) return;
+            if (LandPicker.TookClick) return;
             double perLine = HumansLod.PeoplePerLine;
             bool coarseOnly = !(perLine > 0 && perLine < SmvLayer.PeoplePerCoarseLine * 0.5);
             Stopwatch sw = Stopwatch.StartNew();
@@ -217,18 +244,33 @@ namespace Why.Economy.UI
             // a click on the selected line lights it again: a label's focus may have taken the glow meanwhile (and the
             // HUD clears that focus on this same click), while the selection itself does not change
             if (hit && found.Person == highlighted) highlighted = NoneHighlighted;
+            if (hit && LandPicker.YearClicks(root.CurrentPreset))
+            {
+                EconomyState.SetYear((int)System.Math.Floor(pop.Sim.TimeOf(found.Step)));
+            }
+
+            // on the land the road is the background: an empty click there is the land picker's to clear
+            if (!hit && EconomyControls.IsLandView(root.CurrentPreset)) return;
             EconomyState.SetPerson(hit ? found.Person : -1);
         }
 
-        /// <summary>New facts when the person or the year changed (the panel is filled when it is next laid out).</summary>
+        /// <summary>New facts when the person, the year or the land on screen changed (the panel is filled when it is next
+        /// laid out); the link to the person's player when the land shows the person's year.</summary>
         void Refresh()
         {
             seenVersion = EconomyState.Version;
             int person = EconomyState.Person, year = EconomyState.Year;
-            if (person == factsPerson && year == factsYear) return;
+            if (person == factsPerson && year == factsYear && factsLand == LandService.Version) return;
             factsPerson = person;
             factsYear = year;
+            factsLand = LandService.Version;
             facts = person >= 0 ? PersonFacts.Build(model, pop, world, person, year) : null;
+            LandSnapshot s = LandService.Current;
+            if (facts != null && s != null && s.Year == facts.Year)
+            {
+                facts.PlaysAs = PlayerFacts.PlaysAs(s, Layers.SocialLayer.Shown, LandView.Round, person, model.Data, out facts.PlayerIndex);
+            }
+
             contentDirty = true;
         }
 
@@ -239,16 +281,31 @@ namespace Why.Economy.UI
         /// </summary>
         void SyncHighlight(int person)
         {
+            if (relight)
+            {
+                relight = false;
+                if (!LandPicker.OwnsHighlight) highlighted = NoneHighlighted;
+            }
+
             if (person == highlighted) return;
             if (ownsHighlight && Highlighter.HasHighlight && Highlighter.IsHighlighted(highlightRanges[0])) Highlighter.Clear();
             ownsHighlight = false;
             highlighted = person;
             line.Show(pop, model.Lives, person);
             if (person < 0 || person >= pop.Sim.People.Count) return;
+
+            // while the land's picker lights the land it lights the person's line with it (one highlight at a time)
+            if (LandPicker.OwnsHighlight) return;
             highlightRanges[0] = IdRange.Single(pop.Id(pop.Sim.People[person]));
             Highlighter.Set(highlightRanges, GraphStyle.HighlightGlow, PersonDim);
             ownsHighlight = true;
         }
+
+        /// <summary>
+        /// The land's picker gave the highlight back: the selected person's line lights again on the next frame (their dot
+        /// in the cut and in their player with it).
+        /// </summary>
+        public static void Relight() => relight = true;
 
         void LateUpdate()
         {
@@ -265,51 +322,70 @@ namespace Why.Economy.UI
             if (!fade.Shown || facts == null)
             {
                 Shown = UiBox.Empty;
+                SheetShown = false;
                 return;
             }
 
             if (checkPending) SelfCheck();
             Layout();
             Shown = panelBox;
+            SheetShown = laidOutSheet;
         }
 
         // ------------------------------------------------------------------ layout
 
         /// <summary>
-        /// Fills and sizes the panel for the screen's shape when the facts changed, then scales and places it under the
-        /// year controls whenever the HUD's blocks or the controls moved (see <see cref="EconomyUiLayout.InspectorScale"/>).
-        /// A scaled portrait sheet lays its content out wider by 1 / scale, so it still spans the screen (and wraps less).
+        /// Fills the panel when the facts changed, then places it whenever the HUD's blocks, the bowl or the controls moved:
+        /// in landscape where <see cref="EconomyUiLayout.ColumnPlace"/> finds room clear of the bowl (the right column under
+        /// the year controls, the left one, compact, a band under the controls); on a portrait screen with the land in view
+        /// as a bottom sheet under the bowl (<see cref="EconomyUiLayout.SheetBox"/>); on a portrait screen with the road in
+        /// view as the top sheet. A scaled portrait sheet lays its content out wider by 1 / scale, so it still spans the
+        /// screen (and wraps less).
         /// </summary>
         void Layout()
         {
             HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
             UiBox above = EconomyControls.Occupied;
-            float width = EconomyUiLayout.InspectorWidth(f);
-            bool refill = contentDirty || f.Portrait != laidOutCompact || Mathf.Abs(width - baseWidth) > 0.5f;
-            if (!refill && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
-
-            if (refill)
-            {
-                if (contentDirty) panel.Fill(facts, pop.Sim.PeoplePerLine);
-                contentDirty = false;
-                laidOutCompact = f.Portrait;
-                baseWidth = layoutWidth = width;
-                baseHeight = contentHeight = panel.Layout(width, f.Portrait);
-            }
-
+            bool sheet = EconomyUiLayout.BottomSheets(f);
+            if (!contentDirty && f.Portrait == laidOutCompact && sheet == laidOutSheet && f.Near(laidOutFrame) && above.Near(laidOutAbove)) return;
+            if (contentDirty) panel.Fill(facts, pop.Sim.PeoplePerLine);
+            contentDirty = false;
+            laidOutCompact = f.Portrait;
+            laidOutSheet = sheet;
             laidOutFrame = f;
             laidOutAbove = above;
-            panelScale = EconomyUiLayout.InspectorScale(f, above, baseHeight);
-            float wanted = f.Portrait ? baseWidth / panelScale : baseWidth;
-            if (Mathf.Abs(wanted - layoutWidth) > 0.5f)
+            if (f.Portrait)
             {
-                layoutWidth = wanted;
-                contentHeight = panel.Layout(layoutWidth, f.Portrait);
+                // a sheet (the land in view) or the top sheet (the road): scaled to its room, laid out wider by 1 / scale
+                if (sheet)
+                {
+                    // under the bowl, or above it where the bowl reaches low
+                    EconomyUiLayout.Placement p = EconomyUiLayout.SheetPlace(f, above, sheetHeightAt);
+                    panelScale = p.Scale;
+                    layoutWidth = p.LayoutWidth;
+                    contentHeight = panel.Layout(layoutWidth, true);
+                    panelBox = p.Box;
+                }
+                else
+                {
+                    float width = EconomyUiLayout.InspectorWidth(f);
+                    panelScale = EconomyUiLayout.InspectorScale(f, above, panel.Layout(width, true));
+                    layoutWidth = width / panelScale;
+                    contentHeight = panel.Layout(layoutWidth, true);
+                    panelBox = EconomyUiLayout.InspectorBox(f, above, layoutWidth, contentHeight, panelScale);
+                }
+            }
+            else
+            {
+                // the right column, or the left one, compact, or a band where the bowl takes the column (laid out last as chosen)
+                EconomyUiLayout.Placement p = EconomyUiLayout.ColumnPlace(f, above, EconomyUiLayout.LandscapeInspectorWidth, heightAt);
+                layoutWidth = p.LayoutWidth;
+                panelScale = p.Scale;
+                contentHeight = panel.Layout(layoutWidth, p.Compact);
+                panelBox = p.Box;
             }
 
-            panelBox = EconomyUiLayout.InspectorBox(f, above, layoutWidth, contentHeight, panelScale);
-
-            // anchored by its top-right corner at the right margin (scaled toward it); the portrait sheet spans the width
+            // anchored by its top-right corner (scaled toward it); the portrait sheets span the width
             RectTransform rt = panel.Rect;
             rt.Place(Vector2.one, Vector2.one, new Vector2(-(f.Canvas.x - panelBox.Right), -panelBox.Y),
                 new Vector2(layoutWidth, contentHeight));
@@ -326,7 +402,7 @@ namespace Why.Economy.UI
         {
             checkPending = false;
             problems.Clear();
-            EconomyUiLayout.Check(laidOutFrame, "person inspector", panelBox, problems);
+            EconomyUiLayout.Check(laidOutFrame, "person inspector", panelBox, problems, laidOutSheet);
             if (panelBox.Overlaps(laidOutAbove)) problems.Add("person inspector " + panelBox + " overlaps the year controls " + laidOutAbove);
             UiBox drawn = hud.Box(canvasRect, panel.Rect);
             if (!drawn.IsEmpty && !drawn.Near(panelBox) && laidOutFrame.Canvas == canvasRect.rect.size)
@@ -334,7 +410,9 @@ namespace Why.Economy.UI
                 problems.Add("person inspector drawn at " + drawn + ", laid out at " + panelBox);
             }
 
-            float room = EconomyUiLayout.InspectorLimit(laidOutFrame, laidOutAbove) - panelBox.Y;
+            float room = laidOutSheet
+                ? EconomyUiLayout.SheetBottom(laidOutFrame) - EconomyUiLayout.SheetTopLimit(laidOutFrame, laidOutAbove)
+                : EconomyUiLayout.ColumnLimit(laidOutFrame, laidOutAbove, panelBox) - panelBox.Y;
             if (panelBox.H > room + 0.5f)
             {
                 problems.Add("person inspector " + panelBox + " runs past its room of " +

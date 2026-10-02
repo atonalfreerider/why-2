@@ -106,19 +106,25 @@ namespace Why.UI
         {
             return new[]
             {
-                Section("People and years", new[]
+                Section("The year and the land", new[]
                 {
-                    Row("Click a lifeline", "look inside one person: income, spending, drives, and the games they play"),
-                    Row("N", "the next notable person (owner, striver, escapist, the indebted ...)"),
-                    Row(",   .", "the year of the money circuit and the mind map (with Shift: ten years)"),
-                    Row("Games panel", "choose two strategies, the noise and the shadow of the future; watch them play"),
+                    Row(",   .", "the year one back / forward (with Shift: ten); the cut slides and the land opens it"),
+                    Row("Year chip", "\u2039 \u203A step; drag the scrubber to slide the cut, release to open the year"),
+                    Row("Click the wall", "in views 1 and 2: open the year clicked"),
+                    Row("Hover the land", "light a sector and its roots, a river, a tower, a tie; read its card"),
+                    Row("Click a player", "its inspector: who, its money, its mind, its place in the season"),
+                    Row("Click a dot or a line", "look inside one person (a dot is a lifeline); click a line in views 1 and 2 to open its year too"),
+                    Row("Click a tower", "its owners: the ownership fan"),
+                    Row("Click again", "fly closer to what you clicked"),
+                    Row("N", "the next notable person (owner, striver, escapist ...); with a player open, its next member"),
+                    Row("Social panel", "views 8 and betrayal: play the season, forgiveness, mistakes, partner choice, Betray a tie"),
                 }),
                 Section("Guide and details", new[]
                 {
                     Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
                     Row("Hover a label", "what it is, how large, and where the numbers come from"),
                     Row("Click a label", "focus and highlight it"),
-                    Row("Esc", "clear the highlight, close the person, close this sheet"),
+                    Row("Esc", "close the inspector in front, unpin a card, clear the highlight, close this sheet"),
                     Row("U   [   ]   L", "the time lens, as in the causality graph"),
                     Row("V", "vertical 9:16 window for recording phone videos; again to go back"),
                     Row("H   ?", "this help"),

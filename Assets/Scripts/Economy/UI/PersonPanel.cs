@@ -9,7 +9,9 @@ namespace Why.Economy.UI
     /// <summary>
     /// The person inspector's panel: a framed column of one person's life in one year (<see cref="PersonFacts"/>). Who
     /// they are (sex, birth, generation, tribe, the strategy they play with others and how often they cooperate) and, for
-    /// the model's notable people, their role and why; the year's household and work; their money (income by source,
+    /// the model's notable people, their role and why; the player of the land they play as (a link that opens the player
+    /// inspector: "Plays as: Frontline · trade · R (4.1M adults) · Coalition 3 · standing beta"); the year's household and
+    /// work; their money (income by source,
     /// taxes, what is left, spending, saving, net worth, debt, wealth group); where the spending goes (six bars colored
     /// from desire to fear, the fantasy part underlined); their mind (the share of fear in the spending's motive, reason
     /// as the higher OS, orientation to the future, agency against the cut for control, the strongest desires and fears at
@@ -91,6 +93,11 @@ namespace Why.Economy.UI
             mindHeading, gaugeLegend, verdict, wants, fears, lifeHeading, hint;
 
         readonly RectTransform close;
+
+        /// <summary>The link to the person's player (shown while the land's snapshot is of the shown year).</summary>
+        readonly Button playsAs;
+
+        readonly TextMeshProUGUI playsAsLabel;
         readonly TextMeshProUGUI[] moneyLabels = new TextMeshProUGUI[PersonFacts.MoneyRows];
         readonly TextMeshProUGUI[] moneyValues = new TextMeshProUGUI[PersonFacts.MoneyRows];
         readonly Bar[] categories = new Bar[PersonFacts.Categories];
@@ -101,7 +108,7 @@ namespace Why.Economy.UI
         /// <summary>The panel's rect (the framed rim); the owner places and scales it.</summary>
         public RectTransform Rect { get; }
 
-        public PersonPanel(Transform parent, Action onClose)
+        public PersonPanel(Transform parent, Action onClose, Action onPlaysAs)
         {
             Rect = HudKit.FramedPanel(parent, "PersonInspector", 0.9f, true);
             Color dim = GraphStyle.TextDim, text = GraphStyle.Text;
@@ -112,6 +119,11 @@ namespace Why.Economy.UI
             title.textWrappingMode = TextWrappingModes.Normal;
             meta = Wrapped("Meta", FontSmall, dim);
             role = Wrapped("Role", FontSmall, dim);
+            playsAs = HudKit.Button(Rect, "PlaysAs", "", FontSmall, onPlaysAs);
+            playsAsLabel = playsAs.GetComponentInChildren<TextMeshProUGUI>();
+            playsAsLabel.alignment = TextAlignmentOptions.MidlineLeft;
+            playsAsLabel.textWrappingMode = TextWrappingModes.Normal;
+            playsAsLabel.color = GraphStyle.Text;
 
             yearHeading = Heading("YearHeading");
             status = Wrapped("Status", FontBody, text);
@@ -261,6 +273,7 @@ namespace Why.Economy.UI
                 ? "<color=#" + textHex + "><b>" + Escape(f.Role.ToUpperInvariant()) + "</b></color>" + roleYear + "  " +
                   Escape(f.RoleWhy ?? "")
                 : "";
+            playsAsLabel.text = f.PlaysAs.Length > 0 ? Escape(f.PlaysAs) + "  \u203A" : "";
             yearHeading.text = Escape(f.YearHeading);
             status.text = Escape(f.Status);
             // the money labels depend on the width (Layout)
@@ -411,6 +424,13 @@ namespace Why.Economy.UI
             y = Block(title, x, y, compact ? inner - CloseSize - 6 : inner) + 2;
             y = Block(meta, x, y, inner);
             y = Show(role, f.Role != null) ? Block(role, x, y + 6, inner) : y;
+            if (Show(playsAs, f.PlaysAs.Length > 0))
+            {
+                // the link to the player: a button as tall as its wrapped label
+                float h = HudKit.Measure(playsAsLabel, playsAsLabel.text, inner - 12).y + 6;
+                HudKit.PlaceTopLeft((RectTransform)playsAs.transform, x, y + 6, new Vector2(inner, h));
+                y += 6 + h;
+            }
 
             // the year
             y += gap;

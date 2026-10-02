@@ -60,6 +60,14 @@ namespace Why.Economy.UI
         /// <summary>The year the role's sentence describes (the last simulated year: notables are picked there).</summary>
         public int RoleYear;
 
+        /// <summary>
+        /// The player of the land the person plays as (<see cref="PlayerFacts.PlaysAs"/>) and its index; "" and -1 when the
+        /// land's snapshot is of another year or the person is in no player.
+        /// </summary>
+        public string PlaysAs = "";
+
+        public int PlayerIndex = -1;
+
         /// <summary>"IN 2025  ·  AGE 64" (with why another year is shown) and the year's household and work.</summary>
         public string YearHeading = "", Status = "";
 
@@ -416,45 +424,675 @@ namespace Why.Economy.UI
     }
 
     /// <summary>
-    /// The year's readout under the year chip: the share of adults in control of their path, the fantasy and fear shares
-    /// of the money they spend, and the share of people who say most people can be trusted (General Social Survey).
+    /// The year's readout under the year chip (7.6): "2025 · GDP $30.8T · in control 12% · fantasy 19% · fear 54% · trust 25%
+    /// (GSS) · cooperation 0.73", with "estimate (H1 annualized)" for an estimated year and "companies: 2025 data" while
+    /// the towers show; the chip's tooltip is the circuit's notes for the year.
     /// </summary>
     public static class YearFacts
     {
         static readonly CultureInfo Ci = CultureInfo.InvariantCulture;
 
         /// <summary>
-        /// "In control 12%  ·  fantasy 19% of spending  ·  fear 54%  ·  trust 25%" (rich text: labels dim, numbers in
-        /// <paramref name="valueHex"/>); compact drops "of spending" for narrow screens. Trust is left out before its
-        /// survey begins (1972) and held at its last reading after it; everything is empty without the lives.
+        /// The readout for a year (rich text: labels dim, numbers in <paramref name="valueHex"/>). GDP, the fantasy and fear
+        /// shares of the money spent and the season's cooperation come from the land's snapshot when it shows that year
+        /// (<paramref name="land"/>; otherwise fantasy and fear are the adults' means from the lives, and GDP and
+        /// cooperation are left out); in control from the lives; trust from the General Social Survey (left out before its
+        /// first year, held at its last reading after it). "companies: 2025 data" only while the view shows the towers
+        /// (<paramref name="towersShown"/>, see <see cref="TowersShown"/>) and the snapshot has them. Compact drops the GSS
+        /// mark and the companies' note for narrow screens. Empty without the lives.
         /// </summary>
-        public static string Line(EconomicLives lives, YearSeries trust, int year, bool compact, string valueHex)
+        public static string Line(EconomicLives lives, YearSeries trust, Land.LandSnapshot land, EconomyData data, int year,
+            bool compact, string valueHex, bool towersShown = true)
         {
             PopulationYear a = lives != null && lives.Ready ? lives.Aggregate(year) : null;
             if (a == null) return "";
             string open = "<color=#" + valueHex + ">", close = "</color>";
             const string dot = "  \u00B7  ";
+            bool shown = land != null && land.Year == year && land.Players != null;
             StringBuilder sb = new StringBuilder();
-            sb.Append("In control ").Append(open).Append(PersonFacts.Pct(a.InControlShare)).Append(close);
-            sb.Append(dot).Append("fantasy ").Append(open).Append(PersonFacts.Pct(a.MeanFantasy)).Append(close);
-            if (!compact) sb.Append(" of spending");
-            sb.Append(dot).Append("fear ").Append(open).Append(PersonFacts.Pct(a.MeanFear)).Append(close);
+            sb.Append(open).Append(year.ToString(Ci)).Append(close);
+            if (shown && land.Land != null) sb.Append(dot).Append("GDP ").Append(open).Append(Land.LandFacts.Money(land.Land.Gdp, 1)).Append(close);
+            sb.Append(dot).Append("in control ").Append(open).Append(PersonFacts.Pct(a.InControlShare)).Append(close);
+            double fantasy = a.MeanFantasy, fear = a.MeanFear;
+            if (shown) Shares(land.Players, out fear, out fantasy);
+            sb.Append(dot).Append("fantasy ").Append(open).Append(PersonFacts.Pct(fantasy)).Append(close);
+            sb.Append(dot).Append("fear ").Append(open).Append(PersonFacts.Pct(fear)).Append(close);
             if (trust != null && !trust.IsEmpty && year >= trust.FirstYear)
             {
                 sb.Append(dot).Append("trust ").Append(open).Append(PersonFacts.Pct(trust.At(year))).Append(close);
+                if (!compact) sb.Append(" (GSS)");
             }
 
+            float[] coop = shown ? land.Society?.Cooperation : null;
+            if (coop != null && coop.Length > 0)
+            {
+                sb.Append(dot).Append("cooperation ").Append(open).Append(coop[coop.Length - 1].ToString("0.00", Ci)).Append(close);
+            }
+
+            if (data != null && data.IsEstimate(year)) sb.Append(dot).Append("estimate (H1 annualized)");
+            if (!compact && towersShown && shown && land.Land?.Towers != null && land.Land.Towers.Length > 0) sb.Append(dot).Append("companies: 2025 data");
             return sb.ToString();
         }
 
-        /// <summary>The same readout without markup (logs, tests).</summary>
-        public static string Plain(EconomicLives lives, YearSeries trust, int year, bool compact)
+        /// <summary>The fear and fantasy shares of the players' spending dollars (the rivers' motive split).</summary>
+        public static void Shares(Land.PlayerSet players, out double fear, out double fantasy)
         {
-            string rich = Line(lives, trust, year, compact, "FFFFFF");
+            double spend = 0, f = 0, x = 0;
+            foreach (Land.Player p in players.Players)
+            {
+                for (int c = 0; c < 6; c++)
+                {
+                    spend += p.Category[c];
+                    f += p.CategoryFear[c];
+                    x += p.CategoryFantasy[c];
+                }
+            }
+
+            fear = spend > 0 ? f / spend : 0;
+            fantasy = spend > 0 ? x / spend : 0;
+        }
+
+        /// <summary>
+        /// Whether a view shows the towers: it opens the land and its emphasis of the towers is at least the pickable
+        /// <see cref="Land.PickOptions.MinAlpha"/> (the section view and the road's own views show none).
+        /// </summary>
+        public static bool TowersShown(string presetId)
+        {
+            if (string.IsNullOrEmpty(presetId)) return false;
+            ViewSpec v = EconomyViews.Get(presetId);
+            return v != null && v.MorphTarget > 0 && v.Alpha[(int)Land.LandGroup.Towers] >= Land.PickOptions.MinAlpha;
+        }
+
+        /// <summary>The same readout without markup (logs, tests).</summary>
+        public static string Plain(EconomicLives lives, YearSeries trust, Land.LandSnapshot land, EconomyData data, int year, bool compact,
+            bool towersShown = true)
+        {
+            string rich = Line(lives, trust, land, data, year, compact, "FFFFFF", towersShown);
             return rich.Replace("<color=#FFFFFF>", "").Replace("</color>", "");
         }
 
         /// <summary>Year as the chip shows it.</summary>
         public static string YearText(int year) => year.ToString(Ci);
+    }
+
+    /// <summary>
+    /// The land legend's text for a year (0.1, 7.6): the unit system ("1 square = $1.28T a year · width 0.1 = $3.1T a year ·
+    /// roots ×4 · height 1 = $5.1T of market value · a dot = 100,000 people") and the accounts readout from the year's money
+    /// circuit ("GDP $30.8T · the circuit balances within 1.1% (tier:raw)" and its notes: the approximations and residuals
+    /// are printed, never hidden behind the headline).
+    /// </summary>
+    public static class LandLegendFacts
+    {
+        /// <summary>The legend prints all of the circuit's notes (collapsed to the first, one tap from the rest, where room is short).</summary>
+        public const int NoteLines = int.MaxValue;
+
+        /// <summary>The unit system of the year's land.</summary>
+        public static string Units(Land.LandSnapshot s, double peoplePerLine)
+        {
+            double gdp = s?.Land?.Gdp ?? 0;
+            if (gdp <= 0) return "";
+            const string dot = "  \u00B7  ";
+            return "1 square = " + Land.LandFacts.Money(gdp / Land.LandStyle.AreaGdp) + " a year" + dot +
+                   "width 0.1 = " + Land.LandFacts.Money(0.1 * gdp / Land.LandStyle.WidthGdp, 1) + " a year" + dot +
+                   "roots \u00D7" + Land.LandStyle.RootWidthGdp.ToString("0", CultureInfo.InvariantCulture) + dot +
+                   "height 1 = " + Land.LandFacts.Money(gdp / Land.LandStyle.HeightGdp, 1) + " of market value" + dot +
+                   "a dot = " + HudCount(peoplePerLine) + " people";
+        }
+
+        /// <summary>"GDP $30.8T · the circuit balances within 1.1% (tier:raw)", with the estimate mark.</summary>
+        public static string Accounts(Land.LandSnapshot s, EconomyData data)
+        {
+            CircuitYear c = s?.Circuit;
+            if (c == null) return "";
+            string line = "GDP " + Land.LandFacts.Money(c.Gdp, 1) + "  \u00B7  the circuit balances within " +
+                          Land.LandFacts.Percent(c.Imbalance, 1) + (string.IsNullOrEmpty(c.ImbalanceNode) ? "" : " (" + c.ImbalanceNode + ")");
+            if (data != null && data.IsEstimate(c.Year)) line += "  \u00B7  estimate (H1 annualized)";
+            return line;
+        }
+
+        /// <summary>The first <paramref name="lines"/> lines of the circuit's notes after its GDP line (empty when none).</summary>
+        public static string Notes(Land.LandSnapshot s, int lines)
+        {
+            string n = s?.Circuit?.Notes;
+            if (string.IsNullOrEmpty(n)) return "";
+            string[] all = n.Split('\n');
+            List<string> keep = new List<string>();
+            for (int i = 1; i < all.Length && keep.Count < lines; i++)
+            {
+                if (all[i].Trim().Length > 0) keep.Add(all[i].Trim());
+            }
+
+            return string.Join("\n", keep);
+        }
+
+        /// <summary>100000 → "100,000".</summary>
+        static string HudCount(double n) => n.ToString("#,0", CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// A tower's owners in the model (7.5, the ownership fan's hover line): "NVIDIA's owners in the model: abroad 18%,
+    /// pensions 12%; of the rest the 1% 50%, the next 9% 37%, the next 40% 12%, the bottom half 1%". The rule is the fan's
+    /// (FlowsLayer.Fan): every adult's capital income × the equity share of its wealth group's capital income
+    /// (<see cref="Land.CapitalSources.EquityFraction"/>, circuit.json groups[]), summed by wealth group; abroad and
+    /// pensions are circuit.json's foreignEquityShare and pensionEquityShare. Pure, so the harness can print it.
+    /// </summary>
+    public static class TowerFacts
+    {
+        static readonly string[] GroupNames = { "the bottom half", "the next 40%", "the next 9%", "the 1%" };
+
+        /// <summary>The owners' line of a company's tower in the snapshot (empty when the snapshot has no such tower).</summary>
+        public static string Owners(Land.LandSnapshot s, EconomyData data, EconomicLives lives, int company)
+        {
+            Land.TowerGeom tower = null;
+            foreach (Land.TowerGeom t in s?.Land?.Towers ?? Array.Empty<Land.TowerGeom>()) tower = t.Company == company ? t : tower;
+            if (tower == null || data == null || s.Players?.Players == null) return "";
+            int groups = Land.CapitalSources.Groups;
+            double[] fraction = new double[groups], byGroup = new double[groups];
+            for (int g = 0; g < groups; g++) fraction[g] = Land.CapitalSources.EquityFraction(data, g);
+            double total = 0;
+            foreach (Land.Player p in s.Players.Players)
+            {
+                foreach (int i in p.Adults)
+                {
+                    if (lives == null || !lives.TryGet(i, s.Year, out PersonYear r) || r.CapitalIncome <= 0) continue;
+                    int g = Math.Min(groups - 1, (int)r.WealthGroup);
+                    double e = r.CapitalIncome * fraction[g];
+                    byGroup[g] += e;
+                    total += e;
+                }
+            }
+
+            double foreign = data.Circuit?.ForeignEquityShare ?? 0, pension = data.Circuit?.PensionEquityShare ?? 0;
+            StringBuilder b = new StringBuilder();
+            b.Append(tower.Name).Append("'s owners in the model: abroad ").Append(Land.LandFacts.Percent(foreign)).Append(", pensions ")
+                .Append(Land.LandFacts.Percent(pension)).Append("; of the rest");
+            for (int g = groups - 1; g >= 0; g--)
+            {
+                b.Append(g < groups - 1 ? ", " : " ").Append(GroupNames[g]).Append(' ').Append(Land.LandFacts.Percent(total > 0 ? byGroup[g] / total : 0));
+            }
+
+            return b.ToString();
+        }
+    }
+
+    /// <summary>
+    /// Everything the player inspector shows about one player of the land in its year (7.5), generated from the snapshot's
+    /// numbers: who it is (its group and the group's rule, its anchor and the named employers paying its wages, party and
+    /// generation shares, adults and children), its money (income by source, taxes, spending by the six categories with
+    /// their fear and fantasy shares and first recipients, saving or borrowing, wealth, and the water budget's identity in
+    /// words), its mind against the population's, and its place in the season of tit for tat. Pure (no Unity objects but
+    /// colors), so the harness can print it; the panel only lays it out.
+    /// </summary>
+    public sealed class PlayerFacts
+    {
+        static readonly CultureInfo Ci = CultureInfo.InvariantCulture;
+        const string Dot = "  ·  ";
+
+        /// <summary>The group names on player labels (the inhabitants' labels say the same).</summary>
+        public static readonly string[] GroupLabel =
+        {
+            "The 1%", "Owners", "Gig", "PMC", "Public", "Office", "Frontline", "Working poor", "Retirees", "SS retirees",
+            "Students", "Out of work"
+        };
+
+        static readonly string[] GenerationNames = { "Silent", "Boomers", "Gen X", "Millennials", "Gen Z" };
+        static readonly string[] StandingNames = { "beta", "alpha", "omega", "anti-alpha" };
+
+        /// <summary>The mind's gauges: names, the player's values and the population's (adults; spending-weighted for fear and fantasy).</summary>
+        public static readonly string[] MindNames = { "Reason", "Higher OS", "Future", "Agency", "In control", "Fear", "Fantasy" };
+
+        public int Player = -1, Year;
+
+        /// <summary>"Frontline & trades workers · trade · Republicans" and "Frontline · trade · R" (the label's).</summary>
+        public string Title = "", Short = "";
+
+        /// <summary>The group's rule (groups.json) and where it stands.</summary>
+        public string Rule = "";
+
+        /// <summary>"4.1M adults and 1.0M children (51 lines)", party and generation shares, the named employers.</summary>
+        public string People = "", Party = "", Generations = "", Employers = "";
+
+        /// <summary>Income by source (wages, business, capital, transfers) in $B, and the money lines.</summary>
+        public readonly double[] Income = new double[4];
+
+        public string IncomeLine = "", Identity = "", Balance = "";
+
+        /// <summary>Spending by the six categories: names, dollars, fear and fantasy shares, the top three first recipients.</summary>
+        public readonly string[] CategoryNames = new string[6], Recipients = new string[6];
+
+        public readonly double[] Category = new double[6];
+        public readonly float[] CategoryFear = new float[6], CategoryFantasy = new float[6];
+        public double Spending;
+        public float Fear, Fantasy;
+
+        public readonly float[] Mind = new float[7], MindMean = new float[7];
+
+        /// <summary>The strongest desires and fears (members' mean drive weights), the modes of thought, family.</summary>
+        public string Wants = "", Fears = "", Modes = "", Family = "";
+
+        /// <summary>The season: strategy, the members' own strategy mix, pairs, cooperation, coalition, standing, memory.</summary>
+        public string Play = "", Mix = "", Dealings = "", Standing = "";
+
+        /// <summary>Members: the one with the median income (the panel's "Show a member"), and the members by income.</summary>
+        public int MedianMember = -1;
+
+        public int[] MembersByIncome = Array.Empty<int>();
+
+        /// <summary>
+        /// The facts of player <paramref name="index"/> of a snapshot, with the season shown (<paramref name="season"/>, else
+        /// the snapshot's) at <paramref name="round"/>; null when there is no such player.
+        /// </summary>
+        public static PlayerFacts Build(Land.LandSnapshot s, EconomyModel model, Land.SocialSeasonResult season, int round, int index)
+        {
+            Land.Player[] ps = s?.Players?.Players;
+            if (ps == null || index < 0 || index >= ps.Length || model?.Data == null) return null;
+            EconomyData data = model.Data;
+            EconomicLives lives = model.Lives;
+            Land.Player p = ps[index];
+            PlayerFacts f = new PlayerFacts { Player = index, Year = s.Year };
+            f.Who(p, s, data);
+            f.Money(p, s, data);
+            f.MindOf(p, ps, lives, data, s.Year);
+            // the season shown is another year's while a new land is being swapped in: then the snapshot's own
+            if (season == null || season.Year != s.Year || season.Standing == null || season.Standing.Length != ps.Length) season = s.Society;
+            f.SocietyOf(p, ps, season, round, data, s.Year);
+            f.MembersOf(p, lives, s.Year);
+            return f;
+        }
+
+        /// <summary>A player's name on its label: "Frontline · trade · R".</summary>
+        public static string Label(Land.Player p, EconomyData data) =>
+            GroupLabel[Math.Min((int)p.Group, GroupLabel.Length - 1)] + " · " + AnchorName(p.AnchorId, data) + " · " + p.Tribe;
+
+        /// <summary>
+        /// The person inspector's link (7.5): "Plays as: Frontline · trade · R (4.1M adults) · Coalition 3 · standing beta"
+        /// for a person of the snapshot's year, or "" when the person is in no player (a child of nobody, another year).
+        /// </summary>
+        public static string PlaysAs(Land.LandSnapshot s, Land.SocialSeasonResult season, int round, int person, EconomyData data,
+            out int player)
+        {
+            player = -1;
+            int[] of = s?.Players?.PlayerOfPerson;
+            if (of == null || person < 0 || person >= of.Length || of[person] < 0) return "";
+            player = of[person];
+            Land.Player p = s.Players.Players[player];
+            StringBuilder sb = new StringBuilder("Plays as: ");
+            sb.Append(Label(p, data)).Append(" (").Append(Land.LandFacts.Millions(p.Adults.Length * 1e5)).Append(" adults)");
+            if (season == null || season.Year != s.Year) season = s.Society;
+            int coalition = CoalitionOf(season, player, round);
+            if (coalition >= 0) sb.Append(Dot).Append("Coalition ").Append((coalition + 1).ToString(Ci));
+            if (season?.Standing != null && player < season.Standing.Length)
+            {
+                sb.Append(Dot).Append("standing ").Append(StandingNames[Math.Min(3, (int)season.Standing[player])]);
+            }
+
+            return sb.ToString();
+        }
+
+        // ------------------------------------------------------------------ who
+
+        void Who(Land.Player p, Land.LandSnapshot s, EconomyData data)
+        {
+            SocialGroup g = (int)p.Group < (data.GroupsFile?.Groups?.Count ?? 0) ? data.GroupsFile.Groups[(int)p.Group] : null;
+            Title = (g?.Name ?? GroupLabel[(int)p.Group]) + Dot + AnchorName(p.AnchorId, data) + Dot + TribeName(p.Tribe);
+            Short = Label(p, data);
+            Rule = (string.IsNullOrEmpty(g?.Rule) ? "" : "Rule: " + g.Rule.TrimEnd('.') + ".") +
+                   (string.IsNullOrEmpty(g?.Where) ? "" : " Stands: " + char.ToLowerInvariant(g.Where[0]) + g.Where.Substring(1));
+            People = Land.LandFacts.Millions(p.Adults.Length * 1e5) + " adults and " + Land.LandFacts.Millions(p.Children.Length * 1e5) +
+                     " children (" + Land.LandFacts.Count(p.Adults.Length + p.Children.Length) + " lines of 100,000)";
+            Party = "Democrats " + Land.LandFacts.Percent(p.TribeShares[0]) + Dot + "Republicans " + Land.LandFacts.Percent(p.TribeShares[1]) +
+                    Dot + "independents " + Land.LandFacts.Percent(p.TribeShares[2]) + " (party is drawn independently of class in this model)";
+            StringBuilder gen = new StringBuilder();
+            for (int k = 0; k < 5; k++)
+            {
+                if (p.Generations[k] < 0.005f) continue;
+                if (gen.Length > 0) gen.Append(Dot);
+                gen.Append(GenerationNames[k]).Append(' ').Append(Land.LandFacts.Percent(p.Generations[k]));
+            }
+
+            Generations = gen.ToString();
+
+            // the named employers: the wage arcs from the towers (expected US employment shares, 3.5)
+            Dictionary<int, double> byCompany = new Dictionary<int, double>();
+            double named = 0;
+            if (s.Money != null)
+            {
+                foreach (Land.FlowPath fp in s.Money.Paths)
+                {
+                    if (fp.Kind != Land.FlowKind.WagesCompany || fp.To != p.Index) continue;
+                    byCompany.TryGetValue(fp.From, out double v);
+                    byCompany[fp.From] = v + fp.Dollars;
+                    named += fp.Dollars;
+                }
+            }
+
+            List<KeyValuePair<int, double>> list = new List<KeyValuePair<int, double>>(byCompany);
+            list.Sort((a, b) => b.Value != a.Value ? b.Value.CompareTo(a.Value) : a.Key.CompareTo(b.Key));
+            StringBuilder e = new StringBuilder();
+            if (p.Wages > 0)
+            {
+                e.Append("Wages from ").Append(TopIndustries(p.WagesBy, p.Wages, data, 3));
+                foreach (KeyValuePair<int, double> kv in list)
+                {
+                    e.Append(Dot).Append(CompanyName(s, kv.Key)).Append(' ').Append(Land.LandFacts.Percent(kv.Value / p.Wages));
+                }
+
+                if (list.Count > 0) e.Append(" (named employers: expected shares of US employment)");
+            }
+
+            Employers = e.ToString();
+        }
+
+        static string CompanyName(Land.LandSnapshot s, int company)
+        {
+            foreach (Land.TowerGeom t in s.Land?.Towers ?? Array.Empty<Land.TowerGeom>())
+            {
+                if (t.Company == company) return t.Name;
+            }
+
+            return "company " + company.ToString(Ci);
+        }
+
+        /// <summary>"trade 86%, manufacturing 9%" from dollars by industry.</summary>
+        static string TopIndustries(double[] by, double total, EconomyData data, int n)
+        {
+            int[] order = new int[by.Length];
+            for (int i = 0; i < order.Length; i++) order[i] = i;
+            Array.Sort(order, (a, b) => by[b] != by[a] ? by[b].CompareTo(by[a]) : a.CompareTo(b));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < Math.Min(n, order.Length); i++)
+            {
+                if (by[order[i]] <= 0 || total <= 0 || by[order[i]] / total < 0.01) break;
+                if (sb.Length > 0) sb.Append(", ");
+                sb.Append(IndustryName(data, order[i])).Append(' ').Append(Land.LandFacts.Percent(by[order[i]] / total));
+            }
+
+            return sb.ToString();
+        }
+
+        // ------------------------------------------------------------------ money
+
+        void Money(Land.Player p, Land.LandSnapshot s, EconomyData data)
+        {
+            Income[0] = p.Wages;
+            Income[1] = p.Business;
+            Income[2] = p.Capital;
+            Income[3] = p.Transfers;
+            string M(double v) => Land.LandFacts.Money(v);
+            IncomeLine = "Wages " + M(p.Wages) + Dot + "business " + M(p.Business) + Dot + "capital " + M(p.Capital) + Dot +
+                         "transfers " + M(p.Transfers) + (p.SocialSecurity > 0.05 ? " (Social Security " + M(p.SocialSecurity) + ")" : "") +
+                         Dot + "taxes " + M(p.Taxes);
+
+            Spending = 0;
+            double fear = 0, fantasy = 0;
+            for (int c = 0; c < 6; c++)
+            {
+                Category cat = data.CategoryById(EconomyData.CategoryIds[c]);
+                CategoryNames[c] = cat?.Name ?? EconomyData.CategoryIds[c];
+                Category[c] = p.Category[c];
+                CategoryFear[c] = p.Category[c] > 0 ? (float)(p.CategoryFear[c] / p.Category[c]) : 0;
+                CategoryFantasy[c] = p.Category[c] > 0 ? (float)(p.CategoryFantasy[c] / p.Category[c]) : 0;
+                Spending += p.Category[c];
+                fear += p.CategoryFear[c];
+                fantasy += p.CategoryFantasy[c];
+                Recipients[c] = Sellers(s.Money?.CategoryToSeller, c, data);
+            }
+
+            Fear = Spending > 0 ? (float)(fear / Spending) : 0;
+            Fantasy = Spending > 0 ? (float)(fantasy / Spending) : 0;
+
+            // the water budget (4.1): in = out
+            double borrow = p.Saving < 0 ? -p.Saving : 0;
+            double inflow = p.Wages + p.Business + p.Capital + p.Transfers + borrow;
+            double outflow = p.Taxes + Spending + Math.Max(0, p.Saving);
+            Identity = "in " + M(inflow) + " = spending " + M(Spending) + (p.Saving > 0 ? " + saving " + M(p.Saving) : "") + " + taxes " +
+                       M(p.Taxes) + (borrow > 0 ? " (borrowing " + M(borrow) + " of it)" : "") + Dot + "gap " +
+                       Land.LandFacts.Money(Math.Abs(inflow - outflow) < 0.05 ? 0 : inflow - outflow);
+            double adults = Math.Max(1, p.Adults.Length * 1e5);
+            Balance = (p.Saving >= 0 ? "Saves " + M(p.Saving) : "Borrows " + M(-p.Saving)) + Dot + "wealth " + M(p.Wealth) + " ($" +
+                      Thousands(p.Wealth * 1e9 / adults) + " per adult)" + Dot + "debt " + M(p.Debt);
+        }
+
+        /// <summary>A category's top three first recipients: "health 54%, finance 10%, manufacturing 8%".</summary>
+        static string Sellers(double[,] seller, int c, EconomyData data)
+        {
+            if (seller == null || c >= seller.GetLength(0)) return "";
+            int n = seller.GetLength(1);
+            double[] row = new double[n];
+            for (int k = 0; k < n; k++) row[k] = seller[c, k];
+            return TopIndustries(row, 1, data, 3);
+        }
+
+        static string Thousands(double dollars) =>
+            dollars >= 999_500 ? (dollars / 1e6).ToString("0.0", Ci) + "M" : (dollars / 1e3).ToString("0", Ci) + "K";
+
+        // ------------------------------------------------------------------ mind
+
+        void MindOf(Land.Player p, Land.Player[] all, EconomicLives lives, EconomyData data, int year)
+        {
+            Mind[0] = p.Reason;
+            Mind[1] = p.HigherOs;
+            Mind[2] = p.Future;
+            Mind[3] = p.Agency;
+            Mind[4] = p.InControl;
+            Mind[5] = Fear;
+            Mind[6] = Fantasy;
+
+            // the population's: adult-weighted means over the players, spending-weighted for fear and fantasy
+            double w = 0, spend = 0;
+            double[] sum = new double[7];
+            foreach (Land.Player q in all)
+            {
+                double a = q.Adults.Length;
+                w += a;
+                sum[0] += a * q.Reason;
+                sum[1] += a * q.HigherOs;
+                sum[2] += a * q.Future;
+                sum[3] += a * q.Agency;
+                sum[4] += a * q.InControl;
+                for (int c = 0; c < 6; c++)
+                {
+                    spend += q.Category[c];
+                    sum[5] += q.CategoryFear[c];
+                    sum[6] += q.CategoryFantasy[c];
+                }
+            }
+
+            for (int k = 0; k < 5; k++) MindMean[k] = w > 0 ? (float)(sum[k] / w) : 0;
+            MindMean[5] = spend > 0 ? (float)(sum[5] / spend) : 0;
+            MindMean[6] = spend > 0 ? (float)(sum[6] / spend) : 0;
+
+            // the strongest desires and fears: the members' mean drive weights
+            float[] d = new float[5], fr = new float[5], ds = new float[5], fs = new float[5];
+            int n = 0;
+            if (lives != null && lives.Ready)
+            {
+                foreach (int person in p.Adults)
+                {
+                    if (!lives.DriveWeights(person, year, d, fr)) continue;
+                    for (int k = 0; k < 5; k++)
+                    {
+                        ds[k] += d[k];
+                        fs[k] += fr[k];
+                    }
+
+                    n++;
+                }
+            }
+
+            if (n > 0)
+            {
+                for (int k = 0; k < 5; k++)
+                {
+                    ds[k] /= n;
+                    fs[k] /= n;
+                }
+
+                Wants = Top(ds, LivesInputs.DesireIds, data.Psyche?.Desires);
+                Fears = Top(fs, LivesInputs.FearIds, data.Psyche?.Fears);
+            }
+
+            StringBuilder m = new StringBuilder("Modes of thought (population shares of waking time, not modeled per player): ");
+            List<Drive> modes = data.Psyche?.Modes;
+            for (int k = 0; modes != null && k < modes.Count; k++)
+            {
+                if (k > 0) m.Append(Dot);
+                m.Append(modes[k].Name ?? modes[k].Id).Append(' ').Append(Land.LandFacts.Percent(modes[k].Share));
+            }
+
+            Modes = m.ToString();
+            Family = "Married " + Land.LandFacts.Percent(p.Married) + Dot + "with children " + Land.LandFacts.Percent(p.WithKids) + Dot +
+                     "mean age " + p.Age.ToString("0", Ci);
+        }
+
+        static string Top(float[] weights, string[] ids, List<Drive> names)
+        {
+            int[] order = { 0, 1, 2, 3, 4 };
+            Array.Sort(order, (a, b) => weights[b] != weights[a] ? weights[b].CompareTo(weights[a]) : a.CompareTo(b));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 3; i++)
+            {
+                if (i > 0) sb.Append(Dot);
+                string id = ids[order[i]], name = id;
+                foreach (Drive dr in names ?? new List<Drive>())
+                {
+                    if (dr != null && dr.Id == id && !string.IsNullOrEmpty(dr.Name)) name = dr.Name;
+                }
+
+                sb.Append(name).Append(' ').Append(PersonFacts.Pct(weights[order[i]]));
+            }
+
+            return sb.ToString();
+        }
+
+        // ------------------------------------------------------------------ society
+
+        void SocietyOf(Land.Player p, Land.Player[] all, Land.SocialSeasonResult s, int round, EconomyData data, int year)
+        {
+            Land.SocialSettings set = s?.Settings ?? Land.SocialSettings.Default;
+            // the season's own rule (SocialSeason.Apply): forgiveness g = q h' and tribal memory mu = mu0 min(1, pol) (1 - h'),
+            // with h' the higher-OS share (1 when everyone forgives) and g = 0 when nobody does
+            Data.SocialData sd = data.Games?.Social ?? new Data.SocialData();
+            float h = p.HigherOs;
+            double hp = set.Forgive == 1 ? 1 : h;
+            double forgive = set.Forgive == 2 ? 0 : sd.Forgiveness * hp;
+            double pol = (data.Games?.Tribes?.AffectivePolarization?.DistrustSeries() ?? YearSeries.Empty).At(year) * set.Polarization;
+            double memory = sd.TribalMemory * Math.Min(1, pol) * (1 - hp);
+            Play = "Plays tit for tat; forgives " + Land.LandFacts.Percent(forgive) +
+                   (set.Forgive == 0
+                       ? " of defections (" + Land.LandFacts.Percent(sd.Forgiveness) + " of its " + Land.LandFacts.Percent(h) + " on the higher OS)"
+                       : " of defections") +
+                   Dot + "tribal memory " + memory.ToString("0.00", Ci);
+            StringBuilder mix = new StringBuilder("Members' own strategies (shown, not played): ");
+            int[] order = { 0, 1, 2, 3, 4, 5, 6 };
+            Array.Sort(order, (a, b) => p.Strategy[b] != p.Strategy[a] ? p.Strategy[b].CompareTo(p.Strategy[a]) : a.CompareTo(b));
+            for (int i = 0; i < order.Length; i++)
+            {
+                if (p.Strategy[order[i]] < 0.005f) break;
+                if (i > 0) mix.Append(Dot);
+                mix.Append(PrisonersDilemma.Name((PdStrategy)order[i])).Append(' ').Append(PersonFacts.Pct(p.Strategy[order[i]]));
+            }
+
+            Mix = mix.ToString();
+            if (s?.PairA == null || s.CoopAB == null)
+            {
+                Dealings = Standing = "";
+                return;
+            }
+
+            int t = Math.Max(0, Math.Min(round, s.CoopAB.Length - 1));
+            int inGroup = 0, outGroup = 0;
+            double given = 0, received = 0, weight = 0;
+            for (int k = 0; k < s.PairA.Length; k++)
+            {
+                int a = s.PairA[k], b = s.PairB[k];
+                if (a != p.Index && b != p.Index) continue;
+                int q = a == p.Index ? b : a;
+                if (q < 0 || q >= all.Length) continue;
+                if (all[q].Group == p.Group) inGroup++;
+                else outGroup++;
+                double e = s.Exposure != null && t < s.Exposure.Length ? s.Exposure[t][k] : 1;
+                float ab = s.CoopAB[t][k], ba = s.CoopBA[t][k];
+                given += e * (a == p.Index ? ab : ba);
+                received += e * (a == p.Index ? ba : ab);
+                weight += e;
+            }
+
+            Dealings = "Round " + t.ToString(Ci) + ": " + (inGroup + outGroup).ToString(Ci) + " partners (" + inGroup.ToString(Ci) +
+                       " in its group, " + outGroup.ToString(Ci) + " outside)" + Dot + "cooperation given " +
+                       (weight > 0 ? given / weight : 0).ToString("0.00", Ci) + ", received " + (weight > 0 ? received / weight : 0).ToString("0.00", Ci);
+            int coalition = CoalitionOf(s, p.Index, t);
+            Standing = (coalition >= 0 ? "Coalition " + (coalition + 1).ToString(Ci) : "In no coalition") +
+                       (s.Standing != null && p.Index < s.Standing.Length ? Dot + "standing " + StandingNames[Math.Min(3, (int)s.Standing[p.Index])] : "");
+        }
+
+        /// <summary>A player's coalition at the detection a round shows (the last at or before it), or -1.</summary>
+        public static int CoalitionOf(Land.SocialSeasonResult s, int player, int round)
+        {
+            if (s?.CoalitionAt == null || s.CoalitionAt.Length == 0) return -1;
+            int d = 0;
+            int[] at = Land.LandStyle.Detections;
+            for (int i = 0; i < Math.Min(at.Length, s.CoalitionAt.Length); i++)
+            {
+                if (at[i] <= round) d = i;
+            }
+
+            int[] labels = s.CoalitionAt[d];
+            return player >= 0 && player < labels.Length ? labels[player] : -1;
+        }
+
+        // ------------------------------------------------------------------ members
+
+        void MembersOf(Land.Player p, EconomicLives lives, int year)
+        {
+            int n = p.Adults.Length;
+            float[] income = new float[n];
+            int[] order = new int[n];
+            for (int k = 0; k < n; k++)
+            {
+                order[k] = k;
+                if (lives != null && lives.TryGet(p.Adults[k], year, out PersonYear r)) income[k] = r.Wages + r.Business + r.CapitalIncome + r.Transfers;
+            }
+
+            Array.Sort(order, (a, b) => income[a] != income[b] ? income[a].CompareTo(income[b]) : p.Adults[a].CompareTo(p.Adults[b]));
+            MembersByIncome = new int[n];
+            for (int k = 0; k < n; k++) MembersByIncome[k] = p.Adults[order[k]];
+            MedianMember = n > 0 ? MembersByIncome[n / 2] : -1;
+        }
+
+        // ------------------------------------------------------------------ names
+
+        /// <summary>An anchor's short name: "trade", "state & local", "services", "pensions (Boomers)", "other industries".</summary>
+        public static string AnchorName(string anchorId, EconomyData data)
+        {
+            if (string.IsNullOrEmpty(anchorId)) return "?";
+            if (anchorId == "rest") return "other industries";
+            string id = anchorId.StartsWith("tier:", StringComparison.Ordinal) ? anchorId.Substring(5) : anchorId;
+            int slash = id.IndexOf('/');
+            if (slash > 0)
+            {
+                string gen = id.Substring(slash + 1);
+                GenerationInfo gi = data?.GroupsFile?.Generations?.Find(x => x.Id == gen);
+                return Plain(id.Substring(0, slash)) + " (" + (gi?.Name ?? gen) + ")";
+            }
+
+            return Plain(id);
+        }
+
+        static string Plain(string id)
+        {
+            switch (id)
+            {
+                case "state_local": return "state & local";
+                case "oil_gas": return "oil & gas";
+                case "mining_metals": return "mining & metals";
+                case "media_telecom": return "media & telecom";
+                default: return id.Replace('_', ' ');
+            }
+        }
+
+        static string IndustryName(EconomyData data, int i) => i >= 0 && i < data.Industries.Count ? Plain(data.Industries[i].Id) : "?";
+
+        static string TribeName(char t) => t == 'D' ? "Democrats" : t == 'R' ? "Republicans" : t == 'I' ? "independents" : "mixed party";
     }
 }

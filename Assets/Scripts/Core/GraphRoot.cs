@@ -332,8 +332,9 @@ namespace Why
 
             Bloom bloom = profile.Add<Bloom>(true);
             bloom.threshold.Override(0.9f);
-            bloom.intensity.Override(1.15f);
-            bloom.scatter.Override(0.72f);
+            bool economyGlow=GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
+            bloom.intensity.Override(economyGlow?1.9f:1.15f);
+            bloom.scatter.Override(economyGlow?.80f:.72f);
             bloom.highQualityFiltering.Override(true);
 
             Tonemapping tone = profile.Add<Tonemapping>(true);

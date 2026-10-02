@@ -83,7 +83,7 @@ namespace Why.Economy.UI
                 "\nFootprints: value added · height: hierarchy\nGold: capital · blue: labor · rose/ice: motives\n";
             var owner=HillLandscapeLayer.HoverOwner;
             int sector=HillLandscapeLayer.HoverIndustry;
-            if(dataBasis)summary+="\nSaved BEA / BLS / Fed / Census accounts.\nThe September 30, 2026 BEA revision is not yet incorporated. 2026 is estimated.\n\nMountain elevation, portfolios, motives and allowance rates are model assumptions.\nOwnership rings: dated SEC filings; two examples, not a complete ownership census.";
+            if(dataBasis)summary+="\nSaved BEA / BLS / Fed / Census accounts.\nThe September 30, 2026 BEA revision is not yet incorporated. 2026 is estimated.\n\nMountain elevation, portfolios, motives and allowance rates are model assumptions.\nNamed owners: two SEC examples. Internal control and firm rivalry are schematic; supply data are sector-level.";
             else if(owner!=null) summary+="\n<b>"+owner.name+" / "+owner.company+"</b>\n"+owner.note;
             else if(sector>=0)
             {
@@ -95,7 +95,7 @@ namespace Why.Economy.UI
                 ": assets "+LandFacts.Money(p.Assets)+" · debt "+LandFacts.Money(p.Debt)+
                 "\nIncome "+LandFacts.Money(p.Income)+" · spend "+LandFacts.Money(p.Spending)+
                 "\nReason "+p.Reason.ToString("P0")+" · fear "+p.Fear.ToString("P0")+
-                "\nAllowance (assumed) "+LandFacts.Money(p.AllowanceOut);
+                "\nNet assets "+LandFacts.Money(p.Wealth)+" � allowance "+LandFacts.Money(p.AllowanceOut);
             text.text=expanded?summary:"<b>LANDSCAPE / "+snapshot.Year+"</b>";
             foreach(var button in buttons)button.gameObject.SetActive(expanded);
             toggle.GetComponentInChildren<TextMeshProUGUI>().text=expanded?"Collapse":"Inspect / simulate";

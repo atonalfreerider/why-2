@@ -18,7 +18,7 @@ namespace Why.Economy.Land
             float r=Mathf.Clamp01(radius),x=Center.x+Mathf.Cos(angle)*Width*r,z=Center.z+Mathf.Sin(angle)*Depth*r;
             float ridge=1+.22f*r*Mathf.Sin(angle*3+Industry)+.14f*r*Mathf.Cos(angle*7+r*9);
             float elevation=Height*Mathf.Pow(1-r*r,2)*ridge;
-            return new Vector3(x,HillLandscape.Lowland(x,z)+elevation,z);
+            return new Vector3(x,(Tier==0?-18:HillLandscape.Lowland(x,z))+elevation,z);
         }
         public float Elevation(float x,float z)
         {
@@ -96,7 +96,7 @@ namespace Why.Economy.Land
         }
         public float Ground(float x,float z,int tier=0)
         {
-            float mass=0;foreach(var hill in Hills)mass=Mathf.Max(mass,hill.Elevation(x,z));
+            float mass=0;foreach(var hill in Hills)if(hill.Tier>0)mass=Mathf.Max(mass,hill.Elevation(x,z));
             return Lowland(x,z)+mass;
         }
         static double MeanWealth(Player p)=>p.Wealth/Math.Max(1,p.Adults.Length);

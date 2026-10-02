@@ -27,3 +27,29 @@ Audio and local tour JSON files and sidecars are ignored and untracked without d
 ## Verification
 
 Runtime and editor C# compile harness; live Editor ledger and geometry integration checks; Unity camera renders. Checks cover five-tier summit ordering, GDP footprint conservation, finite placement on the shared terrain, deterministic 30-year scenarios, accounting conservation, behavioral sensitivity, scene isolation, unchanged population samples, family junctions and historical geometry. Camera captures omit overlay UI; no original-scene pixel equivalence claim is made.
+
+## Focus, activity and corporate interiors
+
+Terrain contours are muted below the bloom threshold. Selected and hovered players, selected-sector firms, and the focused ownership rim use HDR highlights. Unrelated activity fades when a player is selected. Click a moving cohort to inspect its accounts; asset and debt rings have logarithmic radii (gold assets, pink liabilities). Marker size is not a linear monetary chart.
+
+Government ownership/agency geometry is below zero at the foundation of the whole landscape. Thin conceptual support connections extend beneath every non-government industry. These are explanatory legal/institutional support paths, not measured fiscal transfers.
+
+The existing sector input-output routes run underground, visible more strongly in the dependency view. Branches from sampled firms to recipient sectors are illustrative allocations; no company-specific supplier evidence is asserted. Employees, management and ownership form schematic interior trees. Same-sector firms have separate positions and rivalry connections.
+
+CorporateCompetition allocates each player's current consumption budget once across sectors using the existing category crosswalk. Where sampled firms exist, a deliberately assumed 50% outside option reserves demand for unlisted suppliers; synthetic appeal/reliability scores split the remaining 50% based on fear. Firm receipts are scenario allocations, not measured market shares or forecasts, and are not added back into household income. The current prototype has demand-side competition, not endogenous prices, bankruptcy or corporate balance sheets.
+
+Player trips are bounded, repeating visual visits toward a deterministic, budget-weighted spending destination. Fear affects travel extent and speed. Movement does not claim geographic migration and does not execute transactions each frame. Each player's annual assets and debt remain in PlayerMindProgram; Step year / Play advances that ledger. River width reflects the displayed sector spending allocation and color reflects the desire/fear balance. Other allocations remain in the conserved corporate budget even when omitted from the overview. This is household demand flowing to business, not an assertion that all spending is investment capital.
+
+Validation additionally checks firm receipts plus the outside option equal total consumption, each player's allocation sums to its budget, and government sits below the terrain. The runtime animation uses a separate layer to avoid rebuilding the terrain every frame.
+
+### Population density and torus river styling
+
+The 116 financial groups are rendered as 580 moving subgroups (five per account), at half the former marker scale. Each subgroup displays one fifth of its parent's assets and debt; the inspector explicitly retains group totals. This is a presentation subdivision, not 580 independently calibrated household agents. Clicking any subgroup selects its financial group. Population weight and ledger balances are not multiplied.
+
+Corporate monogram/ticker badges identify sampled firms; full names and scenario demand appear on focus or in the ownership view. They are procedural identifiers, not official logo assets.
+
+River rendering follows the original FlowsLayer.Ribbons grammar: adjacent saturated fear-blue and desire-pink surface bands, alpha blending to retain hue, a small lane gap, amount-scaled width, and pulsing center lines. The width uses a square-root visual compression for the expanded landscape rather than the torus's linear scale. A subgroup shows a budget-weighted destination; the split lanes divide that allocation by the current assumed fear fraction. Flow animation never adds ledger transactions.
+
+For legibility, the overview draws one in fifteen individual tributaries and all industry trunks. Selecting a financial group reveals its five tributaries. Trunks aggregate all displayed-subgroup allocations for each recipient, not only the sampled tributaries; flows are alternative views of the same money, not additive transactions.
+
+The economy-only bloom profile uses intensity 1.9 and scatter 0.80, keeping the original 0.9 threshold. Moving HDR highlights trace both river lanes; the selected group, large scenario receivers and the dominant demand summit receive stronger focus. The original Why scene retains its existing bloom settings.

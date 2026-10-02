@@ -48,6 +48,13 @@ namespace Why.EditorChecks
             for(int i=0;i<prudent.Players.Length;i++)Require(prudent.Players[i].Spending<=impulsive.Players[i].Spending+1e-8,"Deliberation must affect the decision program");
             Require(GraphScene.Includes(typeof(HillLandscapeLayer)),"Hills must be active in Economy");
             Require(!GraphScene.Includes(typeof(LandscapeLayer)),"Bowl must remain disabled");
+            var market=new CorporateCompetition(source);market.Update(a);
+            double receipts=market.OutsideReceipts;foreach(double v in market.FirmReceipts){Require(v>=0,"Nonnegative firm allocation");receipts+=v;}
+            Require(Math.Abs(receipts-market.TotalSpending)<1e-6,"Firm allocations plus outside option conserve player spending");
+            double desired=0;foreach(var p in a.Players)desired+=p.Spending;
+            Require(Math.Abs(desired-market.TotalSpending)<1e-6,"Company competition must not create additional expenditure");
+            for(int p=0;p<land.People.Length;p++){var budget=market.Budget(p,a.Players[p]);double total=0;foreach(double v in budget)total+=v;Require(Math.Abs(total-a.Players[p].Spending)<1e-7,"Every player budget is allocated exactly once");}
+            foreach(var hill in land.Hills)if(hill.Tier==0)Require(hill.Summit.y<0,"Government lies beneath the landscape");
             var pop=LandService.Population;var sim=pop.Sim;
             double checksum=Samples(sim);
             var geometry=new SmvGeometry(sim,pop.CivIndex){FamilyJunctions=true};
@@ -59,7 +66,7 @@ namespace Why.EditorChecks
             Require(Math.Abs(new HillLandscape(historical).FootprintArea()-HillLandscape.Area)<.001,"Historical geometry conserves area");
             string result="PASS: "+land.Hills.Length+" hills, "+land.People.Length+" players, "+clouds+
                 " cloud groups; 30-year deterministic ledger; max residual "+largest.ToString("G4")+
-                " $B; mind sensitivity; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry.";
+                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry.";
             Debug.Log("[Why] "+result);return result;
         }
         static bool Finite(float x)=>!float.IsNaN(x)&&!float.IsInfinity(x);

@@ -1,0 +1,89 @@
+{
+ "note": "The driver's expectations (SPEC2 11.8, 10.1, 11.6): the 18 preset ids, every log line of 11.8 (core.lines: each must print, stubs with '(demo)'), WP0's own lines (core.log), the load budget, the causality scene's SmvLayer line. 'from' = the package an expected value comes from (checked only when that package is in --expect).",
+ "presets": ["overview", "section", "landscape", "capital", "people", "rivers", "mind", "society", "couples", "families", "roots", "state", "crowns", "betrayal", "y1972", "mind-pop", "mind-land", "mind1972"],
+ "landViews": ["landscape", "capital", "people", "rivers", "society", "families", "roots", "state", "crowns", "betrayal", "y1972"],
+ "loadMsMax": 2900,
+ "lines": [
+  {"name": "economic lives", "re": "^economic lives:"},
+  {"name": "Lives play feedback", "re": "^Lives play feedback\\b"},
+  {"name": "Lives allowance", "re": "^Lives allowance\\b"},
+  {"name": "Program trace", "re": "^Program trace\\b"},
+  {"name": "SmvLayer.Prepare", "re": "^SmvLayer\\.Prepare\\b"},
+  {"name": "SmvBonds", "re": "^SmvBonds (?!featured)"},
+  {"name": "SmvBonds featured marriage", "re": "^SmvBonds featured marriage\\b"},
+  {"name": "Hills 2025", "re": "^Hills 2025(?: \\(demo\\))?:"},
+  {"name": "Hills 1972", "re": "^Hills 1972(?: \\(demo\\))?:"},
+  {"name": "Hills 1950", "re": "^Hills 1950(?: \\(demo\\))?:"},
+  {"name": "Roots 2025", "re": "^Roots 2025\\b"},
+  {"name": "Valleys 2025", "re": "^Valleys 2025\\b"},
+  {"name": "Accounts 2025", "re": "^Accounts 2025\\b"},
+  {"name": "Players 2025", "re": "^Players 2025\\b"},
+  {"name": "Control 2025", "re": "^Control 2025\\b"},
+  {"name": "Crowns 2025", "re": "^Crowns 2025\\b"},
+  {"name": "Clouds 2025", "re": "^Clouds 2025\\b"},
+  {"name": "Rivers 2025", "re": "^Rivers 2025\\b"},
+  {"name": "Capital 2025", "re": "^Capital 2025\\b"},
+  {"name": "Vapor 2025", "re": "^Vapor 2025\\b"},
+  {"name": "State 2025", "re": "^State 2025\\b"},
+  {"name": "Families 2025", "re": "^Families 2025\\b"},
+  {"name": "Society 2025", "re": "^Society 2025\\b"},
+  {"name": "Territories 2025", "re": "^Territories 2025\\b"},
+  {"name": "SeasonLayer ready", "re": "^SeasonLayer ready\\b"},
+  {"name": "Mind 2025", "re": "^Mind 2025\\b"},
+  {"name": "Programs 2025", "re": "^Programs 2025\\b"},
+  {"name": "Program listing 2025", "re": "^Program listing 2025\\b"},
+  {"name": "Score 2025", "re": "^Score 2025\\b"},
+  {"name": "Land checks 2025", "re": "^Land checks 2025\\b"},
+  {"name": "Facts 2025", "re": "^Facts 2025\\b"},
+  {"name": "TerrainLayer.Prepare", "re": "^TerrainLayer\\.Prepare\\b"},
+  {"name": "HillFlowsLayer.Prepare", "re": "^HillFlowsLayer\\.Prepare\\b"},
+  {"name": "PeopleLayer.Prepare", "re": "(?<![A-Za-z])PeopleLayer\\.Prepare\\b"},
+  {"name": "CrownsLayer.Prepare", "re": "(?<![A-Za-z])CrownsLayer\\.Prepare\\b"},
+  {"name": "FamiliesLayer.Prepare", "re": "(?<![A-Za-z])FamiliesLayer\\.Prepare\\b"},
+  {"name": "SeasonLayer.Prepare", "re": "(?<![A-Za-z])SeasonLayer\\.Prepare\\b"},
+  {"name": "CutLayer.Prepare", "re": "^CutLayer\\.Prepare\\b"},
+  {"name": "CutLayer morph", "re": "CutLayer morph\\b", "files": ["land", "stairs", "rise"]},
+  {"name": "MindLayer 2025", "re": "^MindLayer 2025\\b"},
+  {"name": "Playback", "re": "^Playback\\b", "files": ["play"]},
+  {"name": "Views", "re": "^Views\\b"}
+ ],
+ "landChecks": {
+  "file": "land", "re": "^Land checks 2025(?: \\(demo\\))?:", "owner": "wp0",
+  "groups": [
+   {"name": "terrain", "want": "4/4", "from": "wp1"},
+   {"name": "roots", "want": "1/1", "from": "wp1"},
+   {"name": "valleys", "want": "2/2", "from": "wp1"},
+   {"name": "accounts", "want": "3/3", "from": "wp1"},
+   {"name": "players", "want": "5/5", "from": "wp2"},
+   {"name": "control", "want": "4/4", "from": "wp2"},
+   {"name": "crowns", "want": "4/4", "from": "wp2"},
+   {"name": "clouds", "want": "4/4", "from": "wp2"},
+   {"name": "rivers", "want": "3/3", "from": "wp1"},
+   {"name": "capital", "want": "2/2", "from": "wp1"},
+   {"name": "vapor", "want": "4/4", "from": "wp1"},
+   {"name": "state", "want": "1/1", "from": "wp1"},
+   {"name": "families", "want": "4/4", "from": "wp2"},
+   {"name": "society", "want": "2/2", "from": "wp0"},
+   {"name": "territories", "want": "2/2", "from": "wp2"},
+   {"name": "programs", "want": "4/4", "from": "wp3"}
+  ]
+ },
+ "facts": {
+  "file": "land", "re": "^Facts 2025(?: \\(demo\\))?:", "owner": "wp0",
+  "fields": [
+   {"name": "form (unchanged)", "re": "(in control [\\d.]+%; fantasy \\d+% of spending)", "type": "str"},
+   {"name": "fear", "re": "fear (\\d+)%"}
+  ]
+ },
+ "society": {
+  "file": "land", "re": "^Society 2025(?: \\(demo\\))?:", "owner": "wp0", "checks": "2/2",
+  "fields": [
+   {"name": "players", "re": "^Society 2025: (\\d+) players", "type": "int"},
+   {"name": "cooperation r0..r96", "re": "cooperation r0 ([\\d.]+) .*?r96 ([\\d.]+)"},
+   {"name": "coalitions", "re": "coalitions (\\d+)", "min": 4, "max": 6, "from": "wp2"}
+  ]
+ },
+ "why": {
+  "smvBody": "4996 lines x 100,000 people (500 coarse), 681 steps from 1856.5, 962772 samples -> 152948 fine / 15295 coarse points in 3 + 1 meshes, 4283 parent links; 2078 marriages, 797 divorces, 4353 births with a mother, 530 immigrants"
+ }
+}

@@ -1,0 +1,2878 @@
+From 6696dd43738fee50af20c463c4db450f59238593 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 2 Oct 2026 18:50:24 +0000
+Subject: [PATCH] Hills WP0 (work in progress): retire the bowl, first
+ contracts
+
+The circular bowl's five layers and its layout, placement, routing and
+picking move to Economy/Bowl/ under the retired scene id economy-bowl
+(EconomyScenes.Bowl), with BowlPresets/BowlViews kept as unused copies.
+First contracts of the hill landscape: HillTypes, PeopleTypes,
+ProgramTypes, HillIds, LandTween, LandSeason, LandFrameItems,
+LandPlayback stub, ProgramTrace, SmvBonds stub, and additive members in
+LandTypes, LandMath, LandStyle, LandView, EconomyState, EconomicLives,
+SmvLayer and SmvShared.
+
+Incomplete: the hills pipeline, the stubs of the models, the 18 views
+and the hill layers are not built yet, so the economy scene's land is
+empty on this branch. Compiles.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01VM9nbYe1AHvdH9DXoTJnbj
+---
+ Assets/Scripts/Economy/Bowl.meta              |   8 +
+ Assets/Scripts/Economy/Bowl/BowlPresets.cs    | 291 ++++++++++++++++++
+ .../Scripts/Economy/Bowl/BowlPresets.cs.meta  |   2 +
+ Assets/Scripts/Economy/Bowl/BowlViews.cs      | 163 ++++++++++
+ Assets/Scripts/Economy/Bowl/BowlViews.cs.meta |   2 +
+ .../Economy/{Land => Bowl}/CanalRouting.cs    |   0
+ .../{Land => Bowl}/CanalRouting.cs.meta       |   0
+ .../Economy/{Layers => Bowl}/FlowsLayer.cs    |   2 +-
+ .../{Layers => Bowl}/FlowsLayer.cs.meta       |   0
+ .../{Layers => Bowl}/InhabitantsLayer.cs      |   2 +-
+ .../{Layers => Bowl}/InhabitantsLayer.cs.meta |   0
+ .../Economy/{Land => Bowl}/LandLayout.cs      |   0
+ .../Economy/{Land => Bowl}/LandLayout.cs.meta |   0
+ .../Economy/{Land => Bowl}/LandPick.cs        |   0
+ .../Economy/{Land => Bowl}/LandPick.cs.meta   |   0
+ .../{Layers => Bowl}/LandscapeLayer.cs        |   2 +-
+ .../{Layers => Bowl}/LandscapeLayer.cs.meta   |   0
+ .../Economy/{Land => Bowl}/MoneyRouting.cs    |   0
+ .../{Land => Bowl}/MoneyRouting.cs.meta       |   0
+ .../Economy/{Land => Bowl}/PlayerPlacement.cs |   0
+ .../{Land => Bowl}/PlayerPlacement.cs.meta    |   0
+ .../Economy/{Layers => Bowl}/SectionLayer.cs  |   2 +-
+ .../{Layers => Bowl}/SectionLayer.cs.meta     |   0
+ .../Economy/{Layers => Bowl}/SocialLayer.cs   |   2 +-
+ .../{Layers => Bowl}/SocialLayer.cs.meta      |   0
+ Assets/Scripts/Economy/EconomyScenes.cs       |   5 +
+ Assets/Scripts/Economy/EconomyScenes.cs.meta  |   2 +
+ Assets/Scripts/Economy/EconomyState.cs        | 200 +++++++++++-
+ Assets/Scripts/Economy/EconomyViews.cs        |  24 ++
+ Assets/Scripts/Economy/Land/HillIds.cs        |  83 +++++
+ Assets/Scripts/Economy/Land/HillIds.cs.meta   |   2 +
+ Assets/Scripts/Economy/Land/Hills.meta        |   8 +
+ .../Scripts/Economy/Land/Hills/HillTypes.cs   | 269 ++++++++++++++++
+ .../Economy/Land/Hills/HillTypes.cs.meta      |   2 +
+ Assets/Scripts/Economy/Land/LandFrameItems.cs |  45 +++
+ .../Economy/Land/LandFrameItems.cs.meta       |   2 +
+ Assets/Scripts/Economy/Land/LandMath.cs       |  53 +++-
+ Assets/Scripts/Economy/Land/LandSeason.cs     |  48 +++
+ .../Scripts/Economy/Land/LandSeason.cs.meta   |   2 +
+ Assets/Scripts/Economy/Land/LandService.cs    |  21 +-
+ Assets/Scripts/Economy/Land/LandStyle.cs      |   5 +-
+ Assets/Scripts/Economy/Land/LandTween.cs      |  66 ++++
+ Assets/Scripts/Economy/Land/LandTween.cs.meta |   2 +
+ Assets/Scripts/Economy/Land/LandTypes.cs      | 130 +++++++-
+ Assets/Scripts/Economy/Land/LandView.cs       |  28 +-
+ Assets/Scripts/Economy/Land/Mind.meta         |   8 +
+ .../Scripts/Economy/Land/Mind/LandPlayback.cs |  17 +
+ .../Economy/Land/Mind/LandPlayback.cs.meta    |   2 +
+ .../Scripts/Economy/Land/Mind/ProgramTypes.cs | 111 +++++++
+ .../Economy/Land/Mind/ProgramTypes.cs.meta    |   2 +
+ Assets/Scripts/Economy/Land/People.meta       |   8 +
+ .../Economy/Land/People/PeopleTypes.cs        | 115 +++++++
+ .../Economy/Land/People/PeopleTypes.cs.meta   |   2 +
+ Assets/Scripts/Economy/Model/EconomicLives.cs |  62 ++++
+ Assets/Scripts/Economy/Model/ProgramTrace.cs  | 219 +++++++++++++
+ .../Economy/Model/ProgramTrace.cs.meta        |   2 +
+ Assets/Scripts/Humans/Smv/SmvBonds.cs         | 130 ++++++++
+ Assets/Scripts/Humans/Smv/SmvBonds.cs.meta    |   2 +
+ Assets/Scripts/Humans/Smv/SmvLayer.cs         |   7 +
+ Assets/Scripts/Humans/Smv/SmvShared.cs        |   9 +
+ 60 files changed, 2142 insertions(+), 27 deletions(-)
+ create mode 100644 Assets/Scripts/Economy/Bowl.meta
+ create mode 100644 Assets/Scripts/Economy/Bowl/BowlPresets.cs
+ create mode 100644 Assets/Scripts/Economy/Bowl/BowlPresets.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Bowl/BowlViews.cs
+ create mode 100644 Assets/Scripts/Economy/Bowl/BowlViews.cs.meta
+ rename Assets/Scripts/Economy/{Land => Bowl}/CanalRouting.cs (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/CanalRouting.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/FlowsLayer.cs (99%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/FlowsLayer.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/InhabitantsLayer.cs (99%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/InhabitantsLayer.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/LandLayout.cs (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/LandLayout.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/LandPick.cs (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/LandPick.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/LandscapeLayer.cs (99%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/LandscapeLayer.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/MoneyRouting.cs (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/MoneyRouting.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/PlayerPlacement.cs (100%)
+ rename Assets/Scripts/Economy/{Land => Bowl}/PlayerPlacement.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/SectionLayer.cs (99%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/SectionLayer.cs.meta (100%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/SocialLayer.cs (99%)
+ rename Assets/Scripts/Economy/{Layers => Bowl}/SocialLayer.cs.meta (100%)
+ create mode 100644 Assets/Scripts/Economy/EconomyScenes.cs
+ create mode 100644 Assets/Scripts/Economy/EconomyScenes.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/HillIds.cs
+ create mode 100644 Assets/Scripts/Economy/Land/HillIds.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/Hills.meta
+ create mode 100644 Assets/Scripts/Economy/Land/Hills/HillTypes.cs
+ create mode 100644 Assets/Scripts/Economy/Land/Hills/HillTypes.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/LandFrameItems.cs
+ create mode 100644 Assets/Scripts/Economy/Land/LandFrameItems.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/LandSeason.cs
+ create mode 100644 Assets/Scripts/Economy/Land/LandSeason.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/LandTween.cs
+ create mode 100644 Assets/Scripts/Economy/Land/LandTween.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/Mind.meta
+ create mode 100644 Assets/Scripts/Economy/Land/Mind/LandPlayback.cs
+ create mode 100644 Assets/Scripts/Economy/Land/Mind/LandPlayback.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs
+ create mode 100644 Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Land/People.meta
+ create mode 100644 Assets/Scripts/Economy/Land/People/PeopleTypes.cs
+ create mode 100644 Assets/Scripts/Economy/Land/People/PeopleTypes.cs.meta
+ create mode 100644 Assets/Scripts/Economy/Model/ProgramTrace.cs
+ create mode 100644 Assets/Scripts/Economy/Model/ProgramTrace.cs.meta
+ create mode 100644 Assets/Scripts/Humans/Smv/SmvBonds.cs
+ create mode 100644 Assets/Scripts/Humans/Smv/SmvBonds.cs.meta
+
+diff --git a/Assets/Scripts/Economy/Bowl.meta b/Assets/Scripts/Economy/Bowl.meta
+new file mode 100644
+index 0000000..07feb96
+--- /dev/null
++++ b/Assets/Scripts/Economy/Bowl.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: c14bce18caa94399ac2e570c9d84e8e0
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Assets/Scripts/Economy/Bowl/BowlPresets.cs b/Assets/Scripts/Economy/Bowl/BowlPresets.cs
+new file mode 100644
+index 0000000..0eac163
+--- /dev/null
++++ b/Assets/Scripts/Economy/Bowl/BowlPresets.cs
+@@ -0,0 +1,291 @@
++using System;
++using System.Collections.Generic;
++using System.Globalization;
++using UnityEngine;
++using Why.Economy.Land;
++
++namespace Why.Economy
++{
++    /// <summary>
++    /// The bowl's view catalog (SPEC2 1.1: HEAD's <c>EconomyPresets</c>, kept verbatim with the class renamed; unused while
++    /// the bowl is retired, swapped back in by the restore recipe).
++    ///
++    /// The economy scene's views (number keys 1 - 8, the HUD's preset bar, the tour; SPEC 7.2): the road (overview), the
++    /// cut through the selected year (section), and nine views of the land, the year opened into a stepped bowl on the
++    /// plaza past the road's end. Every view shares one lens (<see cref="EconomyStage.TimelineWarp"/>), so the road from
++    /// 1946 to now never moves: the land views (<see cref="ViewPreset.FixedTarget"/>) are poses in the land's frame
++    /// (<see cref="EconomyStage.Land"/>: a land-local target, a yaw offset from the frame's, a pitch and a distance).
++    /// What each view asks of the land beside its pose (the transition, a temporary year, the season's round, the
++    /// emphasis) is its <see cref="ViewSpec"/> in <see cref="EconomyViews"/>.
++    ///
++    /// The poses are tuned against the harness at 16:9 and 9:16: every land view frames the whole bowl or its subject
++    /// with the labels it shows inside the frame. On a portrait screen a land view steps back until its
++    /// <see cref="ViewPreset.PortraitWidth"/> fits across and aims <see cref="PortraitAim"/> of the visible height lower,
++    /// so the bowl sits in the upper part of the tall frame, clear of the bottom sheet (7.2). The catalog reads the
++    /// screen's orientation, the selected year (the section's title and pose) and the land on screen (generated
++    /// subtitles), so the land's view layer refreshes it in place when any of these changes (<see cref="Refresh"/>,
++    /// <see cref="RefreshSection"/>): the objects stay the same, so the HUD, the tour and the root never hold a stale pose.
++    /// </summary>
++    public static class BowlPresets
++    {
++        static double Ya(double calendarYear) => DeepTime.NowYear - calendarYear;
++
++        /// <summary>
++        /// Data height and rho of the section view's target: the middle of the cut's frame (the ground to above the
++        /// lifelines, the wall's plane to the outer lifelines).
++        /// </summary>
++        const float SectionY = 0.55f, SectionRho = EconomyStyle.FramingRho;
++
++        /// <summary>On a portrait screen a land view aims this share of the visible height lower (the bowl rises into the upper 60%).</summary>
++        const float PortraitAim = 0.2f;
++
++        /// <summary>The overview's camera: turned from the road's normal toward the future (degrees), pitch, distance.</summary>
++        const float OverviewYaw = -15f, OverviewPitch = 26f, OverviewDistance = 28f, OverviewPortraitPitch = 58f;
++
++        /// <summary>The overview's target: this far from the 1950 road point toward the far rim, raised this much (world).</summary>
++        const float OverviewToBowl = 0.6f, OverviewLift = 1.2f;
++
++        /// <summary>The portrait overview: its width across (world) and its target's place from 1950 toward the far rim.</summary>
++        const float OverviewPortraitWidth = 21f, OverviewPortraitToBowl = 0.42f;
++
++        /// <summary>
++        /// The roots view looks from the side of the bowl away from the road (the cut and the road would stand in front of
++        /// a low camera on the road's side), low enough to see under the terraces (15°: every sector's label finds a place
++        /// at 16:9); on a portrait screen higher, so the sectors' labels have rows to stand in (40°: 24 of 25 at 9:16).
++        /// </summary>
++        const float RootsYaw = -78f, RootsPitch = 15f, RootsPortraitPitch = 40f;
++
++        /// <summary>
++        /// The low views (capture, mind) on a portrait screen: stepped back to fit the narrow width, a camera this low would
++        /// see the cut on the road in front of the bowl; from this pitch the cut stays under it.
++        /// </summary>
++        const float RaisedPortraitPitch = 30f;
++
++        /// <summary>
++        /// The capture view on a portrait screen looks straight along the road from higher up (the road then stands under
++        /// the bowl, not beside the towers, and the tier labels under the bowl), so the sectors' labels around the towers
++        /// have room (50°: 24 of 25 at 9:16).
++        /// </summary>
++        const float CapturePortraitPitch = 50f;
++
++        /// <summary>
++        /// A fresh catalog for the screen's orientation, the cut's year and the land on screen. Built once per scene
++        /// (<see cref="ViewPresets.All"/> keeps it); afterwards <see cref="Refresh"/> updates those same objects in place.
++        /// </summary>
++        public static List<ViewPreset> Build()
++        {
++            LandFrame land = EconomyStage.Land();
++            WarpState w = EconomyStage.TimelineWarp();
++            bool portrait = ScreenLayout.IsPortrait;
++
++            // the overview: from the road's outer side, the road from 1950 to the bowl's far rim between the camera's
++            // edges; on a portrait screen it looks down along the road from above the past, the bowl at the top
++            Vector3 from1950 = EconomyStage.OnRoad(1950, 0.3f, EconomyStyle.FramingRho);
++            Vector3 farRim = land.World(LandFrame.Polar(LandStyle.RimR, 90f, LandStyle.RimY));
++            Vector3 overviewTarget = Vector3.Lerp(from1950, farRim, OverviewToBowl) + Vector3.up * OverviewLift;
++            Vector3 n = GraphWarp.NormalAt(EconomyStage.U(1990), w);
++            float overviewYaw = Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + OverviewYaw;
++            ViewPreset overview = new ViewPreset
++            {
++                Id = "overview", Title = "The economy, 1946 - 2026",
++                Subtitle = "The road of time; one year cut out and opened into a land",
++                Key = KeyCode.Alpha1, Pitch = OverviewPitch, Distance = OverviewDistance, PortraitWidth = 26
++            };
++            if (portrait)
++            {
++                overview.Pitch = OverviewPortraitPitch;
++                overview.PortraitWidth = OverviewPortraitWidth;
++                overviewYaw = land.Yaw;
++                overviewTarget = Vector3.Lerp(from1950, farRim, OverviewPortraitToBowl);
++            }
++
++            return new List<ViewPreset>
++            {
++                Fixed(overview, overviewTarget, overviewYaw),
++                Section(land, EconomyState.CutYear),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "landscape", Title = "Where value is created",
++                    Subtitle = "Each industry a sector of its stratum, as large as the value it adds; gold is what owners keep",
++                    Key = KeyCode.Alpha3, Pitch = 40, Distance = 17.5f, PortraitWidth = 13.5f
++                }, new Vector3(0, 0.7f, 0.5f), 0),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "capture", Title = "Where value is captured",
++                    Subtitle = "Owners' payouts (dividends, rent, interest) rise into the crown; the companies that capture the most",
++                    Key = KeyCode.Alpha4, Pitch = portrait ? CapturePortraitPitch : 20, Distance = 12, PortraitWidth = 12.5f
++                }, portrait ? new Vector3(0, 1.4f, 1.0f) : new Vector3(0, 1.6f, 2.0f), portrait ? 0 : -12),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "people", Title = "Who stands where", Subtitle = PeopleSubtitle(),
++                    Key = KeyCode.Alpha5, Pitch = 46, Distance = 12, PortraitWidth = 13
++                }, new Vector3(0, 1.6f, -1.5f), 0),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "rivers", Title = "Where the money goes",
++                    Subtitle = "Spending runs down into the industries that are paid; ice is fear, rose is desire, glitter is fantasy",
++                    Key = KeyCode.Alpha6, Pitch = 58, Distance = 15, PortraitWidth = 13.5f
++                }, new Vector3(0, 1.0f, 0), 0),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "mind", Title = "Desire, fear and fantasy",
++                    Subtitle = "Fantasy is everyone's; reason and capital set the few in control apart",
++                    Key = KeyCode.Alpha7, Pitch = portrait ? RaisedPortraitPitch : 18, Distance = 13, PortraitWidth = 13
++                }, new Vector3(0, 2.0f, -0.6f), 0),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "society", Title = "How people organize",
++                    Subtitle = "Tit for tat between groups: who cooperates, how forgiveness helps, how coalitions form",
++                    Key = KeyCode.Alpha8, Pitch = 64, Distance = 17f, PortraitWidth = 13.5f
++                }, new Vector3(0, 1.8f, 0), 0),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "roots", Title = "What each industry stands on",
++                    Subtitle = "Purchases between industries rise into each buyer from below",
++                    Pitch = portrait ? RootsPortraitPitch : RootsPitch, Distance = 12.5f, PortraitWidth = 13
++                }, new Vector3(0, 1.0f, 0), RootsYaw),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "betrayal", Title = "One betrayal",
++                    Subtitle = "Tit for tat echoes it; forgiveness ends it",
++                    Pitch = 64, Distance = 17f, PortraitWidth = 13.5f
++                }, new Vector3(0, 1.8f, 0), 0),
++                OnLand(land, new ViewPreset
++                {
++                    Id = "y1972", Title = "The land in 1972",
++                    Subtitle = "The same cut, fifty-three years earlier",
++                    Pitch = 40, Distance = 17.5f, PortraitWidth = 13.5f
++                }, new Vector3(0, 0.7f, 0.5f), 0),
++            };
++        }
++
++        /// <summary>The section view: behind the cut through a year, looking along the road.</summary>
++        static ViewPreset Section(LandFrame land, int year)
++        {
++            string y = year.ToString(CultureInfo.InvariantCulture);
++            return Pose(Fixed(new ViewPreset
++            {
++                Id = "section", Title = "The cut through " + y,
++                Subtitle = "Every industry's band and every life that pierces " + y,
++                Key = KeyCode.Alpha2, Pitch = 6, Distance = 6.2f, PortraitWidth = 4.9f
++            }, EconomyStage.OnRoad(year + 0.5, SectionY, SectionRho), land.Yaw));
++        }
++
++        /// <summary>
++        /// Updates a catalog in place (the screen turned, or a new land is on screen): every preset object keeps its
++        /// identity and takes the pose and text of a fresh build, so whoever holds one (the HUD's preset bar, the tour's
++        /// resolved steps, <see cref="GraphRoot.CurrentPreset"/>) flies to the current pose and shows the current text.
++        /// </summary>
++        public static void Refresh(IReadOnlyList<ViewPreset> catalog)
++        {
++            List<ViewPreset> fresh = Build();
++            for (int i = 0; i < catalog.Count; i++)
++            {
++                ViewPreset p = catalog[i];
++                for (int j = 0; j < fresh.Count; j++)
++                {
++                    if (fresh[j].Id != p.Id) continue;
++                    CopyPose(fresh[j], p);
++                    break;
++                }
++            }
++        }
++
++        /// <summary>
++        /// Updates the section preset in place for the cut's year (<see cref="EconomyState.CutYear"/>): its pose behind
++        /// the cut and its title. Cheap enough for every year step of a scrubber drag (the rest of the catalog does not
++        /// depend on the cut). True when its pose changed.
++        /// </summary>
++        public static bool RefreshSection(ViewPreset section)
++        {
++            if (section == null || section.Id != "section") return false;
++            return CopyPose(Section(EconomyStage.Land(), EconomyState.CutYear), section);
++        }
++
++        /// <summary>
++        /// Copies what a catalog build derives from the screen, the year and the land (the pose: target, yaw, pitch,
++        /// distance, portrait width; the title and subtitle) onto another object of the same view. True when the pose
++        /// changed (the camera, if it shows this view, should fly to it).
++        /// </summary>
++        public static bool CopyPose(ViewPreset from, ViewPreset to)
++        {
++            if (from == null || to == null || ReferenceEquals(from, to)) return false;
++            bool moved = to.FixedTarget != from.FixedTarget || to.FixedYaw != from.FixedYaw || to.Pitch != from.Pitch ||
++                         to.Distance != from.Distance || to.PortraitWidth != from.PortraitWidth;
++            to.FixedTarget = from.FixedTarget;
++            to.FixedYaw = from.FixedYaw;
++            to.Pitch = from.Pitch;
++            to.Distance = from.Distance;
++            to.PortraitWidth = from.PortraitWidth;
++            to.Title = from.Title;
++            to.Subtitle = from.Subtitle;
++            return moved;
++        }
++
++        /// <summary>
++        /// The people view's subtitle from the land on screen: its number of players and their median size in people
++        /// (adults and children) rounded to millions ("116 players, about 2 million people each, ...").
++        /// </summary>
++        static string PeopleSubtitle()
++        {
++            const string Tail = " standing where their money comes from";
++            Player[] players = LandService.Current?.Players?.Players;
++            if (players == null || players.Length == 0) return "The players of the year," + Tail;
++            double[] people = new double[players.Length];
++            for (int k = 0; k < players.Length; k++) people[k] = players[k].People;
++            Array.Sort(people);
++            double median = people.Length % 2 == 1
++                ? people[people.Length / 2]
++                : 0.5 * (people[people.Length / 2 - 1] + people[people.Length / 2]);
++            long millions = Math.Max(1, (long)Math.Round(median / 1e6));
++            return players.Length.ToString(CultureInfo.InvariantCulture) + " players, about " +
++                   millions.ToString(CultureInfo.InvariantCulture) + " million people each," + Tail;
++        }
++
++        /// <summary>A view of the land: the shared lens, the camera on a land-local target, turned from the land's yaw.</summary>
++        static ViewPreset OnLand(LandFrame land, ViewPreset p, Vector3 localTarget, float yawOffset)
++        {
++            Fixed(p, land.World(localTarget), land.Yaw + yawOffset);
++            return Pose(p);
++        }
++
++        /// <summary>
++        /// On a portrait screen: the target moves down the camera's up axis by <see cref="PortraitAim"/> of the height the
++        /// view shows at its portrait distance, so its subject sits in the upper part of the tall frame.
++        /// </summary>
++        static ViewPreset Pose(ViewPreset p)
++        {
++            if (!ScreenLayout.IsPortrait || !p.FixedTarget.HasValue) return p;
++            float tan = Mathf.Tan(CameraRig.FieldOfView * 0.5f * Mathf.Deg2Rad);
++            float aspect = Mathf.Clamp(ScreenLayout.Aspect, 0.4f, 1f);
++            float distance = Mathf.Max(p.Distance, p.PortraitWidth / (2f * tan * aspect));
++            Vector3 up = Quaternion.Euler(p.Pitch, p.FixedYaw, 0) * Vector3.up;
++            p.FixedTarget = p.FixedTarget.Value - up * (PortraitAim * 2f * distance * tan);
++            return p;
++        }
++
++        /// <summary>A view of a world point: the shared lens (the road stays put), the camera at a fixed yaw.</summary>
++        static ViewPreset Fixed(ViewPreset p, Vector3 target, float yaw)
++        {
++            Timeline(p);
++            p.PopulationDetail = false;
++            p.FixedTarget = target;
++            p.FixedYaw = yaw;
++            return p;
++        }
++
++        /// <summary>A view of the road: the shared lens, the camera looking outward at the population.</summary>
++        static ViewPreset Timeline(ViewPreset p)
++        {
++            if (p.YaOld <= 0) p.YaOld = Ya(EconomyStyle.FirstYear);
++            p.YaNew = 0;
++            p.LogOffset = EconomyStyle.WindowLogOffset;
++            p.Length = EconomyStyle.WindowLength;
++            p.RhoScale = EconomyStyle.RhoScale;
++            p.YScale = EconomyStyle.YScale;
++            p.TargetRho = EconomyStyle.FramingRho;
++            p.StrataEmphasis = 0;
++            return p;
++        }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Bowl/BowlPresets.cs.meta b/Assets/Scripts/Economy/Bowl/BowlPresets.cs.meta
+new file mode 100644
+index 0000000..f7d923a
+--- /dev/null
++++ b/Assets/Scripts/Economy/Bowl/BowlPresets.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: d2957bce73ca4e6b96d581cf52a9b876
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Bowl/BowlViews.cs b/Assets/Scripts/Economy/Bowl/BowlViews.cs
+new file mode 100644
+index 0000000..ce6bb04
+--- /dev/null
++++ b/Assets/Scripts/Economy/Bowl/BowlViews.cs
+@@ -0,0 +1,163 @@
++using System;
++using System.Collections.Generic;
++using Why.Economy.Land;
++
++namespace Why.Economy
++{
++    /// <summary>
++    /// The bowl's copy of HEAD's <c>ViewSpec</c> (SPEC2 1.1).
++    ///
++    /// What a view preset asks of the land, beside its camera pose (<see cref="BowlPresets"/>): the transition's
++    /// target (0 = folded into the cut, 2.4 = the bowl), a temporary year, the season's held round and whether it
++    /// shows the betrayal season, whether the road's labels step aside, and the emphasis of every land group (one row
++    /// of the table in <see cref="BowlViews"/>) with the label groups it shows. Applied by the land's view layer on
++    /// focus.
++    /// </summary>
++    public sealed class BowlViewSpec                      // BowlViews.Get(presetId)
++    {
++        /// <summary>The preset id, the morph target (s) and the temporary year.</summary>
++        public string Id; public float MorphTarget = 2.4f; public int Year;   // Year 0: no override
++
++        /// <summary>The season's round shown on focus (-1: leave playback alone), the betrayal season, the road's labels.</summary>
++        public int HoldRound = -1; public bool Betrayal, HideRoadLabels = true;
++
++        /// <summary>Target emphasis (0..1) of every land group.</summary>
++        public readonly float[] Alpha = new float[(int)LandGroup.Count];
++
++        /// <summary>The label groups the preset shows.</summary>
++        public LandGroup[] Labels = Array.Empty<LandGroup>();                  // label groups shown (7.2)
++
++        /// <summary>Whether the preset lists a label group.</summary>
++        public bool ShowsLabels(LandGroup g) => Array.IndexOf(Labels, g) >= 0;
++    }
++
++    /// <summary>
++    /// The bowl's view table (SPEC2 1.1: HEAD's <c>EconomyViews</c>, kept verbatim with the classes renamed and the table
++    /// padded with zero rows for the hills' land groups; unused while the bowl is retired).
++    ///
++    /// The economy views' side table (SPEC 7.2): one <see cref="BowlViewSpec"/> per preset of <see cref="BowlPresets"/>,
++    /// with the emphasis of each land group per preset (the land's view layer eases each group toward it at
++    /// <see cref="LandStyle.EmphasisRate"/> per second; land groups are also multiplied by <see cref="LandView.Reveal"/>)
++    /// and the label groups each preset shows.
++    /// </summary>
++    public static class BowlViews
++    {
++        /// <summary>The preset ids, keyed (1-8) then keyless.</summary>
++        public static readonly string[] Ids =
++            { "overview", "section", "landscape", "capture", "people", "rivers", "mind", "society", "roots", "betrayal", "y1972" };
++
++        /// <summary>The year the keyless y1972 preset opens temporarily.</summary>
++        public const int Year1972 = 1972;
++
++        /// <summary>Columns of <see cref="Table"/>.</summary>
++        static readonly string[] Columns =
++            { "overview", "section", "landscape", "roots", "capture", "people", "rivers", "mind", "society", "betrayal", "y1972" };
++
++        /// <summary>
++        /// The emphasis table: one row per LandGroup (in enum order), one column per preset of <see cref="Columns"/>. WP6
++        /// (legibility): each view shows its own story at full strength and the rest near-invisible (0.02-0.15), where the
++        /// spec's table (7.2) left hundreds of arcs, ties and gold terraces at 0.2-0.6 over every view's story: the rivers
++        /// under the arcs, the towers under the payouts, the coalitions under the ties.
++        /// </summary>
++        static readonly float[][] Table =
++        {
++            //            overview section landscape roots capture people rivers mind society betrayal y1972
++            new[] { 1f, .3f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },  // Road (section .3: the camera stands in the lifelines)
++            new[] { 1f, 1f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f },            // Cut
++            new[] { .8f, 0f, 1f, .35f, .32f, .35f, .4f, .25f, .2f, .2f, 1f },         // Terraces
++            new[] { .8f, 0f, 1f, .45f, 1f, .35f, .25f, .2f, .12f, .12f, 1f },         // Sectors
++            new[] { .5f, 0f, .35f, .05f, .1f, .1f, 1f, .2f, .05f, .05f, .35f },       // Pools
++            new[] { .15f, 0f, .3f, 1f, .05f, .03f, .03f, .03f, .02f, .02f, .3f },     // Roots
++            new[] { .8f, 0f, .45f, .1f, 1f, .35f, .08f, .1f, .1f, .1f, .45f },        // Towers
++            new[] { .8f, 0f, .3f, .05f, 1f, .6f, .1f, .2f, .1f, .1f, .3f },           // Crown
++            new[] { .5f, 0f, .4f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, .4f },                  // Overlays
++            new[] { .7f, 0f, .35f, .1f, .35f, 1f, .35f, 1f, .8f, .8f, .35f },         // Glyphs
++            new[] { .3f, 0f, .2f, .05f, .25f, 1f, .15f, 1f, .3f, .3f, .2f },          // Dots
++            new[] { .15f, 0f, .05f, 0f, .05f, .3f, .05f, 1f, .03f, .03f, .05f },      // Mirages
++            new[] { .1f, 0f, .05f, .03f, .1f, 1f, .04f, .05f, .02f, .02f, .05f },     // Income
++            new[] { .15f, 0f, .05f, .03f, .6f, .4f, .04f, .05f, .02f, .02f, .05f },   // CapitalFlows (capture .6: the towers first)
++            new[] { .4f, 0f, .15f, .05f, .1f, .15f, 1f, .5f, .06f, .06f, .15f },      // Rivers
++            new[] { .2f, 0f, .05f, 0f, .05f, .05f, 1f, .8f, .03f, .03f, .05f },       // Glitter
++            new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f },       // Taxes
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 1f, 0f },                     // Ties
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .6f, 0f },                    // Coalitions
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Ground (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Hills (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Contours (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Caps (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Lakes (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Spending (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Wages (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Capital (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Vapor (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // SavingCredit (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // TaxesTransfers (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Abroad (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Crowns (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Clouds (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Children (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Dependents (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Estates (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Signals (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Mind (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // MindPopulation (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Tether (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Bonds (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Debt (the hills', SPEC2 11.2)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Games (the hills', SPEC2 11.2)
++        };
++
++        static Dictionary<string, BowlViewSpec> specs;
++
++        /// <summary>Every spec, in <see cref="Ids"/> order.</summary>
++        public static IReadOnlyList<BowlViewSpec> All
++        {
++            get
++            {
++                Build();
++                List<BowlViewSpec> list = new List<BowlViewSpec>(Ids.Length);
++                foreach (string id in Ids) list.Add(specs[id]);
++                return list;
++            }
++        }
++
++        /// <summary>The spec of a preset; an unknown id gets the overview's.</summary>
++        public static BowlViewSpec Get(string presetId)
++        {
++            Build();
++            return presetId != null && specs.TryGetValue(presetId, out BowlViewSpec s) ? s : specs["overview"];
++        }
++
++        static void Build()
++        {
++            if (specs != null) return;
++            Dictionary<string, BowlViewSpec> d = new Dictionary<string, BowlViewSpec>(StringComparer.Ordinal);
++            for (int c = 0; c < Columns.Length; c++)
++            {
++                BowlViewSpec s = new BowlViewSpec { Id = Columns[c] };
++                for (int g = 0; g < (int)LandGroup.Count; g++) s.Alpha[g] = Table[g][c];
++                d[s.Id] = s;
++            }
++
++            d["overview"].HideRoadLabels = false;
++            d["overview"].Labels = new[] { LandGroup.Terraces, LandGroup.Cut };
++            d["section"].MorphTarget = 0;
++            d["section"].HideRoadLabels = true;   // the wall's industry labels would fall on the card's bars
++            d["section"].Labels = new[] { LandGroup.Cut };
++            d["landscape"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
++            d["y1972"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
++            d["y1972"].Year = Year1972;
++            d["roots"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Roots };
++            d["capture"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Towers, LandGroup.Crown, LandGroup.Overlays, LandGroup.CapitalFlows };
++            d["people"].Labels = new[] { LandGroup.Terraces, LandGroup.Glyphs };
++            d["rivers"].Labels = new[] { LandGroup.Pools, LandGroup.Rivers, LandGroup.Taxes };
++            d["mind"].Labels = new[] { LandGroup.Glyphs, LandGroup.Mirages, LandGroup.Rivers };
++            d["society"].Labels = new[] { LandGroup.Coalitions };
++            d["society"].HoldRound = LandStyle.SeasonRounds;
++            d["betrayal"].Labels = new[] { LandGroup.Coalitions };
++            d["betrayal"].HoldRound = LandStyle.BetrayalHoldRound;
++            d["betrayal"].Betrayal = true;
++            specs = d;
++        }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Bowl/BowlViews.cs.meta b/Assets/Scripts/Economy/Bowl/BowlViews.cs.meta
+new file mode 100644
+index 0000000..e19edbe
+--- /dev/null
++++ b/Assets/Scripts/Economy/Bowl/BowlViews.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 5cb51f33502b4c88ac336d5135dc261d
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/CanalRouting.cs b/Assets/Scripts/Economy/Bowl/CanalRouting.cs
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/CanalRouting.cs
+rename to Assets/Scripts/Economy/Bowl/CanalRouting.cs
+diff --git a/Assets/Scripts/Economy/Land/CanalRouting.cs.meta b/Assets/Scripts/Economy/Bowl/CanalRouting.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/CanalRouting.cs.meta
+rename to Assets/Scripts/Economy/Bowl/CanalRouting.cs.meta
+diff --git a/Assets/Scripts/Economy/Layers/FlowsLayer.cs b/Assets/Scripts/Economy/Bowl/FlowsLayer.cs
+similarity index 99%
+rename from Assets/Scripts/Economy/Layers/FlowsLayer.cs
+rename to Assets/Scripts/Economy/Bowl/FlowsLayer.cs
+index 7734549..42e3f36 100644
+--- a/Assets/Scripts/Economy/Layers/FlowsLayer.cs
++++ b/Assets/Scripts/Economy/Bowl/FlowsLayer.cs
+@@ -33,7 +33,7 @@ namespace Why.Economy.Layers
+     /// snapshot rebuilds on a worker (a preset's blocking one in the next Tick), uploads in Tick and cross-fades over
+     /// <see cref="LandStyle.CrossFadeSeconds"/> (8.3), like the other land layers. Order 53.
+     /// </summary>
+-    [GraphScenes(GraphScene.Economy)]
++    [GraphScenes(EconomyScenes.Bowl)]
+     public sealed class FlowsLayer : GraphLayer
+     {
+         public override int Order => 53;
+diff --git a/Assets/Scripts/Economy/Layers/FlowsLayer.cs.meta b/Assets/Scripts/Economy/Bowl/FlowsLayer.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Layers/FlowsLayer.cs.meta
+rename to Assets/Scripts/Economy/Bowl/FlowsLayer.cs.meta
+diff --git a/Assets/Scripts/Economy/Layers/InhabitantsLayer.cs b/Assets/Scripts/Economy/Bowl/InhabitantsLayer.cs
+similarity index 99%
+rename from Assets/Scripts/Economy/Layers/InhabitantsLayer.cs
+rename to Assets/Scripts/Economy/Bowl/InhabitantsLayer.cs
+index 103c1d1..849f5d6 100644
+--- a/Assets/Scripts/Economy/Layers/InhabitantsLayer.cs
++++ b/Assets/Scripts/Economy/Bowl/InhabitantsLayer.cs
+@@ -27,7 +27,7 @@ namespace Why.Economy.Layers
+     /// the season's settings) rebuilds the meshes on a worker (a preset's blocking snapshot in the next Tick), uploads
+     /// them in Tick and cross-fades from the old ones over <see cref="LandStyle.CrossFadeSeconds"/> (8.3). Order 52.
+     /// </summary>
+-    [GraphScenes(GraphScene.Economy)]
++    [GraphScenes(EconomyScenes.Bowl)]
+     public sealed class InhabitantsLayer : GraphLayer
+     {
+         public override int Order => 52;
+diff --git a/Assets/Scripts/Economy/Layers/InhabitantsLayer.cs.meta b/Assets/Scripts/Economy/Bowl/InhabitantsLayer.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Layers/InhabitantsLayer.cs.meta
+rename to Assets/Scripts/Economy/Bowl/InhabitantsLayer.cs.meta
+diff --git a/Assets/Scripts/Economy/Land/LandLayout.cs b/Assets/Scripts/Economy/Bowl/LandLayout.cs
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/LandLayout.cs
+rename to Assets/Scripts/Economy/Bowl/LandLayout.cs
+diff --git a/Assets/Scripts/Economy/Land/LandLayout.cs.meta b/Assets/Scripts/Economy/Bowl/LandLayout.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/LandLayout.cs.meta
+rename to Assets/Scripts/Economy/Bowl/LandLayout.cs.meta
+diff --git a/Assets/Scripts/Economy/Land/LandPick.cs b/Assets/Scripts/Economy/Bowl/LandPick.cs
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/LandPick.cs
+rename to Assets/Scripts/Economy/Bowl/LandPick.cs
+diff --git a/Assets/Scripts/Economy/Land/LandPick.cs.meta b/Assets/Scripts/Economy/Bowl/LandPick.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/LandPick.cs.meta
+rename to Assets/Scripts/Economy/Bowl/LandPick.cs.meta
+diff --git a/Assets/Scripts/Economy/Layers/LandscapeLayer.cs b/Assets/Scripts/Economy/Bowl/LandscapeLayer.cs
+similarity index 99%
+rename from Assets/Scripts/Economy/Layers/LandscapeLayer.cs
+rename to Assets/Scripts/Economy/Bowl/LandscapeLayer.cs
+index 28e77d2..6fbcb0a 100644
+--- a/Assets/Scripts/Economy/Layers/LandscapeLayer.cs
++++ b/Assets/Scripts/Economy/Bowl/LandscapeLayer.cs
+@@ -35,7 +35,7 @@ namespace Why.Economy.Layers
+     /// label aligned away from the bowl's center and moved or shortened until it is clear (<see cref="PlaceLabels"/>).
+     /// Order 50: tier 5, after the land's model (45).
+     /// </summary>
+-    [GraphScenes(GraphScene.Economy)]
++    [GraphScenes(EconomyScenes.Bowl)]
+     public sealed class LandscapeLayer : GraphLayer
+     {
+         public override int Order => 50;
+diff --git a/Assets/Scripts/Economy/Layers/LandscapeLayer.cs.meta b/Assets/Scripts/Economy/Bowl/LandscapeLayer.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Layers/LandscapeLayer.cs.meta
+rename to Assets/Scripts/Economy/Bowl/LandscapeLayer.cs.meta
+diff --git a/Assets/Scripts/Economy/Land/MoneyRouting.cs b/Assets/Scripts/Economy/Bowl/MoneyRouting.cs
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/MoneyRouting.cs
+rename to Assets/Scripts/Economy/Bowl/MoneyRouting.cs
+diff --git a/Assets/Scripts/Economy/Land/MoneyRouting.cs.meta b/Assets/Scripts/Economy/Bowl/MoneyRouting.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/MoneyRouting.cs.meta
+rename to Assets/Scripts/Economy/Bowl/MoneyRouting.cs.meta
+diff --git a/Assets/Scripts/Economy/Land/PlayerPlacement.cs b/Assets/Scripts/Economy/Bowl/PlayerPlacement.cs
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/PlayerPlacement.cs
+rename to Assets/Scripts/Economy/Bowl/PlayerPlacement.cs
+diff --git a/Assets/Scripts/Economy/Land/PlayerPlacement.cs.meta b/Assets/Scripts/Economy/Bowl/PlayerPlacement.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Land/PlayerPlacement.cs.meta
+rename to Assets/Scripts/Economy/Bowl/PlayerPlacement.cs.meta
+diff --git a/Assets/Scripts/Economy/Layers/SectionLayer.cs b/Assets/Scripts/Economy/Bowl/SectionLayer.cs
+similarity index 99%
+rename from Assets/Scripts/Economy/Layers/SectionLayer.cs
+rename to Assets/Scripts/Economy/Bowl/SectionLayer.cs
+index 0c91f30..6ab30d3 100644
+--- a/Assets/Scripts/Economy/Layers/SectionLayer.cs
++++ b/Assets/Scripts/Economy/Bowl/SectionLayer.cs
+@@ -36,7 +36,7 @@ namespace Why.Economy.Layers
+     /// <see cref="LandLayout"/>, the glyphs' dot slots), so the cross-fade does not jump. The emphasis group is
+     /// <see cref="LandGroup.Cut"/>; the readout is the Cut label group's (7.2, 7.3); anchor <c>land:cut</c>. Order 56.
+     /// </summary>
+-    [GraphScenes(GraphScene.Economy)]
++    [GraphScenes(EconomyScenes.Bowl)]
+     public sealed class SectionLayer : GraphLayer
+     {
+         public override int Order => 56;
+diff --git a/Assets/Scripts/Economy/Layers/SectionLayer.cs.meta b/Assets/Scripts/Economy/Bowl/SectionLayer.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Layers/SectionLayer.cs.meta
+rename to Assets/Scripts/Economy/Bowl/SectionLayer.cs.meta
+diff --git a/Assets/Scripts/Economy/Layers/SocialLayer.cs b/Assets/Scripts/Economy/Bowl/SocialLayer.cs
+similarity index 99%
+rename from Assets/Scripts/Economy/Layers/SocialLayer.cs
+rename to Assets/Scripts/Economy/Bowl/SocialLayer.cs
+index 30cbe2e..e17cd26 100644
+--- a/Assets/Scripts/Economy/Layers/SocialLayer.cs
++++ b/Assets/Scripts/Economy/Bowl/SocialLayer.cs
+@@ -32,7 +32,7 @@ namespace Why.Economy.Layers
+     /// cross-fades from the old ones (8.3). Anchors <c>land:coalition:&lt;k&gt;</c>; emphasis groups Ties and Coalitions.
+     /// Order 54.</para>
+     /// </summary>
+-    [GraphScenes(GraphScene.Economy)]
++    [GraphScenes(EconomyScenes.Bowl)]
+     public sealed class SocialLayer : GraphLayer
+     {
+         public override int Order => 54;
+diff --git a/Assets/Scripts/Economy/Layers/SocialLayer.cs.meta b/Assets/Scripts/Economy/Bowl/SocialLayer.cs.meta
+similarity index 100%
+rename from Assets/Scripts/Economy/Layers/SocialLayer.cs.meta
+rename to Assets/Scripts/Economy/Bowl/SocialLayer.cs.meta
+diff --git a/Assets/Scripts/Economy/EconomyScenes.cs b/Assets/Scripts/Economy/EconomyScenes.cs
+new file mode 100644
+index 0000000..b766c79
+--- /dev/null
++++ b/Assets/Scripts/Economy/EconomyScenes.cs
+@@ -0,0 +1,5 @@
++namespace Why.Economy
++{
++    /// <summary>Economy scene ids no scene file loads: retired layers keep compiling under them (SPEC2 1.1).</summary>
++    public static class EconomyScenes { public const string Bowl = "economy-bowl"; }
++}
+diff --git a/Assets/Scripts/Economy/EconomyScenes.cs.meta b/Assets/Scripts/Economy/EconomyScenes.cs.meta
+new file mode 100644
+index 0000000..17042ec
+--- /dev/null
++++ b/Assets/Scripts/Economy/EconomyScenes.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 3f89ceb2aea7475fb991e072d2378571
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/EconomyState.cs b/Assets/Scripts/Economy/EconomyState.cs
+index 45dfeab..65c312c 100644
+--- a/Assets/Scripts/Economy/EconomyState.cs
++++ b/Assets/Scripts/Economy/EconomyState.cs
+@@ -16,6 +16,13 @@ namespace Why.Economy
+         Random = 6
+     }
+ 
++    /// <summary>
++    /// What is selected on the land (SPEC2 11.2): a player, a crown or a cloud (players too), a hill, a lake, a tread's
++    /// river, a tie of the season or a company. <see cref="EconomyState.SelectedIndex"/> is the player, the industry, the
++    /// tier, the season's pair or the capture index.
++    /// </summary>
++    public enum SelectionKind : byte { None, Player, Crown, Cloud, Hill, Lake, River, Tie, Company }
++
+     /// <summary>
+     /// What the viewer has chosen in the economy scene, shared by the layers that draw it and the UI that changes
+     /// it (main thread). Layers poll <see cref="Version"/> in Tick and rebuild what depends on it.
+@@ -59,6 +66,48 @@ namespace Why.Economy
+         /// </summary>
+         public static int PendingIncident { get; private set; } = -1;
+ 
++        // ------------------------------------------------------------------ the hills (SPEC2 11.2)
++
++        /// <summary>
++        /// What is selected on the land and its index (player, industry, tier, pair or capture index; -1 = none). Every land
++        /// layer, panel and picker reads the selection through these (and <see cref="SelectedPlayer"/>, kept in step).
++        /// </summary>
++        public static SelectionKind SelectedKind { get; private set; }
++
++        public static int SelectedIndex { get; private set; } = -1;
++
++        /// <summary>The mind's scope: the selected player's program, one person's, or the nation's (default the player's).</summary>
++        public static MindScope Mind { get; private set; } = MindScope.Player;
++
++        /// <summary>The key of the player the mind follows across years ("frontline|trade|I"); null = none.</summary>
++        public static string SelectedKey { get; private set; }
++
++        /// <summary>The person the mind shows in <see cref="MindScope.Person"/> scope, or -1.</summary>
++        public static int MindPerson { get; private set; } = -1;
++
++        /// <summary>The mind shows every player as a particle in mind space (key P).</summary>
++        public static bool PopulationMode { get; private set; }
++
++        /// <summary>The years play (Space; LandPlayback runs the clock).</summary>
++        public static bool Playing { get; private set; }
++
++        /// <summary>The playback's dwell per year (s): 0.75, 1.5 (default) or 3.</summary>
++        public static float SecondsPerYear { get; private set; } = 1.5f;
++
++        /// <summary>The mind's staged year (G): the phase 0..1 of its 12-second sequence (1 = the whole program shown).</summary>
++        public static float MindPhase { get; private set; } = 1f;
++
++        /// <summary>
++        /// The harness's switches of the lives' two model changes (SPEC2 6.2), read once from the environment (unset in
++        /// Unity): WHY_ECON_ALLOWANCE=0 turns the allowance off (φ = 0), WHY_ECON_PLAYFEED=0 the play feedback (κ = 0). The
++        /// lives read them when they read φ and κ from psyche.json; both off, the lives' report is HEAD's.
++        /// </summary>
++        public static class LivesOverrides
++        {
++            public static readonly bool AllowanceOff = Environment.GetEnvironmentVariable("WHY_ECON_ALLOWANCE")?.Trim() == "0";
++            public static readonly bool PlayFeedOff = Environment.GetEnvironmentVariable("WHY_ECON_PLAYFEED")?.Trim() == "0";
++        }
++
+         /// <summary>Incremented on every change (layers compare it with what they built).</summary>
+         public static int Version { get; private set; }
+ 
+@@ -92,13 +141,102 @@ namespace Why.Economy
+             Bump();
+         }
+ 
+-        /// <summary>Selects a player, a tower and a tie at once (each -1 for none): the player inspector, the ownership fan.</summary>
++        /// <summary>
++        /// Selects a player, a tower and a tie at once (each -1 for none): the bowl's player inspector and ownership fan.
++        /// Kept for the bowl; the hills select through <see cref="Select"/>. The selection's kind follows (a player, else a
++        /// company for a tower, else a tie).
++        /// </summary>
+         public static void SetSelection(int player, int tower, int tie)
+         {
+             if (player == SelectedPlayer && tower == SelectedTower && tie == SelectedTie) return;
+             SelectedPlayer = player;
+             SelectedTower = tower;
+             SelectedTie = tie;
++            SelectedKind = player >= 0 ? SelectionKind.Player
++                : tower >= 0 ? SelectionKind.Company
++                : tie >= 0 ? SelectionKind.Tie
++                : SelectionKind.None;
++            SelectedIndex = player >= 0 ? player : tower >= 0 ? tower : tie;
++            Bump();
++        }
++
++        /// <summary>
++        /// Selects one thing on the land (SPEC2 11.2): its kind and index (player, industry, tier, pair or capture index;
++        /// <see cref="SelectionKind.None"/> or a negative index clears) and the tie. Sets <see cref="SelectedPlayer"/> too
++        /// when the kind is a player (so every reader of it keeps working; -1 otherwise); <see cref="SelectedTower"/> stays
++        /// -1 in the hills.
++        /// </summary>
++        public static void Select(SelectionKind kind, int index, int tie = -1)
++        {
++            if (kind == SelectionKind.None || index < 0)
++            {
++                kind = SelectionKind.None;
++                index = -1;
++            }
++
++            if (kind == SelectionKind.Tie) tie = index;   // a tie's index is its pair
++            if (tie < 0) tie = -1;
++            int player = kind == SelectionKind.Player ? index : -1;
++            if (kind == SelectedKind && index == SelectedIndex && tie == SelectedTie && player == SelectedPlayer &&
++                SelectedTower < 0) return;
++            SelectedKind = kind;
++            SelectedIndex = index;
++            SelectedPlayer = player;
++            SelectedTower = -1;
++            SelectedTie = tie;
++            Bump();
++        }
++
++        /// <summary>The mind's scope and its person (-1 unless the scope is a person).</summary>
++        public static void SetMind(MindScope scope, int person)
++        {
++            if (scope != MindScope.Person) person = -1;
++            if (scope == Mind && person == MindPerson) return;
++            Mind = scope;
++            MindPerson = person;
++            Bump();
++        }
++
++        /// <summary>The key of the player the mind follows (null: none).</summary>
++        public static void SetSelectedKey(string key)
++        {
++            if (string.IsNullOrEmpty(key)) key = null;
++            if (key == SelectedKey) return;
++            SelectedKey = key;
++            Bump();
++        }
++
++        /// <summary>The mind's population mode on or off.</summary>
++        public static void SetPopulationMode(bool on)
++        {
++            if (on == PopulationMode) return;
++            PopulationMode = on;
++            Bump();
++        }
++
++        /// <summary>The years play or pause.</summary>
++        public static void SetPlaying(bool on)
++        {
++            if (on == Playing) return;
++            Playing = on;
++            Bump();
++        }
++
++        /// <summary>The playback's dwell per year (s), clamped to 0.25 .. 10.</summary>
++        public static void SetSpeed(float secondsPerYear)
++        {
++            float s = Math.Max(0.25f, Math.Min(10f, secondsPerYear));
++            if (s == SecondsPerYear) return;
++            SecondsPerYear = s;
++            Bump();
++        }
++
++        /// <summary>The mind's staged phase, clamped to 0..1.</summary>
++        public static void SetMindPhase(float phase)
++        {
++            float p = Math.Max(0f, Math.Min(1f, phase));
++            if (p == MindPhase) return;
++            MindPhase = p;
+             Bump();
+         }
+ 
+@@ -143,9 +281,69 @@ namespace Why.Economy
+             SelectedPlayer = SelectedTower = SelectedTie = -1;
+             Social = DefaultSocial();
+             PendingIncident = -1;
++            SelectedKind = SelectionKind.None;
++            SelectedIndex = -1;
++            Mind = DefaultMind(out int person);
++            MindPerson = person;
++            SelectedKey = DefaultPlayerKey();
++            PopulationMode = false;
++            Playing = false;
++            SecondsPerYear = 1.5f;
++            MindPhase = DefaultMindPhase();
+             Bump();
+         }
+ 
++        /// <summary>The player the mind follows at load: the harness's WHY_ECON_PLAYER (a player key; unset in Unity), else null.</summary>
++        public static string DefaultPlayerKey()
++        {
++            string key = Environment.GetEnvironmentVariable("WHY_ECON_PLAYER")?.Trim();
++            return string.IsNullOrEmpty(key) ? null : key;
++        }
++
++        /// <summary>
++        /// The mind's scope at load: the player's, or the harness's WHY_ECON_MIND ("player", "nation" or a person index;
++        /// unset in Unity). <paramref name="person"/> is the person, or -1.
++        /// </summary>
++        public static MindScope DefaultMind(out int person)
++        {
++            person = -1;
++            string v = Environment.GetEnvironmentVariable("WHY_ECON_MIND")?.Trim().ToLowerInvariant();
++            if (string.IsNullOrEmpty(v) || v == "player") return MindScope.Player;
++            if (v == "nation") return MindScope.Nation;
++            if (int.TryParse(v, NumberStyles.Integer, CultureInfo.InvariantCulture, out int p) && p >= 0)
++            {
++                person = p;
++                return MindScope.Person;
++            }
++
++            return MindScope.Player;
++        }
++
++        /// <summary>The mind's staged phase at load: 1, or the harness's WHY_ECON_MIND_PHASE (0..1; unset in Unity).</summary>
++        public static float DefaultMindPhase()
++        {
++            string v = Environment.GetEnvironmentVariable("WHY_ECON_MIND_PHASE");
++            return !string.IsNullOrWhiteSpace(v) &&
++                   float.TryParse(v.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out float f)
++                ? Math.Max(0f, Math.Min(1f, f))
++                : 1f;
++        }
++
++        /// <summary>
++        /// The harness's playback (WHY_ECON_PLAY=&lt;year&gt;:&lt;steps&gt;, unset in Unity): play from a year with blocking
++        /// builds for a number of steps. False when unset or malformed.
++        /// </summary>
++        public static bool PlayOverride(out int year, out int steps)
++        {
++            year = steps = 0;
++            string v = Environment.GetEnvironmentVariable("WHY_ECON_PLAY")?.Trim();
++            if (string.IsNullOrEmpty(v)) return false;
++            int colon = v.IndexOf(':');
++            string y = colon < 0 ? v : v.Substring(0, colon), n = colon < 0 ? "1" : v.Substring(colon + 1);
++            return int.TryParse(y, NumberStyles.Integer, CultureInfo.InvariantCulture, out year) &&
++                   int.TryParse(n, NumberStyles.Integer, CultureInfo.InvariantCulture, out steps) && steps >= 0;
++        }
++
+         /// <summary>
+         /// The year the land opens on: 2025, or the harness's WHY_ECON_YEAR (unset in Unity), clamped to
+         /// <see cref="MinYear"/> .. maxYear. Pure: the land's model reads it on a worker before Reset runs.
+diff --git a/Assets/Scripts/Economy/EconomyViews.cs b/Assets/Scripts/Economy/EconomyViews.cs
+index acb8b5d..311cdad 100644
+--- a/Assets/Scripts/Economy/EconomyViews.cs
++++ b/Assets/Scripts/Economy/EconomyViews.cs
+@@ -76,6 +76,30 @@ namespace Why.Economy
+             new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f },       // Taxes
+             new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 1f, 0f },                     // Ties
+             new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .6f, 0f },                    // Coalitions
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Ground (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Hills (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Contours (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Caps (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Lakes (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Spending (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Wages (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Capital (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Vapor (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // SavingCredit (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // TaxesTransfers (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Abroad (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Crowns (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Clouds (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Children (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Dependents (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Estates (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Signals (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Mind (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // MindPopulation (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Tether (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Bonds (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Debt (the hills' groups: 0 until the 18 views)
++            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f },                     // Games (the hills' groups: 0 until the 18 views)
+         };
+ 
+         static Dictionary<string, ViewSpec> specs;
+diff --git a/Assets/Scripts/Economy/Land/HillIds.cs b/Assets/Scripts/Economy/Land/HillIds.cs
+new file mode 100644
+index 0000000..4ed1306
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/HillIds.cs
+@@ -0,0 +1,83 @@
++namespace Why.Economy.Land
++{
++    /// <summary>
++    /// Highlight ids of the hills (SPEC2 10.4): 96,000-99,499, clear of the bowl's 80,000-95,000
++    /// (<see cref="EconomyIds"/>) and of the civilizations' 1,000,000+. Every block is contiguous, so a hill, a crown or a
++    /// stage of the mind is one id range. Players keep <see cref="EconomyIds.LandPlayer"/> (81,000 + 8p; part 6, spare in
++    /// the bowl, is the signals'); ties <see cref="EconomyIds.LandTie"/>, coalitions <see cref="EconomyIds.LandCoalition"/>,
++    /// roots <see cref="EconomyIds.LandRoot"/>, the cut <see cref="EconomyIds.LandCut"/>; lifelines and children keep
++    /// their lifeline ids.
++    /// </summary>
++    public static class HillIds
++    {
++        /// <summary>The first id of each block.</summary>
++        public const int HillBase = 96_000, BenchBase = 96_300, RiverBase = 96_400, GorgeBase = 96_450, VaporBase = 96_500,
++            CloudLevel = 96_560, TaxConduit = 96_570, TransferBase = 96_600, CrownBase = 96_700, CompanyBase = 96_900,
++            EstateBase = 97_000, GamesBase = 97_500, MindBase = 97_600, ParticleBase = 98_500;
++
++        /// <summary>Ids per hill and per crown.</summary>
++        public const int HillParts = 8, CrownParts = 8;
++
++        /// <summary>Parts of a hill's block.</summary>
++        public const int HillWages = 0, HillUpkeep = 1, HillCap = 2, HillContour = 3, HillLake = 4, HillRootsIn = 5,
++            HillCapital = 6, HillLabel = 7;
++
++        /// <summary>Parts of a crown's block.</summary>
++        public const int CrownBand = 0, CrownPoints = 1, CrownJewels = 2, CrownTethers = 3, CrownShadow = 4, CrownStem = 5,
++            CrownSeats = 6, CrownVapor = 7;
++
++        /// <summary>River lanes: 0-5 the spending categories, 6 imports.</summary>
++        public const int RiverImports = 6;
++
++        /// <summary>The limits of the counted blocks: transfers, estates, games' coalitions, mind items per stage, particles.</summary>
++        public const int TransferMax = 100, EstateMax = 500, GamesMax = 50, MindStageMax = 100, ParticleMax = 1_000;
++
++        /// <summary>One part of hill i (0 wages, 1 upkeep, 2 cap, 3 contour, 4 lake, 5 roots in, 6 capital river, 7 label).</summary>
++        public static int Hill(int i, int part) => HillBase + HillParts * i + part;
++
++        /// <summary>Every id of hill i.</summary>
++        public static IdRange HillBlock(int i) => new IdRange(Hill(i, 0), Hill(i, HillParts - 1));
++
++        /// <summary>Bench (tread) t.</summary>
++        public static int Bench(int t) => BenchBase + t;
++
++        /// <summary>Lane of tread t's river (0-5 categories, 6 imports).</summary>
++        public static int River(int t, int lane) => RiverBase + 8 * t + lane;
++
++        /// <summary>Gorge k.</summary>
++        public static int Gorge(int k) => GorgeBase + k;
++
++        /// <summary>The vapor rising from hill i.</summary>
++        public static int Vapor(int i) => VaporBase + i;
++
++        /// <summary>A transfer fountain (k &lt; 100).</summary>
++        public static int Transfer(int k) => TransferBase + k;
++
++        /// <summary>
++        /// One part of the crown over hill i (0 band, 1 points, 2 jewels, 3 tethers, 4 shadow, 5 stem, 6 named seats, 7 the
++        /// vapor through it).
++        /// </summary>
++        public static int Crown(int i, int part) => CrownBase + CrownParts * i + part;
++
++        /// <summary>Every id of the crown over hill i.</summary>
++        public static IdRange CrownBlock(int i) => new IdRange(Crown(i, 0), Crown(i, CrownParts - 1));
++
++        /// <summary>A capture company's mark (capture index).</summary>
++        public static int Company(int c) => CompanyBase + c;
++
++        /// <summary>An estate stream (k &lt; 500).</summary>
++        public static int Estate(int k) => EstateBase + k;
++
++        /// <summary>A coalition's games (c &lt; 50; part 0 the ladder, 1 the pyramid).</summary>
++        public static int Games(int c, int part) => GamesBase + 2 * c + part;
++
++        /// <summary>Item k of a stage of the mind (stage 0-7, k &lt; 100).</summary>
++        public static int Mind(int stage, int k) => MindBase + 100 * stage + k;
++
++        /// <summary>Every id of a stage of the mind.</summary>
++        public static IdRange MindStage(int stage) => new IdRange(Mind(stage, 0), Mind(stage, MindStageMax - 1));
++
++        /// <summary>A player's particle in the population mode (p &lt; 1,000).</summary>
++        public static int Particle(int p) => ParticleBase + p;
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/HillIds.cs.meta b/Assets/Scripts/Economy/Land/HillIds.cs.meta
+new file mode 100644
+index 0000000..a17bb1e
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/HillIds.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 488b0f38286548dc81ff26660ad8e716
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/Hills.meta b/Assets/Scripts/Economy/Land/Hills.meta
+new file mode 100644
+index 0000000..554ac39
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Hills.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 1ef351cc12004c75b998576d1ec4d5f0
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Assets/Scripts/Economy/Land/Hills/HillTypes.cs b/Assets/Scripts/Economy/Land/Hills/HillTypes.cs
+new file mode 100644
+index 0000000..1a14ed0
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Hills/HillTypes.cs
+@@ -0,0 +1,269 @@
++using UnityEngine;
++
++namespace Why.Economy.Land
++{
++    // The contract types of the hill landscape (SPEC2 11.2, frozen once WP0 merges): the land's frame, the terrain and
++    // its height field, the year's money per player without geometry, the drawn flows, and the glyph's points. Builders
++    // (HillLayout, TerrainField, MoneyAccounts, HillFlows; WP1) fill them on a worker; the land layers only read them.
++    // Dollars are $B nominal of the year; positions are land-local (LandFrame: +x right seen from the road, +y up, +z
++    // away from the road).
++
++    /// <summary>The land's fixed frame (SPEC2 2.1). Land-local: x ∈ [−7, 7], z ∈ [−Depth/2, Depth/2], +z away from the road.</summary>
++    public static class HillFrame
++    {
++        /// <summary>The land's width and depth, the margin at each side and the gap between hill feet (u).</summary>
++        public const float Width = 14f, Depth = 15.15f, Edge = 0.30f, Gap = 0.22f;
++
++        /// <summary>The benches' heights: gov, raw, make, services, tech.</summary>
++        public static readonly float[] BenchY = { 0f, 0.70f, 1.40f, 2.10f, 2.80f };
++
++        /// <summary>
++        /// The depth budget (in d): the gov tread, the mesa zone, each riser and tread, the four hill zones together, the
++        /// least zone, the back margin.
++        /// </summary>
++        public const float Front = 1.20f, GovZone = 1.00f, Riser = 0.70f, Tread = 1.20f, DZones = 5.00f, ZMin = 0.70f, Back = 0.35f;
++
++        /// <summary>The cloud level, and the crown band's bottom and highest top (y).</summary>
++        public const float CloudY = 4.50f, CrownBase = 3.55f, CrownTopMax = 4.20f;
++
++        /// <summary>The river's centre, from the tread's lip.</summary>
++        public const float RoadV = 0.60f;                                          // the river's centre, from the tread's lip
++
++        /// <summary>Floor rows 0-3, from the tread's lip (band 0 nearest the hills, band 3 at the lip).</summary>
++        public static readonly float[] BandV = { 1.07f, 0.87f, 0.33f, 0.13f };     // floor rows 0-3, from the lip
++
++        /// <summary>Slope rows 0-3: elevation fractions of their hill.</summary>
++        public static readonly float[] SlopeE = { 0.10f, 0.32f, 0.50f, 0.68f };    // slope rows: elevation fractions
++
++        /// <summary>A disc's radius per √(people / 1M); a stock's radius per √($ / GDP).</summary>
++        public const float DiscK = 0.030f, StockK = 0.75f;                          // r = DiscK √(people/1M); r = StockK √($/GDP)
++
++        /// <summary>
++        /// Scales per GDP of the year: hill area, lake area, the lakes' largest half-depth, money flow width, capital and
++        /// root width.
++        /// </summary>
++        public const float AreaGdp = 46f, LakeAreaGdp = 4.6f, LakeBMax = 0.16f, WidthGdp = 1.0f, CapitalWidthGdp = 4.0f, RootWidthGdp = 4.0f;
++
++        /// <summary>The mind's origin (land-local x).</summary>
++        public const float MindX = -13.5f;                                          // the mind's origin (land-local x)
++
++        /// <summary>Land-local z of a depth d (0 at the land's front edge).</summary>
++        public static float ZOf(float d) => d - Depth * 0.5f;
++
++        /// <summary>Depth d (0 at the land's front edge) of a land-local z.</summary>
++        public static float DOf(float z) => z + Depth * 0.5f;
++    }
++
++    /// <summary>The land's height field and its queries (pure, any thread, deterministic). Land-local x, z.</summary>
++    public interface ITerrainField
++    {
++        /// <summary>H = ground + Σ own (bilinear on the 0.05 raster).</summary>
++        float Height(float x, float z);                       // H = ground + Σ own (bilinear on the 0.05 raster)
++
++        /// <summary>G: treads and risers only.</summary>
++        float Ground(float x, float z);                       // G: treads and risers only
++
++        /// <summary>The hill whose own height dominates (≥ 0.015) there; −1 ground.</summary>
++        int Owner(float x, float z);                          // hill whose own height dominates (≥ 0.015) there; −1 ground
++
++        /// <summary>That hill's own height (the exact profile).</summary>
++        float Own(int hill, float x, float z);                // that hill's own height (the exact profile)
++
++        /// <summary>That hill's normalized radius.</summary>
++        float Rho(int hill, float x, float z);                // that hill's normalized radius
++
++        /// <summary>(x, H + lift, z).</summary>
++        Vector3 OnSurface(float x, float z, float lift = 0f); // (x, H + lift, z)
++
++        /// <summary>∇H (central differences).</summary>
++        Vector2 Gradient(float x, float z);                   // ∇H (central differences)
++
++        /// <summary>The tier whose tread contains z; −1 elsewhere.</summary>
++        int TreadAt(float z);                                 // tier whose tread contains z; −1 elsewhere
++
++        /// <summary>On a tread, clear of lakes, gorge blocks and hill feet by clearance.</summary>
++        bool Free(float x, float z, float clearance);         // on a tread, clear of lakes, gorge blocks and hill feet by clearance
++
++        /// <summary>
++        /// The hill's own contour at elevation fraction e (0 foot … 1 summit), CCW seen from above starting at its front
++        /// point (−z), lifted onto H.
++        /// </summary>
++        void Contour(int hill, float e, System.Collections.Generic.List<Vector3> into, int points = 64);
++                                                              // the hill's own contour at elevation fraction e (0 foot … 1 summit),
++                                                              // CCW seen from above starting at its front point (−z), lifted onto H
++    }
++
++    /// <summary>One industry's hill in a year (SPEC2 2.4): its footprint ellipse, heights, zones and money.</summary>
++    public sealed class HillGeom
++    {
++        /// <summary>Industry index, its tier; Present: VA ≥ $1B; Mesa: a gov hill.</summary>
++        public int Industry; public Tier Tier; public bool Present, Mesa;    // Present: VA ≥ $1B
++
++        /// <summary>Centre (land-local) and the ellipse's semi-axes along x and z.</summary>
++        public float X, Z, A, B;                                             // centre (land-local), semi-axes along x and z
++
++        /// <summary>Own rise, its bench's height, summit height.</summary>
++        public float Own, BaseY, SummitY;                                    // own rise, its bench's height, summit height
++
++        /// <summary>Zone boundaries in ρ: √o (the owners' cap), √(o + u) (upkeep).</summary>
++        public float RhoCap, RhoUpkeep;                                      // √o, √(o + u)
++
++        /// <summary>Value added and its split (WallGeometry.Split), the year's ($B).</summary>
++        public double ValueAdded, Wages, Upkeep, Owners;                     // $B, the year's (WallGeometry.Split)
++
++        /// <summary>The x interval of its frontage on its tread.</summary>
++        public float Frontage0, Frontage1;                                   // x interval of its frontage on its tread
++
++        /// <summary>The capital river's centre line, foot → cap rim (null for mesas).</summary>
++        public Vector3[] CapitalPath;                                        // the capital river's centre line, foot → cap rim (null for mesas)
++
++        /// <summary>The summit point.</summary>
++        public Vector3 Summit => new Vector3(X, SummitY, Z);
++    }
++
++    /// <summary>One bench's tread (SPEC2 2.2, 2.5). RiserZ0: NaN for gov.</summary>
++    public sealed class BenchGeom { public Tier Tier; public float Y, RiserZ0, LipZ, HillsZ, ZoneDepth, RiverZ; }   // RiserZ0: NaN for gov
++
++    /// <summary>A gorge (SPEC2 2.5): riser t carries spending from tier t−1's river up to t's.</summary>
++    public sealed class GorgeGeom { public int Riser; public float X; public Vector3[] Path; }      // Riser t: from tier t−1's river up to t's
++
++    /// <summary>A hill's lake on the river in front of it (SPEC2 2.5): ellipse, surface y, inflow and its fear and fantasy parts.</summary>
++    public sealed class LakeGeom { public int Industry; public float X, Z, A, B, Y; public double Inflow, Fear, Fantasy; public bool Overflow; }
++
++    /// <summary>A capture company's mark on its hill's gold cap (SPEC2 2.6).</summary>
++    public sealed class CompanyMark { public int Company, Industry; public string Name, Ticker; public Vector3 At; public double MarketCap, Revenue, NetIncome; }
++
++    /// <summary>The year's terrain (HillLayout.Build, then AddLakes and HillRoots.Build).</summary>
++    public sealed class TerrainGeometry
++    {
++        /// <summary>The calendar year and its GDP ($B nominal).</summary>
++        public int Year; public double Gdp;                                   // $B nominal
++
++        /// <summary>The year's scales: world units per $B.</summary>
++        public float AreaPerB, LakeAreaPerB, WidthPerB, CapitalWidthPerB;     // world units per $B, the year's
++
++        /// <summary>25 hills, EconomyData.Industries order.</summary>
++        public HillGeom[] Hills;                                              // 25, EconomyData.Industries order
++
++        /// <summary>5 benches, tier order.</summary>
++        public BenchGeom[] Benches;                                           // 5, tier order
++
++        /// <summary>The gorges (≤ 12).</summary>
++        public GorgeGeom[] Gorges = System.Array.Empty<GorgeGeom>();          // ≤ 12
++
++        /// <summary>Lakes by industry; null: none (HillLayout.AddLakes).</summary>
++        public LakeGeom[] Lakes = new LakeGeom[25];                           // by industry, null: none (HillLayout.AddLakes)
++
++        /// <summary>Company marks: the capture companies from 2024.</summary>
++        public CompanyMark[] Companies = System.Array.Empty<CompanyMark>();   // capture companies from 2024
++
++        /// <summary>The roots (HillRoots.Build, 4.9), in the bowl's RootGeom type.</summary>
++        public RootGeom[] Roots = System.Array.Empty<RootGeom>();             // HillRoots.Build (4.9); the bowl's RootGeom type
++
++        /// <summary>Per tier, industries left to right (fixed for all years).</summary>
++        public int[][] Order;                                                 // per tier, industries left to right (fixed)
++
++        /// <summary>The height field.</summary>
++        public ITerrainField Field;
++
++        /// <summary>The bodies of the "[Why] Hills" and "[Why] Valleys" log lines, and Σ (x + z + summit).</summary>
++        public string Log, ValleyLog; public double Checksum;
++    }
++
++    /// <summary>The year's money per player without geometry (MoneyAccounts.Build, SPEC2 4.1).</summary>
++    public sealed class HillAccounts
++    {
++        /// <summary>The calendar year.</summary>
++        public int Year;
++
++        /// <summary>[6, 25] RAS shares (rows sum to 1), and each category's import share.</summary>
++        public double[,] CategoryToSeller;                                    // [6, 25] RAS shares (rows sum to 1)
++        public readonly double[] ImportShare = new double[6];
++
++        /// <summary>[player][c × 25 + k]: category c paid first to hill k ($B); [player] imports ($B).</summary>
++        public double[][] Sink;                                               // [player][c × 25 + k]: category c paid first to hill k ($B)
++        public double[] Imports;                                              // [player] $B
++
++        /// <summary>[player][25]: capital income by paying hill ($B).</summary>
++        public double[][] CapitalBy;                                          // [player][25] capital income by paying hill ($B)
++
++        /// <summary>[player]: gross saving and gross borrowing ($B); gross saving split into trading assets and deposits (4.1).</summary>
++        public double[] SaveGross, BorrowGross;                               // [player] $B
++        public double[] SaveTrading, SaveDeposits;                            // [player] $B: SaveGross split (4.1)
++
++        /// <summary>Per hill: the lake's inflow with its fear and fantasy parts; payouts, production taxes, investment, external.</summary>
++        public readonly double[] PoolInflow = new double[25], PoolFear = new double[25], PoolFantasy = new double[25];
++        public readonly double[] PayoutBySector = new double[25], ProductionTaxBy = new double[25];
++        public readonly double[] InvestmentBy = new double[25], ExternalBy = new double[25];
++
++        /// <summary>The cloud level's and the state's totals ($B).</summary>
++        public double PayoutAbroad, SavingIn, Credit, NetLending, Investment, CorporateTaxes, Allowance;
++
++        /// <summary>The body of the "[Why] Accounts" log line and its checksum.</summary>
++        public string Log; public double Checksum;
++    }
++
++    /// <summary>One tread's river, binned every Step in x (SPEC2 4.3).</summary>
++    public sealed class RiverProfile                                          // one tread's river, binned every Step in x
++    {
++        /// <summary>The tier, the river's z, the first bin's x and the bin width.</summary>
++        public int Tier; public float Z, X0, Step;
++
++        /// <summary>$B per bin flowing toward +x (Plus) and −x (Minus), by motive.</summary>
++        public double[] PlusFear, PlusDesire, PlusFantasy, MinusFear, MinusDesire, MinusFantasy;   // $B per bin
++
++        /// <summary>[6][bin]: the same by category.</summary>
++        public double[][] PlusCategory, MinusCategory;                        // [6][bin]
++
++        /// <summary>Drawn half-width per bin (both banks).</summary>
++        public float[] HalfWidth;                                             // drawn half-width per bin (both banks)
++    }
++
++    /// <summary>The year's drawn money on the hills (HillFlows.Build, SPEC2 4).</summary>
++    public sealed class HillMoney                                             // HillFlows.Build (SPEC2 4)
++    {
++        /// <summary>The calendar year.</summary>
++        public int Year;
++
++        /// <summary>Every drawn flow.</summary>
++        public readonly System.Collections.Generic.List<FlowPath> Paths = new System.Collections.Generic.List<FlowPath>();
++
++        /// <summary>The five treads' rivers.</summary>
++        public RiverProfile[] Rivers = new RiverProfile[5];
++
++        /// <summary>$B by crown industry (4.5): the vapor into each crown, and the part that ends at its seated players.</summary>
++        public readonly double[] CrownIn = new double[25], CrownSeated = new double[25];   // $B by crown industry (4.5)
++
++        /// <summary>The bodies of the flows' log lines and Σ dollars × point count.</summary>
++        public string Log, RiversLog, CapitalLog, VaporLog, StateLog; public double Checksum;
++    }
++
++    /// <summary>The hills' twin of the bowl's Figure (which reads the bowl's polar place): glyph points at Player.Pos.</summary>
++    public static class HillFigure
++    {
++        /// <summary>The head: Pos + (0, LandStyle.HeadY, 0).</summary>
++        public static Vector3 Head(Player p) => p.Pos + new Vector3(0, LandStyle.HeadY, 0);
++
++        /// <summary>
++        /// Land-local position of a member's dot (3.8): slot k of n of the sunflower at Pos (radius 0.85 r √((k + 0.5) / n),
++        /// angle 2.39996 k from the land's +x axis), at 0.03 + 0.25 × reason above the disc.
++        /// </summary>
++        public static Vector3 DotSlot(Player p, int k, int n, float reason)
++        {
++            float rr = LandStyle.DotSpread * p.Radius * Mathf.Sqrt((k + 0.5f) / Mathf.Max(1, n));
++            float a = LandStyle.GoldenAngle * k;
++            Vector3 c = p.Pos;
++            return new Vector3(c.x + rr * Mathf.Cos(a), c.y + LandStyle.DotY0 + LandStyle.DotYReason * Mathf.Clamp01(reason),
++                c.z + rr * Mathf.Sin(a));
++        }
++
++        /// <summary>Land-local position of a child's dot: slot k of n on the ring at r + 0.02 around Pos, at the disc's height.</summary>
++        public static Vector3 ChildSlot(Player p, int k, int n)
++        {
++            float a = 2 * Mathf.PI * (k + 0.5f) / Mathf.Max(1, n);
++            float rr = p.Radius + LandStyle.ChildRingGap;
++            Vector3 c = p.Pos;
++            return new Vector3(c.x + rr * Mathf.Cos(a), c.y + LandStyle.DotY0, c.z + rr * Mathf.Sin(a));
++        }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/Hills/HillTypes.cs.meta b/Assets/Scripts/Economy/Land/Hills/HillTypes.cs.meta
+new file mode 100644
+index 0000000..90d4b74
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Hills/HillTypes.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 3c236d75204f48f8a7846dccbb06af30
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/LandFrameItems.cs b/Assets/Scripts/Economy/Land/LandFrameItems.cs
+new file mode 100644
+index 0000000..9386174
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/LandFrameItems.cs
+@@ -0,0 +1,45 @@
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++
++namespace Why.Economy.Land
++{
++    /// <summary>Points of the "must be in frame" items (SPEC2 10.2). Main thread; layers set, LandViewLayer logs.</summary>
++    /// <remarks>
++    /// Each land layer registers, at each build, the land-local points of its items under keys such as
++    /// <c>land:bench:2</c>, <c>land:crown:12</c> or <c>land:row:3:1</c> (a Core anchor holds one point, so the land
++    /// keeps its own list); with <c>WHY_DUMP_LAND=1</c> the land's view layer projects every item with the preset's
++    /// camera at each focus and logs "[Why] Frame &lt;preset&gt;: &lt;key&gt; in|out &lt;x0&gt; &lt;y0&gt; &lt;x1&gt; &lt;y1&gt;", which
++    /// the views' check reads. A layer clears its own keys (<see cref="ClearPrefix"/>) before it registers a rebuild.
++    /// </remarks>
++    public static class LandFrameItems
++    {
++        static readonly Dictionary<string, Vector3[]> items = new Dictionary<string, Vector3[]>(StringComparer.Ordinal);
++
++        /// <summary>Registers (or replaces) an item's land-local points; null or empty removes it.</summary>
++        public static void Set(string key, Vector3[] landLocalPoints)
++        {
++            if (string.IsNullOrEmpty(key)) return;
++            if (landLocalPoints == null || landLocalPoints.Length == 0) items.Remove(key);
++            else items[key] = landLocalPoints;
++        }
++
++        /// <summary>Removes every item whose key starts with the prefix (a layer clears its own keys before a rebuild).</summary>
++        public static void ClearPrefix(string prefix)
++        {
++            if (prefix == null) return;
++            List<string> gone = null;
++            foreach (string key in items.Keys)
++            {
++                if (!key.StartsWith(prefix, StringComparison.Ordinal)) continue;
++                (gone ??= new List<string>()).Add(key);
++            }
++
++            if (gone == null) return;
++            foreach (string key in gone) items.Remove(key);
++        }
++
++        /// <summary>Every registered item: key → land-local points.</summary>
++        public static IReadOnlyDictionary<string, Vector3[]> All => items;
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/LandFrameItems.cs.meta b/Assets/Scripts/Economy/Land/LandFrameItems.cs.meta
+new file mode 100644
+index 0000000..cc76112
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/LandFrameItems.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: ecd365ae68a5470285bd42d81e789ecf
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/LandMath.cs b/Assets/Scripts/Economy/Land/LandMath.cs
+index f48e258..e64e1d4 100644
+--- a/Assets/Scripts/Economy/Land/LandMath.cs
++++ b/Assets/Scripts/Economy/Land/LandMath.cs
+@@ -6,8 +6,9 @@ namespace Why.Economy.Land
+ {
+     /// <summary>
+     /// Small deterministic math shared by the land's builders and layers: hashes instead of random numbers (8.7), angles
+-    /// on the circle, the circular mean, the minimum-displacement packing of a rim row (3.3), path smoothing (Catmull-Rom,
+-    /// Chaikin), arc-length sampling, eases, and the vertex-color helpers. Pure functions; safe on any thread.
++    /// on the circle, the circular mean, the minimum-displacement packing of a rim row (3.3) and of a line (SPEC2 11.4),
++    /// path smoothing (Catmull-Rom, Chaikin), arc-length sampling, eases, and the vertex-color helpers. Pure functions;
++    /// safe on any thread.
+     /// </summary>
+     public static class LandMath
+     {
+@@ -179,6 +180,54 @@ namespace Why.Economy.Land
+             return result;
+         }
+ 
++        /// <summary>
++        /// The linear twin of <see cref="PackRow"/> (SPEC2 11.4): items of half-widths <paramref name="half"/> laid along a
++        /// line in the given order, each as near its desired centre as the run allows. Neighbours keep at least
++        /// <paramref name="gap"/> between their edges; the centres minus the cumulative offsets (half_i-1 + gap + half_i)
++        /// are fitted by an isotonic regression (pool-adjacent-violators) and clamped into [lo + half_0,
++        /// hi − (offset_last + half_last)], so the whole run stays inside [lo, hi]. When it is wider than [lo, hi] it is
++        /// centred there and <paramref name="fits"/> is false. Returns the centres in the given order. Reproduces the
++        /// prototypes' <c>pack</c> (synth/stand3.py, terrain/terrain.py).
++        /// </summary>
++        public static double[] PackLine(IReadOnlyList<double> desired, IReadOnlyList<double> half, double lo, double hi, double gap,
++            out bool fits)
++        {
++            int n = desired.Count;
++            double[] centre = new double[n];
++            fits = true;
++            if (n == 0) return centre;
++            double[] offs = new double[n];
++            for (int i = 1; i < n; i++) offs[i] = offs[i - 1] + half[i - 1] + half[i] + gap;
++
++            // pool adjacent violators on desired - offsets: blocks of (sum, count), merged while their means decrease
++            double[] blockSum = new double[n];
++            int[] blockCount = new int[n];
++            int blocks = 0;
++            for (int i = 0; i < n; i++)
++            {
++                blockSum[blocks] = desired[i] - offs[i];
++                blockCount[blocks] = 1;
++                blocks++;
++                while (blocks > 1 && blockSum[blocks - 2] / blockCount[blocks - 2] > blockSum[blocks - 1] / blockCount[blocks - 1])
++                {
++                    blockSum[blocks - 2] += blockSum[blocks - 1];
++                    blockCount[blocks - 2] += blockCount[blocks - 1];
++                    blocks--;
++                }
++            }
++
++            double min = lo + half[0], max = hi - (offs[n - 1] + half[n - 1]);
++            fits = min <= max;
++            int k = 0;
++            for (int b = 0; b < blocks; b++)
++            {
++                double v = fits ? Math.Min(max, Math.Max(min, blockSum[b] / blockCount[b])) : 0.5 * (min + max);
++                for (int j = 0; j < blockCount[b]; j++, k++) centre[k] = v + offs[k];
++            }
++
++            return centre;
++        }
++
+         // ------------------------------------------------------------------ paths
+ 
+         /// <summary>
+diff --git a/Assets/Scripts/Economy/Land/LandSeason.cs b/Assets/Scripts/Economy/Land/LandSeason.cs
+new file mode 100644
+index 0000000..5905aba
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/LandSeason.cs
+@@ -0,0 +1,48 @@
++using System;
++using System.Collections.Generic;
++
++namespace Why.Economy.Land
++{
++    /// <summary>The season on screen, for the UI (SPEC2 5.0). Main thread. SeasonLayer sets it; the bowl's SocialLayer keeps its own.</summary>
++    /// <remarks>
++    /// The bowl's <c>SocialLayer</c> held the season on screen for the panels (<c>SocialLayer.Shown</c>,
++    /// <c>SocialLayer.CoalitionsAt</c>); it is retired with the bowl, so the hills' <c>SeasonLayer</c> publishes its
++    /// season here at each swap (the default, the betrayal or the viewer's incident season) and with null on destroy.
++    /// The UI reads <c>LandSeason.Shown ?? SocialLayer.Shown</c>, so the bowl's branch keeps working.
++    /// </remarks>
++    public static class LandSeason
++    {
++        /// <summary>The season on screen; null before the land (or while no season layer shows one).</summary>
++        public static SocialSeasonResult Shown { get; private set; }
++
++        /// <summary>Sets the season on screen (main thread; SeasonLayer at each swap, null on destroy).</summary>
++        public static void SetShown(SocialSeasonResult season) => Shown = season;
++
++        /// <summary>The number of coalitions of a season at the detection a round shows (the panel's readout).</summary>
++        public static int CoalitionsAt(SocialSeasonResult s, int round)
++        {
++            if (s?.CoalitionAt == null || s.CoalitionAt.Length == 0) return 0;
++            int[] labels = s.CoalitionAt[Detection(round, s.CoalitionAt.Length)];
++            HashSet<int> ids = new HashSet<int>();
++            foreach (int c in labels)
++            {
++                if (c >= 0) ids.Add(c);
++            }
++
++            return ids.Count;
++        }
++
++        /// <summary>The detection a round shows: the last one at or before it (rounds 0, 24, 48, 72, 96).</summary>
++        static int Detection(int round, int count)
++        {
++            int[] at = LandStyle.Detections;
++            int d = 0;
++            for (int i = 0; i < Math.Min(count, at.Length); i++)
++            {
++                if (round >= at[i]) d = i;
++            }
++
++            return d;
++        }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/LandSeason.cs.meta b/Assets/Scripts/Economy/Land/LandSeason.cs.meta
+new file mode 100644
+index 0000000..6637997
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/LandSeason.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: d5933bcb50de42d8a543d083f15202b8
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/LandService.cs b/Assets/Scripts/Economy/Land/LandService.cs
+index acf40fa..dbcfd9b 100644
+--- a/Assets/Scripts/Economy/Land/LandService.cs
++++ b/Assets/Scripts/Economy/Land/LandService.cs
+@@ -92,10 +92,18 @@ namespace Why.Economy.Land
+         // ------------------------------------------------------------------ building (pure, any thread)
+ 
+         /// <summary>
+-        /// Builds a year's snapshot with the given season settings (no cache): LandLayout, PlayerCensus, MoneyRouting,
+-        /// SocialSeason, MoneyCircuit; the checks of every builder on one line. Pure and deterministic.
++        /// Builds a year's snapshot with the given season settings (no cache). Pure and deterministic. WP0 part A: the
++        /// bowl's body (<see cref="BuildBowl"/>) until the hills' pipeline (SPEC2 11.3) replaces it.
+         /// </summary>
+-        public static LandSnapshot Build(EconomyModel economy, SmvPopulation population, int year, SocialSettings settings)
++        public static LandSnapshot Build(EconomyModel economy, SmvPopulation population, int year, SocialSettings settings) =>
++            BuildBowl(economy, population, year, settings);
++
++        /// <summary>
++        /// The retired bowl's snapshot (SPEC2 1.1: HEAD's <c>Build</c>, kept verbatim and unused; the restore recipe makes
++        /// <see cref="Build"/> call it): LandLayout, PlayerCensus, MoneyRouting, SocialSeason, MoneyCircuit; the checks of
++        /// every builder on one line. Pure and deterministic.
++        /// </summary>
++        public static LandSnapshot BuildBowl(EconomyModel economy, SmvPopulation population, int year, SocialSettings settings)
+         {
+             LandGeometry land = LandLayout.Build(economy.Data, year);
+             PlayerSet players = PlayerCensus.Build(economy, population, land, year);
+@@ -251,7 +259,8 @@ namespace Why.Economy.Land
+             LandSnapshot n = new LandSnapshot
+             {
+                 Year = from.Year, Land = from.Land, Players = from.Players, Money = from.Money, Society = society,
+-                Circuit = from.Circuit
++                Circuit = from.Circuit, Terrain = from.Terrain, Accounts = from.Accounts, Flows = from.Flows,
++                Families = from.Families
+             };
+             n.ChecksLine = ChecksLine(n, model.Data);
+             lock (Gate)
+@@ -368,7 +377,9 @@ namespace Why.Economy.Land
+             LandSnapshot shown = new LandSnapshot
+             {
+                 Year = s.Year, Version = Version, Blocking = blocking, Land = s.Land, Players = s.Players, Money = s.Money,
+-                Society = s.Society, Betrayal = s.Betrayal, Circuit = s.Circuit, ChecksLine = s.ChecksLine
++                Society = s.Society, Betrayal = s.Betrayal, Circuit = s.Circuit, ChecksLine = s.ChecksLine,
++                Terrain = s.Terrain, Accounts = s.Accounts, Flows = s.Flows, Families = s.Families, Territories = s.Territories,
++                Programs = s.Programs, Nation = s.Nation, ProgramLog = s.ProgramLog
+             };
+             Current = shown;
+             ready.Clear();
+diff --git a/Assets/Scripts/Economy/Land/LandStyle.cs b/Assets/Scripts/Economy/Land/LandStyle.cs
+index 047bd14..67ba66a 100644
+--- a/Assets/Scripts/Economy/Land/LandStyle.cs
++++ b/Assets/Scripts/Economy/Land/LandStyle.cs
+@@ -197,8 +197,9 @@ namespace Why.Economy.Land
+         /// <summary>The cut slides to a new year in this time.</summary>
+         public const float YearSlideSeconds = 0.4f;
+ 
+-        /// <summary>Snapshots kept (LRU) and the build budget (ms).</summary>
+-        public const int CacheYears = 4, BuildBudgetMs = 150;
++        /// <summary>Snapshots kept (LRU; 6 so the playback's prefetched years stay beside the one on screen, SPEC2 6.6) and
++        /// the build budget (ms).</summary>
++        public const int CacheYears = 6, BuildBudgetMs = 150;
+ 
+         /// <summary>The morph clock: unfold (1x), fold (2x), the cross-fade of a year change, the emphasis easing rate (per s).</summary>
+         public const float UnfoldSeconds = 2.4f, FoldSeconds = 1.2f, CrossFadeSeconds = 0.4f, EmphasisRate = 2.5f;
+diff --git a/Assets/Scripts/Economy/Land/LandTween.cs b/Assets/Scripts/Economy/Land/LandTween.cs
+new file mode 100644
+index 0000000..51f66fb
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/LandTween.cs
+@@ -0,0 +1,66 @@
++namespace Why.Economy.Land
++{
++    /// <summary>A year change in playback (SPEC2 6.6): main thread; layers read it in Tick.</summary>
++    /// <remarks>
++    /// When the playback publishes year Y+1, <see cref="Begin"/> takes the two snapshots and the related players (each
++    /// next player's partner in the previous year and back, from ProgramModel.Related); for <see cref="Seconds"/> the
++    /// layers lerp what moves (the terrain's heights, glide markers from a related player's old position to its new one)
++    /// by <see cref="T"/>, then cross-fade to the new year. <c>LandViewLayer</c> ticks it every frame after the
++    /// playback clock. Outside playback it is idle (<see cref="Active"/> false, <see cref="T"/> 1).
++    /// </remarks>
++    public static class LandTween
++    {
++        /// <summary>The tween's length (s).</summary>
++        public const float Seconds = 0.8f;
++
++        /// <summary>The year the tween leaves and the year it arrives at (null before the first <see cref="Begin"/>).</summary>
++        public static LandSnapshot Prev { get; private set; }
++        public static LandSnapshot Next { get; private set; }
++
++        /// <summary>The tween's progress, eased (in-out cubic) 0 → 1.</summary>
++        public static float T { get; private set; } = 1f;               // eased (in-out cubic) 0 → 1
++
++        /// <summary>Whether a tween runs.</summary>
++        public static bool Active => Prev != null && T < 1f;
++
++        /// <summary>[next player] → prev player or −1.</summary>
++        public static int[] RelatedPrev { get; private set; }           // [next player] → prev player or −1
++
++        /// <summary>[prev player] → next player or −1.</summary>
++        public static int[] RelatedNext { get; private set; }           // [prev player] → next player or −1
++
++        /// <summary>The tween's clock (s since <see cref="Begin"/>).</summary>
++        static float clock;
++
++        /// <summary>
++        /// Starts a tween from one year's snapshot to the next with their related players (null: none related); restarts a
++        /// running one from its start.
++        /// </summary>
++        public static void Begin(LandSnapshot prev, LandSnapshot next, int[] relatedPrev, int[] relatedNext)
++        {
++            Prev = prev;
++            Next = next;
++            RelatedPrev = relatedPrev;
++            RelatedNext = relatedNext;
++            clock = 0;
++            T = prev != null ? 0f : 1f;
++        }
++
++        /// <summary>One frame (called by LandViewLayer after LandPlayback.Tick): the clock advances and T eases toward 1.</summary>
++        public static void Tick(float dt)
++        {
++            if (Prev == null || T >= 1f) return;
++            clock += dt > 0 ? dt : 0;
++            T = clock >= Seconds ? 1f : LandMath.EaseInOutCubic(clock / Seconds);
++        }
++
++        /// <summary>Back to idle (a new scene load, a stop): no snapshots held, T 1.</summary>
++        public static void Reset()
++        {
++            Prev = Next = null;
++            RelatedPrev = RelatedNext = null;
++            clock = 0;
++            T = 1f;
++        }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/LandTween.cs.meta b/Assets/Scripts/Economy/Land/LandTween.cs.meta
+new file mode 100644
+index 0000000..2486f32
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/LandTween.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: c772bba0902f447bb76092ce7795150a
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/LandTypes.cs b/Assets/Scripts/Economy/Land/LandTypes.cs
+index 6ad74b5..73fe3d3 100644
+--- a/Assets/Scripts/Economy/Land/LandTypes.cs
++++ b/Assets/Scripts/Economy/Land/LandTypes.cs
+@@ -6,7 +6,8 @@ using Why.Economy.Model;
+ namespace Why.Economy.Land
+ {
+     // The contract types of the land: one year of the economy cut out of the road and opened into a stepped bowl
+-    // (Docs/ECONOMY.md, "The landscape"). Builders (LandLayout, PlayerCensus, MoneyRouting, SocialSeason) fill them on a
++    // (Docs/ECONOMY.md, "The landscape"); the hills' members are appended (SPEC2 11.2) and their own types live in
++    // Hills/HillTypes.cs, People/PeopleTypes.cs and Mind/ProgramTypes.cs. Builders (LandLayout, PlayerCensus, MoneyRouting, SocialSeason) fill them on a
+     // worker from the year's data; LandService publishes them as a LandSnapshot; the land layers only read them.
+     // Dollars are $B nominal of the snapshot's year unless a member says otherwise; angles are degrees counter-clockwise
+     // seen from above, 270 facing the road (LandFrame); positions are land-local (LandFrame).
+@@ -25,21 +26,42 @@ namespace Why.Economy.Land
+     public enum Place : byte { Rim = 0, Tower = 1, Crown = 2 }
+ 
+     /// <summary>
+-    /// What a drawn flow carries. Income and capital move in the air (arcs); spending, taxes and imports run on the
+-    /// ground (rivulets, the canal, rivers); purchases between industries are the roots (RootsModel, not a FlowPath).
++    /// The kind of standing in the hills (SPEC2 3.1): a valley floor row, a ledge on its own hill's slope (owners, the
++    /// self-employed), a seat in a crown (controllers) or a cloud pool (the diversified 1%). Height is control.
++    /// </summary>
++    public enum Zone : byte { Floor = 0, Slope = 1, Crown = 2, Cloud = 3 }
++
++    /// <summary>
++    /// What a drawn flow carries. In the bowl (0-16) income and capital move in the air (arcs); spending, taxes and
++    /// imports run on the ground (rivulets, the canal, rivers); purchases between industries are the roots (RootsModel,
++    /// not a FlowPath). In the hills (17-37, SPEC2 4) every flow is water: wages run off a hill's foot, spending runs
++    /// along the valley rivers and through the gorges into the lakes, capital climbs its hill, profits rise as vapor to
++    /// the crowns and the clouds and rain onto the savers, taxes seep to the mesas and transfers spring as fountains.
+     /// </summary>
+     public enum FlowKind : byte
+     {
+-        Wages = 0, WagesCompany = 1, Business = 2, Capital = 3, Transfers = 4,                      // income, in the air
+-        Payout = 5, PayoutAbroad = 6, Saving = 7, Investment = 8, Credit = 9, Borrowing = 10,      // capital, in the air
+-        Rivulet = 11, River = 12, Distributary = 13, Waterfall = 14, Taxes = 15, Abroad = 16       // on the ground
++        Wages = 0, WagesCompany = 1, Business = 2, Capital = 3, Transfers = 4,                      // the bowl's, kept
++        Payout = 5, PayoutAbroad = 6, Saving = 7, Investment = 8, Credit = 9, Borrowing = 10,
++        Rivulet = 11, River = 12, Distributary = 13, Waterfall = 14, Taxes = 15, Abroad = 16,
++        Runoff = 17, WageArc = 18, ValleyRiver = 19, Gorge = 20, Descent = 21, EdgeFall = 22,      // the hills (SPEC2 4)
++        CapitalRiver = 23, CapitalRain = 24, CapitalSpring = 25, Vapor = 26, Rain = 27, Evaporation = 28,
++        CreditColumn = 29, CreditStream = 30, TaxSeep = 31, TaxConduit = 32, TransferConduit = 33, Fountain = 34,
++        VaporThrough = 35, VaporOnward = 36, EvaporationTrading = 37                                  // revision 2 (4.5, 4.6)
+     }
+ 
+-    /// <summary>Emphasis groups: rows of the EconomyViews table (7.2). Every land renderer belongs to one.</summary>
++    /// <summary>
++    /// Emphasis groups: rows of the EconomyViews table (SPEC2 10.3). Every land renderer belongs to one. The bowl's groups
++    /// (Road .. Coalitions) are kept in their places; the hills' are appended (SPEC2 11.2), so the bowl-only rows
++    /// (Terraces, Sectors, Pools, Towers, Crown, Income, CapitalFlows, Rivers, Taxes) are 0 in every hills view.
++    /// </summary>
+     public enum LandGroup : byte
+     {
+-        Road = 0, Cut, Terraces, Sectors, Pools, Roots, Towers, Crown, Overlays, Glyphs, Dots, Mirages,
+-        Income, CapitalFlows, Rivers, Glitter, Taxes, Ties, Coalitions, Count
++        Road = 0, Cut, Terraces, Sectors, Pools, Roots, Towers, Crown, Overlays, Glyphs, Dots, Mirages,     // the bowl's, kept
++        Income, CapitalFlows, Rivers, Glitter, Taxes, Ties, Coalitions,
++        Ground, Hills, Contours, Caps, Lakes, Spending, Wages, Capital, Vapor, SavingCredit, TaxesTransfers, Abroad,  // SPEC2
++        Crowns, Clouds, Children, Dependents, Estates, Signals, Mind, MindPopulation, Tether, Bonds,
++        Debt, Games,                                                                                        // revision 2
++        Count
+     }
+ 
+     /// <summary>
+@@ -191,6 +213,53 @@ namespace Why.Economy.Land
+ 
+         /// <summary>People the player stands for (adults and children).</summary>
+         public double People => (Adults.Length + Children.Length) * 1e5;
++
++        // ------------------------------------------------------------------ the hills (SPEC2 3, 6; appended)
++        // Zone, Hill and Anchor are set by the census (PlayerCensus.BuildHills); Tread, Band, Pos, GroundX, CrownIndex by
++        // StandPlacement. Radius is the disc radius for floor and slope players, the crown's r for crown players, the
++        // lens R for clouds. Debt (above) is the members' mortgage + consumer debt: the debt ring (3.8).
++
++        /// <summary>The kind of standing (SPEC2 3.1).</summary>
++        public Zone Zone;
++
++        /// <summary>Industry index of the player's hill; -1 for a cloud.</summary>
++        public int Hill = -1;
++
++        /// <summary>Tier of the tread its ground point is on (-1 when none).</summary>
++        public int Tread = -1;
++
++        /// <summary>Floor row 0-3 (+10 per spill) or slope row 0-3; -1 for crown and cloud players.</summary>
++        public int Band = -1;
++
++        /// <summary>Land-local position: the disc's, the ledge's, the crown band's or the lens' centre.</summary>
++        public Vector3 Pos;
++
++        /// <summary>The x where its spending, taxes and fountains meet its tread's river.</summary>
++        public float GroundX;
++
++        /// <summary>Index in <see cref="PlayerSet.Crowns"/> (crown players), else -1.</summary>
++        public int CrownIndex = -1;
++
++        /// <summary>The members' sums ($B): wealth that is a controlling stake, business equity, financial assets, homes.</summary>
++        public double ControlWealth, BusinessEquity, Financial, Home;
++
++        /// <summary>Cloud players: the members' holdings by industry ($B).</summary>
++        public readonly double[] Holdings = new double[25];
++
++        /// <summary>Shares of the adults: who inherited, and who felt pain, relief and satisfaction this year (6.4).</summary>
++        public float Inherited, Pain, Relief, Satisfaction;
++
++        /// <summary>Member adults living with their parents (person indices; SPEC2 3.7).</summary>
++        public int[] Dependents = System.Array.Empty<int>();
++
++        /// <summary>The members' allowance received and paid, child cost, new consumer debt, repayments and estates ($B).</summary>
++        public double AllowanceIn, AllowanceOut, ChildCost, Borrowed, Repaid, Estates;
++
++        /// <summary>Index in <see cref="LandSnapshot.Programs"/>, or -1.</summary>
++        public int Program = -1;
++
++        /// <summary>Gross saving split ($B, 4.1): into trading assets, and into deposits and pensions.</summary>
++        public double SaveTrading, SaveDeposits;
+     }
+ 
+     /// <summary>The year's players (PlayerCensus.Build).</summary>
+@@ -207,6 +276,23 @@ namespace Why.Economy.Land
+         /// them with 3.2 within 0.5 pt).
+         /// </summary>
+         public string Log; public double Checksum;
++
++        // ------------------------------------------------------------------ the hills (SPEC2 3; appended)
++
++        /// <summary>Per person index: the land-local dot of its member's slot (x = NaN when not drawn).</summary>
++        public Vector3[] DotAt = System.Array.Empty<Vector3>();
++
++        /// <summary>Per person index: a dependent's home dot beside its parent's dot (3.7); x = NaN when none.</summary>
++        public Vector3[] HomeDotAt = System.Array.Empty<Vector3>();
++
++        /// <summary>The year's crowns (StandPlacement, from CrownModel.Values and the ledger's seats).</summary>
++        public CrownGeom[] Crowns = System.Array.Empty<CrownGeom>();
++
++        /// <summary>The control ledger's statistics of the year.</summary>
++        public ControlStats Control;
++
++        /// <summary>The bodies of the "[Why] Stand", "[Why] Crowns" and "[Why] Clouds" log lines.</summary>
++        public string StandLog, CrownLog, CloudLog;
+     }
+ 
+     /// <summary>One drawn flow, land-local, with its dollars split by motive (spending) or plain (the rest).</summary>
+@@ -226,6 +312,20 @@ namespace Why.Economy.Land
+ 
+         /// <summary>Drawn dashed (borrowing).</summary>
+         public bool Dashed;
++
++        // ------------------------------------------------------------------ the hills (SPEC2 4.11; appended)
++
++        /// <summary>0 aggregate (every view), 1 per player (its own views: 4.11).</summary>
++        public byte Level;
++
++        /// <summary>The player it belongs to (highlight); -1 aggregate.</summary>
++        public int Player = -1;
++
++        /// <summary>0-5 spending category; -1 otherwise.</summary>
++        public int Category = -1;
++
++        /// <summary>The hill it starts or ends at; -1 none.</summary>
++        public int Hill = -1;
+     }
+ 
+     /// <summary>One lane of the lip canal, sampled at every whole degree.</summary>
+@@ -350,5 +450,17 @@ namespace Why.Economy.Land
+ 
+         /// <summary>The checks of every builder on one line (8.8).</summary>
+         public string ChecksLine;
++
++        // ------------------------------------------------------------------ the hills (SPEC2 11.2; appended)
++        // The bowl's Land and Money are null in the hills; the hills' members are null in the bowl (the UI's branch).
++
++        /// <summary>The terrain (HillLayout.Build + AddLakes), the accounts (MoneyAccounts) and the flows (HillFlows).</summary>
++        public TerrainGeometry Terrain; public HillAccounts Accounts; public HillMoney Flows;
++
++        /// <summary>Children, dependents and estates (FamilyModel), and the season's territories (Territories).</summary>
++        public FamilyResult Families; public TerritoryResult Territories;
++
++        /// <summary>Every player's program of the year, the nation's, and the body of the "[Why] Programs" line (6.5).</summary>
++        public ProgramYear[] Programs = System.Array.Empty<ProgramYear>(); public ProgramYear Nation; public string ProgramLog;
+     }
+ }
+diff --git a/Assets/Scripts/Economy/Land/LandView.cs b/Assets/Scripts/Economy/Land/LandView.cs
+index 81a2e2a..9de835f 100644
+--- a/Assets/Scripts/Economy/Land/LandView.cs
++++ b/Assets/Scripts/Economy/Land/LandView.cs
+@@ -41,7 +41,7 @@ namespace Why.Economy.Land
+         static ViewSpec spec;
+         static bool folding, snapped;
+         static float roundClock, holdClock;
+-        static int labelMask = -1;
++        static long labelMask = -1;   // one bit per LandGroup (44 groups: a long)
+ 
+         /// <summary>
+         /// The eased emphasis of a group, times <see cref="Reveal"/> for the land's own groups (the road and the cut stay
+@@ -93,6 +93,28 @@ namespace Why.Economy.Land
+             Playing = true;
+         }
+ 
++        // ------------------------------------------------------------------ the unfold's phases (SPEC2 9)
++
++        /// <summary>The windows of the unfold's phases on <see cref="MorphTime"/> (s): A lift, B lie back, C rise, D reveal.</summary>
++        public const float PhaseA0 = 0.00f, PhaseA1 = 0.40f, PhaseB0 = 0.30f, PhaseB1 = 1.10f, PhaseC0 = 1.00f, PhaseC1 = 2.00f,
++            PhaseD0 = 2.00f, PhaseD1 = 2.40f;
++
++        /// <summary>
++        /// The one phase function of the hills' unfold (SPEC2 9), so the cut, the terrain and every land layer agree: each
++        /// output is the in-out cubic ease of its window on the morph clock (0 before it, 1 after it). <paramref name="sA"/>
++        /// lifts the card's bars and dots to the land's front edge (0.00-0.40 s), <paramref name="sB"/> lays the bars back
++        /// into tiles on the staircase while the ground grows (0.30-1.10 s), <paramref name="sC"/> grows the hills out of
++        /// the tiles (1.00-2.00 s), <paramref name="reveal"/> fades the land's other layers in (2.00-2.40 s). The folding
++        /// clock runs the same windows backward. Pure; any thread.
++        /// </summary>
++        public static void Phases(float morphTime, out float sA, out float sB, out float sC, out float reveal)
++        {
++            sA = LandMath.EaseInOutCubic(LandMath.Phase(morphTime, PhaseA0, PhaseA1));
++            sB = LandMath.EaseInOutCubic(LandMath.Phase(morphTime, PhaseB0, PhaseB1));
++            sC = LandMath.EaseInOutCubic(LandMath.Phase(morphTime, PhaseC0, PhaseC1));
++            reveal = LandMath.EaseInOutCubic(LandMath.Phase(morphTime, PhaseD0, PhaseD1));
++        }
++
+         // ------------------------------------------------------------------ driven by the view layer
+ 
+         /// <summary>
+@@ -198,10 +220,10 @@ namespace Why.Economy.Land
+ 
+         static void UpdateLabels()
+         {
+-            int mask = 0;
++            long mask = 0;
+             for (int g = 0; g < (int)LandGroup.Count; g++)
+             {
+-                if (LabelsShown((LandGroup)g)) mask |= 1 << g;
++                if (LabelsShown((LandGroup)g)) mask |= 1L << g;
+             }
+ 
+             if (mask == labelMask) return;
+diff --git a/Assets/Scripts/Economy/Land/Mind.meta b/Assets/Scripts/Economy/Land/Mind.meta
+new file mode 100644
+index 0000000..8c5ea40
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Mind.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 9a80ee4e016643689a38499e8d0a7eec
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Assets/Scripts/Economy/Land/Mind/LandPlayback.cs b/Assets/Scripts/Economy/Land/Mind/LandPlayback.cs
+new file mode 100644
+index 0000000..0612779
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Mind/LandPlayback.cs
+@@ -0,0 +1,17 @@
++namespace Why.Economy.Land
++{
++    /// <summary>The playback clock (SPEC2 6.6). Main thread. WP0 stub; WP3 implements; LandViewLayer ticks it before LandTween.</summary>
++    /// <remarks>
++    /// The years play (Space): at the end of each year's dwell the clock requests the next year, prefetches the one
++    /// after and, when it is published, starts <see cref="LandTween"/>. The stub never plays (its Playback line reads
++    /// "0 steps (demo)").
++    /// </remarks>
++    public static class LandPlayback
++    {
++        /// <summary>Whether the years play (the stub: never).</summary>
++        public static bool Playing { get; private set; }
++
++        /// <summary>One frame of the clock (the stub does nothing).</summary>
++        public static void Tick(float dt) { /* WP3 */ }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/Mind/LandPlayback.cs.meta b/Assets/Scripts/Economy/Land/Mind/LandPlayback.cs.meta
+new file mode 100644
+index 0000000..f20c511
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Mind/LandPlayback.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 06e7d4ba93a94000bf709b145b3f7944
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs b/Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs
+new file mode 100644
+index 0000000..7e4a78c
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs
+@@ -0,0 +1,111 @@
++using UnityEngine;
++
++namespace Why.Economy.Land
++{
++    /// <summary>Whose program the mind shows: one player's (a household's sum), one person's, or the nation's.</summary>
++    public enum MindScope : byte { Player = 0, Person = 1, Nation = 2 }
++
++    /// <summary>One player's (a household's, or the nation's) program in one year (SPEC2 6.5).</summary>
++    /// <remarks>
++    /// The program's stages in order: MEMORY (the balance sheet at the start of the year), WORLD (what the year brings),
++    /// FEEL (desires against fears, stress, the chemicals), OS (reason against feeling, the modes), DECIDE (save or
++    /// borrow, the six categories with their fear and fantasy dollars), ACT (debts, homes, assets), PLAY (tit for tat)
++    /// and OUTCOME (agency, pain, relief, satisfaction). A player's program is its members' programs summed (WP3's
++    /// ProgramModel.Build). Dollars are $B nominal of the year.
++    /// </remarks>
++    public sealed class ProgramYear
++    {
++        /// <summary>The year, the scope, the player or person it is of (−1 otherwise) and the player's key.</summary>
++        public int Year; public MindScope Scope; public int Player = -1, Person = -1; public string Key;
++
++        /// <summary>Lines (each 100,000 people).</summary>
++        public int Adults, Children, Households, Dependents;                                   // lines
++
++        // WORLD ($B)
++
++        /// <summary>WORLD: the year's income by source, allowance and estates received, borrowing, taxes, disposable income ($B).</summary>
++        public double Wages, Business, Capital, Transfers, SocialSecurity, AllowanceIn, Estates, Borrowed, Taxes, Disposable;
++
++        /// <summary>WORLD: wages by paying industry ($B).</summary>
++        public readonly double[] WagesBy = new double[25];
++
++        /// <summary>WORLD: the year's rates and prices, and trust.</summary>
++        public float EmploymentRate, MortgageRate, CardApr, EquityReturn, HomePriceGrowth, Trust;
++
++        // MEMORY (start of year, $B)
++
++        /// <summary>MEMORY: the balance sheet at the start of the year ($B).</summary>
++        public double Financial0, Home0, Business0, Mortgage0, Consumer0;
++
++        /// <summary>MEMORY: runway, debt service, buffer, inherited share, parents' rank, last two years' saving rates.</summary>
++        public float Runway0, DebtService0, Buffer, Inherited, ParentRank, SavingRate1, SavingRate2;
++
++        // FEEL
++
++        /// <summary>FEEL: the five desires and five fears (psyche.json order).</summary>
++        public readonly float[] Desire = new float[5], Fear = new float[5];                    // psyche.json order
++
++        /// <summary>FEEL: fear's share and stress with its parts.</summary>
++        public float FearShare, Stress, StressDebt, StressJobless, StressBuffer;
++
++        /// <summary>FEEL: dopamine, serotonin, oxytocin, endorphins, cortisol, adrenaline, testosterone.</summary>
++        public readonly float[] Chemicals = new float[7];   // dopamine, serotonin, oxytocin, endorphins, cortisol, adrenaline, testosterone
++
++        /// <summary>The modes of thought (shown in OS): converse, learn, task, deep thought, rumination, daydream.</summary>
++        public readonly float[] Modes = new float[6];       // converse, learn, task, deep thought, rumination, daydream
++
++        // OS
++
++        /// <summary>
++        /// OS: reason (mean, 10th and 90th percentiles), the higher OS, future, present bias, loss aversion, comparison;
++        /// the married and with-children shares.
++        /// </summary>
++        public float Reason, ReasonP10, ReasonP90, HigherOs, Future, Beta, Lambda, Comparison, Married, WithKids;
++
++        // DECIDE ($B)
++
++        /// <summary>DECIDE: spending, saving, allowance paid and child cost ($B).</summary>
++        public double Spending, Saving, AllowanceOut, ChildCost;
++
++        /// <summary>DECIDE: the saving rate and its parts.</summary>
++        public float SavingRate, SaveBase, SaveTraits, SaveAge, SaveKids, SaveShift;
++
++        /// <summary>DECIDE: spending by the six categories, and their fear and fantasy dollars ($B).</summary>
++        public readonly double[] Category = new double[6], CategoryFear = new double[6], CategoryFantasy = new double[6];
++
++        /// <summary>DECIDE: [category × 5]: the tilt parts trait, drive, children, age, interest.</summary>
++        public readonly float[] Tilt = new float[30];       // [category × 5]: trait, drive, children, age, interest
++
++        // ACT ($B)
++
++        /// <summary>ACT: the balance sheet at the end of the year, repayments, gains, discharges, closures ($B).</summary>
++        public double Financial1, Home1, Business1, Mortgage1, Consumer1, Repaid, Gains, Discharged, Closures;
++
++        /// <summary>ACT: equity share, home purchases and sales, defaults.</summary>
++        public float EquityShare, HomeBuys, HomeSales, Defaults;
++
++        /// <summary>The score (6.6): the change of wealth, and what pooling and splitting balance sheets moved.</summary>
++        public double WealthChange, FamilyResidual;         // the score (6.6)
++
++        // PLAY
++
++        /// <summary>PLAY: the season's opening, forgiveness, tribal memory, cooperation; standing and coalition.</summary>
++        public float Opening, Forgiveness, TribalMemory, Cooperation; public byte Standing; public int Coalition = -1;
++
++        /// <summary>PLAY: the lives' adult-mean cooperation; next year's factors (6.3b).</summary>
++        public float HouseholdCooperation, FeedIsolation, FeedCollective;  // the lives' adult-mean cooperation; next year's factors (6.3b)
++
++        /// <summary>PLAY: the members' strategy mix (PdStrategy order).</summary>
++        public readonly float[] Strategy = new float[7];
++
++        // OUTCOME
++
++        /// <summary>OUTCOME: agency, in control, fantasy, and the signals' shares.</summary>
++        public float Agency, InControl, Fantasy, Pain, Relief, Satisfaction;
++
++        // the view
++
++        /// <summary>The population mode's particle (7.8) and the program's listing (9 lines).</summary>
++        public Vector3 MindPos; public string Listing;      // MindPos: the population mode's particle (7.8)
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs.meta b/Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs.meta
+new file mode 100644
+index 0000000..c33940c
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/Mind/ProgramTypes.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: b031485c93204625a533357e651bf0f3
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Land/People.meta b/Assets/Scripts/Economy/Land/People.meta
+new file mode 100644
+index 0000000..4fc3be2
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/People.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: fb675c480d044afe9721a51a9a6e243d
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Assets/Scripts/Economy/Land/People/PeopleTypes.cs b/Assets/Scripts/Economy/Land/People/PeopleTypes.cs
+new file mode 100644
+index 0000000..77b301c
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/People/PeopleTypes.cs
+@@ -0,0 +1,115 @@
++using UnityEngine;
++
++namespace Why.Economy.Land
++{
++    // The contract types of where people and wealth sit in the hills (SPEC2 3, 5; 11.2, frozen once WP0 merges): the
++    // crowns of the controllers with their jewels and named seats, the control ledger's statistics, the crowns' values
++    // per industry, children, dependents and estates, and the season's territories. Built by WP2's builders
++    // (CrownModel, ControlLedger, StandPlacement, FamilyModel, Territories) on a worker; read by the land layers.
++
++    /// <summary>A crown's jewel: a controlled (Kind 0) or founder-led (Kind 1) company, its value, stake, votes and holder.</summary>
++    public struct CrownJewel { public int Company; public byte Kind; public double Value, Stake, Votes; public string Holder; public bool Recalled; }  // Kind 0 controlled, 1 founder-led
++
++    /// <summary>A named seat on a crown: a measured controlling holder of one of its jewels.</summary>
++    public struct CrownSeat { public int Jewel; public string Holder; public Vector3 At; public bool Recalled; }  // a named seat (measured holder)
++
++    /// <summary>One industry's crown in the crown band (SPEC2 3.5).</summary>
++    public sealed class CrownGeom
++    {
++        /// <summary>The industry, the crown's value V_k and its named and private parts ($B, the year's).</summary>
++        public int Industry; public double Value, Named, Private;            // $B, the year's
++
++        /// <summary>E_k ($B, estimate) and c_k (3.5).</summary>
++        public double EquityValue, ControlledShare;                           // E_k ($B, estimate) and c_k (3.5)
++
++        /// <summary>The controlled companies.</summary>
++        public CrownJewel[] Jewels = System.Array.Empty<CrownJewel>();
++
++        /// <summary>Named seats, one per holder.</summary>
++        public CrownSeat[] Seats = System.Array.Empty<CrownSeat>();           // named seats, one per holder
++
++        /// <summary>Land-local: the centre, the radius, the band bottom y, the top y, the summit's y (the stem's foot).</summary>
++        public Vector3 Center; public float Radius, BandY, Top, StemBottom;   // land-local: band bottom y, top y, the summit's y
++
++        /// <summary>Controller players seated (the ledger's seats).</summary>
++        public int[] Players = System.Array.Empty<int>();                     // controller players seated (the ledger's seats)
++
++        /// <summary>Controller units the ledger put here.</summary>
++        public int SeatsApportioned;                                          // controller units the ledger put here
++    }
++
++    /// <summary>The control ledger's statistics of a year (SPEC2 3.2).</summary>
++    public sealed class ControlStats { public int Lines, Controllers, Running, Founders, Heirs, Filled, Successions, OwnSeat, OwnTierSeat; public double Share, Quota; }
++
++    /// <summary>V_k and its parts per industry for a year (CrownModel.Values, SPEC2 3.5): geometry-free, any thread.</summary>
++    public sealed class CrownValues
++    {
++        /// <summary>The calendar year.</summary>
++        public int Year;
++
++        /// <summary>Per industry ($B): the crown's value and its named and private parts.</summary>
++        public readonly double[] Value = new double[25], Named = new double[25], Private = new double[25];
++
++        /// <summary>Per industry: E_k ($B, estimate) and c_k.</summary>
++        public readonly double[] EquityValue = new double[25], ControlledShare = new double[25];
++
++        /// <summary>V_k ≥ the year's threshold (or the largest).</summary>
++        public readonly bool[] Crowned = new bool[25];                        // V_k ≥ the year's threshold (or the largest)
++
++        /// <summary>The body of the model's log line.</summary>
++        public string Log;
++    }
++
++    /// <summary>A child's stem to its parent (SPEC2 3.7). Cost: child cost, $B.</summary>
++    public struct ChildStem { public int Child, Parent, Player; public double Cost; }                    // Cost: child cost, $B
++
++    /// <summary>A dependent adult's home thread to its parent (SPEC2 3.7). From: the parent's player.</summary>
++    public struct HomeThread { public int Dependent, Parent, From, To; public double Allowance; public Vector3 HomeDot; }   // From: the parent's player
++
++    /// <summary>An estate falling from where the departed stood to an heir (SPEC2 3.7).</summary>
++    public struct EstateStream { public int Year, From, Heir, GhostPlayer, HeirPlayer; public double Dollars; public bool Succession; public Vector3 Ghost; }
++
++    /// <summary>The year's families on the land (FamilyModel.Build, SPEC2 3.7).</summary>
++    public sealed class FamilyResult
++    {
++        /// <summary>The calendar year.</summary>
++        public int Year;
++
++        /// <summary>Children's stems.</summary>
++        public ChildStem[] Stems = System.Array.Empty<ChildStem>();
++
++        /// <summary>Dependents' home threads.</summary>
++        public HomeThread[] Threads = System.Array.Empty<HomeThread>();
++
++        /// <summary>Estate streams of the window.</summary>
++        public EstateStream[] Estates = System.Array.Empty<EstateStream>();
++
++        /// <summary>The body of the "[Why] Families" log line and Σ estate dollars × heir index.</summary>
++        public string Log; public double Checksum;
++    }
++
++    /// <summary>A coalition's closed boundary, draped on the terrain (SPEC2 5.1).</summary>
++    public sealed class TerritoryShape { public int Coalition; public Vector3[] Points; }                 // a closed boundary, draped
++
++    /// <summary>A fill run of grid cells of a coalition's territory.</summary>
++    public struct TerritoryRun { public int Coalition; public float X0, X1, Z; }                          // a fill run of grid cells
++
++    /// <summary>The season's coalitions as territories at each detection (Territories.Build, SPEC2 5.1).</summary>
++    public sealed class TerritoryResult
++    {
++        /// <summary>The calendar year.</summary>
++        public int Year;
++
++        /// <summary>[detection 0..4]: the boundaries.</summary>
++        public TerritoryShape[][] Shapes;                                     // [detection 0..4]
++
++        /// <summary>[detection]: the fill runs.</summary>
++        public TerritoryRun[][] Runs;                                         // [detection]
++
++        /// <summary>[detection][coalition id]: the label's point.</summary>
++        public Vector3[][] LabelAt;                                           // [detection][coalition id]
++
++        /// <summary>The body of the "[Why] Territories" log line and Σ boundary x.</summary>
++        public string Log; public double Checksum;
++    }
++}
+diff --git a/Assets/Scripts/Economy/Land/People/PeopleTypes.cs.meta b/Assets/Scripts/Economy/Land/People/PeopleTypes.cs.meta
+new file mode 100644
+index 0000000..41a3f74
+--- /dev/null
++++ b/Assets/Scripts/Economy/Land/People/PeopleTypes.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 3bea652521d34f889b58b54a3bcc1dce
+\ No newline at end of file
+diff --git a/Assets/Scripts/Economy/Model/EconomicLives.cs b/Assets/Scripts/Economy/Model/EconomicLives.cs
+index a27b5a8..4c96075 100644
+--- a/Assets/Scripts/Economy/Model/EconomicLives.cs
++++ b/Assets/Scripts/Economy/Model/EconomicLives.cs
+@@ -153,6 +153,31 @@ namespace Why.Economy.Model
+         /// <summary>Unpayable consumer debt was discharged this year (bankruptcy, charge-off).</summary>
+         public bool Discharged;
+ 
++        // ------------------------------------------------------------------ the program's record (SPEC2 6.2)
++        // Written by the lives (WP3) where the values are computed, money split evenly in a couple as every money field
++        // is; zero until then (WP0 adds the fields only: no number changes).
++
++        /// <summary>
++        /// The balance sheet's parts at the year's end ($): financial assets, the home, business equity, so that
++        /// Wealth = Financial + Home + BusinessEquity − Debt.
++        /// </summary>
++        public float Financial, Home, BusinessEquity;
++
++        /// <summary>The allowance received from the parents' household and paid to an adult child's ($, 6.3).</summary>
++        public float AllowanceIn, AllowanceOut;
++
++        /// <summary>New consumer debt, and principal + consumer debt repaid ($).</summary>
++        public float Borrowed, Repaid;
++
++        /// <summary>Holding gains on financial assets, the home and the business ($).</summary>
++        public float Gains;
++
++        /// <summary>Consumer debt discharged, and the equity lost to a business closure ($).</summary>
++        public float DischargeAmount, ClosureLoss;
++
++        /// <summary>An adult child living with their parents (single, no child, no home, under 25).</summary>
++        public bool Dependent;
++
+         /// <summary>Category share by index of EconomyData.CategoryIds (6 = saving rate of disposable income).</summary>
+         public float Category(int c)
+         {
+@@ -169,6 +194,12 @@ namespace Why.Economy.Model
+         }
+     }
+ 
++    /// <summary>
++    /// One heir's share of an estate (SPEC2 6.2), logged by the lives' Bequeath: in Year, From's estate passed Amount ($,
++    /// nominal) to To. Kind 0 spouse, 1 child, 2 grandchild, 3 parent, 4 sibling.
++    /// </summary>
++    public struct EstateEvent { public short Year; public int From, To; public float Amount; public byte Kind; }   // 0 spouse … 4 sibling
++
+     /// <summary>A person worth meeting (the inspector's N key and the tour): who they are in the model and why.</summary>
+     public struct Notable
+     {
+@@ -299,6 +330,9 @@ namespace Why.Economy.Model
+         float[] inheritedReal = Array.Empty<float>();
+         int[] inheritedYear = Array.Empty<int>();
+         PopulationYear[] years = Array.Empty<PopulationYear>();
++        YearCalibration[] calibration = Array.Empty<YearCalibration>();
++        EstateEvent[] estates = Array.Empty<EstateEvent>();
++        ProgramTrace trace = ProgramTrace.Empty;
+         Color32 gold;
+         volatile bool ready;
+ 
+@@ -366,6 +400,7 @@ namespace Why.Economy.Model
+                 inheritedReal = run.InheritedReal;
+                 inheritedYear = run.InheritedYear;
+                 years = run.Years;
++                calibration = run.Calibration ?? Array.Empty<YearCalibration>();
+                 long yearsMs = sw.ElapsedMilliseconds - traitsMs;
+ 
+                 // each person's tribe of the last year they lived in the record
+@@ -424,6 +459,33 @@ namespace Why.Economy.Model
+         public bool InheritedFromParentsBy(int person, int year) =>
+             ready && person >= 0 && person < inheritedYear.Length && inheritedYear[person] <= year;
+ 
++        // ------------------------------------------------------------------ the program's accessors (SPEC2 6.2)
++
++        /// <summary>Every heir's share of every estate, sorted by year, then From, then To (empty until WP3 logs them).</summary>
++        public IReadOnlyList<EstateEvent> Estates => ready ? estates : Array.Empty<EstateEvent>();
++
++        /// <summary>The program's trace row of a person's household in a year; a default row when none (until WP3 traces).</summary>
++        public TraceRow TraceOf(int person, int year)
++        {
++            if (ready && person >= 0 && person < yearCount.Length)
++            {
++                int k = year - firstYear[person];
++                if (k >= 0 && k < yearCount[person] && trace.TryGet(offset[person] + k, out TraceRow row)) return row;
++            }
++
++            return default;
++        }
++
++        /// <summary>The year's constants of the lives' calibration (saving shift, category factors, reason shift); null when not simulated.</summary>
++        internal YearCalibration CalibrationOf(int year)
++        {
++            int k = year - FirstYear;
++            return ready && k >= 0 && k < calibration.Length ? calibration[k] : null;
++        }
++
++        /// <summary>The allowance paid by parents to their adult children at home in a year ($B; 0 until WP3's allowance).</summary>
++        public double AllowanceTotal(int year) => 0;
++
+         /// <summary>Population totals of a year (null when nothing was simulated).</summary>
+         public PopulationYear Aggregate(int year)
+         {
+diff --git a/Assets/Scripts/Economy/Model/ProgramTrace.cs b/Assets/Scripts/Economy/Model/ProgramTrace.cs
+new file mode 100644
+index 0000000..896a4e5
+--- /dev/null
++++ b/Assets/Scripts/Economy/Model/ProgramTrace.cs
+@@ -0,0 +1,219 @@
++using System;
++
++namespace Why.Economy.Model
++{
++    /// <summary>
++    /// One household-year of the program's trace (SPEC2 6.2): what each stage of the lives computed, quantized (about 90
++    /// bytes a row). Written by the lives where the values are computed (WP3), one row per household-year (both spouses'
++    /// slots point to it); read through <see cref="EconomicLives.TraceOf"/> by the program (ProgramModel) and the mind.
++    /// A default row (every field 0) is what the stub returns before WP3 fills the store.
++    /// </summary>
++    public struct TraceRow
++    {
++        /// <summary>Scales of the quantized fields: value = stored × scale.</summary>
++        public const float DriveScale = 1f / 250f, StressScale = 1f / 100f, BufferScale = 1f / 250f, SaveScale = 1e-4f,
++            TiltScale = 1e-3f, EquityScale = 1f / 250f, PlayFeedScale = 1e-3f;
++
++        /// <summary>The household's drives as used (desires food, collective, law, shelter, sex; × 250).</summary>
++        public byte D0, D1, D2, D3, D4;
++
++        /// <summary>The household's fears as used (starvation, isolation, murder, exposure, childless; × 250).</summary>
++        public byte F0, F1, F2, F3, F4;
++
++        /// <summary>Stress (mean of the adults, × 100: 0-2.55) and the thin-buffer pressure (× 250).</summary>
++        public byte Stress, Buffer;
++
++        /// <summary>The saving rate's parts: base, traits, age, kids (1e-4).</summary>
++        public short SaveBase, SaveTraits, SaveAge, SaveKids;
++
++        /// <summary>The 30 category tilt parts: [category × 5 + part] with parts trait, drive, children, age, interest (1e-3 log units).</summary>
++        public TraceTilts Tilt;
++
++        /// <summary>The equity share of financial assets (× 250).</summary>
++        public byte EquityShare;
++
++        /// <summary>The play feedback's factor on the drives (6.3b; 1e-3 log units).</summary>
++        public short PlayFeed;
++
++        /// <summary>The year's events (<see cref="TraceFlags"/>).</summary>
++        public ushort Flags;
++
++        /// <summary>Desire k (0..4) as used.</summary>
++        public float Desire(int k) => k switch { 0 => D0, 1 => D1, 2 => D2, 3 => D3, 4 => D4, _ => 0 } * DriveScale;
++
++        /// <summary>Fear k (0..4) as used.</summary>
++        public float Fear(int k) => k switch { 0 => F0, 1 => F1, 2 => F2, 3 => F3, 4 => F4, _ => 0 } * DriveScale;
++
++        /// <summary>A category's tilt part (log units).</summary>
++        public float TiltPart(int category, int part) => Tilt[category * 5 + part] * TiltScale;
++
++        /// <summary>Whether a flag is set.</summary>
++        public bool Has(TraceFlags flag) => (Flags & (ushort)flag) != 0;
++    }
++
++    /// <summary>The 30 category tilt parts of a <see cref="TraceRow"/> (6 categories × 5 parts), shorts at 1e-3 log units.</summary>
++    public struct TraceTilts
++    {
++        /// <summary>The parts in [category × 5 + part] order.</summary>
++            public short T00;
++            public short T01;
++            public short T02;
++            public short T03;
++            public short T04;
++            public short T05;
++            public short T06;
++            public short T07;
++            public short T08;
++            public short T09;
++            public short T10;
++            public short T11;
++            public short T12;
++            public short T13;
++            public short T14;
++            public short T15;
++            public short T16;
++            public short T17;
++            public short T18;
++            public short T19;
++            public short T20;
++            public short T21;
++            public short T22;
++            public short T23;
++            public short T24;
++            public short T25;
++            public short T26;
++            public short T27;
++            public short T28;
++            public short T29;
++
++        /// <summary>Part i (0..29); 0 out of range.</summary>
++        public short this[int i]
++        {
++            get
++            {
++                switch (i)
++                {
++                        case 0: return T00;
++                        case 1: return T01;
++                        case 2: return T02;
++                        case 3: return T03;
++                        case 4: return T04;
++                        case 5: return T05;
++                        case 6: return T06;
++                        case 7: return T07;
++                        case 8: return T08;
++                        case 9: return T09;
++                        case 10: return T10;
++                        case 11: return T11;
++                        case 12: return T12;
++                        case 13: return T13;
++                        case 14: return T14;
++                        case 15: return T15;
++                        case 16: return T16;
++                        case 17: return T17;
++                        case 18: return T18;
++                        case 19: return T19;
++                        case 20: return T20;
++                        case 21: return T21;
++                        case 22: return T22;
++                        case 23: return T23;
++                        case 24: return T24;
++                        case 25: return T25;
++                        case 26: return T26;
++                        case 27: return T27;
++                        case 28: return T28;
++                        case 29: return T29;
++                    default: return 0;
++                }
++            }
++            set
++            {
++                switch (i)
++                {
++                        case 0: T00 = value; break;
++                        case 1: T01 = value; break;
++                        case 2: T02 = value; break;
++                        case 3: T03 = value; break;
++                        case 4: T04 = value; break;
++                        case 5: T05 = value; break;
++                        case 6: T06 = value; break;
++                        case 7: T07 = value; break;
++                        case 8: T08 = value; break;
++                        case 9: T09 = value; break;
++                        case 10: T10 = value; break;
++                        case 11: T11 = value; break;
++                        case 12: T12 = value; break;
++                        case 13: T13 = value; break;
++                        case 14: T14 = value; break;
++                        case 15: T15 = value; break;
++                        case 16: T16 = value; break;
++                        case 17: T17 = value; break;
++                        case 18: T18 = value; break;
++                        case 19: T19 = value; break;
++                        case 20: T20 = value; break;
++                        case 21: T21 = value; break;
++                        case 22: T22 = value; break;
++                        case 23: T23 = value; break;
++                        case 24: T24 = value; break;
++                        case 25: T25 = value; break;
++                        case 26: T26 = value; break;
++                        case 27: T27 = value; break;
++                        case 28: T28 = value; break;
++                        case 29: T29 = value; break;
++                }
++            }
++        }
++    }
++
++    /// <summary>The events of a household-year in the trace (<see cref="TraceRow.Flags"/>).</summary>
++    [Flags]
++    public enum TraceFlags : ushort
++    {
++        None = 0, FloorBound = 1, Shock = 2, BoughtHome = 4, SoldHome = 8, Defaulted = 16, Dependent = 32,
++        ReceivedAllowance = 64, PaidAllowance = 128
++    }
++
++    /// <summary>
++    /// The program's trace store (SPEC2 6.2): one <see cref="TraceRow"/> per household-year and, per slot of the lives'
++    /// record (person × year), the index of its household's row. Empty until WP3 writes it (its rows are filled inside the
++    /// lives' existing Parallel.For bodies, each to its own row: deterministic). Read-only once the lives are ready.
++    /// </summary>
++    public sealed class ProgramTrace
++    {
++        /// <summary>The store before anything is traced: no rows.</summary>
++        public static readonly ProgramTrace Empty = new ProgramTrace(Array.Empty<TraceRow>(), Array.Empty<int>());
++
++        readonly TraceRow[] rows;
++        readonly int[] rowOfSlot;
++
++        /// <summary>A store over its rows and, per record slot, the row index (-1: none).</summary>
++        public ProgramTrace(TraceRow[] rows, int[] rowOfSlot)
++        {
++            this.rows = rows ?? Array.Empty<TraceRow>();
++            this.rowOfSlot = rowOfSlot ?? Array.Empty<int>();
++        }
++
++        /// <summary>Household-year rows.</summary>
++        public int Count => rows.Length;
++
++        /// <summary>Bytes held (rows and the slot index).</summary>
++        public long Bytes => rows.LongLength * 90 + rowOfSlot.LongLength * 4;
++
++        /// <summary>The row of a record slot (the lives' store index); false (a default row) when none.</summary>
++        public bool TryGet(int slot, out TraceRow row)
++        {
++            if (slot >= 0 && slot < rowOfSlot.Length)
++            {
++                int r = rowOfSlot[slot];
++                if (r >= 0 && r < rows.Length)
++                {
++                    row = rows[r];
++                    return true;
++                }
++            }
++
++            row = default;
++            return false;
++        }
++    }
++}
+diff --git a/Assets/Scripts/Economy/Model/ProgramTrace.cs.meta b/Assets/Scripts/Economy/Model/ProgramTrace.cs.meta
+new file mode 100644
+index 0000000..6c56749
+--- /dev/null
++++ b/Assets/Scripts/Economy/Model/ProgramTrace.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 1f9fd8e49cb64ceda915d69db89e2cc3
+\ No newline at end of file
+diff --git a/Assets/Scripts/Humans/Smv/SmvBonds.cs b/Assets/Scripts/Humans/Smv/SmvBonds.cs
+new file mode 100644
+index 0000000..e015840
+--- /dev/null
++++ b/Assets/Scripts/Humans/Smv/SmvBonds.cs
+@@ -0,0 +1,130 @@
++using System;
++using System.Collections.Generic;
++using UnityEngine;
++
++namespace Why.Humans.Smv
++{
++    /// <summary>
++    /// Turns on "bonds" in the population graph (SPEC2 8): married couples run close to the mid-plane, every child born
++    /// from <see cref="FromYear"/> on starts where its mother's and father's lines meet on the mid-plane, immigrants enter
++    /// from the outer edge of their side. Published under <see cref="SmvPopulation.BondsKey"/> by a layer that prepares
++    /// before <see cref="SmvLayer"/> (the economy scene's loader); without it the lines are exactly the causality graph's.
++    /// The defaults are the economy's (8.3).
++    /// </summary>
++    public sealed class SmvBondsOptions
++    {
++        /// <summary>Births before this calendar year keep the original drawing (off the economy's road).</summary>
++        public double FromYear = 1946;
++
++        /// <summary>Married offsets are scaled by this, eased in over CoupleRampIn after the wedding and out over CoupleRampOut after the end.</summary>
++        public float CoupleSqueeze = 0.5f;
++
++        public double CoupleRampIn = 1.0, CoupleRampOut = 1.0;
++
++        /// <summary>A parent's line bends into the meeting point over these years before and after a birth (married parents and mothers).</summary>
++        public double BendBefore = 1.5, BendAfter = 1.0;
++
++        /// <summary>The same for a father not married to the mother: a shorter reach.</summary>
++        public double BriefBefore = 0.75, BriefAfter = 0.5;
++
++        /// <summary>Two births of one parent at most this many years apart: the parent's line stays on the mid-plane between them.</summary>
++        public double BridgeYears = 2.5;
++
++        /// <summary>The newborn's line leaves the meeting point toward the children's core with this time constant (years).</summary>
++        public double ChildDescentTau = 0.8;
++
++        /// <summary>Immigrants' lines start at the outer edge of their side (× envelope) and glide in with this time constant (years).</summary>
++        public float ArrivalEdge = 1.0f;
++
++        public double ArrivalTau = 0.5;
++
++        /// <summary>Lines glow where they bond: the parents' bends (× (1 + gain × pull)) and the newborn's first years.</summary>
++        public float GlowGain = 2.0f, GlowAlpha = 1.2f;
++
++        public double NewbornGlowYears = 1.0;
++
++        /// <summary>The births' beads and the wedding ties.</summary>
++        public Color KnotColor = new Color(0.70f, 0.80f, 1f);
++
++        public Color TieColor = new Color(0.62f, 0.72f, 1f);
++    }
++
++    /// <summary>A birth's parents: a married couple, an unmarried father, or the mother alone.</summary>
++    public enum SmvBirthKind : byte { Married, Unmarried, MotherOnly }
++
++    /// <summary>One birth at the mid-plane.</summary>
++    public struct SmvBirth
++    {
++        /// <summary>The child, its mother and its father (-1 when the simulation found none).</summary>
++        public int Child, Mother, Father;
++
++        /// <summary>The simulation step of the birth.</summary>
++        public int Step;
++
++        /// <summary>The meeting height (data space): the mean of the parents' heights at the step.</summary>
++        public float Y;
++
++        /// <summary>Who the parents are.</summary>
++        public SmvBirthKind Kind;
++    }
++
++    /// <summary>
++    /// The bonds pass (SPEC2 8.3): runs once on a finished <see cref="SmvSimulation"/> (worker thread, after the line
++    /// style's model) and rewrites its samples, so everything that reads them agrees. WP0 stub: <see cref="Apply"/>
++    /// changes nothing and <see cref="FamilyIds"/> adds the person's own lifeline only; WP4 implements both.
++    /// </summary>
++    public sealed class SmvBonds
++    {
++        /// <summary>The options it ran with.</summary>
++        public readonly SmvBondsOptions Options;
++
++        /// <summary>Every birth at the mid-plane (from FromYear on), in child order.</summary>
++        public readonly List<SmvBirth> Births = new List<SmvBirth>();
++
++        /// <summary>Per person: the birth they are the child of (index into <see cref="Births"/>), or -1.</summary>
++        public int[] BirthOf = Array.Empty<int>();
++
++        /// <summary>Per person: the births they take part in as a parent (indices into <see cref="Births"/>).</summary>
++        public int[][] BirthsAsParent = Array.Empty<int[]>();
++
++        /// <summary>The featured family's marriage (the couples view; -1 none).</summary>
++        public int Featured = -1;
++
++        /// <summary>Per sample (indexed like the simulation's samples): how strongly the line is bonding there (0..255).</summary>
++        public byte[] Glow = Array.Empty<byte>();
++
++        /// <summary>Σ (y × 1000 + ρ) of the samples in index order.</summary>
++        public double Checksum;
++
++        readonly SmvSimulation sim;
++
++        public SmvBonds(SmvSimulation sim, SmvBondsOptions options)
++        {
++            this.sim = sim;
++            Options = options ?? new SmvBondsOptions();
++        }
++
++        /// <summary>The bonds pass (the stub: nothing changes).</summary>
++        public void Apply()
++        {
++            int n = sim?.People.Count ?? 0;
++            BirthOf = new int[n];
++            for (int i = 0; i < n; i++) BirthOf[i] = -1;
++            BirthsAsParent = new int[n][];
++            for (int i = 0; i < n; i++) BirthsAsParent[i] = Array.Empty<int>();
++        }
++
++        /// <summary>The body of the "[Why] SmvBonds" log line.</summary>
++        public string Summary() => "(demo) no bonds: " + Births.Count.ToString(System.Globalization.CultureInfo.InvariantCulture) + " births";
++
++        /// <summary>
++        /// The highlight ranges of a person's family on the graph (the person, spouses, parents, children; ≤ 16 ranges),
++        /// what the inspector hands to the highlighter. The stub: the person's own lifeline only.
++        /// </summary>
++        public static void FamilyIds(SmvPopulation pop, int person, List<IdRange> into)
++        {
++            if (pop?.Sim == null || into == null || person < 0 || person >= pop.Sim.People.Count) return;
++            into.Add(IdRange.Single(pop.Id(pop.Sim.People[person])));
++        }
++    }
++}
+diff --git a/Assets/Scripts/Humans/Smv/SmvBonds.cs.meta b/Assets/Scripts/Humans/Smv/SmvBonds.cs.meta
+new file mode 100644
+index 0000000..57176a0
+--- /dev/null
++++ b/Assets/Scripts/Humans/Smv/SmvBonds.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 342c4337f6bb4aa2b3d60521b0e7e4be
+\ No newline at end of file
+diff --git a/Assets/Scripts/Humans/Smv/SmvLayer.cs b/Assets/Scripts/Humans/Smv/SmvLayer.cs
+index 5772100..ccc5c22 100644
+--- a/Assets/Scripts/Humans/Smv/SmvLayer.cs
++++ b/Assets/Scripts/Humans/Smv/SmvLayer.cs
+@@ -104,6 +104,13 @@ namespace Why.Humans.Smv
+         /// views set it each frame to the road's emphasis (0.35 while the land is open); the causality scene never sets it.
+         /// </summary>
+         public static float SceneAlpha = 1f;
++
++        /// <summary>
++        /// A scene's emphasis of the bonds (couples and births, SPEC2 8.5): the economy's land views set it each frame from
++        /// their <c>Bonds</c> row; it multiplies the bonds' marks' alpha (drawn only when <see cref="SmvPopulation.Bonds"/>
++        /// exists). 1 = HEAD's look; the causality scene never sets it.
++        /// </summary>
++        public static float BondsAlpha = 1f;
+         bool published;
+ 
+         // highlight compensation (see HighlightCompensation)
+diff --git a/Assets/Scripts/Humans/Smv/SmvShared.cs b/Assets/Scripts/Humans/Smv/SmvShared.cs
+index 319e776..cd492f5 100644
+--- a/Assets/Scripts/Humans/Smv/SmvShared.cs
++++ b/Assets/Scripts/Humans/Smv/SmvShared.cs
+@@ -31,8 +31,17 @@ namespace Why.Humans.Smv
+         public const string SharedKey = "smv.population";
+         public const string StyleKey = "smv.style";
+ 
++        /// <summary>
++        /// Shared key of the bonds' options (<see cref="SmvBondsOptions"/>), published by a layer that prepares before
++        /// <see cref="SmvLayer"/> (the economy's loader); the causality graph publishes none and its lines are unchanged.
++        /// </summary>
++        public const string BondsKey = "smv.bonds";
++
+         public SmvSimulation Sim;
+ 
++        /// <summary>The couples and births drawn on the graph (null: no bonds; always null in the causality scene).</summary>
++        public SmvBonds Bonds;
++
+         /// <summary>Civilization block of the lifeline ids (<see cref="GraphIds.Lifeline"/>).</summary>
+         public int CivIndex;
+ 
+-- 
+2.43.0
+

@@ -166,7 +166,8 @@ namespace Why.Humans.Smv
 
             long simMs = sw.ElapsedMilliseconds;
 
-            SmvGeometry geo = new SmvGeometry(sim, civIndex) { Style = style };
+            SmvGeometry geo = new SmvGeometry(sim, civIndex) { Style = style,
+                FamilyJunctions = GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills };
             geo.BuildLifelines();
             geo.BuildParentLinks();
             double firstMid = data.FirstYear + 0.5;

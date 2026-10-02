@@ -41,6 +41,7 @@ namespace Why.Director
         /// </summary>
         public static TourScript Load()
         {
+            if (GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills) return HillsBuiltIn();
             TextAsset asset = Resources.Load<TextAsset>(ResourcePath);
             if (asset == null)
             {
@@ -125,6 +126,18 @@ namespace Why.Director
                         "the land, not along party."),
                 }
             };
+        }
+
+        static TourScript HillsBuiltIn()
+        {
+            return new TourScript { Title="The economy landscape", Steps=new List<TourStep>{
+                Step("hills_land","landscape",null,12,"A landscape of production","Industries rise from connected lowlands. Footprints follow value added. Elevation expresses the climb from labor to capital claims within an industry; the terrain is a model, not geography."),
+                Step("hills_people","people",null,12,"The lowlands","Workers live near the industry that pays them. Business owners sit on slopes. Select a player to examine household balance sheets and family ties. Each dot represents a group of people."),
+                Step("hills_owners","capture",null,12,"The ownership heights","Firms rise from their industries. Luminous summit rings mark documented voting blocs; diversified portfolio groups float above the ranges. Named examples use dated filings, while the groups are simulated."),
+                Step("hills_rivers","rivers",null,12,"Money returns uphill","Investment climbs toward industry summits. Wages reach households, and household spending returns to suppliers. Select a player to isolate its spending routes."),
+                Step("hills_mind","mind",null,12,"The decision program","Desire and fear interact with memory and deliberation. Step year runs an illustrative counterfactual for every player. Psychological weights and allowances are assumptions, separate from measured accounts."),
+                Step("hills_games","society",null,12,"Repeated encounters","Run the season controls to explore cooperation, retaliation and forgiveness between groups. These are model experiments, not forecasts of a population's behavior.")
+            }};
         }
 
         /// <summary>A short tour through the main stops, used when Data/tour.json is unavailable.</summary>

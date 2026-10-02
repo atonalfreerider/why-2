@@ -36,7 +36,7 @@ namespace Why.Economy.Layers
     /// <see cref="LandLayout"/>, the glyphs' dot slots), so the cross-fade does not jump. The emphasis group is
     /// <see cref="LandGroup.Cut"/>; the readout is the Cut label group's (7.2, 7.3); anchor <c>land:cut</c>. Order 56.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class SectionLayer : GraphLayer
     {
         public override int Order => 56;

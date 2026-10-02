@@ -64,3 +64,11 @@ crashlytics-build.properties
 .idea
 UserSettings
 .utmp
+
+# Generated local narration and tour assets, including Unity sidecars.
+/Assets/Resources/Audio/
+/Assets/Resources/Audio.meta
+/Assets/Resources/Data/tour_narration.json
+/Assets/Resources/Data/tour_narration.json.meta
+/Assets/Resources/Data/**/tour.json
+/Assets/Resources/Data/**/tour.json.meta

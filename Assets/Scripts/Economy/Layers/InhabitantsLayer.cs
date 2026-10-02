@@ -27,7 +27,7 @@ namespace Why.Economy.Layers
     /// the season's settings) rebuilds the meshes on a worker (a preset's blocking snapshot in the next Tick), uploads
     /// them in Tick and cross-fades from the old ones over <see cref="LandStyle.CrossFadeSeconds"/> (8.3). Order 52.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class InhabitantsLayer : GraphLayer
     {
         public override int Order => 52;

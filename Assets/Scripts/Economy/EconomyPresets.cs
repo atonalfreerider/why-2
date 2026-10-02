@@ -71,6 +71,7 @@ namespace Why.Economy
         /// </summary>
         public static List<ViewPreset> Build()
         {
+            if (EconomyLayouts.UseHills) return HillPresets.Build();
             LandFrame land = EconomyStage.Land();
             WarpState w = EconomyStage.TimelineWarp();
             bool portrait = ScreenLayout.IsPortrait;

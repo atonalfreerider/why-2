@@ -29,7 +29,7 @@ namespace Why.Economy.UI
     /// Hidden on the road views (the overview only shows it to carry a displaced readout) and during the tour. Its box is
     /// <see cref="Occupied"/>.</para>
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class LandLegend : GraphModule
     {
         /// <summary>With the economy's controls above the HUD (40), below the social panel (45) and the tour (50).</summary>

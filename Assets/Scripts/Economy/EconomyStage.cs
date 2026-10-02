@@ -39,7 +39,7 @@ namespace Why.Economy
             Vector3 forward = RoadDirection();
             Vector3 now = OnRoad(DeepTime.NowYear, 0, EconomyStyle.FramingRho);
             now.y = 0;
-            return new LandFrame(now + forward * LandStyle.PlazaGap, Quaternion.LookRotation(forward, Vector3.up));
+            return new LandFrame(now + forward * (EconomyLayouts.UseHills ? 150 : LandStyle.PlazaGap), Quaternion.LookRotation(forward, Vector3.up));
         }
     }
 }

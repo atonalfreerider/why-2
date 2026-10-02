@@ -2312,6 +2312,8 @@ namespace Why.Economy.Model
                 r.SelfEmployed = selfEmployed[i];
                 r.Homeowner = house[i] > 0;
                 r.OwnHousehold = housing[h];
+                r.FamilyDependent = dependent[h];
+                r.SupportParent = dependent[h] ? ParentHead(h) : -1;
                 r.Industry = employed[i] ? RecordedIndustry(i) : (short)-1;
                 r.Wages = (float)((wage[h] + (sp >= 0 ? wage[sp] : 0)) * share);
                 r.Business = (float)((business[h] + (sp >= 0 ? business[sp] : 0)) * share);

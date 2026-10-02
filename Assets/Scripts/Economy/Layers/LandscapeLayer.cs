@@ -35,7 +35,7 @@ namespace Why.Economy.Layers
     /// label aligned away from the bowl's center and moved or shortened until it is clear (<see cref="PlaceLabels"/>).
     /// Order 50: tier 5, after the land's model (45).
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class LandscapeLayer : GraphLayer
     {
         public override int Order => 50;

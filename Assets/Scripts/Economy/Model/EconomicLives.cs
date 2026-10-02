@@ -73,6 +73,11 @@ namespace Why.Economy.Model
         /// not share a home): the unit of homeownership.</summary>
         public bool OwnHousehold;
 
+        /// <summary>Modelled family dependence (young single without own home), and recorded supporting parent.
+        /// This is a simulation proxy, not an observation of a person's living arrangements.</summary>
+        public bool FamilyDependent;
+        public int SupportParent;
+
         /// <summary>Index of the industry the person works in (EconomyData.Industries), or -1.</summary>
         public short Industry;
 

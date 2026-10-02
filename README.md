@@ -1,4 +1,4 @@
-﻿# why
+# why
 
 A causality graph that starts at the Big Bang and ends at the present moment. It is built to show,
 cleanly and at every scale, how each thing that happened made the next one possible.
@@ -101,23 +101,27 @@ back); record with Unity Recorder or any screen recorder. In a built player, V o
 
 ## The economy scene
 
-A second scene, `Assets/Scenes/Economy.unity`, builds on the same rendering core and the same United States population
-to model the economy from 1946 to 2026. Time runs along a road: the people's lifelines above it, a wall of the value
-added by 25 industries beneath, the bright part of each band what owners keep. Every simulated person has an **economic
-life and a psychology**: what they earn, own and buy, whether they spend moving toward what they want or away from what
-they fear, and whether they steer their own life path (those who do turn gold). A glowing **cut** stands across the road
-at one year; past the road's end it opens into a **land**, a stepped bowl whose five terraces are the industries
-(government the floor, tech the highest ring, each industry's area its value added, gold its owners' share), with roots
-underground for what industries buy from each other, towers for the most valuable companies and a gold crown for the
-capital paid out. On the rim stand **116 players**, the twelve 2026 socioeconomic groups split by the industry that pays
-them and by party, each a disc of dots, one per lifeline; their income arrives as arcs in the air, their spending runs
-down the terraces as rivers (ice for fear, rose for desire, glitter for fantasy) into the industries that are paid, and
-they play a deterministic season of tit for tat in which forgiveness lets cooperation climb and coalitions form along the
-land rather than along party (partly by design: dealings follow industry and group, and party is drawn independently of
-class). Keys 1 - 8 change the view, comma and period (or the year chip's scrubber) the year, a click
-on a player or a lifeline opens an inspector, T starts a 12-stop tour. Data from BEA, the Federal Reserve, BLS, Census and
-the GSS; the model, its calibration, what it finds and what is measured or modeled are in `Docs/ECONOMY.md`, the data in
-`Docs/DATA.md`.
+Open `Assets/Scenes/Economy.unity` and press Play. The economy reuses the original United States population graph,
+with 25 industry mountains on connected terrain. Workers occupy the lowlands near their employers; business owners
+sit on slopes; companies rise from industry masses. Gold summit rings mark dated voting-control examples, while
+synthetic diversified wealth groups float in high cloud pools. The old torus renderers remain in code but are disabled
+through `EconomyLayouts`.
+
+Keys 1–8: overview, population/families, terrain, ownership, households, rivers, the 3D mind, and society. Orbit and
+zoom with the existing camera controls. Click a player for its historical inspector. The collapsed **Inspect / simulate**
+control opens an independent scenario ledger: choose a player, adjust reason/fear, step or play years, and reset.
+All players run the scenario program; assets, debt, consumption and support transfers are accounted for separately
+from historical records. The same selected player's state appears in the 3D mind view. Comma/period and the year
+scrubber still select historical years. T runs the landscape tour.
+
+The economy-only population geometry joins recorded parents at the mid-plane at birth and draws marriage links.
+The original causality scene's population geometry is unchanged. Psychological weights, terrain elevation, synthetic
+portfolios and allowance amounts are model assumptions. Stored macroeconomic data retain their existing vintage;
+the September 30, 2026 BEA revision has not been incorporated, and 2026 estimates are labeled. This is an exploratory
+model, not a calibrated forecast. See `Docs/hills-design/IMPLEMENTATION.md` for scope, validation and sources.
+
+Generated audio and local tour JSON files are ignored by Git. Existing local copies remain usable; built-in tours
+provide a fallback on fresh checkouts. Narration-generation scripts remain tracked.
 
 ## Project
 

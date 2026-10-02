@@ -155,7 +155,8 @@ namespace Why.Economy.UI
             future.Extra = Plain(future.Track.transform, "Mean", TickColor);
             agency.Extra = Plain(agency.Track.transform, "Cut", TickColor);
             gaugeLegend = Wrapped("GaugeLegend", FontSmall - 1, HudKit.TextFaint);
-            gaugeLegend.text = "Tick: the population's mean that year; for agency, the cut for being in control.";
+            gaugeLegend.text = EconomyLayouts.UseHills ? "Model assumptions; ticks compare the population's simulated values." :
+                "Tick: the population's mean that year; for agency, the cut for being in control.";
             verdict = Wrapped("Verdict", FontSmall, text);
             wants = Wrapped("Wants", FontSmall, text);
             fears = Wrapped("Fears", FontSmall, text);

@@ -33,7 +33,7 @@ namespace Why.Economy.Layers
     /// snapshot rebuilds on a worker (a preset's blocking one in the next Tick), uploads in Tick and cross-fades over
     /// <see cref="LandStyle.CrossFadeSeconds"/> (8.3), like the other land layers. Order 53.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class FlowsLayer : GraphLayer
     {
         public override int Order => 53;

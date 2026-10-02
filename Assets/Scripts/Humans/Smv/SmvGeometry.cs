@@ -72,6 +72,33 @@ namespace Why.Humans.Smv
         /// </summary>
         public ISmvLineStyle Style;
 
+        /// <summary>Economy-only family topology. Rendering changes; population and economic records stay identical.</summary>
+        public bool FamilyJunctions;
+        Dictionary<int, List<(double time, Vector3 point)>> familyEvents;
+
+        void EnsureFamilies()
+        {
+            if (familyEvents != null) return;
+            familyEvents = new Dictionary<int, List<(double, Vector3)>>();
+            foreach (SmvPerson child in sim.People)
+            {
+                if (child.Mother < 0 || child.Father < 0 || child.BirthStep < 0 || child.Immigrant) continue;
+                int k = Math.Max(0, Math.Min(sim.StepCount - 1, child.BirthStep));
+                SmvPerson mother = sim.People[child.Mother], father = sim.People[child.Father];
+                if (mother.SampleCount == 0 || father.SampleCount == 0) continue;
+                int km = Math.Max(mother.FirstStep, Math.Min(mother.LastStep, k));
+                int kf = Math.Max(father.FirstStep, Math.Min(father.LastStep, k));
+                float y = .5f * (sim.SampleY[mother.SampleOffset + km - mother.FirstStep] + sim.SampleY[father.SampleOffset + kf - father.FirstStep]);
+                Vector3 junction = new Vector3(U(child.Birth), y, sim.Center[k]);
+                Add(child.Mother, child.Birth, junction); Add(child.Father, child.Birth, junction); Add(child.Index, child.Birth, junction);
+            }
+            void Add(int p, double time, Vector3 point)
+            {
+                if (!familyEvents.TryGetValue(p, out var events)) familyEvents[p] = events = new List<(double, Vector3)>();
+                events.Add((time, point));
+            }
+        }
+
         public IReadOnlyList<LineMeshBuilder> FineParts => fineParts;
         public readonly LineMeshBuilder Links = new LineMeshBuilder(8192);
         public readonly LineMeshBuilder Coarse;
@@ -121,6 +148,7 @@ namespace Why.Humans.Smv
         /// </summary>
         public void BuildLifelines()
         {
+            if (FamilyJunctions) EnsureFamilies();
             BuildDensity();
             SmvPerson[] people = sim.People.ToArray();
             int workers = Math.Max(1, Math.Min(MaxWorkers, Environment.ProcessorCount - 1));
@@ -335,6 +363,10 @@ namespace Why.Humans.Smv
                 by[0] = p.StartY;
                 br[0] = p.StartRho;
                 bk[0] = p.FirstStep;
+                if (owner.FamilyJunctions && !p.Immigrant && p.Mother >= 0 && p.Father >= 0 &&
+                    owner.familyEvents.TryGetValue(p.Index, out var birthEvents))
+                    foreach (var birth in birthEvents) if (Math.Abs(birth.time - p.Birth) < .001)
+                    { by[0] = birth.point.y; br[0] = birth.point.z; break; }
                 float[] sy = sim.SampleY, sr = sim.SampleRho;
                 float[] stepU = owner.stepU;
                 double t0 = sim.StartTime;
@@ -347,6 +379,22 @@ namespace Why.Humans.Smv
                     by[i + 1] = sy[o + i];
                     br[i + 1] = sr[o + i];
                     bk[i + 1] = k;
+                    if (owner.FamilyJunctions && owner.familyEvents.TryGetValue(p.Index, out var events))
+                    {
+                        double time = bt[i + 1];
+                        double nearest = 1.01; Vector3 junction = default;
+                        foreach (var e in events)
+                        {
+                            double d = Math.Abs(time - e.time);
+                            if (d < nearest) { nearest = d; junction = e.point; }
+                        }
+                        if (nearest < 1)
+                        {
+                            float blend = Mathf.SmoothStep(1, 0, (float)nearest);
+                            by[i + 1] = Mathf.Lerp(by[i + 1], junction.y, blend);
+                            br[i + 1] = Mathf.Lerp(br[i + 1], junction.z, blend);
+                        }
+                    }
                 }
 
                 double end = Math.Min(p.Death, sim.NowYear);
@@ -422,6 +470,7 @@ namespace Why.Humans.Smv
         /// </summary>
         public void BuildParentLinks()
         {
+            if (FamilyJunctions) { BuildFamilyLinks(); return; }
             Color32 tint = Tint(GraphStyle.HumansMale, LinkAlpha);
             foreach (SmvPerson c in sim.People)
             {
@@ -436,6 +485,41 @@ namespace Why.Humans.Smv
                     sim.SampleRho[c.SampleOffset + kc - c.FirstStep]);
                 Links.AddSegment(from, to, tint, LinkPx, 0, Id(c), 0.8f);
                 LinkCount++;
+            }
+        }
+
+        /// <summary>Marriage crossbars connect two recorded adult partners. Births join those adults exactly at
+        /// the mid-plane before branching to the newborn. No partner or parent is invented for missing records.</summary>
+        void BuildFamilyLinks()
+        {
+            EnsureFamilies();
+            foreach (SmvMarriage marriage in sim.MarriageLog)
+            {
+                int k = (int)Math.Round((marriage.Start - sim.StartTime) / SmvSimulation.Step);
+                SmvPerson a = sim.People[marriage.Wife], b = sim.People[marriage.Husband];
+                if (k < a.FirstStep || k > a.LastStep || k < b.FirstStep || k > b.LastStep) continue;
+                Vector3 pa = new Vector3(U(marriage.Start),sim.SampleY[a.SampleOffset+k-a.FirstStep],sim.SampleRho[a.SampleOffset+k-a.FirstStep]);
+                Vector3 pb = new Vector3(U(marriage.Start),sim.SampleY[b.SampleOffset+k-b.FirstStep],sim.SampleRho[b.SampleOffset+k-b.FirstStep]);
+                Links.AddSegment(pa,pb,Tint(GraphStyle.HumansFemale,.2f),.8f,0,Id(a)); LinkCount++;
+            }
+            foreach (SmvPerson child in sim.People)
+            {
+                if (child.Mother < 0 || child.Father < 0 || child.Immigrant || child.BirthStep < 0) continue;
+                if (!familyEvents.TryGetValue(child.Index,out var events)) continue;
+                foreach (var e in events)
+                {
+                    if (Math.Abs(e.time-child.Birth) > .001) continue;
+                    foreach (int index in new[] {child.Mother,child.Father})
+                    {
+                        SmvPerson parent=sim.People[index];
+                        int k=Math.Max(parent.FirstStep,Math.Min(parent.LastStep,child.BirthStep-4));
+                        if (parent.SampleCount==0) continue;
+                        Vector3 from=new Vector3(stepU[k],sim.SampleY[parent.SampleOffset+k-parent.FirstStep],sim.SampleRho[parent.SampleOffset+k-parent.FirstStep]);
+                        Links.AddSegment(from,e.point,Tint(parent.Male?GraphStyle.HumansMale:GraphStyle.HumansFemale,.28f),1,0,Id(child));
+                        LinkCount++;
+                    }
+                    break;
+                }
             }
         }
 

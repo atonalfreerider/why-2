@@ -1,5 +1,9 @@
 # The hill landscape game: design and work in progress
 
+**Current implementation:** see [IMPLEMENTATION.md](IMPLEMENTATION.md). The October 2 user review replaces the
+stepped benches and literal crowns below with connected terrain, substantial vertical scale, and luminous ownership
+rings. The landscape is now active. Do not apply `wp0-wip.patch` on top of it; that patch is retained as an archive.
+
 This folder holds the design of the economy scene's second redesign and the work done so far. In that redesign, the
 circular bowl is kept but disabled and replaced by a landscape of hills.
 

@@ -30,7 +30,7 @@ namespace Why.Economy.UI
     /// highlight back to the person inspector. Selections follow a year change by the player's key (the tie is cleared,
     /// the tower too before 2024). Nothing happens during the tour, over the UI, or on a label (the HUD's).
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class LandPicker : GraphModule
     {
         /// <summary>Above the HUD (40) and the economy's panels (43-45): its card is a tooltip; below the tour (50).</summary>

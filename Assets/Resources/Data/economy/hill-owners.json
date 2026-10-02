@@ -1,0 +1,15 @@
+{
+  "note": "Illustrative, non-exhaustive voting-control examples. These are dated filings, not live 2026 ownership estimates. Crowns represent voting blocs, not all stockholders. Unlisted companies are not classified as uncontrolled.",
+  "owners": [
+    {
+      "name": "Mark Zuckerberg", "company": "Meta", "industry": "internet", "asOfYear": 2025,
+      "note": "2025 proxy: approximately 61% voting power, 14% economic interest.",
+      "source": "https://www.sec.gov/Archives/edgar/data/1326801/000132680125000040/meta-20250417.htm"
+    },
+    {
+      "name": "Larry Page + Sergey Brin", "company": "Alphabet", "industry": "internet", "asOfYear": 2025,
+      "note": "2025 annual report: founders' Class B holdings preserve a controlling voting bloc. Shown jointly, not as two separate majorities.",
+      "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm"
+    }
+  ]
+}

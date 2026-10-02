@@ -32,7 +32,7 @@ namespace Why.Economy.Layers
     /// cross-fades from the old ones (8.3). Anchors <c>land:coalition:&lt;k&gt;</c>; emphasis groups Ties and Coalitions.
     /// Order 54.</para>
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class SocialLayer : GraphLayer
     {
         public override int Order => 54;
@@ -155,7 +155,8 @@ namespace Why.Economy.Layers
         // ------------------------------------------------------------------ what the panel reads
 
         /// <summary>The season on screen (the default, the betrayal or the viewer's incident season); null before the land.</summary>
-        public static SocialSeasonResult Shown { get; private set; }
+        static SocialSeasonResult bowlShown;
+        public static SocialSeasonResult Shown { get => EconomyLayouts.UseHills ? HillLandscapeLayer.Shown : bowlShown; private set => bowlShown=value; }
 
         /// <summary>The number of coalitions of the shown season at each detection round (the panel's readout).</summary>
         public static int CoalitionsAt(SocialSeasonResult s, int round)
@@ -1216,7 +1217,7 @@ namespace Why.Economy.Layers
 
             if (round != signalsRound)
             {
-                if (!held && round == signalsRound + 1) Start(s, round);
+                if (!held && round == signalsRound + 1) StartSignals(s, round);
                 else effects.Clear();
                 signalsRound = round;
                 signalsDirty = true;
@@ -1276,7 +1277,7 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>Starts the animations of a round's events: pain first (all), then relief pulses while the mesh has room.</summary>
-        void Start(SocialSeasonResult s, int round)
+        void StartSignals(SocialSeasonResult s, int round)
         {
             int budget = MaxEventVertices / 8;
             foreach ((int r, int pair, byte signal) e in EventsAt(s, round))

@@ -331,6 +331,8 @@ namespace Why.Economy.UI
 
             string cut = ControlCut.ToString("0.00", Ci), agency = Agency.ToString("0.00", Ci);
             if (!s.Adult) Verdict = "";
+            else if (EconomyLayouts.UseHills) Verdict = "Modelled financial autonomy " + Autonomy.ToString("0.00", Ci) +
+                "; motives and agency are assumptions, not measured personal attributes.";
             else if (InControl) Verdict = "In control of their path: agency " + agency + " clears the cut of " + cut + ", with material autonomy.";
             else if (s.Agency > ControlCut)
             {
@@ -452,7 +454,7 @@ namespace Why.Economy.UI
             StringBuilder sb = new StringBuilder();
             sb.Append(open).Append(year.ToString(Ci)).Append(close);
             if (shown && land.Land != null) sb.Append(dot).Append("GDP ").Append(open).Append(Land.LandFacts.Money(land.Land.Gdp, 1)).Append(close);
-            sb.Append(dot).Append("in control ").Append(open).Append(PersonFacts.Pct(a.InControlShare)).Append(close);
+            if (!EconomyLayouts.UseHills) sb.Append(dot).Append("in control ").Append(open).Append(PersonFacts.Pct(a.InControlShare)).Append(close);
             double fantasy = a.MeanFantasy, fear = a.MeanFear;
             if (shown) Shares(land.Players, out fear, out fantasy);
             sb.Append(dot).Append("fantasy ").Append(open).Append(PersonFacts.Pct(fantasy)).Append(close);
@@ -639,7 +641,7 @@ namespace Why.Economy.UI
         static readonly string[] StandingNames = { "beta", "alpha", "omega", "anti-alpha" };
 
         /// <summary>The mind's gauges: names, the player's values and the population's (adults; spending-weighted for fear and fantasy).</summary>
-        public static readonly string[] MindNames = { "Reason", "Higher OS", "Future", "Agency", "In control", "Fear", "Fantasy" };
+        public static readonly string[] MindNames = { "Reason*", "Deliberation*", "Future*", "Agency*", "Autonomy*", "Fear*", "Fantasy*" };
 
         public int Player = -1, Year;
 
@@ -874,7 +876,7 @@ namespace Why.Economy.UI
             Mind[1] = p.HigherOs;
             Mind[2] = p.Future;
             Mind[3] = p.Agency;
-            Mind[4] = p.InControl;
+            Mind[4] = MeanAutonomy(p);
             Mind[5] = Fear;
             Mind[6] = Fantasy;
 
@@ -889,7 +891,7 @@ namespace Why.Economy.UI
                 sum[1] += a * q.HigherOs;
                 sum[2] += a * q.Future;
                 sum[3] += a * q.Agency;
-                sum[4] += a * q.InControl;
+                sum[4] += a * MeanAutonomy(q);
                 for (int c = 0; c < 6; c++)
                 {
                     spend += q.Category[c];
@@ -901,6 +903,13 @@ namespace Why.Economy.UI
             for (int k = 0; k < 5; k++) MindMean[k] = w > 0 ? (float)(sum[k] / w) : 0;
             MindMean[5] = spend > 0 ? (float)(sum[5] / spend) : 0;
             MindMean[6] = spend > 0 ? (float)(sum[6] / spend) : 0;
+
+            float MeanAutonomy(Land.Player player)
+            {
+                double value=0;int count=0;
+                foreach(int person in player.Adults) if(lives.TryGet(person,year,out PersonYear record)) {value+=record.Autonomy;count++;}
+                return count>0?(float)(value/count):0;
+            }
 
             // the strongest desires and fears: the members' mean drive weights
             float[] d = new float[5], fr = new float[5], ds = new float[5], fs = new float[5];

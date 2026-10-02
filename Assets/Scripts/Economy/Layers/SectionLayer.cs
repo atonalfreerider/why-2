@@ -167,55 +167,19 @@ namespace Why.Economy.Layers
             c.WallRho = wall != null && wall.IsValid ? wall.RhoAt(mid) : EconomyStyle.FramingRho;
             float rhoLo = c.WallRho, rhoHi = c.WallRho, yHi = EconomyStyle.WallTopY;
 
-            // the dots: every lifeline alive at the year's middle
-            CutMap map = new CutMap(frame, u, w);
-            if (sim != null && sim.StepCount > 0)
-            {
-                int step = sim.StepAt(mid);
-                float[] sy = sim.SampleY, sr = sim.SampleRho;
-                for (int i = 0; i < sim.People.Count; i++)
-                {
-                    // the person's sample at the step (SmvPopulation.PointAt without the clock arc: the cut has its own)
-                    SmvPerson p = sim.People[i];
-                    if (step < p.FirstStep || step > p.LastStep) continue;
-                    int at = p.SampleOffset + step - p.FirstStep;
-                    Vector3 d = new Vector3(0, sy[at], sr[at]);
-                    bool adult, control = false;
-                    if (lives != null && lives.TryGet(i, year, out PersonYear r))
-                    {
-                        adult = r.Adult;
-                        control = r.InControl && adult;
-                    }
-                    else adult = mid - p.Birth >= 18;
-
-                    c.Dots.Add(new Dot { Person = i, At = map.At(d.y, d.z), Adult = adult, Control = control, Id = pop.Id(p) });
-                    rhoLo = Mathf.Min(rhoLo, d.z);
-                    rhoHi = Mathf.Max(rhoHi, d.z);
-                    yHi = Mathf.Max(yHi, d.y);
-                    if (adult)
-                    {
-                        c.Adults++;
-                        if (control) c.InControl++;
-                    }
-                    else c.Children++;
-                }
-            }
-
-            c.RhoLo = rhoLo - LandStyle.CutPad;
-            c.RhoHi = rhoHi + LandStyle.CutPad;
-            c.YLo = EconomyStyle.GroundY;
-            c.YHi = yHi + LandStyle.CutTopPad;
-
-            // the bars: the wall's bands at the year's middle, a hair apart between tiers
-            IReadOnlyList<Industry> inds = data.Industries;
-            c.Bars = new Bar[inds.Count];
-            Vector3 across = CutPoint(frame, u, c.YLo, c.WallRho + 0.01f, w) - CutPoint(frame, u, c.YLo, c.WallRho, w);
+            // the road's direction across the cut (the bars' width, the dots' strokes)
+            Vector3 across = CutPoint(frame, u, EconomyStyle.GroundY, c.WallRho + 0.01f, w) - CutPoint(frame, u, EconomyStyle.GroundY, c.WallRho, w);
             across.y = 0;
             across = across.sqrMagnitude > 1e-12f ? across.normalized : Vector3.right;
+
+            // the bars: the wall's bands at the year's middle, a hair apart between tiers (their edges drawn under the dots)
+            IReadOnlyList<Industry> inds = data.Industries;
+            c.Bars = new Bar[inds.Count];
             Vector3 half = 0.5f * LandStyle.CardWidth * across;
             List<Vector3> a = new List<Vector3>(2), b = new List<Vector3>(2);
             Color32[] one = new Color32[1];
             List<Vector3> outline = new List<Vector3>(5);
+            float[] cuts = new float[4];
             for (int i = 0; i < inds.Count && wall != null && wall.IsValid; i++)
             {
                 WallBand band = wall.BandAt(i, mid);
@@ -230,7 +194,10 @@ namespace Why.Economy.Layers
                 };
 
                 Color hue = EconomyStyle.Level(inds[i].Level);
-                float[] cuts = { lo, Mathf.Min(hi, band.UpkeepLo), Mathf.Min(hi, band.OwnersLo), hi };
+                cuts[0] = lo;
+                cuts[1] = Mathf.Min(hi, band.UpkeepLo);
+                cuts[2] = Mathf.Min(hi, band.OwnersLo);
+                cuts[3] = hi;
                 for (int part = 0; part < 3; part++)
                 {
                     if (cuts[part + 1] - cuts[part] <= 1e-6f) continue;
@@ -257,15 +224,54 @@ namespace Why.Economy.Layers
                     EconomyIds.IndustryPart(i, EconomyIds.PartEdge), LandStyle.CardIntensity);
             }
 
-            // the dots as short strokes across the road
+            // the dots: every lifeline alive at the year's middle, each a short stroke across the road (one pass)
             Vector3 dh = 0.5f * DotLength * across;
             Color32 blue = LandMath.Tint(EconomyStyle.People, 0.95f), gold = LandMath.Tint(EconomyStyle.Capital, 1f);
             Color32 child = LandMath.Tint(EconomyStyle.People, LandStyle.ChildDotAlpha);
-            foreach (Dot d in c.Dots)
+            CutMap map = new CutMap(frame, u, w);
+            if (sim != null && sim.StepCount > 0)
             {
-                if (d.Adult) c.Lines.AddSegment(d.At - dh, d.At + dh, d.Control ? gold : blue, LandStyle.DotPx, 0, d.Id, d.Control ? 1.5f : 1.2f);
-                else c.Lines.AddSegment(d.At - dh, d.At + dh, child, LandStyle.ChildDotPx, 0, d.Id);
+                int step = sim.StepAt(mid);
+                float[] sy = sim.SampleY, sr = sim.SampleRho;
+                for (int i = 0; i < sim.People.Count; i++)
+                {
+                    // the person's sample at the step (SmvPopulation.PointAt without the clock arc: the cut has its own)
+                    SmvPerson p = sim.People[i];
+                    if (step < p.FirstStep || step > p.LastStep) continue;
+                    int at = p.SampleOffset + step - p.FirstStep;
+                    Vector3 d = new Vector3(0, sy[at], sr[at]);
+                    bool adult, control = false;
+                    if (lives != null && lives.TryGet(i, year, out PersonYear r))
+                    {
+                        adult = r.Adult;
+                        control = r.InControl && adult;
+                    }
+                    else adult = mid - p.Birth >= 18;
+
+                    Dot dot = new Dot { Person = i, At = map.At(d.y, d.z), Adult = adult, Control = control, Id = pop.Id(p) };
+                    c.Dots.Add(dot);
+                    if (adult)
+                    {
+                        c.Lines.AddSegment(dot.At - dh, dot.At + dh, control ? gold : blue, LandStyle.DotPx, 0, dot.Id, control ? 1.5f : 1.2f);
+                    }
+                    else c.Lines.AddSegment(dot.At - dh, dot.At + dh, child, LandStyle.ChildDotPx, 0, dot.Id);
+
+                    rhoLo = Mathf.Min(rhoLo, d.z);
+                    rhoHi = Mathf.Max(rhoHi, d.z);
+                    yHi = Mathf.Max(yHi, d.y);
+                    if (adult)
+                    {
+                        c.Adults++;
+                        if (control) c.InControl++;
+                    }
+                    else c.Children++;
+                }
             }
+
+            c.RhoLo = rhoLo - LandStyle.CutPad;
+            c.RhoHi = rhoHi + LandStyle.CutPad;
+            c.YLo = EconomyStyle.GroundY;
+            c.YHi = yHi + LandStyle.CutTopPad;
 
             double gdp = data.Gdp.GrowthAt(year);
             c.Readout = year.ToString(LandFacts.Ci) + " · GDP " + LandFacts.Money(gdp, 1) + " · " +
@@ -293,16 +299,20 @@ namespace Why.Economy.Layers
             public float IWagesA, IUpkeepA, IOwnersA, IOwnersB;
         }
 
-        /// <summary>One dot's flight: from the cut to its slot in its player's disc (none: it fades), its start time, its look.</summary>
+        /// <summary>
+        /// One dot's flight: from the cut to its slot in its player's disc (none: it fades), its start time, its look. A
+        /// flight starts after the lift (<see cref="LandStyle.DotsStart"/> &gt;= <see cref="LandStyle.LiftEnd"/>), so it
+        /// leaves from the lifted place (the start on the center line) over a fixed control point.
+        /// </summary>
         struct Flight
         {
-            public Vector3 Start, End;
+            public Vector3 Start, End, Control;
             public float T0, Px, Intensity, Id;
             public bool HasSlot;
             public Color32 Color;
         }
 
-        /// <summary>Everything the morph draws for one card and one snapshot (built on the main thread when either changes).</summary>
+        /// <summary>Everything the morph draws for one card and one snapshot (built on a worker when either changes, see <see cref="RebuildPlan"/>).</summary>
         sealed class Plan
         {
             public Tile[] Tiles;
@@ -321,6 +331,20 @@ namespace Why.Economy.Layers
 
             public Flight[] Flights;
             public int LandYear, CardYear, Version;
+
+            /// <summary>The line vertices of the tiles' outlines (the dots' strokes follow them in the line mesh).</summary>
+            public int OutlineVertices;
+
+            /// <summary>From this time on the dots stand still (every flight landed, the unplaced ones faded).</summary>
+            public float DotsSettle;
+
+            /// <summary>
+            /// What each dot was last written at: its flight's progress (or, unplaced, its fade); the lift of that write.
+            /// A dot whose state did not change since is not rewritten (NaN: never written).
+            /// </summary>
+            public float[] DotState;
+
+            public float DotLift = float.NaN;
         }
 
         /// <summary>The bars, sectors, players and dots of a card and a snapshot, as the morph needs them.</summary>
@@ -445,10 +469,21 @@ namespace Why.Economy.Layers
                     }
                 }
 
+                Vector3 lifted = new Vector3(f.Start.x, f.Start.y, 0);
+                f.Control = 0.5f * (lifted + f.End) + new Vector3(0, LandStyle.DotArcLift, 0);
                 flights[k] = f;
             }
 
             plan.Flights = flights;
+            float settle = Mathf.Max(LandStyle.LiftEnd, LandStyle.LieBackEnd);
+            foreach (Flight f in flights)
+            {
+                if (f.HasSlot) settle = Mathf.Max(settle, f.T0 + LandStyle.DotFlight);
+            }
+
+            plan.DotsSettle = settle;
+            plan.DotState = new float[flights.Length];
+            foreach (Tile t in plan.Tiles) plan.OutlineVertices += 2 * (2 * (t.Segments + 1) + 1);
             return plan;
         }
 
@@ -510,6 +545,43 @@ namespace Why.Economy.Layers
                 Pair(a, a, b, color, px, id, intensity);
                 Pair(b, a, b, color, px, id, intensity);
                 Quad(b0);
+            }
+
+            /// <summary>
+            /// Makes room for this many vertices, so the writes up to it never resize the buffer (a range written from
+            /// another thread with <see cref="SegmentAt"/> while this one appends below it).
+            /// </summary>
+            public void Reserve(int vertices)
+            {
+                if (vertices > v.Length) Array.Resize(ref v, vertices);
+            }
+
+            /// <summary>
+            /// A straight segment written at a fixed place (its four vertices from <paramref name="at"/>) of a range made
+            /// room for with <see cref="Reserve"/>; threads may write disjoint segments at once. The range's indices and
+            /// count are set by <see cref="SegmentsAt"/>.
+            /// </summary>
+            public void SegmentAt(int at, Vector3 a, Vector3 b, Color32 color, float px, float id, float intensity)
+            {
+                V x = new V { Pos = a, Color = color, Prev = a, Next = b, P = new Vector4(-1, px, 0, id), Q = new Vector2(intensity, 0) };
+                v[at] = x;
+                x.P.x = 1;
+                v[at + 1] = x;
+                x.Pos = b;
+                v[at + 3] = x;
+                x.P.x = -1;
+                v[at + 2] = x;
+            }
+
+            /// <summary>Appends <paramref name="count"/> segments written with <see cref="SegmentAt"/> from the current end.</summary>
+            public void SegmentsAt(int count)
+            {
+                Grow(2 * count, count);
+                for (int k = 0; k < count; k++)
+                {
+                    Quad(nv);
+                    nv += 4;
+                }
             }
 
             /// <summary>A polyline of uniform style.</summary>
@@ -603,6 +675,7 @@ namespace Why.Economy.Layers
 
             public int VertexCount => nv;
 
+            /// <summary>Starts a rewrite; <paramref name="newTopology"/> forces the index upload.</summary>
             public void Begin(bool newTopology = false)
             {
                 nv = ni = 0;
@@ -635,6 +708,7 @@ namespace Why.Economy.Layers
                 }
             }
 
+            /// <summary>Uploads the vertices (and the indices when the topology changed).</summary>
             public void End()
             {
                 const MeshUpdateFlags flags = MeshUpdateFlags.DontRecalculateBounds | MeshUpdateFlags.DontValidateIndices |
@@ -693,7 +767,13 @@ namespace Why.Economy.Layers
         bool planDirty = true;
         Task<Plan> planTask;
         float morphDrawn = -1;
-        int morphFrames;
+
+        /// <summary>The clock time the tiles and the dots were last written at (-1: not since the plan changed).</summary>
+        float tilesWritten = -1, dotsWritten = -1;
+
+        // the statistics of the current run (+1 an unfold, -1 a fold, 0 none yet)
+        int morphFrames, morphSkipped, morphDirection;
+        float morphLast = -1;
         double morphMaxMs, morphTotalMs, morphFirstMs, morphUploadMs;
         readonly List<Vector3> inner = new List<Vector3>(64), outer = new List<Vector3>(64), loop = new List<Vector3>(140);
 
@@ -768,6 +848,7 @@ namespace Why.Economy.Layers
             LandService.ReportReady(ReadyName, LandService.Current?.Version ?? 0);
         }
 
+        /// <summary>Unsubscribes from the land and frees the meshes and materials this layer made.</summary>
         void OnDestroy()
         {
             LandService.Changed -= OnChanged;
@@ -780,6 +861,7 @@ namespace Why.Economy.Layers
             planDirty = true;
         }
 
+        /// <summary>A renderer for one of this layer's meshes: a raw (land-local) surface or line material at a queue, hidden until shown.</summary>
         MeshRenderer Renderer(string name, Mesh mesh, bool surface, int queue)
         {
             Material m = GraphMaterials.Raw(surface
@@ -793,6 +875,7 @@ namespace Why.Economy.Layers
             return r;
         }
 
+        /// <summary>Destroys a renderer's mesh, material and object.</summary>
         static void Release(MeshRenderer r)
         {
             if (r == null) return;
@@ -823,6 +906,7 @@ namespace Why.Economy.Layers
             planDirty = true;
         }
 
+        /// <summary>Points the <c>land:cut</c> anchor at a card: its title, its blurb (the readout) and its place under the frame.</summary>
         void UpdateAnchor(Card c)
         {
             if (cutAnchor == null) return;
@@ -843,6 +927,7 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ per frame
 
+        /// <summary>Per frame: follows the cut's year (the frame slides), fades the cut with its emphasis, takes the morph's plan and draws the morph, follows the labels.</summary>
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (model == null || frameLines == null) return;
@@ -979,6 +1064,7 @@ namespace Why.Economy.Layers
             }
         }
 
+        /// <summary>A dashed callout from a to b (dashes of <see cref="CalloutDash"/>, gaps of <see cref="CalloutGap"/>).</summary>
         void Dashed(Vector3 a, Vector3 b, Color32 color)
         {
             float length = Vector3.Distance(a, b), period = CalloutDash + CalloutGap;
@@ -990,6 +1076,7 @@ namespace Why.Economy.Layers
             }
         }
 
+        /// <summary>Shows a renderer at an alpha (disabled when it would be invisible).</summary>
         static void Show(MeshRenderer r, float alpha)
         {
             if (r == null) return;
@@ -1041,6 +1128,7 @@ namespace Why.Economy.Layers
             return v;
         }
 
+        /// <summary>Hides or shows the readout with the Cut label group when the view's label groups changed.</summary>
         void UpdateLabel()
         {
             if (readout == null || labelsVersion == LandView.LabelsVersion) return;
@@ -1055,7 +1143,8 @@ namespace Why.Economy.Layers
 
         /// <summary>
         /// Draws the transition at <see cref="LandView.MorphTime"/>: hidden at either end (0: the card in the cut; 2.4: the
-        /// land), rewritten whenever the clock moved, faded out by the land's reveal.
+        /// land), rewritten whenever the clock moved, faded out by the land's reveal. Each run (an unfold, a fold) logs its
+        /// frame times when it ends.
         /// </summary>
         void Morph()
         {
@@ -1066,31 +1155,49 @@ namespace Why.Economy.Layers
             Show(morphLineR, alpha);
             if (!active)
             {
-                if (morphFrames > 0 && time >= LandStyle.UnfoldSeconds - 1e-4f)
-                {
-                    Debug.Log("[Why] SectionLayer morph: " + morphFrames.ToString(LandFacts.Ci) + " frames, " +
-                              (morphTotalMs / morphFrames).ToString("0.00", LandFacts.Ci) + " ms mean (of which the vertex upload " +
-                              (morphUploadMs / morphFrames).ToString("0.00", LandFacts.Ci) + " ms), " +
-                              morphMaxMs.ToString("0.00", LandFacts.Ci) + " ms max (the first frame, which also uploads the indices, " +
-                              morphFirstMs.ToString("0.00", LandFacts.Ci) + " ms), " +
-                              (morphFills.VertexCount + morphLines.VertexCount).ToString(LandFacts.Ci) + " vertices");
-                    morphFrames = 0;
-                    morphMaxMs = morphTotalMs = morphUploadMs = 0;
-                }
-
+                LogMorphRun();
                 return;
             }
 
             if (Mathf.Abs(time - morphDrawn) < 1e-5f) return;
-            Stopwatch sw = Stopwatch.StartNew();
+
+            // a new direction (an unfold after a fold, or the reverse) starts a new run of the statistics; a run that
+            // starts from rest is an unfold when it starts near the card, a fold when near the land
+            int direction = morphLast < 0 ? time < 0.5f * LandStyle.UnfoldSeconds ? 1 : -1 : time > morphLast ? 1 : -1;
+            if (direction != morphDirection) LogMorphRun();
+            morphDirection = direction;
+            morphLast = time;
+
+            long start = Stopwatch.GetTimestamp();
             bool newTopology = morphDrawn < 0;
             morphDrawn = time;
             WriteMorph(time, newTopology);
-            double ms = sw.Elapsed.TotalMilliseconds;
+            double ms = (Stopwatch.GetTimestamp() - start) * 1000.0 / Stopwatch.Frequency;
             morphFrames++;
             morphTotalMs += ms;
             if (newTopology) morphFirstMs = ms;
             else morphMaxMs = Math.Max(morphMaxMs, ms);
+        }
+
+        /// <summary>Logs the frame times of the morph's last run (an unfold or a fold) and starts a new one.</summary>
+        void LogMorphRun()
+        {
+            if (morphFrames > 0)
+            {
+                Debug.Log("[Why] SectionLayer morph (" + (morphDirection < 0 ? "fold" : "unfold") + "): " +
+                          morphFrames.ToString(LandFacts.Ci) + " frames, " +
+                          (morphTotalMs / morphFrames).ToString("0.00", LandFacts.Ci) + " ms mean (of which the vertex upload " +
+                          (morphUploadMs / morphFrames).ToString("0.00", LandFacts.Ci) + " ms), " +
+                          morphMaxMs.ToString("0.00", LandFacts.Ci) + " ms max (a plan's first frame, which also uploads the indices, " +
+                          morphFirstMs.ToString("0.00", LandFacts.Ci) + " ms), " + morphSkipped.ToString(LandFacts.Ci) +
+                          " settled frames not rewritten, " + (morphFills.VertexCount + morphLines.VertexCount).ToString(LandFacts.Ci) +
+                          " vertices");
+            }
+
+            morphFrames = morphSkipped = 0;
+            morphMaxMs = morphTotalMs = morphUploadMs = morphFirstMs = 0;
+            morphDirection = 0;
+            morphLast = -1;
         }
 
         /// <summary>The phases' progress at a time (each eased in and out) and the tiles' area factor k.</summary>
@@ -1111,36 +1218,50 @@ namespace Why.Economy.Layers
             }
         }
 
+        /// <summary>
+        /// Rewrites the morph's meshes at a time: the tiles (fills and outlines), then the dots' strokes at their fixed
+        /// place after the outlines (four vertices per flight). What has not moved is not rewritten: a dot waiting for its
+        /// flight or landed, every dot after <see cref="Plan.DotsSettle"/>, everything after the spin (the reveal's last
+        /// 0.2 s, when only the alpha changes).
+        /// </summary>
         void WriteMorph(float time, bool newTopology)
         {
-            Phases ph = Phases.At(time);
-            morphFills.Begin(newTopology);
-            morphLines.Begin(newTopology);
-            LayRows(ph);
-            for (int k = 0; k < plan.Tiles.Length; k++) WriteTile(plan.Tiles[k], plan.Length[k], plan.X[k], ph);
-
-            // the dots: lifted with the card, then each flies to its player's disc
-            Vector3 half = new Vector3(0.5f * DotLength, 0, 0);
-            float fade = 1f - LandMath.Phase(time, LandStyle.DotsStart, LandStyle.LieBackEnd);
-            foreach (Flight f in plan.Flights)
+            if (newTopology) tilesWritten = dotsWritten = -1;
+            bool dots = time < plan.DotsSettle || dotsWritten < plan.DotsSettle;
+            bool tiles = dots || time < LandStyle.SpinEnd || tilesWritten < LandStyle.SpinEnd;
+            if (!tiles)
             {
-                Vector3 lifted = new Vector3(f.Start.x, f.Start.y, f.Start.z * (1 - ph.A));
-                Vector3 p = lifted;
-                Color32 color = f.Color;
-                if (f.HasSlot)
-                {
-                    float q = LandMath.EaseInOutCubic(LandMath.Phase(time, f.T0, f.T0 + LandStyle.DotFlight));
-                    if (q > 0)
-                    {
-                        Vector3 control = 0.5f * (lifted + f.End) + new Vector3(0, LandStyle.DotArcLift, 0);
-                        p = LandMath.Bezier(lifted, control, f.End, q);
-                    }
-                }
-                else color = LandMath.Fade(color, fade);
-
-                morphLines.Segment(p - half, p + half, color, f.Px, f.Id, f.Intensity);
+                morphSkipped++;
+                return;
             }
 
+            Phases ph = Phases.At(time);
+            int count = plan.Flights.Length;
+            morphFills.Begin(newTopology);
+            morphLines.Begin(newTopology);
+            morphLines.Reserve(plan.OutlineVertices + 4 * count);
+            if (newTopology)
+            {
+                for (int k = 0; k < count; k++) plan.DotState[k] = float.NaN;
+                plan.DotLift = float.NaN;
+            }
+
+            LayRows(ph);
+            for (int k = 0; k < plan.Tiles.Length; k++) WriteTile(plan.Tiles[k], plan.Length[k], plan.X[k], ph);
+            tilesWritten = time;
+            if (dots)
+            {
+                WriteDots(time, ph);
+                dotsWritten = time;
+            }
+
+            if (morphLines.VertexCount != plan.OutlineVertices)
+            {
+                Debug.LogError("[Why] SectionLayer: the morph's outlines wrote " + morphLines.VertexCount.ToString(LandFacts.Ci) +
+                               " vertices, not " + plan.OutlineVertices.ToString(LandFacts.Ci));
+            }
+
+            morphLines.SegmentsAt(count);
             long computed = Stopwatch.GetTimestamp();
             morphFills.End();
             morphLines.End();
@@ -1148,9 +1269,46 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
-        /// One tile at the phases' progress: its three strips (bands sampled along its length, curled and spun) and its
-        /// outline. Tile coordinates: u along the row (−½..½ of its length ℓ), v across (−½..½ of its radial size w).
+        /// The dots: lifted with the card, then each flies to its player's disc (or fades), written at their fixed places
+        /// after the outlines. A dot whose state (its flight's progress, or its fade; the lift) is the one it was last
+        /// written at keeps its vertices.
         /// </summary>
+        void WriteDots(float time, Phases ph)
+        {
+            Vector3 half = new Vector3(0.5f * DotLength, 0, 0);
+            float lift = 1 - ph.A;
+            float fade = 1f - LandMath.Phase(time, LandStyle.DotsStart, LandStyle.LieBackEnd);
+            bool liftSame = plan.DotLift == lift;
+            plan.DotLift = lift;
+            Flight[] flights = plan.Flights;
+            float[] state = plan.DotState;
+            int at = plan.OutlineVertices;
+            for (int k = 0; k < flights.Length; k++, at += 4)
+            {
+                Flight f = flights[k];
+                float st = f.HasSlot ? Ease(LandMath.Phase(time, f.T0, f.T0 + LandStyle.DotFlight)) : fade;
+                if (liftSame && state[k] == st) continue;
+                state[k] = st;
+                Vector3 lifted = new Vector3(f.Start.x, f.Start.y, f.Start.z * lift);
+                Vector3 p = lifted;
+                Color32 color = f.Color;
+                if (!f.HasSlot) color = LandMath.Fade(color, st);
+                else if (st >= 1) p = f.End;
+                else if (st > 0) p = LandMath.Bezier(lifted, f.Control, f.End, st);
+                morphLines.SegmentAt(at, p - half, p + half, color, f.Px, f.Id, f.Intensity);
+            }
+        }
+
+        /// <summary><see cref="LandMath.EaseInOutCubic"/> of a progress already in 0..1, without its power call.</summary>
+        static float Ease(float t)
+        {
+            if (t <= 0) return 0;
+            if (t >= 1) return 1;
+            if (t < 0.5f) return 4 * t * t * t;
+            float r = 2 - 2 * t;
+            return 1 - 0.5f * r * r * r;
+        }
+
         /// <summary>The tile's area factor k(s): the card's, to 0.5 in the staircase, to 1 in the bowl.</summary>
         static float AreaFactor(Tile t, Phases ph) =>
             Mathf.Pow(t.KCard, 1 - ph.B) * Mathf.Pow(LandStyle.StaircaseK, ph.B) * Mathf.Pow(1f / LandStyle.StaircaseK, ph.C);
@@ -1186,6 +1344,10 @@ namespace Why.Economy.Layers
             }
         }
 
+        /// <summary>
+        /// One tile at the phases' progress: its three strips (bands sampled along its length, curled and spun) and its
+        /// outline. Tile coordinates: u along the row (−½..½ of its length ℓ), v across (−½..½ of its radial size w).
+        /// </summary>
         void WriteTile(Tile t, float l, float x, Phases ph)
         {
             float w = RadialSize(t, ph);
@@ -1217,6 +1379,7 @@ namespace Why.Economy.Layers
             morphLines.Polyline(loop, t.Edge, TileEdgePx, EconomyIds.LandSector(t.Industry, EconomyIds.SectorEdge), 1f);
         }
 
+        /// <summary>One strip of a tile (tile coordinates v0..v1 across, the whole length along) as a band of the fills.</summary>
         void Strip(Tile t, Vector3 c, float l, float w, Vector3 axis, float kappa, float cs, float sn, float v0, float v1, Color32 color,
             float intensity, int id)
         {

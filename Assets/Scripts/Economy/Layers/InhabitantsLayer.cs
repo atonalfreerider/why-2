@@ -378,6 +378,8 @@ namespace Why.Economy.Layers
         /// </summary>
         void ApplyLabels(Built b, bool live)
         {
+            // new labels (a new year) keep no sideways shift of the old ones: re-frame them even with a still camera
+            framedLabels = int.MinValue;
             for (int k = 0; k < b.Labels.Count; k++)
             {
                 PlayerLabel pl = b.Labels[k];

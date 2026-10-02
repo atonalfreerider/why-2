@@ -20,7 +20,8 @@ namespace Why.Economy
     /// <see cref="ViewPreset.PortraitWidth"/> fits across and aims <see cref="PortraitAim"/> of the visible height lower,
     /// so the bowl sits in the upper part of the tall frame, clear of the bottom sheet (7.2). The catalog reads the
     /// screen's orientation, the selected year (the section's title and pose) and the land on screen (generated
-    /// subtitles), so the land's view layer invalidates it when any of these changes.
+    /// subtitles), so the land's view layer refreshes it in place when any of these changes (<see cref="Refresh"/>,
+    /// <see cref="RefreshSection"/>): the objects stay the same, so the HUD, the tour and the root never hold a stale pose.
     /// </summary>
     public static class EconomyPresets
     {
@@ -46,10 +47,10 @@ namespace Why.Economy
 
         /// <summary>
         /// The roots view looks from the side of the bowl away from the road (the cut and the road would stand in front of
-        /// a low camera on the road's side), low enough to see under the terraces; on a portrait screen higher, so the
-        /// sectors' labels have rows to stand in.
+        /// a low camera on the road's side), low enough to see under the terraces (15°: every sector's label finds a place
+        /// at 16:9); on a portrait screen higher, so the sectors' labels have rows to stand in (40°: 24 of 25 at 9:16).
         /// </summary>
-        const float RootsYaw = -78f, RootsPortraitPitch = 30f;
+        const float RootsYaw = -78f, RootsPitch = 15f, RootsPortraitPitch = 40f;
 
         /// <summary>
         /// The low views (capture, mind) on a portrait screen: stepped back to fit the narrow width, a camera this low would
@@ -59,15 +60,18 @@ namespace Why.Economy
 
         /// <summary>
         /// The capture view on a portrait screen looks straight along the road from higher up (the road then stands under
-        /// the bowl, not beside the towers) and wider, so the sectors' labels around the towers have room.
+        /// the bowl, not beside the towers, and the tier labels under the bowl), so the sectors' labels around the towers
+        /// have room (50°: 24 of 25 at 9:16).
         /// </summary>
-        const float CapturePortraitPitch = 35f;
+        const float CapturePortraitPitch = 50f;
 
+        /// <summary>
+        /// A fresh catalog for the screen's orientation, the cut's year and the land on screen. Built once per scene
+        /// (<see cref="ViewPresets.All"/> keeps it); afterwards <see cref="Refresh"/> updates those same objects in place.
+        /// </summary>
         public static List<ViewPreset> Build()
         {
             LandFrame land = EconomyStage.Land();
-            int year = EconomyState.CutYear;
-            string y = year.ToString(CultureInfo.InvariantCulture);
             WarpState w = EconomyStage.TimelineWarp();
             bool portrait = ScreenLayout.IsPortrait;
 
@@ -95,12 +99,7 @@ namespace Why.Economy
             return new List<ViewPreset>
             {
                 Fixed(overview, overviewTarget, overviewYaw),
-                Pose(Fixed(new ViewPreset
-                {
-                    Id = "section", Title = "The cut through " + y,
-                    Subtitle = "Every industry's band and every life that pierces " + y,
-                    Key = KeyCode.Alpha2, Pitch = 6, Distance = 6.2f, PortraitWidth = 4f
-                }, EconomyStage.OnRoad(year + 0.5, SectionY, SectionRho), land.Yaw)),
+                Section(land, EconomyState.CutYear),
                 OnLand(land, new ViewPreset
                 {
                     Id = "landscape", Title = "Where value is created",
@@ -111,7 +110,7 @@ namespace Why.Economy
                 {
                     Id = "capture", Title = "Where value is captured",
                     Subtitle = "Profit rises into the crown; the companies that capture the most",
-                    Key = KeyCode.Alpha4, Pitch = portrait ? CapturePortraitPitch : 20, Distance = 12, PortraitWidth = 13
+                    Key = KeyCode.Alpha4, Pitch = portrait ? CapturePortraitPitch : 20, Distance = 12, PortraitWidth = 12.5f
                 }, portrait ? new Vector3(0, 1.4f, 1.0f) : new Vector3(0, 1.6f, 2.0f), portrait ? 0 : -12),
                 OnLand(land, new ViewPreset
                 {
@@ -140,7 +139,7 @@ namespace Why.Economy
                 {
                     Id = "roots", Title = "What each industry stands on",
                     Subtitle = "Purchases between industries rise into each buyer from below",
-                    Pitch = portrait ? RootsPortraitPitch : 12, Distance = 12.5f, PortraitWidth = 13
+                    Pitch = portrait ? RootsPortraitPitch : RootsPitch, Distance = 12.5f, PortraitWidth = 13
                 }, new Vector3(0, 1.0f, 0), RootsYaw),
                 OnLand(land, new ViewPreset
                 {
@@ -155,6 +154,69 @@ namespace Why.Economy
                     Pitch = 40, Distance = 17.5f, PortraitWidth = 13.5f
                 }, new Vector3(0, 0.7f, 0.5f), 0),
             };
+        }
+
+        /// <summary>The section view: behind the cut through a year, looking along the road.</summary>
+        static ViewPreset Section(LandFrame land, int year)
+        {
+            string y = year.ToString(CultureInfo.InvariantCulture);
+            return Pose(Fixed(new ViewPreset
+            {
+                Id = "section", Title = "The cut through " + y,
+                Subtitle = "Every industry's band and every life that pierces " + y,
+                Key = KeyCode.Alpha2, Pitch = 6, Distance = 6.2f, PortraitWidth = 4.9f
+            }, EconomyStage.OnRoad(year + 0.5, SectionY, SectionRho), land.Yaw));
+        }
+
+        /// <summary>
+        /// Updates a catalog in place (the screen turned, or a new land is on screen): every preset object keeps its
+        /// identity and takes the pose and text of a fresh build, so whoever holds one (the HUD's preset bar, the tour's
+        /// resolved steps, <see cref="GraphRoot.CurrentPreset"/>) flies to the current pose and shows the current text.
+        /// </summary>
+        public static void Refresh(IReadOnlyList<ViewPreset> catalog)
+        {
+            List<ViewPreset> fresh = Build();
+            for (int i = 0; i < catalog.Count; i++)
+            {
+                ViewPreset p = catalog[i];
+                for (int j = 0; j < fresh.Count; j++)
+                {
+                    if (fresh[j].Id != p.Id) continue;
+                    CopyPose(fresh[j], p);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the section preset in place for the cut's year (<see cref="EconomyState.CutYear"/>): its pose behind
+        /// the cut and its title. Cheap enough for every year step of a scrubber drag (the rest of the catalog does not
+        /// depend on the cut). True when its pose changed.
+        /// </summary>
+        public static bool RefreshSection(ViewPreset section)
+        {
+            if (section == null || section.Id != "section") return false;
+            return CopyPose(Section(EconomyStage.Land(), EconomyState.CutYear), section);
+        }
+
+        /// <summary>
+        /// Copies what a catalog build derives from the screen, the year and the land (the pose: target, yaw, pitch,
+        /// distance, portrait width; the title and subtitle) onto another object of the same view. True when the pose
+        /// changed (the camera, if it shows this view, should fly to it).
+        /// </summary>
+        public static bool CopyPose(ViewPreset from, ViewPreset to)
+        {
+            if (from == null || to == null || ReferenceEquals(from, to)) return false;
+            bool moved = to.FixedTarget != from.FixedTarget || to.FixedYaw != from.FixedYaw || to.Pitch != from.Pitch ||
+                         to.Distance != from.Distance || to.PortraitWidth != from.PortraitWidth;
+            to.FixedTarget = from.FixedTarget;
+            to.FixedYaw = from.FixedYaw;
+            to.Pitch = from.Pitch;
+            to.Distance = from.Distance;
+            to.PortraitWidth = from.PortraitWidth;
+            to.Title = from.Title;
+            to.Subtitle = from.Subtitle;
+            return moved;
         }
 
         /// <summary>

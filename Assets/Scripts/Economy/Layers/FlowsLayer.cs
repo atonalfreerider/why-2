@@ -655,6 +655,8 @@ namespace Why.Economy.Layers
 
         void ApplyLabels(Built b, bool live)
         {
+            // new labels (a new year) keep no sideways shift of the old ones: re-frame them even with a still camera
+            framedLabels = int.MinValue;
             for (int k = 0; k < SlotCount; k++) specPresent[k] = false;
             foreach (LabelItem it in b.Labels)
             {

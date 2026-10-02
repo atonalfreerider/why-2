@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using Why.Economy.Land;
@@ -37,8 +38,8 @@ namespace Why.Economy.Layers
         SocialSettings requestedSocial;
 
         /// <summary>
-        /// What the preset catalog was built from (<see cref="EconomyPresets"/>): the cut's year (the section's title and
-        /// pose) and the land on screen (generated subtitles). When either changes the catalog is rebuilt.
+        /// What the preset catalog was last refreshed for (<see cref="EconomyPresets"/>): the cut's year (the section's
+        /// title and pose) and the land on screen (generated subtitles). When either changes the catalog is refreshed in place.
         /// </summary>
         int catalogYear = -1, catalogShown = -1;
 
@@ -71,8 +72,8 @@ namespace Why.Economy.Layers
             requestedYear = LandService.Current?.Year ?? EconomyState.Year;
             requestedSocial = LandService.Current?.Society?.Settings ?? EconomyState.Social;
 
-            // the catalog was first built before the land existed: rebuild it with the land's numbers
-            ViewPresets.Invalidate();
+            // the catalog was first built before the land existed: refresh it (in place) with the land's numbers
+            EconomyPresets.Refresh(ViewPresets.All);
             catalogYear = EconomyState.CutYear;
             catalogShown = LandService.ShownYear;
             root = GraphRoot.Instance;
@@ -80,34 +81,69 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
-        /// The screen turned: the catalog frames its views for the new shape (portrait aims lower), so it is rebuilt and
-        /// the camera, which the root has just sent to the old pose, flies to the new one.
+        /// The screen turned: the catalog frames its views for the new shape (portrait aims lower), so it is refreshed in
+        /// place and the camera, which the root has just sent to the old pose, flies to the new one.
         /// </summary>
         void OnOrientation()
         {
-            ViewPresets.Invalidate();
-            ViewPreset now = root != null && root.CurrentPreset != null ? ViewPresets.Get(root.CurrentPreset.Id) : null;
-            if (now != null && now.FixedTarget.HasValue) root.Rig.FlyTo(now.Pose(), GraphRoot.ReframeSeconds);
+            EconomyPresets.Refresh(ViewPresets.All);
+            ViewPreset now = root != null ? root.CurrentPreset : null;
+            if (now == null) return;
+            Freshen(now);
+            if (now.FixedTarget.HasValue) root.Rig.FlyTo(now.Pose(), GraphRoot.ReframeSeconds);
         }
 
         /// <summary>
-        /// Rebuilds the catalog when the cut's year or the land on screen changed (the section's title and pose, the
-        /// generated subtitles); the section view follows the cut to its new year.
+        /// Follows the cut's year and the land on screen: a new land refreshes the whole catalog in place (the generated
+        /// subtitles); a new cut year (every step of a scrubber drag) only the section preset, and the section view
+        /// follows the cut to its new year over <paramref name="seconds"/>.
         /// </summary>
-        void FollowCatalog()
+        void FollowCatalog(float seconds)
         {
             int year = EconomyState.CutYear, shown = LandService.ShownYear;
             if (year == catalogYear && shown == catalogShown) return;
             bool moved = year != catalogYear;
+            ViewPreset section = CatalogPreset("section");
+            if (shown != catalogShown) EconomyPresets.Refresh(ViewPresets.All);
+            else EconomyPresets.RefreshSection(section);
             catalogYear = year;
             catalogShown = shown;
-            ViewPresets.Invalidate();
             if (!moved || root == null || root.Rig == null || LandView.PresetId != "section") return;
-            root.Rig.FlyTo(ViewPresets.Get("section").Pose(), SectionRefocusSeconds);
+            ViewPreset now = root.CurrentPreset ?? section;
+            Freshen(now);
+            if (now.FixedTarget.HasValue) root.Rig.FlyTo(now.Pose(), seconds);
         }
+
+        /// <summary>The catalog's preset with this id, or null (<see cref="ViewPresets.Get"/> falls back to the first).</summary>
+        static ViewPreset CatalogPreset(string id)
+        {
+            if (id == null) return null;
+            IReadOnlyList<ViewPreset> all = ViewPresets.All;
+            for (int i = 0; i < all.Count; i++)
+            {
+                if (all[i].Id == id) return all[i];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// A preset object that is not the catalog's own (a copy the tour fitted to an anchor) takes the catalog's
+        /// current pose and text. True when its pose changed.
+        /// </summary>
+        static bool Freshen(ViewPreset preset) => preset != null && EconomyPresets.CopyPose(CatalogPreset(preset.Id), preset);
+
+        /// <summary>The root's default flight to a focused preset (s), for the backstop below.</summary>
+        const float FocusSeconds = 2.2f;
 
         public override void OnFocus(ViewPreset preset)
         {
+            // backstop: a preset object held since an older catalog (a copy) flies to the current pose instead
+            if (Freshen(preset) && preset.FixedTarget.HasValue && root != null && root.Rig != null)
+            {
+                root.Rig.FlyTo(preset.Pose(), FocusSeconds);
+            }
+
             ViewSpec spec = EconomyViews.Get(preset?.Id);
             if (spec.Year > 0)
             {
@@ -122,6 +158,11 @@ namespace Why.Economy.Layers
             }
 
             LandView.Apply(spec, heldRound);
+
+            // the section focused from a view of another year (1972): the root flies to the cut of that year, the year
+            // has just gone back, so the flight goes on to the restored year's cut at the focus's pace
+            FollowCatalog(FocusSeconds);
+
             if (spec.Betrayal) LandService.Betrayal(true);
             if (labels != null) labels.DataLabelsHidden = spec.HideRoadLabels;
             ApplySelection();
@@ -157,7 +198,7 @@ namespace Why.Economy.Layers
             }
 
             LandService.Tick();
-            FollowCatalog();
+            FollowCatalog(SectionRefocusSeconds);
             float road = LandView.RoadAlpha;
             Axis.TimeAxisLayer.SceneAlpha = road;
             Humans.Smv.SmvLayer.SceneAlpha = road;

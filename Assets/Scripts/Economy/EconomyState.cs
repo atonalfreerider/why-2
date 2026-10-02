@@ -30,6 +30,16 @@ namespace Why.Economy
         /// <summary>The year the cut stands at and the land shows.</summary>
         public static int Year { get; private set; } = 2025;
 
+        /// <summary>
+        /// While the viewer drags the year scrubber: the year under the pointer, where the cut slides without rebuilding
+        /// the land (-1 otherwise). Releasing the scrubber sets <see cref="Year"/> and clears it. Does not bump
+        /// <see cref="Version"/>: the cut reads it every frame.
+        /// </summary>
+        public static int PreviewYear { get; private set; } = -1;
+
+        /// <summary>The year the cut stands at now: the preview while dragging, else <see cref="Year"/>.</summary>
+        public static int CutYear => PreviewYear >= 0 ? PreviewYear : Year;
+
         /// <summary>The inspected person (index into the population's people), or -1.</summary>
         public static int Person { get; private set; } = -1;
 
@@ -78,6 +88,12 @@ namespace Why.Economy
             if (year == Year) return;
             Year = year;
             Bump();
+        }
+
+        /// <summary>Sets or clears (-1) the scrubber's preview year, clamped to the year range.</summary>
+        public static void SetPreviewYear(int year)
+        {
+            PreviewYear = year < 0 ? -1 : Math.Max(MinYear, Math.Min(MaxYear, year));
         }
 
         public static void SetPerson(int index)
@@ -145,6 +161,7 @@ namespace Why.Economy
         {
             MaxYear = 2026;
             Year = DefaultYear(MaxYear);
+            PreviewYear = -1;
             Person = -1;
             StrategyA = PdStrategy.TitForTat;
             StrategyB = PdStrategy.AlwaysDefect;

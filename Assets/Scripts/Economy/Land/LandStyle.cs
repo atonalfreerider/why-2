@@ -69,6 +69,34 @@ namespace Why.Economy.Land
         /// <summary>Angular gap between neighbouring sectors of a ring (rings 1-4; the gov floor has none).</summary>
         public const float SectorGapDeg = 1.5f;
 
+        /// <summary>
+        /// The strata's own colors (WP6): each tier's hue at low saturation, steel for government (gov, raw clay, make warm
+        /// stone, services cool slate, tech lavender). Treads, risers, the outer wall, tread and strip edges, sector
+        /// outlines and the tier labels take them, so gold is capital's alone: the owners' strips, the towers and plinths,
+        /// the crown and the capital flows.
+        /// </summary>
+        static readonly Color[] tierTints =
+        {
+            new Color(0.72f, 0.76f, 0.84f), new Color(0.80f, 0.64f, 0.60f), new Color(0.76f, 0.73f, 0.67f),
+            new Color(0.66f, 0.74f, 0.80f), new Color(0.76f, 0.71f, 0.88f)
+        };
+
+        /// <summary>
+        /// The roots' colors by the supplier's tier (WP6): the tier tints, a little more saturated (they are the roots
+        /// view's story), never gold: purchases between industries are not capital. Raw keeps matter red and life green.
+        /// </summary>
+        static readonly Color[] rootTints =
+        {
+            new Color(0.72f, 0.78f, 0.90f), new Color(0.95f, 0.50f, 0.42f), new Color(0.90f, 0.80f, 0.62f),
+            new Color(0.56f, 0.80f, 0.92f), new Color(0.78f, 0.66f, 1.00f)
+        };
+
+        /// <summary>A tier's tint (0 gov .. 4 tech).</summary>
+        public static Color TierTint(int tier) => tierTints[Mathf.Clamp(tier, 0, tierTints.Length - 1)];
+
+        /// <summary>The color of a root from a supplier of a tier (0 gov .. 4 tech).</summary>
+        public static Color RootTint(int tier) => rootTints[Mathf.Clamp(tier, 0, rootTints.Length - 1)];
+
         // ------------------------------------------------------------------ 2.2 sectors and their strips
 
         /// <summary>Strip looks: wages (light blue), upkeep (steel), owners (gold; raw: red / green; gov: steel).</summary>

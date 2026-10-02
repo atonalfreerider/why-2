@@ -104,26 +104,9 @@ namespace Why.Economy
         /// </summary>
         public const float FramingRho = 0.7f;
 
-        // ------------------------------------------------------------------ the stations beyond the present
-
-        /// <summary>
-        /// World distance from the present end of the road to the first station (the money circuit), and between
-        /// stations (circuit, mind, games) along the road's direction.
-        /// </summary>
-        public const float FirstStationGap = 6f;
-
-        public const float StationSpacing = 12f;
-
-        /// <summary>World size of a station's diagram (across, up).</summary>
-        public const float StationWidth = 10f;
-
-        public const float StationHeight = 5f;
-
         // ------------------------------------------------------------------ render queues
 
         public const int QueueWall = GraphMaterials.QueueLife;          // the industry wall: under the people
-        public const int QueueThreads = GraphMaterials.QueueHumans + 10;  // money threads: over the people
-        public const int QueueStations = GraphMaterials.QueueOverlay;   // diagrams beyond the present
     }
 
     /// <summary>
@@ -153,27 +136,6 @@ namespace Why.Economy
 
         /// <summary>The line along the top of the wall.</summary>
         public const int WallTop = 42_000;
-
-        /// <summary>Money threads between the wall and the people: + kind (0 wages, 1 capital income, 2 transfers, 3.. spending categories).</summary>
-        public const int Thread = 43_000;
-
-        /// <summary>The money circuit: nodes + node index, links + link index.</summary>
-        public const int CircuitNode = 50_000;
-
-        public const int CircuitLink = 51_000;
-
-        /// <summary>The capture skyline behind the circuit: + company index (the most valuable first).</summary>
-        public const int Capture = 52_000;
-
-        /// <summary>The mind map: spending categories, drives, neurochemicals, axes.</summary>
-        public const int MindCategory = 60_000;
-
-        public const int MindDrive = 60_500;
-        public const int MindChemical = 60_800;
-        public const int MindAxis = 60_900;
-
-        /// <summary>The games: + element index.</summary>
-        public const int Games = 70_000;
 
         // ------------------------------------------------------------------ the land (SPEC 7.3)
 

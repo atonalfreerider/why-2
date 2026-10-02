@@ -12,12 +12,13 @@ using Debug = UnityEngine.Debug;
 namespace Why.Economy.Layers
 {
     /// <summary>
-    /// The land's model (SPEC 8.3): builds the default year's snapshot on the finished population (layout, players,
-    /// money, the season and its controls, the circuit), puts it on screen (<see cref="LandService.Init"/>) and shares it
-    /// under <see cref="LandService.SharedKey"/> for the land layers' Prepare (tier 5). Prints the land's log lines
-    /// (8.8) for the default year and for every other year the first time it is shown, each tagged "(demo)" while its
-    /// model is a stand-in (<see cref="LandDemo"/>); a year's Betrayal line once its (lazy) betrayal season exists. Order 45: tier 4, after the population (30), beside the wall (40).
-    /// Draws nothing (the land layers draw the snapshot).
+    /// The land's model (SPEC 8.3): builds the default year's snapshot on the finished population (layout, players, then
+    /// the money and the season in parallel, the circuit), puts it on screen (<see cref="LandService.Init"/>) and shares it
+    /// under <see cref="LandService.SharedKey"/> for the land layers' Prepare (tier 5). Prints the land's log lines (8.8)
+    /// for the default year and for every other year the first time it is shown (each tagged "(demo)" while its model is a
+    /// stand-in, <see cref="LandDemo"/>); the Society controls line once the four light control seasons, run after the
+    /// load, are done; a year's Betrayal line once its (lazy) betrayal season exists. Order 45: tier 4, after the
+    /// population (30), beside the wall (40). Draws nothing (the land layers draw the snapshot).
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class LandModelLayer : GraphLayer

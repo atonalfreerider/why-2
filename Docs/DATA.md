@@ -120,7 +120,7 @@ view preset id, `anchor`/`highlight` are anchor keys (`matter:`, `epoch:`, `clad
 
 ## The economy scene (`Data/economy/*.json`)
 
-The economy scene (`Assets/Scenes/Economy.unity`, see `Docs/ECONOMY.md`) reads six files, parsed by
+The economy scene (`Assets/Scenes/Economy.unity`, see `Docs/ECONOMY.md`) reads seven files, parsed by
 `Scripts/Economy/Data/EconomyData.cs` (which validates sums and ids and logs what does not add up). They were authored on
 2026-10-01 from BEA, Federal Reserve, BLS, Census, SSA and other tables (most through GitHub mirrors of the primary
 downloads, because the agencies' sites were not reachable), each checked by an independent pass whose fixes are logged in
@@ -175,7 +175,7 @@ This file calibrates the 2025 money circuit. Money moves from industries to inco
 - `groups` covers bottom50, next40, next9 and top1. Each group has households, net worth (DFA 2026Q1), nine flow shares that sum to 1 across groups, `pensionShare` and a 2025 budget.
 - `groupHistory` covers net-worth shares from 1950 to 2026. `groupEquityHistory` covers equity shares from 1989 to 2026.
 - `io.flows` lists 2024 flows of at least $5B, plus the diagonal, as [supplier, user, $B] over the 25 industry ids. `finalDemand` is broken down by commodity; imports are negative.
-- `capture` lists the 25 largest companies by market cap. Market-cap aggregates, `incomeHistory` and `personalHistory` sit alongside it.
+- `capture` lists the 25 largest companies by market cap (`name`, `ticker`, `industry`, `marketCap`, `netIncome`, `revenue`, `fiscalPeriod`, `note`). Market-cap aggregates, `incomeHistory` and `personalHistory` sit alongside it. Each company also carries its US employees for the land's named employers (the wage arcs from its tower): `usEmployees` (thousands), `usEmployeesBasis` (`"10-K FY2025"` when read from the latest annual report's human-capital section, 13 of 25; `"recalled"` otherwise, ±20%, and the tower's card marks it "≈") and `usEmployeesSource` (where the number was read, or why no US split was found).
 
 **Sources**
 
@@ -261,28 +261,37 @@ The mind behind the money. For each simulated life, this file sets the drives, t
 
 ### `Data/economy/games.json`
 
-This file holds the data for the games station and for each person's cooperation: the prisoner's dilemma between people and between tribes. Shares run from 0 to 1.
+The prisoner's dilemma: each simulated person's strategy and cooperation (the lives), and the land's season of tit for tat
+between the players (the `social` block). Shares run from 0 to 1.
 
 **Schema**
 
 - `payoff`: Axelrod's T=5, R=3, P=1, S=0.
 - `strategies`: the engine's seven ids. Each has a one-sentence `rule`, `os` and `populationShare` (they sum to 1), plus `notebook`, `anchor` and `source`. TitForTat, GenerousTitForTat and WinStayLoseShift are `higher`. AlwaysCooperate, AlwaysDefect, Grim and Random are `default`. AlwaysCooperate is kind, but it never weighs evidence about the other player or curates its network.
 - `shadow`, `tournaments`, `lessons` and `empirical`: theory and lab benchmarks.
-- `tribes`: `partyId` rows [year, {dem, rep, ind}] for 1952–2025, at most 4 years apart, and GSS `trust` for 1972–2024. Further fields cover trust by age, cohort and party, polarization, cross-party marriage and sorting.
-- `spec`: numbers only (the loader reads a `Dictionary<string,double>`). Their explanations are in `specNotes`.
+- `tribes`: `partyId` rows [year, {dem, rep, ind}] for 1952–2025, at most 4 years apart, and GSS `trust` for 1972–2024 (with trust by age, cohort and party). `distrustIndex` is the affective-polarization series the season's party term scales with (`TribesData.AffectivePolarization`). Further fields cover polarization, cross-party marriage and sorting.
+- `spec`: numbers only (the loader reads a `Dictionary<string,double>`), read by the lives (noise, continuation, distrust, party inheritance). Their explanations are in `specNotes`.
 - `checks`: exact engine values for regression.
+- `social` (the land's season, `Land/SocialSeason.cs`; spec 5.1-5.6):
+  - the season: `rounds` 96, `pairsPerPlayer` 10, `noise` 0.02, `continuation` 0.95, `roundsPerSecond` 4, `detections` (the coalition rounds 0, 24, 48, 72, 96), `incidentRound` 48 (the betrayal);
+  - the levers: `forgiveness` 0.3333 (generous tit for tat, applied to each player's share of adults on the higher OS, `higherOsReason` 0.5), `tribalMemory` 0.5 (toward the other party the default OS repays what its own side received), `learning` 0.10 and `partnerChoice` 1.0 (partner choice), `affinityBound` 2.0;
+  - `affinity`: the opening's terms (same tribe through `tribeMatrix`, same group, adjacent and far rungs, generations, industry and tier, owner with worker, a class slope) and the GSS trust offsets by age (`ageTrustLogit`);
+  - `exposure`: how much more often a player deals with its own industry, tier, group and generation;
+  - `strangerCooperation`: the lab's stranger cooperation (Sally 1995, 0.474) at its era's trust (0.40), which fixes the opening level of every year from that year's GSS trust;
+  - `notes`: the source or the word "design parameter" for each value.
 
 **Sources**
 
-- Axelrod (1980, 1984), Nowak and Sigmund, and Dal Bo and Frechette.
+- Axelrod (1980, 1984), Nowak and Sigmund (1992), and Dal Bo and Frechette.
 - Strategy-method type shares from Thoni and Volk (2018).
 - GSS 1972–2024 microdata; ANES 1952–1968 and Pew, both recalled; Gallup 2025.
+- The social block: Balliet, Wu and De Dreu (2014, in-group favoritism d = 0.32); Iyengar and Westwood (2015) and the ANES thermometers (party); Lickel et al. (2006, vicarious retribution); Rand, Arbesman and Christakis (2011, partner choice); Sally (1995).
 
 **Modeling notes**
 
 - **Strategy shares:** the research mix maps conditional cooperators (0.61) onto the reciprocal rules and free riders onto AlwaysDefect (0.20). The higher-OS share comes to 0.52.
-- **Distrust (0.22):** in-group favoritism d = 0.32, scaled by the SD of an opening move at 0.74 cooperation, gives a 0.14 drop. Dividing by the share of opening moves the penalty can hit (0.643) gives 0.22. As a check, the C# TribeGame then cooperates 0.265 less than person-vs-person play of the same mix, inside the discontinuity band of 0.20–0.40.
-- **Other spec values:** noise 0.02, continuation 0.95, tribeSize 24, alphaSway 0.25 (anchored on Asch conformity) and mutation 0.01.
+- **Distrust (0.22):** in-group favoritism d = 0.32, scaled by the SD of an opening move at 0.74 cooperation, gives a 0.14 drop. Dividing by the share of opening moves the penalty can hit (0.643) gives 0.22.
+- **The season** is a mean-field model of crowds: a tie carries the share of one player's people who cooperate with the other's. `learning`, `partnerChoice`, `tribalMemory`, `pairsPerPlayer` and the exposure weights are design parameters, not measurements.
 
 **Caveats**
 
@@ -325,3 +334,51 @@ This file holds 54 household time series, mostly 1946-2026, used to calibrate Ec
 - DPI is the pre-update vintage.
 - WID shares are flat after 2022 (nowcast).
 - These series alone do not test "few control their life path". Combine self-employment, saving by percentile and wealth by age.
+
+### `Data/economy/groups.json`
+
+The twelve 2026 socioeconomic groups the land's players are cut from (spec 3.1-3.2; `Land/PlayerCensus.cs`). Every adult
+alive in a year lands in exactly one group by a priority rule on its own record (`PersonYear` fields only); thresholds are
+relative (a rank, a wealth group, the year's median earnings), so the same rule works for 1950 and 2025.
+
+**Schema**
+
+- `rule`: the priority rule in eight lines (the 1%; the self-employed: business owners or gig; employees: PMC, working poor, public servants, office, frontline; the non-employed: Social Security or comfortable retirees; a non-employed spouse of an employed adult takes the spouse's group, Erikson's dominance rule; students or out of work; children follow their mother, else their father).
+- `thresholds`: `pmcRank` 0.80, `poorRank` 0.30, `retireAge` 62, `ssDependence` 0.5, `youngAge` 25.
+- `officeIndustries` (11 ids) and `governmentIndustries` (federal, state_local).
+- `cells`: a player is a cell of group × anchor × party with at least `minLines` 10 lines, or `richMinLines` 3 lines holding `richWealthShare` 1% of national net worth; smaller cells join their tier, then their group's rest.
+- `generations`: Silent, Boomer, Gen X, Millennial, Gen Z by birth year (the season's generation affinity).
+- `pseudoAnchors`: where the groups without an employer stand: pensions (comfortable retirees, at finance), Social Security (at federal), schools (students, at education), the safety net (out of work, at state and local).
+- `groups`: twelve entries with `id`, `name`, `short`, `rung` (0-5, the distance from the bowl), `role` (own, work, dependent), the `rule` in one line, the `literature` share (%), `model2025` (the model's share of adults in 2025) and `where` (where the group stands on the land).
+- `sources`: each with a mark: `v` verified, `recalled`.
+
+**Sources**
+
+- Pew Research Center (2024), lower / middle / upper income 30 / 51 / 19 [v]; BLS Contingent and Alternative Employment Arrangements, July 2023 (independent contractors 7.4% of employed) [v]; SSA fact sheet (39% of men and 44% of women 65+ get half or more of their income from Social Security) [v]; Gilbert's class model [v]; Erikson (1984), the dominance rule [recalled]; Dingel and Neiman (2020), jobs that can be done at home [recalled].
+
+**Modeling notes**
+
+- Each group's model share for 2025 sits inside or next to its literature range (PMC 19.7% against 15-19%, frontline 21.6% against 20-25%, Social Security retirees 11.3% against 9-11%).
+- One model change came with the groups: the self-employed are never assigned to a government industry (the lives' record writer).
+
+### `Data/economy/tour.json`
+
+The economy's guided tour, the same schema as `Data/tour.json` (`title`, `steps[]` with `id`, `title`, `text`, `focus`,
+`anchor`, `highlight`, `hold`): twelve steps, the road, the cut, the land, the roots, capture, the people, the rivers, the
+mind, the society, one betrayal, 1972 and "any year". `focus` is an economy preset id (the year steps use the keyless
+presets `roots`, `betrayal` and `y1972`); anchors are the land's keys (`land:cut`, `land:tier:<tier>`,
+`land:root:<from>><to>`, `land:tower:<ticker>`, `land:group:<group>`, `land:river:<category>`, `land:coalition:<k>`,
+`land:owners`, `land:crown`) and `smv:us`. Every number in a step's text is one the scene computes and prints in its log
+at the same precision (`116 players`, `0.686`, `$21.63T`), and the check script fails the tour when one is missing.
+
+### Expected values and how they were measured
+
+The land's log lines (`[Why] Land`, `Roots`, `Players`, `Money`, `Pools`, `Society`, `Society controls`, `Betrayal`,
+`Facts`, `Land checks`) are compared with expected values and tolerances by the redesign's check script
+(`landcheck.py` and its `landcheck_expected.json`, outside the repository). The spec's first values came from Python
+prototypes run on an earlier dump of the lives (119 players). After the people's package fixed the census the lives give
+116 players, so the 2025 values of the Players, Money (imports and falls), Pools and Society lines were re-measured on the
+C# build itself (harness runs of the merged tree) and replaced the prototype's; the originals are
+kept beside them for reference. The Land and Roots lines were not re-measured: they still match the prototypes (fills
+within 1 point, offsets and roots exact). Every land builder prints a checksum, and two runs print the same ones.
+The tour and `Docs/ECONOMY.md` quote the re-measured numbers.

@@ -84,10 +84,10 @@ namespace Why.Economy.Layers
         /// narrower and dimmer, so the groups the season organizes read as bright blue webs and their dealings across as
         /// thin violet bridges. Feuds stay grey and broken in either.
         /// </summary>
-        static readonly Color InGroup = new Color(0.42f, 0.68f, 1.0f), OutGroup = new Color(0.74f, 0.42f, 1.0f);
+        static readonly Color InGroup = new Color(0.22f, 0.52f, 1.0f), OutGroup = new Color(0.78f, 0.36f, 1.0f);
 
         /// <summary>An out-group tie's share of the alpha and the width (px) of an in-group tie of the same cooperation.</summary>
-        const float OutGroupAlpha = 0.6f, OutGroupPx = 0.7f;
+        const float OutGroupAlpha = 0.75f, OutGroupPx = 0.7f;
 
         /// <summary>The ties' legend under the bowl's far rim (society views): size, priority, place (land-local).</summary>
         const float LegendPx = 11f, LegendPriority = 25f;
@@ -95,6 +95,18 @@ namespace Why.Economy.Layers
         static readonly Vector3 LegendLocal = new Vector3(0, LandStyle.RimY + 0.25f, LandStyle.RimR + 0.55f);
 
         const string LegendText = "Ties (the strongest dealings): blue within a coalition · violet across · grey, broken: feud";
+
+        /// <summary>The legend of a season with a betrayal: the echo's ties are white (<see cref="EchoColor"/>).</summary>
+        const string EchoLegendText = LegendText + " · white: the ties the betrayal moved";
+
+        /// <summary>
+        /// An in-group tie's intensity stays at or below this (WP6 review): the saturated blue at the satisfied glow's 1.6
+        /// bloomed to near-white, and in-group against out-group read as white against violet.
+        /// </summary>
+        const float InGroupMaxIntensity = 1.2f;
+
+        /// <summary>A betrayal's echo ties: the pain's white, so the echo reads by hue as well as by width and brightness.</summary>
+        static readonly Color EchoColor = new Color(1f, 1f, 1f);
 
         /// <summary>A member's brightened disc ring: the half facing the bowl (its rivulet side).</summary>
         const float BrightPx = 1.2f;
@@ -274,9 +286,20 @@ namespace Why.Economy.Layers
 
         LandSnapshot blockingFor;
 
-        // a change of season (the betrayal view's, the viewer's own) built on a worker, and the season it is for
+        /// <summary>
+        /// A season's content built on a worker (the other season of the view toggle, built ahead; or the viewer's own
+        /// betrayal), with the season and snapshot it is for.
+        /// </summary>
         Task<Content> seasonBuild;
+
         SocialSeasonResult seasonFor;
+        LandSnapshot seasonSnap;
+
+        /// <summary>
+        /// The current snapshot's content of the season not on screen (the betrayal's while the society shows, the society's
+        /// while the betrayal does), built ahead on a worker, so a view's change of season swaps it in at once.
+        /// </summary>
+        Content spare;
 
         // the viewer's own betrayal (a season with an incident on a tie they chose)
         Task<SocialSeasonResult> incidentTask;
@@ -321,9 +344,24 @@ namespace Why.Economy.Layers
             labelSystem = ctx.Labels;
             prepared = Build(model.Data, s, s.Society);
             Debug.Log("[Why] SocialLayer.Prepare " + sw.Elapsed.TotalMilliseconds.ToString("0", LandFacts.Ci) + " ms: " +
-                      prepared.Vertices.ToString(LandFacts.Ci) + " vertices of coalitions over 5 detections (the shown one uploaded), ties up to " +
+                      prepared.Vertices.ToString(LandFacts.Ci) + " vertices of coalitions over " + prepared.Fills.Length.ToString(LandFacts.Ci) +
+                      " detections (only the shown one uploaded, when shown: " + DetectionRange(prepared) + " vertices), ties up to " +
                       (s.Society.PairA.Length * (LandStyle.TiePoints + 2) * 2).ToString(LandFacts.Ci) + " vertices a round; " +
                       Summary(prepared));
+        }
+
+        /// <summary>The fewest and most vertices of one detection's bands and rings ("3612-3790"): what is uploaded at a time.</summary>
+        static string DetectionRange(Content c)
+        {
+            int lo = int.MaxValue, hi = 0;
+            for (int d = 0; d < c.Fills.Length; d++)
+            {
+                int v = c.Fills[d].VertexCount + c.Lines[d].VertexCount;
+                lo = Math.Min(lo, v);
+                hi = Math.Max(hi, v);
+            }
+
+            return c.Fills.Length == 0 ? "0" : lo.ToString(LandFacts.Ci) + "-" + hi.ToString(LandFacts.Ci);
         }
 
         public override void Upload(GraphContext ctx)
@@ -543,7 +581,8 @@ namespace Why.Economy.Layers
         /// <summary>
         /// The season on screen follows the view: the betrayal view's (when its lazy season arrives), the default's, or the
         /// viewer's own betrayal (queued on a tie through <see cref="EconomyState.QueueIncident"/>, run on a worker, then
-        /// played from the round before it). A change of season rebuilds the coalitions here (a few hundred vertices).
+        /// played from the round before it). A season's content is built on a worker: the view's two seasons ahead of need
+        /// (<see cref="BuildAhead"/>), the viewer's own when it is asked for.
         /// </summary>
         void FollowSeason()
         {
@@ -581,27 +620,77 @@ namespace Why.Economy.Layers
                 LandService.Betrayal(false);
             }
 
-            // a change of season builds its content on a worker (WP6: it was built here, on the main thread) and swaps it in
-            // when done, unless the season wanted changed meanwhile
+            // a change of season: the view's seasons (the society's, the betrayal's) are built ahead on a worker and swapped in
+            // at once (a preset shows its season from its first frame; waited for if the build is not done yet), the viewer's
+            // own betrayal is swapped in when its worker build is done (WP6: these were built here, on the main thread)
             SocialSeasonResult want = userSeason ?? SeasonOf(c.Snapshot);
-            if (seasonBuild != null && seasonBuild.IsCompleted)
+            if (ReferenceEquals(want, c.Season))
+            {
+                BuildAhead(c);
+                return;
+            }
+
+            if (spare != null && ReferenceEquals(spare.Season, want) && ReferenceEquals(spare.Snapshot, c.Snapshot))
+            {
+                Content s = spare;
+                spare = c;
+                Swap(s, 0f);
+                return;
+            }
+
+            if (!ReferenceEquals(seasonFor, want) || !ReferenceEquals(seasonSnap, c.Snapshot)) StartSeason(c.Snapshot, want);
+            if (!seasonBuild.IsCompleted && ReferenceEquals(want, userSeason)) return;
+            Task<Content> task = seasonBuild;
+            seasonBuild = null;
+            seasonFor = null;
+            seasonSnap = null;
+            Content built;
+            try
+            {
+                built = task.GetAwaiter().GetResult();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("[Why] SocialLayer: a season's build failed: " + e.GetBaseException());
+                return;
+            }
+
+            spare = c;
+            Swap(built, 0f);
+        }
+
+        /// <summary>
+        /// Builds the content of the view toggle's other season on a worker (the betrayal's while the society shows, and back)
+        /// and keeps it as <see cref="spare"/> when done; nothing while the viewer's own betrayal is on screen.
+        /// </summary>
+        void BuildAhead(Content c)
+        {
+            LandSnapshot snap = c.Snapshot;
+            if (seasonBuild != null && seasonBuild.IsCompleted && ReferenceEquals(seasonSnap, snap))
             {
                 Task<Content> t = seasonBuild;
                 seasonBuild = null;
                 seasonFor = null;
+                seasonSnap = null;
                 if (t.IsFaulted) Debug.LogError("[Why] SocialLayer: a season's build failed: " + t.Exception?.GetBaseException());
-                else if (ReferenceEquals(t.Result.Season, want) && ReferenceEquals(t.Result.Snapshot, c.Snapshot))
-                {
-                    Swap(t.Result, 0f);
-                    return;
-                }
+                else spare = t.Result;
             }
 
-            if (ReferenceEquals(want, c.Season) || ReferenceEquals(want, seasonFor)) return;
-            seasonFor = want;
-            LandSnapshot snap = c.Snapshot;
+            if (userSeason != null || snap.Betrayal == null) return;
+            SocialSeasonResult other = ReferenceEquals(c.Season, snap.Society) ? snap.Betrayal : snap.Society;
+            if (!ReferenceEquals(c.Season, snap.Society) && !ReferenceEquals(c.Season, snap.Betrayal)) return;
+            if (spare != null && ReferenceEquals(spare.Season, other) && ReferenceEquals(spare.Snapshot, snap)) return;
+            if (seasonBuild != null && ReferenceEquals(seasonFor, other) && ReferenceEquals(seasonSnap, snap)) return;
+            StartSeason(snap, other);
+        }
+
+        /// <summary>Starts a season's content build on a worker (a build for another season or snapshot is left to run out).</summary>
+        void StartSeason(LandSnapshot snap, SocialSeasonResult season)
+        {
+            seasonFor = season;
+            seasonSnap = snap;
             EconomyData data = model.Data;
-            seasonBuild = Task.Run(() => Build(data, snap, want));
+            seasonBuild = Task.Run(() => Build(data, snap, season));
         }
 
         /// <summary>
@@ -671,6 +760,7 @@ namespace Why.Economy.Layers
             }
         }
 
+        /// <summary>Destroys one renderer with its mesh and material (null-safe) and clears the reference.</summary>
         static void ReleaseOne(ref MeshRenderer r)
         {
             if (r == null) return;
@@ -923,6 +1013,7 @@ namespace Why.Economy.Layers
                 float alpha = Mathf.Lerp(LandStyle.FeudAlpha, LandStyle.TieAlpha0 + LandStyle.TieAlphaMutual * mutual, state) * dim * dealings;
                 float intensity = Mathf.Lerp(LandStyle.FeudIntensity, LandStyle.TieIntensity0 + LandStyle.TieIntensityMutual * mutual, state);
                 if (!mine && state >= 1f && c.Satisfied[round][k]) intensity = Mathf.Max(intensity, LandStyle.SatisfiedIntensity);
+                if (!mine && inGroup) intensity = Mathf.Min(intensity, InGroupMaxIntensity);
                 float px = LandStyle.TieBasePx + LandStyle.TieMutualPx * mutual;
                 if (!mine && !inGroup)
                 {
@@ -934,6 +1025,7 @@ namespace Why.Economy.Layers
                 {
                     if (hit)
                     {
+                        color = Color.Lerp(FeudColor, EchoColor, Mathf.Max(state, 0.5f));
                         alpha = Mathf.Max(alpha, 0.8f);
                         intensity = Mathf.Max(intensity, EchoIntensity);
                         px += EchoPx;
@@ -981,9 +1073,15 @@ namespace Why.Economy.Layers
             }
         }
 
-        // the strong ties of the round (reused buffers, main thread)
+        /// <summary>Per pair: drawn as a strong tie at the round (<see cref="MarkStrong"/>; reused, main thread).</summary>
         bool[] strong = Array.Empty<bool>();
+
+        /// <summary>
+        /// Per player, its <see cref="StrongTies"/> strongest pairs at the round and their dealings, strongest first
+        /// (player p's at p × StrongTies; reused, main thread).
+        /// </summary>
         int[] topPair = Array.Empty<int>();
+
         float[] topValue = Array.Empty<float>();
 
         /// <summary>
@@ -1245,7 +1343,16 @@ namespace Why.Economy.Layers
             labelDetection = detection;
             labelsShownVersion = LandView.LabelsVersion;
             bool shown = LandView.LabelsShown(LandGroup.Coalitions);
-            if (legend != null) legend.Hidden = !shown;
+            if (legend != null)
+            {
+                legend.Hidden = !shown;
+                string text = c.Season.Incident.HasValue ? EchoLegendText : LegendText;
+                if (legend.Text != text)
+                {
+                    if (labelSystem != null) labelSystem.SetText(legend, text);
+                    else legend.Text = text;
+                }
+            }
             List<CoalitionLabel> list = detection >= 0 ? c.Labels[detection] : new List<CoalitionLabel>();
             for (int i = 0; i < Math.Max(list.Count, labels.Count); i++)
             {

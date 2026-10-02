@@ -17,8 +17,10 @@ namespace Why.Economy.Layers
     /// sectors' wage strips, which the patches tile; thin arcs from named employers' towers with a gold dot at the
     /// tower; gold business income from the gold strips to the plinths; steel transfer fountains from the government
     /// floor; gold capital income falling from the crown; dashed borrowing through banking) and the crown's capital
-    /// (payouts rising from every private sector's gold strip, payouts abroad over the far rim, saving rising from the
-    /// savers, credit and investment leaving the crown). On the ground: every player's rivulet (ice for the dollars spent
+    /// (payouts rising from the private sectors' gold strips as a few streams, payouts abroad over the far rim, saving
+    /// rising from the savers, credit and investment leaving the crown). The arcs to players are drawn one per player in
+    /// the people view and one per kind, group and cluster of players on the rim in every other view (WP6: hundreds of
+    /// arcs buried the land); widths stay dollars, and a note over the crown and the flows' hover text say so. On the ground: every player's rivulet (ice for the dollars spent
     /// from fear, rose for desire, steel for taxes, never blended), the creeks, the lip canal's eight lanes (BASE,
     /// SELFISH, MATING, taxes, abroad) streaming around the rim to their falls, the waterfalls over the lip, the rivers
     /// running down the terraces and their distributaries along the rings into the pools, the steel tax river to the
@@ -45,6 +47,9 @@ namespace Why.Economy.Layers
         static readonly LandGroup[] Groups = { LandGroup.Income, LandGroup.CapitalFlows, LandGroup.Rivers, LandGroup.Glitter, LandGroup.Taxes };
 
         const int GIncome = 0, GCapital = 1, GRivers = 2, GGlitter = 3, GTaxes = 4, GroupCount = 5;
+
+        /// <summary>The groups in the air that reach players (income, capital): the first two, each drawn per player and aggregated.</summary>
+        const int AirGroups = 2;
 
         /// <summary>
         /// Only the glitter is additive light: the arcs are alpha-blended (hundreds of additive arcs over the bowl bloom
@@ -94,16 +99,17 @@ namespace Why.Economy.Layers
         const float LabelPx = 12f, BracketPx = 11f, ChemPx = 10f;
 
         const float FallPriority = 28, BracketPriority = 26, TaxPriority = 26, AbroadPriority = 26, ChemPriority = 16,
-            FanPriority = 32, NotePriority = 9;
+            FanPriority = 32, NotePriority = 21;
 
         /// <summary>
-        /// The note on the aggregated arcs (WP6), above the crown's own label (land-local height above the crown ring): the
-        /// views that show the capital flows' labels say which arcs are drawn per group, so the widths read honestly. Its
-        /// priority is under every sector's (10 and up): it takes the room the land's own labels leave.
+        /// The note on the aggregated arcs (WP6): the views that show the capital flows' labels say which arcs are drawn per
+        /// group, so the widths read honestly. It is a caption at the top of the frame (this share of the screen's height
+        /// from its top edge, at the crown's depth), where the land leaves room at both aspects (WP6 review: over the crown it
+        /// met the crown's and the towers' labels, and under every sector's priority it never won a place).
         /// </summary>
-        const float NoteLift = 0.5f;
+        const float NoteFromTop = 0.12f;
 
-        const string NoteText = "Gold arcs aggregated: payouts by sector, capital income and saving by group";
+        const string NoteText = "Arcs drawn per group and cluster of players, not per player; payouts as sector streams";
 
         /// <summary>Category names on the falls.</summary>
         static readonly string[] LaneTitle = { "Necessities", "Escapism", "Jeopardy", "Status", "Growth", "Collective", "Taxes", "Abroad" };
@@ -155,12 +161,12 @@ namespace Why.Economy.Layers
             /// group's players on the rim (<see cref="Aggregated"/>, every other view). The sector-level capital arcs
             /// (payouts, investment, credit, abroad) and the patches' borders stay in <see cref="Lines"/>.
             /// </summary>
-            public readonly LineMeshBuilder[] Detail = new LineMeshBuilder[2], Aggregated = new LineMeshBuilder[2];
+            public readonly LineMeshBuilder[] Detail = new LineMeshBuilder[AirGroups], Aggregated = new LineMeshBuilder[AirGroups];
 
             public readonly List<LabelItem> Labels = new List<LabelItem>(24);
             public readonly List<Anchor> Anchors = new List<Anchor>(24);
-            public int Sparkles, Undrawn, DetailArcs, AggregatedArcs, Streams;
-            public double Ms, UndrawnDollars;
+            public int Sparkles, Undrawn, DetailArcs, AggregatedArcs, Streams, CrownLoops;
+            public double Ms, UndrawnDollars, CrownLoopDollars;
 
             /// <summary>Reused point lists (no allocation per shape).</summary>
             public readonly List<Vector3> A = new List<Vector3>(400), B = new List<Vector3>(400);
@@ -176,7 +182,7 @@ namespace Why.Economy.Layers
                     Fills[g] = new SurfaceMeshBuilder();
                 }
 
-                for (int g = 0; g < 2; g++)
+                for (int g = 0; g < AirGroups; g++)
                 {
                     Detail[g] = new LineMeshBuilder(8192);
                     Aggregated[g] = new LineMeshBuilder(2048);
@@ -189,14 +195,14 @@ namespace Why.Economy.Layers
                 {
                     int n = 0;
                     for (int g = 0; g < GroupCount; g++) n += Lines[g].VertexCount + Fills[g].VertexCount;
-                    for (int g = 0; g < 2; g++) n += Detail[g].VertexCount + Aggregated[g].VertexCount;
+                    for (int g = 0; g < AirGroups; g++) n += Detail[g].VertexCount + Aggregated[g].VertexCount;
                     return n;
                 }
             }
 
             /// <summary>Vertices of a group's renderers (its share of the detail and aggregated arcs included).</summary>
             public int GroupVertices(int g) =>
-                Lines[g].VertexCount + Fills[g].VertexCount + (g < 2 ? Detail[g].VertexCount + Aggregated[g].VertexCount : 0);
+                Lines[g].VertexCount + Fills[g].VertexCount + (g < AirGroups ? Detail[g].VertexCount + Aggregated[g].VertexCount : 0);
         }
 
         /// <summary>A label of the build: its slot (stable across years), text, world point, group, ids, whether it exists.</summary>
@@ -219,7 +225,7 @@ namespace Why.Economy.Layers
             public readonly MeshRenderer[] Lines = new MeshRenderer[GroupCount], Fills = new MeshRenderer[GroupCount];
 
             /// <summary>The arcs to players, income and capital: per player (the people view) and aggregated (the others).</summary>
-            public readonly MeshRenderer[] Detail = new MeshRenderer[2], Aggregated = new MeshRenderer[2];
+            public readonly MeshRenderer[] Detail = new MeshRenderer[AirGroups], Aggregated = new MeshRenderer[AirGroups];
 
             public Built Source;
             public float Fade = 1;
@@ -288,7 +294,8 @@ namespace Why.Economy.Layers
             b.Vertices.ToString(LandFacts.Ci) + " vertices (" + Breakdown(b) + "); " + b.Money.Paths.Count.ToString(LandFacts.Ci) + " paths, " +
             (b.Money.Patches?.Length ?? 0).ToString(LandFacts.Ci) + " patches, " + b.Sparkles.ToString(LandFacts.Ci) + " sparkles; " + b.Streams.ToString(LandFacts.Ci) +
             " payout streams into the crown; arcs to players: " + b.DetailArcs.ToString(LandFacts.Ci) + " per player (people view; " + b.Undrawn.ToString(LandFacts.Ci) + " below $5B not drawn, " +
-            LandFacts.Money(b.UndrawnDollars) + "), " + b.AggregatedArcs.ToString(LandFacts.Ci) + " by group and source (other views), " +
+            LandFacts.Money(b.UndrawnDollars) + "), " + b.AggregatedArcs.ToString(LandFacts.Ci) + " by kind, group and rim cluster (sources averaged; other views; " +
+            b.CrownLoops.ToString(LandFacts.Ci) + " from the crown back to it not drawn, " + LandFacts.Money(b.CrownLoopDollars) + "), " +
             b.Year.ToString(LandFacts.Ci) + " (build " + b.Ms.ToString("0", LandFacts.Ci) + " ms)";
 
         static float SlotPriority(int k) =>
@@ -365,7 +372,7 @@ namespace Why.Economy.Layers
                     float a = LandView.Alpha(Groups[i]) * g.Fade * (i == GIncome || i == GCapital ? dim : 1f);
                     Show(g.Lines[i], a);
                     Show(g.Fills[i], a);
-                    if (i >= 2) continue;
+                    if (i >= AirGroups) continue;
                     Show(g.Detail[i], a * detail);
                     Show(g.Aggregated[i], a * (1f - detail));
                 }
@@ -396,9 +403,25 @@ namespace Why.Economy.Layers
             framedCam = rig.Version;
             framedW = Screen.width;
             framedLabels = shownKey;
-            bool changed = false;
+            bool changed = PlaceNote(rig.Cam);
             foreach (LabelSpec spec in specs) changed |= LandViewLayer.KeepInFrame(rig.Cam, spec, 0, labelSystem.Padding);
             if (changed) labelSystem.MarkDirty();
+        }
+
+        /// <summary>The note's home (the crown, world): the depth its caption stands at.</summary>
+        Vector3 noteHome;
+
+        /// <summary>Puts the note on the aggregated arcs at the top center of the frame (<see cref="NoteFromTop"/>); true when it moved.</summary>
+        bool PlaceNote(Camera cam)
+        {
+            LabelSpec note = specs[SlotNote];
+            if (note == null) return false;
+            float depth = cam.WorldToScreenPoint(noteHome).z;
+            if (depth <= cam.nearClipPlane) return false;
+            Vector3 at = cam.ScreenToWorldPoint(new Vector3(0.5f * Screen.width, (1f - NoteFromTop) * Screen.height, depth));
+            if ((at - note.Data).sqrMagnitude < 1e-8f) return false;
+            note.Data = at;
+            return true;
         }
 
         static void Show(MeshRenderer r, float alpha)
@@ -477,7 +500,7 @@ namespace Why.Economy.Layers
                 }
 
                 if (b.Lines[i].VertexCount > 0) g.Lines[i] = Lines(name + " lines", b.Lines[i], Queues[i] + 1, Additive[i], i == GGlitter ? 0f : 1f);
-                if (i >= 2) continue;
+                if (i >= AirGroups) continue;
                 if (b.Detail[i].VertexCount > 0) g.Detail[i] = Lines(name + " per player", b.Detail[i], Queues[i] + 1, false, 1f);
                 if (b.Aggregated[i].VertexCount > 0) g.Aggregated[i] = Lines(name + " by group", b.Aggregated[i], Queues[i] + 1, false, 1f);
             }
@@ -724,6 +747,7 @@ namespace Why.Economy.Layers
                 if (live) labelSystem?.SetText(spec, it.Text);
                 else spec.Text = it.Text;
                 spec.Data = it.World;
+                if (it.Slot == SlotNote) noteHome = it.World;
                 spec.AnchorKey = it.Anchor;
                 spec.Ids = it.Ids;
                 specGroup[it.Slot] = it.Group;
@@ -834,10 +858,10 @@ namespace Why.Economy.Layers
                 }
 
                 bool income = IsIncome(f.Kind);
-                LineMeshBuilder lines = perPlayer ? b.Detail[income ? 0 : 1] : b.Lines[GCapital];
+                LineMeshBuilder lines = perPlayer ? b.Detail[income ? GIncome : GCapital] : b.Lines[GCapital];
                 bool gold = ArcColor(f.Kind) == EconomyStyle.Capital;
                 int id = ArcId(f.Kind, f.Kind == FlowKind.Saving ? f.From : f.To);
-                ArcLine(lines, pts, f.Points, f.Dollars, perB, LandMath.Tint(ArcColor(f.Kind), KindAlpha(f.Kind)), id, gold ? GoldIntensity : ArcIntensity,
+                ArcLine(lines, pts, perPlayer ? Thin(f.Points, DetailPoints) : f.Points, f.Dollars, perB, LandMath.Tint(ArcColor(f.Kind), KindAlpha(f.Kind)), id, gold ? GoldIntensity : ArcIntensity,
                     f.Dashed, f.Kind == FlowKind.PayoutAbroad);
                 if (perPlayer) b.DetailArcs++;
                 if (f.Kind == FlowKind.WagesCompany)
@@ -870,15 +894,16 @@ namespace Why.Economy.Layers
         /// group and cluster of the group's receiving players (by place, then by angle: <see cref="AggregateRunDeg"/>,
         /// <see cref="AggregateSpanDeg"/>), from the dollar-weighted mean of its sources (the patches, strips, the crown,
         /// banking or the floor near the cluster) to the dollar-weighted mean of its players (angles averaged on the circle,
-        /// radii and heights linearly), as wide as their summed dollars. Nothing is dropped: the arcs below $5B a player are
-        /// in their group's. Widths stay dollars; the crown's note says the arcs are aggregated.
+        /// radii and heights linearly), as wide as their summed dollars. The arcs below $5B a player are in their group's; a
+        /// cluster whose both ends sit on the crown (the capital-only 1%'s capital income and saving) has no arc to draw and
+        /// is counted in the log. Widths stay dollars; the crown's note and the flows' hover text say the arcs are aggregated.
         /// </summary>
         static void Aggregate(Built b, MoneyFlows m, PlayerSet players, float perB)
         {
             Player[] ps = players?.Players;
             if (ps == null) return;
 
-            // bins by (kind, source, group, place), in key order; each holds its paths in the model's order
+            // bins by (kind, group, place), in key order; each holds its paths in the model's order (sources are averaged)
             SortedDictionary<long, List<FlowPath>> bins = new SortedDictionary<long, List<FlowPath>>();
             foreach (FlowPath f in m.Paths)
             {
@@ -969,12 +994,12 @@ namespace Why.Economy.Layers
             }
         }
 
-        /// <summary>One stream into the crown: from a point to the crown ring at its angle, a gentle rise (20 points).</summary>
+        /// <summary>One stream into the crown: from a point to the crown ring at its angle, a gentle rise (<see cref="AggregatePoints"/> points).</summary>
         static void Stream(Built b, Vector3 from, double dollars, float perB, int id)
         {
             Vector3 to = StreamEnd(from);
             Vector3 control = new Vector3(0.5f * (from.x + to.x), Mathf.Max(from.y, to.y) + StreamLift, 0.5f * (from.z + to.z));
-            Vector3[] pts = new Vector3[LandStyle.ArcPoints];
+            Vector3[] pts = new Vector3[AggregatePoints];
             for (int k = 0; k < pts.Length; k++) pts[k] = LandMath.Bezier(from, control, to, k / (float)(pts.Length - 1));
             ArcLine(b.Lines[GCapital], b.Points, pts, dollars, perB, LandMath.Tint(EconomyStyle.Capital, ArcAlpha), id, GoldIntensity, false);
             b.Streams++;
@@ -994,24 +1019,53 @@ namespace Why.Economy.Layers
             foreach (FlowPath f in run) dollars += f.Dollars;
             if (dollars <= 0) return;
             Vector3 from = PolarMean(run, true, dollars), to = PolarMean(run, false, dollars);
-            if (new Vector2(to.x - from.x, to.z - from.z).magnitude < AggregateMinChord && Mathf.Abs(to.y - from.y) < AggregateMinChord) return;
+            if (new Vector2(to.x - from.x, to.z - from.z).magnitude < AggregateMinChord && Mathf.Abs(to.y - from.y) < AggregateMinChord)
+            {
+                b.CrownLoops++;
+                b.CrownLoopDollars += dollars;
+                return;
+            }
+
             bool sag = kind == FlowKind.Capital;
             bool gold = ArcColor(kind) == EconomyStyle.Capital;
             int id = ArcId(kind, Receiver(run[0]));
-            LineMeshBuilder lines = b.Aggregated[IsIncome(kind) ? 0 : 1];
+            LineMeshBuilder lines = b.Aggregated[IsIncome(kind) ? GIncome : GCapital];
             Vector3[] path;
             if (kind == FlowKind.Saving)
             {
                 // saving rises into the crown as a gentle stream, not a loop over it
                 Vector3 control = new Vector3(0.5f * (from.x + to.x), Mathf.Max(from.y, to.y) + StreamLift, 0.5f * (from.z + to.z));
-                path = new Vector3[LandStyle.ArcPoints];
+                path = new Vector3[AggregatePoints];
                 for (int k = 0; k < path.Length; k++) path[k] = LandMath.Bezier(from, control, to, k / (float)(path.Length - 1));
             }
-            else path = MoneyRouting.Arc(from, to, sag);
+            else path = Thin(MoneyRouting.Arc(from, to, sag), AggregatePoints);
 
             ArcLine(lines, pts, path, dollars, perB, LandMath.Tint(ArcColor(kind), KindAlpha(kind)), id, gold ? GoldIntensity : ArcIntensity,
                 kind == FlowKind.Borrowing);
             b.AggregatedArcs++;
+        }
+
+        /// <summary>
+        /// Points of the arcs drawn (8.6, WP6 review): the aggregated arcs and the payout streams are wide, smooth quadratic
+        /// curves (12 points draw them), the per-player arcs thin ones (14); the model routes every arc with
+        /// <see cref="LandStyle.ArcPoints"/> (20).
+        /// </summary>
+        const int AggregatePoints = 12, DetailPoints = 14;
+
+        /// <summary>A polyline resampled to n points evenly along its index (its ends kept); itself when it has n or fewer.</summary>
+        static Vector3[] Thin(Vector3[] points, int n)
+        {
+            if (points.Length <= n) return points;
+            Vector3[] r = new Vector3[n];
+            float last = points.Length - 1;
+            for (int k = 0; k < n; k++)
+            {
+                float at = last * k / (n - 1);
+                int i = Mathf.Min((int)at, points.Length - 2);
+                r[k] = Vector3.Lerp(points[i], points[i + 1], at - i);
+            }
+
+            return r;
         }
 
         /// <summary>The dollar-weighted mean of the runs' first (or last) points: angle on the circle, radius and height linearly.</summary>
@@ -1514,7 +1568,7 @@ namespace Why.Economy.Layers
             b.Labels.Add(new LabelItem
             {
                 Slot = SlotNote, Text = NoteText, Anchor = "land:flow:capital",
-                World = frame.World(new Vector3(0, LandStyle.CrownY + NoteLift, 0)), Group = LandGroup.CapitalFlows,
+                World = frame.World(new Vector3(0, LandStyle.CrownY, 0)), Group = LandGroup.CapitalFlows,
                 Ids = new IdRange(EconomyIds.LandCapital(0), EconomyIds.LandCapital(4)), Present = true
             });
 
@@ -1542,21 +1596,30 @@ namespace Why.Economy.Layers
 
                 if (biggest == null) continue;
                 Vector3 mid = biggest.Points[biggest.Points.Length / 2];
-                b.Anchors.Add(Anchor("land:flow:" + id, name, year + ": " + name.ToLowerInvariant() + " " + LandFacts.Money(dollars) + " a year" + FlowNote(kind) + ".",
+                b.Anchors.Add(Anchor("land:flow:" + id, name, year + ": " + name.ToLowerInvariant() + " " + LandFacts.Money(dollars) + " a year" + FlowNote(kind) + DrawnNote(kind) + ".",
                     mid, IdRange.Empty, frame, 3));
             }
         }
+
+        /// <summary>
+        /// How a kind's arcs are drawn (WP6: the arcs to players are aggregated outside the people view, the payouts are a
+        /// few streams), so the hover text says which arcs are aggregated.
+        /// </summary>
+        static string DrawnNote(FlowKind k) =>
+            PerPlayer(k) ? "; drawn one arc per player in the people view, one per group and cluster of players elsewhere (widths in dollars)"
+            : k == FlowKind.Payout ? "; drawn as a few streams: one per sector paying $250B or more, one per ring for the rest (widths in dollars)"
+            : "";
 
         static string FlowNote(FlowKind k)
         {
             switch (k)
             {
-                case FlowKind.Wages: return ", in arcs from each player's patch of the sectors' wage strips";
+                case FlowKind.Wages: return ", from each player's patch of the sectors' wage strips";
                 case FlowKind.WagesCompany: return ", the named companies' expected share of their industry's US employment (no employer is invented per person)";
                 case FlowKind.Business: return ", from the sectors' gold strips to the owners' plinths";
                 case FlowKind.Capital: return ", falling from the crown onto those who own";
                 case FlowKind.Transfers: return ", rising from the government floor";
-                case FlowKind.Payout: return ", rising from every private sector's gold strip into the crown";
+                case FlowKind.Payout: return ", rising from the private sectors' gold strips into the crown";
                 case FlowKind.PayoutAbroad: return ", leaving over the far rim";
                 case FlowKind.Saving: return ", rising from the savers to the crown: it becomes ownership";
                 case FlowKind.Investment: return ", the net saving, to the industries investment buys from";

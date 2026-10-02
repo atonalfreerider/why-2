@@ -82,13 +82,15 @@ namespace Why.Economy.Land
         };
 
         /// <summary>
-        /// The roots' colors by the supplier's tier (WP6): the tier tints, a little more saturated (they are the roots
-        /// view's story), never gold: purchases between industries are not capital. Raw keeps matter red and life green.
+        /// The roots' colors by the supplier's tier (WP6): the tier hues, saturated and at a middle value (they are the roots
+        /// view's story; the wide roots under the services ring overlap, and at the tints' near-white value they added up to
+        /// a white band that buried the root labels), never gold: purchases between industries are not capital. Raw keeps
+        /// matter red and life green.
         /// </summary>
         static readonly Color[] rootTints =
         {
-            new Color(0.72f, 0.78f, 0.90f), new Color(0.95f, 0.50f, 0.42f), new Color(0.90f, 0.80f, 0.62f),
-            new Color(0.56f, 0.80f, 0.92f), new Color(0.78f, 0.66f, 1.00f)
+            new Color(0.38f, 0.45f, 0.60f), new Color(0.66f, 0.30f, 0.24f), new Color(0.60f, 0.48f, 0.30f),
+            new Color(0.22f, 0.46f, 0.60f), new Color(0.46f, 0.34f, 0.68f)
         };
 
         /// <summary>A tier's tint (0 gov .. 4 tech).</summary>
@@ -123,7 +125,8 @@ namespace Why.Economy.Land
         /// <summary>Own-industry purchases: a closed loop this far below the tread.</summary>
         public const float RootBallDepth = 0.08f;
 
-        public const float RootAlpha = 0.35f, RootIntensity = 1.2f, RootPulsePerUnit = 0.6f;
+        /// <summary>A root's alpha, intensity (WP6: 1.2 bloomed the overlapping roots white) and pulses per unit.</summary>
+        public const float RootAlpha = 0.35f, RootIntensity = 0.85f, RootPulsePerUnit = 0.6f;
 
         public const int RootPoints = 24;
 
@@ -326,8 +329,8 @@ namespace Why.Economy.Land
         /// <summary>A feud: neutral grey, the middle of the arc missing, dim.</summary>
         public const float FeudGrey = 0.35f, FeudGap = 0.30f, FeudAlpha = 0.35f, FeudIntensity = 0.6f;
 
-        /// <summary>Coalition bands on the rim's outer margin; members within this angle form one run.</summary>
-        public const float CoalitionR0 = 6.06f, CoalitionR1 = 6.13f, CoalitionAlpha = 0.10f, CoalitionRunDeg = 25f;
+        /// <summary>Coalition members within this angle on the rim form one run (one band; the bands' looks are SocialLayer's).</summary>
+        public const float CoalitionRunDeg = 25f;
 
         /// <summary>Signals: pain flash and ring, relief pulse, satisfaction's intensity; the dimming of a selection.</summary>
         public const float PainSeconds = 0.5f, PainRing = 0.25f, ReliefSeconds = 1.0f, SatisfiedIntensity = 1.6f, SelectDim = 0.15f;

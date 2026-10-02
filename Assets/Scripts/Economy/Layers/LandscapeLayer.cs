@@ -103,6 +103,13 @@ namespace Why.Economy.Layers
 
         static readonly Color Steel = EconomyStyle.Government, ScaffoldWhite = new Color(0.86f, 0.92f, 1f);
 
+        /// <summary>
+        /// The roots blend over each other (alpha) rather than adding light (WP6 review): dozens of wide roots overlap under
+        /// the services ring, and added up they made a white band that buried the root labels; blended, the band keeps its
+        /// tier's hue.
+        /// </summary>
+        const bool RootsAdditive = false;
+
         /// <summary>Flow pulses along the roots, toward the buyer (as the money threads pulsed).</summary>
         const float RootFlowFreq = 4f, RootFlowSpeed = 0.8f;
 
@@ -167,6 +174,7 @@ namespace Why.Economy.Layers
         /// </summary>
         static Vector2[] WideCandidates => wideCandidates ??= Candidates(WideOut, WideRows);
 
+        /// <summary>The wide candidate set once made (see <see cref="WideCandidates"/>).</summary>
         static Vector2[] wideCandidates;
 
         /// <summary>How far the wide set steps outward (label heights) and how many rows up or down.</summary>
@@ -213,6 +221,12 @@ namespace Why.Economy.Layers
         /// it (land units): centered under the root's low point, moved down or up where the six would overlap.
         /// </summary>
         const float RootLabelUp = 0.3f;
+
+        /// <summary>
+        /// A root's label hangs this far below the root's lowest point (land units; WP6 review): at the point itself it stood
+        /// on the band the overlapping roots under the services ring make, and three of the six did not read.
+        /// </summary>
+        const float RootLabelDrop = 0.4f;
 
         /// <summary>A sector's screen radial nearer to horizontal than this (|x| of the unit vector) aligns its label sideways.</summary>
         const float SideAlign = 0.45f;
@@ -892,7 +906,7 @@ namespace Why.Economy.Layers
                 if (c.Lines[g].VertexCount > 0)
                 {
                     bool roots = g == GRoots;
-                    Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1f, Queues[g] + 1, true, 0, roots ? 1f : 0f));
+                    Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1f, Queues[g] + 1, !roots || RootsAdditive, 0, roots ? 1f : 0f));
                     if (roots)
                     {
                         m.SetFloat("_FlowFreq", RootFlowFreq);
@@ -1745,7 +1759,7 @@ namespace Why.Economy.Layers
             });
         }
 
-        /// <summary>Every root's anchor (land:root:from>to); the six largest are labeled at their lowest point.</summary>
+        /// <summary>Every root's anchor (land:root:from>to); the six largest are labeled under their lowest point.</summary>
         static void RootItems(Content c, EconomyData data, LandGeometry land, List<Item> into)
         {
             string est = data.IsEstimate(land.Year) ? " (estimate)" : "";
@@ -1768,7 +1782,7 @@ namespace Why.Economy.Layers
                 {
                     Key = "land:root:" + a.Id + ">" + b.Id, Name = ShortName(a) + " → " + Lower(ShortName(b)), Group = LandGroup.Roots,
                     Text = r.Largest >= 0 ? text : null, Variants = r.Largest >= 0 ? new[] { text } : null, Blurb = blurb,
-                    Label = r.Lowest, Inner = r.Lowest + Vector3.up * RootLabelUp, Anchor = r.Lowest,
+                    Label = r.Lowest - Vector3.up * RootLabelDrop, Inner = r.Lowest + Vector3.up * (RootLabelUp - RootLabelDrop), Anchor = r.Lowest,
                     Ids = IdRange.Single(EconomyIds.LandRoot(r.Index)), Priority = RootPriority, Rank = (float)r.Table,
                     Present = r.Largest >= 0
                 });

@@ -1,5 +1,5 @@
 {
- "vintage": "2026 socioeconomic groups for the land's players (landscape spec 3.1-3.2; groups.md, the sociology pass of the redesign). Model shares computed on EconomicLives seed 2026, 2025 cut. Compiled 2026-10-02.",
+ "vintage": "2026 socioeconomic groups for the land's players (landscape spec 3.1-3.2; groups.md, the sociology pass of the redesign). Model shares computed on EconomicLives seed 2026, 2025 cut (the lives after the means-tested transfer and inheritance changes; 116 players in 2025, 80 in 1972, 64 in 1950). Compiled 2026-10-02.",
  "note": "Every adult alive in a year lands in exactly one group by the priority rule below, on PersonYear fields only. Thresholds are relative (a rank, a wealth group, the year's median earnings, the Social Security share), so the rule works in every year of the cut. Class is read from the source of income (Gilbert, Wright); within wage earners from household income rank (Pew); occupation is proxied by industry (office vs frontline, after Dingel & Neiman's teleworkable jobs). Generation and party are attributes of the players, not groups. Party (Tribe) is drawn independently of class in this model (groups.md 6.1).",
  "rule": [
   "1 WealthGroup == 3: the 1%",
@@ -105,7 +105,7 @@
    "literature": "1",
    "model2025": 1.0,
    "where": "The crown when they live on capital; the top of their industry's tallest tower when they work where named companies are (controllers); else a gold plinth on the rim.",
-   "basis": "Fed DFA top 1% of net worth [data]; Gilbert's capitalist class, 1% [v]; model: 31.3% of net worth, DFA 31% [data]."
+   "basis": "Fed DFA top 1% of net worth [data]; Gilbert's capitalist class, 1% [v]; model: 31.4% of net worth, DFA 31% [data]."
   },
   {
    "id": "owners",
@@ -151,7 +151,7 @@
    "role": "work",
    "rule": "employee of federal or state & local government (after the PMC and working-poor rules)",
    "literature": "4-5",
-   "model2025": 4.3,
+   "model2025": 4.4,
    "where": "Federal or state & local compensation: the rim above the government floor.",
    "basis": "Government about 14.6% of nonfarm payroll [recalled]; union density 32% public vs 6% private [recalled]."
   },
@@ -211,7 +211,7 @@
    "role": "dependent",
    "rule": "not employed, 62+ or on Social Security, Social Security >= half of cash income",
    "literature": "9-11",
-   "model2025": 11.4,
+   "model2025": 11.3,
    "where": "Federal transfers (Social Security, Medicare): the rim above the federal wedge.",
    "basis": "SSA: 39% of men and 44% of women among beneficiaries 65+ get half or more of their income from Social Security [v]."
   },

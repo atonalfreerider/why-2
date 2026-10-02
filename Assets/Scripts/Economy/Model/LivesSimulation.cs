@@ -360,6 +360,18 @@ namespace Why.Economy.Model
         readonly double[][] desireByAge = new double[5][], fearByAge = new double[5][];
         readonly double[] childlessMale = new double[MaxAge], childlessFemale = new double[MaxAge];
         readonly double[] industryShare, industryStock, industrySteer, categoryTarget = new double[LivesInputs.Spend];
+
+        /// <summary>
+        /// Per industry: a government industry (tier "gov": federal, state &amp; local), where no one is self-employed
+        /// (landscape spec 3.6).
+        /// </summary>
+        readonly bool[] government;
+
+        /// <summary>
+        /// The proprietors' mix (3.6): the cumulative weights of the private industries by their 2024 owners' strip,
+        /// value added × max(0, 1 − compShare − taxShare − depShare); one table for every year.
+        /// </summary>
+        readonly double[] proprietorCdf;
         readonly double[] baseAlign = new double[LivesInputs.Spend];
         readonly List<int> aliveList = new List<int>(), adultList = new List<int>(), headList = new List<int>();
         readonly List<double> shapesMale = new List<double>(), shapesFemale = new List<double>();
@@ -468,6 +480,7 @@ namespace Why.Economy.Model
             industryShare = new double[industries];
             industryStock = new double[industries];
             industrySteer = new double[industries];
+            ProprietorMix(inp.Data, industries, out government, out proprietorCdf);
 
             zRank = new double[n];
             savingTrait = new double[n];
@@ -1375,6 +1388,65 @@ namespace Why.Economy.Model
         double IndustryWeight(int k, double zr) =>
             industryShare[k] * industrySteer[k] * Math.Exp(IndustryPaySteer * inp.IndustryPayTilt[k] * zr);
 
+        /// <summary>The year of the proprietors' mix: the owners' strips of the land's layout year (2024).</summary>
+        const int ProprietorMixYear = 2024;
+
+        /// <summary>Hash salt of the proprietor-industry draw (landscape spec 3.6).</summary>
+        const int ProprietorSalt = 0x5E1F;
+
+        /// <summary>
+        /// The government flags and the proprietors' mix of the industries (3.6): weight_i = VA_i(2024) × the owners'
+        /// share of value added over the private industries, as a cumulative table (empty when no private industry has
+        /// an owners' share, and then nothing is redrawn).
+        /// </summary>
+        static void ProprietorMix(Data.EconomyData data, int count, out bool[] government, out double[] cdf)
+        {
+            government = new bool[count];
+            cdf = new double[count];
+            IReadOnlyList<Data.Industry> inds = data?.Industries;
+            double sum = 0;
+            for (int k = 0; k < count; k++)
+            {
+                Data.Industry ind = inds != null && k < inds.Count ? inds[k] : null;
+                government[k] = ind != null && ind.TierId == "gov";
+                if (ind != null && !government[k]) sum += Math.Max(0, ind.ValueAdded.At(ProprietorMixYear)) * ind.OwnersShare;
+                cdf[k] = sum;
+            }
+
+            if (sum <= 0) cdf = Array.Empty<double>();
+        }
+
+        /// <summary>
+        /// The industry a person's record carries: the simulated one, except that the self-employed never work for the
+        /// government (3.6): a self-employed person whose industry is federal or state &amp; local is recorded in a private
+        /// industry drawn from the fixed proprietors' mix by a hash of the person (stable across years). Only the
+        /// record changes: the simulation's own industry, its draws and its calibration are untouched.
+        /// </summary>
+        [MethodImpl(LivesMath.Hot)]
+        short RecordedIndustry(int i)
+        {
+            short k = industry[i];
+            if (!selfEmployed[i] || k < 0 || k >= government.Length || !government[k] || proprietorCdf.Length == 0) return k;
+            return ProprietorIndustry(i);
+        }
+
+        /// <summary>A person's private industry by the proprietors' mix: a pure function of the person (no random numbers).</summary>
+        short ProprietorIndustry(int person)
+        {
+            double pick = Land.LandMath.Hash01(person, ProprietorSalt) * proprietorCdf[proprietorCdf.Length - 1];
+            for (int k = 0; k < proprietorCdf.Length; k++)
+            {
+                if (pick < proprietorCdf[k] && !government[k]) return (short)k;
+            }
+
+            for (int k = proprietorCdf.Length - 1; k >= 0; k--)
+            {
+                if (!government[k]) return (short)k;
+            }
+
+            return industry[person];
+        }
+
         /// <summary>
         /// Share of financial assets held in stocks: rises with wealth (SCF: the top holds most stocks directly and
         /// through funds), falls with loss aversion.
@@ -2240,7 +2312,7 @@ namespace Why.Economy.Model
                 r.SelfEmployed = selfEmployed[i];
                 r.Homeowner = house[i] > 0;
                 r.OwnHousehold = housing[h];
-                r.Industry = employed[i] ? industry[i] : (short)-1;
+                r.Industry = employed[i] ? RecordedIndustry(i) : (short)-1;
                 r.Wages = (float)((wage[h] + (sp >= 0 ? wage[sp] : 0)) * share);
                 r.Business = (float)((business[h] + (sp >= 0 ? business[sp] : 0)) * share);
                 r.CapitalIncome = (float)((capital[h] + (sp >= 0 ? capital[sp] : 0)) * share);

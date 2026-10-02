@@ -278,7 +278,7 @@ namespace Why.Economy.Land
             }
 
             // at each exit the lane's two sides arrive (and the heads standing right at it): what falls; the exit degree
-            // itself shows the larger side's cross-section (the water leaving)
+            // itself shows the larger side's cross-section and direction (the water leaving)
             double[] arriving = new double[Lanes];
             for (int l = 0; l < Lanes; l++)
             {
@@ -294,7 +294,9 @@ namespace Why.Economy.Land
                 lane.Desire[e] = (any ? lane.Desire[side] : 0) + direct[l, 1];
                 lane.Fantasy[e] = (any ? lane.Fantasy[side] : 0) + direct[l, 2];
                 lane.Plain[e] = (any ? lane.Plain[side] : 0) + direct[l, 3];
-                lane.Direction[e] = 0;
+                // the exit runs the way its larger arriving side runs (0 is a divide, not an exit; 0 too when nothing arrives
+                // along the canal)
+                lane.Direction[e] = (sbyte)(!any ? 0 : ccw >= cw ? 1 : -1);
                 Junction(rep, "canal " + l + " exit", entered[l], arriving[l]);
             }
 

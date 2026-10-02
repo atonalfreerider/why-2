@@ -89,11 +89,20 @@ namespace Why.Economy.Land
             public bool Rewire;
         }
 
-        /// <summary>One played season: every round's cooperation and exposure (doubles).</summary>
+        /// <summary>
+        /// One played season: every round's cooperation and exposure (doubles), or, for a control season (<see cref="Light"/>),
+        /// only the readouts each round gives (no per-round arrays).
+        /// </summary>
         sealed class Play
         {
-            public double[][] X;                      // [round][directed pair]
-            public double[][] Ec;                     // [round][directed pair]
+            public double[][] X;                      // [round][directed pair]; null for a control season
+            public double[][] Ec;                     // [round][directed pair]; null for a control season
+
+            /// <summary>A control season's readouts, filled round by round (null for a full season).</summary>
+            public SocialSeasonResult Readouts;
+
+            /// <summary>Σ x over rounds and directed pairs, in round then pair order (the checksum).</summary>
+            public double Sum;
 
             /// <summary>Cooperation stayed in [0, 1] and every player's exposure summed to 1 in every round (the log's second check).</summary>
             public bool Sane = true;
@@ -136,6 +145,33 @@ namespace Why.Economy.Land
 
             r.Checksum = checksum;
             r.Log = Log(r, s, play, found[found.Length - 1], rounds);
+            return r;
+        }
+
+        /// <summary>
+        /// A control season of 5.3 (log only): the same rounds as <see cref="Run"/> with the given settings, light: no
+        /// coalitions, standing, signals or per-round pair arrays, only the readouts per round (<see cref="SocialSeasonResult.Cooperation"/>,
+        /// <see cref="SocialSeasonResult.SameGroup"/>, <see cref="SocialSeasonResult.OtherGroup"/>,
+        /// <see cref="SocialSeasonResult.CoPartisan"/>, <see cref="SocialSeasonResult.CrossPartisan"/>) and the checksum.
+        /// Its numbers equal a full season's with the same settings (the same rounds, the same order of operations). Reuses
+        /// the player set's base, so after the default season it only replays the rounds (about 5 ms).
+        /// </summary>
+        public static SocialSeasonResult Light(EconomyData data, PlayerSet players, SocialSettings settings, int year)
+        {
+            SocialData sd = data?.Games?.Social ?? new SocialData();
+            int rounds = Math.Max(1, sd.Rounds);
+            SocialSeasonResult r = new SocialSeasonResult
+            {
+                Year = year, Rounds = rounds, Settings = settings,
+                Cooperation = new float[rounds + 1], SameGroup = new float[rounds + 1], OtherGroup = new float[rounds + 1],
+                CoPartisan = new float[rounds + 1], CrossPartisan = new float[rounds + 1]
+            };
+            Base b = BaseOf(data, players, year, sd);
+            Play play = Simulate(Apply(b, settings, sd), rounds, null, r);
+            r.Checksum = play.Sum;
+            r.Log = "control season: " + b.N + " players, " + b.M + " pairs; cooperation r" + rounds + " " +
+                    LandFacts.Num(r.Cooperation[rounds], 3) + "; checks " + (play.Sane ? "1/1 PASS" : "0/1 FAIL") + "; checksum " +
+                    play.Sum.ToString("F6", LandFacts.Ci);
             return r;
         }
 
@@ -535,21 +571,22 @@ namespace Why.Economy.Land
         /// <summary>
         /// Plays the rounds (5.2): every directed pair from the last round's state, tribal tit for tat toward the other
         /// party (one hop of what one's own side received per round), forgiveness, mistakes, new dealings opening on the
-        /// learned affinity; the incident; partner choice. Keeps every round's cooperation and exposure.
+        /// learned affinity; the incident; partner choice. Keeps every round's cooperation and exposure, or, given
+        /// <paramref name="readouts"/> (a control season), writes only each round's readouts into it.
         /// </summary>
-        static Play Simulate(Setup s, int rounds, Incident? incident)
+        static Play Simulate(Setup s, int rounds, Incident? incident, SocialSeasonResult readouts = null)
         {
             Base b = s.B;
             int n = b.N, D = b.D;
-            Play play = new Play { X = new double[rounds + 1][], Ec = new double[rounds + 1][] };
+            bool keep = readouts == null;
+            Play play = keep ? new Play { X = new double[rounds + 1][], Ec = new double[rounds + 1][] } : new Play { Readouts = readouts };
             double[] A = (double[])s.A0.Clone(), Ec = (double[])b.E0.Clone();
 
             // a new dealing's opening σ(θ + own_p + A) = c / (1 + c) with c = e^(θ + own_p + A0) e^(A − A0): the second
             // factor is also partner choice's weight (κ = 1), so a round costs one exponential per directed pair
             double[] c = (double[])s.C0.Clone(), x = new double[D], next = new double[D];
             for (int d = 0; d < D; d++) x[d] = c[d] / (1 + c[d]);
-            play.X[0] = (double[])x.Clone();
-            play.Ec[0] = (double[])Ec.Clone();
+            Keep(play, b, 0, x, Ec);
 
             int incidentPair = -1;
             if (incident.HasValue && incident.Value.From >= 0 && incident.Value.From < n)
@@ -668,11 +705,30 @@ namespace Why.Economy.Land
                     }
                 }
 
-                play.X[t] = (double[])x.Clone();
-                play.Ec[t] = (double[])Ec.Clone();
+                Keep(play, b, t, x, Ec);
             }
 
             return play;
+        }
+
+        /// <summary>Stores round t (a full season) or its readouts (a control season); adds Σ x to the checksum.</summary>
+        static void Keep(Play play, Base b, int t, double[] x, double[] ec)
+        {
+            for (int d = 0; d < b.D; d++) play.Sum += x[d];
+            if (play.Readouts == null)
+            {
+                play.X[t] = (double[])x.Clone();
+                play.Ec[t] = (double[])ec.Clone();
+                return;
+            }
+
+            SocialSeasonResult r = play.Readouts;
+            Classes(b, x, ec, out double all, out double same, out double other, out double co, out double cross);
+            r.Cooperation[t] = (float)all;
+            r.SameGroup[t] = (float)same;
+            r.OtherGroup[t] = (float)other;
+            r.CoPartisan[t] = (float)co;
+            r.CrossPartisan[t] = (float)cross;
         }
 
         /// <summary>

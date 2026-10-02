@@ -194,7 +194,8 @@ namespace Why.Economy.Land
             return built;
         }
 
-        static bool Same(SocialSettings a, SocialSettings b) =>
+        /// <summary>Whether two season settings are the same (a season built with one is current for the other).</summary>
+        public static bool Same(SocialSettings a, SocialSettings b) =>
             a.Noise == b.Noise && a.Continuation == b.Continuation && a.Polarization == b.Polarization && a.Rewire == b.Rewire &&
             a.Forgive == b.Forgive;
 

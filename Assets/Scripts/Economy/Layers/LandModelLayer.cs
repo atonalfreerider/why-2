@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 using Why.Economy.Land;
 using Why.Economy.Model;
@@ -40,46 +41,72 @@ namespace Why.Economy.Layers
 
             int year = EconomyState.DefaultYear(Math.Min(EconomyState.MaxYear, Math.Max(model.Data.LastYear, EconomyState.MinYear)));
             SocialSettings settings = EconomyState.DefaultSocial();
+
+            // what does not depend on the census, warmed beside it: the seller prior (year-independent) and the year's accounts
+            EconomyModel economy = model;
+            Task warm = Task.Run(() =>
+            {
+                SellerMatrix.PriorOf(economy.Data);
+                economy.Circuit.Build(year);
+            });
             Stopwatch arrange = Stopwatch.StartNew();
             LandLayout.EnsureArranged(model.Data);   // once per load: timed apart from the per-year layout (budget 2 ms)
             double arrangeMs = arrange.Elapsed.TotalMilliseconds;
             double[] ms = new double[5];
             LandService.Init(model, pop, null);   // the season reads the members' records through LandService.Model (WP4)
-            first = Build(model, pop, year, settings, ms);
-            Stopwatch part = Stopwatch.StartNew();
-            first.Betrayal = LandService.BuildBetrayal(model, first);
-            SocialSeasonResult[] controls = Controls(model, first);
-            double controlMs = part.Elapsed.TotalMilliseconds;
+            first = Build(model, pop, year, settings, ms, warm);
             LandService.Init(model, pop, first);
             ctx.Share(LandService.SharedKey, first);
-            foreach (string line in LandLog.Lines(model, first, controls)) Debug.Log(line);
+            foreach (string line in LandLog.Lines(model, first, null)) Debug.Log(line);
             logged.Add(year);
-            if (first.Betrayal != null) betrayalLogged.Add(year);
+
+            // the four control seasons of 5.3 (log only) run after the load, off the critical path; their line prints when
+            // they are done (Upload or Tick). The betrayal season is lazy (5.6): its line prints once something asks for it.
+            LandSnapshot snapshot = first;
+            controlsWatch = Stopwatch.StartNew();
+            controls = Task.Run(() => Controls(economy, snapshot));
             Debug.Log("[Why] LandModelLayer.Prepare " + sw.ElapsedMilliseconds.ToString(LandFacts.Ci) + " ms: " +
                       year.ToString(LandFacts.Ci) + " (arrangement " + Ms(arrangeMs) + " once, layout " + Ms(ms[0]) + ", census " +
-                      Ms(ms[1]) + ", money " + Ms(ms[2]) + ", season " + Ms(ms[3]) + ", controls and betrayal " + Ms(controlMs) +
-                      ", circuit " + Ms(ms[4]) + ")");
+                      Ms(ms[1]) + ", money and season in parallel " + Ms(ms[2]) + " (money " + Ms(ms[3]) + ", season " + Ms(ms[4]) +
+                      "); controls after the load, betrayal lazy)");
         }
+
+        /// <summary>The control seasons running after the load (null once their line printed) and their clock.</summary>
+        Task<SocialSeasonResult[]> controls;
+
+        Stopwatch controlsWatch;
 
         static string Ms(double ms) => ms.ToString("0", LandFacts.Ci) + " ms";
 
-        /// <summary>LandService.Build with each stage timed (ms: layout, census, money, season, circuit).</summary>
-        static LandSnapshot Build(EconomyModel model, SmvPopulation pop, int year, SocialSettings settings, double[] ms)
+        /// <summary>
+        /// LandService.Build with each stage timed (ms: layout, census, money and season together, money, season): the money
+        /// and the season both read only the layout and the players, so they run in parallel (each pure, the result the same
+        /// as in sequence); the circuit comes from the warm-up's cache.
+        /// </summary>
+        static LandSnapshot Build(EconomyModel model, SmvPopulation pop, int year, SocialSettings settings, double[] ms, Task warm)
         {
             Stopwatch sw = Stopwatch.StartNew();
             LandGeometry land = LandLayout.Build(model.Data, year);
             ms[0] = Lap(sw);
             PlayerSet players = PlayerCensus.Build(model, pop, land, year);
             ms[1] = Lap(sw);
-            MoneyFlows money = MoneyRouting.Build(model, land, players, year);
-            ms[2] = Lap(sw);
+            double moneyMs = 0;
+            Task<MoneyFlows> money = Task.Run(() =>
+            {
+                Stopwatch m = Stopwatch.StartNew();
+                warm.Wait();
+                MoneyFlows flows = MoneyRouting.Build(model, land, players, year);
+                moneyMs = m.Elapsed.TotalMilliseconds;
+                return flows;
+            });
             SocialSeasonResult society = SocialSeason.Run(model.Data, land, players, settings, year);
-            ms[3] = Lap(sw);
-            CircuitYear circuit = model.Circuit.Build(year);
-            ms[4] = Lap(sw);
+            ms[4] = sw.Elapsed.TotalMilliseconds;
+            MoneyFlows flowsBuilt = money.GetAwaiter().GetResult();
+            ms[3] = moneyMs;
+            ms[2] = Lap(sw);
             LandSnapshot s = new LandSnapshot
             {
-                Year = year, Land = land, Players = players, Money = money, Society = society, Circuit = circuit
+                Year = year, Land = land, Players = players, Money = flowsBuilt, Society = society, Circuit = model.Circuit.Build(year)
             };
             s.ChecksLine = LandService.ChecksLine(s, model.Data);
             return s;
@@ -92,7 +119,10 @@ namespace Why.Economy.Layers
             return t;
         }
 
-        /// <summary>The four control seasons of 5.3 (log only): nobody forgives, everyone forgives, no partner choice, polarization × 2.</summary>
+        /// <summary>
+        /// The four control seasons of 5.3 (log only): nobody forgives, everyone forgives, no partner choice, polarization × 2;
+        /// light seasons (<see cref="SocialSeason.Light"/>) on the default season's base, one after another on one worker.
+        /// </summary>
         static SocialSeasonResult[] Controls(EconomyModel model, LandSnapshot s)
         {
             SocialSettings b = s.Society?.Settings ?? SocialSettings.Default;
@@ -103,14 +133,33 @@ namespace Why.Economy.Layers
             polar.Polarization = 2f * b.Polarization;
             SocialSettings[] all = { nobody, everyone, still, polar };
             SocialSeasonResult[] r = new SocialSeasonResult[all.Length];
-            for (int k = 0; k < all.Length; k++) r[k] = SocialSeason.Run(model.Data, s.Land, s.Players, all[k], s.Year);
+            for (int k = 0; k < all.Length; k++) r[k] = SocialSeason.Light(model.Data, s.Players, all[k], s.Year);
             return r;
+        }
+
+        /// <summary>Prints the controls' line once their seasons are done (wait: block until they are; the load's end).</summary>
+        void LogControls(bool wait)
+        {
+            if (controls == null || !wait && !controls.IsCompleted) return;
+            Task<SocialSeasonResult[]> t = controls;
+            controls = null;
+            try
+            {
+                SocialSeasonResult[] r = t.GetAwaiter().GetResult();
+                string line = LandLog.ControlsLine(first, r);
+                if (line != null) Debug.Log(line + " (" + Ms(controlsWatch.Elapsed.TotalMilliseconds) + " after the load began)");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("[Why] LandModelLayer: the control seasons failed: " + e);
+            }
         }
 
         public override void Upload(GraphContext ctx)
         {
             if (first == null) return;
             LandService.Changed += OnChanged;
+            LogControls(false);
         }
 
         /// <summary>
@@ -136,6 +185,7 @@ namespace Why.Economy.Layers
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
+            LogControls(false);
             LandSnapshot shown = LandService.Current;
             if (shown?.Betrayal != null && model != null && logged.Contains(shown.Year) && betrayalLogged.Add(shown.Year))
             {
@@ -144,7 +194,11 @@ namespace Why.Economy.Layers
             }
         }
 
-        void OnDestroy() => LandService.Changed -= OnChanged;
+        void OnDestroy()
+        {
+            LandService.Changed -= OnChanged;
+            LogControls(true);
+        }
     }
 
     /// <summary>
@@ -171,13 +225,8 @@ namespace Why.Economy.Layers
             lines.Add("[Why] Money " + y + Tag(moneyDemo) + ": " + LandDemo.Body(s.Money?.Log));
             lines.Add("[Why] Pools " + y + Tag(moneyDemo) + ": " + Pools(model, s));
             lines.Add("[Why] Society " + y + Tag(societyDemo) + ": " + LandDemo.Body(s.Society?.Log));
-            if (controls != null && controls.Length >= 4)
-            {
-                lines.Add("[Why] Society controls " + y + Tag(societyDemo) + ": nobody forgives r96 " + R96(controls[0].Cooperation) +
-                          " (co/cross " + R96(controls[0].CoPartisan) + "/" + R96(controls[0].CrossPartisan) + "); everyone forgives " +
-                          R96(controls[1].Cooperation) + "; no partner choice " + R96(controls[2].Cooperation) + "; polarization x2 co/cross " +
-                          R96(controls[3].CoPartisan) + "/" + R96(controls[3].CrossPartisan));
-            }
+            string control = ControlsLine(s, controls);
+            if (control != null) lines.Add(control);
 
             string betrayal = BetrayalLine(s);
             if (betrayal != null) lines.Add(betrayal);
@@ -185,6 +234,19 @@ namespace Why.Economy.Layers
             lines.Add("[Why] Facts " + y + Tag(playersDemo) + ": " + Facts(model, s));
             lines.Add("[Why] Land checks " + y + Tag(playersDemo || moneyDemo || societyDemo) + ": " + s.ChecksLine);
             return lines;
+        }
+
+        /// <summary>
+        /// "[Why] Society controls 2025: nobody forgives r96 0.425 (co/cross 0.521/0.370); everyone forgives 0.868; no partner
+        /// choice 0.717; polarization x2 co/cross 0.770/0.685", or null without the four control seasons.
+        /// </summary>
+        public static string ControlsLine(LandSnapshot s, SocialSeasonResult[] controls)
+        {
+            if (s == null || controls == null || controls.Length < 4) return null;
+            return "[Why] Society controls " + s.Year.ToString(LandFacts.Ci) + Tag(LandDemo.IsDemo(s.Society?.Log)) + ": nobody forgives r96 " +
+                   R96(controls[0].Cooperation) + " (co/cross " + R96(controls[0].CoPartisan) + "/" + R96(controls[0].CrossPartisan) +
+                   "); everyone forgives " + R96(controls[1].Cooperation) + "; no partner choice " + R96(controls[2].Cooperation) +
+                   "; polarization x2 co/cross " + R96(controls[3].CoPartisan) + "/" + R96(controls[3].CrossPartisan);
         }
 
         /// <summary>"[Why] Betrayal 2025 r48: p -> q: 2 players hit, calm after 7 rounds", or null before the season is computed.</summary>

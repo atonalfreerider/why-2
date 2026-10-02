@@ -174,8 +174,8 @@ namespace Why.Economy.Land
         /// within 90 degrees, and its check (the flows add up to the table's kept total). Every year prints the table's own
         /// dollars and shares (the same roots: the cut applies to the 2024 table); only the share within 90 degrees follows
         /// the year's angles. A year other than the table's adds, before the check, the dollars scaled to that year (the
-        /// totals of <see cref="Build"/>'s roots, mesh roots and balls): "; at 1972 value added $0.66T between industries,
-        /// own $0.21T".
+        /// totals of <see cref="Build"/>'s roots, mesh roots and balls): "; at 1972 value added $758B between industries,
+        /// own $297B".
         /// </summary>
         public static string Line(EconomyData data, LandGeometry g)
         {

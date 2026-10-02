@@ -477,7 +477,11 @@ namespace Why.Economy.Land
                     return v;
                 }
 
-                runs.Sort((p, q) => Lo(p.run).CompareTo(Lo(q.run)));
+                runs.Sort((p, q) =>
+                {
+                    int c = Lo(p.run).CompareTo(Lo(q.run));
+                    return c != 0 ? c : p.s.Industry.CompareTo(q.s.Industry);
+                });
                 for (int pass = 0; pass < SeparatePasses; pass++)
                 {
                     bool moved = false;

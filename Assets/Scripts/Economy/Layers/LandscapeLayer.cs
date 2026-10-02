@@ -26,12 +26,14 @@ namespace Why.Economy.Layers
     /// materials on objects placed in the land's frame (<see cref="EconomyStage.Land"/>), one renderer per emphasis
     /// group and shader (Terraces, Sectors, Pools, Roots, Towers, Crown, Overlays), whose alpha follows
     /// <see cref="LandView.Alpha"/>: no layer but the section layer morphs, so the land fades in with the reveal. A new
-    /// year (8.3) rebuilds the builders on a worker (a preset's blocking snapshot: here, in the next Tick), uploads them in
-    /// Tick, cross-fades from the old meshes over <see cref="LandStyle.CrossFadeSeconds"/> and reports the swap
+    /// year (8.3) rebuilds the builders on a worker (a preset's blocking snapshot too, waited for in the next Tick), uploads
+    /// them in Tick, cross-fades from the old meshes over <see cref="LandStyle.CrossFadeSeconds"/> and reports the swap
     /// (<see cref="LandService.ReportReady"/>); a new snapshot of the same land (a new season) only reports. A build runs
     /// in four independent parts (each into its own builders and item lists, joined in a fixed order). The five tier
-    /// labels stand on the outer wall and move along it when their place is out of frame. Order 50: tier 5, after the
-    /// land's model (45).
+    /// labels stand on the outer wall (moved along it when their place is out of frame, spread where their bands project
+    /// closer than a label), and the land places its labels itself where the label system will keep them: each sector's
+    /// label aligned away from the bowl's center and moved or shortened until it is clear (<see cref="PlaceLabels"/>).
+    /// Order 50: tier 5, after the land's model (45).
     /// </summary>
     [GraphScenes(GraphScene.Economy)]
     public sealed class LandscapeLayer : GraphLayer
@@ -106,11 +108,11 @@ namespace Why.Economy.Layers
         const float TierPriority = 40, PoolPriority = 14, CrownPriority = 30, RootPriority = 24, OverlayPriority = 20;
 
         /// <summary>
-        /// Extra screen spacing between neighbouring tier labels (px): the five stand on the outer wall one terrace (0.35)
-        /// apart, about a label's height on screen in the landscape views, so the stack is spread by this much per tier
-        /// around the make label (each stays within half a band of its own).
+        /// Least screen gap between the tier labels' rects (px): each label stands at its band's middle on the wall, and
+        /// where the bands project closer than a label's height (a far view) the stack is spread just enough, least squares
+        /// around their own places (<see cref="SpreadTierLabels"/>).
         /// </summary>
-        const float TierLabelSpreadPx = 7;
+        const float TierLabelGapPx = 1;
 
         /// <summary>
         /// Where on the outer wall the tier labels' stack may stand (degrees), in order of preference: the near wall at
@@ -120,8 +122,75 @@ namespace Why.Economy.Layers
         /// </summary>
         static readonly float[] TierLabelThetas = { LandStyle.TierLabelThetaDeg, 270f, 230f, 120f, 130f, 140f, 150f, 110f };
 
-        /// <summary>Estimated label width per character (em), line height (em) and the frame margin (px) for that check.</summary>
-        const float LabelCharEm = 0.62f, LabelLineEm = 1.3f, FrameMarginPx = 6f;
+        /// <summary>
+        /// The label system's measure of a plain text, mirrored for the land's own placement (LabelSystem.EstimateWidth: em
+        /// per space, capital, digit and other character, plus a margin) and its line height (em).
+        /// </summary>
+        const float EmSpace = 0.28f, EmUpper = 0.64f, EmDigit = 0.55f, EmOther = 0.5f, EmMargin = 0.2f, LineEm = 1.15f;
+
+        /// <summary>Labels the land places itself keep this far inside the frame (px).</summary>
+        const float FrameMarginPx = 6f;
+
+        /// <summary>
+        /// The places a sector's label may take, tried in order (7.3, 9 WP1): in units of the label's padded height, along
+        /// the sector's screen radial (outward positive, from the sector's outer edge at its center angle) and up or down.
+        /// The label is aligned away from the bowl's center (left of a sector on the left, right on the right, centered at
+        /// the near and far side), so neighbours across the ring never overlap and a crowded ring's labels step outward.
+        /// </summary>
+        static Vector2[] sectorCandidates;
+
+        /// <summary>
+        /// The candidates (made on first use, on the main thread): outward steps of half a label height up to
+        /// <see cref="CandidateOut"/>, one half step inward (onto the sector), and up to <see cref="CandidateRows"/> rows up
+        /// or down, nearest first (a row and an inward step weigh more than an outward step; equal costs keep their order).
+        /// </summary>
+        static Vector2[] SectorCandidates
+        {
+            get
+            {
+                if (sectorCandidates != null) return sectorCandidates;
+                int n = (2 * CandidateOut + 2) * (2 * CandidateRows + 1), k = 0;
+                Vector2[] at = new Vector2[n];
+                float[] cost = new float[n];
+                for (int a = -1; a <= 2 * CandidateOut; a++)
+                {
+                    for (int b = -CandidateRows; b <= CandidateRows; b++, k++)
+                    {
+                        // insertion sort, stable: a later candidate goes after every earlier one of equal cost
+                        float c = (a < 0 ? 1.5f : 0.5f) * Math.Abs(a) + 1.2f * Math.Abs(b);
+                        int i = k;
+                        for (; i > 0 && cost[i - 1] > c; i--)
+                        {
+                            cost[i] = cost[i - 1];
+                            at[i] = at[i - 1];
+                        }
+
+                        cost[i] = c;
+                        at[i] = new Vector2(0.5f * a, b);
+                    }
+                }
+
+                return sectorCandidates = at;
+            }
+        }
+
+        /// <summary>How far a placed label may step outward (label heights) and how many rows up or down.</summary>
+        const int CandidateOut = 4, CandidateRows = 4;
+
+        /// <summary>
+        /// The label system's width estimate runs short of the drawn text (by about a tenth); the land's own placement
+        /// allows this much more on the side the text grows to, in its frame checks and between the labels it places.
+        /// </summary>
+        const float FrameWidthSlack = 0.15f;
+
+        /// <summary>
+        /// A root's label is placed like a sector's along the screen direction from this far above its lowest point down to
+        /// it (land units): centered under the root's low point, moved down or up where the six would overlap.
+        /// </summary>
+        const float RootLabelUp = 0.3f;
+
+        /// <summary>A sector's screen radial nearer to horizontal than this (|x| of the unit vector) aligns its label sideways.</summary>
+        const float SideAlign = 0.45f;
 
         /// <summary>The tier labels' current place on the wall (degrees).</summary>
         float tierTheta = LandStyle.TierLabelThetaDeg;
@@ -165,6 +234,11 @@ namespace Why.Economy.Layers
 
         Task<Content> building;
 
+        /// <summary>The worker build of a blocking snapshot, started when it was published (waited for in the next Tick).</summary>
+        Task<Content> blockingBuild;
+
+        LandSnapshot blockingFor;
+
         /// <summary>The snapshot version on screen (a worker build of an older one is discarded) and the snapshot it was built from.</summary>
         int shownVersion = -1;
 
@@ -177,6 +251,30 @@ namespace Why.Economy.Layers
         readonly Dictionary<string, Anchor> anchors = new Dictionary<string, Anchor>(StringComparer.Ordinal);
         int seenLabels = -1, seenTower = -2;
 
+        /// <summary>
+        /// The land's labels in the label system's order (priority, then rank; <see cref="PlaceLabels"/> replays its greedy),
+        /// re-sorted when a label is added; the rects kept so far in a replay; the tier slots by ring.
+        /// </summary>
+        readonly List<Slot> placeOrder = new List<Slot>();
+
+        readonly List<Rect> placedRects = new List<Rect>();
+
+        /// <summary>The same labels' rects as drawn (widened by <see cref="FrameWidthSlack"/>): a placed label keeps clear of these.</summary>
+        readonly List<Rect> drawnRects = new List<Rect>();
+        readonly Slot[] tierSlots = new Slot[LandStyle.TerraceY.Length];
+        bool placeOrderDirty, placeDirty = true;
+
+        /// <summary>The camera version and screen size the labels were last placed for.</summary>
+        int placedCam = -1, placedW, placedH;
+
+        /// <summary>The tier stack's spread (per ring: the shift up and sideways in px and the rect), its scratch (by shown label) and the crown's rect.</summary>
+        readonly float[] tierShift = new float[LandStyle.TerraceY.Length], tierShiftX = new float[LandStyle.TerraceY.Length], spreadX = new float[LandStyle.TerraceY.Length],
+            spreadY = new float[LandStyle.TerraceY.Length], blockValue = new float[LandStyle.TerraceY.Length];
+
+        readonly int[] spreadIndex = new int[LandStyle.TerraceY.Length], blockCount = new int[LandStyle.TerraceY.Length];
+        readonly Rect[] tierRects = new Rect[LandStyle.TerraceY.Length];
+        Rect tierCrown;
+
         /// <summary>One labeled or anchored object of a build: its anchor and, when labeled, its label's text and place.</summary>
         sealed class Item
         {
@@ -184,10 +282,12 @@ namespace Why.Economy.Layers
             public LandGroup Group;
             public bool Present = true;
             public Vector3 Label, Anchor;            // land-local
+            public Vector3 Inner;                    // a placed label's direction starts here (sectors: the inner edge at the center angle)
+            public string[] Variants;                // sectors, roots: the label's texts, longest first (placed by the layer)
             public Vector2 Offset;                   // the label's screen offset (px)
             public int TierStack = -1;               // tiers: the ring whose label this is (its place follows the stack's)
             public IdRange Ids = IdRange.Empty;
-            public float Priority, SizePx = LabelPx;
+            public float Priority, Rank, SizePx = LabelPx;   // Rank breaks equal priorities (higher first: the larger object)
             public Color Color = GraphStyle.Text;
             public int Tower = -1, AnchorTier = 2;
         }
@@ -202,6 +302,21 @@ namespace Why.Economy.Layers
 
             /// <summary>A tier label's ring (its place on the wall follows the stack's, <see cref="TierLabelAt"/>); -1 otherwise.</summary>
             public int TierStack = -1;
+
+            /// <summary>The label's own screen offset (px; the placement adds its shift to it).</summary>
+            public Vector2 Offset;
+
+            /// <summary>
+            /// A label the layer places (<see cref="PlaceSector"/>: sectors and roots): its texts (longest first), the one
+            /// shown, and the world point its direction starts at (a sector's inner edge; above a root's lowest point).
+            /// </summary>
+            public string[] Variants;
+
+            public int Variant;
+            public Vector3 Inner;
+
+            /// <summary>The slot's place in <see cref="slotList"/> (the placement order's last tie-break).</summary>
+            public int Index;
         }
 
         /// <summary>One snapshot's geometry and texts (built on any thread).</summary>
@@ -275,11 +390,23 @@ namespace Why.Economy.Layers
             current = old = null;
         }
 
-        /// <summary>A new snapshot is on screen: build it in the next Tick (blocking) or on a worker (8.3).</summary>
+        /// <summary>
+        /// A new snapshot is on screen (main thread): its build starts on a worker now; a blocking one (a preset's year) is
+        /// waited for and uploaded in the next Tick, an async one is uploaded in the first Tick after it finishes (8.3).
+        /// </summary>
         void OnChanged(LandSnapshot s)
         {
-            if (s?.Land != null) wanted = s;
+            if (s?.Land == null) return;
+            wanted = s;
+            if (!s.Blocking || model == null || SameLand(s, shownSnapshot)) return;
+            EconomyData data = model.Data;
+            blockingBuild = Task.Run(() => Build(data, s));
+            blockingFor = s;
         }
+
+        /// <summary>Two snapshots of the same land and money (a new season of the same year): nothing this layer draws differs.</summary>
+        static bool SameLand(LandSnapshot a, LandSnapshot b) =>
+            a != null && b != null && ReferenceEquals(a.Land, b.Land) && ReferenceEquals(a.Money, b.Money);
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -298,7 +425,7 @@ namespace Why.Economy.Layers
             ApplyAlpha(current, old != null ? cross : 1f);
             ApplyAlpha(old, 1f - cross);
             UpdateLabels(false);
-            PlaceTierLabels(rig);
+            PlaceLabels(rig);
         }
 
         /// <summary>A tier label's world place: on the outer wall at an angle, at the middle of its ring's band.</summary>
@@ -306,67 +433,348 @@ namespace Why.Economy.Layers
             EconomyStage.Land().World(LandFrame.Polar(LandStyle.RimR, thetaDeg, LandStyle.TerraceY[tier] + 0.5f * LandStyle.TerraceStep));
 
         /// <summary>
-        /// Keeps the five tier labels in frame: the stack stands at the first of <see cref="TierLabelThetas"/> where every
-        /// label's (estimated) rect is inside the screen and clear of the crown's label (a higher-priority stack would hide
-        /// it). Checked every frame (a few dozen projections); the labels move only when the place changes.
+        /// Places the land's labels where the label system will keep them, whenever the camera, the screen or a label
+        /// changed: the tier stack first (<see cref="PlaceTierLabels"/>), then a replay of the label system's greedy
+        /// (priority, then rank) over the land's shown labels, in which each sector's label takes the first of its
+        /// <see cref="SectorCandidates"/>, longest text first, that is in frame and clear of every label kept before it
+        /// (<see cref="PlaceSector"/>), and every other label is kept in frame (shifted sideways by what it overflows).
+        /// Other layers' labels still compete in the label system itself.
         /// </summary>
-        void PlaceTierLabels(CameraRig rig)
+        void PlaceLabels(CameraRig rig)
         {
             Camera cam = rig != null ? rig.Cam : null;
             if (cam == null || labels == null) return;
-            Rect crown = Rect.zero;
-            bool any = false, hasCrown = slots.TryGetValue("land:crown", out Slot cs) && !cs.Spec.Hidden &&
-                                         EstimateRect(cam, cs.Spec, cs.Spec.Data, out crown);
-            foreach (Slot s in slotList) any |= s.TierStack >= 0 && !s.Spec.Hidden;
-            if (!any) return;
-
-            float chosen = TierLabelThetas[0];
-            foreach (float theta in TierLabelThetas)
+            if (!placeDirty && rig.Version == placedCam && Screen.width == placedW && Screen.height == placedH) return;
+            placeDirty = false;
+            placedCam = rig.Version;
+            placedW = Screen.width;
+            placedH = Screen.height;
+            if (placeOrderDirty)
             {
-                bool fits = true;
+                placeOrderDirty = false;
+                placeOrder.Clear();
+                placeOrder.AddRange(slotList);
+                placeOrder.Sort(ComparePlaceOrder);
+                Array.Clear(tierSlots, 0, tierSlots.Length);
                 foreach (Slot s in slotList)
                 {
-                    if (s.TierStack < 0 || s.Spec.Hidden) continue;
-                    if (!EstimateRect(cam, s.Spec, TierLabelAt(s.TierStack, theta), out Rect r) || r.xMin < FrameMarginPx ||
-                        r.yMin < FrameMarginPx || r.xMax > Screen.width - FrameMarginPx || r.yMax > Screen.height - FrameMarginPx ||
-                        hasCrown && r.Overlaps(crown))
-                    {
-                        fits = false;
-                        break;
-                    }
+                    if (s.TierStack >= 0 && s.TierStack < tierSlots.Length) tierSlots[s.TierStack] = s;
                 }
-
-                if (!fits) continue;
-                chosen = theta;
-                break;
             }
 
-            if (Mathf.Approximately(chosen, tierTheta)) return;
-            tierTheta = chosen;
-            foreach (Slot s in slotList)
+            bool changed = PlaceTierLabels(cam);
+            placedRects.Clear();
+            drawnRects.Clear();
+            foreach (Slot s in placeOrder)
             {
-                if (s.TierStack >= 0) s.Spec.Data = TierLabelAt(s.TierStack, tierTheta);
+                if (s.Spec.Hidden) continue;
+                if (s.Variants != null) changed |= PlaceSector(cam, s);   // sectors and roots
+                else if (s.TierStack >= 0) Keep(LabelRect(cam, s.Spec, s.Spec.Text, s.Spec.PixelOffset, s.Spec.Align, out Rect r), r, s.Spec.Align);
+                else changed |= KeepInFrame(cam, s);
             }
 
-            labels.MarkDirty();
+            if (changed) labels.MarkDirty();
         }
 
-        /// <summary>A label's estimated screen rect (centered text, its pixel offset applied) at a world place; false behind the camera.</summary>
-        static bool EstimateRect(Camera cam, LabelSpec spec, Vector3 world, out Rect rect)
+        /// <summary>The label system's placement order (higher priority, then higher rank, then the text), with an index tie-break.</summary>
+        int ComparePlaceOrder(Slot a, Slot b)
         {
-            rect = Rect.zero;
-            Vector3 p = cam.WorldToScreenPoint(world);
-            if (p.z <= cam.nearClipPlane) return false;
-            float scale = LabelSystem.UiScale, w = LabelCharEm * spec.SizePx * scale * (spec.Text?.Length ?? 0),
-                h = LabelLineEm * spec.SizePx * scale;
-            float x = p.x + spec.PixelOffset.x * scale, y = p.y + spec.PixelOffset.y * scale;
-            rect = new Rect(x - 0.5f * w, y - 0.5f * h, w, h);
+            int c = b.Spec.Priority.CompareTo(a.Spec.Priority);
+            if (c == 0) c = b.Spec.Rank.CompareTo(a.Spec.Rank);
+            if (c == 0) c = string.CompareOrdinal(a.Spec.Text, b.Spec.Text);
+            return c != 0 ? c : a.Index.CompareTo(b.Index);
+        }
+
+        /// <summary>Keeps a rect the label system would keep (in front of the camera, not overlapping one kept before).</summary>
+        void Keep(bool inFront, Rect r, TextAlignmentOptions align)
+        {
+            if (!inFront || Overlaps(placedRects, r)) return;
+            placedRects.Add(r);
+            drawnRects.Add(Drawn(r, align));
+        }
+
+        static bool Overlaps(List<Rect> rects, Rect r)
+        {
+            for (int i = 0; i < rects.Count; i++)
+            {
+                if (rects[i].Overlaps(r)) return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>A label's rect widened by <see cref="FrameWidthSlack"/> on the side(s) its text grows to (the drawn text's extent).</summary>
+        static Rect Drawn(Rect r, TextAlignmentOptions align)
+        {
+            float slack = FrameWidthSlack * r.width;
+            float left = align == TextAlignmentOptions.Left ? 0 : align == TextAlignmentOptions.Center ? 0.5f * slack : slack;
+            return new Rect(r.x - left, r.y, r.width + slack, r.height);
+        }
+
+        /// <summary>A label's rect is inside the frame, with <see cref="FrameWidthSlack"/> on the side(s) its text grows to.</summary>
+        static bool InFrame(Rect r, TextAlignmentOptions align)
+        {
+            float slack = FrameWidthSlack * r.width;
+            float left = align == TextAlignmentOptions.Left ? 0 : align == TextAlignmentOptions.Center ? 0.5f * slack : slack;
+            float right = slack - left;
+            return r.xMin - left >= FrameMarginPx && r.yMin >= FrameMarginPx && r.xMax + right <= Screen.width - FrameMarginPx &&
+                   r.yMax <= Screen.height - FrameMarginPx;
+        }
+
+        /// <summary>
+        /// A sector's label (and a root's, whose direction points down): aligned away from the bowl's center along the sector's screen radial (its inner to its outer
+        /// edge at the center angle), at the first candidate place in frame and clear of the labels kept before it, with
+        /// the longest text that has one (the full line, then name and value added, then the name). When none fits, the
+        /// name stands at the edge, moved into the frame (the label system drops it).
+        /// </summary>
+        bool PlaceSector(Camera cam, Slot s)
+        {
+            Vector3 po = cam.WorldToScreenPoint(s.Spec.Data), pi = cam.WorldToScreenPoint(s.Inner);
+            if (po.z <= cam.nearClipPlane) return false;
+            Vector2 d = new Vector2(po.x - pi.x, po.y - pi.y);
+            d = d.sqrMagnitude < 1f ? Vector2.up : d.normalized;
+            TextAlignmentOptions align = d.x > SideAlign ? TextAlignmentOptions.Left
+                : d.x < -SideAlign ? TextAlignmentOptions.Right : TextAlignmentOptions.Center;
+            float scale = LabelSystem.UiScale, h = s.Spec.SizePx * scale * LineEm + 2 * labels.Padding;
+            Vector2 at = new Vector2(po.x, po.y);
+            for (int v = 0; v < s.Variants.Length; v++)
+            {
+                string text = s.Variants[v];
+                foreach (Vector2 c in SectorCandidates)
+                {
+                    Vector2 shift = d * (c.x * h) + new Vector2(0, c.y * h);
+                    Rect r = LabelRect(at + shift, text, s.Spec.SizePx, align);
+                    Rect drawn = Drawn(r, align);
+                    if (!InFrame(r, align) || Overlaps(drawnRects, drawn)) continue;
+                    placedRects.Add(r);
+                    drawnRects.Add(drawn);
+                    return SetPlace(s, v, shift / scale, align);
+                }
+            }
+
+            // nothing fits: the shortest text at the edge, inside the frame (the label system drops it unless another
+            // layer's label it would have met is gone)
+            int last = s.Variants.Length - 1;
+            Rect at0 = LabelRect(at, s.Variants[last], s.Spec.SizePx, align);
+            float dx = at0.xMin < FrameMarginPx ? FrameMarginPx - at0.xMin
+                : at0.xMax > Screen.width - FrameMarginPx ? Screen.width - FrameMarginPx - at0.xMax : 0;
+            return SetPlace(s, last, new Vector2(dx / scale, 0), align);
+        }
+
+        /// <summary>Sets a sector label's text, offset and alignment; true when any changed.</summary>
+        bool SetPlace(Slot s, int variant, Vector2 offset, TextAlignmentOptions align)
+        {
+            offset += s.Offset;
+            bool changed = false;
+            if (s.Variant != variant || s.Spec.Text != s.Variants[variant])
+            {
+                s.Variant = variant;
+                labels.SetText(s.Spec, s.Variants[variant]);
+                changed = true;
+            }
+
+            if ((s.Spec.PixelOffset - offset).sqrMagnitude > 0.01f || s.Spec.Align != align)
+            {
+                s.Spec.PixelOffset = offset;
+                s.Spec.Align = align;
+                changed = true;
+            }
+
+            return changed;
+        }
+
+        /// <summary>
+        /// Any other land label (a tower, the crown, a root, an overlay, a pool): shifted sideways just enough to stand
+        /// wholly in frame when its place is near an edge (as wide as the frame at most), then kept as the label system
+        /// would keep it.
+        /// </summary>
+        bool KeepInFrame(Camera cam, Slot s)
+        {
+            if (!LabelRect(cam, s.Spec, s.Spec.Text, s.Offset, s.Spec.Align, out Rect r)) return false;
+            float dx = 0, lo = FrameMarginPx, hi = Screen.width - FrameMarginPx;
+            bool visible = r.xMax > 0 && r.xMin < Screen.width && r.yMax > 0 && r.yMin < Screen.height;
+            if (visible && r.width <= hi - lo)
+            {
+                if (r.xMin < lo) dx = lo - r.xMin;
+                else if (r.xMax > hi) dx = hi - r.xMax;
+            }
+
+            r.x += dx;
+            Keep(visible, r, s.Spec.Align);
+            Vector2 offset = s.Offset + new Vector2(dx / LabelSystem.UiScale, 0);
+            if ((s.Spec.PixelOffset - offset).sqrMagnitude <= 0.01f) return false;
+            s.Spec.PixelOffset = offset;
             return true;
         }
 
         /// <summary>
-        /// Builds the latest published snapshot: a blocking one (a preset's year) here and now, shown at once; an async one
-        /// on a worker, shown when it finishes unless a newer snapshot arrived meanwhile (rapid year changes coalesce to the
+        /// Keeps the five tier labels in frame and apart: the stack stands at the first of <see cref="TierLabelThetas"/>
+        /// where every label's rect (spread by <see cref="SpreadTierLabels"/>) is inside the screen and clear of the crown's
+        /// label (a higher-priority stack would hide it); when none is, at the place needing the least sideways shift into
+        /// the frame, shifted; true when a label moved.
+        /// </summary>
+        bool PlaceTierLabels(Camera cam)
+        {
+            bool any = false;
+            foreach (Slot s in tierSlots) any |= s != null && !s.Spec.Hidden;
+            if (!any) return false;
+            bool hasCrown = slots.TryGetValue("land:crown", out Slot cs) && !cs.Spec.Hidden &&
+                            LabelRect(cam, cs.Spec, cs.Spec.Text, cs.Spec.PixelOffset, cs.Spec.Align, out tierCrown);
+
+            // the first place whose stack is in frame as it stands; else the one needing the least sideways shift into it
+            float chosen = TierLabelThetas[0], best = float.MaxValue, shift = 0;
+            foreach (float theta in TierLabelThetas)
+            {
+                if (!SpreadTierLabels(cam, theta)) continue;
+                float dx = TierStackShift(), cost = Mathf.Abs(dx);
+                if (float.IsNaN(dx) || hasCrown && TierStackMeets(tierCrown, dx) || cost >= best) continue;
+                chosen = theta;
+                best = cost;
+                shift = dx;
+                if (cost == 0) break;
+            }
+
+            SpreadTierLabels(cam, chosen);
+            for (int t = 0; t < tierShift.Length; t++) tierShiftX[t] = shift;
+            tierTheta = chosen;
+            bool changed = false;
+            for (int t = 0; t < tierSlots.Length; t++)
+            {
+                Slot s = tierSlots[t];
+                if (s == null) continue;
+                Vector3 data = TierLabelAt(t, chosen);
+                Vector2 offset = s.Offset + new Vector2(tierShiftX[t], tierShift[t]) / LabelSystem.UiScale;
+                if ((s.Spec.Data - data).sqrMagnitude < 1e-8f && (s.Spec.PixelOffset - offset).sqrMagnitude <= 0.01f) continue;
+                s.Spec.Data = data;
+                s.Spec.PixelOffset = offset;
+                changed = true;
+            }
+
+            return changed;
+        }
+
+        /// <summary>
+        /// The sideways shift (px) that brings the spread tier stack wholly into the frame (0 when it is in frame; NaN when
+        /// it does not fit in height or width).
+        /// </summary>
+        float TierStackShift()
+        {
+            float lo = float.MinValue, hi = float.MaxValue;
+            for (int t = 0; t < tierSlots.Length; t++)
+            {
+                if (tierSlots[t] == null || tierSlots[t].Spec.Hidden) continue;
+                Rect r = tierRects[t];
+                float slack = FrameWidthSlack * r.width;
+                if (r.yMin < FrameMarginPx || r.yMax > Screen.height - FrameMarginPx) return float.NaN;
+                lo = Mathf.Max(lo, FrameMarginPx - (r.xMin - 0.5f * slack));
+                hi = Mathf.Min(hi, Screen.width - FrameMarginPx - (r.xMax + 0.5f * slack));
+            }
+
+            return lo > hi ? float.NaN : lo > 0 ? lo : hi < 0 ? hi : 0;
+        }
+
+        /// <summary>Whether the spread tier stack, shifted sideways, meets a rect (the crown's label).</summary>
+        bool TierStackMeets(Rect other, float dx)
+        {
+            for (int t = 0; t < tierSlots.Length; t++)
+            {
+                if (tierSlots[t] == null || tierSlots[t].Spec.Hidden) continue;
+                Rect r = tierRects[t];
+                r.x += dx;
+                if (r.Overlaps(other)) return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// The tier labels' screen places with the stack at a wall angle: each at its band's middle, spread apart where the
+        /// bands project closer than a label's height plus <see cref="TierLabelGapPx"/> by the least-squares fit that keeps
+        /// their order (pool-adjacent violators on y − i × gap); fills <see cref="tierShift"/> (px, up) and
+        /// <see cref="tierRects"/>. False when a label is behind the camera.
+        /// </summary>
+        bool SpreadTierLabels(Camera cam, float theta)
+        {
+            int n = 0;
+            float gap = 0;
+            for (int t = 0; t < tierSlots.Length; t++)
+            {
+                tierShift[t] = 0;
+                Slot s = tierSlots[t];
+                if (s == null || s.Spec.Hidden) continue;
+                Vector3 p = cam.WorldToScreenPoint(TierLabelAt(t, theta));
+                if (p.z <= cam.nearClipPlane) return false;
+                Vector2 o = s.Offset * LabelSystem.UiScale;
+                spreadIndex[n] = t;
+                spreadX[n] = p.x + o.x;
+                spreadY[n] = p.y + o.y;
+                gap = Mathf.Max(gap, s.Spec.SizePx * LabelSystem.UiScale * LineEm + 2 * labels.Padding + TierLabelGapPx);
+                n++;
+            }
+
+            if (n == 0) return true;
+            float sign = spreadY[n - 1] >= spreadY[0] ? 1f : -1f;
+            int k = 0;
+            for (int i = 0; i < n; i++)
+            {
+                blockValue[k] = sign * spreadY[i] - i * gap;
+                blockCount[k] = 1;
+                k++;
+                while (k > 1 && blockValue[k - 2] > blockValue[k - 1])
+                {
+                    int w = blockCount[k - 2] + blockCount[k - 1];
+                    blockValue[k - 2] = (blockValue[k - 2] * blockCount[k - 2] + blockValue[k - 1] * blockCount[k - 1]) / w;
+                    blockCount[k - 2] = w;
+                    k--;
+                }
+            }
+
+            for (int b = 0, i = 0; b < k; b++)
+            {
+                for (int j = 0; j < blockCount[b]; j++, i++)
+                {
+                    int t = spreadIndex[i];
+                    float y = sign * (blockValue[b] + i * gap);
+                    tierShift[t] = y - spreadY[i];
+                    tierRects[t] = LabelRect(new Vector2(spreadX[i], y), tierSlots[t].Spec.Text, tierSlots[t].Spec.SizePx,
+                        tierSlots[t].Spec.Align);
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>A label's screen rect as the label system measures it, at its world place plus a pixel offset; false behind the camera.</summary>
+        bool LabelRect(Camera cam, LabelSpec spec, string text, Vector2 offset, TextAlignmentOptions align, out Rect rect)
+        {
+            rect = Rect.zero;
+            Vector3 p = cam.WorldToScreenPoint(spec.Data);
+            if (p.z <= cam.nearClipPlane) return false;
+            rect = LabelRect(new Vector2(p.x, p.y) + offset * LabelSystem.UiScale, text, spec.SizePx, align);
+            return true;
+        }
+
+        /// <summary>The rect the label system tests for a text at a screen point: its estimated width, line height, alignment and padding.</summary>
+        Rect LabelRect(Vector2 p, string text, float sizePx, TextAlignmentOptions align)
+        {
+            float scale = LabelSystem.UiScale, pad = labels.Padding, w = TextEm(text) * sizePx * scale, h = sizePx * scale * LineEm;
+            float x0 = align == TextAlignmentOptions.Right ? p.x - w : align == TextAlignmentOptions.Center ? p.x - 0.5f * w : p.x;
+            return new Rect(x0 - pad, p.y - 0.5f * h - pad, w + 2 * pad, h + 2 * pad);
+        }
+
+        /// <summary>A plain text's width in em as the label system estimates it (LabelSystem.EstimateWidth without tags).</summary>
+        static float TextEm(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return 0;
+            float w = 0;
+            foreach (char c in text) w += c == ' ' ? EmSpace : char.IsUpper(c) ? EmUpper : char.IsDigit(c) ? EmDigit : EmOther;
+            return w + EmMargin;
+        }
+
+        /// <summary>
+        /// Builds the latest published snapshot: a blocking one (a preset's year) is the worker build started when it was
+        /// published, waited for and shown at once (built here only when none was started); an async one is built on a
+        /// worker, shown when it finishes unless a newer snapshot arrived meanwhile (rapid year changes coalesce to the
         /// latest; a stale build is discarded). At most one worker build runs; a newer async snapshot waits for it.
         /// </summary>
         void Rebuild()
@@ -382,7 +790,10 @@ namespace Why.Economy.Layers
             if (wanted == null || building != null && !wanted.Blocking) return;
             LandSnapshot s = wanted;
             wanted = null;
-            if (shownSnapshot != null && ReferenceEquals(s.Land, shownSnapshot.Land) && ReferenceEquals(s.Money, shownSnapshot.Money))
+            Task<Content> prebuilt = ReferenceEquals(blockingFor, s) ? blockingBuild : null;
+            blockingBuild = null;
+            blockingFor = null;
+            if (SameLand(s, shownSnapshot))
             {
                 // the same land and money (a new season of the year on screen): nothing of this layer changes (a worker
                 // build of an older year still running is now stale and will be discarded)
@@ -392,7 +803,7 @@ namespace Why.Economy.Layers
             }
 
             EconomyData data = model.Data;
-            if (s.Blocking) Show(Build(data, s), true);
+            if (s.Blocking) Show(prebuilt != null ? prebuilt.GetAwaiter().GetResult() : Build(data, s), true);
             else building = Task.Run(() => Build(data, s));
         }
 
@@ -496,21 +907,29 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ labels and anchors (main thread after Prepare)
 
+        /// <summary>
+        /// Adds an item's label (hidden until <see cref="UpdateLabels"/> shows it). Its rank breaks equal priorities in the
+        /// label system's order, which is fixed when the label is added (the roots' rank, their table dollars, does not
+        /// change with the year; the pools' is their first year's inflow).
+        /// </summary>
         void AddSlot(Item it)
         {
+            LandFrame frame = EconomyStage.Land();
             Slot slot = new Slot
             {
-                Group = it.Group, Present = it.Present, Tower = it.Tower, TierStack = it.TierStack,
+                Group = it.Group, Present = it.Present, Tower = it.Tower, TierStack = it.TierStack, Offset = it.Offset, Index = slotList.Count,
+                Variants = it.Variants, Inner = frame.World(it.Inner),
                 Spec = new LabelSpec
                 {
-                    Text = it.Text, Data = it.TierStack >= 0 ? TierLabelAt(it.TierStack, tierTheta) : EconomyStage.Land().World(it.Label),
-                    Fixed = true, FixedRange = 0, PixelOffset = it.Offset,
-                    Priority = it.Priority, SizePx = it.SizePx, Color = it.Color, Align = TextAlignmentOptions.Center,
-                    AnchorKey = it.Key, Ids = it.Ids, Hidden = true
+                    Text = it.Text, Data = it.TierStack >= 0 ? TierLabelAt(it.TierStack, tierTheta) : frame.World(it.Label),
+                    Fixed = true, FixedRange = 0, PixelOffset = it.Offset, Priority = it.Priority, Rank = it.Rank,
+                    SizePx = it.SizePx, Color = it.Color, Align = TextAlignmentOptions.Center, AnchorKey = it.Key, Ids = it.Ids,
+                    Hidden = true
                 }
             };
             slots[it.Key] = slot;
             slotList.Add(slot);
+            placeOrderDirty = true;
             labels?.Add(slot.Spec);
         }
 
@@ -550,8 +969,11 @@ namespace Why.Economy.Layers
                     continue;
                 }
 
-                if (labels != null) labels.SetText(slot.Spec, it.Text);
-                else slot.Spec.Text = it.Text;
+                slot.Variants = it.Variants;
+                slot.Inner = EconomyStage.Land().World(it.Inner);
+                string text = it.Variants != null ? it.Variants[Math.Min(slot.Variant, it.Variants.Length - 1)] : it.Text;
+                if (labels != null) labels.SetText(slot.Spec, text);
+                else slot.Spec.Text = text;
                 slot.Spec.Data = slot.TierStack >= 0 ? TierLabelAt(slot.TierStack, tierTheta) : EconomyStage.Land().World(it.Label);
                 slot.Present = it.Present;
             }
@@ -587,7 +1009,9 @@ namespace Why.Economy.Layers
                 changed = true;
             }
 
-            if ((changed || force) && labels != null) labels.MarkDirty();
+            if (!changed && !force) return;
+            placeDirty = true;
+            labels?.MarkDirty();
         }
 
         // ------------------------------------------------------------------ the build (pure: any thread)
@@ -1133,7 +1557,7 @@ namespace Why.Economy.Layers
                     Blurb = (tier.Blurb ?? "") + " " + year + ": " + LandFacts.Money(va) + " of value added, " +
                             LandFacts.Percent(va / gdp, 1) + " of GDP; its sectors fill " + LandFacts.Percent(land.RingFill[t]) +
                             " of the ring" + est + ".",
-                    Label = at, Offset = new Vector2(0, (t - (int)Tier.Make) * TierLabelSpreadPx), TierStack = t,
+                    Label = at, TierStack = t,
                     Anchor = LandFrame.Polar(LandStyle.RingMid(t), LandStyle.TierLabelThetaDeg, LandStyle.TerraceY[t]),
                     Ids = EconomyIds.LandSectors(first, last), Priority = TierPriority, SizePx = TierLabelPx,
                     Color = Color.Lerp(TierColor(t), Color.white, 0.45f), AnchorTier = 1
@@ -1155,7 +1579,7 @@ namespace Why.Economy.Layers
                 }
 
                 StringBuilder blurb = new StringBuilder();
-                blurb.Append(ind.Name).Append(": creates ").Append(LandFacts.Money(s.ValueAdded)).Append(" in the US in ").Append(year)
+                blurb.Append(ShortName(ind)).Append(": creates ").Append(LandFacts.Money(s.ValueAdded)).Append(" in the US in ").Append(year)
                     .Append(est).Append(" · wages ").Append(LandFacts.Money(s.Wages)).Append(" · taxes and depreciation ")
                     .Append(LandFacts.Money(s.Upkeep)).Append(" · owners keep ").Append(LandFacts.Money(s.Owners)).Append(" (")
                     .Append(LandFacts.Percent(ownersShare)).Append(')');
@@ -1166,12 +1590,16 @@ namespace Why.Economy.Layers
                 }
 
                 blurb.Append(". Its area is the value it adds; the gold strip is what owners keep.");
+                // the label's texts, longest first: the placement shortens a crowded sector's label to name and value added,
+                // then to its name (the rest is in the blurb and the hover card)
+                string full = ShortName(ind) + " · " + LandFacts.Money(s.ValueAdded) + " · owners keep " + LandFacts.Percent(ownersShare) + est;
                 c.Items.Add(new Item
                 {
-                    Key = "land:sector:" + ind.Id, Name = ind.Name, Group = LandGroup.Sectors,
-                    Text = ShortName(ind) + " · " + LandFacts.Money(s.ValueAdded) + " · owners keep " + LandFacts.Percent(ownersShare) + est,
-                    Blurb = blurb.ToString(), Label = LandFrame.Polar(s.R1, s.Mid, s.Y), Anchor = LandFrame.Polar(0.5f * (s.R0 + s.R1), s.Mid, s.Y),
-                    Ids = EconomyIds.LandSectors(s.Industry, s.Industry), Priority = 10 + 60 * (float)share, SizePx = SectorLabelPx,
+                    Key = "land:sector:" + ind.Id, Name = ind.Name, Group = LandGroup.Sectors, Text = full,
+                    Variants = new[] { full, ShortName(ind) + " · " + LandFacts.Money(s.ValueAdded) + est, ShortName(ind) },
+                    Blurb = blurb.ToString(), Label = LandFrame.Polar(s.R1, s.Mid, s.Y), Inner = LandFrame.Polar(s.R0, s.Mid, s.Y),
+                    Anchor = LandFrame.Polar(0.5f * (s.R0 + s.R1), s.Mid, s.Y), Ids = EconomyIds.LandSectors(s.Industry, s.Industry),
+                    Priority = 10 + 60 * (float)share, Rank = (float)s.ValueAdded, SizePx = SectorLabelPx,
                     Present = s.Theta1 - s.Theta0 > 1e-4f, AnchorTier = share > 0.04 ? 1 : 2
                 });
             }
@@ -1195,7 +1623,7 @@ namespace Why.Economy.Layers
                 {
                     Key = "land:pool:" + ind.Id, Name = ShortName(ind) + " pool", Group = LandGroup.Pools, Text = text, Blurb = blurb,
                     Label = at, Anchor = at, Ids = IdRange.Single(EconomyIds.LandSector(s.Industry, EconomyIds.SectorPool)),
-                    Priority = PoolPriority, Present = inflow >= LandStyle.PoolLabelMinB
+                    Priority = PoolPriority, Rank = (float)inflow, Present = inflow >= LandStyle.PoolLabelMinB
                 });
             }
 
@@ -1286,8 +1714,10 @@ namespace Why.Economy.Layers
                 into.Add(new Item
                 {
                     Key = "land:root:" + a.Id + ">" + b.Id, Name = ShortName(a) + " → " + Lower(ShortName(b)), Group = LandGroup.Roots,
-                    Text = r.Largest >= 0 ? text : null, Blurb = blurb, Label = r.Lowest, Anchor = r.Lowest,
-                    Ids = IdRange.Single(EconomyIds.LandRoot(r.Index)), Priority = RootPriority, Present = r.Largest >= 0
+                    Text = r.Largest >= 0 ? text : null, Variants = r.Largest >= 0 ? new[] { text } : null, Blurb = blurb,
+                    Label = r.Lowest, Inner = r.Lowest + Vector3.up * RootLabelUp, Anchor = r.Lowest,
+                    Ids = IdRange.Single(EconomyIds.LandRoot(r.Index)), Priority = RootPriority, Rank = (float)r.Table,
+                    Present = r.Largest >= 0
                 });
             }
 

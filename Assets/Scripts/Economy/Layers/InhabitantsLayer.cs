@@ -256,6 +256,27 @@ namespace Why.Economy.Layers
             }
 
             UpdateLabels();
+            KeepLabelsInFrame(rig);
+        }
+
+        int framedCam = -1, framedW, framedLabels = -1;
+
+        /// <summary>
+        /// Keeps the shown player labels inside the frame (WP5: on a portrait screen the rim's outermost players' labels
+        /// ran off its edges): whenever the camera, the screen or the labels changed, each shown label is shifted sideways
+        /// just enough (<see cref="LandViewLayer.KeepInFrame"/>).
+        /// </summary>
+        void KeepLabelsInFrame(CameraRig rig)
+        {
+            if (rig == null || rig.Cam == null || labelSystem == null) return;
+            int shownKey = labelsVersion * 31 + selectedSeen + (highlightSeen ? 7 : 0);
+            if (rig.Version == framedCam && Screen.width == framedW && shownKey == framedLabels) return;
+            framedCam = rig.Version;
+            framedW = Screen.width;
+            framedLabels = shownKey;
+            bool changed = false;
+            foreach (LabelSpec spec in labels) changed |= LandViewLayer.KeepInFrame(rig.Cam, spec, 0, labelSystem.Padding);
+            if (changed) labelSystem.MarkDirty();
         }
 
         static void Show(MeshRenderer r, float alpha)
@@ -357,6 +378,8 @@ namespace Why.Economy.Layers
         /// </summary>
         void ApplyLabels(Built b, bool live)
         {
+            // new labels (a new year) keep no sideways shift of the old ones: re-frame them even with a still camera
+            framedLabels = int.MinValue;
             for (int k = 0; k < b.Labels.Count; k++)
             {
                 PlayerLabel pl = b.Labels[k];

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using Why.Economy.Land;
@@ -36,6 +37,17 @@ namespace Why.Economy.Layers
         int seenState = -1, requestedYear = -1;
         SocialSettings requestedSocial;
 
+        /// <summary>
+        /// What the preset catalog was last refreshed for (<see cref="EconomyPresets"/>): the cut's year (the section's
+        /// title and pose) and the land on screen (generated subtitles). When either changes the catalog is refreshed in place.
+        /// </summary>
+        int catalogYear = -1, catalogShown = -1;
+
+        /// <summary>The section view follows a new year over this time (s).</summary>
+        const float SectionRefocusSeconds = 0.4f;
+
+        GraphRoot root;
+
         public override void Prepare(GraphContext ctx)
         {
             frozenMorph = EnvFloat("WHY_ECON_MORPH", -1);
@@ -59,10 +71,79 @@ namespace Why.Economy.Layers
             storedYear = -1;
             requestedYear = LandService.Current?.Year ?? EconomyState.Year;
             requestedSocial = LandService.Current?.Society?.Settings ?? EconomyState.Social;
+
+            // the catalog was first built before the land existed: refresh it (in place) with the land's numbers
+            EconomyPresets.Refresh(ViewPresets.All);
+            catalogYear = EconomyState.CutYear;
+            catalogShown = LandService.ShownYear;
+            root = GraphRoot.Instance;
+            if (root != null) root.OrientationChanged += OnOrientation;
         }
+
+        /// <summary>
+        /// The screen turned: the catalog frames its views for the new shape (portrait aims lower), so it is refreshed in
+        /// place and the camera, which the root has just sent to the old pose, flies to the new one.
+        /// </summary>
+        void OnOrientation()
+        {
+            EconomyPresets.Refresh(ViewPresets.All);
+            ViewPreset now = root != null ? root.CurrentPreset : null;
+            if (now == null) return;
+            Freshen(now);
+            if (now.FixedTarget.HasValue) root.Rig.FlyTo(now.Pose(), GraphRoot.ReframeSeconds);
+        }
+
+        /// <summary>
+        /// Follows the cut's year and the land on screen: a new land refreshes the whole catalog in place (the generated
+        /// subtitles); a new cut year (every step of a scrubber drag) only the section preset, and the section view
+        /// follows the cut to its new year over <paramref name="seconds"/>.
+        /// </summary>
+        void FollowCatalog(float seconds)
+        {
+            int year = EconomyState.CutYear, shown = LandService.ShownYear;
+            if (year == catalogYear && shown == catalogShown) return;
+            bool moved = year != catalogYear;
+            ViewPreset section = CatalogPreset("section");
+            if (shown != catalogShown) EconomyPresets.Refresh(ViewPresets.All);
+            else EconomyPresets.RefreshSection(section);
+            catalogYear = year;
+            catalogShown = shown;
+            if (!moved || root == null || root.Rig == null || LandView.PresetId != "section") return;
+            ViewPreset now = root.CurrentPreset ?? section;
+            Freshen(now);
+            if (now.FixedTarget.HasValue) root.Rig.FlyTo(now.Pose(), seconds);
+        }
+
+        /// <summary>The catalog's preset with this id, or null (<see cref="ViewPresets.Get"/> falls back to the first).</summary>
+        static ViewPreset CatalogPreset(string id)
+        {
+            if (id == null) return null;
+            IReadOnlyList<ViewPreset> all = ViewPresets.All;
+            for (int i = 0; i < all.Count; i++)
+            {
+                if (all[i].Id == id) return all[i];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// A preset object that is not the catalog's own (a copy the tour fitted to an anchor) takes the catalog's
+        /// current pose and text. True when its pose changed.
+        /// </summary>
+        static bool Freshen(ViewPreset preset) => preset != null && EconomyPresets.CopyPose(CatalogPreset(preset.Id), preset);
+
+        /// <summary>The root's default flight to a focused preset (s), for the backstop below.</summary>
+        const float FocusSeconds = 2.2f;
 
         public override void OnFocus(ViewPreset preset)
         {
+            // backstop: a preset object held since an older catalog (a copy) flies to the current pose instead
+            if (Freshen(preset) && preset.FixedTarget.HasValue && root != null && root.Rig != null)
+            {
+                root.Rig.FlyTo(preset.Pose(), FocusSeconds);
+            }
+
             ViewSpec spec = EconomyViews.Get(preset?.Id);
             if (spec.Year > 0)
             {
@@ -77,6 +158,11 @@ namespace Why.Economy.Layers
             }
 
             LandView.Apply(spec, heldRound);
+
+            // the section focused from a view of another year (1972): the root flies to the cut of that year, the year
+            // has just gone back, so the flight goes on to the restored year's cut at the focus's pace
+            FollowCatalog(FocusSeconds);
+
             if (spec.Betrayal) LandService.Betrayal(true);
             if (labels != null) labels.DataLabelsHidden = spec.HideRoadLabels;
             ApplySelection();
@@ -112,6 +198,7 @@ namespace Why.Economy.Layers
             }
 
             LandService.Tick();
+            FollowCatalog(SectionRefocusSeconds);
             float road = LandView.RoadAlpha;
             Axis.TimeAxisLayer.SceneAlpha = road;
             Humans.Smv.SmvLayer.SceneAlpha = road;
@@ -120,8 +207,43 @@ namespace Why.Economy.Layers
         /// <summary>The causality scene's road is never dimmed: the hooks go back to 1 with the economy scene.</summary>
         void OnDestroy()
         {
+            if (root != null) root.OrientationChanged -= OnOrientation;
             Axis.TimeAxisLayer.SceneAlpha = 1f;
             Humans.Smv.SmvLayer.SceneAlpha = 1f;
+        }
+
+        /// <summary>Land labels kept inside the frame stay this far from its edges (px).</summary>
+        const float FrameMarginPx = 6f;
+
+        /// <summary>
+        /// Shifts a fixed land label sideways just enough to stand wholly inside the frame (a label at the bowl's edge on a
+        /// narrow portrait screen), as wide as the frame at most; its own offset is <paramref name="baseX"/> (px before the
+        /// UI scale). Shared by the land layers whose labels a pose alone cannot keep in frame (the players', the rivers').
+        /// True when the label's offset changed (the caller marks the label system dirty).
+        /// </summary>
+        internal static bool KeepInFrame(Camera cam, LabelSpec spec, float baseX, float padding)
+        {
+            if (cam == null || spec == null || spec.Hidden || !spec.Fixed) return false;
+            Vector3 sp = cam.WorldToScreenPoint(spec.Data);
+            float nx = baseX;
+            if (sp.z > cam.nearClipPlane)
+            {
+                float scale = LabelSystem.UiScale, w = spec.Width * scale + 2 * padding;
+                float x = sp.x + baseX * scale;
+                float x0 = spec.Align == TMPro.TextAlignmentOptions.Right ? x - w
+                    : spec.Align == TMPro.TextAlignmentOptions.Center ? x - 0.5f * w : x;
+                float lo = FrameMarginPx, hi = Screen.width - FrameMarginPx;
+                bool visible = x0 + w > 0 && x0 < Screen.width && sp.y > 0 && sp.y < Screen.height;
+                if (visible && w <= hi - lo)
+                {
+                    if (x0 < lo) nx += (lo - x0) / scale;
+                    else if (x0 + w > hi) nx += (hi - x0 - w) / scale;
+                }
+            }
+
+            if (Mathf.Abs(spec.PixelOffset.x - nx) < 0.01f) return false;
+            spec.PixelOffset = new Vector2(nx, spec.PixelOffset.y);
+            return true;
         }
 
         static bool Same(SocialSettings a, SocialSettings b) =>

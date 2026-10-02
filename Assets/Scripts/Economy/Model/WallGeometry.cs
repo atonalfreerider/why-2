@@ -109,13 +109,12 @@ namespace Why.Economy.Model
 
             if (max <= 0 || n == 0) return new WallGeometry(new List<WallColumn>(), n);
             float scale = (float)((EconomyStyle.WallTopY - EconomyStyle.GroundY) / max);
-            double laborRef = data.LaborShare.IsEmpty ? 1 : data.LaborShare.At(ShareYear);
 
             List<WallColumn> columns = new List<WallColumn>(years.Count);
             for (int j = 0; j < years.Count; j++)
             {
                 double year = years[j];
-                double labor = data.LaborShare.IsEmpty || laborRef <= 0 ? 1 : data.LaborShare.At(year) / laborRef;
+                double labor = LaborRatio(data, year);
                 WallColumn c = new WallColumn
                 {
                     Year = year,
@@ -127,10 +126,8 @@ namespace Why.Economy.Model
                 float acc = EconomyStyle.GroundY;
                 for (int i = 0; i < n; i++)
                 {
-                    Industry ind = inds[i];
                     float h = (float)real[j, i] * scale;
-                    double upkeep = Math.Min(1, ind.TaxShare + ind.DepShare);
-                    double wages = Math.Max(0, Math.Min(1 - upkeep, ind.CompShare * labor));
+                    Split(inds[i], labor, out double wages, out double upkeep, out _);
                     c.Lo[i] = acc;
                     c.Upkeep[i] = acc + (float)(h * wages);
                     c.Owners[i] = c.Upkeep[i] + (float)(h * upkeep);
@@ -143,6 +140,29 @@ namespace Why.Economy.Model
             }
 
             return new WallGeometry(columns, n);
+        }
+
+        /// <summary>
+        /// How an industry's value added divides into wages, upkeep and what owners keep (shares of 1): upkeep is
+        /// production taxes plus depreciation (at most all of it); wages are the compensation share scaled by the labor
+        /// share relative to <see cref="ShareYear"/> (<paramref name="laborRatio"/>), clamped to what upkeep leaves;
+        /// owners keep the rest. The one rule behind the wall's band split and the land's sector strips.
+        /// </summary>
+        public static void Split(Industry ind, double laborRatio, out double wages, out double upkeep, out double owners)
+        {
+            upkeep = Math.Min(1, ind.TaxShare + ind.DepShare);
+            wages = Math.Max(0, Math.Min(1 - upkeep, ind.CompShare * laborRatio));
+            owners = Math.Max(0, 1 - upkeep - wages);
+        }
+
+        /// <summary>
+        /// The labor-share ratio <see cref="Split"/> takes for a year: the labor share at the year over the labor share at
+        /// <see cref="ShareYear"/> (1 without data).
+        /// </summary>
+        public static double LaborRatio(EconomyData data, double year)
+        {
+            double laborRef = data.LaborShare.IsEmpty ? 1 : data.LaborShare.At(ShareYear);
+            return data.LaborShare.IsEmpty || laborRef <= 0 ? 1 : data.LaborShare.At(year) / laborRef;
         }
 
         /// <summary>The population's center line (data rho) at a year; the framing default before it exists.</summary>

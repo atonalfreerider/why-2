@@ -123,6 +123,13 @@ namespace Why.Economy.Layers
         static readonly float[] TierLabelThetas = { LandStyle.TierLabelThetaDeg, 270f, 230f, 120f, 130f, 140f, 150f, 110f };
 
         /// <summary>
+        /// The overview's places for the tier stack (WP5): it sees the bowl from the road's side, where the near wall at
+        /// 250° stands beside the cut and the road's own labels (the wall's tiers, "Now") would win its rects; the stack
+        /// stands on the side of the bowl turned away from the road instead (20°-60°, the right of the overview's frame).
+        /// </summary>
+        static readonly float[] OverviewTierLabelThetas = { 40f, 30f, 50f, 60f, 20f, 320f, LandStyle.TierLabelThetaDeg };
+
+        /// <summary>
         /// The label system's measure of a plain text, mirrored for the land's own placement (LabelSystem.EstimateWidth: em
         /// per space, capital, digit and other character, plus a margin) and its line height (em).
         /// </summary>
@@ -622,8 +629,9 @@ namespace Why.Economy.Layers
                             LabelRect(cam, cs.Spec, cs.Spec.Text, cs.Spec.PixelOffset, cs.Spec.Align, out tierCrown);
 
             // the first place whose stack is in frame as it stands; else the one needing the least sideways shift into it
-            float chosen = TierLabelThetas[0], best = float.MaxValue, shift = 0;
-            foreach (float theta in TierLabelThetas)
+            float[] thetas = LandView.PresetId == "overview" ? OverviewTierLabelThetas : TierLabelThetas;
+            float chosen = thetas[0], best = float.MaxValue, shift = 0;
+            foreach (float theta in thetas)
             {
                 if (!SpreadTierLabels(cam, theta)) continue;
                 float dx = TierStackShift(), cost = Mathf.Abs(dx);

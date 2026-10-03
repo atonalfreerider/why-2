@@ -31,7 +31,18 @@ Jev is accessed through Vercel AI Gateway using model `typesafe-ai/jev`.
 No Vercel deployment is required for local agent calls.
 
 Create an AI Gateway key in Vercel's AI Gateway / API Keys page. Keep it local;
-do not paste it into chat or commit it. In PowerShell, enter it without echoing:
+do not paste it into chat or commit it. To save it for desktop agents, run:
+
+```powershell
+powershell -NoProfile -File Tools/set-jev-key.ps1
+```
+
+This prompts without echoing and stores the key in `.jev/gateway-key.dpapi`,
+encrypted with Windows DPAPI for the current Windows user on this PC. The
+directory is excluded from Git. To remove it, delete that file and revoke the
+key in Vercel. No credential has been saved as part of the initial setup.
+
+For a temporary process-only key instead, in PowerShell enter it without echoing:
 
 ```powershell
 $jevSecret = Read-Host 'Vercel AI Gateway API key' -AsSecureString

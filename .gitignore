@@ -65,6 +65,9 @@ crashlytics-build.properties
 UserSettings
 .utmp
 
+# Local Jev Gateway credential encrypted with Windows DPAPI.
+/.jev/
+
 # Generated local narration and tour assets, including Unity sidecars.
 /Assets/Resources/Audio/
 /Assets/Resources/Audio.meta

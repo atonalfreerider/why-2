@@ -29,11 +29,17 @@ if ($ValidateOnly) {
     Write-Output 'Valid request structure. No network request made.'
     exit 0
 }
-if ([string]::IsNullOrWhiteSpace($env:AI_GATEWAY_API_KEY)) {
+$gatewayKey = $env:AI_GATEWAY_API_KEY
+$keyPath = Join-Path (Split-Path $PSScriptRoot -Parent) '.jev\gateway-key.dpapi'
+if ([string]::IsNullOrWhiteSpace($gatewayKey) -and (Test-Path -LiteralPath $keyPath)) {
+    $secureKey = Get-Content -LiteralPath $keyPath -Raw | ConvertTo-SecureString
+    $gatewayKey = [System.Net.NetworkCredential]::new('', $secureKey).Password
+}
+if ([string]::IsNullOrWhiteSpace($gatewayKey)) {
     throw 'Set AI_GATEWAY_API_KEY in this process before calling Jev. See Docs/jev-setup.md.'
 }
 
-$headers = @{ Authorization = "Bearer $env:AI_GATEWAY_API_KEY" }
+$headers = @{ Authorization = "Bearer $gatewayKey" }
 try {
     $result = Invoke-RestMethod -Method Post `
         -Uri 'https://ai-gateway.vercel.sh/typesafe/v1/systemone' `

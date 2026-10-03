@@ -1,0 +1,9 @@
+{
+  "state": "The why-2 repository is a Unity project with Assets, Packages, and ProjectSettings directories.",
+  "questions": {
+    "is_unity_project": {
+      "type": "noul",
+      "instructions": "Does the supplied state describe a Unity project?"
+    }
+  }
+}

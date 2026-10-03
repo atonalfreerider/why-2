@@ -39,14 +39,14 @@ namespace Why.Economy
     {
         /// <summary>The preset ids, keyed (1-8) then keyless.</summary>
         public static readonly string[] Ids =
-            { "overview", "section", "landscape", "capture", "people", "rivers", "mind", "society", "roots", "betrayal", "y1972" };
+            { "overview", "section", "landscape", "capture", "people", "rivers", "mind", "society", "roots", "betrayal", "y1972", "foundation" };
 
         /// <summary>The year the keyless y1972 preset opens temporarily.</summary>
         public const int Year1972 = 1972;
 
         /// <summary>Columns of <see cref="Table"/>.</summary>
         static readonly string[] Columns =
-            { "overview", "section", "landscape", "roots", "capture", "people", "rivers", "mind", "society", "betrayal", "y1972" };
+            { "overview", "section", "landscape", "roots", "capture", "people", "rivers", "mind", "society", "betrayal", "y1972", "foundation" };
 
         /// <summary>
         /// The emphasis table: one row per LandGroup (in enum order), one column per preset of <see cref="Columns"/>. WP6
@@ -56,26 +56,26 @@ namespace Why.Economy
         /// </summary>
         static readonly float[][] Table =
         {
-            //            overview section landscape roots capture people rivers mind society betrayal y1972
-            new[] { 1f, .3f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },  // Road (section .3: the camera stands in the lifelines)
-            new[] { 1f, 1f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f },            // Cut
-            new[] { .8f, 0f, 1f, .35f, .32f, .35f, .4f, .25f, .2f, .2f, 1f },         // Terraces
-            new[] { .8f, 0f, 1f, .45f, 1f, .35f, .25f, .2f, .12f, .12f, 1f },         // Sectors
-            new[] { .5f, 0f, .35f, .05f, .1f, .1f, 1f, .2f, .05f, .05f, .35f },       // Pools
-            new[] { .15f, 0f, .3f, 1f, .05f, .03f, .03f, .03f, .02f, .02f, .3f },     // Roots
-            new[] { .8f, 0f, .45f, .1f, 1f, .35f, .08f, .1f, .1f, .1f, .45f },        // Towers
-            new[] { .8f, 0f, .3f, .05f, 1f, .6f, .1f, .2f, .1f, .1f, .3f },           // Crown
-            new[] { .5f, 0f, .4f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, .4f },                  // Overlays
-            new[] { .7f, 0f, .35f, .1f, .35f, 1f, .35f, 1f, .8f, .8f, .35f },         // Glyphs
-            new[] { .3f, 0f, .2f, .05f, .25f, 1f, .15f, 1f, .3f, .3f, .2f },          // Dots
-            new[] { .15f, 0f, .05f, 0f, .05f, .3f, .05f, 1f, .03f, .03f, .05f },      // Mirages
-            new[] { .1f, 0f, .05f, .03f, .1f, 1f, .04f, .05f, .02f, .02f, .05f },     // Income
-            new[] { .15f, 0f, .05f, .03f, .6f, .4f, .04f, .05f, .02f, .02f, .05f },   // CapitalFlows (capture .6: the towers first)
-            new[] { .4f, 0f, .15f, .05f, .1f, .15f, 1f, .5f, .06f, .06f, .15f },      // Rivers
-            new[] { .2f, 0f, .05f, 0f, .05f, .05f, 1f, .8f, .03f, .03f, .05f },       // Glitter
-            new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f },       // Taxes
-            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 1f, 0f },                     // Ties
-            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .6f, 0f },                    // Coalitions
+            //            overview section landscape roots capture people rivers mind society betrayal y1972 foundation
+            new[] { 1f, .3f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },  // Road (section .3: the camera stands in the lifelines)
+            new[] { 1f, 1f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f },            // Cut
+            new[] { .8f, 0f, 1f, .35f, .32f, .35f, .4f, .25f, .2f, .2f, 1f, .8f },         // Terraces
+            new[] { .8f, 0f, 1f, .45f, 1f, .35f, .25f, .2f, .12f, .12f, 1f, .8f },         // Sectors
+            new[] { .5f, 0f, .35f, .05f, .1f, .1f, 1f, .2f, .05f, .05f, .35f, .5f },       // Pools
+            new[] { .15f, 0f, .3f, 1f, .05f, .03f, .03f, .03f, .02f, .02f, .3f, .15f },     // Roots
+            new[] { .8f, 0f, .45f, .1f, 1f, .35f, .08f, .1f, .1f, .1f, .45f, .8f },        // Towers
+            new[] { .8f, 0f, .3f, .05f, 1f, .6f, .1f, .2f, .1f, .1f, .3f, .8f },           // Crown
+            new[] { .5f, 0f, .4f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, .4f, .5f },                  // Overlays
+            new[] { .7f, 0f, .35f, .1f, .35f, 1f, .35f, 1f, .8f, .8f, .35f, .7f },         // Glyphs
+            new[] { .3f, 0f, .2f, .05f, .25f, 1f, .15f, 1f, .3f, .3f, .2f, .3f },          // Dots
+            new[] { .15f, 0f, .05f, 0f, .05f, .3f, .05f, 1f, .03f, .03f, .05f, .15f },      // Mirages
+            new[] { .1f, 0f, .05f, .03f, .1f, 1f, .04f, .05f, .02f, .02f, .05f, .1f },     // Income
+            new[] { .15f, 0f, .05f, .03f, .6f, .4f, .04f, .05f, .02f, .02f, .05f, .15f },   // CapitalFlows (capture .6: the towers first)
+            new[] { .4f, 0f, .15f, .05f, .1f, .15f, 1f, .5f, .06f, .06f, .15f, .4f },      // Rivers
+            new[] { .2f, 0f, .05f, 0f, .05f, .05f, 1f, .8f, .03f, .03f, .05f, .2f },       // Glitter
+            new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f, .2f },       // Taxes
+            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 1f, 0f, 0f },                     // Ties
+            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .6f, 0f, 0f },                    // Coalitions
         };
 
         static Dictionary<string, ViewSpec> specs;
@@ -118,6 +118,7 @@ namespace Why.Economy
             d["landscape"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
             d["y1972"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors };
             d["y1972"].Year = Year1972;
+            d["foundation"].Labels = new[] { LandGroup.Terraces };
             d["roots"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Roots };
             d["capture"].Labels = new[] { LandGroup.Terraces, LandGroup.Sectors, LandGroup.Towers, LandGroup.Crown, LandGroup.Overlays, LandGroup.CapitalFlows };
             d["people"].Labels = new[] { LandGroup.Terraces, LandGroup.Glyphs };

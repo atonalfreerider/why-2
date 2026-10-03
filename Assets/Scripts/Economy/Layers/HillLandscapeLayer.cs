@@ -109,6 +109,7 @@ namespace Why.Economy.Layers
                     Label(LandService.Model.Data.Industries[h.Industry].Name,h.Summit+Vector3.up*.6f,LandGroup.Sectors,.23f,Color.white);
             }
             Lines(contours,LandGroup.Sectors);
+            Strata();
             string[] strata={"GOVERNMENT","RAW MATERIALS","MANUFACTURING / INFRASTRUCTURE","SERVICES","TECH"};
             for(int t=0;t<strata.Length;t++)Label(strata[t],new Vector3(-82,t==0?-18:HillLandscape.Lowland(-82,t*24-52)+1,t*24-52),LandGroup.Sectors,.23f,Ice);
             var roots=new LineMeshBuilder();var io=LandService.Model.Data.Circuit?.Io;
@@ -120,18 +121,28 @@ namespace Why.Economy.Layers
             }
             Lines(roots,LandGroup.Roots,true);
         }
+        /// <summary>Class is altitude: a legend of the rungs up the flank of the most populated hill.</summary>
+        void Strata()
+        {
+            var count=new int[Current.Hills.Length];foreach(int h in Current.IndustryOf)count[h]++;
+            int best=0;for(int h=1;h<count.Length;h++)if(Current.Hills[h].Tier>0&&count[h]>count[best])best=h;
+            var hill=Current.Hills[best];var b=new LineMeshBuilder();
+            string[] names={"VALLEY FLOOR · out of work","LOWER VALLEY · working poor, students","FOOTHILLS · frontline, gig, Social Security retirees",
+                "SLOPES · office, public servants, comfortable retirees","UPPER SLOPES · professional-managerial class","UNDER THE SUMMIT · business owners"};
+            for(int r=0;r<names.Length;r++)
+            {
+                var ring=new Vector3[41];
+                for(int j=0;j<ring.Length;j++)ring[j]=Current.At(hill,Mathf.PI*(.62f+.76f*j/40f),HillLandscape.RungRadius[r],.12f);
+                b.AddPolyline(ring,WithAlpha(r>=4?Gold:Blue,.55f),1.1f,0,0,1.4f);
+                Label(names[r],Current.At(hill,Mathf.PI*1.02f,HillLandscape.RungRadius[r],1.2f)+Vector3.left*3,LandGroup.Glyphs,.17f,r>=4?Gold:Ice);
+            }
+            Label("CLOUDS · the top 1%: claims on every hill",new Vector3(3,HillLandscape.CloudY+4,-14),LandGroup.Glyphs,.25f,Gold);
+            Lines(b,LandGroup.Glyphs);
+        }
         void Owners()
         {
+            // Hilltop halos are drawn by HillCaptureLayer, sized by the owners' surplus households' spending generates.
             var architecture=new LineMeshBuilder();var glow=new LineMeshBuilder();
-            foreach(var hill in Current.Hills)
-            {
-                for(int band=0;band<4;band++)
-                {
-                    var ring=new Vector3[97];
-                    for(int j=0;j<ring.Length;j++){ring[j]=hill.Surface(j*Mathf.PI/48,.27f+band*.025f);ring[j].y=hill.Summit.y-hill.Height*.15f+band*.045f;}
-                    glow.AddPolyline(ring,WithAlpha(Gold,.8f-band*.16f),2,0,0);
-                }
-            }
             int seat=0;
             foreach(OwnerRecord owner in owners)
             {
@@ -140,7 +151,13 @@ namespace Why.Economy.Layers
                 Vector3 at=Current.Hills[industry.Index].Surface((seat++%2==0?0:Mathf.PI),.30f)+Vector3.up*.15f;
                 crowns.Add((at,owner));
                 // The crown is an atmospheric ring of concentrated claims, never a literal royal object.
-                Label(owner.name,at+Vector3.up*1.2f,LandGroup.Crown,.20f,Gold);
+                for(int band=0;band<3;band++)
+                {
+                    var ring=new Vector3[49];
+                    for(int j=0;j<ring.Length;j++){float a=j*Mathf.PI/24;ring[j]=at+new Vector3(Mathf.Cos(a)*(.9f+band*.18f),.4f+band*.12f,Mathf.Sin(a)*(.9f+band*.18f));}
+                    glow.AddPolyline(ring,WithAlpha(Gold,.9f-band*.25f),2.2f-band*.5f,0,0,4-band);
+                }
+                Label(owner.name+" · voting control of "+owner.company,at+Vector3.up*1.6f,LandGroup.Crown,.20f,Gold);
             }
             Lines(architecture,LandGroup.Towers);
             var light=Lines(glow,LandGroup.Crown,true);light.sharedMaterial.SetColor("_Color",new Color(3,2.6f,1.8f,1));
@@ -241,47 +258,26 @@ namespace Why.Economy.Layers
         }
         void Money()
         {
-            var capital = new LineMeshBuilder(); var income = new LineMeshBuilder(); var spending = new LineMeshBuilder();
-            var pools = new LineMeshBuilder(); var players = snapshot.Players.Players;
+            // Investment: the owners' pool in the clouds sends part of its surplus back down to the hills as new capital.
+            // Household rivers (HillActivityLayer) and the split of value at each market (HillCaptureLayer) are drawn there.
+            var capital = new LineMeshBuilder(); var pools = new LineMeshBuilder();
+            Vector3 cloud = new Vector3(3, HillLandscape.CloudY, 9);
             foreach (IndustryHill hill in Current.Hills)
             {
-                int h = hill.Industry;
-                double investment = snapshot.Money.InvestmentBySector[h];
-                if (investment > 0)
+                double investment = snapshot.Money.InvestmentBySector[hill.Industry];
+                if (investment <= 0 || hill.Tier == 0) continue;
+                Vector3 halo = Current.Halo(hill.Industry);
+                var points = new LinePoint[25];
+                for (int k = 0; k < points.Length; k++)
                 {
-                    var points = new List<LinePoint>();
-                    for (int k = 0; k <= 40; k++)
-                    {
-                        float t = k / 40f; Vector3 p = hill.Surface(-Mathf.PI*.5f + Mathf.Sin(t*6)*.10f,1-t);
-                        points.Add(new LinePoint(p+Vector3.up*.025f,Gold,1.1f+(float)Math.Sqrt(investment)*.08f));
-                    }
-                    capital.AddFlowPath(points,0,2);
-                    Arrow(capital,hill.Surface(-Mathf.PI*.5f,.25f)+Vector3.up*.04f, hill.Summit+Vector3.up*.04f,Gold);
+                    float t = k / 24f; Vector3 p = Vector3.Lerp(cloud, halo, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * 6;
+                    points[k] = new LinePoint(p, WithAlpha(Gold, .5f), .8f + (float)Math.Sqrt(investment) * .06f, 0, 1.6f);
                 }
-                double paid = snapshot.Money.PoolInflow[h];
-                if (paid > 0) Ring(pools,hill.Foot+new Vector3(0,0,-.17f),.08f+(float)Math.Sqrt(paid)*.005f,Rose,2);
+                capital.AddFlowPath(points, 0, .4f);
             }
-            for (int p = 0; p < players.Length; p++)
-            {
-                Player player = players[p]; Vector3 at = Current.People[p];
-                int h = Current.IndustryOf[p];
-                if (player.Wages > 0) GroundFlow(income,Current.Hills[h].Surface(-Mathf.PI*.5f,.8f),at,WithAlpha(Blue,.48f),1);
-                if (player.Capital > 0) Flow(capital,new Vector3(at.x,HillLandscape.CloudY,at.z),at,WithAlpha(Gold,.18f),.75f,.3f);
-                // Route all six categories to their recipient industries using the existing spending crosswalk.
-                for (int c = 0; c < 6; c++)
-                {
-                    var category = LandService.Model.Data.Categories[c];
-                    for (int s = 0; s < Current.Hills.Length; s++)
-                    {
-                        double amount = player.Category[c] * category.IndustryShare(LandService.Model.Data.Industries[s].Id);
-                        if (amount < 20 || EconomyState.SelectedPlayer >= 0 && p != EconomyState.SelectedPlayer) continue;
-                        Color color = Color.Lerp(Rose,Ice,player.Fear);
-                        GroundFlow(spending,at,Current.Hills[s].Foot,WithAlpha(color,.24f),.6f+(float)Math.Sqrt(amount)*.025f);
-                    }
-                }
-            }
-            Lines(capital,LandGroup.CapitalFlows,true); Lines(income,LandGroup.Income,true);
-            Lines(spending,LandGroup.Rivers,true); Lines(pools,LandGroup.Pools);
+            Ring(pools, cloud, 6, WithAlpha(Gold, .35f), 1.4f);
+            Label("INVESTMENT\nowners' saving sent back down as new capital", cloud + Vector3.up * 5, LandGroup.CapitalFlows, .25f, Gold);
+            Lines(capital,LandGroup.CapitalFlows,true); Lines(pools,LandGroup.Pools);
         }
         void Mind()
         {
@@ -365,7 +361,10 @@ namespace Why.Economy.Layers
             if (socialRenderer) GraphMaterials.SetAlpha(socialRenderer.sharedMaterial,social?1:0);
             foreach (var entry in labels)
             {
-                bool show=entry.group==LandGroup.Mirages?mind:!mind && !social && (entry.group==LandGroup.Crown ? LandView.PresetId=="capture" : entry.text.text=="GOVERNMENT" || LandView.PresetId=="landscape" || LandView.PresetId=="capture");
+                string view=LandView.PresetId;
+                bool show=entry.group==LandGroup.Mirages?mind:!mind && !social && (entry.group==LandGroup.Crown ? view=="capture"
+                    : entry.group==LandGroup.Glyphs ? view=="people" : entry.group==LandGroup.CapitalFlows ? view=="rivers"
+                    : entry.text.text=="GOVERNMENT" || view=="landscape" || view=="capture");
                 entry.text.gameObject.SetActive(show);
                 if (show) entry.text.transform.rotation=rig.Cam.transform.rotation;
             }
@@ -378,10 +377,11 @@ namespace Why.Economy.Layers
             if (g==LandGroup.Terraces) return .22f;
             if (g==LandGroup.Sectors) return .20f;
             if (g==LandGroup.Towers) return view=="capture"?.55f:.12f;
-            if (g==LandGroup.Crown) return view=="capture"?.50f:.15f;
+            if (g==LandGroup.Crown) return view=="capture"?1:.35f;
             if (g==LandGroup.Roots) return view=="roots"?.75f:.055f;
-            if (g==LandGroup.Rivers||g==LandGroup.Income||g==LandGroup.CapitalFlows||g==LandGroup.Pools)
-                return view=="rivers"?.20f:0;
+            if (g==LandGroup.Glyphs) return view=="people"?.9f:0;
+            if (g==LandGroup.CapitalFlows||g==LandGroup.Pools) return view=="rivers"?.6f:view=="capture"?.2f:0;
+            if (g==LandGroup.Rivers||g==LandGroup.Income) return view=="rivers"?.20f:0;
             return 1;
         }
         void Pick(Camera camera,bool mind)
@@ -435,7 +435,7 @@ namespace Why.Economy.Layers
             else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5)
             {
                 int firm=-1;float closest=22;
-                for(int f=0;f<snapshot.Land.Towers.Length;f++){Vector3 screen=camera.WorldToScreenPoint(frame.World(HillActivityLayer.CompanyPosition(f)+Vector3.up*1.4f));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;firm=f;}}
+                for(int f=0;f<snapshot.Land.Towers.Length;f++){Vector3 screen=camera.WorldToScreenPoint(frame.World(HillActivityLayer.CompanyHalo(f)));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;firm=f;}}
                 if(firm>=0)UI.HillExplorer.Instance?.EnterCompany(firm);
                 else if(HoverIndustry>=0)UI.HillExplorer.Instance?.EnterSector(HoverIndustry);
             }

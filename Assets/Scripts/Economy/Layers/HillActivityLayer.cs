@@ -17,11 +17,14 @@ namespace Why.Economy.Layers
         public const int Subgroups=5;
         static HillActivityLayer active;
         public static Vector3 CompanyPosition(int index)=>active!=null&&active.firmAt!=null&&index>=0&&index<active.firmAt.Length?active.firmAt[index]:Vector3.zero;
+        /// <summary>The firm's profit halo at the top of its market-value beam.</summary>
+        public static Vector3 CompanyHalo(int index)=>active!=null&&active.firms.Count>index&&index>=0?active.firms[index].transform.localPosition:CompanyPosition(index);
         public static Vector3[] Positions { get; private set; }
         public static CorporateCompetition Competition { get; private set; }
         public static Vector3 Position(int i)=>Positions!=null&&i*Subgroups<Positions.Length?Positions[i*Subgroups]:HillLandscapeLayer.Current.People[i];
         static readonly Color Desire=new Color(1,.23f,.48f),Fear=new Color(.25f,.65f,1),Gold=new Color(1,.66f,.14f);
-        readonly List<MeshRenderer> actors=new List<MeshRenderer>(), firms=new List<MeshRenderer>(), controls=new List<MeshRenderer>();
+        readonly List<MeshRenderer> actors=new List<MeshRenderer>(), firms=new List<MeshRenderer>(), controls=new List<MeshRenderer>(), orgs=new List<MeshRenderer>();
+        float[] haloScale;
         readonly List<Mesh> owned=new List<Mesh>();
         readonly List<Material> materials=new List<Material>();
         readonly List<TextMeshPro> labels=new List<TextMeshPro>(),badges=new List<TextMeshPro>();
@@ -29,7 +32,7 @@ namespace Why.Economy.Layers
         int[] recipient;
         double[] riverAmount;
         LineMeshBuilder pulseGeometry;
-        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry, foundation;
+        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry;
         LandSnapshot snapshot;
         HillLandscape land;
         GameObject content;
@@ -72,22 +75,24 @@ namespace Why.Economy.Layers
             }
             for(int f=0;f<firms.Count;f++)
             {
-                bool related=snapshot.Land.Towers[f].Industry==focusIndustry;
-                float receipts=(float)Math.Log10(1+Competition.FirmReceipts[f]);
-                firms[f].transform.localScale=Vector3.one*(.5f+receipts*.18f);
-                float glow=related?4:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?2.2f:LandView.PresetId=="capture"?1.4f:.35f;
-                firms[f].sharedMaterial.SetColor("_Color",Gold*(glow*(.9f+.1f*Mathf.Sin(animation*2+f))));
-                GraphMaterials.SetAlpha(controls[f].sharedMaterial,HillExplorer.EvidenceOnly?0:related&&lod>=1?.65f:LandView.PresetId=="capture"?.18f:.025f);
-                labels[f].gameObject.SetActive((related&&lod>=1)||HillExplorer.Company==f||LandView.PresetId=="capture");
+                bool related=snapshot.Land.Towers[f].Industry==focusIndustry,chosen=HillExplorer.Company==f;
+                firms[f].transform.localScale=Vector3.one*haloScale[f];
+                float glow=chosen?5:related?3.6f:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?2.2f:LandView.PresetId=="capture"?1.6f:.9f;
+                firms[f].sharedMaterial.SetColor("_Color",Color.white*(glow*(.9f+.1f*Mathf.Sin(animation*2+f))));
+                // Corporate infrastructure by distance: beams and halos always; revenue, margin and value readouts
+                // nearer or for the focused sector; the organization inside the firm only close up.
+                bool near=Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(firmAt[f]))<60;
+                GraphMaterials.SetAlpha(controls[f].sharedMaterial,chosen||related&&lod>=1||lod>=1&&near?.95f:LandView.PresetId=="capture"?.55f:.22f);
+                GraphMaterials.SetAlpha(orgs[f].sharedMaterial,HillExplorer.EvidenceOnly?0:chosen||lod>=2&&near?.9f:related&&lod>=1?.3f:0);
+                labels[f].gameObject.SetActive(chosen||(related&&lod>=1)||lod>=1&&near||LandView.PresetId=="capture");
                 labels[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].color=related?new Color(1,.78f,.30f):new Color(.40f,.55f,.66f);
                 badges[f].gameObject.SetActive(lod>=1||related||snapshot.Land.Towers[f].MarketCap>2000);
-                labels[f].text=snapshot.Land.Towers[f].Name+(HillExplorer.EvidenceOnly?"\nStored revenue "+LandFacts.Money(snapshot.Land.Towers[f].Revenue):"\nScenario demand "+LandFacts.Money(Competition.FirmReceipts[f]));
+                labels[f].text=FirmText(f);
             }
             GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
             GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
-            GraphMaterials.SetAlpha(foundation.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.3f:.022f);
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
             if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
@@ -103,7 +108,7 @@ namespace Why.Economy.Layers
             destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];
             Competition=new CorporateCompetition(snapshot);Competition.Update(PlayerMindProgram.Active);
             for(int p=0;p<home.Length;p++){var actor=Render(new LineMeshBuilder(),"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
-            BuildCorporations();BuildGovernment();
+            BuildCorporations();
             rivers=Render(new LineMeshBuilder(),"Desire fear capital rivers",false);
             rivers.sharedMaterial.SetFloat("_Flow",1);rivers.sharedMaterial.SetFloat("_FlowFreq",3);rivers.sharedMaterial.SetFloat("_FlowSpeed",.6f);
             var surface=new SurfaceMeshBuilder().ToMesh("River ribbons");owned.Add(surface);
@@ -123,7 +128,7 @@ namespace Why.Economy.Layers
                 for(int h=0;h<budget.Length;h++){cumulative+=budget[h];if(cumulative>=sample){best=h;break;}}
                 recipient[p]=best;riverAmount[p]=budget[best]/Subgroups;
                 // A bounded visit toward the budget-weighted spending destination, keeping cohort settlements legible.
-                Vector3 target=land.Hills[best].Foot;
+                Vector3 target=land.Market(best);
                 destinations[p]=Vector3.Lerp(home[p],target,.18f+.20f*(1-FearOf(p)));
                 if(land.Cloud[p/Subgroups])destinations[p].y=home[p].y;
             }
@@ -149,30 +154,38 @@ namespace Why.Economy.Layers
         void BuildCorporations()
         {
             var branches=new LineMeshBuilder();var competition=new LineMeshBuilder();
-            var towers=snapshot.Land.Towers;firmAt=new Vector3[towers.Length];var count=new int[land.Hills.Length];
+            var towers=snapshot.Land.Towers;firmAt=new Vector3[towers.Length];haloScale=new float[towers.Length];var count=new int[land.Hills.Length];
+            var total=new int[land.Hills.Length];foreach(var t in towers)total[t.Industry]++;
+            var capture=LandService.Model.Data.Circuit?.Capture;
             for(int f=0;f<towers.Length;f++)
             {
-                var hill=land.Hills[towers[f].Industry];int seat=count[hill.Industry]++;
-                float angle=seat*2.4f;Vector3 at=hill.Surface(angle,.30f+.12f*(seat%3));
-                at.y=land.Ground(at.x,at.z)-3;firmAt[f]=at;
-                var node=new LineMeshBuilder();Ring(node,Vector3.zero,1,Color.white,1.8f);Ring(node,Vector3.zero,.7f,Color.white,1.4f,true);
-                var renderer=Render(node,towers[f].Name,true);renderer.transform.localPosition=at;firms.Add(renderer);
-                labels.Add(Label(towers[f].Name,at+Vector3.up*3.2f));
-                string ticker=string.IsNullOrWhiteSpace(towers[f].Ticker)?towers[f].Name.Substring(0,Math.Min(3,towers[f].Name.Length)).ToUpperInvariant():towers[f].Ticker;
-                var badge=Label("["+ticker+"]",at+Vector3.up*1.4f);badge.text="<b>["+ticker+"]</b>";badge.transform.localScale=Vector3.one*.55f;badges.Add(badge);
-                var tree=new LineMeshBuilder();
-                tree.AddSegment(at,hill.Summit,Gold,1,0,0);
-                for(int team=0;team<3;team++)
-                {
-                    Vector3 manager=at+new Vector3(Mathf.Cos(team*2.1f)*2,-2,Mathf.Sin(team*2.1f)*2);
-                    manager.y=Mathf.Min(manager.y,land.Ground(manager.x,manager.z)-4);
-                    tree.AddSegment(manager,at,Fear,.8f,0,0);Ring(tree,manager,.22f,Fear,1);
-                    for(int worker=0;worker<3;worker++)
-                    {Vector3 employee=manager+new Vector3(worker-1,-1.5f,1.5f);tree.AddSegment(employee,manager,Fear,.7f,0,0);Ring(tree,employee,.12f,Fear,.8f,true);}
-                }
-                controls.Add(Render(tree,"Control structure / "+towers[f].Name));
+                var tower=towers[f];var hill=land.Hills[tower.Industry];int seat=count[hill.Industry]++;
+                // Firms stand on the hill's far slopes, above and behind the households on its valley face.
+                float angle=Mathf.PI*.5f+(seat-(total[hill.Industry]-1)*.5f)*.62f;
+                Vector3 at=land.At(hill,angle,.42f+.14f*(seat%2));firmAt[f]=at;
+                float beam=Beam(tower),revenue=.45f+Mathf.Sqrt((float)Math.Max(0,tower.Revenue))*.07f;
+                haloScale[f]=.45f+Mathf.Sqrt((float)Math.Max(0,tower.NetIncome))*.09f;
+                // Far: the halo of profit at the top of a beam as tall as the market's price of future profits.
+                var node=new LineMeshBuilder();
+                Ring(node,Vector3.zero,1,Gold,2.6f,false,4);Ring(node,Vector3.up*.05f,1.18f,Gold,1.2f,false,2.2f);Ring(node,Vector3.zero,.72f,new Color(1,.95f,.85f),1.1f,false,2.6f);
+                var renderer=Render(node,tower.Name,true);renderer.transform.localPosition=at+Vector3.up*beam;firms.Add(renderer);
+                labels.Add(Label(tower.Name,at+Vector3.up*(beam+2.8f)));
+                string ticker=string.IsNullOrWhiteSpace(tower.Ticker)?tower.Name.Substring(0,Math.Min(3,tower.Name.Length)).ToUpperInvariant():tower.Ticker;
+                var badge=Label("["+ticker+"]",at+Vector3.up*(beam+1.3f));badge.text="<b>["+ticker+"]</b>";badge.transform.localScale=Vector3.one*.55f;badges.Add(badge);
+                // Mid: revenue at the foot, its net margin as a gold arc, the beam marked every $1T of market value.
+                var mid=new LineMeshBuilder();
+                mid.AddSegment(at,at+Vector3.up*beam,Gold,1.4f,0,0,2.2f);
+                Ring(mid,at+Vector3.up*.08f,revenue,new Color(.62f,.78f,.95f,.8f),1.2f,false,1.2f);
+                float margin=Mathf.Clamp01(tower.Margin>0?tower.Margin:(float)(tower.NetIncome/Math.Max(1e-6,tower.Revenue)));
+                if(margin>0)ArcAt(mid,at+Vector3.up*.12f,revenue,-Mathf.PI*.5f,-Mathf.PI*.5f+margin*Mathf.PI*2,Gold,3,4);
+                for(double v=1000;v<tower.MarketCap;v+=1000){Vector3 tick=at+Vector3.up*(beam*(float)(v/tower.MarketCap));mid.AddSegment(tick-Vector3.right*.25f,tick+Vector3.right*.25f,Gold,1,0,0,1.8f);}
+                controls.Add(Render(mid,"Revenue margin value / "+tower.Name,true));
+                // Near: the organization (schematic): the workforce at the base, then managers, executives and the board
+                // narrowing up the beam to the owners' halo. Headcount sets the base; reporting lines are illustrative.
+                double staff=capture!=null&&tower.Company<capture.Count?capture[tower.Company].UsEmployees:0;
+                orgs.Add(Render(Organization(at,beam,revenue,staff),"Organization / "+tower.Name,true));
                 for(int prior=0;prior<f;prior++)if(towers[prior].Industry==hill.Industry)
-                    competition.AddPolyline(new[]{firmAt[prior],(firmAt[prior]+at)*.5f-Vector3.up*2,at},Desire,1,0,0,1,1);
+                    competition.AddPolyline(new[]{firmAt[prior]+Vector3.up*.2f,(firmAt[prior]+at)*.5f+Vector3.up*1.2f,at+Vector3.up*.2f},Desire,1,0,0,1,1);
             }
             // Sector IO is evidence; distributing its endpoint across sampled firms is illustrative.
             var io=LandService.Model.Data.Circuit?.Io;
@@ -183,19 +196,54 @@ namespace Why.Economy.Layers
                 for(int f=0;f<towers.Length;f++)if(towers[f].Industry==a.Index)
                     Tunnel(branches,firmAt[f],land.Hills[b.Index].Foot,Fear,.6f);
             }
-            structure=Render(branches,"Employee management ownership and inferred supply allocations");
+            structure=Render(branches,"Inferred supply allocations");
             rivalry=Render(competition,"Same-sector rivalry (scenario)",true);
         }
-        void BuildGovernment()
+        static float Beam(TowerGeom t)=>2+Mathf.Log10(1+(float)Math.Max(0,t.MarketCap))*2.4f;
+        LineMeshBuilder Organization(Vector3 at,float beam,float radius,double staffThousands)
         {
             var b=new LineMeshBuilder();
-            foreach(var h in land.Hills)if(h.Tier>0)
+            int workers=Mathf.Clamp(Mathf.RoundToInt(Mathf.Log(1+(float)Math.Max(1,staffThousands),2)*3.2f),8,40);
+            int managers=Mathf.Max(3,workers/5),executives=Mathf.Min(6,Mathf.Max(3,managers/2));
+            float[] heights={.25f,beam*.30f,beam*.58f,beam*.80f};float[] radii={radius*.95f,radius*.62f,radius*.36f,radius*.18f};
+            int[] counts={workers,managers,executives,7};Color[] colors={Fear,new Color(.55f,.80f,1),new Color(1,.95f,.88f),Gold};
+            var previous=new List<Vector3>();var current=new List<Vector3>();
+            for(int level=0;level<4;level++)
             {
-                Vector3 below=new Vector3(h.Center.x,-18,h.Center.z);
-                b.AddSegment(below,new Vector3(h.Center.x,HillLandscape.Lowland(h.Center.x,h.Center.z)-3,h.Center.z),Fear,.65f,0,0);
-                foreach(var gov in land.Hills)if(gov.Tier==0)b.AddSegment(gov.Summit,below,Fear,.7f,0,0);
+                current.Clear();
+                for(int k=0;k<counts[level];k++)
+                {
+                    float a=k*Mathf.PI*2/counts[level]+level*.3f;
+                    Vector3 p=at+new Vector3(Mathf.Cos(a)*radii[level],heights[level],Mathf.Sin(a)*radii[level]);current.Add(p);
+                    b.AddSegment(p,p+Vector3.up*.18f,colors[level],1.6f,0,0,level==3?3:1.8f);
+                    Ring(b,p+Vector3.up*.26f,.06f,colors[level],1,true,level==3?3:1.6f);
+                }
+                if(level>0)for(int k=0;k<previous.Count;k++)
+                {
+                    Vector3 lower=previous[k];int up=k*current.Count/previous.Count;
+                    b.AddSegment(lower+Vector3.up*.3f,current[up],WithAlpha(colors[level],.45f),.7f,0,0,1.2f);
+                }
+                previous.Clear();previous.AddRange(current);
             }
-            foundation=Render(b,"Government foundation (conceptual support)");
+            foreach(var seat in previous)b.AddSegment(seat+Vector3.up*.3f,at+Vector3.up*beam,WithAlpha(Gold,.6f),.8f,0,0,2.4f);
+            return b;
+        }
+        string FirmText(int f)
+        {
+            var t=snapshot.Land.Towers[f];
+            if(HillExplorer.EvidenceOnly)return t.Name+"\nStored revenue "+LandFacts.Money(t.Revenue);
+            string s="<b>"+t.Name+"</b>";
+            if(t.Revenue>0)s+="\nrevenue "+LandFacts.Money(t.Revenue)+" · profit "+LandFacts.Money(t.NetIncome)+" ("+LandFacts.Percent(t.NetIncome/t.Revenue)+")";
+            if(t.NetIncome>0)s+="\nmarket value "+LandFacts.Money(t.MarketCap)+" = "+(t.MarketCap/t.NetIncome).ToString("F0",LandFacts.Ci)+" years of today's profit";
+            else s+="\nmarket value "+LandFacts.Money(t.MarketCap);
+            return s+"\nscenario household demand "+LandFacts.Money(Competition.FirmReceipts[f]);
+        }
+        static Color WithAlpha(Color c,float a){c.a=a;return c;}
+        static void ArcAt(LineMeshBuilder b,Vector3 c,float r,float a0,float a1,Color color,float width,float intensity)
+        {
+            int n=Mathf.Max(2,Mathf.CeilToInt((a1-a0)/(Mathf.PI*2)*64));var pts=new Vector3[n+1];
+            for(int k=0;k<=n;k++){float a=Mathf.Lerp(a0,a1,k/(float)n);pts[k]=c+new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);}
+            b.AddPolyline(pts,color,width,0,0,intensity);
         }
         void DrawRivers(int focused)
         {
@@ -207,7 +255,7 @@ namespace Why.Economy.Layers
                 var hill=land.Hills[recipient[p]];bool active=p/Subgroups==focused;
                 float alpha=active?.90f:focused>=0?.006f:LandView.PresetId=="rivers"?.18f:.035f;
                 Color color=Color.Lerp(Desire,Fear,FearOf(p));color.a=alpha;
-                Vector3 end=hill.Foot;
+                Vector3 end=land.Market(recipient[p]);
                 var path=new LinePoint[33];
                 for(int k=0;k<path.Length;k++)
                 {
@@ -228,8 +276,10 @@ namespace Why.Economy.Layers
                 var path=new LinePoint[41];
                 for(int k=0;k<path.Length;k++)
                 {
-                    float t=k/40f;Vector3 point=land.Hills[h].Surface(-Mathf.PI*.5f+Mathf.Sin(t*6)*.12f,1-t);
-                    point.y=land.Ground(point.x,point.z)+.3f;path[k]=new LinePoint(point,Color.white,1);
+                    // The household river runs in from the valley and ends at the hill's market, where its value splits
+                    // (HillCaptureLayer): the owners' share climbs on as gold.
+                    float t=k/40f;Vector3 point=land.At(land.Hills[h],-Mathf.PI*.5f+Mathf.Sin(t*6)*.12f*(1-t),Mathf.Lerp(1.55f,.86f,t),.3f);
+                    path[k]=new LinePoint(point,Color.white,1);
                 }
                 bool active=false;if(focused>=0)for(int p=focused*Subgroups;p<(focused+1)*Subgroups;p++)if(recipient[p]==h)active=true;
                 Water(fill,b,path,.25f+(float)Math.Sqrt(amount)*.085f,(float)(af/amount),active?.55f:focused>=0?.015f:LandView.PresetId=="rivers"?.55f:.20f,home.Length+h,active);
@@ -309,12 +359,12 @@ namespace Why.Economy.Layers
             go.transform.localScale=Vector3.one*.15f;var text=go.AddComponent<TextMeshPro>();text.fontSize=24;text.alignment=TextAlignmentOptions.Center;
             text.textWrappingMode=TextWrappingModes.NoWrap;text.rectTransform.sizeDelta=new Vector2(30,5);text.color=new Color(.6f,.7f,.8f);return text;
         }
-        static void Ring(LineMeshBuilder b,Vector3 at,float radius,Color c,float width,bool vertical=false)
+        static void Ring(LineMeshBuilder b,Vector3 at,float radius,Color c,float width,bool vertical=false,float intensity=1)
         {
             var points=new Vector3[25];for(int i=0;i<points.Length;i++){float a=i*Mathf.PI/12;points[i]=at+(vertical?new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,0):new Vector3(Mathf.Cos(a)*radius,0,Mathf.Sin(a)*radius));}
-            b.AddPolyline(points,c,width,0,0);
+            b.AddPolyline(points,c,width,0,0,intensity);
         }
-        void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();labels.Clear();badges.Clear();}
+        void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();}
         void OnDestroy(){Clear();Positions=null;Competition=null;active=null;}
     }
 }

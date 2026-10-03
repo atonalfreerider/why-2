@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
@@ -720,6 +720,9 @@ namespace Why.Economy.Data
 
         /// <summary>Share of the money that buys imports (leaves the country); the industry weights cover the rest.</summary>
         [JsonProperty("importShare")] public double ImportShare;
+
+        /// <summary>How much of what the item buys is a fantasy (0..1), when the file sets it.</summary>
+        [JsonProperty("fantasy")] public double Fantasy;
 
         /// <summary>The item's money in the file year, $B (pce, or usd for flows outside consumption).</summary>
         public double Amount => Pce != 0 ? Pce : Usd;

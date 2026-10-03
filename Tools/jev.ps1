@@ -19,8 +19,10 @@ foreach ($question in $questions) {
         throw "Question '$($question.Name)' needs criteria."
     }
 }
+# A direct TypeSafe key (TYPESAFE_API_KEY, "apikey_...") calls api.typesafe.ai; otherwise the Vercel AI Gateway.
+$direct = -not [string]::IsNullOrWhiteSpace($env:TYPESAFE_API_KEY)
 $body = @{
-    model = 'typesafe-ai/jev'
+    model = $(if ($direct) { 'jev-latest' } else { 'typesafe-ai/jev' })
     state = $request.state
     questions = $request.questions
 } | ConvertTo-Json -Depth 100 -Compress
@@ -29,20 +31,20 @@ if ($ValidateOnly) {
     Write-Output 'Valid request structure. No network request made.'
     exit 0
 }
-$gatewayKey = $env:AI_GATEWAY_API_KEY
+$gatewayKey = $(if ($direct) { $env:TYPESAFE_API_KEY } else { $env:AI_GATEWAY_API_KEY })
 $keyPath = Join-Path (Split-Path $PSScriptRoot -Parent) '.jev\gateway-key.dpapi'
 if ([string]::IsNullOrWhiteSpace($gatewayKey) -and (Test-Path -LiteralPath $keyPath)) {
     $secureKey = Get-Content -LiteralPath $keyPath -Raw | ConvertTo-SecureString
     $gatewayKey = [System.Net.NetworkCredential]::new('', $secureKey).Password
 }
 if ([string]::IsNullOrWhiteSpace($gatewayKey)) {
-    throw 'Set AI_GATEWAY_API_KEY in this process before calling Jev. See Docs/jev-setup.md.'
+    throw 'Set AI_GATEWAY_API_KEY (or TYPESAFE_API_KEY) in this process before calling Jev. See Docs/jev-setup.md.'
 }
 
 $headers = @{ Authorization = "Bearer $gatewayKey" }
 try {
     $result = Invoke-RestMethod -Method Post `
-        -Uri 'https://ai-gateway.vercel.sh/typesafe/v1/systemone' `
+        -Uri $(if ($direct) { 'https://api.typesafe.ai/v1/systemone' } else { 'https://ai-gateway.vercel.sh/typesafe/v1/systemone' }) `
         -Headers $headers -ContentType 'application/json' `
         -Body ([System.Text.Encoding]::UTF8.GetBytes($body)) -TimeoutSec 60
 } catch {

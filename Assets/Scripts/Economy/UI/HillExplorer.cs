@@ -74,7 +74,7 @@ namespace Why.Economy.UI
             var firms=LandService.Current.Land.Towers;if(f<0||f>=firms.Length)return;
             Depth=2;Company=f;Industry=firms[f].Industry;Group=-1;
             EconomyState.SetPerson(-1);EconomyState.SetSelection(-1,firms[f].Company,-1);page=0;dependencies=false;Refresh();
-            Fly(HillActivityLayer.CompanyPosition(f),16);
+            Fly(Vector3.Lerp(HillActivityLayer.CompanyPosition(f),HillActivityLayer.CompanyHalo(f),.45f),24);
         }
         public void EnterGroup(int p)
         {

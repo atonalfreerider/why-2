@@ -28,7 +28,7 @@ namespace Why.Economy.Model
             var p=source.Players.Players[player];var result=new double[IndustrySpending.Length];double total=0;
             for(int h=0;h<result.Length;h++)for(int c=0;c<6;c++)
             {
-                double weight=Math.Max(0,p.Category[c])*LandService.Model.Data.Categories[c].IndustryShare(LandService.Model.Data.Industries[h].Id);
+                double weight=Math.Max(0,state!=null?state.Category[c]:p.Category[c])*LandService.Model.Data.Categories[c].IndustryShare(LandService.Model.Data.Industries[h].Id);
                 result[h]+=weight;total+=weight;
             }
             double spending=Math.Max(0,state?.Spending??p.Spending);

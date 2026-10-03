@@ -69,24 +69,31 @@ namespace Why.Economy.Land
                 }
                 else seats[h].Add(i);
             }
+            // Class is altitude: each rung sits on its own contour of the hill that pays it, from the valley floor
+            // (no wage, or the poorest) up the slope to the owners just under the summit's gold. Richer cohorts of a
+            // rung sit slightly higher. The front face (facing the valley and the rivers) is left open for the money.
             for(int h=0;h<seats.Length;h++)
             {
-                var row=seats[h];row.Sort((a,b)=>MeanWealth(players[a]).CompareTo(MeanWealth(players[b])));
+                var row=seats[h];
+                row.Sort((a,b)=>{int r=Altitude(players[a]).CompareTo(Altitude(players[b]));return r!=0?r:MeanWealth(players[a]).CompareTo(MeanWealth(players[b]));});
+                var perRung=new Dictionary<int,int>();
                 for(int k=0;k<row.Count;k++)
                 {
                     int i=row[k];Player p=players[i];IndustryHill hill=Hills[h];
-                    float a=-Mathf.PI*.5f+(k%5-2)*.43f;
-                    float rank=row.Count>1?k/(float)(row.Count-1):.5f;
-                    if(p.Group==Group.Owners){var at=hill.Surface(a,.40f+.25f*(1-rank));at.y=Ground(at.x,at.z)+.08f;People[i]=at;}
-                    else
-                    {
-                        float r=1.1f+(1-rank)*.5f+(k/5)*.13f;
-                        float x=hill.Center.x+Mathf.Cos(a)*hill.Width*r,z=hill.Center.z+Mathf.Sin(a)*hill.Depth*r;
-                        People[i]=new Vector3(x,Ground(x,z,hill.Tier)+.10f,z);
-                    }
+                    int rung=Altitude(p);perRung.TryGetValue(rung,out int slot);perRung[rung]=slot+1;
+                    float side=slot%2==0?1:-1,a=-Mathf.PI*.5f+side*(.42f+.30f*(slot/2))+(h%3-1)*.05f;
+                    float wealth=row.Count>1?k/(float)(row.Count-1):.5f;
+                    float r=RungRadius[rung]-.05f*wealth;
+                    float x=hill.Center.x+Mathf.Cos(a)*hill.Width*r,z=hill.Center.z+Mathf.Sin(a)*hill.Depth*r;
+                    People[i]=new Vector3(x,Ground(x,z,hill.Tier)+.10f,z);
                 }
             }
         }
+        /// <summary>Radius on the hill (1 = its foot) of each altitude rung: valley floor .. just under the summit.</summary>
+        public static readonly float[] RungRadius={1.62f,1.34f,1.06f,.82f,.62f,.42f};
+        /// <summary>A player's altitude rung: the group's class rung (groups.json), with business owners above the
+        /// professional-managerial class because they hold the claims on the hill itself.</summary>
+        public static int Altitude(Player p)=>p.Group==Group.Owners?5:Mathf.Clamp(p.Rung,0,4);
         public static float Lowland(float x,float z)
         {
             float climb=Mathf.SmoothStep(0,1,Mathf.InverseLerp(-70,48,z));
@@ -100,6 +107,18 @@ namespace Why.Economy.Land
             return Lowland(x,z)+mass;
         }
         static double MeanWealth(Player p)=>p.Wealth/Math.Max(1,p.Adults.Length);
+        /// <summary>Depth of the government bedrock (social infrastructure) under the whole landscape.</summary>
+        public const float Bedrock=-18;
+        /// <summary>A point on the terrain at an angle and radius of a hill (radius 1 = its foot; beyond it the valley).</summary>
+        public Vector3 At(IndustryHill h,float angle,float radius,float lift=0)
+        {
+            float x=h.Center.x+Mathf.Cos(angle)*h.Width*radius,z=h.Center.z+Mathf.Sin(angle)*h.Depth*radius;
+            return new Vector3(x,Ground(x,z)+lift,z);
+        }
+        /// <summary>The hill's market: where households' rivers arrive on its valley-facing slope and its value splits.</summary>
+        public Vector3 Market(int industry)=>At(Hills[industry],-Mathf.PI*.5f,.86f,.3f);
+        /// <summary>The gold halo above the summit, where the owners' surplus gathers before it rises to its owners.</summary>
+        public Vector3 Halo(int industry)=>Hills[industry].Summit+Vector3.up*(1.6f+Hills[industry].Height*.10f);
         public double FootprintArea(){double total=0;foreach(var h in Hills)total+=Math.PI*h.Width*h.Depth;return total;}
     }
 }

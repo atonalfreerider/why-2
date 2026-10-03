@@ -69,6 +69,27 @@ The key lives only in the current process environment and its child processes.
 Start the coding agent from that PowerShell session if it needs to inherit it.
 Remove it afterward with `Remove-Item Env:AI_GATEWAY_API_KEY`.
 
+## Direct TypeSafe key
+
+A TypeSafe API key (`apikey_...`) is not a Vercel Gateway key. Put it in
+`TYPESAFE_API_KEY` instead; `Tools/jev.ps1` then calls
+`https://api.typesafe.ai/v1/systemone` with model `jev-latest`:
+
+```powershell
+$env:TYPESAFE_API_KEY = (Get-Content <key file> -Raw).Trim()
+powershell -NoProfile -File Tools/jev.ps1 -RequestPath Tools/jev-smoke.json
+Remove-Item Env:TYPESAFE_API_KEY
+```
+
+## Purchase judgments for the economy scene
+
+`Tools/judge-purchases.py` asks Jev how each of the 119 household purchase items in
+`spending.json` is sold (manufactured want, fear sold, captive buyer, habit loop, and
+its primary motive) and writes `Assets/Resources/Data/economy/purchase-judgments.json`.
+The scene reads that file; it never calls the model. Rerun it with a key in the
+environment after editing the spending items (about 156k tokens for all items).
+`--sample` judges eight contrasting items into the temp folder for a quick check.
+
 ## References
 
 - Official agent skill: https://docs.typesafe.ai/agent-skill

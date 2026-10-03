@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using Why.Economy.Land;
 using Why.Economy.Model;
+using Why.Economy.UI;
 
 namespace Why.Economy.Layers
 {
@@ -14,6 +15,8 @@ namespace Why.Economy.Layers
     {
         public override int Order=>56;
         public const int Subgroups=5;
+        static HillActivityLayer active;
+        public static Vector3 CompanyPosition(int index)=>active!=null&&active.firmAt!=null&&index>=0&&index<active.firmAt.Length?active.firmAt[index]:Vector3.zero;
         public static Vector3[] Positions { get; private set; }
         public static CorporateCompetition Competition { get; private set; }
         public static Vector3 Position(int i)=>Positions!=null&&i*Subgroups<Positions.Length?Positions[i*Subgroups]:HillLandscapeLayer.Current.People[i];
@@ -31,15 +34,17 @@ namespace Why.Economy.Layers
         HillLandscape land;
         GameObject content;
         float animation, refresh;
-        int version=-1, selection=-2;
+        int version=-1, selection=-2, lod=-1;
         string view;
         public override void Prepare(GraphContext ctx) { }
-        public override void Upload(GraphContext ctx){EconomyStage.Land().Place(transform);}
+        public override void Upload(GraphContext ctx){active=this;EconomyStage.Land().Place(transform);}
         public override void Tick(GraphContext ctx,CameraRig rig)
         {
             if(HillLandscapeLayer.Current==null)return;
             if(snapshot!=LandService.Current){Build();}
             if(land==null)return;
+            int nextLod=rig.Pose.Distance<35?2:rig.Pose.Distance<100?1:0;
+            if(nextLod!=lod){lod=nextLod;UpdateBalances();}
             var program=PlayerMindProgram.Active;
             if(version!=(program?.Revision??-1)||selection!=EconomyState.SelectedPlayer)
             {
@@ -50,13 +55,17 @@ namespace Why.Economy.Layers
             bool hidden=LandView.PresetId=="mind"||LandView.PresetId=="section";
             content.SetActive(!hidden);if(hidden)return;
             int focusPlayer=selection>=0?selection:HillLandscapeLayer.HoverPlayer;
-            int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillLandscapeLayer.HoverIndustry;
+            int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillExplorer.Industry>=0?HillExplorer.Industry:HillLandscapeLayer.HoverIndustry;
             for(int p=0;p<actors.Count;p++)
             {
                 float progress=(1-Mathf.Cos(animation*(.055f+.015f*(1-FearOf(p)))+p*2.399963f))*.5f;
                 Vector3 at=Vector3.Lerp(home[p],destinations[p],progress);
                 if(!land.Cloud[p/Subgroups])at.y=land.Ground(at.x,at.z)+.3f;
+                if(HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group)at=HillExplorer.GroupCenter;
                 Positions[p]=at;actors[p].transform.localPosition=at;
+                bool memberView=HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group;
+                bool nearby=lod==0||focusIndustry<0||land.IndustryOf[p/Subgroups]==focusIndustry||Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(at))<35;
+                actors[p].gameObject.SetActive(!memberView&&nearby);
                 Color color=Color.Lerp(Desire,Fear,FearOf(p));
                 float intensity=p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f;
                 actors[p].sharedMaterial.SetColor("_Color",Color.white*intensity);
@@ -68,17 +77,17 @@ namespace Why.Economy.Layers
                 firms[f].transform.localScale=Vector3.one*(.5f+receipts*.18f);
                 float glow=related?4:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?2.2f:LandView.PresetId=="capture"?1.4f:.35f;
                 firms[f].sharedMaterial.SetColor("_Color",Gold*(glow*(.9f+.1f*Mathf.Sin(animation*2+f))));
-                GraphMaterials.SetAlpha(controls[f].sharedMaterial,related?.55f:LandView.PresetId=="capture"?.18f:.035f);
-                labels[f].gameObject.SetActive(related||LandView.PresetId=="capture");
+                GraphMaterials.SetAlpha(controls[f].sharedMaterial,HillExplorer.EvidenceOnly?0:related&&lod>=1?.65f:LandView.PresetId=="capture"?.18f:.025f);
+                labels[f].gameObject.SetActive((related&&lod>=1)||HillExplorer.Company==f||LandView.PresetId=="capture");
                 labels[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].color=related?new Color(1,.78f,.30f):new Color(.40f,.55f,.66f);
-                badges[f].gameObject.SetActive(true);
-                labels[f].text=snapshot.Land.Towers[f].Name+"\nScenario demand "+LandFacts.Money(Competition.FirmReceipts[f]);
+                badges[f].gameObject.SetActive(lod>=1||related||snapshot.Land.Towers[f].MarketCap>2000);
+                labels[f].text=snapshot.Land.Towers[f].Name+(HillExplorer.EvidenceOnly?"\nStored revenue "+LandFacts.Money(snapshot.Land.Towers[f].Revenue):"\nScenario demand "+LandFacts.Money(Competition.FirmReceipts[f]));
             }
-            GraphMaterials.SetAlpha(structure.sharedMaterial,LandView.PresetId=="roots"?.35f:.018f);
-            GraphMaterials.SetAlpha(rivalry.sharedMaterial,LandView.PresetId=="capture"?.5f:.07f);
-            GraphMaterials.SetAlpha(foundation.sharedMaterial,LandView.PresetId=="roots"?.3f:.022f);
+            GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
+            GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
+            GraphMaterials.SetAlpha(foundation.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.3f:.022f);
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
             if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
@@ -130,9 +139,9 @@ namespace Why.Economy.Layers
                 b.AddSegment(Vector3.zero,Vector3.up*1.2f,motive,2.2f,0,0);
                 Ring(b,Vector3.up*1.5f,.30f,motive,1.8f,true);
                 // Gross assets and liabilities get separate persistent rings; logarithmic radius handles group scale.
-                Ring(b,Vector3.zero,.35f+(float)Math.Log10(1+assets)*.20f,Gold,1.4f);
-                if(debt>0)Ring(b,Vector3.up*.12f,.28f+(float)Math.Log10(1+debt)*.18f,Desire,1.4f);
-                for(int child=0;child<Math.Min(4,(cohort.Children.Length+p%Subgroups)/Subgroups);child++)
+                if(lod>=1||p/Subgroups==EconomyState.SelectedPlayer)Ring(b,Vector3.zero,.35f+(float)Math.Log10(1+assets)*.20f,Gold,1.4f);
+                if(debt>0&&(lod>=1||p/Subgroups==EconomyState.SelectedPlayer))Ring(b,Vector3.up*.12f,.28f+(float)Math.Log10(1+debt)*.18f,Desire,1.4f);
+                for(int child=0;lod>=2&&child<Math.Min(4,(cohort.Children.Length+p%Subgroups)/Subgroups);child++)
                 {float a=child*2.4f;Vector3 c=new Vector3(Mathf.Cos(a)*.9f,0,Mathf.Sin(a)*.9f);b.AddSegment(c,c+Vector3.up*.5f,Color.white,1,0,0);}
                 Replace(actors[p],b);
             }
@@ -306,6 +315,6 @@ namespace Why.Economy.Layers
             b.AddPolyline(points,c,width,0,0);
         }
         void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();labels.Clear();badges.Clear();}
-        void OnDestroy(){Clear();Positions=null;Competition=null;}
+        void OnDestroy(){Clear();Positions=null;Competition=null;active=null;}
     }
 }

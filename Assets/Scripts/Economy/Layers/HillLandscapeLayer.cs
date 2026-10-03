@@ -22,6 +22,7 @@ namespace Why.Economy.Layers
         public static int HoverIndustry { get; private set; } = -1;
         public static int HoverPlayer { get; private set; } = -1;
         public static OwnerRecord HoverOwner { get; private set; }
+        public static OwnerRecord[] OwnerEvidence { get; private set; }=Array.Empty<OwnerRecord>();
         public sealed class OwnerRecord { public string name, company, industry, note, source; public int asOfYear; }
         sealed class OwnerFile { public OwnerRecord[] owners; }
         readonly List<(MeshRenderer renderer, LandGroup group)> renderers = new List<(MeshRenderer, LandGroup)>();
@@ -32,7 +33,8 @@ namespace Why.Economy.Layers
         LandSnapshot snapshot;
         GameObject content;
         int selected = -2, roundVersion = -1;
-        int programVersion = -1;
+        int programVersion = -1, mindPerson=-2;
+        float lastClick=-10;int lastPlayer=-1;
         Vector2 pressed;
         MeshRenderer socialRenderer;
         SocialSeasonResult userSeason;
@@ -45,7 +47,7 @@ namespace Why.Economy.Layers
         {
             snapshot = ctx.Shared<LandSnapshot>(LandService.SharedKey);
             var file = JsonConvert.DeserializeObject<OwnerFile>(ctx.Text("Data/economy/hill-owners") ?? "{}");
-            owners = file?.owners ?? Array.Empty<OwnerRecord>();
+            owners = file?.owners ?? Array.Empty<OwnerRecord>();OwnerEvidence=owners;
         }
         public override void Upload(GraphContext ctx)
         {
@@ -288,11 +290,14 @@ namespace Why.Economy.Layers
             Player p = snapshot.Players.Players[index]; Vector3 origin = new Vector3(145,2,0);
             var scenario=PlayerMindProgram.Active;
             var state=scenario!=null&&scenario.Players.Length>index?scenario.Players[index]:null;
-            programVersion=scenario?.Revision??-1;
+            programVersion=scenario?.Revision??-1;mindPerson=EconomyState.Person;
+            bool individual=EconomyState.Person>=0&&LandService.Model.Lives.TryGet(EconomyState.Person,snapshot.Year,out _);
+            PersonYear person=default;
+            if(individual){LandService.Model.Lives.TryGet(EconomyState.Person,snapshot.Year,out person);state=new PlayerMindProgram.State{Assets=Math.Max(0,person.Wealth+person.Debt)/1e9,Debt=person.Debt/1e9,Reason=person.Reason,Fear=person.FearShare,Fantasy=person.Fantasy};}
             Vector3[] nodes = { new Vector3(-2,-.5f,-3),new Vector3(-4,1,0),new Vector3(4,1,0),
                 new Vector3(0,4,0),new Vector3(0,1,1),new Vector3(3,-1,3) };
             string[] names = { "MEMORY\nAssets · debt · inheritance", "DESIRE\nComfort · belonging", "FEAR\nLoss · insecurity",
-                "DELIBERATION\nFuture " + p.Future.ToString("P0") + " · reason " + (state?.Reason??p.Reason).ToString("P0"),
+                "DELIBERATION\nFuture " + (individual?person.Future:p.Future).ToString("P0") + " · reason " + (state?.Reason??p.Reason).ToString("P0"),
                 "CHOICE\nSpend · save · borrow", "FEEDBACK\nNext year's resources" };
             Color[] colors = { Gold,Rose,Ice,Color.white,Blue,Gold };
             for (int i = 0; i < nodes.Length; i++)
@@ -310,10 +315,10 @@ namespace Why.Economy.Layers
             }
             // A spatial envelope gives the program a volume, without claiming neuroanatomical accuracy.
             for (int j=0;j<9;j++) Ring(lines,origin+new Vector3(0,1.4f,(j-4)*.48f),3.6f*Mathf.Sqrt(1-Mathf.Pow((j-4)/5f,2)),WithAlpha(Steel,.23f),.65f,true);
-            Label(PlayerTitle(p) + " · " + snapshot.Year,origin+new Vector3(0,5.7f,0),LandGroup.Mirages,.13f,Color.white);
+            Label((individual?"Synthetic record #"+EconomyState.Person:PlayerTitle(p)) + " · " + snapshot.Year,origin+new Vector3(0,5.7f,0),LandGroup.Mirages,.13f,Color.white);
             Label("Behavioral assumptions · conceptual decision program",origin+new Vector3(0,-2,-4),LandGroup.Mirages,.08f,Steel);
-            if(state!=null)Label("Fear "+state.Fear.ToString("P0")+" · assets "+LandFacts.Money(state.Assets)+" · debt "+LandFacts.Money(state.Debt)+
-                "\n"+(scenario.Steps>0?"Scenario "+scenario.Year:"Baseline"),origin+new Vector3(0,-2.8f,-4),LandGroup.Mirages,.08f,Gold);
+            if(state!=null)Label("Fear "+state.Fear.ToString("P0")+" · assets "+(individual?"$"+Math.Max(0,person.Wealth+person.Debt).ToString("N0"):LandFacts.Money(state.Assets))+" · debt "+(individual?"$"+person.Debt.ToString("N0"):LandFacts.Money(state.Debt))+
+                "\n"+(individual?"Historical simulated individual":scenario.Steps>0?"Scenario "+scenario.Year:"Baseline"),origin+new Vector3(0,-2.8f,-4),LandGroup.Mirages,.08f,Gold);
             Lines(lines,LandGroup.Mirages,true);
         }
         void Social()
@@ -340,7 +345,7 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (Current == null || snapshot == null) return;
-            if (selected != EconomyState.SelectedPlayer || programVersion != (PlayerMindProgram.Active?.Revision??-1)) { Rebuild(snapshot); return; }
+            if (mindPerson != EconomyState.Person || selected != EconomyState.SelectedPlayer || programVersion != (PlayerMindProgram.Active?.Revision??-1)) { Rebuild(snapshot); return; }
             if (roundVersion != LandView.RoundVersion) Social();
             int incident=EconomyState.TakeIncident();
             if(incident>=0&&incident<snapshot.Society.PairA.Length)
@@ -383,7 +388,7 @@ namespace Why.Economy.Layers
         {
             HoverIndustry=HoverPlayer=hoverTie=-1; HoverOwner=null;
             var mouse=Mouse.current;
-            if(mouse==null||mind||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
+            if(mouse==null||mind||UI.HillExplorer.Depth>=3||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
             Vector2 pointer=mouse.position.ReadValue(); float best=18*Screen.height/1080f;
             var moving=HillActivityLayer.Positions;
             for(int i=0;i<(moving?.Length??Current.People.Length);i++)
@@ -420,9 +425,20 @@ namespace Why.Economy.Layers
             }
             if(mouse.leftButton.wasPressedThisFrame)pressed=pointer;
             if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HoverPlayer>=0)
+                {
                 EconomyState.SetSelection(HoverPlayer,-1,-1);
+                if(lastPlayer==HoverPlayer&&Time.unscaledTime-lastClick<.35f)UI.HillExplorer.Instance?.EnterGroup(HoverPlayer);
+                lastPlayer=HoverPlayer;lastClick=Time.unscaledTime;
+            }
             else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&hoverTie>=0)
                 EconomyState.SetSelection(EconomyState.SelectedPlayer,-1,hoverTie);
+            else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5)
+            {
+                int firm=-1;float closest=22;
+                for(int f=0;f<snapshot.Land.Towers.Length;f++){Vector3 screen=camera.WorldToScreenPoint(frame.World(HillActivityLayer.CompanyPosition(f)+Vector3.up*1.4f));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;firm=f;}}
+                if(firm>=0)UI.HillExplorer.Instance?.EnterCompany(firm);
+                else if(HoverIndustry>=0)UI.HillExplorer.Instance?.EnterSector(HoverIndustry);
+            }
         }
         MeshRenderer Lines(LineMeshBuilder b,LandGroup group,bool flow=false,bool track=true)
         {

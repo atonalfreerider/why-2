@@ -31,15 +31,17 @@ namespace Why.Economy
         }
 
         /// <summary>
-        /// The land's frame (1.2): the bowl's center on the plaza <see cref="LandStyle.PlazaGap"/> units past the road's end
-        /// (on the ground, y = 0), local +z along the road away from the past.
+        /// The land's frame (1.2), local +z along the road away from the past. The wave (hills) stands on the road itself:
+        /// its origin is the road's present moment (on the ground, y = 0), so land-local z is the road's time
+        /// (<see cref="Land.HillLandscape.Z"/>). The retired bowl's center stood on the plaza <see cref="LandStyle.PlazaGap"/>
+        /// units past the road's end.
         /// </summary>
         public static LandFrame Land()
         {
             Vector3 forward = RoadDirection();
             Vector3 now = OnRoad(DeepTime.NowYear, 0, EconomyStyle.FramingRho);
             now.y = 0;
-            return new LandFrame(now + forward * (EconomyLayouts.UseHills ? 150 : LandStyle.PlazaGap), Quaternion.LookRotation(forward, Vector3.up));
+            return new LandFrame(now + forward * (EconomyLayouts.UseHills ? 0 : LandStyle.PlazaGap), Quaternion.LookRotation(forward, Vector3.up));
         }
     }
 }

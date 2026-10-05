@@ -17,7 +17,11 @@ namespace Why.EditorChecks
             var source=LandService.Current;
             Require(source!=null,"Economy must finish loading first");
             var land=new HillLandscape(source);
-            Require(Math.Abs(land.FootprintArea()-HillLandscape.Area)<.001,"Footprint area must conserve the global GDP scale");
+            Require(Math.Abs(land.CrestBands()-land.CrestValueWidth)<.01f,"The crest's industry bands must add up to its width (value added conserved)");
+            Require(Math.Abs(land.CrestZ-HillLandscape.Z(source.Year))<1e-4f&&land.TailZ<land.CrestZ-100,"The wave's time axis must be the road's");
+            Require(Math.Abs((EconomyStage.Land().World(new Vector3(0,0,HillLandscape.Z(1990)))-EconomyStage.OnRoad(1990,0,EconomyStyle.FramingRho)).magnitude)<.05f,"A year on the wave must sit beside the same year on the road");
+            Require(land.SliceWidth(1950)<land.SliceWidth(2000)&&land.SliceWidth(2000)<land.CrestWidth+.01f,"The wave must widen as real value added grows");
+            for(int y=land.FirstYear;y<=land.Year;y+=7)for(int t=2;t<=4;t++)Require(land.LayerTop(y,t)>land.LayerTop(y,t-1),"Each tier must stand on the layers beneath it");
             Require(land.Hills.Length==LandService.Model.Data.Industries.Count,"Every industry needs a hill");
             Require(land.People.Length==source.Players.Players.Length,"Every group needs a place");
             foreach(var lower in land.Hills)foreach(var upper in land.Hills)
@@ -26,8 +30,9 @@ namespace Why.EditorChecks
             for(int i=0;i<land.People.Length;i++)
             {
                 Vector3 p=land.People[i];Require(Finite(p.x)&&Finite(p.y)&&Finite(p.z),"Finite player coordinates");
-                if(land.Cloud[i]){clouds++;Require(p.y>20,"Diversified wealth must be visibly above the terrain");}
-                else Require(p.y>=land.Ground(p.x,p.z,land.Hills[land.IndustryOf[i]].Tier)-.05f,"Households must not be buried below the terrain");
+                Require(p.z<=land.CrestZ,"Nobody stands in the future, ahead of the crest");
+                if(land.Cloud[i]){clouds++;Require(p.y>land.Ground(p.x,p.z)+15,"Diversified wealth must be visibly above the terrain");}
+                else Require(p.y>=land.Rest(land.IndustryOf[i],p.x,p.z)-.05f,"Households must stand on their own hill's slope, not inside it");
             }
             var a=new PlayerMindProgram(source);var b=new PlayerMindProgram(source);double largest=0;
             for(int year=0;year<30;year++)
@@ -64,10 +69,13 @@ namespace Why.EditorChecks
             Require(Samples(sim)==checksum,"Family rendering must not mutate population samples");
             var historical=LandService.BuildBlocking(1972);
             Require(historical.Land.Towers.Length==0,"No present-day firms in historical years");
-            Require(Math.Abs(new HillLandscape(historical).FootprintArea()-HillLandscape.Area)<.001,"Historical geometry conserves area");
+            var past=new HillLandscape(historical);
+            Require(Math.Abs(past.CrestBands()-past.CrestValueWidth)<.01f&&past.CrestZ<land.CrestZ-60,"A historical crest conserves value added and stands back in time");
+            Require(Math.Abs(past.SliceHeight(1960,90)-land.SliceHeight(1960,90))<1e-4f,"A year's cross-section must not depend on the crest shown");
+            string companies=Companies(land);
             string result="PASS: "+land.Hills.Length+" hills, "+land.People.Length+" players, "+clouds+
                 " cloud groups; 30-year deterministic ledger; max residual "+largest.ToString("G4")+
-                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; "+capture;
+                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; wave "+land.FirstYear+"-"+land.Year+" over "+(land.CrestZ-land.TailZ).ToString("F0")+" units; "+companies+"; "+capture;
             Debug.Log("[Why] "+result);return result;
         }
         /// <summary>The value-capture accounting: the Leontief inverse, every dollar's split, each market's balance, the
@@ -110,6 +118,23 @@ namespace Why.EditorChecks
             return "capture: Leontief residual "+vc.MaxInverseResidual.ToString("G3")+"; "+vc.ItemParts.Count+" item splits; "+
                 (vc.Judged?vc.Judgments.Count+" Jev judgments":"no judgments")+"; owners "+LandFacts.Money(led.OwnersTotal)+" of "+LandFacts.Money(spent)+
                 " attributed; persuaded capture "+LandFacts.Money(pc)+" -> "+LandFacts.Money(pp)+" under pressure; altitude on "+checkedHills+" hills.";
+        }
+        /// <summary>Company lifespans: every stored tower has a life, lives are well formed, successors were alive to buy,
+        /// and every life drawn on the crest's year stands on a non-government ridge.</summary>
+        static string Companies(HillLandscape land)
+        {
+            var lives=CompanyLives.Get();Require(lives!=null&&lives.Lives.Length>=60,"Company lifespans must load");
+            foreach(var t in land.Source.Land.Towers)Require(lives.OfTower(t.Ticker,t.Name)>=0,"Every stored firm needs a lifeline: "+t.Name);
+            int ended=0;
+            foreach(var l in lives.Lives)
+            {
+                Require(LandService.Model.Data.Industries[l.Industry].TierIndex>0,"Companies stand on production ridges, not government: "+l.Name);
+                Require(l.Alive||l.Ended>=l.Founded,"A company ends after it is founded: "+l.Name);
+                Require(l.ValueAt(Math.Max(l.Founded,1947))>0&&l.ValueAt(2025)>0,"Market values must be positive: "+l.Name);
+                if(!l.Alive){ended++;Require(l.Fate!="alive","An ended company needs a fate: "+l.Name);}
+                if(l.Successor>=0)Require(lives.Lives[l.Successor].Founded<=l.Ended,"A buyer must exist when it buys: "+l.Name);
+            }
+            return lives.Lives.Length+" company lifelines ("+ended+" ended, "+lives.Reassigned+" on Jev's hill)";
         }
         static bool Finite(float x)=>!float.IsNaN(x)&&!float.IsInfinity(x);
         static double Total(PlayerMindProgram p){double n=0;foreach(var s in p.Players)n+=s.Wealth;return n;}

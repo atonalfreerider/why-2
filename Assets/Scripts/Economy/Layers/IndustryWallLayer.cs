@@ -27,8 +27,10 @@ namespace Why.Economy.Layers
     /// The wall stands on the population's center line (data rho), in the vertical plane of the road; everything is in
     /// data space, so the lens straightens it with the road. Its geometry (<see cref="WallGeometry"/>) is shared under
     /// <see cref="WallGeometry.SharedKey"/>, so the money threads land exactly on its bands.
+    /// Retired with the bowl: with the hills, the wave (<see cref="Land.HillLandscape"/>) is this wall unfolded, one
+    /// ridge per industry along the same road.
     /// </summary>
-    [GraphScenes(GraphScene.Economy)]
+    [GraphScenes(EconomyLayouts.BowlScene)]
     public sealed class IndustryWallLayer : GraphLayer
     {
         /// <summary>Opacity and HDR intensity of the three parts of a band.</summary>

@@ -81,9 +81,14 @@ namespace Why.Economy
         public const double FirstYear = 1946;
 
         public const double WindowLogOffset = 2500;
-        public const float WindowLength = 16f;
-        public const float RhoScale = 2.5f;
-        public const float YScale = 3f;
+
+        /// <summary>The road's length (world units) from <see cref="FirstYear"/> to now. With the hills it is the depth of
+        /// the wave, whose land-local z is the road's time; the retired bowl used a 16-unit road.</summary>
+        public static float WindowLength => EconomyLayouts.UseHills ? 160f : 16f;
+        /// <summary>The road's cross-section scale (rho across, y up). Along the wave's 160-unit road the lifelines get a
+        /// taller, wider cross-section so their rise and fall and the family junctions still read beside the wave.</summary>
+        public static float RhoScale => EconomyLayouts.UseHills ? 5f : 2.5f;
+        public static float YScale => EconomyLayouts.UseHills ? 7f : 3f;
 
         /// <summary>
         /// Data-space height of the ground the industry wall stands on, and of its top for the largest economy

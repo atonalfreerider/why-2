@@ -145,3 +145,79 @@ what it collects, and the net.
 - the ledger identity with interest;
 - seller pressure raising persuaded capture;
 - owners and managers sitting above the valley floor of their own hill.
+
+## The economy wave - 2026-10-05
+
+The user's direction: companies have lifespans like people; the economy is a wave moving forward into the future and
+creating; the wave is the expanded cross-section of the end of the causality graph; the hierarchy is a hillside where
+higher elevation is more influence but depends on the ground below; people inhabit it and their capital and debt flow into
+rivers of desire and fear. The road and the landscape now share one time axis.
+
+**One time axis.** The land frame stands on the road's present moment (`EconomyStage.Land`), and the road is 160 units
+from 1946 to now (`EconomyStyle.WindowLength`; 16 for the retired bowl), with a taller, wider cross-section for the
+lifelines (`YScale` 7, `RhoScale` 5). Land-local z is the road's own time (`HillLandscape.Z` projects the road's position
+for each year), so a year on the wave stands beside the same year on the road. The industry wall under the road retires
+with the bowl: the wave is that wall unfolded.
+
+**The wave (`HillLandscape`, drawn by `HillWaveLayer`).** Each year's cross-section is a hillside of stacked strata: raw
+materials at its foot, then manufacturing and infrastructure, services and tech on top, each tier's layer standing on the
+ones beneath, all on the government bedrock. Across the wave, a tier's band is its share of the year's non-government
+value added and each industry is a ridge in its tier's band (a 3.6-unit floor on the ridge width keeps small industries
+visible; ridges merge by their highest). Risers between tiers stand in their own gaps, so no industry straddles a step.
+The cross-section widens with real value added (width ~ real VA^0.5, height ~ real VA^0.3: 88 units of span in 1947,
+220 at the 2025 crest). Tier heights (16/24/28/32% of the stack) are a conceptual hierarchy of dependence, not measured
+influence. Behind the crest lies the wake: one rib per year (each year's own cross-section), the industries' ridges along
+time and the steps between strata. The crest is the shown year; its cut face shows the strata, and the front breaks
+forward into the future. The terrain holds the crest's cross-section over its last six units (about three years) so the
+present-day hills stand on the shown year's geometry. A year's cross-section does not depend on which crest is shown.
+
+**Class is altitude, on each cohort's own hill.** In a cross-section a downhill neighbor can be a taller ridge, so people,
+markets, firm seats and summits stand on their own hill's surface (`Rest`: strata plus that industry's ridge alone), not on
+the merged terrain. Rungs run downhill toward the road; cohorts of one rung step back into the recent past. Thin blue
+threads fan from the road at the crest year out to every cohort: the population's cross-section, expanded.
+
+**Company lifespans (`CompanyLives`, `company-lives.json`).** 75 US companies: founding year, end year and fate
+(bankrupt, acquired, merged, broken up, alive), the industry each stands on, what it sells, and market-value waypoints.
+Values are approximate recalled market capitalizations or private valuations in nominal dollars, converted to 2025
+dollars with the stored GDP deflator and interpolated geometrically; founding years and fates are the documented ones.
+The 25 firms of `circuit.json` end on their stored market value. Each lifeline is born on its ridge (a seed ring), rises
+and falls at the height of its market value (the towers' beam scale), and ends: failed lines fall to the ground (a red
+cross), bought ones merge into their buyer's line when it is drawn, survivors reach the crest (the 25 stored firms bend
+into their tower's halo). Lines follow five-year averages of the ridges so yearly noise in the accounts does not jitter
+them. Hover or click a line for its life, peak and selling profile; the "Companies live and die" view (key 0) is a side
+view along time.
+
+**Jev judgments of companies (`Tools/judge-companies.py`, `company-judgments.json`).** One request per company with
+five independent questions over the same state: which industry earns most of its revenue (a Choice over the 23
+non-government industries with a no-match option) and four Scores matching the household purchase judgments
+(manufactured want, fear sold, captive buyer, habit loop). `jev-1.13.0`, 147,621 tokens. The line's color is gold where
+the company meets needs, tinted rose toward manufactured want and ice toward sold fear by persuaded = 1 - (1 - want)(1 -
+fear); lock-in brightens it. Jev's hill replaces the authored industry only at confidence >= 0.6 and only for companies
+without a stored tower (towers keep their industry so lifelines land on them): Xerox to computers & chips (0.63), Disney to
+arts & entertainment (0.66). Confident disagreements not applied: SpaceX to transport (0.76) and Caterpillar to
+construction (0.88; BEA counts machinery as manufacturing). Unsure choices (Enron 0.46, Fannie Mae 0.47, Airbnb 0.36,
+Blockbuster 0.53, AOL 0.59, McDonald's 0.56, Nike 0.57) keep the authored industry. These are model judgments about how
+companies sell, not measurements.
+
+**Money along time.** In the rivers view each cohort's saving leaves over the crest into the future as gold (capital
+that builds what comes next; $1.08T a year in 2025) and its debt arrives from the future as a desire / fear stream (spending
+drawn from income not yet earned; $14.35T of household debt), colored by the cohort's motive. Debt is drawn as the stock
+owed, not as annual borrowing.
+
+**Clarity.** Every view keeps one story at full strength: the overview and the wave view show the wake, the crest and the
+companies; the capture arcs to the clouds, the cloud portfolio threads, the pillars and the benefit arcs are faint outside
+their own views. Presets were re-posed for the wave (the "Class is altitude" camera had been inside the bedrock pillars),
+the section view is a side view of the road's last decades with the wave behind, and y1972 shows the crest standing back
+in 1972 with modern companies unborn.
+
+**Fixes found in review.** The scenario program (`PlayerMindProgram.Active`) is built for one year's cohorts; on a year
+change (y1972, the slider) `CorporateCompetition` and `HillActivityLayer` indexed it with another year's cohorts and threw
+every frame. They now ignore a program whose cohorts do not match the shown year, as `HillCaptureLayer` already did. And
+`HillExplorer` answered every year change by flying to the overview, which undid the y1972 preset (back to 2025) and would
+pull the camera on every slider step; it now only flies home when the viewer is inside the explorer.
+
+**Validation additions.** `HillValidation` also checks: the crest's industry bands add up to its value-added width; the
+wave's time axis is the road's (a year on the wave sits beside the same year on the road); the wave widens with real
+value added; each tier stands on the layers beneath it; nobody stands ahead of the crest; a historical crest conserves
+value added and a year's cross-section does not depend on the crest shown; every stored firm has a lifeline; lifelines are
+well formed and stand on production ridges; buyers existed when they bought.

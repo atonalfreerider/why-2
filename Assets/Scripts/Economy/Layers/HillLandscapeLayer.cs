@@ -18,6 +18,8 @@ namespace Why.Economy.Layers
         public override int Order => 55;
         public override IEnumerable<string> RequiredTexts => new[] { "Data/economy/hill-owners" };
         public static HillLandscape Current { get; private set; }
+        /// <summary>Where the separate 3D decision program stands: beside the road, ahead of the present.</summary>
+        public static readonly Vector3 MindOrigin = new Vector3(-70, 4, 40);
         public static SocialSeasonResult Shown { get; private set; }
         public static int HoverIndustry { get; private set; } = -1;
         public static int HoverPlayer { get; private set; } = -1;
@@ -66,52 +68,20 @@ namespace Why.Economy.Layers
             selected = EconomyState.SelectedPlayer;
             LandService.ReportReady(nameof(HillLandscapeLayer), next.Version);
             Debug.Log("[Why] Hills " + next.Year + ": " + Current.Hills.Length + " industries; " +
-                Current.People.Length + " players; footprint " + Current.FootprintArea().ToString("F4", LandFacts.Ci) +
-                " / 18000; named ownership rings " + crowns.Count + "; group portfolios and psychological motives are model assumptions.");
+                Current.People.Length + " players; crest " + Current.Year + " at z " + Current.CrestZ.ToString("F1", LandFacts.Ci) +
+                ", value width " + Current.CrestValueWidth.ToString("F1", LandFacts.Ci) + " (bands " + Current.CrestBands().ToString("F1", LandFacts.Ci) + "); named ownership rings " + crowns.Count + "; group portfolios and psychological motives are model assumptions.");
         }
         void Terrain()
         {
-            // A luminous heightfield lattice, with no opaque skin or floating platforms.
-            var lattice=new LineMeshBuilder();
-            // Isolines wrap the actual relief rather than drawing a rectangular chart grid.
-            for(float z=-78;z<104;z+=2)for(float x=-98;x<98;x+=2)
-            {
-                var cell=new[]{new Vector3(x,Current.Ground(x,z),z),new Vector3(x+2,Current.Ground(x+2,z),z),
-                    new Vector3(x+2,Current.Ground(x+2,z+2),z+2),new Vector3(x,Current.Ground(x,z+2),z+2)};
-                float min=cell[0].y,max=min;foreach(var v in cell){min=Mathf.Min(min,v.y);max=Mathf.Max(max,v.y);}
-                for(float level=Mathf.Ceil(min/1.8f)*1.8f;level<=max;level+=1.8f)
-                {
-                    Vector3 first=Vector3.zero;int crossings=0;
-                    for(int edge=0;edge<4;edge++)
-                    {
-                        Vector3 a=cell[edge],b=cell[(edge+1)%4];
-                        if((a.y<level)==(b.y<level))continue;
-                        Vector3 point=Vector3.Lerp(a,b,(level-a.y)/(b.y-a.y));
-                        if(crossings++%2==0)first=point;
-                        else lattice.AddSegment(first,point,WithAlpha(Steel,.20f),.65f,0,0,.7f);
-                    }
-                }
-            }
-            var hologram=Lines(lattice,LandGroup.Terraces);
-            hologram.sharedMaterial.SetFloat("_DstBlend",1);
-            var contours=new LineMeshBuilder();
+            // The wave's terrain (strata, ridges along time, the crest's cut face) is drawn by HillWaveLayer; this layer
+            // names the hills at the crest and runs the measured input-output purchases underground.
             foreach(var h in Current.Hills)
             {
                 var account=snapshot.Land.Sectors[h.Industry];
-                // Sparse irregular contour traces expose relief without wrapping every hill in a chart grid.
-                for(int ring=2;ring<=9;ring++)
-                {
-                    var pts=new Vector3[81];float radius=ring/10f;
-                    for(int j=0;j<pts.Length;j++)pts[j]=h.Surface(j*Mathf.PI*2/80,radius)+Vector3.up*.035f;
-                    contours.AddPolyline(pts,WithAlpha(ring==2?Gold:Blue,ring==2?.46f:.24f),.8f,0,0);
-                }
-                if(account.ValueAdded/snapshot.Land.Gdp>.035)
+                if(h.Tier>0&&account.ValueAdded/snapshot.Land.Gdp>.035)
                     Label(LandService.Model.Data.Industries[h.Industry].Name,h.Summit+Vector3.up*.6f,LandGroup.Sectors,.23f,Color.white);
             }
-            Lines(contours,LandGroup.Sectors);
             Strata();
-            string[] strata={"GOVERNMENT","RAW MATERIALS","MANUFACTURING / INFRASTRUCTURE","SERVICES","TECH"};
-            for(int t=0;t<strata.Length;t++)Label(strata[t],new Vector3(-82,t==0?-18:HillLandscape.Lowland(-82,t*24-52)+1,t*24-52),LandGroup.Sectors,.23f,Ice);
             var roots=new LineMeshBuilder();var io=LandService.Model.Data.Circuit?.Io;
             if(io!=null)foreach(var edge in io.Flows())
             {
@@ -132,11 +102,11 @@ namespace Why.Economy.Layers
             for(int r=0;r<names.Length;r++)
             {
                 var ring=new Vector3[41];
-                for(int j=0;j<ring.Length;j++)ring[j]=Current.At(hill,Mathf.PI*(.62f+.76f*j/40f),HillLandscape.RungRadius[r],.12f);
+                for(int j=0;j<ring.Length;j++)ring[j]=Current.At(hill,HillLandscape.Valley+Mathf.PI*.5f*j/40f,HillLandscape.RungRadius[r],.12f);
                 b.AddPolyline(ring,WithAlpha(r>=4?Gold:Blue,.55f),1.1f,0,0,1.4f);
-                Label(names[r],Current.At(hill,Mathf.PI*1.02f,HillLandscape.RungRadius[r],1.2f)+Vector3.left*3,LandGroup.Glyphs,.17f,r>=4?Gold:Ice);
+                Label(names[r],Current.At(hill,HillLandscape.Valley,HillLandscape.RungRadius[r],1.2f)+Vector3.left*3,LandGroup.Glyphs,.17f,r>=4?Gold:Ice);
             }
-            Label("CLOUDS · the top 1%: claims on every hill",new Vector3(3,HillLandscape.CloudY+4,-14),LandGroup.Glyphs,.25f,Gold);
+            Label("CLOUDS · the top 1%: claims on every hill",Current.CloudCenter+new Vector3(0,4,-6),LandGroup.Glyphs,.25f,Gold);
             Lines(b,LandGroup.Glyphs);
         }
         void Owners()
@@ -261,7 +231,7 @@ namespace Why.Economy.Layers
             // Investment: the owners' pool in the clouds sends part of its surplus back down to the hills as new capital.
             // Household rivers (HillActivityLayer) and the split of value at each market (HillCaptureLayer) are drawn there.
             var capital = new LineMeshBuilder(); var pools = new LineMeshBuilder();
-            Vector3 cloud = new Vector3(3, HillLandscape.CloudY, 9);
+            Vector3 cloud = Current.CloudCenter;
             foreach (IndustryHill hill in Current.Hills)
             {
                 double investment = snapshot.Money.InvestmentBySector[hill.Industry];
@@ -283,7 +253,7 @@ namespace Why.Economy.Layers
         {
             var lines = new LineMeshBuilder();
             int index = Mathf.Clamp(EconomyState.SelectedPlayer,0,snapshot.Players.Players.Length-1);
-            Player p = snapshot.Players.Players[index]; Vector3 origin = new Vector3(145,2,0);
+            Player p = snapshot.Players.Players[index]; Vector3 origin = MindOrigin;
             var scenario=PlayerMindProgram.Active;
             var state=scenario!=null&&scenario.Players.Length>index?scenario.Players[index]:null;
             programVersion=scenario?.Revision??-1;mindPerson=EconomyState.Person;
@@ -377,7 +347,7 @@ namespace Why.Economy.Layers
             if (g==LandGroup.Terraces) return .22f;
             if (g==LandGroup.Sectors) return .20f;
             if (g==LandGroup.Towers) return view=="capture"?.55f:.12f;
-            if (g==LandGroup.Crown) return view=="capture"?1:.35f;
+            if (g==LandGroup.Crown) return view=="capture"?1:view=="people"?.35f:.10f;
             if (g==LandGroup.Roots) return view=="roots"?.75f:.055f;
             if (g==LandGroup.Glyphs) return view=="people"?.9f:0;
             if (g==LandGroup.CapitalFlows||g==LandGroup.Pools) return view=="rivers"?.6f:view=="capture"?.2f:0;
@@ -432,7 +402,7 @@ namespace Why.Economy.Layers
             }
             else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&hoverTie>=0)
                 EconomyState.SetSelection(EconomyState.SelectedPlayer,-1,hoverTie);
-            else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5)
+            else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HillWaveLayer.HoverCompany<0)
             {
                 int firm=-1;float closest=22;
                 for(int f=0;f<snapshot.Land.Towers.Length;f++){Vector3 screen=camera.WorldToScreenPoint(frame.World(HillActivityLayer.CompanyHalo(f)));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;firm=f;}}

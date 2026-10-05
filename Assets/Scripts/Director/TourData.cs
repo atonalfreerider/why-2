@@ -130,11 +130,13 @@ namespace Why.Director
 
         static TourScript HillsBuiltIn()
         {
-            return new TourScript { Title="The economy landscape", Steps=new List<TourStep>{
-                Step("hills_land","landscape",null,12,"A landscape of production","Industries rise from connected lowlands. Footprints follow value added. Elevation expresses the climb from labor to capital claims within an industry; the terrain is a model, not geography."),
-                Step("hills_people","people",null,12,"The lowlands","Workers live near the industry that pays them. Business owners sit on slopes. Select a player to examine household balance sheets and family ties. Each dot represents a group of people."),
-                Step("hills_owners","capture",null,12,"The ownership heights","Firms rise from their industries. Luminous summit rings mark documented voting blocs; diversified portfolio groups float above the ranges. Named examples use dated filings, while the groups are simulated."),
-                Step("hills_rivers","rivers",null,12,"Money returns uphill","Investment climbs toward industry summits. Wages reach households, and household spending returns to suppliers. Select a player to isolate its spending routes."),
+            return new TourScript { Title="The economy wave", Steps=new List<TourStep>{
+                Step("hills_wave","overview",null,12,"A wave moving into the future","The road of lives ends at the present, and its cross-section opens into the economy: a wave whose crest is now. Each rib behind it is one year's economy, widening as real output grows."),
+                Step("hills_land","landscape",null,12,"Layers standing on layers","Raw materials, manufacturing and infrastructure, services and tech stand on one another, on a government bedrock. Each industry's band is its share of value added; the tiers' heights are a model of dependence, not measured influence."),
+                Step("hills_companies","companies",null,12,"Companies live and die","Like people, companies are born, rise and end. Height is market value; failed firms fall to the ground, bought ones merge into their buyer, survivors reach the crest. Color is how Jev judged each company sells: need, manufactured want or fear. Values are approximate."),
+                Step("hills_people","people",null,12,"Class is altitude","Each group lives on the slope of the industry that pays it, from the valley side up to the owners under the summit; the top 1% float above every hill. Each marker stands for a group of people."),
+                Step("hills_owners","capture",null,12,"Who keeps the money","Every household dollar splits at a market: wages flow back down, taxes to the bedrock, and the owners' surplus climbs to the gold halos and on to whoever holds the claims."),
+                Step("hills_rivers","rivers",null,12,"Rivers of desire and fear","Spending runs from the people to each market as rose and ice rivers. Saving leaves over the crest as capital for the future; debt arrives from the future as spending drawn from income not yet earned."),
                 Step("hills_mind","mind",null,12,"The decision program","Desire and fear interact with memory and deliberation. Step year runs an illustrative counterfactual for every player. Psychological weights and allowances are assumptions, separate from measured accounts."),
                 Step("hills_games","society",null,12,"Repeated encounters","Run the season controls to explore cooperation, retaliation and forgiveness between groups. These are model experiments, not forecasts of a population's behavior.")
             }};

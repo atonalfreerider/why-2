@@ -197,7 +197,13 @@ namespace Why.Economy.UI
         void Update()
         {
             if(!root||!root.IsLoaded)return;
-            if(year!=EconomyState.Year){year=EconomyState.Year;UpToOverview();}
+            if(year!=EconomyState.Year)
+            {
+                // A new year has other cohorts: drop the stale path and selection. Only a viewer inside the explorer is
+                // flown home; otherwise the camera stays (a preset's year, or the slider moving the wave's crest).
+                year=EconomyState.Year;
+                if(Depth>0)UpToOverview();else{Industry=Company=Group=-1;page=0;dependencies=false;EconomyState.SetPerson(-1);EconomyState.SetSelection(-1,-1,-1);Refresh();}
+            }
             if(Depth>=4&&EconomyState.Person<0)EnterGroup(Group);
             bool show=!root.TourActive&&LandView.PresetId!="section"&&LandView.PresetId!="society"&&LandView.PresetId!="betrayal";panel.gameObject.SetActive(show);
             if(dots)dots.SetActive(show&&LandView.PresetId!="mind");

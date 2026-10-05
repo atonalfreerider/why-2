@@ -101,18 +101,24 @@ back); record with Unity Recorder or any screen recorder. In a built player, V o
 
 ## The economy scene
 
-Open `Assets/Scenes/Economy.unity` and press Play. The economy reuses the original United States population graph,
-with 25 industry mountains on connected terrain. Workers occupy the lowlands near their employers; business owners
-sit on slopes; companies rise from industry masses. Gold summit rings mark dated voting-control examples, while
-synthetic diversified wealth groups float in high cloud pools. The old torus renderers remain in code but are disabled
-through `EconomyLayouts`.
+Open `Assets/Scenes/Economy.unity` and press Play. The economy is a wave moving forward through time: the road of
+United States lives (1946 to now) and the economy share one time axis, and at its end the population's cross-section
+opens into a hillside of industries. Each rib behind the crest is one year's economy, widening as real output grows;
+raw materials, manufacturing and infrastructure, services and tech stand on one another on a government bedrock, each
+industry a ridge as wide as its share of value added. The crest is the shown year. 75 companies live on the ridges like
+people on the road: born, rising and falling with their (approximate) market value, failing, bought or reaching the
+crest, colored by how Jev judged each one sells (need, manufactured want or fear). People live on the slope of the
+industry that pays them, class by altitude; their spending runs to each industry's market as rivers of desire and fear,
+saving leaves over the crest into the future and debt arrives from it. The old torus renderers remain in code but are
+disabled through `EconomyLayouts`.
 
-Keys 1–8: overview, population/families, terrain, ownership, households, rivers, the 3D mind, and society. Orbit and
+Keys 1–9 and 0: overview, population/families, the wave, ownership, class, rivers, the 3D mind, society, social
+infrastructure and companies. Orbit and
 zoom with the existing camera controls. Click a player for its historical inspector. The collapsed **Inspect / simulate**
 control opens an independent scenario ledger: choose a player, adjust reason/fear, step or play years, and reset.
 All players run the scenario program; assets, debt, consumption and support transfers are accounted for separately
 from historical records. The same selected player's state appears in the 3D mind view. Comma/period and the year
-scrubber still select historical years. T runs the landscape tour.
+scrubber still select historical years. T runs the wave tour.
 
 The economy-only population geometry joins recorded parents at the mid-plane at birth and draws marriage links.
 The original causality scene's population geometry is unchanged. Psychological weights, terrain elevation, synthetic

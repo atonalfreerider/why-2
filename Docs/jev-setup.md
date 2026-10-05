@@ -90,6 +90,15 @@ The scene reads that file; it never calls the model. Rerun it with a key in the
 environment after editing the spending items (about 156k tokens for all items).
 `--sample` judges eight contrasting items into the temp folder for a quick check.
 
+## Company judgments for the economy wave
+
+`Tools/judge-companies.py` asks Jev, for each of the 75 companies in `company-lives.json`, which industry earns most of
+its revenue (a Choice with a no-match option) and how it sells (manufactured want, fear sold, captive buyer, habit loop),
+and writes `Assets/Resources/Data/economy/company-judgments.json`. It calls the API directly from Python (no PowerShell),
+reading `TYPESAFE_API_KEY` or `AI_GATEWAY_API_KEY` from the process and never printing it; about 148k tokens for all
+companies, `--sample` judges six into the temp folder. It lists the hill choices that differ from the authored industry;
+the scene applies Jev's hill only at confidence 0.6 or more and never to the 25 stored firms.
+
 ## References
 
 - Official agent skill: https://docs.typesafe.ai/agent-skill

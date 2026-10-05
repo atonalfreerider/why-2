@@ -40,6 +40,8 @@ namespace Why.Economy.Model
         {
             Array.Clear(IndustrySpending,0,IndustrySpending.Length);Array.Clear(FirmReceipts,0,FirmReceipts.Length);
             TotalSpending=OutsideReceipts=0;
+            // A scenario program built for another year's cohorts does not apply to this year's.
+            if(program!=null&&program.Players.Length!=source.Players.Players.Length)program=null;
             for(int p=0;p<source.Players.Players.Length;p++)
             {
                 var state=program?.Players[p];float fear=state?.Fear??source.Players.Players[p].Fear;

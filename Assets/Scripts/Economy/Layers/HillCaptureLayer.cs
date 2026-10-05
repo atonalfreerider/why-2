@@ -86,7 +86,7 @@ namespace Why.Economy.Layers
                 case Part.Halo: return 1;
                 case Part.Glow: return view == "capture" ? 1 : .8f;
                 case Part.Climb: return view == "capture" || view == "rivers" ? 1 : .8f * dim;
-                case Part.Ascent: return (view == "capture" ? .9f : view == "people" || view == "rivers" ? .5f : .22f) * dim;
+                case Part.Ascent: return (view == "capture" ? .9f : view == "rivers" ? .12f : view == "people" ? .15f : .07f) * dim;
                 case Part.Wages: return (view == "rivers" || view == "people" ? .9f : view == "landscape" ? .55f : view == "capture" ? .3f : .16f) * dim;
                 case Part.Taxes: return (view == "rivers" ? .8f : view == "landscape" ? .35f : .1f) * dim;
                 case Part.Ledger: return view == "capture" || view == "people" ? 1 : lod >= 1 ? .7f : .2f;
@@ -124,11 +124,11 @@ namespace Why.Economy.Layers
             {
                 var hill = land.Hills[j]; double k = ledger.Owners[j];
                 if (hill.Tier == 0 || k <= .5) continue;
-                // The gold river starts where the household river ends and winds up the valley face to the halo.
+                // The gold river starts where the household river ends and winds up the valley side to the halo.
                 var path = new List<LinePoint>();
                 for (int s = 0; s <= 44; s++)
                 {
-                    float t = s / 44f, angle = -Mathf.PI * .5f + Mathf.Sin(t * 5.5f + j) * .09f * (1 - t);
+                    float t = s / 44f, angle = HillLandscape.Valley + Mathf.Sin(t * 5.5f + j) * .09f * (1 - t);
                     Vector3 p = land.At(hill, angle, Mathf.Lerp(.86f, .08f, t), .32f);
                     Color c = Color.Lerp(Color.Lerp(Rose, Ice, .5f), Gold, Mathf.SmoothStep(0, 1, t * 5));
                     path.Add(new LinePoint(p, c, 1.6f, 0, 2.2f + 1.8f * t));
@@ -203,10 +203,10 @@ namespace Why.Economy.Layers
                     Arch(b, h, to, WithAlpha(Gold, .55f), .6f + Mathf.Sqrt((float)amount) * .32f, 2.0f, Vector3.Distance(h, to) * .12f + 1);
                 }
                 double abroad = ledger.Owners[j] * model.AbroadShare;
-                if (abroad > 3) Arch(b, h, new Vector3(h.x * .4f, HillLandscape.CloudY + 6, 150), WithAlpha(Gold, .25f), .5f + Mathf.Sqrt((float)abroad) * .25f, 1.4f, 6);
+                if (abroad > 3) Arch(b, h, land.Abroad, WithAlpha(Gold, .25f), .5f + Mathf.Sqrt((float)abroad) * .25f, 1.4f, 6);
             }
             var r = Lines(b, Part.Ascent, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.2f); r.sharedMaterial.SetFloat("_FlowSpeed", .35f);
-            labels.Add((Label("ABROAD\nforeign holders of US corporate equity", new Vector3(0, HillLandscape.CloudY + 8, 148), .2f, new Color(1, .8f, .5f)), -2));
+            labels.Add((Label("ABROAD\nforeign holders of US corporate equity", land.Abroad + Vector3.up * 2, .2f, new Color(1, .8f, .5f)), -2));
         }
 
         void Wages()

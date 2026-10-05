@@ -8,7 +8,7 @@ using Why.Economy.Model;
 namespace Why.Economy.Layers
 {
     /// <summary>
-    /// Social infrastructure: the government bedrock beneath the whole landscape, with one pillar per program sized by
+    /// Social infrastructure: the government bedrock beneath the whole wave, with one pillar per program sized by
     /// its FY2025 outlays (circuit.json government; CBO / Treasury, federal fiscal year; state and local purchases from
     /// NIPA). Pillars rise under whom they serve: Social Security to the retirees, health programs under the health
     /// hill, defense under manufacturing, schools / police / roads under the valley floor, other federal programs to the
@@ -58,8 +58,8 @@ namespace Why.Economy.Layers
             switch (part)
             {
                 case Part.Bedrock: return view == "roots" ? .25f : .14f;
-                case Part.Pillars: return view == "capture" ? .25f : .45f;
-                case Part.Benefits: return lod >= 2 ? .6f : view == "people" ? .45f : .08f;
+                case Part.Pillars: return view == "overview" || view == "landscape" || view == "companies" ? .10f : view == "capture" ? .2f : .35f;
+                case Part.Benefits: return view == "people" ? .12f : lod >= 2 ? .5f : .06f;
                 case Part.Taxes: return lod >= 2 ? .45f : view == "rivers" ? .3f : .05f;
                 case Part.Selected: return 1;
             }
@@ -93,7 +93,7 @@ namespace Why.Economy.Layers
             var local = Add("SCHOOLS · POLICE · ROADS · COURTS", "state and local purchases", G("stateLocalPurchases"), Of(p => p.Rung <= 1 && p.Group != Group.Top1), Blue);
             var other = Add("OTHER FEDERAL", "agencies, food and income support, veterans", G("otherOutlays"), Of(p => p.Group == Group.OutOfWork || p.Group == Group.WorkingPoor), Steel);
             var bonds = Add("INTEREST TO BONDHOLDERS", "net interest on the federal debt: taxes paid to lenders", G("netInterest"), Of(p => p.Group == Group.Top1), Gold);
-            if (bonds.Top != Vector3.zero) bonds.Top.y = HillLandscape.CloudY - 4;
+            if (bonds.Top != Vector3.zero) bonds.Top.y = land.CloudY - 4;
             // Who each pillar serves: Social Security by the players' Social Security, the health and safety-net pillars by
             // the rest of their benefits, the bondholders by capital income at the top (a proxy for Treasury holdings).
             double topCapital = 0; foreach (var p in players) if (p.Group == Group.Top1) topCapital += Math.Max(0, p.Capital);
@@ -111,9 +111,9 @@ namespace Why.Economy.Layers
         Pillar Add(string name, string note, double dollars, Vector3 under, Color color)
         {
             int k = pillars.Count;
-            // The pillars stand in a row under the front of the landscape and lean toward whom they serve.
+            // The pillars stand in a row in the bedrock just behind the crest and lean toward whom they serve.
             var pillar = new Pillar { Name = name, Note = note, Dollars = dollars, Color = color,
-                Base = new Vector3(-62 + k * 25, HillLandscape.Bedrock, -30 + (k % 2) * 12) };
+                Base = new Vector3(HillLandscape.FootX + 8 + k * land.CrestWidth / 6.5f, HillLandscape.Bedrock, land.CrestZ - 26 - (k % 2) * 12) };
             pillar.Top = under == Vector3.zero ? pillar.Base + Vector3.up * 14 : new Vector3(under.x, land.Ground(under.x, under.z) - 1.2f, under.z);
             pillars.Add(pillar); return pillar;
         }
@@ -121,15 +121,17 @@ namespace Why.Economy.Layers
         void Bedrock(Why.Economy.Data.CircuitFile gov, double scale)
         {
             var b = new LineMeshBuilder();
-            for (float x = -96; x <= 96; x += 8) b.AddSegment(new Vector3(x, HillLandscape.Bedrock, -78), new Vector3(x, HillLandscape.Bedrock, 104), WithAlpha(Steel, .5f), .7f, 0, 0, 1);
-            for (float z = -78; z <= 104; z += 8) b.AddSegment(new Vector3(-96, HillLandscape.Bedrock, z), new Vector3(96, HillLandscape.Bedrock, z), WithAlpha(Steel, .5f), .7f, 0, 0, 1);
+            // The bedrock runs under the whole wave, from the first year to the crest, as wide as the crest.
+            float x0 = land.XMin, x1 = land.XMax, z0 = land.TailZ, z1 = land.CrestZ;
+            for (float x = x0; x <= x1; x += 8) b.AddSegment(new Vector3(x, HillLandscape.Bedrock, z0), new Vector3(x, HillLandscape.Bedrock, z1), WithAlpha(Steel, .5f), .7f, 0, 0, 1);
+            for (float z = z1; z >= z0; z -= 8) b.AddSegment(new Vector3(x0, HillLandscape.Bedrock, z), new Vector3(x1, HillLandscape.Bedrock, z), WithAlpha(Steel, .5f), .7f, 0, 0, 1);
             Lines(b, Part.Bedrock, false, false);
             double receipts = (gov?.GovernmentOf("receipts") ?? 0) * scale, deficit = (gov?.GovernmentOf("deficit") ?? 0) * scale;
             double corp = (gov?.GovernmentOf("corporateTax") ?? 0) * scale, dividends = (gov?.IncomeOf("dividends") ?? 0) * scale, buybacks = (gov?.IncomeOf("buybacks") ?? 0) * scale;
             string year = snapshot.Year == (gov?.Year ?? 2025) ? "FY" + snapshot.Year : snapshot.Year + " (FY2025 scaled by GDP)";
             Label("<b>SOCIAL INFRASTRUCTURE</b> · " + year + "\nfederal taxes in " + LandFacts.Money(receipts) + " · borrowed " + LandFacts.Money(deficit) +
                 "\ncorporate tax " + LandFacts.Money(corp) + " vs dividends " + LandFacts.Money(dividends) + " + buybacks " + LandFacts.Money(buybacks),
-                new Vector3(-80, HillLandscape.Bedrock + 2.5f, -70), .3f, new Color(.75f, .85f, 1), 0);
+                new Vector3(land.XMin + 10, HillLandscape.Bedrock + 2.5f, land.CrestZ + 6), .3f, new Color(.75f, .85f, 1), 0);
         }
 
         void Columns()

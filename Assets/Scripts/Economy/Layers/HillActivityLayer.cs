@@ -48,7 +48,7 @@ namespace Why.Economy.Layers
             if(land==null)return;
             int nextLod=rig.Pose.Distance<35?2:rig.Pose.Distance<100?1:0;
             if(nextLod!=lod){lod=nextLod;UpdateBalances();}
-            var program=PlayerMindProgram.Active;
+            var program=Program;
             if(version!=(program?.Revision??-1)||selection!=EconomyState.SelectedPlayer)
             {
                 version=program?.Revision??-1;selection=EconomyState.SelectedPlayer;
@@ -63,7 +63,7 @@ namespace Why.Economy.Layers
             {
                 float progress=(1-Mathf.Cos(animation*(.055f+.015f*(1-FearOf(p)))+p*2.399963f))*.5f;
                 Vector3 at=Vector3.Lerp(home[p],destinations[p],progress);
-                if(!land.Cloud[p/Subgroups])at.y=land.Ground(at.x,at.z)+.3f;
+                if(!land.Cloud[p/Subgroups])at.y=Mathf.Lerp(land.Rest(land.IndustryOf[p/Subgroups],at.x,at.z),land.Rest(recipient[p],at.x,at.z),progress)+.3f;
                 if(HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group)at=HillExplorer.GroupCenter;
                 Positions[p]=at;actors[p].transform.localPosition=at;
                 bool memberView=HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group;
@@ -97,7 +97,9 @@ namespace Why.Economy.Layers
             refresh+=Time.deltaTime;
             if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
         }
-        float FearOf(int p)=>PlayerMindProgram.Active?.Players[p/Subgroups].Fear??snapshot.Players.Players[p/Subgroups].Fear;
+        /// <summary>The running scenario, when it was built for the shown year's cohorts (else the census stands).</summary>
+        PlayerMindProgram Program=>PlayerMindProgram.Active!=null&&snapshot!=null&&PlayerMindProgram.Active.Players.Length==snapshot.Players.Players.Length?PlayerMindProgram.Active:null;
+        float FearOf(int p)=>Program?.Players[p/Subgroups].Fear??snapshot.Players.Players[p/Subgroups].Fear;
         void Build()
         {
             Clear();snapshot=LandService.Current;land=HillLandscapeLayer.Current;
@@ -106,7 +108,7 @@ namespace Why.Economy.Layers
             for(int p=0;p<home.Length;p++){float a=p%Subgroups*Mathf.PI*2/Subgroups;home[p]=land.People[p/Subgroups]+new Vector3(Mathf.Cos(a)*1.1f,0,Mathf.Sin(a)*1.1f);}
             Positions=(Vector3[])home.Clone();
             destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];
-            Competition=new CorporateCompetition(snapshot);Competition.Update(PlayerMindProgram.Active);
+            Competition=new CorporateCompetition(snapshot);Competition.Update(Program);
             for(int p=0;p<home.Length;p++){var actor=Render(new LineMeshBuilder(),"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
             BuildCorporations();
             rivers=Render(new LineMeshBuilder(),"Desire fear capital rivers",false);
@@ -122,7 +124,7 @@ namespace Why.Economy.Layers
         {
             for(int p=0;p<home.Length;p++)
             {
-                var budget=Competition.Budget(p/Subgroups,PlayerMindProgram.Active?.Players[p/Subgroups]);int best=0;
+                var budget=Competition.Budget(p/Subgroups,Program?.Players[p/Subgroups]);int best=0;
                 double total=0;foreach(double amount in budget)total+=amount;
                 double sample=((p*.61803398875+.21)%1)*total,cumulative=0;
                 for(int h=0;h<budget.Length;h++){cumulative+=budget[h];if(cumulative>=sample){best=h;break;}}
@@ -137,7 +139,7 @@ namespace Why.Economy.Layers
         {
             for(int p=0;p<actors.Count;p++)
             {
-                var state=PlayerMindProgram.Active?.Players[p/Subgroups];var cohort=snapshot.Players.Players[p/Subgroups];
+                var state=Program?.Players[p/Subgroups];var cohort=snapshot.Players.Players[p/Subgroups];
                 double assets=state?.Assets??Math.Max(0,cohort.Wealth+cohort.Debt),debt=state?.Debt??cohort.Debt;
                 assets/=Subgroups;debt/=Subgroups;
                 var b=new LineMeshBuilder();Color motive=Color.Lerp(Desire,Fear,FearOf(p));
@@ -160,9 +162,8 @@ namespace Why.Economy.Layers
             for(int f=0;f<towers.Length;f++)
             {
                 var tower=towers[f];var hill=land.Hills[tower.Industry];int seat=count[hill.Industry]++;
-                // Firms stand on the hill's far slopes, above and behind the households on its valley face.
-                float angle=Mathf.PI*.5f+(seat-(total[hill.Industry]-1)*.5f)*.62f;
-                Vector3 at=land.At(hill,angle,.42f+.14f*(seat%2));firmAt[f]=at;
+                // Firms stand on the hill's crest side, where their lifelines (HillWaveLayer) arrive from the wake.
+                Vector3 at=land.FirmSeat(hill.Industry,seat,total[hill.Industry]);firmAt[f]=at;
                 float beam=Beam(tower),revenue=.45f+Mathf.Sqrt((float)Math.Max(0,tower.Revenue))*.07f;
                 haloScale[f]=.45f+Mathf.Sqrt((float)Math.Max(0,tower.NetIncome))*.09f;
                 // Far: the halo of profit at the top of a beam as tall as the market's price of future profits.
@@ -278,7 +279,7 @@ namespace Why.Economy.Layers
                 {
                     // The household river runs in from the valley and ends at the hill's market, where its value splits
                     // (HillCaptureLayer): the owners' share climbs on as gold.
-                    float t=k/40f;Vector3 point=land.At(land.Hills[h],-Mathf.PI*.5f+Mathf.Sin(t*6)*.12f*(1-t),Mathf.Lerp(1.55f,.86f,t),.3f);
+                    float t=k/40f;Vector3 point=land.At(land.Hills[h],HillLandscape.Valley+Mathf.Sin(t*6)*.12f*(1-t),Mathf.Lerp(1.55f,.86f,t),.3f);
                     path[k]=new LinePoint(point,Color.white,1);
                 }
                 bool active=false;if(focused>=0)for(int p=focused*Subgroups;p<(focused+1)*Subgroups;p++)if(recipient[p]==h)active=true;

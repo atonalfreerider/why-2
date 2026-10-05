@@ -1,0 +1,1434 @@
+{
+ "note": "Jev (TypeSafe System One) judgments of each company in company-lives.json, one request per company from Tools/judge-companies.py. Scores are 0..1 (probability-weighted level / 4). The hill is Jev's choice of the industry earning most of the company's revenue; the scene uses it only when its confidence is at least 0.6 and otherwise keeps the authored industry. These are model evidence about how each company sells, not measurements.",
+ "model": "jev-1.13.0",
+ "judged": "2026-10-05",
+ "tokens": 147621,
+ "questions": {
+  "manufactured": {
+   "type": "score",
+   "instructions": "Over `company.name`'s life as described, how much of its revenue came from wants that it or its industry created or inflated (advertising, branding, status, novelty, planned obsolescence), rather than from needs its buyers would have had without any marketing?",
+   "criteria": [
+    "It sold what buyers needed anyway (fuel, steel, basic food, utilities); marketing only decided which seller got the money",
+    "Mostly need-driven, but it upsold size, frequency or premium versions",
+    "About half need and half a want shaped by advertising or social comparison",
+    "Mostly a want sustained by its marketing, brand image or status; buyers could forgo most of it without harm",
+    "Demand existed chiefly because it created it: image, novelty or social pressure was the product"
+   ]
+  },
+  "fear_sold": {
+   "type": "score",
+   "instructions": "How much did `company.name` win its revenue by selling protection from fear or anxiety (illness, injury, loss, danger, ruin, falling behind) that it presented or amplified to close the sale?",
+   "criteria": [
+    "Fear played no part; customers bought for enjoyment, convenience, production or routine",
+    "A background worry existed but it rarely used it to sell",
+    "It regularly invoked safety, risk or worry alongside other appeals",
+    "Its sales were mainly made by pointing at a threat customers wanted to avoid",
+    "Customers bought under acute threat or dread, so fear decided the purchase and its price"
+   ]
+  },
+  "captive": {
+   "type": "score",
+   "instructions": "How little real freedom did `company.name`'s typical customer have to refuse, delay or switch to another seller: how much pricing power did it hold over them?",
+   "criteria": [
+    "Easily skipped or substituted; many competitors kept its prices in check",
+    "Hard to skip, but strong competition kept prices in check",
+    "Switching was costly or confusing (contracts, ecosystems, opaque pricing, few local options)",
+    "Customers depended on it or a few rivals, faced lock-in, or could not compare prices before paying",
+    "Customers could not refuse: a monopoly, a legal requirement or an emergency set the terms"
+   ]
+  },
+  "habit": {
+   "type": "score",
+   "instructions": "How much of `company.name`'s repeat revenue was sustained by habit-forming or compulsive design (addictive substances, variable rewards, auto-renewal, engagement loops) rather than a fresh decision each time?",
+   "criteria": [
+    "Each purchase was a deliberate, occasional decision",
+    "Routine repeat buying out of convenience, easily stopped",
+    "Subscriptions, auto-renewal or brand habit kept the spending going by default",
+    "Its products were designed to be compulsive and many customers spent more than they intended",
+    "Chemically or psychologically addictive; much of its revenue came from dependent heavy users"
+   ]
+  },
+  "hill": {
+   "type": "choice",
+   "instructions": "Which industry earned most of `company.name`'s revenue, judging by what it sells (`company.sells`) over its life? Pick the industry of its main revenue, not of its suppliers or customers.",
+   "criteria": {
+    "agriculture": "Agriculture: Farms, ranches, forestry and fishing",
+    "oil_gas": "Oil & gas: Oil and gas wells, drilling services and refineries",
+    "mining_metals": "Mining & metals: Mines, quarries, steel mills and smelters",
+    "utilities": "Utilities: Power plants, grids, gas pipes to homes, water and sewage",
+    "construction": "Construction: Builders of homes, offices, factories, data centers and roads",
+    "manufacturing": "Manufacturing: Factories making food, cars, planes, medicines, chemicals and household goods",
+    "transport": "Transport & warehousing: Trucks, railroads, airlines, couriers, pipelines and warehouses",
+    "trade": "Wholesale & retail trade: Wholesalers and stores, where products reach people",
+    "banking": "Banking: Banks, card networks and lenders that create and move money (incl. the Federal Reserve)",
+    "finance": "Finance & investing: Brokers, investment banks, asset managers and private equity",
+    "insurance": "Insurance: Health, life, car and home insurers and their brokers",
+    "real_estate": "Real estate & rental: Landlords, brokers and rental companies, plus the rent homeowners implicitly pay themselves",
+    "health": "Health care & social assistance: Doctors, hospitals, nursing homes and social assistance",
+    "legal": "Legal services: Law firms and lawyers",
+    "professional": "Professional & business services: Consultants, accountants, engineers, R&D labs, ad agencies, corporate headquarters and staffing",
+    "education": "Education (private): Private schools, colleges and training",
+    "entertainment": "Arts, entertainment & recreation: Live shows, sports, museums, casinos, amusement parks and gyms",
+    "hospitality": "Restaurants, bars & hotels: Restaurants, bars and hotels",
+    "other_services": "Other services: Repair shops, hair and beauty, laundries, churches and civic groups, and waste collection",
+    "hardware": "Computers & chips: Chips, computers, phones, network gear and instruments made in the US",
+    "software": "Software & IT services: Software publishers and IT services firms",
+    "internet": "Internet platforms & cloud: Search, social media, cloud computing and data centers",
+    "media_telecom": "Media & telecom: Phone and cable networks, broadcasters, film, music and newspapers",
+    "none": "None of these: a government agency, a nonprofit, or a business that fits no listed industry"
+   }
+  }
+ },
+ "companies": {
+  "nvidia": {
+   "name": "NVIDIA",
+   "manufactured": 0.355,
+   "manufacturedConfidence": 0.59,
+   "fear_sold": 0.1125,
+   "fear_soldConfidence": 0.63,
+   "captive": 0.73,
+   "captiveConfidence": 0.87,
+   "habit": 0.04,
+   "habitConfidence": 0.87,
+   "hill": "hardware",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "hardware": 1.0,
+    "banking": 0.0,
+    "hospitality": 0.0
+   }
+  },
+  "apple": {
+   "name": "Apple",
+   "manufactured": 0.7625,
+   "manufacturedConfidence": 0.87,
+   "fear_sold": 0.065,
+   "fear_soldConfidence": 0.78,
+   "captive": 0.51,
+   "captiveConfidence": 0.72,
+   "habit": 0.505,
+   "habitConfidence": 0.89,
+   "hill": "hardware",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "hardware": 1.0,
+    "transport": 0.0,
+    "hospitality": 0.0
+   }
+  },
+  "alphabet": {
+   "name": "Alphabet (Google)",
+   "manufactured": 0.715,
+   "manufacturedConfidence": 0.43,
+   "fear_sold": 0.0675,
+   "fear_soldConfidence": 0.77,
+   "captive": 0.615,
+   "captiveConfidence": 0.44,
+   "habit": 0.54,
+   "habitConfidence": 0.19,
+   "hill": "internet",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "internet": 1.0,
+    "entertainment": 0.0,
+    "oil_gas": 0.0
+   }
+  },
+  "microsoft": {
+   "name": "Microsoft",
+   "manufactured": 0.39,
+   "manufacturedConfidence": 0.51,
+   "fear_sold": 0.2025,
+   "fear_soldConfidence": 0.32,
+   "captive": 0.6975,
+   "captiveConfidence": 0.79,
+   "habit": 0.485,
+   "habitConfidence": 0.94,
+   "hill": "software",
+   "hillConfidence": 0.98,
+   "hillTop": {
+    "software": 0.98,
+    "internet": 0.02,
+    "real_estate": 0.0
+   }
+  },
+  "amazon": {
+   "name": "Amazon",
+   "manufactured": 0.48,
+   "manufacturedConfidence": 0.57,
+   "fear_sold": 0.11,
+   "fear_soldConfidence": 0.63,
+   "captive": 0.39,
+   "captiveConfidence": 0.36,
+   "habit": 0.5,
+   "habitConfidence": 0.9,
+   "hill": "trade",
+   "hillConfidence": 0.86,
+   "hillTop": {
+    "trade": 0.87,
+    "internet": 0.13,
+    "entertainment": 0.0
+   }
+  },
+  "spacex": {
+   "name": "SpaceX",
+   "manufactured": 0.3525,
+   "manufacturedConfidence": 0.37,
+   "fear_sold": 0.0675,
+   "fear_soldConfidence": 0.77,
+   "captive": 0.655,
+   "captiveConfidence": 0.55,
+   "habit": 0.1825,
+   "habitConfidence": 0.39,
+   "hill": "transport",
+   "hillConfidence": 0.76,
+   "hillTop": {
+    "transport": 0.78,
+    "media_telecom": 0.15,
+    "manufacturing": 0.04
+   }
+  },
+  "meta": {
+   "name": "Meta Platforms",
+   "manufactured": 0.97,
+   "manufacturedConfidence": 0.9,
+   "fear_sold": 0.115,
+   "fear_soldConfidence": 0.62,
+   "captive": 0.54,
+   "captiveConfidence": 0.26,
+   "habit": 0.5975,
+   "habitConfidence": 0.16,
+   "hill": "internet",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "internet": 1.0,
+    "health": 0.0,
+    "professional": 0.0
+   }
+  },
+  "broadcom": {
+   "name": "Broadcom",
+   "manufactured": 0.1875,
+   "manufacturedConfidence": 0.76,
+   "fear_sold": 0.1775,
+   "fear_soldConfidence": 0.41,
+   "captive": 0.68,
+   "captiveConfidence": 0.76,
+   "habit": 0.195,
+   "habitConfidence": 0.35,
+   "hill": "hardware",
+   "hillConfidence": 0.94,
+   "hillTop": {
+    "hardware": 0.95,
+    "software": 0.05,
+    "entertainment": 0.0
+   }
+  },
+  "tesla": {
+   "name": "Tesla",
+   "manufactured": 0.585,
+   "manufacturedConfidence": 0.41,
+   "fear_sold": 0.16,
+   "fear_soldConfidence": 0.46,
+   "captive": 0.27,
+   "captiveConfidence": 0.49,
+   "habit": 0.0725,
+   "habitConfidence": 0.76,
+   "hill": "manufacturing",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "manufacturing": 1.0,
+    "construction": 0.0,
+    "transport": 0.0
+   }
+  },
+  "berkshire": {
+   "name": "Berkshire Hathaway",
+   "manufactured": 0.085,
+   "manufacturedConfidence": 0.71,
+   "fear_sold": 0.62,
+   "fear_soldConfidence": 0.56,
+   "captive": 0.4475,
+   "captiveConfidence": 0.39,
+   "habit": 0.42,
+   "habitConfidence": 0.72,
+   "hill": "insurance",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "insurance": 1.0,
+    "software": 0.0,
+    "entertainment": 0.0
+   }
+  },
+  "lilly": {
+   "name": "Eli Lilly",
+   "manufactured": 0.12,
+   "manufacturedConfidence": 0.6,
+   "fear_sold": 0.6425,
+   "fear_soldConfidence": 0.28,
+   "captive": 0.69,
+   "captiveConfidence": 0.68,
+   "habit": 0.3825,
+   "habitConfidence": 0.28,
+   "hill": "manufacturing",
+   "hillConfidence": 0.9,
+   "hillTop": {
+    "manufacturing": 0.9,
+    "health": 0.1,
+    "utilities": 0.0
+   }
+  },
+  "amd": {
+   "name": "Advanced Micro Devices",
+   "manufactured": 0.3625,
+   "manufacturedConfidence": 0.59,
+   "fear_sold": 0.045,
+   "fear_soldConfidence": 0.85,
+   "captive": 0.3425,
+   "captiveConfidence": 0.54,
+   "habit": 0.02,
+   "habitConfidence": 0.93,
+   "hill": "hardware",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "hardware": 1.0,
+    "manufacturing": 0.0,
+    "software": 0.0
+   }
+  },
+  "jpmorgan": {
+   "name": "JPMorgan Chase",
+   "manufactured": 0.285,
+   "manufacturedConfidence": 0.67,
+   "fear_sold": 0.36,
+   "fear_soldConfidence": 0.45,
+   "captive": 0.5025,
+   "captiveConfidence": 0.63,
+   "habit": 0.43,
+   "habitConfidence": 0.69,
+   "hill": "banking",
+   "hillConfidence": 0.97,
+   "hillTop": {
+    "banking": 0.97,
+    "finance": 0.03,
+    "transport": 0.0
+   }
+  },
+  "walmart": {
+   "name": "Walmart",
+   "manufactured": 0.1675,
+   "manufacturedConfidence": 0.63,
+   "fear_sold": 0.0425,
+   "fear_soldConfidence": 0.86,
+   "captive": 0.215,
+   "captiveConfidence": 0.53,
+   "habit": 0.2525,
+   "habitConfidence": 0.96,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "other_services": 0.0,
+    "construction": 0.0
+   }
+  },
+  "visa": {
+   "name": "Visa",
+   "manufactured": 0.265,
+   "manufacturedConfidence": 0.42,
+   "fear_sold": 0.08,
+   "fear_soldConfidence": 0.74,
+   "captive": 0.6825,
+   "captiveConfidence": 0.59,
+   "habit": 0.295,
+   "habitConfidence": 0.68,
+   "hill": "banking",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "banking": 1.0,
+    "software": 0.0,
+    "professional": 0.0
+   }
+  },
+  "exxon": {
+   "name": "Exxon Mobil",
+   "manufactured": 0.1075,
+   "manufacturedConfidence": 0.64,
+   "fear_sold": 0.0275,
+   "fear_soldConfidence": 0.91,
+   "captive": 0.3,
+   "captiveConfidence": 0.54,
+   "habit": 0.335,
+   "habitConfidence": 0.58,
+   "hill": "oil_gas",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "oil_gas": 1.0,
+    "real_estate": 0.0,
+    "hardware": 0.0
+   }
+  },
+  "jnj": {
+   "name": "Johnson & Johnson",
+   "manufactured": 0.225,
+   "manufacturedConfidence": 0.75,
+   "fear_sold": 0.6025,
+   "fear_soldConfidence": 0.34,
+   "captive": 0.6525,
+   "captiveConfidence": 0.6,
+   "habit": 0.345,
+   "habitConfidence": 0.0,
+   "hill": "manufacturing",
+   "hillConfidence": 0.85,
+   "hillTop": {
+    "manufacturing": 0.86,
+    "health": 0.14,
+    "oil_gas": 0.0
+   }
+  },
+  "mastercard": {
+   "name": "Mastercard",
+   "manufactured": 0.305,
+   "manufacturedConfidence": 0.37,
+   "fear_sold": 0.09,
+   "fear_soldConfidence": 0.7,
+   "captive": 0.66,
+   "captiveConfidence": 0.52,
+   "habit": 0.3125,
+   "habitConfidence": 0.65,
+   "hill": "banking",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "banking": 0.99,
+    "finance": 0.01,
+    "internet": 0.0
+   }
+  },
+  "palantir": {
+   "name": "Palantir",
+   "manufactured": 0.225,
+   "manufacturedConfidence": 0.61,
+   "fear_sold": 0.5425,
+   "fear_soldConfidence": 0.46,
+   "captive": 0.71,
+   "captiveConfidence": 0.85,
+   "habit": 0.17,
+   "habitConfidence": 0.43,
+   "hill": "software",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "software": 1.0,
+    "professional": 0.0,
+    "manufacturing": 0.0
+   }
+  },
+  "bofa": {
+   "name": "Bank of America",
+   "manufactured": 0.2975,
+   "manufacturedConfidence": 0.72,
+   "fear_sold": 0.4225,
+   "fear_soldConfidence": 0.64,
+   "captive": 0.5025,
+   "captiveConfidence": 0.66,
+   "habit": 0.4675,
+   "habitConfidence": 0.75,
+   "hill": "banking",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "banking": 0.99,
+    "finance": 0.01,
+    "internet": 0.0
+   }
+  },
+  "oracle": {
+   "name": "Oracle",
+   "manufactured": 0.24,
+   "manufacturedConfidence": 0.83,
+   "fear_sold": 0.3275,
+   "fear_soldConfidence": 0.35,
+   "captive": 0.685,
+   "captiveConfidence": 0.79,
+   "habit": 0.4225,
+   "habitConfidence": 0.74,
+   "hill": "software",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "software": 1.0,
+    "professional": 0.0,
+    "manufacturing": 0.0
+   }
+  },
+  "costco": {
+   "name": "Costco",
+   "manufactured": 0.1775,
+   "manufacturedConfidence": 0.74,
+   "fear_sold": 0.04,
+   "fear_soldConfidence": 0.87,
+   "captive": 0.265,
+   "captiveConfidence": 0.56,
+   "habit": 0.445,
+   "habitConfidence": 0.81,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "software": 0.0,
+    "entertainment": 0.0
+   }
+  },
+  "caterpillar": {
+   "name": "Caterpillar",
+   "manufactured": 0.1,
+   "manufacturedConfidence": 0.67,
+   "fear_sold": 0.0975,
+   "fear_soldConfidence": 0.68,
+   "captive": 0.545,
+   "captiveConfidence": 0.54,
+   "habit": 0.04,
+   "habitConfidence": 0.86,
+   "hill": "construction",
+   "hillConfidence": 0.88,
+   "hillTop": {
+    "construction": 0.89,
+    "manufacturing": 0.09,
+    "mining_metals": 0.02
+   }
+  },
+  "chevron": {
+   "name": "Chevron",
+   "manufactured": 0.095,
+   "manufacturedConfidence": 0.68,
+   "fear_sold": 0.045,
+   "fear_soldConfidence": 0.85,
+   "captive": 0.2825,
+   "captiveConfidence": 0.62,
+   "habit": 0.3025,
+   "habitConfidence": 0.73,
+   "hill": "oil_gas",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "oil_gas": 1.0,
+    "professional": 0.0,
+    "media_telecom": 0.0
+   }
+  },
+  "netflix": {
+   "name": "Netflix",
+   "manufactured": 0.7225,
+   "manufacturedConfidence": 0.84,
+   "fear_sold": 0.01,
+   "fear_soldConfidence": 0.97,
+   "captive": 0.1625,
+   "captiveConfidence": 0.54,
+   "habit": 0.5425,
+   "habitConfidence": 0.86,
+   "hill": "media_telecom",
+   "hillConfidence": 0.87,
+   "hillTop": {
+    "media_telecom": 0.88,
+    "entertainment": 0.09,
+    "internet": 0.02
+   }
+  },
+  "gm": {
+   "name": "General Motors",
+   "manufactured": 0.445,
+   "manufacturedConfidence": 0.34,
+   "fear_sold": 0.185,
+   "fear_soldConfidence": 0.38,
+   "captive": 0.1925,
+   "captiveConfidence": 0.61,
+   "habit": 0.0875,
+   "habitConfidence": 0.71,
+   "hill": "manufacturing",
+   "hillConfidence": 0.98,
+   "hillTop": {
+    "manufacturing": 0.99,
+    "trade": 0.01,
+    "agriculture": 0.0
+   }
+  },
+  "ford": {
+   "name": "Ford",
+   "manufactured": 0.4075,
+   "manufacturedConfidence": 0.46,
+   "fear_sold": 0.1625,
+   "fear_soldConfidence": 0.46,
+   "captive": 0.14,
+   "captiveConfidence": 0.54,
+   "habit": 0.0625,
+   "habitConfidence": 0.79,
+   "hill": "manufacturing",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "manufacturing": 0.99,
+    "trade": 0.01,
+    "entertainment": 0.0
+   }
+  },
+  "ibm": {
+   "name": "IBM",
+   "manufactured": 0.2175,
+   "manufacturedConfidence": 0.77,
+   "fear_sold": 0.2175,
+   "fear_soldConfidence": 0.27,
+   "captive": 0.6875,
+   "captiveConfidence": 0.78,
+   "habit": 0.2075,
+   "habitConfidence": 0.3,
+   "hill": "software",
+   "hillConfidence": 0.88,
+   "hillTop": {
+    "software": 0.89,
+    "hardware": 0.09,
+    "professional": 0.02
+   }
+  },
+  "att": {
+   "name": "AT&T (Bell System)",
+   "manufactured": 0.1075,
+   "manufacturedConfidence": 0.64,
+   "fear_sold": 0.0875,
+   "fear_soldConfidence": 0.71,
+   "captive": 0.9975,
+   "captiveConfidence": 0.99,
+   "habit": 0.4425,
+   "habitConfidence": 0.81,
+   "hill": "media_telecom",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "media_telecom": 1.0,
+    "construction": 0.0,
+    "professional": 0.0
+   }
+  },
+  "ge": {
+   "name": "General Electric",
+   "manufactured": 0.1975,
+   "manufacturedConfidence": 0.75,
+   "fear_sold": 0.145,
+   "fear_soldConfidence": 0.52,
+   "captive": 0.6825,
+   "captiveConfidence": 0.77,
+   "habit": 0.14,
+   "habitConfidence": 0.53,
+   "hill": "manufacturing",
+   "hillConfidence": 0.94,
+   "hillTop": {
+    "manufacturing": 0.95,
+    "utilities": 0.02,
+    "finance": 0.02
+   }
+  },
+  "ussteel": {
+   "name": "U.S. Steel",
+   "manufactured": 0.005,
+   "manufacturedConfidence": 0.99,
+   "fear_sold": 0.02,
+   "fear_soldConfidence": 0.94,
+   "captive": 0.345,
+   "captiveConfidence": 0.43,
+   "habit": 0.05,
+   "habitConfidence": 0.83,
+   "hill": "mining_metals",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "mining_metals": 0.99,
+    "manufacturing": 0.01,
+    "transport": 0.0
+   }
+  },
+  "bethlehem": {
+   "name": "Bethlehem Steel",
+   "manufactured": 0.0175,
+   "manufacturedConfidence": 0.94,
+   "fear_sold": 0.0675,
+   "fear_soldConfidence": 0.78,
+   "captive": 0.505,
+   "captiveConfidence": 0.17,
+   "habit": 0.01,
+   "habitConfidence": 0.97,
+   "hill": "mining_metals",
+   "hillConfidence": 0.91,
+   "hillTop": {
+    "mining_metals": 0.92,
+    "manufacturing": 0.08,
+    "utilities": 0.0
+   }
+  },
+  "sears": {
+   "name": "Sears",
+   "manufactured": 0.485,
+   "manufacturedConfidence": 0.61,
+   "fear_sold": 0.2475,
+   "fear_soldConfidence": 0.56,
+   "captive": 0.1975,
+   "captiveConfidence": 0.34,
+   "habit": 0.25,
+   "habitConfidence": 0.75,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "hardware": 0.0,
+    "real_estate": 0.0
+   }
+  },
+  "kmart": {
+   "name": "Kmart",
+   "manufactured": 0.355,
+   "manufacturedConfidence": 0.59,
+   "fear_sold": 0.0325,
+   "fear_soldConfidence": 0.89,
+   "captive": 0.0775,
+   "captiveConfidence": 0.74,
+   "habit": 0.2,
+   "habitConfidence": 0.83,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "real_estate": 0.0,
+    "education": 0.0
+   }
+  },
+  "woolworth": {
+   "name": "Woolworth",
+   "manufactured": 0.46,
+   "manufacturedConfidence": 0.22,
+   "fear_sold": 0.01,
+   "fear_soldConfidence": 0.97,
+   "captive": 0.0675,
+   "captiveConfidence": 0.78,
+   "habit": 0.1925,
+   "habitConfidence": 0.78,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "entertainment": 0.0,
+    "oil_gas": 0.0
+   }
+  },
+  "toysrus": {
+   "name": "Toys \"R\" Us",
+   "manufactured": 0.76,
+   "manufacturedConfidence": 0.87,
+   "fear_sold": 0.0125,
+   "fear_soldConfidence": 0.96,
+   "captive": 0.13,
+   "captiveConfidence": 0.57,
+   "habit": 0.1075,
+   "habitConfidence": 0.64,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "hospitality": 0.0,
+    "software": 0.0
+   }
+  },
+  "kodak": {
+   "name": "Eastman Kodak",
+   "manufactured": 0.6775,
+   "manufacturedConfidence": 0.64,
+   "fear_sold": 0.0825,
+   "fear_soldConfidence": 0.73,
+   "captive": 0.5125,
+   "captiveConfidence": 0.15,
+   "habit": 0.2675,
+   "habitConfidence": 0.74,
+   "hill": "manufacturing",
+   "hillConfidence": 0.88,
+   "hillTop": {
+    "manufacturing": 0.89,
+    "media_telecom": 0.08,
+    "hardware": 0.02
+   }
+  },
+  "polaroid": {
+   "name": "Polaroid",
+   "manufactured": 0.88,
+   "manufacturedConfidence": 0.6,
+   "fear_sold": 0.0375,
+   "fear_soldConfidence": 0.88,
+   "captive": 0.3875,
+   "captiveConfidence": 0.0,
+   "habit": 0.14,
+   "habitConfidence": 0.53,
+   "hill": "manufacturing",
+   "hillConfidence": 0.93,
+   "hillTop": {
+    "manufacturing": 0.93,
+    "hardware": 0.04,
+    "media_telecom": 0.02
+   }
+  },
+  "xerox": {
+   "name": "Xerox",
+   "manufactured": 0.2475,
+   "manufacturedConfidence": 0.73,
+   "fear_sold": 0.06,
+   "fear_soldConfidence": 0.8,
+   "captive": 0.545,
+   "captiveConfidence": 0.69,
+   "habit": 0.41,
+   "habitConfidence": 0.69,
+   "hill": "hardware",
+   "hillConfidence": 0.63,
+   "hillTop": {
+    "hardware": 0.64,
+    "professional": 0.14,
+    "manufacturing": 0.13
+   }
+  },
+  "dec": {
+   "name": "Digital Equipment",
+   "manufactured": 0.2325,
+   "manufacturedConfidence": 0.82,
+   "fear_sold": 0.07,
+   "fear_soldConfidence": 0.76,
+   "captive": 0.59,
+   "captiveConfidence": 0.47,
+   "habit": 0.055,
+   "habitConfidence": 0.82,
+   "hill": "hardware",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "hardware": 1.0,
+    "construction": 0.0,
+    "transport": 0.0
+   }
+  },
+  "compaq": {
+   "name": "Compaq",
+   "manufactured": 0.4,
+   "manufacturedConfidence": 0.48,
+   "fear_sold": 0.0725,
+   "fear_soldConfidence": 0.76,
+   "captive": 0.14,
+   "captiveConfidence": 0.53,
+   "habit": 0.02,
+   "habitConfidence": 0.94,
+   "hill": "hardware",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "hardware": 1.0,
+    "construction": 0.0,
+    "software": 0.0
+   }
+  },
+  "hp": {
+   "name": "Hewlett-Packard",
+   "manufactured": 0.39,
+   "manufacturedConfidence": 0.5,
+   "fear_sold": 0.06,
+   "fear_soldConfidence": 0.8,
+   "captive": 0.4275,
+   "captiveConfidence": 0.41,
+   "habit": 0.36,
+   "habitConfidence": 0.56,
+   "hill": "hardware",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "hardware": 0.99,
+    "manufacturing": 0.01,
+    "legal": 0.0
+   }
+  },
+  "intel": {
+   "name": "Intel",
+   "manufactured": 0.3275,
+   "manufacturedConfidence": 0.66,
+   "fear_sold": 0.07,
+   "fear_soldConfidence": 0.77,
+   "captive": 0.4725,
+   "captiveConfidence": 0.19,
+   "habit": 0.0325,
+   "habitConfidence": 0.89,
+   "hill": "hardware",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "hardware": 1.0,
+    "agriculture": 0.0,
+    "software": 0.0
+   }
+  },
+  "cisco": {
+   "name": "Cisco",
+   "manufactured": 0.2075,
+   "manufacturedConfidence": 0.82,
+   "fear_sold": 0.475,
+   "fear_soldConfidence": 0.64,
+   "captive": 0.595,
+   "captiveConfidence": 0.6,
+   "habit": 0.295,
+   "habitConfidence": 0.32,
+   "hill": "hardware",
+   "hillConfidence": 0.97,
+   "hillTop": {
+    "hardware": 0.98,
+    "software": 0.01,
+    "media_telecom": 0.01
+   }
+  },
+  "yahoo": {
+   "name": "Yahoo",
+   "manufactured": 0.7025,
+   "manufacturedConfidence": 0.48,
+   "fear_sold": 0.02,
+   "fear_soldConfidence": 0.93,
+   "captive": 0.125,
+   "captiveConfidence": 0.58,
+   "habit": 0.2725,
+   "habitConfidence": 0.56,
+   "hill": "internet",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "internet": 0.99,
+    "media_telecom": 0.01,
+    "professional": 0.0
+   }
+  },
+  "aol": {
+   "name": "AOL",
+   "manufactured": 0.65,
+   "manufacturedConfidence": 0.41,
+   "fear_sold": 0.185,
+   "fear_soldConfidence": 0.39,
+   "captive": 0.4425,
+   "captiveConfidence": 0.4,
+   "habit": 0.4825,
+   "habitConfidence": 0.93,
+   "hill": "media_telecom",
+   "hillConfidence": 0.59,
+   "hillTop": {
+    "media_telecom": 0.61,
+    "internet": 0.39,
+    "entertainment": 0.0
+   }
+  },
+  "netscape": {
+   "name": "Netscape",
+   "manufactured": 0.5375,
+   "manufacturedConfidence": 0.17,
+   "fear_sold": 0.06,
+   "fear_soldConfidence": 0.8,
+   "captive": 0.18,
+   "captiveConfidence": 0.4,
+   "habit": 0.09,
+   "habitConfidence": 0.7,
+   "hill": "software",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "software": 1.0,
+    "professional": 0.0,
+    "manufacturing": 0.0
+   }
+  },
+  "enron": {
+   "name": "Enron",
+   "manufactured": 0.095,
+   "manufacturedConfidence": 0.68,
+   "fear_sold": 0.1475,
+   "fear_soldConfidence": 0.51,
+   "captive": 0.58,
+   "captiveConfidence": 0.41,
+   "habit": 0.0975,
+   "habitConfidence": 0.68,
+   "hill": "utilities",
+   "hillConfidence": 0.46,
+   "hillTop": {
+    "utilities": 0.5,
+    "oil_gas": 0.34,
+    "trade": 0.11
+   }
+  },
+  "worldcom": {
+   "name": "WorldCom",
+   "manufactured": 0.16,
+   "manufacturedConfidence": 0.46,
+   "fear_sold": 0.0275,
+   "fear_soldConfidence": 0.9,
+   "captive": 0.3875,
+   "captiveConfidence": 0.24,
+   "habit": 0.3975,
+   "habitConfidence": 0.65,
+   "hill": "media_telecom",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "media_telecom": 1.0,
+    "real_estate": 0.0,
+    "education": 0.0
+   }
+  },
+  "lucent": {
+   "name": "Lucent",
+   "manufactured": 0.2125,
+   "manufacturedConfidence": 0.66,
+   "fear_sold": 0.0575,
+   "fear_soldConfidence": 0.81,
+   "captive": 0.655,
+   "captiveConfidence": 0.68,
+   "habit": 0.095,
+   "habitConfidence": 0.68,
+   "hill": "hardware",
+   "hillConfidence": 0.91,
+   "hillTop": {
+    "hardware": 0.91,
+    "media_telecom": 0.08,
+    "manufacturing": 0.01
+   }
+  },
+  "panam": {
+   "name": "Pan Am",
+   "manufactured": 0.335,
+   "manufacturedConfidence": 0.6,
+   "fear_sold": 0.1125,
+   "fear_soldConfidence": 0.63,
+   "captive": 0.2625,
+   "captiveConfidence": 0.38,
+   "habit": 0.055,
+   "habitConfidence": 0.81,
+   "hill": "transport",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "transport": 1.0,
+    "legal": 0.0,
+    "utilities": 0.0
+   }
+  },
+  "chrysler": {
+   "name": "Chrysler",
+   "manufactured": 0.4175,
+   "manufacturedConfidence": 0.43,
+   "fear_sold": 0.1325,
+   "fear_soldConfidence": 0.56,
+   "captive": 0.1525,
+   "captiveConfidence": 0.49,
+   "habit": 0.0125,
+   "habitConfidence": 0.96,
+   "hill": "manufacturing",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "manufacturing": 1.0,
+    "trade": 0.0,
+    "utilities": 0.0
+   }
+  },
+  "lehman": {
+   "name": "Lehman Brothers",
+   "manufactured": 0.55,
+   "manufacturedConfidence": 0.07,
+   "fear_sold": 0.205,
+   "fear_soldConfidence": 0.32,
+   "captive": 0.4675,
+   "captiveConfidence": 0.36,
+   "habit": 0.0175,
+   "habitConfidence": 0.94,
+   "hill": "finance",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "finance": 1.0,
+    "hospitality": 0.0,
+    "transport": 0.0
+   }
+  },
+  "bearstearns": {
+   "name": "Bear Stearns",
+   "manufactured": 0.535,
+   "manufacturedConfidence": 0.06,
+   "fear_sold": 0.2525,
+   "fear_soldConfidence": 0.16,
+   "captive": 0.43,
+   "captiveConfidence": 0.27,
+   "habit": 0.02,
+   "habitConfidence": 0.93,
+   "hill": "finance",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "finance": 1.0,
+    "entertainment": 0.0,
+    "legal": 0.0
+   }
+  },
+  "wamu": {
+   "name": "Washington Mutual",
+   "manufactured": 0.2,
+   "manufacturedConfidence": 0.6,
+   "fear_sold": 0.31,
+   "fear_soldConfidence": 0.41,
+   "captive": 0.3475,
+   "captiveConfidence": 0.35,
+   "habit": 0.225,
+   "habitConfidence": 0.62,
+   "hill": "banking",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "banking": 1.0,
+    "software": 0.0,
+    "hospitality": 0.0
+   }
+  },
+  "countrywide": {
+   "name": "Countrywide",
+   "manufactured": 0.4675,
+   "manufacturedConfidence": 0.15,
+   "fear_sold": 0.305,
+   "fear_soldConfidence": 0.38,
+   "captive": 0.4,
+   "captiveConfidence": 0.39,
+   "habit": 0.0725,
+   "habitConfidence": 0.76,
+   "hill": "banking",
+   "hillConfidence": 0.95,
+   "hillTop": {
+    "banking": 0.95,
+    "finance": 0.04,
+    "real_estate": 0.01
+   }
+  },
+  "aig": {
+   "name": "AIG",
+   "manufactured": 0.215,
+   "manufacturedConfidence": 0.66,
+   "fear_sold": 0.705,
+   "fear_soldConfidence": 0.81,
+   "captive": 0.5225,
+   "captiveConfidence": 0.57,
+   "habit": 0.3475,
+   "habitConfidence": 0.48,
+   "hill": "insurance",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "insurance": 1.0,
+    "transport": 0.0,
+    "software": 0.0
+   }
+  },
+  "fannie": {
+   "name": "Fannie Mae",
+   "manufactured": 0.13,
+   "manufacturedConfidence": 0.57,
+   "fear_sold": 0.16,
+   "fear_soldConfidence": 0.46,
+   "captive": 0.355,
+   "captiveConfidence": 0.0,
+   "habit": 0.0175,
+   "habitConfidence": 0.94,
+   "hill": "banking",
+   "hillConfidence": 0.47,
+   "hillTop": {
+    "banking": 0.49,
+    "finance": 0.4,
+    "real_estate": 0.09
+   }
+  },
+  "svb": {
+   "name": "Silicon Valley Bank",
+   "manufactured": 0.07,
+   "manufacturedConfidence": 0.76,
+   "fear_sold": 0.175,
+   "fear_soldConfidence": 0.42,
+   "captive": 0.5525,
+   "captiveConfidence": 0.32,
+   "habit": 0.15,
+   "habitConfidence": 0.5,
+   "hill": "banking",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "banking": 1.0,
+    "professional": 0.0,
+    "trade": 0.0
+   }
+  },
+  "ftx": {
+   "name": "FTX",
+   "manufactured": 0.8,
+   "manufacturedConfidence": 0.7,
+   "fear_sold": 0.085,
+   "fear_soldConfidence": 0.72,
+   "captive": 0.2875,
+   "captiveConfidence": 0.04,
+   "habit": 0.57,
+   "habitConfidence": 0.27,
+   "hill": "finance",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "finance": 0.99,
+    "banking": 0.01,
+    "legal": 0.0
+   }
+  },
+  "blockbuster": {
+   "name": "Blockbuster",
+   "manufactured": 0.5775,
+   "manufacturedConfidence": 0.4,
+   "fear_sold": 0.065,
+   "fear_soldConfidence": 0.78,
+   "captive": 0.415,
+   "captiveConfidence": 0.27,
+   "habit": 0.33,
+   "habitConfidence": 0.6,
+   "hill": "trade",
+   "hillConfidence": 0.53,
+   "hillTop": {
+    "trade": 0.55,
+    "entertainment": 0.33,
+    "media_telecom": 0.06
+   }
+  },
+  "coca_cola": {
+   "name": "Coca-Cola",
+   "manufactured": 0.805,
+   "manufacturedConfidence": 0.81,
+   "fear_sold": 0.0025,
+   "fear_soldConfidence": 0.99,
+   "captive": 0.095,
+   "captiveConfidence": 0.68,
+   "habit": 0.745,
+   "habitConfidence": 0.36,
+   "hill": "manufacturing",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "manufacturing": 0.99,
+    "trade": 0.01,
+    "utilities": 0.0
+   }
+  },
+  "pg": {
+   "name": "Procter & Gamble",
+   "manufactured": 0.3775,
+   "manufacturedConfidence": 0.5,
+   "fear_sold": 0.3425,
+   "fear_soldConfidence": 0.41,
+   "captive": 0.1075,
+   "captiveConfidence": 0.64,
+   "habit": 0.3025,
+   "habitConfidence": 0.82,
+   "hill": "manufacturing",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "manufacturing": 1.0,
+    "mining_metals": 0.0,
+    "agriculture": 0.0
+   }
+  },
+  "altria": {
+   "name": "Altria (Philip Morris)",
+   "manufactured": 0.81,
+   "manufacturedConfidence": 0.74,
+   "fear_sold": 0.1325,
+   "fear_soldConfidence": 0.56,
+   "captive": 0.4025,
+   "captiveConfidence": 0.3,
+   "habit": 1.0,
+   "habitConfidence": 1.0,
+   "hill": "manufacturing",
+   "hillConfidence": 0.98,
+   "hillTop": {
+    "manufacturing": 0.99,
+    "trade": 0.01,
+    "software": 0.0
+   }
+  },
+  "mcdonalds": {
+   "name": "McDonald's",
+   "manufactured": 0.585,
+   "manufacturedConfidence": 0.43,
+   "fear_sold": 0.015,
+   "fear_soldConfidence": 0.95,
+   "captive": 0.0325,
+   "captiveConfidence": 0.89,
+   "habit": 0.47,
+   "habitConfidence": 0.26,
+   "hill": "hospitality",
+   "hillConfidence": 0.56,
+   "hillTop": {
+    "hospitality": 0.58,
+    "real_estate": 0.42,
+    "transport": 0.0
+   }
+  },
+  "disney": {
+   "name": "Walt Disney",
+   "manufactured": 0.8475,
+   "manufacturedConfidence": 0.67,
+   "fear_sold": 0.0075,
+   "fear_soldConfidence": 0.98,
+   "captive": 0.3175,
+   "captiveConfidence": 0.43,
+   "habit": 0.465,
+   "habitConfidence": 0.82,
+   "hill": "entertainment",
+   "hillConfidence": 0.66,
+   "hillTop": {
+    "entertainment": 0.68,
+    "media_telecom": 0.32,
+    "finance": 0.0
+   }
+  },
+  "boeing": {
+   "name": "Boeing",
+   "manufactured": 0.195,
+   "manufacturedConfidence": 0.62,
+   "fear_sold": 0.44,
+   "fear_soldConfidence": 0.44,
+   "captive": 0.6925,
+   "captiveConfidence": 0.79,
+   "habit": 0.0175,
+   "habitConfidence": 0.94,
+   "hill": "manufacturing",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "manufacturing": 0.99,
+    "transport": 0.01,
+    "finance": 0.0
+   }
+  },
+  "pfizer": {
+   "name": "Pfizer",
+   "manufactured": 0.195,
+   "manufacturedConfidence": 0.7,
+   "fear_sold": 0.6775,
+   "fear_soldConfidence": 0.58,
+   "captive": 0.73,
+   "captiveConfidence": 0.64,
+   "habit": 0.255,
+   "habitConfidence": 0.15,
+   "hill": "manufacturing",
+   "hillConfidence": 0.91,
+   "hillTop": {
+    "manufacturing": 0.92,
+    "health": 0.08,
+    "oil_gas": 0.0
+   }
+  },
+  "unitedhealth": {
+   "name": "UnitedHealth",
+   "manufactured": 0.14,
+   "manufacturedConfidence": 0.59,
+   "fear_sold": 0.6475,
+   "fear_soldConfidence": 0.64,
+   "captive": 0.6475,
+   "captiveConfidence": 0.65,
+   "habit": 0.4675,
+   "habitConfidence": 0.88,
+   "hill": "insurance",
+   "hillConfidence": 0.97,
+   "hillTop": {
+    "insurance": 0.98,
+    "health": 0.02,
+    "none": 0.0
+   }
+  },
+  "homedepot": {
+   "name": "Home Depot",
+   "manufactured": 0.28,
+   "manufacturedConfidence": 0.82,
+   "fear_sold": 0.1625,
+   "fear_soldConfidence": 0.46,
+   "captive": 0.2,
+   "captiveConfidence": 0.67,
+   "habit": 0.11,
+   "habitConfidence": 0.63,
+   "hill": "trade",
+   "hillConfidence": 1.0,
+   "hillTop": {
+    "trade": 1.0,
+    "media_telecom": 0.0,
+    "professional": 0.0
+   }
+  },
+  "nike": {
+   "name": "Nike",
+   "manufactured": 0.7275,
+   "manufacturedConfidence": 0.8,
+   "fear_sold": 0.14,
+   "fear_soldConfidence": 0.53,
+   "captive": 0.105,
+   "captiveConfidence": 0.65,
+   "habit": 0.1275,
+   "habitConfidence": 0.57,
+   "hill": "manufacturing",
+   "hillConfidence": 0.57,
+   "hillTop": {
+    "manufacturing": 0.6,
+    "trade": 0.4,
+    "software": 0.0
+   }
+  },
+  "starbucks": {
+   "name": "Starbucks",
+   "manufactured": 0.72,
+   "manufacturedConfidence": 0.82,
+   "fear_sold": 0.0025,
+   "fear_soldConfidence": 0.99,
+   "captive": 0.06,
+   "captiveConfidence": 0.8,
+   "habit": 0.6675,
+   "habitConfidence": 0.0,
+   "hill": "hospitality",
+   "hillConfidence": 0.99,
+   "hillTop": {
+    "hospitality": 0.99,
+    "trade": 0.01,
+    "transport": 0.0
+   }
+  },
+  "uber": {
+   "name": "Uber",
+   "manufactured": 0.455,
+   "manufacturedConfidence": 0.24,
+   "fear_sold": 0.105,
+   "fear_soldConfidence": 0.65,
+   "captive": 0.345,
+   "captiveConfidence": 0.4,
+   "habit": 0.295,
+   "habitConfidence": 0.81,
+   "hill": "transport",
+   "hillConfidence": 0.73,
+   "hillTop": {
+    "transport": 0.75,
+    "internet": 0.21,
+    "software": 0.03
+   }
+  },
+  "airbnb": {
+   "name": "Airbnb",
+   "manufactured": 0.5775,
+   "manufacturedConfidence": 0.4,
+   "fear_sold": 0.0925,
+   "fear_soldConfidence": 0.69,
+   "captive": 0.155,
+   "captiveConfidence": 0.48,
+   "habit": 0.0575,
+   "habitConfidence": 0.8,
+   "hill": "real_estate",
+   "hillConfidence": 0.36,
+   "hillTop": {
+    "real_estate": 0.39,
+    "internet": 0.36,
+    "hospitality": 0.23
+   }
+  },
+  "openai": {
+   "name": "OpenAI",
+   "manufactured": 0.69,
+   "manufacturedConfidence": 0.62,
+   "fear_sold": 0.0625,
+   "fear_soldConfidence": 0.79,
+   "captive": 0.2275,
+   "captiveConfidence": 0.24,
+   "habit": 0.4925,
+   "habitConfidence": 0.97,
+   "hill": "software",
+   "hillConfidence": 0.93,
+   "hillTop": {
+    "software": 0.93,
+    "internet": 0.07,
+    "mining_metals": 0.0
+   }
+  }
+ }
+}

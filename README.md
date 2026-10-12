@@ -35,6 +35,14 @@ leads to us: our direct ancestors glow, everything else stays dim, and the red l
 life views. Life dissolves before the human branch; only our lineage rises into it (Homo sapiens,
 300,000 years ago).
 
+**Calories flow upward.** The food-chain order is also drawn as what it means: every level lives on the
+calories of the level beneath it. In the life views, at three moments - the Devonian seas, the age of
+dinosaurs and the Miocene grasslands - green arcs carry energy from producers to herbivores, predators and
+top predators between their actual branches (green algae, crustaceans, cephalopods, sharks; cycads, leaf
+beetles, amphibians, crocodilians; grasses, moths, swallows, falcons). Only roughly 10% of the energy passes
+each step, so every arc is about ten times thinner and dimmer than the one before, and its pulses run from
+prey to predator, inward toward our lineage.
+
 **Beneath the humans - domination.** Directly under the civilizations lies the life people control -
 livestock and crops, in green, on the same mass scale as humans (livestock now outweighs us) - and
 beneath that the matter people extract - fuels, ores and minerals, in red. Every domestication is marked

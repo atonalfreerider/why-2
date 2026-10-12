@@ -48,6 +48,15 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 * `Data/life_traits.json` - `{ "<leaf label>": { "t": 1.0-5.0, "role": "...", "common": "..." } }`, the
   trophic level (food-chain position), ecological role and a lay common name for every leaf. Used to
   order branches with top predators on the inside track. Hominidae is fixed at 5.0 (the reference point).
+  The calorie flow layer (`Life/TrophicFlowLayer.cs`) groups families into Lindeman's trophic levels:
+  producers = roles `producer` and `chemotroph`; consumers (`herbivore`, `filter_feeder`, `omnivore`,
+  `insectivore`, `carnivore`, `apex`) by `t`: below 2.5 herbivores and filter feeders, below 3.8
+  predators (secondary consumers; insect eaters reach 3.5), 3.8 and above top predators; consumers below
+  t 2 (carnivorous plants) and the roles `decomposer`, `detritivore`, `parasite` and `symbiont` feed beside
+  the grazing chain and are left out. A lineage at a moment takes the dominant level (at least half) of the
+  classified families descending from it. The representative chains (Devonian 380 Ma, Jurassic 150 Ma,
+  Miocene 12 Ma) are hand-picked textbook food chains, checked against this mapping when the layer builds;
+  the ~10% transfer per step is Lindeman's rule of thumb for ecological efficiency.
 * `Data/life_clades.json` -
   `{ "clades": [{ "id", "name", "mrca": [leafA, leafB], "treeAgeMya", "leafCount", "tier", "blurb" }],
      "events": [{ "id", "name", "mya", "tier", "blurb" }] }`. A clade is the most recent common

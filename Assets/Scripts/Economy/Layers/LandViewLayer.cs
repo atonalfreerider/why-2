@@ -212,7 +212,7 @@ namespace Why.Economy.Layers
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
-            LandView.Advance(Mathf.Min(MaxStep, Time.unscaledDeltaTime), frozenMorph);
+            LandView.Advance(Mathf.Min(MaxStep, GraphTime.Delta), frozenMorph);
             if (inTour && (root == null || !root.TourActive)) inTour = false;
             else if (!inTour && root != null && root.TourActive)
             {

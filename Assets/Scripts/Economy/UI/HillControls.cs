@@ -77,7 +77,7 @@ namespace Why.Economy.UI
                 bool yearChanged=snapshot==null||snapshot.Year!=LandService.Current.Year;
                 snapshot=LandService.Current;if(yearChanged)Reset();
             }
-            if(playing){clock+=Time.unscaledDeltaTime;if(clock>=2){clock=0;Step();}}
+            if(playing){clock+=GraphTime.Delta;if(clock>=2){clock=0;Step();}}
             if(Program==null||snapshot==null)return;
             if(selected!=EconomyState.SelectedPlayer){selected=EconomyState.SelectedPlayer;if(selected>=0)expanded=true;}
             int i=Mathf.Clamp(EconomyState.SelectedPlayer,0,Program.Players.Length-1);

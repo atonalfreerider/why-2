@@ -122,9 +122,9 @@ namespace Why.UI
 
         void Update()
         {
-            float dt = Mathf.Min(Time.unscaledDeltaTime, MaxStep);
+            float dt = Mathf.Min(GraphTime.Delta, MaxStep);
             if (fittedVersion != ScreenLayout.Version) FitWidth();
-            if (loaded && doneTime < 0) doneTime = Time.unscaledTime;
+            if (loaded && doneTime < 0) doneTime = GraphTime.Now;
             bool done = doneTime >= 0;
 
             float target = loaded ? 1f : root.LoadProgress;
@@ -137,7 +137,7 @@ namespace Why.UI
                 return;
             }
 
-            if (Time.unscaledTime - doneTime < HoldSeconds) return;
+            if (GraphTime.Now - doneTime < HoldSeconds) return;
             group.alpha = Mathf.MoveTowards(group.alpha, 0, dt / FadeSeconds);
             if (group.alpha > 0) return;
 

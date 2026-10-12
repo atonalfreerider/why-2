@@ -152,7 +152,7 @@ namespace Why.Economy.UI
 
         void LateUpdate()
         {
-            fade.Tick(Time.unscaledDeltaTime);
+            fade.Tick(GraphTime.Delta);
             if (!loaded || !fade.Shown)
             {
                 if (fade.Alpha <= 0.001f) Occupied = UiBox.Empty;

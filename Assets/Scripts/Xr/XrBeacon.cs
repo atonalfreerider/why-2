@@ -40,7 +40,7 @@ namespace Why.Xr
 
         public void Update(DirectorMode director, CameraRig rig)
         {
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             Anchor target = director != null ? director.AttentionTarget : null;
             alpha = Mathf.MoveTowards(alpha, target != null && !rig.Flying ? 1 : 0, dt * 2.5f);
             bool show = alpha > 0.01f && target != null;
@@ -50,7 +50,7 @@ namespace Why.Xr
             float s = rig.XrScale;
             Vector3 p = target.World;
             spin += dt * 40f;
-            float pulse = 1f + 0.12f * Mathf.Sin(Time.unscaledTime * 3f);
+            float pulse = 1f + 0.12f * Mathf.Sin(GraphTime.Now * 3f);
             float r = RingMetres * s * pulse;
             Quaternion q = Quaternion.Euler(0, spin, 0);
             for (int i = 0; i <= RingSegments; i++)

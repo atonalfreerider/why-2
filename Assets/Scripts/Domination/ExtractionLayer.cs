@@ -246,6 +246,6 @@ namespace Why.Domination
         }
 
         /// <summary>Faint in human-focused views unless the director points at the extraction layer.</summary>
-        public override void Tick(GraphContext ctx, CameraRig rig) => emphasis.Tick(Time.unscaledDeltaTime);
+        public override void Tick(GraphContext ctx, CameraRig rig) => emphasis.Tick(GraphTime.Delta);
     }
 }

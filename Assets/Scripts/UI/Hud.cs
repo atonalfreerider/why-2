@@ -188,7 +188,7 @@ namespace Why.UI
 
         void LateUpdate()
         {
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             hudFade.Tick(dt);
             if (!loaded) return;
 

@@ -227,7 +227,7 @@ namespace Why.Economy.Layers
         {
             if (generations.Count == 0) return;
             Rebuild();
-            float dt = Mathf.Min(0.1f, Time.unscaledDeltaTime);
+            float dt = Mathf.Min(0.1f, GraphTime.Delta);
 
             // the cross-fade: the newest generation fades in, older ones out, then go
             for (int k = generations.Count - 1; k >= 0; k--)

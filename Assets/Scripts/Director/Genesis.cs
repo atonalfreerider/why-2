@@ -99,7 +99,7 @@ namespace Why.Director
             root.Rig.SetPose(from);
 
             // at startup, darkness until the loading card has faded (it holds 0.55 s and fades over 0.8 s)
-            for (float wait = skippable ? 1.3f : 0f; wait > 0; wait -= Time.unscaledDeltaTime) yield return null;
+            for (float wait = skippable ? 1.3f : 0f; wait > 0; wait -= GraphTime.Delta) yield return null;
             BuildFlash(bang, from.Distance);
             if (root.Bloom != null) bloomBase = root.Bloom.intensity.value;
 
@@ -108,7 +108,7 @@ namespace Why.Director
             float growStart = FlashSeconds * 0.6f, growEnd = seconds - 0.6f;
             while (t < seconds)
             {
-                t += Time.unscaledDeltaTime;
+                t += GraphTime.Delta;
                 if (skippable && t > 0.3f && SkipPressed()) break;
 
                 // the flash: a point of light swelling, the bloom surging, a shock ring racing outward
@@ -145,6 +145,7 @@ namespace Why.Director
 
         static bool SkipPressed()
         {
+            if (CameraRig.InputLocked) return false;
             Keyboard kb = Keyboard.current;
             if (kb != null && kb.anyKey.wasPressedThisFrame) return true;
             Mouse mouse = Mouse.current;

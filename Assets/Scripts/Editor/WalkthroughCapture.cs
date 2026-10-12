@@ -14,7 +14,8 @@ namespace Why.EditorTools
     /// <summary>
     /// Records the narrated walkthrough with the Unity Recorder: opens the universe, sizes the Game view (landscape
     /// 1920 x 1080 or portrait 1080 x 1920, whose layout the graph re-flows to), plays the guided tour from its first stop
-    /// (the Big Bang) and writes an H.264 MP4 with the narration at 30 fps.
+    /// (the Big Bang) and writes a video with the narration at 30 fps (H.264 MP4; VP8 WebM on Linux, where the Recorder
+    /// has no H.264 encoder - Tools/capture-walkthrough.sh transcodes it).
     ///
     /// Menu: Why > Capture. Command line (needs the Editor's window, not -batchmode):
     ///   Unity -projectPath . -executeMethod Why.EditorTools.WalkthroughCapture.FromCommandLine
@@ -35,8 +36,12 @@ namespace Why.EditorTools
         }
 
         static RecorderController controller;
-        static int phase, frames;
-        static double stopAt;
+        static int phase, frames, startFrame;
+        static string lastStep;
+        static readonly System.Collections.Generic.List<string> cues = new System.Collections.Generic.List<string>();
+
+        /// <summary>Frames per second of the recording (and of the game clock while recording).</summary>
+        const int Fps = 30;
 
         static WalkthroughCapture()
         {
@@ -105,21 +110,41 @@ namespace Why.EditorTools
                 case 1:
                     if (++frames < 45) break;
                     DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
+                    CameraRig.InputLocked = true;
                     director?.PlayFrom(0);
                     controller.StartRecording();
-                    stopAt = EditorApplication.timeSinceStartup + job.Seconds;
-                    Debug.Log($"[Why] capture: recording {job.Output}.mp4 ({(job.Portrait ? "1080x1920" : "1920x1080")}, {job.Seconds} s)");
+                    startFrame = Time.frameCount;
+                    lastStep = null;
+                    cues.Clear();
+                    Debug.Log($"[Why] capture: recording {job.Output} ({(job.Portrait ? "1080x1920" : "1920x1080")}, {job.Seconds} s)");
                     phase = 2;
                     break;
                 case 2:
-                    if (EditorApplication.timeSinceStartup < stopAt) break;
+                {
+                    // the Recorder runs the game clock at exactly 1 / Fps per frame, however fast the Editor renders, so
+                    // time is counted in frames; each stop's narration start is noted for the audio track (rebuilt from
+                    // the clips by Tools/capture-walkthrough.sh, always in sync)
+                    float t = (Time.frameCount - startFrame) / (float)Fps;
+                    DirectorMode d = root.Modules.OfType<DirectorMode>().FirstOrDefault();
+                    string step = d != null ? d.CurrentStepId : null;
+                    if (step != null && step != lastStep)
+                    {
+                        lastStep = step;
+                        cues.Add($"{{\"id\":\"{step}\",\"t\":{t.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture)}}}");
+                    }
+
+                    if (t < job.Seconds) break;
                     controller.StopRecording();
-                    Debug.Log($"[Why] capture: wrote {job.Output}.mp4");
+                    CameraRig.InputLocked = false;
+                    File.WriteAllText(job.Output + ".cues.json", "{\"fps\":" + Fps + ",\"seconds\":" +
+                        job.Seconds.ToString(System.Globalization.CultureInfo.InvariantCulture) + ",\"cues\":[" + string.Join(",", cues) + "]}\n");
+                    Debug.Log($"[Why] capture: wrote {job.Output}");
                     SessionState.EraseString(Key);
                     phase = 3;
                     EditorApplication.ExitPlaymode();
                     if (job.Exit) EditorApplication.delayCall += () => EditorApplication.Exit(0);
                     break;
+                }
             }
         }
 
@@ -130,10 +155,16 @@ namespace Why.EditorTools
             movie.Enabled = true;
             movie.EncoderSettings = new CoreEncoderSettings
             {
-                Codec = CoreEncoderSettings.OutputCodec.MP4,
+                // the Recorder's H.264 encoder exists on Windows and macOS only; VP8 WebM everywhere (Tools/capture-walkthrough.sh
+                // transcodes it to H.264 MP4 with ffmpeg)
+                Codec = Application.platform == RuntimePlatform.LinuxEditor
+                    ? CoreEncoderSettings.OutputCodec.WEBM
+                    : CoreEncoderSettings.OutputCodec.MP4,
                 EncodingQuality = CoreEncoderSettings.VideoEncodingQuality.High,
             };
-            movie.CaptureAudio = true;
+            // the narration is laid in afterwards from its clips at the noted times (an Editor slower than real time
+            // would otherwise record the voice out of step with the picture)
+            movie.CaptureAudio = false;
             movie.ImageInputSettings = new GameViewInputSettings
             {
                 OutputWidth = job.Portrait ? 1080 : 1920,
@@ -145,7 +176,7 @@ namespace Why.EditorTools
             settings.AddRecorderSettings(movie);
             settings.SetRecordModeToManual();
             settings.FrameRatePlayback = FrameRatePlayback.Constant;
-            settings.FrameRate = 30;
+            settings.FrameRate = Fps;
             settings.CapFrameRate = true;
             return settings;
         }

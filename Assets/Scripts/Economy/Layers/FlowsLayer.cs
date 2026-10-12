@@ -351,7 +351,7 @@ namespace Why.Economy.Layers
         {
             if (generations.Count == 0) return;
             Rebuild();
-            float dt = Mathf.Min(0.1f, Time.unscaledDeltaTime);
+            float dt = Mathf.Min(0.1f, GraphTime.Delta);
             for (int k = generations.Count - 1; k >= 0; k--)
             {
                 Generation g = generations[k];

@@ -385,8 +385,8 @@ namespace Why.Economy.Layers
             if(PointerInput.ReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HoverPlayer>=0)
                 {
                 EconomyState.SetSelection(HoverPlayer,-1,-1);
-                if(lastPlayer==HoverPlayer&&Time.unscaledTime-lastClick<.35f)UI.HillExplorer.Instance?.EnterGroup(HoverPlayer);
-                lastPlayer=HoverPlayer;lastClick=Time.unscaledTime;
+                if(lastPlayer==HoverPlayer&&GraphTime.Now-lastClick<.35f)UI.HillExplorer.Instance?.EnterGroup(HoverPlayer);
+                lastPlayer=HoverPlayer;lastClick=GraphTime.Now;
             }
             else if(PointerInput.ReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&hoverTie>=0)
                 EconomyState.SetSelection(EconomyState.SelectedPlayer,-1,hoverTie);

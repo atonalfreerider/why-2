@@ -423,7 +423,7 @@ namespace Why.Economy.UI
 
         void LateUpdate()
         {
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             Vector2 canvasSize = canvasRect.rect.size;
             float scale = canvasSize.x > 0 ? Screen.width / canvasSize.x : 1;
             Mouse mouse = Mouse.current;

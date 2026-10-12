@@ -308,8 +308,8 @@ namespace Why.Economy.UI
 
         void LateUpdate()
         {
-            fade.Tick(Time.unscaledDeltaTime);
-            line.Tick(Time.unscaledDeltaTime);
+            fade.Tick(GraphTime.Delta);
+            line.Tick(GraphTime.Delta);
             if (!loaded) return;
             if (pickPending)
             {

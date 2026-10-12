@@ -234,7 +234,7 @@ namespace Why
 
         void Update()
         {
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             FollowScreen();
             GraphWarp.Tick(dt);
             Highlighter.Tick(dt);

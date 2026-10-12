@@ -409,7 +409,7 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (current == null) return;
-            float dt = Mathf.Min(0.1f, Time.unscaledDeltaTime);
+            float dt = Mathf.Min(0.1f, GraphTime.Delta);
             clock += dt;
             Rebuild();
             FollowSeason();

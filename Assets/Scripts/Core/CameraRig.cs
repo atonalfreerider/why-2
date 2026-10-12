@@ -62,6 +62,12 @@ namespace Why
         /// <summary>Incremented whenever the camera moves; label layout caches against it.</summary>
         public int Version { get; private set; }
 
+        /// <summary>
+        /// Set while a recording plays the walkthrough (Why > Capture): the mouse and keyboard do not steer, and nothing
+        /// counts as the viewer taking over.
+        /// </summary>
+        public static bool InputLocked { get; set; }
+
         /// <summary>True while the user is actively steering (the director pauses autoplay).</summary>
         public bool UserActive { get; private set; }
 
@@ -160,11 +166,11 @@ namespace Why
         {
             UserActive = userActivePending;
             userActivePending = false;
-            if (XrOrigin == null) HandleInput();
+            if (XrOrigin == null && !InputLocked) HandleInput();
 
             if (flightT < 1)
             {
-                flightT = Mathf.Min(1, flightT + Time.unscaledDeltaTime / flightDuration);
+                flightT = Mathf.Min(1, flightT + GraphTime.Delta / flightDuration);
                 float e = flightT * flightT * flightT * (flightT * (flightT * 6 - 15) + 10);
                 pose.Target = Vector3.Lerp(flightFrom.Target, flightTo.Target, e);
                 pose.Yaw = Mathf.Lerp(flightFrom.Yaw, flightTo.Yaw, e);
@@ -244,12 +250,12 @@ namespace Why
                 if (move.sqrMagnitude > 0)
                 {
                     CancelFlight();
-                    pose.Target += move.normalized * (pose.Distance * 0.8f * Time.unscaledDeltaTime);
+                    pose.Target += move.normalized * (pose.Distance * 0.8f * GraphTime.Delta);
                     UserActive = true;
                 }
 
-                if (kb.equalsKey.isPressed || kb.numpadPlusKey.isPressed) Zoom(Mathf.Exp(-1.5f * Time.unscaledDeltaTime));
-                if (kb.minusKey.isPressed || kb.numpadMinusKey.isPressed) Zoom(Mathf.Exp(1.5f * Time.unscaledDeltaTime));
+                if (kb.equalsKey.isPressed || kb.numpadPlusKey.isPressed) Zoom(Mathf.Exp(-1.5f * GraphTime.Delta));
+                if (kb.minusKey.isPressed || kb.numpadMinusKey.isPressed) Zoom(Mathf.Exp(1.5f * GraphTime.Delta));
             }
         }
 

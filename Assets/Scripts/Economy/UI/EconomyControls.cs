@@ -349,7 +349,7 @@ namespace Why.Economy.UI
 
         void LateUpdate()
         {
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             chipFade.Tick(dt);
             readoutFade.Tick(dt);
             if (!loaded || !chipFade.Shown)

@@ -397,7 +397,7 @@ namespace Why
                 Position(slot, placed[i].world, placed[i].fade);
             }
 
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             foreach (Slot slot in slots)
             {
                 if (slot.Used) continue;
@@ -470,7 +470,7 @@ namespace Why
             t.SetPositionAndRotation(world + offset, camT.rotation);
             float scale = s.SizePx * UiScale / ppu;
             t.localScale = new Vector3(scale, scale, scale);
-            slot.Alpha = Mathf.MoveTowards(slot.Alpha, 1, Time.unscaledDeltaTime * 5);
+            slot.Alpha = Mathf.MoveTowards(slot.Alpha, 1, GraphTime.Delta * 5);
             slot.Fade = fade;
             SetColor(slot, fade);
         }

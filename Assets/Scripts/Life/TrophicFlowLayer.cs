@@ -423,7 +423,7 @@ namespace Why.Life
             GraphRoot root = GraphRoot.Instance;
             float target = root != null && InView(root.CurrentPreset) ? 1f : 0f;
             if (Highlighter.IsHighlighted(AllIds)) target = 1f;
-            float next = emphasis < 0 ? target : Mathf.MoveTowards(emphasis, target, Time.unscaledDeltaTime * EmphasisSpeed);
+            float next = emphasis < 0 ? target : Mathf.MoveTowards(emphasis, target, GraphTime.Delta * EmphasisSpeed);
             if (Mathf.Abs(next - emphasis) < 1e-4f) return;
 
             bool wasShown = emphasis >= LabelsBelow;

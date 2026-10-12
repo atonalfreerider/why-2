@@ -172,7 +172,7 @@ namespace Why.Xr
         void Update()
         {
             if (rig == null) return;
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
 
             if (recenterFrames >= 0 && ++recenterFrames > 20)
             {

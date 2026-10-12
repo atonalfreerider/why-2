@@ -678,7 +678,7 @@ namespace Why.Matter
             GraphRoot root = GraphRoot.Instance;
             if (root != null && root.CurrentPreset != null) target = root.CurrentPreset.MatterEmphasis;
             if (Layout != null && Highlighter.IsHighlighted(Layout.AllIds)) target = 1f;
-            float next = emphasis < 0 ? target : Mathf.MoveTowards(emphasis, target, Time.unscaledDeltaTime * EmphasisSpeed);
+            float next = emphasis < 0 ? target : Mathf.MoveTowards(emphasis, target, GraphTime.Delta * EmphasisSpeed);
 
             float t = Mathf.InverseLerp(EnvelopeLodNear, EnvelopeLodFar, rig.Pose.Distance);
             float lod = Mathf.Lerp(EnvelopeAlphaClose, 1f, t * t * (3 - 2 * t));

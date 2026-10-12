@@ -204,7 +204,7 @@ namespace Why.Humans.Lives
                            (1f - SmoothStep(PresetHoldFrom * presetDistance, PresetHoldTo * presetDistance, rig.Pose.Distance));
             bool smv = presetId == SmvPresetId;
             float cap = smv ? SmvPresetCap : 1f;
-            float step = Time.unscaledDeltaTime * FadeSpeed;
+            float step = GraphTime.Delta * FadeSpeed;
             bool idle = Time.realtimeSinceStartup - uploadedAt > PreloadIdleSeconds && !rig.Flying &&
                         !GraphWarp.Animating && !rig.UserActive;
             bool denseReady = DenseTiersReady();

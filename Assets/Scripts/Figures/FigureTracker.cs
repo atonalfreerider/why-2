@@ -108,7 +108,7 @@ namespace Why.Figures
             glideOrientation = ScreenLayout.OrientationVersion;
             if (following == null || travelStart < 0) return;
             travelStart += GraphRoot.ReframeSeconds;
-            travelHold = Time.unscaledTime + GraphRoot.ReframeSeconds;
+            travelHold = GraphTime.Now + GraphRoot.ReframeSeconds;
             // the card was re-laid out for the new shape in Update (Layout), before this LateUpdate event
             if (followPreset != null && Anchors.TryGet(following.AnchorKey, out Anchor a)) FrameGlide(a);
         }
@@ -258,9 +258,9 @@ namespace Why.Figures
 
             if (root.TourActive && following != null) StopFollowing();
 
-            if (Time.unscaledTime >= nextSample && following == null)
+            if (GraphTime.Now >= nextSample && following == null)
             {
-                nextSample = Time.unscaledTime + 0.25f;
+                nextSample = GraphTime.Now + 0.25f;
                 SampleTime();
             }
 
@@ -285,7 +285,7 @@ namespace Why.Figures
 
         static void Fade(CanvasGroup g, bool on)
         {
-            g.alpha = Mathf.MoveTowards(g.alpha, on ? 1 : 0, Time.unscaledDeltaTime * 4);
+            g.alpha = Mathf.MoveTowards(g.alpha, on ? 1 : 0, GraphTime.Delta * 4);
             g.interactable = g.blocksRaycasts = g.alpha > 0.5f;
         }
 
@@ -357,7 +357,7 @@ namespace Why.Figures
                 Distance = 5.5f
             };
             root.Focus(p, 2.2f);
-            travelStart = Time.unscaledTime + 2.3f;
+            travelStart = GraphTime.Now + 2.3f;
             followPreset = p;
             glideFocusYearsAgo = p.Warp().FocusYearsAgo;
             glideOrientation = ScreenLayout.OrientationVersion;
@@ -510,7 +510,7 @@ namespace Why.Figures
         /// <summary>After the lens opens, glide the camera along the life from birth to death.</summary>
         void Travel()
         {
-            if (following == null || travelStart < 0 || Time.unscaledTime < travelStart) return;
+            if (following == null || travelStart < 0 || GraphTime.Now < travelStart) return;
             if (root.Rig.UserActive)
             {
                 travelStart = -1; // the user took the wheel
@@ -518,10 +518,10 @@ namespace Why.Figures
             }
 
             // the view is about to re-frame, or re-framing, for a new screen shape (see OnOrientationChanged)
-            if (Time.unscaledTime < travelHold || glideOrientation != ScreenLayout.OrientationVersion) return;
+            if (GraphTime.Now < travelHold || glideOrientation != ScreenLayout.OrientationVersion) return;
 
             if (!Anchors.TryGet(following.AnchorKey, out Anchor a)) return;
-            float t = Mathf.Clamp01((Time.unscaledTime - travelStart) / TravelSeconds);
+            float t = Mathf.Clamp01((GraphTime.Now - travelStart) / TravelSeconds);
             float e = t * t * (3 - 2 * t);
             double now = DeepTime.NowYear;
             double year = following.born + (following.End(now) - following.born) * e;

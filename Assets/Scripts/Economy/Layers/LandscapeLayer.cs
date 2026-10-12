@@ -453,7 +453,7 @@ namespace Why.Economy.Layers
             Rebuild();
             if (old != null)
             {
-                cross = Mathf.Min(1f, cross + Mathf.Min(0.1f, Time.unscaledDeltaTime) / LandStyle.CrossFadeSeconds);
+                cross = Mathf.Min(1f, cross + Mathf.Min(0.1f, GraphTime.Delta) / LandStyle.CrossFadeSeconds);
                 if (cross >= 1f)
                 {
                     Release(old);

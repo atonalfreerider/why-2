@@ -346,7 +346,7 @@ namespace Why.Economy.UI
 
         void LateUpdate()
         {
-            fade.Tick(Time.unscaledDeltaTime);
+            fade.Tick(GraphTime.Delta);
             if (!loaded || !fade.Shown || facts == null)
             {
                 Occupied = UiBox.Empty;

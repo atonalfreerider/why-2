@@ -123,6 +123,9 @@ namespace Why.Director
         /// <summary>The stop on screen (-1: the title card; the number of stops: the end card).</summary>
         public int CurrentStep => active ? index : -1;
 
+        /// <summary>The id of the stop on screen (null on the cards and outside the tour).</summary>
+        public string CurrentStepId => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Step.Id : null;
+
         /// <summary>The view of the stop on screen (null on the cards and outside the tour).</summary>
         public string CurrentPresetId => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Preset?.Id : null;
 
@@ -508,7 +511,10 @@ namespace Why.Director
             if (genesis != null)
             {
                 // the opening is the camera's flight: from the flash back to the whole graph, timed to the narration
+                // (its re-scale is the tour's own, not the viewer taking over)
+                focusing = true;
                 genesis.Play(Mathf.Max(s.Duration - 2f, 8f), preset, false);
+                focusing = false;
                 hasTarget = false;
                 placeAt = Vector2.zero;
             }
@@ -646,7 +652,7 @@ namespace Why.Director
         void Update()
         {
             if (root == null) return;
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             HandleKeys();
             if (active) TickAutoplay(dt);
             panel.Tick(dt);
@@ -655,7 +661,7 @@ namespace Why.Director
         void HandleKeys()
         {
             Keyboard kb = Keyboard.current;
-            if (kb == null || TextFieldFocused()) return;
+            if (kb == null || TextFieldFocused() || CameraRig.InputLocked) return;
             if (!active)
             {
                 if (kb.tKey.wasPressedThisFrame && root.IsLoaded) StartTour();
@@ -695,7 +701,7 @@ namespace Why.Director
         void LateUpdate()
         {
             // after the camera rig and the warp have moved this frame
-            if (root != null) UpdateAttention(Time.unscaledDeltaTime);
+            if (root != null) UpdateAttention(GraphTime.Delta);
         }
 
         /// <summary>Tracks the anchor on screen: arrow, target ring, caption and markers.</summary>

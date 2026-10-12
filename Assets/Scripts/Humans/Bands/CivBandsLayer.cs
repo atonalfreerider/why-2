@@ -102,7 +102,7 @@ namespace Why.Humans.Bands
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (fillMat == null || rig == null) return;
-            fillAlpha = Mathf.MoveTowards(fillAlpha, TargetFillAlpha(rig), Time.unscaledDeltaTime * FillAlphaSpeed);
+            fillAlpha = Mathf.MoveTowards(fillAlpha, TargetFillAlpha(rig), GraphTime.Delta * FillAlphaSpeed);
             if (Mathf.Abs(fillAlpha - appliedAlpha) < 0.002f) return;
             GraphMaterials.SetAlpha(fillMat, fillAlpha);
             appliedAlpha = fillAlpha;

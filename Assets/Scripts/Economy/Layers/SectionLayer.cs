@@ -931,7 +931,7 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (model == null || frameLines == null) return;
-            float dt = Mathf.Min(0.1f, Time.unscaledDeltaTime);
+            float dt = Mathf.Min(0.1f, GraphTime.Delta);
             FollowYear(dt);
 
             float cut = LandView.Alpha(LandGroup.Cut);

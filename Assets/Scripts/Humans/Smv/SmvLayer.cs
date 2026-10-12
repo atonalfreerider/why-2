@@ -394,7 +394,7 @@ namespace Why.Humans.Smv
             float fineTarget = visible * (preset ? 1f : close);
             float coarseTarget = visible * (1 - fineTarget);
 
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             float step = dt * FadeSpeed;
             fineAlpha = Mathf.MoveTowards(fineAlpha, fineTarget, step);
             coarseAlpha = Mathf.MoveTowards(coarseAlpha, coarseTarget, step);

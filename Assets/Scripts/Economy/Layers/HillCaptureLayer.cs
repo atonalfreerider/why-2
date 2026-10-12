@@ -65,7 +65,7 @@ namespace Why.Economy.Layers
             int focus = HillExplorer.Industry >= 0 ? HillExplorer.Industry : HillLandscapeLayer.HoverIndustry;
             foreach (var entry in labels)
             {
-                bool show = view == "capture" || entry.industry == focus || lod >= 1 && view != "society" && view != "betrayal" && view != "foundation";
+                bool show = view == "capture" || entry.industry == focus && !PersonFocus.IsView(view) || lod >= 1 && view != "society" && view != "betrayal" && view != "foundation" && !PersonFocus.IsView(view);
                 entry.text.gameObject.SetActive(show);
                 if (show) entry.text.transform.rotation = rig.Cam.transform.rotation;
             }
@@ -78,6 +78,7 @@ namespace Why.Economy.Layers
             switch (view)
             {
                 case "society": case "betrayal": return part == Part.Halo || part == Part.Glow ? .12f : .02f;
+                case "atom": case "dilemma": case "ladder": return part == Part.Halo || part == Part.Glow ? .25f : .02f;
                 case "roots": return part == Part.Roots ? 1 : part == Part.Halo || part == Part.Glow ? .35f : .06f;
                 case "foundation": return part == Part.Taxes ? 1 : part == Part.Halo || part == Part.Glow ? .3f : part == Part.Selected ? 1 : .08f;
             }

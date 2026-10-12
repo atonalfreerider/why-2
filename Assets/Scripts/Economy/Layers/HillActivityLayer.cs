@@ -31,8 +31,13 @@ namespace Why.Economy.Layers
         Vector3[] home, destinations, firmAt;
         int[] recipient;
         double[] riverAmount;
+        /// <summary>Per subgroup: the fear share of what its river buys at its market (ValueCapture.SoldFear), which
+        /// splits its lanes; the spender's own fear colors the marker.</summary>
+        float[] riverFear;
         LineMeshBuilder pulseGeometry;
-        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry;
+        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry, circles, circleThreads;
+        double[] eliteClaim;
+        double eliteShare;
         LandSnapshot snapshot;
         HillLandscape land;
         GameObject content;
@@ -63,14 +68,14 @@ namespace Why.Economy.Layers
             {
                 float progress=(1-Mathf.Cos(animation*(.055f+.015f*(1-FearOf(p)))+p*2.399963f))*.5f;
                 Vector3 at=Vector3.Lerp(home[p],destinations[p],progress);
-                if(!land.Cloud[p/Subgroups])at.y=Mathf.Lerp(land.Rest(land.IndustryOf[p/Subgroups],at.x,at.z),land.Rest(recipient[p],at.x,at.z),progress)+.3f;
+                if(!land.Cloud[p/Subgroups])at.y=Mathf.Lerp(land.Footing(land.IndustryOf[p/Subgroups],at.x,at.z),land.Footing(recipient[p],at.x,at.z),progress)+.3f;
                 if(HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group)at=HillExplorer.GroupCenter;
                 Positions[p]=at;actors[p].transform.localPosition=at;
                 bool memberView=HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group;
                 bool nearby=lod==0||focusIndustry<0||land.IndustryOf[p/Subgroups]==focusIndustry||Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(at))<35;
                 actors[p].gameObject.SetActive(!memberView&&nearby);
                 Color color=Color.Lerp(Desire,Fear,FearOf(p));
-                float intensity=p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f;
+                float intensity=(p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f)*(PersonFocus.IsView(LandView.PresetId)?.25f:1);
                 actors[p].sharedMaterial.SetColor("_Color",Color.white*intensity);
             }
             for(int f=0;f<firms.Count;f++)
@@ -93,6 +98,10 @@ namespace Why.Economy.Layers
             }
             GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
             GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
+            // The owners' inner circles: every firm sits inside a ring of its elite owners; threads rise to the clouds.
+            string v=LandView.PresetId;bool own=v=="capture"||v=="companies";
+            GraphMaterials.SetAlpha(circles.sharedMaterial,own?1:PersonFocus.IsView(v)?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
+            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,own?.6f:v=="people"?.3f:PersonFocus.IsView(v)?.02f:.08f);
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
             if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
@@ -107,7 +116,7 @@ namespace Why.Economy.Layers
             home=new Vector3[land.People.Length*Subgroups];
             for(int p=0;p<home.Length;p++){float a=p%Subgroups*Mathf.PI*2/Subgroups;home[p]=land.People[p/Subgroups]+new Vector3(Mathf.Cos(a)*1.1f,0,Mathf.Sin(a)*1.1f);}
             Positions=(Vector3[])home.Clone();
-            destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];
+            destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];riverFear=new float[home.Length];
             Competition=new CorporateCompetition(snapshot);Competition.Update(Program);
             for(int p=0;p<home.Length;p++){var actor=Render(new LineMeshBuilder(),"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
             BuildCorporations();
@@ -129,6 +138,8 @@ namespace Why.Economy.Layers
                 double sample=((p*.61803398875+.21)%1)*total,cumulative=0;
                 for(int h=0;h<budget.Length;h++){cumulative+=budget[h];if(cumulative>=sample){best=h;break;}}
                 recipient[p]=best;riverAmount[p]=budget[best]/Subgroups;
+                var capture=ValueCapture.Get();var spend=(IReadOnlyList<double>)Program?.Players[p/Subgroups].Category??snapshot.Players.Players[p/Subgroups].Category;
+                riverFear[p]=capture!=null?(float)capture.FearOfPurchase(spend,best,LandService.Model.Data):FearOf(p);
                 // A bounded visit toward the budget-weighted spending destination, keeping cohort settlements legible.
                 Vector3 target=land.Market(best);
                 destinations[p]=Vector3.Lerp(home[p],target,.18f+.20f*(1-FearOf(p)));
@@ -159,6 +170,12 @@ namespace Why.Economy.Layers
             var towers=snapshot.Land.Towers;firmAt=new Vector3[towers.Length];haloScale=new float[towers.Length];var count=new int[land.Hills.Length];
             var total=new int[land.Hills.Length];foreach(var t in towers)total[t.Industry]++;
             var capture=LandService.Model.Data.Circuit?.Capture;
+            var ring=new LineMeshBuilder();var rise=new LineMeshBuilder();
+            // The top 1%'s share of corporate equity (DFA, the shown year) of the domestic part of each firm's market value:
+            // the size of its inner circle of elite owners (a portfolio proxy, not the firm's register).
+            var circuit=LandService.Model.Data.Circuit;
+            eliteShare=Math.Max(0,Math.Min(1,Data.EconomyData.Keyed(circuit?.GroupEquityHistory,"top1").At(snapshot.Year)));
+            double domestic=1-Math.Max(0,Math.Min(1,circuit?.ForeignEquityShare??0));eliteClaim=new double[towers.Length];
             for(int f=0;f<towers.Length;f++)
             {
                 var tower=towers[f];var hill=land.Hills[tower.Industry];int seat=count[hill.Industry]++;
@@ -185,6 +202,8 @@ namespace Why.Economy.Layers
                 // narrowing up the beam to the owners' halo. Headcount sets the base; reporting lines are illustrative.
                 double staff=capture!=null&&tower.Company<capture.Count?capture[tower.Company].UsEmployees:0;
                 orgs.Add(Render(Organization(at,beam,revenue,staff),"Organization / "+tower.Name,true));
+                eliteClaim[f]=Math.Max(0,tower.MarketCap)*domestic*eliteShare;
+                InnerCircle(ring,rise,at+Vector3.up*(beam-.35f),1.18f*haloScale[f]+.55f+.03f*Mathf.Sqrt((float)eliteClaim[f]),eliteClaim[f]);
                 for(int prior=0;prior<f;prior++)if(towers[prior].Industry==hill.Industry)
                     competition.AddPolyline(new[]{firmAt[prior]+Vector3.up*.2f,(firmAt[prior]+at)*.5f+Vector3.up*1.2f,at+Vector3.up*.2f},Desire,1,0,0,1,1);
             }
@@ -198,7 +217,24 @@ namespace Why.Economy.Layers
                     Tunnel(branches,firmAt[f],land.Hills[b.Index].Foot,Fear,.6f);
             }
             structure=Render(branches,"Inferred supply allocations");
+            circles=Render(ring,"Owners' inner circles",true);
+            circleThreads=Render(rise,"Inner circles to the clouds",true);circleThreads.sharedMaterial.SetFloat("_Flow",1);
             rivalry=Render(competition,"Same-sector rivalry (scenario)",true);
+        }
+        /// <summary>A gold ring of owner figures around a firm's profit halo, as many as its elite claim warrants
+        /// (one per ~$9B squared-root scaled, 5..22), with a thin gold thread up to the 1% cloud.</summary>
+        void InnerCircle(LineMeshBuilder ring,LineMeshBuilder rise,Vector3 c,float r,double claim)
+        {
+            int n=Mathf.Clamp(Mathf.RoundToInt(Mathf.Sqrt((float)claim)/3f),5,22);
+            Ring(ring,c,r,Gold,2.2f,false,3.2f);Ring(ring,c+Vector3.up*.08f,r*1.05f,WithAlpha(Gold,.5f),1,false,2);
+            for(int k=0;k<n;k++)
+            {
+                float a=k*Mathf.PI*2/n;Vector3 p=c+new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);
+                ring.AddSegment(p,p+Vector3.up*.32f,Gold,1.8f,.025f,0,3);Ring(ring,p+Vector3.up*.42f,.08f,Gold,1.2f,true,3);
+            }
+            var cloud=land.CloudCenter;var pts=new LinePoint[21];
+            for(int k=0;k<pts.Length;k++){float t=k/20f;pts[k]=new LinePoint(Vector3.Lerp(c+Vector3.up*.4f,cloud,t)+Vector3.up*Mathf.Sin(t*Mathf.PI)*4,WithAlpha(Gold,.55f),.7f+Mathf.Sqrt((float)claim)*.02f,0,1.8f);}
+            rise.AddFlowPath(pts,0,.3f);
         }
         static float Beam(TowerGeom t)=>2+Mathf.Log10(1+(float)Math.Max(0,t.MarketCap))*2.4f;
         LineMeshBuilder Organization(Vector3 at,float beam,float radius,double staffThousands)
@@ -237,6 +273,7 @@ namespace Why.Economy.Layers
             if(t.Revenue>0)s+="\nrevenue "+LandFacts.Money(t.Revenue)+" · profit "+LandFacts.Money(t.NetIncome)+" ("+LandFacts.Percent(t.NetIncome/t.Revenue)+")";
             if(t.NetIncome>0)s+="\nmarket value "+LandFacts.Money(t.MarketCap)+" = "+(t.MarketCap/t.NetIncome).ToString("F0",LandFacts.Ci)+" years of today's profit";
             else s+="\nmarket value "+LandFacts.Money(t.MarketCap);
+            if(eliteClaim!=null&&f<eliteClaim.Length&&eliteClaim[f]>0)s+="\ninner circle: the top 1% hold ≈ "+LandFacts.Money(eliteClaim[f])+" ("+LandFacts.Percent(eliteShare)+" of US-held equity)";
             return s+"\nscenario household demand "+LandFacts.Money(Competition.FirmReceipts[f]);
         }
         static Color WithAlpha(Color c,float a){c.a=a;return c;}
@@ -255,7 +292,7 @@ namespace Why.Economy.Layers
                 if(p/Subgroups!=focused && p%15!=0)continue;
                 var hill=land.Hills[recipient[p]];bool active=p/Subgroups==focused;
                 float alpha=active?.90f:focused>=0?.006f:LandView.PresetId=="rivers"?.18f:.035f;
-                Color color=Color.Lerp(Desire,Fear,FearOf(p));color.a=alpha;
+                Color color=Color.Lerp(Desire,Fear,riverFear[p]);color.a=alpha;
                 Vector3 end=land.Market(recipient[p]);
                 var path=new LinePoint[33];
                 for(int k=0;k<path.Length;k++)
@@ -265,14 +302,14 @@ namespace Why.Economy.Layers
                     at.y=land.Cloud[p/Subgroups]?Mathf.Lerp(Positions[p].y,ground,Mathf.SmoothStep(0,1,t)):ground;
                     path[k]=new LinePoint(at,color,(active?2:1)+(float)Math.Log10(1+riverAmount[p])*.3f,0,active?2.3f:1.0f);
                 }
-                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,FearOf(p),active?.8f:focused>=0?.008f:.035f,p,active);
+                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,riverFear[p],active?.8f:focused>=0?.008f:.035f,p,active);
             }
             // Aggregate all accounts into wide industry trunks; only sparse tributaries are shown at overview scale.
             for(int h=0;h<land.Hills.Length;h++)
             {
                 if(land.Hills[h].Tier==0)continue;
                 double amount=0,af=0;
-                for(int p=0;p<home.Length;p++)if(recipient[p]==h){amount+=riverAmount[p];af+=riverAmount[p]*FearOf(p);}
+                for(int p=0;p<home.Length;p++)if(recipient[p]==h){amount+=riverAmount[p];af+=riverAmount[p]*riverFear[p];}
                 if(amount<=0)continue;
                 var path=new LinePoint[41];
                 for(int k=0;k<path.Length;k++)

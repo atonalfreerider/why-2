@@ -26,6 +26,12 @@ namespace Why.Economy.Model
             public readonly double[] Category = new double[6];
             public double Interest, CapturePaid, CaptureReceived, WagesFromSpending;
             public float Reason, Fear, Fantasy;
+            /// <summary>The disposition fear and reason relax toward without stress (the census means, moved by the
+            /// controls), and the values the last step left (a change since then is a control's adjustment).</summary>
+            public float FearBase, ReasonBase;
+            internal float FearSeen, ReasonSeen;
+            /// <summary>This year's stress (0..1): a thin buffer, debt service and lost income, as the last step saw them.</summary>
+            public float Stress;
             public double Wealth => Assets - Debt;
             public double NetCapture => CaptureReceived - CapturePaid;
         }
@@ -57,7 +63,8 @@ namespace Why.Economy.Model
                 Player p=players[i];
                 Players[i]=new State { Key=p.Key, Assets=Math.Max(0,p.Wealth+p.Debt), Debt=Math.Max(0,p.Debt),
                     Income=p.Wages+p.Business+p.Capital+p.Transfers, Taxes=p.Taxes,
-                    Spending=p.Spending, Saving=p.Saving, Reason=p.Reason,Fear=p.Fear,Fantasy=p.Fantasy };
+                    Spending=p.Spending, Saving=p.Saving, Reason=p.Reason,Fear=p.Fear,Fantasy=p.Fantasy,
+                    FearBase=p.Fear, ReasonBase=p.Reason, FearSeen=p.Fear, ReasonSeen=p.Reason };
                 dependents[i]=p.Children.Length;
                 baseDebt[i]=Math.Max(0,p.Debt); baseWages[i]=p.Wages; baseOwnersIncome[i]=p.Business+p.Capital;
                 baseFear[i]=p.Fear; baseFantasy[i]=p.Fantasy; debt+=baseDebt[i];
@@ -112,7 +119,22 @@ namespace Why.Economy.Model
                 double disposable=Math.Max(0,p.Income-p.Taxes-p.Interest);
                 double buffer=p.Assets/Math.Max(.001,baseline.Players.Players[i].Spending);
                 float scarcity=(float)Math.Max(0,1-buffer);
-                float fear=Math.Max(0,Math.Min(1,p.Fear+scarcity*.12f+Pressure*.15f));
+                // Fear and reason have memory: each relaxes toward a target set by the player's disposition and this
+                // year's stress (a thin buffer, debt service, income lost against the census), a third of the way per
+                // year (half-life about 1.7 years). Stress raises fear and crowds out deliberation (the lives model's
+                // reason also falls with a thin buffer). A control's adjustment since the last step moves the
+                // disposition itself, so it persists instead of decaying. Coefficients are scenario assumptions.
+                p.FearBase=Clamp01(p.FearBase+p.Fear-p.FearSeen);p.ReasonBase=Clamp01(p.ReasonBase+p.Reason-p.ReasonSeen);
+                Player census=baseline.Players.Players[i];
+                double censusIncome=Math.Max(.001,census.Wages+census.Business+census.Capital+census.Transfers);
+                float service=(float)Math.Min(1,(p.Interest+.08*p.Debt)/Math.Max(.001,disposable));
+                float lost=(float)Math.Max(0,Math.Min(1,1-p.Income/censusIncome));
+                p.Stress=Clamp01(.5f*scarcity+.3f*service+.4f*lost);
+                float fearTarget=Clamp01(p.FearBase+.12f*scarcity+.10f*service+.08f*lost+Pressure*.15f);
+                float reasonTarget=Clamp01(p.ReasonBase-.10f*p.Stress);
+                p.Fear=Clamp01(p.Fear+(fearTarget-p.Fear)*Memory);p.Reason=Clamp01(p.Reason+(reasonTarget-p.Reason)*Memory);
+                p.FearSeen=p.Fear;p.ReasonSeen=p.Reason;
+                float fear=p.Fear;
                 float fantasy=Math.Max(0,Math.Min(1,p.Fantasy+Pressure*.30f));
                 // Coefficients are scenario assumptions, not estimates of causal psychological effects.
                 double rate=Clamp(.02+.22*p.Reason+.12*fear-.20*fantasy,-.15,.55);
@@ -156,5 +178,8 @@ namespace Why.Economy.Model
             for(int c=0;c<6;c++)p.Category[c]=total>0?p.Spending*w[c]/total:p.Spending/6;
         }
         static double Clamp(double x,double lo,double hi)=>Math.Max(lo,Math.Min(hi,x));
+        static float Clamp01(float x)=>Math.Max(0,Math.Min(1,x));
+        /// <summary>Share of the gap to its target that fear and reason close each year (an assumed emotional memory).</summary>
+        const float Memory=.35f;
     }
 }

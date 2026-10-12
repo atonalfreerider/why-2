@@ -26,12 +26,20 @@ namespace Why.EditorChecks
             Require(land.People.Length==source.Players.Players.Length,"Every group needs a place");
             foreach(var lower in land.Hills)foreach(var upper in land.Hills)
                 if(upper.Tier>lower.Tier)Require(upper.Summit.y>lower.Summit.y,"Production hierarchy must rise through all five strata");
-            int clouds=0;
+            int clouds=0,valley=0;
             for(int i=0;i<land.People.Length;i++)
             {
                 Vector3 p=land.People[i];Require(Finite(p.x)&&Finite(p.y)&&Finite(p.z),"Finite player coordinates");
                 Require(p.z<=land.CrestZ,"Nobody stands in the future, ahead of the crest");
                 if(land.Cloud[i]){clouds++;Require(p.y>land.Ground(p.x,p.z)+15,"Diversified wealth must be visibly above the terrain");}
+                else if(land.Hills[land.IndustryOf[i]].Tier==0)
+                {
+                    // Government-paid groups (public servants, Social Security retirees, the out of work) stand on the
+                    // valley floor in front of the hillside, on the terrain's surface, not inside the bedrock.
+                    valley++;
+                    Require(Mathf.Abs(p.y-land.Ground(p.x,p.z))<.3f&&p.y>HillLandscape.Bedrock+10,"Government-paid households must stand on the valley floor, not inside the bedrock");
+                    Require(p.x<=HillLandscape.FootX&&p.z>land.CrestZ-30,"Government-paid households stand between the road and the hillside's foot, near the crest");
+                }
                 else Require(p.y>=land.Rest(land.IndustryOf[i],p.x,p.z)-.05f,"Households must stand on their own hill's slope, not inside it");
             }
             var a=new PlayerMindProgram(source);var b=new PlayerMindProgram(source);double largest=0;
@@ -73,7 +81,7 @@ namespace Why.EditorChecks
             Require(Math.Abs(past.CrestBands()-past.CrestValueWidth)<.01f&&past.CrestZ<land.CrestZ-60,"A historical crest conserves value added and stands back in time");
             Require(Math.Abs(past.SliceHeight(1960,90)-land.SliceHeight(1960,90))<1e-4f,"A year's cross-section must not depend on the crest shown");
             string companies=Companies(land);
-            string result="PASS: "+land.Hills.Length+" hills, "+land.People.Length+" players, "+clouds+
+            string result="PASS: "+land.Hills.Length+" hills, "+land.People.Length+" players ("+valley+" government-paid on the valley floor), "+clouds+
                 " cloud groups; 30-year deterministic ledger; max residual "+largest.ToString("G4")+
                 " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; wave "+land.FirstYear+"-"+land.Year+" over "+(land.CrestZ-land.TailZ).ToString("F0")+" units; "+companies+"; "+capture;
             Debug.Log("[Why] "+result);return result;

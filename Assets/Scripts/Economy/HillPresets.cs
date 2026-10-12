@@ -28,18 +28,70 @@ namespace Why.Economy
             Add("roots", "Industries depend on each other", "Input-output purchases connect suppliers to buyers; widths follow the stored use table", KeyCode.None, new Vector3(100, 10, crest - 16), 150, 34, 190);
             Add("betrayal", "One betrayal", "Follow retaliation and forgiveness over repeated encounters", KeyCode.None, new Vector3(90, 20, crest - 14), 150, 46, 150);
             Add("y1972", "The wave in 1972", "Historical accounts on the same axis: the crest stands back in time · modern companies are not born yet", KeyCode.None, new Vector3(60, 12, y1972 - 30), 140, 24, 190);
+            // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
+            foreach (string id in PersonViews) list.Add(Person(id));
             // The families: a side view of the road's last decades, from the valley side, with the wave rising behind.
             var section = list[1]; section.FixedTarget = EconomyStage.OnRoad(EconomyState.Year - 9, .55f, EconomyStyle.FramingRho);
             section.FixedYaw = f.Yaw + 70; section.Pitch = 9; section.Distance = 34; section.PortraitWidth = 30;
             return list;
 
-            void Add(string id, string title, string subtitle, KeyCode key, Vector3 target, float yaw, float pitch, float distance)
+            void Add(string id, string title, string subtitle, KeyCode key, Vector3 target, float yaw, float pitch, float distance) =>
+                list.Add(Make(id, title, subtitle, key, target, yaw, pitch, distance));
+        }
+
+        /// <summary>The views of the followed person (keyless; the tour points at them by id).</summary>
+        public static readonly string[] PersonViews = { "atom", "dilemma", "ladder" };
+
+        static ViewPreset Make(string id, string title, string subtitle, KeyCode key, Vector3 target, float yaw, float pitch, float distance)
+        {
+            var f = EconomyStage.Land();
+            return new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
+                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : 165,
+                YaOld = DeepTime.NowYear - EconomyStyle.FirstYear, YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
+                RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale };
+        }
+
+        /// <summary>A view of the followed person, posed on where <see cref="PersonFocus"/> last placed them (a default
+        /// near the crest before a person is placed).</summary>
+        public static ViewPreset Person(string id)
+        {
+            float crest = HillLandscape.Z(EconomyState.Year);
+            bool ready = PersonFocus.Ready;
+            Vector3 place = ready ? PersonFocus.Place : new Vector3(80, 20, crest - 3);
+            string who = ready && PersonFocus.Life != null ? "Record #" + PersonFocus.Life.Person + " (" + PersonFocus.Life.Why + ")" : "One simulated person";
+            switch (id)
             {
-                list.Add(new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
-                    Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : 165, YaOld = DeepTime.NowYear - EconomyStyle.FirstYear,
-                    YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
-                    RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale });
+                case "atom":
+                    return Make(id, "One person, atomistically", who + " · five desires (rose) and five fears (ice) feed reason and a choice · rose threads pull toward markets, ice threads push away from threats, income arrives from its sources",
+                        KeyCode.None, (ready ? PersonFocus.Mind : place + Vector3.up * 8.5f) + Vector3.down * 3.2f, 150, 12, 30);
+                case "dilemma":
+                    return Make(id, "Tit for tat", who + " plays repeated prisoner's dilemmas with spouse, coworker, neighbor, boss and the other tribe · blue cooperates, red defects · one slip in round 9, then retaliation or forgiveness · above: the groups",
+                        KeyCode.None, (ready ? PersonFocus.Arena : place + new Vector3(-12, 5.5f, -5)) + Vector3.up * 2.4f, 155, 24, 27);
+                default:
+                    float span = ready ? PersonFocus.LadderSpan : 90;
+                    return Make("ladder", "The economic ladder", who + " across the wave: each year on the household's hill at the rung of its income · blue labor, gold in control · white ghost: the parents' rank",
+                        KeyCode.None, ready ? PersonFocus.LadderCenter + Vector3.up * 3 : new Vector3(60, 12, crest - 30), 104, 20, Mathf.Clamp(span * 1.05f, 45, 190));
             }
+        }
+
+        /// <summary>The person moved (a new person or land): the catalog's person views take the new poses in place, and
+        /// the camera follows when one of them is on screen.</summary>
+        public static void RefreshPersonViews()
+        {
+            var root = GraphRoot.Instance; var catalog = ViewPresets.All;
+            if (catalog == null) return;
+            foreach (string id in PersonViews)
+                for (int i = 0; i < catalog.Count; i++)
+                {
+                    if (catalog[i].Id != id) continue;
+                    bool moved = EconomyPresets.CopyPose(Person(id), catalog[i]);
+                    var now = root != null ? root.CurrentPreset : null;
+                    if (moved && now != null && now.Id == id && root.Rig != null)
+                    {
+                        if (!ReferenceEquals(now, catalog[i])) EconomyPresets.CopyPose(catalog[i], now);
+                        root.Rig.FlyTo(now.Pose(), 1.6f);
+                    }
+                }
         }
     }
 }

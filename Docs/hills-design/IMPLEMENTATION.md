@@ -221,3 +221,81 @@ wave's time axis is the road's (a year on the wave sits beside the same year on 
 value added; each tier stands on the layers beneath it; nobody stands ahead of the crest; a historical crest conserves
 value added and a year's cross-section does not depend on the crest shown; every stored firm has a lifeline; lifelines are
 well formed and stand on production ridges; buyers existed when they bought.
+
+## One person in the wave - 2026-10-11
+
+The user's direction: atomistic views of individual humans: where they sit in the social market, how their brain
+pursues desire and moves away from fears, how individual and group decisions follow tit-for-tat algorithms (iterated
+prisoner's dilemmas), and how an individual moves along the economic ladder, drawn in the landscape. Built as real 3D
+structures (rings, spheres of rings, threads with world width) so they read from any side in a headset.
+
+**The followed person (`PersonLife`).** The inspected person (`EconomyState.Person`) when one is selected and an adult
+in the shown year; otherwise the first documented notable of `LivesReport` alive then (the striver first, then young,
+indebted, owner, escapist, forgiver, heir, avenger, retiree); otherwise the adult whose household income rank rose most
+over ten years. Their adult records up to the shown year, their spouse each year (MarriageLog) and their household's
+hill: their own industry when employed, else the employed spouse's (the census's dominance rule), else none. Events read
+off the records: start, first job, industry change, job loss, marriage and its end, children, first home, own business,
+gaining control of their path, debt peak, inheritance, discharge, retirement (at most 16).
+
+**Where a person stands (`HillLandscape.Rung`).** Class is altitude, as for the cohorts: on the household's hill at the
+rung of household income rank (`IncomeRank x 4`, business owners one rung up, interpolated over `RungRadius`), on the
+valley side, at the year's z on the road's time axis; government-paid or without a hill, on the valley floor.
+
+**Atom (`HillPersonLayer`, view `atom`, anchors `atom:person`, `atom:mind`).** A figure at that place (gold when in
+control; gold and rose rings for net worth and debt), and above it the mind (`MindDiagram`, which also replaces the
+six-node diagram of the mind view, key 7, for a selected individual or cohort): the lives model's drive weights for the
+year (`EconomicLives.DriveWeights`: food, collective, law, shelter, sex; starvation, isolation, murder, exposure,
+childless), each a sphere sized by its share of the motive (weight x desire or fear share), threads into a deliberation
+gate whose aperture is reason (future and fantasy named), a choice (spend in the motive's color, save gold, borrow rose,
+as shares of disposable income) and memory (net worth, debt, runway) feeding back into the fears. In the landscape:
+rose threads from the person to the market serving each desire (assumed from psyche.json's "served by": restaurants,
+entertainment, legal, real estate, retail trade), ice threads from the threat each fear moves away from (losing the job
+at the employer's market, platforms, police and courts, health care, personal services), plus debt arriving from the
+future and a thin buffer, each ending in a push away from the threat at the person; income threads arrive from the
+employer (nearest stored firm on the hill, wages blue, own business gold), the government bedrock (pillar), the clouds
+(capital income), a supporting parent and inheritances. The figure sways along the net pull. The drive-to-market
+mapping and the sway are illustrations, not measured behavior.
+
+**Dilemma (`DilemmaArena`, `HillDilemmaLayer`, view `dilemma`, anchors `dilemma:arena`, `dilemma:groups`).** An arena
+beside the person. Counterparts are real records of the same year, picked deterministically: the spouse (else a parent),
+a coworker (same industry), a neighbor (same cohort), a boss or firm (a self-employed high earner of the industry) and
+someone of the other tribe; each plays its `PersonTraits.Strategy`. A real iterated prisoner's dilemma with pairwise
+memory (`PrisonersDilemma.Intend`, games.json payoffs), one round per 0.6 s, 36-round matches with a fixed seed and no
+noise; in round 9 the person defects once against the coworker, so retaliation, the echo of two tit-for-tat players, or
+forgiveness is legible. Pulses along each link (blue cooperate, red defect), strips of the last 12 rounds per partner
+(gold diagonals where the partner copied the person's previous move), payoff bars (gold) against mutual defection (grey).
+The ledger turns the cooperation dividend over mutual defection into an on-screen sum (1 point = 0.02% of disposable
+income, illustrative; no historical record or scenario ledger changes). Above, the group level: the year's
+`SocialSeason` (mean field over cohort shares) at the season round matching the arena's clock: a ring for the person's
+tribe and one for the other with in-tribe cooperation as gold arcs, a bridge colored by cross-tribe cooperation.
+
+**Ladder (`HillPersonLayer`, view `ladder`, anchor `ladder:path`).** The adult life across the wave: each year at
+`Rung` of that year (z = the year on the road's axis), a line from labor blue to capital gold with agency (gold when in
+control), width by net worth; moves to another hill arc over the ground; event markers with short labels; a faint white
+ghost at the parent's earnings rank (`ParentRank`) on the same hills; a walker repeats the life in a loop with its year,
+age, rank and net worth.
+
+**Presets.** `atom`, `dilemma` and `ladder` are keyless; `HillPresets.Person` poses them on where the person stands and
+`RefreshPersonViews` updates the catalog's objects in place (and the camera when one is on screen) when the person or
+the year changes. `EconomyViews.Get` now gives an id without a column its own spec (a copy of the overview's) instead of
+the overview itself, so `LandView.PresetId` names these views and `companies` (which had silently read as `overview`).
+
+**Fixes in this round.**
+- *Scenario fear never evolved.* `PlayerMindProgram.Step` computed the year's fear and discarded it. Fear and reason now
+  relax a third of the way per year (half-life about 1.7 years) toward a target: the disposition plus stress (a thin
+  buffer, debt service, income lost against the census) and seller pressure; stress lowers reason. A control's
+  adjustment moves the disposition, so it persists. Coefficients are assumptions.
+- *Government-paid cohorts were inside the bedrock.* Public servants, Social Security retirees and the out of work on
+  the safety net are anchored to the government hills (y -18). They now stand on the valley floor between the road and
+  the hillside's foot near the crest, lower rungs nearer the road, each government in its own stretch; the government's
+  market stands there too, actors keep their footing, and the people view's legend names them. HillValidation checks it.
+- *Golden circles.* Every stored firm sits inside a gold ring of owner figures around its profit halo, sized by the top
+  1%'s DFA share of corporate equity times the domestic part of its market value, with a thin gold thread to the 1%
+  cloud. A portfolio proxy, not a register; the two dated SEC voting-control rings remain.
+- *River color.* Lanes were split by the spender's average fear. They now follow the fear share of what the budget buys
+  at that market (`ValueCapture.SoldFear`: Jev's fear sold / (fear sold + manufactured want) per item, shrunk toward the
+  category's stored fear share with a prior of 0.2, weighted like `Category.IndustryShare`): health 0.85 and insurance
+  0.70 read as ice, entertainment and restaurants 0.21 as rose. Markers keep the spender's fear.
+
+Needs a check in the Editor: the poses and label sizes of the three views, overlaps between pull labels at shared
+markets, and the arena's height over steep valley slopes.

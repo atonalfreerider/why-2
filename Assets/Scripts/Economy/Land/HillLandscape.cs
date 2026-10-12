@@ -148,6 +148,15 @@ namespace Why.Economy.Land
                 for(int k=0;k<row.Count;k++)
                 {
                     int i=row[k];int rung=Altitude(players[i]);perRung.TryGetValue(rung,out int slot);perRung[rung]=slot+1;
+                    if(Hills[h].Tier==0)
+                    {
+                        // Paid by government (public servants, Social Security retirees, the out of work on the safety
+                        // net): the government's hills lie in the bedrock, so they stand on its surface, the valley floor
+                        // between the road and the foot of the hillside, the lower rungs nearer the road, each government
+                        // in its own stretch of the recent past (the pillars of the foundation rise to them).
+                        People[i]=GovernmentSeat(h,rung,slot);
+                        continue;
+                    }
                     // Rungs run downhill (toward the road); cohorts of one rung step back into the recent past.
                     float a=Valley+Mathf.Min(.25f*slot,1.2f)*(slot%2==0?1:-1)+(h%3-1)*.04f;
                     float wealth=row.Count>1?k/(float)(row.Count-1):.5f;
@@ -348,8 +357,45 @@ namespace Why.Economy.Land
             float x=h.Center.x+Mathf.Cos(angle)*h.Width*radius,z=Mathf.Min(h.Center.z+Mathf.Sin(angle)*h.Depth*radius,CrestZ-.4f);
             return new Vector3(x,Ground(x,z)+lift,z);
         }
+        /// <summary>The order of a government hill among the government hills (0 federal, 1 state and local).</summary>
+        int GovernmentRank(int industry){int r=0;for(int i=0;i<industry&&i<tierOf.Length;i++)if(tierOf[i]==0)r++;return r;}
+        /// <summary>A government-paid cohort's place on the valley floor: x by its rung (the lowest nearest the road), z
+        /// stepping back from the crest by its slot within the rung, each government hill in its own stretch.</summary>
+        Vector3 GovernmentSeat(int industry,int rung,int slot)
+        {
+            float x=FootX-2.5f-6.5f*(1-Mathf.Clamp(rung,0,4)/4f)-(slot%2)*1.1f;
+            float z=CrestZ-1.6f-GovernmentRank(industry)*9.5f-Mathf.Min(slot,6)*1.3f;
+            return new Vector3(x,Ground(x,z)+.10f,z);
+        }
+        /// <summary>The height a player of an industry stands at: its own hill's slope (<see cref="Rest"/>), or for
+        /// government, whose hills lie in the bedrock, the terrain's surface.</summary>
+        public float Footing(int industry,float x,float z)=>industry>=0&&industry<tierOf.Length&&tierOf[industry]==0?Ground(x,z):Rest(industry,x,z);
+        /// <summary>A point on the valley floor between the road and the foot of the hillside (the lowest rung), nearer the
+        /// hills the higher <paramref name="rank"/> (0..1): where those without a paying hill stand.</summary>
+        public Vector3 ValleyFloor(float rank,float z,float lift=.25f)
+        {
+            float x=FootX-3-8*(1-Mathf.Clamp01(rank));z=Mathf.Min(z,CrestZ-.4f);
+            return new Vector3(x,Ground(x,z)+lift,z);
+        }
+        /// <summary>Where a person of an industry and income rank (0..1) stands in a year: on that industry's own slope at
+        /// the rung of their rank (class is altitude: <see cref="RungRadius"/>, business owners one rung up), on the valley
+        /// side; government-paid or without a hill (industry -1), on the valley floor. Lifted slightly off the surface.</summary>
+        public Vector3 Rung(double year,int industry,float rank,bool owner,float z,float lift=.25f)
+        {
+            if(industry<0||industry>=Hills.Length||Hills[industry].Tier==0)return ValleyFloor(rank,z,lift);
+            float rung=Mathf.Clamp(Mathf.Clamp01(rank)*4+(owner?1:0),0,5);int r0=Mathf.Min(4,Mathf.FloorToInt(rung));
+            float radius=Mathf.Lerp(RungRadius[r0],RungRadius[r0+1],rung-r0);
+            Vector2 ridge=RidgeAt(year,industry);z=Mathf.Min(z,CrestZ-.4f);
+            float x=ridge.x-ridge.y*radius;
+            return new Vector3(x,Rest(industry,x,z)+lift,z);
+        }
         /// <summary>The hill's market: where households' rivers arrive on its valley-side slope and its value splits.</summary>
-        public Vector3 Market(int industry)=>OnHill(Hills[industry],Valley,.86f,.3f);
+        public Vector3 Market(int industry)
+        {
+            if(Hills[industry].Tier>0)return OnHill(Hills[industry],Valley,.86f,.3f);
+            // Government's counter: at the foot of the hillside beside its cohorts on the valley floor (its hill lies in the bedrock).
+            float x=FootX+.5f,z=GovernmentSeat(industry,4,0).z;return new Vector3(x,Ground(x,z)+.3f,z);
+        }
         /// <summary>The gold halo above the summit, where the owners' surplus gathers before it rises to its owners.</summary>
         public Vector3 Halo(int industry)=>Hills[industry].Summit+Vector3.up*(1.6f+Hills[industry].Height*.10f);
         /// <summary>Where a named firm stands: on its hill's crest side, where its lifeline arrives from the wake.</summary>

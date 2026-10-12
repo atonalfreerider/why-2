@@ -26,7 +26,13 @@ namespace Why
         float flightT = 1, flightDuration = 1;
         bool dragging;
 
-        public Camera Cam { get; private set; }
+        Camera cam;
+
+        /// <summary>
+        /// The camera this rig moves. Resolved on first use: a rig serialized in the scene may be asked for it before its
+        /// own Awake (GraphRoot and the modules wake first).
+        /// </summary>
+        public Camera Cam => cam != null ? cam : cam = GetComponent<Camera>();
         public CameraPose Pose => pose;
 
         /// <summary>
@@ -40,7 +46,7 @@ namespace Why
         public const float XrViewDistance = 1.1f;
 
         /// <summary>Steepest downward look (degrees) a headset pose asks for; presets that look straight down are tilted up.</summary>
-        public const float XrMaxPitch = 38f;
+        public const float XrMaxPitch = 28f;
 
         /// <summary>World units per metre in a headset (the origin's uniform scale).</summary>
         public float XrScale => pose.Distance / XrViewDistance;
@@ -61,7 +67,6 @@ namespace Why
 
         void Awake()
         {
-            Cam = GetComponent<Camera>();
             pose = new CameraPose { Target = Vector3.zero, Yaw = 0, Pitch = 60, Distance = 10 };
             Apply();
         }

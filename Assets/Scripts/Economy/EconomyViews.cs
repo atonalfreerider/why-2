@@ -105,6 +105,9 @@ namespace Why.Economy
             ViewSpec o = specs["overview"];
             s = new ViewSpec { Id = presetId, MorphTarget = o.MorphTarget, HideRoadLabels = Layers.PersonFocus.IsView(presetId) || o.HideRoadLabels, Labels = o.Labels };
             Array.Copy(o.Alpha, s.Alpha, s.Alpha.Length);
+            // one person in front, the population behind: the road of lives recedes (the ladder keeps more of it, since
+            // it is the time axis the life runs along)
+            if (Layers.PersonFocus.IsView(presetId)) s.Alpha[(int)LandGroup.Road] = presetId == "ladder" ? .4f : .2f;
             specs[presetId] = s;
             return s;
         }

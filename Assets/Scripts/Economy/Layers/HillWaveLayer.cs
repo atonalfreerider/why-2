@@ -82,8 +82,8 @@ namespace Why.Economy.Layers
                 {
                     case Part.Ribs: return ladder ? .5f : .14f;
                     case Part.Ridges: return ladder ? .55f : .25f;
-                    case Part.Face: return .3f;
-                    case Part.Crest: return .6f;
+                    case Part.Face: return ladder ? .3f : .12f;
+                    case Part.Crest: return ladder ? .6f : .22f;
                     case Part.Focus: return 1;
                     default: return .04f;
                 }

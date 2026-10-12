@@ -12,7 +12,8 @@ namespace Why
     /// Runtime smoke test for players and CI, idle unless the player is started with <c>-smoketest</c>: once the graph is
     /// loaded it flies through every view preset, steps through every stop of the guided tour, then opens the other
     /// scene and does the same there, and quits with exit code 1 if anything logged an error or exception.
-    /// <c>-screenshots DIR</c> saves a frame of every view and tour stop; add <c>-xr</c> to exercise the headset
+    /// <c>-screenshots DIR</c> saves a frame of every view and tour stop (<c>-smokeonly a,b</c> limits it to those views
+    /// and skips the tour); add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
@@ -23,6 +24,7 @@ namespace Why
 
         static bool enabledByArgs, hooked;
         static string shots;
+        static HashSet<string> only;
         static readonly HashSet<string> visited = new HashSet<string>();
         static readonly List<string> problems = new List<string>();
         static int errors;
@@ -42,6 +44,8 @@ namespace Why
             int i = System.Array.IndexOf(args, "-screenshots");
             shots = i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
             if (shots != null) Directory.CreateDirectory(shots);
+            int o = System.Array.IndexOf(args, "-smokeonly");
+            if (o >= 0 && o + 1 < args.Length) only = new HashSet<string>(args[o + 1].Split(','));
             if (!hooked)
             {
                 hooked = true;
@@ -68,13 +72,14 @@ namespace Why
 
             foreach (ViewPreset p in ViewPresets.All.ToList())
             {
+                if (only != null && !only.Contains(p.Id)) continue;
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
-                Shot($"{scene}-view-{p.Id}");
+                yield return Shot($"{scene}-view-{p.Id}");
             }
 
             DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
-            if (director != null)
+            if (director != null && only == null)
             {
                 director.StartTour();
                 yield return new WaitForSecondsRealtime(StopSeconds);
@@ -84,7 +89,7 @@ namespace Why
                     director.NextStep(); // completes the typewriter
                     director.NextStep(); // moves on
                     yield return new WaitForSecondsRealtime(StopSeconds);
-                    Shot($"{scene}-tour-{n + 1:00}");
+                    yield return Shot($"{scene}-tour-{n + 1:00}");
                 }
 
                 director.ExitTour();
@@ -103,10 +108,14 @@ namespace Why
             Application.Quit(errors > 0 ? 1 : 0);
         }
 
-        static void Shot(string name)
+        /// <summary>Captures this frame and waits until it is written, so the next view does not leak into it.</summary>
+        static IEnumerator Shot(string name)
         {
-            if (shots == null) return;
+            if (shots == null) yield break;
+            yield return new WaitForEndOfFrame();
             ScreenCapture.CaptureScreenshot(Path.Combine(shots, name + ".png"));
+            yield return null;
+            yield return null;
         }
     }
 }

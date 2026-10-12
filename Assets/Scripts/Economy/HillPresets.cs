@@ -70,7 +70,7 @@ namespace Why.Economy
                 default:
                     float span = ready ? PersonFocus.LadderSpan : 90;
                     return Make("ladder", "The economic ladder", who + " across the wave: each year on the household's hill at the rung of its income · blue labor, gold in control · white ghost: the parents' rank",
-                        KeyCode.None, ready ? PersonFocus.LadderCenter + Vector3.up * 3 : new Vector3(60, 12, crest - 30), 104, 20, Mathf.Clamp(span * 1.05f, 45, 190));
+                        KeyCode.None, ready ? PersonFocus.LadderCenter + Vector3.up * 3 : new Vector3(60, 12, crest - 30), 118, 16, Mathf.Clamp(span * 0.8f, 36, 150));
             }
         }
 

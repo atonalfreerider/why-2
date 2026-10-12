@@ -123,7 +123,18 @@ namespace Why
             }
 
             modules.Sort((a, b) => a.Order.CompareTo(b.Order));
-            foreach (GraphModule m in modules) m.Init(this);
+            foreach (GraphModule m in modules)
+            {
+                // one module failing to start must not leave the ones after it uninitialized
+                try
+                {
+                    m.Init(this);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"[Why] {m.GetType().Name}.Init failed: {e}");
+                }
+            }
         }
 
         IEnumerator Start()

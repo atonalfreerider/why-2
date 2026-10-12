@@ -32,7 +32,9 @@ namespace Why.Economy.Layers
         int[] recipient;
         double[] riverAmount;
         LineMeshBuilder pulseGeometry;
-        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry;
+        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry, circles, circleThreads;
+        double[] eliteClaim;
+        double eliteShare;
         LandSnapshot snapshot;
         HillLandscape land;
         GameObject content;
@@ -93,6 +95,10 @@ namespace Why.Economy.Layers
             }
             GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
             GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
+            // The owners' inner circles: every firm sits inside a ring of its elite owners; threads rise to the clouds.
+            string v=LandView.PresetId;bool own=v=="capture"||v=="companies";
+            GraphMaterials.SetAlpha(circles.sharedMaterial,own?1:PersonFocus.IsView(v)?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
+            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,own?.6f:v=="people"?.3f:PersonFocus.IsView(v)?.02f:.08f);
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
             if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
@@ -159,6 +165,12 @@ namespace Why.Economy.Layers
             var towers=snapshot.Land.Towers;firmAt=new Vector3[towers.Length];haloScale=new float[towers.Length];var count=new int[land.Hills.Length];
             var total=new int[land.Hills.Length];foreach(var t in towers)total[t.Industry]++;
             var capture=LandService.Model.Data.Circuit?.Capture;
+            var ring=new LineMeshBuilder();var rise=new LineMeshBuilder();
+            // The top 1%'s share of corporate equity (DFA, the shown year) of the domestic part of each firm's market value:
+            // the size of its inner circle of elite owners (a portfolio proxy, not the firm's register).
+            var circuit=LandService.Model.Data.Circuit;
+            eliteShare=Math.Max(0,Math.Min(1,Data.EconomyData.Keyed(circuit?.GroupEquityHistory,"top1").At(snapshot.Year)));
+            double domestic=1-Math.Max(0,Math.Min(1,circuit?.ForeignEquityShare??0));eliteClaim=new double[towers.Length];
             for(int f=0;f<towers.Length;f++)
             {
                 var tower=towers[f];var hill=land.Hills[tower.Industry];int seat=count[hill.Industry]++;
@@ -185,6 +197,8 @@ namespace Why.Economy.Layers
                 // narrowing up the beam to the owners' halo. Headcount sets the base; reporting lines are illustrative.
                 double staff=capture!=null&&tower.Company<capture.Count?capture[tower.Company].UsEmployees:0;
                 orgs.Add(Render(Organization(at,beam,revenue,staff),"Organization / "+tower.Name,true));
+                eliteClaim[f]=Math.Max(0,tower.MarketCap)*domestic*eliteShare;
+                InnerCircle(ring,rise,at+Vector3.up*(beam-.35f),1.18f*haloScale[f]+.55f+.03f*Mathf.Sqrt((float)eliteClaim[f]),eliteClaim[f]);
                 for(int prior=0;prior<f;prior++)if(towers[prior].Industry==hill.Industry)
                     competition.AddPolyline(new[]{firmAt[prior]+Vector3.up*.2f,(firmAt[prior]+at)*.5f+Vector3.up*1.2f,at+Vector3.up*.2f},Desire,1,0,0,1,1);
             }
@@ -198,7 +212,24 @@ namespace Why.Economy.Layers
                     Tunnel(branches,firmAt[f],land.Hills[b.Index].Foot,Fear,.6f);
             }
             structure=Render(branches,"Inferred supply allocations");
+            circles=Render(ring,"Owners' inner circles",true);
+            circleThreads=Render(rise,"Inner circles to the clouds",true);circleThreads.sharedMaterial.SetFloat("_Flow",1);
             rivalry=Render(competition,"Same-sector rivalry (scenario)",true);
+        }
+        /// <summary>A gold ring of owner figures around a firm's profit halo, as many as its elite claim warrants
+        /// (one per ~$9B squared-root scaled, 5..22), with a thin gold thread up to the 1% cloud.</summary>
+        void InnerCircle(LineMeshBuilder ring,LineMeshBuilder rise,Vector3 c,float r,double claim)
+        {
+            int n=Mathf.Clamp(Mathf.RoundToInt(Mathf.Sqrt((float)claim)/3f),5,22);
+            Ring(ring,c,r,Gold,2.2f,false,3.2f);Ring(ring,c+Vector3.up*.08f,r*1.05f,WithAlpha(Gold,.5f),1,false,2);
+            for(int k=0;k<n;k++)
+            {
+                float a=k*Mathf.PI*2/n;Vector3 p=c+new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);
+                ring.AddSegment(p,p+Vector3.up*.32f,Gold,1.8f,.025f,0,3);Ring(ring,p+Vector3.up*.42f,.08f,Gold,1.2f,true,3);
+            }
+            var cloud=land.CloudCenter;var pts=new LinePoint[21];
+            for(int k=0;k<pts.Length;k++){float t=k/20f;pts[k]=new LinePoint(Vector3.Lerp(c+Vector3.up*.4f,cloud,t)+Vector3.up*Mathf.Sin(t*Mathf.PI)*4,WithAlpha(Gold,.55f),.7f+Mathf.Sqrt((float)claim)*.02f,0,1.8f);}
+            rise.AddFlowPath(pts,0,.3f);
         }
         static float Beam(TowerGeom t)=>2+Mathf.Log10(1+(float)Math.Max(0,t.MarketCap))*2.4f;
         LineMeshBuilder Organization(Vector3 at,float beam,float radius,double staffThousands)
@@ -237,6 +268,7 @@ namespace Why.Economy.Layers
             if(t.Revenue>0)s+="\nrevenue "+LandFacts.Money(t.Revenue)+" · profit "+LandFacts.Money(t.NetIncome)+" ("+LandFacts.Percent(t.NetIncome/t.Revenue)+")";
             if(t.NetIncome>0)s+="\nmarket value "+LandFacts.Money(t.MarketCap)+" = "+(t.MarketCap/t.NetIncome).ToString("F0",LandFacts.Ci)+" years of today's profit";
             else s+="\nmarket value "+LandFacts.Money(t.MarketCap);
+            if(eliteClaim!=null&&f<eliteClaim.Length&&eliteClaim[f]>0)s+="\ninner circle: the top 1% hold ≈ "+LandFacts.Money(eliteClaim[f])+" ("+LandFacts.Percent(eliteShare)+" of US-held equity)";
             return s+"\nscenario household demand "+LandFacts.Money(Competition.FirmReceipts[f]);
         }
         static Color WithAlpha(Color c,float a){c.a=a;return c;}

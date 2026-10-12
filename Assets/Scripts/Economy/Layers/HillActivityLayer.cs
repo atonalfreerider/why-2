@@ -63,7 +63,7 @@ namespace Why.Economy.Layers
             {
                 float progress=(1-Mathf.Cos(animation*(.055f+.015f*(1-FearOf(p)))+p*2.399963f))*.5f;
                 Vector3 at=Vector3.Lerp(home[p],destinations[p],progress);
-                if(!land.Cloud[p/Subgroups])at.y=Mathf.Lerp(land.Rest(land.IndustryOf[p/Subgroups],at.x,at.z),land.Rest(recipient[p],at.x,at.z),progress)+.3f;
+                if(!land.Cloud[p/Subgroups])at.y=Mathf.Lerp(land.Footing(land.IndustryOf[p/Subgroups],at.x,at.z),land.Footing(recipient[p],at.x,at.z),progress)+.3f;
                 if(HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group)at=HillExplorer.GroupCenter;
                 Positions[p]=at;actors[p].transform.localPosition=at;
                 bool memberView=HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group;

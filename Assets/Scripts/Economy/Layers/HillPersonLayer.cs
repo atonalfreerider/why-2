@@ -129,7 +129,7 @@ namespace Why.Economy.Layers
             person = life.Person;
             content = new GameObject("The followed person"); content.transform.SetParent(transform, false);
             var now = life.Now; int last = life.Records.Length - 1, industry = life.IndustryAt(last);
-            Vector3 place = land.Rung(life.Year, industry, now.IncomeRank, Owner(now), land.CrestZ - 3, 0);
+            Vector3 place = land.Rung(life.Year + .5, industry, now.IncomeRank, Owner(now), land.CrestZ - 3, 0);
             PersonFocus.Place = place; PersonFocus.Mind = place + Vector3.up * 8.5f;
             // The arena floats over the valley side of the person, a little back in time, clear of the slope.
             Vector3 arena = place + new Vector3(-12, 0, -5); arena.y = Mathf.Max(place.y, land.Ground(arena.x, arena.z)) + 5.5f;

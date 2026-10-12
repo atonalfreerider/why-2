@@ -97,8 +97,8 @@ namespace Why.Economy.Layers
             var count=new int[Current.Hills.Length];foreach(int h in Current.IndustryOf)count[h]++;
             int best=0;for(int h=1;h<count.Length;h++)if(Current.Hills[h].Tier>0&&count[h]>count[best])best=h;
             var hill=Current.Hills[best];var b=new LineMeshBuilder();
-            string[] names={"VALLEY FLOOR · out of work","LOWER VALLEY · working poor, students","FOOTHILLS · frontline, gig, Social Security retirees",
-                "SLOPES · office, public servants, comfortable retirees","UPPER SLOPES · professional-managerial class","UNDER THE SUMMIT · business owners"};
+            string[] names={"VALLEY FLOOR · out of work","LOWER VALLEY · working poor, students","FOOTHILLS · frontline, gig",
+                "SLOPES · office, comfortable retirees","UPPER SLOPES · professional-managerial class","UNDER THE SUMMIT · business owners"};
             for(int r=0;r<names.Length;r++)
             {
                 var ring=new Vector3[41];
@@ -107,6 +107,8 @@ namespace Why.Economy.Layers
                 Label(names[r],Current.At(hill,HillLandscape.Valley,HillLandscape.RungRadius[r],1.2f)+Vector3.left*3,LandGroup.Glyphs,.17f,r>=4?Gold:Ice);
             }
             Label("CLOUDS · the top 1%: claims on every hill",Current.CloudCenter+new Vector3(0,4,-6),LandGroup.Glyphs,.25f,Gold);
+            // Government's hills lie in the bedrock: those it pays stand on the valley floor in front of the hillside.
+            Label("VALLEY FLOOR · paid by government: public servants,\nSocial Security retirees, the safety net",new Vector3(HillLandscape.FootX-7,2.2f,Current.CrestZ-7),LandGroup.Glyphs,.2f,Ice);
             Lines(b,LandGroup.Glyphs);
         }
         void Owners()

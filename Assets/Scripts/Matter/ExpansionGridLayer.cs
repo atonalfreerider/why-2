@@ -41,17 +41,17 @@ namespace Why.Matter
         public static readonly int GridId = GraphIds.Matter(998);
 
         // --- what is drawn ---
-        /// <summary>Decades of distance drawn, 10^0 .. 10^MaxDecade metres (the observable universe is 4.4e26 m).</summary>
-        const int MaxDecade = 26;
+        /// <summary>Decades of distance drawn, 10^MinDecade (a kilometre: the finest cells) .. 10^MaxDecade metres (the observable universe is 4.4e26 m).</summary>
+        const int MinDecade = 3, MaxDecade = 26;
 
         /// <summary>Relative weight of the four classes of line: decades, the 2..9 steps, the 0.1 steps, the 0.01 steps.</summary>
         static readonly float[] ClassWeight = { 1f, 0.55f, 0.2f, 0.12f };
 
-        /// <summary>The finest class (0.01 steps) is only generated from this decade outward, where the map can resolve it.</summary>
-        const int HundredthsFromDecade = 21;
+        /// <summary>The finest class (0.01 steps) is generated from this decade outward (every decade: the closest tier peels it open).</summary>
+        const int HundredthsFromDecade = MinDecade;
 
         /// <summary>The coarsest tier a class is baked into: the finer steps are details of the closer tiers.</summary>
-        static readonly int[] ClassFirstTier = { 0, 0, 1, 2 };
+        static readonly int[] ClassFirstTier = { 0, 0, 1, 3 };
 
         /// <summary>Crossbeams are drawn for these classes (the 0.01 steps have none: they are hairlines).</summary>
         const int TieClasses = 3;
@@ -63,7 +63,7 @@ namespace Why.Matter
         const float MinTieSamples = 1.5f;
 
         /// <summary>Vertices of crossbeams per tier, at most (finer classes are dropped first).</summary>
-        const int TieVertexBudget = 160000;
+        const int TieVertexBudget = 200000;
 
         /// <summary>
         /// A decade line keeps this much of its opacity after the finer lines have taken over between it and
@@ -72,8 +72,8 @@ namespace Why.Matter
         const float DecadeFloor = 0.3f;
 
         // --- tiers: the same lines baked for a crowding threshold Zoom times finer per tier, crossfaded by pixel density ---
-        public const int Tiers = 3;
-        const float Zoom = 3f;
+        public const int Tiers = 4;
+        const float Zoom = 4f;
 
         /// <summary>World-unit gap below which a line is crowded out at the overview (~3 px at distance 22).</summary>
         const float CrowdGap = 0.05f;
@@ -94,7 +94,7 @@ namespace Why.Matter
         const double InnerDecades = 0.5, BoundDecades = 0.3;
 
         // --- look ---
-        const float GridAlpha = 0.24f;
+        const float GridAlpha = 0.3f;
         const float GridIntensity = 0.7f;
         const float GridRhoFade = 30f;
         const float HandoffExponent = 2f;
@@ -139,9 +139,8 @@ namespace Why.Matter
                 {
                     MatterScale.Knot a = Knots[i], b = Knots[i + 1];
                     if (log10Radius > b.Log10Radius) continue;
-                    double span = b.Log10Radius - a.Log10Radius;
-                    rho = a.Rho + (float)((log10Radius - a.Log10Radius) / span) * (b.Rho - a.Rho);
-                    decadesPerUnit = (float)(span / (b.Rho - a.Rho));
+                    rho = MatterScale.RhoAt(a, b, log10Radius);
+                    decadesPerUnit = (float)MatterScale.DecadesPerUnitAt(a, b, log10Radius);
                     return true;
                 }
 
@@ -260,7 +259,7 @@ namespace Why.Matter
         /// </summary>
         static IEnumerable<(double log10, int cls, double step)> Values()
         {
-            for (int n = 0; n <= MaxDecade; n++)
+            for (int n = MinDecade; n <= MaxDecade; n++)
             {
                 int finest = n >= HundredthsFromDecade ? 3 : 2;
                 int steps = finest == 3 ? 1000 : 100;
@@ -395,10 +394,10 @@ namespace Why.Matter
         }
 
         /// <summary>A crossbeam: a radial tie across one track at one moment, with its opacity at every tier.</summary>
-        struct Tie
+        sealed class Tie
         {
             public float U, RhoA, RhoB, Width;
-            public float A0, A1, A2;
+            public readonly float[] Alpha = new float[Tiers];
         }
 
         /// <summary>
@@ -450,9 +449,7 @@ namespace Why.Matter
                     float alpha = t < ClassFirstTier[cls] ? 0 : baseAlpha * Emerge(gap, crowd) * Faint(gap, crowd, cls);
                     // no tie across a track whose rails are not both there at this tier
                     if (a.Tier[t][j] <= CullAlpha || b.Tier[t][j] <= CullAlpha) alpha = 0;
-                    if (t == 0) tie.A0 = alpha;
-                    else if (t == 1) tie.A1 = alpha;
-                    else tie.A2 = alpha;
+                    tie.Alpha[t] = alpha;
                 }
 
                 list.Add(tie);
@@ -465,7 +462,7 @@ namespace Why.Matter
                 if (tieVertices[t] >= TieVertexBudget) continue;
                 foreach (Tie tie in list)
                 {
-                    float alpha = t == 0 ? tie.A0 : t == 1 ? tie.A1 : tie.A2;
+                    float alpha = tie.Alpha[t];
                     if (alpha <= CullAlpha) continue;
                     Color32 c = Tint(alpha);
                     pts[0] = new LinePoint(new Vector3(tie.U, GraphStyle.MatterY, tie.RhoA), c, WidthPx, tie.Width, 1f);
@@ -643,8 +640,8 @@ namespace Why.Matter
             materials = new Material[Tiers];
             for (int t = 0; t < Tiers; t++)
             {
-                // beneath the envelope and the band fills (QueueMatter: they veil it) and the matter lines
-                Material m = GraphMaterials.Line(color, GridIntensity, GraphMaterials.QueueMatter - 1, true, GridRhoFade, 0f);
+                // above the band fills (which would veil the finer tracks up close), additive with the band edges
+                Material m = GraphMaterials.Line(color, GridIntensity, GraphMaterials.QueueMatter + 1, true, GridRhoFade, 0f);
                 GraphMaterials.FadeBeforeHumanBranch(m);
                 lod[t] = t == 0 ? 1f : 0f;
                 GraphMaterials.SetAlpha(m, lod[t]);

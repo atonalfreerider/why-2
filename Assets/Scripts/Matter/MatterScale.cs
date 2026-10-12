@@ -98,13 +98,51 @@ namespace Why.Matter
         /// <summary>log10 of the observable universe's radius (metres) at arc u.</summary>
         public double Log10UniverseRadius(float u) => Math.Log10(ObservableRadiusM * Mathf.Max(layout.ScaleFactor(u), 1e-12f));
 
+        /// <summary>
+        /// Between two knots the map is exponential inside the gravitationally bound bodies (a ruler of decades, the
+        /// same at every moment, so the scale recurses down to the Earth) and linear in distance where space still
+        /// expands (the outer knot is comoving): there a comoving grid stretches with the scale factor exactly like the
+        /// bands, the outermost lines racing outward and every cell's growth pushing everything beyond it further out.
+        /// </summary>
+        public static bool Linear(Knot a, Knot b) => !b.Bound;
+
+        /// <summary>log10 radius at a point of a segment.</summary>
+        public static double Log10At(Knot a, Knot b, float rho)
+        {
+            double t = (rho - a.Rho) / (b.Rho - a.Rho);
+            if (!Linear(a, b)) return a.Log10Radius + t * (b.Log10Radius - a.Log10Radius);
+            double ra = Math.Pow(10, a.Log10Radius), rb = Math.Pow(10, b.Log10Radius);
+            return Math.Log10(Math.Max(ra + t * (rb - ra), 1e-300));
+        }
+
+        /// <summary>rho of a radius within a segment (the radius must lie within it).</summary>
+        public static float RhoAt(Knot a, Knot b, double log10Radius)
+        {
+            double t;
+            if (!Linear(a, b)) t = (log10Radius - a.Log10Radius) / (b.Log10Radius - a.Log10Radius);
+            else
+            {
+                double ra = Math.Pow(10, a.Log10Radius), rb = Math.Pow(10, b.Log10Radius);
+                t = (Math.Pow(10, log10Radius) - ra) / Math.Max(rb - ra, 1e-300);
+            }
+
+            return a.Rho + (float)t * (b.Rho - a.Rho);
+        }
+
+        /// <summary>The map's local scale at a radius within a segment: decades per world unit outward.</summary>
+        public static double DecadesPerUnitAt(Knot a, Knot b, double log10Radius)
+        {
+            if (!Linear(a, b)) return (b.Log10Radius - a.Log10Radius) / (b.Rho - a.Rho);
+            double ra = Math.Pow(10, a.Log10Radius), rb = Math.Pow(10, b.Log10Radius);
+            return (rb - ra) / ((b.Rho - a.Rho) * Math.Pow(10, log10Radius) * Math.Log(10));
+        }
+
         /// <summary>log10 of the distance from our lineage (metres) at (u, rho); extrapolated beyond the envelope.</summary>
         public double Log10Radius(float u, float rho)
         {
             IReadOnlyList<Knot> k = Knots(u);
             int i = Segment(k, rho);
-            Knot a = k[i], b = k[i + 1];
-            return a.Log10Radius + (rho - a.Rho) / (b.Rho - a.Rho) * (b.Log10Radius - a.Log10Radius);
+            return Log10At(k[i], k[i + 1], rho);
         }
 
         /// <summary>Distance from our lineage (metres) at (u, rho).</summary>
@@ -115,9 +153,8 @@ namespace Why.Matter
         {
             IReadOnlyList<Knot> k = Knots(u);
             int i = Segment(k, rho);
-            Knot a = k[i], b = k[i + 1];
-            double decadesPerUnit = (b.Log10Radius - a.Log10Radius) / (b.Rho - a.Rho);
-            return Radius(u, rho) * Math.Log(10) * decadesPerUnit;
+            double log10 = Log10At(k[i], k[i + 1], rho);
+            return Math.Pow(10, log10) * Math.Log(10) * DecadesPerUnitAt(k[i], k[i + 1], log10);
         }
 
         /// <summary>The rho at which the distance from our lineage is 10^<paramref name="log10Radius"/> metres, or -1 beyond the envelope.</summary>
@@ -130,7 +167,7 @@ namespace Why.Matter
             {
                 Knot a = k[i], b = k[i + 1];
                 if (log10Radius > b.Log10Radius) continue;
-                return a.Rho + (float)((log10Radius - a.Log10Radius) / (b.Log10Radius - a.Log10Radius)) * (b.Rho - a.Rho);
+                return RhoAt(a, b, log10Radius);
             }
 
             return k[k.Count - 1].Rho;

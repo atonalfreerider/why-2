@@ -25,6 +25,7 @@ namespace Why
         static bool enabledByArgs, hooked;
         static string shots;
         static HashSet<string> only;
+        static int zooms;
         static readonly HashSet<string> visited = new HashSet<string>();
         static readonly List<string> problems = new List<string>();
         static int errors;
@@ -46,6 +47,8 @@ namespace Why
             if (shots != null) Directory.CreateDirectory(shots);
             int o = System.Array.IndexOf(args, "-smokeonly");
             if (o >= 0 && o + 1 < args.Length) only = new HashSet<string>(args[o + 1].Split(','));
+            int zi = System.Array.IndexOf(args, "-smokezoom");
+            if (zi >= 0 && zi + 1 < args.Length) int.TryParse(args[zi + 1], out zooms);
             if (!hooked)
             {
                 hooked = true;
@@ -128,6 +131,15 @@ namespace Why
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
                 yield return Shot($"{scene}-view-{p.Id}");
+                // -smokezoom N: after each view, N more frames each a quarter of the distance toward the target
+                for (int z = 1; z <= zooms; z++)
+                {
+                    CameraPose pose = root.Rig.Pose;
+                    pose.Distance *= 0.25f;
+                    root.Rig.SetPose(pose);
+                    yield return new WaitForSecondsRealtime(1.2f);
+                    yield return Shot($"{scene}-view-{p.Id}-zoom{z}");
+                }
             }
 
             DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();

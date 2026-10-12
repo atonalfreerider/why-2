@@ -108,12 +108,16 @@ raw materials, manufacturing and infrastructure, services and tech stand on one 
 industry a ridge as wide as its share of value added. The crest is the shown year. 75 companies live on the ridges like
 people on the road: born, rising and falling with their (approximate) market value, failing, bought or reaching the
 crest, colored by how Jev judged each one sells (need, manufactured want or fear). People live on the slope of the
-industry that pays them, class by altitude; their spending runs to each industry's market as rivers of desire and fear,
-saving leaves over the crest into the future and debt arrives from it. The old torus renderers remain in code but are
-disabled through `EconomyLayouts`.
+industry that pays them, class by altitude (those government pays stand on the valley floor in front of the hills); their
+spending runs to each industry's market as rivers of desire and fear (split by the fear share of what is bought there),
+saving leaves over the crest into the future and debt arrives from it. Every stored firm sits inside a gold inner circle
+of elite owners. The old torus renderers remain in code but are disabled through `EconomyLayouts`.
 
 Keys 1–9 and 0: overview, population/families, the wave, ownership, class, rivers, the 3D mind, society, social
-infrastructure and companies. Orbit and
+infrastructure and companies. Three keyless views follow one person (the inspected person, else the striver notable):
+`atom` (the person on their hillside with a 3D mind of five desire and five fear drives above them, and the pulls of
+those drives across the landscape), `dilemma` (a live tit-for-tat arena with spouse, coworker, neighbor, boss and the
+other tribe, and the groups' cooperation above) and `ladder` (their life across the wave, rung by rung). Orbit and
 zoom with the existing camera controls. Click a player for its historical inspector. The collapsed **Inspect / simulate**
 control opens an independent scenario ledger: choose a player, adjust reason/fear, step or play years, and reset.
 All players run the scenario program; assets, debt, consumption and support transfers are accounted for separately

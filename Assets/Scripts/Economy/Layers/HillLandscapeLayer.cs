@@ -346,9 +346,8 @@ namespace Why.Economy.Layers
         void Pick(Camera camera,bool mind)
         {
             HoverIndustry=HoverPlayer=hoverTie=-1; HoverOwner=null;
-            var mouse=Mouse.current;
-            if(mouse==null||mind||UI.HillExplorer.Depth>=3||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
-            Vector2 pointer=mouse.position.ReadValue(); float best=18*Screen.height/1080f;
+            if(!PointerInput.Available||mind||UI.HillExplorer.Depth>=3||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
+            Vector2 pointer=PointerInput.Position; float best=18*camera.pixelHeight/1080f;
             var moving=HillActivityLayer.Positions;
             for(int i=0;i<(moving?.Length??Current.People.Length);i++)
             {
@@ -382,16 +381,16 @@ namespace Why.Economy.Layers
                     }
                 }
             }
-            if(mouse.leftButton.wasPressedThisFrame)pressed=pointer;
-            if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HoverPlayer>=0)
+            if(PointerInput.PressedThisFrame)pressed=pointer;
+            if(PointerInput.ReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HoverPlayer>=0)
                 {
                 EconomyState.SetSelection(HoverPlayer,-1,-1);
                 if(lastPlayer==HoverPlayer&&Time.unscaledTime-lastClick<.35f)UI.HillExplorer.Instance?.EnterGroup(HoverPlayer);
                 lastPlayer=HoverPlayer;lastClick=Time.unscaledTime;
             }
-            else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&hoverTie>=0)
+            else if(PointerInput.ReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&hoverTie>=0)
                 EconomyState.SetSelection(EconomyState.SelectedPlayer,-1,hoverTie);
-            else if(mouse.leftButton.wasReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HillWaveLayer.HoverCompany<0)
+            else if(PointerInput.ReleasedThisFrame&&Vector2.Distance(pressed,pointer)<5&&HillWaveLayer.HoverCompany<0)
             {
                 int firm=-1;float closest=22;
                 for(int f=0;f<snapshot.Land.Towers.Length;f++){Vector3 screen=camera.WorldToScreenPoint(frame.World(HillActivityLayer.CompanyHalo(f)));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;firm=f;}}

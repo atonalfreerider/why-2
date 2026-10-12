@@ -417,18 +417,17 @@ namespace Why.Economy.Layers
         void Pick(Camera camera)
         {
             HoverCompany = -1;
-            var mouse = Mouse.current;
-            if (mouse == null || UI.HillExplorer.Depth >= 3 || EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
+            if (!PointerInput.Available || UI.HillExplorer.Depth >= 3 || EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
             if (Emphasis(Part.Lives, LandView.PresetId) < .2f && SelectedCompany < 0) return;
-            Vector2 pointer = mouse.position.ReadValue(); float best = 12 * Screen.height / 1080f;
+            Vector2 pointer = PointerInput.Position; float best = 12 * camera.pixelHeight / 1080f;
             foreach (var s in samples)
             {
                 Vector3 screen = camera.WorldToScreenPoint(frame.World(s.at));
                 if (screen.z <= 0) continue;
                 float d = Vector2.Distance(pointer, screen); if (d < best) { best = d; HoverCompany = s.company; }
             }
-            if (mouse.leftButton.wasPressedThisFrame) pressed = pointer;
-            if (mouse.leftButton.wasReleasedThisFrame && Vector2.Distance(pressed, pointer) < 5 && HillLandscapeLayer.HoverPlayer < 0)
+            if (PointerInput.PressedThisFrame) pressed = pointer;
+            if (PointerInput.ReleasedThisFrame && Vector2.Distance(pressed, pointer) < 5 && HillLandscapeLayer.HoverPlayer < 0)
                 SelectedCompany = HoverCompany;
         }
 

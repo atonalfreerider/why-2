@@ -107,6 +107,9 @@ namespace Why.Director
         /// <summary>True while the guided tour runs.</summary>
         public bool TourRunning => active;
 
+        /// <summary>True on the tour's closing card (after the last stop).</summary>
+        public bool AtEndCard => active && steps != null && index >= steps.Count;
+
         /// <summary>The anchor the current step points at (null between steps and outside the tour); headsets mark it in 3D.</summary>
         public Anchor AttentionTarget => active ? target : null;
 

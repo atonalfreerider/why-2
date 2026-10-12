@@ -203,10 +203,9 @@ namespace Why.Economy.UI
         /// </summary>
         void TrackClicks(bool tour)
         {
-            Mouse mouse = Mouse.current;
-            if (mouse == null) return;
-            Vector2 position = mouse.position.ReadValue();
-            if (mouse.leftButton.wasPressedThisFrame)
+            if (!PointerInput.Available) return;
+            Vector2 position = PointerInput.Position;
+            if (PointerInput.PressedThisFrame)
             {
                 Keyboard kb = Keyboard.current;
                 bool shift = kb != null && kb.shiftKey.isPressed; // shift + left drag pans
@@ -214,7 +213,7 @@ namespace Why.Economy.UI
                 pressPosition = position;
             }
 
-            if (!mouse.leftButton.wasReleasedThisFrame || !pressValid) return;
+            if (!PointerInput.ReleasedThisFrame || !pressValid) return;
             pressValid = false;
             float slop = ClickSlopPx * LabelSystem.UiScale;
             if ((position - pressPosition).sqrMagnitude > slop * slop || root.Labels.Hovered != null) return;

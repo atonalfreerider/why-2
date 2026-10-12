@@ -208,9 +208,9 @@ namespace Why.Economy.UI
             bool show=!root.TourActive&&LandView.PresetId!="section"&&LandView.PresetId!="society"&&LandView.PresetId!="betrayal";panel.gameObject.SetActive(show);
             if(dots)dots.SetActive(show&&LandView.PresetId!="mind");
             if(!show||Depth<3||Depth==5)return;
-            var mouse=Mouse.current;if(mouse==null||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
-            Vector2 pointer=mouse.position.ReadValue();if(mouse.leftButton.wasPressedThisFrame)press=pointer;
-            if(!mouse.leftButton.wasReleasedThisFrame||Vector2.Distance(press,pointer)>5)return;
+            if(!PointerInput.Available||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
+            Vector2 pointer=PointerInput.Position;if(PointerInput.PressedThisFrame)press=pointer;
+            if(!PointerInput.ReleasedThisFrame||Vector2.Distance(press,pointer)>5)return;
             int hit=-1;float closest=14;
             for(int i=0;i<memberAt.Count;i++){Vector3 screen=root.Rig.Cam.WorldToScreenPoint(EconomyStage.Land().World(memberAt[i]+Vector3.up*.4f));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;hit=memberIds[i];}}
             if(hit>=0)EnterPerson(hit);

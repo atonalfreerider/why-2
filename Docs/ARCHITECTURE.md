@@ -34,7 +34,7 @@ sigma = (1 - u) / (1 - uH) * R0 * 3pi/2                          (u >= uH, the c
 sigma = sigmaH + L * (ln(yaH + CH) - ln(ya + CH)) / ln((yaH + CH) / CH)   (u < uH, the straight branch)
 ```
 
-with `uH = Arc(5000 years ago)`, `L = 6` world units and `CH = 3000` years (near-linear time).
+with `uH = Arc(5000 years ago)`, `L = 8` world units and `CH = 400` years (`GraphWarp.BasePath.BranchLength`, `BranchLogOffset`: close to linear time over the last few centuries).
 
 **Lens** (`WarpState`): a focus `uF`, `unroll` in `[0, 1]`, and a time window (`C` log offset,
 `lnYaF = ln(yaF + C)`, `kLin` world units per ln unit). Arc length from the focus:

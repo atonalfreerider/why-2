@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Economy.unity
     guid: efa9c51d5db54ddeb547c985d9559270
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a43cc912cbd84e9f8837f8cd83d2ca25, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: d865eebc2668a3c6b8433bb96a54756a, type: 2}

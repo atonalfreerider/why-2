@@ -73,7 +73,8 @@ project); children's lines start from their parents.
 | U | unroll the timeline around what you are looking at (again to roll back up) |
 | [ / ] | widen / narrow the unrolled time window |
 | L | cycle log / mixed / linear time in the unrolled window |
-| T | guided tour (director mode): Space / Right next, Left back, P pause, M mute the narration, Esc exit |
+| T | guided tour (director mode): Space / Right next, Left back, P pause, M mute the narration, Esc exit; it ends by continuing into the economy |
+| Tab | switch between the universe and the economy |
 | F | people of this time: famous figures alive at the moment you are looking at; click one to follow their life |
 | G | scale probe: point at the red layer to read the distance from us in metres, and how many metres (and years) one unit of the graph stands for there |
 | V | vertical mode: a 9:16 layout for recording phone videos (again to go back) |
@@ -82,14 +83,46 @@ project); children's lines start from their parents.
 
 ## Narration
 
-The guided tour is spoken. Each of its 63 stops has a narration clip (`Assets/Resources/Audio/Tour`,
-about half an hour in all) that follows the four threads of the story: the three levels of the universe
-and how each is built on everything before it, cause and effect as a one-way arrow, how scale works, and
-the chain of causes that led to you watching. The script lives in `Data/tour_narration.json` and was
-written by a language model from the tour's on-screen text; the voice is text-to-speech. To regenerate
-after editing the tour, run `Tools/generate-narration.ps1` (OpenAI; key file on the desktop) and then
-`Tools/synthesize-narration.ps1` (Cartesia; ffmpeg turns the clips into Ogg). A stop without a clip
-simply reads its on-screen text at the usual pace.
+The whole model has a spoken, guided walkthrough in John's own voice (an ElevenLabs clone, "JohnV4"), top to
+bottom: it opens with why the graph exists - understand cause and effect and you can build a working model of the
+universe from the Big Bang to this moment - walks the three levels across 64 stops, and at its end continues straight
+into the economy scene for 14 more (the wave, its foundation and layers, golden circles, rivers of desire and fear,
+one person's mind, tit for tat, the ladder). About 34 minutes in all.
+
+* Scripts (tracked): `Assets/Resources/Data/Walkthrough/` - `tour.json` and `economy_tour.json` hold each stop's view,
+  arrow target and on-screen text; `tour_narration.json` and `economy_narration.json` hold what is spoken. Each spoken
+  stop was checked against its on-screen text with Jev (contradiction, unsupported claims, faithfulness).
+* Voice: `python3 Tools/synthesize-narration-elevenlabs.py` writes `Assets/Resources/Audio/Tour/<id>.ogg` and
+  `Audio/EconomyTour/<id>.ogg` (key from `$ELEVENLABS_API_KEY` or `~/Desktop/eleven-key.txt`, never printed; only
+  stops whose text changed are re-voiced; ffmpeg converts to Ogg). The clips are generated, so they stay out of Git.
+* A local `Data/tour.json` still overrides the walkthrough while drafting; a stop without a clip reads its on-screen
+  text at the usual pace. The older OpenAI/Cartesia scripts (`Tools/generate-narration.ps1`,
+  `Tools/synthesize-narration.ps1`) remain for reference.
+
+## Meta Quest
+
+Both scenes run on Meta Quest (OpenXR, Android, Vulkan, single-pass instanced). Desktop builds are unaffected: XR
+starts only on Android.
+
+* Build: `Tools/build-quest.sh` (add `--copy` while the Editor has the project open, `--install` to sideload over USB
+  with developer mode on), or **Why > Quest > Build APK** in the Editor. Output: `Builds/Quest/why.apk`
+  (`io.primitive.why`); on the headset it is under Library > Unknown Sources. **Why > Quest > Configure XR** (also run
+  by every build) sets OpenXR with the Meta Quest feature and Touch / Touch Plus / Touch Pro controllers.
+* In the headset every view is a diorama: the view's subject sits at arm's length and the world is scaled to it, so
+  the Big Bang, a clade or one lifeline can each be walked around - and the world can be grabbed and resized at will.
+
+| Controller | Action |
+| --- | --- |
+| Right trigger | point and select (labels, people, companies, panels) |
+| Grip + pull | drag the world; both grips pulled apart / together: grow / shrink it around your hands |
+| Left stick | fly over the graph, where you look |
+| Right stick | up / down zoom, left / right turn the world 30 degrees |
+| A / B / Y | guided tour: next (starts it) / back / leave |
+| X | hand menu: the views, the tour, the other scene, recenter |
+| Left stick click | recenter |
+
+Panels float on a HUD plane that follows your gaze; the tour's target is marked by a beacon in the world instead of the
+screen arrow. Line widths are still in pixels per eye, and frame rate on device has not been profiled yet.
 
 ## Vertical mode
 
@@ -126,18 +159,18 @@ portfolios and allowance amounts are model assumptions. Stored macroeconomic dat
 the September 30, 2026 BEA revision has not been incorporated, and 2026 estimates are labeled. This is an exploratory
 model, not a calibrated forecast. See `Docs/hills-design/IMPLEMENTATION.md` for scope, validation and sources.
 
-Generated audio and local tour JSON files are ignored by Git. Existing local copies remain usable; built-in tours
-provide a fallback on fresh checkouts. Narration-generation scripts remain tracked.
+The narrated economy tour is part of the walkthrough (see Narration); generated audio stays out of Git.
 
 ## Project
 
-Unity 6000.6.3f1, URP 17.6. Open `Assets/Scenes/Why.unity` (or `Assets/Scenes/Economy.unity`) and press Play; everything is built at
+Unity 6000.6.5f1, URP 17.6, OpenXR 1.18. Open `Assets/Scenes/Why.unity` (or `Assets/Scenes/Economy.unity`) and press Play; everything is built at
 runtime in about two seconds (the original took about 30 s).
 
 * `Docs/ARCHITECTURE.md` - the rendering core: data space, the GPU warp (clock + branch + lens),
   line/surface shaders, highlight ids, anchors, layers and modules.
 * `Docs/DATA.md` - every data file, its schema and its sources.
-* `Tools/compile-check.ps1` - compiles the scripts against Unity's assemblies outside the Editor.
+* `Tools/compile-check.py` (`.ps1` on Windows) - compiles the scripts against Unity's assemblies outside the Editor.
+* `Tools/jev.py` - calls Jev for typed judgments (key from the environment or `~/Desktop/jev-key.txt`).
 
 ## Sources
 

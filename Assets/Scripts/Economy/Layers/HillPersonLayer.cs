@@ -181,8 +181,7 @@ namespace Why.Economy.Layers
             Vector3 Market(string id)
             {
                 var ind = data.IndustryById(id);
-                if (ind == null || land.Hills[ind.Index].Tier == 0) return land.ValleyFloor(.3f, place.z - 8);
-                return land.Market(ind.Index);
+                return ind == null ? land.ValleyFloor(.3f, place.z - 8) : land.Market(ind.Index);
             }
             string IndustryName(string id) => data.IndustryById(id)?.Name ?? id;
             // Desire: pulled toward the markets that serve each drive.
@@ -200,7 +199,7 @@ namespace Why.Economy.Layers
             for (int k = 0; k < 5; k++)
             {
                 float w = MindDiagram.Share(mind, true, k); if (w < .015f) continue;
-                Vector3 from = k == 0 ? employed ? MarketOf(now.Industry, place) + Vector3.up * .4f : land.ValleyFloor(0, place.z - 4) : Market(FearMarkets[k]);
+                Vector3 from = k == 0 ? employed ? MarketOf(now.Industry, place) + Vector3.up * 1.6f : land.ValleyFloor(0, place.z - 4) : Market(FearMarkets[k]);
                 string where = k == 0 ? employed ? "losing the job · " + data.Industries[now.Industry].Name : "destitution · no paying hill" : FearThreat[k];
                 net -= Threat(b, from, place, MindDiagram.FearColor(k), w, "FEAR · " + MindDiagram.Name(true, k).ToUpperInvariant() + " " + PersonLife.Pct(w) + "\n" + where);
             }
@@ -244,9 +243,9 @@ namespace Why.Economy.Layers
             Label("pulled by desire · pushed by fear · fed by its sources", place + Vector3.down * .8f + Vector3.back * 1.5f, .09f, Steel, Part.Pulls);
         }
 
-        /// <summary>An industry's market; for government, the valley floor (its hills lie in the bedrock).</summary>
+        /// <summary>An industry's market (government's counter stands on the valley floor), else the valley floor.</summary>
         Vector3 MarketOf(int industry, Vector3 place) =>
-            industry >= 0 && industry < land.Hills.Length && land.Hills[industry].Tier > 0 ? land.Market(industry) : land.ValleyFloor(.4f, place.z - 6);
+            industry >= 0 && industry < land.Hills.Length ? land.Market(industry) : land.ValleyFloor(.4f, place.z - 6);
 
         /// <summary>The employer: the nearest named firm seat on the industry's hill, else its market.</summary>
         Vector3 Employer(int industry)

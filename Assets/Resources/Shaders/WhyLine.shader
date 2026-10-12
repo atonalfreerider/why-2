@@ -39,6 +39,7 @@ Shader "Why/Line"
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 3.5
+            #pragma multi_compile_instancing
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "WhyCommon.hlsl"
@@ -65,6 +66,7 @@ Shader "Why/Line"
                 float4 p : TEXCOORD2;   // side, width px, width world, id
                 float2 q : TEXCOORD3;   // intensity, flow (0..1 along time; 2 + distance along a path, see LineMeshBuilder.AddFlowPath)
                 float4 color : COLOR;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct Varyings
@@ -73,6 +75,7 @@ Shader "Why/Line"
                 float4 color : COLOR;
                 float3 edge : TEXCOORD0;   // signed px across, half width px, arc u
                 float flow : TEXCOORD1;
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             // Pull a neighbor that is behind the camera onto the near side along the segment.
@@ -90,6 +93,8 @@ Shader "Why/Line"
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
+                UNITY_SETUP_INSTANCE_ID(IN);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
 
                 float sLin;
                 float3 w = WhyPlace(IN.pos, _Raw, sLin);

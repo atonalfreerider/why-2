@@ -38,6 +38,7 @@ Shader "Why/Surface"
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 3.5
+            #pragma multi_compile_instancing
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "WhyCommon.hlsl"
@@ -60,6 +61,7 @@ Shader "Why/Surface"
                 float3 pos : POSITION;
                 float4 p : TEXCOORD0;   // id, intensity, across (0..1), noise amount
                 float4 color : COLOR;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct Varyings
@@ -68,11 +70,14 @@ Shader "Why/Surface"
                 float4 color : COLOR;
                 float3 world : TEXCOORD0;
                 float2 band : TEXCOORD1;   // across, noise amount
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
+                UNITY_SETUP_INSTANCE_ID(IN);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
                 float sLin;
                 float3 w = WhyPlace(IN.pos, _Raw, sLin);
                 OUT.posCS = TransformWorldToHClip(w);

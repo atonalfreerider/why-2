@@ -213,7 +213,19 @@ namespace Why
             Debug.Log($"[Why] graph loaded in {LoadSeconds:0.00} s ({layers.Count} layers, {Anchors.All().Count} anchors)");
 
             Labels.MarkDirty();
-            foreach (GraphModule m in modules) m.OnLoaded(this);
+            foreach (GraphModule m in modules)
+            {
+                // modules that removed themselves (desktop-only, headset-only, smoke test) are skipped
+                if (m == null) continue;
+                try
+                {
+                    m.OnLoaded(this);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"[Why] {m.GetType().Name}.OnLoaded failed: {e}");
+                }
+            }
             Loaded?.Invoke();
         }
 

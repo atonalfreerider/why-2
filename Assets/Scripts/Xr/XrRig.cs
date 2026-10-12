@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Hands;
 using Why.Director;
@@ -53,6 +53,7 @@ namespace Why.Xr
         Vector3 hudPosition;
         bool hudPlaced, aimValid;
         int recenterFrames = -1;
+        readonly bool forceMenu = System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-xrmenu") >= 0;
 
         public static XrRig Instance { get; private set; }
 
@@ -61,8 +62,17 @@ namespace Why.Xr
         public bool Valid => aimValid;
         public Ray Ray => new Ray(rightAim.position, rightAim.forward);
         public bool Pressed => right.Pinching;
-        public bool PressedThisFrame => right.PinchStarted;
-        public bool ReleasedThisFrame => right.PinchEnded;
+        // a pinch that starts on a panel belongs to the panel, not to the world behind it
+        public bool PressedThisFrame => right.PinchStarted && !uiHitValid;
+        public bool ReleasedThisFrame => right.PinchEnded && !right.OnUi;
+
+        // the panel pointer: what the right ray hits on the kept canvases
+        GameObject hoverTarget, pressTarget;
+        Vector3 uiHit;
+        bool uiHitValid;
+        readonly List<Graphic> graphics = new List<Graphic>();
+        PointerEventData pointerData;
+        string lastState;
 
         // ------------------------------------------------------------------ setup
 
@@ -113,7 +123,8 @@ namespace Why.Xr
             XrSession.Hud.SetParent(offset, false);
             XrSession.AttachPending();
 
-            ConfigureUiInput(offset);
+            // panels are pressed by XrRig itself (PointUi); the event system only serves the desktop mouse
+            UiFactory.EnsureEventSystem();
             Material mat = new Material(Shader.Find("Sprites/Default"));
             ray = Line("Pointer Ray", mat, 2);
             left.BuildSkeleton(transform, mat);
@@ -147,34 +158,6 @@ namespace Why.Xr
             return lr;
         }
 
-        /// <summary>The UI module points with the right hand's aim ray and clicks with its index pinch.</summary>
-        static void ConfigureUiInput(Transform trackingSpace)
-        {
-            UiFactory.EnsureEventSystem();
-            InputSystemUIInputModule module = EventSystem.current != null
-                ? EventSystem.current.GetComponent<InputSystemUIInputModule>()
-                : null;
-            if (module == null) return;
-
-            InputActionAsset asset = ScriptableObject.CreateInstance<InputActionAsset>();
-            InputActionMap map = asset.AddActionMap("UI");
-            InputAction point = map.AddAction("Point", InputActionType.PassThrough, "<Mouse>/position");
-            InputAction click = map.AddAction("Click", InputActionType.PassThrough);
-            click.AddBinding("<MetaAimHand>{RightHand}/indexPressed");
-            click.AddBinding("<Mouse>/leftButton");
-            InputAction position = map.AddAction("TrackedDevicePosition", InputActionType.PassThrough,
-                "<MetaAimHand>{RightHand}/devicePosition");
-            InputAction orientation = map.AddAction("TrackedDeviceOrientation", InputActionType.PassThrough,
-                "<MetaAimHand>{RightHand}/deviceRotation");
-            module.actionsAsset = asset;
-            module.point = InputActionReference.Create(point);
-            module.leftClick = InputActionReference.Create(click);
-            module.trackedDevicePosition = InputActionReference.Create(position);
-            module.trackedDeviceOrientation = InputActionReference.Create(orientation);
-            module.xrTrackingOrigin = trackingSpace;
-            asset.Enable();
-        }
-
         void OnDestroy()
         {
             if (ReferenceEquals(PointerInput.Source, this)) PointerInput.Source = null;
@@ -200,7 +183,9 @@ namespace Why.Xr
             if (director == null) director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
             ReadHands();
             Aim();
+            PointUi();
             Gestures();
+            LogState();
             Palm(dt);
             FollowHud(dt);
             Draw();
@@ -211,6 +196,96 @@ namespace Why.Xr
         {
             rig.RecenterXr(head.localPosition, head.localEulerAngles.y);
             hudPlaced = false;
+        }
+
+        /// <summary>
+        /// Points the right hand's ray at the kept canvases (the hand menu, the tour card): the topmost element under the
+        /// ray is hovered, a pinch presses it and releasing on it clicks it - the same events a mouse sends.
+        /// </summary>
+        void PointUi()
+        {
+            GameObject target = null;
+            uiHitValid = false;
+            float best = float.MaxValue;
+            if (aimValid)
+            {
+                Ray r = Ray;
+                foreach (Canvas c in XrSession.Canvases)
+                {
+                    if (c == null || !c.isActiveAndEnabled) continue;
+                    RectTransform rt = (RectTransform)c.transform;
+                    Plane plane = new Plane(rt.forward, rt.position);
+                    if (!plane.Raycast(r, out float t) || t <= 0 || t >= best) continue;
+                    Vector3 hit = r.GetPoint(t);
+                    if (!rt.rect.Contains((Vector2)rt.InverseTransformPoint(hit))) continue;
+
+                    GameObject top = null;
+                    int topDepth = int.MinValue;
+                    c.GetComponentsInChildren(false, graphics);
+                    foreach (Graphic g in graphics)
+                    {
+                        if (!g.raycastTarget || !g.isActiveAndEnabled || g.canvasRenderer.GetInheritedAlpha() < 0.02f) continue;
+                        RectTransform gr = g.rectTransform;
+                        if (!gr.rect.Contains((Vector2)gr.InverseTransformPoint(hit))) continue;
+                        if (g.depth >= topDepth)
+                        {
+                            topDepth = g.depth;
+                            top = g.gameObject;
+                        }
+                    }
+
+                    if (top == null) continue;
+                    best = t;
+                    uiHit = hit;
+                    uiHitValid = true;
+                    target = ExecuteEvents.GetEventHandler<IPointerClickHandler>(top);
+                }
+            }
+
+            if (target != hoverTarget)
+            {
+                if (hoverTarget != null) ExecuteEvents.Execute(hoverTarget, Pointer(), ExecuteEvents.pointerExitHandler);
+                hoverTarget = target;
+                if (target != null) ExecuteEvents.Execute(target, Pointer(), ExecuteEvents.pointerEnterHandler);
+            }
+
+            if (right.PinchStarted && uiHitValid)
+            {
+                right.OnUi = true;
+                pressTarget = target;
+                if (target != null) ExecuteEvents.Execute(target, Pointer(), ExecuteEvents.pointerDownHandler);
+            }
+            else if (right.PinchStarted)
+            {
+                right.OnUi = false;
+            }
+
+            if (right.PinchEnded && pressTarget != null)
+            {
+                ExecuteEvents.Execute(pressTarget, Pointer(), ExecuteEvents.pointerUpHandler);
+                if (pressTarget == target)
+                {
+                    Debug.Log($"[Why] xr: pressed '{target.name}'");
+                    ExecuteEvents.Execute(target, Pointer(), ExecuteEvents.pointerClickHandler);
+                }
+
+                pressTarget = null;
+            }
+        }
+
+        PointerEventData Pointer()
+        {
+            return pointerData ??= new PointerEventData(EventSystem.current) { button = PointerEventData.InputButton.Left };
+        }
+
+        /// <summary>One log line whenever hand tracking, the aim source or the menu changes (for reading the headset's log).</summary>
+        void LogState()
+        {
+            string state = $"hands L={(left.Tracked ? "on" : "off")} R={(right.Tracked ? "on" : "off")}, aim " +
+                           $"{(aimTracked.IsPressed() ? "meta" : aimValid ? "shoulder" : "none")}, menu {(menu.Hidden ? "closed" : "open")}";
+            if (state == lastState) return;
+            lastState = state;
+            Debug.Log("[Why] xr: " + state);
         }
 
         void ReadHands()
@@ -265,8 +340,6 @@ namespace Why.Xr
         {
             Transform offset = XrSession.CameraOffset;
 
-            // a pinch that starts on a panel belongs to the panel
-            if (right.PinchStarted) right.OnUi = UI.HudKit.PointerOverUi();
             if (left.PinchStarted) left.OnUi = false;
 
             if (left.Pinching && right.Pinching && !right.OnUi)
@@ -314,6 +387,13 @@ namespace Why.Xr
                 palmAnchor.localPosition = palm.position + palmNormal * 0.05f + Vector3.up * 0.1f;
             }
 
+            if (forceMenu)
+            {
+                // -xrmenu (desktop checks): the menu held in front of the eyes, as if the palm were raised
+                facing = true;
+                palmAnchor.localPosition = head.localPosition + Quaternion.Euler(0, head.localEulerAngles.y, 0) * new Vector3(0, -0.2f, 0.42f);
+            }
+
             palmFacing = Mathf.MoveTowards(palmFacing, facing ? 1 : 0, dt / 0.25f);
             if (menu.Hidden && palmFacing >= 1) menu.SetShown(true);
             else if (!menu.Hidden && palmFacing <= 0) menu.SetShown(false);
@@ -352,7 +432,7 @@ namespace Why.Xr
             if (!ray.enabled) return;
             Vector3 a = rightAim.position;
             ray.SetPosition(0, a);
-            ray.SetPosition(1, a + rightAim.forward * (2.5f * s));
+            ray.SetPosition(1, uiHitValid ? uiHit : a + rightAim.forward * (2.5f * s));
             ray.widthMultiplier = 0.003f * s;
             Color c = right.Pinching ? new Color(1f, 0.85f, 0.5f, 0.85f) : new Color(0.85f, 0.9f, 1f, 0.5f);
             ray.startColor = c;

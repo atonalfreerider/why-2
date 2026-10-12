@@ -34,7 +34,7 @@ namespace Why
         public override void Init(GraphRoot root)
         {
             string[] args = System.Environment.GetCommandLineArgs();
-            enabledByArgs = args.Contains("-smoketest");
+            enabledByArgs = args.Contains("-smoketest") || args.Contains("-iconshot");
             if (!enabledByArgs)
             {
                 Destroy(gameObject);
@@ -62,7 +62,42 @@ namespace Why
             if (problems.Count < 40) problems.Add($"{type}: {message}\n{stack}");
         }
 
-        public override void OnLoaded(GraphRoot root) => StartCoroutine(Run(root));
+        public override void OnLoaded(GraphRoot root)
+        {
+            if (!enabledByArgs) return;
+            string[] args = System.Environment.GetCommandLineArgs();
+            int i = System.Array.IndexOf(args, "-iconshot");
+            if (i >= 0 && i + 1 < args.Length) StartCoroutine(IconShot(root, args[i + 1]));
+            else StartCoroutine(Run(root));
+        }
+
+        /// <summary>
+        /// <c>-iconshot DIR</c>: the graph alone - no panels, no labels - framed on the clock of deep time, saved at twice
+        /// the window's size: the source of the app's icon and splash (Tools/make-branding.sh).
+        /// </summary>
+        IEnumerator IconShot(GraphRoot root, string dir)
+        {
+            Directory.CreateDirectory(dir);
+            foreach (Canvas c in FindObjectsByType<Canvas>()) c.enabled = false;
+            root.Labels.gameObject.SetActive(false);
+            ViewPreset overview = ViewPresets.Get("overview");
+            root.Focus(overview, 0f);
+            yield return new WaitForSecondsRealtime(5f);
+            yield return new WaitForEndOfFrame();
+            ScreenCapture.CaptureScreenshot(Path.Combine(dir, "graph-overview.png"), 2);
+            yield return new WaitForSecondsRealtime(1f);
+
+            // closer: the clock and the branch filling the frame
+            CameraPose pose = overview.Pose();
+            pose.Distance *= 0.62f;
+            root.Rig.FlyTo(pose, 0f);
+            yield return new WaitForSecondsRealtime(3f);
+            yield return new WaitForEndOfFrame();
+            ScreenCapture.CaptureScreenshot(Path.Combine(dir, "graph-close.png"), 2);
+            yield return new WaitForSecondsRealtime(1f);
+            Debug.Log("[Why] iconshot: saved to " + dir);
+            Application.Quit(0);
+        }
 
         IEnumerator Run(GraphRoot root)
         {

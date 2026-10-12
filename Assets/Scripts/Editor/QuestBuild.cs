@@ -33,6 +33,9 @@ namespace Why.EditorTools
         public const string PackageId = "io.primitive.why";
         public const string DefaultApk = "Builds/Quest/why.apk";
         const string XrFolder = "Assets/XR";
+        const string IconPath = "Assets/Branding/WhyIcon.png";
+        const string IconForegroundPath = "Assets/Branding/WhyIconForeground.png";
+        const string SplashPath = "Assets/Branding/WhySplash.png";
         const string XrSettingsPath = XrFolder + "/XRGeneralSettingsPerBuildTarget.asset";
 
         static readonly string[] Scenes = { "Assets/Scenes/Why.unity", "Assets/Scenes/Economy.unity" };
@@ -119,6 +122,28 @@ namespace Why.EditorTools
             PlayerSettings.Android.forceInternetPermission = false;
             PlayerSettings.SetManagedStrippingLevel(android, ManagedStrippingLevel.Minimal);
             EditorUserBuildSettings.SetPlatformSettings("Android", "AndroidBuildType", "Release");
+
+            // the graph is the brand: its icon on the launcher (Tools/make-branding.sh renders it), no engine splash
+            Texture2D icon = AssetDatabase.LoadAssetAtPath<Texture2D>(IconPath);
+            if (icon != null)
+            {
+                PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { icon }, IconKind.Any);
+                // Android icon kinds: adaptive (the graph as the background layer, nothing on top), round and legacy
+                Texture2D clear = AssetDatabase.LoadAssetAtPath<Texture2D>(IconForegroundPath);
+                foreach (PlatformIconKind kind in PlayerSettings.GetSupportedIconKinds(android))
+                {
+                    PlatformIcon[] icons = PlayerSettings.GetPlatformIcons(android, kind);
+                    foreach (PlatformIcon i in icons)
+                    {
+                        if (i.maxLayerCount >= 2) i.SetTextures(icon, clear != null ? clear : icon);
+                        else i.SetTextures(icon);
+                    }
+
+                    PlayerSettings.SetPlatformIcons(android, kind, icons);
+                }
+            }
+            PlayerSettings.SplashScreen.show = false;
+            PlayerSettings.SplashScreen.backgroundColor = Color.black;
         }
 
         static void ConfigureXrManagement()
@@ -171,6 +196,15 @@ namespace Why.EditorTools
             }
 
             settings.renderMode = OpenXRSettings.RenderMode.SinglePassInstanced;
+
+            // the headset's own splash while the app starts: the graph and its name
+            MetaQuestFeature quest = settings.GetFeature<MetaQuestFeature>();
+            Texture2D splash = AssetDatabase.LoadAssetAtPath<Texture2D>(SplashPath);
+            if (quest != null && splash != null && quest.systemSplashScreen != splash)
+            {
+                quest.systemSplashScreen = splash;
+                EditorUtility.SetDirty(quest);
+            }
             settings.depthSubmissionMode = OpenXRSettings.DepthSubmissionMode.Depth16Bit;
 
             // hands only: the Quest feature, joints (XR Hands) and Meta's aim pose and pinches; no controller profiles

@@ -116,8 +116,60 @@ namespace Why.Director
         /// <summary>"Next" from a controller button: completes the typewriter first, then moves on.</summary>
         public void NextStep() => Next();
 
-        /// <summary>"Back" from a controller button.</summary>
+        /// <summary>"Back" from a headset button.</summary>
         public void PreviousStep() => Previous();
+
+        /// <summary>The stop on screen (-1: the title card; the number of stops: the end card).</summary>
+        public int CurrentStep => active ? index : -1;
+
+        /// <summary>The view of the stop on screen (null on the cards and outside the tour).</summary>
+        public string CurrentPresetId => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Preset?.Id : null;
+
+        /// <summary>True while the tour runs but does not advance on its own.</summary>
+        public bool Paused => active && !autoplay;
+
+        /// <summary>Play / pause from a headset button (starts the tour when it is not running).</summary>
+        public void PlayPause()
+        {
+            if (!active) StartTour();
+            else TogglePause();
+        }
+
+        /// <summary>
+        /// The tour's chapters: one per view, in the order the tour first reaches it, each with the view's title and that
+        /// first stop. The headset menu shows one icon per chapter.
+        /// </summary>
+        public IReadOnlyList<TourChapter> Chapters
+        {
+            get
+            {
+                if (root == null || !root.IsLoaded) return System.Array.Empty<TourChapter>();
+                EnsureTour();
+                if (chapters != null) return chapters;
+                chapters = new List<TourChapter>();
+                for (int i = 0; i < steps.Count; i++)
+                {
+                    ViewPreset p = steps[i].Preset;
+                    string id = p != null ? p.Id : "";
+                    // one chapter per view, where the tour first reaches it (the tour returns to some views)
+                    if (chapters.Exists(c => c.PresetId == id)) continue;
+                    chapters.Add(new TourChapter { PresetId = id, Title = p != null ? p.Title : steps[i].Step.Title, FirstStep = i });
+                }
+
+                return chapters;
+            }
+        }
+
+        /// <summary>Plays the tour from a stop (starting it when needed), with autoplay on.</summary>
+        public void PlayFrom(int stop)
+        {
+            if (root == null || !root.IsLoaded) return;
+            if (!active) StartTour();
+            SetAutoplay(true, false);
+            GoTo(stop);
+        }
+
+        List<TourChapter> chapters;
 
         Vector2 CanvasSize => canvasRect.rect.size;
 
@@ -598,7 +650,9 @@ namespace Why.Director
         void TickAutoplay(float dt)
         {
             stepAge += dt;
-            if (autoplay && root.Rig.UserActive) SetAutoplay(false, true);
+            // on a screen, steering the camera pauses the tour to explore; in a headset you move all the time (the
+            // world is in your hands), so only the menu's pause stops the narration
+            if (autoplay && root.Rig.UserActive && !Xr.XrSession.Active) SetAutoplay(false, true);
 
             // the end card waits for the viewer
             bool timed = index < steps.Count;
@@ -789,5 +843,13 @@ namespace Why.Director
         }
 
         static float Smooth(float t) => t * t * (3 - 2 * t);
+    }
+
+    /// <summary>A chapter of the guided tour: a view and the first stop that shows it.</summary>
+    public struct TourChapter
+    {
+        public string PresetId;
+        public string Title;
+        public int FirstStep;
     }
 }

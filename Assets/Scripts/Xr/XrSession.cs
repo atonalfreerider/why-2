@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
@@ -59,6 +58,16 @@ namespace Why.Xr
         static readonly List<Canvas> pending = new List<Canvas>();
 
         /// <summary>
+        /// The canvases that stay visible in a headset: what you read (the tour's narration card, the loading card,
+        /// tooltips) and the hand menu. Everything you would press on a screen - the preset bar, the corner buttons, the
+        /// economy's panels - is replaced by the menu on your left hand, so nothing to press floats in free space.
+        /// </summary>
+        static readonly HashSet<string> Kept = new HashSet<string> { "DirectorCanvas", "LoadingOverlay", "HudOverlay", "XR Menu" };
+
+        /// <summary>Every world-space canvas the hand ray can point at (headset only).</summary>
+        public static readonly List<Canvas> Canvases = new List<Canvas>();
+
+        /// <summary>
         /// Turns a canvas made by <see cref="UiFactory.CreateCanvas"/> into a world-space panel on the HUD plane, laid out
         /// on <see cref="VirtualScreen"/>, pointable with a tracked controller.
         /// </summary>
@@ -71,7 +80,16 @@ namespace Why.Xr
             rt.pivot = new Vector2(0.5f, 0.5f);
             CanvasScaler scaler = canvas.GetComponent<CanvasScaler>();
             if (scaler != null) scaler.dynamicPixelsPerUnit = 2.5f;
-            if (canvas.GetComponent<TrackedDeviceRaycaster>() == null) canvas.gameObject.AddComponent<TrackedDeviceRaycaster>();
+            Canvases.RemoveAll(c => c == null);
+            if (!Kept.Contains(canvas.name))
+            {
+                canvas.gameObject.AddComponent<XrHiddenCanvas>();
+            }
+            else
+            {
+                Canvases.Add(canvas);
+            }
+
             if (Hud == null)
             {
                 pending.Add(canvas);
@@ -98,6 +116,19 @@ namespace Why.Xr
             t.localPosition = new Vector3(0, 0, -0.0005f * canvas.sortingOrder); // higher orders a hair closer
             t.localRotation = Quaternion.identity;
             t.localScale = Vector3.one * HudMetresPerUnit;
+        }
+    }
+
+    /// <summary>Keeps a screen-only canvas (buttons and panels replaced by the hand menu) switched off in a headset.</summary>
+    public sealed class XrHiddenCanvas : MonoBehaviour
+    {
+        Canvas canvas;
+
+        void Awake() => canvas = GetComponent<Canvas>();
+
+        void LateUpdate()
+        {
+            if (canvas != null && canvas.enabled) canvas.enabled = false;
         }
     }
 }

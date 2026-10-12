@@ -127,9 +127,14 @@ Input is hands only (no controllers; the manifest requires hand tracking, so the
 | Point with the right hand, pinch | select (labels, people, companies, panel buttons) |
 | Pinch with either hand and move | drag the world |
 | Pinch with both hands | pull apart / together: grow / shrink the world; twist: turn it |
-| Turn the left palm toward your face | the menu: guided tour (start, next, back, leave), the views, the other scene, recenter |
+| Turn the left palm toward your face | the menu: the guided tour's transport (back, play / pause, next, leave), one icon per chapter of the tour (pinch to hear the narration from there; the chapter on screen is lit), the other scene, recenter |
 
 Both hands are drawn as glowing skeletons; the pointing ray is Meta's hand aim (from the shoulder through the hand).
+Nothing to press floats in the room: the screen's buttons and panels are replaced by the hand menu; only what you read
+(the tour's narration card, tooltips) stays in front of you. The narration keeps playing while you move the world.
+
+The launch icon and the headset's splash are the graph itself (`Assets/Branding`, rendered by `Tools/make-branding.sh`
+from a desktop player's `-iconshot` mode).
 Panels float on a HUD plane that follows your gaze; the tour's target is marked by a beacon in the world instead of the
 screen arrow. Line widths are still in pixels per eye, and frame rate on device has not been profiled yet.
 

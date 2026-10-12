@@ -75,6 +75,9 @@ UserSettings
 /Assets/Resources/Data/tour_narration.json.meta
 /Assets/Resources/Data/**/tour.json
 /Assets/Resources/Data/**/tour.json.meta
+# ... but the narrated walkthrough is tracked
+!/Assets/Resources/Data/Walkthrough/tour.json
+!/Assets/Resources/Data/Walkthrough/tour.json.meta
 
 # Local agent worktrees
 /.claude/

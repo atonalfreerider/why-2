@@ -99,6 +99,7 @@ with a glow multiplier, plus a global dim factor for everything not highlighted.
 | 0 | never highlighted (axes, grid) |
 | 1 .. 999 | matter bands (`GraphIds.Matter(index)`) |
 | 10 000 .. 19 999 | tree of life, `10 000 + preorder node index`; a clade is a contiguous range; our lineage (root -> Hominidae) is `[10 000, 10 000 + depth]` because the human-bearing child is always ordered first |
+| 50 000 .. 50 047 | calorie flow (`TrophicFlowLayer`): 16 per time slice (Devonian, Jurassic, Miocene) |
 | 1 000 000 + c * 100 000 | civilization `c` block: `+0` band, `+1..999` figures of that civ (`GraphIds.Figure`), `+1000..` lifelines ordered by birth date (a generation is a contiguous range) |
 
 ## Anchors

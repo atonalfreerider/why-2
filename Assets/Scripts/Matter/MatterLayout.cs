@@ -162,8 +162,8 @@ namespace Why.Matter
         // --- envelope E(u): a fast initial burst, then the real expansion of space (the cosmic scale factor),
         // which does most of its growth in the first few billion years (6 to 12 o'clock), and a tail that
         // keeps the fan opening toward the present ---
-        /// <summary>Width the envelope reaches in the initial burst.</summary>
-        public const float BurstWidth = 0.9f;
+        /// <summary>Width the envelope reaches in the initial burst: inflation, the scale exploding open at the cusp.</summary>
+        public const float BurstWidth = 3f;
 
         /// <summary>Arc over which the initial burst happens.</summary>
         public const float BurstTau = 0.02f;
@@ -435,6 +435,13 @@ namespace Why.Matter
             }
 
             Transitions();
+            foreach (MatterBand band in Bands)
+            {
+                if (band.IsRootHome || !band.InPath || !band.Item.Bound || band.Item.SizeM <= 0) continue;
+                collapsing.Add(band);
+            }
+
+            collapsing.Sort((x, y) => x.Item.SizeM.CompareTo(y.Item.SizeM));
         }
 
         /// <summary>The widest the unscaled stack ever gets (normalizes the early-universe cap).</summary>
@@ -537,7 +544,14 @@ namespace Why.Matter
                 band.FillAlpha *= density;
                 band.LineAlpha *= Mathf.Lerp(0.45f, 1f, density);
             }
+
+            // the regions are decades wide on the comb: calm, translucent fills and little noise, so the lines - the
+            // scale's branches and the bodies' edges - carry the picture
+            band.FillAlpha *= FillSubdue;
+            band.Noise = Mathf.Min(band.Noise, MaxNoise);
         }
+
+        const float FillSubdue = 0.55f, MaxNoise = 0.3f;
 
         /// <summary>Mass of a hydrogen atom (kg): densities are quoted as atoms per cubic metre.</summary>
         const double HydrogenKg = 1.6735e-27;
@@ -745,27 +759,136 @@ namespace Why.Matter
         static double RawScaleFactor(double t) =>
             Math.Pow(Math.Sinh(1.5 * Math.Sqrt(OmegaL) * t / HubbleTimeYears), 2.0 / 3.0);
 
+        // ------------------------------------------------------------------ the field
+        //
+        // One continuous scale for everything in the red layer - the bands and the grid alike, so no two lines ever
+        // cross: a comb of comoving distances from our lineage, one cell per decade, from the trunk (the inner track:
+        // a kilometre, the most granular scale) out to the observable universe, Decades of them. The comb's spacing is
+        // the fan's width at that moment over those decades, so at the Big Bang every line lies on the trunk and as
+        // space inflates - the burst of inflation, then the cosmic scale factor - the comb opens: the outermost lines
+        // race outward fastest, every inner cell's growth pushes everything beyond it further out, and each finer line
+        // separates from its parent only once their cell has grown, so the scale branches open like a tree. A bound
+        // body keeps its physical size, so its edge (and the grid inside it) drifts gently inward through the comoving
+        // comb once it has formed; before, its matter's region rides the expansion, CollapseFactor times its radius.
+
+        /// <summary>A bound body's matter collapsed from a comoving region this many times its radius.</summary>
+        public const double CollapseFactor = 6;
+
+        /// <summary>log10 of the trunk's comoving distance (metres today): a kilometre, the most granular scale.</summary>
+        public const double TrunkLog10 = 3;
+
+        /// <summary>Decades of comoving distance from the trunk to the observable universe (about twenty-three).</summary>
+        public static readonly double Decades = Math.Log10(ObservableRadiusM) - TrunkLog10;
+
+        /// <summary>log10 of the cosmic scale factor at arc u.</summary>
+        public double Log10Scale(float u) => Math.Log10(Mathf.Max(ScaleFactor(u), 1e-30f));
+
+        /// <summary>log10 radius (metres) of the horizon at arc u: the observable universe, scaled back.</summary>
+        public double OuterLog10(float u) => Math.Log10(ObservableRadiusM) + Log10Scale(u);
+
+        /// <summary>log10 of the physical distance (metres) at the trunk at arc u: a comoving kilometre, scaled back.</summary>
+        public double InnerLog10(float u) => TrunkLog10 + Log10Scale(u);
+
+        /// <summary>World units per decade of comoving distance at arc u: the fan's width over the decades it holds.</summary>
+        public double UnitsPerDecade(float u) => Envelope(u) / Decades;
+
+        /// <summary>Comoving cell coordinate (decades above the trunk) of a physical distance at arc u.</summary>
+        public double Cell(float u, double log10Radius) => log10Radius - Log10Scale(u) - TrunkLog10;
+
+        /// <summary>rho of a physical distance at arc u (negative below the trunk).</summary>
+        public float Rho(float u, double log10Radius) => (float)(Cell(u, log10Radius) * UnitsPerDecade(u));
+
+        /// <summary>How far formed a body is at arc u: 0 before it starts, 1 once its band is fully open.</summary>
+        public static float Formation(MatterBand band, float u)
+        {
+            if (u >= band.UStart) return 0;
+            return u <= band.UFull ? 1f : Smooth((band.UStart - u) / Mathf.Max(band.UStart - band.UFull, 1e-9f));
+        }
+
+        /// <summary>The bound bodies of our lineage (every one that ever forms), innermost first: the matter inside each collapsed with it.</summary>
+        readonly List<MatterBand> collapsing = new List<MatterBand>();
+
         /// <summary>
-        /// Radial layout at arc u: inner / outer edge of every band's own part (index = stack order), the
-        /// outer edge of the stack and of the envelope. A region is as wide as its own matter or the regions
-        /// that formed out of it, whichever is wider; early on the whole stack is scaled down to fit the
-        /// young universe. Arrays must hold <see cref="Bands"/>.Count entries.
+        /// How much further out, comoving, the matter that is now 10^<paramref name="log10Radius"/> metres from us
+        /// lay before the bound bodies around it collapsed (log10): the sum over every bound body of our lineage
+        /// that encloses that distance of the collapse still to come at arc u. Each body's share relaxes from the
+        /// whole collapse factor to nothing as the body forms, so the field is continuous from the Big Bang on.
+        /// </summary>
+        public double CollapseLog10(float u, double log10Radius)
+        {
+            double sum = 0;
+            foreach (MatterBand band in collapsing)
+            {
+                if (Math.Log10(0.5 * band.Item.SizeM) < log10Radius - 1e-9) continue;
+                sum += (1 - Formation(band, u)) * Math.Log10(CollapseFactor);
+            }
+
+            return sum;
+        }
+
+        /// <summary>log10 of the physical distance from our lineage (metres) to a body's outer edge at arc u.</summary>
+        public double EdgeLog10(MatterBand band, float u)
+        {
+            double radius = Math.Log10(0.5 * band.Item.SizeM);
+            double logA = Log10Scale(u);
+            if (!band.Item.Bound) return radius + logA;
+            return radius + logA + CollapseLog10(u, radius);
+        }
+
+        /// <summary>The radius of the observable universe today (metres).</summary>
+        public const double ObservableRadiusM = 4.4e26;
+
+        /// <summary>
+        /// Radial layout at arc u on the field: inner / outer edge of every band's own part (index = stack order), the
+        /// outer edge of the stack and of the envelope. A path body's region reaches from the band inside it to its
+        /// own edge; a body that split off (the Moon, the planets, the first stars) lies just outside its parent, as
+        /// wide as its size, opening with its formation. Arrays must hold <see cref="Bands"/>.Count entries.
         /// </summary>
         public void Evaluate(float u, float[] inner, float[] outer, out float stackOuter, out float envelope)
         {
-            NominalWidths(u, inner, outer);
-            float scale = StackScale(u);
+            envelope = Envelope(u);
+            double unitsPerDecadeNow = UnitsPerDecade(u);
+            double logA = Log10Scale(u);
             float cum = 0;
             for (int i = 0; i < Bands.Count; i++)
             {
-                float own = inner[i] * scale;
-                inner[i] = cum;
-                cum += own;
-                outer[i] = cum;
+                MatterBand band = Bands[i];
+                inner[i] = outer[i] = cum;
+                if (!band.AliveAt(u)) continue;
+                float edge;
+                if (band.IsRootHome)
+                {
+                    // the young universe's home: the region that became our lineage, out to the first body's edge
+                    MatterBand first = Path.Count > 1 ? BandOf(Path[1]) : null;
+                    edge = first != null ? Rho(u, EdgeLog10(first, u)) : envelope;
+                }
+                else if (band.InPath)
+                {
+                    edge = Rho(u, EdgeLog10(band, u));
+                }
+                else
+                {
+                    // just outside its parent's edge, as wide as its size (in comoving decades), opening with its formation
+                    double atCum = cum / unitsPerDecadeNow + TrunkLog10 + logA;   // physical log10 radius at the edge
+                    double span = Math.Log10(Math.Pow(10, atCum) + Math.Max(band.Item.SizeM, 1)) - atCum;
+                    edge = cum + (float)(Math.Max(span, MinSplitDecades) * unitsPerDecadeNow) * Formation(band, u) * band.Branch(u);
+                }
+
+                edge = Mathf.Clamp(edge, cum, envelope);
+                outer[i] = edge;
+                cum = edge;
             }
 
             stackOuter = cum;
-            envelope = Mathf.Max(Envelope(u), cum);
+        }
+
+        /// <summary>A body that split off is drawn at least this many decades wide, so it stays visible beside its parent.</summary>
+        const double MinSplitDecades = 0.25;
+
+        static float Smooth(float t)
+        {
+            t = Mathf.Clamp01(t);
+            return t * t * (3 - 2 * t);
         }
 
         /// <summary>

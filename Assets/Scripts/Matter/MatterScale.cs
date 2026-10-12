@@ -17,7 +17,7 @@ namespace Why.Matter
     public sealed class MatterScale
     {
         /// <summary>Radius today of the observable universe (metres): the envelope's outer edge, comoving.</summary>
-        public const double ObservableRadiusM = 4.4e26;
+        public const double ObservableRadiusM = MatterLayout.ObservableRadiusM;
 
         /// <summary>Distance from our lineage at rho = 0 (metres): a person, where we live.</summary>
         public const double InnerMetres = 1.0;
@@ -42,8 +42,6 @@ namespace Why.Matter
             this.layout = layout;
             inner = new float[layout.Bands.Count];
             outer = new float[layout.Bands.Count];
-            float life = DeepTime.Arc(LifeBeginsYa);
-            unitsPerDecade = Math.Max(layout.Envelope(life), 1e-3f) / Math.Max(OuterLog10(life) - EarthLog10, 1e-6);
         }
 
         /// <summary>The knots (inner track first, envelope last) at arc u, sorted outward, radii monotone. Reused; not thread safe.</summary>
@@ -101,30 +99,18 @@ namespace Why.Matter
         /// <summary>log10 of the observable universe's radius (metres) at arc u.</summary>
         public double Log10UniverseRadius(float u) => Math.Log10(ObservableRadiusM * Mathf.Max(layout.ScaleFactor(u), 1e-12f));
 
-        // ------------------------------------------------------------------ the continuous scale
-        //
-        // One smooth field, no knots: the distance from our lineage grows exponentially with rho, every decade the same
-        // width, and the field is anchored at the horizon - the red envelope, where the distance is the observable
-        // universe carried by the cosmic scale factor. So a comoving distance keeps a fixed offset below the horizon and
-        // rides outward with it as space inflates, hyperbolically against the clock; and as the fan deepens, finer
-        // distances emerge one after another from the inner track, whose scale descends continuously from the cosmic
-        // to the local - the Earth's by the time life begins, a few hundred metres today.
+        // ------------------------------------------------------------------ the continuous scale (MatterLayout's comb)
 
-        /// <summary>log10 radius (metres) at the inner track at arc u: the horizon's, less the decades the fan holds.</summary>
-        public double HomeLog10(float u) => OuterLog10(u) - EnvelopeAt(u) / UnitsPerDecade(u);
+        /// <summary>log10 of the physical distance (metres) at the trunk at arc u.</summary>
+        public double HomeLog10(float u) => layout.InnerLog10(u);
 
         /// <summary>log10 radius (metres) of the horizon at arc u: the observable universe, scaled back.</summary>
-        public double OuterLog10(float u) => Math.Log10(ObservableRadiusM * Mathf.Max(layout.ScaleFactor(u), 1e-30f));
+        public double OuterLog10(float u) => layout.OuterLog10(u);
 
-        /// <summary>The inner track reads the Earth's radius (metres) when life begins, <see cref="LifeBeginsYa"/> years ago.</summary>
-        const double EarthLog10 = 6.8, LifeBeginsYa = 4.0e9;
+        /// <summary>World units per decade of comoving distance at arc u.</summary>
+        public double UnitsPerDecade(float u) => layout.UnitsPerDecade(u);
 
-        /// <summary>World units per decade of distance: the same at every moment, set so the inner track reads the Earth's scale when life begins.</summary>
-        public double UnitsPerDecade(float u) => unitsPerDecade;
-
-        readonly double unitsPerDecade;
-
-        /// <summary>log10 of the distance from our lineage (metres) at (u, rho); extrapolated beyond the envelope.</summary>
+        /// <summary>log10 of the distance from our lineage (metres) at (u, rho), reading the comb as comoving distance scaled back.</summary>
         public double Log10Radius(float u, float rho) => HomeLog10(u) + rho / UnitsPerDecade(u);
 
         /// <summary>Distance from our lineage (metres) at (u, rho).</summary>
@@ -136,15 +122,9 @@ namespace Why.Matter
         /// <summary>The rho at which the distance from our lineage is 10^<paramref name="log10Radius"/> metres, or -1 beyond the envelope.</summary>
         public float Rho(float u, double log10Radius)
         {
-            double rho = (log10Radius - HomeLog10(u)) * UnitsPerDecade(u);
+            float rho = layout.Rho(u, log10Radius);
             if (rho > EnvelopeAt(u)) return -1f;
-            return (float)Math.Max(rho, 0);
-        }
-
-        static float Smooth(float t)
-        {
-            t = Mathf.Clamp01(t);
-            return t * t * (3 - 2 * t);
+            return Mathf.Max(rho, 0);
         }
 
         /// <summary>The body whose region holds rho at arc u (the knot just outside), for the probe's readout.</summary>

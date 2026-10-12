@@ -213,6 +213,31 @@ namespace Why.Matter
                 }
             }
 
+            // a band splits out of the region outside it and, if it ends, hands its region back: its brightness
+            // blends from that neighbour's over its formation and decay, so nothing steps when it appears or goes
+            float[][] raw = new float[n][];
+            for (int b = 0; b < n; b++) raw[b] = (float[])own[b].Clone();
+            for (int b = 0; b < n; b++)
+            {
+                MatterBand band = layout.Bands[b];
+                for (int j = 0; j < m; j++)
+                {
+                    if (raw[b][j] < 0) continue;
+                    // and a region keeps part of its neighbour's brightness for good: the regions are decades wide,
+                    // and a diffuse one (the solar nebula, the planets) must not drop out against the dense ones
+                    float r = band.Ramp(s.U[j]) * (band.InPath ? 0.5f : 0.1f);
+                    float outside = EnvelopeInnerBrightness(s, j);
+                    for (int k = b + 1; k < n; k++)
+                    {
+                        if (raw[k][j] < 0) continue;
+                        outside = raw[k][j];
+                        break;
+                    }
+
+                    own[b][j] = Mathf.Lerp(outside, raw[b][j], r);
+                }
+            }
+
             List<Vector3> inner = new List<Vector3>(m), mid = new List<Vector3>(m), outer = new List<Vector3>(m);
             List<Color32> edgeIn = new List<Color32>(m), centre = new List<Color32>(m), edgeOut = new List<Color32>(m);
             foreach (MatterBand band in layout.Bands)
@@ -324,9 +349,8 @@ namespace Why.Matter
                     float u = s.U[j];
                     if (!band.AliveAt(u)) continue;
                     float inner = s.Inner[band.Index][j], outer = s.Outer[band.Index][j];
-                    // a band squeezed to nothing (forming, ending, or covered by its children) loses its edge
-                    float full = 0.3f * band.Width * layout.StackScale(u);
-                    float presence = full > 1e-6f ? Mathf.Clamp01((outer - inner) / full) : 0;
+                    // the edge fades in with the body's formation and out with its end
+                    float presence = band.Ramp(u) * Mathf.Clamp01((outer - inner) / MinFillWidth);
                     float alpha = band.LineAlpha * presence * MatterLayout.HandoffBias(u, band.HandoffExponent) *
                                   layout.ExpansionDim(band, u);
                     pts.Add(new LinePoint(new Vector3(u, y, outer), Tint(alpha), band.LineWidthPx, 0,

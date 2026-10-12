@@ -38,8 +38,8 @@ namespace Why.Matter
         public static readonly int GridId = GraphIds.Matter(998);
 
         // --- what is drawn ---
-        /// <summary>Decades of distance drawn, 10^MinDecade (a kilometre, the finest) .. 10^MaxDecade metres (the observable universe is 4.4e26 m).</summary>
-        const int MinDecade = 3, MaxDecade = 26;
+        /// <summary>Decades of distance drawn, 10^MinDecade (the trunk: a kilometre, the finest) .. 10^MaxDecade metres (the observable universe is 4.4e26 m).</summary>
+        const int MinDecade = (int)MatterLayout.TrunkLog10, MaxDecade = 26;
 
         /// <summary>The hundredth steps are drawn up to this decade: the local scales, where the closest tier peels them open.</summary>
         const int HundredthsUntilDecade = 9;
@@ -79,7 +79,7 @@ namespace Why.Matter
         const float HorizonFadeFrom = 0.62f;
 
         // --- look ---
-        const float GridAlpha = 0.26f;
+        const float GridAlpha = 0.3f;
         const float GridIntensity = 0.75f;
         const float GridRhoFade = 0f;
         const float HandoffExponent = 2f;
@@ -108,7 +108,36 @@ namespace Why.Matter
         {
             public float U, Envelope, UnitsPerDecade;
             public double Log10Scale, HomeLog10, OuterLog10, Handoff;
+
+            /// <summary>The bound bodies of our lineage, formed or not: log10 radius today (ascending), how far formed, and the edge's log10 radius now.</summary>
+            public double[] BoundLog, BoundEdge;
+            public float[] BoundProgress;
+
+            /// <summary>
+            /// Where the matter that is 10^<paramref name="log10Today"/> metres from us today lies now (log10 metres), and
+            /// how far it is from being pinned to a bound body's edge (decades; large when free). Inside the innermost
+            /// bound body that encloses it, it collapsed with the body: comoving before the body formed, fixed after;
+            /// outside, comoving - but never inside the edge of a body it does not belong to (matter that fell in).
+            /// </summary>
+            public double Place(double log10Today, out double freeDecades)
+            {
+                // comoving, plus the collapse still to come of every bound body that encloses it
+                double pos = log10Today + Log10Scale;
+                for (int i = 0; i < BoundLog.Length; i++)
+                {
+                    if (BoundLog[i] < log10Today) continue;
+                    pos += (1 - BoundProgress[i]) * Math.Log10(MatterLayout.CollapseFactor);
+                }
+
+                double pin = double.NegativeInfinity;
+                for (int i = 0; i < BoundLog.Length && BoundLog[i] < log10Today; i++) pin = Math.Max(pin, BoundEdge[i]);
+                freeDecades = double.IsNegativeInfinity(pin) ? 1e9 : pos - pin;
+                return Math.Max(pos, pin);
+            }
         }
+
+        /// <summary>A rail pinned to a body's edge (its matter fell in) fades out over this many decades.</summary>
+        const double BoundDecades = 0.3;
 
         public override int Order => 6;
         public override IEnumerable<string> RequiredTexts => new[] { MatterLayer.DataPath };
@@ -199,7 +228,16 @@ namespace Why.Matter
 
         Sample Take(float u)
         {
-            return new Sample
+            List<(double log, float progress, double edge)> bound = new List<(double, float, double)>(8);
+            foreach (MatterBand band in layout.Bands)
+            {
+                // every bound body of our lineage, formed or not: its collapse shapes the field before it forms too
+                if (band.IsRootHome || !band.InPath || !band.Item.Bound || band.Item.SizeM <= 0) continue;
+                bound.Add((Math.Log10(0.5 * band.Item.SizeM), MatterLayout.Formation(band, u), layout.EdgeLog10(band, u)));
+            }
+
+            bound.Sort((x, y) => x.log.CompareTo(y.log));
+            Sample s = new Sample
             {
                 U = u,
                 Envelope = scale.EnvelopeAt(u),
@@ -207,8 +245,19 @@ namespace Why.Matter
                 Log10Scale = Math.Log10(Mathf.Max(layout.ScaleFactor(u), 1e-30f)),
                 HomeLog10 = scale.HomeLog10(u),
                 OuterLog10 = scale.OuterLog10(u),
-                Handoff = Mathf.Pow(GraphStyle.HandoffFade(u), HandoffExponent)
+                Handoff = Mathf.Pow(GraphStyle.HandoffFade(u), HandoffExponent),
+                BoundLog = new double[bound.Count],
+                BoundProgress = new float[bound.Count],
+                BoundEdge = new double[bound.Count]
             };
+            for (int i = 0; i < bound.Count; i++)
+            {
+                s.BoundLog[i] = bound[i].log;
+                s.BoundProgress[i] = bound[i].progress;
+                s.BoundEdge[i] = bound[i].edge;
+            }
+
+            return s;
         }
 
         /// <summary>
@@ -226,15 +275,17 @@ namespace Why.Matter
                 Sample s = samples[j];
                 trace.Gap[j] = 0;
                 trace.Base[j] = 0;
-                double pos = log10 + s.Log10Scale;               // comoving: its distance now
-                double above = pos - s.HomeLog10;                // decades above the inner track
+                double pos = s.Place(log10, out double freeDecades);   // its physical distance now
+                double above = pos - s.HomeLog10;                      // comoving decades above the trunk
                 if (above <= 0 || s.UnitsPerDecade <= 1e-9f) continue;
                 float rho = (float)(above * s.UnitsPerDecade);
                 if (rho > s.Envelope) continue;
                 float gap = (float)step * s.UnitsPerDecade;
-                // born on the inner track; dissolving toward the horizon, where space has stretched most
+                // born on the inner track; dissolving toward the horizon, where space has stretched most; gone where
+                // its matter fell into a body (pinned to the body's edge)
                 float horizon = 1f - Smooth((rho / Mathf.Max(s.Envelope, 1e-6f) - HorizonFadeFrom) / (1f - HorizonFadeFrom));
-                float alpha = weight * (float)s.Handoff * Smooth((float)(above / InnerDecades)) * horizon;
+                float alpha = weight * (float)s.Handoff * Smooth((float)(above / InnerDecades)) * horizon *
+                              Smooth((float)(freeDecades / BoundDecades));
                 trace.Rho[j] = rho;
                 trace.Gap[j] = gap;
                 trace.Base[j] = alpha;

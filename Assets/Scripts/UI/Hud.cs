@@ -233,11 +233,10 @@ namespace Why.UI
         /// <summary>A left click (not a drag, not over UI) on a label focuses it; on empty space it clears.</summary>
         void HandleClicks(bool tour)
         {
-            Mouse mouse = Mouse.current;
-            if (mouse == null) return;
-            Vector2 position = mouse.position.ReadValue();
+            if (!PointerInput.Available) return;
+            Vector2 position = PointerInput.Position;
 
-            if (mouse.leftButton.wasPressedThisFrame)
+            if (PointerInput.PressedThisFrame)
             {
                 Keyboard kb = Keyboard.current;
                 bool shift = kb != null && kb.shiftKey.isPressed; // shift + left drag pans
@@ -245,7 +244,7 @@ namespace Why.UI
                 pressPosition = position;
             }
 
-            if (!mouse.leftButton.wasReleasedThisFrame || !pressValid) return;
+            if (!PointerInput.ReleasedThisFrame || !pressValid) return;
             pressValid = false;
             float slop = ClickSlopPx * LabelSystem.UiScale;
             if ((position - pressPosition).sqrMagnitude > slop * slop) return;
@@ -402,9 +401,13 @@ namespace Why.UI
         /// <summary>Preset buttons explain their view; labels with an anchor explain what they mark.</summary>
         void UpdateTooltip(Vector2 canvasSize, float dt)
         {
-            Mouse mouse = Mouse.current;
-            if (mouse == null) return;
-            Vector2 pointer = mouse.position.ReadValue() / Mathf.Max(overlay.scaleFactor, 1e-4f);
+            if (!PointerInput.Available) return;
+            Vector2 screen = PointerInput.Position;
+            // a headset's canvases are a virtual 1080p screen: map the camera's pixels onto it
+            Vector2 pointer = PointerInput.IsXr
+                ? Vector2.Scale(screen, new Vector2(canvasSize.x / Mathf.Max(root.Rig.Cam.pixelWidth, 1),
+                    canvasSize.y / Mathf.Max(root.Rig.Cam.pixelHeight, 1)))
+                : screen / Mathf.Max(overlay.scaleFactor, 1e-4f);
 
             ViewPreset preset = presetFade.Shown ? presetBar.HoveredPreset : null;
             if (preset != null)
@@ -415,7 +418,7 @@ namespace Why.UI
             {
                 tooltip.ShowAnchor(label, anchor, label.Text);
             }
-            else if (probing && !help.Open && TryProbe(mouse.position.ReadValue(), out string heading, out string metaText, out string body))
+            else if (probing && !help.Open && TryProbe(screen, out string heading, out string metaText, out string body))
             {
                 tooltip.Update(probeKey, heading, metaText, body);
             }

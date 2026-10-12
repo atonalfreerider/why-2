@@ -1,0 +1,131 @@
+{
+  "title": "The economy: a wave moving through time",
+  "steps": [
+    {
+      "id": "hills_bridge",
+      "title": "From the universe to an economy",
+      "text": "The blue level ends in nations. Open one, the United States, and the same cause-and-effect logic continues: like the food chain, every business feeds on the layers beneath it, down to the government it all stands on.",
+      "focus": "overview",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_wave",
+      "title": "A wave moving through time",
+      "text": "The road of American lives since 1946 and the economy share one time axis. At now, the cross-section opens into a wave: each rib behind the crest is one year, widening as real output grows. The crest is the year shown.",
+      "focus": "overview",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_foundation",
+      "title": "The bedrock: government",
+      "text": "Government is the bedrock everything stands on. In the United States it is a constitutional federal democracy. Its pillars are sized by public outlays; taxes fall into it from every household, and benefits rise out of it.",
+      "focus": "foundation",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_land",
+      "title": "Layers standing on layers",
+      "text": "On the bedrock, layers stand on layers: raw materials and subsistence infrastructure at the foot, then manufacturing and infrastructure, then services, with technology on top. Each industry is a ridge as wide as its share of value added.",
+      "focus": "landscape",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_companies",
+      "title": "Companies live and die",
+      "text": "75 companies live on the ridges like people on the road: born, rising and falling with market value, then failing, bought, or reaching the crest. Their color shows how they sell: meeting needs, manufactured want, or fear.",
+      "focus": "companies",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_owners",
+      "title": "Golden circles",
+      "text": "At every market the dollar splits: wages run back down to workers, taxes fall to the bedrock, and the surplus climbs to gold halos above the summits and to the rings of owners around the top firms - the golden circles.",
+      "focus": "capture",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_people",
+      "title": "Class is altitude",
+      "text": "Class is altitude. People live on the slope of whatever pays them, as close as possible to their source of value: an employer's industry, the government, or family wealth. The out of work sit on the valley floor; the richest float above.",
+      "focus": "people",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_rivers",
+      "title": "Rivers of desire and fear",
+      "text": "Money flows in two colors: desire, in rose, and fear, in ice. Spending runs down to each industry's market; saving leaves over the crest into the future, and debt arrives from it.",
+      "focus": "rivers",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "atom_person",
+      "title": "One person",
+      "text": "Zoom into a single person. Where they stand on this hillside is where they stand in the social market: the slope that pays them, the rung they occupy, and the people around them.",
+      "focus": "atom",
+      "anchor": "atom:person",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "atom_mind",
+      "title": "Inside one mind",
+      "text": "Inside one mind: five desire drives and five fear drives, weighed by reason into a choice. Desire pulls toward the hills that pay and please; fear pushes away from debt, loss and scarcity.",
+      "focus": "atom",
+      "anchor": "atom:mind",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "atom_dilemma",
+      "title": "Tit for tat",
+      "text": "Every encounter is a prisoner's dilemma: cooperate or defect. Tit-for-tat opens kindly, copies the partner's last move, retaliates and forgives. Over many rounds the payoffs accumulate as wealth.",
+      "focus": "dilemma",
+      "anchor": "dilemma:arena",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "atom_ladder",
+      "title": "The ladder",
+      "text": "One life's path across the landscape over time, climbing and falling between rungs, compared with the parents' rung. Job changes, marriage, children and debt move it up or down.",
+      "focus": "ladder",
+      "anchor": "ladder:path",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_games",
+      "title": "Groups play the same game",
+      "text": "Groups play the same game as people: cooperation, retaliation and forgiveness between groups and tribes. Coalitions form where cooperation keeps paying, and break where it does not.",
+      "focus": "society",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_return",
+      "title": "Somewhere on this hillside",
+      "text": "Back to the whole wave. The economy is the newest layer of the same causal chain that began with the Big Bang - and you are somewhere on this hillside, moving with it into the future.",
+      "focus": "overview",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    }
+  ]
+}

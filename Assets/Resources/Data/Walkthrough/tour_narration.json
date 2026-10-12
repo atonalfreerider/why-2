@@ -1,0 +1,262 @@
+{
+  "voice": "JohnV4",
+  "generated": "2026-10-11",
+  "steps": [
+    {
+      "id": "origin",
+      "narration": "Hi, I'm John. What you're looking at is a causality graph, a diagram of cause and effect. I built it because I believe that if you understand what caused what, you can put together a working model of the universe, from the Big Bang all the way up to this moment. The graph has three levels, and each one stands on the one beneath it. Red is the physical universe: matter, obeying the Standard Model of particle physics and the laws of general and special relativity. Green is the biosphere, life on Earth, arranged by the food chain and by the tree of life. Blue is human civilization: our tribes, and the social market hierarchies they build. Time spirals through all of it. Let me show you how it works."
+    },
+    {
+      "id": "welcome",
+      "narration": "So let's start with the question at the end of the line: why are you here, right now? This path is one unbroken chain of causes. It begins at the Big Bang, and it ends at this exact moment, with you watching. Cause and effect only runs one way. Every link made the next one possible, and nothing that happened can unhappen. As we follow the chain, link by link, keep asking that same question, because every stop along the way is part of the answer."
+    },
+    {
+      "id": "read_clock",
+      "narration": "The story covers thirteen point eight billion years, and no ordinary ruler can hold that, so time runs on a spiral. Picture a clock of deep time, stretched so the early universe doesn't swallow everything. The Big Bang sits at six o'clock, and life appears around ten. At three o'clock, about five thousand years ago, the clock lets go. Human history leaves the circle on a straight road, one steady step per year, all the way to now. Deep time is the clock, and history is the road."
+    },
+    {
+      "id": "three_levels",
+      "narration": "Color means only one thing on this graph. Red is matter, the physical universe, described by the Standard Model of particle physics and by general and special relativity. Green is life, the biosphere on Earth. Blue is us, human civilization. They're stacked in that order, matter at the bottom, life above it and humans on top, because each level grew out of the one beneath it. Life is built from matter, and people live on the energy that life provides. Keep that order in mind, because it explains a lot of what's coming."
+    },
+    {
+      "id": "relevance",
+      "narration": "Now look at the distance from the inner track. That distance means relevance to you. The inner track is your own lineage: the universe, the Milky Way, the Sun, the Earth, the first cells, the animals, the apes, and the civilizations that led to you. Everything that branched off along the way, other galaxies, other planets, other species and other peoples, drifts outward and fades. They're still part of the story. They're just not on the direct chain of causes that ends with you."
+    },
+    {
+      "id": "rescale",
+      "narration": "Because no single scale fits a story this big, the graph can rescale itself. Focus on any period, and that stretch of the spiral straightens out into a timeline of its own, so a billion years, or a single human lifetime, can fill the whole screen. That's how scale works here: nothing is thrown away, it's only stretched or compressed so you can read it. I'll do this for you as we go, and afterwards you can press U or the number keys to do it yourself."
+    },
+    {
+      "id": "big_bang",
+      "narration": "Here is where the chain begins. Thirteen point eight billion years ago, all of space, matter and energy began expanding from an extremely hot, dense state. In a split second, inflation likely stretched tiny quantum ripples into the seeds of every galaxy that would ever form. Every atom in your body traces back to this moment. That's why the red layer, matter, runs underneath everything else on this graph. Nothing above it could exist without it."
+    },
+    {
+      "id": "one_in_a_billion",
+      "narration": "As the young universe cooled, quarks bound together into protons and neutrons. Matter and antimatter met and annihilated almost completely, and for about every billion particles, one extra particle of matter survived. Everything you will ever see is made from those leftovers. In the first few minutes, some of the survivors fused into helium, leaving the universe about three quarters hydrogen and one quarter helium by mass. That simple mixture is the raw material of every star that came after."
+    },
+    {
+      "id": "first_light",
+      "narration": "About three hundred and eighty thousand years in, the universe had cooled enough for electrons to join those nuclei and make the first atoms. For the first time, light could travel freely, and we still see that light today as the cosmic microwave background. Then came the dark ages: roughly a hundred million years with no stars at all. But gravity was working the whole time, quietly pulling gas and dark matter into denser and denser clumps."
+    },
+    {
+      "id": "first_stars",
+      "narration": "Eventually those clumps grew dense enough to ignite, and the first stars were born. They were made only of hydrogen and helium, and most were probably giants that burned fast and died young. Their fusion, and the explosions that ended them, forged and scattered the first carbon, oxygen and iron. Those are the elements that planets would need, and much later, life. One star's death becomes the next generation's raw material. That's cause and effect at a cosmic scale."
+    },
+    {
+      "id": "galaxies_split",
+      "narration": "Stars gathered into the first galaxies, and here the red layer begins to branch. Most ordinary matter stayed behind as thin gas between the galaxies, and the other galaxies drift outward, away from our track, because they aren't on our direct chain. Watch the red layer spread out and thin as space keeps expanding, faster ever since dark energy took over. The universe is getting emptier, but one of those galaxies is about to become home."
+    },
+    {
+      "id": "milky_way",
+      "narration": "That galaxy is ours, the Milky Way. From about thirteen point six billion years ago, it grew by merging with smaller galaxies. Generation after generation, its stars lived and died, and each one enriched the galaxy's gas with carbon, oxygen and iron. Those same elements would one day build the Sun, the Earth, and you. When people say we're made of star stuff, this is the stretch of the graph they mean."
+    },
+    {
+      "id": "solar_nebula",
+      "narration": "Four point six billion years ago, a cold cloud of gas and dust in the Milky Way's disk, enriched by all those earlier stars, collapsed under its own gravity. Most of it fell inward to become the Sun. The rest flattened into a spinning disk, and in that disk the planets would grow. Notice how the story is narrowing now, from the whole universe, to one galaxy, to one cloud. The chain of causes keeps tightening toward you."
+    },
+    {
+      "id": "sun_planets",
+      "narration": "The Sun ignited, and today it holds ninety-nine point eight six percent of all the mass in the solar system. It has shone steadily for more than four and a half billion years, and it powers nearly all life on Earth, which will matter a great deal when we reach the green level. The leftover disk built Jupiter and the other planets, and you can see them split off here onto their own outer tracks."
+    },
+    {
+      "id": "earth_forms",
+      "narration": "In that disk, about four point five four billion years ago, colliding planetesimals built the Earth, at just the right distance from the Sun for liquid water. The young planet melted and separated into an iron core and a rocky mantle. Later, that churning iron core would power a magnetic field strong enough to shield the air and the oceans. Each of those is a cause we'll need later on: water, rock, and a shield."
+    },
+    {
+      "id": "moon",
+      "narration": "Not long after, according to the leading theory, a body about the size of Mars, called Theia, struck the young Earth, and the debris came together as the Moon. That collision still shapes your life. The Moon's gravity steadies the tilt of the Earth, which keeps the seasons and the climate more stable, and it raises the tides that shaped coastlines and early life. One accident, and a long line of effects."
+    },
+    {
+      "id": "origin_of_life",
+      "narration": "Tiny zircon crystals hint that Earth had liquid water by four point four billion years ago. And here, near ten o'clock on the clock, the green layer begins. Carbon traces in rocks from Greenland suggest microbes were living by three point seven billion years ago. Every living thing, from bacteria to you, descends from one common ancestor, and we all still share its genetic code. Life is the second level, and it's built entirely out of the matter beneath it."
+    },
+    {
+      "id": "tree_of_life",
+      "narration": "From that ancestor grows the green layer, the tree of life, ending in about sixteen hundred living groups, mostly families. It's organized two ways at once. Along time, it follows genetic history: who descended from whom. And within each branch, groups are ordered by the food chain, with top predators toward the inside. That second order matters, because higher organisms live by using the ones beneath them as their source of calories. Our own lineage runs along the inside track, and every branch that split away bends outward."
+    },
+    {
+      "id": "photosynthesis",
+      "narration": "Early microbes lived on chemical energy, or on a simpler kind of photosynthesis that made no oxygen. Then, probably by three billion years ago, cyanobacteria learned to split water using sunlight. Water and light were almost everywhere, so life's energy supply soared. This is the bottom of the food chain, the place where sunlight first becomes calories, and everything above it depends on it. The waste product, oxygen, would go on to remake the whole planet."
+    },
+    {
+      "id": "great_oxidation",
+      "narration": "About two point four billion years ago, that oxygen finally built up in the air. It poisoned many microbes and likely set off a long ice age. But it also allowed an ozone shield to form, and it made energy-hungry life possible. Look at what happened here: life changed the matter of the planet, and the changed planet changed life in return. The arrow of time still points one way, but causes can cross between the levels in both directions."
+    },
+    {
+      "id": "eukaryotes",
+      "narration": "Oxygen made breathing a powerful new way to get energy. By about one point six five billion years ago, an archaeon had likely taken in an oxygen-breathing bacterium, and instead of digesting it, kept it. That bacterium became the mitochondrion, the power plant inside every one of your cells. The extra energy let these complex cells grow large, and that was the step toward plants, fungi, animals, and eventually brains."
+    },
+    {
+      "id": "multicellular",
+      "narration": "With energy to spare, cells began to cooperate as bodies. A red alga called Bangiomorpha, about a billion years old, is the first known organism to reproduce sexually. Complex cells then branched into green plants, fungi and animals. And here's a surprise the tree makes visible: fungi are closer relatives of ours than they are of plants. Reading the tree by genetic history, rather than by appearance, keeps turning up connections like that."
+    },
+    {
+      "id": "cambrian",
+      "narration": "After Snowball Earth, when ice reached all the way to the tropics, the thaws flooded the seas with nutrients. Soft-bodied Ediacaran creatures appeared, and then, from about five hundred and thirty-nine million years ago, most animal body plans arose within some twenty million years. Eyes, shells and predators set off an arms race. Once some animals ate others, the food chain grew new levels, and that pressure shaped every animal that came after."
+    },
+    {
+      "id": "vertebrates",
+      "narration": "Those Cambrian seas held our own branch, the chordates: small swimmers with a stiff rod running along the back. Pressed by the arms race, their descendants grew a skull around a larger brain, and a backbone. Then came hinged jaws, which made them active predators and moved them up the food chain. That body plan became the blueprint for fish, for dinosaurs, and for you."
+    },
+    {
+      "id": "land_plants",
+      "narration": "Meanwhile, about four hundred and seventy million years ago, plants crept onto land. As they spread, they turned bare rock into soil and drew carbon dioxide out of the air. Within about eighty-five million years, the first forests stood, and the continents were now livable for animals. The plants became the new foundation of the food chain on land, the calories that every land animal would eventually live on."
+    },
+    {
+      "id": "tetrapods",
+      "narration": "Following the plants onto land came the lobe-finned fish. Their sturdy fin bones became our arm and leg bones, and about three hundred and seventy million years ago they gave rise to the tetrapods, animals with four limbs. They came through the Late Devonian extinction and carried the vertebrate body out of the water. Look at your own hands: the bones inside them trace back to this branch."
+    },
+    {
+      "id": "amniotes",
+      "narration": "Amphibians still had to return to the water to breed. The amniotes solved that with an egg that carries its own water, and that let them conquer dry land. Then their lineage split in two. One side led to the reptiles and birds. The other side, our inner track, led to the mammals. Every split like this is a fork in the chain of causes, and only one path at each fork leads to you."
+    },
+    {
+      "id": "great_dying",
+      "narration": "About two hundred and fifty-two million years ago, on the supercontinent Pangaea, enormous volcanic eruptions in Siberia heated and acidified the planet. The Great Dying killed more than eighty percent of marine species, the worst extinction we know of. Here the red layer reached up and reset the green one. And in the recovering world, two new groups arose that matter for our story: the dinosaurs and the mammals."
+    },
+    {
+      "id": "dinosaurs",
+      "narration": "Dinosaurs appeared about two hundred and thirty-three million years ago, and after the end-Triassic extinction they ruled the land for some one hundred and thirty-five million years. They held the top of the food chain. The first mammals were small, nocturnal insect eaters, living in the dinosaurs' shadow. They survived thanks to warm blood, fur and keen hearing, waiting, without knowing it, for their chance."
+    },
+    {
+      "id": "chicxulub",
+      "narration": "Then, sixty-six million years ago, an asteroid about ten kilometres wide struck what is now the Yucatan, in Mexico. The impact winter killed about three quarters of all species, including every dinosaur except the birds. Watch the red layer strike the green. This may be the clearest single cause on the whole graph: without this impact, mammals, and we, might never have had our turn."
+    },
+    {
+      "id": "mammals_radiate",
+      "narration": "With the dinosaurs gone, placental mammals spread into all the empty niches: whales, bats, horses, cats, dogs and primates. Now notice the food chain order inside each branch. Hunters, like the cats, sit toward the inside, and the plant eaters they prey on sit farther out. That's the logic of the green layer in miniature: each level of the chain lives on the calories of the level beneath it."
+    },
+    {
+      "id": "primates",
+      "narration": "One small branch took to the trees. Primates gained grasping hands and forward-facing eyes. Many added keen color vision and large social groups, and living in those groups rewarded social intelligence, the ability to read and manage others. The apes went further still, with bigger brains and long childhoods for learning. Hold on to that idea of social groups. It's the seed of the blue level."
+    },
+    {
+      "id": "hominins",
+      "narration": "As cooling climates opened African forests into woodland and grassland, our lineage split from the chimpanzees', by about seven million years ago. Walking upright freed the hands for carrying, and eventually for making tools. It's a small change in posture with enormous consequences, and a good example of how a change in the red layer, the climate, can reshape the green one."
+    },
+    {
+      "id": "tools_fire",
+      "narration": "Free hands made the oldest known stone tools, three point three million years old. Tools opened up meat and marrow, richer calories that could fuel larger brains. Homo erectus spread out of Africa, and cooking with fire released still more energy from food. Meanwhile, swinging ice age climates rewarded adaptable minds. Notice the pattern: more energy, bigger brains, better ways to get more energy. It's a loop that will eventually lift us off the green level."
+    },
+    {
+      "id": "homo_sapiens",
+      "narration": "About three hundred thousand years ago, our own species appears in Africa. With language and shared culture, knowledge could now build up faster than genes could change. That's a new kind of evolution, passed on by teaching rather than by inheritance alone. And it's the reason a third level, the blue one, is about to rise above the green. Only our lineage makes that climb."
+    },
+    {
+      "id": "out_of_africa",
+      "narration": "Carrying that culture, modern humans spread out of Africa, starting around seventy thousand years ago, into Asia, Europe, Australia, and later the Americas. Along the way they mixed with Neanderthals and Denisovans, who later vanished. Every culture outside Africa descends from these migrations. These scattered bands are the first tribes, the people who will become the blue level of this graph."
+    },
+    {
+      "id": "agriculture",
+      "narration": "When the last ice age ended, eleven thousand seven hundred years ago, the stable climate of the Holocene made farming possible. People domesticated grasses such as wheat and rice, whose large seeds store food, and they began herding animals. Food surpluses meant not everyone had to find food. That led to villages, then cities, writing and the first civilizations, and with them, the first real hierarchies of people."
+    },
+    {
+      "id": "farm_rises",
+      "narration": "Farming turned wild species into servants. Wheat, sheep, goats and cattle left the green tree of life about ten thousand five hundred years ago and rose into a new layer, just beneath the people: livestock and crops. It's the food chain again, but now humans are deliberately arranging the level beneath them as their own calorie supply. Today, livestock outweighs all wild mammals by more than ten to one."
+    },
+    {
+      "id": "matter_rises",
+      "narration": "Beneath the farms lies the matter we dig up. Copper smelting, then bronze and iron, drew metal out of the Earth's red layer. Later, coal, oil and concrete turned that trickle into about a hundred billion tonnes a year. So the stack repeats itself inside the human world: people on top, the life we farm below us, and the matter we extract below that. The same three levels, now under human control."
+    },
+    {
+      "id": "civ_streams",
+      "narration": "In the blue level, each civilization is drawn as a stream, and its width shows its relative power. Those widths come from the Histomap, a chart John Sparks drew in nineteen thirty-one, and for the last century from each country's share of world economic output. When the Histomap begins, about four thousand years ago, Egyptian, Mesopotamian, Anatolian, Indian and Chinese peoples are already flowing side by side. From here on you can read each people's lifespan, its rise, and its fall."
+    },
+    {
+      "id": "population_curve",
+      "narration": "Look inside one of those streams and you'll find a population curve, split by sex, with men on one side and women on the other. Each thin line is a single lifespan, rising and falling with a modeled social market value, and each line stands for a number of people that's shown on screen. Famous people glow, like Hatshepsut and Hammurabi. This is the social market hierarchy of a people, drawn as a shape you can actually look at."
+    },
+    {
+      "id": "lifespans_gender",
+      "narration": "Why are so many of these lines short? In the ancient world, life expectancy at birth was only about twenty-six years, mostly because so many children died. Adults who reached fifteen often lived into their forties, fifties, or even sixties. Compare the two halves as well. Women's small edge in lifespan grew as childbirth became safer, and today it's about five years. Every short line here is a chain of causes cut off early."
+    },
+    {
+      "id": "bronze_age",
+      "narration": "Streams collide, and streams split. Egypt and the Hittites fought to a draw at Kadesh, and then signed one of the oldest known peace treaties. Yet around three thousand two hundred years ago, the Late Bronze Age collapse brought down the Hittites and the palaces of the Aegean. In time, from that wreckage, the Greek city-states grew. Collapse isn't the end of a chain. Often it's the start of the next one."
+    },
+    {
+      "id": "axial_age",
+      "narration": "As Iron Age states grew larger and richer, thinkers across Eurasia began asking how to live well: Confucius and Laozi in China, the Buddha in India, Socrates in Greece. Their ideas have outlived every empire on this map, and they still guide billions of people. It's a reminder that in the blue level, some of the strongest causes aren't armies or harvests. They're ideas."
+    },
+    {
+      "id": "alexander",
+      "narration": "Cyrus the Great built Persia into the largest empire the world had yet seen. Alexander the Great conquered it in under a decade. But when Alexander died at thirty-two, his empire split among his generals. Watch Greek rule flow into Ptolemaic Egypt and the Seleucid Empire, carrying Greek culture all the way from Egypt to India. Power can rise fast, and it can split just as fast."
+    },
+    {
+      "id": "rome",
+      "narration": "Rome absorbed Greek culture, destroyed its rival Carthage in the Punic Wars, and, after Julius Caesar's civil war, became an empire under Augustus. It united the Mediterranean with roads, law and the Latin language. Its eastern half, Byzantium, kept Greek learning alive until fourteen fifty-three. Watch how wide the Roman stream grows. That width is its relative power, and those roads and laws are causes we still live with."
+    },
+    {
+      "id": "faiths",
+      "narration": "The scriptures of little Israel and Judah shaped two great faiths. Christianity spread along Rome's roads after Jesus and Paul, and Islam united Arabia under Muhammad. Arab caliphates then stretched from Spain to India, preserving Greek science and carrying Indian numerals west, the same numerals most of the world uses today. Faiths, like ideas, have outlasted the empires that carried them."
+    },
+    {
+      "id": "fall_of_rome",
+      "narration": "Steppe nomads such as the Huns pushed Germanic peoples into a weakened Rome, and by the year four hundred and seventy-six, the Western Empire had fallen. Watch one stream split into many. The Franks, whose realm peaked under Charlemagne, and the other Germanic kingdoms became the roots of France, Germany, England and much of Europe. One civilization's end becomes the beginning of many others."
+    },
+    {
+      "id": "mongols",
+      "narration": "In the twelve hundreds, Genghis Khan and his heirs built the largest connected land empire in history. By linking Eurasia, it carried trade and ideas, and also the Black Death. As it broke apart, new powers grew from its edges, among them Muscovy, which became Russia, and the Ottoman Turks. One empire's rise and fall set the shape of the map for centuries."
+    },
+    {
+      "id": "printing",
+      "narration": "Around fourteen fifty, Gutenberg's printing press made books cheap, and printed ideas spread faster than any ruler could stop them. That fueled Luther's Reformation, and the science of Galileo and Newton. Meanwhile, Columbus's voyage in fourteen ninety-two linked Europe and the Americas, reshaping trade, crops and peoples on both sides of the ocean. Information itself was becoming a cause, and it was moving faster than armies."
+    },
+    {
+      "id": "revolutions",
+      "narration": "Printing, science and trade fed two revolutions in the late seventeen hundreds. Britain's American colonies declared independence in seventeen seventy-six, while James Watt's steam engines helped launch Britain's Industrial Revolution. Machines multiplied what each worker could make. Watch the British stream swell with power, and then the American one. Coal and steam were drawing energy out of the red layer on a scale no people had ever had."
+    },
+    {
+      "id": "longer_lives",
+      "narration": "Industry paid for science, and science lengthened lives. Germ theory, vaccines, antibiotics and high-yield crops cut child deaths and more than doubled life expectancy since eighteen hundred, to over seventy years today. So the lifelines here grow long, and the world's population balloons past eight billion. More people living longer is one of the biggest effects on the whole graph, and it rests on every level beneath it."
+    },
+    {
+      "id": "world_wars",
+      "narration": "The same industry made war industrial. World War One killed about twenty million people, and World War Two about seventy-five million. In this model, roughly a quarter of German and a fifth of Soviet men of military age die. You can see that scar as a gap on the men's side of those streams. Behind each missing line is a family, and a chain of causes that ended early."
+    },
+    {
+      "id": "new_balance",
+      "narration": "By nineteen forty-five, the United States was by far the widest stream, now measured by its share of world economic output. Afterwards, Japan and Germany rebuilt into economic giants. Since Deng Xiaoping's reforms began in nineteen seventy-eight, China has grown into the largest economy by purchasing power, and India is rising fast. Relative power never sits still, and the streams show every shift as a change in width."
+    },
+    {
+      "id": "explosion",
+      "narration": "For most of history, the human branch was a thin thread. After eighteen hundred, coal, medicine and fertilizer let the population leap from one billion to eight billion, and every layer beneath us exploded along with it: livestock, cropland, fuels, ores and sand. This is what it looks like when the top of the stack grows. Every level underneath has to carry the weight."
+    },
+    {
+      "id": "people_threads",
+      "narration": "Every famous life is a glowing line inside its civilization, and threads show who shaped whom: Newton to Einstein, teacher to student. Ideas are causes too, passed from one mind to the next. Press F to see everyone alive at whatever moment you're looking at, and follow any of them from birth to death. It's the same chain of cause and effect, at the scale of a single life."
+    },
+    {
+      "id": "smv_intro",
+      "narration": "Now let's zoom into one stream: the United States, from nineteen fifty to today. Here the population is simulated in detail, built from United Nations age pyramids and from American marriage and divorce rates, with men on one side and women on the other. This is the stream I know best, and it's also the doorway to the second part of this project, the economy."
+    },
+    {
+      "id": "smv_lifelines",
+      "narration": "Each line follows one life from birth to death. From age eighteen, its height follows a modeled social market value. In this model, women's value peaks young, men's rises with wealth into middle age, and having children lowers both. I want to be clear about this: it's a model of a popular idea, drawn so that it can be examined and argued with. It is not a measurement of anyone's worth."
+    },
+    {
+      "id": "smv_scale",
+      "narration": "No screen could draw hundreds of millions of Americans, so each line stands for a number of people. Watch that count on the screen change as you zoom in and out. The lines with higher value run nearest the center line between the two halves, and married couples are drawn in toward it, side by side. Position on this graph always means something, and here it means value and partnership."
+    },
+    {
+      "id": "baby_boom",
+      "narration": "When World War Two ended, returning soldiers, early marriages and prosperity produced the baby boom. American births surged from nineteen forty-six to nineteen sixty-four. Children's lines start from their parents' lines, so you can watch the boomers branch out of the Greatest and Silent generations. Every one of those branches is cause and effect at its most personal: a family making the next family."
+    },
+    {
+      "id": "divorce",
+      "narration": "From nineteen sixty to nineteen eighty, the divorce rate in the United States more than doubled, and later the marriage rate fell by more than a third. Watch more paired lines come apart, often after children have branched from them. Millennials, Generation Z and Generation Alpha inherit a world of later marriages and fewer children, and that, too, becomes a cause of whatever comes next."
+    },
+    {
+      "id": "branch_tip",
+      "narration": "The human branch runs straight to its tip. The last century is a thin slice of it, the last year a hairline, and the last second invisible. Yet every blue line is still arriving here. Matter and life faded out before the branch began, but only on the screen. Everything they made possible continues in us: in your body, in the food you eat, and in the world you live in."
+    },
+    {
+      "id": "convergence",
+      "narration": "At the glowing Now beacon, all three levels arrive together. The hydrogen in your body dates from the Big Bang, and your carbon and oxygen were made in stars. Three point seven billion years of life, and every empire, war and family in blue, shaped the world you were born into. Every line on this graph either ended somewhere along the way, or led here, to you."
+    },
+    {
+      "id": "step_back",
+      "narration": "Now step back and take it all in. From the Big Bang at six o'clock, around the clock of deep time, and down the road of human history, every cause on this graph led to this moment. Matter, held together by the laws of physics. Life, built on matter, each creature living on the ones beneath it. And people, built on life, organized into tribes and hierarchies that rise and fall. That's why I made this: if you understand cause and effect, you can hold a working model of the universe in your head. And this moment isn't the end of the chain. It's where the next one begins, and you're part of it. Explore any era you like, and follow the lines from cause to effect."
+    }
+  ]
+}

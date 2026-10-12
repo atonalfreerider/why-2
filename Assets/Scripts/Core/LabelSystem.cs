@@ -305,7 +305,7 @@ namespace Why
             placed.Clear();
             placedRects.Clear();
             WarpState warp = GraphWarp.Current;
-            float w = Screen.width, h = Screen.height;
+            float w = cam.pixelWidth, h = cam.pixelHeight;
 
             for (int i = 0; i < specs.Count && placed.Count < MaxVisible; i++)
             {
@@ -531,9 +531,8 @@ namespace Why
         void UpdateHover()
         {
             Hovered = null;
-            Mouse mouse = Mouse.current;
-            if (mouse == null) return;
-            Vector2 m = mouse.position.ReadValue();
+            if (!PointerInput.Available) return;
+            Vector2 m = PointerInput.Position;
             for (int i = 0; i < placed.Count; i++)
             {
                 if (placed[i].rect.Contains(m))

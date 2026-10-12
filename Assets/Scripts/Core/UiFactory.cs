@@ -90,6 +90,8 @@ namespace Why
             ApplyLayout(scaler);
             go.AddComponent<CanvasLayout>();
             go.AddComponent<GraphicRaycaster>();
+            // in a headset every canvas becomes a world-space panel on the HUD plane, laid out on a virtual 1080p screen
+            if (Xr.XrSession.Active) Xr.XrSession.ToWorldSpace(canvas);
             return canvas;
         }
 

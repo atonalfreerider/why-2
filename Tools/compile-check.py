@@ -37,6 +37,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--editor", action="store_true")
     ap.add_argument("--project", default=HERE)
+    ap.add_argument("--refs-from", help="also reference the package assemblies in another checkout's Library "
+                                        "(e.g. a build copy that already resolved newly added packages)")
     args = ap.parse_args()
     project = os.path.abspath(args.project)
 
@@ -51,8 +53,10 @@ def main():
     if not args.editor:
         defines = ";".join(d for d in defines.split(";") if d and d != "UNITY_EDITOR" and not d.startswith("UNITY_EDITOR_"))
 
-    lib = os.path.join(ref_root, "Library", "ScriptAssemblies")
-    for dll in glob.glob(os.path.join(lib, "*.dll")):
+    libs = [os.path.join(ref_root, "Library", "ScriptAssemblies")]
+    if args.refs_from:
+        libs.append(os.path.join(os.path.abspath(args.refs_from), "Library", "ScriptAssemblies"))
+    for dll in [d for lib in libs for d in glob.glob(os.path.join(lib, "*.dll"))]:
         name = os.path.basename(dll)
         if name.startswith("Assembly-CSharp") or ".Tests" in name or "TestFramework" in name:
             continue

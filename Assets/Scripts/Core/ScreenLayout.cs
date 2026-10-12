@@ -91,6 +91,13 @@ namespace Why
 
             int w = Screen.width, h = Screen.height;
             Rect safe = Screen.safeArea;
+            if (Xr.XrSession.Active)
+            {
+                // a headset lays its canvases out on a virtual landscape screen (see Xr.XrSession.VirtualScreen)
+                w = (int)Xr.XrSession.VirtualScreen.x;
+                h = (int)Xr.XrSession.VirtualScreen.y;
+                safe = new Rect(0, 0, w, h);
+            }
             if (initialized && w == width && h == height && safe == safeArea) return;
 
             width = w;

@@ -220,6 +220,7 @@ namespace Why
 
             Keyboard kb = Keyboard.current;
             if (kb != null && kb.vKey.wasPressedThisFrame) ScreenLayout.ToggleVertical();
+            if (kb != null && kb.tabKey.wasPressedThisFrame && IsLoaded) OpenOtherScene();
             if (kb != null && AllowPresetKeys && IsLoaded)
             {
                 foreach (ViewPreset p in ViewPresets.All)
@@ -286,6 +287,15 @@ namespace Why
             }
         }
 
+        /// <summary>
+        /// Tab (or the headset menu): switches between the universe and the economy. Both scenes are in the build; each
+        /// builds itself from scratch when it loads.
+        /// </summary>
+        public static void OpenOtherScene()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(GraphScene.IsEconomy ? "Why" : "Economy");
+        }
+
         /// <summary>Re-scale the graph to a preset: animates the warp and flies the camera.</summary>
         public void Focus(ViewPreset preset, float seconds = 2.2f)
         {
@@ -335,14 +345,26 @@ namespace Why
             bool economyGlow=GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
             bloom.intensity.Override(economyGlow?1.9f:1.15f);
             bloom.scatter.Override(economyGlow?.80f:.72f);
-            bloom.highQualityFiltering.Override(true);
+            // a headset renders two eyes at 72-90 Hz on a phone GPU: cheaper bloom, no vignette (it would sit on the eyes)
+            bool xr = Xr.XrSession.Active;
+            bloom.highQualityFiltering.Override(!xr);
 
             Tonemapping tone = profile.Add<Tonemapping>(true);
             tone.mode.Override(TonemappingMode.Neutral);
 
-            Vignette vignette = profile.Add<Vignette>(true);
-            vignette.intensity.Override(0.32f);
-            vignette.smoothness.Override(0.45f);
+            if (!xr)
+            {
+                Vignette vignette = profile.Add<Vignette>(true);
+                vignette.intensity.Override(0.32f);
+                vignette.smoothness.Override(0.45f);
+            }
+            else if (GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset urp)
+            {
+                // nothing samples the depth texture; MSAA keeps the thin lines clean in the lenses
+                urp.supportsCameraDepthTexture = false;
+                urp.msaaSampleCount = 4;
+                urp.renderScale = 1f;
+            }
 
             volume.sharedProfile = profile;
         }

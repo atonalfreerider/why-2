@@ -104,6 +104,18 @@ namespace Why.Director
 
         public override int Order => 50;
 
+        /// <summary>True while the guided tour runs.</summary>
+        public bool TourRunning => active;
+
+        /// <summary>The anchor the current step points at (null between steps and outside the tour); headsets mark it in 3D.</summary>
+        public Anchor AttentionTarget => active ? target : null;
+
+        /// <summary>"Next" from a controller button: completes the typewriter first, then moves on.</summary>
+        public void NextStep() => Next();
+
+        /// <summary>"Back" from a controller button.</summary>
+        public void PreviousStep() => Previous();
+
         Vector2 CanvasSize => canvasRect.rect.size;
 
         public override void Init(GraphRoot graphRoot)
@@ -115,8 +127,20 @@ namespace Why.Director
             BuildUi();
         }
 
+        /// <summary>
+        /// Set when the universe tour continues into the economy: the next scene's director starts its tour as soon as
+        /// the graph has loaded, so the whole model plays as one walkthrough from the Big Bang to the economy.
+        /// </summary>
+        static bool continueTourInNextScene;
+
         public override void OnLoaded(GraphRoot graphRoot)
         {
+            if (continueTourInNextScene)
+            {
+                continueTourInNextScene = false;
+                startRequested = true;
+            }
+
             if (startRequested) StartTour();
             else StartCoroutine(ValidateNextFrame());
         }
@@ -228,6 +252,14 @@ namespace Why.Director
             ReleaseUiFocus();
         }
 
+        /// <summary>The universe tour's last card: open the economy scene and keep narrating there.</summary>
+        void ContinueIntoEconomy()
+        {
+            continueTourInNextScene = true;
+            ExitTour();
+            GraphRoot.OpenOtherScene();
+        }
+
         void Restart()
         {
             ReleaseUiFocus();
@@ -250,6 +282,12 @@ namespace Why.Director
         void Advance()
         {
             ReleaseUiFocus();
+            if (active && index >= steps.Count && !GraphScene.IsEconomy)
+            {
+                ContinueIntoEconomy();
+                return;
+            }
+
             if (!active || index >= steps.Count) return;
             ResumeAfterExploring();
             GoTo(index + 1);
@@ -435,6 +473,7 @@ namespace Why.Director
             stepDuration = 0;
 
             bool economy = GraphScene.IsEconomy;
+            bool xr = Xr.XrSession.Active;
             string lit = lineage.Count == 0 ? ""
                 : economy ? "The glowing players own capital: the few who steer their own path. "
                 : "The glowing path is the chain of causes that led to you. ";
@@ -444,17 +483,21 @@ namespace Why.Director
                 Kicker = "End of the tour",
                 Title = economy ? "Every dollar is someone's choice, made in fear or desire."
                     : "This moment is the result of everything before it.",
-                Body = lit + (economy
+                Body = lit + (xr
+                    ? "Explore it on your own: grip and pull to drag the world, grip with both hands to grow or shrink " +
+                      "it, the left stick to fly, the right stick to zoom and turn. X opens the menu of views" +
+                      (economy ? "; A takes the tour again." : "; A continues into the economy.")
+                    : economy
                     ? "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to change the " +
                       "view. Comma and period change the year the land opens; click a player or a lifeline to look " +
                       "inside it. H lists every control; T takes the tour again."
                     : "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to " +
                       "re-scale. U unrolls the clock where you look ([ and ] widen or narrow the window, L " +
                       "switches between log and linear time). H lists every control; T takes the tour again."),
-                PrimaryLabel = "Explore",
-                Primary = ExitTour,
-                SecondaryLabel = "Restart",
-                Secondary = Restart
+                PrimaryLabel = economy ? "Explore" : "Continue: the economy",
+                Primary = economy ? (System.Action)ExitTour : ContinueIntoEconomy,
+                SecondaryLabel = economy ? "Restart" : "Explore",
+                Secondary = economy ? (System.Action)Restart : ExitTour
             }, size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, true));
         }
 
@@ -594,6 +637,8 @@ namespace Why.Director
             }
 
             float alpha = arrowAlpha * panel.Visibility;
+            // a headset marks the target in the world instead (Xr.XrBeacon): a screen arrow cannot point in stereo
+            if (Xr.XrSession.Active) alpha = 0;
             if (alpha <= 0.001f)
             {
                 if (attentionShown) HideAttention(dt);

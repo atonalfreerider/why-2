@@ -29,36 +29,46 @@ namespace Why.Director
     /// <summary>The narrated guide through the whole graph: a title and an ordered list of steps.</summary>
     public sealed class TourScript
     {
-        /// <summary>Resources path of the current scene's tour (without extension).</summary>
+        /// <summary>Resources path of a local tour draft for the current scene (without extension; ignored by Git).</summary>
         public static string ResourcePath => GraphScene.IsEconomy ? "Data/economy/tour" : "Data/tour";
+
+        /// <summary>Resources path of the narrated walkthrough tracked with the project (without extension).</summary>
+        public static string WalkthroughPath => GraphScene.IsEconomy ? "Data/Walkthrough/economy_tour" : "Data/Walkthrough/tour";
 
         [JsonProperty("title")] public string Title;
         [JsonProperty("steps")] public List<TourStep> Steps = new List<TourStep>();
 
         /// <summary>
-        /// Loads Data/tour.json (main thread). Falls back to <see cref="BuiltIn"/> when the file is missing,
-        /// malformed or empty, so the director always has something to narrate.
+        /// Loads the tour (main thread): a local draft (<see cref="ResourcePath"/>) when there is one, otherwise the
+        /// narrated walkthrough (<see cref="WalkthroughPath"/>, whose clips are Resources/Audio/Tour and EconomyTour),
+        /// otherwise <see cref="BuiltIn"/>, so the director always has something to narrate. The economy wave skips
+        /// the draft path, which still holds the retired bowl's tour on older checkouts.
         /// </summary>
         public static TourScript Load()
         {
-            if (GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills) return HillsBuiltIn();
-            TextAsset asset = Resources.Load<TextAsset>(ResourcePath);
-            if (asset == null)
-            {
-                Debug.LogWarning($"[Why] director: '{ResourcePath}' not found, using the built-in tour");
-                return BuiltIn();
-            }
+            bool hills = GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
+            if (!hills && TryLoad(ResourcePath, out TourScript draft)) return draft;
+            if (TryLoad(WalkthroughPath, out TourScript walkthrough)) return walkthrough;
+            Debug.LogWarning($"[Why] director: no tour at '{WalkthroughPath}', using the built-in tour");
+            return hills ? HillsBuiltIn() : BuiltIn();
+        }
+
+        static bool TryLoad(string path, out TourScript script)
+        {
+            script = null;
+            TextAsset asset = Resources.Load<TextAsset>(path);
+            if (asset == null) return false;
 
             string json = asset.text;
             Resources.UnloadAsset(asset);
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 // a value of the wrong type (e.g. "hold": null) skips that member instead of discarding the
-                // whole tour; malformed JSON syntax still falls back to the built-in tour below
+                // whole tour; malformed JSON syntax still falls through to the next source
                 Error = (sender, args) =>
                 {
                     if (args.ErrorContext.Error is JsonReaderException) return;
-                    Debug.LogWarning($"[Why] director: '{ResourcePath}' at {args.ErrorContext.Path}: " +
+                    Debug.LogWarning($"[Why] director: '{path}' at {args.ErrorContext.Path}: " +
                                      args.ErrorContext.Error.Message);
                     args.ErrorContext.Handled = true;
                 }
@@ -66,16 +76,17 @@ namespace Why.Director
 
             try
             {
-                TourScript script = JsonConvert.DeserializeObject<TourScript>(json.TrimStart('\uFEFF'), settings);
-                if (script != null && Normalize(script)) return script;
-                Debug.LogWarning($"[Why] director: '{ResourcePath}' has no steps, using the built-in tour");
+                script = JsonConvert.DeserializeObject<TourScript>(json.TrimStart('\uFEFF'), settings);
+                if (script != null && Normalize(script)) return true;
+                Debug.LogWarning($"[Why] director: '{path}' has no steps");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Why] director: could not parse '{ResourcePath}' ({e.Message}), using the built-in tour");
+                Debug.LogWarning($"[Why] director: could not parse '{path}' ({e.Message})");
             }
 
-            return BuiltIn();
+            script = null;
+            return false;
         }
 
         /// <summary>Drops empty steps and replaces missing strings; false if nothing is left.</summary>

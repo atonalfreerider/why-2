@@ -75,3 +75,6 @@ UserSettings
 /Assets/Resources/Data/tour_narration.json.meta
 /Assets/Resources/Data/**/tour.json
 /Assets/Resources/Data/**/tour.json.meta
+
+# Local agent worktrees
+/.claude/

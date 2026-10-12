@@ -28,6 +28,29 @@ namespace Why
 
         public Camera Cam { get; private set; }
         public CameraPose Pose => pose;
+
+        /// <summary>
+        /// In a headset: the tracking-space root this rig moves, turns and scales instead of the camera (the head owns
+        /// the camera). The pose's target then sits <see cref="XrViewDistance"/> metres in front of the eyes and the
+        /// world is scaled by the pose's distance, so every preset becomes a diorama at arm's length.
+        /// </summary>
+        public Transform XrOrigin { get; private set; }
+
+        /// <summary>Metres from the eyes to the pose's target in a headset.</summary>
+        public const float XrViewDistance = 1.1f;
+
+        /// <summary>Steepest downward look (degrees) a headset pose asks for; presets that look straight down are tilted up.</summary>
+        public const float XrMaxPitch = 38f;
+
+        /// <summary>World units per metre in a headset (the origin's uniform scale).</summary>
+        public float XrScale => pose.Distance / XrViewDistance;
+
+        // head position in tracking space and the yaw the head faced when recentred
+        Vector3 xrHead = new Vector3(0, 1.6f, 0);
+        float xrHeadYaw;
+        Vector3 lastCamPos;
+        Quaternion lastCamRot;
+        bool userActivePending;
         public bool Flying => flightT < 1;
 
         /// <summary>Incremented whenever the camera moves; label layout caches against it.</summary>
@@ -66,10 +89,58 @@ namespace Why
             flightT = 0;
         }
 
+        /// <summary>Hands the rig a tracking-space origin to drive (headset); see <see cref="XrOrigin"/>.</summary>
+        public void AttachXr(Transform origin)
+        {
+            XrOrigin = origin;
+            Apply();
+        }
+
+        /// <summary>
+        /// Makes where the head is now (position in tracking space, facing) the reference the poses are framed from:
+        /// the target appears straight ahead of the current gaze.
+        /// </summary>
+        public void RecenterXr(Vector3 headLocal, float headYaw)
+        {
+            xrHead = headLocal;
+            xrHeadYaw = headYaw;
+            Apply();
+        }
+
+        /// <summary>Headset locomotion: moves the target by a world-space offset.</summary>
+        public void XrMove(Vector3 world)
+        {
+            if (world.sqrMagnitude <= 0) return;
+            CancelFlight();
+            pose.Target += world;
+            userActivePending = true;
+        }
+
+        /// <summary>Headset zoom: scales the distance (and the world) by a factor, keeping a world point fixed.</summary>
+        public void XrZoom(float factor, Vector3 pivot)
+        {
+            float d = Mathf.Clamp(pose.Distance * factor, MinDistance, MaxDistance);
+            factor = d / pose.Distance;
+            if (Mathf.Approximately(factor, 1)) return;
+            CancelFlight();
+            pose.Target = pivot + (pose.Target - pivot) * factor;
+            pose.Distance = d;
+            userActivePending = true;
+        }
+
+        /// <summary>Headset turn: orbits the world around the target.</summary>
+        public void XrTurn(float degrees)
+        {
+            CancelFlight();
+            pose.Yaw += degrees;
+            userActivePending = true;
+        }
+
         void Update()
         {
-            UserActive = false;
-            HandleInput();
+            UserActive = userActivePending;
+            userActivePending = false;
+            if (XrOrigin == null) HandleInput();
 
             if (flightT < 1)
             {
@@ -189,6 +260,12 @@ namespace Why
 
         void Apply()
         {
+            if (XrOrigin != null)
+            {
+                ApplyXr();
+                return;
+            }
+
             Quaternion rot = Quaternion.Euler(pose.Pitch, pose.Yaw, 0);
             Vector3 pos = pose.Target - rot * Vector3.forward * pose.Distance;
             if (pos != transform.position || rot != transform.rotation)
@@ -201,12 +278,40 @@ namespace Why
             Cam.farClipPlane = Mathf.Max(100f, pose.Distance * 400f);
         }
 
+        /// <summary>
+        /// Headset placement: the eye sits where the pose's camera would (pitch limited to a comfortable downward look),
+        /// the origin is turned by the pose's yaw only (the horizon stays level) and scaled so the target is
+        /// <see cref="XrViewDistance"/> metres away. The head moves freely inside it.
+        /// </summary>
+        void ApplyXr()
+        {
+            float s = XrScale;
+            float pitch = Mathf.Clamp(pose.Pitch, 5f, XrMaxPitch);
+            Vector3 eye = pose.Target - Quaternion.Euler(pitch, pose.Yaw, 0) * Vector3.forward * pose.Distance;
+            Quaternion yaw = Quaternion.Euler(0, pose.Yaw - xrHeadYaw, 0);
+            Vector3 origin = eye - yaw * (xrHead * s);
+            XrOrigin.SetPositionAndRotation(origin, yaw);
+            XrOrigin.localScale = Vector3.one * s;
+
+            // clip planes in world units: 4 cm in front of the eyes, far enough for the whole graph
+            Cam.nearClipPlane = Mathf.Max(1e-4f, 0.04f * s);
+            Cam.farClipPlane = Mathf.Max(100f, pose.Distance * 400f);
+
+            // the head moves every frame: labels re-place whenever the eye does
+            if (transform.position != lastCamPos || transform.rotation != lastCamRot)
+            {
+                lastCamPos = transform.position;
+                lastCamRot = transform.rotation;
+                Version++;
+            }
+        }
+
         /// <summary>Screen pixels per world unit at a world position (for sizing labels).</summary>
         public float PixelsPerUnit(Vector3 world)
         {
             float depth = Vector3.Dot(world - transform.position, transform.forward);
             if (depth <= 1e-5f) return 0;
-            return Screen.height / (2f * depth * Mathf.Tan(Cam.fieldOfView * 0.5f * Mathf.Deg2Rad));
+            return Cam.pixelHeight / (2f * depth * Mathf.Tan(Cam.fieldOfView * 0.5f * Mathf.Deg2Rad));
         }
     }
 }

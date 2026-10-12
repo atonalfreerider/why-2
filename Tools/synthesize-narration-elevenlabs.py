@@ -30,10 +30,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # script (relative to ROOT) -> audio folder (relative to ROOT)
 SCRIPTS = {
-    "Assets/Resources/Data/Narration/origin.json": "Assets/Resources/Audio/Origin",
-    "Assets/Resources/Data/tour_narration.json": "Assets/Resources/Audio/Tour",
-    "Assets/Resources/Data/Narration/economy.json": "Assets/Resources/Audio/EconomyTour",
-    "Assets/Resources/Data/Narration/mind.json": "Assets/Resources/Audio/Mind",
+    "Assets/Resources/Data/Walkthrough/tour_narration.json": "Assets/Resources/Audio/Tour",
+    "Assets/Resources/Data/Walkthrough/economy_narration.json": "Assets/Resources/Audio/EconomyTour",
 }
 
 DEFAULT_VOICE = "7NoxJCAEPTXbnfIvyaF6"  # JohnV4 (cloned)

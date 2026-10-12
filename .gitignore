@@ -81,3 +81,6 @@ UserSettings
 
 # Local agent worktrees
 /.claude/
+
+# Walkthrough recordings (Why > Capture)
+/Captures/

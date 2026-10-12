@@ -2,6 +2,16 @@
   "title": "Why: from the Big Bang to this moment",
   "steps": [
     {
+      "id": "genesis",
+      "title": "In the beginning, a flash",
+      "text": "13.8 billion years ago, everything we can observe was packed into a space far smaller than an atom - and then it expanded. Every branch of this graph grows from that moment: matter first, then life, then us.",
+      "focus": "overview",
+      "anchor": "",
+      "highlight": [],
+      "hold": 16,
+      "effect": "genesis"
+    },
+    {
       "id": "origin",
       "title": "A graph of cause and effect",
       "text": "A causality graph is a map of cause and effect. Follow it and you can build a working model of the universe, from the Big Bang to this moment, on three levels: red matter, green life and blue humanity, each built on the one beneath it.",

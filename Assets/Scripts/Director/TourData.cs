@@ -24,6 +24,10 @@ namespace Why.Director
 
         /// <summary>Minimum seconds on screen during autoplay (reading time may extend it).</summary>
         [JsonProperty("hold")] public float Hold;
+
+        /// <summary>A scripted effect the stop plays instead of a camera flight: "genesis" (the Big Bang's flash and the
+        /// graph growing from it, <see cref="Genesis"/>).</summary>
+        [JsonProperty("effect")] public string Effect;
     }
 
     /// <summary>The narrated guide through the whole graph: a title and an ordered list of steps.</summary>

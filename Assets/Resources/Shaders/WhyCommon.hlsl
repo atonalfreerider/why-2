@@ -21,6 +21,13 @@ float _WhyHiCount;
 float _WhyDim;
 float _WhyTime;
 
+// Genesis (GraphReveal): x = arc length of the growth front along the base path from the Big Bang, y = width of the
+// front, z = glow at the front, w = 1 while the graph is growing (0: everything shown, no cost).
+float4 _WhyReveal;
+// x = delay per unit of radius (inner branches sprout first), y = delay spread between branches (by highlight id, so
+// branches sprout one after another), z = length of the glowing trail behind each growing tip.
+float4 _WhyReveal2;
+
 #define WHY_TWO_PI 6.28318530718
 
 float WhyYearsAgo(float u)
@@ -118,6 +125,24 @@ float WhyHandoffFade(float u)
 {
     float t = saturate((u - _WhyBaseA.x) / max(_WhyBaseB.w - _WhyBaseA.x, 1e-5));
     return t * t * (3.0 - 2.0 * t);
+}
+
+// Genesis: alpha for what the growth front has reached (1 behind it, fading to 0 just ahead of it) and a glow that
+// trails each growing tip, so the graph sprouts from the Big Bang along time - our own lineage on the inner track first,
+// the branches that split off outward one after another (delayed by radius and by a spread per branch id).
+// Raw (object-space) geometry is never hidden.
+float WhyReveal(float u, float rho, float id, float raw, out float glow)
+{
+    glow = 1.0;
+    if (_WhyReveal.w < 0.5 || raw > 0.5) return 1.0;
+    float uu = max(u, 1e-4);
+    float branch = frac(fmod(max(id, 0.0), 1024.0) * 0.6180339887);  // golden-ratio spread, exact for integer ids
+    float lag = _WhyReveal2.x * max(rho, 0.0) + _WhyReveal2.y * (id > 0.5 ? branch : 0.0);
+    float d = _WhyReveal.x - lag - WhyBaseSigma(uu, WhyYearsAgo(uu));
+    float w = max(_WhyReveal.y, 1e-4);
+    float trail = max(_WhyReveal2.z, 1e-4);
+    glow = 1.0 + _WhyReveal.z * (d >= 0.0 ? exp(-d / trail) : exp(-d * d / (w * w)));
+    return saturate((d + w) / w);
 }
 
 // Returns glow multiplier (>= 1) for highlighted ids, and an alpha multiplier for the rest.

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
@@ -301,6 +302,8 @@ namespace Why.Director
             Highlighter.Clear();
             panel.Hide();
             narrator?.Stop();
+            Genesis g = Genesis;
+            if (g != null && g.Playing) g.Stop();
             target = null;
             markers.Clear();
             stepVersion++;
@@ -447,6 +450,10 @@ namespace Why.Director
 
         void GoTo(int stop)
         {
+            // leaving a stop that plays the opening ends it (everything shown)
+            Genesis genesis = Genesis;
+            if (genesis != null && genesis.Playing) genesis.Stop();
+
             index = Mathf.Clamp(stop, -1, steps.Count);
             stepAge = 0;
             autoClock = 0;
@@ -490,10 +497,26 @@ namespace Why.Director
             }, size => PanelPlacement.Choose(size, CanvasSize, false, Vector2.zero, true));
         }
 
+        Genesis Genesis => root != null ? root.Modules.OfType<Genesis>().FirstOrDefault() : null;
+
         void ShowStep(ResolvedStep s)
         {
             ViewPreset preset = s.Preset ?? root.CurrentPreset ?? ViewPresets.All[0];
-            bool hasTarget = Frame(preset, s.Target, out Vector2 placeAt);
+            bool hasTarget;
+            Vector2 placeAt;
+            Genesis genesis = s.Step.Effect == "genesis" ? Genesis : null;
+            if (genesis != null)
+            {
+                // the opening is the camera's flight: from the flash back to the whole graph, timed to the narration
+                genesis.Play(Mathf.Max(s.Duration - 2f, 8f), preset, false);
+                hasTarget = false;
+                placeAt = Vector2.zero;
+            }
+            else
+            {
+                hasTarget = Frame(preset, s.Target, out placeAt);
+            }
+
             target = s.Target;
             markers.AddRange(s.Highlights);
             Highlight(s.Target, s.Highlights, GraphStyle.HighlightGlow, HighlightDim);

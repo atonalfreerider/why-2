@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
+using UnityEngine.XR.Management;
 
 namespace Why.Xr
 {
@@ -35,13 +36,25 @@ namespace Why.Xr
             get
             {
                 if (active.HasValue) return active.Value;
-                // XR Management starts the OpenXR display before the first scene loads (Android only; the desktop
-                // has no loader), so by the time a graph is built a running display means a headset
+                // XR Management initializes the OpenXR loader in its Awake (Android only; the desktop has no loader)
+                // but starts the display only in its Start, after the first scene's Awakes - when the graph is built.
+                // So an initialized loader or an existing display subsystem means a headset, running or not yet.
+                bool loader = false;
+                try
+                {
+                    XRGeneralSettings settings = XRGeneralSettings.Instance;
+                    loader = settings != null && settings.Manager != null && settings.Manager.activeLoader != null;
+                }
+                catch (Exception)
+                {
+                    loader = false;
+                }
+
                 List<XRDisplaySubsystem> displays = new List<XRDisplaySubsystem>();
                 SubsystemManager.GetSubsystems(displays);
-                bool running = displays.Exists(d => d.running);
-                active = running || XRSettings.isDeviceActive ||
+                active = loader || displays.Count > 0 || XRSettings.isDeviceActive ||
                          Array.IndexOf(Environment.GetCommandLineArgs(), "-xr") >= 0;
+                Debug.Log($"[Why] xr: headset {(active.Value ? "on" : "off")} (loader {loader}, displays {displays.Count})");
                 return active.Value;
             }
         }

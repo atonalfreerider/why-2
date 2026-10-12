@@ -155,7 +155,9 @@ Shader "Why/Line"
                 float rhoFade = _RhoFade > 0 ? exp(-max(IN.pos.z, 0) / _RhoFade) : 1.0;
                 float a = IN.color.a * _Alpha * _Color.a * WhyFocusFade(sLin) * alphaMul * subPixel * rhoFade;
                 a *= lerp(1.0, WhyHandoffFade(IN.pos.x), _HandoffFade);
-                OUT.color = float4(IN.color.rgb * _Color.rgb * IN.q.x * glow, a);
+                float revealGlow;
+                a *= WhyReveal(IN.pos.x, IN.pos.z, IN.p.w, _Raw, revealGlow);
+                OUT.color = float4(IN.color.rgb * _Color.rgb * IN.q.x * glow * revealGlow, a);
 
                 // flow pulses travel toward smaller phase: along time the phase is the arc u (toward the present);
                 // along a path (flow >= 2) it is minus the distance from the path's start (toward its end)

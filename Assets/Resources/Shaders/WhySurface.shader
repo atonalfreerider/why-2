@@ -88,7 +88,9 @@ Shader "Why/Surface"
                 float rhoFade = _RhoFade > 0 ? exp(-max(IN.pos.z, 0) / _RhoFade) : 1.0;
                 float a = IN.color.a * _Alpha * _Color.a * WhyFocusFade(sLin) * alphaMul * rhoFade;
                 a *= lerp(1.0, WhyHandoffFade(IN.pos.x), _HandoffFade);
-                OUT.color = float4(IN.color.rgb * _Color.rgb * IN.p.y * glow, a);
+                float revealGlow;
+                a *= WhyReveal(IN.pos.x, IN.pos.z, IN.p.x, _Raw, revealGlow);
+                OUT.color = float4(IN.color.rgb * _Color.rgb * IN.p.y * glow * revealGlow, a);
                 OUT.band = float2(IN.p.z, IN.p.w);
                 return OUT;
             }

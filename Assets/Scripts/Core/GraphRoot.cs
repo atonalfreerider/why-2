@@ -47,6 +47,9 @@ namespace Why
         public static GraphRoot Instance { get; private set; }
 
         public CameraRig Rig { get; private set; }
+
+        /// <summary>The runtime bloom (Genesis surges it for the Big Bang's flash).</summary>
+        public Bloom Bloom { get; private set; }
         public LabelSystem Labels { get; private set; }
         public GraphContext Context { get; private set; }
         public IReadOnlyList<GraphLayer> Layers => layers;
@@ -364,6 +367,7 @@ namespace Why
             VolumeProfile profile = ScriptableObject.CreateInstance<VolumeProfile>();
 
             Bloom bloom = profile.Add<Bloom>(true);
+            Bloom = bloom;
             bloom.threshold.Override(0.9f);
             bool economyGlow=GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
             bloom.intensity.Override(economyGlow?1.9f:1.15f);

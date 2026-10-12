@@ -34,7 +34,7 @@ namespace Why
         public override void Init(GraphRoot root)
         {
             string[] args = System.Environment.GetCommandLineArgs();
-            enabledByArgs = args.Contains("-smoketest") || args.Contains("-iconshot");
+            enabledByArgs = args.Contains("-smoketest") || args.Contains("-iconshot") || args.Contains("-smokegenesis");
             if (!enabledByArgs)
             {
                 Destroy(gameObject);
@@ -68,7 +68,24 @@ namespace Why
             string[] args = System.Environment.GetCommandLineArgs();
             int i = System.Array.IndexOf(args, "-iconshot");
             if (i >= 0 && i + 1 < args.Length) StartCoroutine(IconShot(root, args[i + 1]));
+            else if (args.Contains("-smokegenesis")) StartCoroutine(GenesisShots());
             else StartCoroutine(Run(root));
+        }
+
+        /// <summary><c>-smokegenesis [-screenshots DIR]</c>: frames of the opening as it plays, then quits.</summary>
+        IEnumerator GenesisShots()
+        {
+            float[] at = { 0.25f, 0.6f, 1.2f, 2.5f, 4f, 5.5f, 7f, 8.5f, 10f, 12f };
+            float t = 0;
+            foreach (float s in at)
+            {
+                yield return new WaitForSecondsRealtime(s - t);
+                t = s;
+                yield return Shot($"genesis-{s:00.00}s");
+            }
+
+            Debug.Log($"[Why] smoke: genesis done, {errors} errors");
+            Application.Quit(errors > 0 ? 1 : 0);
         }
 
         /// <summary>

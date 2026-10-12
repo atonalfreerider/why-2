@@ -3,8 +3,12 @@
   "generated": "2026-10-11",
   "steps": [
     {
+      "id": "genesis",
+      "narration": "Everything starts here, with a flash. Thirteen point eight billion years ago, everything we can observe was packed into a space far smaller than an atom, and then it expanded. Watch what grows out of that moment. Matter fans out as space itself stretches. Life takes root on one small planet. And people stream down the road of history, all the way to this moment. Every branch you see is a chain of causes, and every one of them starts in that flash."
+    },
+    {
       "id": "origin",
-      "narration": "Hi, I'm John. What you're looking at is a causality graph, a diagram of cause and effect. I built it because I believe that if you understand what caused what, you can put together a working model of the universe, from the Big Bang all the way up to this moment. The graph has three levels, and each one stands on the one beneath it. Red is the physical universe: matter, obeying the Standard Model of particle physics and the laws of general and special relativity. Green is the biosphere, life on Earth, arranged by the food chain and by the tree of life. Blue is human civilization: our tribes, and the social market hierarchies they build. Time spirals through all of it. Let me show you how it works."
+      "narration": "I'm John, and what you just watched grow is a causality graph, a diagram of cause and effect. I built it because I believe that if you understand what caused what, you can put together a working model of the universe, from the Big Bang all the way up to this moment. The graph has three levels, and each one stands on the one beneath it. Red is the physical universe: matter, obeying the Standard Model of particle physics and the laws of general and special relativity. Green is the biosphere, life on Earth, arranged by the food chain and by the tree of life. Blue is human civilization: our tribes, and the social market hierarchies they build. Time spirals through all of it. Let me show you how it works."
     },
     {
       "id": "welcome",

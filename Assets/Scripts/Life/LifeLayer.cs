@@ -47,6 +47,9 @@ namespace Why.Life
         public PhyloTree Tree { get; private set; }
         public int LineagePathLength { get; private set; }
 
+        /// <summary>Trophic level, role and common name of every leaf (life_traits.json), read-only after Prepare.</summary>
+        public IReadOnlyDictionary<string, Trait> Traits { get; private set; }
+
         LineMeshBuilder lines;
         Material lineMat;
 
@@ -59,7 +62,8 @@ namespace Why.Life
         int gridCount;
         float[] prefix;             // [grid * lineageCount + lineage] = summed weight inside the lineage
 
-        sealed class Trait
+        /// <summary>One leaf of life_traits.json: trophic level t (1 producers .. 5), ecological role, common name.</summary>
+        public sealed class Trait
         {
             [JsonProperty("t")] public float T = 2f;
             [JsonProperty("role")] public string Role;
@@ -100,6 +104,7 @@ namespace Why.Life
             int n = tree.Count;
 
             Dictionary<string, Trait> traits = ParseOr(ctx.Text(TraitsPath), new Dictionary<string, Trait>());
+            Traits = traits;
             CladeFile cladeFile = ParseOr(ctx.Text(CladesPath), new CladeFile());
             Dictionary<string, double> domesticated = DomesticatedFamilies(ctx.Text(DomesticationPath));
 

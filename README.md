@@ -21,12 +21,14 @@ the real expansion of space (a Lambda-CDM scale factor), so it billows out acros
 every nested body grows with it as a contour that splits off smoothly, never in steps. Each region is
 shaded by its real density, so the gaps between the contours read as orders of magnitude - from 3x10^30
 atoms/m^3 in Earth to 2x10^5 between the stars and ~0.3 between the galaxies - and every strand carries
-an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). Beneath it a faint grid draws
-the physical scale of that map: shells at every round distance from our lineage (10, 100, 1000 metres ...
-out to the edge of the observable universe), which enter at the envelope as the universe grows past them,
-and rays that follow the matter a round distance from us today back toward the Big Bang, fanning out with
-the expansion of space. Between neighbouring lines the distance grows tenfold, finer lines appear as you
-zoom, and the probe (G) reads real numbers anywhere: metres from us, metres per unit of the graph. Matter
+an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). Beneath it a grid draws the inflation of space as a train track: each rail follows the matter that lies a round
+distance from us today (10, 100, 1000 metres ... out to the edge of the observable universe) back through time, so it
+hugs the clock while space is small, bends outward as space stretches, and holds still inside the bodies that stopped
+expanding when they formed (Earth, the Sun, the Milky Way, the Local Group). No two rails ever cross. Crossbeams tie
+neighbouring rails at their own spacing, so each level of the ruler is a track of square cells, and inside every cell
+the next, finer track opens as you zoom (decades, then tenths, then hundredths), down to the scale of the Earth; out on
+the envelope the cells open so wide the lines fade to black. The probe (G) reads real numbers anywhere: metres from
+us, metres per unit of the graph. Matter
 dissolves before the human branch.
 
 **Green - life.** The TimeTree of Life (1610 families) drawn as an expanding set of roots. Branches are

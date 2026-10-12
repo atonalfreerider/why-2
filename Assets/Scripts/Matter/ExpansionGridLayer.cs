@@ -7,27 +7,27 @@ using Debug = UnityEngine.Debug;
 namespace Why.Matter
 {
     /// <summary>
-    /// The scale grid of the red layer: the physical map of <see cref="MatterScale"/> drawn as two families of
-    /// lines, every one a real measurement.
+    /// The scale grid of the red layer: the inflation of space drawn as a train track that grows with the universe,
+    /// every line a real measurement on the map of <see cref="MatterScale"/>.
     ///
-    /// Shells: the loci where the distance from our lineage is a round number of metres (10^N, and the finer
-    /// 2..9 x 10^N and 0.1 steps between them, as on a log ruler). A shell exists once the observable universe has
-    /// grown past it, so it enters at the envelope's edge and settles inward as the fan keeps expanding around it;
-    /// the ones inside bound bodies (Earth, the Sun, the Milky Way) hold still with them.
+    /// Rails: one family only, so no two lines ever cross. A rail follows the matter that is a round distance from us
+    /// today - 10^N metres, and the finer 2..9 x 10^N, 0.1 and 0.01 steps of a log ruler - back through time. While
+    /// space is still small every rail hugs the inner track (it follows the circumference of time), then it bends
+    /// outward as space inflates: outside the gravitationally bound bodies of our lineage its distance is 10^N times
+    /// the cosmic scale factor (comoving), and the outermost rails, carried by the envelope, bend away hyperbolically
+    /// toward the horizon. Inside a bound body (Earth, the Sun, the Milky Way, the Local Group) matter stopped riding
+    /// the expansion when the body formed: those rails settle to their fixed physical radius over the body's
+    /// formation and then hold still with it, so the grid follows each band's own scale exactly. Matter that fell into
+    /// a bound body is pinned to its edge and fades out there.
     ///
-    /// Rays: comoving shells of matter, the matter that is 10^K metres from us today (and the finer steps), which
-    /// was 10^K x a(t) metres away at every earlier time. They radiate from the Big Bang along the clock and fan
-    /// out with the expansion of space, and they end where that matter fell into a gravitationally bound body
-    /// (the Local Group and inward), so they survive only in the outer fan. Today the two families coincide.
-    ///
-    /// The exponential scale is what the map already had: between the knots (each lineage body's outer edge at
-    /// its real radius; the envelope at the observable universe's radius, scaled back by the cosmic scale factor)
-    /// the distance grows exponentially with rho. So the lines are spaced by orders of magnitude, crowd into the
-    /// cusp at the Big Bang, and spread apart, thicker and fainter, as space opens; finer lines emerge as the
-    /// camera closes in (tiers baked for coarser crowding thresholds, crossfaded by pixel density in Tick). The
-    /// HUD's probe (G) reads the same field: metres from our lineage, metres per world unit, years per world unit.
-    /// Neutral grey, far below the bloom threshold, beneath the matter surfaces. Builds its own layout because
-    /// it prepares concurrently with <see cref="MatterLayer"/>.
+    /// Crossbeams: between every two neighbouring rails of a level of the ruler (decades; then the 2..9 steps at a
+    /// tenth of the width; then the 0.1 steps) radial ties at the same spacing as the rails, so each level is a track
+    /// of square cells, and inside every cell the next level's track opens up as the camera closes in - recursively,
+    /// down to the scale of the Earth. Between the knots the map is exponential, so decade cells are the same size
+    /// everywhere on the map; out on the envelope, where space has stretched most, the cells open so wide that the
+    /// lines fade to black. The HUD's probe (G) reads the same field: metres from our lineage, metres per world unit.
+    /// Neutral grey, far below the bloom threshold, beneath the matter surfaces. Builds its own layout because it
+    /// prepares concurrently with <see cref="MatterLayer"/>.
     /// </summary>
     public sealed class ExpansionGridLayer : GraphLayer
     {
@@ -44,7 +44,7 @@ namespace Why.Matter
         /// <summary>Decades of distance drawn, 10^0 .. 10^MaxDecade metres (the observable universe is 4.4e26 m).</summary>
         const int MaxDecade = 26;
 
-        /// <summary>Relative weight of the three classes of line: decades, the 2..9 steps, the 0.1 steps.</summary>
+        /// <summary>Relative weight of the four classes of line: decades, the 2..9 steps, the 0.1 steps, the 0.01 steps.</summary>
         static readonly float[] ClassWeight = { 1f, 0.55f, 0.2f, 0.12f };
 
         /// <summary>The finest class (0.01 steps) is only generated from this decade outward, where the map can resolve it.</summary>
@@ -53,14 +53,23 @@ namespace Why.Matter
         /// <summary>The coarsest tier a class is baked into: the finer steps are details of the closer tiers.</summary>
         static readonly int[] ClassFirstTier = { 0, 0, 1, 2 };
 
+        /// <summary>Crossbeams are drawn for these classes (the 0.01 steps have none: they are hairlines).</summary>
+        const int TieClasses = 3;
+
+        /// <summary>Crossbeams are a little fainter than the rails they span: the rails are the scale, the ties the cells.</summary>
+        const float TieWeight = 0.7f;
+
+        /// <summary>A crossbeam needs its track at least this many clock samples wide, or the ties would land on every sample.</summary>
+        const float MinTieSamples = 1.5f;
+
+        /// <summary>Vertices of crossbeams per tier, at most (finer classes are dropped first).</summary>
+        const int TieVertexBudget = 160000;
+
         /// <summary>
         /// A decade line keeps this much of its opacity after the finer lines have taken over between it and
         /// the next decade, so the orders of magnitude stay readable; every other class fades out.
         /// </summary>
         const float DecadeFloor = 0.3f;
-
-        /// <summary>Rays are a little stronger than shells: they are the matter, the shells the ruler.</summary>
-        const float RayWeight = 1f, ShellWeight = 0.7f;
 
         // --- tiers: the same lines baked for a crowding threshold Zoom times finer per tier, crossfaded by pixel density ---
         public const int Tiers = 3;
@@ -81,8 +90,8 @@ namespace Why.Matter
         /// <summary>World width of a line as a fraction of its gap, capped: wider as space opens.</summary>
         const float WidthPerGap = 0.05f, MaxWidthWorld = 0.08f, WidthPx = 1f;
 
-        /// <summary>A shell fades in over this many decades after entering at the envelope; a ray fades out over this many decades before the bound edge.</summary>
-        const double EnterDecades = 0.35, BoundDecades = 0.3;
+        /// <summary>A rail fades in over this many decades as it leaves the inner track; it fades out over this many decades as it is pinned to a bound body's edge.</summary>
+        const double InnerDecades = 0.5, BoundDecades = 0.3;
 
         // --- look ---
         const float GridAlpha = 0.24f;
@@ -95,32 +104,30 @@ namespace Why.Matter
         const float FirstTau = 1e-5f, TauGrowth = 1.08f, DenseUntilTau = 0.02f, ArcStep = 0.002f;
 
         // --- labels ---
-        static readonly int[] ShellLabelDecades = { 6, 9, 12, 15, 18, 21, 24, 26 };
-        static readonly int[] RayLabelDecades = { 24, 26 };
+        static readonly int[] LabelDecades = { 6, 9, 12, 15, 18, 21, 24, 26 };
         const float LabelPriority = 2.5f, LabelSize = 11f;
 
         const string Blurb =
-            "A grid of real measurements. Each shell marks a round distance from our own lineage: ten metres, a " +
-            "hundred, and so on, to the edge of the observable universe; each ray follows the matter that lies a " +
-            "round distance from us today back in time, closer and closer to the Big Bang as space was smaller. " +
-            "Between any two lines the distance grows tenfold, so the grid shows the exponential scale of the map: " +
-            "space has stretched about 1,100-fold since the cosmic microwave background was released, 380,000 " +
-            "years after the Big Bang, and it is still stretching faster today. Press G and point at the red layer " +
-            "to read the scale anywhere: metres from us, and how many metres one unit of the graph stands for.";
+            "A grid of real measurements: the inflation of space drawn as a train track. Each rail follows the matter " +
+            "that lies a round distance from our own lineage today - ten metres, a hundred, and so on, to the edge of " +
+            "the observable universe - back in time: while space is small the rails hug the clock, then they bend " +
+            "outward as space stretches, and inside the Earth, the Sun and the Milky Way, which stopped expanding when " +
+            "they formed, they hold still. Between two neighbouring rails the distance grows tenfold, and the " +
+            "crossbeams space the track into square cells: inside every cell the next, finer track opens as you " +
+            "close in. Space has stretched about 1,100-fold since the cosmic microwave background was released, " +
+            "380,000 years after the Big Bang, and it is still stretching faster today. Press G and point at the red " +
+            "layer to read the scale anywhere: metres from us, and how many metres one unit of the graph stands for.";
 
-        /// <summary>A sample of the clock with the map's knots at that moment.</summary>
+        /// <summary>A sample of the clock: the map's knots at that moment, the scale factor and the bound bodies forming.</summary>
         sealed class Sample
         {
-            public float U, Envelope, ScaleFactor;
-            public double Log10Universe, Log10Bound, Handoff;
+            public float U, Envelope;
+            public double Log10Scale, Log10Inner, Log10Universe, Handoff;
             public MatterScale.Knot[] Knots;
 
-            public double Log10Radius(float rho)
-            {
-                int i = Segment(rho);
-                MatterScale.Knot a = Knots[i], b = Knots[i + 1];
-                return a.Log10Radius + (rho - a.Rho) / (b.Rho - a.Rho) * (b.Log10Radius - a.Log10Radius);
-            }
+            /// <summary>The gravitationally bound bodies of our lineage alive at this moment: log10 radius (ascending) and how far formed (0..1).</summary>
+            public double[] BoundLog;
+            public float[] BoundProgress;
 
             /// <summary>rho of a distance, and the map's local decades per world unit there; false beyond the envelope.</summary>
             public bool Rho(double log10Radius, out float rho, out float decadesPerUnit)
@@ -141,11 +148,33 @@ namespace Why.Matter
                 return false;
             }
 
-            int Segment(float rho)
+            /// <summary>
+            /// Where the matter that is 10^<paramref name="log10Today"/> metres from us today lies at this moment (log10
+            /// metres), and how far it is from being pinned to a bound body's edge (decades; large when free).
+            /// Comoving outside the bound bodies; inside the innermost body that encloses it, it settles from comoving
+            /// to its fixed radius over the body's formation; never inside the edge of a body it does not belong to.
+            /// </summary>
+            public double Place(double log10Today, out double freeDecades)
             {
-                int i = 0;
-                while (i < Knots.Length - 2 && rho > Knots[i + 1].Rho) i++;
-                return i;
+                float f = 0;
+                for (int i = 0; i < BoundLog.Length; i++)
+                {
+                    if (BoundLog[i] >= log10Today)
+                    {
+                        f = BoundProgress[i];
+                        break;
+                    }
+                }
+
+                double pos = log10Today + (1 - f) * Log10Scale;
+                double pin = double.NegativeInfinity;
+                for (int i = 0; i < BoundLog.Length && BoundLog[i] < log10Today; i++)
+                {
+                    pin = Math.Max(pin, BoundLog[i] + (1 - BoundProgress[i]) * Log10Scale);
+                }
+
+                freeDecades = double.IsNegativeInfinity(pin) ? 1e9 : pos - pin;
+                return Math.Max(pos, pin);
             }
         }
 
@@ -156,6 +185,7 @@ namespace Why.Matter
         Material[] materials;
         readonly float[] lod = new float[Tiers];
         MatterScale scale;
+        MatterLayout layout;
 
         public override void Prepare(GraphContext ctx)
         {
@@ -167,38 +197,66 @@ namespace Why.Matter
                 return;
             }
 
-            MatterLayout layout = MatterLayout.Build(file);
+            layout = MatterLayout.Build(file);
             if (layout.IsEmpty) return;
             scale = new MatterScale(layout);
-            List<Sample> samples = SampleClock(layout);
+            List<Sample> samples = SampleClock();
 
             LineMeshBuilder[] builders = new LineMeshBuilder[Tiers];
             for (int t = 0; t < Tiers; t++) builders[t] = new LineMeshBuilder(32768);
-            int shells = 0, rays = 0;
+            int rails = 0, ties = 0;
+            int[] tieVertices = new int[Tiers];
             Thinner thin = new Thinner();
-            Trace trace = new Trace(samples.Count);
+            // the last rail of each class or coarser bounds the next track of that class; a small pool of traces
+            // is enough, since a rail is held only until the next rail of its class arrives
+            Trace[] pool = new Trace[TieClasses + 1];
+            for (int i = 0; i < pool.Length; i++) pool[i] = new Trace(samples.Count);
+            Trace[] last = new Trace[TieClasses];
+            List<Tie> tieList = new List<Tie>(4096);
+            Trace[] labelled = new Trace[MaxDecade + 1];
             foreach ((double log10, int cls, double step) in Values())
             {
-                if (BuildLine(builders, thin, trace, samples, log10, cls, step, false)) shells++;
-                // the rays mark matter, coarsely: decades and the 2..9 steps only
-                if (cls <= 1 && BuildLine(builders, thin, trace, samples, log10, cls, step, true)) rays++;
+                Trace current = null;
+                foreach (Trace t in pool)
+                {
+                    if (Array.IndexOf(last, t) < 0)
+                    {
+                        current = t;
+                        break;
+                    }
+                }
+
+                if (!BuildRail(builders, thin, current, samples, log10, cls, step)) continue;
+                rails++;
+                if (cls == 0 && log10 >= 0 && Math.Abs(log10 - Math.Round(log10)) < 1e-9)
+                {
+                    labelled[(int)Math.Round(log10)] = current.Copy();
+                }
+
+                // the crossbeams of every class this rail belongs to, across the track from the last rail of that class
+                for (int c = cls; c < TieClasses; c++)
+                {
+                    if (last[c] != null) ties += BuildTies(builders, tieVertices, tieList, last[c], current, samples, c);
+                }
+
+                // a rail of class k is the next rail at every resolution c >= k
+                for (int c = cls; c < TieClasses; c++) last[c] = current;
             }
 
-            Register(ctx, samples, layout.BigBangYa);
+            Register(ctx, samples, labelled, layout.BigBangYa);
             ctx.Share(ScaleKey, scale);
             tiers = builders;
 
             string perTier = "";
             for (int t = 0; t < Tiers; t++) perTier += (t > 0 ? ", " : "") + "tier " + t + " " + builders[t].VertexCount;
             Debug.Log($"[Why] ExpansionGridLayer.Prepare {sw.ElapsedMilliseconds} ms: {samples.Count} samples, " +
-                      $"{shells} shells and {rays} rays at the overview; vertices {perTier}");
+                      $"{rails} rails and {ties} crossbeams; vertices {perTier}");
         }
 
-        /// <summary>All values drawn (log10 metres) with their class: decades, 2..9 steps, 0.1 steps.</summary>
         /// <summary>
-        /// All values drawn (log10 metres) with their class and their spacing to the next line of the ruler
+        /// All values drawn (log10 metres today) with their class and their spacing to the next line of the ruler
         /// (decades): the log ruler, one class per level: 10^n, 2..9 x 10^n, the 0.1 steps, and (out in the
-        /// fan, where the map is wide enough for them to ever resolve) the 0.01 steps.
+        /// fan, where the map is wide enough for them to ever resolve) the 0.01 steps. Ascending.
         /// </summary>
         static IEnumerable<(double log10, int cls, double step)> Values()
         {
@@ -219,7 +277,7 @@ namespace Why.Matter
             }
         }
 
-        List<Sample> SampleClock(MatterLayout layout)
+        List<Sample> SampleClock()
         {
             List<Sample> samples = new List<Sample>(800);
             float top = layout.BigBangArc, bottom = MatterLayout.EndArc;
@@ -241,51 +299,65 @@ namespace Why.Matter
             IReadOnlyList<MatterScale.Knot> knots = scale.Knots(u);
             MatterScale.Knot[] copy = new MatterScale.Knot[knots.Count];
             for (int i = 0; i < copy.Length; i++) copy[i] = knots[i];
+
+            // the bound bodies of our lineage alive now, and how far each has formed (its band opens over UStart .. UFull)
+            List<(double log, float progress)> bound = new List<(double, float)>(8);
+            foreach (MatterBand band in layout.Bands)
+            {
+                if (band.IsRootHome || !band.InPath || !band.Item.Bound || band.Item.SizeM <= 0 || !band.AliveAt(u)) continue;
+                float progress = u <= band.UFull ? 1f : Smooth((band.UStart - u) / Mathf.Max(band.UStart - band.UFull, 1e-9f));
+                bound.Add((Math.Log10(0.5 * band.Item.SizeM), progress));
+            }
+
+            bound.Sort((x, y) => x.log.CompareTo(y.log));
+            double[] boundLog = new double[bound.Count];
+            float[] boundProgress = new float[bound.Count];
+            for (int i = 0; i < bound.Count; i++)
+            {
+                boundLog[i] = bound[i].log;
+                boundProgress[i] = bound[i].progress;
+            }
+
             return new Sample
             {
                 U = u,
                 Envelope = scale.EnvelopeAt(u),
-                ScaleFactor = Mathf.Max(scale is null ? 1f : LayoutScale(u), 1e-12f),
+                Log10Scale = Math.Log10(Mathf.Max(layout.ScaleFactor(u), 1e-30f)),
+                Log10Inner = Math.Log10(MatterScale.InnerMetres),
                 Log10Universe = scale.Log10UniverseRadius(u),
-                Log10Bound = scale.Log10BoundRadius(u),
                 Handoff = Mathf.Pow(GraphStyle.HandoffFade(u), HandoffExponent),
-                Knots = copy
+                Knots = copy,
+                BoundLog = boundLog,
+                BoundProgress = boundProgress
             };
         }
 
-        float LayoutScale(float u) => Mathf.Pow(10f, (float)(scale.Log10UniverseRadius(u) - Math.Log10(MatterScale.ObservableRadiusM)));
-
         /// <summary>
-        /// One line of a family at one tier: walks the clock, placing the value on the map at every sample, and
-        /// appends the stretches where it is resolvable, thinned to the points that shape them. Returns whether
-        /// anything was drawn.
+        /// One rail at every tier: walks the clock, placing the matter that is 10^log10 metres from us today on the
+        /// map at every sample, and appends the stretches where it is resolvable, thinned to the points that shape
+        /// them. Leaves the rail's trace in <paramref name="trace"/> for the crossbeams. Returns whether anything was drawn.
         /// </summary>
-        static bool BuildLine(LineMeshBuilder[] builders, Thinner thin, Trace trace, List<Sample> samples, double log10, int cls,
-            double step, bool ray)
+        static bool BuildRail(LineMeshBuilder[] builders, Thinner thin, Trace trace, List<Sample> samples, double log10, int cls, double step)
         {
-            float weight = ClassWeight[cls] * (ray ? RayWeight : ShellWeight);
+            float weight = ClassWeight[cls];
+            trace.Class = cls;
+            trace.Log10 = log10;
 
-            // the line's place on the map and everything about its opacity that does not depend on the tier
+            // the rail's place on the map and everything about its opacity that does not depend on the tier
             for (int j = 0; j < samples.Count; j++)
             {
                 Sample s = samples[j];
-                double value = ray ? log10 + Math.Log10(s.ScaleFactor) : log10;
                 trace.Gap[j] = 0;
                 trace.Base[j] = 0;
+                double value = s.Place(log10, out double freeDecades);
+                // while space is too small for this distance the rail rides the inner track and is not yet drawn
+                double inner = s.Log10Inner;
+                float emergeInner = Smooth((float)((value - inner) / InnerDecades));
+                if (value < inner) value = inner;
                 if (!s.Rho(value, out trace.Rho[j], out float decadesPerUnit) || decadesPerUnit <= 1e-9f) continue;
                 float gap = (float)step / decadesPerUnit;
-                float alpha = weight * (float)s.Handoff;
-                if (ray)
-                {
-                    // the matter of a ray has fallen into a bound body once it lies inside the outermost one
-                    if (s.Log10Bound >= 0) alpha *= Smooth((float)((value - s.Log10Bound) / BoundDecades));
-                }
-                else
-                {
-                    // a shell enters at the envelope as the universe grows past it
-                    alpha *= Smooth((float)((s.Log10Universe - value) / EnterDecades));
-                }
-
+                // pinned to the edge of a body it fell into: it is that body's edge now, and fades out there
+                float alpha = weight * (float)s.Handoff * emergeInner * Smooth((float)(freeDecades / BoundDecades));
                 trace.Gap[j] = gap;
                 trace.Base[j] = alpha;
                 trace.Width[j] = Mathf.Min(WidthPerGap * gap, MaxWidthWorld);
@@ -302,6 +374,7 @@ namespace Why.Matter
                 {
                     float gap = trace.Gap[j];
                     float alpha = gap > 0 ? trace.Base[j] * Emerge(gap, crowd) * Faint(gap, crowd, cls) : 0;
+                    trace.Tier[t][j] = alpha;
                     if (alpha > CullAlpha)
                     {
                         thin.Add(samples[j].U, trace.Rho[j], alpha, trace.Width[j]);
@@ -315,16 +388,104 @@ namespace Why.Matter
                 }
 
                 drawnHere |= thin.Flush(builders[t]);
-                if (t == 0) drawn = drawnHere;
+                drawn |= drawnHere;
             }
 
             return drawn;
         }
 
-        /// <summary>One line's place and tier-independent opacity at every sample (scratch, reused per line).</summary>
+        /// <summary>A crossbeam: a radial tie across one track at one moment, with its opacity at every tier.</summary>
+        struct Tie
+        {
+            public float U, RhoA, RhoB, Width;
+            public float A0, A1, A2;
+        }
+
+        /// <summary>
+        /// The crossbeams of class <paramref name="cls"/> across the track between two neighbouring rails: ties spaced
+        /// along the clock by the track's own local width (square cells), drawn where both rails are, as strong as the
+        /// fainter of the two, resolving and fading with the track's width like the rails. Returns the number drawn.
+        /// </summary>
+        static int BuildTies(LineMeshBuilder[] builders, int[] tieVertices, List<Tie> list, Trace a, Trace b, List<Sample> samples, int cls)
+        {
+            list.Clear();
+            double acc = 0;
+            bool open = false;
+            float weight = ClassWeight[cls] * TieWeight;
+            for (int j = 1; j < samples.Count; j++)
+            {
+                float gap = b.Rho[j] - a.Rho[j];
+                bool active = a.Base[j] > CullAlpha && b.Base[j] > CullAlpha && gap > 1e-6f;
+                float dSigma = (samples[j - 1].U - samples[j].U) * GraphWarp.BasePath.SigmaPerArc;
+                if (!active || gap < MinTieSamples * dSigma)
+                {
+                    open = false;
+                    continue;
+                }
+
+                if (!open)
+                {
+                    open = true;
+                    acc = 0;
+                    continue;
+                }
+
+                double before = acc;
+                acc += dSigma / gap;
+                if (Math.Floor(acc) == Math.Floor(before)) continue;
+
+                // interpolate the tie between the two samples where the count crossed an integer
+                float f = (float)((Math.Floor(acc) - before) / (acc - before));
+                Tie tie = new Tie
+                {
+                    U = Mathf.Lerp(samples[j - 1].U, samples[j].U, f),
+                    RhoA = Mathf.Lerp(a.Rho[j - 1], a.Rho[j], f),
+                    RhoB = Mathf.Lerp(b.Rho[j - 1], b.Rho[j], f),
+                    Width = Mathf.Min(WidthPerGap * gap, MaxWidthWorld),
+                };
+                float baseAlpha = Mathf.Min(a.Base[j], b.Base[j]) / Mathf.Max(Mathf.Min(ClassWeight[a.Class], ClassWeight[b.Class]), 1e-6f) * weight;
+                for (int t = 0; t < Tiers; t++)
+                {
+                    float crowd = CrowdGap / Mathf.Pow(Zoom, t);
+                    float alpha = t < ClassFirstTier[cls] ? 0 : baseAlpha * Emerge(gap, crowd) * Faint(gap, crowd, cls);
+                    // no tie across a track whose rails are not both there at this tier
+                    if (a.Tier[t][j] <= CullAlpha || b.Tier[t][j] <= CullAlpha) alpha = 0;
+                    if (t == 0) tie.A0 = alpha;
+                    else if (t == 1) tie.A1 = alpha;
+                    else tie.A2 = alpha;
+                }
+
+                list.Add(tie);
+            }
+
+            int drawn = 0;
+            LinePoint[] pts = new LinePoint[2];
+            for (int t = 0; t < Tiers; t++)
+            {
+                if (tieVertices[t] >= TieVertexBudget) continue;
+                foreach (Tie tie in list)
+                {
+                    float alpha = t == 0 ? tie.A0 : t == 1 ? tie.A1 : tie.A2;
+                    if (alpha <= CullAlpha) continue;
+                    Color32 c = Tint(alpha);
+                    pts[0] = new LinePoint(new Vector3(tie.U, GraphStyle.MatterY, tie.RhoA), c, WidthPx, tie.Width, 1f);
+                    pts[1] = new LinePoint(new Vector3(tie.U, GraphStyle.MatterY, tie.RhoB), c, WidthPx, tie.Width, 1f);
+                    builders[t].AddPolyline(pts, GridId);
+                    tieVertices[t] += 4;
+                    drawn++;
+                }
+            }
+
+            return drawn;
+        }
+
+        /// <summary>One rail's place and opacity at every sample: tier-independent, and per tier (for the crossbeams).</summary>
         sealed class Trace
         {
             public readonly float[] Rho, Gap, Base, Width;
+            public readonly float[][] Tier;
+            public int Class;
+            public double Log10;
 
             public Trace(int samples)
             {
@@ -332,6 +493,19 @@ namespace Why.Matter
                 Gap = new float[samples];
                 Base = new float[samples];
                 Width = new float[samples];
+                Tier = new float[Tiers][];
+                for (int t = 0; t < Tiers; t++) Tier[t] = new float[samples];
+            }
+
+            public Trace Copy()
+            {
+                Trace c = new Trace(Rho.Length) { Class = Class, Log10 = Log10 };
+                Array.Copy(Rho, c.Rho, Rho.Length);
+                Array.Copy(Gap, c.Gap, Gap.Length);
+                Array.Copy(Base, c.Base, Base.Length);
+                Array.Copy(Width, c.Width, Width.Length);
+                for (int t = 0; t < Tiers; t++) Array.Copy(Tier[t], c.Tier[t], Rho.Length);
+                return c;
             }
         }
 
@@ -421,7 +595,7 @@ namespace Why.Matter
             }
         }
 
-        void Register(GraphContext ctx, List<Sample> samples, double bigBangYa)
+        void Register(GraphContext ctx, List<Sample> samples, Trace[] labelled, double bigBangYa)
         {
             Anchors.Register(new Anchor
             {
@@ -430,38 +604,18 @@ namespace Why.Matter
                 Ids = IdRange.Single(GridId), Tier = 2
             });
 
-            // shells are labeled where they have settled well inside the envelope; rays a little after the Big Bang
-            foreach (int n in ShellLabelDecades)
+            // decade rails are labeled near the present, where they have settled at their distance today
+            foreach (int n in LabelDecades)
             {
-                Sample s = FindSample(samples, n, false);
-                if (s != null && s.Rho(n, out float rho, out _)) AddLabel(ctx, "10<sup>" + n + "</sup> m", new Vector3(s.U, GraphStyle.MatterY, rho));
-            }
-
-            foreach (int k in RayLabelDecades)
-            {
-                Sample s = FindSample(samples, k, true);
-                if (s != null && s.Rho(k + Math.Log10(s.ScaleFactor), out float rho, out _))
+                if (n > MaxDecade || labelled[n] == null) continue;
+                Trace rail = labelled[n];
+                for (int j = samples.Count - 1; j >= 0; j--)
                 {
-                    AddLabel(ctx, "10<sup>" + k + "</sup> m today", new Vector3(s.U, GraphStyle.MatterY, rho));
+                    if (rail.Base[j] < 0.3f * ClassWeight[0]) continue;
+                    AddLabel(ctx, "10<sup>" + n + "</sup> m", new Vector3(samples[j].U, GraphStyle.MatterY, rail.Rho[j]));
+                    break;
                 }
             }
-        }
-
-        /// <summary>The sample where a decade line is best labeled: a shell 1.5 decades inside the envelope, a ray at mid clock.</summary>
-        static Sample FindSample(List<Sample> samples, int decade, bool ray)
-        {
-            if (ray)
-            {
-                Sample mid = samples[samples.Count / 2];
-                return decade + Math.Log10(mid.ScaleFactor) > mid.Log10Bound ? mid : null;
-            }
-
-            foreach (Sample s in samples)
-            {
-                if (s.Log10Universe - decade >= 1.5) return s;
-            }
-
-            return null;
         }
 
         static void AddLabel(GraphContext ctx, string text, Vector3 data)

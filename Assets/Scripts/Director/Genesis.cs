@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
@@ -28,6 +29,9 @@ namespace Why.Director
 
         /// <summary>Length of the bloom trailing each growing tip (world units along the path).</summary>
         const float Trail = 1.6f;
+
+        /// <summary>The last seconds of the opening: the camera lets go of the tip and settles into the view.</summary>
+        const float SettleSeconds = 3.2f;
 
         /// <summary>How far the front must travel past the present for the last, outermost branch to finish.</summary>
         static float FrontEnd => GraphReveal.Length + LagPerRho * 8f + LagSpread + FrontWidth * 2;
@@ -97,6 +101,7 @@ namespace Why.Director
             from.Yaw = to.Yaw - 30f;
             from.Pitch = Mathf.Min(to.Pitch, 40f);
             root.Rig.SetPose(from);
+            CameraPose follow = from;
 
             // at startup, darkness until the loading card has faded (it holds 0.55 s and fades over 0.8 s)
             for (float wait = skippable ? 1.3f : 0f; wait > 0; wait -= GraphTime.Delta) yield return null;
@@ -114,33 +119,64 @@ namespace Why.Director
                 // the flash: a point of light swelling, the bloom surging, a shock ring racing outward
                 float f = Mathf.Clamp01(t / FlashSeconds);
                 float swell = Mathf.Sin(f * Mathf.PI * 0.5f);
-                float fade = 1f - Mathf.Clamp01((t - FlashSeconds) / 2.5f);
+                float fade = 1f - Mathf.Clamp01((t - FlashSeconds) / 1.4f);
                 Camera cam = root.Rig.Cam;
                 flare.position = bang;
                 flare.rotation = cam.transform.rotation;
-                flare.localScale = Vector3.one * (from.Distance * (0.12f + 1.25f * swell) * (0.45f + 0.55f * fade));
+                flare.localScale = Vector3.one * (from.Distance * (0.1f + 0.7f * swell) * (0.35f + 0.65f * fade));
                 flareMat.color = new Color(4f, 3.5f, 2.9f, Mathf.Clamp01(fade * 1.1f) * 0.9f);
-                float r = to.Distance * 0.5f * Mathf.Pow(Mathf.Clamp01(t / 3f), 0.6f);
-                DrawRing(bang, r, Mathf.Clamp01(1f - t / 3f));
+                float r = to.Distance * 0.5f * Mathf.Pow(Mathf.Clamp01(t / 2.2f), 0.6f);
+                DrawRing(bang, r, Mathf.Clamp01(1f - t / 2.2f));
                 if (root.Bloom != null) root.Bloom.intensity.Override(bloomBase * (1f + 3.5f * swell * fade));
-
-                // the pull back, once the flash has bloomed
-                if (!flying && t > FlashSeconds * 0.5f)
-                {
-                    flying = true;
-                    root.Rig.FlyTo(to, seconds - t);
-                }
 
                 // the growth: constant speed along the path, easing in and out
                 float g = Mathf.Clamp01((t - growStart) / Mathf.Max(growEnd - growStart, 0.1f));
                 g = g * g * (3f - 2f * g);
-                GraphReveal.Set(g * FrontEnd, FrontWidth, FrontGlow * (1f - 0.35f * g), LagPerRho, LagSpread, Trail);
+                float front = g * FrontEnd;
+                GraphReveal.Set(front, FrontWidth, FrontGlow * (1f - 0.35f * g), LagPerRho, LagSpread, Trail);
+
+                // the camera follows the unfolding of history: it rides the growing tip around the clock and down the
+                // human branch, rising and pulling back as the graph fills, then settles into the view
+                float settle = Mathf.Clamp01((t - (seconds - SettleSeconds)) / SettleSeconds);
+                if (settle <= 0)
+                {
+                    Vector3 tip = Tip(Mathf.Min(front, GraphReveal.Length));
+                    float k = 1f - Mathf.Exp(-GraphTime.Delta * 4f);
+                    follow.Target = Vector3.Lerp(follow.Target, tip, t < FlashSeconds ? 0f : k);
+                    follow.Distance = Mathf.Exp(Mathf.Lerp(Mathf.Log(from.Distance), Mathf.Log(to.Distance * 0.55f), Mathf.Pow(g, 0.7f)));
+                    follow.Pitch = Mathf.Lerp(from.Pitch, Mathf.Min(to.Pitch, 50f), g);
+                    follow.Yaw = from.Yaw + 40f * g;
+                    root.Rig.SetPose(follow);
+                }
+                else if (!flying)
+                {
+                    flying = true;
+                    root.Rig.FlyTo(to, SettleSeconds);
+                }
+
                 yield return null;
             }
 
             if (t < seconds) root.Rig.FlyTo(to, 0.8f); // skipped
             running = null;
             Finish();
+        }
+
+        /// <summary>World position of the inner track at an arc length along the base path from the Big Bang.</summary>
+        static Vector3 Tip(float sigma)
+        {
+            float u;
+            if (sigma <= GraphWarp.BasePath.SigmaHandoff)
+            {
+                u = 1f - sigma / GraphWarp.BasePath.SigmaPerArc;
+            }
+            else
+            {
+                double lnYa = GraphWarp.BasePath.LnHandoffC - (sigma - GraphWarp.BasePath.SigmaHandoff) / GraphWarp.BasePath.SigmaPerLn;
+                u = DeepTime.Arc(Math.Max(Math.Exp(lnYa) - GraphWarp.BasePath.BranchLogOffset, 0.0));
+            }
+
+            return GraphWarp.ToWorld(Mathf.Clamp(u, 1e-4f, 1f), GraphStyle.LifeY, 0f);
         }
 
         static bool SkipPressed()

@@ -249,42 +249,27 @@ namespace Why.Economy.Layers
             Label("INVESTMENT\nowners' saving sent back down as new capital", cloud + Vector3.up * 5, LandGroup.CapitalFlows, .25f, Gold);
             Lines(capital,LandGroup.CapitalFlows,true); Lines(pools,LandGroup.Pools);
         }
+        /// <summary>The 3D mind view (key 7): the selected individual's or cohort's drives, deliberation, choice and memory
+        /// (<see cref="MindDiagram"/>, shared with the atom view). A cohort shows its adults' mean drives with the scenario
+        /// ledger's fear, reason and balance sheet, so the Inspect / simulate controls move it.</summary>
         void Mind()
         {
             var lines = new LineMeshBuilder();
             int index = Mathf.Clamp(EconomyState.SelectedPlayer,0,snapshot.Players.Players.Length-1);
-            Player p = snapshot.Players.Players[index]; Vector3 origin = MindOrigin;
+            Player p = snapshot.Players.Players[index];
             var scenario=PlayerMindProgram.Active;
-            var state=scenario!=null&&scenario.Players.Length>index?scenario.Players[index]:null;
+            var state=scenario!=null&&scenario.Players.Length==snapshot.Players.Players.Length?scenario.Players[index]:null;
             programVersion=scenario?.Revision??-1;mindPerson=EconomyState.Person;
-            bool individual=EconomyState.Person>=0&&LandService.Model.Lives.TryGet(EconomyState.Person,snapshot.Year,out _);
-            PersonYear person=default;
-            if(individual){LandService.Model.Lives.TryGet(EconomyState.Person,snapshot.Year,out person);state=new PlayerMindProgram.State{Assets=Math.Max(0,person.Wealth+person.Debt)/1e9,Debt=person.Debt/1e9,Reason=person.Reason,Fear=person.FearShare,Fantasy=person.Fantasy};}
-            Vector3[] nodes = { new Vector3(-2,-.5f,-3),new Vector3(-4,1,0),new Vector3(4,1,0),
-                new Vector3(0,4,0),new Vector3(0,1,1),new Vector3(3,-1,3) };
-            string[] names = { "MEMORY\nAssets · debt · inheritance", "DESIRE\nComfort · belonging", "FEAR\nLoss · insecurity",
-                "DELIBERATION\nFuture " + (individual?person.Future:p.Future).ToString("P0") + " · reason " + (state?.Reason??p.Reason).ToString("P0"),
-                "CHOICE\nSpend · save · borrow", "FEEDBACK\nNext year's resources" };
-            Color[] colors = { Gold,Rose,Ice,Color.white,Blue,Gold };
-            for (int i = 0; i < nodes.Length; i++)
+            var lives=LandService.Model.Lives;
+            MindState m=EconomyState.Person>=0?MindState.Of(lives,EconomyState.Person,snapshot.Year):null;
+            if(m!=null){m.Title="Synthetic record #"+EconomyState.Person+" · "+snapshot.Year;m.Note="historical simulated individual · one line = 100,000 people · drives are model assumptions";}
+            else
             {
-                Vector3 at = origin+nodes[i];
-                for (int j = 0; j < 3; j++) Ring(lines,at+Vector3.up*(j-1)*.16f,.47f,WithAlpha(colors[i],.7f),1.6f,j==1);
-                Label(names[i],at+Vector3.up*.72f,LandGroup.Mirages,.09f,colors[i]);
+                m=MindState.Of(lives,p,snapshot.Year,state);
+                m.Title=PlayerTitle(p)+" · "+snapshot.Year;
+                m.Note=(state==null?"census":scenario.Steps>0?"scenario "+scenario.Year:"baseline")+" · mean drives of the cohort's adults · fear "+PersonLife.Pct(m.FearShare)+" · behavioral assumptions";
             }
-            int[,] edges = { {0,1},{0,2},{1,3},{2,3},{1,4},{2,4},{3,4},{4,5},{5,0} };
-            for (int e = 0; e < edges.GetLength(0); e++)
-            {
-                int a=edges[e,0],b=edges[e,1];float fear=state?.Fear??p.Fear,reason=state?.Reason??p.Reason;
-                float weight=a==1?1-fear:a==2?fear:a==3?reason:.5f;
-                Flow(lines,origin+nodes[a],origin+nodes[b],colors[a],.6f+weight*3,.4f);
-            }
-            // A spatial envelope gives the program a volume, without claiming neuroanatomical accuracy.
-            for (int j=0;j<9;j++) Ring(lines,origin+new Vector3(0,1.4f,(j-4)*.48f),3.6f*Mathf.Sqrt(1-Mathf.Pow((j-4)/5f,2)),WithAlpha(Steel,.23f),.65f,true);
-            Label((individual?"Synthetic record #"+EconomyState.Person:PlayerTitle(p)) + " · " + snapshot.Year,origin+new Vector3(0,5.7f,0),LandGroup.Mirages,.13f,Color.white);
-            Label("Behavioral assumptions · conceptual decision program",origin+new Vector3(0,-2,-4),LandGroup.Mirages,.08f,Steel);
-            if(state!=null)Label("Fear "+state.Fear.ToString("P0")+" · assets "+(individual?"$"+Math.Max(0,person.Wealth+person.Debt).ToString("N0"):LandFacts.Money(state.Assets))+" · debt "+(individual?"$"+person.Debt.ToString("N0"):LandFacts.Money(state.Debt))+
-                "\n"+(individual?"Historical simulated individual":scenario.Steps>0?"Scenario "+scenario.Year:"Baseline"),origin+new Vector3(0,-2.8f,-4),LandGroup.Mirages,.08f,Gold);
+            MindDiagram.Build(lines,MindOrigin+Vector3.up*.6f,m,(t,at,size,c)=>Label(t,at,LandGroup.Mirages,size,c),.95f);
             Lines(lines,LandGroup.Mirages,true);
         }
         void Social()
@@ -344,6 +329,8 @@ namespace Why.Economy.Layers
         {
             string view=LandView.PresetId;
             if (g==LandGroup.Ties) return view=="society"||view=="betrayal"?1:0;
+            // The followed person's views keep the hills' names and the clouds faintly; the rest steps back.
+            if (PersonFocus.IsView(view)) return g==LandGroup.Sectors?.2f:g==LandGroup.Terraces?.15f:g==LandGroup.Crown?.12f:g==LandGroup.Glyphs&&view=="ladder"?.35f:.03f;
             if (g==LandGroup.Terraces) return .22f;
             if (g==LandGroup.Sectors) return .20f;
             if (g==LandGroup.Towers) return view=="capture"?.55f:.12f;

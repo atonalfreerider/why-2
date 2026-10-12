@@ -46,7 +46,7 @@ namespace Why.Economy.Layers
             foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, Emphasis(e.part, view));
             foreach (var e in labels)
             {
-                bool show = view == "foundation" || lod >= e.lod && view != "society" && view != "betrayal" && view != "capture";
+                bool show = view == "foundation" || lod >= e.lod && view != "society" && view != "betrayal" && view != "capture" && !PersonFocus.IsView(view);
                 e.text.gameObject.SetActive(show); if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
         }
@@ -55,6 +55,7 @@ namespace Why.Economy.Layers
         {
             if (view == "foundation") return part == Part.Bedrock ? .55f : 1;
             if (view == "society" || view == "betrayal") return .02f;
+            if (PersonFocus.IsView(view)) return part == Part.Bedrock || part == Part.Pillars ? .12f : .02f;
             switch (part)
             {
                 case Part.Bedrock: return view == "roots" ? .25f : .14f;

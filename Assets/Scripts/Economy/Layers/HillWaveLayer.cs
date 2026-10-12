@@ -74,6 +74,20 @@ namespace Why.Economy.Layers
         float Emphasis(Part part, string view)
         {
             bool person = EconomyState.SelectedPlayer >= 0;
+            if (PersonFocus.IsView(view))
+            {
+                // The ladder runs across the wake: its ribs and ridges are the ground the life climbs over.
+                bool ladder = view == "ladder";
+                switch (part)
+                {
+                    case Part.Ribs: return ladder ? .5f : .14f;
+                    case Part.Ridges: return ladder ? .55f : .25f;
+                    case Part.Face: return .3f;
+                    case Part.Crest: return .6f;
+                    case Part.Focus: return 1;
+                    default: return .04f;
+                }
+            }
             switch (part)
             {
                 case Part.Ribs: return view == "landscape" ? .85f : view == "overview" || view == "companies" ? .55f : view == "section" ? .3f : view == "society" || view == "betrayal" ? .08f : .22f;

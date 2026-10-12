@@ -92,11 +92,21 @@ namespace Why.Economy
             }
         }
 
-        /// <summary>The spec of a preset; an unknown id gets the overview's.</summary>
+        /// <summary>
+        /// The spec of a preset; an id without a column (the wave's later views: companies, atom, dilemma, ladder) gets a
+        /// copy of the overview's under its own id, so <see cref="Land.LandView.PresetId"/> names the view the hill layers
+        /// key their emphasis on (a null id gets the overview's). The person views hide the road's labels.
+        /// </summary>
         public static ViewSpec Get(string presetId)
         {
             Build();
-            return presetId != null && specs.TryGetValue(presetId, out ViewSpec s) ? s : specs["overview"];
+            if (presetId == null) return specs["overview"];
+            if (specs.TryGetValue(presetId, out ViewSpec s)) return s;
+            ViewSpec o = specs["overview"];
+            s = new ViewSpec { Id = presetId, MorphTarget = o.MorphTarget, HideRoadLabels = Layers.PersonFocus.IsView(presetId) || o.HideRoadLabels, Labels = o.Labels };
+            Array.Copy(o.Alpha, s.Alpha, s.Alpha.Length);
+            specs[presetId] = s;
+            return s;
         }
 
         static void Build()

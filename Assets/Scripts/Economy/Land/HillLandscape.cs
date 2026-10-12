@@ -348,6 +348,25 @@ namespace Why.Economy.Land
             float x=h.Center.x+Mathf.Cos(angle)*h.Width*radius,z=Mathf.Min(h.Center.z+Mathf.Sin(angle)*h.Depth*radius,CrestZ-.4f);
             return new Vector3(x,Ground(x,z)+lift,z);
         }
+        /// <summary>A point on the valley floor between the road and the foot of the hillside (the lowest rung), nearer the
+        /// hills the higher <paramref name="rank"/> (0..1): where those without a paying hill stand.</summary>
+        public Vector3 ValleyFloor(float rank,float z,float lift=.25f)
+        {
+            float x=FootX-3-8*(1-Mathf.Clamp01(rank));z=Mathf.Min(z,CrestZ-.4f);
+            return new Vector3(x,Ground(x,z)+lift,z);
+        }
+        /// <summary>Where a person of an industry and income rank (0..1) stands in a year: on that industry's own slope at
+        /// the rung of their rank (class is altitude: <see cref="RungRadius"/>, business owners one rung up), on the valley
+        /// side; government-paid or without a hill (industry -1), on the valley floor. Lifted slightly off the surface.</summary>
+        public Vector3 Rung(double year,int industry,float rank,bool owner,float z,float lift=.25f)
+        {
+            if(industry<0||industry>=Hills.Length||Hills[industry].Tier==0)return ValleyFloor(rank,z,lift);
+            float rung=Mathf.Clamp(Mathf.Clamp01(rank)*4+(owner?1:0),0,5);int r0=Mathf.Min(4,Mathf.FloorToInt(rung));
+            float radius=Mathf.Lerp(RungRadius[r0],RungRadius[r0+1],rung-r0);
+            Vector2 ridge=RidgeAt(year,industry);z=Mathf.Min(z,CrestZ-.4f);
+            float x=ridge.x-ridge.y*radius;
+            return new Vector3(x,Rest(industry,x,z)+lift,z);
+        }
         /// <summary>The hill's market: where households' rivers arrive on its valley-side slope and its value splits.</summary>
         public Vector3 Market(int industry)=>OnHill(Hills[industry],Valley,.86f,.3f);
         /// <summary>The gold halo above the summit, where the owners' surplus gathers before it rises to its owners.</summary>

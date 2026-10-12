@@ -70,7 +70,7 @@ namespace Why.Economy.Layers
                 bool nearby=lod==0||focusIndustry<0||land.IndustryOf[p/Subgroups]==focusIndustry||Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(at))<35;
                 actors[p].gameObject.SetActive(!memberView&&nearby);
                 Color color=Color.Lerp(Desire,Fear,FearOf(p));
-                float intensity=p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f;
+                float intensity=(p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f)*(PersonFocus.IsView(LandView.PresetId)?.25f:1);
                 actors[p].sharedMaterial.SetColor("_Color",Color.white*intensity);
             }
             for(int f=0;f<firms.Count;f++)

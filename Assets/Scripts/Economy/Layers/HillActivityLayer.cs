@@ -31,6 +31,9 @@ namespace Why.Economy.Layers
         Vector3[] home, destinations, firmAt;
         int[] recipient;
         double[] riverAmount;
+        /// <summary>Per subgroup: the fear share of what its river buys at its market (ValueCapture.SoldFear), which
+        /// splits its lanes; the spender's own fear colors the marker.</summary>
+        float[] riverFear;
         LineMeshBuilder pulseGeometry;
         MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry, circles, circleThreads;
         double[] eliteClaim;
@@ -113,7 +116,7 @@ namespace Why.Economy.Layers
             home=new Vector3[land.People.Length*Subgroups];
             for(int p=0;p<home.Length;p++){float a=p%Subgroups*Mathf.PI*2/Subgroups;home[p]=land.People[p/Subgroups]+new Vector3(Mathf.Cos(a)*1.1f,0,Mathf.Sin(a)*1.1f);}
             Positions=(Vector3[])home.Clone();
-            destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];
+            destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];riverFear=new float[home.Length];
             Competition=new CorporateCompetition(snapshot);Competition.Update(Program);
             for(int p=0;p<home.Length;p++){var actor=Render(new LineMeshBuilder(),"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
             BuildCorporations();
@@ -135,6 +138,8 @@ namespace Why.Economy.Layers
                 double sample=((p*.61803398875+.21)%1)*total,cumulative=0;
                 for(int h=0;h<budget.Length;h++){cumulative+=budget[h];if(cumulative>=sample){best=h;break;}}
                 recipient[p]=best;riverAmount[p]=budget[best]/Subgroups;
+                var capture=ValueCapture.Get();var spend=(IReadOnlyList<double>)Program?.Players[p/Subgroups].Category??snapshot.Players.Players[p/Subgroups].Category;
+                riverFear[p]=capture!=null?(float)capture.FearOfPurchase(spend,best,LandService.Model.Data):FearOf(p);
                 // A bounded visit toward the budget-weighted spending destination, keeping cohort settlements legible.
                 Vector3 target=land.Market(best);
                 destinations[p]=Vector3.Lerp(home[p],target,.18f+.20f*(1-FearOf(p)));
@@ -287,7 +292,7 @@ namespace Why.Economy.Layers
                 if(p/Subgroups!=focused && p%15!=0)continue;
                 var hill=land.Hills[recipient[p]];bool active=p/Subgroups==focused;
                 float alpha=active?.90f:focused>=0?.006f:LandView.PresetId=="rivers"?.18f:.035f;
-                Color color=Color.Lerp(Desire,Fear,FearOf(p));color.a=alpha;
+                Color color=Color.Lerp(Desire,Fear,riverFear[p]);color.a=alpha;
                 Vector3 end=land.Market(recipient[p]);
                 var path=new LinePoint[33];
                 for(int k=0;k<path.Length;k++)
@@ -297,14 +302,14 @@ namespace Why.Economy.Layers
                     at.y=land.Cloud[p/Subgroups]?Mathf.Lerp(Positions[p].y,ground,Mathf.SmoothStep(0,1,t)):ground;
                     path[k]=new LinePoint(at,color,(active?2:1)+(float)Math.Log10(1+riverAmount[p])*.3f,0,active?2.3f:1.0f);
                 }
-                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,FearOf(p),active?.8f:focused>=0?.008f:.035f,p,active);
+                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,riverFear[p],active?.8f:focused>=0?.008f:.035f,p,active);
             }
             // Aggregate all accounts into wide industry trunks; only sparse tributaries are shown at overview scale.
             for(int h=0;h<land.Hills.Length;h++)
             {
                 if(land.Hills[h].Tier==0)continue;
                 double amount=0,af=0;
-                for(int p=0;p<home.Length;p++)if(recipient[p]==h){amount+=riverAmount[p];af+=riverAmount[p]*FearOf(p);}
+                for(int p=0;p<home.Length;p++)if(recipient[p]==h){amount+=riverAmount[p];af+=riverAmount[p]*riverFear[p];}
                 if(amount<=0)continue;
                 var path=new LinePoint[41];
                 for(int k=0;k<path.Length;k++)

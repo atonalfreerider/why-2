@@ -66,6 +66,17 @@ namespace Why.Economy.Model
         public readonly double[] CategorySelfOwned = new double[6];
         /// <summary>Per industry: the levers behind the owners' surplus households' spending generates there.</summary>
         public readonly double[][] IndustryLevers;
+        /// <summary>
+        /// The fear share of what is bought: per spending category (EconomyData.Categories order) and industry, the
+        /// purchase-weighted fear share of the motive of the items the category buys from it (weighted exactly as
+        /// <see cref="Category.IndustryShare"/>), and each category's own. An item's fear share is Jev's fear sold over
+        /// fear sold plus manufactured want, shrunk toward the category's stored fear share by a prior of
+        /// <see cref="FearPrior"/> (needs judged neither feared nor manufactured stay near the category's share); without
+        /// judgments, the category's stored share. Health and insurance read as fear, entertainment as desire.
+        /// </summary>
+        public readonly double[][] SoldFear = new double[6][];
+        public readonly double[] CategoryFear = new double[6];
+        const double FearPrior = .2;
         /// <summary>Per item (id): parts of a dollar and its judgments.</summary>
         public readonly Dictionary<string, double[]> ItemParts = new Dictionary<string, double[]>();
         public readonly Dictionary<string, Judgment> Judgments = new Dictionary<string, Judgment>();
@@ -169,6 +180,26 @@ namespace Why.Economy.Model
                 }
                 for (int l = 0; l < Levers; l++) CategoryOwnerLevers[c][l] = ownersTotal > 0 ? CategoryOwnerLevers[c][l] / ownersTotal : CategoryLevers[c][l];
             }
+            for (int c = 0; c < 6; c++)
+            {
+                SoldFear[c] = new double[N];
+                var cat = c < data.Categories.Count ? data.Categories[c] : null;
+                double fear = 0, total = 0; var weight = new double[N];
+                if (cat?.Items != null)
+                    foreach (var item in cat.Items)
+                    {
+                        if (item.Pce <= 0) continue;
+                        double f = ItemFear(item, cat); fear += item.Pce * f; total += item.Pce;
+                        if (item.Industries == null) continue;
+                        foreach (var kv in item.Industries)
+                        {
+                            var ind = data.IndustryById(kv.Key); if (ind == null || kv.Value <= 0) continue;
+                            weight[ind.Index] += item.Pce * kv.Value; SoldFear[c][ind.Index] += item.Pce * kv.Value * f;
+                        }
+                    }
+                CategoryFear[c] = total > 0 ? fear / total : cat?.FearShare ?? .5;
+                for (int j = 0; j < N; j++) SoldFear[c][j] = weight[j] > 0 ? SoldFear[c][j] / weight[j] : CategoryFear[c];
+            }
             for (int j = 0; j < N; j++)
             {
                 IndustryLevers[j] = new double[Levers];
@@ -235,6 +266,27 @@ namespace Why.Economy.Model
                 }
             }
             catch (Exception e) { Debug.LogWarning("[Why] Purchase judgments unreadable: " + e.Message); Judgments.Clear(); }
+        }
+
+        /// <summary>An item's fear share of the motive (see <see cref="SoldFear"/>).</summary>
+        double ItemFear(SpendingItem item, Category cat)
+        {
+            double prior = Math.Max(0, Math.Min(1, cat.FearShare));
+            if (!Judgments.TryGetValue(item.Id, out Judgment j)) return prior;
+            return (j.Fear + FearPrior * prior) / Math.Max(1e-9, j.Fear + j.Manufactured + FearPrior);
+        }
+
+        /// <summary>The fear share of what a budget (six category amounts) buys from one industry: the categories'
+        /// <see cref="SoldFear"/> weighted by the dollars each sends there (one half when it sends none).</summary>
+        public double FearOfPurchase(IReadOnlyList<double> categories, int industry, EconomyData data)
+        {
+            double fear = 0, total = 0;
+            for (int c = 0; c < 6 && c < categories.Count && c < data.Categories.Count; c++)
+            {
+                double w = Math.Max(0, categories[c]) * data.Categories[c].IndustryShare(data.Industries[industry].Id);
+                fear += w * SoldFear[c][industry]; total += w;
+            }
+            return total > 0 ? fear / total : .5;
         }
 
         /// <summary>Owners'-surplus-weighted lever of a category (0..1), combining the two persuasion or lock-in levers.</summary>

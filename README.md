@@ -21,16 +21,16 @@ the real expansion of space (a Lambda-CDM scale factor), so it billows out acros
 every nested body grows with it as a contour that splits off smoothly, never in steps. Each region is
 shaded by its real density, so the gaps between the contours read as orders of magnitude - from 3x10^30
 atoms/m^3 in Earth to 2x10^5 between the stars and ~0.3 between the galaxies - and every strand carries
-an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). Over it a grid draws the inflation of space as a train track: each rail follows the matter that lies a round
-distance from us today (a kilometre, ten, a hundred ... out to the edge of the observable universe) back through time.
-Inside the bodies that stopped expanding when they formed (Earth, the Sun, the Milky Way, the Local Group) the map is a
-ruler of decades and the rails hold still with them; outside, where space still expands, the map is linear in distance
-and scaled to the envelope, so a rail sits at its comoving distance times the scale factor: it hugs the clock while
-space is small, then bends outward, the outermost rails racing toward the horizon and every cell's growth pushing all
-the rails beyond it further out. No two rails ever cross. Crossbeams tie neighbouring rails at their own spacing, so
-each level of the ruler is a track of square cells; at any zoom only a few decades resolve, and the next, finer track
-peels open inside each cell as you close in on the inner edge (decades, then tenths, then hundredths, down to the
-kilometre); out on the envelope the cells open so wide the lines fade to black. The probe (G) reads real numbers anywhere: metres from
+an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). Over it the scale of space is drawn as rails that inflate as the clock turns. Each rail is a comoving distance from
+our lineage (a kilometre, ten, a hundred ... out to the edge of the observable universe), followed back through time
+on one continuous field: every decade the same width, anchored at the horizon, where the distance is the observable
+universe carried by the cosmic scale factor. So early on every rail lies crushed on the inner track; as the universe
+inflates through more than twenty orders of magnitude around the first half of the clock the rails peel off it one
+after another, outer first, like branches off a trunk, and are pushed outward, hyperbolically against the clock,
+toward the horizon, where they dissolve into black. Only along the inner track does the fine scale remain, descending
+continuously from the cosmic to the local: the Earth's by the time life begins. Each finer rail branches off its
+parent as their cell inflates, so the next scale keeps opening as you close in (decades, then the 2..9 steps, tenths,
+hundredths, down to the kilometre). No knots, no cells, no step changes. The probe (G) reads real numbers anywhere: metres from
 us, metres per unit of the graph. Matter
 dissolves before the human branch.
 

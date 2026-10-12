@@ -71,7 +71,10 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null || LandService.Model?.Lives == null) return;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || selection != EconomyState.Person) Build();
+            if (HillLandscapeLayer.Current.Source != LandService.Current) return;   // the landscape catches up first
+            // The landscape object is rebuilt for every selection or scenario step with the same geometry: only a new year's
+            // land or another person rebuilds (and restarts the arena).
+            if (snapshot != LandService.Current || land == null || land.Source != LandService.Current || selection != EconomyState.Person) Build();
             if (content == null) return;
             string view = LandView.PresetId;
             float atom = view == "atom" ? 1 : view == "dilemma" ? .22f : view == "ladder" ? .12f : 0;

@@ -115,20 +115,21 @@ starts only on Android.
 * Build: `Tools/build-quest.sh` (add `--copy` while the Editor has the project open, `--install` to sideload over USB
   with developer mode on), or **Why > Quest > Build APK** in the Editor. Output: `Builds/Quest/why.apk`
   (`io.primitive.why`); on the headset it is under Library > Unknown Sources. **Why > Quest > Configure XR** (also run
-  by every build) sets OpenXR with the Meta Quest feature and Touch / Touch Plus / Touch Pro controllers.
+  by every build) sets OpenXR with the Meta Quest feature, hand tracking (XR Hands 1.9) and Meta hand aim, and no
+  controller profiles.
 * In the headset every view is a diorama: the view's subject sits at arm's length and the world is scaled to it, so
   the Big Bang, a clade or one lifeline can each be walked around - and the world can be grabbed and resized at will.
 
-| Controller | Action |
-| --- | --- |
-| Right trigger | point and select (labels, people, companies, panels) |
-| Grip + pull | drag the world; both grips pulled apart / together: grow / shrink it around your hands |
-| Left stick | fly over the graph, where you look |
-| Right stick | up / down zoom, left / right turn the world 30 degrees |
-| A / B / Y | guided tour: next (starts it) / back / leave |
-| X | hand menu: the views, the tour, the other scene, recenter |
-| Left stick click | recenter |
+Input is hands only (no controllers; the manifest requires hand tracking, so the headset never asks for them):
 
+| Hands | Action |
+| --- | --- |
+| Point with the right hand, pinch | select (labels, people, companies, panel buttons) |
+| Pinch with either hand and move | drag the world |
+| Pinch with both hands | pull apart / together: grow / shrink the world; twist: turn it |
+| Turn the left palm toward your face | the menu: guided tour (start, next, back, leave), the views, the other scene, recenter |
+
+Both hands are drawn as glowing skeletons; the pointing ray is Meta's hand aim (from the shoulder through the hand).
 Panels float on a HUD plane that follows your gaze; the tour's target is marked by a beacon in the world instead of the
 screen arrow. Line widths are still in pixels per eye, and frame rate on device has not been profiled yet.
 

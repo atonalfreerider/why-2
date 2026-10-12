@@ -9,6 +9,7 @@ using UnityEditor.XR.Management.Metadata;
 using UnityEditor.XR.OpenXR.Features;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.XR.Hands.OpenXR;
 using UnityEngine.XR.Management;
 using UnityEngine.XR.OpenXR;
 using UnityEngine.XR.OpenXR.Features;
@@ -18,8 +19,9 @@ using UnityEngine.XR.OpenXR.Features.MetaQuestSupport;
 namespace Why.EditorTools
 {
     /// <summary>
-    /// Meta Quest build: configures OpenXR (Meta Quest feature, Touch controller profiles, single-pass instanced) for
-    /// Android only, sets the Android player settings Quest needs, and builds an APK of both scenes. Desktop keeps
+    /// Meta Quest build, hands-only: configures OpenXR (Meta Quest feature, hand tracking and Meta's hand aim, no
+    /// controller profiles, single-pass instanced) for Android only (<see cref="QuestHandsManifest"/> marks hand
+    /// tracking required), sets the Android player settings Quest needs, and builds an APK of both scenes. Desktop keeps
     /// running without XR (no loader is assigned to Standalone).
     ///
     /// Menu: Why > Quest > Configure XR / Build APK. Batch:
@@ -171,13 +173,15 @@ namespace Why.EditorTools
             settings.renderMode = OpenXRSettings.RenderMode.SinglePassInstanced;
             settings.depthSubmissionMode = OpenXRSettings.DepthSubmissionMode.Depth16Bit;
 
+            // hands only: the Quest feature, joints (XR Hands) and Meta's aim pose and pinches; no controller profiles
             foreach (OpenXRFeature f in settings.GetFeatures())
             {
-                bool want = f is MetaQuestFeature || f is OculusTouchControllerProfile ||
-                            f is MetaQuestTouchPlusControllerProfile || f is MetaQuestTouchProControllerProfile;
-                if (want && !f.enabled)
+                bool want = f is MetaQuestFeature || f is HandTracking || f is MetaHandTrackingAim;
+                bool controller = f is OculusTouchControllerProfile || f is MetaQuestTouchPlusControllerProfile ||
+                                  f is MetaQuestTouchProControllerProfile;
+                if (want && !f.enabled || controller && f.enabled)
                 {
-                    f.enabled = true;
+                    f.enabled = want;
                     EditorUtility.SetDirty(f);
                 }
             }

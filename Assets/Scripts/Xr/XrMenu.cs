@@ -8,9 +8,9 @@ using UnityEngine.UI;
 namespace Why.Xr
 {
     /// <summary>
-    /// The headset menu, held above the left controller (X shows and hides it): the numbered views of the current
-    /// graph, the guided tour, the other scene (universe / economy) and recenter. Point with the right controller and
-    /// pull the trigger. It is the headset's stand-in for the number keys and the HUD's preset bar.
+    /// The headset menu, held above the left palm while the palm faces your eyes: the guided tour (start / leave, next and
+    /// back stop), the numbered views of the current graph, the other scene (universe / economy) and recenter. Point with
+    /// the right hand and pinch. It is the headset's stand-in for the keyboard and the HUD's preset bar.
     /// </summary>
     public sealed class XrMenu : MonoBehaviour
     {
@@ -28,14 +28,14 @@ namespace Why.Xr
 
         public bool Hidden => canvas == null || !canvas.gameObject.activeSelf;
 
-        public void Init(GraphRoot graphRoot, Transform leftHand)
+        public void Init(GraphRoot graphRoot, Transform palm)
         {
             root = graphRoot;
-            hand = leftHand;
+            hand = palm;
             canvas = UiFactory.CreateCanvas("XR Menu", 400);
             Transform t = canvas.transform;
             t.SetParent(hand, false);
-            t.localPosition = new Vector3(0, 0.14f, 0.04f);
+            t.localPosition = Vector3.zero;
             t.localScale = Vector3.one * MetresPerUnit;
             ((RectTransform)t).sizeDelta = new Vector2(Width, 600);
             panel = UiFactory.Panel(t, "Panel").rectTransform;
@@ -43,10 +43,9 @@ namespace Why.Xr
             canvas.gameObject.SetActive(false);
         }
 
-        public void Toggle()
+        public void SetShown(bool show)
         {
-            if (canvas == null) return;
-            bool show = Hidden;
+            if (canvas == null || show != Hidden) return;
             if (show) Rebuild();
             canvas.gameObject.SetActive(show);
         }
@@ -69,25 +68,33 @@ namespace Why.Xr
             builtVersion = ViewPresets.All.Count;
 
             List<(string label, System.Action action)> items = new List<(string label, System.Action action)>();
+            DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
+            if (director != null)
+            {
+                bool running = director.TourRunning;
+                items.Add((running ? "\u25C0  Back" : "Guided tour", (System.Action)(() =>
+                {
+                    if (director.TourRunning) director.PreviousStep();
+                    else director.StartTour();
+                    Rebuild();
+                })));
+                items.Add((running ? "Next  \u25B6" : "Narrated, from the Big Bang", (System.Action)(() =>
+                {
+                    if (director.TourRunning) director.NextStep();
+                    else director.StartTour();
+                    Rebuild();
+                })));
+                if (running) items.Add(("Leave the tour", (System.Action)(() => { director.ExitTour(); Rebuild(); })));
+            }
+
             foreach (ViewPreset p in ViewPresets.All.Where(p => p.Key != KeyCode.None))
             {
                 ViewPreset preset = p;
                 items.Add((preset.Title, (System.Action)(() => root.Focus(preset))));
             }
 
-            DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
-            if (director != null)
-            {
-                items.Add(("Guided tour  (A next, B back)", (System.Action)(() =>
-                {
-                    if (director.TourRunning) director.ExitTour();
-                    else director.StartTour();
-                    Toggle();
-                })));
-            }
-
             items.Add((GraphScene.IsEconomy ? "Open the universe" : "Open the economy", (System.Action)GraphRoot.OpenOtherScene));
-            items.Add(("Recenter  (left stick click)", (System.Action)(() => XrRig.Instance?.Recenter())));
+            items.Add(("Recenter", (System.Action)(() => XrRig.Instance?.Recenter())));
 
             int columns = 2;
             float colWidth = (Width - Gap * (columns + 1)) / columns;

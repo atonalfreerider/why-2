@@ -133,6 +133,21 @@ namespace Why
             userActivePending = true;
         }
 
+        /// <summary>
+        /// Headset twist: turns the world by some degrees (clockwise seen from above) around a world point, as when both
+        /// hands rotate what they hold.
+        /// </summary>
+        public void XrTwist(float degrees, Vector3 pivot)
+        {
+            if (Mathf.Abs(degrees) < 1e-4f) return;
+            CancelFlight();
+            // the world turning by +d is the eye orbiting the pivot by -d
+            Quaternion q = Quaternion.Euler(0, -degrees, 0);
+            pose.Target = pivot + q * (pose.Target - pivot);
+            pose.Yaw -= degrees;
+            userActivePending = true;
+        }
+
         /// <summary>Headset turn: orbits the world around the target.</summary>
         public void XrTurn(float degrees)
         {

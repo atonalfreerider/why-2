@@ -41,7 +41,8 @@ namespace Why
                 // a point far along the ray projects to where the ray "points" on screen
                 Vector3 far = r.origin + r.direction * Mathf.Max(cam.farClipPlane * 0.5f, 10f);
                 Vector3 sp = cam.WorldToScreenPoint(far);
-                return sp.z > 0 ? (Vector2)sp : new Vector2(-10000, -10000);
+                bool ok = sp.z > 0 && !float.IsNaN(sp.x) && !float.IsNaN(sp.y);
+                return ok ? (Vector2)sp : new Vector2(-10000, -10000);
             }
         }
 

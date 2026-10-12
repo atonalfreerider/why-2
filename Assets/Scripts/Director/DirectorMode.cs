@@ -487,9 +487,9 @@ namespace Why.Director
                 Title = economy ? "Every dollar is someone's choice, made in fear or desire."
                     : "This moment is the result of everything before it.",
                 Body = lit + (xr
-                    ? "Explore it on your own: grip and pull to drag the world, grip with both hands to grow or shrink " +
-                      "it, the left stick to fly, the right stick to zoom and turn. X opens the menu of views" +
-                      (economy ? "; A takes the tour again." : "; A continues into the economy.")
+                    ? "Explore it on your own with your hands: pinch and pull to drag the world, pinch with both hands " +
+                      "to grow, shrink or turn it, point and pinch to select. Turn your left palm toward you for the " +
+                      "menu" + (economy ? "." : "; Next continues into the economy.")
                     : economy
                     ? "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to change the " +
                       "view. Comma and period change the year the land opens; click a player or a lifeline to look " +

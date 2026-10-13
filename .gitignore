@@ -84,3 +84,9 @@ UserSettings
 
 # Walkthrough recordings (Why > Capture)
 /Captures/
+
+# Social layer pipeline caches (Wikidata responses, Jev answers)
+Tools/social/.cache/
+
+# Government layer pipeline caches (OMB/FRED/OWID/IMF downloads, Wikidata, Jev answers)
+Tools/government/.cache/

@@ -69,6 +69,7 @@ namespace Why.EditorChecks
             for(int p=0;p<land.People.Length;p++){var budget=market.Budget(p,a.Players[p]);double total=0;foreach(double v in budget)total+=v;Require(Math.Abs(total-a.Players[p].Spending)<1e-7,"Every player budget is allocated exactly once");}
             foreach(var hill in land.Hills)if(hill.Tier==0)Require(hill.Summit.y<0,"Government lies beneath the landscape");
             string capture=Capture(source,land);
+            string social=Social(source);
             var pop=LandService.Population;var sim=pop.Sim;
             double checksum=Samples(sim);
             var geometry=new SmvGeometry(sim,pop.CivIndex){FamilyJunctions=true};
@@ -83,8 +84,29 @@ namespace Why.EditorChecks
             string companies=Companies(land);
             string result="PASS: "+land.Hills.Length+" hills, "+land.People.Length+" players ("+valley+" government-paid on the valley floor), "+clouds+
                 " cloud groups; 30-year deterministic ledger; max residual "+largest.ToString("G4")+
-                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; wave "+land.FirstYear+"-"+land.Year+" over "+(land.CrestZ-land.TailZ).ToString("F0")+" units; "+companies+"; "+capture;
+                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; wave "+land.FirstYear+"-"+land.Year+" over "+(land.CrestZ-land.TailZ).ToString("F0")+" units; "+companies+"; "+capture+" "+social;
             Debug.Log("[Why] "+result);return result;
+        }
+        /// <summary>The social layer and the government: the popular people parse into five regions, capital holders
+        /// are tied to their companies (Musk: Tesla and SpaceX) and stand at a company rather than in the cloud,
+        /// officeholders hold dated offices, the US budget runs 1947-2026 within plausible shares, and the shown year's
+        /// seats include its president.</summary>
+        static string Social(LandSnapshot source)
+        {
+            var people=HillSocialLayer.People;Require(people!=null&&people.people.Length>1000,"Popular people must load (Data/social/people.json)");
+            Require(people.regions.Length==5,"Five social regions");
+            foreach(var p in people.people)Require(p.RegionIndex>=0&&p.RegionIndex<5,"Every popular person needs a region");
+            var musk=Array.Find(people.people,p=>p.name=="Elon Musk");
+            Require(musk!=null&&Array.IndexOf(musk.firms,"tesla")>=0&&Array.IndexOf(musk.firms,"spacex")>=0,"Elon Musk must be tied to Tesla and SpaceX");
+            int anchored=0,clouded=0,seated=0;
+            foreach(var kv in HillSocialLayer.Placed){if(kv.Value.place==1)anchored++;else if(kv.Value.place==2)seated++;else clouded++;}
+            foreach(var p in people.people)
+                if(p.firms.Length>0&&HillSocialLayer.Placed.TryGetValue(p.Index,out var at))Require(at.place==1,p.name+" holds capital: they stand at their company, not in the cloud");
+            var gov=HillFoundationLayer.History;Require(gov!=null&&gov.us.Length>=79,"US budget history 1947-2026");
+            foreach(var y in gov.us)Require(y.receipts>.05f&&y.receipts<.4f&&y.Outlays>.05f&&y.Outlays<.5f,"Plausible US budget shares in "+y.year);
+            bool president=false;foreach(var s in HillFoundationLayer.Seats)if(s.Office.Contains("head of state")||s.Office.StartsWith("President of"))president=true;
+            Require(president,"The shown year's government seats its president");
+            return "social: "+people.people.Length+" popular people; US cloud "+clouded+", at companies "+anchored+", in office "+seated+"; "+HillFoundationLayer.Seats.Count+" seats; "+gov.us.Length+" budget years; "+gov.civs.Count+" states.";
         }
         /// <summary>The value-capture accounting: the Leontief inverse, every dollar's split, each market's balance, the
         /// owners' surplus fully attributed, wages fully paid, seller pressure raising persuaded capture, and class altitude.</summary>

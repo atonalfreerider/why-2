@@ -59,7 +59,13 @@ individual lifelines (women inside, men outside) that rise and fall with social 
 stands for N people (shown on screen). The whole human layer starts as a thread and explodes outward with population. Famous figures glow,
 threads show who influenced whom, and the people panel (F) lists who was alive at any moment. The United States 1950 - now is simulated
 in detail from UN age pyramids with marriage, divorce, births and partner counts (the former `smv`
-project); children's lines start from their parents.
+project); children's lines start from their parents. Today's most followed people (the social graph behind Unity-FDG)
+live as faint white lifelines in their region's streams - the United States, East Asia (China and Japan), South Asia
+(India), Europe, and a band for the rest of the world - and gather at the present in one white cloud per region, laid out
+by who follows whom. Beneath every civilization hangs its state: a grey block as deep as the share of output its
+government took (published data for modern states, calibrated Jev judgments before), in strata of social programs,
+the military and the rest, with taxes falling into it, programs rising out of it, and its rulers, generals and
+reformers marked along its top for their years in office.
 
 ## In pictures
 
@@ -164,6 +170,16 @@ industry that pays them, class by altitude (those government pays stand on the v
 spending runs to each industry's market as rivers of desire and fear (split by the fear share of what is bought there),
 saving leaves over the crest into the future and debt arrives from it. Every stored firm sits inside a gold inner circle
 of elite owners. The old torus renderers remain in code but are disabled through `EconomyLayouts`.
+
+Above the wave float the United States' most followed people, from the social graph (Instagram follows and its
+force-directed layout, resolved to Wikidata and judged by Jev): white stars, brighter than the gold pool of wealth
+beside them, in the graph's category clouds. A popular person who runs a listed company (Musk, Zuckerberg, Bezos, Gates,
+Cook) stands on that company's gold inner circle instead; officeholders of the shown year sit on the government. The
+government is a grey block beneath the whole wave: along time its depth is federal outlays as a share of GDP (OMB),
+split into social programs, the military, interest and the rest, with receipts drawn inside it. Taxes come in from
+households and from each industry's profits; regulation goes up into each hill and regulatory capture comes back down
+(Jev); the year's president, legislators and reform movements sit on and in front of its crest edge. The keyless
+`social` view frames the cloud; scrubbing the year rebuilds all of it for that year.
 
 Keys 1–9 and 0: overview, population/families, the wave, ownership, class, rivers, the 3D mind, society, social
 infrastructure and companies. Three keyless views follow one person (the inspected person, else the striver notable):

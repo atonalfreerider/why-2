@@ -30,6 +30,14 @@ namespace Why.Economy.Layers
         public override IEnumerable<string> RequiredTexts => new[] { CompanyLives.LivesPath, CompanyLives.JudgmentsPath };
         /// <summary>The company line under the pointer and the one clicked (-1: none); indices into CompanyLives.Lives.</summary>
         public static int HoverCompany { get; private set; } = -1;
+        static HillWaveLayer active;
+        /// <summary>Where a company's lifeline stands at the crest (or ends), land-local: index into CompanyLives.Lives.</summary>
+        public static bool CompanyAtCrest(int life, out Vector3 at)
+        {
+            at = default;
+            if (active == null || !active.paths.TryGetValue(life, out var path) || path.Count == 0) return false;
+            at = path[path.Count - 1].Data; return true;
+        }
         public static int SelectedCompany { get; private set; } = -1;
         enum Part { Ribs, Ridges, Face, Crest, Lives, Focus, Fan, Future, Count }
         static readonly Color Steel = new Color(.46f, .58f, .72f), Ice = new Color(.62f, .84f, 1), White = new Color(1, .96f, .9f),
@@ -45,7 +53,7 @@ namespace Why.Economy.Layers
         int focused = -2, programRevision = -1; Vector2 pressed; LandFrame frame;
 
         public override void Prepare(GraphContext ctx) { livesJson = ctx.Text(CompanyLives.LivesPath); judgmentsJson = ctx.Text(CompanyLives.JudgmentsPath); }
-        public override void Upload(GraphContext ctx) { frame = EconomyStage.Land(); frame.Place(transform); }
+        public override void Upload(GraphContext ctx) { active = this; frame = EconomyStage.Land(); frame.Place(transform); }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -490,6 +498,6 @@ namespace Why.Economy.Layers
             owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); content = null; focus = null; focusLabel = null;
         }
 
-        void OnDestroy() { Clear(); HoverCompany = SelectedCompany = -1; }
+        void OnDestroy() { Clear(); HoverCompany = SelectedCompany = -1; if (active == this) active = null; }
     }
 }

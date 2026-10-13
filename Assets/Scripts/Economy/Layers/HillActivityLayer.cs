@@ -19,6 +19,17 @@ namespace Why.Economy.Layers
         public static Vector3 CompanyPosition(int index)=>active!=null&&active.firmAt!=null&&index>=0&&index<active.firmAt.Length?active.firmAt[index]:Vector3.zero;
         /// <summary>The firm's profit halo at the top of its market-value beam.</summary>
         public static Vector3 CompanyHalo(int index)=>active!=null&&active.firms.Count>index&&index>=0?active.firms[index].transform.localPosition:CompanyPosition(index);
+        /// <summary>A stored firm's (tower's) gold inner circle of owners: its center and radius, land-local; false when
+        /// the shown year has no tower for it. Matched by ticker, else name (CompanyLives.Matches).</summary>
+        public static bool OwnerCircle(CompanyLives.Life life,out Vector3 center,out float radius)
+        {
+            center=default;radius=0;
+            if(active?.circleAt==null||life==null)return false;
+            var towers=active.snapshot.Land.Towers;
+            for(int f=0;f<towers.Length&&f<active.circleAt.Length;f++)
+                if(CompanyLives.Matches(towers[f].Ticker,towers[f].Name,life)){center=active.circleAt[f];radius=active.circleRadius[f];return true;}
+            return false;
+        }
         public static Vector3[] Positions { get; private set; }
         public static CorporateCompetition Competition { get; private set; }
         public static Vector3 Position(int i)=>Positions!=null&&i*Subgroups<Positions.Length?Positions[i*Subgroups]:HillLandscapeLayer.Current.People[i];
@@ -28,7 +39,8 @@ namespace Why.Economy.Layers
         readonly List<Mesh> owned=new List<Mesh>();
         readonly List<Material> materials=new List<Material>();
         readonly List<TextMeshPro> labels=new List<TextMeshPro>(),badges=new List<TextMeshPro>();
-        Vector3[] home, destinations, firmAt;
+        Vector3[] home, destinations, firmAt, circleAt;
+        float[] circleRadius;
         int[] recipient;
         double[] riverAmount;
         /// <summary>Per subgroup: the fear share of what its river buys at its market (ValueCapture.SoldFear), which
@@ -168,6 +180,7 @@ namespace Why.Economy.Layers
         {
             var branches=new LineMeshBuilder();var competition=new LineMeshBuilder();
             var towers=snapshot.Land.Towers;firmAt=new Vector3[towers.Length];haloScale=new float[towers.Length];var count=new int[land.Hills.Length];
+            circleAt=new Vector3[towers.Length];circleRadius=new float[towers.Length];
             var total=new int[land.Hills.Length];foreach(var t in towers)total[t.Industry]++;
             var capture=LandService.Model.Data.Circuit?.Capture;
             var ring=new LineMeshBuilder();var rise=new LineMeshBuilder();
@@ -203,7 +216,8 @@ namespace Why.Economy.Layers
                 double staff=capture!=null&&tower.Company<capture.Count?capture[tower.Company].UsEmployees:0;
                 orgs.Add(Render(Organization(at,beam,revenue,staff),"Organization / "+tower.Name,true));
                 eliteClaim[f]=Math.Max(0,tower.MarketCap)*domestic*eliteShare;
-                InnerCircle(ring,rise,at+Vector3.up*(beam-.35f),1.18f*haloScale[f]+.55f+.03f*Mathf.Sqrt((float)eliteClaim[f]),eliteClaim[f]);
+                circleAt[f]=at+Vector3.up*(beam-.35f);circleRadius[f]=1.18f*haloScale[f]+.55f+.03f*Mathf.Sqrt((float)eliteClaim[f]);
+                InnerCircle(ring,rise,circleAt[f],circleRadius[f],eliteClaim[f]);
                 for(int prior=0;prior<f;prior++)if(towers[prior].Industry==hill.Industry)
                     competition.AddPolyline(new[]{firmAt[prior]+Vector3.up*.2f,(firmAt[prior]+at)*.5f+Vector3.up*1.2f,at+Vector3.up*.2f},Desire,1,0,0,1,1);
             }

@@ -18,6 +18,9 @@ namespace Why.Humans.Lives
         public LifelineMeshes Meshes { get; private set; }
         public FigureLines Figures { get; private set; }
 
+        /// <summary>The popular people's lifelines (Data/social/people), or null without the file.</summary>
+        public Social.PopularLines Popular { get; private set; }
+
         /// <summary>People per coarse line, by <see cref="Civ.Index"/> (0 = the stream has no lines).</summary>
         public double[] PeoplePerLine { get; private set; }
 
@@ -33,7 +36,7 @@ namespace Why.Humans.Lives
         /// <param name="demographyJson">Data/demography, for per-civ war mortality (may be null)</param>
         /// <param name="addLabel">thread-safe label sink</param>
         public static LifelineBuild Run(HumanWorld world, string figuresJson, string demographyJson,
-            Action<LabelSpec> addLabel)
+            Action<LabelSpec> addLabel, Social.SocialPeople people = null)
         {
             Dictionary<string, Dictionary<string, double>> overrides = CivWars.ParseOverrides(demographyJson);
             int count = 0;
@@ -51,7 +54,8 @@ namespace Why.Humans.Lives
                 PeoplePerLine = new double[count],
                 Names = new string[count],
                 Meshes = new LifelineMeshes(lives),
-                Figures = new FigureLines(world, lives)
+                Figures = new FigureLines(world, lives),
+                Popular = people != null ? new Social.PopularLines(world, lives, people) : null
             };
 
             foreach (CivLives s in lives)
@@ -75,6 +79,7 @@ namespace Why.Humans.Lives
                 {
                     meshes.EmitCurves(world.NowYear);
                     build.Figures.Build(figuresJson, addLabel);
+                    build.Popular?.Build(addLabel);
                 });
             return build;
         }

@@ -299,3 +299,75 @@ the overview itself, so `LandView.PresetId` names these views and `companies` (w
 
 Needs a check in the Editor: the poses and label sizes of the three views, overlaps between pull labels at shared
 markets, and the arena's height over steep valley slopes.
+
+## Popular people and the government - 2026-10-13
+
+**The social layer's data** (`Tools/social`, output `Assets/Resources/Data/social/people.json`):
+- **Source.** Built from the social graph (`SocialGraph/global_social_graph.db`, the social-graph + GPU-FDG pipeline behind
+  Unity-FDG): 1,139 Instagram accounts with follower counts, follow ties, category clouds and force-directed positions.
+- **Stage 1, `facts.py` (Wikidata).** Matches each account to Wikidata by its Instagram username (P2003; 958 exact) or by
+  name search.
+- **Stage 2, `judge.py` (Jev).** Asks only what the facts leave open:
+  - which candidate owns the account, when the handle did not match or the matched name disagrees;
+  - person / group / organization;
+  - region, when citizenship does not settle it;
+  - political role, for political accounts;
+  - whether a business person controls a large company and, if so, which of the 49 living economy companies (a single
+    choice whose probability spread names every company it weights, e.g. Musk: Tesla and SpaceX);
+  - birth decade, when Wikidata has no birth year.
+  This took 710 requests.
+- **Stage 3, `export.py` (code-owned policy).** Keeps 1,074 people and groups (65 brands and outlets dropped).
+  - *Region:* a lone citizenship region beats Jev; K-pop and Bollywood members belong to East and South Asia.
+  - *Offices:* government offices only (no goodwill ambassadors, "-elect" titles or company titles).
+  - *Layout:* each region's FDG positions centered and scaled to unit radius.
+  - *Regions:* US 365, East Asia 122, South Asia 100, Europe 174, rest of world 313.
+  - *Followers:* follower counts are a 2025 snapshot.
+
+**Causality graph:**
+- **Lifelines.** `PopularLines` (built with the figures in `LifelineBuild`) draws every popular person's lifeline from
+  birth to death or now, with the figures' status curve and white tint.
+  - *Placement:* in their region's band — the US stream (the SMV crowd's envelope); India; China + Japan; the European
+    streams; or a band just outside every stream for the rest of the world.
+  - *Figures:* people who are already historical figures are not drawn twice.
+- **Clouds.** `PopularCloudsLayer` floats one cloud per region above its streams at the present.
+  - *Stars:* white, sized by followers.
+  - *Category rings:* camera-facing, in the social graph's colors.
+  - *Ties:* mutual-follow ties.
+  - *Tethers:* from each living person's lifeline end into their star.
+  - *Rings:* gold for capital holders, grey for officeholders.
+  - *Level of detail:* by distance — glow and top stars, then every star and the rings, then ties and names.
+- **States.** `CivGovernmentLayer` hangs a grey curtain under every stream for its whole history, as deep as the state's
+  share of output.
+  - *Strata:* social programs, military, other.
+  - *Threads:* taxes fall from the stream into it and programs rise back.
+  - *Political actors:* 131 actors (rulers, generals, reformers, US presidents) mark their years in office on its top,
+    tied to their own lifelines.
+  - *Readout:* the year under the camera reads out each state's shares and regulation index, so moving along the
+    timeline runs the layer through history.
+
+**Economy:**
+- **The government block.** `HillFoundationLayer` is now a grey block beneath the whole wave.
+  - *Depth:* along time its depth is federal outlays as a share of GDP (OMB historical tables).
+  - *Strata, top down:* social programs, military, interest to bondholders, everything else. A white line marks receipts
+    (the gap below it is borrowing). The crest shows the year's cross-section in dollars.
+  - *Taxes:* in from households (income and payroll) and from each industry's operating surplus (corporate).
+  - *Regulation:* grey strands go up into each hill as strong as Jev judged it regulated; gold strands come back down as
+    strong as it shapes its own rules (capture).
+  - *Pillars:* program pillars use the year's budget instead of FY2025 scaled by GDP.
+  - *Seats:* the year's political actors sit on its crest edge (presidents from the government file plus officeholders
+    among the popular people, deduplicated).
+- **Popular people.** `HillSocialLayer` floats the US popular people above the wave, higher than and apart from the gold
+  pool of diversified wealth, in the social graph's own layout and white bloom (brighter than gold).
+  - *Capital holders* stand on the gold inner circle of their company's tower (or its lifeline at the crest before
+    2024), joined to their other companies by gold and to the cloud only by a faint thread. Musk stands in Tesla's
+    circle, tied to SpaceX.
+  - *Officeholders* stand on their seats.
+  - *Who appears:* people appear once they are adult and alive in the shown year.
+  - *View:* the "social" view frames the cloud.
+
+**Government data** (`Tools/government/build.py`, `Assets/Resources/Data/government.json`):
+- the US budget 1947-2026 (OMB Tables 1.2/2.3/3.1; state and local purchases from BEA/FRED);
+- 40 civilization series (OWID data for modern states, Jev judgments calibrated on that data and cited premodern anchors
+  elsewhere, flagged per sample);
+- per-industry regulation and capture (Jev);
+- political actors (figures.json rulers / generals / reformers, US presidents, terms from Wikidata where found).

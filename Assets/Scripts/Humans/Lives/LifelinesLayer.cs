@@ -54,7 +54,7 @@ namespace Why.Humans.Lives
 
         public override int Order => 30;
 
-        public override IEnumerable<string> RequiredTexts => new[] { FiguresPath, HumanWorld.DemographyPath };
+        public override IEnumerable<string> RequiredTexts => new[] { FiguresPath, HumanWorld.DemographyPath, Social.SocialPeople.Path };
 
         LifelineBuild build;
         Task denseTiers;
@@ -63,7 +63,7 @@ namespace Why.Humans.Lives
         string[] names;
 
         readonly Tier[] tiers = new Tier[LifelineMeshes.TierCount];
-        Tier curves, figures;
+        Tier curves, figures, popular;
         LabelSpec womenLabel, menLabel;
         float uploadedAt;
         int labeledProbe = -1;
@@ -106,8 +106,12 @@ namespace Why.Humans.Lives
             }
 
             LabelSystem labels = ctx.Labels;
+            // the social graph's popular people: their lifelines are built with the figures; the clouds layer reads them
+            Social.SocialPeople people = Social.SocialPeople.Parse(ctx.Text(Social.SocialPeople.Path));
+            if (people != null) ctx.Share(Social.SocialPeople.SharedKey, people);
             LifelineBuild b = LifelineBuild.Run(world, ctx.Text(FiguresPath), ctx.Text(HumanWorld.DemographyPath),
-                spec => labels?.Add(spec));
+                spec => labels?.Add(spec), people);
+            if (b.Popular != null) ctx.Share(Social.PopularLines.PathsKey, b.Popular);
 
             // the figures' exact lifelines, for the modules that follow or connect them
             ctx.Share(FigurePaths.SharedKey, b.Figures.Paths);
@@ -122,7 +126,7 @@ namespace Why.Humans.Lives
             LifelineMeshes m = b.Meshes;
             Debug.Log($"[Why] LifelinesLayer.Prepare {sw.ElapsedMilliseconds} ms ({b.Streams} streams; coarse " +
                       $"{m.TierLines[0]} lines / {m.TierPoints[0]} points; curves {m.Curves.VertexCount / 2} points; " +
-                      $"{b.Figures.Drawn} figures, {b.Figures.Skipped} skipped)");
+                      $"{b.Figures.Drawn} figures, {b.Figures.Skipped} skipped; {b.Popular?.Drawn ?? 0} popular people)");
 
             // the denser tiers are only needed close up: build them while the rest of the graph loads
             denseTiers = Task.Run(() =>
@@ -151,6 +155,8 @@ namespace Why.Humans.Lives
             curves = CreateTier("PopulationCurves", m.Curves, GraphMaterials.QueueHumans + 1, RhoFade, 0f, true);
             figures = CreateTier("FamousFigures", build.Figures.Lines, GraphMaterials.QueueHumans + 2, 0f,
                 FiguresOverviewAlpha, true);
+            if (build.Popular != null)
+                popular = CreateTier("PopularPeople", build.Popular.Lines, GraphMaterials.QueueHumans + 2, 0f, FiguresOverviewAlpha, true);
             for (int t = 0; t < tiers.Length; t++)
             {
                 // the coarse tier loads with the graph; the denser ones when first needed
@@ -238,6 +244,7 @@ namespace Why.Humans.Lives
             float near = Mathf.Max(preset, lod.Near);
             Animate(curves, Mathf.Min(cap, near), step);
             Animate(figures, Mathf.Lerp(FiguresOverviewAlpha, 1f, near), step);
+            if (popular != null) Animate(popular, Mathf.Lerp(FiguresOverviewAlpha, 1f, near), step);
             PlaceSideLabels(ctx, smv);
             PublishLod(smv);
         }

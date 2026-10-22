@@ -248,8 +248,9 @@ bar and the tour reach them; focused views keep the wave as faint ground and qui
 * `regimes` - **other foundations**: the same hills on another state, as a model change - the United States, Sweden,
   China, Saudi Arabia and the Soviet Union around 1980, picked with buttons in a panel (or stepped through). The bedrock is
   as deep as the regime's government spending (IMF), in strata of what it lives on (OECD tax structures, the budgets' own
-  categories); summits turn from gold to steel where the state owns the leading firm (each holding with its owner, share and
-  source; the state's share of listed firms' value from the OECD); grey and gold strands for its rules and the industries
+  categories); a summit turns from gold to steel where the state controls the industry's largest firm (the Fortune Global
+  500 2026 and its government-ownership flag, or national leaders for Sweden and Saudi Arabia; the state's share of listed
+  firms' value from the OECD); grey and gold strands for its rules and the industries
   shaping them (Jev); a steel lane of every river through the state; votes (V-Dem), trade (World Bank) and the top 1%'s
   shares (WID, latest observed years). The panel says what is measured, what is judged and what the drawing chooses.
 * `social` now also rings every star by how many of the other most-followed accounts follow it (influence among the

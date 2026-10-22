@@ -33,6 +33,26 @@ from a higher tier than rises from a lower one (37% against 22% in the 2024 tabl
 of the top on the base, not a one-way flow. And the hill's height is conceptual: what is measured at the top is the
 price of claims on the future - the seven largest firms are about a third (32%) of the US market value in the data.
 
+**Other foundations (new, `regimes`).** The bedrock has a measured shape, and the same hills can stand on other ones.
+General government spends 37.6% of GDP in the United States (IMF, 2024; the federal block of the other views is its federal
+part), 49.2% in Sweden, 33.0% in China and 29.2% in Saudi Arabia; the Soviet state budget spent 47.6% of GDP in 1980. What a
+state lives on differs more than how much: income taxes and contributions carry the US (personal income taxes are 35% of
+its revenue) and Sweden (social contributions, with its payroll tax, 30%); China's taxes fall mostly on spending and wages
+(taxes on goods and services 28% of revenue, social contributions 25%, personal income tax 4%); Saudi Arabia's state lives on
+oil (60% of its 2024 revenue); the Soviet budget lived on the turnover tax (31%) and the profits of the enterprises it owned
+(30%). Ownership of the summits separates them most. Taking each industry's largest firm on the Fortune Global 500 2026 (for
+Sweden and Saudi Arabia, the largest of the firms compared in national sources): every US summit is private; in China the
+state controls the largest firm of 10 of the 14 industries the list covers - banking, finance, insurance, telecom, oil,
+coal, the power grid, construction, real estate and the post - while private firms lead hardware (Huawei), the internet
+(Tencent), manufacturing (Hengli) and retail (JD.com); Saudi Arabia's state controls oil, chemicals, telecom and power and
+holds 37% of the largest bank; Sweden's controls power (Vattenfall) and holds 41% of Telia, while private firms lead its
+other summits; in the Soviet Union every summit was the state's by law. The public sector holds 3% of the value of listed
+firms in the US, 5% in Sweden, 33% in China and 79% in Saudi Arabia (OECD 2025). The top 1%'s share of pre-tax income runs
+from 4% (Russia, 1980) to 21% (the US, 2023), and the electoral democracy index from 0.89 in Sweden and 0.74 in the US
+(2025, down from 0.84 in 2024) to 0.07 in China and 0.02 in Saudi Arabia (V-Dem). Each foundation is drawn under the US
+hills as a model change - what the same economy would look like standing on that state - not as a picture of those
+countries' industries.
+
 ## 3. The flows: cause and effect in money
 
 **Households.** Spending splits into desire and fear by what is bought (Jev's judgments of 119 purchase items, shrunk

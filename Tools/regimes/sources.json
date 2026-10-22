@@ -325,7 +325,10 @@
       "quote": "Tabell 2.1: \"AB Svenska Spel (100 %) 5 348\"",
       "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 5,348m."
      }
-    ]
+    ],
+    "aliases": {
+     "Telia Company": "Telia"
+    }
    },
    "fortuneCountry": "Sweden",
    "fortune": {
@@ -336,6 +339,439 @@
     "url": "https://fortune.com/ranking/global500/2026/",
     "quote": "Only Swedish entry: #322 Volvo Group, Gothenburg, Motor Vehicles & Parts, revenues $48,827.5M; no government-ownership footnote.",
     "note": "No Swedish state-owned enterprise reaches the list; the #500 entry (PayPal Holdings) has revenues of $33,172M."
+   },
+   "nationalLeaders": {
+    "utilities": {
+     "firms": [
+      {
+       "name": "Vattenfall",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 234915000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales (group)",
+        "url": "https://group.vattenfall.com/siteassets/corporate/investors/interim_reports/2025/q4-report-2025.pdf",
+        "quote": "KEY DATA ... Amounts in SEK million ... Full year 2025 | Full year 2024 | Oct-Dec 2025 | Oct-Dec 2024 -- Net sales 234 915 245 570 67 134 68 488"
+       },
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "Vattenfall AB ... Ägarandel 100 %",
+       "note": "Same source: 'Vattenfall AB (Vattenfall) är en av Europas största producenter och återförsäljare av el och värme.' No explicit 'Sweden's largest' quote found. Foreign-owned operators in Sweden (E.ON Sverige -> E.ON SE, Germany; Fortum Sverige -> Fortum Oyj, Finland; Ellevio -> foreign/pension-fund owners; Statkraft -> Norwegian state) were NOT verified with sources in this session; municipal utilities (Göteborg Energi, Stockholm Exergi etc.) not checked but are far smaller than SEK 235bn.",
+       "holder": "the Swedish state 100%"
+      }
+     ],
+     "note": "The only Swedish-headquartered utility the research named; the government describes it as one of Europe's largest producers and sellers of electricity and heat. E.ON Sverige and Fortum Sverige belong to foreign groups and were not compared."
+    },
+    "media_telecom": {
+     "firms": [
+      {
+       "name": "Telia",
+       "stateShare": 0.411,
+       "controlled": false,
+       "revenue": {
+        "value": 80982000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+        "quote": "Telia Company AB ... Nyckeltal, mnkr 2025 2024 2023 2022 2021 -- Nettoomsättning 80 982 89 127 88 561 85 343 88 343"
+       },
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "Telia Company AB ... Ägarandel 41,1 %",
+       "note": "Company release (https://www.inderes.se/en/releases/telia-company-year-end-report-january-december-2025): 'Revenue amounted to SEK 81.0 billion (81.0) and increased 1.8% like for like.' (2024 restated; the government table's 89,127 for 2024 is the earlier basis). State is largest shareholder but a minority (41.1%), not majority.",
+       "holder": "the Swedish state 41.1% (the largest holder; a minority)"
+      },
+      {
+       "name": "Tele2 AB",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 29890000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "revenue, continuing operations",
+        "url": "https://www.tele2.com/files/Public/3372/4298724/full-year-and-q4-report-2025.pdf",
+        "quote": "SEK million | Oct-Dec 2025 | Oct-Dec 2024 | Organic % | Full Year 2025 | Full Year 2024 | Organic % -- Revenue 8,039 7,783 4.4% 29,890 29,583 1.8%"
+       },
+       "note": "Swedish-headquartered: 'Tele2 AB Company registration nr: 556410-8917 P.O. Box 62 SE–164 94 Kista, Stockholms län Sweden' (same report). Not state-owned (state share not checked)."
+      }
+     ]
+    },
+    "transport": {
+     "firms": [
+      {
+       "name": "SAS",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 49106000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "revenue, fiscal year 1 Nov 2024 - 31 Oct 2025",
+        "url": "https://www.sasgroup.net/files/documents/financial-reports/2025/sas-ab-annual-report-fy25.pdf",
+        "quote": "Summary of fiscal year 2025 • Revenue for the year: MSEK 49,106 (45,883)"
+       },
+       "url": "https://www.sasgroup.net/files/documents/financial-reports/2025/sas-ab-annual-report-fy25.pdf",
+       "quote": "the new ownership of the company consisting of the investors Castlelake (32.0%), the Danish state (26.4%), Air France-KLM (19.9%), Lind Invest (8.6%) and others (13.1%).",
+       "note": "Swedish-headquartered: 'SAS AB is registered in Stockholm and the address of its head office is Frösundaviks allé 1, Solna, Stockholm, Sweden' (same report). The Swedish state is not among the named owners (Danish state holds 26.4%). Same report: 'In July, Air France-KLM announced that it would initiate proceedings to take a majority stake in SAS.' Search snippets (not primary) say AF-KLM would go from 19.9% to 60.5%, closing targeted H2 2026 subject to approvals; completion status as of Oct 2026 NOT verified.",
+       "holder": "Castlelake 32.0%, the Danish state 26.4%, Air France-KLM 19.9%: not the Swedish state"
+      },
+      {
+       "name": "PostNord",
+       "stateShare": 0.607,
+       "controlled": true,
+       "revenue": {
+        "value": 36245000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://group.postnord.com/news-media/2026/income-affected-by-closure-of-mail-business-in-denmark/",
+        "quote": "Net sales totaled SEK 36,245 million (37,797)"
+       },
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "PostNord AB ... Ägarandel 60,7 %",
+       "note": "Government table also gives 'Nettoomsättning 36 245 37 797' for 2025/2024. Swedish-Danish group (Danish state holds the remainder; not quoted here).",
+       "holder": "the Swedish state 60.7% (Denmark the rest)"
+      },
+      {
+       "name": "SJ",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 14517000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+        "quote": "SJ AB ... Nyckeltal, mnkr 2025 2024 2023 2022 2021 -- Nettoomsättning 14 517 13 141 10 549 10 403 7 287"
+       },
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "SJ AB ... Ägarandel 100 %",
+       "note": "Same source: 'SJ AB (SJ) är den största operatören av persontrafik på järnväg i Sverige.' (largest rail passenger operator only).",
+       "holder": "the Swedish state 100%"
+      }
+     ],
+     "note": "Stena AB reported about SEK 52bn in one trade article (scope unclear) and is private; it would not change the summit's color."
+    },
+    "trade": {
+     "firms": [
+      {
+       "name": "H&M",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 228285000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales, financial year 1 Dec 2024 - 30 Nov 2025",
+        "url": "https://hmgroup.com/news/h-m-hennes-mauritz-ab-full-year-report-2025/",
+        "quote": "Converted into SEK, the H&M group’s net sales amounted to SEK 228,285 m (234,478)."
+       },
+       "note": "Not state-owned (Persson family control; not quoted here)."
+      },
+      {
+       "name": "ICA Gruppen AB",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 142403000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://www.icagruppen.se/en/annual-report-2025",
+        "quote": "Net sales 142,403 SEK m (Key figures); CEO: SEK 142.4 billion"
+       },
+       "note": "Solna-based. Press release (https://mb.cision.com/Main/7955/4310223/3943617.pdf): 'ICA Gruppen omsatte 2025 cirka 142 miljarder kronor.' Owned by the ICA retailers' association (ICA-handlarnas Förbund) - ownership share not verified in this session."
+      },
+      {
+       "name": "Axfood AB",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 89152000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://www.inderes.se/en/releases/axfood-strong-year-end-with-growth-higher-than-the-market",
+        "quote": "Net sales increased 6.1% to SEK 89,152 m (84,057)."
+       }
+      },
+      {
+       "name": "Systembolaget",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 39046000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+        "quote": "Systembolaget Aktiebolag ... Nyckeltal, mnkr 2025 2024 2023 2022 2021 -- Nettoomsättning 39 046 39 407 38 174 37 182 38 120"
+       },
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "Systembolaget Aktiebolag ... Ägarandel 100 %",
+       "note": "Retail alcohol monopoly; 4th of the four checked.",
+       "holder": "the Swedish state 100% (the alcohol retail monopoly)"
+      }
+     ]
+    },
+    "banking": {
+     "firms": [
+      {
+       "name": "SEB",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 76939000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "total operating income",
+        "url": "https://sebgroup.com/press/press-releases/2026/sebs-annual-accounts-and-results-for-the-fourth-quarter-2025",
+        "quote": "SEK m | Q4 2025 | Q3 2025 | % | Q4 2024 | % | Jan-Dec 2025 | 2024 | % -- Total operating income 18 894 18 664 1 19 985 -5 76 939 81 887 -6"
+       },
+       "note": "Not state-owned."
+      },
+      {
+       "name": "Swedbank AB",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 68736000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "total income",
+        "url": "https://www.inderes.se/en/releases/swedbanks-full-year-report-2025",
+        "quote": "Total income 17 340 17 105 1 68 736 74 104 -7"
+       },
+       "note": "Columns: Q4 2025, Q3 2025, %, full year 2025, full year 2024, %."
+      },
+      {
+       "name": "Handelsbanken",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 56796000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "total income",
+        "url": "https://mb.cision.com/Main/3555/4302127/3914948.pdf",
+        "quote": "SEK m | Q4 2025 | Q3 2025 | Change | Full year 2025 | Full year 2024 | Change -- Total income 14,262 14,121 1% 56,796 62,345 -9%"
+       }
+      },
+      {
+       "name": "SBAB",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 5230000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "total operating income",
+        "url": "https://www.sbab.se/download/18.7fb83fcd19bd987dbb0e3b/1770901844749/SBAB%20Bank%20AB%20(publ)_BK2025_ENG.pdf",
+        "quote": "Condensed income statement, GROUP, SEK million | Q4 2025 | Q3 2025 | Q4 2024 | Jan–Dec 2025 | Jan–Dec 2024 -- Total operating income 1,344 1,284 1,414 5,230 5,377"
+       },
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "SBAB Bank (publ) ... Ägarandel 100 %",
+       "note": "Government table gives a different 'Nettoomsättning' of 5 162 for 2025 (its own definition, footnote 3).",
+       "holder": "the Swedish state 100%"
+      }
+     ],
+     "note": "Nordea is domiciled in Finland and left out."
+    },
+    "mining_metals": {
+     "firms": [
+      {
+       "name": "SSAB",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 96220000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "revenue",
+        "url": "https://mb.cision.com/Main/980/4298709/3902107.pdf",
+        "quote": "Revenue for the full-year 2025 was SEK 96,220 (103,418) million, down 7% compared to the full-year 2024."
+       },
+       "note": "Steelmaker (metals production), not a miner. Not in the state holdings list."
+      },
+      {
+       "name": "Boliden",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 93509000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "revenues",
+        "url": "https://investors.boliden.com/sites/boliden-ir/files/pr/202602025006-1.pdf",
+        "quote": "Revenues for the full year totaled SEK 93,509 m (89,207)."
+       },
+       "note": "Mining plus smelting. Largest of the three if the industry is read as mining only (excluding steel)."
+      },
+      {
+       "name": "LKAB",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 33325000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://lkab.com/en/press/year-end-report-2025-lower-earnings-in-the-quarter-despite-stable-underlying-operations/",
+        "quote": "Net sales for full-year 2025 amounted to MSEK 33,325 (33,146)."
+       },
+       "note": "State share of 100% is from the task brief. No ownership quote was fetched (the year-end press release page does not state it).",
+       "holder": "the Swedish state 100% (the state's ownership report)"
+      }
+     ],
+     "note": "SSAB makes steel (primary metals); among miners alone Boliden leads. LKAB's 100% is from the government's ownership report as listed by the ownership research."
+    },
+    "real_estate": {
+     "firms": [
+      {
+       "name": "Balder",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 13721000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "rental income",
+        "url": "https://news.cision.com/fastighets-ab-balder/r/fastighets-ab-balder-s--publ--year-end-report-january-december-2025,c4303471",
+        "quote": "Rental income amounted to SEK 13,721m (12,876)."
+       },
+       "note": "Same source: \"The head office is located in Gothenburg.\""
+      },
+      {
+       "name": "Castellum",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 9593000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "income (rental and service income)",
+        "url": "https://storage.mfn.se/f99f9f39-5dcd-44a9-a8a8-aa8dd8a5eb3d/castellum-year-end-report-2025.pdf",
+        "quote": "Income totalled SEK 9,593 M (9,849)."
+       }
+      },
+      {
+       "name": "Vasakronan",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 9503000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "rental revenue",
+        "url": "https://mb.cision.com/Main/204/4302379/3915949.pdf",
+        "quote": "Rental revenue for the year amounted to SEK 9,503 million (9,447)."
+       },
+       "url": "https://mb.cision.com/Main/204/4302379/3915949.pdf",
+       "quote": "Since that date, the Second Swedish National Pension Fund owns 25% and the Third and Fourth Swedish national pension funds each own 37.5% of Vasakronan.",
+       "note": "100% owned by the state AP pension funds (AP2 25%, AP3 37.5%, AP4 37.5% since 1 January 2026; before that equal shares AP1-AP4). Not in the state holdings list; set stateShare null so the visualization can decide whether the AP funds count as the state.",
+       "holder": "the AP2, AP3 and AP4 public pension funds (100%)"
+      },
+      {
+       "name": "Akademiska Hus",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 7947000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "rental income (hyresintäkter)",
+        "url": "https://www.akademiskahus.se/siteassets/dokument/finansiella-dokument/delarsrapporter/2025/delarsrapport-q4-2025.pdf",
+        "quote": "Hyresintäkterna uppgick till 7 947 Mkr (7 860)"
+       },
+       "url": "https://www.akademiskahus.se/siteassets/dokument/finansiella-dokument/delarsrapporter/2025/delarsrapport-q4-2025.pdf",
+       "quote": "Akademiska Hus AB är moderföretag i Akademiska Hus-koncernen, som ägs av svenska staten till 100 procent.",
+       "note": "Smallest of the five by rental income.",
+       "holder": "the Swedish state 100%"
+      }
+     ],
+     "note": "Company-reported rental income only; Heimstaden (about SEK 15.9bn on a data site) would lead and is private. Vasakronan belongs to the state's pension funds, counted here as not the state's own holding."
+    },
+    "agriculture": {
+     "firms": [
+      {
+       "name": "Lantmännen",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 59931000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales, continuing operations",
+        "url": "https://www.lantmannen.com/contentassets/25397687a4fe4a4ca14b2b16e036aa7c/lm-t3-2025-en.pdf",
+        "quote": "Net sales amounted to MSEK 59,931 (58,273), an increase of"
+       },
+       "note": "Farmers' cooperative. Press release: \"Lantmännen is owned by 17,000 Swedish farmers with operations throughout the value chain from field to fork.\" Largest by revenue, but the revenue comes mostly from food manufacturing, agricultural trade and energy, not from farming itself.",
+       "holder": "a cooperative of 17,000 Swedish farmers"
+      },
+      {
+       "name": "Södra",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 28302000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales (nettoomsättning)",
+        "url": "https://www.sodra.com/_download/sp/bokslutskommunike-2025-sodra.pdf",
+        "quote": "Nettoomsättningen uppgick till 28 302 MSEK (29 487)"
+       },
+       "note": "Forest owners' cooperative (economic association). The report's key-figures table lists 52,262 members (\"Antal medlemmar\"). Integrated forest industry: pulp, sawn wood, energy. Mostly manufacturing."
+      },
+      {
+       "name": "Holmen",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 22056000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://mfn.se/cis/a/holmen/holmens-year-end-report-2025-7eadff7c",
+        "quote": "Net sales 5 183 5 327 5 513 22 056 22 759 (table row, SEK m: Q4-25, Q3-25, Q4-24, FY2025, FY2024)"
+       },
+       "note": "Listed integrated forest-and-paper group: forest, paperboard, paper, wood products, energy. Mostly manufacturing."
+      },
+      {
+       "name": "SCA (Svenska Cellulosa AB)",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 20427000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://news.cision.com/sca/r/year-end-report-q4-2025,c4300109",
+        "quote": "Net sales was in line with the year-earlier period and amounted to SEK 20,427m (20,232)."
+       },
+       "note": "Listed integrated forest-and-paper group: forest, pulp, containerboard, wood. Same release calls it \"Europe's largest private forest holding\"."
+      },
+      {
+       "name": "Sveaskog",
+       "stateShare": 1.0,
+       "controlled": true,
+       "revenue": {
+        "value": 8746000000,
+        "currency": "SEK",
+        "year": 2025,
+        "basis": "net sales",
+        "url": "https://www.sveaskog.se/globalassets/trycksaker/finansiella-rapporter/year-end-report-2025-adjusted.pdf",
+        "quote": "Net sales increased by 5 per cent to MSEK 8,746 (8,304)."
+       },
+       "url": "https://www.sveaskog.se/globalassets/trycksaker/finansiella-rapporter/year-end-report-2025-adjusted.pdf",
+       "quote": "As the Swedish State's forest company and Sweden's largest forest owner, we are pursuing our mission",
+       "note": "Pure forestry company: manages forest and sells timber. Same report: \"Sveaskog's land holdings amount to 3.89 million hectares\". Set as leader because it is the largest firm whose main activity is forestry itself (Sweden's largest forest owner). The others outsell it but earn mostly from processing (Holmen, SCA, Södra) or food and agricultural trade (Lantmännen). By plain revenue the leader is Lantmännen, a farmers' cooperative, which is not state-owned.",
+       "holder": "the Swedish state 100% (Sweden's largest forest owner)"
+      }
+     ],
+     "note": "By revenue the farmers' cooperative Lantmännen leads; by land Sveaskog, the state's forest company, is Sweden's largest forest owner."
+    }
    }
   },
   {
@@ -643,6 +1079,165 @@
     "url": "https://fortune.com/company/saudi-aramco/",
     "quote": "Profile footnote: \"Government owned 50% or more. Figures prepared in accordance with International Accounting Standards.\" Press release lists Saudi Arabia among the 14 countries and territories with only one company on the list.",
     "note": "Only Saudi entry: #5 Saudi Aramco (revenues $445,528.7M). SABIC is not on the 2026 list."
+   },
+   "nationalLeaders": {
+    "manufacturing": {
+     "firms": [
+      {
+       "name": "SABIC",
+       "stateShare": 0.7,
+       "controlled": true,
+       "revenue": {
+        "value": 116500000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "revenue",
+        "url": "https://tradearabia.com/News/389934/Sabic-revenue-hits-%2431bn-amid-petrochemicals-headwinds",
+        "quote": "posting a net adjusted income of SAR2.1 billion ($560 million) and revenues of SAR116.5 billion ($31 billion)."
+       },
+       "note": "Aramco agreed in 2019 to buy the 70% from the Public Investment Fund (Wikipedia, citing the share purchase agreement); held through Aramco, counted as the state's.",
+       "holder": "Saudi Aramco 70% (itself 97.5% state and PIF)",
+       "url": "https://en.wikipedia.org/wiki/SABIC",
+       "quote": "70% of SABIC's shares are owned by Saudi Aramco."
+      },
+      {
+       "name": "Almarai",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 22065000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "revenue (aggregator)",
+        "url": "https://stockanalysis.com/quote/tadawul/2280/financials/income-statement/",
+        "quote": "Revenue row: FY 2025 22,065; FY 2024 20,980 (\"Financials in millions SAR\")"
+       },
+       "note": "Largest food manufacturer checked; aggregator figure, not the company filing. Not state-controlled (not checked)."
+      }
+     ],
+     "note": "Almarai's revenue is from a data site (stockanalysis.com), not its filing."
+    },
+    "banking": {
+     "firms": [
+      {
+       "name": "Saudi National Bank",
+       "stateShare": 0.372,
+       "controlled": false,
+       "revenue": {
+        "value": 39194570000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "total operating income",
+        "url": "https://www.argaam.com/en/article/articledetail/id/1875447",
+        "quote": "Operating Income 36,033.11 39,194.57 8.8 % (SAR million; 2024, 2025, change); \"Total operating income rose 8.8% YoY to SAR 39.2 billion\""
+       },
+       "url": "https://www.forbesmiddleeast.com/lists/top-100-listed-companies-2022/saudi-national-bank-snb/",
+       "quote": "Saudi's Public Investment Fund (PIF) owns 37.2% of the bank.",
+       "note": "PIF is a minority (largest) shareholder, not majority. Stake figure is from a 2022 list. SNB leads Al Rajhi by only about SAR 0.1bn of 2025 operating income, which is effectively a tie.",
+       "holder": "Public Investment Fund 37.2% (the largest holder; a minority)"
+      },
+      {
+       "name": "Al Rajhi Bank",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 39093970000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "total operating income",
+        "url": "https://www.argaam.com/en/article/articledetail/id/1875438",
+        "quote": "Operating Income 32,055.30 39,093.97 22.0 % (SAR million; 2024, 2025, change)"
+       },
+       "note": "Privately controlled (ownership not checked)."
+      }
+     ],
+     "note": "A near tie: SNB's 2025 operating income exceeds Al Rajhi's by about SAR 0.1bn (0.26%); the PIF stake is from a 2022 list."
+    },
+    "media_telecom": {
+     "firms": [
+      {
+       "name": "stc",
+       "stateShare": 0.62,
+       "controlled": true,
+       "revenue": {
+        "value": 77800000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "revenue",
+        "url": "https://www.argaam.com/en/article/articledetail/id/1881314",
+        "quote": "recording the highest revenues in its history at SAR 77.8 billion, reflecting a 2.5% increase compared to the previous year"
+       },
+       "url": "https://sharikatmubasher.com/media-hub/news/21450686/pif-sells-100-mn-shares-in-stc-for-sar-386-bn?lang=en",
+       "quote": "Following this sale, PIF still holds 3.1 billion shares in stc, which amounts to a 62% ownership stake.",
+       "note": "Stake as of 14 Nov 2024.",
+       "holder": "Public Investment Fund 62% (November 2024)"
+      },
+      {
+       "name": "Mobily (Etihad Etisalat)",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 19640000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "revenue",
+        "url": "https://decypha.com/en/news/details/Mobily-registers-SAR-3-4bn-profits-in-2025--dividends-for-H2-unveiled/21534612?L=EN",
+        "quote": "Mobily achieved revenues amounting to SAR 19.64 billion as of 31 December 2025, higher by 7.89% YoY than SAR 18.20 billion."
+       }
+      },
+      {
+       "name": "Zain KSA",
+       "stateShare": null,
+       "controlled": false,
+       "revenue": {
+        "value": 11000000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "revenue",
+        "url": "https://sa.zain.com/en/all-news/zain-ksa-achieves-highest-ever-revenue-sar-11-bn-2025-net-profit-amounts-sar-604-mn",
+        "quote": "reporting record revenue of SAR 11 billion, a 6% year-on-year growth compared to SAR 10.4 billion in 2024."
+       }
+      }
+     ]
+    },
+    "utilities": {
+     "firms": [
+      {
+       "name": "Saudi Electricity (Saudi Energy)",
+       "stateShare": 0.7431,
+       "controlled": true,
+       "revenue": {
+        "value": 102200000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "operating revenues",
+        "url": "https://tradearabia.com/News/389920/Saudi-Energy-reports-highest-ever-operating-revenues-of-%2427bn",
+        "quote": "Operating revenues for 2025 reached SAR 102.2 billion ($27 billion), compared to SAR 88.7 billion in the previous year"
+       },
+       "url": "https://www.argaam.com/en/article/articledetail/id/505113",
+       "quote": "the government's 74.31 percent stake in its capital in the Public Investment Fund's (PIF) portfolio",
+       "note": "Stake source dated 17/09/2017 (government stake registered under PIF); no newer source opened. Aramco's stake (about 6.9%) appeared only in search snippets, so it is not included. The same article says: \"Saudi Energy (formerly Saudi Electricity) announced its financial results for the year 2025\".",
+       "holder": "the government's 74.31%, held in the Public Investment Fund's portfolio (2017 source)"
+      },
+      {
+       "name": "Acwa (formerly ACWA Power)",
+       "stateShare": 0.4416,
+       "controlled": false,
+       "revenue": {
+        "value": 7410000000.0,
+        "currency": "SAR",
+        "year": 2025,
+        "basis": "revenue",
+        "url": "https://tradearabia.com/News/389957/Acwa-s-2025-revenue-soars-to-%241.97bn-net-profit-up-60pc",
+        "quote": "with its revenue soaring to SAR7.41 billion ($1.97 billion)"
+       },
+       "url": "https://www.argaam.com/en/article/articledetail/id/1657556",
+       "quote": "Major Shareholders table: PIF | 322.88 (mln shares) | 44.16%",
+       "note": "Stake as of 18/07/2023, before the 2025 rights issue; may have changed."
+      }
+     ],
+     "note": "The SEC stake is from a 2017 source; Acwa's PIF stake (44.16%) predates its 2025 rights issue."
+    }
    }
   },
   {

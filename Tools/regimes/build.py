@@ -491,11 +491,26 @@ def main():
                     "url": flag["url"], "quote": flag["footnote"] or "(no 'Government owned' footnote on the profile)",
                     "note": ("next: " + rest if rest else "the country's only firm of this industry on the list") +
                             (f"; {fort['firmNotes'][lead['name']]}" if lead["name"] in fort.get("firmNotes", {}) else "")}
-        for industry, leader in (r.get("nationalLeaders") or {}).items():
+        # the national tier: the firms the research compared on an industry, the largest by revenue (one currency) leads
+        for industry, block in sorted((r.get("nationalLeaders") or {}).items()):
             if industry in summits:
                 problems.append(f"{r['id']}: {industry} has both a Fortune and a national leader")
                 continue
-            summits[industry] = dict(leader, industry=industry, leads=True)
+            compared = block["firms"]
+            currencies = {f["revenue"].get("currency") for f in compared}
+            if any(f["revenue"].get("value") is None for f in compared) or len(currencies) != 1:
+                problems.append(f"{r['id']}: {industry} cannot be ranked (a revenue is missing or currencies differ)")
+                continue
+            compared = sorted(compared, key=lambda f: -f["revenue"]["value"])
+            lead = compared[0]
+            unit = f" {lead['revenue'].get('currency')}"
+            rest = "; ".join(f"{f['name']} {f['revenue']['value'] / 1e9:,.1f}bn{unit}" for f in compared[1:4])
+            summits[industry] = {
+                "name": lead["name"], "industry": industry, "leads": True, "controlled": bool(lead.get("controlled")),
+                "stateShare": lead.get("stateShare"), "holder": lead.get("holder"),
+                "basis": "the largest by revenue of the firms the research compared in the country",
+                "revenue": lead["revenue"], "url": lead.get("url"), "quote": lead.get("quote"),
+                "note": "; ".join(x for x in (("next: " + rest) if rest else "the only firm compared", block.get("note"), lead.get("note")) if x)}
         # the state's holdings named in the ownership research: listed in the panel; one that is a summit lends it its share
         aliases = own.get("aliases", {})
         for f in own.get("firms", []):

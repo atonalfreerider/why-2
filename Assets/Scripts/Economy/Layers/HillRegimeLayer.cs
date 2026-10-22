@@ -165,7 +165,7 @@ namespace Why.Economy.Layers
                     if (d >= 2.2f)
                         Label("<b>" + PartName(k).ToUpperInvariant() + "</b>  " + LandFacts.Percent(r.Mix[k] * rev, 1) + " of GDP · " +
                               LandFacts.Percent(r.Mix[k]) + " of revenue", new Vector3(LabelX, y - d * .5f, cz + .6f),
-                              Mathf.Clamp(d * .32f, .75f, 1.15f), Color.Lerp(PartColor[k], White, .55f));
+                              Mathf.Clamp(d * .32f, .8f, 1.2f), Color.Lerp(PartColor[k], White, .82f));
                     y -= d;
                 }
             }
@@ -187,16 +187,17 @@ namespace Why.Economy.Layers
                 Label("<b>SURPLUS</b>  revenue " + LandFacts.Percent(rev - g, 1) + " of GDP above spending (the steel line marks spending)", new Vector3(LabelX, (yr + yg) * .5f, cz + .6f), .9f, Grey);
             strata.AddPolyline(new[] { new Vector3(x0, yr, cz + .3f), new Vector3(x1, yr, cz + .3f) }, WithAlpha(White, .95f), 2, 0, 0, 2.6f);
             strata.AddPolyline(new[] { new Vector3(x0, yg, cz + .3f), new Vector3(x1, yg, cz + .3f) }, WithAlpha(Steel, .9f), 2.4f, 0, 0, 2.2f);
-            // the depth in words beneath the bedrock
+            // the depth in words beneath the bedrock (and beneath the US line, when that runs lower)
+            float caption = Mathf.Min(bottom, !r.Baseline && us != null && us.Spending.Has ? top - (float)us.Spending.Value * DepthPerShare : bottom) - 6.5f;
             Label("<b>THE STATE SPENDS " + LandFacts.Percent(g, 1) + " OF " + r.Spending.Of + "</b> and takes in " + LandFacts.Percent(rev, 1) + "\n<size=75%>on this economy: " +
                   Money(g * gdp) + " of $" + (gdp / 1000).ToString("0.0", LandFacts.Ci) + "T · the white line: revenue · the steel line: spending</size>",
-                  new Vector3(LabelX, bottom - 6, cz + .8f), 1.45f, Color.Lerp(Steel, White, .5f));
+                  new Vector3(LabelX, caption, cz + .8f), 1.45f, Color.Lerp(Steel, White, .5f));
             // the US for comparison
             if (!r.Baseline && us != null && us.Spending.Has)
             {
                 float yu = top - (float)us.Spending.Value * DepthPerShare;
                 for (float x = x0; x < x1; x += 6) edges.AddSegment(new Vector3(x, yu, cz + .5f), new Vector3(Mathf.Min(x1, x + 3.4f), yu, cz + .5f), WithAlpha(White, .8f), 1.6f, 0, 0, 2);
-                Label("- - the United States: " + LandFacts.Percent(us.Spending.Value, 1), new Vector3(x1 - 30, yu - 2.2f, cz + .8f), .9f, White);
+                Label("- - the United States: " + LandFacts.Percent(us.Spending.Value, 1), new Vector3(LabelX + 70, yu - 2.2f, cz + .8f), .9f, White);
             }
             // the block's outline
             foreach (float yy in new[] { top, bottom })
@@ -227,7 +228,7 @@ namespace Why.Economy.Layers
                 for (int ring = 0; ring < 2; ring++)
                 {
                     float rr = radius * (ring == 0 ? 1 : .78f);
-                    Arc(rings, h, rr, 0, (float)s, WithAlpha(Steel, .95f * a), decided ? 3 : 1.6f, 1.6f * a);
+                    Arc(rings, h, rr, 0, (float)s, WithAlpha(Steel, .95f * a), decided ? 3 : 1.6f, 1.25f * a);
                     Arc(rings, h, rr, (float)s, 1, WithAlpha(Gold, .9f * a), decided ? 2.4f : 1.4f, 2.4f * a);
                 }
                 if (s > .01)
@@ -244,7 +245,7 @@ namespace Why.Economy.Layers
                 if (firm != null)
                 {
                     named++;
-                    Label("<b>" + Short(firm.Name) + "</b> · " + Owner(firm), h + Vector3.up * (radius + 2.6f), .8f, s >= .5 ? Color.Lerp(Steel, White, .45f) : Color.Lerp(Gold, White, .45f));
+                    Label("<b>" + Short(firm.Name) + "</b> · " + Owner(firm), h + Vector3.up * (radius + 2.4f + (named % 3) * 2.6f), .66f, s >= .5 ? Color.Lerp(Steel, White, .45f) : Color.Lerp(Gold, White, .45f));
                 }
             }
             if (r.DefaultOwnership >= .5 && named == 0)
@@ -263,8 +264,8 @@ namespace Why.Economy.Layers
                 float reg = r.Regulation[j], cap = r.Capture[j];
                 if (float.IsNaN(reg)) continue;
                 Vector3 foot = new Vector3(hill.Center.x - 1.2f, HillLandscape.Bedrock, land.CrestZ - 3), into = land.Market(j) + Vector3.up * .5f;
-                Strand(b, foot, into, WithAlpha(Grey, .75f), .5f + 3 * reg, 1.4f + 1.6f * reg, 1.2f);
-                if (!float.IsNaN(cap) && cap > .05f) Strand(b, into + Vector3.right * 1.2f, foot + Vector3.right * 2.4f, WithAlpha(Gold, .7f), .4f + 3 * cap, 1.4f + 2f * cap, -1.2f);
+                Strand(b, foot, into, WithAlpha(Grey, .5f), .4f + 2.2f * reg, .9f + 1.1f * reg, 1.2f);
+                if (!float.IsNaN(cap) && cap > .05f) Strand(b, into + Vector3.right * 1.2f, foot + Vector3.right * 2.4f, WithAlpha(Gold, .5f), .3f + 2.2f * cap, .9f + 1.3f * cap, -1.2f);
             }
             Lines(b, Part.Strands, true);
         }
@@ -312,34 +313,40 @@ namespace Why.Economy.Layers
                 if (dollars < 1) return;
                 Vector3 to = new Vector3(from.x + bend, top - .5f, Mathf.Min(from.z, land.CrestZ - 1));
                 var pts = new LinePoint[14];
-                for (int k = 0; k < pts.Length; k++) pts[k] = new LinePoint(Vector3.Lerp(from, to, k / 13f), WithAlpha(c, .75f), W(dollars), 0, 1.8f);
+                for (int k = 0; k < pts.Length; k++) pts[k] = new LinePoint(Vector3.Lerp(from, to, k / 13f), WithAlpha(c, .5f), W(dollars), 0, 1.2f);
                 b.AddFlowPath(pts, 0, .45f, phase);
             }
             // income taxes and contributions from the people (every fifth group, by what each pays)
             double paid = 0; for (int p = 0; p < players.Length; p++) paid += Math.Max(0, players[p].Taxes);
             double people = D(Regimes.Part.Personal) + D(Regimes.Part.Social);
             if (paid > 0)
-                for (int p = 0; p < players.Length; p += 5)
+                for (int p = 0; p < players.Length; p += 10)
                 {
-                    double share = 0; for (int q = p; q < Math.Min(players.Length, p + 5); q++) share += Math.Max(0, players[q].Taxes);
+                    double share = 0; for (int q = p; q < Math.Min(players.Length, p + 10); q++) share += Math.Max(0, players[q].Taxes);
                     Drop(land.People[p], PartColor[(int)Regimes.Part.Personal], people * share / paid, p * .07f);
                 }
-            // taxes on spending from each market, by its value added; profit taxes from the private summits, state
+            // taxes on spending from the markets, by their value added; profit taxes from the private summits and state
             // enterprises' profits from the steel ones, by their owners' surplus
-            double va = 0, privateOwners = 0, stateOwners = 0;
+            double stateOwners = 0;
+            for (int j = 0; j < n; j++) if (land.Hills[j].Tier > 0) stateOwners += Math.Max(0, snapshot.Land.Sectors[j].Owners) * steel[j];
+            // drawn from the eight largest hills by value added (each part's width is still its share of the whole), so the
+            // falls read as streams rather than a curtain
+            var largest = new List<int>(); for (int j = 0; j < n; j++) if (land.Hills[j].Tier > 0) largest.Add(j);
+            largest.Sort((a, c) => snapshot.Land.Sectors[c].ValueAdded.CompareTo(snapshot.Land.Sectors[a].ValueAdded));
+            if (largest.Count > 8) largest.RemoveRange(8, largest.Count - 8);
+            double vaShown = 0, privShown = 0, stateShown = 0;
+            foreach (int j in largest) { var sec = snapshot.Land.Sectors[j]; double o = Math.Max(0, sec.Owners); vaShown += Math.Max(0, sec.ValueAdded); privShown += o * (1 - steel[j]); stateShown += o * steel[j]; }
+            // the state enterprises' profits rise from every steel summit (there are few)
             for (int j = 0; j < n; j++)
             {
-                if (land.Hills[j].Tier == 0) continue;
-                var sector = snapshot.Land.Sectors[j]; double o = Math.Max(0, sector.Owners);
-                va += Math.Max(0, sector.ValueAdded); privateOwners += o * (1 - steel[j]); stateOwners += o * steel[j];
+                if (land.Hills[j].Tier == 0 || steel[j] <= 0 || stateOwners <= 0) continue;
+                Drop(land.Halo(j), PartColor[(int)Regimes.Part.Enterprises], D(Regimes.Part.Enterprises) * Math.Max(0, snapshot.Land.Sectors[j].Owners) * steel[j] / stateOwners, j * .29f, 2.5f);
             }
-            for (int j = 0; j < n; j++)
+            foreach (int j in largest)
             {
-                if (land.Hills[j].Tier == 0) continue;
                 var sector = snapshot.Land.Sectors[j]; double o = Math.Max(0, sector.Owners);
-                if (va > 0) Drop(land.Market(j) + Vector3.up * .4f, PartColor[(int)Regimes.Part.Goods], D(Regimes.Part.Goods) * Math.Max(0, sector.ValueAdded) / va, j * .21f, -1.5f);
-                if (privateOwners > 0) Drop(land.Halo(j), PartColor[(int)Regimes.Part.Corporate], D(Regimes.Part.Corporate) * o * (1 - steel[j]) / privateOwners, j * .23f, 1.5f);
-                if (stateOwners > 0) Drop(land.Halo(j), PartColor[(int)Regimes.Part.Enterprises], D(Regimes.Part.Enterprises) * o * steel[j] / stateOwners, j * .29f, 2.5f);
+                if (vaShown > 0) Drop(land.Market(j) + Vector3.up * .4f, PartColor[(int)Regimes.Part.Goods], D(Regimes.Part.Goods) * Math.Max(0, sector.ValueAdded) / vaShown, j * .21f, -1.5f);
+                if (privShown > 0) Drop(land.Halo(j), PartColor[(int)Regimes.Part.Corporate], D(Regimes.Part.Corporate) * o * (1 - steel[j]) / privShown, j * .23f, 1.5f);
             }
             // property taxes from homes (the real estate hill), resource revenue up out of the ground under the raw hills
             var data = LandService.Model.Data;
@@ -372,7 +379,7 @@ namespace Why.Economy.Layers
             var players = snapshot.Players.Players; var order = new List<int>();
             for (int p = 0; p < players.Length; p++) if (!land.Cloud[p]) order.Add(p);
             order.Sort((a, c) => land.People[a].x.CompareTo(land.People[c].x));
-            const int Threads = 14;
+            const int Threads = 9;
             for (int k = 0; k < Threads && order.Count > 0; k++)
             {
                 Vector3 at = land.People[order[(int)((k + .5f) / Threads * order.Count)]];
@@ -447,8 +454,16 @@ namespace Why.Economy.Layers
             : !double.IsNaN(f.StateShare) && f.StateShare > 0 ? LandFacts.Percent(f.StateShare) + " state" : "private";
 
         /// <summary>A firm's name without its legal tail, for a label on a summit.</summary>
+        static readonly Dictionary<string, string> ShortNames = new Dictionary<string, string>
+        {
+            { "Industrial & Commercial Bank of China", "ICBC" }, { "China State Construction Engineering", "CSCEC" },
+            { "China National Petroleum", "CNPC" }, { "Exxon Mobil Holdings", "ExxonMobil" }, { "Verizon Communications", "Verizon" },
+            { "Huawei Investment & Holding", "Huawei" }, { "China Mobile Communications", "China Mobile" }, { "United Parcel Service", "UPS" },
+        };
+
         static string Short(string name)
         {
+            if (ShortNames.TryGetValue(name, out string s)) return s;
             foreach (string tail in new[] { " Investment & Holding", " Holdings", " Holding Group", " Group", " Communications", " Corporation", " Co." })
                 if (name.EndsWith(tail)) return name.Substring(0, name.Length - tail.Length);
             return name;
@@ -492,16 +507,19 @@ namespace Why.Economy.Layers
             else s.Append("The state's share of listed firms' value: not found\n");
             if (r.Fortune.Has)
                 s.Append("Fortune Global 500: <b>").Append(r.Fortune.Count).Append("</b> of its firms state-controlled").Append(Year(r.Fortune)).Append('\n');
-            // the summits are each industry's largest named firm; the state's other holdings do not color a summit
-            var summits = new List<string>(); var holdings = new List<string>();
+            // the summits are each industry's largest firm; the state's other holdings do not color a summit
+            var steel = new List<string>(); var part = new List<string>(); var gold = new List<string>(); var holdings = new List<string>();
             foreach (var f in r.Firms)
             {
                 if (f.Industry < 0) continue;
-                if (f.Leads) summits.Add(Short(f.Name) + " (" + data.Industries[f.Industry].Name.ToLowerInvariant() + ", " + Owner(f) + ")");
-                else if (f.Share > 0) holdings.Add(f.Name + " " + Owner(f));
+                string where = Short(f.Name) + " (" + data.Industries[f.Industry].Name.ToLowerInvariant() + ")";
+                if (f.Leads) (f.Controlled ? steel : f.Share > 0 ? part : gold).Add(f.Controlled || f.Share <= 0 ? where : where.TrimEnd(')') + ", " + LandFacts.Percent(f.StateShare) + ")");
+                else if (f.Share > 0) holdings.Add(Short(f.Name) + " " + (f.Controlled ? (double.IsNaN(f.StateShare) ? "controlled" : LandFacts.Percent(f.StateShare)) : LandFacts.Percent(f.StateShare)));
             }
-            if (summits.Count > 0) s.Append("Summits (each industry's largest firm on the Fortune Global 500, or its national leader): ").Append(string.Join(" · ", summits)).Append('\n');
-            if (r.DefaultOwnership >= .5) s.Append("Every other summit: the state's (").Append(r.DefaultNote).Append(")\n");
+            if (steel.Count > 0) s.Append("<color=#B9C7DA>Steel summits</color> (the state controls the industry's largest firm): ").Append(string.Join(" · ", steel)).Append('\n');
+            if (part.Count > 0) s.Append("Partly the state's: ").Append(string.Join(" · ", part)).Append('\n');
+            if (gold.Count > 0) s.Append("<color=#FFC266>Gold summits</color> (private): ").Append(string.Join(" · ", gold)).Append('\n');
+            if (r.DefaultOwnership >= .5) s.Append("Every summit: the state's (").Append(r.DefaultNote).Append(")\n");
             if (holdings.Count > 0) s.Append("The state's other holdings: ").Append(string.Join(" · ", holdings)).Append('\n');
             if (r.Trade.Has) s.Append("Trade <b>").Append(Pct(r.Trade)).Append("</b> of ").Append(r.Trade.Of).Append(Year(r.Trade)).Append(Vs(r.Trade, us?.Trade)).Append('\n');
             else s.Append("Trade: no single defensible share (see the note)\n");

@@ -743,16 +743,166 @@
       "note": "the country's only firm of this industry on the list"
      },
      {
+      "name": "Lantmännen",
+      "industry": "agriculture",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": "a cooperative of 17,000 Swedish farmers",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 59931000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales, continuing operations",
+       "url": "https://www.lantmannen.com/contentassets/25397687a4fe4a4ca14b2b16e036aa7c/lm-t3-2025-en.pdf",
+       "quote": "Net sales amounted to MSEK 59,931 (58,273), an increase of"
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Södra 28.3bn SEK; Holmen 22.1bn SEK; SCA (Svenska Cellulosa AB) 20.4bn SEK; By revenue the farmers' cooperative Lantmännen leads; by land Sveaskog, the state's forest company, is Sweden's largest forest owner.; Farmers' cooperative. Press release: \"Lantmännen is owned by 17,000 Swedish farmers with operations throughout the value chain from field to fork.\" Largest by revenue, but the revenue comes mostly from food manufacturing, agricultural trade and energy, not from farming itself."
+     },
+     {
+      "name": "SEB",
+      "industry": "banking",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 76939000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "total operating income",
+       "url": "https://sebgroup.com/press/press-releases/2026/sebs-annual-accounts-and-results-for-the-fourth-quarter-2025",
+       "quote": "SEK m | Q4 2025 | Q3 2025 | % | Q4 2024 | % | Jan-Dec 2025 | 2024 | % -- Total operating income 18 894 18 664 1 19 985 -5 76 939 81 887 -6"
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Swedbank AB 68.7bn SEK; Handelsbanken 56.8bn SEK; SBAB 5.2bn SEK; Nordea is domiciled in Finland and left out.; Not state-owned."
+     },
+     {
+      "name": "Telia",
+      "industry": "media_telecom",
+      "leads": true,
+      "controlled": false,
+      "stateShare": 0.4106,
+      "holder": "Swedish state 41.06% of capital and votes (one share class)",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 80982000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales",
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "Telia Company AB ... Nyckeltal, mnkr 2025 2024 2023 2022 2021 -- Nettoomsättning 80 982 89 127 88 561 85 343 88 343"
+      },
+      "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+      "quote": "Telia Company AB ... Ägarandel 41,1 %",
+      "note": "next: Tele2 AB 29.9bn SEK; Company release (https://www.inderes.se/en/releases/telia-company-year-end-report-january-december-2025): 'Revenue amounted to SEK 81.0 billion (81.0) and increased 1.8% like for like.' (2024 restated; the government table's 89,127 for 2024 is the earlier basis). State is largest shareholder but a minority (41.1%), not majority.",
+      "ownershipUrl": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf"
+     },
+     {
+      "name": "SSAB",
+      "industry": "mining_metals",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 96220000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "revenue",
+       "url": "https://mb.cision.com/Main/980/4298709/3902107.pdf",
+       "quote": "Revenue for the full-year 2025 was SEK 96,220 (103,418) million, down 7% compared to the full-year 2024."
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Boliden 93.5bn SEK; LKAB 33.3bn SEK; SSAB makes steel (primary metals); among miners alone Boliden leads. LKAB's 100% is from the government's ownership report as listed by the ownership research.; Steelmaker (metals production), not a miner. Not in the state holdings list."
+     },
+     {
+      "name": "Balder",
+      "industry": "real_estate",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 13721000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "rental income",
+       "url": "https://news.cision.com/fastighets-ab-balder/r/fastighets-ab-balder-s--publ--year-end-report-january-december-2025,c4303471",
+       "quote": "Rental income amounted to SEK 13,721m (12,876)."
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Castellum 9.6bn SEK; Vasakronan 9.5bn SEK; Akademiska Hus 7.9bn SEK; Company-reported rental income only; Heimstaden (about SEK 15.9bn on a data site) would lead and is private. Vasakronan belongs to the state's pension funds, counted here as not the state's own holding.; Same source: \"The head office is located in Gothenburg.\""
+     },
+     {
+      "name": "H&M",
+      "industry": "trade",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 228285000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales, financial year 1 Dec 2024 - 30 Nov 2025",
+       "url": "https://hmgroup.com/news/h-m-hennes-mauritz-ab-full-year-report-2025/",
+       "quote": "Converted into SEK, the H&M group’s net sales amounted to SEK 228,285 m (234,478)."
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: ICA Gruppen AB 142.4bn SEK; Axfood AB 89.2bn SEK; Systembolaget 39.0bn SEK; Not state-owned (Persson family control; not quoted here)."
+     },
+     {
+      "name": "SAS",
+      "industry": "transport",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": "Castlelake 32.0%, the Danish state 26.4%, Air France-KLM 19.9%: not the Swedish state",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 49106000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "revenue, fiscal year 1 Nov 2024 - 31 Oct 2025",
+       "url": "https://www.sasgroup.net/files/documents/financial-reports/2025/sas-ab-annual-report-fy25.pdf",
+       "quote": "Summary of fiscal year 2025 • Revenue for the year: MSEK 49,106 (45,883)"
+      },
+      "url": "https://www.sasgroup.net/files/documents/financial-reports/2025/sas-ab-annual-report-fy25.pdf",
+      "quote": "the new ownership of the company consisting of the investors Castlelake (32.0%), the Danish state (26.4%), Air France-KLM (19.9%), Lind Invest (8.6%) and others (13.1%).",
+      "note": "next: PostNord 36.2bn SEK; SJ 14.5bn SEK; Stena AB reported about SEK 52bn in one trade article (scope unclear) and is private; it would not change the summit's color.; Swedish-headquartered: 'SAS AB is registered in Stockholm and the address of its head office is Frösundaviks allé 1, Solna, Stockholm, Sweden' (same report). The Swedish state is not among the named owners (Danish state holds 26.4%). Same report: 'In July, Air France-KLM announced that it would initiate proceedings to take a majority stake in SAS.' Search snippets (not primary) say AF-KLM would go from 19.9% to 60.5%, closing targeted H2 2026 subject to approvals; completion status as of Oct 2026 NOT verified."
+     },
+     {
       "name": "Vattenfall",
       "industry": "utilities",
-      "stateShare": 1.0,
+      "leads": true,
       "controlled": true,
+      "stateShare": 1.0,
       "holder": "Swedish state 100%",
-      "asOf": "2025-12-31",
-      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
-      "quote": "Skr. 2025/26:140, Tabell 2.1 (per 31 december 2025): \"Vattenfall AB (100 %) 234 915\"",
-      "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 234,915m (2025, same table).",
-      "leads": false
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 234915000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales (group)",
+       "url": "https://group.vattenfall.com/siteassets/corporate/investors/interim_reports/2025/q4-report-2025.pdf",
+       "quote": "KEY DATA ... Amounts in SEK million ... Full year 2025 | Full year 2024 | Oct-Dec 2025 | Oct-Dec 2024 -- Net sales 234 915 245 570 67 134 68 488"
+      },
+      "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+      "quote": "Vattenfall AB ... Ägarandel 100 %",
+      "note": "the only firm compared; The only Swedish-headquartered utility the research named; the government describes it as one of Europe's largest producers and sellers of electricity and heat. E.ON Sverige and Fortum Sverige belong to foreign groups and were not compared.; Same source: 'Vattenfall AB (Vattenfall) är en av Europas största producenter och återförsäljare av el och värme.' No explicit 'Sweden's largest' quote found. Foreign-owned operators in Sweden (E.ON Sverige -> E.ON SE, Germany; Fortum Sverige -> Fortum Oyj, Finland; Ellevio -> foreign/pension-fund owners; Statkraft -> Norwegian state) were NOT verified with sources in this session; municipal utilities (Göteborg Energi, Stockholm Exergi etc.) not checked but are far smaller than SEK 235bn.",
+      "ownershipUrl": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf"
      },
      {
       "name": "LKAB",
@@ -800,18 +950,6 @@
       "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
       "quote": "Tabell 2.1 lists Swedavia AB as wholly state-owned (100 %).",
       "note": "Recorded from Tabell 2.1 by the research agent; row text not re-quoted. Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 6,801m.",
-      "leads": false
-     },
-     {
-      "name": "Telia Company",
-      "industry": "media_telecom",
-      "stateShare": 0.4106,
-      "controlled": false,
-      "holder": "Swedish state 41.06% of capital and votes (one share class)",
-      "asOf": "2025-12-31",
-      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
-      "quote": "Telia AR 2025: \"Swedish State 1,614,513,748 41.1\"; Tabell 2.1: \"Telia Company AB (41,1 %) 80 982\"",
-      "note": "Largest shareholder but below 50%; the government classes holdings below 50% of votes as associated companies. Telia AR: https://mb.cision.com/Main/40/4321144/3987046.pdf Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: revenue SEK 80,982m.",
       "leads": false
      },
      {
@@ -1780,38 +1918,87 @@
       "ownershipUrl": "https://www.aramco.com/-/media/publications/corporate-reports/reports-and-presentations/2025/fy/saudi-aramco-ara-2025-english.pdf"
      },
      {
-      "name": "SABIC",
-      "industry": "manufacturing",
-      "stateShare": 0.7,
-      "controlled": true,
-      "holder": "Aramco Downstream Company (wholly owned subsidiary of Saudi Aramco) 70%; 30% free float",
-      "asOf": "2025-12-31",
-      "url": "https://www.sabic.com/en/reports/integrated-report-2025",
-      "note": "70% via Aramco (itself 97.48% state-held), not multiplied through. Source page within SABIC Integrated Report 2025; exact URL and quote lost in the data loss.  Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: revenue SAR 116,500m (2025).",
-      "leads": false
-     },
-     {
       "name": "Saudi National Bank",
       "industry": "banking",
+      "leads": true,
+      "controlled": false,
       "stateShare": 0.372,
-      "controlled": true,
       "holder": "Public Investment Fund 37.2% (2,234,257,917 shares); no other 5%+ holder",
-      "asOf": "2025-12-31",
-      "url": "https://www.alahli.com/-/jssmedia/project/snb/snb-web/about-us/02-9-previous-annual-reports/annual-reports-pdfs-en/snb-annual-report-2025-en.pdf",
-      "quote": "major shareholders (owning 5% or more) ... Public Investment Fund (PIF) 2,234,257,917 2,234,257,917 0 0% 37.2%",
-      "note": "controlled=true is de facto (largest holder; PIF Deputy Governor is Vice-Chairman).  Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: total operating income SAR 39,194.57m (2025); comparator Al Rajhi Bank not restored.",
-      "leads": false
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 39194570000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "total operating income",
+       "url": "https://www.argaam.com/en/article/articledetail/id/1875447",
+       "quote": "Operating Income 36,033.11 39,194.57 8.8 % (SAR million; 2024, 2025, change); \"Total operating income rose 8.8% YoY to SAR 39.2 billion\""
+      },
+      "url": "https://www.forbesmiddleeast.com/lists/top-100-listed-companies-2022/saudi-national-bank-snb/",
+      "quote": "Saudi's Public Investment Fund (PIF) owns 37.2% of the bank.",
+      "note": "next: Al Rajhi Bank 39.1bn SAR; A near tie: SNB's 2025 operating income exceeds Al Rajhi's by about SAR 0.1bn (0.26%); the PIF stake is from a 2022 list.; PIF is a minority (largest) shareholder, not majority. Stake figure is from a 2022 list. SNB leads Al Rajhi by only about SAR 0.1bn of 2025 operating income, which is effectively a tie.",
+      "ownershipUrl": "https://www.alahli.com/-/jssmedia/project/snb/snb-web/about-us/02-9-previous-annual-reports/annual-reports-pdfs-en/snb-annual-report-2025-en.pdf"
+     },
+     {
+      "name": "SABIC",
+      "industry": "manufacturing",
+      "leads": true,
+      "controlled": true,
+      "stateShare": 0.7,
+      "holder": "Aramco Downstream Company (wholly owned subsidiary of Saudi Aramco) 70%; 30% free float",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 116500000000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "revenue",
+       "url": "https://tradearabia.com/News/389934/Sabic-revenue-hits-%2431bn-amid-petrochemicals-headwinds",
+       "quote": "posting a net adjusted income of SAR2.1 billion ($560 million) and revenues of SAR116.5 billion ($31 billion)."
+      },
+      "url": "https://en.wikipedia.org/wiki/SABIC",
+      "quote": "70% of SABIC's shares are owned by Saudi Aramco.",
+      "note": "next: Almarai 22.1bn SAR; Almarai's revenue is from a data site (stockanalysis.com), not its filing.; Aramco agreed in 2019 to buy the 70% from the Public Investment Fund (Wikipedia, citing the share purchase agreement); held through Aramco, counted as the state's.",
+      "ownershipUrl": "https://www.sabic.com/en/reports/integrated-report-2025"
      },
      {
       "name": "stc",
       "industry": "media_telecom",
-      "stateShare": 0.62,
+      "leads": true,
       "controlled": true,
+      "stateShare": 0.62,
       "holder": "Public Investment Fund 62%; 38% free float",
-      "asOf": "2025-12-31",
-      "url": "https://www.stc.com/content/dam/stc/stc-annual-report-2025/pdfs/stc-AR25-English.pdf",
-      "note": "Recorded by the research agent from stc's Annual Report 2025; exact quote lost.  Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: revenue SAR 77,818.675m (2025).",
-      "leads": false
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 77800000000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "revenue",
+       "url": "https://www.argaam.com/en/article/articledetail/id/1881314",
+       "quote": "recording the highest revenues in its history at SAR 77.8 billion, reflecting a 2.5% increase compared to the previous year"
+      },
+      "url": "https://sharikatmubasher.com/media-hub/news/21450686/pif-sells-100-mn-shares-in-stc-for-sar-386-bn?lang=en",
+      "quote": "Following this sale, PIF still holds 3.1 billion shares in stc, which amounts to a 62% ownership stake.",
+      "note": "next: Mobily (Etihad Etisalat) 19.6bn SAR; Zain KSA 11.0bn SAR; Stake as of 14 Nov 2024.",
+      "ownershipUrl": "https://www.stc.com/content/dam/stc/stc-annual-report-2025/pdfs/stc-AR25-English.pdf"
+     },
+     {
+      "name": "Saudi Electricity (Saudi Energy)",
+      "industry": "utilities",
+      "leads": true,
+      "controlled": true,
+      "stateShare": 0.7431,
+      "holder": "the government's 74.31%, held in the Public Investment Fund's portfolio (2017 source)",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 102200000000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "operating revenues",
+       "url": "https://tradearabia.com/News/389920/Saudi-Energy-reports-highest-ever-operating-revenues-of-%2427bn",
+       "quote": "Operating revenues for 2025 reached SAR 102.2 billion ($27 billion), compared to SAR 88.7 billion in the previous year"
+      },
+      "url": "https://www.argaam.com/en/article/articledetail/id/505113",
+      "quote": "the government's 74.31 percent stake in its capital in the Public Investment Fund's (PIF) portfolio",
+      "note": "next: Acwa (formerly ACWA Power) 7.4bn SAR; The SEC stake is from a 2017 source; Acwa's PIF stake (44.16%) predates its 2025 rights issue.; Stake source dated 17/09/2017 (government stake registered under PIF); no newer source opened. Aramco's stake (about 6.9%) appeared only in search snippets, so it is not included. The same article says: \"Saudi Energy (formerly Saudi Electricity) announced its financial results for the year 2025\"."
      }
     ]
    },

@@ -438,10 +438,13 @@ defensible was found):
   tax structures are shares of tax revenue, scaled by tax revenue over total revenue (OECD tax-to-GDP over IMF revenue of the
   same year; the remainder is other revenue); Saudi Arabia's and the USSR's budgets use their own categories. `computed`
   says how.
-* `stateFirms` - the state-owned share of the country's largest firms; `ownership` - `default` (0: a summit no firm is named
-  for is private; 1: the state's by law) and `firms[]` (`name`, `industry`: one of the scene's production industries,
-  `stateShare`, `controlled`, `holder`, `asOf`, `url`, `quote`): the state's holdings among the leading firms, whose
-  summits the view colors steel.
+* `stateFirms` - the public sector's share of listed companies' market value (OECD Corporate Governance Factbook 2025; the
+  Soviet Union's: all of it by law, `basis` "by law"); `fortune` - the state-controlled share of the country's Fortune
+  Global 500 2026 firms (`count`). `ownership` - `default` (0: a summit no firm decides is private; 1: the state's by law)
+  and `firms[]` (`name`, `industry`: one of the scene's production industries, `stateShare`, `controlled`, `holder`,
+  `revenue`, `url`, `quote`, `note`, `leads`): with `leads` true, the industry's summit - its largest firm on the Fortune
+  Global 500 2026 (controlled when Fortune's profile says "Government owned 50% or more"), or for Sweden and Saudi Arabia
+  the largest by revenue of the national firms compared; without, one of the state's other holdings.
 * `trade` - exports plus imports over GDP: World Bank WDI `NE.TRD.GNFS.ZS`.
 * `top1Wealth`, `top1Income` - the top 1%'s shares of net personal wealth and of pre-tax national income (equal-split
   adults): WID bulk download (2026-10-15), each at its latest year WID grades as observed (income grade 3+, wealth 1+).

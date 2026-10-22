@@ -18,13 +18,13 @@ namespace Why.Economy.UI
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class RegimePanel : GraphModule
     {
-        const float Width = 440, Height = 700;
+        const float Width = 440, Height = 780;
         GraphRoot root;
         RectTransform panel;
         TextMeshProUGUI reading, drawing;
         readonly List<(Image background, TextMeshProUGUI label, int regime)> buttons = new List<(Image, TextMeshProUGUI, int)>();
         Image cycle; TextMeshProUGUI cycleLabel;
-        string shownReading;
+        string shownReading, laidOut;
         int shownRegime = -2, shownPinned = -2;
 
         public override void Init(GraphRoot graphRoot)
@@ -70,9 +70,7 @@ namespace Why.Economy.UI
             bool portrait = ScreenLayout.IsPortrait;
             if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(Width, canvas.x - 16), Mathf.Min(Height, canvas.y * .55f)); }
             else { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(Width, Mathf.Min(Height, canvas.y - 230)); }
-            reading.fontSize = portrait ? 9 : 11.5f; drawing.fontSize = portrait ? 8.5f : 10.5f;
-            // the drawing's choices sit at the panel's foot, below the reading
-            Place(drawing.rectTransform, 12, panel.sizeDelta.y - 124, panel.sizeDelta.x - 24, 118);
+            Layout(portrait);
             if (shownRegime != HillRegimeLayer.Shown || shownPinned != HillRegimeLayer.Pinned)
             {
                 shownRegime = HillRegimeLayer.Shown; shownPinned = HillRegimeLayer.Pinned;
@@ -87,7 +85,26 @@ namespace Why.Economy.UI
                 cycle.color = cycling ? UiFactory.ButtonActive : UiFactory.ButtonColor;
                 cycleLabel.text = cycling ? "stepping through all (pick one to stay)" : "step through all";
             }
-            if (shownReading != HillRegimeLayer.ReadoutText) { shownReading = HillRegimeLayer.ReadoutText; reading.text = shownReading; drawing.text = HillRegimeLayer.DrawingText; }
+            if (shownReading != HillRegimeLayer.ReadoutText) { shownReading = HillRegimeLayer.ReadoutText; reading.text = shownReading; drawing.text = HillRegimeLayer.DrawingText; laidOut = null; }
+        }
+
+        /// <summary>The reading under the buttons and the drawing's choices right below it, by their measured heights; the
+        /// type shrinks (to three quarters at most) until both fit the panel.</summary>
+        void Layout(bool portrait)
+        {
+            string key = shownReading + "|" + panel.sizeDelta + "|" + portrait;
+            if (key == laidOut) return;
+            laidOut = key;
+            float w = panel.sizeDelta.x - 24, top = 128, room = panel.sizeDelta.y - top - 12;
+            float readingSize = portrait ? 9 : 11.5f, drawingSize = portrait ? 8.5f : 10.5f, scale = 1, hr = 0, hd = 0;
+            for (int i = 0; i < 6; i++, scale -= .05f)
+            {
+                reading.fontSize = readingSize * scale; drawing.fontSize = drawingSize * scale;
+                hr = reading.GetPreferredValues(reading.text, w, 0).y; hd = drawing.GetPreferredValues(drawing.text, w, 0).y;
+                if (hr + hd + 10 <= room) break;
+            }
+            Place(reading.rectTransform, 12, top, w, hr);
+            Place(drawing.rectTransform, 12, top + hr + 10, w, hd);
         }
 
         TextMeshProUGUI Text(string name, float size, float x, float y, float w, float h)

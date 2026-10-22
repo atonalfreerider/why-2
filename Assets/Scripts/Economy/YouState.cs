@@ -17,8 +17,10 @@ namespace Why.Economy
         public static int Version { get; private set; }
         /// <summary>False until the viewer changed something (the panel seeds the year's medians before that).</summary>
         public static bool Entered { get; private set; }
-        /// <summary>The latest reading (set by whoever computed it for the shown year; null before).</summary>
+        /// <summary>The latest reading (set by whoever computed it for the shown year and the current inputs; null before).</summary>
         public static YouModel.Result Reading { get; set; }
+        /// <summary>The inputs the latest reading was computed from.</summary>
+        public static YouModel.Inputs ReadingInputs { get; set; }
 
         public static void Set(YouModel.Inputs value, bool entered = true)
         {

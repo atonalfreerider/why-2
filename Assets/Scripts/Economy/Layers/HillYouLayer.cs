@@ -76,7 +76,7 @@ namespace Why.Economy.Layers
                 foreach (string problem in model.Problems(data, capture, mobility)) Debug.LogError("[Why] You check failed: " + problem);
             }
             var r = model.Read(you, data, capture, mobility);
-            YouState.Reading = r;
+            YouState.ReadingInputs = you; YouState.Reading = r;
             content = new GameObject("You"); content.transform.SetParent(transform, false);
             int hill = you.Industry >= 0 && you.Industry < land.Hills.Length ? you.Industry : -1;
             float z = land.CrestZ - 2.5f;

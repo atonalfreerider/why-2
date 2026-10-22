@@ -32,7 +32,9 @@ namespace Why.Economy.UI
         TextMeshProUGUI title, reading;
         readonly List<(TextMeshProUGUI value, Func<string> text)> values = new List<(TextMeshProUGUI, Func<string>)>();
         readonly List<int> industries = new List<int>();
-        int shownVersion = -1; bool seeded;
+        /// <summary>The reading on screen: the panel redraws whenever the layer publishes a new one (a reading always
+        /// belongs to the inputs it was computed from, so the steppers and the text never disagree).</summary>
+        YouModel.Result shownReading; bool seeded;
         float rowY;
 
         public override void Init(GraphRoot graphRoot)
@@ -88,11 +90,11 @@ namespace Why.Economy.UI
             if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(420, canvas.x - 16), Mathf.Min(700, canvas.y * .62f)); }
             else { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(392, Mathf.Min(700, canvas.y - 230)); }
             reading.fontSize = portrait ? 9.5f : 12;
-            if (r == null || shownVersion == YouState.Version && reading.text.Length > 0) return;
-            shownVersion = YouState.Version;
             foreach (var v in values) v.value.text = v.text();
+            if (r == null || ReferenceEquals(r, shownReading)) return;
+            shownReading = r;
             title.text = "<b>WHERE YOU STAND</b> · " + r.Year;
-            reading.text = Describe(r, YouState.Inputs);
+            reading.text = Describe(r, YouState.ReadingInputs);
         }
 
         /// <summary>Starts from the year's median household (the model's medians: household income, net worth per adult

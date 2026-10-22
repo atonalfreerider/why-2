@@ -79,6 +79,10 @@ reformers marked along its top for their years in office.
 | **United States 1950 - now.** Gender-separated lifelines rising and falling with social market value, with the people of the moment. | **Following a figure.** Isaac Newton's life among his contemporaries, with who shaped him and whom he shaped. |
 | ![Guided tour](Docs/images/tour.jpg) | ![Vertical mode](Docs/images/vertical.jpg) |
 | **Guided tour.** 63 narrated stops with attention arrows, from the Big Bang to this moment. | **Vertical mode.** Every view, the tour and the HUD re-laid out for 9:16 phone videos. |
+| ![What moves people up or down the hill](Docs/images/economy-mobility.jpg) | ![Where you stand](Docs/images/economy-you.jpg) |
+| **What moves people up or down.** The decade's ladder: five rungs of household income in 2015 and 2025, streams of people that climbed or fell, what came with the moves, the forces at each rung, and the model against the tax records. | **Where you stand.** Your household placed among the year's simulated Americans: your rung on your hill, where your money flows and which way, your runway, and the odds of people like you. |
+| ![Companies spend too](Docs/images/economy-strategy.jpg) | ![The price of money and the edge of trade](Docs/images/economy-money.jpg) |
+| **Companies spend too.** Each large firm's year of money from its filing, in the directions it flows, with Jev's arrows for which way it moves the firm; the AI build-out pouring down the hill. | **The price of money and the edge of trade.** The state's levers on the market layer: interest rates and the tariff rate on the wave's own time axis. |
 
 ## Controls
 

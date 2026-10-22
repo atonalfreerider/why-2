@@ -1,0 +1,282 @@
+{
+ "note": "Research for the regimes view, read by hand in each cited source (retrieved 2026-10-22). Every value carries the URL it was read at and the text or table cell it was read from; null where nothing defensible was found. The IMF, World Bank and V-Dem series are fetched by build.py through their APIs and are not repeated here.",
+ "partNames": {
+  "personal": "personal income taxes",
+  "corporate": "taxes on profits",
+  "social": "social contributions",
+  "goods": "taxes on goods & services",
+  "property": "property taxes",
+  "resources": "oil & resource revenue",
+  "enterprises": "profits of state enterprises",
+  "other": "other revenue"
+ },
+ "regimes": [
+  {
+   "id": "us",
+   "name": "United States",
+   "short": "US",
+   "country": "the United States",
+   "form": "federal democracy, free trade",
+   "era": "2024",
+   "iso3": "USA",
+   "year": 2024,
+   "when": "In 2024",
+   "baseline": true,
+   "revenueMix": {
+    "basis": "oecd",
+    "year": 2024,
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics 2025; 2024 provisional (fetched by build.py)",
+    "note": "No value-added tax: taxes on goods and services are state and local sales taxes, excises, customs and taxes on the use of goods. The OECD country note: 'the tax-to-GDP ratio in the United States did not change between 2023 and 2024, remaining at 25.6%' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/12/revenue-statistics-2025-country-notes_3708be73/united-states_f45a114c/efcc8c03-en.pdf)."
+   },
+   "stateFirms": null,
+   "top1Wealth": {
+    "value": 0.3489,
+    "year": 2022,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_US.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "US;shwealj992;p99p100;2022;0.3489;992;j;4",
+    "note": "Latest observed year: WID's 2023-2024 value (34.78%) is graded 0, modelled rather than measured, so it is not drawn.",
+    "modelled": {
+     "value": 0.3478,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.2073,
+    "year": 2023,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_US.csv; data-quality grade 5 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "US;sptincj992;p99p100;2023;0.2073;992;j;5",
+    "note": "Latest observed year (WID shows the same 20.73% for 2022-2024). Sources in WID's metadata: Piketty, Saez & Zucman (2018) distributional national accounts and their updates."
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   }
+  },
+  {
+   "id": "se",
+   "name": "Sweden",
+   "short": "SE",
+   "country": "Sweden",
+   "form": "Nordic social democracy",
+   "era": "2024",
+   "iso3": "SWE",
+   "year": 2024,
+   "when": "In 2024",
+   "revenueMix": {
+    "basis": "oecd",
+    "year": 2024,
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics 2025; 2024 provisional (fetched by build.py)",
+    "note": "Social contributions include Sweden's payroll tax (OECD 3000, 12.8% of tax revenue); VAT is 21.0% of tax revenue. The OECD country note: 'the tax-to-GDP ratio in Sweden decreased by 0.3 percentage points from 41.7% in 2023 to 41.4% in 2024' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/12/revenue-statistics-2025-country-notes_3708be73/sweden_667345ac/54f20d9b-en.pdf)."
+   },
+   "stateFirms": null,
+   "top1Wealth": {
+    "value": 0.2661,
+    "year": 2012,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SE.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SE;shwealj992;p99p100;2012;0.2661;992;j;4",
+    "note": "Latest observed year: WID models Swedish wealth for every year since 2013 (27.5% in 2024, grade 0), after the wealth-tax registers ended; the modelled values are not drawn.",
+    "modelled": {
+     "value": 0.2749,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.0951,
+    "year": 2023,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SE.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SE;sptincj992;p99p100;2023;0.0951;992;j;3",
+    "note": "Latest observed year (WID's 2024 value is the same number carried forward, grade 1; its method note calls 2020-2023 a distribution extrapolated with survey data)."
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   }
+  },
+  {
+   "id": "cn",
+   "name": "China",
+   "short": "CN",
+   "country": "the People's Republic of China",
+   "form": "state capitalism under one party",
+   "era": "2024",
+   "iso3": "CHN",
+   "year": 2024,
+   "when": "In 2024",
+   "revenueMix": {
+    "basis": "oecd",
+    "year": 2024,
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics in Asia and the Pacific 2026; 2024 provisional (fetched by build.py)",
+    "note": "Income tax the OECD cannot allocate between people and firms (1.8% of tax revenue) stays in 'other'. The OECD country note: 'China's tax-to-GDP ratio was 19.5% in 2024' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/revenue-statistics-in-asia-and-the-pacific-2026-country-notes_8e56ef29/china_3f3f3164/b5ae69c7-en.pdf)."
+   },
+   "stateFirms": null,
+   "top1Wealth": {
+    "value": 0.2963,
+    "year": 2015,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_CN.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "CN;shwealj992;p99p100;2015;0.2963;992;j;4",
+    "note": "Latest observed year; WID's 2016-2024 values are modelled (30.4%, grade 0) and not drawn.",
+    "modelled": {
+     "value": 0.3042,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.1404,
+    "year": 2015,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_CN.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "CN;sptincj992;p99p100;2015;0.1404;992;j;4",
+    "note": "Latest observed year (Piketty, Yang & Zucman 2019); WID's 2016-2022 values are interpolated (grade 2) and 2023-2024 carried forward (15.8%, grade 1)."
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   },
+   "notes": "Outside the tax shares: land-use-right transfer fees were 4.77 trillion yuan in 2024, 21.7% of the general public budget's revenue, and the state capital operations budget 3.1% (profit remittances 2.0%) (MoF 2024 final accounts, https://yss.mof.gov.cn/2024zyjs/202509/t20250904_3971506.htm). They are not drawn as strata: the IMF's general government revenue and the MoF's budgets are defined differently."
+  },
+  {
+   "id": "sa",
+   "name": "Saudi Arabia",
+   "short": "SA",
+   "country": "Saudi Arabia",
+   "form": "Gulf petro-monarchy",
+   "era": "2024",
+   "iso3": "SAU",
+   "year": 2024,
+   "when": "In 2024",
+   "revenueMix": {
+    "basis": "amounts",
+    "year": 2024,
+    "unit": "SAR million",
+    "total": 1259095.4,
+    "lines": [
+     {
+      "line": "Oil Revenues",
+      "amount": 756623.9,
+      "part": "resources"
+     },
+     {
+      "line": "Taxes on Income, Profit and Capital Gains",
+      "amount": 31575.6,
+      "part": "corporate"
+     },
+     {
+      "line": "Taxes on Goods and Services",
+      "amount": 288809.2,
+      "part": "goods"
+     },
+     {
+      "line": "Taxes on International Trade and Transactions",
+      "amount": 24498.6,
+      "part": "goods"
+     },
+     {
+      "line": "Other Taxes",
+      "amount": 35645.9,
+      "part": "other"
+     },
+     {
+      "line": "Other Revenues",
+      "amount": 121942.2,
+      "part": "other"
+     }
+    ],
+    "source": "Saudi Ministry of Finance, Quarterly Budget Performance Report Q4 FY2024, sheet 'Revenues', 'Actual revenues Until Q4 of FY 2024' (SAR million); the same totals in the Year-End Budget Performance Report FY2024 (June 2025, p.13-14)",
+    "url": "https://www.mof.gov.sa/documents/328541/438613/Quarterly+Budget+Performance+Report_Q4_2024.xlsx/430eba5d-8def-d1cd-ffd5-75b1316941ad",
+    "quote": "Oil Revenues 756623.9; Taxes on Income, Profit and Capital Gains 31575.6; Taxes on Goods and Services 288809.2; Taxes on International Trade and Transactions 24498.6; Other Taxes 35645.9; Other Revenues 121942.2; Non-oil Revenues 502471.5; Total 1259095.4. Year-End report p.14: 'In FY2024, the actual total revenue amounted to approximately SAR 1,259 bn ... as oil revenues were recorded at about SAR 757 bn.'",
+    "note": "The general state budget (the MoF publishes no general-government breakdown). Oil revenue is one line: Aramco's payments of royalties, taxes and dividends (AGSI, 2 July 2025, https://agsi.org/analysis/aramco-and-the-saudi-government-budget/); oil was 62.2% of revenue in 2023. Taxes on goods and services include VAT (about SAR 186 bn), excises (about SAR 16 bn) and the levy on expatriates and dependants (about SAR 40 bn); 'Other Taxes' are mostly corporate zakat; 'Other Revenues' are returns from other government units including the central bank, sales, fees and fines. No personal income tax, social contribution or property tax line exists."
+   },
+   "stateFirms": null,
+   "top1Wealth": {
+    "value": null,
+    "year": null,
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SA.csv, shwealj992 p99p100",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "note": "Not measured: every Saudi wealth value in WID is graded 0, predicted from other countries' wealth distributions weighted by income inequality (30.1% for 2024). The imputation is not drawn.",
+    "quote": "SA;shwealj992;p99p100;2024;0.3006;992;j;0",
+    "modelled": {
+     "value": 0.3006,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.2316,
+    "year": 2011,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SA.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SA;sptincj992;p99p100;2011;0.2316;992;j;3",
+    "note": "The only observed year (Alvaredo, Assouad & Piketty 2017, updated 2022); WID carries this one estimate back to 1980 and forward to 2024."
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   },
+   "notes": "Saudi Arabia's revenue mix is the central budget's (MoF); the IMF's general government revenue sets the bedrock's depth."
+  },
+  {
+   "id": "su",
+   "name": "Soviet Union",
+   "short": "USSR",
+   "country": "the Soviet Union",
+   "form": "the Soviet planned economy",
+   "era": "around 1980",
+   "iso3": null,
+   "year": 1980,
+   "when": "Around 1980",
+   "vdemEntity": "Russia",
+   "vdemYear": 1980,
+   "spending": null,
+   "revenue": null,
+   "trade": null,
+   "revenueMix": null,
+   "stateFirms": null,
+   "top1Wealth": {
+    "value": null,
+    "year": null,
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_RU.csv, shwealj992 p99p100",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "note": "Not measured: WID shows 19.15% for Russia in 1980 but grades it 0 (modelled from income inequality); its first observed Russian wealth year is 1995 (21.47%, grade 1). The model value is not drawn.",
+    "quote": "RU;shwealj992;p99p100;1980;0.1915;992;j;0",
+    "modelled": {
+     "value": 0.1915,
+     "year": 1980,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.0406,
+    "year": 1980,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_RU.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "RU;sptincj992;p99p100;1980;0.0406;992;j;3",
+    "note": "Russia's territory, not the whole USSR: WID's USSR file holds no share series. Novokmet, Piketty & Zucman (2018), 'From Soviets to oligarchs', updated by Neef (2022)."
+   },
+   "ownership": {
+    "default": 1,
+    "defaultNote": "state property by law",
+    "firms": []
+   }
+  }
+ ]
+}

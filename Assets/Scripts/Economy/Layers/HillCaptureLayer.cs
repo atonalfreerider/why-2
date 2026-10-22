@@ -84,6 +84,8 @@ namespace Why.Economy.Layers
                 case "foundation": return part == Part.Taxes ? 1 : part == Part.Halo || part == Part.Glow ? .3f : part == Part.Selected ? 1 : .08f;
                 // focused views: the halos stay as landmarks (brighter where the story is the money's destination)
                 case "mobility": case "money": return part == Part.Halo || part == Part.Glow ? .1f : .02f;
+                // the regimes view draws its own summits (steel where the state owns them)
+                case "regimes": return .02f;
                 case "strategy": return part == Part.Halo || part == Part.Glow ? .45f : .03f;
                 case "you": return part == Part.Halo || part == Part.Glow ? .35f : part == Part.Selected ? 1 : .03f;
             }

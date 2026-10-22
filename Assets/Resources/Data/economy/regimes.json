@@ -1,0 +1,1179 @@
+{
+ "note": "Other governments as model changes of the economy scene (the 'regimes' view): the same US hills on another state's foundation, drawn from the state's measured structure. Every measure carries its year, source and URL; null where no defensible source was found. Built by Tools/regimes/build.py from Tools/regimes/sources.json (research read by hand, with quotes) and the IMF, World Bank, OECD and V-Dem series fetched through their APIs. The industries' regulation and capture are Jev judgments (model evidence, not measurement).",
+ "built": "2026-10-22",
+ "parts": [
+  "personal",
+  "corporate",
+  "social",
+  "goods",
+  "property",
+  "resources",
+  "enterprises",
+  "other"
+ ],
+ "partNames": {
+  "personal": "personal income taxes",
+  "corporate": "taxes on profits",
+  "social": "social contributions",
+  "goods": "taxes on goods & services",
+  "property": "property taxes",
+  "resources": "oil & resource revenue",
+  "enterprises": "profits of state enterprises",
+  "other": "other revenue"
+ },
+ "regimes": [
+  {
+   "id": "us",
+   "name": "United States",
+   "short": "US",
+   "form": "federal democracy, free trade",
+   "country": "the United States",
+   "era": "2024",
+   "year": 2024,
+   "baseline": true,
+   "spending": {
+    "value": 0.3761,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/USA"
+   },
+   "revenue": {
+    "value": 0.2979,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/USA"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.3465,
+     "corporate": 0.0753,
+     "social": 0.2014,
+     "goods": 0.1385,
+     "property": 0.0982,
+     "resources": 0.0,
+     "enterprises": 0.0,
+     "other": 0.1402
+    },
+    "year": 2024,
+    "basis": "oecd",
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics 2025; 2024 provisional (fetched by build.py)",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/USA.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv",
+    "inputs": {
+     "oecdCells": {
+      "T_3000": 5.15798,
+      "_T": 7481.44975,
+      "T_6000": 0.0,
+      "T_1300": 0.0,
+      "T_4000": 854.61657,
+      "T_1100": 3014.6418,
+      "T_1200": 654.8973,
+      "T_2000": 1747.11344,
+      "T_5000": 1205.02267
+     },
+     "taxGdp": 0.25618,
+     "imfRevenueGdp": 0.29795,
+     "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/USA.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv"
+    },
+    "computed": [
+     "taxes are 86.0% of revenue (25.6% of GDP, OECD, over revenue 29.8% of GDP, IMF, 2024); the rest is other revenue"
+    ],
+    "note": "No value-added tax: taxes on goods and services are state and local sales taxes, excises, customs and taxes on the use of goods. The OECD country note: 'the tax-to-GDP ratio in the United States did not change between 2023 and 2024, remaining at 25.6%' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/12/revenue-statistics-2025-country-notes_3708be73/united-states_f45a114c/efcc8c03-en.pdf)."
+   },
+   "trade": {
+    "value": 0.2502,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=US"
+   },
+   "democracy": {
+    "value": 0.735,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~USA",
+    "previous": {
+     "year": 2024,
+     "value": 0.843
+    }
+   },
+   "top1Wealth": {
+    "value": 0.3489,
+    "year": 2022,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_US.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "US;shwealj992;p99p100;2022;0.3489;992;j;4",
+    "note": "Latest observed year: WID's 2023-2024 value (34.78%) is graded 0, modelled rather than measured, so it is not drawn.",
+    "modelled": {
+     "value": 0.3478,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.2073,
+    "year": 2023,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_US.csv; data-quality grade 5 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "US;sptincj992;p99p100;2023;0.2073;992;j;5",
+    "note": "Latest observed year (WID shows the same 20.73% for 2022-2024). Sources in WID's metadata: Piketty, Saez & Zucman (2018) distributional national accounts and their updates."
+   },
+   "stateFirms": null,
+   "fortune": null,
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.536,
+     "capture": 0.7275
+    },
+    "oil_gas": {
+     "regulation": 0.66,
+     "capture": 0.785
+    },
+    "mining_metals": {
+     "regulation": 0.628,
+     "capture": 0.6375
+    },
+    "utilities": {
+     "regulation": 0.798,
+     "capture": 0.83
+    },
+    "construction": {
+     "regulation": 0.6,
+     "capture": 0.68
+    },
+    "manufacturing": {
+     "regulation": 0.572,
+     "capture": 0.6525
+    },
+    "transport": {
+     "regulation": 0.658,
+     "capture": 0.725
+    },
+    "trade": {
+     "regulation": 0.362,
+     "capture": 0.5525
+    },
+    "banking": {
+     "regulation": 0.8,
+     "capture": 0.8125
+    },
+    "finance": {
+     "regulation": 0.794,
+     "capture": 0.77
+    },
+    "insurance": {
+     "regulation": 0.794,
+     "capture": 0.785
+    },
+    "real_estate": {
+     "regulation": 0.48,
+     "capture": 0.775
+    },
+    "health": {
+     "regulation": 0.746,
+     "capture": 0.815
+    },
+    "legal": {
+     "regulation": 0.676,
+     "capture": 0.88
+    },
+    "professional": {
+     "regulation": 0.352,
+     "capture": 0.6125
+    },
+    "education": {
+     "regulation": 0.59,
+     "capture": 0.55
+    },
+    "entertainment": {
+     "regulation": 0.566,
+     "capture": 0.575
+    },
+    "hospitality": {
+     "regulation": 0.6,
+     "capture": 0.4875
+    },
+    "other_services": {
+     "regulation": 0.554,
+     "capture": 0.4125
+    },
+    "hardware": {
+     "regulation": 0.502,
+     "capture": 0.725
+    },
+    "software": {
+     "regulation": 0.18,
+     "capture": 0.685
+    },
+    "internet": {
+     "regulation": 0.228,
+     "capture": 0.735
+    },
+    "media_telecom": {
+     "regulation": 0.732,
+     "capture": 0.78
+    }
+   },
+   "industriesJudged": "Jev, the government file's own judgments for US industries (Tools/government/build.py)",
+   "notes": null
+  },
+  {
+   "id": "se",
+   "name": "Sweden",
+   "short": "SE",
+   "form": "Nordic social democracy",
+   "country": "Sweden",
+   "era": "2024",
+   "year": 2024,
+   "spending": {
+    "value": 0.4918,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/SWE"
+   },
+   "revenue": {
+    "value": 0.4765,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/SWE"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.2369,
+     "corporate": 0.0809,
+     "social": 0.2991,
+     "goods": 0.2346,
+     "property": 0.0173,
+     "resources": 0.0,
+     "enterprises": 0.0,
+     "other": 0.1312
+    },
+    "year": 2024,
+    "basis": "oecd",
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics 2025; 2024 provisional (fetched by build.py)",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/SWE.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv",
+    "inputs": {
+     "oecdCells": {
+      "_T": 2643.673225,
+      "T_2000": 571.404636,
+      "T_1100": 720.038447,
+      "T_5000": 713.241259,
+      "T_3000": 337.930241,
+      "T_1300": 0.0,
+      "T_4000": 52.573878,
+      "T_6000": 2.465215,
+      "T_1200": 246.019549
+     },
+     "taxGdp": 0.41438,
+     "imfRevenueGdp": 0.47651,
+     "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/SWE.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv"
+    },
+    "computed": [
+     "taxes are 87.0% of revenue (41.4% of GDP, OECD, over revenue 47.7% of GDP, IMF, 2024); the rest is other revenue"
+    ],
+    "note": "Social contributions include Sweden's payroll tax (OECD 3000, 12.8% of tax revenue); VAT is 21.0% of tax revenue. The OECD country note: 'the tax-to-GDP ratio in Sweden decreased by 0.3 percentage points from 41.7% in 2023 to 41.4% in 2024' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/12/revenue-statistics-2025-country-notes_3708be73/sweden_667345ac/54f20d9b-en.pdf)."
+   },
+   "trade": {
+    "value": 1.0597,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=SE"
+   },
+   "democracy": {
+    "value": 0.889,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~SWE",
+    "previous": {
+     "year": 2024,
+     "value": 0.881
+    }
+   },
+   "top1Wealth": {
+    "value": 0.2661,
+    "year": 2012,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SE.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SE;shwealj992;p99p100;2012;0.2661;992;j;4",
+    "note": "Latest observed year: WID models Swedish wealth for every year since 2013 (27.5% in 2024, grade 0), after the wealth-tax registers ended; the modelled values are not drawn.",
+    "modelled": {
+     "value": 0.2749,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.0951,
+    "year": 2023,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SE.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SE;sptincj992;p99p100;2023;0.0951;992;j;3",
+    "note": "Latest observed year (WID's 2024 value is the same number carried forward, grade 1; its method note calls 2020-2023 a distribution extrapolated with survey data)."
+   },
+   "stateFirms": null,
+   "fortune": null,
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.546,
+     "regulationConfidence": 0.79,
+     "capture": 0.4625,
+     "captureConfidence": 0.47
+    },
+    "oil_gas": {
+     "regulation": 0.622,
+     "regulationConfidence": 0.72,
+     "capture": 0.185,
+     "captureConfidence": 0.42
+    },
+    "mining_metals": {
+     "regulation": 0.616,
+     "regulationConfidence": 0.91,
+     "capture": 0.38,
+     "captureConfidence": 0.53
+    },
+    "utilities": {
+     "regulation": 0.658,
+     "regulationConfidence": 0.69,
+     "capture": 0.4125,
+     "captureConfidence": 0.41
+    },
+    "construction": {
+     "regulation": 0.536,
+     "regulationConfidence": 0.76,
+     "capture": 0.3825,
+     "captureConfidence": 0.53
+    },
+    "manufacturing": {
+     "regulation": 0.458,
+     "regulationConfidence": 0.72,
+     "capture": 0.3725,
+     "captureConfidence": 0.55
+    },
+    "transport": {
+     "regulation": 0.512,
+     "regulationConfidence": 0.69,
+     "capture": 0.36,
+     "captureConfidence": 0.59
+    },
+    "trade": {
+     "regulation": 0.38,
+     "regulationConfidence": 0.74,
+     "capture": 0.3425,
+     "captureConfidence": 0.63
+    },
+    "banking": {
+     "regulation": 0.726,
+     "regulationConfidence": 0.75,
+     "capture": 0.44,
+     "captureConfidence": 0.53
+    },
+    "finance": {
+     "regulation": 0.69,
+     "regulationConfidence": 0.64,
+     "capture": 0.455,
+     "captureConfidence": 0.61
+    },
+    "insurance": {
+     "regulation": 0.696,
+     "regulationConfidence": 0.65,
+     "capture": 0.4325,
+     "captureConfidence": 0.54
+    },
+    "real_estate": {
+     "regulation": 0.494,
+     "regulationConfidence": 0.51,
+     "capture": 0.45,
+     "captureConfidence": 0.28
+    },
+    "health": {
+     "regulation": 0.848,
+     "regulationConfidence": 0.49,
+     "capture": 0.4125,
+     "captureConfidence": 0.34
+    },
+    "legal": {
+     "regulation": 0.352,
+     "regulationConfidence": 0.31,
+     "capture": 0.455,
+     "captureConfidence": 0.24
+    },
+    "professional": {
+     "regulation": 0.352,
+     "regulationConfidence": 0.57,
+     "capture": 0.3825,
+     "captureConfidence": 0.52
+    },
+    "education": {
+     "regulation": 0.562,
+     "regulationConfidence": 0.53,
+     "capture": 0.33,
+     "captureConfidence": 0.57
+    },
+    "entertainment": {
+     "regulation": 0.558,
+     "regulationConfidence": 0.73,
+     "capture": 0.34,
+     "captureConfidence": 0.56
+    },
+    "hospitality": {
+     "regulation": 0.48,
+     "regulationConfidence": 0.59,
+     "capture": 0.3075,
+     "captureConfidence": 0.72
+    },
+    "other_services": {
+     "regulation": 0.446,
+     "regulationConfidence": 0.63,
+     "capture": 0.235,
+     "captureConfidence": 0.59
+    },
+    "hardware": {
+     "regulation": 0.404,
+     "regulationConfidence": 0.75,
+     "capture": 0.3475,
+     "captureConfidence": 0.58
+    },
+    "software": {
+     "regulation": 0.208,
+     "regulationConfidence": 0.84,
+     "capture": 0.34,
+     "captureConfidence": 0.6
+    },
+    "internet": {
+     "regulation": 0.264,
+     "regulationConfidence": 0.73,
+     "capture": 0.3325,
+     "captureConfidence": 0.57
+    },
+    "media_telecom": {
+     "regulation": 0.458,
+     "regulationConfidence": 0.45,
+     "capture": 0.3975,
+     "captureConfidence": 0.45
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": null
+  },
+  {
+   "id": "cn",
+   "name": "China",
+   "short": "CN",
+   "form": "state capitalism under one party",
+   "country": "the People's Republic of China",
+   "era": "2024",
+   "year": 2024,
+   "spending": {
+    "value": 0.3297,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/CHN"
+   },
+   "revenue": {
+    "value": 0.2572,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/CHN"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.0418,
+     "corporate": 0.1179,
+     "social": 0.2544,
+     "goods": 0.281,
+     "property": 0.0454,
+     "resources": 0.0,
+     "enterprises": 0.0,
+     "other": 0.2596
+    },
+    "year": 2024,
+    "basis": "oecd",
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics in Asia and the Pacific 2026; 2024 provisional (fetched by build.py)",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/CHN.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv",
+    "inputs": {
+     "oecdCells": {
+      "T_4000": 1574.03,
+      "T_6000": 143.3,
+      "T_1300": 486.87,
+      "T_1200": 4089.76,
+      "_T": 26323.41,
+      "T_3000": 0.0,
+      "T_1100": 1452.18,
+      "T_5000": 9750.92,
+      "T_2000": 8826.35
+     },
+     "taxGdp": 0.19512,
+     "imfRevenueGdp": 0.25722,
+     "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/CHN.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv"
+    },
+    "computed": [
+     "taxes are 75.9% of revenue (19.5% of GDP, OECD, over revenue 25.7% of GDP, IMF, 2024); the rest is other revenue"
+    ],
+    "note": "Income tax the OECD cannot allocate between people and firms (1.8% of tax revenue) stays in 'other'. The OECD country note: 'China's tax-to-GDP ratio was 19.5% in 2024' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/revenue-statistics-in-asia-and-the-pacific-2026-country-notes_8e56ef29/china_3f3f3164/b5ae69c7-en.pdf)."
+   },
+   "trade": {
+    "value": 0.3796,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=CN"
+   },
+   "democracy": {
+    "value": 0.072,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~CHN",
+    "previous": {
+     "year": 2024,
+     "value": 0.073
+    }
+   },
+   "top1Wealth": {
+    "value": 0.2963,
+    "year": 2015,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_CN.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "CN;shwealj992;p99p100;2015;0.2963;992;j;4",
+    "note": "Latest observed year; WID's 2016-2024 values are modelled (30.4%, grade 0) and not drawn.",
+    "modelled": {
+     "value": 0.3042,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.1404,
+    "year": 2015,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_CN.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "CN;sptincj992;p99p100;2015;0.1404;992;j;4",
+    "note": "Latest observed year (Piketty, Yang & Zucman 2019); WID's 2016-2022 values are interpolated (grade 2) and 2023-2024 carried forward (15.8%, grade 1)."
+   },
+   "stateFirms": null,
+   "fortune": null,
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.654,
+     "regulationConfidence": 0.67,
+     "capture": 0.2725,
+     "captureConfidence": 0.1
+    },
+    "oil_gas": {
+     "regulation": 0.836,
+     "regulationConfidence": 0.79,
+     "capture": 0.73,
+     "captureConfidence": 0.1
+    },
+    "mining_metals": {
+     "regulation": 0.778,
+     "regulationConfidence": 0.79,
+     "capture": 0.645,
+     "captureConfidence": 0.0
+    },
+    "utilities": {
+     "regulation": 0.862,
+     "regulationConfidence": 0.76,
+     "capture": 0.5825,
+     "captureConfidence": 0.0
+    },
+    "construction": {
+     "regulation": 0.726,
+     "regulationConfidence": 0.69,
+     "capture": 0.595,
+     "captureConfidence": 0.09
+    },
+    "manufacturing": {
+     "regulation": 0.656,
+     "regulationConfidence": 0.67,
+     "capture": 0.585,
+     "captureConfidence": 0.2
+    },
+    "transport": {
+     "regulation": 0.696,
+     "regulationConfidence": 0.64,
+     "capture": 0.525,
+     "captureConfidence": 0.2
+    },
+    "trade": {
+     "regulation": 0.574,
+     "regulationConfidence": 0.67,
+     "capture": 0.385,
+     "captureConfidence": 0.33
+    },
+    "banking": {
+     "regulation": 0.844,
+     "regulationConfidence": 0.83,
+     "capture": 0.6,
+     "captureConfidence": 0.0
+    },
+    "finance": {
+     "regulation": 0.804,
+     "regulationConfidence": 0.91,
+     "capture": 0.53,
+     "captureConfidence": 0.31
+    },
+    "insurance": {
+     "regulation": 0.8,
+     "regulationConfidence": 0.93,
+     "capture": 0.5175,
+     "captureConfidence": 0.3
+    },
+    "real_estate": {
+     "regulation": 0.704,
+     "regulationConfidence": 0.65,
+     "capture": 0.485,
+     "captureConfidence": 0.22
+    },
+    "health": {
+     "regulation": 0.806,
+     "regulationConfidence": 0.8,
+     "capture": 0.4475,
+     "captureConfidence": 0.16
+    },
+    "legal": {
+     "regulation": 0.762,
+     "regulationConfidence": 0.74,
+     "capture": 0.36,
+     "captureConfidence": 0.25
+    },
+    "professional": {
+     "regulation": 0.634,
+     "regulationConfidence": 0.65,
+     "capture": 0.385,
+     "captureConfidence": 0.32
+    },
+    "education": {
+     "regulation": 0.742,
+     "regulationConfidence": 0.77,
+     "capture": 0.1625,
+     "captureConfidence": 0.46
+    },
+    "entertainment": {
+     "regulation": 0.746,
+     "regulationConfidence": 0.72,
+     "capture": 0.2975,
+     "captureConfidence": 0.03
+    },
+    "hospitality": {
+     "regulation": 0.61,
+     "regulationConfidence": 0.87,
+     "capture": 0.2725,
+     "captureConfidence": 0.55
+    },
+    "other_services": {
+     "regulation": 0.52,
+     "regulationConfidence": 0.57,
+     "capture": 0.145,
+     "captureConfidence": 0.53
+    },
+    "hardware": {
+     "regulation": 0.74,
+     "regulationConfidence": 0.66,
+     "capture": 0.555,
+     "captureConfidence": 0.1
+    },
+    "software": {
+     "regulation": 0.552,
+     "regulationConfidence": 0.49,
+     "capture": 0.4525,
+     "captureConfidence": 0.32
+    },
+    "internet": {
+     "regulation": 0.724,
+     "regulationConfidence": 0.73,
+     "capture": 0.3825,
+     "captureConfidence": 0.35
+    },
+    "media_telecom": {
+     "regulation": 0.834,
+     "regulationConfidence": 0.81,
+     "capture": 0.4875,
+     "captureConfidence": 0.0
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": "Outside the tax shares: land-use-right transfer fees were 4.77 trillion yuan in 2024, 21.7% of the general public budget's revenue, and the state capital operations budget 3.1% (profit remittances 2.0%) (MoF 2024 final accounts, https://yss.mof.gov.cn/2024zyjs/202509/t20250904_3971506.htm). They are not drawn as strata: the IMF's general government revenue and the MoF's budgets are defined differently."
+  },
+  {
+   "id": "sa",
+   "name": "Saudi Arabia",
+   "short": "SA",
+   "form": "Gulf petro-monarchy",
+   "country": "Saudi Arabia",
+   "era": "2024",
+   "year": 2024,
+   "spending": {
+    "value": 0.2923,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/SAU"
+   },
+   "revenue": {
+    "value": 0.2677,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/SAU"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.0,
+     "corporate": 0.0251,
+     "social": 0.0,
+     "goods": 0.2488,
+     "property": 0.0,
+     "resources": 0.6009,
+     "enterprises": 0.0,
+     "other": 0.1252
+    },
+    "year": 2024,
+    "basis": "amounts",
+    "source": "Saudi Ministry of Finance, Quarterly Budget Performance Report Q4 FY2024, sheet 'Revenues', 'Actual revenues Until Q4 of FY 2024' (SAR million); the same totals in the Year-End Budget Performance Report FY2024 (June 2025, p.13-14)",
+    "url": "https://www.mof.gov.sa/documents/328541/438613/Quarterly+Budget+Performance+Report_Q4_2024.xlsx/430eba5d-8def-d1cd-ffd5-75b1316941ad",
+    "inputs": {
+     "basis": "amounts",
+     "year": 2024,
+     "unit": "SAR million",
+     "total": 1259095.4,
+     "lines": [
+      {
+       "line": "Oil Revenues",
+       "amount": 756623.9,
+       "part": "resources"
+      },
+      {
+       "line": "Taxes on Income, Profit and Capital Gains",
+       "amount": 31575.6,
+       "part": "corporate"
+      },
+      {
+       "line": "Taxes on Goods and Services",
+       "amount": 288809.2,
+       "part": "goods"
+      },
+      {
+       "line": "Taxes on International Trade and Transactions",
+       "amount": 24498.6,
+       "part": "goods"
+      },
+      {
+       "line": "Other Taxes",
+       "amount": 35645.9,
+       "part": "other"
+      },
+      {
+       "line": "Other Revenues",
+       "amount": 121942.2,
+       "part": "other"
+      }
+     ],
+     "quote": "Oil Revenues 756623.9; Taxes on Income, Profit and Capital Gains 31575.6; Taxes on Goods and Services 288809.2; Taxes on International Trade and Transactions 24498.6; Other Taxes 35645.9; Other Revenues 121942.2; Non-oil Revenues 502471.5; Total 1259095.4. Year-End report p.14: 'In FY2024, the actual total revenue amounted to approximately SAR 1,259 bn ... as oil revenues were recorded at about SAR 757 bn.'",
+     "note": "The general state budget (the MoF publishes no general-government breakdown). Oil revenue is one line: Aramco's payments of royalties, taxes and dividends (AGSI, 2 July 2025, https://agsi.org/analysis/aramco-and-the-saudi-government-budget/); oil was 62.2% of revenue in 2023. Taxes on goods and services include VAT (about SAR 186 bn), excises (about SAR 16 bn) and the levy on expatriates and dependants (about SAR 40 bn); 'Other Taxes' are mostly corporate zakat; 'Other Revenues' are returns from other government units including the central bank, sales, fees and fines. No personal income tax, social contribution or property tax line exists."
+    },
+    "computed": [
+     "the budget's lines over its reported total (1,259,095.4 SAR million, 2024)"
+    ],
+    "note": "The general state budget (the MoF publishes no general-government breakdown). Oil revenue is one line: Aramco's payments of royalties, taxes and dividends (AGSI, 2 July 2025, https://agsi.org/analysis/aramco-and-the-saudi-government-budget/); oil was 62.2% of revenue in 2023. Taxes on goods and services include VAT (about SAR 186 bn), excises (about SAR 16 bn) and the levy on expatriates and dependants (about SAR 40 bn); 'Other Taxes' are mostly corporate zakat; 'Other Revenues' are returns from other government units including the central bank, sales, fees and fines. No personal income tax, social contribution or property tax line exists."
+   },
+   "trade": {
+    "value": 0.564,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=SA"
+   },
+   "democracy": {
+    "value": 0.016,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~SAU",
+    "previous": {
+     "year": 2024,
+     "value": 0.015
+    }
+   },
+   "top1Wealth": {
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SA.csv, shwealj992 p99p100",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SA;shwealj992;p99p100;2024;0.3006;992;j;0",
+    "note": "Not measured: every Saudi wealth value in WID is graded 0, predicted from other countries' wealth distributions weighted by income inequality (30.1% for 2024). The imputation is not drawn.",
+    "modelled": {
+     "value": 0.3006,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.2316,
+    "year": 2011,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SA.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SA;sptincj992;p99p100;2011;0.2316;992;j;3",
+    "note": "The only observed year (Alvaredo, Assouad & Piketty 2017, updated 2022); WID carries this one estimate back to 1980 and forward to 2024."
+   },
+   "stateFirms": null,
+   "fortune": null,
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": []
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.612,
+     "regulationConfidence": 0.71,
+     "capture": 0.255,
+     "captureConfidence": 0.17
+    },
+    "oil_gas": {
+     "regulation": 0.88,
+     "regulationConfidence": 0.67,
+     "capture": 0.92,
+     "captureConfidence": 0.72
+    },
+    "mining_metals": {
+     "regulation": 0.698,
+     "regulationConfidence": 0.6,
+     "capture": 0.27,
+     "captureConfidence": 0.11
+    },
+    "utilities": {
+     "regulation": 0.878,
+     "regulationConfidence": 0.61,
+     "capture": 0.515,
+     "captureConfidence": 0.0
+    },
+    "construction": {
+     "regulation": 0.654,
+     "regulationConfidence": 0.73,
+     "capture": 0.525,
+     "captureConfidence": 0.05
+    },
+    "manufacturing": {
+     "regulation": 0.592,
+     "regulationConfidence": 0.69,
+     "capture": 0.38,
+     "captureConfidence": 0.0
+    },
+    "transport": {
+     "regulation": 0.668,
+     "regulationConfidence": 0.64,
+     "capture": 0.4725,
+     "captureConfidence": 0.0
+    },
+    "trade": {
+     "regulation": 0.514,
+     "regulationConfidence": 0.55,
+     "capture": 0.4125,
+     "captureConfidence": 0.05
+    },
+    "banking": {
+     "regulation": 0.786,
+     "regulationConfidence": 0.89,
+     "capture": 0.5725,
+     "captureConfidence": 0.1
+    },
+    "finance": {
+     "regulation": 0.766,
+     "regulationConfidence": 0.85,
+     "capture": 0.4475,
+     "captureConfidence": 0.15
+    },
+    "insurance": {
+     "regulation": 0.768,
+     "regulationConfidence": 0.87,
+     "capture": 0.4225,
+     "captureConfidence": 0.16
+    },
+    "real_estate": {
+     "regulation": 0.536,
+     "regulationConfidence": 0.55,
+     "capture": 0.4,
+     "captureConfidence": 0.0
+    },
+    "health": {
+     "regulation": 0.764,
+     "regulationConfidence": 0.71,
+     "capture": 0.335,
+     "captureConfidence": 0.0
+    },
+    "legal": {
+     "regulation": 0.688,
+     "regulationConfidence": 0.6,
+     "capture": 0.3225,
+     "captureConfidence": 0.0
+    },
+    "professional": {
+     "regulation": 0.574,
+     "regulationConfidence": 0.68,
+     "capture": 0.3175,
+     "captureConfidence": 0.0
+    },
+    "education": {
+     "regulation": 0.69,
+     "regulationConfidence": 0.63,
+     "capture": 0.2425,
+     "captureConfidence": 0.21
+    },
+    "entertainment": {
+     "regulation": 0.66,
+     "regulationConfidence": 0.67,
+     "capture": 0.2125,
+     "captureConfidence": 0.3
+    },
+    "hospitality": {
+     "regulation": 0.602,
+     "regulationConfidence": 0.85,
+     "capture": 0.2825,
+     "captureConfidence": 0.07
+    },
+    "other_services": {
+     "regulation": 0.51,
+     "regulationConfidence": 0.58,
+     "capture": 0.1475,
+     "captureConfidence": 0.5
+    },
+    "hardware": {
+     "regulation": 0.572,
+     "regulationConfidence": 0.47,
+     "capture": 0.1725,
+     "captureConfidence": 0.43
+    },
+    "software": {
+     "regulation": 0.38,
+     "regulationConfidence": 0.35,
+     "capture": 0.2275,
+     "captureConfidence": 0.26
+    },
+    "internet": {
+     "regulation": 0.566,
+     "regulationConfidence": 0.53,
+     "capture": 0.2825,
+     "captureConfidence": 0.07
+    },
+    "media_telecom": {
+     "regulation": 0.736,
+     "regulationConfidence": 0.69,
+     "capture": 0.4725,
+     "captureConfidence": 0.0
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": "Saudi Arabia's revenue mix is the central budget's (MoF); the IMF's general government revenue sets the bedrock's depth."
+  },
+  {
+   "id": "su",
+   "name": "Soviet Union",
+   "short": "USSR",
+   "form": "the Soviet planned economy",
+   "country": "the Soviet Union",
+   "era": "around 1980",
+   "year": 1980,
+   "spending": null,
+   "revenue": null,
+   "revenueMix": null,
+   "trade": null,
+   "democracy": {
+    "value": 0.107,
+    "year": 1980,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~RUS",
+    "previous": {
+     "year": 1979,
+     "value": 0.107
+    }
+   },
+   "top1Wealth": {
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_RU.csv, shwealj992 p99p100",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "RU;shwealj992;p99p100;1980;0.1915;992;j;0",
+    "note": "Not measured: WID shows 19.15% for Russia in 1980 but grades it 0 (modelled from income inequality); its first observed Russian wealth year is 1995 (21.47%, grade 1). The model value is not drawn.",
+    "modelled": {
+     "value": 0.1915,
+     "year": 1980,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.0406,
+    "year": 1980,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_RU.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "RU;sptincj992;p99p100;1980;0.0406;992;j;3",
+    "note": "Russia's territory, not the whole USSR: WID's USSR file holds no share series. Novokmet, Piketty & Zucman (2018), 'From Soviets to oligarchs', updated by Neef (2022)."
+   },
+   "stateFirms": null,
+   "fortune": null,
+   "ownership": {
+    "default": 1,
+    "defaultNote": "state property by law",
+    "firms": []
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.99,
+     "capture": 0.17,
+     "captureConfidence": 0.44
+    },
+    "oil_gas": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.41,
+     "captureConfidence": 0.0
+    },
+    "mining_metals": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.2475,
+     "captureConfidence": 0.18
+    },
+    "utilities": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.99,
+     "capture": 0.245,
+     "captureConfidence": 0.2
+    },
+    "construction": {
+     "regulation": 0.99,
+     "regulationConfidence": 0.98,
+     "capture": 0.215,
+     "captureConfidence": 0.31
+    },
+    "manufacturing": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.1925,
+     "captureConfidence": 0.38
+    },
+    "transport": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.99,
+     "capture": 0.22,
+     "captureConfidence": 0.28
+    },
+    "trade": {
+     "regulation": 0.988,
+     "regulationConfidence": 0.97,
+     "capture": 0.14,
+     "captureConfidence": 0.53
+    },
+    "banking": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.1275,
+     "captureConfidence": 0.57
+    },
+    "finance": {
+     "regulation": 0.988,
+     "regulationConfidence": 0.98,
+     "capture": 0.08,
+     "captureConfidence": 0.73
+    },
+    "insurance": {
+     "regulation": 0.99,
+     "regulationConfidence": 0.98,
+     "capture": 0.0925,
+     "captureConfidence": 0.69
+    },
+    "real_estate": {
+     "regulation": 0.982,
+     "regulationConfidence": 0.95,
+     "capture": 0.0625,
+     "captureConfidence": 0.81
+    },
+    "health": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.99,
+     "capture": 0.2425,
+     "captureConfidence": 0.18
+    },
+    "legal": {
+     "regulation": 0.96,
+     "regulationConfidence": 0.86,
+     "capture": 0.115,
+     "captureConfidence": 0.62
+    },
+    "professional": {
+     "regulation": 0.976,
+     "regulationConfidence": 0.94,
+     "capture": 0.1075,
+     "captureConfidence": 0.64
+    },
+    "education": {
+     "regulation": 0.948,
+     "regulationConfidence": 0.85,
+     "capture": 0.035,
+     "captureConfidence": 0.86
+    },
+    "entertainment": {
+     "regulation": 0.982,
+     "regulationConfidence": 0.95,
+     "capture": 0.18,
+     "captureConfidence": 0.42
+    },
+    "hospitality": {
+     "regulation": 0.968,
+     "regulationConfidence": 0.91,
+     "capture": 0.14,
+     "captureConfidence": 0.53
+    },
+    "other_services": {
+     "regulation": 0.946,
+     "regulationConfidence": 0.82,
+     "capture": 0.0825,
+     "captureConfidence": 0.72
+    },
+    "hardware": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.99,
+     "capture": 0.18,
+     "captureConfidence": 0.4
+    },
+    "software": {
+     "regulation": 0.98,
+     "regulationConfidence": 0.95,
+     "capture": 0.0575,
+     "captureConfidence": 0.83
+    },
+    "internet": {
+     "regulation": 0.948,
+     "regulationConfidence": 0.82,
+     "capture": 0.035,
+     "captureConfidence": 0.88
+    },
+    "media_telecom": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.98,
+     "capture": 0.18,
+     "captureConfidence": 0.42
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": null
+  }
+ ],
+ "jev": {
+  "model": "jev-1.14.0",
+  "requests": 92,
+  "tokens": 74547
+ }
+}

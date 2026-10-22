@@ -40,6 +40,10 @@ namespace Why.Economy
             float first = HillLandscape.Z(1950);
             Add("money", "The price of money and the edge of trade", "The state's levers on the market layer, on the wave's own time axis · gold: the federal funds rate · rose: the 30-year mortgage · ice: the 10-year Treasury · steel: the effective tariff rate · faint band: exports + imports over GDP",
                 KeyCode.None, new Vector3(HillMoneyLayer.ChartX, 26, (first + axis) * .5f), 270, 6, 128);
+            // Other governments (HillRegimeLayer): the crest's cross-section from the future, its bedrock redrawn by the regime;
+            // aimed toward the valley so the whole section stands left of the panel (from the future, +x runs to the left).
+            Add(HillRegimeLayer.View, "Other foundations", "The same US hills on another state: bedrock as deep as its spending, in strata of what it lives on · steel summits it owns, gold private · grey: its rules, gold: firms shaping them · steel lanes: the share of every river that passes through it · white: votes · the border: trade · gold ring: the top 1%",
+                KeyCode.None, new Vector3(88, 24, crest), 172, 6, 300);
             // The decade's ladder stands beside the wave (HillMobilityLayer): seen from the hills' side so time runs left
             // to right, its labels and the crest's year on the right.
             float decade = HillLandscape.Z(EconomyState.Year - Model.Mobility.DefaultWindow);
@@ -65,7 +69,7 @@ namespace Why.Economy
         {
             var f = EconomyStage.Land();
             return new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
-                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : 165,
+                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View ? 330 : 165,
                 YaOld = DeepTime.NowYear - EconomyStyle.FirstYear, YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
                 RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale };
         }

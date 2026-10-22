@@ -110,11 +110,12 @@ reformers marked along its top for their years in office.
 The whole model has a spoken, guided walkthrough in John's own voice (an ElevenLabs clone, "JohnV4"), top to
 bottom: it opens with why the graph exists - understand cause and effect and you can build a working model of the
 universe from the Big Bang to this moment - walks the three levels across 64 stops, and at its end continues straight
-into the economy scene for 19 more (the wave, its foundation, the price of money, layers, companies and what they spend,
-golden circles, attention, rivers of desire and fear, what moves people up or down, one person's mind, tit for tat, the
-ladder, where you stand). About 38 minutes in all; the five newest economy stops (`hills_money`, `hills_strategy`,
-`hills_attention`, `hills_mobility`, `hills_you`) are written and checked but not yet voiced, so they read their
-on-screen text until `python3 Tools/synthesize-narration-elevenlabs.py --only economy_narration` is run.
+into the economy scene for 20 more (the wave, its foundation, the price of money, other foundations, layers, companies
+and what they spend, golden circles, attention, rivers of desire and fear, what moves people up or down, one person's mind,
+tit for tat, the ladder, where you stand). About 38 minutes in all; the six newest economy stops (`hills_money`,
+`hills_regimes`, `hills_strategy`, `hills_attention`, `hills_mobility`, `hills_you`) are written and checked but not yet
+voiced, so they read their on-screen text until `python3 Tools/synthesize-narration-elevenlabs.py --only economy_narration`
+is run.
 
 * Scripts (tracked): `Assets/Resources/Data/Walkthrough/` - `tour.json` and `economy_tour.json` hold each stop's view,
   arrow target and on-screen text; `tour_narration.json` and `economy_narration.json` hold what is spoken. Each spoken
@@ -215,8 +216,8 @@ views framed on the crest (landscape, capture, people, rivers, foundation, socia
 the overview, the companies and the money chart frame the whole time axis and the wave grows across them. Moving the year
 yourself pauses the replay; the guided tour stops it.
 
-Five more keyless views ask how the economy moves the people and the companies on it (the preset bar and the tour reach
-them; focused views keep the wave as faint ground and quiet everything else):
+Six more keyless views ask how the economy moves the people and the companies on it, and what it stands on (the preset
+bar and the tour reach them; focused views keep the wave as faint ground and quiet everything else):
 
 * `mobility` - **what moves people up or down the hill**: the hill's altitude pulled out beside the wave as the decade's
   ladder, five rungs of household income ten years ago and now, joined by streams of people that climbed (gold), fell
@@ -244,6 +245,13 @@ them; focused views keep the wave as faint ground and quiet everything else):
   ends invested and researched $205B in 2015 and $920B in 2025).
 * `money` - **the price of money and the edge of trade**: the federal funds, 30-year mortgage and 10-year Treasury rates
   and the effective tariff rate (customs duties over goods imports) on the wave's own time axis, with trade's share of GDP.
+* `regimes` - **other foundations**: the same hills on another state, as a model change - the United States, Sweden,
+  China, Saudi Arabia and the Soviet Union around 1980, picked with buttons in a panel (or stepped through). The bedrock is
+  as deep as the regime's government spending (IMF), in strata of what it lives on (OECD tax structures, the budgets' own
+  categories); summits turn from gold to steel where the state owns the leading firm (each holding with its owner, share and
+  source; the state's share of listed firms' value from the OECD); grey and gold strands for its rules and the industries
+  shaping them (Jev); a steel lane of every river through the state; votes (V-Dem), trade (World Bank) and the top 1%'s
+  shares (WID, latest observed years). The panel says what is measured, what is judged and what the drawing chooses.
 * `social` now also rings every star by how many of the other most-followed accounts follow it (influence among the
   influential, from the graph's directed follows: Obama 70, Snoop Dogg 69, Rihanna 67) and draws the attention loop:
   companies pay the platforms ($295B of US digital ads in 2025), platforms and brands pay creators (about $37B), people give

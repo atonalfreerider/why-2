@@ -97,3 +97,6 @@ Tools/corporate/.cache/
 # The social graph database lives here locally for the social pipeline (152 MB: too large for Git, not read at runtime)
 /Assets/StreamingAssets/global_social_graph.db
 /Assets/StreamingAssets/global_social_graph.db.meta
+
+# Regimes pipeline cache (IMF / World Bank / OWID downloads, Jev answers)
+Tools/regimes/.cache/

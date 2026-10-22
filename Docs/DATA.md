@@ -423,6 +423,38 @@ entries). Money and trade: `fedFunds`, `mortgage30`, `treasury10` (annual averag
 `tariffRate` (customs duties over goods imports, NIPA calendar years, gross of the 2026 IEEPA refunds), `customsDuties`,
 `goodsImports`, `tradeShare` (exports plus imports over GDP), as `[year, value]`.
 
+### `Data/economy/regimes.json`
+
+Written by `Tools/regimes/build.py`: other governments as model changes, for the `regimes` view. Five regimes - the United
+States (`baseline`), Sweden, China, Saudi Arabia and the Soviet Union around 1980 - each with `id`, `name`, `form`, `era`,
+`year` and these measures, every one an object `{value, year, source, url, note, quote}` (`value` absent when nothing
+defensible was found):
+
+* `spending`, `revenue` - general government total expenditure and revenue, shares of GDP: IMF Fiscal Monitor (October
+  2026) through the DataMapper API (`G_X_G01_GDP_PT`, `GGR_G01_GDP_PT`), 2024; the Soviet state budget from the research in
+  `sources.json`.
+* `revenueMix` - what the state lives on, as shares of its revenue (`parts`: `personal`, `corporate`, `social`, `goods`,
+  `property`, `resources`, `enterprises`, `other`, summing to one), computed by the build from its sourced `inputs`: OECD
+  tax structures are shares of tax revenue, scaled by tax revenue over total revenue (OECD tax-to-GDP over IMF revenue of the
+  same year; the remainder is other revenue); Saudi Arabia's and the USSR's budgets use their own categories. `computed`
+  says how.
+* `stateFirms` - the state-owned share of the country's largest firms; `ownership` - `default` (0: a summit no firm is named
+  for is private; 1: the state's by law) and `firms[]` (`name`, `industry`: one of the scene's production industries,
+  `stateShare`, `controlled`, `holder`, `asOf`, `url`, `quote`): the state's holdings among the leading firms, whose
+  summits the view colors steel.
+* `trade` - exports plus imports over GDP: World Bank WDI `NE.TRD.GNFS.ZS`.
+* `top1Wealth`, `top1Income` - the top 1%'s shares of net personal wealth and of pre-tax national income (equal-split
+  adults): WID bulk download (2026-10-15), each at its latest year WID grades as observed (income grade 3+, wealth 1+).
+  WID's model imputations (grade 0) are kept as `modelled` for the panel and never drawn.
+* `democracy` - V-Dem's electoral democracy index (v16, via Our World in Data), latest year with the year before as
+  `previous`; the USSR is V-Dem's "Russia" unit in 1980.
+* `industries` - per production industry, `regulation` and `capture` (0..1): Jev Scores of how heavily the state's rules
+  bind the industry and how much it shapes them (`industriesJudged` names the model). The US keeps `government.json`'s own
+  judgments, so the baseline draws as the foundation view does.
+
+`Tools/regimes/sources.json` holds the regimes and the research read by hand, with the URL and the text each value was read
+from; API downloads and Jev answers are cached in `Tools/regimes/.cache` (gitignored).
+
 ### `Data/social/people.json`: `elite`
 
 Added by `Tools/social/elite.py` without rerunning the Wikidata and Jev stages: how many of the social graph's other

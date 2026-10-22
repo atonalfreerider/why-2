@@ -76,8 +76,8 @@ influence among the influential.
 **The state's levers (new, `money`).** The price of money runs through every river of debt: 16.4% in 1981, under 0.5%
 from 2009 to 2016 (when what people own rose with it), 4.2% in 2025. The edge of trade: the effective tariff rate fell
 from 7.0% in 1947 to 1.4-1.7% in the 2010s and tripled in 2025 (2.6% → 8.0%; 2026's first half 8.8%, gross of the IEEPA
-refunds). A federal democracy with free trade is drawn by these settings, and another regime would be drawn by others
-(see section 6).
+refunds). A federal democracy with free trade is drawn by these settings, and other regimes by others (the `regimes`
+view, section 2).
 
 ## 4. Moving up or down the hill (new, `mobility`)
 
@@ -106,15 +106,16 @@ and the years to living on what they own computed, and their odds read off the d
 
 | Measured | Judged by Jev (model evidence, not measurement) | Assumed |
 | --- | --- | --- |
-| value added, the use table, national and personal accounts, OMB budgets, filings of 25 firms, US totals (BEA, Census, NSF, IAB, OpenSecrets, S&P), rates, tariffs, trade shares, the social graph's follows, published mobility matrices | how purchases and companies sell; regulation and capture; which way each firm's money moves it, how defensive its investment is, its AI share; people's identities and roles in the social graph | tier order and heights; class as altitude; drive weights and behavioral parameters of the lives; the 4% yield and three-year runway; a firm's supplier/worker split by its industry; the AI build-out's split by US totals |
+| value added, the use table, national and personal accounts, OMB budgets, filings of 25 firms, US totals (BEA, Census, NSF, IAB, OpenSecrets, S&P), rates, tariffs, trade shares, the social graph's follows, published mobility matrices; for the other regimes: general government spending and revenue (IMF), tax structures (OECD) and budget lines (Saudi MoF, the Soviet budget), the state's share of listed firms (OECD) and of named firms (filings, registers), trade (World Bank), the top 1%'s observed shares (WID), the electoral democracy index (V-Dem) | how purchases and companies sell; regulation and capture, for the US and for each other regime; which way each firm's money moves it, how defensive its investment is, its AI share; people's identities and roles in the social graph | tier order and heights; class as altitude; drive weights and behavioral parameters of the lives; the 4% yield and three-year runway; a firm's supplier/worker split by its industry; the AI build-out's split by US totals; another regime's foundation under the US hills, a summit as its industry's largest named firm, and the state's share of spending drawn through every river alike |
 
 ## 6. Where the model should go next
 
-1. **Other governments as model changes.** The bedrock should change shape with the regime: a switch among foundations
-   with measured structure - government share of output (IMF), the state-owned share of the largest firms, the tax mix,
-   trade openness, the top 1%'s wealth share (WID), the electoral-democracy index (V-Dem) - for a Nordic social democracy,
-   China's state capitalism, a Gulf petro-monarchy, and the Soviet plan (historical). Under state capitalism the state does
-   not only lie beneath the hills; it owns summits. The civilization layer already carries 40 states' fiscal series.
+1. **Other governments as model changes** (first version done: the `regimes` view, section 2). Next: each regime on its
+   own hills (its industries' value added) rather than the US's; regimes through time, so a foundation moves along the wave
+   (the Soviet budget into the 1990s, China's state share since 2000, Sweden since its 1990s crisis); per-industry state
+   shares of sales from the OECD Global SOE Dataset in place of the largest-named-firm rule; and more foundations (a
+   developmental state such as South Korea, a European social market economy such as Germany). The civilization layer
+   already carries 40 states' fiscal series.
 2. **Height from capitalization.** Measure the hill's height as the market value of each industry's claims per dollar of
    value added (S&P sector weights since 1990, Fed Z.1 equities), so "the top of the hill" is a number.
 3. **Companies through time.** The 25 firms' filings for 2015-2025 would show the defensive share and direction moving

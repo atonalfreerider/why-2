@@ -221,7 +221,11 @@ them; focused views keep the wave as faint ground and quiet everything else):
   attention platforms, deals across, buybacks and dividends up to the owners, taxes and lobbying into the state; white
   arrows for which way Jev judged the money moves each firm (climb into AI, reach down into its own supply, spread across,
   lean on the state, harvest); the hyperscalers' AI build-out ($449B in 2025, guided $805B for 2026) pouring down into
-  computers and data centers; a panel steps through the firms with the US totals beside them.
+  computers and data centers; a panel steps through the firms with the US totals beside them. Behind the crest each
+  firm's trail runs along its lifeline through its fiscal years 2015-2025 (XBRL data of its 10-Ks on SEC EDGAR, each year
+  judged by Jev on its numbers alone): a lane split into fear and desire for the year's investment and research, a gold
+  stalk for its owners, the turns of direction named, so the AI race and the cycle can be read (the 23 firms with both
+  ends invested and researched $205B in 2015 and $920B in 2025).
 * `money` - **the price of money and the edge of trade**: the federal funds, 30-year mortgage and 10-year Treasury rates
   and the effective tariff rate (customs duties over goods imports) on the wave's own time axis, with trade's share of GDP.
 * `social` now also rings every star by how many of the other most-followed accounts follow it (influence among the

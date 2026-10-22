@@ -21,6 +21,12 @@ namespace Why.Economy.Layers
     /// data-center buildings, in proportion to the year's US totals for each (BEA computers and peripherals, Census data
     /// centers). Above the wave a readout sets the firms against the US totals (business investment, advertising, payouts,
     /// lobbying, M&amp;A, the hyperscalers' capex and guidance).</para>
+    /// <para>The trail: behind the crest every firm's fiscal years 2015-2025 (<see cref="CorporatePrograms.Firm.History"/>)
+    /// lie along its lifeline in the wake, each over its own year's stretch of z: the year's investment and research as a
+    /// lane split into fear and desire by that year's judgment (made on its numbers alone), the years running as one
+    /// ribbon into the crest, and its owners' payout as a gold stalk, so a firm's direction and defensiveness can be
+    /// followed through the cycle; the focused firm's years carry chevrons for which way its money moved it, and its first
+    /// year and every turn of direction are named.</para>
     /// Widths are the square root of dollars. One firm is drawn in full at a time (the selected or hovered one, else the
     /// largest investor); the others' streams are faint. Fiscal years differ by firm (each label says which). Splits of a
     /// firm's costs come from its industry's accounts; the judgments are model evidence, not measurements.
@@ -30,7 +36,7 @@ namespace Why.Economy.Layers
     {
         public override int Order => 63;
         public override IEnumerable<string> RequiredTexts => new[] { CorporatePrograms.Path };
-        enum Part { Streams, Focus, Arrows, Cascade, Count }
+        enum Part { Streams, Focus, Arrows, Cascade, Trail, Count }
         static readonly Color Gold = new Color(1, .70f, .22f), Rose = new Color(1, .26f, .50f), Ice = new Color(.30f, .72f, 1),
             Blue = new Color(.36f, .70f, 1), White = new Color(1, .97f, .92f), Steel = new Color(.62f, .70f, .82f), Amber = new Color(1, .80f, .52f);
         /// <summary>The tickers whose capital spending is the AI build-out (calendar or nearest fiscal year).</summary>
@@ -41,10 +47,14 @@ namespace Why.Economy.Layers
         public static int Focused { get; private set; } = -1;
         public static string FocusText { get; private set; } = "";
         public static string ReadoutText { get; private set; } = "";
+        /// <summary>The focused firm's years as rows (the trail in numbers), for the strategy panel.</summary>
+        public static string HistoryText { get; private set; } = "";
         /// <summary>The towers with a program, largest spender first (the panel's order for previous / next).</summary>
         public static readonly List<int> Ranked = new List<int>();
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
         readonly List<(TextMeshPro text, int firm)> labels = new List<(TextMeshPro, int)>();
+        /// <summary>The focused trail's names (its first year and every turn of direction), reused as the focus moves.</summary>
+        readonly List<TextMeshPro> trailLabels = new List<TextMeshPro>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         string json;
         LandSnapshot snapshot; HillLandscape land; CorporatePrograms programs; GameObject content;
@@ -67,6 +77,11 @@ namespace Why.Economy.Layers
             if (f != focused) { focused = f; Focused = f; DrawFocus(); }
             foreach (var e in labels) { e.text.gameObject.SetActive(true); e.text.transform.rotation = rig.Cam.transform.rotation; }
             if (focusLabel) { focusLabel.gameObject.SetActive(focused >= 0); focusLabel.transform.rotation = rig.Cam.transform.rotation; }
+            foreach (var l in trailLabels)
+            {
+                bool show = focused >= 0 && !string.IsNullOrEmpty(l.text);
+                l.gameObject.SetActive(show); if (show) l.transform.rotation = rig.Cam.transform.rotation;
+            }
         }
 
         /// <summary>The firm drawn in full (tower index): the explorer's firm, else the hovered company line's tower, else the
@@ -109,6 +124,7 @@ namespace Why.Economy.Layers
             foreach (var s in HillFoundationLayer.Seats) { seats += s.At; n++; }
             seats = n > 0 ? seats / n : new Vector3(HillLandscape.FootX, HillLandscape.Bedrock, land.CrestZ);
             var faint = new LineMeshBuilder(); var fill = new SurfaceMeshBuilder(); var arrows = new LineMeshBuilder();
+            var trail = new LineMeshBuilder(); var trailFill = new SurfaceMeshBuilder(); int years = 0;
             double invest = 0, owners = 0, ads = 0, lobbying = 0, research = 0, deals = 0, taxes = 0, operations = 0;
             Ranked.Clear();
             for (int t = 0; t < towers.Length; t++) if (programs.OfTower(Tower(t)) != null) Ranked.Add(t);
@@ -118,6 +134,7 @@ namespace Why.Economy.Layers
                 var p = programs.OfTower(Tower(t)); if (p == null) continue;
                 Streams(faint, fill, t, p, .3f, false);
                 Arrows(arrows, t, p);
+                Trail(trail, trailFill, t, p, .3f, false); years += p.History.Length;
                 invest += p.Invest; owners += p.Owners; ads += p.Attention; lobbying += double.IsNaN(p.Lobbying) ? 0 : p.Lobbying; research += p.Research;
                 deals += p.Deals; taxes += p.State; operations += p.Operations;
                 // the largest spenders are named with the way their money moves them; every firm is named in the panel
@@ -125,6 +142,7 @@ namespace Why.Economy.Layers
                     Label("<b>" + p.Name + "</b>\n" + CorporatePrograms.DirectionShort[p.Main] + " " + LandFacts.Percent(p.Direction[p.Main]), HillActivityLayer.CompanyHalo(t) + Vector3.up * 3.5f, .4f, Color.Lerp(White, Steel, .25f), t);
             }
             Surface(fill, Part.Streams); Lines(faint, Part.Streams, true); Lines(arrows, Part.Arrows, false);
+            Surface(trailFill, Part.Trail); Lines(trail, Part.Trail, true);
             Cascade();
             focusRenderer = Lines(new LineMeshBuilder(), Part.Focus, true); focused = -2;
             focusLabel = Label("", Vector3.zero, .6f, White, -1);
@@ -134,6 +152,27 @@ namespace Why.Economy.Layers
                 ", paid owners " + LandFacts.Money(owners) + ", advertising " + LandFacts.Money(ads) + ", deals " + LandFacts.Money(deals) + ", cash taxes " +
                 LandFacts.Money(taxes) + ", lobbying $" + lobbying.ToString("0", LandFacts.Ci) + "M; hyperscalers " + LandFacts.Money(programs.Hyperscalers().y2025) +
                 " in 2025, guiding " + LandFacts.Money(programs.Hyperscalers().y2026) + " for 2026.");
+            Debug.Log("[Why] Strategy trail: " + years + " firm-years " + CorporatePrograms.FirstYear + "-" + CorporatePrograms.LastYear + " (collected " +
+                (programs.HistoryCollected ?? "?") + ", " + programs.HistoryGaps.Length + " gaps named by the collector); a year spans " +
+                (HillLandscape.Z(2025) - HillLandscape.Z(2024)).ToString("0.00", LandFacts.Ci) + " units along the wake; " + TrailSummary());
+        }
+
+        /// <summary>The trail's story for the log: how the firms' investment and payouts moved from the first year to the last
+        /// (the firms with both years), and which firms turned direction.</summary>
+        string TrailSummary()
+        {
+            double invest0 = 0, invest1 = 0, owners0 = 0, owners1 = 0; int both = 0; var turned = new List<string>();
+            foreach (var f in programs.Firms)
+            {
+                if (f.History.Length < 2) continue;
+                var a = f.History[0]; var z = f.History[f.History.Length - 1];
+                if (a.Year == CorporatePrograms.FirstYear && z.Year == CorporatePrograms.LastYear)
+                { both++; invest0 += a.Invest + a.Research; invest1 += z.Invest + z.Research; owners0 += a.Owners; owners1 += z.Owners; }
+                if (a.Judged && z.Judged && a.Main != z.Main) turned.Add(f.Name + " " + CorporatePrograms.DirectionShort[a.Main] + " → " + CorporatePrograms.DirectionShort[z.Main]);
+            }
+            return both + " firms with both ends invested and researched " + LandFacts.Money(invest0) + " in " + CorporatePrograms.FirstYear + " and " +
+                LandFacts.Money(invest1) + " in " + CorporatePrograms.LastYear + ", paid owners " + LandFacts.Money(owners0) + " and " + LandFacts.Money(owners1) +
+                "; turned: " + (turned.Count == 0 ? "none" : string.Join(", ", turned));
         }
 
         // ------------------------------------------------------------------ one firm's streams
@@ -180,21 +219,12 @@ namespace Why.Economy.Layers
         {
             if (!p.Judged) return;
             Vector3 at = HillActivityLayer.CompanyHalo(t) + Vector3.up * 1.2f;
-            var tech = land.TierBand(snapshot.Year, 4); var raw = land.TierBand(snapshot.Year, 1);
             for (int d = 0; d < CorporatePrograms.Directions; d++)
             {
                 float w = p.Direction[d]; if (w < .2f) continue;
                 float length = 5 + 16 * w; Color c = WithAlpha(White, .5f + .5f * w); float width = 2.4f + 5 * w;
-                Vector3 dir;
-                switch ((CorporatePrograms.Direction)d)
-                {
-                    case CorporatePrograms.Direction.Climb: dir = new Vector3((tech.x + tech.y) * .5f - at.x, 18, 0); break;
-                    case CorporatePrograms.Direction.IntegrateDown: dir = new Vector3((raw.x + raw.y) * .5f - at.x, -18, 0); break;
-                    case CorporatePrograms.Direction.LeanOnState: dir = Vector3.down; break;
-                    case CorporatePrograms.Direction.Harvest: dir = land.CloudCenter - at; break;
-                    default:
-                        Ring(b, at, 1.2f + 3 * w, c, width, 1.6f + 2 * w); continue;
-                }
+                Vector3 dir = Way(d, at, snapshot.Year);
+                if (dir == Vector3.zero) { Ring(b, at, 1.2f + 3 * w, c, width, 1.6f + 2 * w); continue; }
                 dir = dir.normalized; Vector3 tip = at + dir * length;
                 b.AddSegment(at, tip, c, width, 0, 0, 1.8f + 2.5f * w);
                 Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
@@ -207,9 +237,12 @@ namespace Why.Economy.Layers
         {
             var b = new LineMeshBuilder(); var fill = new SurfaceMeshBuilder();
             var p = focused >= 0 ? programs.OfTower(Tower(focused)) : null;
+            int named = 0;
             if (p != null)
             {
                 Streams(b, fill, focused, p, .95f, true);
+                Trail(b, fill, focused, p, .95f, true);
+                named = NameTrail(p);
                 var bySupplier = new double[land.Hills.Length];
                 CorporatePrograms.SplitOperations(p, ValueCapture.Get(), out double suppliers, out double workers, bySupplier);
                 string D(int d) => CorporatePrograms.DirectionShort[d] + " " + LandFacts.Percent(p.Direction[d]);
@@ -225,14 +258,157 @@ namespace Why.Economy.Layers
                     "\n<b>which way its money moves it</b> (Jev): " + D(dirs[0]) + " · " + D(dirs[1]) + " · " + D(dirs[2]) +
                     (string.IsNullOrEmpty(p.Strategy) ? "" : "\n\n<size=90%><i>What it says: " + p.Strategy + "</i></size>");
                 FocusText = text;
+                HistoryText = HistoryRows(p);
                 focusLabel.text = "<b>" + p.Name + "</b>"; focusLabel.transform.localPosition = HillActivityLayer.CompanyHalo(focused) + Vector3.up * 7;
             }
-            else FocusText = "";
+            else FocusText = HistoryText = "";
+            for (int k = named; k < trailLabels.Count; k++) trailLabels[k].text = "";
             Replace(focusRenderer, b);
             if (focusFill != null) { var filter = focusFill.GetComponent<MeshFilter>(); owned.Remove(filter.sharedMesh); Destroy(filter.sharedMesh); filter.sharedMesh = fill.ToMesh("Strategy focus lanes"); owned.Add(filter.sharedMesh); }
             else { focusFill = Surface(fill, Part.Focus); }
         }
         MeshRenderer focusFill;
+
+        // ------------------------------------------------------------------ the trail behind the crest
+
+        /// <summary>
+        /// A firm's years behind the crest (<see cref="CorporatePrograms.Firm.History"/>) along the firm's lifeline (past the
+        /// line's end at its tower, carried on at the tower's height): each year's investment and research as a lane over its
+        /// calendar year's stretch of the time axis (the crest's year up to the crest), split into the fear lane (ice) and the
+        /// desire lane (rose) by that year's judgment and as wide as the crest's lanes for the same dollars, so the years run
+        /// as one ribbon into the crest, with a spine down its middle in the year's motive color (rose .. ice by the fear
+        /// share) as many pixels thick as the square root of its dollars, which reads from afar; and its owners' payout as a
+        /// gold stalk, as tall as the square root of its dollars, at the fiscal year's midpoint within that stretch. The
+        /// focused firm's years carry a chevron for which way its money moved it.
+        /// </summary>
+        void Trail(LineMeshBuilder b, SurfaceMeshBuilder fill, int t, CorporatePrograms.Firm p, float alpha, bool full)
+        {
+            if (p.History.Length == 0) return;
+            int life = LifeOf(t);
+            foreach (var y in p.History)
+            {
+                if (!Stretch(y, out double from, out double to, out double mid)) continue;
+                var path = new Vector3[9];
+                for (int s = 0; s < path.Length; s++) path[s] = TrailAt(life, p, from + (to - from) * s / (path.Length - 1)) + Vector3.up * .2f;
+                double future = y.Invest + y.Research;
+                if (future > 0)
+                {
+                    Lanes(fill, b, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), y.Defensive, alpha, t);
+                    // the spine: the year's motive as one color (rose desire .. ice fear) and its dollars as pixels, so the
+                    // trail reads from afar where the lanes are too narrow to split
+                    var spine = new LinePoint[path.Length]; Color motive = WithAlpha(Color.Lerp(Rose, Ice, y.Defensive), Mathf.Min(1, alpha * 1.4f));
+                    float px = (full ? 2 : 1) + Mathf.Sqrt((float)future) * (full ? .6f : .3f);
+                    for (int s = 0; s < path.Length; s++) spine[s] = new LinePoint(path[s] + Vector3.up * .05f, motive, px, 0, full ? 2.2f : 1.4f);
+                    b.AddFlowPath(spine, t, .5f, t * .29f);
+                }
+                Vector3 c = TrailAt(life, p, mid) + Vector3.up * .2f;
+                if (y.Owners > 0) b.AddSegment(c, c + Vector3.up * Stalk(y, full), WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, 0, full ? 2.4f : 1.4f);
+                if (full && y.Judged) Chevron(b, c + Vector3.up * .3f, y, y.Year);
+            }
+        }
+
+        /// <summary>A history year's stretch of the time axis: its calendar year (less a small gap on each side, so the years
+        /// read apart), cut at the crest; and the fiscal year's midpoint within it. False when nothing of it lies before the crest.</summary>
+        bool Stretch(CorporatePrograms.Firm y, out double from, out double to, out double mid)
+        {
+            from = y.Year - .46; to = Math.Min(y.Year + .46, snapshot.Year);
+            mid = Math.Max(from, Math.Min(y.Position, to));
+            return to - from > .05;
+        }
+
+        /// <summary>The height of a trail year's gold stalk: the square root of its owners' dollars.</summary>
+        static float Stalk(CorporatePrograms.Firm y, bool full) => Mathf.Sqrt((float)Math.Max(0, y.Owners)) * (full ? .75f : .4f);
+
+        /// <summary>Names the focused trail's first year and every year whose main direction turned from the year before
+        /// (its way, fear and AI shares), above its stalk; returns how many names it used.</summary>
+        int NameTrail(CorporatePrograms.Firm p)
+        {
+            int used = 0, life = LifeOf(focused);
+            for (int k = 0; k < p.History.Length; k++)
+            {
+                var y = p.History[k];
+                bool turn = k > 0 && y.Judged && p.History[k - 1].Judged && y.Main != p.History[k - 1].Main;
+                if (k > 0 && !turn) continue;
+                while (trailLabels.Count <= used) trailLabels.Add(Label("", Vector3.zero, .3f, Color.Lerp(White, Steel, .15f), -1));
+                if (!Stretch(y, out _, out _, out double mid)) continue;
+                var label = trailLabels[used++];
+                label.text = "<b>" + y.Year + "</b> " + (y.Judged ? CorporatePrograms.DirectionShort[y.Main] + "\nfear " + LandFacts.Percent(y.Defensive) + " · AI " + LandFacts.Percent(y.Ai) : "");
+                label.transform.localPosition = TrailAt(life, p, mid) + Vector3.up * (Stalk(y, true) + 1.8f);
+            }
+            return used;
+        }
+
+        /// <summary>A firm's place on its lifeline at a (fractional) year (<see cref="HillWaveLayer.CompanyAtYear"/>); without
+        /// a line, above its industry's ridge.</summary>
+        Vector3 TrailAt(int life, CorporatePrograms.Firm p, double year)
+        {
+            if (life >= 0 && HillWaveLayer.CompanyAtYear(life, year, out Vector3 at)) return at;
+            float z = Mathf.Min(HillLandscape.Z(year), land.CrestZ - .4f);
+            if (p.Industry < 0) return new Vector3(HillLandscape.FootX, 4, z);
+            Vector2 ridge = land.RidgeAt(year, p.Industry);
+            return new Vector3(ridge.x, land.RidgeTopAt(year, p.Industry) + 4, z);
+        }
+
+        /// <summary>The company life (<see cref="CompanyLives"/>) of a tower, or -1.</summary>
+        int LifeOf(int t)
+        {
+            var lives = CompanyLives.Get(); var towers = snapshot.Land.Towers;
+            return lives == null || t < 0 || t >= towers.Length ? -1 : lives.OfTower(towers[t].Ticker, towers[t].Name);
+        }
+
+        /// <summary>A small white chevron at a trail year, pointing the way Jev judged that year's money moved the firm, as
+        /// long as the main direction's probability (spreading across: a ring).</summary>
+        void Chevron(LineMeshBuilder b, Vector3 at, CorporatePrograms.Firm y, int year)
+        {
+            int d = y.Main; float w = y.Direction[d];
+            Color c = WithAlpha(White, .45f + .5f * w); float width = 2f + 2.5f * w;
+            Vector3 dir = Way(d, at, year);
+            if (dir == Vector3.zero) { Ring(b, at, .5f + 1.2f * w, c, width, 1.6f + w); return; }
+            dir = dir.normalized; Vector3 tip = at + dir * (1.2f + 2.8f * w);
+            b.AddSegment(at, tip, c, width, 0, 0, 1.6f + 2 * w);
+            Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
+            b.AddSegment(tip, tip - dir * .8f + side * .5f, c, width, 0, 0, 1.6f + 2 * w);
+            b.AddSegment(tip, tip - dir * .8f - side * .5f, c, width, 0, 0, 1.6f + 2 * w);
+        }
+
+        /// <summary>Which way a direction points from a place in a year: climbing toward the tech tier, reaching down toward
+        /// raw materials, leaning down into the state's bedrock, harvesting up to the owners' cloud; zero for spreading
+        /// across (drawn as a ring).</summary>
+        Vector3 Way(int d, Vector3 at, int year)
+        {
+            switch ((CorporatePrograms.Direction)d)
+            {
+                case CorporatePrograms.Direction.Climb: { var tech = land.TierBand(year, 4); return new Vector3((tech.x + tech.y) * .5f - at.x, 18, 0); }
+                case CorporatePrograms.Direction.IntegrateDown: { var raw = land.TierBand(year, 1); return new Vector3((raw.x + raw.y) * .5f - at.x, -18, 0); }
+                case CorporatePrograms.Direction.LeanOnState: return Vector3.down;
+                case CorporatePrograms.Direction.Harvest: return land.CloudCenter - at;
+                default: return Vector3.zero;
+            }
+        }
+
+        /// <summary>The focused firm's years as rows for the panel: investment and research, owners' payout, the fear share
+        /// of its investment, the AI share and the main way its money moved it, each judged on the year's numbers alone.</summary>
+        static string HistoryRows(CorporatePrograms.Firm p)
+        {
+            if (p.History.Length == 0) return "";
+            var h = p.History; var sb = new System.Text.StringBuilder();
+            sb.Append("<b>THE TRAIL</b> · ").Append(h[0].Year).Append('-').Append(h[h.Length - 1].Year)
+              .Append(" from its 10-Ks (SEC XBRL); Jev judged each year on its numbers alone\n")
+              .Append("<color=#9AA8B8>year<pos=17%>invest + R&D<pos=40%>owners<pos=55%>fear<pos=65%>AI<pos=75%>way</color>\n");
+            foreach (var y in h)
+            {
+                sb.Append(y.Year);
+                if (!string.IsNullOrEmpty(y.FiscalYear) && y.FiscalYear != "FY" + y.Year) sb.Append(" <size=75%>").Append(y.FiscalYear).Append("</size>");
+                sb.Append("<pos=17%>").Append(LandFacts.Money(y.Invest + y.Research)).Append("<pos=40%><color=#FFB347>").Append(LandFacts.Money(y.Owners))
+                  .Append("</color><pos=55%><color=#4FB8FF>").Append(y.Judged ? LandFacts.Percent(y.Defensive) : "-").Append("</color><pos=65%>")
+                  .Append(y.Judged ? LandFacts.Percent(y.Ai) : "-").Append("<pos=75%>").Append(y.Judged ? CorporatePrograms.DirectionShort[y.Main] : "-").Append('\n');
+            }
+            var last = h[h.Length - 1];
+            if (last.Judged && p.Judged && last.Main != p.Main)
+                sb.Append("<size=85%><color=#9AA8B8>With its own words (above) Jev reads ").Append(last.Year).Append(" as ")
+                  .Append(CorporatePrograms.DirectionShort[p.Main]).Append(", on the numbers alone as ").Append(CorporatePrograms.DirectionShort[last.Main]).Append(".</color></size>");
+            return sb.ToString();
+        }
 
         /// <summary>The AI build-out pouring down the hill: each hyperscaler's AI investment (its investment times Jev's AI
         /// share) to computers and chips and to data-center construction, split by the year's US totals for the two.</summary>
@@ -363,9 +539,9 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; focusRenderer = null; focusLabel = null; focusFill = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); trailLabels.Clear(); content = null; focusRenderer = null; focusLabel = null; focusFill = null;
         }
 
-        void OnDestroy() { Clear(); Focused = -1; FocusText = ReadoutText = ""; Ranked.Clear(); }
+        void OnDestroy() { Clear(); Focused = -1; FocusText = ReadoutText = HistoryText = ""; Ranked.Clear(); }
     }
 }

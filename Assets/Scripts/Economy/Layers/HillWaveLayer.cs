@@ -38,6 +38,26 @@ namespace Why.Economy.Layers
             if (active == null || !active.paths.TryGetValue(life, out var path) || path.Count == 0) return false;
             at = path[path.Count - 1].Data; return true;
         }
+        /// <summary>Where a company's lifeline passes a (fractional) year, land-local: its point at that year's z; past the
+        /// line's end (a survivor arrives at its tower a little behind the crest) the end carried forward to the year's z,
+        /// never past the crest. False before the line begins or when it is not drawn.</summary>
+        public static bool CompanyAtYear(int life, double year, out Vector3 at)
+        {
+            at = default;
+            if (active == null || active.land == null || !active.paths.TryGetValue(life, out var path) || path.Count == 0) return false;
+            float z = HillLandscape.Z(year);
+            if (z < path[0].Data.z) return false;
+            for (int k = 1; k < path.Count; k++)
+            {
+                Vector3 a = path[k - 1].Data, b = path[k].Data;
+                if (z > b.z) continue;
+                at = b.z - a.z > 1e-5f ? Vector3.Lerp(a, b, (z - a.z) / (b.z - a.z)) : b;
+                return true;
+            }
+            Vector3 end = path[path.Count - 1].Data;
+            at = new Vector3(end.x, end.y, Mathf.Min(z, active.land.CrestZ - .4f));
+            return true;
+        }
         public static int SelectedCompany { get; private set; } = -1;
         enum Part { Ribs, Ridges, Face, Crest, Spray, Lives, Focus, Fan, Future, Count }
         static readonly Color Steel = new Color(.46f, .58f, .72f), Ice = new Color(.62f, .84f, 1), White = new Color(1, .96f, .9f),

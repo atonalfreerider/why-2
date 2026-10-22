@@ -90,7 +90,8 @@ namespace Why.EditorChecks
         }
         /// <summary>The decade's mobility (the matrix holds every tracked adult once, rows sum to one), the viewer's reading
         /// (ranks rise with income, a dollar's parts add up, uphill shares stay in range and fall toward the top) and the
-        /// corporate programs (every tower has its filing, directions sum to one, no negative stream).</summary>
+        /// corporate programs (every tower has its filing, directions sum to one, no negative stream, each firm's history in
+        /// order and judged, its last year the crest's).</summary>
         static string NewModels(LandSnapshot source)
         {
             var lives=LandService.Model.Lives;var data=LandService.Model.Data;
@@ -103,7 +104,7 @@ namespace Why.EditorChecks
             if(programs!=null)foreach(string p in programs.Problems(source.Land.Towers.Length))Require(false,"Corporate programs: "+p);
             return "mobility "+mobility.From+"-"+mobility.Year+": "+mobility.Lines+" adults, bottom fifth stayed "+LandFacts.Percent(mobility.Share(0,0))+
                 ", top fifth "+LandFacts.Percent(mobility.Share(4,4))+"; you: median household "+PersonLife.Money(you.MedianIncome)+
-                "; corporate programs "+(programs?.Firms.Length??0)+" firms.";
+                "; corporate programs "+(programs?.Firms.Length??0)+" firms, "+(programs?.HistoryYears??0)+" firm-years of history.";
         }
         /// <summary>The social layer and the government: the popular people parse into five regions, capital holders
         /// are tied to their companies (Musk: Tesla and SpaceX) and stand at a company rather than in the cloud,

@@ -395,6 +395,24 @@ with its confidence. `economy`: the US totals for 2025 (advertising, digital and
 time, private fixed investment by type, business R&D, payouts, lobbying, M&A, hyperscaler capex and 2026 guidance,
 data-center construction), each as `value`, `unit`, `year`, `source`, `note`. Money in USD billions.
 
+Each firm's `history[]` holds its fiscal years 2015-2025 from `Tools/corporate/history.json`: `year` (the calendar year
+holding most of the fiscal year's days), `fiscalYear` (the firm's own name for it), `start`, `end`, `position` (its
+midpoint less half a year, where the scene draws it on the time axis), `revenue`, `costOfRevenue`, `rd`, `sga`, `capex`,
+`financeLeases`, `buybacks`, `dividends`, `acquisitions`, `incomeTaxesPaid`, `netIncome`, `stockComp`,
+`noninterestExpense` (whichever the firm's statements have), and Jev's three judgments with their confidences, made on
+the year's numbers alone (`judgedOn`: `numbers`; the latest year too, so it differs from the firm's own judgment above
+only by what its words add). `historyNotes` says what is particular to a firm (fiscal-year ends, combined lines,
+predecessor registrants), `historyFilings` maps each accession the values came from to its EDGAR folder, and the top
+level carries `historyCollected` and `historyGaps`.
+
+`Tools/corporate/history.json` (tracked, written by `Tools/corporate/history.py`) is the history with every value's
+source: its US-GAAP or the firm's own extension concept and the accession of the 10-K it was read from (the latest
+reporting the period, so earlier years are as later filings restated them), from the SEC's XBRL company facts and, for
+extension concepts, the 10-K's XBRL instance. SpaceX's 2023-2025 are the audited statements of its 2026 IPO prospectus
+(424B4) by line name, recast to include xAI and X; Palantir starts in 2018. `gaps` names what is missing: Palantir's
+2015-2017 and finance-leased assets before Alphabet's 2022 and Meta's 2019 disclosures (the scene counts none). A 10-K
+without a buyback, dividend or acquisition line counts zero, with that as its source.
+
 ### `Data/economy/mobility-benchmarks.json` and `Data/economy/money-and-trade.json`
 
 Written by `Tools/history/build.py` from `Tools/history/sources.json` (research of 2026-10-22, each number read in its

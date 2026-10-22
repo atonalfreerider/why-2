@@ -11,6 +11,9 @@ Inputs (tracked, with a source for every number):
   Tools/corporate/economy.json   US totals for 2025: advertising (WPP Media, IAB/PwC), private fixed investment by type
                                  (BEA NIPA 5.3.5), business R&D (NSF), payouts (S&P DJI), lobbying (OpenSecrets), M&A,
                                  hyperscaler capex and guidance, data-center construction (Census).
+  Tools/corporate/history.json   the same firms' uses of money in every fiscal year mostly in calendar 2015-2025, from the
+                                 XBRL data of their 10-Ks on SEC EDGAR (SpaceX: its prospectus), each value with its
+                                 concept and filing (Tools/corporate/history.py collects it).
 
 Jev (TypeSafe System One) answers three questions per firm over the same state (its numbers and its own words):
   direction  a Choice: which way its money moves it in the hierarchy of layers (climb into software / platforms / AI,
@@ -18,6 +21,9 @@ Jev (TypeSafe System One) answers three questions per firm over the same state (
              the probability spread is kept, so a firm that does two things shows both
   defensive  a Score: how much its investment is driven by fear of losing what it has rather than by desire for new demand
   ai         a Score: how much of its investment goes to artificial intelligence
+The same three questions are asked of every year of a firm's history. Only the latest year has the firm's own words (the
+paraphrase in filings.json), so every history year, the latest included, is judged on its reported numbers alone and says
+so (judgedOn "numbers"): the trail is judged one way throughout, and the latest year's two judgments show what the words add.
 Code keeps the arithmetic (totals, shares, the split of a firm's costs between suppliers and workers by its industry's
 accounts happens in the scene). The judgments are model evidence about strategy, not measurements.
 
@@ -37,6 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 FILINGS = os.path.join(HERE, "filings.json")
 ECONOMY = os.path.join(HERE, "economy.json")
+HISTORY = os.path.join(HERE, "history.json")
 CIRCUIT = os.path.join(ROOT, "Assets", "Resources", "Data", "economy", "circuit.json")
 INDUSTRIES = os.path.join(ROOT, "Assets", "Resources", "Data", "economy", "industries.json")
 OUT = os.path.join(ROOT, "Assets", "Resources", "Data", "economy", "corporate-programs.json")
@@ -113,6 +120,9 @@ AI = {
 
 QUESTIONS = {"direction": DIRECTION, "defensive": DEFENSIVE, "ai": AI}
 
+# Fields copied from a history year into the scene file (USD billions).
+HISTORY_FIELDS = ["revenue", "costOfRevenue", "rd", "sga", "capex", "financeLeases", "buybacks", "dividends", "acquisitions",
+                  "incomeTaxesPaid", "netIncome", "stockComp", "noninterestExpense"]
 # Fields copied from a filing record into the scene file (USD billions unless named otherwise).
 FIELDS = ["revenue", "costOfRevenue", "rd", "sga", "salesMarketing", "generalAdmin", "advertising", "capex", "financeLeases",
           "buybacks", "dividends", "acquisitions", "incomeTaxesPaid", "incomeTaxProvision", "stockComp", "netIncome",
@@ -169,6 +179,40 @@ def state_of(f, industry, stakes):
         "uses_of_money_billion_usd": uses_of(f, stakes), "what_it_says": f.get("strategy", ""), "country": "United States"}}
 
 
+# What a history year's state says in place of the firm's own words.
+NO_WORDS = "Not given for this year: judge from its reported uses of money alone."
+# A history year's fields, as the crest's state names them (USD billions).
+HISTORY_USES = [("cost of revenue", "costOfRevenue"), ("research and development", "rd"), ("selling, general and administrative", "sga"),
+                ("noninterest expense", "noninterestExpense"), ("capital expenditures", "capex"), ("finance-leased assets", "financeLeases"),
+                ("buybacks", "buybacks"), ("dividends", "dividends"), ("acquisitions", "acquisitions"), ("cash income taxes", "incomeTaxesPaid")]
+
+
+def history_state(name, industry, row):
+    uses = {label: row[key] for label, key in HISTORY_USES if isinstance(row.get(key), (int, float))}
+    return {"company": {
+        "name": name, "industry": industry, "fiscal_period": f"{row['fiscalYear']} (year ended {row['end']})",
+        "revenue_billion_usd": row.get("revenue"), "net_income_billion_usd": row.get("netIncome"),
+        "uses_of_money_billion_usd": uses, "what_it_says": NO_WORDS, "country": "United States"}}
+
+
+def position(row):
+    """Where a fiscal year sits on the wave's time axis: its midpoint as a fractional calendar year, less half a year, so
+    a calendar year Y sits at Y (the scene draws year Y's data at z(Y)) and an offset fiscal year between."""
+    a, b = datetime.date.fromisoformat(row["start"]), datetime.date.fromisoformat(row["end"])
+    mid = a + (b - a) / 2
+    return round(mid.year + (mid.timetuple().tm_yday - 1) / 365.25 - .5, 3)
+
+
+def judged(answers):
+    """The scene's fields from Jev's answers (direction probabilities, fear and AI scores as 0..1, their confidences)."""
+    d = answers["direction"]
+    return {"direction": {k: round(v, 4) for k, v in sorted(d["probabilities"].items())}, "directionChoice": d["choice"],
+            "directionConfidence": round(d.get("confidence", 0), 3),
+            "defensive": round(answers["defensive"]["score"] / (len(DEFENSIVE["criteria"]) - 1), 4),
+            "defensiveConfidence": round(answers["defensive"].get("confidence", 0), 3),
+            "ai": round(answers["ai"]["score"] / (len(AI["criteria"]) - 1), 4), "aiConfidence": round(answers["ai"].get("confidence", 0), 3)}
+
+
 def key_of(state):
     return hashlib.sha256(json.dumps([state, QUESTIONS], sort_keys=True).encode()).hexdigest()[:20]
 
@@ -179,6 +223,8 @@ def main():
     capture = json.load(open(CIRCUIT, encoding="utf-8"))["capture"]
     names = {i["id"]: i["name"] for i in json.load(open(INDUSTRIES, encoding="utf-8"))["industries"]}
     cache = json.load(open(CACHE, encoding="utf-8")) if os.path.exists(CACHE) else {}
+    history = json.load(open(HISTORY, encoding="utf-8"))
+    years_of = {h["ticker"].upper(): h for h in history["firms"]}
 
     # Pair every stored firm (the towers) with its filing: by ticker, else by name.
     by_ticker = {f["ticker"].upper(): f for f in filings if f.get("ticker")}
@@ -195,33 +241,38 @@ def main():
             f[k] = v; f["notes"] = (f.get("notes") or "") + " Adjusted: " + why + "."
         stakes, picked = stakes_of(f)
         state = state_of(f, names.get(c["industry"], c["industry"]), stakes)
-        rows.append((c, f, stakes, picked, state))
-        k = key_of(state)
-        if k not in cache:
-            jobs.append((k, state))
+        h = years_of.get((f.get("ticker") or "").upper())
+        past = [(row, history_state(c["name"], names.get(c["industry"], c["industry"]), row)) for row in (h["years"] if h else [])]
+        rows.append((c, f, stakes, picked, state, h, past))
+        for st in [state] + [p for _, p in past]:
+            k = key_of(st)
+            if k not in cache and all(k != j for j, _ in jobs):
+                jobs.append((k, st))
     if jobs and OFFLINE:
-        sys.exit(f"--offline: {len(jobs)} firms have no cached judgment")
+        sys.exit(f"--offline: {len(jobs)} firm-years have no cached judgment")
     if jobs:
-        print(f"asking Jev about {len(jobs)} firms x {len(QUESTIONS)} questions", flush=True)
+        print(f"asking Jev about {len(jobs)} firm-years x {len(QUESTIONS)} questions", flush=True)
 
         def ask(job):
             k, state = job
             try:
                 return k, jev.call(state, QUESTIONS)
             except RuntimeError as e:
-                print(f"{state['company']['name']}: {e}", file=sys.stderr)
+                print(f"{state['company']['name']} {state['company']['fiscal_period']}: {e}", file=sys.stderr)
                 return k, None
+        os.makedirs(os.path.dirname(CACHE), exist_ok=True)
         with ThreadPoolExecutor(max_workers=5) as pool:
-            for k, answers in pool.map(ask, jobs):
+            for n, (k, answers) in enumerate(pool.map(ask, jobs), 1):
                 if answers is not None:
                     cache[k] = answers
-        os.makedirs(os.path.dirname(CACHE), exist_ok=True)
-        with open(CACHE, "w", encoding="utf-8") as fh:
-            json.dump(cache, fh, indent=1)
+                if n % 25 == 0 or n == len(jobs):
+                    with open(CACHE, "w", encoding="utf-8") as fh:
+                        json.dump(cache, fh, indent=1)
+                    print(f"  {n}/{len(jobs)}", flush=True)
 
-    firms, missing = [], []
+    firms, missing, unjudged = [], [], 0
     tokens = 0
-    for c, f, stakes, picked, state in rows:
+    for c, f, stakes, picked, state, h, past in rows:
         result = cache.get(key_of(state))
         a = result["answers"] if result else None
         tokens += sum((result or {}).get("usage", {}).values())
@@ -237,16 +288,28 @@ def main():
         if picked:
             row["stakesFrom"] = picked
         if a:
-            d = a["direction"]
-            row["direction"] = {k: round(v, 4) for k, v in sorted(d["probabilities"].items())}
-            row["directionChoice"] = d["choice"]
-            row["directionConfidence"] = round(d.get("confidence", 0), 3)
-            row["defensive"] = round(a["defensive"]["score"] / (len(DEFENSIVE["criteria"]) - 1), 4)
-            row["defensiveConfidence"] = round(a["defensive"].get("confidence", 0), 3)
-            row["ai"] = round(a["ai"]["score"] / (len(AI["criteria"]) - 1), 4)
-            row["aiConfidence"] = round(a["ai"].get("confidence", 0), 3)
+            row.update(judged(a))
         else:
             missing.append(c["name"])
+        # The trail: every history year with its numbers and its numbers-only judgment.
+        trail = []
+        for year, st in past:
+            result = cache.get(key_of(st))
+            tokens += sum((result or {}).get("usage", {}).values())
+            y = {"year": year["year"], "fiscalYear": year["fiscalYear"], "start": year["start"], "end": year["end"], "position": position(year),
+                 "judgedOn": "numbers"}
+            for k in HISTORY_FIELDS:
+                if isinstance(year.get(k), (int, float)):
+                    y[k] = year[k]
+            if result:
+                y.update(judged(result["answers"]))
+            else:
+                unjudged += 1
+            trail.append(y)
+        if h:
+            row["history"] = trail
+            row["historyNotes"] = h.get("notes")
+            row["historyFilings"] = {a: v["url"] for a, v in h.get("filings", {}).items()}
         firms.append(row)
 
     out = {
@@ -255,8 +318,15 @@ def main():
                 "millions (calendar 2025, Senate LDA filings); employees in thousands. direction holds the probability Jev put on "
                 "each way (climb, integrate_down, expand_across, lean_on_state, harvest); defensive is 0 (investing for new "
                 "demand) .. 1 (investing for fear of losing position); ai is the share of investment judged to go to AI (0..1). "
-                "Judgments are model evidence, not measurements. economy holds the US totals the firms are set against.",
+                "history holds each firm's fiscal years mostly in calendar 2015-2025 from the XBRL data of its 10-Ks on SEC EDGAR "
+                "(SpaceX: its 2026 prospectus; every value's concept and filing are in Tools/corporate/history.json, the filings' "
+                "folders in historyFilings), position is where the year sits on the time axis, and each year's judgments were "
+                "made on its numbers alone (judgedOn), the latest year's too, so they differ from the firm's own judgment above "
+                "only by what its words add. Judgments are model evidence, not measurements. economy holds the US totals the "
+                "firms are set against.",
         "built": datetime.date.today().isoformat(),
+        "historyCollected": history.get("collected"),
+        "historyGaps": history.get("gaps"),
         "model": next((r.get("model") for r in cache.values() if isinstance(r, dict) and r.get("model")), None),
         "tokens": tokens,
         "questions": QUESTIONS,
@@ -265,11 +335,25 @@ def main():
     }
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(out, fh, indent=1, ensure_ascii=False)
-    print(f"wrote {os.path.relpath(OUT, ROOT)}: {len(firms)} firms" + (f"; no judgment for {', '.join(missing)}" if missing else ""))
+    print(f"wrote {os.path.relpath(OUT, ROOT)}: {len(firms)} firms, {sum(len(r.get('history', [])) for r in firms)} firm-years" +
+          (f"; no judgment for {', '.join(missing)}" if missing else "") + (f"; {unjudged} history years unjudged" if unjudged else ""))
+    compare(firms)
     for r in firms:
         top = sorted((r.get("direction") or {}).items(), key=lambda kv: -kv[1])[:2]
         print(f"  {r['name']:<24} {' / '.join(f'{k} {v:.2f}' for k, v in top):<44} defensive {r.get('defensive', float('nan')):.2f}  ai {r.get('ai', float('nan')):.2f}"
               + (f"  stakes {r['stakes']} ({'; '.join(r.get('stakesFrom', []))[:60]})" if r.get("stakes") else ""))
+
+
+def compare(firms):
+    """The latest year judged with the firm's words (the crest) against its numbers alone (the trail's last year)."""
+    pairs = [(r, r["history"][-1]) for r in firms if r.get("history") and "defensive" in r and "defensive" in r["history"][-1]]
+    if not pairs:
+        return
+    agree = sum(1 for r, y in pairs if r["directionChoice"] == y["directionChoice"])
+    fear = sum(abs(r["defensive"] - y["defensive"]) for r, y in pairs) / len(pairs)
+    ai = sum(abs(r["ai"] - y["ai"]) for r, y in pairs) / len(pairs)
+    print(f"latest year, words vs numbers alone: same main direction for {agree} of {len(pairs)}; mean |fear difference| {fear:.2f}, "
+          f"mean |AI difference| {ai:.2f}")
 
 
 if __name__ == "__main__":

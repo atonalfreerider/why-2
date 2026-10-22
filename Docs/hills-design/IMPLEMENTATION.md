@@ -437,3 +437,53 @@ failure logs an error, so the smoke test fails on it) and in `HillValidation.New
 
 Needs a check in the headset: the focused views' label sizes and the steppers by pinch. The five new tour stops are not
 voiced yet.
+
+## Companies through the cycle - 2026-10-22
+
+The strategy view read one fiscal year, so neither the AI race since 2023 nor the cycle around it could be read. Each
+stored firm now carries its fiscal years 2015-2025 behind the crest, drawn along its own lifeline in the wake.
+
+**Data (`Tools/corporate/history.py` writes `Tools/corporate/history.json`).** From the XBRL data of each firm's 10-Ks
+on SEC EDGAR (the SEC's company facts): revenue, cost of revenue, R&D, SG&A, capex (with finance-leased assets for
+Microsoft, Alphabet, Amazon and Meta, as the crest counts them), buybacks, dividends, acquisitions and cash taxes, with
+net income and stock pay (a bank's noninterest expense in place of the lines it does not have). A fiscal year belongs to
+the calendar year holding most of its days (Microsoft's, NVIDIA's, Walmart's and Oracle's FY2026 are 2025); its
+`position` on the time axis is its midpoint less half a year. For each field the first concept of a list the firm
+reported is taken, some firms with lists of their own that match their researched record, from the latest 10-K
+reporting the period, so earlier years read as later filings restated them. A value a firm tagged only with its own extension concept (NVIDIA's
+capex to FY2021; Microsoft's, Alphabet's, Meta's, Amazon's and AMD's acquisitions) is read from that 10-K's XBRL
+instance. A 10-K without a buyback, dividend or acquisition line counts zero. SpaceX's 2023-2025 come from its IPO
+prospectus (recast to include xAI and X); its earlier years are not public, nor are Palantir's before 2018. Broadcom's
+first years come from its predecessor registrants. Every value keeps its concept and the accession of its filing: 264
+firm-years, 14 gaps named in the file. The latest year agrees with the crest's researched record within 5% on what the
+trail draws (investment, research, owners; JPMorgan's dividends include preferred dividends, 3% above the crest's).
+The SEC's archive refuses user agents without a contact, so the collector's names the reserved example.org domain: no
+personal address is sent.
+
+**Judgments.** `Tools/corporate/build.py` asks Jev the three existing questions (direction, defensive, AI) of every
+firm-year on its numbers alone (the state says no words are given), so the trail is judged one way throughout; the
+questions are unchanged and the crest's 25 cached answers stand. The latest year is judged both ways: with its own
+words (the crest) and on numbers alone (the trail's last year) Jev picks the same main direction for 15 of 25 firms,
+and the fear and AI shares differ by 0.19 and 0.17 on average. The words matter most for AI: SpaceX's prospectus says
+its capex went mainly to AI data centers, which its numbers cannot say. jev-1.14.0, 264 calls, cached.
+
+**Drawn (`HillStrategyLayer`, `StrategyPanel`, view `strategy`).** Each year lies on the firm's lifeline over its
+calendar year's stretch of z (`HillWaveLayer.CompanyAtYear`; past the point where a survivor's line reaches its tower,
+about a year and a half behind the crest, the tower's height carried on; the crest's year runs up to the crest): a lane
+as wide as the crest's forward lanes for the same dollars of investment and research, split into fear (ice) and desire
+(rose) by that year's judgment, the years one ribbon with small gaps between them, with a spine down its middle in the
+year's motive color (rose to ice by the fear share, as thick in pixels as the square root of its dollars) that reads
+from the view's distance where the lanes are too narrow to split; and a gold stalk as tall as the square root of the
+owners' payout at the fiscal year's midpoint within its stretch (Apple's 2025 stands a quarter year
+before the crest, Microsoft's at it). The other firms' trails are faint; the
+focused firm's years carry a white chevron for the main direction (as the crest's arrows, scaled by its probability),
+and its first year and every turn of direction are named. The panel lists the focused firm's years (investment and
+R&D, owners, fear, AI, way) and says when its own words change the latest year's reading; its three blocks stack by
+their measured heights. The crest's drawing is unchanged. The log's trail line: the 23 firms with both ends invested
+and researched $205B in 2015 and $920B in 2025 and paid their owners $174B and $545B; twelve turned (NVIDIA from
+climbing to harvesting, Microsoft and Oracle from harvesting to reaching down, Amazon from reaching down to climbing).
+
+**Checks.** `CorporatePrograms.Problems` also requires, of every firm's history: years in order within 2015-2025, each
+within half a year of its calendar year, every year judged (directions sum to one, fear and AI shares in 0..1), no
+negative line the trail draws, and a last year of 2025 whose investment, research and owners agree with the crest's
+filing within 5% (or $0.1B).

@@ -85,6 +85,8 @@ namespace Why.Economy.Layers
             if (view == "foundation") return part == Part.Block ? .8f : 1;
             if (view == "society" || view == "betrayal") return part == Part.Block ? .25f : .02f;
             if (PersonFocus.IsView(view)) return part == Part.Block || part == Part.Pillars ? .12f : .02f;
+            // the regimes view draws the foundation of the regime it shows; the US block (and its seats) steps back to a trace
+            if (view == "regimes") return part == Part.Block ? .05f : 0;
             // focused views: the bedrock stays as the ground; companies' lobbying meets the seats and the rule-making
             if (EconomyViews.Focused(view))
                 return view == "strategy" ? (part == Part.Block ? .3f : part == Part.Seats ? .6f : part == Part.Regulation ? .06f : .03f) : part == Part.Block ? .18f : .02f;

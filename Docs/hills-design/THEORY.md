@@ -33,6 +33,26 @@ from a higher tier than rises from a lower one (37% against 22% in the 2024 tabl
 of the top on the base, not a one-way flow. And the hill's height is conceptual: what is measured at the top is the
 price of claims on the future - the seven largest firms are about a third (32%) of the US market value in the data.
 
+**Other foundations (new, `regimes`).** The bedrock has a measured shape, and the same hills can stand on other ones.
+General government spends 37.6% of GDP in the United States (IMF, 2024; the federal block of the other views is its federal
+part), 49.2% in Sweden, 33.0% in China and 29.2% in Saudi Arabia; the Soviet state budget spent 47.6% of GDP in 1980. What a
+state lives on differs more than how much: income taxes and contributions carry the US (personal income taxes are 35% of
+its revenue) and Sweden (social contributions, with its payroll tax, 30%); China's taxes fall mostly on spending and wages
+(taxes on goods and services 28% of revenue, social contributions 25%, personal income tax 4%); Saudi Arabia's state lives on
+oil (60% of its 2024 revenue); the Soviet budget lived on the turnover tax (31%) and the profits of the enterprises it owned
+(30%). Ownership of the summits separates them most. Taking each industry's largest firm on the Fortune Global 500 2026 (for
+Sweden and Saudi Arabia, the largest of the firms compared in national sources): every US summit is private; in China the
+state controls the largest firm of 10 of the 14 industries the list covers - banking, finance, insurance, telecom, oil,
+coal, the power grid, construction, real estate and the post - while private firms lead hardware (Huawei), the internet
+(Tencent), manufacturing (Hengli) and retail (JD.com); Saudi Arabia's state controls oil, chemicals, telecom and power and
+holds 37% of the largest bank; Sweden's controls power (Vattenfall) and holds 41% of Telia, while private firms lead its
+other summits; in the Soviet Union every summit was the state's by law. The public sector holds 3% of the value of listed
+firms in the US, 5% in Sweden, 33% in China and 79% in Saudi Arabia (OECD 2025). The top 1%'s share of pre-tax income runs
+from 4% (Russia, 1980) to 21% (the US, 2023), and the electoral democracy index from 0.89 in Sweden and 0.74 in the US
+(2025, down from 0.84 in 2024) to 0.07 in China and 0.02 in Saudi Arabia (V-Dem). Each foundation is drawn under the US
+hills as a model change - what the same economy would look like standing on that state - not as a picture of those
+countries' industries.
+
 ## 3. The flows: cause and effect in money
 
 **Households.** Spending splits into desire and fear by what is bought (Jev's judgments of 119 purchase items, shrunk
@@ -76,8 +96,8 @@ influence among the influential.
 **The state's levers (new, `money`).** The price of money runs through every river of debt: 16.4% in 1981, under 0.5%
 from 2009 to 2016 (when what people own rose with it), 4.2% in 2025. The edge of trade: the effective tariff rate fell
 from 7.0% in 1947 to 1.4-1.7% in the 2010s and tripled in 2025 (2.6% → 8.0%; 2026's first half 8.8%, gross of the IEEPA
-refunds). A federal democracy with free trade is drawn by these settings, and another regime would be drawn by others
-(see section 6).
+refunds). A federal democracy with free trade is drawn by these settings, and other regimes by others (the `regimes`
+view, section 2).
 
 ## 4. Moving up or down the hill (new, `mobility`)
 
@@ -106,15 +126,16 @@ and the years to living on what they own computed, and their odds read off the d
 
 | Measured | Judged by Jev (model evidence, not measurement) | Assumed |
 | --- | --- | --- |
-| value added, the use table, national and personal accounts, OMB budgets, filings of 25 firms, US totals (BEA, Census, NSF, IAB, OpenSecrets, S&P), rates, tariffs, trade shares, the social graph's follows, published mobility matrices | how purchases and companies sell; regulation and capture; which way each firm's money moves it, how defensive its investment is, its AI share; people's identities and roles in the social graph | tier order and heights; class as altitude; drive weights and behavioral parameters of the lives; the 4% yield and three-year runway; a firm's supplier/worker split by its industry; the AI build-out's split by US totals |
+| value added, the use table, national and personal accounts, OMB budgets, filings of 25 firms, US totals (BEA, Census, NSF, IAB, OpenSecrets, S&P), rates, tariffs, trade shares, the social graph's follows, published mobility matrices; for the other regimes: general government spending and revenue (IMF), tax structures (OECD) and budget lines (Saudi MoF, the Soviet budget), the state's share of listed firms (OECD) and of named firms (filings, registers), trade (World Bank), the top 1%'s observed shares (WID), the electoral democracy index (V-Dem) | how purchases and companies sell; regulation and capture, for the US and for each other regime; which way each firm's money moves it, how defensive its investment is, its AI share; people's identities and roles in the social graph | tier order and heights; class as altitude; drive weights and behavioral parameters of the lives; the 4% yield and three-year runway; a firm's supplier/worker split by its industry; the AI build-out's split by US totals; another regime's foundation under the US hills, a summit as its industry's largest named firm, and the state's share of spending drawn through every river alike |
 
 ## 6. Where the model should go next
 
-1. **Other governments as model changes.** The bedrock should change shape with the regime: a switch among foundations
-   with measured structure - government share of output (IMF), the state-owned share of the largest firms, the tax mix,
-   trade openness, the top 1%'s wealth share (WID), the electoral-democracy index (V-Dem) - for a Nordic social democracy,
-   China's state capitalism, a Gulf petro-monarchy, and the Soviet plan (historical). Under state capitalism the state does
-   not only lie beneath the hills; it owns summits. The civilization layer already carries 40 states' fiscal series.
+1. **Other governments as model changes** (first version done: the `regimes` view, section 2). Next: each regime on its
+   own hills (its industries' value added) rather than the US's; regimes through time, so a foundation moves along the wave
+   (the Soviet budget into the 1990s, China's state share since 2000, Sweden since its 1990s crisis); per-industry state
+   shares of sales from the OECD Global SOE Dataset in place of the largest-named-firm rule; and more foundations (a
+   developmental state such as South Korea, a European social market economy such as Germany). The civilization layer
+   already carries 40 states' fiscal series.
 2. **Height from capitalization.** Measure the hill's height as the market value of each industry's claims per dollar of
    value added (S&P sector weights since 1990, Fed Z.1 equities), so "the top of the hill" is a number.
 3. **Companies through time.** The 25 firms' filings for 2015-2025 would show the defensive share and direction moving

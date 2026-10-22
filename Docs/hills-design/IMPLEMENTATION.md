@@ -559,3 +559,82 @@ when a year's land is published the hills layers rebuild their meshes and labels
 manual year step, so each year costs one long frame (83-85 frames over 0.25 s per run, the longest 0.9-1.4 s). Building those meshes on a worker, or
 only for the layers the view shows, is the next step for a smoother replay. Needs a check in the headset: the replay button
 in the hand menu and the readout's place on the HUD plane.
+
+## Other governments as model changes - 2026-10-22
+
+The user's direction: the government is the base layer; the United States is a federal democracy with free trade; other
+governments would be drawn differently by their structure, and the government layer has an influence on the market layer
+(THEORY.md section 6, item 1). A keyless, focused view, `regimes` ("Other foundations"), stands the same hills - the US
+industries as BEA measures them, the same people and money - on another state's foundation, drawn from that state's
+measured structure. Only the foundation and its reach change, so the view reads as a model change, not a picture of another
+country's industries. The US drawing of every other view is unchanged, and the causality scene is untouched.
+
+**Data (`Tools/regimes/build.py`, `Data/economy/regimes.json`).** Five regimes: the United States (the baseline), Sweden (a
+Nordic social democracy), China (state capitalism under one party), Saudi Arabia (a Gulf petro-monarchy) and the Soviet
+Union around 1980 (the plan, historical). The build fetches what has an API - general government expenditure and revenue
+(IMF Fiscal Monitor, October 2026, 2024), trade over GDP (World Bank WDI, 2024), the electoral democracy index (V-Dem v16
+via Our World in Data, 2025, with 2024 beside it) - and merges the research read by hand in `Tools/regimes/sources.json`,
+each value with its URL and the text it was read from:
+- *The top 1%* (WID bulk download of 2026-10-15): each case at its latest year WID grades as observed (income grade 3+,
+  wealth 1+). That rule moves several years back (Swedish wealth 2012, Chinese income and wealth 2015, Saudi income 2011)
+  and leaves Saudi and Soviet wealth unmeasured: WID's model imputations for them are kept as `modelled` for the panel and
+  never drawn. The Soviet values are WID's Russian series (Novokmet, Piketty & Zucman), since WID has no USSR shares.
+- *State ownership*: the public sector's share of listed companies' market value (OECD Corporate Governance Factbook 2025,
+  Table 1.2, end-2024: US 3%, Sweden 5%, China 33%, Saudi Arabia 79%) and the Fortune Global 500 2026 tally (China: 79 of
+  116 mainland firms state-controlled, by a published count); the summits (below); the state's other holdings with owner,
+  share and source, for the panel; the Soviet Union's by law (the 1977 Constitution, articles 10-11).
+- *Summits*: each industry's summit is the country's largest firm in it on the Fortune Global 500 2026, by the list's own
+  revenues (the build reads the list's data and each leader's profile; `sources.json` maps Fortune's industries to the
+  scene's and moves a few firms by name), steel when Fortune's profile says "Government owned 50% or more". Sweden and
+  Saudi Arabia have one firm each on the list, so for their other industries the research compared the national firms'
+  revenues from their reports (one currency per country) and the build takes the largest; an industry that cannot be
+  ranked honestly (Ma'aden's state stake unconfirmed; Swedish gambling reported in euros) has no summit firm. In China the
+  state controls 10 of the 14 leaders; every US leader is private.
+- *The Soviet Union* (the state budget and its revenue lines from *Narodnoe khozyaistvo SSSR v 1980 g.*, pp. 522-523,
+  over the GDP of Sinelnikov & Reznikov's 1995 CASE table, which prints the same 47.6% and 48.9%): official revenue counted
+  State Bank credit, so it exceeds spending (the CIA's ordinary revenue gives a deficit; noted, not drawn). Trade has no
+  single defensible share (the CIA's 1978 shares differ twofold between domestic-ruble and dollar valuations), so it is
+  null with the note. V-Dem's "Russia" unit is the USSR from 1918 to 1991 (its country-unit documentation).
+- *What the state lives on* (`revenueMix`): shares of revenue by source. OECD tax structures (shares of tax revenue) are
+  scaled by tax revenue over total revenue in code (OECD tax-to-GDP over IMF revenue of the same year, the remainder other
+  revenue); Saudi Arabia's and the Soviet budgets use their own categories (oil revenue; turnover tax and payments from
+  state enterprises' profits).
+- *Regulation and capture per regime* (Jev, `jev-1.14.0`, 92 requests, 74,547 tokens): the government file's two Scores
+  re-asked for each industry of each regime ("how heavily did the state's rules constrain ...", "how much did the industry
+  shape the rules ... through lobbying, campaign money, party, ministry or family connections ..."). The US keeps the
+  government file's own judgments, so its strands are the foundation view's. Model judgments, not measurement: the
+  Soviet plan comes out near 0.99 regulation with little capture, Sweden's capture lowest of the market economies.
+
+**Drawing (`HillRegimeLayer`, `RegimePanel`).** The regime's bedrock lies under the crest (one year's numbers, so it runs
+back only 22 units), as deep as its spending on the federal block's scale (20% of GDP is 14 units), in strata of what it
+lives on, a white line at its revenue, the borrowed gap beneath, and a dashed line at the United States' depth for
+comparison. Each summit carries a ring facing the view: steel where the state controls the industry's largest firm, a steel
+arc as long as a minority stake (Telia 41%, the Saudi National Bank 37%), gold where the leader is private, faint where no
+firm decides it (the regime's default: private, or the state's by law in the Soviet Union); steel beams rise from the bedrock
+into what the state owns.
+Grey strands run up into each hill as strongly as the state's rules bind it and gold back down as strongly as the industry
+shapes them (Jev). Every river from the valley to a market splits: a steel lane as wide as the state's share of all
+spending dives through the bedrock, the rest runs straight (the same share in every river: the drawing's choice). What the
+state lives on falls in from where it comes: income taxes and contributions from the people, taxes on spending from the
+markets, profit taxes from the private summits, state enterprises' profits from the steel ones, property taxes from homes,
+oil and resource revenue up out of the ground under the raw hills. White threads run from the people into the state as
+wide as the electoral democracy index; trade crosses the far border as wide as exports plus imports over GDP; the top 1%'s
+gold ring (wealth) and white ring (income) float above the hills, their areas the shares. The panel (buttons, so it works by
+pinch in the headset) picks a regime or steps through them (9 s each, from the baseline, so the tour's narration can follow),
+and lists what is measured (each with its year), what Jev judged and what the drawing chooses. Every other layer steps back
+(`EconomyViews.Focused`); the capture layer's halos and the US block give way to the regime's own.
+
+**Tour.** A stop "Other foundations" (`hills_regimes`) follows "The price of money"; the view steps through the regimes from
+the baseline while it is on screen. Its narration passed `Tools/check-narration.py` (contradiction 0.09, unsupported 0.28,
+faithful 0.71) and is not voiced yet.
+
+**Checks.** `Regimes.Problems` runs when the view first loads (a failure logs an error, so the smoke test fails on it) and
+in `HillValidation.NewModels`: five regimes with spending and revenue, shares in range, revenue mixes summing to one, every
+named firm on a production hill, one leading firm per industry, and the US baseline with the foundation's own judgments.
+`ViewVariants` lets a view register states of its own; the smoke test captures each (`<scene>-view-regimes-<id>.png`)
+after the view itself. The replay leaves the view alone: its layer builds only while the view is on screen and rebuilds
+with each year's land; its panel stands top right, clear of the replay's caption at the bottom.
+
+**Measured** (Linux player in the mirror, 1920x1080, 2026-10-22): the full smoke test with `-smokereplay` - both scenes,
+every view and the five regimes' frames, both tours (the new stop is the economy tour's fifth), the replay in 94.9 s -
+finished with 0 errors. Needs a check in the headset: the panel's buttons by pinch and the view's label sizes on the HUD.

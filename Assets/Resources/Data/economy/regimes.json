@@ -1,0 +1,2465 @@
+{
+ "note": "Other governments as model changes of the economy scene (the 'regimes' view): the same US hills on another state's foundation, drawn from the state's measured structure. Every measure carries its year, source and URL; null where no defensible source was found. Built by Tools/regimes/build.py from Tools/regimes/sources.json (research read by hand, with quotes) and the IMF, World Bank, OECD and V-Dem series fetched through their APIs. The industries' regulation and capture are Jev judgments (model evidence, not measurement).",
+ "built": "2026-10-22",
+ "parts": [
+  "personal",
+  "corporate",
+  "social",
+  "goods",
+  "property",
+  "resources",
+  "enterprises",
+  "other"
+ ],
+ "partNames": {
+  "personal": "personal income taxes",
+  "corporate": "taxes on profits",
+  "social": "social contributions",
+  "goods": "taxes on goods & services",
+  "property": "property taxes",
+  "resources": "oil & resource revenue",
+  "enterprises": "profits of state enterprises",
+  "other": "other revenue"
+ },
+ "regimes": [
+  {
+   "id": "us",
+   "name": "United States",
+   "short": "US",
+   "form": "federal democracy, free trade",
+   "country": "the United States",
+   "era": "2024",
+   "year": 2024,
+   "baseline": true,
+   "spending": {
+    "value": 0.3761,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/USA"
+   },
+   "revenue": {
+    "value": 0.2979,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/USA"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.3465,
+     "corporate": 0.0753,
+     "social": 0.2014,
+     "goods": 0.1385,
+     "property": 0.0982,
+     "resources": 0.0,
+     "enterprises": 0.0,
+     "other": 0.1402
+    },
+    "year": 2024,
+    "basis": "oecd",
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics 2025; 2024 provisional (fetched by build.py)",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/USA.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv",
+    "inputs": {
+     "oecdCells": {
+      "T_3000": 5.15798,
+      "_T": 7481.44975,
+      "T_6000": 0.0,
+      "T_1300": 0.0,
+      "T_4000": 854.61657,
+      "T_1100": 3014.6418,
+      "T_1200": 654.8973,
+      "T_2000": 1747.11344,
+      "T_5000": 1205.02267
+     },
+     "taxGdp": 0.25618,
+     "imfRevenueGdp": 0.29795,
+     "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/USA.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv"
+    },
+    "computed": [
+     "taxes are 86.0% of revenue (25.6% of GDP, OECD, over revenue 29.8% of GDP, IMF, 2024); the rest is other revenue"
+    ],
+    "note": "No value-added tax: taxes on goods and services are state and local sales taxes, excises, customs and taxes on the use of goods. The OECD country note: 'the tax-to-GDP ratio in the United States did not change between 2023 and 2024, remaining at 25.6%' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/12/revenue-statistics-2025-country-notes_3708be73/united-states_f45a114c/efcc8c03-en.pdf)."
+   },
+   "trade": {
+    "value": 0.2502,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=US"
+   },
+   "democracy": {
+    "value": 0.735,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~USA",
+    "previous": {
+     "year": 2024,
+     "value": 0.843
+    }
+   },
+   "top1Wealth": {
+    "value": 0.3489,
+    "year": 2022,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_US.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "US;shwealj992;p99p100;2022;0.3489;992;j;4",
+    "note": "Latest observed year: WID's 2023-2024 value (34.78%) is graded 0, modelled rather than measured, so it is not drawn.",
+    "modelled": {
+     "value": 0.3478,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.2073,
+    "year": 2023,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_US.csv; data-quality grade 5 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "US;sptincj992;p99p100;2023;0.2073;992;j;5",
+    "note": "Latest observed year (WID shows the same 20.73% for 2022-2024). Sources in WID's metadata: Piketty, Saez & Zucman (2018) distributional national accounts and their updates."
+   },
+   "stateFirms": {
+    "value": 0.03,
+    "year": 2024,
+    "definition": "the public sector's share of the market value of listed companies (governments, state-owned enterprises, sovereign wealth funds and public pension funds), end of 2024",
+    "source": "OECD (2025), OECD Corporate Governance Factbook 2025, Table 1.2 'Ownership structure of listed companies, 2024', column PS (Public Sector, % of market capitalisation)",
+    "url": "https://doi.org/10.1787/f4f43735-en",
+    "quote": "United States | 62 869 282 | 4 440 | IIs 69 | PS 3 | SI 5 | PC 3 | OFF 20 | 17%"
+   },
+   "fortune": {
+    "value": 0.0213,
+    "count": "3 of 141",
+    "year": 2026,
+    "source": "Fortune Global 500 2026 list data and company profiles; Fortune press release 2026-07-28",
+    "url": "https://fortune.com/ranking/global500/2026/",
+    "quote": "Press release: \"The U.S. presence on the Fortune Global 500 reached its highest level since 2008, with 141 companies\". USPS profile footnote: \"Government owned 50% or more. Figures are for fiscal year ended Sept. 30, 2025.\" Fannie Mae profile footnote: \"Company's senior preferred stock is owned by the U.S. Treasury, which also holds a warrant to purchase 79.9% of the common stock.\"",
+    "note": "stateControlled = 3: U.S. Postal Service (#163, the only U.S. entry Fortune flags), Fannie Mae (#47) and Freddie Mac (#71), both under FHFA conservatorship since 2008 (not flagged by Fortune). Intel (#289; U.S. government 8.4%) is not counted. With Fortune's flag only: 1 of 141. Press release: https://kyodonewsprwire.jp/release/202607283263"
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": [
+     {
+      "name": "JPMorgan Chase",
+      "industry": "banking",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 280345.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 19,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/jpmorgan-chase/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Bank of America $191.6B; Citigroup $168.3B"
+     },
+     {
+      "name": "D.R. Horton",
+      "industry": "construction",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 34250.4,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 482,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/d-r-horton/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Lennar Corporation $34.2B"
+     },
+     {
+      "name": "StoneX Group",
+      "industry": "finance",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 132378.2,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 69,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/stonex-group/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: American Express $80.5B; Galaxy Digital $61.4B"
+     },
+     {
+      "name": "Apple",
+      "industry": "hardware",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 416161.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 6,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/apple/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Nvidia $215.9B; Dell Technologies $113.5B"
+     },
+     {
+      "name": "CVS Health",
+      "industry": "health",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 402067.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 9,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/cvs-health/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Cigna Group $274.9B; HCA Healthcare $75.6B"
+     },
+     {
+      "name": "Starbucks",
+      "industry": "hospitality",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 37184.4,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 446,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/starbucks/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "the country's only firm of this industry on the list"
+     },
+     {
+      "name": "UnitedHealth Group",
+      "industry": "insurance",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 447567.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 4,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/unitedhealth-group/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Berkshire Hathaway $371.4B; Elevance Health $199.1B"
+     },
+     {
+      "name": "Alphabet",
+      "industry": "internet",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 402836.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 8,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/alphabet/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Meta Platforms $201.0B; Uber Technologies $52.0B"
+     },
+     {
+      "name": "Ford Motor",
+      "industry": "manufacturing",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 187267.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 38,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/ford-motor/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: General Motors $185.0B; Tesla $94.8B"
+     },
+     {
+      "name": "Verizon Communications",
+      "industry": "media_telecom",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 138191.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 60,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/verizon/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: AT&T $125.6B; Comcast $123.7B"
+     },
+     {
+      "name": "Exxon Mobil Holdings",
+      "industry": "oil_gas",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 332238.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 15,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/exxon-mobil/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Chevron $189.0B; Phillips 66 $136.6B"
+     },
+     {
+      "name": "CBRE Group",
+      "industry": "real_estate",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 40550.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 400,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/cbre-group/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "the country's only firm of this industry on the list"
+     },
+     {
+      "name": "Microsoft",
+      "industry": "software",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 281724.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 18,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/microsoft/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: International Business Machines $67.5B; Oracle $57.4B"
+     },
+     {
+      "name": "Amazon",
+      "industry": "trade",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 716924.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 1,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/amazon-com/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Walmart $713.2B; McKesson $403.4B"
+     },
+     {
+      "name": "UPS",
+      "industry": "transport",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 88661.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 133,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/ups/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: FedEx $87.9B; Energy Transfer $85.5B"
+     },
+     {
+      "name": "Fannie Mae",
+      "industry": "banking",
+      "stateShare": 0.799,
+      "controlled": true,
+      "holder": "U.S. Treasury: all senior preferred stock (Series 2008-2) plus a warrant for 79.9% of common stock at $0.00001/share (unexercised); FHFA conservator",
+      "asOf": "2026-06-30",
+      "url": "https://www.sec.gov/Archives/edgar/data/310522/000031052226000064/fnm-20260630.htm",
+      "quote": "\"We have been in conservatorship since 2008. The Federal Housing Finance Agency (“FHFA”) is our conservator.\" ... \"a warrant to purchase shares equal to 79.9% of our common stock, on a fully diluted basis, for a nominal price of $0.00001 per share.\"",
+      "note": "Q2 2026 10-Q. stateShare is the unexercised warrant entitlement. Mapped to banking (credit intermediation, NAICS 522). Banking leader: JPMorgan Chase ($280,345M) > Fannie Mae ($159,169M).",
+      "leads": false
+     },
+     {
+      "name": "Freddie Mac",
+      "industry": "banking",
+      "stateShare": 0.799,
+      "controlled": true,
+      "holder": "U.S. Treasury: senior preferred stock plus a warrant for 79.9% of common stock at a nominal price (unexercised); FHFA conservator",
+      "asOf": "2026-06-30",
+      "url": "https://www.sec.gov/Archives/edgar/data/1026214/000102621426000021/fmcc-20251231.htm",
+      "quote": "\"we issued to Treasury one million shares of Variable Liquidation Preference Senior Preferred Stock with an initial liquidation preference of $1 billion and a warrant to purchase, for a nominal price, shares of our common stock equal to 79.9% of the total number of shares outstanding.\" (2025 10-K); \"Since September 2008, we have been operating in conservatorship, with FHFA as our Conservator.\" (Q2 2026 10-Q)",
+      "note": "Q2 2026 10-Q: https://www.sec.gov/Archives/edgar/data/1026214/000102621426000046/fmcc-20260630.htm. Mapped to banking (NAICS 522).",
+      "leads": false
+     },
+     {
+      "name": "U.S. Postal Service",
+      "industry": "transport",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Federal government (USPS is an establishment of the executive branch; no share capital)",
+      "asOf": "current law (39 U.S.C. § 201)",
+      "url": "https://www.law.cornell.edu/uscode/text/39/201",
+      "quote": "\"There is established, as an independent establishment of the executive branch of the Government of the United States, the United States Postal Service.\"",
+      "note": "Fortune profile footnote 'Government owned 50% or more.' Transport leader: UPS ($88,661M) > USPS ($80,581M).",
+      "leads": false
+     },
+     {
+      "name": "Amtrak",
+      "industry": "transport",
+      "stateShare": 0.9915,
+      "controlled": true,
+      "holder": "Federal Government via the Secretary of Transportation: all 109,396,994 preferred shares ($10,940m par); 9,385,694 common shares ($94m par) held by others",
+      "asOf": "2025-09-30",
+      "url": "https://www.amtrak.com/content/dam/projects/dotcom/english/public/documents/corporate/financial/Amtrak-Audited-Consolidated-Financial-Statements-FY2025.pdf",
+      "quote": "\"The United States government (the Federal Government) through the Secretary of the United States Department of Transportation (the DOT) owns all issued and outstanding preferred stock.\"",
+      "note": "stateShare = federal share of par value of issued stock, 10,940/(10,940+94); the preferred has had no voting rights since 1997. 8 of 10 directors are appointed by the U.S. President (49 U.S.C. 24302).",
+      "leads": false
+     },
+     {
+      "name": "Tennessee Valley Authority",
+      "industry": "utilities",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Federal government: wholly-owned corporate agency of the U.S.",
+      "asOf": "2026-06-30",
+      "url": "https://www.sec.gov/Archives/edgar/data/1376986/000137698626000036/tve-20260630.htm",
+      "quote": "\"because TVA is a wholly-owned corporate agency and instrumentality of the U.S. government, TVA's ratings may be impacted if the sovereign credit ratings of the U.S. are downgraded.\"",
+      "note": "Utilities leader: Duke Energy ($31,794M) > TVA ($13,672M).",
+      "leads": false
+     },
+     {
+      "name": "Intel",
+      "industry": "hardware",
+      "stateShare": 0.084,
+      "controlled": false,
+      "holder": "U.S. government (Department of Commerce): 433,323,000 shares, 8.4%, assuming release of 149,438,785 escrowed shares; warrants exercisable only if Intel's foundry stake falls below 51% not included",
+      "asOf": "2026-03-20",
+      "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000061/proxy2026.htm",
+      "quote": "\"U.S. government ... 433,323,000 ... 8.4 %\"; \"Shareholding is in the name of the United States Department of Commerce and assumes full release of 149,438,785 shares held in escrow\"",
+      "note": "2026 proxy. Hardware leader: Apple ($416,161M).",
+      "leads": false
+     },
+     {
+      "name": "MP Materials",
+      "industry": "mining_metals",
+      "stateShare": 0.15,
+      "controlled": false,
+      "holder": "U.S. Department of Defense / Department of War: Series A convertible preferred ($400m, convertible into 13,320,013 shares) plus warrant for up to 11,201,659 shares, both at $30.03; unconverted at 2026-06-30",
+      "asOf": "2025-07-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1801368/000119312525157310/d43796dex991.htm",
+      "quote": "\"On an as-converted and as-exercised basis, the convertible preferred stock and the warrant represent, in the aggregate, 15% of the Company's issued and outstanding shares of common stock as of July 9, 2025, without giving effect to the issuance of such shares.\"",
+      "note": "Q2 2026 10-Q: no warrant exercise; 178,051,276 common shares outstanding. Mining_metals leader: Nucor ($32,494M).",
+      "leads": false
+     }
+    ]
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.536,
+     "capture": 0.7275
+    },
+    "oil_gas": {
+     "regulation": 0.66,
+     "capture": 0.785
+    },
+    "mining_metals": {
+     "regulation": 0.628,
+     "capture": 0.6375
+    },
+    "utilities": {
+     "regulation": 0.798,
+     "capture": 0.83
+    },
+    "construction": {
+     "regulation": 0.6,
+     "capture": 0.68
+    },
+    "manufacturing": {
+     "regulation": 0.572,
+     "capture": 0.6525
+    },
+    "transport": {
+     "regulation": 0.658,
+     "capture": 0.725
+    },
+    "trade": {
+     "regulation": 0.362,
+     "capture": 0.5525
+    },
+    "banking": {
+     "regulation": 0.8,
+     "capture": 0.8125
+    },
+    "finance": {
+     "regulation": 0.794,
+     "capture": 0.77
+    },
+    "insurance": {
+     "regulation": 0.794,
+     "capture": 0.785
+    },
+    "real_estate": {
+     "regulation": 0.48,
+     "capture": 0.775
+    },
+    "health": {
+     "regulation": 0.746,
+     "capture": 0.815
+    },
+    "legal": {
+     "regulation": 0.676,
+     "capture": 0.88
+    },
+    "professional": {
+     "regulation": 0.352,
+     "capture": 0.6125
+    },
+    "education": {
+     "regulation": 0.59,
+     "capture": 0.55
+    },
+    "entertainment": {
+     "regulation": 0.566,
+     "capture": 0.575
+    },
+    "hospitality": {
+     "regulation": 0.6,
+     "capture": 0.4875
+    },
+    "other_services": {
+     "regulation": 0.554,
+     "capture": 0.4125
+    },
+    "hardware": {
+     "regulation": 0.502,
+     "capture": 0.725
+    },
+    "software": {
+     "regulation": 0.18,
+     "capture": 0.685
+    },
+    "internet": {
+     "regulation": 0.228,
+     "capture": 0.735
+    },
+    "media_telecom": {
+     "regulation": 0.732,
+     "capture": 0.78
+    }
+   },
+   "industriesJudged": "Jev, the government file's own judgments for US industries (Tools/government/build.py)",
+   "notes": null
+  },
+  {
+   "id": "se",
+   "name": "Sweden",
+   "short": "SE",
+   "form": "Nordic social democracy",
+   "country": "Sweden",
+   "era": "2024",
+   "year": 2024,
+   "spending": {
+    "value": 0.4918,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/SWE"
+   },
+   "revenue": {
+    "value": 0.4765,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/SWE"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.2369,
+     "corporate": 0.0809,
+     "social": 0.2991,
+     "goods": 0.2346,
+     "property": 0.0173,
+     "resources": 0.0,
+     "enterprises": 0.0,
+     "other": 0.1312
+    },
+    "year": 2024,
+    "basis": "oecd",
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics 2025; 2024 provisional (fetched by build.py)",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/SWE.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv",
+    "inputs": {
+     "oecdCells": {
+      "_T": 2643.673225,
+      "T_2000": 571.404636,
+      "T_1100": 720.038447,
+      "T_5000": 713.241259,
+      "T_3000": 337.930241,
+      "T_1300": 0.0,
+      "T_4000": 52.573878,
+      "T_6000": 2.465215,
+      "T_1200": 246.019549
+     },
+     "taxGdp": 0.41438,
+     "imfRevenueGdp": 0.47651,
+     "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/SWE.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv"
+    },
+    "computed": [
+     "taxes are 87.0% of revenue (41.4% of GDP, OECD, over revenue 47.7% of GDP, IMF, 2024); the rest is other revenue"
+    ],
+    "note": "Social contributions include Sweden's payroll tax (OECD 3000, 12.8% of tax revenue); VAT is 21.0% of tax revenue. The OECD country note: 'the tax-to-GDP ratio in Sweden decreased by 0.3 percentage points from 41.7% in 2023 to 41.4% in 2024' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/12/revenue-statistics-2025-country-notes_3708be73/sweden_667345ac/54f20d9b-en.pdf)."
+   },
+   "trade": {
+    "value": 1.0597,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=SE"
+   },
+   "democracy": {
+    "value": 0.889,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~SWE",
+    "previous": {
+     "year": 2024,
+     "value": 0.881
+    }
+   },
+   "top1Wealth": {
+    "value": 0.2661,
+    "year": 2012,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SE.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SE;shwealj992;p99p100;2012;0.2661;992;j;4",
+    "note": "Latest observed year: WID models Swedish wealth for every year since 2013 (27.5% in 2024, grade 0), after the wealth-tax registers ended; the modelled values are not drawn.",
+    "modelled": {
+     "value": 0.2749,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.0951,
+    "year": 2023,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SE.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SE;sptincj992;p99p100;2023;0.0951;992;j;3",
+    "note": "Latest observed year (WID's 2024 value is the same number carried forward, grade 1; its method note calls 2020-2023 a distribution extrapolated with survey data)."
+   },
+   "stateFirms": {
+    "value": 0.05,
+    "year": 2024,
+    "definition": "the public sector's share of the market value of listed companies (governments, state-owned enterprises, sovereign wealth funds and public pension funds), end of 2024",
+    "source": "OECD (2025), OECD Corporate Governance Factbook 2025, Table 1.2 'Ownership structure of listed companies, 2024', column PS (Public Sector, % of market capitalisation)",
+    "url": "https://doi.org/10.1787/f4f43735-en",
+    "quote": "Sweden | 964 173 | 774 | IIs 38 | PS 5 | SI 13 | PC 13 | OFF 31 | 27%"
+   },
+   "fortune": {
+    "value": 0.0,
+    "count": "0 of 1",
+    "year": 2026,
+    "source": "Fortune Global 500 2026 list data",
+    "url": "https://fortune.com/ranking/global500/2026/",
+    "quote": "Only Swedish entry: #322 Volvo Group, Gothenburg, Motor Vehicles & Parts, revenues $48,827.5M; no government-ownership footnote.",
+    "note": "No Swedish state-owned enterprise reaches the list; the #500 entry (PayPal Holdings) has revenues of $33,172M."
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": [
+     {
+      "name": "Volvo Group",
+      "industry": "manufacturing",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 48827.5,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 322,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/volvo/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "the country's only firm of this industry on the list"
+     },
+     {
+      "name": "Lantmännen",
+      "industry": "agriculture",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": "a cooperative of 17,000 Swedish farmers",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 59931000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales, continuing operations",
+       "url": "https://www.lantmannen.com/contentassets/25397687a4fe4a4ca14b2b16e036aa7c/lm-t3-2025-en.pdf",
+       "quote": "Net sales amounted to MSEK 59,931 (58,273), an increase of"
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Södra 28.3bn SEK; Holmen 22.1bn SEK; SCA (Svenska Cellulosa AB) 20.4bn SEK; By revenue the farmers' cooperative Lantmännen leads; by land Sveaskog, the state's forest company, is Sweden's largest forest owner.; Farmers' cooperative. Press release: \"Lantmännen is owned by 17,000 Swedish farmers with operations throughout the value chain from field to fork.\" Largest by revenue, but the revenue comes mostly from food manufacturing, agricultural trade and energy, not from farming itself."
+     },
+     {
+      "name": "SEB",
+      "industry": "banking",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 76939000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "total operating income",
+       "url": "https://sebgroup.com/press/press-releases/2026/sebs-annual-accounts-and-results-for-the-fourth-quarter-2025",
+       "quote": "SEK m | Q4 2025 | Q3 2025 | % | Q4 2024 | % | Jan-Dec 2025 | 2024 | % -- Total operating income 18 894 18 664 1 19 985 -5 76 939 81 887 -6"
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Swedbank AB 68.7bn SEK; Handelsbanken 56.8bn SEK; SBAB 5.2bn SEK; Nordea is domiciled in Finland and left out.; Not state-owned."
+     },
+     {
+      "name": "Telia",
+      "industry": "media_telecom",
+      "leads": true,
+      "controlled": false,
+      "stateShare": 0.4106,
+      "holder": "Swedish state 41.06% of capital and votes (one share class)",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 80982000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales",
+       "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+       "quote": "Telia Company AB ... Nyckeltal, mnkr 2025 2024 2023 2022 2021 -- Nettoomsättning 80 982 89 127 88 561 85 343 88 343"
+      },
+      "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+      "quote": "Telia Company AB ... Ägarandel 41,1 %",
+      "note": "next: Tele2 AB 29.9bn SEK; Company release (https://www.inderes.se/en/releases/telia-company-year-end-report-january-december-2025): 'Revenue amounted to SEK 81.0 billion (81.0) and increased 1.8% like for like.' (2024 restated; the government table's 89,127 for 2024 is the earlier basis). State is largest shareholder but a minority (41.1%), not majority.",
+      "ownershipUrl": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf"
+     },
+     {
+      "name": "SSAB",
+      "industry": "mining_metals",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 96220000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "revenue",
+       "url": "https://mb.cision.com/Main/980/4298709/3902107.pdf",
+       "quote": "Revenue for the full-year 2025 was SEK 96,220 (103,418) million, down 7% compared to the full-year 2024."
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Boliden 93.5bn SEK; LKAB 33.3bn SEK; SSAB makes steel (primary metals); among miners alone Boliden leads. LKAB's 100% is from the government's ownership report as listed by the ownership research.; Steelmaker (metals production), not a miner. Not in the state holdings list."
+     },
+     {
+      "name": "Balder",
+      "industry": "real_estate",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 13721000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "rental income",
+       "url": "https://news.cision.com/fastighets-ab-balder/r/fastighets-ab-balder-s--publ--year-end-report-january-december-2025,c4303471",
+       "quote": "Rental income amounted to SEK 13,721m (12,876)."
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: Castellum 9.6bn SEK; Vasakronan 9.5bn SEK; Akademiska Hus 7.9bn SEK; Company-reported rental income only; Heimstaden (about SEK 15.9bn on a data site) would lead and is private. Vasakronan belongs to the state's pension funds, counted here as not the state's own holding.; Same source: \"The head office is located in Gothenburg.\""
+     },
+     {
+      "name": "H&M",
+      "industry": "trade",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": null,
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 228285000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales, financial year 1 Dec 2024 - 30 Nov 2025",
+       "url": "https://hmgroup.com/news/h-m-hennes-mauritz-ab-full-year-report-2025/",
+       "quote": "Converted into SEK, the H&M group’s net sales amounted to SEK 228,285 m (234,478)."
+      },
+      "url": null,
+      "quote": null,
+      "note": "next: ICA Gruppen AB 142.4bn SEK; Axfood AB 89.2bn SEK; Systembolaget 39.0bn SEK; Not state-owned (Persson family control; not quoted here)."
+     },
+     {
+      "name": "SAS",
+      "industry": "transport",
+      "leads": true,
+      "controlled": false,
+      "stateShare": null,
+      "holder": "Castlelake 32.0%, the Danish state 26.4%, Air France-KLM 19.9%: not the Swedish state",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 49106000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "revenue, fiscal year 1 Nov 2024 - 31 Oct 2025",
+       "url": "https://www.sasgroup.net/files/documents/financial-reports/2025/sas-ab-annual-report-fy25.pdf",
+       "quote": "Summary of fiscal year 2025 • Revenue for the year: MSEK 49,106 (45,883)"
+      },
+      "url": "https://www.sasgroup.net/files/documents/financial-reports/2025/sas-ab-annual-report-fy25.pdf",
+      "quote": "the new ownership of the company consisting of the investors Castlelake (32.0%), the Danish state (26.4%), Air France-KLM (19.9%), Lind Invest (8.6%) and others (13.1%).",
+      "note": "next: PostNord 36.2bn SEK; SJ 14.5bn SEK; Stena AB reported about SEK 52bn in one trade article (scope unclear) and is private; it would not change the summit's color.; Swedish-headquartered: 'SAS AB is registered in Stockholm and the address of its head office is Frösundaviks allé 1, Solna, Stockholm, Sweden' (same report). The Swedish state is not among the named owners (Danish state holds 26.4%). Same report: 'In July, Air France-KLM announced that it would initiate proceedings to take a majority stake in SAS.' Search snippets (not primary) say AF-KLM would go from 19.9% to 60.5%, closing targeted H2 2026 subject to approvals; completion status as of Oct 2026 NOT verified."
+     },
+     {
+      "name": "Vattenfall",
+      "industry": "utilities",
+      "leads": true,
+      "controlled": true,
+      "stateShare": 1.0,
+      "holder": "Swedish state 100%",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 234915000000,
+       "currency": "SEK",
+       "year": 2025,
+       "basis": "net sales (group)",
+       "url": "https://group.vattenfall.com/siteassets/corporate/investors/interim_reports/2025/q4-report-2025.pdf",
+       "quote": "KEY DATA ... Amounts in SEK million ... Full year 2025 | Full year 2024 | Oct-Dec 2025 | Oct-Dec 2024 -- Net sales 234 915 245 570 67 134 68 488"
+      },
+      "url": "https://regeringen.se/contentassets/15cc81b6237b4aa49578a845b7e3dc94/arlig-information-om-bolag-med-statligt-agande-2025.pdf",
+      "quote": "Vattenfall AB ... Ägarandel 100 %",
+      "note": "the only firm compared; The only Swedish-headquartered utility the research named; the government describes it as one of Europe's largest producers and sellers of electricity and heat. E.ON Sverige and Fortum Sverige belong to foreign groups and were not compared.; Same source: 'Vattenfall AB (Vattenfall) är en av Europas största producenter och återförsäljare av el och värme.' No explicit 'Sweden's largest' quote found. Foreign-owned operators in Sweden (E.ON Sverige -> E.ON SE, Germany; Fortum Sverige -> Fortum Oyj, Finland; Ellevio -> foreign/pension-fund owners; Statkraft -> Norwegian state) were NOT verified with sources in this session; municipal utilities (Göteborg Energi, Stockholm Exergi etc.) not checked but are far smaller than SEK 235bn.",
+      "ownershipUrl": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf"
+     },
+     {
+      "name": "LKAB",
+      "industry": "mining_metals",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1: \"Luossavaara-Kiirunavaara Aktiebolag (LKAB) (100 %) 33 325\"",
+      "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 33,325m.",
+      "leads": false
+     },
+     {
+      "name": "SJ",
+      "industry": "transport",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1 lists SJ AB as wholly state-owned (100 %).",
+      "note": "Ownership and revenue as recorded from Tabell 2.1 by the research agent; row text not re-quoted after the data loss. Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 14,517m.",
+      "leads": false
+     },
+     {
+      "name": "PostNord",
+      "industry": "transport",
+      "stateShare": 0.607,
+      "controlled": true,
+      "holder": "Swedish state 60.7% of capital (Danish state the rest; votes split 50/50)",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1: \"PostNord AB (60,7 %) 36 245\"; PostNord AR 2025: \"ägs till 40 procent av danska staten och till 60 procent av svenska staten. Rösterna på bolagsstämman är dock jämnt fördelade (50/50)\"",
+      "note": "Jointly state-owned by Sweden and Denmark. Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 36,245m.",
+      "leads": false
+     },
+     {
+      "name": "Swedavia",
+      "industry": "transport",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1 lists Swedavia AB as wholly state-owned (100 %).",
+      "note": "Recorded from Tabell 2.1 by the research agent; row text not re-quoted. Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 6,801m.",
+      "leads": false
+     },
+     {
+      "name": "Systembolaget",
+      "industry": "trade",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1 lists Systembolaget AB as wholly state-owned (100 %).",
+      "note": "Recorded from Tabell 2.1 by the research agent; row text not re-quoted. Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 39,046m (H&M, private, is the comparator but its revenue was not restored).",
+      "leads": false
+     },
+     {
+      "name": "Akademiska Hus",
+      "industry": "real_estate",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1: \"Akademiska Hus Aktiebolag (100 %) 8 144\"",
+      "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 8,144m.",
+      "leads": false
+     },
+     {
+      "name": "SBAB",
+      "industry": "banking",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1: \"SBAB Bank AB (publ) (100 %) 5 162\"",
+      "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 5,162m per Tabell 2.1 (total operating income SEK 5,230m per SBAB AR 2025).",
+      "leads": false
+     },
+     {
+      "name": "Sveaskog",
+      "industry": "agriculture",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1 lists Sveaskog AB as wholly state-owned (100 %).",
+      "note": "Forestry. Recorded from Tabell 2.1 by the research agent; row text not re-quoted. Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 8,746m.",
+      "leads": false
+     },
+     {
+      "name": "Svenska Spel",
+      "industry": "entertainment",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "Swedish state 100%",
+      "asOf": "2025-12-31",
+      "url": "https://www.regeringen.se/contentassets/e95f465d6ae946c196ea4cecb7c5f236/skrivelse-140-tga.pdf",
+      "quote": "Tabell 2.1: \"AB Svenska Spel (100 %) 5 348\"",
+      "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 5,348m.",
+      "leads": false
+     }
+    ]
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.546,
+     "regulationConfidence": 0.79,
+     "capture": 0.4625,
+     "captureConfidence": 0.47
+    },
+    "oil_gas": {
+     "regulation": 0.622,
+     "regulationConfidence": 0.72,
+     "capture": 0.185,
+     "captureConfidence": 0.42
+    },
+    "mining_metals": {
+     "regulation": 0.616,
+     "regulationConfidence": 0.91,
+     "capture": 0.38,
+     "captureConfidence": 0.53
+    },
+    "utilities": {
+     "regulation": 0.658,
+     "regulationConfidence": 0.69,
+     "capture": 0.4125,
+     "captureConfidence": 0.41
+    },
+    "construction": {
+     "regulation": 0.536,
+     "regulationConfidence": 0.76,
+     "capture": 0.3825,
+     "captureConfidence": 0.53
+    },
+    "manufacturing": {
+     "regulation": 0.458,
+     "regulationConfidence": 0.72,
+     "capture": 0.3725,
+     "captureConfidence": 0.55
+    },
+    "transport": {
+     "regulation": 0.512,
+     "regulationConfidence": 0.69,
+     "capture": 0.36,
+     "captureConfidence": 0.59
+    },
+    "trade": {
+     "regulation": 0.38,
+     "regulationConfidence": 0.74,
+     "capture": 0.3425,
+     "captureConfidence": 0.63
+    },
+    "banking": {
+     "regulation": 0.726,
+     "regulationConfidence": 0.75,
+     "capture": 0.44,
+     "captureConfidence": 0.53
+    },
+    "finance": {
+     "regulation": 0.69,
+     "regulationConfidence": 0.64,
+     "capture": 0.455,
+     "captureConfidence": 0.61
+    },
+    "insurance": {
+     "regulation": 0.696,
+     "regulationConfidence": 0.65,
+     "capture": 0.4325,
+     "captureConfidence": 0.54
+    },
+    "real_estate": {
+     "regulation": 0.494,
+     "regulationConfidence": 0.51,
+     "capture": 0.45,
+     "captureConfidence": 0.28
+    },
+    "health": {
+     "regulation": 0.848,
+     "regulationConfidence": 0.49,
+     "capture": 0.4125,
+     "captureConfidence": 0.34
+    },
+    "legal": {
+     "regulation": 0.352,
+     "regulationConfidence": 0.31,
+     "capture": 0.455,
+     "captureConfidence": 0.24
+    },
+    "professional": {
+     "regulation": 0.352,
+     "regulationConfidence": 0.57,
+     "capture": 0.3825,
+     "captureConfidence": 0.52
+    },
+    "education": {
+     "regulation": 0.562,
+     "regulationConfidence": 0.53,
+     "capture": 0.33,
+     "captureConfidence": 0.57
+    },
+    "entertainment": {
+     "regulation": 0.558,
+     "regulationConfidence": 0.73,
+     "capture": 0.34,
+     "captureConfidence": 0.56
+    },
+    "hospitality": {
+     "regulation": 0.48,
+     "regulationConfidence": 0.59,
+     "capture": 0.3075,
+     "captureConfidence": 0.72
+    },
+    "other_services": {
+     "regulation": 0.446,
+     "regulationConfidence": 0.63,
+     "capture": 0.235,
+     "captureConfidence": 0.59
+    },
+    "hardware": {
+     "regulation": 0.404,
+     "regulationConfidence": 0.75,
+     "capture": 0.3475,
+     "captureConfidence": 0.58
+    },
+    "software": {
+     "regulation": 0.208,
+     "regulationConfidence": 0.84,
+     "capture": 0.34,
+     "captureConfidence": 0.6
+    },
+    "internet": {
+     "regulation": 0.264,
+     "regulationConfidence": 0.73,
+     "capture": 0.3325,
+     "captureConfidence": 0.57
+    },
+    "media_telecom": {
+     "regulation": 0.458,
+     "regulationConfidence": 0.45,
+     "capture": 0.3975,
+     "captureConfidence": 0.45
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": null
+  },
+  {
+   "id": "cn",
+   "name": "China",
+   "short": "CN",
+   "form": "state capitalism under one party",
+   "country": "the People's Republic of China",
+   "era": "2024",
+   "year": 2024,
+   "spending": {
+    "value": 0.3297,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/CHN"
+   },
+   "revenue": {
+    "value": 0.2572,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/CHN"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.0418,
+     "corporate": 0.1179,
+     "social": 0.2544,
+     "goods": 0.281,
+     "property": 0.0454,
+     "resources": 0.0,
+     "enterprises": 0.0,
+     "other": 0.2596
+    },
+    "year": 2024,
+    "basis": "oecd",
+    "source": "OECD Global Revenue Statistics Database, OECD Data Explorer dataflow OECD.CTP.TPS DSD_REV_COMP_GLOBAL@DF_RSGLOBAL 2.1, general government (S13), Revenue Statistics in Asia and the Pacific 2026; 2024 provisional (fetched by build.py)",
+    "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/CHN.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv",
+    "inputs": {
+     "oecdCells": {
+      "T_4000": 1574.03,
+      "T_6000": 143.3,
+      "T_1300": 486.87,
+      "T_1200": 4089.76,
+      "_T": 26323.41,
+      "T_3000": 0.0,
+      "T_1100": 1452.18,
+      "T_5000": 9750.92,
+      "T_2000": 8826.35
+     },
+     "taxGdp": 0.19512,
+     "imfRevenueGdp": 0.25722,
+     "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/CHN.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A?startPeriod=2024&endPeriod=2024&format=csv"
+    },
+    "computed": [
+     "taxes are 75.9% of revenue (19.5% of GDP, OECD, over revenue 25.7% of GDP, IMF, 2024); the rest is other revenue"
+    ],
+    "note": "Income tax the OECD cannot allocate between people and firms (1.8% of tax revenue) stays in 'other'. The OECD country note: 'China's tax-to-GDP ratio was 19.5% in 2024' (https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/revenue-statistics-in-asia-and-the-pacific-2026-country-notes_8e56ef29/china_3f3f3164/b5ae69c7-en.pdf)."
+   },
+   "trade": {
+    "value": 0.3796,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=CN"
+   },
+   "democracy": {
+    "value": 0.072,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~CHN",
+    "previous": {
+     "year": 2024,
+     "value": 0.073
+    }
+   },
+   "top1Wealth": {
+    "value": 0.2963,
+    "year": 2015,
+    "definition": "share of the top 1% of net personal wealth, equal-split adults (20+): WID shwealj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_CN.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "CN;shwealj992;p99p100;2015;0.2963;992;j;4",
+    "note": "Latest observed year; WID's 2016-2024 values are modelled (30.4%, grade 0) and not drawn.",
+    "modelled": {
+     "value": 0.3042,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.1404,
+    "year": 2015,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_CN.csv; data-quality grade 4 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "CN;sptincj992;p99p100;2015;0.1404;992;j;4",
+    "note": "Latest observed year (Piketty, Yang & Zucman 2019); WID's 2016-2022 values are interpolated (grade 2) and 2023-2024 carried forward (15.8%, grade 1)."
+   },
+   "stateFirms": {
+    "value": 0.33,
+    "year": 2024,
+    "definition": "the public sector's share of the market value of listed companies (governments, state-owned enterprises, sovereign wealth funds and public pension funds), end of 2024",
+    "source": "OECD (2025), OECD Corporate Governance Factbook 2025, Table 1.2 'Ownership structure of listed companies, 2024', column PS (Public Sector, % of market capitalisation)",
+    "url": "https://doi.org/10.1787/f4f43735-en",
+    "quote": "China | 12 785 666 | 5 301 | IIs 9 | PS 33 | SI 14 | PC 11 | OFF 33 | 42%"
+   },
+   "fortune": {
+    "value": 0.681,
+    "count": "79 of 116",
+    "year": 2026,
+    "source": "Company count: Fortune Global 500 2026 list data ('Mainland China' tag). State tally: Huaxia Times (华夏时报), '79家国企上榜2026《财富》世界500强！', 2026-07-31",
+    "url": "https://news.10jqka.com.cn/20260731/c678597724.shtml",
+    "quote": "\"在122家公司中，共有国务院国资委出资监管的36家央企上榜；各级地方国资监管机构出资监管的32家地方国企上榜；财政部出资的10家企业上榜，另有福建省财政厅为第一大股东的兴业银行上榜，合计79家国有企业上榜。\" (Among the 122 companies: 36 SASAC central SOEs, 32 local SOEs, 10 Ministry of Finance-funded enterprises, plus Industrial Bank (largest shareholder: Fujian Provincial Finance Department), 79 state-owned enterprises in total.)",
+    "note": "Fortune tags 116 entries 'Mainland China'; these INCLUDE the 5 Hong Kong-headquartered entries (China Resources, Lenovo, AIA, CK Hutchison, Jardine Matheson) and EXCLUDE Taiwan, listed separately (6: Hon Hai, TSMC, Wistron, Quanta, WT Microelectronics, Pegatron). Fortune's press release counts 'Greater China—comprised of mainland China, Hong Kong, Macau, and Taiwan' as 122. The 79 are stated 'among the 122', but the tally's owner categories are mainland bodies and no Taiwan entry carries a Fortune government flag, so all 79 are within the 116; share = 79/116. Narrower measure: Fortune's 'Government owned 50% or more' footnote on 70 of the 116 profiles (fortuneFlaggedFirms). The article does not list the 79 individually. Mirror: https://finance.eastmoney.com/a/202607313828648614.html"
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": [
+     {
+      "name": "Industrial & Commercial Bank of China",
+      "industry": "banking",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 210589.8,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 29,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/industrial-commercial-bank-of-china/global500/",
+      "quote": "Government owned 50% or more. Figures prepared in accordance with International Accounting Standards. Market value as of July 13, 2026.",
+      "note": "next: Agricultural Bank of China $190.7B; China Construction Bank $188.7B"
+     },
+     {
+      "name": "China State Construction Engineering",
+      "industry": "construction",
+      "leads": true,
+      "controlled": true,
+      "holder": "China State Construction Engineering Group (SASAC) and other state holders, as summed by the research agent",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 289892.6,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 17,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/china-state-construction-engineering/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: China Railway Engineering Group $152.2B; China Railway Construction $143.5B",
+      "stateShare": 0.5994,
+      "ownershipUrl": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225529554.PDF"
+     },
+     {
+      "name": "CITIC Group",
+      "industry": "finance",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 139275.6,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 59,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/citic-group/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: Shenzhen Investment Holdings $38.7B; Guangxi Investment Group $33.4B"
+     },
+     {
+      "name": "Huawei Investment & Holding",
+      "industry": "hardware",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 122562.7,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 81,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/huawei-investment-holding/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Lenovo Group $83.1B; Xiaomi $63.6B"
+     },
+     {
+      "name": "China Life Insurance",
+      "industry": "insurance",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 178215.4,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 42,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/china-life-insurance/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: Ping An Insurance $158.6B; People's Insurance Co. of China $93.1B"
+     },
+     {
+      "name": "Tencent Holdings",
+      "industry": "internet",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 104591.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 97,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/tencent-holdings/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "the country's only firm of this industry on the list"
+     },
+     {
+      "name": "Hengli Group",
+      "industry": "manufacturing",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 125084.8,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 78,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/hengli-group/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: BYD $111.9B; Zhejiang Rongsheng Holding Group $94.8B"
+     },
+     {
+      "name": "China Mobile Communications",
+      "industry": "media_telecom",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 146550.2,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 53,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/china-mobile-communications/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: China Telecommunications $88.6B; China United Network Communications $54.6B"
+     },
+     {
+      "name": "Shandong Energy Group",
+      "industry": "mining_metals",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 116559.1,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 87,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/yankuang-group/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: China Minmetals $104.1B; China Baowu Steel Group $103.0B; coal"
+     },
+     {
+      "name": "China National Petroleum",
+      "industry": "oil_gas",
+      "leads": true,
+      "controlled": true,
+      "holder": "CNPC 82.28% (A shares) + 0.22% via Fairy King Investments (H shares) = 82.50%; CNPC 100% SASAC",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 401927.0,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 10,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/china-national-petroleum/global500/",
+      "quote": "Government owned 50% or more. Excise taxes have been deducted. Includes revenues from discontinued operations.",
+      "note": "next: Sinopec Group $364.0B; China National Offshore Oil $120.9B",
+      "stateShare": 0.825,
+      "ownershipUrl": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0830/2026083000017.pdf"
+     },
+     {
+      "name": "China Poly Group",
+      "industry": "real_estate",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 68120.5,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 212,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/china-poly-group/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "the country's only firm of this industry on the list"
+     },
+     {
+      "name": "JD.com",
+      "industry": "trade",
+      "leads": true,
+      "controlled": false,
+      "holder": null,
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 182129.1,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 41,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/jd-com/global500/",
+      "quote": "(no 'Government owned' footnote on the profile)",
+      "note": "next: Alibaba Group $144.2B; Xiamen C&D $97.0B"
+     },
+     {
+      "name": "China Post Group",
+      "industry": "transport",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government owned 50% or more (Fortune)",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 94215.3,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 119,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/china-post-group/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: COSCO Shipping $63.2B; Zhejiang Communications Investment Group $50.8B"
+     },
+     {
+      "name": "State Grid",
+      "industry": "utilities",
+      "leads": true,
+      "controlled": true,
+      "holder": "SASAC 100%",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 555371.4,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 3,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/state-grid/global500/",
+      "quote": "Government owned 50% or more.",
+      "note": "next: China Southern Power Grid $118.8B; China Energy Investment $98.3B",
+      "stateShare": 1.0,
+      "ownershipUrl": "https://pdf.dfcfw.com/pdf/H2_AN202608281828637112_1.pdf"
+     },
+     {
+      "name": "China Baowu Steel Group",
+      "industry": "mining_metals",
+      "stateShare": 0.691,
+      "controlled": true,
+      "holder": "China Baowu Steel Group (SASAC) and other state holders, as summed by the research agent",
+      "asOf": "2026-06-30",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-22/1225489250.PDF",
+      "note": "2026 interim report of Baosteel; components and quote lost.  Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: Fortune revenue $102,980M (#100).",
+      "leads": false
+     },
+     {
+      "name": "SAIC Motor",
+      "industry": "manufacturing",
+      "stateShare": 0.7408,
+      "controlled": true,
+      "holder": "SAIC Group (100% Shanghai SASAC) 63.71%; China COSCO Shipping Group 5.91%; Yuejin Motor Group 3.60%; Central Huijin Asset Management 0.86%",
+      "asOf": "2026-06-30",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225526578.PDF",
+      "quote": "\"上海汽车工业（集团）有限公司 7,324,009,279 63.71 … 国有法人\"; \"中国远洋海运集团有限公司 679,420,000 5.91 … 国有法人\"; \"跃进汽车集团有限公司 413,919,141 3.60 … 国有法人\"; \"中央汇金资产管理有限责任公司 98,585,000 0.86\"",
+      "note": "Manufacturing leader: BYD (private, $111,853.3M) > SAIC Motor ($91,301.3M).",
+      "leads": false
+     },
+     {
+      "name": "China COSCO Shipping",
+      "industry": "transport",
+      "stateShare": 0.5328,
+      "controlled": true,
+      "holder": "China COSCO Shipping Corp. (SASAC 90%, NSSF Council 10%) 45.91%; SAIC Group 5.27%; Guoxin Investment 1.51%; Guoxin Hongsheng 0.59%",
+      "asOf": "2026-06-30",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225531118.PDF",
+      "quote": "\"中国远洋海运集团直接及间接持有的公司股份共计 7,009,619,897 股，约占公司截至 2026 年 6 月 30 日总股本的 45.91%\"",
+      "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: Fortune revenue $63,201.9M (#237). Note: China Post Group (#119, $94,215.3M, Fortune-flagged 'Government owned 50% or more') is a larger Chinese transport-sector entry but was not researched.",
+      "leads": false
+     },
+     {
+      "name": "Sinopharm",
+      "industry": "health",
+      "stateShare": 0.57,
+      "controlled": true,
+      "holder": "China National Pharmaceutical Group (SASAC) and related state holders, as recorded by the research agent",
+      "asOf": "2026-06-30",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-09-23/1225578054.PDF",
+      "note": "Components and quote lost in the data loss.  Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: Fortune revenue $89,352.1M (#129).",
+      "leads": false
+     },
+     {
+      "name": "COFCO",
+      "industry": "agriculture",
+      "stateShare": 1.0,
+      "controlled": true,
+      "holder": "SASAC (wholly state-owned), as recorded by the research agent from a 2026 bond filing",
+      "asOf": "2025-12-31",
+      "url": "https://static.sse.com.cn/disclosure/bond/announcement/company/c/new/2026-04-30/",
+      "note": "SSE bond-disclosure document (full file name lost; directory restored).  Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: Fortune revenue $81,954.7M (#157). Exact quote lost in the data loss.",
+      "leads": false
+     },
+     {
+      "name": "Ping An Insurance",
+      "industry": "insurance",
+      "stateShare": 0.0934,
+      "controlled": false,
+      "holder": "Top-10 holders classed state-owned: Shenzhen Investment Holdings 5.32%, Central Huijin Asset Management 2.60%, Shum Yip Group 1.42% (sum; lower bound)",
+      "asOf": "2026-06-30",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225487480.PDF",
+      "quote": "\"本公司股权结构较为分散，不存在控股股东，也不存在实际控制人。\" (no controlling shareholder); \"卜蜂集团合计持有本公司5.33%\"",
+      "note": "State insurers (China Life #42 $178,215.4M; PICC #123) were not restored as records.",
+      "leads": false
+     }
+    ]
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.654,
+     "regulationConfidence": 0.67,
+     "capture": 0.2725,
+     "captureConfidence": 0.1
+    },
+    "oil_gas": {
+     "regulation": 0.836,
+     "regulationConfidence": 0.79,
+     "capture": 0.73,
+     "captureConfidence": 0.1
+    },
+    "mining_metals": {
+     "regulation": 0.778,
+     "regulationConfidence": 0.79,
+     "capture": 0.645,
+     "captureConfidence": 0.0
+    },
+    "utilities": {
+     "regulation": 0.862,
+     "regulationConfidence": 0.76,
+     "capture": 0.5825,
+     "captureConfidence": 0.0
+    },
+    "construction": {
+     "regulation": 0.726,
+     "regulationConfidence": 0.69,
+     "capture": 0.595,
+     "captureConfidence": 0.09
+    },
+    "manufacturing": {
+     "regulation": 0.656,
+     "regulationConfidence": 0.67,
+     "capture": 0.585,
+     "captureConfidence": 0.2
+    },
+    "transport": {
+     "regulation": 0.696,
+     "regulationConfidence": 0.64,
+     "capture": 0.525,
+     "captureConfidence": 0.2
+    },
+    "trade": {
+     "regulation": 0.574,
+     "regulationConfidence": 0.67,
+     "capture": 0.385,
+     "captureConfidence": 0.33
+    },
+    "banking": {
+     "regulation": 0.844,
+     "regulationConfidence": 0.83,
+     "capture": 0.6,
+     "captureConfidence": 0.0
+    },
+    "finance": {
+     "regulation": 0.804,
+     "regulationConfidence": 0.91,
+     "capture": 0.53,
+     "captureConfidence": 0.31
+    },
+    "insurance": {
+     "regulation": 0.8,
+     "regulationConfidence": 0.93,
+     "capture": 0.5175,
+     "captureConfidence": 0.3
+    },
+    "real_estate": {
+     "regulation": 0.704,
+     "regulationConfidence": 0.65,
+     "capture": 0.485,
+     "captureConfidence": 0.22
+    },
+    "health": {
+     "regulation": 0.806,
+     "regulationConfidence": 0.8,
+     "capture": 0.4475,
+     "captureConfidence": 0.16
+    },
+    "legal": {
+     "regulation": 0.762,
+     "regulationConfidence": 0.74,
+     "capture": 0.36,
+     "captureConfidence": 0.25
+    },
+    "professional": {
+     "regulation": 0.634,
+     "regulationConfidence": 0.65,
+     "capture": 0.385,
+     "captureConfidence": 0.32
+    },
+    "education": {
+     "regulation": 0.742,
+     "regulationConfidence": 0.77,
+     "capture": 0.1625,
+     "captureConfidence": 0.46
+    },
+    "entertainment": {
+     "regulation": 0.746,
+     "regulationConfidence": 0.72,
+     "capture": 0.2975,
+     "captureConfidence": 0.03
+    },
+    "hospitality": {
+     "regulation": 0.61,
+     "regulationConfidence": 0.87,
+     "capture": 0.2725,
+     "captureConfidence": 0.55
+    },
+    "other_services": {
+     "regulation": 0.52,
+     "regulationConfidence": 0.57,
+     "capture": 0.145,
+     "captureConfidence": 0.53
+    },
+    "hardware": {
+     "regulation": 0.74,
+     "regulationConfidence": 0.66,
+     "capture": 0.555,
+     "captureConfidence": 0.1
+    },
+    "software": {
+     "regulation": 0.552,
+     "regulationConfidence": 0.49,
+     "capture": 0.4525,
+     "captureConfidence": 0.32
+    },
+    "internet": {
+     "regulation": 0.724,
+     "regulationConfidence": 0.73,
+     "capture": 0.3825,
+     "captureConfidence": 0.35
+    },
+    "media_telecom": {
+     "regulation": 0.834,
+     "regulationConfidence": 0.81,
+     "capture": 0.4875,
+     "captureConfidence": 0.0
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": "Outside the tax shares: land-use-right transfer fees were 4.77 trillion yuan in 2024, 21.7% of the general public budget's revenue, and the state capital operations budget 3.1% (profit remittances 2.0%) (MoF 2024 final accounts, https://yss.mof.gov.cn/2024zyjs/202509/t20250904_3971506.htm). They are not drawn as strata: the IMF's general government revenue and the MoF's budgets are defined differently."
+  },
+  {
+   "id": "sa",
+   "name": "Saudi Arabia",
+   "short": "SA",
+   "form": "Gulf petro-monarchy",
+   "country": "Saudi Arabia",
+   "era": "2024",
+   "year": 2024,
+   "spending": {
+    "value": 0.2923,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government total expenditure, % of GDP, via the DataMapper API (G_X_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/G_X_G01_GDP_PT@FM/SAU"
+   },
+   "revenue": {
+    "value": 0.2677,
+    "year": 2024,
+    "source": "IMF Fiscal Monitor (October 2026), general government revenue, % of GDP, via the DataMapper API (GGR_G01_GDP_PT; retrieved 2026-10-22)",
+    "url": "https://www.imf.org/external/datamapper/GGR_G01_GDP_PT@FM/SAU"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.0,
+     "corporate": 0.0251,
+     "social": 0.0,
+     "goods": 0.2488,
+     "property": 0.0,
+     "resources": 0.6009,
+     "enterprises": 0.0,
+     "other": 0.1252
+    },
+    "year": 2024,
+    "basis": "amounts",
+    "source": "Saudi Ministry of Finance, Quarterly Budget Performance Report Q4 FY2024, sheet 'Revenues', 'Actual revenues Until Q4 of FY 2024' (SAR million); the same totals in the Year-End Budget Performance Report FY2024 (June 2025, p.13-14)",
+    "url": "https://www.mof.gov.sa/documents/328541/438613/Quarterly+Budget+Performance+Report_Q4_2024.xlsx/430eba5d-8def-d1cd-ffd5-75b1316941ad",
+    "inputs": {
+     "basis": "amounts",
+     "year": 2024,
+     "unit": "SAR million",
+     "total": 1259095.4,
+     "lines": [
+      {
+       "line": "Oil Revenues",
+       "amount": 756623.9,
+       "part": "resources"
+      },
+      {
+       "line": "Taxes on Income, Profit and Capital Gains",
+       "amount": 31575.6,
+       "part": "corporate"
+      },
+      {
+       "line": "Taxes on Goods and Services",
+       "amount": 288809.2,
+       "part": "goods"
+      },
+      {
+       "line": "Taxes on International Trade and Transactions",
+       "amount": 24498.6,
+       "part": "goods"
+      },
+      {
+       "line": "Other Taxes",
+       "amount": 35645.9,
+       "part": "other"
+      },
+      {
+       "line": "Other Revenues",
+       "amount": 121942.2,
+       "part": "other"
+      }
+     ],
+     "quote": "Oil Revenues 756623.9; Taxes on Income, Profit and Capital Gains 31575.6; Taxes on Goods and Services 288809.2; Taxes on International Trade and Transactions 24498.6; Other Taxes 35645.9; Other Revenues 121942.2; Non-oil Revenues 502471.5; Total 1259095.4. Year-End report p.14: 'In FY2024, the actual total revenue amounted to approximately SAR 1,259 bn ... as oil revenues were recorded at about SAR 757 bn.'",
+     "note": "The general state budget (the MoF publishes no general-government breakdown). Oil revenue is one line: Aramco's payments of royalties, taxes and dividends (AGSI, 2 July 2025, https://agsi.org/analysis/aramco-and-the-saudi-government-budget/); oil was 62.2% of revenue in 2023. Taxes on goods and services include VAT (about SAR 186 bn), excises (about SAR 16 bn) and the levy on expatriates and dependants (about SAR 40 bn); 'Other Taxes' are mostly corporate zakat; 'Other Revenues' are returns from other government units including the central bank, sales, fees and fines. No personal income tax, social contribution or property tax line exists."
+    },
+    "computed": [
+     "the budget's lines over its reported total (1,259,095.4 SAR million, 2024)"
+    ],
+    "note": "The general state budget (the MoF publishes no general-government breakdown). Oil revenue is one line: Aramco's payments of royalties, taxes and dividends (AGSI, 2 July 2025, https://agsi.org/analysis/aramco-and-the-saudi-government-budget/); oil was 62.2% of revenue in 2023. Taxes on goods and services include VAT (about SAR 186 bn), excises (about SAR 16 bn) and the levy on expatriates and dependants (about SAR 40 bn); 'Other Taxes' are mostly corporate zakat; 'Other Revenues' are returns from other government units including the central bank, sales, fees and fines. No personal income tax, social contribution or property tax line exists."
+   },
+   "trade": {
+    "value": 0.564,
+    "year": 2024,
+    "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
+    "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=SA"
+   },
+   "democracy": {
+    "value": 0.016,
+    "year": 2025,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~SAU",
+    "previous": {
+     "year": 2024,
+     "value": 0.015
+    }
+   },
+   "top1Wealth": {
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SA.csv, shwealj992 p99p100",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SA;shwealj992;p99p100;2024;0.3006;992;j;0",
+    "note": "Not measured: every Saudi wealth value in WID is graded 0, predicted from other countries' wealth distributions weighted by income inequality (30.1% for 2024). The imputation is not drawn.",
+    "modelled": {
+     "value": 0.3006,
+     "year": 2024,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.2316,
+    "year": 2011,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_SA.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "SA;sptincj992;p99p100;2011;0.2316;992;j;3",
+    "note": "The only observed year (Alvaredo, Assouad & Piketty 2017, updated 2022); WID carries this one estimate back to 1980 and forward to 2024."
+   },
+   "stateFirms": {
+    "value": 0.79,
+    "year": 2024,
+    "definition": "the public sector's share of the market value of listed companies (governments, state-owned enterprises, sovereign wealth funds and public pension funds), end of 2024",
+    "source": "OECD (2025), OECD Corporate Governance Factbook 2025, Table 1.2 'Ownership structure of listed companies, 2024', column PS (Public Sector, % of market capitalisation)",
+    "url": "https://doi.org/10.1787/f4f43735-en",
+    "quote": "Saudi Arabia | 2 543 836 | 269 | IIs 2 | PS 79 | SI 3 | PC 4 | OFF 12 | 54%"
+   },
+   "fortune": {
+    "value": 1.0,
+    "count": "1 of 1",
+    "year": 2026,
+    "source": "Fortune Global 500 2026 list data and Saudi Aramco profile; Fortune press release 2026-07-28",
+    "url": "https://fortune.com/company/saudi-aramco/",
+    "quote": "Profile footnote: \"Government owned 50% or more. Figures prepared in accordance with International Accounting Standards.\" Press release lists Saudi Arabia among the 14 countries and territories with only one company on the list.",
+    "note": "Only Saudi entry: #5 Saudi Aramco (revenues $445,528.7M). SABIC is not on the 2026 list."
+   },
+   "ownership": {
+    "default": 0,
+    "defaultNote": "privately owned",
+    "firms": [
+     {
+      "name": "Saudi Aramco",
+      "industry": "oil_gas",
+      "leads": true,
+      "controlled": true,
+      "holder": "Government of Saudi Arabia 81.48% (direct); 'Other' 16.00% = shares transferred to PIF, Sanabil Investments (wholly owned by PIF) and PIF's wholly owned companies",
+      "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+      "revenue": {
+       "value": 445528.7,
+       "currency": "USD",
+       "unit": "million",
+       "year": "Fortune Global 500 2026",
+       "rank": 5,
+       "url": "https://fortune.com/ranking/global500/2026/"
+      },
+      "url": "https://fortune.com/company/saudi-aramco/global500/",
+      "quote": "Government owned 50% or more. Figures prepared in accordance with International Accounting Standards. Market value as of July 13, 2026.",
+      "note": "the country's only firm of this industry on the list",
+      "stateShare": 0.9748,
+      "ownershipUrl": "https://www.aramco.com/-/media/publications/corporate-reports/reports-and-presentations/2025/fy/saudi-aramco-ara-2025-english.pdf"
+     },
+     {
+      "name": "Saudi National Bank",
+      "industry": "banking",
+      "leads": true,
+      "controlled": false,
+      "stateShare": 0.372,
+      "holder": "Public Investment Fund 37.2% (2,234,257,917 shares); no other 5%+ holder",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 39194570000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "total operating income",
+       "url": "https://www.argaam.com/en/article/articledetail/id/1875447",
+       "quote": "Operating Income 36,033.11 39,194.57 8.8 % (SAR million; 2024, 2025, change); \"Total operating income rose 8.8% YoY to SAR 39.2 billion\""
+      },
+      "url": "https://www.forbesmiddleeast.com/lists/top-100-listed-companies-2022/saudi-national-bank-snb/",
+      "quote": "Saudi's Public Investment Fund (PIF) owns 37.2% of the bank.",
+      "note": "next: Al Rajhi Bank 39.1bn SAR; A near tie: SNB's 2025 operating income exceeds Al Rajhi's by about SAR 0.1bn (0.26%); the PIF stake is from a 2022 list.; PIF is a minority (largest) shareholder, not majority. Stake figure is from a 2022 list. SNB leads Al Rajhi by only about SAR 0.1bn of 2025 operating income, which is effectively a tie.",
+      "ownershipUrl": "https://www.alahli.com/-/jssmedia/project/snb/snb-web/about-us/02-9-previous-annual-reports/annual-reports-pdfs-en/snb-annual-report-2025-en.pdf"
+     },
+     {
+      "name": "SABIC",
+      "industry": "manufacturing",
+      "leads": true,
+      "controlled": true,
+      "stateShare": 0.7,
+      "holder": "Aramco Downstream Company (wholly owned subsidiary of Saudi Aramco) 70%; 30% free float",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 116500000000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "revenue",
+       "url": "https://tradearabia.com/News/389934/Sabic-revenue-hits-%2431bn-amid-petrochemicals-headwinds",
+       "quote": "posting a net adjusted income of SAR2.1 billion ($560 million) and revenues of SAR116.5 billion ($31 billion)."
+      },
+      "url": "https://en.wikipedia.org/wiki/SABIC",
+      "quote": "70% of SABIC's shares are owned by Saudi Aramco.",
+      "note": "next: Almarai 22.1bn SAR; Almarai's revenue is from a data site (stockanalysis.com), not its filing.; Aramco agreed in 2019 to buy the 70% from the Public Investment Fund (Wikipedia, citing the share purchase agreement); held through Aramco, counted as the state's.",
+      "ownershipUrl": "https://www.sabic.com/en/reports/integrated-report-2025"
+     },
+     {
+      "name": "stc",
+      "industry": "media_telecom",
+      "leads": true,
+      "controlled": true,
+      "stateShare": 0.62,
+      "holder": "Public Investment Fund 62%; 38% free float",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 77800000000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "revenue",
+       "url": "https://www.argaam.com/en/article/articledetail/id/1881314",
+       "quote": "recording the highest revenues in its history at SAR 77.8 billion, reflecting a 2.5% increase compared to the previous year"
+      },
+      "url": "https://sharikatmubasher.com/media-hub/news/21450686/pif-sells-100-mn-shares-in-stc-for-sar-386-bn?lang=en",
+      "quote": "Following this sale, PIF still holds 3.1 billion shares in stc, which amounts to a 62% ownership stake.",
+      "note": "next: Mobily (Etihad Etisalat) 19.6bn SAR; Zain KSA 11.0bn SAR; Stake as of 14 Nov 2024.",
+      "ownershipUrl": "https://www.stc.com/content/dam/stc/stc-annual-report-2025/pdfs/stc-AR25-English.pdf"
+     },
+     {
+      "name": "Saudi Electricity (Saudi Energy)",
+      "industry": "utilities",
+      "leads": true,
+      "controlled": true,
+      "stateShare": 0.7431,
+      "holder": "the government's 74.31%, held in the Public Investment Fund's portfolio (2017 source)",
+      "basis": "the largest by revenue of the firms the research compared in the country",
+      "revenue": {
+       "value": 102200000000.0,
+       "currency": "SAR",
+       "year": 2025,
+       "basis": "operating revenues",
+       "url": "https://tradearabia.com/News/389920/Saudi-Energy-reports-highest-ever-operating-revenues-of-%2427bn",
+       "quote": "Operating revenues for 2025 reached SAR 102.2 billion ($27 billion), compared to SAR 88.7 billion in the previous year"
+      },
+      "url": "https://www.argaam.com/en/article/articledetail/id/505113",
+      "quote": "the government's 74.31 percent stake in its capital in the Public Investment Fund's (PIF) portfolio",
+      "note": "next: Acwa (formerly ACWA Power) 7.4bn SAR; The SEC stake is from a 2017 source; Acwa's PIF stake (44.16%) predates its 2025 rights issue.; Stake source dated 17/09/2017 (government stake registered under PIF); no newer source opened. Aramco's stake (about 6.9%) appeared only in search snippets, so it is not included. The same article says: \"Saudi Energy (formerly Saudi Electricity) announced its financial results for the year 2025\"."
+     }
+    ]
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.612,
+     "regulationConfidence": 0.71,
+     "capture": 0.255,
+     "captureConfidence": 0.17
+    },
+    "oil_gas": {
+     "regulation": 0.88,
+     "regulationConfidence": 0.67,
+     "capture": 0.92,
+     "captureConfidence": 0.72
+    },
+    "mining_metals": {
+     "regulation": 0.698,
+     "regulationConfidence": 0.6,
+     "capture": 0.27,
+     "captureConfidence": 0.11
+    },
+    "utilities": {
+     "regulation": 0.878,
+     "regulationConfidence": 0.61,
+     "capture": 0.515,
+     "captureConfidence": 0.0
+    },
+    "construction": {
+     "regulation": 0.654,
+     "regulationConfidence": 0.73,
+     "capture": 0.525,
+     "captureConfidence": 0.05
+    },
+    "manufacturing": {
+     "regulation": 0.592,
+     "regulationConfidence": 0.69,
+     "capture": 0.38,
+     "captureConfidence": 0.0
+    },
+    "transport": {
+     "regulation": 0.668,
+     "regulationConfidence": 0.64,
+     "capture": 0.4725,
+     "captureConfidence": 0.0
+    },
+    "trade": {
+     "regulation": 0.514,
+     "regulationConfidence": 0.55,
+     "capture": 0.4125,
+     "captureConfidence": 0.05
+    },
+    "banking": {
+     "regulation": 0.786,
+     "regulationConfidence": 0.89,
+     "capture": 0.5725,
+     "captureConfidence": 0.1
+    },
+    "finance": {
+     "regulation": 0.766,
+     "regulationConfidence": 0.85,
+     "capture": 0.4475,
+     "captureConfidence": 0.15
+    },
+    "insurance": {
+     "regulation": 0.768,
+     "regulationConfidence": 0.87,
+     "capture": 0.4225,
+     "captureConfidence": 0.16
+    },
+    "real_estate": {
+     "regulation": 0.536,
+     "regulationConfidence": 0.55,
+     "capture": 0.4,
+     "captureConfidence": 0.0
+    },
+    "health": {
+     "regulation": 0.764,
+     "regulationConfidence": 0.71,
+     "capture": 0.335,
+     "captureConfidence": 0.0
+    },
+    "legal": {
+     "regulation": 0.688,
+     "regulationConfidence": 0.6,
+     "capture": 0.3225,
+     "captureConfidence": 0.0
+    },
+    "professional": {
+     "regulation": 0.574,
+     "regulationConfidence": 0.68,
+     "capture": 0.3175,
+     "captureConfidence": 0.0
+    },
+    "education": {
+     "regulation": 0.69,
+     "regulationConfidence": 0.63,
+     "capture": 0.2425,
+     "captureConfidence": 0.21
+    },
+    "entertainment": {
+     "regulation": 0.66,
+     "regulationConfidence": 0.67,
+     "capture": 0.2125,
+     "captureConfidence": 0.3
+    },
+    "hospitality": {
+     "regulation": 0.602,
+     "regulationConfidence": 0.85,
+     "capture": 0.2825,
+     "captureConfidence": 0.07
+    },
+    "other_services": {
+     "regulation": 0.51,
+     "regulationConfidence": 0.58,
+     "capture": 0.1475,
+     "captureConfidence": 0.5
+    },
+    "hardware": {
+     "regulation": 0.572,
+     "regulationConfidence": 0.47,
+     "capture": 0.1725,
+     "captureConfidence": 0.43
+    },
+    "software": {
+     "regulation": 0.38,
+     "regulationConfidence": 0.35,
+     "capture": 0.2275,
+     "captureConfidence": 0.26
+    },
+    "internet": {
+     "regulation": 0.566,
+     "regulationConfidence": 0.53,
+     "capture": 0.2825,
+     "captureConfidence": 0.07
+    },
+    "media_telecom": {
+     "regulation": 0.736,
+     "regulationConfidence": 0.69,
+     "capture": 0.4725,
+     "captureConfidence": 0.0
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": "Saudi Arabia's revenue mix is the central budget's (MoF); the IMF's general government revenue sets the bedrock's depth."
+  },
+  {
+   "id": "su",
+   "name": "Soviet Union",
+   "short": "USSR",
+   "form": "the Soviet planned economy",
+   "country": "the Soviet Union",
+   "era": "around 1980",
+   "year": 1980,
+   "spending": {
+    "value": 0.4759,
+    "year": 1980,
+    "definition": "consolidated USSR state budget expenditure (union, republican and local budgets) over GDP in current rubles",
+    "source": "TsSU SSSR, Narodnoe khozyaistvo SSSR v 1980 g.: Statisticheskii ezhegodnik (Moscow: Finansy i statistika, 1981), section 'Finansy i kredit', p. 522 table 'Gosudarstvennyi biudzhet SSSR (milliardov rublei)' and p. 523 table 'Struktura dokhodov i raskhodov gosudarstvennogo biudzheta SSSR (v protsentakh k itogu)'; GDP: Sinelnikov, Sergei & Konstantin Reznikov (1995), Budget Crisis in Russia, CASE - Center for Social & Economic Research, Warsaw, May 1995 (ISBN 83-86296-42-9), Table 1.1.3 'State budget of USSR as per sections (mln roubles, % of GDP) 1980-1990', p. 7 (scanned table)",
+    "url": "https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf (opened via Wayback copy http://web.archive.org/web/20241001000746/https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf)",
+    "note": "The CASE table prints the same ratio: 47.6% of GDP (EXPENDITURES Total 294631 | 47,6 [1980 column: mln roubles | % of GDP]). Read on the scanned table (ETH ISN copy, p. 7). Same table, 1985: GDP 777000. GNP in current rubles for 1980: not found in any source I opened (see gnpRub).",
+    "basis": "GDP",
+    "numerator": {
+     "value": 294.6,
+     "unit": "billion current rubles",
+     "year": 1980,
+     "source": "TsSU SSSR, Narodnoe khozyaistvo SSSR v 1980 g.: Statisticheskii ezhegodnik (Moscow: Finansy i statistika, 1981), section 'Finansy i kredit', p. 522 table 'Gosudarstvennyi biudzhet SSSR (milliardov rublei)' and p. 523 table 'Struktura dokhodov i raskhodov gosudarstvennogo biudzheta SSSR (v protsentakh k itogu)'",
+     "url": "https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf (opened via Wayback copy http://web.archive.org/web/20241001000746/https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf)",
+     "quote": "ГОСУДАРСТВЕННЫЙ БЮДЖЕТ СССР (миллиардов рублей) ... 1980: Расходы—всего ... 294,6 [в том числе: на народное хозяйство 161,0; на социально-культурные мероприятия и науку 98,8; на оборону 17,1; на управление 2,5]"
+    },
+    "denominator": {
+     "value": 619.0,
+     "unit": "billion current rubles (table gives 619000 mln roubles)",
+     "year": 1980,
+     "source": "Sinelnikov, Sergei & Konstantin Reznikov (1995), Budget Crisis in Russia, CASE - Center for Social & Economic Research, Warsaw, May 1995 (ISBN 83-86296-42-9), Table 1.1.3 'State budget of USSR as per sections (mln roubles, % of GDP) 1980-1990', p. 7 (scanned table)",
+     "url": "https://www.files.ethz.ch/isn/140235/046.pdf",
+     "quote": "Table 1.1.3. STATE BUDGET OF USSR AS PER SECTIONS (mln.roubles, % of GDP) 1980-1990 ... 1980 | GDP 619000"
+    },
+    "computed": "294.6 / 619.0 billion current rubles (table gives 619000 mln roubles)"
+   },
+   "revenue": {
+    "value": 0.489,
+    "year": 1980,
+    "definition": "consolidated USSR state budget revenue (official) over GDP in current rubles",
+    "source": "TsSU SSSR, Narodnoe khozyaistvo SSSR v 1980 g.: Statisticheskii ezhegodnik (Moscow: Finansy i statistika, 1981), section 'Finansy i kredit', p. 522 table 'Gosudarstvennyi biudzhet SSSR (milliardov rublei)' and p. 523 table 'Struktura dokhodov i raskhodov gosudarstvennogo biudzheta SSSR (v protsentakh k itogu)'; GDP: Sinelnikov, Sergei & Konstantin Reznikov (1995), Budget Crisis in Russia, CASE - Center for Social & Economic Research, Warsaw, May 1995 (ISBN 83-86296-42-9), Table 1.1.3 'State budget of USSR as per sections (mln roubles, % of GDP) 1980-1990', p. 7 (scanned table)",
+    "url": "https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf (opened via Wayback copy http://web.archive.org/web/20241001000746/https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf)",
+    "note": "The CASE table prints 48.9% of GDP. Official revenue counted short-term State Bank credit as revenue, so it exceeds spending; on the CIA's ordinary-revenue basis 1980 revenue was 282.0 billion rubles, a deficit of 12.6 billion (CIA 1988, SOV 88-10043, Table A-4, read from archive.org OCR).",
+    "basis": "GDP",
+    "numerator": {
+     "value": 302.7,
+     "unit": "billion current rubles",
+     "year": 1980,
+     "source": "TsSU SSSR, Narodnoe khozyaistvo SSSR v 1980 g.: Statisticheskii ezhegodnik (Moscow: Finansy i statistika, 1981), section 'Finansy i kredit', p. 522 table 'Gosudarstvennyi biudzhet SSSR (milliardov rublei)' and p. 523 table 'Struktura dokhodov i raskhodov gosudarstvennogo biudzheta SSSR (v protsentakh k itogu)'",
+     "url": "https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf (opened via Wayback copy http://web.archive.org/web/20241001000746/https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf)",
+     "quote": "ГОСУДАРСТВЕННЫЙ БЮДЖЕТ СССР (миллиардов рублей) ... 1980: Доходы—всего ... 302,7"
+    },
+    "denominator": {
+     "value": 619.0,
+     "unit": "billion current rubles (table gives 619000 mln roubles)",
+     "year": 1980,
+     "source": "Sinelnikov, Sergei & Konstantin Reznikov (1995), Budget Crisis in Russia, CASE - Center for Social & Economic Research, Warsaw, May 1995 (ISBN 83-86296-42-9), Table 1.1.3 'State budget of USSR as per sections (mln roubles, % of GDP) 1980-1990', p. 7 (scanned table)",
+     "url": "https://www.files.ethz.ch/isn/140235/046.pdf",
+     "quote": "Table 1.1.3. STATE BUDGET OF USSR AS PER SECTIONS (mln.roubles, % of GDP) 1980-1990 ... 1980 | GDP 619000"
+    },
+    "computed": "302.7 / 619.0 billion current rubles (table gives 619000 mln roubles)"
+   },
+   "revenueMix": {
+    "parts": {
+     "personal": 0.0809,
+     "corporate": 0.0,
+     "social": 0.0469,
+     "goods": 0.3109,
+     "property": 0.0,
+     "resources": 0.0,
+     "enterprises": 0.2967,
+     "other": 0.2646
+    },
+    "year": 1980,
+    "basis": "amounts",
+    "source": "TsSU SSSR, Narodnoe khozyaistvo SSSR v 1980 g.: Statisticheskii ezhegodnik (Moscow: Finansy i statistika, 1981), section 'Finansy i kredit', p. 522 table 'Gosudarstvennyi biudzhet SSSR (milliardov rublei)' and p. 523 table 'Struktura dokhodov i raskhodov gosudarstvennogo biudzheta SSSR (v protsentakh k itogu)'",
+    "url": "https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf (opened via Wayback copy http://web.archive.org/web/20241001000746/https://istmat.org/files/uploads/17071/narhoz_sssr_1980_finansy.pdf)",
+    "inputs": {
+     "basis": "amounts",
+     "year": 1980,
+     "unit": "billion rubles",
+     "total": 302.7,
+     "remainder": "other",
+     "lines": [
+      {
+       "line": "turnover tax (налог с оборота)",
+       "amount": 94.1,
+       "part": "goods",
+       "quote": "налог с оборота ... 94,1 (p. 522); налог с оборота ... 31,1 (p. 523, % of total)"
+      },
+      {
+       "line": "payments from the profits of state enterprises and organisations (платежи из прибыли)",
+       "amount": 89.8,
+       "part": "enterprises",
+       "quote": "платежи государственных предприятий и организаций из прибыли ... 89,8 [из них: плата за производственные основные фонды и нормируемые оборотные средства 29,2; взносы свободного остатка прибыли 44,0; фиксированные (рентные) платежи 0,4; отчисления от прибыли и другие платежи 16,2]; share ... 29,7"
+      },
+      {
+       "line": "state social insurance (средства государственного социального страхования)",
+       "amount": 14.2,
+       "part": "social",
+       "quote": "средства государственного социального страхования ... 14,2; share ... 4,7"
+      },
+      {
+       "line": "state taxes on the population (государственные налоги с населения)",
+       "amount": 24.5,
+       "part": "personal",
+       "quote": "государственные налоги с населения ... 24,5; share ... 8,1"
+      }
+     ],
+     "note": "The yearbook prints these four lines and the total (302.7); the remainder, 80.1, is other revenue (including foreign-trade revenue, income tax on cooperatives and collective farms 1.7 and state loans 0.6)."
+    },
+    "computed": [
+     "the budget's lines over its reported total (302.7 billion rubles, 1980)",
+     "other is the total less the printed lines (80.1 billion rubles)"
+    ],
+    "note": "The yearbook prints these four lines and the total (302.7); the remainder, 80.1, is other revenue (including foreign-trade revenue, income tax on cooperatives and collective farms 1.7 and state loans 0.6)."
+   },
+   "trade": {
+    "year": 1978,
+    "source": "CIA note (July 1982), 'New Commerce (Census Bureau) Estimate of Ruble Value of Soviet Foreign Trade' (CIA-RDP84B00049R000300570016-5; same note also attached to the CIA memo of 14 July 1982 to Deputy Treasury Secretary R. T. McNamar, CIA-RDP08S01350R000100280002-5, https://archive.org/details/cia-readingroom-document-cia-rdp08s01350r000100280002-5); archive.org mirrors of CIA reading-room documents",
+    "url": "https://archive.org/details/cia-readingroom-document-cia-rdp84b00049r000300570016-5",
+    "quote": "Briefly, the study estimates the value of Soviet imports and exports in domestic rubles at 18.6 percent and 6.8 percent respectively of National Income (Soviet definition) in 1978, the last year covered. In comparisons with Gross National Product (which is larger than national income, Soviet concept, in that it includes services and depreciation allowances), the import share becomes 12.6 percent and the export share 4.7 percent. [...] In terms of dollars for 1978, the import share was 4.8 percent, and the export share, 4.1 percent.",
+    "note": "No single defensible share: the CIA put 1978 exports at 4.7% and imports at 12.6% of GNP in domestic rubles, but 4.1% and 4.8% on a dollar basis, and 1980 trade in foreign-trade rubles (exports 49.6, imports 44.5 billion; Nakamura 2013) is valued differently from GDP. Not drawn."
+   },
+   "democracy": {
+    "value": 0.107,
+    "year": 1980,
+    "source": "V-Dem electoral democracy index (v2x_polyarchy), V-Dem (2026) – processed by Our World in Data, via Our World in Data",
+    "url": "https://ourworldindata.org/grapher/electoral-democracy-index?country=~RUS",
+    "note": "The assignment of country codes, and hence of a continuous \"country\" in the V-Dem dataset, is somewhat arbitrary. For example, we treat Russia and the Soviet Union as the same entity, even though the geographic shape and population of that entity changes. || 5.2.11 Russia (11) Coded: 1789- History: Russian Empire (1789-1917); Russia (1917-1918); Russian Socialist Federative Republic (USSR) (1918-1",
+    "previous": {
+     "year": 1979,
+     "value": 0.107
+    }
+   },
+   "top1Wealth": {
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_RU.csv, shwealj992 p99p100",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "RU;shwealj992;p99p100;1980;0.1915;992;j;0",
+    "note": "Not measured: WID shows 19.15% for Russia in 1980 but grades it 0 (modelled from income inequality); its first observed Russian wealth year is 1995 (21.47%, grade 1). The model value is not drawn.",
+    "modelled": {
+     "value": 0.1915,
+     "year": 1980,
+     "note": "WID's model imputation (data-quality grade 0), shown for context only and never drawn"
+    }
+   },
+   "top1Income": {
+    "value": 0.0406,
+    "year": 1980,
+    "definition": "share of the top 1% of pre-tax national income, equal-split adults (20+): WID sptincj992 p99p100 (sptinc992j / shweal992j)",
+    "source": "World Inequality Database (WID.world), bulk download version 2026-10-15, WID_data_RU.csv; data-quality grade 3 of 5 (WID counts income grades 3+ and wealth grades 1+ as observed, https://wid.world/data-quality/)",
+    "url": "https://wid.world/bulk_download/wid_all_data.zip",
+    "quote": "RU;sptincj992;p99p100;1980;0.0406;992;j;3",
+    "note": "Russia's territory, not the whole USSR: WID's USSR file holds no share series. Novokmet, Piketty & Zucman (2018), 'From Soviets to oligarchs', updated by Neef (2022)."
+   },
+   "stateFirms": {
+    "value": 1.0,
+    "year": 1977,
+    "definition": "the state's share of the means of production by law: the basic means of production in industry, construction and agriculture, transport and communication, and the banks are state property",
+    "source": "Constitution (Fundamental Law) of the Union of Soviet Socialist Republics, adopted at the Seventh (Special) Session of the Supreme Soviet of the USSR, Ninth Convocation, on October 7, 1977 (Novosti Press Agency translation)",
+    "url": "http://www.departments.bucknell.edu/russian/const/77cons01.html",
+    "quote": "Article 10. The foundation of the economic system of the USSR is socialist ownership of the means of production in the form of state property (belonging to all the people), and collective farm-and-co-operative property. Socialist ownership also embraces the property of trade unions and other public organisations which they require to carry out their purposes under these rules. The state protects socialist property and provides conditions for its growth. No one has the right to use socialist property for person gain or other selfish ends. || Article 11. State property, i. e. the common property of the Soviet people, is the principal form of socialist property. The land, its minerals, waters, and forests are the exclusive property of the state. The state owns the basic means of production in industry, construction, and agriculture; means of transport and communication; the banks; the property of state-run trade organisations and public utilities, and other state-run undertakings; most urban housing; and other property necessary for state purposes. || Article 12. The property of collective farms and other co-operative organisations, and of their joint undertakings, comprises the means of production and other assets which they require for the purposes laid down in their rules. The land held by collective farms is secured to them for their free use in perpetuity. The state promotes development of collective farm-and-co-operative property and its approximation to state property. Collective farms, like other land users, are obliged to make effective and thrifty use of the land and to increase its fertility. || Article 13 (extract). Earned income forms the basis of the personal property of Soviet citizens. [...] Citizens may be granted the use of plots of land, in the manner prescribed by law, for a subsidiary small-holding (including the keeping of livestock and poultry), for fruit and vegetable growing or for building an individual dwelling.",
+    "basis": "by law"
+   },
+   "fortune": null,
+   "ownership": {
+    "default": 1,
+    "defaultNote": "state property by law (1977 Constitution, art. 11)",
+    "firms": []
+   },
+   "industries": {
+    "agriculture": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.99,
+     "capture": 0.17,
+     "captureConfidence": 0.44
+    },
+    "oil_gas": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.41,
+     "captureConfidence": 0.0
+    },
+    "mining_metals": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.2475,
+     "captureConfidence": 0.18
+    },
+    "utilities": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.99,
+     "capture": 0.245,
+     "captureConfidence": 0.2
+    },
+    "construction": {
+     "regulation": 0.99,
+     "regulationConfidence": 0.98,
+     "capture": 0.215,
+     "captureConfidence": 0.31
+    },
+    "manufacturing": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.1925,
+     "captureConfidence": 0.38
+    },
+    "transport": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.99,
+     "capture": 0.22,
+     "captureConfidence": 0.28
+    },
+    "trade": {
+     "regulation": 0.988,
+     "regulationConfidence": 0.97,
+     "capture": 0.14,
+     "captureConfidence": 0.53
+    },
+    "banking": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.98,
+     "capture": 0.1275,
+     "captureConfidence": 0.57
+    },
+    "finance": {
+     "regulation": 0.988,
+     "regulationConfidence": 0.98,
+     "capture": 0.08,
+     "captureConfidence": 0.73
+    },
+    "insurance": {
+     "regulation": 0.99,
+     "regulationConfidence": 0.98,
+     "capture": 0.0925,
+     "captureConfidence": 0.69
+    },
+    "real_estate": {
+     "regulation": 0.982,
+     "regulationConfidence": 0.95,
+     "capture": 0.0625,
+     "captureConfidence": 0.81
+    },
+    "health": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.99,
+     "capture": 0.2425,
+     "captureConfidence": 0.18
+    },
+    "legal": {
+     "regulation": 0.96,
+     "regulationConfidence": 0.86,
+     "capture": 0.115,
+     "captureConfidence": 0.62
+    },
+    "professional": {
+     "regulation": 0.976,
+     "regulationConfidence": 0.94,
+     "capture": 0.1075,
+     "captureConfidence": 0.64
+    },
+    "education": {
+     "regulation": 0.948,
+     "regulationConfidence": 0.85,
+     "capture": 0.035,
+     "captureConfidence": 0.86
+    },
+    "entertainment": {
+     "regulation": 0.982,
+     "regulationConfidence": 0.95,
+     "capture": 0.18,
+     "captureConfidence": 0.42
+    },
+    "hospitality": {
+     "regulation": 0.968,
+     "regulationConfidence": 0.91,
+     "capture": 0.14,
+     "captureConfidence": 0.53
+    },
+    "other_services": {
+     "regulation": 0.946,
+     "regulationConfidence": 0.82,
+     "capture": 0.0825,
+     "captureConfidence": 0.72
+    },
+    "hardware": {
+     "regulation": 0.992,
+     "regulationConfidence": 0.99,
+     "capture": 0.18,
+     "captureConfidence": 0.4
+    },
+    "software": {
+     "regulation": 0.98,
+     "regulationConfidence": 0.95,
+     "capture": 0.0575,
+     "captureConfidence": 0.83
+    },
+    "internet": {
+     "regulation": 0.948,
+     "regulationConfidence": 0.82,
+     "capture": 0.035,
+     "captureConfidence": 0.88
+    },
+    "media_telecom": {
+     "regulation": 0.994,
+     "regulationConfidence": 0.98,
+     "capture": 0.18,
+     "captureConfidence": 0.42
+    }
+   },
+   "industriesJudged": "Jev (jev-1.14.0), two Scores per industry; model judgments, not measurement",
+   "notes": "Agriculture was not all state property: collective farms were cooperative property (art. 12) and collective farmers were 11.0% of employment in 1980 (Narodnoe khozyaistvo 1980, p. 356); private plots gave about one-fourth of farm output on 3.5% of the cropland (CIA 1981, ER 81-10309). The drawing keeps every summit the state's by law. Spending and revenue are shares of a GDP the CASE paper prints (619 billion rubles) without naming its source."
+  }
+ ],
+ "jev": {
+  "model": "jev-1.14.0",
+  "requests": 92,
+  "tokens": 74547
+ }
+}

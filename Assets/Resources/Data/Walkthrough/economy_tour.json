@@ -38,6 +38,15 @@
       "hold": 14
     },
     {
+      "id": "hills_regimes",
+      "title": "Other foundations",
+      "text": "The same hills on other states. The bedrock is as deep as what each state spends: 38% of GDP in the United States, 49% in Sweden, 33% in China, 29% in Saudi Arabia, 48% in the Soviet Union of 1980. Summits turn steel where the state controls the largest firm: in China the largest bank, oil company, power grid and telephone company, while private firms lead technology and retail. Saudi Arabia's state lives on oil: 60% of its revenue.",
+      "focus": "regimes",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
       "id": "hills_land",
       "title": "Layers standing on layers",
       "text": "On the bedrock, layers stand on layers: raw materials and subsistence infrastructure at the foot, then manufacturing and infrastructure, then services, with technology on top. Each industry is a ridge as wide as its share of value added.",

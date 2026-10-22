@@ -14,7 +14,8 @@ namespace Why
     /// scene and does the same there, and quits with exit code 1 if anything logged an error or exception.
     /// <c>-screenshots DIR</c> saves a frame of every view and tour stop (<c>-smokeonly a,b</c> limits it to those views
     /// and skips the tour, unless <c>-smoketour</c> asks for it too; <c>-smokelayers</c> re-captures each view with every
-    /// layer hidden in turn, to find which layer draws what); <c>-smokereplay</c> also plays the economy's replay of the
+    /// layer hidden in turn, to find which layer draws what; a view with states of its own, <see cref="ViewVariants"/>, is
+    /// captured in each); <c>-smokereplay</c> also plays the economy's replay of the
     /// wave from 1950 to the latest year through the overview, landscape, money and mobility views, with a frame at a few
     /// years, failing if it stalls; add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
@@ -134,6 +135,18 @@ namespace Why
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
                 yield return Shot($"{scene}-view-{p.Id}");
+                // a view with states of its own (ViewVariants): each state in turn, then back to the default
+                if (ViewVariants.TryGet(p.Id, out ViewVariants.Entry variants))
+                {
+                    for (int v = 0; v < variants.Count(); v++)
+                    {
+                        variants.Show(v);
+                        yield return new WaitForSecondsRealtime(1.2f);
+                        yield return Shot($"{scene}-view-{p.Id}-{variants.Name(v)}");
+                    }
+
+                    variants.Show(-1);
+                }
                 // -smokelayers: the view again with each layer hidden in turn, to find which layer draws what
                 if (System.Environment.GetCommandLineArgs().Contains("-smokelayers") && shots != null)
                     foreach (GraphLayer layer in root.Layers.ToList())

@@ -89,9 +89,10 @@ namespace Why.EditorChecks
             Debug.Log("[Why] "+result);return result;
         }
         /// <summary>The decade's mobility (the matrix holds every tracked adult once, rows sum to one), the viewer's reading
-        /// (ranks rise with income, a dollar's parts add up, uphill shares stay in range and fall toward the top) and the
+        /// (ranks rise with income, a dollar's parts add up, uphill shares stay in range and fall toward the top), the
         /// corporate programs (every tower has its filing, directions sum to one, no negative stream, each firm's history in
-        /// order and judged, its last year the crest's).</summary>
+        /// order and judged, its last year the crest's) and the regimes (<see cref="Regimes.Problems"/>; the US baseline keeps
+        /// the foundation's judgments).</summary>
         static string NewModels(LandSnapshot source)
         {
             var lives=LandService.Model.Lives;var data=LandService.Model.Data;
@@ -102,9 +103,16 @@ namespace Why.EditorChecks
             foreach(string p in you.Problems(data,ValueCapture.Get(),mobility))Require(false,"You: "+p);
             var programs=CorporatePrograms.Get();
             if(programs!=null)foreach(string p in programs.Problems(source.Land.Towers.Length))Require(false,"Corporate programs: "+p);
+            // other governments: the file parses, every regime has its spending and revenue, shares are shares, every named
+            // firm stands on a production hill, and the baseline is the United States drawn with the foundation's own judgments
+            Regimes.Provide(data,Resources.Load<TextAsset>(Regimes.Path)?.text);var regimes=Regimes.Get();
+            Require(regimes!=null&&regimes.All.Length>=5,"Five regimes must load (Data/economy/regimes.json)");
+            foreach(string p in regimes.Problems(data))Require(false,"Regimes: "+p);
+            var us=regimes.Baseline;var gov=HillFoundationLayer.History;
+            if(gov?.industries!=null)foreach(var kv in gov.industries){var ind=data.IndustryById(kv.Key);if(ind!=null&&ind.TierIndex>0)Require(Math.Abs(us.Regulation[ind.Index]-kv.Value.regulation)<1e-3f,"The US regime keeps the foundation's own regulation judgment of "+ind.Name);}
             return "mobility "+mobility.From+"-"+mobility.Year+": "+mobility.Lines+" adults, bottom fifth stayed "+LandFacts.Percent(mobility.Share(0,0))+
                 ", top fifth "+LandFacts.Percent(mobility.Share(4,4))+"; you: median household "+PersonLife.Money(you.MedianIncome)+
-                "; corporate programs "+(programs?.Firms.Length??0)+" firms, "+(programs?.HistoryYears??0)+" firm-years of history.";
+                "; corporate programs "+(programs?.Firms.Length??0)+" firms, "+(programs?.HistoryYears??0)+" firm-years of history; "+regimes.All.Length+" regimes.";
         }
         /// <summary>The social layer and the government: the popular people parse into five regions, capital holders
         /// are tied to their companies (Musk: Tesla and SpaceX) and stand at a company rather than in the cloud,

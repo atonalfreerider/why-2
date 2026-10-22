@@ -53,7 +53,7 @@ namespace Why.Economy.Layers
             if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || seats != HillFoundationLayer.SeatsVersion) Build();
             if (content == null) return;
             string view = LandView.PresetId;
-            bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money";
+            bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money" || view == "regimes";
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;

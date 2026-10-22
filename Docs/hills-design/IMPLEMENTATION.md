@@ -634,3 +634,7 @@ named firm on a production hill, one leading firm per industry, and the US basel
 `ViewVariants` lets a view register states of its own; the smoke test captures each (`<scene>-view-regimes-<id>.png`)
 after the view itself. The replay leaves the view alone: its layer builds only while the view is on screen and rebuilds
 with each year's land; its panel stands top right, clear of the replay's caption at the bottom.
+
+**Measured** (Linux player in the mirror, 1920x1080, 2026-10-22): the full smoke test with `-smokereplay` - both scenes,
+every view and the five regimes' frames, both tours (the new stop is the economy tour's fifth), the replay in 94.9 s -
+finished with 0 errors. Needs a check in the headset: the panel's buttons by pinch and the view's label sizes on the HUD.

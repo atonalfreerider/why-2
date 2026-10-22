@@ -83,6 +83,8 @@ reformers marked along its top for their years in office.
 | **What moves people up or down.** The decade's ladder: five rungs of household income in 2015 and 2025, streams of people that climbed or fell, what came with the moves, the forces at each rung, and the model against the tax records. | **Where you stand.** Your household placed among the year's simulated Americans: your rung on your hill, where your money flows and which way, your runway, and the odds of people like you. |
 | ![Companies spend too](Docs/images/economy-strategy.jpg) | ![The price of money and the edge of trade](Docs/images/economy-money.jpg) |
 | **Companies spend too.** Each large firm's year of money from its filing, in the directions it flows, with Jev's arrows for which way it moves the firm; the AI build-out pouring down the hill. | **The price of money and the edge of trade.** The state's levers on the market layer: interest rates and the tariff rate on the wave's own time axis. |
+| ![The same hills on China's state](Docs/images/economy-regimes-china.jpg) | ![The same hills on Saudi Arabia's state](Docs/images/economy-regimes-saudi.jpg) |
+| **Other foundations: China.** The same US hills on China's state: a bedrock 33% of GDP deep, and steel summits where the state controls the industry's largest firm (banks, oil, the grid, telecom), gold where private firms lead (Huawei, Tencent, JD.com). | **Other foundations: Saudi Arabia.** A state that lives on oil (the amber stratum, 60% of its revenue) and controls the oil, chemicals, telecom and power summits; its vote threads nearly vanish (electoral democracy 0.02 of 1, V-Dem). |
 
 ## Controls
 

@@ -15,7 +15,11 @@ namespace Why.Economy
             var f = EconomyStage.Land();
             var list = new List<ViewPreset>();
             float crest = HillLandscape.Z(EconomyState.Year), y1972 = HillLandscape.Z(EconomyViews.Year1972);
-            Add("overview", "Economy / a wave moving into the future", "The road of lives fans out into the economy · industries ride the wave as ridges · companies are born, rise and die on them · the crest is now", KeyCode.Alpha1, new Vector3(95, 18, crest - 70), 140, 26, 270);
+            // The views of the whole time axis (the overview, the companies' lives, the money chart) frame the wake up to the
+            // present whatever year the crest stands at: an earlier year, or the replay, grows the wave across them instead of
+            // carrying them into the empty past before the first rib. The other views stand on the crest.
+            float axis = HillLandscape.Z(System.Math.Max(EconomyState.Year, EconomyState.DefaultYear(EconomyState.MaxYear)));
+            Add("overview", "Economy / a wave moving into the future", "The road of lives fans out into the economy · industries ride the wave as ridges · companies are born, rise and die on them · the crest is now", KeyCode.Alpha1, new Vector3(95, 18, axis - 70), 140, 26, 270);
             Add("section", "Population / families through time", "Partners meet at the mid-plane; their child's life starts at that junction", KeyCode.Alpha2, Vector3.zero, 0, 6, 6.2f);
             Add("landscape", "The wave of value", "Each rib is a year's economy · tiers stand on the ones beneath them · the crest is where value is created now", KeyCode.Alpha3, new Vector3(105, 26, crest - 20), 152, 18, 210);
             Add("capture", "Who keeps the money", "Every household dollar splits at a market: wages flow back down, owners' surplus climbs to the gold halos and rises to its owners · rose rings pay more than they collect", KeyCode.Alpha4, new Vector3(120, 40, crest - 14), 150, 32, 150);
@@ -24,7 +28,7 @@ namespace Why.Economy
             Add("mind", "Inside the decision program", "Select a player · memory → desire / fear → deliberation → spending → next balance sheet", KeyCode.Alpha7, HillLandscapeLayer.MindOrigin + new Vector3(0, 1, 0), 0, 20, 15);
             Add("society", "Repeated encounters", "Tit for tat · blue ties cooperate · red ties defect · use the season controls", KeyCode.Alpha8, new Vector3(90, 20, crest - 14), 150, 46, 150);
             Add("foundation", "Social infrastructure", "Taxes rain into the public bedrock · pillars carry pensions, health, schools and roads up to the people · interest rises to bondholders", KeyCode.Alpha9, new Vector3(100, -6, crest - 16), 168, 9, 205);
-            Add("companies", "Companies live and die", "Each line is a company: born on its industry's ridge, height = market value, color = how Jev judged it sells (gold need · rose want · ice fear) · ✕ failed · ○ bought", KeyCode.Alpha0, new Vector3(95, 16, crest - 78), 104, 14, 235);
+            Add("companies", "Companies live and die", "Each line is a company: born on its industry's ridge, height = market value, color = how Jev judged it sells (gold need · rose want · ice fear) · ✕ failed · ○ bought", KeyCode.Alpha0, new Vector3(95, 16, axis - 78), 104, 14, 235);
             Add("social", "Attention above capital", "White: the most followed Americans, laid out by who follows whom; rings: followed by the other most-followed · the attention loop: companies pay platforms, platforms pay creators, people give attention and take in wants, and spend · gold rings: capital holders' companies · grey: seats in government", KeyCode.None, new Vector3(95, 70, crest - 10), 150, 18, 175);
             Add("roots", "Industries depend on each other", "Input-output purchases connect suppliers to buyers; widths follow the stored use table", KeyCode.None, new Vector3(100, 10, crest - 16), 150, 34, 190);
             Add("betrayal", "One betrayal", "Follow retaliation and forgiveness over repeated encounters", KeyCode.None, new Vector3(90, 20, crest - 14), 150, 46, 150);
@@ -35,7 +39,7 @@ namespace Why.Economy
             // beyond them so time runs left to right with the wave behind.
             float first = HillLandscape.Z(1950);
             Add("money", "The price of money and the edge of trade", "The state's levers on the market layer, on the wave's own time axis · gold: the federal funds rate · rose: the 30-year mortgage · ice: the 10-year Treasury · steel: the effective tariff rate · faint band: exports + imports over GDP",
-                KeyCode.None, new Vector3(HillMoneyLayer.ChartX, 26, (first + crest) * .5f), 270, 6, 128);
+                KeyCode.None, new Vector3(HillMoneyLayer.ChartX, 26, (first + axis) * .5f), 270, 6, 128);
             // The decade's ladder stands beside the wave (HillMobilityLayer): seen from the hills' side so time runs left
             // to right, its labels and the crest's year on the right.
             float decade = HillLandscape.Z(EconomyState.Year - Model.Mobility.DefaultWindow);

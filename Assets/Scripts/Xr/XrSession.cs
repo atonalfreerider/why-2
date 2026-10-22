@@ -72,10 +72,11 @@ namespace Why.Xr
 
         /// <summary>
         /// The canvases that stay visible in a headset: what you read (the tour's narration card, the loading card,
-        /// tooltips) and the hand menu. Everything you would press on a screen - the preset bar, the corner buttons, the
-        /// economy's panels - is replaced by the menu on your left hand, so nothing to press floats in free space.
+        /// tooltips, the economy's replay readout) and the hand menu. Everything you would press on a screen - the preset
+        /// bar, the corner buttons, the economy's panels - is replaced by the menu on your left hand, so nothing to press
+        /// floats in free space.
         /// </summary>
-        static readonly HashSet<string> Kept = new HashSet<string> { "DirectorCanvas", "LoadingOverlay", "HudOverlay", "XR Menu" };
+        static readonly HashSet<string> Kept = new HashSet<string> { "DirectorCanvas", "LoadingOverlay", "HudOverlay", "XR Menu", "EconomyReplay" };
 
         /// <summary>Every world-space canvas the hand ray can point at (headset only).</summary>
         public static readonly List<Canvas> Canvases = new List<Canvas>();

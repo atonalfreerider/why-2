@@ -21,6 +21,8 @@ namespace Why.Economy.UI
         public static int Company { get; private set; }=-1;
         public static int Group { get; private set; }=-1;
         public static Vector3 GroupCenter { get; private set; }
+        /// <summary>The panel's box while it is shown (canvas units of any canvas made by UiFactory.CreateCanvas; empty otherwise).</summary>
+        public static UiBox Occupied { get; private set; }=UiBox.Empty;
         GraphRoot root;
         RectTransform panel, canvasRect;
         /// <summary>The HUD's blocks, measured each frame: the panel stands above the HUD's legend and lifeline readout
@@ -210,7 +212,7 @@ namespace Why.Economy.UI
             if(Depth>=4&&EconomyState.Person<0)EnterGroup(Group);
             // a desktop navigator: on a portrait (phone-video) screen the preset bar and the HUD's blocks fill the room it needs
             bool show=!root.TourActive&&!ScreenLayout.IsPortrait&&LandView.PresetId!="section"&&LandView.PresetId!="society"&&LandView.PresetId!="betrayal";panel.gameObject.SetActive(show);
-            if(show)Dock();
+            if(show)Dock();else Occupied=UiBox.Empty;
             if(dots)dots.SetActive(show&&LandView.PresetId!="mind");
             if(!show||Depth<3||Depth==5)return;
             if(!PointerInput.Available||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
@@ -231,8 +233,9 @@ namespace Why.Economy.UI
                 if(!box.IsEmpty&&box.X<column)bottom=Mathf.Max(bottom,f.Canvas.y-box.Y+f.Gap);
             bottom=Mathf.Min(bottom,Mathf.Max(22,f.Canvas.y-panel.sizeDelta.y-f.Margin));
             if(Mathf.Abs(panel.anchoredPosition.y-bottom)>.5f)panel.anchoredPosition=new Vector2(18,bottom);
+            Occupied=new UiBox(18,f.Canvas.y-bottom-panel.sizeDelta.y,panel.sizeDelta.x,panel.sizeDelta.y);
         }
         void UpToOverview(){Depth=0;Industry=Company=Group=-1;page=0;dependencies=false;EconomyState.SetPerson(-1);EconomyState.SetSelection(-1,-1,-1);Refresh();root.Focus("overview");}
-        void OnDestroy(){if(mesh)Destroy(mesh);if(material)Destroy(material);Instance=null;Depth=0;Industry=Company=Group=-1;}
+        void OnDestroy(){if(mesh)Destroy(mesh);if(material)Destroy(material);Instance=null;Depth=0;Industry=Company=Group=-1;Occupied=UiBox.Empty;}
     }
 }

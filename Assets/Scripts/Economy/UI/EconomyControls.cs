@@ -17,8 +17,10 @@ namespace Why.Economy.UI
     /// <list type="bullet">
     /// <item>comma and period step <see cref="EconomyState.Year"/> back and forward by one year (with Shift by ten), clamped
     /// to 1950-2026: the cut slides along the road to it and the land opens that year;</item>
-    /// <item>the YEAR CHIP at the right edge under the HUD's tour and help buttons: the year with ‹ › (they click), and under
-    /// them a scrubber over 1950-2026. Dragging it moves only the cut (<see cref="EconomyState.SetPreviewYear"/>);
+    /// <item>the YEAR CHIP at the right edge under the HUD's tour and help buttons: the year with ‹ › (they click) and the
+    /// replay's play / pause before them (<see cref="EconomyReplay"/>, also R), and under them a scrubber over 1950-2026
+    /// with the replay's turning points as ticks (rose: a recession, gold: the federal funds rate turning, steel: the tariff
+    /// rate; hovering one names it). Dragging it moves only the cut (<see cref="EconomyState.SetPreviewYear"/>);
     /// releasing it opens the land at that year (<see cref="EconomyState.SetYear"/>). Hovering the chip shows the money
     /// circuit's notes for the year (its approximations and residuals). Beneath it the year's readout (generated:
     /// "2025 · GDP $30.8T · in control 12% · fantasy 19% · fear 54% · trust 25% (GSS) · cooperation 0.73"). On a portrait
@@ -46,7 +48,7 @@ namespace Why.Economy.UI
         /// chip's width (77 years over ~170 units: about two units a year); the readout's height (reference pixels).
         /// </summary>
         const float RowHeight = 34f, ArrowSize = 24f, ArrowGap = 3f, YearSize = HudKit.SizeTitle, ScrubRow = 16f, TrackHeight = 3f,
-            HandleSize = 9f, ChipWidth = 196f, ReadoutHeight = 26f;
+            HandleSize = 9f, ChipWidth = 196f, ReadoutHeight = 26f, TickWidth = 2f, TickHeight = 9f;
 
         /// <summary>Years a step takes with Shift held.</summary>
         const int ShiftStep = 10;
@@ -79,9 +81,17 @@ namespace Why.Economy.UI
         public static bool ReadoutMoved { get; private set; }
 
         GraphRoot root;
-        RectTransform canvasRect, chip, readout, track, fill, handle;
+        RectTransform canvasRect, chip, readout, track, fill, handle, turns;
         TextMeshProUGUI yearText, readoutText;
-        Button prev, next;
+        Button prev, next, play;
+        Image playIcon;
+
+        /// <summary>The replay's turning points on the scrubber: their ticks (built once the facts are known) and the state
+        /// the play button last showed.</summary>
+        readonly List<(RectTransform tick, ReplayFacts.TurningPoint turn)> ticks = new List<(RectTransform, ReplayFacts.TurningPoint)>();
+
+        ReplayFacts ticksFor;
+        int replayVersion = -1;
         UiFade chipFade, readoutFade;
         HudTooltip tooltip;
         HudBlocks hud;
@@ -118,10 +128,20 @@ namespace Why.Economy.UI
                 TextAlignmentOptions.MidlineLeft);
             prev = HudKit.Button(chip, "Prev", "‹", HudKit.SizeBody + 2, () => Step(-1));
             next = HudKit.Button(chip, "Next", "›", HudKit.SizeBody + 2, () => Step(1));
+            play = HudKit.Button(chip, "Replay", "", HudKit.SizeBody, EconomyReplay.Toggle);
+            RectTransform icon = UiFactory.Rect(play.transform, "Icon");
+            playIcon = icon.gameObject.AddComponent<Image>();
+            playIcon.sprite = Xr.ChapterIcons.Get("play");
+            playIcon.color = GraphStyle.Text;
+            playIcon.raycastTarget = false;
+            playIcon.preserveAspect = true;
+            icon.Fill(6, 6, 6, 6);
 
-            // the scrubber: a thin track over 1950-2026, the part up to the year filled, a handle at the year
+            // the scrubber: a thin track over 1950-2026, the part up to the year filled, the turning points, a handle at the year
             track = UiFactory.Panel(chip, "Scrubber", new Color(1, 1, 1, 0.12f)).rectTransform;
             fill = UiFactory.Panel(track, "Fill", new Color(1, 1, 1, 0.35f), false).rectTransform;
+            turns = UiFactory.Rect(track, "Turning points");
+            turns.Fill();
             Image knob = UiFactory.Panel(track, "Handle", GraphStyle.Text, false);
             knob.pixelsPerUnitMultiplier = 14f / (HandleSize * 0.5f);
             handle = knob.rectTransform;
@@ -176,6 +196,29 @@ namespace Why.Economy.UI
             else if (dragging) EndDrag(false);
 
             if (EconomyState.Version != seenVersion || LandService.Version != seenLand) Sync();
+            if (EconomyReplay.Version != replayVersion || EconomyReplay.Facts != ticksFor) SyncReplay();
+        }
+
+        /// <summary>The play button's icon (pause while the replay plays) and the turning points' ticks (once the facts exist).</summary>
+        void SyncReplay()
+        {
+            replayVersion = EconomyReplay.Version;
+            playIcon.sprite = Xr.ChapterIcons.Get(EconomyReplay.Playing ? "pause" : "play");
+            if (EconomyReplay.Facts == ticksFor) return;
+            ticksFor = EconomyReplay.Facts;
+            foreach ((RectTransform tick, ReplayFacts.TurningPoint _) in ticks) Destroy(tick.gameObject);
+            ticks.Clear();
+            if (ticksFor == null) return;
+            foreach (ReplayFacts.TurningPoint t in ticksFor.TurningPoints)
+            {
+                if (t.Year < EconomyState.MinYear || t.Year > EconomyState.MaxYear) continue;
+                Color c = t.Kind == ReplayFacts.Kind.Recession ? EconomyStyle.Desire : t.Kind == ReplayFacts.Kind.Tariff ? EconomyStyle.Government : EconomyStyle.Capital;
+                Image tick = UiFactory.Panel(turns, "Turn " + t.Year.ToString(LandFacts.Ci), c, false);
+                tick.sprite = null; // a plain bar: the rounded sprite's corners are larger than the tick
+                ticks.Add((tick.rectTransform, t));
+            }
+
+            dirty = true;
         }
 
         void Show(bool show)
@@ -381,23 +424,48 @@ namespace Why.Economy.UI
             Vector2 pointer = mouse.position.ReadValue();
             LandSnapshot s = LandService.Current;
             string notes = s != null && s.Year == EconomyState.Year ? s.Circuit?.Notes : null;
+            ReplayFacts.TurningPoint turn = dragging ? null : TurnAt(pointer);
             bool over = !dragging && ScreenRect(chip, out Rect c) && c.Contains(pointer) && !string.IsNullOrEmpty(notes);
-            if (over) tooltip.Show(chip, EconomyState.Year.ToString(LandFacts.Ci) + ": how the accounts were made", null, notes);
+            if (turn != null) tooltip.Show(chip, turn.Year.ToString(LandFacts.Ci) + ": a turning point", null, turn.Text + ". Read off the data; R replays the wave.");
+            else if (over) tooltip.Show(chip, EconomyState.Year.ToString(LandFacts.Ci) + ": how the accounts were made", null, notes);
             else tooltip.Hide();
             float scale = canvasRect.rect.width > 0 ? Screen.width / canvasRect.rect.width : 1;
             tooltip.Tick(pointer / Mathf.Max(1e-4f, scale), canvasRect.rect.size, dt);
         }
 
+        /// <summary>The turning point whose tick is under a screen point (within a few pixels along the track), or null.</summary>
+        ReplayFacts.TurningPoint TurnAt(Vector2 screen)
+        {
+            if (ticks.Count == 0 || compactChip || !ScreenRect(track, out Rect t) || t.width <= 0) return null;
+            float slack = 4f * t.height / Mathf.Max(1e-3f, TrackHeight);
+            if (screen.y < t.yMin - slack || screen.y > t.yMax + slack) return null;
+            ReplayFacts.TurningPoint best = null;
+            float closest = 4f * t.width / Mathf.Max(1f, track.rect.width);
+            foreach ((RectTransform _, ReplayFacts.TurningPoint turn) in ticks)
+            {
+                float x = t.xMin + Mathf.InverseLerp(EconomyState.MinYear, EconomyState.MaxYear, turn.Year) * t.width, d = Mathf.Abs(screen.x - x);
+                if (d <= closest)
+                {
+                    closest = d;
+                    best = turn;
+                }
+            }
+
+            return best;
+        }
+
         /// <summary>Sizes the chip and the readout to their texts and places them (see <see cref="EconomyUiLayout"/>).</summary>
         void Layout(HudFrame f)
         {
-            // the year row: the year (the scrubber's preview while dragging), then the two arrows
+            // the year row: the year (the scrubber's preview while dragging), then the replay's button and the two arrows
             yearText.text = YearFacts.YearText(EconomyState.CutYear);
             yearText.color = EconomyState.PreviewYear >= 0 ? EconomyStyle.Capital : GraphStyle.Text;
             Vector2 year = HudKit.FitText(yearText);
             float pad = HudKit.Pad - 2;
             compactChip = EconomyUiLayout.ReadoutInLegend(f);
-            chipSize = new Vector2(EconomyUiLayout.ChipWidth(f, ChipWidth), RowHeight + (compactChip ? 0 : ScrubRow));
+            // never narrower than the year and its three buttons (a narrow portrait column)
+            float row = year.x + 2 * pad + 3 * ArrowSize + 2 * ArrowGap + 10;
+            chipSize = new Vector2(Mathf.Max(EconomyUiLayout.ChipWidth(f, ChipWidth), row), RowHeight + (compactChip ? 0 : ScrubRow));
             track.gameObject.SetActive(!compactChip);
             HudKit.PlaceTopLeft(yearText.rectTransform, pad, 0, new Vector2(year.x, RowHeight));
             float arrowTop = (RowHeight - ArrowSize) * 0.5f;
@@ -405,12 +473,20 @@ namespace Why.Economy.UI
                 new Vector2(ArrowSize, ArrowSize));
             HudKit.PlaceTopLeft((RectTransform)next.transform, chipSize.x - pad + 4 - ArrowSize, arrowTop,
                 new Vector2(ArrowSize, ArrowSize));
+            HudKit.PlaceTopLeft((RectTransform)play.transform, chipSize.x - pad + 4 - 3 * ArrowSize - 2 * ArrowGap - 4, arrowTop,
+                new Vector2(ArrowSize, ArrowSize));
 
             // the scrubber's row: the track across the chip, filled to the year, the handle on it
             float trackWidth = chipSize.x - 2 * pad;
             HudKit.PlaceTopLeft(track, pad, RowHeight + (ScrubRow - TrackHeight) * 0.5f - 4, new Vector2(trackWidth, TrackHeight));
             float at = Mathf.InverseLerp(EconomyState.MinYear, EconomyState.MaxYear, EconomyState.CutYear) * trackWidth;
             HudKit.PlaceTopLeft(fill, 0, 0, new Vector2(at, TrackHeight));
+            foreach ((RectTransform tick, ReplayFacts.TurningPoint turn) in ticks)
+            {
+                float x = Mathf.InverseLerp(EconomyState.MinYear, EconomyState.MaxYear, turn.Year) * trackWidth;
+                HudKit.PlaceTopLeft(tick, x - TickWidth * 0.5f, (TrackHeight - TickHeight) * 0.5f, new Vector2(TickWidth, TickHeight));
+            }
+
             HudKit.PlaceTopLeft(handle, at - HandleSize * 0.5f, (TrackHeight - HandleSize) * 0.5f, new Vector2(HandleSize, HandleSize));
             chipBox = EconomyUiLayout.Chip(f, chipSize);
             Place(chip, chipBox, f);

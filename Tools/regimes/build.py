@@ -38,6 +38,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -67,6 +68,8 @@ VDEM_SLUG = "electoral-democracy-index"
 OECD_REV = ("https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_GLOBAL@DF_RSGLOBAL,2.1/"
             "{iso3}.TAX_REV.S13._T+T_1100+T_1200+T_1300+T_2000+T_3000+T_4000+T_5000+T_6000._T.XDC+PT_B1GQ.A"
             "?startPeriod={year}&endPeriod={year}&format=csv")
+BROWSER = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36"
+GOVERNMENT_OWNED = "Government owned 50% or more"
 # OECD revenue categories -> the parts of a state's revenue (unallocable income tax 1300 and other taxes 6000 stay "other")
 OECD_PARTS = {"T_1100": "personal", "T_1200": "corporate", "T_2000": "social", "T_3000": "social", "T_4000": "property",
               "T_5000": "goods", "T_1300": "other", "T_6000": "other"}
@@ -77,7 +80,7 @@ PARTS = ["personal", "corporate", "social", "goods", "property", "resources", "e
 # ----------------------------------------------------------------------------------------------------------- downloads
 
 
-def fetch(url, name):
+def fetch(url, name, ua=AGENT):
     """Download once into .cache/<name>; later runs read the file."""
     path = os.path.join(CACHE, name)
     if not os.path.exists(path):
@@ -87,7 +90,7 @@ def fetch(url, name):
         last = None
         for attempt in range(4):
             try:
-                with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": AGENT}), timeout=120) as r:
+                with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": ua}), timeout=120) as r:
                     body = r.read()
                 with open(path, "wb") as f:
                     f.write(body)
@@ -138,6 +141,47 @@ def oecd_revenue(iso3, year):
     return amounts, tax_gdp, url
 
 
+def fortune_list(url):
+    """The Fortune Global 500 rows (rank, name, profile slug, country, sector, industry, revenue in US$ millions) from the
+    list page's own data; only the extract is cached."""
+    path = os.path.join(CACHE, "fortune_global500.json")
+    if not os.path.exists(path):
+        if OFFLINE:
+            raise SystemExit("--offline: the Fortune list is not cached")
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": BROWSER}), timeout=120) as r:
+            html = r.read().decode("utf-8", "replace")
+        m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
+        items = json.loads(m.group(1))["props"]["pageProps"]["franchiseSearch"]["items"]
+        rows = [{"rank": i["rank"], "name": i["name"], "slug": i["slug"], "country": i["data"]["Country / Territory"],
+                 "sector": i["data"]["Sector"], "industry": i["data"]["Industry"],
+                 "revenue": float(i["data"]["Revenues ($M)"].replace("$", "").replace(",", ""))} for i in items]
+        os.makedirs(CACHE, exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(rows, f)
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def fortune_owned(slug):
+    """Whether a firm's Fortune Global 500 profile carries the footnote 'Government owned 50% or more.' (only that is
+    cached), with the profile's URL and the footnote."""
+    url = "https://fortune.com" + slug + "global500/"
+    path = os.path.join(CACHE, "fortune", slug.strip("/").replace("/", "_") + ".json")
+    if not os.path.exists(path):
+        if OFFLINE:
+            raise SystemExit(f"--offline: the Fortune profile {slug} is not cached")
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": BROWSER}), timeout=120) as r:
+            html = r.read().decode("utf-8", "replace")
+        m = re.search(r"(Government owned 50% or more\.[^\"<]{0,160})", html)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump({"url": url, "governmentOwned": GOVERNMENT_OWNED in html, "footnote": m.group(1).strip() if m else None,
+                       "profileFound": len(html) > 50000}, f)
+        time.sleep(1)
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def owid(slug):
     text = fetch(OWID.format(slug), f"owid_{slug}.csv")
     meta = json.loads(fetch(OWID_META.format(slug), f"owid_{slug}.meta.json"))
@@ -156,11 +200,20 @@ def measure(value, year, source, url, note=None, **extra):
 
 
 def curated(entry):
-    """A measure read by hand (sources.json): value, year, source, url, quote, note; None stays None."""
+    """A measure read by hand (sources.json): value, year, source, url, quote, note; None stays None. A measure given as
+    two amounts read in their sources ("numerator" and "denominator", each {value, unit, source, url, quote}) gets its
+    value computed here as their ratio, so no share is typed by hand."""
     if not entry:
         return None
+    if entry.get("value") is None and entry.get("numerator") and entry.get("denominator"):
+        n, d = entry["numerator"], entry["denominator"]
+        if n.get("value") is not None and d.get("value"):
+            entry = dict(entry, value=n["value"] / d["value"],
+                         computed=f"{n['value']:,} / {d['value']:,} {d.get('unit', '')}".strip())
     keep = {k: entry.get(k) for k in ("value", "year", "unit", "definition", "source", "url", "quote", "note", "previous", "count", "of", "list",
-                                      "modelled")}
+                                      "modelled", "basis", "numerator", "denominator", "computed")}
+    if isinstance(keep.get("value"), float):
+        keep["value"] = round(keep["value"], 4)
     return {k: v for k, v in keep.items() if v is not None}
 
 
@@ -195,13 +248,19 @@ def revenue_mix(mix, iso3, revenue_gdp_of_year):
     elif mix["basis"] == "amounts":
         total = mix["total"]
         summed = sum(line["amount"] for line in mix["lines"])
-        if abs(summed - total) > 0.002 * total:
+        if mix.get("remainder"):
+            # the source prints some lines and the total; what they leave is the named remainder part
+            if summed > total * 1.002:
+                raise SystemExit(f"budget lines sum to {summed}, above the reported total {total}")
+            parts[mix["remainder"]] += (total - summed) / total
+            notes.append(f"{mix['remainder']} is the total less the printed lines ({total - summed:,.1f} {mix.get('unit', '')})")
+        elif abs(summed - total) > 0.002 * total:
             raise SystemExit(f"budget lines sum to {summed}, not the reported total {total}")
         for line in mix["lines"]:
             if line["part"] not in PARTS:
                 raise SystemExit(f"unknown revenue part {line['part']}")
             parts[line["part"]] += line["amount"] / total
-        notes.append(f"the budget's lines over its reported total ({total:,} {mix.get('unit', '')}, {mix['year']})")
+        notes.insert(0, f"the budget's lines over its reported total ({total:,} {mix.get('unit', '')}, {mix['year']})")
     elif mix["basis"] == "revenue":
         for k, v in mix["parts"].items():
             if v is not None:
@@ -327,6 +386,7 @@ def main():
         if row.get(vdem_col):
             vdem.setdefault(row["entity"], {})[int(row["year"])] = float(row[vdem_col])
     imf_day = retrieved("imf_G_X_G01_GDP_PT.json")
+    fortune = fortune_list(src["fortune"]["url"]) if src.get("fortune") else []
 
     problems = []
     regimes = []
@@ -397,26 +457,62 @@ def main():
 
         own = r.get("ownership") or {}
         firms = []
+        # the summits: each industry's largest firm of the country on the Fortune Global 500 (steel when Fortune says the
+        # government owns half or more), else the national leader the research established (Sweden, Saudi Arabia)
+        fort = src.get("fortune") or {}
+        summits = {}
+        if r.get("fortuneCountry"):
+            candidates = {}
+            for row in fortune:
+                if row["country"] != r["fortuneCountry"]:
+                    continue
+                if row["name"] in fort["firms"]:
+                    industry = fort["firms"][row["name"]]
+                else:
+                    industry = fort["industries"].get(row["sector"] + "|" + row["industry"], fort["industries"].get(row["industry"]))
+                    if industry is None:
+                        problems.append(f"{r['id']}: no scene industry for Fortune's {row['sector']} | {row['industry']} ({row['name']})")
+                if industry is None:
+                    continue
+                candidates.setdefault(industry, []).append(row)
+            for industry, rows in sorted(candidates.items()):
+                rows.sort(key=lambda x: -x["revenue"])
+                lead = rows[0]
+                flag = fortune_owned(lead["slug"])
+                if not flag.get("profileFound"):
+                    problems.append(f"{r['id']}: Fortune profile of {lead['name']} not found")
+                rest = "; ".join(f"{x['name']} ${x['revenue'] / 1000:,.1f}B" for x in rows[1:3])
+                summits[industry] = {
+                    "name": lead["name"], "industry": industry, "leads": True, "controlled": bool(flag["governmentOwned"]),
+                    "holder": "Government owned 50% or more (Fortune)" if flag["governmentOwned"] else None,
+                    "basis": "the country's largest firm in this industry on the Fortune Global 500 2026",
+                    "revenue": {"value": lead["revenue"], "currency": "USD", "unit": "million", "year": "Fortune Global 500 2026",
+                                "rank": lead["rank"], "url": fort["url"]},
+                    "url": flag["url"], "quote": flag["footnote"] or "(no 'Government owned' footnote on the profile)",
+                    "note": ("next: " + rest if rest else "the country's only firm of this industry on the list") +
+                            (f"; {fort['firmNotes'][lead['name']]}" if lead["name"] in fort.get("firmNotes", {}) else "")}
+        for industry, leader in (r.get("nationalLeaders") or {}).items():
+            if industry in summits:
+                problems.append(f"{r['id']}: {industry} has both a Fortune and a national leader")
+                continue
+            summits[industry] = dict(leader, industry=industry, leads=True)
+        # the state's holdings named in the ownership research: listed in the panel; one that is a summit lends it its share
+        aliases = own.get("aliases", {})
         for f in own.get("firms", []):
             if f.get("industry") not in ids:
                 problems.append(f"{r['id']}: {f.get('name')} stands on unknown industry {f.get('industry')}")
                 continue
-            firms.append({k: f[k] for k in ("name", "industry", "stateShare", "controlled", "holder", "asOf", "url", "quote", "note", "revenue") if k in f})
-        # each industry's summit is its largest named firm by revenue, in one currency; when any firm named on an industry
-        # lacks a revenue the industry cannot be ranked (a larger private firm must not leave the lead to a state one), so it
-        # gets no leader and its summit keeps the regime's default
-        for industry in sorted({f["industry"] for f in firms}):
-            named = [f for f in firms if f["industry"] == industry]
-            unsized = [f["name"] for f in named if (f.get("revenue") or {}).get("value") is None]
-            currencies = {f["revenue"].get("currency") for f in named if not f["name"] in unsized}
-            if unsized:
-                problems.append(f"{r['id']}: {industry} cannot be ranked: no revenue for {', '.join(unsized)}")
-            elif len(currencies) > 1:
-                problems.append(f"{r['id']}: {industry} firms' revenues are in several currencies {sorted(map(str, currencies))}")
-            else:
-                max(named, key=lambda f: f["revenue"]["value"])["leads"] = True
-        for f in firms:
-            f.setdefault("leads", False)
+            rec = {k: f[k] for k in ("name", "industry", "stateShare", "controlled", "holder", "asOf", "url", "quote", "note") if k in f}
+            summit = summits.get(f["industry"])
+            if summit and summit["name"] == aliases.get(f["name"], f["name"]):
+                if f.get("stateShare") is not None:
+                    summit["stateShare"] = f["stateShare"]
+                summit["holder"] = f.get("holder") or summit.get("holder")
+                summit["ownershipUrl"] = f.get("url")
+                continue
+            rec["leads"] = False
+            firms.append(rec)
+        firms = list(summits.values()) + firms
         out["ownership"] = {"default": own.get("default", 0), "defaultNote": own.get("defaultNote"), "firms": firms}
 
         if r.get("baseline"):

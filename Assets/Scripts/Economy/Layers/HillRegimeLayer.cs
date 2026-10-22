@@ -135,9 +135,9 @@ namespace Why.Economy.Layers
             Cloud(r);
 
             // the title above the crest
-            string title = "<b>" + r.Name.ToUpperInvariant() + "</b> · " + r.Form + " · " + r.Era;
-            string sub = r.Baseline ? "the hills on their own state: the baseline the other foundations are set against"
-                : "the same US hills on " + Possessive(r) + " state: only the foundation and its reach change";
+            string title = "<b>" + r.Name.ToUpperInvariant() + "</b> · " + r.Form;
+            string sub = r.Baseline ? "the US hills of " + land.Year + " on their own state, measured " + r.Era + ": the baseline the others are set against"
+                : "the same US hills of " + land.Year + " on " + Possessive(r) + " state, measured " + r.Era + ": only the foundation and its reach change";
             Label(title + "\n<size=65%>" + sub + "</size>", new Vector3(LabelX, land.CloudY + 30, cz + 4), 1.9f, White);
             ReadoutText = Readout(r, us, data);
             DrawingText = Drawing(r);
@@ -188,7 +188,7 @@ namespace Why.Economy.Layers
             strata.AddPolyline(new[] { new Vector3(x0, yr, cz + .3f), new Vector3(x1, yr, cz + .3f) }, WithAlpha(White, .95f), 2, 0, 0, 2.6f);
             strata.AddPolyline(new[] { new Vector3(x0, yg, cz + .3f), new Vector3(x1, yg, cz + .3f) }, WithAlpha(Steel, .9f), 2.4f, 0, 0, 2.2f);
             // the depth in words beneath the bedrock
-            Label("<b>THE STATE SPENDS " + LandFacts.Percent(g, 1) + " OF GDP</b> and takes in " + LandFacts.Percent(rev, 1) + "\n<size=75%>on this economy: " +
+            Label("<b>THE STATE SPENDS " + LandFacts.Percent(g, 1) + " OF " + r.Spending.Of + "</b> and takes in " + LandFacts.Percent(rev, 1) + "\n<size=75%>on this economy: " +
                   Money(g * gdp) + " of $" + (gdp / 1000).ToString("0.0", LandFacts.Ci) + "T · the white line: revenue · the steel line: spending</size>",
                   new Vector3(LabelX, bottom - 6, cz + .8f), 1.45f, Color.Lerp(Steel, White, .5f));
             // the US for comparison
@@ -220,11 +220,15 @@ namespace Why.Economy.Layers
                 double owners = Math.Max(0, snapshot.Land.Sectors[j].Owners);
                 float radius = 1.5f + Mathf.Sqrt((float)owners) * .16f;
                 Vector3 h = land.Halo(j);
+                // a summit some firm decides is drawn full; one the regime's default fills (no listed firm) stays faint
+                var firm = r.SummitFirm(j);
+                bool decided = firm != null || r.DefaultOwnership >= .5;
+                float a = decided ? 1 : .35f;
                 for (int ring = 0; ring < 2; ring++)
                 {
                     float rr = radius * (ring == 0 ? 1 : .78f);
-                    Arc(rings, h, rr, 0, (float)s, WithAlpha(Steel, .95f), 3, 3.4f);
-                    Arc(rings, h, rr, (float)s, 1, WithAlpha(Gold, .9f), 2.4f, 2.6f);
+                    Arc(rings, h, rr, 0, (float)s, WithAlpha(Steel, .95f * a), decided ? 3 : 1.6f, 1.6f * a);
+                    Arc(rings, h, rr, (float)s, 1, WithAlpha(Gold, .9f * a), decided ? 2.4f : 1.4f, 2.4f * a);
                 }
                 if (s > .01)
                 {
@@ -233,16 +237,14 @@ namespace Why.Economy.Layers
                     for (int k = 0; k < pts.Length; k++)
                     {
                         float t = k / 23f;
-                        pts[k] = new LinePoint(Vector3.Lerp(foot, h, t) + Vector3.forward * Mathf.Sin(t * Mathf.PI) * 1.5f, WithAlpha(Steel, .85f), 1 + 5 * (float)s, 0, 2.2f + 1.4f * (float)s);
+                        pts[k] = new LinePoint(Vector3.Lerp(foot, h, t) + Vector3.forward * Mathf.Sin(t * Mathf.PI) * 1.5f, WithAlpha(Steel, .8f), 1 + 4 * (float)s, 0, 1.1f + .5f * (float)s);
                     }
                     beams.AddFlowPath(pts, 0, .35f, j * .2f);
                 }
-                var firm = r.SummitFirm(j);
                 if (firm != null)
                 {
                     named++;
-                    string share = firm.Share <= 0 ? "private" : double.IsNaN(firm.StateShare) ? "state-controlled" : LandFacts.Percent(firm.StateShare) + " state";
-                    Label("<b>" + firm.Name + "</b> · " + share, h + Vector3.up * (radius + 2.6f), .85f, s >= .5 ? Color.Lerp(Steel, White, .45f) : Color.Lerp(Gold, White, .45f));
+                    Label("<b>" + Short(firm.Name) + "</b> · " + Owner(firm), h + Vector3.up * (radius + 2.6f), .8f, s >= .5 ? Color.Lerp(Steel, White, .45f) : Color.Lerp(Gold, White, .45f));
                 }
             }
             if (r.DefaultOwnership >= .5 && named == 0)
@@ -440,6 +442,18 @@ namespace Why.Economy.Layers
 
         static string Pct(Regimes.Measure m) => m.Has ? LandFacts.Percent(m.Value, 1) : "not found";
 
+        /// <summary>Who owns a firm, in a few words: state-controlled (with the stake when known), a minority stake, or private.</summary>
+        static string Owner(Regimes.Firm f) => f.Controlled ? "state-controlled" + (double.IsNaN(f.StateShare) ? "" : " (" + LandFacts.Percent(f.StateShare) + ")")
+            : !double.IsNaN(f.StateShare) && f.StateShare > 0 ? LandFacts.Percent(f.StateShare) + " state" : "private";
+
+        /// <summary>A firm's name without its legal tail, for a label on a summit.</summary>
+        static string Short(string name)
+        {
+            foreach (string tail in new[] { " Investment & Holding", " Holdings", " Holding Group", " Group", " Communications", " Corporation", " Co." })
+                if (name.EndsWith(tail)) return name.Substring(0, name.Length - tail.Length);
+            return name;
+        }
+
         static string Money(double billions) => LandFacts.Money(billions);
 
         static int Production(Data.EconomyData data) { int n = 0; foreach (var i in data.Industries) if (i.TierIndex > 0) n++; return n; }
@@ -458,7 +472,8 @@ namespace Why.Economy.Layers
             string Vs(Regimes.Measure m, Regimes.Measure u, bool pct = true) => r.Baseline || u == null || !u.Has ? "" : " <color=#8A93A0>· US " + (pct ? LandFacts.Percent(u.Value, 1) : u.Value.ToString("0.00", LandFacts.Ci)) + "</color>";
             s.Append("<b>").Append(r.Name).Append("</b> · ").Append(r.Form).Append(" · ").Append(r.Era).Append('\n');
             s.Append("<color=#B9C7DA><b>MEASURED</b></color>\n");
-            s.Append("Government spending <b>").Append(Pct(r.Spending)).Append("</b> of GDP").Append(Year(r.Spending)).Append(Vs(r.Spending, us?.Spending)).Append('\n');
+            if (r.Spending.Has) s.Append("Government spending <b>").Append(Pct(r.Spending)).Append("</b> of ").Append(r.Spending.Of).Append(Year(r.Spending)).Append(Vs(r.Spending, us?.Spending)).Append('\n');
+            else s.Append("Government spending: not found\n");
             s.Append("Revenue <b>").Append(Pct(r.Revenue)).Append("</b>").Append(Year(r.Revenue)).Append(Vs(r.Revenue, us?.Revenue)).Append('\n');
             if (r.Mix != null)
             {
@@ -469,7 +484,9 @@ namespace Why.Economy.Layers
                 s.Append(" <color=#8A93A0>(").Append(r.MixYear).Append(r.MixBasis == "tax" ? ", tax shares scaled to revenue" : "").Append(")</color>\n");
             }
             else s.Append("Its revenue mix: not found\n");
-            if (r.StateFirms.Has)
+            if (r.StateFirms.Has && r.StateFirms.Basis == "by law")
+                s.Append("The state's share of the means of production: <b>all of it, by law</b>").Append(Year(r.StateFirms)).Append('\n');
+            else if (r.StateFirms.Has)
                 s.Append("The state's share of listed firms' value <b>").Append(LandFacts.Percent(r.StateFirms.Value)).Append("</b>").Append(Year(r.StateFirms))
                  .Append(r.Baseline || us == null || !us.StateFirms.Has ? "" : " <color=#8A93A0>· US " + LandFacts.Percent(us.StateFirms.Value) + "</color>").Append('\n');
             else s.Append("The state's share of listed firms' value: not found\n");
@@ -480,14 +497,14 @@ namespace Why.Economy.Layers
             foreach (var f in r.Firms)
             {
                 if (f.Industry < 0) continue;
-                string share = f.Share <= 0 ? "private" : double.IsNaN(f.StateShare) ? "state-controlled" : LandFacts.Percent(f.StateShare) + " state";
-                if (f.Leads) summits.Add(f.Name + " " + share);
-                else if (f.Share > 0) holdings.Add(f.Name + " " + share);
+                if (f.Leads) summits.Add(Short(f.Name) + " (" + data.Industries[f.Industry].Name.ToLowerInvariant() + ", " + Owner(f) + ")");
+                else if (f.Share > 0) holdings.Add(f.Name + " " + Owner(f));
             }
-            if (summits.Count > 0) s.Append("Summits (each industry's largest named firm): ").Append(string.Join(" · ", summits)).Append('\n');
+            if (summits.Count > 0) s.Append("Summits (each industry's largest firm on the Fortune Global 500, or its national leader): ").Append(string.Join(" · ", summits)).Append('\n');
             if (r.DefaultOwnership >= .5) s.Append("Every other summit: the state's (").Append(r.DefaultNote).Append(")\n");
             if (holdings.Count > 0) s.Append("The state's other holdings: ").Append(string.Join(" · ", holdings)).Append('\n');
-            s.Append("Trade <b>").Append(Pct(r.Trade)).Append("</b> of GDP").Append(Year(r.Trade)).Append(Vs(r.Trade, us?.Trade)).Append('\n');
+            if (r.Trade.Has) s.Append("Trade <b>").Append(Pct(r.Trade)).Append("</b> of ").Append(r.Trade.Of).Append(Year(r.Trade)).Append(Vs(r.Trade, us?.Trade)).Append('\n');
+            else s.Append("Trade: no single defensible share (see the note)\n");
             string modelled = r.Top1Wealth.Has || double.IsNaN(r.Top1Wealth.Modelled) ? "" : " <color=#8A93A0>(WID models " + LandFacts.Percent(r.Top1Wealth.Modelled, 1) + " for " + r.Top1Wealth.ModelledYear + "; not drawn)</color>";
             s.Append("Top 1%: <b>").Append(r.Top1Wealth.Has ? LandFacts.Percent(r.Top1Wealth.Value, 1) : "not measured").Append("</b> of wealth").Append(Year(r.Top1Wealth)).Append(modelled)
              .Append(" · <b>").Append(Pct(r.Top1Income)).Append("</b> of income").Append(Year(r.Top1Income)).Append('\n');
@@ -506,7 +523,7 @@ namespace Why.Economy.Layers
             "<color=#B9C7DA><b>THE DRAWING'S CHOICES</b></color>\n" +
             "The hills, people and money are the United States' (BEA); only the foundation changes.\n" +
             "Bedrock depth = spending (20% of GDP = 14 units, the federal block's scale); strata = the revenue mix; white line = revenue.\n" +
-            "Summit rings: steel = the state's share of the industry's largest named firm (by revenue); summits with no firm named are " + (r.DefaultOwnership >= .5 ? "the state's by law" : "private") + ".\n" +
+            "Summit rings: each industry's largest firm (Fortune Global 500 2026, else its national leader), steel where the state controls it, a steel arc for a minority stake; faint rings: no listed firm, drawn " + (r.DefaultOwnership >= .5 ? "the state's by law" : "private") + ".\n" +
             "Steel lanes: the state's share of all spending, drawn through every river alike.\n" +
             "What it lives on falls in from where it comes: " + string.Join(", ", Regimes.PartFrom, 0, 7) + ".\n" +
             "Votes, trade, the 1% rings: widths and areas from the measures above.";

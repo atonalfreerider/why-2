@@ -39,6 +39,9 @@ namespace Why.Economy.Model
         public sealed class Measure
         {
             public double Value = double.NaN; public int Year; public string Source, Url, Note, Count;
+            /// <summary>What a share is of when not GDP (the Soviet budget: "GNP"); null for GDP.</summary>
+            public string Basis;
+            public string Of => string.IsNullOrEmpty(Basis) ? "GDP" : Basis;
             /// <summary>The year before's value (V-Dem), NaN when absent.</summary>
             public double Previous = double.NaN; public int PreviousYear;
             /// <summary>A source's model imputation where no measurement exists (WID's grade-0 wealth shares): context for
@@ -57,8 +60,9 @@ namespace Why.Economy.Model
             public double StateShare = double.NaN; public bool Controlled;
             /// <summary>Whether it is the largest firm named on its industry (by revenue, computed by the build): the summit.</summary>
             public bool Leads;
-            /// <summary>The state's share for drawing: the stake, or all of it when the source gives control without a share.</summary>
-            public double Share => double.IsNaN(StateShare) ? (Controlled ? 1 : 0) : StateShare;
+            /// <summary>The state's share for drawing: all of it where the state controls the firm (Fortune: government owned
+            /// 50% or more; or a controlling stake in the ownership research), else its minority stake, else none.</summary>
+            public double Share => Controlled ? 1 : double.IsNaN(StateShare) ? 0 : StateShare;
         }
 
         /// <summary>One regime.</summary>
@@ -160,7 +164,7 @@ namespace Why.Economy.Model
             if (!(t is JObject o)) return m;
             if (o["value"] != null && (o["value"].Type == JTokenType.Float || o["value"].Type == JTokenType.Integer)) m.Value = (double)o["value"];
             m.Year = o["year"] != null && o["year"].Type == JTokenType.Integer ? (int)o["year"] : 0;
-            m.Source = (string)o["source"]; m.Url = (string)o["url"]; m.Note = Text(o["note"]); m.Count = Text(o["count"]);
+            m.Source = (string)o["source"]; m.Url = (string)o["url"]; m.Note = Text(o["note"]); m.Count = Text(o["count"]); m.Basis = (string)o["basis"];
             if (o["previous"] is JObject p && p["value"] != null && p["value"].Type != JTokenType.Null) { m.Previous = (double)p["value"]; m.PreviousYear = (int?)p["year"] ?? 0; }
             if (o["modelled"] is JObject q && q["value"] != null && q["value"].Type != JTokenType.Null) { m.Modelled = (double)q["value"]; m.ModelledYear = (int?)q["year"] ?? 0; }
             return m;

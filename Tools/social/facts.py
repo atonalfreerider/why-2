@@ -14,7 +14,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import wikidata  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_DB = os.path.join(os.path.expanduser("~"), "Desktop", "SocialGraph", "global_social_graph.db")
+# The graph now lives in the project (Assets/StreamingAssets, untracked: too large for Git); the old desktop folder is the fallback.
+DEFAULT_DB = next((p for p in (os.path.join(os.path.dirname(os.path.dirname(HERE)), "Assets", "StreamingAssets", "global_social_graph.db"),
+                               os.path.join(os.path.expanduser("~"), "Desktop", "SocialGraph", "global_social_graph.db")) if os.path.exists(p)),
+                  os.path.join(os.path.dirname(os.path.dirname(HERE)), "Assets", "StreamingAssets", "global_social_graph.db"))
 OUT = os.path.join(HERE, ".cache", "facts.json")
 
 

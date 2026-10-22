@@ -53,6 +53,11 @@ def validate(request):
 
 def call_jev(state, questions, timeout=90):
     """Returns the response's answers dict. Raises RuntimeError without leaking the key or the state."""
+    return call(state, questions, timeout)["answers"]
+
+
+def call(state, questions, timeout=90):
+    """Returns the whole response (answers, model, usage). Raises RuntimeError without leaking the key or the state."""
     validate({"state": state, "questions": questions})
     key, direct = _key()
     if key is None:
@@ -68,7 +73,7 @@ def call_jev(state, questions, timeout=90):
         raise RuntimeError(f"Jev request failed (HTTP {e.code}). Check the key, balance and provider availability.") from None
     if "answers" not in result:
         raise RuntimeError("Jev returned no answers.")
-    return result["answers"]
+    return result
 
 
 def main():

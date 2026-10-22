@@ -1,0 +1,574 @@
+{
+ "note": "US totals the corporate programs are set against, 2025 unless stated; USD billions unless a unit says otherwise. Each entry keeps its source. Collected 2026-10-22 (research agent; primary sources: BEA, Census, NSF, S&P DJI, IAB/PwC, WPP Media, OpenSecrets, company 10-Ks).",
+ "totalAdSpend": {
+  "value": 431.2,
+  "unit": "USD billions",
+  "year": 2025,
+  "source": "https://www.themeasure.net/wpp-media-offers-more-positive-ad-spending-outlook/",
+  "note": "WPP Media 'This Year Next Year' end-of-year forecast (Dec 8, 2025): US advertising revenue 2025 = $431.2B, +12.5% y/y, EXCLUDING US political advertising. This is a Dec-2025 estimate, not a final audited actual. WPP's public report pages give only global totals (global 2025 = $1.14T, +8.8% ex-US-political); the US figure is from trade-press coverage of the report (The Measure, Dec 8, 2025; the same $431.2B also appears in IndianTelevision coverage). Cross-checks: Madison and Wall (Dec 2025 update, via MediaPost https://www.mediapost.com/publications/article/411210/wpp-upgrades-global-ad-outlook-cites-waning-tarif.html) put 2025 US ad growth at +11% ex-political (+7.2% incl. political) but no dollar total was found; WPP Media June 2026 midyear report forecasts US 2026 at $483.4B (+11.9% ex-political) (https://www.themeasure.net/wpp-media-boosts-ad-revenue-forecast-sees-8-9-growth/). No 2025 actual from MAGNA was found (no MAGNA US forecast published after mid-2025 located)."
+ },
+ "digitalAdRevenue": {
+  "total": {
+   "value": 294.6,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "IAB/PwC Internet Advertising Revenue Report, Full Year 2025 (released Apr 16, 2026): US internet ad revenue $294.6B, +13.9% y/y (FY2024: $258.6B). Categories below overlap (social and commerce media are channels that span formats), so they do not sum to the total."
+  },
+  "search": {
+   "value": 114.2,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "Search: $114.2B, +11% y/y, 38.8% of total (growth slowed from 15.9% in 2024)."
+  },
+  "socialMedia": {
+   "value": 117.7,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "Social media: $117.7B, +32.6% y/y (+$29B), 40.0% of total. Channel category; overlaps display and video formats."
+  },
+  "digitalVideo": {
+   "value": 78.0,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "Digital video (includes CTV and social video): $78B, +25.4% y/y, 26.5% of total. (One trade outlet reported $74B; IAB's own release says $78B.)"
+  },
+  "retailMedia": {
+   "value": 63.4,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "IAB now calls this 'commerce media' (retail/commerce media networks): $63.4B, +18.0% y/y, 21.5% of total (2024: $53.7B)."
+  },
+  "display": {
+   "value": 81.6,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "Display (banner) format: $81.6B, +9.8% y/y, 27.7% of total."
+  },
+  "podcast": {
+   "value": 2.9,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "Podcast: $2.9B, +17.6% y/y, ~1% of total."
+  },
+  "programmatic": {
+   "value": 162.4,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.iab.com/news/digital-ad-revenue-climbs-to-nearly-300b-as-iab-celebrates-30-year-anniversary/",
+   "note": "Programmatic (a buying method across formats): $162.4B, +20.5% y/y."
+  }
+ },
+ "metaUsCanadaRevenue": {
+  "revenueByUserGeography": {
+   "value": 87.199,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231_g4.jpg",
+   "note": "Meta 10-K FY2025 (filed 2026-01-29), MD&A chart 'Revenue US & Canada' (by user geography). Sum of the four 2025 quarterly values printed in the chart: Q1 18,605 + Q2 20,371 + Q3 21,751 + Q4 26,472 = $87,199M (of which advertising 85,278; non-advertising 1,921). 2024 same basis: $72,063M; growth 21.0%, matching the 10-K text ('revenue increased by 21% in United States & Canada'). The annual total is not printed as a single number in the 10-K; it is the sum of the quarterly chart values.",
+   "filing": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm"
+  },
+  "revenueByCustomerAddress": {
+   "value": 78.866,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+   "note": "Meta 10-K Note 2, revenue disaggregated by geography based on customer addresses: United States and Canada $78,866M (2024: $63,207M). Footnote: United States alone (customer address) $74.78B in 2025."
+  },
+  "usCanadaArpu": {
+   "value": null,
+   "unit": "USD per user",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+   "note": "Not reported. Meta stopped disclosing ARPU by region (it now reports worldwide average revenue per person, ARPP). The FY2025 10-K gives annual worldwide ARPP of $57.03 (+15% y/y); no US & Canada ARPU/ARPP figure is disclosed."
+  },
+  "worldwideArpp": {
+   "value": 57.03,
+   "unit": "USD per daily active person (sum of quarterly ARPP)",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+   "note": "Worldwide ARPP (Family of Apps revenue / average DAP), annual 2025 = sum of quarterly values. Worldwide DAP 3.58B (Dec 2025). Context only; not US-specific."
+  }
+ },
+ "alphabetUsRevenue": {
+  "unitedStatesRevenue": {
+   "value": 194.229,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+   "note": "Alphabet 10-K FY2025 (filed 2026-02-05), Note 2: revenues by geography based on customer addresses, United States $194,229M (48% of total $402,836M). 2024: $170,447M."
+  },
+  "googleAdvertisingWorldwide": {
+   "value": 294.691,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+   "note": "Google advertising revenue, worldwide, FY2025 = $294,691M (2024: $264,590M): Google Search & other $224,532M; YouTube ads $40,367M; Google Network $29,792M."
+  },
+  "totalRevenueWorldwide": {
+   "value": 402.836,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+   "note": "Alphabet total revenues FY2025 (context)."
+  }
+ },
+ "amazonAdRevenue": {
+  "value": 68.635,
+  "unit": "USD billions",
+  "year": 2025,
+  "source": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm",
+  "note": "Amazon 10-K FY2025 (filed 2026-02-06), net sales by groups of similar products/services: Advertising services $68,635M worldwide (2024: $56,214M; 2023: $46,906M)."
+ },
+ "influencerMarketing": {
+  "usInfluencerMarketingSpend_eMarketer": {
+   "value": 10.52,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.mediapost.com/publications/article/404146/influencer-spend-to-surpass-10b-this-year.html",
+   "note": "UNITED STATES. eMarketer forecast (March 2025): US influencer marketing spending ~ $10.52B in 2025. Narrow definition: brand payments to US-based creators for social/video posts; excludes paid media amplification. Forecast, not a final actual."
+  },
+  "usCreatorEconomyAdSpend_IAB": {
+   "value": 37.0,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://iab.com/news/creator-economy-ad-spend-to-reach-37-billion-in-2025-growing-4x-faster-than-total-media-industry-according-to-iab",
+   "note": "UNITED STATES. IAB 2025 Creator Economy Ad Spend & Strategy Report (Nov 20, 2025): US creator economy ad spend projected $37B in 2025, +26% y/y (2024: $29.5B; 2026 projected $44B). Broad definition: ad dollars brands invest in creators via direct partnerships, incl. sponsored posts, boosted versions, and placements alongside creator content. Projection."
+  }
+ },
+ "socialMediaTime": {
+  "usAdultSocialNetworkUsers_eMarketer": {
+   "value": 114,
+   "unit": "minutes per day",
+   "year": 2025,
+   "source": "https://www.insideradio.com/free/social-media-forecast-users-will-grow-1-7/article_8b26a88b-2fd0-4b43-a685-a29286961132.html",
+   "note": "eMarketer forecast (reported June 20, 2025): daily time spent on social networks by US ADULT SOCIAL NETWORK USERS projected to peak in 2025 at 1 hour 54 minutes. Among users, not all adults; secondary report of eMarketer's paywalled forecast."
+  },
+  "usInternetUsers_Statista": {
+   "value": 136,
+   "unit": "minutes per day",
+   "year": 2025,
+   "source": "https://www.statista.com/statistics/433871/daily-social-media-usage-worldwide/",
+   "note": "Statista: 'daily time spent with social media in the U.S. was just 2 hours and 16 minutes' (survey-based, internet users; page context is February 2025 data; age range and underlying survey provider are not stated on the page). Global average 141 min/day. Use as an alternative/upper-bound measure."
+  }
+ },
+ "sp500Buybacks2025": {
+  "fullYear2025": {
+   "value": null,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "NOT PUBLISHED. S&P Dow Jones Indices has issued no Q4-2025 / full-year-2025 buyback release as of 2026-10-22 (the series' longtime author Howard Silverblatt retired Jan 31, 2026; the last release is Dec 18, 2025). Its Dec 2025 release only projected a record ~$1T for 2025. Use fullYear2024 or ttmSep2025 below."
+  },
+  "fullYear2024": {
+   "value": 942.55,
+   "unit": "USD billions",
+   "year": 2024,
+   "source": "https://press.spglobal.com/2025-03-19-S-P-500-Q4-2024-Buybacks-Increase-7-4-and-2024-Expenditure-Sets-New-Record-by-Increasing-18-5-Earnings-Per-Share-Increases-from-Buybacks-Decline-for-the-Quarter,-as-Q1-2025s-Impact-is-Expected-to-Increase",
+   "note": "S&P DJI: 2024 S&P 500 buybacks set an annual record of $942.5B, +18.5% from 2023's $795.2B (table value $942.55B)."
+  },
+  "ttmSep2025": {
+   "value": 1020.27,
+   "unit": "USD billions",
+   "year": "12 months to 2025-09-30",
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "S&P DJI: 12 months ended Sept 2025 buybacks a record $1.020T (table $1,020.27B), vs $918.4B prior 12 months."
+  },
+  "q1_2025": {
+   "value": 293.45,
+   "unit": "USD billions",
+   "year": "2025Q1",
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "Record quarter ($293.5B)."
+  },
+  "q2_2025": {
+   "value": 234.57,
+   "unit": "USD billions",
+   "year": "2025Q2",
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "$234.6B."
+  },
+  "q3_2025": {
+   "value": 249.0,
+   "unit": "USD billions",
+   "year": "2025Q3",
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "$249.0B, +6.2% q/q, +9.9% y/y."
+  }
+ },
+ "sp500Dividends2025": {
+  "fullYear2025": {
+   "value": null,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://press.spglobal.com/2026-01-07-S-P-Dow-Jones-Indices-Reports-U-S-Common-Indicated-Dividend-Payments-Increase-of-13-1-Billion-in-Q4-2025-and-46-4-Billion-for-2025",
+   "note": "NOT PUBLISHED as an aggregate dollar total by S&P DJI (no Q4-2025 buyback/dividend release). S&P DJI did report 2025 S&P 500 dividends PER SHARE (index basis) of a record $78.92, +5.5% (2024: $74.83) - see dividendsPerShare2025."
+  },
+  "fullYear2024": {
+   "value": 629.62,
+   "unit": "USD billions",
+   "year": 2024,
+   "source": "https://press.spglobal.com/2025-03-19-S-P-500-Q4-2024-Buybacks-Increase-7-4-and-2024-Expenditure-Sets-New-Record-by-Increasing-18-5-Earnings-Per-Share-Increases-from-Buybacks-Decline-for-the-Quarter,-as-Q1-2025s-Impact-is-Expected-to-Increase",
+   "note": "S&P DJI: 2024 dividends a record $629.6B, +7.0% from 2023's $588.2B (table $629.62B). 2024 total shareholder return $1.572T."
+  },
+  "ttmSep2025": {
+   "value": 664.9,
+   "unit": "USD billions",
+   "year": "12 months to 2025-09-30",
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "S&P DJI: 12 months ended Sept 2025 dividends a record $664.9B, +7.9% vs $616.2B. TTM total shareholder return (buybacks + dividends) $1.685T."
+  },
+  "q3_2025": {
+   "value": 168.08,
+   "unit": "USD billions",
+   "year": "2025Q3",
+   "source": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth,-As-2025-Anticipates-a-Record-1-Trillion",
+   "note": "Q3 2025 dividends $168.1B, +1.8%."
+  },
+  "dividendsPerShare2025": {
+   "value": 78.92,
+   "unit": "USD per S&P 500 index share",
+   "year": 2025,
+   "source": "https://press.spglobal.com/2026-01-07-S-P-Dow-Jones-Indices-Reports-U-S-Common-Indicated-Dividend-Payments-Increase-of-13-1-Billion-in-Q4-2025-and-46-4-Billion-for-2025",
+   "note": "S&P DJI (Jan 7, 2026): S&P 500 paid a record $78.92 per share in 2025, +5.5%; Q4 2025 $20.25 per share. Index-points basis, not aggregate dollars."
+  }
+ },
+ "businessRnD": {
+  "value": 722,
+  "unit": "USD billions",
+  "year": 2023,
+  "source": "https://www.ncses.nsf.gov/pubs/nsf25353",
+  "note": "NSF NCSES InfoBrief NSF 25-353 (Sept 29, 2025), BERD Survey 2023 (latest year released; no BERD 2024 release found as of 2026-10-22): businesses performed $722B of R&D in the US in 2023, +4.4% from 2022 (2022: $692B per NSF 24-334). Company-funded $635B; other sources $86B (federal $32B). NCSES notes some 2023 respondents removed expenditures not meeting the R&D definition, lowering comparability with earlier years. Total US R&D (all performers) 2023 = $937B; 2024 estimate $993B (NSF 26-314)."
+ },
+ "privateFixedInvestment2025": {
+  "total": {
+   "value": 5550.692,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Private fixed investment, total. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 1 (series A007RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 5271.752 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "nonresidential": {
+   "value": 4365.92,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Nonresidential. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 2 (series A008RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 4091.323 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "structures": {
+   "value": 957.385,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Nonresidential structures. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 3 (series B009RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 968.495 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "equipment": {
+   "value": 1681.44,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Nonresidential equipment. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 9 (series Y033RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 1510.976 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "informationProcessingEquipment": {
+   "value": 652.654,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Information processing equipment (of which computers and peripheral equipment $280.161B, line 11, B935RC; 2024 $179.776B). BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 10 (series Y034RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 514.057 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "intellectualPropertyProducts": {
+   "value": 1727.095,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Intellectual property products. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 16 (series Y001RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 1611.852 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "software": {
+   "value": 751.336,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Software. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 17 (series B985RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 685.987 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "researchAndDevelopment": {
+   "value": 861.18,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Research and development (NIPA investment concept; differs from NCSES BERD). BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 18 (series Y006RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 811.734 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "residential": {
+   "value": 1184.772,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Residential. BEA NIPA Table 5.3.5 (Private Fixed Investment by Type), nominal, annual 2025, line 20 (series A011RC). Vintage: BEA annual update released 2026-09-30 with the Q2-2026 third estimate (flat file Last-Modified 2026-09-30). 2024 value same vintage: 1180.429 $B.",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "nominalGDP_context": {
+   "value": 30861.292,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Context: nominal GDP 2025 (series A191RC), same BEA vintage (2026-09-30).",
+   "release": "https://bea.gov/news/2026/gdp-third-estimate-industries-corporate-profits-state-gdp-and-state-personal-income-2nd"
+  },
+  "computersAndPeripherals": {
+   "value": 280.161,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://apps.bea.gov/national/Release/TXT/NipaDataA.txt",
+   "note": "Computers and peripheral equipment, BEA NIPA Table 5.3.5 line 11 (series B935RC), nominal 2025 (2024: $179.776B); taken from the informationProcessingEquipment entry's note."
+  }
+ },
+ "dataCenterConstruction2025": {
+  "annual2025": {
+   "value": 49.737,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.census.gov/construction/c30/xlsx/private.xlsx",
+   "note": "Census Bureau Value of Construction Put in Place, 'Annual Value of Private Construction Put in Place 2022-2025', Office > Data center = $49,737M (not seasonally adjusted annual total; CV 0.9%). File dated 2026-07-28 (after the July 2026 annual revision; DRB CBDRB-FY26-0231). Census revises these annually; this is the July-2026 annual-revision vintage. Private construction only (no public data-center category)."
+  },
+  "annual2024": {
+   "value": 34.797,
+   "unit": "USD billions",
+   "year": 2024,
+   "source": "https://www.census.gov/construction/c30/xlsx/private.xlsx",
+   "note": "Same table, 2024 = $34,797M (2023 $19,995M; 2022 $12,583M)."
+  },
+  "latestMonthlySAAR": {
+   "value": 84.95,
+   "unit": "USD billions, seasonally adjusted annual rate",
+   "year": "2026-08 (preliminary)",
+   "source": "https://www.census.gov/construction/c30/xlsx/privsatime.xlsx",
+   "note": "Latest month: August 2026 preliminary SAAR $84,950M (July 2026 revised $79,007M; Dec 2025 $55,461M). File dated 2026-09-29."
+  }
+ },
+ "hyperscalerCapex": {
+  "microsoft": {
+   "calendar2025": {
+    "value": 118.0,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+    "note": "Capital expenditures INCLUDING finance leases, calendar 2025 = sum of CFO-stated quarters: Jan-Mar 2025 (FY25 Q3) $21.4B + Apr-Jun 2025 (FY25 Q4) $24.2B + Jul-Sep 2025 (FY26 Q1) $34.9B + Oct-Dec 2025 (FY26 Q2) $37.5B. Quarter sources: microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q3, .../fy-2025/earnings-fy-2025-q4, .../fy-2026/earnings-fy-2026-q1, .../fy-2026/earnings-fy-2026-q2. Cash-flow basis for the same 4 quarters (10-K/10-Q 'Additions to property and equipment' 16,745+17,079+19,394+29,876 = $83.1B) plus finance-lease ROU assets obtained (3,241+6,503+9,147+6,330 = $25.2B) = $108.3B; per the CFO, the gap between total capex and cash paid for PP&E reflects finance leases and the timing of goods received but not yet paid."
+   },
+   "fiscal2025": {
+    "value": 88.2,
+    "unit": "USD billions",
+    "year": "FY2025 (Jul 2024-Jun 2025)",
+    "source": "https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm",
+    "note": "CFO-stated capex incl. finance leases by quarter: $20.0B + $22.6B + $21.4B + $24.2B = $88.2B. 10-K FY2025 cash 'Additions to property and equipment' $64,551M; finance-lease ROU assets obtained $20,511M."
+   },
+   "fiscal2026": {
+    "value": 145.3,
+    "unit": "USD billions",
+    "year": "FY2026 (Jul 2025-Jun 2026)",
+    "source": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+    "note": "CFO-stated capex incl. finance leases by quarter: $34.9B + $37.5B + $31.9B + $41B (fy-2026 q1-q4 investor pages) = $145.3B. 10-K FY2026 cash 'Additions to property and equipment' $115,948M; finance-lease ROU assets obtained $24,608M."
+   },
+   "guidance2026": {
+    "value": 175,
+    "unit": "USD billions",
+    "year": "calendar 2026",
+    "source": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+    "note": "Latest (FY26 Q4 call, Jul 29, 2026): 'the shift from finance to operating leases adjusts our expectation to approximately $175 billion' for calendar 2026 (useful-life change moves future datacenter leases from finance to operating; underlying plans unchanged). Prior (FY26 Q3 call, Apr 29, 2026, https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3): 'roughly $190 billion' for calendar 2026, incl. ~$25B from higher component pricing. FY27 Q1 expected >$50B."
+   }
+  },
+  "alphabet": {
+   "calendar2025": {
+    "value": 91.447,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+    "note": "Alphabet 10-K FY2025 cash flow 'Purchases of property and equipment' $91,447M (CFO: 'CapEx ... $91.4 billion for the full year'). Alphabet's capex measure does not add finance leases. 2024: $52,535M."
+   },
+   "guidance2026": {
+    "value": 200,
+    "unit": "USD billions",
+    "year": "calendar 2026",
+    "source": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+    "note": "value = midpoint of stated range. Latest (Q2-2026 call, Jul 22, 2026): 'updating our full year 2026 CapEx guidance range to $195-205 billion, up from our previous estimate of $180-190 billion'. History: $175-185B (Q4-2025 call, Feb 4, 2026, https://abc.xyz/investor/events/event-details/2026/2025-Q4-Earnings-Call-2026-Dr_C033hS6/); $180-190B (Q1-2026 call, Apr 29, 2026, incl. Intersect acquisition). Expects 2027 capex to 'increase significantly'.",
+    "low": 195,
+    "high": 205
+   }
+  },
+  "amazon": {
+   "calendar2025": {
+    "value": 131.819,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm",
+    "note": "Amazon 10-K FY2025 cash flow 'Purchases of property and equipment' $131,819M (gross). Net of proceeds from sales and incentives: $128,320M (used in Amazon's free cash flow). Property and equipment acquired under finance leases (net of remeasurements/modifications): $2,911M; gross purchases + finance leases = $134.7B. 2024 purchases: $82,999M."
+   },
+   "guidance2026": {
+    "value": 220,
+    "unit": "USD billions",
+    "year": "calendar 2026",
+    "source": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/",
+    "note": "Latest (Q2-2026 call, Jul 30, 2026, as reported by Fortune): Amazon 'now expects to devote $220 billion to capital expenditures in 2026, up from its prior estimate of $200 billion' (memory-cost driven). Initial ~$200B stated by Andy Jassy on the Q4-2025 call (Feb 5, 2026; https://ciodive.com/news/amazon-adds-200b-ai-buildout-rush/811633). Amazon does not publish call transcripts; secondary reporting."
+   }
+  },
+  "meta": {
+   "calendar2025": {
+    "value": 72.22,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm",
+    "note": "Meta 10-K FY2025: 'Capital expenditures, including principal payments on finance leases, were $72.22 billion' = purchases of property and equipment $69,691M + principal payments on finance leases $2,524M. 2024 same basis: $39.23B."
+   },
+   "guidance2026": {
+    "value": 140,
+    "unit": "USD billions",
+    "year": "calendar 2026",
+    "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/meta-20260930.htm",
+    "note": "value = midpoint of stated range. Latest (10-Q for Q3 2026, filed 2026-10-22): 'We anticipate making capital expenditures of approximately $135 billion to $145 billion in 2026'. History: $115-135B (FY2025 10-K, Jan 2026); $130-145B (Q2-2026 10-Q, Jul 2026).",
+    "low": 135,
+    "high": 145
+   }
+  },
+  "oracle": {
+   "trailing4Q_Dec2024toNov2025": {
+    "value": 35.477,
+    "unit": "USD billions",
+    "year": "Dec 1 2024 - Nov 30 2025 (closest fiscal-quarter match to calendar 2025)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+    "note": "Oracle's fiscal year ends May 31, so no calendar-2025 figure is reported. Computed from cash-flow 'Capital expenditures': FY25 Q3 (Dec-Feb) = 9M to Feb-28-2025 $12,135M - 6M to Nov-30-2024 $6,273M = $5,862M; FY25 Q4 (Mar-May) = FY2025 $21,215M - $12,135M = $9,080M; FY26 H1 (Jun-Nov 2025) $20,535M. Sum $35,477M. Sources: https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm ; https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm ; FY2025 10-K https://www.sec.gov/Archives/edgar/data/1341439/000095017025087926/orcl-20250531.htm"
+   },
+   "fiscal2026": {
+    "value": 55.663,
+    "unit": "USD billions",
+    "year": "FY2026 (Jun 2025-May 2026)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+    "note": "Oracle 10-K FY2026 cash flow 'Capital expenditures' $55,663M (FY2025: $21,215M). Finance-lease ROU assets obtained FY2026: $4,946M (FY2025 $2,921M), not included in capex. Oracle's non-GAAP 'net cash outlay for capex' (capex less capex-related short-term financing and customer prepayments) FY26 = $48B (Q4 FY26 slides)."
+   },
+   "fiscal2025": {
+    "value": 21.215,
+    "unit": "USD billions",
+    "year": "FY2025 (Jun 2024-May 2025)",
+    "source": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+    "note": "Oracle cash-flow capital expenditures FY2025 $21,215M."
+   },
+   "guidance": {
+    "value": 70,
+    "unit": "USD billions",
+    "year": "FY2027 (Jun 2026-May 2027)",
+    "source": "https://s23.q4cdn.com/440135859/files/doc_financials/2026/q4/Q4-FY26-Oracle-Earnings-Slides.pdf",
+    "note": "Oracle guides by fiscal year, not calendar 2026. Q4-FY26 earnings slides (Jun 2026): '~$70B FY27 Net Cash outlay for Capex' (non-GAAP; excludes customer prepayments/financing). Press coverage (https://www.outlookbusiness.com/corporate/oracle-forecasts-95-bn-in-capex-for-fy27-plans-to-raise-40-bn-in-debt-and-equity) reports gross capex of up to ~$90-95B including $20-25B expected to be repaid by customers. Prior FY2026 guidance: ~$50B (raised ~$15B in Dec 2025, https://futurumgroup.com/insights/oracle-q2-fy-2026-cloud-grows-capex-rises-for-ai-buildout); actual FY2026 $55.7B."
+   }
+  }
+ },
+ "federalLobbying2025": {
+  "total": {
+   "value": 5.0786,
+   "unit": "USD billions",
+   "year": 2025,
+   "source": "https://www.opensecrets.org/news/2026/01/lobbying-firms-took-in-a-record-5-billion-in-2025",
+   "note": "OpenSecrets (Jan 29, 2026): federal lobbying spending reached $5.08B in 2025, first year above $5B, +14% nominal (+11% inflation-adjusted), largest jump since quarterly disclosures began in 2008. Exact sum of OpenSecrets quarterly totals (chart data https://datawrapper.dwcdn.net/hkW9e/8/): Q1 $1.2798B + Q2 $1.2971B + Q3 $1.2445B + Q4 $1.2572B = $5.0786B (2024: $4.4456B). 15,768 organizations reported lobbying (vs 14,061 in 2024). Preliminary: OpenSecrets totals can be revised as late filings arrive. (Bloomberg Government's separate tally is ~$5.3B, per The Hilltop, May 4, 2026: https://thehilltoponline.com/2026/05/04/2025-lobbying-spending-hit-5-3-billion-as-groups-eye-2026-midterms/)"
+  },
+  "topSectors": {
+   "health": {
+    "value": 0.86754,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/lr8dO/5/",
+    "note": "OpenSecrets sector #1: Health $867,539,940 (record; +14% y/y)."
+   },
+   "financeInsuranceRealEstate": {
+    "value": 0.71093,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/lr8dO/5/",
+    "note": "Sector #2: Finance, insurance & real estate $710,926,433 (+10%)."
+   },
+   "communicationsElectronics": {
+    "value": 0.66584,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/lr8dO/5/",
+    "note": "Sector #3: Communications & electronics $665,840,817 (+11%)."
+   },
+   "miscellaneousBusiness": {
+    "value": 0.66119,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/lr8dO/5/",
+    "note": "Sector #4: Miscellaneous business $661,193,109 (+11%)."
+   },
+   "energyNaturalResources": {
+    "value": 0.48519,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/lr8dO/5/",
+    "note": "Sector #5: Energy & natural resources $485,194,539 (+10%). Next: Transportation $369.7M, Ideology/single-issue $242.8M, Agribusiness $220.0M, Defense $191.0M."
+   }
+  },
+  "topOrganizations": {
+   "usChamberOfCommerce": {
+    "value": 0.07214,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/8LrTE/8/",
+    "note": "Top spender: US Chamber of Commerce $72.14M (2024 $76.38M)."
+   },
+   "nationalAssnOfRealtors": {
+    "value": 0.05436,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/8LrTE/8/",
+    "note": "#2 National Assn of Realtors $54.36M (2024 $86.39M)."
+   },
+   "phrma": {
+    "value": 0.03819,
+    "unit": "USD billions",
+    "year": 2025,
+    "source": "https://datawrapper.dwcdn.net/8LrTE/8/",
+    "note": "#3 PhRMA $38.19M. Tech: Meta $26.29M (#7), Amazon $18.87M (#12), Alphabet $16.54M (#15)."
+   }
+  }
+ },
+ "usMergersAcquisitions2025": {
+  "value": 2.4825,
+  "unit": "USD trillions",
+  "year": 2025,
+  "source": "https://www.paulweiss.com/media/sl2pohqa/maag_2025_year_end_roundup.pdf",
+  "note": "Paul, Weiss 'M&A at a Glance: 2025 Year-End Roundup' (Jan 15, 2026), compiled from Dealogic (broad market, public and private deals of any value, announced Jan 1-Dec 31, 2025): US deal value $2,482.5B, +60.7% vs 2024; ~11,000 deals (-1.9%). Global $4,954.7B (+45.5%), 41,229 deals. Other tallies differ by provider/cutoff: LSEG preliminary data through ~Dec 18, 2025, as reported by Axios (Dec 29, 2025; page not directly retrievable), ~$2.23T (+54%, ~11,300 deals); White & Case's year-end review reported ~$2.6T (page not directly retrievable). Figures not independently checked against the Dealogic/LSEG databases."
+ },
+ "corporateTaxRateEffective": {
+  "itep_2018_2022": {
+   "value": 14.1,
+   "unit": "percent (average effective federal income tax rate)",
+   "year": "2018-2022",
+   "source": "https://itep.org/new-study-corporate-tax-avoidance-remains-widespread-under-trump-tax-law/",
+   "note": "ITEP (Feb 29, 2024): 342 large corporations profitable in every year 2018-2022 paid an average effective federal income tax rate of 14.1% (vs 21% statutory); 87 paid single-digit or lower rates, 55 under 5%; 23 paid zero over the 5 years. ITEP's exact rate definition is in the full report (not quoted here)."
+  },
+  "gao_2018": {
+   "value": 9,
+   "unit": "percent (average effective federal income tax rate)",
+   "year": 2018,
+   "source": "https://gao.gov/products/gao-23-105384",
+   "note": "GAO-23-105384 (published Dec 14, 2022; released Jan 13, 2023): average effective rate for profitable large corporations (Schedule M-3 filers, assets >= $10M) fell from 16% in 2014 to 9% in 2018 (first TCJA year); on average 25% of profitable large corporations had no tax liability. Tax liability as a share of income (IRS data)."
+  },
+  "itep_2025_zeroTaxCount": {
+   "value": 88,
+   "unit": "number of corporations paying $0 federal income tax",
+   "year": 2025,
+   "source": "https://itep.org/new-report-finds-88-major-u-s-corporations-paid-zero-federal-income-tax-despite-billions-in-profits/",
+   "note": "ITEP (Apr 14, 2026): at least 88 of the largest US corporations (S&P 500 / Fortune 500, calendar-year filers) paid no federal corporate income tax in 2025 despite >$105B of US pretax income. ITEP did not publish an all-company average effective rate for 2025 on this page."
+  }
+ }
+}

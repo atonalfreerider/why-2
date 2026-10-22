@@ -90,3 +90,10 @@ Tools/social/.cache/
 
 # Government layer pipeline caches (OMB/FRED/OWID/IMF downloads, Wikidata, Jev answers)
 Tools/government/.cache/
+
+# Corporate programs pipeline cache (Jev answers)
+Tools/corporate/.cache/
+
+# The social graph database lives here locally for the social pipeline (152 MB: too large for Git, not read at runtime)
+/Assets/StreamingAssets/global_social_graph.db
+/Assets/StreamingAssets/global_social_graph.db.meta

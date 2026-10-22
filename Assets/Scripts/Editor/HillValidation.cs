@@ -82,10 +82,28 @@ namespace Why.EditorChecks
             Require(Math.Abs(past.CrestBands()-past.CrestValueWidth)<.01f&&past.CrestZ<land.CrestZ-60,"A historical crest conserves value added and stands back in time");
             Require(Math.Abs(past.SliceHeight(1960,90)-land.SliceHeight(1960,90))<1e-4f,"A year's cross-section must not depend on the crest shown");
             string companies=Companies(land);
+            string models=NewModels(source);
             string result="PASS: "+land.Hills.Length+" hills, "+land.People.Length+" players ("+valley+" government-paid on the valley floor), "+clouds+
                 " cloud groups; 30-year deterministic ledger; max residual "+largest.ToString("G4")+
-                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; wave "+land.FirstYear+"-"+land.Year+" over "+(land.CrestZ-land.TailZ).ToString("F0")+" units; "+companies+"; "+capture+" "+social;
+                " $B; mind sensitivity; corporate budget conservation; government foundation; scene isolation; "+geometry.LinkCount+" family links; immutable population; 1972 geometry; wave "+land.FirstYear+"-"+land.Year+" over "+(land.CrestZ-land.TailZ).ToString("F0")+" units; "+companies+"; "+capture+" "+social+" "+models;
             Debug.Log("[Why] "+result);return result;
+        }
+        /// <summary>The decade's mobility (the matrix holds every tracked adult once, rows sum to one), the viewer's reading
+        /// (ranks rise with income, a dollar's parts add up, uphill shares stay in range and fall toward the top) and the
+        /// corporate programs (every tower has its filing, directions sum to one, no negative stream).</summary>
+        static string NewModels(LandSnapshot source)
+        {
+            var lives=LandService.Model.Lives;var data=LandService.Model.Data;
+            var mobility=Mobility.Build(lives,source.Players,source.Year);Require(mobility!=null&&mobility.Lines>1000,"The decade's mobility needs the lives");
+            foreach(string p in mobility.Problems())Require(false,"Mobility: "+p);
+            Require(mobility.Share(4,4)>.3&&mobility.Share(0,0)>.1,"The top and the bottom fifths must be sticky: many hold their place over a decade");
+            var you=YouModel.Build(lives,source.Year);Require(you!=null,"The viewer's reading needs the lives");
+            foreach(string p in you.Problems(data,ValueCapture.Get(),mobility))Require(false,"You: "+p);
+            var programs=CorporatePrograms.Get();
+            if(programs!=null)foreach(string p in programs.Problems(source.Land.Towers.Length))Require(false,"Corporate programs: "+p);
+            return "mobility "+mobility.From+"-"+mobility.Year+": "+mobility.Lines+" adults, bottom fifth stayed "+LandFacts.Percent(mobility.Share(0,0))+
+                ", top fifth "+LandFacts.Percent(mobility.Share(4,4))+"; you: median household "+PersonLife.Money(you.MedianIncome)+
+                "; corporate programs "+(programs?.Firms.Length??0)+" firms.";
         }
         /// <summary>The social layer and the government: the popular people parse into five regions, capital holders
         /// are tied to their companies (Musk: Tesla and SpaceX) and stand at a company rather than in the cloud,

@@ -22,7 +22,10 @@ namespace Why.Economy.UI
         public static int Group { get; private set; }=-1;
         public static Vector3 GroupCenter { get; private set; }
         GraphRoot root;
-        RectTransform panel;
+        RectTransform panel, canvasRect;
+        /// <summary>The HUD's blocks, measured each frame: the panel stands above the HUD's legend and lifeline readout
+        /// in the bottom-left column instead of over them.</summary>
+        HudBlocks hud;
         TextMeshProUGUI title, details, pagination;
         UnityEngine.UI.Button evidence,dependency;
         readonly List<(string label,Action open)> items=new List<(string,Action)>();
@@ -39,7 +42,7 @@ namespace Why.Economy.UI
         public override void Init(GraphRoot graphRoot)
         {
             root=graphRoot;Instance=this;Depth=0;EvidenceOnly=false;Industry=Company=Group=-1;
-            var canvas=UiFactory.CreateCanvas("Explore economic hierarchy",46,transform);
+            var canvas=UiFactory.CreateCanvas("Explore economic hierarchy",46,transform);canvasRect=(RectTransform)canvas.transform;
             panel=UiFactory.Panel(canvas.transform,"Explore",new Color(.018f,.027f,.04f,.94f)).rectTransform;
             panel.anchorMin=panel.anchorMax=panel.pivot=Vector2.zero;panel.anchoredPosition=new Vector2(18,22);panel.sizeDelta=new Vector2(354,356);
             title=Text("Path",14,10,10,332,25);
@@ -206,6 +209,7 @@ namespace Why.Economy.UI
             }
             if(Depth>=4&&EconomyState.Person<0)EnterGroup(Group);
             bool show=!root.TourActive&&LandView.PresetId!="section"&&LandView.PresetId!="society"&&LandView.PresetId!="betrayal";panel.gameObject.SetActive(show);
+            if(show)Dock();
             if(dots)dots.SetActive(show&&LandView.PresetId!="mind");
             if(!show||Depth<3||Depth==5)return;
             if(!PointerInput.Available||EventSystem.current&&EventSystem.current.IsPointerOverGameObject())return;
@@ -214,6 +218,18 @@ namespace Why.Economy.UI
             int hit=-1;float closest=14;
             for(int i=0;i<memberAt.Count;i++){Vector3 screen=root.Rig.Cam.WorldToScreenPoint(EconomyStage.Land().World(memberAt[i]+Vector3.up*.4f));float d=Vector2.Distance(pointer,screen);if(screen.z>0&&d<closest){closest=d;hit=memberIds[i];}}
             if(hit>=0)EnterPerson(hit);
+        }
+        /// <summary>Stands the panel in the bottom-left column above the HUD's legend and lifeline readout (they are
+        /// measured live, so a wrapped or moved legend is respected), never above the canvas's top.</summary>
+        void Dock()
+        {
+            hud??=new HudBlocks(root);
+            HudFrame f=hud.Measure(canvasRect,UiFactory.CanvasSize);
+            float column=panel.sizeDelta.x+18,bottom=22;
+            foreach(var box in new[]{f.Legend,f.Readout})
+                if(!box.IsEmpty&&box.X<column)bottom=Mathf.Max(bottom,f.Canvas.y-box.Y+f.Gap);
+            bottom=Mathf.Min(bottom,Mathf.Max(22,f.Canvas.y-panel.sizeDelta.y-f.Margin));
+            if(Mathf.Abs(panel.anchoredPosition.y-bottom)>.5f)panel.anchoredPosition=new Vector2(18,bottom);
         }
         void UpToOverview(){Depth=0;Industry=Company=Group=-1;page=0;dependencies=false;EconomyState.SetPerson(-1);EconomyState.SetSelection(-1,-1,-1);Refresh();root.Focus("overview");}
         void OnDestroy(){if(mesh)Destroy(mesh);if(material)Destroy(material);Instance=null;Depth=0;Industry=Company=Group=-1;}

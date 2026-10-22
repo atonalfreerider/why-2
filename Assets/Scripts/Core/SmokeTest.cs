@@ -131,6 +131,16 @@ namespace Why
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
                 yield return Shot($"{scene}-view-{p.Id}");
+                // -smokelayers: the view again with each layer hidden in turn, to find which layer draws what
+                if (System.Environment.GetCommandLineArgs().Contains("-smokelayers") && shots != null)
+                    foreach (GraphLayer layer in root.Layers.ToList())
+                    {
+                        if (layer == null || !layer.gameObject.activeSelf) continue;
+                        layer.gameObject.SetActive(false);
+                        yield return new WaitForSecondsRealtime(0.3f);
+                        yield return Shot($"{scene}-view-{p.Id}-without-{layer.GetType().Name}");
+                        layer.gameObject.SetActive(true);
+                    }
                 // -smokezoom N: after each view, N more frames each a quarter of the distance toward the target
                 for (int z = 1; z <= zooms; z++)
                 {

@@ -333,6 +333,7 @@ namespace Why.Economy.Layers
             if (g==LandGroup.Ties) return view=="society"||view=="betrayal"?1:0;
             // The followed person's views keep the hills' names and the clouds faintly; the rest steps back.
             if (PersonFocus.IsView(view)) return g==LandGroup.Sectors?.2f:g==LandGroup.Terraces?.15f:g==LandGroup.Crown?.12f:g==LandGroup.Glyphs&&view=="ladder"?.35f:.03f;
+            if (EconomyViews.Focused(view)) return g==LandGroup.Sectors?.18f:g==LandGroup.Terraces?.14f:g==LandGroup.Crown?.08f:.03f;
             if (g==LandGroup.Terraces) return .22f;
             if (g==LandGroup.Sectors) return .20f;
             if (g==LandGroup.Towers) return view=="capture"?.55f:.12f;

@@ -44,6 +44,13 @@ namespace Why.Economy
         /// <summary>The year the keyless y1972 preset opens temporarily.</summary>
         public const int Year1972 = 1972;
 
+        /// <summary>
+        /// Views that tell one story on a structure of their own: what moves people up or down the hill (the decade's
+        /// ladder), what companies spend and which way they push, and the viewer's own place. The wave stays as faint
+        /// context and every other layer steps back, so the story reads alone.
+        /// </summary>
+        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you";
+
         /// <summary>Columns of <see cref="Table"/>.</summary>
         static readonly string[] Columns =
             { "overview", "section", "landscape", "roots", "capture", "people", "rivers", "mind", "society", "betrayal", "y1972", "foundation" };
@@ -108,6 +115,8 @@ namespace Why.Economy
             // one person in front, the population behind: the road of lives recedes (the ladder keeps more of it, since
             // it is the time axis the life runs along)
             if (Layers.PersonFocus.IsView(presetId)) s.Alpha[(int)LandGroup.Road] = presetId == "ladder" ? .4f : .2f;
+            // a focused view's structure stands in front of the road: the lives step back to a trace
+            if (Focused(presetId)) { s.Alpha[(int)LandGroup.Road] = .12f; s.Alpha[(int)LandGroup.Cut] = .2f; s.HideRoadLabels = true; }
             specs[presetId] = s;
             return s;
         }

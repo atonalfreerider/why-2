@@ -87,7 +87,7 @@ namespace Why.Economy.Layers
                 bool nearby=lod==0||focusIndustry<0||land.IndustryOf[p/Subgroups]==focusIndustry||Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(at))<35;
                 actors[p].gameObject.SetActive(!memberView&&nearby);
                 Color color=Color.Lerp(Desire,Fear,FearOf(p));
-                float intensity=(p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f)*(PersonFocus.IsView(LandView.PresetId)?.25f:1);
+                float intensity=(p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1.4f:.60f)*(PersonFocus.IsView(LandView.PresetId)?.25f:EconomyViews.Focused(LandView.PresetId)?.3f:1);
                 actors[p].sharedMaterial.SetColor("_Color",Color.white*intensity);
             }
             for(int f=0;f<firms.Count;f++)
@@ -101,19 +101,21 @@ namespace Why.Economy.Layers
                 bool near=Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(firmAt[f]))<60;
                 GraphMaterials.SetAlpha(controls[f].sharedMaterial,chosen||related&&lod>=1||lod>=1&&near?.95f:LandView.PresetId=="capture"?.55f:.22f);
                 GraphMaterials.SetAlpha(orgs[f].sharedMaterial,HillExplorer.EvidenceOnly?0:chosen||lod>=2&&near?.9f:related&&lod>=1?.3f:0);
-                labels[f].gameObject.SetActive(chosen||(related&&lod>=1)||lod>=1&&near||LandView.PresetId=="capture");
+                // focused views (the ladder, the viewer) keep the firms' readouts out of their story; the strategy view has its own
+                bool quietFirm=EconomyViews.Focused(LandView.PresetId);
+                labels[f].gameObject.SetActive(!quietFirm&&(chosen||(related&&lod>=1)||lod>=1&&near||LandView.PresetId=="capture"));
                 labels[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].color=related?new Color(1,.78f,.30f):new Color(.40f,.55f,.66f);
-                badges[f].gameObject.SetActive(lod>=1||related||snapshot.Land.Towers[f].MarketCap>2000);
+                badges[f].gameObject.SetActive(!quietFirm&&(lod>=1||related||snapshot.Land.Towers[f].MarketCap>2000));
                 labels[f].text=FirmText(f);
             }
             GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
             GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
             // The owners' inner circles: every firm sits inside a ring of its elite owners; threads rise to the clouds.
-            string v=LandView.PresetId;bool own=v=="capture"||v=="companies";
-            GraphMaterials.SetAlpha(circles.sharedMaterial,own?1:PersonFocus.IsView(v)?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
-            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,own?.6f:v=="people"?.3f:PersonFocus.IsView(v)?.02f:.08f);
+            string v=LandView.PresetId;bool own=v=="capture"||v=="companies"||v=="strategy";bool quiet=PersonFocus.IsView(v)||EconomyViews.Focused(v)&&!own;
+            GraphMaterials.SetAlpha(circles.sharedMaterial,own?1:quiet?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
+            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,own?.6f:v=="people"?.3f:quiet?.02f:.08f);
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
             if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}

@@ -19,7 +19,7 @@ namespace Why.Economy
             Add("section", "Population / families through time", "Partners meet at the mid-plane; their child's life starts at that junction", KeyCode.Alpha2, Vector3.zero, 0, 6, 6.2f);
             Add("landscape", "The wave of value", "Each rib is a year's economy · tiers stand on the ones beneath them · the crest is where value is created now", KeyCode.Alpha3, new Vector3(105, 26, crest - 20), 152, 18, 210);
             Add("capture", "Who keeps the money", "Every household dollar splits at a market: wages flow back down, owners' surplus climbs to the gold halos and rises to its owners · rose rings pay more than they collect", KeyCode.Alpha4, new Vector3(120, 40, crest - 14), 150, 32, 150);
-            Add("people", "Class is altitude", "Valley side: out of work · foothills: frontline · slopes: office · upper slopes: managers · under the summit: owners · clouds: the 1% · threads: the road of lives", KeyCode.Alpha5, new Vector3(80, 20, crest - 14), 152, 34, 135);
+            Add("people", "Class is altitude", "Valley side: out of work · foothills: frontline · slopes: office · upper slopes: managers · under the summit: owners · clouds: the 1% · arrows: where each cohort's members stood ten years ago (gold climbed · rose fell)", KeyCode.Alpha5, new Vector3(80, 20, crest - 14), 152, 34, 135);
             Add("rivers", "The money circuit", "Desire / fear rivers to each market · gold climbs to the halos · wages back to the valleys · investment falls from the clouds", KeyCode.Alpha6, new Vector3(100, 24, crest - 18), 150, 42, 175);
             Add("mind", "Inside the decision program", "Select a player · memory → desire / fear → deliberation → spending → next balance sheet", KeyCode.Alpha7, HillLandscapeLayer.MindOrigin + new Vector3(0, 1, 0), 0, 20, 15);
             Add("society", "Repeated encounters", "Tit for tat · blue ties cooperate · red ties defect · use the season controls", KeyCode.Alpha8, new Vector3(90, 20, crest - 14), 150, 46, 150);
@@ -29,8 +29,17 @@ namespace Why.Economy
             Add("roots", "Industries depend on each other", "Input-output purchases connect suppliers to buyers; widths follow the stored use table", KeyCode.None, new Vector3(100, 10, crest - 16), 150, 34, 190);
             Add("betrayal", "One betrayal", "Follow retaliation and forgiveness over repeated encounters", KeyCode.None, new Vector3(90, 20, crest - 14), 150, 46, 150);
             Add("y1972", "The wave in 1972", "Historical accounts on the same axis: the crest stands back in time · modern companies are not born yet", KeyCode.None, new Vector3(60, 12, y1972 - 30), 140, 24, 190);
+            Add("strategy", "Companies spend too", "Each firm runs the people's program · amber: running the business down to suppliers · blue: its workers · forward over the crest: investment and research (ice: fear of losing position · rose: desire for new demand) · rose up: advertising · gold: owners · steel: taxes and lobbying · white arrows: which way the money moves it",
+                KeyCode.None, new Vector3(150, 34, crest - 4), 150, 20, 150);
+            // The decade's ladder stands beside the wave (HillMobilityLayer): seen from the hills' side so time runs left
+            // to right, its labels and the crest's year on the right.
+            float decade = HillLandscape.Z(EconomyState.Year - Model.Mobility.DefaultWindow);
+            Add("mobility", "What moves people up or down the hill", "The hill's altitude pulled out beside the wave: five rungs of household income ten years ago and now · streams of people who climbed (gold), fell (rose) or stayed · what came with the moves · the forces at each rung",
+                KeyCode.None, new Vector3(HillMobilityLayer.LadderX, HillMobilityLayer.LadderY + HillMobilityLayer.RungStep * 2 + 2, (decade + crest) * .5f - 6), 270, 4, 68);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
+            // The viewer (HillYouLayer): the pose follows where the "You" panel places them.
+            list.Add(You());
             // The families: a side view of the road's last decades, from the valley side, with the wave rising behind.
             var section = list[1]; section.FixedTarget = EconomyStage.OnRoad(EconomyState.Year - 9, .55f, EconomyStyle.FramingRho);
             section.FixedYaw = f.Yaw + 70; section.Pitch = 9; section.Distance = 34; section.PortraitWidth = 30;
@@ -72,6 +81,34 @@ namespace Why.Economy
                     float span = ready ? PersonFocus.LadderSpan : 90;
                     return Make("ladder", "The economic ladder", who + " across the wave: each year on the household's hill at the rung of its income · blue labor, gold in control · white ghost: the parents' rank",
                         KeyCode.None, ready ? PersonFocus.LadderCenter + Vector3.up * 3 : new Vector3(60, 12, crest - 30), 118, 16, Mathf.Clamp(span * 0.8f, 36, 150));
+            }
+        }
+
+        /// <summary>The viewer's own place (keyless "you" view), posed on where <see cref="YouFocus"/> last placed them:
+        /// from the future, in front of the crest and a little to the valley side, so the possible futures stand between
+        /// the camera and the viewer and the road of lives (which ends at the crest) stays out of the way.</summary>
+        public static ViewPreset You()
+        {
+            Vector3 place = YouFocus.Ready ? YouFocus.Place : new Vector3(60, 14, HillLandscape.Z(EconomyState.Year) - 6);
+            return Make("you", "Where you stand", "Use the panel to tell the model about your household · you stand at your rung on the hill you work in · your spending's rivers (ice: sold by fear, rose: desire) · gold: the income it pays that flows uphill · ahead: where people like you were a decade later",
+                KeyCode.None, place + new Vector3(3, 5, 4), 166, 15, 44);
+        }
+
+        /// <summary>The viewer moved: the catalog's "you" view takes the new pose, and the camera follows when it is on screen.</summary>
+        public static void RefreshYouView()
+        {
+            var root = GraphRoot.Instance; var catalog = ViewPresets.All;
+            if (catalog == null) return;
+            for (int i = 0; i < catalog.Count; i++)
+            {
+                if (catalog[i].Id != "you") continue;
+                bool moved = EconomyPresets.CopyPose(You(), catalog[i]);
+                var now = root != null ? root.CurrentPreset : null;
+                if (moved && now != null && now.Id == "you" && root.Rig != null)
+                {
+                    if (!ReferenceEquals(now, catalog[i])) EconomyPresets.CopyPose(catalog[i], now);
+                    root.Rig.FlyTo(now.Pose(), 1.2f);
+                }
             }
         }
 

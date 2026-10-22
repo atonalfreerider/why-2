@@ -39,7 +39,7 @@ namespace Why.Economy.Layers
             at = path[path.Count - 1].Data; return true;
         }
         public static int SelectedCompany { get; private set; } = -1;
-        enum Part { Ribs, Ridges, Face, Crest, Lives, Focus, Fan, Future, Count }
+        enum Part { Ribs, Ridges, Face, Crest, Spray, Lives, Focus, Fan, Future, Count }
         static readonly Color Steel = new Color(.46f, .58f, .72f), Ice = new Color(.62f, .84f, 1), White = new Color(1, .96f, .9f),
             People = new Color(.36f, .62f, 1);
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
@@ -92,8 +92,24 @@ namespace Why.Economy.Layers
                     case Part.Ridges: return ladder ? .55f : .25f;
                     case Part.Face: return ladder ? .3f : .12f;
                     case Part.Crest: return ladder ? .6f : .22f;
+                    case Part.Spray: return .04f;
                     case Part.Focus: return 1;
                     default: return .04f;
+                }
+            }
+            if (EconomyViews.Focused(view))
+            {
+                // the wave is the faint ground of a focused view; the companies' spending view keeps their lifelines
+                switch (part)
+                {
+                    case Part.Ribs: return .2f;
+                    case Part.Ridges: return .28f;
+                    case Part.Face: return .14f;
+                    case Part.Crest: return .45f;
+                    case Part.Spray: return .02f;
+                    case Part.Lives: return view == "strategy" ? .4f : .05f;
+                    case Part.Focus: return 1;
+                    default: return .03f;
                 }
             }
             switch (part)
@@ -102,6 +118,8 @@ namespace Why.Economy.Layers
                 case Part.Ridges: return view == "landscape" ? 1 : view == "overview" ? .7f : view == "companies" ? .45f : view == "roots" ? .4f : .2f;
                 case Part.Face: return view == "landscape" || view == "foundation" ? 1 : view == "overview" ? .8f : view == "society" || view == "betrayal" ? .15f : .4f;
                 case Part.Crest: return view == "society" || view == "betrayal" ? .3f : 1;
+                // The front breaking forward is the wave's own image: full in its views, a trace where another story leads.
+                case Part.Spray: return view == "overview" || view == "landscape" || view == "companies" ? .8f : view == "section" || view == "y1972" ? .5f : .12f;
                 case Part.Lives: return (view == "companies" ? 1 : view == "overview" || view == "landscape" ? .75f : view == "capture" ? .3f : view == "roots" ? .25f : .1f) * (person ? .4f : 1);
                 case Part.Focus: return 1;
                 case Part.Fan: return view == "people" ? .7f : view == "section" ? .5f : view == "overview" ? .14f : .04f;
@@ -176,7 +194,7 @@ namespace Why.Economy.Layers
         /// all), the bright crest line and the front breaking forward into the future.</summary>
         void Face()
         {
-            var fill = new SurfaceMeshBuilder(); var lines = new LineMeshBuilder(); var crest = new LineMeshBuilder();
+            var fill = new SurfaceMeshBuilder(); var lines = new LineMeshBuilder(); var crest = new LineMeshBuilder(); var spray = new LineMeshBuilder();
             int year = land.Year; float z = land.CrestZ + .05f, x0 = HillLandscape.FootX - 8, x1 = HillLandscape.FootX + land.CrestWidth + 18;
             Color[] tier = { EconomyStyle.Government, EconomyStyle.Matter, EconomyStyle.CapitalDim, Color.Lerp(EconomyStyle.CapitalDim, EconomyStyle.Capital, .5f), EconomyStyle.Capital };
             float[] alpha = { .07f, .07f, .06f, .07f, .09f };
@@ -220,7 +238,7 @@ namespace Why.Economy.Layers
                     Vector3 p = new Vector3(x, g + 1.4f * Mathf.Sin(t * Mathf.PI * .6f) - g * .75f * t * t, land.CrestZ + 10 * t);
                     arc.Add(new LinePoint(p, WithAlpha(Color.Lerp(White, EconomyStyle.Capital, .3f), .55f * (1 - t)), 1.2f, 0, 2));
                 }
-                crest.AddFlowPath(arc, 0, .6f, x * .1f);
+                spray.AddFlowPath(arc, 0, .6f, x * .1f);
             }
             labels.Add((Label("<b>" + year + "</b> · the crest: where value is being created now", new Vector3(HillLandscape.FootX + land.CrestWidth * .5f, land.Ground(HillLandscape.FootX + land.CrestWidth * .5f, land.CrestZ) + 12, land.CrestZ + 2), .36f, White), -1, true));
             labels.Add((Label("FUTURE →  not yet made", new Vector3(HillLandscape.FootX + land.CrestWidth + 16, land.LayerAt(year, 4, HillLandscape.FootX + land.CrestWidth * .9f) + 14, land.CrestZ + 22), .5f, WithAlpha(Ice, .8f)), -1, false));
@@ -228,6 +246,7 @@ namespace Why.Economy.Layers
             Surface(fill, Part.Face);
             Lines(lines, Part.Face, false, false);
             var r = Lines(crest, Part.Crest, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .7f);
+            r = Lines(spray, Part.Spray, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .7f);
         }
 
         // ------------------------------------------------------------------ company lifelines

@@ -65,7 +65,8 @@ namespace Why.Economy.Layers
             int focus = HillExplorer.Industry >= 0 ? HillExplorer.Industry : HillLandscapeLayer.HoverIndustry;
             foreach (var entry in labels)
             {
-                bool show = view == "capture" || entry.industry == focus && !PersonFocus.IsView(view) || lod >= 1 && view != "society" && view != "betrayal" && view != "foundation" && !PersonFocus.IsView(view);
+                bool show = view == "capture" || !EconomyViews.Focused(view) && (entry.industry == focus && !PersonFocus.IsView(view) ||
+                    lod >= 1 && view != "society" && view != "betrayal" && view != "foundation" && !PersonFocus.IsView(view));
                 entry.text.gameObject.SetActive(show);
                 if (show) entry.text.transform.rotation = rig.Cam.transform.rotation;
             }
@@ -81,6 +82,10 @@ namespace Why.Economy.Layers
                 case "atom": case "dilemma": case "ladder": return part == Part.Halo || part == Part.Glow ? .25f : .02f;
                 case "roots": return part == Part.Roots ? 1 : part == Part.Halo || part == Part.Glow ? .35f : .06f;
                 case "foundation": return part == Part.Taxes ? 1 : part == Part.Halo || part == Part.Glow ? .3f : part == Part.Selected ? 1 : .08f;
+                // focused views: the halos stay as landmarks (brighter where the story is the money's destination)
+                case "mobility": return part == Part.Halo || part == Part.Glow ? .1f : .02f;
+                case "strategy": return part == Part.Halo || part == Part.Glow ? .45f : .03f;
+                case "you": return part == Part.Halo || part == Part.Glow ? .35f : part == Part.Selected ? 1 : .03f;
             }
             switch (part)
             {

@@ -75,7 +75,7 @@ namespace Why.Economy.Layers
             foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, Emphasis(e.part, view));
             foreach (var e in labels)
             {
-                bool show = view == "foundation" || lod >= e.lod && view != "society" && view != "betrayal" && view != "capture" && !PersonFocus.IsView(view);
+                bool show = view == "foundation" || lod >= e.lod && view != "society" && view != "betrayal" && view != "capture" && !PersonFocus.IsView(view) && !EconomyViews.Focused(view);
                 e.text.gameObject.SetActive(show); if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
         }
@@ -85,6 +85,9 @@ namespace Why.Economy.Layers
             if (view == "foundation") return part == Part.Block ? .8f : 1;
             if (view == "society" || view == "betrayal") return part == Part.Block ? .25f : .02f;
             if (PersonFocus.IsView(view)) return part == Part.Block || part == Part.Pillars ? .12f : .02f;
+            // focused views: the bedrock stays as the ground; companies' lobbying meets the seats and the rule-making
+            if (EconomyViews.Focused(view))
+                return view == "strategy" ? (part == Part.Block ? .3f : part == Part.Seats ? .6f : part == Part.Regulation ? .18f : .03f) : part == Part.Block ? .18f : .02f;
             switch (part)
             {
                 case Part.Block: return .55f;
@@ -92,7 +95,9 @@ namespace Why.Economy.Layers
                 case Part.Pillars: return view == "overview" || view == "landscape" || view == "companies" ? .10f : view == "capture" ? .2f : .35f;
                 case Part.Benefits: return view == "people" ? .12f : lod >= 2 ? .5f : .06f;
                 case Part.Taxes: return lod >= 2 ? .45f : view == "rivers" ? .3f : .05f;
-                case Part.Regulation: return view == "capture" ? .8f : lod >= 1 ? .45f : .15f;
+                // regulation and capture strands run from the bedrock up into every hill: their own story in the capture
+                // view and close up; elsewhere a trace, or two strands per industry curtain the whole crest face
+                case Part.Regulation: return view == "capture" ? .8f : lod >= 2 ? .45f : .05f;
                 case Part.Seats: return 1;
                 case Part.Selected: return 1;
             }

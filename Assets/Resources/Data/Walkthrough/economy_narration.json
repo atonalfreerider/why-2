@@ -15,6 +15,10 @@
       "narration": "Beneath the whole landscape lies the bedrock: government. Every society stands on a different foundation, and in the United States it is a constitutional federal democracy. The pillars you see are sized by public outlays, what the government spends. Watch taxes fall into the bedrock from every household, and watch benefits rise back out of it to the people who receive them. Nothing on the hills above could stand without it. Like the sunlight at the base of a food chain, it is the layer that everything else presumes."
     },
     {
+      "id": "hills_money",
+      "narration": "Beneath the market lies the state, and the state reaches up into it with levers. The first is the price of money. The central bank sets the rate at which banks lend to one another, and that rate runs through every river of debt on the hillside: the mortgage on a house, the loan on a car, the bonds of the state itself. When money was dearest, in nineteen eighty-one, it cost more than sixteen percent a year. From two thousand and nine to two thousand and sixteen it cost almost nothing, and the price of what people own rose with it. The second lever is the edge of trade. For most of the century after the war, the tax on imported goods fell. In twenty twenty-five it tripled. Watch these lines move, and you see the state tilting the whole hill."
+    },
+    {
       "id": "hills_land",
       "narration": "On the bedrock, the economy rises in layers, each standing on the ones beneath it. At the foot are raw materials and the subsistence infrastructure people need simply to live. Above that, manufacturing and infrastructure. Then services, and at the top, technology. Each industry is a ridge, and its width is its share of the value the economy adds. Height here is an order of dependence, not of importance. As in the food chain, the top cannot exist without everything underneath it, feeding it."
     },
@@ -23,8 +27,16 @@
       "narration": "Companies live on these ridges the way people live on the road. There are seventy-five of them here. Each is born on its industry's ridge, rises and falls with its market value, and then meets its fate. Some fail and fall to the ground. Some are bought and merge into their buyer. Some survive all the way to the crest. Their color tells you how they sell: by meeting real needs, by manufactured want, or by fear. Watch them flicker into being and go out, like stars with short lives."
     },
     {
+      "id": "hills_strategy",
+      "narration": "Companies are players too, and they run the same program. Money comes in, something like a mind weighs desire against fear, and money goes out. Follow one company's year. Most of it runs back down the hill, to the suppliers beneath it and the people who work for it. Some leaves forward, over the crest, as investment in what does not exist yet. As the model judges it, part of that is desire, a reach for new demand, and part is fear, spending so as not to fall behind. Some climbs to its owners as buybacks and dividends. Some drops into the state as taxes, and a thin thread reaches the officeholders as lobbying. The white arrows show where the money carries a company: up into software and artificial intelligence, down into the chips and power beneath it, or back to its owners. In twenty twenty-five, five companies spent about four hundred and fifty billion dollars building artificial intelligence, and that money poured down the hill."
+    },
+    {
       "id": "hills_owners",
       "narration": "Follow a dollar to any market on these hills and watch it split. Wages run back down to the people who did the work. Taxes fall to the bedrock. What remains, the surplus, climbs upward into gold halos above the summits, and into the rings of owners around the top firms: the golden circles. Like the top of a food chain, they live on what flows up from everything below. And they are few, by the same arithmetic that makes falcons rarer than moths."
+    },
+    {
+      "id": "hills_attention",
+      "narration": "High above the hills float the people who hold attention: the most followed Americans, laid out by who follows whom. Their size is their reach. The rings around them count something rarer: how many of the other most-followed people follow them. Attention is not separate from the economy. It runs in a loop. Companies pay the platforms to reach you, nearly three hundred billion dollars a year in digital advertising. The platforms and the brands pay the creators who hold your attention, tens of billions more. You give them about two hours of your day, and you take in wants you did not have before. Then you spend, and the money flows back to the companies that paid to make the wants. Desire can be manufactured, and here you can watch the factory run."
     },
     {
       "id": "hills_people",
@@ -33,6 +45,10 @@
     {
       "id": "hills_rivers",
       "narration": "Money moves across the landscape in rivers of two colors. Rose is desire. Ice is fear. Spending runs from households down to each industry's market, colored by the motive behind it. Saving leaves over the crest into the future, as capital that builds what comes next. Debt arrives from the future: spending drawn from income not yet earned. Watch where the rivers run and you see what a people wants, and what it is afraid of, written in the shape of its own money."
+    },
+    {
+      "id": "hills_mobility",
+      "narration": "Class is altitude, but altitude is not fixed. Here the hillside is pulled out beside the wave and laid out in time: five rungs of household income ten years ago, the same five rungs now, joined by streams of people. Gold streams climbed. Rose streams fell. Among adults in their working years, the falls came most often with a lost job, a divorce, debt that could not be paid. The climbs came with finding work, a child, a first home, a marriage. At each rung you can see the forces at work: what people save and what they earn from what they own lift them; debt service pulls them down. Most people stay near where they started, and the top holds its place most firmly. Compared like for like, the model's simulated Americans hold their rungs about as tightly as the tax records of real ones."
     },
     {
       "id": "atom_person",
@@ -53,6 +69,10 @@
     {
       "id": "hills_games",
       "narration": "Groups play the same game as individuals. Companies, classes and whole tribes meet one another again and again, and each time they choose to cooperate or to defect. Watch cooperation, retaliation and forgiveness play out between them. Coalitions form wherever cooperating keeps paying, and break where it stops. It is the same logic that held the first human tribes together on the grasslands, now playing out on a landscape of money."
+    },
+    {
+      "id": "hills_you",
+      "narration": "Now find yourself. Tell the model your age, your household's income, what you own and what you owe, and where you work. It places you among the simulated Americans of the year, on your rung of your hill. Follow your own spending. Some of it pays wages and some becomes owners' surplus, and for most people, most of the income it pays flows uphill, to people ranked above them. The gold ring at your feet measures your runway, the years your savings would carry you. Ahead of you, in front of the crest, stand three possible futures: a rung up, the same rung, a rung down, each as bright as the share of people like you who went there over the last ten years. Nothing you enter is kept. It is a mirror, not a forecast."
     },
     {
       "id": "hills_return",

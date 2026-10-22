@@ -105,8 +105,11 @@ reformers marked along its top for their years in office.
 The whole model has a spoken, guided walkthrough in John's own voice (an ElevenLabs clone, "JohnV4"), top to
 bottom: it opens with why the graph exists - understand cause and effect and you can build a working model of the
 universe from the Big Bang to this moment - walks the three levels across 64 stops, and at its end continues straight
-into the economy scene for 14 more (the wave, its foundation and layers, golden circles, rivers of desire and fear,
-one person's mind, tit for tat, the ladder). About 34 minutes in all.
+into the economy scene for 19 more (the wave, its foundation, the price of money, layers, companies and what they spend,
+golden circles, attention, rivers of desire and fear, what moves people up or down, one person's mind, tit for tat, the
+ladder, where you stand). About 38 minutes in all; the five newest economy stops (`hills_money`, `hills_strategy`,
+`hills_attention`, `hills_mobility`, `hills_you`) are written and checked but not yet voiced, so they read their
+on-screen text until `python3 Tools/synthesize-narration-elevenlabs.py --only economy_narration` is run.
 
 * Scripts (tracked): `Assets/Resources/Data/Walkthrough/` - `tour.json` and `economy_tour.json` hold each stop's view,
   arrow target and on-screen text; `tour_narration.json` and `economy_narration.json` hold what is spoken. Each spoken
@@ -191,6 +194,36 @@ control opens an independent scenario ledger: choose a player, adjust reason/fea
 All players run the scenario program; assets, debt, consumption and support transfers are accounted for separately
 from historical records. The same selected player's state appears in the 3D mind view. Comma/period and the year
 scrubber still select historical years. T runs the wave tour.
+
+Five more keyless views ask how the economy moves the people and the companies on it (the preset bar and the tour reach
+them; focused views keep the wave as faint ground and quiet everything else):
+
+* `mobility` - **what moves people up or down the hill**: the hill's altitude pulled out beside the wave as the decade's
+  ladder, five rungs of household income ten years ago and now, joined by streams of people that climbed (gold), fell
+  (rose) or stayed; what came with the climbs and falls of prime-age adults (found work, married, a child, a home; a lost
+  job, a divorce, debt discharged), each with its lift over everyone's rate; the forces at each rung (saving, income from
+  ownership, debt service, fear, runway, in control); and the model against the published decade matrices (like for like
+  - adults 25+, fifths ranked within the panel - the bottom fifth stays 56% and the top 66%, against the US Treasury's
+  55% and 61% for 1996-2005). The people view gives every cohort an arrow from where its members stood ten years before.
+* `you` - **where you stand**: steppers (no keyboard, so they work with hands in the headset) for age, household
+  income, net worth, debt, saving, industry, partner, home and business; the model places you among the year's
+  simulated adults (income and wealth percentiles) on your rung of your hill, draws your spending's rivers split by fear,
+  which way the income it pays flows (uphill to people ranked above you, or down), a runway gauge toward autonomy, the
+  years to living on what you own, and three possible futures in front of the crest, each as bright as the share of
+  people like you who went there in the last decade. Nothing entered is stored or sent.
+* `strategy` - **companies spend too**: every stored firm's latest fiscal year from its audited filing
+  (`Tools/corporate`), in the directions its money flows: operations down to suppliers and workers (by its industry's
+  accounts), investment and research forward over the crest split into fear and desire lanes, advertising up to the
+  attention platforms, deals across, buybacks and dividends up to the owners, taxes and lobbying into the state; white
+  arrows for which way Jev judged the money moves each firm (climb into AI, reach down into its own supply, spread across,
+  lean on the state, harvest); the hyperscalers' AI build-out ($449B in 2025, guided $805B for 2026) pouring down into
+  computers and data centers; a panel steps through the firms with the US totals beside them.
+* `money` - **the price of money and the edge of trade**: the federal funds, 30-year mortgage and 10-year Treasury rates
+  and the effective tariff rate (customs duties over goods imports) on the wave's own time axis, with trade's share of GDP.
+* `social` now also rings every star by how many of the other most-followed accounts follow it (influence among the
+  influential, from the graph's directed follows: Obama 70, Snoop Dogg 69, Rihanna 67) and draws the attention loop:
+  companies pay the platforms ($295B of US digital ads in 2025), platforms and brands pay creators (about $37B), people give
+  about two hours a day and take in wants, and spend.
 
 The economy-only population geometry joins recorded parents at the mid-plane at birth and draws marriage links.
 The original causality scene's population geometry is unchanged. Psychological weights, terrain elevation, synthetic

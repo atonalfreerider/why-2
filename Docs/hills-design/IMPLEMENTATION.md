@@ -371,3 +371,69 @@ markets, and the arena's height over steep valley slopes.
   elsewhere, flagged per sample);
 - per-industry regulation and capture (Jev);
 - political actors (figures.json rulers / generals / reformers, US presidents, terms from Wikidata where found).
+
+## How the economy moves people and companies - 2026-10-22
+
+The user's direction: think deeply about the theory and push it forward in accuracy and in interactive, educational
+clarity: the government at the base and its influence on the market layer, rivers of fear and desire flowing uphill or
+downhill to corporate entities, the companies' own expenditures and the direction of their strategies, capital owners
+and influential people above the hill, and how cause and effect moves each player up or down. The theory as drawn, with
+what rests on measurement, Jev and assumption, is in [THEORY.md](THEORY.md). Five views were added (keyless, on the
+preset bar and in the tour); `EconomyViews.Focused` marks them, and every other layer steps back in them.
+
+**Mobility (`Mobility`, `HillMobilityLayer`, view `mobility`).** The decade before the shown year, from the lives'
+yearly records: every adult alive at both ends placed in household income fifths (the rank that sets a rung), the
+transition matrix in people, the wealth groups' matrix, the odds of climbing, staying or falling by start fifth and age
+band, and the events between the ends (a job lost or found, a change of industry, marriage, divorce, widowhood - a
+marriage that ends with an estate the same year - a child, a home, a business, an inheritance from a parent, a large
+uninsured bill, debt discharged, retirement), read for adults 25-54 at the start so retirement and late inheritances do
+not pose as causes of falls. Drawn as the decade's ladder at x = -80 beside the wave on its own time axis (streams between
+five rungs at the two years; widths are people), the leading events with their lift (at least 1.3x), the forces at each
+rung, and the model against the published matrices (`Data/economy/mobility-benchmarks.json`, from `Tools/history`):
+like for like (adults 25+, fifths ranked within the panel) the bottom fifth keeps 56% and the top 66% against the US
+Treasury's 55% and 61% for 1996-2005. The people view draws every cohort's drift: an arrow on its hill from its members'
+mean rank ten years before to now, named with the event that sets the cohort apart.
+
+**Where you stand (`YouModel`, `YouState`, `HillYouLayer`, `YouPanel`, view `you`).** Steppers for the household (no
+keyboard: the headset has none). The income rank is the model's own rank at the viewer's household income (the median
+rank of the nearest records), the wealth rank the share of adults below the net worth per adult; the neighbors in rank
+give the spending mix, fear, fantasy, saving and tax rate; `ValueCapture` splits the dollar; the uphill share is the
+share of the dollar's wages and owners' income received above the viewer's rank, by the year's cumulative distributions
+(economy-wide). Runway, the capital to live on at 4% (25x spending) and the years to it at a 4% real return; the odds from
+`Mobility`. Drawn: the figure at `HillLandscape.Rung` (as people are placed), arcs to the five largest markets split by
+fear, the uphill and downhill streams, the runway gauge, and three futures in front of the crest. Nothing is stored.
+
+**Companies spend too (`CorporatePrograms`, `HillStrategyLayer`, `StrategyPanel`, view `strategy`).** Data from
+`Tools/corporate/build.py`: `filings.json` (the 25 stored firms' latest fiscal year from their audited filings on SEC
+EDGAR; calendar-2025 lobbying from their LDA reports; research collected and checked against XBRL), `economy.json` (US
+totals with sources) and three Jev questions per firm (direction: a Choice over climb / integrate down / expand across /
+lean on the state / harvest with its probabilities kept; defensive: a Score from pursuing new demand to defending
+position; AI share of investment), jev-1.14.0. Operations (cost of revenue and overhead, or a filing's own total cost
+breakdown for Berkshire and ExxonMobil, less advertising and stock pay) split into suppliers and workers by the
+industry's 2024 accounts. ExxonMobil's acquisitions sit inside its capex and are not added again. Drawn per firm in the
+directions its money flows, with Jev's direction arrows; the focused firm in full with its numbers in the panel; the
+hyperscalers' AI investment (investment x Jev's AI share) pouring into the computers and construction markets by the US
+2025 totals (computers and peripherals $280B, data centers $50B).
+
+**Attention (`HillSocialLayer`, view `social`).** `Tools/social/elite.py` adds `elite` to people.json: how many of the
+social graph's other accounts follow each person (the graph's directed follows). Rings around the stars by it, the top
+eight named, and the attention loop between the firms, the platforms (the internet towers), the stars and the people,
+labeled with the US totals (digital ads, creator-economy spend, social media time) and the household ledger.
+
+**Money and trade (`HillMoneyLayer`, view `money`).** `Data/economy/money-and-trade.json` (from `Tools/history`): the
+federal funds, 30-year mortgage and 10-year Treasury rates, the effective tariff rate and trade's share of GDP, charted
+beyond the far side of the wave on its time axis (x = 290); moments read off the data (the peak rate, the years near zero,
+the tariff jump).
+
+**Clarity.** The Explore panel docks above the HUD's legend (it covered it). The crest's spray has its own emphasis and
+fades outside the wave's views; the regulation and capture strands (two per industry, a curtain over every view) show in
+the capture view and close up only; firm badges, readouts and halos step back in focused views. A smoke option,
+`-smokelayers`, re-captures a view with each layer hidden in turn: it is how the curtain's layer was found.
+
+**Checks.** `Mobility.Problems`, `YouModel.Problems` and `CorporatePrograms.Problems` run where each model is built (a
+failure logs an error, so the smoke test fails on it) and in `HillValidation.NewModels`. New narration is checked with
+`Tools/check-narration.py` (Jev; contradiction, unsupported claims sentence by sentence, faithfulness) against
+`Tools/narration-facts.json`.
+
+Needs a check in the headset: the focused views' label sizes and the steppers by pinch. The five new tour stops are not
+voiced yet.

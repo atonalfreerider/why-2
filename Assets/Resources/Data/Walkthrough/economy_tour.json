@@ -29,6 +29,15 @@
       "hold": 14
     },
     {
+      "id": "hills_money",
+      "title": "The price of money",
+      "text": "The state reaches into every market through two levers: the price of money, which the central bank sets and every debt pays, and the edge of trade. Money was dearest in 1981, at 16.4% a year, and nearly free from 2009 to 2016. Tariffs fell from 7% of the value of imported goods in 1947 to under 2% in the 2010s, then tripled in 2025, from 2.6% to 8.0%.",
+      "focus": "money",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
       "id": "hills_land",
       "title": "Layers standing on layers",
       "text": "On the bedrock, layers stand on layers: raw materials and subsistence infrastructure at the foot, then manufacturing and infrastructure, then services, with technology on top. Each industry is a ridge as wide as its share of value added.",
@@ -47,10 +56,28 @@
       "hold": 14
     },
     {
+      "id": "hills_strategy",
+      "title": "Companies spend too",
+      "text": "Companies run the same program as people. A firm's year of money leaves in the directions it flows: down to its suppliers and workers, forward into the future as investment, split between desire for new demand and fear of falling behind, up to its owners, and into the state as taxes and lobbying. Arrows show which way the money moves it. In 2025 five companies spent about $450 billion building artificial intelligence, and it poured down the hill.",
+      "focus": "strategy",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
       "id": "hills_owners",
       "title": "Golden circles",
       "text": "At every market the dollar splits: wages run back down to workers, taxes fall to the bedrock, and the surplus climbs to gold halos above the summits and to the rings of owners around the top firms - the golden circles.",
       "focus": "capture",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_attention",
+      "title": "Attention above capital",
+      "text": "Above the capital float the most followed Americans, ringed by how many of the other most-followed follow them. Attention runs in a loop: companies pay the platforms $295 billion a year in digital advertising, the platforms and brands pay creators about $37 billion, people give about two hours a day and take in wants, and then they spend.",
+      "focus": "social",
       "anchor": "",
       "highlight": [],
       "hold": 14
@@ -69,6 +96,15 @@
       "title": "Rivers of desire and fear",
       "text": "Money flows in two colors: desire, in rose, and fear, in ice. Spending runs down to each industry's market; saving leaves over the crest into the future, and debt arrives from it.",
       "focus": "rivers",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_mobility",
+      "title": "What moves people up or down",
+      "text": "The hill's altitude pulled out beside the wave: five rungs of household income in 2015 and in 2025, joined by streams of people. In their working years, a lost job, a divorce and unpayable debt came with the falls; work, a child, a home and marriage with the climbs. Compared like for like, the model holds as tightly as the tax records do.",
+      "focus": "mobility",
       "anchor": "",
       "highlight": [],
       "hold": 14
@@ -114,6 +150,15 @@
       "title": "Groups play the same game",
       "text": "Groups play the same game as people: cooperation, retaliation and forgiveness between groups and tribes. Coalitions form where cooperation keeps paying, and break where it does not.",
       "focus": "society",
+      "anchor": "",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_you",
+      "title": "Where do you stand?",
+      "text": "Tell the model about your household in the panel. It places you among the year's simulated Americans: your rung on the hill you work on, where each dollar you spend goes and which way its income flows, how far you are from living on what you own, and where people like you were ten years later. Nothing you enter is kept.",
+      "focus": "you",
       "anchor": "",
       "highlight": [],
       "hold": 14

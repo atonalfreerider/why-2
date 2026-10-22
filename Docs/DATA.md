@@ -380,6 +380,36 @@ presets `roots`, `betrayal` and `y1972`); anchors are the land's keys (`land:cut
 `land:owners`, `land:crown`) and `smv:us`. Every number in a step's text is one the scene computes and prints in its log
 at the same precision (`116 players`, `0.686`, `$21.63T`), and the check script fails the tour when one is missing.
 
+### `Data/economy/corporate-programs.json`
+
+Written by `Tools/corporate/build.py` from `Tools/corporate/filings.json` and `Tools/corporate/economy.json` (both
+tracked, every number with its source). `firms[]`: each stored firm (`circuit.json` capture) in its latest fiscal year
+from its audited filing on SEC EDGAR - `revenue`, `costOfRevenue`, `rd`, `sga`, `advertising` (where disclosed),
+`capex`, `financeLeases`, `buybacks`, `dividends`, `acquisitions`, `stakes` (stakes in other companies from the filing's
+other outflows), `incomeTaxesPaid`, `stockComp`, `netIncome`, `operatingCosts` (a filing's own total where cost of
+revenue is only one of its cost lines), `employees` (thousands), `lobbying` (calendar 2025, USD millions, summed from
+the firm's LDA reports), `strategy` (where the firm says its money goes, paraphrased), `sources`, `notes` - and Jev's
+judgments: `direction` (probability of climb, integrate_down, expand_across, lean_on_state, harvest), `defensive` (0
+investing for new demand .. 1 investing for fear of losing position), `ai` (share of investment judged to go to AI), each
+with its confidence. `economy`: the US totals for 2025 (advertising, digital and social ads, creator spend, social media
+time, private fixed investment by type, business R&D, payouts, lobbying, M&A, hyperscaler capex and 2026 guidance,
+data-center construction), each as `value`, `unit`, `year`, `source`, `note`. Money in USD billions.
+
+### `Data/economy/mobility-benchmarks.json` and `Data/economy/money-and-trade.json`
+
+Written by `Tools/history/build.py` from `Tools/history/sources.json` (research of 2026-10-22, each number read in its
+cited source). The benchmarks: published decade income-mobility matrices (US Treasury 1996-2005, open and closed panels;
+Auten & Gee; PSID 1980s and 1990s; Bradbury) with their bottom-stays, top-stays and bottom-to-top cells, Chetty et al.'s
+intergenerational matrix and rank-rank slope, and event studies (job displacement, divorce, hospital admissions, poverty
+entries). Money and trade: `fedFunds`, `mortgage30`, `treasury10` (annual averages; 2026 the months available),
+`tariffRate` (customs duties over goods imports, NIPA calendar years, gross of the 2026 IEEPA refunds), `customsDuties`,
+`goodsImports`, `tradeShare` (exports plus imports over GDP), as `[year, value]`.
+
+### `Data/social/people.json`: `elite`
+
+Added by `Tools/social/elite.py` without rerunning the Wikidata and Jev stages: how many of the social graph's other
+accounts (the 1,139 most-followed) follow each person, from the graph's directed follow edges.
+
 ### Expected values and how they were measured
 
 The land's log lines (`[Why] Land`, `Roots`, `Players`, `Money`, `Pools`, `Society`, `Society controls`, `Betrayal`,

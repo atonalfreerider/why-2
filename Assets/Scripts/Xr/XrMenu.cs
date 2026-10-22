@@ -14,7 +14,8 @@ namespace Why.Xr
     /// * the transport: back, play / pause, next, leave,
     /// * one icon per chapter of the tour (its views, in tour order, colored by level: red matter, green life, blue humans)
     ///   - pinch one to play the narrated tour from where it first reaches that view; the view on screen is lit,
-    /// * the other scene (universe / economy) and recenter.
+    /// * the other scene (universe / economy), in the economy the replay of the wave (play / pause: the crest advancing
+    ///   year by year, <see cref="Economy.EconomyReplay"/>), and recenter.
     ///
     /// Point with the right hand and pinch (<see cref="XrRig"/> does the pointing; this only builds and refreshes).
     /// </summary>
@@ -30,7 +31,8 @@ namespace Why.Xr
         Canvas canvas;
         RectTransform panel;
         TextMeshProUGUI stop;
-        Image playIcon;
+        Image playIcon, replayIcon;
+        TextMeshProUGUI replayCaption;
         readonly List<(Image ring, string preset)> chapterButtons = new List<(Image, string)>();
         int builtChapters = -1;
 
@@ -84,6 +86,12 @@ namespace Why.Xr
             bool running = director.TourRunning;
             string current = director.CurrentPresetId;
             if (playIcon != null) playIcon.sprite = ChapterIcons.Get(running && !director.Paused ? "pause" : "play");
+            if (replayIcon != null)
+            {
+                bool replaying = Economy.EconomyReplay.Playing;
+                replayIcon.sprite = ChapterIcons.Get(replaying ? "pause" : "replay");
+                if (replayCaption != null) replayCaption.text = replaying ? "Pause the replay" : "Replay the wave";
+            }
             stop.text = StopText(director);
             foreach ((Image ring, string preset) in chapterButtons)
             {
@@ -106,7 +114,8 @@ namespace Why.Xr
         {
             foreach (Transform c in panel) Destroy(c.gameObject);
             chapterButtons.Clear();
-            playIcon = null;
+            playIcon = replayIcon = null;
+            replayCaption = null;
             builtChapters = chapters.Count;
 
             float y = -Pad;
@@ -153,12 +162,20 @@ namespace Why.Xr
 
             y -= (chapters.Count + Columns - 1) / Columns * IconCell + 8;
 
-            // the other scene, recenter
-            float half = (Width - 2 * Pad - 10) / 2f;
-            IconButton(panel, "scene", GraphRoot.OpenOtherScene, new Vector2(Pad, y), new Vector2(half, 56), Color.white,
+            // the other scene, the economy's replay, recenter
+            int cells = GraphScene.IsEconomy ? 3 : 2;
+            float cell = (Width - 2 * Pad - 10 * (cells - 1)) / cells;
+            IconButton(panel, "scene", GraphRoot.OpenOtherScene, new Vector2(Pad, y), new Vector2(cell, 56), Color.white,
                 GraphScene.IsEconomy ? "The universe" : "The economy", out _);
-            IconButton(panel, "recenter", () => XrRig.Instance?.Recenter(), new Vector2(Pad + half + 10, y), new Vector2(half, 56),
-                Color.white, "Recenter", out _);
+            if (GraphScene.IsEconomy)
+            {
+                replayIcon = IconButton(panel, "replay", () => Economy.EconomyReplay.Toggle(), new Vector2(Pad + cell + 10, y),
+                    new Vector2(cell, 56), Color.white, "Replay the wave", out _);
+                replayCaption = replayIcon.transform.parent.Find("Caption")?.GetComponent<TextMeshProUGUI>();
+            }
+
+            IconButton(panel, "recenter", () => XrRig.Instance?.Recenter(), new Vector2(Pad + (cells - 1) * (cell + 10), y),
+                new Vector2(cell, 56), Color.white, "Recenter", out _);
             y -= 56 + Pad;
 
             ((RectTransform)canvas.transform).sizeDelta = new Vector2(Width, -y);

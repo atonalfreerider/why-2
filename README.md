@@ -98,6 +98,7 @@ reformers marked along its top for their years in office.
 | L | cycle log / mixed / linear time in the unrolled window |
 | T | guided tour (director mode): Space / Right next, Left back, P pause, M mute the narration, Esc exit; it ends by continuing into the economy |
 | Tab | switch between the universe and the economy |
+| R | in the economy: replay the wave - the crest advances a year at a time from 1950 to the latest year with what changed in each (again to pause, Shift + R from the start; also the play button on the year chip) |
 | F | people of this time: famous figures alive at the moment you are looking at; click one to follow their life |
 | G | scale probe: point at the red layer to read the distance from us in metres, and how many metres (and years) one unit of the graph stands for there |
 | V | vertical mode: a 9:16 layout for recording phone videos (again to go back) |
@@ -145,7 +146,7 @@ Input is hands only (no controllers; the manifest requires hand tracking, so the
 | Point with the right hand, pinch | select (labels, people, companies, panel buttons) |
 | Pinch with either hand and move | drag the world |
 | Pinch with both hands | pull apart / together: grow / shrink the world; twist: turn it |
-| Turn the left palm toward your face | the menu: the guided tour's transport (back, play / pause, next, leave), one icon per chapter of the tour (pinch to hear the narration from there; the chapter on screen is lit), the other scene, recenter |
+| Turn the left palm toward your face | the menu: the guided tour's transport (back, play / pause, next, leave), one icon per chapter of the tour (pinch to hear the narration from there; the chapter on screen is lit), the other scene, in the economy the replay of the wave (play / pause), recenter |
 
 Both hands are drawn as glowing skeletons; the pointing ray is Meta's hand aim (from the shoulder through the hand).
 Nothing to press floats in the room: the screen's buttons and panels are replaced by the hand menu; only what you read
@@ -198,6 +199,21 @@ control opens an independent scenario ledger: choose a player, adjust reason/fea
 All players run the scenario program; assets, debt, consumption and support transfers are accounted for separately
 from historical records. The same selected player's state appears in the 3D mind view. Comma/period and the year
 scrubber still select historical years. T runs the wave tour.
+
+**The wave replayed (R, or the play button on the year chip).** The crest advances a year at a time from 1950 (the first
+year the land opens; the ribs of 1947-49 already lie in its wake) to the latest year, so cause and effect plays out on the
+wave: each year's land is built on a worker while the year before is on screen, and the crest moves on only once the
+year is shown - about a second a year, quicker through quiet years, longer at a turning point. A caption at the bottom of
+the screen says what changed: GDP and its real growth, the market's real value added (the wave's width; a fall narrows
+the wave), the tiers' shares of the market, the federal funds and tariff rates, federal outlays and receipts, the stored
+companies born and ended, and in the mobility view the decade's ladder. Turning points are read off the data, not
+authored - the four deepest falls of the market's real value added (1958, 1982, 2008-09, 2020), the four largest
+swings of the federal funds rate (its peaks in 1974 and 1981, its troughs in 1983 and 1993) and the largest move of the
+tariff rate (2024-26) - and are ticked on the year chip's scrubber (hover one to read it); once the crest has passed one,
+its year's rib in the wake is traced faintly in its colour, with a pin and its tag above the rib. Every view keeps working:
+views framed on the crest (landscape, capture, people, rivers, foundation, social, strategy, mobility) follow it, while
+the overview, the companies and the money chart frame the whole time axis and the wave grows across them. Moving the year
+yourself pauses the replay; the guided tour stops it.
 
 Five more keyless views ask how the economy moves the people and the companies on it (the preset bar and the tour reach
 them; focused views keep the wave as faint ground and quiet everything else):

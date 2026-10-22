@@ -110,7 +110,8 @@ namespace Why.UI
                 Section("The year and the land", new[]
                 {
                     Row(",   .", "the year one back / forward (with Shift: ten); the cut slides and the land opens it"),
-                    Row("Year chip", "\u2039 \u203A step; drag the scrubber to slide the cut, release to open the year"),
+                    Row("R", "replay the wave: the crest advances year by year from 1950 with what changed; again to pause (Shift: from the start)"),
+                    Row("Year chip", "play / pause the replay, \u2039 \u203A step; drag the scrubber to slide the cut, release to open the year; ticks mark turning points"),
                     Row("Click the wall", "in views 1 and 2: open the year clicked"),
                     Row("Hover the land", "light a sector and its roots, a river, a tower, a tie; read its card"),
                     Row("Click a player", "its inspector: who, its money, its mind, its place in the season"),

@@ -82,7 +82,9 @@ namespace Why.Economy.Layers
                 var low = new List<Vector3>(); var high = new List<Vector3>();
                 foreach (var (year, v) in trade) { if (year > last) continue; float z = HillLandscape.Z(year); low.Add(new Vector3(x + .05f, Floor, z)); high.Add(new Vector3(x + .05f, Floor + v * .5f, z)); }
                 fill.AddBand(low, high, new[] { (Color32)WithAlpha(Steel, .10f) }, 0, 1);
-                var (ty, tv) = trade[trade.Count - 1];
+                // the latest year the band reaches (the crest's, when the wave stands back in time or replays)
+                var (ty, tv) = trade[0];
+                foreach (var p in trade) if (p.year <= last) (ty, tv) = p;
                 Label("open to trade: exports + imports " + tv.ToString("0", LandFacts.Ci) + "% of GDP in " + ty + " (" + trade[0].value.ToString("0", LandFacts.Ci) + "% in " + trade[0].year + ")",
                     new Vector3(x, Floor + tv * .5f + 1.4f, HillLandscape.Z(ty) - 30), .45f, WithAlpha(Steel, .85f));
             }

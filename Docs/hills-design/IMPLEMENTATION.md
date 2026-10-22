@@ -487,3 +487,75 @@ climbing to harvesting, Microsoft and Oracle from harvesting to reaching down, A
 within half a year of its calendar year, every year judged (directions sum to one, fear and AI shares in 0..1), no
 negative line the trail draws, and a last year of 2025 whose investment, research and owners agree with the crest's
 filing within 5% (or $0.1B).
+
+## The wave replayed - 2026-10-22
+
+The user's direction: a replay of the wave, the crest advancing year by year from the first year to the latest, so cause
+and effect plays out instead of being read off; a readout of what changed each year from data already in the project;
+a handful of turning points read off the data, not authored; every view kept working.
+
+**The replay (`EconomyReplay`, `ReplayPanel`).** R plays or pauses it (Shift+R from the start); so do the play button on
+the year chip and, in the headset, a replay button beside the other scene and recenter in the hand menu. It starts at
+1950 when the crest stands at the present (the default year or later), else from the year the viewer chose, and stops at
+the latest year (2026, an estimate). The land cannot open before 1950 (`EconomyState.MinYear`: the simulated population
+begins then), so the ribs of 1947-49 already lie in the wake at the start. One year at a time:
+- *No pile-up.* `EconomyState.Year` moves only once `LandService` has put the year on screen (`Current.Year` and
+  `ShownYear`, i.e. every land layer swapped to it). While a year is shown the next year's snapshot is built on a worker
+  into the service's cache (`LandService.BuildBlocking(int)`), and the step waits for that build, so the request that
+  follows is answered from the cache: at most one land build is ever in flight.
+- *Pace.* About a second a year from the request (`YearSeconds`), `QuietSeconds` (0.6 s) through quiet years (no rate,
+  tariff, outlay or tier-share move of a point, the market grew, no stored company born or ended), and `TurnSeconds`
+  (2.6 s, counted from when the year shows) at a turning point. 1950-2026 runs in about 90 s.
+- *Who owns the year.* Moving the year by hand (keys, the chip, the scrubber, a view with a year of its own such as y1972)
+  pauses the replay; the guided tour stops it. A year that is not on screen 20 s after it was asked for logs an error and
+  pauses (`StallSeconds`): the smoke test fails on it.
+
+**The readout (`ReplayFacts`).** A caption at the bottom centre above the preset bar (in portrait under the title and the
+year chip), kept in the headset (the canvas is one of `XrSession`'s kept canvases). From the stored series only:
+- GDP (nominal) and its real growth (deflated by the stored GDP price index), and the market's real value added - every
+  industry but government, deflated: the wave's own width - with "the wave narrows" when it falls;
+- the four market tiers' shares of the market's value added and their moves of half a point or more;
+- the federal funds and effective tariff rates (`money-and-trade.json`, annual averages; the funds rate from 1955) with
+  their change in points; federal outlays and receipts as shares of GDP (`government.json`, OMB fiscal years);
+- the stored companies founded and ended that year (`company-lives.json`, with their fate);
+- in the mobility view, the decade's ladder of `HillMobilityLayer.Shown`: the shares of adults who climbed a fifth or more
+  and who fell, and the like-for-like stays of the bottom and top fifths.
+
+**Turning points, read off the data.** Fixed rules over 1947-2026, so a revised series moves them:
+- *recessions:* runs of years in which the market's real value added fell, ranked by the run's whole fall; the four deepest
+  are kept, marked at the run's last year (1958 -1.6%, 1982 -2.6%, 2008-09 -3.7%, 2020 -2.6%). Every other fall (1949,
+  1954, 1970, 1974-75, 1980, 1991) still shows in its year's line as the wave narrowing;
+- *rate swings:* runs of annual federal funds averages moving one way, ranked by their size in points; the four largest
+  are kept, marked where they turn (peaks 1974 at 10.5% and 1981 at 16.4%, troughs 1983 at 9.1% and 1993 at 3.0%);
+- *the tariff rate:* its largest run (2.6% in 2024 to 8.8% in 2026, an H1-annualized estimate gross of the IEEPA refunds).
+They are ticked on the year chip's scrubber (rose recession, gold rate, steel tariff; hovering a tick reads it), the
+replay holds at each with the turning point's sentence in its colour, and once the crest has passed one its year's rib is
+traced faintly in that colour in the wake with a pin rising from the rib's highest ridge to its tag (`HillReplayLayer`,
+during the replay in the overview, landscape and companies views; the rib the replay holds on pulses), so the wave keeps
+the history it has just been through without drowning the companies' lines that run along it.
+
+**Every view keeps working.** The views framed on the crest (landscape, capture, people, rivers, society, betrayal,
+foundation, social, roots, strategy, mobility) follow it: when the land of a new year is shown and the catalog is refreshed,
+the move of the view's own target is added to the camera's target and eased in (0.3 s), after any flight on its way, so
+the viewer's orbit, zoom and pan stay theirs. The section view (its cut), the followed person's views and the viewer's
+place keep their own camera logic. The views of the whole time axis - the overview, the companies' lives and the money
+chart - now frame the wake up to the present whatever year the crest stands at (`HillPresets`: the axis end is the later
+of the shown year and the default year), so the wave grows across them during the replay instead of the camera being
+carried into the empty past before the first rib; before, pressing 1 at an early year framed mostly the years before 1947.
+The money chart already draws only up to the crest, so its curves draw themselves as the replay advances; its openness
+label now quotes the crest's year instead of always the latest. In the mobility view the readout leaves out the tiers and
+companies, so the ladder's own labels beneath it stay clear.
+
+**Checks.** `ReplayFacts.Problems` runs where the facts are built (an error fails the smoke test): every year has a GDP and
+its tier shares sum to one, rate changes are differences of the levels, each turning point is marked on its year,
+recessions are falls and rate peaks and troughs run their way. `-smokereplay` plays the replay in the player from 1950 to
+the latest year through the overview, landscape, money and mobility views with a frame at 1958, 1975, 1983, 2009 and the
+end, and fails if it does not finish in 420 s; the replay logs its own timing ("[Why] Replay 1950-2026: ... waited for the
+land ... frames on screen ...").
+
+**Measured** (Linux player, 1600x900, 2026-10-22, three runs): 77 years in 90-93 s with 0 errors; thanks to the build
+ahead the crest waited for its land 0.06-0.08 s a year on average (longest 0.33-0.80 s). What remains is the swap itself:
+when a year's land is published the hills layers rebuild their meshes and labels on the main thread, as they do for a
+manual year step, so each year costs one long frame (83-85 frames over 0.25 s per run, the longest 0.9-1.4 s). Building those meshes on a worker, or
+only for the layers the view shows, is the next step for a smoother replay. Needs a check in the headset: the replay button
+in the hand menu and the readout's place on the HUD plane.

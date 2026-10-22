@@ -12,6 +12,8 @@ namespace Why.Economy.UI
     public sealed class HillControls : GraphModule
     {
         public static PlayerMindProgram Program => PlayerMindProgram.Active;
+        /// <summary>The panel's box while it is shown (canvas units of any canvas made by UiFactory.CreateCanvas; empty otherwise).</summary>
+        public static UiBox Occupied { get; private set; } = UiBox.Empty;
         GraphRoot root;
         RectTransform panel;
         TextMeshProUGUI text;
@@ -114,7 +116,8 @@ namespace Why.Economy.UI
             panel.gameObject.SetActive(LandView.PresetId!="section");
             // Keep the readout proportional on portrait screens; existing right-hand inspectors remain available.
             float width=Mathf.Min(300,UiFactory.CanvasSize.x-36);panel.sizeDelta=new Vector2(width,expanded?330:40);
+            Occupied=panel.gameObject.activeSelf?new UiBox(panel.anchoredPosition.x,-panel.anchoredPosition.y,width,panel.sizeDelta.y):UiBox.Empty;
         }
-        void OnDestroy(){PlayerMindProgram.Active=null;}
+        void OnDestroy(){PlayerMindProgram.Active=null;Occupied=UiBox.Empty;}
     }
 }

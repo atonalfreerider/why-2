@@ -16,7 +16,7 @@ namespace Why.Xr
 
         static readonly Dictionary<string, Sprite> cache = new Dictionary<string, Sprite>();
 
-        /// <summary>The icon of a view preset or control id ("play", "pause", "back", "next", "stop", "scene", "recenter").</summary>
+        /// <summary>The icon of a view preset or control id ("play", "pause", "back", "next", "stop", "scene", "replay", "recenter").</summary>
         public static Sprite Get(string id)
         {
             id ??= "";
@@ -95,6 +95,7 @@ namespace Why.Xr
                 // controls
                 case "play": return p => Tri(p, new Vector2(-0.35f, -0.55f), new Vector2(-0.35f, 0.55f), new Vector2(0.6f, 0));
                 case "pause": return p => Min(Bar(p, -0.25f), Bar(p, 0.25f));
+                case "replay": return p => Min(Wave(p, -0.5f), Tri(p, new Vector2(-0.3f, -0.1f), new Vector2(-0.3f, 0.75f), new Vector2(0.45f, 0.32f)));
                 case "next": return p => Min(Tri(p, new Vector2(-0.55f, -0.5f), new Vector2(-0.55f, 0.5f), new Vector2(0.25f, 0)), Bar(p, 0.45f));
                 case "back": return p => Min(Tri(p, new Vector2(0.55f, -0.5f), new Vector2(0.55f, 0.5f), new Vector2(-0.25f, 0)), Bar(p, -0.45f));
                 case "stop": return p => Fill(Box(p, Vector2.zero, new Vector2(0.45f, 0.45f)));

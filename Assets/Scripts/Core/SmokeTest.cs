@@ -14,7 +14,9 @@ namespace Why
     /// scene and does the same there, and quits with exit code 1 if anything logged an error or exception.
     /// <c>-screenshots DIR</c> saves a frame of every view and tour stop (<c>-smokeonly a,b</c> limits it to those views
     /// and skips the tour, unless <c>-smoketour</c> asks for it too; <c>-smokelayers</c> re-captures each view with every
-    /// layer hidden in turn, to find which layer draws what); add <c>-xr</c> to exercise the headset
+    /// layer hidden in turn, to find which layer draws what); <c>-smokereplay</c> also plays the economy's replay of the
+    /// wave from 1950 to the latest year through the overview, landscape, money and mobility views, with a frame at a few
+    /// years, failing if it stalls; add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
@@ -153,6 +155,8 @@ namespace Why
                 }
             }
 
+            if (scene == GraphScene.Economy && System.Environment.GetCommandLineArgs().Contains("-smokereplay")) yield return Replay(root);
+
             DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
             // -smoketour: the tour runs even with -smokeonly (e.g. "-smokeonly none -smoketour" captures only the tours)
             if (director != null && (only == null || System.Environment.GetCommandLineArgs().Contains("-smoketour")))
@@ -182,6 +186,50 @@ namespace Why
             foreach (string p in problems) Debug.Log("[Why] smoke problem: " + p);
             Debug.Log($"[Why] smoke: finished, {errors} errors");
             Application.Quit(errors > 0 ? 1 : 0);
+        }
+
+        /// <summary>The longest the replay of the wave may take (s): about 80 years at a second or so each, with room.</summary>
+        const float ReplaySeconds = 420f;
+
+        /// <summary>
+        /// <c>-smokereplay</c>: the replay of the economy's wave from its first year to the latest, changing views on the way
+        /// (the overview, the landscape, the money chart, the decade's ladder, the overview again) with a frame in each; an
+        /// error if it does not reach the end in time (the replay itself logs a year that never shows).
+        /// </summary>
+        IEnumerator Replay(GraphRoot root)
+        {
+            (int year, string view, string shot)[] plan =
+            {
+                (0, "overview", null), (1958, null, "1958-overview"), (1960, "landscape", null), (1975, null, "1975-landscape"),
+                (1977, "money", null), (1983, null, "1983-money"), (1990, "mobility", null), (2009, null, "2009-mobility"),
+                (2012, "overview", null), (Economy.EconomyState.MaxYear, null, "end-overview")
+            };
+            root.Focus("overview", 0.6f);
+            yield return new WaitForSecondsRealtime(ViewSeconds);
+            Economy.EconomyReplay.Play(true);
+            float start = Time.realtimeSinceStartup;
+            int step = 0;
+            while (Economy.EconomyReplay.Active && step < plan.Length && Time.realtimeSinceStartup - start < ReplaySeconds)
+            {
+                (int year, string view, string shot) = plan[step];
+                if (Economy.EconomyReplay.ShownYear < year)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                if (view != null) root.Focus(view, 0.6f);
+                if (shot != null) yield return Shot($"economy-replay-{shot}");
+                step++;
+            }
+
+            if (step < plan.Length && Time.realtimeSinceStartup - start >= ReplaySeconds)
+            {
+                Debug.LogError($"[Why] smoke: the replay did not reach {plan[step].year} in {ReplaySeconds:0} s (at {Economy.EconomyReplay.ShownYear})");
+            }
+
+            while (Economy.EconomyReplay.Active && Time.realtimeSinceStartup - start < ReplaySeconds) yield return null;
+            Debug.Log($"[Why] smoke: replay done in {Time.realtimeSinceStartup - start:0.0} s, {errors} errors so far");
         }
 
         /// <summary>Captures this frame and waits until it is written, so the next view does not leak into it.</summary>

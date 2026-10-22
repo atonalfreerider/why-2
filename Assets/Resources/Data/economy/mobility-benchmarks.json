@@ -1,0 +1,276 @@
+{
+ "note": "Published US income-mobility benchmarks for the decade's ladder (percent of a starting fifth). The model's own panel is synthetic and ranks households of every age; the closest analogue is the Treasury's closed panel of taxpayers 25+ with fifths ranked within the panel. From Tools/history/sources.json (research collected 2026-10-22, each number read in its cited source).",
+ "decade": [
+  {
+   "id": "treasury2007Table2",
+   "label": "US Treasury, taxpayers 25+, 1996-2005, fifths ranked within the panel",
+   "kind": "closed panel",
+   "years": "1996 -> 2005",
+   "bottomStay": 55.1,
+   "topStay": 61.4,
+   "bottomToTop": 3.6,
+   "matrix": [
+    [
+     55.1,
+     23.7,
+     10.8,
+     6.9,
+     3.6
+    ],
+    [
+     24.7,
+     37.2,
+     21.9,
+     10.6,
+     5.6
+    ],
+    [
+     10.8,
+     23.4,
+     34.1,
+     23.0,
+     8.7
+    ],
+    [
+     6.0,
+     11.0,
+     24.2,
+     38.1,
+     20.8
+    ],
+    [
+     3.5,
+     4.7,
+     9.0,
+     21.5,
+     61.4
+    ]
+   ],
+   "source": "U.S. Department of the Treasury (Nov 13, 2007; revised March 2008), \"Income Mobility in the U.S. from 1996 to 2005,\" https://home.treasury.gov/system/files/131/Report-Income-Mobility-2008.pdf (Table 2, p.9)."
+  },
+  {
+   "id": "treasury2007Table1",
+   "label": "US Treasury, taxpayers 25+, 1996-2005, fifths of all taxpayers",
+   "kind": "open",
+   "years": "1996 -> 2005 (9-year span, often described as a decade)",
+   "bottomStay": 42.4,
+   "topStay": 69.4,
+   "bottomToTop": 5.3,
+   "matrix": [
+    [
+     42.4,
+     28.6,
+     13.9,
+     9.9,
+     5.3
+    ],
+    [
+     17.0,
+     33.3,
+     26.7,
+     15.1,
+     7.9
+    ],
+    [
+     7.1,
+     17.5,
+     33.3,
+     29.6,
+     12.5
+    ],
+    [
+     4.1,
+     7.3,
+     18.3,
+     40.2,
+     30.2
+    ],
+    [
+     2.6,
+     3.2,
+     7.1,
+     17.8,
+     69.4
+    ]
+   ],
+   "source": "U.S. Department of the Treasury (Nov 13, 2007; revised March 2008), \"Income Mobility in the U.S. from 1996 to 2005,\" https://home.treasury.gov/system/files/131/Report-Income-Mobility-2008.pdf (Table 1, p.7)."
+  },
+  {
+   "id": "autenGee2009",
+   "label": "Auten & Gee, tax returns 25+, 1996-2005, size-adjusted",
+   "kind": "open",
+   "years": "1996 -> 2005 (matrix); 1987 -> 1996 (matrix1987to1996)",
+   "bottomStay": 43.7,
+   "topStay": 69.1,
+   "bottomToTop": 4.5,
+   "matrix": [
+    [
+     43.7,
+     28.8,
+     14.9,
+     8.0,
+     4.5
+    ],
+    [
+     15.3,
+     30.3,
+     30.2,
+     16.9,
+     7.3
+    ],
+    [
+     5.9,
+     15.0,
+     31.8,
+     32.7,
+     14.5
+    ],
+    [
+     3.4,
+     7.3,
+     17.4,
+     37.7,
+     34.2
+    ],
+    [
+     2.6,
+     3.1,
+     7.0,
+     18.1,
+     69.1
+    ]
+   ],
+   "source": "Auten & Gee (2009), \"Income Mobility in the United States: New Evidence from Income Tax Data,\" National Tax Journal 62(2): 301-328 (Table 2 p.307; Table 6 p.313; Table 5 p.312). DOI 10.17310/ntj.2009.2.05."
+  },
+  {
+   "id": "psidHungerford1990s",
+   "label": "PSID, after-tax family income, 1990-1999",
+   "kind": "survey",
+   "years": "1990 -> 1999",
+   "bottomStay": 53.2,
+   "topStay": 53.8,
+   "bottomToTop": 2.8,
+   "matrix": [
+    [
+     53.2,
+     23.9,
+     13.7,
+     6.4,
+     2.8
+    ],
+    [
+     25.9,
+     32.9,
+     23.5,
+     13.1,
+     4.5
+    ],
+    [
+     9.0,
+     23.4,
+     30.3,
+     23.4,
+     13.9
+    ],
+    [
+     7.7,
+     13.8,
+     20.4,
+     33.0,
+     25.1
+    ],
+    [
+     4.1,
+     6.2,
+     11.9,
+     24.0,
+     53.8
+    ]
+   ],
+   "source": "Hungerford, CRS Report RL34434 (2008), Table 2 panel B, p.CRS-10 (same URL as psidHungerford1980s)."
+  },
+  {
+   "id": "psidHungerford1980s",
+   "label": "PSID, after-tax family income, 1980-1989",
+   "kind": "survey",
+   "years": "1980 -> 1989",
+   "bottomStay": 53.0,
+   "topStay": 50.1,
+   "bottomToTop": 2.5,
+   "matrix": [
+    [
+     53.0,
+     27.2,
+     11.6,
+     5.8,
+     2.5
+    ],
+    [
+     22.4,
+     30.0,
+     25.5,
+     15.6,
+     6.5
+    ],
+    [
+     12.2,
+     21.4,
+     26.0,
+     25.5,
+     15.0
+    ],
+    [
+     8.9,
+     13.2,
+     22.8,
+     29.2,
+     25.9
+    ],
+    [
+     3.5,
+     8.2,
+     14.2,
+     24.1,
+     50.1
+    ]
+   ],
+   "source": "Hungerford, CRS Report RL34434, \"Income Inequality, Income Mobility, and Economic Policy: U.S. Trends in the 1980s and 1990s\" (Apr 4, 2008), Table 2 panel A, p.CRS-10, https://www.everycrsreport.com/files/20080404_RL34434_be64d1aab381920155131bf341304806355ba3b7.pdf"
+  },
+  {
+   "id": "psidBradbury2011",
+   "label": "PSID family heads and spouses, 1995-2005 (Bradbury 2011)",
+   "kind": "survey",
+   "years": "1995-2005",
+   "bottomStay": 58.1,
+   "topStay": 55.0,
+   "bottomToTop": null,
+   "source": "Bradbury (2011), \"Trends in U.S. Family Income Mobility, 1969-2006,\" Federal Reserve Bank of Boston Working Paper 11-10, Table 2 p.38, https://www.bostonfed.org/-/media/Documents/Workingpapers/PDF/economic/wp/wp2011/wp1110.pdf"
+  }
+ ],
+ "generations": {
+  "label": "Chetty, Hendren, Kline & Saez 2014: children born 1980-82 at ~30 against their parents",
+  "bottomStay": 33.7,
+  "topStay": 36.5,
+  "bottomToTop": 7.5,
+  "rankRankSlope": 0.341,
+  "source": "Chetty, Hendren, Kline & Saez (2014), \"Where is the Land of Opportunity? The Geography of Intergenerational Mobility in the United States,\" Quarterly Journal of Economics 129(4): 1553-1623. Read: NBER WP 19843 https://www.nber.org/system/files/working_papers/w19843/w19843.pdf and authors' QJE version https://opportunityinsights.org/wp-content/uploads/2018/03/mobility_geo.pdf (Table II)."
+ },
+ "events": {
+  "jobLoss": {
+   "label": "displaced workers lose about 25% of earnings the first year in an expansion, 39% in a recession (Davis & von Wachter 2011)",
+   "source": "Davis & von Wachter (2011), \"Recessions and the Costs of Job Loss,\" Brookings Papers on Economic Activity, Fall 2011: 1-72 (abstract; Table 1 p.22; text p.17), https://www.brookings.edu/wp-content/uploads/2011/09/2011b_bpea_davis.pdf"
+  },
+  "divorce": {
+   "label": "household income falls 41% for women and 23% for men after a late-life divorce (GAO 2012)",
+   "source": "U.S. GAO (July 2012), GAO-12-699, \"Retirement Security: Women Still Face Challenges,\" p.28 and Table 19 p.84, https://www.gao.gov/assets/gao-12-699.pdf"
+  },
+  "health": {
+   "label": "earnings fall about 20% over three years after a hospital admission (Dobkin et al. 2018)",
+   "source": "Dobkin, Finkelstein, Kluender & Notowidigdo (2018), \"The Economic Consequences of Hospital Admissions,\" American Economic Review 108(2): 308-352 (Table 2 p.323; pp.311, 333, 336), https://dspace.mit.edu/handle/1721.1/114039"
+  },
+  "poverty": {
+   "label": "37% of poverty spells begin when the head's earnings fall; about 11% with a move to a female-headed family (Bane & Ellwood)",
+   "source": "Bane & Ellwood (1983), NBER Working Paper 1199, Table 3 p.21, https://www.nber.org/system/files/working_papers/w1199/w1199.pdf ; published as \"Slipping into and out of Poverty: The Dynamics of Spells,\" Journal of Human Resources 21(1): 1-23 (1986)."
+  }
+ }
+}

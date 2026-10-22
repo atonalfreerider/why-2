@@ -1,0 +1,36 @@
+{
+  "hills_money": [
+    "Effective federal funds rate, annual averages (FRED FEDFUNDS): 16.4% in 1981 (the highest); below 0.5% every year 2009-2016",
+    "The fed funds rate is the rate at which banks lend reserves to one another overnight; mortgage and bond rates move with it",
+    "Effective tariff rate (customs duties / goods imports, BEA): 7.0% in 1947, 1.4-1.7% in 2010-2017, 2.56% in 2024, 8.03% in 2025",
+    "Asset prices (stocks, homes) rose strongly during the near-zero-rate years 2009-2016"
+  ],
+  "hills_strategy": [
+    "The 25 stored firms' filings: operating costs (suppliers and workers) are the largest use of their money; investment, research, buybacks, dividends, taxes and lobbying follow",
+    "Jev judged each firm's investment on a scale from pursuing new demand (desire) to defending its position (fear), and which way its money moves it: climb into software/AI, reach down into its own supply, spread across, lean on the state, harvest",
+    "Hyperscaler capital expenditure in calendar 2025: Microsoft $118.0B, Alphabet $91.4B, Amazon $131.8B, Meta $72.2B, Oracle about $35.5B: about $449B in total, mostly AI data centers, chips and servers",
+    "The AI build-out money flows to computers and chips and to data-center construction"
+  ],
+  "hills_attention": [
+    "US digital advertising revenue 2025: $294.6B (IAB/PwC); $117.7B of it social media",
+    "US creator-economy ad spend 2025: about $37B (IAB)",
+    "US adult social network users spend about 114 minutes a day on social networks (eMarketer 2025)",
+    "The rings count how many of the social graph's other most-followed accounts follow each person",
+    "Each star's size is the person's followers: their reach",
+    "Jev judged how each household purchase is sold; much of what people buy is a want manufactured by advertising and status (the scene's purchase judgments)",
+    "Household spending flows back to the companies, including the ones that bought the advertising"
+  ],
+  "hills_mobility": [
+    "2015-2025 in the model: among adults 25-54, falls came with a lost job (61% of fallers), a divorce or separation (23%), discharged debt (8%); climbs with finding work (48%), a child (40%), buying a home (39%), marriage (32%)",
+    "Top fifth stayed 69% over the decade, the bottom fifth 30% (all adults); like for like (adults 25+, fifths ranked within the panel) the model's bottom fifth stayed 56% and top fifth 66%, against 55% and 61% in the US Treasury's 1996-2005 tax-return panel",
+    "Saving and income from ownership rise with the rung; debt service is highest at the bottom",
+    "In the ladder, gold streams are people who climbed a fifth or more and rose streams people who fell"
+  ],
+  "hills_you": [
+    "The panel places the viewer by household income and net worth among the year's simulated adults",
+    "For a median household about 85% of the wages and owners' income its spending pays reaches people ranked above it",
+    "The runway is the years of spending the viewer's net worth would cover; the model counts three years in financial assets as material autonomy",
+    "Three possible futures a decade ahead, weighted by the share of people in the same income fifth and age band who climbed, stayed or fell from 2015 to 2025",
+    "Nothing entered in the panel is stored or sent"
+  ]
+}

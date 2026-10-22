@@ -120,6 +120,13 @@ namespace Why.UI
                     Row("N", "the next notable person (owner, striver, escapist ...); with a player open, its next member"),
                     Row("Social panel", "views 8 and betrayal: play the season, forgiveness, mistakes, partner choice, Betray a tie"),
                 }),
+                Section("Up or down the hill (preset bar)", new[]
+                {
+                    Row("Where you stand", "tell the model about your household with the panel's steppers: your rung, where your money flows, your odds"),
+                    Row("What moves people", "the decade's ladder: who climbed or fell between income fifths, and what came with it"),
+                    Row("Companies spend too", "each firm's year of money and which way it moves the firm; ‹ › step through the firms"),
+                    Row("Money and trade", "the price of money and the tariff rate on the wave's time axis"),
+                }),
                 Section("Guide and details", new[]
                 {
                     Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),

@@ -13,7 +13,8 @@ namespace Why
     /// loaded it flies through every view preset, steps through every stop of the guided tour, then opens the other
     /// scene and does the same there, and quits with exit code 1 if anything logged an error or exception.
     /// <c>-screenshots DIR</c> saves a frame of every view and tour stop (<c>-smokeonly a,b</c> limits it to those views
-    /// and skips the tour); add <c>-xr</c> to exercise the headset
+    /// and skips the tour, unless <c>-smoketour</c> asks for it too; <c>-smokelayers</c> re-captures each view with every
+    /// layer hidden in turn, to find which layer draws what); add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
@@ -153,7 +154,8 @@ namespace Why
             }
 
             DirectorMode director = root.Modules.OfType<DirectorMode>().FirstOrDefault();
-            if (director != null && only == null)
+            // -smoketour: the tour runs even with -smokeonly (e.g. "-smokeonly none -smoketour" captures only the tours)
+            if (director != null && (only == null || System.Environment.GetCommandLineArgs().Contains("-smoketour")))
             {
                 director.StartTour();
                 yield return new WaitForSecondsRealtime(StopSeconds);

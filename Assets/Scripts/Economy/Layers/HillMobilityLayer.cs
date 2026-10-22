@@ -28,6 +28,8 @@ namespace Why.Economy.Layers
     public sealed class HillMobilityLayer : GraphLayer
     {
         public override int Order => 61;
+        public const string BenchmarksPath = "Data/economy/mobility-benchmarks";
+        public override IEnumerable<string> RequiredTexts => new[] { BenchmarksPath };
         /// <summary>The model drawn (null before the lives are ready); read by the "You" panel.</summary>
         public static Mobility Shown { get; private set; }
         /// <summary>The ladder's place beside the wave (land-local): its x plane, the bottom rung's height, the rung spacing.</summary>
@@ -45,7 +47,8 @@ namespace Why.Economy.Layers
         LandSnapshot snapshot; HillLandscape land; GameObject content;
         int selection = -2;
 
-        public override void Prepare(GraphContext ctx) { }
+        string benchmarksJson;
+        public override void Prepare(GraphContext ctx) { benchmarksJson = ctx.Text(BenchmarksPath); }
         public override void Upload(GraphContext ctx) { EconomyStage.Land().Place(transform); }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
@@ -207,6 +210,7 @@ namespace Why.Economy.Layers
             // What came with the moves stands on the past's side of the ladder: the climbs by the upper rungs, the falls by the lower.
             Causes(m, true, new Vector3(LadderX, Y(Q - 1) + RungStep * .2f, z0 - 2.5f));
             Causes(m, false, new Vector3(LadderX, Y(1) + RungStep * .2f, z0 - 2.5f));
+            Benchmarks(m, new Vector3(LadderX - .4f, LadderY - RungStep * .95f, z1 + 1.6f), new Vector3(LadderX, Y(0) - RungStep * .55f, z0 - 2.5f));
             Surface(fill, Part.Ribbons);
             Lines(edges, Part.Ribbons, true);
             Lines(bars, Part.Ladder, false);
@@ -216,7 +220,7 @@ namespace Why.Economy.Layers
         /// leading event as long as the share of movers who had it, ending at the ladder, and its lift.</summary>
         void Causes(Mobility m, bool up, Vector3 at)
         {
-            var b = new LineMeshBuilder(); var list = m.Leading(up, 1.15, .04, 5);
+            var b = new LineMeshBuilder(); var list = m.Leading(up, 1.3, .04, 5);
             Color c = up ? Gold : Rose; const float Length = 12;
             double moved = (up ? m.PrimeUp : m.PrimeDown) / (double)Math.Max(1, m.PrimeLines);
             string title = (up ? "<b>WHAT CAME WITH THE CLIMBS</b>" : "<b>WHAT CAME WITH THE FALLS</b>") + "\nadults 25-54 in " + m.From + ": " + LandFacts.Percent(moved) +
@@ -232,6 +236,34 @@ namespace Why.Economy.Layers
             }
             if (list.Count == 0) Label("no event stands out", at, .18f, Steel, Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(60, 5));
             Lines(b, Part.Ladder, false);
+        }
+
+        /// <summary>The model against the data (mobility-benchmarks.json): the decade's stickiness at the bottom and the top
+        /// beside the published matrices (the Treasury's closed panel is the closest analogue: adults 25+, fifths ranked
+        /// within the panel), and what event studies measure for the falls the model shows.</summary>
+        void Benchmarks(Mobility m, Vector3 at, Vector3 events)
+        {
+            if (string.IsNullOrEmpty(benchmarksJson)) return;
+            Newtonsoft.Json.Linq.JObject root;
+            try { root = Newtonsoft.Json.Linq.JObject.Parse(benchmarksJson); } catch { return; }
+            string Cell(string id, string key)
+            {
+                foreach (var row in root["decade"] ?? new Newtonsoft.Json.Linq.JArray())
+                    if ((string)row["id"] == id && row[key] != null && row[key].Type != Newtonsoft.Json.Linq.JTokenType.Null) return ((double)row[key]).ToString("0", LandFacts.Ci) + "%";
+                return "n/a";
+            }
+            string text = "<b>THE MODEL AGAINST THE DATA</b> · share of a fifth that stayed over a decade" +
+                "\nbottom fifth: model " + LandFacts.Percent(m.Share(0, 0)) + " (adults 25+, ranked within the panel: " + LandFacts.Percent(m.PanelShare(0, 0)) +
+                ") · US Treasury 1996-2005 " + Cell("treasury2007Table2", "bottomStay") + " · PSID 1990s " + Cell("psidHungerford1990s", "bottomStay") +
+                "\ntop fifth: model " + LandFacts.Percent(m.Share(4, 4)) + " (" + LandFacts.Percent(m.PanelShare(4, 4)) + ") · Treasury " + Cell("treasury2007Table2", "topStay") +
+                " · PSID " + Cell("psidHungerford1990s", "topStay") +
+                "\nbottom to top: model " + LandFacts.Percent(m.Share(0, 4)) + " (" + LandFacts.Percent(m.PanelShare(0, 4)) + ") · Treasury " + Cell("treasury2007Table2", "bottomToTop") +
+                "\n<color=#9AA8B8>like for like (adults 25+, fifths ranked within the panel) the model holds the Treasury's stickiness; across all adults the bottom\nlooks more fluid because young adults rise as they leave home and start work</color>";
+            Label(text, at, .2f, new Color(.80f, .86f, .93f), Part.Ladder, -1, true, TextAlignmentOptions.Left, new Vector2(110, 8));
+            var ev = root["events"];
+            if (ev != null)
+                Label("<b>IN THE RECORDS</b>\n" + (string)ev["jobLoss"]?["label"] + "\n" + (string)ev["divorce"]?["label"] + "\n" + (string)ev["health"]?["label"],
+                    events, .17f, new Color(.80f, .70f, .76f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(140, 8));
         }
 
         // ------------------------------------------------------------------ plumbing

@@ -95,6 +95,8 @@ namespace Why.Economy.Layers
                 bool related=snapshot.Land.Towers[f].Industry==focusIndustry,chosen=HillExplorer.Company==f;
                 firms[f].transform.localScale=Vector3.one*haloScale[f];
                 float glow=chosen?5:related?3.6f:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?2.2f:LandView.PresetId=="capture"?1.6f:.9f;
+                // in a focused view other than the companies' own the firms' halos step back to landmarks
+                if(EconomyViews.Focused(LandView.PresetId)&&LandView.PresetId!="strategy")glow*=.25f;
                 firms[f].sharedMaterial.SetColor("_Color",Color.white*(glow*(.9f+.1f*Mathf.Sin(animation*2+f))));
                 // Corporate infrastructure by distance: beams and halos always; revenue, margin and value readouts
                 // nearer or for the focused sector; the organization inside the firm only close up.

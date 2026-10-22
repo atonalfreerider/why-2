@@ -87,7 +87,7 @@ namespace Why.Economy.Layers
             if (PersonFocus.IsView(view)) return part == Part.Block || part == Part.Pillars ? .12f : .02f;
             // focused views: the bedrock stays as the ground; companies' lobbying meets the seats and the rule-making
             if (EconomyViews.Focused(view))
-                return view == "strategy" ? (part == Part.Block ? .3f : part == Part.Seats ? .6f : part == Part.Regulation ? .18f : .03f) : part == Part.Block ? .18f : .02f;
+                return view == "strategy" ? (part == Part.Block ? .3f : part == Part.Seats ? .6f : part == Part.Regulation ? .06f : .03f) : part == Part.Block ? .18f : .02f;
             switch (part)
             {
                 case Part.Block: return .55f;

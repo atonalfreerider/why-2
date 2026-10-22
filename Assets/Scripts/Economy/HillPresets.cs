@@ -25,17 +25,22 @@ namespace Why.Economy
             Add("society", "Repeated encounters", "Tit for tat · blue ties cooperate · red ties defect · use the season controls", KeyCode.Alpha8, new Vector3(90, 20, crest - 14), 150, 46, 150);
             Add("foundation", "Social infrastructure", "Taxes rain into the public bedrock · pillars carry pensions, health, schools and roads up to the people · interest rises to bondholders", KeyCode.Alpha9, new Vector3(100, -6, crest - 16), 168, 9, 205);
             Add("companies", "Companies live and die", "Each line is a company: born on its industry's ridge, height = market value, color = how Jev judged it sells (gold need · rose want · ice fear) · ✕ failed · ○ bought", KeyCode.Alpha0, new Vector3(95, 16, crest - 78), 104, 14, 235);
-            Add("social", "Attention above capital", "White: the most followed Americans, laid out by who follows whom · gold rings: the companies their capital holders run · grey: their seats in government", KeyCode.None, new Vector3(75, 96, crest - 10), 150, 24, 88);
+            Add("social", "Attention above capital", "White: the most followed Americans, laid out by who follows whom; rings: followed by the other most-followed · the attention loop: companies pay platforms, platforms pay creators, people give attention and take in wants, and spend · gold rings: capital holders' companies · grey: seats in government", KeyCode.None, new Vector3(95, 70, crest - 10), 150, 18, 175);
             Add("roots", "Industries depend on each other", "Input-output purchases connect suppliers to buyers; widths follow the stored use table", KeyCode.None, new Vector3(100, 10, crest - 16), 150, 34, 190);
             Add("betrayal", "One betrayal", "Follow retaliation and forgiveness over repeated encounters", KeyCode.None, new Vector3(90, 20, crest - 14), 150, 46, 150);
             Add("y1972", "The wave in 1972", "Historical accounts on the same axis: the crest stands back in time · modern companies are not born yet", KeyCode.None, new Vector3(60, 12, y1972 - 30), 140, 24, 190);
             Add("strategy", "Companies spend too", "Each firm runs the people's program · amber: running the business down to suppliers · blue: its workers · forward over the crest: investment and research (ice: fear of losing position · rose: desire for new demand) · rose up: advertising · gold: owners · steel: taxes and lobbying · white arrows: which way the money moves it",
                 KeyCode.None, new Vector3(150, 34, crest - 4), 150, 20, 150);
+            // The price of money and the edge of trade stand beyond the far side of the wave (HillMoneyLayer), seen from
+            // beyond them so time runs left to right with the wave behind.
+            float first = HillLandscape.Z(1950);
+            Add("money", "The price of money and the edge of trade", "The state's levers on the market layer, on the wave's own time axis · gold: the federal funds rate · rose: the 30-year mortgage · ice: the 10-year Treasury · steel: the effective tariff rate · faint band: exports + imports over GDP",
+                KeyCode.None, new Vector3(HillMoneyLayer.ChartX, 26, (first + crest) * .5f), 270, 6, 128);
             // The decade's ladder stands beside the wave (HillMobilityLayer): seen from the hills' side so time runs left
             // to right, its labels and the crest's year on the right.
             float decade = HillLandscape.Z(EconomyState.Year - Model.Mobility.DefaultWindow);
             Add("mobility", "What moves people up or down the hill", "The hill's altitude pulled out beside the wave: five rungs of household income ten years ago and now · streams of people who climbed (gold), fell (rose) or stayed · what came with the moves · the forces at each rung",
-                KeyCode.None, new Vector3(HillMobilityLayer.LadderX, HillMobilityLayer.LadderY + HillMobilityLayer.RungStep * 2 + 2, (decade + crest) * .5f - 6), 270, 4, 68);
+                KeyCode.None, new Vector3(HillMobilityLayer.LadderX, HillMobilityLayer.LadderY + HillMobilityLayer.RungStep * 2 - 1, (decade + crest) * .5f - 4), 270, 4, 76);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.
@@ -56,7 +61,7 @@ namespace Why.Economy
         {
             var f = EconomyStage.Land();
             return new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
-                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : 165,
+                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : 165,
                 YaOld = DeepTime.NowYear - EconomyStyle.FirstYear, YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
                 RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale };
         }

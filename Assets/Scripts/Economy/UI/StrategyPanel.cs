@@ -49,12 +49,14 @@ namespace Why.Economy.UI
         void Update()
         {
             if (!root || !root.IsLoaded) return;
-            bool show = LandView.PresetId == "strategy" && !root.TourActive;
+            bool show = LandView.PresetId == "strategy";   // also during the tour: the firm's numbers are the stop's evidence
             panel.gameObject.SetActive(show);
             if (!show) return;
             Vector2 canvas = UiFactory.CanvasSize;
-            if (ScreenLayout.IsPortrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 12); panel.sizeDelta = new Vector2(canvas.x - 24, Mathf.Min(640, canvas.y * .5f)); }
+            bool portrait = ScreenLayout.IsPortrait;
+            if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(440, canvas.x - 16), Mathf.Min(640, canvas.y * .5f)); }
             else { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(420, Mathf.Min(640, canvas.y - 230)); }
+            firm.fontSize = portrait ? 9.5f : 12; totals.fontSize = portrait ? 9 : 11;
             if (shownFocus != HillStrategyLayer.FocusText) { shownFocus = HillStrategyLayer.FocusText; firm.text = string.IsNullOrEmpty(shownFocus) ? "Point at a company line or step through the firms." : shownFocus; }
             if (shownTotals != HillStrategyLayer.ReadoutText) { shownTotals = HillStrategyLayer.ReadoutText; totals.text = shownTotals; }
         }

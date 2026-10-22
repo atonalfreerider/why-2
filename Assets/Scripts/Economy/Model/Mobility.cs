@@ -59,6 +59,9 @@ namespace Why.Economy.Model
 
         /// <summary>People moving from quintile a (the window's start) to quintile b (the year): [a, b].</summary>
         public readonly double[,] Moves = new double[Quintiles, Quintiles];
+        /// <summary>The closest analogue of the published decade matrices (the US Treasury's closed panel): adults 25 and
+        /// older at the window's start, their fifths ranked within the panel itself at each end, in people [a, b].</summary>
+        public readonly double[,] PanelMoves = new double[Quintiles, Quintiles];
         /// <summary>People moving between wealth groups (0 bottom 50% .. 3 top 1%): [a, b].</summary>
         public readonly double[,] WealthMoves = new double[WealthGroups, WealthGroups];
 
@@ -133,6 +136,7 @@ namespace Why.Economy.Model
             // per person: whether they were tracked and the events they had (for the players' drift)
             var tracked = new bool[n]; var events = new int[n]; var rankThen = new float[n];
             var all = new int[Causes];
+            var panel = new List<(float start, float end)>();
             for (int i = 0; i < n; i++)
             {
                 if (!lives.TryGet(i, From, out PersonYear a) || !a.Adult || !lives.TryGet(i, Year, out PersonYear z) || !z.Adult) continue;
@@ -148,6 +152,7 @@ namespace Why.Economy.Model
                 if (!whole) continue;
                 int q0 = Quintile(a.IncomeRank), q1 = Quintile(z.IncomeRank);
                 Lines++; tracked[i] = true; rankThen[i] = a.IncomeRank;
+                if (a.Age >= 25) panel.Add((a.IncomeRank + i * 1e-9f, z.IncomeRank + i * 1e-9f));
                 Moves[q0, q1] += PeoplePerLine;
                 WealthMoves[Math.Min(3, (int)a.WealthGroup), Math.Min(3, (int)z.WealthGroup)] += PeoplePerLine;
                 int kind = q1 > q0 ? 0 : q1 == q0 ? 1 : 2;
@@ -165,9 +170,30 @@ namespace Why.Economy.Model
                 }
                 events[i] = mask;
             }
+            Ranked(panel);
             Forces(lives);
             if (census?.Players != null) Drifted(lives, census, tracked, events, rankThen, all);
             Log = Report();
+        }
+
+        /// <summary>The closed panel's matrix: each member's fifth by its position among the panel at each end.</summary>
+        void Ranked(List<(float start, float end)> panel)
+        {
+            int n = panel.Count; if (n == 0) return;
+            var byStart = new int[n]; var byEnd = new int[n];
+            for (int k = 0; k < n; k++) { byStart[k] = k; byEnd[k] = k; }
+            Array.Sort(byStart, (x, y) => panel[x].start.CompareTo(panel[y].start));
+            Array.Sort(byEnd, (x, y) => panel[x].end.CompareTo(panel[y].end));
+            var q0 = new int[n]; var q1 = new int[n];
+            for (int k = 0; k < n; k++) { q0[byStart[k]] = Math.Min(Quintiles - 1, k * Quintiles / n); q1[byEnd[k]] = Math.Min(Quintiles - 1, k * Quintiles / n); }
+            for (int k = 0; k < n; k++) PanelMoves[q0[k], q1[k]] += PeoplePerLine;
+        }
+
+        /// <summary>Of the closed panel's members who started in fifth a, the share who ended in b.</summary>
+        public double PanelShare(int a, int b)
+        {
+            double row = 0; for (int c = 0; c < Quintiles; c++) row += PanelMoves[a, c];
+            return row > 0 ? PanelMoves[a, b] / row : 0;
         }
 
         /// <summary>The events of one year step (b: the year before, r: the year).</summary>
@@ -324,6 +350,8 @@ namespace Why.Economy.Model
               .Append(", stayed ").Append(P(Stay / (double)Math.Max(1, Lines))).Append(", fell ").Append(P(Down / (double)Math.Max(1, Lines)));
             sb.Append("; bottom fifth stayed ").Append(P(Share(0, 0))).Append(", top fifth stayed ").Append(P(Share(4, 4)))
               .Append(", bottom to top ").Append(P(Share(0, 4)));
+            sb.Append("; closed panel 25+ (as the Treasury's 1996-2005: 55% / 61% / 4%): bottom stayed ").Append(P(PanelShare(0, 0)))
+              .Append(", top stayed ").Append(P(PanelShare(4, 4))).Append(", bottom to top ").Append(P(PanelShare(0, 4)));
             double top1 = 0, top1Stay = WealthMoves[3, 3]; for (int b = 0; b < WealthGroups; b++) top1 += WealthMoves[3, b];
             sb.Append("; top 1% (wealth) still there ").Append(top1 > 0 ? P(top1Stay / top1) : "-");
             sb.Append("; prime age (25-54) climbed ").Append(P(PrimeUp / (double)Math.Max(1, PrimeLines))).Append(", fell ").Append(P(PrimeDown / (double)Math.Max(1, PrimeLines)));

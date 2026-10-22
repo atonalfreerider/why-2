@@ -208,7 +208,8 @@ namespace Why.Economy.UI
                 if(Depth>0)UpToOverview();else{Industry=Company=Group=-1;page=0;dependencies=false;EconomyState.SetPerson(-1);EconomyState.SetSelection(-1,-1,-1);Refresh();}
             }
             if(Depth>=4&&EconomyState.Person<0)EnterGroup(Group);
-            bool show=!root.TourActive&&LandView.PresetId!="section"&&LandView.PresetId!="society"&&LandView.PresetId!="betrayal";panel.gameObject.SetActive(show);
+            // a desktop navigator: on a portrait (phone-video) screen the preset bar and the HUD's blocks fill the room it needs
+            bool show=!root.TourActive&&!ScreenLayout.IsPortrait&&LandView.PresetId!="section"&&LandView.PresetId!="society"&&LandView.PresetId!="betrayal";panel.gameObject.SetActive(show);
             if(show)Dock();
             if(dots)dots.SetActive(show&&LandView.PresetId!="mind");
             if(!show||Depth<3||Depth==5)return;

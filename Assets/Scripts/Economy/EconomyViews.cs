@@ -49,7 +49,7 @@ namespace Why.Economy
         /// ladder), what companies spend and which way they push, and the viewer's own place. The wave stays as faint
         /// context and every other layer steps back, so the story reads alone.
         /// </summary>
-        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you";
+        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money";
 
         /// <summary>Columns of <see cref="Table"/>.</summary>
         static readonly string[] Columns =

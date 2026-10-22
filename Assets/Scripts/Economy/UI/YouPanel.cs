@@ -76,15 +76,18 @@ namespace Why.Economy.UI
         void Update()
         {
             if (!root || !root.IsLoaded) return;
-            bool show = LandView.PresetId == "you" && !root.TourActive;
+            bool show = LandView.PresetId == "you";   // also during the tour: its "you" stop asks the viewer to use it
             panel.gameObject.SetActive(show);
             if (!show) return;
             var r = YouState.Reading;
             if (!seeded && r != null && !YouState.Entered) Seed();
             // portrait: a bottom sheet over the preset bar; landscape: the right column under the year
             Vector2 canvas = UiFactory.CanvasSize;
-            if (ScreenLayout.IsPortrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 12); panel.sizeDelta = new Vector2(canvas.x - 24, Mathf.Min(700, canvas.y * .55f)); }
+            // portrait: a bottom sheet over the preset bar, its reading in a smaller face; landscape: the right column under the year
+            bool portrait = ScreenLayout.IsPortrait;
+            if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(420, canvas.x - 16), Mathf.Min(700, canvas.y * .62f)); }
             else { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(392, Mathf.Min(700, canvas.y - 230)); }
+            reading.fontSize = portrait ? 9.5f : 12;
             if (r == null || shownVersion == YouState.Version && reading.text.Length > 0) return;
             shownVersion = YouState.Version;
             foreach (var v in values) v.value.text = v.text();
@@ -128,7 +131,7 @@ namespace Why.Economy.UI
                 var m = HillMobilityLayer.Shown;
                 if (m != null)
                 {
-                    var falls = m.Leading(false, 1.15, .04, 3); var climbs = m.Leading(true, 1.15, .04, 3);
+                    var falls = m.Leading(false, 1.3, .04, 3); var climbs = m.Leading(true, 1.3, .04, 3);
                     if (falls.Count > 0) s += " Falls came with " + Join(falls, m, false) + ";";
                     if (climbs.Count > 0) s += " climbs with " + Join(climbs, m, true) + ".";
                 }

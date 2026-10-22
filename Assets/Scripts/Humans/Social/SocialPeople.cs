@@ -37,6 +37,9 @@ namespace Why.Humans.Social
             public int? born, died;
             public bool est, lead;
             public double fol;
+            /// <summary>How many of the social graph's other accounts (the most-followed) follow this person: influence
+            /// among the influential, where followers are reach (Tools/social/elite.py; 0 when absent).</summary>
+            public int elite;
             public int cloud = -1;
             public JArray gov;
             public string[] firms = Array.Empty<string>();

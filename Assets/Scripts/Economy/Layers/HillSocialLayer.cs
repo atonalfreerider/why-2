@@ -26,13 +26,13 @@ namespace Why.Economy.Layers
     public sealed class HillSocialLayer : GraphLayer
     {
         public override int Order => 59;
-        public override IEnumerable<string> RequiredTexts => new[] { SocialPeople.Path };
+        public override IEnumerable<string> RequiredTexts => new[] { SocialPeople.Path, CorporatePrograms.Path };
         /// <summary>The parsed social graph (null without the file); read by the government's seats.</summary>
         public static SocialPeople People { get; private set; }
         /// <summary>Where each drawn person stands this year (land-local), and how: 0 cloud, 1 company, 2 office.</summary>
         public static readonly Dictionary<int, (Vector3 at, int place)> Placed = new Dictionary<int, (Vector3, int)>();
         public static int HoverPerson { get; private set; } = -1;
-        enum Part { Glow, Stars, Bright, Ties, Rings, Anchors, Threads, Count }
+        enum Part { Glow, Stars, Bright, Ties, Rings, Anchors, Threads, Elite, Loop, Count }
         const float CloudRadius = 32, Squash = .5f;
         static readonly Color Gold = new Color(1, .68f, .20f), Grey = new Color(.70f, .74f, .80f);
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
@@ -42,7 +42,8 @@ namespace Why.Economy.Layers
         Vector3 center;
         int seats = -1, lod = -1;
 
-        public override void Prepare(GraphContext ctx) { People = SocialPeople.Parse(ctx.Text(SocialPeople.Path)); }
+        string programsJson;
+        public override void Prepare(GraphContext ctx) { People = SocialPeople.Parse(ctx.Text(SocialPeople.Path)); programsJson = ctx.Text(CorporatePrograms.Path); }
         public override void Upload(GraphContext ctx) { frame = EconomyStage.Land(); frame.Place(transform); }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
@@ -52,7 +53,7 @@ namespace Why.Economy.Layers
             if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || seats != HillFoundationLayer.SeatsVersion) Build();
             if (content == null) return;
             string view = LandView.PresetId;
-            bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you";
+            bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money";
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;
@@ -60,7 +61,7 @@ namespace Why.Economy.Layers
             foreach (var l in labels)
             {
                 bool social = view == "social";
-                bool show = l.person < 0 ? lod >= 1 || social
+                bool show = l.person == -2 ? social : l.person < 0 ? lod >= 1 || social
                     : lod >= 2 || (lod >= 1 || social) && l.fame > .62f || Placed.TryGetValue(l.person, out var p) && p.place > 0 && (lod >= 1 || social);
                 l.text.gameObject.SetActive(show); if (show) l.text.transform.rotation = rig.Cam.transform.rotation;
             }
@@ -80,6 +81,8 @@ namespace Why.Economy.Layers
                 case Part.Rings: return social ? 1 : lod >= 1 ? .6f : .15f;
                 case Part.Anchors: return 1;
                 case Part.Threads: return social ? .5f : lod >= 1 ? .25f : .08f;
+                case Part.Elite: return social ? .9f : lod >= 1 ? .3f : .05f;
+                case Part.Loop: return social ? 1 : 0;
             }
             return 1;
         }
@@ -146,12 +149,65 @@ namespace Why.Economy.Layers
                 Circle(rings, c, r, col, 1.4f, 2.4f); Circle(rings, c + Vector3.up * .3f, r * 1.04f, WithAlpha(col, .25f), 1, 1.6f);
                 TextLabel(People.CloudLabel(kv.Key), c + Vector3.up * (r * .5f + 1.5f), .3f, col, -1, 1);
             }
+            // Influence among the influential: a ring as wide as the number of the most-followed who follow them.
+            var elite = new LineMeshBuilder(); var ranked = new List<SocialPeople.Person>();
+            foreach (var p in shown) if (p.elite >= 8 && Placed.TryGetValue(p.Index, out var at)) { Circle(elite, at.at, .4f + Mathf.Sqrt(p.elite) * .32f, WithAlpha(new Color(.85f, .9f, 1f), .55f), 1.6f, 2.6f); ranked.Add(p); }
+            ranked.Sort((a, b) => b.elite.CompareTo(a.elite));
+            for (int k = 0; k < ranked.Count && k < 8; k++)
+                TextLabel(ranked[k].name + " · followed by " + ranked[k].elite + " of the most-followed", Placed[ranked[k].Index].at + Vector3.up * (2.4f + Mathf.Sqrt(ranked[k].elite) * .32f),
+                    .5f, new Color(.9f, .94f, 1f), -2, 1);
+            Lines(elite, Part.Elite);
+            Loop();
             Glow(glow, center, CloudRadius * 1.15f, .035f);
-            TextLabel("<b>POPULAR PEOPLE</b> · United States " + year + "\nwhite: attention (2025 followers) · gold rings: their companies · grey: in office",
+            TextLabel("<b>POPULAR PEOPLE</b> · United States " + year + "\nwhite: attention (2025 followers) · white rings: followed by the other most-followed · gold rings: their companies · grey: in office",
                 center + Vector3.up * (CloudRadius * Squash + 6), .42f, new Color(.92f, .97f, 1f), -1, 1);
             Surface(glow, Part.Glow);
             Lines(stars, Part.Stars); Lines(bright, Part.Bright); Lines(ties, Part.Ties); Lines(rings, Part.Rings);
             Lines(anchors, Part.Anchors); Lines(threads, Part.Threads, true);
+        }
+
+        /// <summary>
+        /// The attention loop (social view): companies pay the platforms to reach people (US digital advertising), the
+        /// platforms and brands pay the creators who hold attention (US creator-economy ad spend), the people give their
+        /// time and take in the wants, and spend at the companies (household spending; the share of the owners' surplus in it
+        /// that Jev judged sold by persuasion). Four arcs between where each stands, as wide as the log of their dollars,
+        /// each labeled with its source (corporate-programs.json economy totals; the capture ledger).
+        /// </summary>
+        void Loop()
+        {
+            CorporatePrograms.Provide(LandService.Model.Data, programsJson); var programs = CorporatePrograms.Get();
+            var towers = snapshot.Land.Towers; var internet = LandService.Model.Data.IndustryById("internet");
+            Vector3 firms = Vector3.zero, platforms = Vector3.zero; int nf = 0, np = 0;
+            for (int t = 0; t < towers.Length; t++)
+            {
+                Vector3 halo = HillActivityLayer.CompanyHalo(t);
+                if (internet != null && towers[t].Industry == internet.Index) { platforms += halo; np++; } else { firms += halo; nf++; }
+            }
+            if (nf == 0 || np == 0 || programs == null) return;
+            firms /= nf; platforms /= np;
+            Vector3 people = Vector3.zero; int n = 0;
+            for (int i = 0; i < land.People.Length; i++) if (!land.Cloud[i]) { people += land.People[i]; n++; }
+            people = n > 0 ? people / n : land.CloudCenter;
+            double spending = 0; foreach (var p in snapshot.Players.Players) spending += Math.Max(0, p.Spending);
+            var ledger = HillCaptureLayer.Shown; double paid = 0, persuaded = 0;
+            if (ledger != null) for (int p = 0; p < ledger.Paid.Length; p++) { paid += ledger.Paid[p]; persuaded += ledger.PaidPersuaded[p]; }
+            double ads = programs.Total("digitalAdRevenue.total"), social = programs.Total("digitalAdRevenue.socialMedia"),
+                creators = programs.Total("influencerMarketing.usCreatorEconomyAdSpend_IAB"), minutes = programs.Total("socialMediaTime.usAdultSocialNetworkUsers_eMarketer");
+            var b = new LineMeshBuilder(); Color rose = new Color(1, .30f, .52f), gold = new Color(1, .72f, .25f), white = new Color(.92f, .96f, 1f);
+            float W(double billions) => 1.5f + Mathf.Log10(1 + (float)Math.Max(0, billions)) * 2.2f;
+            void Arc(Vector3 a, Vector3 z, Color c, float width, float lift, string text)
+            {
+                var pts = new LinePoint[33];
+                for (int k = 0; k < pts.Length; k++) { float t = k / 32f; pts[k] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, WithAlpha(c, .85f), width, 0, 2.6f); }
+                b.AddFlowPath(pts, 0, .25f);
+                TextLabel(text, pts[16].Data + Vector3.up * 3.5f, .72f, Color.Lerp(c, Color.white, .45f), -2, 1);
+            }
+            Arc(firms, platforms, gold, W(ads), 10, "<b>ADVERTISING</b> · $" + ads.ToString("0", LandFacts.Ci) + "B of US digital ads in 2025, $" + social.ToString("0", LandFacts.Ci) + "B of it on social media (IAB/PwC)");
+            Arc(platforms, center, gold, W(creators), 8, "<b>TO THE CREATORS</b> · ≈ $" + creators.ToString("0", LandFacts.Ci) + "B of US creator-economy ad spend (IAB 2025)");
+            Arc(center, people, rose, W(spending * .01), 6, "<b>ATTENTION GIVEN, WANTS TAKEN IN</b> · about " + (minutes / 60).ToString("0.0", LandFacts.Ci) + " hours a day on social media per adult user (eMarketer 2025)");
+            Arc(people, firms, rose, W(spending * .05), 4, "<b>SPENDING</b> · " + LandFacts.Money(spending) + " a year from households · " +
+                (paid > 0 ? LandFacts.Percent(persuaded / paid) + " of the owners' surplus inside it sold by persuasion (Jev)" : ""));
+            Lines(b, Part.Loop, true);
         }
 
         /// <summary>The company circle a capital holder stands in: their first listed company with a tower (its gold

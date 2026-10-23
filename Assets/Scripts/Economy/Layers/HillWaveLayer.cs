@@ -71,6 +71,11 @@ namespace Why.Economy.Layers
         LandSnapshot snapshot; HillLandscape land; CompanyLives lives; GameObject content;
         MeshRenderer focus; TextMeshPro focusLabel;
         int focused = -2, programRevision = -1; Vector2 pressed; LandFrame frame;
+        /// <summary>1 while a rebuild has drawn its first half and waits for a frame for its second (see <see cref="Begin"/>).</summary>
+        int stage;
+        /// <summary>The wave drawn for the previous land, on screen until the rebuild's second half swaps the new one in.</summary>
+        GameObject retired;
+        readonly List<UnityEngine.Object> retiredOwned = new List<UnityEngine.Object>();
 
         public override void Prepare(GraphContext ctx) { livesJson = ctx.Text(CompanyLives.LivesPath); judgmentsJson = ctx.Text(CompanyLives.JudgmentsPath); }
         public override void Upload(GraphContext ctx) { active = this; frame = EconomyStage.Land(); frame.Place(transform); }
@@ -79,7 +84,17 @@ namespace Why.Economy.Layers
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null) return;
             int revision = PlayerMindProgram.Active?.Revision ?? -1;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || revision != programRevision) { programRevision = revision; Build(); }
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || revision != programRevision)
+            {
+                if (!HillRebuilds.Take()) return;
+                programRevision = revision; Begin();
+            }
+            // the second half of a rebuild takes the next free frame (the same one for a land published blocking)
+            if (stage == 1)
+            {
+                if (!HillRebuilds.Take()) return;
+                Finish();
+            }
             if (content == null) return;
             string view = LandView.PresetId;
             bool hidden = view == "mind";
@@ -150,15 +165,31 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ build
 
-        void Build()
+        /// <summary>
+        /// A rebuild's first half: the wake and the crest's face, into new content kept hidden while the wave drawn for the
+        /// previous land stays on screen; <see cref="Finish"/> adds the lifelines in the next free frame and swaps them. Half
+        /// a rebuild a frame keeps a new year's swap from freezing the screen (HillRebuilds).
+        /// </summary>
+        void Begin()
         {
-            Clear();
+            if (stage == 1) Clear();   // the land changed again before the second half
+            else Retire();
             snapshot = LandService.Current; land = HillLandscapeLayer.Current;
             CompanyLives.Provide(LandService.Model.Data, livesJson, judgmentsJson); lives = CompanyLives.Get();
-            content = new GameObject("Economy wave"); content.transform.SetParent(transform, false);
-            Wake(); Face(); Lifelines(); Fan(); Future();
+            content = new GameObject("Economy wave"); content.transform.SetParent(transform, false); content.SetActive(false);
+            Wake(); Face();
+            stage = 1;
+        }
+
+        /// <summary>A rebuild's second half: the company lifelines, the fan and the future, then the swap.</summary>
+        void Finish()
+        {
+            Lifelines(); Fan(); Future();
             focus = Lines(new LineMeshBuilder(), Part.Focus, true, true); focused = -2;
             focusLabel = Label("", Vector3.zero, .3f, White);
+            DropRetired();
+            content.SetActive(true);
+            stage = 0;
             int born = 0, ended = 0;
             if (lives != null) foreach (var l in lives.Lives) { if (l.Founded >= land.FirstYear && l.Founded <= land.Year) born++; if (!l.Alive && l.Ended <= land.Year && l.Ended >= land.FirstYear) ended++; }
             Debug.Log("[Why] Wave " + land.FirstYear + "-" + land.Year + ": " + (land.Year - land.FirstYear + 1) + " ribs over " +
@@ -537,6 +568,21 @@ namespace Why.Economy.Layers
             owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); content = null; focus = null; focusLabel = null;
         }
 
-        void OnDestroy() { Clear(); HoverCompany = SelectedCompany = -1; if (active == this) active = null; }
+        /// <summary>Sets the wave on screen aside (still drawn) for a rebuild: it goes when the new one is complete.</summary>
+        void Retire()
+        {
+            DropRetired();
+            retired = content; retiredOwned.AddRange(owned);
+            owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); content = null; focus = null; focusLabel = null;
+        }
+
+        void DropRetired()
+        {
+            foreach (var o in retiredOwned) if (o) Destroy(o);
+            if (retired) Destroy(retired);
+            retiredOwned.Clear(); retired = null;
+        }
+
+        void OnDestroy() { Clear(); DropRetired(); HoverCompany = SelectedCompany = -1; if (active == this) active = null; }
     }
 }

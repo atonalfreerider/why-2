@@ -50,7 +50,11 @@ namespace Why.Economy.Layers
         {
             if (People == null || HillLandscapeLayer.Current == null || LandService.Current == null) return;
             // Rebuild for a new year, and once the firms and seats it anchors to have been rebuilt.
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || seats != HillFoundationLayer.SeatsVersion) Build();
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || seats != HillFoundationLayer.SeatsVersion)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build();
+            }
             if (content == null) return;
             string view = LandView.PresetId;
             bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money" || view == "regimes";

@@ -60,7 +60,11 @@ namespace Why.Economy.Layers
 
             HillLandscape current = HillLandscapeLayer.Current;
             if (current == null || EconomyReplay.Facts == null) return;
-            if (current != land || EconomyReplay.Facts != facts) Build(current, EconomyReplay.Facts);
+            if (current != land || EconomyReplay.Facts != facts)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build(current, EconomyReplay.Facts);
+            }
             if (content == null) return;
             content.SetActive(true);
             foreach ((TextMeshPro text, int _) in labels) text.transform.rotation = rig.Cam.transform.rotation;

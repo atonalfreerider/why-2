@@ -69,7 +69,11 @@ namespace Why.Economy.Layers
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null) return;
             if (HillLandscapeLayer.Current.Source != LandService.Current) return;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current) Build();
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build();
+            }
             if (content == null) return;
             bool on = LandView.PresetId == "strategy";
             content.SetActive(on); if (!on) return;

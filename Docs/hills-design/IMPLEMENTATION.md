@@ -554,11 +554,10 @@ end, and fails if it does not finish in 420 s; the replay logs its own timing ("
 land ... frames on screen ...").
 
 **Measured** (Linux player, 1600x900, 2026-10-22, three runs): 77 years in 90-93 s with 0 errors; thanks to the build
-ahead the crest waited for its land 0.06-0.08 s a year on average (longest 0.33-0.80 s). What remains is the swap itself:
-when a year's land is published the hills layers rebuild their meshes and labels on the main thread, as they do for a
-manual year step, so each year costs one long frame (83-85 frames over 0.25 s per run, the longest 0.9-1.4 s). Building those meshes on a worker, or
-only for the layers the view shows, is the next step for a smoother replay. Needs a check in the headset: the replay button
-in the hand menu and the readout's place on the HUD plane.
+ahead the crest waited for its land 0.06-0.08 s a year on average (longest 0.33-0.80 s). What remained was the swap
+itself: when a year's land was published every hills layer rebuilt in that frame, so each year cost one long frame
+(83-85 frames over 0.25 s per run, the longest 0.9-1.4 s); see "A year's swap without the freeze" below. Needs a check in
+the headset: the replay button in the hand menu and the readout's place on the HUD plane.
 
 ## Other governments as model changes - 2026-10-22
 
@@ -638,3 +637,39 @@ with each year's land; its panel stands top right, clear of the replay's caption
 **Measured** (Linux player in the mirror, 1920x1080, 2026-10-22): the full smoke test with `-smokereplay` - both scenes,
 every view and the five regimes' frames, both tours (the new stop is the economy tour's fifth), the replay in 94.9 s -
 finished with 0 errors. Needs a check in the headset: the panel's buttons by pinch and the view's label sizes on the HUD.
+
+## A year's swap without the freeze - 2026-10-22
+
+The user's direction: fix the replay's per-year freeze. Measured first: `LayerClock` times every layer's Tick (and any
+section a layer marks while hunting), and `-smokereplay` now logs the layers that cost the most in frames of 50 ms or
+more ("[Why] smoke: replay frames: ..."). Before: 139 such frames in the 95 s replay, 57 s in all, the longest 863 ms;
+44 s of it in `HillActivityLayer`.
+
+**Where it went, and what changed.** None of it was the drawing itself:
+- `Category.IndustryShare` summed every spending item on each call, and the players' budgets ask it for every category
+  and industry - 150 calls per player, again for each of the ~600 markers, twice a year. The items never change after
+  loading, so each category sums its shares once; `CorporateCompetition` looks the 6 x 25 table up once per land.
+- Every `LineMeshBuilder` started with room for 1,024 points (about 130 KB), and the activity layer made two per marker
+  per pass (about 150 MB of garbage a year in the replay). The default is now 32 points, growing as lines are added
+  (`SurfaceMeshBuilder` likewise); the markers' balance sheets share one builder (`LineMeshBuilder.Clear`).
+- The activity layer re-planned every trip and redrew every balance sheet right after each rebuild; now only when the
+  scenario program (the object or its revision) or the selection changes.
+- Every hills layer rebuilt in the frame of the swap. `HillRebuilds` gives a land published asynchronously (keys, the
+  chip, the replay) one rebuild per frame: the landscape in the frame it is published, every other layer in the next free
+  frame, skipping its Tick and keeping what it drew until then. A land published blocking (a view's own year, the tour,
+  the smoke test's views) and a scene's first land still rebuild everything at once, so presets stay frame-exact.
+- The wave and the activity layer rebuild in two halves (the wake and the face, then the lifelines; the corporate
+  interior, then the markers), drawing into hidden content while the previous drawing stays on screen until the swap;
+  the activity layer's rivers are kept across rebuilds and redrawn in a frame of their own, and the landscape's ties
+  redraw in the next free frame.
+- Smaller: `HillLandscape` skips the later year's slice when its weight is zero (every rib lies on a year), and the
+  landscape computes the ownership mix once per rebuild and walks the population for family flows only when a player is
+  selected (nothing is drawn otherwise).
+
+Each change computes the same values or only moves when they are drawn.
+
+**Measured** (Linux player in the mirror, 1920x1080, 2026-10-22, the full smoke test with `-smokereplay`: both scenes,
+every view, both tours, 0 errors): 3 frames of 50 ms or more in the replay, 0.16 s in all, the longest 57 ms (the capture
+layer's rebuild, which with the landscape's at about 40 ms is the largest left); the replay's own line: frames on screen
+0.017 s on average (0.042 s before), none over 0.25 s (79 before), the longest 0.060 s (0.886 s before). Building the
+remaining layers' geometry on a worker is the step after this if those frames matter.

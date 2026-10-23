@@ -67,7 +67,11 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null) return;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || selection != EconomyState.SelectedPlayer) Build();
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || selection != EconomyState.SelectedPlayer)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build();
+            }
             if (content == null) return;
             string view = LandView.PresetId; bool hidden = view == "mind" || view == "section";
             content.SetActive(!hidden); if (hidden) return;

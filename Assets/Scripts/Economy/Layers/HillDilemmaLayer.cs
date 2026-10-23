@@ -45,7 +45,11 @@ namespace Why.Economy.Layers
         {
             if (LandService.Current == null) return;
             bool shown = LandView.PresetId == "dilemma";
-            if (version != PersonFocus.Version || snapshot != LandService.Current) Build();
+            if (version != PersonFocus.Version || snapshot != LandService.Current)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build();
+            }
             if (content == null) return;
             content.SetActive(shown);
             if (!shown) { wasShown = false; return; }

@@ -26,8 +26,9 @@ namespace Why
             new VertexAttributeDescriptor(VertexAttribute.TexCoord0, VertexAttributeFormat.Float32, 4),
         };
 
-        readonly List<Vertex> vertices = new List<Vertex>(4096);
-        readonly List<int> indices = new List<int>(8192);
+        // small to start (they grow): many builders hold one band, and a builder is made for every rebuild of a year
+        readonly List<Vertex> vertices = new List<Vertex>(64);
+        readonly List<int> indices = new List<int>(192);
 
         public int VertexCount => vertices.Count;
 

@@ -236,7 +236,7 @@ namespace Why.Economy.Land
         public float Ground(float x,float z,int tier=0)
         {
             Interp(z,out Slice a,out Slice b,out float f);
-            float y=Profile(a,x);if(b!=a)y=Mathf.Lerp(y,Profile(b,x),f);
+            float y=Profile(a,x);if(b!=a&&f>0)y=Mathf.Lerp(y,Profile(b,x),f);
             return y*Taper(z);
         }
 
@@ -244,7 +244,7 @@ namespace Why.Economy.Land
         public float Strata(float x,float z)
         {
             Interp(z,out Slice a,out Slice b,out float f);
-            float y=Steps(a,x);if(b!=a)y=Mathf.Lerp(y,Steps(b,x),f);
+            float y=Steps(a,x);if(b!=a&&f>0)y=Mathf.Lerp(y,Steps(b,x),f);
             return y*Taper(z);
         }
 
@@ -253,12 +253,14 @@ namespace Why.Economy.Land
         {
             if(tierOf[industry]==0)return 0;
             Interp(z,out Slice a,out Slice b,out float f);
-            float y=Ridge(a,industry,x);if(b!=a)y=Mathf.Lerp(y,Ridge(b,industry,x),f);
+            float y=Ridge(a,industry,x);if(b!=a&&f>0)y=Mathf.Lerp(y,Ridge(b,industry,x),f);
             return y*Taper(z);
         }
 
         float Taper(float z)=>(1-Smooth((z-CrestZ)/FrontRun))*Smooth((z-(TailZ-14))/14);
 
+        /// <summary>The two years' slices around z and the weight of the later (0 on a year's own rib: the later slice is
+        /// then not evaluated).</summary>
         void Interp(float z,out Slice a,out Slice b,out float f)
         {
             double year=YearAt(z)-FirstYear;

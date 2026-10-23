@@ -74,7 +74,11 @@ namespace Why.Economy.Layers
             if (HillLandscapeLayer.Current.Source != LandService.Current) return;   // the landscape catches up first
             // The landscape object is rebuilt for every selection or scenario step with the same geometry: only a new year's
             // land or another person rebuilds (and restarts the arena).
-            if (snapshot != LandService.Current || land == null || land.Source != LandService.Current || selection != EconomyState.Person) Build();
+            if (snapshot != LandService.Current || land == null || land.Source != LandService.Current || selection != EconomyState.Person)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build();
+            }
             if (content == null) return;
             string view = LandView.PresetId;
             float atom = view == "atom" ? 1 : view == "dilemma" ? .22f : view == "ladder" ? .12f : 0;

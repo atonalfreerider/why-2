@@ -54,7 +54,12 @@ namespace Why
         readonly List<Vertex> vertices;
         readonly List<int> indices;
 
-        public LineMeshBuilder(int capacityPoints = 1024)
+        /// <summary>
+        /// A builder starting with room for <paramref name="capacityPoints"/> points; it grows as lines are added. The default
+        /// is small: many builders hold a ring or two (a marker, a firm's beam), and a large default allocated about 130 KB
+        /// for each of them, hundreds per rebuild of a year.
+        /// </summary>
+        public LineMeshBuilder(int capacityPoints = 32)
         {
             vertices = new List<Vertex>(capacityPoints * 2);
             indices = new List<int>(capacityPoints * 6);
@@ -62,6 +67,14 @@ namespace Why
 
         public int VertexCount => vertices.Count;
         public int PolylineCount { get; private set; }
+
+        /// <summary>Empties the builder (keeping its capacity) to build another mesh with it.</summary>
+        public void Clear()
+        {
+            vertices.Clear();
+            indices.Clear();
+            PolylineCount = 0;
+        }
 
         /// <summary>Adds a polyline with uniform styling.</summary>
         public void AddPolyline(IReadOnlyList<Vector3> points, Color32 color, float widthPx, float widthWorld, float id,

@@ -55,25 +55,36 @@ namespace Why.Economy.Layers
         GameObject content;
         float animation, refresh;
         int version=-1, selection=-2, lod=-1;
+        /// <summary>The scenario program the trips and balances were drawn for (a new year brings a new one).</summary>
+        PlayerMindProgram programSeen;
+        /// <summary>1 while a rebuild has made its first half and waits for a frame for its second (see Begin).</summary>
+        int stage;
+        /// <summary>The markers and firms drawn for the previous land, on screen until the rebuild's second half swaps.</summary>
+        GameObject retired;
+        readonly List<UnityEngine.Object> retiredObjects=new List<UnityEngine.Object>(), kept=new List<UnityEngine.Object>();
+        GameObject riversRoot;
         string view;
         public override void Prepare(GraphContext ctx) { }
         public override void Upload(GraphContext ctx){active=this;EconomyStage.Land().Place(transform);}
         public override void Tick(GraphContext ctx,CameraRig rig)
         {
             if(HillLandscapeLayer.Current==null)return;
-            if(snapshot!=LandService.Current){Build();}
+            if(snapshot!=LandService.Current){if(!HillRebuilds.Take())return;Begin();}
+            // the second half of a rebuild takes the next free frame (the same one for a land published blocking)
+            if(stage==1){if(!HillRebuilds.Take())return;Finish();}
             if(land==null)return;
             int nextLod=rig.Pose.Distance<35?2:rig.Pose.Distance<100?1:0;
             if(nextLod!=lod){lod=nextLod;UpdateBalances();}
             var program=Program;
-            if(version!=(program?.Revision??-1)||selection!=EconomyState.SelectedPlayer)
+            if(program!=programSeen||version!=(program?.Revision??-1)||selection!=EconomyState.SelectedPlayer)
             {
-                version=program?.Revision??-1;selection=EconomyState.SelectedPlayer;
+                if(!HillRebuilds.Take())return;
+                programSeen=program;version=program?.Revision??-1;selection=EconomyState.SelectedPlayer;
                 Competition.Update(program);PlanTrips();UpdateBalances();refresh=1;
             }
             animation+=Time.deltaTime;
             bool hidden=LandView.PresetId=="mind"||LandView.PresetId=="section";
-            content.SetActive(!hidden);if(hidden)return;
+            content.SetActive(!hidden);riversRoot.SetActive(!hidden);if(hidden)return;
             int focusPlayer=selection>=0?selection:HillLandscapeLayer.HoverPlayer;
             int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillExplorer.Industry>=0?HillExplorer.Industry:HillLandscapeLayer.HoverIndustry;
             for(int p=0;p<actors.Count;p++)
@@ -120,30 +131,41 @@ namespace Why.Economy.Layers
             GraphMaterials.SetAlpha(circleThreads.sharedMaterial,own?.6f:v=="people"?.3f:quiet?.02f:.08f);
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
-            if(refresh>=.2f){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
+            // redrawn five times a second, never in a frame another layer rebuilds in (after a swap: the next free frame)
+            if(refresh>=.2f&&HillRebuilds.Take()){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
         }
         /// <summary>The running scenario, when it was built for the shown year's cohorts (else the census stands).</summary>
         PlayerMindProgram Program=>PlayerMindProgram.Active!=null&&snapshot!=null&&PlayerMindProgram.Active.Players.Length==snapshot.Players.Players.Length?PlayerMindProgram.Active:null;
         float FearOf(int p)=>Program?.Players[p/Subgroups].Fear??snapshot.Players.Players[p/Subgroups].Fear;
-        void Build()
+        /// <summary>
+        /// A rebuild's first half: the new year's competition and corporate interior, into new content kept hidden while the
+        /// markers and firms drawn for the previous land stay on screen; <see cref="Finish"/> makes the markers, plans their
+        /// trips and draws their balance sheets in the next free frame and swaps. Half a rebuild a frame (HillRebuilds).
+        /// </summary>
+        void Begin()
         {
-            Clear();snapshot=LandService.Current;land=HillLandscapeLayer.Current;
-            content=new GameObject("Live players and corporate interior");content.transform.SetParent(transform,false);
+            if(stage==1)Clear();else Retire();   // a half-made rebuild is dropped when the land changed again before its second half
+            snapshot=LandService.Current;land=HillLandscapeLayer.Current;
+            content=new GameObject("Live players and corporate interior");content.transform.SetParent(transform,false);content.SetActive(false);
+            KeepRivers();
             home=new Vector3[land.People.Length*Subgroups];
             for(int p=0;p<home.Length;p++){float a=p%Subgroups*Mathf.PI*2/Subgroups;home[p]=land.People[p/Subgroups]+new Vector3(Mathf.Cos(a)*1.1f,0,Mathf.Sin(a)*1.1f);}
-            Positions=(Vector3[])home.Clone();
             destinations=new Vector3[home.Length];recipient=new int[home.Length];riverAmount=new double[home.Length];riverFear=new float[home.Length];
             Competition=new CorporateCompetition(snapshot);Competition.Update(Program);
-            for(int p=0;p<home.Length;p++){var actor=Render(new LineMeshBuilder(),"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
             BuildCorporations();
-            rivers=Render(new LineMeshBuilder(),"Desire fear capital rivers",false);
-            rivers.sharedMaterial.SetFloat("_Flow",1);rivers.sharedMaterial.SetFloat("_FlowFreq",3);rivers.sharedMaterial.SetFloat("_FlowSpeed",.6f);
-            var surface=new SurfaceMeshBuilder().ToMesh("River ribbons");owned.Add(surface);
-            var surfaceMat=GraphMaterials.Raw(GraphMaterials.Surface(Color.white,1,3208,false));materials.Add(surfaceMat);
-            riverFill=AddMesh("Split fear and desire water",surface,surfaceMat);riverFill.transform.SetParent(content.transform,false);
-            focus=Render(new LineMeshBuilder(),"Focused summit",true);
-            pulses=Render(new LineMeshBuilder(),"Moving HDR river highlights",true);pulses.sharedMaterial.SetFloat("_Flow",0);
-            PlanTrips();UpdateBalances();selection=-2;version=-1;
+            stage=1;
+        }
+        /// <summary>A rebuild's second half: the markers, their trips and balance sheets, then the swap.</summary>
+        void Finish()
+        {
+            var empty=new LineMeshBuilder(1);
+            for(int p=0;p<home.Length;p++){var actor=Render(empty,"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
+            Positions=(Vector3[])home.Clone();
+            PlanTrips();UpdateBalances();
+            // built for the program and selection it saw: the next Tick redoes the trips and balances only if they change
+            programSeen=Program;version=programSeen?.Revision??-1;selection=EconomyState.SelectedPlayer;
+            DropRetired();content.SetActive(true);stage=0;
+            refresh=1;   // the rivers follow in the next free frame
         }
         void PlanTrips()
         {
@@ -164,12 +186,13 @@ namespace Why.Economy.Layers
         }
         void UpdateBalances()
         {
+            var b=new LineMeshBuilder(64);
             for(int p=0;p<actors.Count;p++)
             {
                 var state=Program?.Players[p/Subgroups];var cohort=snapshot.Players.Players[p/Subgroups];
                 double assets=state?.Assets??Math.Max(0,cohort.Wealth+cohort.Debt),debt=state?.Debt??cohort.Debt;
                 assets/=Subgroups;debt/=Subgroups;
-                var b=new LineMeshBuilder();Color motive=Color.Lerp(Desire,Fear,FearOf(p));
+                b.Clear();Color motive=Color.Lerp(Desire,Fear,FearOf(p));
                 b.AddSegment(Vector3.zero,Vector3.up*1.2f,motive,2.2f,0,0);
                 Ring(b,Vector3.up*1.5f,.30f,motive,1.8f,true);
                 // Gross assets and liabilities get separate persistent rings; logarithmic radius handles group scale.
@@ -340,9 +363,7 @@ namespace Why.Economy.Layers
                 bool active=false;if(focused>=0)for(int p=focused*Subgroups;p<(focused+1)*Subgroups;p++)if(recipient[p]==h)active=true;
                 Water(fill,b,path,.25f+(float)Math.Sqrt(amount)*.085f,(float)(af/amount),active?.55f:focused>=0?.015f:LandView.PresetId=="rivers"?.55f:.20f,home.Length+h,active);
             }
-            Replace(rivers,b);Replace(pulses,pulseGeometry);
-            var filter=riverFill.GetComponent<MeshFilter>();owned.Remove(filter.sharedMesh);Destroy(filter.sharedMesh);
-            filter.sharedMesh=fill.ToMesh("Fear desire ribbons");owned.Add(filter.sharedMesh);
+            Redraw(rivers,b.ToMesh(rivers.name));Redraw(pulses,pulseGeometry.ToMesh(pulses.name));Redraw(riverFill,fill.ToMesh("Fear desire ribbons"));
         }
         // Adapted from FlowsLayer.Ribbons: nonadditive split lanes plus moving centers.
         void Water(SurfaceMeshBuilder fill,LineMeshBuilder b,LinePoint[] path,float width,float fear,float alpha,int id,bool active)
@@ -389,7 +410,7 @@ namespace Why.Economy.Layers
                 for(int j=0;j<points.Length;j++){points[j]=h.Surface(j*Mathf.PI/32,.30f);points[j].y=h.Summit.y-h.Height*.15f;}
                 b.AddPolyline(points,Gold,selectedIndustry?2.8f:2,0,0,selectedIndustry?3.5f:2.3f);
             }
-            Replace(focus,b);
+            Redraw(focus,b.ToMesh(focus.name));
         }
         void Tunnel(LineMeshBuilder b,Vector3 a,Vector3 end,Color color,float width)
         {
@@ -421,6 +442,37 @@ namespace Why.Economy.Layers
             b.AddPolyline(points,c,width,0,0,intensity);
         }
         void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();}
-        void OnDestroy(){Clear();Positions=null;Competition=null;active=null;}
+        /// <summary>Sets what is on screen aside (still drawn) for a rebuild: it goes when the new one is complete.</summary>
+        void Retire()
+        {
+            DropRetired();
+            retired=content;retiredObjects.AddRange(owned);retiredObjects.AddRange(materials);content=null;
+            owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();
+        }
+        void DropRetired(){foreach(var o in retiredObjects)if(o)Destroy(o);retiredObjects.Clear();if(retired)Destroy(retired);retired=null;}
+        /// <summary>The rivers, their highlights and fill and the focused summit, made once and redrawn in place (DrawRivers,
+        /// DrawFocus): a rebuild keeps showing the last ones until the next redraw instead of none.</summary>
+        void KeepRivers()
+        {
+            if(riversRoot)return;
+            riversRoot=new GameObject("Rivers (kept across rebuilds)");riversRoot.transform.SetParent(transform,false);
+            var empty=new LineMeshBuilder(1);
+            rivers=Kept(empty,"Desire fear capital rivers",false);
+            rivers.sharedMaterial.SetFloat("_Flow",1);rivers.sharedMaterial.SetFloat("_FlowFreq",3);rivers.sharedMaterial.SetFloat("_FlowSpeed",.6f);
+            var surface=new SurfaceMeshBuilder().ToMesh("River ribbons");kept.Add(surface);
+            var surfaceMat=GraphMaterials.Raw(GraphMaterials.Surface(Color.white,1,3208,false));kept.Add(surfaceMat);
+            riverFill=AddMesh("Split fear and desire water",surface,surfaceMat);riverFill.transform.SetParent(riversRoot.transform,false);
+            focus=Kept(empty,"Focused summit",true);
+            pulses=Kept(empty,"Moving HDR river highlights",true);pulses.sharedMaterial.SetFloat("_Flow",0);
+        }
+        MeshRenderer Kept(LineMeshBuilder b,string name,bool glow)
+        {
+            Mesh m=b.ToMesh(name);kept.Add(m);
+            Material mat=GraphMaterials.Raw(GraphMaterials.Line(Color.white,1,3210,glow,0,glow?1:0));
+            mat.SetFloat("_FlowFreq",2);mat.SetFloat("_FlowSpeed",.3f);kept.Add(mat);
+            var r=AddMesh(name,m,mat);r.transform.SetParent(riversRoot.transform,false);return r;
+        }
+        void Redraw(MeshRenderer r,Mesh mesh){var filter=r.GetComponent<MeshFilter>();kept.Remove(filter.sharedMesh);Destroy(filter.sharedMesh);filter.sharedMesh=mesh;kept.Add(mesh);}
+        void OnDestroy(){Clear();DropRetired();foreach(var o in kept)if(o)Destroy(o);kept.Clear();if(riversRoot)Destroy(riversRoot);Positions=null;Competition=null;active=null;}
     }
 }

@@ -682,18 +682,39 @@ namespace Why.Economy.Data
             return sum;
         }
 
-        /// <summary>Share of the category's money that reaches an industry (weighted by its items).</summary>
+        /// <summary>
+        /// Share of the category's money that reaches an industry (weighted by its items). The items do not change after
+        /// loading, so the shares of every industry they name are summed once and looked up after that: the players' budgets
+        /// ask for every industry of every category, for every player and every marker, on each year's swap.
+        /// </summary>
         public double IndustryShare(string industryId)
         {
-            double total = 0, part = 0;
-            if (Items == null) return 0;
+            Dictionary<string, double> s = shares ?? (shares = Shares());
+            return industryId != null && s.TryGetValue(industryId, out double share) ? share : 0;
+        }
+
+        /// <summary>The industries' shares (null until first asked; any thread may fill it, with the same result).</summary>
+        [JsonIgnore] volatile Dictionary<string, double> shares;
+
+        Dictionary<string, double> Shares()
+        {
+            var parts = new Dictionary<string, double>(StringComparer.Ordinal);
+            double total = 0;
+            if (Items == null) return parts;
             foreach (SpendingItem i in Items)
             {
                 total += i.Pce;
-                if (i.Industries != null && i.Industries.TryGetValue(industryId, out double w)) part += i.Pce * w;
+                if (i.Industries == null) continue;
+                foreach (KeyValuePair<string, double> w in i.Industries)
+                {
+                    parts.TryGetValue(w.Key, out double part);
+                    parts[w.Key] = part + i.Pce * w.Value;
+                }
             }
 
-            return total > 0 ? part / total : 0;
+            var result = new Dictionary<string, double>(parts.Count, StringComparer.Ordinal);
+            foreach (KeyValuePair<string, double> p in parts) result[p.Key] = total > 0 ? p.Value / total : 0;
+            return result;
         }
     }
 

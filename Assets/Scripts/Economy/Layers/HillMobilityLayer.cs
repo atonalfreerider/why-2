@@ -55,7 +55,11 @@ namespace Why.Economy.Layers
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null || LandService.Model?.Lives == null) return;
             if (HillLandscapeLayer.Current.Source != LandService.Current) return;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current) Build();
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build();
+            }
             if (content == null) return;
             string view = LandView.PresetId;
             bool on = view == "mobility" || view == "you" || view == "people";

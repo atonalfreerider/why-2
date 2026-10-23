@@ -239,10 +239,21 @@ namespace Why
             GraphWarp.Tick(dt);
             Highlighter.Tick(dt);
 
-            if (IsLoaded)
+            if (IsLoaded && LayerClock.On)
+            {
+                foreach (GraphLayer layer in layers)
+                {
+                    long t0 = Stopwatch.GetTimestamp();
+                    layer.Tick(Context, Rig);
+                    LayerClock.AddLayer(layer.GetType().Name, Stopwatch.GetTimestamp() - t0);
+                }
+            }
+            else if (IsLoaded)
             {
                 foreach (GraphLayer layer in layers) layer.Tick(Context, Rig);
             }
+
+            LayerClock.EndFrame();
 
             Keyboard kb = Keyboard.current;
             if (kb != null && kb.vKey.wasPressedThisFrame) ScreenLayout.ToggleVertical();

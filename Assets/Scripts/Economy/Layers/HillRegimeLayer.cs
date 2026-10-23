@@ -107,7 +107,11 @@ namespace Why.Economy.Layers
             }
             int n = regimes.All.Length; if (n == 0) return;
             int shown = Pinned >= 0 && Pinned < n ? Pinned : (int)((Time.unscaledTime - enteredAt) / CycleSeconds) % n;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || shown != built) Build(shown);
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || shown != built)
+            {
+                if (!HillRebuilds.Take()) return;
+                Build(shown);
+            }
             if (content == null) return;
             content.SetActive(true);
             foreach (var t in labels) t.transform.rotation = rig.Cam.transform.rotation;

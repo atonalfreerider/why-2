@@ -51,11 +51,16 @@ namespace Why.Economy.Layers
             if (HillLandscapeLayer.Current.Source != LandService.Current) return;
             if (snapshot != LandService.Current || land != HillLandscapeLayer.Current)
             {
+                if (!HillRebuilds.Take()) return;
                 snapshot = LandService.Current; land = HillLandscapeLayer.Current;
                 model = YouModel.Build(LandService.Model.Lives, snapshot.Year); version = -1; checkedModel = false;
             }
             int mobility = HillMobilityLayer.Shown?.Year ?? -1;
-            if (version != YouState.Version || mobility != mobilityYear) { version = YouState.Version; mobilityYear = mobility; Build(); }
+            if (version != YouState.Version || mobility != mobilityYear)
+            {
+                if (!HillRebuilds.Take()) return;
+                version = YouState.Version; mobilityYear = mobility; Build();
+            }
             if (content == null) return;
             bool on = LandView.PresetId == "you";
             content.SetActive(on); if (!on) return;

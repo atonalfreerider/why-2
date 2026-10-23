@@ -60,11 +60,15 @@ namespace Why.Economy.Layers
         void Rebuild(LandSnapshot next)
         {
             if(next!=snapshot)userSeason=null;
+            HillRebuilds.Use();
             Clear(); snapshot = next;
             if (next?.Players?.Players == null) return;
             Current = new HillLandscape(next);
             content = new GameObject("Hill landscape"); content.transform.SetParent(transform, false);
-            Terrain(); Owners(); Inhabitants(); Money(); Mind(); Social();
+            Terrain(); Owners(); Inhabitants(); Money(); Mind();
+            // the ties (seen in the society views) are drawn by Tick in the next free frame (HillRebuilds): with them the
+            // swap's frame was the longest of the landscape's; until then Shown is still the last season (readers check its year)
+            roundVersion=-1;
             selected = EconomyState.SelectedPlayer;
             LandService.ReportReady(nameof(HillLandscapeLayer), next.Version);
             Debug.Log("[Why] Hills " + next.Year + ": " + Current.Hills.Length + " industries; " +
@@ -161,6 +165,7 @@ namespace Why.Economy.Layers
             var people = new LineMeshBuilder(); var clouds = new LineMeshBuilder(); var kin = new LineMeshBuilder();
             var cloudFill = new SurfaceMeshBuilder();
             var players = snapshot.Players.Players;
+            double[][] mix = null;   // the all-sector ownership mix, for the cloud's players (computed once)
             for (int i = 0; i < players.Length; i++)
             {
                 Player p = players[i]; Vector3 at = Current.People[i];
@@ -193,7 +198,7 @@ namespace Why.Economy.Layers
                         if(c==1)clouds.AddPolyline(edge,WithAlpha(Gold,.32f),1.2f,0,0);
                     }
                     // All-sector ownership mix: the proxy comes from distributional capital-income weights.
-                    double[][] mix = CapitalSources.Mix(LandService.Model.Data, snapshot.Year);
+                    mix ??= CapitalSources.Mix(LandService.Model.Data, snapshot.Year);
                     for (int h = 0; h < Current.Hills.Length; h++)
                         if (mix[3][h] > .07) Flow(clouds,Current.Hills[h].Summit,at,WithAlpha(Gold,.08f),.8f,2);
                 }
@@ -207,7 +212,8 @@ namespace Why.Economy.Layers
             var links = new LineMeshBuilder(); var sim = LandService.Population?.Sim;
             if (sim == null) return;
             var lives = LandService.Model.Lives;
-            foreach (var child in sim.People)
+            // only a selected player's family is drawn: with none selected the population need not be walked
+            if (EconomyState.SelectedPlayer >= 0) foreach (var child in sim.People)
             {
                 if (!lives.TryGet(child.Index,snapshot.Year,out PersonYear r)) continue;
                 int target = snapshot.Players.PlayerOfPerson[child.Index];
@@ -299,7 +305,7 @@ namespace Why.Economy.Layers
         {
             if (Current == null || snapshot == null) return;
             if (mindPerson != EconomyState.Person || selected != EconomyState.SelectedPlayer || programVersion != (PlayerMindProgram.Active?.Revision??-1)) { Rebuild(snapshot); return; }
-            if (roundVersion != LandView.RoundVersion) Social();
+            if (roundVersion != LandView.RoundVersion && HillRebuilds.Take()) Social();
             int incident=EconomyState.TakeIncident();
             if(incident>=0&&incident<snapshot.Society.PairA.Length)
             {

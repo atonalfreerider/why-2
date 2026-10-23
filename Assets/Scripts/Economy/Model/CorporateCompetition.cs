@@ -11,11 +11,15 @@ namespace Why.Economy.Model
         public readonly double[] IndustrySpending, FirmReceipts;
         public double OutsideReceipts, TotalSpending;
         readonly LandSnapshot source;
+        /// <summary>Each spending category's share reaching each industry [category, industry] (fixed data, looked up once).</summary>
+        readonly double[,] share;
         public CorporateCompetition(LandSnapshot source)
         {
             this.source=source;
             IndustrySpending=new double[source.Land.Sectors.Length];
             FirmReceipts=new double[source.Land.Towers.Length];
+            var data=LandService.Model.Data;share=new double[6,IndustrySpending.Length];
+            for(int c=0;c<6;c++)for(int h=0;h<IndustrySpending.Length;h++)share[c,h]=data.Categories[c].IndustryShare(data.Industries[h].Id);
         }
         public static double Score(int firm, float fear)
         {
@@ -28,7 +32,7 @@ namespace Why.Economy.Model
             var p=source.Players.Players[player];var result=new double[IndustrySpending.Length];double total=0;
             for(int h=0;h<result.Length;h++)for(int c=0;c<6;c++)
             {
-                double weight=Math.Max(0,state!=null?state.Category[c]:p.Category[c])*LandService.Model.Data.Categories[c].IndustryShare(LandService.Model.Data.Industries[h].Id);
+                double weight=Math.Max(0,state!=null?state.Category[c]:p.Category[c])*share[c,h];
                 result[h]+=weight;total+=weight;
             }
             double spending=Math.Max(0,state?.Spending??p.Spending);

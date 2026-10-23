@@ -17,7 +17,8 @@ namespace Why
     /// layer hidden in turn, to find which layer draws what; a view with states of its own, <see cref="ViewVariants"/>, is
     /// captured in each); <c>-smokereplay</c> also plays the economy's replay of the
     /// wave from 1950 to the latest year through the overview, landscape, money and mobility views, with a frame at a few
-    /// years, failing if it stalls; add <c>-xr</c> to exercise the headset
+    /// years, failing if it stalls, and logs the layers that cost the most in its long frames (<see cref="LayerClock"/>);
+    /// add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
@@ -220,6 +221,7 @@ namespace Why
             root.Focus("overview", 0.6f);
             yield return new WaitForSecondsRealtime(ViewSeconds);
             Economy.EconomyReplay.Play(true);
+            LayerClock.Start();
             float start = Time.realtimeSinceStartup;
             int step = 0;
             while (Economy.EconomyReplay.Active && step < plan.Length && Time.realtimeSinceStartup - start < ReplaySeconds)
@@ -232,7 +234,13 @@ namespace Why
                 }
 
                 if (view != null) root.Focus(view, 0.6f);
-                if (shot != null) yield return Shot($"economy-replay-{shot}");
+                if (shot != null)
+                {
+                    LayerClock.Pause();
+                    yield return Shot($"economy-replay-{shot}");
+                    LayerClock.Resume();
+                }
+
                 step++;
             }
 
@@ -242,7 +250,9 @@ namespace Why
             }
 
             while (Economy.EconomyReplay.Active && Time.realtimeSinceStartup - start < ReplaySeconds) yield return null;
+            LayerClock.Stop();
             Debug.Log($"[Why] smoke: replay done in {Time.realtimeSinceStartup - start:0.0} s, {errors} errors so far");
+            Debug.Log("[Why] smoke: replay frames: " + LayerClock.Report());
         }
 
         /// <summary>Captures this frame and waits until it is written, so the next view does not leak into it.</summary>

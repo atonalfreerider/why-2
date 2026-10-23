@@ -49,7 +49,10 @@ namespace Why.Economy.Layers
             if (HillLandscapeLayer.Current == null || LandService.Current == null) return;
             var program = PlayerMindProgram.Active;
             if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || revision != (program?.Revision ?? -1) || selection != EconomyState.SelectedPlayer)
+            {
+                if (!HillRebuilds.Take()) return;
                 Build();
+            }
             if (content == null) return;
             string view = LandView.PresetId;
             bool hidden = view == "mind" || view == "section";

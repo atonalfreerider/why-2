@@ -1,0 +1,3131 @@
+{
+ "note": "Hand-held inputs of Tools/global/build.py: the economies and their codes in each source, the EU27 members, values read by hand from fetched documents (each with its URL, the page or table, and the verbatim text it was read from), the 2026-dated values to put through the gate (MODALITIES.md section 6.8), and the dated events with the quotes that cite them. Seeded from Tools/global/research (BRIEF.md, dataset.json, domains.json, verify-events.json); every quote here was re-read in the documents fetched into Tools/global/.cache on readOn. build.py checks every quote against the cached text again on each run.",
+ "readOn": "2026-11-03",
+ "baseYear": 2024,
+ "economies": [
+  {
+   "id": "USA",
+   "name": "United States",
+   "short": "US",
+   "label": "UNITED STATES",
+   "imf": "USA",
+   "wdi": "USA",
+   "imts": "USA",
+   "census": null,
+   "sipri": "United States of America",
+   "mof": "美國",
+   "ne": [
+    "USA"
+   ],
+   "owid": "USA",
+   "maddison": [
+    "USA"
+   ],
+   "eia": "USA",
+   "tic": null,
+   "bea": null,
+   "comtrade": 842
+  },
+  {
+   "id": "CHN",
+   "name": "China",
+   "short": "China",
+   "label": "CHINA",
+   "imf": "CHN",
+   "wdi": "CHN",
+   "imts": "CHN",
+   "census": "5700",
+   "sipri": "China",
+   "mof": "中國大陸",
+   "ne": [
+    "CHN"
+   ],
+   "owid": "CHN",
+   "maddison": [
+    "CHN"
+   ],
+   "eia": "CHN",
+   "tic": "China, Mainland",
+   "bea": "China",
+   "comtrade": 156
+  },
+  {
+   "id": "EU27",
+   "name": "European Union (27)",
+   "short": "EU",
+   "label": "EUROPEAN UNION",
+   "imf": "EU",
+   "wdi": "EUU",
+   "imts": "G998",
+   "census": "0003",
+   "sipri": null,
+   "mof": null,
+   "ne": null,
+   "owid": null,
+   "maddison": null,
+   "eia": "EU27",
+   "tic": "Memo: European Union",
+   "bea": "European Union",
+   "comtrade": 97
+  },
+  {
+   "id": "DEU",
+   "name": "Germany",
+   "short": "Germany",
+   "label": "GERMANY",
+   "inside": "EU27",
+   "imf": "DEU",
+   "wdi": "DEU",
+   "imts": "DEU",
+   "census": "4280",
+   "sipri": "Germany",
+   "mof": "德國",
+   "ne": [
+    "DEU"
+   ],
+   "owid": "DEU",
+   "maddison": [
+    "DEU"
+   ],
+   "eia": "DEU",
+   "tic": "Germany",
+   "bea": "Germany",
+   "comtrade": 276
+  },
+  {
+   "id": "JPN",
+   "name": "Japan",
+   "short": "Japan",
+   "label": "JAPAN",
+   "imf": "JPN",
+   "wdi": "JPN",
+   "imts": "JPN",
+   "census": "5880",
+   "sipri": "Japan",
+   "mof": "日本",
+   "ne": [
+    "JPN"
+   ],
+   "owid": "JPN",
+   "maddison": [
+    "JPN"
+   ],
+   "eia": "JPN",
+   "tic": "Japan",
+   "bea": "Japan",
+   "comtrade": 392
+  },
+  {
+   "id": "IND",
+   "name": "India",
+   "short": "India",
+   "label": "INDIA",
+   "imf": "IND",
+   "wdi": "IND",
+   "imts": "IND",
+   "census": "5330",
+   "sipri": "India",
+   "mof": "印度",
+   "ne": [
+    "IND"
+   ],
+   "owid": "IND",
+   "maddison": [
+    "IND"
+   ],
+   "eia": "IND",
+   "tic": "India",
+   "bea": "India",
+   "comtrade": 699
+  },
+  {
+   "id": "GBR",
+   "name": "United Kingdom",
+   "short": "UK",
+   "label": "UNITED KINGDOM",
+   "imf": "GBR",
+   "wdi": "GBR",
+   "imts": "GBR",
+   "census": "4120",
+   "sipri": "United Kingdom",
+   "mof": "英國",
+   "ne": [
+    "GBR"
+   ],
+   "owid": "GBR",
+   "maddison": [
+    "GBR"
+   ],
+   "eia": "GBR",
+   "tic": "United Kingdom",
+   "bea": "United Kingdom",
+   "comtrade": 826
+  },
+  {
+   "id": "RUS",
+   "name": "Russia",
+   "short": "Russia",
+   "label": "RUSSIA",
+   "imf": "RUS",
+   "wdi": "RUS",
+   "imts": "RUS",
+   "census": "4621",
+   "sipri": "Russia",
+   "mof": "俄羅斯",
+   "ne": [
+    "RUS"
+   ],
+   "owid": "RUS",
+   "maddison": [
+    "RUS"
+   ],
+   "maddisonBefore1992": "SUN",
+   "eia": "RUS",
+   "tic": "Russia",
+   "bea": null,
+   "comtrade": 643
+  },
+  {
+   "id": "CAN",
+   "name": "Canada",
+   "short": "Canada",
+   "label": "CANADA",
+   "imf": "CAN",
+   "wdi": "CAN",
+   "imts": "CAN",
+   "census": "1220",
+   "sipri": "Canada",
+   "mof": "加拿大",
+   "ne": [
+    "CAN"
+   ],
+   "owid": "CAN",
+   "maddison": [
+    "CAN"
+   ],
+   "eia": "CAN",
+   "tic": "Canada",
+   "bea": "Canada",
+   "comtrade": 124
+  },
+  {
+   "id": "MEX",
+   "name": "Mexico",
+   "short": "Mexico",
+   "label": "MEXICO",
+   "imf": "MEX",
+   "wdi": "MEX",
+   "imts": "MEX",
+   "census": "2010",
+   "sipri": "Mexico",
+   "mof": "墨西哥",
+   "ne": [
+    "MEX"
+   ],
+   "owid": "MEX",
+   "maddison": [
+    "MEX"
+   ],
+   "eia": "MEX",
+   "tic": "Mexico",
+   "bea": "Mexico",
+   "comtrade": 484
+  },
+  {
+   "id": "KOR",
+   "name": "South Korea",
+   "short": "Korea",
+   "label": "KOREA",
+   "imf": "KOR",
+   "wdi": "KOR",
+   "imts": "KOR",
+   "census": "5800",
+   "sipri": "Korea, South",
+   "mof": "韓國",
+   "ne": [
+    "KOR"
+   ],
+   "owid": "KOR",
+   "maddison": [
+    "KOR"
+   ],
+   "eia": "KOR",
+   "tic": "Korea, South",
+   "bea": "Korea, South",
+   "comtrade": 410
+  },
+  {
+   "id": "TWN",
+   "name": "Taiwan",
+   "short": "Taiwan",
+   "label": "TAIWAN",
+   "imf": "TWN",
+   "wdi": null,
+   "imts": "TWN",
+   "census": "5830",
+   "sipri": "Taiwan",
+   "mof": null,
+   "ne": [
+    "TWN"
+   ],
+   "owid": "TWN",
+   "maddison": [
+    "TWN"
+   ],
+   "eia": "TWN",
+   "tic": "Taiwan",
+   "bea": "Taiwan",
+   "comtrade": 490
+  },
+  {
+   "id": "SAU",
+   "name": "Saudi Arabia",
+   "short": "Saudi Arabia",
+   "label": "SAUDI ARABIA",
+   "imf": "SAU",
+   "wdi": "SAU",
+   "imts": "SAU",
+   "census": "5170",
+   "sipri": "Saudi Arabia",
+   "mof": "沙烏地阿拉伯",
+   "ne": [
+    "SAU"
+   ],
+   "owid": "SAU",
+   "maddison": [
+    "SAU"
+   ],
+   "eia": "SAU",
+   "tic": "Saudi Arabia",
+   "bea": "Saudi Arabia",
+   "comtrade": 682
+  },
+  {
+   "id": "BRA",
+   "name": "Brazil",
+   "short": "Brazil",
+   "label": "BRAZIL",
+   "imf": "BRA",
+   "wdi": "BRA",
+   "imts": "BRA",
+   "census": "3510",
+   "sipri": "Brazil",
+   "mof": "巴西",
+   "ne": [
+    "BRA"
+   ],
+   "owid": "BRA",
+   "maddison": [
+    "BRA"
+   ],
+   "eia": "BRA",
+   "tic": "Brazil",
+   "bea": "Brazil",
+   "comtrade": 76
+  }
+ ],
+ "eu27": [
+  {
+   "iso3": "AUT",
+   "sipri": "Austria",
+   "mof": "奧地利"
+  },
+  {
+   "iso3": "BEL",
+   "sipri": "Belgium",
+   "mof": "比利時"
+  },
+  {
+   "iso3": "BGR",
+   "sipri": "Bulgaria",
+   "mof": "保加利亞"
+  },
+  {
+   "iso3": "HRV",
+   "sipri": "Croatia",
+   "mof": "克羅埃西亞"
+  },
+  {
+   "iso3": "CYP",
+   "sipri": "Cyprus",
+   "mof": "塞普勒斯"
+  },
+  {
+   "iso3": "CZE",
+   "sipri": "Czechia",
+   "mof": "捷克"
+  },
+  {
+   "iso3": "DNK",
+   "sipri": "Denmark",
+   "mof": "丹麥"
+  },
+  {
+   "iso3": "EST",
+   "sipri": "Estonia",
+   "mof": "愛沙尼亞"
+  },
+  {
+   "iso3": "FIN",
+   "sipri": "Finland",
+   "mof": "芬蘭"
+  },
+  {
+   "iso3": "FRA",
+   "sipri": "France",
+   "mof": "法國"
+  },
+  {
+   "iso3": "DEU",
+   "sipri": "Germany",
+   "mof": "德國"
+  },
+  {
+   "iso3": "GRC",
+   "sipri": "Greece",
+   "mof": "希臘"
+  },
+  {
+   "iso3": "HUN",
+   "sipri": "Hungary",
+   "mof": "匈牙利"
+  },
+  {
+   "iso3": "IRL",
+   "sipri": "Ireland",
+   "mof": "愛爾蘭"
+  },
+  {
+   "iso3": "ITA",
+   "sipri": "Italy",
+   "mof": "義大利"
+  },
+  {
+   "iso3": "LVA",
+   "sipri": "Latvia",
+   "mof": "拉脫維亞"
+  },
+  {
+   "iso3": "LTU",
+   "sipri": "Lithuania",
+   "mof": "立陶宛"
+  },
+  {
+   "iso3": "LUX",
+   "sipri": "Luxembourg",
+   "mof": "盧森堡"
+  },
+  {
+   "iso3": "MLT",
+   "sipri": "Malta",
+   "mof": "馬爾他"
+  },
+  {
+   "iso3": "NLD",
+   "sipri": "Netherlands",
+   "mof": "荷蘭"
+  },
+  {
+   "iso3": "POL",
+   "sipri": "Poland",
+   "mof": "波蘭"
+  },
+  {
+   "iso3": "PRT",
+   "sipri": "Portugal",
+   "mof": "葡萄牙"
+  },
+  {
+   "iso3": "ROU",
+   "sipri": "Romania",
+   "mof": "羅馬尼亞"
+  },
+  {
+   "iso3": "SVK",
+   "sipri": "Slovakia",
+   "mof": "斯洛伐克"
+  },
+  {
+   "iso3": "SVN",
+   "sipri": "Slovenia",
+   "mof": "斯洛維尼亞"
+  },
+  {
+   "iso3": "ESP",
+   "sipri": "Spain",
+   "mof": "西班牙"
+  },
+  {
+   "iso3": "SWE",
+   "sipri": "Sweden",
+   "mof": "瑞典"
+  }
+ ],
+ "maddisonUnions": {
+  "note": "Maddison 2023 carries the former USSR, Czechoslovakia and Yugoslavia as units beside their successor states' own series; for 1950-1979 the world is summed from the units and their successors are left out, so nothing is counted twice. Czechoslovakia's territory is wholly in the EU27 (Czechia and Slovakia), so it counts toward the EU27; the Baltic states stay inside the USSR and Croatia and Slovenia inside Yugoslavia (the rest of the world) until their own series begin in the IMF data.",
+  "SUN": [
+   "ARM",
+   "AZE",
+   "BLR",
+   "EST",
+   "GEO",
+   "KAZ",
+   "KGZ",
+   "LTU",
+   "LVA",
+   "MDA",
+   "RUS",
+   "TJK",
+   "TKM",
+   "UKR",
+   "UZB"
+  ],
+  "CSK": [
+   "CZE",
+   "SVK"
+  ],
+  "YUG": [
+   "BIH",
+   "HRV",
+   "MKD",
+   "MNE",
+   "SRB",
+   "SVN",
+   "XKX"
+  ]
+ },
+ "chokepoints": [
+  {
+   "id": "logic_lt10nm",
+   "keystone": "logic below 10 nm",
+   "scope": "share of world wafer fabrication capacity for logic below 10 nm",
+   "year": 2022,
+   "source": "SIA/BCG, Emerging Resilience in the Semiconductor Supply Chain (May 2024), Exhibit 6, p. 14",
+   "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf",
+   "cache": "sia/Report_Emerging-Resilience-2024.pdf",
+   "holders": [
+    {
+     "id": "TWN",
+     "value": 69,
+     "valueText": "69%"
+    },
+    {
+     "id": "KOR",
+     "value": 31,
+     "valueText": "31%"
+    },
+    {
+     "id": "USA",
+     "value": 0,
+     "valueText": "0%"
+    }
+   ],
+   "quotes": [
+    "Logic: 2022 0% 31% 69%"
+   ],
+   "note": "The text layer lists the three segments of the 2022 <10 nm bar without names; which segment is which economy was read from the bar colours on a render of p. 14 (pdftoppm): dark blue = US 0%, green = Korea 31%, orange = Taiwan 69%, matching the legend."
+  },
+  {
+   "id": "ree_magnet_refining",
+   "keystone": "magnet rare-earth refining",
+   "scope": "share of world refining of the four magnet rare earths (Nd, Pr, Dy, Tb)",
+   "year": 2024,
+   "source": "IEA, Global Critical Minerals Outlook 2025, Annex table 'Rare earth elements supply' (kt REE), p. 304",
+   "url": "https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf",
+   "cache": "iea/GlobalCriticalMineralsOutlook2025.pdf",
+   "computed": {
+    "holder": "CHN",
+    "numerator": 74,
+    "denominator": 81,
+    "unit": "kt REE refined, 2024"
+   },
+   "quotes": [
+    "China 30 42 51 57 China 53 74 81 86",
+    "World 54 71 100 109 World 59 81 107 115"
+   ],
+   "note": "Refining columns 2021, 2024, 2030, 2040 (base case); China 74 of the world's 81 kt in 2024."
+  },
+  {
+   "id": "ree_mining",
+   "keystone": "rare-earth mining",
+   "scope": "share of world rare-earth mine production (rare-earth-oxide equivalent)",
+   "year": 2024,
+   "source": "USGS, Mineral Commodity Summaries 2026, Rare Earths, World Mine Production and Reserves (t REO)",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "cache": "usgs/mcs2026-rare-earths.pdf",
+   "computed": {
+    "holders": [
+     {
+      "id": "CHN",
+      "numerator": 270000
+     },
+     {
+      "id": "USA",
+      "numerator": 45500
+     }
+    ],
+    "denominator": 380000,
+    "unit": "t REO mined, 2024"
+   },
+   "quotes": [
+    "China 270,000 270,000 44,000,000",
+    "45,500 51,000 1,900,000",
+    "World total (rounded) 380,000 390,000 >75,000,000"
+   ],
+   "note": "Columns: mine production 2024, 2025 (estimate), reserves. The US row's label sits on the line above its numbers in the text layer (a footnote mark breaks the line)."
+  },
+  {
+   "id": "gallium",
+   "keystone": "gallium",
+   "scope": "share of world primary low-purity gallium production",
+   "year": 2024,
+   "source": "USGS, Mineral Commodity Summaries 2026, Gallium, World Low-Purity Production and Production Capacity (kg)",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "cache": "usgs/mcs2026-gallium.pdf",
+   "computed": {
+    "holder": "CHN",
+    "numerator": 839000,
+    "denominator": 848000,
+    "unit": "kg primary production, 2024"
+   },
+   "quotes": [
+    "839,000 5900,000",
+    "World total (rounded) 848,000 900,000",
+    "China accounted for 99% of worldwide primary low-purity gallium production."
+   ],
+   "note": "China's row in the text layer reads '839,000 5900,000': 2024 production, then footnote 5 run into the 2025 estimate of 900,000. The chapter's own sentence (99%) is kept as a cross-check."
+  },
+  {
+   "id": "lithium_refining",
+   "keystone": "lithium refining",
+   "scope": "share of world lithium chemical production",
+   "year": 2024,
+   "source": "IEA, Global Critical Minerals Outlook 2025, Outlook for lithium",
+   "url": "https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf",
+   "cache": "iea/GlobalCriticalMineralsOutlook2025.pdf",
+   "holders": [
+    {
+     "id": "CHN",
+     "value": 70,
+     "valueText": "70%"
+    }
+   ],
+   "quotes": [
+    "On the refining side, China remains the dominant supplier, producing 70% of global lithium chemicals."
+   ]
+  },
+  {
+   "id": "cobalt_mining",
+   "keystone": "cobalt mining",
+   "scope": "share of world cobalt mine production (DR Congo: in the rest of the world)",
+   "year": 2024,
+   "source": "USGS, Mineral Commodity Summaries 2026, Cobalt, World Mine Production and Reserves (t)",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf",
+   "cache": "usgs/mcs2026-cobalt.pdf",
+   "computed": {
+    "holder": "COD",
+    "numerator": 226000,
+    "denominator": 302000,
+    "unit": "t mined, 2024"
+   },
+   "quotes": [
+    "Congo (Kinshasa) 226,000 230,000 6,000,000",
+    "World total (rounded) 302,000 310,000 12,000,000"
+   ]
+  },
+  {
+   "id": "lng_exports",
+   "keystone": "LNG exports",
+   "scope": "share of world LNG exports (by source of imports)",
+   "year": 2024,
+   "source": "GIIGNL Annual Report 2025, table 'Source of LNG imports in 2024' (million tonnes)",
+   "url": "https://giignl-documents.s3.fr-par.scw.cloud/public/ar-2025-annual-report.pdf",
+   "cache": "giignl/ar-2025-annual-report.pdf",
+   "computed": {
+    "holders": [
+     {
+      "id": "USA",
+      "numerator": 85.4
+     },
+     {
+      "id": "RUS",
+      "numerator": 33.5,
+      "parts": [
+       23.5,
+       10.0
+      ]
+     },
+     {
+      "id": "MEX",
+      "numerator": 0.4
+     }
+    ],
+    "denominator": 405.8,
+    "unit": "Mt LNG, 2024"
+   },
+   "quotes": [
+    "United States 85.4 21% 0.9 1% Australia 79.2 20% -0.4 0%",
+    "Russia Europe 23.5 6% 2.0 9% Malaysia 27.4 7% 0.7 2%",
+    "Algeria 11.6 3% -1.5 -11% Russia Asia 10.0 2% 0.1 1%",
+    "Cameroon 1.4 0% -0.2 -10% Mexico 0.4 0% 0.4",
+    "TOTAL 405.8 100% 4.4 1.1%"
+   ],
+   "note": "Russia is GIIGNL's 'Russia Europe' plus 'Russia Asia'. The other economies of the row do not appear among GIIGNL's 22 exporting countries of 2024 and are stored as 0."
+  },
+  {
+   "id": "dc_electricity",
+   "keystone": "data-centre electricity",
+   "scope": "share of world data-centre electricity consumption",
+   "year": 2024,
+   "source": "IEA, Energy and AI (April 2025)",
+   "url": "https://iea.blob.core.windows.net/assets/de9dea13-b07d-42c5-a398-d1b3ae17d866/EnergyandAI.pdf",
+   "cache": "iea/EnergyandAI.pdf",
+   "holders": [
+    {
+     "id": "USA",
+     "value": 45,
+     "valueText": "45%"
+    },
+    {
+     "id": "CHN",
+     "value": 25,
+     "valueText": "25%"
+    },
+    {
+     "id": "EUROPE",
+     "value": 15,
+     "valueText": "15%",
+     "note": "Europe, not only the EU27"
+    }
+   ],
+   "quotes": [
+    "The United States accounted for the largest share of global data centre electricity consumption in 2024 (45%), followed by China (25%) and Europe (15%)."
+   ]
+  }
+ ],
+ "epoch": {
+  "url": "https://epoch.ai/data/gpu_clusters.csv",
+  "cutoff": "2024-12-31",
+  "rule": "Sum 'H100 equivalents' by 'Country' over clusters whose 'First Operational Date' is on or before the cut-off, leaving out a cluster when the cluster named in its 'Superseded by' column is itself operational by the cut-off (its capacity is counted there)."
+ },
+ "straits": [
+  {
+   "id": "hormuz_2024",
+   "strait": "Strait of Hormuz",
+   "measure": "oil flow, 2024",
+   "value": 20,
+   "unit": "million b/d",
+   "valueText": "20 million",
+   "year": 2024,
+   "source": "EIA, Today in Energy, 16 Jun 2025 (id 65504)",
+   "url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+   "quotes": [
+    "In 2024, oil flow through the strait averaged 20 million barrels per day (b/d), or the equivalent of about 20% of global petroleum liquids consumption."
+   ]
+  },
+  {
+   "id": "bab_el_mandeb",
+   "strait": "Bab el-Mandeb",
+   "measure": "oil flow, 2023 and Jan-Aug 2024",
+   "value": 4.0,
+   "before": 8.7,
+   "unit": "million b/d",
+   "valueText": "4.0 million",
+   "beforeText": "8.7 million",
+   "year": 2024,
+   "source": "EIA, Today in Energy (id 63446), Vortexa data",
+   "url": "https://www.eia.gov/todayinenergy/detail.php?id=63446",
+   "quotes": [
+    "Oil trade flows through the Bab el-Mandeb Strait averaged 4.0 million barrels per day (b/d) in 2024 through August compared with 8.7 million b/d in full-year 2023, according to Vortexa data."
+   ]
+  },
+  {
+   "id": "suez",
+   "strait": "Suez Canal",
+   "measure": "change in tonnage transiting, by mid-2024",
+   "value": -70,
+   "unit": "%",
+   "valueText": "70%",
+   "year": 2024,
+   "source": "UNCTAD, Review of Maritime Transport 2024",
+   "url": "https://unctad.org/publication/review-maritime-transport-2024",
+   "quotes": [
+    "By mid-2024, Suez transits fell further, with ship capacity (tonnage) crossing the Gulf of Aden down 76% and tonnage transiting the Suez Canal cut by 70%."
+   ]
+  }
+ ],
+ "values2026": [
+  {
+   "id": "ohchr_ukraine_2026_09",
+   "group": "war",
+   "label": "Ukraine: civilians killed and injured since 24 Feb 2022 (OHCHR, to 30 Sep 2026)",
+   "date": "2026-09-30",
+   "value": {
+    "killed": 17605,
+    "injured": 55846,
+    "total": 73451
+   },
+   "values": [
+    "17,605",
+    "55,846",
+    "73,451"
+   ],
+   "claim": "OHCHR's September 2026 update counts 17,605 civilians killed and 55,846 injured in Ukraine since 24 February 2022, 73,451 civilian casualties in all.",
+   "source": "OHCHR / UN Human Rights Monitoring Mission in Ukraine, Protection of civilians in armed conflict, September 2026 update",
+   "url": "https://ukraine.un.org/sites/default/files/2026-10/Ukraine%20-%20protection%20of%20civilians%20in%20armed%20conflict%20%28September%202026%29_ENG.pdf",
+   "quotes": [
+    "CIVILIAN CASUALTIES SINCE 24 FEBRUARY 2022 17,605 0 73,451 killed total civilian casualties injured 73,451 55,846"
+   ]
+  },
+  {
+   "id": "euroclear_2026_06",
+   "group": "reserves",
+   "label": "Sanctioned Russian assets on Euroclear Bank's balance sheet, end-June 2026",
+   "date": "2026-06-30",
+   "value": 202,
+   "unit": "EUR bn",
+   "values": [
+    "202"
+   ],
+   "claim": "At the end of June 2026, €202 billion of Euroclear Bank's balance sheet related to sanctioned Russian assets.",
+   "source": "Euroclear, H1 2026 results press release",
+   "url": "https://cf.euroclear.com/newsandinsights/en/press/2026/mr-20-euroclear-h1-2026-results.html",
+   "quotes": [
+    "At the end of June 2026, Euroclear Bank's balance sheet totalled €241 billion, of which €202 billion relate to sanctioned Russian assets."
+   ]
+  },
+  {
+   "id": "brent_2026_02_27",
+   "group": "oil",
+   "label": "Brent spot price, 27 Feb 2026 (the day before the Iran war began)",
+   "date": "2026-02-27",
+   "value": 71.32,
+   "unit": "US$/b",
+   "values": [
+    "71.32"
+   ],
+   "tight": true,
+   "claim": "In EIA's daily series, the Europe Brent spot price was $71.32 per barrel on Friday 27 February 2026, the last day of the week of 23-27 February.",
+   "source": "EIA, Europe Brent Spot Price FOB, daily (RBRTE)",
+   "url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm",
+   "context": [
+    "Europe Brent Spot Price FOB (Dollars per Barrel)",
+    "Week Of | Mon | Tue | Wed | Thu | Fri |"
+   ],
+   "quotes": [
+    "2026 Feb-23 to Feb-27 | 71.90 | 71.21 | 70.69 | 71.66 | 71.32 |"
+   ],
+   "textKind": "html-cells"
+  },
+  {
+   "id": "brent_2026_03_09",
+   "group": "oil",
+   "label": "Brent spot price, 9 Mar 2026",
+   "date": "2026-03-09",
+   "value": 94.35,
+   "unit": "US$/b",
+   "values": [
+    "94.35"
+   ],
+   "tight": true,
+   "claim": "In EIA's daily series, the Europe Brent spot price was $94.35 per barrel on Monday 9 March 2026, the first day of the week of 9-13 March.",
+   "source": "EIA, Europe Brent Spot Price FOB, daily (RBRTE)",
+   "url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm",
+   "context": [
+    "Europe Brent Spot Price FOB (Dollars per Barrel)",
+    "Week Of | Mon | Tue | Wed | Thu | Fri |"
+   ],
+   "quotes": [
+    "2026 Mar- 9 to Mar-13 | 94.35 | 89.84 | 90.98 | 102.38 | 103.23 |"
+   ],
+   "textKind": "html-cells"
+  },
+  {
+   "id": "brent_2026_high",
+   "group": "oil",
+   "label": "Brent spot price, 2026 high (Tue 7 Apr)",
+   "date": "2026-04-07",
+   "value": 138.21,
+   "unit": "US$/b",
+   "values": [
+    "138.21"
+   ],
+   "tight": true,
+   "claim": "In EIA's daily series, the Europe Brent spot price was $138.21 per barrel on Tuesday 7 April 2026; the row for the week of 6-10 April has no Monday price.",
+   "source": "EIA, Europe Brent Spot Price FOB, daily (RBRTE)",
+   "url": "https://www.eia.gov/dnav/pet/hist/RBRTED.htm",
+   "context": [
+    "Europe Brent Spot Price FOB (Dollars per Barrel)",
+    "Week Of | Mon | Tue | Wed | Thu | Fri |"
+   ],
+   "quotes": [
+    "2026 Apr- 6 to Apr-10 | | 138.21 | 122.11 | 119.03 | 119.07 |"
+   ],
+   "textKind": "html-cells",
+   "note": "the highest daily price of 2026 in the table: build.py reads every 2026 cell and checks it (CHECK 'Brent daily values on their dates')"
+  },
+  {
+   "id": "brent_2026_09_avg",
+   "group": "oil",
+   "label": "Brent spot price, September 2026 average",
+   "date": "2026-09-30",
+   "value": 114.16,
+   "unit": "US$/b",
+   "values": [
+    "114.16"
+   ],
+   "tight": true,
+   "claim": "In EIA's monthly series, the Europe Brent spot price averaged $114.16 per barrel in September 2026 (the ninth value of the 2026 row).",
+   "source": "EIA, Europe Brent Spot Price FOB, monthly (RBRTE)",
+   "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=M",
+   "context": [
+    "Europe Brent Spot Price FOB (Dollars per Barrel)",
+    "Year Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec"
+   ],
+   "quotes": [
+    "2026 66.60 70.89 103.13 117.29 107.14 85.40 83.76 91.08 114.16"
+   ]
+  },
+  {
+   "id": "gulf_shutins_2026",
+   "group": "oil",
+   "label": "Middle East crude oil production shut in: May 2026 peak and September 2026",
+   "date": "2026-09-30",
+   "value": {
+    "peakMay": 10.9,
+    "september": 4.8
+   },
+   "unit": "million b/d",
+   "values": [
+    "10.9",
+    "4.8"
+   ],
+   "claim": "EIA estimates that Middle East crude oil production shut-ins peaked at 10.9 million b/d in May 2026 and averaged 4.8 million b/d in September 2026.",
+   "source": "EIA, Short-Term Energy Outlook (October 2026), Global oil markets",
+   "url": "https://www.eia.gov/outlooks/steo/report/global_oil.php",
+   "quotes": [
+    "We assess that crude oil production shut-ins averaged 4.8 million b/d in September, down from 5.8 million b/d in August and down from 10.9 million b/d at the peak in May."
+   ]
+  },
+  {
+   "id": "nato_2026_edition",
+   "group": "military",
+   "label": "NATO defence expenditure, 2026 edition (2025 estimates)",
+   "date": "2026-06-30",
+   "value": null,
+   "values": [],
+   "claim": "NATO's 2026 edition of Defence Expenditure of NATO Countries gives each ally's defence spending as a share of GDP for 2025.",
+   "source": "NATO, Defence Expenditure of NATO Countries (2014-2026), 2026 edition",
+   "url": "https://www.nato.int/content/dam/nato/webready/documents/finance/def-exp-2026-en.pdf",
+   "quotes": [],
+   "note": "The 2026 edition's tables are images (the PDF has no text layer), so no passage can be found verbatim and the gate cannot pass; no value is read from it. Military spending comes from SIPRI."
+  }
+ ],
+ "events": [
+  {
+   "id": "us_china_trade_war",
+   "name": "US-China trade war: Section 301 tariffs (rounds 1-4A) and China's retaliation",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2018-07-06",
+   "end": null,
+   "endText": "in force (Section 301 duties were not affected by the end of the IEEPA tariffs)",
+   "form": "wall",
+   "magnitude": "average US tariff on Chinese goods 3.1% (Jan 2018) → 19.3% (Feb 2020); China's on US goods 8.0% → 21% (PIIE series in tariffs)",
+   "url": "https://www.piie.com/research/piie-charts/2019/us-china-trade-war-tariffs-date-chart",
+   "quotes": [
+    "US tariffs on Chinese exports in February 2020 averaged 19.3 percent, more than six times higher than in January 2018.",
+    "Those tariffs covered 66.6 percent of US imports from China, or roughly $335 billion of trade (measured in terms of 2017 import levels).",
+    "Average Chinese tariffs on US exports starting in February 2020 were also at elevated levels of 21 percent, up from 8.0 percent prior to the trade war."
+   ],
+   "values": [
+    "19.3",
+    "66.6",
+    "21",
+    "8.0"
+   ],
+   "claim": "PIIE: US tariffs on Chinese exports averaged 19.3% in February 2020, more than six times January 2018, covering 66.6% of US imports from China; China's average tariff on US exports rose from 8.0% to 21%.",
+   "dataset": "us_china_301",
+   "research": [
+    "US-China Section 301 tariff war, rounds 1-4A, and Chinese retaliation",
+    "US Section 301 tariffs on imports from China"
+   ],
+   "linked": [
+    "tariffs.series"
+   ]
+  },
+  {
+   "id": "us_china_phase_one",
+   "name": "US-China Phase One trade agreement",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2020-01-15",
+   "end": "2021-12-31",
+   "endText": "purchase period ended; commitment unmet",
+   "outcome": {
+    "text": "the purchase commitment was not met (PIIE)",
+    "url": "https://www.piie.com/research/piie-charts/2019/us-china-trade-war-tariffs-date-chart",
+    "quotes": [
+     "Nevertheless, China did not live up to the commitment of purchasing an additional $200 billion of US goods and services over 2020 and 2021"
+    ],
+    "values": [
+     "$200 billion"
+    ],
+    "claim": "China did not meet its commitment, in the agreement signed on 15 January 2020, to purchase an additional $200 billion of US goods and services over 2020 and 2021."
+   },
+   "form": "tick",
+   "url": "https://www.piie.com/research/piie-charts/2019/us-china-trade-war-tariffs-date-chart",
+   "quotes": [
+    "Nevertheless, China did not live up to the commitment of purchasing an additional $200 billion of US goods and services over 2020 and 2021, as established by the legal agreement signed on January 15, 2020."
+   ],
+   "values": [
+    "$200 billion",
+    "January 15, 2020"
+   ],
+   "claim": "Under the Phase One agreement signed on 15 January 2020, China committed to buy an additional $200 billion of US goods and services over 2020-21 and did not meet that commitment.",
+   "research": [
+    "US-China Phase One trade agreement"
+   ]
+  },
+  {
+   "id": "us_china_2025",
+   "name": "US-China 2025 tariff escalation (IEEPA fentanyl and reciprocal tariffs) and China's retaliation",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2025-02-04",
+   "end": "2025-05-14",
+   "endText": "Geneva truce",
+   "outcome": {
+    "text": "reduced under the Geneva truce: from 14 May 2025 the reciprocal rate on China was 10 percent, 24 points suspended for 90 days",
+    "url": "https://www.federalregister.gov/d/2025-09297",
+    "fetch": {
+     "fr": "2025-09297"
+    },
+    "quotes": [
+     "on or after 12:01 a.m. eastern daylight time on May 14, 2025, all articles imported into the customs territory of the United States from the PRC, including Hong Kong and Macau, shall be, consistent with law, subject to an additional ad valorem rate of duty of 10 percent",
+     "This ad valorem rate of duty of 10 percent reflects (i) the modification of the application of the additional ad valorem rate of duty on articles of China (including articles of Hong Kong and Macau) set forth in Executive Order 14257, by suspending 24 percentage points of that rate for an initial period of 90 days"
+    ],
+    "values": [
+     "May 14, 2025",
+     "10 percent",
+     "24 percentage points",
+     "90 days"
+    ],
+    "claim": "From 12:01 a.m. on 14 May 2025 a US executive order subjected goods from China (including Hong Kong and Macau) to an additional reciprocal duty of 10 percent, suspending 24 percentage points of the earlier rate for an initial 90 days."
+   },
+   "form": "tick",
+   "url": "https://www.piie.com/research/piie-charts/2019/us-china-trade-war-tariffs-date-chart",
+   "quotes": [
+    "Average US tariffs on imports from China had increased to 126.1 percent in early May 2025, before later being reduced.",
+    "With its retaliation in 2025, average Chinese tariffs on imports from the US peaked at 147.6 percent in mid-April before later being reduced."
+   ],
+   "values": [
+    "126.1",
+    "147.6"
+   ],
+   "claim": "PIIE: average US tariffs on imports from China rose to 126.1% in early May 2025 and China's average tariffs on US imports peaked at 147.6% in mid-April 2025, before both were reduced.",
+   "dataset": "us_china_2025",
+   "research": [
+    "US-China 2025 tariff escalation (IEEPA fentanyl and reciprocal tariffs) and Chinese retaliation",
+    "US IEEPA tariffs on China in 2025: fentanyl duty and reciprocal-tariff escalation"
+   ]
+  },
+  {
+   "id": "us_china_truce",
+   "name": "US-China truce: Geneva (May 2025), extension (Aug 2025), Kuala Lumpur arrangement (Nov 2025)",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2025-05-14",
+   "end": "2026-11-10",
+   "endText": "scheduled expiry of the suspension of heightened reciprocal tariffs",
+   "expires": "2026-11-10",
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2025-19826",
+   "fetch": {
+    "fr": "2025-19826"
+   },
+   "quotes": [
+    "The United States, in turn, committed to, among other things, maintain the suspension of heightened reciprocal tariffs on imports of the PRC until 12:01 a.m. eastern standard time on November 10, 2026.",
+    "Under the Arrangement, the PRC has committed to, among other things, postpone and effectively eliminate the PRC's current and proposed coercive global export controls on rare earth elements and other critical minerals"
+   ],
+   "values": [
+    "November 10, 2026"
+   ],
+   "claim": "Under the Kuala Lumpur Joint Arrangement (November 2025) the US kept its heightened reciprocal tariffs on China suspended until 10 November 2026, and China committed to postpone its export controls on rare earths and other critical minerals.",
+   "dataset": "us_china_truce",
+   "research": [
+    "US-China truce: Geneva (May 2025), extension (Aug 2025), Kuala Lumpur/Busan arrangement (Nov 2025)"
+   ]
+  },
+  {
+   "id": "us_china_deal_nov2025",
+   "name": "US-China deal of November 2025: fentanyl tariff cut and suspension of China's mineral controls",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2025-11-10",
+   "end": "2026-11-10",
+   "expires": "2026-11-10",
+   "form": "tick",
+   "url": "https://www.whitehouse.gov/fact-sheets/2025/11/fact-sheet-president-donald-j-trump-strikes-deal-on-economic-and-trade-relations-with-china/",
+   "quotes": [
+    "China will suspend the global implementation of the expansive new export controls on rare earths and related measures that it announced on October 9, 2025.",
+    "The United States will lower the tariffs on Chinese imports imposed to curb fentanyl flows by removing 10 percentage points of the cumulative rate, effective November 10, 2025, and will maintain its suspension of heightened reciprocal tariffs on Chinese imports until November 10, 2026."
+   ],
+   "values": [
+    "October 9, 2025",
+    "10 percentage points",
+    "November 10, 2026"
+   ],
+   "claim": "In the November 2025 deal China suspended its October 2025 rare-earth export controls, and the US cut 10 points from its fentanyl tariffs on Chinese imports and kept heightened reciprocal tariffs suspended until 10 November 2026.",
+   "research": [
+    "US-China deal: tariff cut and suspension of China's mineral controls"
+   ]
+  },
+  {
+   "id": "us_china_30for30",
+   "name": "US-China Board of Trade and '30 for 30' framework (May 2026)",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2026-05-14",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.piie.com/blogs/realtime-economics/2025/trumps-trade-war-timeline-20-date-guide",
+   "quotes": [
+    "The two countries agree on approximately $30 billion of imports in each direction for more favorable tariff treatment."
+   ],
+   "values": [
+    "$30 billion"
+   ],
+   "claim": "The US and China agreed on about $30 billion of imports in each direction to receive more favourable tariff treatment.",
+   "research": [
+    "US-China Board of Trade and '30 for 30' framework (Beijing summit May 2026; Xi state visit Sep 2026)"
+   ],
+   "note": "the cited PIIE page does not carry the quoted sentence; unverified until a primary source is read"
+  },
+  {
+   "id": "ieepa_ruling",
+   "name": "Learning Resources, Inc. v. Trump: IEEPA does not authorize tariffs",
+   "kind": "tariffs",
+   "parties": [
+    "USA"
+   ],
+   "start": "2026-02-20",
+   "end": null,
+   "endText": "a ruling (a point event); the IEEPA duties ended the same day (Executive Order 14389)",
+   "form": "tick",
+   "url": "https://www.supremecourt.gov/opinions/25pdf/607us2r12_8nj9.pdf",
+   "quotes": [
+    "Argued November 5, 2025—Decided February 20, 2026",
+    "Held: IEEPA does not authorize the President to impose tariffs."
+   ],
+   "values": [
+    "February 20, 2026"
+   ],
+   "claim": "On 20 February 2026 the Supreme Court held that IEEPA does not authorize the President to impose tariffs.",
+   "dataset": "ieepa_ruling",
+   "research": [
+    "Learning Resources, Inc. v. Trump: IEEPA does not authorize tariffs; IEEPA duties ended"
+   ]
+  },
+  {
+   "id": "section122",
+   "name": "Section 122 temporary import surcharge of 10%",
+   "kind": "tariffs",
+   "parties": [
+    "USA"
+   ],
+   "start": "2026-02-24",
+   "end": "2026-07-24",
+   "endText": "expired after 150 days",
+   "outcome": {
+    "text": "expired on 24 July 2026 (PIIE: 'US 10% tariffs under Section 122 expire')",
+    "url": "https://www.piie.com/sites/default/files/2023-04/us-china-trade-war-tariffs.xlsx",
+    "cacheName": "piie/us-china-trade-war-tariffs.xlsx",
+    "textKind": "piie",
+    "quotes": [
+     "US 10% tariffs under Section 122 expire | 2026-07-24"
+    ],
+    "values": [
+     "10%",
+     "2026-07-24"
+    ],
+    "tight": true,
+    "context": [
+     "Tariff action | Date | Chinese tariffs on ROW exports | Chinese tariffs on US exports | US tariffs on Chinese exports | US tariffs on ROW exports"
+    ],
+    "claim": "PIIE's US-China tariff data list the expiry of the US 10% tariffs under Section 122 as a tariff action dated 24 July 2026."
+   },
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2026-03824",
+   "fetch": {
+    "fr": "2026-03824"
+   },
+   "quotes": [
+    "Accordingly, I impose, for a period of 150 days, a temporary import surcharge of 10 percent ad valorem, as described below, on articles imported into the United States, effective February 24, 2026."
+   ],
+   "values": [
+    "150 days",
+    "10 percent",
+    "February 24, 2026"
+   ],
+   "claim": "From 24 February 2026 the US imposed a temporary import surcharge of 10 percent ad valorem on imports, for 150 days (Section 122).",
+   "research": [
+    "Supreme Court ends IEEPA tariffs; Section 122 temporary import surcharge"
+   ]
+  },
+  {
+   "id": "us_301_forced_labour",
+   "name": "US Section 301 forced-labor tariffs on 60 economies",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "CHN",
+    "EU27",
+    "JPN",
+    "KOR",
+    "TWN",
+    "IND",
+    "GBR",
+    "CAN",
+    "MEX",
+    "BRA",
+    "SAU",
+    "RUS"
+   ],
+   "start": "2026-07-24",
+   "end": null,
+   "form": "wall",
+   "url": "https://www.federalregister.gov/d/2026-15274",
+   "fetch": {
+    "fr": "2026-15274"
+   },
+   "quotes": [
+    "Memorandum of July 23, 2026 Actions by the United States in the Investigations Under Section 301 of the Trade Act of 1974 of the Acts, Policies, and Practices of 60 Economies",
+    "The Trade Representative shall impose a tariff of 10 percent on goods of Argentina, Bangladesh, Cambodia, Canada, Ecuador, El Salvador, Guatemala, Honduras, India, Indonesia, Jordan, Malaysia, Mexico, Pakistan, Sri Lanka, the United Kingdom, and Trinidad and Tobago.",
+    "For goods of all other investigated economies, the Trade Representative shall impose a tariff rate of 12.5 percent.",
+    "For a product of the European Union or Taiwan, where such product's MFN tariff is less than 10 percent, the Trade Representative shall impose a section 301 tariff pursuant to these investigations so that the sum of the MFN tariff and the section 301 tariff shall be 10 percent",
+    "For a product of Japan, Korea, or Switzerland, where such product's MFN tariff is less than 12.5 percent, the Trade Representative shall impose a section 301 tariff pursuant to these investigations so that the sum of the MFN tariff and the tariff imposed pursuant to these investigations shall be 12.5 percent"
+   ],
+   "values": [
+    "July 23, 2026",
+    "60 Economies",
+    "10 percent",
+    "12.5 percent"
+   ],
+   "claim": "By a memorandum of 23 July 2026 on the Section 301 forced-labor investigations of 60 economies, the US imposes 10 percent on goods of Canada, India, Mexico, the UK and others; 10 percent all-in (MFN plus Section 301) on the EU and Taiwan; 12.5 percent all-in on Japan, Korea and Switzerland; and 12.5 percent on all other investigated economies.",
+   "dataset": "us_301_forced_labour",
+   "research": [
+    "US Section 301 forced-labor tariffs on 60 economies"
+   ],
+   "linked": [
+    "tariffs.section301_2026"
+   ],
+   "startNote": "the memorandum is dated 23 July 2026; PIIE dates the tariffs from 24 July 2026 (gated row piie_2026-07-24_2)"
+  },
+  {
+   "id": "us_232_chips",
+   "name": "US Section 232 tariff of 25% on advanced computing chips",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "TWN",
+    "KOR"
+   ],
+   "start": "2026-01-15",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2026-01052",
+   "fetch": {
+    "fr": "2026-01052"
+   },
+   "quotes": [
+    "I have also determined that it is necessary and appropriate to impose an immediate 25 percent ad valorem duty rate on the import of certain",
+    "advanced computing chips and certain derivative products described in the Annex to this proclamation (Covered Products), when such importation does not contribute to the buildout of the United States technology supply chain",
+    "Except as otherwise provided in this proclamation, imports of Covered Products will be subject to a 25 percent ad valorem duty rate.",
+    "on or after 12:01 a.m. eastern standard time on January 15, 2026, and shall continue in effect"
+   ],
+   "values": [
+    "25 percent",
+    "January 15, 2026"
+   ],
+   "claim": "A Section 232 proclamation imposes a 25 percent ad valorem duty on imports of certain advanced computing chips and derivative products (Covered Products) that do not contribute to the US technology build-out, effective from 15 January 2026.",
+   "research": [
+    "US Section 232 tariff on advanced computing chips",
+    "US Section 232 semiconductor tariff and 25% levy route for AI-chip exports to China"
+   ]
+  },
+  {
+   "id": "us_canada_338",
+   "name": "US Section 338 tariffs on Canada and Canada's counter-tariffs",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "CAN"
+   ],
+   "start": "2026-08-22",
+   "end": null,
+   "form": "wall",
+   "url": "https://www.canada.ca/en/department-finance/news/2026/08/list-of-products-from-the-united-states-subject-to-counter-tariffs-effective-september-8-2026.html",
+   "quotes": [
+    "As a result of the United States' (U.S.) decision to impose a 50 per cent tariff on $27.6 billion of Canadian goods effective August 22, the Government of Canada will match the U.S.",
+    "Effective September 8, 2026, Canada will impose 15, 25, and 50 per cent tariffs on products drawn from those targeted by U.S."
+   ],
+   "values": [
+    "50 per cent",
+    "$27.6 billion",
+    "September 8, 2026"
+   ],
+   "claim": "After the US imposed a 50 per cent tariff on C$27.6 billion of Canadian goods effective 22 August 2026 (Section 338), Canada imposed 15, 25 and 50 per cent counter-tariffs from 8 September 2026.",
+   "dataset": "us_canada_338",
+   "research": [
+    "US Section 338 tariffs and import bans on Canada; Canadian retaliation"
+   ],
+   "note": "Federal Register 2026-17294 (24 Aug 2026) suspended the Section 338 duties of Proclamations 11046-11048 for 3 days; read, not drawn"
+  },
+  {
+   "id": "us_canada_2025",
+   "name": "US 2025 IEEPA tariffs on Canada and Canada's counter-tariffs",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "CAN"
+   ],
+   "start": "2025-03-04",
+   "end": "2026-02-20",
+   "endText": "US IEEPA tariffs ended",
+   "outcome": {
+    "text": "ended with the IEEPA duties on 20 Feb 2026 (Executive Order 14389, after the Supreme Court's ruling)",
+    "url": "https://www.federalregister.gov/d/2026-03832",
+    "fetch": {
+     "fr": "2026-03832"
+    },
+    "quotes": [
+     "Executive Order 14389 of February 20, 2026 Ending Certain Tariff Actions",
+     "Executive Order 14193 of February 1, 2025 (Imposing Duties To Address the Flow of Illicit Drugs Across Our Northern Border), as amended;",
+     "In light of recent events, the additional ad valorem duties imposed pursuant to IEEPA in Executive Order 14193, as amended;",
+     "shall no longer be in effect and, as soon as practicable, shall no longer be collected."
+    ],
+    "values": [
+     "February 20, 2026",
+     "14193"
+    ],
+    "claim": "Executive Order 14389 of 20 February 2026 ended the additional ad valorem duties imposed under IEEPA by Executive Order 14193 (duties to address the flow of illicit drugs across the northern border): they shall no longer be in effect and, as soon as practicable, shall no longer be collected."
+   },
+   "form": "tick",
+   "url": "https://www.canada.ca/en/department-finance/news/2025/03/canada-announces-robust-tariff-package-in-response-to-unjustified-us-tariffs.html",
+   "quotes": [
+    "the Government of Canada is moving forward with 25 per cent tariffs on $155 billion worth of imported goods, beginning immediately with a list of goods worth $30 billion."
+   ],
+   "values": [
+    "25 per cent",
+    "$155 billion",
+    "$30 billion"
+   ],
+   "claim": "In March 2025 Canada answered US tariffs with 25 per cent tariffs on C$155 billion of US goods, beginning with a list worth C$30 billion.",
+   "research": [
+    "US 2025 IEEPA tariffs on Canada and Canadian counter-tariffs"
+   ]
+  },
+  {
+   "id": "us_mexico_2025",
+   "name": "US 2025 IEEPA tariffs on Mexico",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "MEX"
+   ],
+   "start": "2025-03-04",
+   "end": "2026-02-20",
+   "endText": "US IEEPA tariffs ended",
+   "outcome": {
+    "text": "ended with the IEEPA duties on 20 Feb 2026 (Executive Order 14389, after the Supreme Court's ruling)",
+    "url": "https://www.federalregister.gov/d/2026-03832",
+    "fetch": {
+     "fr": "2026-03832"
+    },
+    "quotes": [
+     "Executive Order 14389 of February 20, 2026 Ending Certain Tariff Actions",
+     "Executive Order 14194 of February 1, 2025 (Imposing Duties To Address the Situation at Our Southern Border), as amended;",
+     "Executive Order 14194, as amended;",
+     "shall no longer be in effect and, as soon as practicable, shall no longer be collected."
+    ],
+    "values": [
+     "February 20, 2026",
+     "14194"
+    ],
+    "claim": "Executive Order 14389 of 20 February 2026 ended the additional ad valorem duties imposed under IEEPA by Executive Order 14194 (duties to address the situation at the southern border): they shall no longer be in effect and, as soon as practicable, shall no longer be collected."
+   },
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2025-02407",
+   "fetch": {
+    "fr": "2025-02407"
+   },
+   "quotes": [
+    "(a) All articles that are products of Mexico, as defined by the Federal Register notice described in section 2(d) of this order (the Federal Register notice), shall be, consistent with law, subject to an additional 25 percent ad valorem rate of duty.",
+    "eastern time on February 4, 2025, except as otherwise noted in subsection 2(a) of this section, and shall continue in effect until such actions are expressly reduced, modified, or terminated."
+   ],
+   "values": [
+    "25 percent",
+    "February 4, 2025"
+   ],
+   "claim": "A US executive order subjected all products of Mexico to an additional 25 percent ad valorem rate of duty; the order set it to apply to goods entered on or after 12:01 a.m. eastern time on 4 February 2025 and to continue until expressly reduced, modified or terminated.",
+   "research": [
+    "US 2025 IEEPA tariffs on Mexico"
+   ],
+   "startNote": "4 Mar 2025: the end of the 30-day pause ordered by Executive Order 14198 (its 'start' source: the duty 'will not take effect until March 4, 2025'); Executive Order 14194 as signed had set 4 Feb 2025",
+   "evidence": [
+    {
+     "role": "start",
+     "label": "Executive Order 14198 of 3 February 2025, the pause",
+     "url": "https://www.federalregister.gov/d/2025-02479",
+     "fetch": {
+      "fr": "2025-02479"
+     },
+     "quotes": [
+      "the additional 25 percent ad valorem rate of duty shall be paused and will not take effect until March 4, 2025, at 12:01 a.m. eastern time."
+     ],
+     "values": [
+      "25 percent",
+      "March 4, 2025"
+     ],
+     "claim": "Executive Order 14198 paused the additional 25 percent ad valorem duty on products of Mexico until 12:01 a.m. eastern time on 4 March 2025."
+    }
+   ]
+  },
+  {
+   "id": "us_brazil",
+   "name": "US IEEPA tariff of 40% on Brazil",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "BRA"
+   ],
+   "start": "2025-08-06",
+   "end": "2026-02-20",
+   "endText": "the IEEPA part ended",
+   "outcome": {
+    "text": "ended with the IEEPA duties on 20 Feb 2026 (Executive Order 14389, after the Supreme Court's ruling)",
+    "url": "https://www.federalregister.gov/d/2026-03832",
+    "fetch": {
+     "fr": "2026-03832"
+    },
+    "quotes": [
+     "Executive Order 14389 of February 20, 2026 Ending Certain Tariff Actions",
+     "Executive Order 14323 of July 30, 2025 (Addressing Threats to the United States by the Government of Brazil), as amended;",
+     "Executive Order 14323, as amended;",
+     "shall no longer be in effect and, as soon as practicable, shall no longer be collected."
+    ],
+    "values": [
+     "February 20, 2026",
+     "14323"
+    ],
+    "claim": "Executive Order 14389 of 20 February 2026 ended the additional ad valorem duties imposed under IEEPA by Executive Order 14323 (threats to the United States by the Government of Brazil): they shall no longer be in effect and, as soon as practicable, shall no longer be collected."
+   },
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2025-14896",
+   "fetch": {
+    "fr": "2025-14896"
+   },
+   "quotes": [
+    "(a) Articles of Brazil imported into the customs territory of the United States shall be, consistent with law, subject to an additional ad valorem rate of duty of 40 percent."
+   ],
+   "values": [
+    "40 percent"
+   ],
+   "claim": "A US executive order subjected articles of Brazil to an additional ad valorem duty of 40 percent.",
+   "dataset": "us_brazil",
+   "research": [
+    "US-Brazil tariffs (IEEPA 40% over the Bolsonaro prosecution; Section 301 25%)"
+   ],
+   "startNote": "the date (6 Aug 2025) is the research's; the order's own effective-date line is split in the text"
+  },
+  {
+   "id": "us_brazil_301",
+   "name": "US Section 301 tariffs of 25% on certain imports from Brazil",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "BRA"
+   ],
+   "start": "2026-07-22",
+   "end": null,
+   "form": "wall",
+   "url": "https://www.piie.com/sites/default/files/2023-04/us-china-trade-war-tariffs.xlsx",
+   "textKind": "piie",
+   "quotes": [
+    "US Section 301 tariffs of 25 percent imposed on certain imports from Brazil | 2026-07-22"
+   ],
+   "values": [
+    "25 percent",
+    "2026-07-22"
+   ],
+   "claim": "PIIE's tariff chart data list a US action dated 22 July 2026: Section 301 tariffs of 25 percent imposed on certain imports from Brazil.",
+   "research": [
+    "US-Brazil tariffs (IEEPA 40% over the Bolsonaro prosecution; Section 301 25%)"
+   ]
+  },
+  {
+   "id": "us_eu_turnberry",
+   "name": "US-EU framework agreement (Turnberry, Aug 2025): 15% all-in ceiling",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "EU27"
+   ],
+   "start": "2025-08-21",
+   "end": null,
+   "form": "tick",
+   "url": "https://policy.trade.ec.europa.eu/news/joint-statement-united-states-european-union-framework-agreement-reciprocal-fair-and-balanced-trade-2025-08-21_en",
+   "quotes": [
+    "The United States commits to apply the higher of either the US Most Favored Nation (MFN) tariff rate or a tariff rate of 15%, comprised of the MFN tariff and a reciprocal tariff, on originating goods of the European Union."
+   ],
+   "values": [
+    "15%"
+   ],
+   "claim": "Under the US-EU framework of August 2025 the US applies the higher of its MFN rate or a 15% all-in rate to EU originating goods.",
+   "research": [
+    "US-EU tariff conflict and the Turnberry framework"
+   ]
+  },
+  {
+   "id": "us_japan_deal",
+   "name": "US-Japan agreement (Sept 2025): 15% baseline tariff, $550bn investment",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "JPN"
+   ],
+   "start": "2025-09-04",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2025-17389",
+   "fetch": {
+    "fr": "2025-17389"
+   },
+   "quotes": [
+    "Under the Agreement, the United States will apply a baseline 15 percent tariff on nearly all Japanese imports entering the United States",
+    "Critically, unlike any other agreement in American history, the Government of Japan has agreed to invest $550 billion in the United States."
+   ],
+   "values": [
+    "15 percent",
+    "$550 billion"
+   ],
+   "claim": "Under the US-Japan agreement the US applies a baseline 15 percent tariff on nearly all Japanese imports, and Japan agreed to invest $550 billion in the United States.",
+   "research": [
+    "US-Japan tariffs and the US-Japan agreement"
+   ]
+  },
+  {
+   "id": "us_india_deal",
+   "name": "US-India interim deal (Feb 2026): reciprocal rate 18%",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "IND"
+   ],
+   "start": "2026-02-07",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.whitehouse.gov/wp-content/uploads/2025/04/Annex-I.pdf",
+   "quotes": [
+    "US imports from India will be subject to an 18 percent tariff under the trade deficits executive order of April 2, 2025; the additional 25 percent tariff imposed on August 6, 2025, for India purchasing Russian oil is terminated as of February 7."
+   ],
+   "values": [
+    "18 percent"
+   ],
+   "claim": "Under the February 2026 interim deal US imports from India are subject to an 18 percent tariff and the additional 25 percent Russian-oil tariff ended on 7 February.",
+   "research": [
+    "US-India tariffs (reciprocal plus Russia-oil penalty) and the Feb 2026 interim deal"
+   ],
+   "note": "the cited Annex I (April 2025) predates the deal and does not carry the quote; unverified until a primary source is read"
+  },
+  {
+   "id": "us_korea_taiwan_deals",
+   "name": "US-South Korea and US-Taiwan tariff deals",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "KOR",
+    "TWN"
+   ],
+   "start": "2025-07-30",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.whitehouse.gov/wp-content/uploads/2025/07/2025ReciprocalTariffs_7.31.eo_.pdf",
+   "quotes": [
+    "Taiwan would face an import tariff of no higher than 15 percent"
+   ],
+   "values": [
+    "15 percent"
+   ],
+   "claim": "Under its January 2026 deal Taiwan faces a US import tariff of no higher than 15 percent.",
+   "research": [
+    "US-South Korea and US-Taiwan tariff deals"
+   ],
+   "note": "the cited July 2025 order does not carry the quote; unverified"
+  },
+  {
+   "id": "us_uk_epd",
+   "name": "US-UK Economic Prosperity Deal",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "GBR"
+   ],
+   "start": "2025-05-08",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2025-11473",
+   "fetch": {
+    "fr": "2025-11473"
+   },
+   "quotes": [
+    "The General Terms provide, among other things, that the United States intends to create an annual quota of 100,000 vehicles for United Kingdom automotive imports at a 10 percent tariff rate."
+   ],
+   "values": [
+    "100,000",
+    "10 percent"
+   ],
+   "claim": "Under the US-UK Economic Prosperity Deal the US intends an annual quota of 100,000 UK vehicles at a 10 percent tariff.",
+   "research": [
+    "US-UK Economic Prosperity Deal"
+   ]
+  },
+  {
+   "id": "us_232_2018",
+   "name": "US Section 232 steel and aluminium tariffs (2018)",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "EU27",
+    "CAN",
+    "MEX",
+    "KOR",
+    "JPN",
+    "CHN"
+   ],
+   "start": "2018-03-23",
+   "end": null,
+   "endText": "Canada and Mexico exempted in 2019; EU quota deal in 2021 (not refetched)",
+   "form": "tick",
+   "url": "https://docs.google.com/spreadsheets/d/1oeOq1H0QJT4KLjWbhp1VBKJCFtvstnQGRZo-FBtPG90/export?format=csv",
+   "quotes": [
+    "Trump announces forthcoming tariffs on all trading partners of 25 percent on steel and 10 percent on aluminum under national security grounds.",
+    "These would go further than the Commerce Department recommendations, covering an estimated $48 billion of imports, mostly from allies such as Canada, the European Union, Mexico, and South Korea."
+   ],
+   "values": [
+    "25 percent",
+    "10 percent",
+    "$48 billion"
+   ],
+   "claim": "In March 2018 the US announced Section 232 tariffs of 25 percent on steel and 10 percent on aluminum from all trading partners, covering an estimated $48 billion of imports.",
+   "research": [
+    "US Section 232 steel and aluminium tariffs (2018) and retaliation"
+   ]
+  },
+  {
+   "id": "us_232_2025",
+   "name": "US Section 232 tariffs of the second term (steel and aluminium to 50%)",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "CAN",
+    "MEX",
+    "EU27",
+    "JPN",
+    "KOR",
+    "BRA",
+    "CHN",
+    "IND"
+   ],
+   "start": "2025-03-12",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2025-10524",
+   "fetch": {
+    "fr": "2025-10524"
+   },
+   "quotes": [
+    "Accordingly, I have determined that it is necessary and appropriate to increase the tariff rate for imports of steel articles and derivative steel articles, and aluminum articles and derivative aluminum articles, from 25 percent ad valorem to 50 percent ad valorem effective as of 12:01 a.m. eastern daylight time on June 4, 2025."
+   ],
+   "values": [
+    "50 percent",
+    "June 4, 2025"
+   ],
+   "claim": "From 4 June 2025 the US raised Section 232 tariffs on steel and aluminum articles from 25 percent to 50 percent ad valorem.",
+   "research": [
+    "US Section 232 tariffs of the second term (steel, aluminium, autos, copper, lumber, trucks, pharmaceuticals)"
+   ]
+  },
+  {
+   "id": "airbus_boeing",
+   "name": "US-EU large civil aircraft (Airbus-Boeing) tariffs",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "EU27",
+    "GBR"
+   ],
+   "start": "2019-10-18",
+   "end": "2021-03-11",
+   "endText": "suspended (no outcome refetched)",
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2019-22056",
+   "fetch": {
+    "fr": "2019-22056"
+   },
+   "quotes": [
+    "On October 2, 2019, the WTO Arbitrator issued a report that concluded that the appropriate level of countermeasures in response to the WTO-inconsistent launch-aid provided by the EU or certain member States to their large civil aircraft domestic industry is approximately $7.5 billion annually."
+   ],
+   "values": [
+    "$7.5 billion"
+   ],
+   "claim": "In October 2019 the WTO arbitrator set the US countermeasures against EU launch aid to Airbus at about $7.5 billion a year.",
+   "research": [
+    "US-EU large civil aircraft (Airbus-Boeing) tariffs"
+   ]
+  },
+  {
+   "id": "eu_china_ev",
+   "name": "EU countervailing duties on Chinese battery EVs",
+   "kind": "tariffs",
+   "parties": [
+    "EU27",
+    "CHN"
+   ],
+   "start": "2024-10-30",
+   "end": null,
+   "endText": "five-year duties",
+   "form": "wall",
+   "url": "https://ec.europa.eu/commission/presscorner/api/documents?reference=IP/24/5589&language=en",
+   "textKind": "ec-json",
+   "quotes": [
+    "eventDate: 2024-10-29",
+    "Today the European Commission concluded its anti-subsidy investigation by imposing definitive countervailing duties on imports of battery electric vehicles (BEVs) from China",
+    "BYD: 17.0% Geely: 18.8% SAIC: 35.3% Other cooperating companies will be subject to a duty of 20.7%.",
+    "Following a substantiated request for an individual examination, Tesla will be assigned a duty of 7.8%.",
+    "All other non-cooperating companies will have a duty of 35.3%."
+   ],
+   "values": [
+    "2024-10-29",
+    "35.3%",
+    "7.8%",
+    "20.7%"
+   ],
+   "claim": "On 29 October 2024 the European Commission imposed definitive countervailing duties on battery electric vehicles from China: 17.0% (BYD), 18.8% (Geely), 35.3% (SAIC), 20.7% for other cooperating producers, 7.8% for Tesla and 35.3% for non-cooperating producers.",
+   "dataset": "eu_china_ev",
+   "research": [
+    "EU countervailing duties on Chinese battery EVs and China's counter-investigations (brandy, pork, dairy)"
+   ]
+  },
+  {
+   "id": "canada_china_canola",
+   "name": "Canada-China EV, canola and seafood tariff dispute and the Jan 2026 arrangement",
+   "kind": "tariffs",
+   "parties": [
+    "CAN",
+    "CHN"
+   ],
+   "start": "2024-10-01",
+   "end": "2026-01-16",
+   "endText": "preliminary arrangement",
+   "outcome": {
+    "text": "settled by the January 2026 EV-for-canola arrangement",
+    "url": "https://cnevpost.com/2026/01/16/canada-china-reach-ev-for-canola-deal/",
+    "quotes": [
+     "Canada will allow up to 49,000 Chinese EVs into its market per year at a most-favored-nation tariff rate of 6.1%.",
+     "The Canadian government announced in a statement on Friday that it has reached an agreement with China to allow tens of thousands of Chinese EVs into Canada in exchange for reduced canola tariffs."
+    ],
+    "values": [
+     "49,000",
+     "6.1%"
+    ],
+    "claim": "In January 2026 Canada reached an agreement with China to allow up to 49,000 Chinese EVs a year at a most-favored-nation tariff of 6.1% in exchange for reduced canola tariffs."
+   },
+   "form": "tick",
+   "url": "https://cnevpost.com/2026/01/16/canada-china-reach-ev-for-canola-deal/",
+   "quotes": [
+    "Canada will allow up to 49,000 Chinese EVs into its market per year at a most-favored-nation tariff rate of 6.1%."
+   ],
+   "values": [
+    "49,000",
+    "6.1%"
+   ],
+   "claim": "Under a January 2026 EV-for-canola arrangement, Canada will allow up to 49,000 Chinese EVs a year at the 6.1% most-favoured-nation tariff.",
+   "dataset": "canada_china_canola",
+   "research": [
+    "Canada-China EV, canola and seafood tariff dispute, and Jan 2026 arrangement"
+   ]
+  },
+  {
+   "id": "mexico_nonfta",
+   "name": "Mexico tariff increases on imports from countries without a trade agreement (China)",
+   "kind": "tariffs",
+   "parties": [
+    "MEX",
+    "CHN"
+   ],
+   "start": "2026-01-01",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.clarkhill.com/news-events/news/mexico-approves-significant-tariff-increases-on-imports-from-non-fta-countries",
+   "quotes": [],
+   "values": [],
+   "claim": "Mexico raised tariffs, up to 50%, on about 1,463 tariff lines from countries without a trade agreement, from 1 January 2026.",
+   "research": [
+    "Mexico tariff increases on imports from non-FTA countries (China)"
+   ],
+   "note": "the research read only secondary summaries; no verbatim quote is recorded"
+  },
+  {
+   "id": "greenland",
+   "name": "US tariff threat over Greenland",
+   "kind": "tariffs",
+   "parties": [
+    "USA",
+    "EU27",
+    "GBR"
+   ],
+   "start": "2026-01-17",
+   "end": "2026-01-21",
+   "endText": "threat withdrawn",
+   "outcome": {
+    "text": "withdrawn: on 21 Jan 2026 the President said he would not impose the tariffs scheduled for 1 February, citing a 'framework of a future deal' (CBS News, quoting his post)",
+    "url": "https://www.cbsnews.com/news/trump-greenland-tariffs-framework/",
+    "quotes": [
+     "President Trump said he will not be imposing tariffs against European countries over their objections to his efforts to acquire Greenland",
+     "Based upon this understanding, I will not be imposing the Tariffs that were scheduled to go into effect on February 1st"
+    ],
+    "values": [
+     "February 1st"
+    ],
+    "claim": "On 21 January 2026 President Trump said he would not impose the tariffs on European countries over Greenland that were scheduled to take effect on 1 February, citing a framework of a future deal reached with NATO's secretary-general."
+   },
+   "form": "tick",
+   "url": "https://datawrapper.dwcdn.net/NaAq8/142/dataset.csv",
+   "quotes": [
+    "threatening a number of European countries with 10 percent import tariffs if they do not agree to negotiate \"the Complete and Total purchase of Greenland,\""
+   ],
+   "values": [
+    "10 percent"
+   ],
+   "claim": "In January 2026 the US threatened several European countries with 10 percent import tariffs unless they negotiated the purchase of Greenland.",
+   "research": [
+    "US tariff threat over Greenland"
+   ]
+  },
+  {
+   "id": "russia_sanctions",
+   "name": "Sanctions on Russia after the 2022 invasion of Ukraine (US energy-import ban and allied measures)",
+   "kind": "sanctions",
+   "parties": [
+    "USA",
+    "EU27",
+    "GBR",
+    "JPN",
+    "KOR",
+    "CAN",
+    "RUS"
+   ],
+   "start": "2022-03-08",
+   "end": null,
+   "form": "cut",
+   "magnitude": "US imports from Russia 2021 → 2024 and the rerouting to India and China: trade.bilateral (Census, IMTS)",
+   "url": "https://www.federalregister.gov/d/2022-05232",
+   "fetch": {
+    "fr": "2022-05232"
+   },
+   "quotes": [
+    "(a) The following are prohibited: (i) the importation into the United States of the following products of Russian Federation origin: crude oil; petroleum; petroleum fuels, oils, and products of their distillation; liquefied natural gas; coal; and coal products;"
+   ],
+   "values": [
+    "crude oil",
+    "liquefied natural gas"
+   ],
+   "claim": "In March 2022 the US prohibited imports of Russian crude oil, petroleum products, liquefied natural gas and coal (Executive Order 14066).",
+   "dataset": "russia_sanctions",
+   "research": [
+    "Sanctions on Russia after the 2022 invasion of Ukraine (US energy-import ban and allied measures)",
+    "EU and US trade sanctions on Russia: trade before and after"
+   ],
+   "linked": [
+    "trade.bilateral.pairs.USA-RUS",
+    "trade.bilateral.pairs.EU27-RUS",
+    "trade.bilateral.pairs.IND-RUS",
+    "trade.bilateral.pairs.CHN-RUS"
+   ]
+  },
+  {
+   "id": "russia_reserves",
+   "name": "Immobilization of Russian central bank reserves",
+   "kind": "sanctions",
+   "parties": [
+    "USA",
+    "EU27",
+    "GBR",
+    "CAN",
+    "JPN",
+    "RUS"
+   ],
+   "start": "2022-02-28",
+   "end": null,
+   "form": "tick",
+   "url": "https://home.treasury.gov/news/press-releases/jy0612",
+   "quotes": [
+    "Today, the U.S. Department of the Treasury's Office of Foreign Assets Control (OFAC) prohibited United States persons from engaging in transactions with the Central Bank of the Russian Federation, the National Wealth Fund of the Russian Federation, and the Ministry of Finance of the Russian Federation.",
+    "This action effectively immobilizes any assets of the Central Bank of the Russian Federation held in the United States or by U.S. persons, wherever located."
+   ],
+   "values": [
+    "Central Bank of the Russian Federation"
+   ],
+   "claim": "On 28 February 2022 OFAC prohibited US persons from transacting with Russia's central bank, National Wealth Fund and Ministry of Finance, effectively immobilizing the central bank's assets held in the US or by US persons.",
+   "dataset": "russia_reserves",
+   "research": [
+    "US prohibition on transactions with the Central Bank of Russia (immobilization of its assets)",
+    "Immobilization of Russian central bank reserves"
+   ],
+   "linked": [
+    "values2026.euroclear_2026_06"
+   ]
+  },
+  {
+   "id": "g7_era_loans",
+   "name": "G7 Extraordinary Revenue Acceleration loans to Ukraine",
+   "kind": "sanctions",
+   "parties": [
+    "USA",
+    "JPN",
+    "GBR",
+    "CAN",
+    "EU27",
+    "RUS"
+   ],
+   "start": "2024-12-10",
+   "end": null,
+   "form": "tick",
+   "url": "https://home.treasury.gov/news/press-releases/jy2744",
+   "quotes": [
+    "Today, the United States Department of the Treasury is announcing the disbursement of $20 billion for the benefit of Ukraine, as part of the $50 billion G7 Extraordinary Revenue Acceleration (ERA) Loans initiative."
+   ],
+   "values": [
+    "$20 billion",
+    "$50 billion"
+   ],
+   "claim": "The US disbursed $20 billion for Ukraine as part of the $50 billion G7 Extraordinary Revenue Acceleration loans, repaid from immobilized Russian sovereign assets.",
+   "research": [
+    "G7 Extraordinary Revenue Acceleration (ERA) loans to Ukraine, repaid from immobilized Russian sovereign assets"
+   ]
+  },
+  {
+   "id": "russia_price_cap",
+   "name": "G7/EU price cap on seaborne Russian crude",
+   "kind": "sanctions",
+   "parties": [
+    "EU27",
+    "GBR",
+    "USA",
+    "CAN",
+    "JPN",
+    "RUS"
+   ],
+   "start": "2022-12-05",
+   "end": null,
+   "form": "tick",
+   "url": "https://finance.ec.europa.eu/news/new-dynamic-mechanism-lower-price-cap-russian-crude-oil-4410-barrel-2026-01-15_en",
+   "quotes": [
+    "The new price cap for Russian crude oil is $44,10 per barrel, effective 1 February.",
+    "Under the 18th sanctions package the cap was lowered from $60,00 to $47,60 with an automatic and dynamic mechanism introduced to set the future price cap for crude oil."
+   ],
+   "values": [
+    "$44,10",
+    "$47,60",
+    "$60,00"
+   ],
+   "claim": "The EU's price cap on Russian crude oil was lowered from $60 to $47.60 under the 18th sanctions package, and to $44.10 per barrel from 1 February 2026.",
+   "dataset": "russia_price_cap",
+   "research": [
+    "G7/EU price cap on seaborne Russian crude"
+   ],
+   "dated2026": true
+  },
+  {
+   "id": "eu_crude_embargo",
+   "name": "EU embargo on seaborne Russian crude",
+   "kind": "sanctions",
+   "parties": [
+    "EU27",
+    "RUS"
+   ],
+   "start": "2022-12-05",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.eia.gov/todayinenergy/detail.php?id=65885",
+   "quotes": [
+    "Europe received 51% of Russia's crude oil and condensate exports in 2020. However, this volume fell to 12% in 2024 and 11% in 1H25."
+   ],
+   "values": [
+    "51%",
+    "12%"
+   ],
+   "claim": "Europe received 51% of Russia's crude oil and condensate exports in 2020 and 12% in 2024 (EIA).",
+   "research": [
+    "EU embargo on seaborne Russian crude and G7 price cap"
+   ]
+  },
+  {
+   "id": "russia_gas",
+   "name": "Russian gas cut-off and the EU's phase-out of Russian gas",
+   "kind": "embargo",
+   "parties": [
+    "RUS",
+    "EU27",
+    "DEU"
+   ],
+   "start": "2022-06-01",
+   "end": null,
+   "form": "cut",
+   "url": "https://ec.europa.eu/commission/presscorner/api/documents?reference=IP/25/1131&language=en",
+   "textKind": "ec-json",
+   "quotes": [
+    "Measures taken so far have reduced the volumes of imported Russian gas from 150 bcm in 2021 to 52 bcm in 2024 – with the share of Russian gas imports dropping from 45% to 19%."
+   ],
+   "values": [
+    "45%",
+    "19%",
+    "150 bcm",
+    "52 bcm"
+   ],
+   "claim": "EU imports of Russian gas fell from 150 bcm in 2021 to 52 bcm in 2024, and Russia's share of EU gas imports from 45% to 19% (European Commission).",
+   "dataset": "russia_gas",
+   "research": [
+    "Russian gas cut-off and EU phase-out of Russian gas"
+   ]
+  },
+  {
+   "id": "us_india_penalty",
+   "name": "US secondary tariff on India over Russian oil purchases",
+   "kind": "sanctions",
+   "parties": [
+    "USA",
+    "IND",
+    "RUS"
+   ],
+   "start": "2025-08-27",
+   "end": "2026-02-07",
+   "endText": "terminated",
+   "outcome": {
+    "text": "terminated from 7 February 2026",
+    "url": "https://www.federalregister.gov/d/2026-02818",
+    "fetch": {
+     "fr": "2026-02818"
+    },
+    "quotes": [
+     "eastern standard time on February 7, 2026, products of India imported into the United States shall no longer be subject to the"
+    ],
+    "values": [
+     "February 7, 2026"
+    ],
+    "claim": "From 12:01 a.m. eastern standard time on 7 February 2026, products of India imported into the United States were no longer subject to the additional 25 percent duty imposed by Executive Order 14329."
+   },
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2026-02818",
+   "fetch": {
+    "fr": "2026-02818"
+   },
+   "quotes": [
+    "To deal with that threat, I determined that it was necessary and appropriate to impose an additional ad valorem rate of duty of 25 percent on imports of articles of India, which, at that time, was directly or indirectly importing Russian Federation oil.",
+    "Specifically, India has committed to stop directly or indirectly importing Russian Federation oil, has represented that it will purchase United States energy products from the United States, and has recently committed to a framework with the United States to expand defense cooperation over the next 10 years."
+   ],
+   "values": [
+    "25 percent"
+   ],
+   "claim": "The US imposed an additional 25 percent duty on Indian goods over India's Russian oil purchases, and ended it in February 2026 after India committed to stop importing Russian oil.",
+   "dataset": "us_india_penalty",
+   "research": [
+    "US secondary tariff on India over Russian oil purchases"
+   ]
+  },
+  {
+   "id": "graham_act",
+   "name": "Graham Sanctioning Russia and Iran Act of 2026: tariffs set and waived",
+   "kind": "sanctions",
+   "parties": [
+    "USA",
+    "RUS",
+    "CHN",
+    "IND"
+   ],
+   "start": "2026-10-16",
+   "end": null,
+   "endText": "waived",
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2026-21599",
+   "fetch": {
+    "fr": "2026-21599"
+   },
+   "quotes": [
+    "(a) The rate of duty on goods from the Russian Federation shall be increased by 500 percent ad valorem, subject to the exceptions set forth in section 114 of the Graham Act and the waivers issued in section 4 of this order."
+   ],
+   "values": [
+    "500 percent"
+   ],
+   "claim": "Under the October 2026 order implementing the Graham Act, the duty on goods from Russia is increased by 500 percent ad valorem, subject to the Act's exceptions and the order's waivers.",
+   "research": [
+    "Lindsey O. Graham Sanctioning Russia and Iran Act of 2026: tariffs set and waived"
+   ]
+  },
+  {
+   "id": "iran_sanctions",
+   "name": "US sanctions on Iran (JCPOA exit 2018)",
+   "kind": "sanctions",
+   "parties": [
+    "USA",
+    "EU27",
+    "GBR"
+   ],
+   "start": "2018-05-08",
+   "end": null,
+   "form": "tick",
+   "url": "https://home.treasury.gov/news/press-releases/sm541",
+   "quotes": [
+    "Today, in its largest ever single-day action targeting the Iranian regime, the U.S. Department of the Treasury's Office of Foreign Assets Control (OFAC) sanctioned more than 700 individuals, entities, aircraft, and vessels."
+   ],
+   "values": [
+    "700"
+   ],
+   "claim": "In November 2018, re-imposing sanctions after leaving the JCPOA, OFAC sanctioned more than 700 Iranian individuals, entities, aircraft and vessels in one day.",
+   "research": [
+    "US sanctions on Iran (JCPOA exit 2018, maximum pressure 2025, UN snapback Sep 2025)"
+   ]
+  },
+  {
+   "id": "us_chip_controls",
+   "name": "US export controls on advanced chips and chip-making tools to China",
+   "kind": "export-controls",
+   "parties": [
+    "USA",
+    "CHN"
+   ],
+   "start": "2022-10-07",
+   "end": null,
+   "form": "valve",
+   "magnitude": "US exports to China of chip-making machines (HS 8486): trade.chipTools (UN Comtrade)",
+   "url": "https://www.federalregister.gov/d/2022-21658",
+   "fetch": {
+    "fr": "2022-21658"
+   },
+   "quotes": [
+    "In this rule, the Bureau of Industry and Security (BIS) is amending the Export Administration Regulations (EAR) to implement necessary controls on advanced computing integrated circuits (ICs), computer commodities that contain such ICs, and certain semiconductor manufacturing items.",
+    "this rule expands the scope of foreign-produced items subject to license requirements for twenty-eight existing entities on the Entity List that are located in China."
+   ],
+   "values": [
+    "twenty-eight"
+   ],
+   "claim": "In October 2022 BIS imposed controls on advanced computing chips and certain semiconductor manufacturing items, and widened licence requirements for 28 Entity-List entities in China.",
+   "dataset": "us_chip_controls",
+   "research": [
+    "US export controls on advanced chips and chip-making tools to China (7 Oct 2022, 17 Oct 2023, 2 Dec 2024, 2025-26 changes)",
+    "US export controls on advanced computing chips and chipmaking equipment (Oct 2022 rule)"
+   ],
+   "linked": [
+    "trade.chipTools"
+   ]
+  },
+  {
+   "id": "us_dec2024_chips",
+   "name": "US December 2024 chip package (Entity List additions)",
+   "kind": "export-controls",
+   "parties": [
+    "USA",
+    "CHN",
+    "JPN",
+    "KOR"
+   ],
+   "start": "2024-12-02",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.federalregister.gov/d/2024-28267",
+   "fetch": {
+    "fr": "2024-28267"
+   },
+   "quotes": [
+    "DATES: Effective date: This rule is effective December 2, 2024.",
+    "In this final rule, the Bureau of Industry and Security (BIS) amends the Export Administration Regulations (EAR) by adding 140 entities to the Entity List.",
+    "These entries are listed on the Entity List under the destinations of China, People's Republic of (China), Japan, South Korea, and Singapore"
+   ],
+   "values": [
+    "December 2, 2024",
+    "140"
+   ],
+   "claim": "A BIS rule effective 2 December 2024 added 140 entities, listed under China, Japan, South Korea and Singapore, to the Entity List.",
+   "research": [
+    "US December 2024 chip package (Entity List, HBM, equipment)"
+   ]
+  },
+  {
+   "id": "chips_act",
+   "name": "US CHIPS and Science Act",
+   "kind": "other",
+   "parties": [
+    "USA"
+   ],
+   "start": "2022-08-09",
+   "end": null,
+   "form": "none",
+   "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf",
+   "quotes": [
+    "The US CHIPS Act, signed into law in August 2022, committed $39 billion in grant incentives and a 25% investment tax credit (ITC) for semiconductor manufacturing."
+   ],
+   "values": [
+    "$39 billion",
+    "25%"
+   ],
+   "claim": "The US CHIPS Act (August 2022) committed $39 billion in grant incentives and a 25% investment tax credit for semiconductor manufacturing (SIA/BCG, 2024).",
+   "research": [
+    "US CHIPS and Science Act"
+   ],
+   "note": "the research's cross-check notes the credit was later raised to 35% (not refetched)"
+  },
+  {
+   "id": "china_minerals",
+   "name": "China's export controls on gallium and germanium and its ban on exports to the US",
+   "kind": "export-controls",
+   "parties": [
+    "CHN",
+    "USA"
+   ],
+   "start": "2023-08-01",
+   "end": null,
+   "endText": "licensing ongoing; the US-specific ban suspended to 27 Nov 2026",
+   "expires": "2026-11-27",
+   "form": "valve",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "quotes": [
+    "In November 2025, China lifted its ban on gallium exports to the United States for 1 year.",
+    "This followed the Government of China's gallium export controls implemented in August 2023 and China's ban of all gallium exports to the United States in December 2024."
+   ],
+   "values": [
+    "1 year",
+    "August 2023",
+    "December 2024"
+   ],
+   "claim": "China imposed export controls on gallium in August 2023 and banned gallium exports to the US in December 2024; in November 2025 it lifted the US ban for one year.",
+   "dataset": "china_minerals",
+   "research": [
+    "China export controls on gallium, germanium (Aug 2023), graphite (Dec 2023), antimony (Sep 2024); ban on exports to the US (Dec 2024)",
+    "China export licensing on gallium and germanium"
+   ],
+   "note": "the US ban is the second clause of MOFCOM announcement No. 46 of 2024 (gallium, germanium, antimony, superhard materials; its 'scope' source); MOFCOM announcement No. 72 of 2025 suspends that clause to 27 Nov 2026 (its 'expires' source); USGS says 'for 1 year' from November 2025",
+   "evidence": [
+    {
+     "role": "scope",
+     "label": "MOFCOM announcement No. 46 of 2024",
+     "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2024/art_3d5e990b43424e60828030f58a547b60.html",
+     "quotes": [
+      "商务部公告2024年第46号 关于加强相关两用物项对美国出口管制的公告",
+      "【发文日期】2024年12月03日",
+      "二、原则上不予许可镓、锗、锑、超硬材料相关两用物项对美国出口；"
+     ],
+     "values": [
+      "2024年12月03日"
+     ],
+     "claim": "MOFCOM announcement No. 46 of 2024, dated 3 December 2024, on strengthening export controls on related dual-use items to the United States, says in its second clause that exports to the United States of dual-use items related to gallium, germanium, antimony and superhard materials will in principle not be licensed."
+    },
+    {
+     "role": "expires",
+     "label": "MOFCOM announcement No. 72 of 2025",
+     "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_5c68985a6b1a46778e2e8dbff1bb1601.html",
+     "quotes": [
+      "经批准，自即日起至2026年11月27日，商务部公告2024年第46号（《关于加强相关两用物项对美国出口管制的公告》）第二款暂停实施。"
+     ],
+     "values": [
+      "2026年11月27日"
+     ],
+     "claim": "MOFCOM announcement No. 72 of 2025 suspends clause 2 of MOFCOM announcement No. 46 of 2024 (on strengthening export controls on related dual-use items to the United States) until 27 November 2026."
+    }
+   ]
+  },
+  {
+   "id": "china_ban_us",
+   "name": "China's ban on germanium and gallium exports to the US: effect",
+   "kind": "embargo",
+   "parties": [
+    "CHN",
+    "USA"
+   ],
+   "start": "2024-12-03",
+   "end": null,
+   "endText": "suspended to 27 Nov 2026",
+   "expires": "2026-11-27",
+   "form": "valve",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf",
+   "quotes": [
+    "United States imports of germanium metal were estimated to have decreased by 67% in 2025 from those in 2024 to 7,000 kilograms owing to China's ban on germanium exports to the United States in 2024."
+   ],
+   "values": [
+    "67%",
+    "7,000"
+   ],
+   "claim": "US imports of germanium metal fell an estimated 67% in 2025, to 7,000 kg, because of China's 2024 ban on germanium exports to the US.",
+   "research": [
+    "China ban on gallium, germanium and antimony exports to the US"
+   ],
+   "evidence": [
+    {
+     "role": "scope",
+     "label": "MOFCOM announcement No. 46 of 2024",
+     "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2024/art_3d5e990b43424e60828030f58a547b60.html",
+     "quotes": [
+      "商务部公告2024年第46号 关于加强相关两用物项对美国出口管制的公告",
+      "【发文日期】2024年12月03日",
+      "二、原则上不予许可镓、锗、锑、超硬材料相关两用物项对美国出口；"
+     ],
+     "values": [
+      "2024年12月03日"
+     ],
+     "claim": "MOFCOM announcement No. 46 of 2024, dated 3 December 2024, on strengthening export controls on related dual-use items to the United States, says in its second clause that exports to the United States of dual-use items related to gallium, germanium, antimony and superhard materials will in principle not be licensed."
+    },
+    {
+     "role": "expires",
+     "label": "MOFCOM announcement No. 72 of 2025",
+     "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_5c68985a6b1a46778e2e8dbff1bb1601.html",
+     "quotes": [
+      "经批准，自即日起至2026年11月27日，商务部公告2024年第46号（《关于加强相关两用物项对美国出口管制的公告》）第二款暂停实施。"
+     ],
+     "values": [
+      "2026年11月27日"
+     ],
+     "claim": "MOFCOM announcement No. 72 of 2025 suspends clause 2 of MOFCOM announcement No. 46 of 2024 (on strengthening export controls on related dual-use items to the United States) until 27 November 2026."
+    }
+   ],
+   "note": "the ban is the second clause of MOFCOM announcement No. 46 of 2024 (its 'scope' source); MOFCOM announcement No. 72 of 2025 suspends it to 27 Nov 2026 (its 'expires' source)"
+  },
+  {
+   "id": "china_graphite",
+   "name": "China's export licensing on graphite",
+   "kind": "export-controls",
+   "parties": [
+    "CHN",
+    "USA"
+   ],
+   "start": "2023-12-01",
+   "end": null,
+   "form": "valve",
+   "url": "https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf",
+   "quotes": [
+    "China implemented export controls on graphite-related items in December 2023, requiring exporters to obtain a licence to ship these items abroad.",
+    "In December 2024, China announced tightened controls for exports to the United States."
+   ],
+   "values": [
+    "December 2023",
+    "December 2024"
+   ],
+   "claim": "China required licences for exports of graphite-related items from December 2023 and tightened the controls for exports to the US in December 2024.",
+   "research": [
+    "China export licensing on graphite products"
+   ]
+  },
+  {
+   "id": "china_rare_earths",
+   "name": "China's rare-earth export controls (Apr 2025; Oct 2025 expansion suspended)",
+   "kind": "export-controls",
+   "parties": [
+    "CHN",
+    "USA",
+    "EU27",
+    "JPN",
+    "KOR",
+    "IND"
+   ],
+   "start": "2025-04-04",
+   "end": null,
+   "endText": "April controls ongoing; October 2025 expansion suspended to 10 Nov 2026",
+   "expires": "2026-11-10",
+   "form": "valve",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "quotes": [
+    "In April 2025, China tightened its export controls on rare-earth elements, adding specific controls on alloys, compounds, metals, and oxides of samarium, gadolinium, terbium, dysprosium, lutetium, scandium, and yttrium.",
+    "In October, China expanded its rare-earths export controls to include europium, holmium, erbium, thulium, and ytterbium.",
+    "In November, China suspended the October export controls for 1 year."
+   ],
+   "values": [
+    "April 2025",
+    "1 year"
+   ],
+   "claim": "In April 2025 China added export controls on samarium, gadolinium, terbium, dysprosium, lutetium, scandium and yttrium; it expanded them in October 2025 and suspended the October controls for one year in November.",
+   "dataset": "china_rare_earths",
+   "research": [
+    "China rare-earth export controls (Apr 2025, expanded Oct 2025)",
+    "China export controls on medium and heavy rare earths (Apr 2025; expanded Oct 2025)"
+   ],
+   "evidence": [
+    {
+     "role": "scope",
+     "label": "MOFCOM-GAC announcement No. 57 of 2025",
+     "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_59ec4f6bec0b459aa4a30c4bbd0a41c1.html",
+     "quotes": [
+      "商务部 海关总署公告2025年第57号 公布对部分中重稀土相关物项实施出口管制的决定",
+      "【发文日期】2025年10月09日",
+      "一、1C909 钬相关物项",
+      "二、1C910 铒相关物项",
+      "三、1C911 铥相关物项",
+      "四、1C912 铕相关物项",
+      "五、1C913 镱相关物项"
+     ],
+     "values": [
+      "2025年10月09日"
+     ],
+     "claim": "MOFCOM and General Administration of Customs announcement No. 57 of 2025, dated 9 October 2025, imposes export controls on certain medium and heavy rare-earth items: holmium, erbium, thulium, europium and ytterbium."
+    },
+    {
+     "role": "expires",
+     "label": "MOFCOM-GAC announcement No. 70 of 2025",
+     "url": "https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_b1ec77dd3f0d4762952904df7cdaadec.html",
+     "quotes": [
+      "经批准，自即日起至2026年11月10日，商务部、海关总署公告2025年第55号、56号、57号、58号，及商务部公告2025年第61号、62号暂停实施。"
+     ],
+     "values": [
+      "2026年11月10日"
+     ],
+     "claim": "MOFCOM and General Administration of Customs announcement No. 70 of 2025 suspends MOFCOM-GAC announcements Nos. 55, 56, 57 and 58 of 2025 and MOFCOM announcements Nos. 61 and 62 of 2025 until 10 November 2026."
+    }
+   ],
+   "note": "the October 2025 expansion USGS describes is MOFCOM-GAC announcement No. 57 of 2025 (holmium, erbium, thulium, europium, ytterbium; its 'scope' source), suspended with announcements 55, 56, 58, 61 and 62 to 10 Nov 2026 by announcement No. 70 (its 'expires' source)"
+  },
+  {
+   "id": "china_japan_dual_use",
+   "name": "China's dual-use export ban on Japanese military users",
+   "kind": "export-controls",
+   "parties": [
+    "CHN",
+    "JPN"
+   ],
+   "start": "2026-01-06",
+   "end": null,
+   "form": "valve",
+   "url": "https://english.mofcom.gov.cn/News/SpokesmansRemarks/art/2026/art_ad432d69b63545ef81b6b0c9d21c0fa1.html",
+   "quotes": [
+    "China has decided, in accordance with its Export Control Law and the Regulations on Export Control of Dual-Use Items, to prohibit the export of all dual-use items for Japanese military users, Japanese military uses, and any other end users and uses that could contribute to enhancing Japan's military capabilities."
+   ],
+   "values": [
+    "all dual-use items"
+   ],
+   "claim": "In January 2026 China prohibited exports of all dual-use items to Japanese military users and uses.",
+   "dataset": "china_japan_dual_use",
+   "research": [
+    "China's dual-use export ban on Japanese military users and entity listings, over Taiwan remarks"
+   ]
+  },
+  {
+   "id": "china_japan_seafood",
+   "name": "China's ban on Japanese seafood after the Fukushima treated-water release",
+   "kind": "embargo",
+   "parties": [
+    "CHN",
+    "JPN"
+   ],
+   "start": "2023-08-24",
+   "end": "2025-06-29",
+   "endText": "conditional resumption (GACC Announcement 2025 No. 140, not refetched)",
+   "form": "tick",
+   "url": "https://leap.unep.org/en/countries/cn/national-legislation/announcement-no-103-2023-general-administration-customs",
+   "quotes": [
+    "the General Administration of Customs has decided to completely suspend the import of aquatic products"
+   ],
+   "values": [
+    "aquatic products"
+   ],
+   "claim": "In August 2023 China's customs administration suspended all imports of aquatic products from Japan, citing the Fukushima water discharge.",
+   "dataset": "china_japan_seafood",
+   "research": [
+    "China's ban on Japanese seafood after the Fukushima treated-water release"
+   ]
+  },
+  {
+   "id": "japan_korea_controls",
+   "name": "Japan's export controls on South Korea (fluorinated polyimide, resist, hydrogen fluoride)",
+   "kind": "export-controls",
+   "parties": [
+    "JPN",
+    "KOR"
+   ],
+   "start": "2019-07-04",
+   "end": "2023-03-23",
+   "endText": "Korea withdrew its WTO complaint after Japan eased the controls",
+   "outcome": {
+    "text": "Korea withdrew its WTO complaint on 23 March 2023",
+    "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds590_e.htm",
+    "quotes": [
+     "On 11 September 2019, Korea requested consultations with Japan regarding certain measures, including licensing policies and procedures, adopted by Japan allegedly restricting exports of fluorinated polyimide, resist polymers and hydrogen fluoride, and their related technologies destined for Korea.",
+     "On 23 March 2023, Korea notified the DSB of its decision to terminate the panel composition process and formally withdraw its complaint on this matter, effective on 23 March 2023."
+    ],
+    "values": [
+     "23 March 2023"
+    ],
+    "claim": "On 23 March 2023 Korea notified the WTO's Dispute Settlement Body that it withdrew its complaint against Japan's export restrictions on fluorinated polyimide, resist polymers and hydrogen fluoride, effective that day."
+   },
+   "form": "tick",
+   "url": "https://www.wto.org/english/tratop_e/dispu_e/cases_e/ds590_e.htm",
+   "quotes": [
+    "On 11 September 2019, Korea requested consultations with Japan regarding certain measures, including licensing policies and procedures, adopted by Japan allegedly restricting exports of fluorinated polyimide, resist polymers and hydrogen fluoride, and their related technologies destined for Korea."
+   ],
+   "values": [
+    "11 September 2019"
+   ],
+   "claim": "Korea challenged Japan's 2019 export restrictions on fluorinated polyimide, resist polymers and hydrogen fluoride at the WTO, requesting consultations on 11 September 2019.",
+   "dataset": "japan_korea_controls",
+   "research": [
+    "Japan's export controls on South Korea (fluorinated polyimide, resist, hydrogen fluoride)"
+   ]
+  },
+  {
+   "id": "drc_cobalt",
+   "name": "DR Congo cobalt export ban, then quotas",
+   "kind": "export-controls",
+   "parties": [
+    "ROW",
+    "CHN"
+   ],
+   "start": "2025-02-22",
+   "end": null,
+   "form": "valve",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf",
+   "quotes": [
+    "In February, Congo (Kinshasa) temporarily banned cobalt exports to address market oversupply and low prices.",
+    "In October, the temporary ban was replaced with export quotas of 18,125 tons of contained cobalt for the remainder of 2025, and up to 96,600 tons contained cobalt per year in 2026 and 2027, inclusive of 9,600 tons for national strategic reserves."
+   ],
+   "values": [
+    "18,125",
+    "96,600"
+   ],
+   "claim": "DR Congo banned cobalt exports in February 2025 and replaced the ban in October with quotas of 18,125 t for the rest of 2025 and up to 96,600 t a year in 2026-27.",
+   "research": [
+    "DR Congo cobalt export ban, then quotas"
+   ]
+  },
+  {
+   "id": "kachin_rare_earths",
+   "name": "Kachin Independence Army takes Myanmar's rare-earth mining region",
+   "kind": "war",
+   "parties": [
+    "ROW",
+    "CHN"
+   ],
+   "start": "2024-11-01",
+   "end": null,
+   "form": "tick",
+   "url": "https://iea.blob.core.windows.net/assets/ef5e9b70-3374-4caa-ba9d-19c72253bfc4/GlobalCriticalMineralsOutlook2025.pdf",
+   "quotes": [
+    "In November 2024, the Kachin Independence Army announced that it had taken control of the country's rare earth mining region, causing local mining to halt and borders to close.",
+    "In 2024, its share of mined supply for heavy rare earth elements such as dysprosium and terbium was around 45% of global supply"
+   ],
+   "values": [
+    "November 2024",
+    "45%"
+   ],
+   "claim": "In November 2024 the Kachin Independence Army took control of Myanmar's rare-earth mining region, which supplied about 45% of the world's mined heavy rare earths in 2024.",
+   "research": [
+    "Kachin Independence Army takes Myanmar's rare earth mining region"
+   ]
+  },
+  {
+   "id": "ukraine_war",
+   "name": "Russia's full-scale war against Ukraine",
+   "kind": "war",
+   "parties": [
+    "RUS",
+    "ROW"
+   ],
+   "start": "2022-02-24",
+   "end": null,
+   "endText": "ongoing",
+   "form": "war",
+   "url": "https://ukraine.un.org/sites/default/files/2026-10/Ukraine%20-%20protection%20of%20civilians%20in%20armed%20conflict%20%28September%202026%29_ENG.pdf",
+   "quotes": [
+    "CIVILIAN CASUALTIES SINCE 24 FEBRUARY 2022 17,605 0 73,451 killed total civilian casualties injured 73,451 55,846"
+   ],
+   "values": [
+    "24 FEBRUARY 2022",
+    "17,605"
+   ],
+   "claim": "Russia's full-scale war against Ukraine has gone on since 24 February 2022; OHCHR's September 2026 update counts 17,605 civilians killed and 55,846 injured since then.",
+   "dataset": "ukraine_war",
+   "research": [
+    "Russia's full-scale war against Ukraine"
+   ],
+   "linked": [
+    "values2026.ohchr_ukraine_2026_09"
+   ],
+   "dated2026": true
+  },
+  {
+   "id": "iran_war",
+   "name": "2026 US/Israel-Iran war",
+   "kind": "war",
+   "parties": [
+    "USA",
+    "ROW",
+    "SAU"
+   ],
+   "start": "2026-02-28",
+   "end": null,
+   "endText": "ongoing (EIA, October 2026)",
+   "form": "war",
+   "url": "https://www.eia.gov/outlooks/steo/archives/Apr26.pdf",
+   "quotes": [
+    "The strait has been effectively closed to shipping traffic since military action began on February 28.",
+    "we estimate that Iraq, Saudi Arabia, Kuwait, UAE, Qatar, and Bahrain collectively shut in 7.5 million barrels per day (b/d) of crude oil production in March."
+   ],
+   "values": [
+    "February 28",
+    "7.5 million"
+   ],
+   "claim": "EIA (April 2026): the Strait of Hormuz has been effectively closed to shipping since military action began on 28 February 2026, and Iraq, Saudi Arabia, Kuwait, the UAE, Qatar and Bahrain shut in 7.5 million b/d of crude production in March.",
+   "dataset": "iran_war_hormuz",
+   "research": [
+    "2026 US/Israel-Iran war and closure of the Strait of Hormuz"
+   ],
+   "linked": [
+    "values2026.brent_2026_02_27",
+    "values2026.brent_2026_03_09",
+    "values2026.brent_2026_high",
+    "values2026.gulf_shutins_2026"
+   ],
+   "note": "The war began on 28 Feb 2026 (the date in the April quote). The Strait of Hormuz was effectively closed to shipping from that day (EIA, April 2026); its later state is hormuz_disruption's (EIA, October 2026: shipments through the strait increased slightly in September), so this event does not draw the strait closed.",
+   "evidence": [
+    {
+     "role": "status",
+     "label": "EIA Short-Term Energy Outlook, October 2026",
+     "url": "https://www.eia.gov/outlooks/steo/report/global_oil.php",
+     "quotes": [
+      "Short-Term Energy Outlook Release Date: October 6, 2026",
+      "the East-West pipeline in Saudi Arabia was repaired and partially resumed flows as of September 22.",
+      "We estimate that oil exports from the Middle East increased in September compared with August despite the increase in attacks",
+      "However, we expect the conflict in the Middle East will lead to continued volatility in crude oil flows both through the Strait of Hormuz and through alternative routes"
+     ],
+     "values": [
+      "October 6, 2026",
+      "September 22"
+     ],
+     "claim": "EIA's Short-Term Energy Outlook released on 6 October 2026 reports an increase in attacks in the Middle East in September (the East-West pipeline in Saudi Arabia was repaired and partially resumed flows as of 22 September) and expects the conflict in the Middle East to keep crude oil flows through the Strait of Hormuz and alternative routes volatile."
+    }
+   ]
+  },
+  {
+   "id": "hormuz_disruption",
+   "name": "Strait of Hormuz disruption and Gulf crude shut-ins (2026)",
+   "kind": "chokepoint",
+   "parties": [
+    "ROW",
+    "SAU",
+    "CHN",
+    "IND",
+    "JPN",
+    "KOR"
+   ],
+   "start": "2026-02-28",
+   "end": null,
+   "endText": "constrained",
+   "form": "strait",
+   "url": "https://www.eia.gov/outlooks/steo/report/global_oil.php",
+   "quotes": [
+    "We assess that crude oil production shut-ins averaged 4.8 million b/d in September, down from 5.8 million b/d in August and down from 10.9 million b/d at the peak in May.",
+    "Ship tracking data from Vortexa indicates that oil shipments through the Strait of Hormuz increased slightly in September as Saudi Arabia increasingly used ship-to-ship transfers along Oman's coast."
+   ],
+   "values": [
+    "10.9 million",
+    "4.8 million"
+   ],
+   "claim": "EIA (October 2026): Middle East crude production shut-ins peaked at 10.9 million b/d in May 2026 and averaged 4.8 million b/d in September, when oil shipments through the Strait of Hormuz increased slightly.",
+   "research": [
+    "Strait of Hormuz closure in the 2026 conflict in Iran"
+   ],
+   "linked": [
+    "straits.hormuz_2024",
+    "values2026.gulf_shutins_2026"
+   ]
+  },
+  {
+   "id": "qatar_lng_fm",
+   "name": "QatarEnergy LNG force majeure",
+   "kind": "chokepoint",
+   "parties": [
+    "ROW",
+    "CHN",
+    "IND",
+    "KOR",
+    "JPN",
+    "EU27"
+   ],
+   "start": "2026-03-04",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.eia.gov/todayinenergy/detail.php?id=67604",
+   "quotes": [
+    "Prices for natural gas in Europe and Asia have diverged from those in the United States since the February 28 closure of the Strait of Hormuz.",
+    "The closure of the strait has affected over 10 billion cubic feet per day (Bcf/d) of global LNG supplies, or approximately 20%, mostly from Qatar's Ras Laffan export facility.",
+    "QatarEnergy declared force majeure on March 4, which has forced Asian buyers who import over 80% of Qatari gas to compete for spot cargoes on global markets to replace lost contract volumes."
+   ],
+   "values": [
+    "February 28",
+    "March 4",
+    "10 billion cubic feet per day"
+   ],
+   "claim": "QatarEnergy declared force majeure on 4 March, after the 28 February closure of the Strait of Hormuz, which has affected over 10 billion cubic feet per day of global LNG supply, about 20%, mostly from Qatar's Ras Laffan facility.",
+   "research": [
+    "QatarEnergy LNG force majeure"
+   ]
+  },
+  {
+   "id": "east_west_pipeline",
+   "name": "Attacks on Saudi Arabia's East-West pipeline (the Hormuz bypass)",
+   "kind": "war",
+   "parties": [
+    "SAU"
+   ],
+   "start": "2026-09-01",
+   "end": null,
+   "endText": "flows temporarily halted",
+   "form": "tick",
+   "url": "https://www.eia.gov/outlooks/steo/report/global_oil.php",
+   "quotes": [
+    "The most notable among these developments were attacks on Saudi Arabia's East-West oil pipeline, which temporarily halted flows on a crucial bypass used to circumvent the Strait of Hormuz.",
+    "Before the attacks, we estimate this pipeline was shipping more than 5.0 million barrels per day (b/d) of oil exports via Saudi Arabia's Yanbu port on the Red Sea."
+   ],
+   "values": [
+    "5.0 million"
+   ],
+   "claim": "In September 2026 attacks on Saudi Arabia's East-West oil pipeline temporarily halted flows on a bypass of the Strait of Hormuz that had been shipping more than 5.0 million b/d via Yanbu.",
+   "research": [
+    "Attacks on Saudi East-West pipeline (Hormuz bypass)"
+   ]
+  },
+  {
+   "id": "red_sea",
+   "name": "Red Sea shipping disruption (Houthi attacks)",
+   "kind": "chokepoint",
+   "parties": [
+    "ROW",
+    "EU27",
+    "CHN",
+    "IND"
+   ],
+   "start": "2023-11-19",
+   "end": null,
+   "endText": "traffic not normalised",
+   "form": "strait",
+   "url": "https://unctad.org/publication/review-maritime-transport-2024",
+   "quotes": [
+    "By mid-2024, Suez transits fell further, with ship capacity (tonnage) crossing the Gulf of Aden down 76% and tonnage transiting the Suez Canal cut by 70%."
+   ],
+   "values": [
+    "76%",
+    "70%"
+   ],
+   "claim": "By mid-2024, because of attacks on Red Sea shipping, tonnage crossing the Gulf of Aden was down 76% and tonnage transiting the Suez Canal down 70% (UNCTAD).",
+   "dataset": "red_sea",
+   "research": [
+    "Red Sea shipping disruption (Houthi attacks)",
+    "Houthi attacks on Red Sea shipping (Bab el-Mandeb)"
+   ],
+   "linked": [
+    "straits.suez",
+    "straits.bab_el_mandeb"
+   ]
+  },
+  {
+   "id": "galwan",
+   "name": "India-China Galwan Valley clash",
+   "kind": "war",
+   "parties": [
+    "IND",
+    "CHN"
+   ],
+   "start": "2020-06-15",
+   "end": "2024-10-21",
+   "endText": "patrolling and disengagement agreement (not refetched)",
+   "form": "tick",
+   "url": "https://www.businesstoday.in/latest/economy-politics/story/india-china-border-clash-20-indian-soldiers-martyred-confirms-indian-army-261304-2020-06-16",
+   "quotes": [
+    "17 Indian troops who were critically injured in the line of duty at the stand-off location and exposed to sub-zero temperatures in the high altitude terrain have succumbed to their injuries, taking the total that were killed in action to 20"
+   ],
+   "values": [
+    "20"
+   ],
+   "claim": "Twenty Indian soldiers were killed in the June 2020 Galwan Valley clash with Chinese troops.",
+   "dataset": "galwan",
+   "research": [
+    "India-China Galwan Valley clash and India's economic countermeasures"
+   ]
+  },
+  {
+   "id": "taiwan_pressure",
+   "name": "China's military pressure on Taiwan (Joint Sword-2024B)",
+   "kind": "other",
+   "parties": [
+    "CHN",
+    "TWN"
+   ],
+   "start": "2024-01-01",
+   "end": null,
+   "endText": "ongoing; not drawn (MODALITIES.md 6.4: China's pressure on Taiwan is not drawn)",
+   "form": "none",
+   "url": "https://www.taipeitimes.com/News/front/archives/2024/10/15/2003825342",
+   "quotes": [
+    "The military detected a record 153 Chinese military aircraft around the nation, the Ministry of National Defense announced today, after China held a day of large-scale drills yesterday."
+   ],
+   "values": [
+    "153"
+   ],
+   "claim": "Taiwan's defence ministry detected a record 153 Chinese military aircraft around Taiwan in one day after China's large-scale drills of October 2024.",
+   "dataset": "taiwan_pressure",
+   "research": [
+    "China's economic and military pressure on Taiwan (ECFA suspensions, Joint Sword drills)"
+   ]
+  },
+  {
+   "id": "saudi_russia_price_war",
+   "name": "Saudi-Russia oil price war (OPEC+ breakdown)",
+   "kind": "other",
+   "parties": [
+    "SAU",
+    "RUS"
+   ],
+   "start": "2020-03-06",
+   "end": "2020-04-12",
+   "endText": "OPEC+ cut agreed (not refetched)",
+   "form": "tick",
+   "url": "https://www.eia.gov/outlooks/steo/archives/apr20.pdf",
+   "quotes": [
+    "This is a result of Saudi Arabia ramping up its production to near full capacity during the second quarter of 2020, following the suspension of OPEC+ agreed-upon production cuts in March 2020."
+   ],
+   "values": [
+    "March 2020"
+   ],
+   "claim": "After OPEC+ production cuts were suspended in March 2020, Saudi Arabia ramped its production up toward full capacity (EIA, April 2020).",
+   "research": [
+    "Saudi-Russia oil price war (OPEC+ breakdown)"
+   ]
+  },
+  {
+   "id": "usmca",
+   "name": "United States-Mexico-Canada Agreement (USMCA)",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "MEX",
+    "CAN"
+   ],
+   "start": "2020-07-01",
+   "end": null,
+   "form": "none",
+   "url": "https://ustr.gov/trade-agreements/free-trade-agreements/united-states-mexico-canada-agreement",
+   "quotes": [
+    "The United States-Mexico-Canada Agreement (USMCA) entered into force on July 1, 2020."
+   ],
+   "values": [
+    "July 1, 2020"
+   ],
+   "claim": "The USMCA entered into force on 1 July 2020, replacing NAFTA.",
+   "research": [
+    "United States-Mexico-Canada Agreement (USMCA)"
+   ]
+  },
+  {
+   "id": "usmca_review",
+   "name": "USMCA first joint review: the US declined to renew",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "MEX",
+    "CAN"
+   ],
+   "start": "2026-07-01",
+   "end": null,
+   "form": "tick",
+   "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ambassador-greer-issues-statement-usmca-joint-review",
+   "quotes": [
+    "The United States did not agree to renew the USMCA in its current form. As a result, the USMCA is not renewed."
+   ],
+   "values": [
+    "did not agree to renew"
+   ],
+   "claim": "At the USMCA's first joint review (July 2026) the United States did not agree to renew the agreement in its current form, so it was not renewed.",
+   "research": [
+    "USMCA (first joint review: US declined to renew)"
+   ]
+  },
+  {
+   "id": "nato_pledge",
+   "name": "NATO: the Hague defence-spending pledge (5% of GDP by 2035)",
+   "kind": "alliance",
+   "parties": [
+    "USA",
+    "CAN",
+    "GBR",
+    "DEU",
+    "EU27"
+   ],
+   "start": "2025-06-25",
+   "end": null,
+   "form": "none",
+   "url": "https://www.nato.int/cps/en/natohq/official_texts_236705.htm",
+   "quotes": [
+    "The Hague Summit Declaration issued by the NATO Heads of State and Government participating in the meeting of the North Atlantic Council in The Hague 25 June 2025",
+    "Allies commit to invest 5% of GDP annually on core defence requirements as well as defence-and security-related spending by 2035",
+    "Allies will allocate at least 3.5% of GDP annually based on the agreed definition of NATO defence expenditure by 2035"
+   ],
+   "values": [
+    "25 June 2025",
+    "5%",
+    "3.5%"
+   ],
+   "claim": "In the Hague Summit Declaration of 25 June 2025, NATO allies committed to invest 5% of GDP a year on core defence requirements and defence- and security-related spending by 2035, with at least 3.5% of GDP on core defence.",
+   "research": [
+    "NATO (enlarged with Finland 2023 and Sweden 2024; Hague 5% pledge)"
+   ]
+  },
+  {
+   "id": "quad",
+   "name": "Quad (US, Japan, India, Australia)",
+   "kind": "alliance",
+   "parties": [
+    "USA",
+    "JPN",
+    "IND"
+   ],
+   "start": "2021-03-12",
+   "end": null,
+   "form": "none",
+   "url": "https://www.govinfo.gov/content/pkg/DCPD-202400805/pdf/DCPD-202400805.pdf",
+   "quotes": [
+    "Four years since elevating the Quad to a leader-level format, the Quad is more strategically aligned than ever before and is a force for good that delivers real, positive, and enduring impact for the Indo-Pacific."
+   ],
+   "values": [
+    "Four years"
+   ],
+   "claim": "The Quad of the US, Japan, India and Australia has met at leader level since 2021.",
+   "research": [
+    "Quad (US, Japan, India, Australia)"
+   ]
+  },
+  {
+   "id": "brics",
+   "name": "BRICS expansion",
+   "kind": "alliance",
+   "parties": [
+    "CHN",
+    "IND",
+    "RUS",
+    "BRA",
+    "SAU"
+   ],
+   "start": "2024-01-01",
+   "end": null,
+   "form": "none",
+   "url": "https://www.enca.com/top-stories/brics-admit-six-new-members-next-year",
+   "quotes": [
+    "We have decided to invite the Argentine Republic, the Arab Republic of Egypt, the Federal Democratic Republic of Ethiopia, the Islamic Republic of Iran, the Kingdom of Saudi Arabia, and the United Arab Emirates, to become full members of BRICS."
+   ],
+   "values": [
+    "Saudi Arabia"
+   ],
+   "claim": "BRICS invited Argentina, Egypt, Ethiopia, Iran, Saudi Arabia and the United Arab Emirates to become full members.",
+   "research": [
+    "BRICS expansion"
+   ]
+  },
+  {
+   "id": "china_russia",
+   "name": "China-Russia 'no limits' partnership",
+   "kind": "alliance",
+   "parties": [
+    "CHN",
+    "RUS"
+   ],
+   "start": "2022-02-04",
+   "end": null,
+   "form": "none",
+   "url": "https://comtradeapi.un.org/public/v1/preview/C/A/HS?reporterCode=156&period=2024&partnerCode=643&cmdCode=TOTAL&flowCode=M&includeDesc=true",
+   "quotes": [],
+   "values": [],
+   "claim": "China and Russia declared a partnership with 'no limits' on 4 February 2022.",
+   "research": [
+    "China-Russia 'no limits' partnership"
+   ],
+   "note": "the joint statement was not fetched; the trade it reshaped is in trade.bilateral.pairs.CHN-RUS (IMTS)"
+  },
+  {
+   "id": "eu_single_market",
+   "name": "EU single market (the UK left on 1 Jan 2021)",
+   "kind": "alliance",
+   "parties": [
+    "EU27",
+    "GBR"
+   ],
+   "start": "1993-01-01",
+   "end": null,
+   "form": "none",
+   "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ext_lt_intratrd?format=JSON&lang=EN&geo=EU27_2020&sitc06=TOTAL&sinceTimePeriod=2021",
+   "quotes": [],
+   "values": [],
+   "claim": "60.9% of EU member states' goods exports in 2024 went to other member states.",
+   "research": [
+    "EU single market (UK left 1 Jan 2021)"
+   ],
+   "note": "the research value is an API cell, not a quote; intra-EU trade is in trade.intraEU (IMTS)"
+  },
+  {
+   "id": "uae_leaves_opec",
+   "name": "United Arab Emirates leaves OPEC",
+   "kind": "alliance",
+   "parties": [
+    "ROW",
+    "SAU"
+   ],
+   "start": "2026-05-01",
+   "end": null,
+   "form": "tick",
+   "url": "https://www.eia.gov/todayinenergy/detail.php?id=67804",
+   "quotes": [
+    "On April 28, 2026, the United Arab Emirates (UAE) announced that it was leaving OPEC, effective on May 1.",
+    "OPEC (including the UAE) produced an estimated 28.0 million b/d of crude oil in 2025, 35% of total world crude oil production that year.",
+    "Without the UAE's contribution, the group's share of world total crude oil production would have been 31% in 2025."
+   ],
+   "values": [
+    "May 1",
+    "35%",
+    "31%"
+   ],
+   "claim": "The UAE announced on 28 April 2026 that it was leaving OPEC from 1 May; without it, OPEC's share of world crude production in 2025 would have been 31% instead of 35%.",
+   "dataset": "uae_leaves_opec",
+   "research": [
+    "United Arab Emirates leaves OPEC"
+   ]
+  },
+  {
+   "id": "us_japan_investment",
+   "name": "US-Japan Strategic Trade and Investment Agreement ($550bn US-directed investment)",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "JPN"
+   ],
+   "start": "2025-07-22",
+   "end": null,
+   "form": "none",
+   "url": "https://www.whitehouse.gov/fact-sheets/2025/07/fact-sheet-president-donald-j-trump-secures-unprecedented-u-s-japan-strategic-trade-and-investment-agreement/",
+   "quotes": [
+    "RESTORING AMERICAN INDUSTRIAL POWER: Japan will invest $550 billion directed by the United States to rebuild and expand core American industries.",
+    "The United States will retain 90% of the profits from this investment"
+   ],
+   "values": [
+    "$550 billion",
+    "90%"
+   ],
+   "claim": "Under the July 2025 US-Japan agreement Japan will invest $550 billion directed by the US, and the US will retain 90% of the profits.",
+   "research": [
+    "US-Japan Strategic Trade and Investment Agreement (US-directed investment vehicle)"
+   ]
+  },
+  {
+   "id": "us_eu_pledges",
+   "name": "US-EU framework: EU investment and energy-purchase pledges",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "EU27"
+   ],
+   "start": "2025-08-21",
+   "end": null,
+   "form": "none",
+   "url": "https://www.whitehouse.gov/briefings-statements/2025/08/joint-statement-on-a-united-states-european-union-framework-on-an-agreement-on-reciprocal-fair-and-balanced-trade/",
+   "quotes": [
+    "the European Union intends to procure U.S. liquified natural gas, oil, and nuclear energy products with an expected offtake valued at $750 billion through 2028.",
+    "In this context, European companies are expected to invest an additional $600 billion across strategic sectors in the United States through 2028."
+   ],
+   "values": [
+    "$750 billion",
+    "$600 billion"
+   ],
+   "claim": "Under the August 2025 framework the EU intends to buy $750 billion of US energy through 2028, and European companies are expected to invest an additional $600 billion in the US.",
+   "research": [
+    "US-EU Framework Agreement on Reciprocal, Fair, and Balanced Trade (investment and energy pledges)"
+   ]
+  },
+  {
+   "id": "us_korea_investment",
+   "name": "US-Korea Strategic Trade and Investment deal ($350bn)",
+   "kind": "agreement",
+   "parties": [
+    "USA",
+    "KOR"
+   ],
+   "start": "2025-07-30",
+   "end": null,
+   "form": "none",
+   "url": "https://www.whitehouse.gov/fact-sheets/2025/11/joint-fact-sheet-on-president-donald-j-trumps-meeting-with-president-lee-jae-myung/",
+   "quotes": [
+    "This deal includes $150 billion of Korean investment in the shipbuilding sector approved by the United States, which is referred to as the Approved Investments.",
+    "the ROK shall not be required to fund an aggregate amount of U.S. dollars greater than $20 billion in any calendar year."
+   ],
+   "values": [
+    "$150 billion",
+    "$20 billion"
+   ],
+   "claim": "The US-Korea deal includes $150 billion of Korean shipbuilding investment approved by the US, with Korea's dollar funding capped at $20 billion a year.",
+   "research": [
+    "US-Korea Strategic Trade and Investment deal"
+   ]
+  }
+ ],
+ "section301_2026": {
+  "note": "Section 301 forced-labor tariff by partner from 24 Jul 2026 (Federal Register 2026-15274; event us_301_forced_labour). 'all-in' = MFN plus Section 301 together; China, Brazil, Saudi Arabia and Russia are among the investigated economies (the order's list: 'China, People's Republic of 13.', 'Brazil 9.', 'Saudi Arabia 47.', 'Russia 46.') and take the rate for 'all other investigated economies'.",
+  "url": "https://www.federalregister.gov/d/2026-15274",
+  "gateId": "us_301_forced_labour",
+  "rates": {
+   "CAN": 10,
+   "MEX": 10,
+   "IND": 10,
+   "GBR": 10,
+   "EU27": 10,
+   "TWN": 10,
+   "JPN": 12.5,
+   "KOR": 12.5,
+   "CHN": 12.5,
+   "BRA": 12.5,
+   "SAU": 12.5,
+   "RUS": 12.5
+  },
+  "allIn": [
+   "EU27",
+   "TWN",
+   "JPN",
+   "KOR"
+  ],
+  "listQuotes": [
+   "China, People's Republic of 13.",
+   "Brazil 9.",
+   "Saudi Arabia 47.",
+   "Russia 46."
+  ]
+ }
+}

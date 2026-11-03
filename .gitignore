@@ -100,3 +100,8 @@ Tools/corporate/.cache/
 
 # Regimes pipeline cache (IMF / World Bank / OWID downloads, Jev answers)
 Tools/regimes/.cache/
+
+# Instant, lives and world pipeline caches (BEA / Fed / BLS / Treasury / Wikimedia / IMF downloads)
+Tools/instant/.cache/
+Tools/lives/.cache/
+Tools/global/.cache/

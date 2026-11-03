@@ -1,0 +1,363 @@
+{
+ "note": "Configuration and hand-read research for Tools/instant/build.py (WP02: instant.json). Everything numeric the build stores is fetched by build.py from the URLs below or read from the repository's own data files; this file holds what cannot be fetched: which rows and columns to read, the crosswalks to the scene's tiers (drawing choices, marked assumed), labels for the NIPA lines whose register names are only a parent's name, and slots for values a person reads by hand (left null, with the reason, where the source refused automated requests on 2026-11-03).",
+
+ "classes": {
+  "basis": "household income rank, in the Federal Reserve DFA's six income groups (MODALITIES.md rule 9 and section 2.7)",
+  "groups": [
+   {"id": "bottom20", "name": "Bottom 20%", "short": "0-20%", "dfa": "pct00to20", "deciles": ["0-10%", "10-20%"], "ce": "02"},
+   {"id": "p20_40", "name": "20-40%", "short": "20-40%", "dfa": "pct20to40", "deciles": ["20-30%", "30-40%"], "ce": "03"},
+   {"id": "p40_60", "name": "40-60%", "short": "40-60%", "dfa": "pct40to60", "deciles": ["40-50%", "50-60%"], "ce": "04"},
+   {"id": "p60_80", "name": "60-80%", "short": "60-80%", "dfa": "pct60to80", "deciles": ["60-70%", "70-80%"], "ce": "05"},
+   {"id": "p80_99", "name": "80-99%", "short": "80-99%", "dfa": "pct80to99", "deciles": ["80-90%", "90-100%"], "lessTop1": true, "ce": "06"},
+   {"id": "top1", "name": "Top 1%", "short": "top 1%", "dfa": "pct99to100", "quantile": "Top 1%", "ce": "06"}
+  ],
+  "wealthFallback": [
+   {"id": "bottom50", "name": "Bottom 50%", "dfa": ["Bottom50"]},
+   {"id": "next40", "name": "50-90%", "dfa": ["Next40"]},
+   {"id": "next9", "name": "90-99%", "dfa": ["Next9"]},
+   {"id": "top1", "name": "Top 1%", "dfa": ["RemainingTop1", "TopPt1"]}
+  ]
+ },
+
+ "dfa": {
+  "source": "Board of Governors of the Federal Reserve System, Distributional Financial Accounts (DFA), household balance sheets by income percentile group, detailed levels (dfa-income-levels-detail.csv)",
+  "sourceWealth": "Board of Governors of the Federal Reserve System, Distributional Financial Accounts (DFA), household balance sheets by wealth percentile group, detailed levels (dfa-networth-levels-detail.csv)",
+  "page": "https://www.federalreserve.gov/releases/z1/dataviz/dfa/",
+  "sourceOrder": "classes by income from the mirror pinned to circuit.json's release; if the mirror cannot be read, the same file from the Fed's current download (a later release, said so); if no income-group file can be read at all, classBasis 'wealth' with the four wealth groups from the mirror, else the Fed's download, else circuit.json groups (net worth and households only). --simulate-missing takes dfa-income (the income file everywhere), dfa-wealth (the wealth file everywhere), dfa-mirror (both mirror files) and dfa-zip (the Fed's download), comma-separated",
+  "debtComparisonZ1": {
+   "what": "Fed Z.1 debt of households and nonprofit organizations (debt securities and loans), the nearest measure to the spec's $20.6T in the repository",
+   "file": "Assets/Resources/Data/economy/history.json",
+   "series": "householdDebtToIncome",
+   "year": 2025,
+   "dpiKey": "disposableIncome",
+   "note": "history.json's 2025 point is Z.1 debt at 2025:Q3 over 2025 disposable income (both pre-update vintage), so this product recovers that debt level only approximately. It is a wider measure than the DFA's mortgages + consumer credit: it includes nonprofit organizations and every loan and debt security."
+  },
+  "mirror": {
+   "why": "MODALITIES.md section 12 asks for the same release as circuit.json, which read the bdecon/US-chartbook GitHub mirror of the Fed's files (circuit.json sources and groupNotes.source); the Fed's own download now serves a later release, so the mirror is pinned to the last commit that changed the files, which holds the release with data through 2026:Q1",
+   "repo": "bdecon/US-chartbook",
+   "commit": "2f97c5ba33b0ae07dfaee49af4d2e5479c780cb2",
+   "committed": "2026-09-23",
+   "commitsApi": "https://api.github.com/repos/bdecon/US-chartbook/commits?path=chartbook/data/dfa/dfa-income-levels-detail.csv",
+   "url": "https://raw.githubusercontent.com/bdecon/US-chartbook/{commit}/chartbook/data/dfa/{file}",
+   "release": "June 2026 release (data through 2026:Q1), the release circuit.json used"
+  },
+  "official": {
+   "url": "https://www.federalreserve.gov/releases/z1/dataviz/download/zips/dfa.zip",
+   "note": "the Fed's current download (read for the newer release's latest quarter and for the DFA's own definitions)"
+  },
+  "instruments": [
+   {"id": "realEstate", "name": "real estate (owner-occupied homes, market value)", "side": "asset", "columns": ["Real estate"]},
+   {"id": "corporateEquities", "name": "corporate equities and mutual fund shares (outside DC pensions)", "side": "asset", "columns": ["Corporate equities and mutual fund shares"]},
+   {"id": "privateBusinesses", "name": "private businesses (equity in unincorporated business, incl. real estate rented out)", "side": "asset", "columns": ["Miscellaneous other equity"]},
+   {"id": "pensions", "name": "pension entitlements (defined benefit, defined contribution and annuities)", "side": "asset", "columns": ["DB pension entitlements", "DC pension entitlements", "Annuities"]},
+   {"id": "deposits", "name": "deposits (checkable, currency, time and short-term)", "side": "asset", "columns": ["Deposits"]},
+   {"id": "moneyMarketFunds", "name": "money market fund shares", "side": "asset", "columns": ["Money market fund shares"]},
+   {"id": "debtSecurities", "name": "debt securities (US government and municipal; corporate and foreign bonds)", "side": "asset", "columns": ["Debt securities"]},
+   {"id": "consumerDurables", "name": "consumer durables (cars, furniture, appliances, at current cost)", "side": "asset", "columns": ["Consumer durables"]},
+   {"id": "otherAssets", "name": "other assets (loans held, life insurance reserves, miscellaneous)", "side": "asset", "columns": ["Loans (Assets)", "Life insurance reserves", "Miscellaneous assets"]},
+   {"id": "homeMortgages", "name": "home mortgages", "side": "liability", "columns": ["Home mortgages"]},
+   {"id": "consumerCredit", "name": "consumer credit (cards, student and vehicle loans)", "side": "liability", "columns": ["Consumer credit"]},
+   {"id": "otherLiabilities", "name": "other liabilities (bank loans n.e.c., other loans and advances, unpaid life insurance premiums)", "side": "liability", "columns": ["Depository institutions loans n.e.c.", "Other loans and advances (Liabilities)", "Deferred and unpaid life insurance premiums"]}
+  ],
+  "totals": {"assets": "Assets", "liabilities": "Liabilities", "netWorth": "Net worth", "households": "Household count"}
+ },
+
+ "bea": {
+  "page": "https://www.bea.gov/data/special-topics/distribution-of-personal-income",
+  "dpi": {
+   "source": "BEA, Distribution of Personal Income, national summary file (all years 2000-2024; 2024 provisional)",
+   "url": "https://apps.bea.gov/data/special-topics/distribution-of-personal-income/national/summary-file.csv",
+   "readme": "https://apps.bea.gov/data/special-topics/distribution-of-personal-income/national/readme-for-summary-file.pdf",
+   "ranking": "Equivalized Personal Income",
+   "rankingWhy": "households ranked by income before taxes (size-adjusted), the closest of BEA's two rankings to the DFA's ranking by household income before taxes",
+   "dpiRanking": "Equivalized Disposable Personal Income",
+   "components": [
+    {"id": "compensation", "concept": "Compensation of employees", "nipa": "T20100:2", "role": "pay"},
+    {"id": "proprietors", "concept": "Proprietors' income with inventory valuation", "nipa": "T20100:9", "role": "owning"},
+    {"id": "rental", "concept": "Rental income of households with capital consumption adjustment", "nipa": "T20100:12", "role": "owning"},
+    {"id": "interest", "concept": "Household interest income", "nipa": "T20100:14", "role": "owning"},
+    {"id": "dividends", "concept": "Household dividend income", "nipa": "T20100:15", "role": "owning"},
+    {"id": "benefits", "concept": "Government social benefits", "nipa": "T20100:17", "role": "state"},
+    {"id": "fromBusiness", "concept": "Household current transfer receipts from business (net)", "nipa": "T20100:24", "role": "other"},
+    {"id": "contributions", "concept": "Contributions for government social insurance, domestic", "nipa": "T20100:25", "role": "deducted"},
+    {"id": "taxes", "concept": "Taxes", "nipa": "T20100:26", "role": "tax"}
+   ],
+   "personalIncome": {"concept": "Personal income", "nipa": "T20100:1"},
+   "disposableIncome": {"concept": "Disposable personal income", "nipa": "T20100:27"},
+   "leftOut": "Household current transfer receipts from nonprofit institutions (NIPA Table 2.9 line 32) are a transfer inside 'persons' in Table 2.1, so they have no Table 2.1 total to scale to and are left out."
+  },
+  "joint": {
+   "source": "BEA and BLS, joint distribution of disposable personal income, personal consumption expenditures and personal saving, summary file (2000-2023)",
+   "url": "https://www.bea.gov/sites/default/files/2026-05/joint_dist_summary.xlsx",
+   "readme": "https://www.bea.gov/sites/default/files/2026-04/readme_for_summary_file.pdf",
+   "technical": "https://www.bea.gov/sites/default/files/2026-04/technical_document_personal_saving.pdf",
+   "sheet": "shares of NIPA totals",
+   "ranking": "Equivalized Disposable Personal Income",
+   "rankingNote": "BEA publishes consumption and saving by group only with households ranked by size-adjusted disposable income",
+   "series": [
+    {"id": "disposableIncome", "series": "Disposable Personal Income", "nipa": "T20100:27"},
+    {"id": "pce", "series": "Personal Consumption Expenditures", "nipa": "T20100:29"},
+    {"id": "saving", "series": "Personal Saving", "nipa": "T20100:34"}
+   ]
+  },
+  "sourceYear": 2023,
+  "sourceYearWhy": "2023 is the latest year for which BEA publishes every piece used: income components by decile, a point estimate of the top 1%'s share (2024 is provisional and gives the top 1% as an interval) and the distribution of consumption and saving (2000-2023)",
+  "circuitVintage": {
+   "why": "MODALITIES.md and WP10's acceptance quote circuit.json's 2025 accounts, from before BEA's annual update of 30 September 2026 (PCE $20.95T; class gross income $28.12T = personal income + contributions); the same group shares on those totals let M1 use one vintage throughout if the spec keeps it, while the main block follows the current flat files",
+   "file": "Assets/Resources/Data/economy/circuit.json",
+   "components": {"compensation": "compensation", "proprietors": "proprietors", "rental": "rental", "interest": "interest", "dividends": "dividends", "benefits": "governmentSocialBenefits", "fromBusiness": "transfersFromBusiness", "contributions": "socialInsuranceContributions", "taxes": "personalTaxes"},
+   "pce": "pce",
+   "saving": "saving",
+   "personalIncome": "personalIncome",
+   "disposableIncome": "disposableIncome",
+   "otherOutlays": ["interestPaid", "transferPaymentsPaid"]
+  }
+ },
+
+ "top1": {
+  "cbo": {
+   "status": "not fetched",
+   "why": "www.cbo.gov answered every automated request on 2026-11-03 with HTTP 403 and a DataDome CAPTCHA page ('Please enable JS and disable any ad blocker'); the build does not get around bot checks",
+   "wanted": "CBO, The Distribution of Household Income (latest year): for the top 1% and for the top quintile, labor income, business income, capital income excluding capital gains, social insurance benefits plus means-tested transfers, and federal taxes, so each top-1% share of the top fifth can be read by hand",
+   "url": "https://www.cbo.gov/topics/income-distribution",
+   "year": null,
+   "quote": null,
+   "shareOfTopFifth": {"compensation": null, "proprietors": null, "rental": null, "interest": null, "dividends": null, "benefits": null, "fromBusiness": null, "contributions": null, "taxes": null}
+  },
+  "fallback": {
+   "summary": "the top 1%'s total income and disposable income are BEA's published top-1% shares; its owners' income is the top fifth's, split between 80-99% and the top 1% in proportion to the matching DFA holdings of the same income groups; its benefits and business transfers are the top fifth's per household; its taxes are BEA's top-1% personal income (households ranked by personal income) less its top-1% disposable income (households ranked by disposable income, the only ranking under which BEA publishes it), a mix of two rankings that likely understates the income-ranked top 1%'s taxes (the size per 0.1 pt of disposable-income share is in steps.rankingMix and taxesSensitivity); its pay is what is left of its personal income, with social-insurance contributions at the top fifth's ratio to pay",
+   "capitalKeys": {
+    "proprietors": ["Miscellaneous other equity"],
+    "rental": ["Real estate", "-Home mortgages"],
+    "dividends": ["Corporate equities and mutual fund shares"],
+    "interest": ["Deposits", "Money market fund shares", "Debt securities", "Loans (Assets)", "Life insurance reserves", "DB pension entitlements", "DC pension entitlements", "Annuities"]
+   },
+   "keyNotes": {
+    "proprietors": "proprietors' income follows equity in unincorporated business",
+    "rental": "rental income of households (mostly the imputed rent of owner-occupied homes, net of mortgage interest) follows home equity",
+    "dividends": "personal dividend income is paid on directly held shares and funds (DC-pension holdings excluded, as in the DFA column)",
+    "interest": "personal interest income includes imputed interest on pension and life-insurance reserves, so the key holds deposits, bonds, loans held and those reserves"
+   },
+   "perHousehold": ["benefits", "fromBusiness"],
+   "residual": "compensation",
+   "contributionsLike": "compensation"
+  }
+ },
+
+ "ce": {
+  "source": "BLS Consumer Expenditure Surveys, quintiles of income before taxes (Table 1101 series), annual means per consumer unit",
+  "api": "https://api.bls.gov/publicAPI/v1/timeseries/data/",
+  "page": "https://www.bls.gov/cex/tables.htm",
+  "why": "www.bls.gov serves its tables only to browsers ('Access Denied' to automated requests on 2026-11-03); its Public Data API is the sanctioned automated route",
+  "pattern": "CXU{item}LB01{group}M",
+  "patternNote": "LB01 = quintiles of income before taxes; group 01 = all consumer units, 02 = lowest 20% ... 06 = highest 20%; M = mean",
+  "years": [2024, 2025],
+  "sixGroupsYear": 2024,
+  "sixGroupsYearWhy": "the spec's year and spending.json's: MODALITIES.md section 12 and MODALITIES-PLAN.md WP02 item (3) name BLS CE 2024, and spending.json byQuintile (which M1 also reads) is CE 2024; CE 2025 is stored in byQuintile beside it, for when the spec owner moves both to 2025",
+  "all": "01",
+  "quintiles": {"bottom20": "02", "p20_40": "03", "p40_60": "04", "p60_80": "05", "top20": "06"},
+  "total": {"code": "TOTALEXP", "name": "Average annual expenditures"},
+  "income": {"code": "INCBEFTX", "name": "Income before taxes"},
+  "items": [
+   {"code": "FOODTOTL", "name": "Food"},
+   {"code": "ALCBEVG", "name": "Alcoholic beverages"},
+   {"code": "HOUSING", "name": "Housing"},
+   {"code": "APPAREL", "name": "Apparel and services"},
+   {"code": "TRANS", "name": "Transportation"},
+   {"code": "HEALTH", "name": "Healthcare"},
+   {"code": "ENTRTAIN", "name": "Entertainment"},
+   {"code": "PERSCARE", "name": "Personal care products and services"},
+   {"code": "READING", "name": "Reading"},
+   {"code": "EDUCATN", "name": "Education"},
+   {"code": "TOBACCO", "name": "Tobacco products and smoking supplies"},
+   {"code": "MISC", "name": "Miscellaneous"},
+   {"code": "CASHCONT", "name": "Cash contributions", "notPurchases": true},
+   {"code": "INSPENSN", "name": "Personal insurance and pensions", "notPurchases": true}
+  ],
+  "notPurchasesNote": "cash contributions and personal insurance and pensions (mostly Social Security and pension contributions) are transfers and contributions, not purchases of goods and services",
+  "top1Assumption": "assumed: the 80-99% group and the top 1% spend in the top fifth's proportions (the CE ranks consumer units in fifths and barely samples the top 1%)"
+ },
+
+ "nipa": {
+  "source": "BEA, National Income and Product Accounts, annual flat files (NipaDataA.txt with SeriesRegister.txt and TablesRegister.txt)",
+  "url": "https://apps.bea.gov/national/Release/TXT/FlatFiles.zip",
+  "page": "https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=survey",
+  "firstYear": 1947,
+  "year": 2025,
+  "tables": {
+   "T10105": {"lines": "all", "stubs": {"22": "Government consumption expenditures and gross investment"}},
+   "T20100": {"lines": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 40]},
+   "T30100": {"lines": "all", "stubs": {"20": "Current expenditures", "23": "Government social benefits", "26": "Other current transfer payments to the rest of the world", "30": "Subsidies", "38": "Current expenditures", "39": "Gross government investment", "40": "Capital transfer payments", "43": "Net lending or net borrowing (-)"}},
+   "T30200": {"lines": [1, 24, 33, 34, 35, 40, 43, 49], "stubs": {"1": "Federal current receipts", "24": "Federal current expenditures", "33": "Federal interest payments", "34": "To residents other than general government", "35": "To nonresidents", "40": "Federal total receipts", "43": "Federal total expenditures", "49": "Federal net lending or net borrowing (-)"}},
+   "T31005": {"lines": [1, 2, 3, 4, 5, 6, 12, 15, 47, 50], "stubs": {"12": "Federal consumption expenditures", "15": "Federal: compensation of general government employees", "47": "State and local consumption expenditures", "50": "State and local: compensation of general government employees"}},
+   "T40100": {"lines": "all"},
+   "T61600D": {"lines": "all", "stubs": {"3": "Financial (with IVA and CCAdj)", "4": "Nonfinancial (with IVA and CCAdj)", "5": "Rest of the world", "9": "Domestic industries (with IVA)", "33": "Rest of the world"}, "note": "Lines 8-33 are profits with inventory valuation adjustment only: BEA allocates the capital consumption adjustment to industries only in total (lines 1-7)."},
+   "T60200D": {"lines": [1, 3, 86], "stubs": {"86": "Government (incl. government enterprises)"}},
+   "T60400D": {"lines": [1, 86], "stubs": {"86": "Government (incl. government enterprises)"}},
+   "T60500D": {"lines": [1, 86], "stubs": {"86": "Government (incl. government enterprises)"}}
+  },
+  "facts": {
+   "gdp": "T10105:1",
+   "pce": "T10105:2",
+   "privateFixedInvestment": "T10105:8",
+   "goodsAndServicesBalance": "T10105:15",
+   "exports": "T10105:16",
+   "goodsExports": "T10105:17",
+   "servicesExports": "T10105:18",
+   "imports": "T10105:19",
+   "goodsImports": "T10105:20",
+   "servicesImports": "T10105:21",
+   "governmentPurchases": "T10105:22",
+   "personalIncome": "T20100:1",
+   "compensation": "T20100:2",
+   "wages": "T20100:3",
+   "proprietorsIncome": "T20100:9",
+   "rentalIncome": "T20100:12",
+   "personalInterestIncome": "T20100:14",
+   "personalDividendIncome": "T20100:15",
+   "governmentSocialBenefits": "T20100:17",
+   "socialSecurity": "T20100:18",
+   "medicare": "T20100:19",
+   "medicaid": "T20100:20",
+   "transfersFromBusiness": "T20100:24",
+   "socialInsuranceContributions": "T20100:25",
+   "personalTaxes": "T20100:26",
+   "disposableIncome": "T20100:27",
+   "personalOutlays": "T20100:28",
+   "personalInterestPayments": "T20100:30",
+   "personalTransferPayments": "T20100:31",
+   "personalSaving": "T20100:34",
+   "population": "T20100:40",
+   "stateCurrentReceipts": "T30100:1",
+   "statePersonalTaxes": "T30100:3",
+   "stateProductionAndImportTaxes": "T30100:4",
+   "stateCorporateTaxes": "T30100:5",
+   "stateSocialInsurance": "T30100:7",
+   "stateCurrentExpenditures": "T30100:20",
+   "stateConsumption": "T30100:21",
+   "stateSocialBenefits": "T30100:24",
+   "stateInterest": "T30100:27",
+   "stateInterestToPersonsAndBusiness": "T30100:28",
+   "stateInterestToNonresidents": "T30100:29",
+   "stateSubsidies": "T30100:30",
+   "stateNetSaving": "T30100:31",
+   "stateTotalReceipts": "T30100:34",
+   "stateTotalExpenditures": "T30100:37",
+   "stateInvestment": "T30100:39",
+   "stateNetLending": "T30100:43",
+   "federalInterest": "T30200:33",
+   "federalInterestToResidents": "T30200:34",
+   "federalInterestToNonresidents": "T30200:35",
+   "publicPayGeneralGovernment": "T31005:4",
+   "publicValueAddedGeneralGovernment": "T31005:3",
+   "publicPayAllGovernment": "T60200D:86",
+   "privatePay": "T60200D:3",
+   "publicJobsFullTimeEquivalent": "T60500D:86",
+   "publicJobsFullAndPartTime": "T60400D:86",
+   "incomeReceiptsFromAbroad": "T40100:7",
+   "incomePaymentsAbroad": "T40100:23",
+   "interestPaidAbroad": "T40100:26",
+   "dividendsPaidAbroad": "T40100:27",
+   "reinvestedEarningsPaidAbroad": "T40100:28",
+   "currentAccount": "T40100:33",
+   "corporateProfits": "T61600D:1",
+   "corporateProfitsDomestic": "T61600D:2",
+   "corporateProfitsDomesticWithIva": "T61600D:9",
+   "corporateProfitsRestOfWorld": "T61600D:5"
+  }
+ },
+
+ "profitsCrosswalk": {
+  "assumed": true,
+  "label": "assumed: mapping",
+  "table": "T61600D",
+  "total": 9,
+  "basis": "corporate profits with inventory valuation adjustment, domestic industries (NIPA Table 6.16D line 9)",
+  "tiers": [
+   {"tier": "raw", "plus": [14, 25], "minus": [], "names": "utilities (14); petroleum and coal products (25)"},
+   {"tier": "make", "plus": [15, 28, 29, 30], "minus": [19, 25], "names": "manufacturing (15) less computer and electronic products (19) and petroleum and coal products (25); wholesale trade (28); retail trade (29); transportation and warehousing (30)"},
+   {"tier": "services", "plus": [10, 32], "minus": [], "names": "financial incl. Federal Reserve banks (10); other nonfinancial (32)"},
+   {"tier": "tech", "plus": [19, 31], "minus": [], "names": "computer and electronic products (19); information (31)"}
+  ],
+  "impurities": [
+   "Other nonfinancial (line 32) also holds agriculture and mining (raw in the scene), construction (manufacturing & infrastructure) and computer systems design (tech: the scene's software industry includes NAICS 5415); BEA does not split it.",
+   "Other durable goods (inside manufacturing, line 22) holds primary metals, which the scene counts as raw.",
+   "The rest of the world (line 33) is not a US industry and is left out of the tiers."
+  ],
+  "tech": "Tech = computer and electronic products + information (MODALITIES-PLAN.md WP02), the scene's hardware (NAICS 334) and its software, internet and media & telecom industries (NAICS 51)"
+ },
+
+ "listedValue": {
+  "sectorWeights": {
+   "status": "not read",
+   "why": "www.spglobal.com answered every automated request on 2026-11-03 with HTTP 403 'Security Controls Triggered'; the build does not get around bot checks, so the weights wait for a person to read the factsheet",
+   "wanted": "GICS sector weights of the S&P Total Market Index (or the S&P 500, said so), read by hand from the S&P Dow Jones Indices factsheet: index, as-of date, page and the quoted line for each sector",
+   "url": "https://www.spglobal.com/spdji/en/indices/equity/sp-total-market-index/",
+   "index": null,
+   "asOf": null,
+   "page": null,
+   "weights": null,
+   "quotes": null
+  },
+  "gicsCrosswalk": {
+   "assumed": true,
+   "label": "assumed: mapping",
+   "map": {
+    "Energy": "raw",
+    "Materials": "raw",
+    "Utilities": "raw",
+    "Industrials": "make",
+    "Consumer Discretionary": "make",
+    "Consumer Staples": "make",
+    "Health Care": "make",
+    "Financials": "services",
+    "Real Estate": "services",
+    "Information Technology": "tech",
+    "Communication Services": "tech"
+   },
+   "notes": [
+    "Materials holds chemicals and packaging (manufacturing in the scene) beside metals and mining.",
+    "Health Care holds drug makers (manufacturing in the scene, as circuit.json files Eli Lilly and Johnson & Johnson) beside hospitals and insurers (services).",
+    "Consumer Discretionary holds hotels, restaurants and education services (services in the scene) beside carmakers and retailers.",
+    "Communication Services holds Alphabet, Meta, Netflix and the telecom carriers: the scene's internet and media & telecom industries."
+   ]
+  }
+ },
+
+ "publicDebt": {
+  "asOf": "2026-08-31",
+  "definition": "federal debt held by the public (marketable and nonmarketable Treasury securities held outside federal government accounts); state and local debt is separate",
+  "debtToThePenny": {
+   "source": "US Treasury, Fiscal Data, Debt to the Penny (debt_to_penny endpoint)",
+   "url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny?filter=record_date:eq:2026-08-31",
+   "page": "https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/"
+  },
+  "h41": {
+   "source": "Federal Reserve statistical release H.4.1, Factors Affecting Reserve Balances, 3 September 2026, Table 1",
+   "url": "https://www.federalreserve.gov/releases/h41/20260903/",
+   "row": "U.S. Treasury securities",
+   "note": "the Wednesday level nearest the end of August (Wednesday 2 September 2026); securities held outright at face value, incl. inflation compensation on inflation-indexed notes and bonds"
+  },
+  "tic": {
+   "source": "US Treasury, Treasury International Capital (TIC) system, Table 5: Major Foreign Holders of Treasury Securities",
+   "url": "https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.txt",
+   "page": "https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.html",
+   "month": "2026-08"
+  }
+ },
+
+ "hyperscalers": {
+  "file": "Assets/Resources/Data/economy/corporate-programs.json",
+  "path": "economy.hyperscalerCapex",
+  "definition": "capital expenditures as each firm's cash purchases of property and equipment in its cash-flow statement, finance leases out, calendar 2025 (Oracle, whose fiscal year ends in May: its four quarters from December 2024 to November 2025)",
+  "why": "it is the only definition the stored filings give for all five firms: Microsoft's and Meta's headline figures add finance leases, Alphabet's, Amazon's and Oracle's do not, and the stored data have no finance-lease additions for Alphabet or Oracle in calendar 2025",
+  "firms": [
+   {"id": "microsoft", "name": "Microsoft", "entry": "calendar2025", "cash": {"from": "note", "pattern": "'Additions to property and equipment' ([0-9,]+)\\+([0-9,]+)\\+([0-9,]+)\\+([0-9,]+) = \\$([0-9.]+)B", "unit": "USD millions, four quarters summed", "stated": 5}, "headlineNote": "Microsoft's headline (CFO-stated) capital expenditures include finance leases"},
+   {"id": "alphabet", "name": "Alphabet", "entry": "calendar2025", "cash": {"from": "value"}, "headlineNote": "Alphabet's measure is cash purchases of property and equipment"},
+   {"id": "amazon", "name": "Amazon", "entry": "calendar2025", "cash": {"from": "value"}, "headlineNote": "Amazon's figure is gross cash purchases of property and equipment"},
+   {"id": "meta", "name": "Meta", "entry": "calendar2025", "cash": {"from": "note", "pattern": "purchases of property and equipment \\$([0-9,]+)M", "unit": "USD millions"}, "headlineNote": "Meta's headline adds principal payments on finance leases"},
+   {"id": "oracle", "name": "Oracle", "entry": "trailing4Q_Dec2024toNov2025", "cash": {"from": "value"}, "headlineNote": "Oracle reports cash-flow capital expenditures; its fiscal year ends in May"}
+  ],
+  "otherFigures": "Assets/Resources/Data/economy/industries.json overlays (id 'ai') records capex2025 410.0 and capex2025WithOracle 443.0 with Microsoft at 95.0; its definition is not recorded there"
+ }
+}

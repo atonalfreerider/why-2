@@ -92,7 +92,7 @@ Docs/data/instant.md lists every series, its source and its use.
 **Acceptance.** python3 -I Tools/instant/build.py --offline rebuilds instant.json byte-identically. The build log prints:
 - DFA by income: 6 groups, levels summing to DFA totals within 0.5%;
 - net-worth shares within 0.1 pt of circuit.json groupNotes [2.89, 4.17, 7.82, 13.33, 47.31, 24.47];
-- household debt (mortgages + consumer credit) $20.6T within 3%;
+- household liabilities (all DFA instruments) $20.0T within 3%;
 - NIPA 2025 receipts minus expenditures equal to net lending within $1B;
 - flows by group summing to NIPA totals within 0.5%;
 - 6.16D profits mapped to 4 tiers with the crosswalk printed;
@@ -162,7 +162,7 @@ The dominance sentence is restated as market value: tech is 9.4% of private valu
 In EVALUATION:
 - 5.1 #5 and S11 are corrected;
 - 5.1's acceptance #4 is reworded to 'a larger share of market value than of output';
-- a dated 'Corrections (3 Nov 2026 design pass)' note is added listing the measured totals: PCE $20.95T against the simulation's $21.63T, household debt $20.6T against $14.35T, $185.8T as 2026:Q2, the current account against the trade gap, and 55% of world population in the 13.
+- a dated 'Corrections (3 Nov 2026 design pass)' note is added listing the measured totals: PCE $20.95T against the simulation's $21.63T, household debt $20.0T (all DFA liabilities, 2026:Q1) against $14.35T, $185.8T as 2026:Q2, the current account against the trade gap, and 55% of world population in the 13.
 
 **Data.** Numbers recomputed from circuit.json io and industries.json (spec section 2).
 
@@ -643,7 +643,7 @@ It contributes the rows for balance and people, and adds the anchor instant:bala
 
 **Data.** InstantModel (DFA by income, listed value, TIC, IIP, roles).
 
-**Acceptance.** economy-view-instant-balance.png shows six equal rows labelled with households and net-worth shares (top 1% near 24.5%), debts hatched, household debt total near $20.6T, firm-named tech segments summing to at least 31.7% of $75.3T, and the dashed $37.3T row. The thread count equals round(listed $T) (logged), with 14 to ABROAD. The scale bar reads '$10T owned' and no flow pixels remain. economy-view-instant-people.png shows the top 1% holding about one dot, the bottom fifth about 27, the base 21.6 units and a roles legend marked ≈. The 1.2 s morph has no frame over 50 ms.
+**Acceptance.** economy-view-instant-balance.png shows six equal rows labelled with households and net-worth shares (top 1% near 24.5%), debts hatched, household debt total near $20.0T, firm-named tech segments summing to at least 31.7% of $75.3T, and the dashed $37.3T row. The thread count equals round(listed $T) (logged), with 14 to ABROAD. The scale bar reads '$10T owned' and no flow pixels remain. economy-view-instant-people.png shows the top 1% holding about one dot, the bottom fifth about 27, the base 21.6 units and a roles legend marked ≈. The 1.2 s morph has no frame over 50 ms.
 
 ### WP27
 
@@ -968,7 +968,7 @@ Documentation:
 21. **Which way does money between industries run on screen?** In the money direction, buyer to supplier: 37.2% up, 21.9% down, 41.0% within with the state as tier 0, and 27.7, 24.9 and 47.4 among market tiers ('supplies come down, the money goes up'). InstantModel asserts it, and WP05 corrects THEORY and EVALUATION before any caption cites the figures.  
    *Why:* Recomputed from circuit.json io in this design pass. The docs and the spatial proposal had it reversed, which would have put a false headline on the author's symbiosis.
 
-22. **Which totals are drawn, and how are the state's accounts kept consistent?** Measured totals only: PCE $20.95T and DFA household debt of about $20.6T. The simulation supplies splits, marked ≈. The state buys about $3.16T from industries, market pay is about $13.1T, public pay $2.70T comes from the base, tariffs stay inside production taxes, and interest is split by holder.  
+22. **Which totals are drawn, and how are the state's accounts kept consistent?** Measured totals only: PCE $20.95T and DFA household debt of about $20.0T (decision 29). The simulation supplies splits, marked ≈. The state buys about $3.16T from industries, market pay is the rest of compensation (about $13.3T, government enterprises included), public pay ($2.46T, decision 32) comes from the base, tariffs stay inside production taxes, and interest is split by holder.  
    *Why:* This is a must-fix. The simulated $21.63T and $14.35T, government consumption of $5.29T, and double-counted pay were errors the judges found in the proposals.
 
 23. **How do lives and visibility work in M3?** A corridor in the stage plane, left of the class tower, with time left to right and no orbit. Income rank is linear, with a magnified top 1% (log net worth) and an attention band (log Wikipedia page views). Three medoid lives start in the middle fifth at year-20, aged 30-39. Real figures are chosen by printed rules. The 2025 follower snapshot is a separate dated star, never joined to the page-view line. Money and visibility are compared on one log index (2016 = 1).  
@@ -988,3 +988,18 @@ Documentation:
 
 28. **How do the new views behave on portrait and in the headset?** Portrait: M1 shows the towers only, with the strip and bar in a bottom sheet; M2 shows halves plus a thumbnail; M3 uses the LivesStrip. Headset: dioramas with labels of at least 1 degree, kept canvases, pinch buttons of at least 40 units, draw calls M1 at most 12, M2 at most 20, M3 at most 6, and content that moves while the viewer stays still.  
    *Why:* These are the grafts from clarity and fidelity. Economy panels are hidden in XR unless kept, and the floors must stay at least 20 px in portrait too.
+
+29. **Which household-debt total is drawn?** Every household liability in the Fed DFA: $20.0T at 2026:Q1, of which home mortgages and consumer credit are $18.9T, so assets less debt is net worth in each income group. WP02's check compares that total with $20.0T ± 3%.  
+   *Why:* The first figure, $20.6T, matches no DFA measure; it is near the Fed Z.1 debt of households and nonprofits together (about $20.7T), which counts nonprofits too. Corrected 3 Nov 2026 after WP02.
+
+30. **Which national-accounts vintage does M1 draw?** circuit.json's (BEA before its September 2026 update: PCE $20.95T), stored in instant.json as `classes.flows.circuitVintage`, so M1 and the hills agree to the dollar. The current vintage (PCE $20.87T, total $28.31T) is stored beside it for the day circuit.json is rebuilt; then both move together.  
+   *Why:* The two vintages are 0.67% apart, more than WP10's 0.5% class-total check allows, and the hills are calibrated on circuit.json.
+
+31. **Which hyperscaler capital spending is drawn?** $411.5B for calendar 2025: each firm's cash purchases of property and equipment, finance leases out (Oracle's four quarters to November 2025), the one definition all five firms report. Each firm's own headline measure sums to $449B; wherever that figure appears it says so.  
+   *Why:* Only one definition can be added across the five firms.
+
+32. **Which public pay comes from the base?** General government compensation, $2.46T (NIPA 2025, Table 3.10.5), with general government jobs. Government enterprises (the Postal Service and the like) pay $0.22T more out of their own sales: their pay and jobs count with the market's, so market pay is total compensation less general government's (about $13.3T). instant.json stores the all-government figures too ($2.68T, 21.59M full-time equivalent jobs); WP10 adds general government's jobs from NIPA Table 6.5D to Tools/instant/build.py.  
+   *Why:* The base is built from the state's current accounts (NIPA Table 3.1), which cover general government and count enterprises only by their net surplus; paying enterprise wages from the base would need their sales on its other side. Corrects decision 22's first $2.70T.
+
+33. **What stands in for sources that refuse automated access?** CBO's top-1% income shares and S&P Dow Jones Indices' sector weights answered every automated request with a block page (3 Nov 2026); the builds never get around a bot check. The top 1%'s flows come from BEA's distribution with DFA holdings (marked ≈), and listed value by sector falls back to the 25 stored firms: tech at least 31.7%, $37.3T dashed as not split. A person may read either page by hand into sources.json; the builders pick the values up and run their checks.  
+   *Why:* Fail closed and say so on screen, rather than estimate a number the sources did not give.

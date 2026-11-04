@@ -19,9 +19,16 @@ namespace Why
     /// layer hidden in turn, to find which layer draws what; a view with states of its own, <see cref="ViewVariants"/>, is
     /// captured in each); <c>-smokereplay</c> also plays the economy's replay of the
     /// wave from 1950 to the latest year through the overview, landscape, money and mobility views, with a frame at a few
-    /// years, failing if it stalls, and logs the layers that cost the most in its long frames (<see cref="LayerClock"/>);
+    /// years (each once the hills layers show the year, <see cref="CatchUp"/>), failing if it stalls, and logs the layers
+    /// that cost the most in its long frames (<see cref="LayerClock"/>);
     /// add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
+    /// After every view, view state, tour card and stop and replay frame (saved or not), the checks the packages registered
+    /// run on it (<see cref="SmokeChecks"/>; each problem is an error); <c>-smokeextra a,b</c> runs the packages' own
+    /// sequences of those names after the tour (a name no scene ran is an error); <c>-smokecheckfail</c> registers a check
+    /// that always fails, to prove that a failing check fails the run; <c>-smokefacts</c> logs every fact the models
+    /// published at the end of the run (<see cref="ModelFacts"/>, read by Tools/export-facts.py), and
+    /// <c>-smoketestfacts</c> publishes two test facts to try that without a model.
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class SmokeTest : GraphModule
@@ -35,13 +42,18 @@ namespace Why
         /// </summary>
         const float OverviewSeconds = 0.8f;
 
-        static bool enabledByArgs, hooked;
-        static string shots;
+        static bool enabledByArgs, hooked, argsRead, logFacts;
         static HashSet<string> only;
         static int zooms;
         static readonly HashSet<string> visited = new HashSet<string>();
         static readonly List<string> problems = new List<string>();
         static int errors;
+
+        /// <summary>
+        /// The packages' sequences to run after the tour (<c>-smokeextra a,b</c>, in that order), read once for the run; empty,
+        /// never null, so the run can go on even when Init failed before reading them.
+        /// </summary>
+        static readonly List<string> extras = new List<string>();
 
         public override int Order => 1000;
 
@@ -55,17 +67,50 @@ namespace Why
                 return;
             }
 
-            int i = System.Array.IndexOf(args, "-screenshots");
-            shots = i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
-            if (shots != null) Directory.CreateDirectory(shots);
-            int o = System.Array.IndexOf(args, "-smokeonly");
-            if (o >= 0 && o + 1 < args.Length) only = new HashSet<string>(args[o + 1].Split(','));
-            int zi = System.Array.IndexOf(args, "-smokezoom");
-            if (zi >= 0 && zi + 1 < args.Length) int.TryParse(args[zi + 1], out zooms);
+            // first, so that every error from here on counts, an exception in this Init too (GraphRoot logs it and still
+            // calls OnLoaded, so the run goes on and must exit 1)
             if (!hooked)
             {
                 hooked = true;
                 Application.logMessageReceived += OnLog;
+            }
+
+            if (!argsRead)
+            {
+                // once for the run (the other scene has the same arguments): the sequences after the tour, the facts at the end
+                argsRead = true;
+                int x = System.Array.IndexOf(args, "-smokeextra");
+                if (x >= 0 && x + 1 < args.Length) extras.AddRange(args[x + 1].Split(',').Select(s => s.Trim()).Where(s => s.Length > 0).Distinct());
+                if (x >= 0 && extras.Count == 0) Debug.LogError("[Why] smoke: -smokeextra names no sequence (-smokeextra a,b)");
+                logFacts = args.Contains("-smokefacts");
+                if (args.Contains("-smoketestfacts")) TestFacts();
+            }
+
+            int i = System.Array.IndexOf(args, "-screenshots");
+            SmokeChecks.ShotsDir = i >= 0 && i + 1 < args.Length ? args[i + 1] : null;
+            if (SmokeChecks.ShotsDir != null)
+            {
+                // a directory that cannot be made is an error (the run exits 1); the run goes on without frames
+                try
+                {
+                    Directory.CreateDirectory(SmokeChecks.ShotsDir);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"[Why] smoke: -screenshots '{SmokeChecks.ShotsDir}' cannot be made, so no frames are saved: {e.Message}");
+                    SmokeChecks.ShotsDir = null;
+                }
+            }
+
+            int o = System.Array.IndexOf(args, "-smokeonly");
+            if (o >= 0 && o + 1 < args.Length) only = new HashSet<string>(args[o + 1].Split(','));
+            int zi = System.Array.IndexOf(args, "-smokezoom");
+            if (zi >= 0 && zi + 1 < args.Length) int.TryParse(args[zi + 1], out zooms);
+
+            // in each scene (checks belong to the scene that registers them)
+            if (args.Contains("-smokecheckfail"))
+            {
+                SmokeChecks.Register("smokecheckfail", view => new[] { "registered by -smokecheckfail, so the run must exit 1" });
             }
 
             Debug.Log($"[Why] smoke: scene '{GraphScene.Current}' starting");
@@ -97,7 +142,7 @@ namespace Why
             {
                 yield return new WaitForSecondsRealtime(s - t);
                 t = s;
-                yield return Shot($"genesis-{s:00.00}s");
+                yield return SmokeChecks.Shot($"genesis-{s:00.00}s");
             }
 
             Debug.Log($"[Why] smoke: genesis done, {errors} errors");
@@ -137,6 +182,7 @@ namespace Why
             string scene = GraphScene.Current;
             visited.Add(scene);
             yield return new WaitForSecondsRealtime(1f);
+            Debug.Log("[Why] smoke checks: " + SmokeChecks.Summary());
 
             foreach (ViewPreset p in ViewPresets.All.ToList())
             {
@@ -149,7 +195,7 @@ namespace Why
 
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
-                yield return Shot($"{scene}-view-{p.Id}");
+                yield return SmokeChecks.Capture($"{scene}-view-{p.Id}", p);
                 // a view with states of its own (ViewVariants): each state in turn, then back to the default
                 if (ViewVariants.TryGet(p.Id, out ViewVariants.Entry variants))
                 {
@@ -157,19 +203,20 @@ namespace Why
                     {
                         variants.Show(v);
                         yield return new WaitForSecondsRealtime(1.2f);
-                        yield return Shot($"{scene}-view-{p.Id}-{variants.Name(v)}");
+                        yield return SmokeChecks.Capture($"{scene}-view-{p.Id}-{variants.Name(v)}", p);
                     }
 
                     variants.Show(-1);
                 }
-                // -smokelayers: the view again with each layer hidden in turn, to find which layer draws what
-                if (System.Environment.GetCommandLineArgs().Contains("-smokelayers") && shots != null)
+                // -smokelayers: the view again with each layer hidden in turn, to find which layer draws what (diagnostic
+                // frames, like -smokezoom's: no checks)
+                if (System.Environment.GetCommandLineArgs().Contains("-smokelayers") && SmokeChecks.ShotsDir != null)
                     foreach (GraphLayer layer in root.Layers.ToList())
                     {
                         if (layer == null || !layer.gameObject.activeSelf) continue;
                         layer.gameObject.SetActive(false);
                         yield return new WaitForSecondsRealtime(0.3f);
-                        yield return Shot($"{scene}-view-{p.Id}-without-{layer.GetType().Name}");
+                        yield return SmokeChecks.Shot($"{scene}-view-{p.Id}-without-{layer.GetType().Name}");
                         layer.gameObject.SetActive(true);
                     }
                 // -smokezoom N: after each view, N more frames each a quarter of the distance toward the target
@@ -179,7 +226,7 @@ namespace Why
                     pose.Distance *= 0.25f;
                     root.Rig.SetPose(pose);
                     yield return new WaitForSecondsRealtime(1.2f);
-                    yield return Shot($"{scene}-view-{p.Id}-zoom{z}");
+                    yield return SmokeChecks.Shot($"{scene}-view-{p.Id}-zoom{z}");
                 }
             }
 
@@ -191,7 +238,7 @@ namespace Why
             {
                 director.StartTour();
                 yield return new WaitForSecondsRealtime(StopSeconds);
-                yield return Shot($"{scene}-tour-00-title");
+                yield return SmokeChecks.Capture($"{scene}-tour-00-title", root.CurrentPreset);
                 // each stop: let the camera settle, finish the card's typewriter, let the whole text lay out, capture, and
                 // only then move on (the frame shows the stop it is named after, with its card complete); stop at the end
                 // card: "next" there continues into the economy, which this test does itself
@@ -201,18 +248,21 @@ namespace Why
                     yield return new WaitForSecondsRealtime(StopSeconds);
                     director.CompleteTyping();
                     yield return null;
-                    yield return Shot($"{scene}-tour-{n + 1:00}-{director.CurrentStepId}");
+                    yield return SmokeChecks.Capture($"{scene}-tour-{n + 1:00}-{director.CurrentStepId}", root.CurrentPreset);
                     director.NextStep();
                 }
 
                 if (director.AtEndCard)
                 {
                     yield return new WaitForSecondsRealtime(StopSeconds);
-                    yield return Shot($"{scene}-tour-end");
+                    yield return SmokeChecks.Capture($"{scene}-tour-end", root.CurrentPreset);
                 }
 
                 director.ExitTour();
             }
+
+            // -smokeextra a,b: the packages' own sequences this scene registered, after everything else in it
+            if (extras.Count > 0) yield return SmokeChecks.RunSequences(extras);
 
             Debug.Log($"[Why] smoke: scene '{scene}' done, {errors} errors so far");
             string other = scene == GraphScene.Economy ? GraphScene.Why : GraphScene.Economy;
@@ -222,13 +272,46 @@ namespace Why
                 yield break;
             }
 
+            // the end of the run: what only both scenes together can tell, then the facts
+            foreach (string name in SmokeChecks.NotRun(extras))
+            {
+                Debug.LogError($"[Why] smoke: -smokeextra '{name}': no sequence of that name ran in either scene (registered: {SmokeChecks.SequenceNames()})");
+            }
+
+            foreach (string problem in ModelFacts.Problems()) Debug.LogError("[Why] ModelFacts " + problem);
+            if (logFacts) LogFacts();
             foreach (string p in problems) Debug.Log("[Why] smoke problem: " + p);
             Debug.Log($"[Why] smoke: finished, {errors} errors");
             Application.Quit(errors > 0 ? 1 : 0);
         }
 
+        /// <summary><c>-smokefacts</c>: every fact the models published, sorted by key, one line each (Tools/export-facts.py).</summary>
+        static void LogFacts()
+        {
+            IReadOnlyList<ModelFacts.Fact> all = ModelFacts.All();
+            Debug.Log($"[Why] facts: {all.Count} published");
+            foreach (ModelFacts.Fact f in all) Debug.Log(ModelFacts.Line(f));
+        }
+
+        /// <summary>
+        /// <c>-smoketestfacts</c>: two facts that are not a model's, to try the fact lines and Tools/export-facts.py without
+        /// one: a number with a unit of two words, and a text with quotes and a bar in it and no unit.
+        /// </summary>
+        static void TestFacts()
+        {
+            const string source = "SmokeTest -smoketestfacts", basis = "a test value, not a model's";
+            ModelFacts.Set("smoke.test.number", 1234.5, "test units", source, basis);
+            ModelFacts.Set("smoke.test.text", "a \"quoted\" | text", "", source, basis);
+        }
+
         /// <summary>The longest the replay of the wave may take (s): about 80 years at a second or so each, with room.</summary>
         const float ReplaySeconds = 420f;
+
+        /// <summary>
+        /// The most frames a replay frame waits for the hills layers to catch up with its year (they take about a dozen,
+        /// <see cref="CatchUp"/>): a second at 60 frames a second.
+        /// </summary>
+        const int CatchUpFrames = 60;
 
         /// <summary>
         /// <c>-smokereplay</c>: the replay of the economy's wave from its first year to the latest, changing views on the way
@@ -261,8 +344,9 @@ namespace Why
                 if (view != null) root.Focus(view, 0.6f);
                 if (shot != null)
                 {
+                    yield return CatchUp(year, shot);
                     LayerClock.Pause();
-                    yield return Shot($"economy-replay-{shot}");
+                    yield return SmokeChecks.Capture($"economy-replay-{shot}", root.CurrentPreset);
                     LayerClock.Resume();
                 }
 
@@ -280,14 +364,30 @@ namespace Why
             Debug.Log("[Why] smoke: replay frames: " + LayerClock.Report());
         }
 
-        /// <summary>Captures this frame and waits until it is written, so the next view does not leak into it.</summary>
-        static IEnumerator Shot(string name)
+        /// <summary>
+        /// Waits until the hills layers show the replay's year. The land swaps first and the chip follows it; every other
+        /// hills layer then rebuilds in a frame of its own (<see cref="Economy.HillRebuilds"/>, about a dozen frames), so the
+        /// first frame of a year shows last year's labels under this year's chip. Caught up is a frame in which no layer took
+        /// the frame's rebuild: asked here, after every layer's Tick (where they all rebuild), <c>HillRebuilds.Take</c> spends
+        /// nothing a layer could still use. At most <see cref="CatchUpFrames"/> frames, and only while the replay still shows
+        /// the year: the replay keeps its own pace and is never held. A warning when the frame is taken before.
+        /// </summary>
+        static IEnumerator CatchUp(int year, string shot)
         {
-            if (shots == null) yield break;
-            yield return new WaitForEndOfFrame();
-            ScreenCapture.CaptureScreenshot(Path.Combine(shots, name + ".png"));
-            yield return null;
-            yield return null;
+            int frames = 0;
+            for (; frames < CatchUpFrames && Economy.EconomyReplay.ShownYear == year; frames++)
+            {
+                if (Economy.HillRebuilds.Take())
+                {
+                    Debug.Log($"[Why] smoke: replay frame {shot}: the hills layers caught up with {year} in {frames} frames");
+                    yield break;
+                }
+
+                yield return null;
+            }
+
+            Debug.LogWarning($"[Why] smoke: replay frame {shot} taken before the hills layers caught up with {year} " +
+                             $"({frames} frames; the replay shows {Economy.EconomyReplay.ShownYear})");
         }
     }
 }

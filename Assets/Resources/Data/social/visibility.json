@@ -139,7 +139,7 @@
     "pageViews": 2871107,
     "accepted": false
    },
-   "basis": "no candidate on the Forbes 400 2025 is outside the attention cloud (10M followers or more: all 5), so the rule picks nobody; fallback proposal: the fewest page views in 2025 among the candidates the earlier rules did not pick; not the pick until the author accepts it",
+   "basis": "no candidate on the Forbes 400 2025 is outside the attention cloud (10M followers or more: all 5), so the rule picks nobody; fallback proposal: the fewest page views in 2025 among the candidates the earlier rules did not pick; the author left this rule without a pick",
    "ranking": [
     {
      "id": "bill-gates",
@@ -173,10 +173,10 @@
     }
    ]
   },
-  "distinct": "each rule picks among the candidates the earlier rules did not pick (order: together, apart, little attention)"
+  "distinct": "each rule picks among the candidates the earlier rules did not pick (order: together, apart, little attention); the author's pick, when approved, is none of the rules' picks"
  },
  "shortlist": {
-  "authorApproved": false,
+  "authorApproved": true,
   "picks": [
    {
     "rule": "together",
@@ -201,7 +201,7 @@
     "id": null,
     "name": null,
     "conditionMet": false,
-    "basis": "no candidate on the Forbes 400 2025 is outside the attention cloud (10M followers or more: all 5), so the rule picks nobody; fallback proposal: the fewest page views in 2025 among the candidates the earlier rules did not pick; not the pick until the author accepts it",
+    "basis": "no candidate on the Forbes 400 2025 is outside the attention cloud (10M followers or more: all 5), so the rule picks nobody; fallback proposal: the fewest page views in 2025 among the candidates the earlier rules did not pick; the author left this rule without a pick",
     "fallback": {
      "id": "bill-gates",
      "name": "Bill Gates",
@@ -210,9 +210,19 @@
      "pageViews": 2871107,
      "accepted": false
     }
+   },
+   {
+    "rule": "authorPick",
+    "id": "oprah-winfrey",
+    "name": "Oprah Winfrey",
+    "k": 2,
+    "m": 9,
+    "share": 0.2222,
+    "caption": "fortune held steady ($2.5B to $3.0B) while readership fell to 0.63 of 2016; together in 2 of 9 years",
+    "basis": "The author's third life, approved 3 Nov 2026 in place of the little-attention rule, which picks nobody inside people.json: Oprah Winfrey, shown with her own computed pattern, not as a rule's pick."
    }
   ],
-  "note": "The author approves the three picks (MODALITIES.md 7.3). Until then the builder writes the computed picks with authorApproved false. To approve, set author_approved to true and approved to {\"together\": id, \"apart\": id, \"littleAttention\": id or null}; the build then fails if the rules ever pick someone else. When no candidate meets the little-attention condition, naming the fallback proposal's id for littleAttention accepts it as the pick, and null leaves that rule without a pick."
+  "note": "The author approves the picks (MODALITIES.md 7.3). Until then the builder writes the computed picks with authorApproved false. To approve, set author_approved to true and approved to {\"together\": id, \"apart\": id, \"littleAttention\": id or null, \"authorPick\": id (optional)}; the build then fails if the rules ever pick someone else. When no candidate meets the little-attention condition, naming the fallback proposal's id for littleAttention accepts it as the pick, and null leaves that rule without a pick. authorPick names a third candidate the author chose, written with its own caption and never as a rule's pick."
  },
  "forbesLists": {
   "note": "listDate: the most common UTC date of the list's entries in today's list data (entries: rows on the list; onListDate: rows with that date). Before 2013 it is the first day of the list's month for most entries, so it marks the month rather than a day of publication or of measurement; an entry's own date is its entryDate",

@@ -773,7 +773,9 @@ Unverified items are **not drawn, not even dashed**. WorldPanel lists them under
 - **Who.** Public adults only, chosen by printed rules from the US people in people.json with ≥ 8 annual Forbes estimates. The rules are computed in `Tools/lives/build.py`, and the author approves the shortlist (recorded in sources.json):
   - **together:** the highest share of years in which log net worth and log page views moved the same way;
   - **apart:** the lowest share;
-  - **little attention:** the richest Forbes-400 American not among the most-followed accounts, with the fewest page views.
+  - **little attention:** the richest Forbes-400 American not among the most-followed accounts, with the fewest page views. Nobody in people.json meets it (every candidate on the 2025 Forbes 400 has 10M followers or more), so the rule is printed without a pick;
+  - **the author's pick** (approved 3 Nov 2026): Oprah Winfrey, a candidate no rule picked, shown with her own computed caption: "fortune held steady ($2.5B to $3.0B) while readership fell to 0.63 of 2016; together in 2 of 9 years".
+  - The approved three: Elon Musk (together, 8 of 9), Donald Trump (apart, 2 of 9) and Oprah Winfrey (the author's pick).
 - **Money.** A gold line in the magnified band: Forbes estimates by year, labelled "Forbes estimate", each value with a URL and quote.
 - **Visibility.** A white line of monthly page views (from Jul 2015) that rises through the attention band, the cloud's region.
   - The **2025 follower snapshot** is drawn once as a separate star at the person's cloud altitude. It is joined only by a dotted leader labelled "followers, 2025 snapshot (four platforms): a different measure".
@@ -788,7 +790,7 @@ From the "Where do you stand?" panel (YouModel), the viewer is a dot at their in
 
 A uGUI mesh graphic on the HUD plane, with one row per life:
 - tracks: income percentile (linear); net worth (log, real people); page views (log, real people); event ticks; the parents' dashed rank; the base-rate box;
-- chooser buttons of at least 40 canvas units: Climber · Stayer · Faller · You · Together · Apart · Little attention.
+- chooser buttons of at least 40 canvas units: Climber · Stayer · Faller · You · Together · Apart · Steady (the author's pick).
 
 It is the **default rendering of M3 in portrait and in the headset**, and its canvas is kept in XR.
 
@@ -944,7 +946,7 @@ Variants are reached through the existing `cues` ("show"). The old per-view stop
 | 16 | world_chokepoints | III · world (chokepoints) | Some links have one main holder. Taiwan made {twnChips}% of the most advanced chips; China mines {chnMine}% of rare earths and refines {chnMagnets}% of those in magnets; the United States holds {usAi}% of AI computing power. | SIA/BCG 2022; USGS, IEA 2024; Epoch end-2024 |
 | 17 | world_conflict | III · world (conflict) | Tariff walls, sanction cuts and export controls narrow these lanes. US imports from Russia fell from ${ruUs2021}B in 2021 to ${ruUs2024}B in 2024; {tariffSentence} | drawn only after each 2026 fact is re-verified · as of {asOf} |
 | 18 | lives_three | IV · lives | Turn the household tower on its side: behind it run the lives that fill it. Three synthetic Americans were in the middle fifth in {start}, aged 30 to 39. One climbed, one stayed, one fell; {climbed}% of those like them climbed. | simulated, n = {n} records of 100,000 people · associations, not causes |
-| 19 | lives_visible | IV · lives (real) | Real public figures, by published estimates. {togetherName}'s fortune and readership moved together in {togetherYears} of {years} years; {apartName}'s moved apart; {quietName}'s fortune grew with little attention. | Forbes estimates; Wikipedia page views; chosen by the printed rule |
+| 19 | lives_visible | IV · lives (real) | Real public figures, by published estimates. {togetherName}'s fortune and readership moved together in {togetherYears} of {years} years; {apartName}'s moved apart; {pickName}'s {pickCaption}. | Forbes estimates; Wikipedia page views; chosen by the printed rule |
 | 20 | hills_you | V · you (wait) | Tell the model about your household. It places you among simulated Americans by income, splits your dollar the way everyone's splits, and shows where people like you were ten years later. Take your time; the tour waits. | not advice: simulated odds with n and ranges |
 | 21 | hills_return | VI · instant → overview (resume time) | Put the year back into the wave. Every rib behind it is a year like this one, and every dollar in each was someone's choice, made in fear or desire. | — |
 

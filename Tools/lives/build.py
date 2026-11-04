@@ -1038,6 +1038,8 @@ def main():
     cloud = la["mostFollowedFrom"]
     quiet = [x for x in pool if x["followers"] < cloud]
     proposal = None
+    # the author may leave this rule without a pick (approved littleAttention: null) rather than accept the fallback
+    declined = approved and "littleAttention" in want and want.get("littleAttention") is None
     if quiet:
         chosen = sorted(quiet, key=lambda x: (-x["netWorth"], x["pageViews"], x["id"]))[0]
         condition = True
@@ -1051,7 +1053,8 @@ def main():
         basis = (f"no candidate on the Forbes 400 {y1} is outside the attention cloud ({cloud / 1e6:g}M followers or more: "
                  f"all {len(f400)}), so the rule picks nobody; fallback proposal: the fewest page views in {y1} among the "
                  f"candidates the earlier rules did not pick" +
-                 ("; the author accepted it" if accepted else "; not the pick until the author accepts it"))
+                 ("; the author accepted it" if accepted else "; the author left this rule without a pick" if declined
+                  else "; not the pick until the author accepts it"))
     else:
         chosen, condition, basis = None, None, f"no candidate on the Forbes 400 {y1}"
     print("RULE little attention, Forbes 400 " + str(y1) + ": " +
@@ -1116,6 +1119,28 @@ def main():
     if proposal:
         la_item["fallback"] = {**proposal, "accepted": bool(chosen)}
     shortlist.append(la_item)
+    # the author's pick: a third public adult among the candidates, named by the author (sources.json approved.authorPick)
+    # when no one meets the little-attention condition; written with its own computed caption, never as a rule's pick
+    pick_id = want.get("authorPick") if approved else None
+    if pick_id:
+        s = next((x for x in stats if x["id"] == pick_id), None)
+        r = next((x for x in out_people if x["id"] == pick_id), None)
+        if s is None or r is None:
+            problems.append(f"approved authorPick {pick_id} is not a candidate (a public adult with at least "
+                            f"{rules['minAnnualPoints']} annual points)")
+        elif any(i["id"] == pick_id for i in shortlist):
+            problems.append(f"approved authorPick {pick_id} is already a rule's pick")
+        else:
+            nw = [v for v in r["annual"]["netWorth"] if v is not None]
+            pvi = [v for v in r["annual"]["pageViewsIndex"] if v is not None]
+            low, high, last = min(nw), max(nw), pvi[-1]
+            fortune = (f"fortune held steady (${low:.1f}B to ${high:.1f}B)" if high / low < 1.25 else
+                       f"fortune ranged from ${low:.1f}B to ${high:.1f}B")
+            trend = (f"readership fell to {last:.2f} of {y0}" if last < 0.8 else
+                     f"readership grew to {last:.2f} times {y0}" if last > 1.25 else f"readership ended near {y0}'s")
+            shortlist.append({"rule": "authorPick", "id": s["id"], "name": s["name"], "k": s["k"], "m": s["m"],
+                              "share": s["share"], "caption": f"{fortune} while {trend}; together in {s['k']} of {s['m']} years",
+                              "basis": approval.get("authorPickNote")})
     if approved:
         for item in shortlist:
             w = want.get(item["rule"])
@@ -1126,18 +1151,20 @@ def main():
             elif w != item["id"]:
                 problems.append(f"approved shortlist names {w} for {item['rule']}; the rules now pick {item['id']}")
     check(f"shortlist: {', '.join((i['name'] or 'no pick') + ' (' + i['rule'] + ')' for i in shortlist)}"
-          f"{'; little attention: fallback proposal ' + proposal['name'] + (' accepted' if chosen else ' awaiting the author') if proposal else ''}"
+          f"{'; little attention: fallback proposal ' + proposal['name'] + (' accepted' if chosen else ' declined by the author' if declined else ' awaiting the author') if proposal else ''}"
           f"; author_approved: {str(approved).lower()} (sources.json shortlist.author_approved)")
     by_id = {r["id"]: r for r in out_people}
     shown_people = [(i["rule"], i["id"], "chosen") for i in shortlist if i["id"]]
-    if proposal and not chosen:
+    if proposal and not chosen and not declined:
         shown_people.append(("littleAttention", proposal["id"], "fallback proposal"))
     for rule, pid, role in shown_people:
         r = by_id[pid]
         pv = r["pageViews"]
         cur = [v for v in r["forbes"] if v["current"]]
         fq = person_quotes.get(pid, [0, 0])
-        if rule == "littleAttention":
+        if rule == "authorPick":
+            score = next(i["caption"] for i in shortlist if i["rule"] == "authorPick")
+        elif rule == "littleAttention":
             x = next(x for x in f400 if x["id"] == pid)
             score = (f"{fmt_views(x['pageViews'])} page views in {y1}, Forbes 400 {y1} ${x['netWorth']:g}B"
                      f"{'' if condition else ' (fallback)'}")
@@ -1172,7 +1199,8 @@ def main():
                                 "fallback": ({**proposal, "accepted": bool(chosen)} if proposal else None), "basis": basis,
                                 "ranking": [{"id": x["id"], "netWorth": x["netWorth"], "followers": x["followers"],
                                              "pageViews": x["pageViews"]} for x in sorted(f400, key=lambda x: (x["pageViews"], x["id"]))]},
-            "distinct": "each rule picks among the candidates the earlier rules did not pick (order: together, apart, little attention)",
+            "distinct": "each rule picks among the candidates the earlier rules did not pick (order: together, apart, little attention); "
+                        "the author's pick, when approved, is none of the rules' picks",
         },
         "shortlist": {"authorApproved": approved, "picks": shortlist, "note": approval.get("note")},
         "forbesLists": {

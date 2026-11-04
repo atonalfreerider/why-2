@@ -109,14 +109,18 @@ attention).
   (fewer than 10 million followers in the 2025 snapshot, the cloud of MODALITIES.md 5.2) are ranked by fortune. If none
   is outside the cloud, the rule picks nobody: the candidate with the fewest page views in 2025 is written as a fallback
   proposal (`rules.littleAttention.fallback`), not as the pick, until the author accepts it.
+- **The author's pick** (optional): a third candidate the author names (`approved.authorPick`), none of the rules'
+  picks. It is written with its own computed caption (its fortune's range, where its readership ended against 2016, and
+  "together in k of 9 years"), never as a rule's pick.
 
-As built on 2026-11-03, author approval pending (`author_approved: false`):
+As built on 2026-11-03 and approved by the author the same day (`author_approved: true`):
 
 | Rule | Pick | Score |
 | --- | --- | --- |
 | together | Elon Musk | together in 8 of 9 years |
 | apart | Donald Trump | together in 2 of 9 years (one year when his fortune did not move counts as not together); tied with Oprah Winfrey at 2 of 9, broken by the id |
-| little attention | none | every candidate on the 2025 Forbes 400 has 10M followers or more; fallback proposal: Bill Gates, 2.87M page views in 2025 (the fewest of the five), $107B, 77.0M followers |
+| little attention | none | every candidate on the 2025 Forbes 400 has 10M followers or more; the fallback proposal, Bill Gates (2.87M page views in 2025, the fewest of the five; $107B; 77.0M followers), was declined by the author |
+| the author's pick | Oprah Winfrey | fortune held steady ($2.5B to $3.0B) while readership fell to 0.63 of 2016; together in 2 of 9 years |
 
 Full ranking: Elon Musk 8 of 9, Jeff Bezos 6 of 9, Mark Zuckerberg 5 of 9, Bill Gates 3 of 9, Donald Trump 2 of 9 (one
 flat year), Oprah Winfrey 2 of 9 (two flat years).
@@ -125,7 +129,7 @@ flat year), Oprah Winfrey 2 of 9 (two flat years).
 an exact tie between Donald Trump and Oprah Winfrey, settled only by the alphabetical tie-break. The build also prints an
 alignment check that pairs each spring list with the page views of the 12 months before it instead of the calendar year
 (2017-2026): together would then be Jeff Bezos (8 of 9) and apart Elon Musk (3 of 9). Neither alignment is wrong; the
-calendar year is the spec's ("indexed 2016 = 1", "k of 9 years"). The author should approve the shortlist knowing this.
+calendar year is the spec's ("indexed 2016 = 1", "k of 9 years"). The author approved the shortlist knowing this.
 
 **The literal reading of little attention.** Read literally, "not among the most-followed accounts" points outside
 `people.json` altogether; the build prints who that would be (the richest on the 2025 Forbes 400 with no account in
@@ -134,11 +138,12 @@ and birth year enforce the public-adult rule.
 
 ## Approving the shortlist
 
-`sources.json` `shortlist.author_approved` is `false`. To approve, set it to `true` and `approved` to
-`{"together": "<id>", "apart": "<id>", "littleAttention": "<id>" or null}` (ids are Forbes's, as in `visibility.json`).
-While no candidate meets the little-attention condition, naming the fallback proposal's id accepts it as the pick
-(`rules.littleAttention.fallback.accepted` becomes true) and `null` leaves the rule without a pick. The build then fails
-if new data ever makes a rule pick someone else.
+`sources.json` `shortlist.author_approved` is `true` (3 Nov 2026), with `approved` set to
+`{"together": "elon-musk", "apart": "donald-trump", "littleAttention": null, "authorPick": "oprah-winfrey"}` (ids are
+Forbes's, as in `visibility.json`). While no candidate meets the little-attention condition, naming the fallback
+proposal's id accepts it as the pick (`rules.littleAttention.fallback.accepted` becomes true) and `null` leaves the rule
+without a pick. `authorPick` must be a candidate that no rule picked. The build fails if new data ever makes a rule pick
+someone else.
 
 ## What the build prints
 
@@ -146,8 +151,8 @@ Every run prints `CHECK` lines for: `people.json` (with its sha256) and the Forb
 public-adult check; how many hand-read quotes were found verbatim in the cached copy they cite; the revision check (the
 archive's captures, the copies and values compared, the differences) and its coverage (copies near the list date, only
 later copies, no copy); the together and apart picks with their scores and any tie; the little-attention pick or, when
-its condition is unmet, the fallback proposal; the shortlist and the approval flag; and, for each chosen person and the
-fallback proposal, the page-view months and gaps, the Forbes values (each with URL and quote) and the quotes found.
+its condition is unmet, the fallback proposal; the shortlist and the approval flag; and, for each chosen person (the
+author's pick included) and any fallback proposal not declined, the page-view months and gaps, the Forbes values (each with URL and quote) and the quotes found.
 Between them it prints each public adult found on a list with their years and why they are or are not a candidate (those
 who fail the rule only as a count), each candidate's year-on-year moves, one line per list and year of the revision check,
 the full rankings (`RULE`), the alignment check and the literal reading of little attention, and finally the sha256 of

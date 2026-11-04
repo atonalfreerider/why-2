@@ -110,7 +110,7 @@ For US public adults in Assets/Resources/Data/social/people.json:
 - monthly English-Wikipedia page views, Jul 2015 to Oct 2026 (Wikimedia REST per-article, user agent, no key, cached);
 - Forbes net worth by year (Forbes 400 and World's Billionaires; each value hand-read into sources.json with URL and quote, keeping Forbes's own revisions);
 - the person's 2025 follower snapshot copied from people.json, labelled 'followers summed across Instagram, TikTok, YouTube and X, 2025 snapshot'.
-The selection rules are computed and printed: 'together' (highest share of years where log net worth and log page views move the same way, at least 8 annual points), 'apart' (lowest share) and 'little attention' (richest Forbes-400 American absent from the most-followed accounts, fewest page views). sources.json records author_approved: true/false for the shortlist. Instagram-only list revisions from Wikipedia are not used.
+The selection rules are computed and printed: 'together' (highest share of years where log net worth and log page views move the same way, at least 8 annual points), 'apart' (lowest share) and 'little attention' (richest Forbes-400 American absent from the most-followed accounts, fewest page views), plus an optional author's pick (decision 34). sources.json records author_approved: true/false for the shortlist. Instagram-only list revisions from Wikipedia are not used.
 
 **Data.** Writes visibility.json. Reads people.json, the Wikimedia pageviews API and hand-read Forbes pages.
 
@@ -1003,3 +1003,6 @@ Documentation:
 
 33. **What stands in for sources that refuse automated access?** CBO's top-1% income shares and S&P Dow Jones Indices' sector weights answered every automated request with a block page (3 Nov 2026); the builds never get around a bot check. The top 1%'s flows come from BEA's distribution with DFA holdings (marked ≈), and listed value by sector falls back to the 25 stored firms: tech at least 31.7%, $37.3T dashed as not split. A person may read either page by hand into sources.json; the builders pick the values up and run their checks.  
    *Why:* Fail closed and say so on screen, rather than estimate a number the sources did not give.
+
+34. **Which real lives does M3 follow?** Elon Musk (together: fortune and readership moved the same way in 8 of 9 years), Donald Trump (apart: 2 of 9) and Oprah Winfrey, the author's pick: her fortune held steady ($2.5B to $3.0B) while her readership fell to 0.63 of 2016. Approved by the author on 3 Nov 2026 (Tools/lives/sources.json). The little-attention rule stays computed and printed without a pick; its fallback proposal (Bill Gates) was declined.  
+   *Why:* Nobody in people.json meets the little-attention condition: every candidate on the 2025 Forbes 400 has 10M followers or more. The author chose a third life whose pattern differs from the other two, and her caption states that pattern from the data instead of a rule she does not meet.

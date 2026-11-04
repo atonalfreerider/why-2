@@ -37,9 +37,15 @@
  },
  "forbesNamesNote": "Forbes spellings of people.json accounts whose name, Wikidata label and aliases differ from Forbes's, so the search of the lists finds them (each match is still confirmed by birth year).",
  "shortlist": {
-  "author_approved": false,
-  "approved": null,
-  "note": "The author approves the three picks (MODALITIES.md 7.3). Until then the builder writes the computed picks with authorApproved false. To approve, set author_approved to true and approved to {\"together\": id, \"apart\": id, \"littleAttention\": id or null}; the build then fails if the rules ever pick someone else. When no candidate meets the little-attention condition, naming the fallback proposal's id for littleAttention accepts it as the pick, and null leaves that rule without a pick."
+  "author_approved": true,
+  "approved": {
+   "together": "elon-musk",
+   "apart": "donald-trump",
+   "littleAttention": null,
+   "authorPick": "oprah-winfrey"
+  },
+  "note": "The author approves the picks (MODALITIES.md 7.3). Until then the builder writes the computed picks with authorApproved false. To approve, set author_approved to true and approved to {\"together\": id, \"apart\": id, \"littleAttention\": id or null, \"authorPick\": id (optional)}; the build then fails if the rules ever pick someone else. When no candidate meets the little-attention condition, naming the fallback proposal's id for littleAttention accepts it as the pick, and null leaves that rule without a pick. authorPick names a third candidate the author chose, written with its own caption and never as a rule's pick.",
+  "authorPickNote": "The author's third life, approved 3 Nov 2026 in place of the little-attention rule, which picks nobody inside people.json: Oprah Winfrey, shown with her own computed pattern, not as a rule's pick."
  },
  "revisionCheck": {
   "note": "Forbes's own revisions are looked for by build.py, from the Wayback Machine. It reads the archive's index of captures (the queries below, status 200 only) at both addresses forbes.com has served its list data from: the older www.forbes.com/ajax/list/data?year=<year>&uri=<list>&type=person and the newer www.forbes.com/forbesapi/person/<list>/<year>/... It then compares every candidate's value, and rank where the copy keeps the list's rank, with today's list data: in every archived copy at the older address, and in the earliest and the latest readable copy at the newer address that holds the list in rank order from its first row (no country, industry or name filter, no search; a copy of the first page counts, and candidates beyond it are reported). A copy made within nearListDays of the list's date shows the values as first published, or nearly; a later copy shows them as of the day it was made, so it can reveal only a revision made after that day. Revisit records (a later capture identical to an earlier one) are not listed by the index queries. forbes.com's HTML list pages, which held the lists before the list data existed, were not searched. Read 2026-11-03.",

@@ -12,6 +12,7 @@ Shader "Why/Line"
         _RhoFade ("Radial Fade Distance (0 = off)", Float) = 0
         _HandoffFade ("Fade Out Before The Human Branch", Float) = 0
         _Raw ("Object Space (no warp)", Float) = 0
+        _Dash ("Dash: period in path phase, duty (period 0 = off)", Vector) = (0, 0, 0, 0)
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 5
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 1
     }
@@ -54,6 +55,7 @@ Shader "Why/Line"
                 float _RhoFade;
                 float _HandoffFade;
                 float _Raw;
+                float4 _Dash;
                 float _SrcBlend;
                 float _DstBlend;
             CBUFFER_END
@@ -180,6 +182,22 @@ Shader "Why/Line"
                     float pulse = pow(ph, 24.0);
                     rgb *= 1.0 + IN.flow * pulse * 3.0;
                 }
+
+                // no data and the dotted strands, the mark code's dashes (spec 3.3): a dash every _Dash.x units of the path's
+                // phase (AddFlowPath writes the distance from the path's start times its phase per unit), _Dash.y of each
+                // period drawn from the path's start, anti-aliased over a pixel. The phase's rate is taken outside the branch
+                // (a derivative needs every pixel of its quad). At period 0, every material's default, lines are drawn whole.
+                float phaseRate = fwidth(IN.edge.z);
+                if (_Dash.x > 0)
+                {
+                    float ph = -IN.edge.z / _Dash.x;                         // periods from the path's start
+                    float t = frac(ph);
+                    float perPixel = max(phaseRate / _Dash.x, 1e-5);         // periods per pixel along the path
+                    float inDash = saturate(min(t, _Dash.y - t) / perPixel + 0.5);
+                    float nextDash = saturate((t - 1.0) / perPixel + 0.5);    // the next dash begins at t = 1
+                    coverage *= max(inDash, nextDash);
+                }
+
                 return half4(rgb, IN.color.a * coverage);
             }
             ENDHLSL

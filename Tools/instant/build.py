@@ -20,7 +20,9 @@ What it collects:
                      sixGroups uses 2024 (the spec's year and spending.json's); the top fifth's mix stands for 80-99% and
                      the top 1% (assumed)
   nipa               NIPA tables 1.1.5, 2.1, 3.1, 3.2 (federal interest), 3.10.5, 4.1, 6.16D and the government lines of
-                     6.2D, 6.4D and 6.5D, annual 1947-2025, from BEA's flat files (the current vintage), with named 2025 facts
+                     6.2D, 6.4D and 6.5D, annual 1947-2025, from BEA's flat files (the current vintage), with named 2025 facts;
+                     6.5D holds general government's full-time equivalent jobs per level (federal, state and local) beside
+                     the government enterprises', so the facts carry the base's jobs (MODALITIES-PLAN decision 32)
   profitsByTier      NIPA 6.16D corporate profits by industry mapped to the scene's four tiers (crosswalk printed, assumed)
   listedValue        listed market value by tier: S&P Dow Jones Indices GICS sector weights read by hand into sources.json,
                      times the Wilshire 5000 total in circuit.json (crosswalk printed, assumed); until they are read, the
@@ -296,6 +298,18 @@ def nipa_value(N, ref, year):
 
 
 def nipa_fact(N, ref, year):
+    """A named value from one table line ("T60500D:86"), or the sum of lines of one table ("T60500D:88+T60500D:93", for a
+    total BEA does not print on a line of its own, such as general government's jobs)."""
+    if "+" in ref:
+        parts = [nipa_line(N, r) for r in ref.split("+")]
+        if len({p[0] for p in parts}) != 1 or len({(p[4], p[5]) for p in parts}) != 1:
+            raise ValueError(f"a summed fact takes lines of one table in one unit: {ref}")
+        vs = [N["values"].get(p[2], {}).get(year) for p in parts]
+        tid, unit = parts[0][0], parts[0][4]
+        title = N["titles"].get(tid, tid)
+        return {"value": r3(sum(v * p[5] for v, p in zip(vs, parts))) if None not in vs else None, "unit": unit, "year": year,
+                "source": f"BEA NIPA {title}, lines " + " + ".join(f"{p[1]} '{p[3]}'" for p in parts), "url": N["url"],
+                "field": f"NipaDataA.txt series {' + '.join(p[2] for p in parts)}, {year} (BEA flat files dated {N['stamp']})"}
     tid, ln, code, label, unit, f = nipa_line(N, ref)
     v = N["values"].get(code, {}).get(year)
     title = N["titles"].get(tid, tid)
@@ -1746,6 +1760,16 @@ def main():
     check("nipa-identities", max(gaps) <= 0.01 * 10,
           f"NIPA {year} identities hold: personal income = its components, current account = receipts - payments, net exports = "
           f"exports - imports, 6.16D industries = domestic total; largest gap ${max(gaps):.3f}B")
+
+    # general government's jobs (MODALITIES-PLAN decision 32): the state's base pays general government, whose
+    # full-time equivalents BEA prints only per level; with the enterprises' they make up the government line
+    fed_gg, sl_gg, fed_ge, sl_ge, gov = (nipa_value(N, f"T60500D:{n}", year) for n in (88, 93, 91, 96, 86))
+    jobs_gap = abs(fed_gg + sl_gg + fed_ge + sl_ge - gov)
+    check("public-jobs", jobs_gap <= 0.005,
+          f"general government full-time equivalent jobs {year} (6.5D lines 88 + 93, the base's jobs): federal {fed_gg:.3f}M + "
+          f"state and local {sl_gg:.3f}M = {fed_gg + sl_gg:.3f}M; with the government enterprises (lines 91 + 96: "
+          f"{fed_ge:.3f}M + {sl_ge:.3f}M, counted with the market) = {fed_gg + sl_gg + fed_ge + sl_ge:.3f}M vs line 86 "
+          f"{gov:.3f}M within 0.005M (gap {jobs_gap:.3f}M)")
 
     dfa_block, basis, dfa_raw = build_dfa(src, circuit)
     classes = {"basis": src["classes"]["basis"] if basis == "income" else "household wealth rank, the DFA's four wealth groups (fallback)",

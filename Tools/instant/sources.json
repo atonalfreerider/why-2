@@ -194,7 +194,7 @@
    "T61600D": {"lines": "all", "stubs": {"3": "Financial (with IVA and CCAdj)", "4": "Nonfinancial (with IVA and CCAdj)", "5": "Rest of the world", "9": "Domestic industries (with IVA)", "33": "Rest of the world"}, "note": "Lines 8-33 are profits with inventory valuation adjustment only: BEA allocates the capital consumption adjustment to industries only in total (lines 1-7)."},
    "T60200D": {"lines": [1, 3, 86], "stubs": {"86": "Government (incl. government enterprises)"}},
    "T60400D": {"lines": [1, 86], "stubs": {"86": "Government (incl. government enterprises)"}},
-   "T60500D": {"lines": [1, 86], "stubs": {"86": "Government (incl. government enterprises)"}}
+   "T60500D": {"lines": [1, 86, 88, 91, 93, 96], "stubs": {"86": "Government (incl. government enterprises)", "88": "Federal: general government", "91": "Federal: government enterprises", "93": "State and local: general government", "96": "State and local: government enterprises"}}
   },
   "facts": {
    "gdp": "T10105:1",
@@ -253,6 +253,7 @@
    "publicPayAllGovernment": "T60200D:86",
    "privatePay": "T60200D:3",
    "publicJobsFullTimeEquivalent": "T60500D:86",
+   "publicJobsGeneralGovernment": "T60500D:88+T60500D:93",
    "publicJobsFullAndPartTime": "T60400D:86",
    "incomeReceiptsFromAbroad": "T40100:7",
    "incomePaymentsAbroad": "T40100:23",

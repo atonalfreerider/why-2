@@ -2653,6 +2653,14 @@
     "url": "https://apps.bea.gov/national/Release/TXT/FlatFiles.zip",
     "field": "NipaDataA.txt series A4376C, 2025 (BEA flat files dated 2026-10-28)"
    },
+   "publicJobsGeneralGovernment": {
+    "value": 19.802,
+    "unit": "million persons",
+    "year": 2025,
+    "source": "BEA NIPA Table 6.5D. Full-Time Equivalent Employees by Industry, lines 88 'Federal: general government' + 93 'State and local: general government'",
+    "url": "https://apps.bea.gov/national/Release/TXT/FlatFiles.zip",
+    "field": "NipaDataA.txt series A4378C + A4383C, 2025 (BEA flat files dated 2026-10-28)"
+   },
    "publicJobsFullAndPartTime": {
     "value": 25.862,
     "unit": "million persons",
@@ -4217,6 +4225,34 @@
       "unit": "million persons",
       "first": 1998,
       "values": [18.701, 18.844, 19.101, 19.431, 19.816, 19.921, 19.957, 19.998, 20.031, 20.259, 20.571, 20.608, 20.564, 20.275, 20.035, 19.92, 20.031, 19.993, 20.276, 20.375, 20.538, 20.788, 20.286, 20.312, 20.606, 20.997, 21.444, 21.59]
+     },
+     "88": {
+      "label": "Federal: general government",
+      "series": "A4378C",
+      "unit": "million persons",
+      "first": 1998,
+      "values": [3.417, 3.37, 3.391, 3.356, 3.409, 3.486, 3.474, 3.439, 3.437, 3.444, 3.525, 3.66, 3.78, 3.749, 3.705, 3.654, 3.59, 3.576, 3.574, 3.588, 3.608, 3.666, 3.745, 3.748, 3.728, 3.728, 3.617, 3.439]
+     },
+     "91": {
+      "label": "Federal: government enterprises",
+      "series": "B4381C",
+      "unit": "million persons",
+      "first": 1998,
+      "values": [0.788, 0.792, 0.78, 0.778, 0.787, 0.767, 0.736, 0.726, 0.718, 0.763, 0.759, 0.679, 0.62, 0.591, 0.574, 0.547, 0.545, 0.562, 0.592, 0.562, 0.557, 0.552, 0.545, 0.574, 0.613, 0.548, 0.562, 0.577]
+     },
+     "93": {
+      "label": "State and local: general government",
+      "series": "A4383C",
+      "unit": "million persons",
+      "first": 1998,
+      "values": [13.548, 13.726, 13.961, 14.279, 14.55, 14.59, 14.65, 14.731, 14.77, 14.937, 15.159, 15.145, 15.038, 14.828, 14.668, 14.657, 14.812, 14.79, 15.025, 15.139, 15.273, 15.459, 14.929, 14.938, 15.196, 15.609, 16.102, 16.363]
+     },
+     "96": {
+      "label": "State and local: government enterprises",
+      "series": "B4386C",
+      "unit": "million persons",
+      "first": 1998,
+      "values": [0.948, 0.956, 0.969, 1.018, 1.07, 1.078, 1.097, 1.102, 1.106, 1.115, 1.128, 1.124, 1.126, 1.107, 1.088, 1.062, 1.084, 1.066, 1.084, 1.087, 1.1, 1.11, 1.067, 1.052, 1.069, 1.112, 1.163, 1.21]
      }
     }
    }
@@ -4917,6 +4953,11 @@
    "line": "NIPA 2025 identities hold: personal income = its components, current account = receipts - payments, net exports = exports - imports, 6.16D industries = domestic total; largest gap $0.001B"
   },
   {
+   "id": "public-jobs",
+   "status": "PASS",
+   "line": "general government full-time equivalent jobs 2025 (6.5D lines 88 + 93, the base's jobs): federal 3.439M + state and local 16.363M = 19.802M; with the government enterprises (lines 91 + 96: 0.577M + 1.210M, counted with the market) = 21.589M vs line 86 21.590M within 0.005M (gap 0.001M)"
+  },
+  {
    "id": "dfa-instruments",
    "status": "PASS",
    "line": "DFA instruments add up to each group's assets, liabilities and net worth (2026:Q1): largest gap $0.002B"
@@ -4989,7 +5030,7 @@
   {
    "id": "provenance",
    "status": "PASS",
-   "line": "every value has a source and a url with a quote, an API field or a computation: 125 values, 35 tables and blocks; every one of the file's 20,246 numbers (dates and indices aside) has that provenance on itself or an enclosing block"
+   "line": "every value has a source and a url with a quote, an API field or a computation: 126 values, 35 tables and blocks; every one of the file's 20,359 numbers (dates and indices aside) has that provenance on itself or an enclosing block"
   },
   {
    "id": "quotes",

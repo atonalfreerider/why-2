@@ -11,6 +11,7 @@ Shader "Why/Surface"
         _EdgeSoft ("Edge Softness (across band)", Range(0, 0.5)) = 0.15
         _NoiseScale ("Noise Scale", Float) = 3
         _NoiseContrast ("Noise Contrast", Float) = 1.6
+        _Hatch ("Hatch: period px, duty, strength (strength 0 = off)", Vector) = (0, 0, 0, 0)
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 5
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 10
     }
@@ -52,6 +53,7 @@ Shader "Why/Surface"
                 float _EdgeSoft;
                 float _NoiseScale;
                 float _NoiseContrast;
+                float4 _Hatch;
                 float _SrcBlend;
                 float _DstBlend;
             CBUFFER_END
@@ -110,6 +112,17 @@ Shader "Why/Surface"
                     float n = WhyFbm(q);
                     n = saturate((n - 0.5) * _NoiseContrast + 0.5);
                     a *= lerp(1.0, n * n * 1.8, IN.band.y);
+                }
+
+                // owed, the mark code's hatch (spec 3.3): stripes at 45 degrees on the screen, one every _Hatch.x pixels,
+                // _Hatch.y of each period drawn and the gaps faded by _Hatch.z (1: empty), anti-aliased over a pixel. At
+                // strength 0, every material's default, the surface is drawn as it always was.
+                if (_Hatch.z > 0 && _Hatch.x > 0)
+                {
+                    float across = (IN.posCS.x + IN.posCS.y) * 0.70710678 / _Hatch.x;   // periods across the stripes
+                    float fromStripe = min(frac(across), 1.0 - frac(across)) * _Hatch.x; // pixels from a stripe's middle
+                    float stripe = _Hatch.y >= 1.0 ? 1.0 : saturate(0.5 * _Hatch.y * _Hatch.x - fromStripe + 0.5);
+                    a *= lerp(1.0, stripe, saturate(_Hatch.z));
                 }
 
                 return half4(IN.color.rgb, a);

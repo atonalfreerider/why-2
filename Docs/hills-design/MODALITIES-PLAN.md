@@ -301,7 +301,7 @@ It publishes ModelFacts under instant.*.
 - tiers 1.37/8.53/14.85/2.57;
 - base outlays;
 - PCE 20.95;
-- fork 41/27/15/10/7 summing to 100;
+- fork 41/27/14/11/7 summing to 100 (whole cents by largest remainders of 41.39/27.07/14.51/10.51/6.52);
 - io up/down/within 37.2/21.9/41.0 and market 27.7/24.9/47.4;
 - boundaries 1.15/0.60, 1.76/2.88, 0.89/0.80;
 - tech buys 0.89, sells 0.80 + 0.29;
@@ -343,7 +343,7 @@ Problems(): shares sum to 100; DEU never added; every drawn 2026 item verified (
 
 **LivesModel: three typical lives, base rates, real figures** · group G3 · effort medium · depends on WP03, WP06
 
-**Files.** create: Assets/Scripts/Economy/Model/LivesModel.cs (+ .meta)
+**Files.** create: Assets/Scripts/Economy/Model/LivesModel.cs, RealLives.cs, LivesModelLayer.cs (+ .meta)
 
 Spec sections 7.2-7.4.
 
@@ -351,13 +351,13 @@ Synthetic lives:
 - from EconomicLives: adults aged 30-39 in the middle income fifth at year-20 (widen to the 2nd-4th fifths if fewer than 60 records, and say so);
 - outcomes by fifth at the year;
 - the medoid rank path per outcome (L1; present every year; fixed seed);
-- events from PersonLife with what changed (rank and net worth over two years); parents' rank from PersonTraits;
+- events from PersonLife with what changed (income rank and net worth the year before and in the event's own year, the change the event is detected on and the one its tick states; the year after is kept beside them); parents' rank from PersonTraits;
 - base rates with n and 90% Wilson intervals;
 - the viewer's ten-year odds by fifth and age band.
 
 Real figures: load visibility.json, apply the printed rules and compute the 2016 = 1 indices and 'together in k of m years'.
 
-Problems(): outcomes sum to 1; each pick lies in the start group and within its group's interquartile range of distance to the median path; public adults only. It publishes ModelFacts under lives.*.
+Problems(): outcomes sum to 1; each pick lies in the start group and no farther from its group's median path than the upper quartile of the group's distances to it; public adults only. It publishes ModelFacts under lives.*.
 
 **Data.** The simulation, PersonLife, PersonTraits, Mobility, visibility.json, people.json.
 
@@ -600,7 +600,7 @@ It contributes the rows for spending, pay, state, abroad and all, and adds ancho
 - every node balanced within 1% from drawn widths;
 - InstantRoutes.Crossings() = 0 outside the fork;
 - the trunk label reads $20.95T with 'J';
-- the 100-cent bar reads 41/27/15/10/7.
+- the 100-cent bar reads 41/27/14/11/7.
 The cloud is at its high position in pay and all. A year-step frame stays at or under 50 ms.
 
 ### WP25
@@ -637,13 +637,13 @@ Balance: morph to equal rows with group sizes printed, at 1.5 units per $1T owne
 - the net IIP, hatched;
 - the stock-flow note and the bridge line on wealth ranking.
 
-People: floors at 1 unit per 1M households or jobs, role dots at 1 per 1M (simulated, n printed), the top-1% label 'magnified label', and the base at 21.6M public jobs.
+People: floors at 1 unit per 1M households or jobs, role dots at 1 per 1M (simulated, n printed), the top-1% label 'magnified label', and the base at 19.8M general government jobs (decision 32: government enterprises' 1.8M stand beside the tier floors with the market's).
 
 It contributes the rows for balance and people, and adds the anchor instant:balance.
 
-**Data.** InstantModel (DFA by income, listed value, TIC, IIP, roles).
+**Data.** InstantModel (DFA by income, listed value, TIC, roles). The US net international investment position (−$22.1T, end-2024) comes from WorldModel (WP11: global.json `economies.USA.niip`, fact `world.niip.USA`); InstantModel does not read global.json.
 
-**Acceptance.** economy-view-instant-balance.png shows six equal rows labelled with households and net-worth shares (top 1% near 24.5%), debts hatched, household debt total near $20.0T, firm-named tech segments summing to at least 31.7% of $75.3T, and the dashed $37.3T row. The thread count equals round(listed $T) (logged), with 14 to ABROAD. The scale bar reads '$10T owned' and no flow pixels remain. economy-view-instant-people.png shows the top 1% holding about one dot, the bottom fifth about 27, the base 21.6 units and a roles legend marked ≈. The 1.2 s morph has no frame over 50 ms.
+**Acceptance.** economy-view-instant-balance.png shows six equal rows labelled with households and net-worth shares (top 1% near 24.5%), debts hatched, household debt total near $20.0T, firm-named tech segments summing to at least 31.7% of $75.3T, and the dashed $37.3T row. The thread count equals round(listed $T) (logged), with 14 to ABROAD. The scale bar reads '$10T owned' and no flow pixels remain. economy-view-instant-people.png shows the top 1% holding about one dot, the bottom fifth about 27, the base 19.8 units and a roles legend marked ≈. The 1.2 s morph has no frame over 50 ms.
 
 ### WP27
 
@@ -675,7 +675,7 @@ Spec section 6.4. Draw only events and values whose global.json status is verifi
 - sanction cuts with 2021 ghosts and rerouting labels;
 - export-control valves;
 - war zones and strait glyphs.
-The Hormuz glyph shows its 2024 flow only unless the closure is verified. There is no war mark for the Galwan clash and no mark for pressure on Taiwan; ended episodes appear only as strip ticks. The HUD strip runs from 2018 to as-of, with ticks, selection lighting an event's marks (emphasis override), the 'as of' stamp and expiry flags within 30 days. The PIIE caveat sits in the key. It adds the anchor world:conflict.
+The Hormuz glyph shows its 2024 flow and, while global.json marks `hormuz_disruption` verified (re-verified on 3 Nov 2026), that event's 2026 state; the Iran war event does not draw the strait closed (spec 6.4). There is no war mark for the Galwan clash and no mark for pressure on Taiwan; ended episodes appear only as strip ticks. The HUD strip runs from 2018 to as-of, with ticks, selection lighting an event's marks (emphasis override), the 'as of' stamp and expiry flags within 30 days. The PIIE caveat sits in the key. It adds the anchor world:conflict.
 
 **Data.** WorldModel (events with status), PIIE tariffs, bilateral series.
 
@@ -708,6 +708,8 @@ It adds the anchor world:keystones.
 **Data.** WorldModel (TIC, IIP, current account, chokepoints, IMF FM, SIPRI, V-Dem, WDI energy).
 
 **Acceptance.** economy-view-world-money.png shows thread counts per holder equal to round(holdings/100) (logged), 'custodial', and the US net IIP bar at -$22.1T hatched. economy-view-world-chokepoints.png shows 'Taiwan 69 · Korea 31 (SIA/BCG 2022)', 'China 91 (magnet refining, IEA 2024)' and 'AI compute: US 77% (Epoch, end-2024)'. economy-view-world-foundations.png shows base depths ordered EU > UK > US > China > Taiwan and military strata in the state hue. Each capture has exactly one dependence layer drawn (logged).
+
+The keystone labels round the model's holder shares to the precision spec 6.5 prints (China 91, US 77%); the world.keystone.* facts are at 0.1 point (91.4, 77).
 
 ### WP30
 
@@ -826,7 +828,9 @@ Spec section 11. Write the 21 stops. Each has:
 - cues for variants; the you stop waits.
 Old per-view stops leave the main tour.
 
-The narration uses the same templates. fill-narration.py renders them from Tools/model-facts.json, exported by a -smokefacts run. check-facts.py fails on any number in cards or narration not traceable to model-facts.json. narration-facts.json holds the per-stop facts for check-narration.py.
+The narration uses the same templates. fill-narration.py renders them from Tools/model-facts.json, exported by a -smokefacts run. check-facts.py fails on any number in cards or narration not traceable to model-facts.json. World keystone facts (world.keystone.<id>.<holder>) are published to 0.1 point, whole where the source states whole percent: stop 16's {twnChips} is 69 (the source's whole percent) and {usAi} 77 (76.95 to 0.1 point), but {chnMine} is 71.1 and {chnMagnets} 91.4 (spec 6.5 prints 71 and 91). Print the facts as published, or have check-facts.py accept a printed number equal to its fact rounded to the printed precision. narration-facts.json holds the per-stop facts for check-narration.py.
+
+The placeholders map to these facts. Stops 14-17: {worldGDP} world.gdp, {usShare} world.share.USA, {usPop} world.people.USA, {euUs} world.trade.EU27-USA, {cnUs} world.trade.CHN-USA, {mxUs} world.trade.MEX-USA, {usCn} world.trade.USA-CHN, {twnChips} world.keystone.logic_lt10nm.TWN, {chnMine} world.keystone.ree_mining.CHN, {chnMagnets} world.keystone.ree_magnet_refining.CHN, {usAi} world.keystone.ai_compute.USA, {ruUs2021} world.cut.RUS-USA.2021, {ruUs2024} world.cut.RUS-USA.2024, {usCnTariff} world.tariff.usOnChina, {usCnTariffDate} world.tariff.date, {asOf} world.asOf (WorldModel publishes them rounded as printed: shares to 0.1, $T to 0.1, lanes to whole $B, cuts to 0.1). Stop 9's {purchasesNet} is instant.state.purchasesNet (supplies net of the state's own sales), never instant.state.purchases, which includes investment and is not part of the outlays the card adds up; {publicJobs} is instant.state.publicJobs.
 
 Check the Jev key exists without printing it. Run Tools/check-narration.py per stop. Ask the user before voicing with ElevenLabs (credits); until then stops pace by reading time.
 
@@ -968,7 +972,7 @@ Documentation:
 21. **Which way does money between industries run on screen?** In the money direction, buyer to supplier: 37.2% up, 21.9% down, 41.0% within with the state as tier 0, and 27.7, 24.9 and 47.4 among market tiers ('supplies come down, the money goes up'). InstantModel asserts it, and WP05 corrects THEORY and EVALUATION before any caption cites the figures.  
    *Why:* Recomputed from circuit.json io in this design pass. The docs and the spatial proposal had it reversed, which would have put a false headline on the author's symbiosis.
 
-22. **Which totals are drawn, and how are the state's accounts kept consistent?** Measured totals only: PCE $20.95T and DFA household debt of about $20.0T (decision 29). The simulation supplies splits, marked ≈. The state buys about $3.16T from industries, market pay is the rest of compensation (about $13.3T, government enterprises included), public pay ($2.46T, decision 32) comes from the base, tariffs stay inside production taxes, and interest is split by holder.  
+22. **Which totals are drawn, and how are the state's accounts kept consistent?** Measured totals only: PCE $20.95T and DFA household debt of about $20.0T (decision 29). The simulation supplies splits, marked ≈. The state buys $3.06T from industries (NIPA 2025, measured: general government's supplies and all government investment; the 2024 use table's $3.16T counts government enterprises too and is kept for comparison), market pay is the rest of compensation (about $13.3T, government enterprises included), public pay ($2.46T, decision 32) comes from the base, tariffs stay inside production taxes, and interest is split by holder.  
    *Why:* This is a must-fix. The simulated $21.63T and $14.35T, government consumption of $5.29T, and double-counted pay were errors the judges found in the proposals.
 
 23. **How do lives and visibility work in M3?** A corridor in the stage plane, left of the class tower, with time left to right and no orbit. Income rank is linear, with a magnified top 1% (log net worth) and an attention band (log Wikipedia page views). Three medoid lives start in the middle fifth at year-20, aged 30-39. Real figures are chosen by printed rules. The 2025 follower snapshot is a separate dated star, never joined to the page-view line. Money and visibility are compared on one log index (2016 = 1).  
@@ -1006,3 +1010,9 @@ Documentation:
 
 34. **Which real lives does M3 follow?** Elon Musk (together: fortune and readership moved the same way in 8 of 9 years), Donald Trump (apart: 2 of 9) and Oprah Winfrey, the author's pick: her fortune held steady ($2.5B to $3.0B) while her readership fell to 0.63 of 2016. Approved by the author on 3 Nov 2026 (Tools/lives/sources.json). The little-attention rule stays computed and printed without a pick; its fallback proposal (Bill Gates) was declined.  
    *Why:* Nobody in people.json meets the little-attention condition: every candidate on the 2025 Forbes 400 has 10M followers or more. The author chose a third life whose pattern differs from the other two, and her caption states that pattern from the data instead of a rule she does not meet.
+
+35. **What must a tier node balance?** In = out within 1%, else the labelled grey "other" stub, as every node (spec 5.10). Its value added (pay, taxes, upkeep and owners on the market tiers) is computed and logged beside the flows, not checked: in 2025 the ribbons out carry $28.58T and those in $28.64T less imports, 4.6% and 4.9% over the market tiers' $27.32T.  
+   *Why:* The ribbons are measured gross flows (spec 5.4): what the tiers sell across their boundaries, to the state and abroad, includes purchases that are not their own value added. Routing only value-added parts would replace measured NIPA totals on the ribbons with derived ones. WP10's model already keeps the gross flows and reports the gap (InstantYear.TierIncomeGap).
+
+36. **How are the hills tone-mapped?** Not at all: the hills render with no tonemapper and no vignette, and the universe keeps Neutral and its vignette (GraphRoot). Marks that stack additively past 1.0, and relied on Neutral to keep their texture, are drawn blended instead: the attention cloud's stars, bright stars and ties, and the capture halos' rings. Bloom stays at threshold 1.1 and intensity 1.15, so hover and selection still glow. The road's beam, additive by design, clips to a white core in the economy; it is accepted until a per-view intensity is worth its cost.  
+   *Why:* Under Neutral (1.0 at sRGB 208), three touching pairs fell under their colour-blind floors (desire-fear deutan 13.9 against 15, desire-state protan 6.0 against 8, commerce-fear deutan 5.6 against 8), and every mark was a duller copy of its HUD swatch (owners' gold #EFB146 drawn as about (200,164,72)). Without it, the palette view measures 0 of 13 pairs under their floors on the rendered pixels, text gains contrast on its plates, and the universe's frames are unchanged. A review of all 54 economy frames found the cost local: additive stacks that now clip flat (the cloud's core 23-32% clipped, against 6-8%), which blending fixes, as the code already does for every data line. The universe's vignette (.32) would put desire-state protan back under its floor (7.9) at PaletteCheck's off-centre spots; a milder one (.2) would not, if the framing is missed.

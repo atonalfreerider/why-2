@@ -12,7 +12,7 @@ and the people the spec's printed rules choose among them.
 | Built by | `Tools/lives/build.py` (`python3 -I Tools/lives/build.py`; `--offline` rebuilds byte-identically from the cache; `--refresh` re-downloads the 2026 Forbes feeds first) |
 | Hand-read research | `Tools/lives/sources.json` (Forbes values with URL and verbatim quote, rule wording, the revision check's index queries and one override, the author's approval) |
 | Cache | `Tools/lives/.cache/` (gitignored): Forbes list feeds, Wikidata, page views, the Wayback Machine's index and archived copies (`wayback/`, gzip), and `manifest.json` with each download's URL, retrieval date and sha256 |
-| Read by | `Model/LivesModel.cs` (WP12: applies the rules, the 2016 = 1 indices, "together in k of m years"), `Layers/LivesVisibility.cs` (WP31), `UI/LivesStrip.cs` (WP32) |
+| Read by | `Model/RealLives.cs`, through `Model/LivesModel.cs` (WP12: reads the approved picks without re-running the rules (decision 34), recomputes the 2016 = 1 indices and "together in k of m years" as a check, and leaves out any pick that fails the public-adult rule or cannot be checked against `people.json`, naming it by its rule only), `Layers/LivesVisibility.cs` (WP31), `UI/LivesStrip.cs` (WP32) |
 | Keys, credentials | none: every source is public and keyless; the User-Agent is `why-2-lives/0.1 (educational economic visualization)` |
 
 ## Series

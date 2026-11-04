@@ -437,14 +437,23 @@ namespace Why
             bool xr = Xr.XrSession.Active;
             bloom.highQualityFiltering.Override(!xr);
 
+            // The hills carry their meaning in hue, drawn LDR (intensity 1 at most) in the palette's sRGB targets
+            // (EconomyStyle.Roles, spec 3.2), so their frame is left as drawn: a tonemapper compresses light colours (Neutral
+            // maps linear 1.0 to 0.63) and draws touching pairs under the palette's floors (PaletteCheck, -smokeextra palette).
+            // The universe keeps it for its additive HDR light.
             Tonemapping tone = profile.Add<Tonemapping>(true);
-            tone.mode.Override(TonemappingMode.Neutral);
+            tone.mode.Override(hills ? TonemappingMode.None : TonemappingMode.Neutral);
 
             if (!xr)
             {
-                Vignette vignette = profile.Add<Vignette>(true);
-                vignette.intensity.Override(0.32f);
-                vignette.smoothness.Override(0.45f);
+                // no vignette over the hills: it darkens the marks toward the frame's edges and draws touching pairs under the
+                // palette's floors there (PaletteCheck reads them at the centre and toward the edges)
+                if (!hills)
+                {
+                    Vignette vignette = profile.Add<Vignette>(true);
+                    vignette.intensity.Override(0.32f);
+                    vignette.smoothness.Override(0.45f);
+                }
             }
             else if (GraphicsSettings.currentRenderPipeline is UniversalRenderPipelineAsset urp)
             {

@@ -127,6 +127,33 @@ namespace Why
         public static void SetAlpha(Material m, float alpha) => m.SetFloat("_Alpha", Mathf.Clamp01(alpha));
 
         /// <summary>
+        /// Hatches a Why/Surface material (the mark code's "owed", spec 3.3): stripes at 45 degrees on the screen, one every
+        /// <paramref name="periodPx"/> screen pixels, <paramref name="duty"/> of each period drawn and the gaps faded by
+        /// <paramref name="strength"/> (1: empty, 0: solid). A material is solid until this is called, exactly as before
+        /// the parameter existed; <c>SetHatch(m, 0, 0, 0)</c> makes it solid again.
+        /// </summary>
+        public static Material SetHatch(Material m, float periodPx, float duty, float strength)
+        {
+            m.SetVector("_Hatch", new Vector4(Mathf.Max(0, periodPx), Mathf.Clamp01(duty), Mathf.Clamp01(strength), 0));
+            return m;
+        }
+
+        /// <summary>
+        /// Dashes a Why/Line material (the mark code's "no data" and its dotted strands, spec 3.3): a gap in every
+        /// <paramref name="period"/> units of a line's path phase, which <see cref="LineMeshBuilder.AddFlowPath"/> writes
+        /// (the distance from the path's start times its phase per unit: pass the view's pixels per unit there and the
+        /// period is in pixels), <paramref name="duty"/> of each period drawn from the path's start. A line not built as a
+        /// path has its time arc (or object x) as its phase. A material draws lines whole until this is called, exactly as
+        /// before the parameter existed; <c>SetDash(m, 0, 0)</c> makes them whole again. Keep the material's flow at 0, or
+        /// the path's pulses run along the dashes.
+        /// </summary>
+        public static Material SetDash(Material m, float period, float duty)
+        {
+            m.SetVector("_Dash", new Vector4(Mathf.Max(0, period), Mathf.Clamp01(duty), 0, 0));
+            return m;
+        }
+
+        /// <summary>
         /// Makes a material dissolve before the straight human branch (life and matter layers): alpha goes
         /// to 0 at the 3 o'clock handoff (see GraphStyle.HandoffFade).
         /// </summary>

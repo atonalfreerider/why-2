@@ -166,12 +166,17 @@ namespace Why.Economy.Layers
             string[] names = { "wages", "owners", "upkeep", "imports", "sales and property taxes" };
             Color[] colors = { Blue, Gold, new Color(.70f, .74f, .80f), new Color(.46f, .49f, .54f), Steel };
             var bar = new LineMeshBuilder(8); var words = new List<string>(); float x = -24, length = 48;
+            var shares = new double[order.Length];
+            for (int k = 0; k < order.Length; k++) shares[k] = Math.Max(0, ledger.Total[(int)order[k]]) / sum;
+            // whole cents that add up to 100, as the one-year view's bar prints them (largest remainders): each part rounded
+            // alone can print 101 (41/27/15/11/7 for 2025's 41.39/27.07/14.51/10.51/6.52)
+            int[] cents = InstantModel.WholeCents(shares);
             for (int k = 0; k < order.Length; k++)
             {
-                double share = Math.Max(0, ledger.Total[(int)order[k]]) / sum; float w = length * (float)share;
+                float w = length * (float)shares[k];
                 if (w > .5f) bar.AddSegment(new Vector3(x + .15f, 0, 0), new Vector3(x + w - .15f, 0, 0), colors[k], 12, 0, 0);
                 x += w;
-                words.Add("<color=#" + ColorUtility.ToHtmlStringRGB(Color.Lerp(colors[k], Color.white, .25f)) + ">" + (100 * share).ToString("0", LandFacts.Ci) + "¢ " + names[k] + "</color>");
+                words.Add("<color=#" + ColorUtility.ToHtmlStringRGB(Color.Lerp(colors[k], Color.white, .25f)) + ">" + cents[k].ToString(LandFacts.Ci) + "¢ " + names[k] + "</color>");
             }
             // drawn after the hills (queue 3252): the font's own queue and the bar's would let the wake's lines draw over them
             Mesh mesh = bar.ToMesh("Capture caption bar"); owned.Add(mesh);

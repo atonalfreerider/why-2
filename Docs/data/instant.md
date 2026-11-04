@@ -79,7 +79,7 @@ Every source that fails prints a `SOURCE FAILED` line with the fallback taken.
 | `classes.flows.circuitVintage` | the same group flows on circuit.json's pre-update 2025 totals, the vintage MODALITIES.md and WP10 quote (class gross income $28.12T, PCE $20.95T). Saving is the residual here (see below) | M1, if the spec owner keeps that vintage (open question) |
 | `classes.spendingMix` | BLS CE 2024 and 2025: 14 spending categories by income fifth, as dollars per consumer unit and as shares. `sixGroups` maps the five fifths onto the six groups, from CE 2024, the year the spec names and spending.json holds | splitting each group's spending by kind (WP10 applies the item judgments to it) |
 | `nipa.facts` | named 2025 values, each traced to a table line | captions and ribbon totals: PCE, exports and imports, the gap, investment, taxes, benefits, public pay, interest, net lending, income abroad |
-| `nipa.tables` | NIPA Tables 1.1.5, 2.1, 3.1, 3.2 (selected lines), 3.10.5 (selected), 4.1, 6.16D and the government lines of 6.2D, 6.4D and 6.5D, annual from 1947 (or each line's first year) to 2025 | the year chip: NIPA flows for 1950-2025 |
+| `nipa.tables` | NIPA Tables 1.1.5, 2.1, 3.1, 3.2 (selected lines), 3.10.5 (selected), 4.1, 6.16D and the government lines of 6.2D, 6.4D and 6.5D (6.5D: general government and the enterprises per level, from 1998), annual from 1947 (or each line's first year) to 2025 | the year chip: NIPA flows for 1950-2025 |
 | `profitsByTier` | 6.16D corporate profits by industry in 2025, mapped to raw / make / services / tech, with the crosswalk and its impurities | the comparison strip's PROFITS column |
 | `listedValue` | sector-weight slot (not read yet), GICS-to-tier crosswalk, the Wilshire 5000 total, and the spec's fallback from the 25 stored firms | the MARKET VALUE column |
 | `publicDebt` | federal debt held by the public at the end of August 2026, split into the Federal Reserve, foreign holders (by country) and other US holders (a residual), plus interest by holder in 2025 | "THE STATE OWES $x T" with its holder segments; "federal interest split by holder" |
@@ -215,13 +215,14 @@ visualization)`, which carries no address.
     - `dfa-income`: the four wealth groups from the mirror.
     - `dfa-mirror,dfa-zip`: circuit.json's four wealth groups.
 
-## Checks (build of 2026-11-03, sha256 `70a02d9d…`)
+## Checks (build of 2026-11-03, sha256 `bb025a14…`)
 
-Online and `--offline` runs wrote the same file (sha256 `70a02d9d87fd96d137f163273300d11802de105eeff28569f098e02bcac1fb17`), exit status 0: 17 checks passed, none failed, one skipped (sector weights, below).
+Two `--offline` runs wrote the same file (sha256 `bb025a14ec3fca63172f48f504fb0dd18e3c9cc66771b8fa86e8f64b1a5e70df`), exit status 0: 18 checks passed, none failed, one skipped (sector weights, below). The online build reads the same cache.
 
 ```
 CHECK PASS    NIPA 2025 total receipts - total expenditures = net lending within $1B: 8,854.237 - 11,105.044 = -2,250.807 vs Table 3.1 line 43 -2,250.807 (gap $0.000B); current receipts 8,797.0, current expenditures 10,786.2
 CHECK PASS    NIPA 2025 identities hold: personal income = its components, current account = receipts - payments, net exports = exports - imports, 6.16D industries = domestic total; largest gap $0.001B
+CHECK PASS    general government full-time equivalent jobs 2025 (6.5D lines 88 + 93, the base's jobs): federal 3.439M + state and local 16.363M = 19.802M; with the government enterprises (lines 91 + 96: 0.577M + 1.210M, counted with the market) = 21.589M vs line 86 21.590M within 0.005M (gap 0.001M)
 CHECK PASS    DFA instruments add up to each group's assets, liabilities and net worth (2026:Q1): largest gap $0.002B
 CHECK PASS    DFA by income: 6 groups (Bottom 20%, 20-40%, 40-60%, 60-80%, 80-99%, Top 1%); 2026:Q1 levels sum to the DFA totals (the wealth-group partition of the same release) within 0.5%: largest gap 0.0027% over 28 columns (all 147 quarters, net worth, assets, liabilities, households: 0.0000%)
 CHECK PASS    net-worth shares 2026:Q1 [2.894, 4.175, 7.820, 13.333, 47.305, 24.473] within 0.1 pt of circuit.json groupNotes [2.89, 4.17, 7.82, 13.33, 47.31, 24.47]: largest gap 0.005 pt
@@ -252,11 +253,11 @@ CHECK SKIPPED sector weights sum to 100 within 0.5: not run, the weights are not
 CHECK PASS    Debt to the Penny 2026-08-31: held by the public $32,415.0B + intragovernmental = total within $0.01B (gap $0.0000B)
 CHECK PASS    federal debt held by the public 2026-08-31 $32,415.0B: Federal Reserve $4,552.3B (14.0%), foreign $9,331.7B (28.8%, TIC 2026-08), other US holders $18,530.9B (57.2%, residual)
 CHECK PASS    one hyperscaler capex value with its definition: $411.5B in calendar 2025 for the five firms, capital expenditures as each firm's cash purchases of property and equipment in its cash-flow statement, finance leases out, calendar 2025 (Oracle, whose fiscal year ends in May: its four quarters from December 2024 to November 2025) (each firm's own headline measure sums to $449.0B; the four with calendar quarters, $376.1B)
-CHECK PASS    every value has a source and a url with a quote, an API field or a computation: 125 values, 35 tables and blocks; every one of the file's 20,246 numbers (dates and indices aside) has that provenance on itself or an enclosing block
+CHECK PASS    every value has a source and a url with a quote, an API field or a computation: 126 values, 35 tables and blocks; every one of the file's 20,359 numbers (dates and indices aside) has that provenance on itself or an enclosing block
 CHECK PASS    every quote is found verbatim (whitespace-normalised) in the document its url names: 11 verified against repository files and cached downloads
                fallback: the top 1%'s total income and disposable income are BEA's published top-1% shares; its owners' income is the top fifth's, split between 80-99% and the top 1% in proportion to the matching DFA holdings of the same income groups; its benefits and business transfers are the top fifth's per household; its taxes are BEA's top-1% personal income (households ranked by personal income) less its top-1% disposable income (households ranked by disposable income, the only ranking under which BEA publishes it), a mix of two rankings that likely understates the income-ranked top 1%'s taxes (the size per 0.1 pt of disposable-income share is in steps.rankingMix and taxesSensitivity); its pay is what is left of its personal income, with social-insurance contributions at the top fifth's ratio to pay
                fallback: the 25 stored firms over the Wilshire total (MODALITIES.md section 5.2): tech 'at least', the rest 'not split by industry'
-checks: 16 passed, 1 failed, 1 skipped (household-debt)
+checks: 18 passed, 0 failed, 1 skipped
 ```
 
 ## Before using the numbers
@@ -298,12 +299,18 @@ checks: 16 passed, 1 failed, 1 skipped (household-debt)
 - **Public pay** has two definitions, both stored; M1's base pays the first (MODALITIES-PLAN decision 32):
   - general government (Table 3.10.5 line 4): $2,455.7B;
   - all government including government enterprises (Table 6.2D line 86): $2,679.4B, with 21.59M full-time
-    equivalent jobs (6.5D). This is the spec's first "$2.70T, 21.6M jobs". Enterprises' pay and jobs count with the
-    market's; WP10 adds general government's jobs from Table 6.5D.
+    equivalent jobs (6.5D line 86). This is the spec's first "$2.70T, 21.6M jobs". Enterprises' pay and jobs count
+    with the market's.
+  - general government's jobs: 19.80M full-time equivalents in 2025 (6.5D lines 88 + 93, federal 3.44M and state and
+    local 16.36M; `nipa.facts.publicJobsGeneralGovernment`, from 1998 in `nipa.tables.T60500D`), the base's jobs. The
+    build checks that they and the enterprises' (lines 91 + 96) add up to line 86.
 - **Interest by holder.** NIPA splits all government interest into persons and business together ($1,178.2B) and
-  nonresidents ($316.0B). Federal interest is split into US residents ($905.5B) and nonresidents ($312.2B). No table
-  separates persons from businesses, so the spec's "government interest to persons ≈ $0.9T" remains an estimate for
-  WP10 (≈).
+  nonresidents ($316.0B). Federal interest is split into residents other than general government ($905.5B) and
+  nonresidents ($312.2B). No table separates persons from businesses, so WP10 (InstantModel) takes the state's interest
+  to persons to be federal interest to residents other than general government (Table 3.2 line 34, $905.5B in 2025),
+  marked as an estimate (≈): the spec's "government interest to persons ≈ $0.9T". It never exceeds the interest the
+  class statements receive or all interest to persons and business; the rest of that interest ($272.7B in 2025) goes
+  to business, among the state's other outlays.
 - **The state's account, 2025 (Table 3.1):**
 
   | Basis | Receipts | Expenditures | Borrowing |

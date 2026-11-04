@@ -43,8 +43,8 @@ Other structural items (S05, S10, S13, S14, S17-S20) are out of scope, except wh
    - Household spending is BEA PCE, $20.95T (never the simulation's $21.63T).
    - Household debt is the DFA's, $20.0T at 2026:Q1: every liability, of which home mortgages and consumer credit are $18.9T (never the simulation's $14.35T).
 4. **Consistent state accounts.**
-   - The state buys ≈$3.16T from industries: $2.09T intermediate plus $1.07T final (2024 table). This is not the $5.29T of government consumption and investment.
-   - Market-tier pay is ≈$13.1T; public pay is $2.70T from the base, counted once.
+   - The state buys $⟨3.06⟩T from industries (NIPA 2025): general government's supplies $1.96T plus all government investment $1.10T. The 2024 use table's $3.16T ($2.09T intermediate plus $1.07T final) counts government enterprises' purchases too. This is not the $5.29T of government consumption and investment.
+   - Market pay is ≈$13.3T, government enterprises' included; public pay is general government's $2.46T, from the base, counted once (MODALITIES-PLAN decision 32).
    - Tariffs are already inside production and import taxes.
    - Federal interest is split by holder.
 5. **Colour.** In rendered pixels, desire–fear, people–conflict and people–commerce (and every other pair that can touch) separate by ΔE ≥ 8 (OKLab ×100) under both deuteranopia and protanopia.
@@ -425,11 +425,11 @@ Positions come from `InstantLayout` rules. The u-ranges are fixed; heights follo
 
 | Element | Geometry | Encoding and data | Label (screen-space) |
 | --- | --- | --- | --- |
-| **The state (base)** | u −175…267; v −(outlays × 5)…0 (2025 ≈ −54); depth d −10…+10 | Slate fill. Front-face strata, top to bottom: the state's own work (schools, police, courts, defense: public value added $3.45T), benefits, purchases from industries, interest, other. A light line at receipts; the band below it, the borrowing, is **hatched**. Data: NIPA Table 3.1 annual (WP02); until then circuit.json Q4 annual rate. | "THE STATE · all levels of government (NIPA ⟨year⟩) · spends $⟨10.8⟩T · takes in $⟨9.0⟩T · borrows $⟨1.9⟩T" |
+| **The state (base)** | u −175…267; v −(outlays × 5)…0 (2025 ≈ −54); depth d −10…+10 | Slate fill. Front-face strata, top to bottom: the state's own work (schools, police, courts, defense: general government value added $⟨3.18⟩T), benefits, supplies net of its own sales, interest, other. A light line at receipts; the band below it, the borrowing, is **hatched**. Data: NIPA Table 3.1 annual (WP02); until then circuit.json Q4 annual rate. | "THE STATE · all levels of government (NIPA ⟨year⟩) · spends $⟨10.79⟩T · takes in $⟨8.80⟩T · borrows $⟨1.99⟩T" |
 | **Class tower** | 3-unit manifolds at u −125…−122 (in) and −58…−55 (out); floors u −122…−58 (64 wide); six floors stacked from v 2 with 2-unit gaps: bottom 20%, 20-40, 40-60, 60-80, 80-99, top 1% | Floor height = the group's gross income a year (personal income + social-insurance contributions) × 5. Total $28.12T, 140.6 units. Class ramp fill. **Face mosaic** (area-true 100% bar across the floor): pay (blue) · from owning (gold) · from the state (slate) · borrowed (hatched). In the spending step it switches to uses: toward a want (rose) · away from a fear (ice) · taxes (slate) · saving (gold) or borrowing. Data: instant.json (BEA distribution of personal income, CBO top 1%, CE, DFA by income); group splits ≈ (source year carried to ⟨year⟩). | Inside each floor: "TOP 1% · 1.35M households · $⟨x⟩T a year". Before the first split year, one undivided block: "households · not split by income before ⟨year⟩" |
 | **Tier tower** | manifolds u 55…58 (in) and 122…125 (out); floors u 58…122; four floors from v 2, gaps 2 | Floor height = value added × 5 (2025: raw 6.85, make 42.65, services 74.25, tech 12.85 units). Tier ramp fill (same names, order and stone as the crest face). **Face mosaic:** pay (blue) · production taxes (slate) · upkeep (stone, ≈ estimated depreciation shares) · owners (gold). Data: industries.json (BEA 2025; compShare, taxShare, depShare). | "RAW MATERIALS · $1.37T · 2.8M jobs"; "MANUFACTURING & INFRASTRUCTURE · $8.53T · 45.0M"; "SERVICES · $14.85T · 71.8M"; "TECH · $2.57T · 6.1M · platforms (social media, cloud, AI), software, chips, media & telecom" (two lines where needed; leader when the floor is under 2 lines) |
 | **Comparison strip** (structure and industries steps only) | right of the tier tower: link band 8, then JOBS, PROFITS and MARKET VALUE columns, each 10 units wide with 8-unit link bands (u 133…187); each column is 100% of the tower's height, tiers in the same order, linked at alpha .35 | OUTPUT is the tower itself (5.0 / 31.2 / 54.4 / 9.4%). JOBS: market jobs (2.3 / 35.8 / 57.1 / 4.8%). PROFITS: BEA NIPA 6.16D corporate profits by industry mapped to tiers (crosswalk printed, "assumed: mapping"); until WP02 lands, a dashed "no data yet" column, **never the 25 firms**. MARKET VALUE: listed value by tier. Until sector weights are sourced: the 25 stored firms over $75.3T, with tech "at least 31.7%" and a dashed segment "not split by industry: $37.3T (49.5%)". | Column heads "OUTPUT · JOBS · PROFITS · MARKET VALUE"; tech row printed: "⟨9.4⟩% · ⟨4.8⟩% · ⟨…⟩ · at least ⟨31.7⟩%" |
-| **One household dollar** | 100% bar, 40 × 6 units, in the channel at the tier tower's foot (u 12…52, v 24…30); at the fork in the spending step | Shares, not dollars (printed "100¢"): pay 41 · owners 27 · upkeep 15 · imports 10 · taxes on production 7. Data: ValueCapture 2025 ledger (Leontief split of household purchases; ≈ 2024 input-output ratios). | "ONE HOUSEHOLD DOLLAR at the market (⟨year⟩, before income taxes)" |
+| **One household dollar** | 100% bar, 40 × 6 units, in the channel at the tier tower's foot (u 12…52, v 24…30); at the fork in the spending step | Shares, not dollars (printed "100¢", whole cents by largest remainders, so they add up to 100): pay 41 · owners 27 · upkeep 14 · imports 11 · taxes on production 7. Data: ValueCapture 2025 ledger (Leontief split of household purchases; ≈ 2024 input-output ratios). | "ONE HOUSEHOLD DOLLAR at the market (⟨year⟩, before income taxes)" |
 | **ABROAD gate** | doorway outline u 251…267, v 0…40 | Commerce sand; clickable door to M2 | "ABROAD · the world (G)" |
 | **Frontier** | rises 20 units from the tech floor's top at u 90; width = $ × 5 | Gold, alpha fading upward. Measured: the 10 tech-tier firms' capital spending ($353.7B) + R&D ($240.5B) = $594B (filings, latest fiscal year). No AI or fear/desire split: most confidences are under 0.5. | "FRONTIER · $594B a year into what comes next (10 largest tech firms) · all US private investment $5.55T (BEA 2025)"; panel footnote: hyperscalers' capital spending, calendar 2025, one reconciled figure (WP02) |
 | **Attention cloud** | u −125…125; **low** v 162…186 when the income arch is not lit; **high** v 268…292 when it is (eases 1 s; labels replaced when the ease ends) | White points of one size; altitude = log₁₀ followers; x from the social graph's layout. The 248 US people with ≥ 10M followers. Shown **only when the year is 2025**; otherwise a faint outline "attention: one 2025 snapshot". | "ATTENTION · the most-followed Americans · followers summed across Instagram, TikTok, YouTube and X (2025 snapshot) · not money"; top 12 named with leaders (MrBeast 779M … Jennifer Lopez 312M) |
@@ -442,8 +442,8 @@ Each step is a ViewVariant, captured by the smoke test as `economy-view-instant-
 | --- | --- | --- |
 | `structure` (**default**) | base, both towers with mosaics, comparison strip, 100¢ bar; cloud and frontier at support | "Households (left) and industries (right) stand on the state; each floor is as tall as its dollars a year." |
 | `spending` | trunk, imports branch, fork with 100¢ bar, class use-mosaics | "Households spent $⟨20.95⟩T: ⟨d⟩% toward a want, ⟨f⟩% away from a fear (J ⟨c⟩); ⟨m⟩¢ of each dollar bought imports." |
-| `pay` | arch (pay and owners' income), class source-mosaics, owners abroad | "Industries paid $⟨13.1⟩T in pay to every floor and $⟨6.5⟩T to owners, mostly the top floors; $⟨a⟩T to owners abroad." |
-| `state` | base strata, both tax downpipes, state-to-households riser, purchases riser, borrowing hatch | "The state took in $⟨r⟩T and paid out $⟨x⟩T: benefits $⟨b⟩T, pay $⟨p⟩T, purchases $⟨q⟩T, interest $⟨i⟩T; it borrowed $⟨d⟩T." |
+| `pay` | arch (pay and owners' income), class source-mosaics, owners abroad | "Industries paid $⟨13.3⟩T in pay to every floor and $⟨6.5⟩T to owners, mostly the top floors; $⟨a⟩T to owners abroad." |
+| `state` | base strata, both tax downpipes, state-to-households riser, purchases riser, borrowing hatch | "The state took in $⟨r⟩T and paid out $⟨x⟩T, among them benefits $⟨b⟩T, pay $⟨p⟩T, supplies net of its own sales $⟨q⟩T and interest $⟨i⟩T; it borrowed the other $⟨d⟩T." (q: `instant.state.purchasesNet`, the base's stratum; the purchases riser's $⟨3.06⟩T includes investment, which is not in the outlays) |
 | `abroad` | imports conduit, exports riser, owners and interest abroad, gate | "Paid for imports $⟨m⟩T; earned from exports $⟨x⟩T; the gap $⟨g⟩T (goods and services, ⟨year⟩). Press G for the world." |
 | `industries` | boundary arrows, comparison strip, frontier | "Supplies come down, the money goes up: ⟨37⟩% of the money between industries to a higher tier, ⟨22⟩% down, ⟨41⟩% within (2024)." |
 | `attention` | cloud, five tethers, attention loop | "Companies paid platforms $⟨295⟩B to reach people (IAB 2025); people gave about ⟨114⟩ minutes a day." |
@@ -460,17 +460,17 @@ Aggregate ribbons attach to tower **manifolds**, not to individual floors. Per-f
 | Ribbon | Route | $ (2025) | Colour and provenance |
 | --- | --- | --- | --- |
 | Household spending (2 lanes) | class out-manifold, top part → across the channel → fork at u ≈ 20 → value-added part into the tier in-manifold's top part | $20.95T (PCE); value added ≈ 90%, imports ≈ 10% | rose and ice lanes; total measured; split judged ("J ⟨conf⟩") |
-| Imports | peels down from the trunk at the fork (u 20…28) → into a conduit on the base's front face (v −4…−10) → east to the gate | ≈ $⟨2.1⟩T of household spending; the conduit carries all imports $⟨4.1⟩T (NIPA) | commerce; arrowheads east |
-| Pay (private) | tier out-manifold, top part → right leg (u 133…231) → over the top (inner edge v ≈ 160) → left leg (u −275…−177) → class in-manifold, top part | ≈ $13.1T (market compensation) | blue, inner strand |
+| Imports | peels down from the trunk at the fork (u 20…28) → into a conduit on the base's front face (v −4…−10) → east to the gate | ≈ $⟨2.20⟩T of household spending; the conduit carries all imports $⟨4.26⟩T (NIPA) | commerce; arrowheads east |
+| Pay (private) | tier out-manifold, top part → right leg (u 133…231) → over the top (inner edge v ≈ 160) → left leg (u −275…−177) → class in-manifold, top part | ≈ $⟨13.3⟩T (all compensation but general government's: government enterprises' $0.22T included, MODALITIES-PLAN decision 32) | blue, inner strand |
 | Owners' income to persons | same arch, outer strand | proprietors' $2.11T + rental $1.11T + dividends $2.25T + private interest (personal interest minus government interest to persons) ≈ $⟨6.5⟩T | gold |
 | Owners abroad | tier out-manifold, middle → right, under the arch's leg → gate | NIPA 4.1 income payments ≈ $⟨0.5⟩T | gold |
 | Kept by firms and upkeep | stub loop on the tier out-manifold → "reinvested" | upkeep ≈ $⟨4.2⟩T (≈ estimated depreciation shares) + retained $1.12T | stone and gold stub |
 | Investment | stub into the tier in-manifold | private fixed investment $5.55T (value-added part) | gold stub |
 | Taxes from industries | tier out-manifold, bottom → downpipe → base | production and import taxes $2.13T (include customs duties) + corporate $0.70T | slate |
 | Taxes from households | class out-manifold, bottom → downpipe → base | personal taxes $3.23T + contributions $2.02T | slate |
-| The state to households | base → riser (u −169…−127) → class in-manifold, bottom part | public pay $2.70T (21.6M jobs) + benefits $4.85T + government interest to persons ≈ $⟨0.9⟩T | slate (pay blue-edged) |
-| The state buys | base → riser beside the tier tower → tier in-manifold | ≈ $3.16T ($2.09T intermediate + $1.07T final; 2024 table scaled ≈) | slate |
-| Exports | gate → base-front conduit west → riser into the tier in-manifold's bottom | $⟨3.2⟩T (NIPA) | commerce |
+| The state to households | base → riser (u −169…−127) → class in-manifold, bottom part | public pay $2.46T (general government, 19.8M full-time equivalent jobs; MODALITIES-PLAN decision 32) + benefits $4.85T + government interest to persons ≈ $⟨0.9⟩T | slate (pay blue-edged) |
+| The state buys | base → riser beside the tier tower → tier in-manifold | $⟨3.06⟩T measured: general government's supplies $1.96T (NIPA Table 3.10.5 line 6) + all government investment $1.10T (Table 3.1 line 39). The investment is not in the base's current outlays, whose stratum is supplies net of the state's own sales ($⟨1.07⟩T); the 2024 use table's $3.16T counts government enterprises too | slate |
+| Exports | gate → base-front conduit west → riser into the tier in-manifold's bottom | $⟨3.34⟩T (NIPA) | commerce |
 | Saving and borrowing | class stubs | upper groups save (gold); lower groups borrow (hatched) | from the group statements ≈ |
 | Interest and other payments | class stub | interest paid $0.58T + transfers paid $0.29T | stone stub |
 
@@ -544,7 +544,7 @@ The flows fade (0.5 s) and the floors morph to equal-height rows (1.2 s), with e
 
 - **Class floors:** height ∝ households, 1 unit = 1M. Each fifth is about 27 units, 80-99 is 25.7, and the top 1% is 1.35, labelled "magnified label: 1.35M households".
 - **Dots:** 1 dot = 1M households, coloured by main income source, from the simulation (≈, n printed): pay (blue), owning (gold), the state (slate: public payroll, Social Security, safety net), none (grey: students, homemakers). The top 1% holds about one dot.
-- **Tier floors and base:** tier floors ∝ jobs (raw 2.8, make 45.0, services 71.8, tech 6.1); the base ∝ 21.6M public jobs.
+- **Tier floors and base:** tier floors ∝ jobs (raw 2.8, make 45.0, services 71.8, tech 6.1), with government enterprises' ⟨1.8⟩M beside them (counted with the market's, MODALITIES-PLAN decision 32); the base ∝ ⟨19.8⟩M general government jobs.
 - There are no ribbons in this state. The key says "the pay arch in the income statement joins them".
 
 ### 5.9 Years and the replay
@@ -572,7 +572,7 @@ The model is pure C#, built on a worker per year, and reads:
 
 **Problems()** runs at load and logs errors:
 - each class node: in = out within 1%; the class total equals personal income + contributions within 0.5%;
-- each tier node: in = value added = out within 1%;
+- each tier node: in = out within 1% (else the labelled "other" stub); its value-added content is reported beside it, not checked (MODALITIES-PLAN decision 35);
 - the state: in = out within 1%, the residual drawn as "other";
 - the fork sums to 100;
 - the direction shares recomputed from io match the facts;
@@ -616,7 +616,7 @@ The 13 economies and the rest of the world stand as one continuous row of blocks
 | Japan | 18.8 | 3.76% | $4.21T |
 | Rest of the world | 89.0 | 17.79% | $19.91T |
 
-The rest of the world is a grey block labelled "the rest of the world · 176 economies together, not one".
+The rest of the world is a grey block labelled "the rest of the world · ⟨156⟩ economies together, not one" (the count is computed: global.json `economies.ROW.economies` and `note`).
 
 **Camera.** Target (u 176, v 40), pitch 8°, distance 435, giving **3.0 px per unit** at 1080p. The default has no side panel, so the 500-unit row fits the 1880 px width. Taiwan is about 11 px wide, with a leader label.
 
@@ -658,8 +658,8 @@ The rest of the world is a grey block labelled "the rest of the world · 176 eco
 | Tariff wall | translucent violet slab across the lane at the importer's end; height 1 unit per 2 percentage points of the average rate; earlier rate as a ghost | US on Chinese goods ⟨35.2⟩% and China on US goods ⟨31.9⟩% (PIIE, ⟨22 Aug 2026⟩; "statutory rates on fixed 2017 trade, not duties collected"); Section 301 rates of 10-12.5% on other US import lanes (verified row) |
 | Sanction cut | the lane at its 2024 width, its 2021 width as a ghost, a break mark | US imports from Russia $29.6B (2021) → $3.0B (2024); EU, UK, Japan, Korea and Canada likewise; rerouting: India 8.7 → 65.7, China 78.4 → 128.3 |
 | Export-control valve | violet diamond on the lane | US chip-making tools to China $6.81B (2021) → $2.28B (2025); China's rare-earth controls, with the suspension's expiry ("to 10 Nov 2026") |
-| War | a violet zone with an X at the block's edge, with dates | Russia's war on Ukraine (from 24 Feb 2022; the civilian toll printed only if the OHCHR 2026 figure is re-verified). The Iran war and Hormuz are **pending**: listed, not drawn |
-| Strait | a narrow gate glyph on the lanes it touches | Bab el-Mandeb 8.7 → 4.0 mb/d (2023 → Jan-Aug 2024), Suez tonnage −70%; Hormuz drawn with its 2024 flow (20 mb/d) only, the closure pending |
+| War | a violet zone with an X at the block's edge, with dates | Russia's war on Ukraine (from 24 Feb 2022; the civilian toll printed only if the OHCHR 2026 figure is re-verified). The 2026 US/Israel-Iran war (from 28 Feb 2026; global.json `iran_war`, war form), re-verified on 3 Nov 2026 and drawn as global.json marks it; it does not draw the strait closed (Strait row) |
+| Strait | a narrow gate glyph on the lanes it touches | Bab el-Mandeb 8.7 → 4.0 mb/d (2023 → Jan-Aug 2024), Suez tonnage −70%; Hormuz with its 2024 flow (20 mb/d) and its 2026 state from global.json `hormuz_disruption` (strait form; re-verified on 3 Nov 2026 and drawn as global.json marks it; EIA, October 2026: Gulf crude shut-ins 10.9 mb/d at the May peak and 4.8 mb/d in September, when shipments through the strait increased slightly) |
 
 **Rules.**
 - Conflict marks are for conflict only. Coercion, and ended episodes (Japan–Korea 2019-23, the India penalty, the Galwan clash), appear as dated ticks in the event strip only. China's pressure on Taiwan is not drawn.
@@ -936,7 +936,7 @@ Variants are reached through the existing `cues` ("show"). The old per-view stop
 | 6 | instant_households | II · instant (structure; lit classes) | Every household, ranked by income: the poorest fifth at the bottom, the top 1% at the top. Each floor is as tall as the group's income in a year; its face shows where that income comes from. | ≈ group splits from BEA's distribution of personal income ({dpiYear}), scaled to {year} |
 | 7 | instant_spending | II · instant (spending) | Households spend ${pce}T a year at the industries. Every dollar runs in one of two lanes: rose, toward something wanted; ice, away from something feared. {fear}% of it moves away from a fear. | J which purchases are made from fear: judged item by item by Jev, an AI model (confidence {fearConf}); the total is measured |
 | 8 | instant_dollar | II · instant (pay; lit fork, arch) | At the market each household dollar splits: {wages} cents become pay, running back to every floor; {owners} cents go to owners, mostly the top floors; {upkeep} replace what wears out; {imports} buy imports; {taxes} are taxes. | {year}, before income taxes · ≈ input-output ratios of 2024 |
-| 9 | instant_state | II · instant (state) | All levels of government take in ${receipts}T a year and pay out ${outlays}T: benefits ${benefits}T, pay for {publicJobs} million employees ${publicPay}T, ${purchases}T bought from industries, ${interest}T of interest. They borrow the other ${deficit}T. | NIPA {year}, all levels of government |
+| 9 | instant_state | II · instant (state) | All levels of government take in ${receipts}T a year and pay out ${outlays}T, among them benefits ${benefits}T, pay for {publicJobs} million employees ${publicPay}T, ${purchasesNet}T of supplies net of their own sales and ${interest}T of interest. They borrow the other ${deficit}T. | NIPA {year}, all levels of government |
 | 10 | instant_between | II · instant (industries) | Industries pay each other ${io}T a year. Supplies come down and the money goes up: {up}% of it to a higher tier, {down}% to a lower one, {within}% within. Tech buys ${techBuys}T from the tiers below and sells them ${techSells}T. | BEA use table 2024 · arrows point where the money goes |
 | 11 | instant_balance | II · instant (balance) | Now what has piled up. Ranked the same way, the top 1% hold {top1NW}% of all household wealth and the poorest fifth {bottomNW}%. Each gold thread is a trillion dollars of claims on US companies. | Fed DFA {dfaQuarter} · ≈ every household holds the market's mix |
 | 12 | instant_attention | II · instant (attention) | Above the money float the most-followed Americans, higher the more followers they have; five of them also own or run giant companies. Companies pay platforms ${ads}B a year to reach people, who give about {minutes} minutes a day. | followers summed across four platforms, one 2025 snapshot · J firms matched by Jev |

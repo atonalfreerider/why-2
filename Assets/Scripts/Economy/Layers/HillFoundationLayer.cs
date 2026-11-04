@@ -51,6 +51,10 @@ namespace Why.Economy.Layers
         const float FaceX = 50;
         /// <summary>A label's level of detail that only the foundation view reaches: the names of the face and the strands.</summary>
         const int FoundationOnly = 3;
+        /// <summary>How far up its strands (0 at the bedrock, 1 at the market) each of the four strongest industries is named, in
+        /// order of strength: an even climb, but the third (insurance) lower: at .61 its plate covered the start of the wave's
+        /// name for manufacturing in the years before 2015.</summary>
+        static readonly float[] Climb = { .25f, .43f, .54f, .79f };
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom. Only the
         /// selected household's taxes and benefits keep the full pulse.</summary>
         const float Pulse = .2f;
@@ -323,7 +327,8 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>Regulation up into every hill (grey, Jev's regulation score) and regulatory capture back down (gold), as
-        /// wide as their scores; the four industries whose two strands are strongest are named in the strands' colors.</summary>
+        /// wide as their scores; the four industries whose two strands are strongest are named in the strands' colors, on
+        /// dark plates.</summary>
         void Regulation()
         {
             if (History?.industries == null || History.industries.Count == 0) return;
@@ -338,12 +343,15 @@ namespace Why.Economy.Layers
                 strongest.Add((j, r));
             }
             strongest.Sort((a, c) => (c.r.regulation + c.r.capture).CompareTo(a.r.regulation + a.r.capture));
-            for (int k = 0; k < strongest.Count && k < 4; k++)
+            for (int k = 0; k < strongest.Count && k < Climb.Length; k++)
             {
                 var (j, r) = strongest[k];
-                // the strongest stand side by side (banking, finance, insurance): their names climb four heights up the strands
+                // the strongest stand side by side (banking, finance, insurance): their names climb up the strands (Climb),
+                // beside them and a unit and a half lower, so the lowest (utilities, at the foot of the hillside) stands under
+                // the wave's name for the bedrock, clear of its descenders, rather than against its end; each on a plate, since
+                // the grey half is the strands' own grey
                 Label("<b>" + data.Industries[j].Name + "</b> · judged by Jev\n<color=#CCC7BD>rules bind it " + Tenths(r.regulation) + "</color> · <color=#FFB347>it shapes them " + Tenths(r.capture) + "</color>",
-                    Vector3.Lerp(Foot(land.Hills[j]), Into(j), .25f + .18f * k) + Vector3.left * 2, .6f, Color.white, FoundationOnly);
+                    Vector3.Lerp(Foot(land.Hills[j]), Into(j), Climb[k]) + Vector3.left * 2 + Vector3.down * 1.5f, .6f, Color.white, FoundationOnly, true);
             }
             Lines(b, Part.Regulation, true, false);
             Vector3 Foot(IndustryHill hill) => new Vector3(hill.Center.x - 1.2f, HillLandscape.Bedrock, land.CrestZ - 3);
@@ -443,7 +451,9 @@ namespace Why.Economy.Layers
             renderers.Add((r, part));
         }
 
-        void Label(string text, Vector3 at, float size, Color color, int minLod)
+        /// <summary>A label facing the camera. The foundation view's own names are drawn after the hills, and one on a
+        /// <paramref name="plate"/> also hides the strands behind it.</summary>
+        void Label(string text, Vector3 at, float size, Color color, int minLod, bool plate = false)
         {
             var go = new GameObject("Government label"); go.transform.SetParent(content.transform, false); go.transform.localPosition = at;
             var t = go.AddComponent<TextMeshPro>(); t.text = text; t.fontSize = 24; t.alignment = TextAlignmentOptions.Center;
@@ -454,8 +464,25 @@ namespace Why.Economy.Layers
             {
                 if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
                 if (raisedText != null) t.fontSharedMaterial = raisedText;
+                if (plate) Plate(t);
             }
             go.transform.localScale = Vector3.one * size; labels.Add((t, minLod));
+        }
+
+        /// <summary>A dark plate behind a label, the label system's margin (.35 em sideways, .12 em above and below) around its
+        /// text: drawn after the hills and the strands and before the raised text. It is the label's child, so it shows,
+        /// hides and turns with it.</summary>
+        void Plate(TextMeshPro t)
+        {
+            // TextMeshPro sets 2.4 local units per em at its font size 24
+            Vector2 half = (t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f) * .5f;
+            var b = new SurfaceMeshBuilder();
+            b.AddBand(new[] { new Vector3(-half.x, -half.y, 0), new Vector3(half.x, -half.y, 0) }, new[] { new Vector3(-half.x, half.y, 0), new Vector3(half.x, half.y, 0) },
+                new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
+            Mesh mesh = b.ToMesh("Government plate"); owned.Add(mesh);
+            Material material = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); owned.Add(material);
+            material.SetFloat("_EdgeSoft", 0);
+            AddMesh("Government plate", mesh, material).transform.SetParent(t.transform, false);
         }
 
         static Color WithAlpha(Color c, float a) { c.a = a; return c; }

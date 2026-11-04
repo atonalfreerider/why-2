@@ -39,9 +39,14 @@ namespace Why.Economy.Layers
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom (a pulse four
         /// times as bright would bloom the hues of the roots, the clouds, the ties and the mind's drives to white).</summary>
         const float Pulse=.2f;
-        /// <summary>The gold pool's name, shown beside the white cloud of attention (Tick), not by its group's rule, and its
-        /// font material drawn after the hills.</summary>
-        TextMeshPro capital; Material capitalText;
+        /// <summary>The gold pool's name, shown beside the white cloud of attention (Tick), not by its group's rule, its font
+        /// material drawn after the hills and its plate's material.</summary>
+        TextMeshPro capital; Material capitalText, capitalPlate;
+        /// <summary>The mind view's words, drawn after its threads (queue 3252, as the capital's name).</summary>
+        Material mindText;
+        /// <summary>How far toward the past (world units) the pool's name stands in the companies view: that view looks across
+        /// the wave with the pool under the title block's corner, and 10 units move the name about 55 px right, clear of it.</summary>
+        const float CapitalShift = 10;
         float lastClick=-10;int lastPlayer=-1;
         Vector2 pressed;
         MeshRenderer socialRenderer;
@@ -264,9 +269,24 @@ namespace Why.Economy.Layers
             // The gold pool is named wherever the white cloud of attention floats beside it, so the most-followed are never
             // read as the 1% (Tick shows it and keeps it legible from any distance).
             capital = Label("<b>CAPITAL</b> · the top 1%\n<size=70%>their claims on every hill</size>", cloud + Vector3.up * 8, LandGroup.Crown, .6f, Gold, false);
-            // drawn after the hills (queue 3252), so the gold lines converging on the pool do not draw over its name
+            // drawn after the hills (queue 3252), so the gold lines converging on the pool do not draw over its name, on a dark
+            // plate, so the attention cloud's stars behind it (the overview's pose) do not show between its letters
             if (capital.fontSharedMaterial != null) { capitalText = new Material(capital.fontSharedMaterial) { renderQueue = 3252 }; capital.fontSharedMaterial = capitalText; }
+            CapitalPlate();
             Lines(flows,LandGroup.CapitalFlows,true); Lines(pools,LandGroup.Pools);
+        }
+        /// <summary>A dark plate behind the pool's name, the label system's margin (.35 em sideways, .12 em above and below)
+        /// around its text: drawn after the hills and before its raised text (queue 3251), shown and scaled with the name.</summary>
+        void CapitalPlate()
+        {
+            // TextMeshPro sets 2.4 local units per em at its font size 24
+            Vector2 half = (capital.GetPreferredValues(capital.text) + new Vector2(.7f, .24f) * 2.4f) * .5f;
+            var b = new SurfaceMeshBuilder();
+            b.AddBand(new[] { new Vector3(-half.x, -half.y, 0), new Vector3(half.x, -half.y, 0) }, new[] { new Vector3(-half.x, half.y, 0), new Vector3(half.x, half.y, 0) },
+                new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
+            Mesh mesh = b.ToMesh("Capital plate"); meshes.Add(mesh);
+            capitalPlate = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); capitalPlate.SetFloat("_EdgeSoft", 0);
+            AddMesh("Capital plate", mesh, capitalPlate).transform.SetParent(capital.transform, false);
         }
         /// <summary>The 3D mind view (key 7): the selected individual's or cohort's drives, deliberation, choice and memory
         /// (<see cref="MindDiagram"/>, shared with the atom view); with nobody selected, the cohort of the person the person
@@ -290,7 +310,9 @@ namespace Why.Economy.Layers
                 m.Title=PlayerTitle(p)+" · "+snapshot.Year;
                 m.Note=(state==null?"census":scenario.Steps>0?"scenario "+scenario.Year:"baseline")+" · mean drives of the cohort's adults · fear "+PersonLife.Pct(m.FearShare)+" · behavioral assumptions";
             }
-            MindDiagram.Build(lines,MindOrigin+Vector3.up*.6f,m,(t,at,size,c)=>Label(t,at,LandGroup.Mirages,size,c),.95f);
+            // its words over its threads: the near drives' threads to the gate cross the farthest drives' names under their
+            // spheres, and the choice's thread to the memory crosses CHOICE, in the words' own hues
+            MindDiagram.Build(lines,MindOrigin+Vector3.up*.6f,m,(t,at,size,c)=>{var l=Label(t,at,LandGroup.Mirages,size,c);if(mindText==null&&l.fontSharedMaterial!=null)mindText=new Material(l.fontSharedMaterial){renderQueue=3252};if(mindText!=null)l.fontSharedMaterial=mindText;},.95f);
             Lines(lines,LandGroup.Mirages,true);
         }
         /// <summary>The cohort (player) of the person the person views follow in this land; -1 when nobody can be followed.
@@ -361,6 +383,7 @@ namespace Why.Economy.Layers
                 capital.gameObject.SetActive(show);
                 if (show)
                 {
+                    capital.transform.localPosition=Current.CloudCenter+Vector3.up*8+(view=="companies"?Vector3.back*CapitalShift:Vector3.zero);
                     capital.transform.rotation=rig.Cam.transform.rotation;
                     capital.transform.localScale=Vector3.one*Mathf.Max(.45f,Vector3.Distance(rig.Cam.transform.position,capital.transform.position)*.005f);
                 }
@@ -496,9 +519,11 @@ namespace Why.Economy.Layers
             foreach(var e in renderers)if(e.renderer)Destroy(e.renderer.sharedMaterial);
             if(socialRenderer)Destroy(socialRenderer.sharedMaterial);
             if(capitalText)Destroy(capitalText);
+            if(capitalPlate)Destroy(capitalPlate);
+            if(mindText)Destroy(mindText);
             foreach(var mesh in meshes)if(mesh)Destroy(mesh);
             if(content)Destroy(content);
-            meshes.Clear();renderers.Clear();labels.Clear();crowns.Clear();socialRenderer=null;capital=null;capitalText=null;
+            meshes.Clear();renderers.Clear();labels.Clear();crowns.Clear();socialRenderer=null;capital=null;capitalText=null;capitalPlate=null;mindText=null;
         }
         void OnDestroy(){LandService.Changed-=Rebuild;Clear();Current=null;Shown=null;HoverIndustry=HoverPlayer=-1;HoverOwner=null;}
     }

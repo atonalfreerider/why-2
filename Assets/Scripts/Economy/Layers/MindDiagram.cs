@@ -109,8 +109,9 @@ namespace Why.Economy.Layers
         public static Vector3 Gate(float s) => new Vector3(0, 1.0f, 0) * s;
         public static Vector3 Memory(float s) => new Vector3(0, -2.3f, 0) * s;
 
-        /// <summary>Draws the mind at <paramref name="o"/>; labels go through <paramref name="label"/> (text, point, size, color).</summary>
-        public static void Build(LineMeshBuilder b, Vector3 o, MindState m, Action<string, Vector3, float, Color> label, float s = 1)
+        /// <summary>Draws the mind at <paramref name="o"/>; labels go through <paramref name="label"/> (text, point, size, color:
+        /// a TextMeshPro at font size 24 scaled by the size). Without <paramref name="drives"/> the drives go unnamed.</summary>
+        public static void Build(LineMeshBuilder b, Vector3 o, MindState m, Action<string, Vector3, float, Color> label, float s = 1, bool drives = true)
         {
             if (m == null) return;
             Vector3 gate = o + Gate(s), memory = o + Memory(s);
@@ -123,13 +124,14 @@ namespace Why.Economy.Layers
                     float r = s * (.14f + .62f * Mathf.Sqrt(Mathf.Max(0, w)));
                     Sphere(b, at, r, c, 1.6f, 1);
                     Thread(b, at, gate, c, .6f + 9 * w, 1, .5f * s);
-                    label((fear ? "FEAR · " : "DESIRE · ") + Name(fear, k).ToUpperInvariant() + "\n" + PersonLife.Pct(w) + " of the motive", at + Vector3.up * (r + .45f * s), .085f * s, Color.Lerp(c, Color.white, .25f));
+                    if (drives) { string name = Name(fear, k).ToUpperInvariant() + " " + PersonLife.Pct(w); label(name, DriveLabel(fear, k, at, r, s, name.Length), DriveSize * s, Color.Lerp(c, Color.white, .25f)); }
                 }
             // The deliberation gate: a gimbal whose inner aperture is reason (the higher OS), with the future's weight.
             Sphere(b, gate, .62f * s, White, 1.4f, 1);
             Ring(b, gate, (.12f + .45f * m.Reason) * s, Gold, 2.6f, 1, false);
             Ring(b, gate, (.12f + .45f * m.Reason) * s, Gold, 2.6f, 1, true);
-            label("DELIBERATION\nreason " + PersonLife.Pct(m.Reason) + " · future " + PersonLife.Pct(m.Future) + " · fantasy " + PersonLife.Pct(m.Fantasy), gate + Vector3.up * .95f * s, .09f * s, White);
+            // high enough over the gate that a large far drive's sphere beside it stays under the readout
+            label("DELIBERATION\nreason " + PersonLife.Pct(m.Reason) + " · future " + PersonLife.Pct(m.Future) + " · fantasy " + PersonLife.Pct(m.Fantasy), gate + Vector3.up * 1.15f * s, .09f * s, White);
             // The choice: spend (the motive's color), save (gold), borrow (rose); widths are shares of the year's income.
             Color motive = Color.Lerp(DesireColor(0), FearColor(0), m.FearShare);
             Thread(b, gate, spend, motive, 1 + 8 * m.Spend, 1, .1f * s); Sphere(b, spend, (.16f + .3f * m.Spend) * s, motive, 1.5f, 1);
@@ -153,6 +155,25 @@ namespace Why.Economy.Layers
             }
             if (!string.IsNullOrEmpty(m.Title)) label(m.Title, o + Vector3.up * 4.3f * s, .13f * s, Color.white);
             if (!string.IsNullOrEmpty(m.Note)) label(m.Note, o + Vector3.up * 3.75f * s, .075f * s, Steel * 1.6f);
+        }
+
+        /// <summary>The size of a drive's label (at scale 1).</summary>
+        const float DriveSize = .085f;
+
+        /// <summary>
+        /// Where a drive's name and share stand, on one line. From the mind view's pose (in front, 20° above) the ring's far
+        /// half flattens: its drives stand a few pixels apart in height, and names centered over every sphere overprinted
+        /// one another whatever the shares. So the three nearer drives are named beside their spheres, away from the gate
+        /// (left of the wants, right of the fears), the next above its sphere and the farthest below. A centered label
+        /// stands beside its sphere by half its width: .62 em a character (capitals and digits), at 2.4 units per em
+        /// (TextMeshPro at font size 24) times the label's size.
+        /// </summary>
+        static Vector3 DriveLabel(bool fear, int k, Vector3 at, float r, float s, int characters)
+        {
+            if (k == 3) return at + Vector3.up * (r + .3f * s);
+            if (k == 4) return at + Vector3.down * (r + .3f * s);
+            float half = characters * .62f * 2.4f * DriveSize * s * .5f;
+            return at + Vector3.right * ((fear ? 1 : -1) * (r + .15f * s + half));
         }
 
         /// <summary>Three orthogonal rings: a sphere that reads from every side.</summary>

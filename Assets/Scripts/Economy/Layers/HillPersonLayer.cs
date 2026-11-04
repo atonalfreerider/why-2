@@ -67,6 +67,10 @@ namespace Why.Economy.Layers
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         LandSnapshot snapshot; HillLandscape land; GameObject content; LandFrame frame;
         MeshRenderer figure, walker; TextMeshPro walkerLabel;
+        /// <summary>The raised font material (<see cref="Raised"/>) and the dark plates' quad and material (<see cref="Plate"/>).</summary>
+        Material raisedText, plateMaterial; Mesh plateQuad;
+        /// <summary>The walker caption's plate, resized whenever the walker reaches another year.</summary>
+        Transform walkerPlate;
         Vector3 sway; Vector3[] path; float[] pathLength; int[] pathRecord;
         int person = -2, selection = -2, shownRecord = -1;
         float clock;
@@ -116,7 +120,12 @@ namespace Why.Economy.Layers
             walker.transform.localPosition = at;
             if (walkerLabel)
             {
-                walkerLabel.transform.localPosition = at + Vector3.up * 2.6f;
+                // The caption keeps the size it has from the nearest ladder pose (36 units) however far the walker is: a long
+                // life's pose stands three or four times farther, where it shrank to glyphs of two or three pixels. Its foot
+                // stays just over the walker's head.
+                float grow = Mathf.Max(1, Vector3.Distance(rig.Cam.transform.position, walker.transform.position) / 36f);
+                walkerLabel.transform.localPosition = at + Vector3.up * (2.2f + .4f * grow);
+                walkerLabel.transform.localScale = Vector3.one * (.14f * grow);
                 walkerLabel.transform.rotation = rig.Cam.transform.rotation;
                 int record = pathRecord[k];
                 var life = PersonFocus.Life;
@@ -125,6 +134,7 @@ namespace Why.Economy.Layers
                     shownRecord = record; var r = life.Records[record];
                     walkerLabel.text = "<b>" + life.Years[record] + "</b> · age " + (int)r.Age + " · income rank " + PersonLife.Pct(r.IncomeRank) +
                         "\nnet worth " + PersonLife.Money(r.Wealth) + (r.InControl ? " · in control" : "");
+                    if (walkerPlate) walkerPlate.localScale = PlateSize(walkerLabel);
                 }
             }
         }
@@ -169,7 +179,12 @@ namespace Why.Economy.Layers
             mind.Title = "SYNTHETIC PERSON #" + life.Person + " · " + life.Why + " · " + life.Year;
             mind.Note = "age " + (int)now.Age + (cohort.Length > 0 ? " · " + cohort : "") + " · one line = 100,000 people · drives are model assumptions";
             var b = new LineMeshBuilder();
-            MindDiagram.Build(b, PersonFocus.Mind, mind, (t, at, size, c) => Label(t, at, size, c, Part.Atom));
+            // The drives go unnamed here: the atom view sees the mind nearly edge-on from 30 units, where their names piled into
+            // one another a few pixels tall. The pulls in the landscape name the drives that move the person, with their shares,
+            // and the mind view (key 7) names all ten. Its words are drawn after the person's lines (queue 3252) on dark plates:
+            // from the atom's poses the thick pulls cross the mind's base, and hid MEMORY's runway where gold ran over gold, and
+            // the save thread cut CHOICE.
+            MindDiagram.Build(b, PersonFocus.Mind, mind, (t, at, size, c) => Plate(Raised(Label(t, at, size, c, Part.Atom))), drives: false);
             // The spine: from the head up into the memory at the mind's base.
             MindDiagram.Thread(b, place + Vector3.up * 1.9f, PersonFocus.Mind + MindDiagram.Memory(1) + Vector3.down * .3f, WithAlpha(White, .6f), 1.6f, Glow, 0);
             Lines(b, Part.Atom, true, "Atom mind");
@@ -384,7 +399,10 @@ namespace Why.Economy.Layers
             w.AddSegment(Vector3.zero, Vector3.up * 1.4f, White, 3, .06f, 0, Glow); MindDiagram.Sphere(w, Vector3.up * 1.75f, .3f, White, 2.4f, Glow);
             MindDiagram.Ring(w, Vector3.up * .03f, .7f, Gold, 2.4f, Glow, false);
             walker = Lines(w, Part.Ladder, false, "Ladder walker"); walker.transform.localPosition = path[0];
-            walkerLabel = Label("", path[0], .14f, White, Part.Ladder); shownRecord = -1;
+            // drawn after every line of the view (queue 3252): the path, the hills' outlines, the wave's ribs and the gold lines
+            // it walks across pass under the caption instead of hatching it; on a dark plate (sized to each year's text in Walk),
+            // so the near-white path it stands over at the crest does not eat its near-white letters
+            walkerLabel = Raised(Label("", path[0], .14f, White, Part.Ladder)); walkerPlate = Plate(walkerLabel); shownRecord = -1;
             Vector3 lo = path[0], hi = path[0]; foreach (var p in path) { lo = Vector3.Min(lo, p); hi = Vector3.Max(hi, p); }
             PersonFocus.LadderCenter = (lo + hi) * .5f; PersonFocus.LadderSpan = Mathf.Max(30, (hi - lo).magnitude);
         }
@@ -413,7 +431,10 @@ namespace Why.Economy.Layers
             Put("atom:person", "Synthetic person #" + life.Person, "A synthetic person (" + life.Why + ") at age " + (int)now.Age + " on the hillside: household income rank " + PersonLife.Pct(now.IncomeRank) + ".", PersonFocus.Place + Vector3.up * 1.2f);
             Put("atom:mind", "The mind · " + life.Year, "Five desire and five fear drives feed a deliberation gate (reason " + PersonLife.Pct(now.Reason) + ") and a choice; fear is " + PersonLife.Pct(now.FearShare) + " of the motive.", PersonFocus.Mind);
             Put("ladder:path", "The ladder · " + life.Years[0] + "-" + life.Year, life.Records.Length + " adult years across the wave, " + life.Events.Count + " events.", PersonFocus.LadderCenter);
-            Put("dilemma:arena", "Tit for tat · " + life.Year, "Repeated encounters with five counterparts.", PersonFocus.Arena);
+            // a little under the arena's floor: the tour names the point beside its ring on a dark plate, which at the floor's
+            // center covered the nearest seat's rule (its label's third line, HillDilemmaLayer); here the ring falls between that
+            // label and the person's under the arena (framing the point, the camera follows it most of the way)
+            Put("dilemma:arena", "Tit for tat · " + life.Year, "Repeated encounters with five counterparts.", PersonFocus.Arena + Vector3.down * .8f);
         }
 
         // ------------------------------------------------------------------ plumbing
@@ -437,6 +458,40 @@ namespace Why.Economy.Layers
             go.transform.localScale = Vector3.one * size; labels.Add((t, part)); return t;
         }
 
+        /// <summary>Gives a label a copy of its font material drawn after every line of the view (queue 3252), shared by the
+        /// raised labels. The label has woken (it was made under the active content), so it has the font's material to copy.</summary>
+        TextMeshPro Raised(TextMeshPro t)
+        {
+            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
+            if (raisedText != null) t.fontSharedMaterial = raisedText;
+            return t;
+        }
+
+        /// <summary>A dark plate behind a raised label, sized by <see cref="PlateSize"/>: drawn at queue 3251, after the person's
+        /// lines (3220) and before the raised text, so the lines behind the label step back. It is the label's child, so it
+        /// turns, scales and hides with it.</summary>
+        Transform Plate(TextMeshPro t)
+        {
+            if (plateQuad == null)
+            {
+                var b = new SurfaceMeshBuilder();
+                b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
+                    new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
+                plateQuad = b.ToMesh("Person plate"); owned.Add(plateQuad);
+                plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
+            }
+            var r = AddMesh("Person plate", plateQuad, plateMaterial); r.transform.SetParent(t.transform, false); r.transform.localScale = PlateSize(t);
+            return r.transform;
+        }
+
+        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and
+        /// .12 em above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
+        static Vector3 PlateSize(TextMeshPro t)
+        {
+            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
+            return new Vector3(s.x, s.y, 1);
+        }
+
         static Color WithAlpha(Color c, float a) { c.a = a; return c; }
 
         void Clear()
@@ -444,6 +499,7 @@ namespace Why.Economy.Layers
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
             owned.Clear(); renderers.Clear(); labels.Clear(); content = null; figure = walker = null; walkerLabel = null; path = null;
+            raisedText = plateMaterial = null; plateQuad = null; walkerPlate = null;
         }
 
         void OnDestroy() { Clear(); PersonFocus.Life = null; PersonFocus.Ready = false; }

@@ -61,9 +61,23 @@ namespace Why.Axis
         const float LabelShowAbove = 0.14f;
         const float LabelGapPx = 3;
 
+        /// <summary>
+        /// A label's one fallback place, tried when its own is taken or a UI block keeps it out, is its own moved toward its
+        /// tick until its line box meets the tick's end, and this much further (px at 1080p) where the box runs above or below
+        /// the letters (a fifth of an em of room; none beside them). Without it the present view's 1950, a medium tick whose
+        /// longer tick sets its label lower, fell under the readout chip and a single year, 1949, took its room.
+        /// </summary>
+        const float FallbackOverlapPx = 1;
+
         const float TickWidthWorld = 0.0006f;
         const float BeaconIntensity = 2f;
         const float BeaconPulse = 0.2f;
+
+        /// <summary>
+        /// The plate behind the beacon's "Now" (the present edge's plates, BandAnnotations): the label stands at the bright end
+        /// of the human stream, whose lines and bloom otherwise swallow its first letter.
+        /// </summary>
+        static readonly Color BeaconPlate = new Color(0.02f, 0.027f, 0.047f, 0.92f);
 
         struct TickStyle
         {
@@ -200,7 +214,8 @@ namespace Why.Axis
                 Color = GraphStyle.Text,
                 Align = TextAlignmentOptions.Center,
                 PixelOffset = new Vector2(0, 13),
-                AnchorKey = BeaconAnchor
+                AnchorKey = BeaconAnchor,
+                Plate = BeaconPlate
             });
         }
 
@@ -244,7 +259,8 @@ namespace Why.Axis
                     Color = st.LabelColor,
                     Align = TextAlignmentOptions.Center,
                     // hover tooltip and click-to-focus through the core's dynamic "time:" anchors
-                    AnchorKey = "time:" + t.YearsAgo.ToString("R", CultureInfo.InvariantCulture)
+                    AnchorKey = "time:" + t.YearsAgo.ToString("R", CultureInfo.InvariantCulture),
+                    Fallbacks = new Vector2[1] // set with the offset in PlaceLabel
                 };
                 nudge[i] = t.YearsAgo >= DeepTime.AgeU;
                 ctx.Labels.Add(labels[i]);
@@ -363,6 +379,7 @@ namespace Why.Axis
         /// Centers the label just past the inner end of its tick, along the tick's on-screen direction, so
         /// it never covers the ring or the content outside it: beside the tick at 3 and 9 o'clock, under it
         /// at 12 o'clock and in unrolled views, above it at 6 o'clock, left of it along the human branch.
+        /// Its fallback is the same place right against the tick (<see cref="FallbackOverlapPx"/>).
         /// </summary>
         void PlaceLabel(int i, LabelSpec label, Camera cam)
         {
@@ -383,6 +400,7 @@ namespace Why.Axis
             }
 
             label.PixelOffset = offset;
+            label.Fallbacks[0] = offset - dir * (LabelGapPx + FallbackOverlapPx * Mathf.Abs(dir.y));
         }
 
         /// <summary>Label width in reference pixels (the label system's own estimate once it has seen the label).</summary>

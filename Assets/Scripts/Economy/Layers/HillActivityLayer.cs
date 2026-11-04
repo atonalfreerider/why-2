@@ -57,12 +57,17 @@ namespace Why.Economy.Layers
         float[] riverFear;
         /// <summary>Per hill: the fear share of all households' spending at its market (<see cref="Trunks"/>), which splits its trunk.</summary>
         double[] trunkFear;
-        /// <summary>The trunks' names (one per hill, empty when unnamed) and the rivers view's caption over its rose / ice bar.</summary>
+        /// <summary>The trunks' names (one per hill, empty when unnamed), their plates, and the rivers view's caption over its
+        /// rose / ice bar.</summary>
         readonly List<TextMeshPro> trunkLabels=new List<TextMeshPro>();
+        readonly List<Transform> trunkPlates=new List<Transform>();
         Transform caption;TextMeshPro captionText,captionNote;MeshRenderer captionBar;
         /// <summary>The font's material drawn after the hills (queue 3252), for the names read over the rivers and the wake,
         /// which the font's own queue would let them draw over.</summary>
         Material raisedText;
+        /// <summary>The dark plate behind the trunks' names (a unit square scaled to each name, and its material drawn just
+        /// before the raised text, queue 3251), kept across rebuilds.</summary>
+        Mesh plateQuad;Material plateMaterial;
         LineMeshBuilder pulseGeometry;
         MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry, circles, circleThreads;
         double[] eliteClaim;
@@ -101,7 +106,11 @@ namespace Why.Economy.Layers
             }
             animation+=Time.deltaTime;
             bool hidden=LandView.PresetId=="mind"||LandView.PresetId=="section";
-            content.SetActive(!hidden);riversRoot.SetActive(!hidden);if(hidden)return;
+            // The money chart's series wear the rivers' rose and ice and the halos' gold (the mortgage, the Treasury, the bank's
+            // rate): seen edge-on behind its panel, the crest's trunks, halos and owner rings added up to the series' own
+            // brightness and read as more of them, so the chart's view draws none of them (the firms' glow, below).
+            bool chart=LandView.PresetId=="money";
+            content.SetActive(!hidden);riversRoot.SetActive(!hidden&&!chart);if(hidden)return;
             int focusPlayer=selection>=0?selection:HillLandscapeLayer.HoverPlayer;
             int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillExplorer.Industry>=0?HillExplorer.Industry:HillLandscapeLayer.HoverIndustry;
             for(int p=0;p<actors.Count;p++)
@@ -130,15 +139,18 @@ namespace Why.Economy.Layers
                 // HDR only for the chosen firm and the hovered or selected sector's; who keeps the money draws the halos of
                 // the industries' owners instead of the firms' (the firms' inner circles of owners stay)
                 float glow=chosen?5:related?3.6f:v=="capture"?0:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?1:.9f;
-                // in a focused view other than the companies' own the firms' halos step back to landmarks, in a person's further
-                if(focusedView&&v!="strategy")glow*=.25f;else if(person)glow*=.15f;
+                // in a focused view other than the companies' own the firms' halos step back to landmarks, in a person's further;
+                // the money chart's view draws none (above)
+                if(chart)glow=0;else if(focusedView&&v!="strategy")glow*=.25f;else if(person)glow*=.15f;
                 firms[f].sharedMaterial.SetColor("_Color",Color.white*glow);
                 // Corporate infrastructure by distance: beams and halos always; revenue, margin and value readouts
                 // nearer or for the focused sector; the organization inside the firm only close up.
                 bool near=Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(firmAt[f]))<60;
                 GraphMaterials.SetAlpha(controls[f].sharedMaterial,chosen||!quietBeams&&(related&&lod>=1||lod>=1&&near)?.95f:quietBeams?.05f:v=="capture"?.55f:.22f);
                 GraphMaterials.SetAlpha(orgs[f].sharedMaterial,HillExplorer.EvidenceOnly?0:chosen||f==employer||!quietFirm&&lod>=2&&near?.9f:!quietFirm&&related&&lod>=1?.3f:0);
-                labels[f].gameObject.SetActive(!quietFirm&&(chosen||(related&&lod>=1)||lod>=1&&near||v=="capture"));
+                // the readouts are world-sized: from the capture view's 150 units their lines were 4-5 px, so there too they
+                // show only for the chosen firm, the focused sector's or from mid distance
+                labels[f].gameObject.SetActive(!quietFirm&&(chosen||(related&&lod>=1)||lod>=1&&near));
                 labels[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].transform.rotation=rig.Cam.transform.rotation;
                 badges[f].color=related?new Color(1,.78f,.30f):new Color(.40f,.55f,.66f);
@@ -150,8 +162,8 @@ namespace Why.Economy.Layers
             // The owners' inner circles: every firm sits inside a ring of its elite owners; threads rise to the clouds (not in
             // who keeps the money, where the owners' surplus already climbs from the halos to its holders).
             bool own=v=="capture"||v=="companies"||v=="strategy";bool quiet=PersonFocus.IsView(v)||EconomyViews.Focused(v)&&!own;
-            GraphMaterials.SetAlpha(circles.sharedMaterial,own?1:quiet?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
-            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,v=="capture"?0:own?.6f:v=="people"?.3f:quiet?.02f:.08f);
+            GraphMaterials.SetAlpha(circles.sharedMaterial,chart?0:own?1:quiet?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
+            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,v=="capture"||chart?0:own?.6f:v=="people"?.3f:quiet?.02f:.08f);
             // The rivers view names its trunks (not while a cohort's own rivers dim them) and the year's split of household
             // spending (both written by Trunks).
             bool riversView=v=="rivers";
@@ -164,8 +176,9 @@ namespace Why.Economy.Layers
             if(riversView){caption.rotation=rig.Cam.transform.rotation;caption.localScale=Vector3.one*Mathf.Max(.5f,Vector3.Distance(rig.Cam.transform.position,caption.position)/CaptionDistance);}
             if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
             refresh+=Time.deltaTime;
-            // redrawn five times a second, never in a frame another layer rebuilds in (after a swap: the next free frame)
-            if(refresh>=.2f&&HillRebuilds.Take()){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
+            // redrawn five times a second, never in a frame another layer rebuilds in (after a swap: the next free frame), and
+            // not while the money chart's view hides them
+            if(refresh>=.2f&&!chart&&HillRebuilds.Take()){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
         }
         /// <summary>The followed person's employer (tower index), as the person layer draws it: the firm nearest the person on
         /// their household's hill, when they earn; -1 otherwise.</summary>
@@ -205,11 +218,11 @@ namespace Why.Economy.Layers
             for(int p=0;p<home.Length;p++){var actor=Render(empty,"Player "+p+" / group "+p/Subgroups);actor.transform.localScale=Vector3.one*.5f;actors.Add(actor);}
             Positions=(Vector3[])home.Clone();
             // the trunks' names are made under the layer (active), so the text wakes with the font's material to raise, then
-            // join the hidden content
+            // join the hidden content; each stands on a plate (sized by Trunks), read over the pale lanes at the markets
             for(int h=0;h<land.Hills.Length;h++)
             {
                 var name=Raised(Label("Trunk "+h,land.Market(h),transform));name.transform.SetParent(content.transform,false);
-                name.transform.localScale=Vector3.one*.7f;name.color=new Color(.9f,.93f,.97f);trunkLabels.Add(name);
+                name.transform.localScale=Vector3.one*.7f;name.color=new Color(.9f,.93f,.97f);trunkLabels.Add(name);trunkPlates.Add(Plate(name));
             }
             PlanTrips();UpdateBalances();
             // built for the program and selection it saw: the next Tick redoes the trips and balances only if they change
@@ -262,8 +275,9 @@ namespace Why.Economy.Layers
             for(int k=0;k<named.Count;k++)
             {
                 int h=named[k];
-                trunkLabels[h].text="<size=75%>"+data.Industries[h].Name+"</size>\n<color=#FF5C8A>"+LandFacts.Money(spent[h]-feared[h])+" desire</color> · <color=#4FB8FF>"+LandFacts.Money(feared[h])+" fear</color>";
-                trunkLabels[h].transform.localPosition=land.Market(h)+Vector3.up*(3.5f+3.2f*(k%3));
+                // the name as large as its figures: from the rivers view's distance a smaller line is too faint to read
+                trunkLabels[h].text=data.Industries[h].Name+"\n<color=#FF5C8A>"+LandFacts.Money(spent[h]-feared[h])+" desire</color> · <color=#4FB8FF>"+LandFacts.Money(feared[h])+" fear</color>";
+                trunkLabels[h].transform.localPosition=land.Market(h)+Vector3.up*(3.5f+3.2f*(k%3));trunkPlates[h].localScale=PlateSize(trunkLabels[h]);
             }
             // The caption stands over the wake on the valley side, clear of the rivers in the rivers view's frame.
             int desire=total>0?(int)Math.Round(100*(1-fear/total)):50;
@@ -541,18 +555,34 @@ namespace Why.Economy.Layers
             if(raisedText==null&&t.fontSharedMaterial!=null){raisedText=new Material(t.fontSharedMaterial){renderQueue=3252};kept.Add(raisedText);}
             if(raisedText!=null)t.fontSharedMaterial=raisedText;return t;
         }
+        /// <summary>A dark plate behind a raised label (it turns and hides with the label): the lanes and halos behind it step
+        /// back, so the label reads over them. Sized to the text by <see cref="PlateSize"/> whenever the text changes.</summary>
+        Transform Plate(TextMeshPro t)
+        {
+            if(plateQuad==null)
+            {
+                var b=new SurfaceMeshBuilder();
+                b.AddBand(new[]{new Vector3(-.5f,-.5f,0),new Vector3(.5f,-.5f,0)},new[]{new Vector3(-.5f,.5f,0),new Vector3(.5f,.5f,0)},new[]{(Color32)WithAlpha(GraphStyle.Background,.75f)},0,1);
+                plateQuad=b.ToMesh("Name plate");kept.Add(plateQuad);
+                plateMaterial=GraphMaterials.Raw(GraphMaterials.Surface(Color.white,1,3251));plateMaterial.SetFloat("_EdgeSoft",0);kept.Add(plateMaterial);
+            }
+            var r=AddMesh("Name plate",plateQuad,plateMaterial);r.transform.SetParent(t.transform,false);return r.transform;
+        }
+        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and .12 em
+        /// above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
+        static Vector3 PlateSize(TextMeshPro t){Vector2 s=t.GetPreferredValues(t.text)+new Vector2(.7f,.24f)*2.4f;return new Vector3(s.x,s.y,1);}
         static void Ring(LineMeshBuilder b,Vector3 at,float radius,Color c,float width,bool vertical=false,float intensity=1)
         {
             var points=new Vector3[25];for(int i=0;i<points.Length;i++){float a=i*Mathf.PI/12;points[i]=at+(vertical?new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,0):new Vector3(Mathf.Cos(a)*radius,0,Mathf.Sin(a)*radius));}
             b.AddPolyline(points,c,width,0,0,intensity);
         }
-        void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();trunkLabels.Clear();}
+        void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();trunkLabels.Clear();trunkPlates.Clear();}
         /// <summary>Sets what is on screen aside (still drawn) for a rebuild: it goes when the new one is complete.</summary>
         void Retire()
         {
             DropRetired();
             retired=content;retiredObjects.AddRange(owned);retiredObjects.AddRange(materials);content=null;
-            owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();trunkLabels.Clear();
+            owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();trunkLabels.Clear();trunkPlates.Clear();
         }
         void DropRetired(){foreach(var o in retiredObjects)if(o)Destroy(o);retiredObjects.Clear();if(retired)Destroy(retired);retired=null;}
         /// <summary>The rivers, their highlights and fill and the focused summit, made once and redrawn in place (DrawRivers,

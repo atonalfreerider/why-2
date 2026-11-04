@@ -24,6 +24,8 @@ namespace Why
         public bool Fixed;                // Data is a world position (a diagram beside the timeline), not data space
         public float FixedRange;          // Fixed labels hide while the camera target is farther than this (world units; 0 = never)
         public Color Plate;               // a plate drawn behind the text and icon (alpha 0 = none), for labels over bright marks
+        public Vector2[] Fallbacks;       // further screen-space offsets, tried in order when PixelOffset's place is taken or off screen
+        public bool Undimmed;             // keeps its brightness while the tour highlights something else (a note in a mass's bloom)
 
         internal float Width;             // estimated width in px at SizePx, icon included
         internal int TextVersion;         // bumped by LabelSystem.SetText so a shown label re-reads its text
@@ -33,7 +35,11 @@ namespace Why
     /// <summary>
     /// Places labels every frame the view changes: projects all specs, then greedily keeps the
     /// highest-priority labels that do not overlap on screen. Zooming in spreads points apart, so more
-    /// labels fit - level of detail for free. Labels are billboards with constant pixel size.
+    /// labels fit - level of detail for free. Labels are billboards with constant pixel size. A label's
+    /// text stands wholly on screen and its letters clear of the UI blocks that keep labels out
+    /// (<see cref="KeepClear"/>; it may stand right against one), at its offset or at the first of its
+    /// fallbacks that has room, or the label is not shown: one cut by the frame's edge or half under a
+    /// panel reads as a defect.
     /// </summary>
     /// <remarks>
     /// A label with an icon shows it left of the text, as a sprite child of the text so it shares the
@@ -77,6 +83,24 @@ namespace Why
         /// <summary>A plate's margin around its text, in em (sideways, and above and below).</summary>
         const float PlateMarginEm = 0.35f, PlateMarginYEm = 0.12f;
 
+        /// <summary>
+        /// Half the height of capitals and digits about a label's centre, in em (the font centres its line between ascent
+        /// and descent, 0.35 em over the baseline, and its cap line is at 0.69 em): the box a block keeps out.
+        /// </summary>
+        const float CapEm = 0.35f;
+
+        /// <summary>
+        /// How far a label's letters may reach under a block (px at 1080p): their antialiased edge and the width estimate's
+        /// error. A letter cut deeper reads clipped; descenders may dip under a panel's top.
+        /// </summary>
+        const float BlockSlackPx = 2f;
+
+        /// <summary>
+        /// A block this close to a screen edge (px at 1080p; the HUD's margin is 24, about 35 in portrait) also keeps labels
+        /// out of the strip between them: a label squeezed in under the preset bar reads as part of the HUD.
+        /// </summary>
+        const float EdgeStripPx = 40f;
+
         sealed class Slot
         {
             public TextMeshPro Tmp;
@@ -96,8 +120,18 @@ namespace Why
         readonly object gate = new object();
         readonly List<Slot> slots = new List<Slot>();
         readonly List<Rect> placedRects = new List<Rect>();
-        readonly List<(LabelSpec spec, Vector3 world, Rect rect, float fade)> placed =
-            new List<(LabelSpec, Vector3, Rect, float)>();
+
+        /// <summary>The labels placed by the last layout; place 0 is the spec's own offset, place k its fallback k - 1.</summary>
+        readonly List<(LabelSpec spec, Vector3 world, int place, Rect rect, float fade)> placed =
+            new List<(LabelSpec, Vector3, int, Rect, float)>();
+
+        /// <summary>UI blocks no label goes under (see <see cref="KeepClear"/>), destroyed ones pruned as they are met.</summary>
+        static readonly List<RectTransform> clearBlocks = new List<RectTransform>();
+
+        static readonly Vector3[] Corners = new Vector3[4];
+
+        /// <summary>Screen rects of the blocks shown at the last layout, and this frame's measure of them.</summary>
+        readonly List<Rect> blockRects = new List<Rect>(), measuredBlocks = new List<Rect>();
 
         CameraRig rig;
         int lastCam = -1, lastWarp = -1, lastHighlightHash, frame;
@@ -144,6 +178,61 @@ namespace Why
         }
 
         public void MarkDirty() => dirty = true;
+
+        /// <summary>
+        /// Main thread: keeps labels out from under a UI block (the HUD's legend and preset bar, the tour's card). Its owner
+        /// registers it once; while it is shown its screen rect is measured every frame, so labels re-place when it moves,
+        /// appears or goes. Only blocks on a screen-space overlay canvas count: in a headset the panels hang in the world.
+        /// </summary>
+        public static void KeepClear(RectTransform block)
+        {
+            if (block != null && !clearBlocks.Contains(block)) clearBlocks.Add(block);
+        }
+
+        /// <summary>
+        /// Measures the blocks shown now into <see cref="blockRects"/> (screen pixels, as the camera projects; one standing
+        /// within <see cref="EdgeStripPx"/> of a screen edge reaches to it); true when one moved, appeared or went since the
+        /// last measure.
+        /// </summary>
+        bool MeasureBlocks()
+        {
+            measuredBlocks.Clear();
+            float strip = EdgeStripPx * ScreenLayout.UiScale, w = rig.Cam.pixelWidth, h = rig.Cam.pixelHeight;
+            for (int i = clearBlocks.Count - 1; i >= 0; i--)
+            {
+                RectTransform block = clearBlocks[i];
+                if (block == null)
+                {
+                    clearBlocks.RemoveAt(i); // destroyed with its scene
+                    continue;
+                }
+
+                if (!block.gameObject.activeInHierarchy) continue;
+                Canvas canvas = block.GetComponentInParent<Canvas>();
+                Canvas screen = canvas != null ? canvas.rootCanvas : null;
+                if (screen == null || !screen.enabled || screen.renderMode != RenderMode.ScreenSpaceOverlay) continue;
+                block.GetWorldCorners(Corners); // an overlay canvas's world corners are screen pixels
+                Rect r = Rect.MinMaxRect(Corners[0].x, Corners[0].y, Corners[2].x, Corners[2].y);
+                if (r.xMin < strip) r.xMin = 0;
+                if (r.yMin < strip) r.yMin = 0;
+                if (r.xMax > w - strip) r.xMax = w;
+                if (r.yMax > h - strip) r.yMax = h;
+                measuredBlocks.Add(r);
+            }
+
+            bool same = measuredBlocks.Count == blockRects.Count;
+            for (int i = 0; same && i < measuredBlocks.Count; i++)
+            {
+                Rect a = measuredBlocks[i], b = blockRects[i];
+                same = Mathf.Abs(a.xMin - b.xMin) < 0.5f && Mathf.Abs(a.yMin - b.yMin) < 0.5f &&
+                       Mathf.Abs(a.xMax - b.xMax) < 0.5f && Mathf.Abs(a.yMax - b.yMax) < 0.5f;
+            }
+
+            if (same) return false;
+            blockRects.Clear();
+            blockRects.AddRange(measuredBlocks);
+            return true;
+        }
 
         /// <summary>
         /// Main thread: changes the text of a label that was already added (a live readout, a strategy name), re-measures
@@ -293,7 +382,9 @@ namespace Why
             frame++;
 
             int hiHash = Highlighter.HasHighlight ? frame / 20 : 0;
-            bool changed = dirty || rig.Version != lastCam || GraphWarp.Version != lastWarp || hiHash != lastHighlightHash;
+            bool blocksMoved = MeasureBlocks();
+            bool changed = dirty || blocksMoved || rig.Version != lastCam || GraphWarp.Version != lastWarp ||
+                           hiHash != lastHighlightHash;
             if (changed)
             {
                 Layout();
@@ -327,33 +418,62 @@ namespace Why
                 Vector3 world = s.Fixed ? s.Data : GraphWarp.ToWorld(s.Data.x, s.Data.y, s.Data.z, warp);
                 Vector3 sp = cam.WorldToScreenPoint(world);
                 if (sp.z <= cam.nearClipPlane) continue;
-                sp.x += s.PixelOffset.x * UiScale;
-                sp.y += s.PixelOffset.y * UiScale;
 
                 // Width covers icon, gap and text, so the alignment places the whole group (see Assign), and a plate's
                 // margins, which reach past the group on both sides
                 float lw = s.Width * UiScale, lh = s.SizePx * UiScale * Mathf.Max(LineEm, s.IconEm * IconGlyphFraction);
                 float margin = s.Plate.a > 0 ? PlateMarginEm * s.SizePx * UiScale : 0;
-                float x0 = s.Align == TextAlignmentOptions.Right ? sp.x - lw + margin
-                    : s.Align == TextAlignmentOptions.Center ? sp.x - lw * 0.5f
-                    : sp.x - margin;
-                Rect r = new Rect(x0 - Padding, sp.y - lh * 0.5f - Padding, lw + Padding * 2, lh + Padding * 2);
-                if (r.xMax < 0 || r.xMin > w || r.yMax < 0 || r.yMin > h) continue;
+                float left = s.Align == TextAlignmentOptions.Right ? margin - lw
+                    : s.Align == TextAlignmentOptions.Center ? -lw * 0.5f
+                    : -margin;
 
-                bool overlaps = false;
-                for (int j = 0; j < placedRects.Count; j++)
+                // what a block keeps out: the letters and icon, a slack inside their outline, not the padded line box (a
+                // date right above the readout reads whole; only labels keep the padding between them)
+                float slack = BlockSlackPx * UiScale;
+                float half = Mathf.Max(0, s.SizePx * UiScale * Mathf.Max(CapEm, 0.5f * s.IconEm * IconGlyphFraction) - slack);
+                float x0 = left + margin + slack, x1 = left + lw - margin - slack;
+
+                // the label's own offset, then its fallbacks: the first place free and with the text and icon wholly on
+                // screen (a plate may run to the frame's edge; the padding only spaces labels apart)
+                int places = 1 + (s.Fallbacks?.Length ?? 0);
+                for (int k = 0; k < places; k++)
                 {
-                    if (placedRects[j].Overlaps(r))
-                    {
-                        overlaps = true;
-                        break;
-                    }
+                    Vector2 offset = Offset(s, k);
+                    float x = sp.x + offset.x * UiScale, y = sp.y + offset.y * UiScale;
+                    if (x + left + margin < 0 || x + left + lw - margin > w || y - lh * 0.5f < 0 || y + lh * 0.5f > h) continue;
+                    Rect r = new Rect(x + left - Padding, y - lh * 0.5f - Padding, lw + Padding * 2, lh + Padding * 2);
+                    if (Taken(r) || Blocked(Rect.MinMaxRect(x + x0, y - half, x + x1, y + half))) continue;
+                    placedRects.Add(r);
+                    placed.Add((s, world, k, r, fade));
+                    break;
                 }
-
-                if (overlaps) continue;
-                placedRects.Add(r);
-                placed.Add((s, world, r, fade));
             }
+        }
+
+        /// <summary>The screen offset of a label's place k (0: its own, k: fallback k - 1), in pixels at 1080p.</summary>
+        static Vector2 Offset(LabelSpec s, int place) =>
+            place > 0 && s.Fallbacks != null && place <= s.Fallbacks.Length ? s.Fallbacks[place - 1] : s.PixelOffset;
+
+        /// <summary>True when a rect overlaps a label already placed.</summary>
+        bool Taken(Rect r)
+        {
+            for (int j = 0; j < placedRects.Count; j++)
+            {
+                if (placedRects[j].Overlaps(r)) return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>True when a label's letters (see <see cref="CapEm"/>) reach under a block that keeps labels out.</summary>
+        bool Blocked(Rect letters)
+        {
+            for (int j = 0; j < blockRects.Count; j++)
+            {
+                if (blockRects[j].Overlaps(letters)) return true;
+            }
+
+            return false;
         }
 
         void UpdateSlots()
@@ -404,7 +524,7 @@ namespace Why
                 }
 
                 slot.Used = true;
-                Position(slot, placed[i].world, placed[i].fade);
+                Position(slot, placed[i].world, placed[i].place, placed[i].fade);
             }
 
             float dt = GraphTime.Delta;
@@ -502,14 +622,15 @@ namespace Why
             if (slot.Plate != null && slot.Plate.enabled) slot.Plate.enabled = false;
         }
 
-        void Position(Slot slot, Vector3 world, float fade)
+        void Position(Slot slot, Vector3 world, int place, float fade)
         {
             if (!slot.Tmp.gameObject.activeSelf) slot.Tmp.gameObject.SetActive(true);
             Transform camT = rig.transform;
             float ppu = rig.PixelsPerUnit(world);
             if (ppu <= 0) return;
             LabelSpec s = slot.Spec;
-            Vector3 offset = (camT.right * s.PixelOffset.x + camT.up * s.PixelOffset.y) * UiScale / ppu;
+            Vector2 pixels = Offset(s, place);
+            Vector3 offset = (camT.right * pixels.x + camT.up * pixels.y) * UiScale / ppu;
             Transform t = slot.Tmp.transform;
             t.SetPositionAndRotation(world + offset, camT.rotation);
             float scale = s.SizePx * UiScale / ppu;
@@ -523,7 +644,10 @@ namespace Why
         {
             LabelSpec s = slot.Spec;
             if (s == null) return;
-            float boost = IsHighlighted(s) ? 1f : Highlighter.HasHighlight ? 0.45f : 0.85f;
+            // an undimmed label stays out of the tour's dimming only: a viewer's own selection (a clicked label, a followed
+            // figure) dims it with the rest, or it would read as part of the selection
+            bool dimmed = Highlighter.HasHighlight && !(s.Undimmed && Touring);
+            float boost = IsHighlighted(s) ? 1f : dimmed ? 0.45f : 0.85f;
             if (Hovered == s) boost = 1f;
             Color c = s.Color;
             c.a *= slot.Alpha * fade * boost;
@@ -531,11 +655,19 @@ namespace Why
             if (slot.IconShown && slot.Icon.color != c) slot.Icon.color = c;
             if (slot.PlateShown)
             {
+                // the plate fades in and out with its label but does not dim with it: a dimmed label over bright marks
+                // still needs the dark behind it (dimmed with the text, it let the lines through the letters)
                 Color p = s.Plate;
-                p.a *= slot.Alpha * fade * boost;
+                p.a *= slot.Alpha * fade;
                 if (slot.Plate.color != p) slot.Plate.color = p;
             }
         }
+
+        /// <summary>
+        /// True while the guided tour runs: its director owns the highlight then (the HUD takes no clicks, and a followed
+        /// figure is let go).
+        /// </summary>
+        static bool Touring => GraphRoot.Instance != null && GraphRoot.Instance.TourActive;
 
         static bool IsHighlighted(LabelSpec s)
         {

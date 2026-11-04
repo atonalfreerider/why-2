@@ -47,6 +47,23 @@ namespace Why.Matter
         /// <summary>Vertical spacing (px at 1080p) of stacked epoch labels.</summary>
         const float EpochLabelSpacing = 32f;
 
+        /// <summary>
+        /// The plate behind the epochs stacked at the Big Bang that the faint post the time axis raises there runs
+        /// up through in an unrolled view of the early universe, as the Now post does through the labels at the
+        /// present (the present edge's plates, BandAnnotations): see <see cref="BigBangPlateTopPx"/>.
+        /// </summary>
+        static readonly Color BigBangPlate = new Color(0.02f, 0.027f, 0.047f, 0.92f);
+
+        /// <summary>
+        /// The highest offset (px at 1080p) of a label on <see cref="BigBangPlate"/>. The post rises through the
+        /// second and third labels from the bottom of the Big Bang's stack, and its top ends on "47,000" in the
+        /// third, Matter-radiation equality (the cosmos view, the tour's stops at the Big Bang). The lowest, the
+        /// Dark Ages, stands beside the post's foot, where the axis's own labels crowd it out. The six above stand
+        /// clear of the post; in the overview two of them show over the red matter and across the clock ring,
+        /// where a plate, which keeps its dark when a highlight dims the text, cut a box out of the ring.
+        /// </summary>
+        const float BigBangPlateTopPx = 2 * EpochLabelSpacing;
+
         /// <summary>First highlight id index of the epoch ticks (after the bands).</summary>
         const int EpochIdBase = 100;
 
@@ -634,6 +651,7 @@ namespace Why.Matter
                 // moments the clock cannot resolve say how long after the Big Bang they happened
                 double after = e.AfterBigBangYears ?? 0;
                 string text = mark.AtBigBang && after > 0 ? a.Label + ", " + SinceBigBang(after) : a.Label;
+                bool plated = mark.AtBigBang && mark.LabelOffsetY > 0 && mark.LabelOffsetY <= BigBangPlateTopPx;
                 ctx.Labels.Add(new LabelSpec
                 {
                     Text = text,
@@ -643,6 +661,7 @@ namespace Why.Matter
                     Color = GraphStyle.TextDim,
                     Align = TextAlignmentOptions.Right,
                     PixelOffset = new Vector2(-6, mark.LabelOffsetY),
+                    Plate = plated ? BigBangPlate : default,
                     AnchorKey = a.Key,
                     Ids = a.Ids
                 });

@@ -43,7 +43,7 @@ namespace Why.Economy.Layers
         readonly List<TextMeshPro> labels = new List<TextMeshPro>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         LandSnapshot snapshot; HillLandscape land; YouModel model; GameObject content;
-        MeshRenderer figure;
+        MeshRenderer figure; Material raisedText;
         int version = -1, mobilityYear = -1;
         bool checkedModel;
         float clock;
@@ -124,11 +124,13 @@ namespace Why.Economy.Layers
             if (share > 0) Arc(b, at + Vector3.up * .06f, 1.7f, -Mathf.PI * .5f, -Mathf.PI * .5f + share * Mathf.PI * 2, Gold, 4);
             figure = Lines(b, Part.Figure, false);
             string years = r.YearsToIndependence == 0 ? "already there" : double.IsNaN(r.YearsToIndependence) ? "not within a century" : "about " + r.YearsToIndependence.ToString("0", LandFacts.Ci) + " years away";
+            // high enough that the river to the viewer's own hill, whose market stands beside them, is named under the block
+            // (just over the head), not across its lines
             Label("<b>YOU</b> · " + Ordinal(r.IncomeRank) + " percentile of household income · " + Ordinal(r.WealthRank) + " of net worth" +
                   "\n<size=85%>" + Rung(r.IncomeRank, onHill, owner) + " · cushion: " + r.Cushion.ToString("0.0", LandFacts.Ci) + " years of spending, home included" +
                   "\nthe gold ring at your feet: one turn is ten years" +
                   "\nindependence: " + PersonLife.Money(r.Independence) + ", " + years + "</size>",
-                  at - right * 1.4f + Vector3.up * 4.8f, .22f, White, TextAlignmentOptions.Right);
+                  at - right * 1.4f + Vector3.up * 6.4f, .22f, White, TextAlignmentOptions.Right);
         }
 
         /// <summary>The spending's rivers: to the markets of the industries the neighbors' mix first pays, split by fear.</summary>
@@ -172,10 +174,12 @@ namespace Why.Economy.Layers
             Stream(b, at + Vector3.up * 1.2f, top, Gold, 1.2f + 6 * up);
             Stream(b, at + Vector3.up * .8f, low, Blue, 1.2f + 6 * down);
             var lr = Lines(b, Part.Flow, true); lr.sharedMaterial.SetFloat("_FlowFreq", 1.8f); lr.sharedMaterial.SetFloat("_FlowSpeed", .7f);
+            // over the gold stream's head, but never down in the YOU block: near the top of the ladder little goes uphill, the
+            // head sinks, and the label printed across the block's lines
             Label("<color=#FFC04A>↑ " + LandFacts.Percent(up) + "</color> of all wages and owners' income in the simulated population goes to households ranked above you" +
                   "\nyour spending is assumed to pay people the way everyone's does · your dollar: " + Cents(r.Wages) + " wages · " + Cents(r.Owners) + " owners' surplus (" +
                   LandFacts.Percent(r.Persuaded) + " persuaded) · " + Cents(r.Taxes) + " taxes · " + Cents(r.Upkeep) + " upkeep · " + Cents(r.Imports) + " imports",
-                  top + Vector3.up * 1.6f, .17f, Color.Lerp(Gold, White, .4f));
+                  new Vector3(top.x, Mathf.Max(top.y + 1.6f, at.y + 8), top.z), .17f, Color.Lerp(Gold, White, .4f));
             Label("<color=#6FB6FF>↓ " + LandFacts.Percent(down) + " downhill</color>", low + Vector3.up * 1.2f, .17f, Color.Lerp(Blue, White, .4f));
         }
 
@@ -314,11 +318,15 @@ namespace Why.Economy.Layers
             renderers.Add((r, part));
         }
 
+        /// <summary>A label facing the camera, drawn after every line of the view (queue 3252): the hills' outlines and the rivers
+        /// that cross the viewer's words pass under them.</summary>
         void Label(string text, Vector3 at, float size, Color color, TextAlignmentOptions align = TextAlignmentOptions.Center)
         {
             var go = new GameObject("You label"); go.transform.SetParent(content.transform, false); go.transform.localPosition = at;
             var t = go.AddComponent<TextMeshPro>(); t.text = text; t.fontSize = 24; t.alignment = align;
             t.color = color; t.textWrappingMode = TextWrappingModes.NoWrap; t.rectTransform.sizeDelta = new Vector2(60, 6);
+            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
+            if (raisedText != null) t.fontSharedMaterial = raisedText;
             // a left- or right-aligned label starts or ends at its point, so stacked labels keep their side of the figure
             if (align == TextAlignmentOptions.Left) t.rectTransform.pivot = new Vector2(0, .5f);
             else if (align == TextAlignmentOptions.Right) t.rectTransform.pivot = new Vector2(1, .5f);
@@ -331,7 +339,7 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; figure = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; figure = null; raisedText = null;
         }
 
         void OnDestroy() { Clear(); YouFocus.Ready = false; }

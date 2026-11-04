@@ -59,6 +59,10 @@ namespace Why.Economy.Layers
         /// <summary>The cloud's name (kept legible from any distance), and its text without and with the key of its rings, and
         /// with the key in portrait (its long lines broken in two).</summary>
         TextMeshPro title; string titleFar, titleNear, titleNearPortrait;
+        /// <summary>The font's material drawn after the hills and the cloud's lines (queue 3252), shared by the labels read over
+        /// them; and the dark plate behind those that stand on bright marks (a unit square scaled to each label, and its
+        /// material drawn just before the raised text, queue 3251).</summary>
+        Material raisedText, plateMaterial; Mesh plateQuad;
 
         string programsJson;
         public override void Prepare(GraphContext ctx) { People = SocialPeople.Parse(ctx.Text(SocialPeople.Path)); programsJson = ctx.Text(CorporatePrograms.Path); }
@@ -76,11 +80,12 @@ namespace Why.Economy.Layers
             if (content == null) return;
             string view = LandView.PresetId;
             // Off its topic the cloud is not drawn: in the person and focused views, in the money's own views (who keeps it,
-            // the rivers, the bedrock, the roots) and in the games (society, betrayal); before Instagram only its own view
-            // shows it, as a ghost.
+            // the rivers, the bedrock, the roots), in the companies' lives (whose key names no white mark, and whose frame
+            // cuts the cloud at its top, its name above it) and in the games (society, betrayal); before Instagram only its
+            // own view shows it, as a ghost.
             bool early = land.Year < PlatformYear, social = view == "social";
             bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money" || view == "regimes"
-                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "society" || view == "betrayal" || early && !social;
+                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || early && !social;
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;
@@ -143,7 +148,7 @@ namespace Why.Economy.Layers
             shown.Sort((a, b) => b.fol.CompareTo(a.fol));
             var seatOf = new Dictionary<int, Vector3>();
             foreach (var s in HillFoundationLayer.Seats) if (s.Person >= 0) seatOf[s.Person] = s.At + Vector3.up * 2.2f;
-            var cats = new Dictionary<int, List<Vector3>>();
+            var cats = new Dictionary<int, List<Vector3>>(); var groups = new List<TextMeshPro>();
             float top = center.y;   // the highest star in the cloud: its name stands just above it, inside the starting frames
             for (int rank = 0; rank < shown.Count; rank++)
             {
@@ -187,28 +192,46 @@ namespace Why.Economy.Layers
                 float r = Mathf.Clamp(Mathf.Sqrt(spread / kv.Value.Count) * 1.5f, 2, 12);
                 Color col = People.CloudColor(kv.Key); col.a = .6f;
                 Circle(rings, c, r, col, 1.4f, 1); Circle(rings, c + Vector3.up * .3f, r * 1.04f, WithAlpha(col, .25f), 1, 1);
-                TextLabel(People.CloudLabel(kv.Key), c + Vector3.up * (r * .5f + 1.5f), .3f, col, NearLabel, 1);
+                // its name on a plate, drawn after the stars, in its ring's hue lightened to read on the plate: Stack steps the
+                // names that meet the eight's plates down into the cloud's brightest band, where the stars' light, added after
+                // the font's own queue, washed out a name without one
+                var cloudName = Raised(TextLabel(People.CloudLabel(kv.Key), c + Vector3.up * (r * .5f + 1.5f), .3f, Color.Lerp(People.CloudColor(kv.Key), Color.white, .45f), NearLabel, 1));
+                Plate(cloudName); groups.Add(cloudName);
             }
             // Influence among the influential: a ring as wide as the number of the most-followed who follow them.
             var elite = new LineMeshBuilder(); var ranked = new List<SocialPeople.Person>();
             foreach (var p in shown) if (p.elite >= 8 && Placed.TryGetValue(p.Index, out var at)) { Circle(elite, at.at, .4f + Mathf.Sqrt(p.elite) * .32f, WithAlpha(new Color(.85f, .9f, 1f), .55f), 1.6f, 1); ranked.Add(p); }
             ranked.Sort((a, b) => b.elite.CompareTo(a.elite));
-            string graph = Graph();
+            // The eight most followed by the others are named in the social view, on plates over the cloud's stars and names.
+            // Those in the cloud give only their number, which the ring key just above says counts (RingKey): the names the
+            // core's hubs crowd together stay short enough to stack (Stack) above its brightest stars, not over them. One at a
+            // company's circle or an office seat stands far below the key, where a bare number would read as an age, and says
+            // what it counts.
+            string graph = Graph(); var names = new List<TextMeshPro>();
             for (int k = 0; k < ranked.Count && k < 8; k++)
-                TextLabel(ranked[k].name + " · followed by " + ranked[k].elite + " of the " + graph + "most-followed accounts", Placed[ranked[k].Index].at + Vector3.up * (2.4f + Mathf.Sqrt(ranked[k].elite) * .32f),
-                    .5f, new Color(.9f, .94f, 1f), SocialLabel, 1);
+            {
+                var p = ranked[k]; var stands = Placed[p.Index];
+                string count = stands.place == 0 ? p.elite.ToString() : "followed by " + p.elite + " of the " + graph + "most-followed accounts";
+                var label = Raised(TextLabel(p.name + " · " + count, stands.at + Vector3.up * (2.4f + Mathf.Sqrt(p.elite) * .32f), .5f, new Color(.9f, .94f, 1f), SocialLabel, 1));
+                Plate(label); names.Add(label);
+            }
+            // then the category clouds' names: two clouds whose centers lie close put theirs on one spot (Kardashian Jenner
+            // and MAGA printed over each other under Obama's plate), and one stood under the cloud's name, in its key's letters
+            Stack(names, groups);
             // the rings overlap in the core: blended, not added, so their crossings do not turn white
             Lines(elite, Part.Elite, false, false);
             Loop();
             Glow(glow, center, CloudRadius * 1.15f, .035f);
             // The cloud's name, at every distance: what the stars are and what sizes them, so they are never read as the 1%.
             // the follower counts are summed across Instagram, TikTok, YouTube and X (people.json's note), not Instagram's alone;
-            // on two lines, about 370 px wide, so it fits between the HUD's panels. In portrait the name is as large against the
-            // screen's height, so its long lines (the key, about 950 px; before Instagram, the snapshot's note) would run past
-            // the 1080 px wide frame: there each breaks in two (turn)
+            // on two lines, about 370 px wide, so it fits between the HUD's panels; the key of its rings, which also says what
+            // the number after a name in the cloud counts, is about 600 px in the attention view and ends about 25 px left of the
+            // HUD's right panel. In portrait the name is as large against the screen's height, so its long lines (the key, about
+            // 1,030 px; before Instagram, the snapshot's note) would run past the 1080 px wide frame: there each breaks in two
+            // (turn)
             string Heading(string turn) => "<b>ATTENTION</b> · the most-followed Americans\n<size=75%>followers across platforms, " + (early
                 ? "a 2025 snapshot: drawn faint," + turn + "as Instagram, whose follows place them, began in " + PlatformYear : "2025") + "</size>";
-            string RingKey(string turn) => "\n<size=75%>white rings: followed by the other most-followed" + turn + "gold rings: their companies · grey: in office</size>";
+            string RingKey(string turn) => "\n<size=75%>white rings and numbers: followed by the most-followed" + turn + "gold rings: their companies · grey: in office</size>";
             titleFar = Heading(" "); titleNear = titleFar + RingKey(" · "); titleNearPortrait = Heading("\n") + RingKey("\n");
             // above the highest star and the names of the most-followed over it (up to 5 units), not at the cloud's bound,
             // which the starting view's frame cuts off; over the cloud's past half (TitleBack), clear of the HUD's panels
@@ -216,7 +239,7 @@ namespace Why.Economy.Layers
             // of no height, so it centers on that place, or in portrait stands on it (Tick)
             title.rectTransform.sizeDelta = new Vector2(30, 0);
             // drawn after the hills (queue 3252), so the stars and threads added after the font's own queue stay off it
-            if (title.fontSharedMaterial != null) { var text = new Material(title.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(text); title.fontSharedMaterial = text; }
+            Raised(title);
             Surface(glow, Part.Glow);
             Lines(stars, Part.Stars); Lines(bright, Part.Bright); Lines(ties, Part.Ties); Lines(rings, Part.Rings, false, false);
             Lines(anchors, Part.Anchors); Lines(threads, Part.Threads, true);
@@ -259,14 +282,21 @@ namespace Why.Economy.Layers
                 creators = programs.Total("influencerMarketing.usCreatorEconomyAdSpend_IAB"), minutes = programs.Total("socialMediaTime.usAdultSocialNetworkUsers_eMarketer");
             var b = new LineMeshBuilder(); Color rose = new Color(1, .30f, .52f), gold = new Color(1, .72f, .25f), white = new Color(.92f, .96f, 1f);
             float W(double billions) => 1.5f + Mathf.Log10(1 + (float)Math.Max(0, billions)) * 2.2f;
-            void Arc(Vector3 a, Vector3 z, Color c, float width, float lift, string text)
+            void Arc(Vector3 a, Vector3 z, Color c, float width, float lift, string text, bool onward = false)
             {
                 var pts = new LinePoint[33];
                 for (int k = 0; k < pts.Length; k++) { float t = k / 32f; pts[k] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, WithAlpha(c, .85f), width); }
                 b.AddFlowPath(pts, 0, .25f);
-                TextLabel(text, pts[16].Data + Vector3.up * 3.5f, .72f, Color.Lerp(c, Color.white, .45f), SocialLabel, 1);
+                // over the arc's middle, which a steep arc crosses in the label's own hue: drawn after the lines, on a plate;
+                // an onward label starts at the middle and runs on to the right instead of centering on it
+                var label = Raised(TextLabel(text, pts[16].Data + Vector3.up * 3.5f, .72f, Color.Lerp(c, Color.white, .45f), SocialLabel, 1));
+                if (onward) { label.alignment = TextAlignmentOptions.Left; label.rectTransform.pivot = new Vector2(0, .5f); }
+                Plate(label);
             }
-            Arc(firms, platforms, gold, W(ads), 10, "<b>ADVERTISING</b> · $" + ads.ToString("0", LandFacts.Ci) + "B of US digital ads in 2025, $" + social.ToString("0", LandFacts.Ci) + "B of it on social media (IAB/PwC)");
+            // The platforms' halos and owner rings crowd the advertising arc's far end, and centered on the arc's middle the
+            // name's first word stood on their glow (the attention view read "ADVE...NG"); it runs on from the middle toward
+            // the firms instead, as the line falls away under it (anchored nearer the firms, it met the attention's name).
+            Arc(firms, platforms, gold, W(ads), 10, "<b>ADVERTISING</b> · $" + ads.ToString("0", LandFacts.Ci) + "B of US digital ads in 2025, $" + social.ToString("0", LandFacts.Ci) + "B of it on social media (IAB/PwC)", true);
             Arc(platforms, center, gold, W(creators), 8, "<b>TO THE CREATORS</b> · ≈ $" + creators.ToString("0", LandFacts.Ci) + "B of US creator-economy ad spend (IAB 2025)");
             Arc(center, people, rose, W(spending * .01), 6, "<b>ATTENTION GIVEN, WANTS TAKEN IN</b> · about " + (minutes / 60).ToString("0.0", LandFacts.Ci) + " hours a day on social media per adult user (eMarketer 2025)");
             Arc(people, firms, rose, W(spending * .05), 4, "<b>SPENDING</b> · " + LandFacts.Money(spending) + " a year from households · " +
@@ -388,13 +418,89 @@ namespace Why.Economy.Layers
             return t;
         }
 
+        /// <summary>Gives a label the raised font material (<see cref="raisedText"/>). The label has woken (it was made under
+        /// the active content), so it has the font's material to copy.</summary>
+        TextMeshPro Raised(TextMeshPro t)
+        {
+            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
+            if (raisedText != null) t.fontSharedMaterial = raisedText;
+            return t;
+        }
+
+        /// <summary>A dark plate behind a raised label, sized by <see cref="PlateSize"/>: the stars, names and lines behind it
+        /// step back, so the label reads over them. At .9: the cloud's core stacks the stars' additive light, and a quarter of
+        /// it (a .75 plate) still washed the letters of the names there. It turns and hides with the label, under its text
+        /// (to the right of its place for a left-aligned one).</summary>
+        void Plate(TextMeshPro t)
+        {
+            if (plateQuad == null)
+            {
+                var b = new SurfaceMeshBuilder();
+                b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
+                    new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
+                plateQuad = b.ToMesh("Popular plate"); owned.Add(plateQuad);
+                plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
+            }
+            var r = AddMesh("Popular plate", plateQuad, plateMaterial); r.transform.SetParent(t.transform, false); r.transform.localScale = PlateSize(t);
+            if (t.alignment == TextAlignmentOptions.Left) r.transform.localPosition = new Vector3(t.rectTransform.rect.xMin + t.GetPreferredValues(t.text).x * .5f, 0, 0);
+        }
+
+        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and
+        /// .12 em above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
+        static Vector3 PlateSize(TextMeshPro t)
+        {
+            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
+            return new Vector3(s.x, s.y, 1);
+        }
+
+        /// <summary>
+        /// Keeps the names of the most followed by the others (shown only in the social view), then the category clouds' names
+        /// (<paramref name="under"/>), from printing over each other in the social view: in order, each is lowered a plate's
+        /// height at a time until its plate's box clears every one placed before it (lowered, not raised: the cloud's name
+        /// stands just above, and a category's name starts no higher than the highest of the eight, which keep clear of it).
+        /// Judged as that view's camera sees them, by angle: the hubs crowd the cloud's core at depths a tenth of the camera's
+        /// distance apart, which moves them on screen by as much as a name's height.
+        /// </summary>
+        void Stack(List<TextMeshPro> names, List<TextMeshPro> under)
+        {
+            var pose = ViewPresets.Get("social").Pose();
+            Quaternion view = Quaternion.Inverse(frame.Rotation) * Quaternion.Euler(pose.Pitch, pose.Yaw, 0);
+            Vector3 across = view * Vector3.right, up = view * Vector3.up, ahead = view * Vector3.forward, eye = frame.Local(pose.Target) - ahead * pose.Distance;
+            var placed = new List<(float x, float y, float halfX, float halfY)>();
+            // places one no higher than cap and returns its height (none: behind the camera)
+            float Place(TextMeshPro t, float cap)
+            {
+                Vector3 at = t.transform.localPosition, v = at - eye; float depth = Vector3.Dot(v, ahead);
+                if (depth < 1) return float.NegativeInfinity;
+                // the name's place and its plate's half size as tangents of the view (across and up over the depth)
+                Vector3 half = PlateSize(t) * (t.transform.localScale.x * .5f / depth);
+                float x = Vector3.Dot(v, across) / depth, start = Vector3.Dot(v, up) / depth, y = Mathf.Min(start, cap);
+                // a name lowered to just under another can land a rounding error short of it: the test leaves that slack, or
+                // the same name would be lowered to the same place forever
+                for (bool moved = true; moved;)
+                {
+                    moved = false;
+                    foreach (var q in placed)
+                        if (Mathf.Abs(x - q.x) < half.x + q.halfX && Mathf.Abs(y - q.y) < (half.y + q.halfY) * .999f) { y = q.y - half.y - q.halfY; moved = true; }
+                }
+                placed.Add((x, y, half.x, half.y));
+                // down across the view's frame, at the same depth
+                t.transform.localPosition = at + up * ((y - start) * depth);
+                return y;
+            }
+            float highest = float.NegativeInfinity;
+            foreach (var t in names) highest = Mathf.Max(highest, Place(t, float.PositiveInfinity));
+            // the eight stand below the cloud's name, and so, no higher, does a category's name (with none of them, its own)
+            foreach (var t in under) Place(t, float.IsNegativeInfinity(highest) ? float.PositiveInfinity : highest);
+        }
+
         static Color WithAlpha(Color c, float a) { c.a = a; return c; }
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; title = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; title = null; raisedText = plateMaterial = null; plateQuad = null;
         }
 
         void OnDestroy() { Clear(); Placed.Clear(); People = null; HoverPerson = -1; }

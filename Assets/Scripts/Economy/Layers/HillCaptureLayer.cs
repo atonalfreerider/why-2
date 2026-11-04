@@ -80,9 +80,11 @@ namespace Why.Economy.Layers
                 caption.localScale = Vector3.one * Mathf.Max(.5f, Vector3.Distance(rig.Cam.transform.position, caption.position) / CaptionDistance);
             }
             int focus = HillExplorer.Industry >= 0 ? HillExplorer.Industry : HillLandscapeLayer.HoverIndustry;
+            // The halos' names (and ABROAD) are world-sized: from the capture view's 150 units their capitals are 4-5 px, so
+            // there too they show only from mid distance or for the hovered or explored industry.
             foreach (var entry in labels)
             {
-                bool show = view == "capture" || !EconomyViews.Focused(view) && (entry.industry == focus && !PersonFocus.IsView(view) ||
+                bool show = !EconomyViews.Focused(view) && (entry.industry == focus && !PersonFocus.IsView(view) ||
                     lod >= 1 && view != "society" && view != "betrayal" && view != "foundation" && !PersonFocus.IsView(view));
                 entry.text.gameObject.SetActive(show);
                 if (show) entry.text.transform.rotation = rig.Cam.transform.rotation;

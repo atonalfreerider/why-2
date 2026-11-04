@@ -29,6 +29,12 @@ namespace Why.Humans.Bands
         static readonly Color Social = new Color(.68f, .73f, .80f), Military = new Color(.38f, .41f, .46f), Other = new Color(.52f, .54f, .57f),
             Thread = new Color(.62f, .66f, .72f), Actor = new Color(.86f, .89f, .94f);
 
+        /// <summary>
+        /// The present edge's plate (BandAnnotations) behind the name of an actor in office now: their mark runs to the end
+        /// of the band, and the name of a term begun lately stands beside it, where the Now post's white line rises.
+        /// </summary>
+        static readonly Color PresentPlate = new Color(.02f, .027f, .047f, .92f);
+
         GovernmentHistory history;
         HumanWorld world;
         static CivGovernmentLayer active;
@@ -153,7 +159,9 @@ namespace Why.Humans.Bands
             lines.AddPolyline(pts, 0);
             if (!string.IsNullOrEmpty(a.figure) && figures != null && figures.TryGetPoint(a.figure, .5 * (from + to), out Vector3 life))
                 lines.AddSegment(mid, life, new Color(Actor.r, Actor.g, Actor.b, .55f), 1, 0, 0, 2f);
-            var label = new LabelSpec { Text = a.name + " · " + a.office, Data = mid, Priority = 3, SizePx = 9.5f, Color = Actor, PixelOffset = new Vector2(4, -8) };
+            bool inOffice = a.to == null || a.to >= world.NowYear;
+            var label = new LabelSpec { Text = a.name + " · " + a.office, Data = mid, Priority = 3, SizePx = 9.5f, Color = Actor, PixelOffset = new Vector2(4, -8),
+                Plate = inOffice ? PresentPlate : default };
             labels?.Add(label); actorLabels.Add(label);
             return true;
         }

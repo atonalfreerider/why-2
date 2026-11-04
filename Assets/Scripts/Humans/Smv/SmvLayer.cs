@@ -273,6 +273,9 @@ namespace Why.Humans.Smv
                 Priority = 26,
                 SizePx = 14,
                 Color = GraphStyle.Text,
+                // in the economy the road's bright beam runs behind it (the wave's overview): on a plate like the families
+                // view's marks, but near opaque, as the axis's Now plate (at .75 a quarter of the bloomed beam crossed "Un")
+                Plate = GraphScene.IsEconomy ? new Color(0.02f, 0.027f, 0.047f, 0.92f) : default,
                 PixelOffset = new Vector2(0, 8),
                 AnchorKey = anchor.Key,
                 Ids = all

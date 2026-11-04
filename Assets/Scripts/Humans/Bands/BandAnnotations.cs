@@ -14,7 +14,7 @@ namespace Why.Humans.Bands
     /// <para>The views of the streams' widths (<see cref="CivBandsLayer.WidthViews"/>) also name the axis across them and
     /// the states alive now, at the present edge on dark plates, and mark where the Histomap's widths hand over to shares
     /// of world GDP: seen at an angle, the layer's west-to-east width otherwise reads as a rise in rank. A mark at the
-    /// United States' end leads on to its economy in every view.</para>
+    /// United States' end leads on to its economy in every view that has room for it below the band's end.</para>
     /// </summary>
     public static class BandAnnotations
     {
@@ -23,7 +23,37 @@ namespace Why.Humans.Bands
         const float StatePriority = 72f;
         const float SeamPriority = 64f;
         const float EconomyPriority = 58f;
-        static readonly Color PlateColor = new Color(0.02f, 0.027f, 0.047f, 0.75f);
+
+        /// <summary>
+        /// Near opaque: the plates stand over the brightest marks (the stream mass, the Now post's white line), and at 0.75
+        /// a third of those additive lines still crossed the letters.
+        /// </summary>
+        static readonly Color PlateColor = new Color(0.02f, 0.027f, 0.047f, 0.92f);
+
+        /// <summary>
+        /// Line spacing of the United States' name and its economy mark (px at 1080p): just over what the label system's
+        /// padding needs between them (at 16 the mark could never show with the name).
+        /// </summary>
+        const float UsLine = 23f;
+
+        /// <summary>
+        /// The United States' name stands right of its band's end like every state's, or below the Now label, which stands
+        /// beside the end of this westernmost band in most views (px at 1080p; 31 clears Now's plate by about 3 px in the
+        /// tour's close view of the present, where 29 left under one).
+        /// </summary>
+        static readonly Vector2 UsName = new Vector2(10, 0), UsNameLower = new Vector2(10, -31);
+
+        static readonly Vector2[] UsNameFallbacks = { UsNameLower };
+
+        /// <summary>
+        /// The economy mark's places: a line under the name's first place, then a line under its lower one; outside the width
+        /// views, which do not name the states, the first that is free. Never over the name: the people whose lines end at
+        /// this band are named there and rank below the mark, so it would take their place. Where Now stands right below
+        /// the name (the present and civilizations views), the mark is left out and the preset bar's Economy button leads on.
+        /// </summary>
+        static readonly Vector2 EconomyMark = new Vector2(10, -UsLine);
+
+        static readonly Vector2[] EconomyMarkFallbacks = { new Vector2(10, UsNameLower.y - UsLine) };
 
         /// <summary>Last year the Histomap (Sparks 1931) gives widths; the extension's shares of world GDP start in 1949.</summary>
         const double HistomapLastYear = 1924, GdpFirstYear = 1949;
@@ -135,11 +165,13 @@ namespace Why.Humans.Bands
                 if (widthViewsOnly) widthLabels.Add(spec);
             }
 
-            Add(Edge("WEST", new Vector3(u, GraphStyle.HumansY, HumanWorld.HumanRho0), new Vector2(0, -16)), true);
+            // WEST hangs on the Now post, under the floor: low enough to clear the tour's target ring on the "now" anchor
+            Add(Edge("WEST", new Vector3(u, GraphStyle.HumansY, HumanWorld.HumanRho0), new Vector2(0, -28)), true);
             Add(Edge("EAST", new Vector3(u, GraphStyle.HumansY, outer), new Vector2(0, 16)), true);
             foreach (Civ c in world.Civs)
             {
                 if (!c.Extant || c == world.Humanity || !world.TryBand(c, year, out float lo, out float hi)) continue;
+                bool us = c.Id == "united_states";
                 Add(new LabelSpec
                 {
                     Text = NameAt(c, year),
@@ -149,10 +181,11 @@ namespace Why.Humans.Bands
                     SizePx = 12.5f,
                     Color = GraphStyle.Text,
                     Align = TextAlignmentOptions.Left,
-                    PixelOffset = new Vector2(10, 0),
+                    PixelOffset = us ? UsName : new Vector2(10, 0),
+                    Fallbacks = us ? UsNameFallbacks : null,
                     AnchorKey = "civ:" + c.Id
                 }, true);
-                if (c.Id == "united_states")
+                if (us)
                 {
                     Add(new LabelSpec
                     {
@@ -163,24 +196,29 @@ namespace Why.Humans.Bands
                         SizePx = 11.5f,
                         Color = Color.Lerp(GraphStyle.Text, GraphStyle.Humans, 0.35f),
                         Align = TextAlignmentOptions.Left,
-                        PixelOffset = new Vector2(10, -16),
+                        PixelOffset = EconomyMark,
+                        Fallbacks = EconomyMarkFallbacks,
                         AnchorKey = "civ:" + c.Id
                     }, false);
                 }
             }
 
+            // the seam hangs under the layer's inner edge, where no lifelines rise: over the stream mass even a plate lost
+            // the note to the lines' bloom. In the closer views the mass's halo still reaches it, and the bloom is added over
+            // its plate, so the tour does not dim it (dimmed, it read at 1.7:1 under the mass)
             float seamU = DeepTime.Arc(world.NowYear - HistomapLastYear);
             Add(new LabelSpec
             {
                 Text = "widths: the Histomap to " + HistomapLastYear.ToString("0") + " \u00B7 shares of world GDP from " +
                        GdpFirstYear.ToString("0"),
                 Plate = PlateColor,
-                Data = new Vector3(seamU, GraphStyle.HumansY, HumanWorld.HumanRho0 + world.LayerWidth(HistomapLastYear)),
+                Data = new Vector3(seamU, GraphStyle.HumansY, HumanWorld.HumanRho0),
                 Priority = SeamPriority,
                 SizePx = 11f,
-                Color = GraphStyle.TextDim,
+                Color = GraphStyle.Text,
                 Align = TextAlignmentOptions.Center,
-                PixelOffset = new Vector2(0, 14)
+                PixelOffset = new Vector2(0, -14),
+                Undimmed = true
             }, true);
         }
 

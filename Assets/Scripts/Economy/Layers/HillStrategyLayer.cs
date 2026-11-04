@@ -11,7 +11,7 @@ namespace Why.Economy.Layers
     /// <summary>
     /// Companies spend too (view "strategy"; the data is <see cref="CorporatePrograms"/>): every stored firm runs the
     /// people's program at its own scale. From each firm's place on its hill its year's money leaves in the directions it
-    /// goes: running the business runs down to its suppliers' hills (amber) and to its own workers (blue); investment and
+    /// goes: running the business runs out to its suppliers' hills (amber) and to its own workers (blue); investment and
     /// research leave forward over the crest into the future, split into the fear lane (ice: spending so as not to lose
     /// position) and the desire lane (rose: spending for new demand) by Jev's judgment; advertising climbs to the attention
     /// platforms (rose); acquisitions and stakes reach across (white); buybacks and dividends rise to the owners (gold);
@@ -197,7 +197,7 @@ namespace Why.Economy.Layers
         {
             Vector3 foot = HillActivityLayer.CompanyPosition(t), halo = HillActivityLayer.CompanyHalo(t);
             float W(double billions) => (full ? .6f : .4f) + Mathf.Sqrt((float)Math.Max(0, billions)) * (full ? .55f : .32f);
-            // Running the business: suppliers down the hill (top three supplying industries) and workers on its own slope.
+            // Running the business: out to its suppliers' hills (the four largest supplying industries when drawn in full, else two) and workers on its own slope.
             var bySupplier = new double[land.Hills.Length];
             CorporatePrograms.SplitOperations(p, ValueCapture.Get(), out double suppliers, out double workers, bySupplier);
             var order = new List<int>(); for (int i = 0; i < bySupplier.Length; i++) if (bySupplier[i] > 0) order.Add(i);
@@ -266,6 +266,8 @@ namespace Why.Economy.Layers
                 Streams(b, fill, focused, p, .95f, true);
                 Trail(b, fill, focused, p, .95f, true);
                 cap = 1;
+                // the firm's name over its tower first: its trail's names keep clear of it (NameTrail)
+                focusLabel.text = "<b>" + p.Name + "</b>"; focusLabel.transform.localPosition = HillActivityLayer.CompanyHalo(focused) + Vector3.up * 7;
                 named = NameTrail(p);
                 var bySupplier = new double[land.Hills.Length];
                 CorporatePrograms.SplitOperations(p, ValueCapture.Get(), out double suppliers, out double workers, bySupplier);
@@ -287,7 +289,6 @@ namespace Why.Economy.Layers
                     (string.IsNullOrEmpty(p.Strategy) ? "" : "\n\n<size=90%><i>What it says: " + p.Strategy + "</i></size>");
                 FocusText = text;
                 HistoryText = HistoryRows(p);
-                focusLabel.text = "<b>" + p.Name + "</b>"; focusLabel.transform.localPosition = HillActivityLayer.CompanyHalo(focused) + Vector3.up * 7;
             }
             else FocusText = HistoryText = "";
             for (int k = named; k < trailLabels.Count; k++) trailLabels[k].text = "";
@@ -348,7 +349,12 @@ namespace Why.Economy.Layers
         static float Stalk(CorporatePrograms.Firm y, bool full) => Mathf.Sqrt((float)Math.Max(0, y.Owners)) * (full ? .75f : .4f);
 
         /// <summary>Names the focused trail's first year and every year whose main direction turned from the year before
-        /// (its way, defensive and AI shares), above its stalk; returns how many names it used.</summary>
+        /// (its way, defensive and AI shares), above its stalk; returns how many names it used. The strategy view, the only one
+        /// that shows them, sees a name as wide as several years of the trail, and a firm can turn in years running at stalks
+        /// of one height: from the newest back, each name is raised a name's height at a time until it clears every newer name
+        /// it would print over across that view's frame, and the firm's own name over its tower (<see cref="DrawFocus"/> sets it
+        /// first), near which its newest years stand. That view runs a trail right to left into the present, and the largest
+        /// investor's newest years stand at the HUD's title panel: the older names, to their right, are the ones raised.</summary>
         int NameTrail(CorporatePrograms.Firm p)
         {
             int used = 0, life = LifeOf(focused);
@@ -362,6 +368,32 @@ namespace Why.Economy.Layers
                 var label = trailLabels[used++];
                 label.text = "<b>" + y.Year + "</b> " + (y.Judged ? CorporatePrograms.DirectionShort[y.Main] + "\ndefensive " + LandFacts.Percent(y.Defensive) + " · AI " + LandFacts.Percent(y.Ai) : "");
                 label.transform.localPosition = TrailAt(life, p, mid) + Vector3.up * (Stalk(y, true) + 1.8f);
+            }
+            var frame = EconomyStage.Land(); var pose = ViewPresets.Get("strategy").Pose();
+            Quaternion look = Quaternion.Inverse(frame.Rotation) * Quaternion.Euler(pose.Pitch, pose.Yaw, 0);
+            Vector3 across = look * Vector3.right, up = look * Vector3.up;
+            // a label's middle across and up that view's frame, its half width and its height (land units, with a little air).
+            // The view looks down and back along the wake: a name some years back from the tower stands higher in the frame than
+            // its height alone says, and a raise shows shortened by the pitch (up.y)
+            (float x, float y, float half, float tall) Extent(TextMeshPro label)
+            {
+                Vector3 at = label.transform.localPosition; Vector2 size = label.GetPreferredValues(label.text) * label.transform.localScale.x;
+                return (Vector3.Dot(at, across), Vector3.Dot(at, up), size.x * .5f + .3f, size.y + .1f);
+            }
+            var placed = new List<(float x, float y, float half, float tall)> { Extent(focusLabel) };
+            for (int k = used - 1; k >= 0; k--)
+            {
+                var label = trailLabels[k]; var (x, y0, half, tall) = Extent(label); float y = y0;
+                // a name raised to just over another can land a rounding error short of it: the test leaves that slack, or the
+                // same name would be raised to the same height forever
+                for (bool moved = true; moved;)
+                {
+                    moved = false;
+                    foreach (var q in placed)
+                        if (Mathf.Abs(x - q.x) < half + q.half && Mathf.Abs(y - q.y) < (tall + q.tall) * .5f * .999f) { y = q.y + (tall + q.tall) * .5f; moved = true; }
+                }
+                placed.Add((x, y, half, tall));
+                label.transform.localPosition += Vector3.up * ((y - y0) / up.y);
             }
             return used;
         }

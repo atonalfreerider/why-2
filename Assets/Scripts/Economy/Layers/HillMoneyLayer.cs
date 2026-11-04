@@ -232,10 +232,11 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>A dark panel in the chart's plane at <paramref name="x"/>, drawn after every layer of the wave (queues up
-        /// to 3242) and before the chart's own fill, lines and labels.</summary>
+        /// to 3242) and before the chart's own fill, lines and labels. At .92: at .75 the crest's bright marks seen edge-on
+        /// behind it still added up to the series' own brightness, in their hues, and read as data inside the plot.</summary>
         void Backing(float x, float z0, float z1, float y0, float y1)
         {
-            var b = new SurfaceMeshBuilder(); Color c = WithAlpha(GraphStyle.Background, .75f);
+            var b = new SurfaceMeshBuilder(); Color c = WithAlpha(GraphStyle.Background, .92f);
             b.AddBand(new[] { new Vector3(x, y0, z0), new Vector3(x, y0, z1) }, new[] { new Vector3(x, y1, z0), new Vector3(x, y1, z1) }, new[] { (Color32)c }, 0, 1);
             Mesh mesh = b.ToMesh("Money and trade backing"); owned.Add(mesh);
             Material m = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3244)); owned.Add(m);

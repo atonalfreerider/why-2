@@ -157,6 +157,8 @@ namespace Why.Director
             secondary = FooterButton("Secondary", "", 15, () => content?.Secondary?.Invoke(), out secondaryLabel);
             primary = FooterButton("Primary", "", 15, () => content?.Primary?.Invoke(), out primaryLabel);
             primary.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.16f);
+            // the button's tint doubles that fill to a light grey: the factory's light text read at 2:1 on it, dark text at 7:1
+            primaryLabel.color = GraphStyle.Background;
 
             progressTrack = UiFactory.Rect(root, "Progress");
             Image track = progressTrack.gameObject.AddComponent<Image>();
@@ -169,6 +171,8 @@ namespace Why.Director
             progressImage = progressFill.gameObject.AddComponent<Image>();
             progressImage.raycastTarget = false;
 
+            // the graph's labels keep out from under the card while it shows (one straddling its edge read half hidden)
+            LabelSystem.KeepClear(root);
             root.gameObject.SetActive(false);
         }
 

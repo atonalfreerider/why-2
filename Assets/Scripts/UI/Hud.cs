@@ -84,6 +84,8 @@ namespace Why.UI
             float stackTop = BuildTopButtons(content);
             legend = new HudLegend(content);
             presetBar = new HudPresetBar(content, p => root.Focus(p), GraphRoot.OpenOtherScene);
+            // the graph's labels keep out from under the preset bar while it shows (it fades out for the tour)
+            LabelSystem.KeepClear(presetBar.Rect);
             stats = new HudStats(content, stackTop);
 
             overlay = UiFactory.CreateCanvas("HudOverlay", OverlaySortingOrder, transform);
@@ -169,6 +171,10 @@ namespace Why.UI
             Button helpButton = TopButton(group, "HelpButton", "Help  " + faint + "(H)</color>", () => help.Toggle());
             helpRect = (RectTransform)helpButton.transform;
             PlaceTopButtons(HudKit.Margin, HudKit.Margin);
+            // the graph's labels keep out from under the buttons, and so from the strip between them and the screen's edges
+            // (the group fades out for the tour); the group itself fills the screen, so each button is a block
+            LabelSystem.KeepClear(tourRect);
+            LabelSystem.KeepClear(helpRect);
 
             topButtonsFade = new UiFade(group.gameObject, 1, 4f, true);
             return HudKit.Margin + TopButtonHeight + HudKit.Gap;

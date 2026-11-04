@@ -236,9 +236,12 @@ namespace Why.Economy.Layers
                 if (lift > .05f) Arrow(bars, at, at + Vector3.up * Mathf.Max(.3f, lift), Gold, 3.2f);
                 if (pull > .05f) Arrow(bars, at, at - Vector3.up * Mathf.Max(.3f, pull), Rose, 3.2f);
             }
-            // Years at the two ends, and the title.
-            Label("<b>" + m.From + "</b>", new Vector3(LadderX, LadderY - RungStep * .9f, z0), .3f, Ice, Part.Ladder, -1);
-            Label("<b>" + m.Year + "</b>", new Vector3(LadderX, LadderY - RungStep * .9f, z1), .3f, Ice, Part.Ladder, -1);
+            // Years at the two ends, just under the bottom rung's stack and the tip of its debt-service arrow (a quarter of
+            // income at most in the record), so the replay's readout at the foot of the screen does not cover them. Each stands
+            // inside its end, flush with it: the start's clear of the records' last line, the year's clear of the arrow and of the
+            // bottom fifth's dot plot beside it. And the title.
+            Label("<b>" + m.From + "</b>", new Vector3(LadderX, LadderY - RungStep * .6f, z0), .3f, Ice, Part.Ladder, -1, true, TextAlignmentOptions.Left);
+            Label("<b>" + m.Year + "</b>", new Vector3(LadderX, LadderY - RungStep * .6f, z1), .3f, Ice, Part.Ladder, -1, true, TextAlignmentOptions.Right);
             string who = all ? "who were adults in both " + m.From + " and " + m.Year + ", ranked among all adults (young adults climb as they leave home)"
                 : "aged 25 and older in " + m.From + ", ranked among themselves as the tax records rank people";
             Label("<b>WHO MOVED UP OR DOWN, AND WHAT CAME WITH IT</b> · " + m.From + " → " + m.Year +
@@ -249,7 +252,10 @@ namespace Why.Economy.Layers
             // What came with the moves stands on the past's side of the ladder: the climbs by the upper rungs, the falls by the lower.
             Causes(m, true, new Vector3(LadderX, Y(Q - 1) + RungStep * .2f, z0 - 2.5f));
             Causes(m, false, new Vector3(LadderX, Y(1) + RungStep * .2f, z0 - 2.5f));
-            Benchmarks(m, all, Y(0), Y(Q - 1), z1 + 1.6f, new Vector3(LadderX, Y(0) - RungStep * .55f, z0 - 2.5f));
+            // the records under the falls (five lines, the longest citation wrapped), centered here and lifted as they grew: the
+            // last ends about where the start's year beside it begins, so the block stays clear of the replay's readout at the
+            // foot of the screen
+            Benchmarks(m, all, Y(0), Y(Q - 1), z1 + 1.6f, new Vector3(LadderX, Y(0) - RungStep * .32f, z0 - 2.5f));
             Surface(fill, Part.Ribbons);
             Lines(edges, Part.Ribbons, true);
             Lines(outlines, Part.Ladder, false);
@@ -317,7 +323,9 @@ namespace Why.Economy.Layers
             double moved = (up ? m.PrimeUp : m.PrimeDown) / (double)Math.Max(1, m.PrimeLines);
             string title = (up ? "<b>WHAT CAME WITH THE CLIMBS</b>" : "<b>WHAT CAME WITH THE FALLS</b>") + "\nadults 25-54 in " + m.From + ": " + LandFacts.Percent(moved) +
                 (up ? " climbed" : " fell") + " a fifth or more\nbars: how many times as often as all adults 25-54";
-            Label(title, at + Vector3.up * 2.6f, .22f, Color.Lerp(c, White, .35f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(80, 6));
+            // at .24 the population line reads about as easily as the captions it qualifies (at .26 the falls' title would reach
+            // the edge of tour 13's card)
+            Label(title, at + Vector3.up * 2.6f, .24f, Color.Lerp(c, White, .35f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(80, 6));
             float yTop = at.y + .9f, yBottom = at.y - Math.Max(0, list.Count - 1) * Row - .9f;
             if (list.Count > 0)
             {
@@ -330,11 +338,15 @@ namespace Why.Economy.Layers
                 var cause = list[k]; float lift = (float)m.Lift(cause, up), share = (float)m.ShareWith(cause, up), y = at.y - k * Row;
                 Vector3 end = new Vector3(at.x, y, at.z), start = end - Vector3.forward * (PerTimes * lift);
                 b.AddSegment(start, end, WithAlpha(c, .9f), 7, 0, 0);
+                // at .26 about 10 px to the em from the view's distance (at .19, captions of 6 px capitals blurred); they grow
+                // left, away from the ladder, into the empty side of the view (the longest of any decade, 1960-70's ×3.4 debt
+                // discharged, still ends about half a unit inside the portrait frame)
                 Label("×" + lift.ToString("0.0", LandFacts.Ci) + " " + Mobility.CauseNames[(int)cause] + " · " + LandFacts.Percent(share) + (up ? " of those who climbed" : " of those who fell"),
-                    start - Vector3.forward * .6f, .19f, Color.Lerp(c, White, .5f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(80, 5));
+                    start - Vector3.forward * .6f, .26f, Color.Lerp(c, White, .5f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(80, 5));
             }
-            if (list.Count == 0) Label("no event stands out", at, .18f, Steel, Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(60, 5));
-            Label("associations in the simulation, not causes", new Vector3(at.x, yBottom - 1.3f, at.z), .2f, Color.Lerp(c, White, .6f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(60, 5));
+            // as large as the captions: the caveat qualifies them, so it reads as easily
+            if (list.Count == 0) Label("no event stands out", at, .26f, Steel, Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(60, 5));
+            Label("associations in the simulation, not causes", new Vector3(at.x, yBottom - 1.3f, at.z), .26f, Color.Lerp(c, White, .6f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(60, 5));
             Lines(b, Part.Ladder, false);
         }
 
@@ -363,9 +375,12 @@ namespace Why.Economy.Layers
             Dots(b, "STAYED IN THE BOTTOM FIFTH", m.PanelShare(0, 0), m.Share(0, 0), Cell(Tax, "bottomStay"), Cell(Survey, "bottomStay"), bottomRung - RungStep * .7f, z, all);
             Lines(b, Part.Ladder, false);
             var ev = root["events"];
+            // as large as the captions of the bars above (at .17 the citations' figures did not resolve), and wrapped 101 wide
+            // (about 26 units): unwrapped, the longest citation ran about 7 units off the left of the portrait frame, which shows
+            // 35 units either side of the view's target. Only that one breaks; the next longest needs 99.
             if (ev != null)
                 Label("<b>IN THE RECORDS</b>\n" + (string)ev["jobLoss"]?["label"] + "\n" + (string)ev["divorce"]?["label"] + "\n" + (string)ev["health"]?["label"],
-                    events, .17f, new Color(.80f, .70f, .76f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(140, 8));
+                    events, .26f, new Color(.80f, .70f, .76f), Part.Ladder, -1, true, TextAlignmentOptions.Right, new Vector2(101, 8)).textWrappingMode = TextWrappingModes.Normal;
         }
 
         /// <summary>One dot plot on a 0-100% axis running away from the ladder (toward the future): the model like for like

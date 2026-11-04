@@ -76,7 +76,11 @@ namespace Why.Economy.UI
             EconomyReplay.Reset();
             Canvas canvas = UiFactory.CreateCanvas(CanvasName, SortingOrder, transform);
             canvasRect = (RectTransform)canvas.transform;
-            panel = HudKit.FramedPanel(canvasRect, "Replay", 0.84f);
+            // nearly opaque, as the help sheet: the wave's names under it (the bedrock's, in the overview's and the layers'
+            // poses) read through its text at a lighter fill
+            panel = HudKit.FramedPanel(canvasRect, "Replay", 0.94f);
+            // the graph's labels keep out from under the readout while it shows (the time axis's "Now" ghosted through its fill)
+            LabelSystem.KeepClear(panel);
             yearText = HudKit.Line(panel, "Year", "", YearSize, GraphStyle.Text, FontStyles.Bold);
             bodyText = HudKit.Line(panel, "Body", "", BodySize, GraphStyle.TextDim);
             bodyText.textWrappingMode = TextWrappingModes.Normal;
@@ -300,14 +304,20 @@ namespace Why.Economy.UI
                 if (y.Ended.Count > 0) b.Append("ended ").Append(v).Append(Names(y.Ended)).Append(end);
             }
 
-            // the decade's ladder (the mobility view): who climbed, who fell, who kept their fifth
+            // the decade's ladder (the mobility view): who climbed and who fell among adults of prime age, as the view's lists
+            // of what came with the moves count them, and who kept their fifth in the panel its ladder and dot plots count
+            // (adults 25 and older, ranked among themselves); each population named, as two are on screen
             if (mobility != null && mobility.Lines > 0)
             {
-                double lines = mobility.Lines;
-                b.Append('\n').Append("the ladder ").Append(mobility.From.ToString(Ci)).Append("-").Append(mobility.Year.ToString(Ci)).Append("  ")
-                    .Append(gold).Append(LandFacts.Percent(mobility.Up / lines)).Append(end).Append(" climbed a fifth or more").Append(dot)
-                    .Append(rose).Append(LandFacts.Percent(mobility.Down / lines)).Append(end).Append(" fell").Append(dot)
-                    .Append("bottom fifth stays ").Append(v).Append(LandFacts.Percent(mobility.PanelShare(0, 0))).Append(end)
+                b.Append('\n').Append("the ladder ").Append(mobility.From.ToString(Ci)).Append("-").Append(mobility.Year.ToString(Ci)).Append("  ");
+                if (mobility.PrimeLines > 0)
+                {
+                    double prime = mobility.PrimeLines;
+                    b.Append("adults 25-54: ").Append(gold).Append(LandFacts.Percent(mobility.PrimeUp / prime)).Append(end).Append(" climbed a fifth or more").Append(dot)
+                        .Append(rose).Append(LandFacts.Percent(mobility.PrimeDown / prime)).Append(end).Append(" fell").Append(dot);
+                }
+
+                b.Append("adults 25+: bottom fifth stays ").Append(v).Append(LandFacts.Percent(mobility.PanelShare(0, 0))).Append(end)
                     .Append(", top ").Append(v).Append(LandFacts.Percent(mobility.PanelShare(Mobility.Quintiles - 1, Mobility.Quintiles - 1))).Append(end);
             }
 

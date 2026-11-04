@@ -111,6 +111,10 @@ namespace Why.UI
             readoutText = HudKit.Line(readout, "Text", "", HudKit.SizeSmall, GraphStyle.Text);
             readoutFade = new UiFade(readout.gameObject, 0, 4f, false);
             SetBottom(HudKit.Margin, true);
+
+            // the graph's labels keep out from under the key and the readout (a label there showed through the panel)
+            LabelSystem.KeepClear(legend);
+            LabelSystem.KeepClear(readout);
         }
 
         /// <summary>
@@ -254,7 +258,11 @@ namespace Why.UI
         void ReportTop() => Director.PanelPlacement.LegendTop =
             bottomTarget + Height + (readoutFade != null && readoutFade.Shown ? HudKit.Gap + readout.sizeDelta.y : 0);
 
-        /// <summary>Follow <see cref="HumansLod"/>: show what one lifeline stands for, hide when none are drawn.</summary>
+        /// <summary>
+        /// Follow <see cref="HumansLod"/>: show what one lifeline stands for, hide when none are drawn. While the graph grows
+        /// from the Big Bang (<see cref="GraphReveal"/>) it stays hidden: the lines are not drawn yet, though the camera close
+        /// to the flash makes the nearest stream's lines readable by zoom alone.
+        /// </summary>
         public void Tick(float dt)
         {
             if (bottom != bottomTarget)
@@ -265,7 +273,7 @@ namespace Why.UI
             }
 
             double people = HumansLod.PeoplePerLine;
-            if (double.IsNaN(people) || double.IsInfinity(people)) people = 0;
+            if (double.IsNaN(people) || double.IsInfinity(people) || GraphReveal.On) people = 0;
             string context = HumansLod.Context ?? "";
             if (people != shownPeople || context != shownContext)
             {

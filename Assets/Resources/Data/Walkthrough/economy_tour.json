@@ -446,7 +446,8 @@
       "focus": "mind",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "side": "left bottom"
     },
     {
       "id": "atom_dilemma",

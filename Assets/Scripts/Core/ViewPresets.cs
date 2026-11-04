@@ -24,7 +24,8 @@ namespace Why
     /// <summary>
     /// A named way of looking at the graph: which period is unrolled and how, plus a camera pose. On a
     /// portrait screen (<see cref="ScreenLayout.IsPortrait"/>) the same preset frames its subject for the tall
-    /// frame (see <see cref="PortraitFraming"/>); landscape framing is exactly the authored one.
+    /// frame (see <see cref="PortraitFraming"/>); landscape framing is exactly the authored one, with a flat
+    /// screen's own distance and height where the preset sets them (<see cref="ScreenDistance"/>).
     /// </summary>
     public sealed class ViewPreset
     {
@@ -92,6 +93,15 @@ namespace Why
         public float Pitch = 50;
         public float Distance = 8;
         public float YawOffset;
+
+        /// <summary>
+        /// A flat landscape screen's own camera distance and target height (data units), where the authored ones run labels
+        /// off the frame or under the HUD's bottom panels (0 and NaN: the authored ones). Portrait framing starts from the
+        /// authored pose, and a headset, which has no frame edge and hangs its panels in the world, scales its world by the
+        /// authored distance (<see cref="CameraRig.XrScale"/>): pulled back for a flat screen, the diorama would shrink.
+        /// </summary>
+        public float ScreenDistance;
+        public float ScreenTargetY = float.NaN;
 
         /// <summary>For polar presets: the arc the camera looks at (0.5 = 12 o'clock); &lt;0 = whole clock.</summary>
         public float PolarArc = -1;
@@ -164,10 +174,13 @@ namespace Why
         {
             WarpState w = Warp();
             bool portrait = ScreenLayout.IsPortrait;
+            bool flat = !portrait && !Xr.XrSession.Active; // a flat landscape screen (see ScreenDistance)
+            float distance = flat && ScreenDistance > 0 ? ScreenDistance : Distance;
+            float targetY = flat && !float.IsNaN(ScreenTargetY) ? ScreenTargetY : TargetY;
             if (FixedTarget.HasValue)
             {
                 // a diagram beside the timeline: on a portrait screen step back until its width fits
-                float distance = portrait ? Mathf.Max(Distance, PortraitWidth / (2f * TanHalfFov * PortraitAspect)) : Distance;
+                if (portrait) distance = Mathf.Max(Distance, PortraitWidth / (2f * TanHalfFov * PortraitAspect));
                 return new CameraPose { Target = FixedTarget.Value, Yaw = FixedYaw, Pitch = Pitch, Distance = distance };
             }
 
@@ -177,20 +190,20 @@ namespace Why
                 // on a portrait screen the branch hangs down toward the viewer, so only the width needs room
                 return new CameraPose
                 {
-                    Target = new Vector3(1.6f, TargetY, -2.4f),
+                    Target = new Vector3(1.6f, targetY, -2.4f),
                     Yaw = 0 + YawOffset,
                     Pitch = Pitch,
-                    Distance = portrait ? PolarPortraitDistance() : Distance
+                    Distance = portrait ? PolarPortraitDistance() : distance
                 };
             }
 
             double targetYearsAgo = double.IsNaN(TargetYear) ? w.FocusYearsAgo : System.Math.Max(DeepTime.NowYear - TargetYear, 1e-6);
             float u = Polar ? PolarArc : DeepTime.Arc(targetYearsAgo);
-            Vector3 target = GraphWarp.ToWorld(u, TargetY, TargetRho, w);
+            Vector3 target = GraphWarp.ToWorld(u, targetY, TargetRho, w);
             // look outward from inside the path: past on the left, present on the right
             Vector3 n = GraphWarp.NormalAt(u, w);
             float yaw = Mathf.Atan2(n.x, n.z) * Mathf.Rad2Deg + YawOffset;
-            CameraPose pose = new CameraPose { Target = target, Yaw = yaw, Pitch = Pitch, Distance = Distance };
+            CameraPose pose = new CameraPose { Target = target, Yaw = yaw, Pitch = Pitch, Distance = distance };
             if (!portrait) return pose;
 
             if (Polar) PolarArcPortrait(ref pose);
@@ -350,9 +363,12 @@ namespace Why
                 },
                 new ViewPreset
                 {
+                    // a flat screen stands far enough back that the epochs stacked at the Big Bang end (the longest,
+                    // "Recombination (CMB released), 380,000 years", about 280 px) stand wholly in frame, and the 4.5 Ga
+                    // end comes in too; a headset, with no frame edge to clear, keeps the authored world size
                     Id = "cosmos", Title = "Cosmos", Subtitle = "Big Bang to the Sun",
                     Key = KeyCode.Alpha2, YaOld = 13.8e9, YaNew = 4.5e9, LogOffset = 2e8, Length = 12,
-                    TargetRho = 1.2f, TargetY = GraphStyle.MatterY, Pitch = 55, Distance = 10
+                    TargetRho = 1.2f, TargetY = GraphStyle.MatterY, Pitch = 55, Distance = 10, ScreenDistance = 13
                 },
                 new ViewPreset
                 {
@@ -423,11 +439,16 @@ namespace Why
                 },
                 new ViewPreset
                 {
+                    // a flat screen looks at the floor of the lifelines from a little further back: the year axis then runs
+                    // above the HUD's readout and preset bar (from 8 and the lifelines' middle it ran along the frame's bottom
+                    // edge). Portrait, whose taller bars cover the axis either way, and the headset keep the closer view:
+                    // the lifelines' height is this view's message
                     Id = "smv", Title = "United States 1950 - now",
                     Subtitle = "Gender-separated lifelines rising and falling with social market value",
                     Key = KeyCode.Alpha7, YaOld = Ya(1948), YaNew = 0, LogOffset = 600, Length = 14, PopulationDetail = true,
                     RhoScale = 2.5f, YScale = 3f, StrataEmphasis = 0.1f,
                     TargetRho = 0.7f, TargetY = GraphStyle.HumansY + 0.12f, Pitch = 30, Distance = 8f,
+                    ScreenDistance = 10f, ScreenTargetY = GraphStyle.HumansY,
                     Portrait = PortraitFraming.Narrow
                 },
                 new ViewPreset

@@ -65,8 +65,11 @@ namespace Why.Director
         /// the ring of one of the stop's other highlights still showed between "million" and "years" (the Cambrian's).</summary>
         static readonly Color CaptionPlateColor = new Color(0.02f, 0.027f, 0.047f, 0.95f);
 
-        /// <summary>The caption plate's margin around the text (canvas units, across and up).</summary>
-        static readonly Vector2 CaptionPlateMargin = new Vector2(7f, 3f);
+        /// <summary>The caption plate's margin around the text (canvas units, across and up). Up only 1: the line box (1.35 em)
+        /// already leaves the letters about 4 units of plate above and below, and the graph's labels near it stand clear of a
+        /// thinner plate: at 3 its edges cut 1.5 px off the Milky Way stop's "Cosmic inflation" and 2.4 px off the asteroid
+        /// stop's "100 Ma".</summary>
+        static readonly Vector2 CaptionPlateMargin = new Vector2(7f, 1f);
 
         /// <summary>
         /// Portrait: anchors are framed this far (normalized device y) above the middle of the screen (58% of the
@@ -283,7 +286,10 @@ namespace Why.Director
             arrow = arrowRect.gameObject.AddComponent<AttentionArrow>();
             arrow.raycastTarget = false;
 
-            // the plate first, so it draws under the caption
+            // the plate first, so it draws under the caption (its sibling: SetCaptionAlpha switches the plate off while the
+            // caption is hidden). It is not a keep-out for the graph's labels: with no other place to go, the labels it stood
+            // half over hid instead (the stop's own Chordates, Fossil fuels), and the room they left went to labels under the
+            // arrow's ring; moving them aside waits for the label system's candidate places
             captionPlate = UiFactory.Panel(layer, "CaptionPlate", CaptionPlateColor, false);
             captionPlate.rectTransform.anchorMin = captionPlate.rectTransform.anchorMax = Vector2.zero;
             caption = UiFactory.Text(layer, "Caption", "", CaptionSize, GraphStyle.Text, TextAlignmentOptions.MidlineLeft);
@@ -965,13 +971,18 @@ namespace Why.Director
             plate.sizeDelta = new Vector2(captionWidth + 2 * CaptionPlateMargin.x, CaptionSize * 1.35f + 2 * CaptionPlateMargin.y);
         }
 
-        /// <summary>Fades the arrow's caption and its plate together.</summary>
+        /// <summary>
+        /// Fades the arrow's caption and its plate together. The plate is shown only while the caption is and has text (the
+        /// Now beacon's is empty, where the plate stood beside the ring as a dark pill on the bright lines).
+        /// </summary>
         void SetCaptionAlpha(float alpha)
         {
             caption.alpha = alpha;
             Color c = CaptionPlateColor;
             c.a *= alpha;
             captionPlate.color = c;
+            bool shown = alpha > 0.001f && captionWidth > 0;
+            if (captionPlate.gameObject.activeSelf != shown) captionPlate.gameObject.SetActive(shown);
         }
 
         /// <summary>If the viewer moves the anchor under the panel, the panel moves to another slot.</summary>

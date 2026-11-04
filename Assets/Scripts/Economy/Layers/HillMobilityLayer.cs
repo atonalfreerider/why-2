@@ -13,7 +13,8 @@ namespace Why.Economy.Layers
     /// <item><b>The cohorts drift.</b> On the hills, every cohort of the shown year gets an arrow from where its adult
     /// members stood a decade before (their mean household income rank then, on the same hill, at that year's place on
     /// the wake) to where they stand now: gold where they climbed, rose where they fell, faint where they held. The
-    /// largest moves are named with the event that sets the cohort apart (a lost job, retirement, found work ...).</item>
+    /// largest moves are named with the event that sets the cohort apart (a lost job, retirement, found work ...) where
+    /// their names are large enough to read (<see cref="NameMinPx"/>); a selected or hovered cohort's at any size.</item>
     /// <item><b>Who moved up or down.</b> Beside the wave, the hillside's altitude pulled out into a ladder of five rungs
     /// (household income fifths) at the window's start and at the crest, joined by streams of people: up in gold, down in
     /// rose, staying in steel; widths are people, and so are the streams' opacity and their cores, so the stayers (the
@@ -53,10 +54,16 @@ namespace Why.Economy.Layers
         enum Part { Drift, Ladder, Ribbons, Count }
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
         const float Pulse = .2f;
+        /// <summary>The smallest em (px at 1080 lines) at which a largest move's name shows without a selection: the road's
+        /// fan's, by the same measure (HillWaveLayer.RoadMinPx and EmPx). The people view sees the hills from 135 units, where
+        /// a name's three lines stood about 4 px tall, a smudge on the hillside; a selected or hovered cohort's shows at any
+        /// size.</summary>
+        const float NameMinPx = HillWaveLayer.RoadMinPx;
         static readonly Color Gold = EconomyStyle.Capital, Rose = EconomyStyle.Desire, Steel = EconomyStyle.Government,
             White = new Color(1, .96f, .90f), Ice = new Color(.45f, .82f, 1);
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
-        /// <summary>Labels, the cohort each names (-1: none) and whether it shows without a selection.</summary>
+        /// <summary>Labels, the cohort each names (-1: none) and whether a drift label names one of the largest moves: those
+        /// show without a selection where their letters are large enough to read (<see cref="NameMinPx"/>).</summary>
         readonly List<(TextMeshPro text, Part part, int player, bool named)> labels = new List<(TextMeshPro, Part, int, bool)>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         LandSnapshot snapshot; HillLandscape land; GameObject content;
@@ -84,8 +91,10 @@ namespace Why.Economy.Layers
             foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, Emphasis(e.part, view));
             foreach (var e in labels)
             {
-                // the ladder's labels in its view; a cohort's while it is selected or hovered, else only the largest moves
-                bool show = e.part == Part.Drift ? (view == "people" || view == "mobility") && (selection >= 0 ? e.player == selection : e.named) : view == "mobility";
+                // the ladder's labels in its view; a cohort's while it is selected or hovered, else only the largest moves, where
+                // their letters are large enough to read (NameMinPx)
+                bool show = e.part == Part.Drift ? (view == "people" || view == "mobility") && (selection >= 0 ? e.player == selection
+                    : e.named && HillWaveLayer.EmPx(rig, e.text.transform) >= NameMinPx) : view == "mobility";
                 e.text.gameObject.SetActive(show); if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
         }

@@ -55,21 +55,37 @@ namespace Why.Economy.Layers
         /// <summary>The towers with a program, largest spender first (the panel's order for previous / next).</summary>
         public static readonly List<int> Ranked = new List<int>();
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
-        readonly List<(TextMeshPro text, int firm)> labels = new List<(TextMeshPro, int)>();
+        /// <summary>The shown labels: the firm each names (-1: none) and its lines' widths in its own units, measured once
+        /// (<see cref="LineWidths"/>).</summary>
+        readonly List<(TextMeshPro text, int firm, float[] lines)> labels = new List<(TextMeshPro, int, float[])>();
         /// <summary>The focused trail's names (its first year and every turn of direction), reused as the focus moves.</summary>
         readonly List<TextMeshPro> trailLabels = new List<TextMeshPro>();
         /// <summary>Every firm's arrow strokes (land-local ends, width in pixels; a ring as twelve chords): the focused firm's
         /// names keep clear of them (<see cref="NameTrail"/>).</summary>
         readonly List<(Vector3 a, Vector3 b, float px)> strokes = new List<(Vector3, Vector3, float)>();
+        /// <summary>The focused firm's own marks its names keep clear of, as <see cref="strokes"/>: its owners' arc (as its
+        /// chords) and its trail's gold stalks and chevrons, kept as <see cref="DrawFocus"/> draws them.</summary>
+        readonly List<(Vector3 a, Vector3 b, float px)> focusStrokes = new List<(Vector3, Vector3, float)>();
         /// <summary>What the focused firm's names keep clear of as the strategy view sees it, in tangents of that view: the
-        /// shown labels' and placed names' boxes (middle, half size) and the arrows' strokes (ends, half width); and the part
-        /// of each within reach of the name being placed (<see cref="NameTrail"/>).</summary>
+        /// kept labels' and placed names' boxes (middle, half size), with the column over the firm's name, and the arrows' and
+        /// the firm's own marks' strokes (ends, half width); and the part of each within reach of the name being placed
+        /// (<see cref="NameTrail"/>).</summary>
         readonly List<Vector4> keepBoxes = new List<Vector4>(), nearBoxes = new List<Vector4>();
         readonly List<(Vector2 a, Vector2 b, float half)> keepStrokes = new List<(Vector2, Vector2, float)>(), nearStrokes = new List<(Vector2, Vector2, float)>();
+        /// <summary>The kept labels' lines as that view sees them (middle, half size), and the firm's name's plate when it
+        /// stands on one: a tower label one of whose lines meets one is crowded out (<see cref="NameTrail"/>).</summary>
+        readonly List<Vector4> keptLines = new List<Vector4>();
+        /// <summary>The towers whose small labels are crowded out, as the strategy view sees them, by a larger spender's label
+        /// or by the focused firm's name on its plate (<see cref="NameTrail"/>): hidden (<see cref="Tick"/>), while the panel's
+        /// larger and smaller still reach their firms.</summary>
+        readonly HashSet<int> crowded = new HashSet<int>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         string json;
         LandSnapshot snapshot; HillLandscape land; CorporatePrograms programs; GameObject content;
         MeshRenderer focusRenderer; TextMeshPro focusLabel;
+        /// <summary>The firm's name's raised font material (queue 3252) and dark plate (3251), for a name with no place clear
+        /// of the arrows (<see cref="Raise"/>).</summary>
+        Material raisedText; Transform focusPlate;
         int focused = -2;
         /// <summary>Whether the focused firm was chosen (pinned, explored or hovered) rather than the default largest investor:
         /// only a chosen firm's marks may bloom (<see cref="cap"/>).</summary>
@@ -95,10 +111,11 @@ namespace Why.Economy.Layers
             content.SetActive(on); if (!on) return;
             int f = Focus(out bool chosen);
             if (f != focused || chosen != focusChosen) { focused = f; focusChosen = chosen; Focused = f; DrawFocus(); }
-            // the focused firm's small tower label repeats the bold name over it: hidden while that shows
+            // the focused firm's small tower label repeats the bold name over it: hidden while that shows; and a tower label
+            // crowded out by a larger spender's (NameTrail) hides
             foreach (var e in labels)
             {
-                bool show = e.firm < 0 || e.firm != focused;
+                bool show = e.firm < 0 || e.firm != focused && !crowded.Contains(e.firm);
                 e.text.gameObject.SetActive(show); if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
             if (focusLabel) { focusLabel.gameObject.SetActive(focused >= 0); focusLabel.transform.rotation = rig.Cam.transform.rotation; }
@@ -164,9 +181,13 @@ namespace Why.Economy.Layers
                 Trail(trail, trailFill, t, p, .3f, false); years += p.History.Length;
                 invest += p.Invest; owners += p.Owners; ads += p.Attention; lobbying += double.IsNaN(p.Lobbying) ? 0 : p.Lobbying; research += p.Research;
                 deals += p.Deals; taxes += p.State; operations += p.Operations;
-                // the largest spenders are named with the way their money moves them; every firm is named in the panel
-                if (Ranked.IndexOf(t) < 12)
-                    Label("<b>" + p.Name + "</b>\n" + CorporatePrograms.DirectionShort[p.Main] + " " + LandFacts.Percent(p.Direction[p.Main]), HillActivityLayer.CompanyHalo(t) + Vector3.up * 3.5f, .4f, Color.Lerp(White, Steel, .25f), t);
+            }
+            // the largest spenders are named with the way their money moves them, the largest first: where towers stand
+            // close the larger keeps its label (NameTrail); every firm is named in the panel
+            for (int k = 0; k < Ranked.Count && k < 12; k++)
+            {
+                int t = Ranked[k]; var p = programs.OfTower(Tower(t));
+                Label("<b>" + p.Name + "</b>\n" + CorporatePrograms.DirectionShort[p.Main] + " " + LandFacts.Percent(p.Direction[p.Main]), HillActivityLayer.CompanyHalo(t) + Vector3.up * 3.5f, .4f, Color.Lerp(White, Steel, .25f), t);
             }
             // the 25 firms' faint streams, trails and arrows cross each other: blended, not added, so the crossings keep
             // their hues; the focused firm's marks add light over them
@@ -174,7 +195,11 @@ namespace Why.Economy.Layers
             Surface(trailFill, Part.Trail); Lines(trail, Part.Trail, true, false);
             Cascade();
             focusRenderer = Lines(new LineMeshBuilder(), Part.Focus, true, true); focused = -2;
+            // the firm's name, made under the active content so it wakes with its font's material to copy: a name with no place
+            // clear of the arrows is drawn after them on its plate (Raise)
             focusLabel = Label("", Vector3.zero, .6f, White, -1);
+            if (focusLabel.fontSharedMaterial != null) { raisedText = new Material(focusLabel.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
+            focusPlate = Plate(focusLabel);
             Readout(invest, research, owners, ads, deals, taxes, lobbying, operations);
             Debug.Log("[Why] Strategy " + snapshot.Year + ": " + programs.Firms.Length + " firms (judgments " + (programs.Model ?? "absent") + "); they spent " +
                 LandFacts.Money(operations) + " running the business, invested " + LandFacts.Money(invest) + " + research " + LandFacts.Money(research) +
@@ -228,7 +253,8 @@ namespace Why.Economy.Layers
                 for (int s = 0; s < path.Length; s++) { float u = s / 24f; path[s] = Vector3.Lerp(Vector3.Lerp(halo, lip, u), Vector3.Lerp(lip, ahead, u), u); }
                 Lanes(fill, b, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), p.Defensive, alpha, t);
             }
-            if (p.Owners > 0) Arc(b, halo + Vector3.up * .4f, land.CloudCenter, WithAlpha(Gold, alpha), W(p.Owners), C(full ? 3f : 1.6f), 4);
+            // the focused firm's owners' arc is its brightest stream where its trail's names stand: they keep clear of it
+            if (p.Owners > 0) Arc(b, halo + Vector3.up * .4f, land.CloudCenter, WithAlpha(Gold, alpha), W(p.Owners), C(full ? 3f : 1.6f), 4, full ? focusStrokes : null);
             if (p.Attention > 0) Arc(b, halo + Vector3.up * .3f, attention, WithAlpha(Rose, alpha), W(p.Attention), C(full ? 2.6f : 1.4f), 3);
             if (p.Deals > 0 && p.Industry >= 0) Arc(b, halo, land.Halo(p.Industry) + new Vector3(0, 1.5f, -2), WithAlpha(White, alpha * .9f), W(p.Deals), C(full ? 2.2f : 1.1f), 2.5f);
             if (p.State > 0)
@@ -257,16 +283,7 @@ namespace Why.Economy.Layers
                 float w = p.Direction[d]; if (w < .2f) continue;
                 float length = 5 + 16 * w; Color c = WithAlpha(White, .5f + .5f * w); float width = 2.4f + 5 * w;
                 Vector3 dir = Way(d, at, snapshot.Year);
-                if (dir == Vector3.zero)
-                {
-                    float r = 1.2f + 3 * w; Ring(b, at, r, c, width, 1);
-                    for (int s = 0; s < 12; s++)
-                    {
-                        float a0 = s * Mathf.PI / 6, a1 = (s + 1) * Mathf.PI / 6;
-                        strokes.Add((at + new Vector3(Mathf.Cos(a0) * r, 0, Mathf.Sin(a0) * r), at + new Vector3(Mathf.Cos(a1) * r, 0, Mathf.Sin(a1) * r), width));
-                    }
-                    continue;
-                }
+                if (dir == Vector3.zero) { float r = 1.2f + 3 * w; Ring(b, at, r, c, width, 1); Chords(strokes, at, r, width); continue; }
                 dir = dir.normalized; Vector3 tip = at + dir * length;
                 Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
                 Vector3 barb0 = tip - dir * 2f + side * 1.2f, barb1 = tip - dir * 2f - side * 1.2f;
@@ -280,6 +297,8 @@ namespace Why.Economy.Layers
             var b = new LineMeshBuilder(); var fill = new SurfaceMeshBuilder();
             var p = focused >= 0 ? programs.OfTower(Tower(focused)) : null;
             int named = 0;
+            // the firm's own marks its names keep clear of, kept afresh as its streams and trail are drawn
+            focusStrokes.Clear();
             if (p != null)
             {
                 // a chosen firm's marks may bloom (a highlight), pulses too; the default largest investor's stay in their hues
@@ -288,8 +307,8 @@ namespace Why.Economy.Layers
                 Streams(b, fill, focused, p, .95f, true);
                 Trail(b, fill, focused, p, .95f, true);
                 cap = 1;
-                // the firm's name over its tower first: NameTrail moves it clear of the arrows and labels where it can without
-                // leaving its tower, then its trail's names clear of it
+                // the firm's name over its tower first: NameTrail moves it clear of the arrows, its own marks and the labels where
+                // it can without leaving its tower (else raises it on its plate), then its trail's names clear of it
                 focusLabel.text = "<b>" + p.Name + "</b>"; focusLabel.transform.localPosition = HillActivityLayer.CompanyHalo(focused) + Vector3.up * 7;
                 named = NameTrail(p);
                 var bySupplier = new double[land.Hills.Length];
@@ -313,7 +332,7 @@ namespace Why.Economy.Layers
                 FocusText = text;
                 HistoryText = HistoryRows(p);
             }
-            else FocusText = HistoryText = "";
+            else { FocusText = HistoryText = ""; NameTrail(null); }
             for (int k = named; k < trailLabels.Count; k++) trailLabels[k].text = "";
             Replace(focusRenderer, b);
             if (focusFill != null) { var filter = focusFill.GetComponent<MeshFilter>(); owned.Remove(filter.sharedMesh); Destroy(filter.sharedMesh); filter.sharedMesh = fill.ToMesh("Strategy focus lanes"); owned.Add(filter.sharedMesh); }
@@ -331,7 +350,8 @@ namespace Why.Economy.Layers
         /// as one ribbon into the crest, with a spine down its middle in the year's motive color (rose .. ice by the fear
         /// share) as many pixels thick as the square root of its dollars, which reads from afar; and its owners' payout as a
         /// gold stalk, as tall as the square root of its dollars, at the fiscal year's midpoint within that stretch. The
-        /// focused firm's years carry a chevron for which way its money moved it.
+        /// focused firm's years carry a chevron for which way its money moved it; its stalks and chevrons are kept for its
+        /// names to keep clear of (<see cref="focusStrokes"/>).
         /// </summary>
         void Trail(LineMeshBuilder b, SurfaceMeshBuilder fill, int t, CorporatePrograms.Firm p, float alpha, bool full)
         {
@@ -354,7 +374,12 @@ namespace Why.Economy.Layers
                     b.AddFlowPath(spine, t, .5f, t * .29f);
                 }
                 Vector3 c = TrailAt(life, p, mid) + Vector3.up * .2f;
-                if (y.Owners > 0) b.AddSegment(c, c + Vector3.up * Stalk(y, full), WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, 0, C(full ? 2.4f : 1.4f));
+                if (y.Owners > 0)
+                {
+                    Vector3 top = c + Vector3.up * Stalk(y, full);
+                    b.AddSegment(c, top, WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, 0, C(full ? 2.4f : 1.4f));
+                    if (full) focusStrokes.Add((c, top, 3.2f));
+                }
                 if (full && y.Judged) Chevron(b, c + Vector3.up * .3f, y, y.Year);
             }
         }
@@ -374,19 +399,26 @@ namespace Why.Economy.Layers
         /// <summary>Names the focused trail's first year and every year whose main direction turned from the year before
         /// (its way, defensive and AI shares), above its stalk; returns how many names it used. The strategy view, the only one
         /// that shows them, sees a name as wide as several years of the trail, with other firms' arrows and labels standing
-        /// among its years. So, as that view's camera sees them, the firm's own name over its tower (<see cref="DrawFocus"/>
-        /// sets it; its small tower label is hidden while it shows) and then the names from the newest back each take the
-        /// nearest place where they print over no arrow (<see cref="strokes"/>), no shown label and no name placed before:
-        /// raised an eighth of its height at a time, up to four heights, and moved across the view a quarter height at a time,
-        /// up to a third of its width, so a year's name still stands over its own stalk and the firm's name over its tower. The
-        /// cost of a place is its raise plus its move; a year's name moving toward the present counts its move three times, so
-        /// the older names, placed after the newer, step back along the trail (that view runs a trail right to left into the
-        /// present). A year's name with no clear place is left out (the panel's table, <see cref="HistoryRows"/>, has every
-        /// year); the firm's name with none stays where it was set, over its tower.</summary>
+        /// among its years. So, as that view's camera sees them: first the shown labels are kept, the cascade's and then the
+        /// tower labels from the largest spender down, each only where none of its lines prints over a line kept before (one
+        /// that would is crowded out and hides, <see cref="crowded"/>; with no firm in focus that is all). Lines, not boxes:
+        /// two labels' boxes can meet in a corner their letters leave empty, beside a short second line under a long bold
+        /// name. Then the firm's own name over its tower (<see cref="DrawFocus"/> sets it; its small tower label is hidden
+        /// while it shows) and the names from the newest back each take the nearest place where they print over no arrow
+        /// (<see cref="strokes"/>), none of the firm's own owners' arc, stalks and chevrons (<see cref="focusStrokes"/>), no
+        /// kept label and no name placed before: raised an eighth of its height at a time, up to four heights, and moved across
+        /// the view a quarter height at a time, up to a third of its width, so a year's name still stands over its own stalk
+        /// and the firm's name over its tower. The cost of a place is its raise plus its move; a year's name moving toward the
+        /// present counts its move three times, so the older names, placed after the newer, step back along the trail (that
+        /// view runs a trail right to left into the present). No year's name stands above the firm's name, anywhere in the
+        /// column over it, where it would read as the firm's own caption. A year's name with no clear place is left out (the
+        /// panel's table, <see cref="HistoryRows"/>, has every year); the firm's name with none stays where it was set, over
+        /// its tower, raised on its plate over what crosses it (<see cref="Raise"/>), and the labels are kept afresh around the
+        /// plate, so a tower label it would cover is crowded out.</summary>
         int NameTrail(CorporatePrograms.Firm p)
         {
             int used = 0, life = LifeOf(focused);
-            for (int k = 0; k < p.History.Length; k++)
+            for (int k = 0; p != null && k < p.History.Length; k++)
             {
                 var y = p.History[k];
                 bool turn = k > 0 && y.Judged && p.History[k - 1].Judged && y.Main != p.History[k - 1].Main;
@@ -409,15 +441,39 @@ namespace Why.Economy.Layers
             Vector2 Size(TextMeshPro label) => label.GetPreferredValues(label.text) * label.transform.localScale.x;
             // a label's box seen at v: its middle and half size, with 3 px of air beside it and 1 px above and below
             Vector4 Box(Vector3 v, Vector2 size) => new Vector4(v.x, v.y, size.x * .5f / v.z + 3 * px, size.y * .5f / v.z + px);
-            keepBoxes.Clear(); keepStrokes.Clear();
-            foreach (var e in labels)
-                if (e.firm != focused) { Vector3 v = View(e.text.transform.localPosition); if (v.z > 1) keepBoxes.Add(Box(v, Size(e.text))); }
-            // a stroke's half width with its pixel of anti-aliasing and 2 px of air
-            foreach (var s in strokes)
+            // keeps a shown label: its box for the names, its lines for the labels after it; a tower label one of whose lines
+            // meets a line kept before (or the firm's name's plate) is crowded out instead
+            void KeepLabel(TextMeshPro text, int firm, float[] lines)
+            {
+                Vector3 v = View(text.transform.localPosition); if (v.z <= 1) return;
+                Vector2 size = Size(text); float share = size.y / lines.Length; int first = keptLines.Count;
+                for (int k = 0; k < lines.Length; k++)
+                {
+                    // a line as wide as its own text and its share of the label's height, where the centred text sets it
+                    Vector4 line = Box(new Vector3(v.x, v.y + ((lines.Length - 1) * .5f - k) * share / v.z, v.z), new Vector2(lines[k] * text.transform.localScale.x, share));
+                    if (firm >= 0)
+                        for (int i = 0; i < first; i++)
+                            if (Mathf.Abs(line.x - keptLines[i].x) < line.z + keptLines[i].z && Mathf.Abs(line.y - keptLines[i].y) < line.w + keptLines[i].w)
+                            { crowded.Add(firm); keptLines.RemoveRange(first, keptLines.Count - first); return; }
+                    keptLines.Add(line);
+                }
+                keepBoxes.Add(Box(v, size));
+            }
+            // the shown labels: the cascade's, then the tower labels from the largest spender down (the order Build makes them in)
+            void Stack()
+            {
+                foreach (var e in labels) if (e.firm < 0) KeepLabel(e.text, -1, e.lines);
+                foreach (var e in labels) if (e.firm >= 0 && e.firm != focused) KeepLabel(e.text, e.firm, e.lines);
+            }
+            // a stroke as the view sees it, its half width with its pixel of anti-aliasing and 2 px of air
+            void KeepStroke((Vector3 a, Vector3 b, float px) s)
             {
                 Vector3 a = View(s.a), b = View(s.b);
                 if (a.z > 1 && b.z > 1) keepStrokes.Add((new Vector2(a.x, a.y), new Vector2(b.x, b.y), (s.px * .5f + 3) * px));
             }
+            keepBoxes.Clear(); keepStrokes.Clear(); keptLines.Clear(); crowded.Clear(); Stack();
+            foreach (var s in strokes) KeepStroke(s);
+            foreach (var s in focusStrokes) KeepStroke(s);
             // whether a label of that size seen at v prints over nothing within the search's reach
             bool Free(Vector3 v, Vector2 size)
             {
@@ -463,9 +519,15 @@ namespace Why.Economy.Layers
                 if (best == float.MaxValue) return false;
                 label.transform.localPosition = bestAt; return true;
             }
-            // the firm's name first, moved either way alike; then the names from the newest back
-            Place(focusLabel, 1);
-            keepBoxes.Add(Box(View(focusLabel.transform.localPosition), Size(focusLabel)));
+            if (p == null) return 0;
+            // the firm's name first, moved either way alike. With no clear place it stands where it was set, raised on its plate,
+            // and the labels are kept afresh around the plate. Then the names from the newest back, under the firm's name: the
+            // column over it, past the view's top, is kept too (after the labels, which it does not crowd)
+            bool clear = Place(focusLabel, 1); Raise(!clear);
+            Vector4 nameBox = Box(View(focusLabel.transform.localPosition), clear ? Size(focusLabel) : (Vector2)PlateSize(focusLabel) * focusLabel.transform.localScale.x);
+            if (clear) keepBoxes.Add(nameBox);
+            else { keepBoxes.Clear(); keptLines.Clear(); crowded.Clear(); keepBoxes.Add(nameBox); keptLines.Add(nameBox); Stack(); }
+            keepBoxes.Add(new Vector4(nameBox.x, nameBox.y + nameBox.w + 1, nameBox.z, 1));
             for (int k = used - 1; k >= 0; k--)
             {
                 var label = trailLabels[k];
@@ -511,19 +573,33 @@ namespace Why.Economy.Layers
             return lives == null || t < 0 || t >= towers.Length ? -1 : lives.OfTower(towers[t].Ticker, towers[t].Name);
         }
 
-        /// <summary>A small white chevron at a trail year, pointing the way Jev judged that year's money moved the firm, as
-        /// long as the main direction's probability (spreading across: a ring).</summary>
+        /// <summary>A small white chevron at the focused trail's year, pointing the way Jev judged that year's money moved the
+        /// firm, as long as the main direction's probability (spreading across: a ring); its strokes are kept for the firm's
+        /// names (<see cref="focusStrokes"/>).</summary>
         void Chevron(LineMeshBuilder b, Vector3 at, CorporatePrograms.Firm y, int year)
         {
             int d = y.Main; float w = y.Direction[d];
             Color c = WithAlpha(White, .45f + .5f * w); float width = 2f + 2.5f * w;
             Vector3 dir = Way(d, at, year);
-            if (dir == Vector3.zero) { Ring(b, at, .5f + 1.2f * w, c, width, C(1.6f + w)); return; }
+            if (dir == Vector3.zero) { float r = .5f + 1.2f * w; Ring(b, at, r, c, width, C(1.6f + w)); Chords(focusStrokes, at, r, width); return; }
             dir = dir.normalized; Vector3 tip = at + dir * (1.2f + 2.8f * w);
-            b.AddSegment(at, tip, c, width, 0, 0, C(1.6f + 2 * w));
             Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
-            b.AddSegment(tip, tip - dir * .8f + side * .5f, c, width, 0, 0, C(1.6f + 2 * w));
-            b.AddSegment(tip, tip - dir * .8f - side * .5f, c, width, 0, 0, C(1.6f + 2 * w));
+            Vector3 barb0 = tip - dir * .8f + side * .5f, barb1 = tip - dir * .8f - side * .5f;
+            b.AddSegment(at, tip, c, width, 0, 0, C(1.6f + 2 * w));
+            b.AddSegment(tip, barb0, c, width, 0, 0, C(1.6f + 2 * w));
+            b.AddSegment(tip, barb1, c, width, 0, 0, C(1.6f + 2 * w));
+            focusStrokes.Add((at, tip, width)); focusStrokes.Add((tip, barb0, width)); focusStrokes.Add((tip, barb1, width));
+        }
+
+        /// <summary>Keeps a level ring of radius <paramref name="r"/> around <paramref name="at"/>, <paramref name="px"/>
+        /// pixels wide, as twelve chords for the focused firm's names to keep clear of.</summary>
+        static void Chords(List<(Vector3 a, Vector3 b, float px)> keep, Vector3 at, float r, float px)
+        {
+            for (int s = 0; s < 12; s++)
+            {
+                float a0 = s * Mathf.PI / 6, a1 = (s + 1) * Mathf.PI / 6;
+                keep.Add((at + new Vector3(Mathf.Cos(a0) * r, 0, Mathf.Sin(a0) * r), at + new Vector3(Mathf.Cos(a1) * r, 0, Mathf.Sin(a1) * r), px));
+            }
         }
 
         /// <summary>Which way a direction points from a place in a year: climbing toward the tech tier, reaching down toward
@@ -623,10 +699,16 @@ namespace Why.Economy.Layers
             return sb.ToString().TrimEnd();
         }
 
-        static void Arc(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float intensity, float lift)
+        /// <summary>A stream from <paramref name="a"/> to <paramref name="z"/>, raised by <paramref name="lift"/> at its middle;
+        /// its chords are kept in <paramref name="keep"/> when one is given (the focused firm's names keep clear of them).</summary>
+        static void Arc(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float intensity, float lift, List<(Vector3, Vector3, float)> keep = null)
         {
             var pts = new LinePoint[25];
-            for (int s = 0; s < pts.Length; s++) { float t = s / 24f; pts[s] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, color, width, 0, intensity); }
+            for (int s = 0; s < pts.Length; s++)
+            {
+                float t = s / 24f; pts[s] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, color, width, 0, intensity);
+                if (keep != null && s > 0) keep.Add((pts[s - 1].Data, pts[s].Data, width));
+            }
             b.AddFlowPath(pts, 0, .5f);
         }
 
@@ -686,8 +768,57 @@ namespace Why.Economy.Layers
             var t = go.AddComponent<TextMeshPro>(); t.text = text; t.fontSize = 24; t.alignment = TextAlignmentOptions.Center;
             t.color = color; t.textWrappingMode = TextWrappingModes.NoWrap; t.rectTransform.sizeDelta = new Vector2(80, 8);
             go.transform.localScale = Vector3.one * size;
-            if (!string.IsNullOrEmpty(text)) labels.Add((t, firm));
+            if (!string.IsNullOrEmpty(text)) labels.Add((t, firm, LineWidths(t)));
             return t;
+        }
+
+        /// <summary>A label's lines' widths in its own units, each line measured alone: <see cref="NameTrail"/> tests its
+        /// lines, not its box, for crowding.</summary>
+        static float[] LineWidths(TextMeshPro t)
+        {
+            string s = t.text; int n = 1;
+            foreach (char c in s) if (c == '\n') n++;
+            var widths = new float[n];
+            for (int k = 0, from = 0; k < n; k++)
+            {
+                int end = s.IndexOf('\n', from); if (end < 0) end = s.Length;
+                widths[k] = t.GetPreferredValues(s.Substring(from, end - from)).x; from = end + 1;
+            }
+            return widths;
+        }
+
+        /// <summary>A dark plate behind a label (a unit square, sized to its text by <see cref="PlateSize"/>), hiding .9 of what
+        /// is behind it, as plates over bright marks do: drawn after the layer's lines (queue 3236) and before the label's
+        /// raised text (3252), so the arrows behind the label step back. It is the label's child, so it turns and hides with
+        /// it; it starts hidden (<see cref="Raise"/> shows it).</summary>
+        Transform Plate(TextMeshPro t)
+        {
+            var b = new SurfaceMeshBuilder();
+            b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
+                new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
+            Mesh mesh = b.ToMesh("Strategy plate"); owned.Add(mesh);
+            Material material = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); material.SetFloat("_EdgeSoft", 0); owned.Add(material);
+            var r = AddMesh("Strategy plate", mesh, material); r.transform.SetParent(t.transform, false); r.gameObject.SetActive(false);
+            return r.transform;
+        }
+
+        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and .12 em
+        /// above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
+        static Vector3 PlateSize(TextMeshPro t)
+        {
+            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
+            return new Vector3(s.x, s.y, 1);
+        }
+
+        /// <summary>Stands the firm's name raised over the arrows and marks that cross it, on its plate sized to its text (a
+        /// name with no clear place, <see cref="NameTrail"/>), or at its font's own queue, under them, with no plate.</summary>
+        void Raise(bool raised)
+        {
+            if (raisedText == null) return;
+            Material m = raised ? raisedText : focusLabel.font.material;
+            if (focusLabel.fontSharedMaterial != m) focusLabel.fontSharedMaterial = m;
+            if (raised) focusPlate.localScale = PlateSize(focusLabel);
+            focusPlate.gameObject.SetActive(raised);
         }
 
         static Color WithAlpha(Color c, float a) { c.a = a; return c; }
@@ -696,7 +827,8 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); trailLabels.Clear(); strokes.Clear(); content = null; focusRenderer = null; focusLabel = null; focusFill = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); trailLabels.Clear(); strokes.Clear(); focusStrokes.Clear(); keptLines.Clear(); crowded.Clear(); content = null;
+            focusRenderer = null; focusLabel = null; focusFill = null; focusPlate = null; raisedText = null;
         }
 
         void OnDestroy() { Clear(); Focused = -1; FocusText = ReadoutText = HistoryText = ""; Ranked.Clear(); }

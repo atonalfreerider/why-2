@@ -476,6 +476,23 @@ namespace Why
             return false;
         }
 
+        /// <summary>
+        /// True when a screen rect (pixels, as the camera projects) meets a label with a plate placed by the last layout: its
+        /// plate with the padding the layout keeps around it, which also covers the error of its width estimate. A layer
+        /// whose own world labels the label system does not place hides one there rather than leave it cut at the plate's
+        /// edge, where a cut year reads as another number (the economy wave's decade years under the generation names). The
+        /// layout runs in LateUpdate, so a layer's Tick sees the last frame's.
+        /// </summary>
+        public bool UnderPlate(Rect r)
+        {
+            for (int j = 0; j < placed.Count; j++)
+            {
+                if (placed[j].spec.Plate.a > 0 && placed[j].rect.Overlaps(r)) return true;
+            }
+
+            return false;
+        }
+
         void UpdateSlots()
         {
             foreach (Slot slot in slots) slot.Used = false;

@@ -97,10 +97,10 @@ namespace Why.Economy.Layers
         /// <summary>The crest is drawn beside today's (<see cref="BesideToday"/>): today's outline, the tiers' shares then and
         /// now, and the names read over both crests. Set by a rebuild's first half for both halves.</summary>
         bool besideToday;
-        /// <summary>The labels read over the wave's lines (the names beside today's crest, the crest's own and the companies' in
-        /// the views of the wave and the encounters', the wake's, the fan's): a copy of the font's material drawn after the hills
-        /// (text keeps the font's queue, before every line and surface, elsewhere). The hover card has a copy of its own, drawn
-        /// after these.</summary>
+        /// <summary>The labels read over the wave's lines (the names beside today's crest, the crest's own, the tiers', the bedrock's
+        /// and the companies' in the views of the wave and the encounters', the wake's, the fan's, the time arrow's): a copy of the
+        /// font's material drawn after the hills (text keeps the font's queue, before every line and surface, elsewhere). The hover
+        /// card has a copy of its own, drawn after these.</summary>
         Material raisedText;
         MeshRenderer focus; TextMeshPro focusLabel;
         /// <summary>The hover card's plate, drawn after the raised names and before the card's text, sized to the card's text
@@ -109,8 +109,8 @@ namespace Why.Economy.Layers
         /// <summary>The hover card's box (its text and plate, measured again when its text changes), where it stands over its
         /// line's end before it steps clear of the crest's name, and whether it stood stepped up last frame (<see cref="LiftCard"/>).</summary>
         Placed card; Vector3 cardAt; bool cardLifted;
-        /// <summary>The time arrow's name, and whether the hover card covered it when last placed: the name hides while the card
-        /// is over it rather than read cut in half at the card plate's edge (<see cref="Tick"/>).</summary>
+        /// <summary>The time arrow's name on its plate, and whether the hover card covered it when last placed: the name hides while
+        /// the card is over it rather than read cut in half at the card plate's edge (<see cref="Tick"/>).</summary>
         Placed arrowName; bool cardOverArrow;
         /// <summary>The gap (the card's ems) a hover card stepped up clear of the crest's name leaves over the name's plate: half an
         /// em, 7 to 11 px, about the 8 px the label system keeps between its labels, so the name reads as a label of its own
@@ -119,8 +119,8 @@ namespace Why.Economy.Layers
         /// <summary>The crest's name: raised on its plate in the views of the wave and the encounters' (<see cref="Plated"/>), at
         /// the font's queue elsewhere, under the view's own lines and cards (<see cref="Raise"/>); not shown in the regimes view,
         /// whose summits are named there, on the ladder, where the life's path ends through it, in the rivers view, where it stands
-        /// in the trunks' stack of names, nor in the capture and attention views, whose wage lines, loop and golden halos run
-        /// through it.</summary>
+        /// in the trunks' stack of names, nor in the capture, attention and supply chains' views, whose wage lines, loop, golden
+        /// halos and crowns run through it.</summary>
         TextMeshPro crestName;
         /// <summary>A label Tick moves clear of others on screen, or one they keep clear of: where it stands before it moves,
         /// its half size (local units, measured once it is shown), the margin around it that hides what is behind (its
@@ -131,6 +131,10 @@ namespace Why.Economy.Layers
         /// clear of (<see cref="ClearBedrock"/>), and the boxes placed so far in a frame.</summary>
         readonly List<Placed> companyNames = new List<Placed>();
         Placed crestPlate, wakeName, bedrockName, rawName;
+        /// <summary>The tiers' names on the crest's face, raw materials to tech: raised with the bedrock's over the crest line in
+        /// the views of the wave, services' and tech's not in the companies view, where they stand among the crowns
+        /// (<see cref="Raise"/>).</summary>
+        readonly List<TextMeshPro> tierNames = new List<TextMeshPro>();
         readonly List<Rect> placed = new List<Rect>();
         /// <summary>The decades' years along the wake's edge: shown whole or not at all (<see cref="Tick"/>).</summary>
         readonly List<Placed> decades = new List<Placed>();
@@ -149,7 +153,8 @@ namespace Why.Economy.Layers
         const float PlateAlpha = .75f, BrightPlateAlpha = .92f;
         /// <summary>The smallest em (px at 1080 lines) at which the road's fan is named: the wake's name reads at about 10 px
         /// from the overview, and the views that name the fan see it at 7 to 9 px, where the 'Now' beacon and the road's time
-        /// post stand on it. The attention cloud's names outside its view keep to it too (HillSocialLayer.NameMinPx).</summary>
+        /// post stand on it. The attention cloud's names outside its view keep to it too (HillSocialLayer.NameMinPx), and so do
+        /// the largest moves' names on the hills without a selection (HillMobilityLayer.NameMinPx).</summary>
         internal const float RoadMinPx = 11;
         /// <summary>The view the names were last placed for and where the eye stood (Tick); no view after a rebuild.</summary>
         string stackedView; Vector3 stackedEye;
@@ -213,19 +218,24 @@ namespace Why.Economy.Layers
                 // attention loop and the owners' golden halos cross its letters, and a plate would blank them. The year chip
                 // carries the year there outside the tour, which hides it; in capture the caption of the dollar's split names it
                 // too, and the tour shows both views at the default year (LandViewLayer.EnterTour), the year the attention stop's
-                // captions give for their data.
-                if (e.text == crestName && (view == HillRegimeLayer.View || view == "ladder" || view == "rivers" || view == "capture" || view == "social")) show = false;
+                // captions give for their data. In the supply chains' view the crest's line and a crown ran through it, with no
+                // plate there (the view is not one of the wave's), and the chip carries the year.
+                if (e.text == crestName && (view == HillRegimeLayer.View || view == "ladder" || view == "rivers" || view == "capture" || view == "social" || view == "roots")) show = false;
                 e.text.gameObject.SetActive(show);
                 if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
             // a decade's year shows whole or not at all: cut by the frame's edge it reads as another number ("19" and "1" at the
-            // capture view's right edge). As the names below, a flight leaves each year as it stands until it lands (a new wave
-            // or view decides at once) and a hidden year needs Spare px of room to show again, so none blinks at the edge as the
-            // camera moves past; in a headset, whose eye moves every frame, every year shows.
-            bool years = view != "money" && view != "section", decide = view != stackedView || !rig.Flying; Rect screen = rig.Cam.pixelRect;
+            // capture view's right edge), and so does one cut by a plate of the label system's, drawn over the wave ("19" beside
+            // Generation Z's plate in the tour's last pose, "20" beside the Now beacon's). As the names below, a flight leaves
+            // each year as it stands until it lands (a new wave or view decides at once) and a hidden year needs Spare px of
+            // room to show again, so none blinks at an edge as the camera moves past; in a headset, whose eye moves every frame,
+            // every year shows. None in the regimes view: it shows one year's economy on another state's foundation and fades the
+            // ribs the years name, and they stood small beside its oil hill, crossed by the wave's ridges.
+            bool years = view != "money" && view != "section" && view != HillRegimeLayer.View, decide = view != stackedView || !rig.Flying;
+            Rect screen = rig.Cam.pixelRect;
             foreach (var d in decades)
             {
-                if (decide) d.Text.gameObject.SetActive(years && (rig.XrOrigin != null || Whole(rig, d, screen)));
+                if (decide) d.Text.gameObject.SetActive(years && (rig.XrOrigin != null || Whole(rig, d, screen, ctx.Labels)));
                 if (d.Text.gameObject.activeSelf) d.Text.transform.rotation = rig.Cam.transform.rotation;
             }
             // a new wave or view sets the names over or under the lines before they are placed
@@ -261,12 +271,15 @@ namespace Why.Economy.Layers
             }
         }
 
-        /// <summary>Whether a decade's year stands whole inside the frame: a shown year until the frame's edge cuts it, a hidden
-        /// one once it has Spare px of room (<see cref="Tick"/>); none behind the camera.</summary>
-        static bool Whole(CameraRig rig, Placed d, Rect screen)
+        /// <summary>Whether a decade's year stands whole inside the frame and clear of the label system's plates
+        /// (<see cref="LabelSystem.UnderPlate"/>, where the last frame placed them): a shown year until the frame's edge or a
+        /// plate cuts it, a hidden one once it has Spare px of room (<see cref="Tick"/>); none behind the camera.</summary>
+        static bool Whole(CameraRig rig, Placed d, Rect screen, LabelSystem plates)
         {
-            Rect box = OnScreen(rig, d), room = Grown(screen, d.Text.gameObject.activeSelf ? 0 : -Spare);
-            return box.width > 0 && box.xMin >= room.xMin && box.xMax <= room.xMax && box.yMin >= room.yMin && box.yMax <= room.yMax;
+            bool shown = d.Text.gameObject.activeSelf;
+            Rect box = OnScreen(rig, d), room = Grown(screen, shown ? 0 : -Spare);
+            return box.width > 0 && box.xMin >= room.xMin && box.xMax <= room.xMax && box.yMin >= room.yMin && box.yMax <= room.yMax
+                && (plates == null || !plates.UnderPlate(Grown(box, shown ? 0 : Spare)));
         }
 
         /// <summary>Steps the hover card, where it stands over the crest's name and would cover it, up clear of the name's plate,
@@ -289,16 +302,24 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
-        /// Sets the crest's name and the companies' over or under the lines for a view (once a view, and for a new wave): raised in
-        /// the views of the wave and the encounters' (<see cref="Plated"/>), the crest's on its plate, so a name the stack moves
-        /// into the crest's lines and crowns (or the encounters' ties) reads over them (<see cref="StackNames"/> lowers one it finds
-        /// no free place for); elsewhere at the font's queue, under the view's own lines and cards.
+        /// Sets the crest's name, the tiers' and the bedrock's, and the companies' over or under the lines for a view (once a view,
+        /// and for a new wave): raised in the views of the wave and the encounters' (<see cref="Plated"/>), the crest's on its
+        /// plate, so a name the stack moves into the crest's lines and crowns (or the encounters' ties) reads over them
+        /// (<see cref="StackNames"/> lowers one it finds no free place for), and the tiers' and the bedrock's letters over the
+        /// crest line that runs through them ("RAW MATER|ALS") and the bedrock's own rules and arcs, all but services' and tech's
+        /// in the companies view: its pose, along the crest's face, sets those two among their firms' gold crowns, where raised,
+        /// pale gold on gold, they would print over the crowns' rings. Elsewhere at the font's queue, under the view's own lines
+        /// and cards. Beside today's crest the tiers' and the bedrock's names are made raised.
         /// </summary>
         void Raise(string view)
         {
             if (!raisedText) return;
             bool plated = Plated(view);
             if (crestName) Use(crestName, plated);
+            // raw materials' and manufacturing's names (the first two) in every view of the wave; services' and tech's in all but
+            // the companies view
+            for (int k = 0; k < tierNames.Count; k++) Use(tierNames[k], plated && (k < 2 || view != "companies"));
+            if (bedrockName != null) Use(bedrockName.Text, plated);
             foreach (var n in companyNames) Use(n.Text, plated);
         }
 
@@ -310,7 +331,8 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>A label's em on screen (px at 1080 lines): TextMeshPro sets 2.4 world units per em for its font size 24 at
-        /// scale 1. The attention cloud's names are measured by it too (HillSocialLayer).</summary>
+        /// scale 1. The attention cloud's names (HillSocialLayer) and the largest moves' names on the hills (HillMobilityLayer)
+        /// are measured by it too.</summary>
         internal static float EmPx(CameraRig rig, Transform t) => 2.4f * t.lossyScale.x * rig.PixelsPerUnit(t.position) * 1080f / Mathf.Max(1, rig.Cam.pixelHeight);
 
         /// <summary>The hover card's size on screen (px per em at 1080 lines): a card sized in the world is a few pixels tall
@@ -515,7 +537,7 @@ namespace Why.Economy.Layers
                 string[] names = { "", "RAW MATERIALS", "MANUFACTURING · INFRASTRUCTURE", "SERVICES", "TECH" };
                 Vector3 at = new Vector3(mid, (land.LayerAt(year, k - 1, mid) + land.LayerAt(year, k, mid)) * .5f, z + .3f);
                 var tierName = Label(names[k], at, .5f, Color.Lerp(tier[k], White, .5f), besideToday);
-                labels.Add((tierName, Structure, false));
+                labels.Add((tierName, Structure, false)); tierNames.Add(tierName);
                 if (k == 1) rawName = new Placed { Text = tierName, At = at };
                 Then(k, at, Color.Lerp(tier[k], White, .5f));
             }
@@ -583,9 +605,12 @@ namespace Why.Economy.Layers
             Lines(b, Part.Arrow, false, false);
             int latest = Latest;
             string after = land.Year >= latest ? "FUTURE · after " + land.Year + ", not yet made" : "LATER YEARS · " + (land.Year + 1) + " to " + latest;
-            // beside today's crest, today's outline runs through the name: it stands on a plate. Tick hides it under the hover card.
-            var label = Label(after, (tail + head) * .5f + Vector3.up * 5, .5f, c, plate: besideToday);
-            labels.Add((label, TimeArrow, false)); arrowName = new Placed { Text = label, Margin = besideToday ? PlateMargin : Vector2.zero };
+            // the name, about twice the arrow's length on screen, reaches from its middle back over the crest's far end and into
+            // what stands there: beside today's crest today's outline, from the companies' pose the tech crest's line and crowns,
+            // in the replay's end overview a tag's stalk. It stands raised on a plate in every view that names it (all of them
+            // Plated); Tick hides it under the hover card.
+            var label = Label(after, (tail + head) * .5f + Vector3.up * 5, .5f, c, plate: true);
+            labels.Add((label, TimeArrow, false)); arrowName = new Placed { Text = label, Margin = PlateMargin };
         }
 
         /// <summary>The present the wave is compared with: the year the land opens on (2025), which the views of the whole
@@ -873,7 +898,8 @@ namespace Why.Economy.Layers
                 text = "<b>" + l.Name + "</b>  " + life + (l.Event != null ? " (" + l.Event + ")" : "") +
                     "\n" + LandService.Model.Data.Industries[l.Industry].Name + " · " + l.Sells +
                     "\npeak " + LandFacts.Money(peak) + " in " + peakYear + " (2025 $, approximate" + (l.Private ? ", private valuation" : "") + ")";
-                if (l.Judged) text += "\nhow it sells (Jev): manufactured want " + LandFacts.Percent(l.Manufactured) + " · fear " + LandFacts.Percent(l.FearSold) +
+                // four judgments, each of the firm's sales on its own (0 to 100%), not shares of them: they need not add up to 100%
+                if (l.Judged) text += "\nhow it sells, each judged on its own by Jev: manufactured want " + LandFacts.Percent(l.Manufactured) + " · fear " + LandFacts.Percent(l.FearSold) +
                     " · captive " + LandFacts.Percent(l.Captive) + " · habit " + LandFacts.Percent(l.Habit);
                 cardAt = at + Vector3.up * 3.2f;
             }
@@ -1073,7 +1099,7 @@ namespace Why.Economy.Layers
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
             owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); towered.Clear(); content = null; focus = null; focusLabel = null; raisedText = null;
-            companyNames.Clear(); decades.Clear(); crestName = null; cardPlate = null; crestPlate = wakeName = bedrockName = rawName = arrowName = card = null; stackedView = null;
+            companyNames.Clear(); decades.Clear(); tierNames.Clear(); crestName = null; cardPlate = null; crestPlate = wakeName = bedrockName = rawName = arrowName = card = null; stackedView = null;
             cardOverArrow = false;
         }
 
@@ -1083,7 +1109,7 @@ namespace Why.Economy.Layers
             DropRetired();
             retired = content; retiredOwned.AddRange(owned);
             owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); towered.Clear(); content = null; focus = null; focusLabel = null; raisedText = null;
-            companyNames.Clear(); decades.Clear(); crestName = null; cardPlate = null; crestPlate = wakeName = bedrockName = rawName = arrowName = card = null; stackedView = null;
+            companyNames.Clear(); decades.Clear(); tierNames.Clear(); crestName = null; cardPlate = null; crestPlate = wakeName = bedrockName = rawName = arrowName = card = null; stackedView = null;
             cardOverArrow = false;
         }
 

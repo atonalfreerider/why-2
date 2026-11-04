@@ -907,6 +907,42 @@ Documentation:
 
 **Acceptance.** The sweep logs 0 errors. FIRSTLOOK.md shows at least 4 of 5 correct answers per question for M1, M2 and M3, with the frames used. The caption audit's mean clarity for new strings is at least 0.6, or each string below 0.5 is listed with its rewrite. The docs contain the sections named. The 2026 gate report is re-run and dated.
 
+## Carried into the packages
+
+Three label-polish rounds (Nov 2026) were each checked against smoke frames, with a skeptic re-examining every problem. These problems were confirmed but left for the package that rebuilds the code they live in. Each package's acceptance must cover its entries. Frames are named as the smoke test names them (economy-view-*, economy-tour-NN-*, why-tour-NN-*). Since 4 Nov 2026 the smoke test sees no pointer, so its frames show the unhovered defaults; `-smokepointer 1267,392` reproduces the hover cards of the older captures.
+
+**WP09, the label system.**
+- World labels under HUD panels, until their layers move to HillLabels. In the strategy view's default (Microsoft focused), the bold name and the 2019 and 2020 trail names sit under the title panel, and Alphabet's tower label sits on its bottom edge. Also: [GOOGL] and [META] against the title panel (foundation); '$13K a year → Real estate…' under it (you); the rivers' tickers and a crown under it; the mobility captions and records under the tour card (tour 13); the crest name under the card (tours 2 and 20); 'United States 1950 - now' under it (tour 10); labels under the card's edges (tours 12 and 16); GOVERNMENT and the 2009 ruler's '0' under the replay card; the 1983 money readout over the OPEN TO TRADE strip; '1950' behind the You panel (tour 19).
+- The director's caption plate. Labels it stands half over (why-tour 13, 25, 27, 31, 57, 58) should move to a candidate place, not hide or stay cut. The ring at the arrow's tip must stay clear too. Round 3b tried a plain keep-out and took it back: the stop's own labels hid (Chordates at 25, Fossil fuels at 57), and the freed room put 'Proteobacteria' under the ring at 21.
+- The width estimate (EstimateWidth) overstates a label by about 0.2 em. Blocked then drops a label that clears a panel ('Animals' at why-tour 27). Measure the text instead.
+- Leaders of stacked names cross the names below them in the regimes view (CN State Grid and Shandong Energy, US Alphabet and Apple, SE Vattenfall and SSAB). This needs decision 12's candidate offsets with leaders.
+- Universe: figure labels have no fallback place (Newton at why-tour 52). The trophic hooks cross 'Calories flow upward' (why-tour 31): plate the slice titles.
+
+**WP15, wave, landscape and replay.**
+- Company names under the crowns: SVB, U.S. Steel ('bought 2025 → Nippon Steel'), and Countrywide on the crest row. StackNames should keep clear of the firms' and capture halos.
+- The tier names in the 1958 replay, at the replay's low text alpha, still let the 1958 trace show through.
+- In tour-end, a faint '2030' sits behind the crest name. In tour 0, the fan's label runs onto the crest's slope. In roots, Nike's lit lifeline ends inside its hover card's first line.
+- The mind view's own labels (CHILDLESS 0%, CHOICE, MEMORY) have no plates, and same-coloured arcs, stalks and rings cross them.
+- The people view's rung names are 3-4 px (scale .17): gate them by EmPx, or enlarge and plate them.
+
+**WP16, foundation, regimes, money and mobility.**
+- The regimes' thin strata names at the size floor: SA's OTHER REVENUE reaches about 3.45:1. The 12 px minimum fixes this.
+- The 1975 tariff label sits among the 1970s series in the replay's money board (1983).
+- In the foundation view, the end of RAW MATERIALS and the decade ticks sit under the bedrock's arcs.
+
+**WP17, activity, capture, strategy and social.**
+- Strategy: the trail names are 5-7 px. JPMorgan's tower label is crossed by its own and Bank of America's harvest shafts ('harv_st _5%'). The Amazon, Walmart and Costco labels show through the strategy panel. The panel's firm-level judgment (defensive 48% · AI 53% for Microsoft) stands beside the table's numbers-only row for the same fiscal year (71% · 43%) without saying they are two judgments.
+- Capture: the [MSFT] and [NVDA] badges sit under the crown rings, and the tech badges overlap each other in tours 3 and 12. '11¢ imports' in the dollar caption sits over dense ridge lines.
+
+**WP18, person, dilemma, you and mind.**
+- The you view's river label ('$9K a year → Wholesale & retail trade · 45% sold by fear (Jev)') and '↓14% downhill' have no plates over the streams.
+- The dilemma's seat labels (SPOUSE, COWORKER, OTHER TRIBE) have no plates over the posts and rings.
+- In the atom view, 'DEBT FROM THE FUTURE / owes $402K · payments 17% of income' is crossed by the debt arc and the hill's outline, and so are the other pull labels.
+
+**WP23, the overview as hub.** The attention title stands off the top of the frame in landscape and tour-end. The families view (section) has its grey triangle.
+
+**Not in a package yet.** CivGovernmentLayer's readouts never show. The portrait rung labels overflow. The road's beam clips to a white core in the economy (decision 36). HillCaptureLayer's cold start costs about 50 ms in the replay's first frames.
+
 ## Decisions
 
 1. **Which proposal is the base design?** Clarity ('Stop time, zoom out, follow a life'), with grafts from story, engineering, fidelity and spatial.  

@@ -471,15 +471,17 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>A dark plate behind a raised label, sized by <see cref="PlateSize"/>: drawn at queue 3251, after the person's
-        /// lines (3220) and before the raised text, so the lines behind the label step back. It is the label's child, so it
-        /// turns, scales and hides with it.</summary>
+        /// lines (3220) and before the raised text, so the lines behind the label step back. .9 opaque, the rule for plates over
+        /// bloomed marks: the hills blend in linear light, where the quarter a .75 plate lets through reads at about half
+        /// brightness, and the figure's foot rings still ran behind "pushed by fear" about as bright as its steel letters. It is
+        /// the label's child, so it turns, scales and hides with it.</summary>
         Transform Plate(TextMeshPro t)
         {
             if (plateQuad == null)
             {
                 var b = new SurfaceMeshBuilder();
                 b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
-                    new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
+                    new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
                 plateQuad = b.ToMesh("Person plate"); owned.Add(plateQuad);
                 plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
             }

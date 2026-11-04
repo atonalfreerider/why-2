@@ -92,8 +92,8 @@ namespace Why.Economy.Layers
         string json;
         LandSnapshot snapshot; HillLandscape land; Regimes regimes; GameObject content;
         /// <summary>The font's material drawn after the regime's marks (queue 3252), for every name the layer writes; and the
-        /// dark plate behind the names read over gold or a line (a unit square scaled to each name, and its material drawn
-        /// under the summits' rings, the names' leaders (3251) and the raised text, queue 3250).</summary>
+        /// dark plate behind the names read over gold, a line or the light strata (a unit square scaled to each name, and its
+        /// material drawn under the summits' rings, the names' leaders (3251) and the raised text, queue 3250).</summary>
         Material raisedText, plateMaterial; Mesh plateQuad;
         /// <summary>The trade gauge's name, which steps aside with its lanes while the tour's card covers the far border.</summary>
         TextMeshPro tradeLabel;
@@ -201,11 +201,14 @@ namespace Why.Economy.Layers
             // camera: the face is seen in perspective, its lines sloping some 4 px in 100, and a name that faced the camera
             // stayed level and ran out of a thin stratum at its ends, over the next one or across the revenue line (which
             // struck OTHER REVENUE through). Lying in the face, it slopes with its stratum in every pose and stays inside it
-            // (a stratum's capitals, .69 em, are at most .6 of its depth).
+            // (a stratum's capitals, .69 em, are at most .6 of its depth). A name below size 1 (a thin stratum's, some 6 px
+            // capitals) is bold throughout, and measured bold for the gaps left across it: its figures' regular strokes,
+            // under a pixel wide, reached under 3:1 on the stratum where its bold name reached 3.3 to 5:1.
             void FaceName(string text, float at, float size, Color color)
             {
                 var t = Label(text, new Vector3(BedrockLabelX, at, cz + .3f), size, color);
                 labels.Remove(t); inFace.Add(t); t.transform.localRotation = Facing(faceFront);
+                if (size < 1) t.fontStyle = FontStyles.Bold;
                 Vector2 half = t.GetPreferredValues(text) * size * .5f;
                 written.Add((BedrockLabelX - half.x - 1, BedrockLabelX + half.x + 1, at, half.y));
             }
@@ -237,8 +240,15 @@ namespace Why.Economy.Layers
             if (g > rev + .001f)
             {
                 Slab(faces, x0, x1, yr, yg, cz, zb, new Color(.10f, .11f, .14f), .75f);
-                for (float x = x0 + 4; x < x1; x += 8) strata.AddSegment(new Vector3(x, yr, cz + .2f), new Vector3(x + 4, yg, cz + .2f), WithAlpha(Grey, .25f), .8f, 0, 0, 1);
+                // the band's name first, so its hatch leaves a gap across it as the dashed lines do (Dashes): its strokes
+                // ran through the letters, and the one in the space before the figure read as a slash ("/7.8%")
                 if (yr - yg >= 2.2f) FaceName("<b>BORROWED</b>  " + LandFacts.Percent(g - rev, 1) + " of GDP: spending above revenue", (yr + yg) * .5f, Mathf.Clamp((yr - yg) * .32f, .75f, 1.1f), Grey);
+                for (float x = x0 + 4; x < x1; x += 8)
+                {
+                    bool clear = true;
+                    foreach (var w in written) if (x + 4 > w.x0 && x < w.x1 && w.y < yr && w.y > yg) { clear = false; break; }
+                    if (clear) strata.AddSegment(new Vector3(x, yr, cz + .2f), new Vector3(x + 4, yg, cz + .2f), WithAlpha(Grey, .25f), .8f, 0, 0, 1);
+                }
             }
             else if (rev > g + .001f && yg - yr >= 2.2f)
                 FaceName("<b>SURPLUS</b>  revenue " + LandFacts.Percent(rev - g, 1) + " of GDP above spending (the steel line marks spending)", (yr + yg) * .5f, .9f, Grey);
@@ -255,11 +265,13 @@ namespace Why.Economy.Layers
             }
             strata.AddPolyline(new[] { new Vector3(x0, yr, cz + .3f), new Vector3(x1, yr, cz + .3f) }, WithAlpha(White, .95f), 2, 0, 0);
             strata.AddPolyline(new[] { new Vector3(x0, yg, cz + .3f), new Vector3(x1, yg, cz + .3f) }, WithAlpha(Steel, .9f), 2.4f, 0, 0);
-            // the depth in words beneath the bedrock (and beneath the US line and its name, when they run lower): every level
-            // of government, and for another state a counterfactual in dollars set beside the country's own economy; the
-            // lines' key takes a line of its own (the first line stands where it stood with two), which keeps the widest
-            // line, with a rouble economy in it, narrow enough to start right of the tour's card
-            float caption = Mathf.Min(bottom, !r.Baseline && us != null && us.Spending.Has ? top - (float)us.Spending.Value * DepthPerShare - 5.4f : bottom) - 8f;
+            // the depth in words beneath the bedrock (and beneath the US line and its name, when they run lower: 3.2 units
+            // under the name, which stands 3 under its line, so some 10 px of black lie between the name and the caption's
+            // first line, which can end just short of where the name starts): every level of government, and for another
+            // state a counterfactual in dollars set beside the country's own economy; the lines' key takes a line of its
+            // own (the first line stands where it stood with two), which keeps the widest line, with a rouble economy in it,
+            // narrow enough to start right of the tour's card
+            float caption = Mathf.Min(bottom, !r.Baseline && us != null && us.Spending.Has ? top - (float)us.Spending.Value * DepthPerShare - 6.2f : bottom) - 8f;
             string economy = "$" + (gdp / 1000).ToString("0.0", LandFacts.Ci) + "T";
             string words = r.Baseline
                 ? "<b>ALL LEVELS OF US GOVERNMENT SPEND " + LandFacts.Percent(g, 1) + " OF " + r.Spending.Of + "</b> and take in " + LandFacts.Percent(rev, 1) +
@@ -270,9 +282,15 @@ namespace Why.Economy.Layers
             // the US for comparison, named toward the valley from the bedrock's names (the caption stands beneath its name)
             if (!r.Baseline && us != null && us.Spending.Has)
             {
-                float yu = top - (float)us.Spending.Value * DepthPerShare;
+                float yu = top - (float)us.Spending.Value * DepthPerShare, at = yu - 3;
                 Dashes(yu, WithAlpha(White, .8f));
-                Label("- - the United States: " + LandFacts.Percent(us.Spending.Value, 1), new Vector3(BedrockLabelX - 70, yu - 2.2f, cz + .8f), 1, White);
+                // Where this state's bedrock runs deeper than the name stands, the name lies on its face, white on the light
+                // strata (2.6:1) with their edges through it: there it stands on a plate. Under a shallower bedrock it stands
+                // on black and needs none (a plate there would only box it). It stands 3 units under its line (the caption
+                // beneath it is placed for that): the line slopes across the level plate, which at 2.2 met its dashes at the
+                // plate's right end.
+                var usName = Label("- - the United States: " + LandFacts.Percent(us.Spending.Value, 1), new Vector3(BedrockLabelX - 70, at, cz + .8f), 1, White);
+                if (bottom < at + 1.7f) Plate(usName);
             }
             // The US's own bedrock is general government; the block of the other views is federal outlays alone (the
             // foundation view's crest year), drawn as a dashed line inside it so the change of depth between them reads.
@@ -447,7 +465,9 @@ namespace Why.Economy.Layers
                 : m.Basis == "by law" ? "<b>EVERY SUMMIT THE STATE'S</b> · " + (r.DefaultNote ?? "state property by law")
                 : "<b>THE STATE HOLDS " + LandFacts.Percent(m.Value) + " OF THE VALUE OF " + (r.Baseline ? "US" : Possessive(r).ToUpperInvariant()) + " LISTED FIRMS</b> (" + m.Year + ")";
             string key = "steel: the state's share" + (unrankedShown > 0 ? " · dotted rings: " + unrankedShown + " summits no firm is ranked for" : "");
-            Label(head + "\n<size=80%>" + key + "</size>", new Vector3((x0 + x1) * .5f, y + 3.4f, z), 1.1f, Color.Lerp(Steel, White, .5f));
+            // the key line stands about 2 px clear of the bar, which the view's yaw tilts up toward its right end: at 3.4
+            // the letters' feet there, and the 'g' of "rings", ran into it
+            Label(head + "\n<size=80%>" + key + "</size>", new Vector3((x0 + x1) * .5f, y + 4f, z), 1.1f, Color.Lerp(Steel, White, .5f));
             Lines(b, Part.Summits, false);
         }
 
@@ -563,7 +583,8 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>Trade across the far border: flows out above (gold) and in below (ice), each lane as wide as half of exports
-        /// plus imports over GDP.</summary>
+        /// plus imports over GDP. Its name, centred over the lanes, reaches over the end of the hills, whose first outline ran
+        /// up through its words ("GDP| in 2024"): it stands on a plate, which steps aside with it during the tour.</summary>
         void Trade(Regimes.Regime r)
         {
             var b = new LineMeshBuilder(); float x = land.XMax + 6, z = land.CrestZ - 4;
@@ -583,10 +604,10 @@ namespace Why.Economy.Layers
                     }
                     b.AddFlowPath(pts, 0, .4f, dir * .5f);
                 }
-                tradeLabel = Label("<b>TRADE</b> · exports + imports " + LandFacts.Percent(t) + " of GDP in " + r.Trade.Year + "\n<size=80%>out above (gold), in below (ice), across the border</size>",
-                      new Vector3(x, h + 30, z), 1f, Color.Lerp(Steel, White, .5f));
+                tradeLabel = Plate(Label("<b>TRADE</b> · exports + imports " + LandFacts.Percent(t) + " of GDP in " + r.Trade.Year + "\n<size=80%>out above (gold), in below (ice), across the border</size>",
+                      new Vector3(x, h + 30, z), 1f, Color.Lerp(Steel, White, .5f)));
             }
-            else tradeLabel = Label("<b>TRADE</b> · no single defensible share (why: the panel)", new Vector3(x, h + 30, z), 1f, Grey);
+            else tradeLabel = Plate(Label("<b>TRADE</b> · no single defensible share (why: the panel)", new Vector3(x, h + 30, z), 1f, Grey));
             Lines(b, Part.Trade, true);
         }
 
@@ -743,7 +764,10 @@ namespace Why.Economy.Layers
                 s.Append("It lives on: ");
                 var order = new List<int>(); for (int k = 0; k < Regimes.Parts; k++) if (r.Mix[k] >= .02) order.Add(k);
                 order.Sort((a, b) => r.Mix[b].CompareTo(r.Mix[a]));
-                for (int i = 0; i < order.Count; i++) s.Append(i > 0 ? " · " : "").Append(PartName(order[i])).Append(' ').Append(LandFacts.Percent(r.Mix[order[i]]));
+                // each source keyed by a dot in its stratum's colour on the face, where the thin strata carry no name
+                for (int i = 0; i < order.Count; i++)
+                    s.Append(i > 0 ? " · " : "").Append("<nobr><color=#").Append(ColorUtility.ToHtmlStringRGB(OnScreen(PartColor[order[i]], .62f).gamma))
+                     .Append(">\u25CF</color> ").Append(PartName(order[i])).Append(' ').Append(LandFacts.Percent(r.Mix[order[i]])).Append("</nobr>");
                 s.Append(" <color=#8A93A0>(").Append(r.MixYear).Append(r.MixBasis == "tax" ? ", tax shares scaled to revenue" : "").Append(")</color>\n");
             }
             else s.Append("Its revenue mix: not found\n");
@@ -838,10 +862,11 @@ namespace Why.Economy.Layers
         /// <summary>The ink of a stratum's name (<paramref name="face"/>: the stratum as it reaches the screen): its tint
         /// darkened or lightened, whichever stands further from the face by WCAG's contrast ratio. Every stratum is light
         /// (luminance .3 to .43 on screen, where the near-white ink the names had stayed under 2.5:1), so every name is dark,
-        /// 5.9:1 to 7.2:1.</summary>
+        /// 6.5:1 to 8.6:1: nearly black, for the thin strata's names, whose strokes at some 6 px capitals cover only about
+        /// .85 of a pixel, so the stratum shows through them (at .8 toward black, 5.9:1 to 7.2:1, they read 3.3 to 5:1).</summary>
         static Color Ink(Color tint, Color face)
         {
-            Color dark = Color.Lerp(tint, Color.black, .8f), light = Color.Lerp(tint, White, .82f);
+            Color dark = Color.Lerp(tint, Color.black, .9f), light = Color.Lerp(tint, White, .82f);
             // text decodes its colour from sRGB (EconomyStyle.Roles.Encoded); the face, a vertex colour, is linear already
             float f = Luminance(face) + .05f;
             return f / (Luminance(dark.linear) + .05f) >= (Luminance(light.linear) + .05f) / f ? dark : light;
@@ -920,9 +945,9 @@ namespace Why.Economy.Layers
         /// below (TextMeshPro sets 2.4 local units per em at its font size 24), drawn after the regime's other marks (queue
         /// 3250) and before the summits' rings and the names' leaders (3251), which stay whole over it, and the raised text
         /// (3252). At .9 rather than the .75 of the plates elsewhere: names stand on lines about as light as their letters
-        /// (VOTES on its white threads, the oil's name on a steel beam) or of their hue (the firms' gold on the wave's gold
-        /// ridges), and a quarter of such a line would leave the first two about 3 to 4:1. It is the label's child, so it
-        /// turns with it.</summary>
+        /// (VOTES on its white threads, TRADE on the first hill's outline, the oil's name on a steel beam) or of their hue
+        /// (the firms' gold on the wave's gold ridges), and a quarter of such a line would leave the first ones about 3 to
+        /// 4:1. It is the label's child, so it turns with it.</summary>
         TextMeshPro Plate(TextMeshPro t)
         {
             if (plateQuad == null)

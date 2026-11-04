@@ -236,7 +236,7 @@ bar and the tour reach them; focused views keep the wave as faint ground and qui
   beside you, where people like you were ten years later: a step for each fifth they reached, its ribbon as wide as the
   share who ended there. Nothing entered is stored or sent.
 * `strategy` - **companies spend too**: every stored firm's latest fiscal year from its audited filing
-  (`Tools/corporate`), in the directions its money flows: operations down to suppliers and workers (by its industry's
+  (`Tools/corporate`), in the directions its money flows: operations out to its suppliers and workers (by its industry's
   accounts), investment and research forward over the crest split into fear and desire lanes, advertising up to the
   attention platforms, deals across, buybacks and dividends up to the owners, taxes and lobbying into the state; white
   arrows for which way Jev judged the money moves each firm (climb into AI, reach down into its own supply, spread across,

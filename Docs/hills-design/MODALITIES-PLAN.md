@@ -303,7 +303,7 @@ It publishes ModelFacts under instant.*.
 - PCE 20.95;
 - fork 41/27/15/10/7 summing to 100;
 - io up/down/within 37.2/21.9/41.0 and market 27.7/24.9/47.4;
-- boundaries 1.15/0.60, 1.76/2.88, 0.90/0.80;
+- boundaries 1.15/0.60, 1.76/2.88, 0.89/0.80;
 - tech buys 0.89, sells 0.80 + 0.29;
 - listed value tech at least 31.7%.
 InstantModel.Problems() is empty for 2025, 1990 and 1972; the earlier years log their coverage flags. Two runs give identical outputs. The worker build takes under 40 ms (logged). -smokefacts lists the instant.* facts used by the tour.
@@ -514,7 +514,7 @@ It registers the instant ViewVariants: structure, spending, pay, state, abroad, 
 - floor heights = $ x 5 within 1%;
 - 0 hill renderers;
 - labels: overlaps 0, minimum 12 px.
-The strip prints tech '9.4% · 4.9% · <profits or no data> · at least 31.7%'. economy-view-instant-1972 (set by a smoke sequence) shows an undivided class block with its note and no cloud. A year step rebuild uses one HillRebuilds slot with no frame over 50 ms.
+The strip prints tech '9.4% · 4.8% · <profits or no data> · at least 31.7%'. economy-view-instant-1972 (set by a smoke sequence) shows an undivided class block with its note and no cloud. A year step rebuild uses one HillRebuilds slot with no frame over 50 ms.
 
 ### WP21
 
@@ -618,7 +618,7 @@ It contributes the rows for industries and attention, and adds anchors instant:b
 
 **Data.** InstantModel; people.json; corporate-programs.json economy (ads, minutes).
 
-**Acceptance.** economy-view-instant-industries.png shows arrows labelled 1.15/0.60, 1.76/2.88 and 0.90/0.80 ($T, 2024), the totals '37% up · 22% down · 41% within', and the frontier label '$594B a year... (10 largest tech firms)'. economy-view-instant-attention.png shows the shelves with 'log scale', 12 names without overlap, 5 tethers with J tags, labelled loop legs ($294.6B; creators), and 'not money' strands. A 2024 capture shows no cloud and its note.
+**Acceptance.** economy-view-instant-industries.png shows arrows labelled 1.15/0.60, 1.76/2.88 and 0.89/0.80 ($T, 2024), the totals '37% up · 22% down · 41% within', and the frontier label '$594B a year... (10 largest tech firms)'. economy-view-instant-attention.png shows the shelves with 'log scale', 12 names without overlap, 5 tethers with J tags, labelled loop legs ($294.6B; creators), and 'not money' strands. A 2024 capture shows no cloud and its note.
 
 ### WP26
 
@@ -963,7 +963,7 @@ Documentation:
    *Why:* This is a must-fix: no war scar for coercion or the 2020 Galwan clash, and military in the state colour, not conflict violet.
 
 20. **How is tech's dominance shown?** A linked OUTPUT, JOBS, PROFITS, MARKET VALUE strip. Profits come from BEA 6.16D mapped to tiers by a printed crosswalk and are shown whichever way they fall, with 'no data yet' until acquired, never the 25 firms. Market value shows tech 'at least 31.7%' with the $37.3T unsplit remainder dashed until sector weights arrive. No 'dominates' mark is drawn.  
-   *Why:* Tech is 9.4% of value added and 9.6% of gross operating surplus, so a profit-from-surplus claim would be false. Judges required market value, a measured lower bound, no 'about 40%', and acceptance passable on measured data.
+   *Why:* Tech is 9.4% of value added and 9.6% of gross operating surplus, so a profit-from-surplus claim would be false. BEA's corporate profits by industry (Table 6.16D, now in instant.json profitsByTier, lines 19 and 31 over line 9, mapped to tiers by assumption) give tech 16.5% of 2025 domestic corporate profits, more than its share of output; the strip shows that measure as it falls. Judges required market value, a measured lower bound, no 'about 40%', and acceptance passable on measured data.
 
 21. **Which way does money between industries run on screen?** In the money direction, buyer to supplier: 37.2% up, 21.9% down, 41.0% within with the state as tier 0, and 27.7, 24.9 and 47.4 among market tiers ('supplies come down, the money goes up'). InstantModel asserts it, and WP05 corrects THEORY and EVALUATION before any caption cites the figures.  
    *Why:* Recomputed from circuit.json io in this design pass. The docs and the spatial proposal had it reversed, which would have put a false headline on the author's symbiosis.

@@ -28,10 +28,19 @@ down, and events (a lost job, a divorce, an inheritance, a war, a rate rise) shi
 | People | 116 cohorts on the slope of what pays them, rung by household income rank; the diversified 1% in the clouds | the simulated lives, calibrated to national totals (modeled) |
 | Attention | the most followed Americans above capital, laid out by who follows whom | the social graph (measured follows), Wikidata, Jev for identity |
 
-Two honest qualifications. The IO table does not obey the tier order: more of the money between industries comes down
-from a higher tier than rises from a lower one (37% against 22% in the 2024 table), so "standing on" is the dependence
-of the top on the base, not a one-way flow. And the hill's height is conceptual: what is measured at the top is the
-price of claims on the future - the seven largest firms are about a third (32%) of the US market value in the data.
+Two honest qualifications. The IO table does not obey the tier order. Of the $15.85T industries paid other industries in
+2024 (money runs from the buyer to the supplier), 37% went up to suppliers in a higher tier, 22% went down and 41%
+stayed within a tier, counting the state as the bottom tier ($2.1T of the "up" is the state buying supplies, about two
+thirds of all it buys from industries). Among the market tiers alone, 28% went up, 25% down and 47% stayed within.
+Supplies come down; the money goes up. Tech buys $0.89T from the tiers below and sells them $0.80T, plus $0.29T to the
+state. So "standing on" is the dependence of the top on the base, not a one-way flow. And the hill's height is
+conceptual: what is measured at the top is the price of claims on the future. In 2025 tech was 9.4% of private value
+added and about 9.6% of gross operating surplus, what is left after wages and production taxes (estimated from 2025
+value added at each industry's 2024 split). Yet its 10 stored firms alone hold 31.7% of US listed value ($23.9T of
+$75.3T, September 2026): the summit stands out in market value, not in output. Its share of domestic corporate profits
+is higher, 16.5% in 2025 (BEA's corporate profits by industry, its lines mapped to the tiers by assumption), because the
+surplus also covers the wear of buildings and machines, interest, rent and the earnings of the self-employed, which take
+a larger part of the other tiers' surplus.
 
 **What if: another government (new, `regimes`).** The bedrock has a measured shape, and the same hills can stand on other ones.
 General government spends 37.6% of GDP in the United States (IMF, 2024; the federal block of the other views is its federal
@@ -78,7 +87,7 @@ corporate entities" a model reading per person (the `you` view), not a measured 
 
 | Use of money | Direction on the landscape | The 25 largest firms, latest fiscal year |
 | --- | --- | --- |
-| running the business | down to suppliers and to their own workers (split by the industry's accounts) | $3.32T |
+| running the business | out to suppliers (down the hill for the ten tech firms; the other fifteen buy mostly from their own tier or above) and to their own workers (split by the industry's accounts) | $3.32T |
 | investment and research | forward over the crest into the future, split into fear (spending so as not to fall behind) and desire (spending for new demand) by Jev | $662B + $287B |
 | advertising | up to the attention platforms | $63B disclosed |
 | acquisitions and stakes | across, to other firms | $91B |
@@ -111,15 +120,17 @@ view, section 2).
 
 ## 4. Moving up or down the hill (new, `mobility`)
 
-**Forces at each rung** (household income fifths, 2025): saving runs from -11% of income at the bottom to +14% at the
-top; income from what people own from 6% to 32%; debt service falls from 16% to 9%; the financial runway rises from 0.3
-to 3.1 years; the share in control of their path from 1% to 24%. The lifting forces compound where they are already
-strong, and the pulling forces bite where they are already heavy.
+**Forces at each rung** (2025, on the like-for-like ladder the mobility view draws: adults 25 and older in 2015,
+followed to 2025 and ranked into fifths of household income among themselves): saving runs from -12% of income at the
+bottom to +17% at the top; income from what people own from 13% to 32%; debt service falls from 22% to 9%; the financial
+runway goes from 1.1 to 3.4 years; the share in control of their path from 4% to 27%. The lifting forces compound where
+they are already strong, and the pulling forces bite where they are already heavy.
 
-**The decade's ladder** (2015-2025): 33% of adults climbed a fifth or more, 48% stayed, 20% fell; the top fifth kept 71%
-of its members. Like for like with the US Treasury's closed panel of taxpayers 25+ (1996-2005), the model's bottom fifth
-keeps 58% (Treasury 55%) and its top fifth 66% (Treasury 61%), with 3% going from bottom to top (3.6%). Across all adults
-the bottom looks more fluid (34% stay) because young adults rise as they leave home and start work.
+**The decade's ladder** (2015-2025). The view draws it like for like with the US Treasury's closed panel of taxpayers
+25+ (1996-2005): the model's bottom fifth keeps 58% (Treasury 55%) and its top fifth 66% (Treasury 61%), with 3% going
+from bottom to top (3.6%). Counting every adult alive at both ends instead (the view's All adults setting), 33% climbed
+a fifth or more, 48% stayed and 20% fell, and the top fifth kept 71% of its members; the bottom looks more fluid (34%
+stay) because young adults rise as they leave home and start work.
 
 **What comes with a move**, among adults 25-54 (each event's share of the movers and its lift over everyone's rate):
 falls came with a lost job (59%, 1.6x), a divorce or separation (22%, 2.3x) and discharged debt (9%, 2.2x); climbs with

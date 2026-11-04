@@ -269,8 +269,9 @@ fantasy totals below are the spending mix times those judgments.
   than it adds in value.
 * **Owners keep about a quarter.** Owners keep 26% of GDP. $5.33T a year rises into the crown from the private sectors
   and falls on those who own; $435B leaves for owners abroad.
-* **The bowl stands on roots that flow down as well as up.** $15.85T a year moves between industries; 37% of it comes
-  down from a supplier on a higher terrace and only 22% rises from a lower one: the hierarchy is a picture of the
+* **The bowl stands on roots that flow down as well as up.** $15.85T a year moves between industries; 37% of the
+  supplies come down from a supplier on a higher terrace and only 22% rise from a lower one (supplies come down; the
+  money goes up): the hierarchy is a picture of the
   notebook's order, not a law of the data, and the land says so.
 * **Cooperation is learned, not given.** Strangers would open at 0.308 (GSS trust); partners, who share an industry,
   group or generation, open at 0.333; forgiveness lets cooperation climb to 0.686 in 12 rounds and settle at 0.729. If nobody forgave it would settle at 0.425; if everyone did, at 0.868. Without partner

@@ -126,7 +126,7 @@ These are findings of this design pass. WP05 corrects the documents before any c
      | --- | --- | --- |
      | raw / make | $1.15T | $0.60T |
      | make / services | $1.76T | $2.88T |
-     | services / tech | $0.90T | $0.80T |
+     | services / tech | $0.89T | $0.80T |
 
    - Tech buys $0.89T from the tiers below (raw 0.02, make 0.17, services 0.71). It sells them $0.80T (make 0.30, services 0.49, raw 0.01), plus $0.29T to the state.
    - THEORY §2 lines 31-32, EVALUATION 5.1 #5 and S11 state the direction backwards.
@@ -137,13 +137,13 @@ These are findings of this design pass. WP05 corrects the documents before any c
      | --- | --- | --- | --- | --- |
      | Value added | 5.0% | 31.2% | 54.4% | 9.4% |
      | Gross operating surplus | 7.2% | 28.1% | 55.2% | 9.6% |
-     | Market jobs | 2.2% | 35.8% | 57.1% | 4.9% |
+     | Market jobs (2024 full-time-equivalent, industries.json) | 2.3% | 35.8% | 57.1% | 4.8% |
 
    - Listed value (25 firms as a share of $75.3T): raw 1.4%, make 12.6%, services 4.8%, tech 31.7%, and 49.5% not split by industry.
    - EVALUATION 5.1's acceptance "takes a larger share of profit than of output" becomes "of market value".
 3. **Totals.**
    - PCE is $20.95T and household debt is DFA ≈ $20.0T (2026:Q1, all liabilities; corrected from $20.6T, which no DFA measure matches). The simulation's $21.63T and $14.35T are not totals.
-   - $185.8T is DFA 2026:Q2. The Q1 groups sum to $174.0T.
+   - $185.8T is DFA 2026:Q2 (the headline circuit.json groupNotes records; instant.json's six income groups sum to $185.65T for that quarter). The Q1 groups sum to $174.0T.
    - "The US buys $1.2T more than it sells" is the 2024 current account. The 2025 goods-and-services gap is computed from NIPA 1.1.5 and labelled as such.
 4. **People.** The 13 economies hold 55.1% of the world's people, not 45%.
 5. **Attention data.**
@@ -428,7 +428,7 @@ Positions come from `InstantLayout` rules. The u-ranges are fixed; heights follo
 | **The state (base)** | u −175…267; v −(outlays × 5)…0 (2025 ≈ −54); depth d −10…+10 | Slate fill. Front-face strata, top to bottom: the state's own work (schools, police, courts, defense: public value added $3.45T), benefits, purchases from industries, interest, other. A light line at receipts; the band below it, the borrowing, is **hatched**. Data: NIPA Table 3.1 annual (WP02); until then circuit.json Q4 annual rate. | "THE STATE · all levels of government (NIPA ⟨year⟩) · spends $⟨10.8⟩T · takes in $⟨9.0⟩T · borrows $⟨1.9⟩T" |
 | **Class tower** | 3-unit manifolds at u −125…−122 (in) and −58…−55 (out); floors u −122…−58 (64 wide); six floors stacked from v 2 with 2-unit gaps: bottom 20%, 20-40, 40-60, 60-80, 80-99, top 1% | Floor height = the group's gross income a year (personal income + social-insurance contributions) × 5. Total $28.12T, 140.6 units. Class ramp fill. **Face mosaic** (area-true 100% bar across the floor): pay (blue) · from owning (gold) · from the state (slate) · borrowed (hatched). In the spending step it switches to uses: toward a want (rose) · away from a fear (ice) · taxes (slate) · saving (gold) or borrowing. Data: instant.json (BEA distribution of personal income, CBO top 1%, CE, DFA by income); group splits ≈ (source year carried to ⟨year⟩). | Inside each floor: "TOP 1% · 1.35M households · $⟨x⟩T a year". Before the first split year, one undivided block: "households · not split by income before ⟨year⟩" |
 | **Tier tower** | manifolds u 55…58 (in) and 122…125 (out); floors u 58…122; four floors from v 2, gaps 2 | Floor height = value added × 5 (2025: raw 6.85, make 42.65, services 74.25, tech 12.85 units). Tier ramp fill (same names, order and stone as the crest face). **Face mosaic:** pay (blue) · production taxes (slate) · upkeep (stone, ≈ estimated depreciation shares) · owners (gold). Data: industries.json (BEA 2025; compShare, taxShare, depShare). | "RAW MATERIALS · $1.37T · 2.8M jobs"; "MANUFACTURING & INFRASTRUCTURE · $8.53T · 45.0M"; "SERVICES · $14.85T · 71.8M"; "TECH · $2.57T · 6.1M · platforms (social media, cloud, AI), software, chips, media & telecom" (two lines where needed; leader when the floor is under 2 lines) |
-| **Comparison strip** (structure and industries steps only) | right of the tier tower: link band 8, then JOBS, PROFITS and MARKET VALUE columns, each 10 units wide with 8-unit link bands (u 133…187); each column is 100% of the tower's height, tiers in the same order, linked at alpha .35 | OUTPUT is the tower itself (5.0 / 31.2 / 54.4 / 9.4%). JOBS: market jobs (2.2 / 35.8 / 57.1 / 4.9%). PROFITS: BEA NIPA 6.16D corporate profits by industry mapped to tiers (crosswalk printed, "assumed: mapping"); until WP02 lands, a dashed "no data yet" column, **never the 25 firms**. MARKET VALUE: listed value by tier. Until sector weights are sourced: the 25 stored firms over $75.3T, with tech "at least 31.7%" and a dashed segment "not split by industry: $37.3T (49.5%)". | Column heads "OUTPUT · JOBS · PROFITS · MARKET VALUE"; tech row printed: "⟨9.4⟩% · ⟨4.9⟩% · ⟨…⟩ · at least ⟨31.7⟩%" |
+| **Comparison strip** (structure and industries steps only) | right of the tier tower: link band 8, then JOBS, PROFITS and MARKET VALUE columns, each 10 units wide with 8-unit link bands (u 133…187); each column is 100% of the tower's height, tiers in the same order, linked at alpha .35 | OUTPUT is the tower itself (5.0 / 31.2 / 54.4 / 9.4%). JOBS: market jobs (2.3 / 35.8 / 57.1 / 4.8%). PROFITS: BEA NIPA 6.16D corporate profits by industry mapped to tiers (crosswalk printed, "assumed: mapping"); until WP02 lands, a dashed "no data yet" column, **never the 25 firms**. MARKET VALUE: listed value by tier. Until sector weights are sourced: the 25 stored firms over $75.3T, with tech "at least 31.7%" and a dashed segment "not split by industry: $37.3T (49.5%)". | Column heads "OUTPUT · JOBS · PROFITS · MARKET VALUE"; tech row printed: "⟨9.4⟩% · ⟨4.8⟩% · ⟨…⟩ · at least ⟨31.7⟩%" |
 | **One household dollar** | 100% bar, 40 × 6 units, in the channel at the tier tower's foot (u 12…52, v 24…30); at the fork in the spending step | Shares, not dollars (printed "100¢"): pay 41 · owners 27 · upkeep 15 · imports 10 · taxes on production 7. Data: ValueCapture 2025 ledger (Leontief split of household purchases; ≈ 2024 input-output ratios). | "ONE HOUSEHOLD DOLLAR at the market (⟨year⟩, before income taxes)" |
 | **ABROAD gate** | doorway outline u 251…267, v 0…40 | Commerce sand; clickable door to M2 | "ABROAD · the world (G)" |
 | **Frontier** | rises 20 units from the tech floor's top at u 90; width = $ × 5 | Gold, alpha fading upward. Measured: the 10 tech-tier firms' capital spending ($353.7B) + R&D ($240.5B) = $594B (filings, latest fiscal year). No AI or fear/desire split: most confidences are under 0.5. | "FRONTIER · $594B a year into what comes next (10 largest tech firms) · all US private investment $5.55T (BEA 2025)"; panel footnote: hyperscalers' capital spending, calendar 2025, one reconciled figure (WP02) |
@@ -491,7 +491,7 @@ Aggregate ribbons attach to tower **manifolds**, not to individual floors. Per-f
 | --- | --- | --- |
 | raw / make | $1.15T | $0.60T |
 | make / services | $1.76T | $2.88T |
-| services / tech | $0.90T | $0.80T |
+| services / tech | $0.89T | $0.80T |
 
 **Labels.**
 - On the arrows: "money between industries, 2024: ⟨37⟩% up · ⟨22⟩% down · ⟨41⟩% within".

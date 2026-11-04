@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using Why.Director;
 using Debug = UnityEngine.Debug;
 
@@ -28,7 +31,9 @@ namespace Why
     /// sequences of those names after the tour (a name no scene ran is an error); <c>-smokecheckfail</c> registers a check
     /// that always fails, to prove that a failing check fails the run; <c>-smokefacts</c> logs every fact the models
     /// published at the end of the run (<see cref="ModelFacts"/>, read by Tools/export-facts.py), and
-    /// <c>-smoketestfacts</c> publishes two test facts to try that without a model.
+    /// <c>-smoketestfacts</c> publishes two test facts to try that without a model. The run sees no pointer, so nothing in
+    /// its frames is hovered, unless <c>-smokepointer X,Y</c> parks one at that pixel from the frame's top left
+    /// (<see cref="ParkPointer"/>).
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class SmokeTest : GraphModule
@@ -84,6 +89,7 @@ namespace Why
                 if (x >= 0 && extras.Count == 0) Debug.LogError("[Why] smoke: -smokeextra names no sequence (-smokeextra a,b)");
                 logFacts = args.Contains("-smokefacts");
                 if (args.Contains("-smoketestfacts")) TestFacts();
+                ParkPointer(args);
             }
 
             int i = System.Array.IndexOf(args, "-screenshots");
@@ -114,6 +120,42 @@ namespace Why
             }
 
             Debug.Log($"[Why] smoke: scene '{GraphScene.Current}' starting");
+        }
+
+        /// <summary>
+        /// Takes the desk's pointers out of the run: the OS pointer rests wherever it was left, and what it happened to hover
+        /// (a hover card, the strategy view's focused firm, a label lifted in the tour) changed the frames from one run to the
+        /// next. Removed from the input system, every hover and click path sees no pointer, as on a touch screen before a
+        /// touch. With <c>-smokepointer X,Y</c> a virtual mouse is parked at that pixel from the frame's top left instead, so a
+        /// run's hovers are the same every time. Once for the run: the input system outlives the scene.
+        /// </summary>
+        static void ParkPointer(string[] args)
+        {
+            foreach (InputDevice device in InputSystem.devices.ToArray())
+            {
+                if (device is Pointer) InputSystem.RemoveDevice(device);
+            }
+
+            int p = System.Array.IndexOf(args, "-smokepointer");
+            if (p < 0)
+            {
+                Debug.Log("[Why] smoke: no pointer");
+                return;
+            }
+
+            string[] xy = p + 1 < args.Length ? args[p + 1].Split(',') : new string[0];
+            if (xy.Length != 2 || !float.TryParse(xy[0], NumberStyles.Float, CultureInfo.InvariantCulture, out float x) ||
+                !float.TryParse(xy[1], NumberStyles.Float, CultureInfo.InvariantCulture, out float y))
+            {
+                Debug.LogError("[Why] smoke: -smokepointer takes the pixel from the frame's top left as X,Y (-smokepointer 1267,392)");
+                return;
+            }
+
+            Mouse mouse = InputSystem.AddDevice<Mouse>("Smoke pointer");
+            mouse.MakeCurrent();
+            // the input system counts pixels up from the bottom
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = new Vector2(x, Screen.height - y) });
+            Debug.Log($"[Why] smoke: pointer parked at ({x:0}, {y:0}) from the top left of {Screen.width}x{Screen.height}");
         }
 
         static void OnLog(string message, string stack, LogType type)

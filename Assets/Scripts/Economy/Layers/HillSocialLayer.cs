@@ -23,7 +23,8 @@ namespace Why.Economy.Layers
     /// Instagram (<see cref="PlatformYear"/>) the cloud is hidden, and in its own view a faint ghost named as the 2025
     /// snapshot.</para>
     /// <para>Level of detail by camera distance: far, the glow and the most followed stars; nearer, every star and the
-    /// category rings and names of the most followed; close, the mutual follows and every name.</para>
+    /// category rings and names of the most followed; close, the mutual follows and every name (outside the social view, a
+    /// person's name only where it is large enough to read).</para>
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillSocialLayer : GraphLayer
@@ -49,6 +50,15 @@ namespace Why.Economy.Layers
         const float TitleBack = 24;
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
         const float Pulse = .2f;
+        /// <summary>How much of the white a star's strokes lay down in the cloud, where the stars and ties are blended, not
+        /// added (decision 36: the hills have no tonemapper, and the core's added stars summed to a flat white). Where strokes
+        /// cross, the white builds as the tonemapper used to compress their sum (one .65 of it, two .88, three .96), so the
+        /// denser core still reads brighter, and never passes the white.</summary>
+        const float StarAlpha = .65f;
+        /// <summary>The smallest em (px at 1080 lines) at which a person's name shows outside the social view: the road's
+        /// fan's, by the same measure (HillWaveLayer.RoadMinPx and EmPx). The level of detail goes by the cloud's distance,
+        /// and the office seats far in front of it showed their names 4-5 px tall in the people view.</summary>
+        const float NameMinPx = HillWaveLayer.RoadMinPx;
         static readonly Color Gold = new Color(1, .68f, .20f), Grey = new Color(.70f, .74f, .80f);
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
         readonly List<(TextMeshPro text, int person, float fame)> labels = new List<(TextMeshPro, int, float)>();
@@ -94,6 +104,8 @@ namespace Why.Economy.Layers
             {
                 bool show = l.person == NameLabel || (l.person == SocialLabel ? social : l.person < 0 ? lod >= 1 || social
                     : lod >= 2 || (lod >= 1 || social) && l.fame > .62f || Placed.TryGetValue(l.person, out var p) && p.place > 0 && (lod >= 1 || social));
+                // outside its own view a person's name too small to read is not shown (NameMinPx)
+                if (show && l.person >= 0 && !social) show = HillWaveLayer.EmPx(rig, l.text.transform) >= NameMinPx;
                 l.text.gameObject.SetActive(show); if (show) l.text.transform.rotation = rig.Cam.transform.rotation;
             }
             if (title)
@@ -173,7 +185,7 @@ namespace Why.Economy.Layers
                     Placed[p.Index] = (seat, 2); Name(p, seat, fame, true);
                     continue;
                 }
-                Star(rank < 16 ? bright : stars, inCloud, .22f + .7f * fame);
+                Star(rank < 16 ? bright : stars, inCloud, .22f + .7f * fame, StarAlpha);
                 Placed[p.Index] = (inCloud, 0); top = Mathf.Max(top, inCloud.y);
                 if (p.cloud >= 0) { if (!cats.TryGetValue(p.cloud, out var list)) cats[p.cloud] = list = new List<Vector3>(); list.Add(inCloud); }
                 if (rank < 60 || fame > .6f) Name(p, inCloud, fame, false);
@@ -193,8 +205,8 @@ namespace Why.Economy.Layers
                 Color col = People.CloudColor(kv.Key); col.a = .6f;
                 Circle(rings, c, r, col, 1.4f, 1); Circle(rings, c + Vector3.up * .3f, r * 1.04f, WithAlpha(col, .25f), 1, 1);
                 // its name on a plate, drawn after the stars, in its ring's hue lightened to read on the plate: Stack steps the
-                // names that meet the eight's plates down into the cloud's brightest band, where the stars' light, added after
-                // the font's own queue, washed out a name without one
+                // names that meet the eight's plates down into the cloud's brightest band, where the stars, drawn after the
+                // font's own queue, washed out a name without one
                 var cloudName = Raised(TextLabel(People.CloudLabel(kv.Key), c + Vector3.up * (r * .5f + 1.5f), .3f, Color.Lerp(People.CloudColor(kv.Key), Color.white, .45f), NearLabel, 1));
                 Plate(cloudName); groups.Add(cloudName);
             }
@@ -218,7 +230,8 @@ namespace Why.Economy.Layers
             // then the category clouds' names: two clouds whose centers lie close put theirs on one spot (Kardashian Jenner
             // and MAGA printed over each other under Obama's plate), and one stood under the cloud's name, in its key's letters
             Stack(names, groups);
-            // the rings overlap in the core: blended, not added, so their crossings do not turn white
+            // the rings overlap in the core: blended, not added, as the stars and ties are (below), so their crossings do not
+            // turn white
             Lines(elite, Part.Elite, false, false);
             Loop();
             Glow(glow, center, CloudRadius * 1.15f, .035f);
@@ -238,10 +251,13 @@ namespace Why.Economy.Layers
             title = TextLabel(titleFar, new Vector3(center.x, top + 7.5f, center.z - TitleBack), .42f, new Color(.92f, .97f, 1f), NameLabel, 1);
             // of no height, so it centers on that place, or in portrait stands on it (Tick)
             title.rectTransform.sizeDelta = new Vector2(30, 0);
-            // drawn after the hills (queue 3252), so the stars and threads added after the font's own queue stay off it
+            // drawn after the hills (queue 3252), so the stars and threads drawn after the font's own queue stay off it
             Raised(title);
             Surface(glow, Part.Glow);
-            Lines(stars, Part.Stars); Lines(bright, Part.Bright); Lines(ties, Part.Ties); Lines(rings, Part.Rings, false, false);
+            // the stars and the ties blended, not added (StarAlpha): with no tonemapper over the hills, the core's crossed
+            // strokes and mutual follows summed far past the white, flat and blooming through the plates of the names there.
+            // The lone stars at a company or a seat are still added.
+            Lines(stars, Part.Stars, false, false); Lines(bright, Part.Bright, false, false); Lines(ties, Part.Ties, false, false); Lines(rings, Part.Rings, false, false);
             Lines(anchors, Part.Anchors); Lines(threads, Part.Threads, true);
         }
 
@@ -347,8 +363,9 @@ namespace Why.Economy.Layers
                 float d = Vector2.Distance(pointer, s);
                 if (s.z > 0 && d < best) { best = d; HoverPerson = kv.Key; }
             }
+            // the hovered person's name shows however small or far (Tick turns only the names it shows)
             if (HoverPerson >= 0)
-                foreach (var l in labels) if (l.person == HoverPerson) { l.text.gameObject.SetActive(true); }
+                foreach (var l in labels) if (l.person == HoverPerson) { l.text.gameObject.SetActive(true); l.text.transform.rotation = cam.transform.rotation; }
         }
 
         /// <summary>The force-directed layout crowds its hubs at the center; a radial power spreads the core so stars stay apart.</summary>
@@ -357,9 +374,11 @@ namespace Why.Economy.Layers
             float r = v.magnitude; return r < 1e-5f ? v : v * (Mathf.Pow(r, .55f) / r);
         }
 
-        static void Star(LineMeshBuilder b, Vector3 at, float r)
+        /// <summary>A star: three crossed strokes and a small ring, in the people's white at <paramref name="alpha"/> (the
+        /// cloud's <see cref="StarAlpha"/>, blended; whole for one at a company or a seat, added).</summary>
+        static void Star(LineMeshBuilder b, Vector3 at, float r, float alpha = 1)
         {
-            Color w = SocialPeople.White;
+            Color w = WithAlpha(SocialPeople.White, alpha);
             b.AddSegment(at - Vector3.right * r, at + Vector3.right * r, w, 1.8f, 0, 0);
             b.AddSegment(at - Vector3.up * r, at + Vector3.up * r, w, 1.8f, 0, 0);
             b.AddSegment(at - Vector3.forward * r, at + Vector3.forward * r, w, 1.8f, 0, 0);
@@ -428,16 +447,16 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>A dark plate behind a raised label, sized by <see cref="PlateSize"/>: the stars, names and lines behind it
-        /// step back, so the label reads over them. At .9: the cloud's core stacks the stars' additive light, and a quarter of
-        /// it (a .75 plate) still washed the letters of the names there. It turns and hides with the label, under its text
-        /// (to the right of its place for a left-aligned one).</summary>
+        /// are hidden, so the label reads over them. Opaque: the names Stack lowers into the cloud's core stand on its densest
+        /// stars, and the tenth of them a .9 plate let through (and a quarter, at .75) left those names on mid-grey. It turns
+        /// and hides with the label, under its text (to the right of its place for a left-aligned one).</summary>
         void Plate(TextMeshPro t)
         {
             if (plateQuad == null)
             {
                 var b = new SurfaceMeshBuilder();
                 b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
-                    new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
+                    new[] { (Color32)WithAlpha(GraphStyle.Background, 1) }, 0, 1);
                 plateQuad = b.ToMesh("Popular plate"); owned.Add(plateQuad);
                 plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
             }

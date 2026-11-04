@@ -72,6 +72,12 @@ namespace Why.Director
         /// <summary>Card buttons: at least this wide, and wider when their label needs it (padding on each side).</summary>
         const float CardButtonWidth = 150f, CardButtonPadding = 20f;
 
+        /// <summary>
+        /// The panel's fill, nearly opaque as the replay readout's: world labels the label system cannot keep out from under
+        /// it (the mobility view's bar captions and records in its tour stop) ghosted through the text at the factory's 0.86.
+        /// </summary>
+        const float FillAlpha = 0.94f;
+
         // portrait: the same panel as a sheet (canvas units of the zoomed portrait canvas), a little tighter
         const float PortraitMaxWidth = 760f;
         const float PortraitStepPadding = 20f;
@@ -131,7 +137,9 @@ namespace Why.Director
             shadowImage.raycastTarget = false;
 
             UiFactory.Panel(root, "Border", UiFactory.PanelBorder, false).rectTransform.Fill();
-            Image fill = UiFactory.Panel(root, "Fill", UiFactory.PanelColor);
+            Color fillColor = UiFactory.PanelColor;
+            fillColor.a = FillAlpha;
+            Image fill = UiFactory.Panel(root, "Fill", fillColor);
             fill.rectTransform.Fill(1, 1, 1, 1);
             fill.gameObject.AddComponent<PanelClick>().Clicked = CompleteTyping;
 

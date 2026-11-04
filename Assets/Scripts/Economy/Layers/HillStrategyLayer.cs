@@ -26,7 +26,7 @@ namespace Why.Economy.Layers
     /// lane split into fear and desire by that year's judgment (made on its numbers alone), the years running as one
     /// ribbon into the crest, and its owners' payout as a gold stalk, so a firm's direction and defensiveness can be
     /// followed through the cycle; the focused firm's years carry chevrons for which way its money moved it, and its first
-    /// year and every turn of direction are named.</para>
+    /// year and every turn of direction are named where the name finds a clear place (the panel's table has every year).</para>
     /// Widths are the square root of dollars. One firm is drawn in full at a time (the selected or hovered one, else the
     /// largest investor); the others' streams are faint. Fiscal years differ by firm (each label says which). Splits of a
     /// firm's costs come from its industry's accounts; the judgments are model evidence, not measurements.
@@ -58,6 +58,14 @@ namespace Why.Economy.Layers
         readonly List<(TextMeshPro text, int firm)> labels = new List<(TextMeshPro, int)>();
         /// <summary>The focused trail's names (its first year and every turn of direction), reused as the focus moves.</summary>
         readonly List<TextMeshPro> trailLabels = new List<TextMeshPro>();
+        /// <summary>Every firm's arrow strokes (land-local ends, width in pixels; a ring as twelve chords): the focused firm's
+        /// names keep clear of them (<see cref="NameTrail"/>).</summary>
+        readonly List<(Vector3 a, Vector3 b, float px)> strokes = new List<(Vector3, Vector3, float)>();
+        /// <summary>What the focused firm's names keep clear of as the strategy view sees it, in tangents of that view: the
+        /// shown labels' and placed names' boxes (middle, half size) and the arrows' strokes (ends, half width); and the part
+        /// of each within reach of the name being placed (<see cref="NameTrail"/>).</summary>
+        readonly List<Vector4> keepBoxes = new List<Vector4>(), nearBoxes = new List<Vector4>();
+        readonly List<(Vector2 a, Vector2 b, float half)> keepStrokes = new List<(Vector2, Vector2, float)>(), nearStrokes = new List<(Vector2, Vector2, float)>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         string json;
         LandSnapshot snapshot; HillLandscape land; CorporatePrograms programs; GameObject content;
@@ -87,7 +95,12 @@ namespace Why.Economy.Layers
             content.SetActive(on); if (!on) return;
             int f = Focus(out bool chosen);
             if (f != focused || chosen != focusChosen) { focused = f; focusChosen = chosen; Focused = f; DrawFocus(); }
-            foreach (var e in labels) { e.text.gameObject.SetActive(true); e.text.transform.rotation = rig.Cam.transform.rotation; }
+            // the focused firm's small tower label repeats the bold name over it: hidden while that shows
+            foreach (var e in labels)
+            {
+                bool show = e.firm < 0 || e.firm != focused;
+                e.text.gameObject.SetActive(show); if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
+            }
             if (focusLabel) { focusLabel.gameObject.SetActive(focused >= 0); focusLabel.transform.rotation = rig.Cam.transform.rotation; }
             foreach (var l in trailLabels)
             {
@@ -234,7 +247,7 @@ namespace Why.Economy.Layers
 
         /// <summary>Which way the money moves the firm: an arrow for each direction Jev gave at least a fifth of its weight,
         /// as long as its probability (spreading across: a ring around the firm). Judgments, not dollars: drawn below the
-        /// bloom, so they never outshine the money.</summary>
+        /// bloom, so they never outshine the money. Each stroke is kept for the focused firm's names (<see cref="strokes"/>).</summary>
         void Arrows(LineMeshBuilder b, int t, CorporatePrograms.Firm p)
         {
             if (!p.Judged) return;
@@ -244,12 +257,21 @@ namespace Why.Economy.Layers
                 float w = p.Direction[d]; if (w < .2f) continue;
                 float length = 5 + 16 * w; Color c = WithAlpha(White, .5f + .5f * w); float width = 2.4f + 5 * w;
                 Vector3 dir = Way(d, at, snapshot.Year);
-                if (dir == Vector3.zero) { Ring(b, at, 1.2f + 3 * w, c, width, 1); continue; }
+                if (dir == Vector3.zero)
+                {
+                    float r = 1.2f + 3 * w; Ring(b, at, r, c, width, 1);
+                    for (int s = 0; s < 12; s++)
+                    {
+                        float a0 = s * Mathf.PI / 6, a1 = (s + 1) * Mathf.PI / 6;
+                        strokes.Add((at + new Vector3(Mathf.Cos(a0) * r, 0, Mathf.Sin(a0) * r), at + new Vector3(Mathf.Cos(a1) * r, 0, Mathf.Sin(a1) * r), width));
+                    }
+                    continue;
+                }
                 dir = dir.normalized; Vector3 tip = at + dir * length;
-                b.AddSegment(at, tip, c, width, 0, 0);
                 Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
-                b.AddSegment(tip, tip - dir * 2f + side * 1.2f, c, width, 0, 0);
-                b.AddSegment(tip, tip - dir * 2f - side * 1.2f, c, width, 0, 0);
+                Vector3 barb0 = tip - dir * 2f + side * 1.2f, barb1 = tip - dir * 2f - side * 1.2f;
+                b.AddSegment(at, tip, c, width, 0, 0); b.AddSegment(tip, barb0, c, width, 0, 0); b.AddSegment(tip, barb1, c, width, 0, 0);
+                strokes.Add((at, tip, width)); strokes.Add((tip, barb0, width)); strokes.Add((tip, barb1, width));
             }
         }
 
@@ -266,7 +288,8 @@ namespace Why.Economy.Layers
                 Streams(b, fill, focused, p, .95f, true);
                 Trail(b, fill, focused, p, .95f, true);
                 cap = 1;
-                // the firm's name over its tower first: its trail's names keep clear of it (NameTrail)
+                // the firm's name over its tower first: NameTrail moves it clear of the arrows and labels where it can without
+                // leaving its tower, then its trail's names clear of it
                 focusLabel.text = "<b>" + p.Name + "</b>"; focusLabel.transform.localPosition = HillActivityLayer.CompanyHalo(focused) + Vector3.up * 7;
                 named = NameTrail(p);
                 var bySupplier = new double[land.Hills.Length];
@@ -350,11 +373,16 @@ namespace Why.Economy.Layers
 
         /// <summary>Names the focused trail's first year and every year whose main direction turned from the year before
         /// (its way, defensive and AI shares), above its stalk; returns how many names it used. The strategy view, the only one
-        /// that shows them, sees a name as wide as several years of the trail, and a firm can turn in years running at stalks
-        /// of one height: from the newest back, each name is raised a name's height at a time until it clears every newer name
-        /// it would print over across that view's frame, and the firm's own name over its tower (<see cref="DrawFocus"/> sets it
-        /// first), near which its newest years stand. That view runs a trail right to left into the present, and the largest
-        /// investor's newest years stand at the HUD's title panel: the older names, to their right, are the ones raised.</summary>
+        /// that shows them, sees a name as wide as several years of the trail, with other firms' arrows and labels standing
+        /// among its years. So, as that view's camera sees them, the firm's own name over its tower (<see cref="DrawFocus"/>
+        /// sets it; its small tower label is hidden while it shows) and then the names from the newest back each take the
+        /// nearest place where they print over no arrow (<see cref="strokes"/>), no shown label and no name placed before:
+        /// raised an eighth of its height at a time, up to four heights, and moved across the view a quarter height at a time,
+        /// up to a third of its width, so a year's name still stands over its own stalk and the firm's name over its tower. The
+        /// cost of a place is its raise plus its move; a year's name moving toward the present counts its move three times, so
+        /// the older names, placed after the newer, step back along the trail (that view runs a trail right to left into the
+        /// present). A year's name with no clear place is left out (the panel's table, <see cref="HistoryRows"/>, has every
+        /// year); the firm's name with none stays where it was set, over its tower.</summary>
         int NameTrail(CorporatePrograms.Firm p)
         {
             int used = 0, life = LifeOf(focused);
@@ -371,31 +399,98 @@ namespace Why.Economy.Layers
             }
             var frame = EconomyStage.Land(); var pose = ViewPresets.Get("strategy").Pose();
             Quaternion look = Quaternion.Inverse(frame.Rotation) * Quaternion.Euler(pose.Pitch, pose.Yaw, 0);
-            Vector3 across = look * Vector3.right, up = look * Vector3.up;
-            // a label's middle across and up that view's frame, its half width and its height (land units, with a little air).
-            // The view looks down and back along the wake: a name some years back from the tower stands higher in the frame than
-            // its height alone says, and a raise shows shortened by the pitch (up.y)
-            (float x, float y, float half, float tall) Extent(TextMeshPro label)
+            Vector3 across = look * Vector3.right, up = look * Vector3.up, ahead = look * Vector3.forward, eye = frame.Local(pose.Target) - ahead * pose.Distance;
+            // across the view toward the past; and a pixel as a tangent of the view, since the arrows' widths are pixels
+            Vector3 past = Vector3.Dot(across, Vector3.back) >= 0 ? across : -across;
+            float px = 2 * Mathf.Tan(CameraRig.FieldOfView * .5f * Mathf.Deg2Rad) / Mathf.Max(1, Screen.height);
+            // a land point as the view sees it: across and up over its depth (tangents), and its depth. The view looks down and
+            // back along the wake, so a name some years back from the tower stands smaller and nearer the frame's middle
+            Vector3 View(Vector3 at) { Vector3 v = at - eye; float depth = Vector3.Dot(v, ahead); return new Vector3(Vector3.Dot(v, across) / depth, Vector3.Dot(v, up) / depth, depth); }
+            Vector2 Size(TextMeshPro label) => label.GetPreferredValues(label.text) * label.transform.localScale.x;
+            // a label's box seen at v: its middle and half size, with 3 px of air beside it and 1 px above and below
+            Vector4 Box(Vector3 v, Vector2 size) => new Vector4(v.x, v.y, size.x * .5f / v.z + 3 * px, size.y * .5f / v.z + px);
+            keepBoxes.Clear(); keepStrokes.Clear();
+            foreach (var e in labels)
+                if (e.firm != focused) { Vector3 v = View(e.text.transform.localPosition); if (v.z > 1) keepBoxes.Add(Box(v, Size(e.text))); }
+            // a stroke's half width with its pixel of anti-aliasing and 2 px of air
+            foreach (var s in strokes)
             {
-                Vector3 at = label.transform.localPosition; Vector2 size = label.GetPreferredValues(label.text) * label.transform.localScale.x;
-                return (Vector3.Dot(at, across), Vector3.Dot(at, up), size.x * .5f + .3f, size.y + .1f);
+                Vector3 a = View(s.a), b = View(s.b);
+                if (a.z > 1 && b.z > 1) keepStrokes.Add((new Vector2(a.x, a.y), new Vector2(b.x, b.y), (s.px * .5f + 3) * px));
             }
-            var placed = new List<(float x, float y, float half, float tall)> { Extent(focusLabel) };
+            // whether a label of that size seen at v prints over nothing within the search's reach
+            bool Free(Vector3 v, Vector2 size)
+            {
+                if (v.z < 1) return false;
+                float hx = size.x * .5f / v.z + 3 * px, hy = size.y * .5f / v.z + px;
+                foreach (var q in nearBoxes) if (Mathf.Abs(v.x - q.x) < hx + q.z && Mathf.Abs(v.y - q.y) < hy + q.w) return false;
+                foreach (var s in nearStrokes) if (Crosses(s.a, s.b, v.x - hx - s.half, v.x + hx + s.half, v.y - hy - s.half, v.y + hy + s.half)) return false;
+                return true;
+            }
+            // moves a label to its cheapest clear place (a move toward the present counting present times); false, and it
+            // stays, when none is
+            bool Place(TextMeshPro label, float present)
+            {
+                Vector3 start = label.transform.localPosition; Vector2 size = Size(label);
+                float rise = size.y / 8, side = size.y / 4, best = float.MaxValue; Vector3 bestAt = start;
+                // across no further than a third of its width (in quarter heights, at most six heights), so its stalk or tower
+                // stays well inside it: a name carried further marks another stretch of the trail, or the firm's name another
+                // tower (the view's perspective already sets a raised name a little off the point below it)
+                int reach = Mathf.Min(24, Mathf.FloorToInt(size.x / 3 / side));
+                // only what the search can reach: what lies within the bounds of its four farthest places
+                float x0 = float.MaxValue, x1 = float.MinValue, y0 = float.MaxValue, y1 = float.MinValue, hx = 0, hy = 0;
+                for (int c = 0; c < 4; c++)
+                {
+                    Vector3 v = View(start + Vector3.up * (c / 2 * 32 * rise) + past * ((c % 2 * 2 - 1) * reach * side));
+                    x0 = Mathf.Min(x0, v.x); x1 = Mathf.Max(x1, v.x); y0 = Mathf.Min(y0, v.y); y1 = Mathf.Max(y1, v.y);
+                    hx = Mathf.Max(hx, size.x * .5f / v.z + 3 * px); hy = Mathf.Max(hy, size.y * .5f / v.z + px);
+                }
+                x0 -= hx; x1 += hx; y0 -= hy; y1 += hy;
+                nearBoxes.Clear(); nearStrokes.Clear();
+                foreach (var q in keepBoxes) if (q.x + q.z > x0 && q.x - q.z < x1 && q.y + q.w > y0 && q.y - q.w < y1) nearBoxes.Add(q);
+                foreach (var s in keepStrokes) if (Crosses(s.a, s.b, x0 - s.half, x1 + s.half, y0 - s.half, y1 + s.half)) nearStrokes.Add(s);
+                // the moves across in the order 0, 1, -1, 2, -2, ... (toward the past first); each takes its lowest clear raise
+                for (int k = 0; k <= 2 * reach; k++)
+                {
+                    int j = k % 2 == 1 ? (k + 1) / 2 : -k / 2;
+                    float shift = side * (j >= 0 ? j : -j * present);
+                    for (int i = 0; i <= 32 && i * rise + shift < best; i++)
+                    {
+                        Vector3 at = start + Vector3.up * (i * rise) + past * (j * side);
+                        if (Free(View(at), size)) { best = i * rise + shift; bestAt = at; break; }
+                    }
+                }
+                if (best == float.MaxValue) return false;
+                label.transform.localPosition = bestAt; return true;
+            }
+            // the firm's name first, moved either way alike; then the names from the newest back
+            Place(focusLabel, 1);
+            keepBoxes.Add(Box(View(focusLabel.transform.localPosition), Size(focusLabel)));
             for (int k = used - 1; k >= 0; k--)
             {
-                var label = trailLabels[k]; var (x, y0, half, tall) = Extent(label); float y = y0;
-                // a name raised to just over another can land a rounding error short of it: the test leaves that slack, or the
-                // same name would be raised to the same height forever
-                for (bool moved = true; moved;)
-                {
-                    moved = false;
-                    foreach (var q in placed)
-                        if (Mathf.Abs(x - q.x) < half + q.half && Mathf.Abs(y - q.y) < (tall + q.tall) * .5f * .999f) { y = q.y + (tall + q.tall) * .5f; moved = true; }
-                }
-                placed.Add((x, y, half, tall));
-                label.transform.localPosition += Vector3.up * ((y - y0) / up.y);
+                var label = trailLabels[k];
+                if (Place(label, 3)) keepBoxes.Add(Box(View(label.transform.localPosition), Size(label)));
+                else label.text = "";
             }
             return used;
+        }
+
+        /// <summary>Whether a segment passes through a box (its bounds across and up): what is left of the segment, clipped
+        /// to each side of the box in turn (Liang-Barsky), is not empty.</summary>
+        static bool Crosses(Vector2 a, Vector2 b, float x0, float x1, float y0, float y1)
+        {
+            float t0 = 0, t1 = 1; Vector2 d = b - a;
+            return Clip(-d.x, a.x - x0, ref t0, ref t1) && Clip(d.x, x1 - a.x, ref t0, ref t1) && Clip(-d.y, a.y - y0, ref t0, ref t1) && Clip(d.y, y1 - a.y, ref t0, ref t1);
+        }
+
+        /// <summary>Narrows a segment's span [t0, t1] to where p t &lt;= q holds; false when nothing of it is left.</summary>
+        static bool Clip(float p, float q, ref float t0, ref float t1)
+        {
+            if (p == 0) return q >= 0;
+            float t = q / p;
+            if (p < 0) { if (t > t1) return false; if (t > t0) t0 = t; }
+            else { if (t < t0) return false; if (t < t1) t1 = t; }
+            return true;
         }
 
         /// <summary>A firm's place on its lifeline at a (fractional) year (<see cref="HillWaveLayer.CompanyAtYear"/>); without
@@ -601,7 +696,7 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); trailLabels.Clear(); content = null; focusRenderer = null; focusLabel = null; focusFill = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); trailLabels.Clear(); strokes.Clear(); content = null; focusRenderer = null; focusLabel = null; focusFill = null;
         }
 
         void OnDestroy() { Clear(); Focused = -1; FocusText = ReadoutText = HistoryText = ""; Ranked.Clear(); }

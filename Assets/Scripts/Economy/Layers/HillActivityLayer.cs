@@ -110,6 +110,10 @@ namespace Why.Economy.Layers
             // rate): seen edge-on behind its panel, the crest's trunks, halos and owner rings added up to the series' own
             // brightness and read as more of them, so the chart's view draws none of them (the firms' glow, below).
             bool chart=LandView.PresetId=="money";
+            // The regimes view draws its own summits (HillRegimeLayer: steel where the state owns them, gold where it does
+            // not), so it draws none of the firms' halos, beams, organizations and owner rings, nor the ring of the summit most
+            // is spent at (DrawFocus): under the Soviet state, whose every summit is its own, their gold read as private ones.
+            bool ownSummits=LandView.PresetId==HillRegimeLayer.View;
             content.SetActive(!hidden);riversRoot.SetActive(!hidden&&!chart);if(hidden)return;
             int focusPlayer=selection>=0?selection:HillLandscapeLayer.HoverPlayer;
             int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillExplorer.Industry>=0?HillExplorer.Industry:HillLandscapeLayer.HoverIndustry;
@@ -140,14 +144,19 @@ namespace Why.Economy.Layers
                 // the industries' owners instead of the firms' (the firms' inner circles of owners stay)
                 float glow=chosen?5:related?3.6f:v=="capture"?0:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?1:.9f;
                 // in a focused view other than the companies' own the firms' halos step back to landmarks, in a person's further;
-                // the money chart's view draws none (above)
-                if(chart)glow=0;else if(focusedView&&v!="strategy")glow*=.25f;else if(person)glow*=.15f;
-                firms[f].sharedMaterial.SetColor("_Color",Color.white*glow);
-                // Corporate infrastructure by distance: beams and halos always; revenue, margin and value readouts
-                // nearer or for the focused sector; the organization inside the firm only close up.
+                // the money chart's and the regimes' views draw none (above)
+                if(chart||ownSummits)glow=0;else if(focusedView&&v!="strategy")glow*=.25f;else if(person)glow*=.15f;
+                // blended, not added (decision 36): up to 1 the glow is the halo's opacity and its brightness, so one shows
+                // as it did added (the glow squared) and the halos the tech hills stack on screen keep their gold; past 1 the
+                // halo is opaque and its brightness alone carries the glow, as bright as added, into bloom
+                firms[f].sharedMaterial.SetColor("_Color",glow<=1?Color.white*glow:new Color(glow*glow,glow*glow,glow*glow,1));
+                // Corporate infrastructure by distance: beams and halos always; revenue, margin and value readouts nearer or
+                // for the focused sector; the organization inside the firm only close up, or the chosen firm's. The money
+                // chart's and the regimes' views draw none of it, the chosen firm's organization neither: without its beam and
+                // halo it floated over its seat, its gold board's lines meeting at nothing.
                 bool near=Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(firmAt[f]))<60;
-                GraphMaterials.SetAlpha(controls[f].sharedMaterial,chosen||!quietBeams&&(related&&lod>=1||lod>=1&&near)?.95f:quietBeams?.05f:v=="capture"?.55f:.22f);
-                GraphMaterials.SetAlpha(orgs[f].sharedMaterial,HillExplorer.EvidenceOnly?0:chosen||f==employer||!quietFirm&&lod>=2&&near?.9f:!quietFirm&&related&&lod>=1?.3f:0);
+                GraphMaterials.SetAlpha(controls[f].sharedMaterial,chart||ownSummits?0:chosen||!quietBeams&&(related&&lod>=1||lod>=1&&near)?.95f:quietBeams?.05f:v=="capture"?.55f:.22f);
+                GraphMaterials.SetAlpha(orgs[f].sharedMaterial,HillExplorer.EvidenceOnly||chart||ownSummits?0:chosen||f==employer||!quietFirm&&lod>=2&&near?.9f:!quietFirm&&related&&lod>=1?.3f:0);
                 // the readouts are world-sized: from the capture view's 150 units their lines were 4-5 px, so there too they
                 // show only for the chosen firm, the focused sector's or from mid distance
                 labels[f].gameObject.SetActive(!quietFirm&&(chosen||(related&&lod>=1)||lod>=1&&near));
@@ -160,10 +169,11 @@ namespace Why.Economy.Layers
             GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
             GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
             // The owners' inner circles: every firm sits inside a ring of its elite owners; threads rise to the clouds (not in
-            // who keeps the money, where the owners' surplus already climbs from the halos to its holders).
+            // who keeps the money, where the owners' surplus already climbs from the halos to its holders). Neither in the
+            // money chart's and the regimes' views (above).
             bool own=v=="capture"||v=="companies"||v=="strategy";bool quiet=PersonFocus.IsView(v)||EconomyViews.Focused(v)&&!own;
-            GraphMaterials.SetAlpha(circles.sharedMaterial,chart?0:own?1:quiet?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
-            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,v=="capture"||chart?0:own?.6f:v=="people"?.3f:quiet?.02f:.08f);
+            GraphMaterials.SetAlpha(circles.sharedMaterial,chart||ownSummits?0:own?1:quiet?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
+            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,v=="capture"||chart||ownSummits?0:own?.6f:v=="people"?.3f:quiet?.02f:.08f);
             // The rivers view names its trunks (not while a cohort's own rivers dim them) and the year's split of household
             // spending (both written by Trunks).
             bool riversView=v=="rivers";
@@ -330,10 +340,11 @@ namespace Why.Economy.Layers
                 float beam=Beam(tower),revenue=.45f+Mathf.Sqrt((float)Math.Max(0,tower.Revenue))*.07f;
                 haloScale[f]=.45f+Mathf.Sqrt((float)Math.Max(0,tower.NetIncome))*.09f;
                 // Far: the halo of profit at the top of a beam as tall as the market's price of future profits. Drawn in its
-                // hue (intensity 1); the material's glow lifts the chosen and the hovered sector's firms into bloom (Tick).
+                // hue (intensity 1), blended; the material's glow lifts the chosen and the hovered sector's firms into bloom
+                // (Tick).
                 var node=new LineMeshBuilder();
                 Ring(node,Vector3.zero,1,Gold,2.6f);Ring(node,Vector3.up*.05f,1.18f,Gold,1.2f);Ring(node,Vector3.zero,.72f,new Color(1,.95f,.85f),1.1f);
-                var renderer=Render(node,tower.Name,true);renderer.transform.localPosition=at+Vector3.up*beam;firms.Add(renderer);
+                var renderer=Render(node,tower.Name,true,false);renderer.transform.localPosition=at+Vector3.up*beam;firms.Add(renderer);
                 labels.Add(Label(tower.Name,at+Vector3.up*(beam+2.8f)));
                 string ticker=string.IsNullOrWhiteSpace(tower.Ticker)?tower.Name.Substring(0,Math.Min(3,tower.Name.Length)).ToUpperInvariant():tower.Ticker;
                 var badge=Label("["+ticker+"]",at+Vector3.up*(beam+1.3f));badge.text="<b>["+ticker+"]</b>";badge.transform.localScale=Vector3.one*.55f;badges.Add(badge);
@@ -365,7 +376,9 @@ namespace Why.Economy.Layers
                     Tunnel(branches,firmAt[f],land.Hills[b.Index].Foot,Fear,.6f);
             }
             structure=Render(branches,"Inferred supply allocations");
-            circles=Render(ring,"Owners' inner circles",true);
+            // blended, not added, as the halos (decision 36): the tech hills' circles stack on screen, and their gold summed
+            // to a flat yellow-white
+            circles=Render(ring,"Owners' inner circles",true,false);
             circleThreads=Render(rise,"Inner circles to the clouds",true);
             rivalry=Render(competition,"Same-sector rivalry (scenario)",true);
         }
@@ -511,16 +524,20 @@ namespace Why.Economy.Layers
                 }
             }
         }
+        /// <summary>The focused summit's ring: the selected or hovered group's industry, else the explored or hovered one, lit
+        /// into bloom; with none, the summit most is spent at, in its hue. The regimes view draws its own summits, where gold is
+        /// the private owners' (HillRegimeLayer): it rings only a focused summit, in white (a gold ring on one the Soviet
+        /// state owns read as private).</summary>
         void DrawFocus(int industry)
         {
             var b=new LineMeshBuilder();
-            bool selectedIndustry=industry>=0;
-            if(industry<0&&Competition!=null){industry=0;for(int h=1;h<Competition.IndustrySpending.Length;h++)if(Competition.IndustrySpending[h]>Competition.IndustrySpending[industry])industry=h;}
+            bool selectedIndustry=industry>=0,ownSummits=LandView.PresetId==HillRegimeLayer.View;
+            if(industry<0&&Competition!=null&&!ownSummits){industry=0;for(int h=1;h<Competition.IndustrySpending.Length;h++)if(Competition.IndustrySpending[h]>Competition.IndustrySpending[industry])industry=h;}
             if(industry>=0)
             {
                 var h=land.Hills[industry];var points=new Vector3[65];
                 for(int j=0;j<points.Length;j++){points[j]=h.Surface(j*Mathf.PI/32,.30f);points[j].y=h.Summit.y-h.Height*.15f;}
-                b.AddPolyline(points,Gold,selectedIndustry?2.8f:2,0,0,selectedIndustry?3.5f:1);
+                b.AddPolyline(points,ownSummits?Color.white:Gold,selectedIndustry?2.8f:2,0,0,selectedIndustry?3.5f:1);
             }
             Redraw(focus,b.ToMesh(focus.name));
         }
@@ -530,10 +547,12 @@ namespace Why.Economy.Layers
             for(int k=0;k<points.Length;k++){float t=k/24f;Vector3 p=Vector3.Lerp(a,end,t);p.y=Mathf.Min(p.y-7*Mathf.Sin(t*Mathf.PI),land.Ground(p.x,p.z)-5);points[k]=new LinePoint(p,color,width);}
             b.AddFlowPath(points,0,1);
         }
-        MeshRenderer Render(LineMeshBuilder b,string name,bool glow=false)
+        /// <summary>A line mesh in the content at the firms' queue. A glowing one carries the flow's pulse and is added, or
+        /// blended when not <paramref name="added"/>: marks that stack past their hue on screen (decision 36).</summary>
+        MeshRenderer Render(LineMeshBuilder b,string name,bool glow=false,bool added=true)
         {
             Mesh m=b.ToMesh(name);owned.Add(m);
-            Material mat=GraphMaterials.Raw(GraphMaterials.Line(Color.white,1,3210,glow,0,glow?Pulse:0));
+            Material mat=GraphMaterials.Raw(GraphMaterials.Line(Color.white,1,3210,glow&&added,0,glow?Pulse:0));
             mat.SetFloat("_FlowFreq",2);mat.SetFloat("_FlowSpeed",.3f);materials.Add(mat);
             var r=AddMesh(name,m,mat);r.transform.SetParent(content.transform,false);return r;
         }

@@ -75,9 +75,11 @@ namespace Why.Economy.Layers
         /// below, TextMeshPro setting 2.4 local units per em at its font size 24.</summary>
         static readonly Vector2 PlateMargin = new Vector2(.35f, .12f) * 2.4f;
 
-        /// <summary>How much of what is behind a tag its plate hides: the crowns and the star cloud bloom, and a quarter of them
-        /// (the label system's .75) still shows bright through the letters.</summary>
-        const float PlateAlpha = .9f;
+        /// <summary>How much of what is behind a tag its plate hides: all of it. The crowns and the star cloud bloom, and a
+        /// quarter of them (the label system's .75) still showed bright through the letters; at .9 a tenth of an upper tag's
+        /// pin still ran through the tags stacked under it (1983's gold through 1982 and 1981 in the end overview). The tags'
+        /// text is drawn after every plate (3252), so plates that overlap never cover a tag's words.</summary>
+        const float PlateAlpha = 1f;
 
         public override void Prepare(GraphContext ctx) { }
 

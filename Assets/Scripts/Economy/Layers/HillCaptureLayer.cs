@@ -63,7 +63,9 @@ namespace Why.Economy.Layers
             }
             if (content == null) return;
             string view = LandView.PresetId;
-            bool hidden = view == "mind" || view == "section";
+            // the money chart's view draws none of it (as none of the firms' halos and owner rings, HillActivityLayer): seen
+            // edge-on behind the chart's board, the halos' rings stacked into faint towers where its later years plot
+            bool hidden = view == "mind" || view == "section" || view == "money";
             content.SetActive(!hidden);
             if (hidden) { foreach (var entry in labels) entry.text.gameObject.SetActive(false); return; }
             lod = rig.Pose.Distance < 35 ? 2 : rig.Pose.Distance < 100 ? 1 : 0;
@@ -101,8 +103,9 @@ namespace Why.Economy.Layers
                 case "atom": case "dilemma": case "ladder": return part == Part.Halo || part == Part.Glow ? .25f : .02f;
                 case "roots": return part == Part.Roots ? 1 : part == Part.Halo || part == Part.Glow ? .35f : .06f;
                 case "foundation": return part == Part.Taxes ? 1 : part == Part.Halo || part == Part.Glow ? .3f : part == Part.Selected ? 1 : .08f;
-                // focused views: the halos stay as landmarks (brighter where the story is the money's destination)
-                case "mobility": case "money": return part == Part.Halo || part == Part.Glow ? .1f : .02f;
+                // focused views: the halos stay as landmarks (brighter where the story is the money's destination); the money
+                // chart's view hides them all (Tick)
+                case "mobility": return part == Part.Halo || part == Part.Glow ? .1f : .02f;
                 // the regimes view draws its own summits (steel where the state owns them)
                 case "regimes": return .02f;
                 case "strategy": return part == Part.Halo || part == Part.Glow ? .45f : .03f;
@@ -243,8 +246,10 @@ namespace Why.Economy.Layers
                 }
                 Annulus(bed, h, R * .45f, R, 0, .20f); Annulus(bed, h, R, R * 1.55f, .20f, 0);
             }
-            Lines(rings, Part.Halo, false, true);
-            Surface(bed, Part.Glow, true);
+            // the rings and their glow blended, not added (decision 36: the hills have no tonemapper): where the tech hills'
+            // halos stack on screen, their gold summed to a flat yellow-white. Over the dark, one halo shows as it did added.
+            Lines(rings, Part.Halo, false, false);
+            Surface(bed, Part.Glow, false);
             ranked.Sort((a, b) => ledger.Owners[b].CompareTo(ledger.Owners[a]));
             for (int n = 0; n < ranked.Count; n++)
             {

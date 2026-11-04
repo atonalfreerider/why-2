@@ -61,8 +61,9 @@ namespace Why.Director
         const float CaptionSize = 14f;
 
         /// <summary>The plate behind the arrow's caption (its alpha at full caption alpha): the scene's lines, the Now post and
-        /// the anchor's own label otherwise show through the text where the ring sits on bright content.</summary>
-        static readonly Color CaptionPlateColor = new Color(0.02f, 0.027f, 0.047f, 0.85f);
+        /// the anchor's own label otherwise show through the text where the ring sits on bright content. Near opaque: at 0.85
+        /// the ring of one of the stop's other highlights still showed between "million" and "years" (the Cambrian's).</summary>
+        static readonly Color CaptionPlateColor = new Color(0.02f, 0.027f, 0.047f, 0.95f);
 
         /// <summary>The caption plate's margin around the text (canvas units, across and up).</summary>
         static readonly Vector2 CaptionPlateMargin = new Vector2(7f, 3f);

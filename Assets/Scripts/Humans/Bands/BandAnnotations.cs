@@ -205,7 +205,11 @@ namespace Why.Humans.Bands
 
             // the seam hangs under the layer's inner edge, where no lifelines rise: over the stream mass even a plate lost
             // the note to the lines' bloom. In the closer views the mass's halo still reaches it, and the bloom is added over
-            // its plate, so the tour does not dim it (dimmed, it read at 1.7:1 under the mass)
+            // its plate, so the tour does not dim it (dimmed, it read at 1.7:1 under the mass), and it hangs 40 px down, out
+            // of the brightest halo, at 12 px (14 px down at 11 px, it read at 2.3:1 in the modern era). Not lower: where 1924
+            // is close to now on screen (the civilizations view and its stops) it gives way to WEST beside it, as it does
+            // today; from about 50 px down it would clear WEST and, ranked above the axis's years, take the places of those
+            // just under it (1800 to 2000)
             float seamU = DeepTime.Arc(world.NowYear - HistomapLastYear);
             Add(new LabelSpec
             {
@@ -214,10 +218,10 @@ namespace Why.Humans.Bands
                 Plate = PlateColor,
                 Data = new Vector3(seamU, GraphStyle.HumansY, HumanWorld.HumanRho0),
                 Priority = SeamPriority,
-                SizePx = 11f,
+                SizePx = 12f,
                 Color = GraphStyle.Text,
                 Align = TextAlignmentOptions.Center,
-                PixelOffset = new Vector2(0, -14),
+                PixelOffset = new Vector2(0, -40),
                 Undimmed = true
             }, true);
         }

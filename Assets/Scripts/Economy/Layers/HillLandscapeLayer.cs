@@ -270,7 +270,8 @@ namespace Why.Economy.Layers
             // read as the 1% (Tick shows it and keeps it legible from any distance).
             capital = Label("<b>CAPITAL</b> · the top 1%\n<size=70%>their claims on every hill</size>", cloud + Vector3.up * 8, LandGroup.Crown, .6f, Gold, false);
             // drawn after the hills (queue 3252), so the gold lines converging on the pool do not draw over its name, on a dark
-            // plate, so the attention cloud's stars behind it (the overview's pose) do not show between its letters
+            // plate, so the attention cloud's stars behind it (the overview's pose) do not show between its letters (.9, the
+            // rule for plates over bloomed marks: at .75 a quarter of the stars still crossed "the top 1%")
             if (capital.fontSharedMaterial != null) { capitalText = new Material(capital.fontSharedMaterial) { renderQueue = 3252 }; capital.fontSharedMaterial = capitalText; }
             CapitalPlate();
             Lines(flows,LandGroup.CapitalFlows,true); Lines(pools,LandGroup.Pools);
@@ -283,7 +284,7 @@ namespace Why.Economy.Layers
             Vector2 half = (capital.GetPreferredValues(capital.text) + new Vector2(.7f, .24f) * 2.4f) * .5f;
             var b = new SurfaceMeshBuilder();
             b.AddBand(new[] { new Vector3(-half.x, -half.y, 0), new Vector3(half.x, -half.y, 0) }, new[] { new Vector3(-half.x, half.y, 0), new Vector3(half.x, half.y, 0) },
-                new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
+                new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
             Mesh mesh = b.ToMesh("Capital plate"); meshes.Add(mesh);
             capitalPlate = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); capitalPlate.SetFloat("_EdgeSoft", 0);
             AddMesh("Capital plate", mesh, capitalPlate).transform.SetParent(capital.transform, false);

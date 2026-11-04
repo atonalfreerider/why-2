@@ -97,6 +97,10 @@ namespace Why.Economy.Layers
         Material raisedText, plateMaterial; Mesh plateQuad;
         /// <summary>The trade gauge's name, which steps aside with its lanes while the tour's card covers the far border.</summary>
         TextMeshPro tradeLabel;
+        /// <summary>The names written on the bedrock's face, which lie in it instead of turning to the camera, and whether they
+        /// are read from its front (the future's side, where the view stands) or from behind, the camera gone round.</summary>
+        readonly List<TextMeshPro> inFace = new List<TextMeshPro>();
+        bool faceFront = true;
         int built = -2;
         bool checkedOnce, wasOn;
         float enteredAt;
@@ -143,6 +147,9 @@ namespace Why.Economy.Layers
             foreach (var (rend, part) in renderers) if (part == Part.Trade && rend) rend.enabled = !tour;
             if (tradeLabel) tradeLabel.gameObject.SetActive(!tour);
             foreach (var t in labels) t.transform.rotation = rig.Cam.transform.rotation;
+            // the names written on the bedrock's face lie in it (Bedrock), read from the side of it the camera stands on
+            bool front = content.transform.InverseTransformPoint(rig.Cam.transform.position).z >= land.CrestZ;
+            if (front != faceFront) { faceFront = front; foreach (var t in inFace) t.transform.localRotation = Facing(front); }
         }
 
         // ------------------------------------------------------------------ build
@@ -190,11 +197,20 @@ namespace Why.Economy.Layers
             // the names written on the face (their extent across it, their height and half their height), which the dashed
             // comparison lines leave a gap for (Dashes)
             var written = new List<(float x0, float x1, float y, float half)>();
+            // A name written on the face lies in it (Facing), in the plane of its revenue line, instead of turning to the
+            // camera: the face is seen in perspective, its lines sloping some 4 px in 100, and a name that faced the camera
+            // stayed level and ran out of a thin stratum at its ends, over the next one or across the revenue line (which
+            // struck OTHER REVENUE through). Lying in the face, it slopes with its stratum in every pose and stays inside it
+            // (a stratum's capitals, .69 em, are at most .6 of its depth).
             void FaceName(string text, float at, float size, Color color)
             {
-                Vector2 half = Label(text, new Vector3(BedrockLabelX, at, cz + .6f), size, color).GetPreferredValues(text) * size * .5f;
+                var t = Label(text, new Vector3(BedrockLabelX, at, cz + .3f), size, color);
+                labels.Remove(t); inFace.Add(t); t.transform.localRotation = Facing(faceFront);
+                Vector2 half = t.GetPreferredValues(text) * size * .5f;
                 written.Add((BedrockLabelX - half.x - 1, BedrockLabelX + half.x + 1, at, half.y));
             }
+            // a stratum's name, in the ink that reads further from the stratum (Ink: dark on every one of them)
+            void StratumName(string text, float at, float size, Color tint, float alpha) => FaceName(text, at, size, Ink(tint, OnScreen(tint, alpha)));
             float y = top;
             if (r.Mix != null)
             {
@@ -205,15 +221,15 @@ namespace Why.Economy.Layers
                     edges.AddPolyline(new[] { new Vector3(x0, y - d, cz), new Vector3(x1, y - d, cz) }, WithAlpha(White, .35f), 1, 0, 0);
                     // a stratum names itself when it can hold a line of text (about 3% of GDP); the panel lists them all
                     if (d >= 2.2f)
-                        FaceName("<b>" + PartName(k).ToUpperInvariant() + "</b>  " + LandFacts.Percent(r.Mix[k] * rev, 1) + " of GDP · " +
-                                 LandFacts.Percent(r.Mix[k]) + " of revenue", y - d * .5f, Mathf.Clamp(d * .32f, .8f, 1.2f), Color.Lerp(PartColor[k], White, .82f));
+                        StratumName("<b>" + PartName(k).ToUpperInvariant() + "</b>  " + LandFacts.Percent(r.Mix[k] * rev, 1) + " of GDP · " +
+                                    LandFacts.Percent(r.Mix[k]) + " of revenue", y - d * .5f, Mathf.Clamp(d * .32f, .8f, 1.2f), PartColor[k], .62f);
                     y -= d;
                 }
             }
             else
             {
                 Slab(faces, x0, x1, top, top - rev * DepthPerShare, cz, zb, PartColor[(int)Regimes.Part.Other], .5f);
-                FaceName("revenue " + LandFacts.Percent(rev, 1) + " of GDP (its sources not found)", top - rev * DepthPerShare * .5f, 1f, Grey);
+                StratumName("revenue " + LandFacts.Percent(rev, 1) + " of GDP (its sources not found)", top - rev * DepthPerShare * .5f, 1f, PartColor[(int)Regimes.Part.Other], .5f);
                 y = top - rev * DepthPerShare;
             }
             // the revenue line, and what lies beneath it: borrowed (spending above revenue) or a surplus
@@ -226,9 +242,8 @@ namespace Why.Economy.Layers
             }
             else if (rev > g + .001f && yg - yr >= 2.2f)
                 FaceName("<b>SURPLUS</b>  revenue " + LandFacts.Percent(rev - g, 1) + " of GDP above spending (the steel line marks spending)", (yr + yg) * .5f, .9f, Grey);
-            // A dashed line across the face, broken where it would strike through a name written there. The names face the
-            // camera while the face's lines slope across them, about 8 px either side of a name's middle (some 1.8 units in
-            // the view), so a line passing that close to a name's height runs into its letters at one end.
+            // A dashed line across the face, broken where it would strike through a name written there or run close along it:
+            // within 1.8 units of a name's line (some 8 px in the view) it would read as the name's underline or overline.
             void Dashes(float at, Color color)
             {
                 for (float x = x0; x < x1; x += 6)
@@ -352,12 +367,14 @@ namespace Why.Economy.Layers
             if (share * rev * gdp < 1) return null;
             // above the oil hill's summit, high enough to clear its ring; the falls it names start under it (Taxes). The hill
             // stands near the face's valley end, so the long name is centered 5 units toward the hills (+x runs left on
-            // screen): about 22 px between its end and the panel, which it otherwise met with no margin
+            // screen): about 22 px between its end and the panel, which it otherwise met with no margin. It lies over the
+            // hills' wireframe and a steel beam, so it stands on a plate like the firms' names around it; the leaders of the
+            // names stacked above it still cross it, over the plate
             var hill = land.Hills[oil.Index];
             Vector3 at = new Vector3(hill.Center.x + 5, land.Ground(hill.Center.x, land.CrestZ - 2) + 8, land.CrestZ + 1);
             string text = "<b>OIL AND RESOURCES</b> " + LandFacts.Percent(share) + " of revenue" + (share >= .4 ? ": the state lives on the ground more than on its people" : "");
             const float Size = 1.05f;
-            float half = Label(text, at, Size, Color.Lerp(Oil, White, .4f)).GetPreferredValues(text).x * Size * .5f;
+            float half = Plate(Label(text, at, Size, Color.Lerp(Oil, White, .4f))).GetPreferredValues(text).x * Size * .5f;
             return (at.x - half, at.x + half, at.y);
         }
 
@@ -365,8 +382,8 @@ namespace Why.Economy.Layers
         int unrankedShown;
 
         /// <summary>A firm's name for a summit, measured (world width) so <see cref="Stack"/> can keep names apart. It stands on
-        /// a plate: the names sit on gold, the firms' halo and owner rings (HillActivityLayer) seen edge-on in clusters, where
-        /// gold letters, and the grey of a state's, had no contrast left. The summits' rings stay over the plate, and Stack
+        /// a plate: the names sit on gold, the wave's ridges running back from the clusters (HillWaveLayer), where gold
+        /// letters, and the grey of a state's, keep little contrast. The summits' rings stay over the plate, and Stack
         /// starts the name clear of those under its letters.</summary>
         (TextMeshPro text, Vector3 ring, float top, float width) Name(string text, Vector3 ring, float radius, Color color)
         {
@@ -537,10 +554,11 @@ namespace Why.Economy.Layers
                 for (int i = 0; i < pts.Length; i++) pts[i] = new LinePoint(Vector3.Lerp(from, to, i / 15f), WithAlpha(White, .2f + .7f * v), .3f + 3.2f * v);
                 b.AddFlowPath(pts, 0, .5f, k * .3f);
             }
+            // the name stands across the threads it names and the falls of taxes beside them: on a plate they pass behind it
             string prev = double.IsNaN(r.Democracy.Previous) ? "" : " (" + r.Democracy.Previous.ToString("0.00", LandFacts.Ci) + " in " + r.Democracy.PreviousYear + ")";
-            Label("<b>VOTES</b> · electoral democracy " + r.Democracy.Value.ToString("0.00", LandFacts.Ci) + " of 1 in " + r.Democracy.Year + prev +
+            Plate(Label("<b>VOTES</b> · electoral democracy " + r.Democracy.Value.ToString("0.00", LandFacts.Ci) + " of 1 in " + r.Democracy.Year + prev +
                   "\n<size=80%>white threads from the people into the state, as strong as their choice reaches it (V-Dem)</size>",
-                  new Vector3(LabelX - 40, HillLandscape.Bedrock + 6, land.CrestZ + 3), 1f, White);
+                  new Vector3(LabelX - 40, HillLandscape.Bedrock + 6, land.CrestZ + 3), 1f, White));
             Lines(b, Part.Votes, true);
         }
 
@@ -813,6 +831,25 @@ namespace Why.Economy.Layers
                 b.AddBand(new[] { new Vector3(x, yTop, zFront), new Vector3(x, yTop, zBack) }, new[] { new Vector3(x, yBottom, zFront), new Vector3(x, yBottom, zBack) }, new[] { (Color32)side }, 0, 1);
         }
 
+        /// <summary>A slab of the bedrock as it reaches the screen where it is solid, under its name (the strata soften toward
+        /// their edges): its tint at the slab's alpha over the background, opaque and linear.</summary>
+        static Color OnScreen(Color tint, float alpha) { Color c = Color.Lerp(GraphStyle.Background, tint, alpha); c.a = 1; return c; }
+
+        /// <summary>The ink of a stratum's name (<paramref name="face"/>: the stratum as it reaches the screen): its tint
+        /// darkened or lightened, whichever stands further from the face by WCAG's contrast ratio. Every stratum is light
+        /// (luminance .3 to .43 on screen, where the near-white ink the names had stayed under 2.5:1), so every name is dark,
+        /// 5.9:1 to 7.2:1.</summary>
+        static Color Ink(Color tint, Color face)
+        {
+            Color dark = Color.Lerp(tint, Color.black, .8f), light = Color.Lerp(tint, White, .82f);
+            // text decodes its colour from sRGB (EconomyStyle.Roles.Encoded); the face, a vertex colour, is linear already
+            float f = Luminance(face) + .05f;
+            return f / (Luminance(dark.linear) + .05f) >= (Luminance(light.linear) + .05f) / f ? dark : light;
+        }
+
+        /// <summary>The relative luminance of a linear colour.</summary>
+        static float Luminance(Color c) => .2126f * c.r + .7152f * c.g + .0722f * c.b;
+
         static void Strand(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float bow)
         {
             var pts = new LinePoint[21];
@@ -872,18 +909,19 @@ namespace Why.Economy.Layers
             var go = new GameObject("Regime label"); go.transform.SetParent(content.transform, false); go.transform.localPosition = at;
             var t = go.AddComponent<TextMeshPro>(); t.text = text; t.fontSize = 24; t.alignment = TextAlignmentOptions.Center; t.color = color;
             t.textWrappingMode = TextWrappingModes.NoWrap; t.rectTransform.sizeDelta = new Vector2(90, 8);
-            // the names are read over the summits' rings and beams, the firms' halos (HillActivityLayer) and the bedrock's
-            // translucent face, which the font's own queue would draw over them: they take a copy of its material drawn last
+            // the names are read over the summits' rings and beams and the bedrock's translucent face, which the font's own
+            // queue would draw over them: they take a copy of its material drawn last
             if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
             if (raisedText != null) t.fontSharedMaterial = raisedText;
             go.transform.localScale = Vector3.one * size; labels.Add(t); return t;
         }
 
         /// <summary>A dark plate behind a label: its text with the label system's margin, .35 em sideways and .12 em above and
-        /// below (TextMeshPro sets 2.4 local units per em at its font size 24), drawn after the regime's other marks and the
-        /// firms' halos (queue 3250) and before the summits' rings and the names' leaders (3251), which stay whole over it,
-        /// and the raised text (3252). At .9 rather than the .75 of the plates elsewhere: the names are gold on gold, and a
-        /// quarter of the clusters' stacked light would still leave them little contrast. It is the label's child, so it
+        /// below (TextMeshPro sets 2.4 local units per em at its font size 24), drawn after the regime's other marks (queue
+        /// 3250) and before the summits' rings and the names' leaders (3251), which stay whole over it, and the raised text
+        /// (3252). At .9 rather than the .75 of the plates elsewhere: names stand on lines about as light as their letters
+        /// (VOTES on its white threads, the oil's name on a steel beam) or of their hue (the firms' gold on the wave's gold
+        /// ridges), and a quarter of such a line would leave the first two about 3 to 4:1. It is the label's child, so it
         /// turns with it.</summary>
         TextMeshPro Plate(TextMeshPro t)
         {
@@ -900,13 +938,18 @@ namespace Why.Economy.Layers
             return t;
         }
 
+        /// <summary>The turn that lays a name in the bedrock's face (the x-y plane), read from its front (+z, the future's side,
+        /// where the view stands) or from behind. TextMeshPro is read from its -z side, so from the front a name turns half
+        /// round: its +x then runs along the land's -x, left to right on the screen from there.</summary>
+        static Quaternion Facing(bool front) => front ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
+
         static Color WithAlpha(Color c, float a) { c.a = a; return c; }
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; raisedText = plateMaterial = null; plateQuad = null; tradeLabel = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); inFace.Clear(); content = null; raisedText = plateMaterial = null; plateQuad = null; tradeLabel = null;
         }
 
         void OnDestroy() { Clear(); Shown = -1; ReadoutText = DrawingText = ""; }

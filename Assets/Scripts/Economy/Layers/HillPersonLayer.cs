@@ -265,7 +265,10 @@ namespace Why.Economy.Layers
             if (now.Inherited > 1000) Income(b, place + Vector3.up * 14 + Vector3.back * 4, place, Gold, .5f, "INHERITANCE\n" + PersonLife.Money(now.Inherited));
             Lines(b, Part.Pulls, true, "Atom pulls");
             net.y = 0; sway = net.sqrMagnitude > 1e-6f ? net.normalized * Mathf.Min(1.4f, net.magnitude * 3) : Vector3.zero;
-            Label("pulled by desire · pushed by fear · fed by its sources", place + Vector3.down * .8f + Vector3.back * 1.5f, .09f, Steel, Part.Pulls);
+            // raised on a dark plate, as the walker's caption: from the atom view's steep pose the line falls inside the swaying
+            // figure's foot rings, which drew over "pushed by fear". A unit under the feet: at .8, the plate's top reached the
+            // gold ring's lowest pixel from tour 14's flatter pose, where the words stood a pixel under it
+            Plate(Raised(Label("pulled by desire · pushed by fear · fed by its sources", place + Vector3.down + Vector3.back * 1.5f, .09f, Steel, Part.Pulls)));
         }
 
         /// <summary>An industry's market (government's counter stands on the valley floor), else the valley floor.</summary>

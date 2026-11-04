@@ -13,7 +13,8 @@ namespace Why.UI
     /// buttons, label tooltips and click-to-focus, the controls sheet and F3 stats. All neutral grey and
     /// white; the legend swatches are the only hue. While the tour runs, the title, preset bar and the
     /// tour / help buttons step aside for the director (its panel has its own controls, and a help sheet
-    /// would sit over the narration while autoplay moves on beneath it).
+    /// would sit over the narration while autoplay moves on beneath it), and labels show no tooltips and
+    /// take no clicks.
     ///
     /// On a portrait screen (500x889 canvas units at 9:16, so the text reads on a phone) the same blocks re-flow
     /// in place: the title wraps beside the buttons at the top, the preset bar becomes full-width rows along the
@@ -37,9 +38,11 @@ namespace Why.UI
 
         /// <summary>
         /// The title block's panel: its fill (the view's title and subtitle sit over the bloomed scene, where bare text read
-        /// at a median background of 70-82 / 255) and inner padding; the brand, title and subtitle rows from its top.
+        /// at a median background of 70-82 / 255; at 0.8 the hills' gold halo rings, brighter without a tonemapper, still
+        /// rose to about 120 behind the brand line's dim letters) and inner padding; the brand, title and subtitle rows from
+        /// its top.
         /// </summary>
-        const float TitleFill = 0.8f, TitlePad = 10f, TitleRowY = 19f, SubtitleRowY = 45f;
+        const float TitleFill = 0.9f, TitlePad = 10f, TitleRowY = 19f, SubtitleRowY = 45f;
 
         /// <summary>A left click that moves further than this (1080p pixels) is a drag, not a click.</summary>
         const float ClickSlopPx = 6f;
@@ -120,6 +123,9 @@ namespace Why.UI
         {
             RectTransform block = titleBlock = HudKit.FramedPanel(parent, "Title", TitleFill);
             block.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(HudKit.Margin, -HudKit.Margin), new Vector2(TitleWidth, TitleHeight));
+            // the graph's labels keep out from under the title while it shows (it fades out for the tour; the Sun's icon ran
+            // under its edge in the mammals view), measured as it grows and shrinks with the view's title
+            LabelSystem.KeepClear(block);
 
             string brandText = GraphScene.IsEconomy ? "WHY  \u00B7  ECONOMY" : "WHY";
             TextMeshProUGUI brand = HudKit.Line(block, "Brand", brandText, HudKit.SizeSmall, GraphStyle.TextDim, FontStyles.Bold);
@@ -453,7 +459,11 @@ namespace Why.UI
         /// <summary>The legend only makes room for the preset bar while the bar is shown (not during the tour).</summary>
         float LegendBottom => presetFade.Shown ? legendBottomWithBar : legendBottomAlone;
 
-        /// <summary>Preset buttons explain their view; labels with an anchor explain what they mark.</summary>
+        /// <summary>
+        /// Preset buttons explain their view; labels with an anchor explain what they mark, except while the tour runs: as
+        /// with clicks, the director owns the screen then, and a label drifting under a resting pointer put its tooltip over
+        /// the tour's card (the overlay sits above it).
+        /// </summary>
         void UpdateTooltip(Vector2 canvasSize, float dt)
         {
             if (!PointerInput.Available) return;
@@ -476,7 +486,7 @@ namespace Why.UI
                         ? "From the Big Bang to this moment: matter, life and people. The economy is the newest link of that chain."
                         : "The newest link of the chain: one country's economy, the United States, where every dollar is someone's choice.");
             }
-            else if (!help.Open && TryHoveredAnchor(out LabelSpec label, out Anchor anchor))
+            else if (!help.Open && !root.TourActive && TryHoveredAnchor(out LabelSpec label, out Anchor anchor))
             {
                 tooltip.ShowAnchor(label, anchor, label.Text);
             }

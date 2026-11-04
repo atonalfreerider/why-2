@@ -346,7 +346,12 @@ namespace Why.Humans.Smv
                     Priority = 12,
                     SizePx = 12,
                     Color = GraphStyle.TextDim,
+                    // in the economy each name starts on the road's bright beam (the wave's overview): on the US label's plate
+                    // there; and a name whose place is taken or under a panel steps 12 px right before it is dropped (the
+                    // replay card's edge covered Generation Alpha's "G" in the end overview, and the name went unshown)
+                    Plate = GraphScene.IsEconomy ? new Color(0.02f, 0.027f, 0.047f, 0.92f) : default,
                     PixelOffset = new Vector2(4, 8),
+                    Fallbacks = GraphScene.IsEconomy ? new[] { new Vector2(16, 8) } : null,
                     AnchorKey = anchor.Key,
                     Ids = ids
                 });

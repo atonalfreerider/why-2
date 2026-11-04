@@ -331,7 +331,9 @@ namespace Why.Economy.Layers
             {
                 for (float y = yBottom; y < yTop; y += .5f)
                     b.AddSegment(new Vector3(at.x - .05f, y, at.z - PerTimes), new Vector3(at.x - .05f, Mathf.Min(yTop, y + .25f), at.z - PerTimes), WithAlpha(White, .6f), 1.2f, 0, 0, 1);
-                Label("1× as often", new Vector3(at.x, yBottom - .45f, at.z - PerTimes), .16f, Color.Lerp(Steel, White, .4f), Part.Ladder, -1);
+                // it names the line the bars are read against: at .2 about 7 px tall (at .16 a smudge of 5), still about 4 px
+                // under the last dash and 7 above the caveat
+                Label("1× as often", new Vector3(at.x, yBottom - .45f, at.z - PerTimes), .2f, Color.Lerp(Steel, White, .4f), Part.Ladder, -1);
             }
             for (int k = 0; k < list.Count; k++)
             {

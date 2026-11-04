@@ -648,7 +648,9 @@ namespace Why
             // figure) dims it with the rest, or it would read as part of the selection
             bool dimmed = Highlighter.HasHighlight && !(s.Undimmed && Touring);
             float boost = IsHighlighted(s) ? 1f : dimmed ? 0.45f : 0.85f;
-            if (Hovered == s) boost = 1f;
+            // the pointer lifts its label only outside the tour: the HUD gives it no tooltip or click then, and a label
+            // under a resting pointer lifted to full brightness read as the director's pick
+            if (Hovered == s && !Touring) boost = 1f;
             Color c = s.Color;
             c.a *= slot.Alpha * fade * boost;
             if (slot.Tmp.color != c) slot.Tmp.color = c;

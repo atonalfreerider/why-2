@@ -104,7 +104,9 @@ namespace Why.Economy.Layers
             if (year == catalogYear && shown == catalogShown) return;
             bool moved = year != catalogYear;
             ViewPreset section = CatalogPreset("section");
-            if (shown != catalogShown) EconomyPresets.Refresh(ViewPresets.All);
+            // the hills build their section (the families) from the year with the rest of the catalog: the bowl's cut pose
+            // and title would replace it until the land caught up
+            if (shown != catalogShown || EconomyLayouts.UseHills) EconomyPresets.Refresh(ViewPresets.All);
             else EconomyPresets.RefreshSection(section);
             catalogYear = year;
             catalogShown = shown;
@@ -165,6 +167,7 @@ namespace Why.Economy.Layers
 
         public override void OnFocus(ViewPreset preset)
         {
+            int yearBefore = EconomyState.Year;
             if (root != null && root.TourActive && !inTour)
             {
                 inTour = true;
@@ -190,15 +193,34 @@ namespace Why.Economy.Layers
                 ShowYear(back);
             }
 
+            if (EconomyState.Year != yearBefore) Refly(preset);
             LandView.Apply(spec, heldRound);
 
-            // the section focused from a view of another year (1972): the root flies to the cut of that year, the year
-            // has just gone back, so the flight goes on to the restored year's cut at the focus's pace
+            // the catalog catches up with the cut and the land on screen (a year this focus changed was followed above)
             FollowCatalog(FocusSeconds);
 
             if (spec.Betrayal) LandService.Betrayal(true);
             if (labels != null) labels.DataLabelsHidden = spec.HideRoadLabels;
             ApplySelection();
+        }
+
+        /// <summary>
+        /// The focus changed the year (a view of its own year, back from one, or the tour's year): the root has just started
+        /// the flight to a pose built for the year that was on screen, and every view that stands on the crest moves with
+        /// the year. The catalog is refreshed for the new year now (its poses read the year, not the land) and the camera
+        /// flies on to the view's new pose: the land catches up frames later, and a view left in the old year's pose
+        /// (strategy entered from 1972's view) stands a few units in front of today's crest.
+        /// </summary>
+        void Refly(ViewPreset preset)
+        {
+            if (preset == null) return;
+            Vector3? target = preset.FixedTarget;
+            float yaw = preset.FixedYaw, pitch = preset.Pitch, distance = preset.Distance;
+            EconomyPresets.Refresh(ViewPresets.All);
+            Freshen(preset);
+            catalogYear = EconomyState.CutYear;
+            bool moved = preset.FixedTarget != target || preset.FixedYaw != yaw || preset.Pitch != pitch || preset.Distance != distance;
+            if (moved && preset.FixedTarget.HasValue && root != null && root.Rig != null) root.Rig.FlyTo(preset.Pose(), FocusSeconds);
         }
 
         /// <summary>A year set by a preset: the state follows and the land builds blocking (deterministic presets).</summary>

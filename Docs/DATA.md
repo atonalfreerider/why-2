@@ -70,10 +70,16 @@ modeled, not measured; the graph is an education tool about cause and effect, no
   (1699 units = 100% of world power). The digitization is partial (not every stream of the chart).
 * `Data/civilizations.json` -
   `{ "epochYear": 2024, "totalWidth": 1699, "civs": [{ "id", "key", "name", "region", "startYear",
-     "endYear", "parents", "blurb", "source" }], "extension": { "<yearsAgo>": { "<key>": { "Item1", "Item2" } } } }`.
+     "endYear", "parents", "blurb", "source", "names" }], "extension": { "<yearsAgo>": { "<key>": { "Item1", "Item2" } } } }`.
   Metadata for every stream, causal `parents`, and an extension that (a) adds streams missing from the
   digitization (United States, Britain, Russia, Japan, Ottomans, Mongols) and (b) continues all streams
   from 1924 to 2024 using approximate shares of world GDP (Maddison Project) as the power proxy.
+  The optional `names` (`[{ "from", "name" }]`, `from` a calendar year) give a stream its name by period, so
+  the people of a year and the present edge read the state of the time ("East Francia" from 874, "Holy Roman
+  Empire" from 962, "German states" from 1806, "Germany" from 1871); before the first entry, and without `names`, the
+  stream is `name`. A stream can carry people of another state: the Holy Roman Empire / Germany stream also carries the
+  Habsburg lands, so the people panel names those figures' own states by period (`FigureTracker.OwnStates`: Freud in
+  Austria-Hungary in 1914, Mendel in the Austrian Empire).
 * `Data/demography.json` - world population (HYDE 3.2 / Our World in Data / UN WPP), crude birth rates,
   era life tables (survival by age, female advantage), sex ratio at birth, major wars with approximate
   male excess mortality ("the gender difference, especially with war"), and US generations.
@@ -115,8 +121,30 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 
 `{ "title", "steps": [{ "id", "title", "text", "focus", "anchor", "highlight", "hold" }] }` - `focus` is a
 view preset id, `anchor`/`highlight` are anchor keys (`matter:`, `epoch:`, `clade:`, `lifeevent:`,
-`leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`, `farm:`, `domestication:`, `extraction:`,
+`leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`, `smv:wave` (economy: the road of lives at the year shown,
+where the wave fans out; registered by SmvLayer), `farm:`, `domestication:`, `extraction:`,
 `extractionevent:`, `resource:`, `time:<yearsAgo>`, `now`).
+
+A step may also carry (both tours read them; empty or missing fields are left out):
+
+* `key` - `[{ "color", "label" }]`: the card's own key, a few swatches of what the view draws. `color` is a
+  named hue (`gold`, `rose`, `ice`, `blue`, `steel`, `white`, `grey`, `wake`, `red`, `green`, `humans`) or
+  `#RRGGBB`. The economy's names are the palette's (`EconomyStyle`: capital, desire, fear, wages, government; `white`
+  is the attention cloud's), the tones the HUD legend draws its swatches in, so a card's key and the legend beside it
+  agree; two marks the palette does not name keep their own: `grey`, the stone grey of rules (the bedrock's regulation
+  strands), and `wake`, the steel blue of the wave's yearly ribs. `red`, `green` and `humans` are the universe's matter,
+  life and humans.
+* `reading` - one sentence under the swatches: how to read the view (what height, width or position mean).
+* `measured`, `judged`, `assumed` - the card's footnote, in the three kinds of evidence the narration keeps
+  apart: what is measured, what Jev (an AI model) judged, and what the drawing assumes.
+* `caption` - the attention arrow's caption, in place of the anchor's own name.
+* `side` - the screen side the card prefers where the view's subject sits under its usual place: `left` or
+  `right`, either with `top` or `bottom` (`bottom` alone is the left bottom).
+* `wait` - `true` for a stop that asks the viewer to do something: autoplay waits for Next there.
+* `cues` - `[{ "at", "show" }]`: from `at` seconds into the stop, the view shows its state named `show` (the
+  names a view registers with `ViewVariants`, e.g. `se` for Sweden in the regimes view); leaving the stop
+  returns the view to its default.
+* `effect` - a scripted effect played instead of a camera flight (`genesis`: the Big Bang's flash).
 
 * `Data/tour_narration.json` - `{ "model", "generated", "steps": [{ "id", "narration" }] }`: the spoken
   script, one entry per tour step (60-110 words each), written by `Tools/generate-narration.ps1` with
@@ -377,7 +405,8 @@ The economy's guided tour, the same schema as `Data/tour.json` (`title`, `steps[
 mind, the society, one betrayal, 1972 and "any year". `focus` is an economy preset id (the year steps use the keyless
 presets `roots`, `betrayal` and `y1972`); anchors are the land's keys (`land:cut`, `land:tier:<tier>`,
 `land:root:<from>><to>`, `land:tower:<ticker>`, `land:group:<group>`, `land:river:<category>`, `land:coalition:<k>`,
-`land:owners`, `land:crown`) and `smv:us`. Every number in a step's text is one the scene computes and prints in its log
+`land:owners`, `land:crown`), `smv:us` and `smv:wave` (the road of lives at the year shown, where the wave fans out;
+registered by SmvLayer). Every number in a step's text is one the scene computes and prints in its log
 at the same precision (`116 players`, `0.686`, `$21.63T`), and the check script fails the tour when one is missing.
 
 ### `Data/economy/corporate-programs.json`
@@ -426,9 +455,10 @@ entries). Money and trade: `fedFunds`, `mortgage30`, `treasury10` (annual averag
 ### `Data/economy/regimes.json`
 
 Written by `Tools/regimes/build.py`: other governments as model changes, for the `regimes` view. Five regimes - the United
-States (`baseline`), Sweden, China, Saudi Arabia and the Soviet Union around 1980 - each with `id`, `name`, `form`, `era`,
-`year` and these measures, every one an object `{value, year, source, url, note, quote}` (`value` absent when nothing
-defensible was found):
+States (`baseline`), Sweden, China, Saudi Arabia and the Soviet Union around 1980 - each with `id`, `name`, `form`,
+`chooses` (who chooses the government, in plain words: the drawing's words from `sources.json`, not a measure, read beside
+V-Dem's index in the panel's third opening line), `era`, `year` and these measures, every one an object
+`{value, year, source, url, note, quote}` (`value` absent when nothing defensible was found):
 
 * `spending`, `revenue` - general government total expenditure and revenue, shares of GDP: IMF Fiscal Monitor (October
   2026) through the DataMapper API (`G_X_G01_GDP_PT`, `GGR_G01_GDP_PT`), 2024; the Soviet state budget from the research in
@@ -440,11 +470,22 @@ defensible was found):
   says how.
 * `stateFirms` - the public sector's share of listed companies' market value (OECD Corporate Governance Factbook 2025; the
   Soviet Union's: all of it by law, `basis` "by law"); `fortune` - the state-controlled share of the country's Fortune
-  Global 500 2026 firms (`count`). `ownership` - `default` (0: a summit no firm decides is private; 1: the state's by law)
-  and `firms[]` (`name`, `industry`: one of the scene's production industries, `stateShare`, `controlled`, `holder`,
-  `revenue`, `url`, `quote`, `note`, `leads`): with `leads` true, the industry's summit - its largest firm on the Fortune
-  Global 500 2026 (controlled when Fortune's profile says "Government owned 50% or more"), or for Sweden and Saudi Arabia
-  the largest by revenue of the national firms compared; without, one of the state's other holdings.
+  Global 500 2026 firms (`count`). `ownership` - `default` (1: every summit is the state's by law, the Soviet Union's; 0:
+  nothing decides a summit no firm is ranked for, so the view draws it as a dotted "not ranked" ring, never as private,
+  and the 0 only splits the profit taxes that fall from the summits) and `defaultNote`, read only where the default is 1:
+  the law that makes it so ("state property by law (1977 Constitution, art. 11)"). The "privately owned" that the four
+  default-0 regimes still carry from `sources.json` is an older reading of the 0; the code does not read it
+  (`Regimes.cs` loads the note only with a default of 1). Then `firms[]` (`name`, `industry`: one of the scene's
+  production industries, `stateShare`, `controlled`, `holder`, `revenue`, `url`, `quote`, `note`, `leads`): with `leads`
+  true, the industry's summit - its largest firm on the Fortune Global 500 2026 (controlled when Fortune's profile says
+  "Government owned 50% or more"), or for Sweden and Saudi Arabia the largest by revenue of the national firms compared;
+  without, one of the state's other holdings. And `unranked[]` (`industry`, `firm`, `controlled`,
+  `stateShare`, `note`): industries whose largest firm could not be ranked (`sources.json`), each with the largest firm
+  the research names there among `firms` and why; the summit stays not ranked, its dotted ring steel when that firm is the
+  state's (China's health and agriculture: Sinopharm, COFCO). The build logs each as a gap.
+* `economy` - the country's own GDP, with a `unit` in place of a share, so the view can set the US hills on its state
+  beside the country itself: IMF World Economic Outlook (October 2026, `NGDPD`, "billion US dollars") for the modern
+  regimes; the Soviet Union's 1980 GDP in "billion rubles" (`note`: the GDP its spending and revenue shares are of).
 * `trade` - exports plus imports over GDP: World Bank WDI `NE.TRD.GNFS.ZS`.
 * `top1Wealth`, `top1Income` - the top 1%'s shares of net personal wealth and of pre-tax national income (equal-split
   adults): WID bulk download (2026-10-15), each at its latest year WID grades as observed (income grade 3+, wealth 1+).

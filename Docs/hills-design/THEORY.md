@@ -33,7 +33,7 @@ from a higher tier than rises from a lower one (37% against 22% in the 2024 tabl
 of the top on the base, not a one-way flow. And the hill's height is conceptual: what is measured at the top is the
 price of claims on the future - the seven largest firms are about a third (32%) of the US market value in the data.
 
-**Other foundations (new, `regimes`).** The bedrock has a measured shape, and the same hills can stand on other ones.
+**What if: another government (new, `regimes`).** The bedrock has a measured shape, and the same hills can stand on other ones.
 General government spends 37.6% of GDP in the United States (IMF, 2024; the federal block of the other views is its federal
 part), 49.2% in Sweden, 33.0% in China and 29.2% in Saudi Arabia; the Soviet state budget spent 47.6% of GDP in 1980. What a
 state lives on differs more than how much: income taxes and contributions carry the US (personal income taxes are 35% of
@@ -44,7 +44,10 @@ oil (60% of its 2024 revenue); the Soviet budget lived on the turnover tax (31%)
 Sweden and Saudi Arabia, the largest of the firms compared in national sources): every US summit is private; in China the
 state controls the largest firm of 10 of the 14 industries the list covers - banking, finance, insurance, telecom, oil,
 coal, the power grid, construction, real estate and the post - while private firms lead hardware (Huawei), the internet
-(Tencent), manufacturing (Hengli) and retail (JD.com); Saudi Arabia's state controls oil, chemicals, telecom and power and
+(Tencent), manufacturing (Hengli) and retail (JD.com). China's health and agriculture summits are not ranked: Fortune
+files their largest firms under wholesalers, and the research's comparison with their largest private firms was lost in
+the data loss; the only firms named there, Sinopharm and COFCO, are state-controlled, so the view draws those two
+summits as steel dotted "not ranked" rings. Saudi Arabia's state controls oil, chemicals, telecom and power and
 holds 37% of the largest bank; Sweden's controls power (Vattenfall) and holds 41% of Telia, while private firms lead its
 other summits; in the Soviet Union every summit was the state's by law. The public sector holds 3% of the value of listed
 firms in the US, 5% in Sweden, 33% in China and 79% in Saudi Arabia (OECD 2025). The top 1%'s share of pre-tax income runs
@@ -55,14 +58,21 @@ countries' industries.
 
 ## 3. The flows: cause and effect in money
 
-**Households.** Spending splits into desire and fear by what is bought (Jev's judgments of 119 purchase items, shrunk
-toward each category's stored fear share): 54% of household money moves away from a fear. At each market a dollar splits
+**Households.** Spending splits into desire and fear in two different ways, which should not be confused. The population
+model gives each kind of spending a fixed fear share and fantasy share (the author's category weights in `spending.json`),
+applied to each simulated household's spending: that is the year readout's "≈ 54% of spending driven by fear, 19% on
+fantasy" in 2025 (52.9% and 18.9% at the national accounts' spending weights), a model figure, and the readout shows it
+apart from the measured GDP and GSS trust. Which markets are paid out of fear is judged item by item: Jev's judgments of
+119 purchase items, shrunk toward each category's stored fear share, split each market's river and give the `you` view
+its "sold by fear"; they do not feed the readout. At each market a dollar splits
 through the Leontief inverse of the BEA use table into wages (back down the slope), production taxes (to the bedrock),
 upkeep, and the owners' surplus (up to the halos and on to whoever holds the claims): 24-31 cents of a household dollar,
-by category. **New: which way it flows.** For a median household about 85% of the wages and owners' income its spending
-pays reaches people ranked above it: ordinary spending is a pump that lifts the top. The share falls as a household
-climbs, so near the top much of it flows downhill. That one number turns the user's "rivers flow uphill or downhill to corporate entities" into a measured
-quantity per person (the `you` view).
+by category. **New: which way it flows.** For a median household about 85% of all simulated wages and ownership income
+is received by people ranked above it, weighted by its dollar's split between wages and owners (about 42 and 22 cents).
+No purchase is traced: the population's distribution stands in for where the household's own dollars end up, on the
+assumption that its spending pays people the way everyone's does. The share falls as a household climbs, so near the
+top much of it goes to people ranked below. That one number gives the user's "rivers flow uphill or downhill to
+corporate entities" a model reading per person (the `you` view), not a measured trace.
 
 **Companies (new, `strategy`).** Firms run the same program at their own scale, and their uses of money have directions:
 
@@ -106,21 +116,21 @@ top; income from what people own from 6% to 32%; debt service falls from 16% to 
 to 3.1 years; the share in control of their path from 1% to 24%. The lifting forces compound where they are already
 strong, and the pulling forces bite where they are already heavy.
 
-**The decade's ladder** (2015-2025): 33% of adults climbed a fifth or more, 45% stayed, 22% fell; the top fifth kept 69%
+**The decade's ladder** (2015-2025): 33% of adults climbed a fifth or more, 48% stayed, 20% fell; the top fifth kept 71%
 of its members. Like for like with the US Treasury's closed panel of taxpayers 25+ (1996-2005), the model's bottom fifth
-keeps 56% (Treasury 55%) and its top fifth 66% (Treasury 61%), with 4% going from bottom to top (3.6%). Across all adults
-the bottom looks more fluid (30% stay) because young adults rise as they leave home and start work.
+keeps 58% (Treasury 55%) and its top fifth 66% (Treasury 61%), with 3% going from bottom to top (3.6%). Across all adults
+the bottom looks more fluid (34% stay) because young adults rise as they leave home and start work.
 
 **What comes with a move**, among adults 25-54 (each event's share of the movers and its lift over everyone's rate):
-falls came with a lost job (61%, 1.7x), a divorce or separation (23%, 2.2x), discharged debt (8%, 1.9x) and the death of
-a spouse (4%, 3.0x); climbs with finding work (48%), a child (40%; households forming), a home (39%) and marriage (32%,
-2.3x). The event studies agree in direction: displaced workers lose about a quarter of a year's earnings in an expansion;
+falls came with a lost job (59%, 1.6x), a divorce or separation (22%, 2.3x) and discharged debt (9%, 2.2x); climbs with
+finding work (49%), a home (41%), a child (37%; households forming) and marriage (28%, 2.0x). The event studies agree in direction: displaced workers lose about a quarter of a year's earnings in an expansion;
 a late-life divorce cuts women's household income 41%; a hospital stay cuts earnings about 20%. These are associations
 in a calibrated simulation, not causal estimates.
 
 **The individual (new, `you`).** The model becomes a mirror: a viewer's household is placed among the year's simulated
-adults (income and wealth percentiles, rung on their hill), their dollar is split, its direction measured, their runway
-and the years to living on what they own computed, and their odds read off the decade's ladder for their fifth and age.
+adults (income and wealth percentiles, rung on their hill), their dollar is split, the share of all wages and owners'
+income above their rank read, their cushion (net worth, home included) and the years to living on what they own
+computed, and their odds read off the decade's ladder for their fifth and age.
 
 ## 5. Measured, judged, assumed
 

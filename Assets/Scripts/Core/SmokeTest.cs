@@ -12,7 +12,9 @@ namespace Why
     /// Runtime smoke test for players and CI, idle unless the player is started with <c>-smoketest</c>: once the graph is
     /// loaded it flies through every view preset, steps through every stop of the guided tour, then opens the other
     /// scene and does the same there, and quits with exit code 1 if anything logged an error or exception.
-    /// <c>-screenshots DIR</c> saves a frame of every view and tour stop (<c>-smokeonly a,b</c> limits it to those views
+    /// <c>-screenshots DIR</c> saves a frame of every view (each flown to from the overview, so no view inherits the
+    /// previous one's state) and of every tour stop with its card complete, named by stop number and id
+    /// (<c>economy-tour-01-hills_bridge</c>), then the title and end cards (<c>-smokeonly a,b</c> limits it to those views
     /// and skips the tour, unless <c>-smoketour</c> asks for it too; <c>-smokelayers</c> re-captures each view with every
     /// layer hidden in turn, to find which layer draws what; a view with states of its own, <see cref="ViewVariants"/>, is
     /// captured in each); <c>-smokereplay</c> also plays the economy's replay of the
@@ -26,6 +28,12 @@ namespace Why
     {
         const float ViewSeconds = 2.6f;
         const float StopSeconds = 2.8f;
+
+        /// <summary>
+        /// Time at the overview between two views: a view reached from the one before it in the bar can inherit that
+        /// one's state (the 1972 wave left the next view in a stale pose), which a frame of the view must not show.
+        /// </summary>
+        const float OverviewSeconds = 0.8f;
 
         static bool enabledByArgs, hooked;
         static string shots;
@@ -133,6 +141,12 @@ namespace Why
             foreach (ViewPreset p in ViewPresets.All.ToList())
             {
                 if (only != null && !only.Contains(p.Id)) continue;
+                if (p.Id != "overview")
+                {
+                    root.Focus("overview", 0.6f);
+                    yield return new WaitForSecondsRealtime(OverviewSeconds);
+                }
+
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
                 yield return Shot($"{scene}-view-{p.Id}");
@@ -177,13 +191,24 @@ namespace Why
             {
                 director.StartTour();
                 yield return new WaitForSecondsRealtime(StopSeconds);
-                // stop at the end card: "next" there continues into the economy, which this test does itself
+                yield return Shot($"{scene}-tour-00-title");
+                // each stop: let the camera settle, finish the card's typewriter, let the whole text lay out, capture, and
+                // only then move on (the frame shows the stop it is named after, with its card complete); stop at the end
+                // card: "next" there continues into the economy, which this test does itself
+                director.NextStep();
                 for (int n = 0; n < 200 && director.TourRunning && !director.AtEndCard; n++)
                 {
-                    director.NextStep(); // completes the typewriter
-                    director.NextStep(); // moves on
                     yield return new WaitForSecondsRealtime(StopSeconds);
-                    yield return Shot($"{scene}-tour-{n + 1:00}");
+                    director.CompleteTyping();
+                    yield return null;
+                    yield return Shot($"{scene}-tour-{n + 1:00}-{director.CurrentStepId}");
+                    director.NextStep();
+                }
+
+                if (director.AtEndCard)
+                {
+                    yield return new WaitForSecondsRealtime(StopSeconds);
+                    yield return Shot($"{scene}-tour-end");
                 }
 
                 director.ExitTour();

@@ -32,7 +32,7 @@
     {
       "id": "read_clock",
       "title": "A clock that becomes a road",
-      "text": "Because the story spans 13.8 billion years, deep time runs clockwise on a stretched, super-logarithmic clock: the Big Bang at 6 o'clock, life around 10. At 3 o'clock, 5,000 years ago, it stops being a clock: human history leaves the circle on a straight line, one steady step per year, all the way to now.",
+      "text": "Because the story spans 13.8 billion years, deep time runs clockwise on a stretched, super-logarithmic clock: the Big Bang at 6 o'clock, life around 10. At 3 o'clock, 5,000 years ago, it stops being a clock: human history leaves the circle on a straight road to now, with recent centuries drawn wider so the last few hundred years have room.",
       "focus": "overview",
       "anchor": "epoch:big_bang",
       "highlight": [
@@ -808,7 +808,7 @@
     {
       "id": "step_back",
       "title": "Step back",
-      "text": "Step back: from the Big Bang at 6 o'clock, around the clock of deep time and down the road of history, every cause led to this moment. Understand the chain and you hold a working model of the universe - and this moment is where the next chain begins. Explore any era and follow the lines from cause to effect.",
+      "text": "Step back: from the Big Bang at 6 o'clock, around the clock of deep time and down the road of history, every cause led to this moment. Understand the chain and you hold a working model of the universe - and this moment is where the next chain begins. Explore any era and follow the lines from cause to effect. The newest link, the one people build on one another, is an economy. We go there next.",
       "focus": "overview",
       "anchor": "now",
       "highlight": [

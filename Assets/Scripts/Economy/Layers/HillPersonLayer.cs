@@ -41,13 +41,19 @@ namespace Why.Economy.Layers
     /// the household's hill at the rung of the year's income rank, as a line turning from labor blue to capital gold as
     /// agency rises (gold when in control); jumps between hills arc over the ground; markers name the life's events;
     /// a faint ghost runs at the parent's earnings rank; a walker repeats the life in a loop.</para>
-    /// Synthetic records (one line = 100,000 people); motives and placements are model assumptions.
+    /// Synthetic people (one line = 100,000 people); motives and placements are model assumptions. Every mark is drawn at
+    /// intensity 1 and blended (<see cref="Glow"/>), so the hues that code labor, control, desire and fear stay true.
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillPersonLayer : GraphLayer
     {
         public override int Order => 59;
         enum Part { Atom, Pulls, Ladder, Count }
+        /// <summary>The marks' intensity: the bloom starts above 1 and is kept for the pointer's highlight; brighter, the
+        /// ladder's path blooms to the ghost's white and loses its blue-to-gold.</summary>
+        const float Glow = 1;
+        /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
+        const float Pulse = .2f;
         static readonly Color Gold = new Color(1, .70f, .20f), Blue = new Color(.36f, .70f, 1), Steel = new Color(.55f, .66f, .80f),
             White = new Color(1, .96f, .9f), Rose = new Color(1, .25f, .50f), Ice = new Color(.45f, .82f, 1);
         /// <summary>Desires and the industries assumed to serve them (psyche.json "served by"), in DesireIds order.</summary>
@@ -160,21 +166,21 @@ namespace Why.Economy.Layers
             if (mind == null) return;
             int player = snapshot.Players.PlayerOfPerson != null && life.Person < snapshot.Players.PlayerOfPerson.Length ? snapshot.Players.PlayerOfPerson[life.Person] : -1;
             string cohort = player >= 0 ? HillLandscapeLayer.PlayerTitle(snapshot.Players.Players[player]) : "";
-            mind.Title = "SYNTHETIC RECORD #" + life.Person + " · " + life.Why + " · " + life.Year;
+            mind.Title = "SYNTHETIC PERSON #" + life.Person + " · " + life.Why + " · " + life.Year;
             mind.Note = "age " + (int)now.Age + (cohort.Length > 0 ? " · " + cohort : "") + " · one line = 100,000 people · drives are model assumptions";
             var b = new LineMeshBuilder();
             MindDiagram.Build(b, PersonFocus.Mind, mind, (t, at, size, c) => Label(t, at, size, c, Part.Atom));
             // The spine: from the head up into the memory at the mind's base.
-            MindDiagram.Thread(b, place + Vector3.up * 1.9f, PersonFocus.Mind + MindDiagram.Memory(1) + Vector3.down * .3f, WithAlpha(White, .6f), 1.6f, 1.8f, 0);
+            MindDiagram.Thread(b, place + Vector3.up * 1.9f, PersonFocus.Mind + MindDiagram.Memory(1) + Vector3.down * .3f, WithAlpha(White, .6f), 1.6f, Glow, 0);
             Lines(b, Part.Atom, true, "Atom mind");
             // The figure (moves): body, head, the gold ring of one in control, its balance-sheet rings.
             var f = new LineMeshBuilder(); Color body = now.InControl ? Gold : White;
-            f.AddSegment(Vector3.zero, Vector3.up * 1.25f, body, 3, .05f, 0, 2.6f);
-            f.AddSegment(Vector3.up * .95f + Vector3.left * .45f, Vector3.up * .95f + Vector3.right * .45f, body, 2.2f, .04f, 0, 2.2f);
-            MindDiagram.Sphere(f, Vector3.up * 1.55f, .25f, body, 2.2f, 3);
-            MindDiagram.Ring(f, Vector3.up * .02f, .55f, body, 2, 2.4f, false);
-            MindDiagram.Ring(f, Vector3.up * .06f, .45f + Mathf.Log10(1 + Math.Max(0, now.Wealth)) * .09f, Gold, 1.6f, 2.2f, false);
-            if (now.Debt > 0) MindDiagram.Ring(f, Vector3.up * .12f, .4f + Mathf.Log10(1 + now.Debt) * .08f, Rose, 1.6f, 2.2f, false);
+            f.AddSegment(Vector3.zero, Vector3.up * 1.25f, body, 3, .05f, 0, Glow);
+            f.AddSegment(Vector3.up * .95f + Vector3.left * .45f, Vector3.up * .95f + Vector3.right * .45f, body, 2.2f, .04f, 0, Glow);
+            MindDiagram.Sphere(f, Vector3.up * 1.55f, .25f, body, 2.2f, Glow);
+            MindDiagram.Ring(f, Vector3.up * .02f, .55f, body, 2, Glow, false);
+            MindDiagram.Ring(f, Vector3.up * .06f, .45f + Mathf.Log10(1 + Math.Max(0, now.Wealth)) * .09f, Gold, 1.6f, Glow, false);
+            if (now.Debt > 0) MindDiagram.Ring(f, Vector3.up * .12f, .4f + Mathf.Log10(1 + now.Debt) * .08f, Rose, 1.6f, Glow, false);
             figure = Lines(f, Part.Atom, false, "Followed person"); figure.transform.localPosition = place;
             Pulls(life, place, industry, mind, data);
         }
@@ -193,7 +199,7 @@ namespace Why.Economy.Layers
             {
                 float w = MindDiagram.Share(mind, false, k); if (w < .015f) continue;
                 Vector3 to = Market(DesireMarkets[k]); Color c = MindDiagram.DesireColor(k);
-                Arc(b, place + Vector3.up * 1.0f, to, c, 1 + 22 * w, 2.4f + 4 * w, true);
+                Arc(b, place + Vector3.up * 1.0f, to, c, 1 + 22 * w, true);
                 net += Flat(to - place) * w;
                 Label("DESIRE · " + MindDiagram.Name(false, k).ToUpperInvariant() + " " + PersonLife.Pct(w) + "\n→ " + IndustryName(DesireMarkets[k]) + " (" + DesireMarketNote[k] + ")",
                     to + Vector3.up * 1.6f, .11f, Color.Lerp(c, Color.white, .3f), Part.Pulls);
@@ -274,15 +280,15 @@ namespace Why.Economy.Layers
 
         static Vector3 Flat(Vector3 v) { v.y = 0; return v.sqrMagnitude > 1e-6f ? v.normalized : Vector3.zero; }
 
-        /// <summary>An arc from a to z over the ground, with an arrowhead at z (a pull toward z).</summary>
-        void Arc(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float intensity, bool head)
+        /// <summary>An arc from a to z over the ground, with an arrowhead at z (a pull toward z); its width is its weight.</summary>
+        void Arc(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, bool head)
         {
             float lift = 1.5f + Vector3.Distance(a, z) * .14f; var pts = new LinePoint[33];
             for (int s = 0; s < pts.Length; s++)
             {
                 float t = s / 32f; Vector3 p = Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift;
                 p.y = Mathf.Max(p.y, land.Ground(p.x, p.z) + .4f);
-                pts[s] = new LinePoint(p, color, width, .01f * width, intensity);
+                pts[s] = new LinePoint(p, color, width, .01f * width, Glow);
             }
             b.AddFlowPath(pts, 0, .6f);
             if (head) Head(b, pts[29].Data, pts[32].Data, color, width);
@@ -292,12 +298,12 @@ namespace Why.Economy.Layers
         /// from it at the person. Returns the push direction times its weight.</summary>
         Vector3 Threat(LineMeshBuilder b, Vector3 from, Vector3 place, Color color, float w, string text)
         {
-            MindDiagram.Ring(b, from, .45f + w * 1.5f, color, 2, 2.6f, true); MindDiagram.Ring(b, from, .45f + w * 1.5f, color, 1.4f, 2, false);
-            float x = .3f + w; b.AddSegment(from + new Vector3(-x, -x, 0), from + new Vector3(x, x, 0), color, 2, .03f, 0, 2.4f); b.AddSegment(from + new Vector3(-x, x, 0), from + new Vector3(x, -x, 0), color, 2, .03f, 0, 2.4f);
-            Arc(b, from, place + Vector3.up * .8f, WithAlpha(color, .75f), 1 + 16 * w, 2 + 3 * w, false);
+            MindDiagram.Ring(b, from, .45f + w * 1.5f, color, 2, Glow, true); MindDiagram.Ring(b, from, .45f + w * 1.5f, color, 1.4f, Glow, false);
+            float x = .3f + w; b.AddSegment(from + new Vector3(-x, -x, 0), from + new Vector3(x, x, 0), color, 2, .03f, 0, Glow); b.AddSegment(from + new Vector3(-x, x, 0), from + new Vector3(x, -x, 0), color, 2, .03f, 0, Glow);
+            Arc(b, from, place + Vector3.up * .8f, WithAlpha(color, .75f), 1 + 16 * w, false);
             Vector3 away = Flat(place - from); if (away == Vector3.zero) away = Vector3.left;
             Vector3 a = place + Vector3.up * .5f, z = a + away * (.8f + 3.5f * w);
-            b.AddSegment(a, z, color, 2 + 8 * w, .02f + .05f * w, 0, 3);
+            b.AddSegment(a, z, color, 2 + 8 * w, .02f + .05f * w, 0, Glow);
             Head(b, a, z, color, 2 + 8 * w);
             Label(text, from + Vector3.up * (1.4f + w * 1.5f), .11f, Color.Lerp(color, Color.white, .3f), Part.Pulls);
             return away * w;
@@ -306,7 +312,7 @@ namespace Why.Economy.Layers
         void Income(LineMeshBuilder b, Vector3 from, Vector3 place, Color color, double share, string text)
         {
             float w = Mathf.Sqrt(Mathf.Clamp01((float)share));
-            Arc(b, from, place + Vector3.up * 1.2f, color, 1.2f + 7 * w, 2.4f + 2 * w, true);
+            Arc(b, from, place + Vector3.up * 1.2f, color, 1.2f + 7 * w, true);
             Label(text, from + Vector3.up * 2.2f, .11f, Color.Lerp(color, Color.white, .3f), Part.Pulls);
         }
 
@@ -314,8 +320,8 @@ namespace Why.Economy.Layers
         {
             Vector3 d = (z - a).normalized, side = Vector3.Cross(d, Vector3.up).normalized; if (side.sqrMagnitude < .01f) side = Vector3.right;
             float l = .35f + width * .02f;
-            b.AddPolyline(new[] { z - d * l + side * l * .5f, z, z - d * l - side * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, 0, 3);
-            b.AddPolyline(new[] { z - d * l + Vector3.up * l * .5f, z, z - d * l - Vector3.up * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, 0, 3);
+            b.AddPolyline(new[] { z - d * l + side * l * .5f, z, z - d * l - side * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, 0, Glow);
+            b.AddPolyline(new[] { z - d * l + Vector3.up * l * .5f, z, z - d * l - Vector3.up * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, 0, Glow);
         }
 
         // ------------------------------------------------------------------ the ladder
@@ -349,11 +355,11 @@ namespace Why.Economy.Layers
                     {
                         float t = s / 6f; Vector3 p = Vector3.Lerp(at[k - 1], at[k], t);
                         p.y = Mathf.Max(p.y, land.Ground(p.x, p.z) + .35f) + (jump ? Mathf.Sin(t * Mathf.PI) * (2 + Vector3.Distance(at[k - 1], at[k]) * .12f) : 0);
-                        points.Add(new LinePoint(p, c, width, .05f, 2.6f)); walk.Add(p); records.Add(k - 1);
+                        points.Add(new LinePoint(p, c, width, .05f, Glow)); walk.Add(p); records.Add(k - 1);
                     }
                 }
-                points.Add(new LinePoint(at[k], c, width, .05f, 2.8f)); walk.Add(at[k]); records.Add(k);
-                Vector3 g = Point(k, parent); ghost.Add(new LinePoint(g, WithAlpha(White, .28f), 1.3f, .02f, 1.2f));
+                points.Add(new LinePoint(at[k], c, width, .05f, Glow)); walk.Add(at[k]); records.Add(k);
+                Vector3 g = Point(k, parent); ghost.Add(new LinePoint(g, WithAlpha(White, .28f), 1.3f, .02f, Glow));
             }
             b.AddFlowPath(points, 0, .5f);
             if (ghost.Count > 1) b.AddPolyline(ghost, 0);
@@ -362,21 +368,21 @@ namespace Why.Economy.Layers
             foreach (var ev in life.Events)
             {
                 Vector3 p = at[ev.Index]; float h = 2.2f + (e++ % 3) * 1.3f; Color c = EventColor(ev.Kind);
-                b.AddSegment(p, p + Vector3.up * h, WithAlpha(c, .7f), 1.4f, .02f, 0, 2.2f);
-                MindDiagram.Sphere(b, p, .32f, c, 1.6f, 3);
+                b.AddSegment(p, p + Vector3.up * h, WithAlpha(c, .7f), 1.4f, .02f, 0, Glow);
+                MindDiagram.Sphere(b, p, .32f, c, 1.6f, Glow);
                 Label(ev.Year + " · " + ev.Text, p + Vector3.up * (h + .45f), .13f, Color.Lerp(c, Color.white, .3f), Part.Ladder);
             }
             var now = life.Now;
             Label("<b>" + life.Year + "</b> · income rank " + PersonLife.Pct(now.IncomeRank) + " · net worth " + PersonLife.Money(now.Wealth) +
                   "\nparents' earnings rank " + PersonLife.Pct(parent) + " (white ghost)", at[n - 1] + new Vector3(0, 6.5f, 2), .15f, White, Part.Ladder);
-            Label("THE LADDER · record #" + life.Person + " (" + life.Why + ")\nheight = rung of household income on the household's hill · blue labor → gold in control",
+            Label("THE LADDER · synthetic person #" + life.Person + " (" + life.Why + ")\nheight = rung of household income on the household's hill · blue labor, gold in control",
                 at[0] + new Vector3(0, 8, -2), .16f, White, Part.Ladder);
             Lines(b, Part.Ladder, true, "Ladder path");
             path = walk.ToArray(); pathRecord = records.ToArray(); pathLength = new float[path.Length];
             for (int k = 1; k < path.Length; k++) pathLength[k] = pathLength[k - 1] + Vector3.Distance(path[k - 1], path[k]);
             var w = new LineMeshBuilder();
-            w.AddSegment(Vector3.zero, Vector3.up * 1.4f, White, 3, .06f, 0, 4); MindDiagram.Sphere(w, Vector3.up * 1.75f, .3f, White, 2.4f, 4);
-            MindDiagram.Ring(w, Vector3.up * .03f, .7f, Gold, 2.4f, 3.5f, false);
+            w.AddSegment(Vector3.zero, Vector3.up * 1.4f, White, 3, .06f, 0, Glow); MindDiagram.Sphere(w, Vector3.up * 1.75f, .3f, White, 2.4f, Glow);
+            MindDiagram.Ring(w, Vector3.up * .03f, .7f, Gold, 2.4f, Glow, false);
             walker = Lines(w, Part.Ladder, false, "Ladder walker"); walker.transform.localPosition = path[0];
             walkerLabel = Label("", path[0], .14f, White, Part.Ladder); shownRecord = -1;
             Vector3 lo = path[0], hi = path[0]; foreach (var p in path) { lo = Vector3.Min(lo, p); hi = Vector3.Max(hi, p); }
@@ -403,18 +409,21 @@ namespace Why.Economy.Layers
             {
                 Key = key, Label = label, Blurb = blurb, Level = GraphLevel.Humans, YearsAgo = ya, EndYearsAgo = ya, Tier = 1, Fixed = frame.World(local)
             });
-            Put("atom:person", "Record #" + life.Person, "A synthetic person (" + life.Why + ") at age " + (int)now.Age + " on the hillside: household income rank " + PersonLife.Pct(now.IncomeRank) + ".", PersonFocus.Place + Vector3.up * 1.2f);
-            Put("atom:mind", "The mind", "Five desire and five fear drives feed a deliberation gate (reason " + PersonLife.Pct(now.Reason) + ") and a choice; fear is " + PersonLife.Pct(now.FearShare) + " of the motive.", PersonFocus.Mind);
-            Put("ladder:path", "The ladder", life.Records.Length + " adult years across the wave, " + life.Events.Count + " events.", PersonFocus.LadderCenter);
-            Put("dilemma:arena", "Tit for tat", "Repeated encounters with five counterparts.", PersonFocus.Arena);
+            // each label carries its year, so the tour's pointer does not add a deep-time "22 months ago" to it
+            Put("atom:person", "Synthetic person #" + life.Person, "A synthetic person (" + life.Why + ") at age " + (int)now.Age + " on the hillside: household income rank " + PersonLife.Pct(now.IncomeRank) + ".", PersonFocus.Place + Vector3.up * 1.2f);
+            Put("atom:mind", "The mind · " + life.Year, "Five desire and five fear drives feed a deliberation gate (reason " + PersonLife.Pct(now.Reason) + ") and a choice; fear is " + PersonLife.Pct(now.FearShare) + " of the motive.", PersonFocus.Mind);
+            Put("ladder:path", "The ladder · " + life.Years[0] + "-" + life.Year, life.Records.Length + " adult years across the wave, " + life.Events.Count + " events.", PersonFocus.LadderCenter);
+            Put("dilemma:arena", "Tit for tat · " + life.Year, "Repeated encounters with five counterparts.", PersonFocus.Arena);
         }
 
         // ------------------------------------------------------------------ plumbing
 
+        /// <summary>A mesh of lines, blended: where threads meet at the person, the top one's hue shows instead of a sum
+        /// turning white.</summary>
         MeshRenderer Lines(LineMeshBuilder b, Part part, bool flow, string name)
         {
             Mesh mesh = b.ToMesh(name); owned.Add(mesh);
-            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3220, true, 0, flow ? 1 : 0)); owned.Add(material);
+            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3220, false, 0, flow ? Pulse : 0)); owned.Add(material);
             if (flow) { material.SetFloat("_FlowFreq", 1.6f); material.SetFloat("_FlowSpeed", .5f); }
             var r = AddMesh(name, mesh, material); r.transform.SetParent(content.transform, false);
             renderers.Add((r, part)); return r;

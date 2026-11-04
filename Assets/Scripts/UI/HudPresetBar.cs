@@ -8,9 +8,12 @@ namespace Why.UI
 {
     /// <summary>
     /// One button per view preset, in the catalog's (chronological) order, with the number key where the
-    /// preset has one. Numbered presets are the main stops and read brighter; the active preset is lit.
-    /// Landscape shows one row; a portrait screen gets the same buttons in balanced, full-width rows
-    /// (<see cref="Flow"/>), since a recorded video cannot be scrolled.
+    /// preset has one, and a button to the other scene where time's order puts it (the universe before the
+    /// economy's first view, the economy after the universe's last). Every caption is short and in full text
+    /// color: a view without a key can only be reached here or in the tour, so it must read as well as the
+    /// numbered ones. The active preset is lit. Landscape shows one row where it fits (else
+    /// <see cref="Flow"/> rows); a portrait screen gets the same buttons in balanced, full-width rows, since a
+    /// recorded video cannot be scrolled.
     /// </summary>
     public sealed class HudPresetBar
     {
@@ -23,7 +26,8 @@ namespace Why.UI
         const float Inset = 4f;
         const float FontSize = HudKit.SizeSmall;
 
-        /// <summary>Captions for presets whose titles are too long for the bar (the tooltip shows the full title).</summary>
+        /// <summary>Captions for the universe's presets whose titles are too long for the bar (the tooltip shows the full
+        /// title); the economy's are <see cref="Economy.HillPresets.ShortTitle"/>.</summary>
         static readonly Dictionary<string, string> ShortTitles = new Dictionary<string, string>
         {
             { "smv", "United States" },
@@ -32,6 +36,7 @@ namespace Why.UI
 
         sealed class Entry
         {
+            /// <summary>The view, or null for the button to the other scene.</summary>
             public ViewPreset Preset;
             public RectTransform Rect;
             public Image Background;
@@ -56,50 +61,74 @@ namespace Why.UI
         /// <summary>The preset whose button is under the pointer, if any.</summary>
         public ViewPreset HoveredPreset { get; private set; }
 
-        public HudPresetBar(Transform parent, Action<ViewPreset> onClick)
+        /// <summary>True while the pointer is over the button to the other scene.</summary>
+        public bool SceneHovered { get; private set; }
+
+        /// <summary>Rows of the last layout (1 for <see cref="SingleRow"/>).</summary>
+        public int Rows => rowCount;
+
+        public HudPresetBar(Transform parent, Action<ViewPreset> onClick, Action onScene = null)
         {
             Rect = HudKit.FramedPanel(parent, "PresetBar", 0.8f);
-            string keyColor = UiFactory.Hex(HudKit.TextFaint);
+            string keyColor = UiFactory.Hex(GraphStyle.TextDim);
+            bool economy = GraphScene.IsEconomy;
 
             float x = Inset;
+            if (economy && onScene != null) x = AddScene("←  Universe", onScene, x);
             foreach (ViewPreset preset in ViewPresets.All)
             {
                 ViewPreset p = preset;
                 string key = HudKit.KeyName(p.Key);
-                string caption = ShortTitles.TryGetValue(p.Id, out string shortTitle) ? shortTitle : p.Title;
+                string caption = economy ? Economy.HillPresets.ShortTitle(p) : ShortTitles.TryGetValue(p.Id, out string shortTitle) ? shortTitle : p.Title;
                 string text = key != null ? "<color=#" + keyColor + ">" + key + "</color>  " + caption : caption;
 
                 Button button = HudKit.Button(Rect, "Preset " + p.Id, text, FontSize, () => onClick(p));
-                TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>();
-                Entry entry = new Entry
-                {
-                    Preset = p,
-                    Rect = (RectTransform)button.transform,
-                    Background = (Image)button.targetGraphic,
-                    Label = label,
-                    LabelColor = key != null ? GraphStyle.Text : GraphStyle.TextDim
-                };
-                label.color = entry.LabelColor;
-
-                // measured in bold so the caption still fits when the preset is active
-                label.fontStyle = FontStyles.Bold;
-                entry.Width = HudKit.Measure(label, text).x + 2 * ButtonPadX;
-                label.fontStyle = FontStyles.Normal;
-                x += entry.Width + Spacing;
-
+                x = AddEntry(p, button, text, x);
                 HoverRelay relay = button.gameObject.AddComponent<HoverRelay>();
                 relay.Changed = over =>
                 {
                     if (over) HoveredPreset = p;
                     else if (HoveredPreset == p) HoveredPreset = null;
                 };
-                entries.Add(entry);
             }
+
+            if (!economy && onScene != null) x = AddScene("Economy  →", onScene, x);
 
             rowOf = new int[entries.Count];
             Width = x - Spacing + Inset;
             Rect.Place(Vector2.zero, Vector2.zero, Vector2.zero, new Vector2(Width, Height));
             SingleRow();
+        }
+
+        /// <summary>Adds a button's entry at its natural width; returns where the next one starts.</summary>
+        float AddEntry(ViewPreset preset, Button button, string text, float x)
+        {
+            TextMeshProUGUI label = button.GetComponentInChildren<TextMeshProUGUI>();
+            Entry entry = new Entry
+            {
+                Preset = preset,
+                Rect = (RectTransform)button.transform,
+                Background = (Image)button.targetGraphic,
+                Label = label,
+                LabelColor = GraphStyle.Text
+            };
+            label.color = entry.LabelColor;
+
+            // measured in bold so the caption still fits when the preset is active
+            label.fontStyle = FontStyles.Bold;
+            entry.Width = HudKit.Measure(label, text).x + 2 * ButtonPadX;
+            label.fontStyle = FontStyles.Normal;
+            entries.Add(entry);
+            return x + entry.Width + Spacing;
+        }
+
+        /// <summary>The button to the other scene (Tab does the same).</summary>
+        float AddScene(string text, Action onScene, float x)
+        {
+            Button button = HudKit.Button(Rect, "Other scene", text, FontSize, onScene);
+            HoverRelay relay = button.gameObject.AddComponent<HoverRelay>();
+            relay.Changed = over => SceneHovered = over;
+            return AddEntry(null, button, text, x);
         }
 
         /// <summary>Light the button of the active preset (none for free-form lens views).</summary>
@@ -110,7 +139,7 @@ namespace Why.UI
             activeId = id;
             foreach (Entry e in entries)
             {
-                bool active = e.Preset.Id == id;
+                bool active = e.Preset != null && e.Preset.Id == id;
                 e.Background.color = active ? UiFactory.ButtonActive : UiFactory.ButtonColor;
                 e.Label.color = active ? Color.white : e.LabelColor;
                 e.Label.fontStyle = active ? FontStyles.Bold : FontStyles.Normal;
@@ -128,18 +157,21 @@ namespace Why.UI
         public void SingleRow()
         {
             float x = Inset;
-            foreach (Entry e in entries)
+            for (int i = 0; i < entries.Count; i++)
             {
-                PlaceButton(e.Rect, x, Inset, e.Width);
-                x += e.Width + Spacing;
+                PlaceButton(entries[i].Rect, x, Inset, entries[i].Width);
+                x += entries[i].Width + Spacing;
+                rowOf[i] = 0;
             }
 
+            rowCount = 1;
             Rect.sizeDelta = new Vector2(Width, Height);
         }
 
         /// <summary>
-        /// Portrait: breaks the buttons (in catalog order) into the fewest balanced rows that fit maxWidth and
-        /// widens every row to the full width, so the bar reads as one deliberate block. Returns its height.
+        /// Portrait, and landscape where one row does not fit: breaks the buttons (in catalog order) into the fewest
+        /// balanced rows that fit maxWidth and widens every row to the full width, so the bar reads as one deliberate
+        /// block. Returns its height.
         /// </summary>
         public float Flow(float maxWidth)
         {

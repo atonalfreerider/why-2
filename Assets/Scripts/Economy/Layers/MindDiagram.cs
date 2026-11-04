@@ -73,7 +73,8 @@ namespace Why.Economy.Layers
     /// (colored by the motive), save (gold) and borrow (rose), and the choice feeds the memory below (the balance
     /// sheet: gold ring net worth, rose ring debt), which closes the loop back into the drives (a thin buffer raises the
     /// fears of ruin and exposure next year). The drives and their weights are the lives model's; the drawing is a
-    /// conceptual decision program, not neuroanatomy.
+    /// conceptual decision program, not neuroanatomy. Every mark is drawn at intensity 1: the bloom starts above it and is
+    /// kept for what the pointer holds, and a brighter drive would bloom its rose or ice to white; shares are sizes and widths.
     /// </summary>
     public static class MindDiagram
     {
@@ -120,28 +121,29 @@ namespace Why.Economy.Layers
                     bool fear = pole == 1; float w = Share(m, fear, k);
                     Color c = fear ? FearColor(k) : DesireColor(k); Vector3 at = o + Node(fear, k, s);
                     float r = s * (.14f + .62f * Mathf.Sqrt(Mathf.Max(0, w)));
-                    Sphere(b, at, r, c, 1.6f, 2.4f + 3 * w);
-                    Thread(b, at, gate, c, .6f + 9 * w, 1.6f + 3 * w, .5f * s);
+                    Sphere(b, at, r, c, 1.6f, 1);
+                    Thread(b, at, gate, c, .6f + 9 * w, 1, .5f * s);
                     label((fear ? "FEAR · " : "DESIRE · ") + Name(fear, k).ToUpperInvariant() + "\n" + PersonLife.Pct(w) + " of the motive", at + Vector3.up * (r + .45f * s), .085f * s, Color.Lerp(c, Color.white, .25f));
                 }
             // The deliberation gate: a gimbal whose inner aperture is reason (the higher OS), with the future's weight.
-            Sphere(b, gate, .62f * s, White, 1.4f, 2.2f);
-            Ring(b, gate, (.12f + .45f * m.Reason) * s, Gold, 2.6f, 3.6f, false);
-            Ring(b, gate, (.12f + .45f * m.Reason) * s, Gold, 2.6f, 3.6f, true);
+            Sphere(b, gate, .62f * s, White, 1.4f, 1);
+            Ring(b, gate, (.12f + .45f * m.Reason) * s, Gold, 2.6f, 1, false);
+            Ring(b, gate, (.12f + .45f * m.Reason) * s, Gold, 2.6f, 1, true);
             label("DELIBERATION\nreason " + PersonLife.Pct(m.Reason) + " · future " + PersonLife.Pct(m.Future) + " · fantasy " + PersonLife.Pct(m.Fantasy), gate + Vector3.up * .95f * s, .09f * s, White);
             // The choice: spend (the motive's color), save (gold), borrow (rose); widths are shares of the year's income.
             Color motive = Color.Lerp(DesireColor(0), FearColor(0), m.FearShare);
-            Thread(b, gate, spend, motive, 1 + 8 * m.Spend, 2.6f, .1f * s); Sphere(b, spend, (.16f + .3f * m.Spend) * s, motive, 1.5f, 2.6f);
-            if (m.Save > .005f) { Thread(b, gate, save, Gold, 1 + 14 * m.Save, 3, .3f * s); Sphere(b, save, (.12f + .5f * Mathf.Sqrt(m.Save)) * s, Gold, 1.5f, 3); }
-            if (m.Borrow > .005f) { Thread(b, gate, borrow, DesireColor(0), 1 + 14 * m.Borrow, 3, .3f * s); Sphere(b, borrow, (.12f + .5f * Mathf.Sqrt(m.Borrow)) * s, DesireColor(0), 1.5f, 3); }
+            Thread(b, gate, spend, motive, 1 + 8 * m.Spend, 1, .1f * s); Sphere(b, spend, (.16f + .3f * m.Spend) * s, motive, 1.5f, 1);
+            if (m.Save > .005f) { Thread(b, gate, save, Gold, 1 + 14 * m.Save, 1, .3f * s); Sphere(b, save, (.12f + .5f * Mathf.Sqrt(m.Save)) * s, Gold, 1.5f, 1); }
+            if (m.Borrow > .005f) { Thread(b, gate, borrow, DesireColor(0), 1 + 14 * m.Borrow, 1, .3f * s); Sphere(b, borrow, (.12f + .5f * Mathf.Sqrt(m.Borrow)) * s, DesireColor(0), 1.5f, 1); }
             label("CHOICE\n" + m.ChoiceText, spend + new Vector3(0, -.15f, 0) * s + Vector3.down * .35f * s, .085f * s, Color.Lerp(motive, Color.white, .4f));
             // Memory: the balance sheet the choice leaves for next year (logarithmic rings), and the feedback into the drives.
             float wr = (.35f + Mathf.Log10(1 + (float)Math.Max(0, m.Wealth)) * .14f) * s, dr = (.3f + Mathf.Log10(1 + (float)Math.Max(0, m.Debt)) * .12f) * s;
-            Ring(b, memory, wr, Gold, 2.2f, m.InControl ? 4 : 2.6f, false); Ring(b, memory + Vector3.up * .08f * s, wr * 1.06f, Gold, 1, 1.6f, false);
-            if (m.Debt > 0) Ring(b, memory + Vector3.up * .16f * s, dr, DesireColor(0), 2, 2.4f, false);
-            Thread(b, spend, memory, motive, 1.2f, 1.8f, -.2f * s); if (m.Save > .005f) Thread(b, save, memory, Gold, 1.4f, 2.2f, -.2f * s);
-            if (m.Borrow > .005f) Thread(b, borrow, memory, DesireColor(0), 1.4f, 2.2f, -.2f * s);
-            for (int k = 0; k < 5; k += 2) Thread(b, memory, o + Node(true, k, s), WithAlpha(FearColor(4), .35f), .8f, 1.2f, -1.2f * s);
+            // one in control of their path has the heavier ring, not a brighter one (brightness would bloom)
+            Ring(b, memory, wr, Gold, m.InControl ? 3.6f : 2.2f, 1, false); Ring(b, memory + Vector3.up * .08f * s, wr * 1.06f, Gold, 1, 1, false);
+            if (m.Debt > 0) Ring(b, memory + Vector3.up * .16f * s, dr, DesireColor(0), 2, 1, false);
+            Thread(b, spend, memory, motive, 1.2f, 1, -.2f * s); if (m.Save > .005f) Thread(b, save, memory, Gold, 1.4f, 1, -.2f * s);
+            if (m.Borrow > .005f) Thread(b, borrow, memory, DesireColor(0), 1.4f, 1, -.2f * s);
+            for (int k = 0; k < 5; k += 2) Thread(b, memory, o + Node(true, k, s), WithAlpha(FearColor(4), .35f), .8f, 1, -1.2f * s);
             label("MEMORY\n" + m.MemoryText, memory + Vector3.down * .55f * s, .085f * s, Gold);
             // The skull: a faint envelope gives the program a volume without claiming neuroanatomy.
             for (int j = 0; j < 7; j++)

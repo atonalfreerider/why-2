@@ -132,6 +132,12 @@ namespace Why
         /// <summary>Camera yaw of a <see cref="FixedTarget"/> view (degrees, 0 = looking along +z).</summary>
         public float FixedYaw;
 
+        /// <summary>
+        /// Calendar year the camera looks at instead of the middle of the window (NaN): a log window's middle can lie
+        /// decades before its subject (the present moment's lay in 1971). The window and its lens stay as they are.
+        /// </summary>
+        public double TargetYear = double.NaN;
+
         public WarpState Warp()
         {
             if (Polar)
@@ -178,7 +184,8 @@ namespace Why
                 };
             }
 
-            float u = Polar ? PolarArc : DeepTime.Arc(w.FocusYearsAgo);
+            double targetYearsAgo = double.IsNaN(TargetYear) ? w.FocusYearsAgo : System.Math.Max(DeepTime.NowYear - TargetYear, 1e-6);
+            float u = Polar ? PolarArc : DeepTime.Arc(targetYearsAgo);
             Vector3 target = GraphWarp.ToWorld(u, TargetY, TargetRho, w);
             // look outward from inside the path: past on the left, present on the right
             Vector3 n = GraphWarp.NormalAt(u, w);
@@ -393,13 +400,15 @@ namespace Why
                 new ViewPreset
                 {
                     // the human branch time mapping (near linear), as a lens so the rest of the clock straightens away
-                    Id = "civilizations", Title = "Civilizations", Subtitle = "Relative power, 3000 BCE to now",
+                    Id = "civilizations", Title = "Civilizations",
+                    Subtitle = "3000 BCE to now \u00B7 a stream's width is its share of power \u00B7 streams run west to east",
                     Key = KeyCode.Alpha5, YaOld = Ya(-3100), YaNew = 0, LogOffset = 400, Length = 13, StrataEmphasis = 0.15f,
                     TargetRho = 1.3f, TargetY = GraphStyle.HumansY, Pitch = 60, Distance = 11
                 },
                 new ViewPreset
                 {
-                    Id = "modern", Title = "Modern era", Subtitle = "1776 to now",
+                    Id = "modern", Title = "Modern era",
+                    Subtitle = "1776 to now \u00B7 width: share of power (of world GDP from 1949) \u00B7 streams run west to east",
                     Key = KeyCode.Alpha6, YaOld = Ya(1770), YaNew = 0, LogOffset = 400, Length = 14, YScale = 2f, StrataEmphasis = 0.15f,
                     TargetRho = 2.4f, TargetY = GraphStyle.HumansY, Pitch = 50, Distance = 12
                 },
@@ -425,7 +434,7 @@ namespace Why
                 {
                     Id = "present", Title = "The present moment", Subtitle = "Where every line arrives",
                     Key = KeyCode.Alpha8, YaOld = 150, YaNew = 0, LogOffset = 80, Length = 9, TargetRho = 2.2f, StrataEmphasis = 0.15f,
-                    TargetY = GraphStyle.HumansY, Pitch = 40, Distance = 8f
+                    TargetY = GraphStyle.HumansY, Pitch = 40, Distance = 8f, TargetYear = 2015
                 },
             };
         }

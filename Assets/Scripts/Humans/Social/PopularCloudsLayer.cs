@@ -14,6 +14,9 @@ namespace Why.Humans.Social
     /// <para>Level of detail by distance from each cloud: far, a glow and the most followed stars; nearer, every star
     /// and the category rings; close, the ties and names. The clouds follow the warp (lens, unrolling) by
     /// re-placing their roots only when <see cref="GraphWarp.Version"/> changes.</para>
+    /// <para>This layer also draws the popular people's lifelines (<see cref="PopularLines"/>), region by region, so a
+    /// view can leave regions out (<see cref="RegionShown"/>): where the streams' widths are the subject the celebrities'
+    /// tufts, stacked by region, read as a ranking of power, and the United States' own view shows only Americans.</para>
     /// </summary>
     public sealed class PopularCloudsLayer : GraphLayer
     {
@@ -21,12 +24,17 @@ namespace Why.Humans.Social
         const float Lift = 1.35f;   // cloud height above the lifelines' top, in SMV heights
         const int FarStars = 14;
 
+        // the lifelines as the lifelines layer draws its figures: brighter in the views of people
+        const float LineIntensity = 0.8f, LinesOverviewAlpha = 0.6f;
+        const float ShowSpeed = 1.5f;
+        const string UsRegion = "us";
+
         sealed class RegionCloud
         {
             public int Region;
             public GameObject Root;
             public Transform Rings;
-            public MeshRenderer Glow, Stars, Bright, Ties, RingLines;
+            public MeshRenderer Glow, Stars, Bright, Ties, RingLines, Tethers;
             public Vector3 Data;            // cloud center, data space
             public float Radius = 1;        // world radius of the unit layout
             public readonly List<(SocialPeople.Person p, LabelSpec label)> Names = new List<(SocialPeople.Person, LabelSpec)>();
@@ -37,7 +45,8 @@ namespace Why.Humans.Social
         PopularLines lines;
         readonly List<RegionCloud> clouds = new List<RegionCloud>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
-        MeshRenderer tethers;
+        MeshRenderer[] regionLines = Array.Empty<MeshRenderer>();
+        float[] shown = Array.Empty<float>();
         int warpVersion = -1;
         LabelSystem labelSystem;
 
@@ -50,16 +59,25 @@ namespace Why.Humans.Social
             labelSystem = ctx.Labels;
             if (people == null || lines == null) return;
             double now = DeepTime.NowYear;
+            shown = new float[people.regions.Length];
+            regionLines = new MeshRenderer[people.regions.Length];
             for (int r = 0; r < people.regions.Length; r++)
             {
+                shown[r] = 1;
+                if (lines.ByRegion[r].VertexCount > 0)
+                {
+                    Mesh mesh = lines.ByRegion[r].ToMesh("Popular lifelines / " + people.regions[r].name); owned.Add(mesh);
+                    Material mat = GraphMaterials.Line(Color.white, LineIntensity, GraphMaterials.QueueHumans + 2, true); owned.Add(mat);
+                    regionLines[r] = AddMesh(mesh.name, mesh, mat);
+                }
                 Vector3 band = lines.RegionNow[r];
                 if (band == Vector3.zero) continue;
                 var cloud = new RegionCloud { Region = r, Data = new Vector3(band.x, GraphStyle.HumansY + GraphStyle.SmvHeight * Lift, band.y) };
                 Build(cloud, now, ctx);
+                var t = new GameObject("Popular tethers / " + people.regions[r].name); t.transform.SetParent(transform, false);
+                cloud.Tethers = MakeRenderer(t.transform, "Tethers", new LineMeshBuilder(), false);
                 clouds.Add(cloud);
             }
-            var t = new GameObject("Popular tethers"); t.transform.SetParent(transform, false);
-            tethers = MakeRenderer(t.transform, "Tethers", new LineMeshBuilder(), false);
             Debug.Log("[Why] PopularClouds: " + clouds.Count + " regional clouds of " + people.people.Length + " popular people");
         }
 
@@ -122,38 +140,73 @@ namespace Why.Humans.Social
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
-            if (clouds.Count == 0 || rig == null) return;
+            if (people == null || lines == null || rig == null) return;
             if (warpVersion != GraphWarp.Version) { warpVersion = GraphWarp.Version; Place(); }
-            Vector3 cam = rig.Cam.transform.position;
+            string view = GraphRoot.Instance != null && GraphRoot.Instance.CurrentPreset != null ? GraphRoot.Instance.CurrentPreset.Id : "";
             bool any = false;
+            for (int r = 0; r < shown.Length; r++)
+            {
+                shown[r] = Mathf.MoveTowards(shown[r], RegionShown(view, people.regions[r].id), GraphTime.Delta * ShowSpeed);
+                if (regionLines[r] == null) continue;
+                GraphMaterials.SetAlpha(regionLines[r].sharedMaterial, shown[r] * (PeopleView(view) ? 1f : LinesOverviewAlpha));
+                regionLines[r].enabled = shown[r] > .002f;
+            }
+            foreach (var (region, label) in lines.Labels)
+            {
+                bool hide = shown[region] < .5f;
+                if (label.Hidden != hide) { label.Hidden = hide; any = true; }
+            }
+            Vector3 cam = rig.Cam.transform.position;
             foreach (var c in clouds)
             {
+                float s = shown[c.Region];
+                if (c.Root.activeSelf != s > .002f) c.Root.SetActive(s > .002f);
+                c.Tethers.enabled = s > .002f;
+                GraphMaterials.SetAlpha(c.Tethers.sharedMaterial, .55f * s);
                 Vector3 center = c.Root.transform.position;
                 float d = Vector3.Distance(cam, center) / Mathf.Max(1e-4f, c.Radius);
                 float far = Smooth(40, 14, d), mid = Smooth(14, 5, d), near = Smooth(5, 2.2f, d);
-                GraphMaterials.SetAlpha(c.Glow.sharedMaterial, .5f * far + .15f);
-                GraphMaterials.SetAlpha(c.Bright.sharedMaterial, far);
-                GraphMaterials.SetAlpha(c.Stars.sharedMaterial, mid);
-                GraphMaterials.SetAlpha(c.Ties.sharedMaterial, near);
-                c.Rings.gameObject.SetActive(mid > .05f);
-                if (mid > .05f) foreach (Transform ring in c.Rings) ring.rotation = rig.Cam.transform.rotation;
-                bool names = near > .3f, cats = mid > .5f;
+                GraphMaterials.SetAlpha(c.Glow.sharedMaterial, (.5f * far + .15f) * s);
+                GraphMaterials.SetAlpha(c.Bright.sharedMaterial, far * s);
+                GraphMaterials.SetAlpha(c.Stars.sharedMaterial, mid * s);
+                GraphMaterials.SetAlpha(c.Ties.sharedMaterial, near * s);
+                c.Rings.gameObject.SetActive(mid * s > .05f);
+                if (mid * s > .05f) foreach (Transform ring in c.Rings) ring.rotation = rig.Cam.transform.rotation;
+                bool names = near > .3f && s > .5f, cats = mid > .5f && s > .5f;
                 foreach (var n in c.Names)
                 {
                     bool show = n.p == null ? cats : names;
                     if (n.label.Hidden == show) { n.label.Hidden = !show; any = true; }
                 }
             }
-            if (tethers) GraphMaterials.SetAlpha(tethers.sharedMaterial, .55f);
             if (any) labelSystem?.MarkDirty();
         }
+
+        /// <summary>
+        /// How much of a region's popular people a view shows (lines, cloud, names): none where the streams' widths are
+        /// the subject (civilizations, the modern era), only Americans in the United States' own view.
+        /// </summary>
+        static float RegionShown(string view, string region)
+        {
+            switch (view)
+            {
+                case "civilizations":
+                case "modern": return 0;
+                case "smv": return region == UsRegion ? 1 : 0;
+                default: return 1;
+            }
+        }
+
+        /// <summary>The views of people, where the lifelines layer draws its figures at full strength too.</summary>
+        static bool PeopleView(string view) => view == "prehistory" || view == "present" || view == "smv";
 
         /// <summary>Re-places every cloud (and its labels and tethers) for the current warp.</summary>
         void Place()
         {
-            var tb = new LineMeshBuilder(); double now = DeepTime.NowYear;
+            double now = DeepTime.NowYear;
             foreach (var c in clouds)
             {
+                var tb = new LineMeshBuilder();
                 Vector3 band = lines.RegionNow[c.Region];
                 Vector3 w0 = GraphWarp.ToWorld(c.Data), w1 = GraphWarp.ToWorld(c.Data + new Vector3(0, 0, Mathf.Max(.01f, band.z)));
                 c.Radius = Mathf.Clamp(Vector3.Distance(w0, w1) * .9f, .02f, Vector3.Distance(w0, GraphWarp.ToWorld(c.Data + new Vector3(0, GraphStyle.SmvHeight, 0))) * .8f);
@@ -171,8 +224,8 @@ namespace Why.Humans.Social
                     Color col = SocialPeople.White; col.a = .08f + .25f * p.Fame;
                     tb.AddSegment(GraphWarp.ToWorld(end), w0 + Spread(p.Layout) * c.Radius, col, .6f, 0, 0, 1.2f);
                 }
+                Replace(c.Tethers, tb);
             }
-            Replace(tethers, tb);
             labelSystem?.MarkDirty();
         }
 

@@ -13,6 +13,9 @@ namespace Why.Humans.Social
     /// streams together for Europe, and for the rest of the world a band just outside the outermost stream. Fame
     /// (followers) sets their base status and brightness; the lines are white, so popularity reads apart from the
     /// civilizations' blue and from capital's gold. People who are also historical figures are drawn there instead.
+    /// <para>Each region's lines and names are kept apart (<see cref="ByRegion"/>, <see cref="Labels"/>) so a view can
+    /// leave regions out: stacked by region at the present edge, the celebrities' tufts read as a ranking of power where
+    /// the streams' widths are the subject (<see cref="PopularCloudsLayer"/> draws them).</para>
     /// </summary>
     public sealed class PopularLines
     {
@@ -22,7 +25,12 @@ namespace Why.Humans.Social
         const float OffsetNear = 0.06f, OffsetFar = 0.42f;
 
         public static readonly Color32 Tint = new Color32(230, 244, 255, 235);
-        public readonly LineMeshBuilder Lines = new LineMeshBuilder(32_000);
+
+        /// <summary>Each region's lifelines (index of <see cref="SocialPeople.regions"/>).</summary>
+        public readonly LineMeshBuilder[] ByRegion;
+
+        /// <summary>The names at the lifelines' ends, by region.</summary>
+        public readonly List<(int region, LabelSpec label)> Labels = new List<(int, LabelSpec)>();
         /// <summary>Each drawn person's last point (data space): the present for the living, where the clouds take over.</summary>
         public readonly Dictionary<int, Vector3> Ends = new Dictionary<int, Vector3>();
         /// <summary>Each region's band at the present: (u, center rho, half width).</summary>
@@ -40,6 +48,8 @@ namespace Why.Humans.Social
             this.world = world; this.streams = streams; this.people = people;
             regionCivs = new Civ[people.regions.Length][];
             RegionNow = new Vector3[people.regions.Length];
+            ByRegion = new LineMeshBuilder[people.regions.Length];
+            for (int r = 0; r < ByRegion.Length; r++) ByRegion[r] = new LineMeshBuilder(8_000);
             for (int r = 0; r < regionCivs.Length; r++)
             {
                 var list = new List<Civ>();
@@ -75,6 +85,7 @@ namespace Why.Humans.Social
             // Subtle among the population: only the most followed approach the figures' brightness.
             float intensity = .45f + 1.2f * fame * fame, alphaAdult = .14f + .38f * fame;
             int id = Id(p);
+            LineMeshBuilder lines = ByRegion[p.RegionIndex];
             pts.Clear();
             Vector3 last = default; bool any = false;
             for (double t = born; ; t = Math.Min(end, t + 1))
@@ -90,16 +101,19 @@ namespace Why.Humans.Social
                     pts.Add(new LinePoint(data, tint, adult ? WidthPx : WidthPx * .7f, WidthWorld, adult ? intensity : intensity * .5f));
                     last = data; any = true;
                 }
-                else if (pts.Count >= 2) { Lines.AddPolyline(pts, id); pts.Clear(); }
+                else if (pts.Count >= 2) { lines.AddPolyline(pts, id); pts.Clear(); }
                 if (t >= end) break;
             }
-            if (pts.Count >= 2) Lines.AddPolyline(pts, id);
+            if (pts.Count >= 2) lines.AddPolyline(pts, id);
             pts.Clear();
             if (!any) return false;
             Ends[p.Index] = last;
             if (fame > .55f)
-                addLabel(new LabelSpec { Text = p.name, Data = last, Priority = 4 + 10 * fame, Rank = fame * 10, SizePx = 10.5f,
-                    Color = new Color(.85f, .93f, 1f), PixelOffset = new Vector2(5, 6), Ids = IdRange.Single(id), Hidden = false });
+            {
+                var label = new LabelSpec { Text = p.name, Data = last, Priority = 4 + 10 * fame, Rank = fame * 10, SizePx = 10.5f,
+                    Color = new Color(.85f, .93f, 1f), PixelOffset = new Vector2(5, 6), Ids = IdRange.Single(id), Hidden = false };
+                addLabel(label); Labels.Add((p.RegionIndex, label));
+            }
             return true;
         }
 

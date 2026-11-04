@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Why.Economy.Land;
@@ -7,7 +8,9 @@ namespace Why.Economy
 {
     /// <summary>Camera poses for the wave and the separate 3D decision program. Targets are land-local (the frame stands
     /// on the road's present moment: z is time, the hillside rises toward +x); yaw is relative to looking along the
-    /// road into the future, so 180 looks back from the future at the crest's face and 90 looks across the wake.</summary>
+    /// road into the future, so 180 looks back from the future at the crest's face and 90 looks across the wake.
+    /// Each view's subtitle says in about fifteen plain words what the picture shows; how to read its colors and marks is
+    /// the view's key (<see cref="Key"/>), which the HUD's legend shows, during the tour too.</summary>
     public static class HillPresets
     {
         public static List<ViewPreset> Build()
@@ -19,35 +22,44 @@ namespace Why.Economy
             // present whatever year the crest stands at: an earlier year, or the replay, grows the wave across them instead of
             // carrying them into the empty past before the first rib. The other views stand on the crest.
             float axis = HillLandscape.Z(System.Math.Max(EconomyState.Year, EconomyState.DefaultYear(EconomyState.MaxYear)));
-            Add("overview", "Economy / a wave moving into the future", "The road of lives fans out into the economy · industries ride the wave as ridges · companies are born, rise and die on them · the crest is now", KeyCode.Alpha1, new Vector3(95, 18, axis - 70), 140, 26, 270);
-            Add("section", "Population / families through time", "Partners meet at the mid-plane; their child's life starts at that junction", KeyCode.Alpha2, Vector3.zero, 0, 6, 6.2f);
-            Add("landscape", "The wave of value", "Each rib is a year's economy · tiers stand on the ones beneath them · the crest is where value is created now", KeyCode.Alpha3, new Vector3(105, 26, crest - 20), 152, 18, 210);
-            Add("capture", "Who keeps the money", "Every household dollar splits at a market: wages flow back down, owners' surplus climbs to the gold halos and rises to its owners · rose rings pay more than they collect", KeyCode.Alpha4, new Vector3(120, 40, crest - 14), 150, 32, 150);
-            Add("people", "Class is altitude", "Valley side: out of work · foothills: frontline · slopes: office · upper slopes: managers · under the summit: owners · clouds: the 1% · arrows: where each cohort's members stood ten years ago (gold climbed · rose fell)", KeyCode.Alpha5, new Vector3(80, 20, crest - 14), 152, 34, 135);
-            Add("rivers", "The money circuit", "Desire / fear rivers to each market · gold climbs to the halos · wages back to the valleys · investment falls from the clouds", KeyCode.Alpha6, new Vector3(100, 24, crest - 18), 150, 42, 175);
-            Add("mind", "Inside the decision program", "Select a player · memory → desire / fear → deliberation → spending → next balance sheet", KeyCode.Alpha7, HillLandscapeLayer.MindOrigin + new Vector3(0, 1, 0), 0, 20, 15);
-            Add("society", "Repeated encounters", "Tit for tat · blue ties cooperate · red ties defect · use the season controls", KeyCode.Alpha8, new Vector3(90, 20, crest - 14), 150, 46, 150);
-            Add("foundation", "Social infrastructure", "Taxes rain into the public bedrock · pillars carry pensions, health, schools and roads up to the people · interest rises to bondholders", KeyCode.Alpha9, new Vector3(100, -6, crest - 16), 168, 9, 205);
-            Add("companies", "Companies live and die", "Each line is a company: born on its industry's ridge, height = market value, color = how Jev judged it sells (gold need · rose want · ice fear) · ✕ failed · ○ bought", KeyCode.Alpha0, new Vector3(95, 16, axis - 78), 104, 14, 235);
-            Add("social", "Attention above capital", "White: the most followed Americans, laid out by who follows whom; rings: followed by the other most-followed · the attention loop: companies pay platforms, platforms pay creators, people give attention and take in wants, and spend · gold rings: capital holders' companies · grey: seats in government", KeyCode.None, new Vector3(95, 70, crest - 10), 150, 18, 175);
-            Add("roots", "Industries depend on each other", "Input-output purchases connect suppliers to buyers; widths follow the stored use table", KeyCode.None, new Vector3(100, 10, crest - 16), 150, 34, 190);
-            Add("betrayal", "One betrayal", "Follow retaliation and forgiveness over repeated encounters", KeyCode.None, new Vector3(90, 20, crest - 14), 150, 46, 150);
-            Add("y1972", "The wave in 1972", "Historical accounts on the same axis: the crest stands back in time · modern companies are not born yet", KeyCode.None, new Vector3(60, 12, y1972 - 30), 140, 24, 190);
-            Add("strategy", "Companies spend too", "Each firm runs the people's program · amber: running the business down to suppliers · blue: its workers · forward over the crest: investment and research (ice: fear of losing position · rose: desire for new demand) · rose up: advertising · gold: owners · steel: taxes and lobbying · white arrows: which way the money moves it",
+            Add("overview", "The US economy, a wave through time", "Each rib across the wave is one year's economy; the bright crest in front is the year shown, and the past stretches behind it.", KeyCode.Alpha1, new Vector3(95, 18, axis - 70), 140, 26, 270);
+            Add("section", "Families through time", "Each line is one simulated life. Partners' lines meet, and a child's life begins where they join.", KeyCode.Alpha2, Vector3.zero, 0, 6, 6.2f);
+            Add("landscape", "Layers of the economy", "Each industry is a ridge as wide as its share of what the economy produces, layered from raw materials up to tech.", KeyCode.Alpha3, new Vector3(105, 26, crest - 20), 152, 18, 210);
+            // A lower camera than the other crest views: the owners' climbs end in the clouds above the hills, in frame. The
+            // year's split of the dollar is printed once, in the scene over a bar of its parts (HillCaptureLayer): there it
+            // follows a what-if program as the drawing does, and it shows during the tour too, when this subtitle is hidden.
+            Add("capture", "Who keeps the money", "Where each household dollar goes at the market: to wages, to owners, to upkeep, to imports and to taxes.", KeyCode.Alpha4, new Vector3(120, 40, crest - 14), 150, 28, 150);
+            Add("people", "Class is height on the hill that pays you", "Groups of households stand on the hill of the industry that pays them, higher with more income; the top 1% float above.", KeyCode.Alpha5, new Vector3(80, 20, crest - 14), 152, 34, 135);
+            Add("rivers", "Rivers of desire and fear", "Household spending flows to the industries that sell what it buys, in two colors: rose for wants, ice blue for fears.", KeyCode.Alpha6, new Vector3(100, 24, crest - 18), 150, 42, 175);
+            Add("mind", "Inside one decision", "One group of households deciding: what it wants (left), what it fears (right), and what it chooses to spend.", KeyCode.Alpha7, HillLandscapeLayer.MindOrigin + new Vector3(0, 1, 0), 0, 20, 15);
+            Add("society", "Repeated encounters", "Groups of households meet again and again and choose to cooperate or cheat; most copy what the other did last time.", KeyCode.Alpha8, new Vector3(90, 20, crest - 14), 150, 46, 150);
+            Add("foundation", "Government, the bedrock", "Federal spending as the bedrock under every hill, in layers by what it pays for; taxes flow in, and programs flow out to people.", KeyCode.Alpha9, new Vector3(100, -6, crest - 16), 168, 9, 205);
+            Add("companies", "Companies live and die", "Each line is a company's life on its industry's ridge, rising with its market value; × marks a failure, ○ a takeover.", KeyCode.Alpha0, new Vector3(95, 16, axis - 78), 104, 14, 235);
+            Add("social", "Attention above capital", "The most-followed Americans (followers across platforms, 2025) float above the economy, placed by who follows whom on Instagram.", KeyCode.None, new Vector3(95, 70, crest - 10), 150, 18, 175);
+            Add("roots", "Industries depend on each other", "Lines under the hills join each industry to the ones it buys from; the wider the line, the more money a year.", KeyCode.None, new Vector3(100, 10, crest - 16), 150, 34, 190);
+            Add("betrayal", "One betrayal", "One group cheats a partner that trusted it. Play the rounds: lines turn rose where others strike back and blue again where they forgive.", KeyCode.None, new Vector3(90, 20, crest - 14), 150, 46, 150);
+            // Aimed high enough that today's crest, outlined over 1972's (HillWaveLayer), stays below the title: its tech end,
+            // highest and furthest up the hillside, stands about 150 px down at 1920x1080, right of the What if? chip (aimed 10
+            // units lower, it stood behind the title). From 190 units the comparison's labels keep the size they were made for.
+            // HillWaveLayer sizes the tiers' shares and places the bedrock's name for this pose (Then, Face): measure them
+            // again if it changes.
+            Add("y1972", "The economy in 1972", Subtitle1972(), KeyCode.None, new Vector3(60, 22, y1972 - 30), 140, 24, 190);
+            Add("strategy", "Companies spend too", "Where one large company's money went in its latest year: to suppliers, workers, the future, its owners and the state.",
                 KeyCode.None, new Vector3(150, 34, crest - 4), 150, 20, 150);
             // The price of money and the edge of trade stand beyond the far side of the wave (HillMoneyLayer), seen from
-            // beyond them so time runs left to right with the wave behind.
+            // beyond them so time runs left to right with the wave behind. The chart ends at the year on screen.
             float first = HillLandscape.Z(1950);
-            Add("money", "The price of money and the edge of trade", "The state's levers on the market layer, on the wave's own time axis · gold: the federal funds rate · rose: the 30-year mortgage · ice: the 10-year Treasury · steel: the effective tariff rate · faint band: exports + imports over GDP",
+            int shown = LandService.ShownYear > 0 ? LandService.ShownYear : EconomyState.Year;
+            Add("money", "The price of money, and trade", "Yearly rates up to " + shown + ": the central bank's rate, what homebuyers and the government pay to borrow, and the tax on imports.",
                 KeyCode.None, new Vector3(HillMoneyLayer.ChartX, 26, (first + axis) * .5f), 270, 6, 128);
             // Other governments (HillRegimeLayer): the crest's cross-section from the future, its bedrock redrawn by the regime;
             // aimed toward the valley so the whole section stands left of the panel (from the future, +x runs to the left).
-            Add(HillRegimeLayer.View, "Other foundations", "The same US hills on another state: bedrock as deep as its spending, in strata of what it lives on · steel summits it owns, gold private · grey: its rules, gold: firms shaping them · steel lanes: the share of every river that passes through it · white: votes · the border: trade · gold ring: the top 1%",
+            Add(HillRegimeLayer.View, "What if: the US economy on another government", "The same US hills standing on the government of Sweden, China, Saudi Arabia or the Soviet Union: a thought experiment.",
                 KeyCode.None, new Vector3(88, 24, crest), 172, 6, 300);
             // The decade's ladder stands beside the wave (HillMobilityLayer): seen from the hills' side so time runs left
             // to right, its labels and the crest's year on the right.
             float decade = HillLandscape.Z(EconomyState.Year - Model.Mobility.DefaultWindow);
-            Add("mobility", "What moves people up or down the hill", "The hill's altitude pulled out beside the wave: five rungs of household income ten years ago and now · streams of people who climbed (gold), fell (rose) or stayed · what came with the moves · the forces at each rung",
+            Add("mobility", "Who moved up or down, and what came with it", "Five income levels ten years ago (left) and now (right): who climbed, stayed or fell, and what happened in their lives.",
                 KeyCode.None, new Vector3(HillMobilityLayer.LadderX, HillMobilityLayer.LadderY + HillMobilityLayer.RungStep * 2 - 1, (decade + crest) * .5f - 4), 270, 4, 76);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
@@ -81,31 +93,159 @@ namespace Why.Economy
             float crest = HillLandscape.Z(EconomyState.Year);
             bool ready = PersonFocus.Ready;
             Vector3 place = ready ? PersonFocus.Place : new Vector3(80, 20, crest - 3);
-            string who = ready && PersonFocus.Life != null ? "Record #" + PersonFocus.Life.Person + " (" + PersonFocus.Life.Why + ")" : "One simulated person";
+            // the person is one of the simulation's, never a real record: say so wherever they are named
+            string name = ready && PersonFocus.Life != null ? "Synthetic person #" + PersonFocus.Life.Person : "One simulated person";
+            string who = ready && PersonFocus.Life != null && !string.IsNullOrEmpty(PersonFocus.Life.Why) ? name + ", " + PersonFocus.Life.Why : name;
             switch (id)
             {
                 case "atom":
-                    return Make(id, "One person, atomistically", who + " · five desires (rose) and five fears (ice) feed reason and a choice · rose threads pull toward markets, ice threads push away from threats, income arrives from its sources",
+                    return Make(id, "One person, up close", who + ": the wants that pull their spending, the fears that push it, and where their income comes from.",
                         KeyCode.None, (ready ? PersonFocus.Mind : place + Vector3.up * 8.5f) + Vector3.down * 3.2f, 150, 12, 30);
                 case "dilemma":
-                    return Make(id, "Tit for tat", who + " plays repeated prisoner's dilemmas with spouse, coworker, neighbor, boss and the other tribe · blue cooperates, red defects · one slip in round 9, then retaliation or forgiveness · above: the groups",
+                    return Make(id, "Cooperate or cheat?", name + " keeps meeting a spouse, a coworker, a neighbor, a boss and a political rival; each time both choose: blue to cooperate, red to cheat.",
                         KeyCode.None, (ready ? PersonFocus.Arena : place + new Vector3(-12, 5.5f, -5)) + Vector3.up * 2.4f, 155, 24, 27);
                 default:
                     float span = ready ? PersonFocus.LadderSpan : 90;
-                    return Make("ladder", "The economic ladder", who + " across the wave: each year on the household's hill at the rung of its income · blue labor, gold in control · white ghost: the parents' rank",
+                    return Make("ladder", "The economic ladder", who + ", year by year: the higher their household's income, the higher they stand on the hill that pays them.",
                         KeyCode.None, ready ? PersonFocus.LadderCenter + Vector3.up * 3 : new Vector3(60, 12, crest - 30), 118, 16, Mathf.Clamp(span * 0.8f, 36, 150));
             }
         }
 
         /// <summary>The viewer's own place (keyless "you" view), posed on where <see cref="YouFocus"/> last placed them:
-        /// from the future, in front of the crest and a little to the valley side, so the possible futures stand between
-        /// the camera and the viewer and the road of lives (which ends at the crest) stays out of the way.</summary>
+        /// from the future, in front of the crest and a little to the valley side, so the ruler of possible futures stands
+        /// beside the viewer on screen and the road of lives (which ends at the crest) stays out of the way.</summary>
         public static ViewPreset You()
         {
             Vector3 place = YouFocus.Ready ? YouFocus.Place : new Vector3(60, 14, HillLandscape.Z(EconomyState.Year) - 6);
-            return Make("you", "Where you stand", "Use the panel to tell the model about your household · you stand at your rung on the hill you work in · your spending's rivers (ice: sold by fear, rose: desire) · gold: the income it pays that flows uphill · ahead: where people like you were a decade later",
+            return Make("you", "Where do you stand?", "Enter your household's age, income, savings and work in the panel to see your place among simulated Americans and where your spending goes.",
                 KeyCode.None, place + new Vector3(3, 5, 4), 166, 15, 44);
         }
+
+        /// <summary>The 1972 view's caption: real growth since then and the services tier's share then and now, read off the
+        /// industries' value added (industries.json, in 2025 dollars), so then-versus-now is on screen, not left to memory.</summary>
+        static string Subtitle1972()
+        {
+            var data = LandService.Model?.Data;
+            if (data != null && ReferenceEquals(data, subtitleData)) return subtitle1972;
+            subtitleData = data;
+            return subtitle1972 = Growth1972(data);
+        }
+
+        static Data.EconomyData subtitleData;
+        static string subtitle1972;
+
+        static string Growth1972(Data.EconomyData data)
+        {
+            int then = EconomyViews.Year1972, now = EconomyState.DefaultYear(EconomyState.MaxYear);
+            double past = data != null ? data.Real(data.ValueAddedTotal(then), then) : 0, present = data != null ? data.Real(data.ValueAddedTotal(now), now) : 0;
+            if (past <= 0 || present <= 0) return "The wave's bright crest set back to 1972: a smaller economy, before most of today's companies were born.";
+            double Services(int year)
+            {
+                double s = 0;
+                foreach (var industry in data.Industries) if (industry.TierId == "services") s += industry.ValueAdded.GrowthAt(year);
+                return s / Math.Max(1e-9, data.ValueAddedTotal(year));
+            }
+            return "The wave's bright crest set back to 1972. Since then the economy has become " + LandFacts.Num(present / past, 1) +
+                   " times as large after inflation, and services went from " + LandFacts.Percent(Services(then)) + " to " + LandFacts.Percent(Services(now)) + " of it.";
+        }
+
+        // ------------------------------------------------------------------ the bar, the help sheet and the legend
+
+        /// <summary>Captions of the HUD's view bar: one to three words, so every view reads at full size (the tooltip has the
+        /// full title).</summary>
+        static readonly Dictionary<string, string> ShortTitles = new Dictionary<string, string>
+        {
+            { "overview", "Wave" }, { "section", "Families" }, { "landscape", "Layers" }, { "capture", "Who keeps it" }, { "people", "Class" },
+            { "rivers", "Rivers" }, { "mind", "Mind" }, { "society", "Encounters" }, { "foundation", "Bedrock" }, { "companies", "Companies" },
+            { "social", "Attention" }, { "roots", "Supply chains" }, { "betrayal", "Betrayal" }, { "y1972", "1972" }, { "strategy", "Firm spending" },
+            { "money", "Money & trade" }, { HillRegimeLayer.View, "Other states" }, { "mobility", "Mobility" }, { "atom", "One person" },
+            { "dilemma", "Dilemma" }, { "ladder", "Ladder" }, { "you", "You" },
+        };
+
+        /// <summary>A view's caption in the bar (its title when it has no short one).</summary>
+        public static string ShortTitle(ViewPreset preset) =>
+            preset == null ? "" : ShortTitles.TryGetValue(preset.Id, out string s) ? s : preset.Title;
+
+        /// <summary>The views grouped for the help sheet, each chapter in the order a first visit would take them.</summary>
+        public static readonly (string chapter, string[] ids)[] Chapters =
+        {
+            ("The wave", new[] { "overview", "landscape", "foundation", "roots", "y1972", "section", HillRegimeLayer.View }),
+            ("Money", new[] { "capture", "rivers", "companies", "strategy", "money", "social" }),
+            ("People", new[] { "people", "mind", "mobility", "society", "betrayal" }),
+            ("One life", new[] { "atom", "ladder", "dilemma", "you" }),
+        };
+
+        /// <summary>
+        /// A view's own key for the HUD's legend: its swatches (a color and what it marks there) and one short reading of
+        /// its marks. The views of the whole wave share the legend's own key (the hills' hues and grammar); a view that
+        /// tells its story with other marks (a flat chart, a mind, a ladder, a flow split by motive) brings its own. Colors
+        /// are the palette's (<see cref="EconomyStyle"/>), so a key follows the palette when the layers do.
+        /// </summary>
+        public sealed class ViewKey
+        {
+            public readonly (string label, Color color)[] Swatches;
+            public readonly string Reading;
+            public ViewKey((string, Color)[] swatches, string reading) { Swatches = swatches; Reading = reading; }
+        }
+
+        /// <summary>White of the attention cloud's stars and of the regimes' votes; amber of a firm's spending on its suppliers
+        /// (the layers' own hues, which the palette does not name yet).</summary>
+        public static readonly Color White = new Color(1f, .97f, .92f), Amber = new Color(1f, .80f, .52f);
+
+        /// <summary>The key of a view, or null for the views of the whole wave (the legend's own key).</summary>
+        public static ViewKey Key(string id) => id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
+
+        /// <summary>The first year the attention cloud is drawn on the wave: Instagram's, whose follows place its stars (the
+        /// cloud's own gate, HillSocialLayer's PlatformYear, is set from it).</summary>
+        public const int AttentionFirstYear = 2010;
+
+        /// <summary>Whether the land on screen draws the attention cloud in the views of the whole wave: not in 1972's view, nor
+        /// in an earlier year of the slider or the replay, where the legend's key leaves the cloud's swatch out.</summary>
+        public static bool AttentionDrawn => (HillLandscapeLayer.Current?.Year ?? EconomyState.Year) >= AttentionFirstYear;
+
+        static readonly ViewKey Encounters = new ViewKey(new (string, Color)[] { ("Cooperate", EconomyStyle.Wages), ("Cheat", EconomyStyle.Desire) },
+            "Each line joins two groups of households that keep meeting; its color runs from rose (they cheat each other) to blue (they cooperate). The panel replays the rounds.");
+
+        static readonly Dictionary<string, ViewKey> Keys = new Dictionary<string, ViewKey>
+        {
+            ["section"] = new ViewKey(new (string, Color)[] { ("One simulated American life", EconomyStyle.People) },
+                "Each line is a life through time. Where two lines meet, partners join; where a new line starts at a junction, their child is born."),
+            ["capture"] = new ViewKey(new (string, Color)[] { ("To owners", EconomyStyle.Capital), ("To wages", EconomyStyle.Wages), ("To taxes", EconomyStyle.Government) },
+                "From each market, gold climbs to the owners' rings above the hills, blue runs back down to the workers and grey falls into the bedrock as taxes. Rose rings: groups that pay owners more than they collect."),
+            ["people"] = new ViewKey(new (string, Color)[] { ("Climbed", EconomyStyle.Capital), ("Fell", EconomyStyle.Desire) },
+                "Height: each group's income rank on the hill that pays it; the top 1% float in the clouds. Arrows: where the group's members stood ten years ago. Each moving dot is a fifth of a group."),
+            ["rivers"] = new ViewKey(new (string, Color)[] { ("Spent toward a want", EconomyStyle.Desire), ("Spent away from a fear", EconomyStyle.Fear), ("Wages", EconomyStyle.Wages), ("Owners", EconomyStyle.Capital) },
+                "Each river carries household money to the industries that sell what it buys; the wider, the more money a year. Which purchases are driven by fear was judged item by item by an AI model."),
+            ["mind"] = new ViewKey(new (string, Color)[] { ("Wants", EconomyStyle.Desire), ("Fears", EconomyStyle.Fear) },
+                "The rose spheres (wants) and blue spheres (fears) on either side are the drives: the bigger the sphere, the larger the drive's share of the motive. The white sphere at the center (deliberation) weighs them with reason into the choice below it: spend, save or borrow. Memory (what is owned and owed) carries the result into next year."),
+            ["society"] = Encounters,
+            ["betrayal"] = Encounters,
+            ["foundation"] = new ViewKey(new (string, Color)[] { ("Taxes", EconomyStyle.Government), ("Pensions and health", EconomyStyle.Fear), ("Schools, police, roads", EconomyStyle.Wages), ("Interest on the debt", EconomyStyle.Capital) },
+                "The deeper the block, the more the federal government spends. Grey lines up: rules; gold lines down: industries shaping those rules (judged by an AI model)."),
+            ["companies"] = new ViewKey(new (string, Color)[] { ("Sells a need", EconomyStyle.Capital), ("Sells a want", EconomyStyle.Desire), ("Sells safety from a fear", EconomyStyle.Fear) },
+                "Each line is one company over time, rising with its market value (compressed scale); its color is what it mostly sells, as judged by an AI model (Jev). × failed · ○ bought."),
+            ["social"] = new ViewKey(new (string, Color)[] { ("The most-followed Americans", White), ("Their companies", EconomyStyle.Capital), ("In office", EconomyStyle.Government) },
+                "Size: followers across Instagram, TikTok, YouTube and X (2025). Placed by who follows whom on Instagram. Rings: how many of the 1,139 most-followed accounts follow them. The loop: companies pay platforms, platforms pay creators, people give their attention."),
+            ["roots"] = new ViewKey(Array.Empty<(string, Color)>(),
+                "Lines under the hills: what each industry buys from the others (US accounts, 2024); the wider the line, the more money a year."),
+            ["strategy"] = new ViewKey(new (string, Color)[] { ("Suppliers", Amber), ("Workers", EconomyStyle.Wages), ("Investing so as not to fall behind", EconomyStyle.Fear),
+                    ("Investing and advertising for new demand", EconomyStyle.Desire), ("Owners", EconomyStyle.Capital), ("Taxes and lobbying", EconomyStyle.Government) },
+                "White arrows: which way the money moves the company, as judged by an AI model (Jev)."),
+            ["money"] = new ViewKey(new (string, Color)[] { ("Central bank rate", EconomyStyle.Capital), ("Mortgage rate", EconomyStyle.Desire), ("Government borrowing rate", EconomyStyle.Fear), ("Tariff on imports", EconomyStyle.Government) },
+                "Each line shows percent a year, left to right up to the year shown, starting with the first year of its data (some start later). The strip below shows trade (exports plus imports) as a share of GDP, on its own scale."),
+            [HillRegimeLayer.View] = new ViewKey(new (string, Color)[] { ("Owned by the state", EconomyStyle.Government), ("Privately owned", EconomyStyle.Capital), ("Votes", White) },
+                "The US hills on another country's government, as a what-if. The bedrock is as deep as all its levels of government spend. Dotted rings: summits no firm is ranked for; the steel gauge: the state's share of the value of its listed firms."),
+            ["mobility"] = new ViewKey(new (string, Color)[] { ("Climbed", EconomyStyle.Capital), ("Fell", EconomyStyle.Desire), ("Stayed", EconomyStyle.Government) },
+                "Left: a household's income level ten years ago; right: now. Stream width: number of people. Life events go with the moves in the simulation; they are not shown to cause them. The ladder counts simulated adults 25 and older, ranked as the tax records rank people; dashed outlines: the US tax records (the panel switches to every adult)."),
+            ["atom"] = new ViewKey(new (string, Color)[] { ("Wants", EconomyStyle.Desire), ("Fears", EconomyStyle.Fear), ("Pay from work", EconomyStyle.Wages), ("Income from owning", EconomyStyle.Capital), ("Help from the state", EconomyStyle.Government) },
+                "Rose lines pull toward what the person buys; ice lines push away from threats."),
+            ["dilemma"] = new ViewKey(new (string, Color)[] { ("Cooperates", EconomyStyle.Wages), ("Cheats", EconomyStyle.Defect) },
+                "In each round both sides choose. After one mistake in round 9, see who strikes back and who forgives. Above: the groups play the same game."),
+            ["ladder"] = new ViewKey(new (string, Color)[] { ("Living on wages", EconomyStyle.Wages), ("Living on savings and investments", EconomyStyle.Capital), ("Their parents' level", White) },
+                "The line follows one life, year by year; the higher it is, the more the household earns compared with others on its hill."),
+            ["you"] = new ViewKey(new (string, Color)[] { ("Your spending on wants", EconomyStyle.Desire), ("Your spending on fears", EconomyStyle.Fear), ("Income that goes to people ranked above you", EconomyStyle.Capital) },
+                "You stand at your income rank on the hill you work in. Gold, up: the share of all wages and owners' income that goes to people ranked above you (the population's, not traced from your purchases). The gold ring at your feet is your cushion; one turn is ten years. Beside you: where people like you were ten years later, one step per fifth."),
+        };
 
         /// <summary>The viewer moved: the catalog's "you" view takes the new pose, and the camera follows when it is on screen.</summary>
         public static void RefreshYouView()

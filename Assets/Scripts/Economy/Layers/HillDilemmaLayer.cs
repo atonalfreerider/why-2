@@ -20,13 +20,17 @@ namespace Why.Economy.Layers
     /// (historical records unchanged). Thin threads tie each counterpart to where their cohort stands on the hills.
     /// Above the arena the group level: the season of plain tit for tat between all cohorts (<see cref="SocialSeason"/>,
     /// mean field over shares), as a ring for the person's own tribe and one for the other, the bridge between them
-    /// colored by cooperation across tribes, stepping through the season's rounds with the arena.
+    /// colored by cooperation across tribes, stepping through the season's rounds with the arena. Every mark is drawn at
+    /// intensity 1 and blended, so the blue and red of the moves stay true where they cross (the bloom starts above 1 and is
+    /// kept for what the pointer holds); the slip stands out by its size.
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillDilemmaLayer : GraphLayer
     {
         public override int Order => 60;
         const float RoundSeconds = .6f, Radius = 4.4f, Strip = 12;
+        /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
+        const float Sheen = .2f;
         static readonly Color Coop = new Color(.30f, .70f, 1), Defect = new Color(1, .22f, .30f), Gold = new Color(1, .70f, .20f),
             White = new Color(1, .96f, .9f), Steel = new Color(.45f, .55f, .68f), Rose = new Color(1, .30f, .52f), Ice = new Color(.5f, .84f, 1);
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
@@ -78,7 +82,7 @@ namespace Why.Economy.Layers
             }
             var b = new LineMeshBuilder(); var fill = new SurfaceMeshBuilder();
             // The floor: a faint disc with rings, so the arena reads as a place from any side.
-            for (int r = 1; r <= 3; r++) MindDiagram.Ring(b, center, Radius * (.45f + .3f * r), WithAlpha(Steel, .45f), 1, 1.2f, false);
+            for (int r = 1; r <= 3; r++) MindDiagram.Ring(b, center, Radius * (.45f + .3f * r), WithAlpha(Steel, .45f), 1, 1, false);
             var inner = new Vector3[49]; var outer = new Vector3[49];
             for (int j = 0; j <= 48; j++) { float a = j * Mathf.PI / 24; inner[j] = center; outer[j] = center + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * Radius * 1.4f; }
             fill.AddBand(inner, outer, new[] { (Color32)WithAlpha(Steel, .16f) }, new[] { (Color32)WithAlpha(Steel, .02f) }, 0, 1);
@@ -88,14 +92,14 @@ namespace Why.Economy.Layers
             {
                 var s = arena.Seats[k];
                 Figure(b, seats[k], White, 1);
-                b.AddSegment(center + Vector3.up, seats[k] + Vector3.up, WithAlpha(Steel, .6f), 1.2f, .02f, 0, 1.2f);
+                b.AddSegment(center + Vector3.up, seats[k] + Vector3.up, WithAlpha(Steel, .6f), 1.2f, .02f, 0);
                 // Where this counterpart's cohort stands on the hills: the dealings come from somewhere real.
                 int player = playerOf != null && s.Person >= 0 && s.Person < playerOf.Length ? playerOf[s.Person] : -1;
                 if (player >= 0 && player < land.People.Length) MindDiagram.Thread(b, seats[k], land.People[player] + Vector3.up * .5f, WithAlpha(Steel, .35f), .8f, 1, 2);
-                seatLabels.Add(Label("<b>" + s.Role.ToUpperInvariant() + "</b> · " + PrisonersDilemma.Name(s.Strategy) + "\n" + s.Note + " · record #" + s.Person, seats[k] + Vector3.up * 2.35f, .1f, White));
+                seatLabels.Add(Label("<b>" + s.Role.ToUpperInvariant() + "</b> · " + PrisonersDilemma.Name(s.Strategy) + "\n" + s.Note + " · synthetic person #" + s.Person, seats[k] + Vector3.up * 2.35f, .1f, White));
                 Label(Rule(s.Strategy), seats[k] + Vector3.up * 4.25f, .075f, Steel * 1.5f);
             }
-            Label("<b>YOU · record #" + life.Person + "</b> · " + PrisonersDilemma.Name(arena.Strategy) + "\n" + PrisonersDilemma.Rule(arena.Strategy), center + Vector3.up * 2.9f, .1f, Gold);
+            Label("<b>YOU · synthetic person #" + life.Person + "</b> · " + PrisonersDilemma.Name(arena.Strategy) + "\n" + PrisonersDilemma.Rule(arena.Strategy), center + Vector3.up * 2.9f, .1f, Gold);
             Label("cooperate (blue) pays both R = " + arena.Pay.R.ToString("0", LandFacts.Ci) + " · defect (red) against cooperation pays T = " + arena.Pay.T.ToString("0", LandFacts.Ci) +
                   " and the sucker S = " + arena.Pay.S.ToString("0", LandFacts.Ci) + " · both defect P = " + arena.Pay.P.ToString("0", LandFacts.Ci) +
                   "\nupper row: your moves · lower row: theirs · gold diagonal: they copied your last move (tit for tat)", center + new Vector3(0, -.6f, 0) + Vector3.back * (Radius + 1.6f), .085f, Steel * 1.6f);
@@ -143,10 +147,10 @@ namespace Why.Economy.Layers
                 {
                     Vector3 p = origin + tangent * ((t - from) * .22f);
                     bool slip = t == DilemmaArena.SlipRound && k == arena.SlipSeat;
-                    b.AddSegment(p + Vector3.up * .32f, p + Vector3.up * .5f, Move(s.MyMoves[t]), slip ? 5 : 3.2f, .05f, 0, slip ? 5 : 2.6f);
-                    b.AddSegment(p - Vector3.up * .09f, p + Vector3.up * .09f, Move(s.TheirMoves[t]), 3.2f, .05f, 0, 2.6f);
+                    b.AddSegment(p + Vector3.up * .32f, p + Vector3.up * .5f, Move(s.MyMoves[t]), slip ? 5 : 3.2f, .05f, 0);
+                    b.AddSegment(p - Vector3.up * .09f, p + Vector3.up * .09f, Move(s.TheirMoves[t]), 3.2f, .05f, 0);
                     if (DilemmaArena.Copied(s, t) && t > from)
-                        b.AddSegment(p - tangent * .22f + Vector3.up * .32f, p + Vector3.up * .09f, WithAlpha(Gold, .8f), 1.2f, .01f, 0, 2.4f);
+                        b.AddSegment(p - tangent * .22f + Vector3.up * .32f, p + Vector3.up * .09f, WithAlpha(Gold, .8f), 1.2f, .01f, 0);
                 }
                 // Payoff bars: the partner's beside them, scaled to a whole match of mutual cooperation.
                 Bar(b, at + tangent * .9f, s.TheirScore / maxPair * 3, Gold);
@@ -174,7 +178,7 @@ namespace Why.Economy.Layers
             for (int k = 0; k < seatLabels.Count; k++)
             {
                 var s = arena.Seats[k];
-                seatLabels[k].text = "<b>" + s.Role.ToUpperInvariant() + "</b> · " + PrisonersDilemma.Name(s.Strategy) + " · " + s.TheirScore.ToString("0", LandFacts.Ci) + " pts\n" + s.Note + " · record #" + s.Person;
+                seatLabels[k].text = "<b>" + s.Role.ToUpperInvariant() + "</b> · " + PrisonersDilemma.Name(s.Strategy) + " · " + s.TheirScore.ToString("0", LandFacts.Ci) + " pts\n" + s.Note + " · synthetic person #" + s.Person;
             }
         }
 
@@ -195,16 +199,17 @@ namespace Why.Economy.Layers
             for (int side = 0; side < 2; side++)
             {
                 Vector3 c = side == 0 ? left : right; Color col = side == 0 ? mine : theirs;
-                MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .8f), 2, 2.4f, false); MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .5f), 1.2f, 1.6f, true);
+                MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .8f), 2, 1, false); MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .5f), 1.2f, 1, true);
                 Arc(b, c + Vector3.up * .1f, 2.1f, co, Gold);
-                for (int m = 0; m < 9; m++) { float a = m * Mathf.PI * 2 / 9; Vector3 p = c + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * 1.3f; b.AddSegment(p, p + Vector3.up * .45f, col, 1.6f, .02f, 0, 2); }
+                for (int m = 0; m < 9; m++) { float a = m * Mathf.PI * 2 / 9; Vector3 p = c + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * 1.3f; b.AddSegment(p, p + Vector3.up * .45f, col, 1.6f, .02f, 0); }
             }
             Color bridge = Color.Lerp(Defect, Coop, cross);
-            for (int lane = -1; lane <= 1; lane++) b.AddSegment(left + Vector3.right * 1.8f + Vector3.forward * lane * .25f, right + Vector3.left * 1.8f + Vector3.forward * lane * .25f, WithAlpha(bridge, .4f + .5f * cross), 1 + 5 * cross, .03f, 0, 2.6f);
+            for (int lane = -1; lane <= 1; lane++) b.AddSegment(left + Vector3.right * 1.8f + Vector3.forward * lane * .25f, right + Vector3.left * 1.8f + Vector3.forward * lane * .25f, WithAlpha(bridge, .4f + .5f * cross), 1 + 5 * cross, .03f, 0);
             b.AddSegment(center + Vector3.up * 3.6f, g - Vector3.up * .3f, WithAlpha(Steel, .4f), 1, .01f, 0, 1);
             groupLabel.text = "<b>THE GROUPS</b> · " + snapshot.Players.Players.Length + " cohorts play tit for tat as shares (season round " + round + " / " + season.Rounds + ")" +
                 "\nwithin a tribe " + PersonLife.Pct(co) + " cooperate (gold arcs) · across tribes " + PersonLife.Pct(cross) + " (bridge) · same class " + PersonLife.Pct(same) + " · other class " + PersonLife.Pct(other) +
-                "\nleft: your tribe (" + (tribe == 0 ? "Democrat" : tribe == 1 ? "Republican" : "independent") + ")";
+                // named by its color, not its side: the dilemma's pose looks back from the future, so the left ring shows on the right
+                "\nyour tribe (" + (tribe == 0 ? "Democrat" : tribe == 1 ? "Republican" : "independent") + "): the " + (tribe == 1 ? "rose" : "ice") + " ring";
             return g;
         }
 
@@ -226,23 +231,23 @@ namespace Why.Economy.Layers
         static void Pulse(LineMeshBuilder b, Vector3 at, Vector3 dir, Color c, bool big)
         {
             float l = big ? .9f : .6f;
-            b.AddSegment(at - dir * l, at, c, big ? 7 : 5, big ? .12f : .08f, 0, big ? 7 : 5);
-            MindDiagram.Ring(b, at, big ? .2f : .13f, c, 3, 5, true); MindDiagram.Ring(b, at, big ? .2f : .13f, c, 3, 5, false);
+            b.AddSegment(at - dir * l, at, c, big ? 7 : 5, big ? .12f : .08f, 0);
+            MindDiagram.Ring(b, at, big ? .2f : .13f, c, 3, 1, true); MindDiagram.Ring(b, at, big ? .2f : .13f, c, 3, 1, false);
         }
 
         static Color Move(PdMove m) => m == PdMove.Cooperate ? Coop : Defect;
 
         static void Figure(LineMeshBuilder b, Vector3 at, Color c, float scale)
         {
-            b.AddSegment(at, at + Vector3.up * 1.2f * scale, c, 2.6f, .04f, 0, 2.6f);
-            MindDiagram.Sphere(b, at + Vector3.up * 1.5f * scale, .24f * scale, c, 2, 2.8f);
-            MindDiagram.Ring(b, at, .5f * scale, c, 1.8f, 2.2f, false);
+            b.AddSegment(at, at + Vector3.up * 1.2f * scale, c, 2.6f, .04f, 0);
+            MindDiagram.Sphere(b, at + Vector3.up * 1.5f * scale, .24f * scale, c, 2, 1);
+            MindDiagram.Ring(b, at, .5f * scale, c, 1.8f, 1, false);
         }
 
         static void Bar(LineMeshBuilder b, Vector3 at, float height, Color c)
         {
             height = Mathf.Max(.02f, height);
-            b.AddSegment(at, at + Vector3.up * height, c, 6, .1f, 0, 3);
+            b.AddSegment(at, at + Vector3.up * height, c, 6, .1f, 0);
             for (float y = .5f; y < height; y += .5f) b.AddSegment(at + new Vector3(-.12f, y, 0), at + new Vector3(.12f, y, 0), WithAlpha(Color.black, .6f), 1, 0, 0, 1);
         }
 
@@ -250,15 +255,17 @@ namespace Why.Economy.Layers
         {
             int n = Mathf.Max(2, Mathf.CeilToInt(48 * Mathf.Clamp01(share))); var pts = new Vector3[n + 1];
             for (int i = 0; i <= n; i++) { float a = Mathf.PI * .5f + Mathf.PI * 2 * Mathf.Clamp01(share) * i / n; pts[i] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            b.AddPolyline(pts, color, 4, .06f, 0, 3.5f);
+            b.AddPolyline(pts, color, 4, .06f, 0);
         }
 
         // ------------------------------------------------------------------ plumbing
 
+        /// <summary>A mesh of lines, blended: where the moves cross, the top one's blue or red shows instead of a sum
+        /// turning white.</summary>
         MeshRenderer Lines(LineMeshBuilder b, string name, bool flow)
         {
             Mesh mesh = b.ToMesh(name); owned.Add(mesh);
-            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3222, true, 0, flow ? 1 : 0)); owned.Add(material);
+            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3222, false, 0, flow ? Sheen : 0)); owned.Add(material);
             var r = AddMesh(name, mesh, material); r.transform.SetParent(content.transform, false); return r;
         }
 

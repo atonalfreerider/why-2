@@ -11,8 +11,9 @@ namespace Why.Economy.Layers
     /// crest has passed a turning point, the rib of its year is traced faintly in the turning point's color (rose: the
     /// market's real value added fell; gold: the federal funds rate turned; steel: the tariff rate jumped) and a pin rises
     /// from the rib's highest ridge to its tag, so the wake keeps the history the crest has just been through without
-    /// drowning the companies' lines that run along it. The rib the replay holds on pulses. Shown only while a replay is
-    /// under way, in the views of the wave (the overview, the landscape, the companies' lives); the ribs are the wave's
+    /// drowning the companies' lines that run along it. The rib the replay holds on pulses, in its opacity: every mark is
+    /// drawn at intensity 1 and blended, under the bloom, so the turning points' hues stay true. Shown only while a replay
+    /// is under way, in the views of the wave (the overview, the landscape, the companies' lives); the ribs are the wave's
     /// own cross-sections (<see cref="HillLandscape.Ground"/> at the year), so nothing is drawn that the data did not put
     /// there.
     /// </summary>
@@ -104,11 +105,11 @@ namespace Why.Economy.Layers
                     if (p.y > top.y) top = p;
                 }
 
-                all.AddPolyline(rib, WithAlpha(c, .35f), 1.6f, 0, 0, 1.2f);
-                all.AddSegment(top, top + Vector3.up * pin, WithAlpha(c, .9f), 2f, 0, 0, 1.6f);
+                all.AddPolyline(rib, WithAlpha(c, .35f), 1.6f, 0, 0);
+                all.AddSegment(top, top + Vector3.up * pin, WithAlpha(c, .9f), 2f, 0, 0);
                 if (t.Year == land.Year)
                 {
-                    pulse.AddPolyline(rib, WithAlpha(c, 1), 3.5f, 0, 0, 2.4f);
+                    pulse.AddPolyline(rib, WithAlpha(c, 1), 3.5f, 0, 0);
                     nowYear = t.Year;
                 }
 
@@ -126,7 +127,7 @@ namespace Why.Economy.Layers
         {
             Mesh mesh = b.ToMesh(name);
             owned.Add(mesh);
-            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3206, true));
+            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3206, false));
             owned.Add(material);
             MeshRenderer r = AddMesh(name, mesh, material);
             r.transform.SetParent(content.transform, false);

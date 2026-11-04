@@ -36,6 +36,12 @@ namespace Why.Economy.Layers
         GameObject content;
         int selected = -2, roundVersion = -1;
         int programVersion = -1, mindPerson=-2;
+        /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom (a pulse four
+        /// times as bright would bloom the hues of the roots, the clouds, the ties and the mind's drives to white).</summary>
+        const float Pulse=.2f;
+        /// <summary>The gold pool's name, shown beside the white cloud of attention (Tick), not by its group's rule, and its
+        /// font material drawn after the hills.</summary>
+        TextMeshPro capital; Material capitalText;
         float lastClick=-10;int lastPlayer=-1;
         Vector2 pressed;
         MeshRenderer socialRenderer;
@@ -107,10 +113,9 @@ namespace Why.Economy.Layers
             {
                 var ring=new Vector3[41];
                 for(int j=0;j<ring.Length;j++)ring[j]=Current.At(hill,HillLandscape.Valley+Mathf.PI*.5f*j/40f,HillLandscape.RungRadius[r],.12f);
-                b.AddPolyline(ring,WithAlpha(r>=4?Gold:Blue,.55f),1.1f,0,0,1.4f);
+                b.AddPolyline(ring,WithAlpha(r>=4?Gold:Blue,.55f),1.1f,0,0);
                 Label(names[r],Current.At(hill,HillLandscape.Valley,HillLandscape.RungRadius[r],1.2f)+Vector3.left*3,LandGroup.Glyphs,.17f,r>=4?Gold:Ice);
             }
-            Label("CLOUDS · the top 1%: claims on every hill",Current.CloudCenter+new Vector3(0,4,-6),LandGroup.Glyphs,.25f,Gold);
             // Government's hills lie in the bedrock: those it pays stand on the valley floor in front of the hillside.
             Label("VALLEY FLOOR · paid by government: public servants,\nSocial Security retirees, the safety net",new Vector3(HillLandscape.FootX-7,2.2f,Current.CrestZ-7),LandGroup.Glyphs,.2f,Ice);
             Lines(b,LandGroup.Glyphs);
@@ -126,17 +131,18 @@ namespace Why.Economy.Layers
                 var industry=LandService.Model.Data.IndustryById(owner.industry);if(industry==null)continue;
                 Vector3 at=Current.Hills[industry.Index].Surface((seat++%2==0?0:Mathf.PI),.30f)+Vector3.up*.15f;
                 crowns.Add((at,owner));
-                // The crown is an atmospheric ring of concentrated claims, never a literal royal object.
+                // The crown is an atmospheric ring of concentrated claims, never a literal royal object (in its gold, below
+                // the bloom: bloom is left to what is hovered or selected).
                 for(int band=0;band<3;band++)
                 {
                     var ring=new Vector3[49];
                     for(int j=0;j<ring.Length;j++){float a=j*Mathf.PI/24;ring[j]=at+new Vector3(Mathf.Cos(a)*(.9f+band*.18f),.4f+band*.12f,Mathf.Sin(a)*(.9f+band*.18f));}
-                    glow.AddPolyline(ring,WithAlpha(Gold,.9f-band*.25f),2.2f-band*.5f,0,0,4-band);
+                    glow.AddPolyline(ring,WithAlpha(Gold,.9f-band*.25f),2.2f-band*.5f,0,0);
                 }
                 Label(owner.name+" · voting control of "+owner.company,at+Vector3.up*1.6f,LandGroup.Crown,.20f,Gold);
             }
             Lines(architecture,LandGroup.Towers);
-            var light=Lines(glow,LandGroup.Crown,true);light.sharedMaterial.SetColor("_Color",new Color(3,2.6f,1.8f,1));
+            Lines(glow,LandGroup.Crown,true);
         }
         void Underground(LineMeshBuilder b,Vector3 a,Vector3 end,Color color,float width)
         {
@@ -194,7 +200,7 @@ namespace Why.Economy.Layers
                         Vector3 center=at+new Vector3((c-1.5f)*.9f,-.10f,Mathf.Sin(c)*.6f);
                         var inner=new Vector3[49];var edge=new Vector3[49];
                         for(int j=0;j<=48;j++){float a=j*Mathf.PI/24;inner[j]=center;edge[j]=center+new Vector3(Mathf.Cos(a)*1.3f,0,Mathf.Sin(a)*.9f);}
-                        cloudFill.AddBand(inner,edge,new[]{(Color32)WithAlpha(Gold,.22f)},new[]{(Color32)WithAlpha(Gold,0)},0,2);
+                        cloudFill.AddBand(inner,edge,new[]{(Color32)WithAlpha(Gold,.22f)},new[]{(Color32)WithAlpha(Gold,0)},0);
                         if(c==1)clouds.AddPolyline(edge,WithAlpha(Gold,.32f),1.2f,0,0);
                     }
                     // All-sector ownership mix: the proxy comes from distributional capital-income weights.
@@ -238,7 +244,7 @@ namespace Why.Economy.Layers
         {
             // Investment: the owners' pool in the clouds sends part of its surplus back down to the hills as new capital.
             // Household rivers (HillActivityLayer) and the split of value at each market (HillCaptureLayer) are drawn there.
-            var capital = new LineMeshBuilder(); var pools = new LineMeshBuilder();
+            var flows = new LineMeshBuilder(); var pools = new LineMeshBuilder();
             Vector3 cloud = Current.CloudCenter;
             foreach (IndustryHill hill in Current.Hills)
             {
@@ -249,28 +255,35 @@ namespace Why.Economy.Layers
                 for (int k = 0; k < points.Length; k++)
                 {
                     float t = k / 24f; Vector3 p = Vector3.Lerp(cloud, halo, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * 6;
-                    points[k] = new LinePoint(p, WithAlpha(Gold, .5f), .8f + (float)Math.Sqrt(investment) * .06f, 0, 1.6f);
+                    points[k] = new LinePoint(p, WithAlpha(Gold, .5f), .8f + (float)Math.Sqrt(investment) * .06f);
                 }
-                capital.AddFlowPath(points, 0, .4f);
+                flows.AddFlowPath(points, 0, .4f);
             }
             Ring(pools, cloud, 6, WithAlpha(Gold, .35f), 1.4f);
             Label("INVESTMENT\nowners' saving sent back down as new capital", cloud + Vector3.up * 5, LandGroup.CapitalFlows, .25f, Gold);
-            Lines(capital,LandGroup.CapitalFlows,true); Lines(pools,LandGroup.Pools);
+            // The gold pool is named wherever the white cloud of attention floats beside it, so the most-followed are never
+            // read as the 1% (Tick shows it and keeps it legible from any distance).
+            capital = Label("<b>CAPITAL</b> · the top 1%\n<size=70%>their claims on every hill</size>", cloud + Vector3.up * 8, LandGroup.Crown, .6f, Gold, false);
+            // drawn after the hills (queue 3252), so the gold lines converging on the pool do not draw over its name
+            if (capital.fontSharedMaterial != null) { capitalText = new Material(capital.fontSharedMaterial) { renderQueue = 3252 }; capital.fontSharedMaterial = capitalText; }
+            Lines(flows,LandGroup.CapitalFlows,true); Lines(pools,LandGroup.Pools);
         }
         /// <summary>The 3D mind view (key 7): the selected individual's or cohort's drives, deliberation, choice and memory
-        /// (<see cref="MindDiagram"/>, shared with the atom view). A cohort shows its adults' mean drives with the scenario
-        /// ledger's fear, reason and balance sheet, so the Inspect / simulate controls move it.</summary>
+        /// (<see cref="MindDiagram"/>, shared with the atom view); with nobody selected, the cohort of the person the person
+        /// views follow, so the mind the tour shows belongs to the household of the person it has just met. A cohort shows
+        /// its adults' mean drives with the scenario ledger's fear, reason and balance sheet, so the Inspect / simulate
+        /// controls move it.</summary>
         void Mind()
         {
             var lines = new LineMeshBuilder();
-            int index = Mathf.Clamp(EconomyState.SelectedPlayer,0,snapshot.Players.Players.Length-1);
+            int index = Mathf.Clamp(EconomyState.SelectedPlayer>=0?EconomyState.SelectedPlayer:FollowedCohort(),0,snapshot.Players.Players.Length-1);
             Player p = snapshot.Players.Players[index];
             var scenario=PlayerMindProgram.Active;
             var state=scenario!=null&&scenario.Players.Length==snapshot.Players.Players.Length?scenario.Players[index]:null;
             programVersion=scenario?.Revision??-1;mindPerson=EconomyState.Person;
             var lives=LandService.Model.Lives;
             MindState m=EconomyState.Person>=0?MindState.Of(lives,EconomyState.Person,snapshot.Year):null;
-            if(m!=null){m.Title="Synthetic record #"+EconomyState.Person+" · "+snapshot.Year;m.Note="historical simulated individual · one line = 100,000 people · drives are model assumptions";}
+            if(m!=null){m.Title="Synthetic person #"+EconomyState.Person+" · "+snapshot.Year;m.Note="historical simulated individual · one line = 100,000 people · drives are model assumptions";}
             else
             {
                 m=MindState.Of(lives,p,snapshot.Year,state);
@@ -279,6 +292,15 @@ namespace Why.Economy.Layers
             }
             MindDiagram.Build(lines,MindOrigin+Vector3.up*.6f,m,(t,at,size,c)=>Label(t,at,LandGroup.Mirages,size,c),.95f);
             Lines(lines,LandGroup.Mirages,true);
+        }
+        /// <summary>The cohort (player) of the person the person views follow in this land; -1 when nobody can be followed.
+        /// Chosen here as HillPersonLayer chooses them (<see cref="PersonLife.Choose"/>, the shown year, the inspected person),
+        /// because that layer places them only after the land is built: the mind is drawn for them once, and entering the
+        /// mind view rebuilds nothing.</summary>
+        int FollowedCohort()
+        {
+            int person=PersonLife.Choose(LandService.Model?.Lives,snapshot.Year,EconomyState.Person,out _);var of=snapshot.Players.PlayerOfPerson;
+            return person>=0&&of!=null&&person<of.Length?of[person]:-1;
         }
         void Social()
         {
@@ -322,14 +344,26 @@ namespace Why.Economy.Layers
                 GraphMaterials.SetAlpha(entry.renderer.sharedMaterial,alpha);
             }
             if (socialRenderer) GraphMaterials.SetAlpha(socialRenderer.sharedMaterial,social?1:0);
+            string view=LandView.PresetId;
             foreach (var entry in labels)
             {
-                string view=LandView.PresetId;
                 bool show=entry.group==LandGroup.Mirages?mind:!mind && !social && (entry.group==LandGroup.Crown ? view=="capture"
                     : entry.group==LandGroup.Glyphs ? view=="people" : entry.group==LandGroup.CapitalFlows ? view=="rivers"
                     : entry.text.text=="GOVERNMENT" || view=="landscape" || view=="capture");
                 entry.text.gameObject.SetActive(show);
                 if (show) entry.text.transform.rotation=rig.Cam.transform.rotation;
+            }
+            // The gold pool is named where the white cloud of attention can float beside it (HillSocialLayer) and where the
+            // pool is the money's destination (capture, people), at about 11 px capitals from any distance.
+            if (capital)
+            {
+                bool show=!mind && !social && view!="section" && view!="rivers" && view!="roots" && view!="foundation" && !PersonFocus.IsView(view) && !EconomyViews.Focused(view);
+                capital.gameObject.SetActive(show);
+                if (show)
+                {
+                    capital.transform.rotation=rig.Cam.transform.rotation;
+                    capital.transform.localScale=Vector3.one*Mathf.Max(.45f,Vector3.Distance(rig.Cam.transform.position,capital.transform.position)*.005f);
+                }
             }
             Pick(rig.Cam,mind);
         }
@@ -346,7 +380,10 @@ namespace Why.Economy.Layers
             if (g==LandGroup.Crown) return view=="capture"?1:view=="people"?.35f:.10f;
             if (g==LandGroup.Roots) return view=="roots"?.75f:.055f;
             if (g==LandGroup.Glyphs) return view=="people"?.9f:0;
-            if (g==LandGroup.CapitalFlows||g==LandGroup.Pools) return view=="rivers"?.6f:view=="capture"?.2f:0;
+            // the owners' investment and their pool: a trace under the rivers of desire and fear; in who keeps the money the
+            // pool stays (the owners' surplus rises into it) and the investment falling back out of it does not
+            if (g==LandGroup.CapitalFlows) return view=="rivers"?.2f:0;
+            if (g==LandGroup.Pools) return view=="rivers"||view=="capture"?.2f:0;
             if (g==LandGroup.Rivers||g==LandGroup.Income) return view=="rivers"?.20f:0;
             return 1;
         }
@@ -408,7 +445,7 @@ namespace Why.Economy.Layers
         MeshRenderer Lines(LineMeshBuilder b,LandGroup group,bool flow=false,bool track=true)
         {
             Mesh mesh=b.ToMesh("Hills "+group); meshes.Add(mesh);
-            Material material=GraphMaterials.Raw(GraphMaterials.Line(Color.white,1,3205,false,0,flow?1:0));
+            Material material=GraphMaterials.Raw(GraphMaterials.Line(Color.white,1,3205,false,0,flow?Pulse:0));
             if(flow){material.SetFloat("_FlowFreq",2);material.SetFloat("_FlowSpeed",.5f);}
             var r=AddMesh("Hills "+group,mesh,material); r.transform.SetParent(content.transform,false);
             if(track)renderers.Add((r,group)); return r;
@@ -419,12 +456,13 @@ namespace Why.Economy.Layers
             var r=AddMesh("Hill surfaces",mesh,GraphMaterials.Raw(GraphMaterials.Surface(Color.white,1,3195)));
             r.transform.SetParent(content.transform,false);renderers.Add((r,group));
         }
-        void Label(string title,Vector3 at,LandGroup group,float size,Color color)
+        TextMeshPro Label(string title,Vector3 at,LandGroup group,float size,Color color,bool track=true)
         {
             var go=new GameObject(title);go.transform.SetParent(content.transform,false);go.transform.localPosition=at;
             var text=go.AddComponent<TextMeshPro>();text.text=title;text.fontSize=24; text.alignment=TextAlignmentOptions.Center;
             text.color=color;text.textWrappingMode=TextWrappingModes.NoWrap;
-            text.rectTransform.sizeDelta=new Vector2(22,4);go.transform.localScale=Vector3.one*size;labels.Add((text,group));
+            text.rectTransform.sizeDelta=new Vector2(22,4);go.transform.localScale=Vector3.one*size;if(track)labels.Add((text,group));
+            return text;
         }
         static Color WithAlpha(Color c,float a){c.a=a;return c;}
         public static string PlayerTitle(Player p)
@@ -457,9 +495,10 @@ namespace Why.Economy.Layers
         {
             foreach(var e in renderers)if(e.renderer)Destroy(e.renderer.sharedMaterial);
             if(socialRenderer)Destroy(socialRenderer.sharedMaterial);
+            if(capitalText)Destroy(capitalText);
             foreach(var mesh in meshes)if(mesh)Destroy(mesh);
             if(content)Destroy(content);
-            meshes.Clear();renderers.Clear();labels.Clear();crowns.Clear();socialRenderer=null;
+            meshes.Clear();renderers.Clear();labels.Clear();crowns.Clear();socialRenderer=null;capital=null;capitalText=null;
         }
         void OnDestroy(){LandService.Changed-=Rebuild;Clear();Current=null;Shown=null;HoverIndustry=HoverPlayer=-1;HoverOwner=null;}
     }

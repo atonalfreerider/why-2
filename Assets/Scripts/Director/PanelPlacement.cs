@@ -34,6 +34,23 @@ namespace Why.Director
         /// <summary>Distance of top/bottom panels from the screen edge (clears HUD bars).</summary>
         public const float EdgeMargin = 96f;
 
+        /// <summary>
+        /// Distance of bottom-left panels from the bottom edge in landscape until the HUD reports where its legend block
+        /// ends (<see cref="LegendTop"/>): clear of a short legend and the lifeline readout above it (24 + ~75 + 10 + ~33).
+        /// </summary>
+        public const float LandscapeBottomMargin = 150f;
+
+        /// <summary>Gap between the top of the HUD's legend block and a panel docked above it.</summary>
+        const float LegendGap = 14f;
+
+        /// <summary>
+        /// Top of the HUD's bottom-left block, canvas units above the bottom edge: the legend and, while lifelines show,
+        /// the lifeline readout above it, which stay on screen through the tour. The HUD reports it whenever the block
+        /// changes (an economy view's key runs from two lines to eight); 0 until it does. Bottom-left panels and the
+        /// portrait bottom sheet dock above it.
+        /// </summary>
+        public static float LegendTop { get; set; }
+
         /// <summary>Minimum gap between the panel and the point it refers to.</summary>
         public const float Clearance = 56f;
 
@@ -47,17 +64,24 @@ namespace Why.Director
         public const float PortraitTopMargin = 18f;
 
         /// <summary>
-        /// Portrait: distance of the bottom sheet from the bottom edge. During the tour the HUD keeps only the
-        /// legend (16 + ~62 units) and, while lifelines show, the readout above it (+10 + ~33) down there; the
-        /// sheet sits just above both (the HUD and the director share the portrait canvas units).
+        /// Portrait: distance of the bottom sheet from the bottom edge until the HUD reports its legend block
+        /// (<see cref="LegendTop"/>). During the tour the HUD keeps only the legend (16 + ~62 units) and, while
+        /// lifelines show, the readout above it (+10 + ~33) down there; the sheet sits just above both (the HUD and
+        /// the director share the portrait canvas units).
         /// </summary>
         public const float PortraitBottomMargin = 130f;
 
         /// <summary>
         /// Portrait: targets below this share of the screen height send the sheet to the top (the bottom sheet
-        /// reaches up to ~45% of a 9:16 screen with the longest narration).
+        /// is meant to reach up to ~45% of a 9:16 screen; with their keys and evidence the longest stops reach higher).
         /// </summary>
         const float PortraitLowTarget = 0.5f;
+
+        /// <summary>
+        /// Portrait: the share of the screen height a bottom sheet should reach up to, its dock included: what the
+        /// placement above assumes and the director frames anchors over (<see cref="PortraitSheetMaxHeight"/>).
+        /// </summary>
+        const float PortraitSheetReach = 0.45f;
 
         public static Vector2 SlotAnchor(PanelSlot slot)
         {
@@ -75,16 +99,36 @@ namespace Why.Director
             }
         }
 
-        /// <summary>anchoredPosition of a panel in a slot (its pivot equals the slot anchor).</summary>
+        /// <summary>
+        /// anchoredPosition of a panel in a slot (its pivot equals the slot anchor). Bottom-left panels and the portrait
+        /// bottom sheet stand above the HUD's legend block where it ends now, so it follows the view's key.
+        /// </summary>
         public static Vector2 SlotOffset(PanelSlot slot)
         {
             if (slot == PanelSlot.Top) return new Vector2(0, -PortraitTopMargin);
-            if (slot == PanelSlot.Bottom) return new Vector2(0, PortraitBottomMargin);
+            if (slot == PanelSlot.Bottom) return new Vector2(0, LegendTop > 0 ? LegendTop + LegendGap : PortraitBottomMargin);
             Vector2 a = SlotAnchor(slot);
             float x = a.x < 0.25f ? SideMargin : a.x > 0.75f ? -SideMargin : 0;
-            float y = a.y > 0.75f ? -EdgeMargin : a.y < 0.25f ? EdgeMargin : 0;
+            float y = a.y > 0.75f ? -EdgeMargin : a.y < 0.25f ? BottomMargin(a.x < 0.25f) : 0;
             return new Vector2(x, y);
         }
+
+        /// <summary>
+        /// A landscape bottom panel's distance from the bottom edge: on the left above the HUD's legend block (the only
+        /// HUD block left down there during the tour), elsewhere clear of the edge.
+        /// </summary>
+        static float BottomMargin(bool left)
+        {
+            if (!left) return EdgeMargin;
+            return LegendTop > 0 ? Mathf.Max(EdgeMargin, LegendTop + LegendGap) : LandscapeBottomMargin;
+        }
+
+        /// <summary>
+        /// Portrait: the tallest a step sheet should be on a canvas this tall, docked at the bottom, so it reaches no
+        /// higher than <see cref="PortraitSheetReach"/> of the screen.
+        /// </summary>
+        public static float PortraitSheetMaxHeight(float canvasHeight) =>
+            canvasHeight * PortraitSheetReach - SlotOffset(PanelSlot.Bottom).y;
 
         /// <summary>Direction a panel slides in from: its nearest screen edge (cards rise from below).</summary>
         public static Vector2 SlideDirection(PanelSlot slot)
@@ -108,14 +152,32 @@ namespace Why.Director
         }
 
         /// <summary>
+        /// The landscape slot a step names for its card (<see cref="TourStep.Side"/>: "left" or "right", with "top" or
+        /// "bottom" for a corner; "bottom" alone is the left corner), or null for none. Some views keep their subject
+        /// where an untargeted card would land: the money chart's first decades, the attention loop's legs.
+        /// </summary>
+        public static PanelSlot? Preferred(string side)
+        {
+            if (string.IsNullOrWhiteSpace(side)) return null;
+            string s = side.ToLowerInvariant();
+            bool right = s.Contains("right"), top = s.Contains("top"), bottom = s.Contains("bottom");
+            if (top) return right ? PanelSlot.RightTop : PanelSlot.LeftTop;
+            if (bottom) return right ? PanelSlot.RightBottom : PanelSlot.LeftBottom;
+            return right ? PanelSlot.RightMiddle : s.Contains("left") ? PanelSlot.LeftMiddle : (PanelSlot?)null;
+        }
+
+        /// <summary>
         /// Picks the slot for a panel. Side panels go to the half of the screen opposite the target, at mid
         /// height; if that would still come too close (narrow screens, targets near the center) the panel
-        /// moves to the vertical half opposite the target as well. Cards prefer the center.
+        /// moves to the vertical half opposite the target as well. Cards prefer the center. A preferred slot
+        /// (landscape only) is taken without a target, and tried first with one.
         /// </summary>
-        public static PanelSlot Choose(Vector2 size, Vector2 canvas, bool hasTarget, Vector2 target, bool preferCenter)
+        public static PanelSlot Choose(Vector2 size, Vector2 canvas, bool hasTarget, Vector2 target, bool preferCenter,
+            PanelSlot? preferred = null)
         {
             if (ScreenLayout.IsPortrait) return ChoosePortrait(size, canvas, hasTarget, target, preferCenter);
-            if (!hasTarget) return preferCenter ? PanelSlot.Center : PanelSlot.LeftMiddle;
+            if (!hasTarget) return preferred ?? (preferCenter ? PanelSlot.Center : PanelSlot.LeftMiddle);
+            if (preferred.HasValue && Distance(SlotRect(preferred.Value, size, canvas), target) >= Clearance) return preferred.Value;
 
             bool right = target.x > canvas.x * 0.5f;
             bool high = target.y > canvas.y * 0.5f;

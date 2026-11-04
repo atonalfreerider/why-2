@@ -106,6 +106,7 @@ with a glow multiplier, plus a global dim factor for everything not highlighted.
 
 `Anchors` maps keys to data-space points (+ id range, label, tier, blurb). Keys follow `kind:id`:
 `matter:`, `epoch:`, `clade:`, `lifeevent:`, `leaf:`, `civ:`, `figure:`, `war:`, `gen:`, `smv:us`,
+`smv:wave` (economy: the road of lives at the year shown, where the wave fans out; registered by SmvLayer),
 `time:<yearsAgo>`, `now`. Layers register anchors while building; the director, labels and camera
 resolve them through `GraphWarp.ToWorld`.
 

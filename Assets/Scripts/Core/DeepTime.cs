@@ -119,6 +119,10 @@ namespace Why
                 return year < 1 ? (1 - year).ToString("0", c) + " BCE" : year.ToString("0", c);
             }
 
+            // the economy is all recent years, read by the calendar: an age there ("28 years ago", "22 months ago")
+            // hides the year its accounts are kept by
+            if (GraphScene.IsEconomy) return ya < 0.5 ? "now" : Math.Round(nowYear - ya).ToString("0", c);
+
             if (ya >= 2) return Math.Round(ya).ToString("0", c) + " years ago";
             double days = ya * 365.25;
             if (days >= 60) return Math.Round(days / 30.44).ToString("0", c) + " months ago";

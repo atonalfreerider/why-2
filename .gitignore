@@ -105,3 +105,7 @@ Tools/regimes/.cache/
 Tools/instant/.cache/
 Tools/lives/.cache/
 Tools/global/.cache/
+
+# Python bytecode caches (tools run with plain python3)
+__pycache__/
+*.pyc

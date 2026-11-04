@@ -323,6 +323,13 @@ namespace Why.Economy.UI
         public static float TitleBottom(HudFrame f) =>
             f.Title.IsEmpty ? f.Margin + f.SafeTop + TitleHeight : f.Title.Bottom;
 
+        /// <summary>
+        /// Top (canvas units from the top edge) of a view's side panel in the landscape right column (the strategy, regimes
+        /// and you panels): its authored 176, or lower when the year chip's readout reaches past it (four lines in some views).
+        /// </summary>
+        public static float SideColumnTop =>
+            Mathf.Max(176, EconomyControls.Occupied.IsEmpty ? 0 : EconomyControls.Occupied.Bottom + 8);
+
         /// <summary>Width of the inspector as drawn: the landscape column, or the portrait sheet across the screen.</summary>
         public static float InspectorWidth(HudFrame f) =>
             f.Portrait ? Mathf.Max(1, f.Canvas.x - 2 * f.Margin) : LandscapeInspectorWidth;

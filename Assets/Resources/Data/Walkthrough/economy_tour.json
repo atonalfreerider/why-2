@@ -4,16 +4,47 @@
     {
       "id": "hills_bridge",
       "title": "From the universe to an economy",
-      "text": "The blue level ends in nations. Open one, the United States, and the same cause-and-effect logic continues: like the food chain, every business feeds on the layers beneath it, down to the government it all stands on.",
-      "focus": "overview",
-      "anchor": "",
+      "text": "The blue level ends in nations. Here one of them, the United States, opens into its economy, and the same cause-and-effect logic continues: like the food chain, every business feeds on the layers beneath it, down to the government it all stands on. From here, up means money: market value for firms, income rank for people.",
+      "key": [
+        {
+          "color": "humans",
+          "label": "the road: American lives"
+        },
+        {
+          "color": "white",
+          "label": "the crest: the economy now"
+        }
+      ],
+      "reading": "At now the road of lives fans out into the economy's wave.",
+      "measured": "UN age pyramids; US marriage, divorce and birth rates",
+      "assumed": "each line is a simulated life standing for many people",
+      "focus": "section",
+      "anchor": "smv:wave",
+      "caption": "the United States stream → its economy",
       "highlight": [],
       "hold": 14
     },
     {
       "id": "hills_wave",
       "title": "A wave moving through time",
-      "text": "The road of American lives since 1946 and the economy share one time axis. At now, the cross-section opens into a wave: each rib behind the crest is one year, widening as real output grows. The crest is the year shown.",
+      "text": "The road of American lives since 1950 and the economy's accounts since 1946 share one time axis. At now, the cross-section opens into a wave: each rib behind the crest is one year, widening as real output grows. The crest is the year shown, and the past recedes behind it. This is a model, built on public accounts and on assumptions.",
+      "key": [
+        {
+          "color": "white",
+          "label": "the crest: the year shown"
+        },
+        {
+          "color": "wake",
+          "label": "a rib: one earlier year"
+        },
+        {
+          "color": "humans",
+          "label": "the road: American lives"
+        }
+      ],
+      "reading": "Width grows with the square root of real output: 11 times the output since 1947 draws the industries about 3.3 times as wide; the gaps between tiers stay fixed.",
+      "measured": "real output and the national accounts (BEA)",
+      "assumed": "the wave's shape and its square-root width",
       "focus": "overview",
       "anchor": "",
       "highlight": [],
@@ -23,6 +54,32 @@
       "id": "hills_foundation",
       "title": "The bedrock: government",
       "text": "Government is the bedrock everything stands on. In the United States it is a constitutional federal democracy. Its pillars are sized by public outlays; taxes fall into it from every household, and benefits rise out of it.",
+      "key": [
+        {
+          "color": "steel",
+          "label": "taxes falling in"
+        },
+        {
+          "color": "ice",
+          "label": "pensions and health"
+        },
+        {
+          "color": "blue",
+          "label": "schools, police, roads"
+        },
+        {
+          "color": "gold",
+          "label": "interest to bondholders"
+        },
+        {
+          "color": "grey",
+          "label": "regulation, up into each hill"
+        }
+      ],
+      "reading": "Pillars rise out of the bedrock to the people they pay.",
+      "measured": "federal, state and local outlays and taxes (OMB, BEA)",
+      "judged": "how regulated each industry is, and how much it shapes its own rules",
+      "assumed": "government drawn as the layer everything stands on",
       "focus": "foundation",
       "anchor": "",
       "highlight": [],
@@ -32,33 +89,126 @@
       "id": "hills_money",
       "title": "The price of money",
       "text": "The state reaches into every market through two levers: the price of money, which the central bank sets and every debt pays, and the edge of trade. Money was dearest in 1981, at 16.4% a year, and nearly free from 2009 to 2016. Tariffs fell from 7% of the value of imported goods in 1947 to under 2% in the 2010s, then tripled in 2025, from 2.6% to 8.0%.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "federal funds rate"
+        },
+        {
+          "color": "rose",
+          "label": "30-year mortgage"
+        },
+        {
+          "color": "ice",
+          "label": "10-year Treasury"
+        },
+        {
+          "color": "steel",
+          "label": "tariffs: duties over goods imports"
+        }
+      ],
+      "reading": "Height is percent a year; time runs left to right, 1947 to now.",
+      "measured": "Federal Reserve, Freddie Mac and Treasury rates; customs duties and imports (BEA)",
       "focus": "money",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "side": "right top"
     },
     {
       "id": "hills_regimes",
-      "title": "Other foundations",
-      "text": "The same hills on other states. The bedrock is as deep as what each state spends: 38% of GDP in the United States, 49% in Sweden, 33% in China, 29% in Saudi Arabia, 48% in the Soviet Union of 1980. Summits turn steel where the state controls the largest firm: in China the largest bank, oil company, power grid and telephone company, while private firms lead technology and retail. Saudi Arabia's state lives on oil: 60% of its revenue.",
+      "title": "What if: the US economy on another government",
+      "text": "A thought experiment: the same American hills on other states' foundations. The bedrock is as deep as what each state spends: 38% of GDP in the United States, 49% in Sweden, 33% in China, 29% in Saudi Arabia, 48% in the Soviet Union of 1980. Summits turn steel where the state controls the largest firm: in China the largest bank, oil company, power grid and telephone company, while private firms lead technology and retail. Saudi Arabia's state lives on oil: 60% of its revenue. In the Soviet Union every summit belonged to the state.",
+      "key": [
+        {
+          "color": "steel",
+          "label": "summits the state controls"
+        },
+        {
+          "color": "gold",
+          "label": "private summits"
+        },
+        {
+          "color": "white",
+          "label": "votes"
+        }
+      ],
+      "reading": "The view steps through the five states in the card's order.",
+      "measured": "state spending and revenue (IMF), its stakes in the largest firms, trade, elections",
+      "judged": "each state's rules and the firms that shape them",
+      "assumed": "another state's foundation under the US hills; each summit is its industry's largest firm",
       "focus": "regimes",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 48,
+      "side": "left bottom",
+      "cues": [
+        {
+          "at": 0,
+          "show": "us"
+        },
+        {
+          "at": 9,
+          "show": "se"
+        },
+        {
+          "at": 18,
+          "show": "cn"
+        },
+        {
+          "at": 30,
+          "show": "sa"
+        },
+        {
+          "at": 39,
+          "show": "su"
+        }
+      ]
     },
     {
       "id": "hills_land",
       "title": "Layers standing on layers",
-      "text": "On the bedrock, layers stand on layers: raw materials and subsistence infrastructure at the foot, then manufacturing and infrastructure, then services, with technology on top. Each industry is a ridge as wide as its share of value added.",
+      "text": "On the bedrock, layers stand on layers: raw materials and subsistence infrastructure at the foot, then manufacturing and infrastructure, then services, with technology on top. Each industry is a ridge as wide as its share of value added. Height here is an order of dependence, not of importance.",
+      "key": [
+        {
+          "color": "white",
+          "label": "the crest: this year's economy"
+        },
+        {
+          "color": "steel",
+          "label": "government, the bedrock"
+        }
+      ],
+      "reading": "Width is each industry's share of value added; height is the assumed order of dependence, not measured value.",
+      "measured": "each industry's value added (BEA)",
+      "assumed": "the tiers' order and heights",
       "focus": "landscape",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "side": "left bottom"
     },
     {
       "id": "hills_companies",
       "title": "Companies live and die",
       "text": "75 companies live on the ridges like people on the road: born, rising and falling with market value, then failing, bought, or reaching the crest. Their color shows how they sell: meeting needs, manufactured want, or fear.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "sells to needs"
+        },
+        {
+          "color": "rose",
+          "label": "sells to wants"
+        },
+        {
+          "color": "ice",
+          "label": "sells to fear"
+        }
+      ],
+      "reading": "Height above a ridge is market value on a compressed scale: a $3 trillion company stands 2.3 times as tall as a $10 billion one.",
+      "measured": "market values, births and fates of 75 companies",
+      "judged": "how each company sells: to needs, wants or fears",
       "focus": "companies",
       "anchor": "",
       "highlight": [],
@@ -67,7 +217,33 @@
     {
       "id": "hills_strategy",
       "title": "Companies spend too",
-      "text": "Companies run the same program as people. A firm's year of money leaves in the directions it flows: down to its suppliers and workers, forward into the future as investment, split between desire for new demand and fear of falling behind, up to its owners, and into the state as taxes and lobbying. Arrows show which way the money moves it. In 2025 five companies spent about $450 billion building artificial intelligence, and it poured down the hill.",
+      "text": "Companies run the same program as people. A firm's year of money leaves in the directions it flows: down to its suppliers and workers, forward into the future as investment, split between desire for new demand and fear of falling behind, up to its owners, and into the state as taxes and lobbying. Arrows show which way the money moves it. In 2025 five companies spent $449 billion on capital, about two-thirds of it judged to be for artificial intelligence, and it poured down the hill.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "to owners"
+        },
+        {
+          "color": "blue",
+          "label": "to its workers"
+        },
+        {
+          "color": "ice",
+          "label": "defensive investment (Jev)"
+        },
+        {
+          "color": "rose",
+          "label": "investment for new demand"
+        },
+        {
+          "color": "steel",
+          "label": "taxes and lobbying"
+        }
+      ],
+      "reading": "White arrows: which way the money moves the firm, as Jev judged it.",
+      "measured": "each firm's latest annual filing",
+      "judged": "investment's desire and fear, its AI share, which way the money moves each firm",
+      "assumed": "each firm's split between suppliers and workers, from its industry's accounts",
       "focus": "strategy",
       "anchor": "",
       "highlight": [],
@@ -77,6 +253,27 @@
       "id": "hills_owners",
       "title": "Golden circles",
       "text": "At every market the dollar splits: wages run back down to workers, taxes fall to the bedrock, and the surplus climbs to gold halos above the summits and to the rings of owners around the top firms - the golden circles.",
+      "key": [
+        {
+          "color": "blue",
+          "label": "wages, back down"
+        },
+        {
+          "color": "steel",
+          "label": "taxes, to the bedrock"
+        },
+        {
+          "color": "gold",
+          "label": "profit to owners, up"
+        },
+        {
+          "color": "rose",
+          "label": "rings that pay more than they collect"
+        }
+      ],
+      "reading": "Of each household dollar in 2025, before income taxes, the model gives wages about 41¢, owners 27¢ and sales and property taxes 7¢; upkeep and imports take the rest.",
+      "measured": "how each industry's dollar splits (BEA input-output accounts)",
+      "assumed": "who owns each firm: the top 1%'s share of all stock times the firm's value (two rings name real owners)",
       "focus": "capture",
       "anchor": "",
       "highlight": [],
@@ -86,15 +283,50 @@
       "id": "hills_attention",
       "title": "Attention above capital",
       "text": "Above the capital float the most followed Americans, ringed by how many of the other most-followed follow them. Attention runs in a loop: companies pay the platforms $295 billion a year in digital advertising, the platforms and brands pay creators about $37 billion, people give about two hours a day and take in wants, and then they spend.",
+      "key": [
+        {
+          "color": "white",
+          "label": "the most followed Americans"
+        },
+        {
+          "color": "gold",
+          "label": "ring: owns a large company"
+        },
+        {
+          "color": "steel",
+          "label": "ring: holds office"
+        },
+        {
+          "color": "rose",
+          "label": "the loop: attention given, then money spent"
+        }
+      ],
+      "reading": "Size is followers; position in the cloud is who follows whom, not rank.",
+      "measured": "followers and follows; US digital advertising (IAB) and creator spending",
+      "assumed": "the widths of the loop's attention and spending legs",
       "focus": "social",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "side": "right"
     },
     {
       "id": "hills_people",
-      "title": "Class is altitude",
+      "title": "Class is height on the hill that pays you",
       "text": "Class is altitude. People live on the slope of whatever pays them, as close as possible to their source of value: an employer's industry, the government, or family wealth. The out of work sit on the valley floor; the richest float above.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "arrow: climbed in ten years"
+        },
+        {
+          "color": "rose",
+          "label": "arrow: fell"
+        }
+      ],
+      "reading": "Altitude is the rung on the hill that pays you; across hills, height is the industry's assumed tier.",
+      "measured": "national income and wealth totals the simulated people are calibrated to",
+      "assumed": "the tiers' heights and class as altitude",
       "focus": "people",
       "anchor": "",
       "highlight": [],
@@ -104,6 +336,28 @@
       "id": "hills_rivers",
       "title": "Rivers of desire and fear",
       "text": "Money flows in two colors: desire, in rose, and fear, in ice. Spending runs down to each industry's market; saving leaves over the crest into the future, and debt arrives from it.",
+      "key": [
+        {
+          "color": "rose",
+          "label": "spent toward a desire"
+        },
+        {
+          "color": "ice",
+          "label": "spent away from a fear"
+        },
+        {
+          "color": "gold",
+          "label": "profit to owners, up"
+        },
+        {
+          "color": "blue",
+          "label": "wages, back down"
+        }
+      ],
+      "reading": "A river widens with the money spent through it in a year.",
+      "measured": "household spending by category (BEA)",
+      "judged": "whether each kind of purchase serves a desire or a fear",
+      "assumed": "each spending category's stored share of fear",
       "focus": "rivers",
       "anchor": "",
       "highlight": [],
@@ -111,17 +365,59 @@
     },
     {
       "id": "hills_mobility",
-      "title": "What moves people up or down",
-      "text": "The hill's altitude pulled out beside the wave: five rungs of household income in 2015 and in 2025, joined by streams of people. In their working years, a lost job, a divorce and unpayable debt came with the falls; work, a child, a home and marriage with the climbs. Compared like for like, the model holds as tightly as the tax records do.",
+      "title": "Who moved up or down, and what came with it",
+      "text": "The hill's altitude pulled out beside the wave: five rungs of household income in 2015 and in 2025, joined by streams of people. Among adults 25 to 54, a lost job, a divorce and unpayable debt came with the falls; work, a child, a home and marriage with the climbs. These are associations in the simulation, not causes. Counted as the tax records count people, adults 25 and older, the model's bottom fifth holds its members about as tightly as the Treasury's records, where 55% stay a decade; the dots by the bottom and top rungs set the two side by side.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "climbed a fifth or more"
+        },
+        {
+          "color": "rose",
+          "label": "fell"
+        },
+        {
+          "color": "steel",
+          "label": "stayed"
+        }
+      ],
+      "reading": "Streams are simulated adults, calibrated to national totals; their width is people.",
+      "measured": "the benchmarks: the Treasury's tax panel and the PSID survey",
+      "assumed": "the simulated lives and what comes with their moves",
       "focus": "mobility",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "side": "bottom"
     },
     {
       "id": "atom_person",
       "title": "One person",
-      "text": "Zoom into a single person. Where they stand on this hillside is where they stand in the social market: the slope that pays them, the rung they occupy, and the people around them.",
+      "text": "Zoom into a single person. Where they stand on this hillside is where they stand in the social market: the slope that pays them, the rung they occupy, and the people around them. They are synthetic: each stands in for many real people.",
+      "key": [
+        {
+          "color": "rose",
+          "label": "pulled toward a desire"
+        },
+        {
+          "color": "ice",
+          "label": "pushed from a fear"
+        },
+        {
+          "color": "blue",
+          "label": "income from work"
+        },
+        {
+          "color": "gold",
+          "label": "from what they own"
+        },
+        {
+          "color": "steel",
+          "label": "from government"
+        }
+      ],
+      "reading": "The figure stands on its household's hill, at the rung of its income.",
+      "assumed": "a synthetic person who stands for 100,000 people, and their drives",
       "focus": "atom",
       "anchor": "atom:person",
       "highlight": [],
@@ -130,18 +426,83 @@
     {
       "id": "atom_mind",
       "title": "Inside one mind",
-      "text": "Inside one mind: five desire drives and five fear drives, weighed by reason into a choice. Desire pulls toward the hills that pay and please; fear pushes away from debt, loss and scarcity.",
-      "focus": "atom",
-      "anchor": "atom:mind",
+      "text": "Inside one mind: five desire drives and five fear drives, weighed by reason into a choice. Desire pulls toward the hills that pay and please; fear pushes away from debt, loss and scarcity. It is a simplified mind: its drives are a group's average, and their weights are assumptions.",
+      "key": [
+        {
+          "color": "rose",
+          "label": "desire drives"
+        },
+        {
+          "color": "ice",
+          "label": "fear drives"
+        },
+        {
+          "color": "gold",
+          "label": "memory: what is owned and owed"
+        }
+      ],
+      "reading": "Each drive's size is its share of the motive; reason weighs them into spending and saving.",
+      "assumed": "the drives' weights and how reason weighs them",
+      "focus": "mind",
+      "anchor": "",
       "highlight": [],
       "hold": 14
     },
     {
       "id": "atom_dilemma",
       "title": "Tit for tat",
-      "text": "Every encounter is a prisoner's dilemma: cooperate or defect. Tit-for-tat opens kindly, copies the partner's last move, retaliates and forgives. Over many rounds the payoffs accumulate as wealth.",
+      "text": "Every encounter is a prisoner's dilemma: cooperate or defect. Tit-for-tat opens kindly, copies the partner's last move, retaliates and forgives. Over many rounds the payoffs add up; the dollars they add here are illustrative.",
+      "key": [
+        {
+          "color": "blue",
+          "label": "cooperate"
+        },
+        {
+          "color": "#FF384D",
+          "label": "defect"
+        },
+        {
+          "color": "gold",
+          "label": "payoff"
+        }
+      ],
+      "reading": "Each pulse between two seats is a move in one round.",
+      "assumed": "the strategies, the payoffs and their worth in dollars",
       "focus": "dilemma",
       "anchor": "dilemma:arena",
+      "highlight": [],
+      "hold": 14
+    },
+    {
+      "id": "hills_games",
+      "title": "Groups play the same game",
+      "text": "Groups play the same game as people: cooperation, retaliation and forgiveness between groups and tribes. Coalitions form where cooperation keeps paying, and break where it does not. These are model experiments, not forecasts.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "cooperation within a tribe"
+        },
+        {
+          "color": "blue",
+          "label": "bridge: tribes cooperate"
+        },
+        {
+          "color": "#FF384D",
+          "label": "bridge: tribes defect"
+        },
+        {
+          "color": "rose",
+          "label": "one tribe's ring"
+        },
+        {
+          "color": "ice",
+          "label": "the other tribe's ring"
+        }
+      ],
+      "reading": "Two rings, two tribes: 128 groups of people play tit for tat within and across them.",
+      "assumed": "the groups' strategies and the season's rules",
+      "focus": "dilemma",
+      "anchor": "dilemma:groups",
       "highlight": [],
       "hold": 14
     },
@@ -149,33 +510,70 @@
       "id": "atom_ladder",
       "title": "The ladder",
       "text": "One life's path across the landscape over time, climbing and falling between rungs, compared with the parents' rung. Job changes, marriage, children and debt move it up or down.",
+      "key": [
+        {
+          "color": "blue",
+          "label": "living on wages"
+        },
+        {
+          "color": "gold",
+          "label": "in control of their path"
+        },
+        {
+          "color": "white",
+          "label": "the parent's rung"
+        }
+      ],
+      "reading": "Each year stands at its place on the road, on the rung of that year's household income.",
+      "assumed": "a synthetic life: its events and what they cost",
       "focus": "ladder",
       "anchor": "ladder:path",
       "highlight": [],
       "hold": 14
     },
     {
-      "id": "hills_games",
-      "title": "Groups play the same game",
-      "text": "Groups play the same game as people: cooperation, retaliation and forgiveness between groups and tribes. Coalitions form where cooperation keeps paying, and break where it does not.",
-      "focus": "society",
-      "anchor": "",
-      "highlight": [],
-      "hold": 14
-    },
-    {
       "id": "hills_you",
       "title": "Where do you stand?",
-      "text": "Tell the model about your household in the panel. It places you among the year's simulated Americans: your rung on the hill you work on, where each dollar you spend goes and which way its income flows, how far you are from living on what you own, and where people like you were ten years later. Nothing you enter is kept.",
+      "text": "Tell the model about your household in the panel. It places you among the year's simulated Americans: your rung on the hill you work on, where each dollar you spend goes, how much of everyone's income goes to people ranked above you, how far you are from living on what you own, and where people like you were ten years later. Nothing you enter is kept. It is a mirror, not a forecast.",
+      "key": [
+        {
+          "color": "rose",
+          "label": "your spending on wants"
+        },
+        {
+          "color": "ice",
+          "label": "your spending on fears"
+        },
+        {
+          "color": "gold",
+          "label": "income that goes to people ranked above you"
+        }
+      ],
+      "reading": "Beside you, on a ruler of the income fifths: where people like you were ten years later, a step for each fifth they reached, each ribbon as wide as its share. The tour waits while you try it.",
+      "measured": "the national totals the simulated people are calibrated to",
+      "assumed": "the simulated population; that your spending pays people the way everyone's does; a 4% yield for living on what you own",
       "focus": "you",
       "anchor": "",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "wait": true,
+      "side": "left bottom"
     },
     {
       "id": "hills_return",
       "title": "Somewhere on this hillside",
-      "text": "Back to the whole wave. The economy is the newest layer of the same causal chain that began with the Big Bang - and you are somewhere on this hillside, moving with it into the future.",
+      "text": "Back to the whole wave. It is a model, with assumptions built into it, but its shape follows everything before it: the economy is the newest layer of the same causal chain that began with the Big Bang - and you are somewhere on this hillside, moving with it into the future.",
+      "key": [
+        {
+          "color": "white",
+          "label": "the crest: now"
+        },
+        {
+          "color": "wake",
+          "label": "the past, rib by rib"
+        }
+      ],
+      "reading": "The past recedes behind the crest; ahead of it lies the future, not yet made.",
       "focus": "overview",
       "anchor": "",
       "highlight": [],

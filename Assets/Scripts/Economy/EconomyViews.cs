@@ -118,6 +118,9 @@ namespace Why.Economy
             if (Layers.PersonFocus.IsView(presetId)) s.Alpha[(int)LandGroup.Road] = presetId == "ladder" ? .4f : .2f;
             // a focused view's structure stands in front of the road: the lives step back to a trace
             if (Focused(presetId)) { s.Alpha[(int)LandGroup.Road] = .12f; s.Alpha[(int)LandGroup.Cut] = .2f; s.HideRoadLabels = true; }
+            // the money chart's low pose sees the road edge-on, where its thousands of faint lines add up to a bright bar
+            // across the rates: there the chart's own years are the time axis
+            if (presetId == "money") s.Alpha[(int)LandGroup.Road] = 0;
             specs[presetId] = s;
             return s;
         }

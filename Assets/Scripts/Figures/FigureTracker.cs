@@ -19,7 +19,13 @@ namespace Why.Figures
     /// F toggles the panel, Esc stops following. In landscape both panels sit at the right edge; on a
     /// portrait screen they become a compact full-width sheet under the HUD title (the people in two columns,
     /// the card's links side by side), clear of the preset bar at the bottom. There the people panel starts
-    /// hidden (it would cover the old end of the turned views; F shows it). Both step aside for the tour.
+    /// hidden (it would cover the old end of the turned views; F shows it), and so it does in the landscape views
+    /// that lead up to the present, where it would cover Now. Both step aside for the tour. A person's state is
+    /// named as it was in the year shown (Germany in 1914, the Soviet Union in 1971): in the rows the year under the
+    /// camera; on the card the year it opened on, then the moment the glide has reached, so it changes as the glide
+    /// passes from birth to death (Stalin's Russia, then his Soviet Union), and once the viewer steers the year under the
+    /// camera within the life. Where a stream does not name the state a person lived in, their own stands in
+    /// (<see cref="OwnStates"/>: Freud in Austria-Hungary in 1914, not Germany).
     /// </summary>
     public sealed class FigureTracker : GraphModule
     {
@@ -63,11 +69,34 @@ namespace Why.Figures
         readonly List<Button> rows = new List<Button>();
         readonly List<Figure> rowFigures = new List<Figure>();
         TextMeshProUGUI cardName, cardMeta, cardBlurb;
+        /// <summary>The state the card names now (it follows <see cref="CardYear"/> while the life is followed).</summary>
+        string cardState;
         RectTransform cardLinks;
         readonly List<Button> linkButtons = new List<Button>();
 
-        // F toggles the people panel of the current orientation; portrait starts without it
+        /// <summary>Landscape views that open without the people panel: it sits over the present edge they lead up to.</summary>
+        static readonly HashSet<string> QuietViews = new HashSet<string> { "modern", "present", "smv" };
+
+        /// <summary>
+        /// Figures whose stream does not name the state they lived in: the Holy Roman Empire / Germany stream also carries
+        /// the Habsburg lands, where Vienna and Brno would otherwise read "German states" or "Germany". The states they
+        /// lived in by period, each from the year it begins (a null name hands back to the stream's, as for Hitler in
+        /// Munich from 1913); the stream's own names cover the years before the first. Freud's Austria ended with the
+        /// annexation of 1938, the year he left for London; Meitner left Berlin for Stockholm the same year.
+        /// </summary>
+        static readonly Dictionary<string, (double start, string name)[]> OwnStates = new Dictionary<string, (double, string)[]>
+        {
+            ["maria_theresa"] = new[] { (1717.0, "Habsburg Austria") },
+            ["beethoven"] = new[] { (1806.0, "Austrian Empire") },
+            ["gregor_mendel"] = new[] { (1822.0, "Austrian Empire"), (1867.0, "Austria-Hungary") },
+            ["sigmund_freud"] = new[] { (1856.0, "Austrian Empire"), (1867.0, "Austria-Hungary"), (1918.0, "Austria"), (1938.0, "Britain") },
+            ["lise_meitner"] = new[] { (1878.0, "Austria-Hungary"), (1907.0, (string)null), (1938.0, "Sweden"), (1960.0, "Britain") },
+            ["adolf_hitler"] = new[] { (1889.0, "Austria-Hungary"), (1913.0, (string)null) },
+        };
+
+        // F toggles the people panel of the current orientation; portrait starts without it, and so do the quiet views
         bool panelEnabled = true, portraitPanelEnabled;
+        string panelView;
         float nextSample;
         double yearUnderCamera = double.NaN;
         Figure following;
@@ -82,6 +111,13 @@ namespace Why.Figures
         float glideShare = 1;
         double glideFocusYearsAgo;
         int glideOrientation;
+
+        /// <summary>
+        /// The year the card is for while the follow drives the camera: the year it opened on, then the moment the glide
+        /// has reached (in portrait the camera travels only part of the way, so the year under it is not the moment's:
+        /// <see cref="FrameGlide"/>). NaN when not following and once the user steers: the year under the camera then.
+        /// </summary>
+        double followYear = double.NaN;
 
         public override int Order => 20;
 
@@ -244,6 +280,14 @@ namespace Why.Figures
             if (root == null) return;
             if (layoutVersion != ScreenLayout.OrientationVersion) Layout();
             if (!root.IsLoaded) return;
+            // each view opens with its own default; F then toggles it until the view changes
+            string view = root.CurrentPreset != null ? root.CurrentPreset.Id : null;
+            if (view != panelView && view != FollowView)
+            {
+                panelView = view;
+                panelEnabled = view == null || !QuietViews.Contains(view);
+            }
+
             Keyboard kb = Keyboard.current;
             if (kb != null)
             {
@@ -258,10 +302,11 @@ namespace Why.Figures
 
             if (root.TourActive && following != null) StopFollowing();
 
-            if (GraphTime.Now >= nextSample && following == null)
+            if (GraphTime.Now >= nextSample)
             {
                 nextSample = GraphTime.Now + 0.25f;
-                SampleTime();
+                if (following == null) SampleTime();
+                else FollowCardState();
             }
 
             bool enabled = portraitLayout ? portraitPanelEnabled : panelEnabled;
@@ -322,7 +367,7 @@ namespace Why.Figures
                 rowFigures[i] = f;
                 rows[i].gameObject.SetActive(f != null);
                 if (f == null) continue;
-                string civ = world != null && world.ById.TryGetValue(f.civ, out Civ c) ? c.Name : f.civ;
+                string civ = StateAt(f, year);
                 int age = (int)(year - f.born);
                 rows[i].GetComponentInChildren<TextMeshProUGUI>().text =
                     $"<b>{f.name}</b>  <color=#{UiFactory.Hex(GraphStyle.TextDim)}><size=85%>{civ}, age {age}</size></color>";
@@ -334,6 +379,9 @@ namespace Why.Figures
         {
             if (f == null || !Anchors.TryGet(f.AnchorKey, out Anchor a)) return;
             if (following == null) returnPreset = root.CurrentPreset;
+            // the card opens on the year shown (the moment a followed life had reached, or the year under the camera) and
+            // keeps it through the flight, until the glide starts at the birth
+            followYear = CardYear(f);
             following = f;
 
             double now = DeepTime.NowYear;
@@ -341,7 +389,7 @@ namespace Why.Figures
             double pad = Math.Max(12, (end - born) * 0.3);
             ViewPreset p = new ViewPreset
             {
-                Id = "figure",
+                Id = FollowView,
                 Title = f.name,
                 Subtitle = f.Years + (string.IsNullOrEmpty(f.role) ? "" : "  -  " + f.role),
                 YaOld = now - (born - pad),
@@ -425,11 +473,67 @@ namespace Why.Figures
             return y * tan * pose.Distance / (sin - y * tan * cos);
         }
 
+        /// <summary>The lens that follows a life (not a view of its own: the panel keeps the view's default under it).</summary>
+        const string FollowView = "figure";
+
+        /// <summary>
+        /// The state a figure lived in in a year: their own where their stream does not name it (<see cref="OwnStates"/>),
+        /// else the stream's name at the time.
+        /// </summary>
+        string StateAt(Figure f, double year)
+        {
+            string own = null;
+            if (f.id != null && OwnStates.TryGetValue(f.id, out (double start, string name)[] periods))
+            {
+                foreach ((double start, string name) in periods)
+                {
+                    if (year >= start) own = name;
+                }
+            }
+
+            if (own != null) return own;
+            return world != null && world.ById.TryGetValue(f.civ, out Civ c) ? Humans.Bands.BandAnnotations.NameAt(c, year) : f.civ;
+        }
+
+        /// <summary>
+        /// The year the card is for, kept within the followed life: while the follow drives the camera,
+        /// <see cref="followYear"/> (a row chosen in 1914 opens the card on 1914, and the glide then carries it from birth
+        /// to death, in portrait too, where the year under the camera trails the moment: Freud's would end on 1914's
+        /// Austria-Hungary, not Britain); otherwise the year under the camera.
+        /// </summary>
+        double CardYear(Figure f)
+        {
+            double now = DeepTime.NowYear, year = followYear;
+            if (double.IsNaN(year))
+            {
+                GraphWarp.Inverse(root.Rig.Pose.Target, out float u, out float _);
+                year = now - DeepTime.YearsAgo(u);
+            }
+
+            if (double.IsNaN(year)) year = f.End(now);
+            return Math.Max(f.born, Math.Min(f.End(now), year));
+        }
+
+        /// <summary>The card's line under the name: the years, the state of the year shown and the role.</summary>
+        static string CardMeta(Figure f, string state) =>
+            f.Years + "  |  " + state + (string.IsNullOrEmpty(f.role) ? "" : "  |  " + f.role);
+
+        /// <summary>While a life is followed, the card's state follows the year it is for (<see cref="CardYear"/>).</summary>
+        void FollowCardState()
+        {
+            string state = StateAt(following, CardYear(following));
+            if (state == cardState) return;
+            cardState = state;
+            cardMeta.text = CardMeta(following, state);
+        }
+
         void FillCard(Figure f, Anchor a)
         {
-            string civ = world != null && world.ById.TryGetValue(f.civ, out Civ c) ? c.Name : f.civ;
+            // the state of the year the card is for, as the rows name it (Stalin's Russia in 1914, his Soviet Union in
+            // 1940); FollowCardState keeps it current as the glide moves along the life
+            cardState = StateAt(f, CardYear(f));
             cardName.text = f.name;
-            cardMeta.text = f.Years + "  |  " + civ + (string.IsNullOrEmpty(f.role) ? "" : "  |  " + f.role);
+            cardMeta.text = CardMeta(f, cardState);
             cardBlurb.text = f.blurb ?? a.Blurb ?? "";
 
             foreach (Button b in linkButtons) Destroy(b.gameObject);
@@ -510,6 +614,8 @@ namespace Why.Figures
         /// <summary>After the lens opens, glide the camera along the life from birth to death.</summary>
         void Travel()
         {
+            // once the user steers, the card names the year under the camera (CardYear), during the glide or after it
+            if (root.Rig.UserActive) followYear = double.NaN;
             if (following == null || travelStart < 0 || GraphTime.Now < travelStart) return;
             if (root.Rig.UserActive)
             {
@@ -525,6 +631,7 @@ namespace Why.Figures
             float e = t * t * (3 - 2 * t);
             double now = DeepTime.NowYear;
             double year = following.born + (following.End(now) - following.born) * e;
+            followYear = year; // the moment the card names: in portrait the target below is not on it
             Vector3 target = LifelineAt(a, now - year);
             if (ScreenLayout.IsPortrait)
             {
@@ -544,6 +651,7 @@ namespace Why.Figures
         void StopFollowing()
         {
             following = null;
+            followYear = double.NaN;
             travelStart = -1;
             Highlighter.Clear();
             if (returnPreset != null) root.Focus(returnPreset, 2f);

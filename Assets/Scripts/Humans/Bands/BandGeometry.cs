@@ -113,6 +113,15 @@ namespace Why.Humans.Bands
         public readonly SurfaceMeshBuilder Fill = new SurfaceMeshBuilder();
         public readonly LineMeshBuilder Lines = new LineMeshBuilder(40_000);
         public readonly LineMeshBuilder LifeLines = new LineMeshBuilder(64);
+
+        /// <summary>
+        /// What the position fade takes from each stream's fill and edges (the eastern streams fade as less relevant to
+        /// us): drawn over <see cref="Fill"/> and <see cref="Lines"/> it restores even strength across the layer, for the
+        /// views where west to east is geography rather than relevance (<see cref="CivBandsLayer.WidthViews"/>).
+        /// </summary>
+        public readonly SurfaceMeshBuilder RestoreFill = new SurfaceMeshBuilder();
+
+        public readonly LineMeshBuilder RestoreLines = new LineMeshBuilder(20_000);
         public readonly List<StreamInfo> Streams = new List<StreamInfo>();
         public readonly List<WarInfo> Wars = new List<WarInfo>();
 
@@ -127,6 +136,10 @@ namespace Why.Humans.Bands
         readonly List<Color32> outerColors = new List<Color32>(2048);
         readonly List<LinePoint> pts = new List<LinePoint>(2048);
         readonly List<LinePoint> pts2 = new List<LinePoint>(2048);
+        readonly List<Color32> restoreColors = new List<Color32>(2048);
+        readonly List<Color32> restoreOuterColors = new List<Color32>(2048);
+        readonly List<LinePoint> restorePts = new List<LinePoint>(2048);
+        readonly List<LinePoint> restorePts2 = new List<LinePoint>(2048);
         readonly List<double> knots = new List<double>(128);
 
         /// <summary>Our path: the level jump, the inner edge of prehistory, then the inner envelope of history.</summary>
@@ -295,23 +308,35 @@ namespace Why.Humans.Bands
             pts.Clear();
             pts2.Clear();
             outerColors.Clear();
+            restoreColors.Clear();
+            restoreOuterColors.Clear();
+            restorePts.Clear();
+            restorePts2.Clear();
             for (int i = 0; i < samples.Count; i++)
             {
                 StreamSample s = samples[i];
                 if (!Band(c, s.Year, out float lo, out float hi, out float share)) continue;
                 float w = hi - lo;
                 // no hard outer border: streams fade with their position across the layer, and the layer's
-                // own outer boundary dissolves into transparent black
+                // own outer boundary dissolves into transparent black; the restore meshes hold the part of the
+                // first fade only, so the boundary still dissolves where they are drawn
                 float layer = Mathf.Max(world.LayerWidth(s.Year), 1e-4f);
                 float fadeLo = OuterFade(lo / layer), fadeHi = OuterFade(hi / layer);
+                float backLo = RestoreFade(lo / layer), backHi = RestoreFade(hi / layer);
                 inner.Add(new Vector3(s.U, GraphStyle.HumansY, lo));
                 outer.Add(new Vector3(s.U, GraphStyle.HumansY, hi));
                 colors.Add(Tint(CivFillAlpha * fadeLo));
                 outerColors.Add(Tint(CivFillAlpha * fadeHi));
+                restoreColors.Add(Tint(CivFillAlpha * backLo));
+                restoreOuterColors.Add(Tint(CivFillAlpha * backHi));
                 float edgeAlpha = EdgeAlphaFor(w);
                 pts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, lo), Tint(edgeAlpha * fadeLo), EdgeWidthPx,
                     EdgeWidthWorld, EdgeIntensity));
                 pts2.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, hi), Tint(edgeAlpha * fadeHi), EdgeWidthPx,
+                    EdgeWidthWorld, EdgeIntensity));
+                restorePts.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, lo), Tint(edgeAlpha * backLo), EdgeWidthPx,
+                    EdgeWidthWorld, EdgeIntensity));
+                restorePts2.Add(new LinePoint(new Vector3(s.U, GraphStyle.HumansY, hi), Tint(edgeAlpha * backHi), EdgeWidthPx,
                     EdgeWidthWorld, EdgeIntensity));
 
                 if (share > info.MaxShare) info.MaxShare = share;
@@ -333,6 +358,9 @@ namespace Why.Humans.Bands
             Fill.AddBand(inner, outer, colors, outerColors, id, intensity);
             Lines.AddPolyline(pts, id);
             Lines.AddPolyline(pts2, id);
+            RestoreFill.AddBand(inner, outer, restoreColors, restoreOuterColors, id, intensity);
+            RestoreLines.AddPolyline(restorePts, id);
+            RestoreLines.AddPolyline(restorePts2, id);
 
             info.HasLabel = widest > 0;
             info.LabelU = widestInside > 0 ? insideU : wideU;
@@ -359,11 +387,14 @@ namespace Why.Humans.Bands
         /// Fade by relative position across the human layer (0 inner .. 1 outer boundary): full inside, easing
         /// to a third toward the outer side, and to nothing right at the layer's outer boundary.
         /// </summary>
-        static float OuterFade(float x)
-        {
-            float toward = Mathf.Lerp(1f, 0.35f, SmoothStep(0.55f, 1f, x));
-            return toward * (1f - SmoothStep(0.97f, 1.0f, x));
-        }
+        static float OuterFade(float x) => Toward(x) * Dissolve(x);
+
+        /// <summary>What <see cref="OuterFade"/> takes from a stream for relevance alone (the boundary still dissolves).</summary>
+        static float RestoreFade(float x) => (1f - Toward(x)) * Dissolve(x);
+
+        static float Toward(float x) => Mathf.Lerp(1f, 0.35f, SmoothStep(0.55f, 1f, x));
+
+        static float Dissolve(float x) => 1f - SmoothStep(0.97f, 1.0f, x);
 
         /// <summary>Edge alpha of a band of the given width (rho): narrow, crowded bands have softer edges.</summary>
         static float EdgeAlphaFor(float width) =>

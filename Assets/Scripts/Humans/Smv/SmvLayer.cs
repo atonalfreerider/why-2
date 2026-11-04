@@ -32,6 +32,25 @@ namespace Why.Humans.Smv
 
         const string LodContext = "United States 1950 - now";
         const string PresetId = "smv";
+
+        /// <summary>
+        /// The economy's families view (key 2): its subject is the family links of the fine tier, so it draws that tier
+        /// and names one marriage and one birth near the year it looks at.
+        /// </summary>
+        const string FamiliesView = "section";
+
+        /// <summary>
+        /// Years between the families view's year and each mark: the marriage before it, the birth after, so their labels
+        /// (both running right from their points) stand apart instead of one hiding the other.
+        /// </summary>
+        const int FamilyMarkSpread = 3;
+
+        /// <summary>
+        /// The road of lives at the year the economy shows, where its wave fans out of the road (the fan's own origin in
+        /// HillWaveLayer): the tour's bridge from the universe points here. Economy only.
+        /// </summary>
+        const string WaveAnchor = "smv:wave";
+
         const int Seed = 1950;
 
         /// <summary>Civilization block used when neither the human world nor the United States stream exists.</summary>
@@ -114,6 +133,19 @@ namespace Why.Humans.Smv
         readonly List<LabelSpec> labels = new List<LabelSpec>();
         bool labelsShown = true;
 
+        // the families view's marks: world-space labels (that view hides the timeline's own), placed on one of each year's
+        // marriages and births (data space, from markFirstYear) near the year the view looks at
+        LabelSpec marriageMark, birthMark;
+        Vector3?[] marriageMarks = Array.Empty<Vector3?>(), birthMarks = Array.Empty<Vector3?>();
+        int markFirstYear;
+        bool familyMarksShown;
+        int familyWarp = -1;
+        Vector3 familyTarget;
+
+        // the economy's road at the year shown (WaveAnchor), moved when the year changes
+        Anchor waveAnchor;
+        int waveYear;
+
         /// <summary>
         /// Cross-sections of the population along the stream from 1950 to now (data space), projected every
         /// frame to measure how large the era and its population appear on screen.
@@ -170,6 +202,11 @@ namespace Why.Humans.Smv
                 FamilyJunctions = GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills };
             geo.BuildLifelines();
             geo.BuildParentLinks();
+            if (geo.FamilyJunctions)
+            {
+                RegisterFamilyMarks(ctx, geo);
+                RegisterWaveAnchor(ctx);
+            }
             double firstMid = data.FirstYear + 0.5;
             geo.BuildPopulationCurves(firstMid - 4, GraphIds.Civ(civIndex));
 
@@ -319,6 +356,117 @@ namespace Why.Humans.Smv
             ctx.Labels.Add(spec);
         }
 
+        /// <summary>
+        /// The labels of one marriage crossbar and one birth junction for the families view (hidden elsewhere), and each
+        /// year's candidates for them.
+        /// </summary>
+        void RegisterFamilyMarks(GraphContext ctx, SmvGeometry geo)
+        {
+            marriageMarks = geo.MarriageMarks;
+            birthMarks = geo.BirthMarks;
+            markFirstYear = geo.MarkFirstYear;
+            if (marriageMarks.Length == 0) return;
+            LabelSpec Mark(string text, Vector2 offset)
+            {
+                LabelSpec spec = new LabelSpec
+                {
+                    Text = text,
+                    Plate = new Color(0.02f, 0.027f, 0.047f, 0.75f),
+                    Fixed = true,
+                    Priority = 40,
+                    SizePx = 12,
+                    Color = GraphStyle.Text,
+                    PixelOffset = offset,
+                    Hidden = true
+                };
+                ctx.Labels?.Add(spec);
+                return spec;
+            }
+
+            marriageMark = Mark("a marriage: two partners' lines join", new Vector2(8, 12));
+            birthMark = Mark("a birth: the child's line starts where its parents meet", new Vector2(8, -12));
+        }
+
+        /// <summary>
+        /// Shows the family marks in the families view, near the year it looks at (the year of the mark nearest its camera
+        /// target: it follows the year the economy shows), kept on their points as the warp moves; hidden elsewhere.
+        /// </summary>
+        void PlaceFamilyMarks(GraphContext ctx, ViewPreset view, bool families)
+        {
+            if (marriageMark == null) return;
+            families &= view != null && view.FixedTarget.HasValue;
+            Vector3 target = families ? view.FixedTarget.Value : familyTarget;
+            bool moved = families && (familyWarp != GraphWarp.Version || target != familyTarget);
+            if (families == familyMarksShown && !moved) return;
+            familyMarksShown = families;
+            familyWarp = GraphWarp.Version;
+            familyTarget = target;
+            marriageMark.Hidden = birthMark.Hidden = true;
+            if (families)
+            {
+                int year = NearestMarkYear(target);
+                ShowMark(marriageMark, marriageMarks, year - FamilyMarkSpread - markFirstYear);
+                ShowMark(birthMark, birthMarks, year + FamilyMarkSpread - markFirstYear);
+            }
+
+            ctx.Labels?.MarkDirty();
+        }
+
+        /// <summary>The year of the mark of either kind nearest a world point (under the current warp).</summary>
+        int NearestMarkYear(Vector3 world)
+        {
+            int best = 0;
+            float bestDistance = float.MaxValue;
+            for (int i = 0; i < marriageMarks.Length; i++)
+            {
+                Vector3? mark = marriageMarks[i] ?? birthMarks[i];
+                if (!mark.HasValue) continue;
+                float d = (GraphWarp.ToWorld(mark.Value) - world).sqrMagnitude;
+                if (d >= bestDistance) continue;
+                bestDistance = d;
+                best = i;
+            }
+
+            return markFirstYear + best;
+        }
+
+        /// <summary>Puts a mark's label on the year's candidate (index from markFirstYear), or on the nearest year's that has one.</summary>
+        static void ShowMark(LabelSpec label, Vector3?[] marks, int index)
+        {
+            for (int d = 0; d < marks.Length; d++)
+            {
+                int i = index - d >= 0 && index - d < marks.Length && marks[index - d].HasValue ? index - d
+                    : index + d >= 0 && index + d < marks.Length && marks[index + d].HasValue ? index + d : -1;
+                if (i < 0) continue;
+                label.Data = GraphWarp.ToWorld(marks[i].Value);
+                label.Hidden = false;
+                return;
+            }
+        }
+
+        /// <summary>The road of lives at the year the economy shows (<see cref="WaveAnchor"/>), where the wave fans out.</summary>
+        void RegisterWaveAnchor(GraphContext ctx)
+        {
+            waveAnchor = new Anchor
+            {
+                Key = WaveAnchor,
+                Blurb = "The road of American lives opens into the economy's wave at the year the wave's crest shows.",
+                Level = GraphLevel.Humans,
+                Y = GraphStyle.HumansY,
+                Rho = Economy.EconomyStyle.FramingRho,
+                Tier = 1
+            };
+            MoveWaveAnchor(ctx, Economy.EconomyState.Year);
+            Anchors.Register(waveAnchor);
+        }
+
+        void MoveWaveAnchor(GraphContext ctx, int year)
+        {
+            waveYear = year;
+            waveAnchor.Label = "The road of American lives, " + year.ToString(CultureInfo.InvariantCulture);
+            waveAnchor.YearsAgo = waveAnchor.EndYearsAgo = Math.Max(0, ctx.NowYear - year);
+        }
+
         void BuildEraProbe(SmvSimulation sim, SmvGeometry geo, double firstMid)
         {
             const int n = 12;
@@ -386,8 +534,12 @@ namespace Why.Humans.Smv
             Measure(rig, GraphWarp.Current, out float eraPx, out float spreadPx, out float centerPx);
 
             GraphRoot root = GraphRoot.Instance;
+            bool families = marriageMark != null && root != null && root.CurrentPreset != null && root.CurrentPreset.Id == FamiliesView;
             bool preset = root != null && root.CurrentPreset != null &&
-                          (root.CurrentPreset.Id == PresetId || root.CurrentPreset.PopulationDetail);
+                          (root.CurrentPreset.Id == PresetId || root.CurrentPreset.PopulationDetail || families);
+            // the tour's stop on the families view is the bridge into the economy: its card stands where the marks would
+            PlaceFamilyMarks(ctx, root != null ? root.CurrentPreset : null, families && !root.TourActive);
+            if (waveAnchor != null && Economy.EconomyState.Year != waveYear) MoveWaveAnchor(ctx, Economy.EconomyState.Year);
             float visible = SmoothStep(CoarseFromPx, CoarseFullPx, eraPx);
             float close = Mathf.Max(SmoothStep(FineFromSpreadPx, FineFullSpreadPx, spreadPx),
                 SmoothStep(FineFromEraPx, FineFullEraPx, eraPx));
@@ -417,8 +569,9 @@ namespace Why.Humans.Smv
             // the coarse tier shares its views with the other streams' lifelines: claim the readout only while
             // the view is centered on this population
             bool centered = centerPx < 0.6f * spreadPx + 0.1f * Screen.height;
-            if (fineAlpha > 0.5f) Publish(PeoplePerLine);
-            else if (coarseAlpha > 0.5f && centered) Publish(PeoplePerCoarseLine);
+            // and only while the road is drawn at all: a view that hides it (the money chart) has no lines to describe
+            if (scene > 0.01f && fineAlpha > 0.5f) Publish(PeoplePerLine);
+            else if (scene > 0.01f && coarseAlpha > 0.5f && centered) Publish(PeoplePerCoarseLine);
             else if (published)
             {
                 // hand the readout back (unless another lifeline layer has taken it over meanwhile)

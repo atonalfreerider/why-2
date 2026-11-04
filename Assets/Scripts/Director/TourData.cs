@@ -28,6 +28,74 @@ namespace Why.Director
         /// <summary>A scripted effect the stop plays instead of a camera flight: "genesis" (the Big Bang's flash and the
         /// graph growing from it, <see cref="Genesis"/>).</summary>
         [JsonProperty("effect")] public string Effect;
+
+        /// <summary>
+        /// The card's own key: a few swatches of what the view draws. During the tour the view's subtitle steps aside,
+        /// so without these the global legend is the only key on screen.
+        /// </summary>
+        [JsonProperty("key")] public List<TourSwatch> Key = new List<TourSwatch>();
+
+        /// <summary>One sentence under the swatches: how to read the view (what height, width or position mean).</summary>
+        [JsonProperty("reading")] public string Reading;
+
+        /// <summary>The card's footnote, in three kinds of evidence the narration keeps apart: what is measured, what Jev
+        /// (an AI model) judged, and what the drawing assumes. Empty parts are left out.</summary>
+        [JsonProperty("measured")] public string Measured;
+
+        [JsonProperty("judged")] public string Judged;
+        [JsonProperty("assumed")] public string Assumed;
+
+        /// <summary>The arrow's caption instead of the anchor's own name.</summary>
+        [JsonProperty("caption")] public string Caption;
+
+        /// <summary>
+        /// The screen side the card prefers ("left", "right", or either with "top" or "bottom"): views whose subject sits
+        /// where the card would otherwise land (<see cref="PanelPlacement.Preferred"/>). Empty: away from the anchor.
+        /// </summary>
+        [JsonProperty("side")] public string Side;
+
+        /// <summary>The stop waits for the viewer instead of moving on (it asks them to do something).</summary>
+        [JsonProperty("wait")] public bool Wait;
+
+        /// <summary>States of the stop's view shown in turn as the narration reaches them (<see cref="ViewVariants"/>).</summary>
+        [JsonProperty("cues")] public List<TourCue> Cues = new List<TourCue>();
+    }
+
+    /// <summary>A swatch of a stop's key: a color ("gold", "rose" ... or "#RRGGBB") and what it marks.</summary>
+    public sealed class TourSwatch
+    {
+        [JsonProperty("color")] public string Hue;
+        [JsonProperty("label")] public string Label;
+
+        /// <summary>
+        /// The economy's hues by name: the palette's (<see cref="Economy.EconomyStyle"/>), which the HUD's legend draws its
+        /// swatches in, so a card's key and the legend beside it through the tour show the same mark in the same tone and
+        /// follow the palette together. Two marks the palette does not name keep their own: grey, the stone grey of rules
+        /// (the bedrock's regulation strands, HillFoundationLayer), and wake, the darker steel blue of the wave's yearly
+        /// ribs, which would otherwise share a swatch with the legend's "Government".
+        /// </summary>
+        static readonly Dictionary<string, Color> Named = new Dictionary<string, Color>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["gold"] = Economy.EconomyStyle.Capital, ["rose"] = Economy.EconomyStyle.Desire, ["ice"] = Economy.EconomyStyle.Fear,
+            ["blue"] = Economy.EconomyStyle.Wages, ["steel"] = Economy.EconomyStyle.Government, ["white"] = Economy.HillPresets.White,
+            ["grey"] = new Color(.80f, .78f, .74f), ["wake"] = new Color(.46f, .58f, .72f), ["red"] = GraphStyle.Matter,
+            ["green"] = GraphStyle.Life, ["humans"] = GraphStyle.Humans
+        };
+
+        public Color Resolve()
+        {
+            if (!string.IsNullOrEmpty(Hue) && Named.TryGetValue(Hue.Trim(), out Color c)) return c;
+            return ColorUtility.TryParseHtmlString(Hue ?? "", out c) ? c : GraphStyle.Text;
+        }
+    }
+
+    /// <summary>A moment within a stop: from <see cref="At"/> seconds on, the view shows its state <see cref="Show"/>.</summary>
+    public sealed class TourCue
+    {
+        [JsonProperty("at")] public float At;
+
+        /// <summary>The state's name, as the view registers it with <see cref="ViewVariants"/> (e.g. "se" for Sweden).</summary>
+        [JsonProperty("show")] public string Show;
     }
 
     /// <summary>The narrated guide through the whole graph: a title and an ordered list of steps.</summary>
@@ -107,6 +175,11 @@ namespace Why.Director
                 s.Focus = s.Focus?.Trim();
                 s.HighlightKeys = s.HighlightKeys ?? new List<string>();
                 s.HighlightKeys.RemoveAll(string.IsNullOrWhiteSpace);
+                s.Key = s.Key ?? new List<TourSwatch>();
+                s.Key.RemoveAll(k => k == null || string.IsNullOrWhiteSpace(k.Label));
+                s.Cues = s.Cues ?? new List<TourCue>();
+                s.Cues.RemoveAll(c => c == null || string.IsNullOrWhiteSpace(c.Show));
+                s.Cues.Sort((a, b) => a.At.CompareTo(b.At));
             }
 
             script.Title = string.IsNullOrWhiteSpace(script.Title) ? "Why: from the Big Bang to this moment" : script.Title;
@@ -260,10 +333,12 @@ namespace Why.Director
             foreach (TourStep step in script.Steps)
             {
                 problems.Clear();
+                // the card's sentence on how to read the view is read with its text
+                int characters = step.Text.Length + (step.Reading?.Length ?? 0);
                 ResolvedStep r = new ResolvedStep
                 {
                     Step = step,
-                    Duration = Mathf.Max(step.Hold, SecondsPerCharacter * step.Text.Length + ReadingPause)
+                    Duration = Mathf.Max(step.Hold, SecondsPerCharacter * characters + ReadingPause)
                 };
 
                 if (!string.IsNullOrWhiteSpace(step.Focus))

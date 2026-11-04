@@ -15,9 +15,19 @@ namespace Why.Director
         public string Kicker;
 
         public string Title;
+
+        /// <summary>
+        /// The view's key under the title (rich text: colored swatches), shown at once while the body is still being typed:
+        /// it is what the viewer needs to read the picture.
+        /// </summary>
+        public string Key;
+
+        /// <summary>One dim sentence under the key on how to read the view (what height, width or position mean).</summary>
+        public string Reading;
+
         public string Body;
 
-        /// <summary>Small dim line under the body (cards only), e.g. the keyboard controls.</summary>
+        /// <summary>Small dim lines under the body: the keyboard controls on a card, where a stop's evidence comes from on a step.</summary>
         public string Footnote;
 
         /// <summary>Reveal the body with a typewriter.</summary>
@@ -55,8 +65,12 @@ namespace Why.Director
         const float StepTitleSize = 22f;
         const float CardTitleSize = 30f;
         const float BodySize = 17f;
+        const float KeySize = 14f;
         const float FootnoteSize = 13f;
         const float FooterHeight = 32f;
+
+        /// <summary>Card buttons: at least this wide, and wider when their label needs it (padding on each side).</summary>
+        const float CardButtonWidth = 150f, CardButtonPadding = 20f;
 
         // portrait: the same panel as a sheet (canvas units of the zoomed portrait canvas), a little tighter
         const float PortraitMaxWidth = 760f;
@@ -66,6 +80,12 @@ namespace Why.Director
         const float OutSeconds = 0.2f;
         const float SlideDistance = 28f;
         const float TypeDelay = 0.12f;
+
+        /// <summary>
+        /// How quickly a shown panel follows its slot when the slot moves (per second, exponential): a bottom panel stands
+        /// on the HUD's legend block, which changes height as the lifeline readout comes and goes.
+        /// </summary>
+        const float OffsetRate = 9f;
 
         /// <summary>Height handed to TMP when measuring wrapped text.</summary>
         const float Unbounded = 32767f;
@@ -82,7 +102,7 @@ namespace Why.Director
 
         readonly RectTransform root;
         readonly CanvasGroup group;
-        readonly TextMeshProUGUI kicker, title, body, footnote, status;
+        readonly TextMeshProUGUI kicker, title, key, body, footnote, status;
         readonly Button back, play, next, close, primary, secondary;
         readonly TextMeshProUGUI playLabel, primaryLabel, secondaryLabel;
         readonly RectTransform progressTrack, progressFill;
@@ -94,6 +114,7 @@ namespace Why.Director
         PanelContent content, pendingContent;
         Func<Vector2, PanelSlot> pendingPlacement;
         PanelSlot slot = PanelSlot.Center;
+        Vector2 offset;
 
         /// <summary>Builds the panel (hidden) under a canvas. Callbacks are the transport buttons.</summary>
         public TourPanel(Transform parent, Action onBack, Action onPlayPause, Action onNext, Action onClose)
@@ -120,6 +141,8 @@ namespace Why.Director
             kicker.textWrappingMode = TextWrappingModes.NoWrap;
             kicker.overflowMode = TextOverflowModes.Ellipsis;
             title = Label("Title", StepTitleSize, GraphStyle.Text, FontStyles.Bold);
+            key = Label("Key", KeySize, bodyColor, FontStyles.Normal);
+            key.lineSpacing = 6;
             body = Label("Body", BodySize, bodyColor, FontStyles.Normal);
             body.lineSpacing = 8;
             footnote = Label("Footnote", FootnoteSize, GraphStyle.TextDim, FontStyles.Normal);
@@ -261,8 +284,8 @@ namespace Why.Director
             float e = Smooth(visibility);
             group.alpha = e;
             group.interactable = group.blocksRaycasts = phase != Phase.Out;
-            root.anchoredPosition = PanelPlacement.SlotOffset(slot) +
-                                    PanelPlacement.SlideDirection(slot) * (SlideDistance * (1 - e));
+            offset = Vector2.Lerp(offset, PanelPlacement.SlotOffset(slot), 1f - Mathf.Exp(-OffsetRate * dt));
+            root.anchoredPosition = offset + PanelPlacement.SlideDirection(slot) * (SlideDistance * (1 - e));
             float scale = 0.985f + 0.015f * e;
             root.localScale = new Vector3(scale, scale, 1);
         }
@@ -287,6 +310,7 @@ namespace Why.Director
             }
 
             slot = placement != null ? placement(size) : PanelSlot.Center;
+            offset = PanelPlacement.SlotOffset(slot);
             Vector2 anchor = PanelPlacement.SlotAnchor(slot);
             root.anchorMin = root.anchorMax = anchor;
             root.pivot = anchor;
@@ -307,8 +331,29 @@ namespace Why.Director
             return Mathf.Min(PanelPlacement.PortraitSheetWidth(UiFactory.CanvasSize.x), PortraitMaxWidth);
         }
 
-        /// <summary>Positions every element for the content (top-down) and returns the panel size.</summary>
+        /// <summary>
+        /// Positions every element for the content (top-down) and returns the panel size. A portrait step sheet that would
+        /// reach higher than the placement assumes (<see cref="PanelPlacement.PortraitSheetMaxHeight"/>) leaves out the
+        /// reading under its key. The swatches, the narration and the evidence footnote stay: the footnote is where the
+        /// card keeps apart what was measured, what an AI model (Jev) judged and what the drawing assumes. The longest
+        /// narrations still reach higher.
+        /// </summary>
         Vector2 Layout(PanelContent c)
+        {
+            Vector2 size = Layout(c, true);
+            if (!ScreenLayout.IsPortrait || c.Card || string.IsNullOrWhiteSpace(c.Reading)) return size;
+            return size.y > PanelPlacement.PortraitSheetMaxHeight(UiFactory.CanvasSize.y) ? Layout(c, false) : size;
+        }
+
+        /// <summary>The key's swatches and, under them, the reading in the dim text color (when it is shown).</summary>
+        static string KeyText(PanelContent c, bool withReading)
+        {
+            if (!withReading || string.IsNullOrWhiteSpace(c.Reading)) return c.Key;
+            string reading = "<color=#" + UiFactory.Hex(GraphStyle.TextDim) + ">" + c.Reading + "</color>";
+            return string.IsNullOrEmpty(c.Key) ? reading : c.Key + "\n" + reading;
+        }
+
+        Vector2 Layout(PanelContent c, bool withReading)
         {
             bool portrait = ScreenLayout.IsPortrait;
             float width = PanelWidth(c, portrait);
@@ -336,6 +381,18 @@ namespace Why.Director
             float titleHeight = title.GetPreferredValues(title.text, inner, Unbounded).y;
             Put(title.rectTransform, pad, y, inner, titleHeight);
             y += titleHeight + 12;
+
+            string keyText = KeyText(c, withReading);
+            bool hasKey = !string.IsNullOrEmpty(keyText);
+            key.gameObject.SetActive(hasKey);
+            if (hasKey)
+            {
+                key.text = keyText;
+                key.alignment = align;
+                float keyHeight = key.GetPreferredValues(key.text, inner, Unbounded).y;
+                Put(key.rectTransform, pad, y, inner, keyHeight);
+                y += keyHeight + 12;
+            }
 
             bool hasBody = !string.IsNullOrEmpty(c.Body);
             body.gameObject.SetActive(hasBody);
@@ -397,20 +454,24 @@ namespace Why.Director
                 return;
             }
 
-            const float cardButtonWidth = 150, cardGap = 12;
+            const float cardGap = 12;
             primaryLabel.text = c.PrimaryLabel ?? "";
             secondaryLabel.text = c.SecondaryLabel ?? "";
-            int count = (hasPrimary ? 1 : 0) + (hasSecondary ? 1 : 0);
-            float total = count * cardButtonWidth + (count - 1) * cardGap;
+            float primaryWidth = hasPrimary ? ButtonWidth(primaryLabel) : 0, secondaryWidth = hasSecondary ? ButtonWidth(secondaryLabel) : 0;
+            float total = primaryWidth + secondaryWidth + (hasPrimary && hasSecondary ? cardGap : 0);
             float left = (width - total) * 0.5f;
             if (hasSecondary)
             {
-                Put(secondary.transform as RectTransform, left, y, cardButtonWidth, FooterHeight);
-                left += cardButtonWidth + cardGap;
+                Put(secondary.transform as RectTransform, left, y, secondaryWidth, FooterHeight);
+                left += secondaryWidth + cardGap;
             }
 
-            if (hasPrimary) Put(primary.transform as RectTransform, left, y, cardButtonWidth, FooterHeight);
+            if (hasPrimary) Put(primary.transform as RectTransform, left, y, primaryWidth, FooterHeight);
         }
+
+        /// <summary>A card button as wide as its label needs ("Continue: the economy" overflowed a fixed width).</summary>
+        static float ButtonWidth(TextMeshProUGUI label) =>
+            Mathf.Ceil(Mathf.Max(CardButtonWidth, label.GetPreferredValues(label.text).x + 2 * CardButtonPadding));
 
         int CountCharacters()
         {

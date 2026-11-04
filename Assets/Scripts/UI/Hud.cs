@@ -29,11 +29,17 @@ namespace Why.UI
         /// <summary>The help sheet and tooltips sit above every panel.</summary>
         const int OverlaySortingOrder = 200;
 
-        const float TitleWidth = 560f;
+        const float TitleWidth = 620f;
         const float TopButtonHeight = 30f;
 
-        /// <summary>Height of the title block (brand, title, a two-line subtitle).</summary>
-        const float TitleHeight = 90f;
+        /// <summary>Height of the title block (brand, title, a two-line subtitle) before it is measured.</summary>
+        const float TitleHeight = 100f;
+
+        /// <summary>
+        /// The title block's panel: its fill (the view's title and subtitle sit over the bloomed scene, where bare text read
+        /// at a median background of 70-82 / 255) and inner padding; the brand, title and subtitle rows from its top.
+        /// </summary>
+        const float TitleFill = 0.8f, TitlePad = 10f, TitleRowY = 19f, SubtitleRowY = 45f;
 
         /// <summary>A left click that moves further than this (1080p pixels) is a drag, not a click.</summary>
         const float ClickSlopPx = 6f;
@@ -55,9 +61,9 @@ namespace Why.UI
         HudHelp help;
         HudStats stats;
 
-        Vector2 laidOutSize;
+        Vector2 laidOutSize, brandSize;
         int laidOutVersion = -1;
-        float titleWidth = TitleWidth;
+        float titleWidth = TitleWidth, subtitleTwoLines, subtitleThreeLines;
         float legendBottomWithBar = HudKit.Margin, legendBottomAlone = HudKit.Margin;
         bool loaded, tourWasActive, ownsHighlight, pressValid, probing;
         readonly object probeKey = new object();
@@ -77,7 +83,7 @@ namespace Why.UI
             BuildTitle(content);
             float stackTop = BuildTopButtons(content);
             legend = new HudLegend(content);
-            presetBar = new HudPresetBar(content, p => root.Focus(p));
+            presetBar = new HudPresetBar(content, p => root.Focus(p), GraphRoot.OpenOtherScene);
             stats = new HudStats(content, stackTop);
 
             overlay = UiFactory.CreateCanvas("HudOverlay", OverlaySortingOrder, transform);
@@ -104,24 +110,52 @@ namespace Why.UI
 
         // ------------------------------------------------------------------ building
 
+        /// <summary>
+        /// The view's title block: brand, title and subtitle on a panel that grows with them (the subtitle in full text color,
+        /// two lines at most; how to read the colors is the legend's job).
+        /// </summary>
         void BuildTitle(RectTransform parent)
         {
-            RectTransform block = titleBlock = UiFactory.Rect(parent, "Title")
-                .Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(HudKit.Margin, -HudKit.Margin + 2),
-                    new Vector2(TitleWidth, TitleHeight));
+            RectTransform block = titleBlock = HudKit.FramedPanel(parent, "Title", TitleFill);
+            block.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(HudKit.Margin, -HudKit.Margin), new Vector2(TitleWidth, TitleHeight));
 
             string brandText = GraphScene.IsEconomy ? "WHY  \u00B7  ECONOMY" : "WHY";
             TextMeshProUGUI brand = HudKit.Line(block, "Brand", brandText, HudKit.SizeSmall, GraphStyle.TextDim, FontStyles.Bold);
             brand.characterSpacing = 30;
-            HudKit.PlaceTopLeft(brand.rectTransform, 0, 0, HudKit.FitText(brand));
+            brandSize = HudKit.FitText(brand);
+            HudKit.PlaceTopLeft(brand.rectTransform, TitlePad, TitlePad - 2, brandSize);
 
             presetTitle = HudKit.Line(block, "Preset", "", HudKit.SizeTitle, GraphStyle.Text);
-            HudKit.PlaceTopLeft(presetTitle.rectTransform, 0, 21, new Vector2(TitleWidth, 24));
+            presetTitle.overflowMode = TextOverflowModes.Ellipsis;
 
-            presetSubtitle = UiFactory.Text(block, "Subtitle", "", HudKit.SizeSmall, GraphStyle.TextDim);
-            HudKit.PlaceTopLeft(presetSubtitle.rectTransform, 0, 47, new Vector2(TitleWidth, 20));
+            presetSubtitle = UiFactory.Text(block, "Subtitle", "", HudKit.SizeBody, GraphStyle.Text);
+            presetSubtitle.overflowMode = TextOverflowModes.Ellipsis;
+            subtitleTwoLines = HudKit.Measure(presetSubtitle, "Ag\nAg").y;
+            subtitleThreeLines = HudKit.Measure(presetSubtitle, "Ag\nAg\nAg").y;
+            LayoutTitle();
 
             titleFade = new UiFade(block.gameObject, 0, 2.5f, false);
+        }
+
+        /// <summary>
+        /// Sizes the title's panel to its texts at the current wrapping width: the title on one line (an ellipsis past the
+        /// width), the subtitle wrapped to two lines at most (three in the narrow portrait column, which the portrait
+        /// framings leave room for), an ellipsis past them.
+        /// </summary>
+        void LayoutTitle()
+        {
+            float inner = Mathf.Max(40f, titleWidth - 2 * TitlePad);
+            float title = Mathf.Min(HudKit.Measure(presetTitle, presetTitle.text).x, inner);
+            HudKit.PlaceTopLeft(presetTitle.rectTransform, TitlePad, TitlePad + TitleRowY, new Vector2(Mathf.Max(title, 1), 24));
+
+            bool subtitled = presetSubtitle.text.Length > 0;
+            Vector2 sub = subtitled ? HudKit.Measure(presetSubtitle, presetSubtitle.text, inner) : Vector2.zero;
+            sub.y = Mathf.Min(sub.y, ScreenLayout.IsPortrait ? subtitleThreeLines : subtitleTwoLines);
+            HudKit.PlaceTopLeft(presetSubtitle.rectTransform, TitlePad, TitlePad + SubtitleRowY, new Vector2(Mathf.Max(sub.x, 1), Mathf.Max(sub.y, 1)));
+
+            float width = Mathf.Max(brandSize.x, Mathf.Max(title, sub.x)) + 2 * TitlePad;
+            float height = TitlePad + (subtitled ? SubtitleRowY + sub.y : TitleRowY + 24) + TitlePad;
+            titleBlock.sizeDelta = new Vector2(Mathf.Ceil(Mathf.Min(width, titleWidth)), Mathf.Ceil(height));
         }
 
         /// <summary>Tour and help buttons, top-right. Returns the y below them (for the stats panel).</summary>
@@ -204,7 +238,13 @@ namespace Why.UI
                 Relayout(size);
             }
 
-            if (GraphScene.IsEconomy) FollowEconomyTitle();
+            if (GraphScene.IsEconomy)
+            {
+                FollowEconomyTitle();
+                // the wave's key follows the year on screen as well as the view (no attention swatch before the cloud is drawn)
+                if (root.CurrentPreset != null) legend.SetView(root.CurrentPreset);
+            }
+
             titleFade.Tick(dt);
             presetFade.Tick(dt);
             topButtonsFade.Tick(dt);
@@ -295,13 +335,14 @@ namespace Why.UI
         {
             if (!loaded || preset == null) return;
             presetBar.SetActive(preset);
+            legend.SetView(preset);
 
             // a new view fades its title in; re-scaling the same lens only updates the subtitle
             string title = preset.Title ?? "";
             bool newTitle = title != presetTitle.text;
             presetTitle.text = title;
             presetSubtitle.text = preset.Subtitle ?? "";
-            HudKit.FitText(presetSubtitle, titleWidth);
+            LayoutTitle();
             if (newTitle && !root.TourActive) titleFade.Replay();
         }
 
@@ -317,7 +358,7 @@ namespace Why.UI
             if (title == presetTitle.text && subtitle == presetSubtitle.text) return;
             presetTitle.text = title;
             presetSubtitle.text = subtitle;
-            HudKit.FitText(presetSubtitle, titleWidth);
+            LayoutTitle();
         }
 
         void Relayout(Vector2 size)
@@ -330,8 +371,10 @@ namespace Why.UI
         }
 
         /// <summary>
-        /// Keep the preset bar centered but clear of the legend; when the screen is too narrow for both on
-        /// one line, the bar takes the bottom edge (scaled to fit) and the legend moves above it.
+        /// Keep the preset bar centered but clear of the legend (of its widest, so the bar never moves with the view's key);
+        /// when one row does not fit beside it, two rows do, and on a narrower screen the bar takes the bottom edge in as
+        /// many rows as it needs, with the legend above it. Never scaled down: scaled to fit one row, its captions were
+        /// 5-6 px.
         /// </summary>
         void RelayoutLandscape(Vector2 size)
         {
@@ -340,23 +383,30 @@ namespace Why.UI
             PlaceTopButtons(HudKit.Margin, HudKit.Margin);
             stats.Place(HudKit.Margin, HudKit.Margin + TopButtonHeight + HudKit.Gap);
             legend.SetLeft(HudKit.Margin);
+            legend.SetMaxWidth(HudLegend.MaxWidth, 0);
             legendBottomAlone = HudKit.Margin;
+            legendBottomWithBar = HudKit.Margin;
             presetBar.SingleRow();
 
             float barWidth = presetBar.Width;
-            float clearOfLegend = HudKit.Margin + legend.Width + HudKit.Gap * 2;
+            float clearOfLegend = HudKit.Margin + HudLegend.MaxWidth + HudKit.Gap * 2;
             float left = Mathf.Max((size.x - barWidth) * 0.5f, clearOfLegend);
             if (left + barWidth <= size.x - HudKit.Margin)
             {
                 presetBar.Place(left, HudKit.Margin, 1);
-                legendBottomWithBar = HudKit.Margin;
+                return;
             }
-            else
+
+            presetBar.Flow(size.x - HudKit.Margin - clearOfLegend);
+            if (presetBar.Rows <= 2)
             {
-                float scale = Mathf.Min(1f, (size.x - 2 * HudKit.Margin) / barWidth);
-                presetBar.Place((size.x - barWidth * scale) * 0.5f, HudKit.Margin, scale);
-                legendBottomWithBar = HudKit.Margin + HudPresetBar.Height * scale + HudKit.Gap;
+                presetBar.Place(clearOfLegend, HudKit.Margin, 1);
+                return;
             }
+
+            float barHeight = presetBar.Flow(size.x - 2 * HudKit.Margin);
+            presetBar.Place(HudKit.Margin, HudKit.Margin, 1);
+            legendBottomWithBar = HudKit.Margin + barHeight + HudKit.Gap;
         }
 
         /// <summary>
@@ -373,6 +423,8 @@ namespace Why.UI
             PlaceTopButtons(m, top);
             stats.Place(m, top + TopButtonHeight + HudKit.Gap);
             legend.SetLeft(m);
+            // the bottom band above the bar is short on a phone: the key keeps its swatches and the start of its reading
+            legend.SetMaxWidth(size.x - 2 * m, 2);
 
             float bottom = m + safeBottom;
             float barHeight = presetBar.Flow(size.x - 2 * m);
@@ -388,11 +440,8 @@ namespace Why.UI
         void PlaceTitle(float left, float top, float width)
         {
             titleWidth = width;
-            titleBlock.anchoredPosition = new Vector2(left, -top + 2);
-            titleBlock.sizeDelta = new Vector2(width, TitleHeight);
-            presetTitle.rectTransform.sizeDelta = new Vector2(width, presetTitle.rectTransform.sizeDelta.y);
-            presetTitle.overflowMode = ScreenLayout.IsPortrait ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
-            HudKit.FitText(presetSubtitle, width);
+            titleBlock.anchoredPosition = new Vector2(left, -top);
+            LayoutTitle();
         }
 
         /// <summary>The legend only makes room for the preset bar while the bar is shown (not during the tour).</summary>
@@ -413,6 +462,13 @@ namespace Why.UI
             if (preset != null)
             {
                 tooltip.Show(preset, preset.Title, null, preset.Subtitle);
+            }
+            else if (presetFade.Shown && presetBar.SceneHovered)
+            {
+                tooltip.Show(presetBar, GraphScene.IsEconomy ? "Back to the universe" : "On to the economy", "TAB",
+                    GraphScene.IsEconomy
+                        ? "From the Big Bang to this moment: matter, life and people. The economy is the newest link of that chain."
+                        : "The newest link of the chain: one country's economy, the United States, where every dollar is someone's choice.");
             }
             else if (!help.Open && TryHoveredAnchor(out LabelSpec label, out Anchor anchor))
             {

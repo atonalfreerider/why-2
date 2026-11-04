@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -17,6 +18,10 @@ namespace Why.Humans.Bands
     /// Geometry comes from the shared <see cref="HumanWorld"/> model (built at Order 20), so the population
     /// curves and lifelines of the other human layers fit exactly inside these bands. Three meshes: band
     /// fills (alpha blended), lines (additive, bloom when highlighted) and the green half of the jump.
+    ///
+    /// Streams fade toward the east, as less relevant to us. In the views of the streams' widths
+    /// (<see cref="WidthViews"/>) west to east is geography instead, so there the fade lifts (two more meshes hold
+    /// what it took) and the present edge names the axis and the states (<see cref="BandAnnotations"/>).
     /// </summary>
     public sealed class CivBandsLayer : GraphLayer
     {
@@ -48,14 +53,26 @@ namespace Why.Humans.Bands
         const float LineRhoFade = 5f;
         const float FillEdgeSoft = 0.3f;
 
+        /// <summary>How fast the width views lift the eastern fade (per second, 0..1).</summary>
+        const float EvenSpeed = 1.5f;
+
         /// <summary>Highlight id of war <paramref name="warIndex"/> (index into HumanWorld.Wars).</summary>
         public static int WarId(int warIndex) => WarIdBase + warIndex;
+
+        /// <summary>
+        /// The views whose subject is the streams' widths across the layer (power, west to east): there the eastern
+        /// streams keep their strength and the present edge is labeled.
+        /// </summary>
+        public static bool WidthViews(string presetId) => presetId == "civilizations" || presetId == "modern" || presetId == "present";
 
         public override int Order => 30;
 
         BandGeometry geometry;
-        Material fillMat;
-        float fillAlpha = 1f, appliedAlpha = -1f;
+        Material fillMat, lineMat, restoreFillMat, restoreLineMat;
+        MeshRenderer restoreFill, restoreLines;
+        float fillAlpha = 1f, appliedAlpha = -1f, even, appliedEven = -1f;
+        List<LabelSpec> widthLabels = new List<LabelSpec>();
+        bool widthLabelsShown;
 
         public override void Prepare(GraphContext ctx)
         {
@@ -69,7 +86,8 @@ namespace Why.Humans.Bands
 
             BandGeometry g = new BandGeometry(world);
             g.Build();
-            BandAnnotations.Register(ctx, world, g);
+            BandAnnotations.ReadNames(ctx.Text(HumanWorld.CivPath));
+            widthLabels = BandAnnotations.Register(ctx, world, g);
             geometry = g;
             Debug.Log($"[Why] CivBandsLayer.Prepare {sw.ElapsedMilliseconds} ms ({g.Streams.Count} streams, " +
                       $"{g.Wars.Count} wars, {g.Fill.VertexCount} fill vertices, {g.Lines.VertexCount / 2} line points)");
@@ -83,9 +101,20 @@ namespace Why.Humans.Bands
             fillMat.SetFloat("_EdgeSoft", FillEdgeSoft);
             AddMesh("CivBands", geometry.Fill.ToMesh("CivBands"), fillMat);
 
-            Material lineMat = GraphMaterials.Line(GraphStyle.Humans, 1f, GraphMaterials.QueueHumans + 1, true,
+            lineMat = GraphMaterials.Line(GraphStyle.Humans, 1f, GraphMaterials.QueueHumans + 1, true,
                 LineRhoFade, 1f);
             AddMesh("CivEdges", geometry.Lines.ToMesh("CivEdges"), lineMat);
+
+            // what the eastern fade took, drawn only while a width view lifts it
+            restoreFillMat = GraphMaterials.Surface(GraphStyle.Humans, 1f, GraphMaterials.QueueHumans, false);
+            restoreFillMat.SetFloat("_EdgeSoft", FillEdgeSoft);
+            GraphMaterials.SetAlpha(restoreFillMat, 0);
+            restoreFill = AddMesh("CivBandsRestore", geometry.RestoreFill.ToMesh("CivBandsRestore"), restoreFillMat);
+            restoreFill.enabled = false;
+            restoreLineMat = GraphMaterials.Line(GraphStyle.Humans, 1f, GraphMaterials.QueueHumans + 1, true, 0f, 1f);
+            GraphMaterials.SetAlpha(restoreLineMat, 0);
+            restoreLines = AddMesh("CivEdgesRestore", geometry.RestoreLines.ToMesh("CivEdgesRestore"), restoreLineMat);
+            restoreLines.enabled = false;
 
             // the lower half of the level jump still belongs to the life lineage it rises out of
             Material lifeMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueHumans + 1, true, 0f, 1f);
@@ -102,10 +131,35 @@ namespace Why.Humans.Bands
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (fillMat == null || rig == null) return;
+            GraphRoot root = GraphRoot.Instance;
+            bool widthView = root != null && root.CurrentPreset != null && WidthViews(root.CurrentPreset.Id);
+            if (widthView != widthLabelsShown)
+            {
+                widthLabelsShown = widthView;
+                foreach (LabelSpec label in widthLabels) label.Hidden = !widthView;
+                ctx.Labels?.MarkDirty();
+            }
+
             fillAlpha = Mathf.MoveTowards(fillAlpha, TargetFillAlpha(rig), GraphTime.Delta * FillAlphaSpeed);
-            if (Mathf.Abs(fillAlpha - appliedAlpha) < 0.002f) return;
+            even = Mathf.MoveTowards(even, widthView ? 1f : 0f, GraphTime.Delta * EvenSpeed);
+            if (Mathf.Abs(fillAlpha - appliedAlpha) < 0.002f && Mathf.Abs(even - appliedEven) < 0.002f) return;
             GraphMaterials.SetAlpha(fillMat, fillAlpha);
             appliedAlpha = fillAlpha;
+            ApplyEven();
+        }
+
+        /// <summary>
+        /// Lifts the eastern fade by <see cref="even"/>: the materials' fade with distance stretches out to nothing, and
+        /// the restore meshes add back what the per-stream fade took.
+        /// </summary>
+        void ApplyEven()
+        {
+            appliedEven = even;
+            fillMat.SetFloat("_RhoFade", even >= 0.999f ? 0f : FillRhoFade / (1f - even));
+            lineMat.SetFloat("_RhoFade", even >= 0.999f ? 0f : LineRhoFade / (1f - even));
+            GraphMaterials.SetAlpha(restoreFillMat, fillAlpha * even);
+            GraphMaterials.SetAlpha(restoreLineMat, even);
+            restoreFill.enabled = restoreLines.enabled = even > 0.002f;
         }
 
         static float TargetFillAlpha(CameraRig rig)

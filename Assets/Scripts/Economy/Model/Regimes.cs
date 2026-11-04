@@ -15,7 +15,8 @@ namespace Why.Economy.Model
     /// <item>the state-owned share of the country's largest firms, and the state's holdings among the leading firms, each on
     /// one of the scene's industries (<see cref="Regime.Firms"/>: the summits it owns, with owner, share and source);</item>
     /// <item>trade openness (World Bank), the top 1%'s shares of wealth and income (WID), the electoral democracy index
-    /// (V-Dem);</item>
+    /// (V-Dem) with who chooses the government in plain words, and the country's own GDP (IMF; the USSR's in rubles), so
+    /// the US hills on its state never pass for the country itself;</item>
     /// <item>how heavily the state's rules bind each industry and how much the industry shapes them (Jev Scores: model
     /// judgments; the US keeps the government file's own).</item>
     /// </list>
@@ -39,6 +40,8 @@ namespace Why.Economy.Model
         public sealed class Measure
         {
             public double Value = double.NaN; public int Year; public string Source, Url, Note, Count;
+            /// <summary>The unit of a measure that is not a share ("billion US dollars", "billion rubles"); null for shares.</summary>
+            public string Unit;
             /// <summary>What a share is of when not GDP (the Soviet budget: "GNP"); null for GDP.</summary>
             public string Basis;
             public string Of => string.IsNullOrEmpty(Basis) ? "GDP" : Basis;
@@ -65,28 +68,50 @@ namespace Why.Economy.Model
             public double Share => Controlled ? 1 : double.IsNaN(StateShare) ? 0 : StateShare;
         }
 
+        /// <summary>An industry whose largest firm could not be ranked, marked with the largest firm the research names
+        /// there (why: <see cref="Note"/>). Its summit stays unranked; the mark only says who that firm belongs to.</summary>
+        public sealed class Mark
+        {
+            public string IndustryId, Firm, Note;
+            public int Industry = -1;
+            public bool Controlled; public double StateShare = double.NaN;
+        }
+
         /// <summary>One regime.</summary>
         public sealed class Regime
         {
             public string Id, Name, Short, Form, Era, Country, Notes;
+            /// <summary>Who chooses the government, in plain words (the drawing's words beside V-Dem's index).</summary>
+            public string Chooses;
             public int Year; public bool Baseline;
             /// <summary>StateFirms: the public sector's share of listed companies' market value (the USSR's: by law);
-            /// Fortune: the state-controlled share of the country's Fortune Global 500 firms (Count says "79 of 116").</summary>
-            public Measure Spending, Revenue, Trade, Democracy, Top1Wealth, Top1Income, StateFirms, Fortune;
+            /// Fortune: the state-controlled share of the country's Fortune Global 500 firms (Count says "79 of 116");
+            /// Economy: the country's own GDP in its <see cref="Measure.Unit"/>.</summary>
+            public Measure Spending, Revenue, Trade, Democracy, Top1Wealth, Top1Income, StateFirms, Fortune, Economy;
             /// <summary>Shares of the state's revenue by <see cref="Part"/> (sum 1), null when not found; its year, basis and source.</summary>
             public double[] Mix; public int MixYear; public string MixBasis, MixSource, MixUrl, MixNote;
-            /// <summary>The ownership of a summit no firm is named for (0: private, 1: the state's by law) and why.</summary>
+            /// <summary>The ownership of a summit no firm is named for: 1, the state's by law, with the law in the note; 0,
+            /// nothing decides it (drawn not ranked, never private; the note is null).</summary>
             public double DefaultOwnership; public string DefaultNote;
             public Firm[] Firms = Array.Empty<Firm>();
+            public Mark[] Unranked = Array.Empty<Mark>();
             /// <summary>Per industry index: how heavily the state's rules bind it and how much it shapes them (0..1; NaN: not judged).</summary>
             public float[] Regulation, Capture; public string Judged;
 
             /// <summary>The state's share of an industry's summit: its share of the industry's largest named firm, else the
-            /// regime's default (private, or the state's by law).</summary>
+            /// regime's default. Where no firm is ranked and no law decides (<see cref="Decided"/> false) the default is
+            /// only an assumption for the shares that must be split somehow (the falls of profit taxes); the drawing marks
+            /// such a summit not ranked rather than private.</summary>
             public double StateShare(int industry) { var f = SummitFirm(industry); return f == null ? DefaultOwnership : f.Share; }
+
+            /// <summary>Whether anything decides who owns the industry's summit: a ranked firm, or the law (the USSR).</summary>
+            public bool Decided(int industry) => SummitFirm(industry) != null || DefaultOwnership >= .5;
 
             /// <summary>The industry's largest named firm (its summit), or null.</summary>
             public Firm SummitFirm(int industry) { foreach (var f in Firms) if (f.Industry == industry && f.Leads) return f; return null; }
+
+            /// <summary>The mark on an industry whose largest firm could not be ranked, or null.</summary>
+            public Mark UnrankedMark(int industry) { foreach (var m in Unranked) if (m.Industry == industry) return m; return null; }
         }
 
         public readonly Regime[] All;
@@ -114,9 +139,10 @@ namespace Why.Economy.Model
                 var g = new Regime
                 {
                     Id = (string)r["id"], Name = (string)r["name"], Short = (string)r["short"], Form = (string)r["form"], Era = (string)r["era"],
-                    Country = (string)r["country"], Year = (int?)r["year"] ?? 0, Baseline = (bool?)r["baseline"] ?? false, Notes = Text(r["notes"]),
+                    Country = (string)r["country"], Year = (int?)r["year"] ?? 0, Baseline = (bool?)r["baseline"] ?? false, Notes = Text(r["notes"]), Chooses = Text(r["chooses"]),
                     Spending = Read(r["spending"]), Revenue = Read(r["revenue"]), Trade = Read(r["trade"]), Democracy = Read(r["democracy"]),
                     Top1Wealth = Read(r["top1Wealth"]), Top1Income = Read(r["top1Income"]), StateFirms = Read(r["stateFirms"]), Fortune = Read(r["fortune"]),
+                    Economy = Read(r["economy"]),
                 };
                 if (r["revenueMix"] is JObject mix && mix["parts"] is JObject parts)
                 {
@@ -127,7 +153,10 @@ namespace Why.Economy.Model
                 }
                 if (r["ownership"] is JObject own)
                 {
-                    g.DefaultOwnership = (double?)own["default"] ?? 0; g.DefaultNote = (string)own["defaultNote"];
+                    g.DefaultOwnership = (double?)own["default"] ?? 0;
+                    // the note says why every summit is the state's; the "privately owned" the data carries with a 0 is not
+                    // read, so it cannot come back on screen as the private guess the dotted rings replaced
+                    g.DefaultNote = g.DefaultOwnership >= .5 ? (string)own["defaultNote"] : null;
                     var firms = new List<Firm>();
                     foreach (JObject f in own["firms"] as JArray ?? new JArray())
                     {
@@ -138,6 +167,15 @@ namespace Why.Economy.Model
                         firms.Add(firm);
                     }
                     g.Firms = firms.ToArray();
+                    var marks = new List<Mark>();
+                    foreach (JObject u in own["unranked"] as JArray ?? new JArray())
+                    {
+                        var mark = new Mark { IndustryId = (string)u["industry"], Firm = (string)u["firm"], Note = (string)u["note"],
+                            Controlled = (bool?)u["controlled"] ?? false, StateShare = (double?)u["stateShare"] ?? double.NaN };
+                        var ind = data.IndustryById(mark.IndustryId); if (ind != null) mark.Industry = ind.Index;
+                        marks.Add(mark);
+                    }
+                    g.Unranked = marks.ToArray();
                 }
                 int n = data.Industries.Count;
                 g.Regulation = new float[n]; g.Capture = new float[n];
@@ -164,7 +202,7 @@ namespace Why.Economy.Model
             if (!(t is JObject o)) return m;
             if (o["value"] != null && (o["value"].Type == JTokenType.Float || o["value"].Type == JTokenType.Integer)) m.Value = (double)o["value"];
             m.Year = o["year"] != null && o["year"].Type == JTokenType.Integer ? (int)o["year"] : 0;
-            m.Source = (string)o["source"]; m.Url = (string)o["url"]; m.Note = Text(o["note"]); m.Count = Text(o["count"]); m.Basis = (string)o["basis"];
+            m.Source = (string)o["source"]; m.Url = (string)o["url"]; m.Note = Text(o["note"]); m.Count = Text(o["count"]); m.Basis = (string)o["basis"]; m.Unit = (string)o["unit"];
             if (o["previous"] is JObject p && p["value"] != null && p["value"].Type != JTokenType.Null) { m.Previous = (double)p["value"]; m.PreviousYear = (int?)p["year"] ?? 0; }
             if (o["modelled"] is JObject q && q["value"] != null && q["value"].Type != JTokenType.Null) { m.Modelled = (double)q["value"]; m.ModelledYear = (int?)q["year"] ?? 0; }
             return m;
@@ -178,8 +216,9 @@ namespace Why.Economy.Model
 
         /// <summary>What does not hold of the regimes (empty when every check passes): there is one baseline and it is the US;
         /// every regime has its spending and revenue; shares lie in range; a revenue mix sums to one; every named firm stands
-        /// on a known production industry with a share in [0, 1]; an industry has at most one leading firm; and a summit is
-        /// never more than wholly the state's.</summary>
+        /// on a known production industry with a share in [0, 1]; an industry has at most one leading firm; a summit is
+        /// never more than wholly the state's; an unranked mark stands on a production industry no firm leads; and a
+        /// country's own economy, when given, is positive.</summary>
         public List<string> Problems(EconomyData data)
         {
             var list = new List<string>();
@@ -205,6 +244,12 @@ namespace Why.Economy.Model
                 }
                 var led = new HashSet<int>();
                 foreach (var f in r.Firms) if (f.Leads && f.Industry >= 0 && !led.Add(f.Industry)) list.Add(r.Name + " names two leading firms on " + data.Industries[f.Industry].Name);
+                foreach (var m in r.Unranked)
+                {
+                    if (m.Industry < 0 || data.Industries[m.Industry].TierIndex == 0) list.Add(r.Name + ": the unranked mark " + m.Firm + " stands on no production industry");
+                    else if (led.Contains(m.Industry)) list.Add(r.Name + ": " + data.Industries[m.Industry].Name + " is marked unranked but a firm leads it");
+                }
+                if (r.Economy.Has && r.Economy.Value <= 0) list.Add(r.Name + "'s own economy is not positive");
                 for (int i = 0; i < data.Industries.Count; i++)
                 {
                     double s = r.StateShare(i); if (s < 0 || s > 1) list.Add(r.Name + "'s summit of " + data.Industries[i].Name + " is " + s + " the state's");

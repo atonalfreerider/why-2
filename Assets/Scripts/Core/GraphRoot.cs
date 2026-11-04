@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 namespace Why
@@ -89,6 +90,7 @@ namespace Why
         void Awake()
         {
             Instance = this;
+            switching = false;
             GraphScene.Set(scene);
             Anchors.Clear();
             GraphWarp.Set(WarpState.Polar);
@@ -324,13 +326,58 @@ namespace Why
             }
         }
 
+        /// <summary>Seconds the screen takes to fade to the background before the other scene opens.</summary>
+        const float SceneFadeSeconds = 0.35f;
+
+        /// <summary>Above every canvas of the scene, the loading card's included.</summary>
+        const int SceneFadeOrder = 31000;
+
+        /// <summary>A switch is under way: a second press of Tab (or the menu's button) waits for it.</summary>
+        static bool switching;
+
         /// <summary>
         /// Tab (or the headset menu): switches between the universe and the economy. Both scenes are in the build; each
-        /// builds itself from scratch when it loads.
+        /// builds itself from scratch when it loads. The other scene loads in the background while this one fades to the
+        /// background color, and opens on its loading card of the same color, which fades into it: one move instead of a
+        /// hard cut. A headset has no screen-space canvas to fade and cuts as before.
         /// </summary>
         public static void OpenOtherScene()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(GraphScene.IsEconomy ? "Why" : "Economy");
+            string next = GraphScene.IsEconomy ? "Why" : "Economy";
+            if (Instance == null || Xr.XrSession.Active)
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(next);
+                return;
+            }
+
+            if (switching) return;
+            switching = true;
+            Instance.StartCoroutine(Instance.FadeTo(next));
+        }
+
+        IEnumerator FadeTo(string next)
+        {
+            AsyncOperation load = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(next);
+            if (load == null)
+            {
+                switching = false;
+                yield break;
+            }
+
+            load.allowSceneActivation = false;
+            Canvas canvas = UiFactory.CreateCanvas("Scene fade", SceneFadeOrder, transform);
+            Image veil = UiFactory.Rect(canvas.transform, "Veil").Fill().gameObject.AddComponent<Image>();
+            Color c = GraphStyle.Background;
+            for (float t = 0; t < SceneFadeSeconds; t += Time.unscaledDeltaTime)
+            {
+                c.a = t / SceneFadeSeconds;
+                veil.color = c;
+                yield return null;
+            }
+
+            c.a = 1;
+            veil.color = c;
+            load.allowSceneActivation = true;
         }
 
         /// <summary>Re-scale the graph to a preset: animates the warp and flies the camera.</summary>
@@ -379,10 +426,13 @@ namespace Why
 
             Bloom bloom = profile.Add<Bloom>(true);
             Bloom = bloom;
-            bloom.threshold.Override(0.9f);
-            bool economyGlow=GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
-            bloom.intensity.Override(economyGlow?1.9f:1.15f);
-            bloom.scatter.Override(economyGlow?.80f:.72f);
+            // The hills draw their data at intensity 1 at most and keep HDR for what the pointer holds (hover, selection),
+            // so their bloom starts above 1: a highlight, not the default state. A strong bloom that starts below 1 turns
+            // every overlap of the dense hills white, and the hues that carry their meaning go with it.
+            bool hills = GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
+            bloom.threshold.Override(hills ? 1.1f : 0.9f);
+            bloom.intensity.Override(1.15f);
+            bloom.scatter.Override(0.72f);
             // a headset renders two eyes at 72-90 Hz on a phone GPU: cheaper bloom, no vignette (it would sit on the eyes)
             bool xr = Xr.XrSession.Active;
             bloom.highQualityFiltering.Override(!xr);

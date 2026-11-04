@@ -426,22 +426,27 @@ namespace Why.Economy.UI
     }
 
     /// <summary>
-    /// The year's readout under the year chip (7.6): "2025 · GDP $30.8T · in control 12% · fantasy 19% · fear 54% · trust 25%
-    /// (GSS) · cooperation 0.73", with "estimate (H1 annualized)" for an estimated year and "companies: 2025 data" while
-    /// the towers show; the chip's tooltip is the circuit's notes for the year.
+    /// The year's readout under the year chip (7.6), in two groups that must not look alike: what is measured ("MEASURED  GDP
+    /// $30.8T (BEA) · 25% say most people can be trusted (GSS 2024)", numbers bright) and, dimmed and marked as the model's,
+    /// what the model makes of the year ("MODEL  ≈ 54% of spending driven by fear, 19% on fantasy · cooperation 0.73
+    /// (simulated game)"): the fear and fantasy shares are the author's fixed category weights times that year's spending,
+    /// which beside GDP had read as statistics. The year itself is the chip's, not repeated. "estimate" marks an estimated
+    /// year and "companies: 2025 data" the towers' year while they show; hovering the readout gives each number's meaning
+    /// (<see cref="Definitions"/>), the chip the circuit's notes for the year.
     /// </summary>
     public static class YearFacts
     {
         static readonly CultureInfo Ci = CultureInfo.InvariantCulture;
 
         /// <summary>
-        /// The readout for a year (rich text: labels dim, numbers in <paramref name="valueHex"/>). GDP, the fantasy and fear
-        /// shares of the money spent and the season's cooperation come from the land's snapshot when it shows that year
-        /// (<paramref name="land"/>; otherwise fantasy and fear are the adults' means from the lives, and GDP and
-        /// cooperation are left out); in control from the lives; trust from the General Social Survey (left out before its
-        /// first year, held at its last reading after it). "companies: 2025 data" only while the view shows the towers
-        /// (<paramref name="towersShown"/>, see <see cref="TowersShown"/>) and the snapshot has them. Compact drops the GSS
-        /// mark and the companies' note for narrow screens. Empty without the lives.
+        /// The readout for a year (rich text: labels dim, measured numbers in <paramref name="valueHex"/>, the model's left dim).
+        /// GDP, the fantasy and fear shares of the money spent and the season's cooperation come from the land's snapshot when
+        /// it shows that year (<paramref name="land"/>; otherwise fantasy and fear are the adults' means from the lives, and GDP
+        /// and cooperation are left out); in control (the bowl's) from the lives; trust from the General Social Survey (left
+        /// out before its first year, read between the two surveys around a year without one, held at its last reading after
+        /// it; the mark names the survey years). "companies: 2025 data" only while the view shows the towers
+        /// (<paramref name="towersShown"/>, see <see cref="TowersShown"/>) and the snapshot has them. Compact (a narrow
+        /// screen) uses shorter words and drops the companies' note. Empty without the lives.
         /// </summary>
         public static string Line(EconomicLives lives, YearSeries trust, Land.LandSnapshot land, EconomyData data, int year,
             bool compact, string valueHex, bool towersShown = true)
@@ -451,30 +456,56 @@ namespace Why.Economy.UI
             string open = "<color=#" + valueHex + ">", close = "</color>";
             const string dot = "  \u00B7  ";
             bool shown = land != null && land.Year == year && land.Players != null;
-            StringBuilder sb = new StringBuilder();
-            sb.Append(open).Append(year.ToString(Ci)).Append(close);
-            if (shown && land.Land != null) sb.Append(dot).Append("GDP ").Append(open).Append(Land.LandFacts.Money(land.Land.Gdp, 1)).Append(close);
-            if (!EconomyLayouts.UseHills) sb.Append(dot).Append("in control ").Append(open).Append(PersonFacts.Pct(a.InControlShare)).Append(close);
-            double fantasy = a.MeanFantasy, fear = a.MeanFear;
-            if (shown) Shares(land.Players, out fear, out fantasy);
-            sb.Append(dot).Append("fantasy ").Append(open).Append(PersonFacts.Pct(fantasy)).Append(close);
-            sb.Append(dot).Append("fear ").Append(open).Append(PersonFacts.Pct(fear)).Append(close);
+            List<string> measured = new List<string>(), model = new List<string>();
+            if (shown && land.Land != null) measured.Add("GDP " + open + Land.LandFacts.Money(land.Land.Gdp, 1) + close + (compact ? "" : " (BEA)"));
             if (trust != null && !trust.IsEmpty && year >= trust.FirstYear)
             {
-                sb.Append(dot).Append("trust ").Append(open).Append(PersonFacts.Pct(trust.At(year))).Append(close);
-                if (!compact) sb.Append(" (GSS)");
+                measured.Add(open + PersonFacts.Pct(trust.At(year)) + close + (compact ? " trust most people" : " say most people can be trusted") +
+                             " (GSS " + TrustYear(trust, year) + ")");
             }
 
+            if (data != null && data.IsEstimate(year)) measured.Add("estimate (first half, annualized)");
+            if (!compact && towersShown && shown && land.Land?.Towers != null && land.Land.Towers.Length > 0) measured.Add("companies: 2025 data");
+
+            // the model's numbers stay the labels' dim grey: never as bright as a measurement
+            if (!EconomyLayouts.UseHills) model.Add("in control " + PersonFacts.Pct(a.InControlShare));
+            double fantasy = a.MeanFantasy, fear = a.MeanFear;
+            if (shown) Shares(land.Players, out fear, out fantasy);
+            model.Add(compact ? "fear " + PersonFacts.Pct(fear) + ", fantasy " + PersonFacts.Pct(fantasy) + " of spending"
+                : "\u2248 " + PersonFacts.Pct(fear) + " of spending driven by fear, " + PersonFacts.Pct(fantasy) + " on fantasy");
             float[] coop = shown ? land.Society?.Cooperation : null;
-            if (coop != null && coop.Length > 0)
-            {
-                sb.Append(dot).Append("cooperation ").Append(open).Append(coop[coop.Length - 1].ToString("0.00", Ci)).Append(close);
-            }
+            if (coop != null && coop.Length > 0) model.Add("cooperation " + coop[coop.Length - 1].ToString("0.00", Ci) + (compact ? "" : " (simulated game)"));
 
-            if (data != null && data.IsEstimate(year)) sb.Append(dot).Append("estimate (H1 annualized)");
-            if (!compact && towersShown && shown && land.Land?.Towers != null && land.Land.Towers.Length > 0) sb.Append(dot).Append("companies: 2025 data");
+            StringBuilder sb = new StringBuilder();
+            if (measured.Count > 0) sb.Append("<size=85%><b>MEASURED</b></size>  ").Append(string.Join(dot, measured)).Append('\n');
+            sb.Append("<size=85%><b>MODEL</b></size>  ").Append(string.Join(dot, model));
             return sb.ToString();
         }
+
+        /// <summary>The survey years a trust value stands for: the year itself in a survey year, the last survey after the
+        /// series ends; between surveys (the value is read on a straight line between them) the two around it ("2016-2018").</summary>
+        static string TrustYear(YearSeries trust, int year)
+        {
+            int before = (int)trust.FirstYear;
+            for (int i = 0; i < trust.Count; i++)
+            {
+                int survey = (int)trust.YearAt(i);
+                if (survey == year) return year.ToString(Ci);
+                if (survey > year) return before.ToString(Ci) + "-" + survey.ToString(Ci);
+                before = survey;
+            }
+
+            return trust.LastYear.ToString("0", Ci);
+        }
+
+        /// <summary>What each number of the readout is and where it comes from (the readout's tooltip; plain text).</summary>
+        public static string Definitions() =>
+            "MEASURED\nGDP: the year's gross domestic product, from the Bureau of Economic Analysis, in that year's dollars.\n" +
+            "Trust: the share of Americans who tell the General Social Survey that most people can be trusted. The question is not asked every year: " +
+            "between two surveys the readout reads a straight line between them and names both years; after the last survey it holds that survey's share.\n\n" +
+            "MODEL (\u2248)\nFear and fantasy: each kind of spending carries a fixed share driven by fear and a fixed share spent on fantasy, " +
+            "set by the model's author; the readout is those shares times that year's spending mix, not what anyone answered.\n" +
+            "Cooperation: the share of moves that cooperate in the last round of a simulated game the groups of households play with each other.";
 
         /// <summary>The fear and fantasy shares of the players' spending dollars (the rivers' motive split).</summary>
         public static void Shares(Land.PlayerSet players, out double fear, out double fantasy)

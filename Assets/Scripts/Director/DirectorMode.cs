@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 namespace Why.Director
@@ -19,10 +20,11 @@ namespace Why.Director
     ///
     /// Controls: T (or GraphRoot.RequestTour) starts; Right / Space / Enter = next (completes the
     /// typewriter first), Left = previous, P = pause/resume autoplay, M = mute the spoken narration, Esc =
-    /// exit. Moving the camera or re-scaling from elsewhere pauses autoplay (and the voice) so the viewer
-    /// can look around; Next / Back return to the narration and resume it. Each stop is spoken by its
-    /// recorded clip (<see cref="TourNarrator"/>) and lasts at least as long. The tour is loaded and
-    /// validated one frame after the graph has loaded.
+    /// exit. Moving the camera, re-scaling from elsewhere or clicking another panel pauses autoplay (and the
+    /// voice) so the viewer can look around; Next / Back return to the narration and resume it. Each stop is
+    /// spoken by its recorded clip (<see cref="TourNarrator"/>) and lasts at least as long; a stop that asks
+    /// the viewer to do something waits for them. A stop's cues step its view through states of its own as
+    /// the narration names them. The tour is loaded and validated one frame after the graph has loaded.
     ///
     /// On a portrait screen the popup is a full-width sheet docked at the bottom (or at the top when the
     /// anchor sits low), and anchors are framed a little above the middle so the sheet rarely has to move.
@@ -58,9 +60,16 @@ namespace Why.Director
         const float RelocateCooldown = 1.5f;
         const float CaptionSize = 14f;
 
+        /// <summary>The plate behind the arrow's caption (its alpha at full caption alpha): the scene's lines, the Now post and
+        /// the anchor's own label otherwise show through the text where the ring sits on bright content.</summary>
+        static readonly Color CaptionPlateColor = new Color(0.02f, 0.027f, 0.047f, 0.85f);
+
+        /// <summary>The caption plate's margin around the text (canvas units, across and up).</summary>
+        static readonly Vector2 CaptionPlateMargin = new Vector2(7f, 3f);
+
         /// <summary>
         /// Portrait: anchors are framed this far (normalized device y) above the middle of the screen (58% of the
-        /// height), so the bottom sheet (up to ~45% of the height) stays clear of them.
+        /// height), so a bottom sheet of up to ~45% of the height stays clear of them.
         /// </summary>
         const float PortraitAnchorLift = 0.16f;
 
@@ -82,7 +91,17 @@ namespace Why.Director
         TourPanel panel;
         AttentionArrow arrow;
         TextMeshProUGUI caption;
+        Image captionPlate;
         float captionWidth;
+
+        // the step's own arrow caption, and the one the arrow shows (switched with the target while it is invisible)
+        string targetCaption, arrowCaption;
+
+        // the view state (ViewVariants) the current stop's cues have shown, so leaving the stop can return the view to its default
+        ViewVariants.Entry cueView;
+        int cueShown = -1;
+
+        readonly List<RaycastResult> uiHits = new List<RaycastResult>();
 
         TourScript script;
         List<ResolvedStep> steps;
@@ -119,6 +138,9 @@ namespace Why.Director
 
         /// <summary>"Back" from a headset button.</summary>
         public void PreviousStep() => Previous();
+
+        /// <summary>Shows the whole text of the card at once (the smoke test captures cards complete).</summary>
+        public void CompleteTyping() => panel.CompleteTyping();
 
         /// <summary>The stop on screen (-1: the title card; the number of stops: the end card).</summary>
         public int CurrentStep => active ? index : -1;
@@ -260,11 +282,14 @@ namespace Why.Director
             arrow = arrowRect.gameObject.AddComponent<AttentionArrow>();
             arrow.raycastTarget = false;
 
+            // the plate first, so it draws under the caption
+            captionPlate = UiFactory.Panel(layer, "CaptionPlate", CaptionPlateColor, false);
+            captionPlate.rectTransform.anchorMin = captionPlate.rectTransform.anchorMax = Vector2.zero;
             caption = UiFactory.Text(layer, "Caption", "", CaptionSize, GraphStyle.Text, TextAlignmentOptions.MidlineLeft);
             caption.textWrappingMode = TextWrappingModes.NoWrap;
             caption.rectTransform.anchorMin = caption.rectTransform.anchorMax = Vector2.zero;
             caption.rectTransform.sizeDelta = new Vector2(480, 24);
-            caption.alpha = 0;
+            SetCaptionAlpha(0);
 
             panel = new TourPanel(canvas.transform, Previous, TogglePause, Advance, ExitTour);
         }
@@ -307,7 +332,9 @@ namespace Why.Director
             narrator?.Stop();
             Genesis g = Genesis;
             if (g != null && g.Playing) g.Stop();
+            ClearCues();
             target = null;
+            targetCaption = null;
             markers.Clear();
             stepVersion++;
             ReleaseUiFocus();
@@ -399,7 +426,7 @@ namespace Why.Director
 
         void RefreshTransport()
         {
-            string status = autoplay ? "Autoplay  \u00B7  P to pause"
+            string status = autoplay ? (Waits ? "Take your time  \u00B7  Next to go on" : "Autoplay  \u00B7  P to pause")
                 : pausedByViewer ? "Exploring  \u00B7  P to resume"
                 : "Paused  \u00B7  P to resume";
             if (narrator != null && narrator.Muted) status += "  \u00B7  muted (M)";
@@ -441,11 +468,18 @@ namespace Why.Director
             }
 
             bool hasTarget = Frame(preset, anchor, out Vector2 placeAt);
-            panel.Relocate(size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, card));
+            PanelSlot? side = PreferredSlot;
+            panel.Relocate(size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, card, side));
             relocateTimer = RelocateCooldown;
         }
 
         ViewPreset TitlePreset() => steps.Count > 0 && steps[0].Preset != null ? steps[0].Preset : ViewPresets.All[0];
+
+        /// <summary>The current stop's own side for its card (null on the cards and for stops without one).</summary>
+        PanelSlot? PreferredSlot => index >= 0 && index < steps.Count ? PanelPlacement.Preferred(steps[index].Step.Side) : null;
+
+        /// <summary>True on a stop that waits for the viewer (it asks them to do something) instead of moving on.</summary>
+        bool Waits => active && steps != null && index >= 0 && index < steps.Count && steps[index].Step.Wait;
 
         static ViewPreset EndPreset() => ResolvedStep.FindPreset("overview") ?? ViewPresets.All[0];
 
@@ -456,12 +490,14 @@ namespace Why.Director
             // leaving a stop that plays the opening ends it (everything shown)
             Genesis genesis = Genesis;
             if (genesis != null && genesis.Playing) genesis.Stop();
+            ClearCues();
 
             index = Mathf.Clamp(stop, -1, steps.Count);
             stepAge = 0;
             autoClock = 0;
             relocateTimer = RelocateCooldown;
             target = null;
+            targetCaption = null;
             markers.Clear();
             stepVersion++;
 
@@ -504,6 +540,9 @@ namespace Why.Director
 
         void ShowStep(ResolvedStep s)
         {
+            // anchors of what is built after loading (the followed person, the dilemma's groups) may exist only by now:
+            // a tour started as the scene opens resolves its stops before they do
+            if (s.Target == null && !string.IsNullOrWhiteSpace(s.Step.AnchorKey)) Anchors.TryGet(s.Step.AnchorKey, out s.Target);
             ViewPreset preset = s.Preset ?? root.CurrentPreset ?? ViewPresets.All[0];
             bool hasTarget;
             Vector2 placeAt;
@@ -524,20 +563,57 @@ namespace Why.Director
             }
 
             target = s.Target;
+            targetCaption = s.Step.Caption;
             markers.AddRange(s.Highlights);
             Highlight(s.Target, s.Highlights, GraphStyle.HighlightGlow, HighlightDim);
             stepDuration = s.Duration;
             narrator.Play(s.Narration);
 
-            string section = string.IsNullOrEmpty(preset.Title) ? "" : "   \u00B7   " + preset.Title;
+            // the view's title, unless the stop's own title already says it
+            string section = string.IsNullOrEmpty(preset.Title) || string.Equals(preset.Title, s.Step.Title, System.StringComparison.OrdinalIgnoreCase)
+                ? "" : "   \u00B7   " + preset.Title;
+            PanelSlot? side = PanelPlacement.Preferred(s.Step.Side);
             panel.Present(new PanelContent
             {
                 Kicker = $"{index + 1} / {steps.Count}{section}",
                 Title = s.Step.Title,
+                Key = KeyText(s.Step),
+                Reading = s.Step.Reading,
                 Body = s.Step.Text,
+                Footnote = Evidence(s.Step),
                 Typewriter = true,
                 Transport = true
-            }, size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, false));
+            }, size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, false, side));
+        }
+
+        /// <summary>
+        /// A stop's swatches as one rich-text line: a dot in each color and what it marks, each kept together on a line
+        /// (the panel sets the sentence on how to read the view under them).
+        /// </summary>
+        static string KeyText(TourStep step)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            foreach (TourSwatch swatch in step.Key)
+            {
+                if (sb.Length > 0) sb.Append("    ");
+                sb.Append("<nobr><color=#").Append(UiFactory.Hex(swatch.Resolve())).Append(">\u25CF</color> ")
+                    .Append(swatch.Label).Append("</nobr>");
+            }
+
+            return sb.Length > 0 ? sb.ToString() : null;
+        }
+
+        /// <summary>
+        /// Where a stop's picture comes from, in the three kinds the narration keeps apart: what is measured, what Jev (an
+        /// AI model) judged, and what the drawing assumes.
+        /// </summary>
+        static string Evidence(TourStep step)
+        {
+            List<string> lines = new List<string>(3);
+            if (!string.IsNullOrWhiteSpace(step.Measured)) lines.Add("Measured: " + step.Measured);
+            if (!string.IsNullOrWhiteSpace(step.Judged)) lines.Add("Judged by Jev, an AI model: " + step.Judged);
+            if (!string.IsNullOrWhiteSpace(step.Assumed)) lines.Add("Assumed: " + step.Assumed);
+            return lines.Count > 0 ? string.Join("  \u00B7  ", lines) : null;
         }
 
         void ShowEndCard()
@@ -561,21 +637,31 @@ namespace Why.Director
             string lit = lineage.Count == 0 ? ""
                 : economy ? "The glowing players own capital: the few who steer their own path. "
                 : "The glowing path is the chain of causes that led to you. ";
+            // the narration's bridge: the economy is where the tour goes next, and the card says so too; the controls
+            // after it are the other choice, so they say what they explore
+            string next = economy ? ""
+                : "The newest link, the one people build on one another, is an economy: Continue opens the economy of " +
+                  "the United States, where the road of American lives goes on. ";
+            string explore = economy ? "Explore it on your own" : "Or explore the universe on your own";
             panel.Present(new PanelContent
             {
                 Card = true,
                 Kicker = "End of the tour",
                 Title = economy ? "Every dollar is someone's choice, made in fear or desire."
                     : "This moment is the result of everything before it.",
-                Body = lit + (xr
-                    ? "Explore it on your own with your hands: pinch and pull to drag the world, pinch with both hands " +
+                Footnote = economy
+                    ? "A model, not a measurement: public accounts, judgments by Jev (an AI model) and the drawing's own " +
+                      "assumptions, kept apart on each stop's card."
+                    : null,
+                Body = lit + next + (xr
+                    ? explore + " with your hands: pinch and pull to drag the world, pinch with both hands " +
                       "to grow, shrink or turn it, point and pinch to select. Turn your left palm toward you for the " +
-                      "menu" + (economy ? "." : "; Next continues into the economy.")
+                      "menu."
                     : economy
-                    ? "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to change the " +
+                    ? explore + ": scroll to zoom, right-drag to orbit, the number keys to change the " +
                       "view. Comma and period change the year the land opens; click a player or a lifeline to look " +
                       "inside it. H lists every control; T takes the tour again."
-                    : "Explore it on your own: scroll to zoom, right-drag to orbit, the number keys to " +
+                    : explore + ": scroll to zoom, right-drag to orbit, the number keys to " +
                       "re-scale. U unrolls the clock where you look ([ and ] widen or narrow the window, L " +
                       "switches between log and linear time). H lists every control; T takes the tour again."),
                 PrimaryLabel = economy ? "Explore" : "Continue: the economy",
@@ -679,23 +765,67 @@ namespace Why.Director
         void TickAutoplay(float dt)
         {
             stepAge += dt;
-            // on a screen, steering the camera pauses the tour to explore; in a headset you move all the time (the
-            // world is in your hands), so only the menu's pause stops the narration
-            if (autoplay && root.Rig.UserActive && !Xr.XrSession.Active) SetAutoplay(false, true);
+            // on a screen, steering the camera or working another panel (a picker, a form) pauses the tour to explore;
+            // in a headset you move all the time (the world is in your hands), so only the menu's pause stops it
+            if (autoplay && !Xr.XrSession.Active && (root.Rig.UserActive || ClickedOtherPanel())) SetAutoplay(false, true);
 
-            // the end card waits for the viewer
-            bool timed = index < steps.Count;
-            if (autoplay && timed && !panel.IsHidden)
+            // the end card waits for the viewer, and so does a stop that asks them to do something
+            if (autoplay && index < steps.Count && !panel.IsHidden)
             {
                 autoClock += dt;
-                if (autoClock >= stepDuration)
-                {
-                    GoTo(index + 1);
-                    timed = index < steps.Count;
-                }
+                if (autoClock >= stepDuration && !Waits) GoTo(index + 1);
             }
 
+            ApplyCues();
+            bool timed = index < steps.Count && !Waits;
             panel.SetProgress(timed ? autoClock / Mathf.Max(stepDuration, 0.01f) : -1, autoplay);
+        }
+
+        /// <summary>True on the frame the viewer presses on a panel other than the tour's own.</summary>
+        bool ClickedOtherPanel()
+        {
+            Pointer pointer = Pointer.current;
+            EventSystem es = EventSystem.current;
+            if (pointer == null || es == null || !pointer.press.wasPressedThisFrame) return false;
+            uiHits.Clear();
+            es.RaycastAll(new PointerEventData(es) { position = pointer.position.ReadValue() }, uiHits);
+            return uiHits.Count > 0 && !uiHits[0].gameObject.transform.IsChildOf(canvas.transform);
+        }
+
+        /// <summary>
+        /// Shows the view state the current stop's cues name for this moment of the stop (its clock runs with the voice,
+        /// so a paused tour keeps the state on screen). A view whose states are not registered yet is tried again next frame.
+        /// </summary>
+        void ApplyCues()
+        {
+            if (index < 0 || index >= steps.Count) return;
+            ResolvedStep s = steps[index];
+            if (s.Step.Cues.Count == 0 || s.Preset == null || !ViewVariants.TryGet(s.Preset.Id, out ViewVariants.Entry view)) return;
+            TourCue due = null;
+            foreach (TourCue c in s.Step.Cues)
+            {
+                if (c.At <= autoClock) due = c;
+            }
+
+            if (due == null) return;
+            int state = -1, count = view.Count();
+            for (int i = 0; i < count && state < 0; i++)
+            {
+                if (view.Name(i) == due.Show) state = i;
+            }
+
+            if (state < 0 || (state == cueShown && view == cueView)) return;
+            view.Show(state);
+            cueView = view;
+            cueShown = state;
+        }
+
+        /// <summary>Leaving a stop whose cues set its view's state returns the view to its own default.</summary>
+        void ClearCues()
+        {
+            cueView?.Show(-1);
+            cueView = null;
+            cueShown = -1;
         }
 
         void LateUpdate()
@@ -752,7 +882,7 @@ namespace Why.Director
             else
             {
                 arrow.ClearArrow(alpha);
-                caption.alpha = 0;
+                SetCaptionAlpha(0);
             }
 
             arrow.Markers.Clear();
@@ -779,11 +909,12 @@ namespace Why.Director
         {
             arrowVersion = stepVersion;
             arrowTarget = target;
+            arrowCaption = targetCaption;
             arrowMarkers.Clear();
             arrowMarkers.AddRange(markers);
             arrowReveal = 0;
             if (arrowTarget == null) return;
-            caption.text = CaptionText(arrowTarget);
+            caption.text = string.IsNullOrEmpty(arrowCaption) ? CaptionText(arrowTarget) : arrowCaption;
             captionWidth = caption.GetPreferredValues(caption.text).x;
         }
 
@@ -793,7 +924,7 @@ namespace Why.Director
             arrow.ClearArrow(0);
             arrow.Markers.Clear();
             arrow.Animate(dt);
-            caption.alpha = 0;
+            SetCaptionAlpha(0);
         }
 
         /// <summary>Canvas position of a world point, clamped to the screen edge when off screen or behind.</summary>
@@ -812,7 +943,7 @@ namespace Why.Director
         /// </summary>
         void PlaceCaption(Vector2 tip, bool clamped, Vector2 offscreenDir, float alpha, Vector2 size)
         {
-            caption.alpha = alpha;
+            SetCaptionAlpha(alpha);
             if (alpha <= 0.001f) return;
 
             float gap = clamped ? 20f : AttentionArrow.RingRadius + 10f;
@@ -826,6 +957,20 @@ namespace Why.Director
             rt.pivot = new Vector2(left ? 1 : 0, 0.5f);
             rt.anchoredPosition = pos;
             caption.alignment = left ? TextAlignmentOptions.MidlineRight : TextAlignmentOptions.MidlineLeft;
+            // the plate spans the text from the same side, a margin wider
+            RectTransform plate = captionPlate.rectTransform;
+            plate.pivot = rt.pivot;
+            plate.anchoredPosition = pos + new Vector2(left ? CaptionPlateMargin.x : -CaptionPlateMargin.x, 0);
+            plate.sizeDelta = new Vector2(captionWidth + 2 * CaptionPlateMargin.x, CaptionSize * 1.35f + 2 * CaptionPlateMargin.y);
+        }
+
+        /// <summary>Fades the arrow's caption and its plate together.</summary>
+        void SetCaptionAlpha(float alpha)
+        {
+            caption.alpha = alpha;
+            Color c = CaptionPlateColor;
+            c.a *= alpha;
+            captionPlate.color = c;
         }
 
         /// <summary>If the viewer moves the anchor under the panel, the panel moves to another slot.</summary>
@@ -836,16 +981,20 @@ namespace Why.Director
             if (root.Rig.Flying || GraphWarp.Animating) return;
             if (PanelPlacement.Distance(panelRect, tip) > 12f) return;
             bool card = index < 0 || index >= steps.Count;
-            panel.Relocate(s => PanelPlacement.Choose(s, size, true, tip, card));
+            PanelSlot? side = PreferredSlot;
+            panel.Relocate(s => PanelPlacement.Choose(s, size, true, tip, card, side));
             relocateTimer = RelocateCooldown;
         }
 
         /// <summary>The anchor's label and, unless the label already carries a date, when it happened (dim).</summary>
         static string CaptionText(Anchor a)
         {
+            // the beacon names the present itself: a caption beside its ring printed "Now" a second time
+            if (a.Key == "now") return "";
             string label = string.IsNullOrEmpty(a.Label) ? a.Key : a.Label;
-            // "now", "time:" and figures ("Name (born-died)") are labeled with their dates already
-            if (a.Key == "now" || a.Key.StartsWith("time:", System.StringComparison.Ordinal)) return label;
+            // "time:" and figures ("Name (born-died)") are labeled with their dates already; the economy's anchors are
+            // all in its own recent years, where a deep-time age ("22 months ago") reads as noise
+            if (a.Key.StartsWith("time:", System.StringComparison.Ordinal) || GraphScene.IsEconomy) return label;
             foreach (char ch in label)
             {
                 if (char.IsDigit(ch)) return label;

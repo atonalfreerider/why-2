@@ -389,8 +389,11 @@ marriage that ends with an estate the same year - a child, a home, a business, a
 uninsured bill, debt discharged, retirement), read for adults 25-54 at the start so retirement and late inheritances do
 not pose as causes of falls. Drawn as the decade's ladder at x = -80 beside the wave on its own time axis (streams between
 five rungs at the two years; widths are people), the leading events with their lift (at least 1.3x), the forces at each
-rung, and the model against the published matrices (`Data/economy/mobility-benchmarks.json`, from `Tools/history`):
-like for like (adults 25+, fifths ranked within the panel) the bottom fifth keeps 56% and the top 66% against the US
+rung (of the people the ladder counts, by the fifth they end in: like for like the panel's members, `PanelRungs`; counting
+every adult, the adults at both ends, `Rungs`), and the model against the published matrices
+(`Data/economy/mobility-benchmarks.json`, from `Tools/history`, drawn as dot plots in the gaps between the rungs' labels,
+their text at scale .4, the values in two lines so each fits the portrait frame):
+like for like (adults 25+, fifths ranked within the panel) the bottom fifth keeps 58% and the top 66% against the US
 Treasury's 55% and 61% for 1996-2005. The people view draws every cohort's drift: an arrow on its hill from its members'
 mean rank ten years before to now, named with the event that sets the cohort apart.
 
@@ -399,9 +402,13 @@ keyboard: the headset has none). The income rank is the model's own rank at the 
 rank of the nearest records), the wealth rank the share of adults below the net worth per adult; the neighbors in rank
 give the spending mix, fear, fantasy, saving and tax rate; `ValueCapture` splits the dollar; the uphill share is the
 share of the dollar's wages and owners' income received above the viewer's rank, by the year's cumulative distributions
-(economy-wide). Runway, the capital to live on at 4% (25x spending) and the years to it at a 4% real return; the odds from
-`Mobility`. Drawn: the figure at `HillLandscape.Rung` (as people are placed), arcs to the five largest markets split by
-fear, the uphill and downhill streams, the runway gauge, and three futures in front of the crest. Nothing is stored.
+(economy-wide). The cushion (years of spending the net worth covers, the home counted), the capital to live on at 4% (25x
+spending) and the years to it at a 4% real return; the odds from `Mobility`, with the fifth each line reached. Drawn: the
+figure at `HillLandscape.Rung` (as people are placed), arcs to the five largest markets split by fear, the uphill and
+downhill streams, the cushion ring at the feet (a full turn is ten years), and the futures on a ruler of the fifths beside
+the figure: a step for each fifth that adults of the viewer's fifth and age band reached a decade later, its ribbon as wide
+as the share who ended there, with a 95% range (a climb of two fifths is not drawn as one; a share under half a percent
+reads "<1%", without one). Nothing is stored.
 
 **Companies spend too (`CorporatePrograms`, `HillStrategyLayer`, `StrategyPanel`, view `strategy`).** Data from
 `Tools/corporate/build.py`: `filings.json` (the 25 stored firms' latest fiscal year from their audited filings on SEC
@@ -563,7 +570,7 @@ the headset: the replay button in the hand menu and the readout's place on the H
 
 The user's direction: the government is the base layer; the United States is a federal democracy with free trade; other
 governments would be drawn differently by their structure, and the government layer has an influence on the market layer
-(THEORY.md section 6, item 1). A keyless, focused view, `regimes` ("Other foundations"), stands the same hills - the US
+(THEORY.md section 6, item 1). A keyless, focused view, `regimes` ("What if: the US economy on another government"), stands the same hills - the US
 industries as BEA measures them, the same people and money - on another state's foundation, drawn from that state's
 measured structure. Only the foundation and its reach change, so the view reads as a model change, not a picture of another
 country's industries. The US drawing of every other view is unchanged, and the causality scene is untouched.
@@ -588,7 +595,9 @@ each value with its URL and the text it was read from:
   Saudi Arabia have one firm each on the list, so for their other industries the research compared the national firms'
   revenues from their reports (one currency per country) and the build takes the largest; an industry that cannot be
   ranked honestly (Ma'aden's state stake unconfirmed; Swedish gambling reported in euros) has no summit firm. In China the
-  state controls 10 of the 14 leaders; every US leader is private.
+  state controls 10 of the 14 leaders; every US leader is private. China's health and agriculture leaders lost their
+  comparison in a data loss: `ownership.unranked` keeps them unranked, marked with the largest firm the research names there
+  (Sinopharm, COFCO, both state-controlled), and the build logs each as a gap.
 - *The Soviet Union* (the state budget and its revenue lines from *Narodnoe khozyaistvo SSSR v 1980 g.*, pp. 522-523,
   over the GDP of Sinelnikov & Reznikov's 1995 CASE table, which prints the same 47.6% and 48.9%): official revenue counted
   State Bank credit, so it exceeds spending (the CIA's ordinary revenue gives a deficit; noted, not drawn). Trade has no
@@ -604,28 +613,42 @@ each value with its URL and the text it was read from:
   government file's own judgments, so its strands are the foundation view's. Model judgments, not measurement: the
   Soviet plan comes out near 0.99 regulation with little capture, Sweden's capture lowest of the market economies.
 
-**Drawing (`HillRegimeLayer`, `RegimePanel`).** The regime's bedrock lies under the crest (one year's numbers, so it runs
-back only 22 units), as deep as its spending on the federal block's scale (20% of GDP is 14 units), in strata of what it
-lives on, a white line at its revenue, the borrowed gap beneath, and a dashed line at the United States' depth for
-comparison. Each summit carries a ring facing the view: steel where the state controls the industry's largest firm, a steel
-arc as long as a minority stake (Telia 41%, the Saudi National Bank 37%), gold where the leader is private, faint where no
-firm decides it (the regime's default: private, or the state's by law in the Soviet Union); steel beams rise from the bedrock
-into what the state owns.
+**Drawing (`HillRegimeLayer`, `RegimePanel`).** A thought experiment, titled as one ("WHAT IF: THE US ECONOMY ON SWEDEN'S
+STATE"; the baseline "THE US ECONOMY ON ITS OWN STATE"). The regime's bedrock lies under the crest (one year's numbers, so it
+runs back only 22 units), as deep as its spending by all levels of government on the federal block's scale (20% of GDP is
+14 units), in strata of what it lives on (named on the block's face where a stratum can hold a line of text), a white line
+at its revenue, the borrowed gap beneath, and a dashed line at the United States' depth for comparison; on the US's own
+bedrock a dashed line marks federal outlays alone, the block the other views draw. The caption beneath gives the
+counterfactual in dollars beside the country's own economy ("IF THE US SPENT LIKE SWEDEN: 49.2% OF GDP, $15.1T", then
+"Sweden's own economy: $610B (2024)"). Each summit carries a ring facing the view: steel where the state controls the
+industry's largest firm, a steel arc as long as a minority stake (Telia 41%, the Saudi National Bank 37%), gold where the
+leader is private; in the Soviet Union every summit is the state's by law. A summit no firm is ranked for is a grey dotted
+ring, not ranked, never a guessed "private" (the US 8 of 23, Sweden 14, China 9, Saudi Arabia 18); it is dotted in steel
+where the largest firm the research names there is the state's (China's health and agriculture: Sinopharm, COFCO). The
+firms' names stand above their rings on leaders, raised a line at a time until they clear each other. Steel beams rise
+from the bedrock into what the state owns, and a steel gauge above the summits gives the state's share of the value of the
+country's listed firms (OECD: the US 3%, Sweden 5%, China 33%, Saudi Arabia 79%; the Soviet Union's all of it, by law), its
+key counting the dotted rings: what rings of one firm each cannot say about the whole market.
 Grey strands run up into each hill as strongly as the state's rules bind it and gold back down as strongly as the industry
-shapes them (Jev). Every river from the valley to a market splits: a steel lane as wide as the state's share of all
-spending dives through the bedrock, the rest runs straight (the same share in every river: the drawing's choice). What the
-state lives on falls in from where it comes: income taxes and contributions from the people, taxes on spending from the
-markets, profit taxes from the private summits, state enterprises' profits from the steel ones, property taxes from homes,
-oil and resource revenue up out of the ground under the raw hills. White threads run from the people into the state as
-wide as the electoral democracy index; trade crosses the far border as wide as exports plus imports over GDP; the top 1%'s
-gold ring (wealth) and white ring (income) float above the hills, their areas the shares. The panel (buttons, so it works by
-pinch in the headset) picks a regime or steps through them (9 s each, from the baseline, so the tour's narration can follow),
-and lists what is measured (each with its year), what Jev judged and what the drawing chooses. Every other layer steps back
-(`EconomyViews.Focused`); the capture layer's halos and the US block give way to the regime's own.
+shapes them (Jev). The household rivers are not drawn here: split by spending over GDP, a steel lane in every river
+repeated the bedrock's depth and claimed that every purchase passes through the state. What the state lives on falls in
+from where it comes: income taxes and contributions from the people, taxes on spending from the markets, profit taxes from
+the private summits, state enterprises' profits from the steel ones, property taxes from homes, oil and resource revenue up
+out of the ground under the raw hills. White threads run from the people into the state as wide as the electoral democracy
+index; trade crosses the far border as wide as exports plus imports over GDP; the top 1%'s gold ring (wealth) and white
+ring (income) float above the hills, their areas the shares. Every mark is drawn at intensity 1 and blended, so steel, gold
+and the strata's tints stay apart where lines cross. The panel (buttons, so it works by pinch in the headset) picks a
+regime or steps through them (9 s each, from the baseline), opens each in three plain lines (who owns the biggest firms,
+who pays for the state, who chooses the government: `chooses`, beside V-Dem's index), then lists what is measured (each
+with its year) and what Jev judged; the drawing's choices and the sources (files, model versions, links) stay folded under
+"Sources & method". Every other layer steps back (`EconomyViews.Focused`); the capture layer's halos and the US block give
+way to the regime's own.
 
-**Tour.** A stop "Other foundations" (`hills_regimes`) follows "The price of money"; the view steps through the regimes from
-the baseline while it is on screen. Its narration passed `Tools/check-narration.py` (contradiction 0.09, unsupported 0.28,
-faithful 0.71) and is not voiced yet.
+**Tour.** A stop "What if: the US economy on another government" (`hills_regimes`) follows "The price of money"; its cues pin each regime as the card
+names it (`ViewVariants`, by the regime's id: the United States, Sweden, China, Saudi Arabia, then the Soviet Union), and
+leaving the stop returns the view to stepping through them. A tour stop without cues would step every 5 s, holding the
+last. Its narration passed `Tools/check-narration.py` (contradiction 0.09, unsupported 0.28, faithful 0.71; again with the
+thought-experiment wording, 2026-11-03: 0.10, 0.35, 0.72) and is not voiced yet.
 
 **Checks.** `Regimes.Problems` runs when the view first loads (a failure logs an error, so the smoke test fails on it) and
 in `HillValidation.NewModels`: five regimes with spending and revenue, shares in range, revenue mixes summing to one, every

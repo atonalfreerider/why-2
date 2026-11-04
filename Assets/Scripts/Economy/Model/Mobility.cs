@@ -18,9 +18,12 @@ namespace Why.Economy.Model
     /// <item>for climbs and falls of adults of prime working age at the start (25-54: retirement and late-life
     /// inheritances would otherwise read as causes of falls), the share that came with each event and how much more often
     /// than among everyone of that age (the lift: the event's rate among the movers over its rate among all);</item>
-    /// <item>the odds of moving up, staying or falling from each quintile by age at the start (what the "You" panel quotes);</item>
+    /// <item>the odds of moving up, staying or falling from each quintile by age at the start (what the "You" panel quotes),
+    /// and the quintile each line ended in (what the "You" view draws, fifth by fifth);</item>
     /// <item>the forces at each rung in the year: the share of income saved, the share from what people own (capital and
-    /// business income), transfers, debt service, the fear share of spending, the runway and the share in control;</item>
+    /// business income), transfers, debt service, the fear share of spending, the runway and the share in control, for
+    /// the adults at both ends by the population's quintiles and for the closed panel by its own (so each ladder's rungs
+    /// describe the people it counts);</item>
     /// <item>each player's drift: where its members stood a decade before, so the cohorts' own motion can be drawn on
     /// their hills.</item>
     /// </list>
@@ -81,6 +84,9 @@ namespace Why.Economy.Model
 
         /// <summary>Per start quintile and age band: lines that climbed, stayed, fell ([q, band, 0 up / 1 stay / 2 down]).</summary>
         public readonly int[,,] Odds = new int[Quintiles, AgeBands, 3];
+        /// <summary>Per start quintile and age band: lines that ended in each quintile ([q, band, end]); a climb of one fifth
+        /// and one of four are both "up" in <see cref="Odds"/>.</summary>
+        public readonly int[,,] Reached = new int[Quintiles, AgeBands, Quintiles];
 
         /// <summary>The forces at one rung (a quintile) in the year, over its adults (dollar-weighted where it says so).</summary>
         public sealed class Rung
@@ -93,7 +99,10 @@ namespace Why.Economy.Model
             /// share owning a home, mean net worth and debt ($ per person), share hit by a large uninsured bill.</summary>
             public double Runway, InControl, Homeowners, Wealth, Debt, LossShare;
         }
-        public readonly Rung[] Rungs = new Rung[Quintiles];
+        /// <summary>The forces by quintile: the adults at both ends (<see cref="Lines"/>) by the population's quintile they
+        /// end in (<see cref="Rungs"/>: the all-adults ladder's rungs), and the closed panel's members by the quintile they
+        /// end in, ranked among themselves (<see cref="PanelRungs"/>: the like-for-like ladder's rungs).</summary>
+        public readonly Rung[] Rungs = new Rung[Quintiles], PanelRungs = new Rung[Quintiles];
 
         /// <summary>One player's drift: where its adult members stood a decade before.</summary>
         public struct Drift
@@ -112,7 +121,7 @@ namespace Why.Economy.Model
         Mobility(int year, int window, int players)
         {
             Year = year; Window = window; From = year - window;
-            for (int q = 0; q < Quintiles; q++) Rungs[q] = new Rung();
+            for (int q = 0; q < Quintiles; q++) { Rungs[q] = new Rung(); PanelRungs[q] = new Rung(); }
             Drifts = new Drift[Math.Max(0, players)];
         }
 
@@ -136,7 +145,7 @@ namespace Why.Economy.Model
             // per person: whether they were tracked and the events they had (for the players' drift)
             var tracked = new bool[n]; var events = new int[n]; var rankThen = new float[n];
             var all = new int[Causes];
-            var panel = new List<(float start, float end)>();
+            var panel = new List<(float start, float end, int person)>();
             for (int i = 0; i < n; i++)
             {
                 if (!lives.TryGet(i, From, out PersonYear a) || !a.Adult || !lives.TryGet(i, Year, out PersonYear z) || !z.Adult) continue;
@@ -152,11 +161,12 @@ namespace Why.Economy.Model
                 if (!whole) continue;
                 int q0 = Quintile(a.IncomeRank), q1 = Quintile(z.IncomeRank);
                 Lines++; tracked[i] = true; rankThen[i] = a.IncomeRank;
-                if (a.Age >= 25) panel.Add((a.IncomeRank + i * 1e-9f, z.IncomeRank + i * 1e-9f));
+                if (a.Age >= 25) panel.Add((a.IncomeRank + i * 1e-9f, z.IncomeRank + i * 1e-9f, i));
                 Moves[q0, q1] += PeoplePerLine;
                 WealthMoves[Math.Min(3, (int)a.WealthGroup), Math.Min(3, (int)z.WealthGroup)] += PeoplePerLine;
                 int kind = q1 > q0 ? 0 : q1 == q0 ? 1 : 2;
                 Odds[q0, AgeBand(a.Age), kind]++;
+                Reached[q0, AgeBand(a.Age), q1]++;
                 if (kind == 0) Up++; else if (kind == 1) Stay++; else Down++;
                 bool prime = a.Age >= PrimeFrom && a.Age < PrimeTo;
                 if (prime) { if (kind == 0) PrimeUp++; else if (kind == 1) PrimeStay++; else PrimeDown++; }
@@ -170,16 +180,17 @@ namespace Why.Economy.Model
                 }
                 events[i] = mask;
             }
-            Ranked(panel);
-            Forces(lives);
+            var ended = Ranked(panel);
+            Forces(lives, tracked, panel, ended);
             if (census?.Players != null) Drifted(lives, census, tracked, events, rankThen, all);
             Log = Report();
         }
 
-        /// <summary>The closed panel's matrix: each member's fifth by its position among the panel at each end.</summary>
-        void Ranked(List<(float start, float end)> panel)
+        /// <summary>The closed panel's matrix: each member's fifth by its position among the panel at each end. Returns the
+        /// fifth each member ends in (same order as <paramref name="panel"/>).</summary>
+        int[] Ranked(List<(float start, float end, int person)> panel)
         {
-            int n = panel.Count; if (n == 0) return;
+            int n = panel.Count; if (n == 0) return Array.Empty<int>();
             var byStart = new int[n]; var byEnd = new int[n];
             for (int k = 0; k < n; k++) { byStart[k] = k; byEnd[k] = k; }
             Array.Sort(byStart, (x, y) => panel[x].start.CompareTo(panel[y].start));
@@ -187,6 +198,7 @@ namespace Why.Economy.Model
             var q0 = new int[n]; var q1 = new int[n];
             for (int k = 0; k < n; k++) { q0[byStart[k]] = Math.Min(Quintiles - 1, k * Quintiles / n); q1[byEnd[k]] = Math.Min(Quintiles - 1, k * Quintiles / n); }
             for (int k = 0; k < n; k++) PanelMoves[q0[k], q1[k]] += PeoplePerLine;
+            return q1;
         }
 
         /// <summary>Of the closed panel's members who started in fifth a, the share who ended in b.</summary>
@@ -218,16 +230,35 @@ namespace Why.Economy.Model
             if (b.SocialSecurity <= 0 && r.SocialSecurity > 0) had[(int)Cause.Retired] = true;
         }
 
-        void Forces(EconomicLives lives)
+        /// <summary>The forces at each rung in the year: the adults the matrix tracks (<paramref name="tracked"/>: adult at
+        /// both ends, every year recorded) by the population's quintile they end in, and the closed panel's members by the
+        /// quintile they end in among themselves (<paramref name="ended"/>, one per member). Adults who came of age within
+        /// the window are on neither ladder, so they are not counted at its rungs either.</summary>
+        void Forces(EconomicLives lives, bool[] tracked, List<(float start, float end, int person)> panel, int[] ended)
         {
-            int n = lives.Sim.People.Count;
-            var save = new double[Quintiles]; var disposable = new double[Quintiles]; var owned = new double[Quintiles];
-            var income = new double[Quintiles]; var transfers = new double[Quintiles]; var spend = new double[Quintiles];
-            var fear = new double[Quintiles]; var fantasy = new double[Quintiles];
-            for (int i = 0; i < n; i++)
+            var bothEnds = new Tally(Rungs);
+            for (int i = 0; i < tracked.Length; i++)
+                if (tracked[i] && lives.TryGet(i, Year, out PersonYear r)) bothEnds.Add(r, Quintile(r.IncomeRank));
+            bothEnds.Finish();
+            var members = new Tally(PanelRungs);
+            for (int k = 0; k < panel.Count; k++)
+                if (lives.TryGet(panel[k].person, Year, out PersonYear r)) members.Add(r, ended[k]);
+            members.Finish();
+        }
+
+        /// <summary>The sums behind a set of rungs, finished into their shares and means.</summary>
+        sealed class Tally
+        {
+            readonly Rung[] rungs;
+            readonly double[] save = new double[Quintiles], disposable = new double[Quintiles], owned = new double[Quintiles],
+                income = new double[Quintiles], transfers = new double[Quintiles], spend = new double[Quintiles],
+                fear = new double[Quintiles], fantasy = new double[Quintiles];
+
+            public Tally(Rung[] rungs) { this.rungs = rungs; }
+
+            public void Add(in PersonYear r, int q)
             {
-                if (!lives.TryGet(i, Year, out PersonYear r) || !r.Adult) continue;
-                int q = Quintile(r.IncomeRank); var g = Rungs[q];
+                var g = rungs[q];
                 g.Lines++;
                 save[q] += r.Saving; disposable[q] += Math.Max(0, r.Disposable);
                 double inc = Math.Max(0, r.Wages) + Math.Max(0, r.Business) + Math.Max(0, r.CapitalIncome) + Math.Max(0, r.Transfers);
@@ -236,14 +267,18 @@ namespace Why.Economy.Model
                 g.DebtService += r.DebtService; g.Runway += Math.Min(10f, Math.Max(0, r.Runway)); g.InControl += r.InControl ? 1 : 0;
                 g.Homeowners += r.Homeowner ? 1 : 0; g.Wealth += r.Wealth; g.Debt += r.Debt; g.LossShare += r.Loss > 0 ? 1 : 0;
             }
-            for (int q = 0; q < Quintiles; q++)
+
+            public void Finish()
             {
-                var g = Rungs[q]; int c = Math.Max(1, g.Lines);
-                g.SavingRate = disposable[q] > 0 ? save[q] / disposable[q] : 0;
-                g.OwnedShare = income[q] > 0 ? owned[q] / income[q] : 0;
-                g.TransferShare = income[q] > 0 ? transfers[q] / income[q] : 0;
-                g.Fear = spend[q] > 0 ? fear[q] / spend[q] : 0; g.Fantasy = spend[q] > 0 ? fantasy[q] / spend[q] : 0;
-                g.DebtService /= c; g.Runway /= c; g.InControl /= c; g.Homeowners /= c; g.Wealth /= c; g.Debt /= c; g.LossShare /= c;
+                for (int q = 0; q < Quintiles; q++)
+                {
+                    var g = rungs[q]; int c = Math.Max(1, g.Lines);
+                    g.SavingRate = disposable[q] > 0 ? save[q] / disposable[q] : 0;
+                    g.OwnedShare = income[q] > 0 ? owned[q] / income[q] : 0;
+                    g.TransferShare = income[q] > 0 ? transfers[q] / income[q] : 0;
+                    g.Fear = spend[q] > 0 ? fear[q] / spend[q] : 0; g.Fantasy = spend[q] > 0 ? fantasy[q] / spend[q] : 0;
+                    g.DebtService /= c; g.Runway /= c; g.InControl /= c; g.Homeowners /= c; g.Wealth /= c; g.Debt /= c; g.LossShare /= c;
+                }
             }
         }
 
@@ -317,8 +352,27 @@ namespace Why.Economy.Model
             int t = u + s + d; return t > 0 ? (u / (double)t, s / (double)t, d / (double)t, t) : (0, 0, 0, 0);
         }
 
+        /// <summary>The quintile a decade later of the lines from a quintile at an age band, as shares of them (summing to
+        /// 1, or all 0 without data), with the same fall back to every age as <see cref="OddsFrom"/>, so both rest on the
+        /// same lines.</summary>
+        public (double[] share, int lines) ReachedFrom(int quintile, int band, int min = 20)
+        {
+            quintile = Math.Max(0, Math.Min(Quintiles - 1, quintile)); band = Math.Max(0, Math.Min(AgeBands - 1, band));
+            var count = new int[Quintiles]; int t = 0;
+            for (int b = 0; b < Quintiles; b++) { count[b] = Reached[quintile, band, b]; t += count[b]; }
+            if (t < min)
+            {
+                t = 0;
+                for (int b = 0; b < Quintiles; b++) { count[b] = 0; for (int k = 0; k < AgeBands; k++) count[b] += Reached[quintile, k, b]; t += count[b]; }
+            }
+            var share = new double[Quintiles];
+            for (int b = 0; b < Quintiles && t > 0; b++) share[b] = count[b] / (double)t;
+            return (share, t);
+        }
+
         /// <summary>What does not hold of the result (empty when every check passes): the matrix holds every tracked line
-        /// once, the odds and the moves count the same lines, each start row's shares sum to one, the rungs are finite.</summary>
+        /// once, the odds, the quintiles reached and the moves count the same lines, each start row's shares sum to one,
+        /// the rungs hold the tracked lines once and the panel's rungs its members once, the rungs are finite.</summary>
         public List<string> Problems()
         {
             var list = new List<string>();
@@ -326,6 +380,13 @@ namespace Why.Economy.Model
             if (Math.Abs(sum - People) > 1) list.Add("the transition matrix does not hold every tracked adult once");
             int odds = 0; foreach (int v in Odds) odds += v;
             if (odds != Lines) list.Add("the odds do not count every tracked adult once");
+            int reached = 0; foreach (int v in Reached) reached += v;
+            if (reached != Lines) list.Add("the quintiles reached do not count every tracked adult once");
+            int counted = 0; foreach (var g in Rungs) counted += g.Lines;
+            if (counted != Lines) list.Add("the rungs do not hold every tracked adult once");
+            double panel = 0; foreach (double v in PanelMoves) panel += v;
+            int members = 0; foreach (var g in PanelRungs) members += g.Lines;
+            if (Math.Abs(members * PeoplePerLine - panel) > 1) list.Add("the panel's rungs do not hold every panel member once");
             if (Up + Down + Stay != Lines) list.Add("climbs, falls and stays do not add up to the tracked adults");
             if (PrimeLines > Lines) list.Add("more prime-age adults than adults");
             for (int a = 0; a < Quintiles; a++)
@@ -334,8 +395,9 @@ namespace Why.Economy.Model
                 double row = 0; for (int b = 0; b < Quintiles; b++) row += Share(a, b);
                 if (Math.Abs(row - 1) > 1e-9) list.Add("the shares from " + QuintileNames[a] + " do not sum to one");
             }
-            foreach (var g in Rungs)
-                if (double.IsNaN(g.SavingRate) || double.IsNaN(g.OwnedShare) || double.IsNaN(g.DebtService) || double.IsInfinity(g.Runway)) list.Add("a rung's forces are not finite");
+            foreach (var rungs in new[] { Rungs, PanelRungs })
+                foreach (var g in rungs)
+                    if (double.IsNaN(g.SavingRate) || double.IsNaN(g.OwnedShare) || double.IsNaN(g.DebtService) || double.IsInfinity(g.Runway)) list.Add("a rung's forces are not finite");
             return list;
         }
 
@@ -359,16 +421,29 @@ namespace Why.Economy.Model
             foreach (var c in Leading(false)) sb.Append(' ').Append(CauseNames[(int)c]).Append(' ').Append(P(ShareWith(c, false))).Append(" (x").Append(Lift(c, false).ToString("0.0", Ci)).Append(')');
             sb.Append("; climbs came with");
             foreach (var c in Leading(true)) sb.Append(' ').Append(CauseNames[(int)c]).Append(' ').Append(P(ShareWith(c, true))).Append(" (x").Append(Lift(c, true).ToString("0.0", Ci)).Append(')');
-            sb.Append("; saving rate by fifth");
+            // the all-adults ladder's rungs: the adults at both ends by the fifth they end in
+            sb.Append("; adults at both ends by fifth, saving rate");
             for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(Rungs[q].SavingRate));
             sb.Append(", owned income");
             for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(Rungs[q].OwnedShare));
             sb.Append(", in control");
             for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(Rungs[q].InControl));
-            // checks: the matrix holds every tracked line once, and the odds every line once
+            // the like-for-like ladder's rungs: the panel's members by the fifth they end in
+            sb.Append("; closed panel by its fifths, saving rate");
+            for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(PanelRungs[q].SavingRate));
+            sb.Append(", owned income");
+            for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(PanelRungs[q].OwnedShare));
+            sb.Append(", debt service");
+            for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(PanelRungs[q].DebtService));
+            sb.Append(", runway");
+            for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(PanelRungs[q].Runway.ToString("0.0", Ci)).Append('y');
+            sb.Append(", in control");
+            for (int q = 0; q < Quintiles; q++) sb.Append(' ').Append(P(PanelRungs[q].InControl));
+            // checks: the matrix holds every tracked line once, and the odds and the fifths reached every line once
             double sum = 0; foreach (double v in Moves) sum += v;
             int odds = 0; foreach (int v in Odds) odds += v;
-            bool ok = Math.Abs(sum - People) < 1 && odds == Lines && Up + Down + Stay == Lines && PrimeLines <= Lines;
+            int reached = 0; foreach (int v in Reached) reached += v;
+            bool ok = Math.Abs(sum - People) < 1 && odds == Lines && reached == Lines && Up + Down + Stay == Lines && PrimeLines <= Lines;
             sb.Append("; checks ").Append(ok ? "PASS" : "FAIL");
             return sb.ToString();
         }

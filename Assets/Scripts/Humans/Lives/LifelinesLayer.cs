@@ -63,7 +63,7 @@ namespace Why.Humans.Lives
         string[] names;
 
         readonly Tier[] tiers = new Tier[LifelineMeshes.TierCount];
-        Tier curves, figures, popular;
+        Tier curves, figures;
         LabelSpec womenLabel, menLabel;
         float uploadedAt;
         int labeledProbe = -1;
@@ -155,8 +155,6 @@ namespace Why.Humans.Lives
             curves = CreateTier("PopulationCurves", m.Curves, GraphMaterials.QueueHumans + 1, RhoFade, 0f, true);
             figures = CreateTier("FamousFigures", build.Figures.Lines, GraphMaterials.QueueHumans + 2, 0f,
                 FiguresOverviewAlpha, true);
-            if (build.Popular != null)
-                popular = CreateTier("PopularPeople", build.Popular.Lines, GraphMaterials.QueueHumans + 2, 0f, FiguresOverviewAlpha, true);
             for (int t = 0; t < tiers.Length; t++)
             {
                 // the coarse tier loads with the graph; the denser ones when first needed
@@ -244,7 +242,6 @@ namespace Why.Humans.Lives
             float near = Mathf.Max(preset, lod.Near);
             Animate(curves, Mathf.Min(cap, near), step);
             Animate(figures, Mathf.Lerp(FiguresOverviewAlpha, 1f, near), step);
-            if (popular != null) Animate(popular, Mathf.Lerp(FiguresOverviewAlpha, 1f, near), step);
             PlaceSideLabels(ctx, smv);
             PublishLod(smv);
         }

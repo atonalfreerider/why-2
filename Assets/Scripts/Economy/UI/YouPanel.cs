@@ -13,8 +13,10 @@ namespace Why.Economy.UI
     /// a mouse and with hands in the headset): age, household income, net worth, debt, saving, the industry they work in,
     /// whether they live with a partner, own their home or a business. The "you" view draws them on the hill
     /// (<see cref="HillYouLayer"/>) and this panel reads out the place: percentiles, rung, where each dollar they spend
-    /// goes and which way it flows, how far they are from living on what they own, and the odds of people who stood there
-    /// a decade ago. Nothing entered is stored or sent anywhere. Shown in the "you" view.
+    /// goes, the share of all wages and owners' income that goes to people ranked above them (the population's, not a
+    /// trace of their purchases), two named distances (the cushion, the home counted, and independence), and the odds of
+    /// people who stood there a decade ago with how many simulated adults they rest on and a 95% range. Nothing entered
+    /// is stored or sent anywhere. Shown in the "you" view.
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class YouPanel : GraphModule
@@ -88,7 +90,7 @@ namespace Why.Economy.UI
             // portrait: a bottom sheet over the preset bar, its reading in a smaller face; landscape: the right column under the year
             bool portrait = ScreenLayout.IsPortrait;
             if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(420, canvas.x - 16), Mathf.Min(700, canvas.y * .62f)); }
-            else { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(392, Mathf.Min(700, canvas.y - 230)); }
+            else { float top = EconomyUiLayout.SideColumnTop; panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -top); panel.sizeDelta = new Vector2(392, Mathf.Min(700, canvas.y - top - 54)); }
             reading.fontSize = portrait ? 9.5f : 12;
             foreach (var v in values) v.value.text = v.text();
             if (r == null || ReferenceEquals(r, shownReading)) return;
@@ -118,18 +120,24 @@ namespace Why.Economy.UI
             string wealthGroup = r.WealthGroup == 3 ? "the top 1% (the clouds)" : r.WealthGroup == 2 ? "the next 9%" : r.WealthGroup == 1 ? "the 50-90%" : "the bottom half";
             string s = "<b>Your altitude.</b> The " + Ord(r.IncomeRank) + " percentile of household income (" + Mobility.QuintileNames[r.Quintile] + ") and the " +
                 Ord(r.WealthRank) + " of net worth among adults: " + wealthGroup + " by wealth. You stand " + place + ".\n\n";
-            s += "<b>Your dollar.</b> People at your income spend " + Pct(r.Fear) + " of their money moving away from a fear and buy fantasy with " + Pct(r.Fantasy) + ". " +
+            // the lives' fixed shares per kind of spending, as in the year readout's model line: not the markets' "sold by fear",
+            // which Jev judged item by item
+            s += "<b>Your dollar.</b> People at your income spend " + Pct(r.Fear) + " of their money moving away from a fear and buy fantasy with " + Pct(r.Fantasy) +
+                " (the model's fixed shares for each kind of spending). " +
                 "Of each dollar you spend, " + Cents(r.Wages) + " becomes wages, " + Cents(r.Owners) + " owners' surplus (" + Pct(r.Persuaded) + " of it sold by persuasion), " +
                 Cents(r.Taxes) + " taxes, " + Cents(r.Upkeep) + " upkeep and " + Cents(r.Imports) + " leaves for imports: about " + PersonLife.Money(r.PaysOwners) +
-                " a year to owners. <color=#FFC04A>" + Pct(r.Uphill) + " of the income it pays flows uphill</color> to people ranked above you; the top 1% hold " +
-                Pct(r.OwnersToTop1) + " of all income from ownership.\n\n";
-            string years = r.YearsToIndependence == 0 ? "you are there" : double.IsNaN(r.YearsToIndependence) ? "not within a century at this saving" : r.YearsToIndependence.ToString("0", LandFacts.Ci) + " years";
-            s += "<b>Your autonomy.</b> Saving " + Pct(r.Saving) + " (typical here " + Pct(r.TypicalSaving) + "), your net worth covers " + r.Runway.ToString("0.0", LandFacts.Ci) +
-                " years of spending; the model counts three in financial assets as material autonomy. Living on what you own takes about " + PersonLife.Money(r.Independence) +
-                " (25 years of spending at a 4% yield): " + years + " at a 4% real return.\n\n";
+                " a year to owners. Of all wages and owners' income in the simulated population, " + Pct(r.Uphill) + " goes to households ranked above you; " +
+                "your spending is assumed to pay people the way everyone's does. The top 1% hold " + Pct(r.OwnersToTop1) + " of all income from ownership.\n\n";
+            string years = r.YearsToIndependence == 0 ? "you are there" : double.IsNaN(r.YearsToIndependence) ? "not within a century at this saving" : "about " + r.YearsToIndependence.ToString("0", LandFacts.Ci) + " years away";
+            s += "<b>Cushion: " + r.Cushion.ToString("0.0", LandFacts.Ci) + " years of spending</b> (your net worth, home included). " +
+                "<b>Independence: " + PersonLife.Money(r.Independence) + "</b>, 25 years of spending to live on at a 4% yield: " + years +
+                " at a 4% real return, saving " + Pct(r.Saving) + " of after-tax income (typical here " + Pct(r.TypicalSaving) + ").\n\n";
             if (r.OddsLines > 0)
             {
-                s += "<b>Your odds.</b> Of adults in your fifth aged " + Mobility.AgeBandNames[r.AgeBand] + " ten years ago, " + Pct(r.Up) + " climbed, " + Pct(r.Stay) + " stayed and " + Pct(r.Down) + " fell.";
+                string Odds(double share) => Pct(share) + " ±" + (100 * r.Margin(share)).ToString("0", LandFacts.Ci);
+                string who = r.OddsAllAges ? "your fifth (every age: too few were " + Mobility.AgeBandNames[r.AgeBand] + ")" : "your fifth aged " + Mobility.AgeBandNames[r.AgeBand];
+                s += "<b>Your odds.</b> Of adults in " + who + " ten years ago, " + Odds(r.Up) + " climbed, " + Odds(r.Stay) + " stayed and " + Odds(r.Down) + " fell " +
+                     "(n ≈ " + r.OddsLines + " simulated; ± is a 95% range).";
                 var m = HillMobilityLayer.Shown;
                 if (m != null)
                 {

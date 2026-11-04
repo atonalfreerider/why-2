@@ -15,9 +15,15 @@ on another state's foundation, drawn from that state's measured structure:
   ownership          the state's holdings among the country's largest firms and the largest private firms beside them,
                      each mapped to one of the scene's industries with owner, share, revenue and sources; the largest
                      firm named on an industry (by revenue, computed here) is its summit, steel by the state's share
+  unranked           industries whose largest firm could not be ranked (sources.json), each with the largest firm the
+                     research names there: drawn as unranked summits marked with that firm, and logged as a gap
   trade              exports + imports, % of GDP: World Bank WDI (NE.TRD.GNFS.ZS)
+  economy            the country's own GDP, so the view can say how far the US hills are from it: IMF World Economic
+                     Outlook (NGDPD, billions of US dollars) for the modern regimes; the USSR's 1980 GDP in rubles, the
+                     denominator of its spending share
   top1Wealth/Income  the top 1%'s shares of net personal wealth and pre-tax national income: World Inequality Database
-  democracy          the electoral democracy index: V-Dem (via Our World in Data)
+  democracy          the electoral democracy index: V-Dem (via Our World in Data); beside it "chooses", who chooses the
+                     government in plain words (sources.json: the drawing's words, not a measure)
   industries         how heavily the state's rules bind each industry and how much the industry shapes them (Jev Scores:
                      model judgments, not measurement; the US keeps the government file's own judgments)
 
@@ -60,6 +66,7 @@ AGENT = "why-2-regimes/0.1 (https://github.com/atonalfreerider/why-2)"
 
 IMF = "https://www.imf.org/external/datamapper/api/v1/{}"
 IMF_PAGE = "https://www.imf.org/external/datamapper/{}@FM/{}"
+IMF_WEO_PAGE = "https://www.imf.org/external/datamapper/{}@WEO/{}"
 WB = "https://api.worldbank.org/v2/country/{}/indicator/NE.TRD.GNFS.ZS?format=json&date=1960:2026&per_page=1000"
 WB_PAGE = "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations={}"
 OWID = "https://ourworldindata.org/grapher/{}.csv?v=1&csvType=full&useColumnShortNames=true"
@@ -376,6 +383,7 @@ def main():
     government = json.load(open(os.path.join(DATA, "government.json"), encoding="utf-8"))
 
     spending, revenue = imf_series("G_X_G01_GDP_PT"), imf_series("GGR_G01_GDP_PT")
+    gdp_usd = imf_series("NGDPD")
     iso3s = [r["iso3"] for r in src["regimes"] if r.get("iso3")]
     trade, iso2, trade_updated = wb_trade(iso3s)
     vdem_rows, vdem_meta = owid(VDEM_SLUG)
@@ -392,7 +400,7 @@ def main():
     regimes = []
     for r in src["regimes"]:
         iso3, year = r.get("iso3"), r["year"]
-        out = {k: r[k] for k in ("id", "name", "short", "form", "country", "era") if k in r}
+        out = {k: r[k] for k in ("id", "name", "short", "form", "chooses", "country", "era") if k in r}
         out["year"] = year
         if r.get("baseline"):
             out["baseline"] = True
@@ -434,6 +442,18 @@ def main():
                                                     f"(last updated {trade_updated})", WB_PAGE.format(iso2.get(iso3, iso3))) if ty else None
         else:
             out["trade"] = curated(r.get("trade"))
+
+        # the country's own economy, so the US hills on its state never read as the country itself
+        if iso3:
+            s = gdp_usd.get(iso3, {})
+            out["economy"] = {"value": round(s[year], 1), "unit": "billion US dollars", "year": year,
+                              "source": f"IMF World Economic Outlook (October 2026), GDP, current prices, billions of US dollars, via the "
+                                        f"DataMapper API (NGDPD; retrieved {retrieved('imf_NGDPD.json')})",
+                              "url": IMF_WEO_PAGE.format("NGDPD", iso3)} if year in s else None
+        else:
+            d = (r.get("spending") or {}).get("denominator")
+            out["economy"] = {"value": d["value"], "unit": "billion rubles", "year": d.get("year"), "source": d.get("source"), "url": d.get("url"),
+                              "note": "the GDP its spending and revenue shares are of"} if d and d.get("value") else None
 
         entity = r.get("vdemEntity", r["name"])
         s = vdem.get(entity, {})
@@ -527,8 +547,20 @@ def main():
                 continue
             rec["leads"] = False
             firms.append(rec)
+        # industries whose largest firm could not be ranked keep an unranked summit, marked with the largest firm the
+        # research names there; each is logged, so the gap stays visible on every build
+        unranked = []
+        for u in own.get("unranked", []):
+            named = next((f for f in firms if f["industry"] == u["industry"] and f["name"] == u["firm"]), None)
+            if u["industry"] in summits or named is None:
+                problems.append(f"{r['id']}: unranked {u['industry']} needs no ranked summit and {u['firm']} among the firms named there")
+                continue
+            unranked.append({"industry": u["industry"], "firm": u["firm"], "controlled": bool(named.get("controlled")),
+                             "stateShare": named.get("stateShare"), "note": u.get("note")})
+            print(f"GAP: {r['id']} {u['industry']} is not ranked; its largest named firm, {u['firm']}, is "
+                  f"{'state-controlled' if named.get('controlled') else 'private'} ({u.get('note') or 'no note'})", file=sys.stderr)
         firms = list(summits.values()) + firms
-        out["ownership"] = {"default": own.get("default", 0), "defaultNote": own.get("defaultNote"), "firms": firms}
+        out["ownership"] = {"default": own.get("default", 0), "defaultNote": own.get("defaultNote"), "firms": firms, "unranked": unranked}
 
         if r.get("baseline"):
             out["industries"] = {k: {"regulation": v["regulation"], "capture": v["capture"]} for k, v in government["industries"].items()
@@ -549,6 +581,8 @@ def main():
             m = r.get(key)
             if m and m.get("value") is not None and not (0 <= m["value"] <= 2.5):
                 problems.append(f"{r['id']}: {key} {m['value']} out of range")
+        if not r.get("economy") or not r["economy"].get("value") or r["economy"]["value"] <= 0:
+            problems.append(f"{r['id']}: its own economy's size is missing")
         if r.get("revenueMix"):
             s = sum(r["revenueMix"]["parts"].values())
             if abs(s - 1) > 1e-3:
@@ -580,9 +614,11 @@ def main():
         def v(key):
             m = r.get(key)
             return "-" if not m or m.get("value") is None else f"{m['value']:.3f} ({m.get('year')})"
+        e = r.get("economy") or {}
         print(f"  {r['id']:<3} spending {v('spending')}  revenue {v('revenue')}  trade {v('trade')}  democracy {v('democracy')}  "
               f"top1 wealth {v('top1Wealth')}  income {v('top1Income')}  state firms {v('stateFirms')}  "
-              f"{len(r['ownership']['firms'])} firms  {'judged' if r.get('industries') else 'no judgments'}")
+              f"economy {e.get('value')} {e.get('unit')} ({e.get('year')})  {len(r['ownership']['firms'])} firms, "
+              f"{len(r['ownership']['unranked'])} marked unranked  {'judged' if r.get('industries') else 'no judgments'}")
     if problems:
         sys.exit(1)
 

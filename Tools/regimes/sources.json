@@ -1,5 +1,5 @@
 {
- "note": "Research for the regimes view, read by hand in each cited source (retrieved 2026-10-22). Every value carries the URL it was read at and the text or table cell it was read from; null where nothing defensible was found. The IMF, World Bank and V-Dem series are fetched by build.py through their APIs and are not repeated here.",
+ "note": "Research for the regimes view, read by hand in each cited source (retrieved 2026-10-22). Every value carries the URL it was read at and the text or table cell it was read from; null where nothing defensible was found. The IMF, World Bank and V-Dem series are fetched by build.py through their APIs and are not repeated here. Two kinds of entry are the drawing's own words, not measurements: each regime's 'chooses' (who chooses the government, in plain words, read beside V-Dem's electoral democracy index) and an ownership's 'unranked' list (industries whose largest firm could not be ranked, with the largest firm the research names there).",
  "partNames": {
   "personal": "personal income taxes",
   "corporate": "taxes on profits",
@@ -17,6 +17,7 @@
    "short": "US",
    "country": "the United States",
    "form": "federal democracy, free trade",
+   "chooses": "voters, in competitive elections for the president and Congress",
    "era": "2024",
    "iso3": "USA",
    "year": 2024,
@@ -159,6 +160,7 @@
    "short": "SE",
    "country": "Sweden",
    "form": "Nordic social democracy",
+   "chooses": "voters, who elect the parliament that chooses the prime minister",
    "era": "2024",
    "iso3": "SWE",
    "year": 2024,
@@ -780,6 +782,7 @@
    "short": "CN",
    "country": "the People's Republic of China",
    "form": "state capitalism under one party",
+   "chooses": "the Communist Party; there are no competitive national elections",
    "era": "2024",
    "iso3": "CHN",
    "year": 2024,
@@ -921,6 +924,18 @@
       "note": "State insurers (China Life #42 $178,215.4M; PICC #123) were not restored as records."
      }
     ],
+    "unranked": [
+     {
+      "industry": "health",
+      "firm": "Sinopharm",
+      "note": "Fortune files Sinopharm under 'Wholesalers: Health Care' (#129, $89,352.1M), which the drawing's map sends to trade, so no Fortune firm ranks China's health industry. The research named Sinopharm (state-controlled) on health, but its comparison with the largest private health firm was lost in the data loss and could not be restored: the summit is drawn not ranked, marked with its largest named firm."
+     },
+     {
+      "industry": "agriculture",
+      "firm": "COFCO",
+      "note": "Fortune files COFCO under 'Wholesalers: Trading' (#157, $81,954.7M), which the drawing's map sends to trade, so no Fortune firm ranks China's agriculture. The research named COFCO (wholly state-owned) on agriculture, but its comparison with the largest private agricultural firm was lost in the data loss and could not be restored: the summit is drawn not ranked, marked with its largest named firm."
+     }
+    ],
     "aliases": {
      "CNPC / PetroChina": "China National Petroleum",
      "China COSCO Shipping": "COSCO Shipping",
@@ -945,6 +960,7 @@
    "short": "SA",
    "country": "Saudi Arabia",
    "form": "Gulf petro-monarchy",
+   "chooses": "the king and the royal family; there are no national elections",
    "era": "2024",
    "iso3": "SAU",
    "year": 2024,
@@ -1246,6 +1262,7 @@
    "short": "USSR",
    "country": "the Soviet Union",
    "form": "the Soviet planned economy",
+   "chooses": "the Communist Party; elections offered a single candidate",
    "era": "around 1980",
    "iso3": null,
    "year": 1980,

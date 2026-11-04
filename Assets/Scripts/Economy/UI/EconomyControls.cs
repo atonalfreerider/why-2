@@ -22,8 +22,10 @@ namespace Why.Economy.UI
     /// with the replay's turning points as ticks (rose: a recession, gold: the federal funds rate turning, steel: the tariff
     /// rate; hovering one names it). Dragging it moves only the cut (<see cref="EconomyState.SetPreviewYear"/>);
     /// releasing it opens the land at that year (<see cref="EconomyState.SetYear"/>). Hovering the chip shows the money
-    /// circuit's notes for the year (its approximations and residuals). Beneath it the year's readout (generated:
-    /// "2025 · GDP $30.8T · in control 12% · fantasy 19% · fear 54% · trust 25% (GSS) · cooperation 0.73"). On a portrait
+    /// circuit's notes for the year (its approximations and residuals). Beneath it the year's readout (generated, measured
+    /// apart from modeled: "MEASURED GDP $30.8T (BEA) · 25% say most people can be trusted (GSS 2024)" over a dimmed "MODEL
+    /// ≈ 54% of spending driven by fear, 19% on fantasy · cooperation 0.73 (simulated game)"; hovering it defines each
+    /// number, <see cref="YearFacts.Definitions"/>). On a portrait
     /// screen with the land in view the bowl fills the band under the title: the chip keeps only its year row (dragging
     /// across it scrubs) and the readout moves into the land legend at the bottom, as it does wherever a view's bowl
     /// reaches the readout's place;</item>
@@ -146,7 +148,8 @@ namespace Why.Economy.UI
             knob.pixelsPerUnitMultiplier = 14f / (HandleSize * 0.5f);
             handle = knob.rectTransform;
 
-            readout = HudKit.FramedPanel(canvasRect, "YearReadout", 0.62f);
+            // a darker panel than the corner blocks': two groups of small print over the bloomed hills
+            readout = HudKit.FramedPanel(canvasRect, "YearReadout", 0.85f);
             readoutText = HudKit.Line(readout, "Text", "", HudKit.SizeSmall, GraphStyle.TextDim, FontStyles.Normal,
                 TextAlignmentOptions.MidlineLeft);
             readoutText.textWrappingMode = TextWrappingModes.Normal; // a portrait screen wraps it under the title
@@ -426,8 +429,10 @@ namespace Why.Economy.UI
             string notes = s != null && s.Year == EconomyState.Year ? s.Circuit?.Notes : null;
             ReplayFacts.TurningPoint turn = dragging ? null : TurnAt(pointer);
             bool over = !dragging && ScreenRect(chip, out Rect c) && c.Contains(pointer) && !string.IsNullOrEmpty(notes);
+            bool overReadout = !dragging && readoutLine.Length > 0 && ScreenRect(readout, out Rect r) && r.Contains(pointer);
             if (turn != null) tooltip.Show(chip, turn.Year.ToString(LandFacts.Ci) + ": a turning point", null, turn.Text + ". Read off the data; R replays the wave.");
             else if (over) tooltip.Show(chip, EconomyState.Year.ToString(LandFacts.Ci) + ": how the accounts were made", null, notes);
+            else if (overReadout) tooltip.Show(readout, "What these numbers are", null, YearFacts.Definitions());
             else tooltip.Hide();
             float scale = canvasRect.rect.width > 0 ? Screen.width / canvasRect.rect.width : 1;
             tooltip.Tick(pointer / Mathf.Max(1e-4f, scale), canvasRect.rect.size, dt);

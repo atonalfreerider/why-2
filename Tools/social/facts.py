@@ -29,6 +29,8 @@ def read_graph(db):
     totals = {r["person_id"]: r["total_followers"] for r in c.execute("select person_id, total_followers from person_popularity_snapshot")}
     nodes = []
     for r in c.execute("select * from unity_graph_nodes order by id"):
+        # both counts sum a person's Instagram, TikTok, YouTube and X followers (the snapshot's own Instagram figure is
+        # missing or wrong for some accounts), so a few exceed @instagram; export.py flags them
         followers = max(r["follower_count"] or 0, totals.get(r["person_id"]) or 0)
         nodes.append({"id": r["id"], "name": r["display_name"], "handle": (r["instagram_handle"] or "").lower(),
                       "followers": followers, "category": r["base_category"], "cloud": r["cloud_category_id"],

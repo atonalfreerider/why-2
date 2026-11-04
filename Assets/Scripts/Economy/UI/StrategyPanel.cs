@@ -7,12 +7,12 @@ namespace Why.Economy.UI
 {
     /// <summary>
     /// The strategy view's readout ("Companies spend too", <see cref="HillStrategyLayer"/>): the focused firm's year of
-    /// money in words (what it ran the business on and who that paid, what it invested and whether fear or desire drove
-    /// it, its owners, taxes and lobbying, which way Jev judged its money moves it, and what it says it is doing), its
-    /// trail in numbers (each year 2015-2025: investment and research, owners, fear and AI shares, the way its money moved
-    /// it), buttons to step through the firms from the largest spender down, and the US totals they stand against. Text in
-    /// screen space, so it reads at any distance; the 3D view keeps only names, arrows and the trail's turns. The three
-    /// blocks stack by their measured heights. Shown in the strategy view.
+    /// money in words (what it ran the business on and who that paid, what it invested and how much of it Jev judged
+    /// defensive, with Jev's confidence, its owners, taxes and lobbying, which way Jev judged its money moves it, and what it
+    /// says it is doing), its trail in numbers (each year 2015-2025: investment and research, owners, defensive and AI
+    /// shares, the way its money moved it), buttons to step through the firms from the largest spender down, and the US
+    /// totals they stand against. Text in screen space, so it reads at any distance; the 3D view keeps only names, arrows
+    /// and the trail's turns. The three blocks stack by their measured heights. Shown in the strategy view.
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class StrategyPanel : GraphModule
@@ -32,7 +32,9 @@ namespace Why.Economy.UI
             panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(420, 640);
             var title = Text("Title", 15, 12, 10, 396, 22); title.text = "<b>COMPANIES SPEND TOO</b>";
             var note = Text("Note", 10.5f, 12, 32, 396, 30); note.textWrappingMode = TextWrappingModes.Normal; note.color = new Color(.7f, .76f, .84f);
-            note.text = "Each firm's latest fiscal year from its audited filing; directions and motives judged by Jev (model evidence, not measurement).";
+            // "defensive" is Jev's judgment of a firm's investment, not the year readout's model fear share of household
+            // spending; the firm's lines give Jev's confidence in it, at most one half for every firm
+            note.text = "Latest fiscal year, from audited filings. Defensive: the share invested so as not to fall behind, as Jev (an AI model) judged it.";
             var previous = UiFactory.Button(panel, "Previous", "‹ larger", 11, () => Step(-1)); Place((RectTransform)previous.transform, 12, 66, 120, 24);
             var next = UiFactory.Button(panel, "Next", "smaller ›", 11, () => Step(1)); Place((RectTransform)next.transform, 288, 66, 120, 24);
             var free = UiFactory.Button(panel, "Follow", "largest investor", 11, () => HillStrategyLayer.Pinned = -1); Place((RectTransform)free.transform, 150, 66, 120, 24);
@@ -67,7 +69,7 @@ namespace Why.Economy.UI
             if (changed) Stack(inner);
             float content = totals.rectTransform.anchoredPosition.y * -1 + totals.rectTransform.sizeDelta.y + 12;
             if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(width, Mathf.Min(content, canvas.y * .62f)); }
-            else { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(width, Mathf.Min(content, canvas.y - 196)); }
+            else { float top = EconomyUiLayout.SideColumnTop; panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -top); panel.sizeDelta = new Vector2(width, Mathf.Min(content, canvas.y - top - 20)); }
         }
 
         /// <summary>Stacks the firm's text, its trail's rows and the totals under the buttons by their measured heights.</summary>

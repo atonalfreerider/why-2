@@ -84,7 +84,7 @@ reformers marked along its top for their years in office.
 | ![Companies spend too](Docs/images/economy-strategy.jpg) | ![The price of money and the edge of trade](Docs/images/economy-money.jpg) |
 | **Companies spend too.** Each large firm's year of money from its filing, in the directions it flows, with Jev's arrows for which way it moves the firm; the AI build-out pouring down the hill. | **The price of money and the edge of trade.** The state's levers on the market layer: interest rates and the tariff rate on the wave's own time axis. |
 | ![The same hills on China's state](Docs/images/economy-regimes-china.jpg) | ![The same hills on Saudi Arabia's state](Docs/images/economy-regimes-saudi.jpg) |
-| **Other foundations: China.** The same US hills on China's state: a bedrock 33% of GDP deep, and steel summits where the state controls the industry's largest firm (banks, oil, the grid, telecom), gold where private firms lead (Huawei, Tencent, JD.com). | **Other foundations: Saudi Arabia.** A state that lives on oil (the amber stratum, 60% of its revenue) and controls the oil, chemicals, telecom and power summits; its vote threads nearly vanish (electoral democracy 0.02 of 1, V-Dem). |
+| **What if: China's government.** The same US hills on China's state: a bedrock 33% of GDP deep, and steel summits where the state controls the industry's largest firm (banks, oil, the grid, telecom), gold where private firms lead (Huawei, Tencent, JD.com). | **What if: Saudi Arabia's government.** A state that lives on oil (the amber stratum, 60% of its revenue) and controls the oil, chemicals, telecom and power summits; its vote threads nearly vanish (electoral democracy 0.02 of 1, V-Dem). |
 
 ## Controls
 
@@ -226,14 +226,15 @@ bar and the tour reach them; focused views keep the wave as faint ground and qui
   (rose) or stayed; what came with the climbs and falls of prime-age adults (found work, married, a child, a home; a lost
   job, a divorce, debt discharged), each with its lift over everyone's rate; the forces at each rung (saving, income from
   ownership, debt service, fear, runway, in control); and the model against the published decade matrices (like for like
-  - adults 25+, fifths ranked within the panel - the bottom fifth stays 56% and the top 66%, against the US Treasury's
+  - adults 25+, fifths ranked within the panel - the bottom fifth stays 58% and the top 66%, against the US Treasury's
   55% and 61% for 1996-2005). The people view gives every cohort an arrow from where its members stood ten years before.
 * `you` - **where you stand**: steppers (no keyboard, so they work with hands in the headset) for age, household
   income, net worth, debt, saving, industry, partner, home and business; the model places you among the year's
   simulated adults (income and wealth percentiles) on your rung of your hill, draws your spending's rivers split by fear,
-  which way the income it pays flows (uphill to people ranked above you, or down), a runway gauge toward autonomy, the
-  years to living on what you own, and three possible futures in front of the crest, each as bright as the share of
-  people like you who went there in the last decade. Nothing entered is stored or sent.
+  which way the income it pays flows (uphill to people ranked above you, or down), a cushion ring (the years of spending
+  the net worth covers, the home counted), the years to living on what you own, and, on a ruler of the income fifths
+  beside you, where people like you were ten years later: a step for each fifth they reached, its ribbon as wide as the
+  share who ended there. Nothing entered is stored or sent.
 * `strategy` - **companies spend too**: every stored firm's latest fiscal year from its audited filing
   (`Tools/corporate`), in the directions its money flows: operations down to suppliers and workers (by its industry's
   accounts), investment and research forward over the crest split into fear and desire lanes, advertising up to the

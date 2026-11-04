@@ -23,6 +23,7 @@ namespace Why
         public string Icon;               // optional icon id (see Icons), drawn left of the text; Text may then be empty
         public bool Fixed;                // Data is a world position (a diagram beside the timeline), not data space
         public float FixedRange;          // Fixed labels hide while the camera target is farther than this (world units; 0 = never)
+        public Color Plate;               // a plate drawn behind the text and icon (alpha 0 = none), for labels over bright marks
 
         internal float Width;             // estimated width in px at SizePx, icon included
         internal int TextVersion;         // bumped by LabelSystem.SetText so a shown label re-reads its text
@@ -73,11 +74,16 @@ namespace Why
         /// <summary>Sorting order of labels and their icons: above the graph.</summary>
         const int SortingOrder = 10;
 
+        /// <summary>A plate's margin around its text, in em (sideways, and above and below).</summary>
+        const float PlateMarginEm = 0.35f, PlateMarginYEm = 0.12f;
+
         sealed class Slot
         {
             public TextMeshPro Tmp;
             public SpriteRenderer Icon;   // created the first time the slot shows an icon, then reused
             public bool IconShown;
+            public SpriteRenderer Plate;  // created the first time the slot shows a plate, then reused
+            public bool PlateShown;
             public LabelSpec Spec;
             public int TextVersion;       // the spec's TextVersion this slot shows
             public float Alpha;
@@ -150,6 +156,7 @@ namespace Why
             bool hasText = !string.IsNullOrEmpty(text);
             float em = EstimateWidth(text);
             if (spec.IconEm > 0) em += spec.IconEm * IconGlyphFraction + (hasText ? IconGapEm : 0);
+            if (spec.Plate.a > 0) em += 2 * PlateMarginEm;
             spec.Width = em * spec.SizePx;
             spec.TextVersion++;
             dirty = true;
@@ -166,6 +173,7 @@ namespace Why
                     float em = EstimateWidth(s.Text);
                     s.IconEm = !Icons.Has(s.Icon) ? 0 : hasText ? IconEm : IconOnlyEm;
                     if (s.IconEm > 0) em += s.IconEm * IconGlyphFraction + (hasText ? IconGapEm : 0);
+                    if (s.Plate.a > 0) em += 2 * PlateMarginEm;
                     s.Width = em * s.SizePx;
                     specs.Add(s);
                 }
@@ -322,11 +330,13 @@ namespace Why
                 sp.x += s.PixelOffset.x * UiScale;
                 sp.y += s.PixelOffset.y * UiScale;
 
-                // Width covers icon, gap and text, so the alignment places the whole group (see Assign)
+                // Width covers icon, gap and text, so the alignment places the whole group (see Assign), and a plate's
+                // margins, which reach past the group on both sides
                 float lw = s.Width * UiScale, lh = s.SizePx * UiScale * Mathf.Max(LineEm, s.IconEm * IconGlyphFraction);
-                float x0 = s.Align == TextAlignmentOptions.Right ? sp.x - lw
+                float margin = s.Plate.a > 0 ? PlateMarginEm * s.SizePx * UiScale : 0;
+                float x0 = s.Align == TextAlignmentOptions.Right ? sp.x - lw + margin
                     : s.Align == TextAlignmentOptions.Center ? sp.x - lw * 0.5f
-                    : sp.x;
+                    : sp.x - margin;
                 Rect r = new Rect(x0 - Padding, sp.y - lh * 0.5f - Padding, lw + Padding * 2, lh + Padding * 2);
                 if (r.xMax < 0 || r.xMin > w || r.yMax < 0 || r.yMin > h) continue;
 
@@ -434,6 +444,16 @@ namespace Why
                 tmp.rectTransform.pivot = s.Align == TextAlignmentOptions.Right ? new Vector2(1, 0.5f)
                     : s.Align == TextAlignmentOptions.Center ? new Vector2(0.5f, 0.5f)
                     : new Vector2(0, 0.5f);
+                if (s.Plate.a > 0)
+                {
+                    float w = tmp.preferredWidth;
+                    PlacePlate(slot, s.Align == TextAlignmentOptions.Right ? -w : s.Align == TextAlignmentOptions.Center ? -0.5f * w : 0, w);
+                }
+                else
+                {
+                    HidePlate(slot);
+                }
+
                 return;
             }
 
@@ -456,6 +476,30 @@ namespace Why
             Transform icon = slot.Icon.transform;
             icon.localPosition = new Vector3(left + 0.5f * glyph, 0, 0);
             icon.localScale = new Vector3(s.IconEm, s.IconEm, s.IconEm); // the sprite is one unit square
+            if (s.Plate.a > 0) PlacePlate(slot, left, lead + (hasText ? tmp.preferredWidth : 0));
+            else HidePlate(slot);
+        }
+
+        /// <summary>
+        /// Shows the slot's plate behind the group that starts at <paramref name="left"/> and is <paramref name="width"/> em
+        /// wide, with a margin, as tall as the text's lines. Drawn one sorting order below the text, so the text and icon
+        /// stay on top of it (a TextMeshPro &lt;mark&gt; draws its highlight over the glyphs).
+        /// </summary>
+        void PlacePlate(Slot slot, float left, float width)
+        {
+            if (slot.Plate == null) slot.Plate = CreatePlate(slot.Tmp.transform);
+            if (!slot.Plate.enabled) slot.Plate.enabled = true;
+            slot.PlateShown = true;
+            slot.Plate.color = Color.clear; // SetColor fades it in with the text
+            float height = Mathf.Max(slot.Tmp.preferredHeight, LineEm) + 2 * PlateMarginYEm;
+            slot.Plate.size = new Vector2(width + 2 * PlateMarginEm, height);
+            slot.Plate.transform.localPosition = new Vector3(left + 0.5f * width, 0, 0);
+        }
+
+        static void HidePlate(Slot slot)
+        {
+            slot.PlateShown = false;
+            if (slot.Plate != null && slot.Plate.enabled) slot.Plate.enabled = false;
         }
 
         void Position(Slot slot, Vector3 world, float fade)
@@ -485,6 +529,12 @@ namespace Why
             c.a *= slot.Alpha * fade * boost;
             if (slot.Tmp.color != c) slot.Tmp.color = c;
             if (slot.IconShown && slot.Icon.color != c) slot.Icon.color = c;
+            if (slot.PlateShown)
+            {
+                Color p = s.Plate;
+                p.a *= slot.Alpha * fade * boost;
+                if (slot.Plate.color != p) slot.Plate.color = p;
+            }
         }
 
         static bool IsHighlighted(LabelSpec s)
@@ -526,6 +576,25 @@ namespace Why
             icon.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             icon.receiveShadows = false;
             return icon;
+        }
+
+        /// <summary>
+        /// A slot's plate: a 9-sliced rounded rectangle child of the text (one local unit = one em), alpha blended like the
+        /// icons, one sorting order below the text so it is drawn first.
+        /// </summary>
+        static SpriteRenderer CreatePlate(Transform text)
+        {
+            GameObject go = new GameObject("Plate");
+            go.transform.SetParent(text, false);
+            SpriteRenderer plate = go.AddComponent<SpriteRenderer>();
+            Material material = Icons.Material;
+            if (material != null) plate.sharedMaterial = material;
+            plate.sprite = UiFactory.Rounded;
+            plate.drawMode = SpriteDrawMode.Sliced;
+            plate.sortingOrder = SortingOrder - 1;
+            plate.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            plate.receiveShadows = false;
+            return plate;
         }
 
         void UpdateHover()

@@ -16,15 +16,16 @@ namespace Why.Economy.Model
     /// <item><b>Your dollar.</b> The spending mix, fear share and saving of the model's adults at the same income rank;
     /// each category's dollar split by <see cref="ValueCapture"/> (the Leontief inverse of the BEA use table and each
     /// industry's accounts) into wages, owners' surplus (with the part Jev judged persuaded), taxes, upkeep and imports;
-    /// and which way it flows: the share of the wages and owners' income it pays that reaches people ranked above the
-    /// viewer (uphill) or below (downhill), by the year's distribution of wages and of income from ownership over income
-    /// ranks (economy-wide: a dollar's wages are assumed to be paid like all wages, its surplus like all income from
-    /// ownership).</item>
-    /// <item><b>Autonomy.</b> Runway (years of spending the net worth would cover; the model's material autonomy needs
-    /// three in financial assets) and the distance to living on what one owns: 25 times a year's spending (a 4% yield),
-    /// and the years to get there at the viewer's saving and a 4% real return.</item>
+    /// and the share of all wages and income from ownership in the simulated population that people ranked above the
+    /// viewer receive (uphill), weighted by that split. No purchase is traced: the viewer's spending is assumed to pay
+    /// people the way everyone's does (a dollar's wages like all wages, its surplus like all income from ownership).</item>
+    /// <item><b>Two distances.</b> The cushion: years of spending the net worth would cover, counting the home (a few
+    /// numbers about a household cannot separate the financial assets the model's own three-year rule counts). And
+    /// independence: living on what one owns takes 25 times a year's spending (a 4% yield), reached in some years at the
+    /// viewer's saving and a 4% real return.</item>
     /// <item><b>Odds.</b> What happened over the last decade to adults who stood in the same fifth at the same age
-    /// (<see cref="Mobility"/>), and what came with the climbs and falls.</item>
+    /// (<see cref="Mobility"/>, every adult): the shares who climbed, stayed and fell, and the fifth each of them ended in,
+    /// with the simulated adults behind them and a 95% range, and what came with the climbs and falls.</item>
     /// </list>
     /// Pure: reads the finished lives on any thread once they are ready. Inputs are the shown year's nominal dollars. The
     /// placement compares a real household with synthetic records calibrated to national totals; it is a reading of the
@@ -69,16 +70,25 @@ namespace Why.Economy.Model
             /// <summary>Of a dollar of the viewer's spending: wages, taxes, upkeep, owners' surplus (captured by others),
             /// imports; the persuaded share of the owners' part; the fear share of what is bought.</summary>
             public double Wages, Taxes, Upkeep, Owners, Imports, Persuaded, SoldFear;
-            /// <summary>Of the wages and owners' income in a dollar: the share reaching people ranked above the viewer, and
-            /// the owners' part reaching the top 1% by wealth.</summary>
+            /// <summary>Of all wages and income from ownership in the simulated population: the share received by people
+            /// ranked above the viewer, weighted by the dollar's wages and owners' parts (no purchase is traced); and the
+            /// share of income from ownership held by the top 1% by wealth.</summary>
             public double Uphill, OwnersToTop1;
             /// <summary>A year's owners' surplus inside the viewer's spending, $; income from what they own at 4%, $.</summary>
             public double PaysOwners, OwnedIncome;
-            /// <summary>Years of spending the net worth covers; the capital to live on at 4% (25x spending); years to reach
-            /// it at the saving and a 4% real return (NaN: never at this saving; 0: already).</summary>
-            public double Runway, Independence, YearsToIndependence;
-            /// <summary>Odds over the last decade for the same fifth and age band (up, stay, down) and the lines behind them.</summary>
-            public double Up, Stay, Down; public int OddsLines;
+            /// <summary>The cushion: years of spending the net worth covers, the home counted; the capital to live on at 4%
+            /// (25x spending); years to reach it at the saving and a 4% real return (NaN: never at this saving; 0: already).</summary>
+            public double Cushion, Independence, YearsToIndependence;
+            /// <summary>Odds over the last decade for the same fifth and age band (up, stay, down), the simulated lines
+            /// behind them, and whether too few stood at the viewer's age, so the fifth's odds at every age stand in.</summary>
+            public double Up, Stay, Down; public int OddsLines; public bool OddsAllAges;
+            /// <summary>Of the same lines, the share in each fifth a decade later (Mobility.QuintileNames order): Up, Stay and
+            /// Down are its sums above, at and below the viewer's fifth.</summary>
+            public readonly double[] Reached = new double[Mobility.Quintiles];
+
+            /// <summary>Half the 95% range of one of the odds (a share of <see cref="OddsLines"/> simulated lines; NaN
+            /// without lines).</summary>
+            public double Margin(double share) => OddsLines > 0 ? 1.96 * Math.Sqrt(Math.Max(0, share * (1 - share)) / OddsLines) : double.NaN;
         }
 
         /// <summary>Real return assumed for the path to independence, and the yield that sets it (4%: 25x spending).</summary>
@@ -156,7 +166,9 @@ namespace Why.Economy.Model
             double perAdult = you.NetWorth / (you.Partnered ? 2 : 1);
             res.WealthRank = Lower(wealthSorted, perAdult) / (double)Math.Max(1, wealthSorted.Length);
             res.Quintile = Mobility.Quintile((float)res.IncomeRank);
-            res.WealthGroup = res.WealthRank >= .99 ? 3 : res.WealthRank >= .9 ? 2 : res.WealthRank >= .5 ? 1 : 0;
+            // the group follows the percentile as shown (rounded), so "50th of net worth" never reads "the bottom half"
+            double shown = Math.Round(res.WealthRank * 100) / 100;
+            res.WealthGroup = shown >= .99 ? 3 : shown >= .9 ? 2 : shown >= .5 ? 1 : 0;
             res.AgeBand = Mobility.AgeBand(you.Age);
 
             // The neighbors: adults within a band of rank, widened until there are enough.
@@ -209,7 +221,8 @@ namespace Why.Economy.Model
                 res.SoldFear = weight > 0 ? soldFear / weight : res.Fear;
             }
             res.PaysOwners = res.Spending * res.Owners;
-            // Which way the dollar's income flows: the share of wages and of income from ownership received above the rank.
+            // Uphill: of all wages and of all income from ownership, the shares received above the viewer's rank, weighted
+            // by the dollar's split; the population's distribution stands in for where this household's money goes.
             int k0 = Math.Max(0, Math.Min(100, (int)(res.IncomeRank * 100)));
             double wagesAll = wagesBelow[100], ownedAllC = ownedBelow[100];
             double wagesUp = wagesAll > 0 ? (wagesAll - wagesBelow[k0]) / wagesAll : 0, ownedUp = ownedAllC > 0 ? (ownedAllC - ownedBelow[k0]) / ownedAllC : 0;
@@ -217,9 +230,9 @@ namespace Why.Economy.Model
             res.Uphill = flow > 0 ? (res.Wages * wagesUp + res.Owners * ownedUp) / flow : 0;
             res.OwnersToTop1 = ownedAll > 0 ? ownedTop1 / ownedAll : 0;
 
-            // Autonomy.
+            // The two distances: the cushion (net worth, the home counted, in years of spending) and independence.
             double yearSpend = Math.Max(1, res.Spending);
-            res.Runway = Math.Max(0, you.NetWorth) / yearSpend;
+            res.Cushion = Math.Max(0, you.NetWorth) / yearSpend;
             res.Independence = yearSpend / Yield;
             res.OwnedIncome = Math.Max(0, you.NetWorth) * Yield;
             res.YearsToIndependence = YearsTo(Math.Max(0, you.NetWorth), res.Disposable * res.Saving, res.Independence);
@@ -228,13 +241,19 @@ namespace Why.Economy.Model
             {
                 var odds = mobility.OddsFrom(res.Quintile, res.AgeBand);
                 res.Up = odds.up; res.Stay = odds.stay; res.Down = odds.down; res.OddsLines = odds.lines;
+                var reached = mobility.ReachedFrom(res.Quintile, res.AgeBand);
+                Array.Copy(reached.share, res.Reached, Mobility.Quintiles);
+                // the odds fall back to the fifth's at every age when too few stood at this one: say so, not "aged 35-49"
+                int atAge = 0; for (int k = 0; k < 3; k++) atAge += mobility.Odds[res.Quintile, res.AgeBand, k];
+                res.OddsAllAges = odds.lines > 0 && odds.lines != atAge;
             }
             return res;
         }
 
         /// <summary>What does not hold of the readings (empty when every check passes): the income rank never falls as
         /// income rises, the dollar's parts add up to its whole (with the owner-occupier's own part), the uphill share stays
-        /// in 0..1 and does not rise from the bottom of the ladder to the top, and the odds sum to one.</summary>
+        /// in 0..1 and does not rise from the bottom of the ladder to the top, the odds sum to one, and the fifths reached
+        /// sum to the odds above, at and below the viewer's fifth.</summary>
         public List<string> Problems(EconomyData data, ValueCapture capture, Mobility mobility)
         {
             var list = new List<string>();
@@ -254,6 +273,12 @@ namespace Why.Economy.Model
                     if (Math.Abs(parts - 1) > .02) list.Add("the dollar's parts add up to " + parts.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture));
                 }
                 if (r.OddsLines > 0 && Math.Abs(r.Up + r.Stay + r.Down - 1) > 1e-9) list.Add("the odds do not sum to one");
+                if (r.OddsLines > 0)
+                {
+                    double up = 0, down = 0; for (int q = 0; q < Mobility.Quintiles; q++) { if (q > r.Quintile) up += r.Reached[q]; if (q < r.Quintile) down += r.Reached[q]; }
+                    if (Math.Abs(up - r.Up) > 1e-9 || Math.Abs(down - r.Down) > 1e-9 || Math.Abs(r.Reached[r.Quintile] - r.Stay) > 1e-9)
+                        list.Add("the fifths reached disagree with the odds");
+                }
                 previous = r;
             }
             if (previous != null && first != null && previous.Uphill > first.Uphill + 1e-9) list.Add("the top of the ladder sends more uphill than the bottom");

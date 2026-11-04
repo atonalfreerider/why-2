@@ -1,6 +1,6 @@
 {
  "note": "Other governments as model changes of the economy scene (the 'regimes' view): the same US hills on another state's foundation, drawn from the state's measured structure. Every measure carries its year, source and URL; null where no defensible source was found. Built by Tools/regimes/build.py from Tools/regimes/sources.json (research read by hand, with quotes) and the IMF, World Bank, OECD and V-Dem series fetched through their APIs. The industries' regulation and capture are Jev judgments (model evidence, not measurement).",
- "built": "2026-10-22",
+ "built": "2026-11-03",
  "parts": [
   "personal",
   "corporate",
@@ -27,6 +27,7 @@
    "name": "United States",
    "short": "US",
    "form": "federal democracy, free trade",
+   "chooses": "voters, in competitive elections for the president and Congress",
    "country": "the United States",
    "era": "2024",
    "year": 2024,
@@ -84,6 +85,13 @@
     "year": 2024,
     "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
     "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=US"
+   },
+   "economy": {
+    "value": 29381.0,
+    "unit": "billion US dollars",
+    "year": 2024,
+    "source": "IMF World Economic Outlook (October 2026), GDP, current prices, billions of US dollars, via the DataMapper API (NGDPD; retrieved 2026-11-03)",
+    "url": "https://www.imf.org/external/datamapper/NGDPD@WEO/USA"
    },
    "democracy": {
     "value": 0.735,
@@ -508,7 +516,8 @@
       "note": "Q2 2026 10-Q: no warrant exercise; 178,051,276 common shares outstanding. Mining_metals leader: Nucor ($32,494M).",
       "leads": false
      }
-    ]
+    ],
+    "unranked": []
    },
    "industries": {
     "agriculture": {
@@ -612,6 +621,7 @@
    "name": "Sweden",
    "short": "SE",
    "form": "Nordic social democracy",
+   "chooses": "voters, who elect the parliament that chooses the prime minister",
    "country": "Sweden",
    "era": "2024",
    "year": 2024,
@@ -668,6 +678,13 @@
     "year": 2024,
     "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
     "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=SE"
+   },
+   "economy": {
+    "value": 609.7,
+    "unit": "billion US dollars",
+    "year": 2024,
+    "source": "IMF World Economic Outlook (October 2026), GDP, current prices, billions of US dollars, via the DataMapper API (NGDPD; retrieved 2026-11-03)",
+    "url": "https://www.imf.org/external/datamapper/NGDPD@WEO/SWE"
    },
    "democracy": {
     "value": 0.889,
@@ -1012,7 +1029,8 @@
       "note": "Revenue withheld from the revenue field because the largest private firm of this industry could not be restored after the data loss: net sales SEK 5,348m.",
       "leads": false
      }
-    ]
+    ],
+    "unranked": []
    },
    "industries": {
     "agriculture": {
@@ -1162,6 +1180,7 @@
    "name": "China",
    "short": "CN",
    "form": "state capitalism under one party",
+   "chooses": "the Communist Party; there are no competitive national elections",
    "country": "the People's Republic of China",
    "era": "2024",
    "year": 2024,
@@ -1218,6 +1237,13 @@
     "year": 2024,
     "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
     "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=CN"
+   },
+   "economy": {
+    "value": 18929.0,
+    "unit": "billion US dollars",
+    "year": 2024,
+    "source": "IMF World Economic Outlook (October 2026), GDP, current prices, billions of US dollars, via the DataMapper API (NGDPD; retrieved 2026-11-03)",
+    "url": "https://www.imf.org/external/datamapper/NGDPD@WEO/CHN"
    },
    "democracy": {
     "value": 0.072,
@@ -1614,6 +1640,22 @@
       "note": "State insurers (China Life #42 $178,215.4M; PICC #123) were not restored as records.",
       "leads": false
      }
+    ],
+    "unranked": [
+     {
+      "industry": "health",
+      "firm": "Sinopharm",
+      "controlled": true,
+      "stateShare": 0.57,
+      "note": "Fortune files Sinopharm under 'Wholesalers: Health Care' (#129, $89,352.1M), which the drawing's map sends to trade, so no Fortune firm ranks China's health industry. The research named Sinopharm (state-controlled) on health, but its comparison with the largest private health firm was lost in the data loss and could not be restored: the summit is drawn not ranked, marked with its largest named firm."
+     },
+     {
+      "industry": "agriculture",
+      "firm": "COFCO",
+      "controlled": true,
+      "stateShare": 1.0,
+      "note": "Fortune files COFCO under 'Wholesalers: Trading' (#157, $81,954.7M), which the drawing's map sends to trade, so no Fortune firm ranks China's agriculture. The research named COFCO (wholly state-owned) on agriculture, but its comparison with the largest private agricultural firm was lost in the data loss and could not be restored: the summit is drawn not ranked, marked with its largest named firm."
+     }
     ]
    },
    "industries": {
@@ -1764,6 +1806,7 @@
    "name": "Saudi Arabia",
    "short": "SA",
    "form": "Gulf petro-monarchy",
+   "chooses": "the king and the royal family; there are no national elections",
    "country": "Saudi Arabia",
    "era": "2024",
    "year": 2024,
@@ -1844,6 +1887,13 @@
     "year": 2024,
     "source": "World Bank, World Development Indicators, Trade (% of GDP), NE.TRD.GNFS.ZS (last updated 2026-10-08)",
     "url": "https://data.worldbank.org/indicator/NE.TRD.GNFS.ZS?locations=SA"
+   },
+   "economy": {
+    "value": 1254.1,
+    "unit": "billion US dollars",
+    "year": 2024,
+    "source": "IMF World Economic Outlook (October 2026), GDP, current prices, billions of US dollars, via the DataMapper API (NGDPD; retrieved 2026-11-03)",
+    "url": "https://www.imf.org/external/datamapper/NGDPD@WEO/SAU"
    },
    "democracy": {
     "value": 0.016,
@@ -2000,7 +2050,8 @@
       "quote": "the government's 74.31 percent stake in its capital in the Public Investment Fund's (PIF) portfolio",
       "note": "next: Acwa (formerly ACWA Power) 7.4bn SAR; The SEC stake is from a 2017 source; Acwa's PIF stake (44.16%) predates its 2025 rights issue.; Stake source dated 17/09/2017 (government stake registered under PIF); no newer source opened. Aramco's stake (about 6.9%) appeared only in search snippets, so it is not included. The same article says: \"Saudi Energy (formerly Saudi Electricity) announced its financial results for the year 2025\"."
      }
-    ]
+    ],
+    "unranked": []
    },
    "industries": {
     "agriculture": {
@@ -2150,6 +2201,7 @@
    "name": "Soviet Union",
    "short": "USSR",
    "form": "the Soviet planned economy",
+   "chooses": "the Communist Party; elections offered a single candidate",
    "country": "the Soviet Union",
    "era": "around 1980",
    "year": 1980,
@@ -2267,6 +2319,14 @@
     "quote": "Briefly, the study estimates the value of Soviet imports and exports in domestic rubles at 18.6 percent and 6.8 percent respectively of National Income (Soviet definition) in 1978, the last year covered. In comparisons with Gross National Product (which is larger than national income, Soviet concept, in that it includes services and depreciation allowances), the import share becomes 12.6 percent and the export share 4.7 percent. [...] In terms of dollars for 1978, the import share was 4.8 percent, and the export share, 4.1 percent.",
     "note": "No single defensible share: the CIA put 1978 exports at 4.7% and imports at 12.6% of GNP in domestic rubles, but 4.1% and 4.8% on a dollar basis, and 1980 trade in foreign-trade rubles (exports 49.6, imports 44.5 billion; Nakamura 2013) is valued differently from GDP. Not drawn."
    },
+   "economy": {
+    "value": 619.0,
+    "unit": "billion rubles",
+    "year": 1980,
+    "source": "Sinelnikov, Sergei & Konstantin Reznikov (1995), Budget Crisis in Russia, CASE - Center for Social & Economic Research, Warsaw, May 1995 (ISBN 83-86296-42-9), Table 1.1.3 'State budget of USSR as per sections (mln roubles, % of GDP) 1980-1990', p. 7 (scanned table)",
+    "url": "https://www.files.ethz.ch/isn/140235/046.pdf",
+    "note": "the GDP its spending and revenue shares are of"
+   },
    "democracy": {
     "value": 0.107,
     "year": 1980,
@@ -2311,7 +2371,8 @@
    "ownership": {
     "default": 1,
     "defaultNote": "state property by law (1977 Constitution, art. 11)",
-    "firms": []
+    "firms": [],
+    "unranked": []
    },
    "industries": {
     "agriculture": {

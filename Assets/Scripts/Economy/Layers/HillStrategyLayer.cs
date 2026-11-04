@@ -41,6 +41,9 @@ namespace Why.Economy.Layers
             Blue = new Color(.36f, .70f, 1), White = new Color(1, .97f, .92f), Steel = new Color(.62f, .70f, .82f), Amber = new Color(1, .80f, .52f);
         /// <summary>The tickers whose capital spending is the AI build-out (calendar or nearest fiscal year).</summary>
         static readonly string[] Hyperscalers = { "MSFT", "GOOGL", "AMZN", "META", "ORCL" };
+        /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom. Only a chosen
+        /// firm's streams keep the full pulse (<see cref="DrawFocus"/>).</summary>
+        const float Pulse = .2f;
         /// <summary>The firm pinned by the strategy panel (tower index; -1: follow hover, else the largest investor).</summary>
         public static int Pinned = -1;
         /// <summary>The focused firm (tower index), its readout and the US totals' readout, for the strategy panel.</summary>
@@ -60,6 +63,11 @@ namespace Why.Economy.Layers
         LandSnapshot snapshot; HillLandscape land; CorporatePrograms programs; GameObject content;
         MeshRenderer focusRenderer; TextMeshPro focusLabel;
         int focused = -2;
+        /// <summary>Whether the focused firm was chosen (pinned, explored or hovered) rather than the default largest investor:
+        /// only a chosen firm's marks may bloom (<see cref="cap"/>).</summary>
+        bool focusChosen;
+        /// <summary>The highest intensity the marks being drawn may take: 1 (below the bloom) but for a chosen firm's.</summary>
+        float cap = 1;
         Vector3 attention, seats;
 
         public override void Prepare(GraphContext ctx) { json = ctx.Text(CorporatePrograms.Path); }
@@ -77,8 +85,8 @@ namespace Why.Economy.Layers
             if (content == null) return;
             bool on = LandView.PresetId == "strategy";
             content.SetActive(on); if (!on) return;
-            int f = Focus();
-            if (f != focused) { focused = f; Focused = f; DrawFocus(); }
+            int f = Focus(out bool chosen);
+            if (f != focused || chosen != focusChosen) { focused = f; focusChosen = chosen; Focused = f; DrawFocus(); }
             foreach (var e in labels) { e.text.gameObject.SetActive(true); e.text.transform.rotation = rig.Cam.transform.rotation; }
             if (focusLabel) { focusLabel.gameObject.SetActive(focused >= 0); focusLabel.transform.rotation = rig.Cam.transform.rotation; }
             foreach (var l in trailLabels)
@@ -88,10 +96,11 @@ namespace Why.Economy.Layers
             }
         }
 
-        /// <summary>The firm drawn in full (tower index): the explorer's firm, else the hovered company line's tower, else the
-        /// largest investor.</summary>
-        int Focus()
+        /// <summary>The firm drawn in full (tower index): the pinned or explorer's firm, else the hovered or selected company
+        /// line's tower (<paramref name="chosen"/>), else the largest investor.</summary>
+        int Focus(out bool chosen)
         {
+            chosen = true;
             if (programs == null) return -1;
             if (Pinned >= 0 && Pinned < snapshot.Land.Towers.Length && programs.OfTower(Tower(Pinned)) != null) return Pinned;
             if (HillExplorer.Company >= 0 && programs.OfTower(Tower(HillExplorer.Company)) != null) return HillExplorer.Company;
@@ -102,6 +111,7 @@ namespace Why.Economy.Layers
                 var towers = snapshot.Land.Towers;
                 for (int t = 0; t < towers.Length; t++) if (CompanyLives.Matches(towers[t].Ticker, towers[t].Name, lives.Lives[life])) return t;
             }
+            chosen = false;
             int best = -1; double most = 0;
             for (int t = 0; t < snapshot.Land.Towers.Length; t++) { var p = programs.OfTower(Tower(t)); if (p != null && p.Invest > most) { most = p.Invest; best = t; } }
             return best;
@@ -145,10 +155,12 @@ namespace Why.Economy.Layers
                 if (Ranked.IndexOf(t) < 12)
                     Label("<b>" + p.Name + "</b>\n" + CorporatePrograms.DirectionShort[p.Main] + " " + LandFacts.Percent(p.Direction[p.Main]), HillActivityLayer.CompanyHalo(t) + Vector3.up * 3.5f, .4f, Color.Lerp(White, Steel, .25f), t);
             }
-            Surface(fill, Part.Streams); Lines(faint, Part.Streams, true); Lines(arrows, Part.Arrows, false);
-            Surface(trailFill, Part.Trail); Lines(trail, Part.Trail, true);
+            // the 25 firms' faint streams, trails and arrows cross each other: blended, not added, so the crossings keep
+            // their hues; the focused firm's marks add light over them
+            Surface(fill, Part.Streams); Lines(faint, Part.Streams, true, false); Lines(arrows, Part.Arrows, false, false);
+            Surface(trailFill, Part.Trail); Lines(trail, Part.Trail, true, false);
             Cascade();
-            focusRenderer = Lines(new LineMeshBuilder(), Part.Focus, true); focused = -2;
+            focusRenderer = Lines(new LineMeshBuilder(), Part.Focus, true, true); focused = -2;
             focusLabel = Label("", Vector3.zero, .6f, White, -1);
             Readout(invest, research, owners, ads, deals, taxes, lobbying, operations);
             Debug.Log("[Why] Strategy " + snapshot.Year + ": " + programs.Firms.Length + " firms (judgments " + (programs.Model ?? "absent") + "); they spent " +
@@ -191,9 +203,9 @@ namespace Why.Economy.Layers
             var order = new List<int>(); for (int i = 0; i < bySupplier.Length; i++) if (bySupplier[i] > 0) order.Add(i);
             order.Sort((a, c) => bySupplier[c].CompareTo(bySupplier[a]));
             for (int k = 0; k < order.Count && k < (full ? 4 : 2); k++)
-                Arc(b, foot + Vector3.up * .5f, land.Market(order[k]) + Vector3.up * .3f, WithAlpha(Amber, alpha), W(bySupplier[order[k]]), full ? 2.2f : 1.2f, 1.5f + .08f * Vector3.Distance(foot, land.Market(order[k])));
+                Arc(b, foot + Vector3.up * .5f, land.Market(order[k]) + Vector3.up * .3f, WithAlpha(Amber, alpha), W(bySupplier[order[k]]), C(full ? 2.2f : 1.2f), 1.5f + .08f * Vector3.Distance(foot, land.Market(order[k])));
             if (p.Industry >= 0 && workers > 0)
-                Arc(b, foot + Vector3.up * .4f, land.Market(p.Industry) + Vector3.up * .5f, WithAlpha(Blue, alpha), W(workers), full ? 2.2f : 1.2f, 1.2f);
+                Arc(b, foot + Vector3.up * .4f, land.Market(p.Industry) + Vector3.up * .5f, WithAlpha(Blue, alpha), W(workers), C(full ? 2.2f : 1.2f), 1.2f);
             // The future: investment and research leave forward over the crest, in the fear and desire lanes.
             double future = p.Invest + p.Research;
             if (future > 0)
@@ -203,22 +215,26 @@ namespace Why.Economy.Layers
                 for (int s = 0; s < path.Length; s++) { float u = s / 24f; path[s] = Vector3.Lerp(Vector3.Lerp(halo, lip, u), Vector3.Lerp(lip, ahead, u), u); }
                 Lanes(fill, b, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), p.Defensive, alpha, t);
             }
-            if (p.Owners > 0) Arc(b, halo + Vector3.up * .4f, land.CloudCenter, WithAlpha(Gold, alpha), W(p.Owners), full ? 3f : 1.6f, 4);
-            if (p.Attention > 0) Arc(b, halo + Vector3.up * .3f, attention, WithAlpha(Rose, alpha), W(p.Attention), full ? 2.6f : 1.4f, 3);
-            if (p.Deals > 0 && p.Industry >= 0) Arc(b, halo, land.Halo(p.Industry) + new Vector3(0, 1.5f, -2), WithAlpha(White, alpha * .9f), W(p.Deals), full ? 2.2f : 1.1f, 2.5f);
+            if (p.Owners > 0) Arc(b, halo + Vector3.up * .4f, land.CloudCenter, WithAlpha(Gold, alpha), W(p.Owners), C(full ? 3f : 1.6f), 4);
+            if (p.Attention > 0) Arc(b, halo + Vector3.up * .3f, attention, WithAlpha(Rose, alpha), W(p.Attention), C(full ? 2.6f : 1.4f), 3);
+            if (p.Deals > 0 && p.Industry >= 0) Arc(b, halo, land.Halo(p.Industry) + new Vector3(0, 1.5f, -2), WithAlpha(White, alpha * .9f), W(p.Deals), C(full ? 2.2f : 1.1f), 2.5f);
             if (p.State > 0)
             {
                 Vector3 down = new Vector3(foot.x, HillLandscape.Bedrock + .3f, Mathf.Min(foot.z, land.CrestZ - 1));
                 var drop = new LinePoint[12];
-                for (int s = 0; s < drop.Length; s++) drop[s] = new LinePoint(Vector3.Lerp(foot, down, s / 11f), WithAlpha(Steel, alpha), W(p.State), 0, full ? 2 : 1.1f);
+                for (int s = 0; s < drop.Length; s++) drop[s] = new LinePoint(Vector3.Lerp(foot, down, s / 11f), WithAlpha(Steel, alpha), W(p.State), 0, C(full ? 2 : 1.1f));
                 b.AddFlowPath(drop, 0, .5f, t * .3f);
             }
             if (!double.IsNaN(p.Lobbying) && p.Lobbying > 0)
-                Arc(b, foot, seats + Vector3.up * 2, WithAlpha(Steel, alpha * (full ? 1 : .6f)), full ? 1.6f : .8f, full ? 2.6f : 1, 2);
+                Arc(b, foot, seats + Vector3.up * 2, WithAlpha(Steel, alpha * (full ? 1 : .6f)), full ? 1.6f : .8f, C(full ? 2.6f : 1), 2);
         }
 
+        /// <summary>An intensity no higher than <see cref="cap"/>: hue-coded marks stay below the bloom unless chosen.</summary>
+        float C(float intensity) => Mathf.Min(intensity, cap);
+
         /// <summary>Which way the money moves the firm: an arrow for each direction Jev gave at least a fifth of its weight,
-        /// as long as its probability (spreading across: a ring around the firm).</summary>
+        /// as long as its probability (spreading across: a ring around the firm). Judgments, not dollars: drawn below the
+        /// bloom, so they never outshine the money.</summary>
         void Arrows(LineMeshBuilder b, int t, CorporatePrograms.Firm p)
         {
             if (!p.Judged) return;
@@ -228,12 +244,12 @@ namespace Why.Economy.Layers
                 float w = p.Direction[d]; if (w < .2f) continue;
                 float length = 5 + 16 * w; Color c = WithAlpha(White, .5f + .5f * w); float width = 2.4f + 5 * w;
                 Vector3 dir = Way(d, at, snapshot.Year);
-                if (dir == Vector3.zero) { Ring(b, at, 1.2f + 3 * w, c, width, 1.6f + 2 * w); continue; }
+                if (dir == Vector3.zero) { Ring(b, at, 1.2f + 3 * w, c, width, 1); continue; }
                 dir = dir.normalized; Vector3 tip = at + dir * length;
-                b.AddSegment(at, tip, c, width, 0, 0, 1.8f + 2.5f * w);
+                b.AddSegment(at, tip, c, width, 0, 0);
                 Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
-                b.AddSegment(tip, tip - dir * 2f + side * 1.2f, c, width, 0, 0, 1.8f + 2.5f * w);
-                b.AddSegment(tip, tip - dir * 2f - side * 1.2f, c, width, 0, 0, 1.8f + 2.5f * w);
+                b.AddSegment(tip, tip - dir * 2f + side * 1.2f, c, width, 0, 0);
+                b.AddSegment(tip, tip - dir * 2f - side * 1.2f, c, width, 0, 0);
             }
         }
 
@@ -244,21 +260,29 @@ namespace Why.Economy.Layers
             int named = 0;
             if (p != null)
             {
+                // a chosen firm's marks may bloom (a highlight), pulses too; the default largest investor's stay in their hues
+                cap = focusChosen ? float.MaxValue : 1;
+                focusRenderer.sharedMaterial.SetFloat("_Flow", focusChosen ? 1 : Pulse);
                 Streams(b, fill, focused, p, .95f, true);
                 Trail(b, fill, focused, p, .95f, true);
+                cap = 1;
                 named = NameTrail(p);
                 var bySupplier = new double[land.Hills.Length];
                 CorporatePrograms.SplitOperations(p, ValueCapture.Get(), out double suppliers, out double workers, bySupplier);
                 string D(int d) => CorporatePrograms.DirectionShort[d] + " " + LandFacts.Percent(p.Direction[d]);
                 var dirs = new List<int>(); for (int d = 0; d < CorporatePrograms.Directions; d++) dirs.Add(d);
                 dirs.Sort((a, c) => p.Direction[c].CompareTo(p.Direction[a]));
+                // the investment's split is Jev's judgment, named as such with its confidence (at most one half for every firm),
+                // so it is not read as the year readout's model fear share of household spending. The line wraps in the panel
+                // (for every firm in landscape): the bracket, the demand share and the lobbying each stay whole (<nobr>), never split
                 string text = "<b>" + p.Name + "</b> · " + p.Period + (double.IsNaN(p.Revenue) ? "" : " · revenue " + LandFacts.Money(p.Revenue)) +
                     "\n<color=#FFCC85>runs the business " + LandFacts.Money(p.Operations) + "</color> (suppliers ≈ " + LandFacts.Money(suppliers) + " · <color=#6FB6FF>workers ≈ " + LandFacts.Money(workers) + "</color>)" +
-                    "\ninvests " + LandFacts.Money(p.Invest) + (p.Research > 0 ? " + research " + LandFacts.Money(p.Research) : "") + ": <color=#4FB8FF>fear " + LandFacts.Percent(p.Defensive) +
-                    "</color> · <color=#FF5C8A>desire " + LandFacts.Percent(1 - p.Defensive) + "</color> · AI " + LandFacts.Percent(p.Ai) +
+                    "\ninvests " + LandFacts.Money(p.Invest) + (p.Research > 0 ? " + research " + LandFacts.Money(p.Research) : "") + ": <color=#4FB8FF>defensive " + LandFacts.Percent(p.Defensive) +
+                    "</color>" + (p.Judged ? " <nobr>(Jev, confidence " + p.DefensiveConfidence.ToString("0.00", LandFacts.Ci) + " of 1)</nobr>" : "") +
+                    " · <nobr><color=#FF5C8A>for new demand " + LandFacts.Percent(1 - p.Defensive) + "</color></nobr> · AI " + LandFacts.Percent(p.Ai) +
                     "\n" + (p.Attention > 0 ? "<color=#FF5C8A>advertising " + LandFacts.Money(p.Attention) + "</color> · " : "") + (p.Deals > 0 ? "deals " + LandFacts.Money(p.Deals) + " · " : "") +
                     "<color=#FFB347>owners " + LandFacts.Money(p.Owners) + "</color> · taxes " + LandFacts.Money(p.State) +
-                    (double.IsNaN(p.Lobbying) ? "" : " · lobbying $" + p.Lobbying.ToString("0.0", LandFacts.Ci) + "M") +
+                    (double.IsNaN(p.Lobbying) ? "" : " · <nobr>lobbying $" + p.Lobbying.ToString("0.0", LandFacts.Ci) + "M</nobr>") +
                     "\n<b>which way its money moves it</b> (Jev): " + D(dirs[0]) + " · " + D(dirs[1]) + " · " + D(dirs[2]) +
                     (string.IsNullOrEmpty(p.Strategy) ? "" : "\n\n<size=90%><i>What it says: " + p.Strategy + "</i></size>");
                 FocusText = text;
@@ -302,11 +326,11 @@ namespace Why.Economy.Layers
                     // trail reads from afar where the lanes are too narrow to split
                     var spine = new LinePoint[path.Length]; Color motive = WithAlpha(Color.Lerp(Rose, Ice, y.Defensive), Mathf.Min(1, alpha * 1.4f));
                     float px = (full ? 2 : 1) + Mathf.Sqrt((float)future) * (full ? .6f : .3f);
-                    for (int s = 0; s < path.Length; s++) spine[s] = new LinePoint(path[s] + Vector3.up * .05f, motive, px, 0, full ? 2.2f : 1.4f);
+                    for (int s = 0; s < path.Length; s++) spine[s] = new LinePoint(path[s] + Vector3.up * .05f, motive, px, 0, C(full ? 2.2f : 1.4f));
                     b.AddFlowPath(spine, t, .5f, t * .29f);
                 }
                 Vector3 c = TrailAt(life, p, mid) + Vector3.up * .2f;
-                if (y.Owners > 0) b.AddSegment(c, c + Vector3.up * Stalk(y, full), WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, 0, full ? 2.4f : 1.4f);
+                if (y.Owners > 0) b.AddSegment(c, c + Vector3.up * Stalk(y, full), WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, 0, C(full ? 2.4f : 1.4f));
                 if (full && y.Judged) Chevron(b, c + Vector3.up * .3f, y, y.Year);
             }
         }
@@ -324,7 +348,7 @@ namespace Why.Economy.Layers
         static float Stalk(CorporatePrograms.Firm y, bool full) => Mathf.Sqrt((float)Math.Max(0, y.Owners)) * (full ? .75f : .4f);
 
         /// <summary>Names the focused trail's first year and every year whose main direction turned from the year before
-        /// (its way, fear and AI shares), above its stalk; returns how many names it used.</summary>
+        /// (its way, defensive and AI shares), above its stalk; returns how many names it used.</summary>
         int NameTrail(CorporatePrograms.Firm p)
         {
             int used = 0, life = LifeOf(focused);
@@ -336,7 +360,7 @@ namespace Why.Economy.Layers
                 while (trailLabels.Count <= used) trailLabels.Add(Label("", Vector3.zero, .3f, Color.Lerp(White, Steel, .15f), -1));
                 if (!Stretch(y, out _, out _, out double mid)) continue;
                 var label = trailLabels[used++];
-                label.text = "<b>" + y.Year + "</b> " + (y.Judged ? CorporatePrograms.DirectionShort[y.Main] + "\nfear " + LandFacts.Percent(y.Defensive) + " · AI " + LandFacts.Percent(y.Ai) : "");
+                label.text = "<b>" + y.Year + "</b> " + (y.Judged ? CorporatePrograms.DirectionShort[y.Main] + "\ndefensive " + LandFacts.Percent(y.Defensive) + " · AI " + LandFacts.Percent(y.Ai) : "");
                 label.transform.localPosition = TrailAt(life, p, mid) + Vector3.up * (Stalk(y, true) + 1.8f);
             }
             return used;
@@ -367,12 +391,12 @@ namespace Why.Economy.Layers
             int d = y.Main; float w = y.Direction[d];
             Color c = WithAlpha(White, .45f + .5f * w); float width = 2f + 2.5f * w;
             Vector3 dir = Way(d, at, year);
-            if (dir == Vector3.zero) { Ring(b, at, .5f + 1.2f * w, c, width, 1.6f + w); return; }
+            if (dir == Vector3.zero) { Ring(b, at, .5f + 1.2f * w, c, width, C(1.6f + w)); return; }
             dir = dir.normalized; Vector3 tip = at + dir * (1.2f + 2.8f * w);
-            b.AddSegment(at, tip, c, width, 0, 0, 1.6f + 2 * w);
+            b.AddSegment(at, tip, c, width, 0, 0, C(1.6f + 2 * w));
             Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
-            b.AddSegment(tip, tip - dir * .8f + side * .5f, c, width, 0, 0, 1.6f + 2 * w);
-            b.AddSegment(tip, tip - dir * .8f - side * .5f, c, width, 0, 0, 1.6f + 2 * w);
+            b.AddSegment(tip, tip - dir * .8f + side * .5f, c, width, 0, 0, C(1.6f + 2 * w));
+            b.AddSegment(tip, tip - dir * .8f - side * .5f, c, width, 0, 0, C(1.6f + 2 * w));
         }
 
         /// <summary>Which way a direction points from a place in a year: climbing toward the tech tier, reaching down toward
@@ -390,22 +414,24 @@ namespace Why.Economy.Layers
             }
         }
 
-        /// <summary>The focused firm's years as rows for the panel: investment and research, owners' payout, the fear share
-        /// of its investment, the AI share and the main way its money moved it, each judged on the year's numbers alone.</summary>
+        /// <summary>The focused firm's years as rows for the panel: investment and research, owners' payout, the defensive
+        /// share of its investment, the AI share and the main way its money moved it, each judged on the year's numbers alone.</summary>
         static string HistoryRows(CorporatePrograms.Firm p)
         {
             if (p.History.Length == 0) return "";
             var h = p.History; var sb = new System.Text.StringBuilder();
+            // "defensive" is the tightest header for its column: from 51% it ends about two letters (10 units at 10.5 pt) before
+            // the AI column at 65%
             sb.Append("<b>THE TRAIL</b> · ").Append(h[0].Year).Append('-').Append(h[h.Length - 1].Year)
               .Append(" from its 10-Ks (SEC XBRL); Jev judged each year on its numbers alone\n")
-              .Append("<color=#9AA8B8>year<pos=17%>invest + R&D<pos=40%>owners<pos=55%>fear<pos=65%>AI<pos=75%>way</color>\n");
+              .Append("<color=#9AA8B8>year<pos=17%>invest + R&D<pos=39%>owners<pos=51%>defensive<pos=65%>AI<pos=74%>way</color>\n");
             foreach (var y in h)
             {
                 sb.Append(y.Year);
                 if (!string.IsNullOrEmpty(y.FiscalYear) && y.FiscalYear != "FY" + y.Year) sb.Append(" <size=75%>").Append(y.FiscalYear).Append("</size>");
-                sb.Append("<pos=17%>").Append(LandFacts.Money(y.Invest + y.Research)).Append("<pos=40%><color=#FFB347>").Append(LandFacts.Money(y.Owners))
-                  .Append("</color><pos=55%><color=#4FB8FF>").Append(y.Judged ? LandFacts.Percent(y.Defensive) : "-").Append("</color><pos=65%>")
-                  .Append(y.Judged ? LandFacts.Percent(y.Ai) : "-").Append("<pos=75%>").Append(y.Judged ? CorporatePrograms.DirectionShort[y.Main] : "-").Append('\n');
+                sb.Append("<pos=17%>").Append(LandFacts.Money(y.Invest + y.Research)).Append("<pos=39%><color=#FFB347>").Append(LandFacts.Money(y.Owners))
+                  .Append("</color><pos=51%><color=#4FB8FF>").Append(y.Judged ? LandFacts.Percent(y.Defensive) : "-").Append("</color><pos=65%>")
+                  .Append(y.Judged ? LandFacts.Percent(y.Ai) : "-").Append("<pos=74%>").Append(y.Judged ? CorporatePrograms.DirectionShort[y.Main] : "-").Append('\n');
             }
             var last = h[h.Length - 1];
             if (last.Judged && p.Judged && last.Main != p.Main)
@@ -429,10 +455,10 @@ namespace Why.Economy.Layers
                 var p = programs.OfTower(Tower(t)); if (p == null || Array.IndexOf(Hyperscalers, p.Ticker) < 0) continue;
                 double ai = p.Invest * p.Ai; if (ai <= 0) continue; total += ai;
                 Vector3 halo = HillActivityLayer.CompanyHalo(t);
-                Arc(b, halo + Vector3.up * .6f, land.Market(hardware.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .6f), .8f + Mathf.Sqrt((float)(ai * toChips)) * .45f, 2.2f, 6);
-                Arc(b, halo + Vector3.up * .6f, land.Market(construction.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .5f), .8f + Mathf.Sqrt((float)(ai * (1 - toChips))) * .45f, 1.8f, 6);
+                Arc(b, halo + Vector3.up * .6f, land.Market(hardware.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .6f), .8f + Mathf.Sqrt((float)(ai * toChips)) * .45f, 1, 6);
+                Arc(b, halo + Vector3.up * .6f, land.Market(construction.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .5f), .8f + Mathf.Sqrt((float)(ai * (1 - toChips))) * .45f, 1, 6);
             }
-            Lines(b, Part.Cascade, true).sharedMaterial.SetFloat("_FlowSpeed", .8f);
+            Lines(b, Part.Cascade, true, false).sharedMaterial.SetFloat("_FlowSpeed", .8f);
             if (total > 0)
                 Label("<b>THE AI BUILD-OUT POURS DOWN THE HILL</b>\nthe hyperscalers' AI investment ≈ " + LandFacts.Money(total) + " (their investment × the AI share Jev judged)" +
                       "\n→ computers & chips " + LandFacts.Percent(toChips) + " · data-center buildings " + LandFacts.Percent(1 - toChips) + " (US 2025: computers $" + computers.ToString("0", LandFacts.Ci) +
@@ -491,9 +517,9 @@ namespace Why.Economy.Layers
                     Vector3 d = path[Math.Min(k + 1, path.Length - 1)] - path[Math.Max(0, k - 1)];
                     Vector3 normal = Vector3.Cross(d, Vector3.up); normal = normal.sqrMagnitude > 1e-6f ? normal.normalized : Vector3.right;
                     left[k] = path[k] + normal * e0; right[k] = path[k] + normal * e1;
-                    mid[k] = new LinePoint((left[k] + right[k]) * .5f, hue, 1.2f, 0, 2);
+                    mid[k] = new LinePoint((left[k] + right[k]) * .5f, hue, 1.2f, 0, C(2));
                 }
-                fill.AddBand(left, right, new[] { (Color32)hue }, 0, 1.1f); b.AddFlowPath(mid, 0, 1, id * .41f + lane * .2f);
+                fill.AddBand(left, right, new[] { (Color32)hue }, 0, C(1.1f)); b.AddFlowPath(mid, 0, 1, id * .41f + lane * .2f);
             }
         }
 
@@ -504,10 +530,10 @@ namespace Why.Economy.Layers
             b.AddPolyline(pts, color, width, 0, 0, intensity);
         }
 
-        MeshRenderer Lines(LineMeshBuilder b, Part part, bool flow)
+        MeshRenderer Lines(LineMeshBuilder b, Part part, bool flow, bool additive)
         {
             Mesh mesh = b.ToMesh("Strategy " + part); owned.Add(mesh);
-            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3236, true, 0, flow ? 1 : 0)); owned.Add(material);
+            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3236, additive, 0, flow ? Pulse : 0)); owned.Add(material);
             if (flow) { material.SetFloat("_FlowFreq", 1.6f); material.SetFloat("_FlowSpeed", .5f); }
             var r = AddMesh("Strategy " + part, mesh, material); r.transform.SetParent(content.transform, false);
             renderers.Add((r, part)); return r;

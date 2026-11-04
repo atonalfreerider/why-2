@@ -22,6 +22,10 @@ namespace Why.Economy.Layers
     /// manufactured want, ice toward sold fear. Values are approximate.</para>
     /// <para>Thin blue threads carry the population's lifelines from the road out to the cohorts they form at the crest:
     /// the cross-section of the people, expanded into the economy.</para>
+    /// <para>An arrow lies along time at the crest's far end, pointing into the future whichever way the camera looks; a
+    /// crest that stands back in time (view "y1972") is outlined by today's for scale.</para>
+    /// <para>Data lines blend at intensity 1 at most, so their hues stay true where they cross and nothing blooms; the
+    /// line under the pointer is the one highlight (<see cref="GraphStyle.HighlightGlow"/>).</para>
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillWaveLayer : GraphLayer
@@ -59,16 +63,35 @@ namespace Why.Economy.Layers
             return true;
         }
         public static int SelectedCompany { get; private set; } = -1;
-        enum Part { Ribs, Ridges, Face, Crest, Spray, Lives, Focus, Fan, Future, Count }
+        enum Part { Ribs, Ridges, Face, Crest, Spray, Lives, Focus, Fan, Future, Saving, Arrow, Ghost, Plate, Count }
         static readonly Color Steel = new Color(.46f, .58f, .72f), Ice = new Color(.62f, .84f, 1), White = new Color(1, .96f, .9f),
             People = new Color(.36f, .62f, 1);
+        /// <summary>Label groups beside the companies' (an index into CompanyLives.Lives): the wave's structure (named in its
+        /// own views, everywhere when "always"), the road's fan where it meets the wave (not in 1972's view, where the road
+        /// runs on past the crest), the rivers' saving and debt, an earlier crest beside today's, the families' fan, the arrow
+        /// of time.</summary>
+        const int Structure = -1, Road = -2, Rivers = -3, Earlier = -4, Families = -5, TimeArrow = -6;
+        /// <summary>How far a flow's pulse brightens a data line (1 = the shader's fourfold): a sheen that shows the
+        /// direction and stays under the bloom, which starts above 1.</summary>
+        const float Pulse = .2f;
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
         readonly List<(TextMeshPro text, int company, bool always)> labels = new List<(TextMeshPro, int, bool)>();
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         readonly List<(int company, Vector3 at)> samples = new List<(int, Vector3)>();
         readonly Dictionary<int, List<LinePoint>> paths = new Dictionary<int, List<LinePoint>>();
+        /// <summary>The lifelines that end at a stored firm's tower (the firms the strategy view tells).</summary>
+        readonly HashSet<int> towered = new HashSet<int>();
         string livesJson, judgmentsJson;
         LandSnapshot snapshot; HillLandscape land; CompanyLives lives; GameObject content;
+        /// <summary>Today's land (<see cref="Latest"/>), kept from when it was on screen or built once, for the outline of
+        /// today's crest over an earlier one.</summary>
+        HillLandscape today;
+        /// <summary>The crest is drawn beside today's (<see cref="BesideToday"/>): today's outline, the tiers' shares then and
+        /// now, and the names read over both crests. Set by a rebuild's first half for both halves.</summary>
+        bool besideToday;
+        /// <summary>The labels read over the crest's lines when it is drawn beside today's: a copy of the font's material drawn
+        /// after the hills (text keeps the font's queue, before every line and surface, elsewhere).</summary>
+        Material raisedText;
         MeshRenderer focus; TextMeshPro focusLabel;
         int focused = -2, programRevision = -1; Vector2 pressed; LandFrame frame;
         /// <summary>1 while a rebuild has drawn its first half and waits for a frame for its second (see <see cref="Begin"/>).</summary>
@@ -84,7 +107,8 @@ namespace Why.Economy.Layers
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null) return;
             int revision = PlayerMindProgram.Active?.Revision ?? -1;
-            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || revision != programRevision)
+            // 1972's view draws today's crest beside the one it shows: entered or left on the same year, the wave is rebuilt
+            if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || revision != programRevision || BesideToday(HillLandscapeLayer.Current) != besideToday)
             {
                 if (!HillRebuilds.Take()) return;
                 programRevision = revision; Begin();
@@ -102,20 +126,50 @@ namespace Why.Economy.Layers
             foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, Emphasis(e.part, view));
             Pick(rig.Cam);
             int f = HoverCompany >= 0 ? HoverCompany : SelectedCompany;
+            // the spending view tells the stored firms at their towers: a company clicked in another view is neither lit nor
+            // carded there (the pointer only finds the stored firms' lines, see Pick)
+            if (view == "strategy" && f >= 0 && !towered.Contains(f)) f = -1;
             if (f != focused) { focused = f; DrawFocus(); }
             bool companies = view == "companies" || view == "landscape" || view == "overview";
+            // the structure is named in the views of the whole wave and in 1972's, where the crest stands back in time
+            bool structure = companies || view == "foundation" || view == "y1972";
             foreach (var e in labels)
             {
-                bool show = view == "section" ? false : e.company == -3 ? view == "rivers" : e.company < 0 ? e.always || view == "landscape" || view == "companies" || view == "overview" || view == "foundation"
-                    : e.company == f || companies && e.always;
+                // the money chart stands in front of the wave: none of the wave's labels may read as the chart's
+                bool show = view != "money" && (e.company == Families ? view == "section" : view != "section" && (e.company == Rivers ? view == "rivers"
+                    : e.company == Earlier ? view == "y1972" : e.company == Road ? companies || view == "foundation" : e.company == TimeArrow ? Emphasis(Part.Arrow, view) > 0
+                    : e.company < 0 ? e.always || structure : e.company == f || companies && e.always));
                 e.text.gameObject.SetActive(show);
                 if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
-            if (focusLabel) { focusLabel.gameObject.SetActive(f >= 0); focusLabel.transform.rotation = rig.Cam.transform.rotation; }
+            if (focusLabel)
+            {
+                bool card = f >= 0 && view != "money";
+                focusLabel.gameObject.SetActive(card);
+                if (card) { focusLabel.transform.rotation = rig.Cam.transform.rotation; FitCard(rig); }
+            }
+        }
+
+        /// <summary>The hover card's size on screen (px per em at 1080 lines): a card sized in the world is a few pixels tall
+        /// from the overview and, from the close views (strategy), has letters 40 px tall across the legend.</summary>
+        const float CardMinPx = 14, CardMaxPx = 22, CardSize = .3f;
+
+        void FitCard(CameraRig rig)
+        {
+            // TextMeshPro sets 2.4 world units per em for its font size 24 at scale 1
+            float ppu = rig.PixelsPerUnit(focusLabel.transform.position), em = 2.4f * CardSize * LabelScale * ppu * 1080f / Mathf.Max(1, rig.Cam.pixelHeight);
+            float k = em > 1e-3f ? Mathf.Clamp(em, CardMinPx, CardMaxPx) / em : 1;
+            focusLabel.transform.localScale = Vector3.one * CardSize * LabelScale * k;
         }
 
         float Emphasis(Part part, string view)
         {
+            // Today's crest outlined over an earlier one belongs to 1972's view, with the plate behind the crest's name that both
+            // lines cross; the arrow of time to the views of the whole wave (from the foundation's low pose it falls in the
+            // corner under the title).
+            if (part == Part.Ghost) return view == "y1972" ? .6f : 0;
+            if (part == Part.Plate) return view == "y1972" ? 1 : 0;
+            if (part == Part.Arrow) return view == "overview" || view == "landscape" || view == "companies" || view == "y1972" ? .85f : 0;
             bool person = EconomyState.SelectedPlayer >= 0;
             if (PersonFocus.IsView(view))
             {
@@ -130,6 +184,19 @@ namespace Why.Economy.Layers
                     case Part.Spray: return .04f;
                     case Part.Focus: return 1;
                     default: return .04f;
+                }
+            }
+            if (view == "money")
+            {
+                // The chart stands in front of the wave on the same time axis: a bright crest would climb past the chart's 20%
+                // rule like a fifth series, so only the ribs remain, as the ground of the years.
+                switch (part)
+                {
+                    case Part.Ribs: return .1f;
+                    case Part.Ridges: return .06f;
+                    case Part.Face: return .05f;
+                    case Part.Crest: return .06f;
+                    default: return 0;
                 }
             }
             if (EconomyViews.Focused(view))
@@ -151,14 +218,19 @@ namespace Why.Economy.Layers
             {
                 case Part.Ribs: return view == "landscape" ? .85f : view == "overview" || view == "companies" ? .55f : view == "section" ? .3f : view == "society" || view == "betrayal" ? .08f : .22f;
                 case Part.Ridges: return view == "landscape" ? 1 : view == "overview" ? .7f : view == "companies" ? .45f : view == "roots" ? .4f : .2f;
-                case Part.Face: return view == "landscape" || view == "foundation" ? 1 : view == "overview" ? .8f : view == "society" || view == "betrayal" ? .15f : .4f;
-                case Part.Crest: return view == "society" || view == "betrayal" ? .3f : 1;
+                // The rivers tell desire and fear: the gold face and the crest step back below them.
+                case Part.Face: return view == "landscape" || view == "foundation" ? 1 : view == "overview" ? .8f : view == "society" || view == "betrayal" ? .15f : view == "rivers" ? .25f : .4f;
+                case Part.Crest: return view == "society" || view == "betrayal" || view == "rivers" ? .3f : 1;
                 // The front breaking forward is the wave's own image: full in its views, a trace where another story leads.
                 case Part.Spray: return view == "overview" || view == "landscape" || view == "companies" ? .8f : view == "section" || view == "y1972" ? .5f : .12f;
                 case Part.Lives: return (view == "companies" ? 1 : view == "overview" || view == "landscape" ? .75f : view == "capture" ? .3f : view == "roots" ? .25f : .1f) * (person ? .4f : 1);
                 case Part.Focus: return 1;
-                case Part.Fan: return view == "people" ? .7f : view == "section" ? .5f : view == "overview" ? .14f : .04f;
-                case Part.Future: return view == "rivers" ? .9f : view == "people" ? .35f : view == "overview" ? .12f : .04f;
+                // The families' view: the fan is named there and steps back so the family links read.
+                case Part.Fan: return view == "people" ? .7f : view == "section" ? .35f : view == "overview" ? .14f : .04f;
+                // The rivers view is the households' spending split rose / ice: saving (gold) and the debts arriving from the
+                // future (most households' mix of motives, which blends to near white) step back below it.
+                case Part.Future: return view == "rivers" ? .3f : view == "people" ? .35f : view == "overview" ? .12f : .04f;
+                case Part.Saving: return view == "rivers" ? .3f : view == "people" ? .35f : view == "overview" ? .12f : .04f;
             }
             return 1;
         }
@@ -174,19 +246,20 @@ namespace Why.Economy.Layers
         {
             if (stage == 1) Clear();   // the land changed again before the second half
             else Retire();
-            snapshot = LandService.Current; land = HillLandscapeLayer.Current;
+            snapshot = LandService.Current; land = HillLandscapeLayer.Current; besideToday = BesideToday(land);
             CompanyLives.Provide(LandService.Model.Data, livesJson, judgmentsJson); lives = CompanyLives.Get();
             content = new GameObject("Economy wave"); content.transform.SetParent(transform, false); content.SetActive(false);
-            Wake(); Face();
+            Wake(); Face(); Arrow();
             stage = 1;
         }
 
-        /// <summary>A rebuild's second half: the company lifelines, the fan and the future, then the swap.</summary>
+        /// <summary>A rebuild's second half: the company lifelines, the fan, the future and an earlier crest beside today's,
+        /// then the swap.</summary>
         void Finish()
         {
-            Lifelines(); Fan(); Future();
+            Lifelines(); Fan(); Future(); ThenAndNow();
             focus = Lines(new LineMeshBuilder(), Part.Focus, true, true); focused = -2;
-            focusLabel = Label("", Vector3.zero, .3f, White);
+            focusLabel = Label("", Vector3.zero, CardSize, White);
             DropRetired();
             content.SetActive(true);
             stage = 0;
@@ -210,8 +283,8 @@ namespace Why.Economy.Layers
                 pts.Clear();
                 for (float x = HillLandscape.FootX - 8; x <= end; x += 1.25f) pts.Add(new Vector3(x, land.Ground(x, z) + .03f, z));
                 bool decade = y % 10 == 0, lustrum = y % 5 == 0;
-                ribs.AddPolyline(pts, WithAlpha(Steel, decade ? .55f : lustrum ? .26f : .10f), decade ? 1.3f : .8f, 0, 0, decade ? 1.4f : 1);
-                if (decade) labels.Add((Label(y.ToString(LandFacts.Ci), new Vector3(HillLandscape.FootX - 9, 1.2f, z), .3f, Ice), -1, true));
+                ribs.AddPolyline(pts, WithAlpha(Steel, decade ? .55f : lustrum ? .26f : .10f), decade ? 1.3f : .8f, 0, 0, 1);
+                if (decade) labels.Add((Label(y.ToString(LandFacts.Ci), new Vector3(HillLandscape.FootX - 9, 1.2f, z), .3f, Ice), Structure, true));
             }
             var line = new List<LinePoint>();
             for (int i = 0; i < land.Hills.Length; i++)
@@ -222,7 +295,7 @@ namespace Why.Economy.Layers
                 for (float y = land.FirstYear; y <= land.Year + .001f; y += .5f)
                 {
                     float z = HillLandscape.Z(y), x = land.RidgeAt(y, i).x;
-                    line.Add(new LinePoint(new Vector3(x, land.RidgeTopAt(y, i) + .05f, z), c, 1.2f, 0, 1.2f));
+                    line.Add(new LinePoint(new Vector3(x, land.RidgeTopAt(y, i) + .05f, z), c, 1.2f, 0, 1));
                 }
                 ridges.AddPolyline(line, 0);
             }
@@ -233,7 +306,7 @@ namespace Why.Economy.Layers
                 for (int y = land.FirstYear; y <= land.Year; y++)
                 {
                     Vector2 band = land.TierBand(y, Math.Min(k, 4)); float x = k <= 4 ? band.x : band.y, z = HillLandscape.Z(y);
-                    line.Add(new LinePoint(new Vector3(x, land.Strata(x, z) + .05f, z), WithAlpha(Steel, .6f), 1, 0, 1.3f));
+                    line.Add(new LinePoint(new Vector3(x, land.Strata(x, z) + .05f, z), WithAlpha(Steel, .6f), 1, 0, 1));
                 }
                 ridges.AddPolyline(line, 0);
             }
@@ -252,7 +325,7 @@ namespace Why.Economy.Layers
             var low = new List<Vector3>(); var high = new List<Vector3>();
             for (float x = x0; x <= x1; x += 1) { low.Add(new Vector3(x, HillLandscape.Bedrock, z)); high.Add(new Vector3(x, 0, z)); }
             fill.AddBand(low, high, new[] { (Color32)WithAlpha(tier[0], alpha[0]) }, 0, 1);
-            lines.AddPolyline(low, WithAlpha(Steel, .5f), 1, 0, 0, 1.2f);
+            lines.AddPolyline(low, WithAlpha(Steel, .5f), 1, 0, 0, 1);
             for (int k = 1; k <= 4; k++)
             {
                 low.Clear(); high.Clear(); var top = new List<Vector3>();
@@ -262,19 +335,25 @@ namespace Why.Economy.Layers
                     low.Add(new Vector3(x, a, z)); high.Add(new Vector3(x, b, z)); top.Add(new Vector3(x, b + .02f, z));
                 }
                 fill.AddBand(low, high, new[] { (Color32)WithAlpha(tier[k], alpha[k]) }, 0, 1.2f);
-                lines.AddPolyline(top, WithAlpha(Steel, .55f), 1, 0, 0, 1.2f);
+                lines.AddPolyline(top, WithAlpha(Steel, .55f), 1, 0, 0, 1);
                 Vector2 band = land.TierBand(year, k); float mid = (band.x + band.y) * .5f;
                 string[] names = { "", "RAW MATERIALS", "MANUFACTURING · INFRASTRUCTURE", "SERVICES", "TECH" };
-                labels.Add((Label(names[k], new Vector3(mid, (land.LayerAt(year, k - 1, mid) + land.LayerAt(year, k, mid)) * .5f, z + .3f), .5f, Color.Lerp(tier[k], White, .5f)), -1, false));
+                Vector3 at = new Vector3(mid, (land.LayerAt(year, k - 1, mid) + land.LayerAt(year, k, mid)) * .5f, z + .3f);
+                labels.Add((Label(names[k], at, .5f, Color.Lerp(tier[k], White, .5f), besideToday), Structure, false));
+                Then(k, at, Color.Lerp(tier[k], White, .5f));
             }
-            labels.Add((Label("GOVERNMENT · the bedrock everything stands on", new Vector3(HillLandscape.FootX + land.CrestWidth * .22f, HillLandscape.Bedrock * .5f, z + .3f), .5f, Ice), -1, false));
+            // beside today's crest the shares stand under the names: the bedrock's name steps down and up the hillside, clear
+            // of the raw materials' share above it and, in 1972's pose, of the wake's "1970" at the right end of its row
+            Vector3 bedrock = new Vector3(HillLandscape.FootX + land.CrestWidth * (besideToday ? .25f : .22f), HillLandscape.Bedrock * (besideToday ? .7f : .5f), z + .3f);
+            labels.Add((Label("GOVERNMENT · the bedrock everything stands on", bedrock, .5f, Ice, besideToday), Structure, false));
+            Then(0, bedrock, Ice);
             // The ridges above the strata at the crest, then the crest line itself, bright: the wave's leading edge.
             var ridgeFill = new List<Vector3>(); var strata = new List<Vector3>(); var edge = new List<LinePoint>();
             for (float x = x0; x <= x1; x += .5f)
             {
                 float s = land.LayerAt(year, 4, x), g = land.Ground(x, land.CrestZ);
                 strata.Add(new Vector3(x, s, z)); ridgeFill.Add(new Vector3(x, g, z));
-                edge.Add(new LinePoint(new Vector3(x, g + .05f, land.CrestZ), WithAlpha(White, .95f), 2.4f, 0, 3.2f));
+                edge.Add(new LinePoint(new Vector3(x, g + .05f, land.CrestZ), WithAlpha(White, .95f), 2.4f, 0, 1));
             }
             fill.AddBand(strata, ridgeFill, new[] { (Color32)WithAlpha(EconomyStyle.Capital, .22f) }, 0, 1.6f);
             crest.AddPolyline(edge, 0);
@@ -287,17 +366,102 @@ namespace Why.Economy.Layers
                 {
                     float t = s / 14f;
                     Vector3 p = new Vector3(x, g + 1.4f * Mathf.Sin(t * Mathf.PI * .6f) - g * .75f * t * t, land.CrestZ + 10 * t);
-                    arc.Add(new LinePoint(p, WithAlpha(Color.Lerp(White, EconomyStyle.Capital, .3f), .55f * (1 - t)), 1.2f, 0, 2));
+                    arc.Add(new LinePoint(p, WithAlpha(Color.Lerp(White, EconomyStyle.Capital, .3f), .55f * (1 - t)), 1.2f, 0, 1));
                 }
                 spray.AddFlowPath(arc, 0, .6f, x * .1f);
             }
-            labels.Add((Label("<b>" + year + "</b> · the crest: where value is being created now", new Vector3(HillLandscape.FootX + land.CrestWidth * .5f, land.Ground(HillLandscape.FootX + land.CrestWidth * .5f, land.CrestZ) + 12, land.CrestZ + 2), .36f, White), -1, true));
-            labels.Add((Label("FUTURE →  not yet made", new Vector3(HillLandscape.FootX + land.CrestWidth + 16, land.LayerAt(year, 4, HillLandscape.FootX + land.CrestWidth * .9f) + 14, land.CrestZ + 22), .5f, WithAlpha(Ice, .8f)), -1, false));
-            labels.Add((Label("THE WAKE · the economy's past, one rib a year", new Vector3(HillLandscape.FootX + land.SliceWidth((land.FirstYear + land.Year) / 2) * .5f, land.Ground(HillLandscape.FootX + 30, HillLandscape.Z((land.FirstYear + land.Year) / 2)) + 16, HillLandscape.Z((land.FirstYear + land.Year) / 2)), .32f, Ice), -1, false));
+            // beside today's crest, its own crest and today's outline both run through the name: it stands on a plate
+            labels.Add((Label("<b>" + year + "</b> · the crest: that year's economy", new Vector3(HillLandscape.FootX + land.CrestWidth * .5f, land.Ground(HillLandscape.FootX + land.CrestWidth * .5f, land.CrestZ) + 12, land.CrestZ + 2), .36f, White, plate: besideToday), Structure, true));
+            labels.Add((Label("THE WAKE · the economy's past, one rib a year", new Vector3(HillLandscape.FootX + land.SliceWidth((land.FirstYear + land.Year) / 2) * .5f, land.Ground(HillLandscape.FootX + 30, HillLandscape.Z((land.FirstYear + land.Year) / 2)) + 16, HillLandscape.Z((land.FirstYear + land.Year) / 2)), .32f, Ice), Structure, false));
             Surface(fill, Part.Face);
             Lines(lines, Part.Face, false, false);
-            var r = Lines(crest, Part.Crest, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .7f);
-            r = Lines(spray, Part.Spray, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .7f);
+            var r = Lines(crest, Part.Crest, true, false); r.sharedMaterial.SetFloat("_FlowFreq", 1.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .7f);
+            r = Lines(spray, Part.Spray, true, false); r.sharedMaterial.SetFloat("_FlowFreq", 1.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .7f);
+        }
+
+        /// <summary>The direction of time at the crest: an arrow laid along the wave's axis from the crest's far end out over
+        /// the front, named at its middle. It stands in the world, so it points the way time runs from any pose (an arrow in
+        /// text faces the camera and points screen-right: into the past, from every pose that looks back at the crest).</summary>
+        void Arrow()
+        {
+            var b = new LineMeshBuilder(); Color c = WithAlpha(Ice, .8f);
+            float x = HillLandscape.FootX + land.CrestWidth + 16, y = land.LayerAt(land.Year, 4, HillLandscape.FootX + land.CrestWidth * .9f) + 14, l = 2.2f;
+            Vector3 tail = new Vector3(x, y, land.CrestZ + 1), head = new Vector3(x, y, land.CrestZ + 22);
+            b.AddSegment(tail, head, c, 2, 0, 0, 1);
+            // the head: one chevron across the ground and one upright, so it reads from above and from the side
+            b.AddPolyline(new[] { head + new Vector3(-l * .6f, 0, -l), head, head + new Vector3(l * .6f, 0, -l) }, c, 2, 0, 0, 1);
+            b.AddPolyline(new[] { head + new Vector3(0, -l * .6f, -l), head, head + new Vector3(0, l * .6f, -l) }, c, 2, 0, 0, 1);
+            Lines(b, Part.Arrow, false, false);
+            int latest = Latest;
+            string after = land.Year >= latest ? "FUTURE · after " + land.Year + ", not yet made" : "LATER YEARS · " + (land.Year + 1) + " to " + latest;
+            labels.Add((Label(after, (tail + head) * .5f + Vector3.up * 5, .5f, c, besideToday), TimeArrow, false));
+        }
+
+        /// <summary>The present the wave is compared with: the year the land opens on (2025), which the views of the whole
+        /// wave frame as now.</summary>
+        static int Latest => EconomyState.DefaultYear(EconomyState.MaxYear);
+
+        /// <summary>Whether a land's crest is drawn beside today's: an earlier year in 1972's view, the only view that shows the
+        /// comparison. The years a replay or the scrubber passes through elsewhere build none of it.</summary>
+        static bool BesideToday(HillLandscape l) => LandView.PresetId == "y1972" && l.Year < Latest;
+
+        /// <summary>Under a tier's name on a crest that stands back in time (1972's view): the tier's share of all output then
+        /// and today (the bedrock is tier 0). Sized for that view's pose (HillPresets, 190 units away): TECH's, the farthest,
+        /// is 14 px an em at 1080 lines; a new pose needs them measured again.</summary>
+        void Then(int tier, Vector3 at, Color color)
+        {
+            if (!besideToday) return;
+            int latest = Latest; var data = LandService.Model.Data;
+            // TECH's, the longest line at the narrowest tier, steps toward the camera so it ends before the TECH crowns
+            labels.Add((Label(LandFacts.Percent(TierShare(data, tier, land.Year)) + " of all output · " + LandFacts.Percent(TierShare(data, tier, latest)) + " in " + latest,
+                tier == 4 ? at + new Vector3(0, -2.1f, 6) : at + Vector3.down * 3.1f, .43f, color, true), Earlier, false));
+        }
+
+        /// <summary>A tier's share of all industries' value added in a year (BEA, industries.json).</summary>
+        static double TierShare(Data.EconomyData data, int tier, int year)
+        {
+            double part = 0, all = 0;
+            foreach (var ind in data.Industries) { double v = Math.Max(0, ind.ValueAdded.GrowthAt(year)); all += v; if (ind.TierIndex == tier) part += v; }
+            return all > 0 ? part / all : 0;
+        }
+
+        /// <summary>All industries' value added in a year, in today's dollars.</summary>
+        static double RealOutput(Data.EconomyData data, int year)
+        {
+            double sum = 0;
+            foreach (var ind in data.Industries) sum += data.Real(Math.Max(0, ind.ValueAdded.GrowthAt(year)), year);
+            return sum;
+        }
+
+        /// <summary>
+        /// A crest that stands back in time beside today's (view "y1972"): today's crest outlined over it, at its place, so
+        /// the two compare where they stand (today's own place in time is where the camera stands to look back at 1972),
+        /// with how much more the economy makes after inflation; the road of lives runs on past the crest to now.
+        /// </summary>
+        void ThenAndNow()
+        {
+            int latest = Latest;
+            if (land.Year == latest) today = land;
+            if (!besideToday) return;
+            // only the year's geometry is read: the players placed on it are the shown year's
+            if (today == null || today.Year != latest) today = new HillLandscape(new LandSnapshot { Year = latest, Players = snapshot.Players });
+            var b = new LineMeshBuilder(); var outline = new List<LinePoint>();
+            // the label stands over the outline's middle tiers: clear of the year chip on the left and the arrow above the far end
+            float z = land.CrestZ + .15f, x1 = HillLandscape.FootX + today.CrestWidth + 18, mid = HillLandscape.FootX + today.CrestWidth * .4f, top = 0;
+            for (float x = HillLandscape.FootX - 8; x <= x1; x += .5f)
+            {
+                float g = today.Ground(x, today.CrestZ); if (Mathf.Abs(x - mid) < 25) top = Mathf.Max(top, g);
+                outline.Add(new LinePoint(new Vector3(x, g + .05f, z), WithAlpha(White, .7f), 1.4f, 0, 1));
+            }
+            b.AddPolyline(outline, 0);
+            Lines(b, Part.Ghost, false, false);
+            var data = LandService.Model.Data;
+            double growth = RealOutput(data, latest) / Math.Max(1e-9, RealOutput(data, land.Year));
+            labels.Add((Label("outline: the crest of <b>" + latest + "</b>, for scale\nthe economy makes " + growth.ToString("0.0", LandFacts.Ci) + " times as much as in " + land.Year + ", after inflation",
+                new Vector3(mid, top + 9, z + 1), .34f, White, true), Earlier, false));
+            // a few years past the crest: the road nearer now runs under the camera that looks back at the crest
+            Vector3 road = frame.Local(EconomyStage.OnRoad(Math.Min(land.Year + 6, latest), GraphStyle.HumansY, EconomyStyle.FramingRho));
+            labels.Add((Label("the road of lives continues to now", road + Vector3.up * 4, .3f, People, true), Earlier, false));
         }
 
         // ------------------------------------------------------------------ company lifelines
@@ -326,7 +490,7 @@ namespace Why.Economy.Layers
             {
                 Vector3 seat = land.FirmSeat(t.Industry, count[t.Industry], total[t.Industry]); count[t.Industry]++;
                 int life = lives.OfTower(t.Ticker, t.Name);
-                if (life >= 0) halo[life] = seat + Vector3.up * (2 + Mathf.Log10(1 + (float)Math.Max(0, t.MarketCap)) * 2.4f);
+                if (life >= 0) { halo[life] = seat + Vector3.up * (2 + Mathf.Log10(1 + (float)Math.Max(0, t.MarketCap)) * 2.4f); towered.Add(life); }
             }
             var ranked = new List<(double value, int life)>();
             for (int i = 0; i < lives.Lives.Length; i++)
@@ -338,12 +502,12 @@ namespace Why.Economy.Layers
                 for (int k = 0; k < path.Count; k += 4) samples.Add((i, path[k].Data));
                 // Birth on the ground of its ridge; death by its fate.
                 Vector3 first = path[0].Data, last = path[path.Count - 1].Data; Color c = path[0].Color;
-                if (l.Founded >= land.FirstYear) Ring(b, new Vector3(first.x, land.Ground(first.x, first.z) + .05f, first.z), .5f, WithAlpha(c, .8f), 1.4f, 2);
+                if (l.Founded >= land.FirstYear) Ring(b, new Vector3(first.x, land.Ground(first.x, first.z) + .05f, first.z), .5f, WithAlpha(c, .8f), 1.4f, 1);
                 int end = l.Alive || l.Ended > land.Year ? land.Year : l.Ended;
                 if (!l.Alive && l.Ended <= land.Year)
                 {
-                    if (l.Fate == "bankrupt") { b.AddSegment(last + new Vector3(-.6f, 0, -.6f), last + new Vector3(.6f, 0, .6f), WithAlpha(EconomyStyle.Defect, .9f), 2, 0, 0, 2); b.AddSegment(last + new Vector3(-.6f, 0, .6f), last + new Vector3(.6f, 0, -.6f), WithAlpha(EconomyStyle.Defect, .9f), 2, 0, 0, 2); }
-                    else Ring(b, last, .45f, WithAlpha(c, .9f), 1.6f, 2.2f);
+                    if (l.Fate == "bankrupt") { b.AddSegment(last + new Vector3(-.6f, 0, -.6f), last + new Vector3(.6f, 0, .6f), WithAlpha(EconomyStyle.Defect, .9f), 2, 0, 0, 1); b.AddSegment(last + new Vector3(-.6f, 0, .6f), last + new Vector3(.6f, 0, -.6f), WithAlpha(EconomyStyle.Defect, .9f), 2, 0, 0, 1); }
+                    else Ring(b, last, .45f, WithAlpha(c, .9f), 1.6f, 1);
                     string fate = l.Fate == "bankrupt" ? "failed " + l.Ended : l.Fate == "breakup" ? "broken up " + l.Ended
                         : (l.Fate == "acquired" ? "bought " : "merged ") + l.Ended + (l.Successor >= 0 ? " → " + lives.Lives[l.Successor].Name : l.SuccessorName != null ? " → " + l.SuccessorName : "");
                     labels.Add((Label(l.Name + " · " + fate, last + Vector3.up * 1.6f, .3f, Color.Lerp(c, White, .4f)), i, true));
@@ -357,7 +521,7 @@ namespace Why.Economy.Layers
                 int i = ranked[n].life; var path = paths[i]; Vector3 last = path[path.Count - 1].Data;
                 if (!halo.ContainsKey(i)) labels.Add((Label(lives.Lives[i].Name, last + Vector3.up * 1.6f, .3f, Color.Lerp(path[path.Count - 1].Color, White, .4f)), i, n < 14));
             }
-            Lines(b, Part.Lives, true, true).sharedMaterial.SetFloat("_FlowSpeed", .25f);
+            Lines(b, Part.Lives, true, false).sharedMaterial.SetFloat("_FlowSpeed", .25f);
         }
 
         /// <summary>A company's lifeline: from its birth (or the wake's first year) along its ridge, at the height of its
@@ -369,7 +533,8 @@ namespace Why.Economy.Layers
             float start = Mathf.Max(l.Founded, land.FirstYear), end = l.Alive || l.Ended > land.Year ? land.Year : l.Ended;
             if (end < start || start > land.Year) return null;
             Color color = Color.Lerp(EconomyStyle.Capital, EconomyStyle.Motive(l.FearShare), l.Judged ? Mathf.Clamp01(l.Persuaded) * .85f : 0);
-            float glow = 1.2f + .9f * (l.Judged ? l.LockedIn : 0);
+            // captive customers brighten a line a little, never past 1, where the bloom would wash its hue to white
+            float glow = .8f + .2f * (l.Judged ? Mathf.Clamp01(l.LockedIn) : 0);
             var path = new List<LinePoint>();
             float arrive = tower.HasValue ? (float)HillLandscape.YearAt(tower.Value.z) : end;
             for (float y = start; y <= end + .001f; y += .25f)
@@ -411,7 +576,7 @@ namespace Why.Economy.Layers
             if (focused >= 0 && paths.TryGetValue(focused, out var path))
             {
                 var bright = new List<LinePoint>(path.Count);
-                foreach (var p in path) bright.Add(new LinePoint(p.Data + Vector3.up * .02f, WithAlpha(p.Color, 1), p.WidthPx + 2.2f, 0, 4.5f));
+                foreach (var p in path) bright.Add(new LinePoint(p.Data + Vector3.up * .02f, WithAlpha(p.Color, 1), p.WidthPx + 2.2f, 0, GraphStyle.HighlightGlow));
                 b.AddFlowPath(bright, 0, .25f);
                 var l = lives.Lives[focused]; Vector3 at = path[path.Count - 1].Data;
                 double peak = l.Peak(out int peakYear);
@@ -430,20 +595,22 @@ namespace Why.Economy.Layers
         void Fan()
         {
             var b = new LineMeshBuilder();
-            Vector3 road = frame.Local(EconomyStage.OnRoad(land.Year, GraphStyle.HumansY, EconomyStyle.FramingRho));
+            Vector3 road = frame.Local(EconomyStage.OnRoad(land.Year, GraphStyle.HumansY, EconomyStyle.FramingRho)), toward = Vector3.zero; int n = 0;
             for (int i = 0; i < land.People.Length; i++)
             {
                 if (land.Cloud[i]) continue;
-                Vector3 to = land.People[i] + Vector3.up * .3f; var pts = new LinePoint[25];
+                Vector3 to = land.People[i] + Vector3.up * .3f; var pts = new LinePoint[25]; toward += to; n++;
                 for (int s = 0; s < pts.Length; s++)
                 {
                     float t = s / 24f; Vector3 p = Vector3.Lerp(road, to, t); p.y = Mathf.Lerp(road.y, to.y, t * t) + Mathf.Sin(t * Mathf.PI) * 2;
-                    pts[s] = new LinePoint(p, WithAlpha(People, .5f), .7f, 0, 1.2f);
+                    pts[s] = new LinePoint(p, WithAlpha(People, .5f), .7f, 0, 1);
                 }
                 b.AddFlowPath(pts, 0, .4f, i * .21f);
             }
-            labels.Add((Label("the road of lives fans out into the economy", road + new Vector3(4, 4, -2), .18f, People), -1, false));
-            Lines(b, Part.Fan, true, true);
+            labels.Add((Label("the road of lives fans out into the economy", road + new Vector3(4, 4, -2), .18f, People), Road, false));
+            // The families' view looks along the fan from a few dozen units: its own smaller label, a little way out along it.
+            if (n > 0) labels.Add((Label("the road of lives fans out into the economy", Vector3.Lerp(road, toward / n, .15f) + Vector3.up * 2.5f, .1f, People), Families, false));
+            Lines(b, Part.Fan, true, false);
         }
 
         /// <summary>Money along time: each cohort's saving leaves over the crest into the future as gold (capital that
@@ -452,7 +619,7 @@ namespace Why.Economy.Layers
         /// scenario's balances are used while one runs.</summary>
         void Future()
         {
-            var b = new LineMeshBuilder(); var players = snapshot.Players.Players; var program = PlayerMindProgram.Active;
+            var b = new LineMeshBuilder(); var gold = new LineMeshBuilder(); var players = snapshot.Players.Players; var program = PlayerMindProgram.Active;
             if (program != null && program.Players.Length != players.Length) program = null;
             double saved = 0, owed = 0;
             for (int i = 0; i < players.Length; i++)
@@ -465,7 +632,7 @@ namespace Why.Economy.Layers
                 if (saving > .05)
                 {
                     saved += saving;
-                    Stream(b, home, lip, ahead, WithAlpha(EconomyStyle.Capital, .8f), .6f + Mathf.Sqrt((float)saving) * .35f, false);
+                    Stream(gold, home, lip, ahead, WithAlpha(EconomyStyle.Capital, .8f), .6f + Mathf.Sqrt((float)saving) * .35f, false);
                 }
                 if (debt > .05)
                 {
@@ -474,9 +641,11 @@ namespace Why.Economy.Layers
                     Stream(b, ahead + new Vector3(1.5f, 2, 0), lip + new Vector3(1.5f, 0, 0), home + new Vector3(.4f, 0, 0), WithAlpha(motive, .75f), .5f + Mathf.Sqrt((float)debt) * .06f, true);
                 }
             }
-            labels.Add((Label("SAVING → capital sent into the future " + LandFacts.Money(saved) + " a year\n← DEBT  spending drawn from future income " + LandFacts.Money(owed),
-                new Vector3(HillLandscape.FootX + land.CrestWidth * .5f, land.Ground(HillLandscape.FootX + land.CrestWidth * .5f, land.CrestZ) + 22, land.CrestZ + 14), .4f, White), -3, false));
-            Lines(b, Part.Future, true, true).sharedMaterial.SetFloat("_FlowSpeed", .5f);
+            // no arrows in the text: it faces the camera, which looks back at the crest from the future
+            labels.Add((Label("SAVING · capital sent into the future: " + LandFacts.Money(saved) + " a year\nDEBT · spending drawn from future income: " + LandFacts.Money(owed) + " owed",
+                new Vector3(HillLandscape.FootX + land.CrestWidth * .5f, land.Ground(HillLandscape.FootX + land.CrestWidth * .5f, land.CrestZ) + 32, land.CrestZ - 6), .4f, White), Rivers, false));
+            Lines(b, Part.Future, true, false).sharedMaterial.SetFloat("_FlowSpeed", .5f);
+            Lines(gold, Part.Saving, true, false).sharedMaterial.SetFloat("_FlowSpeed", .5f);
         }
 
         static void Stream(LineMeshBuilder b, Vector3 a, Vector3 mid, Vector3 z, Color color, float width, bool inward)
@@ -485,7 +654,7 @@ namespace Why.Economy.Layers
             for (int s = 0; s < pts.Length; s++)
             {
                 float t = s / 20f; Vector3 p = Vector3.Lerp(Vector3.Lerp(a, mid, t), Vector3.Lerp(mid, z, t), t);
-                pts[s] = new LinePoint(p, WithAlpha(color, color.a * (inward ? Mathf.Lerp(.25f, 1, t) : Mathf.Lerp(1, .25f, t))), width, 0, 1.8f);
+                pts[s] = new LinePoint(p, WithAlpha(color, color.a * (inward ? Mathf.Lerp(.25f, 1, t) : Mathf.Lerp(1, .25f, t))), width, 0, 1);
             }
             b.AddFlowPath(pts, 0, .6f);
         }
@@ -497,9 +666,12 @@ namespace Why.Economy.Layers
             HoverCompany = -1;
             if (!PointerInput.Available || UI.HillExplorer.Depth >= 3 || EventSystem.current && EventSystem.current.IsPointerOverGameObject()) return;
             if (Emphasis(Part.Lives, LandView.PresetId) < .2f && SelectedCompany < 0) return;
+            // the spending view tells the stored firms (at their towers): another line's card would cover it from close by
+            bool strategy = LandView.PresetId == "strategy";
             Vector2 pointer = PointerInput.Position; float best = 12 * camera.pixelHeight / 1080f;
             foreach (var s in samples)
             {
+                if (strategy && !towered.Contains(s.company)) continue;
                 Vector3 screen = camera.WorldToScreenPoint(frame.World(s.at));
                 if (screen.z <= 0) continue;
                 float d = Vector2.Distance(pointer, screen); if (d < best) { best = d; HoverCompany = s.company; }
@@ -525,10 +697,12 @@ namespace Why.Economy.Layers
             b.AddPolyline(pts, color, width, 0, 0, intensity);
         }
 
+        /// <summary>A mesh of lines. Data lines blend over what is behind them (where many meet, the top one's hue shows instead
+        /// of a sum turning white); additive lines are the highlight, with the full pulse.</summary>
         MeshRenderer Lines(LineMeshBuilder b, Part part, bool flow, bool additive)
         {
             Mesh mesh = b.ToMesh("Wave " + part); owned.Add(mesh);
-            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3204, additive, 0, flow ? 1 : 0)); owned.Add(material);
+            Material material = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3204, additive, 0, flow ? additive ? 1 : Pulse : 0)); owned.Add(material);
             if (flow) { material.SetFloat("_FlowFreq", 2); material.SetFloat("_FlowSpeed", .4f); }
             var r = AddMesh("Wave " + part, mesh, material); r.transform.SetParent(content.transform, false);
             renderers.Add((r, part)); return r;
@@ -548,12 +722,40 @@ namespace Why.Economy.Layers
             filter.sharedMesh = b.ToMesh(r.name); owned.Add(filter.sharedMesh);
         }
 
-        TextMeshPro Label(string text, Vector3 at, float size, Color color)
+        /// <summary>A label facing the camera. One read <paramref name="over"/> the crest's lines is drawn after the hills, and
+        /// one on a <paramref name="plate"/> also hides the lines behind it.</summary>
+        TextMeshPro Label(string text, Vector3 at, float size, Color color, bool over = false, bool plate = false)
         {
-            var go = new GameObject("Wave label"); go.transform.SetParent(content.transform, false); go.transform.localPosition = at;
+            // a raised label is made under the layer (active), so the text wakes with the font's material to raise and can be
+            // measured for its plate, then joins the hidden content
+            over |= plate;
+            var go = new GameObject("Wave label"); go.transform.SetParent(over ? transform : content.transform, false); go.transform.localPosition = at;
             var t = go.AddComponent<TextMeshPro>(); t.text = text; t.fontSize = 24; t.alignment = TextAlignmentOptions.Center;
             t.color = color; t.textWrappingMode = TextWrappingModes.NoWrap; t.rectTransform.sizeDelta = new Vector2(60, 8);
+            if (over)
+            {
+                if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
+                if (raisedText != null) t.fontSharedMaterial = raisedText;
+                if (plate) Plate(t);
+                go.transform.SetParent(content.transform, false);
+            }
             go.transform.localScale = Vector3.one * size * LabelScale; return t;
+        }
+
+        /// <summary>A dark plate behind a label, the label system's margin (.35 em sideways, .12 em above and below) around its
+        /// text: drawn after the hills and before the raised text, shown in 1972's view (<see cref="Part.Plate"/>).</summary>
+        void Plate(TextMeshPro t)
+        {
+            // TextMeshPro sets 2.4 local units per em at its font size 24
+            Vector2 half = (t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f) * .5f;
+            var b = new SurfaceMeshBuilder();
+            b.AddBand(new[] { new Vector3(-half.x, -half.y, 0), new Vector3(half.x, -half.y, 0) }, new[] { new Vector3(-half.x, half.y, 0), new Vector3(half.x, half.y, 0) },
+                new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
+            Mesh mesh = b.ToMesh("Wave plate"); owned.Add(mesh);
+            Material material = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); owned.Add(material);
+            material.SetFloat("_EdgeSoft", 0);
+            var r = AddMesh("Wave plate", mesh, material); r.transform.SetParent(t.transform, false);
+            renderers.Add((r, Part.Plate));
         }
 
         /// <summary>The wave is seen from a few hundred units: its labels are drawn larger than the hills' close-up ones.</summary>
@@ -565,7 +767,7 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); content = null; focus = null; focusLabel = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); towered.Clear(); content = null; focus = null; focusLabel = null; raisedText = null;
         }
 
         /// <summary>Sets the wave on screen aside (still drawn) for a rebuild: it goes when the new one is complete.</summary>
@@ -573,7 +775,7 @@ namespace Why.Economy.Layers
         {
             DropRetired();
             retired = content; retiredOwned.AddRange(owned);
-            owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); content = null; focus = null; focusLabel = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); samples.Clear(); paths.Clear(); towered.Clear(); content = null; focus = null; focusLabel = null; raisedText = null;
         }
 
         void DropRetired()

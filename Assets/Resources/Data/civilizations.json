@@ -386,7 +386,25 @@
         "franks"
       ],
       "blurb": "The eastern part of Charlemagne's empire grew into a loose empire of German states that lasted until 1806. Prussia unified Germany in 1871, an industrial power at the center of two world wars.",
-      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates; continues as Germany (1949-1974 widths count West and East Germany together)"
+      "source": "Histomap (Sparks 1931); 1949-2024 extension by why-2: width = approx. share of world GDP (PPP) x 1699, from Maddison Project (1950, 1973), a Maddison / IMF WEO blend (1999) and IMF WEO (2024) estimates; continues as Germany (1949-1974 widths count West and East Germany together)",
+      "names": [
+        {
+          "from": 874,
+          "name": "East Francia"
+        },
+        {
+          "from": 962,
+          "name": "Holy Roman Empire"
+        },
+        {
+          "from": 1806,
+          "name": "German states"
+        },
+        {
+          "from": 1871,
+          "name": "Germany"
+        }
+      ]
     },
     {
       "id": "france",
@@ -470,7 +488,17 @@
         "mongols"
       ],
       "blurb": "Muscovy threw off Mongol overlordship in 1480 and expanded across Eurasia to the Pacific. As the USSR it industrialized fast, helped defeat Nazi Germany and rivaled the US for decades.",
-      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (Maddison Project GDP shares as a guide; subjective before 1820); 1949-2024 = approx. share of world GDP (PPP), Maddison Project / IMF WEO. Drawn from 1474 (Muscovy under Ivan III); 1949 and 1974 widths are the whole USSR"
+      "source": "Not in the Histomap digitization; why-2 estimate placed in free space of each 50-year slice. Width = approx. share of world power (Maddison Project GDP shares as a guide; subjective before 1820); 1949-2024 = approx. share of world GDP (PPP), Maddison Project / IMF WEO. Drawn from 1474 (Muscovy under Ivan III); 1949 and 1974 widths are the whole USSR",
+      "names": [
+        {
+          "from": 1922,
+          "name": "Soviet Union"
+        },
+        {
+          "from": 1992,
+          "name": "Russia"
+        }
+      ]
     },
     {
       "id": "japan",

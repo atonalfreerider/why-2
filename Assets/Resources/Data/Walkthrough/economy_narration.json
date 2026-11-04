@@ -8,7 +8,7 @@
     },
     {
       "id": "hills_wave",
-      "narration": "The road of American lives since nineteen forty-six and the economy share a single time axis, so a year on the wave stands beside the same year on the road. At the present moment, the cross-section of the road opens into a wave. Each rib behind the crest is one year of the economy, and the wave widens as real output grows. The crest is the year you are looking at. One honest note before we go on: this is a model, built on public accounts and on assumptions. Treat it as a way of seeing, not a measurement."
+      "narration": "The road of American lives since nineteen fifty and the economy, whose accounts begin in nineteen forty-six, share a single time axis, so a year on the wave stands beside the same year on the road. At the present moment, the cross-section of the road opens into a wave. Each rib behind the crest is one year of the economy, and the wave widens as real output grows. The crest is the year you are looking at, and the past recedes behind it. One honest note before we go on: this is a model, built on public accounts and on assumptions. Treat it as a way of seeing, not a measurement."
     },
     {
       "id": "hills_foundation",
@@ -20,7 +20,7 @@
     },
     {
       "id": "hills_regimes",
-      "narration": "A state is not only a size. It has a shape, and the same economy can stand on very different ones. Here the American hills rest on other foundations, each drawn from its country's measured structure. Sweden's bedrock is deep: its government spends about half of everything the economy produces. China's is shallower, but look at the summits. The largest bank, the largest oil company, the power grid and the largest telephone company all belong to the state, while private firms lead in technology and retail. Under state capitalism the state does not only lie beneath the hills; it owns their tops. Saudi Arabia's state lives on oil, six of every ten riyals it takes in. And in the Soviet Union of nineteen eighty, every summit belonged to the state."
+      "narration": "A state is not only a size. It has a shape, and the same economy can stand on very different ones. As a thought experiment, the American hills here rest on other states' foundations, each drawn from its country's measured structure. Sweden's bedrock is deep: its government spends about half of everything the economy produces. China's is shallower, but look at the summits. The largest bank, the largest oil company, the power grid and the largest telephone company all belong to the state, while private firms lead in technology and retail. Under state capitalism the state does not only lie beneath the hills; it owns their tops. Saudi Arabia's state lives on oil, six of every ten riyals it takes in. And in the Soviet Union of nineteen eighty, every summit belonged to the state."
     },
     {
       "id": "hills_land",
@@ -32,7 +32,7 @@
     },
     {
       "id": "hills_strategy",
-      "narration": "Companies are players too, and they run the same program. Money comes in, something like a mind weighs desire against fear, and money goes out. Follow one company's year. Most of it runs back down the hill, to the suppliers beneath it and the people who work for it. Some leaves forward, over the crest, as investment in what does not exist yet. As the model judges it, part of that is desire, a reach for new demand, and part is fear, spending so as not to fall behind. Some climbs to its owners as buybacks and dividends. Some drops into the state as taxes, and a thin thread reaches the officeholders as lobbying. The white arrows show where the money carries a company: up into software and artificial intelligence, down into the chips and power beneath it, or back to its owners. In twenty twenty-five, five companies spent about four hundred and fifty billion dollars building artificial intelligence, and that money poured down the hill."
+      "narration": "Companies are players too, and they run the same program. Money comes in, something like a mind weighs desire against fear, and money goes out. Follow one company's year. Most of it runs back down the hill, to the suppliers beneath it and the people who work for it. Some leaves forward, over the crest, as investment in what does not exist yet. As the model judges it, part of that is desire, a reach for new demand, and part is fear, spending so as not to fall behind. Some climbs to its owners as buybacks and dividends. Some drops into the state as taxes, and a thin thread reaches the officeholders as lobbying. The white arrows show where the money carries a company: up into software and artificial intelligence, down into the chips and power beneath it, or back to its owners. In twenty twenty-five, five companies spent about four hundred and fifty billion dollars on capital, about two thirds of it, as the model judges it, for artificial intelligence, and that money poured down the hill."
     },
     {
       "id": "hills_owners",
@@ -52,7 +52,7 @@
     },
     {
       "id": "hills_mobility",
-      "narration": "Class is altitude, but altitude is not fixed. Here the hillside is pulled out beside the wave and laid out in time: five rungs of household income ten years ago, the same five rungs now, joined by streams of people. Gold streams climbed. Rose streams fell. Among adults in their working years, the falls came most often with a lost job, a divorce, debt that could not be paid. The climbs came with finding work, a child, a first home, a marriage. At each rung you can see the forces at work: what people save and what they earn from what they own lift them; debt service pulls them down. Most people stay near where they started, and the top holds its place most firmly. Compared like for like, the model's simulated Americans hold their rungs about as tightly as the tax records of real ones."
+      "narration": "Class is altitude, but altitude is not fixed. Here the hillside is pulled out beside the wave and laid out in time: five rungs of household income ten years ago, the same five rungs now, joined by streams of people. Gold streams climbed, rose streams fell, and steel streams stayed. Among adults in their working years, the falls came most often with a lost job, a divorce, debt that could not be paid. The climbs came with finding work, a child, a first home, a marriage. At each rung you can see what people save, what they earn from what they own, and what their debts cost them. These are associations in the simulation, not proven causes. About half of the people on the ladder stay in the fifth where they started, and the top holds its place most firmly: two in three of its members are still there ten years on. Compared like for like, among adults over twenty-five, the model's simulated Americans hold their rungs about as tightly as the tax records of real ones."
     },
     {
       "id": "atom_person",
@@ -60,23 +60,23 @@
     },
     {
       "id": "atom_mind",
-      "narration": "Now step inside that person's mind. Five drives of desire, and five drives of fear, weighed by reason into a choice. Desire pulls toward the hills that pay and the things that please. Fear pushes away from debt, from loss, from scarcity. Every river you saw on the landscape begins here, in decisions like this one, made over and over by millions of minds. It is a simplified mind, but the tug of war it shows is real, and it is as old as the first animal that chose between food and danger."
+      "narration": "Now step inside one mind: the average of the group that person belongs to. Five drives of desire, and five drives of fear, weighed by reason into a choice. Desire pulls toward the hills that pay and the things that please. Fear pushes away from debt, from loss, from scarcity. Out of that tug of war comes what the group spends, saves or borrows, and what it owns and owes feeds the next year's choice. It is a simplified mind: its drives are a group's average, and their weights are assumptions."
     },
     {
       "id": "atom_dilemma",
       "narration": "No one decides alone. Every encounter between two people is a prisoner's dilemma: cooperate, or defect and try to take more. Over many rounds, one of the most successful strategies is called tit for tat. It opens kindly. It copies whatever its partner did last. It retaliates when cheated, and it forgives the moment the other side cooperates again. Here, the payoffs from all those encounters accumulate over time as wealth. Simple rules, repeated, and a society's fortunes grow out of them."
     },
     {
-      "id": "atom_ladder",
-      "narration": "This is the ladder: one life's path across the landscape over time. Watch it climb and fall between the rungs. A new job can lift it. Marriage can join two paths. Children cost money and time. Debt can pull it down, or help it climb. Beside it, compare where this person ended up with the rung their parents stood on. Anyone can move up or down this hillside. The questions that matter are how, and what it costs, and who else was moving at the same time."
-    },
-    {
       "id": "hills_games",
       "narration": "Groups play the same game as individuals. Companies, classes and whole tribes meet one another again and again, and each time they choose to cooperate or to defect. Watch cooperation, retaliation and forgiveness play out between them. Coalitions form wherever cooperating keeps paying, and break where it stops. It is the same logic that held the first human tribes together on the grasslands, now playing out on a landscape of money."
     },
     {
+      "id": "atom_ladder",
+      "narration": "This is the ladder: one life's path across the landscape over time. Watch it climb and fall between the rungs. A new job can lift it. Marriage can join two paths. Children cost money and time. Debt can pull it down, or help it climb. Beside it, compare where this person ended up with the rung their parents stood on. Anyone can move up or down this hillside. The questions that matter are how, and what it costs, and who else was moving at the same time."
+    },
+    {
       "id": "hills_you",
-      "narration": "Now find yourself. Tell the model your age, your household's income, what you own and what you owe, and where you work. It places you among the simulated Americans of the year, on your rung of your hill. Follow your own spending. Some of it pays wages and some becomes owners' surplus, and for most people, most of the income it pays flows uphill, to people ranked above them. The gold ring at your feet measures your runway, the years your savings would carry you. Ahead of you, in front of the crest, stand three possible futures: a rung up, the same rung, a rung down, each as bright as the share of people like you who went there over the last ten years. Nothing you enter is kept. It is a mirror, not a forecast."
+      "narration": "Now find yourself. Tell the model your age, your household's income, what you own and what you owe, and where you work. It places you among the simulated Americans of the year, on your rung of your hill. Follow your own spending. Some of it pays wages and some becomes owners' surplus. For a household in the middle, about eighty-five percent of all wages and owners' income goes to people ranked above it; the model assumes your spending pays people the way everyone's does. The gold ring at your feet is your cushion: the years of spending your net worth, home included, would cover; one turn is ten years. Beside you, on a ruler of the income fifths, is where people like you were ten years later: one step for each fifth they reached, its ribbon as wide as the share who ended there. Nothing you enter is kept. It is a mirror, not a forecast."
     },
     {
       "id": "hills_return",

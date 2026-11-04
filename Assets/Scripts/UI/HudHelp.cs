@@ -6,9 +6,11 @@ using UnityEngine.UI;
 namespace Why.UI
 {
     /// <summary>
-    /// The controls sheet (H or ?): a centered two-column panel over a dimmed backdrop; on a portrait screen
-    /// the columns stack into one. Views are listed from the preset catalog, so new numbered presets appear
-    /// automatically. Closes with H, ?, Esc or a click outside.
+    /// The controls sheet (H or ?): a centered panel of columns over a dimmed backdrop (two in the universe,
+    /// three in the economy, whose third lists its views); on a portrait screen the columns stack into one.
+    /// Views are listed from the preset catalog, so new presets appear automatically: the universe's numbered
+    /// ones, and every one of the economy's, by chapter (most have no key, so the sheet is where a viewer
+    /// learns they exist). Closes with H, ?, Esc or a click outside.
     /// </summary>
     public sealed class HudHelp
     {
@@ -21,10 +23,10 @@ namespace Why.UI
         const float SectionGap = 16f;
 
         readonly UiFade fade;
-        readonly RectTransform panel, leftColumn, rightColumn;
+        readonly RectTransform panel, leftColumn, rightColumn, viewsColumn;
         readonly TextMeshProUGUI hint;
         readonly Vector2 hintSize;
-        readonly float columnsTop, leftHeight, rightHeight;
+        readonly float columnsTop, leftHeight, rightHeight, viewsHeight;
 
         /// <summary>True while the sheet is open (or opening).</summary>
         public bool Open => fade.Shown;
@@ -59,20 +61,24 @@ namespace Why.UI
             columnsTop = PanelPad + titleSize.y + 18;
             leftColumn = ColumnRect("LeftColumn");
             rightColumn = ColumnRect("RightColumn");
-            leftHeight = Column(leftColumn, new[]
+            var navigate = Section("Navigate", new[]
             {
-                Section("Navigate", new[]
-                {
-                    Row("Right drag", "orbit"),
-                    Row("Middle drag", "pan"),
-                    Row("Shift + left drag", "pan"),
-                    Row("Scroll", "zoom toward the cursor"),
-                    Row("W A S D   Q E", "move"),
-                    Row("+   -", "zoom in / out"),
-                    Row("Tab", GraphScene.IsEconomy ? "switch to the universe" : "switch to the economy"),
-                }),
-                Section("Views", ViewRows()),
+                Row("Right drag", "orbit"),
+                Row("Middle drag", "pan"),
+                Row("Shift + left drag", "pan"),
+                Row("Scroll", "zoom toward the cursor"),
+                Row("W A S D   Q E", "move"),
+                Row("+   -", "zoom in / out"),
+                Row("Tab", GraphScene.IsEconomy ? "back to the universe (or ← Universe in the bar)" : "on to the economy (or Economy → in the bar)"),
             });
+            if (GraphScene.IsEconomy)
+            {
+                // the economy's 22 views need a column of their own to read at full size
+                viewsColumn = ColumnRect("ViewsColumn");
+                leftHeight = Column(leftColumn, new[] { navigate, EconomyGuide() });
+                viewsHeight = Column(viewsColumn, EconomyViewSections());
+            }
+            else leftHeight = Column(leftColumn, new[] { navigate, Section("Views", ViewRows()) });
             rightHeight = Column(rightColumn, GraphScene.IsEconomy ? EconomySections() : new[]
             {
                 Section("Time lens", new[]
@@ -102,43 +108,93 @@ namespace Why.UI
             fade = new UiFade(root.gameObject, 0, 7f, true);
         }
 
-        /// <summary>The right column of the economy scene: its own details instead of the lens and the figures.</summary>
+        /// <summary>The right column of the economy scene: the hills' own controls instead of the lens and the figures.</summary>
         static (string heading, (string key, string action)[] rows)[] EconomySections()
         {
             return new[]
             {
-                Section("The year and the land", new[]
+                Section("The year", new[]
                 {
-                    Row(",   .", "the year one back / forward (with Shift: ten); the cut slides and the land opens it"),
-                    Row("R", "replay the wave: the crest advances year by year from 1950 with what changed; again to pause (Shift: from the start)"),
-                    Row("Year chip", "play / pause the replay, \u2039 \u203A step; drag the scrubber to slide the cut, release to open the year; ticks mark turning points"),
-                    Row("Click the wall", "in views 1 and 2: open the year clicked"),
-                    Row("Hover the land", "light a sector and its roots, a river, a tower, a tie; read its card"),
-                    Row("Click a player", "its inspector: who, its money, its mind, its place in the season"),
-                    Row("Click a dot or a line", "look inside one person (a dot is a lifeline); click a line in views 1 and 2 to open its year too"),
-                    Row("Click a tower", "its owners: the ownership fan"),
-                    Row("Click again", "fly closer to what you clicked"),
-                    Row("N", "the next notable person (owner, striver, escapist ...); with a player open, its next member"),
-                    Row("Social panel", "views 8 and betrayal: play the season, forgiveness, mistakes, partner choice, Betray a tie"),
+                    Row(",   .", "one year back / forward (with Shift: ten); the wave opens that year"),
+                    Row("R", "replay the wave from 1950, year by year, with what changed; again to pause (Shift: from the start)"),
+                    Row("Year chip", "play / pause the replay, ‹ › step; drag the scrubber to pick a year; ticks mark turning points"),
                 }),
-                Section("Up or down the hill (preset bar)", new[]
+                Section("On the hills", new[]
                 {
-                    Row("Where you stand", "tell the model about your household with the panel's steppers: your rung, where your money flows, your odds"),
-                    Row("What moves people", "the decade's ladder: who climbed or fell between income fifths, and what came with it"),
-                    Row("Companies spend too", "each firm's year of money and which way it moves the firm; ‹ › step through the firms"),
-                    Row("Money and trade", "the price of money and the tariff rate on the wave's time axis"),
-                }),
-                Section("Guide and details", new[]
-                {
-                    Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
-                    Row("Hover a label", "what it is, how large, and where the numbers come from"),
-                    Row("Click a label", "focus and highlight it"),
-                    Row("Esc", "close the inspector in front, unpin a card, clear the highlight, close this sheet"),
-                    Row("V", "vertical 9:16 window for recording phone videos; again to go back"),
-                    Row("H   ?", "this help"),
-                    Row("F3", "frame rate and build stats"),
+                    Row("Click a hilltop", "fly to that industry"),
+                    Row("Click a gold ring", "fly to that company: its money, its owners and the groups in its industry"),
+                    Row("Click a moving dot", "its group of households: who they are, their money, their minds, their encounters"),
+                    Row("Double-click a dot", "the simulated people in that group; click one to follow them"),
+                    Row("Click a line on the road", "look inside one simulated person (in views 1 and 2 it also opens that year)"),
+                    Row("N", "the next notable person (owner, striver, the indebted ...); the person views follow them; with a group open, its next member"),
+                    Row("What if? ►", "change one group's reason, fear or the pressure from sellers, and step the years; Reset undoes it"),
+                    Row("Explore the hill ►", "the tiers and their industries, down to one company, one group and one person"),
+                    Row("Other states", "the tabs choose the government the US hills stand on"),
+                    Row("Encounters panel", "views 8 and Betrayal: play the rounds, forgiveness, mistakes, partner choice, betray a tie"),
+                    Row("Firm spending", "‹ › step through the firms"),
+                    Row("You", "the panel's steppers tell the model about your household"),
                 }),
             };
+        }
+
+        /// <summary>The economy's guide and details (under Navigate: its right column holds the hills' controls).</summary>
+        static (string heading, (string key, string action)[] rows) EconomyGuide() => Section("Guide and details", new[]
+        {
+            Row("T", "guided tour: Space or Right next, Left back, P pause, Esc exit"),
+            Row("Hover a label", "what it is, how large, and where the numbers come from"),
+            Row("Click a label", "focus and highlight it"),
+            Row("Esc", "close the panel in front, clear the highlight, close this sheet"),
+            Row("V", "vertical 9:16 window for recording phone videos; again to go back"),
+            Row("H   ?", "this help"),
+            Row("F3", "frame rate and build stats"),
+            Row("Jev", "an AI model; numbers marked with it are its judgments, not measurements"),
+        });
+
+        /// <summary>
+        /// Every view of the economy by chapter (<see cref="Economy.HillPresets.Chapters"/>): its caption in the bar with its
+        /// number key where it has one, and its title; views the chapters miss are listed last, so none goes unlisted.
+        /// </summary>
+        static IEnumerable<(string heading, (string key, string action)[] rows)> EconomyViewSections()
+        {
+            HashSet<string> listed = new HashSet<string>();
+            List<(string, (string, string)[])> sections = new List<(string, (string, string)[])>();
+            foreach ((string chapter, string[] ids) in Economy.HillPresets.Chapters)
+            {
+                List<(string, string)> rows = new List<(string, string)>();
+                foreach (string id in ids)
+                {
+                    ViewPreset p = Find(id);
+                    if (p == null || !listed.Add(id)) continue;
+                    rows.Add(ViewRow(p));
+                }
+
+                if (rows.Count > 0) sections.Add(("Views: " + chapter.ToLowerInvariant(), rows.ToArray()));
+            }
+
+            List<(string, string)> rest = new List<(string, string)>();
+            foreach (ViewPreset p in ViewPresets.All)
+            {
+                if (listed.Add(p.Id)) rest.Add(ViewRow(p));
+            }
+
+            if (rest.Count > 0) sections.Add(("Views: more", rest.ToArray()));
+            return sections;
+
+            static ViewPreset Find(string id)
+            {
+                foreach (ViewPreset p in ViewPresets.All)
+                {
+                    if (p.Id == id) return p;
+                }
+
+                return null;
+            }
+
+            static (string, string) ViewRow(ViewPreset p)
+            {
+                string key = HudKit.KeyName(p.Key);
+                return ((key != null ? key + "   " : "") + Economy.HillPresets.ShortTitle(p), p.Title);
+            }
         }
 
         public void Show(bool show) => fade.Show(show);
@@ -158,15 +214,20 @@ namespace Why.UI
             {
                 leftColumn.anchoredPosition = new Vector2(PanelPad, -columnsTop);
                 rightColumn.anchoredPosition = new Vector2(PanelPad, -(columnsTop + leftHeight));
+                // a phone's sheet stacks its columns: the views' list would shrink it past reading, and the bar lists them
+                if (viewsColumn != null) viewsColumn.gameObject.SetActive(false);
                 width = ColumnWidth + 2 * PanelPad;
                 height = columnsTop + leftHeight + rightHeight + PanelPad - SectionGap;
             }
             else
             {
+                int columns = viewsColumn != null ? 3 : 2;
+                if (viewsColumn != null) viewsColumn.gameObject.SetActive(true);
                 leftColumn.anchoredPosition = new Vector2(PanelPad, -columnsTop);
                 rightColumn.anchoredPosition = new Vector2(PanelPad + ColumnWidth + ColumnGap, -columnsTop);
-                width = 2 * ColumnWidth + ColumnGap + 2 * PanelPad;
-                height = columnsTop + Mathf.Max(leftHeight, rightHeight) + PanelPad - SectionGap;
+                if (viewsColumn != null) viewsColumn.anchoredPosition = new Vector2(PanelPad + 2 * (ColumnWidth + ColumnGap), -columnsTop);
+                width = columns * ColumnWidth + (columns - 1) * ColumnGap + 2 * PanelPad;
+                height = columnsTop + Mathf.Max(leftHeight, Mathf.Max(rightHeight, viewsHeight)) + PanelPad - SectionGap;
             }
 
             panel.Place(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(width, height));

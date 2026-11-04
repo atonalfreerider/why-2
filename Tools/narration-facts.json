@@ -9,7 +9,8 @@
     "The 25 stored firms' filings: operating costs (suppliers and workers) are the largest use of their money; investment, research, buybacks, dividends, taxes and lobbying follow",
     "Jev judged each firm's investment on a scale from pursuing new demand (desire) to defending its position (fear), and which way its money moves it: climb into software/AI, reach down into its own supply, spread across, lean on the state, harvest",
     "Hyperscaler capital expenditure in calendar 2025: Microsoft $118.0B, Alphabet $91.4B, Amazon $131.8B, Meta $72.2B, Oracle about $35.5B: about $449B in total, mostly AI data centers, chips and servers",
-    "The AI build-out money flows to computers and chips and to data-center construction"
+    "The AI build-out money flows to computers and chips and to data-center construction",
+    "About two thirds of the five hyperscalers' capital spending is judged to be for AI: each firm's investment in its latest fiscal year times the AI share Jev judged comes to about $314B, 64% of the $494B those fiscal years invested and 70% of the $449B spent in calendar 2025"
   ],
   "hills_attention": [
     "US digital advertising revenue 2025: $294.6B (IAB/PwC); $117.7B of it social media",
@@ -21,16 +22,19 @@
     "Household spending flows back to the companies, including the ones that bought the advertising"
   ],
   "hills_mobility": [
-    "2015-2025 in the model: among adults 25-54, falls came with a lost job (61% of fallers), a divorce or separation (23%), discharged debt (8%); climbs with finding work (48%), a child (40%), buying a home (39%), marriage (32%)",
-    "Top fifth stayed 69% over the decade, the bottom fifth 30% (all adults); like for like (adults 25+, fifths ranked within the panel) the model's bottom fifth stayed 56% and top fifth 66%, against 55% and 61% in the US Treasury's 1996-2005 tax-return panel",
+    "2015-2025 in the model: among adults 25-54, falls came with a lost job (59% of those who fell), a divorce or separation (22%), discharged debt (9%); climbs with finding work (49%), buying a home (41%), a child (37%), marriage (28%)",
+    "2015-2025 in the model, all adults: 33% climbed a fifth or more, 48% stayed in their fifth and 20% fell; the top fifth kept 71% of its members, the bottom fifth 34%",
+    "The ladder the view draws (adults 25 and older, ranked within the panel as the tax records rank people): of each fifth's members in 2015, 66% of the top fifth were still there in 2025 (about two in three), 40% of the fourth, 40% of the middle, 48% of the second and 58% of the bottom fifth: about half of the ladder's people stayed in their fifth, and the top kept its members most of all. The US Treasury's 1996-2005 tax-return panel kept 55% of its bottom fifth and 61% of its top fifth",
     "Saving and income from ownership rise with the rung; debt service is highest at the bottom",
-    "In the ladder, gold streams are people who climbed a fifth or more and rose streams people who fell"
+    "In the ladder, gold streams are people who climbed a fifth or more, rose streams people who fell, and steel streams people who stayed in their fifth"
   ],
   "hills_you": [
     "The panel places the viewer by household income and net worth among the year's simulated adults",
-    "For a median household about 85% of the wages and owners' income its spending pays reaches people ranked above it",
-    "The runway is the years of spending the viewer's net worth would cover; the model counts three years in financial assets as material autonomy",
-    "Three possible futures a decade ahead, weighted by the share of people in the same income fifth and age band who climbed, stayed or fell from 2015 to 2025",
+    "A dollar of the viewer's spending is split, through the accounts of the industries it buys from, into wages, owners' surplus, taxes, upkeep and imports",
+    "For a median household about 85% of all simulated wages and owners' income goes to people ranked above it, weighted by its dollar's split between wages and owners: the population's distribution stands in for where the household's own dollars end up (the model assumes a household's spending pays people the way everyone's does)",
+    "The view draws the viewer's own spending as rivers from the viewer to the markets it reaches, split by what is sold out of fear",
+    "The cushion is the years of spending the viewer's net worth, home included, would cover; the gold ring at the viewer's feet shows it, one full turn for ten years",
+    "Where people like the viewer were ten years later, on a ruler of the income fifths beside the viewer: one step for each fifth that adults in the same income fifth and age band in 2015 had reached by 2025, each ribbon as wide as the share who ended there",
     "Nothing entered in the panel is stored or sent"
   ],
   "hills_regimes": [
@@ -41,5 +45,9 @@
     "79 of China's 116 Fortune Global 500 firms are state-controlled; the public sector holds 33% of the market value of China's listed companies (OECD 2025)",
     "Oil revenue was 60.1% of Saudi government revenue in 2024 (Ministry of Finance)",
     "The 1977 Constitution of the USSR made the basic means of production state property; the view draws every Soviet summit the state's"
+  ],
+  "atom_mind": [
+    "Out of reason's gate the mind's choice splits into spending, saving and borrowing, as shares of the year's income; the view draws the three",
+    "The choice feeds the mind's memory, what is owned and owed (net worth and debt), and the memory feeds back into the next year's drives: in the lives model a buffer under three months of spending raises the fears of ruin and exposure"
   ]
 }

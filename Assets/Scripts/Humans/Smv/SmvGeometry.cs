@@ -56,6 +56,9 @@ namespace Why.Humans.Smv
         const float LinkAlpha = 0.16f;
         const float LinkPx = 0.8f;
 
+        // the economy's family links: its families view is about them, so they read beside the lives they join
+        const float MarriageAlpha = 0.38f, BirthAlpha = 0.42f, FamilyLinkPx = 1.4f;
+
         // density histogram of the cross-section: signed offset (-1.1..1.1 envelopes) x value height, one
         // slice per DensityStride simulation steps
         const int DensityStride = 4;
@@ -74,6 +77,19 @@ namespace Why.Humans.Smv
 
         /// <summary>Economy-only family topology. Rendering changes; population and economic records stay identical.</summary>
         public bool FamilyJunctions;
+
+        /// <summary>
+        /// One marriage crossbar's middle per calendar year from <see cref="MarkFirstYear"/> (data space; null in a year
+        /// without one), the one nearest the middle of its year: the families view names a marriage and a birth near the
+        /// year it looks at, whichever year the economy shows (<see cref="BirthMarks"/>).
+        /// </summary>
+        public Vector3?[] MarriageMarks { get; private set; } = Array.Empty<Vector3?>();
+
+        /// <summary>One birth junction per calendar year from <see cref="MarkFirstYear"/>, as <see cref="MarriageMarks"/>.</summary>
+        public Vector3?[] BirthMarks { get; private set; } = Array.Empty<Vector3?>();
+
+        /// <summary>The calendar year of the first entry of <see cref="MarriageMarks"/> and <see cref="BirthMarks"/>.</summary>
+        public int MarkFirstYear { get; private set; }
         Dictionary<int, List<(double time, Vector3 point)>> familyEvents;
 
         void EnsureFamilies()
@@ -493,6 +509,11 @@ namespace Why.Humans.Smv
         void BuildFamilyLinks()
         {
             EnsureFamilies();
+            MarkFirstYear = (int)Math.Floor(sim.StartTime);
+            int years = Math.Max(0, (int)Math.Floor(sim.NowYear) - MarkFirstYear + 1);
+            MarriageMarks = new Vector3?[years]; BirthMarks = new Vector3?[years];
+            double[] marriageGap = new double[years], birthGap = new double[years];
+            for (int i = 0; i < years; i++) marriageGap[i] = birthGap[i] = double.MaxValue;
             foreach (SmvMarriage marriage in sim.MarriageLog)
             {
                 int k = (int)Math.Round((marriage.Start - sim.StartTime) / SmvSimulation.Step);
@@ -500,7 +521,8 @@ namespace Why.Humans.Smv
                 if (k < a.FirstStep || k > a.LastStep || k < b.FirstStep || k > b.LastStep) continue;
                 Vector3 pa = new Vector3(U(marriage.Start),sim.SampleY[a.SampleOffset+k-a.FirstStep],sim.SampleRho[a.SampleOffset+k-a.FirstStep]);
                 Vector3 pb = new Vector3(U(marriage.Start),sim.SampleY[b.SampleOffset+k-b.FirstStep],sim.SampleRho[b.SampleOffset+k-b.FirstStep]);
-                Links.AddSegment(pa,pb,Tint(GraphStyle.HumansFemale,.2f),.8f,0,Id(a)); LinkCount++;
+                Links.AddSegment(pa,pb,Tint(GraphStyle.HumansFemale,MarriageAlpha),FamilyLinkPx,0,Id(a)); LinkCount++;
+                Mark(MarriageMarks, marriageGap, marriage.Start, (pa + pb) * .5f);
             }
             foreach (SmvPerson child in sim.People)
             {
@@ -515,12 +537,24 @@ namespace Why.Humans.Smv
                         int k=Math.Max(parent.FirstStep,Math.Min(parent.LastStep,child.BirthStep-4));
                         if (parent.SampleCount==0) continue;
                         Vector3 from=new Vector3(stepU[k],sim.SampleY[parent.SampleOffset+k-parent.FirstStep],sim.SampleRho[parent.SampleOffset+k-parent.FirstStep]);
-                        Links.AddSegment(from,e.point,Tint(parent.Male?GraphStyle.HumansMale:GraphStyle.HumansFemale,.28f),1,0,Id(child));
+                        Links.AddSegment(from,e.point,Tint(parent.Male?GraphStyle.HumansMale:GraphStyle.HumansFemale,BirthAlpha),FamilyLinkPx,0,Id(child));
                         LinkCount++;
                     }
+                    Mark(BirthMarks, birthGap, child.Birth, e.point);
                     break;
                 }
             }
+        }
+
+        /// <summary>Keeps an event as its year's mark when it lies nearer the middle of the year than the one kept so far.</summary>
+        void Mark(Vector3?[] marks, double[] gaps, double time, Vector3 point)
+        {
+            int i = (int)Math.Floor(time) - MarkFirstYear;
+            if (i < 0 || i >= marks.Length) return;
+            double gap = Math.Abs(time - (MarkFirstYear + i + 0.5));
+            if (gap >= gaps[i]) return;
+            gaps[i] = gap;
+            marks[i] = point;
         }
 
         // ------------------------------------------------------------------ population and generations

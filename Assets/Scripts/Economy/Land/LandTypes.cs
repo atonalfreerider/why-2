@@ -322,8 +322,9 @@ namespace Why.Economy.Land
         /// <summary>Signals: pain, relief, satisfaction.</summary>
         public readonly List<(int round, int pair, byte signal)> Events = new List<(int, int, byte)>();   // 0 pain 1 relief 2 satisfaction
 
-        /// <summary>The season's readouts per round (5.3).</summary>
+        /// <summary>The season's readouts per round (5.3), and the co-partisan readout split by party.</summary>
         public float[] Cooperation, SameGroup, OtherGroup, CoPartisan, CrossPartisan;   // [round]
+        public float[] CoDemocrat, CoRepublican;                         // [round]: pairs of two majority-D / two majority-R players
 
         /// <summary>A betrayal season's outcome measured against the season without the incident (5.4).</summary>
         public int Hit = -1, CalmAfter = -1;                            // betrayal outcome against the baseline

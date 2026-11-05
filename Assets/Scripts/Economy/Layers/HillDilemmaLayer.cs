@@ -20,8 +20,9 @@ namespace Why.Economy.Layers
     /// strategy. A ledger turns the cooperation dividend over mutual defection into an illustrative sum on screen
     /// (historical records unchanged). Thin threads tie each counterpart to where their cohort stands on the hills.
     /// Above the arena the group level: the season of plain tit for tat between all cohorts (<see cref="SocialSeason"/>,
-    /// mean field over shares), as a ring for the person's own tribe and one for the other, the bridge between them
-    /// colored by cooperation across tribes, stepping through the season's rounds with the arena. Every mark is drawn at
+    /// mean field over shares), as a ring for the person's own party and one for the other (an independent's: the Democrats'
+    /// and the Republicans'), each with its cooperation among its own, the bridge between them colored by cooperation across
+    /// parties, stepping through the season's rounds with the arena. Every mark is drawn at
     /// intensity 1 and blended, so the blue and red of the moves stay true where they cross (the bloom starts above 1 and is
     /// kept for what the pointer holds); the slip stands out by its size.
     /// </summary>
@@ -196,18 +197,28 @@ namespace Why.Economy.Layers
             var slipSeat = arena.Seats[arena.SlipSeat];
             if (round > DilemmaArena.SlipRound && round <= DilemmaArena.SlipRound + 12)
             {
-                bool retaliated = slipSeat.TheirMoves.Count > DilemmaArena.SlipRound + 1 && slipSeat.TheirMoves[DilemmaArena.SlipRound + 1] == PdMove.Defect;
-                int feud = 0; for (int t = DilemmaArena.SlipRound + 1; t < slipSeat.TheirMoves.Count; t++) if (slipSeat.TheirMoves[t] == PdMove.Defect || slipSeat.MyMoves[t] == PdMove.Defect) feud++;
+                // the partner answers the slip in the next round: until that move is played there is no verdict, and cooperation
+                // has returned only once a round after the answer was played both ways
+                int answer = DilemmaArena.SlipRound + 1, played = slipSeat.TheirMoves.Count;
+                bool replied = played > answer, retaliated = replied && slipSeat.TheirMoves[answer] == PdMove.Defect, calm = false;
+                int feud = 0;
+                for (int t = answer; t < played; t++)
+                {
+                    bool defection = slipSeat.TheirMoves[t] == PdMove.Defect || slipSeat.MyMoves[t] == PdMove.Defect;
+                    if (defection) feud++;
+                    else if (t > answer) calm = true;
+                }
+                string strategy = PrisonersDilemma.Name(slipSeat.Strategy);
                 slipLabel.text = "ROUND " + (DilemmaArena.SlipRound + 1) + ": YOU DEFECTED ONCE AGAINST THE " + slipSeat.Role.ToUpperInvariant() + "\n" +
-                    (retaliated ? PrisonersDilemma.Name(slipSeat.Strategy) + " retaliated next round" : PrisonersDilemma.Name(slipSeat.Strategy) + " did not retaliate") +
-                    (feud > 2 ? " · the feud echoes (" + feud + " rounds with a defection)" : retaliated ? " · then cooperation returns" : "");
-                slipLabel.color = retaliated ? Defect : Coop;
+                    (!replied ? "the " + slipSeat.Role.ToLowerInvariant() + " (" + strategy + ") answers next round" : retaliated ? strategy + " retaliated next round" : strategy + " did not retaliate") +
+                    (feud > 2 ? " · the feud echoes (" + feud + " rounds with a defection)" : retaliated && calm ? " · then cooperation returned" : "");
+                slipLabel.color = !replied ? White : retaliated ? Defect : Coop;
             }
             else slipLabel.text = round <= DilemmaArena.SlipRound ? "round " + (DilemmaArena.SlipRound + 1) + ": watch the " + slipSeat.Role.ToLowerInvariant() + " · you will defect once" : "";
             for (int k = 0; k < seatLabels.Count; k++) seatLabels[k].text = SeatText(arena.Seats[k]);
         }
 
-        /// <summary>The group level: two rings (the person's tribe, the other) with each tribe's cooperation among its own as
+        /// <summary>The group level: two rings (the person's party, the other) with each party's cooperation among its own as
         /// a gold arc, and a bridge colored by cooperation across tribes, at the season's round for this arena round.
         /// Returns the rings' center.</summary>
         Vector3 Groups(int total, LineMeshBuilder b = null)
@@ -219,13 +230,19 @@ namespace Why.Economy.Layers
             float co = season.CoPartisan[round], cross = season.CrossPartisan[round];
             float same = season.SameGroup != null && round < season.SameGroup.Length ? season.SameGroup[round] : co;
             float other = season.OtherGroup != null && round < season.OtherGroup.Length ? season.OtherGroup[round] : cross;
-            byte tribe = life.Now.Tribe; Color mine = tribe == 1 ? Rose : Ice, theirs = tribe == 1 ? Ice : Rose;
+            // each party's cooperation among its own, the season's co-partisan pairs split by party
+            float dem = season.CoDemocrat != null && round < season.CoDemocrat.Length ? season.CoDemocrat[round] : co;
+            float rep = season.CoRepublican != null && round < season.CoRepublican.Length ? season.CoRepublican[round] : co;
+            // the person's party first; an independent has neither ring, and sees the Democrats' first
+            byte tribe = life.Now.Tribe; bool republican = tribe == 1;
+            Color mine = republican ? Rose : Ice, theirs = republican ? Ice : Rose;
+            float coMine = republican ? rep : dem, coTheirs = republican ? dem : rep;
             Vector3 left = g + Vector3.left * 3.2f, right = g + Vector3.right * 3.2f;
             for (int side = 0; side < 2; side++)
             {
                 Vector3 c = side == 0 ? left : right; Color col = side == 0 ? mine : theirs;
                 MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .8f), 2, 1, false); MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .5f), 1.2f, 1, true);
-                Arc(b, c + Vector3.up * .1f, 2.1f, co, Gold);
+                Arc(b, c + Vector3.up * .1f, 2.1f, side == 0 ? coMine : coTheirs, Gold);
                 for (int m = 0; m < 9; m++) { float a = m * Mathf.PI * 2 / 9; Vector3 p = c + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * 1.3f; b.AddSegment(p, p + Vector3.up * .45f, col, 1.6f, .02f, EconomyEmphasis.Id(Part.Moves)); }
             }
             Color bridge = Color.Lerp(Defect, Coop, cross);
@@ -233,9 +250,10 @@ namespace Why.Economy.Layers
             b.AddSegment(center + Vector3.up * 3.6f, g - Vector3.up * .3f, WithAlpha(Steel, .4f), 1, .01f, EconomyEmphasis.Id(Part.Moves), 1);
             // three lines of about the first's width: a longer second line began under the title panel's right edge
             groupLabel.text = "<b>THE GROUPS</b> · " + snapshot.Players.Players.Length + " cohorts play tit for tat as shares (season round " + round + " / " + season.Rounds + ")" +
-                "\nwithin a tribe " + PersonLife.Pct(co) + " cooperate (gold arcs) · across tribes " + PersonLife.Pct(cross) + " (bridge)" +
+                "\ncooperation within D " + PersonLife.Pct(dem) + " · within R " + PersonLife.Pct(rep) + " (gold arcs) · across " + PersonLife.Pct(cross) + " (bridge)" +
                 // named by its color, not its side: the dilemma's pose looks back from the future, so the left ring shows on the right
-                "\nsame class " + PersonLife.Pct(same) + " · other class " + PersonLife.Pct(other) + " · your tribe (" + (tribe == 0 ? "Democrat" : tribe == 1 ? "Republican" : "independent") + "): the " + (tribe == 1 ? "rose" : "ice") + " ring";
+                "\nsame class " + PersonLife.Pct(same) + " · other class " + PersonLife.Pct(other) + " · " +
+                (tribe == 2 ? "you are independent: D is the ice ring, R the rose" : "your tribe (" + (republican ? "Republican" : "Democrat") + "): the " + (republican ? "rose" : "ice") + " ring");
             return g;
         }
 

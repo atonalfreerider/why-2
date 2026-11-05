@@ -65,7 +65,7 @@ namespace Why.Economy.Land
             public int[][] Out;                       // per player: its directed pairs, by partner index
             public int[][] Kin;                       // per player: its partners of its own majority tribe (gossip), ascending
             public double[] E0, O;                    // per directed pair: exposure (normalized per player), out-party degree
-            public byte[] Class;                      // per directed pair: 1 same group; +2 co-partisan, +4 cross-partisan
+            public byte[] Class;                      // per directed pair: 1 same group; +2 co-partisan (+8 both R), +4 cross-partisan
             public int[] Maj, Group, Industry;        // per player: majority tribe (0 D, 1 R, 2 I), group, anchor industry
             public string[] AnchorLabel;              // per player: the anchor industry's id, else its anchor id (NMI)
             public double[] Lines, H, Own;            // per player: adult lines, higher-OS share, own trust
@@ -164,7 +164,8 @@ namespace Why.Economy.Land
             {
                 Year = year, Rounds = rounds, Settings = settings,
                 Cooperation = new float[rounds + 1], SameGroup = new float[rounds + 1], OtherGroup = new float[rounds + 1],
-                CoPartisan = new float[rounds + 1], CrossPartisan = new float[rounds + 1]
+                CoPartisan = new float[rounds + 1], CrossPartisan = new float[rounds + 1], CoDemocrat = new float[rounds + 1],
+                CoRepublican = new float[rounds + 1]
             };
             Base b = BaseOf(data, players, year, sd);
             Play play = Simulate(Apply(b, settings, sd), rounds, null, r);
@@ -452,7 +453,8 @@ namespace Why.Economy.Land
                     b.E0[d] = sum > 0 ? E[p * n + q] / sum : 0;
                     b.O[d] = tau[p][0] * tau[q][1] + tau[p][1] * tau[q][0];
                     int tp = b.Maj[p], tq = b.Maj[q];
-                    b.Class[d] = (byte)((group[p] == group[q] ? 1 : 0) + (tp < 2 && tp == tq ? 2 : 0) + (tp < 2 && tq < 2 && tp != tq ? 4 : 0));
+                    b.Class[d] = (byte)((group[p] == group[q] ? 1 : 0) + (tp < 2 && tp == tq ? 2 : 0) + (tp < 2 && tq < 2 && tp != tq ? 4 : 0) +
+                        (tp == 1 && tq == 1 ? 8 : 0));
                 }
             }
 
@@ -723,12 +725,15 @@ namespace Why.Economy.Land
             }
 
             SocialSeasonResult r = play.Readouts;
-            Classes(b, x, ec, out double all, out double same, out double other, out double co, out double cross);
+            Classes(b, x, ec, out double all, out double same, out double other, out double co, out double cross, out double coD,
+                out double coR);
             r.Cooperation[t] = (float)all;
             r.SameGroup[t] = (float)same;
             r.OtherGroup[t] = (float)other;
             r.CoPartisan[t] = (float)co;
             r.CrossPartisan[t] = (float)cross;
+            r.CoDemocrat[t] = (float)coD;
+            r.CoRepublican[t] = (float)coR;
         }
 
         /// <summary>
@@ -775,6 +780,8 @@ namespace Why.Economy.Land
             r.OtherGroup = new float[rounds + 1];
             r.CoPartisan = new float[rounds + 1];
             r.CrossPartisan = new float[rounds + 1];
+            r.CoDemocrat = new float[rounds + 1];
+            r.CoRepublican = new float[rounds + 1];
             for (int t = 0; t <= rounds; t++)
             {
                 float[] ab = new float[b.M], ba = new float[b.M], ex = new float[b.M];
@@ -789,12 +796,15 @@ namespace Why.Economy.Land
                 r.CoopAB[t] = ab;
                 r.CoopBA[t] = ba;
                 r.Exposure[t] = ex;
-                Classes(b, x, ec, out double all, out double same, out double other, out double co, out double cross);
+                Classes(b, x, ec, out double all, out double same, out double other, out double co, out double cross,
+                    out double coD, out double coR);
                 r.Cooperation[t] = (float)all;
                 r.SameGroup[t] = (float)same;
                 r.OtherGroup[t] = (float)other;
                 r.CoPartisan[t] = (float)co;
                 r.CrossPartisan[t] = (float)cross;
+                r.CoDemocrat[t] = (float)coD;
+                r.CoRepublican[t] = (float)coR;
             }
 
             r.Opening = new[] { new float[b.M], new float[b.M] };
@@ -806,9 +816,9 @@ namespace Why.Economy.Land
         }
 
         static void Classes(Base b, double[] x, double[] ec, out double all, out double same, out double other, out double co,
-            out double cross)
+            out double cross, out double coD, out double coR)
         {
-            double xa = 0, wa = 0, xs = 0, ws = 0, xo = 0, wo = 0, xc = 0, wc = 0, xx = 0, wx = 0;
+            double xa = 0, wa = 0, xs = 0, ws = 0, xo = 0, wo = 0, xc = 0, wc = 0, xx = 0, wx = 0, xr = 0, wr = 0;
             for (int d = 0; d < b.D; d++)
             {
                 double w = ec[d], v = x[d] * w;
@@ -830,6 +840,11 @@ namespace Why.Economy.Land
                 {
                     xc += v;
                     wc += w;
+                    if ((cls & 8) != 0)
+                    {
+                        xr += v;
+                        wr += w;
+                    }
                 }
                 else if ((cls & 4) != 0)
                 {
@@ -843,6 +858,9 @@ namespace Why.Economy.Land
             other = wo > 0 ? xo / wo : all;
             co = wc > 0 ? xc / wc : all;
             cross = wx > 0 ? xx / wx : all;
+            // within each party: the co-partisan pairs split by party (the Republicans' flagged, the rest the Democrats')
+            coD = wc - wr > 0 ? (xc - xr) / (wc - wr) : co;
+            coR = wr > 0 ? xr / wr : co;
         }
 
         /// <summary>
@@ -986,7 +1004,8 @@ namespace Why.Economy.Land
         static string Log(SocialSeasonResult r, Setup s, Play play, List<int[]> final, int rounds)
         {
             Base b = s.B;
-            Classes(b, play.X[0], play.Ec[0], out _, out double same0, out double other0, out double co0, out double cross0);
+            Classes(b, play.X[0], play.Ec[0], out _, out double same0, out double other0, out double co0, out double cross0, out _,
+                out _);
 
             // coalitions at the last detection, by size; their share of dealings inside (Σ_{p,q in c} Ec(p,q) / |c|)
             List<int[]> bySize = new List<int[]>(final);

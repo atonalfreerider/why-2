@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 
 namespace Why.Economy
@@ -7,9 +8,9 @@ namespace Why.Economy
     /// <summary>
     /// What a view preset asks of the land, beside its camera pose (<see cref="EconomyPresets"/>): the transition's
     /// target (0 = folded into the cut, 2.4 = the bowl), a temporary year, the season's held round and whether it
-    /// shows the betrayal season, whether the road's labels step aside, and the emphasis of every land group (one row
-    /// of the table in <see cref="EconomyViews"/>) with the label groups it shows. Applied by the land's view layer on
-    /// focus.
+    /// shows the betrayal season, whether the road's labels step aside, and the emphasis of every land group (the view's
+    /// land.* values in the emphasis table, <see cref="EmphasisTable"/>) with the label groups it shows. Applied by the
+    /// land's view layer on focus.
     /// </summary>
     public sealed class ViewSpec                          // EconomyViews.Get(presetId)
     {
@@ -31,7 +32,8 @@ namespace Why.Economy
 
     /// <summary>
     /// The economy views' side table (SPEC 7.2): one <see cref="ViewSpec"/> per preset of <see cref="EconomyPresets"/>,
-    /// with the emphasis of each land group per preset (the land's view layer eases each group toward it at
+    /// with the emphasis of each land group per preset, read from the one emphasis table every economy layer reads (its
+    /// land.* keys, <see cref="EconomyEmphasis"/>: the land's view layer eases each group toward it at
     /// <see cref="LandStyle.EmphasisRate"/> per second; land groups are also multiplied by <see cref="LandView.Reveal"/>)
     /// and the label groups each preset shows.
     /// </summary>
@@ -52,39 +54,29 @@ namespace Why.Economy
         /// </summary>
         public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes";
 
-        /// <summary>Columns of <see cref="Table"/>.</summary>
-        static readonly string[] Columns =
+        /// <summary>The presets with a spec of their own (the others copy the overview's, <see cref="Get"/>).</summary>
+        static readonly string[] OwnSpecs =
             { "overview", "section", "landscape", "roots", "capture", "people", "rivers", "mind", "society", "betrayal", "y1972", "foundation" };
 
         /// <summary>
-        /// The emphasis table: one row per LandGroup (in enum order), one column per preset of <see cref="Columns"/>. WP6
-        /// (legibility): each view shows its own story at full strength and the rest near-invisible (0.02-0.15), where the
-        /// spec's table (7.2) left hundreds of arcs, ties and gold terraces at 0.2-0.6 over every view's story: the rivers
-        /// under the arcs, the towers under the payouts, the coalitions under the ties.
+        /// The emphasis key of each land group, in LandGroup order ("land.road" ... "land.coalitions"): the land's rows of the
+        /// emphasis table, which took over this class's table of groups by presets (WP07) with the values its <see cref="Get"/>
+        /// gave the presets without a column of their own.
         /// </summary>
-        static readonly float[][] Table =
+        static readonly int[] LandKeys = Keyed();
+
+        static int[] Keyed()
         {
-            //            overview section landscape roots capture people rivers mind society betrayal y1972 foundation
-            new[] { 1f, .3f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f, .35f },  // Road (section .3: the camera stands in the lifelines)
-            new[] { 1f, 1f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f, .6f },            // Cut
-            new[] { .8f, 0f, 1f, .35f, .32f, .35f, .4f, .25f, .2f, .2f, 1f, .8f },         // Terraces
-            new[] { .8f, 0f, 1f, .45f, 1f, .35f, .25f, .2f, .12f, .12f, 1f, .8f },         // Sectors
-            new[] { .5f, 0f, .35f, .05f, .1f, .1f, 1f, .2f, .05f, .05f, .35f, .5f },       // Pools
-            new[] { .15f, 0f, .3f, 1f, .05f, .03f, .03f, .03f, .02f, .02f, .3f, .15f },     // Roots
-            new[] { .8f, 0f, .45f, .1f, 1f, .35f, .08f, .1f, .1f, .1f, .45f, .8f },        // Towers
-            new[] { .8f, 0f, .3f, .05f, 1f, .6f, .1f, .2f, .1f, .1f, .3f, .8f },           // Crown
-            new[] { .5f, 0f, .4f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, .4f, .5f },                  // Overlays
-            new[] { .7f, 0f, .35f, .1f, .35f, 1f, .35f, 1f, .8f, .8f, .35f, .7f },         // Glyphs
-            new[] { .3f, 0f, .2f, .05f, .25f, 1f, .15f, 1f, .3f, .3f, .2f, .3f },          // Dots
-            new[] { .15f, 0f, .05f, 0f, .05f, .3f, .05f, 1f, .03f, .03f, .05f, .15f },      // Mirages
-            new[] { .1f, 0f, .05f, .03f, .1f, 1f, .04f, .05f, .02f, .02f, .05f, .1f },     // Income
-            new[] { .15f, 0f, .05f, .03f, .6f, .4f, .04f, .05f, .02f, .02f, .05f, .15f },   // CapitalFlows (capture .6: the towers first)
-            new[] { .4f, 0f, .15f, .05f, .1f, .15f, 1f, .5f, .06f, .06f, .15f, .4f },      // Rivers
-            new[] { .2f, 0f, .05f, 0f, .05f, .05f, 1f, .8f, .03f, .03f, .05f, .2f },       // Glitter
-            new[] { .2f, 0f, .1f, .05f, .05f, .15f, 1f, .1f, .03f, .03f, .1f, .2f },       // Taxes
-            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 1f, 0f, 0f },                     // Ties
-            new[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, .6f, 0f, 0f },                    // Coalitions
-        };
+            var keys = new int[(int)LandGroup.Count];
+            for (int g = 0; g < keys.Length; g++) keys[g] = EconomyEmphasis.Key("land." + ((LandGroup)g).ToString().ToLowerInvariant());
+            return keys;
+        }
+
+        /// <summary>A spec's land groups at its view's values in the emphasis table.</summary>
+        static void Alphas(ViewSpec s)
+        {
+            for (int g = 0; g < (int)LandGroup.Count; g++) s.Alpha[g] = EconomyEmphasis.Row(s.Id, LandKeys[g]);
+        }
 
         static Dictionary<string, ViewSpec> specs;
 
@@ -101,9 +93,10 @@ namespace Why.Economy
         }
 
         /// <summary>
-        /// The spec of a preset; an id without a column (the wave's later views: companies, atom, dilemma, ladder) gets a
-        /// copy of the overview's under its own id, so <see cref="Land.LandView.PresetId"/> names the view the hill layers
-        /// key their emphasis on (a null id gets the overview's). The person views hide the road's labels.
+        /// The spec of a preset; an id without a spec of its own (the wave's later views: companies, atom, dilemma, ladder)
+        /// gets a copy of the overview's under its own id, its land groups at its own values in the emphasis table, so
+        /// <see cref="Land.LandView.PresetId"/> names the view the hill layers key their emphasis on (a null id gets the
+        /// overview's). The person views and the focused views hide the road's labels.
         /// </summary>
         public static ViewSpec Get(string presetId)
         {
@@ -112,15 +105,9 @@ namespace Why.Economy
             if (specs.TryGetValue(presetId, out ViewSpec s)) return s;
             ViewSpec o = specs["overview"];
             s = new ViewSpec { Id = presetId, MorphTarget = o.MorphTarget, HideRoadLabels = Layers.PersonFocus.IsView(presetId) || o.HideRoadLabels, Labels = o.Labels };
-            Array.Copy(o.Alpha, s.Alpha, s.Alpha.Length);
-            // one person in front, the population behind: the road of lives recedes (the ladder keeps more of it, since
-            // it is the time axis the life runs along)
-            if (Layers.PersonFocus.IsView(presetId)) s.Alpha[(int)LandGroup.Road] = presetId == "ladder" ? .4f : .2f;
-            // a focused view's structure stands in front of the road: the lives step back to a trace
-            if (Focused(presetId)) { s.Alpha[(int)LandGroup.Road] = .12f; s.Alpha[(int)LandGroup.Cut] = .2f; s.HideRoadLabels = true; }
-            // the money chart's low pose sees the road edge-on, where its thousands of faint lines add up to a bright bar
-            // across the rates: there the chart's own years are the time axis
-            if (presetId == "money") s.Alpha[(int)LandGroup.Road] = 0;
+            Alphas(s);
+            // a focused view's structure stands in front of the road, whose labels step aside
+            if (Focused(presetId)) s.HideRoadLabels = true;
             specs[presetId] = s;
             return s;
         }
@@ -129,10 +116,10 @@ namespace Why.Economy
         {
             if (specs != null) return;
             Dictionary<string, ViewSpec> d = new Dictionary<string, ViewSpec>(StringComparer.Ordinal);
-            for (int c = 0; c < Columns.Length; c++)
+            foreach (string id in OwnSpecs)
             {
-                ViewSpec s = new ViewSpec { Id = Columns[c] };
-                for (int g = 0; g < (int)LandGroup.Count; g++) s.Alpha[g] = Table[g][c];
+                ViewSpec s = new ViewSpec { Id = id };
+                Alphas(s);
                 d[s.Id] = s;
             }
 

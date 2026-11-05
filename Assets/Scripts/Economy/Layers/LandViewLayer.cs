@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 
 namespace Why.Economy.Layers
@@ -13,6 +14,10 @@ namespace Why.Economy.Layers
     /// finished land builds (<see cref="LandService.Tick"/>) and follows the viewer's year and season settings. It owns
     /// the harness's view overrides (unset in Unity): WHY_ECON_MORPH (seconds: the transition frozen there while it
     /// unfolds), WHY_ECON_ROUND (the held round), WHY_ECON_SELECT (player:&lt;key&gt;, tower:&lt;ticker&gt;, pair:&lt;k&gt;).
+    /// It moves the one emphasis table every economy layer reads (<see cref="EconomyEmphasis"/>, spec 3.1) with the
+    /// preset on screen and eases every key toward its row once a frame, before the hill layers read them; logs the table's
+    /// summary on its first frame ("[Why] Emphasis: K keys, V views, N problems") and registers its smoke check and the
+    /// <c>-smokeextra emphasis</c> sequence.
     /// It also dims the road while the land is open (1.1, 7.2): the shared time axis and lifelines take
     /// <see cref="LandView.RoadAlpha"/> through their <c>SceneAlpha</c> hooks (reset to 1 when the scene unloads); the
     /// industry wall reads it itself. Order 44: before every land layer, so they read this frame's <see cref="LandView"/>.
@@ -48,6 +53,9 @@ namespace Why.Economy.Layers
 
         GraphRoot root;
 
+        /// <summary>Whether this load's emphasis summary has been logged (on the first frame, once every layer has uploaded).</summary>
+        bool summarized;
+
         public override void Prepare(GraphContext ctx)
         {
             frozenMorph = EnvFloat("WHY_ECON_MORPH", -1);
@@ -67,6 +75,11 @@ namespace Why.Economy.Layers
         {
             labels = ctx.Labels;
             LandView.ResetState();
+            EconomyEmphasis.ResetState();
+            summarized = false;
+            // the table's rules after every capture, and the crest lit by its part's ids (-smokeextra emphasis)
+            SmokeChecks.Register("emphasis", EconomyEmphasis.Check);
+            SmokeChecks.RegisterSequence(EconomyEmphasis.Sequence, EconomyEmphasis.HighlightCheck());
             Axis.TimeAxisLayer.SceneAlpha = Humans.Smv.SmvLayer.SceneAlpha = 1f;
             storedYear = -1;
             requestedYear = LandService.Current?.Year ?? EconomyState.Year;
@@ -195,6 +208,7 @@ namespace Why.Economy.Layers
 
             if (EconomyState.Year != yearBefore) Refly(preset);
             LandView.Apply(spec, heldRound);
+            EconomyEmphasis.Focus(spec.Id);
 
             // the catalog catches up with the cut and the land on screen (a year this focus changed was followed above)
             FollowCatalog(FocusSeconds);
@@ -235,6 +249,13 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             LandView.Advance(Mathf.Min(MaxStep, GraphTime.Delta), frozenMorph);
+            EconomyEmphasis.Advance(Mathf.Min(MaxStep, GraphTime.Delta));
+            if (!summarized)
+            {
+                summarized = true;
+                EconomyEmphasis.LogSummary();
+            }
+
             if (inTour && (root == null || !root.TourActive)) inTour = false;
             else if (!inTour && root != null && root.TourActive)
             {

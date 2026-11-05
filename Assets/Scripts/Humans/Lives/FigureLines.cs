@@ -254,7 +254,8 @@ namespace Why.Humans.Lives
                 Color = GraphStyle.Text,
                 PixelOffset = new Vector2(5, 8),
                 AnchorKey = anchor.Key,
-                Ids = anchor.Ids
+                Ids = anchor.Ids,
+                Candidates = tier == 1 // the most prominent names try the four candidate places, with a leader, before they hide
             });
         }
 

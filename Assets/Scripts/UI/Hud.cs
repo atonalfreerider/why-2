@@ -302,6 +302,8 @@ namespace Why.UI
             if ((position - pressPosition).sqrMagnitude > slop * slop) return;
 
             LabelSpec hovered = root.Labels.Hovered;
+            // a label with an action of its own (the overview's doors) runs it in the label system; the HUD does not also focus it
+            if (hovered != null && hovered.OnClick != null) return;
             if (hovered != null) FocusLabel(hovered);
             else ClearFocus();
         }

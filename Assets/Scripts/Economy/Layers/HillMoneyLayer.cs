@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 
 namespace Why.Economy.Layers
@@ -46,9 +47,23 @@ namespace Why.Economy.Layers
         /// <summary>The dark panel behind the chart and its extent (land-local: its plane's x, its bottom and top, its first and
         /// last z), for fading it by the side it is seen from.</summary>
         MeshRenderer backing; float backingX; Vector2 backingY, backingZ;
+        /// <summary>The chart's lines (its rules, series, moments and the trade strip's top) and the trade strip's fill, and how
+        /// much of the panel shows from where the camera stands (Tick).</summary>
+        MeshRenderer chartLines, chartFill; float side = 1;
+        /// <summary>The emphasis keys of the chart's parts (EmphasisTable: full in this view, absent elsewhere), whose highlight
+        /// ids their meshes carry.</summary>
+        static class Part
+        {
+            public static readonly int Chart = EconomyEmphasis.Key("money.chart"), Fill = EconomyEmphasis.Key("money.fill"), Backing = EconomyEmphasis.Key("money.backing");
+        }
 
         public override void Prepare(GraphContext ctx) { json = ctx.Text(Path); }
-        public override void Upload(GraphContext ctx) { EconomyStage.Land().Place(transform); }
+        public override void Upload(GraphContext ctx)
+        {
+            EconomyStage.Land().Place(transform);
+            // the panel fades as the camera turns edge-on to it (Tick)
+            EconomyEmphasis.Multiplier("money.backing", "seen from its side", () => side);
+        }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -73,8 +88,9 @@ namespace Why.Economy.Layers
             {
                 Vector3 eye = transform.InverseTransformPoint(rig.Cam.transform.position);
                 Vector3 off = eye - new Vector3(backingX, Mathf.Clamp(eye.y, backingY.x, backingY.y), Mathf.Clamp(eye.z, backingZ.x, backingZ.y));
-                GraphMaterials.SetAlpha(backing.sharedMaterial, Mathf.Clamp01(4 * off.x / Mathf.Max(1e-3f, off.magnitude)));
+                side = Mathf.Clamp01(4 * off.x / Mathf.Max(1e-3f, off.magnitude));
             }
+            EconomyEmphasis.Apply(chartLines, Part.Chart); EconomyEmphasis.Apply(chartFill, Part.Fill); EconomyEmphasis.Apply(backing, Part.Backing);
         }
 
         static List<(int year, float value)> Series(JObject root, string key)
@@ -98,7 +114,7 @@ namespace Why.Economy.Layers
             float z0 = HillLandscape.Z(1947), z1 = HillLandscape.Z(last);
             for (int pct = 0; pct <= 20; pct += 5)
             {
-                b.AddSegment(new Vector3(x, Y(pct), z0), new Vector3(x, Y(pct), z1), WithAlpha(Steel, pct == 0 ? .5f : .18f), pct == 0 ? 1.4f : .8f, 0, 0, 1);
+                b.AddSegment(new Vector3(x, Y(pct), z0), new Vector3(x, Y(pct), z1), WithAlpha(Steel, pct == 0 ? .5f : .18f), pct == 0 ? 1.4f : .8f, 0, EconomyEmphasis.Id(Part.Chart), 1);
                 Label(pct + "%", new Vector3(x, Y(pct), z0 - 4), .45f, WithAlpha(Steel, .8f));
             }
             for (int y = 1950; y <= last; y += 10) Label(y.ToString(LandFacts.Ci), new Vector3(x, Floor - 2.6f, HillLandscape.Z(y)), .48f, Ice);
@@ -128,7 +144,7 @@ namespace Why.Economy.Layers
             float S(float share) => StripBottom + share * PerShare;
             for (int pct = 0; pct <= 30; pct += 10)
             {
-                b.AddSegment(new Vector3(x, S(pct), z0), new Vector3(x, S(pct), z1), WithAlpha(Sand, pct == 0 ? .45f : .15f), pct == 0 ? 1.2f : .8f, 0, 0, 1);
+                b.AddSegment(new Vector3(x, S(pct), z0), new Vector3(x, S(pct), z1), WithAlpha(Sand, pct == 0 ? .45f : .15f), pct == 0 ? 1.2f : .8f, 0, EconomyEmphasis.Id(Part.Chart), 1);
                 if (pct > 0) Label(pct == 30 ? "30% of GDP" : pct + "%", new Vector3(x, S(pct), z0 - 4), .42f, WithAlpha(Sand, .85f));
             }
             var low = new List<Vector3>(); var high = new List<Vector3>(); var top = new List<LinePoint>();
@@ -138,8 +154,8 @@ namespace Why.Economy.Layers
                 float z = HillLandscape.Z(year + .5f);
                 low.Add(new Vector3(x + .05f, S(0), z)); high.Add(new Vector3(x + .05f, S(v), z)); top.Add(new LinePoint(new Vector3(x, S(v), z), WithAlpha(Sand, .9f), 1.8f, 0, 1));
             }
-            fill.AddBand(low, high, new[] { (Color32)WithAlpha(Sand, .22f) }, 0, 1);
-            b.AddPolyline(top, 0);
+            fill.AddBand(low, high, new[] { (Color32)WithAlpha(Sand, .22f) }, EconomyEmphasis.Id(Part.Fill), 1);
+            b.AddPolyline(top, EconomyEmphasis.Id(Part.Chart));
             // the latest year the strip reaches (the crest's, when the wave stands back in time or replays), named between
             // its upper rules over the 1960s, when trade was a tenth of GDP and the strip is empty above it
             var (ty, tv) = trade[0];
@@ -155,7 +171,7 @@ namespace Why.Economy.Layers
             var pts = new List<LinePoint>();
             foreach (var (year, v) in s) { if (year > last) continue; pts.Add(new LinePoint(new Vector3(x, Y(v), HillLandscape.Z(year + .5f)), WithAlpha(color, .9f), width, 0, 1)); }
             if (pts.Count < 2) return;
-            b.AddPolyline(pts, 0);
+            b.AddPolyline(pts, EconomyEmphasis.Id(Part.Chart));
             int endYear = Math.Min(last, s[s.Count - 1].year); float endValue = 0;
             foreach (var (year, v) in s) if (year == endYear) endValue = v;
             // "•", not "●": the labels' font has the one and not the other (a fallback glyph would draw under the panel)
@@ -192,7 +208,7 @@ namespace Why.Economy.Layers
                     string text = "tariffs " + tariffs[jump - 1].value.ToString("0.0", LandFacts.Ci) + "% to " + tariffs[jump].value.ToString("0.0", LandFacts.Ci) + "% in " + tariffs[jump].year;
                     Vector3 at = new Vector3(x, Y(tariffs[jump].value), HillLandscape.Z(tariffs[jump].year + .5f));
                     // at the chart's end the label starts over the point and runs out past it, clear of the series
-                    if (tariffs[jump].year >= last) { Vector3 to = at + Vector3.up * 3.2f; b.AddSegment(at, to, WithAlpha(Steel, .6f), 1, 0, 0, 1); Label(text, to + new Vector3(0, .5f, -.4f), .5f, tag, TextAlignmentOptions.Left); }
+                    if (tariffs[jump].year >= last) { Vector3 to = at + Vector3.up * 3.2f; b.AddSegment(at, to, WithAlpha(Steel, .6f), 1, 0, EconomyEmphasis.Id(Part.Chart), 1); Label(text, to + new Vector3(0, .5f, -.4f), .5f, tag, TextAlignmentOptions.Left); }
                     else Label(text, at + new Vector3(0, 6, 0), .5f, tag);
                 }
                 // Rounds that held: a run of yearly rises that lifted the rate by half and kept most of it the next year
@@ -209,7 +225,7 @@ namespace Why.Economy.Layers
                     foreach (string key in new[] { "fedFunds", "mortgage30", "treasury10", "tariffRate" })
                         foreach (var (year, v) in Series(root, key)) if (year >= tariffs[from].year - 5 && year <= tariffs[to].year + 4 && year <= last) high = Mathf.Max(high, v);
                     Vector3 end = new Vector3(x, Y(tariffs[to].value), HillLandscape.Z(tariffs[to].year + .5f)), label = new Vector3(x, Y(high + 2), HillLandscape.Z(tariffs[from + 1].year));
-                    b.AddSegment(end, label + Vector3.down * 1.1f, WithAlpha(Steel, .6f), 1, 0, 0, 1);
+                    b.AddSegment(end, label + Vector3.down * 1.1f, WithAlpha(Steel, .6f), 1, 0, EconomyEmphasis.Id(Part.Chart), 1);
                     Label("tariffs " + tariffs[from].value.ToString("0.0", LandFacts.Ci) + "% to " + tariffs[to].value.ToString("0.0", LandFacts.Ci) + "% in " + tariffs[from + 1].year + "-" + tariffs[to].year, label, .5f, tag);
                 }
             }
@@ -220,7 +236,7 @@ namespace Why.Economy.Layers
             // blended at intensity 1: where the series cross, each keeps its hue instead of adding up to white under the bloom
             Mesh mesh = b.ToMesh("Money and trade"); owned.Add(mesh);
             Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3248, false)); owned.Add(m);
-            var r = AddMesh("Money and trade", mesh, m); r.transform.SetParent(content.transform, false);
+            var r = AddMesh("Money and trade", mesh, m); r.transform.SetParent(content.transform, false); chartLines = r;
         }
 
         void Surface(SurfaceMeshBuilder b)
@@ -228,7 +244,7 @@ namespace Why.Economy.Layers
             Mesh mesh = b.ToMesh("Money and trade fill"); owned.Add(mesh);
             Material m = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3246)); owned.Add(m);
             m.SetFloat("_EdgeSoft", 0);
-            var r = AddMesh("Money and trade fill", mesh, m); r.transform.SetParent(content.transform, false);
+            var r = AddMesh("Money and trade fill", mesh, m); r.transform.SetParent(content.transform, false); chartFill = r;
         }
 
         /// <summary>A dark panel in the chart's plane at <paramref name="x"/>, drawn after every layer of the wave (queues up
@@ -237,7 +253,7 @@ namespace Why.Economy.Layers
         void Backing(float x, float z0, float z1, float y0, float y1)
         {
             var b = new SurfaceMeshBuilder(); Color c = WithAlpha(GraphStyle.Background, .92f);
-            b.AddBand(new[] { new Vector3(x, y0, z0), new Vector3(x, y0, z1) }, new[] { new Vector3(x, y1, z0), new Vector3(x, y1, z1) }, new[] { (Color32)c }, 0, 1);
+            b.AddBand(new[] { new Vector3(x, y0, z0), new Vector3(x, y0, z1) }, new[] { new Vector3(x, y1, z0), new Vector3(x, y1, z1) }, new[] { (Color32)c }, EconomyEmphasis.Id(Part.Backing), 1);
             Mesh mesh = b.ToMesh("Money and trade backing"); owned.Add(mesh);
             Material m = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3244)); owned.Add(m);
             m.SetFloat("_EdgeSoft", 0);
@@ -263,7 +279,7 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); labels.Clear(); content = null; labelMaterial = null; backing = null;
+            owned.Clear(); labels.Clear(); content = null; labelMaterial = null; backing = chartLines = chartFill = null;
         }
 
         void OnDestroy() => Clear();

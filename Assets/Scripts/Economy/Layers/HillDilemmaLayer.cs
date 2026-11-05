@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -40,6 +41,15 @@ namespace Why.Economy.Layers
         readonly List<TextMeshPro> seatLabels = new List<TextMeshPro>();
         LandSnapshot snapshot; GameObject content; DilemmaArena arena; PersonLife life;
         MeshRenderer dynamicLines, pulses;
+        /// <summary>The arena's standing lines (rings, figures, ties to the seats) and its floor.</summary>
+        MeshRenderer arenaLines, arenaFloor;
+        /// <summary>The emphasis keys of the arena's parts (EmphasisTable: full in this view, absent elsewhere), whose highlight
+        /// ids the meshes this layer builds carry (MindDiagram's rings and spheres keep 0).</summary>
+        static class Part
+        {
+            public static readonly int Arena = EconomyEmphasis.Key("dilemma.arena"), Floor = EconomyEmphasis.Key("dilemma.floor"),
+                Moves = EconomyEmphasis.Key("dilemma.moves"), Pulses = EconomyEmphasis.Key("dilemma.pulses");
+        }
         TextMeshPro roundLabel, ledgerLabel, slipLabel, groupLabel;
         Material raisedText, plateMaterial; Mesh plateQuad;
         /// <summary>The ledger's plate, resized whenever a round rewrites the ledger.</summary>
@@ -64,6 +74,7 @@ namespace Why.Economy.Layers
             if (!shown) { wasShown = false; return; }
             // Entering the view starts a fresh match, so the slip always comes a few seconds in.
             if (!wasShown) { wasShown = true; Build(); if (content == null) return; content.SetActive(true); }
+            EconomyEmphasis.Apply(arenaLines, Part.Arena); EconomyEmphasis.Apply(arenaFloor, Part.Floor); EconomyEmphasis.Apply(dynamicLines, Part.Moves); EconomyEmphasis.Apply(pulses, Part.Pulses);
             clock += Time.deltaTime;
             if (clock >= RoundSeconds) { clock = 0; arena.Step(); Dynamic(); }
             Pulses(clock / RoundSeconds);
@@ -90,14 +101,14 @@ namespace Why.Economy.Layers
             for (int r = 1; r <= 3; r++) MindDiagram.Ring(b, center, Radius * (.45f + .3f * r), WithAlpha(Steel, .45f), 1, 1, false);
             var inner = new Vector3[49]; var outer = new Vector3[49];
             for (int j = 0; j <= 48; j++) { float a = j * Mathf.PI / 24; inner[j] = center; outer[j] = center + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * Radius * 1.4f; }
-            fill.AddBand(inner, outer, new[] { (Color32)WithAlpha(Steel, .16f) }, new[] { (Color32)WithAlpha(Steel, .02f) }, 0, 1);
+            fill.AddBand(inner, outer, new[] { (Color32)WithAlpha(Steel, .16f) }, new[] { (Color32)WithAlpha(Steel, .02f) }, EconomyEmphasis.Id(Part.Floor), 1);
             Figure(b, center, life.Now.InControl ? Gold : White, 1.25f);
             var playerOf = snapshot.Players.PlayerOfPerson;
             for (int k = 0; k < seats.Length; k++)
             {
                 var s = arena.Seats[k];
                 Figure(b, seats[k], White, 1);
-                b.AddSegment(center + Vector3.up, seats[k] + Vector3.up, WithAlpha(Steel, .6f), 1.2f, .02f, 0);
+                b.AddSegment(center + Vector3.up, seats[k] + Vector3.up, WithAlpha(Steel, .6f), 1.2f, .02f, EconomyEmphasis.Id(Part.Arena));
                 // Where this counterpart's cohort stands on the hills: the dealings come from somewhere real.
                 int player = playerOf != null && s.Person >= 0 && s.Person < playerOf.Length ? playerOf[s.Person] : -1;
                 if (player >= 0 && player < land.People.Length) MindDiagram.Thread(b, seats[k], land.People[player] + Vector3.up * .5f, WithAlpha(Steel, .35f), .8f, 1, 2);
@@ -117,8 +128,8 @@ namespace Why.Economy.Layers
             roundLabel = Label("", center + Vector3.up * 5.4f, .12f, White);
             slipLabel = Label("", center + Vector3.up * 6.1f, .11f, Defect);
             groupLabel = Label("", center + Vector3.up * 11.6f, .11f, White);
-            Lines(b, "Arena", false);
-            Surface(fill, "Arena floor");
+            arenaLines = Lines(b, "Arena", false);
+            arenaFloor = Surface(fill, "Arena floor");
             dynamicLines = Lines(new LineMeshBuilder(), "Arena moves", true);
             pulses = Lines(new LineMeshBuilder(), "Arena pulses", false);
             clock = 0; Dynamic();
@@ -164,10 +175,10 @@ namespace Why.Economy.Layers
                 {
                     Vector3 p = origin + tangent * ((t - from) * .22f);
                     bool slip = t == DilemmaArena.SlipRound && k == arena.SlipSeat;
-                    b.AddSegment(p + Vector3.up * .32f, p + Vector3.up * .5f, Move(s.MyMoves[t]), slip ? 5 : 3.2f, .05f, 0);
-                    b.AddSegment(p - Vector3.up * .09f, p + Vector3.up * .09f, Move(s.TheirMoves[t]), 3.2f, .05f, 0);
+                    b.AddSegment(p + Vector3.up * .32f, p + Vector3.up * .5f, Move(s.MyMoves[t]), slip ? 5 : 3.2f, .05f, EconomyEmphasis.Id(Part.Moves));
+                    b.AddSegment(p - Vector3.up * .09f, p + Vector3.up * .09f, Move(s.TheirMoves[t]), 3.2f, .05f, EconomyEmphasis.Id(Part.Moves));
                     if (DilemmaArena.Copied(s, t) && t > from)
-                        b.AddSegment(p - tangent * .22f + Vector3.up * .32f, p + Vector3.up * .09f, WithAlpha(Gold, .8f), 1.2f, .01f, 0);
+                        b.AddSegment(p - tangent * .22f + Vector3.up * .32f, p + Vector3.up * .09f, WithAlpha(Gold, .8f), 1.2f, .01f, EconomyEmphasis.Id(Part.Moves));
                 }
                 // Payoff bars: the partner's beside them, scaled to a whole match of mutual cooperation.
                 Bar(b, at + tangent * .9f, s.TheirScore / maxPair * 3, Gold);
@@ -215,11 +226,11 @@ namespace Why.Economy.Layers
                 Vector3 c = side == 0 ? left : right; Color col = side == 0 ? mine : theirs;
                 MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .8f), 2, 1, false); MindDiagram.Ring(b, c, 1.8f, WithAlpha(col, .5f), 1.2f, 1, true);
                 Arc(b, c + Vector3.up * .1f, 2.1f, co, Gold);
-                for (int m = 0; m < 9; m++) { float a = m * Mathf.PI * 2 / 9; Vector3 p = c + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * 1.3f; b.AddSegment(p, p + Vector3.up * .45f, col, 1.6f, .02f, 0); }
+                for (int m = 0; m < 9; m++) { float a = m * Mathf.PI * 2 / 9; Vector3 p = c + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * 1.3f; b.AddSegment(p, p + Vector3.up * .45f, col, 1.6f, .02f, EconomyEmphasis.Id(Part.Moves)); }
             }
             Color bridge = Color.Lerp(Defect, Coop, cross);
-            for (int lane = -1; lane <= 1; lane++) b.AddSegment(left + Vector3.right * 1.8f + Vector3.forward * lane * .25f, right + Vector3.left * 1.8f + Vector3.forward * lane * .25f, WithAlpha(bridge, .4f + .5f * cross), 1 + 5 * cross, .03f, 0);
-            b.AddSegment(center + Vector3.up * 3.6f, g - Vector3.up * .3f, WithAlpha(Steel, .4f), 1, .01f, 0, 1);
+            for (int lane = -1; lane <= 1; lane++) b.AddSegment(left + Vector3.right * 1.8f + Vector3.forward * lane * .25f, right + Vector3.left * 1.8f + Vector3.forward * lane * .25f, WithAlpha(bridge, .4f + .5f * cross), 1 + 5 * cross, .03f, EconomyEmphasis.Id(Part.Moves));
+            b.AddSegment(center + Vector3.up * 3.6f, g - Vector3.up * .3f, WithAlpha(Steel, .4f), 1, .01f, EconomyEmphasis.Id(Part.Moves), 1);
             // three lines of about the first's width: a longer second line began under the title panel's right edge
             groupLabel.text = "<b>THE GROUPS</b> · " + snapshot.Players.Players.Length + " cohorts play tit for tat as shares (season round " + round + " / " + season.Rounds + ")" +
                 "\nwithin a tribe " + PersonLife.Pct(co) + " cooperate (gold arcs) · across tribes " + PersonLife.Pct(cross) + " (bridge)" +
@@ -246,7 +257,7 @@ namespace Why.Economy.Layers
         static void Pulse(LineMeshBuilder b, Vector3 at, Vector3 dir, Color c, bool big)
         {
             float l = big ? .9f : .6f;
-            b.AddSegment(at - dir * l, at, c, big ? 7 : 5, big ? .12f : .08f, 0);
+            b.AddSegment(at - dir * l, at, c, big ? 7 : 5, big ? .12f : .08f, EconomyEmphasis.Id(Part.Pulses));
             MindDiagram.Ring(b, at, big ? .2f : .13f, c, 3, 1, true); MindDiagram.Ring(b, at, big ? .2f : .13f, c, 3, 1, false);
         }
 
@@ -254,7 +265,7 @@ namespace Why.Economy.Layers
 
         static void Figure(LineMeshBuilder b, Vector3 at, Color c, float scale)
         {
-            b.AddSegment(at, at + Vector3.up * 1.2f * scale, c, 2.6f, .04f, 0);
+            b.AddSegment(at, at + Vector3.up * 1.2f * scale, c, 2.6f, .04f, EconomyEmphasis.Id(Part.Arena));
             MindDiagram.Sphere(b, at + Vector3.up * 1.5f * scale, .24f * scale, c, 2, 1);
             MindDiagram.Ring(b, at, .5f * scale, c, 1.8f, 1, false);
         }
@@ -262,15 +273,15 @@ namespace Why.Economy.Layers
         static void Bar(LineMeshBuilder b, Vector3 at, float height, Color c)
         {
             height = Mathf.Max(.02f, height);
-            b.AddSegment(at, at + Vector3.up * height, c, 6, .1f, 0);
-            for (float y = .5f; y < height; y += .5f) b.AddSegment(at + new Vector3(-.12f, y, 0), at + new Vector3(.12f, y, 0), WithAlpha(Color.black, .6f), 1, 0, 0, 1);
+            b.AddSegment(at, at + Vector3.up * height, c, 6, .1f, EconomyEmphasis.Id(Part.Moves));
+            for (float y = .5f; y < height; y += .5f) b.AddSegment(at + new Vector3(-.12f, y, 0), at + new Vector3(.12f, y, 0), WithAlpha(Color.black, .6f), 1, 0, EconomyEmphasis.Id(Part.Moves), 1);
         }
 
         static void Arc(LineMeshBuilder b, Vector3 c, float r, float share, Color color)
         {
             int n = Mathf.Max(2, Mathf.CeilToInt(48 * Mathf.Clamp01(share))); var pts = new Vector3[n + 1];
             for (int i = 0; i <= n; i++) { float a = Mathf.PI * .5f + Mathf.PI * 2 * Mathf.Clamp01(share) * i / n; pts[i] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            b.AddPolyline(pts, color, 4, .06f, 0);
+            b.AddPolyline(pts, color, 4, .06f, EconomyEmphasis.Id(Part.Moves));
         }
 
         // ------------------------------------------------------------------ plumbing
@@ -284,11 +295,11 @@ namespace Why.Economy.Layers
             var r = AddMesh(name, mesh, material); r.transform.SetParent(content.transform, false); return r;
         }
 
-        void Surface(SurfaceMeshBuilder b, string name)
+        MeshRenderer Surface(SurfaceMeshBuilder b, string name)
         {
             Mesh mesh = b.ToMesh(name); owned.Add(mesh);
             Material material = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3218)); owned.Add(material);
-            var r = AddMesh(name, mesh, material); r.transform.SetParent(content.transform, false);
+            var r = AddMesh(name, mesh, material); r.transform.SetParent(content.transform, false); return r;
         }
 
         void Replace(MeshRenderer r, LineMeshBuilder b)
@@ -340,7 +351,7 @@ namespace Why.Economy.Layers
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); labels.Clear(); seatLabels.Clear(); content = null; arena = null; dynamicLines = pulses = null; raisedText = plateMaterial = null; plateQuad = null; ledgerPlate = null;
+            owned.Clear(); labels.Clear(); seatLabels.Clear(); content = null; arena = null; dynamicLines = pulses = arenaLines = arenaFloor = null; raisedText = plateMaterial = null; plateQuad = null; ledgerPlate = null;
         }
 
         void OnDestroy() => Clear();

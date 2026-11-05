@@ -44,6 +44,10 @@ namespace Why.Life
         /// <summary>Consumers below this trophic level (carnivorous plants, mixotrophs) are not a clean level.</summary>
         const float ConsumerMinT = 2f;
 
+        /// <summary>The plate behind each slice's title (the universe's label plate, as BandAnnotations' and TimeAxisLayer's):
+        /// the calorie arcs' hooks crossed "Calories flow upward".</summary>
+        static readonly Color TitlePlate = new Color(0.02f, 0.027f, 0.047f, 0.92f);
+
         /// <summary>Consumers below this trophic level are primary consumers (herbivores, filter feeders).</summary>
         const float HerbivoreMaxT = 2.5f;
 
@@ -252,7 +256,7 @@ namespace Why.Life
                 }
 
                 labels.Add(Label(ctx, anchor.Label, new Vector3(u, GraphStyle.LifeY + topLift + 0.05f, anchor.Rho), 26, 13,
-                    GraphStyle.Text, new Vector2(0, 10), TMPro.TextAlignmentOptions.Center, anchor));
+                    GraphStyle.Text, new Vector2(0, 10), TMPro.TextAlignmentOptions.Center, anchor, TitlePlate));
             }
 
             Debug.Log($"[Why] TrophicFlowLayer.Prepare {sw.ElapsedMilliseconds} ms ({lines.PolylineCount} lines)");
@@ -379,7 +383,7 @@ namespace Why.Life
         static string Percent(float share) => (share * 100f).ToString("0.###", CultureInfo.InvariantCulture) + "%";
 
         static LabelSpec Label(GraphContext ctx, string text, Vector3 data, float priority, float sizePx, Color color,
-            Vector2 offset, TMPro.TextAlignmentOptions align, Anchor anchor)
+            Vector2 offset, TMPro.TextAlignmentOptions align, Anchor anchor, Color plate = default)
         {
             LabelSpec spec = new LabelSpec
             {
@@ -393,6 +397,7 @@ namespace Why.Life
                 AnchorKey = anchor.Key,
                 Ids = anchor.Ids,
                 HandoffFade = true,
+                Plate = plate,
                 Hidden = true // the graph opens on the overview; Tick shows them in the life views
             };
             ctx.Labels.Add(spec);

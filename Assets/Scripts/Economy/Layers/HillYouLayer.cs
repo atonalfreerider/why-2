@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -35,6 +36,10 @@ namespace Why.Economy.Layers
     {
         public override int Order => 62;
         enum Part { Figure, Rivers, Flow, Futures, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view is the emphasis table's
+        /// (EmphasisTable: full in this view, absent elsewhere), and its meshes carry the key's highlight ids.</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("you", "figure", "rivers", "flow", "futures");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
         const float Pulse = .2f;
         static readonly Color Gold = new Color(1, .72f, .24f), Rose = new Color(1, .26f, .50f), Ice = new Color(.30f, .72f, 1),
@@ -70,6 +75,7 @@ namespace Why.Economy.Layers
             if (content == null) return;
             bool on = LandView.PresetId == "you";
             content.SetActive(on); if (!on) return;
+            foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             clock += Time.deltaTime;
             // the figure breathes under the bloom: brighter, it would wash its gold cushion and the labels around it to white
             if (figure) figure.sharedMaterial.SetColor("_Color", Color.white * (.85f + .15f * Mathf.Sin(clock * 2.2f)));
@@ -108,20 +114,21 @@ namespace Why.Economy.Layers
         void Figure(Vector3 at, YouModel.Result r, bool onHill, bool owner, Vector3 right)
         {
             var b = new LineMeshBuilder();
-            b.AddSegment(at, at + Vector3.up * 2.2f, White, 3.5f, 0, 0);
-            Ring(b, at + Vector3.up * 2.6f, .38f, White, 3, true);
-            b.AddSegment(at + Vector3.up * 1.5f + Vector3.forward * .7f, at + Vector3.up * 1.5f - Vector3.forward * .7f, White, 3, 0, 0);
-            Ring(b, at, 1.2f, WithAlpha(White, .8f), 2.2f, false);
+            float id = Id(Part.Figure);
+            b.AddSegment(at, at + Vector3.up * 2.2f, White, 3.5f, 0, id);
+            Ring(b, id, at + Vector3.up * 2.6f, .38f, White, 3, true);
+            b.AddSegment(at + Vector3.up * 1.5f + Vector3.forward * .7f, at + Vector3.up * 1.5f - Vector3.forward * .7f, White, 3, 0, id);
+            Ring(b, id, at, 1.2f, WithAlpha(White, .8f), 2.2f, false);
             // The cushion: the gold arc fills a tenth of the ring per year of spending (net worth with the home, so it is
             // not held to the model's three years of financial assets), a tick at each year.
             float share = Mathf.Clamp01((float)(r.Cushion / CushionYears));
-            Arc(b, at + Vector3.up * .05f, 1.7f, 0, Mathf.PI * 2, WithAlpha(Steel, .35f), 1.4f);
+            Arc(b, id, at + Vector3.up * .05f, 1.7f, 0, Mathf.PI * 2, WithAlpha(Steel, .35f), 1.4f);
             for (int k = 0; k < CushionYears; k++)
             {
                 float a = -Mathf.PI * .5f + k * Mathf.PI * 2 / CushionYears; Vector3 d = new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a));
-                b.AddSegment(at + Vector3.up * .05f + d * 1.55f, at + Vector3.up * .05f + d * 1.85f, WithAlpha(Steel, .6f), 1.2f, 0, 0);
+                b.AddSegment(at + Vector3.up * .05f + d * 1.55f, at + Vector3.up * .05f + d * 1.85f, WithAlpha(Steel, .6f), 1.2f, 0, id);
             }
-            if (share > 0) Arc(b, at + Vector3.up * .06f, 1.7f, -Mathf.PI * .5f, -Mathf.PI * .5f + share * Mathf.PI * 2, Gold, 4);
+            if (share > 0) Arc(b, id, at + Vector3.up * .06f, 1.7f, -Mathf.PI * .5f, -Mathf.PI * .5f + share * Mathf.PI * 2, Gold, 4);
             figure = Lines(b, Part.Figure, false);
             string years = r.YearsToIndependence == 0 ? "already there" : double.IsNaN(r.YearsToIndependence) ? "not within a century" : "about " + r.YearsToIndependence.ToString("0", LandFacts.Ci) + " years away";
             // high enough that the river to the viewer's own hill, whose market stands beside them, is named under the block
@@ -171,8 +178,8 @@ namespace Why.Economy.Layers
             var b = new LineMeshBuilder();
             float up = (float)r.Uphill, down = 1 - up;
             Vector3 top = at + new Vector3(3 + 6 * up, 3 + 9 * up, -1), low = at + new Vector3(-3 - 6 * down, 0, -1); low.y = land.Ground(low.x, low.z) + .4f;
-            Stream(b, at + Vector3.up * 1.2f, top, Gold, 1.2f + 6 * up);
-            Stream(b, at + Vector3.up * .8f, low, Blue, 1.2f + 6 * down);
+            Stream(b, Id(Part.Flow), at + Vector3.up * 1.2f, top, Gold, 1.2f + 6 * up);
+            Stream(b, Id(Part.Flow), at + Vector3.up * .8f, low, Blue, 1.2f + 6 * down);
             var lr = Lines(b, Part.Flow, true); lr.sharedMaterial.SetFloat("_FlowFreq", 1.8f); lr.sharedMaterial.SetFloat("_FlowSpeed", .7f);
             // over the gold stream's head, but never down in the YOU block: near the top of the ladder little goes uphill, the
             // head sinks, and the label printed across the block's lines
@@ -204,7 +211,7 @@ namespace Why.Economy.Layers
                 int dq = q - r.Quintile; if (dq < low || dq > high) continue;
                 double share = r.Reached[q]; Vector3 to = ruler + Vector3.up * (step * dq);
                 // a fifth between those reached that nobody ended in keeps a faint tick, unlabelled
-                if (share <= 0) { b.AddSegment(to - right * .25f, to + right * .25f, WithAlpha(Steel, .6f), 1.4f, 0, 0); continue; }
+                if (share <= 0) { b.AddSegment(to - right * .25f, to + right * .25f, WithAlpha(Steel, .6f), 1.4f, 0, Id(Part.Futures)); continue; }
                 // every step white, the figure's own hue, whichever way it went (its label says): gold (the income uphill,
                 // the cushion) and rose (the spending on wants) keep the one meaning the view's key gives them
                 var pts = new LinePoint[17];
@@ -214,8 +221,8 @@ namespace Why.Economy.Layers
                     Vector3 p = Vector3.Lerp(chest, to, t); p.y = Mathf.Lerp(chest.y, to.y, e);
                     pts[s] = new LinePoint(p, WithAlpha(White, .8f), 0, .12f + 1.3f * (float)share);
                 }
-                b.AddPolyline(pts, 0);
-                b.AddSegment(to - right * .45f, to + right * .45f, WithAlpha(White, .9f), 2.2f, 0, 0);
+                b.AddPolyline(pts, Id(Part.Futures));
+                b.AddSegment(to - right * .45f, to + right * .45f, WithAlpha(White, .9f), 2.2f, 0, Id(Part.Futures));
                 string where = (dq > 0 ? "climbed to the " : dq < 0 ? "fell to the " : "stayed in the ") + Mobility.QuintileNames[q];
                 // under half a percent (a line or two of hundreds) would print "0% ±0": a few did end there, so "<1%", and
                 // no range, which whole percents cannot give for so few lines
@@ -223,7 +230,7 @@ namespace Why.Economy.Layers
                 Label("<b>" + odds + "</b>\n<size=80%>" + where + "</size>", to + right * .8f, .2f, White, TextAlignmentOptions.Left);
             }
             // the ruler: a fifth per step, the viewer's own fifth level with the chest
-            b.AddSegment(ruler + Vector3.up * (step * low - .8f), ruler + Vector3.up * (step * high + .8f), WithAlpha(Steel, .7f), 1.6f, 0, 0);
+            b.AddSegment(ruler + Vector3.up * (step * low - .8f), ruler + Vector3.up * (step * high + .8f), WithAlpha(Steel, .7f), 1.6f, 0, Id(Part.Futures));
             // in short lines, so the heading ends before the panel on the right
             string who = r.OddsAllAges ? "adults of every age in your fifth ten years ago\ntoo few were " + Mobility.AgeBandNames[r.AgeBand] + " · "
                 : "adults in your fifth aged " + Mobility.AgeBandNames[r.AgeBand] + " ten years ago\n";
@@ -267,11 +274,11 @@ namespace Why.Economy.Layers
                     left[k] = path[k] + normal * e0; right[k] = path[k] + normal * e1;
                     mid[k] = new LinePoint((left[k] + right[k]) * .5f + Vector3.up * .03f, hue, 1f);
                 }
-                fill.AddBand(left, right, new[] { (Color32)hue }, 0); b.AddFlowPath(mid, 0, 1.2f, id * .37f + lane * .2f);
+                fill.AddBand(left, right, new[] { (Color32)hue }, Id(Part.Rivers)); b.AddFlowPath(mid, Id(Part.Rivers), 1.2f, id * .37f + lane * .2f);
             }
         }
 
-        static void Stream(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width)
+        static void Stream(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color color, float width)
         {
             var pts = new LinePoint[21];
             for (int s = 0; s < pts.Length; s++)
@@ -279,25 +286,25 @@ namespace Why.Economy.Layers
                 float t = s / 20f; Vector3 p = Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * 1.2f;
                 pts[s] = new LinePoint(p, WithAlpha(color, Mathf.Lerp(.9f, .5f, t)), width);
             }
-            b.AddFlowPath(pts, 0, .8f);
+            b.AddFlowPath(pts, id, .8f);
             Vector3 d = (z - pts[17].Data).normalized, side = Vector3.Cross(d, Vector3.up).normalized;
             if (side.sqrMagnitude < 1e-4f) side = Vector3.forward;
-            b.AddSegment(z, z - d * 1.2f + side * .6f, color, width, 0, 0);
-            b.AddSegment(z, z - d * 1.2f - side * .6f, color, width, 0, 0);
+            b.AddSegment(z, z - d * 1.2f + side * .6f, color, width, 0, id);
+            b.AddSegment(z, z - d * 1.2f - side * .6f, color, width, 0, id);
         }
 
-        static void Ring(LineMeshBuilder b, Vector3 c, float r, Color color, float width, bool vertical)
+        static void Ring(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width, bool vertical)
         {
             var pts = new Vector3[33];
             for (int s = 0; s < pts.Length; s++) { float a = s * Mathf.PI * 2 / 32; pts[s] = c + (vertical ? new Vector3(Mathf.Cos(a) * r, Mathf.Sin(a) * r, 0) : new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r)); }
-            b.AddPolyline(pts, color, width, 0, 0);
+            b.AddPolyline(pts, color, width, 0, id);
         }
 
-        static void Arc(LineMeshBuilder b, Vector3 c, float r, float a0, float a1, Color color, float width)
+        static void Arc(LineMeshBuilder b, float id, Vector3 c, float r, float a0, float a1, Color color, float width)
         {
             int n = Mathf.Max(2, Mathf.CeilToInt(Mathf.Abs(a1 - a0) / (Mathf.PI * 2) * 64)); var pts = new Vector3[n + 1];
             for (int s = 0; s <= n; s++) { float a = Mathf.Lerp(a0, a1, s / (float)n); pts[s] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            b.AddPolyline(pts, color, width, 0, 0);
+            b.AddPolyline(pts, color, width, 0, id);
         }
 
         /// <summary>A mesh of lines, blended: where the lanes and streams meet at the figure, the top one's hue shows instead

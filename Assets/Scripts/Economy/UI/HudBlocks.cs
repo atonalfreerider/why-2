@@ -14,6 +14,10 @@ namespace Why.Economy.UI
     /// measures as empty, and the layout then falls back to the HUD's authored sizes (<see cref="EconomyUiLayout"/>).
     /// Measuring allocates nothing (a few corner transforms; the silhouette is made again only when the view's pose, the
     /// screen or the land changes).
+    /// <para>
+    /// The same blocks, with every panel of the economy and the tour's card, are the hills' labels' keep-outs (spec 3.5):
+    /// <see cref="ScreenRects"/> gives them in screen pixels for <see cref="LabelSystem.HudRects"/>.
+    /// </para>
     /// </summary>
     public sealed class HudBlocks
     {
@@ -21,8 +25,29 @@ namespace Why.Economy.UI
         readonly GraphRoot root;
         readonly Vector3[] corners = new Vector3[4];
 
+        /// <summary>The economy's panels and the tour's card, found by the names their modules give them (<see cref="PanelPaths"/>).</summary>
+        readonly List<RectTransform> panels = new List<RectTransform>();
+
         /// <summary>The missing HUD is reported once per session, not by every module that measures it.</summary>
         static bool reportedMissing;
+
+        /// <summary>
+        /// The panels the labels keep out from under besides the HUD's own blocks, as "canvas/panel" under their module: the
+        /// year chip and its readout, the replay's readout, the social panel, the land legend, the inspectors, the views'
+        /// side panels (strategy, mobility, you, regimes), the explorer and its chip, the landscape program, and the tour's
+        /// narration card. A panel that is not found is simply not kept clear (a module of the other scene).
+        /// </summary>
+        static readonly string[] PanelPaths =
+        {
+            "EconomyControls/YearChip", "EconomyControls/YearReadout", ReplayPanel.CanvasName + "/Replay", "SocialPanel/Social",
+            "LandLegend/LandLegend", "PlayerPanel/PlayerInspector", "PersonInspector/PersonInspector", "Companies spend too/Strategy",
+            "Who the ladder counts/Mobility", "Where you stand/You", "What if: another government/Regimes",
+            "Explore economic hierarchy/Explore", "Explore economic hierarchy/Explore the hill", "Landscape program/Readout",
+            "DirectorCanvas/NarrationPanel"
+        };
+
+        /// <summary>Panels added from their own code (<see cref="Register"/>), destroyed ones pruned as they are met.</summary>
+        static readonly List<RectTransform> registered = new List<RectTransform>();
 
         public HudBlocks(GraphRoot root)
         {
@@ -30,6 +55,9 @@ namespace Why.Economy.UI
             if (root == null) return;
             foreach (GraphModule m in root.Modules)
             {
+                // a module that destroyed itself (one idle in this run, as the smoke test outside a smoke run) is gone:
+                // its transform throws
+                if (m == null) continue;
                 if (m is Hud)
                 {
                     Transform content = m.transform.Find("Hud/Content");
@@ -43,12 +71,70 @@ namespace Why.Economy.UI
                     readout = Find(content, "LifelineReadout");
                     presetBar = Find(content, "PresetBar");
                 }
+
+                foreach (string path in PanelPaths)
+                {
+                    RectTransform panel = Find(m.transform, path);
+                    if (panel != null) panels.Add(panel);
+                }
             }
 
             if ((title == null || presetBar == null) && !reportedMissing)
             {
                 reportedMissing = true;
                 Debug.LogWarning("[Why] economy UI: the HUD's blocks were not found by name; laying out with its authored sizes");
+            }
+        }
+
+        /// <summary>
+        /// Main thread: a panel the hills' labels keep out from under while it is shown, besides the HUD's blocks and the
+        /// economy's panels found by name: a new view's panel (spec 4's stage panels) registers itself once.
+        /// </summary>
+        public static void Register(RectTransform panel)
+        {
+            if (panel != null && !registered.Contains(panel)) registered.Add(panel);
+        }
+
+        /// <summary>
+        /// Main thread: adds to <paramref name="into"/> the screen rect (pixels, origin bottom-left, as
+        /// <paramref name="cam"/> projects) of every block shown now: the title (with its subtitle), the tour and help
+        /// buttons, the F3 stats, the legend and the lifeline readout, the preset bar, the economy's panels and the tour's card
+        /// (<see cref="PanelPaths"/>) and the registered panels. A block counts while it is active (a faded-out one is not) on
+        /// an enabled canvas: a screen-space one's corners are screen pixels, at any resolution and in portrait; a world-space
+        /// one (the headset's HUD plane, where only the kept canvases show) is projected by the camera. Allocates nothing.
+        /// </summary>
+        public void ScreenRects(List<Rect> into, Camera cam)
+        {
+            AddRect(into, cam, title);
+            AddRect(into, cam, subtitle);
+            AddRect(into, cam, tour);
+            AddRect(into, cam, help);
+            AddRect(into, cam, stats);
+            AddRect(into, cam, legend);
+            AddRect(into, cam, readout);
+            AddRect(into, cam, presetBar);
+            for (int i = 0; i < panels.Count; i++) AddRect(into, cam, panels[i]);
+            for (int i = registered.Count - 1; i >= 0; i--)
+            {
+                if (registered[i] == null) registered.RemoveAt(i); // destroyed with its scene
+                else AddRect(into, cam, registered[i]);
+            }
+        }
+
+        void AddRect(List<Rect> into, Camera cam, RectTransform rt)
+        {
+            if (rt == null || !rt.gameObject.activeInHierarchy) return;
+            Canvas canvas = rt.GetComponentInParent<Canvas>();
+            Canvas screen = canvas != null ? canvas.rootCanvas : null;
+            if (screen == null || !screen.enabled) return;
+            if (screen.renderMode == RenderMode.ScreenSpaceOverlay)
+            {
+                rt.GetWorldCorners(corners); // an overlay canvas's world corners are screen pixels
+                into.Add(Rect.MinMaxRect(corners[0].x, corners[0].y, corners[2].x, corners[2].y));
+            }
+            else if (screen.renderMode == RenderMode.WorldSpace && LabelSystem.Project(rt, cam, out Rect r))
+            {
+                into.Add(r);
             }
         }
 

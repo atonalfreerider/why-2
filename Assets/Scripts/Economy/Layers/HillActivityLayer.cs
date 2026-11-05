@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 using Why.Economy.UI;
@@ -15,6 +16,20 @@ namespace Why.Economy.Layers
     {
         public override int Order=>56;
         public const int Subgroups=5;
+        /// <summary>The emphasis keys of the layer's parts (EmphasisTable's activity rows: their alpha, or the markers' and the
+        /// halos' intensity, in every view), whose highlight ids their meshes carry. A firm's halo, beam and organization take
+        /// the value of the state the firm is in (its halo lit when chosen or of the focused sector; its beam and organization
+        /// the largest of their states'): the table gives each state's value in each view.</summary>
+        static class Part
+        {
+            public static readonly int Markers=EconomyEmphasis.Key("activity.markers"),Halos=EconomyEmphasis.Key("activity.halos"),HalosLit=EconomyEmphasis.Key("activity.halos.lit"),
+                Beams=EconomyEmphasis.Key("activity.beams"),BeamsNear=EconomyEmphasis.Key("activity.beams.near"),BeamsChosen=EconomyEmphasis.Key("activity.beams.chosen"),
+                Orgs=EconomyEmphasis.Key("activity.orgs"),OrgsNear=EconomyEmphasis.Key("activity.orgs.near"),OrgsRelated=EconomyEmphasis.Key("activity.orgs.related"),
+                OrgsChosen=EconomyEmphasis.Key("activity.orgs.chosen"),OrgsEmployer=EconomyEmphasis.Key("activity.orgs.employer"),Supply=EconomyEmphasis.Key("activity.supply"),
+                Rivalry=EconomyEmphasis.Key("activity.rivalry"),Circles=EconomyEmphasis.Key("activity.circles"),Threads=EconomyEmphasis.Key("activity.threads"),
+                Trips=EconomyEmphasis.Key("activity.trips"),Trunks=EconomyEmphasis.Key("activity.trunks"),Rivers=EconomyEmphasis.Key("activity.rivers"),
+                Sparks=EconomyEmphasis.Key("activity.sparks"),Ring=EconomyEmphasis.Key("activity.focus");
+        }
         static HillActivityLayer active;
         public static Vector3 CompanyPosition(int index)=>active!=null&&active.firmAt!=null&&index>=0&&index<active.firmAt.Length?active.firmAt[index]:Vector3.zero;
         /// <summary>The firm's profit halo at the top of its market-value beam.</summary>
@@ -87,7 +102,13 @@ namespace Why.Economy.Layers
         GameObject riversRoot;
         string view;
         public override void Prepare(GraphContext ctx) { }
-        public override void Upload(GraphContext ctx){active=this;EconomyStage.Land().Place(transform);}
+        public override void Upload(GraphContext ctx)
+        {
+            active=this;EconomyStage.Land().Place(transform);
+            // the inferred supply allocations, the scenario's rivalry and the schematic organizations are not evidence
+            foreach(string key in new[]{"activity.supply","activity.rivalry","activity.orgs","activity.orgs.near","activity.orgs.related","activity.orgs.chosen","activity.orgs.employer"})
+                EconomyEmphasis.Multiplier(key,"evidence only",()=>EmphasisTable.EvidenceOnly(HillExplorer.EvidenceOnly));
+        }
         public override void Tick(GraphContext ctx,CameraRig rig)
         {
             if(HillLandscapeLayer.Current==null)return;
@@ -108,15 +129,14 @@ namespace Why.Economy.Layers
             bool hidden=LandView.PresetId=="mind"||LandView.PresetId=="section";
             // The money chart's series wear the rivers' rose and ice and the halos' gold (the mortgage, the Treasury, the bank's
             // rate): seen edge-on behind its panel, the crest's trunks, halos and owner rings added up to the series' own
-            // brightness and read as more of them, so the chart's view draws none of them (the firms' glow, below).
+            // brightness and read as more of them, so the chart's view draws none of them (nor the firms' halos: the emphasis
+            // table's activity rows).
             bool chart=LandView.PresetId=="money";
-            // The regimes view draws its own summits (HillRegimeLayer: steel where the state owns them, gold where it does
-            // not), so it draws none of the firms' halos, beams, organizations and owner rings, nor the ring of the summit most
-            // is spent at (DrawFocus): under the Soviet state, whose every summit is its own, their gold read as private ones.
-            bool ownSummits=LandView.PresetId==HillRegimeLayer.View;
             content.SetActive(!hidden);riversRoot.SetActive(!hidden&&!chart);if(hidden)return;
+            EconomyEmphasis.Apply(rivers,Part.Rivers);EconomyEmphasis.Apply(riverFill,Part.Rivers);EconomyEmphasis.Apply(pulses,Part.Sparks);EconomyEmphasis.Apply(focus,Part.Ring);
             int focusPlayer=selection>=0?selection:HillLandscapeLayer.HoverPlayer;
             int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillExplorer.Industry>=0?HillExplorer.Industry:HillLandscapeLayer.HoverIndustry;
+            float markers=EconomyEmphasis.Get(Part.Markers);
             for(int p=0;p<actors.Count;p++)
             {
                 float progress=(1-Mathf.Cos(animation*(.055f+.015f*(1-FearOf(p)))+p*2.399963f))*.5f;
@@ -128,35 +148,43 @@ namespace Why.Economy.Layers
                 bool nearby=lod==0||focusIndustry<0||land.IndustryOf[p/Subgroups]==focusIndustry||Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(at))<35;
                 actors[p].gameObject.SetActive(!memberView&&nearby);
                 Color color=Color.Lerp(Desire,Fear,FearOf(p));
-                float intensity=(p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1:.60f)*(PersonFocus.IsView(LandView.PresetId)?.25f:EconomyViews.Focused(LandView.PresetId)?.3f:1);
+                float intensity=(p/Subgroups==focusPlayer?3.5f:focusPlayer>=0?.16f:p%145==0?1:.60f)*markers;
                 actors[p].sharedMaterial.SetColor("_Color",Color.white*intensity);
             }
             string v=LandView.PresetId;bool person=PersonFocus.IsView(v),focusedView=EconomyViews.Focused(v);
             // The person views and the focused views keep the firms' readouts, beams and organizations out of their story
             // (the strategy view keeps the beams its streams leave from, and draws its own readouts); a person view keeps
-            // the organization of the employer the person's income comes from.
-            bool quietFirm=focusedView||person,quietBeams=quietFirm&&v!="strategy";int employer=person?Employer():-1;
+            // the organization of the employer the person's income comes from. The halos', beams' and organizations' values in
+            // each view are the emphasis table's (activity rows): the regimes view draws its own summits (HillRegimeLayer: steel
+            // where the state owns them, gold where it does not), so none of the firms' halos, beams, organizations and owner
+            // rings there, whose gold read as private ones under the Soviet state, whose every summit is its own.
+            bool quietFirm=focusedView||person;int employer=person?Employer():-1;
+            float haloRest=EconomyEmphasis.Get(Part.Halos),haloLit=EconomyEmphasis.Get(Part.HalosLit),beamRest=EconomyEmphasis.Get(Part.Beams),
+                beamNear=EconomyEmphasis.Get(Part.BeamsNear),beamChosen=EconomyEmphasis.Get(Part.BeamsChosen),orgRest=EconomyEmphasis.Get(Part.Orgs),
+                orgNear=EconomyEmphasis.Get(Part.OrgsNear),orgRelated=EconomyEmphasis.Get(Part.OrgsRelated),orgChosen=EconomyEmphasis.Get(Part.OrgsChosen),
+                orgEmployer=EconomyEmphasis.Get(Part.OrgsEmployer);
             for(int f=0;f<firms.Count;f++)
             {
                 bool related=snapshot.Land.Towers[f].Industry==focusIndustry,chosen=HillExplorer.Company==f;
                 firms[f].transform.localScale=Vector3.one*haloScale[f];
-                // HDR only for the chosen firm and the hovered or selected sector's; who keeps the money draws the halos of
-                // the industries' owners instead of the firms' (the firms' inner circles of owners stay)
-                float glow=chosen?5:related?3.6f:v=="capture"?0:Competition.FirmReceipts[f]>Competition.TotalSpending*.03?1:.9f;
-                // in a focused view other than the companies' own the firms' halos step back to landmarks, in a person's further;
-                // the money chart's and the regimes' views draw none (above)
-                if(chart||ownSummits)glow=0;else if(focusedView&&v!="strategy")glow*=.25f;else if(person)glow*=.15f;
+                // HDR only for the chosen firm and the hovered or selected sector's (halos.lit); who keeps the money draws the
+                // halos of the industries' owners instead of the firms' (halos at rest absent there; the firms' inner circles of
+                // owners stay); in a focused view other than the companies' own the firms' halos step back to landmarks, in a
+                // person's further
+                float glow=chosen?5*haloLit:related?3.6f*haloLit:(Competition.FirmReceipts[f]>Competition.TotalSpending*.03?1:.9f)*haloRest;
                 // blended, not added (decision 36): up to 1 the glow is the halo's opacity and its brightness, so one shows
                 // as it did added (the glow squared) and the halos the tech hills stack on screen keep their gold; past 1 the
                 // halo is opaque and its brightness alone carries the glow, as bright as added, into bloom
+                // a halo the table makes absent (glow 0: nothing drawn) is off
+                if(firms[f].enabled!=glow>0)firms[f].enabled=glow>0;
                 firms[f].sharedMaterial.SetColor("_Color",glow<=1?Color.white*glow:new Color(glow*glow,glow*glow,glow*glow,1));
                 // Corporate infrastructure by distance: beams and halos always; revenue, margin and value readouts nearer or
                 // for the focused sector; the organization inside the firm only close up, or the chosen firm's. The money
                 // chart's and the regimes' views draw none of it, the chosen firm's organization neither: without its beam and
                 // halo it floated over its seat, its gold board's lines meeting at nothing.
                 bool near=Vector3.Distance(rig.Pose.Target,EconomyStage.Land().World(firmAt[f]))<60;
-                GraphMaterials.SetAlpha(controls[f].sharedMaterial,chart||ownSummits?0:chosen||!quietBeams&&(related&&lod>=1||lod>=1&&near)?.95f:quietBeams?.05f:v=="capture"?.55f:.22f);
-                GraphMaterials.SetAlpha(orgs[f].sharedMaterial,HillExplorer.EvidenceOnly||chart||ownSummits?0:chosen||f==employer||!quietFirm&&lod>=2&&near?.9f:!quietFirm&&related&&lod>=1?.3f:0);
+                EconomyEmphasis.Set(controls[f],Mathf.Max(beamRest,Mathf.Max(chosen?beamChosen:0,lod>=1&&(related||near)?beamNear:0)));
+                EconomyEmphasis.Set(orgs[f],Mathf.Max(Mathf.Max(orgRest,chosen?orgChosen:0),Mathf.Max(f==employer?orgEmployer:0,Mathf.Max(lod>=2&&near?orgNear:0,related&&lod>=1?orgRelated:0))));
                 // the readouts are world-sized: from the capture view's 150 units their lines were 4-5 px, so there too they
                 // show only for the chosen firm, the focused sector's or from mid distance
                 labels[f].gameObject.SetActive(!quietFirm&&(chosen||(related&&lod>=1)||lod>=1&&near));
@@ -166,14 +194,11 @@ namespace Why.Economy.Layers
                 badges[f].gameObject.SetActive(!quietFirm&&(lod>=1||related||snapshot.Land.Towers[f].MarketCap>2000));
                 labels[f].text=FirmText(f);
             }
-            GraphMaterials.SetAlpha(structure.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="roots"?.35f:.018f);
-            GraphMaterials.SetAlpha(rivalry.sharedMaterial,HillExplorer.EvidenceOnly?0:LandView.PresetId=="capture"?.5f:.07f);
+            EconomyEmphasis.Apply(structure,Part.Supply);EconomyEmphasis.Apply(rivalry,Part.Rivalry);
             // The owners' inner circles: every firm sits inside a ring of its elite owners; threads rise to the clouds (not in
             // who keeps the money, where the owners' surplus already climbs from the halos to its holders). Neither in the
             // money chart's and the regimes' views (above).
-            bool own=v=="capture"||v=="companies"||v=="strategy";bool quiet=PersonFocus.IsView(v)||EconomyViews.Focused(v)&&!own;
-            GraphMaterials.SetAlpha(circles.sharedMaterial,chart||ownSummits?0:own?1:quiet?.15f:v=="overview"||v=="landscape"||v=="people"?.75f:.45f);
-            GraphMaterials.SetAlpha(circleThreads.sharedMaterial,v=="capture"||chart||ownSummits?0:own?.6f:v=="people"?.3f:quiet?.02f:.08f);
+            EconomyEmphasis.Apply(circles,Part.Circles);EconomyEmphasis.Apply(circleThreads,Part.Threads);
             // The rivers view names its trunks (not while a cohort's own rivers dim them) and the year's split of household
             // spending (both written by Trunks).
             bool riversView=v=="rivers";
@@ -309,13 +334,14 @@ namespace Why.Economy.Layers
                 double assets=state?.Assets??Math.Max(0,cohort.Wealth+cohort.Debt),debt=state?.Debt??cohort.Debt;
                 assets/=Subgroups;debt/=Subgroups;
                 b.Clear();Color motive=Color.Lerp(Desire,Fear,FearOf(p));
-                b.AddSegment(Vector3.zero,Vector3.up*1.2f,motive,2.2f,0,0);
-                Ring(b,Vector3.up*1.5f,.30f,motive,1.8f,true);
+                float id=EconomyEmphasis.Id(Part.Markers);
+                b.AddSegment(Vector3.zero,Vector3.up*1.2f,motive,2.2f,0,id);
+                Ring(b,id,Vector3.up*1.5f,.30f,motive,1.8f,true);
                 // Gross assets and liabilities get separate persistent rings; logarithmic radius handles group scale.
-                if(lod>=1||p/Subgroups==EconomyState.SelectedPlayer)Ring(b,Vector3.zero,.35f+(float)Math.Log10(1+assets)*.20f,Gold,1.4f);
-                if(debt>0&&(lod>=1||p/Subgroups==EconomyState.SelectedPlayer))Ring(b,Vector3.up*.12f,.28f+(float)Math.Log10(1+debt)*.18f,Desire,1.4f);
+                if(lod>=1||p/Subgroups==EconomyState.SelectedPlayer)Ring(b,id,Vector3.zero,.35f+(float)Math.Log10(1+assets)*.20f,Gold,1.4f);
+                if(debt>0&&(lod>=1||p/Subgroups==EconomyState.SelectedPlayer))Ring(b,id,Vector3.up*.12f,.28f+(float)Math.Log10(1+debt)*.18f,Desire,1.4f);
                 for(int child=0;lod>=2&&child<Math.Min(4,(cohort.Children.Length+p%Subgroups)/Subgroups);child++)
-                {float a=child*2.4f;Vector3 c=new Vector3(Mathf.Cos(a)*.9f,0,Mathf.Sin(a)*.9f);b.AddSegment(c,c+Vector3.up*.5f,Color.white,1,0,0);}
+                {float a=child*2.4f;Vector3 c=new Vector3(Mathf.Cos(a)*.9f,0,Mathf.Sin(a)*.9f);b.AddSegment(c,c+Vector3.up*.5f,Color.white,1,0,id);}
                 Replace(actors[p],b);
             }
         }
@@ -343,18 +369,19 @@ namespace Why.Economy.Layers
                 // hue (intensity 1), blended; the material's glow lifts the chosen and the hovered sector's firms into bloom
                 // (Tick).
                 var node=new LineMeshBuilder();
-                Ring(node,Vector3.zero,1,Gold,2.6f);Ring(node,Vector3.up*.05f,1.18f,Gold,1.2f);Ring(node,Vector3.zero,.72f,new Color(1,.95f,.85f),1.1f);
+                float halo=EconomyEmphasis.Id(Part.Halos),beams=EconomyEmphasis.Id(Part.Beams);
+                Ring(node,halo,Vector3.zero,1,Gold,2.6f);Ring(node,halo,Vector3.up*.05f,1.18f,Gold,1.2f);Ring(node,halo,Vector3.zero,.72f,new Color(1,.95f,.85f),1.1f);
                 var renderer=Render(node,tower.Name,true,false);renderer.transform.localPosition=at+Vector3.up*beam;firms.Add(renderer);
                 labels.Add(Label(tower.Name,at+Vector3.up*(beam+2.8f)));
                 string ticker=string.IsNullOrWhiteSpace(tower.Ticker)?tower.Name.Substring(0,Math.Min(3,tower.Name.Length)).ToUpperInvariant():tower.Ticker;
                 var badge=Label("["+ticker+"]",at+Vector3.up*(beam+1.3f));badge.text="<b>["+ticker+"]</b>";badge.transform.localScale=Vector3.one*.55f;badges.Add(badge);
                 // Mid: revenue at the foot, its net margin as a gold arc, the beam marked every $1T of market value.
                 var mid=new LineMeshBuilder();
-                mid.AddSegment(at,at+Vector3.up*beam,Gold,1.4f,0,0);
-                Ring(mid,at+Vector3.up*.08f,revenue,new Color(.62f,.78f,.95f,.8f),1.2f);
+                mid.AddSegment(at,at+Vector3.up*beam,Gold,1.4f,0,beams);
+                Ring(mid,beams,at+Vector3.up*.08f,revenue,new Color(.62f,.78f,.95f,.8f),1.2f);
                 float margin=Mathf.Clamp01(tower.Margin>0?tower.Margin:(float)(tower.NetIncome/Math.Max(1e-6,tower.Revenue)));
-                if(margin>0)ArcAt(mid,at+Vector3.up*.12f,revenue,-Mathf.PI*.5f,-Mathf.PI*.5f+margin*Mathf.PI*2,Gold,3,1);
-                for(double v=1000;v<tower.MarketCap;v+=1000){Vector3 tick=at+Vector3.up*(beam*(float)(v/tower.MarketCap));mid.AddSegment(tick-Vector3.right*.25f,tick+Vector3.right*.25f,Gold,1,0,0);}
+                if(margin>0)ArcAt(mid,beams,at+Vector3.up*.12f,revenue,-Mathf.PI*.5f,-Mathf.PI*.5f+margin*Mathf.PI*2,Gold,3,1);
+                for(double v=1000;v<tower.MarketCap;v+=1000){Vector3 tick=at+Vector3.up*(beam*(float)(v/tower.MarketCap));mid.AddSegment(tick-Vector3.right*.25f,tick+Vector3.right*.25f,Gold,1,0,beams);}
                 controls.Add(Render(mid,"Revenue margin value / "+tower.Name,true));
                 // Near: the organization (schematic): the workforce at the base, then managers, executives and the board
                 // narrowing up the beam to the owners' halo. Headcount sets the base; reporting lines are illustrative.
@@ -364,7 +391,7 @@ namespace Why.Economy.Layers
                 circleAt[f]=at+Vector3.up*(beam-.35f);circleRadius[f]=1.18f*haloScale[f]+.55f+.03f*Mathf.Sqrt((float)eliteClaim[f]);
                 InnerCircle(ring,rise,circleAt[f],circleRadius[f],eliteClaim[f]);
                 for(int prior=0;prior<f;prior++)if(towers[prior].Industry==hill.Industry)
-                    competition.AddPolyline(new[]{firmAt[prior]+Vector3.up*.2f,(firmAt[prior]+at)*.5f+Vector3.up*1.2f,at+Vector3.up*.2f},Desire,1,0,0,1,1);
+                    competition.AddPolyline(new[]{firmAt[prior]+Vector3.up*.2f,(firmAt[prior]+at)*.5f+Vector3.up*1.2f,at+Vector3.up*.2f},Desire,1,0,EconomyEmphasis.Id(Part.Rivalry),1,1);
             }
             // Sector IO is evidence; distributing its endpoint across sampled firms is illustrative.
             var io=LandService.Model.Data.Circuit?.Io;
@@ -386,21 +413,22 @@ namespace Why.Economy.Layers
         /// (one per ~$9B squared-root scaled, 5..22), with a thin gold thread up to the 1% cloud.</summary>
         void InnerCircle(LineMeshBuilder ring,LineMeshBuilder rise,Vector3 c,float r,double claim)
         {
+            float circle=EconomyEmphasis.Id(Part.Circles);
             int n=Mathf.Clamp(Mathf.RoundToInt(Mathf.Sqrt((float)claim)/3f),5,22);
-            Ring(ring,c,r,Gold,2.2f);Ring(ring,c+Vector3.up*.08f,r*1.05f,WithAlpha(Gold,.5f),1);
+            Ring(ring,circle,c,r,Gold,2.2f);Ring(ring,circle,c+Vector3.up*.08f,r*1.05f,WithAlpha(Gold,.5f),1);
             for(int k=0;k<n;k++)
             {
                 float a=k*Mathf.PI*2/n;Vector3 p=c+new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);
-                ring.AddSegment(p,p+Vector3.up*.32f,Gold,1.8f,.025f,0);Ring(ring,p+Vector3.up*.42f,.08f,Gold,1.2f,true);
+                ring.AddSegment(p,p+Vector3.up*.32f,Gold,1.8f,.025f,circle);Ring(ring,circle,p+Vector3.up*.42f,.08f,Gold,1.2f,true);
             }
             var cloud=land.CloudCenter;var pts=new LinePoint[21];
             for(int k=0;k<pts.Length;k++){float t=k/20f;pts[k]=new LinePoint(Vector3.Lerp(c+Vector3.up*.4f,cloud,t)+Vector3.up*Mathf.Sin(t*Mathf.PI)*4,WithAlpha(Gold,.55f),.7f+Mathf.Sqrt((float)claim)*.02f);}
-            rise.AddFlowPath(pts,0,.3f);
+            rise.AddFlowPath(pts,EconomyEmphasis.Id(Part.Threads),.3f);
         }
         static float Beam(TowerGeom t)=>2+Mathf.Log10(1+(float)Math.Max(0,t.MarketCap))*2.4f;
         LineMeshBuilder Organization(Vector3 at,float beam,float radius,double staffThousands)
         {
-            var b=new LineMeshBuilder();
+            var b=new LineMeshBuilder();float id=EconomyEmphasis.Id(Part.Orgs);
             int workers=Mathf.Clamp(Mathf.RoundToInt(Mathf.Log(1+(float)Math.Max(1,staffThousands),2)*3.2f),8,40);
             int managers=Mathf.Max(3,workers/5),executives=Mathf.Min(6,Mathf.Max(3,managers/2));
             float[] heights={.25f,beam*.30f,beam*.58f,beam*.80f};float[] radii={radius*.95f,radius*.62f,radius*.36f,radius*.18f};
@@ -413,17 +441,17 @@ namespace Why.Economy.Layers
                 {
                     float a=k*Mathf.PI*2/counts[level]+level*.3f;
                     Vector3 p=at+new Vector3(Mathf.Cos(a)*radii[level],heights[level],Mathf.Sin(a)*radii[level]);current.Add(p);
-                    b.AddSegment(p,p+Vector3.up*.18f,colors[level],1.6f,0,0);
-                    Ring(b,p+Vector3.up*.26f,.06f,colors[level],1,true);
+                    b.AddSegment(p,p+Vector3.up*.18f,colors[level],1.6f,0,id);
+                    Ring(b,id,p+Vector3.up*.26f,.06f,colors[level],1,true);
                 }
                 if(level>0)for(int k=0;k<previous.Count;k++)
                 {
                     Vector3 lower=previous[k];int up=k*current.Count/previous.Count;
-                    b.AddSegment(lower+Vector3.up*.3f,current[up],WithAlpha(colors[level],.45f),.7f,0,0);
+                    b.AddSegment(lower+Vector3.up*.3f,current[up],WithAlpha(colors[level],.45f),.7f,0,id);
                 }
                 previous.Clear();previous.AddRange(current);
             }
-            foreach(var seat in previous)b.AddSegment(seat+Vector3.up*.3f,at+Vector3.up*beam,WithAlpha(Gold,.6f),.8f,0,0);
+            foreach(var seat in previous)b.AddSegment(seat+Vector3.up*.3f,at+Vector3.up*beam,WithAlpha(Gold,.6f),.8f,0,id);
             return b;
         }
         string FirmText(int f)
@@ -438,18 +466,18 @@ namespace Why.Economy.Layers
             return s+"\nscenario household demand "+LandFacts.Money(Competition.FirmReceipts[f]);
         }
         static Color WithAlpha(Color c,float a){c.a=a;return c;}
-        static void ArcAt(LineMeshBuilder b,Vector3 c,float r,float a0,float a1,Color color,float width,float intensity)
+        static void ArcAt(LineMeshBuilder b,float id,Vector3 c,float r,float a0,float a1,Color color,float width,float intensity)
         {
             int n=Mathf.Max(2,Mathf.CeilToInt((a1-a0)/(Mathf.PI*2)*64));var pts=new Vector3[n+1];
             for(int k=0;k<=n;k++){float a=Mathf.Lerp(a0,a1,k/(float)n);pts[k]=c+new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);}
-            b.AddPolyline(pts,color,width,0,0,intensity);
+            b.AddPolyline(pts,color,width,0,id,intensity);
         }
         void DrawRivers(int focused)
         {
             var b=new LineMeshBuilder();var fill=new SurfaceMeshBuilder();pulseGeometry=new LineMeshBuilder();
             // the rivers' own view draws every third subgroup's trip at half strength and the trunks at full; elsewhere one
             // trip in fifteen and the trunks are a trace under the view's own story
-            bool own=LandView.PresetId=="rivers";
+            bool own=LandView.PresetId=="rivers";float trips=EconomyEmphasis.Get(Part.Trips),trunks=EconomyEmphasis.Get(Part.Trunks);
             for(int p=0;p<home.Length;p++)
             {
                 if(riverAmount[p]<=0)continue;
@@ -466,7 +494,7 @@ namespace Why.Economy.Layers
                     at.y=land.Cloud[p/Subgroups]?Mathf.Lerp(Positions[p].y,ground,Mathf.SmoothStep(0,1,t)):ground;
                     path[k]=new LinePoint(at,color,(active?2:1)+(float)Math.Log10(1+riverAmount[p])*.3f,0,active?2.3f:1.0f);
                 }
-                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,riverFear[p],active?.8f:focused>=0?.008f:own?.5f:.035f,p,active);
+                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,riverFear[p],active?.8f:focused>=0?.008f:trips,p,active);
             }
             // Each industry's trunk carries all households' spending at its market, as wide as its share of the year's
             // dollars (linear, unlike the trips), split into the fear and desire lanes of what is bought there (Trunks).
@@ -485,7 +513,7 @@ namespace Why.Economy.Layers
                     path[k]=new LinePoint(point,Color.white,1);
                 }
                 bool active=false;if(focused>=0)for(int p=focused*Subgroups;p<(focused+1)*Subgroups;p++)if(recipient[p]==h)active=true;
-                Water(fill,b,path,.25f+TrunkWidth*(float)(amount/total),(float)trunkFear[h],active?.55f:focused>=0?.015f:own?.8f:.20f,home.Length+h,active);
+                Water(fill,b,path,.25f+TrunkWidth*(float)(amount/total),(float)trunkFear[h],active?.55f:focused>=0?.015f:trunks,home.Length+h,active);
             }
             Redraw(rivers,b.ToMesh(rivers.name));Redraw(pulses,pulseGeometry.ToMesh(pulses.name));Redraw(riverFill,fill.ToMesh("Fear desire ribbons"));
         }
@@ -506,6 +534,9 @@ namespace Why.Economy.Layers
                     left[k]=path[k].Data+normal*e0;right[k]=path[k].Data+normal*e1;
                     middle[k]=new LinePoint((left[k]+right[k])*.5f+Vector3.up*.02f,hue,active?1.4f:.65f,0,active?2:1);
                 }
+                // a river keeps its index for its highlight id: the universe's lineage highlight stays set in this scene
+                // (Highlighter.SetPersistent "matter", ids 3-10) and lights the rivers view's trips 3, 6 and 9 a little, which the
+                // part's ids would drop, a change on screen the emphasis table's move must not make
                 fill.AddBand(left,right,new[]{(Color32)hue},id,.9f);b.AddFlowPath(middle,id,1.6f);
                 if(alpha>.05f&&(active||id>=home.Length))
                 {
@@ -518,8 +549,8 @@ namespace Why.Economy.Layers
                         Vector3 tail=middle[Mathf.Max(0,k-2)].Data+Vector3.up*.09f;
                         // HDR only on the hovered or selected cohort's rivers: the trunks' pulses stay in their hue
                         Color light=hue;light.a=active?.95f:.65f;
-                        pulseGeometry.AddSegment(tail,head,light,active?3.5f:2.5f,0,0,active?7:1);
-                        pulseGeometry.AddSegment(head-Vector3.up*.13f,head+Vector3.up*.13f,light,3,0,0,active?8:1);
+                        pulseGeometry.AddSegment(tail,head,light,active?3.5f:2.5f,0,EconomyEmphasis.Id(Part.Sparks),active?7:1);
+                        pulseGeometry.AddSegment(head-Vector3.up*.13f,head+Vector3.up*.13f,light,3,0,EconomyEmphasis.Id(Part.Sparks),active?8:1);
                     }
                 }
             }
@@ -537,7 +568,7 @@ namespace Why.Economy.Layers
             {
                 var h=land.Hills[industry];var points=new Vector3[65];
                 for(int j=0;j<points.Length;j++){points[j]=h.Surface(j*Mathf.PI/32,.30f);points[j].y=h.Summit.y-h.Height*.15f;}
-                b.AddPolyline(points,ownSummits?Color.white:Gold,selectedIndustry?2.8f:2,0,0,selectedIndustry?3.5f:1);
+                b.AddPolyline(points,ownSummits?Color.white:Gold,selectedIndustry?2.8f:2,0,EconomyEmphasis.Id(Part.Ring),selectedIndustry?3.5f:1);
             }
             Redraw(focus,b.ToMesh(focus.name));
         }
@@ -545,7 +576,7 @@ namespace Why.Economy.Layers
         {
             var points=new LinePoint[25];color.a=.35f;
             for(int k=0;k<points.Length;k++){float t=k/24f;Vector3 p=Vector3.Lerp(a,end,t);p.y=Mathf.Min(p.y-7*Mathf.Sin(t*Mathf.PI),land.Ground(p.x,p.z)-5);points[k]=new LinePoint(p,color,width);}
-            b.AddFlowPath(points,0,1);
+            b.AddFlowPath(points,EconomyEmphasis.Id(Part.Supply),1);
         }
         /// <summary>A line mesh in the content at the firms' queue. A glowing one carries the flow's pulse and is added, or
         /// blended when not <paramref name="added"/>: marks that stack past their hue on screen (decision 36).</summary>
@@ -590,10 +621,10 @@ namespace Why.Economy.Layers
         /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and .12 em
         /// above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
         static Vector3 PlateSize(TextMeshPro t){Vector2 s=t.GetPreferredValues(t.text)+new Vector2(.7f,.24f)*2.4f;return new Vector3(s.x,s.y,1);}
-        static void Ring(LineMeshBuilder b,Vector3 at,float radius,Color c,float width,bool vertical=false,float intensity=1)
+        static void Ring(LineMeshBuilder b,float id,Vector3 at,float radius,Color c,float width,bool vertical=false,float intensity=1)
         {
             var points=new Vector3[25];for(int i=0;i<points.Length;i++){float a=i*Mathf.PI/12;points[i]=at+(vertical?new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,0):new Vector3(Mathf.Cos(a)*radius,0,Mathf.Sin(a)*radius));}
-            b.AddPolyline(points,c,width,0,0,intensity);
+            b.AddPolyline(points,c,width,0,id,intensity);
         }
         void Clear(){foreach(var m in owned)if(m)Destroy(m);foreach(var m in materials)if(m)Destroy(m);if(content)Destroy(content);owned.Clear();materials.Clear();actors.Clear();firms.Clear();controls.Clear();orgs.Clear();labels.Clear();badges.Clear();trunkLabels.Clear();trunkPlates.Clear();}
         /// <summary>Sets what is on screen aside (still drawn) for a rebuild: it goes when the new one is complete.</summary>

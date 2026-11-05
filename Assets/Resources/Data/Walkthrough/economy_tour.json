@@ -420,6 +420,7 @@
       "assumed": "a synthetic person who stands for 100,000 people, and their drives",
       "focus": "atom",
       "anchor": "atom:person",
+      "side": "right",
       "highlight": [],
       "hold": 14
     },
@@ -471,6 +472,7 @@
       "assumed": "the strategies, the payoffs and their worth in dollars",
       "focus": "dilemma",
       "anchor": "dilemma:arena",
+      "side": "right",
       "highlight": [],
       "hold": 14
     },
@@ -504,6 +506,7 @@
       "assumed": "the groups' strategies and the season's rules",
       "focus": "dilemma",
       "anchor": "dilemma:groups",
+      "side": "right",
       "highlight": [],
       "hold": 14
     },
@@ -529,6 +532,7 @@
       "assumed": "a synthetic life: its events and what they cost",
       "focus": "ladder",
       "anchor": "ladder:path",
+      "side": "right",
       "highlight": [],
       "hold": 14
     },

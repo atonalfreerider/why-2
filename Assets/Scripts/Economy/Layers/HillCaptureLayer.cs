@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 using Why.Economy.UI;
@@ -27,6 +28,10 @@ namespace Why.Economy.Layers
         /// <summary>The ledger drawn (the scenario's when one runs).</summary>
         public static ValueCapture.Ledger Shown { get; private set; }
         enum Part { Climb, Halo, Glow, Ascent, Wages, Taxes, Ledger, Roots, Selected, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view and state is the emphasis table's
+        /// (EmphasisTable), and its meshes carry the key's highlight ids.</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("capture", "climb", "halo", "glow", "ascent", "wages", "taxes", "ledger", "roots", "selected");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         static readonly Color Gold = new Color(1, .68f, .20f), Blue = new Color(.30f, .70f, 1), Rose = new Color(1, .23f, .48f),
             Ice = new Color(.40f, .80f, 1), Steel = new Color(.50f, .60f, .72f), White = new Color(1, .96f, .88f), Amber = new Color(1, .82f, .55f);
         readonly List<(Renderer renderer, Part part)> renderers = new List<(Renderer, Part)>();
@@ -50,7 +55,15 @@ namespace Why.Economy.Layers
         int revision = -1, selection = -2, lod = -1;
 
         public override void Prepare(GraphContext ctx) { ValueCapture.Provide(ctx.Text(ValueCapture.JudgmentsPath)); }
-        public override void Upload(GraphContext ctx) { EconomyStage.Land().Place(transform); }
+        public override void Upload(GraphContext ctx)
+        {
+            EconomyStage.Land().Place(transform);
+            // a selected household dims the dollar's other flows (its own arcs read), and the households' ledger rings step back
+            // with distance (EmphasisTable.CaptureSelection, CaptureDetail)
+            foreach (string key in new[] { "capture.climb", "capture.ascent", "capture.wages", "capture.taxes" })
+                EconomyEmphasis.Multiplier(key, "a household selected", () => EmphasisTable.CaptureSelection(key, EconomyEmphasis.View, EconomyState.SelectedPlayer >= 0));
+            EconomyEmphasis.Multiplier("capture.ledger", "level of detail", () => EmphasisTable.CaptureDetail("capture.ledger", EconomyEmphasis.View, lod));
+        }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -70,7 +83,7 @@ namespace Why.Economy.Layers
             if (hidden) { foreach (var entry in labels) entry.text.gameObject.SetActive(false); return; }
             lod = rig.Pose.Distance < 35 ? 2 : rig.Pose.Distance < 100 ? 1 : 0;
             foreach (var entry in renderers)
-                if (entry.renderer) GraphMaterials.SetAlpha(entry.renderer.sharedMaterial, Emphasis(entry.part, view));
+                EconomyEmphasis.Apply(entry.renderer, Keys[(int)entry.part]);
             // The dollar's split, named once, where the view is about it; it keeps its size on screen. Built on the view's
             // first frame, not with the rest: the replay rebuilds this layer every year in views that never show it.
             bool named = view == "capture";
@@ -91,44 +104,6 @@ namespace Why.Economy.Layers
                 entry.text.gameObject.SetActive(show);
                 if (show) entry.text.transform.rotation = rig.Cam.transform.rotation;
             }
-        }
-
-        float Emphasis(Part part, string view)
-        {
-            bool selected = EconomyState.SelectedPlayer >= 0;
-            float dim = selected ? .35f : 1;
-            switch (view)
-            {
-                case "society": case "betrayal": return part == Part.Halo || part == Part.Glow ? .12f : .02f;
-                case "atom": case "dilemma": case "ladder": return part == Part.Halo || part == Part.Glow ? .25f : .02f;
-                case "roots": return part == Part.Roots ? 1 : part == Part.Halo || part == Part.Glow ? .35f : .06f;
-                case "foundation": return part == Part.Taxes ? 1 : part == Part.Halo || part == Part.Glow ? .3f : part == Part.Selected ? 1 : .08f;
-                // focused views: the halos stay as landmarks (brighter where the story is the money's destination); the money
-                // chart's view hides them all (Tick)
-                case "mobility": return part == Part.Halo || part == Part.Glow ? .1f : .02f;
-                // the regimes view draws its own summits (steel where the state owns them)
-                case "regimes": return .02f;
-                case "strategy": return part == Part.Halo || part == Part.Glow ? .45f : .03f;
-                case "you": return part == Part.Halo || part == Part.Glow ? .35f : part == Part.Selected ? 1 : .03f;
-                // the rivers of desire and fear are that view's story: where their money goes next steps back under them
-                case "rivers": return part == Part.Selected ? 1 : part == Part.Climb ? .3f * dim : part == Part.Halo || part == Part.Glow ? .25f
-                    : part == Part.Ascent ? .12f * dim : part == Part.Roots ? .1f : part == Part.Ledger ? .2f : .25f * dim;
-            }
-            switch (part)
-            {
-                case Part.Halo: return 1;
-                case Part.Glow: return view == "capture" ? 1 : .8f;
-                case Part.Climb: return view == "capture" ? 1 : .8f * dim;
-                // who keeps the money draws every part of the dollar at its weight: wages (41¢ in 2025) as strong as the
-                // owners' climb (27¢), production taxes (7¢) near it, the owners' ascent to their holders no stronger
-                case Part.Ascent: return (view == "capture" ? .4f : view == "people" ? .15f : .07f) * dim;
-                case Part.Wages: return (view == "capture" ? 1 : view == "people" ? .9f : view == "landscape" ? .55f : .16f) * dim;
-                case Part.Taxes: return (view == "capture" ? .8f : view == "landscape" ? .35f : .1f) * dim;
-                case Part.Ledger: return view == "capture" || view == "people" ? 1 : lod >= 1 ? .7f : .2f;
-                case Part.Roots: return view == "capture" ? .35f : .04f;
-                case Part.Selected: return 1;
-            }
-            return 1;
         }
 
         void Build()
@@ -211,8 +186,8 @@ namespace Why.Economy.Layers
                 Vector3 top = path[path.Count - 1].Data, halo = land.Halo(j);
                 for (int s = 1; s <= 6; s++) path.Add(new LinePoint(Vector3.Lerp(top, halo - Vector3.up * .15f, s / 6f), Gold, 1.6f));
                 float width = .12f + Mathf.Sqrt((float)k) * .06f;
-                Ribbon(fill, path, width, Gold, .55f);
-                lines.AddFlowPath(path, 0, .8f, j * .37f);
+                Ribbon(fill, Id(Part.Climb), path, width, Gold, .55f);
+                lines.AddFlowPath(path, Id(Part.Climb), .8f, j * .37f);
             }
             Surface(fill, Part.Climb, false);
             var r = Lines(lines, Part.Climb, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.4f); r.sharedMaterial.SetFloat("_FlowSpeed", .55f);
@@ -228,23 +203,24 @@ namespace Why.Economy.Layers
                 ranked.Add(j);
                 // Drawn in their hues (intensity 1): bloom is left to what is hovered or selected.
                 Vector3 h = land.Halo(j); float R = HaloRadius(j);
-                Circle(rings, h, R, Gold, 3, 1, 1);
-                Circle(rings, h + Vector3.up * .06f, R * 1.10f, Gold, 1.4f, 1, .55f);
-                Circle(rings, h - Vector3.up * .04f, R * .80f, White, 1, 1, .5f);
-                rings.AddSegment(land.Hills[j].Summit, h, WithAlpha(Gold, .35f), 1, 0, 0);
+                float id = Id(Part.Halo);
+                Circle(rings, id, h, R, Gold, 3, 1, 1);
+                Circle(rings, id, h + Vector3.up * .06f, R * 1.10f, Gold, 1.4f, 1, .55f);
+                Circle(rings, id, h - Vector3.up * .04f, R * .80f, White, 1, 1, .5f);
+                rings.AddSegment(land.Hills[j].Summit, h, WithAlpha(Gold, .35f), 1, 0, id);
                 // The levers behind this hill's captured surplus (Jev judgments, owners'-surplus weighted).
                 double m = model.IndustryLevers[j][0], f = model.IndustryLevers[j][1], persuaded = model.IndustryPersuaded(j);
                 float rose = (float)(Math.PI * 2 * persuaded * (m + f > 0 ? m / (m + f) : .5)), ice = (float)(Math.PI * 2 * persuaded * (m + f > 0 ? f / (m + f) : .5));
-                Arc(rings, h + Vector3.up * .12f, R * 1.24f, Mathf.PI * .5f, Mathf.PI * .5f + rose, Rose, 2.6f, 1);
-                Arc(rings, h + Vector3.up * .12f, R * 1.24f, Mathf.PI * .5f + rose, Mathf.PI * .5f + rose + ice, Ice, 2.6f, 1);
+                Arc(rings, id, h + Vector3.up * .12f, R * 1.24f, Mathf.PI * .5f, Mathf.PI * .5f + rose, Rose, 2.6f, 1);
+                Arc(rings, id, h + Vector3.up * .12f, R * 1.24f, Mathf.PI * .5f + rose, Mathf.PI * .5f + rose + ice, Ice, 2.6f, 1);
                 int ticks = Mathf.RoundToInt((float)model.IndustryLockedIn(j) * 32);
                 for (int t = 0; t < ticks; t++)
                 {
                     float a = Mathf.PI * 1.5f + (t - ticks * .5f) * Mathf.PI * 2 / 32;
                     Vector3 at = h + new Vector3(Mathf.Cos(a) * R * 1.38f, .12f, Mathf.Sin(a) * R * 1.38f);
-                    rings.AddSegment(at - Vector3.up * R * .07f, at + Vector3.up * R * .07f, WithAlpha(White, .8f), 1.4f, 0, 0);
+                    rings.AddSegment(at - Vector3.up * R * .07f, at + Vector3.up * R * .07f, WithAlpha(White, .8f), 1.4f, 0, id);
                 }
-                Annulus(bed, h, R * .45f, R, 0, .20f); Annulus(bed, h, R, R * 1.55f, .20f, 0);
+                Annulus(bed, Id(Part.Glow), h, R * .45f, R, 0, .20f); Annulus(bed, Id(Part.Glow), h, R, R * 1.55f, .20f, 0);
             }
             // the rings and their glow blended, not added (decision 36: the hills have no tonemapper): where the tech hills'
             // halos stack on screen, their gold summed to a flat yellow-white. Over the dark, one halo shows as it did added.
@@ -278,10 +254,10 @@ namespace Why.Economy.Layers
                 {
                     int p = order[n]; double amount = ledger.ReceivedFrom[p][j]; drawn += amount;
                     Vector3 to = land.People[p] + Vector3.up * .9f;
-                    Arch(b, h, to, WithAlpha(Gold, .55f), .6f + Mathf.Sqrt((float)amount) * .32f, 1, Vector3.Distance(h, to) * .12f + 1);
+                    Arch(b, Id(Part.Ascent), h, to, WithAlpha(Gold, .55f), .6f + Mathf.Sqrt((float)amount) * .32f, 1, Vector3.Distance(h, to) * .12f + 1);
                 }
                 double abroad = ledger.Owners[j] * model.AbroadShare;
-                if (abroad > 3) Arch(b, h, land.Abroad, WithAlpha(Gold, .25f), .5f + Mathf.Sqrt((float)abroad) * .25f, 1, 6);
+                if (abroad > 3) Arch(b, Id(Part.Ascent), h, land.Abroad, WithAlpha(Gold, .25f), .5f + Mathf.Sqrt((float)abroad) * .25f, 1, 6);
             }
             // hundreds of arcs converge on the clouds: blended, not added, so their crossings keep their gold
             var r = Lines(b, Part.Ascent, true, false); r.sharedMaterial.SetFloat("_FlowFreq", 1.2f); r.sharedMaterial.SetFloat("_FlowSpeed", .35f);
@@ -300,7 +276,7 @@ namespace Why.Economy.Layers
                 for (int n = 0; n < order.Count && n < 7; n++)
                 {
                     int p = order[n];
-                    GroundPath(b, market, land.People[p] + Vector3.up * .2f, WithAlpha(Blue, .7f), .7f + Mathf.Sqrt((float)ledger.WagesFrom[p][j]) * .22f, 1);
+                    GroundPath(b, Id(Part.Wages), market, land.People[p] + Vector3.up * .2f, WithAlpha(Blue, .7f), .7f + Mathf.Sqrt((float)ledger.WagesFrom[p][j]) * .22f, 1);
                 }
             }
             var r = Lines(b, Part.Wages, true, false); r.sharedMaterial.SetFloat("_FlowFreq", 2.5f); r.sharedMaterial.SetFloat("_FlowSpeed", .5f);
@@ -317,9 +293,9 @@ namespace Why.Economy.Layers
                 {
                     var drop = new LinePoint[12];
                     for (int s = 0; s < drop.Length; s++) drop[s] = new LinePoint(Vector3.Lerp(market, new Vector3(market.x, HillLandscape.Bedrock + .4f, market.z), s / 11f), WithAlpha(Steel, .6f), .6f + Mathf.Sqrt((float)ledger.Taxes[j]) * .25f);
-                    b.AddFlowPath(drop, 0, .6f, j * .2f);
+                    b.AddFlowPath(drop, Id(Part.Taxes), .6f, j * .2f);
                 }
-                if (ledger.Upkeep[j] > .5) Circle(b, market + Vector3.up * .05f, .25f + Mathf.Sqrt((float)ledger.Upkeep[j]) * .05f, WithAlpha(Steel, .35f), .9f, 1, 1);
+                if (ledger.Upkeep[j] > .5) Circle(b, Id(Part.Taxes), market + Vector3.up * .05f, .25f + Mathf.Sqrt((float)ledger.Upkeep[j]) * .05f, WithAlpha(Steel, .35f), .9f, 1, 1);
             }
             Lines(b, Part.Taxes, true, false);
         }
@@ -332,8 +308,8 @@ namespace Why.Economy.Layers
                 double net = ledger.Net(p); Vector3 at = land.People[p] + Vector3.up * .06f;
                 float r = .35f + Mathf.Log10(1 + (float)Math.Abs(net)) * .55f;
                 Color c = net >= 0 ? Gold : Rose;
-                Circle(b, at, r, WithAlpha(c, .85f), 1.6f, 1, 1, 48);
-                if (Math.Abs(net) > 10) Circle(b, at + Vector3.up * .05f, r * 1.18f, WithAlpha(c, .4f), 1, 1, 1, 48);
+                Circle(b, Id(Part.Ledger), at, r, WithAlpha(c, .85f), 1.6f, 1, 1, 48);
+                if (Math.Abs(net) > 10) Circle(b, Id(Part.Ledger), at + Vector3.up * .05f, r * 1.18f, WithAlpha(c, .4f), 1, 1, 1, 48);
             }
             Lines(b, Part.Ledger, false, false);
         }
@@ -352,7 +328,7 @@ namespace Why.Economy.Layers
                     p.y = Mathf.Min(p.y - 6 * Mathf.Sin(t * Mathf.PI), land.Ground(p.x, p.z) - 3 - 3 * Mathf.Sin(t * Mathf.PI));
                     pts[s] = new LinePoint(p, WithAlpha(Amber, .5f), .5f + Mathf.Sqrt((float)v) * .09f);
                 }
-                b.AddFlowPath(pts, 0, .5f, (i * 7 + j) * .13f);
+                b.AddFlowPath(pts, Id(Part.Roots), .5f, (i * 7 + j) * .13f);
             }
             Lines(b, Part.Roots, true, false);
         }
@@ -370,16 +346,16 @@ namespace Why.Economy.Layers
                 double paid = 0; for (int c = 0; c < 6; c++) paid += Math.Max(0, spend[c]) * (model.CategoryOwnersBy[c][j] - model.CategorySelfOwnedBy[c][j]);
                 Vector3 h = land.Halo(j);
                 // What the player's own spending pays into this halo (rose), and what this halo pays back to the player (gold).
-                if (paid > .02) Arch(b, home, h, WithAlpha(Rose, .9f), .9f + Mathf.Sqrt((float)paid) * .9f, 3.2f, Vector3.Distance(h, home) * .10f + .5f);
+                if (paid > .02) Arch(b, Id(Part.Selected), home, h, WithAlpha(Rose, .9f), .9f + Mathf.Sqrt((float)paid) * .9f, 3.2f, Vector3.Distance(h, home) * .10f + .5f);
                 double got = ledger.ReceivedFrom[p][j] - ledger.SelfOwnedBy[p][j];
-                if (got > .02) Arch(b, h, home, WithAlpha(Gold, .95f), .9f + Mathf.Sqrt((float)got) * .9f, 4.5f, Vector3.Distance(h, home) * .16f + 1);
+                if (got > .02) Arch(b, Id(Part.Selected), h, home, WithAlpha(Gold, .95f), .9f + Mathf.Sqrt((float)got) * .9f, 4.5f, Vector3.Distance(h, home) * .16f + 1);
             }
             var r = Lines(b, Part.Selected, true, true); r.sharedMaterial.SetFloat("_FlowFreq", 1.6f); r.sharedMaterial.SetFloat("_FlowSpeed", .6f);
         }
 
         // ------------------------------------------------------------------ geometry
 
-        void Ribbon(SurfaceMeshBuilder fill, List<LinePoint> path, float width, Color color, float alpha)
+        void Ribbon(SurfaceMeshBuilder fill, float id, List<LinePoint> path, float width, Color color, float alpha)
         {
             int n = path.Count; var left = new Vector3[n]; var mid = new Vector3[n]; var right = new Vector3[n];
             for (int k = 0; k < n; k++)
@@ -390,11 +366,11 @@ namespace Why.Economy.Layers
                 mid[k] = path[k].Data - Vector3.up * .02f; left[k] = mid[k] + normal * width * .5f * taper; right[k] = mid[k] - normal * width * .5f * taper;
             }
             Color32 core = WithAlpha(color, alpha), edge = WithAlpha(color, 0);
-            fill.AddBand(mid, left, new[] { core }, new[] { edge }, 0);
-            fill.AddBand(mid, right, new[] { core }, new[] { edge }, 0);
+            fill.AddBand(mid, left, new[] { core }, new[] { edge }, id);
+            fill.AddBand(mid, right, new[] { core }, new[] { edge }, id);
         }
 
-        void GroundPath(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float intensity)
+        void GroundPath(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color color, float width, float intensity)
         {
             var pts = new LinePoint[25];
             for (int s = 0; s < pts.Length; s++)
@@ -403,39 +379,39 @@ namespace Why.Economy.Layers
                 p.y = Mathf.Max(land.Ground(p.x, p.z) + .22f, Mathf.Lerp(a.y, z.y, t)) + Mathf.Sin(t * Mathf.PI) * .35f;
                 pts[s] = new LinePoint(p, color, width, 0, intensity);
             }
-            b.AddFlowPath(pts, 0, .8f);
+            b.AddFlowPath(pts, id, .8f);
         }
 
-        static void Arch(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float intensity, float lift)
+        static void Arch(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color color, float width, float intensity, float lift)
         {
             var pts = new LinePoint[29];
             for (int s = 0; s < pts.Length; s++)
             {
                 float t = s / 28f; pts[s] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, color, width, 0, intensity);
             }
-            b.AddFlowPath(pts, 0, .5f);
+            b.AddFlowPath(pts, id, .5f);
         }
 
-        static void Circle(LineMeshBuilder b, Vector3 c, float r, Color color, float width, float intensity, float alpha, int segments = 96)
+        static void Circle(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width, float intensity, float alpha, int segments = 96)
         {
             var pts = new Vector3[segments + 1];
             for (int s = 0; s <= segments; s++) { float a = s * Mathf.PI * 2 / segments; pts[s] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            color.a *= alpha; b.AddPolyline(pts, color, width, 0, 0, intensity);
+            color.a *= alpha; b.AddPolyline(pts, color, width, 0, id, intensity);
         }
 
-        static void Arc(LineMeshBuilder b, Vector3 c, float r, float a0, float a1, Color color, float width, float intensity)
+        static void Arc(LineMeshBuilder b, float id, Vector3 c, float r, float a0, float a1, Color color, float width, float intensity)
         {
             if (a1 - a0 < .01f) return;
             int n = Mathf.Max(2, Mathf.CeilToInt((a1 - a0) / (Mathf.PI * 2) * 96)); var pts = new Vector3[n + 1];
             for (int s = 0; s <= n; s++) { float a = Mathf.Lerp(a0, a1, s / (float)n); pts[s] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            b.AddPolyline(pts, color, width, 0, 0, intensity);
+            b.AddPolyline(pts, color, width, 0, id, intensity);
         }
 
-        static void Annulus(SurfaceMeshBuilder b, Vector3 c, float r0, float r1, float a0, float a1)
+        static void Annulus(SurfaceMeshBuilder b, float id, Vector3 c, float r0, float r1, float a0, float a1)
         {
             var inner = new Vector3[65]; var outer = new Vector3[65];
             for (int s = 0; s <= 64; s++) { float a = s * Mathf.PI * 2 / 64; var d = new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)); inner[s] = c + d * r0; outer[s] = c + d * r1; }
-            b.AddBand(inner, outer, new[] { (Color32)WithAlpha(Gold, a0) }, new[] { (Color32)WithAlpha(Gold, a1) }, 0);
+            b.AddBand(inner, outer, new[] { (Color32)WithAlpha(Gold, a0) }, new[] { (Color32)WithAlpha(Gold, a1) }, id);
         }
 
         // ------------------------------------------------------------------ plumbing

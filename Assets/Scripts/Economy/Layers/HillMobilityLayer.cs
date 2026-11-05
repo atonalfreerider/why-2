@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -52,6 +53,10 @@ namespace Why.Economy.Layers
         public static bool AllAdults;
         bool builtAll;
         enum Part { Drift, Ladder, Ribbons, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view is the emphasis table's
+        /// (EmphasisTable), and its meshes carry the key's highlight ids.</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("mobility", "drift", "ladder", "ribbons");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
         const float Pulse = .2f;
         /// <summary>The smallest em (px at 1080 lines) at which a largest move's name shows without a selection: the road's
@@ -88,7 +93,7 @@ namespace Why.Economy.Layers
             bool on = view == "mobility" || view == "you" || view == "people";
             content.SetActive(on); if (!on) return;
             selection = EconomyState.SelectedPlayer >= 0 ? EconomyState.SelectedPlayer : HillLandscapeLayer.HoverPlayer;
-            foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, Emphasis(e.part, view));
+            foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             foreach (var e in labels)
             {
                 // the ladder's labels in its view; a cohort's while it is selected or hovered, else only the largest moves, where
@@ -97,14 +102,6 @@ namespace Why.Economy.Layers
                     : e.named && HillWaveLayer.EmPx(rig, e.text.transform) >= NameMinPx) : view == "mobility";
                 e.text.gameObject.SetActive(show); if (show) e.text.transform.rotation = rig.Cam.transform.rotation;
             }
-        }
-
-        float Emphasis(Part part, string view)
-        {
-            // the people view (class is altitude) carries the cohorts' drift on the hills; the ladder is the mobility view's
-            if (view == "people") return part == Part.Drift ? .9f : 0;
-            if (view == "you") return part == Part.Drift ? .25f : .12f;
-            return part == Part.Ribbons ? .9f : 1;
         }
 
         /// <summary>Whether the ladder counts every adult now (the tour shows like for like whatever was chosen).</summary>
@@ -151,12 +148,12 @@ namespace Why.Economy.Layers
                     q.y = Mathf.Max(land.Ground(q.x, q.z) + .5f, Mathf.Lerp(then.y, now.y, t)) + Mathf.Sin(t * Mathf.PI) * (1 + 6 * Mathf.Abs(delta));
                     pts[s] = new LinePoint(q, WithAlpha(c, alpha * Mathf.Lerp(.35f, 1, t)), width);
                 }
-                b.AddFlowPath(pts, 0, .35f, p * .23f);
+                b.AddFlowPath(pts, Id(Part.Drift), .35f, p * .23f);
                 // the arrow's head points along the last step
                 Vector3 dir = (pts[16].Data - pts[13].Data); dir = dir.sqrMagnitude > 1e-6f ? dir.normalized : Vector3.forward;
                 Vector3 side = Vector3.Cross(dir, Vector3.up); side = side.sqrMagnitude > 1e-6f ? side.normalized : Vector3.right;
-                b.AddSegment(now, now - dir * 1.1f + side * .55f, WithAlpha(c, alpha), width, 0, 0);
-                b.AddSegment(now, now - dir * 1.1f - side * .55f, WithAlpha(c, alpha), width, 0, 0);
+                b.AddSegment(now, now - dir * 1.1f + side * .55f, WithAlpha(c, alpha), width, 0, Id(Part.Drift));
+                b.AddSegment(now, now - dir * 1.1f - side * .55f, WithAlpha(c, alpha), width, 0, Id(Part.Drift));
                 ranked.Add((d.Members * Mathf.Abs(delta), p));
             }
             Lines(b, Part.Drift, true);
@@ -216,9 +213,9 @@ namespace Why.Economy.Layers
                         high[s] = new Vector3(LadderX, top, z); low[s] = new Vector3(LadderX, bottom, z);
                         mid[s] = new LinePoint(new Vector3(LadderX - .05f, (top + bottom) * .5f, z), WithAlpha(col, .3f + .45f * core), .4f + 1.4f * core);
                     }
-                    fill.AddBand(low, high, new[] { (Color32)WithAlpha(col, alpha) }, 0);
-                    edges.AddPolyline(high, WithAlpha(col, Mathf.Min(1, alpha * 1.4f)), .8f, 0, 0);
-                    edges.AddFlowPath(mid, 0, .5f, (a * 5 + c) * .37f);
+                    fill.AddBand(low, high, new[] { (Color32)WithAlpha(col, alpha) }, Id(Part.Ribbons));
+                    edges.AddPolyline(high, WithAlpha(col, Mathf.Min(1, alpha * 1.4f)), .8f, 0, Id(Part.Ribbons));
+                    edges.AddFlowPath(mid, Id(Part.Ribbons), .5f, (a * 5 + c) * .37f);
                 }
             // Like for like, the tax records' own decade stands on the same rungs as hollow outlines of its streams.
             if (!all) Records(outlines, Out, perPerson, Y, z0, z1);
@@ -226,8 +223,8 @@ namespace Why.Economy.Layers
             for (int q = 0; q < Q; q++)
             {
                 float h0 = (float)Out(q) * perPerson, h1 = (float)In(q) * perPerson;
-                bars.AddSegment(new Vector3(LadderX, Y(q) - h0 * .5f, z0), new Vector3(LadderX, Y(q) + h0 * .5f, z0), WithAlpha(White, .9f), 4, 0, 0);
-                bars.AddSegment(new Vector3(LadderX, Y(q) - h1 * .5f, z1), new Vector3(LadderX, Y(q) + h1 * .5f, z1), WithAlpha(White, .95f), 5, 0, 0);
+                bars.AddSegment(new Vector3(LadderX, Y(q) - h0 * .5f, z0), new Vector3(LadderX, Y(q) + h0 * .5f, z0), WithAlpha(White, .9f), 4, 0, Id(Part.Ladder));
+                bars.AddSegment(new Vector3(LadderX, Y(q) - h1 * .5f, z1), new Vector3(LadderX, Y(q) + h1 * .5f, z1), WithAlpha(White, .95f), 5, 0, Id(Part.Ladder));
                 // the forces of the people this ladder counts, by the fifth they end in: the panel's members, or every adult at both ends
                 var rung = all ? m.Rungs[q] : m.PanelRungs[q];
                 double stay = Share(q, q), climbedFrom = 0, fellFrom = 0;
@@ -242,8 +239,8 @@ namespace Why.Economy.Layers
                 // no arrow up where the sum is negative (a fifth that spends more than its income).
                 float lift = (float)(rung.SavingRate + rung.OwnedShare) * 14, pull = (float)rung.DebtService * 14;
                 Vector3 at = new Vector3(LadderX - .3f, Y(q), z1 + .6f);
-                if (lift > .05f) Arrow(bars, at, at + Vector3.up * Mathf.Max(.3f, lift), Gold, 3.2f);
-                if (pull > .05f) Arrow(bars, at, at - Vector3.up * Mathf.Max(.3f, pull), Rose, 3.2f);
+                if (lift > .05f) Arrow(bars, Id(Part.Ladder), at, at + Vector3.up * Mathf.Max(.3f, lift), Gold, 3.2f);
+                if (pull > .05f) Arrow(bars, Id(Part.Ladder), at, at - Vector3.up * Mathf.Max(.3f, pull), Rose, 3.2f);
             }
             // Years at the two ends, just under the bottom rung's stack and the tip of its debt-service arrow (a quarter of
             // income at most in the record), so the replay's readout at the foot of the screen does not cover them. Each stands
@@ -296,7 +293,7 @@ namespace Why.Economy.Layers
                         for (int s = 0; s < 24; s += 2)
                         {
                             float t0 = s / 24f, t1 = (s + 1) / 24f, e0 = t0 * t0 * (3 - 2 * t0), e1 = t1 * t1 * (3 - 2 * t1);
-                            b.AddSegment(new Vector3(LadderX - .1f, Mathf.Lerp(from, to, e0), z0 + span * t0), new Vector3(LadderX - .1f, Mathf.Lerp(from, to, e1), z0 + span * t1), line, 1, 0, 0, 1);
+                            b.AddSegment(new Vector3(LadderX - .1f, Mathf.Lerp(from, to, e0), z0 + span * t0), new Vector3(LadderX - .1f, Mathf.Lerp(from, to, e1), z0 + span * t1), line, 1, 0, Id(Part.Ladder), 1);
                         }
                 }
         }
@@ -339,7 +336,7 @@ namespace Why.Economy.Layers
             if (list.Count > 0)
             {
                 for (float y = yBottom; y < yTop; y += .5f)
-                    b.AddSegment(new Vector3(at.x - .05f, y, at.z - PerTimes), new Vector3(at.x - .05f, Mathf.Min(yTop, y + .25f), at.z - PerTimes), WithAlpha(White, .6f), 1.2f, 0, 0, 1);
+                    b.AddSegment(new Vector3(at.x - .05f, y, at.z - PerTimes), new Vector3(at.x - .05f, Mathf.Min(yTop, y + .25f), at.z - PerTimes), WithAlpha(White, .6f), 1.2f, 0, Id(Part.Ladder), 1);
                 // it names the line the bars are read against: at .2 about 7 px tall (at .16 a smudge of 5), still about 4 px
                 // under the last dash and 7 above the caveat
                 Label("1× as often", new Vector3(at.x, yBottom - .45f, at.z - PerTimes), .2f, Color.Lerp(Steel, White, .4f), Part.Ladder, -1);
@@ -348,7 +345,7 @@ namespace Why.Economy.Layers
             {
                 var cause = list[k]; float lift = (float)m.Lift(cause, up), share = (float)m.ShareWith(cause, up), y = at.y - k * Row;
                 Vector3 end = new Vector3(at.x, y, at.z), start = end - Vector3.forward * (PerTimes * lift);
-                b.AddSegment(start, end, WithAlpha(c, .9f), 7, 0, 0);
+                b.AddSegment(start, end, WithAlpha(c, .9f), 7, 0, Id(Part.Ladder));
                 // at .26 about 10 px to the em from the view's distance (at .19, captions of 6 px capitals blurred); they grow
                 // left, away from the ladder, into the empty side of the view (the longest of any decade, 1960-70's ×3.4 debt
                 // discharged, still ends about half a unit inside the portrait frame)
@@ -404,21 +401,21 @@ namespace Why.Economy.Layers
             const float Length = 18, Mark = .32f;
             float Z(double share) => z0 + Length * Mathf.Clamp01((float)share);
             Color axis = WithAlpha(Steel, .55f), marks = new Color(.92f, .95f, 1f), records = Color.Lerp(Steel, White, .55f), faint = WithAlpha(Steel, .9f);
-            b.AddSegment(new Vector3(LadderX - .4f, y, z0), new Vector3(LadderX - .4f, y, z0 + Length), axis, 1.2f, 0, 0, 1);
-            foreach (float t in new[] { 0f, .5f, 1f }) b.AddSegment(new Vector3(LadderX - .4f, y - .25f, z0 + Length * t), new Vector3(LadderX - .4f, y + .25f, z0 + Length * t), axis, 1.2f, 0, 0, 1);
+            b.AddSegment(new Vector3(LadderX - .4f, y, z0), new Vector3(LadderX - .4f, y, z0 + Length), axis, 1.2f, 0, Id(Part.Ladder), 1);
+            foreach (float t in new[] { 0f, .5f, 1f }) b.AddSegment(new Vector3(LadderX - .4f, y - .25f, z0 + Length * t), new Vector3(LadderX - .4f, y + .25f, z0 + Length * t), axis, 1.2f, 0, Id(Part.Ladder), 1);
             float x = LadderX - .5f;
-            if (!double.IsNaN(tax)) Circle(b, new Vector3(x, y, Z(tax)), Mark, records, 1.6f);
+            if (!double.IsNaN(tax)) Circle(b, Id(Part.Ladder), new Vector3(x, y, Z(tax)), Mark, records, 1.6f);
             if (!double.IsNaN(survey))
             {
                 Vector3 c = new Vector3(x, y, Z(survey));
                 Vector3[] d = { c + Vector3.up * Mark * 1.2f, c + Vector3.forward * Mark * 1.2f, c - Vector3.up * Mark * 1.2f, c - Vector3.forward * Mark * 1.2f, c + Vector3.up * Mark * 1.2f };
-                b.AddPolyline(d, records, 1.6f, 0, 0, 1);
+                b.AddPolyline(d, records, 1.6f, 0, Id(Part.Ladder), 1);
             }
             Vector3 e = new Vector3(x, y, Z(everyone));
-            b.AddSegment(e + new Vector3(0, Mark, -Mark), e + new Vector3(0, -Mark, Mark), faint, 1.4f, 0, 0, 1);
-            b.AddSegment(e + new Vector3(0, Mark, Mark), e + new Vector3(0, -Mark, -Mark), faint, 1.4f, 0, 0, 1);
+            b.AddSegment(e + new Vector3(0, Mark, -Mark), e + new Vector3(0, -Mark, Mark), faint, 1.4f, 0, Id(Part.Ladder), 1);
+            b.AddSegment(e + new Vector3(0, Mark, Mark), e + new Vector3(0, -Mark, -Mark), faint, 1.4f, 0, Id(Part.Ladder), 1);
             Vector3 dot = new Vector3(x - .05f, y, Z(model));
-            for (float r = .07f; r <= Mark; r += .07f) Circle(b, dot, r, marks, 2.4f);
+            for (float r = .07f; r <= Mark; r += .07f) Circle(b, Id(Part.Ladder), dot, r, marks, 2.4f);
             string Pct(double v) => double.IsNaN(v) ? "n/a" : LandFacts.Percent(v);
             Label("<b>" + what + "</b>", new Vector3(LadderX - .4f, y + 3.2f, z0), .4f, new Color(.84f, .89f, .95f), Part.Ladder, -1, true, TextAlignmentOptions.Left, new Vector2(100, 6));
             // the values in two lines (at y + 2.1 and y + 1), each shorter than the axis
@@ -429,21 +426,21 @@ namespace Why.Economy.Layers
             Label("100%", new Vector3(LadderX - .4f, y - .75f, z0 + Length), .2f, axis, Part.Ladder, -1);
         }
 
-        static void Circle(LineMeshBuilder b, Vector3 c, float r, Color color, float width)
+        static void Circle(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width)
         {
             var pts = new Vector3[25];
             for (int s = 0; s < pts.Length; s++) { float a = s * Mathf.PI * 2 / 24; pts[s] = c + new Vector3(0, Mathf.Sin(a) * r, Mathf.Cos(a) * r); }
-            b.AddPolyline(pts, color, width, 0, 0, 1);
+            b.AddPolyline(pts, color, width, 0, id, 1);
         }
 
         // ------------------------------------------------------------------ plumbing
 
-        static void Arrow(LineMeshBuilder b, Vector3 a, Vector3 z, Color c, float width)
+        static void Arrow(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color c, float width)
         {
-            b.AddSegment(a, z, c, width, 0, 0);
+            b.AddSegment(a, z, c, width, 0, id);
             Vector3 d = (z - a).normalized * .45f;
-            b.AddSegment(z, z - d + Vector3.forward * .3f, c, width, 0, 0);
-            b.AddSegment(z, z - d - Vector3.forward * .3f, c, width, 0, 0);
+            b.AddSegment(z, z - d + Vector3.forward * .3f, c, width, 0, id);
+            b.AddSegment(z, z - d - Vector3.forward * .3f, c, width, 0, id);
         }
 
         /// <summary>A mesh of lines, blended: where streams cross, the top one's hue shows instead of a sum turning white.</summary>

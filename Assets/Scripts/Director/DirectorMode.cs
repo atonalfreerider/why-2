@@ -98,6 +98,9 @@ namespace Why.Director
         Image captionPlate;
         float captionWidth;
 
+        /// <summary>The ring at the arrow's tip as a block that moves the graph's labels aside (LabelSystem.MoveAside) while it shows.</summary>
+        RectTransform ringKeepOut;
+
         // the step's own arrow caption, and the one the arrow shows (switched with the target while it is invisible)
         string targetCaption, arrowCaption;
 
@@ -287,11 +290,19 @@ namespace Why.Director
             arrow.raycastTarget = false;
 
             // the plate first, so it draws under the caption (its sibling: SetCaptionAlpha switches the plate off while the
-            // caption is hidden). It is not a keep-out for the graph's labels: with no other place to go, the labels it stood
-            // half over hid instead (the stop's own Chordates, Fossil fuels), and the room they left went to labels under the
-            // arrow's ring; moving them aside waits for the label system's candidate places
+            // caption is hidden). The graph's labels it stands half over move aside to a candidate place (LabelSystem.MoveAside):
+            // a plain keep-out hid the stop's own names instead (Chordates, Fossil fuels), and gave their room to labels under the
+            // arrow's ring, so the ring moves labels aside too
             captionPlate = UiFactory.Panel(layer, "CaptionPlate", CaptionPlateColor, false);
             captionPlate.rectTransform.anchorMin = captionPlate.rectTransform.anchorMax = Vector2.zero;
+            LabelSystem.MoveAside(captionPlate.rectTransform);
+            ringKeepOut = UiFactory.Rect(layer, "RingKeepOut");
+            ringKeepOut.anchorMin = ringKeepOut.anchorMax = Vector2.zero;
+            ringKeepOut.pivot = new Vector2(0.5f, 0.5f);
+            // the ring breathes 1.4 units past its radius, its stroke 1.1 wide (AttentionArrow.DrawTarget)
+            ringKeepOut.sizeDelta = Vector2.one * 2f * (AttentionArrow.RingRadius + 2f);
+            ringKeepOut.gameObject.SetActive(false);
+            LabelSystem.MoveAside(ringKeepOut);
             caption = UiFactory.Text(layer, "Caption", "", CaptionSize, GraphStyle.Text, TextAlignmentOptions.MidlineLeft);
             caption.textWrappingMode = TextWrappingModes.NoWrap;
             caption.rectTransform.anchorMin = caption.rectTransform.anchorMax = Vector2.zero;
@@ -882,6 +893,9 @@ namespace Why.Director
                 // the viewer steered the target under the panel: no curve until the panel moves away
                 if (panelRect.Contains(tip)) start = tip;
                 arrow.SetArrow(start, outward, tip, offscreenDir, clamped, alpha, arrowReveal);
+                // the ring stands at a target on screen (a clamped one gets none)
+                ringKeepOut.anchoredPosition = tip;
+                if (ringKeepOut.gameObject.activeSelf == clamped) ringKeepOut.gameObject.SetActive(!clamped);
                 float captionAlpha = alpha * Smooth(Mathf.InverseLerp(0.5f, 1f, arrowReveal));
                 PlaceCaption(tip, clamped, offscreenDir, captionAlpha, size);
                 KeepPanelClear(panelRect, tip, clamped, size);
@@ -889,6 +903,7 @@ namespace Why.Director
             else
             {
                 arrow.ClearArrow(alpha);
+                if (ringKeepOut.gameObject.activeSelf) ringKeepOut.gameObject.SetActive(false);
                 SetCaptionAlpha(0);
             }
 
@@ -929,6 +944,7 @@ namespace Why.Director
         {
             attentionShown = false;
             arrow.ClearArrow(0);
+            if (ringKeepOut.gameObject.activeSelf) ringKeepOut.gameObject.SetActive(false);
             arrow.Markers.Clear();
             arrow.Animate(dt);
             SetCaptionAlpha(0);

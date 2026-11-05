@@ -119,7 +119,10 @@ namespace Why.Domination
                 AddLabel(ctx, new LabelSpec
                 {
                     Text = stream.Name, Data = label, Priority = 16, SizePx = 12.5f, Color = GraphStyle.Text,
-                    AnchorKey = a.Key, Ids = ids
+                    AnchorKey = a.Key, Ids = ids,
+                    // a stream's name the tour's caption stands over moves to a candidate place, and so does one it then
+                    // displaces: the explosion stop names fuels, ores and sand, and lost the ores to the moved fuels
+                    Candidates = true
                 });
             }
 

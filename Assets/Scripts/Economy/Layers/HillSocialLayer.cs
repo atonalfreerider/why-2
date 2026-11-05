@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 using Why.Humans.Social;
@@ -37,6 +38,10 @@ namespace Why.Economy.Layers
         public static readonly Dictionary<int, (Vector3 at, int place)> Placed = new Dictionary<int, (Vector3, int)>();
         public static int HoverPerson { get; private set; } = -1;
         enum Part { Glow, Stars, Bright, Ties, Rings, Anchors, Threads, Elite, Loop, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view and state is the emphasis table's
+        /// (EmphasisTable), and its meshes carry the key's highlight ids.</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("social", "glow", "stars", "bright", "ties", "rings", "anchors", "threads", "elite", "loop");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         const float CloudRadius = 32, Squash = .5f;
         /// <summary>The year Instagram, whose follows place the stars, began (their sizes are 2025 follower counts summed
         /// across platforms): before it they measure nobody's attention of the time.</summary>
@@ -76,7 +81,16 @@ namespace Why.Economy.Layers
 
         string programsJson;
         public override void Prepare(GraphContext ctx) { People = SocialPeople.Parse(ctx.Text(SocialPeople.Path)); programsJson = ctx.Text(CorporatePrograms.Path); }
-        public override void Upload(GraphContext ctx) { frame = EconomyStage.Land(); frame.Place(transform); }
+        public override void Upload(GraphContext ctx)
+        {
+            frame = EconomyStage.Land(); frame.Place(transform);
+            // outside its own view the cloud's detail follows its distance, and before Instagram the cloud is a ghost
+            // (EmphasisTable.SocialDetail, SocialEarly)
+            foreach (string key in new[] { "social.stars", "social.ties", "social.rings", "social.threads", "social.elite" })
+                EconomyEmphasis.Multiplier(key, "level of detail", () => EmphasisTable.SocialDetail(key, EconomyEmphasis.View, lod));
+            foreach (string key in new[] { "social.glow", "social.stars", "social.bright", "social.ties", "social.rings", "social.anchors", "social.threads", "social.elite", "social.loop" })
+                EconomyEmphasis.Multiplier(key, "before Instagram", () => EmphasisTable.SocialEarly(land != null && land.Year < PlatformYear));
+        }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -99,7 +113,7 @@ namespace Why.Economy.Layers
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;
-            foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, Emphasis(e.part, view) * (early ? .3f : 1));
+            foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             foreach (var l in labels)
             {
                 bool show = l.person == NameLabel || (l.person == SocialLabel ? social : l.person < 0 ? lod >= 1 || social
@@ -121,25 +135,6 @@ namespace Why.Economy.Layers
                 title.transform.localScale = Vector3.one * Mathf.Max(.42f, Vector3.Distance(rig.Cam.transform.position, title.transform.position) * .0055f);
             }
             Pick(rig.Cam);
-        }
-
-        float Emphasis(Part part, string view)
-        {
-            bool social = view == "social";
-            switch (part)
-            {
-                // outside its own view the cloud is context, named but no longer the brightest thing on screen
-                case Part.Glow: return social ? 1 : .4f;
-                case Part.Bright: return social ? 1 : .7f;
-                case Part.Stars: return social || lod >= 1 ? 1 : .25f;
-                case Part.Ties: return social ? .9f : lod >= 2 ? .6f : 0;
-                case Part.Rings: return social ? 1 : lod >= 1 ? .6f : .15f;
-                case Part.Anchors: return 1;
-                case Part.Threads: return social ? .5f : lod >= 1 ? .25f : .08f;
-                case Part.Elite: return social ? .9f : lod >= 1 ? .3f : .05f;
-                case Part.Loop: return social ? 1 : 0;
-            }
-            return 1;
         }
 
         void Build()
@@ -171,21 +166,21 @@ namespace Why.Economy.Layers
                 // intensity 1: fame is their size, and bloom is left to what is hovered or selected.
                 if (Anchor(p, lives, out Vector3 firm, out var others))
                 {
-                    Star(anchors, firm, .35f + .55f * fame);
-                    foreach (var o in others) Rope(anchors, firm, o, WithAlpha(Gold, .7f), 1.2f, 1.5f);
-                    Rope(threads, firm, inCloud, WithAlpha(SocialPeople.White, .35f), .6f, 4);
-                    if (seatOf.TryGetValue(p.Index, out Vector3 office)) Rope(threads, firm, office, WithAlpha(Grey, .5f), .7f, -3);
+                    Star(anchors, Id(Part.Anchors), firm, .35f + .55f * fame);
+                    foreach (var o in others) Rope(anchors, Id(Part.Anchors), firm, o, WithAlpha(Gold, .7f), 1.2f, 1.5f);
+                    Rope(threads, Id(Part.Threads), firm, inCloud, WithAlpha(SocialPeople.White, .35f), .6f, 4);
+                    if (seatOf.TryGetValue(p.Index, out Vector3 office)) Rope(threads, Id(Part.Threads), firm, office, WithAlpha(Grey, .5f), .7f, -3);
                     Placed[p.Index] = (firm, 1); Name(p, firm, fame, true);
                     continue;
                 }
                 if (seatOf.TryGetValue(p.Index, out Vector3 seat))
                 {
-                    Star(anchors, seat, .3f + .5f * fame);
-                    Rope(threads, seat, inCloud, WithAlpha(SocialPeople.White, .25f), .5f, 6);
+                    Star(anchors, Id(Part.Anchors), seat, .3f + .5f * fame);
+                    Rope(threads, Id(Part.Threads), seat, inCloud, WithAlpha(SocialPeople.White, .25f), .5f, 6);
                     Placed[p.Index] = (seat, 2); Name(p, seat, fame, true);
                     continue;
                 }
-                Star(rank < 16 ? bright : stars, inCloud, .22f + .7f * fame, StarAlpha);
+                Star(rank < 16 ? bright : stars, Id(rank < 16 ? Part.Bright : Part.Stars), inCloud, .22f + .7f * fame, StarAlpha);
                 Placed[p.Index] = (inCloud, 0); top = Mathf.Max(top, inCloud.y);
                 if (p.cloud >= 0) { if (!cats.TryGetValue(p.cloud, out var list)) cats[p.cloud] = list = new List<Vector3>(); list.Add(inCloud); }
                 if (rank < 60 || fame > .6f) Name(p, inCloud, fame, false);
@@ -194,7 +189,7 @@ namespace Why.Economy.Layers
             {
                 if (!Placed.TryGetValue(e[0], out var a) || !Placed.TryGetValue(e[1], out var b)) continue;
                 Color c = SocialPeople.White; c.a = e.Length > 2 && e[2] > 0 ? .28f : .12f;
-                ties.AddSegment(a.at, b.at, c, .7f, 0, 0);
+                ties.AddSegment(a.at, b.at, c, .7f, 0, Id(Part.Ties));
             }
             foreach (var kv in cats)
             {
@@ -203,7 +198,7 @@ namespace Why.Economy.Layers
                 float spread = 0; foreach (var v in kv.Value) spread += (v - c).sqrMagnitude;
                 float r = Mathf.Clamp(Mathf.Sqrt(spread / kv.Value.Count) * 1.5f, 2, 12);
                 Color col = People.CloudColor(kv.Key); col.a = .6f;
-                Circle(rings, c, r, col, 1.4f, 1); Circle(rings, c + Vector3.up * .3f, r * 1.04f, WithAlpha(col, .25f), 1, 1);
+                Circle(rings, Id(Part.Rings), c, r, col, 1.4f, 1); Circle(rings, Id(Part.Rings), c + Vector3.up * .3f, r * 1.04f, WithAlpha(col, .25f), 1, 1);
                 // its name on a plate, drawn after the stars, in its ring's hue lightened to read on the plate: Stack steps the
                 // names that meet the eight's plates down into the cloud's brightest band, where the stars, drawn after the
                 // font's own queue, washed out a name without one
@@ -212,7 +207,7 @@ namespace Why.Economy.Layers
             }
             // Influence among the influential: a ring as wide as the number of the most-followed who follow them.
             var elite = new LineMeshBuilder(); var ranked = new List<SocialPeople.Person>();
-            foreach (var p in shown) if (p.elite >= 8 && Placed.TryGetValue(p.Index, out var at)) { Circle(elite, at.at, .4f + Mathf.Sqrt(p.elite) * .32f, WithAlpha(new Color(.85f, .9f, 1f), .55f), 1.6f, 1); ranked.Add(p); }
+            foreach (var p in shown) if (p.elite >= 8 && Placed.TryGetValue(p.Index, out var at)) { Circle(elite, Id(Part.Elite), at.at, .4f + Mathf.Sqrt(p.elite) * .32f, WithAlpha(new Color(.85f, .9f, 1f), .55f), 1.6f, 1); ranked.Add(p); }
             ranked.Sort((a, b) => b.elite.CompareTo(a.elite));
             // The eight most followed by the others are named in the social view, on plates over the cloud's stars and names.
             // Those in the cloud give only their number, which the ring key just above says counts (RingKey): the names the
@@ -234,7 +229,7 @@ namespace Why.Economy.Layers
             // turn white
             Lines(elite, Part.Elite, false, false);
             Loop();
-            Glow(glow, center, CloudRadius * 1.15f, .035f);
+            Glow(glow, Id(Part.Glow), center, CloudRadius * 1.15f, .035f);
             // The cloud's name, at every distance: what the stars are and what sizes them, so they are never read as the 1%.
             // the follower counts are summed across Instagram, TikTok, YouTube and X (people.json's note), not Instagram's alone;
             // on two lines, about 370 px wide, so it fits between the HUD's panels; the key of its rings, which also says what
@@ -302,7 +297,7 @@ namespace Why.Economy.Layers
             {
                 var pts = new LinePoint[33];
                 for (int k = 0; k < pts.Length; k++) { float t = k / 32f; pts[k] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, WithAlpha(c, .85f), width); }
-                b.AddFlowPath(pts, 0, .25f);
+                b.AddFlowPath(pts, Id(Part.Loop), .25f);
                 // over the arc's middle, which a steep arc crosses in the label's own hue: drawn after the lines, on a plate;
                 // an onward label starts at the middle and runs on to the right instead of centering on it
                 var label = Raised(TextLabel(text, pts[16].Data + Vector3.up * 3.5f, .72f, Color.Lerp(c, Color.white, .45f), SocialLabel, 1));
@@ -376,30 +371,30 @@ namespace Why.Economy.Layers
 
         /// <summary>A star: three crossed strokes and a small ring, in the people's white at <paramref name="alpha"/> (the
         /// cloud's <see cref="StarAlpha"/>, blended; whole for one at a company or a seat, added).</summary>
-        static void Star(LineMeshBuilder b, Vector3 at, float r, float alpha = 1)
+        static void Star(LineMeshBuilder b, float id, Vector3 at, float r, float alpha = 1)
         {
             Color w = WithAlpha(SocialPeople.White, alpha);
-            b.AddSegment(at - Vector3.right * r, at + Vector3.right * r, w, 1.8f, 0, 0);
-            b.AddSegment(at - Vector3.up * r, at + Vector3.up * r, w, 1.8f, 0, 0);
-            b.AddSegment(at - Vector3.forward * r, at + Vector3.forward * r, w, 1.8f, 0, 0);
-            Circle(b, at, r * .45f, w, 1.4f, .8f);
+            b.AddSegment(at - Vector3.right * r, at + Vector3.right * r, w, 1.8f, 0, id);
+            b.AddSegment(at - Vector3.up * r, at + Vector3.up * r, w, 1.8f, 0, id);
+            b.AddSegment(at - Vector3.forward * r, at + Vector3.forward * r, w, 1.8f, 0, id);
+            Circle(b, id, at, r * .45f, w, 1.4f, .8f);
         }
 
-        static void Rope(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float lift)
+        static void Rope(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color color, float width, float lift)
         {
             var pts = new LinePoint[21];
             for (int s = 0; s < pts.Length; s++) { float t = s / 20f; pts[s] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, color, width); }
-            b.AddFlowPath(pts, 0, .3f);
+            b.AddFlowPath(pts, id, .3f);
         }
 
-        static void Circle(LineMeshBuilder b, Vector3 c, float r, Color color, float width, float intensity)
+        static void Circle(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width, float intensity)
         {
             var pts = new Vector3[49];
             for (int s = 0; s < pts.Length; s++) { float a = s * Mathf.PI * 2 / 48; pts[s] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            b.AddPolyline(pts, color, width, 0, 0, intensity);
+            b.AddPolyline(pts, color, width, 0, id, intensity);
         }
 
-        static void Glow(SurfaceMeshBuilder b, Vector3 c, float r, float alpha)
+        static void Glow(SurfaceMeshBuilder b, float id, Vector3 c, float r, float alpha)
         {
             for (int axis = 0; axis < 2; axis++)
             {
@@ -410,7 +405,7 @@ namespace Why.Economy.Layers
                     inner[k] = c; outer[k] = c + d * r;
                 }
                 Color a0 = SocialPeople.White; a0.a = alpha; Color a1 = a0; a1.a = 0;
-                b.AddBand(inner, outer, new[] { (Color32)a0 }, new[] { (Color32)a1 }, 0);
+                b.AddBand(inner, outer, new[] { (Color32)a0 }, new[] { (Color32)a1 }, id);
             }
         }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -53,6 +54,16 @@ namespace Why.Economy.Layers
         int nowYear = -1;
         float clock;
 
+        /// <summary>The held year's rib's pulse (0 when the replay has moved on), its multiplier on replay.now.</summary>
+        float held;
+
+        /// <summary>The emphasis keys of the turning points' ribs and pins and of the held year's rib (EmphasisTable: full in the
+        /// views of the whole wave, absent elsewhere), whose highlight ids their meshes carry.</summary>
+        static class Part
+        {
+            public static readonly int Ribs = EconomyEmphasis.Key("replay.ribs"), Now = EconomyEmphasis.Key("replay.now");
+        }
+
         /// <summary>The view the tags were stacked for: their levels follow its pose.</summary>
         string builtView;
 
@@ -83,7 +94,11 @@ namespace Why.Economy.Layers
 
         public override void Prepare(GraphContext ctx) { }
 
-        public override void Upload(GraphContext ctx) { EconomyStage.Land().Place(transform); }
+        public override void Upload(GraphContext ctx)
+        {
+            EconomyStage.Land().Place(transform);
+            EconomyEmphasis.Multiplier("replay.now", "the held year's pulse", () => held);
+        }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
@@ -115,8 +130,9 @@ namespace Why.Economy.Layers
             {
                 clock += GraphTime.Delta;
                 bool holding = EconomyReplay.ShownYear == nowYear;
-                GraphMaterials.SetAlpha(now.sharedMaterial, holding ? .55f + .45f * Mathf.Sin(clock * PulseRate * 2 * Mathf.PI) : 0);
+                held = holding ? .55f + .45f * Mathf.Sin(clock * PulseRate * 2 * Mathf.PI) : 0;
             }
+            EconomyEmphasis.Apply(ribs, Part.Ribs); EconomyEmphasis.Apply(now, Part.Now);
         }
 
         void Build(HillLandscape current, ReplayFacts replay, CameraRig rig, string view)
@@ -165,11 +181,11 @@ namespace Why.Economy.Layers
                 Vector3 place = top + Vector3.up * (pin + 2.2f);
                 tag.transform.localPosition = place;
                 labels.Add((tag, place, side * half.x));
-                all.AddPolyline(rib, WithAlpha(c, .35f), 1.6f, 0, 0);
-                all.AddSegment(top, top + Vector3.up * pin, WithAlpha(c, .9f), 2f, 0, 0);
+                all.AddPolyline(rib, WithAlpha(c, .35f), 1.6f, 0, EconomyEmphasis.Id(Part.Ribs));
+                all.AddSegment(top, top + Vector3.up * pin, WithAlpha(c, .9f), 2f, 0, EconomyEmphasis.Id(Part.Ribs));
                 if (t.Year == land.Year)
                 {
-                    pulse.AddPolyline(rib, WithAlpha(c, 1), 3.5f, 0, 0);
+                    pulse.AddPolyline(rib, WithAlpha(c, 1), 3.5f, 0, EconomyEmphasis.Id(Part.Now));
                     nowYear = t.Year;
                 }
             }

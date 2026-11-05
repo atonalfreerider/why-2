@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -49,6 +50,11 @@ namespace Why.Economy.Layers
         public override int Order => 65;
         public override IEnumerable<string> RequiredTexts => new[] { Regimes.Path };
         enum Part { Bedrock, Strata, Summits, Beams, Strands, Taxes, Votes, Trade, Cloud, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view and state is the emphasis table's
+        /// (EmphasisTable: full in this view, absent elsewhere; the trade gauge steps aside while the tour runs), and its
+        /// meshes carry the key's highlight ids.</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("regime", "bedrock", "strata", "summits", "beams", "strands", "taxes", "votes", "trade", "cloud");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom.</summary>
         const float Pulse = .2f;
         static readonly Color Gold = EconomyStyle.Capital, Steel = EconomyStyle.Government, White = new Color(1, .97f, .92f),
@@ -112,6 +118,7 @@ namespace Why.Economy.Layers
             // the smoke test captures every regime (pinned in turn, then back to stepping through them), and the tour's
             // cues pin each by its id as the card names it
             ViewVariants.Register(View, () => Regimes.Get()?.All.Length ?? 0, k => Pinned = k, k => Regimes.Get()?.All[k].Id ?? k.ToString());
+            EconomyEmphasis.Multiplier("regime.trade", "the tour's card", () => EmphasisTable.RegimeTourCard(GraphRoot.Instance != null && GraphRoot.Instance.TourActive));
         }
 
         public override void Tick(GraphContext ctx, CameraRig rig)
@@ -143,8 +150,9 @@ namespace Why.Economy.Layers
             if (content == null) return;
             content.SetActive(true);
             // the tour docks its card at the left bottom, over the far border where the trade gauge stands: seen through the
-            // card, the gauge's words read as the card's own (the panel gives the same share), so the gauge steps aside
-            foreach (var (rend, part) in renderers) if (part == Part.Trade && rend) rend.enabled = !tour;
+            // card, the gauge's words read as the card's own (the panel gives the same share), so the gauge steps aside (its
+            // multiplier, EmphasisTable.RegimeTourCard)
+            foreach (var (rend, part) in renderers) EconomyEmphasis.Apply(rend, Keys[(int)part]);
             if (tradeLabel) tradeLabel.gameObject.SetActive(!tour);
             foreach (var t in labels) t.transform.rotation = rig.Cam.transform.rotation;
             // the names written on the bedrock's face lie in it (Bedrock), read from the side of it the camera stands on
@@ -220,8 +228,8 @@ namespace Why.Economy.Layers
                 for (int k = 0; k < Regimes.Parts; k++)
                 {
                     float d = (float)r.Mix[k] * rev * DepthPerShare; if (d <= .01f) continue;
-                    Slab(faces, x0, x1, y, y - d, cz, zb, PartColor[k], .62f);
-                    edges.AddPolyline(new[] { new Vector3(x0, y - d, cz), new Vector3(x1, y - d, cz) }, WithAlpha(White, .35f), 1, 0, 0);
+                    Slab(faces, Id(Part.Bedrock), x0, x1, y, y - d, cz, zb, PartColor[k], .62f);
+                    edges.AddPolyline(new[] { new Vector3(x0, y - d, cz), new Vector3(x1, y - d, cz) }, WithAlpha(White, .35f), 1, 0, Id(Part.Bedrock));
                     // a stratum names itself when it can hold a line of text (about 3% of GDP); the panel lists them all
                     if (d >= 2.2f)
                         StratumName("<b>" + PartName(k).ToUpperInvariant() + "</b>  " + LandFacts.Percent(r.Mix[k] * rev, 1) + " of GDP · " +
@@ -231,7 +239,7 @@ namespace Why.Economy.Layers
             }
             else
             {
-                Slab(faces, x0, x1, top, top - rev * DepthPerShare, cz, zb, PartColor[(int)Regimes.Part.Other], .5f);
+                Slab(faces, Id(Part.Bedrock), x0, x1, top, top - rev * DepthPerShare, cz, zb, PartColor[(int)Regimes.Part.Other], .5f);
                 StratumName("revenue " + LandFacts.Percent(rev, 1) + " of GDP (its sources not found)", top - rev * DepthPerShare * .5f, 1f, PartColor[(int)Regimes.Part.Other], .5f);
                 y = top - rev * DepthPerShare;
             }
@@ -239,7 +247,7 @@ namespace Why.Economy.Layers
             float yr = top - rev * DepthPerShare, yg = top - g * DepthPerShare;
             if (g > rev + .001f)
             {
-                Slab(faces, x0, x1, yr, yg, cz, zb, new Color(.10f, .11f, .14f), .75f);
+                Slab(faces, Id(Part.Bedrock), x0, x1, yr, yg, cz, zb, new Color(.10f, .11f, .14f), .75f);
                 // the band's name first, so its hatch leaves a gap across it as the dashed lines do (Dashes): its strokes
                 // ran through the letters, and the one in the space before the figure read as a slash ("/7.8%")
                 if (yr - yg >= 2.2f) FaceName("<b>BORROWED</b>  " + LandFacts.Percent(g - rev, 1) + " of GDP: spending above revenue", (yr + yg) * .5f, Mathf.Clamp((yr - yg) * .32f, .75f, 1.1f), Grey);
@@ -247,7 +255,7 @@ namespace Why.Economy.Layers
                 {
                     bool clear = true;
                     foreach (var w in written) if (x + 4 > w.x0 && x < w.x1 && w.y < yr && w.y > yg) { clear = false; break; }
-                    if (clear) strata.AddSegment(new Vector3(x, yr, cz + .2f), new Vector3(x + 4, yg, cz + .2f), WithAlpha(Grey, .25f), .8f, 0, 0, 1);
+                    if (clear) strata.AddSegment(new Vector3(x, yr, cz + .2f), new Vector3(x + 4, yg, cz + .2f), WithAlpha(Grey, .25f), .8f, 0, Id(Part.Strata), 1);
                 }
             }
             else if (rev > g + .001f && yg - yr >= 2.2f)
@@ -260,11 +268,11 @@ namespace Why.Economy.Layers
                 {
                     float end = Mathf.Min(x1, x + 3.4f); bool clear = true;
                     foreach (var w in written) if (end > w.x0 && x < w.x1 && Mathf.Abs(at - w.y) < w.half + 1.8f) { clear = false; break; }
-                    if (clear) edges.AddSegment(new Vector3(x, at, cz + .5f), new Vector3(end, at, cz + .5f), color, 1.6f, 0, 0);
+                    if (clear) edges.AddSegment(new Vector3(x, at, cz + .5f), new Vector3(end, at, cz + .5f), color, 1.6f, 0, Id(Part.Bedrock));
                 }
             }
-            strata.AddPolyline(new[] { new Vector3(x0, yr, cz + .3f), new Vector3(x1, yr, cz + .3f) }, WithAlpha(White, .95f), 2, 0, 0);
-            strata.AddPolyline(new[] { new Vector3(x0, yg, cz + .3f), new Vector3(x1, yg, cz + .3f) }, WithAlpha(Steel, .9f), 2.4f, 0, 0);
+            strata.AddPolyline(new[] { new Vector3(x0, yr, cz + .3f), new Vector3(x1, yr, cz + .3f) }, WithAlpha(White, .95f), 2, 0, Id(Part.Strata));
+            strata.AddPolyline(new[] { new Vector3(x0, yg, cz + .3f), new Vector3(x1, yg, cz + .3f) }, WithAlpha(Steel, .9f), 2.4f, 0, Id(Part.Strata));
             // the depth in words beneath the bedrock (and beneath the US line and its name, when they run lower: 3.2 units
             // under the name, which stands 3 under its line, so some 10 px of black lie between the name and the caption's
             // first line, which can end just short of where the name starts): every level of government, and for another
@@ -310,9 +318,9 @@ namespace Why.Economy.Layers
             }
             // the block's outline
             foreach (float yy in new[] { top, bottom })
-                edges.AddPolyline(new[] { new Vector3(x0, yy, zb), new Vector3(x0, yy, cz), new Vector3(x1, yy, cz), new Vector3(x1, yy, zb) }, WithAlpha(Steel, .55f), 1.2f, 0, 0);
-            edges.AddSegment(new Vector3(x0, top, cz), new Vector3(x0, bottom, cz), WithAlpha(Steel, .55f), 1.2f, 0, 0);
-            edges.AddSegment(new Vector3(x1, top, cz), new Vector3(x1, bottom, cz), WithAlpha(Steel, .55f), 1.2f, 0, 0);
+                edges.AddPolyline(new[] { new Vector3(x0, yy, zb), new Vector3(x0, yy, cz), new Vector3(x1, yy, cz), new Vector3(x1, yy, zb) }, WithAlpha(Steel, .55f), 1.2f, 0, Id(Part.Bedrock));
+            edges.AddSegment(new Vector3(x0, top, cz), new Vector3(x0, bottom, cz), WithAlpha(Steel, .55f), 1.2f, 0, Id(Part.Bedrock));
+            edges.AddSegment(new Vector3(x1, top, cz), new Vector3(x1, bottom, cz), WithAlpha(Steel, .55f), 1.2f, 0, Id(Part.Bedrock));
             Surface(faces, Part.Bedrock); Lines(edges, Part.Bedrock, false); Lines(strata, Part.Strata, false);
         }
 
@@ -342,7 +350,7 @@ namespace Why.Economy.Layers
                 {
                     // steel dots where the largest firm the research names here is the state's, though none was ranked
                     var mark = r.UnrankedMark(j); unrankedShown++;
-                    Dashed(rings, h, radius, WithAlpha(mark != null && mark.Controlled ? Steel : Grey, .75f), 1.6f);
+                    Dashed(rings, Id(Part.Summits), h, radius, WithAlpha(mark != null && mark.Controlled ? Steel : Grey, .75f), 1.6f);
                     if (mark != null)
                         names.Add(Name("<b>" + Short(mark.Firm) + "</b> · " + (mark.Controlled ? "state" : "private") + ", not ranked", h, radius, Color.Lerp(Steel, White, .45f)));
                     continue;
@@ -350,8 +358,8 @@ namespace Why.Economy.Layers
                 for (int ring = 0; ring < 2; ring++)
                 {
                     float rr = radius * (ring == 0 ? 1 : .78f);
-                    Arc(rings, h, rr, 0, (float)s, WithAlpha(Steel, .95f), 3);
-                    Arc(rings, h, rr, (float)s, 1, WithAlpha(Gold, .9f), 2.4f);
+                    Arc(rings, Id(Part.Summits), h, rr, 0, (float)s, WithAlpha(Steel, .95f), 3);
+                    Arc(rings, Id(Part.Summits), h, rr, (float)s, 1, WithAlpha(Gold, .9f), 2.4f);
                 }
                 if (s > .01)
                 {
@@ -362,7 +370,7 @@ namespace Why.Economy.Layers
                         float t = k / 23f;
                         pts[k] = new LinePoint(Vector3.Lerp(foot, h, t) + Vector3.forward * Mathf.Sin(t * Mathf.PI) * 1.5f, WithAlpha(Steel, .8f), 1 + 4 * (float)s);
                     }
-                    beams.AddFlowPath(pts, 0, .35f, j * .2f);
+                    beams.AddFlowPath(pts, Id(Part.Beams), .35f, j * .2f);
                 }
                 if (firm != null)
                     names.Add(Name("<b>" + Short(firm.Name) + "</b> · " + Owner(firm), h, radius, s >= .5 ? Color.Lerp(Steel, White, .45f) : Color.Lerp(Gold, White, .45f)));
@@ -446,7 +454,7 @@ namespace Why.Economy.Layers
                 }
                 placed.Add((ring.x - half, ring.x + half, y));
                 text.transform.localPosition = new Vector3(ring.x, y, ring.z);
-                leaders.AddSegment(new Vector3(ring.x, top + .3f, ring.z), new Vector3(ring.x, y - Line * .45f, ring.z), WithAlpha(text.color, .55f), 1, 0, 0, 1);
+                leaders.AddSegment(new Vector3(ring.x, top + .3f, ring.z), new Vector3(ring.x, y - Line * .45f, ring.z), WithAlpha(text.color, .55f), 1, 0, Id(Part.Summits), 1);
             }
         }
 
@@ -459,8 +467,8 @@ namespace Why.Economy.Layers
             // from the future +x runs to the left: the gauge fills from its left end (x0) toward x1
             float x0 = LabelX + 88, x1 = LabelX + 18, y = land.CloudY + 6, z = land.CrestZ + 4;
             float share = m.Has ? Mathf.Clamp01((float)m.Value) : 0;
-            b.AddSegment(new Vector3(x0, y, z), new Vector3(x1, y, z), WithAlpha(Grey, .3f), 0, 1.8f, 0, 1);
-            if (share > 0) b.AddSegment(new Vector3(x0, y, z), new Vector3(Mathf.Lerp(x0, x1, share), y, z), WithAlpha(Steel, .95f), 0, 2.2f, 0);
+            b.AddSegment(new Vector3(x0, y, z), new Vector3(x1, y, z), WithAlpha(Grey, .3f), 0, 1.8f, Id(Part.Summits), 1);
+            if (share > 0) b.AddSegment(new Vector3(x0, y, z), new Vector3(Mathf.Lerp(x0, x1, share), y, z), WithAlpha(Steel, .95f), 0, 2.2f, Id(Part.Summits));
             string head = !m.Has ? "<b>THE STATE'S SHARE OF ITS LISTED FIRMS</b>: not found"
                 : m.Basis == "by law" ? "<b>EVERY SUMMIT THE STATE'S</b> · " + (r.DefaultNote ?? "state property by law")
                 : "<b>THE STATE HOLDS " + LandFacts.Percent(m.Value) + " OF THE VALUE OF " + (r.Baseline ? "US" : Possessive(r).ToUpperInvariant()) + " LISTED FIRMS</b> (" + m.Year + ")";
@@ -481,8 +489,8 @@ namespace Why.Economy.Layers
                 float reg = r.Regulation[j], cap = r.Capture[j];
                 if (float.IsNaN(reg)) continue;
                 Vector3 foot = new Vector3(hill.Center.x - 1.2f, HillLandscape.Bedrock, land.CrestZ - 3), into = land.Market(j) + Vector3.up * .5f;
-                Strand(b, foot, into, WithAlpha(Grey, .5f), .4f + 2.2f * reg, 1.2f);
-                if (!float.IsNaN(cap) && cap > .05f) Strand(b, into + Vector3.right * 1.2f, foot + Vector3.right * 2.4f, WithAlpha(Gold, .5f), .3f + 2.2f * cap, -1.2f);
+                Strand(b, Id(Part.Strands), foot, into, WithAlpha(Grey, .5f), .4f + 2.2f * reg, 1.2f);
+                if (!float.IsNaN(cap) && cap > .05f) Strand(b, Id(Part.Strands), into + Vector3.right * 1.2f, foot + Vector3.right * 2.4f, WithAlpha(Gold, .5f), .3f + 2.2f * cap, -1.2f);
             }
             Lines(b, Part.Strands, true);
         }
@@ -502,7 +510,7 @@ namespace Why.Economy.Layers
                 Vector3 to = new Vector3(from.x + bend, top - .5f, Mathf.Min(from.z, land.CrestZ - 1));
                 var pts = new LinePoint[14];
                 for (int k = 0; k < pts.Length; k++) pts[k] = new LinePoint(Vector3.Lerp(from, to, k / 13f), WithAlpha(c, .5f), W(dollars));
-                b.AddFlowPath(pts, 0, .45f, phase);
+                b.AddFlowPath(pts, Id(Part.Taxes), .45f, phase);
             }
             // income taxes and contributions from the people (every fifth group, by what each pays)
             double paid = 0; for (int p = 0; p < players.Length; p++) paid += Math.Max(0, players[p].Taxes);
@@ -572,7 +580,7 @@ namespace Why.Economy.Layers
                 Vector3 from = at + Vector3.up * 1.5f, to = new Vector3(at.x, HillLandscape.Bedrock + .2f, Mathf.Min(at.z, land.CrestZ - .5f));
                 var pts = new LinePoint[16];
                 for (int i = 0; i < pts.Length; i++) pts[i] = new LinePoint(Vector3.Lerp(from, to, i / 15f), WithAlpha(White, .2f + .7f * v), .3f + 3.2f * v);
-                b.AddFlowPath(pts, 0, .5f, k * .3f);
+                b.AddFlowPath(pts, Id(Part.Votes), .5f, k * .3f);
             }
             // the name stands across the threads it names and the falls of taxes beside them: on a plate they pass behind it
             string prev = double.IsNaN(r.Democracy.Previous) ? "" : " (" + r.Democracy.Previous.ToString("0.00", LandFacts.Ci) + " in " + r.Democracy.PreviousYear + ")";
@@ -589,7 +597,7 @@ namespace Why.Economy.Layers
         {
             var b = new LineMeshBuilder(); float x = land.XMax + 6, z = land.CrestZ - 4;
             float h = HillLandscape.Bedrock + 10;
-            b.AddSegment(new Vector3(x, HillLandscape.Bedrock, z), new Vector3(x, h + 24, z), WithAlpha(Steel, .6f), 1.4f, 0, 0);
+            b.AddSegment(new Vector3(x, HillLandscape.Bedrock, z), new Vector3(x, h + 24, z), WithAlpha(Steel, .6f), 1.4f, 0, Id(Part.Trade));
             if (r.Trade.Has)
             {
                 float t = (float)r.Trade.Value, w = 1 + 8 * t;
@@ -602,7 +610,7 @@ namespace Why.Economy.Layers
                         float s = k / 19f, xx = dir == 0 ? Mathf.Lerp(x - 20, x + 20, s) : Mathf.Lerp(x + 20, x - 20, s);
                         pts[k] = new LinePoint(new Vector3(xx, y + Mathf.Sin(s * Mathf.PI) * 2.5f, z), WithAlpha(dir == 0 ? Gold : Ice, .85f), w * .5f);
                     }
-                    b.AddFlowPath(pts, 0, .4f, dir * .5f);
+                    b.AddFlowPath(pts, Id(Part.Trade), .4f, dir * .5f);
                 }
                 tradeLabel = Plate(Label("<b>TRADE</b> · exports + imports " + LandFacts.Percent(t) + " of GDP in " + r.Trade.Year + "\n<size=80%>out above (gold), in below (ice), across the border</size>",
                       new Vector3(x, h + 30, z), 1f, Color.Lerp(Steel, White, .5f)));
@@ -617,9 +625,9 @@ namespace Why.Economy.Layers
         {
             var b = new LineMeshBuilder(); Vector3 c = land.CloudCenter + new Vector3(0, 4, 26);
             const float Scale = 22;
-            if (r.Top1Wealth.Has) Ring(b, c, Mathf.Sqrt((float)r.Top1Wealth.Value) * Scale, WithAlpha(Gold, .95f), 3.2f);
-            else Dashed(b, c, Mathf.Sqrt(.3f) * Scale, WithAlpha(Grey, .5f));
-            if (r.Top1Income.Has) Ring(b, c, Mathf.Sqrt((float)r.Top1Income.Value) * Scale, WithAlpha(White, .9f), 2.2f);
+            if (r.Top1Wealth.Has) Ring(b, Id(Part.Cloud), c, Mathf.Sqrt((float)r.Top1Wealth.Value) * Scale, WithAlpha(Gold, .95f), 3.2f);
+            else Dashed(b, Id(Part.Cloud), c, Mathf.Sqrt(.3f) * Scale, WithAlpha(Grey, .5f));
+            if (r.Top1Income.Has) Ring(b, Id(Part.Cloud), c, Mathf.Sqrt((float)r.Top1Income.Value) * Scale, WithAlpha(White, .9f), 2.2f);
             string wealth = r.Top1Wealth.Has ? LandFacts.Percent(r.Top1Wealth.Value) + " of wealth (" + r.Top1Wealth.Year + ")" : "wealth not measured";
             string income = r.Top1Income.Has ? LandFacts.Percent(r.Top1Income.Value) + " of income (" + r.Top1Income.Year + ")" : "income not measured";
             Label("<b>THE TOP 1%</b> · " + wealth + " · " + income + "\n<size=80%>gold ring: their share of wealth · white: of income (area)</size>",
@@ -847,12 +855,12 @@ namespace Why.Economy.Layers
         // ------------------------------------------------------------------ drawing helpers
 
         /// <summary>A box of the bedrock: its front face at the crest, its top, and its two ends back along the wake.</summary>
-        static void Slab(SurfaceMeshBuilder b, float x0, float x1, float yTop, float yBottom, float zFront, float zBack, Color color, float alpha)
+        static void Slab(SurfaceMeshBuilder b, float id, float x0, float x1, float yTop, float yBottom, float zFront, float zBack, Color color, float alpha)
         {
             Color front = color; front.a = alpha; Color side = color; side.a = alpha * .45f;
-            b.AddBand(new[] { new Vector3(x0, yTop, zFront), new Vector3(x1, yTop, zFront) }, new[] { new Vector3(x0, yBottom, zFront), new Vector3(x1, yBottom, zFront) }, new[] { (Color32)front }, 0, 1);
+            b.AddBand(new[] { new Vector3(x0, yTop, zFront), new Vector3(x1, yTop, zFront) }, new[] { new Vector3(x0, yBottom, zFront), new Vector3(x1, yBottom, zFront) }, new[] { (Color32)front }, id, 1);
             foreach (float x in new[] { x0, x1 })
-                b.AddBand(new[] { new Vector3(x, yTop, zFront), new Vector3(x, yTop, zBack) }, new[] { new Vector3(x, yBottom, zFront), new Vector3(x, yBottom, zBack) }, new[] { (Color32)side }, 0, 1);
+                b.AddBand(new[] { new Vector3(x, yTop, zFront), new Vector3(x, yTop, zBack) }, new[] { new Vector3(x, yBottom, zFront), new Vector3(x, yBottom, zBack) }, new[] { (Color32)side }, id, 1);
         }
 
         /// <summary>A slab of the bedrock as it reaches the screen where it is solid, under its name (the strata soften toward
@@ -875,38 +883,38 @@ namespace Why.Economy.Layers
         /// <summary>The relative luminance of a linear colour.</summary>
         static float Luminance(Color c) => .2126f * c.r + .7152f * c.g + .0722f * c.b;
 
-        static void Strand(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float bow)
+        static void Strand(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color color, float width, float bow)
         {
             var pts = new LinePoint[21];
             for (int s = 0; s < pts.Length; s++) { float t = s / 20f; pts[s] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.right * Mathf.Sin(t * Mathf.PI) * bow, color, width); }
-            b.AddFlowPath(pts, 0, .4f);
+            b.AddFlowPath(pts, id, .4f);
         }
 
         /// <summary>An arc of a ring facing the crest's front (the x-y plane) from fraction f0 to f1 of the circle,
         /// clockwise from the top.</summary>
-        static void Arc(LineMeshBuilder b, Vector3 c, float r, float f0, float f1, Color color, float width)
+        static void Arc(LineMeshBuilder b, float id, Vector3 c, float r, float f0, float f1, Color color, float width)
         {
             if (f1 - f0 < .004f) return;
             int n = Mathf.Max(3, Mathf.CeilToInt((f1 - f0) * 64));
             var pts = new Vector3[n + 1];
             for (int s = 0; s <= n; s++) { float a = Mathf.PI * .5f - Mathf.Lerp(f0, f1, s / (float)n) * Mathf.PI * 2; pts[s] = c + new Vector3(Mathf.Cos(a) * r, Mathf.Sin(a) * r, 0); }
-            b.AddPolyline(pts, color, width, 0, 0);
+            b.AddPolyline(pts, color, width, 0, id);
         }
 
         /// <summary>A ring facing the camera's side of the wave (in the x-y plane).</summary>
-        static void Ring(LineMeshBuilder b, Vector3 c, float r, Color color, float width)
+        static void Ring(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width)
         {
             var pts = new Vector3[65];
             for (int s = 0; s < pts.Length; s++) { float a = s * Mathf.PI * 2 / 64; pts[s] = c + new Vector3(Mathf.Cos(a) * r, Mathf.Sin(a) * r, 0); }
-            b.AddPolyline(pts, color, width, 0, 0);
+            b.AddPolyline(pts, color, width, 0, id);
         }
 
-        static void Dashed(LineMeshBuilder b, Vector3 c, float r, Color color, float width = 1.4f)
+        static void Dashed(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width = 1.4f)
         {
             for (int s = 0; s < 32; s += 2)
             {
                 float a0 = s * Mathf.PI * 2 / 32, a1 = (s + 1) * Mathf.PI * 2 / 32;
-                b.AddSegment(c + new Vector3(Mathf.Cos(a0) * r, Mathf.Sin(a0) * r, 0), c + new Vector3(Mathf.Cos(a1) * r, Mathf.Sin(a1) * r, 0), color, width, 0, 0);
+                b.AddSegment(c + new Vector3(Mathf.Cos(a0) * r, Mathf.Sin(a0) * r, 0), c + new Vector3(Mathf.Cos(a1) * r, Mathf.Sin(a1) * r, 0), color, width, 0, id);
             }
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 using Why.Economy.UI;
@@ -37,6 +38,10 @@ namespace Why.Economy.Layers
         public override int Order => 63;
         public override IEnumerable<string> RequiredTexts => new[] { CorporatePrograms.Path };
         enum Part { Streams, Focus, Arrows, Cascade, Trail, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view is the emphasis table's
+        /// (EmphasisTable: full in this view, absent elsewhere), and its meshes carry the key's highlight ids.</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("strategy", "streams", "focus", "arrows", "cascade", "trail");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         static readonly Color Gold = new Color(1, .70f, .22f), Rose = new Color(1, .26f, .50f), Ice = new Color(.30f, .72f, 1),
             Blue = new Color(.36f, .70f, 1), White = new Color(1, .97f, .92f), Steel = new Color(.62f, .70f, .82f), Amber = new Color(1, .80f, .52f);
         /// <summary>The tickers whose capital spending is the AI build-out (calendar or nearest fiscal year).</summary>
@@ -109,6 +114,7 @@ namespace Why.Economy.Layers
             if (content == null) return;
             bool on = LandView.PresetId == "strategy";
             content.SetActive(on); if (!on) return;
+            foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             int f = Focus(out bool chosen);
             if (f != focused || chosen != focusChosen) { focused = f; focusChosen = chosen; Focused = f; DrawFocus(); }
             // the focused firm's small tower label repeats the bold name over it: hidden while that shows; and a tower label
@@ -176,9 +182,9 @@ namespace Why.Economy.Layers
             for (int t = 0; t < towers.Length; t++)
             {
                 var p = programs.OfTower(Tower(t)); if (p == null) continue;
-                Streams(faint, fill, t, p, .3f, false);
+                Streams(faint, fill, Id(Part.Streams), t, p, .3f, false);
                 Arrows(arrows, t, p);
-                Trail(trail, trailFill, t, p, .3f, false); years += p.History.Length;
+                Trail(trail, trailFill, Id(Part.Trail), t, p, .3f, false); years += p.History.Length;
                 invest += p.Invest; owners += p.Owners; ads += p.Attention; lobbying += double.IsNaN(p.Lobbying) ? 0 : p.Lobbying; research += p.Research;
                 deals += p.Deals; taxes += p.State; operations += p.Operations;
             }
@@ -231,7 +237,7 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ one firm's streams
 
-        void Streams(LineMeshBuilder b, SurfaceMeshBuilder fill, int t, CorporatePrograms.Firm p, float alpha, bool full)
+        void Streams(LineMeshBuilder b, SurfaceMeshBuilder fill, float partId, int t, CorporatePrograms.Firm p, float alpha, bool full)
         {
             Vector3 foot = HillActivityLayer.CompanyPosition(t), halo = HillActivityLayer.CompanyHalo(t);
             float W(double billions) => (full ? .6f : .4f) + Mathf.Sqrt((float)Math.Max(0, billions)) * (full ? .55f : .32f);
@@ -241,9 +247,9 @@ namespace Why.Economy.Layers
             var order = new List<int>(); for (int i = 0; i < bySupplier.Length; i++) if (bySupplier[i] > 0) order.Add(i);
             order.Sort((a, c) => bySupplier[c].CompareTo(bySupplier[a]));
             for (int k = 0; k < order.Count && k < (full ? 4 : 2); k++)
-                Arc(b, foot + Vector3.up * .5f, land.Market(order[k]) + Vector3.up * .3f, WithAlpha(Amber, alpha), W(bySupplier[order[k]]), C(full ? 2.2f : 1.2f), 1.5f + .08f * Vector3.Distance(foot, land.Market(order[k])));
+                Arc(b, partId, foot + Vector3.up * .5f, land.Market(order[k]) + Vector3.up * .3f, WithAlpha(Amber, alpha), W(bySupplier[order[k]]), C(full ? 2.2f : 1.2f), 1.5f + .08f * Vector3.Distance(foot, land.Market(order[k])));
             if (p.Industry >= 0 && workers > 0)
-                Arc(b, foot + Vector3.up * .4f, land.Market(p.Industry) + Vector3.up * .5f, WithAlpha(Blue, alpha), W(workers), C(full ? 2.2f : 1.2f), 1.2f);
+                Arc(b, partId, foot + Vector3.up * .4f, land.Market(p.Industry) + Vector3.up * .5f, WithAlpha(Blue, alpha), W(workers), C(full ? 2.2f : 1.2f), 1.2f);
             // The future: investment and research leave forward over the crest, in the fear and desire lanes.
             double future = p.Invest + p.Research;
             if (future > 0)
@@ -251,21 +257,21 @@ namespace Why.Economy.Layers
                 Vector3 lip = new Vector3(halo.x, halo.y + 2.5f, land.CrestZ + 2), ahead = new Vector3(halo.x + 3, Mathf.Max(4, halo.y * .55f), land.CrestZ + (full ? 16 : 12));
                 var path = new Vector3[25];
                 for (int s = 0; s < path.Length; s++) { float u = s / 24f; path[s] = Vector3.Lerp(Vector3.Lerp(halo, lip, u), Vector3.Lerp(lip, ahead, u), u); }
-                Lanes(fill, b, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), p.Defensive, alpha, t);
+                Lanes(fill, b, partId, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), p.Defensive, alpha, t);
             }
             // the focused firm's owners' arc is its brightest stream where its trail's names stand: they keep clear of it
-            if (p.Owners > 0) Arc(b, halo + Vector3.up * .4f, land.CloudCenter, WithAlpha(Gold, alpha), W(p.Owners), C(full ? 3f : 1.6f), 4, full ? focusStrokes : null);
-            if (p.Attention > 0) Arc(b, halo + Vector3.up * .3f, attention, WithAlpha(Rose, alpha), W(p.Attention), C(full ? 2.6f : 1.4f), 3);
-            if (p.Deals > 0 && p.Industry >= 0) Arc(b, halo, land.Halo(p.Industry) + new Vector3(0, 1.5f, -2), WithAlpha(White, alpha * .9f), W(p.Deals), C(full ? 2.2f : 1.1f), 2.5f);
+            if (p.Owners > 0) Arc(b, partId, halo + Vector3.up * .4f, land.CloudCenter, WithAlpha(Gold, alpha), W(p.Owners), C(full ? 3f : 1.6f), 4, full ? focusStrokes : null);
+            if (p.Attention > 0) Arc(b, partId, halo + Vector3.up * .3f, attention, WithAlpha(Rose, alpha), W(p.Attention), C(full ? 2.6f : 1.4f), 3);
+            if (p.Deals > 0 && p.Industry >= 0) Arc(b, partId, halo, land.Halo(p.Industry) + new Vector3(0, 1.5f, -2), WithAlpha(White, alpha * .9f), W(p.Deals), C(full ? 2.2f : 1.1f), 2.5f);
             if (p.State > 0)
             {
                 Vector3 down = new Vector3(foot.x, HillLandscape.Bedrock + .3f, Mathf.Min(foot.z, land.CrestZ - 1));
                 var drop = new LinePoint[12];
                 for (int s = 0; s < drop.Length; s++) drop[s] = new LinePoint(Vector3.Lerp(foot, down, s / 11f), WithAlpha(Steel, alpha), W(p.State), 0, C(full ? 2 : 1.1f));
-                b.AddFlowPath(drop, 0, .5f, t * .3f);
+                b.AddFlowPath(drop, partId, .5f, t * .3f);
             }
             if (!double.IsNaN(p.Lobbying) && p.Lobbying > 0)
-                Arc(b, foot, seats + Vector3.up * 2, WithAlpha(Steel, alpha * (full ? 1 : .6f)), full ? 1.6f : .8f, C(full ? 2.6f : 1), 2);
+                Arc(b, partId, foot, seats + Vector3.up * 2, WithAlpha(Steel, alpha * (full ? 1 : .6f)), full ? 1.6f : .8f, C(full ? 2.6f : 1), 2);
         }
 
         /// <summary>An intensity no higher than <see cref="cap"/>: hue-coded marks stay below the bloom unless chosen.</summary>
@@ -283,11 +289,11 @@ namespace Why.Economy.Layers
                 float w = p.Direction[d]; if (w < .2f) continue;
                 float length = 5 + 16 * w; Color c = WithAlpha(White, .5f + .5f * w); float width = 2.4f + 5 * w;
                 Vector3 dir = Way(d, at, snapshot.Year);
-                if (dir == Vector3.zero) { float r = 1.2f + 3 * w; Ring(b, at, r, c, width, 1); Chords(strokes, at, r, width); continue; }
+                if (dir == Vector3.zero) { float r = 1.2f + 3 * w; Ring(b, Id(Part.Arrows), at, r, c, width, 1); Chords(strokes, at, r, width); continue; }
                 dir = dir.normalized; Vector3 tip = at + dir * length;
                 Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
                 Vector3 barb0 = tip - dir * 2f + side * 1.2f, barb1 = tip - dir * 2f - side * 1.2f;
-                b.AddSegment(at, tip, c, width, 0, 0); b.AddSegment(tip, barb0, c, width, 0, 0); b.AddSegment(tip, barb1, c, width, 0, 0);
+                b.AddSegment(at, tip, c, width, 0, Id(Part.Arrows)); b.AddSegment(tip, barb0, c, width, 0, Id(Part.Arrows)); b.AddSegment(tip, barb1, c, width, 0, Id(Part.Arrows));
                 strokes.Add((at, tip, width)); strokes.Add((tip, barb0, width)); strokes.Add((tip, barb1, width));
             }
         }
@@ -304,8 +310,8 @@ namespace Why.Economy.Layers
                 // a chosen firm's marks may bloom (a highlight), pulses too; the default largest investor's stay in their hues
                 cap = focusChosen ? float.MaxValue : 1;
                 focusRenderer.sharedMaterial.SetFloat("_Flow", focusChosen ? 1 : Pulse);
-                Streams(b, fill, focused, p, .95f, true);
-                Trail(b, fill, focused, p, .95f, true);
+                Streams(b, fill, Id(Part.Focus), focused, p, .95f, true);
+                Trail(b, fill, Id(Part.Focus), focused, p, .95f, true);
                 cap = 1;
                 // the firm's name over its tower first: NameTrail moves it clear of the arrows, its own marks and the labels where
                 // it can without leaving its tower (else raises it on its plate), then its trail's names clear of it
@@ -353,7 +359,7 @@ namespace Why.Economy.Layers
         /// focused firm's years carry a chevron for which way its money moved it; its stalks and chevrons are kept for its
         /// names to keep clear of (<see cref="focusStrokes"/>).
         /// </summary>
-        void Trail(LineMeshBuilder b, SurfaceMeshBuilder fill, int t, CorporatePrograms.Firm p, float alpha, bool full)
+        void Trail(LineMeshBuilder b, SurfaceMeshBuilder fill, float partId, int t, CorporatePrograms.Firm p, float alpha, bool full)
         {
             if (p.History.Length == 0) return;
             int life = LifeOf(t);
@@ -365,22 +371,25 @@ namespace Why.Economy.Layers
                 double future = y.Invest + y.Research;
                 if (future > 0)
                 {
-                    Lanes(fill, b, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), y.Defensive, alpha, t);
+                    Lanes(fill, b, partId, path, (full ? .3f : .15f) + Mathf.Sqrt((float)future) * (full ? .16f : .09f), y.Defensive, alpha, t);
                     // the spine: the year's motive as one color (rose desire .. ice fear) and its dollars as pixels, so the
                     // trail reads from afar where the lanes are too narrow to split
                     var spine = new LinePoint[path.Length]; Color motive = WithAlpha(Color.Lerp(Rose, Ice, y.Defensive), Mathf.Min(1, alpha * 1.4f));
                     float px = (full ? 2 : 1) + Mathf.Sqrt((float)future) * (full ? .6f : .3f);
                     for (int s = 0; s < path.Length; s++) spine[s] = new LinePoint(path[s] + Vector3.up * .05f, motive, px, 0, C(full ? 2.2f : 1.4f));
+                    // the spine keeps its tower's index for its highlight id: the universe's lineage highlight stays set in this
+                    // scene (Highlighter.SetPersistent "matter", ids 3-10) and lights towers 3-10's spines a little, which the
+                    // part's ids would drop, a change on screen the emphasis table's move must not make
                     b.AddFlowPath(spine, t, .5f, t * .29f);
                 }
                 Vector3 c = TrailAt(life, p, mid) + Vector3.up * .2f;
                 if (y.Owners > 0)
                 {
                     Vector3 top = c + Vector3.up * Stalk(y, full);
-                    b.AddSegment(c, top, WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, 0, C(full ? 2.4f : 1.4f));
+                    b.AddSegment(c, top, WithAlpha(Gold, alpha), full ? 3.2f : 1.8f, 0, partId, C(full ? 2.4f : 1.4f));
                     if (full) focusStrokes.Add((c, top, 3.2f));
                 }
-                if (full && y.Judged) Chevron(b, c + Vector3.up * .3f, y, y.Year);
+                if (full && y.Judged) Chevron(b, partId, c + Vector3.up * .3f, y, y.Year);
             }
         }
 
@@ -576,18 +585,18 @@ namespace Why.Economy.Layers
         /// <summary>A small white chevron at the focused trail's year, pointing the way Jev judged that year's money moved the
         /// firm, as long as the main direction's probability (spreading across: a ring); its strokes are kept for the firm's
         /// names (<see cref="focusStrokes"/>).</summary>
-        void Chevron(LineMeshBuilder b, Vector3 at, CorporatePrograms.Firm y, int year)
+        void Chevron(LineMeshBuilder b, float partId, Vector3 at, CorporatePrograms.Firm y, int year)
         {
             int d = y.Main; float w = y.Direction[d];
             Color c = WithAlpha(White, .45f + .5f * w); float width = 2f + 2.5f * w;
             Vector3 dir = Way(d, at, year);
-            if (dir == Vector3.zero) { float r = .5f + 1.2f * w; Ring(b, at, r, c, width, C(1.6f + w)); Chords(focusStrokes, at, r, width); return; }
+            if (dir == Vector3.zero) { float r = .5f + 1.2f * w; Ring(b, partId, at, r, c, width, C(1.6f + w)); Chords(focusStrokes, at, r, width); return; }
             dir = dir.normalized; Vector3 tip = at + dir * (1.2f + 2.8f * w);
             Vector3 side = Vector3.Cross(dir, Vector3.forward); if (side.sqrMagnitude < 1e-4f) side = Vector3.right; side.Normalize();
             Vector3 barb0 = tip - dir * .8f + side * .5f, barb1 = tip - dir * .8f - side * .5f;
-            b.AddSegment(at, tip, c, width, 0, 0, C(1.6f + 2 * w));
-            b.AddSegment(tip, barb0, c, width, 0, 0, C(1.6f + 2 * w));
-            b.AddSegment(tip, barb1, c, width, 0, 0, C(1.6f + 2 * w));
+            b.AddSegment(at, tip, c, width, 0, partId, C(1.6f + 2 * w));
+            b.AddSegment(tip, barb0, c, width, 0, partId, C(1.6f + 2 * w));
+            b.AddSegment(tip, barb1, c, width, 0, partId, C(1.6f + 2 * w));
             focusStrokes.Add((at, tip, width)); focusStrokes.Add((tip, barb0, width)); focusStrokes.Add((tip, barb1, width));
         }
 
@@ -658,8 +667,8 @@ namespace Why.Economy.Layers
                 var p = programs.OfTower(Tower(t)); if (p == null || Array.IndexOf(Hyperscalers, p.Ticker) < 0) continue;
                 double ai = p.Invest * p.Ai; if (ai <= 0) continue; total += ai;
                 Vector3 halo = HillActivityLayer.CompanyHalo(t);
-                Arc(b, halo + Vector3.up * .6f, land.Market(hardware.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .6f), .8f + Mathf.Sqrt((float)(ai * toChips)) * .45f, 1, 6);
-                Arc(b, halo + Vector3.up * .6f, land.Market(construction.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .5f), .8f + Mathf.Sqrt((float)(ai * (1 - toChips))) * .45f, 1, 6);
+                Arc(b, Id(Part.Cascade), halo + Vector3.up * .6f, land.Market(hardware.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .6f), .8f + Mathf.Sqrt((float)(ai * toChips)) * .45f, 1, 6);
+                Arc(b, Id(Part.Cascade), halo + Vector3.up * .6f, land.Market(construction.Index) + Vector3.up * 1.2f, WithAlpha(Gold, .5f), .8f + Mathf.Sqrt((float)(ai * (1 - toChips))) * .45f, 1, 6);
             }
             Lines(b, Part.Cascade, true, false).sharedMaterial.SetFloat("_FlowSpeed", .8f);
             if (total > 0)
@@ -701,7 +710,7 @@ namespace Why.Economy.Layers
 
         /// <summary>A stream from <paramref name="a"/> to <paramref name="z"/>, raised by <paramref name="lift"/> at its middle;
         /// its chords are kept in <paramref name="keep"/> when one is given (the focused firm's names keep clear of them).</summary>
-        static void Arc(LineMeshBuilder b, Vector3 a, Vector3 z, Color color, float width, float intensity, float lift, List<(Vector3, Vector3, float)> keep = null)
+        static void Arc(LineMeshBuilder b, float id, Vector3 a, Vector3 z, Color color, float width, float intensity, float lift, List<(Vector3, Vector3, float)> keep = null)
         {
             var pts = new LinePoint[25];
             for (int s = 0; s < pts.Length; s++)
@@ -709,10 +718,10 @@ namespace Why.Economy.Layers
                 float t = s / 24f; pts[s] = new LinePoint(Vector3.Lerp(a, z, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * lift, color, width, 0, intensity);
                 if (keep != null && s > 0) keep.Add((pts[s - 1].Data, pts[s].Data, width));
             }
-            b.AddFlowPath(pts, 0, .5f);
+            b.AddFlowPath(pts, id, .5f);
         }
 
-        void Lanes(SurfaceMeshBuilder fill, LineMeshBuilder b, Vector3[] path, float width, float fear, float alpha, int id)
+        void Lanes(SurfaceMeshBuilder fill, LineMeshBuilder b, float partId, Vector3[] path, float width, float fear, float alpha, int id)
         {
             float split = -width * .5f + width * fear;
             for (int lane = 0; lane < 2; lane++)
@@ -728,15 +737,15 @@ namespace Why.Economy.Layers
                     left[k] = path[k] + normal * e0; right[k] = path[k] + normal * e1;
                     mid[k] = new LinePoint((left[k] + right[k]) * .5f, hue, 1.2f, 0, C(2));
                 }
-                fill.AddBand(left, right, new[] { (Color32)hue }, 0, C(1.1f)); b.AddFlowPath(mid, 0, 1, id * .41f + lane * .2f);
+                fill.AddBand(left, right, new[] { (Color32)hue }, partId, C(1.1f)); b.AddFlowPath(mid, partId, 1, id * .41f + lane * .2f);
             }
         }
 
-        static void Ring(LineMeshBuilder b, Vector3 c, float r, Color color, float width, float intensity)
+        static void Ring(LineMeshBuilder b, float id, Vector3 c, float r, Color color, float width, float intensity)
         {
             var pts = new Vector3[33];
             for (int s = 0; s < pts.Length; s++) { float a = s * Mathf.PI * 2 / 32; pts[s] = c + new Vector3(Mathf.Cos(a) * r, 0, Mathf.Sin(a) * r); }
-            b.AddPolyline(pts, color, width, 0, 0, intensity);
+            b.AddPolyline(pts, color, width, 0, id, intensity);
         }
 
         MeshRenderer Lines(LineMeshBuilder b, Part part, bool flow, bool additive)

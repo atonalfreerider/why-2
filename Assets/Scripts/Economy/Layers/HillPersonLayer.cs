@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -49,6 +50,10 @@ namespace Why.Economy.Layers
     {
         public override int Order => 59;
         enum Part { Atom, Pulls, Ladder, Count }
+        /// <summary>Each part's emphasis key, by <see cref="Part"/>: its alpha in every view is the emphasis table's
+        /// (EmphasisTable), and the meshes this layer builds carry the key's highlight ids (MindDiagram's own marks keep 0).</summary>
+        static readonly int[] Keys = EconomyEmphasis.Keys("person", "atom", "pulls", "ladder");
+        static float Id(Part part) => EconomyEmphasis.Id(Keys[(int)part]);
         /// <summary>The marks' intensity: the bloom starts above 1 and is kept for the pointer's highlight; brighter, the
         /// ladder's path blooms to the ghost's white and loses its blue-to-gold.</summary>
         const float Glow = 1;
@@ -90,14 +95,11 @@ namespace Why.Economy.Layers
                 Build();
             }
             if (content == null) return;
-            string view = LandView.PresetId;
-            float atom = view == "atom" ? 1 : view == "dilemma" ? .22f : view == "ladder" ? .12f : 0;
-            float pulls = view == "atom" ? 1 : view == "dilemma" ? .06f : 0;
-            float ladder = view == "ladder" ? 1 : view == "atom" ? .18f : 0;
+            float atom = EconomyEmphasis.Get(Keys[(int)Part.Atom]), pulls = EconomyEmphasis.Get(Keys[(int)Part.Pulls]), ladder = EconomyEmphasis.Get(Keys[(int)Part.Ladder]);
             bool show = atom + pulls + ladder > 0;
             content.SetActive(show); if (!show) return;
             clock += Time.deltaTime;
-            foreach (var e in renderers) if (e.renderer) GraphMaterials.SetAlpha(e.renderer.sharedMaterial, e.part == Part.Atom ? atom : e.part == Part.Pulls ? pulls : ladder);
+            foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             foreach (var e in labels)
             {
                 bool on = e.part == Part.Atom ? atom >= .99f : e.part == Part.Pulls ? pulls >= .99f : ladder >= .99f;
@@ -190,8 +192,8 @@ namespace Why.Economy.Layers
             Lines(b, Part.Atom, true, "Atom mind");
             // The figure (moves): body, head, the gold ring of one in control, its balance-sheet rings.
             var f = new LineMeshBuilder(); Color body = now.InControl ? Gold : White;
-            f.AddSegment(Vector3.zero, Vector3.up * 1.25f, body, 3, .05f, 0, Glow);
-            f.AddSegment(Vector3.up * .95f + Vector3.left * .45f, Vector3.up * .95f + Vector3.right * .45f, body, 2.2f, .04f, 0, Glow);
+            f.AddSegment(Vector3.zero, Vector3.up * 1.25f, body, 3, .05f, Id(Part.Atom), Glow);
+            f.AddSegment(Vector3.up * .95f + Vector3.left * .45f, Vector3.up * .95f + Vector3.right * .45f, body, 2.2f, .04f, Id(Part.Atom), Glow);
             MindDiagram.Sphere(f, Vector3.up * 1.55f, .25f, body, 2.2f, Glow);
             MindDiagram.Ring(f, Vector3.up * .02f, .55f, body, 2, Glow, false);
             MindDiagram.Ring(f, Vector3.up * .06f, .45f + Mathf.Log10(1 + Math.Max(0, now.Wealth)) * .09f, Gold, 1.6f, Glow, false);
@@ -308,7 +310,7 @@ namespace Why.Economy.Layers
                 p.y = Mathf.Max(p.y, land.Ground(p.x, p.z) + .4f);
                 pts[s] = new LinePoint(p, color, width, .01f * width, Glow);
             }
-            b.AddFlowPath(pts, 0, .6f);
+            b.AddFlowPath(pts, Id(Part.Pulls), .6f);
             if (head) Head(b, pts[29].Data, pts[32].Data, color, width);
         }
 
@@ -317,11 +319,11 @@ namespace Why.Economy.Layers
         Vector3 Threat(LineMeshBuilder b, Vector3 from, Vector3 place, Color color, float w, string text)
         {
             MindDiagram.Ring(b, from, .45f + w * 1.5f, color, 2, Glow, true); MindDiagram.Ring(b, from, .45f + w * 1.5f, color, 1.4f, Glow, false);
-            float x = .3f + w; b.AddSegment(from + new Vector3(-x, -x, 0), from + new Vector3(x, x, 0), color, 2, .03f, 0, Glow); b.AddSegment(from + new Vector3(-x, x, 0), from + new Vector3(x, -x, 0), color, 2, .03f, 0, Glow);
+            float x = .3f + w; b.AddSegment(from + new Vector3(-x, -x, 0), from + new Vector3(x, x, 0), color, 2, .03f, Id(Part.Pulls), Glow); b.AddSegment(from + new Vector3(-x, x, 0), from + new Vector3(x, -x, 0), color, 2, .03f, Id(Part.Pulls), Glow);
             Arc(b, from, place + Vector3.up * .8f, WithAlpha(color, .75f), 1 + 16 * w, false);
             Vector3 away = Flat(place - from); if (away == Vector3.zero) away = Vector3.left;
             Vector3 a = place + Vector3.up * .5f, z = a + away * (.8f + 3.5f * w);
-            b.AddSegment(a, z, color, 2 + 8 * w, .02f + .05f * w, 0, Glow);
+            b.AddSegment(a, z, color, 2 + 8 * w, .02f + .05f * w, Id(Part.Pulls), Glow);
             Head(b, a, z, color, 2 + 8 * w);
             Label(text, from + Vector3.up * (1.4f + w * 1.5f), .11f, Color.Lerp(color, Color.white, .3f), Part.Pulls);
             return away * w;
@@ -338,8 +340,8 @@ namespace Why.Economy.Layers
         {
             Vector3 d = (z - a).normalized, side = Vector3.Cross(d, Vector3.up).normalized; if (side.sqrMagnitude < .01f) side = Vector3.right;
             float l = .35f + width * .02f;
-            b.AddPolyline(new[] { z - d * l + side * l * .5f, z, z - d * l - side * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, 0, Glow);
-            b.AddPolyline(new[] { z - d * l + Vector3.up * l * .5f, z, z - d * l - Vector3.up * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, 0, Glow);
+            b.AddPolyline(new[] { z - d * l + side * l * .5f, z, z - d * l - side * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, Id(Part.Pulls), Glow);
+            b.AddPolyline(new[] { z - d * l + Vector3.up * l * .5f, z, z - d * l - Vector3.up * l * .5f }, color, Mathf.Max(1.5f, width * .5f), .03f, Id(Part.Pulls), Glow);
         }
 
         // ------------------------------------------------------------------ the ladder
@@ -379,14 +381,14 @@ namespace Why.Economy.Layers
                 points.Add(new LinePoint(at[k], c, width, .05f, Glow)); walk.Add(at[k]); records.Add(k);
                 Vector3 g = Point(k, parent); ghost.Add(new LinePoint(g, WithAlpha(White, .28f), 1.3f, .02f, Glow));
             }
-            b.AddFlowPath(points, 0, .5f);
-            if (ghost.Count > 1) b.AddPolyline(ghost, 0);
+            b.AddFlowPath(points, Id(Part.Ladder), .5f);
+            if (ghost.Count > 1) b.AddPolyline(ghost, Id(Part.Ladder));
             // Events: a mark and a short label (alternating heights so neighbors do not collide).
             int e = 0;
             foreach (var ev in life.Events)
             {
                 Vector3 p = at[ev.Index]; float h = 2.2f + (e++ % 3) * 1.3f; Color c = EventColor(ev.Kind);
-                b.AddSegment(p, p + Vector3.up * h, WithAlpha(c, .7f), 1.4f, .02f, 0, Glow);
+                b.AddSegment(p, p + Vector3.up * h, WithAlpha(c, .7f), 1.4f, .02f, Id(Part.Ladder), Glow);
                 MindDiagram.Sphere(b, p, .32f, c, 1.6f, Glow);
                 Label(ev.Year + " · " + ev.Text, p + Vector3.up * (h + .45f), .13f, Color.Lerp(c, Color.white, .3f), Part.Ladder);
             }
@@ -399,7 +401,7 @@ namespace Why.Economy.Layers
             path = walk.ToArray(); pathRecord = records.ToArray(); pathLength = new float[path.Length];
             for (int k = 1; k < path.Length; k++) pathLength[k] = pathLength[k - 1] + Vector3.Distance(path[k - 1], path[k]);
             var w = new LineMeshBuilder();
-            w.AddSegment(Vector3.zero, Vector3.up * 1.4f, White, 3, .06f, 0, Glow); MindDiagram.Sphere(w, Vector3.up * 1.75f, .3f, White, 2.4f, Glow);
+            w.AddSegment(Vector3.zero, Vector3.up * 1.4f, White, 3, .06f, Id(Part.Ladder), Glow); MindDiagram.Sphere(w, Vector3.up * 1.75f, .3f, White, 2.4f, Glow);
             MindDiagram.Ring(w, Vector3.up * .03f, .7f, Gold, 2.4f, Glow, false);
             walker = Lines(w, Part.Ladder, false, "Ladder walker"); walker.transform.localPosition = path[0];
             // drawn after every line of the view (queue 3252): the path, the hills' outlines, the wave's ribs and the gold lines

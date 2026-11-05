@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 
@@ -55,6 +56,21 @@ namespace Why.Economy.Layers
         LandFrame frame;
         static readonly Color Gold = new Color(1, .73f, .22f), Blue = new Color(.36f, .72f, 1),
             Rose = new Color(1, .36f, .52f), Ice = new Color(.6f, .86f, 1), Steel = new Color(.36f, .44f, .52f);
+        /// <summary>The emphasis key of each group the layer draws, by LandGroup (EmphasisTable's hills rows: its alpha in every
+        /// view, the mind view's and the encounters' rules included; -1 for a group it does not draw), and the highlight id of
+        /// its meshes.</summary>
+        static readonly int[] Keys=GroupKeys();
+        static int[] GroupKeys()
+        {
+            var k=new int[(int)LandGroup.Count];for(int g=0;g<k.Length;g++)k[g]=-1;
+            k[(int)LandGroup.Roots]=EconomyEmphasis.Key("hills.roots");k[(int)LandGroup.Glyphs]=EconomyEmphasis.Key("hills.rungs");
+            k[(int)LandGroup.Towers]=EconomyEmphasis.Key("hills.towers");k[(int)LandGroup.Crown]=EconomyEmphasis.Key("hills.crown");
+            k[(int)LandGroup.Dots]=EconomyEmphasis.Key("hills.family");k[(int)LandGroup.CapitalFlows]=EconomyEmphasis.Key("hills.investment");
+            k[(int)LandGroup.Pools]=EconomyEmphasis.Key("hills.pool");k[(int)LandGroup.Mirages]=EconomyEmphasis.Key("hills.mind");
+            k[(int)LandGroup.Ties]=EconomyEmphasis.Key("hills.ties");
+            return k;
+        }
+        static float Id(LandGroup g)=>EconomyEmphasis.Id(Keys[(int)g]);
 
         public override void Prepare(GraphContext ctx)
         {
@@ -102,7 +118,7 @@ namespace Why.Economy.Layers
             {
                 var a=LandService.Model.Data.IndustryById(edge.from);var b=LandService.Model.Data.IndustryById(edge.to);
                 if(a==null||b==null||a.Index==b.Index||edge.value<100)continue;
-                Underground(roots,Current.Hills[a.Index].Foot,Current.Hills[b.Index].Foot,WithAlpha(Blue,.32f),.8f+(float)System.Math.Sqrt(edge.value)*.015f);
+                Underground(roots,Id(LandGroup.Roots),Current.Hills[a.Index].Foot,Current.Hills[b.Index].Foot,WithAlpha(Blue,.32f),.8f+(float)System.Math.Sqrt(edge.value)*.015f);
             }
             Lines(roots,LandGroup.Roots,true);
         }
@@ -118,7 +134,7 @@ namespace Why.Economy.Layers
             {
                 var ring=new Vector3[41];
                 for(int j=0;j<ring.Length;j++)ring[j]=Current.At(hill,HillLandscape.Valley+Mathf.PI*.5f*j/40f,HillLandscape.RungRadius[r],.12f);
-                b.AddPolyline(ring,WithAlpha(r>=4?Gold:Blue,.55f),1.1f,0,0);
+                b.AddPolyline(ring,WithAlpha(r>=4?Gold:Blue,.55f),1.1f,0,Id(LandGroup.Glyphs));
                 Label(names[r],Current.At(hill,HillLandscape.Valley,HillLandscape.RungRadius[r],1.2f)+Vector3.left*3,LandGroup.Glyphs,.17f,r>=4?Gold:Ice);
             }
             // Government's hills lie in the bedrock: those it pays stand on the valley floor in front of the hillside.
@@ -142,14 +158,14 @@ namespace Why.Economy.Layers
                 {
                     var ring=new Vector3[49];
                     for(int j=0;j<ring.Length;j++){float a=j*Mathf.PI/24;ring[j]=at+new Vector3(Mathf.Cos(a)*(.9f+band*.18f),.4f+band*.12f,Mathf.Sin(a)*(.9f+band*.18f));}
-                    glow.AddPolyline(ring,WithAlpha(Gold,.9f-band*.25f),2.2f-band*.5f,0,0);
+                    glow.AddPolyline(ring,WithAlpha(Gold,.9f-band*.25f),2.2f-band*.5f,0,Id(LandGroup.Crown));
                 }
                 Label(owner.name+" · voting control of "+owner.company,at+Vector3.up*1.6f,LandGroup.Crown,.20f,Gold);
             }
             Lines(architecture,LandGroup.Towers);
             Lines(glow,LandGroup.Crown,true);
         }
-        void Underground(LineMeshBuilder b,Vector3 a,Vector3 end,Color color,float width)
+        void Underground(LineMeshBuilder b,float id,Vector3 a,Vector3 end,Color color,float width)
         {
             var points=new LinePoint[49];
             for(int k=0;k<points.Length;k++)
@@ -158,7 +174,7 @@ namespace Why.Economy.Layers
                 v.y=Mathf.Min(v.y-8*Mathf.Sin(t*Mathf.PI),Current.Ground(v.x,v.z)-6);
                 points[k]=new LinePoint(v,color,width);
             }
-            b.AddFlowPath(points,0,1);
+            b.AddFlowPath(points,id,1);
         }
         void GroundFlow(LineMeshBuilder builder,Vector3 a,Vector3 b,Color color,float width)
         {
@@ -205,13 +221,13 @@ namespace Why.Economy.Layers
                         Vector3 center=at+new Vector3((c-1.5f)*.9f,-.10f,Mathf.Sin(c)*.6f);
                         var inner=new Vector3[49];var edge=new Vector3[49];
                         for(int j=0;j<=48;j++){float a=j*Mathf.PI/24;inner[j]=center;edge[j]=center+new Vector3(Mathf.Cos(a)*1.3f,0,Mathf.Sin(a)*.9f);}
-                        cloudFill.AddBand(inner,edge,new[]{(Color32)WithAlpha(Gold,.22f)},new[]{(Color32)WithAlpha(Gold,0)},0);
-                        if(c==1)clouds.AddPolyline(edge,WithAlpha(Gold,.32f),1.2f,0,0);
+                        cloudFill.AddBand(inner,edge,new[]{(Color32)WithAlpha(Gold,.22f)},new[]{(Color32)WithAlpha(Gold,0)},Id(LandGroup.Crown));
+                        if(c==1)clouds.AddPolyline(edge,WithAlpha(Gold,.32f),1.2f,0,Id(LandGroup.Crown));
                     }
                     // All-sector ownership mix: the proxy comes from distributional capital-income weights.
                     mix ??= CapitalSources.Mix(LandService.Model.Data, snapshot.Year);
                     for (int h = 0; h < Current.Hills.Length; h++)
-                        if (mix[3][h] > .07) Flow(clouds,Current.Hills[h].Summit,at,WithAlpha(Gold,.08f),.8f,2);
+                        if (mix[3][h] > .07) Flow(clouds,Id(LandGroup.Crown),Current.Hills[h].Summit,at,WithAlpha(Gold,.08f),.8f,2);
                 }
             }
             Lines(clouds,LandGroup.Crown,true);
@@ -235,12 +251,12 @@ namespace Why.Economy.Layers
                 if (r.FamilyDependent && r.SupportParent >= 0) source=snapshot.Players.PlayerOfPerson[r.SupportParent];
                 if (EconomyState.SelectedPlayer < 0 || source != EconomyState.SelectedPlayer && target != EconomyState.SelectedPlayer) continue;
                 if (source >= 0 && source != target && r.FamilyDependent)
-                    Flow(links,Current.People[source],Current.People[target],WithAlpha(Blue,.22f),.7f,.35f);
+                    Flow(links,Id(LandGroup.Dots),Current.People[source],Current.People[target],WithAlpha(Blue,.22f),.7f,.35f);
                 if (r.Inherited > 0)
                 {
                     // The lives record aggregates spouse and parent estates: don't invent a specific donor.
                     Vector3 a = Current.People[target]+Vector3.up*2;
-                    Flow(links,a,Current.People[target],WithAlpha(Gold,.8f),1.2f,.4f);
+                    Flow(links,Id(LandGroup.Dots),a,Current.People[target],WithAlpha(Gold,.8f),1.2f,.4f);
                 }
             }
             Lines(links,LandGroup.Dots,true);
@@ -262,9 +278,9 @@ namespace Why.Economy.Layers
                     float t = k / 24f; Vector3 p = Vector3.Lerp(cloud, halo, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * 6;
                     points[k] = new LinePoint(p, WithAlpha(Gold, .5f), .8f + (float)Math.Sqrt(investment) * .06f);
                 }
-                flows.AddFlowPath(points, 0, .4f);
+                flows.AddFlowPath(points, Id(LandGroup.CapitalFlows), .4f);
             }
-            Ring(pools, cloud, 6, WithAlpha(Gold, .35f), 1.4f);
+            Ring(pools, cloud, 6, WithAlpha(Gold, .35f), 1.4f, id: Id(LandGroup.Pools));
             Label("INVESTMENT\nowners' saving sent back down as new capital", cloud + Vector3.up * 5, LandGroup.CapitalFlows, .25f, Gold);
             // The gold pool is named wherever the white cloud of attention floats beside it, so the most-followed are never
             // read as the 1% (Tick shows it and keeps it legible from any distance).
@@ -340,7 +356,7 @@ namespace Why.Economy.Layers
                 if (EconomyState.SelectedPlayer >= 0 && a != EconomyState.SelectedPlayer && b != EconomyState.SelectedPlayer) continue;
                 if (season.Exposure[round][e] < .08f) continue;
                 float c=(season.CoopAB[round][e]+season.CoopBA[round][e])*.5f;
-                Flow(lines,Current.People[a]+Vector3.up*.4f,Current.People[b]+Vector3.up*.4f,
+                Flow(lines,Id(LandGroup.Ties),Current.People[a]+Vector3.up*.4f,Current.People[b]+Vector3.up*.4f,
                     WithAlpha(Color.Lerp(Rose,Blue,c),.4f),1.1f,.7f);
             }
             socialRenderer=Lines(lines,LandGroup.Ties,true,false);
@@ -360,13 +376,8 @@ namespace Why.Economy.Layers
                 if(LandView.Round>=snapshot.Society.Rounds)LandView.Replay();else LandView.Play(true);
             }
             bool mind=LandView.PresetId=="mind", social=LandView.PresetId=="society"||LandView.PresetId=="betrayal";
-            foreach (var entry in renderers)
-            {
-                if (!entry.renderer) continue;
-                float alpha=entry.group==LandGroup.Mirages ? (mind?1:0) : mind ? .035f : Emphasis(entry.group);
-                GraphMaterials.SetAlpha(entry.renderer.sharedMaterial,alpha);
-            }
-            if (socialRenderer) GraphMaterials.SetAlpha(socialRenderer.sharedMaterial,social?1:0);
+            foreach (var entry in renderers) EconomyEmphasis.Apply(entry.renderer,Keys[(int)entry.group]);
+            EconomyEmphasis.Apply(socialRenderer,Keys[(int)LandGroup.Ties]);
             string view=LandView.PresetId;
             foreach (var entry in labels)
             {
@@ -390,26 +401,6 @@ namespace Why.Economy.Layers
                 }
             }
             Pick(rig.Cam,mind);
-        }
-        float Emphasis(LandGroup g)
-        {
-            string view=LandView.PresetId;
-            if (g==LandGroup.Ties) return view=="society"||view=="betrayal"?1:0;
-            // The followed person's views keep the hills' names and the clouds faintly; the rest steps back.
-            if (PersonFocus.IsView(view)) return g==LandGroup.Sectors?.2f:g==LandGroup.Terraces?.15f:g==LandGroup.Crown?.12f:g==LandGroup.Glyphs&&view=="ladder"?.35f:.03f;
-            if (EconomyViews.Focused(view)) return g==LandGroup.Sectors?.18f:g==LandGroup.Terraces?.14f:g==LandGroup.Crown?.08f:.03f;
-            if (g==LandGroup.Terraces) return .22f;
-            if (g==LandGroup.Sectors) return .20f;
-            if (g==LandGroup.Towers) return view=="capture"?.55f:.12f;
-            if (g==LandGroup.Crown) return view=="capture"?1:view=="people"?.35f:.10f;
-            if (g==LandGroup.Roots) return view=="roots"?.75f:.055f;
-            if (g==LandGroup.Glyphs) return view=="people"?.9f:0;
-            // the owners' investment and their pool: a trace under the rivers of desire and fear; in who keeps the money the
-            // pool stays (the owners' surplus rises into it) and the investment falling back out of it does not
-            if (g==LandGroup.CapitalFlows) return view=="rivers"?.2f:0;
-            if (g==LandGroup.Pools) return view=="rivers"||view=="capture"?.2f:0;
-            if (g==LandGroup.Rivers||g==LandGroup.Income) return view=="rivers"?.20f:0;
-            return 1;
         }
         void Pick(Camera camera,bool mind)
         {
@@ -497,23 +488,23 @@ namespace Why.Economy.Layers
             string sector=p.Anchor>=0?LandService.Model.Data.Industries[p.Anchor].Name:"diversified / household income";
             return name+" / "+sector;
         }
-        static void Ring(LineMeshBuilder b,Vector3 center,float radius,Color color,float width,bool vertical=false)
+        static void Ring(LineMeshBuilder b,Vector3 center,float radius,Color color,float width,bool vertical=false,float id=0)
         {
             var points=new Vector3[33];for(int i=0;i<=32;i++)
             {float a=i*Mathf.PI/16;points[i]=center+(vertical?new Vector3(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,0):new Vector3(Mathf.Cos(a)*radius,0,Mathf.Sin(a)*radius));}
-            b.AddPolyline(points,color,width,0,0);
+            b.AddPolyline(points,color,width,0,id);
         }
-        static void Flow(LineMeshBuilder b,Vector3 a,Vector3 z,Color color,float width,float lift)
+        static void Flow(LineMeshBuilder b,float id,Vector3 a,Vector3 z,Color color,float width,float lift)
         {
             var pts=new LinePoint[21];for(int i=0;i<pts.Length;i++)
             {float t=i/20f;pts[i]=new LinePoint(Vector3.Lerp(a,z,t)+Vector3.up*(Mathf.Sin(t*Mathf.PI)*lift),color,width);}
-            b.AddFlowPath(pts,0,2); Arrow(b,pts[17].Data,pts[19].Data,color);
+            b.AddFlowPath(pts,id,2); Arrow(b,pts[17].Data,pts[19].Data,color,id);
         }
-        static void Arrow(LineMeshBuilder b,Vector3 a,Vector3 z,Color color)
+        static void Arrow(LineMeshBuilder b,Vector3 a,Vector3 z,Color color,float id=0)
         {
             Vector3 d=(z-a).normalized,side=Vector3.Cross(d,Vector3.up).normalized;
             if(side.sqrMagnitude<.01f)side=Vector3.right;
-            b.AddPolyline(new[]{z-d*.10f+side*.045f,z,z-d*.10f-side*.045f},color,1,0,0);
+            b.AddPolyline(new[]{z-d*.10f+side*.045f,z,z-d*.10f-side*.045f},color,1,0,id);
         }
         void Clear()
         {

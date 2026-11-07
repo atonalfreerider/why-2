@@ -24,6 +24,20 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 RESEARCH = os.path.join(ROOT, "Docs", "research", "advantage")
 OUT = os.path.join(ROOT, "Assets", "Resources", "Data", "economy", "stories.json")
 
+# One polity under two ids in the research: the monarchy as the Americans' ally (1778-83) is the Kingdom of France, whose
+# debt the war raised (folded in, so the debt stands on the crown at the fiscal collapse).
+ALIASES = {"rev": {"france": "kingdom-of-france"}}
+# Alliance rows whose figure is one member's (the First Coalition's 800,000 are the Holy Roman Empire's).
+MEMBER_SIZED = {("first-coalition", "story-revolutions-first-coalition-strength")}
+# The crown is drawn by its money (income, debt), its army as a lobe; its people are the nation's own actor.
+ORDERS = {"kingdom-of-france": ["revenue", "debt", "army", "population"]}
+# A state's own forces, drawn as their own actors: the state's body leaves out their soldiers and ships when they stand.
+FORCES = {"united-states": ["continental-army"], "kingdom-of-great-britain": ["british-army", "royal-navy"],
+          "united-kingdom": ["british-army", "royal-navy"], "kingdom-of-france": ["french-army", "french-navy"],
+          "french-republic": ["french-army", "french-navy"], "french-consulate": ["french-army", "french-navy", "grande-armee"],
+          "first-french-empire": ["grande-armee", "french-army", "french-navy"], "prussia": ["prussian-army"],
+          "russian-empire": ["russian-army"]}
+
 STORIES = [
     {"id": "ai", "cluster": "story-ai", "title": "The AI revolution", "from": 1945, "to": 2026},
     {"id": "rev", "cluster": "story-revolutions", "title": "The age of revolutions", "from": 1775, "to": 1815},
@@ -46,16 +60,19 @@ def load(path, default=None):
 
 
 def year_of(v):
+    """A date as a fractional year: a month at its middle, a day at its own place in the month (Waterloo, 18 June 1815, and
+    the Congress of Vienna's Final Act, 9 June, stay apart)."""
     if v is None or v == "":
         return None
     if isinstance(v, (int, float)):
         return float(v)
-    m = re.match(r"\s*(-?\d{1,4})(?:-(\d{1,2}))?", str(v))
+    m = re.match(r"\s*(-?\d{1,4})(?:-(\d{1,2})(?:-(\d{1,2}))?)?", str(v))
     if not m:
         return None
     y = float(m.group(1))
     if m.group(2):
-        y += (int(m.group(2)) - .5) / 12
+        month = int(m.group(2)) - 1
+        y += (month + ((int(m.group(3)) - .5) / 31 if m.group(3) else .5)) / 12
     return round(y, 3)
 
 
@@ -70,10 +87,18 @@ def scale_of(unit):
     return best[1] if best else 1.0
 
 
+SHARE_PARTS = {"gdpShare", "share", "industrialShare", "debtService"}
+
+
+def is_share(part, unit):
+    """A share or a ratio, not an amount: its part says so, or its unit starts with one ("% of global industrial output").
+    A note that mentions a percent ("thousand troops (70% of the Allied 85,000)") does not make an amount a share."""
+    return part in SHARE_PARTS or bool(re.match(r"\s*(%|percent|per\s*cent|share)", (unit or "").lower()))
+
+
 def base_value(part, value, unit):
     """The value in its base: a count, or money in billions of its currency; None for shares and ratios."""
-    u = (unit or "").lower()
-    if "%" in u or "percent" in u or "share" in u or part in ("gdpShare", "share"):
+    if is_share(part, unit):
         return None
     v = float(value) * scale_of(unit)
     if is_money(part, unit):
@@ -109,6 +134,8 @@ def size_of(story, part, base, unit):
         return base
     if part == "parameters":
         return base / 1e8
+    if part == "compute":
+        return None    # a model's training compute is a property of a product, not a size of the lab
     if part == "transistors":
         return base / 1e3
     if part in ("population", "adherents", "users") and not PERSONNEL.search(u):
@@ -123,6 +150,44 @@ def pounds(part, value, unit):
         if w in u:
             return value * rate
     return None
+
+
+def apply_aliases(data, mapping):
+    """Rewrites every reference to an aliased id to its polity's id and drops the aliased actor (its facts join the
+    polity's)."""
+    if not mapping:
+        return data
+    def m(x):
+        return mapping.get(x, x)
+    keep = []
+    by_id = {a.get("id"): a for a in data.get("actors", [])}
+    for a in data.get("actors", []):
+        if a.get("id") in mapping:
+            target = by_id.get(mapping[a["id"]])
+            if target is not None:
+                target["facts"] = list(dict.fromkeys((target.get("facts") or []) + (a.get("facts") or [])))
+            continue
+        keep.append(a)
+    data["actors"] = keep
+    for r in data.get("series", []):
+        r["actor"] = m(r.get("actor"))
+    for mo in data.get("moments", []):
+        mo["holder"] = m(mo.get("holder"))
+        mo["rivals"] = [m(x) for x in mo.get("rivals") or []]
+        mo["allies"] = [m(x) for x in mo.get("allies") or []]
+    for p in data.get("periods", []):
+        p["actors"] = list(dict.fromkeys(m(x) for x in p.get("actors") or []))
+    for mt in data.get("moats", []):
+        mt["actor"] = m(mt.get("actor"))
+        mt["rivals"] = [m(x) for x in mt.get("rivals") or []]
+    for pe in data.get("people", []):
+        acts = pe.get("actors") or []
+        pe["actors"] = list(dict.fromkeys(m(x) for x in (acts if isinstance(acts, list) else [acts])))
+    for f in data.get("flows", []):
+        for k in ("from", "to"):
+            if k in f:
+                f[k] = m(f[k])
+    return data
 
 
 def main():
@@ -145,16 +210,20 @@ def main():
     stories = []
     for st in STORIES:
         cluster = st["cluster"]
-        data = load(os.path.join(RESEARCH, cluster + ".json"), {}) or {}
+        data = apply_aliases(load(os.path.join(RESEARCH, cluster + ".json"), {}) or {}, ALIASES.get(st["id"], {}))
         prefix = st["id"]
         series = {}
         spans = {a.get("id"): (year_of(a.get("from")), year_of(a.get("to")), a.get("successor")) for a in data.get("actors", [])}
+        kinds = {a.get("id"): a.get("kind") for a in data.get("actors", [])}
+        member_facts = {r.get("fact") for r in data.get("series", []) if kinds.get(r.get("actor")) != "alliance"}
         moved = 0
         for row in data.get("series", []):
             if not ok(row.get("fact")):
                 continue
             if "both sides" in (row.get("unit") or "").lower():
                 continue    # a battle's total is not one side's size (the fact stays on its moment)
+            if kinds.get(row.get("actor")) == "alliance" and (row.get("fact") in member_facts or (row.get("actor"), row.get("fact")) in MEMBER_SIZED):
+                continue    # an alliance sized by one member's force is that member's, drawn once
             try:
                 v = base_value(row.get("part"), row.get("value"), row.get("unit"))
             except (TypeError, ValueError):
@@ -183,7 +252,12 @@ def main():
                     p = pounds(r["part"], r["value"], r["unit"])
                     r["value"] = p if p is not None else r["value"]
                 r["size"] = size_of(prefix, r["part"], r["value"], r["unit"])
-            actors.append({"id": aid, "name": a.get("name") or aid, "kind": a.get("kind"), "qid": a.get("qid"),
+            extra = {}
+            if aid in ORDERS:
+                extra["order"] = ORDERS[aid]
+            if aid in FORCES:
+                extra["forces"] = FORCES[aid]
+            actors.append({**extra, "id": aid, "name": a.get("name") or aid, "kind": a.get("kind"), "qid": a.get("qid"),
                            "from": year_of(a.get("from")), "to": year_of(a.get("to")), "successor": a.get("successor"),
                            "role": a.get("role"), "image": aid, "facts": cite(a.get("facts")),
                            "series": [{"year": r["year"], "part": r["part"], "unit": r["unit"], "fact": r["fact"], "value": r["value"], "raw": r["raw"],
@@ -212,7 +286,8 @@ def main():
                     continue
                 w = js.get("wall_" + (x.get("source") or ""))
                 srcs.append({"source": x.get("source"), "what": x.get("what"), "facts": fl,
-                             "wall": round(w["score"], 2) if w else None})
+                             "wall": round(w["score"], 2) if w else None,
+                             "confidence": round(w.get("confidence", 0), 2) if w else None})
             if srcs:
                 moats.append({"id": mid, "actor": m.get("actor"), "from": year_of(m.get("from")), "to": year_of(m.get("to")),
                               "market": m.get("market"), "sources": srcs, "rivals": m.get("rivals") or [], "facts": cite(m.get("facts"))})

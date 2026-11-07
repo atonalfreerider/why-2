@@ -130,7 +130,7 @@ namespace Why
         /// <summary>Headset zoom: scales the distance (and the world) by a factor, keeping a world point fixed.</summary>
         public void XrZoom(float factor, Vector3 pivot)
         {
-            float d = Mathf.Clamp(pose.Distance * factor, MinDistance, MaxDistance);
+            float d = Mathf.Clamp(pose.Distance * factor, MinDistance, Mathf.Max(MaxDistance, pose.Distance));
             factor = d / pose.Distance;
             if (Mathf.Approximately(factor, 1)) return;
             CancelFlight();
@@ -262,14 +262,15 @@ namespace Why
         void Zoom(float factor)
         {
             CancelFlight();
-            pose.Distance = Mathf.Clamp(pose.Distance * factor, MinDistance, MaxDistance);
+            // a view framed beyond the limit (the stack, a story's cross-section) zooms in from where it stands, not from the limit
+            pose.Distance = Mathf.Clamp(pose.Distance * factor, MinDistance, Mathf.Max(MaxDistance, pose.Distance));
             UserActive = true;
         }
 
         /// <summary>Exponential zoom that keeps the point under the cursor fixed (on the target's height plane).</summary>
         void ZoomTowardCursor(float factor, Vector2 screen)
         {
-            float newDistance = Mathf.Clamp(pose.Distance * factor, MinDistance, MaxDistance);
+            float newDistance = Mathf.Clamp(pose.Distance * factor, MinDistance, Mathf.Max(MaxDistance, pose.Distance));
             factor = newDistance / pose.Distance;
             Ray ray = Cam.ScreenPointToRay(screen);
             Plane plane = new Plane(Vector3.up, new Vector3(0, pose.Target.y, 0));

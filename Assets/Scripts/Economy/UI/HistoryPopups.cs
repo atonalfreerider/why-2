@@ -166,7 +166,7 @@ namespace Why.Economy.UI
         void Update()
         {
             if (root == null || !root.IsLoaded) return;
-            float dt = Time.unscaledDeltaTime;
+            float dt = GraphTime.Delta;
             for (int i = 0; i < cards.Count; i++)
             {
                 var card = cards[i];

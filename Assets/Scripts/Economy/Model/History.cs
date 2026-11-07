@@ -32,6 +32,13 @@ namespace Why.Economy.Model
             public string Id, Name, Kind, Qid, Successor, Role, Image;
             public float From = float.NaN, To = float.NaN;
             public string[] Facts = Array.Empty<string>();
+
+            /// <summary>The measures this actor is drawn by, in order, when its own differ from its kind's (the crown of France by
+            /// its money, its people being the nation's own actor); empty for its kind's order.</summary>
+            public string[] DrawnBy = Array.Empty<string>();
+
+            /// <summary>This state's own forces, drawn as their own actors: its body leaves their soldiers out while they stand.</summary>
+            public string[] Forces = Array.Empty<string>();
             public readonly List<Value> Series = new List<Value>();
 
             /// <summary>The part an actor's size is drawn from: people for a state or a population, troops for an army, ships
@@ -79,35 +86,62 @@ namespace Why.Economy.Model
             public Value Nearest(string part, float year) =>
                 Series.Where(v => v.Part == part).OrderBy(v => Math.Abs(v.Year - year)).FirstOrDefault();
 
-            /// <summary>The value a label shows for a part at a year: the latest measured in or before the year, else the
-            /// nearest (a year's value stands for that calendar year: 1805's for December 1805, not 1806's).</summary>
-            public Value Shown(string part, float year) =>
-                Series.Where(v => v.Part == part && Math.Floor(v.Year) <= Math.Floor(year) && !double.IsNaN(v.Size)).OrderByDescending(v => v.Year).FirstOrDefault() ??
+            /// <summary>The value a label shows for a part at a year: the one <see cref="SizeAt"/> draws, else the nearest
+            /// measured.</summary>
+            public Value Shown(string part, float year) => Standing(part, year) ??
                 Series.Where(v => v.Part == part && !double.IsNaN(v.Size)).OrderBy(v => Math.Abs(v.Year - year)).FirstOrDefault();
 
-            /// <summary>A part's size at a year as far as the facts reach, never between them: the latest measured in or before
-            /// the year, held for <paramref name="hold"/> years; before the first, the first when it is at most
-            /// <paramref name="ahead"/> years later; otherwise NaN (not measured). No line is drawn between two measurements:
-            /// most are snapshots of different things (Austerlitz's army and Jena's), not one quantity sampled.</summary>
-            public double SizeAt(string part, float year, float hold = 8, float ahead = 3)
+            /// <summary>Whether a value has happened by a year. A value dated to a month (history.py keeps months as fractions)
+            /// counts from that month; a value dated only to a year counts for that whole calendar year when it measures a
+            /// standing quantity (a population, an army, market value), and from the year's end when it measures an event (a
+            /// battle's losses, a year's spending): its month is unknown, so it never stands before the event.</summary>
+            static bool HappenedBy(Value v, float year) => Effective(v) <= (Math.Abs(v.Year - Math.Round(v.Year)) < 1e-3 && !Event(v.Part) ? Math.Floor(year) : year) + 1e-3;
+
+            /// <summary>When a value takes effect: its month, or for a value dated only to a year, the year's start (a standing
+            /// quantity) or its end (an event).</summary>
+            static double Effective(Value v)
             {
-                // an event's measure (a battle's force or fleet, its losses, the Terror's sentences, a year's spending) stands
-                // for its moment only, not for the years after it, and never before it; a company's or a lab's value moves too fast
-                // to be read back before it was measured; only a state's or a people's slow measures may be (a 1950 GDP for 1947)
-                if (Event(part)) { hold = Math.Min(hold, 1); ahead = 0; }
-                else if (!Slow) ahead = 0;
+                bool yearOnly = Math.Abs(v.Year - Math.Round(v.Year)) < 1e-3;
+                return !yearOnly ? v.Year : Event(v.Part) ? Math.Round(v.Year) + .99 : Math.Round(v.Year);
+            }
+
+            /// <summary>The value drawn for a part at a year: the latest that has happened, held for <paramref name="hold"/>
+            /// years (an event's for one); else the first still to come within <paramref name="ahead"/> years (only a state's or a
+            /// people's slow measures, a 1950 GDP for 1947); else none.</summary>
+            Value Standing(string part, float year, float hold = float.NaN, float ahead = 3)
+            {
+                // how long a value stands: an event half a year; a force in being (an army, a navy, its sailors) three years, so
+                // a peacetime count never stands for a war's; a company's or a lab's money five (its yearly values are years
+                // apart); a people's slow measures eight
+                if (float.IsNaN(hold)) hold = Hold(part);
+                if (Event(part)) ahead = 0;
+                else if (!SlowPart(part)) ahead = 0;
                 Value lo = null, hi = null;
                 foreach (var v in Series)
                 {
                     if (v.Part != part || double.IsNaN(v.Size)) continue;
-                    if (Math.Floor(v.Year) <= Math.Floor(year) && (lo == null || v.Year > lo.Year)) lo = v;
-                    if (v.Year > year && (hi == null || v.Year < hi.Year)) hi = v;
+                    if (HappenedBy(v, year)) { if (lo == null || v.Year > lo.Year) lo = v; }
+                    else if (hi == null || v.Year < hi.Year) hi = v;
                 }
 
-                if (lo != null) return year - lo.Year <= hold ? lo.Size : double.NaN;
-                if (hi != null) return hi.Year - year <= ahead ? hi.Size : double.NaN;
-                return double.NaN;
+                // a stale value gives way to a near one still to come
+                if (lo != null && year - Effective(lo) <= hold + 1e-3) return lo;
+                if (hi != null && hi.Year - year <= ahead) return hi;
+                return null;
             }
+
+            /// <summary>A part's size at a year as far as the facts reach, never between them (<see cref="Standing"/>); NaN
+            /// where nothing measured stands. No line is drawn between two measurements: most are snapshots of different
+            /// things (Austerlitz's army and Jena's), not one quantity sampled.</summary>
+            public double SizeAt(string part, float year, float hold = float.NaN, float ahead = 3) => Standing(part, year, hold, ahead)?.Size ?? double.NaN;
+
+            float Hold(string part) => Event(part) ? .5f
+                : part == "army" || part == "navy" || part == "sailors" || part == "subsidisedTroops" ? 3
+                : SlowPart(part) || part == "debt" ? 8 : 5;    // a debt stands until it is paid
+
+            /// <summary>A slow measure of a slow actor (a state's or a people's population or GDP, a church's members): it may
+            /// stand a few years before it was measured.</summary>
+            bool SlowPart(string part) => Slow && (part == "population" || part == "gdp" || part == "adherents");
 
             /// <summary>A state, a people or a church: measures that change slowly (people, GDP), which may stand a few years
             /// before they were measured.</summary>
@@ -121,14 +155,28 @@ namespace Why.Economy.Model
             /// <summary>The part an actor is drawn by at a year: the first of its kind's measures measured there, or null where
             /// none is. A measure outside its kind's list (a model's training compute, a chip's transistors on a company) never
             /// sizes a body: it is a property of a product, not a size of the actor.</summary>
-            public string MainPartAt(float year)
+            /// With <paramref name="body"/>, a lab's body is not drawn by its models' parameters (175 billion parameters are
+            /// not a size beside a company's dollars); its tube is. At a battle (a force measured within a quarter-year before),
+            /// an army, an alliance or a navy is drawn by its force there, so both sides compare like with like.
+            public string MainPartAt(float year, bool body = false, ICollection<string> skip = null)
             {
+                if (Kind == "army" || Kind == "alliance" || Kind == "navy")
+                {
+                    string battle = Kind == "navy" ? "ships" : "troops";
+                    if (Series.Any(v => v.Part == battle && !double.IsNaN(v.Size) && HappenedBy(v, year) && year - Effective(v) <= .25)) return battle;
+                }
+
                 foreach (string p in Order())
+                {
+                    if (body && p == "parameters") continue;
+                    if (skip != null && skip.Contains(p)) continue;
                     if (!double.IsNaN(SizeAt(p, year))) return p;
+                }
+
                 return null;
             }
 
-            string[] Order() => Kind switch
+            string[] Order() => DrawnBy.Length > 0 ? DrawnBy : Kind switch
             {
                 "state" or "population" => new[] { "population", "gdp", "army", "revenue", "debt" },
                 "army" => new[] { "army", "troops" },
@@ -160,7 +208,7 @@ namespace Why.Economy.Model
         public sealed class MoatSource
         {
             public string Source, What;
-            public double Wall = double.NaN;
+            public double Wall = double.NaN, Confidence = double.NaN;
             public string[] Facts = Array.Empty<string>();
         }
 
@@ -226,6 +274,7 @@ namespace Why.Economy.Model
                     {
                         Id = (string)a["id"], Name = (string)a["name"], Kind = (string)a["kind"], Qid = (string)a["qid"], Successor = (string)a["successor"],
                         Role = (string)a["role"], Image = (string)a["image"], From = F(a["from"]), To = F(a["to"]), Facts = Strings(a["facts"]),
+                        DrawnBy = Strings(a["order"]), Forces = Strings(a["forces"]),
                     };
                     foreach (JObject v in Arr(a["series"]))
                         actor.Series.Add(new Value { Year = F(v["year"]), Part = (string)v["part"], Unit = (string)v["unit"], Fact = (string)v["fact"], V = D(v["value"]), Raw = D(v["raw"]), Size = D(v["size"]) });
@@ -249,7 +298,7 @@ namespace Why.Economy.Model
                 {
                     var moat = new Moat { Id = (string)m["id"], Actor = (string)m["actor"], Market = (string)m["market"], From = F(m["from"]), To = F(m["to"]), Rivals = Strings(m["rivals"]), Facts = Strings(m["facts"]) };
                     foreach (JObject x in Arr(m["sources"]))
-                        moat.Sources.Add(new MoatSource { Source = (string)x["source"], What = (string)x["what"], Wall = D(x["wall"]), Facts = Strings(x["facts"]) });
+                        moat.Sources.Add(new MoatSource { Source = (string)x["source"], What = (string)x["what"], Wall = D(x["wall"]), Confidence = D(x["confidence"]), Facts = Strings(x["facts"]) });
                     story.Moats.Add(moat);
                 }
 
@@ -257,7 +306,7 @@ namespace Why.Economy.Model
                     story.People.Add(new Person
                     {
                         Id = (string)p["id"], Name = (string)p["name"], Qid = (string)p["qid"], Role = (string)p["role"], Image = (string)p["image"],
-                        Born = (int)F(p["born"]), Died = float.IsNaN(F(p["died"])) ? 0 : (int)F(p["died"]), Actors = Strings(p["actors"]), Facts = Strings(p["facts"]),
+                        Born = float.IsNaN(F(p["born"])) ? 0 : (int)F(p["born"]), Died = float.IsNaN(F(p["died"])) ? 0 : (int)F(p["died"]), Actors = Strings(p["actors"]), Facts = Strings(p["facts"]),
                     });
                 Stories.Add(story);
             }

@@ -8,7 +8,7 @@
     },
     {
       "id": "ai_transistor",
-      "narration": "Now look how small the next advantage is. In nineteen forty-seven, three physicists at Bell Labs, John Bardeen, Walter Brattain and William Shockley, invented the transistor. Their laboratory belonged to the Bell System: AT&T, twenty-four local telephone companies, and Western Electric, which made almost all of its equipment. The three shared the Nobel Prize in Physics in nineteen fifty-six. Work done at Bell Labs has won eleven Nobel Prizes. Its ring of advantage is technology, and the Bell System's capital."
+      "narration": "Now look how small the next advantage is. In nineteen forty-seven, three physicists at Bell Labs, John Bardeen, Walter Brattain and William Shockley, invented the transistor. Before its breakup in nineteen eighty-four, the Bell System was AT&T, twenty-four local telephone companies, and Western Electric, which made almost all of its equipment. The three shared the Nobel Prize in Physics in nineteen fifty-six. Work done at Bell Labs has won eleven Nobel Prizes. Its ring of advantage is technology, talent, the Bell System's capital, and the regulation that ended it in nineteen eighty-four."
     },
     {
       "id": "ai_eight",
@@ -16,7 +16,7 @@
     },
     {
       "id": "ai_chip",
-      "narration": "At Texas Instruments in nineteen fifty-eight, Jack Kilby made the first integrated circuit. In nineteen fifty-nine, Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in two thousand for his part in the invention."
+      "narration": "At Texas Instruments in nineteen fifty-eight, Jack Kilby built a hybrid integrated circuit. In nineteen fifty-nine, Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in two thousand for his part in the invention."
     },
     {
       "id": "ai_microprocessor",
@@ -36,7 +36,7 @@
     },
     {
       "id": "ai_cuda",
-      "narration": "In two thousand seven, Nvidia released CUDA, its development environment, created three years before. Twenty years later, CUDA has six million developers, and it dominates the market for GPU development against AMD's alternative."
+      "narration": "In two thousand seven, Nvidia released CUDA, its development environment, created three years before. In March twenty twenty-six, twenty years old by Nvidia's count, CUDA had six million developers, and it dominates the market for GPU development against AMD's alternative."
     },
     {
       "id": "ai_alexnet",
@@ -56,15 +56,15 @@
     },
     {
       "id": "ai_test",
-      "narration": "In January twenty twenty-five, the lab DeepSeek released a model that, by its authors' account, had needed only two point seven eight eight million GPU hours to train. On the twenty-seventh of January, Nvidia lost more than five hundred and eighty-nine billion dollars of market value, which Forbes called the biggest single-day loss for any company. On the twenty-ninth of October, Nvidia became the first company worth five trillion dollars."
+      "narration": "The lab DeepSeek's V3 model, by its authors' account, had needed only two point seven eight eight million GPU hours to train. On the twenty-seventh of January twenty twenty-five, Nvidia lost more than five hundred and eighty-nine billion dollars of market value, which Forbes called the biggest single-day loss for any company."
     },
     {
       "id": "ai_trillions",
-      "narration": "In twenty twenty-three, Nvidia became the seventh American company worth a trillion dollars. It took a hundred and eighty days to go from one trillion to two; Apple and Microsoft each took more than five hundred. On the twenty-ninth of October twenty twenty-five, it became the first company worth five trillion dollars. Its ring of advantage has six walls: technology, supply, patents, capital, talent and scale. Its share of AI accelerators is expected to be about seventy-five percent in twenty twenty-six, down from a peak near eighty-seven."
+      "narration": "In twenty twenty-three, Nvidia became the seventh American company worth a trillion dollars. It then took a hundred and eighty days to go from one trillion to two; Apple and Microsoft each took more than five hundred. On the twenty-ninth of October twenty twenty-five, it became the first company worth five trillion dollars. Its ring of advantage has six walls: technology, supply, patents, capital, talent and scale. Its share of AI accelerators is expected to be about seventy-five percent in twenty twenty-six, down from a peak near eighty-seven."
     },
     {
       "id": "ai_now",
-      "narration": "And here is the present. Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend between eight hundred and three and eight hundred and twenty-eight billion dollars on capital in twenty twenty-six. Over eight quarters, Nvidia's data-centre revenue has equalled between thirty-nine and forty-seven percent of what the largest clouds spend. Anthropic was valued at nine hundred and sixty-five billion dollars in May twenty twenty-six, OpenAI at eight hundred and fifty-two billion."
+      "narration": "And here is the present. Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend between eight hundred and three and eight hundred and twenty-eight billion dollars on capital in twenty twenty-six. Over eight quarters, Nvidia's data-centre revenue has equalled between thirty-nine and forty-seven percent of what the largest clouds spend on capital. Anthropic was valued at nine hundred and sixty-five billion dollars in May twenty twenty-six, OpenAI at eight hundred and fifty-two billion."
     }
   ]
 }

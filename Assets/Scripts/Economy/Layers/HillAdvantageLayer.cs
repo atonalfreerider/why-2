@@ -231,9 +231,15 @@ namespace Why.Economy.Layers
             if (!here && EconomyEmphasis.Get(Keys[(int)Part.Organs]) <= 0)
             {
                 if (content) content.SetActive(false);
+                // the parts that stand on the layer itself, outside the arena's opening scale, go with the view too
+                foreach (var p in new[] { Part.People, Part.Thread })
+                    if (partRenderer[(int)p]) partRenderer[(int)p].enabled = false;
                 ShowLabels(false);
                 return;
             }
+
+            foreach (var p in new[] { Part.People, Part.Thread })
+                if (partRenderer[(int)p] && !partRenderer[(int)p].enabled) partRenderer[(int)p].enabled = true;
 
             model = Advantage.Get();
             if (model == null) return;

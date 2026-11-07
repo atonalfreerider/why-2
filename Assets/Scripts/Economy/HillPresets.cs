@@ -136,7 +136,7 @@ namespace Why.Economy
         {
             var f = EconomyStage.Land();
             return new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
-                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View ? 330 : id == HillPresentLayer.View || id == HillAdvantageLayer.View || id == HillHistoryLayer.View ? 600 : 165,
+                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View ? 330 : id == HillPresentLayer.View || id == HillAdvantageLayer.View ? 600 : 165,
                 YaOld = DeepTime.NowYear - EconomyStyle.FirstYear, YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
                 RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale };
         }

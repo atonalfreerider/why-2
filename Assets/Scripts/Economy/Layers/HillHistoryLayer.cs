@@ -51,7 +51,7 @@ namespace Why.Economy.Layers
         /// the wave's first year (the wave's own two units a year would make forty years a sliver beside the lanes).</summary>
         public const float PreWaveScale = 7, PreWaveGap = 140;
 
-        const float RowGap = 18, BodyGap = 9, ColGap = 34, LineGap = 8;
+        const float RowGap = 26, BodyGap = 15, ColGap = 40, LineGap = 20;
         const int PerLine = 3;
 
         /// <summary>The free screen across its width: right of the portrait cards when they show (24 + 330 of 1920 pixels and a
@@ -95,6 +95,7 @@ namespace Why.Economy.Layers
             public Vector3 From, To;
             public bool Measured;
             public int Side;
+            public string Main;
         }
 
         // ------------------------------------------------------------------ the axis and the lanes
@@ -225,9 +226,11 @@ namespace Why.Economy.Layers
             return layout;
         }
 
-        static float TubeR(double size) => double.IsNaN(size) ? .45f : Mathf.Clamp(.36f * Mathf.Pow((float)size, 1f / 3), .45f, 3.4f);
+        static float TubeR(double size) => double.IsNaN(size) ? .45f : Mathf.Clamp(.36f * Mathf.Pow((float)size, 1f / 3), .45f, 4f);
 
-        static float LobeR(double size) => Mathf.Clamp(2.2f * Mathf.Pow((float)Math.Max(0, size), 1f / 3), 1.6f, 26f);
+        /// <summary>A lobe's radius: 2.2 times the cube root of its size, up to 42 (a $5 trillion company, a nation's GDP): a
+        /// lower cap flattened the AI story's largest comparisons into one size.</summary>
+        static float LobeR(double size) => Mathf.Clamp(2.2f * Mathf.Pow((float)Math.Max(0, size), 1f / 3), 1.6f, 42f);
 
         public static Color KindColor(string kind) => kind switch
         {
@@ -371,11 +374,18 @@ namespace Why.Economy.Layers
             var m = NearestMoment(s, year, 1.5f);
             if (m == null) return Array.Empty<string>();
             var ids = new[] { m.Holder }.Concat(m.Allies).Concat(m.Rivals).ToList();
-            return s.People.Where(p => p.Actors.Any(ids.Contains)).Take(3).Select(p => p.Id).ToArray();
+            int y = Mathf.FloorToInt(year);
+            return s.People.Where(p => p.Actors.Any(ids.Contains) && (p.Born == 0 || p.Born <= y) && (p.Died == 0 || p.Died >= y))
+                .OrderBy(p => p.Actors.Select(a => ids.IndexOf(a)).Where(i => i >= 0).DefaultIfEmpty(99).Min())
+                .Take(3).Select(p => p.Id).ToArray();
         }
 
+        /// <summary>The moment nearest a year (within the given years); of two on the same date, the selected actor's own.</summary>
         public static History.Moment NearestMoment(History.Story s, float year, float within) =>
-            s?.Moments.Where(m => !float.IsNaN(m.Year) && Mathf.Abs(m.Year - year) <= within).OrderBy(m => Mathf.Abs(m.Year - year)).FirstOrDefault();
+            s?.Moments.Where(m => !float.IsNaN(m.Year) && Mathf.Abs(m.Year - year) <= within)
+                .OrderBy(m => Mathf.Round(Mathf.Abs(m.Year - year) * 100))
+                .ThenBy(m => Selected != null && (m.Holder == Selected || m.Allies.Contains(Selected) || m.Rivals.Contains(Selected)) ? 0 : 1)
+                .FirstOrDefault();
 
         public override void OnFocus(ViewPreset preset)
         {
@@ -607,10 +617,12 @@ namespace Why.Economy.Layers
         /// fields above, what it owes or lost below), each as wide as the cube root of its size. Each lobe's amount is the
         /// volume its radius stands for, so the fused body keeps the lobes' sizes. An actor measured nowhere near the year is a
         /// small grey core.</summary>
-        static List<ContestNetwork.Part> PartsAt(History.Actor a, float year, out bool measured)
+        static List<ContestNetwork.Part> PartsAt(History.Actor a, float year, ISet<string> forcesStanding, out bool measured)
         {
             var parts = new List<ContestNetwork.Part>();
-            string main = a.MainPartAt(year);
+            // a state whose own forces stand as their own actors is never drawn by their soldiers
+            bool ownForces = a.Forces.Any(forcesStanding.Contains);
+            string main = MainOf(a, year, forcesStanding);
             measured = main != null;
             Color kind = KindColor(a.Kind);
             if (main == null)
@@ -621,7 +633,11 @@ namespace Why.Economy.Layers
 
             float coreR = LobeR(a.SizeAt(main, year));
             parts.Add(new ContestNetwork.Part(ContestNetwork.PartKind.Core, Vector3.zero, coreR, Vol(coreR), Color.Lerp(kind, PartColor(main), .25f), .7f));
-            foreach (string part in a.Series.Select(v => v.Part).Distinct().Where(p => p != main && Lobed(p)).Take(5))
+            // a state's own forces drawn as their own actors keep their soldiers there; an actor drawn by its own measures (the
+            // crown by its money) keeps to them, its people being another actor's
+            foreach (string part in a.Series.Select(v => v.Part).Distinct()
+                         .Where(p => p != main && Lobed(p) && !(ownForces && (p == "army" || p == "navy" || p == "troops")) &&
+                                     (a.DrawnBy.Length == 0 || (a.DrawnBy.Contains(p) && p != "population"))).Take(5))
             {
                 double size = a.SizeAt(part, year);
                 if (double.IsNaN(size) || size <= 0) continue;
@@ -635,6 +651,16 @@ namespace Why.Economy.Layers
         }
 
         static double Vol(float r) => Math.Pow(r / ContestNetwork.KR, 3);
+
+        static readonly string[] ForceParts = { "army", "navy", "troops", "ships", "sailors" };
+
+        /// <summary>The measure a body is drawn by at a year (its label and card name the same one): a state whose own forces
+        /// stand as their own actors is never drawn by their soldiers.</summary>
+        static string MainOf(History.Actor a, float year, ISet<string> forcesStanding) =>
+            a.MainPartAt(year, true, a.Forces.Any(forcesStanding.Contains) ? ForceParts : null);
+
+        static HashSet<string> ForcesStanding(History.Story s, float year) =>
+            new HashSet<string>(s.Actors.Where(f => (f.Kind == "army" || f.Kind == "navy") && f.MainPartAt(year, true) != null).Select(f => f.Id));
 
         /// <summary>Whether a measure is a part of the body (what the actor holds, fields or owes: people, troops, ships,
         /// money, members, users), not a property of its product (a chip's transistors, a model's parameters) or a count of
@@ -652,7 +678,8 @@ namespace Why.Economy.Layers
         {
             DropBodies();
             if (occluderMaterial == null) { occluderMaterial = PointBodies.OccluderMaterial(); owned.Add(occluderMaterial); }
-            var moment = NearestMoment(s, Year, 3);
+            // the sides come from a moment within a year and a half (the 1950 picture is no one's contest)
+            var moment = NearestMoment(s, Year, 1.5f);
             var side = new Dictionary<string, int>();
             if (moment != null)
             {
@@ -661,8 +688,16 @@ namespace Why.Economy.Layers
                 foreach (var x in moment.Rivals) side[x] = 1;
             }
 
+            // the participants: of the nearest moment and of any on the same date (Waterloo and the Congress of Vienna), and every
+            // holder of an advantage documented for the year, so its ring has a body to stand around
             var near = NearestMoment(s, Year, 1.5f);
-            var participants = near == null ? new HashSet<string>() : new HashSet<string>(new[] { near.Holder }.Concat(near.Allies).Concat(near.Rivals).Where(x => x != null));
+            var participants = new HashSet<string>();
+            if (near != null)
+                foreach (var m in s.Moments.Where(m => !float.IsNaN(m.Year) && Mathf.Abs(m.Year - near.Year) < .05f))
+                    foreach (var x in new[] { m.Holder }.Concat(m.Allies).Concat(m.Rivals))
+                        if (x != null) participants.Add(x);
+            foreach (var moat in ActiveMoats(s)) if (moat.Actor != null) participants.Add(moat.Actor);
+            var forcesStanding = ForcesStanding(s, Year);
             // how far each holder's ring reaches beyond its body: the ring, its thickest wall and its sources' names
             var reach = new Dictionary<string, float>();
             foreach (var moat in ActiveMoats(s))
@@ -677,11 +712,11 @@ namespace Why.Economy.Layers
             {
                 if (!L.Span.TryGetValue(a.Id, out var span)) continue;
                 bool alive = Year >= span.from - .01f && Year <= span.to + .01f;
-                var parts = PartsAt(a, Year, out bool measured);
+                var parts = PartsAt(a, Year, forcesStanding, out bool measured);
                 if (!measured && !(participants.Contains(a.Id) && (alive || Mathf.Abs(Year - span.from) < 1.5f))) continue;
                 if (measured && !alive) continue;
                 var body = new ContestNetwork.Body { Id = a.Id, Name = a.Name, Kind = ContestNetwork.Kind.Company, CustomParts = parts, Alive = true, Value = double.NaN };
-                var shape = new Organism(body, null, measured ? 3 : 2);
+                var shape = new Organism(body, null, measured ? 3 : 2, trueVolume: true);
                 string g = GroupOf(a.Kind);
                 int row = g == "polities" || g == "alliances" || g == "peoples" ? 0 : g == "forces" ? 1 : 2;
                 items.Add((a, body, shape, measured, row, side.TryGetValue(a.Id, out int sd) ? sd : 0));
@@ -740,7 +775,8 @@ namespace Why.Economy.Layers
                                 var from = new Vector3(LaneX, L.LaneY.Count > 0 ? L.LaneY[Mathf.Clamp(lane, 0, L.LaneY.Count - 1)] : LaneBase, z);
                                 it.body.BodyR = rad;
                                 var (mr, or) = BuildBody(it.a, it.shape, it.measured);
-                                bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side };
+                                bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side,
+                                                              Main = MainOf(it.a, Year, forcesStanding) };
                             }
 
                             yLine -= 2 * lineH + LineGap;
@@ -750,7 +786,7 @@ namespace Why.Economy.Layers
                     yRow -= rowH[k] + RowGap;
                 }
 
-                if (moment != null && cols.Count > 1 && !float.IsNegativeInfinity(colTop)) columnHeads.Add((c, new Vector3(colCentre, colTop + 9, z)));
+                if (moment != null && cols.Count > 1 && !float.IsNegativeInfinity(colTop)) columnHeads.Add((c, new Vector3(colCentre, colTop + 16, z)));
                 xCol -= colW[c] + ColGap;
             }
 
@@ -838,8 +874,9 @@ namespace Why.Economy.Layers
                 {
                     float a0 = (k * 2 * Mathf.PI / srcs.Count) + .07f, a1 = ((k + 1) * 2 * Mathf.PI / srcs.Count) - .07f;
                     double w = srcs[k].Wall;
-                    bool judged = !double.IsNaN(w);
-                    float thick = judged ? 1.2f + 2.4f * (float)w : 1.2f;
+                    // a wall Jev had no settled answer for (its answer spread over the levels) draws dashed, like one not judged
+                    bool judged = !double.IsNaN(w) && !Uncertain(srcs[k]);
+                    float thick = !double.IsNaN(w) ? 1.2f + 2.4f * (float)w : 1.2f;
                     Color col = HillAdvantageLayer.SourceColor(srcs[k].Source);
                     for (float d = 0; d <= thick + .01f; d += 1.1f)
                     {
@@ -875,8 +912,11 @@ namespace Why.Economy.Layers
             Lines(b, Part.Walls, 3194);
         }
 
+        /// <summary>The advantages documented for the year, the latest begun per actor (where two of an actor's periods meet,
+        /// one ring).</summary>
         IEnumerable<History.Moat> ActiveMoats(History.Story s) =>
-            s.Moats.Where(m => Year >= m.From - .01f && Year <= (Mathf.Approximately(m.To, Mathf.Round(m.To)) ? m.To + 1 : m.To) + .01f);
+            s.Moats.Where(m => Year >= m.From - .01f && Year <= (Mathf.Approximately(m.To, Mathf.Round(m.To)) ? m.To + 1 : m.To) + .01f)
+                .GroupBy(m => m.Actor).Select(g => g.OrderByDescending(m => m.From).First());
 
         /// <summary>A moat's sources in the advantage view's order, the same source twice joined (its strongest judged wall).</summary>
         static List<History.MoatSource> Sources(History.Moat moat) => moat.Sources.GroupBy(x => x.Source)
@@ -960,20 +1000,37 @@ namespace Why.Economy.Layers
                 if (person != null) { items.Add((person.Image ?? person.Id, person.Name, person.Role)); continue; }
                 // an actor's card says what it is and what it measured then, from the verified series (not the research's prose)
                 var actor = story.Get(id);
-                if (actor != null) items.Add((actor.Image ?? actor.Id, actor.Name, CardLine(actor)));
+                if (actor != null) items.Add((actor.Image ?? actor.Id, actor.Name, CardLine(story, actor)));
             }
 
             HistoryPopups.Show(items);
         }
 
-        static string CardLine(History.Actor a)
+        /// <summary>The measure a value is, when its unit does not say (money of any kind reads alike: "274.43 USD bn" is a
+        /// market value beside a revenue).</summary>
+        public static string MeasureWord(string part) => part switch
+        {
+            "marketValue" => "market value", "revenue" => "revenue", "gdp" => "GDP", "debt" => "debt", "valuation" => "valuation",
+            "capital" => "capital", "capex" => "capital spending", "spending" => "spending", "incomeTax" => "income tax",
+            "debtInterest" => "interest on the debt", _ => null,
+        };
+
+        /// <summary>A value as a label gives it: its measure when the unit does not say, the fact's own number and unit, and
+        /// its year when it is not the year shown.</summary>
+        public static string ValueText(History.Value v)
+        {
+            string word = MeasureWord(v.Part);
+            return (word != null ? word + ": " : "") + Raw(v) + " " + v.Unit + (Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
+        }
+
+        static string CardLine(History.Story s, History.Actor a)
         {
             string kind = KindWord(a.Kind);
             kind = char.ToUpperInvariant(kind[0]) + kind.Substring(1);
-            string main = a.MainPartAt(Year);
+            string main = MainOf(a, Year, ForcesStanding(s, Year));
             var v = main != null ? a.Shown(main, Year) : null;
             if (v == null) return kind;
-            return kind + ": " + Raw(v) + " " + v.Unit + (Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
+            return kind + " · " + ValueText(v);
         }
 
         // ------------------------------------------------------------------ labels
@@ -1019,22 +1076,24 @@ namespace Why.Economy.Layers
             }
             else
             {
+                var ringed = new HashSet<string>(ActiveMoats(s).Select(m => m.Actor));
                 foreach (var kv in bodies)
                 {
                     var a = s.Get(kv.Key);
                     if (a == null) continue;
-                    string main = a.MainPartAt(Year);
+                    string main = kv.Value.Main;
                     var v = main != null ? a.Shown(main, Year) : null;
-                    string measure = v != null ? "\n" + Raw(v) + " " + v.Unit + (Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) ? " (" + Mathf.FloorToInt(v.Year) + ")" : "") : "\n<i>not measured</i>";
+                    string measure = v != null ? "\n" + ValueText(v) : "\n<i>not measured</i>";
+                    float above = ringed.Contains(kv.Key) ? kv.Value.Shape.MaxRadius + 4 + 3 : kv.Value.Shape.MaxRadius + 4.5f;
                     labels.Add(new HillLabel
                     {
-                        Text = "<b>" + a.Name + "</b> <size=80%>" + KindWord(a.Kind) + "</size><size=86%>" + measure + "</size>", At = kv.Value.To + Vector3.up * (kv.Value.Shape.MaxRadius + 2.5f),
+                        Text = "<b>" + a.Name + "</b> <size=80%>" + KindWord(a.Kind) + "</size><size=86%>" + measure + "</size>", At = kv.Value.To + Vector3.up * above,
                         Role = LabelRole.Name, Part = "history.bodies", Rank = 300 + kv.Value.Shape.MaxRadius + (Selected == a.Id ? 400 : 0), Plate = new Color(0, 0, 0, .78f),
                         Color = KindColor(a.Kind), OnTop = true,
                     });
                 }
 
-                var named = NearestMoment(s, Year, 3)?.Holder;
+                var named = NearestMoment(s, Year, 1.5f)?.Holder;
                 foreach (var moat in ActiveMoats(s))
                 {
                     if (!bodies.TryGetValue(moat.Actor, out var hb)) continue;
@@ -1050,7 +1109,8 @@ namespace Why.Economy.Layers
                         Vector3 at = hb.To + new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0) * (R + thick + 4);
                         labels.Add(new HillLabel
                         {
-                            Text = "<b>" + SourceWord(srcs[k].Source) + "</b>" + (double.IsNaN(w) ? "" : " <size=80%>wall " + w.ToString("0.0", CultureInfo.InvariantCulture) + " of 4</size>"),
+                            Text = "<b>" + SourceWord(srcs[k].Source) + "</b>" + (double.IsNaN(w) ? "" : " <size=80%>wall " + w.ToString("0.0", CultureInfo.InvariantCulture) + " of 4" +
+                                   (Uncertain(srcs[k]) ? ", uncertain" : "") + "</size>"),
                             At = at, Role = LabelRole.Note, Part = "history.walls", Rank = 250 + (float)(double.IsNaN(w) ? 0 : w), Color = HillAdvantageLayer.SourceColor(srcs[k].Source),
                             Plate = new Color(0, 0, 0, .7f), OnTop = true,
                         });
@@ -1058,7 +1118,7 @@ namespace Why.Economy.Layers
                 }
 
                 // the columns' heads: whose side each stands on in the nearest moment
-                var cm = NearestMoment(s, Year, 3);
+                var cm = NearestMoment(s, Year, 1.5f);
                 if (cm != null)
                     foreach (var (side, at) in columnHeads)
                         labels.Add(new HillLabel
@@ -1073,11 +1133,14 @@ namespace Why.Economy.Layers
                 if (m != null && bodies.Count > 0)
                     labels.Add(new HillLabel
                     {
-                        Text = "<b>" + YearText(m.Year) + " · " + m.Title + "</b>", At = new Vector3((arenaMin.x + arenaMax.x) * .5f, arenaMax.y + 18, T(s, Year)),
+                        Text = "<b>" + YearText(m.Year) + " · " + m.Title + "</b>", At = new Vector3((arenaMin.x + arenaMax.x) * .5f, arenaMax.y + 26, T(s, Year)),
                         Role = LabelRole.Name, Part = "history.walls", Rank = 600, Color = TriadColor(m.Triad), OnTop = true,
                     });
             }
         }
+
+        /// <summary>A wall whose judgment Jev was unsure of: its confidence under 0.15 (its answer spread over the levels).</summary>
+        public static bool Uncertain(History.MoatSource x) => !double.IsNaN(x.Confidence) && x.Confidence < .15;
 
         public static string SourceWord(string source) => source switch
         {
@@ -1095,8 +1158,10 @@ namespace Why.Economy.Layers
         /// <summary>The number as the fact gives it, in its own unit (never the size it is drawn by).</summary>
         public static string Raw(History.Value v)
         {
+            // as many digits as the fact gives, so a small amount never shows as 0 and a precise one is not rounded away
             double x = double.IsNaN(v.Raw) ? v.V : v.Raw;
-            return Math.Abs(x - Math.Round(x)) < 1e-6 ? x.ToString("#,0", CultureInfo.InvariantCulture) : x.ToString("#,0.##", CultureInfo.InvariantCulture);
+            if (Math.Abs(x - Math.Round(x)) < 1e-9) return x.ToString("#,0", CultureInfo.InvariantCulture);
+            return Math.Abs(x) >= 1000 ? x.ToString("#,0.###", CultureInfo.InvariantCulture) : x.ToString("#,0.######", CultureInfo.InvariantCulture);
         }
 
         void ShowLabels(bool show)

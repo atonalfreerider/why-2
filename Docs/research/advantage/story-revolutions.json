@@ -3255,7 +3255,7 @@
   },
   {
    "actor": "continental-army",
-   "year": 1775,
+   "year": "1775-06",
    "part": "army",
    "value": 22,
    "unit": "thousand troops (outside Boston; 5,000 more at New York City)",
@@ -3271,7 +3271,7 @@
   },
   {
    "actor": "french-army",
-   "year": 1808,
+   "year": "1808-11",
    "part": "army",
    "value": 278.67,
    "unit": "thousand troops (Armée d'Espagne)",
@@ -3375,7 +3375,7 @@
   },
   {
    "actor": "french-republic",
-   "year": 1793,
+   "year": "1793-02",
    "part": "army",
    "value": 300,
    "unit": "thousand men (the levy decreed in February 1793)",
@@ -3383,7 +3383,7 @@
   },
   {
    "actor": "french-republic",
-   "year": 1794,
+   "year": "1794-07",
    "part": "executions",
    "value": 16594,
    "unit": "official death sentences since June 1793",
@@ -3423,7 +3423,7 @@
   },
   {
    "actor": "grande-armee",
-   "year": 1812,
+   "year": "1812-12",
    "part": "casualties",
    "value": 500,
    "unit": "thousand men lost (over)",
@@ -3471,7 +3471,7 @@
   },
   {
    "actor": "kingdom-of-great-britain",
-   "year": 1789,
+   "year": "1799",
    "part": "population",
    "value": 12,
    "unit": "million people",
@@ -3591,7 +3591,7 @@
   },
   {
    "actor": "kingdom-of-france",
-   "year": 1789,
+   "year": "1789-07",
    "part": "army",
    "value": 172.974,
    "unit": "thousand troops (peacetime strength of the Royal Army; 210,948 in wartime)",
@@ -3959,7 +3959,7 @@
   },
   {
    "actor": "french-navy",
-   "year": 1814,
+   "year": "1814-04",
    "part": "navy",
    "value": 81,
    "unit": "ships of the line (all in the fleet)",
@@ -3977,7 +3977,7 @@
     "british-army"
    ],
    "allies": [],
-   "advantage": "a victory that proved the cause viable",
+   "advantage": "a victory, fought with French arms",
    "power": "information",
    "triad": "information",
    "mechanism": "Burgoyne's army, 5,791 men, was surrounded by about 12,000 colonial troops and surrendered; France had already supplied up to 90% of the arms in the campaign.",
@@ -4003,8 +4003,8 @@
    "advantage": "a great power's navy and money",
    "power": "cornered resource",
    "triad": "environment",
-   "mechanism": "France, rebuilding its fleet for a war of revenge, signed a treaty of alliance in February 1778 and sent money, arms and troops; one account puts its direct spending on the Americans at 1.3 billion livres, another the whole war at 1,066 million.",
-   "outcome": "The war became a world war against Britain.",
+   "mechanism": "France signed a treaty of alliance in February 1778 and sent money, arms and troops; one account puts its direct spending on the Americans at 1.3 billion livres, another the whole war at 1,066 million.",
+   "outcome": null,
    "facts": [
     "story-revolutions-alliance-1778",
     "story-revolutions-france-direct-aid-cost",
@@ -4026,8 +4026,8 @@
    "advantage": "local naval superiority",
    "power": "scale economies",
    "triad": "execution",
-   "mechanism": "De Grasse brought 24 ships of the line against Graves's 19 and held the bay; Cornwallis could not be relieved or evacuated.",
-   "outcome": "The British fleet withdrew and the army at Yorktown was cut off.",
+   "mechanism": "De Grasse prepared 24 ships of the line for battle; Graves came with 19.",
+   "outcome": null,
    "facts": [
     "story-revolutions-chesapeake-french-fleet",
     "story-revolutions-chesapeake-british-fleet"
@@ -4049,8 +4049,8 @@
    "advantage": "a combined army and fleet at one place",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "About 19,000 Franco-American troops besieged Cornwallis, with Rochambeau's 6,000 French troops and de Grasse's fleet behind them.",
-   "outcome": "8,000 soldiers and 214 guns captured on 19 October 1781; peace followed on 3 September 1783.",
+   "mechanism": "About 19,000 Franco-American troops, 10,800 of them French, besieged the British at Yorktown.",
+   "outcome": "8,000 soldiers and 214 guns captured; the Treaty of Paris was signed on 3 September 1783.",
    "facts": [
     "story-revolutions-yorktown-allied-army",
     "story-revolutions-yorktown-captured",
@@ -4068,11 +4068,11 @@
     "french-population"
    ],
    "allies": [],
-   "advantage": "a crown that could not tax its privileged",
+   "advantage": "a crown deep in debt",
    "power": "capital",
    "triad": "environment",
    "mechanism": "The American war cost 1,066 million livres by one count (1.3 billion in aid alone by another), paid by loans at high interest with no new taxes; on an income of 475 million livres the deficit was some 150 million, and by 1788 half of state revenue went on servicing the debt, while the Church held 7% of the land.",
-   "outcome": "The crown called the Estates-General in 1789.",
+   "outcome": "The Estates-General met in 1789.",
    "facts": [
     "story-revolutions-france-war-cost",
     "story-revolutions-france-debt-after-war",
@@ -4092,14 +4092,12 @@
    "rivals": [
     "kingdom-of-france"
    ],
-   "allies": [
-    "catholic-church"
-   ],
+   "allies": [],
    "advantage": "98 percent of the nation, doubled in number",
    "power": "scale economies",
    "triad": "information",
    "mechanism": "The Third Estate, about 98 percent of 28 million, sent 611 of 1,219 deputies, against 302 clergy and 289 nobles.",
-   "outcome": "The deputies became a National Assembly.",
+   "outcome": null,
    "facts": [
     "story-revolutions-estates-population-1789",
     "story-revolutions-estates-deputies-1789"
@@ -4115,11 +4113,11 @@
     "kingdom-of-france"
    ],
    "allies": [],
-   "advantage": "a crowd and a militia against a symbol",
+   "advantage": "the Bastille stormed",
    "power": "network economies",
    "triad": "execution",
-   "mechanism": "The prison held only seven inmates, but its fall was the symbol of the end of the king's command; the Assembly then abolished feudalism and issued the Declaration of the Rights of Man.",
-   "outcome": "The Assembly took power; the Church's property was nationalised on 2 November 1789.",
+   "mechanism": "The Bastille held only seven inmates when it was stormed; the Assembly then abolished feudalism, put the Church under state control and issued the Declaration of the Rights of Man.",
+   "outcome": "The Church's property was nationalised on 2 November 1789 and used to back the assignats.",
    "facts": [
     "story-revolutions-bastille-seven",
     "story-revolutions-bastille-assembly-measures",
@@ -4140,8 +4138,8 @@
    "advantage": "no head of state set by God",
    "power": "counter-positioning",
    "triad": "information",
-   "mechanism": "The Convention tried Louis XVI for high treason and had him guillotined at age 38; Britain, Spain and Austria were soon at war with the Republic.",
-   "outcome": "The First Coalition formed in 1793.",
+   "mechanism": "The Convention had Louis XVI guillotined at age 38 on 21 January 1793; that year Austria, Sardinia, Naples, Prussia, Spain and Great Britain formed the First Coalition.",
+   "outcome": null,
    "facts": [
     "story-revolutions-louis-executed",
     "story-revolutions-first-coalition-1793",
@@ -4184,7 +4182,7 @@
    "power": "process power",
    "triad": "environment",
    "mechanism": "By then 16,594 official death sentences had been issued since June 1793, 1,366 of them in the last seven weeks after the Law of 22 Prairial.",
-   "outcome": "Robespierre and twenty-one others were sentenced on 27 July, and Robespierre was guillotined on 28 July 1794; the Terror ended.",
+   "outcome": "Robespierre and twenty-one others were sentenced, and Robespierre was guillotined on 28 July 1794, the date with which the Terror is often said to end.",
    "facts": [
     "story-revolutions-terror-death-sentences",
     "story-revolutions-terror-prairial",
@@ -4206,7 +4204,7 @@
    "power": "cornered resource",
    "triad": "execution",
    "mechanism": "A bloodless coup overthrew the Directory on 9 November 1799, with 6,000 soldiers around the palace; the constitution was approved by referendum on 7 February 1800, 3,011,007 to 1,562, half a million of the votes cast by the army without valid ballots.",
-   "outcome": "Napoleon became First Consul.",
+   "outcome": null,
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-plebiscite-1800",
@@ -4228,8 +4226,8 @@
    "advantage": "the Church reconciled to the state",
    "power": "branding",
    "triad": "environment",
-   "mechanism": "The Pope recognized Bonaparte's regime and the regime recognized Catholicism as the religion of the great majority of the French, while Church lands stayed seized; of the 136 old sees only 60 were kept.",
-   "outcome": "The hostility of devout Catholics to the Revolution ended.",
+   "mechanism": "The Pope recognized Bonaparte's regime and the regime recognized Catholicism as the religion of the great majority of the French; of the 136 old sees only 60 were kept.",
+   "outcome": null,
    "facts": [
     "story-revolutions-concordat-recognition",
     "story-revolutions-concordat-majority",
@@ -4277,8 +4275,8 @@
    "advantage": "Britain's money behind Austria and Russia",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "Britain allied with Austria and Russia in April 1805, as Napoleon's Army of England, over 100,000 men, turned east.",
-   "outcome": "The Grande Armée marched to Ulm and Austerlitz.",
+   "mechanism": "Britain allied with Austria, Russia and minor powers in April 1805; the Grande Armée had been formed in 1804 from the Army of England, over 100,000 men.",
+   "outcome": null,
    "facts": [
     "story-revolutions-third-coalition-1805",
     "story-revolutions-grande-armee-1804",
@@ -4296,7 +4294,7 @@
     "spanish-navy"
    ],
    "allies": [],
-   "advantage": "seamanship and a navy that had blockaded for years",
+   "advantage": "27 ships of the line against 33",
    "power": "process power",
    "triad": "execution",
    "mechanism": "Nelson's 27 ships of the line met 33 Franco-Spanish, 18 French and 15 Spanish; 18 of the enemy were captured or destroyed and the British lost none.",
@@ -4324,7 +4322,7 @@
    "advantage": "the corps system and a lure",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "Napoleon had some 72,000 men and 157 guns on the field, from a Grande Armée of 350,000, against about 85,000 Allies (seventy percent of them Russian) and 318 guns, and induced them to attack; his corps, each a small army, could split and rejoin.",
+   "mechanism": "Napoleon had some 72,000 men and 157 guns on the field, from a Grande Armée of 350,000, against about 85,000 Allies (seventy percent of them Russian) and 318 guns.",
    "outcome": "About 36,000 Allied casualties out of 89,000 by another count (the army is 85,000 in the mechanism), 38% of their force.",
    "facts": [
     "story-revolutions-austerlitz-french-force",
@@ -4345,11 +4343,11 @@
     "fourth-coalition"
    ],
    "allies": [],
-   "advantage": "a modern army against a bloated command",
+   "advantage": "the corps system",
    "power": "process power",
    "triad": "execution",
    "mechanism": "The Prussian army awaiting the advance was about 130,000 Prussians and 20,000 Saxons, but at Jena only 46,000 of them met 96,000 French, 40,000 of whom fought, out of a 180,000-strong campaign force.",
-   "outcome": "Prussia was crushed in a day.",
+   "outcome": "The Grande Armée decisively defeated the Prussians at Jena and Auerstedt on 14 October 1806.",
    "facts": [
     "story-revolutions-jena-prussian-army",
     "story-revolutions-jena-french-force",
@@ -4391,10 +4389,10 @@
     "grande-armee"
    ],
    "allies": [],
-   "advantage": "space, winter and a retreat",
+   "advantage": "space and winter",
    "power": "cornered resource",
    "triad": "environment",
-   "mechanism": "Napoleon deployed 600,000 soldiers, half of them French, against about 180,000 to 220,000 Russians in the western armies in June; the Russian army, 712,000 to 904,000 at its peak by two counts, retreated and let Moscow burn.",
+   "mechanism": "Napoleon deployed 600,000 soldiers, half of them French, against about 180,000 to 220,000 Russians in the western armies in June; the Russian army was 712,000 to 904,000 at its peak by two counts.",
    "outcome": "Of 615,000, only 110,000 came back; more than 500,000 men lost.",
    "facts": [
     "story-revolutions-russia-initial-force",
@@ -4420,8 +4418,8 @@
    "advantage": "every great power in one camp, paid by Britain",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "About 198,000 French (up to 225,000 by other estimates) met about 380,000 Coalition troops and 2,200 guns; British subsidies paid for a large share of the Austrian and Russian soldiers, about 450,000 at their peak in 1813.",
-   "outcome": "133,000 casualties; the Coalition decisively defeated the Grande Armée; Paris fell in March 1814.",
+   "mechanism": "About 198,000 French and allied troops (up to 225,000 by other estimates) met about 380,000 Coalition troops with 1,500 guns; British subsidies paid for a large share of the Austrian and Russian soldiers, about 450,000 at their peak in 1813.",
+   "outcome": "133,000 casualties; the Coalition decisively defeated the Grande Armée.",
    "facts": [
     "story-revolutions-leipzig-scale",
     "story-revolutions-leipzig-coalition",
@@ -4473,10 +4471,10 @@
     "russian-empire",
     "prussia"
    ],
-   "advantage": "a balance of power restored by the victors",
+   "advantage": "a balance of power set by the victors",
    "power": "legitimacy",
    "triad": "environment",
-   "mechanism": "The five Great Powers, Austria, Britain, Russia, Prussia and France, resized each other so they could balance each other and remain at peace.",
+   "mechanism": "The five Great Powers, Austria, Britain, Russia, Prussia and France, dealt behind closed doors; the goal was to resize the main powers so they could balance each other and remain at peace.",
    "outcome": "The Concert of Europe, a doctrine that emphasized the balance of powers, guided European foreign policy until 1914.",
    "facts": [
     "story-revolutions-vienna-five-powers",
@@ -4514,7 +4512,7 @@
     "french-army",
     "french-navy"
    ],
-   "what": "France spends 1.3 billion livres and sends 6,000 troops and a fleet; the debt rises to about 3.3 billion livres.",
+   "what": "By one account France spends 1.3 billion livres and sends 6,000 troops and a fleet; its debt rises to about 3.3 billion livres.",
    "facts": [
     "story-revolutions-alliance-1778",
     "story-revolutions-france-direct-aid-cost",
@@ -4531,7 +4529,7 @@
     "kingdom-of-france",
     "catholic-church"
    ],
-   "what": "By 1788 half of revenue goes on interest; the privileged Church and nobility are untaxed.",
+   "what": "By 1788 half of revenue goes on servicing the debt; the Church holds 7% of the land.",
    "facts": [
     "story-revolutions-debt-service-1788",
     "story-revolutions-church-wealth-1789",
@@ -4618,7 +4616,7 @@
     "grande-armee",
     "united-kingdom"
    ],
-   "what": "Austerlitz, Jena, Spain and the Continental System: France's weight overruns the other powers until Russia.",
+   "what": "Austerlitz, Jena, Spain and the Continental System, until Russia.",
    "facts": [
     "story-revolutions-austerlitz-french-force",
     "story-revolutions-jena-prussian-army",
@@ -4659,7 +4657,7 @@
     "russian-empire",
     "prussia"
    ],
-   "what": "The five Great Powers rebuild a balance of power.",
+   "what": "The five Great Powers set out to balance one another.",
    "facts": [
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
@@ -4727,7 +4725,7 @@
     },
     {
      "source": "capital",
-     "what": "£38 million a year interest the credit could carry",
+     "what": "Britain's credit: £38 million of interest a year on its national debt in 1814",
      "facts": [
       "story-revolutions-britain-budget-1814"
      ]
@@ -4920,7 +4918,7 @@
    "sources": [
     {
      "source": "scale",
-     "what": "560,000 soldiers at Leipzig; 850,000 allies in 1815",
+     "what": "380,000 Coalition troops at Leipzig; 850,000 allies in 1815",
      "facts": [
       "story-revolutions-leipzig-scale",
       "story-revolutions-allied-1815"
@@ -5166,7 +5164,7 @@
    "qid": "Q7732",
    "born": 1754,
    "died": 1793,
-   "role": "king of France; allied with the Americans, executed by the Convention",
+   "role": "king of France, executed in 1793",
    "actors": [
     "kingdom-of-france"
    ],
@@ -5239,7 +5237,7 @@
    "qid": "Q197627",
    "born": 1722,
    "died": 1788,
-   "role": "French admiral who held the Chesapeake",
+   "role": "French admiral at the Chesapeake",
    "actors": [
     "french-navy"
    ],
@@ -5253,7 +5251,7 @@
    "qid": "Q34969",
    "born": 1706,
    "died": 1790,
-   "role": "negotiator of the alliance and of the peace",
+   "role": "American envoy; a signer of the Treaty of Paris",
    "actors": [
     "united-states"
    ],
@@ -5267,7 +5265,7 @@
    "qid": "Q726681",
    "born": 1719,
    "died": 1787,
-   "role": "French foreign minister who built the American alliance",
+   "role": "French foreign minister",
    "actors": [
     "france"
    ],
@@ -5281,7 +5279,7 @@
    "qid": "Q123062",
    "born": 1732,
    "died": 1804,
-   "role": "finance minister; made the royal accounts public",
+   "role": "French finance minister",
    "actors": [
     "kingdom-of-france"
    ],
@@ -5295,7 +5293,7 @@
    "qid": "Q437832",
    "born": 1734,
    "died": 1802,
-   "role": "controller-general who spent to buy a way out of debt",
+   "role": "French controller-general of finances",
    "actors": [
     "kingdom-of-france"
    ],
@@ -5325,7 +5323,7 @@
    "qid": "Q184623",
    "born": 1759,
    "died": 1794,
-   "role": "Montagnard leader, executed in the Terror",
+   "role": "French revolutionary leader",
    "actors": [
     "french-republic",
     "jacobins"
@@ -5340,7 +5338,7 @@
    "qid": "Q294344",
    "born": 1748,
    "died": 1836,
-   "role": "theorist of the Third Estate and a plotter of the coup of 18 Brumaire",
+   "role": "French revolutionary writer and politician",
    "actors": [
     "french-consulate"
    ],
@@ -5369,7 +5367,7 @@
    "qid": "Q83235",
    "born": 1758,
    "died": 1805,
-   "role": "British admiral, killed at Trafalgar",
+   "role": "British admiral at Trafalgar",
    "actors": [
     "royal-navy"
    ],
@@ -5400,7 +5398,7 @@
    "qid": "Q128902",
    "born": 1759,
    "died": 1806,
-   "role": "British prime minister who introduced the income tax and built the coalitions",
+   "role": "British prime minister",
    "actors": [
     "kingdom-of-great-britain",
     "united-kingdom"
@@ -5446,7 +5444,7 @@
    "qid": "Q185801",
    "born": 1745,
    "died": 1813,
-   "role": "Russian commander who decided not to defend Moscow",
+   "role": "Russian commander in 1812",
    "actors": [
     "russian-army",
     "russian-empire"
@@ -5461,7 +5459,7 @@
    "qid": "Q164723",
    "born": 1738,
    "died": 1805,
-   "role": "British general who surrendered at Yorktown",
+   "role": "British general at Yorktown",
    "actors": [
     "british-army"
    ],
@@ -5490,7 +5488,7 @@
    "qid": "Q160499",
    "born": 1754,
    "died": 1838,
-   "role": "French foreign minister who brought France back to the Great Powers at Vienna",
+   "role": "French foreign minister at Vienna",
    "actors": [
     "congress-of-vienna",
     "first-french-empire"
@@ -5534,7 +5532,7 @@
    "qid": "Q312593",
    "born": 1732,
    "died": 1792,
-   "role": "British prime minister during the American war; fell after Yorktown",
+   "role": "British prime minister during the American war",
    "actors": [
     "kingdom-of-great-britain"
    ],

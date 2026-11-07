@@ -63,7 +63,9 @@
   "The Bell System consisted of AT&T plus 24 local Bell Operating Companies and Western Electric, which made almost all of its equipment. (century-bell-breakup)",
   "The 1956 Nobel Prize in Physics went jointly to Shockley, Bardeen and Brattain for the transistor effect. (lineage-nobel-1956)",
   "Eleven Nobel Prizes and five Turing Awards have been awarded for work completed at Bell Laboratories. (story-ai-bell-nobels)",
-  "GDP in 1950 was 1,456 billion 1990 dollars in the United States, 510 in the Soviet Union and 161 in Japan. (story-ai-gdp-1950)"
+  "During the Second World War Bell Labs doubled in size from 4,600 to 9,000 employees. (story-ai-bell-staff-wwii)",
+  "The United States' GDP in 1945, the last column of a 1938-1945 table in billions of international dollars at 1990 prices, was 1,474. (story-ai-gdp-1945-us)",
+  "The divestiture of the local operating companies to the Baby Bells became effective on 1 January 1984. (century-bell-divestiture-1984)"
  ],
  "ai_eight": [
   "Shockley Semiconductor Laboratory was founded by William Shockley in 1955 with funding from Beckman Instruments. (lineage-shockley-lab-1955)",
@@ -72,13 +74,16 @@
   "The eight formed Fairchild Semiconductor on 18 September 1957 after agreeing terms with Sherman Fairchild in August. (lineage-fairchild-founded-1957)",
   "Fairchild Semiconductor was started in 1957 to make silicon transistors when germanium was still the most common semiconductor material. (story-ai-fairchild-silicon)",
   "Fairchild's first marketed transistor was the 1958 2N697 mesa transistor, whose first batch of 100 was sold to IBM at $150 apiece. (story-ai-fairchild-2n697)",
-  "By 1960 Fairchild was an incubator of Silicon Valley whose alumni created dozens of corporations, including Intel and AMD. (lineage-fairchildren-1960)"
+  "By 1960 Fairchild was an incubator of Silicon Valley whose alumni created dozens of corporations, including Intel and AMD. (lineage-fairchildren-1960)",
+  "The eight founders of Fairchild Semiconductor raised $1.38 million from Fairchild Camera & Instrument in 1957. (story-ai-fairchild-raised-1957)",
+  "By September 1956 Shockley's laboratory had 32 employees, including Shockley. (story-ai-shockley-staff-1956)"
  ],
  "ai_chip": [
   "Jack Kilby took part, with Robert Noyce of Fairchild, in realizing the first integrated circuit at Texas Instruments in 1958. (story-ai-kilby-1958)",
   "Fairchild developed the planar process in 1959. (lineage-fairchild-planar-1959)",
   "Robert Noyce invented the first monolithic integrated circuit in 1959. (lineage-noyce-monolithic-ic-1959)",
-  "Jack Kilby won the 2000 Nobel Prize in physics for his part in the invention of the integrated circuit. (lineage-kilby-nobel-2000)"
+  "Jack Kilby won the 2000 Nobel Prize in physics for his part in the invention of the integrated circuit. (lineage-kilby-nobel-2000)",
+  "Kilby's integrated circuit was a hybrid IC rather than a monolithic chip. (story-ai-kilby-hybrid)"
  ],
  "ai_microprocessor": [
   "Intel was founded in 1968 by Gordon Moore and Robert Noyce with investor Arthur Rock. (lineage-intel-founded-1968)",
@@ -92,7 +97,8 @@
   "Intel made the first commercial microprocessor in 1971, but it was the success of the PC in the early 1980s that made it Intel's primary business. (story-ai-intel-pc-primary)",
   "In 1983 Japanese memory makers squeezed Intel's profits and Andy Grove refocused Intel on microprocessors. (lineage-intel-japan-dram-1983)",
   "Compaq, the first IBM PC clone maker, shipped the first 80386-based system in 1986, beating IBM and making Intel a key component supplier. (lineage-compaq-386-1986)",
-  "Intel's market capitalisation at the end of 1999 was $274.43 billion, according to CompaniesMarketCap. (story-ai-intel-mcap-1999)"
+  "Intel's market capitalisation at the end of 1999 was $274.43 billion, according to CompaniesMarketCap. (story-ai-intel-mcap-1999)",
+  "IBM's gross income in 1980 was $26,210 million, with 341,279 employees. (story-ai-ibm-income-1980)"
  ],
  "ai_foundry": [
   "TSMC was established in 1987 as a joint venture of Taiwan's government, ITRI and private investors, and became the world's first dedicated foundry. (lineage-tsmc-founded-1987)",
@@ -148,12 +154,12 @@
   "ChatGPT reached 100 million monthly users two months after release and 900 million weekly users in February 2026. (lineage-chatgpt-users-2026)",
   "On 23 January 2023 Microsoft announced an additional $10 billion investment in OpenAI, much of it to be spent on Azure compute. (story-ai-microsoft-openai-2023)",
   "In October 2025 an employee share sale of up to $10 billion valued OpenAI at $500 billion. (story-ai-openai-500bn-2025)",
-  "OpenAI's valuation is $852 billion after it secured $122 billion from investors including Amazon, Nvidia and SoftBank. (labs-openai-valuation)"
+  "OpenAI's valuation is $852 billion after it secured $122 billion from investors including Amazon, Nvidia and SoftBank. (labs-openai-valuation)",
+  "Microsoft's 2019 and 2023 investments in OpenAI were made at a $29 billion valuation. (story-ai-openai-val-2023)"
  ],
  "ai_test": [
   "DeepSeek-V3 required only 2.788 million H800 GPU hours for its full training, by its authors' account. (entry-deepseek-v3-gpu-hours)",
-  "On 27 January 2025 NVIDIA lost over $589 billion of market value after DeepSeek's release, which Forbes called the biggest single-day loss for any company. (entry-deepseek-nvidia-record-loss)",
-  "On 29 October 2025 Nvidia became the first company to reach a $5 trillion market capitalization. (lineage-nvidia-5tn-2025)"
+  "On 27 January 2025 NVIDIA lost over $589 billion of market value after DeepSeek's release, which Forbes called the biggest single-day loss for any company. (entry-deepseek-nvidia-record-loss)"
  ],
  "ai_trillions": [
   "In 2023 Nvidia became the seventh U.S. company to reach a US$1 trillion valuation. (story-ai-nvidia-1tn-2023)",
@@ -188,14 +194,17 @@
   "Washington never directly commanded more than 17,000 men, and the combined Franco-American army at Yorktown was only about 19,000. (story-revolutions-yorktown-allied-army)",
   "In 1780 Rochambeau landed at Newport with a fleet and 6,000 French troops to join Washington's Continental Army. (story-revolutions-rochambeau-1780)",
   "At Yorktown 8,000 soldiers and 214 artillery pieces were captured. (story-revolutions-yorktown-captured)",
-  "The Treaty of Paris was signed on 3 September 1783 by Adams, Franklin, Jay and Hartley. (story-revolutions-treaty-paris-1783)"
+  "The Treaty of Paris was signed on 3 September 1783 by Adams, Franklin, Jay and Hartley. (story-revolutions-treaty-paris-1783)",
+  "At Yorktown the Americans had 5,900 regular troops and 3,100 militia not engaged, the French 10,800 men and 29 warships, and the British and Germans 8,000 to 9,000. (story-revolutions-yorktown-forces)"
  ],
  "rev_debt": [
   "The American war cost 1,066 million livres, financed by new loans at high interest and no new taxes. (story-revolutions-france-war-cost)",
   "The war raised the French government's overall debt to about 3.315 billion (livres tournois). (story-revolutions-france-debt-after-war)",
   "By 1788 half of French state revenue went on servicing the monarchy's debt. (story-revolutions-debt-service-1788)",
   "On the eve of the Revolution the Church held upwards of 7% of France's land and had yearly revenues of 150 million livres. (story-revolutions-church-wealth-1789)",
-  "By the end of the 18th century France had 28 million people, against Britain's 12 million and Russia's 35 to 40 million. (story-revolutions-europe-populations-1790s)"
+  "By the end of the 18th century France had 28 million people, against Britain's 12 million and Russia's 35 to 40 million. (story-revolutions-europe-populations-1790s)",
+  "France spent 1.3 billion livres to support the Americans directly, besides what it spent fighting Britain elsewhere. (story-revolutions-france-direct-aid-cost)",
+  "Before the Assembly of Notables the French crown had a total income of 475 million livres and an annual deficit of some 150 million. (story-revolutions-france-income-deficit-1786)"
  ],
  "rev_estates": [
   "The Estates-General of 1789 had 1,219 deputies: 302 for the clergy, 289 for the nobility and 611 for the Third Estate. (story-revolutions-estates-deputies-1789)",
@@ -257,7 +266,8 @@
   "In November 1808 Napoleon's Armée d'Espagne of 278,670 men faced 80,000 raw, disorganized Spanish troops on the Ebro. (story-revolutions-spain-1808)",
   "In total, excluding Austrian and Prussian contingents, Napoleon deployed 600,000 soldiers against Russia, only half of them from France. (story-revolutions-russia-deployed-600k)",
   "By 1812 the Russian army reached a peak strength of 904,000, with perhaps 100,000 near Moscow. (story-revolutions-russia-army-peak-1812)",
-  "Of an original force of 615,000, only 110,000 survivors stumbled back; Napoleon lost more than 500,000 men in Russia. (story-revolutions-russia-survivors)"
+  "Of an original force of 615,000, only 110,000 survivors stumbled back; Napoleon lost more than 500,000 men in Russia. (story-revolutions-russia-survivors)",
+  "Russia's peak strength was 712,000 regulars, Cossacks and militia in 1812. (story-revolutions-peak-russia-1812)"
  ],
  "rev_coalition": [
   "Total cash subsidies to Britain's allies came to £46,289,549 from 1793 to 1814. (story-revolutions-britain-subsidies-total)",
@@ -275,6 +285,6 @@
   "The Congress of Vienna's Concert of Europe was built on closed-doors dealing among the five Great Powers: Austria, Britain, Russia, Prussia and France. (story-revolutions-vienna-five-powers)",
   "Britain's national debt soared to £679 million, more than double GDP, and the whole cost of the war came to £831 million. (story-revolutions-britain-debt)",
   "Total cash subsidies to Britain's allies came to £46,289,549 from 1793 to 1814. (story-revolutions-britain-subsidies-total)",
-  "The Vienna settlement gave birth to the Concert of Europe, which maintained the balance of powers until the First World War in 1914. (archetypes-vienna-concert-of-europe)"
+  "The Congress of Vienna settlement gave birth to the Concert of Europe, a doctrine that emphasized the balance of powers and guided European foreign policy until 1914. (story-revolutions-concert-doctrine)"
  ]
 }

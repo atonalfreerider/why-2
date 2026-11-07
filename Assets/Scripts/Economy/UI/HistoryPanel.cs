@@ -51,8 +51,12 @@ namespace Why.Economy.UI
             reading = Text("Reading", 11, 12, 168, Width - 24, Height - 168 - 70); reading.textWrappingMode = TextWrappingModes.Normal; reading.overflowMode = TextOverflowModes.Ellipsis;
             method = Text("Method", 9, 12, Height - 64, Width - 24, 58); method.textWrappingMode = TextWrappingModes.Normal; method.color = new Color(.62f, .67f, .74f);
             method.text = "Every number is a fact whose quote was found on its cited page. Sizes are the cube root of a measure: a thousand under arms draws as a hundred thousand civilians; money of 1775-1815 at £1 = 24 livres (assumed). Walls: Jev's judgments, 0-4.";
-            HillHistoryLayer.Changed += () => dirty = true;
+            HillHistoryLayer.Changed += OnChanged;
         }
+
+        void OnChanged() => dirty = true;
+
+        void OnDestroy() => HillHistoryLayer.Changed -= OnChanged;
 
         void Make()
         {
@@ -128,8 +132,9 @@ namespace Why.Economy.UI
             sb.Append("<b><size=120%>").Append(HillHistoryLayer.YearText(m?.Year ?? year)).Append(m != null ? " · " + m.Title : "").Append("</size></b>\n");
             if (m != null)
             {
-                var head = new StringBuilder("<color=#" + UiFactory.Hex(HillHistoryLayer.TriadColor(m.Triad)) + ">" + Name(m.Holder) + "</color>");
-                if (m.Rivals.Length > 0) head.Append(" over ").Append(string.Join(", ", m.Rivals.Select(Name)));
+                // who held the advantage over whom is the research's framing of the moment, not a fact: say so
+                var head = new StringBuilder("<size=86%><color=#9AA4B2>As the research frames it:</color></size> <color=#" + UiFactory.Hex(HillHistoryLayer.TriadColor(m.Triad)) + ">" + Name(m.Holder) + "</color>");
+                if (m.Rivals.Length > 0) head.Append(" against ").Append(string.Join(", ", m.Rivals.Select(Name)));
                 if (m.Allies.Length > 0) head.Append(", with ").Append(string.Join(", ", m.Allies.Select(Name)));
                 sb.Append(head).Append('\n');
                 if (!string.IsNullOrEmpty(m.Advantage)) sb.Append("<b>The advantage:</b> ").Append(m.Advantage).Append('\n');
@@ -141,7 +146,7 @@ namespace Why.Economy.UI
             var moats = s.Moats.Where(x => year >= x.From - .01f && year <= (Mathf.Approximately(x.To, Mathf.Round(x.To)) ? x.To + 1 : x.To) + .01f).ToList();
             if (moats.Count > 0)
             {
-                sb.Append("\n<b>Advantages held then</b> <size=86%><color=#9AA4B2>(walls 0-4, judged by Jev)</color></size>\n");
+                sb.Append("\n<b>Advantages of the period</b> <size=86%><color=#9AA4B2>(walls 0-4, judged by Jev on all the evidence, some of it later; ? where Jev was unsure)</color></size>\n");
                 foreach (var moat in moats)
                 {
                     sb.Append("<b>").Append(Name(moat.Actor)).Append("</b>");
@@ -151,7 +156,7 @@ namespace Why.Economy.UI
                     {
                         var x = g.OrderByDescending(v => double.IsNaN(v.Wall) ? -1 : v.Wall).First();
                         return "<color=#" + UiFactory.Hex(HillAdvantageLayer.SourceColor(x.Source)) + ">" + HillHistoryLayer.SourceWord(x.Source) + "</color>" +
-                               (double.IsNaN(x.Wall) ? "" : " " + x.Wall.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture));
+                               (double.IsNaN(x.Wall) ? "" : " " + x.Wall.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture) + (HillHistoryLayer.Uncertain(x) ? "?" : ""));
                     })));
                     sb.Append('\n');
                 }
@@ -164,7 +169,7 @@ namespace Why.Economy.UI
                 sb.Append(string.Join(", ", periods.Select(p => p.Title + " (" + Mathf.FloorToInt(p.From) + "-" + Mathf.FloorToInt(p.To) + ")")));
                 sb.Append('\n');
                 var p0 = periods.OrderBy(p => p.To - p.From).First();
-                if (!string.IsNullOrEmpty(p0.What)) sb.Append("<size=92%>").Append(p0.What).Append("</size>\n");
+                if (!string.IsNullOrEmpty(p0.What)) sb.Append("<size=92%><color=#9AA4B2>The research's summary:</color> ").Append(p0.What).Append("</size>\n");
             }
 
             return sb.ToString();

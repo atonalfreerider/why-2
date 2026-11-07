@@ -184,7 +184,11 @@ namespace Why.Economy.Land
             return wsum > 1e-6f ? c / wsum : Unknown;
         }
 
-        public Organism(ContestNetwork.Body b, IList<Front> fronts, int detail)
+        /// <param name="trueVolume">Scale the fused surface so the volume it encloses (a star-shaped surface's (4/3)π times the
+        /// mean of its radii cubed) is the lobes' total, rather than its mean radius their sphere's: fused lobes set apart
+        /// otherwise draw up to two or three times the volume their measures call for. History's bodies use it; the 2026
+        /// contest keeps its tuned sizes.</param>
+        public Organism(ContestNetwork.Body b, IList<Front> fronts, int detail, bool trueVolume = false)
         {
             lobes = Lobes(b, out Known, out double drawn);
             var (dirs, edges) = Geodesic(detail);
@@ -259,6 +263,13 @@ namespace Why.Economy.Land
             if (Known && drawn > 0 && MeanRadius > 0)
             {
                 float k = ContestNetwork.Radius(drawn) / MeanRadius;
+                if (trueVolume)
+                {
+                    double cube = 0;
+                    foreach (var p in Points) cube += Math.Pow(p.magnitude, 3);
+                    cube /= Math.Max(1, Points.Length);
+                    if (cube > 0) k = ContestNetwork.Radius(drawn) / (float)Math.Pow(cube, 1.0 / 3);
+                }
                 scale = k;
                 for (int i = 0; i < Points.Length; i++) Points[i] *= k;
                 MeanRadius *= k;

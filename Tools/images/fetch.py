@@ -1325,6 +1325,8 @@ def cmd_fetch(args):
         author = att or clean_author(artist_html)
         prop = pick["prop"]
         noun = NOUN.get(prop, "Image")
+        if prop == "P18" and it.get("kind") != "person":
+            noun = "Image"    # a company's or a group's own picture (a building, a product, a painting): not a portrait
         title = strip_html(meta(fi, "ObjectName")) or os.path.splitext(pick["file"])[0]
         modified = {"center": "cropped to a centred square and scaled to %d px",
                     "portrait": "cropped to a square (upper part) and scaled to %d px",

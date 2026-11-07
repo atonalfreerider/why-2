@@ -1,7 +1,7 @@
 {
   "title": "The AI revolution",
-  "intro": "From the American century to the AI revolution: how the advantage in computing moved from a nation to a laboratory, to the engineers who left it, to a chip designer, and to the labs that scaled a published idea.",
-  "end": "The advantage kept moving: from a nation that made half the world's industrial output, to a monopoly's laboratory, to eight engineers who walked out, to a foundry that made chips for everyone, to the designer whose chips the field ran on, to the labs that scaled a paper Google gave away. Explore any year with the panel, or play the age of revolutions.",
+  "intro": "From the American century to the AI revolution: how the advantage in computing moved from a nation to a laboratory, to the engineers who walked out of its inventor's company, to a chip designer, and to the labs that scaled a published idea.",
+  "end": "The advantage kept moving: from a nation that made half the world's industrial output, to the Bell System's laboratory, to eight engineers who walked out of Shockley's, to the first dedicated foundry, to the designer whose chips trained AlexNet, to the labs that scaled a paper Google published. Explore any year with the panel, or play the age of revolutions.",
   "steps": [
     {
       "id": "ai_century",
@@ -10,7 +10,7 @@
       "reading": "Each tube is one actor through time, as thick as what it measured; open a year to see the bodies side by side.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -30,16 +30,16 @@
     {
       "id": "ai_transistor",
       "title": "The transistor",
-      "text": "In 1947 John Bardeen, Walter Brattain and William Shockley of Bell Labs invented the transistor. The laboratory belonged to the Bell System: AT&T, 24 local companies and Western Electric. The three shared the 1956 Nobel Prize in Physics; work done at Bell Labs has won eleven Nobel Prizes. Its advantage, as the research records it: technology, and the Bell System's capital.",
-      "reading": "The small body is Bell Labs, three inventors; the large one is the American economy (measured in 1950).",
+      "text": "In 1947 John Bardeen, Walter Brattain and William Shockley of Bell Labs invented the transistor. Before its 1984 breakup the Bell System was AT&T, 24 local companies and Western Electric. The three shared the 1956 Nobel Prize in Physics; work done at Bell Labs has won eleven Nobel Prizes. Its ring, as the research records it: technology, talent, the Bell System's capital, and the regulation that ended it in 1984.",
+      "reading": "The small body is Bell Labs, 9,000 employees at the war's end; the large one is the American economy, 1,474 billion 1990 dollars in 1945.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 33,
+      "hold": 39,
       "cues": [
         {
           "at": 0.0,
@@ -51,10 +51,10 @@
       "id": "ai_eight",
       "title": "The traitorous eight",
       "text": "In 1955 Shockley founded his own laboratory. Eight of its engineers, Robert Noyce and Gordon Moore among them, left and founded Fairchild Semiconductor on 18 September 1957 with Sherman Fairchild's backing, to make transistors of silicon when germanium was still the common material. Its first transistor, the 1958 2N697, went to IBM: a first batch of 100 at $150 apiece. Its alumni went on to create dozens of companies, Intel and AMD among them.",
-      "reading": "The heir's lane begins where its parent's founders left: a dotted arc from Shockley's lane to Fairchild's.",
+      "reading": "Fairchild's body is the $1.38 million the eight raised; Shockley's laboratory, its 32 employees of September 1956.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -70,16 +70,16 @@
     {
       "id": "ai_chip",
       "title": "The integrated circuit",
-      "text": "In 1958 Jack Kilby made the first integrated circuit at Texas Instruments. In 1959 Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in 2000 for his part in the invention.",
+      "text": "In 1958 Jack Kilby built a hybrid integrated circuit at Texas Instruments. In 1959 Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in 2000 for his part in the invention.",
       "reading": "Moments are sparks on the holder's lane; dashed ties run to its rivals, gold ones to its allies.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 19,
+      "hold": 20,
       "cues": [
         {
           "at": 0.0,
@@ -94,7 +94,7 @@
       "reading": "The gold cursor is the year; the brackets above the lanes are the periods.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -111,10 +111,10 @@
       "id": "ai_pc",
       "title": "The PC and the x86",
       "text": "Intel made the first commercial microprocessor, but the PC made it Intel's primary business. The IBM PC, released on 12 August 1981, used an Intel 8088. In 1983 Japanese memory makers squeezed Intel's profits and Andy Grove refocused it on microprocessors. In 1986 Compaq, the first IBM PC clone maker, shipped the first 80386 system, beating IBM and making Intel a key component supplier. At the end of 1999 Intel was worth $274.43 billion.",
-      "reading": "Intel's ring of advantage: technology and distribution, the chip inside the computer every maker copied.",
+      "reading": "Opened: Intel, unmeasured here, walled by technology, distribution, scale and capital; IBM beside it, by its 1980 income.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -124,6 +124,10 @@
         {
           "at": 0.0,
           "show": "history:ai:1981.625:sel=intel:pop=andy-grove,intel,ibm,compaq"
+        },
+        {
+          "at": 13.6,
+          "show": "history:ai:1981.625:x:sel=intel:pop=andy-grove,intel,ibm,compaq"
         }
       ]
     },
@@ -131,10 +135,10 @@
       "id": "ai_foundry",
       "title": "The foundry",
       "text": "In 1987 Taiwan's government, its research institute ITRI and private investors founded TSMC, the world's first dedicated foundry, with Morris Chang at its head. Philips put up $58 million and its production technology for 27.6% of it. In the second quarter of 2026 TSMC took 72.5% of the revenue of the ten largest foundries.",
-      "reading": "TSMC's tube starts thin, $58 million of capital, and grows into one of the thickest.",
+      "reading": "TSMC's first measure is the $58 million Philips put up for 27.6% of it; its tube grows into one of the thickest.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -154,7 +158,7 @@
       "reading": "Compare the bodies in 1999: Intel's market value against Nvidia's.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -167,23 +171,23 @@
         },
         {
           "at": 8.6,
-          "show": "history:ai:1999.792:x:sel=nvidia:pop=jensen-huang,nvidia,intel,3dfx"
+          "show": "history:ai:1999.96:x:sel=nvidia:pop=jensen-huang,nvidia,intel,3dfx"
         }
       ]
     },
     {
       "id": "ai_cuda",
       "title": "CUDA",
-      "text": "CUDA, Nvidia's development environment, was created in 2004 and released in 2007. Twenty years on it has 6 million developers, and it dominates the market for GPU development against AMD's ROCm.",
-      "reading": "Nvidia's tube thickens from 2006: $13.15 billion that year.",
+      "text": "CUDA, Nvidia's development environment, was created in 2004 and released in 2007. In March 2026, twenty years old by Nvidia's count, it had 6 million developers, and it dominates the market for GPU development against AMD's ROCm.",
+      "reading": "Nvidia's body: $13.15 billion at the end of 2006.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 17,
+      "hold": 20,
       "cues": [
         {
           "at": 0.0,
@@ -198,7 +202,7 @@
       "reading": "In 2012 Intel ($101.94 billion) and TSMC ($86.83 billion) dwarf Nvidia.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -207,7 +211,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2012.708:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton,nvidia"
+          "show": "history:ai:2012.96:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton,nvidia"
         }
       ]
     },
@@ -218,7 +222,7 @@
       "reading": "Google in 2017: $729.45 billion of market value, $110.85 billion of revenue.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -227,7 +231,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2017.458:x:sel=google:pop=ashish-vaswani,noam-shazeer,llion-jones,google"
+          "show": "history:ai:2017.96:x:sel=google:pop=ashish-vaswani,noam-shazeer,llion-jones,google"
         }
       ]
     },
@@ -235,10 +239,10 @@
       "id": "ai_scaling",
       "title": "Scaling",
       "text": "GPT-1 had 117 million parameters; the full GPT-2, in November 2019, 1.5 billion. In January 2020 Kaplan and colleagues found that loss falls as a power law in model size, data and compute. GPT-3, in May 2020, had 175 billion, ten times any earlier dense model. Microsoft had invested $1 billion in 2019, and licensed GPT-3 exclusively in September 2020.",
-      "reading": "OpenAI's tube is drawn by its parameters here: 117 million, 1.5 billion, 175 billion.",
+      "reading": "OpenAI's tube follows its parameters: 117 million, 1.5 billion, 175 billion; opened, its body is the $1 billion Microsoft invested in 2019.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -259,10 +263,10 @@
       "id": "ai_chatgpt",
       "title": "ChatGPT",
       "text": "ChatGPT was released on 30 November 2022 and had 100 million monthly users two months later. In January 2023 Microsoft invested another $10 billion, much of it for Azure compute. By February 2026 ChatGPT had 900 million weekly users. OpenAI was valued at $500 billion in October 2025, and later at $852 billion.",
-      "reading": "OpenAI's body is drawn by its users here; its walls are technology, capital, distribution and scale.",
+      "reading": "Early 2023: OpenAI's body is the $29 billion valuation of Microsoft's 2023 investment; its lobe, ChatGPT's 100 million monthly users.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -271,23 +275,23 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2022.875:x:sel=openai:pop=sam-altman,openai,microsoft,google"
+          "show": "history:ai:2023.1:x:sel=openai:pop=sam-altman,openai,microsoft,google"
         }
       ]
     },
     {
       "id": "ai_test",
       "title": "A test of the walls",
-      "text": "DeepSeek-V3 needed only 2.788 million H800 GPU hours to train, by its authors' account. On 27 January 2025 Nvidia lost more than $589 billion of market value, which Forbes called the biggest single-day loss for any company. On 29 October 2025 it became the first company worth $5 trillion.",
+      "text": "DeepSeek-V3 needed only 2.788 million H800 GPU hours to train, by its authors' account. On 27 January 2025 Nvidia lost more than $589 billion of market value, which Forbes called the biggest single-day loss for any company.",
       "reading": "A wall is tested when a rival finds a way around it.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 28,
+      "hold": 21,
       "cues": [
         {
           "at": 0.0,
@@ -298,16 +302,16 @@
     {
       "id": "ai_trillions",
       "title": "Five trillion dollars",
-      "text": "In 2023 Nvidia became the seventh US company worth $1 trillion, and went from $1 trillion to $2 trillion in 180 days; Apple and Microsoft each took over 500. On 29 October 2025 it became the first company worth $5 trillion. Its share of AI accelerators is expected to be about 75% in 2026, down from a peak near 87% in 2024. Its advantage, as the research records it: technology, supply, patents, capital, talent and scale.",
+      "text": "In 2023 Nvidia became the seventh US company worth $1 trillion. It then went from $1 trillion to $2 trillion in 180 days; Apple and Microsoft each took over 500. On 29 October 2025 it became the first company worth $5 trillion. Its share of AI accelerators is expected to be about 75% in 2026, down from a peak near 87% in 2024. Its advantage, as the research records it: technology, supply, patents, capital, talent and scale.",
       "reading": "Nvidia's ring has six walls: technology, supply, patents, capital, talent and scale.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 38,
+      "hold": 35,
       "cues": [
         {
           "at": 0.0,
@@ -318,11 +322,11 @@
     {
       "id": "ai_now",
       "title": "The present",
-      "text": "Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend $803 to $828 billion on capital in 2026. Over eight quarters Nvidia's data-centre revenue has equalled 39% to 47% of what the largest clouds spend. Anthropic was valued at $965 billion in May 2026, OpenAI at $852 billion.",
-      "reading": "The cross-section of 2026: the companies and the two labs, each a body walled by its sources.",
+      "text": "Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend $803 to $828 billion on capital in 2026. Over eight quarters Nvidia's data-centre revenue has equalled 39% to 47% of what the largest clouds spend on capital. Anthropic was valued at $965 billion in May 2026, OpenAI at $852 billion.",
+      "reading": "November 2026: the companies and the labs; TSMC, Nvidia and OpenAI walled by their sources.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -331,7 +335,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2026.5:x:pop=jensen-huang,sam-altman,nvidia,anthropic"
+          "show": "history:ai:2026.9:x:pop=jensen-huang,sam-altman,nvidia,anthropic"
         }
       ]
     }

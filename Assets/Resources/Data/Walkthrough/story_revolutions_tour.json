@@ -1,7 +1,7 @@
 {
   "title": "The age of revolutions",
-  "intro": "From the American Revolution to the Congress of Vienna: French support for a rebellion, the monarchy it bankrupted, a revolution and its terror, an emperor who crowned himself, and the coalition that brought Europe back into balance.",
-  "end": "A colony of 2.4 million won with a great power's money and fleet; the great power went bankrupt doing it; its revolution turned the nation into an army; a general turned the army into an empire and crowned himself; and Britain's credit and the coalitions it paid for restored a balance that lasted until 1914. Explore any year with the panel, or play the AI revolution.",
+  "intro": "From the American Revolution to the Congress of Vienna: French support for a rebellion, the debt it left the monarchy, a revolution and its terror, an emperor who crowned himself, and the coalitions and the congress that set out to balance Europe again.",
+  "end": "Thirteen colonies of 2.4 million won with a great power's money, arms and fleet; the war raised that power's debt to about 3.3 billion livres, and by 1788 half its revenue went on servicing it; its revolution turned the nation into an army; a general was made emperor and crowned himself; Britain's credit paid for much of the coalitions' armies, and at Vienna the powers set out to balance one another. Explore any year with the panel, or play the AI revolution.",
   "steps": [
     {
       "id": "rev_colonies",
@@ -10,7 +10,7 @@
       "reading": "Each tube is a state, an army, a navy, an alliance, a church or a people, as thick as what it measured.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -27,10 +27,10 @@
       "id": "rev_saratoga",
       "title": "Saratoga",
       "text": "At Saratoga, Burgoyne's army of 5,791 men faced about 12,000 colonial troops, and he surrendered it on 17 October 1777. By some estimates up to 90% of the arms the Americans used in the campaign came from France.",
-      "reading": "An unmeasured body is small and grey: the British force at Saratoga has no figure of its own here.",
+      "reading": "Each army drawn by its force at Saratoga: Burgoyne's 5,791 against about 12,000 colonial troops.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -39,43 +39,43 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1777.792:x:sel=continental-army:pop=george-washington,continental-army,british-army"
+          "show": "history:rev:1777.792:x:sel=continental-army:pop=continental-army,british-army"
         }
       ]
     },
     {
       "id": "rev_alliance",
       "title": "The French alliance",
-      "text": "Vergennes persuaded Louis XVI to fund a front company that bought munitions for the Patriots and shipped them in neutral Dutch ships. In February 1778 France signed a Treaty of Alliance with the Americans. It spent 1.3 billion livres supporting them directly.",
+      "text": "Vergennes persuaded Louis XVI to fund a front company that bought munitions for the Patriots and shipped them in neutral Dutch ships. In February 1778 France signed a Treaty of Alliance with the Americans. By one account it spent 1.3 billion livres supporting them directly.",
       "reading": "A gold tie is an alliance at a moment: France to the United States, against Great Britain.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 26,
+      "hold": 25,
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1778.125:sel=france:pop=vergennes,louis-xvi,benjamin-franklin,france"
+          "show": "history:rev:1778.125:sel=kingdom-of-france:pop=vergennes,louis-xvi,benjamin-franklin,kingdom-of-france"
         }
       ]
     },
     {
       "id": "rev_yorktown",
       "title": "The Chesapeake and Yorktown",
-      "text": "At the Chesapeake de Grasse had 24 ships of the line, Graves 19. At Yorktown about 19,000 Franco-American troops, with the 6,000 French soldiers Rochambeau had landed in 1780, besieged the British; 8,000 soldiers and 214 guns were captured. The Treaty of Paris was signed on 3 September 1783.",
-      "reading": "The French navy's body is its ships of the line; the armies' are their soldiers.",
+      "text": "At the Chesapeake de Grasse prepared 24 ships of the line for battle, Graves 19. At Yorktown about 19,000 Franco-American troops, 10,800 of them French (Rochambeau had landed 6,000 in 1780), besieged the British; 8,000 soldiers and 214 guns were captured. The Treaty of Paris was signed on 3 September 1783.",
+      "reading": "Each force drawn by what it brought: ships of the line at the Chesapeake, soldiers at Yorktown.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 30,
+      "hold": 28,
       "cues": [
         {
           "at": 0.0,
@@ -90,23 +90,23 @@
     {
       "id": "rev_debt",
       "title": "The debt",
-      "text": "The American war cost France 1,066 million livres, paid with new loans at high interest and no new taxes, and raised its debt to about 3.3 billion livres. By 1788 half of the state's revenue went on servicing the debt. The Church held upwards of 7% of France's land and took 150 million livres a year.",
-      "reading": "1788: France, 28 million people; Britain, 12 million; Russia, 35 to 40 million; the Church, beside the crown.",
+      "text": "One account puts the whole American war at 1,066 million livres, paid with new loans at high interest and no new taxes; another puts France's direct aid to the Americans alone at 1.3 billion. The war raised France's debt to about 3.3 billion livres, and by 1788 half of the state's revenue went on servicing it. The Church held upwards of 7% of France's land and took 150 million livres a year.",
+      "reading": "1788: the crown drawn by its income, 475 million livres, its debt of about 3.3 billion below; beside it the nation's 28 million and the Church's clergy.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 37,
+      "hold": 41,
       "cues": [
         {
           "at": 0.0,
           "show": "history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne,kingdom-of-france"
         },
         {
-          "at": 13.2,
+          "at": 16.4,
           "show": "history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi,catholic-church"
         }
       ]
@@ -114,16 +114,16 @@
     {
       "id": "rev_estates",
       "title": "The Estates-General",
-      "text": "The Estates-General of 1789 had 1,219 deputies: 302 for the clergy, 289 for the nobility and 611 for the Third Estate, which stood for about 98% of some 28 million people. The clergy itself numbered 115,000 to 150,000.",
-      "reading": "The French nation and the Church: twenty-eight million people, and the clergy's hundred thousand or so.",
+      "text": "In 1789 the Estates-General met: 302 deputies for the clergy, 289 for the nobility and 611 for the Third Estate, which stood for about 98% of some 28 million people. The clergy itself numbered 115,000 to 150,000.",
+      "reading": "The French nation and the Church: some 28 million people, and the clergy's 115,000 to 150,000.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 25,
+      "hold": 24,
       "cues": [
         {
           "at": 0.0,
@@ -138,7 +138,7 @@
       "reading": "Sparks are moments: the colour is what decided them (information, execution or environment).",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -155,10 +155,10 @@
       "id": "rev_king",
       "title": "The king's execution",
       "text": "On 21 January 1793 Louis XVI, aged 38, was guillotined on the Place de la Révolution. That year Austria, Sardinia, Naples, Prussia, Spain and Great Britain formed the First Coalition against revolutionary France. Marie Antoinette was executed on 16 October 1793.",
-      "reading": "The coalitions share one lane, one after another; the French state's lane runs from kingdom to republic.",
+      "reading": "The coalitions mostly follow one another on one lane; the French state's lane runs from kingdom to republic.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -175,15 +175,15 @@
       "id": "rev_levee",
       "title": "The levée en masse",
       "text": "In February 1793 the Convention decreed a levy of about 300,000 men. The Committee of Public Safety was formed on 6 April, and in August the levée en masse drafted all men aged 18 to 25. Between 750,000 and 800,000 were conscripted.",
-      "reading": "The Republic's body is its army: a levy of 300,000 in 1793.",
+      "reading": "The Republic's body is the levy of 300,000 decreed in February 1793.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 23,
+      "hold": 24,
       "cues": [
         {
           "at": 0.0,
@@ -194,11 +194,11 @@
     {
       "id": "rev_terror",
       "title": "The Terror",
-      "text": "From June 1793 the Terror issued 16,594 official death sentences, 2,639 of them in Paris; after the Law of 22 Prairial another 1,366 people were executed in seven weeks. Robespierre and 21 of his followers were then sentenced to death under the same law without a hearing; he was executed on 28 July 1794.",
+      "text": "From June 1793 the Terror issued 16,594 official death sentences, 2,639 of them in Paris and 1,366 in the seven weeks after the Law of 22 Prairial. Robespierre and 21 of his followers were then sentenced to death under the same law without a hearing; he was executed on 28 July 1794.",
       "reading": "The dark red lobe beneath the Republic is the Terror's death sentences.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -218,7 +218,7 @@
       "reading": "On the French lane the Republic becomes the Consulate.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -235,10 +235,10 @@
       "id": "rev_crown",
       "title": "The emperor crowns himself",
       "text": "Under the Concordat of 1801 the Pope recognised Bonaparte's regime and the regime recognised Catholicism as the religion of the great majority. In 1804 a plebiscite confirmed a hereditary empire: 3.5 million yes, the count inflated by 300,000 to 500,000. On 2 December 1804, at Notre-Dame, with Pope Pius VII present, Napoleon crowned himself. Britain, Russia, Sweden and the Ottoman Empire refused to recognise the title.",
-      "reading": "The empire's ring is legitimacy: a plebiscite, a Pope at the coronation, the Concordat.",
+      "reading": "The empire's ring: legitimacy (a plebiscite, a Pope at the coronation, the Concordat) and, from 1806, the Continental System.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -247,7 +247,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1801.5:sel=first-french-empire:pop=napoleon,pius-vii,catholic-church"
+          "show": "history:rev:1801.5:sel=french-consulate:pop=napoleon,pius-vii,catholic-church"
         },
         {
           "at": 9.5,
@@ -262,7 +262,7 @@
       "reading": "The Royal Navy's ring: scale, technology and the capital that paid for it.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
@@ -282,23 +282,23 @@
     {
       "id": "rev_austerlitz",
       "title": "Austerlitz and Jena",
-      "text": "At Austerlitz Napoleon had some 72,000 men and 157 guns against about 85,000 Allies, 70% of them Russian, with 318 guns. Allied casualties were about 36,000 of 89,000, 38% of their force. The Prussian army awaiting Napoleon in 1806, about 130,000 with 20,000 Saxons, was decisively defeated at Jena and Auerstedt on 14 October.",
+      "text": "At Austerlitz Napoleon had some 72,000 men and 157 guns against about 85,000 Allies, 70% of them Russian, with 318 guns. Allied casualties were about 36,000, some 38% of their effective force by a count that puts the army at 89,000. The Prussian army awaiting Napoleon in 1806, about 130,000 with 20,000 Saxons, was decisively defeated at Jena and Auerstedt on 14 October.",
       "reading": "The Grande Armée's ring: technology, talent and scale.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 38,
+      "hold": 36,
       "cues": [
         {
           "at": 0.0,
           "show": "history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,grande-armee"
         },
         {
-          "at": 20.4,
+          "at": 20.5,
           "show": "history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher,grande-armee,prussia"
         }
       ]
@@ -306,47 +306,47 @@
     {
       "id": "rev_russia",
       "title": "Europe out of balance",
-      "text": "The Berlin Decree of 21 November 1806 barred Britain's trade from Europe, hurting France and its allies too. In 1808 Napoleon's Army of Spain, 278,670 men, faced 80,000 raw Spanish troops. In 1812 he deployed 600,000 soldiers against Russia, whose army peaked at 904,000. Of 615,000, only 110,000 came back.",
+      "text": "The Berlin Decree of 21 November 1806 barred Britain's trade from Europe, hurting France and its allies too. In 1808 Napoleon's Army of Spain, 278,670 men, faced 80,000 raw Spanish troops. In 1812 he deployed 600,000 soldiers against Russia, not counting the Austrian and Prussian contingents; of an original force of 615,000 by another count, only 110,000 came back. Russia's army peaked at 712,000 or 904,000, by two counts.",
       "reading": "The dark red lobe beneath the Grande Armée is what it lost in Russia: more than 500,000 men.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 46,
+      "hold": 50,
       "cues": [
         {
           "at": 0.0,
           "show": "history:rev:1806.875:sel=first-french-empire:pop=napoleon,first-french-empire,united-kingdom"
         },
         {
-          "at": 21.5,
-          "show": "history:rev:1812.458:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,russian-empire"
+          "at": 19.9,
+          "show": "history:rev:1812.97:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,russian-empire"
         }
       ]
     },
     {
       "id": "rev_coalition",
       "title": "The alliance against France",
-      "text": "From 1793 to 1814 Britain paid its allies £46,289,549 in subsidies, which paid for about 450,000 Austrian and Russian soldiers at their 1813 peak. At Leipzig about 560,000 soldiers fought and 133,000 fell. In 1815 about 250,000 Frenchmen faced about 850,000 allies; at Waterloo Napoleon's 74,500 met Wellington and 50,000 arriving Prussians. Four days later he abdicated.",
+      "text": "From 1793 to 1814 Britain paid its allies £46,289,549 in subsidies, which paid for a large share of the Austrian and Russian soldiers, about 450,000 at their 1813 peak. At Leipzig about 560,000 soldiers fought by one count, with 133,000 casualties. In 1815 about 250,000 Frenchmen faced about 850,000 allies; at Waterloo Napoleon's 74,500 met Wellington and 50,000 arriving Prussians. Four days later he abdicated.",
       "reading": "The coalition's ring: scale, and British capital.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 42,
+      "hold": 47,
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1813.792:x:sel=sixth-coalition:pop=wellington,alexander-i,sixth-coalition,united-kingdom"
+          "show": "history:rev:1813.792:x:sel=sixth-coalition:pop=alexander-i,sixth-coalition,united-kingdom"
         },
         {
-          "at": 21.9,
+          "at": 26.3,
           "show": "history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher,seventh-coalition,grande-armee"
         }
       ]
@@ -354,20 +354,20 @@
     {
       "id": "rev_vienna",
       "title": "The Congress of Vienna",
-      "text": "From September 1814 to June 1815 the Congress of Vienna, chaired by Metternich, resized the five Great Powers, Austria, Britain, Russia, Prussia and France, so that they would balance each other and remain at peace. Britain's debt had reached £679 million. The Concert of Europe kept the balance until the First World War in 1914.",
-      "reading": "The victors' bodies side by side: a balance, not a winner.",
+      "text": "From September 1814 to June 1815 the Congress of Vienna, chaired by Metternich, set out to resize the main powers so that they would balance each other and remain at peace; the five Great Powers, Austria, Britain, Russia, Prussia and France, dealt behind closed doors. Britain's national debt had reached £679 million. The Concert of Europe, a doctrine of the balance of power, guided European foreign policy until 1914.",
+      "reading": "The victors' bodies around the Congress: a balance, not a winner.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
-      "assumed": "sizes: the cube root of each measure; a value holds until the next measurement",
+      "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
       "focus": "history",
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 27,
+      "hold": 33,
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1815.458:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i,congress-of-vienna"
+          "show": "history:rev:1815.44:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i,congress-of-vienna"
         }
       ]
     }

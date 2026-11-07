@@ -566,7 +566,7 @@ namespace Why.Director
             // a view with states of its own opens on the first stop's (a story's first year), not whatever it showed last
             if (steps.Count > 0 && steps[0].Step.Cues.Count > 0 && steps[0].Preset != null && ViewVariants.TryGet(steps[0].Preset.Id, out ViewVariants.Entry first))
                 for (int i = 0, n = first.Count(); i < n; i++)
-                    if (first.Name(i) == steps[0].Step.Cues[0].Show) { first.Show(i); break; }
+                    if (first.Name(i) == steps[0].Step.Cues[0].Show) { first.Show(i); cueView = first; cueShown = i; break; }
             Highlighter.Clear();
             narrator.Stop();
             stepDuration = TitleCardSeconds;

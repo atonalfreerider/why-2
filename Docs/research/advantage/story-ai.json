@@ -2769,7 +2769,7 @@
   },
   {
    "actor": "shockley-semiconductor",
-   "year": 1956,
+   "year": "1956-09",
    "part": "employees",
    "value": 32,
    "unit": "employees, September 1956",
@@ -2801,7 +2801,7 @@
   },
   {
    "actor": "intel",
-   "year": 1999,
+   "year": "1999-12",
    "part": "marketValue",
    "value": 274.43,
    "unit": "USD bn",
@@ -2817,7 +2817,7 @@
   },
   {
    "actor": "intel",
-   "year": 2012,
+   "year": "2012-12",
    "part": "marketValue",
    "value": 101.94,
    "unit": "USD bn",
@@ -2833,7 +2833,7 @@
   },
   {
    "actor": "intel",
-   "year": 2022,
+   "year": "2022-12",
    "part": "marketValue",
    "value": 109.07,
    "unit": "USD bn",
@@ -2841,7 +2841,7 @@
   },
   {
    "actor": "intel",
-   "year": 2026,
+   "year": "2026-11",
    "part": "marketValue",
    "value": 299.12,
    "unit": "USD bn",
@@ -2857,7 +2857,7 @@
   },
   {
    "actor": "tsmc",
-   "year": 1997,
+   "year": "1997-12",
    "part": "marketValue",
    "value": 14.84,
    "unit": "USD bn",
@@ -2873,7 +2873,7 @@
   },
   {
    "actor": "tsmc",
-   "year": 2012,
+   "year": "2012-12",
    "part": "marketValue",
    "value": 86.83,
    "unit": "USD bn",
@@ -2889,7 +2889,7 @@
   },
   {
    "actor": "tsmc",
-   "year": 2022,
+   "year": "2022-12",
    "part": "marketValue",
    "value": 386.31,
    "unit": "USD bn",
@@ -2905,7 +2905,7 @@
   },
   {
    "actor": "tsmc",
-   "year": 2026,
+   "year": "2026-11",
    "part": "marketValue",
    "value": 1947,
    "unit": "USD bn",
@@ -2937,7 +2937,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 1999,
+   "year": "1999-12",
    "part": "marketValue",
    "value": 0.96,
    "unit": "USD bn",
@@ -2961,7 +2961,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 2006,
+   "year": "2006-12",
    "part": "marketValue",
    "value": 13.15,
    "unit": "USD bn",
@@ -2977,7 +2977,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 2012,
+   "year": "2012-12",
    "part": "marketValue",
    "value": 7.66,
    "unit": "USD bn",
@@ -2993,7 +2993,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 2017,
+   "year": "2017-12",
    "part": "marketValue",
    "value": 117.26,
    "unit": "USD bn",
@@ -3009,7 +3009,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 2022,
+   "year": "2022-12",
    "part": "marketValue",
    "value": 364.18,
    "unit": "USD bn",
@@ -3049,7 +3049,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 2025,
+   "year": "2025-10",
    "part": "marketValue",
    "value": 5000,
    "unit": "USD bn (first company past $5 trillion)",
@@ -3057,7 +3057,7 @@
   },
   {
    "actor": "nvidia",
-   "year": 2026,
+   "year": "2026-11",
    "part": "marketValue",
    "value": 4506,
    "unit": "USD bn",
@@ -3089,7 +3089,7 @@
   },
   {
    "actor": "google",
-   "year": 2017,
+   "year": "2017-12",
    "part": "marketValue",
    "value": 729.45,
    "unit": "USD bn",
@@ -3113,7 +3113,7 @@
   },
   {
    "actor": "google",
-   "year": 2026,
+   "year": "2026-11",
    "part": "marketValue",
    "value": 3490,
    "unit": "USD bn",
@@ -3153,7 +3153,7 @@
   },
   {
    "actor": "openai",
-   "year": 2019,
+   "year": "2019-02",
    "part": "parameters",
    "value": 1.5,
    "unit": "billion parameters (GPT-2)",
@@ -3161,7 +3161,7 @@
   },
   {
    "actor": "openai",
-   "year": 2020,
+   "year": "2020-05",
    "part": "parameters",
    "value": 175,
    "unit": "billion parameters (GPT-3)",
@@ -3169,7 +3169,7 @@
   },
   {
    "actor": "openai",
-   "year": 2023,
+   "year": "2023-01",
    "part": "users",
    "value": 100,
    "unit": "million monthly users, two months after release",
@@ -3177,7 +3177,7 @@
   },
   {
    "actor": "openai",
-   "year": 2025,
+   "year": "2025-10",
    "part": "valuation",
    "value": 500,
    "unit": "USD bn",
@@ -3193,7 +3193,7 @@
   },
   {
    "actor": "openai",
-   "year": 2026,
+   "year": "2026-02",
    "part": "users",
    "value": 900,
    "unit": "million weekly users",
@@ -3201,7 +3201,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2019,
+   "year": "2019-12",
    "part": "marketValue",
    "value": 1200,
    "unit": "USD bn (US$1.200 trillion)",
@@ -3209,7 +3209,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2023,
+   "year": "2023-12",
    "part": "marketValue",
    "value": 2794,
    "unit": "USD bn (US$2.794 trillion)",
@@ -3217,7 +3217,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2026,
+   "year": "2026-11",
    "part": "marketValue",
    "value": 3940,
    "unit": "USD bn (US$3.940 trillion)",
@@ -3233,7 +3233,7 @@
   },
   {
    "actor": "anthropic",
-   "year": 2026,
+   "year": "2026-05",
    "part": "valuation",
    "value": 965,
    "unit": "USD bn",
@@ -3369,7 +3369,7 @@
   },
   {
    "actor": "amd",
-   "year": 2006,
+   "year": "2006-12",
    "part": "marketValue",
    "value": 11.13,
    "unit": "USD bn",
@@ -3377,7 +3377,7 @@
   },
   {
    "actor": "amd",
-   "year": 2007,
+   "year": "2007-12",
    "part": "marketValue",
    "value": 4.54,
    "unit": "USD bn",
@@ -3385,7 +3385,7 @@
   },
   {
    "actor": "amd",
-   "year": 2025,
+   "year": "2025-12",
    "part": "marketValue",
    "value": 350.01,
    "unit": "USD bn",
@@ -3393,7 +3393,7 @@
   },
   {
    "actor": "amd",
-   "year": 2026,
+   "year": "2026-11",
    "part": "marketValue",
    "value": 736.46,
    "unit": "USD bn",
@@ -3441,7 +3441,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 1997,
+   "year": "1997-12",
    "part": "marketValue",
    "value": 157.36,
    "unit": "USD bn",
@@ -3449,7 +3449,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2006,
+   "year": "2006-12",
    "part": "marketValue",
    "value": 291.94,
    "unit": "USD bn",
@@ -3457,7 +3457,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2012,
+   "year": "2012-12",
    "part": "marketValue",
    "value": 223.66,
    "unit": "USD bn",
@@ -3465,7 +3465,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2020,
+   "year": "2020-12",
    "part": "marketValue",
    "value": 1681,
    "unit": "USD bn (US$1.681 trillion)",
@@ -3473,7 +3473,7 @@
   },
   {
    "actor": "microsoft",
-   "year": 2022,
+   "year": "2022-12",
    "part": "marketValue",
    "value": 1787,
    "unit": "USD bn (US$1.787 trillion)",
@@ -3481,7 +3481,7 @@
   },
   {
    "actor": "google",
-   "year": 2020,
+   "year": "2020-12",
    "part": "marketValue",
    "value": 1185,
    "unit": "USD bn (US$1.185 trillion)",
@@ -3489,7 +3489,7 @@
   },
   {
    "actor": "google",
-   "year": 2022,
+   "year": "2022-12",
    "part": "marketValue",
    "value": 1145,
    "unit": "USD bn (US$1.145 trillion)",
@@ -3590,7 +3590,7 @@
    "advantage": "a solid-state switch",
    "power": "cornered resource",
    "triad": "information",
-   "mechanism": "Three Bell Labs physicists made a working solid-state amplifier at a laboratory that employed 9,000 by the war's end and was financed by a regulated telephone monopoly.",
+   "mechanism": "Three Bell Labs physicists made the transistor at a laboratory that employed 9,000 by the war's end, part of the Bell System.",
    "outcome": "Bardeen, Brattain and Shockley shared the 1956 Nobel Prize; Bell Labs work has since won eleven Nobel Prizes in all (a count to 2026).",
    "facts": [
     "lineage-bell-transistor-1947",
@@ -3637,11 +3637,11 @@
     "texas-instruments"
    ],
    "allies": [],
-   "advantage": "a manufacturable chip, patented",
+   "advantage": "a flat, manufacturable chip",
    "power": "patents",
    "triad": "execution",
-   "mechanism": "Hoerni's planar process let Noyce put every component on one flat silicon chip that could be mass-produced; Kilby's 1958 circuit at Texas Instruments was a hybrid, not a monolithic chip.",
-   "outcome": "Fairchild licensed Hoerni's planar 2N1613 across the industry, and a 1960 planar circuit with four transistors on one silicon wafer was the first silicon integrated circuit.",
+   "mechanism": "Fairchild developed the planar process in 1959 and Robert Noyce invented the monolithic integrated circuit; Kilby's 1958 circuit at Texas Instruments was a hybrid.",
+   "outcome": "Fairchild licensed Hoerni's planar 2N1613 across the industry.",
    "facts": [
     "lineage-fairchild-planar-1959",
     "lineage-noyce-monolithic-ic-1959",
@@ -3668,8 +3668,8 @@
    "advantage": "a computer on one chip",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "Intel's silicon-gate process doubled circuit density, putting 2,300 transistors on one chip built for a Japanese calculator maker.",
-   "outcome": "The 4004 launched on 15 November 1971; Moore revised his law to a doubling every two years in 1975.",
+   "mechanism": "Intel's silicon-gate process put 2,300 transistors on one chip, built for Busicom.",
+   "outcome": "Intel introduced the 4004 in 1971; in 1975 Moore revised his forecast to a doubling every two years.",
    "facts": [
     "story-ai-intel-4004-transistors",
     "lineage-intel-4004-1971",
@@ -3689,10 +3689,10 @@
    "allies": [
     "compaq"
    ],
-   "advantage": "the instruction set every PC maker needed",
+   "advantage": "the chip inside the IBM PC and its clones",
    "power": "switching costs",
    "triad": "environment",
-   "mechanism": "The IBM PC used an Intel 8088; Compaq's 1986 80386 clone beat IBM to the next chip and made Intel the key supplier, after Japanese memory makers squeezed Intel out of DRAM in 1983.",
+   "mechanism": "The IBM PC used an Intel 8088; after Japanese memory makers squeezed Intel's profits in 1983, Andy Grove refocused it on microprocessors, and Compaq's 1986 80386 system beat IBM to the next chip and made Intel a key component supplier.",
    "outcome": "Intel became a microprocessor company: the 4004's field became its primary business only in the early 1980s, while IBM's 1980 gross income was $26.2 billion and Compaq's sales reached $329 million in 1986.",
    "facts": [
     "lineage-ibm-pc-8088-1981",
@@ -3721,7 +3721,7 @@
    "advantage": "manufacturing for everyone's designs",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "A Taiwanese government-backed joint venture, with Philips taking 27.6 percent for $58 million and the government's development fund providing 48.3 percent of the capital, built chips only for others, so any designer could start a company without a fab.",
+   "mechanism": "A joint venture of Taiwan's government, ITRI and private investors, with Philips taking 27.6 percent for $58 million and the government's development fund providing 48.3 percent of the capital, became the world's first dedicated foundry.",
    "outcome": "TSMC held 72.5% of top-10 foundry revenue in Q2 2026 and 79% of its Q3 2026 wafer revenue came from 7nm and below.",
    "facts": [
     "lineage-tsmc-founded-1987",
@@ -3746,7 +3746,7 @@
    "advantage": "a single-chip graphics processor",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "After nearly dying in 1996 (staff cut from 100 to 40) Nvidia put 17 million transistors on a TSMC-made chip it marketed as the first GPU.",
+   "mechanism": "After cutting its staff from 100 to 40 in 1996, Nvidia put 17 million transistors, made by TSMC, on the GeForce 256, its first product marketed as a GPU.",
    "outcome": "Nvidia listed in January 1999 with $0.37 billion of revenue, level with 3dfx's $360.5 million that year; in December 2000 it agreed to acquire 3dfx's intellectual assets.",
    "facts": [
     "lineage-geforce-256-1999",
@@ -3768,11 +3768,11 @@
     "amd"
    ],
    "allies": [],
-   "advantage": "a programming platform on every GeForce",
+   "advantage": "a development environment for its chips",
    "power": "switching costs",
    "triad": "information",
-   "mechanism": "Created in 2004 and released in 2007, CUDA let researchers write general programs for graphics chips already sitting in their machines.",
-   "outcome": "CUDA was downloaded 150 thousand times in 2008, counted more than 120,000 developers in 2011, and is now 20 years old with 6 million developers.",
+   "mechanism": "Created in 2004 and released in 2007, CUDA is Nvidia's development environment.",
+   "outcome": "CUDA was downloaded 150 thousand times in 2008 and counted more than 120,000 developers in 2011; in March 2026, twenty years old by Nvidia's count, it had 6 million developers.",
    "facts": [
     "lineage-cuda-released-2007",
     "moats-nvidia-cuda-developers",
@@ -3791,11 +3791,11 @@
    "allies": [
     "alexnet-team"
    ],
-   "advantage": "deep learning only worked on GPUs",
+   "advantage": "deep learning trained on its GPUs",
    "power": "technology",
    "triad": "information",
-   "mechanism": "Krizhevsky, Sutskever and Hinton trained a 60-million-parameter network for five to six days on two $500 gaming cards, beating the runner-up by more than ten points.",
-   "outcome": "Top-5 error 15.3%; the field moved to GPUs and Nvidia's chips became research infrastructure.",
+   "mechanism": "Krizhevsky, Sutskever and Hinton trained a 60-million-parameter network for five to six days on two GTX 580s, $500 each.",
+   "outcome": "Top-5 error 15.3%, more than 10.8 points ahead of the runner-up.",
    "facts": [
     "lineage-alexnet-two-gtx580-2012",
     "story-ai-alexnet-error",
@@ -3815,7 +3815,7 @@
    "advantage": "an architecture that parallelises on GPUs",
    "power": "cornered resource",
    "triad": "information",
-   "mechanism": "Eight Google researchers dropped recurrence, which had kept sequence models from being accelerated on GPUs; the base model trained in 12 hours and the big model in 3.5 days on eight P100 GPUs, and the advantage was published rather than kept.",
+   "mechanism": "Eight Google researchers built the Transformer on attention alone; earlier models with recurrence had been hard to accelerate on GPUs. The base model trained in 12 hours and the big model in 3.5 days on eight P100 GPUs, and Google published it.",
    "outcome": "The big model had 213 million parameters; the paper has been cited more than 150,000 times; all eight authors later left Google.",
    "facts": [
     "lineage-attention-transformer-2017",
@@ -3843,7 +3843,7 @@
    "advantage": "the bet that loss falls as a power law with scale",
    "power": "scale economies",
    "triad": "information",
-   "mechanism": "Kaplan et al. showed loss falls as a power law in size, data and compute; OpenAI turned that into GPT-3, ten times larger than any prior dense model and 3,640 petaflop/s-days of training, on Microsoft's compute after Microsoft's $1 billion in 2019.",
+   "mechanism": "Kaplan et al. showed loss falls as a power law in size, data and compute; OpenAI built GPT-3, ten times larger than any prior dense model and 3,640 petaflop/s-days of training, after Microsoft invested $1 billion in 2019.",
    "outcome": "Parameters went 117 million (2018), 1.5 billion (2019), 175 billion (2020); Microsoft licensed GPT-3 exclusively in September 2020; OpenAI was valued at $14 billion in 2021 and $29 billion in 2023.",
    "facts": [
     "lineage-scaling-laws-2020",
@@ -3876,7 +3876,7 @@
    "power": "branding",
    "triad": "execution",
    "mechanism": "A chat interface on a scaled transformer reached 100 million monthly users in two months, with Microsoft adding $10 billion and Azure compute in January 2023.",
-   "outcome": "900 million weekly users by February 2026; OpenAI valued at $29 billion in 2023, $500 billion in October 2025 and $852 billion in March 2026.",
+   "outcome": "900 million weekly users by February 2026; OpenAI valued at $29 billion in 2023, $500 billion in October 2025 and later $852 billion.",
    "facts": [
     "lineage-chatgpt-release-2022",
     "lineage-chatgpt-users-2026",
@@ -3902,10 +3902,10 @@
    "allies": [
     "tsmc"
    ],
-   "advantage": "every frontier lab runs on its GPUs",
+   "advantage": "the largest share of AI accelerators",
    "power": "switching costs",
    "triad": "environment",
-   "mechanism": "Demand from clouds and labs for CUDA systems took Nvidia from $1 trillion to $2 trillion in 180 days and to $5 trillion on 29 October 2025.",
+   "mechanism": "Nvidia went from $1 trillion to $2 trillion in 180 days and became the first company worth $5 trillion on 29 October 2025.",
    "outcome": "Nvidia is valued at $4.506 trillion in November 2026; analysts project a 75% accelerator share for 2026, down from a peak near 87% in 2024.",
    "facts": [
     "story-ai-nvidia-1tn-2023",
@@ -3928,7 +3928,7 @@
    "advantage": "switching costs under test",
    "power": "switching costs",
    "triad": "information",
-   "mechanism": "A cheaper model trained on 2.788 million H800 GPU hours briefly broke the belief that scale needs ever more Nvidia chips.",
+   "mechanism": "DeepSeek-V3, by its authors' account, needed only 2.788 million H800 GPU hours to train.",
    "outcome": "NVIDIA lost over $589 billion of market value in a day, then recovered and passed $5 trillion in October.",
    "facts": [
     "entry-deepseek-v3-gpu-hours",
@@ -3950,7 +3950,7 @@
     "google",
     "openai"
    ],
-   "advantage": "customers' fear of falling behind",
+   "advantage": "its customers' capital spending",
    "power": "capital",
    "triad": "environment",
    "mechanism": "Five hyperscalers are forecast to spend $803 to $828 billion in 2026; Daloopa finds that over eight quarters NVIDIA's data-centre revenue equalled 39% to 47% of hyperscaler capex, 45% in the latest quarter it measured.",
@@ -3974,7 +3974,7 @@
     "united-states",
     "ussr"
    ],
-   "what": "One economy producing half of world industrial output sets the monetary order, funds Europe and out-competes a planned rival.",
+   "what": "One economy producing half of world industrial output sets the monetary order, funds Europe and outproduces the Soviet Union.",
    "facts": [
     "story-ai-us-half-industrial",
     "story-ai-marshall-plan",
@@ -3992,7 +3992,7 @@
     "fairchild",
     "texas-instruments"
    ],
-   "what": "Invention at a monopoly lab passes, through defection and patents, to venture-funded start-ups.",
+   "what": "From the transistor at Bell Labs to the integrated circuit at Texas Instruments and Fairchild.",
    "facts": [
     "lineage-bell-transistor-1947",
     "lineage-traitorous-eight-names",
@@ -4024,7 +4024,7 @@
     "intel",
     "microsoft"
    ],
-   "what": "Intel moves from memory to the x86 as IBM-compatible PCs spread.",
+   "what": "The microprocessor becomes Intel's primary business with the IBM PC.",
    "facts": [
     "lineage-intel-4004-1971",
     "lineage-ibm-pc-8088-1981",
@@ -4041,7 +4041,7 @@
     "tsmc",
     "nvidia"
    ],
-   "what": "TSMC builds for designers who own no fab; Nvidia is the clearest fabless winner.",
+   "what": "TSMC, the first dedicated foundry, makes chips designed by others, Nvidia's among them.",
    "facts": [
     "lineage-tsmc-founded-1987",
     "story-ai-tsmc-philips",
@@ -4057,7 +4057,7 @@
     "nvidia",
     "3dfx"
    ],
-   "what": "Gaming pays for a programmable parallel processor; CUDA makes it general.",
+   "what": "From the GeForce 256 to CUDA.",
    "facts": [
     "lineage-geforce-256-1999",
     "lineage-cuda-released-2007",
@@ -4074,7 +4074,7 @@
     "alexnet-team",
     "google"
    ],
-   "what": "AlexNet proves that GPUs make deep learning practical; Nvidia's value rises from $7.66 billion to $117.26 billion.",
+   "what": "AlexNet trains on two Nvidia GPUs; Nvidia's market value rises from $7.66 billion at the end of 2012 to $117.26 billion at the end of 2017.",
    "facts": [
     "lineage-alexnet-two-gtx580-2012",
     "story-ai-nvidia-mcap-2012",
@@ -4091,7 +4091,7 @@
     "openai",
     "microsoft"
    ],
-   "what": "The transformer is published, OpenAI scales it, Microsoft supplies the compute.",
+   "what": "The transformer is published; OpenAI scales it to GPT-3, with Microsoft's investment.",
    "facts": [
     "lineage-attention-transformer-2017",
     "lineage-scaling-laws-2020",
@@ -4111,7 +4111,7 @@
     "anthropic",
     "google"
    ],
-   "what": "ChatGPT, trillion-dollar chips, and a near-trillion-dollar valuation for each of two labs.",
+   "what": "ChatGPT, Nvidia's trillions, and valuations near a trillion dollars for two labs.",
    "facts": [
     "lineage-chatgpt-release-2022",
     "story-ai-nvidia-1tn-2023",
@@ -4201,7 +4201,7 @@
     },
     {
      "source": "regulation",
-     "what": "divestiture on 1 January 1984 ended the model",
+     "what": "the Bell System's structure, until its divestiture on 1 January 1984",
      "facts": [
       "century-bell-divestiture-1984"
      ]
@@ -4737,7 +4737,7 @@
    "qid": "Q182031",
    "born": 1923,
    "died": 2005,
-   "role": "built the first integrated circuit at Texas Instruments",
+   "role": "built a hybrid integrated circuit at Texas Instruments in 1958",
    "actors": [
     "texas-instruments"
    ],
@@ -4809,7 +4809,7 @@
    "qid": "Q92894",
    "born": 1947,
    "died": null,
-   "role": "advised AlexNet at the University of Toronto",
+   "role": "co-author of AlexNet",
    "actors": [
     "alexnet-team"
    ],
@@ -4882,7 +4882,7 @@
    "qid": "Q7407093",
    "born": 1985,
    "died": null,
-   "role": "co-chair at OpenAI's founding, later its chief executive",
+   "role": "chief executive of OpenAI",
    "actors": [
     "openai"
    ],
@@ -4896,7 +4896,7 @@
    "qid": "Q1528185",
    "born": 1896,
    "died": 1971,
-   "role": "backer who created the semiconductor division for the eight",
+   "role": "backer of the eight's company",
    "actors": [
     "fairchild"
    ],
@@ -4926,7 +4926,7 @@
    "qid": "Q102649624",
    "born": null,
    "died": null,
-   "role": "lead author of the 2020 scaling-laws paper, later a co-founder of Anthropic",
+   "role": "lead author of the 2020 scaling-laws paper",
    "actors": [
     "openai"
    ],

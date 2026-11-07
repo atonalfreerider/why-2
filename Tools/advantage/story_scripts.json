@@ -1,0 +1,700 @@
+{
+ "measured": "dates, counts and values: verified facts, each quote found on its source",
+ "judged": "the walls of each advantage (0 to 4)",
+ "assumed": "sizes are the cube root of each measure in shared units (1,000 under arms = a ship = $1 billion, or £1 million of the time, = 100,000 people; £1 = 24 livres); a value is drawn from its date and held 8 years for a people or a debt, 5 for money, 3 for an army, half a year for a battle or a loss; a people's count may stand 3 years before it was taken",
+ "stories": [
+  {
+   "id": "ai",
+   "title": "The AI revolution",
+   "intro": "From the American century to the AI revolution: how the advantage in computing moved from a nation to a laboratory, to the engineers who walked out of its inventor's company, to a chip designer, and to the labs that scaled a published idea.",
+   "end": "The advantage kept moving: from a nation that made half the world's industrial output, to the Bell System's laboratory, to eight engineers who walked out of Shockley's, to the first dedicated foundry, to the designer whose chips trained AlexNet, to the labs that scaled a paper Google published. Explore any year with the panel, or play the age of revolutions.",
+   "stops": [
+    {
+     "id": "ai_century",
+     "title": "The American century",
+     "text": "After the Second World War the United States made half of the world's industrial output and held 80% of its gold. At Bretton Woods it made the system rest on gold and the dollar, and under the Marshall Plan it sent $13.3 billion to 17 European countries. In 1950 its GDP was 1,456 billion 1990 dollars; the Soviet Union's was 510.",
+     "reading": "Each tube is one actor through time, as thick as what it measured; open a year to see the bodies side by side.",
+     "facts": [
+      "story-ai-us-half-industrial",
+      "story-ai-us-gold-80",
+      "story-ai-bretton-gold-two-thirds",
+      "story-ai-marshall-plan",
+      "story-ai-gdp-1950",
+      "story-ai-luce-1941"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1945:pop=henry-luce,united-states,ussr",
+       "words": "Every actor in this story is a tube through time. Its thickness is what it measured: a nation's output, a company's value, a laboratory's users. Time runs from left to right, from nineteen forty-five to today. In nineteen forty-one, the publisher Henry Luce had urged his country to give up isolation for a role in the world."
+      },
+      {
+       "show": "history:ai:1950:x:pop=henry-luce,united-states,ussr",
+       "words": "Open the year nineteen fifty, and the tubes swell into bodies. After the Second World War, the United States made half of the world's industrial output and held eighty percent of its gold. At Bretton Woods it insisted that the monetary system rest on gold and the dollar, and under the Marshall Plan it sent thirteen point three billion dollars to seventeen European countries. By nineteen fifty its economy was nearly three times the Soviet Union's."
+      }
+     ]
+    },
+    {
+     "id": "ai_transistor",
+     "title": "The transistor",
+     "text": "In 1947 John Bardeen, Walter Brattain and William Shockley of Bell Labs invented the transistor. Before its 1984 breakup the Bell System was AT&T, 24 local companies and Western Electric. The three shared the 1956 Nobel Prize in Physics; work done at Bell Labs has won eleven Nobel Prizes. Its ring, as the research records it: technology, talent, the Bell System's capital, and the regulation that ended it in 1984.",
+     "reading": "The small body is Bell Labs, 9,000 employees at the war's end; the large one is the American economy, 1,474 billion 1990 dollars in 1945.",
+     "facts": [
+      "lineage-bell-transistor-1947",
+      "century-bell-breakup",
+      "lineage-nobel-1956",
+      "story-ai-bell-nobels",
+      "story-ai-bell-staff-wwii",
+      "story-ai-gdp-1945-us",
+      "century-bell-divestiture-1984"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1947.958:x:sel=bell-labs:pop=john-bardeen,walter-brattain,william-shockley,bell-labs",
+       "words": "Now look how small the next advantage is. In nineteen forty-seven, three physicists at Bell Labs, John Bardeen, Walter Brattain and William Shockley, invented the transistor. Before its breakup in nineteen eighty-four, the Bell System was AT&T, twenty-four local telephone companies, and Western Electric, which made almost all of its equipment. The three shared the Nobel Prize in Physics in nineteen fifty-six. Work done at Bell Labs has won eleven Nobel Prizes. Its ring of advantage is technology, talent, the Bell System's capital, and the regulation that ended it in nineteen eighty-four."
+      }
+     ]
+    },
+    {
+     "id": "ai_eight",
+     "title": "The traitorous eight",
+     "text": "In 1955 Shockley founded his own laboratory. Eight of its engineers, Robert Noyce and Gordon Moore among them, left and founded Fairchild Semiconductor on 18 September 1957 with Sherman Fairchild's backing, to make transistors of silicon when germanium was still the common material. Its first transistor, the 1958 2N697, went to IBM: a first batch of 100 at $150 apiece. Its alumni went on to create dozens of companies, Intel and AMD among them.",
+     "reading": "Fairchild's body is the $1.38 million the eight raised; Shockley's laboratory, its 32 employees of September 1956.",
+     "facts": [
+      "lineage-shockley-lab-1955",
+      "lineage-traitorous-eight-names",
+      "story-ai-fairchild-eight-names",
+      "lineage-fairchild-founded-1957",
+      "story-ai-fairchild-silicon",
+      "story-ai-fairchild-2n697",
+      "lineage-fairchildren-1960",
+      "story-ai-fairchild-raised-1957",
+      "story-ai-shockley-staff-1956"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1957.708:x:sel=fairchild:pop=robert-noyce,gordon-moore,sherman-fairchild,fairchild",
+       "words": "In nineteen fifty-five, Shockley founded a laboratory of his own. Two years later, eight of his engineers walked out. Among them were Robert Noyce and Gordon Moore. With backing from Sherman Fairchild, they founded Fairchild Semiconductor on the eighteenth of September nineteen fifty-seven, to make transistors of silicon when germanium was still the common material. Its first transistor, the 2N697 of nineteen fifty-eight, went to IBM: a first batch of one hundred, at a hundred and fifty dollars apiece. Fairchild became an incubator of Silicon Valley: its alumni created dozens of companies, Intel and AMD among them."
+      }
+     ]
+    },
+    {
+     "id": "ai_chip",
+     "title": "The integrated circuit",
+     "text": "In 1958 Jack Kilby built a hybrid integrated circuit at Texas Instruments. In 1959 Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in 2000 for his part in the invention.",
+     "reading": "Moments are sparks on the holder's lane; dashed ties run to its rivals, gold ones to its allies.",
+     "facts": [
+      "story-ai-kilby-1958",
+      "lineage-fairchild-planar-1959",
+      "lineage-noyce-monolithic-ic-1959",
+      "lineage-kilby-nobel-2000",
+      "story-ai-kilby-hybrid"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1959:pop=jack-kilby,robert-noyce,texas-instruments,fairchild",
+       "words": "At Texas Instruments in nineteen fifty-eight, Jack Kilby built a hybrid integrated circuit. In nineteen fifty-nine, Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in two thousand for his part in the invention."
+      }
+     ]
+    },
+    {
+     "id": "ai_microprocessor",
+     "title": "The microprocessor",
+     "text": "Noyce and Moore founded Intel in 1968, and Federico Faggin left Fairchild for Intel in 1970. In 1971 Intel introduced the 4004, built for Busicom: 2,300 transistors on one chip, made possible by the silicon-gate process. In 1975 Moore revised his forecast to a doubling of components every two years.",
+     "reading": "The gold cursor is the year; the brackets above the lanes are the periods.",
+     "facts": [
+      "lineage-intel-founded-1968",
+      "lineage-faggin-left-fairchild-1970",
+      "lineage-intel-4004-1971",
+      "story-ai-intel-4004-transistors",
+      "story-ai-moore-1975-two-years"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1971.875:sel=intel:pop=robert-noyce,gordon-moore,federico-faggin,intel",
+       "words": "In nineteen sixty-eight, Noyce and Moore founded Intel. In nineteen seventy, Federico Faggin left Fairchild for Intel, to design its first microprocessors. In nineteen seventy-one, Intel introduced the four-oh-oh-four, built for Busicom: two thousand three hundred transistors on a single chip, which the silicon-gate process made possible. In nineteen seventy-five, Moore revised his forecast to a doubling of components every two years."
+      }
+     ]
+    },
+    {
+     "id": "ai_pc",
+     "title": "The PC and the x86",
+     "text": "Intel made the first commercial microprocessor, but the PC made it Intel's primary business. The IBM PC, released on 12 August 1981, used an Intel 8088. In 1983 Japanese memory makers squeezed Intel's profits and Andy Grove refocused it on microprocessors. In 1986 Compaq, the first IBM PC clone maker, shipped the first 80386 system, beating IBM and making Intel a key component supplier. At the end of 1999 Intel was worth $274.43 billion.",
+     "reading": "Opened: Intel, unmeasured here, walled by technology, distribution, scale and capital; IBM beside it, by its 1980 income.",
+     "facts": [
+      "lineage-ibm-pc-8088-1981",
+      "story-ai-intel-pc-primary",
+      "lineage-intel-japan-dram-1983",
+      "lineage-compaq-386-1986",
+      "story-ai-intel-mcap-1999",
+      "story-ai-ibm-income-1980"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1981.625:sel=intel:pop=andy-grove,intel,ibm,compaq",
+       "words": "Intel made the first commercial microprocessor, but it was the personal computer that made it Intel's primary business. On the twelfth of August nineteen eighty-one, IBM released its PC, with an Intel 8088 processor."
+      },
+      {
+       "show": "history:ai:1981.625:x:sel=intel:pop=andy-grove,intel,ibm,compaq",
+       "words": "In nineteen eighty-three, Japanese memory makers squeezed Intel's profits, and Andy Grove refocused the company on microprocessors. In nineteen eighty-six Compaq, the first maker of IBM clones, shipped the first system based on Intel's 80386, beating IBM, and making Intel a key component supplier. By the end of nineteen ninety-nine, Intel was worth two hundred and seventy-four point four billion dollars."
+      }
+     ]
+    },
+    {
+     "id": "ai_foundry",
+     "title": "The foundry",
+     "text": "In 1987 Taiwan's government, its research institute ITRI and private investors founded TSMC, the world's first dedicated foundry, with Morris Chang at its head. Philips put up $58 million and its production technology for 27.6% of it. In the second quarter of 2026 TSMC took 72.5% of the revenue of the ten largest foundries.",
+     "reading": "TSMC's first measure is the $58 million Philips put up for 27.6% of it; its tube grows into one of the thickest.",
+     "facts": [
+      "lineage-tsmc-founded-1987",
+      "story-ai-tsmc-chang-first-foundry",
+      "story-ai-tsmc-philips",
+      "compute-tsmc-foundry-share"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1987:sel=tsmc:pop=morris-chang,tsmc,taiwan",
+       "words": "In nineteen eighty-seven, Taiwan's government, its research institute and private investors founded TSMC, the world's first dedicated semiconductor foundry. Morris Chang founded it. Philips put in fifty-eight million dollars and its production technology, for a stake of twenty-seven point six percent. In the second quarter of twenty twenty-six, TSMC took seventy-two and a half percent of the revenue of the world's ten largest foundries."
+      }
+     ]
+    },
+    {
+     "id": "ai_gpu",
+     "title": "The GPU",
+     "text": "In 1996 Jensen Huang cut Nvidia from 100 people to 40 to focus on one chip. Nvidia went public on 22 January 1999, and late that year released the GeForce 256, the first product it called a GPU: 17 million transistors, made by TSMC. At the end of 1999 Nvidia was worth $0.96 billion, Intel $274.43 billion. In December 2000 Nvidia agreed to buy 3dfx's intellectual assets.",
+     "reading": "Compare the bodies in 1999: Intel's market value against Nvidia's.",
+     "facts": [
+      "story-ai-nvidia-1996-layoff",
+      "lineage-nvidia-ipo-1999",
+      "lineage-geforce-256-1999",
+      "story-ai-geforce256-transistors",
+      "story-ai-nvidia-mcap-1999",
+      "story-ai-intel-mcap-1999",
+      "lineage-nvidia-acquires-3dfx-2000"
+     ],
+     "say": [
+      {
+       "show": "history:ai:1996.5:sel=nvidia:pop=jensen-huang,nvidia,tsmc,3dfx",
+       "words": "In nineteen ninety-six, Jensen Huang laid off more than half of Nvidia's people, from a hundred to forty, to focus on one chip, the RIVA 128."
+      },
+      {
+       "show": "history:ai:1999.96:x:sel=nvidia:pop=jensen-huang,nvidia,intel,3dfx",
+       "words": "In January nineteen ninety-nine it went public, and late that year it released the GeForce two fifty-six, the first product it called a GPU: seventeen million transistors, made by TSMC. Open nineteen ninety-nine and compare the bodies. Intel was worth two hundred and seventy-four billion dollars. Nvidia was worth less than one billion. A year later it agreed to buy the intellectual assets of its rival, 3dfx."
+      }
+     ]
+    },
+    {
+     "id": "ai_cuda",
+     "title": "CUDA",
+     "text": "CUDA, Nvidia's development environment, was created in 2004 and released in 2007. In March 2026, twenty years old by Nvidia's count, it had 6 million developers, and it dominates the market for GPU development against AMD's ROCm.",
+     "reading": "Nvidia's body: $13.15 billion at the end of 2006.",
+     "facts": [
+      "lineage-cuda-released-2007",
+      "moats-nvidia-cuda-developers",
+      "compute-cuda-dominates",
+      "story-ai-nvidia-mcap-2006"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2007.125:x:sel=nvidia:pop=jensen-huang,nvidia,amd",
+       "words": "In two thousand seven, Nvidia released CUDA, its development environment, created three years before. In March twenty twenty-six, twenty years old by Nvidia's count, CUDA had six million developers, and it dominates the market for GPU development against AMD's alternative."
+      }
+     ]
+    },
+    {
+     "id": "ai_alexnet",
+     "title": "AlexNet",
+     "text": "In 2012 Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton trained AlexNet, 60 million parameters, for five to six days on two Nvidia GTX 580s, $500 each. It won ImageNet with a top-5 error of 15.3%, more than 10.8 points ahead. At the end of 2012 Nvidia was worth $7.66 billion, Intel $101.94 billion and TSMC $86.83 billion; at the end of 2017 Nvidia was worth $117.26 billion.",
+     "reading": "In 2012 Intel ($101.94 billion) and TSMC ($86.83 billion) dwarf Nvidia.",
+     "facts": [
+      "story-ai-alexnet-params",
+      "lineage-alexnet-two-gtx580-2012",
+      "lineage-gtx580-price-500",
+      "story-ai-alexnet-error",
+      "story-ai-nvidia-mcap-2012",
+      "story-ai-nvidia-mcap-2017",
+      "story-ai-intel-mcap-2012",
+      "story-ai-tsmc-mcap-2012"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2012.96:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton,nvidia",
+       "words": "In twenty twelve, Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton trained AlexNet, a network of sixty million parameters, for five to six days on two Nvidia GTX 580s, priced at five hundred dollars each. It won the twenty twelve ImageNet competition with a top-five error of fifteen point three percent, more than ten point eight points better than the runner-up. Look at the bodies. At the end of twenty twelve, Nvidia was worth seven point six six billion dollars, Intel a hundred and one point nine billion, and TSMC eighty-six point eight billion. At the end of twenty seventeen, Nvidia was worth a hundred and seventeen point three billion."
+      }
+     ]
+    },
+    {
+     "id": "ai_attention",
+     "title": "Attention Is All You Need",
+     "text": "On 12 June 2017 eight Google researchers posted the Transformer, built on attention alone. Earlier models with recurrence were hard to spread across GPUs; the Transformer reached 41.8 BLEU after 3.5 days on eight GPUs. Google published it, all eight authors later left, and the paper has been cited more than 150,000 times.",
+     "reading": "Google in 2017: $729.45 billion of market value, $110.85 billion of revenue.",
+     "facts": [
+      "lineage-attention-transformer-2017",
+      "story-ai-transformer-authors",
+      "story-ai-transformer-gpu-parallel",
+      "lineage-attention-bleu-8gpu",
+      "story-ai-transformer-authors-left",
+      "story-ai-transformer-citations",
+      "story-ai-google-mcap-2017",
+      "story-ai-google-rev-2017"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2017.96:x:sel=google:pop=ashish-vaswani,noam-shazeer,llion-jones,google",
+       "words": "On the twelfth of June twenty seventeen, eight researchers at Google posted a paper called Attention Is All You Need. Earlier models, built with recurrence, were hard to spread across GPUs. The Transformer was built on attention alone, and reached forty-one point eight BLEU in English to French after three and a half days on eight GPUs. Google published it. All eight authors later left the company, and the paper has been cited more than a hundred and fifty thousand times."
+      }
+     ]
+    },
+    {
+     "id": "ai_scaling",
+     "title": "Scaling",
+     "text": "GPT-1 had 117 million parameters; the full GPT-2, in November 2019, 1.5 billion. In January 2020 Kaplan and colleagues found that loss falls as a power law in model size, data and compute. GPT-3, in May 2020, had 175 billion, ten times any earlier dense model. Microsoft had invested $1 billion in 2019, and licensed GPT-3 exclusively in September 2020.",
+     "reading": "OpenAI's tube follows its parameters: 117 million, 1.5 billion, 175 billion; opened, its body is the $1 billion Microsoft invested in 2019.",
+     "facts": [
+      "story-ai-gpt1-params",
+      "story-ai-gpt2-params",
+      "lineage-scaling-laws-2020",
+      "lineage-gpt3-175b-2020",
+      "story-ai-microsoft-openai-2019",
+      "story-ai-gpt3-microsoft-licence"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2019.9:sel=openai:pop=sam-altman,ilya-sutskever,openai",
+       "words": "Watch OpenAI's tube. GPT-1 had a hundred and seventeen million parameters. The full GPT-2, in November twenty nineteen, had one and a half billion. In January twenty twenty, Kaplan and his colleagues showed that a language model's loss falls as a power law as its size, its data and its compute grow, over more than seven orders of magnitude."
+      },
+      {
+       "show": "history:ai:2020.375:x:sel=openai:pop=sam-altman,openai,microsoft",
+       "words": "In May came GPT-3: a hundred and seventy-five billion parameters, ten times any earlier dense model. Microsoft had invested a billion dollars in twenty nineteen, and in September twenty twenty it licensed GPT-3 exclusively."
+      }
+     ]
+    },
+    {
+     "id": "ai_chatgpt",
+     "title": "ChatGPT",
+     "text": "ChatGPT was released on 30 November 2022 and had 100 million monthly users two months later. In January 2023 Microsoft invested another $10 billion, much of it for Azure compute. By February 2026 ChatGPT had 900 million weekly users. OpenAI was valued at $500 billion in October 2025, and later at $852 billion.",
+     "reading": "Early 2023: OpenAI's body is the $29 billion valuation of Microsoft's 2023 investment; its lobe, ChatGPT's 100 million monthly users.",
+     "facts": [
+      "lineage-chatgpt-release-2022",
+      "lineage-chatgpt-users-2026",
+      "story-ai-microsoft-openai-2023",
+      "story-ai-openai-500bn-2025",
+      "labs-openai-valuation",
+      "story-ai-openai-val-2023"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2023.1:x:sel=openai:pop=sam-altman,openai,microsoft,google",
+       "words": "On the thirtieth of November twenty twenty-two, OpenAI released ChatGPT. Two months later it had a hundred million monthly users. In January twenty twenty-three, Microsoft invested another ten billion dollars, much of it to be spent on Azure computing. By February twenty twenty-six, ChatGPT had nine hundred million weekly users. In October twenty twenty-five, OpenAI was valued at five hundred billion dollars, and later at eight hundred and fifty-two billion."
+      }
+     ]
+    },
+    {
+     "id": "ai_test",
+     "title": "A test of the walls",
+     "text": "DeepSeek-V3 needed only 2.788 million H800 GPU hours to train, by its authors' account. On 27 January 2025 Nvidia lost more than $589 billion of market value, which Forbes called the biggest single-day loss for any company.",
+     "reading": "A wall is tested when a rival finds a way around it.",
+     "facts": [
+      "entry-deepseek-v3-gpu-hours",
+      "entry-deepseek-nvidia-record-loss"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2025.042:sel=nvidia:pop=jensen-huang,nvidia,deepseek",
+       "words": "The lab DeepSeek's V3 model, by its authors' account, had needed only two point seven eight eight million GPU hours to train. On the twenty-seventh of January twenty twenty-five, Nvidia lost more than five hundred and eighty-nine billion dollars of market value, which Forbes called the biggest single-day loss for any company."
+      }
+     ]
+    },
+    {
+     "id": "ai_trillions",
+     "title": "Five trillion dollars",
+     "text": "In 2023 Nvidia became the seventh US company worth $1 trillion. It then went from $1 trillion to $2 trillion in 180 days; Apple and Microsoft each took over 500. On 29 October 2025 it became the first company worth $5 trillion. Its share of AI accelerators is expected to be about 75% in 2026, down from a peak near 87% in 2024. Its advantage, as the research records it: technology, supply, patents, capital, talent and scale.",
+     "reading": "Nvidia's ring has six walls: technology, supply, patents, capital, talent and scale.",
+     "facts": [
+      "story-ai-nvidia-1tn-2023",
+      "lineage-nvidia-2tn-180-days",
+      "lineage-nvidia-5tn-2025",
+      "compute-nvidia-accel-share"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2025.792:x:sel=nvidia:pop=jensen-huang,nvidia,tsmc,amd",
+       "words": "In twenty twenty-three, Nvidia became the seventh American company worth a trillion dollars. It then took a hundred and eighty days to go from one trillion to two; Apple and Microsoft each took more than five hundred. On the twenty-ninth of October twenty twenty-five, it became the first company worth five trillion dollars. Its ring of advantage has six walls: technology, supply, patents, capital, talent and scale. Its share of AI accelerators is expected to be about seventy-five percent in twenty twenty-six, down from a peak near eighty-seven."
+      }
+     ]
+    },
+    {
+     "id": "ai_now",
+     "title": "The present",
+     "text": "Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend $803 to $828 billion on capital in 2026. Over eight quarters Nvidia's data-centre revenue has equalled 39% to 47% of what the largest clouds spend on capital. Anthropic was valued at $965 billion in May 2026, OpenAI at $852 billion.",
+     "reading": "November 2026: the companies and the labs; TSMC, Nvidia and OpenAI walled by their sources.",
+     "facts": [
+      "compute-hyperscaler-capex-2026",
+      "str-nvidia-capex-capture",
+      "labs-anthropic-valuation",
+      "labs-openai-valuation",
+      "story-ai-us-half-industrial"
+     ],
+     "say": [
+      {
+       "show": "history:ai:2026.9:x:pop=jensen-huang,sam-altman,nvidia,anthropic",
+       "words": "And here is the present. Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend between eight hundred and three and eight hundred and twenty-eight billion dollars on capital in twenty twenty-six. Over eight quarters, Nvidia's data-centre revenue has equalled between thirty-nine and forty-seven percent of what the largest clouds spend on capital. Anthropic was valued at nine hundred and sixty-five billion dollars in May twenty twenty-six, OpenAI at eight hundred and fifty-two billion."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "revolutions",
+   "title": "The age of revolutions",
+   "intro": "From the American Revolution to the Congress of Vienna: French support for a rebellion, the debt it left the monarchy, a revolution and its terror, an emperor who crowned himself, and the coalitions and the congress that set out to balance Europe again.",
+   "end": "Thirteen colonies of 2.4 million won with a great power's money, arms and fleet; the war raised that power's debt to about 3.3 billion livres, and by 1788 half its revenue went on servicing it; its revolution turned the nation into an army; a general was made emperor and crowned himself; Britain's credit paid for much of the coalitions' armies, and at Vienna the powers set out to balance one another. Explore any year with the panel, or play the AI revolution.",
+   "stops": [
+    {
+     "id": "rev_colonies",
+     "title": "Thirteen colonies",
+     "text": "By 1775 the Thirteen Colonies had 2.4 million people. On 14 June 1775 Congress created the Continental Army from 22,000 troops outside Boston and 5,000 at New York City. About 250,000 Americans served, but never more than 90,000 at any one time.",
+     "reading": "Each tube is a state, an army, a navy, an alliance, a church or a people, as thick as what it measured.",
+     "facts": [
+      "story-revolutions-us-population-1775",
+      "story-revolutions-continental-army-1775",
+      "story-revolutions-continental-army-peak"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1775.5:pop=george-washington,george-iii,united-states,kingdom-of-great-britain",
+       "words": "Now the same picture, two centuries earlier. Each tube is a state, an army, a navy, an alliance, a church or a people, and its thickness is what it measured: people, soldiers, ships, money. By seventeen seventy-five, the Thirteen Colonies had two point four million people. On the fourteenth of June, Congress voted to create a Continental Army, taking over twenty-two thousand troops outside Boston and five thousand at New York City. About two hundred and fifty thousand Americans would serve, but never more than ninety thousand at any one time."
+      }
+     ]
+    },
+    {
+     "id": "rev_saratoga",
+     "title": "Saratoga",
+     "text": "At Saratoga, Burgoyne's army of 5,791 men faced about 12,000 colonial troops, and he surrendered it on 17 October 1777. By some estimates up to 90% of the arms the Americans used in the campaign came from France.",
+     "reading": "Each army drawn by its force at Saratoga: Burgoyne's 5,791 against about 12,000 colonial troops.",
+     "facts": [
+      "story-revolutions-saratoga-1777",
+      "story-revolutions-french-supplied-arms-saratoga"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1777.792:x:sel=continental-army:pop=continental-army,british-army",
+       "words": "The first proof came at Saratoga. The British general Burgoyne found his army of five thousand seven hundred and ninety-one men facing about twelve thousand colonial troops, and on the seventeenth of October seventeen seventy-seven he surrendered it. Look at where the colonists' strength came from. By some estimates, up to ninety percent of the arms they used in that campaign had come from France."
+      }
+     ]
+    },
+    {
+     "id": "rev_alliance",
+     "title": "The French alliance",
+     "text": "Vergennes persuaded Louis XVI to fund a front company that bought munitions for the Patriots and shipped them in neutral Dutch ships. In February 1778 France signed a Treaty of Alliance with the Americans. By one account it spent 1.3 billion livres supporting them directly.",
+     "reading": "A gold tie is an alliance at a moment: France to the United States, against Great Britain.",
+     "facts": [
+      "story-revolutions-vergennes-secret-funds",
+      "story-revolutions-alliance-1778",
+      "story-revolutions-france-direct-aid-cost"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1778.125:sel=kingdom-of-france:pop=vergennes,louis-xvi,benjamin-franklin,kingdom-of-france",
+       "words": "France had already been helping in secret. Its foreign minister, the Comte de Vergennes, persuaded Louis the Sixteenth to fund a front company that bought munitions for the Patriots and shipped them in neutral Dutch ships. In February seventeen seventy-eight, France signed a Treaty of Alliance with the Americans. Watch the gold tie between them. By one account, France would spend one point three billion livres supporting the Americans directly."
+      }
+     ]
+    },
+    {
+     "id": "rev_yorktown",
+     "title": "The Chesapeake and Yorktown",
+     "text": "At the Chesapeake de Grasse prepared 24 ships of the line for battle, Graves 19. At Yorktown about 19,000 Franco-American troops, 10,800 of them French (Rochambeau had landed 6,000 in 1780), besieged the British; 8,000 soldiers and 214 guns were captured. The Treaty of Paris was signed on 3 September 1783.",
+     "reading": "Each force drawn by what it brought: ships of the line at the Chesapeake, soldiers at Yorktown.",
+     "facts": [
+      "story-revolutions-chesapeake-french-fleet",
+      "story-revolutions-chesapeake-british-fleet",
+      "story-revolutions-yorktown-allied-army",
+      "story-revolutions-rochambeau-1780",
+      "story-revolutions-yorktown-captured",
+      "story-revolutions-treaty-paris-1783",
+      "story-revolutions-yorktown-forces"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1781.708:x:sel=french-navy:pop=de-grasse,rochambeau,french-navy,royal-navy",
+       "words": "Now look at the sea. At the Chesapeake, the French admiral de Grasse prepared twenty-four ships of the line. The British admiral Graves sailed there with nineteen."
+      },
+      {
+       "show": "history:rev:1781.792:x:sel=continental-army:pop=george-washington,rochambeau,cornwallis,continental-army",
+       "words": "Behind them, at Yorktown, about nineteen thousand Franco-American troops, ten thousand eight hundred of them French, faced the British army. Eight thousand soldiers and two hundred and fourteen guns were captured. The Treaty of Paris was signed on the third of September seventeen eighty-three."
+      }
+     ]
+    },
+    {
+     "id": "rev_debt",
+     "title": "The debt",
+     "text": "One account puts the whole American war at 1,066 million livres, paid with new loans at high interest and no new taxes; another puts France's direct aid to the Americans alone at 1.3 billion. The war raised France's debt to about 3.3 billion livres, and by 1788 half of the state's revenue went on servicing it. The Church held upwards of 7% of France's land and took 150 million livres a year.",
+     "reading": "1788: the crown drawn by its income, 475 million livres, its debt of about 3.3 billion below; beside it the nation's 28 million and the Church's clergy.",
+     "facts": [
+      "story-revolutions-france-war-cost",
+      "story-revolutions-france-debt-after-war",
+      "story-revolutions-debt-service-1788",
+      "story-revolutions-church-wealth-1789",
+      "story-revolutions-europe-populations-1790s",
+      "story-revolutions-france-direct-aid-cost",
+      "story-revolutions-france-income-deficit-1786"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne,kingdom-of-france",
+       "words": "The war had to be paid for. By one account it cost France one billion and sixty-six million livres, paid with new loans at high interest and no new taxes; by another, France's direct aid to the Americans alone came to one point three billion. Its debt rose to about three point three billion livres."
+      },
+      {
+       "show": "history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi,catholic-church",
+       "words": "Open the year seventeen eighty-eight. Half of the French state's revenue now went on servicing its debt. Beside the crown stands the Church, holding upwards of seven percent of France's land and taking a hundred and fifty million livres a year. By the end of the century, France had twenty-eight million people, against Britain's twelve million and Russia's thirty-five to forty million."
+      }
+     ]
+    },
+    {
+     "id": "rev_estates",
+     "title": "The Estates-General",
+     "text": "In 1789 the Estates-General met: 302 deputies for the clergy, 289 for the nobility and 611 for the Third Estate, which stood for about 98% of some 28 million people. The clergy itself numbered 115,000 to 150,000.",
+     "reading": "The French nation and the Church: some 28 million people, and the clergy's 115,000 to 150,000.",
+     "facts": [
+      "story-revolutions-estates-deputies-1789",
+      "story-revolutions-estates-population-1789",
+      "story-revolutions-clergy-1789"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1789.375:x:sel=french-population:pop=sieyes,louis-xvi,french-population,catholic-church",
+       "words": "In seventeen eighty-nine, the Estates-General met: three hundred and two deputies for the clergy, two hundred and eighty-nine for the nobility, and six hundred and eleven for the Third Estate, which stood for about ninety-eight percent of a population of some twenty-eight million. Look at the bodies: the nation, and beside it a clergy of a hundred and fifteen to a hundred and fifty thousand."
+      }
+     ]
+    },
+    {
+     "id": "rev_bastille",
+     "title": "The Bastille",
+     "text": "On 14 July 1789 the Bastille, holding only seven inmates, was stormed. The Assembly abolished feudalism, put the Church under state control and issued the Declaration of the Rights of Man. On 2 November 1789 the Church's property was nationalised and used to back the assignats.",
+     "reading": "Sparks are moments: the colour is what decided them (information, execution or environment).",
+     "facts": [
+      "story-revolutions-bastille-seven",
+      "story-revolutions-bastille-assembly-measures",
+      "story-revolutions-church-property-1789"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1789.542:sel=french-population:pop=kingdom-of-france,french-population,catholic-church",
+       "words": "On the fourteenth of July, the Bastille was stormed. It held only seven inmates. Then the Assembly abolished feudalism, put the Church under the control of the state, and issued the Declaration of the Rights of Man. On the second of November seventeen eighty-nine, the Church's property was nationalised and used as the backing for the assignats."
+      }
+     ]
+    },
+    {
+     "id": "rev_king",
+     "title": "The king's execution",
+     "text": "On 21 January 1793 Louis XVI, aged 38, was guillotined on the Place de la Révolution. That year Austria, Sardinia, Naples, Prussia, Spain and Great Britain formed the First Coalition against revolutionary France. Marie Antoinette was executed on 16 October 1793.",
+     "reading": "The coalitions mostly follow one another on one lane; the French state's lane runs from kingdom to republic.",
+     "facts": [
+      "story-revolutions-louis-executed",
+      "story-revolutions-first-coalition-1793",
+      "story-revolutions-marie-antoinette-executed"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1793.042:sel=french-republic:pop=louis-xvi,marie-antoinette,french-republic,first-coalition",
+       "words": "On the twenty-first of January seventeen ninety-three, Louis the Sixteenth, thirty-eight years old, was guillotined on the Place de la Révolution. Watch the alliance lane: that same year, Austria, Sardinia, Naples, Prussia, Spain and Great Britain formed the First Coalition against revolutionary France. On the sixteenth of October, the queen, Marie Antoinette, was executed too."
+      }
+     ]
+    },
+    {
+     "id": "rev_levee",
+     "title": "The levée en masse",
+     "text": "In February 1793 the Convention decreed a levy of about 300,000 men. The Committee of Public Safety was formed on 6 April, and in August the levée en masse drafted all men aged 18 to 25. Between 750,000 and 800,000 were conscripted.",
+     "reading": "The Republic's body is the levy of 300,000 decreed in February 1793.",
+     "facts": [
+      "archetypes-napoleon-levy-1793",
+      "story-revolutions-levee-en-masse-1793",
+      "archetypes-napoleon-levy-conscripts"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1793.625:x:sel=french-republic:pop=robespierre,french-republic",
+       "words": "In February seventeen ninety-three, the Convention decreed a levy of about three hundred thousand men. The Committee of Public Safety was formed in April, and in August the levée en masse drafted every man aged eighteen to twenty-five. Depending on the source, seven hundred and fifty to eight hundred thousand were conscripted. Look at the Republic's body: it is drawn by that levy of three hundred thousand."
+      }
+     ]
+    },
+    {
+     "id": "rev_terror",
+     "title": "The Terror",
+     "text": "From June 1793 the Terror issued 16,594 official death sentences, 2,639 of them in Paris and 1,366 in the seven weeks after the Law of 22 Prairial. Robespierre and 21 of his followers were then sentenced to death under the same law without a hearing; he was executed on 28 July 1794.",
+     "reading": "The dark red lobe beneath the Republic is the Terror's death sentences.",
+     "facts": [
+      "story-revolutions-terror-death-sentences",
+      "story-revolutions-terror-prairial",
+      "story-revolutions-robespierre-executed",
+      "story-revolutions-robespierre-guillotined"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1794.542:x:sel=french-republic:pop=robespierre,danton,french-republic",
+       "words": "From June seventeen ninety-three, the Terror issued sixteen thousand five hundred and ninety-four official death sentences, two thousand six hundred and thirty-nine of them in Paris, and thirteen hundred and sixty-six in the seven weeks after the Law of twenty-two Prairial. The dark red lobe beneath the Republic is that toll. Then Robespierre and twenty-one of his followers were themselves sentenced to death under the same law, without even a cursory hearing. Robespierre was executed on the twenty-eighth of July seventeen ninety-four, the date with which the Terror is often said to end."
+      }
+     ]
+    },
+    {
+     "id": "rev_brumaire",
+     "title": "18 Brumaire",
+     "text": "On 9 November 1799 the bloodless coup of 18 Brumaire overthrew the Directory and replaced it with the Consulate, Bonaparte's regime. A plebiscite approved its constitution on 7 February 1800.",
+     "reading": "On the French lane the Republic becomes the Consulate.",
+     "facts": [
+      "story-revolutions-coup-1799",
+      "story-revolutions-plebiscite-1800",
+      "story-revolutions-concordat-recognition"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1799.875:sel=french-consulate:pop=napoleon,sieyes,french-consulate",
+       "words": "On the ninth of November seventeen ninety-nine, the bloodless coup of eighteen Brumaire overthrew the Directory and replaced it with the Consulate, Bonaparte's regime. On the seventh of February eighteen hundred, a plebiscite approved its constitution. Watch the French lane: the Republic has become the Consulate."
+      }
+     ]
+    },
+    {
+     "id": "rev_crown",
+     "title": "The emperor crowns himself",
+     "text": "Under the Concordat of 1801 the Pope recognised Bonaparte's regime and the regime recognised Catholicism as the religion of the great majority. In 1804 a plebiscite confirmed a hereditary empire: 3.5 million yes, the count inflated by 300,000 to 500,000. On 2 December 1804, at Notre-Dame, with Pope Pius VII present, Napoleon crowned himself. Britain, Russia, Sweden and the Ottoman Empire refused to recognise the title.",
+     "reading": "The empire's ring: legitimacy (a plebiscite, a Pope at the coronation, the Concordat) and, from 1806, the Continental System.",
+     "facts": [
+      "story-revolutions-concordat-recognition",
+      "story-revolutions-concordat-majority",
+      "archetypes-napoleon-emperor-1804",
+      "story-revolutions-plebiscite-1804",
+      "story-revolutions-coronation-date",
+      "archetypes-napoleon-crowned-himself",
+      "story-revolutions-recognition-1804"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1801.5:sel=french-consulate:pop=napoleon,pius-vii,catholic-church",
+       "words": "Under the Concordat of eighteen-oh-one, the Pope recognised Bonaparte's regime, and the regime recognised Catholicism as the religion of the great majority of the French."
+      },
+      {
+       "show": "history:rev:1804.958:x:sel=first-french-empire:pop=napoleon,pius-vii,first-french-empire,catholic-church",
+       "words": "In eighteen-oh-four the Senate vested the government in an emperor, and a plebiscite confirmed the hereditary empire: three and a half million votes yes, a count inflated by three to five hundred thousand. On the second of December, at Notre-Dame, with Pope Pius the Seventh present, Napoleon crowned himself. The ceremony left out the words by which a monarch received his crown from the Church. Britain, Russia, Sweden and the Ottoman Empire refused to recognise the title."
+      }
+     ]
+    },
+    {
+     "id": "rev_trafalgar",
+     "title": "Trafalgar",
+     "text": "Britain declared war on France in May 1803 and repeatedly financed France's enemies. In April 1805 it formed the Third Coalition with Austria and Russia. After 1793 it raised its sailors from 15,000 to 133,000. At Trafalgar, Nelson's 27 ships of the line met 33 French and Spanish; 18 were captured or destroyed, and Britain lost none.",
+     "reading": "The Royal Navy's ring: scale, technology and the capital that paid for it.",
+     "facts": [
+      "story-revolutions-britain-war-1803",
+      "story-revolutions-third-coalition-1805",
+      "story-revolutions-navy-expansion",
+      "story-revolutions-trafalgar-british-fleet",
+      "story-revolutions-trafalgar-fleet",
+      "story-revolutions-trafalgar-result"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1805.292:sel=third-coalition:pop=pitt,united-kingdom,third-coalition",
+       "words": "Britain declared war on France in May eighteen-oh-three and repeatedly financed France's enemies on the Continent. In April eighteen-oh-five it formed a Third Coalition with Austria and Russia."
+      },
+      {
+       "show": "history:rev:1805.792:x:sel=royal-navy:pop=nelson,royal-navy,french-navy,spanish-navy",
+       "words": "Now the sea. After seventeen ninety-three, Britain raised its sailors from fifteen thousand to a hundred and thirty-three thousand. At Trafalgar, Nelson's twenty-seven ships of the line met thirty-three French and Spanish. Eighteen of the enemy were captured or destroyed. Britain lost none."
+      }
+     ]
+    },
+    {
+     "id": "rev_austerlitz",
+     "title": "Austerlitz and Jena",
+     "text": "At Austerlitz Napoleon had some 72,000 men and 157 guns against about 85,000 Allies, 70% of them Russian, with 318 guns. Allied casualties were about 36,000, some 38% of their effective force by a count that puts the army at 89,000. The Prussian army awaiting Napoleon in 1806, about 130,000 with 20,000 Saxons, was decisively defeated at Jena and Auerstedt on 14 October.",
+     "reading": "The Grande Armée's ring: technology, talent and scale.",
+     "facts": [
+      "story-revolutions-austerlitz-french-force",
+      "story-revolutions-austerlitz-allied-losses",
+      "archetypes-napoleon-jena-1806",
+      "story-revolutions-jena-prussian-army"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,grande-armee",
+       "words": "At Austerlitz, Napoleon had some seventy-two thousand men and a hundred and fifty-seven guns, against about eighty-five thousand Allied soldiers, seventy percent of them Russian, with three hundred and eighteen guns. Allied casualties stood at about thirty-six thousand, some thirty-eight percent of their effective force, by a count that puts their army at eighty-nine thousand."
+      },
+      {
+       "show": "history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher,grande-armee,prussia",
+       "words": "In eighteen-oh-six the Prussian army awaiting Napoleon's advance numbered about a hundred and thirty thousand Prussians and twenty thousand Saxons. On the fourteenth of October, at Jena and Auerstedt, the Grande Armée decisively defeated it."
+      }
+     ]
+    },
+    {
+     "id": "rev_russia",
+     "title": "Europe out of balance",
+     "text": "The Berlin Decree of 21 November 1806 barred Britain's trade from Europe, hurting France and its allies too. In 1808 Napoleon's Army of Spain, 278,670 men, faced 80,000 raw Spanish troops. In 1812 he deployed 600,000 soldiers against Russia, not counting the Austrian and Prussian contingents; of an original force of 615,000 by another count, only 110,000 came back. Russia's army peaked at 712,000 or 904,000, by two counts.",
+     "reading": "The dark red lobe beneath the Grande Armée is what it lost in Russia: more than 500,000 men.",
+     "facts": [
+      "story-revolutions-berlin-decree",
+      "story-revolutions-system-weakened-coalition",
+      "story-revolutions-spain-1808",
+      "story-revolutions-russia-deployed-600k",
+      "story-revolutions-russia-army-peak-1812",
+      "story-revolutions-russia-survivors",
+      "story-revolutions-peak-russia-1812"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1806.875:sel=first-french-empire:pop=napoleon,first-french-empire,united-kingdom",
+       "words": "Europe was out of balance. By the Berlin Decree of the twenty-first of November eighteen-oh-six, Napoleon barred Britain's trade from the Continent. The loss of Britain as a trading partner hit France and its allies too. In eighteen-oh-eight his Army of Spain, two hundred and seventy-eight thousand six hundred and seventy men, faced eighty thousand raw Spanish troops."
+      },
+      {
+       "show": "history:rev:1812.97:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,russian-empire",
+       "words": "Then Russia. In eighteen-twelve Napoleon deployed six hundred thousand soldiers against it, only half of them French, not counting the Austrian and Prussian contingents. Russia's army peaked at seven hundred and twelve thousand, or at nine hundred and four thousand by another count. Of an original force of six hundred and fifteen thousand, by another count, only a hundred and ten thousand came back. The dark red lobe beneath the Grande Armée is what it lost: more than five hundred thousand men."
+      }
+     ]
+    },
+    {
+     "id": "rev_coalition",
+     "title": "The alliance against France",
+     "text": "From 1793 to 1814 Britain paid its allies £46,289,549 in subsidies, which paid for a large share of the Austrian and Russian soldiers, about 450,000 at their 1813 peak. At Leipzig about 560,000 soldiers fought by one count, with 133,000 casualties. In 1815 about 250,000 Frenchmen faced about 850,000 allies; at Waterloo Napoleon's 74,500 met Wellington and 50,000 arriving Prussians. Four days later he abdicated.",
+     "reading": "The coalition's ring: scale, and British capital.",
+     "facts": [
+      "story-revolutions-britain-subsidies-total",
+      "story-revolutions-britain-subsidy-peak",
+      "story-revolutions-leipzig-scale",
+      "story-revolutions-leipzig-coalition",
+      "story-revolutions-allied-1815",
+      "story-revolutions-french-waterloo-army",
+      "story-revolutions-waterloo-prussians",
+      "story-revolutions-napoleon-abdicated"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1813.792:x:sel=sixth-coalition:pop=alexander-i,sixth-coalition,united-kingdom",
+       "words": "From seventeen ninety-three to eighteen fourteen, Britain gave its allies more than forty-six million pounds in subsidies, which paid for a large share of the Austrian and Russian soldiers, about four hundred and fifty thousand at their peak in eighteen-thirteen. At Leipzig, about five hundred and sixty thousand soldiers fought by one count, and there were a hundred and thirty-three thousand casualties. The Coalition armies decisively defeated the Grande Armée."
+      },
+      {
+       "show": "history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher,seventh-coalition,grande-armee",
+       "words": "In eighteen-fifteen, about two hundred and fifty thousand Frenchmen faced about eight hundred and fifty thousand allied soldiers. At Waterloo, Napoleon's army of about seventy-four thousand five hundred met Wellington, and fifty thousand arriving Prussians struck its flank. Four days later, Napoleon abdicated."
+      }
+     ]
+    },
+    {
+     "id": "rev_vienna",
+     "title": "The Congress of Vienna",
+     "text": "From September 1814 to June 1815 the Congress of Vienna, chaired by Metternich, set out to resize the main powers so that they would balance each other and remain at peace; the five Great Powers, Austria, Britain, Russia, Prussia and France, dealt behind closed doors. Britain's national debt had reached £679 million. The Concert of Europe, a doctrine of the balance of power, guided European foreign policy until 1914.",
+     "reading": "The victors' bodies around the Congress: a balance, not a winner.",
+     "facts": [
+      "archetypes-vienna-congress-dates",
+      "story-revolutions-vienna-goal",
+      "story-revolutions-vienna-five-powers",
+      "story-revolutions-britain-debt",
+      "story-revolutions-britain-subsidies-total",
+      "story-revolutions-concert-doctrine"
+     ],
+     "say": [
+      {
+       "show": "history:rev:1815.44:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i,congress-of-vienna",
+       "words": "From September eighteen-fourteen to June eighteen-fifteen, the Congress of Vienna, chaired by Metternich, set out not simply to restore the old borders, but to resize the main powers so that they would balance each other and remain at peace. The five Great Powers, Austria, Britain, Russia, Prussia, and France itself, dealt behind closed doors. Britain's national debt had reached six hundred and seventy-nine million pounds. The Concert of Europe, a doctrine of the balance of power, guided European foreign policy until nineteen fourteen."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

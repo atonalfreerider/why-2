@@ -1,0 +1,56 @@
+{
+  "note": "Bodies that struck the Earth, drawn by ImpactorLayer on the red layer's distance scale. Each path key point is the body's distance from Earth (log10 metres) at a date (years ago); kind says whether it is measured or schematic. INTERIM values pending the sourced research in Docs/research/impacts.md.",
+  "impactors": [
+    {
+      "id": "theia",
+      "name": "Theia",
+      "formedLabel": "Theia forms",
+      "epoch": "moon_impact",
+      "formedYa": 4565000000,
+      "impactYa": 4510000000,
+      "blurb": "A Mars-sized body that formed in the inner solar system near the young Earth. Its glancing collision made the Moon from the debris.",
+      "source": "interim",
+      "path": [
+        { "ya": 4565000000, "log10DistanceM": 11.0, "kind": "schematic", "note": "a neighbouring orbit, about an AU from Earth" },
+        { "ya": 4511000000, "log10DistanceM": 11.0, "kind": "schematic", "note": "still on its own orbit" },
+        { "ya": 4510000000, "log10DistanceM": 6.8, "kind": "measured", "note": "contact: Earth's radius" }
+      ]
+    },
+    {
+      "id": "late_heavy_bombardment",
+      "name": "Late Heavy Bombardment",
+      "formedLabel": "rocks scattered inward (debated)",
+      "epoch": "late_heavy_bombardment",
+      "formedYa": 4200000000,
+      "impactYa": 4100000000,
+      "count": 9,
+      "impactSpreadYa": 300000000,
+      "spreadDecades": 0.35,
+      "blurb": "A proposed spike of impacts on the inner planets about 4.1 to 3.8 billion years ago, rocks thrown from the asteroid belt as the giant planets moved. Whether it was a spike or a tail is debated.",
+      "source": "interim",
+      "path": [
+        { "ya": 4200000000, "log10DistanceM": 11.6, "kind": "schematic", "note": "the asteroid belt" },
+        { "ya": 4101000000, "log10DistanceM": 11.6, "kind": "schematic", "note": "an Earth-crossing orbit" },
+        { "ya": 4100000000, "log10DistanceM": 6.8, "kind": "measured", "note": "contact: Earth's radius" }
+      ]
+    },
+    {
+      "id": "chicxulub",
+      "name": "Chicxulub impactor",
+      "formedLabel": "the Chicxulub asteroid forms beyond Jupiter",
+      "epoch": "chicxulub",
+      "lifeEvent": "end_cretaceous_extinction",
+      "lifeLabel": "impact winter: about three-quarters of species die, all dinosaurs but birds",
+      "formedYa": 4564000000,
+      "impactYa": 66000000,
+      "blurb": "An asteroid about 10 km wide, of carbonaceous rock that formed beyond Jupiter, waited in the asteroid belt for four and a half billion years, then struck the Yucatan 66 million years ago.",
+      "source": "interim",
+      "path": [
+        { "ya": 4564000000, "log10DistanceM": 11.9, "kind": "schematic", "note": "beyond Jupiter" },
+        { "ya": 4500000000, "log10DistanceM": 11.6, "kind": "schematic", "note": "the outer asteroid belt" },
+        { "ya": 66500000, "log10DistanceM": 11.6, "kind": "schematic", "note": "in the belt until sent toward Earth (when is unknown)" },
+        { "ya": 66000000, "log10DistanceM": 6.8, "kind": "measured", "note": "contact: Earth's radius" }
+      ]
+    }
+  ]
+}

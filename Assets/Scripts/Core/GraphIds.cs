@@ -16,6 +16,9 @@ namespace Why
 
         /// <summary>Mineral extraction layer (30 000 .. 39 999).</summary>
         public const int ExtractionBase = 30_000;
+
+        /// <summary>Impactors' paths (60 000 .. 60 999): Theia, the bombardment, Chicxulub.</summary>
+        public const int ImpactBase = 60_000;
         public const int CivBase = 1_000_000;
         public const int CivBlock = 100_000;
         public const int CivFigureBase = 1;

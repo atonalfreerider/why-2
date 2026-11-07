@@ -164,3 +164,28 @@ These come from the research and the map. Where a default is given, the lead can
   migrations (WP15-WP18, WP23).
 - **WP39.** The first-look test with five people, approximated with agents, comes last.
 - **Narration voicing** waits for the user's approval.
+
+## Added 6 Nov 2026: impactors, and the present taken apart
+
+The user asked (6 Nov) for the economy's present shown as an exploded view at the end of the timeline ("not following
+a cross-section, but instead exploded into a full-scale hillside economy that takes advantage of the 3D space"), and for
+geologic events in the universe: the Moon-forming impact, the Late Heavy Bombardment and the Chicxulub impactor, each
+an object whose path is traced from where it formed, out in space, back into the inner track at the collision, and for
+Chicxulub how the impact ended the dinosaurs.
+
+- **Impactors (universe):** `Assets/Scripts/Matter/ImpactorLayer.cs` and `Assets/Resources/Data/impactors.json`. The
+  red layer's radius is real distance from Earth, so each path is drawn at the body's distance over time; a rock
+  travels it and flashes at the impact; Chicxulub's impact rises in one line to the end-Cretaceous extinction. Built and
+  smoke-tested (0 errors). The paths' key points are interim (marked schematic) until the sourced research lands in
+  `Docs/research/impacts.md` and `.json`; then replace them and the blurbs, and note there that the Chicxulub body was a
+  carbonaceous asteroid from beyond Jupiter, not a comet (the user said comet).
+- **The present, taken apart (economy):** the design is `Docs/hills-design/EXPLODED-PRESENT.md` (it reads "the end of
+  the timeline" as the space past the wave's crest, and absorbs M1). Its first slice (PresentLayout, HillPresentLayer,
+  the `present` preset, smoke checks A1-A3) is being implemented; build and check it in the mirror, then answer the
+  design's questions with the user (section 12).
+- **The holistic design workflow** stopped at research:images (usage limit, 5 Nov). research:collective finished
+  (`Docs/research/holistic/collective.md`, `.json`: nine cases, 116 facts, 15 series). research:images left
+  `Docs/research/holistic/images.md` and a rewritten `Tools/images/fetch.py` before it was cut off: check them, then
+  continue the workflow from map:lines (in a new session: `args: {skip: ["research:mobility", "research:collective",
+  "research:images"]}` once images is confirmed complete). The Workflow tool may be switched off in a session; then run
+  the remaining steps as background agents with the same prompts (in `workflow/design-workflow.js`).

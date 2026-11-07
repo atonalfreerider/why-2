@@ -73,6 +73,10 @@ namespace Why.Economy.Layers
 
         static readonly bool SmokeRun = Environment.GetCommandLineArgs().Contains("-smoketest");
 
+        /// <summary>A scenario's move is instant in a smoke run's catalog (its frames capture each world at once); the
+        /// view's own sequence turns the move back on to time it.</summary>
+        static bool instantMoves = SmokeRun;
+
         // ------------------------------------------------------------------ the state the panel reads
 
         static HillAdvantageLayer current;
@@ -338,9 +342,14 @@ namespace Why.Economy.Layers
             // a scenario chosen mid-move starts from where the last one was heading
             fromScenario = mix >= .5f ? toScenario : fromScenario;
             toScenario = id;
-            mix = layout == null ? 1 : 0;
+            mix = layout == null || instantMoves ? 1 : 0;
             sinceRebuild = 1;
             dirtyLines = true;
+            if (instantMoves && layout != null)
+            {
+                fromScenario = id;
+                Peaks();
+            }
         }
 
         void StepScenario()
@@ -992,6 +1001,9 @@ namespace Why.Economy.Layers
                 yield break;
             }
 
+            // the catalog may have left another world on screen: start from now, then time a real move
+            SetScenario(Advantage.Now);
+            instantMoves = false;
             yield return new WaitForSecondsRealtime(1.5f);
             Log();
             yield return SmokeChecks.Capture("economy-advantage-now", root.CurrentPreset);
@@ -1041,6 +1053,7 @@ namespace Why.Economy.Layers
                 slowest = Mathf.Max(slowest, Time.unscaledDeltaTime);
             }
 
+            instantMoves = true;
             Debug.Log($"[Why] advantage choreography max frame {1000 * slowest:0} ms");
             if (slowest > .05f) Debug.LogWarning($"[Why] advantage: a choreography frame took {1000 * slowest:0} ms, over 50");
             yield return new WaitForSecondsRealtime(1f);
@@ -1054,6 +1067,8 @@ namespace Why.Economy.Layers
             renderers.RemoveAll(x => x.renderer == r);
             var mf = r.GetComponent<MeshFilter>();
             if (mf && mf.sharedMesh) { owned.Remove(mf.sharedMesh); Destroy(mf.sharedMesh); }
+            // its material too: a scenario's move rebuilds the peaks about 24 times a second
+            if (r.sharedMaterial) { owned.Remove(r.sharedMaterial); Destroy(r.sharedMaterial); }
             Destroy(r.gameObject);
         }
 

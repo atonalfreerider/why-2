@@ -209,3 +209,38 @@ Veins (top 30 IO purchases) run from the seller's largest firm and branch into t
 threads come from the 10 most profitable firms' summits and each terrace's surplus. Slabs are now faint grey glass.
 Open: label crowding (only some firm labels survive layout), the bedrock dominates the lower frame, real estate's
 "rest" peaks are tall because its typical margin (REITs, 34%) is high.
+
+## Added 7 Nov 2026: competitive advantage (in flight)
+
+The user asked (7 Nov) to rebuild the economy around **competitive advantage**. Their request is verbatim in
+`Docs/research/advantage/brief.md`. In short:
+
+- Keep the causality timeline.
+- Rebuild the 2026 cross-section, opened into the 3D hillside, as a simulation of advantage. Actors stand higher the
+  more they dominate. They are placed above, below or beside each other by advantage and supply-chain position.
+- Revenue, cost and capital rivers are coloured by desire or fear, and they show the choke points.
+- Flashpoints are sparks between rivals, in 2026 and back through history (archetypes, the 20th and 21st centuries,
+  the transistor-to-NVIDIA lineage).
+- Scenarios make the environment friendly or unfriendly, so the view predicts winners and losers.
+- The user also said to pace usage across the 5-hour window, to commit to main as the work lands, and to take
+  screenshots only of significant changes. Jev is available.
+
+**State.**
+
+- *Research run.* `Docs/research/advantage/workflow/research.js` (run `wf_237bc6f9-020`) has six Sonnet researchers and
+  a code mapper. They write `Docs/research/advantage/{compute,labs,economy,lineage,century,archetypes}.{json,md}` and
+  `maps/code.md`.
+- *Truth gate.* Each fact must pass `python3 -I Tools/advantage/verify.py [--cluster NAME]`: a verbatim quote, the
+  values inside it, Jev at 0.6 or more, and 2026 facts re-read on the as-of date.
+- *Resuming.* In the same session, resume the run with its scriptPath and runId. In a new session, start the committed
+  copy with `args: {skip: [...finished keys]}`. A cluster whose files exist but whose gate record is missing or weak
+  reruns.
+
+**Next.**
+
+1. The strategist step merges the clusters into `Docs/research/advantage/model.json` and runs the Jev judgments
+   (`Tools/advantage/judge.py`): the 7 Powers, the information, execution and environment triad, flow motive,
+   choke-point substitutability, and scenario effects.
+2. It writes `analysis.md`, with predictions by scenario, and the runtime data
+   `Assets/Resources/Data/economy/advantage.json`.
+3. Then the design `Docs/hills-design/ADVANTAGE.md`, and the build in the mirror, with smoke tests and commits.

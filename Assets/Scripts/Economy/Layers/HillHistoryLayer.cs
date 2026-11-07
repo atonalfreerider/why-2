@@ -51,7 +51,7 @@ namespace Why.Economy.Layers
         /// the wave's first year (the wave's own two units a year would make forty years a sliver beside the lanes).</summary>
         public const float PreWaveScale = 7, PreWaveGap = 140;
 
-        const float RowGap = 26, BodyGap = 15, ColGap = 40, LineGap = 20;
+        const float RowGap = 26, BodyGap = 15, ColGap = 40, LineGap = 28;    // a stacked body's name stands in the gap above it
         const int PerLine = 3;
 
         /// <summary>The free screen across its width: right of the portrait cards when they show (24 + 330 of 1920 pixels and a
@@ -93,7 +93,7 @@ namespace Why.Economy.Layers
             public MeshRenderer Body, Occluder;
             public Organism Shape;
             public Vector3 From, To;
-            public bool Measured, LabelBelow;
+            public bool Measured, LabelBelow, TopLine;
             public int Side;
             public string Main;
         }
@@ -825,6 +825,7 @@ namespace Why.Economy.Layers
                     if (cells.TryGetValue((c, k), out var lines))
                     {
                         float yLine = yRow;
+                        bool top = k == kinds[0];    // the arena's top line, where the columns' names stand side by side
                         foreach (var line in lines)
                         {
                             float lineH = line.Max(x => Foot(x.shape, x.a.Id));
@@ -842,10 +843,11 @@ namespace Why.Economy.Layers
                                 it.body.BodyR = rad;
                                 var (mr, or) = BuildBody(it.a, it.shape, it.measured);
                                 bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side,
-                                                              Main = MainOf(it.a, Year, forcesStanding), LabelBelow = below };
+                                                              Main = MainOf(it.a, Year, forcesStanding), LabelBelow = below, TopLine = top };
                             }
 
                             yLine -= 2 * lineH + LineGap;
+                            top = false;
                         }
                     }
 
@@ -1222,6 +1224,7 @@ namespace Why.Economy.Layers
             else
             {
                 var ringed = new HashSet<string>(ActiveMoats(s).Select(m => m.Actor));
+                bool three = bodies.Values.Select(b => b.Side).Distinct().Count() == 3;
                 foreach (var kv in bodies)
                 {
                     var a = s.Get(kv.Key);
@@ -1230,14 +1233,19 @@ namespace Why.Economy.Layers
                     var v = main != null ? a.Shown(main, Year) : null;
                     string measure = v != null ? "\n" + LabelValue(v) : "\n<i>not measured</i>";
                     float above = ringed.Contains(kv.Key) ? kv.Value.Shape.MaxRadius + 4 + 3 : kv.Value.Shape.MaxRadius + 4.5f;
+                    // the middle column's names stand half a name further out than its neighbours', so three columns' names
+                    // at one height do not meet
+                    bool middle = three && kv.Value.Side == 0 && kv.Value.TopLine;
                     labels.Add(new HillLabel
                     {
-                        Text = "<b>" + a.Name + "</b> <size=80%>" + KindWord(a.Kind) + "</size><size=86%>" + measure + "</size>",
+                        // a long name ("Jacobins and the Committee of Public Safety") takes two lines, so the label stays narrow
+                        Text = "<b>" + (a.Name.Length > 32 ? Wrap(a.Name, 30) : a.Name) + "</b> <size=80%>" + KindWord(a.Kind) + "</size><size=86%>" + measure + "</size>",
                         At = kv.Value.To + Vector3.up * (kv.Value.LabelBelow ? -above : above),
                         Role = LabelRole.Name, Part = "history.bodies", Rank = 300 + kv.Value.Shape.MaxRadius + (Selected == a.Id ? 400 : 0), Plate = new Color(0, 0, 0, .78f),
                         Color = KindColor(a.Kind), OnTop = true,
                         // a name whose place a neighbour's name took stacks beyond it, away from its body, rather than going unshown
-                        Fallbacks = kv.Value.LabelBelow ? BelowFallbacks : AboveFallbacks,
+                        PixelOffset = middle ? new Vector2(0, kv.Value.LabelBelow ? -Stagger : Stagger) : Vector2.zero,
+                        Fallbacks = Steps(kv.Value.LabelBelow ? -1 : 1, middle ? Stagger : 0),
                     });
                 }
 
@@ -1284,14 +1292,21 @@ namespace Why.Economy.Layers
                 if (m != null && bodies.Count > 0)
                     labels.Add(new HillLabel
                     {
+                        // placed after the bodies' names, so a name keeps the place over its body and the title steps up
                         Text = "<b>" + YearText(m.Year) + " · " + m.Title + "</b>", At = new Vector3((arenaMin.x + arenaMax.x) * .5f, arenaMax.y + 26, T(s, Year)),
-                        Role = LabelRole.Name, Part = "history.walls", Rank = 600, Color = TriadColor(m.Triad), OnTop = true,
+                        Role = LabelRole.Name, Part = "history.walls", Rank = 295, Color = TriadColor(m.Triad), OnTop = true,
+                        Fallbacks = Enumerable.Range(1, 6).Select(k => new Vector2(0, 18 * k)).ToArray(),    // the title may climb further
                     });
             }
         }
 
-        static readonly Vector2[] AboveFallbacks = { new Vector2(0, 18), new Vector2(0, 36), new Vector2(0, 54), new Vector2(0, 72), new Vector2(0, 90) };
-        static readonly Vector2[] BelowFallbacks = { new Vector2(0, -18), new Vector2(0, -36), new Vector2(0, -54), new Vector2(0, -72), new Vector2(0, -90) };
+        static readonly Vector2[] AboveFallbacks = Steps(1, 0), BelowFallbacks = Steps(-1, 0);
+        const float Stagger = 22;
+
+        /// <summary>Places further out, 18 pixels at a time and four at most (two names' height), up (+1) or down (-1) from a
+        /// first offset: a name that would wander onto another body is better left to its card.</summary>
+        static Vector2[] Steps(int direction, float from) =>
+            Enumerable.Range(1, 4).Select(k => new Vector2(0, direction * (from + 18 * k))).ToArray();
 
         /// <summary>A wall whose judgment Jev was unsure of: its confidence under 0.15 (its answer spread over the levels).</summary>
         public static bool Uncertain(History.MoatSource x) => !double.IsNaN(x.Confidence) && x.Confidence < .15;

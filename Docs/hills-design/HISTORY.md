@@ -63,9 +63,11 @@ The gap between the stories is not drawn.
     the others, and one for its rivals, each headed. Rows run polities and peoples, then forces, then enterprises, at
     most three bodies to a line.
     - Each body is spaced by its advantage ring's reach.
-    - Neighbours' names alternate above and below their bodies. A name whose place is taken steps further out (18
-      pixels at a time) rather than going unshown. The column's head stands under the column and is placed after the
-      names, so it steps down past a name in the last line.
+    - Neighbours' names alternate above and below their bodies, and in the top row the middle column's stand half a
+      name further out, so three columns' names at one height do not meet. A name whose place is taken steps further
+      out, 18 pixels at a time and four times at most: a name that would wander onto another body is left to its
+      card. A name over 32 letters takes two lines. The columns' heads and the moment's title are placed after the names: a head steps down past a name in its
+      column's last line, the title up past the top row's names.
     - The camera fits the bodies to three quarters of the screen left free by the panel and the cards, so the names
       that reach past them stay clear of both. A column holds one to three bodies to a line, whichever count lets the
       camera come nearest: a wide contest stacks into the screen's height.

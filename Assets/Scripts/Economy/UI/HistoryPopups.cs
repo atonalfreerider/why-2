@@ -155,8 +155,16 @@ namespace Why.Economy.UI
             float w = wide ? Image * 1.6f : Image, h = wide ? Image * .8f : Image;
             card.Picture.rectTransform.sizeDelta = new Vector2(w, h);
             float x = w + 18, tw = CardW - w - 26;
-            Place(card.Name.rectTransform, x, 10, tw, 20);
-            Place(card.Line.rectTransform, x, 31, tw, 40);
+            // a long name ("French First Republic (Convention, Terror, Directory)") takes two smaller lines, and the line
+            // under it moves down; a short one keeps one line, set smaller only if it must
+            bool twoLines = (card.Name.text ?? "").Length > 30;
+            card.Name.enableAutoSizing = !twoLines;
+            card.Name.fontSize = twoLines ? 12 : 15;
+            card.Name.textWrappingMode = twoLines ? TextWrappingModes.Normal : TextWrappingModes.NoWrap;
+            float nameH = twoLines ? 31 : 20;
+            Place(card.Name.rectTransform, x, twoLines ? 8 : 10, tw, nameH);
+            float lineY = (twoLines ? 8 : 10) + nameH + 1;
+            Place(card.Line.rectTransform, x, lineY, tw, Mathf.Max(18, CardH - 22 - lineY));
             Place(card.Credit.rectTransform, x, CardH - 22, tw, 18);
         }
 

@@ -44,13 +44,13 @@ namespace Why.Economy.Layers
 
         public override IEnumerable<string> RequiredTexts => new[] { Advantage.Path };
 
-        enum Part { Organs, Shells, Rings, Rivers, Threads, Landscape, Sparks, Thread, Count }
+        enum Part { Organs, Shells, Rings, Rivers, Threads, Landscape, Sparks, Thread, Outlines, Count }
 
-        static readonly string[] PartNames = { "organs", "shells", "rings", "rivers", "threads", "landscape", "sparks", "thread" };
+        static readonly string[] PartNames = { "organs", "shells", "rings", "rivers", "threads", "landscape", "sparks", "thread", "outlines" };
         static readonly int[] Keys = EconomyEmphasis.Keys("advantage", PartNames);
 
         public const float Seconds = 5f, ReverseSeconds = 1.8f;
-        const int MaxOrganismVertices = 700000;
+        const int MaxOrganismVertices = 1200000;
 
         const int MaxRenderers = 12, RiverHighlights = 14, ThreadCompanies = 10, SparkDefault = 7, NameLabels = 22;
 
@@ -245,7 +245,12 @@ namespace Why.Economy.Layers
             }
 
             Apply();
-            if (here && !settling && Turned()) Rings();    // the owners' circles keep facing a camera that has orbited
+            if (here && !settling && Turned())
+            {
+                // the owners' circles and the bodies' outlines keep facing a camera that has orbited
+                Rings();
+                Outlines();
+            }
             if (here && direction == 0 && !settling && rig != null && rig.Cam != null) Pick(rig.Cam);
             ShowLabels(here && direction >= 0 && Reveal(clock) > .5f && !settling);
         }
@@ -461,7 +466,9 @@ namespace Why.Economy.Layers
                 if (!kv.Value.renderer) continue;
                 var body = net.Get(kv.Key);
                 float fade = body == null || body.Alive ? 1 : body.State != null && body.State.Status == "extinct" ? .2f : .35f;
-                EconomyEmphasis.Set(kv.Value.renderer, organ * fade * Lit(kv.Key));
+                float a = organ * fade * Lit(kv.Key);
+                EconomyEmphasis.Set(kv.Value.renderer, a);
+                if (occluders.TryGetValue(kv.Key, out var occ) && occ) occ.enabled = a > .6f && kv.Value.renderer.enabled;
             }
         }
 
@@ -539,6 +546,7 @@ namespace Why.Economy.Layers
             Organs();
             PlaceOrganisms();
             Rings();
+            Outlines();
             Rivers();
             Threads();
             Sparks();
@@ -594,7 +602,7 @@ namespace Why.Economy.Layers
                 var body = net.Get(organismQueue.Dequeue());
                 if (body == null) continue;
                 Organism(body);
-                budget -= body.R > 24 ? 3 : 1;
+                budget -= body.R > 30 ? 6 : body.R > 8 ? 2 : 1;
             }
         }
 
@@ -663,7 +671,8 @@ namespace Why.Economy.Layers
             string key = Scenario + "|" + Year + "|" + body.Value.ToString("0.0") + "|" + body.Alive + "|" + (Selected == body.Id) + "|" +
                          string.Join(",", fronts.Select(f => (f.Direction * 10).ToString("0") + f.Strength.ToString("0.0") + f.Hot));
             if (organisms.TryGetValue(body.Id, out var have) && have.key == key && have.renderer) return;
-            int detail = body.R > 30 ? 3 : 2;
+            // dense enough that a body's near face reads as a cloud once its far side is hidden
+            int detail = body.R > 30 ? 4 : body.R > 8 ? 3 : 2;
             var shape = new Organism(body, fronts, detail);
             body.BodyR = shape.MaxRadius;
             body.BodyMin = shape.Min;
@@ -671,31 +680,35 @@ namespace Why.Economy.Layers
             var b = organismBuilder;
             b.Clear();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Organs]);
-            // the wire: each edge as opaque as the parts there are tangible; hot where it meets a blooming frontier, lit where a soft one
-            for (int e = 0; e < shape.Edges.Length; e += 2)
-            {
-                int i = shape.Edges[e], j = shape.Edges[e + 1];
-                float f = Mathf.Max(shape.Frontier[i], shape.Frontier[j]), g = Mathf.Max(shape.Tint[i], shape.Tint[j]), solid = (shape.Solidity[i] + shape.Solidity[j]) * .5f;
-                Color c = Color.Lerp(shape.Colors[i], shape.Colors[j], .5f);
-                c = Color.Lerp(c, Color.Lerp(c, Color.white, .45f), g * .7f);
-                c = Color.Lerp(c, FrontierColor, f * .85f);
-                c.a = Mathf.Clamp01(.08f + .34f * solid + .22f * g + .55f * f) * (shape.Known ? 1 : .6f);
-                b.AddSegment(shape.Points[i], shape.Points[j], c, 1f + .5f * g + 1.1f * f, 0, id, f > 0 ? .85f + 4.2f * f * f : .9f);
-            }
-
-            // the points: a dot at each vertex
+            var rnd = new System.Random(unchecked((int)Fnv(body.Id)));
+            // the user, 7 Nov 2026: "more of a point cloud representation with a boundary outline, rather than wireframes".
+            // The surface's points, as opaque as the parts there are tangible, hot where a frontier blooms ...
             for (int i = 0; i < shape.Points.Length; i++)
             {
                 float f = shape.Frontier[i], g = shape.Tint[i];
                 Color c = Color.Lerp(shape.Colors[i], Color.Lerp(shape.Colors[i], Color.white, .45f), g * .7f);
                 c = Color.Lerp(c, FrontierColor, f * .9f);
-                c.a = Mathf.Clamp01(.45f + .3f * shape.Solidity[i] + .25f * g + .3f * f);
+                c.a = Mathf.Clamp01((.62f + .3f * shape.Solidity[i] + .2f * g + .3f * f) * (shape.Known ? 1 : .7f));
                 Vector3 p = shape.Points[i];
-                b.AddSegment(p, p + p.normalized * .06f, c, 2.1f + .8f * g + 2.2f * f, 0, id, f > 0 ? .9f + 5f * f * f : .92f);
+                // a dot: a dash about a pixel long (a segment along its own normal vanishes where it faces the camera)
+                b.AddSegment(p, p + Vector3.up * DotLength, c, 3.2f + .8f * g + 2.4f * f, 0, id, f > 0 ? .9f + 5f * f * f : .93f);
             }
 
+            // ... and a skin of points under it, between the surface and the hidden solid inside (OccluderDepth), each coloured by
+            // the parts at its place, so the body reads as a cloud of some depth while it hides what stands behind it
+            int skin = detail >= 4 ? 2 : 4;
+            for (int i = 0; i < shape.Points.Length; i++)
+                for (int k = 0; k < skin; k++)
+                {
+                    float u = Mathf.Lerp(OccluderDepth + .015f, .995f, (float)rnd.NextDouble());
+                    Vector3 p = shape.Points[i] * u + RandomDir(rnd) * (.025f * shape.MeanRadius * (float)rnd.NextDouble());
+                    Color c = shape.ColorAt(p);
+                    c.a = (.45f + .3f * (u - OccluderDepth) / (1 - OccluderDepth)) * (shape.Known ? 1 : .7f);
+                    b.AddSegment(p, p + Vector3.up * DotLength, c, 2.8f, 0, id, .92f);
+                }
+
+            outlineShapes[body.Id] = shape;
             float rb = shape.MeanRadius;
-            var rnd = new System.Random(unchecked((int)Fnv(body.Id)));
             bool loss = body.State != null ? body.State.Ni < 0 : body.Actor.LossEvidence;
             double pe = body.State != null ? body.State.Pe : body.Actor.Pe;
             Color pc = Land.Organism.SpecHeat(pe, loss);
@@ -715,15 +728,6 @@ namespace Why.Economy.Layers
                     b.AddSegment(p, p + d * .05f, WithAlpha(pc, .3f + .25f * u), 1.6f, 0, id, .93f);
                 }
 
-                var (md, me) = Land.Organism.Geodesic(3);
-                foreach (var d in md) b.AddSegment(d * body.R, d * (body.R + .06f), WithAlpha(pc, .45f), 1.5f, 0, id, .95f);
-                var (wd, we) = Land.Organism.Geodesic(2);
-                for (int e = 0; e < we.Length; e += 2) b.AddSegment(wd[we[e]] * body.R, wd[we[e + 1]] * body.R, WithAlpha(pc, .12f), 1f, 0, id, .9f);
-                if (body.EarningsR > rb + .5f && body.EarningsR < body.R - .5f)
-                {
-                    var (ed, _) = Land.Organism.Geodesic(2);
-                    foreach (var d in ed) b.AddSegment(d * body.EarningsR, d * (body.EarningsR + .05f), WithAlpha(new Color(.80f, .84f, .92f), .4f), 1.3f, 0, id, .9f);
-                }
             }
 
             // promises (purchase and compute commitments): a ghost lobe of points beneath, joined by a dotted stalk
@@ -758,23 +762,173 @@ namespace Why.Economy.Layers
 
             var mesh = b.ToMesh("Organism " + body.Id);
             owned.Add(mesh);
-            if (have.renderer)
+            MeshRenderer mr = have.renderer;
+            if (mr)
             {
                 // keep the organism's object and material; swap its mesh
-                var mf = have.renderer.GetComponent<MeshFilter>();
+                var mf = mr.GetComponent<MeshFilter>();
                 if (mf.sharedMesh) { owned.Remove(mf.sharedMesh); Destroy(mf.sharedMesh); }
                 mf.sharedMesh = mesh;
-                organisms[body.Id] = (have.renderer, key);
+            }
+            else
+            {
+                // alpha-blended, not additive, so the parts' hues survive their overlaps
+                Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3183, false));
+                owned.Add(m);
+                mr = AddMesh("Organism " + body.Id, mesh, m);
+                mr.transform.SetParent(arena, false);
+                mr.transform.localPosition = body.Pos;
+            }
+
+            organisms[body.Id] = (mr, key);
+            Occluder(body, shape, detail, mr.transform);
+        }
+
+        // ------------------------------------------------------------------ occlusion
+
+        /// <summary>The hidden solid's size against the body's surface: the skin of points lies between the two.</summary>
+        const float OccluderDepth = .9f;
+
+        /// <summary>A point's dash, in land units: about a pixel at the view's distance, so a dot reads as a dot.</summary>
+        const float DotLength = .3f;
+
+        /// <summary>Each body's hidden solid (the user, 7 Nov 2026: "we still need point cloud occlusion"): its surface drawn
+        /// into depth only, before every point and line, so bodies, rivers and dust behind it are hidden while it shows
+        /// as points.</summary>
+        readonly Dictionary<string, MeshRenderer> occluders = new Dictionary<string, MeshRenderer>();
+
+        Material occluderMaterial;
+
+        void Occluder(ContestNetwork.Body body, Land.Organism shape, int detail, Transform organism)
+        {
+            if (occluderMaterial == null)
+            {
+                // the surface shader with its colour blended away (zero of the source, all of what is there) and depth written,
+                // just after the labels (TextMeshPro, queue 3000: names stay readable) and before every mark of this view and of
+                // the hill (3180 and up), so whatever stands behind a body is hidden
+                occluderMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3001));
+                occluderMaterial.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.Zero);
+                occluderMaterial.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.One);
+                occluderMaterial.SetFloat("_ZWrite", 1);
+                occluderMaterial.SetFloat("_EdgeSoft", 0);
+                owned.Add(occluderMaterial);
+            }
+
+            var verts = new Vector3[shape.Points.Length];
+            var cols = new Color[verts.Length];
+            for (int i = 0; i < verts.Length; i++)
+            {
+                verts[i] = shape.Points[i] * OccluderDepth;
+                cols[i] = Color.white;
+            }
+
+            var mesh = new Mesh { name = "Occluder " + body.Id };
+            mesh.vertices = verts;
+            mesh.colors = cols;
+            mesh.triangles = Land.Organism.GeodesicFaces(detail);
+            mesh.RecalculateBounds();
+            owned.Add(mesh);
+            if (occluders.TryGetValue(body.Id, out var r) && r)
+            {
+                var mf = r.GetComponent<MeshFilter>();
+                if (mf.sharedMesh) { owned.Remove(mf.sharedMesh); Destroy(mf.sharedMesh); }
+                mf.sharedMesh = mesh;
                 return;
             }
 
-            // alpha-blended, not additive, so the parts' hues survive their overlaps
-            Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3183, false));
-            owned.Add(m);
-            MeshRenderer mr = AddMesh("Organism " + body.Id, mesh, m);
-            mr.transform.SetParent(arena, false);
-            mr.transform.localPosition = body.Pos;
-            organisms[body.Id] = (mr, key);
+            r = AddMesh("Occluder " + body.Id, mesh, occluderMaterial);
+            r.transform.SetParent(organism, false);
+            occluders[body.Id] = r;
+        }
+
+        /// <summary>Each living organism's shape, kept for its outline (the outline turns with the camera; the body does not).</summary>
+        readonly Dictionary<string, Land.Organism> outlineShapes = new Dictionary<string, Land.Organism>();
+
+        const int OutlineBins = 96;
+        readonly float[] outlineR = new float[OutlineBins], outlineF = new float[OutlineBins];
+
+        /// <summary>The boundaries, facing the camera: each body's silhouette as a line (lit where a frontier blooms), its market
+        /// value as a dotted circle in the colour of its P/E (the speculative dust lies inside it), and what its earnings justify
+        /// as a faint dotted circle. Rebuilt with the other parts, and when the camera swings.</summary>
+        void Outlines()
+        {
+            Drop(Part.Outlines);
+            var b = new LineMeshBuilder(16384);
+            float id = EconomyEmphasis.Id(Keys[(int)Part.Outlines]);
+            Vector3 eye = Eye();
+            foreach (var body in net.Bodies)
+            {
+                if (body.Kind != ContestNetwork.Kind.Company || !body.Alive || !outlineShapes.TryGetValue(body.Id, out var shape)) continue;
+                float lit = Lit(body.Id);
+                Vector3 v = eye - body.Pos;
+                v = v.sqrMagnitude > 1e-3f ? v.normalized : Vector3.forward;
+                Vector3 u = Vector3.Cross(v, Mathf.Abs(v.y) > .95f ? Vector3.right : Vector3.up).normalized, w = Vector3.Cross(v, u);
+                // about five surface points to a bin, so each bin's reach comes from a point near the rim
+                int bins = Mathf.Clamp(shape.Points.Length / 5, 24, OutlineBins);
+                Array.Clear(outlineR, 0, OutlineBins);
+                Array.Clear(outlineF, 0, OutlineBins);
+                Color mean = Color.black;
+                for (int i = 0; i < shape.Points.Length; i++)
+                {
+                    Vector3 p = shape.Points[i];
+                    float a = Vector3.Dot(p, u), c = Vector3.Dot(p, w), r = Mathf.Sqrt(a * a + c * c);
+                    int k = (int)((Mathf.Atan2(c, a) / (2 * Mathf.PI) + 1) * bins) % bins;
+                    if (r > outlineR[k]) outlineR[k] = r;
+                    if (shape.Frontier[i] > outlineF[k]) outlineF[k] = shape.Frontier[i];
+                    mean += shape.Colors[i];
+                }
+
+                mean /= Mathf.Max(1, shape.Points.Length);
+                // bins no point fell in take their neighbours' reach; then a light smoothing that never cuts inside a point
+                for (int pass = 0; pass < 3; pass++)
+                    for (int k = 0; k < bins; k++)
+                        if (outlineR[k] <= 0) outlineR[k] = Mathf.Max(outlineR[(k + bins - 1) % bins], outlineR[(k + 1) % bins]);
+                // the outline in the body's own colour (its parts' mean), a little brighter than its points
+                Color line = WithAlpha(Color.Lerp(mean, Color.white, .12f) * 1.15f, .62f * lit);
+                Vector3 prev = Vector3.zero;
+                for (int k = 0; k <= bins; k++)
+                {
+                    int kk = k % bins;
+                    float r = Mathf.Max(outlineR[kk], .5f * (outlineR[(kk + bins - 1) % bins] + outlineR[(kk + 1) % bins])) * 1.03f;
+                    float ang = (kk + .5f) * 2 * Mathf.PI / bins;
+                    Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * r;
+                    if (k > 0)
+                    {
+                        float f = outlineF[kk];
+                        b.AddSegment(prev, p, f > 0 ? Color.Lerp(line, WithAlpha(FrontierColor, lit), f) : line, 1.3f + 1.8f * f, 0, id, f > 0 ? .95f + 4.5f * f * f : .95f);
+                    }
+
+                    prev = p;
+                }
+
+                // the market value: a dotted circle in the P/E's heat, the dust of speculation inside it
+                if (!double.IsNaN(body.Value) && body.R > shape.MeanRadius + .3f)
+                {
+                    double pe = body.State != null ? body.State.Pe : body.Actor.Pe;
+                    bool loss = body.State != null ? body.State.Ni < 0 : body.Actor.LossEvidence;
+                    Color pc = WithAlpha(Land.Organism.SpecHeat(pe, loss), .9f * lit);
+                    int n = Mathf.Clamp(Mathf.RoundToInt(body.R * 2.4f), 24, 160);
+                    for (int i = 0; i < n; i++)
+                    {
+                        float ang = i * 2 * Mathf.PI / n;
+                        Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * body.R;
+                        b.AddSegment(p, p + v * .05f, pc, 2.8f, 0, id, .95f);
+                    }
+
+                    if (body.EarningsR > shape.MeanRadius + .5f && body.EarningsR < body.R - .5f)
+                    {
+                        int m = Mathf.Clamp(Mathf.RoundToInt(body.EarningsR * 1.6f), 16, 100);
+                        for (int i = 0; i < m; i++)
+                        {
+                            float ang = (i + .5f) * 2 * Mathf.PI / m;
+                            Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * body.EarningsR;
+                            b.AddSegment(p, p + v * .05f, WithAlpha(new Color(.80f, .84f, .92f), .45f * lit), 1.4f, 0, id, .9f);
+                        }
+                    }
+                }
+            }
+
+            partRenderer[(int)Part.Outlines] = Lines(b, Part.Outlines, arena, 3186, false);
         }
 
         static Vector3 RandomDir(System.Random rnd)
@@ -1411,6 +1565,8 @@ namespace Why.Economy.Layers
 
             foreach (var (at, fp) in historySparks.Where(_ => History))
                 labels.Add(new HillLabel { Text = fp.Year + " " + fp.Title, At = at + Vector3.up * 3.5f, Role = LabelRole.Note, Part = "advantage.thread", Rank = 1.5f, Color = TriadColor(fp.Triad) });
+            // the bodies write depth (their hidden solids): the names must not be cut by the bodies in front
+            foreach (var l in labels) l.OnTop = true;
         }
 
         /// <summary>How and when a company left a world by a year: "† extinct 2028" or "→ absorbed by Microsoft, 2028" (the
@@ -1742,7 +1898,10 @@ namespace Why.Economy.Layers
         {
             foreach (var kv in organisms) if (kv.Value.renderer) Destroy(kv.Value.renderer.gameObject);
             organisms.Clear();
+            occluders.Clear();
+            occluderMaterial = null;
             organismQueue.Clear();
+            outlineShapes.Clear();
             foreach (UnityEngine.Object o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
             owned.Clear();

@@ -24,9 +24,10 @@ namespace Why.Economy.Land
         // ------------------------------------------------------------------ heat maps (user, 7 Nov: "color coded heatmaps for the
         // core equity value, debt, and speculation asset swell"); each its own hue family, kept under the bloom threshold
 
-        static readonly Color[] EquityRamp = { new Color(.10f, .16f, .36f), new Color(.14f, .50f, .62f), new Color(.42f, .86f, .92f), new Color(.88f, .97f, 1f) };
-        static readonly Color[] DebtRamp = { new Color(.32f, .06f, .09f), new Color(.74f, .15f, .12f), new Color(1f, .48f, .14f), new Color(1f, .88f, .55f) };
-        static readonly Color[] SpecRamp = { new Color(.16f, .11f, .36f), new Color(.50f, .26f, .76f), new Color(.95f, .36f, .76f), new Color(1f, .80f, .95f) };
+        // saturated to the top: points carry less colour than lines did, so no ramp ends in white
+        static readonly Color[] EquityRamp = { new Color(.12f, .20f, .52f), new Color(.08f, .46f, .74f), new Color(.10f, .74f, .86f), new Color(.40f, 1f, .92f) };
+        static readonly Color[] DebtRamp = { new Color(.42f, .06f, .10f), new Color(.82f, .14f, .10f), new Color(1f, .45f, .08f), new Color(1f, .80f, .22f) };
+        static readonly Color[] SpecRamp = { new Color(.26f, .14f, .58f), new Color(.56f, .24f, .86f), new Color(.96f, .30f, .74f), new Color(1f, .58f, .86f) };
         public static readonly Color NegativeEquity = new Color(.55f, .42f, .62f);
 
         static Color Ramp(Color[] ramp, float t)
@@ -159,9 +160,29 @@ namespace Why.Economy.Land
 
         /// <summary>The body: each geodesic direction marched out to the lobes' iso-surface (the field's value e^-1, where a lone
         /// lobe's surface is its size), roughened, coloured by the lobes there, and lit where it faces a frontier.</summary>
+        readonly List<Lobe> lobes;
+        float scale = 1;
+
+        /// <summary>The colour of the parts at a point of the body (its own frame, after the scaling): the lobes there,
+        /// weighted by their share of the field, so an inner point takes the core's or the debt's heat.</summary>
+        public Color ColorAt(Vector3 local)
+        {
+            Vector3 p = local / Mathf.Max(1e-4f, scale);
+            float wsum = 0;
+            Color c = Color.black;
+            foreach (var l in lobes)
+            {
+                float w = Mathf.Exp(-(p - l.Centre).sqrMagnitude / (l.Size * l.Size));
+                c += l.Color * w;
+                wsum += w;
+            }
+
+            return wsum > 1e-6f ? c / wsum : Unknown;
+        }
+
         public Organism(ContestNetwork.Body b, IList<Front> fronts, int detail)
         {
-            var lobes = Lobes(b, out Known, out double drawn);
+            lobes = Lobes(b, out Known, out double drawn);
             var (dirs, edges) = Geodesic(detail);
             Points = new Vector3[dirs.Length];
             Colors = new Color[dirs.Length];
@@ -234,6 +255,7 @@ namespace Why.Economy.Land
             if (Known && drawn > 0 && MeanRadius > 0)
             {
                 float k = ContestNetwork.Radius(drawn) / MeanRadius;
+                scale = k;
                 for (int i = 0; i < Points.Length; i++) Points[i] *= k;
                 MeanRadius *= k;
                 MaxRadius *= k;
@@ -312,8 +334,19 @@ namespace Why.Economy.Land
 
                 var result = (v.ToArray(), edges.ToArray());
                 Cache[levels] = result;
+                FaceCache[levels] = faces.ToArray();
                 return result;
             }
+        }
+
+        static readonly Dictionary<int, int[]> FaceCache = new Dictionary<int, int[]>();
+
+        /// <summary>The triangles of <see cref="Geodesic"/>'s sphere at the same level (indices into its directions): a body's
+        /// points joined into a surface, for the solid that hides what stands behind it.</summary>
+        public static int[] GeodesicFaces(int levels)
+        {
+            Geodesic(levels);
+            lock (Cache) return FaceCache[levels];
         }
 
         public static float Hash01(string s)

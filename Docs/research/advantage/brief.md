@@ -213,3 +213,76 @@ brackets for every number: [compute-nvidia-latest-quarter-revenue]. End with a s
 | `lineage` | The recursion from NVIDIA back to the transistor, 1947-2025. Bell Labs' transistor (1947); Shockley Semiconductor (1956); the eight who left to found Fairchild (1957), the planar process and the integrated-circuit patents, Fairchild's first customers; Intel (1968), memory, the 4004, Moore's law, Intel's exit from DRAM under Japanese competition (1985), the IBM PC and x86; TSMC's founding as a pure-play foundry (1987); NVIDIA's founding (1993), its near-failures, the GeForce 256 (1999), the end of 3dfx, CUDA (2006), AlexNet on two GTX 580 GPUs (2012), the DGX-1 (2016), Mellanox; "Attention Is All You Need" (2017); scaling laws (2020), GPT-3 (2020) and ChatGPT (2022); "intelligence as compression"; ASML's EUV. For each step: who held the advantage, over whom, and how it passed on. |
 | `century` | The recursion through the 20th and 21st centuries' corporate winners and losers, starting from today's winners and walking back. Standard Oil, US Steel, Ford and GM, AT&T and Bell Labs, IBM, Xerox, Toyota, Walmart and Sears, Microsoft, Apple against Nokia and BlackBerry, Google against Yahoo, Amazon, Facebook, Netflix against Blockbuster, Kodak, GE, Enron, Lehman, Japan Inc. in 1989, China's manufacturing rise. For each: the advantage, the rival it beat (or the advantage it lost), the mechanism, the years and the numbers (share, market cap, rank). Also the repeating patterns: what kills dominant firms. |
 | `archetypes` | Competitive advantage before the corporation, and in nature. The Mongols (Genghis Khan; mounted archery, mobility, organisation, the absorption of defeated armies), Alexander (phalanx and cavalry, Gaugamela, the absorption of Persians), Napoleon (artillery, the corps system, the levée en masse, a crown taken rather than given by God; the coalitions and the Congress of Vienna's balance of power), the First and Second World Wars (Germany's economic weight, its overreach, the coalitions' industrial superiority, the US emerging with a large share of world output; Bretton Woods). The biosphere: the trophic pyramid (about 10 % of energy passes up each level), predators living on prey's energy, adaptability through mass extinctions (the end-Cretaceous survivors), organisms shaped by their environment (convergent evolution). For each: the advantage, the rival, the mechanism, the balance that restored itself. |
+
+## Round three: the fifth direction (7 Nov 2026)
+
+The user's fifth direction is verbatim in `brief-v3.md`. It asks the app to show **competitive advantage boundaries**:
+where each company's advantage holds, and what it is made of. Its worked examples are NVIDIA's hold on AI hardware
+(technology, supply chain, patents, share price) and the top tech companies' wall against new entrants (talent, share
+price). It also stacks the supply chain in **strata**, consumer-facing products at the top down to raw materials and
+government, and shows **vertical and horizontal integration**.
+
+**Strata**, top to bottom, with their `stratum` ids:
+
+1. `consumer`: products and platforms people use.
+2. `models`: AI models.
+3. `clouds`: cloud and data centres.
+4. `chips`: accelerators, CPUs, networking, memory and systems.
+5. `fabs`: fabs and packaging.
+6. `tools`: equipment, materials processing, EDA and IP.
+7. `energy`: power.
+8. `materials`: raw materials.
+9. `state`: government.
+
+**Sources of advantage**, the `source` ids:
+
+- `technology`: technology and ecosystem lock-in, e.g. CUDA;
+- `supplyChain`: control of scarce supply, e.g. CoWoS capacity, HBM, prepayments;
+- `patents`: patents and IP;
+- `capital`: the share price and cash as a weapon, e.g. stock-funded deals, investing in customers, capex no entrant can
+  match;
+- `talent`: people, their pay, stock-based compensation, acqui-hires;
+- `scale`;
+- `distribution`: users, channels, defaults;
+- `regulation`: licences, export controls, subsidies.
+
+Before you search, query `Docs/research/advantage/model.json` with `python3 -I` for facts the earlier rounds already
+verified, and cite their ids instead of finding them again. Then add these arrays to your JSON, next to `facts` and
+`actors`. Every entry lists the fact ids it rests on, and only verified facts carry numbers.
+
+```json
+"moats": [{"actor": "nvidia", "stratum": "chips", "market": "AI accelerators",
+           "share": "<as a fact says it>", "shareFact": "<fact id>",
+           "sources": [{"source": "technology", "what": "short label with its number, e.g. CUDA: 6 million developers",
+                        "facts": ["moats-..."]}],
+           "rivals": ["amd", "broadcom", "google"], "entrants": ["groq", "cerebras"], "facts": ["..."]}],
+"presence": [{"actor": "google", "stratum": "chips", "what": "TPU (Ironwood), sold to Anthropic", "facts": ["..."]}],
+"barriers": [{"stratum": "models", "source": "talent", "what": "short label with its number", "facts": ["..."]}],
+"entrants": [{"id": "thinking-machines", "name": "Thinking Machines Lab", "stratum": "models",
+              "what": "raised ... at ...", "fate": "independent|acquired|licence-and-hire|failed|public",
+              "by": "<actor id or null>", "facts": ["..."]}]
+```
+
+New fact `kind`s for this round:
+
+- `patents`: a count of patents, issued or held, naming the year;
+- `developers`: a count of developers or users of a platform;
+- `users`;
+- `share`, which existing facts already use;
+- `compensation`: a pay package or pay per person;
+- `funding`: a round raised by a private company;
+- `trainingCost`.
+
+New actor `layer`s:
+
+- `materials`;
+- `consumer`, for apps and devices people use.
+
+Give a new actor its market cap (`marketCap`, dated 2026) when it is public, so the app can size it.
+
+| Cluster | Scope |
+| --- | --- |
+| `moats` | The sources of advantage of the companies that dominate a stratum, as `moats` entries with the evidence for each source. **NVIDIA** first: CUDA and its developers, the software stack and NVLink and networking share, its patents, its share of TSMC's CoWoS capacity and of HBM supply, its purchase commitments and prepayments, the deals its share price pays for (licence-and-hire of Groq, stakes in OpenAI, Intel, xAI, CoreWeave and others), its share of AI accelerators. Then TSMC (leading-edge share, CoWoS, process lead), ASML (EUV, High-NA, patents), SK Hynix (HBM share), Broadcom (custom accelerators), Microsoft, Alphabet, Amazon, Meta and Apple (distribution: users and defaults; capex; patents), OpenAI and Anthropic (users, revenue, compute contracts). Patent counts from a ranking that a script can read (e.g. IFI Claims' annual top recipients) or the companies' own filings. |
+| `entry` | The barriers that keep new entrants out, and what happened to the entrants. **Talent**: frontier researchers' pay (Meta's 2025 offers, the labs' packages), stock-based compensation as a share of pay, the licence-and-hire and acqui-hire deals (Inflection by Microsoft, Character.AI and Windsurf by Google, Adept by Amazon, Scale AI's stake by Meta, Groq by NVIDIA). **Capital**: what a frontier training run costs, the capex of the incumbents against what an entrant can raise, the funding of new labs (Thinking Machines, Safe Superintelligence, Mistral, Reflection) and chip start-ups (Cerebras, Groq, SambaNova, Tenstorrent, Etched), and how each fared. **Custom silicon** as entry into NVIDIA's layer (Google's TPU sales to Anthropic and others, Amazon's Trainium for Anthropic, OpenAI with Broadcom and AMD). As `barriers` and `entrants` entries. |
+| `integration` | Vertical and horizontal integration, as `presence` entries with evidence: in which strata each company works. Alphabet (TPU, Gemini, Google Cloud, Search, YouTube, Android), Amazon (Trainium, its models, AWS, retail), Microsoft (Maia, its models and its OpenAI stake, Azure, Windows and Office, LinkedIn, GitHub, Xbox), Meta (MTIA, Llama, its own data centres, its apps), Apple (its silicon, Apple Intelligence, its devices), NVIDIA (chips, networking, systems, its cloud, its models), Tesla, SpaceX with xAI (Colossus, Grok, Starlink, X), Samsung (devices, memory, foundry), Intel (design and foundry), Broadcom (chips and VMware), Oracle, Alibaba, Huawei and Tencent. Horizontal: the families of products each holds in one stratum (Meta's apps, Microsoft's software, Alphabet's platforms, Broadcom's acquisitions). |
+| `materials` | The two deepest strata. **Raw materials** for the AI supply chain, with the companies and countries that control them: silicon wafers (Shin-Etsu, SUMCO, GlobalWafers shares), rare earths (China's share of mining and processing; its 2025 export controls; MP Materials and the US Department of Defense deal), gallium and germanium (China's share; its export bans), copper (data-centre demand; Freeport-McMoRan, BHP, Codelco), high-purity quartz, neon and helium, and the fuels for power (gas, uranium). Add their market caps when public. **Government**: the CHIPS Act's grants, the US government's stake in Intel, export-control rules and licence deals (H20), China's controls, Taiwan, the Netherlands and Japan (Rapidus), the EU Chips Act, sovereign funds' roles, semiconductor tariffs. As actors (`layer` `materials` or `state`), facts, flows (subsidies and stakes as flows from the state) and `presence` entries. |

@@ -90,6 +90,9 @@ namespace Why.Economy
 
         public bool Undimmed;
 
+        /// <summary>Drawn over the scene's depth (<see cref="LabelSpec.OnTop"/>): for a view whose marks write depth.</summary>
+        public bool OnTop;
+
         /// <summary>What a click or a pinch on it does (main thread): the overview's doors.</summary>
         public Action OnClick;
 
@@ -291,6 +294,7 @@ namespace Why.Economy
                 Ids = l.Ids,
                 Icon = l.Icon,
                 Undimmed = l.Undimmed,
+                OnTop = l.OnTop,
                 Part = l.Part,
                 OnClick = l.OnClick,
                 Candidates = true

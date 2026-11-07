@@ -57,6 +57,7 @@ namespace Why
         public string Part;               // emphasis key ("capture.owners"): alpha from LabelSystem.PartAlpha, hidden below 0.3
         public Action OnClick;            // a click or pinch on the label runs this (main thread)
         public bool Candidates;           // tries the four candidate places, with a leader, before it is dropped (role labels always do)
+        public bool OnTop;                // drawn over the scene's depth (ZTest Always), for a view whose marks write depth; off: as before
 
         internal float Width;             // estimated width in px at SizePx, icon included
         internal int TextVersion;         // bumped by LabelSystem.SetText so a shown label re-reads its text
@@ -222,6 +223,7 @@ namespace Why
             public float Alpha;
             public float Fade = 1;        // last focus/handoff fade while placed, kept while fading out
             public bool Used;
+            public bool OnTop;            // its spec's LabelSpec.OnTop when last assigned: its plate and leader follow it
         }
 
         /// <summary>A label the last layout placed, and where.</summary>
@@ -1414,7 +1416,9 @@ namespace Why
             // the font's own material, which the slot had before it ever showed a role label
             if (slot.Material == null) slot.Material = tmp.fontSharedMaterial;
             Material material = s.Role != LabelRole.None ? Halo(slot.Material) ?? slot.Material : slot.Material;
+            if (s.OnTop) material = OnTopVariant(material);
             if (material != null && tmp.fontSharedMaterial != material) tmp.fontSharedMaterial = material;
+            slot.OnTop = s.OnTop;
             tmp.text = s.Text ?? string.Empty;
             slot.TextVersion = s.TextVersion;
             Sprite sprite = s.IconEm > 0 ? Icons.GetSprite(s.Icon) : null;
@@ -1471,6 +1475,8 @@ namespace Why
         {
             if (slot.Plate == null) slot.Plate = CreatePlate(slot.Tmp.transform);
             if (!slot.Plate.enabled) slot.Plate.enabled = true;
+            Material plateMaterial = slot.OnTop ? OnTopSprites : Icons.Material;
+            if (plateMaterial != null && slot.Plate.sharedMaterial != plateMaterial) slot.Plate.sharedMaterial = plateMaterial;
             slot.PlateShown = true;
             slot.Plate.color = Color.clear; // SetColor fades it in with the text
             float height = Mathf.Max(slot.Tmp.preferredHeight, LineEm) + 2 * PlateMarginYEm;
@@ -1517,6 +1523,8 @@ namespace Why
             if (em <= 0) return;
             if (slot.Leader == null) slot.Leader = CreateLeader(slot.Tmp.transform);
             if (!slot.Leader.enabled) slot.Leader.enabled = true;
+            Material leaderMaterial = slot.OnTop ? OnTopSprites : Icons.Material;
+            if (leaderMaterial != null && slot.Leader.sharedMaterial != leaderMaterial) slot.Leader.sharedMaterial = leaderMaterial;
             slot.LeaderShown = true;
             Vector2 a = (p.From - p.Point) / em, b = (p.To - p.Point) / em, d = b - a;
             Transform t = slot.Leader.transform;
@@ -1604,6 +1612,44 @@ namespace Why
         /// and underlay, the outline at width 0), the variant a build always holds: an underlay alone may be stripped. Null
         /// when the font's shader has no underlay (role labels then draw without a halo; reported once).
         /// </summary>
+        /// <summary>Always-on-top copies of the label materials (<see cref="LabelSpec.OnTop"/>), made once per base material:
+        /// the same material with its depth test set to Always, as a screen-space canvas sets it for its UI.</summary>
+        readonly Dictionary<Material, Material> onTop = new Dictionary<Material, Material>();
+
+        Material OnTopVariant(Material m)
+        {
+            if (m == null) return null;
+            if (!onTop.TryGetValue(m, out Material v))
+            {
+                v = new Material(m) { name = m.name + " (on top)" };
+                v.SetInt(GuiZTestId, (int)UnityEngine.Rendering.CompareFunction.Always);
+                onTop[m] = v;
+            }
+
+            return v;
+        }
+
+        static readonly int GuiZTestId = Shader.PropertyToID("unity_GUIZTestMode");
+
+        /// <summary>The plates and leaders of on-top labels: UI/Default (it reads the depth test from the material, where
+        /// Sprites/Default always tests), alpha blended like the icons' material.</summary>
+        Material OnTopSprites
+        {
+            get
+            {
+                if (onTopSprites != null || onTopSpritesTried) return onTopSprites;
+                onTopSpritesTried = true;
+                Shader shader = Shader.Find("UI/Default");
+                if (shader == null) return null;
+                onTopSprites = new Material(shader) { name = "Label plates (on top)" };
+                onTopSprites.SetInt(GuiZTestId, (int)UnityEngine.Rendering.CompareFunction.Always);
+                return onTopSprites;
+            }
+        }
+
+        Material onTopSprites;
+        bool onTopSpritesTried;
+
         Material Halo(Material font)
         {
             if (halo != null || haloTried || font == null) return halo;

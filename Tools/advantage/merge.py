@@ -92,7 +92,8 @@ def main():
     gate = gate_records()
     report = {"dropped flows": [], "stub actors": [], "actors without size": [], "duplicates": []}
     facts, actors, order = {}, {}, []
-    lists = {"flows": [], "chokepoints": [], "flashpoints": [], "lineage": []}
+    # round three (brief.md, "Round three"): advantage boundaries, presence in the strata, barriers to entry, entrants
+    lists = {"flows": [], "chokepoints": [], "flashpoints": [], "lineage": [], "moats": [], "presence": [], "barriers": [], "entrants": []}
     seen = {k: set() for k in lists}
     names = clusters()
     for name in names:
@@ -136,8 +137,15 @@ def main():
                 m.setdefault("pick", {}).update({k: v for k, v in a["pick"].items() if k not in m.get("pick", {})})
         for key in lists:
             for item in data.get(key, []):
+                slug = lambda t: re.sub(r"[^a-z0-9]+", "-", (t or "").lower())[:40].strip("-")
                 if item.get("id"):
                     iid = item["id"]
+                elif key == "moats":
+                    iid = f"moat-{item.get('actor', '')}-{item.get('stratum', '')}-{slug(item.get('market'))}"
+                elif key == "presence":
+                    iid = f"presence-{item.get('actor', '')}-{item.get('stratum', '')}"
+                elif key == "barriers":
+                    iid = f"barrier-{item.get('stratum', '')}-{item.get('source', '')}-{slug(item.get('what'))}"
                 elif key == "chokepoints":
                     iid = "choke-" + item.get("actor", "") + "-" + re.sub(r"[^a-z0-9]+", "-", (item.get("controls") or "").lower())[:32].strip("-")
                 else:
@@ -165,6 +173,33 @@ def main():
         flows.append(dict(f, usdBnPerYear=amount))
     lists["flows"] = flows
 
+    # round three's entries rest on verified facts: each keeps only its verified facts, and one with none is dropped
+    def verified(ids):
+        return [x for x in ids or [] if ok(x)]
+    for key in ("moats", "presence", "barriers", "entrants"):
+        kept = []
+        for item in lists[key]:
+            item = dict(item, facts=verified(item.get("facts")))
+            if key == "moats":
+                srcs = []
+                for src in item.get("sources") or []:
+                    src = dict(src, facts=verified(src.get("facts")))
+                    if src["facts"]:
+                        srcs.append(src)
+                    else:
+                        report.setdefault("dropped sources", []).append(f"{item['id']}:{src.get('source')}")
+                item["sources"] = srcs
+                if item.get("shareFact") and not ok(item["shareFact"]):
+                    item["shareFact"] = None
+                if not srcs:
+                    report.setdefault("dropped " + key, []).append(item["id"])
+                    continue
+            elif not item["facts"]:
+                report.setdefault("dropped " + key, []).append(item["id"])
+                continue
+            kept.append(item)
+        lists[key] = kept
+
     # every referenced actor exists
     def need(aid, where):
         if aid and aid not in actors:
@@ -181,6 +216,8 @@ def main():
             need(r, p["id"])
     for l in lists["lineage"]:
         need(l.get("from"), l["id"]); need(l.get("to"), l["id"])
+    for m in lists["moats"] + lists["presence"]:
+        need(m.get("actor"), m["id"])
 
     # each actor's numbers, from its own verified facts
     by_actor = {}

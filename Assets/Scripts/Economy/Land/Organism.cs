@@ -21,6 +21,37 @@ namespace Why.Economy.Land
             Bought = new Color(.60f, .51f, .68f), Stakes = new Color(.70f, .62f, .44f), Debt = new Color(.66f, .36f, .34f), Leases = new Color(.68f, .48f, .34f),
             Unknown = new Color(.52f, .54f, .58f);
 
+        // ------------------------------------------------------------------ heat maps (user, 7 Nov: "color coded heatmaps for the
+        // core equity value, debt, and speculation asset swell"); each its own hue family, kept under the bloom threshold
+
+        static readonly Color[] EquityRamp = { new Color(.10f, .16f, .36f), new Color(.14f, .50f, .62f), new Color(.42f, .86f, .92f), new Color(.88f, .97f, 1f) };
+        static readonly Color[] DebtRamp = { new Color(.32f, .06f, .09f), new Color(.74f, .15f, .12f), new Color(1f, .48f, .14f), new Color(1f, .88f, .55f) };
+        static readonly Color[] SpecRamp = { new Color(.16f, .11f, .36f), new Color(.50f, .26f, .76f), new Color(.95f, .36f, .76f), new Color(1f, .80f, .95f) };
+        public static readonly Color NegativeEquity = new Color(.55f, .42f, .62f);
+
+        static Color Ramp(Color[] ramp, float t)
+        {
+            t = Mathf.Clamp01(t) * (ramp.Length - 1);
+            int i = Mathf.Min(ramp.Length - 2, (int)t);
+            return Color.Lerp(ramp[i], ramp[i + 1], t - i);
+        }
+
+        /// <summary>Equity's heat: book value on a log scale, $10bn (cold) to $3tn (white); negative equity violet.</summary>
+        public static Color EquityHeat(double equityBn) =>
+            double.IsNaN(equityBn) ? Equity : equityBn <= 0 ? NegativeEquity : Ramp(EquityRamp, Mathf.InverseLerp(1f, 3.5f, Mathf.Log10((float)Math.Max(1, equityBn))));
+
+        /// <summary>Debt's heat: leverage, debt over equity on a log scale, 0.05 (cold) to 5 and beyond (yellow-hot).</summary>
+        public static Color DebtHeat(double debtBn, double equityBn)
+        {
+            if (double.IsNaN(debtBn) || debtBn <= 0) return DebtRamp[0];
+            double lev = equityBn > 0 ? debtBn / equityBn : 10;
+            return Ramp(DebtRamp, Mathf.InverseLerp(-1.3f, .7f, Mathf.Log10((float)Math.Max(.01, lev))));
+        }
+
+        /// <summary>Speculation's heat: the P/E on a log scale, 8 (cold) to 150 (pink-white); a loss carried by its value is hottest.</summary>
+        public static Color SpecHeat(double pe, bool loss) =>
+            loss || pe < 0 ? SpecRamp[3] : double.IsNaN(pe) ? SpecRamp[1] : Ramp(SpecRamp, Mathf.InverseLerp(Mathf.Log10(8), Mathf.Log10(150), Mathf.Log10((float)Math.Max(1, pe))));
+
         public readonly Vector3[] Points;     // local, from the body's centre
         public readonly Color[] Colors;
         public readonly float[] Frontier;     // 0 muted .. 1 the hottest frontier
@@ -71,7 +102,15 @@ namespace Why.Economy.Land
             }
 
             known = true;
-            lobes.Add(new Lobe(Vector3.zero, core, Equity, .6f));
+            double equity = double.NaN, debt = double.NaN;
+            foreach (var p in parts)
+            {
+                if (p.Kind == ContestNetwork.PartKind.Core) equity = p.UsdBn;
+                if (p.Kind == ContestNetwork.PartKind.Debt) debt = p.UsdBn;
+            }
+
+            Color debtHeat = DebtHeat(debt, equity);
+            lobes.Add(new Lobe(Vector3.zero, core, EquityHeat(equity), .6f));
             float twist = Hash01(b.Id) * Mathf.PI * 2;
             int above = 0, k = 0;
             foreach (var p in parts) if (Above(p.Kind)) above++;
@@ -87,7 +126,8 @@ namespace Why.Economy.Land
                 else if (p.Kind == ContestNetwork.PartKind.Debt) dir = new Vector3(.12f, -1, .08f).normalized;
                 else dir = new Vector3(Mathf.Cos(twist + 2.2f) * .6f, -.8f, Mathf.Sin(twist + 2.2f) * .6f).normalized;
                 // lobes overlap the core so the parts fuse into one body
-                lobes.Add(new Lobe(dir * (core * .72f + p.Radius * .45f), p.Radius, ColorOf(p.Kind), SolidOf(p.Kind)));
+                Color tint = p.Kind == ContestNetwork.PartKind.Debt ? debtHeat : p.Kind == ContestNetwork.PartKind.Leases ? Color.Lerp(debtHeat, Leases, .4f) : ColorOf(p.Kind);
+                lobes.Add(new Lobe(dir * (core * .72f + p.Radius * .45f), p.Radius, tint, SolidOf(p.Kind)));
             }
 
             return lobes;

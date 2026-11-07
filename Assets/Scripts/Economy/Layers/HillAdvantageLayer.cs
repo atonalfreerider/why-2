@@ -139,11 +139,14 @@ namespace Why.Economy.Layers
 
         public static HillPresets.ViewKey Key { get; } = new HillPresets.ViewKey(new (string, Color)[]
             {
-                ("Equity", Land.Organism.Equity), ("Cash", Land.Organism.Cash), ("What it built", Land.Organism.Built), ("What it bought", Land.Organism.Bought),
-                ("Debt", Land.Organism.Debt), ("Advantage frontier", FrontierColor), ("Owners", Gold),
+                ("Equity: small to large", Land.Organism.EquityHeat(10)), ("", Land.Organism.EquityHeat(2000)),
+                ("Debt: light to heavy", Land.Organism.DebtHeat(5, 100)), ("", Land.Organism.DebtHeat(500, 100)),
+                ("Speculation: P/E low to high", Land.Organism.SpecHeat(9, false)), ("", Land.Organism.SpecHeat(140, false)),
+                ("Owners", Gold), ("Advantage frontier", FrontierColor),
             },
-            "Each company is one body made of its balance sheet: equity at its core, what it owns swelling above, what it owes sagging below; solid where it is built, " +
-            "ghostly where it was bought. The dust around it is speculation, out to its market value. It glows only where its advantage presses on others. Height is market position.");
+            "Each company is one body made of its balance sheet, coloured as heat maps: its core by its equity (navy to white as it grows), what it owes below by its " +
+            "leverage (red to yellow as it rises), and the dust of speculation out to its market value by its P/E (violet to pink as it inflates). " +
+            "It glows only where its advantage presses on others. Height is market position.");
 
         // ------------------------------------------------------------------ the layer
 
@@ -480,7 +483,7 @@ namespace Why.Economy.Layers
                 var body = net.Get(organismQueue.Dequeue());
                 if (body == null) continue;
                 Organism(body);
-                budget -= body.R > 14 ? 3 : 1;
+                budget -= body.R > 24 ? 3 : 1;
             }
         }
 
@@ -517,7 +520,7 @@ namespace Why.Economy.Layers
             string key = Scenario + "|" + Year + "|" + body.Value.ToString("0.0") + "|" + body.Alive + "|" + string.Join(",", fronts.Select(f => (f.Direction * 10).ToString("0") + f.Strength.ToString("0.0")));
             if (organisms.TryGetValue(body.Id, out var have) && have.key == key && have.renderer) return;
             if (have.renderer) DropRenderer(have.renderer);
-            int detail = body.R > 14 ? 3 : 2;
+            int detail = body.R > 24 ? 3 : 2;
             var shape = new Organism(body, fronts, detail);
             var b = new LineMeshBuilder(shape.Points.Length * 3 + shape.Edges.Length * 2);
             float id = EconomyEmphasis.Id(Keys[(int)Part.Organs]);
@@ -548,7 +551,9 @@ namespace Why.Economy.Layers
             // market value, as many as the premium's cube root allows; the market value itself a dotted membrane
             if (!double.IsNaN(body.Value) && body.R > rb + .3f)
             {
-                Color pc = Color.Lerp(PeColor(body), new Color(.55f, .57f, .62f), .45f);
+                bool loss = body.State != null ? body.State.Ni < 0 : body.Actor.Private || body.Actor.Pe < 0;
+                double pe = body.State != null && !double.IsNaN(body.State.Pe) ? body.State.Pe : body.Actor.Pe;
+                Color pc = Land.Organism.SpecHeat(pe, loss);
                 float inner = Mathf.Max(rb, body.EarningsR);
                 double premium = body.Value - Math.Max(body.Actor.Sheet.Equity > 0 ? body.Actor.Sheet.Equity : 0, double.IsNaN(body.EarningsValue) ? 0 : body.EarningsValue);
                 int dust = premium > 0 ? Mathf.Clamp((int)(Math.Pow(premium, 1.0 / 3) * 26), 12, 620) : 0;
@@ -557,12 +562,12 @@ namespace Why.Economy.Layers
                     Vector3 d = RandomDir(rnd);
                     float u = (float)rnd.NextDouble(), rr = Mathf.Lerp(inner, body.R, Mathf.Pow(u, .55f));
                     Vector3 p = d * rr;
-                    b.AddSegment(p, p + d * .05f, WithAlpha(pc, .2f + .18f * u), 1.5f, 0, id, .9f);
+                    b.AddSegment(p, p + d * .05f, WithAlpha(pc, .26f + .22f * u), 1.6f, 0, id, 1f);
                 }
 
                 var (dirs, _) = Land.Organism.Geodesic(2);
                 foreach (var d in dirs)
-                    b.AddSegment(d * body.R, d * (body.R + .06f), WithAlpha(pc, .3f), 1.3f, 0, id, 1);
+                    b.AddSegment(d * body.R, d * (body.R + .06f), WithAlpha(pc, .42f), 1.4f, 0, id, 1.05f);
                 if (body.EarningsR > rb + .5f && body.EarningsR < body.R - .5f)
                 {
                     var (ed, _) = Land.Organism.Geodesic(1);
@@ -802,7 +807,7 @@ namespace Why.Economy.Layers
             Vector3 side = Vector3.Cross(Vector3.up, dir);
             side = side.sqrMagnitude < .01f ? Vector3.right : side.normalized;
             Vector3 p1 = (p0 + p2) * .5f + Vector3.up * (dist * .12f) + side * (dist * .06f * ((salt & 1) == 0 ? 1 : -1));
-            float width = Mathf.Clamp(.22f * Mathf.Sqrt((float)Math.Max(0, usd)), .3f, 6f);
+            float width = Mathf.Clamp(.3f * Mathf.Sqrt((float)Math.Max(0, usd)), .4f, 8f);
             string kind = l.Flow?.Kind ?? "";
             bool capital = kind == "investment" || kind == "financing" || kind == "equity";
             double fear = l.Flow != null ? l.Flow.Fear : double.NaN;

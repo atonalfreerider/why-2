@@ -26,8 +26,8 @@ namespace Why.Economy.Land
     public sealed class ContestNetwork
     {
         /// <summary>The middle across the land; the depth band past the crest; the volume scale; the strata's altitudes.</summary>
-        public const float X0 = 290, ZFrom = 110, ZTo = 300, KR = 1.55f, MinR = 1.6f, MinAlt = 10, MaxAlt = 130,
-            OwnerY = 188, WealthY = 222, BuyerY = -4, StateY = -24;
+        public const float X0 = 290, ZFrom = 120, ZTo = 290, KR = 2.4f, MinR = 2.4f, MinAlt = 14, MaxAlt = 150,
+            OwnerY = 228, WealthY = 268, BuyerY = -6, StateY = -30;
 
         public enum Kind { Company, Owner, Wealth, Buyer, State }
 
@@ -185,8 +185,8 @@ namespace Why.Economy.Land
                     b.TargetY = st != null && !double.IsNaN(st.Alt) ? (float)st.Alt : Altitude(adv, b.Value);
                     if (!b.Alive && st != null && st.Status == "extinct") b.TargetY = 2;
                 }
-                else if (b.Kind == Kind.Buyer) { b.R = 11; b.TargetY = BuyerY; }
-                else if (b.Kind == Kind.State) { b.R = b.Id == "us-gov" ? 14 : 8; b.TargetY = StateY; }
+                else if (b.Kind == Kind.Buyer) { b.R = 16; b.TargetY = BuyerY; }
+                else if (b.Kind == Kind.State) { b.R = b.Id == "us-gov" ? 20 : 11; b.TargetY = StateY; }
             }
 
             // the whole: the companies' value in this world and year against now (the wealth groups own the market)
@@ -213,7 +213,7 @@ namespace Why.Economy.Land
                 }
 
                 b.Value = b.Owner.Kind == "households" ? b.Owner.HoldingsUsdBn * MarketRatio : Math.Max(held, b.Owner.HoldingsUsdBn);
-                b.R = Mathf.Max(2.5f, .22f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
+                b.R = Mathf.Max(3f, .3f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
                 b.TargetY = b.Kind == Kind.Wealth ? WealthY : OwnerY;
             }
 
@@ -223,7 +223,7 @@ namespace Why.Economy.Land
 
             foreach (var l in Links)
             {
-                l.Rest = l.A.R + l.B.R + (l.Kind == "flow" ? 26 : 18);
+                l.Rest = l.A.R + l.B.R + (l.Kind == "flow" ? 8 : 5);
                 l.K = l.Kind == "owns" ? 0 : .012f * Mathf.Clamp(Mathf.Log10(2 + (float)Math.Max(0, double.IsNaN(l.UsdBn) ? 5 : l.UsdBn)), .4f, 3f);
             }
         }
@@ -295,7 +295,7 @@ namespace Why.Economy.Land
                     if (a.Kind == Kind.Company)
                     {
                         force[i].z += .0028f * (a.LayerZ - a.Pos.z);
-                        force[i].x += .0015f * (X0 - a.Pos.x);
+                        force[i].x += .0032f * (X0 - a.Pos.x);
                     }
                     else
                     {
@@ -311,7 +311,7 @@ namespace Why.Economy.Land
                         if (a.Kind == Kind.Company && (!a.Alive || !b.Alive)) continue;
                         Vector3 d = b.Pos - a.Pos;
                         if (a.Kind != Kind.Company) d.y = 0;
-                        float dist = Mathf.Max(.5f, d.magnitude), min = a.R + b.R + (a.Kind == Kind.Company ? 7 : 5);
+                        float dist = Mathf.Max(.5f, d.magnitude), min = a.R + b.R + (a.Kind == Kind.Company ? 3 : 4);
                         float push = 2.2f * (a.R + b.R) * (a.R + b.R) / (dist * dist + 40);
                         if (dist < min) push += .45f * (min - dist);
                         Vector3 f = d / dist * push;

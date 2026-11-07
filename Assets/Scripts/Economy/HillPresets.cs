@@ -70,7 +70,7 @@ namespace Why.Economy
             // future side and above, looking back toward the wave 20 degrees off its axis. Key I opens it (the crest's cut
             // face, then the floor spreading out of it as the peaks rise).
             Add(HillAdvantageLayer.View, "The present as a contest", "2026's economy as a living contest: each company its balance sheet inside a shell of market value, higher the more it dominates; rivers of money between them; their owners in gold above.",
-                KeyCode.I, new Vector3(ContestNetwork.X0 - 130, 84, crest + 205), 158, 15, 640);
+                KeyCode.I, new Vector3(ContestNetwork.X0 - 95, 104, crest + 205), 158, 12, 600);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.

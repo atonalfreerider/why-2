@@ -20,3 +20,13 @@
 Given in the same session as the sixth direction (`brief-v4.md`) and the universe requests of the same day (the six mass
 extinctions as collapses of the tree of life, the expansion grid as nested decade waves with a 10^n m²/px² readout, and the main
 sequence re-recorded with the same narrations).
+
+## Approval (7 Nov 2026, verbatim)
+
+Asked whether public-domain official portraits may be used for the executive cascade (presidents, vice presidents, cabinet,
+congressional leaders and the Joint Chiefs), the user answered:
+
+> yes, use public domain portraits
+
+Record it as the `approved` reason for each of these people in `Tools/images/fetch.py`'s manifest; public-domain (official US
+government) portraits only.

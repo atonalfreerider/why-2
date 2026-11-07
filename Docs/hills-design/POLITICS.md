@@ -36,8 +36,9 @@ so far; the maps of what exists are in `Docs/research/politics/maps/` (key `gove
    and one packet primitive for everything that moves: money, goods, capital, people, promises (contracts as marching dashes).
 8. **Key moments.** Laws, regulations, trade actions, monetary turns and conflicts are sparks on the streams at their dates,
    coloured by kind, and each lands on the economy as topology (regulation strands, tariff walls) under the industries it touched.
-9. **Portraits.** Names first; public-domain official portraits only with the user's approval recorded per person in
-   `Tools/images/fetch.py`'s manifest.
+9. **Portraits.** Approved by the user on 7 Nov 2026 ("yes, use public domain portraits", `brief-v5.md`): public-domain
+   official portraits of the executive cascade (presidents, vice presidents, cabinet, congressional leaders, the Joint Chiefs),
+   the approval recorded per person in `Tools/images/fetch.py`'s manifest.
 
 ## Plan
 

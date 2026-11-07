@@ -170,7 +170,8 @@ namespace Why.Economy.Land
                 if (b.Kind == Kind.Company)
                 {
                     var a = b.Actor;
-                    var st = w?.At(a.Id, year);
+                    // 2026 is the measured year in every world: its numbers are the verified facts, never the simulation's
+                    var st = World == Advantage.Now || year <= 2026 ? null : w?.At(a.Id, year);
                     b.State = st;
                     b.Value = st != null && !double.IsNaN(st.V) ? st.V : a.Sized ? a.SizeUsdBn : double.NaN;
                     b.Alive = st == null || st.Alive;

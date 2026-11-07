@@ -14,7 +14,7 @@ one world per course: "now" (2026), "2030" (the most likely course, moved by eac
 scenario (moved by its Jev scores and its parameters in WORLDS). Each year from 2027, for every company alive:
 
  1 Advantage  A_t = clamp(A + 0.9 (score - 2) f, 0, 7), f = 0, 1/3, 2/3, 1, 1 for 2026..2030.
- 2 Revenue    base x shock x lost. The base grows at the recent growth (capped) fading toward 5%, plus 5 points a year
+ 2 Revenue    base x shock x lost. The base grows at the recent growth (capped) fading toward 5%, plus 3 points a year
               per step of the score, times f. The shock is the scenario's at the year's intensity: flowScale where it
               names the company or the rivers into it (a river by its own key, else its payee's, else its payer's),
               else the premise's own shock for the company. Lost is the rivers once paid by customers now dead.
@@ -24,10 +24,10 @@ scenario (moved by its Jev scores and its parameters in WORLDS). Each year from 
               due are fixed costs. Net income = revenue x margin - interest.
  4 Value      The 2026 price is the market's forecast: enterprise value (stakes held aside) grows at 5% a year, times
               earnings power against the path the market expected (growth fading, margins reverting, A unchanged),
-              times (A_t + 1)/(A + 1), times M_t^s. Earnings power is half this year's and half last year's, grown; a
-              2026 loss-maker's is revenue x its layer's long-run margin. M_t is the world's multiple factor and
-              s = the 2026 EV/earnings multiple / 25, within 0.5..2.5: the most speculative shell bursts hardest.
-              Market value = EV - debt + cash + the stakes held, at their companies' values.
+              times (A_t + 1)/(A + 1), times M_t^s. Earnings power is half this year's and half last year's, grown;
+              for a 2026 loss-maker, or a firm priced over 60x earnings, it is revenue x its layer's long-run margin.
+              M_t is the world's multiple factor; s = the 2026 EV/earnings multiple / 25, within 0.5..2.5, so the
+              most speculative shell bursts hardest. Market value = EV - debt + cash + the stakes held, at value.
  5 Cash       + net income + depreciation - capex. Above 35% of revenue in cash, 80% of earnings goes to owners.
  6 Capital    Below a buffer (10% of revenue plus a year of burn) a company raises equity while markets are open and
               its shell is at least 1.5 times book (first, if over 5 times: the share price as a weapon), and debt while
@@ -50,7 +50,8 @@ P = {  # name: (value, why)
     "growthFloor": (-0.3, "nor is a fall steeper than 30% a year"),
     "growthLongRun": (0.05, "the nominal growth every company fades toward, and the drift of an expected value"),
     "growthFade": (0.55, "growth above 5% keeps 55% of its excess a year: a boom halves in about a year"),
-    "growthPerStep": (0.05, "each step of Jev's answer adds or takes 5 points of growth a year"),
+    "growthPerStep": (0.03, "each step of Jev's answer adds or takes 3 points of growth a year: the lasting change in "
+                      "position, while the event itself is the scenario's shock"),
     "marginKeep": ((0.6, 0.05), "a margin keeps 0.6 + 0.05 A of its gap to the norm a year (A 7 keeps 95%, A 2 70%): "
                    "a power is a margin rivals cannot compete away (Helmer); a loss narrows the same way"),
     "fixedMax": (0.9, "at most 90% of costs are fixed, however large the commitments"),
@@ -60,6 +61,8 @@ P = {  # name: (value, why)
     "senseRef": (25, "an EV of 25 times earnings moves one for one with the market factor"),
     "senseRange": ((0.5, 2.5), "a cheap shell (memory near 5x) moves half as much, a speculative one 2.5 times"),
     "capitalisedMin": (0.02, "a loss-maker is never valued on a long-run margin below 2%"),
+    "speculative": (60, "a company priced at over 60 times its earnings (Tesla, Palantir, Arm, AMD) is valued like a "
+                    "loss-maker, on what it may earn: the market is not pricing what it earns now"),
     "depShare": (0.5, "depreciation is half of a reported capex for a growing asset base; the other half is growth"),
     "buffer": (0.1, "a company keeps cash of 10% of revenue, plus a year of any burn"),
     "payout": ((0.35, 0.8), "above 35% of revenue in cash, 80% of the year's earnings goes back to owners"),
@@ -72,8 +75,13 @@ P = {  # name: (value, why)
     "spread": ((0.01, 0.045), "debt costs the world's rate plus 1 point, up to 4.5 points at 6x EBITDA or a loss"),
     "absorbKeep": (0.8, "an absorber keeps 80% of its target's revenue, run at the absorber's long-run margin"),
     "riverKeep": (0.5, "an absorbed company's purchases and commitments continue at half; an extinct one's stop"),
+    "riverMax": (0.5, "no one customer's river is more than half a company's revenue in the contagion: contracted "
+                 "rivers are partly revenue still to come (OpenAI's $60bn a year to Oracle starts in 2027)"),
     "burnCap": (1.5, "a burn above 1.5 times revenue is a multi-year or non-cash figure, so it is capped"),
     "defaultA": (3.5, "an unjudged company stands mid-scale"),
+    "durabilityInScenarios": (False, "as specified, a scenario moves A by its own score only, so the drift Jev expects "
+                              "anyway (durability) shows only in 2030; True adds it, making each scenario a deviation "
+                              "from the most likely course"),
     "commitYears": (4, "commitments without a term run four years"),
     "burst": (0.3, "a fall of 30% or more of market value in a year is a burst shell"),
     "eventMin": (1.0, "raises under $1bn are not listed as events"),
@@ -206,8 +214,8 @@ WORLDS = {  # field: (value by year 2026..2030, or by company; why)
         "open": ([1, .1, .25, .7, .9], "the equity window for loss-makers closes for about 18 months"),
         "credit": ([1, .7, .7, .85, .95], "lenders cut what they accept from leveraged builders"),
         "capex": ([1, 1.1, 1.15, 1.25, 1.35], "AI demand still grows 20-30% a year, so capex grows, more slowly"),
-        "p": ([0, 1, 1, .6, .3], "the turn runs through 2027 and 2028, then eases"),
-        "payout": ([1, 0, 0, 1, 1], "buybacks stop in 2027 and 2028"),
+        "p": ([0, 1, 1, .6, .3], "the turn runs through 2027 and 2028, then eases; the buyback halt is carried by "
+              "M (market value counts the cash kept, so a halt would read as a gain)"),
         "shocks": ({"amd": .85, "broadcom": .9, "marvell": .85, "micron": .85, "sk-hynix": .85, "samsung": .92,
                     "arm": .9, "arista": .9, "dell": .85, "tesla": .9, "spacex": .95, "xai": .85, "palantir": .9,
                     "softbank": .7}, "the unfriendly list beyond flowScale: AI demand grows more slowly than in the "
@@ -315,7 +323,7 @@ def prepare(c, rate0):
         A = fb("A", v("defaultA"), f"{v('defaultA')}, mid-scale")
     if dur is None:
         dur = fb("durability", 2.0, "2 (holds)")
-    basis = "earnings" if NI > 0 else "revenue"
+    basis = "earnings" if NI > 0 and V + debt - cash < v("speculative") * OE else "revenue"
     OEs = OE if basis == "earnings" else R * max(L["norm"], v("capitalisedMin"))
     mb = clamp(OE / R, *v("marginRange"))
     return {"id": c["id"], "layer": layer, "V0": V, "V": V, "R0": R, "R": R, "Rb": R, "Rx": R, "NI": NI, "OE0": OEs,
@@ -420,7 +428,7 @@ def step(c, wid, t, W, events, y):
     """One year of a living company: advantage, revenue, earnings, cash, value, and the capital it raises."""
     f, p, lt = min(1.0, t / v("rampYears")), at(W["p"], t), v("lookThrough")
     M, rate, opn, credit, K = (at(W[k], t) for k in ("M", "rate", "open", "credit", "capex"))
-    score = c["dur"] if wid == "2030" else c["scen"].get(wid, 2.0)
+    score = c["dur"] if wid == "2030" else c["scen"].get(wid, 2.0) + (c["dur"] - 2) * v("durabilityInScenarios")
     c["A_t"] = clamp(c["A"] + v("scoreStep") * (score - 2) * f, 0, 7)
     gx = v("growthLongRun") + (c["g0"] - v("growthLongRun")) * v("growthFade") ** t
     grow = max(0.5, 1 + gx + v("growthPerStep") * (score - 2) * f)
@@ -465,7 +473,7 @@ def step(c, wid, t, W, events, y):
     if c["cash"] < 0:   # cut capex to depreciation before anything else
         c["cash"] += min(-c["cash"], capex - D)
     if c["cash"] >= 0 and NI > 0 and c["cash"] > v("payout")[0] * R:
-        pay = min(v("payout")[1] * at(W.get("payout", [1]), t) * NI, c["cash"] - v("payout")[0] * R)
+        pay = min(v("payout")[1] * NI, c["cash"] - v("payout")[0] * R)
         c["cash"], c["eq"] = c["cash"] - pay, c["eq"] - pay
     c.update(R=R, NI=NI)
 
@@ -495,7 +503,7 @@ def die(c, S, dying, events, y, M, t):
     for d in S.values():
         for e in (d["edges"] if d["status"] == "alive" else []):
             if e["id"] == c["id"] and e["kind"] in ("customer", "commitment"):
-                d["lost"] *= max(0.2, 1 - (1 - keep) * e["usd"] / max(d["R0"], d["revSum"]))
+                d["lost"] *= 1 - (1 - keep) * min(v("riverMax"), e["usd"] / max(d["R0"], d["revSum"]))
             elif e["id"] == c["id"] and e["kind"] == "capital":
                 d["capScale"] *= 1 - (1 - keep) * e["usd"] / d["capSum"]
 

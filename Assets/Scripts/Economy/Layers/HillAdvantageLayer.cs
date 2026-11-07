@@ -107,8 +107,9 @@ namespace Why.Economy.Layers
             if (id == Scenario) return;
             Scenario = id;
             var w = Advantage.Get()?.WorldById(id);
+            // 2026 is measured in every world, so a world chosen from 2026 opens on its outcome (scrub the years back from there)
             if (id == Advantage.Now) Year = 2026;
-            else if (w != null && Year < w.FirstYear) Year = w.FirstYear;
+            else if (w != null && Year <= 2026) Year = w.LastYear;
             current?.Retarget();
         }
 
@@ -331,15 +332,18 @@ namespace Why.Economy.Layers
         {
             float open = Mathf.Max(.02f, Open(clock)), rise = Mathf.Max(.002f, Rise(clock)), reveal = Reveal(clock);
             content.transform.localScale = new Vector3(1, rise, open);
+            // in the history camera the present steps back: the lane and its contests are the story
+            float present = History ? .06f : 1;
             foreach ((Renderer r, Part part) in renderers)
             {
                 float a = EconomyEmphasis.Get(Keys[(int)part]);
                 if (part != Part.Organs && part != Part.Shells && part != Part.Landscape) a *= reveal;
                 if (part == Part.Landscape) a *= rise;
+                if (part != Part.Thread) a *= present;
                 EconomyEmphasis.Set(r, a);
             }
 
-            float organ = EconomyEmphasis.Get(Keys[(int)Part.Organs]);
+            float organ = EconomyEmphasis.Get(Keys[(int)Part.Organs]) * present;
             foreach (var kv in organisms)
             {
                 if (!kv.Value.renderer) continue;
@@ -1091,10 +1095,12 @@ namespace Why.Economy.Layers
                 switch (body.Kind)
                 {
                     case ContestNetwork.Kind.Company:
-                        if (!named.Contains(body.Id)) continue;
-                        string value = double.IsNaN(body.Value) ? " <i>value unverified</i>" : " " + Money(body.Value);
+                        if (!named.Contains(body.Id) || History) continue;
+                        // a simulated year's numbers carry ≈: they are the model's, not measured
+                        string sim = body.State != null ? "≈" : "";
+                        string value = double.IsNaN(body.Value) ? " <i>value unverified</i>" : " " + sim + Money(body.Value);
                         double pe = body.State != null && !double.IsNaN(body.State.Pe) ? body.State.Pe : body.Actor.Pe;
-                        string peText = !double.IsNaN(pe) && pe > 0 ? " · P/E " + pe.ToString("0") : (body.State != null && body.State.Ni < 0) || body.Actor.Private || pe < 0 ? " · loss" : "";
+                        string peText = !double.IsNaN(pe) && pe > 0 ? " · P/E " + sim + pe.ToString("0") : (body.State != null && body.State.Ni < 0) || body.Actor.Private || pe < 0 ? " · loss" : "";
                         string fate = body.State == null || body.State.Alive ? "" : body.State.Status == "extinct" ? " <color=#F59A9A>extinct</color>" : " <color=#C9CED6>absorbed by " + (net.Get(body.State.By)?.Name ?? body.State.By) + "</color>";
                         labels.Add(new HillLabel
                         {
@@ -1104,7 +1110,7 @@ namespace Why.Economy.Layers
                         break;
                     case ContestNetwork.Kind.Owner:
                     case ContestNetwork.Kind.Wealth:
-                        if (body.Kind == ContestNetwork.Kind.Owner && body.Value < 150 && Selected == null) continue;
+                        if (History || body.Kind == ContestNetwork.Kind.Owner && body.Value < 150 && Selected == null) continue;
                         labels.Add(new HillLabel
                         {
                             Text = body.Name + " " + Money(body.Value), At = body.Pos + Vector3.up * 2.5f, Role = body.Kind == ContestNetwork.Kind.Wealth ? LabelRole.Name : LabelRole.Note,

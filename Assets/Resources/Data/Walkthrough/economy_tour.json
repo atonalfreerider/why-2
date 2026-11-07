@@ -252,11 +252,11 @@
     {
       "id": "hills_advantage",
       "title": "The present as a contest",
-      "text": "Open this year's crest and the economy becomes a contest. Each peak is one actor, as wide as its market value and as high as its competitive advantage. Money climbs to advantage. Google, Amazon, Microsoft and Meta plan to spend $725 billion on capital in 2026, and NVIDIA, worth $4.5 trillion, sold $48.7 billion to the hyperscalers in one quarter. Behind it stand the choke points: ASML is the only company that makes EUV machines, and SK Hynix says its AI memory is sold out through 2029. Every peak here descends from 1947, when Bell Labs invented the transistor; the gold lane follows the line from there to NVIDIA's summit.",
+      "text": "Open this year's crest and the economy becomes a living contest. Each company is one body made of its balance sheet: what it owns swelling above its core, what it owes hanging below, and around it a dust of speculation out to its market value. NVIDIA, worth $4.5 trillion, sold $48.7 billion to the hyperscalers in one quarter, and the money converges on it. A body glows only where its advantage presses on others: ASML is the only company that makes EUV machines. Above them all, in gold, sit their owners. Press play, and the years decide who holds the high ground, who is absorbed, and who goes extinct.",
       "key": [
         {
           "color": "gold",
-          "label": "profit above normal, and the money climbing to it"
+          "label": "owners"
         },
         {
           "color": "rose",
@@ -268,13 +268,13 @@
         },
         {
           "color": "white",
-          "label": "choke point"
+          "label": "an advantage frontier"
         }
       ],
-      "reading": "Peaks: width is market value; height is competitive advantage, Helmer's seven powers judged by Jev from sourced facts; the bands are the powers that hold a peak up. The panel switches worlds: now, a Taiwan disruption, 2030.",
+      "reading": "Bodies: their balance sheets, solid where built, ghostly where bought; dust out to market value is speculation. Height is market position. The panel plays 2026 to 2030 in each world.",
       "measured": "market values on 7 November 2026, the latest quarterly reports, capex plans and contracts, each through the truth gate",
-      "judged": "each actor's seven powers, its course to 2030 and each scenario's effect; each payer's motive (Jev)",
-      "assumed": "advantage composed as the strongest power plus half the second plus a quarter of the third; the scenarios' premises",
+      "judged": "each company's seven powers, strategy and risk, its course in each world; each payer's motive (Jev)",
+      "assumed": "the simulation's rules and parameters, each listed with its reason; a reference P/E of 15 for what earnings justify",
       "focus": "advantage",
       "anchor": "",
       "highlight": [],
@@ -286,7 +286,7 @@
         },
         {
           "at": 11,
-          "show": "taiwan"
+          "show": "digestion"
         },
         {
           "at": 21,

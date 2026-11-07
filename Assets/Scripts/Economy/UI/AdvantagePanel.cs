@@ -162,7 +162,8 @@ namespace Why.Economy.UI
             {
                 hoverShown = id;
                 if (a != null) card.Show(id, a.Name, Meta(a), Card(a));
-                else card.Show(id, o.Name, KindName(o.Kind) + " · holds " + HillAdvantageLayer.Money(Holdings(data, o)), Stakes(data, o));
+                else card.Show(id, o.Name, KindName(o.Kind) + " · holds " + HillAdvantageLayer.Money(Holdings(data, o)) + (o.Kind == "households"
+                        ? " of US stocks (Fed accounts)" : " in the companies shown (its verified stakes x their market value)"), Stakes(data, o));
             }
 
             card.Tick(PointerInput.Position, canvas, Time.unscaledDeltaTime);
@@ -264,15 +265,17 @@ namespace Why.Economy.UI
             if (!string.IsNullOrEmpty(a.Role)) b.Append(Cap(a.Role)).Append(".\n");
             double v = body != null && !double.IsNaN(body.Value) ? body.Value : a.SizeUsdBn;
             double eq = st != null && !double.IsNaN(st.Eq) ? st.Eq : a.Sheet.Equity;
+            string sim = st != null ? "≈" : "";
+            if (st != null) b.Append("<i>Simulated ").Append(HillAdvantageLayer.Year).Append(" (≈): the model's numbers, not measured.</i>\n");
             if (!double.IsNaN(v))
             {
-                b.Append(a.Private ? "Valued at " : "Market value ").Append(HillAdvantageLayer.Money(v));
+                b.Append(a.Private ? "Valued at " : "Market value ").Append(sim).Append(HillAdvantageLayer.Money(v));
                 if (!double.IsNaN(eq) && eq > 0) b.Append(", ").Append((v / eq).ToString("0.#")).Append("× its book of ").Append(HillAdvantageLayer.Money(eq));
                 b.Append(Host(data, a.SizeFact)).Append('\n');
             }
 
             double pe = st != null && !double.IsNaN(st.Pe) ? st.Pe : a.Pe;
-            if (!double.IsNaN(pe)) b.Append(pe > 0 ? "P/E " + pe.ToString("0.#") + (pe > 60 ? " — a price that pays for the future" : "") : "Loss-making: valued on its future").Append('\n');
+            if (!double.IsNaN(pe)) b.Append(pe > 0 ? "P/E " + sim + pe.ToString("0.#") + (pe > 60 ? ": a price that pays for the future" : "") : "Loss-making: valued on its future").Append('\n');
             var weapons = new List<string>();
             if (!double.IsNaN(a.Buybacks)) weapons.Add("buybacks " + HillAdvantageLayer.Money(a.Buybacks));
             if (!double.IsNaN(a.Dividends)) weapons.Add("dividends " + HillAdvantageLayer.Money(a.Dividends));
@@ -393,6 +396,9 @@ namespace Why.Economy.UI
         static string Method(Advantage data) =>
             "As of " + data.AsOf + ". " + data.Method + " Judgments by " + (data.Judge ?? "Jev") + " (TypeSafe System One): a model's reading of the evidence, not facts. " +
             "Every number shown is a fact whose quote was found on its source and that Jev judged to support it (Tools/advantage/verify.py); 2026 numbers were read on the as-of date. " +
+            "Derived, not measured: an owner's circle is the sum of its verified stakes at today's market values; the wealth groups' are the Fed's shares of households' stocks; " +
+            "market value over book divides two facts; the earnings shell is net income at a P/E of 15 (assumed). Rivers marked as estimates in the research are estimates. " +
+            "Years after 2026 are simulated (≈). " +
             (data.SimAssumptions.Count > 0 ? "The simulation's assumptions: " + string.Join("; ", data.SimAssumptions.Take(12)) + ". " : "") +
             "Research and analysis: Docs/research/advantage (" + data.Sources.Count + " sources cited here).";
 

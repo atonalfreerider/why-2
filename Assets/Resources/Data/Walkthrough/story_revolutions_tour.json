@@ -19,7 +19,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1775.5:pop=george-washington,george-iii"
+          "show": "history:rev:1775.5:pop=george-washington,george-iii,united-states,kingdom-of-great-britain"
         }
       ]
     },
@@ -39,7 +39,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1777.792:x:sel=continental-army:pop=george-washington"
+          "show": "history:rev:1777.792:x:sel=continental-army:pop=george-washington,continental-army,british-army"
         }
       ]
     },
@@ -59,7 +59,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1778.125:sel=france:pop=vergennes,louis-xvi,benjamin-franklin"
+          "show": "history:rev:1778.125:sel=france:pop=vergennes,louis-xvi,benjamin-franklin,france"
         }
       ]
     },
@@ -79,11 +79,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1781.708:x:sel=french-navy:pop=de-grasse,rochambeau"
+          "show": "history:rev:1781.708:x:sel=french-navy:pop=de-grasse,rochambeau,french-navy,royal-navy"
         },
         {
           "at": 8.8,
-          "show": "history:rev:1781.792:x:sel=continental-army:pop=george-washington,rochambeau,cornwallis"
+          "show": "history:rev:1781.792:x:sel=continental-army:pop=george-washington,rochambeau,cornwallis,continental-army"
         }
       ]
     },
@@ -103,11 +103,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne"
+          "show": "history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne,kingdom-of-france"
         },
         {
           "at": 13.2,
-          "show": "history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi"
+          "show": "history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi,catholic-church"
         }
       ]
     },
@@ -127,7 +127,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1789.375:x:sel=french-population:pop=sieyes,louis-xvi"
+          "show": "history:rev:1789.375:x:sel=french-population:pop=sieyes,louis-xvi,french-population,catholic-church"
         }
       ]
     },
@@ -147,7 +147,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1789.542:sel=french-population"
+          "show": "history:rev:1789.542:sel=french-population:pop=kingdom-of-france,french-population,catholic-church"
         }
       ]
     },
@@ -167,7 +167,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1793.042:sel=french-republic:pop=louis-xvi,marie-antoinette"
+          "show": "history:rev:1793.042:sel=french-republic:pop=louis-xvi,marie-antoinette,french-republic,first-coalition"
         }
       ]
     },
@@ -187,7 +187,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1793.625:x:sel=french-republic:pop=robespierre"
+          "show": "history:rev:1793.625:x:sel=french-republic:pop=robespierre,french-republic"
         }
       ]
     },
@@ -207,7 +207,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1794.542:x:sel=french-republic:pop=robespierre,danton"
+          "show": "history:rev:1794.542:x:sel=french-republic:pop=robespierre,danton,french-republic"
         }
       ]
     },
@@ -227,7 +227,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1799.875:sel=french-consulate:pop=napoleon,sieyes"
+          "show": "history:rev:1799.875:sel=french-consulate:pop=napoleon,sieyes,french-consulate"
         }
       ]
     },
@@ -247,11 +247,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1801.5:sel=first-french-empire:pop=napoleon,pius-vii"
+          "show": "history:rev:1801.5:sel=first-french-empire:pop=napoleon,pius-vii,catholic-church"
         },
         {
           "at": 9.5,
-          "show": "history:rev:1804.958:x:sel=first-french-empire:pop=napoleon,pius-vii"
+          "show": "history:rev:1804.958:x:sel=first-french-empire:pop=napoleon,pius-vii,first-french-empire,catholic-church"
         }
       ]
     },
@@ -271,11 +271,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1805.292:sel=third-coalition:pop=pitt"
+          "show": "history:rev:1805.292:sel=third-coalition:pop=pitt,united-kingdom,third-coalition"
         },
         {
           "at": 11.4,
-          "show": "history:rev:1805.792:x:sel=royal-navy:pop=nelson"
+          "show": "history:rev:1805.792:x:sel=royal-navy:pop=nelson,royal-navy,french-navy,spanish-navy"
         }
       ]
     },
@@ -295,11 +295,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov"
+          "show": "history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,grande-armee"
         },
         {
           "at": 20.4,
-          "show": "history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher"
+          "show": "history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher,grande-armee,prussia"
         }
       ]
     },
@@ -319,11 +319,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1806.875:sel=first-french-empire:pop=napoleon"
+          "show": "history:rev:1806.875:sel=first-french-empire:pop=napoleon,first-french-empire,united-kingdom"
         },
         {
           "at": 21.5,
-          "show": "history:rev:1812.458:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov"
+          "show": "history:rev:1812.458:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,russian-empire"
         }
       ]
     },
@@ -343,11 +343,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1813.792:x:sel=sixth-coalition:pop=wellington,alexander-i"
+          "show": "history:rev:1813.792:x:sel=sixth-coalition:pop=wellington,alexander-i,sixth-coalition,united-kingdom"
         },
         {
           "at": 21.9,
-          "show": "history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher"
+          "show": "history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher,seventh-coalition,grande-armee"
         }
       ]
     },
@@ -367,7 +367,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:rev:1815.458:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i"
+          "show": "history:rev:1815.458:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i,congress-of-vienna"
         }
       ]
     }

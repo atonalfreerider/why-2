@@ -19,11 +19,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1945:pop=henry-luce"
+          "show": "history:ai:1945:pop=henry-luce,united-states,ussr"
         },
         {
           "at": 18.4,
-          "show": "history:ai:1950:x:pop=henry-luce"
+          "show": "history:ai:1950:x:pop=henry-luce,united-states,ussr"
         }
       ]
     },
@@ -43,7 +43,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1947.958:x:sel=bell-labs:pop=john-bardeen,walter-brattain,william-shockley"
+          "show": "history:ai:1947.958:x:sel=bell-labs:pop=john-bardeen,walter-brattain,william-shockley,bell-labs"
         }
       ]
     },
@@ -63,7 +63,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1957.708:x:sel=fairchild:pop=robert-noyce,gordon-moore,sherman-fairchild"
+          "show": "history:ai:1957.708:x:sel=fairchild:pop=robert-noyce,gordon-moore,sherman-fairchild,fairchild"
         }
       ]
     },
@@ -83,7 +83,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1959:pop=jack-kilby,robert-noyce"
+          "show": "history:ai:1959:pop=jack-kilby,robert-noyce,texas-instruments,fairchild"
         }
       ]
     },
@@ -103,7 +103,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1971.875:sel=intel:pop=robert-noyce,gordon-moore,federico-faggin"
+          "show": "history:ai:1971.875:sel=intel:pop=robert-noyce,gordon-moore,federico-faggin,intel"
         }
       ]
     },
@@ -123,7 +123,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1981.625:sel=intel:pop=andy-grove"
+          "show": "history:ai:1981.625:sel=intel:pop=andy-grove,intel,ibm,compaq"
         }
       ]
     },
@@ -143,7 +143,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1987:sel=tsmc:pop=morris-chang"
+          "show": "history:ai:1987:sel=tsmc:pop=morris-chang,tsmc,taiwan"
         }
       ]
     },
@@ -163,11 +163,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:1996.5:sel=nvidia:pop=jensen-huang"
+          "show": "history:ai:1996.5:sel=nvidia:pop=jensen-huang,nvidia,tsmc,3dfx"
         },
         {
           "at": 8.6,
-          "show": "history:ai:1999.792:x:sel=nvidia:pop=jensen-huang"
+          "show": "history:ai:1999.792:x:sel=nvidia:pop=jensen-huang,nvidia,intel,3dfx"
         }
       ]
     },
@@ -187,7 +187,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2007.125:x:sel=nvidia:pop=jensen-huang"
+          "show": "history:ai:2007.125:x:sel=nvidia:pop=jensen-huang,nvidia,amd"
         }
       ]
     },
@@ -207,7 +207,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2012.708:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton"
+          "show": "history:ai:2012.708:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton,nvidia"
         }
       ]
     },
@@ -227,7 +227,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2017.458:x:sel=google:pop=ashish-vaswani,noam-shazeer"
+          "show": "history:ai:2017.458:x:sel=google:pop=ashish-vaswani,noam-shazeer,llion-jones,google"
         }
       ]
     },
@@ -247,11 +247,11 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2019.9:sel=openai:pop=sam-altman,ilya-sutskever"
+          "show": "history:ai:2019.9:sel=openai:pop=sam-altman,ilya-sutskever,openai"
         },
         {
           "at": 22.2,
-          "show": "history:ai:2020.375:x:sel=openai:pop=sam-altman,ilya-sutskever"
+          "show": "history:ai:2020.375:x:sel=openai:pop=sam-altman,openai,microsoft"
         }
       ]
     },
@@ -271,7 +271,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2022.875:x:sel=openai:pop=sam-altman"
+          "show": "history:ai:2022.875:x:sel=openai:pop=sam-altman,openai,microsoft,google"
         }
       ]
     },
@@ -291,7 +291,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2025.042:sel=nvidia:pop=jensen-huang"
+          "show": "history:ai:2025.042:sel=nvidia:pop=jensen-huang,nvidia,deepseek"
         }
       ]
     },
@@ -311,7 +311,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2025.792:x:sel=nvidia:pop=jensen-huang"
+          "show": "history:ai:2025.792:x:sel=nvidia:pop=jensen-huang,nvidia,tsmc,amd"
         }
       ]
     },
@@ -331,7 +331,7 @@
       "cues": [
         {
           "at": 0.0,
-          "show": "history:ai:2026.5:x:pop=jensen-huang,sam-altman"
+          "show": "history:ai:2026.5:x:pop=jensen-huang,sam-altman,nvidia,anthropic"
         }
       ]
     }

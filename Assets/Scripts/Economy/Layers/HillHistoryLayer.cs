@@ -51,10 +51,12 @@ namespace Why.Economy.Layers
         /// the wave's first year (the wave's own two units a year would make forty years a sliver beside the lanes).</summary>
         public const float PreWaveScale = 7, PreWaveGap = 140;
 
-        const float RowGap = 18, BodyGap = 9, SideGap = 22;
+        const float RowGap = 18, BodyGap = 9, ColGap = 34, LineGap = 8;
+        const int PerLine = 3;
 
-        /// <summary>The share of the screen's width left of the panel or a story's card (430 of 1920 pixels and margins).</summary>
-        const float FreeWidth = .74f;
+        /// <summary>The free screen across its width: right of the portrait cards when they show (24 + 330 of 1920 pixels and a
+        /// margin), left of the panel or a story's card (about 520 of 1920 and a margin).</summary>
+        const float FreeRight = .70f, FreeLeftCards = .20f, FreeLeftBare = .10f;
 
         static readonly bool SmokeRun = Environment.GetCommandLineArgs().Contains("-smoketest");
 
@@ -78,6 +80,7 @@ namespace Why.Economy.Layers
         bool labelsShown, dirty = true;
         float explode, explodeTarget, outlinesFor = -1;
         Vector3 outlineEye, arenaMin, arenaMax;
+        readonly List<(int side, Vector3 at)> columnHeads = new List<(int, Vector3)>();
         string builtFor;
         List<string> stateNames = new List<string>();
         string[] popups = Array.Empty<string>();
@@ -273,8 +276,8 @@ namespace Why.Economy.Layers
         {
             current = this;
             EconomyStage.Land().Place(transform);
-            EconomyEmphasis.RegisterView(View, PartNames.Select(p => "history." + p), new[] { "activity.markers" },
-                new[] { "wave.crest", "wave.face", "wave.ribs", "wave.ridges" }, synthesis: true);
+            // drawn alone: behind a cross-section, or under the lanes, the wave and the hill's marks were only noise
+            EconomyEmphasis.RegisterView(View, PartNames.Select(p => "history." + p), Array.Empty<string>(), Array.Empty<string>(), synthesis: true);
             stateNames = CueNames();
             ViewVariants.Register(View, () => stateNames.Count, k => ShowState(k >= 0 && k < stateNames.Count ? stateNames[k] : null),
                 k => k >= 0 && k < stateNames.Count ? stateNames[k] : k.ToString());
@@ -495,8 +498,7 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>Each actor's tube: a ring of points every 1.3 units of time, as thick as the cube root of what it measured
-        /// there, faint where nothing was. Opened at a year, only the past stays, fading with distance, so the cross-section
-        /// stands at the front of its own history.</summary>
+        /// there, faint where nothing was. Opened at a year, the tubes give way to the cross-section's bodies.</summary>
         void Tubes(History.Story s, Layout L)
         {
             var b = new LineMeshBuilder(65536);
@@ -508,7 +510,8 @@ namespace Why.Economy.Layers
                 float y = L.LaneY[lane];
                 Color c = KindColor(a.Kind);
                 bool lit = Selected == null || Selected == a.Id;
-                float to = Exploded ? Mathf.Min(span.to, Year) : span.to;
+                if (Exploded) continue;
+                float to = span.to;
                 for (float t = span.from; t <= to + .001f; t += step)
                 {
                     string part = a.MainPartAt(t);
@@ -517,8 +520,7 @@ namespace Why.Economy.Layers
                     bool measured = !double.IsNaN(size);
                     int n = Mathf.Clamp(Mathf.RoundToInt(r * 3.6f), 5, 16);
                     float alpha = (measured ? .82f : .26f) * (lit ? 1 : .3f);
-                    // opened: the last dozen years trail behind the cross-section, faint, so the bodies are the subject
-                    if (Exploded) alpha *= .3f * Mathf.Clamp01(1 - (Year - t) / 12f) * Mathf.Clamp01((Year - t) / 1.2f);
+                    // opened, the cross-section stands alone: the tubes, seen end-on behind it, would only be noise
                     if (alpha < .02f) continue;
                     float phase = (t * 7.3f) % 1f;
                     for (int i = 0; i < n; i++)
@@ -534,7 +536,7 @@ namespace Why.Economy.Layers
             foreach (var (from, to) in L.Heirs)
             {
                 if (!L.LaneOf.TryGetValue(from, out int la) || !L.LaneOf.TryGetValue(to, out int lb) || !L.Span.TryGetValue(to, out var sp)) continue;
-                if (Exploded && sp.from > Year) continue;
+                if (Exploded) continue;
                 float z = T(s, sp.from);
                 Vector3 a0 = new Vector3(LaneX, L.LaneY[la], z), a1 = new Vector3(LaneX, L.LaneY[lb], z + 2);
                 for (int i = 0; i < 12; i += 2)
@@ -639,7 +641,7 @@ namespace Why.Economy.Layers
         /// the few who made it, which the label names instead.</summary>
         static bool Lobed(string part) => part switch
         {
-            "transistors" or "parameters" or "people" or "defections" or "gdpShare" or "share" => false,
+            "transistors" or "parameters" or "compute" or "people" or "defections" or "gdpShare" or "industrialShare" or "share" or "conscripted" => false,
             _ => true,
         };
 
@@ -661,6 +663,15 @@ namespace Why.Economy.Layers
 
             var near = NearestMoment(s, Year, 1.5f);
             var participants = near == null ? new HashSet<string>() : new HashSet<string>(new[] { near.Holder }.Concat(near.Allies).Concat(near.Rivals).Where(x => x != null));
+            // how far each holder's ring reaches beyond its body: the ring, its thickest wall and its sources' names
+            var reach = new Dictionary<string, float>();
+            foreach (var moat in ActiveMoats(s))
+            {
+                float wall = Sources(moat).Select(x => double.IsNaN(x.Wall) ? 0 : (float)x.Wall).DefaultIfEmpty(0).Max();
+                float r = 4 + 1.2f + 1.2f + 2.4f * wall + 7;
+                reach[moat.Actor] = Mathf.Max(reach.TryGetValue(moat.Actor, out float o) ? o : 0, r);
+            }
+
             var items = new List<(History.Actor a, ContestNetwork.Body body, Organism shape, bool measured, int row, int side)>();
             foreach (var a in s.Actors)
             {
@@ -677,38 +688,79 @@ namespace Why.Economy.Layers
             }
 
             // rows top to bottom, each centred on the lanes' x; from the future +x is screen-left, so the left side gets the high x
-            var rows = items.GroupBy(x => x.row).OrderBy(g => g.Key).Select(g => g.OrderBy(x => x.side).ThenByDescending(x => x.shape.MaxRadius).ToList()).ToList();
-            var heights = rows.Select(r => r.Max(x => x.shape.MaxRadius)).ToList();
-            float total = heights.Sum(h => 2 * h) + RowGap * Mathf.Max(0, rows.Count - 1);
-            float mid = (L.Top + L.Bottom) * .5f, yTop = mid + total * .5f, z = T(s, Year);
-            for (int r = 0; r < rows.Count; r++)
-            {
-                var row = rows[r];
-                float yRow = yTop - heights[r];
-                yTop -= 2 * heights[r] + RowGap;
-                float width = row.Sum(x => 2 * x.shape.MaxRadius + BodyGap) - BodyGap + SideGap * (row.Select(x => x.side).Distinct().Count() - 1);
-                float x0 = LaneX + width * .5f;
-                int lastSide = row[0].side;
-                foreach (var it in row)
+            float Foot(Organism shape, string id) => shape.MaxRadius + (reach.TryGetValue(id, out float e) ? e : 2);
+            // the contest: a column for each side (the moment's holder and allies, the others, its rivals), a row for each kind
+            // (polities, forces, enterprises), at most three bodies to a line within a cell; from the future +x is screen-left,
+            // so the holder's column takes the high x
+            var cols = new[] { -1, 0, 1 }.Where(sd => items.Any(x => x.side == sd)).ToList();
+            var kinds = items.Select(x => x.row).Distinct().OrderBy(k => k).ToList();
+            var cells = new Dictionary<(int col, int kind), List<List<(History.Actor a, ContestNetwork.Body body, Organism shape, bool measured, int row, int side)>>>();
+            var colW = new Dictionary<int, float>();
+            var rowH = new Dictionary<int, float>();
+            foreach (int c in cols)
+                foreach (int k in kinds)
                 {
-                    if (it.side != lastSide) { x0 -= SideGap; lastSide = it.side; }
-                    float rad = it.shape.MaxRadius;
-                    var to = new Vector3(x0 - rad, yRow, z);
-                    x0 -= 2 * rad + BodyGap;
-                    int lane = L.LaneOf.TryGetValue(it.a.Id, out int ln) ? ln : 0;
-                    var from = new Vector3(LaneX, L.LaneY.Count > 0 ? L.LaneY[Mathf.Clamp(lane, 0, L.LaneY.Count - 1)] : LaneBase, z);
-                    it.body.BodyR = rad;
-                    var (mr, or) = BuildBody(it.a, it.shape, it.measured);
-                    bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side };
+                    var list = items.Where(x => x.side == c && x.row == k).OrderByDescending(x => x.shape.MaxRadius).ToList();
+                    if (list.Count == 0) continue;
+                    var lines = new List<List<(History.Actor a, ContestNetwork.Body body, Organism shape, bool measured, int row, int side)>>();
+                    for (int i = 0; i < list.Count; i += PerLine) lines.Add(list.Skip(i).Take(PerLine).ToList());
+                    cells[(c, k)] = lines;
+                    float w = lines.Max(l => l.Sum(x => 2 * Foot(x.shape, x.a.Id)) + BodyGap * (l.Count - 1));
+                    float h = lines.Sum(l => 2 * l.Max(x => Foot(x.shape, x.a.Id))) + LineGap * (lines.Count - 1);
+                    colW[c] = Mathf.Max(colW.TryGetValue(c, out float cw) ? cw : 0, w);
+                    rowH[k] = Mathf.Max(rowH.TryGetValue(k, out float rh) ? rh : 0, h);
                 }
+
+            float totalW = cols.Sum(c => colW[c]) + ColGap * Mathf.Max(0, cols.Count - 1);
+            float totalH = kinds.Sum(k => rowH[k]) + RowGap * Mathf.Max(0, kinds.Count - 1);
+            float mid = (L.Top + L.Bottom) * .5f, z = T(s, Year);
+            columnHeads.Clear();
+            float xCol = LaneX + totalW * .5f;
+            foreach (int c in cols)
+            {
+                float colCentre = xCol - colW[c] * .5f;
+                float yRow = mid + totalH * .5f;
+                float colTop = float.NegativeInfinity;
+                foreach (int k in kinds)
+                {
+                    if (cells.TryGetValue((c, k), out var lines))
+                    {
+                        float yLine = yRow;
+                        foreach (var line in lines)
+                        {
+                            float lineH = line.Max(x => Foot(x.shape, x.a.Id));
+                            float lw = line.Sum(x => 2 * Foot(x.shape, x.a.Id)) + BodyGap * (line.Count - 1), x0 = colCentre + lw * .5f;
+                            foreach (var it in line)
+                            {
+                                float rad = it.shape.MaxRadius, foot = Foot(it.shape, it.a.Id);
+                                var to = new Vector3(x0 - foot, yLine - lineH, z);
+                                colTop = Mathf.Max(colTop, to.y + foot);
+                                x0 -= 2 * foot + BodyGap;
+                                int lane = L.LaneOf.TryGetValue(it.a.Id, out int ln) ? ln : 0;
+                                var from = new Vector3(LaneX, L.LaneY.Count > 0 ? L.LaneY[Mathf.Clamp(lane, 0, L.LaneY.Count - 1)] : LaneBase, z);
+                                it.body.BodyR = rad;
+                                var (mr, or) = BuildBody(it.a, it.shape, it.measured);
+                                bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side };
+                            }
+
+                            yLine -= 2 * lineH + LineGap;
+                        }
+                    }
+
+                    yRow -= rowH[k] + RowGap;
+                }
+
+                if (moment != null && cols.Count > 1 && !float.IsNegativeInfinity(colTop)) columnHeads.Add((c, new Vector3(colCentre, colTop + 9, z)));
+                xCol -= colW[c] + ColGap;
             }
 
             arenaMin = new Vector3(LaneX, mid, z);
             arenaMax = arenaMin;
-            foreach (var v in bodies.Values)
+            foreach (var kv in bodies)
             {
-                arenaMin = Vector3.Min(arenaMin, v.To - Vector3.one * v.Shape.MaxRadius);
-                arenaMax = Vector3.Max(arenaMax, v.To + Vector3.one * v.Shape.MaxRadius);
+                float f = Foot(kv.Value.Shape, kv.Key);
+                arenaMin = Vector3.Min(arenaMin, kv.Value.To - Vector3.one * f);
+                arenaMax = Vector3.Max(arenaMax, kv.Value.To + Vector3.one * f);
             }
         }
 
@@ -863,16 +915,16 @@ namespace Why.Economy.Layers
             if (content != null && (dirty || key != builtFor)) { dirty = false; builtFor = key; Rebuild(); }
             var cam = root.Rig.Cam;
             float tanV = Mathf.Tan(cam.fieldOfView * .5f * Mathf.Deg2Rad), tanH = tanV * Mathf.Max(1, cam.aspect);
-            // the panel (or a story's card) takes the right quarter of the screen: the picture fits the rest, its middle
-            // left of the screen's by half the panel's share
-            float shift = (1 - FreeWidth) * .5f;
+            // the picture fits the screen the panel (or a story's card) and the portrait cards leave free, its middle moved there
+            float freeLeft = popups.Length > 0 ? FreeLeftCards : FreeLeftBare, FreeWidth = FreeRight - freeLeft;
+            float shift = .5f - (freeLeft + FreeRight) * .5f;
             ViewPreset p;
             if (Exploded && bodies.Count > 0)
             {
                 // down the time axis from the future (+x runs to the left), the cross-section filling the free screen
                 Vector3 c = (arenaMin + arenaMax) * .5f;
                 float w = arenaMax.x - arenaMin.x + 26, h = arenaMax.y - arenaMin.y + 40;
-                float d = Mathf.Max(w * .5f / (tanH * FreeWidth * .94f), h * .5f / (tanV * .8f), 110);
+                float d = Mathf.Max(w * .5f / (tanH * FreeWidth * .94f), h * .5f / (tanV * .76f), 110);
                 float dx = shift * 2 * d * tanH;
                 p = HillPresets.HistoryPose(new Vector3(c.x - dx, c.y + 4, T(story, Year)), 180, 3, d);
             }
@@ -906,11 +958,22 @@ namespace Why.Economy.Layers
             {
                 var person = story.PersonById(id);
                 if (person != null) { items.Add((person.Image ?? person.Id, person.Name, person.Role)); continue; }
+                // an actor's card says what it is and what it measured then, from the verified series (not the research's prose)
                 var actor = story.Get(id);
-                if (actor != null) items.Add((actor.Image ?? actor.Id, actor.Name, actor.Role));
+                if (actor != null) items.Add((actor.Image ?? actor.Id, actor.Name, CardLine(actor)));
             }
 
             HistoryPopups.Show(items);
+        }
+
+        static string CardLine(History.Actor a)
+        {
+            string kind = KindWord(a.Kind);
+            kind = char.ToUpperInvariant(kind[0]) + kind.Substring(1);
+            string main = a.MainPartAt(Year);
+            var v = main != null ? a.Shown(main, Year) : null;
+            if (v == null) return kind;
+            return kind + ": " + Raw(v) + " " + v.Unit + (Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
         }
 
         // ------------------------------------------------------------------ labels
@@ -971,9 +1034,12 @@ namespace Why.Economy.Layers
                     });
                 }
 
+                var named = NearestMoment(s, Year, 3)?.Holder;
                 foreach (var moat in ActiveMoats(s))
                 {
                     if (!bodies.TryGetValue(moat.Actor, out var hb)) continue;
+                    // the walls are named for the moment's holder and the selection; the others' rings speak through the panel
+                    if (moat.Actor != named && moat.Actor != Selected) continue;
                     float R = hb.Shape.MaxRadius + 4;
                     var srcs = Sources(moat);
                     for (int k = 0; k < srcs.Count; k++)
@@ -991,11 +1057,23 @@ namespace Why.Economy.Layers
                     }
                 }
 
+                // the columns' heads: whose side each stands on in the nearest moment
+                var cm = NearestMoment(s, Year, 3);
+                if (cm != null)
+                    foreach (var (side, at) in columnHeads)
+                        labels.Add(new HillLabel
+                        {
+                            Text = side < 0 ? "<b>" + (s.Get(cm.Holder)?.Name ?? cm.Holder) + "</b>" + (cm.Allies.Length > 0 ? " and allies" : "")
+                                 : side > 0 ? "<b>Rivals</b>" : "Others",
+                            At = at, Role = LabelRole.Name, Part = "history.walls", Rank = 900, OnTop = true,
+                            Color = side < 0 ? TriadColor(cm.Triad) : side > 0 ? new Color(.95f, .62f, .6f) : new Color(.72f, .76f, .82f),
+                        });
+
                 var m = NearestMoment(s, Year, .75f);
                 if (m != null && bodies.Count > 0)
                     labels.Add(new HillLabel
                     {
-                        Text = "<b>" + YearText(m.Year) + " · " + m.Title + "</b>", At = new Vector3((arenaMin.x + arenaMax.x) * .5f, arenaMax.y + 9, T(s, Year)),
+                        Text = "<b>" + YearText(m.Year) + " · " + m.Title + "</b>", At = new Vector3((arenaMin.x + arenaMax.x) * .5f, arenaMax.y + 18, T(s, Year)),
                         Role = LabelRole.Name, Part = "history.walls", Rank = 600, Color = TriadColor(m.Triad), OnTop = true,
                     });
             }

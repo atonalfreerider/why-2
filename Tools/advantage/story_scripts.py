@@ -61,11 +61,11 @@ AI = {
             "facts": ["story-ai-us-half-industrial", "story-ai-us-gold-80", "story-ai-bretton-gold-two-thirds", "story-ai-marshall-plan",
                       "story-ai-gdp-1950", "story-ai-luce-1941"],
             "say": [
-                ("history:ai:1945:pop=henry-luce",
+                ("history:ai:1945:pop=henry-luce,united-states,ussr",
                  "Every actor in this story is a tube through time. Its thickness is what it measured: a nation's output, a company's "
                  "value, a laboratory's users. Time runs from left to right, from nineteen forty-five to today. In nineteen forty-one, "
                  "the publisher Henry Luce had urged his country to give up isolation for a role in the world."),
-                ("history:ai:1950:x:pop=henry-luce",
+                ("history:ai:1950:x:pop=henry-luce,united-states,ussr",
                  "Open the year nineteen fifty, and the tubes swell into bodies. After the Second World War, the United States made half "
                  "of the world's industrial output and held eighty percent of its gold. At Bretton Woods it insisted that the monetary "
                  "system rest on gold and the dollar, and under the Marshall Plan it sent thirteen point three billion dollars to "
@@ -80,7 +80,7 @@ AI = {
             "reading": "The small body is Bell Labs, three inventors; the large one is the American economy (measured in 1950).",
             "facts": ["lineage-bell-transistor-1947", "century-bell-breakup", "lineage-nobel-1956", "story-ai-bell-nobels", "story-ai-gdp-1950"],
             "say": [
-                ("history:ai:1947.958:x:sel=bell-labs:pop=john-bardeen,walter-brattain,william-shockley",
+                ("history:ai:1947.958:x:sel=bell-labs:pop=john-bardeen,walter-brattain,william-shockley,bell-labs",
                  "Now look how small the next advantage is. In nineteen forty-seven, three physicists at Bell Labs, John Bardeen, Walter "
                  "Brattain and William Shockley, invented the transistor. Their laboratory belonged to the Bell System: AT&T, twenty-four "
                  "local telephone companies, and Western Electric, which made almost all of its equipment. The three shared the Nobel "
@@ -98,7 +98,7 @@ AI = {
             "facts": ["lineage-shockley-lab-1955", "lineage-traitorous-eight-names", "story-ai-fairchild-eight-names", "lineage-fairchild-founded-1957",
                       "story-ai-fairchild-silicon", "story-ai-fairchild-2n697", "lineage-fairchildren-1960"],
             "say": [
-                ("history:ai:1957.708:x:sel=fairchild:pop=robert-noyce,gordon-moore,sherman-fairchild",
+                ("history:ai:1957.708:x:sel=fairchild:pop=robert-noyce,gordon-moore,sherman-fairchild,fairchild",
                  "In nineteen fifty-five, Shockley founded a laboratory of his own. Two years later, eight of his engineers walked out. "
                  "Among them were Robert Noyce and Gordon Moore. With backing from Sherman Fairchild, they founded Fairchild Semiconductor "
                  "on the eighteenth of September nineteen fifty-seven, to make transistors of silicon when germanium was still the common "
@@ -114,7 +114,7 @@ AI = {
             "reading": "Moments are sparks on the holder's lane; dashed ties run to its rivals, gold ones to its allies.",
             "facts": ["story-ai-kilby-1958", "lineage-fairchild-planar-1959", "lineage-noyce-monolithic-ic-1959", "lineage-kilby-nobel-2000"],
             "say": [
-                ("history:ai:1959:pop=jack-kilby,robert-noyce",
+                ("history:ai:1959:pop=jack-kilby,robert-noyce,texas-instruments,fairchild",
                  "At Texas Instruments in nineteen fifty-eight, Jack Kilby made the first integrated circuit. In nineteen fifty-nine, "
                  "Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the "
                  "Nobel Prize in two thousand for his part in the invention."),
@@ -129,7 +129,7 @@ AI = {
             "facts": ["lineage-intel-founded-1968", "lineage-faggin-left-fairchild-1970", "lineage-intel-4004-1971", "story-ai-intel-4004-transistors",
                       "story-ai-moore-1975-two-years"],
             "say": [
-                ("history:ai:1971.875:sel=intel:pop=robert-noyce,gordon-moore,federico-faggin",
+                ("history:ai:1971.875:sel=intel:pop=robert-noyce,gordon-moore,federico-faggin,intel",
                  "In nineteen sixty-eight, Noyce and Moore founded Intel. In nineteen seventy, Federico Faggin left Fairchild for "
                  "Intel, to design its first microprocessors. In nineteen seventy-one, Intel introduced the four-oh-oh-four, built for "
                  "Busicom: two thousand three hundred transistors on a single chip, which the silicon-gate process made possible. In "
@@ -146,7 +146,7 @@ AI = {
             "facts": ["lineage-ibm-pc-8088-1981", "story-ai-intel-pc-primary", "lineage-intel-japan-dram-1983", "lineage-compaq-386-1986",
                       "story-ai-intel-mcap-1999"],
             "say": [
-                ("history:ai:1981.625:sel=intel:pop=andy-grove",
+                ("history:ai:1981.625:sel=intel:pop=andy-grove,intel,ibm,compaq",
                  "Intel made the first commercial microprocessor, but it was the personal computer that made it Intel's primary "
                  "business. On the twelfth of August nineteen eighty-one, IBM released its PC, with an Intel 8088 processor. In nineteen eighty-three, Japanese memory makers squeezed Intel's "
                  "profits, and Andy Grove refocused the company on microprocessors. In nineteen eighty-six Compaq, the first maker of IBM "
@@ -162,7 +162,7 @@ AI = {
             "reading": "TSMC's tube starts thin, $58 million of capital, and grows into one of the thickest.",
             "facts": ["lineage-tsmc-founded-1987", "story-ai-tsmc-chang-first-foundry", "story-ai-tsmc-philips", "compute-tsmc-foundry-share"],
             "say": [
-                ("history:ai:1987:sel=tsmc:pop=morris-chang",
+                ("history:ai:1987:sel=tsmc:pop=morris-chang,tsmc,taiwan",
                  "In nineteen eighty-seven, Taiwan's government, its research institute and private investors founded TSMC, the "
                  "world's first dedicated semiconductor foundry. Morris Chang founded it. Philips put in fifty-eight million dollars "
                  "and its production technology, for a stake of twenty-seven point six percent. In the second quarter of twenty "
@@ -179,10 +179,10 @@ AI = {
             "facts": ["story-ai-nvidia-1996-layoff", "lineage-nvidia-ipo-1999", "lineage-geforce-256-1999", "story-ai-geforce256-transistors",
                       "story-ai-nvidia-mcap-1999", "story-ai-intel-mcap-1999", "lineage-nvidia-acquires-3dfx-2000"],
             "say": [
-                ("history:ai:1996.5:sel=nvidia:pop=jensen-huang",
+                ("history:ai:1996.5:sel=nvidia:pop=jensen-huang,nvidia,tsmc,3dfx",
                  "In nineteen ninety-six, Jensen Huang laid off more than half of Nvidia's people, from a hundred to forty, to focus "
                  "on one chip, the RIVA 128."),
-                ("history:ai:1999.792:x:sel=nvidia:pop=jensen-huang",
+                ("history:ai:1999.792:x:sel=nvidia:pop=jensen-huang,nvidia,intel,3dfx",
                  "In January nineteen ninety-nine it went public, and late that year it released the GeForce two fifty-six, the "
                  "first product it called a GPU: seventeen million transistors, made by TSMC. Open nineteen ninety-nine and compare the "
                  "bodies. Intel was worth two hundred and seventy-four billion dollars. Nvidia was worth less than one billion. A year "
@@ -196,7 +196,7 @@ AI = {
             "reading": "Nvidia's tube thickens from 2006: $13.15 billion that year.",
             "facts": ["lineage-cuda-released-2007", "moats-nvidia-cuda-developers", "compute-cuda-dominates", "story-ai-nvidia-mcap-2006"],
             "say": [
-                ("history:ai:2007.125:x:sel=nvidia:pop=jensen-huang",
+                ("history:ai:2007.125:x:sel=nvidia:pop=jensen-huang,nvidia,amd",
                  "In two thousand seven, Nvidia released CUDA, its development environment, created three years before. Twenty years "
                  "later, CUDA has six million developers, and it dominates the market for GPU development against AMD's alternative."),
             ],
@@ -211,7 +211,7 @@ AI = {
             "facts": ["story-ai-alexnet-params", "lineage-alexnet-two-gtx580-2012", "lineage-gtx580-price-500", "story-ai-alexnet-error",
                       "story-ai-nvidia-mcap-2012", "story-ai-nvidia-mcap-2017", "story-ai-intel-mcap-2012", "story-ai-tsmc-mcap-2012"],
             "say": [
-                ("history:ai:2012.708:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton",
+                ("history:ai:2012.708:x:sel=alexnet-team:pop=alex-krizhevsky,ilya-sutskever,geoffrey-hinton,nvidia",
                  "In twenty twelve, Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton trained AlexNet, a network of sixty million "
                  "parameters, for five to six days on two Nvidia GTX 580s, priced at five hundred dollars each. It won the twenty twelve "
                  "ImageNet competition with a top-five error of fifteen point three percent, more than ten point eight points better "
@@ -231,7 +231,7 @@ AI = {
                       "lineage-attention-bleu-8gpu", "story-ai-transformer-authors-left", "story-ai-transformer-citations",
                       "story-ai-google-mcap-2017", "story-ai-google-rev-2017"],
             "say": [
-                ("history:ai:2017.458:x:sel=google:pop=ashish-vaswani,noam-shazeer",
+                ("history:ai:2017.458:x:sel=google:pop=ashish-vaswani,noam-shazeer,llion-jones,google",
                  "On the twelfth of June twenty seventeen, eight researchers at Google posted a paper called Attention Is All You Need. "
                  "Earlier models, built with recurrence, were hard to spread across GPUs. The Transformer was built on attention alone, "
                  "and reached forty-one point eight BLEU in English to French after three and a half days on eight GPUs. Google "
@@ -248,11 +248,11 @@ AI = {
             "facts": ["story-ai-gpt1-params", "story-ai-gpt2-params", "lineage-scaling-laws-2020", "lineage-gpt3-175b-2020",
                       "story-ai-microsoft-openai-2019", "story-ai-gpt3-microsoft-licence"],
             "say": [
-                ("history:ai:2019.9:sel=openai:pop=sam-altman,ilya-sutskever",
+                ("history:ai:2019.9:sel=openai:pop=sam-altman,ilya-sutskever,openai",
                  "Watch OpenAI's tube. GPT-1 had a hundred and seventeen million parameters. The full GPT-2, in November twenty "
                  "nineteen, had one and a half billion. In January twenty twenty, Kaplan and his colleagues showed that a language "
                  "model's loss falls as a power law as its size, its data and its compute grow, over more than seven orders of magnitude."),
-                ("history:ai:2020.375:x:sel=openai:pop=sam-altman,ilya-sutskever",
+                ("history:ai:2020.375:x:sel=openai:pop=sam-altman,openai,microsoft",
                  "In May came GPT-3: a hundred and seventy-five billion parameters, ten times any earlier dense model. Microsoft had "
                  "invested a billion dollars in twenty nineteen, and in September twenty twenty it licensed GPT-3 exclusively."),
             ],
@@ -266,7 +266,7 @@ AI = {
             "facts": ["lineage-chatgpt-release-2022", "lineage-chatgpt-users-2026", "story-ai-microsoft-openai-2023", "story-ai-openai-500bn-2025",
                       "labs-openai-valuation"],
             "say": [
-                ("history:ai:2022.875:x:sel=openai:pop=sam-altman",
+                ("history:ai:2022.875:x:sel=openai:pop=sam-altman,openai,microsoft,google",
                  "On the thirtieth of November twenty twenty-two, OpenAI released ChatGPT. Two months later it had a hundred million "
                  "monthly users. In January twenty twenty-three, Microsoft invested another ten billion dollars, much of it to be spent "
                  "on Azure computing. By February twenty twenty-six, ChatGPT had nine hundred million weekly users. In October twenty twenty-five, OpenAI was valued at five hundred billion dollars, and later at eight "
@@ -281,7 +281,7 @@ AI = {
             "reading": "A wall is tested when a rival finds a way around it.",
             "facts": ["entry-deepseek-v3-gpu-hours", "entry-deepseek-nvidia-record-loss", "lineage-nvidia-5tn-2025"],
             "say": [
-                ("history:ai:2025.042:sel=nvidia:pop=jensen-huang",
+                ("history:ai:2025.042:sel=nvidia:pop=jensen-huang,nvidia,deepseek",
                  "In January twenty twenty-five, the lab DeepSeek released a model that, by its authors' account, "
                  "had needed only two point seven eight eight million GPU hours to train. On the twenty-seventh of January, Nvidia lost more "
                  "than five hundred and eighty-nine billion dollars of market value, which Forbes called the biggest single-day loss for "
@@ -297,7 +297,7 @@ AI = {
             "reading": "Nvidia's ring has six walls: technology, supply, patents, capital, talent and scale.",
             "facts": ["story-ai-nvidia-1tn-2023", "lineage-nvidia-2tn-180-days", "lineage-nvidia-5tn-2025", "compute-nvidia-accel-share"],
             "say": [
-                ("history:ai:2025.792:x:sel=nvidia:pop=jensen-huang",
+                ("history:ai:2025.792:x:sel=nvidia:pop=jensen-huang,nvidia,tsmc,amd",
                  "In twenty twenty-three, Nvidia became the seventh American company worth a trillion dollars. It took a hundred and "
                  "eighty days to go from one trillion to two; Apple and Microsoft each took more than five hundred. On the twenty-ninth "
                  "of October twenty twenty-five, it became the first company worth five trillion dollars. Its ring of advantage has six "
@@ -314,7 +314,7 @@ AI = {
             "facts": ["compute-hyperscaler-capex-2026", "str-nvidia-capex-capture", "labs-anthropic-valuation", "labs-openai-valuation",
                       "story-ai-us-half-industrial"],
             "say": [
-                ("history:ai:2026.5:x:pop=jensen-huang,sam-altman",
+                ("history:ai:2026.5:x:pop=jensen-huang,sam-altman,nvidia,anthropic",
                  "And here is the present. Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend between eight hundred and "
                  "three and eight hundred and twenty-eight billion dollars on capital in twenty twenty-six. Over eight quarters, Nvidia's "
                  "data-centre revenue has equalled between thirty-nine and forty-seven percent of what the largest clouds spend. "
@@ -343,7 +343,7 @@ REV = {
             "reading": "Each tube is a state, an army, a navy, an alliance, a church or a people, as thick as what it measured.",
             "facts": ["story-revolutions-us-population-1775", "story-revolutions-continental-army-1775", "story-revolutions-continental-army-peak"],
             "say": [
-                ("history:rev:1775.5:pop=george-washington,george-iii",
+                ("history:rev:1775.5:pop=george-washington,george-iii,united-states,kingdom-of-great-britain",
                  "Now the same picture, two centuries earlier. Each tube is a state, an army, a navy, an alliance, a church or a people, "
                  "and its thickness is what it measured: people, soldiers, ships, money. By seventeen seventy-five, the Thirteen Colonies "
                  "had two point four million people. On the fourteenth of June, Congress voted to create a Continental Army, taking over "
@@ -358,7 +358,7 @@ REV = {
             "reading": "An unmeasured body is small and grey: the British force at Saratoga has no figure of its own here.",
             "facts": ["story-revolutions-saratoga-1777", "story-revolutions-french-supplied-arms-saratoga"],
             "say": [
-                ("history:rev:1777.792:x:sel=continental-army:pop=george-washington",
+                ("history:rev:1777.792:x:sel=continental-army:pop=george-washington,continental-army,british-army",
                  "The first proof came at Saratoga. The British general Burgoyne found his army of five thousand seven hundred and "
                  "ninety-one men facing about twelve thousand colonial troops, and on the seventeenth of October seventeen seventy-seven "
                  "he surrendered it. Look at where the colonists' strength came from. By some estimates, up to ninety percent of the arms "
@@ -373,7 +373,7 @@ REV = {
             "reading": "A gold tie is an alliance at a moment: France to the United States, against Great Britain.",
             "facts": ["story-revolutions-vergennes-secret-funds", "story-revolutions-alliance-1778", "story-revolutions-france-direct-aid-cost"],
             "say": [
-                ("history:rev:1778.125:sel=france:pop=vergennes,louis-xvi,benjamin-franklin",
+                ("history:rev:1778.125:sel=france:pop=vergennes,louis-xvi,benjamin-franklin,france",
                  "France had already been helping in secret. Its foreign minister, the Comte de Vergennes, persuaded Louis the Sixteenth "
                  "to fund a front company that bought munitions for the Patriots and shipped them in neutral Dutch ships. In February "
                  "seventeen seventy-eight, France signed a Treaty of Alliance with the Americans. Watch the gold tie between them. France would spend one point three billion livres supporting the Americans "
@@ -389,10 +389,10 @@ REV = {
             "facts": ["story-revolutions-chesapeake-french-fleet", "story-revolutions-chesapeake-british-fleet", "story-revolutions-yorktown-allied-army",
                       "story-revolutions-rochambeau-1780", "story-revolutions-yorktown-captured", "story-revolutions-treaty-paris-1783"],
             "say": [
-                ("history:rev:1781.708:x:sel=french-navy:pop=de-grasse,rochambeau",
+                ("history:rev:1781.708:x:sel=french-navy:pop=de-grasse,rochambeau,french-navy,royal-navy",
                  "Now look at the sea. At the Chesapeake, the French admiral de Grasse prepared twenty-four ships of the line. The "
                  "British admiral Graves sailed there with nineteen."),
-                ("history:rev:1781.792:x:sel=continental-army:pop=george-washington,rochambeau,cornwallis",
+                ("history:rev:1781.792:x:sel=continental-army:pop=george-washington,rochambeau,cornwallis,continental-army",
                  "Behind them, at Yorktown, about nineteen thousand Franco-American troops, among them the six thousand French "
                  "soldiers Rochambeau had landed the year before, faced the British army. Eight thousand soldiers and two hundred and "
                  "fourteen guns were captured. The Treaty of Paris was signed on the third of September seventeen eighty-three."),
@@ -407,10 +407,10 @@ REV = {
             "facts": ["story-revolutions-france-war-cost", "story-revolutions-france-debt-after-war", "story-revolutions-debt-service-1788",
                       "story-revolutions-church-wealth-1789", "story-revolutions-europe-populations-1790s"],
             "say": [
-                ("history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne",
+                ("history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne,kingdom-of-france",
                  "The winner of the war lost the peace. France had paid for the American war, one billion and sixty-six million livres "
                  "of it, with new loans at high interest and no new taxes. Its debt rose to about three point three billion livres."),
-                ("history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi",
+                ("history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi,catholic-church",
                  "Open the year seventeen eighty-eight. Half of the French state's revenue now went on servicing its debt. Beside the "
                  "crown stands the Church, holding upwards of seven percent of France's land and taking a hundred and fifty million "
                  "livres a year. France had twenty-eight million people, against Britain's twelve million and Russia's thirty-five to "
@@ -424,7 +424,7 @@ REV = {
             "reading": "The French nation and the Church: twenty-eight million people, and the clergy's hundred thousand or so.",
             "facts": ["story-revolutions-estates-deputies-1789", "story-revolutions-estates-population-1789", "story-revolutions-clergy-1789"],
             "say": [
-                ("history:rev:1789.375:x:sel=french-population:pop=sieyes,louis-xvi",
+                ("history:rev:1789.375:x:sel=french-population:pop=sieyes,louis-xvi,french-population,catholic-church",
                  "In seventeen eighty-nine, the Estates-General met. It had one thousand two hundred and nineteen deputies: three hundred "
                  "and two for the clergy, two hundred and eighty-nine for the nobility, and six hundred and eleven for the Third Estate, "
                  "which stood for about ninety-eight percent of a population of some twenty-eight million. Look at the bodies: the "
@@ -439,7 +439,7 @@ REV = {
             "reading": "Sparks are moments: the colour is what decided them (information, execution or environment).",
             "facts": ["story-revolutions-bastille-seven", "story-revolutions-bastille-assembly-measures", "story-revolutions-church-property-1789"],
             "say": [
-                ("history:rev:1789.542:sel=french-population",
+                ("history:rev:1789.542:sel=french-population:pop=kingdom-of-france,french-population,catholic-church",
                  "On the fourteenth of July, the Bastille was stormed. It held only seven inmates. Then the Assembly abolished "
                  "feudalism, put the Church under the control of the state, and issued the Declaration of the Rights of Man. On the "
                  "second of November seventeen eighty-nine, the Church's property was nationalised and used as the backing for the "
@@ -454,7 +454,7 @@ REV = {
             "reading": "The coalitions share one lane, one after another; the French state's lane runs from kingdom to republic.",
             "facts": ["story-revolutions-louis-executed", "story-revolutions-first-coalition-1793", "story-revolutions-marie-antoinette-executed"],
             "say": [
-                ("history:rev:1793.042:sel=french-republic:pop=louis-xvi,marie-antoinette",
+                ("history:rev:1793.042:sel=french-republic:pop=louis-xvi,marie-antoinette,french-republic,first-coalition",
                  "On the twenty-first of January seventeen ninety-three, Louis the Sixteenth, thirty-eight "
                  "years old, was guillotined on the Place de la Révolution. Watch the alliance lane: that same year, Austria, Sardinia, "
                  "Naples, Prussia, Spain and Great Britain formed the First Coalition against revolutionary France. On the sixteenth of "
@@ -468,7 +468,7 @@ REV = {
             "reading": "The Republic's body is its army: a levy of 300,000 in 1793.",
             "facts": ["archetypes-napoleon-levy-1793", "story-revolutions-levee-en-masse-1793", "archetypes-napoleon-levy-conscripts"],
             "say": [
-                ("history:rev:1793.625:x:sel=french-republic:pop=robespierre",
+                ("history:rev:1793.625:x:sel=french-republic:pop=robespierre,french-republic",
                  "In February seventeen ninety-three, the "
                  "Convention decreed a levy of about three hundred thousand men. The Committee of Public Safety was formed in April, and "
                  "in August the levée en masse drafted every man aged eighteen to twenty-five. Depending on the source, seven hundred and "
@@ -484,7 +484,7 @@ REV = {
             "facts": ["story-revolutions-terror-death-sentences", "story-revolutions-terror-prairial", "story-revolutions-robespierre-executed",
                       "story-revolutions-robespierre-guillotined"],
             "say": [
-                ("history:rev:1794.542:x:sel=french-republic:pop=robespierre,danton",
+                ("history:rev:1794.542:x:sel=french-republic:pop=robespierre,danton,french-republic",
                  "From June seventeen ninety-three, the Terror issued sixteen thousand five hundred and "
                  "ninety-four official death sentences, two thousand six hundred and thirty-nine of them in Paris. After the Law of "
                  "twenty-two Prairial, another thirteen hundred and sixty-six people were executed in seven weeks. The dark red lobe "
@@ -500,7 +500,7 @@ REV = {
             "reading": "On the French lane the Republic becomes the Consulate.",
             "facts": ["story-revolutions-coup-1799", "story-revolutions-plebiscite-1800", "story-revolutions-concordat-recognition"],
             "say": [
-                ("history:rev:1799.875:sel=french-consulate:pop=napoleon,sieyes",
+                ("history:rev:1799.875:sel=french-consulate:pop=napoleon,sieyes,french-consulate",
                  "On the ninth of November seventeen ninety-nine, the bloodless coup of eighteen Brumaire overthrew the Directory and "
                  "replaced it with the Consulate, Bonaparte's regime. On the seventh of February eighteen hundred, a plebiscite approved "
                  "its constitution. Watch the French lane: the Republic has become the Consulate."),
@@ -517,9 +517,9 @@ REV = {
                       "story-revolutions-plebiscite-1804", "story-revolutions-coronation-date", "archetypes-napoleon-crowned-himself",
                       "story-revolutions-recognition-1804"],
             "say": [
-                ("history:rev:1801.5:sel=first-french-empire:pop=napoleon,pius-vii",
+                ("history:rev:1801.5:sel=first-french-empire:pop=napoleon,pius-vii,catholic-church",
                  "Under the Concordat of eighteen-oh-one, the Pope recognised Bonaparte's regime, and the regime recognised Catholicism as the religion of the great majority of the French."),
-                ("history:rev:1804.958:x:sel=first-french-empire:pop=napoleon,pius-vii",
+                ("history:rev:1804.958:x:sel=first-french-empire:pop=napoleon,pius-vii,first-french-empire,catholic-church",
                  "In eighteen-oh-four the Senate vested the government in an emperor, and a plebiscite confirmed the hereditary empire: "
                  "three and a half million votes yes, a count inflated by three to five hundred thousand. On the second of December, at "
                  "Notre-Dame, with Pope Pius the Seventh present, Napoleon crowned himself. The ceremony left out the words by which a "
@@ -536,10 +536,10 @@ REV = {
             "facts": ["story-revolutions-britain-war-1803", "story-revolutions-third-coalition-1805", "story-revolutions-navy-expansion",
                       "story-revolutions-trafalgar-british-fleet", "story-revolutions-trafalgar-fleet", "story-revolutions-trafalgar-result"],
             "say": [
-                ("history:rev:1805.292:sel=third-coalition:pop=pitt",
+                ("history:rev:1805.292:sel=third-coalition:pop=pitt,united-kingdom,third-coalition",
                  "Britain declared war on France in May eighteen-oh-three and repeatedly financed France's enemies on the Continent. "
                  "In April eighteen-oh-five it formed a Third Coalition with Austria and Russia."),
-                ("history:rev:1805.792:x:sel=royal-navy:pop=nelson",
+                ("history:rev:1805.792:x:sel=royal-navy:pop=nelson,royal-navy,french-navy,spanish-navy",
                  "Now the sea. After seventeen ninety-three, Britain raised its sailors from fifteen thousand to a hundred and "
                  "thirty-three thousand. At Trafalgar, Nelson's twenty-seven ships of the line met thirty-three French and Spanish. "
                  "Eighteen of the enemy were captured or destroyed. Britain lost none."),
@@ -554,12 +554,12 @@ REV = {
             "facts": ["story-revolutions-austerlitz-french-force", "story-revolutions-austerlitz-allied-losses", "archetypes-napoleon-jena-1806",
                       "story-revolutions-jena-prussian-army"],
             "say": [
-                ("history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov",
+                ("history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,grande-armee",
                  "At Austerlitz, Napoleon had some seventy-two thousand men and a hundred and fifty-seven "
                  "guns, against about eighty-five thousand Allied soldiers, seventy percent of them Russian, with three hundred and "
                  "eighteen guns. Allied casualties stood at about thirty-six thousand, out of an army of eighty-nine thousand: about "
                  "thirty-eight percent."),
-                ("history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher",
+                ("history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher,grande-armee,prussia",
                  "In eighteen-oh-six the Prussian army awaiting Napoleon's advance numbered about a hundred and thirty thousand "
                  "Prussians and twenty thousand Saxons. On the fourteenth of October, at Jena and Auerstedt, the Grande Armée "
                  "decisively defeated it."),
@@ -574,12 +574,12 @@ REV = {
             "facts": ["story-revolutions-berlin-decree", "story-revolutions-system-weakened-coalition", "story-revolutions-spain-1808",
                       "story-revolutions-russia-deployed-600k", "story-revolutions-russia-army-peak-1812", "story-revolutions-russia-survivors"],
             "say": [
-                ("history:rev:1806.875:sel=first-french-empire:pop=napoleon",
+                ("history:rev:1806.875:sel=first-french-empire:pop=napoleon,first-french-empire,united-kingdom",
                  "Europe was out of balance. By the Berlin Decree of the twenty-first of November eighteen-oh-six, Napoleon barred "
                  "Britain's trade from the Continent. The loss of Britain as a trading partner hit France and its allies too. In "
                  "eighteen-oh-eight his Army of Spain, two hundred and seventy-eight thousand six hundred and seventy men, faced eighty "
                  "thousand raw Spanish troops."),
-                ("history:rev:1812.458:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov",
+                ("history:rev:1812.458:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov,russian-empire",
                  "Then Russia. In eighteen-twelve Napoleon deployed six hundred thousand soldiers against it, only half of them French. "
                  "Russia's army reached a peak of nine hundred and four thousand. Of an original "
                  "force of six hundred and fifteen thousand, only a hundred and ten thousand came back. The dark red lobe beneath the "
@@ -597,11 +597,11 @@ REV = {
                       "story-revolutions-leipzig-coalition", "story-revolutions-allied-1815", "story-revolutions-french-waterloo-army",
                       "story-revolutions-waterloo-prussians", "story-revolutions-napoleon-abdicated"],
             "say": [
-                ("history:rev:1813.792:x:sel=sixth-coalition:pop=wellington,alexander-i",
+                ("history:rev:1813.792:x:sel=sixth-coalition:pop=wellington,alexander-i,sixth-coalition,united-kingdom",
                  "From seventeen ninety-three to eighteen fourteen, Britain gave its allies more than forty-six million pounds in subsidies, and in eighteen-thirteen they paid for "
                  "about four hundred and fifty thousand Austrian and Russian soldiers. At Leipzig, about five hundred and sixty thousand "
                  "soldiers fought, and a hundred and thirty-three thousand fell. The Coalition armies decisively defeated the Grande Armée."),
-                ("history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher",
+                ("history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher,seventh-coalition,grande-armee",
                  "In eighteen-fifteen, about two hundred and fifty thousand Frenchmen faced about eight hundred and fifty thousand "
                  "allied soldiers. At Waterloo, Napoleon's army of about seventy-four thousand five hundred met Wellington, and fifty "
                  "thousand arriving Prussians struck its flank. Four days later, Napoleon abdicated."),
@@ -616,7 +616,7 @@ REV = {
             "facts": ["archetypes-vienna-congress-dates", "story-revolutions-vienna-goal", "story-revolutions-vienna-five-powers",
                       "story-revolutions-britain-debt", "story-revolutions-britain-subsidies-total", "archetypes-vienna-concert-of-europe"],
             "say": [
-                ("history:rev:1815.458:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i",
+                ("history:rev:1815.458:x:sel=congress-of-vienna:pop=metternich,talleyrand,alexander-i,congress-of-vienna",
                  "From September eighteen-fourteen to June eighteen-fifteen, the Congress of Vienna, "
                  "chaired by Metternich, did not simply restore the old borders. It resized the five Great Powers, Austria, Britain, "
                  "Russia, Prussia, and France itself, so that they would balance each other and remain at peace. Britain's national debt "

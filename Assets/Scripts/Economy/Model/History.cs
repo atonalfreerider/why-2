@@ -91,6 +91,11 @@ namespace Why.Economy.Model
             /// most are snapshots of different things (Austerlitz's army and Jena's), not one quantity sampled.</summary>
             public double SizeAt(string part, float year, float hold = 8, float ahead = 3)
             {
+                // an event's measure (a battle's force or fleet, its losses, the Terror's sentences, a year's spending) stands
+                // for its moment only, not for the years after it, and never before it; a company's or a lab's value moves too fast
+                // to be read back before it was measured; only a state's or a people's slow measures may be (a 1950 GDP for 1947)
+                if (Event(part)) { hold = Math.Min(hold, 1); ahead = 0; }
+                else if (!Slow) ahead = 0;
                 Value lo = null, hi = null;
                 foreach (var v in Series)
                 {
@@ -104,14 +109,22 @@ namespace Why.Economy.Model
                 return double.NaN;
             }
 
-            /// <summary>The part an actor is drawn by at a year: the first of its kind's measures (<see cref="MainPart"/>'s
-            /// order) measured there, or null where none is.</summary>
+            /// <summary>A state, a people or a church: measures that change slowly (people, GDP), which may stand a few years
+            /// before they were measured.</summary>
+            bool Slow => Kind == "state" || Kind == "population" || Kind == "religion";
+
+            /// <summary>Whether a part measures an event (a battle's force or fleet, its losses, sentences, a year's spending)
+            /// rather than a standing quantity (people, an army, a navy, money held or owed, market value).</summary>
+            public static bool Event(string part) => part == "troops" || part == "ships" || part == "casualties" || part == "executions" ||
+                                                     part == "spending" || part == "deficit" || part == "defections";
+
+            /// <summary>The part an actor is drawn by at a year: the first of its kind's measures measured there, or null where
+            /// none is. A measure outside its kind's list (a model's training compute, a chip's transistors on a company) never
+            /// sizes a body: it is a property of a product, not a size of the actor.</summary>
             public string MainPartAt(float year)
             {
                 foreach (string p in Order())
                     if (!double.IsNaN(SizeAt(p, year))) return p;
-                foreach (var v in Series)
-                    if (!double.IsNaN(SizeAt(v.Part, year))) return v.Part;
                 return null;
             }
 
@@ -119,10 +132,10 @@ namespace Why.Economy.Model
             {
                 "state" or "population" => new[] { "population", "gdp", "army", "revenue", "debt" },
                 "army" => new[] { "army", "troops" },
-                "navy" => new[] { "navy", "ships" },
+                "navy" => new[] { "navy", "ships", "sailors" },
                 "religion" => new[] { "adherents", "revenue" },
-                "company" => new[] { "marketValue", "revenue", "capital", "employees", "people", "defections" },
-                "lab" => new[] { "valuation", "users", "parameters", "revenue", "capital", "employees", "people" },
+                "company" => new[] { "marketValue", "revenue", "capital", "employees" },
+                "lab" => new[] { "valuation", "users", "parameters", "revenue", "capital", "employees" },
                 "alliance" => new[] { "army", "troops", "population" },
                 _ => new[] { "population", "army", "marketValue", "valuation", "adherents" },
             };

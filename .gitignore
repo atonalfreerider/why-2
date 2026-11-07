@@ -105,6 +105,7 @@ Tools/regimes/.cache/
 Tools/instant/.cache/
 Tools/lives/.cache/
 Tools/global/.cache/
+Tools/advantage/.cache/
 
 # Python bytecode caches (tools run with plain python3)
 __pycache__/

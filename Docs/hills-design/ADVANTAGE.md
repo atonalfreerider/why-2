@@ -43,7 +43,7 @@ Altitude runs from 0, the low ground, to 150, the high ground:
 
 | Stratum | Altitude | What stands there |
 | --- | --- | --- |
-| The ownership class | 175-215 | Golden circles: households by wealth (the top 1%, next 9%, next 40%, bottom 50%) and named founders, above the institutions (index managers, sovereign funds, private equity, venture capital, hedge funds, corporate holders) |
+| The ownership class | 208-240 | Golden circles: households by wealth (the top 1%, next 9%, next 40%, bottom 50%) and named founders, above the institutions (index managers, sovereign funds, private equity, venture capital, hedge funds, corporate holders) |
 | Companies | 10-150 | Their market position: high ground for the dominant |
 | Workers and consumers | -10 to 0 | The low ground: wages flow down to it, spending flows up from it |
 | The state | -25 | The bedrock under everything: rule of law, property and IP, export controls |

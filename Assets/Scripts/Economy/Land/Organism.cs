@@ -90,10 +90,14 @@ namespace Why.Economy.Land
         /// <summary>The lobes of a company's balance sheet (overlapping, so they fuse): the core of book equity; above it cash,
         /// what it built, what it bought, its stakes; below it debt and leases. A world's year scales them with its equity.
         /// Without a balance sheet, one lobe a twelfth of its market value.</summary>
-        public static List<Lobe> Lobes(ContestNetwork.Body b, out bool known)
+        public static List<Lobe> Lobes(ContestNetwork.Body b, out bool known) => Lobes(b, out known, out _);
+
+        /// <summary>The lobes, and the dollars they draw (|equity| and every part shown, promises aside): the body's volume.</summary>
+        public static List<Lobe> Lobes(ContestNetwork.Body b, out bool known, out double drawn)
         {
             var lobes = new List<Lobe>(8);
             known = false;
+            drawn = 0;
             var parts = b.Kind == ContestNetwork.Kind.Company ? ContestNetwork.PartsOf(b) : new List<ContestNetwork.Part>();
             float core = 0;
             foreach (var p in parts) if (p.Kind == ContestNetwork.PartKind.Core) core = Math.Max(core, p.Radius);
@@ -110,6 +114,7 @@ namespace Why.Economy.Land
             {
                 if (p.Kind == ContestNetwork.PartKind.Core) equity = p.UsdBn;
                 if (p.Kind == ContestNetwork.PartKind.Debt) debt = p.UsdBn;
+                if (p.Kind != ContestNetwork.PartKind.Promises && !double.IsNaN(p.UsdBn)) drawn += Math.Abs(p.UsdBn);
             }
 
             Color debtHeat = DebtHeat(debt, equity);
@@ -156,7 +161,7 @@ namespace Why.Economy.Land
         /// lobe's surface is its size), roughened, coloured by the lobes there, and lit where it faces a frontier.</summary>
         public Organism(ContestNetwork.Body b, IList<Front> fronts, int detail)
         {
-            var lobes = Lobes(b, out Known);
+            var lobes = Lobes(b, out Known, out double drawn);
             var (dirs, edges) = Geodesic(detail);
             Points = new Vector3[dirs.Length];
             Colors = new Color[dirs.Length];
@@ -223,16 +228,27 @@ namespace Why.Economy.Land
 
             MeanRadius = sum / Math.Max(1, dirs.Length);
             MaxRadius = max;
-            double assets = b.Actor != null ? b.Actor.Sheet.TotalAssets : double.NaN;
-            if (Known && !double.IsNaN(assets) && assets > 0 && MeanRadius > 0)
+            // the fused surface swells where lobes overlap: scale it so its volume is the dollars it draws (each part's lobe
+            // then keeps its own share). Not total assets: a bank's $5tn is mostly loans it does not itemise, and scaling its
+            // equity and debt up to that would draw them five times their size.
+            if (Known && drawn > 0 && MeanRadius > 0)
             {
-                double scaleTo = b.State != null && !double.IsNaN(b.State.Eq) && b.Actor.Sheet.Equity > 0 ? Math.Max(.05, b.State.Eq / b.Actor.Sheet.Equity) : 1;
-                float k = ContestNetwork.Radius(assets * scaleTo) / MeanRadius;
+                float k = ContestNetwork.Radius(drawn) / MeanRadius;
                 for (int i = 0; i < Points.Length; i++) Points[i] *= k;
                 MeanRadius *= k;
                 MaxRadius *= k;
             }
+
+            Min = Max = Vector3.zero;
+            foreach (var p in Points)
+            {
+                Min = Vector3.Min(Min, p);
+                Max = Vector3.Max(Max, p);
+            }
         }
+
+        /// <summary>The body's bounds in its own frame (from its centre): what the camera must keep in view.</summary>
+        public Vector3 Min, Max;
 
         static float Field(List<Lobe> lobes, Vector3 p)
         {

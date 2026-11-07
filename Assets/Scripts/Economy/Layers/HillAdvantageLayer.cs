@@ -376,11 +376,19 @@ namespace Why.Economy.Layers
         {
             if (ScreenLayout.IsPortrait || Xr.XrSession.Active || net == null) return;
             float aspect = Screen.height > 0 ? (float)Screen.width / Screen.height : 16f / 9, th = Mathf.Tan(CameraRig.FieldOfView * .5f * Mathf.Deg2Rad);
+            // what must stay in view: each living organism's membrane (its market value) and its body's own bounds (a dangling
+            // lobe is not a sphere), and each golden circle with its label
             var spheres = new List<(Vector3 c, float r, string id)>();
             foreach (var b in net.Bodies)
             {
                 if (b.Kind == ContestNetwork.Kind.Company && b.Alive)
-                    spheres.Add((b.Pos, Mathf.Max(b.R, b.BodyR > 0 ? b.BodyR : b.Actor.Sheet.Known ? ContestNetwork.Radius(b.Actor.Sheet.TotalAssets) : 0), b.Id));
+                {
+                    spheres.Add((b.Pos, b.R, b.Id));
+                    if (b.BodyR > 0)
+                        for (int corner = 0; corner < 8; corner++)
+                            spheres.Add((b.Pos + new Vector3((corner & 1) == 0 ? b.BodyMin.x : b.BodyMax.x, (corner & 2) == 0 ? b.BodyMin.y : b.BodyMax.y,
+                                (corner & 4) == 0 ? b.BodyMin.z : b.BodyMax.z) * .8f, 0, b.Id));
+                }
                 else if (b.Kind == ContestNetwork.Kind.Owner || b.Kind == ContestNetwork.Kind.Wealth) spheres.Add((b.Pos + Vector3.up * 3, b.R + 3, b.Id));
             }
 
@@ -411,7 +419,7 @@ namespace Why.Economy.Layers
             frameDistance = d;
             // the nearest bodies loom: name the three that fill the most of the screen
             Vector3 at = target - fwd * d;
-            string loom = string.Join(", ", spheres.OrderByDescending(x => x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd))).Take(3)
+            string loom = string.Join(", ", spheres.Where(x => x.r > 0).OrderByDescending(x => x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd))).Take(3)
                 .Select(x => x.id + " " + (x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd)) / th * .5f * 100).ToString("0") + "% of the height"));
             Debug.Log($"[Why] advantage framing: target {target.x:0},{target.y:0},crest+{target.z - net.CrestZ:0}, distance {d:0}; " +
                       $"bounds x {minX:0.00}..{maxX:0.00}, y {minY:0.00}..{maxY:0.00}; largest on screen: {loom}");
@@ -658,6 +666,8 @@ namespace Why.Economy.Layers
             int detail = body.R > 30 ? 3 : 2;
             var shape = new Organism(body, fronts, detail);
             body.BodyR = shape.MaxRadius;
+            body.BodyMin = shape.Min;
+            body.BodyMax = shape.Max;
             var b = organismBuilder;
             b.Clear();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Organs]);
@@ -1334,7 +1344,8 @@ namespace Why.Economy.Layers
             // the largest owner of each kind is always named, so sovereigns, venture capital and hedge funds are seen
             var leaders = new HashSet<string>(net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Owner && x.Owner != null)
                 .GroupBy(x => x.Owner.Kind).Select(g => g.OrderByDescending(x => x.Value).First().Id));
-            foreach (var c in model.Chokes) named.Add(c.Actor);
+            var chokes = new HashSet<string>(model.Chokes.Select(c => c.Actor));
+            named.UnionWith(chokes);
             if (Selected != null) named.Add(Selected);
             var info = model.ScenarioById(Scenario);
             if (info != null) { foreach (var x in info.Friendly.Take(3)) named.Add(x); foreach (var x in info.Unfriendly.Take(3)) named.Add(x); }
@@ -1355,7 +1366,9 @@ namespace Why.Economy.Layers
                         labels.Add(new HillLabel
                         {
                             Text = "<b>" + body.Name + "</b>" + value + peText + fate, At = body.Pos + Vector3.up * (Edge(body) + 2.5f), Role = LabelRole.Name, Part = "advantage.organs",
-                            Rank = body.R + (body.Id == Selected ? 1000 : 0) + (hotChokes.Contains(body.Id) ? 500 : 0), Plate = new Color(0, 0, 0, .85f),
+                            Rank = body.R + (body.Id == Selected ? 1000 : 0) + (hotChokes.Contains(body.Id) ? 500 : chokes.Contains(body.Id) ? 300 : 0), Plate = new Color(0, 0, 0, .85f),
+                            // the population is packed: a name whose place is taken steps just above or below, then aside
+                            Fallbacks = NameFallbacks,
                         });
                         break;
                     case ContestNetwork.Kind.Owner:
@@ -1417,6 +1430,8 @@ namespace Why.Economy.Layers
 
             return "";
         }
+
+        static readonly Vector2[] NameFallbacks = { new Vector2(0, 18), new Vector2(0, -18), new Vector2(0, 36), new Vector2(0, -36), new Vector2(120, 0), new Vector2(-120, 0) };
 
         public static string Money(double bn) => double.IsNaN(bn) ? "" : bn >= 1000 ? "$" + (bn / 1000).ToString("0.0") + "T" : bn >= 10 ? "$" + bn.ToString("0") + "B" : "$" + bn.ToString("0.0") + "B";
 
@@ -1531,6 +1546,7 @@ namespace Why.Economy.Layers
                 Log();
                 if (model.Worlds.Count > 0 && moved < 5) Debug.LogError($"[Why] advantage: world {harsh} moved {moved} organisms, fewer than 5");
                 if (longest > .05f) Debug.LogWarning($"[Why] advantage: a settling frame took {1000 * longest:0} ms, over 50");
+                yield return new WaitForSecondsRealtime(1.2f);    // the labels fade back in once the population settles
                 yield return SmokeChecks.Capture("economy-advantage-" + harsh + "-2030", root.CurrentPreset);
                 SetScenario(Advantage.Now);
                 for (float t = 0; t < 7.5f && settling; t += Time.unscaledDeltaTime) yield return null;

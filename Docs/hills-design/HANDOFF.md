@@ -236,7 +236,8 @@ The user gave three directions on 7 Nov 2026. All three are verbatim: the first 
   - Promises are a ghost lobe, and burn a comet.
   - Bloom appears only where a choke point or a contest presses.
 - *Layout.* `Land/ContestNetwork.cs`: force-directed in x and z; altitude is market position, 14 to 150, stretched by
-  2026's range so every world reads on one scale. Owners' circles float above at 228, the wealth groups at 268. A smooth,
+  2026's range so every world reads on one scale. Owners' circles float above at 208, the wealth groups (households by wealth, founders, abroad) at 240. The forces pack
+  the population close (centring and layer depth 0.012, weak long-range repulsion, a hard collision at the shells). A smooth,
   contoured fitness landscape lies beneath. A world's judged advantage ramps in over three years, as the simulation's
   does, so 2026 is the same network in every world.
 - *The layer.* `Layers/HillAdvantageLayer.cs`. Each organism is its own mesh, moved by its transform and rebuilt within
@@ -249,7 +250,7 @@ The user gave three directions on 7 Nov 2026. All three are verbatim: the first 
 **Fourth direction** (7 Nov 2026, after the point-cloud redesign): keep colour-coded heat maps for the equity core, the
 debt and the speculative swell, and scale everything up so there is less empty space. Done: the core is coloured by book
 value, debt by leverage, the dust and membrane by P/E (`Organism.EquityHeat`, `DebtHeat`, `SpecHeat`, shown in the key and
-the panel's bars), and the bodies are normalised to their total assets at a larger volume scale.
+the panel's bars), and the bodies are larger: each scaled so its volume is the dollars it draws (not total assets, which drew a bank's equity and debt five times their size).
 
 **Reviewer fixes** (two critics and a truth audit; their findings are in the mirror's
 `work/advantage/verify-findings.txt`). All applied:

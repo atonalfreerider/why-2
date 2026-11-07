@@ -27,7 +27,7 @@ namespace Why.Economy.Land
     {
         /// <summary>The middle across the land; the depth band past the crest; the volume scale; the strata's altitudes.</summary>
         public const float X0 = 290, ZFrom = 120, ZTo = 290, KR = 2.4f, MinR = 2.4f, MinAlt = 14, MaxAlt = 150,
-            OwnerY = 228, WealthY = 268, BuyerY = -6, StateY = -30;
+            OwnerY = 208, WealthY = 240, BuyerY = -6, StateY = -30;
 
         public enum Kind { Company, Owner, Wealth, Buyer, State }
 
@@ -41,6 +41,7 @@ namespace Why.Economy.Land
         {
             public float EarningsR;              // the earnings shell's radius (0: no profits)
             public float BodyR;                  // the visible body's radius (its balance sheet), set when its organism is built
+            public Vector3 BodyMin, BodyMax;     // the visible body's bounds from its centre, set with BodyR
             public double EarningsValue = double.NaN;
             public float Y2026;                  // the altitude it held in 2026 (where a simulated year's move is measured from)
             public string Id, Name, Layer;
@@ -154,7 +155,7 @@ namespace Why.Economy.Land
             foreach (var o in model.Owners)
             {
                 if (byId.ContainsKey(o.Id)) continue;     // a company that owns another: the stake joins two organisms
-                bool wealth = o.Kind == "households" || o.Kind == "person";
+                bool wealth = o.Kind == "households" || o.Kind == "person" || o.Kind == "abroad";
                 Add(new Body { Id = o.Id, Name = o.Name, Kind = wealth ? Kind.Wealth : Kind.Owner, Owner = o, Value = o.HoldingsUsdBn, LayerZ = crestZ + (ZFrom + ZTo) * .5f });
             }
 
@@ -242,7 +243,7 @@ namespace Why.Economy.Land
                 }
 
                 b.Value = b.Owner.Kind == "households" || b.Owner.Kind == "abroad" ? b.Owner.HoldingsUsdBn * MarketRatio : Math.Max(held, b.Owner.HoldingsUsdBn);
-                b.R = Mathf.Max(3f, .3f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
+                b.R = Mathf.Max(3f, .22f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
                 b.TargetY = b.Kind == Kind.Wealth ? WealthY : OwnerY;
             }
 
@@ -320,16 +321,17 @@ namespace Why.Economy.Land
                         continue;
                     }
 
-                    // the layer's depth (weak, companies only), the middle (weak); altitude is a constraint, eased below
+                    // the layer's depth (companies only) and the middle: strong enough that the population packs close (the
+                    // user, 7 Nov 2026: "less empty space in between"); altitude is a constraint, eased below
                     if (a.Kind == Kind.Company)
                     {
-                        force[i].z += .0028f * (a.LayerZ - a.Pos.z);
-                        force[i].x += .0032f * (X0 - a.Pos.x);
+                        force[i].z += .012f * (a.LayerZ - a.Pos.z);
+                        force[i].x += .012f * (X0 - a.Pos.x);
                     }
                     else
                     {
-                        force[i].x += .002f * (X0 - a.Pos.x);
-                        force[i].z += .002f * (zMid - a.Pos.z);
+                        force[i].x += .006f * (X0 - a.Pos.x);
+                        force[i].z += .006f * (zMid - a.Pos.z);
                     }
 
                     // repulsion between bodies of the same stratum (companies with companies, owners with owners)
@@ -341,7 +343,8 @@ namespace Why.Economy.Land
                         Vector3 d = b.Pos - a.Pos;
                         if (a.Kind != Kind.Company) d.y = 0;
                         float dist = Mathf.Max(.5f, d.magnitude), min = a.R + b.R + (a.Kind == Kind.Company ? 3 : 4);
-                        float push = 2.2f * (a.R + b.R) * (a.R + b.R) / (dist * dist + 40);
+                        // long-range repulsion: weak between organisms (they pack, held apart by the collision), strong between circles
+                        float push = (a.Kind == Kind.Company ? .6f : 2.2f) * (a.R + b.R) * (a.R + b.R) / (dist * dist + 40);
                         if (dist < min) push += .45f * (min - dist);
                         Vector3 f = d / dist * push;
                         if (a.Kind == Kind.Company) f.y *= .25f;       // altitude is the springs' business

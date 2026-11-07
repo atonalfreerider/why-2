@@ -176,13 +176,14 @@ Chicxulub how the impact ended the dinosaurs.
 - **Impactors (universe):** `Assets/Scripts/Matter/ImpactorLayer.cs` and `Assets/Resources/Data/impactors.json`. The
   red layer's radius is real distance from Earth, so each path is drawn at the body's distance over time; a rock
   travels it and flashes at the impact; Chicxulub's impact rises in one line to the end-Cretaceous extinction. Built and
-  smoke-tested (0 errors). The paths' key points are interim (marked schematic) until the sourced research lands in
-  `Docs/research/impacts.md` and `.json`; then replace them and the blurbs, and note there that the Chicxulub body was a
-  carbonaceous asteroid from beyond Jupiter, not a comet (the user said comet).
+  smoke-tested (0 errors). Its paths now come from the sourced research (`Docs/research/impacts.md` and `.json`: 61 facts;
+  the Chicxulub body was a carbonaceous asteroid from beyond Jupiter, not a comet, as the user had called it).
 - **The present, taken apart (economy):** the design is `Docs/hills-design/EXPLODED-PRESENT.md` (it reads "the end of
-  the timeline" as the space past the wave's crest, and absorbs M1). Its first slice (PresentLayout, HillPresentLayer,
-  the `present` preset, smoke checks A1-A3) is being implemented; build and check it in the mirror, then answer the
-  design's questions with the user (section 12).
+  the timeline" as the space past the wave's crest, and absorbs M1). Its first slice is built (`Land/PresentLayout.cs`,
+  `Layers/HillPresentLayer.cs`, the `present` view on key I, Shift+I back; `-smokeextra present` logs the area,
+  coincidence and separation checks and captures t = 0, 0.5, 1). Next: figures by income fifth, firm tokens with images,
+  the point-line states, the panel and a tour stop (design section 9.2, E3-E6); the design's questions (section 12) are
+  with the user.
 - **The holistic design workflow** stopped at research:images (usage limit, 5 Nov). research:collective finished
   (`Docs/research/holistic/collective.md`, `.json`: nine cases, 116 facts, 15 series). research:images left
   `Docs/research/holistic/images.md` and a rewritten `Tools/images/fetch.py` before it was cut off: check them, then

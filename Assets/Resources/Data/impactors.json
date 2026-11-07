@@ -1,37 +1,79 @@
 {
-  "note": "Bodies that struck the Earth, drawn by ImpactorLayer on the red layer's distance scale. Each path key point is the body's distance from Earth (log10 metres) at a date (years ago); kind says whether it is measured or schematic. INTERIM values pending the sourced research in Docs/research/impacts.md.",
+  "note": "Bodies that struck the Earth, drawn by ImpactorLayer on the red layer's distance scale: each key point is the body's distance from Earth (log10 metres) at a date (years ago), marked measured or schematic; 0 joins the inner track. Sourced in Docs/research/impacts.md and impacts.json.",
   "impactors": [
     {
       "id": "theia",
       "name": "Theia",
-      "formedLabel": "Theia forms",
+      "formedLabel": "Theia forms, Earth's neighbour",
       "epoch": "moon_impact",
-      "formedYa": 4565000000,
-      "impactYa": 4510000000,
-      "blurb": "A Mars-sized body that formed in the inner solar system near the young Earth. Its glancing collision made the Moon from the debris.",
-      "source": "interim",
+      "formedYa": 4565000000.0,
+      "impactYa": 4510000000.0,
+      "blurb": "A Mars-sized world, Theia, grew in the inner Solar System as Earth's neighbour, perhaps closer to the Sun. About 4.5 billion years ago it struck the young Earth; the debris became the Moon.",
+      "source": "Docs/research/impacts.md (Hopp et al. 2025, Science; Apollo zircons)",
       "path": [
-        { "ya": 4565000000, "log10DistanceM": 11.0, "kind": "schematic", "note": "a neighbouring orbit, about an AU from Earth" },
-        { "ya": 4511000000, "log10DistanceM": 11.0, "kind": "schematic", "note": "still on its own orbit" },
-        { "ya": 4510000000, "log10DistanceM": 6.8, "kind": "measured", "note": "contact: Earth's radius" }
+        {
+          "ya": 4565000000.0,
+          "log10DistanceM": 11.175,
+          "kind": "schematic",
+          "note": "Theia accretes in the inner Solar System near Earth's orbit (iron isotopes: all of Theia is inner-Solar-System material, possibly from closer to the Sun than Earth). Formation time is not measured; assumed within a few Myr of CAIs (4567.3 Ma), unsourced. ~1 AU from proto-Earth."
+        },
+        {
+          "ya": 4530000000.0,
+          "log10DistanceM": 11.175,
+          "kind": "schematic",
+          "note": "Neighbouring orbit. If co-orbital at L4/L5 (Belbruno & Gott hypothesis) the distance is exactly 1 AU; on a neighbouring orbit at ~0.7-0.9 AU it swings between ~0.1 and ~1.9 AU. Drawn as the orbit-averaged ~1 AU."
+        },
+        {
+          "ya": 4510500000.0,
+          "log10DistanceM": 10.001,
+          "kind": "schematic",
+          "note": "Orbit destabilised; approaches on a slow, near-zero-energy (near-parabolic) path. The timing of the final approach is not known; drawn ~0.5 Myr before impact at ~0.07 AU (1e10 m) only so the line visibly turns in."
+        },
+        {
+          "ya": 4510000000.0,
+          "log10DistanceM": 0.0,
+          "kind": "measured",
+          "note": "Collision: the path joins the inner track (Earth). The inner track is human scale by convention (MatterScale.InnerMetres = 1 m, log10 = 0); physical contact happens at a centre separation of R_Earth + R_Theia ~ 6.4e6 + 3.4e6 m ~ 9.8e6 m (log10 6.99). Date: 4.51 Ga (Apollo zircons; matches matter.json). Published range 4.51-4.35 Ga; Hf-W gives ~50 Myr after CAIs (~4.52 Ga); magma-ocean model 4.425 +/- 0.025 Ga; a 2024 study reads the 4.35 Ga ages as remelting, favouring an old Moon."
+        }
       ]
     },
     {
       "id": "late_heavy_bombardment",
       "name": "Late Heavy Bombardment",
-      "formedLabel": "rocks scattered inward (debated)",
+      "formedLabel": "bombardment: belt rocks scattered inward (debated)",
       "epoch": "late_heavy_bombardment",
-      "formedYa": 4200000000,
+      "formedYa": 4565000000,
       "impactYa": 4100000000,
-      "count": 9,
+      "count": 7,
       "impactSpreadYa": 300000000,
-      "spreadDecades": 0.35,
-      "blurb": "A proposed spike of impacts on the inner planets about 4.1 to 3.8 billion years ago, rocks thrown from the asteroid belt as the giant planets moved. Whether it was a spike or a tail is debated.",
-      "source": "interim",
+      "spreadDecades": 0.3,
+      "blurb": "In the classic picture, a shift of the giant planets about 4 billion years ago scattered asteroids and outer bodies inward, cratering the Moon and Earth. Whether this was a spike or the tail of a long decline is debated.",
+      "source": "Docs/research/impacts.md (Morbidelli et al. 2018; Nesvorny et al. 2023)",
       "path": [
-        { "ya": 4200000000, "log10DistanceM": 11.6, "kind": "schematic", "note": "the asteroid belt" },
-        { "ya": 4101000000, "log10DistanceM": 11.6, "kind": "schematic", "note": "an Earth-crossing orbit" },
-        { "ya": 4100000000, "log10DistanceM": 6.8, "kind": "measured", "note": "contact: Earth's radius" }
+        {
+          "ya": 4565000000,
+          "log10DistanceM": 11.476,
+          "kind": "schematic",
+          "note": "Forms in the asteroid belt (~2.2-3.3 AU), 2-3 Myr after CAIs; orbit-averaged distance from Earth ~2 AU."
+        },
+        {
+          "ya": 4160000000,
+          "log10DistanceM": 11.476,
+          "kind": "schematic",
+          "note": "Stable in the belt until the giant planets' instability; each rock's departure is shifted with its impact."
+        },
+        {
+          "ya": 4120000000,
+          "log10DistanceM": 11.175,
+          "kind": "schematic",
+          "note": "Earth/Moon-crossing orbit; typical distance ~1 AU."
+        },
+        {
+          "ya": 4100000000,
+          "log10DistanceM": 0.0,
+          "kind": "measured",
+          "note": "Collision: the path joins the inner track. The swarm's impacts are spread across the proposed span 4.1-3.8 Ga (the Imbrium basin ~3.9 Ga is the one firm date)."
+        }
       ]
     },
     {
@@ -41,15 +83,47 @@
       "epoch": "chicxulub",
       "lifeEvent": "end_cretaceous_extinction",
       "lifeLabel": "impact winter: about three-quarters of species die, all dinosaurs but birds",
-      "formedYa": 4564000000,
-      "impactYa": 66000000,
-      "blurb": "An asteroid about 10 km wide, of carbonaceous rock that formed beyond Jupiter, waited in the asteroid belt for four and a half billion years, then struck the Yucatan 66 million years ago.",
-      "source": "interim",
+      "formedYa": 4564800000.0,
+      "impactYa": 66038000.0,
+      "blurb": "A carbonaceous asteroid 10-14 km wide, born beyond Jupiter in the Solar System's first few million years, parked in the asteroid belt for 4.5 billion years, then struck Mexico 66 million years ago. The dark, cold years that followed ended the non-avian dinosaurs.",
+      "source": "Docs/research/impacts.md (Fischer-Goedde et al. 2024, Science: a carbonaceous asteroid, not a comet)",
       "path": [
-        { "ya": 4564000000, "log10DistanceM": 11.9, "kind": "schematic", "note": "beyond Jupiter" },
-        { "ya": 4500000000, "log10DistanceM": 11.6, "kind": "schematic", "note": "the outer asteroid belt" },
-        { "ya": 66500000, "log10DistanceM": 11.6, "kind": "schematic", "note": "in the belt until sent toward Earth (when is unknown)" },
-        { "ya": 66000000, "log10DistanceM": 6.8, "kind": "measured", "note": "contact: Earth's radius" }
+        {
+          "ya": 4564800000.0,
+          "log10DistanceM": 12.078,
+          "kind": "schematic",
+          "note": "Forms beyond Jupiter (ruthenium isotopes: carbonaceous-type), as chondrite parent bodies did 2-3 Myr after CAIs (4567.3 Ma). C-type bodies came from a broad 5-20 AU region; drawn at ~8 AU from the 1 AU region where Earth would form (Earth itself did not exist yet)."
+        },
+        {
+          "ya": 4562000000.0,
+          "log10DistanceM": 11.652,
+          "kind": "schematic",
+          "note": "Scattered inward during Jupiter and Saturn's gas accretion and captured in the outer main belt while the gas disk was present (first few Myr). Implantation is a model (Raymond & Izidoro 2017), not measured for this body."
+        },
+        {
+          "ya": 2000000000.0,
+          "log10DistanceM": 11.652,
+          "kind": "schematic",
+          "note": "Resides in the main belt for ~4.5 Gyr, quite likely (~60%) beyond 2.5 AU. The real distance from Earth swings between ~1.5 and ~4.3 AU every ~1.3-1.5 years (log10 11.35-11.81); drawn as the ~3 AU average."
+        },
+        {
+          "ya": 67200000.0,
+          "log10DistanceM": 11.652,
+          "kind": "schematic",
+          "note": "Leaves the belt, presumably by Yarkovsky drift into a resonance. When is unknown: the Baptistina breakup (proposed 160 Ma) is ruled out by composition (LL, not carbonaceous) and age. Mean near-Earth lifetime of >5 km bodies is ~1.2 Myr (range 0.1-100 Myr), so ~1 Myr before impact is typical, not known."
+        },
+        {
+          "ya": 66600000.0,
+          "log10DistanceM": 11.175,
+          "kind": "schematic",
+          "note": "Near-Earth orbit; typical distance ~1 AU, swinging widely."
+        },
+        {
+          "ya": 66038000.0,
+          "log10DistanceM": 0.0,
+          "kind": "measured",
+          "note": "Collision: the path joins the inner track (Earth). The inner track is human scale by convention (MatterScale.InnerMetres = 1 m, log10 = 0); physical contact happens at a centre separation of R_Earth + r ~ 6.38e6 m (log10 6.80). Date 66.038 Ma (40Ar/39Ar; matter.json rounds to 66.0 Ma). Struck at ~20 km/s (the average asteroid encounter speed; 18 km/s in crater models), steeply (45-60 deg) from the northeast, at the Yucatan, making a ~180-200 km crater."
+        }
       ]
     }
   ]

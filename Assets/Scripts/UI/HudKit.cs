@@ -94,10 +94,11 @@ namespace Why.UI
             rt.Place(new Vector2(0, 1), new Vector2(0, 1), new Vector2(x, -y), size);
         }
 
-        /// <summary>Digit shown for a preset key ("1".."9", "0"); null when the preset has no key.</summary>
+        /// <summary>Key shown for a preset key ("1".."9", "0", or a letter: "I"); null when the preset has no key.</summary>
         public static string KeyName(KeyCode key)
         {
             if (key >= KeyCode.Alpha0 && key <= KeyCode.Alpha9) return ((int)(key - KeyCode.Alpha0)).ToString(CultureInfo.InvariantCulture);
+            if (key >= KeyCode.A && key <= KeyCode.Z) return ((char)('A' + (key - KeyCode.A))).ToString();
             return null;
         }
 

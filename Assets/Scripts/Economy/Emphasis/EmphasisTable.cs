@@ -22,7 +22,7 @@ namespace Why.Economy.Emphasis
         public static readonly string[] Views =
         {
             "overview", "section", "landscape", "capture", "people", "rivers", "mind", "society", "foundation", "companies", "social",
-            "roots", "betrayal", "y1972", "strategy", "money", "regimes", "mobility", "atom", "dilemma", "ladder", "you", Other
+            "roots", "betrayal", "y1972", "strategy", "money", "regimes", "mobility", "present", "atom", "dilemma", "ladder", "you", Other
         };
 
         /// <summary>The column of the views no row names.</summary>
@@ -36,7 +36,7 @@ namespace Why.Economy.Emphasis
         /// </summary>
         public static readonly (string Key, float[] Values)[] Rows =
         {
-            //                             ovrvw, sectn, lands, captr, peopl, rivrs,  mind, socty, found, comps, socal, roots, betry, y1972, strat, money, regms, mobil,  atom, dilem, laddr,   you,     *
+            //                             ovrvw, sectn, lands, captr, peopl, rivrs,  mind, socty, found, comps, socal, roots, betry, y1972, strat, money, regms, mobil, prsnt,  atom, dilem, laddr,   you,     *
 
             // the land's groups: EconomyViews' table (its 12 columns; WP6's legibility: each view's own story at full strength, the
             // rest near-invisible) and the copies its Get made of the overview's for the other views: one person in front and the
@@ -44,25 +44,25 @@ namespace Why.Economy.Emphasis
             // focused view's structure stands in front of the road, a trace there (.12, the cut .2); the money chart's low pose
             // sees the road edge-on, where its thousands of faint lines added up to a bright bar across the rates (0). LandView
             // eases them for the road of lives (TimeAxisLayer, SmvLayer)
-            Row("land.road",                   1,   .3f,  .35f,  .35f,  .35f,  .35f,  .35f,  .35f,  .35f,     1,     1,  .35f,  .35f,  .35f,  .12f,     0,  .12f,  .12f,   .2f,   .2f,   .4f,  .12f,     1),
-            Row("land.cut",                    1,     1,   .6f,   .6f,   .6f,   .6f,   .6f,   .6f,   .6f,     1,     1,   .6f,   .6f,   .6f,   .2f,   .2f,   .2f,   .2f,     1,     1,     1,   .2f,     1),
-            Row("land.terraces",             .8f,     0,     1,  .32f,  .35f,   .4f,  .25f,   .2f,   .8f,   .8f,   .8f,  .35f,   .2f,     1,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f),
-            Row("land.sectors",              .8f,     0,     1,     1,  .35f,  .25f,   .2f,  .12f,   .8f,   .8f,   .8f,  .45f,  .12f,     1,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f),
-            Row("land.pools",                .5f,     0,  .35f,   .1f,   .1f,     1,   .2f,  .05f,   .5f,   .5f,   .5f,  .05f,  .05f,  .35f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f),
-            Row("land.roots",               .15f,     0,   .3f,  .05f,  .03f,  .03f,  .03f,  .02f,  .15f,  .15f,  .15f,     1,  .02f,   .3f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f),
-            Row("land.towers",               .8f,     0,  .45f,     1,  .35f,  .08f,   .1f,   .1f,   .8f,   .8f,   .8f,   .1f,   .1f,  .45f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f),
-            Row("land.crown",                .8f,     0,   .3f,     1,   .6f,   .1f,   .2f,   .1f,   .8f,   .8f,   .8f,  .05f,   .1f,   .3f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f,   .8f),
-            Row("land.overlays",             .5f,     0,   .4f,     1,     0,     0,     0,     0,   .5f,   .5f,   .5f,     0,     0,   .4f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f,   .5f),
-            Row("land.glyphs",               .7f,     0,  .35f,  .35f,     1,  .35f,     1,   .8f,   .7f,   .7f,   .7f,   .1f,   .8f,  .35f,   .7f,   .7f,   .7f,   .7f,   .7f,   .7f,   .7f,   .7f,   .7f),
-            Row("land.dots",                 .3f,     0,   .2f,  .25f,     1,  .15f,     1,   .3f,   .3f,   .3f,   .3f,  .05f,   .3f,   .2f,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f),
-            Row("land.mirages",             .15f,     0,  .05f,  .05f,   .3f,  .05f,     1,  .03f,  .15f,  .15f,  .15f,     0,  .03f,  .05f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f),
-            Row("land.income",               .1f,     0,  .05f,   .1f,     1,  .04f,  .05f,  .02f,   .1f,   .1f,   .1f,  .03f,  .02f,  .05f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f),
-            Row("land.capitalflows",        .15f,     0,  .05f,   .6f,   .4f,  .04f,  .05f,  .02f,  .15f,  .15f,  .15f,  .03f,  .02f,  .05f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f,  .15f),
-            Row("land.rivers",               .4f,     0,  .15f,   .1f,  .15f,     1,   .5f,  .06f,   .4f,   .4f,   .4f,  .05f,  .06f,  .15f,   .4f,   .4f,   .4f,   .4f,   .4f,   .4f,   .4f,   .4f,   .4f),
-            Row("land.glitter",              .2f,     0,  .05f,  .05f,  .05f,     1,   .8f,  .03f,   .2f,   .2f,   .2f,     0,  .03f,  .05f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f),
-            Row("land.taxes",                .2f,     0,   .1f,  .05f,  .15f,     1,   .1f,  .03f,   .2f,   .2f,   .2f,  .05f,  .03f,   .1f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f),
-            Row("land.ties",                   0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("land.coalitions",             0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,   .6f,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("land.road",                   1,   .3f,  .35f,  .35f,  .35f,  .35f,  .35f,  .35f,  .35f,     1,     1,  .35f,  .35f,  .35f,  .12f,     0,  .12f,  .12f,  .06f,   .2f,   .2f,   .4f,  .12f,     1),
+            Row("land.cut",                    1,     1,   .6f,   .6f,   .6f,   .6f,   .6f,   .6f,   .6f,     1,     1,   .6f,   .6f,   .6f,   .2f,   .2f,   .2f,   .2f,     0,     1,     1,     1,   .2f,     1),
+            Row("land.terraces",             .8f,     0,     1,  .32f,  .35f,   .4f,  .25f,   .2f,   .8f,   .8f,   .8f,  .35f,   .2f,     1,   .8f,   .8f,   .8f,   .8f,     0,   .8f,   .8f,   .8f,   .8f,   .8f),
+            Row("land.sectors",              .8f,     0,     1,     1,  .35f,  .25f,   .2f,  .12f,   .8f,   .8f,   .8f,  .45f,  .12f,     1,   .8f,   .8f,   .8f,   .8f,     0,   .8f,   .8f,   .8f,   .8f,   .8f),
+            Row("land.pools",                .5f,     0,  .35f,   .1f,   .1f,     1,   .2f,  .05f,   .5f,   .5f,   .5f,  .05f,  .05f,  .35f,   .5f,   .5f,   .5f,   .5f,     0,   .5f,   .5f,   .5f,   .5f,   .5f),
+            Row("land.roots",               .15f,     0,   .3f,  .05f,  .03f,  .03f,  .03f,  .02f,  .15f,  .15f,  .15f,     1,  .02f,   .3f,  .15f,  .15f,  .15f,  .15f,     0,  .15f,  .15f,  .15f,  .15f,  .15f),
+            Row("land.towers",               .8f,     0,  .45f,     1,  .35f,  .08f,   .1f,   .1f,   .8f,   .8f,   .8f,   .1f,   .1f,  .45f,   .8f,   .8f,   .8f,   .8f,     0,   .8f,   .8f,   .8f,   .8f,   .8f),
+            Row("land.crown",                .8f,     0,   .3f,     1,   .6f,   .1f,   .2f,   .1f,   .8f,   .8f,   .8f,  .05f,   .1f,   .3f,   .8f,   .8f,   .8f,   .8f,     0,   .8f,   .8f,   .8f,   .8f,   .8f),
+            Row("land.overlays",             .5f,     0,   .4f,     1,     0,     0,     0,     0,   .5f,   .5f,   .5f,     0,     0,   .4f,   .5f,   .5f,   .5f,   .5f,     0,   .5f,   .5f,   .5f,   .5f,   .5f),
+            Row("land.glyphs",               .7f,     0,  .35f,  .35f,     1,  .35f,     1,   .8f,   .7f,   .7f,   .7f,   .1f,   .8f,  .35f,   .7f,   .7f,   .7f,   .7f,     0,   .7f,   .7f,   .7f,   .7f,   .7f),
+            Row("land.dots",                 .3f,     0,   .2f,  .25f,     1,  .15f,     1,   .3f,   .3f,   .3f,   .3f,  .05f,   .3f,   .2f,   .3f,   .3f,   .3f,   .3f,     0,   .3f,   .3f,   .3f,   .3f,   .3f),
+            Row("land.mirages",             .15f,     0,  .05f,  .05f,   .3f,  .05f,     1,  .03f,  .15f,  .15f,  .15f,     0,  .03f,  .05f,  .15f,  .15f,  .15f,  .15f,     0,  .15f,  .15f,  .15f,  .15f,  .15f),
+            Row("land.income",               .1f,     0,  .05f,   .1f,     1,  .04f,  .05f,  .02f,   .1f,   .1f,   .1f,  .03f,  .02f,  .05f,   .1f,   .1f,   .1f,   .1f,     0,   .1f,   .1f,   .1f,   .1f,   .1f),
+            Row("land.capitalflows",        .15f,     0,  .05f,   .6f,   .4f,  .04f,  .05f,  .02f,  .15f,  .15f,  .15f,  .03f,  .02f,  .05f,  .15f,  .15f,  .15f,  .15f,     0,  .15f,  .15f,  .15f,  .15f,  .15f),
+            Row("land.rivers",               .4f,     0,  .15f,   .1f,  .15f,     1,   .5f,  .06f,   .4f,   .4f,   .4f,  .05f,  .06f,  .15f,   .4f,   .4f,   .4f,   .4f,     0,   .4f,   .4f,   .4f,   .4f,   .4f),
+            Row("land.glitter",              .2f,     0,  .05f,  .05f,  .05f,     1,   .8f,  .03f,   .2f,   .2f,   .2f,     0,  .03f,  .05f,   .2f,   .2f,   .2f,   .2f,     0,   .2f,   .2f,   .2f,   .2f,   .2f),
+            Row("land.taxes",                .2f,     0,   .1f,  .05f,  .15f,     1,   .1f,  .03f,   .2f,   .2f,   .2f,  .05f,  .03f,   .1f,   .2f,   .2f,   .2f,   .2f,     0,   .2f,   .2f,   .2f,   .2f,   .2f),
+            Row("land.ties",                   0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("land.coalitions",             0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,   .6f,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
 
             // HillWaveLayer.Emphasis (its content hidden in the mind view). Today's crest outlined over an earlier one (ghost)
             // belongs to 1972's view; the plates behind the names the lines cross to the views of the wave and the encounters'; the
@@ -74,19 +74,19 @@ namespace Why.Economy.Emphasis
             // the saving (gold) and the debts arriving from the future (most households' mix of motives, near white). The front
             // breaking forward (spray) is the wave's own image: full in its views, a trace where another story leads. The families'
             // view names the fan and steps it back so the family links read. State: WaveSelection
-            Row("wave.ribs",                .55f,   .3f,  .85f,  .22f,  .22f,  .22f,     0,  .08f,  .22f,  .55f,  .22f,  .22f,  .08f,  .22f,   .2f,   .1f,   .2f,   .2f,  .14f,  .14f,   .5f,   .2f,  .22f),
-            Row("wave.ridges",               .7f,   .2f,     1,   .2f,   .2f,   .2f,     0,   .2f,   .2f,  .45f,   .2f,   .4f,   .2f,   .2f,  .28f,  .06f,  .28f,  .28f,  .25f,  .25f,  .55f,  .28f,   .2f),
-            Row("wave.face",                 .8f,   .4f,     1,   .4f,   .4f,  .25f,     0,  .15f,     1,   .4f,   .4f,   .4f,  .15f,   .4f,  .14f,  .05f,  .14f,  .14f,  .12f,  .12f,   .3f,  .14f,   .4f),
-            Row("wave.crest",                  1,     1,     1,     1,     1,   .3f,     0,   .3f,     1,     1,     1,     1,   .3f,     1,  .45f,  .06f,  .45f,  .45f,  .22f,  .22f,   .6f,  .45f,     1),
-            Row("wave.spray",                .8f,   .5f,   .8f,  .12f,  .12f,  .12f,     0,  .12f,  .12f,   .8f,  .12f,  .12f,  .12f,   .5f,  .02f,     0,  .02f,  .02f,  .04f,  .04f,  .04f,  .02f,  .12f),
-            Row("wave.lives",               .75f,   .1f,  .75f,   .3f,   .1f,   .1f,     0,   .1f,   .1f,     1,   .1f,  .25f,   .1f,   .1f,   .4f,     0,  .05f,  .05f,  .04f,  .04f,  .04f,  .05f,   .1f),
-            Row("wave.focus",                  1,     1,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1),
-            Row("wave.fan",                 .14f,  .35f,  .04f,  .04f,   .7f,  .04f,     0,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .03f,     0,  .03f,  .03f,  .04f,  .04f,  .04f,  .03f,  .04f),
-            Row("wave.future",              .12f,  .04f,  .04f,  .04f,  .35f,   .3f,     0,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .03f,     0,  .03f,  .03f,  .04f,  .04f,  .04f,  .03f,  .04f),
-            Row("wave.saving",              .12f,  .04f,  .04f,  .04f,  .35f,   .3f,     0,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .03f,     0,  .03f,  .03f,  .04f,  .04f,  .04f,  .03f,  .04f),
-            Row("wave.arrow",               .85f,     0,  .85f,     0,     0,     0,     0,     0,     0,  .85f,     0,     0,     0,  .85f,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("wave.ghost",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .6f,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("wave.plate",                  1,     0,     1,     0,     1,     0,     0,     1,     1,     1,     0,     0,     1,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("wave.ribs",                .55f,   .3f,  .85f,  .22f,  .22f,  .22f,     0,  .08f,  .22f,  .55f,  .22f,  .22f,  .08f,  .22f,   .2f,   .1f,   .2f,   .2f,     0,  .14f,  .14f,   .5f,   .2f,  .22f),
+            Row("wave.ridges",               .7f,   .2f,     1,   .2f,   .2f,   .2f,     0,   .2f,   .2f,  .45f,   .2f,   .4f,   .2f,   .2f,  .28f,  .06f,  .28f,  .28f,     0,  .25f,  .25f,  .55f,  .28f,   .2f),
+            Row("wave.face",                 .8f,   .4f,     1,   .4f,   .4f,  .25f,     0,  .15f,     1,   .4f,   .4f,   .4f,  .15f,   .4f,  .14f,  .05f,  .14f,  .14f,   .2f,  .12f,  .12f,   .3f,  .14f,   .4f),
+            Row("wave.crest",                  1,     1,     1,     1,     1,   .3f,     0,   .3f,     1,     1,     1,     1,   .3f,     1,  .45f,  .06f,  .45f,  .45f,   .2f,  .22f,  .22f,   .6f,  .45f,     1),
+            Row("wave.spray",                .8f,   .5f,   .8f,  .12f,  .12f,  .12f,     0,  .12f,  .12f,   .8f,  .12f,  .12f,  .12f,   .5f,  .02f,     0,  .02f,  .02f,     0,  .04f,  .04f,  .04f,  .02f,  .12f),
+            Row("wave.lives",               .75f,   .1f,  .75f,   .3f,   .1f,   .1f,     0,   .1f,   .1f,     1,   .1f,  .25f,   .1f,   .1f,   .4f,     0,  .05f,  .05f,     0,  .04f,  .04f,  .04f,  .05f,   .1f),
+            Row("wave.focus",                  1,     1,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     0,     1,     1,     1,     1,     1),
+            Row("wave.fan",                 .14f,  .35f,  .04f,  .04f,   .7f,  .04f,     0,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .03f,     0,  .03f,  .03f,     0,  .04f,  .04f,  .04f,  .03f,  .04f),
+            Row("wave.future",              .12f,  .04f,  .04f,  .04f,  .35f,   .3f,     0,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .03f,     0,  .03f,  .03f,     0,  .04f,  .04f,  .04f,  .03f,  .04f),
+            Row("wave.saving",              .12f,  .04f,  .04f,  .04f,  .35f,   .3f,     0,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .04f,  .03f,     0,  .03f,  .03f,     0,  .04f,  .04f,  .04f,  .03f,  .04f),
+            Row("wave.arrow",               .85f,     0,  .85f,     0,     0,     0,     0,     0,     0,  .85f,     0,     0,     0,  .85f,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("wave.ghost",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .6f,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("wave.plate",                  1,     0,     1,     0,     1,     0,     0,     1,     1,     1,     0,     0,     1,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
 
             // HillLandscapeLayer.Emphasis by group, with its Tick's rule for the mind view (.035, its own mind 1) and the season's
             // ties (1 in the encounters' views): roots Roots, rungs Glyphs (the class rungs' legend), towers Towers (its builder is
@@ -95,15 +95,15 @@ namespace Why.Economy.Emphasis
             // hills' names and the clouds faintly; the rest steps back. The owners' investment and their pool are a trace under the
             // rivers of desire and fear; in who keeps the money the pool stays (the owners' surplus rises into it) and the
             // investment falling back out of it does not
-            Row("hills.roots",             .055f, .055f, .055f, .055f, .055f, .055f, .035f, .055f, .055f, .055f, .055f,  .75f, .055f, .055f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f, .055f),
-            Row("hills.rungs",                 0,     0,     0,     0,   .9f,     0, .035f,     0,     0,     0,     0,     0,     0,     0,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .35f,  .03f,     0),
-            Row("hills.towers",             .12f,  .12f,  .12f,  .55f,  .12f,  .12f, .035f,  .12f,  .12f,  .12f,  .12f,  .12f,  .12f,  .12f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .12f),
-            Row("hills.crown",               .1f,   .1f,   .1f,     1,  .35f,   .1f, .035f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,  .08f,  .08f,  .08f,  .08f,  .12f,  .12f,  .12f,  .08f,   .1f),
-            Row("hills.family",                1,     1,     1,     1,     1,     1, .035f,     1,     1,     1,     1,     1,     1,     1,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,     1),
-            Row("hills.investment",            0,     0,     0,     0,     0,   .2f, .035f,     0,     0,     0,     0,     0,     0,     0,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,     0),
-            Row("hills.pool",                  0,     0,     0,   .2f,     0,   .2f, .035f,     0,     0,     0,     0,     0,     0,     0,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,  .03f,     0),
-            Row("hills.mind",                  0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("hills.ties",                  0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("hills.roots",             .055f, .055f, .055f, .055f, .055f, .055f, .035f, .055f, .055f, .055f, .055f,  .75f, .055f, .055f,  .03f,  .03f,  .03f,  .03f,     0,  .03f,  .03f,  .03f,  .03f, .055f),
+            Row("hills.rungs",                 0,     0,     0,     0,   .9f,     0, .035f,     0,     0,     0,     0,     0,     0,     0,  .03f,  .03f,  .03f,  .03f,     0,  .03f,  .03f,  .35f,  .03f,     0),
+            Row("hills.towers",             .12f,  .12f,  .12f,  .55f,  .12f,  .12f, .035f,  .12f,  .12f,  .12f,  .12f,  .12f,  .12f,  .12f,  .03f,  .03f,  .03f,  .03f,     0,  .03f,  .03f,  .03f,  .03f,  .12f),
+            Row("hills.crown",               .1f,   .1f,   .1f,     1,  .35f,   .1f, .035f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,   .1f,  .08f,  .08f,  .08f,  .08f,     0,  .12f,  .12f,  .12f,  .08f,   .1f),
+            Row("hills.family",                1,     1,     1,     1,     1,     1, .035f,     1,     1,     1,     1,     1,     1,     1,  .03f,  .03f,  .03f,  .03f,     0,  .03f,  .03f,  .03f,  .03f,     1),
+            Row("hills.investment",            0,     0,     0,     0,     0,   .2f, .035f,     0,     0,     0,     0,     0,     0,     0,  .03f,  .03f,  .03f,  .03f,     0,  .03f,  .03f,  .03f,  .03f,     0),
+            Row("hills.pool",                  0,     0,     0,   .2f,     0,   .2f, .035f,     0,     0,     0,     0,     0,     0,     0,  .03f,  .03f,  .03f,  .03f,     0,  .03f,  .03f,  .03f,  .03f,     0),
+            Row("hills.mind",                  0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("hills.ties",                  0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
 
             // HillActivityLayer's inline alpha (its content hidden in the mind and section views, its rivers, their sparks and the
             // summit's ring in the money chart's too: seen edge-on behind the chart's panel they added up to the series' own
@@ -116,26 +116,26 @@ namespace Why.Economy.Emphasis
             // person's). trips and trunks are the rivers' water, baked into their lanes. The regimes view draws its own summits
             // (steel where the state owns them), so none of the firms' halos, beams, organizations and owner rings: under the
             // Soviet state their gold read as private ones. State: EvidenceOnly
-            Row("activity.markers",            1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,   .3f,   .3f,   .3f,   .3f,  .25f,  .25f,  .25f,   .3f,     1),
-            Row("activity.halos",              1,     0,     1,     0,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     0,  .25f,  .15f,  .15f,  .15f,  .25f,     1),
-            Row("activity.halos.lit",          1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     0,  .25f,  .15f,  .15f,  .15f,  .25f,     1),
-            Row("activity.beams",           .22f,     0,  .22f,  .55f,  .22f,  .22f,     0,  .22f,  .22f,  .22f,  .22f,  .22f,  .22f,  .22f,  .22f,     0,     0,  .05f,  .05f,  .05f,  .05f,  .05f,  .22f),
-            Row("activity.beams.near",      .95f,     0,  .95f,  .95f,  .95f,  .95f,     0,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,     0,     0,     0,     0,     0,     0,     0,  .95f),
-            Row("activity.beams.chosen",    .95f,     0,  .95f,  .95f,  .95f,  .95f,     0,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,     0,     0,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f),
-            Row("activity.orgs",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("activity.orgs.near",        .9f,     0,   .9f,   .9f,   .9f,   .9f,     0,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,     0,     0,     0,     0,     0,     0,     0,     0,   .9f),
-            Row("activity.orgs.related",     .3f,     0,   .3f,   .3f,   .3f,   .3f,     0,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,     0,     0,     0,     0,     0,     0,     0,     0,   .3f),
-            Row("activity.orgs.chosen",      .9f,     0,   .9f,   .9f,   .9f,   .9f,     0,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,     0,     0,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f),
-            Row("activity.orgs.employer",      0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .9f,   .9f,   .9f,     0,     0),
-            Row("activity.supply",         .018f,     0, .018f, .018f, .018f, .018f,     0, .018f, .018f, .018f, .018f,  .35f, .018f, .018f, .018f, .018f, .018f, .018f, .018f, .018f, .018f, .018f, .018f),
-            Row("activity.rivalry",         .07f,     0,  .07f,   .5f,  .07f,  .07f,     0,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f),
-            Row("activity.circles",         .75f,     0,  .75f,     1,  .75f,  .45f,     0,  .45f,  .45f,     1,  .45f,  .45f,  .45f,  .45f,     1,     0,     0,  .15f,  .15f,  .15f,  .15f,  .15f,  .45f),
-            Row("activity.threads",         .08f,     0,  .08f,     0,   .3f,  .08f,     0,  .08f,  .08f,   .6f,  .08f,  .08f,  .08f,  .08f,   .6f,     0,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .08f),
-            Row("activity.trips",          .035f,     0, .035f, .035f, .035f,   .5f,     0, .035f, .035f, .035f, .035f, .035f, .035f, .035f, .035f,     0, .035f, .035f, .035f, .035f, .035f, .035f, .035f),
-            Row("activity.trunks",           .2f,     0,   .2f,   .2f,   .2f,   .8f,     0,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,     0,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f),
-            Row("activity.rivers",             1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1),
-            Row("activity.sparks",             1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1),
-            Row("activity.focus",              1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1),
+            Row("activity.markers",            1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,   .3f,   .3f,   .3f,   .3f,     0,  .25f,  .25f,  .25f,   .3f,     1),
+            Row("activity.halos",              1,     0,     1,     0,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     0,  .25f,     0,  .15f,  .15f,  .15f,  .25f,     1),
+            Row("activity.halos.lit",          1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     0,  .25f,     0,  .15f,  .15f,  .15f,  .25f,     1),
+            Row("activity.beams",           .22f,     0,  .22f,  .55f,  .22f,  .22f,     0,  .22f,  .22f,  .22f,  .22f,  .22f,  .22f,  .22f,  .22f,     0,     0,  .05f,     0,  .05f,  .05f,  .05f,  .05f,  .22f),
+            Row("activity.beams.near",      .95f,     0,  .95f,  .95f,  .95f,  .95f,     0,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,     0,     0,     0,     0,     0,     0,     0,     0,  .95f),
+            Row("activity.beams.chosen",    .95f,     0,  .95f,  .95f,  .95f,  .95f,     0,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,  .95f,     0,     0,  .95f,     0,  .95f,  .95f,  .95f,  .95f,  .95f),
+            Row("activity.orgs",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("activity.orgs.near",        .9f,     0,   .9f,   .9f,   .9f,   .9f,     0,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .9f),
+            Row("activity.orgs.related",     .3f,     0,   .3f,   .3f,   .3f,   .3f,     0,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,   .3f,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .3f),
+            Row("activity.orgs.chosen",      .9f,     0,   .9f,   .9f,   .9f,   .9f,     0,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,   .9f,     0,     0,   .9f,     0,   .9f,   .9f,   .9f,   .9f,   .9f),
+            Row("activity.orgs.employer",      0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .9f,   .9f,   .9f,     0,     0),
+            Row("activity.supply",         .018f,     0, .018f, .018f, .018f, .018f,     0, .018f, .018f, .018f, .018f,  .35f, .018f, .018f, .018f, .018f, .018f, .018f,     0, .018f, .018f, .018f, .018f, .018f),
+            Row("activity.rivalry",         .07f,     0,  .07f,   .5f,  .07f,  .07f,     0,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,  .07f,     0,  .07f,  .07f,  .07f,  .07f,  .07f),
+            Row("activity.circles",         .75f,     0,  .75f,     1,  .75f,  .45f,     0,  .45f,  .45f,     1,  .45f,  .45f,  .45f,  .45f,     1,     0,     0,  .15f,     0,  .15f,  .15f,  .15f,  .15f,  .45f),
+            Row("activity.threads",         .08f,     0,  .08f,     0,   .3f,  .08f,     0,  .08f,  .08f,   .6f,  .08f,  .08f,  .08f,  .08f,   .6f,     0,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .08f),
+            Row("activity.trips",          .035f,     0, .035f, .035f, .035f,   .5f,     0, .035f, .035f, .035f, .035f, .035f, .035f, .035f, .035f,     0, .035f, .035f,     0, .035f, .035f, .035f, .035f, .035f),
+            Row("activity.trunks",           .2f,     0,   .2f,   .2f,   .2f,   .8f,     0,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,   .2f,     0,   .2f,   .2f,     0,   .2f,   .2f,   .2f,   .2f,   .2f),
+            Row("activity.rivers",             1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     0,     1,     1,     1,     1,     1),
+            Row("activity.sparks",             1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     0,     1,     1,     1,     1,     1),
+            Row("activity.focus",              1,     0,     1,     1,     1,     1,     0,     1,     1,     1,     1,     1,     1,     1,     1,     0,     1,     1,     0,     1,     1,     1,     1,     1),
 
             // HillCaptureLayer.Emphasis (its content hidden in the mind, section and money chart's views). Who keeps the money
             // draws every part of the dollar at its weight: wages (41¢ in 2025) as strong as the owners' climb (27¢), production
@@ -143,15 +143,15 @@ namespace Why.Economy.Emphasis
             // (brighter where the story is the money's destination); the regimes view draws its own summits (steel where the state
             // owns them); in the rivers view, whose story is desire and fear, where their money goes next steps back under them.
             // State: CaptureSelection, CaptureDetail
-            Row("capture.climb",             .8f,     0,   .8f,     1,   .8f,   .3f,     0,  .02f,  .08f,   .8f,   .8f,  .06f,  .02f,   .8f,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .03f,   .8f),
-            Row("capture.halo",                1,     0,     1,     1,     1,  .25f,     0,  .12f,   .3f,     1,     1,  .35f,  .12f,     1,  .45f,     0,  .02f,   .1f,  .25f,  .25f,  .25f,  .35f,     1),
-            Row("capture.glow",              .8f,     0,   .8f,     1,   .8f,  .25f,     0,  .12f,   .3f,   .8f,   .8f,  .35f,  .12f,   .8f,  .45f,     0,  .02f,   .1f,  .25f,  .25f,  .25f,  .35f,   .8f),
-            Row("capture.ascent",           .07f,     0,  .07f,   .4f,  .15f,  .12f,     0,  .02f,  .08f,  .07f,  .07f,  .06f,  .02f,  .07f,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .03f,  .07f),
-            Row("capture.wages",            .16f,     0,  .55f,     1,   .9f,  .25f,     0,  .02f,  .08f,  .16f,  .16f,  .06f,  .02f,  .16f,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .03f,  .16f),
-            Row("capture.taxes",             .1f,     0,  .35f,   .8f,   .1f,  .25f,     0,  .02f,     1,   .1f,   .1f,  .06f,  .02f,   .1f,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .03f,   .1f),
-            Row("capture.ledger",            .7f,     0,   .7f,     1,     1,   .2f,     0,  .02f,  .08f,   .7f,   .7f,  .06f,  .02f,   .7f,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .03f,   .7f),
-            Row("capture.roots",            .04f,     0,  .04f,  .35f,  .04f,   .1f,     0,  .02f,  .08f,  .04f,  .04f,     1,  .02f,  .04f,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .03f,  .04f),
-            Row("capture.selected",            1,     0,     1,     1,     1,     1,     0,  .02f,     1,     1,     1,  .06f,  .02f,     1,  .03f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,     1,     1),
+            Row("capture.climb",             .8f,     0,   .8f,     1,   .8f,   .3f,     0,  .02f,  .08f,   .8f,   .8f,  .06f,  .02f,   .8f,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,  .03f,   .8f),
+            Row("capture.halo",                1,     0,     1,     1,     1,  .25f,     0,  .12f,   .3f,     1,     1,  .35f,  .12f,     1,  .45f,     0,  .02f,   .1f,     0,  .25f,  .25f,  .25f,  .35f,     1),
+            Row("capture.glow",              .8f,     0,   .8f,     1,   .8f,  .25f,     0,  .12f,   .3f,   .8f,   .8f,  .35f,  .12f,   .8f,  .45f,     0,  .02f,   .1f,     0,  .25f,  .25f,  .25f,  .35f,   .8f),
+            Row("capture.ascent",           .07f,     0,  .07f,   .4f,  .15f,  .12f,     0,  .02f,  .08f,  .07f,  .07f,  .06f,  .02f,  .07f,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,  .03f,  .07f),
+            Row("capture.wages",            .16f,     0,  .55f,     1,   .9f,  .25f,     0,  .02f,  .08f,  .16f,  .16f,  .06f,  .02f,  .16f,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,  .03f,  .16f),
+            Row("capture.taxes",             .1f,     0,  .35f,   .8f,   .1f,  .25f,     0,  .02f,     1,   .1f,   .1f,  .06f,  .02f,   .1f,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,  .03f,   .1f),
+            Row("capture.ledger",            .7f,     0,   .7f,     1,     1,   .2f,     0,  .02f,  .08f,   .7f,   .7f,  .06f,  .02f,   .7f,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,  .03f,   .7f),
+            Row("capture.roots",            .04f,     0,  .04f,  .35f,  .04f,   .1f,     0,  .02f,  .08f,  .04f,  .04f,     1,  .02f,  .04f,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,  .03f,  .04f),
+            Row("capture.selected",            1,     0,     1,     1,     1,     1,     0,  .02f,     1,     1,     1,  .06f,  .02f,     1,  .03f,     0,  .02f,  .02f,     0,  .02f,  .02f,  .02f,     1,     1),
 
             // HillFoundationLayer.Emphasis (its content hidden in the mind and section views). The benefits fan out to every
             // household: in the bedrock's own view a weave under the block, not its brightest mark. The regimes view draws the
@@ -160,80 +160,92 @@ namespace Why.Economy.Emphasis
             // regulation and capture strands run from the bedrock up into every hill: the bedrock's story and close up; elsewhere,
             // who keeps the money included, a trace, or two strands per industry curtain the whole crest face. State:
             // FoundationDetail
-            Row("foundation.block",         .55f,     0,  .55f,  .55f,  .55f,  .55f,     0,  .25f,   .8f,  .55f,  .55f,  .55f,  .25f,  .55f,   .3f,  .18f,  .05f,  .18f,  .12f,  .12f,  .12f,  .18f,  .55f),
-            Row("foundation.strata",        .45f,     0,  .45f,   .7f,   .7f,   .7f,     0,  .02f,     1,   .7f,   .7f,   .7f,  .02f,   .7f,  .03f,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,   .7f),
-            Row("foundation.pillars",        .1f,     0,   .1f,   .2f,  .35f,  .35f,     0,  .02f,     1,   .1f,  .35f,  .35f,  .02f,  .35f,  .03f,  .02f,     0,  .02f,  .12f,  .12f,  .12f,  .02f,  .35f),
-            Row("foundation.benefits",       .5f,     0,   .5f,   .5f,  .12f,   .5f,     0,  .02f,   .4f,   .5f,   .5f,   .5f,  .02f,   .5f,  .03f,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,   .5f),
-            Row("foundation.taxes",         .45f,     0,  .45f,  .45f,  .45f,  .45f,     0,  .02f,     1,  .45f,  .45f,  .45f,  .02f,  .45f,  .03f,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .45f),
-            Row("foundation.regulation",    .45f,     0,  .45f,  .03f,  .45f,  .45f,     0,  .02f,     1,  .45f,  .45f,  .45f,  .02f,  .45f,  .06f,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,  .45f),
-            Row("foundation.seats",            1,     0,     1,     1,     1,     1,     0,  .02f,     1,     1,     1,     1,  .02f,     1,   .6f,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,     1),
-            Row("foundation.selected",         1,     0,     1,     1,     1,     1,     0,  .02f,     1,     1,     1,     1,  .02f,     1,  .03f,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .02f,     1),
+            Row("foundation.block",         .55f,     0,  .55f,  .55f,  .55f,  .55f,     0,  .25f,   .8f,  .55f,  .55f,  .55f,  .25f,  .55f,   .3f,  .18f,  .05f,  .18f,     0,  .12f,  .12f,  .12f,  .18f,  .55f),
+            Row("foundation.strata",        .45f,     0,  .45f,   .7f,   .7f,   .7f,     0,  .02f,     1,   .7f,   .7f,   .7f,  .02f,   .7f,  .03f,  .02f,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,   .7f),
+            Row("foundation.pillars",        .1f,     0,   .1f,   .2f,  .35f,  .35f,     0,  .02f,     1,   .1f,  .35f,  .35f,  .02f,  .35f,  .03f,  .02f,     0,  .02f,     0,  .12f,  .12f,  .12f,  .02f,  .35f),
+            Row("foundation.benefits",       .5f,     0,   .5f,   .5f,  .12f,   .5f,     0,  .02f,   .4f,   .5f,   .5f,   .5f,  .02f,   .5f,  .03f,  .02f,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,   .5f),
+            Row("foundation.taxes",         .45f,     0,  .45f,  .45f,  .45f,  .45f,     0,  .02f,     1,  .45f,  .45f,  .45f,  .02f,  .45f,  .03f,  .02f,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .45f),
+            Row("foundation.regulation",    .45f,     0,  .45f,  .03f,  .45f,  .45f,     0,  .02f,     1,  .45f,  .45f,  .45f,  .02f,  .45f,  .06f,  .02f,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,  .45f),
+            Row("foundation.seats",            1,     0,     1,     1,     1,     1,     0,  .02f,     1,     1,     1,     1,  .02f,     1,   .6f,  .02f,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,     1),
+            Row("foundation.selected",         1,     0,     1,     1,     1,     1,     0,  .02f,     1,     1,     1,     1,  .02f,     1,  .03f,  .02f,     0,  .02f,     0,  .02f,  .02f,  .02f,  .02f,     1),
 
             // HillSocialLayer.Emphasis (its content hidden in the views at 0 below, and before Instagram outside its own view):
             // outside its own view the cloud is context, named but no longer the brightest thing on screen. State: SocialDetail,
             // SocialEarly
-            Row("social.glow",               .4f,     0,   .4f,     0,   .4f,     0,     0,     0,     0,     0,     1,     0,     0,   .4f,   .4f,     0,     0,     0,     0,     0,     0,     0,   .4f),
-            Row("social.stars",                1,     0,     1,     0,     1,     0,     0,     0,     0,     0,     1,     0,     0,     1,     1,     0,     0,     0,     0,     0,     0,     0,     1),
-            Row("social.bright",             .7f,     0,   .7f,     0,   .7f,     0,     0,     0,     0,     0,     1,     0,     0,   .7f,   .7f,     0,     0,     0,     0,     0,     0,     0,   .7f),
-            Row("social.ties",               .6f,     0,   .6f,     0,   .6f,     0,     0,     0,     0,     0,   .9f,     0,     0,   .6f,   .6f,     0,     0,     0,     0,     0,     0,     0,   .6f),
-            Row("social.rings",              .6f,     0,   .6f,     0,   .6f,     0,     0,     0,     0,     0,     1,     0,     0,   .6f,   .6f,     0,     0,     0,     0,     0,     0,     0,   .6f),
-            Row("social.anchors",              1,     0,     1,     0,     1,     0,     0,     0,     0,     0,     1,     0,     0,     1,     1,     0,     0,     0,     0,     0,     0,     0,     1),
-            Row("social.threads",           .25f,     0,  .25f,     0,  .25f,     0,     0,     0,     0,     0,   .5f,     0,     0,  .25f,  .25f,     0,     0,     0,     0,     0,     0,     0,  .25f),
-            Row("social.elite",              .3f,     0,   .3f,     0,   .3f,     0,     0,     0,     0,     0,   .9f,     0,     0,   .3f,   .3f,     0,     0,     0,     0,     0,     0,     0,   .3f),
-            Row("social.loop",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("social.glow",               .4f,     0,   .4f,     0,   .4f,     0,     0,     0,     0,     0,     1,     0,     0,   .4f,   .4f,     0,     0,     0,     0,     0,     0,     0,     0,   .4f),
+            Row("social.stars",                1,     0,     1,     0,     1,     0,     0,     0,     0,     0,     1,     0,     0,     1,     1,     0,     0,     0,     0,     0,     0,     0,     0,     1),
+            Row("social.bright",             .7f,     0,   .7f,     0,   .7f,     0,     0,     0,     0,     0,     1,     0,     0,   .7f,   .7f,     0,     0,     0,     0,     0,     0,     0,     0,   .7f),
+            Row("social.ties",               .6f,     0,   .6f,     0,   .6f,     0,     0,     0,     0,     0,   .9f,     0,     0,   .6f,   .6f,     0,     0,     0,     0,     0,     0,     0,     0,   .6f),
+            Row("social.rings",              .6f,     0,   .6f,     0,   .6f,     0,     0,     0,     0,     0,     1,     0,     0,   .6f,   .6f,     0,     0,     0,     0,     0,     0,     0,     0,   .6f),
+            Row("social.anchors",              1,     0,     1,     0,     1,     0,     0,     0,     0,     0,     1,     0,     0,     1,     1,     0,     0,     0,     0,     0,     0,     0,     0,     1),
+            Row("social.threads",           .25f,     0,  .25f,     0,  .25f,     0,     0,     0,     0,     0,   .5f,     0,     0,  .25f,  .25f,     0,     0,     0,     0,     0,     0,     0,     0,  .25f),
+            Row("social.elite",              .3f,     0,   .3f,     0,   .3f,     0,     0,     0,     0,     0,   .9f,     0,     0,   .3f,   .3f,     0,     0,     0,     0,     0,     0,     0,     0,   .3f),
+            Row("social.loop",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
 
             // HillMobilityLayer.Emphasis (its content drawn in the mobility, people and you views only): the people view (class is
             // altitude) carries the cohorts' drift on the hills; the ladder is the mobility view's
-            Row("mobility.drift",              0,     0,     0,     0,   .9f,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,  .25f,     0),
-            Row("mobility.ladder",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,  .12f,     0),
-            Row("mobility.ribbons",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .9f,     0,     0,     0,  .12f,     0),
+            Row("mobility.drift",              0,     0,     0,     0,   .9f,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,  .25f,     0),
+            Row("mobility.ladder",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,  .12f,     0),
+            Row("mobility.ribbons",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,   .9f,     0,     0,     0,     0,  .12f,     0),
 
             // HillPersonLayer's atom, pulls and ladder alphas (its content drawn where one of them is above 0)
-            Row("person.atom",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,  .22f,  .12f,     0,     0),
-            Row("person.pulls",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,  .06f,     0,     0,     0),
-            Row("person.ladder",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,  .18f,     0,     1,     0,     0),
+            Row("person.atom",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,  .22f,  .12f,     0,     0),
+            Row("person.pulls",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,  .06f,     0,     0,     0),
+            Row("person.ladder",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,  .18f,     0,     1,     0,     0),
 
             // HillDilemmaLayer (drawn in its own view only, at full alpha)
-            Row("dilemma.arena",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
-            Row("dilemma.floor",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
-            Row("dilemma.moves",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
-            Row("dilemma.pulses",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
+            Row("dilemma.arena",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
+            Row("dilemma.floor",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
+            Row("dilemma.moves",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
+            Row("dilemma.pulses",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0),
 
             // HillYouLayer (drawn in its own view only, at full alpha)
-            Row("you.figure",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
-            Row("you.rivers",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
-            Row("you.flow",                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
-            Row("you.futures",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
+            Row("you.figure",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
+            Row("you.rivers",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
+            Row("you.flow",                    0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
+            Row("you.futures",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0),
 
             // HillStrategyLayer (drawn in its own view only, at full alpha)
-            Row("strategy.streams",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("strategy.focus",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("strategy.arrows",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("strategy.cascade",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("strategy.trail",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("strategy.streams",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("strategy.focus",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("strategy.arrows",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("strategy.cascade",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("strategy.trail",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0),
 
             // HillMoneyLayer (drawn in its own view only, at full alpha; the backing also fades as the camera turns edge-on to it,
             // its multiplier "seen from its side")
-            Row("money.chart",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
-            Row("money.fill",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
-            Row("money.backing",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("money.chart",                 0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("money.fill",                  0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("money.backing",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0),
 
             // HillRegimeLayer (drawn in its own view only, at full alpha). State: RegimeTourCard
-            Row("regime.bedrock",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.strata",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.summits",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.beams",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.strands",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.taxes",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.votes",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.trade",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
-            Row("regime.cloud",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0),
+            Row("regime.bedrock",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.strata",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.summits",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.beams",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.strands",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.taxes",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.votes",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.trade",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
+            Row("regime.cloud",                0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0),
 
             // HillReplayLayer (drawn while a replay runs, in the views of the whole wave; the held year's rib pulses, its
             // multiplier "the held year's pulse")
-            Row("replay.ribs",                 1,     0,     1,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            Row("replay.now",                  1,     0,     1,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
-            //                             ovrvw, sectn, lands, captr, peopl, rivrs,  mind, socty, found, comps, socal, roots, betry, y1972, strat, money, regms, mobil,  atom, dilem, laddr,   you,     *
+            Row("replay.ribs",                 1,     0,     1,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("replay.now",                  1,     0,     1,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+
+            // HillPresentLayer (drawn in its own view only; its choreography scales the guides' and the firms' alpha, and the
+            // hills show once they rise). In the present every other part is absent but the crest it came out of (its line and
+            // cut face at .2) and a trace of the road of lives: at .12 the wave's sixty-odd line families still summed to a
+            // bright tangle behind the terraces (objects first). The arrow of time and the replay's marks are absent: the
+            // present stands where the arrow pointed. The guides' row is their fullest, during the separation
+            Row("present.bedrock",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            Row("present.strata",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            Row("present.terraces",            0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            Row("present.hills",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            Row("present.guides",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,  .35f,     0,     0,     0,     0,     0),
+            Row("present.firms",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            //                             ovrvw, sectn, lands, captr, peopl, rivrs,  mind, socty, found, comps, socal, roots, betry, y1972, strat, money, regms, mobil, prsnt,  atom, dilem, laddr,   you,     *
         };
 
         static (string, float[]) Row(string key, params float[] values) => (key, values);
@@ -243,9 +255,10 @@ namespace Why.Economy.Emphasis
         /// <summary>The followed person's views (PersonFocus.IsView at the transcription).</summary>
         public static bool Person(string view) => view == "atom" || view == "dilemma" || view == "ladder";
 
-        /// <summary>The views that tell one story on a structure of their own (EconomyViews.Focused at the transcription).</summary>
+        /// <summary>The views that tell one story on a structure of their own (EconomyViews.Focused at the transcription, and
+        /// the present taken apart since).</summary>
         public static bool Focused(string view) =>
-            view == "mobility" || view == "strategy" || view == "you" || view == "money" || view == "regimes";
+            view == "mobility" || view == "strategy" || view == "you" || view == "money" || view == "regimes" || view == "present";
 
         /// <summary>The views the capture layer's switch gave rules of their own; the selection's dimming and the ledger's
         /// level of detail belong to the rest (its last branch) and, for the dimming, to the rivers view.</summary>

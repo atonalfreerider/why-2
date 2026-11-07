@@ -105,11 +105,12 @@ namespace Why.Economy.Layers
             string view = LandView.PresetId;
             // Off its topic the cloud is not drawn: in the person and focused views, in the money's own views (who keeps it,
             // the rivers, the bedrock, the roots), in the companies' lives (whose key names no white mark, and whose frame
-            // cuts the cloud at its top, its name above it) and in the games (society, betrayal); before Instagram only its
+            // cuts the cloud at its top, its name above it), in the games (society, betrayal) and in the present taken apart
+            // (whose own cloud comes with its figures, and which the wave's cloud stood behind at full strength); before Instagram only its
             // own view shows it, as a ghost.
             bool early = land.Year < PlatformYear, social = view == "social";
             bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money" || view == "regimes"
-                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || early && !social;
+                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || view == "present" || early && !social;
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;

@@ -1,0 +1,1318 @@
+{
+ "note": "Impactor paths for the universe scene's red matter layer: distance from Earth (log10 metres) against time (years ago). 'measured' = the point's date/position rests on a cited measurement; 'schematic' = a defensible illustration where the real orbit is unknown or oscillates (orbit-averaged distances). Distances are from Earth (or from the 1 AU region before Earth existed). 1 AU = 1.49598e11 m (log10 11.175). See Docs/research/impacts.md.",
+ "built": "2026-11-06",
+ "conventions": {
+  "AU_m": 149598000000.0,
+  "earthRadius_m": 6371000.0,
+  "innerTrackLog10M": 0.0,
+  "impactPoint": "log10DistanceM 0 = joins the inner track; contactLog10M gives the physical centre separation at contact"
+ },
+ "facts": [
+  {
+   "id": "theia_mars_sized",
+   "claim": "About 4.5 billion years ago, near the time the solar system formed, perhaps a single object the size of Mars struck Earth.",
+   "value": 4500000000.0,
+   "unit": "years ago (approx.)",
+   "quote": "near the time of the solar system’s formation, about 4.5 billion years ago, something ― perhaps a single object the size of Mars",
+   "url": "https://science.nasa.gov/moon/formation/",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.65,
+    "overstated": 0.56,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "mars_radius",
+   "claim": "Mars has a volumetric mean radius of 3389.5 km; Earth's is 6371.0 km.",
+   "value": 3389.5,
+   "unit": "km (radius)",
+   "quote": "Volumetric mean radius (km) 3389.5 6371.0",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.55,
+    "overstated": 0.65,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "theia_larger_alternative",
+   "claim": "Simulations of impacts by larger impactors than previously considered can produce a disk with the same composition as the planet's mantle.",
+   "value": null,
+   "unit": null,
+   "quote": "We simulated impacts involving larger impactors than previously considered. We show that these can produce a disk with the same composition as the planet's mantle",
+   "url": "https://doi.org/10.1126/science.1226073",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.28,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "theia_inner_origin",
+   "claim": "All of Theia and most of Earth's other constituent materials originated from the inner Solar System, and Theia might have formed closer to the Sun than Earth did.",
+   "value": null,
+   "unit": null,
+   "quote": "We found that all of Theia and most of Earth's other constituent materials originated from the inner Solar System. Our calculations suggest that Theia might have formed closer to the Sun than Earth did.",
+   "url": "https://doi.org/10.1126/science.ado0623",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.96,
+    "overstated": 0.29,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "theia_neighbors",
+   "claim": "The most convincing scenario is that most of the building blocks of Earth and Theia came from the inner Solar System, so Earth and Theia were likely neighbours.",
+   "value": null,
+   "unit": null,
+   "quote": "The most convincing scenario is that most of the building blocks of Earth and Theia originated in the inner Solar System. Earth and Theia are likely to have been neighbors.",
+   "url": "https://www.mpg.de/25743917/theia-and-earth-were-neighbors",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.85,
+    "overstated": 0.2,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "theia_lagrange",
+   "claim": "The giant impactor could have formed in a stable orbit among debris at Earth's L4 or L5 Lagrange point.",
+   "value": 1.0,
+   "unit": "AU (L4/L5 distance from Earth)",
+   "quote": "We propose that the giant impactor could have formed in a stable orbit among debris at the Earth's Lagrange point $L_4$ (or $L_5$).",
+   "url": "https://arxiv.org/abs/astro-ph/0405372",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.19,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "theia_parabolic",
+   "claim": "Isotopes point to Theia forming near 1 AU, and simulations are consistent with it approaching Earth on a zero-energy parabolic trajectory.",
+   "value": 1.0,
+   "unit": "AU",
+   "quote": "Isotopic evidence suggests that it came from 1AU radius in the solar nebula and computer simulations are consistent with it approaching Earth on a zero-energy parabolic trajectory.",
+   "url": "https://arxiv.org/abs/astro-ph/0405372",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.86,
+    "overstated": 0.36,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "moon_age_4_51",
+   "claim": "The lunar crust had differentiated by 4.51 billion years ago, so the Moon formed within about the first 60 million years after the birth of the solar system.",
+   "value": 4510000000.0,
+   "unit": "years ago",
+   "quote": "Our data indicate differentiation of the lunar crust by 4.51 billion years, indicating the formation of the Moon within the first ~60 million years after the birth of the solar system.",
+   "url": "https://doi.org/10.1126/sciadv.1602365",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.98,
+    "overstated": 0.41,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "moon_age_50myr",
+   "claim": "The Moon formed early, approximately 50 million years after the solar system.",
+   "value": 50000000.0,
+   "unit": "years after Solar System formation",
+   "quote": "We conclude that the Moon formed early, approximately 50 Myr after the solar system",
+   "url": "https://doi.org/10.1038/s41561-019-0398-3",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.38,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "moon_age_4_425",
+   "claim": "The Moon formed 4.425 ± 0.025 billion years ago.",
+   "value": 4425000000.0,
+   "unit": "years ago",
+   "quote": "indicates that the Moon formed 4.425 ± 0.025 billion years ago",
+   "url": "https://doi.org/10.1126/sciadv.aba8949",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.21,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "moon_age_range",
+   "claim": "Estimates of the Moon's age range widely, between 4.35 and 4.51 billion years ago.",
+   "value": [
+    4350000000.0,
+    4510000000.0
+   ],
+   "unit": "years ago",
+   "quote": "This has led to a wide range of estimates for the age of the Moon between 4.35 and 4.51 billion years ago (Ga)",
+   "url": "https://doi.org/10.1038/s41586-024-08231-0",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.18,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "moon_old_remelting",
+   "claim": "The Moon could have formed within a few tens of millions of years of Solar System formation.",
+   "value": null,
+   "unit": null,
+   "quote": "permits formation of the Moon within a few tens of million years of Solar System formation",
+   "url": "https://doi.org/10.1038/s41586-024-08231-0",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.78,
+    "overstated": 0.51,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "cai_age",
+   "claim": "Calcium-aluminium-rich inclusions (CAIs) formed in a brief interval 4567.30 ± 0.16 million years ago.",
+   "value": 4567300000.0,
+   "unit": "years ago",
+   "quote": "CAIs define a brief formation interval corresponding to an age of 4567.30 ± 0.16 million years (My)",
+   "url": "https://doi.org/10.1126/science.1226919",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.15,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "earth_radius",
+   "claim": "Earth's volumetric mean radius is 6371 km.",
+   "value": 6371.0,
+   "unit": "km",
+   "quote": "Volumetric mean radius (km) 6371.000",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.29,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "earth_semimajor_axis",
+   "claim": "Earth's semimajor axis is 149.598 million km (1 AU).",
+   "value": 149598000000.0,
+   "unit": "m",
+   "quote": "Semimajor axis (10 6 km) 149.598",
+   "url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.32,
+    "overstated": 0.73,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_definition",
+   "claim": "The Late Heavy Bombardment was proposed from the lunar record as a cataclysmic spike in cratering about 700 million years after the planets formed.",
+   "value": 700000000.0,
+   "unit": "years after planet formation",
+   "quote": "The petrology record on the Moon suggests that a cataclysmic spike in the cratering rate occurred approximately 700 million years after the planets formed; this event is known as the Late Heavy Bombardment (LHB).",
+   "url": "https://doi.org/10.1038/nature03676",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.91,
+    "overstated": 0.26,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_nice_migration",
+   "claim": "The LHB was triggered by rapid giant-planet migration after a long quiet period, which destabilised the planetesimal disk outside the planets and strongly perturbed the asteroid belt, whose objects supplied a significant fraction of LHB impactors.",
+   "value": null,
+   "unit": null,
+   "quote": "Here we propose that the LHB was triggered by the rapid migration of the giant planets, which occurred after a long quiescent period. During this burst of migration, the planetesimal disk outside the orbits of the planets was destabilized, causing a sudden massive delivery of planetesimals to the inner Solar System. The asteroid belt was also strongly perturbed, with these objects supplying a significant fraction of the LHB impactors",
+   "url": "https://doi.org/10.1038/nature03676",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.25,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_3_9ga",
+   "claim": "The LHB is a hypothesised impact spike at about 3.9 billion years ago.",
+   "value": 3900000000.0,
+   "unit": "years ago",
+   "quote": "The Late Heavy Bombardment (LHB), a hypothesized impact spike at ∼3.9 Ga",
+   "url": "https://doi.org/10.1073/pnas.1611535113",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.96,
+    "overstated": 0.15,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_illusory",
+   "claim": "Impact histories that decline steadily can still produce apparent age peaks that could be mistaken for LHB-type events.",
+   "value": null,
+   "unit": null,
+   "quote": "monotonically declining impact histories yield apparent age peaks that could be misinterpreted as LHB-type events",
+   "url": "https://doi.org/10.1073/pnas.1611535113",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.73,
+    "overstated": 0.36,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_prolonged",
+   "claim": "A 2017 review finds most evidence supports a prolonged bombardment from about 4.2 to 3.4 billion years ago rather than a spike at 3.9 Ga.",
+   "value": [
+    4200000000.0,
+    3400000000.0
+   ],
+   "unit": "years ago",
+   "quote": "most evidence supports a prolonged lunar (and thus, terrestrial) bombardment from ~4.2 to 3.4 Ga and not a cataclysmic spike at ~3.9 Ga",
+   "url": "https://arxiv.org/abs/1704.06694",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.8,
+    "overstated": 0.4,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_basins_3_9_3_7",
+   "claim": "Some lunar basins formed 3.9 to 3.7 billion years ago; the data fit either a cataclysm with an impact surge about 3.9 billion years ago or an accretion tail in which bombardment declined from the era of planet formation.",
+   "value": [
+    3900000000.0,
+    3700000000.0
+   ],
+   "unit": "years ago",
+   "quote": "Some basin-forming impacts occurred 3.9-3.7Gy ago. Many other basins formed before, but their exact ages are not precisely known. There are two possible interpretations of the data: in the cataclysm scenario there was a surge in the impact rate approximately 3.9Gy ago, while in the accretion tail scenario the lunar bombardment declined since the era of planet formation",
+   "url": "https://arxiv.org/abs/1801.03756",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.86,
+    "overstated": 0.31,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_cataclysm_start",
+   "claim": "The cataclysm should have started about 3.95 billion years ago.",
+   "value": 3950000000.0,
+   "unit": "years ago",
+   "quote": "The cataclysm should have started ~3.95Gy ago.",
+   "url": "https://arxiv.org/abs/1801.03756",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.56,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_imbrium",
+   "claim": "Radiometric dating of Apollo samples puts the Imbrium basin at about 3.9 billion years ago.",
+   "value": 3900000000.0,
+   "unit": "years ago",
+   "quote": "The radiometric dating of Apollo samples indicates that the Imbrium basin formed relatively late -- from the planet formation perspective -- some $\\simeq 3.9$ Ga.",
+   "url": "https://arxiv.org/abs/2303.17736",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.41,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "lhb_leftover_planetesimals",
+   "claim": "Cometary impactors contributed insignificantly; asteroids produced most large impacts in the last ~3 billion years, and most early impactors were rocky planetesimals left behind at about 0.5 to 1.5 AU after the terrestrial planets accreted.",
+   "value": [
+    0.5,
+    1.5
+   ],
+   "unit": "AU",
+   "quote": "The contribution of cometary impactors is found to be insignificant. Asteroids produced most large impacts on the terrestrial worlds in the last $\\simeq 3$ Gyr. The great majority of early impactors were rocky planetesimals left behind at $\\sim 0.5$--1.5 au after the terrestrial planet accretion.",
+   "url": "https://arxiv.org/abs/2303.17736",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.94,
+    "overstated": 0.2,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_carbonaceous_asteroid",
+   "claim": "The Chicxulub impactor was a carbonaceous-type asteroid that had formed beyond the orbit of Jupiter.",
+   "value": null,
+   "unit": null,
+   "quote": "Our data indicate that the Chicxulub impactor was a carbonaceous-type asteroid, which had formed beyond the orbit of Jupiter.",
+   "url": "https://doi.org/10.1126/science.adk4868",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.98,
+    "overstated": 0.64,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_not_comet",
+   "claim": "The impactor's composition differs greatly from meteorites believed to have been comets, so Fischer-Gödde says it is unlikely the impactor was a comet.",
+   "value": null,
+   "unit": null,
+   "quote": "Sample analyses now show that the celestial object was far different in composition from a subset of meteorites which are believed to have been comets in the past. It is therefore \"unlikely\" the impactor in question was a comet, Fischer-Godde said.",
+   "url": "https://phys.org/news/2024-08-scientists-dino-asteroid-jupiter.html",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.79,
+    "overstated": 0.33,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_stopover",
+   "claim": "Fischer-Gödde says it is not certain where the asteroid was just before the impact; after forming it may have stopped over in the asteroid belt.",
+   "value": null,
+   "unit": null,
+   "quote": "\"We cannot be really sure where the asteroid was kind of hiding just before it impacted on Earth,\" Fischer-Godde said, adding that after its formation, it may have made a stopover in the asteroid belt",
+   "url": "https://phys.org/news/2024-08-scientists-dino-asteroid-jupiter.html",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.9,
+    "overstated": 0.16,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_comet_hypothesis",
+   "claim": "Some long-period comets are tidally disrupted after passing close to the Sun, producing fragments that cross Earth's orbit.",
+   "value": null,
+   "unit": null,
+   "quote": "Here, we show that a fraction of long-period comets are tidally disrupted after passing close to the Sun, each producing a collection of smaller fragments that cross the orbit of Earth.",
+   "url": "https://doi.org/10.1038/s41598-021-82320-2",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.92,
+    "overstated": 0.22,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_comet_rebuttal",
+   "claim": "Favouring a comet over an asteroid requires extreme assumptions about how comets fragment, conflates kinds of carbonaceous chondrites, and ignores the iridium-layer evidence.",
+   "value": null,
+   "unit": null,
+   "quote": "To consider a comet more likely than an asteroid requires extreme assumptions about how comets fragment, conflation of carbonaceous chondrites with specific types of carbonaceous chondrites, and a blind eye to the evidence of the iridium layer.",
+   "url": "https://arxiv.org/abs/2105.08768",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.88,
+    "overstated": 0.27,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_date",
+   "claim": "The new date for the impact is 66,038,000 years ago, the same within error as the date of the extinction.",
+   "value": 66038000.0,
+   "unit": "years ago",
+   "quote": "The new date for the impact – 66,038,000 years ago – is the same within error limits as the date of the extinction",
+   "url": "https://news.berkeley.edu/2013/02/07/new-evidence-comet-or-asteroid-impact-was-last-straw-for-dinosaurs/",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.9,
+    "overstated": 0.41,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_synchrony",
+   "claim": "The impact and the K-Pg mass extinction are synchronous to within 32,000 years.",
+   "value": 32000,
+   "unit": "years",
+   "quote": "establish synchrony between the Cretaceous-Paleogene boundary and associated mass extinctions with the Chicxulub bolide impact to within 32,000 years",
+   "url": "https://doi.org/10.1126/science.1230492",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.86,
+    "overstated": 0.38,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_size_10km",
+   "claim": "The Chicxulub asteroid was about 10 km in diameter and left a crater about 180 to 200 km across.",
+   "value": 10000.0,
+   "unit": "m (diameter)",
+   "quote": "An asteroid, ∼10 km in diameter, impacted at Chicxulub, in the present-day Gulf of Mexico, 66 Ma ( 4 , 18 , 19 ), leaving a crater ∼180 to 200 km in diameter",
+   "url": "https://doi.org/10.1073/pnas.2006087117",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC open-access full text (PMC7382232)",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.29,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_size_12_14km",
+   "claim": "Crater models for an asteroid at about 18 km/s striking at 45 to 60 degrees require an impactor about 12.2 to 14.4 km across.",
+   "value": [
+    12200.0,
+    14400.0
+   ],
+   "unit": "m (diameter)",
+   "quote": "For an asteroid speed of around 18 km s–1 and impact angles of between 45° and 60°, impactor diameters of around 12.2–14.4 km are required to produce an approximately 90-km-wide transient cavity",
+   "url": "https://par.nsf.gov/servlets/purl/10349743",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.9,
+    "overstated": 0.28,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_speed",
+   "claim": "About 20 km/s is roughly the average speed at which asteroids encounter Earth and is the more representative speed for the Chicxulub impact.",
+   "value": 20,
+   "unit": "km/s",
+   "quote": "Simulations were performed at two impact speeds: 20 and 12 km/s. The slower speed was used for computational expediency and to afford direct comparison of the vertical impact case with previous 2D simulations 3 . The higher impact speed is approximately the average speed that asteroids encounter Earth 23 and is hence more representative of the likely impact speed of the Chicxulub impact.",
+   "url": "https://doi.org/10.1038/s41467-020-15269-x",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC open-access full text (PMC7251121)",
+   "jev": {
+    "supported": 0.87,
+    "overstated": 0.35,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_angle",
+   "claim": "The Chicxulub impactor struck steeply, 45 to 60 degrees from horizontal, coming from the northeast; a low angle below 30 degrees is ruled out.",
+   "value": [
+    45,
+    60
+   ],
+   "unit": "degrees from horizontal",
+   "quote": "suggests that the Chicxulub crater was formed by a steeply-inclined (45-60° to horizontal) impact from the northeast; several lines of evidence rule out a low angle (<30°) impact",
+   "url": "https://doi.org/10.1038/s41467-020-15269-x",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.91,
+    "overstated": 0.64,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_energy",
+   "claim": "The impact energy was about 10^23 joules.",
+   "value": 1e+23,
+   "unit": "J",
+   "quote": "The Chicxulub crater’s asymmetric shape and size suggest an oblique impact and an impact energy of about 1023 joules",
+   "url": "https://par.nsf.gov/servlets/purl/10349743",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.91,
+    "overstated": 0.29,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   },
+   "note": "Superscript lost in PDF text extraction: '1023' is 10^23 in the original."
+  },
+  {
+   "id": "cc_bodies_formed",
+   "claim": "Chondrite parent bodies accreted 2 to 3 million years after the Solar System began.",
+   "value": [
+    2000000.0,
+    3000000.0
+   ],
+   "unit": "years after CAIs",
+   "quote": "later-forming chondrite parent bodies, which accreted 2-3 Myr after the Solar System onset",
+   "url": "https://arxiv.org/abs/2510.19994",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.91,
+    "overstated": 0.61,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "cc_reservoir_separate",
+   "claim": "Meteorites come from two genetically distinct reservoirs that stayed spatially separate between about 1 and 3-4 million years after Solar System formation, most plausibly because Jupiter formed.",
+   "value": [
+    1000000.0,
+    4000000.0
+   ],
+   "unit": "years after Solar System formation",
+   "quote": "meteorites derive from two genetically distinct nebular reservoirs that coexisted and remained spatially separated between ∼1 My and ∼3-4 My after Solar System formation. The most plausible mechanism for this efficient separation is the formation of Jupiter",
+   "url": "https://doi.org/10.1073/pnas.1704461114",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.89,
+    "overstated": 0.32,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "cc_implanted_belt",
+   "claim": "This scattering process efficiently populates the outer main belt with C-type asteroids that came from a broad region 5-20 AU wide.",
+   "value": [
+    5,
+    20
+   ],
+   "unit": "AU",
+   "quote": "This process is effective in populating the outer main belt with C-type asteroids that originated from a broad (5-20 AU-wide) region of the disk.",
+   "url": "https://arxiv.org/abs/1707.01234",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.7,
+    "overstated": 0.53,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_outer_belt_source",
+   "claim": "A dynamical model finds the K-Pg impactor was quite likely (about 60% probability) a main-belt asteroid from beyond 2.5 AU.",
+   "value": 2.5,
+   "unit": "AU (semimajor axis, lower bound)",
+   "quote": "We conclude that the impactor that triggered the K/Pg mass extinction $\\simeq 66$ Myr ago was a main belt asteroid that quite likely ($\\simeq 60$\\% probability) originated beyond 2.5 au.",
+   "url": "https://arxiv.org/abs/2107.03458",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.86,
+    "overstated": 0.15,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "nea_lifetime_range",
+   "claim": "Near-Earth objects have short dynamical lives, about 0.1 to 100 million years.",
+   "value": [
+    100000.0,
+    100000000.0
+   ],
+   "unit": "years",
+   "quote": "The near-Earth objects (NEOs) have a relatively short life cycle (∼ 0.1-100 Myr; Gladman et al., 1997).",
+   "url": "https://arxiv.org/pdf/2107.03458v1",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.9,
+    "overstated": 0.36,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "nea_lifetime_5km",
+   "claim": "The mean dynamical lifetime of near-Earth asteroids larger than 5 km is about 1.2 million years.",
+   "value": 1200000.0,
+   "unit": "years",
+   "quote": "We find that the mean dynamical lifetime of D > 5 km NEAs is ht5 i = 1.2 Myr",
+   "url": "https://arxiv.org/pdf/2107.03458v1",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.85,
+    "overstated": 0.36,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   },
+   "note": "'ht5 i' is the PDF extraction of the angle-bracketed mean <t5>."
+  },
+  {
+   "id": "baptistina_2007",
+   "claim": "The Baptistina parent broke up about 160 (+30/-20) million years ago in the inner main belt, its fragments were delivered to planet-crossing orbits, and this shower was the most likely (>90%) source of the Chicxulub impactor.",
+   "value": 160000000.0,
+   "unit": "years ago",
+   "quote": "broke up 160(-20)+30Myr ago in the inner main asteroid belt. Fragments produced by the collision were slowly delivered by dynamical processes to orbits where they could strike the terrestrial planets. We find that this asteroid shower is the most likely source (>90 per cent probability) of the Chicxulub impactor",
+   "url": "https://doi.org/10.1038/nature06070",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.79,
+    "overstated": 0.31,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "baptistina_wise_age",
+   "claim": "The Baptistina parent asteroid actually broke up closer to 80 million years ago, half as long as originally proposed.",
+   "value": 80000000.0,
+   "unit": "years ago",
+   "quote": "The scientists calculated the original parent Baptistina asteroid actually broke up closer to 80 million years ago, half as long as originally proposed.",
+   "url": "https://www.astronomy.com/science/nasas-wise-raises-doubt-about-asteroid-family-believed-responsible-for-dinosaur-extinction/",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.35,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "baptistina_at_large",
+   "claim": "The asteroid family that produced the dinosaur-killing asteroid remains at large (has not been identified).",
+   "value": null,
+   "unit": null,
+   "quote": "The asteroid family that produced the dinosaur-killing asteroid remains at large.",
+   "url": "https://www.astronomy.com/science/nasas-wise-raises-doubt-about-asteroid-family-believed-responsible-for-dinosaur-extinction/",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.77,
+    "overstated": 0.06,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "baptistina_composition",
+   "claim": "(298) Baptistina resembles LL-type ordinary chondrites rather than CM2 carbonaceous chondrites, which rules out a link to the K/T impactor if that impactor was CM-type.",
+   "value": null,
+   "unit": null,
+   "quote": "suggests that the composition of (298) Baptistina is similar to LL-type ordinary chondrites rather than CM2 carbonaceous chondrites. This rules out any possibility of it being related to the source of the K/T impactor, if the impactor was of CM-type composition.",
+   "url": "https://arxiv.org/abs/1110.3414",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.92,
+    "overstated": 0.32,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "baptistina_age_range",
+   "claim": "With realistic uncertainties, the Baptistina family's best-fitting age can be anywhere from 140 to 320 million years.",
+   "value": [
+    140000000.0,
+    320000000.0
+   ],
+   "unit": "years",
+   "quote": "When realistic uncertainties in the family members' physical parameters are taken into account we find the best-fitting age can fall anywhere in the range of 140-320 Myr.",
+   "url": "https://arxiv.org/abs/1209.1430",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.92,
+    "overstated": 0.11,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_three_quarters",
+   "claim": "The extinction of the dinosaurs and around three-quarters of all living species was almost certainly caused by the asteroid impact 66 million years ago.",
+   "value": 0.75,
+   "unit": "fraction of species",
+   "quote": "The extinction of the dinosaurs and around three-quarters of all living species was almost certainly caused by a large asteroid impact 66 million years ago.",
+   "url": "https://par.nsf.gov/servlets/purl/10349743",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.88,
+    "overstated": 0.17,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_75pct",
+   "claim": "The impact is thought to have caused the extinction of around 75% of species in the fossil record.",
+   "value": 0.75,
+   "unit": "fraction of species",
+   "quote": "is thought to have caused the extinction of around 75% of species in the fossil record",
+   "url": "https://doi.org/10.1038/s41586-026-10541-4",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.94,
+    "overstated": 0.18,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_nonavian",
+   "claim": "The end-Cretaceous extinction included the demise of the non-avian dinosaurs.",
+   "value": null,
+   "unit": null,
+   "quote": "The Cretaceous/Paleogene mass extinction, 66 Ma, included the demise of non-avian dinosaurs.",
+   "url": "https://doi.org/10.1073/pnas.2006087117",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.82,
+    "overstated": 0.24,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_winter_habitat",
+   "claim": "Impact models generate a prolonged cold winter that suppresses potential global dinosaur habitats.",
+   "value": null,
+   "unit": null,
+   "quote": "Asteroid impact models generate a prolonged cold winter that suppresses potential global dinosaur habitats.",
+   "url": "https://doi.org/10.1073/pnas.2006087117",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.91,
+    "overstated": 0.1,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_sulfate",
+   "claim": "The impact released hundreds of gigatonnes of sulfates, with a correlated cooling of 27 °C that would have meant 3 to 16 years of subfreezing temperatures; how much reached the stratosphere is unknown.",
+   "value": [
+    3,
+    16
+   ],
+   "unit": "years subfreezing",
+   "quote": "led to a massive release of hundreds of Gigatonnes (Gt) of sulfates ( 21 , 22 , 51 ), yet it is unknown how much reached the stratosphere ( 16 ), with a correlated cooling effect of 27 °C ( 22 ). This would have led to 3 to 16 y of subfreezing temperatures",
+   "url": "https://doi.org/10.1073/pnas.2006087117",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC open-access full text (PMC7382232)",
+   "jev": {
+    "supported": 0.9,
+    "overstated": 0.22,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_soot",
+   "claim": "Stratospheric soot from the oil-rich impact area was ejected by the asteroid and spread globally.",
+   "value": null,
+   "unit": null,
+   "quote": "The stratospheric soot was ejected from the oil-rich area by the asteroid impact and was spread globally.",
+   "url": "https://doi.org/10.1038/srep28427",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.95,
+    "overstated": 0.19,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_cloud_hours",
+   "claim": "Ejecta in the global cloud, together with soot from wildfires, made the Earth dark and cold for about a decade.",
+   "value": 10,
+   "unit": "years (approx.)",
+   "quote": "Ejecta within the cloud, along with soot from wildfires, caused the Earth to become dark and cold for about a decade",
+   "url": "https://par.nsf.gov/servlets/purl/10349743",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.31,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_winter_length_uncertain",
+   "claim": "How long the impact winter lasted, months or more than a decade, remains uncertain.",
+   "value": null,
+   "unit": null,
+   "quote": "it remains uncertain whether this impact winter lasted for many months or for more than a decade",
+   "url": "https://par.nsf.gov/servlets/purl/10349743",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "text extracted from the fetched PDF",
+   "jev": {
+    "supported": 0.91,
+    "overstated": 0.1,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_land_survival",
+   "claim": "Only 12% of land-dwelling forms survived, while 90% of freshwater species survived.",
+   "value": 0.12,
+   "unit": "fraction surviving (land)",
+   "quote": "Only 12% of the land-dwelling forms survived, but 90% of species in the freshwater assemblage survived",
+   "url": "https://doi.org/10.1038/srep28427",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC open-access full text (PMC4944614)",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.37,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_schulte",
+   "claim": "The timing of the ejecta layer and the extinctions, and fossil ecological patterns matching modelled darkness and cooling, lead to the conclusion that the Chicxulub impact triggered the mass extinction.",
+   "value": null,
+   "unit": null,
+   "quote": "The temporal match between the ejecta layer and the onset of the extinctions and the agreement of ecological patterns in the fossil record with modeled environmental perturbations (for example, darkness and cooling) lead us to conclude that the Chicxulub impact triggered the mass extinction.",
+   "url": "https://doi.org/10.1126/science.1177265",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.96,
+    "overstated": 0.19,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "ext_volcanism_timing",
+   "claim": "Major volcanic outgassing began and ended distinctly before the impact; only the impact coincides with the mass extinction.",
+   "value": null,
+   "unit": null,
+   "quote": "We found support for major outgassing beginning and ending distinctly before the impact, with only the impact coinciding with mass extinction",
+   "url": "https://doi.org/10.1126/science.aay5055",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.92,
+    "overstated": 0.47,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "moon_remelting_4_35",
+   "claim": "The frequent ~4.35 Ga ages among lunar rocks indicate a tidally driven remelting event rather than the original crystallization of the lunar magma ocean.",
+   "value": 4350000000.0,
+   "unit": "years ago",
+   "quote": "Here we argue that the frequent occurrence of approximately 4.35-Ga ages among lunar rocks and a spike in zircon ages at about the same time8 is indicative of a remelting event driven by the Moon's orbital evolution rather than the original crystallization of the LMO.",
+   "url": "https://doi.org/10.1038/s41586-024-08231-0",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC abstract of the DOI",
+   "jev": {
+    "supported": 0.84,
+    "overstated": 0.51,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "baptistina_too_little_time",
+   "claim": "A Baptistina fragment would have had to reach Earth in only about 15 million years, too little time for delivery through a resonance, which normally takes many tens of millions of years.",
+   "value": 15000000.0,
+   "unit": "years",
+   "quote": "The results revealed a chunk of the original Baptistina asteroid needed to hit Earth in less time than previously believed, in just about 15 million years, to cause the extinction of the dinosaurs. “This doesn’t give the remnants from the collision very much time to move into a resonance spot, and get flung down to Earth 65 million years ago,” said Amy Mainzer from NASA’s Jet Propulsion Laboratory (JPL) in Pasadena, California. “This process is thought to normally take many tens of millions of years.”",
+   "url": "https://www.astronomy.com/science/nasas-wise-raises-doubt-about-asteroid-family-believed-responsible-for-dinosaur-extinction/",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "fetched page text",
+   "jev": {
+    "supported": 0.83,
+    "overstated": 0.44,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  },
+  {
+   "id": "chx_target_rock",
+   "claim": "The impactor struck carbonate- and sulfate-rich sediments, ejecting dust, ash, sulfur and other aerosols that spread around the globe.",
+   "value": null,
+   "unit": null,
+   "quote": "This impactor struck carbonate and sulfate-rich sediments, leading to the ejection and global dispersal of large quantities of dust, ash, sulfur, and other aerosols into the atmosphere",
+   "url": "https://doi.org/10.1073/pnas.2006087117",
+   "accessed": "2026-11-06",
+   "quoteFound": true,
+   "foundIn": "Europe PMC open-access full text (PMC7382232)",
+   "jev": {
+    "supported": 0.93,
+    "overstated": 0.36,
+    "model": "jev-1.14.0",
+    "date": "2026-11-06"
+   }
+  }
+ ],
+ "impactors": [
+  {
+   "id": "theia",
+   "name": "Theia (Moon-forming impactor)",
+   "epochId": "moon_impact",
+   "formedYa": 4565000000.0,
+   "impactYa": 4510000000.0,
+   "objectSizeM": 6779000.0,
+   "blurb": "A Mars-sized world, Theia, grew in the inner Solar System as Earth's neighbour, perhaps closer to the Sun. About 4.5 billion years ago it struck the young Earth; the debris became the Moon.",
+   "path": [
+    {
+     "ya": 4565000000.0,
+     "log10DistanceM": 11.175,
+     "kind": "schematic",
+     "note": "Theia accretes in the inner Solar System near Earth's orbit (iron isotopes: all of Theia is inner-Solar-System material, possibly from closer to the Sun than Earth). Formation time is not measured; assumed within a few Myr of CAIs (4567.3 Ma), unsourced. ~1 AU from proto-Earth."
+    },
+    {
+     "ya": 4530000000.0,
+     "log10DistanceM": 11.175,
+     "kind": "schematic",
+     "note": "Neighbouring orbit. If co-orbital at L4/L5 (Belbruno & Gott hypothesis) the distance is exactly 1 AU; on a neighbouring orbit at ~0.7-0.9 AU it swings between ~0.1 and ~1.9 AU. Drawn as the orbit-averaged ~1 AU."
+    },
+    {
+     "ya": 4510500000.0,
+     "log10DistanceM": 10.001,
+     "kind": "schematic",
+     "note": "Orbit destabilised; approaches on a slow, near-zero-energy (near-parabolic) path. The timing of the final approach is not known; drawn ~0.5 Myr before impact at ~0.07 AU (1e10 m) only so the line visibly turns in."
+    },
+    {
+     "ya": 4510000000.0,
+     "log10DistanceM": 0.0,
+     "kind": "measured",
+     "note": "Collision: the path joins the inner track (Earth). The inner track is human scale by convention (MatterScale.InnerMetres = 1 m, log10 = 0); physical contact happens at a centre separation of R_Earth + R_Theia ~ 6.4e6 + 3.4e6 m ~ 9.8e6 m (log10 6.99). Date: 4.51 Ga (Apollo zircons; matches matter.json). Published range 4.51-4.35 Ga; Hf-W gives ~50 Myr after CAIs (~4.52 Ga); magma-ocean model 4.425 +/- 0.025 Ga; a 2024 study reads the 4.35 Ga ages as remelting, favouring an old Moon."
+    }
+   ],
+   "contactLog10M": 6.989,
+   "sources": [
+    "theia_mars_sized",
+    "mars_radius",
+    "theia_larger_alternative",
+    "theia_inner_origin",
+    "theia_neighbors",
+    "theia_lagrange",
+    "theia_parabolic",
+    "moon_age_4_51",
+    "moon_age_50myr",
+    "moon_age_4_425",
+    "moon_age_range",
+    "moon_old_remelting",
+    "moon_remelting_4_35",
+    "cai_age"
+   ]
+  },
+  {
+   "id": "lhb_belt_asteroid",
+   "name": "Late Heavy Bombardment: asteroid shaken loose by the giant planets",
+   "epochId": "late_heavy_bombardment",
+   "formedYa": 4565000000.0,
+   "impactYa": 3900000000.0,
+   "objectSizeM": 10000.0,
+   "blurb": "In the classic picture, a shift of the giant planets about 4 billion years ago scattered asteroids and outer bodies inward, cratering the Moon and Earth. Whether this was a spike or the tail of a long decline is debated.",
+   "path": [
+    {
+     "ya": 4565000000.0,
+     "log10DistanceM": 11.476,
+     "kind": "schematic",
+     "note": "Forms in the asteroid belt (~2.2-3.3 AU), 2-3 Myr after CAIs; orbit-averaged distance from Earth ~2 AU."
+    },
+    {
+     "ya": 3960000000.0,
+     "log10DistanceM": 11.476,
+     "kind": "schematic",
+     "note": "Stable in the belt for ~600 Myr."
+    },
+    {
+     "ya": 3950000000.0,
+     "log10DistanceM": 11.476,
+     "kind": "schematic",
+     "note": "Giant-planet migration/instability (Nice model) strongly perturbs the belt. 'The cataclysm should have started ~3.95Gy ago' (Morbidelli et al. 2018, under one assumption); the instability's date is itself debated."
+    },
+    {
+     "ya": 3920000000.0,
+     "log10DistanceM": 11.175,
+     "kind": "schematic",
+     "note": "Earth/Moon-crossing orbit; typical distance ~1 AU."
+    },
+    {
+     "ya": 3900000000.0,
+     "log10DistanceM": 0.0,
+     "kind": "measured",
+     "note": "Collision: the path joins the inner track (Earth). The inner track is human scale by convention (MatterScale.InnerMetres = 1 m, log10 = 0); physical contact happens at a centre separation of R_Earth + r ~ 6.4e6 m (log10 6.80). Date: Imbrium basin ~3.9 Ga (Apollo samples). The epoch marker sits at 4.1 Ga; proposed span 4.1-3.8 Ga (spike) or ~4.2-3.4 Ga (prolonged)."
+    }
+   ],
+   "contactLog10M": 6.804,
+   "sources": [
+    "lhb_definition",
+    "lhb_nice_migration",
+    "lhb_3_9ga",
+    "lhb_cataclysm_start",
+    "lhb_imbrium",
+    "lhb_basins_3_9_3_7",
+    "lhb_prolonged",
+    "lhb_illusory",
+    "cc_bodies_formed"
+   ]
+  },
+  {
+   "id": "lhb_leftover_planetesimal",
+   "name": "Late Heavy Bombardment: leftover planetesimal (accretion tail)",
+   "epochId": "late_heavy_bombardment",
+   "formedYa": 4565000000.0,
+   "impactYa": 3900000000.0,
+   "objectSizeM": 10000.0,
+   "blurb": "The newer view: no spike, just the long tail of planet building. Rocky leftovers near Earth's own orbit kept hitting the Moon and Earth, the last big basins forming about 3.9 billion years ago.",
+   "path": [
+    {
+     "ya": 4565000000.0,
+     "log10DistanceM": 10.874,
+     "kind": "schematic",
+     "note": "A rocky planetesimal left over at ~0.5-1.5 AU after terrestrial planet accretion (Nesvorny et al. 2023); typical distance from Earth ~0.5 AU."
+    },
+    {
+     "ya": 4200000000.0,
+     "log10DistanceM": 10.874,
+     "kind": "schematic",
+     "note": "Survives on a planet-crossing orbit while the population declines; distance swings widely, drawn as ~0.5 AU."
+    },
+    {
+     "ya": 3900000000.0,
+     "log10DistanceM": 0.0,
+     "kind": "measured",
+     "note": "Collision: the path joins the inner track (Earth). The inner track is human scale by convention (MatterScale.InnerMetres = 1 m, log10 = 0); physical contact happens at a centre separation of R_Earth + r ~ 6.4e6 m (log10 6.80). Date: Imbrium ~3.9 Ga; in this model a late Imbrium has a ~15-35% probability. Comets contribute insignificantly."
+    }
+   ],
+   "contactLog10M": 6.804,
+   "sources": [
+    "lhb_leftover_planetesimals",
+    "lhb_imbrium",
+    "lhb_prolonged",
+    "lhb_basins_3_9_3_7",
+    "lhb_illusory"
+   ]
+  },
+  {
+   "id": "chicxulub_impactor",
+   "name": "Chicxulub impactor",
+   "epochId": "chicxulub",
+   "formedYa": 4564800000.0,
+   "impactYa": 66038000.0,
+   "objectSizeM": 12000.0,
+   "blurb": "A carbonaceous asteroid 10-14 km wide, born beyond Jupiter in the Solar System's first few million years, parked in the asteroid belt for 4.5 billion years, then struck Mexico 66 million years ago. The dark, cold years that followed ended the non-avian dinosaurs.",
+   "path": [
+    {
+     "ya": 4564800000.0,
+     "log10DistanceM": 12.078,
+     "kind": "schematic",
+     "note": "Forms beyond Jupiter (ruthenium isotopes: carbonaceous-type), as chondrite parent bodies did 2-3 Myr after CAIs (4567.3 Ma). C-type bodies came from a broad 5-20 AU region; drawn at ~8 AU from the 1 AU region where Earth would form (Earth itself did not exist yet)."
+    },
+    {
+     "ya": 4562000000.0,
+     "log10DistanceM": 11.652,
+     "kind": "schematic",
+     "note": "Scattered inward during Jupiter and Saturn's gas accretion and captured in the outer main belt while the gas disk was present (first few Myr). Implantation is a model (Raymond & Izidoro 2017), not measured for this body."
+    },
+    {
+     "ya": 2000000000.0,
+     "log10DistanceM": 11.652,
+     "kind": "schematic",
+     "note": "Resides in the main belt for ~4.5 Gyr, quite likely (~60%) beyond 2.5 AU. The real distance from Earth swings between ~1.5 and ~4.3 AU every ~1.3-1.5 years (log10 11.35-11.81); drawn as the ~3 AU average."
+    },
+    {
+     "ya": 67200000.0,
+     "log10DistanceM": 11.652,
+     "kind": "schematic",
+     "note": "Leaves the belt, presumably by Yarkovsky drift into a resonance. When is unknown: the Baptistina breakup (proposed 160 Ma) is ruled out by composition (LL, not carbonaceous) and age. Mean near-Earth lifetime of >5 km bodies is ~1.2 Myr (range 0.1-100 Myr), so ~1 Myr before impact is typical, not known."
+    },
+    {
+     "ya": 66600000.0,
+     "log10DistanceM": 11.175,
+     "kind": "schematic",
+     "note": "Near-Earth orbit; typical distance ~1 AU, swinging widely."
+    },
+    {
+     "ya": 66038000.0,
+     "log10DistanceM": 0.0,
+     "kind": "measured",
+     "note": "Collision: the path joins the inner track (Earth). The inner track is human scale by convention (MatterScale.InnerMetres = 1 m, log10 = 0); physical contact happens at a centre separation of R_Earth + r ~ 6.38e6 m (log10 6.80). Date 66.038 Ma (40Ar/39Ar; matter.json rounds to 66.0 Ma). Struck at ~20 km/s (the average asteroid encounter speed; 18 km/s in crater models), steeply (45-60 deg) from the northeast, at the Yucatan, making a ~180-200 km crater."
+    }
+   ],
+   "contactLog10M": 6.804,
+   "sources": [
+    "chx_carbonaceous_asteroid",
+    "chx_not_comet",
+    "chx_stopover",
+    "chx_comet_hypothesis",
+    "chx_comet_rebuttal",
+    "chx_date",
+    "chx_synchrony",
+    "chx_size_10km",
+    "chx_size_12_14km",
+    "chx_speed",
+    "chx_angle",
+    "chx_energy",
+    "cc_bodies_formed",
+    "cc_reservoir_separate",
+    "cc_implanted_belt",
+    "chx_outer_belt_source",
+    "nea_lifetime_range",
+    "nea_lifetime_5km",
+    "baptistina_2007",
+    "baptistina_wise_age",
+    "baptistina_at_large",
+    "baptistina_composition",
+    "baptistina_age_range",
+    "baptistina_too_little_time",
+    "chx_target_rock",
+    "ext_three_quarters",
+    "ext_75pct",
+    "ext_nonavian",
+    "ext_winter_habitat",
+    "ext_sulfate",
+    "ext_soot",
+    "ext_cloud_hours",
+    "ext_winter_length_uncertain",
+    "ext_land_survival",
+    "ext_schulte",
+    "ext_volcanism_timing",
+    "cai_age"
+   ]
+  }
+ ]
+}

@@ -440,7 +440,9 @@ namespace Why.Economy.UI
             if (a.Capacity.Count > 0) b.Append("<b>Data-centre power:</b> ").Append(string.Join("; ", a.Capacity.Take(3))).Append('\n');
             if (!double.IsNaN(a.Burn) && a.Burn > 0)
             {
-                b.Append("<color=#FF9A40><b>Burning</b></color> ").Append(HillAdvantageLayer.Money(a.Burn)).Append(Per(a.BurnPeriod));
+                // named by what the fact measures: a net loss is an accounting loss, a burn is cash spent beyond what comes in
+                string head = (a.BurnWhat ?? "").ToLowerInvariant().Contains("net loss") ? "Net loss" : "Burning";
+                b.Append("<color=#FF9A40><b>").Append(head).Append("</b></color> ").Append(HillAdvantageLayer.Money(a.Burn)).Append(Per(a.BurnPeriod));
                 if (!double.IsNaN(a.BurnYearly) && System.Math.Abs(a.BurnYearly - a.Burn) > .05) b.Append(", about ").Append(HillAdvantageLayer.Money(a.BurnYearly)).Append(" a year at that rate");
                 if (!string.IsNullOrEmpty(a.BurnWhat)) b.Append(". <color=#C9CED6>").Append(a.BurnWhat).Append("</color>");
                 b.Append('\n');

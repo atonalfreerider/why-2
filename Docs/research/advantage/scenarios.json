@@ -330,6 +330,51 @@
     "Huawei's Ascend shipments and SMIC's capacity"
    ],
    "reading": "A full cutoff of tools and servicing hurts China's fabs (SMIC, CXMT) more than protection helps them, at least for two or three years, while Huawei holds. Firms that build or sell across the line (Apple, Foxconn, Tencent, BYD abroad) lose; Intel and TSMC gain as the West's fabs. Western toolmakers lose revenue but not position, and NVIDIA has already lost China."
+  },
+  {
+   "id": "turn",
+   "title": "The market turns",
+   "premise": "Suppose that in 2027 the stock market turns as it did in 2000-2002: over 2027 and 2028 the price-to-earnings multiples of the most expensive companies fall by half or more, the equity window for loss-making companies closes for about 18 months, credit spreads widen and buybacks stop, while demand for AI keeps growing, but more slowly, at 20-30% a year.",
+   "friendly": [
+    "berkshire",
+    "walmart",
+    "jpmorgan",
+    "apple",
+    "google",
+    "microsoft"
+   ],
+   "unfriendly": [
+    "openai",
+    "anthropic",
+    "xai",
+    "spacex",
+    "coreweave",
+    "oracle",
+    "softbank",
+    "tesla",
+    "amd",
+    "arm",
+    "venture-capital"
+   ],
+   "flowScale": {
+    "venture-capital": 0.25,
+    "softbank": 0.3,
+    "str-flow-vc-openai": 0.2,
+    "str-flow-vc-anthropic": 0.25,
+    "labs-flow-softbank-openai": 0.2,
+    "labs-flow-nvidia-openai": 0.3,
+    "str-flow-nvidia-coreweave": 0.3,
+    "coreweave": 0.6,
+    "oracle": 0.75,
+    "nvidia": 0.8
+   },
+   "signposts": [
+    "Loss-making listings and late-stage private rounds pulled or repriced",
+    "Buyback authorisations suspended",
+    "Credit spreads on data-centre debt widening",
+    "The share of the S&P 500 in its ten largest companies falling"
+   ],
+   "reading": "The share price stops working as a weapon. Companies that paid for growth with their valuation (the labs, SpaceX and xAI, CoreWeave, the richest multiples) must cut or sell themselves; those that fund themselves from profits (Apple, Microsoft, Alphabet, Berkshire, Walmart) buy what the others cannot afford, and the few end the bust holding more of the market than before. Written by the lead as an eighth world, after a critic noted that none of the seven closed the equity window."
   }
  ]
 }

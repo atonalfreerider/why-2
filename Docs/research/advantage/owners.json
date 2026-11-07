@@ -1,0 +1,2340 @@
+{
+ "cluster": "owners",
+ "asOf": "2026-11-07",
+ "scope": "Who owns the 2026 giants: index managers, sovereign funds, founders, corporate cross-holders, the private labs' backers and the households behind them.",
+ "facts": [
+  {
+   "id": "owners-blackrock-nvidia-stake",
+   "claim": "BlackRock held 8.06% of NVIDIA's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/NVDA/holders/",
+   "quotes": [
+    "Blackrock Inc. 1.94B Jun 30, 2026 8.06% 362,439,646,377"
+   ],
+   "values": [
+    "8.06"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "stake",
+   "value": 8.06,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-nvidia-stake",
+   "claim": "Vanguard Capital Management held 6.39% of NVIDIA's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/NVDA/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 1.54B Jun 30, 2026 6.39% 287,577,964,116"
+   ],
+   "values": [
+    "6.39"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "stake",
+   "value": 6.39,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-state-street-nvidia-stake",
+   "claim": "State Street held 4.19% of NVIDIA's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/NVDA/holders/",
+   "quotes": [
+    "State Street Corporation 1.01B Jun 30, 2026 4.19% 188,465,980,065"
+   ],
+   "values": [
+    "4.19"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "stake",
+   "value": 4.19,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "state-street",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-fidelity-nvidia-stake",
+   "claim": "FMR (Fidelity) held 4.26% of NVIDIA's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/NVDA/holders/",
+   "quotes": [
+    "FMR, LLC 1.03B Jun 30, 2026 4.26% 191,502,260,292"
+   ],
+   "values": [
+    "4.26"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "stake",
+   "value": 4.26,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "fidelity",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-microsoft-stake",
+   "claim": "BlackRock held 8.18% of Microsoft's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/MSFT/holders/",
+   "quotes": [
+    "Blackrock Inc. 607.37M Jun 30, 2026 8.18% 322,275,054,931"
+   ],
+   "values": [
+    "8.18"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "stake",
+   "value": 8.18,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-microsoft-stake",
+   "claim": "Vanguard Capital Management held 6.53% of Microsoft's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/MSFT/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 485.19M Jun 30, 2026 6.53% 257,447,723,726"
+   ],
+   "values": [
+    "6.53"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "stake",
+   "value": 6.53,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-state-street-microsoft-stake",
+   "claim": "State Street held 4.25% of Microsoft's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/MSFT/holders/",
+   "quotes": [
+    "State Street Corporation 315.65M Jun 30, 2026 4.25% 167,488,743,011"
+   ],
+   "values": [
+    "4.25"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "stake",
+   "value": 4.25,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "state-street",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-nbim-microsoft-stake",
+   "claim": "Norges Bank (NBIM) held 1.38% of Microsoft's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/MSFT/holders/",
+   "quotes": [
+    "NORGES BANK 102.73M Jun 30, 2026 1.38% 54,511,132,278"
+   ],
+   "values": [
+    "1.38"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "stake",
+   "value": 1.38,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nbim",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-apple-stake",
+   "claim": "BlackRock held 8.00% of Apple's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AAPL/holders/",
+   "quotes": [
+    "Blackrock Inc. 1.16B Jun 30, 2026 8.00% 398,175,256,326"
+   ],
+   "values": [
+    "8.00"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "stake",
+   "value": 8.0,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "apple",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-apple-stake",
+   "claim": "Vanguard Capital Management held 6.60% of Apple's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AAPL/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 959.11M Jun 30, 2026 6.60% 328,369,770,805"
+   ],
+   "values": [
+    "6.60"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "stake",
+   "value": 6.6,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "apple",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-state-street-apple-stake",
+   "claim": "State Street held 4.23% of Apple's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AAPL/holders/",
+   "quotes": [
+    "State Street Corporation 615.13M Jun 30, 2026 4.23% 210,602,030,788"
+   ],
+   "values": [
+    "4.23"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "stake",
+   "value": 4.23,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "state-street",
+   "to": "apple",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-nbim-apple-stake",
+   "claim": "Norges Bank (NBIM) held 1.31% of Apple's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AAPL/holders/",
+   "quotes": [
+    "NORGES BANK 190.73M Jun 30, 2026 1.31% 65,299,156,181"
+   ],
+   "values": [
+    "1.31"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "stake",
+   "value": 1.31,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nbim",
+   "to": "apple",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-berkshire-apple-stake",
+   "claim": "Berkshire Hathaway held 1.57% of Apple's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AAPL/holders/",
+   "quotes": [
+    "Berkshire Hathaway, Inc 227.92M Jun 30, 2026 1.57% 78,032,218,812"
+   ],
+   "values": [
+    "1.57"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "stake",
+   "value": 1.57,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "berkshire",
+   "to": "apple",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-amazon-stake",
+   "claim": "BlackRock held 6.92% of Amazon's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AMZN/holders/",
+   "quotes": [
+    "Blackrock Inc. 748.4M Jun 30, 2026 6.92% 194,061,028,526"
+   ],
+   "values": [
+    "6.92"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "stake",
+   "value": 6.92,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "amazon",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-amazon-stake",
+   "claim": "Vanguard Capital Management held 5.88% of Amazon's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AMZN/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 635.76M Jun 30, 2026 5.88% 164,853,631,148"
+   ],
+   "values": [
+    "5.88"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "stake",
+   "value": 5.88,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "amazon",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-nbim-amazon-stake",
+   "claim": "Norges Bank (NBIM) held 1.30% of Amazon's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AMZN/holders/",
+   "quotes": [
+    "NORGES BANK 140.57M Jun 30, 2026 1.30% 36,448,658,623"
+   ],
+   "values": [
+    "1.30"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "stake",
+   "value": 1.3,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nbim",
+   "to": "amazon",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-google-stake",
+   "claim": "BlackRock held 7.83% of Alphabet's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/GOOGL/holders/",
+   "quotes": [
+    "Blackrock Inc. 460.97M Jun 30, 2026 7.83% 131,275,834,275"
+   ],
+   "values": [
+    "7.83"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "stake",
+   "value": 7.83,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-google-stake",
+   "claim": "Vanguard Capital Management held 6.50% of Alphabet's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/GOOGL/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 382.95M Jun 30, 2026 6.50% 109,056,974,406"
+   ],
+   "values": [
+    "6.50"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "stake",
+   "value": 6.5,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-fidelity-google-stake",
+   "claim": "FMR (Fidelity) held 4.26% of Alphabet's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/GOOGL/holders/",
+   "quotes": [
+    "FMR, LLC 250.71M Jun 30, 2026 4.26% 71,398,334,037"
+   ],
+   "values": [
+    "4.26"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "stake",
+   "value": 4.26,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "fidelity",
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-meta-stake",
+   "claim": "BlackRock held 7.83% of Meta's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/META/holders/",
+   "quotes": [
+    "Blackrock Inc. 173.4M Jun 30, 2026 7.83% 105,798,169,139"
+   ],
+   "values": [
+    "7.83"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 7.83,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-meta-stake",
+   "claim": "Vanguard Capital Management held 6.48% of Meta's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/META/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 143.44M Jun 30, 2026 6.48% 87,520,527,821"
+   ],
+   "values": [
+    "6.48"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 6.48,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-capital-group-meta-stake",
+   "claim": "Capital World Investors (Capital Group) held 1.85% of Meta's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/META/holders/",
+   "quotes": [
+    "Capital World Investors 40.88M Jun 30, 2026 1.85% 24,941,031,160"
+   ],
+   "values": [
+    "1.85"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 1.85,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "capital-group",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-tesla-stake",
+   "claim": "BlackRock held 5.42% of Tesla's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/TSLA/holders/",
+   "quotes": [
+    "Blackrock Inc. 214.12M Jun 30, 2026 5.42% 76,703,187,531"
+   ],
+   "values": [
+    "5.42"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "stake",
+   "value": 5.42,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "tesla",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-tesla-stake",
+   "claim": "Vanguard Capital Management held 4.66% of Tesla's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/TSLA/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 184.02M Jun 30, 2026 4.66% 65,920,916,663"
+   ],
+   "values": [
+    "4.66"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "stake",
+   "value": 4.66,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "tesla",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-blackrock-oracle-stake",
+   "claim": "BlackRock held 4.81% of Oracle's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/ORCL/holders/",
+   "quotes": [
+    "Blackrock Inc. 145.35M Jun 30, 2026 4.81% 16,875,562,838"
+   ],
+   "values": [
+    "4.81"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "stake",
+   "value": 4.81,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "oracle",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-oracle-stake",
+   "claim": "Vanguard Capital Management held 3.70% of Oracle's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/ORCL/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 111.79M Jun 30, 2026 3.70% 12,978,586,745"
+   ],
+   "values": [
+    "3.70"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "stake",
+   "value": 3.7,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "oracle",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-blackrock-broadcom-stake",
+   "claim": "BlackRock held 8.34% of Broadcom's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AVGO/holders/",
+   "quotes": [
+    "Blackrock Inc. 398.21M Jun 30, 2026 8.34% 116,951,419,530"
+   ],
+   "values": [
+    "8.34"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "stake",
+   "value": 8.34,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "broadcom",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-broadcom-stake",
+   "claim": "Vanguard Capital Management held 6.48% of Broadcom's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AVGO/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 309.17M Jun 30, 2026 6.48% 90,799,721,602"
+   ],
+   "values": [
+    "6.48"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "stake",
+   "value": 6.48,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "broadcom",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-capital-group-broadcom-stake",
+   "claim": "Capital World Investors (Capital Group) held 2.55% of Broadcom's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/AVGO/holders/",
+   "quotes": [
+    "Capital World Investors 121.89M Jun 30, 2026 2.55% 35,798,714,057"
+   ],
+   "values": [
+    "2.55"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "stake",
+   "value": 2.55,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "capital-group",
+   "to": "broadcom",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-palantir-stake",
+   "claim": "BlackRock held 8.70% of Palantir's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/PLTR/holders/",
+   "quotes": [
+    "Blackrock Inc. 189.82M Jun 30, 2026 8.70% 30,442,962,530"
+   ],
+   "values": [
+    "8.70"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "stake",
+   "value": 8.7,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "palantir",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-nbim-palantir-stake",
+   "claim": "Norges Bank (NBIM) held 1.43% of Palantir's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/PLTR/holders/",
+   "quotes": [
+    "NORGES BANK 31.08M Jun 30, 2026 1.43% 4,984,002,871"
+   ],
+   "values": [
+    "1.43"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "stake",
+   "value": 1.43,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nbim",
+   "to": "palantir",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-intel-stake",
+   "claim": "BlackRock held 8.02% of Intel's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/INTC/holders/",
+   "quotes": [
+    "Blackrock Inc. 426.48M Jun 30, 2026 8.02% 24,002,235,460"
+   ],
+   "values": [
+    "8.02"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "stake",
+   "value": 8.02,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-nvidia-intel-stake",
+   "claim": "NVIDIA held 4.04% of Intel's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/INTC/holders/",
+   "quotes": [
+    "Nvidia Corp 214.78M Jun 30, 2026 4.04% 12,087,628,586"
+   ],
+   "values": [
+    "4.04"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "stake",
+   "value": 4.04,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nvidia",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-softbank-intel-stake",
+   "claim": "SoftBank held 1.64% of Intel's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/INTC/holders/",
+   "quotes": [
+    "Softbank Group Corporation 86.96M Jun 30, 2026 1.64% 4,893,912,952"
+   ],
+   "values": [
+    "1.64"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "stake",
+   "value": 1.64,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "softbank",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-magnetar-coreweave-stake",
+   "claim": "Magnetar Financial held 11.35% of CoreWeave's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/CRWV/holders/",
+   "quotes": [
+    "Magnetar Financial LLC 52.06M Jun 30, 2026 11.35% 2,415,719,892"
+   ],
+   "values": [
+    "11.35"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "stake",
+   "value": 11.35,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "magnetar",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-nvidia-coreweave-stake",
+   "claim": "NVIDIA held 10.29% of CoreWeave's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/CRWV/holders/",
+   "quotes": [
+    "Nvidia Corp 47.21M Jun 30, 2026 10.29% 2,190,699,651"
+   ],
+   "values": [
+    "10.29"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "stake",
+   "value": 10.29,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nvidia",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-blackrock-coreweave-stake",
+   "claim": "BlackRock held 5.25% of CoreWeave's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/CRWV/holders/",
+   "quotes": [
+    "Blackrock Inc. 24.11M Jun 30, 2026 5.25% 1,118,516,859"
+   ],
+   "values": [
+    "5.25"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "stake",
+   "value": 5.25,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "blackrock",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-gates-foundation-trust-berkshire-stake",
+   "claim": "Gates Foundation Trust held 1.04% of Berkshire Hathaway's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/BRK-B/holders/",
+   "quotes": [
+    "Gates Foundation Trust 14.69M Jun 30, 2026 1.04% 8,386,285,256"
+   ],
+   "values": [
+    "1.04"
+   ],
+   "dated2026": true,
+   "actor": "berkshire",
+   "kind": "stake",
+   "value": 1.04,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "gates-foundation-trust",
+   "to": "berkshire",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vanguard-berkshire-stake",
+   "claim": "Vanguard Capital Management held 8.41% of Berkshire Hathaway's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/BRK-B/holders/",
+   "quotes": [
+    "Vanguard Capital Management LLC 118.36M Jun 30, 2026 8.41% 67,570,644,893"
+   ],
+   "values": [
+    "8.41"
+   ],
+   "dated2026": true,
+   "actor": "berkshire",
+   "kind": "stake",
+   "value": 8.41,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vanguard",
+   "to": "berkshire",
+   "accessed": "2026-11-07",
+   "notes": "Yahoo lists Vanguard's holdings under separate legal entities (Capital Management, Portfolio Management); the row cited is one entity, so Vanguard's total is higher."
+  },
+  {
+   "id": "owners-google-spacex-stake",
+   "claim": "Alphabet held 6.68% of SpaceX's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/SPCX/holders/",
+   "quotes": [
+    "Alphabet Inc. 551.19M Jun 30, 2026 6.68% 74,008,216,519"
+   ],
+   "values": [
+    "6.68"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 6.68,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "google",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-valor-spacex-stake",
+   "claim": "Valor Management held 6.10% of SpaceX's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/SPCX/holders/",
+   "quotes": [
+    "Valor Management LLC 503.41M Jun 30, 2026 6.10% 67,593,471,093"
+   ],
+   "values": [
+    "6.10"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 6.1,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "valor",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-vy-capital-spacex-stake",
+   "claim": "Vy Capital held 3.30% of SpaceX's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/SPCX/holders/",
+   "quotes": [
+    "Vy Capital Management Co. Ltd. 271.81M Jun 30, 2026 3.30% 36,496,131,266"
+   ],
+   "values": [
+    "3.30"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 3.3,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "vy-capital",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-pif-spacex-stake",
+   "claim": "Public Investment Fund (Saudi Arabia) held 1.87% of SpaceX's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/SPCX/holders/",
+   "quotes": [
+    "Public Investment Fund 154.15M Jun 30, 2026 1.87% 20,697,296,194"
+   ],
+   "values": [
+    "1.87"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 1.87,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "pif",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-nvidia-spacex-stake",
+   "claim": "NVIDIA held 1.49% of SpaceX's shares at 30 June 2026 (Yahoo Finance top institutional holders).",
+   "url": "https://finance.yahoo.com/quote/SPCX/holders/",
+   "quotes": [
+    "Nvidia Corp 122.76M Jun 30, 2026 1.49% 16,483,630,891"
+   ],
+   "values": [
+    "1.49"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 1.49,
+   "unit": "%",
+   "period": "13F holding at 30 Jun 2026",
+   "from": "nvidia",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "owners-softbank-openai-stake",
+   "claim": "SoftBank holds about 13% of OpenAI after completing its $64.6 billion cumulative investment on 1 October 2026.",
+   "url": "https://www.vermoegenszentrum.ch/en/stock-exchange-and-markets/news/softbank-executes-usd-10-billion-third-tranche-openai-investment",
+   "quotes": [
+    "Cumulative investment in OpenAI now totals USD 64.6 billion. The stake stands at about 13%."
+   ],
+   "values": [
+    "64.6",
+    "13"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "stake",
+   "value": 13,
+   "unit": "%",
+   "period": "1 Oct 2026",
+   "from": "softbank",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "AWP brief generated from SoftBank Group release; the stake is rounded. Amount invested is also in labs-softbank-openai-total."
+  },
+  {
+   "id": "owners-nvidia-openai-30bn",
+   "claim": "Nvidia's largest single AI investment in 2026 was $30 billion in OpenAI.",
+   "url": "https://www.digitaltoday.co.kr/en/view/54034/nvidia-emerges-as-major-investor-in-ai-ecosystem-puts-in-40-billion-this-year",
+   "quotes": [
+    "The largest single investment was $30 billion in ChatGPT developer OpenAI."
+   ],
+   "values": [
+    "30"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "investment",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "2026",
+   "from": "nvidia",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Equity cheque, late February 2026; the earlier $100bn plan (labs-openai-nvidia-100bn) was cut back."
+  },
+  {
+   "id": "owners-nvidia-intel-5bn-stake",
+   "claim": "Nvidia's $5 billion bet on Intel has grown to a value of more than $25 billion.",
+   "url": "https://www.digitaltoday.co.kr/en/view/54034/nvidia-emerges-as-major-investor-in-ai-ecosystem-puts-in-40-billion-this-year",
+   "quotes": [
+    "Its $5 billion bet on Intel has grown to a value of more than $25 billion."
+   ],
+   "values": [
+    "5",
+    "25"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "investment",
+   "value": 25,
+   "unit": "USD bn",
+   "period": "2026",
+   "from": "nvidia",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": "Value of the stake, more than $25bn; cost $5bn. See also the Yahoo 13F row (4.04%)."
+  },
+  {
+   "id": "owners-nvidia-coreweave-2bn",
+   "claim": "Nvidia invested $2 billion each in the neoclouds CoreWeave and Nebius Group in 2026.",
+   "url": "https://www.digitaltoday.co.kr/en/view/54034/nvidia-emerges-as-major-investor-in-ai-ecosystem-puts-in-40-billion-this-year",
+   "quotes": [
+    "In the neocloud segment, it invested $2 billion each in CoreWeave and Nebius Group."
+   ],
+   "values": [
+    "2"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "investment",
+   "value": 2,
+   "unit": "USD bn",
+   "period": "2026",
+   "from": "nvidia",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": "Nvidia supplies the GPUs and owns part of the customer that buys them: the circularity."
+  },
+  {
+   "id": "owners-openai-foundation-openai-stake",
+   "claim": "The OpenAI Foundation owns 26% of OpenAI's for-profit after the October 2025 recapitalisation.",
+   "url": "https://techcrunch.com/2025/10/28/openai-completes-its-for-profit-recapitalization",
+   "quotes": [
+    "Under the new structure, the OpenAI Foundation will own 26% of the for-profit, with a warrant for additional shares to be granted if the company continues to grow."
+   ],
+   "values": [
+    "26"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "stake",
+   "value": 26,
+   "unit": "%",
+   "period": "28 Oct 2025",
+   "from": "openai-foundation",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Later 2026 rounds dilute this; the Foundation also appoints the for-profit board."
+  },
+  {
+   "id": "owners-microsoft-openai-27",
+   "claim": "Microsoft holds roughly 27% of OpenAI, valued at about $135 billion, with the remaining 47% held by investors and employees.",
+   "url": "https://techcrunch.com/2025/10/28/openai-completes-its-for-profit-recapitalization",
+   "quotes": [
+    "Microsoft, an early investor in OpenAI, will hold a roughly 27% stake, valued at about $135 billion, with the remaining 47% held by investors and employees."
+   ],
+   "values": [
+    "27",
+    "135",
+    "47"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "stake",
+   "value": 27,
+   "unit": "%",
+   "period": "28 Oct 2025",
+   "from": "microsoft",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Dollar value $135bn at the October 2025 valuation; diluted since by the 2026 rounds."
+  },
+  {
+   "id": "owners-amazon-anthropic-cap",
+   "claim": "Under the terms in Anthropic's S-1, Amazon's ownership is capped at 12%.",
+   "url": "https://leverageshares.com/us/insights/who-owns-anthropic-amazon-google/",
+   "quotes": [
+    "Under terms described in the S-1, Amazon's ownership is capped at 12% and Google's at 14.99%."
+   ],
+   "values": [
+    "12",
+    "14.99"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "stake",
+   "value": 12,
+   "unit": "%",
+   "period": "S-1, 2026",
+   "from": "amazon",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": "A ceiling set by the S-1, not a reported holding; both hold non-voting Class N shares after the IPO."
+  },
+  {
+   "id": "owners-google-anthropic-cap",
+   "claim": "Under the terms in Anthropic's S-1, Google's ownership is capped at 14.99%.",
+   "url": "https://leverageshares.com/us/insights/who-owns-anthropic-amazon-google/",
+   "quotes": [
+    "Under terms described in the S-1, Amazon's ownership is capped at 12% and Google's at 14.99%."
+   ],
+   "values": [
+    "12",
+    "14.99"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "stake",
+   "value": 14.99,
+   "unit": "%",
+   "period": "S-1, 2026",
+   "from": "google",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": "A ceiling set by the 2026 agreement, not a reported holding."
+  },
+  {
+   "id": "owners-amazon-anthropic-notes-8bn",
+   "claim": "Amazon invested $8.0 billion in convertible notes from Anthropic between Q3 2023 and Q4 2025.",
+   "url": "https://leverageshares.com/us/insights/who-owns-anthropic-amazon-google/",
+   "quotes": [
+    "\"From Q3 2023 to Q4 2025, we invested $8.0 billion in convertible notes from Anthropic.\""
+   ],
+   "values": [
+    "8.0"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "investment",
+   "value": 8.0,
+   "unit": "USD bn",
+   "period": "Q3 2023 to Q4 2025",
+   "from": "amazon",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": "Quote is Amazon's own filing, as reproduced by Leverage Shares."
+  },
+  {
+   "id": "owners-google-anthropic-40bn",
+   "claim": "Bloomberg reported on 24 April 2026 that Google planned to invest up to $40 billion in Anthropic.",
+   "url": "https://leverageshares.com/us/insights/who-owns-anthropic-amazon-google/",
+   "quotes": [
+    "Bloomberg reported on April 24, 2026 that Google planned to invest up to $40 billion in Anthropic."
+   ],
+   "values": [
+    "40"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "investment",
+   "value": 40,
+   "unit": "USD bn",
+   "period": "announced Mar-Apr 2026",
+   "from": "google",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": "Up to; part cash, part performance-linked."
+  },
+  {
+   "id": "owners-series-h-leads",
+   "claim": "Anthropic's $65 billion Series H was led by Altimeter Capital, Dragoneer, Greenoaks and Sequoia Capital at a $965 billion post-money valuation.",
+   "url": "https://www.anthropic.com/news/series-h",
+   "quotes": [
+    "Anthropic has raised $65 billion in Series H funding led by Altimeter Capital, Dragoneer, Greenoaks, and Sequoia Capital, valuing the company at $965 billion post-money."
+   ],
+   "values": [
+    "65",
+    "965"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "investment",
+   "value": 65,
+   "unit": "USD bn",
+   "period": "28 May 2026",
+   "from": "sequoia",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": "Value is the whole round; the leads are Altimeter, Dragoneer, Greenoaks and Sequoia. Valuation also in labs-anthropic-valuation."
+  },
+  {
+   "id": "owners-musk-spacex-voting",
+   "claim": "Elon Musk controls more than 82% of SpaceX's voting power through Class B supervoting shares.",
+   "url": "https://www.revenuememo.com/p/who-owns-spacex",
+   "quotes": [
+    "Elon Musk is the founder, CEO, chief technology officer, and chair, and controls more than 82% of the voting power through Class B supervoting shares."
+   ],
+   "values": [
+    "82"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 82,
+   "unit": "% (voting)",
+   "period": "June 2026 IPO",
+   "from": "elon-musk",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "Voting power, not economic ownership. Secondary source citing the prospectus."
+  },
+  {
+   "id": "owners-musk-spacex-value",
+   "claim": "Elon Musk's SpaceX stake was worth roughly $866 billion at the IPO price.",
+   "url": "https://www.revenuememo.com/p/who-owns-spacex",
+   "quotes": [
+    "His stake was worth roughly $866 billion at the IPO price, making him the world's first trillionaire."
+   ],
+   "values": [
+    "866"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 866,
+   "unit": "USD bn",
+   "period": "IPO 12 Jun 2026",
+   "from": "elon-musk",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "Value at the IPO price of about a $1.77 trillion company."
+  },
+  {
+   "id": "owners-google-spacex-2025",
+   "claim": "Google owned a 6.11% stake in SpaceX at the end of 2025.",
+   "url": "https://news.bgov.com/capital-markets/alphabet-poised-for-100-billion-windfall-on-spacex-investment",
+   "quotes": [
+    "Google LLC owned a 6.11% stake in Elon Musk 's company at the end of 2025, according to a new disclosure the space startup filed this week in Alaska, where firms must report holders with stakes of 5% or more."
+   ],
+   "values": [
+    "6.11"
+   ],
+   "dated2026": false,
+   "actor": "spacex",
+   "kind": "stake",
+   "value": 6.11,
+   "unit": "%",
+   "period": "31 Dec 2025",
+   "from": "google",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "Before the February 2026 xAI merger diluted it; the 13F row (6.68%) is after."
+  },
+  {
+   "id": "owners-musk-tesla-stake",
+   "claim": "Elon Musk holds approximately 19.9% of Tesla after exercising his 2018 options in June 2026.",
+   "url": "https://www.revenuememo.com/p/who-owns-tesla",
+   "quotes": [
+    "Elon Musk is Tesla's largest individual shareholder, holding approximately 19.9% of the company's outstanding shares after exercising his 2018 stock options in June 2026, a stake worth more than $250 billion."
+   ],
+   "values": [
+    "19.9",
+    "250"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "stake",
+   "value": 19.9,
+   "unit": "%",
+   "period": "mid-2026",
+   "from": "elon-musk",
+   "to": "tesla",
+   "accessed": "2026-11-07",
+   "notes": "Secondary source (Revenue Memo); stake worth more than $250bn."
+  },
+  {
+   "id": "owners-huang-nvidia-stake",
+   "claim": "Jensen Huang holds approximately 3.5% of Nvidia.",
+   "url": "https://www.revenuememo.com/p/who-owns-nvidia",
+   "quotes": [
+    "Jensen Huang remains Nvidia's largest individual shareholder, with a stake of approximately 3.5% of outstanding shares."
+   ],
+   "values": [
+    "3.5"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "stake",
+   "value": 3.5,
+   "unit": "%",
+   "period": "2026",
+   "from": "jensen-huang",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": "Secondary source; proxy figures reported elsewhere are 3.58% (23 Mar 2026), not verified here."
+  },
+  {
+   "id": "owners-zuckerberg-meta-voting",
+   "claim": "Mark Zuckerberg controls approximately 61% of Meta's voting power through a dual-class structure.",
+   "url": "https://www.revenuememo.com/p/who-owns-meta",
+   "quotes": [
+    "Mark Zuckerberg controls approximately 61% of voting power through a dual-class share structure, despite owning roughly 13% of total shares economically."
+   ],
+   "values": [
+    "61",
+    "13"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 61,
+   "unit": "% (voting)",
+   "period": "mid-2026",
+   "from": "mark-zuckerberg",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": "Voting power; economic stake is the next fact."
+  },
+  {
+   "id": "owners-zuckerberg-meta-economic",
+   "claim": "Mark Zuckerberg owns roughly 13% of Meta's total shares economically.",
+   "url": "https://www.revenuememo.com/p/who-owns-meta",
+   "quotes": [
+    "Mark Zuckerberg controls approximately 61% of voting power through a dual-class share structure, despite owning roughly 13% of total shares economically."
+   ],
+   "values": [
+    "61",
+    "13"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 13,
+   "unit": "%",
+   "period": "mid-2026",
+   "from": "mark-zuckerberg",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": "Economic stake; the gap to 61% voting is the dual-class lever."
+  },
+  {
+   "id": "owners-bezos-amazon-stake",
+   "claim": "Jeff Bezos holds approximately 8.8% of Amazon.",
+   "url": "https://www.revenuememo.com/p/who-owns-amazon",
+   "quotes": [
+    "Founder Jeff Bezos remains the largest individual shareholder, holding approximately 8.8% of outstanding shares, worth over $230 billion."
+   ],
+   "values": [
+    "8.8",
+    "230"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "stake",
+   "value": 8.8,
+   "unit": "%",
+   "period": "mid-2026",
+   "from": "jeff-bezos",
+   "to": "amazon",
+   "accessed": "2026-11-07",
+   "notes": "Worth over $230bn at the time of writing."
+  },
+  {
+   "id": "owners-ellison-oracle-stake",
+   "claim": "Larry Ellison is Oracle's single largest shareholder with roughly a 40% stake.",
+   "url": "https://www.revenuememo.com/p/who-owns-oracle",
+   "quotes": [
+    "Larry Ellison, Oracle's co-founder, chairman, and CTO, is the single largest shareholder with roughly a 40% stake, giving him effective control over the company's direction."
+   ],
+   "values": [
+    "40"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "stake",
+   "value": 40,
+   "unit": "%",
+   "period": "mid-2026",
+   "from": "larry-ellison",
+   "to": "oracle",
+   "accessed": "2026-11-07",
+   "notes": "Search results quoting the 2026 proxy give about 38% with 413 million shares pledged: not verified here."
+  },
+  {
+   "id": "owners-page-brin-alphabet-voting",
+   "claim": "Larry Page and Sergey Brin between them control 52.7% of Alphabet's voting power.",
+   "url": "https://sec-api.io/insights/alphabet-s-2026-annual-meeting-the-vote-that-was-settled-before-it-started",
+   "quotes": [
+    "Alphabet's 835.8 million Class B shares carry ten votes each, which gives insiders 58.9% of the voting power on 6.9% of the shares outstanding. Larry Page and Sergey Brin between them control 52.7%."
+   ],
+   "values": [
+    "835.8",
+    "58.9",
+    "6.9",
+    "52.7"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "stake",
+   "value": 52.7,
+   "unit": "% (voting)",
+   "period": "6 Apr 2026",
+   "from": "larry-page",
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": "Combined with Sergey Brin; all insiders hold 58.9% of the vote on 6.9% of the shares."
+  },
+  {
+   "id": "owners-ballmer-microsoft-stake",
+   "claim": "Steve Ballmer is Microsoft's largest individual shareholder with an estimated 4% stake.",
+   "url": "https://www.revenuememo.com/p/who-owns-microsoft",
+   "quotes": [
+    "Steve Ballmer is the largest individual shareholder, with an estimated 4% stake."
+   ],
+   "values": [
+    "4"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "stake",
+   "value": 4,
+   "unit": "%",
+   "period": "mid-2026",
+   "from": "steve-ballmer",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": "Estimate; Bill Gates has sold or donated most of his shares."
+  },
+  {
+   "id": "owners-dell-michael-economic",
+   "claim": "Michael Dell's economic stake in Dell Technologies is reported in the range of roughly 40% to 47%.",
+   "url": "https://www.revenuememo.com/p/who-owns-dell",
+   "quotes": [
+    "He remains the single largest shareholder, with an economic stake reported in the range of roughly 40% to 47%."
+   ],
+   "values": [
+    "40",
+    "47"
+   ],
+   "dated2026": true,
+   "actor": "dell",
+   "kind": "stake",
+   "value": 40,
+   "unit": "%",
+   "period": "2026",
+   "from": "michael-dell",
+   "to": "dell",
+   "accessed": "2026-11-07",
+   "notes": "Low end of the reported 40-47% range."
+  },
+  {
+   "id": "owners-dell-affiliates-voting",
+   "claim": "Dell's 2026 proxy disclosed that affiliated holders represented roughly 93% of the total voting power.",
+   "url": "https://www.revenuememo.com/p/who-owns-dell",
+   "quotes": [
+    "In its 2026 proxy materials, Dell disclosed that affiliated holders represented roughly 93% of the total voting power."
+   ],
+   "values": [
+    "93"
+   ],
+   "dated2026": true,
+   "actor": "dell",
+   "kind": "stake",
+   "value": 93,
+   "unit": "% (voting)",
+   "period": "2026 proxy",
+   "from": "michael-dell",
+   "to": "dell",
+   "accessed": "2026-11-07",
+   "notes": "Affiliated holders: Michael Dell and, historically, Silver Lake."
+  },
+  {
+   "id": "owners-households-equities",
+   "claim": "US households and nonprofits held $46.0 trillion of corporate equities in Q3 2025, of $108.5 trillion in all.",
+   "url": "https://www.federalreserve.gov/releases/z1/20260109/html/l224.htm",
+   "quotes": [
+    "Households and nonprofit organizations; corporate equities; asset LM153064105 26892.5 32241.9 38996.7 35820.6 38334.8 38996.7 37705.7 41549.0 46000.7"
+   ],
+   "values": [
+    "46000.7"
+   ],
+   "dated2026": false,
+   "actor": "public-markets",
+   "kind": "stake",
+   "value": 46000.7,
+   "unit": "USD bn",
+   "period": "2025 Q3 (Z.1 of 9 Jan 2026)",
+   "from": "households",
+   "to": "public-markets",
+   "accessed": "2026-11-07",
+   "notes": "Direct holdings plus holdings through funds the Fed does not allocate; all sectors held $108,454.6bn."
+  },
+  {
+   "id": "owners-foreign-us-equities",
+   "claim": "Foreign investors (rest of the world) held $19.6 trillion of US corporate equities in Q3 2025.",
+   "url": "https://www.federalreserve.gov/releases/z1/20260109/html/l224.htm",
+   "quotes": [
+    "Rest of the world; U.S. corporate equities; asset (4) LM263064105 10801.2 13415.2 16891.6 15348.0 16275.0 16891.6 16180.9 18110.3 19592.3"
+   ],
+   "values": [
+    "19592.3"
+   ],
+   "dated2026": false,
+   "actor": "public-markets",
+   "kind": "stake",
+   "value": 19592.3,
+   "unit": "USD bn",
+   "period": "2025 Q3 (Z.1 of 9 Jan 2026)",
+   "from": "foreign-holders",
+   "to": "public-markets",
+   "accessed": "2026-11-07",
+   "notes": "Includes foreign official holders; roughly 18% of the $108.5tn all-sector total."
+  },
+  {
+   "id": "owners-mutual-funds-equities",
+   "claim": "US mutual funds held $17.0 trillion of corporate equities in Q3 2025.",
+   "url": "https://www.federalreserve.gov/releases/z1/20260109/html/l224.htm",
+   "quotes": [
+    "Mutual funds; corporate equities; asset LM653064100 11867.0 13882.1 15716.1 15149.6 15905.7 15716.1 15061.8 16513.0 17029.5"
+   ],
+   "values": [
+    "17029.5"
+   ],
+   "dated2026": false,
+   "actor": "public-markets",
+   "kind": "stake",
+   "value": 17029.5,
+   "unit": "USD bn",
+   "period": "2025 Q3 (Z.1 of 9 Jan 2026)",
+   "from": "mutual-funds",
+   "to": "public-markets",
+   "accessed": "2026-11-07",
+   "notes": "The pooled layer between households and companies (index funds, active funds)."
+  },
+  {
+   "id": "owners-openai-round-2026-leads",
+   "claim": "OpenAI closed a $122 billion round at $852 billion post-money in 2026, co-led by SoftBank with Amazon, Nvidia and Microsoft, plus a16z, D. E. Shaw, MGX, TPG and T. Rowe Price accounts.",
+   "url": "https://finance.yahoo.com/markets/stocks/articles/openai-closes-122bn-funding-round-093126735.html",
+   "quotes": [
+    "OpenAI has closed its latest financing round with $122bn in committed capital, giving the AI company a post-money valuation of $852bn. The round, which exceeded the original target of $110bn, was co-led by SoftBank alongside strategic investors including Amazon, Nvidia, and Microsoft. Other participants included Andreessen Horowitz, D. E. Shaw Ventures, MGX, TPG, and accounts advised by T. Rowe Price Associates."
+   ],
+   "values": [
+    "122",
+    "852",
+    "110"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "investment",
+   "value": 122,
+   "unit": "USD bn",
+   "period": "31 Mar 2026",
+   "from": "softbank",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Value is the whole round. Valuation also in labs-openai-valuation."
+  },
+  {
+   "id": "owners-amazon-openai-50bn",
+   "claim": "Amazon committed $50 billion to OpenAI in the 2026 round: $15 billion first and $35 billion more subject to conditions.",
+   "url": "https://finance.yahoo.com/markets/stocks/articles/openai-closes-122bn-funding-round-093126735.html",
+   "quotes": [
+    "Amazon leads the round with a total investment commitment of $50bn, starting with $15bn and planning an additional $35bn subject to future conditions."
+   ],
+   "values": [
+    "50",
+    "15",
+    "35"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "investment",
+   "value": 50,
+   "unit": "USD bn",
+   "period": "Mar 2026",
+   "from": "amazon",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Conditional: $15bn paid first, $35bn later."
+  },
+  {
+   "id": "owners-softbank-openai-round-30bn",
+   "claim": "SoftBank is investing $30 billion in OpenAI's 2026 round, as is Nvidia.",
+   "url": "https://finance.yahoo.com/markets/stocks/articles/openai-closes-122bn-funding-round-093126735.html",
+   "quotes": [
+    "Nvidia and SoftBank are each investing $30bn."
+   ],
+   "values": [
+    "30"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "investment",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "Mar 2026",
+   "from": "softbank",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Matches the three $10bn tranches completed on 1 Oct 2026 (owners-softbank-openai-stake)."
+  },
+  {
+   "id": "owners-retail-openai-3bn",
+   "claim": "OpenAI opened its round to individual investors for the first time and secured about $3 billion from them.",
+   "url": "https://finance.yahoo.com/markets/stocks/articles/openai-closes-122bn-funding-round-093126735.html",
+   "quotes": [
+    "OpenAI also opened access to individual investors for the first time through banking partners, securing about $3bn from this group."
+   ],
+   "values": [
+    "3"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "investment",
+   "value": 3,
+   "unit": "USD bn",
+   "period": "Mar 2026",
+   "from": "households",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "The first time households reach a frontier lab directly rather than through funds."
+  },
+  {
+   "id": "owners-gic-coatue-anthropic-series-g",
+   "claim": "Anthropic completed a $30 billion Series G led by GIC and Coatue.",
+   "url": "https://www.orrick.com/en/news/2026/02/anthropic-raises-30b-series-g-at-380b-post-money-valuation",
+   "quotes": [
+    "Anthropic has completed a Series G fundraising of $30 billion led by GIC and Coatue."
+   ],
+   "values": [
+    "30"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "investment",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "Feb 2026",
+   "from": "gic",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": "Value is the whole round, co-led by Coatue; Singapore's sovereign fund GIC is the named sovereign lead."
+  },
+  {
+   "id": "owners-buffett-berkshire-voting",
+   "claim": "Warren Buffett controlled 30.2% of Berkshire Hathaway's voting power as of 4 March 2026.",
+   "url": "https://wkzo.com/?p=922421",
+   "quotes": [
+    "As of March 4, Buffett owned 13.7% of Berkshire's ​stock and controlled 30.2% of Berkshire's voting power."
+   ],
+   "values": [
+    "13.7",
+    "30.2"
+   ],
+   "dated2026": true,
+   "actor": "berkshire",
+   "kind": "stake",
+   "value": 30.2,
+   "unit": "% (voting)",
+   "period": "4 Mar 2026",
+   "from": "warren-buffett",
+   "to": "berkshire",
+   "accessed": "2026-11-07",
+   "notes": "Reuters: he owned 13.7% of the stock (economic stake, same sentence; its own fact failed the gate at Jev 0.38). He is giving the shares away, so this falls."
+  }
+ ],
+ "actors": [
+  {
+   "id": "vanguard",
+   "name": "Vanguard",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "index manager; the largest holder of almost every US giant through its index funds",
+   "desire": "to track the index at the lowest cost",
+   "fear": "fee compression and a pause in passive inflows",
+   "facts": [
+    "owners-vanguard-nvidia-stake",
+    "owners-vanguard-microsoft-stake",
+    "owners-vanguard-apple-stake"
+   ]
+  },
+  {
+   "id": "blackrock",
+   "name": "BlackRock",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "index and asset manager (iShares); the largest institutional holder of most US giants",
+   "desire": "to keep gathering assets",
+   "fear": "an equity drawdown that shrinks fee income",
+   "facts": [
+    "owners-blackrock-nvidia-stake",
+    "owners-blackrock-microsoft-stake",
+    "owners-blackrock-apple-stake"
+   ]
+  },
+  {
+   "id": "state-street",
+   "name": "State Street",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "index manager (SPDR S&P 500 ETF); a top-four holder of the giants",
+   "facts": [
+    "owners-state-street-nvidia-stake",
+    "owners-state-street-microsoft-stake",
+    "owners-state-street-apple-stake"
+   ]
+  },
+  {
+   "id": "fidelity",
+   "name": "Fidelity (FMR)",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "active and index manager; a top holder of NVIDIA, Alphabet and SpaceX",
+   "facts": [
+    "owners-fidelity-nvidia-stake",
+    "owners-fidelity-google-stake"
+   ]
+  },
+  {
+   "id": "capital-group",
+   "name": "Capital Group",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "active manager (Capital World, Capital Research); holds Meta and Broadcom",
+   "facts": [
+    "owners-capital-group-meta-stake",
+    "owners-capital-group-broadcom-stake"
+   ]
+  },
+  {
+   "id": "nbim",
+   "name": "Norges Bank Investment Management",
+   "kind": "sovereign",
+   "country": "NO",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "Norway's sovereign wealth fund; holds about 1.3% of Microsoft, Apple and Amazon",
+   "facts": [
+    "owners-nbim-microsoft-stake",
+    "owners-nbim-apple-stake",
+    "owners-nbim-amazon-stake"
+   ]
+  },
+  {
+   "id": "pif",
+   "name": "Public Investment Fund",
+   "kind": "sovereign",
+   "country": "SA",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "Saudi Arabia's sovereign fund; a SpaceX holder",
+   "facts": [
+    "owners-pif-spacex-stake"
+   ]
+  },
+  {
+   "id": "gic",
+   "name": "GIC",
+   "kind": "sovereign",
+   "country": "SG",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "Singapore's sovereign fund; co-led Anthropic's Series G",
+   "facts": [
+    "owners-gic-coatue-anthropic-series-g"
+   ]
+  },
+  {
+   "id": "mgx",
+   "name": "MGX",
+   "kind": "sovereign",
+   "country": "AE",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "Abu Dhabi's AI investment vehicle; a participant in OpenAI's 2026 round",
+   "facts": [
+    "owners-openai-round-2026-leads"
+   ]
+  },
+  {
+   "id": "berkshire",
+   "name": "Berkshire Hathaway",
+   "kind": "corporate",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "conglomerate and corporate holder; owns 1.57% of Apple (13F), and is itself held by Vanguard",
+   "facts": [
+    "owners-berkshire-apple-stake",
+    "owners-vanguard-berkshire-stake"
+   ]
+  },
+  {
+   "id": "softbank",
+   "name": "SoftBank",
+   "kind": "corporate",
+   "country": "JP",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "holds about 13% of OpenAI and 1.64% of Intel; funds OpenAI with notes and bridge loans",
+   "facts": [
+    "owners-softbank-openai-stake",
+    "owners-softbank-openai-round-30bn",
+    "owners-softbank-intel-stake"
+   ]
+  },
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "corporate",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "as an owner: stakes in OpenAI, Intel, CoreWeave, SpaceX, Anthropic, xAI, Nebius",
+   "facts": [
+    "owners-nvidia-openai-30bn",
+    "owners-nvidia-intel-5bn-stake",
+    "owners-nvidia-coreweave-2bn",
+    "owners-nvidia-coreweave-stake",
+    "owners-nvidia-spacex-stake"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "corporate",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "as an owner: about 27% of OpenAI",
+   "facts": [
+    "owners-microsoft-openai-27"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "kind": "corporate",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "as an owner: $50bn committed to OpenAI; Anthropic convertible notes and preferred stock, capped at 12%",
+   "facts": [
+    "owners-amazon-openai-50bn",
+    "owners-amazon-anthropic-cap",
+    "owners-amazon-anthropic-notes-8bn"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Alphabet / Google",
+   "kind": "corporate",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "as an owner: SpaceX (6.68%) and Anthropic (capped at 14.99%)",
+   "facts": [
+    "owners-google-spacex-stake",
+    "owners-google-spacex-2025",
+    "owners-google-anthropic-cap",
+    "owners-google-anthropic-40bn"
+   ]
+  },
+  {
+   "id": "openai-foundation",
+   "name": "OpenAI Foundation",
+   "kind": "corporate",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "nonprofit that owns 26% of OpenAI Group PBC and appoints its board",
+   "facts": [
+    "owners-openai-foundation-openai-stake"
+   ]
+  },
+  {
+   "id": "magnetar",
+   "name": "Magnetar Financial",
+   "kind": "hedge",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "the largest holder of CoreWeave (11.35%)",
+   "facts": [
+    "owners-magnetar-coreweave-stake"
+   ]
+  },
+  {
+   "id": "valor",
+   "name": "Valor Equity Partners",
+   "kind": "vc",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "Musk-affiliated growth investor; 6.10% of SpaceX",
+   "facts": [
+    "owners-valor-spacex-stake"
+   ]
+  },
+  {
+   "id": "vy-capital",
+   "name": "Vy Capital",
+   "kind": "vc",
+   "country": "AE",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "Dubai-based fund; 3.30% of SpaceX",
+   "facts": [
+    "owners-vy-capital-spacex-stake"
+   ]
+  },
+  {
+   "id": "sequoia",
+   "name": "Sequoia Capital",
+   "kind": "vc",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "co-leader of Anthropic's Series H",
+   "facts": [
+    "owners-series-h-leads"
+   ]
+  },
+  {
+   "id": "a16z",
+   "name": "Andreessen Horowitz",
+   "kind": "vc",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "participant in OpenAI's 2026 round",
+   "facts": [
+    "owners-openai-round-2026-leads"
+   ]
+  },
+  {
+   "id": "gates-foundation-trust",
+   "name": "Gates Foundation Trust",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "holds 1.04% of Berkshire Hathaway",
+   "facts": [
+    "owners-gates-foundation-trust-berkshire-stake"
+   ]
+  },
+  {
+   "id": "elon-musk",
+   "name": "Elon Musk",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "controls SpaceX (82% of votes) and holds 19.9% of Tesla",
+   "facts": [
+    "owners-musk-spacex-voting",
+    "owners-musk-spacex-value",
+    "owners-musk-tesla-stake"
+   ]
+  },
+  {
+   "id": "mark-zuckerberg",
+   "name": "Mark Zuckerberg",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "61% of Meta's votes on 13% of the shares",
+   "facts": [
+    "owners-zuckerberg-meta-voting",
+    "owners-zuckerberg-meta-economic"
+   ]
+  },
+  {
+   "id": "jeff-bezos",
+   "name": "Jeff Bezos",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "8.8% of Amazon",
+   "facts": [
+    "owners-bezos-amazon-stake"
+   ]
+  },
+  {
+   "id": "larry-ellison",
+   "name": "Larry Ellison",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "about 40% of Oracle",
+   "facts": [
+    "owners-ellison-oracle-stake"
+   ]
+  },
+  {
+   "id": "larry-page",
+   "name": "Larry Page",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "with Sergey Brin, 52.7% of Alphabet's votes",
+   "facts": [
+    "owners-page-brin-alphabet-voting"
+   ]
+  },
+  {
+   "id": "sergey-brin",
+   "name": "Sergey Brin",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "with Larry Page, 52.7% of Alphabet's votes",
+   "facts": [
+    "owners-page-brin-alphabet-voting"
+   ]
+  },
+  {
+   "id": "jensen-huang",
+   "name": "Jensen Huang",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "about 3.5% of NVIDIA",
+   "facts": [
+    "owners-huang-nvidia-stake"
+   ]
+  },
+  {
+   "id": "steve-ballmer",
+   "name": "Steve Ballmer",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "about 4% of Microsoft",
+   "facts": [
+    "owners-ballmer-microsoft-stake"
+   ]
+  },
+  {
+   "id": "michael-dell",
+   "name": "Michael Dell",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "40 to 47% of Dell, with affiliates holding about 93% of the votes",
+   "facts": [
+    "owners-dell-michael-economic",
+    "owners-dell-affiliates-voting"
+   ]
+  },
+  {
+   "id": "warren-buffett",
+   "name": "Warren Buffett",
+   "kind": "person",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "13.7% of Berkshire and 30.2% of its votes, being given away",
+   "facts": [
+    "owners-buffett-berkshire-voting"
+   ]
+  },
+  {
+   "id": "households",
+   "name": "US households and nonprofits",
+   "kind": "households",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "own $46tn of US corporate equities directly and through funds; $3bn reached OpenAI directly in 2026",
+   "facts": [
+    "owners-households-equities",
+    "owners-retail-openai-3bn"
+   ]
+  },
+  {
+   "id": "foreign-holders",
+   "name": "Foreign investors",
+   "kind": "fund",
+   "country": "--",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "hold $19.6tn of US corporate equities",
+   "facts": [
+    "owners-foreign-us-equities"
+   ]
+  },
+  {
+   "id": "mutual-funds",
+   "name": "US mutual funds",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "sector": "ownership",
+   "role": "hold $17.0tn of US equities for households",
+   "facts": [
+    "owners-mutual-funds-equities"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "owners-flow-amazon-openai",
+   "from": "amazon",
+   "to": "openai",
+   "usdBnPerYear": 50,
+   "what": "equity commitment: $15bn first, $35bn conditional (a total, not a yearly rate)",
+   "period": "2026",
+   "basis": "contracted",
+   "kind": "investment",
+   "fact": "owners-amazon-openai-50bn"
+  },
+  {
+   "id": "owners-flow-nvidia-openai",
+   "from": "nvidia",
+   "to": "openai",
+   "usdBnPerYear": 30,
+   "what": "equity cheque, late February 2026 (a one-off)",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-nvidia-openai-30bn"
+  },
+  {
+   "id": "owners-flow-softbank-openai",
+   "from": "softbank",
+   "to": "openai",
+   "usdBnPerYear": 30,
+   "what": "three $10bn tranches, the last on 1 October 2026 (a total)",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-softbank-openai-round-30bn"
+  },
+  {
+   "id": "owners-flow-google-anthropic",
+   "from": "google",
+   "to": "anthropic",
+   "usdBnPerYear": 40,
+   "what": "up to $40bn, part cash, part performance-linked (a total)",
+   "period": "2026",
+   "basis": "contracted",
+   "kind": "investment",
+   "fact": "owners-google-anthropic-40bn"
+  },
+  {
+   "id": "owners-flow-amazon-anthropic",
+   "from": "amazon",
+   "to": "anthropic",
+   "usdBnPerYear": 8,
+   "what": "convertible notes, Q3 2023 to Q4 2025 (a total)",
+   "period": "2023-2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-amazon-anthropic-notes-8bn"
+  },
+  {
+   "id": "owners-flow-nvidia-intel",
+   "from": "nvidia",
+   "to": "intel",
+   "usdBnPerYear": 5,
+   "what": "equity purchase (cost); now worth more than $25bn",
+   "period": "2025-2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-nvidia-intel-5bn-stake"
+  },
+  {
+   "id": "owners-flow-nvidia-coreweave",
+   "from": "nvidia",
+   "to": "coreweave",
+   "usdBnPerYear": 2,
+   "what": "equity in the customer that buys its GPUs",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-nvidia-coreweave-2bn"
+  },
+  {
+   "id": "owners-flow-households-openai",
+   "from": "households",
+   "to": "openai",
+   "usdBnPerYear": 3,
+   "what": "first retail tranche through bank partners",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-retail-openai-3bn"
+  },
+  {
+   "id": "owners-flow-gic-anthropic",
+   "from": "gic",
+   "to": "anthropic",
+   "usdBnPerYear": 30,
+   "what": "Series G round led with Coatue (the whole round)",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-gic-coatue-anthropic-series-g"
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "blackrock",
+   "controls": "the index-fund ownership layer of every US giant",
+   "share": "BlackRock, Vanguard Capital Management and State Street together hold about 18.6% of NVIDIA, 19.0% of Microsoft and 18.8% of Apple",
+   "alternatives": "none among index managers; Fidelity and Geode hold the next 2 to 4%",
+   "facts": [
+    "owners-blackrock-nvidia-stake",
+    "owners-vanguard-nvidia-stake",
+    "owners-state-street-nvidia-stake",
+    "owners-blackrock-microsoft-stake",
+    "owners-vanguard-microsoft-stake",
+    "owners-state-street-microsoft-stake",
+    "owners-blackrock-apple-stake",
+    "owners-vanguard-apple-stake",
+    "owners-state-street-apple-stake"
+   ]
+  },
+  {
+   "actor": "mark-zuckerberg",
+   "controls": "Meta's vote",
+   "share": "61% of votes on about 13% of the shares",
+   "alternatives": "none: no shareholder vote can pass without him",
+   "facts": [
+    "owners-zuckerberg-meta-voting",
+    "owners-zuckerberg-meta-economic"
+   ]
+  },
+  {
+   "actor": "elon-musk",
+   "controls": "SpaceX (and so xAI)",
+   "share": "more than 82% of votes",
+   "alternatives": "none inside the company",
+   "facts": [
+    "owners-musk-spacex-voting"
+   ]
+  },
+  {
+   "actor": "larry-page",
+   "controls": "Alphabet's vote",
+   "share": "52.7% of votes with Sergey Brin",
+   "alternatives": "none inside the company",
+   "facts": [
+    "owners-page-brin-alphabet-voting"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-owners-dual-class",
+   "year": 2026,
+   "date": "",
+   "era": "present",
+   "holder": "mark-zuckerberg",
+   "rivals": [
+    "public-markets"
+   ],
+   "title": "Control without ownership",
+   "advantage": "votes without equity",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Dual-class shares give a founder the vote while the public supplies the capital.",
+   "outcome": "Zuckerberg holds about 61% of Meta's votes on about 13% of the shares; Page and Brin hold 52.7% of Alphabet's votes; Musk holds more than 82% of SpaceX's.",
+   "facts": [
+    "owners-zuckerberg-meta-voting",
+    "owners-zuckerberg-meta-economic",
+    "owners-page-brin-alphabet-voting",
+    "owners-musk-spacex-voting"
+   ]
+  },
+  {
+   "id": "fp-owners-openai-recap",
+   "year": 2025,
+   "date": "2025-10-28",
+   "era": "present",
+   "holder": "microsoft",
+   "rivals": [
+    "openai-foundation"
+   ],
+   "title": "OpenAI's recapitalisation",
+   "advantage": "capital and compute traded for a stake",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "The nonprofit kept control while Microsoft, the compute supplier, converted its funding into a 27% stake.",
+   "outcome": "Foundation 26%, Microsoft about 27%, investors and employees 47%.",
+   "facts": [
+    "owners-openai-foundation-openai-stake",
+    "owners-microsoft-openai-27"
+   ]
+  },
+  {
+   "id": "fp-owners-circular",
+   "year": 2026,
+   "date": "",
+   "era": "present",
+   "holder": "nvidia",
+   "rivals": [
+    "amazon",
+    "softbank"
+   ],
+   "title": "The supplier owns its customers",
+   "advantage": "a high share price turned into equity in customers",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "NVIDIA invests in the labs and neoclouds that buy its GPUs, so demand and ownership rise together.",
+   "outcome": "NVIDIA put $30bn into OpenAI, owns 10.29% of CoreWeave and a stake in Intel now worth more than $25bn.",
+   "facts": [
+    "owners-nvidia-openai-30bn",
+    "owners-nvidia-coreweave-stake",
+    "owners-nvidia-intel-5bn-stake"
+   ]
+  },
+  {
+   "id": "fp-owners-anthropic-cap",
+   "year": 2026,
+   "date": "",
+   "era": "present",
+   "holder": "google",
+   "rivals": [
+    "amazon"
+   ],
+   "title": "Two clouds, one lab",
+   "advantage": "capital without control",
+   "power": "counter-positioning",
+   "triad": "environment",
+   "mechanism": "Anthropic took money from both rivals but capped their stakes and issues them non-voting shares.",
+   "outcome": "Amazon capped at 12%, Google at 14.99%.",
+   "facts": [
+    "owners-amazon-anthropic-cap",
+    "owners-google-anthropic-cap"
+   ]
+  }
+ ],
+ "lineage": [],
+ "notes": "Verified here: 13F top-holder rows from Yahoo Finance (30 Jun 2026) for the giants; founders' and insiders' stakes from Revenue Memo's ownership explainers (secondary, citing proxies) and Reuters; OpenAI's recapitalisation (TechCrunch, 28 Oct 2025), its 2026 round (Yahoo/Reuters-style report), Anthropic's caps (S-1 as summarised by Leverage Shares), Series G/H leads; the Fed's Z.1 (L.224) for household, foreign and fund equity holdings (Q3 2025, the latest in the 9 Jan 2026 release; dated2026 false). Unverified, in notes only: SEC pages (DEF 14A, 14C, Berkshire, Meta) returned 403 to the script, so Zuckerberg's 60.6% (Nov 2026 information statement), Page 27.4% and Brin 25.3% of Alphabet's votes, Huang's 3.58% (proxy of 23 Mar 2026), Ellison's 38% (2026 proxy; 413m pledged shares) and Musk's 48.4% of SpaceX in a regulatory filing come from search summaries only. SoftBank's 87% of Arm (March 2025) and NBIM's year-end 2025 stakes (NVIDIA 1.26%, Microsoft 1.35% to 1.26%) were not fetchable; PIF, QIA, ADIA and Mubadala stakes in the US giants do not appear in the 13F top-ten lists. Yahoo splits Vanguard into Capital Management and Portfolio Management; each row cited is one entity, so Vanguard's total is higher (for example Apple: 6.60% plus 2.30%). AMD rows failed the gate and were removed.",
+ "openQuestions": [
+  "What are the exact 2026 proxy figures for Zuckerberg, Page, Brin, Huang and Ellison (SEC pages blocked scripts)?",
+  "What share of SpaceX does Musk own economically after the IPO (reports range 40% to 48.4%)?",
+  "How do PIF, QIA, ADIA, Mubadala and MGX hold the US giants (13F does not show sovereign funds below the top ten)?",
+  "Z.1 for Q1-Q2 2026 (the Fed's page was only fetchable at the January 2026 release).",
+  "What are Anthropic's and OpenAI's actual cap tables after the 2026 rounds (S-1 gives caps, not holdings)?"
+ ]
+}

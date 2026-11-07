@@ -1,0 +1,1417 @@
+{
+ "cluster": "weapons",
+ "asOf": "2026-11-07",
+ "scope": "The share price as a weapon and its risk: stock-funded acquisitions and licence-and-hire deals 2006-2026, buybacks and stock pay, loss-funded bets, the talent raid, and the busts that ended the strategy.",
+ "facts": [
+  {
+   "id": "weapons-acq-instagram",
+   "claim": "Facebook bought Instagram in April 2012 for about $1 billion in cash and stock.",
+   "url": "https://en.wikipedia.org/wiki/Instagram",
+   "quotes": [
+    "In April 2012, Facebook acquired the service for approximately US$1 billion in cash and stock."
+   ],
+   "values": [
+    "1"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "acquisition",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "April 2012",
+   "from": "meta",
+   "to": "instagram",
+   "accessed": "2026-11-07",
+   "notes": "Paid in cash and stock; Instagram had about 13 employees (not verified here)."
+  },
+  {
+   "id": "weapons-acq-whatsapp",
+   "claim": "Facebook acquired WhatsApp in February 2014 for about $19.3 billion, paid mostly in Facebook shares and restricted stock.",
+   "url": "https://en.wikipedia.org/wiki/WhatsApp",
+   "quotes": [
+    "The service was created by WhatsApp Inc. of Mountain View, California, which was acquired by Facebook in February 2014 for approximately US$19.3 billion.",
+    "Facebook pays $4 billion in cash, $12 billion in Facebook shares, and an additional $3 billion in restricted stock units"
+   ],
+   "values": [
+    "19.3",
+    "12",
+    "4",
+    "3"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "acquisition",
+   "value": 19.3,
+   "unit": "USD bn",
+   "period": "February 2014",
+   "from": "meta",
+   "to": "whatsapp",
+   "accessed": "2026-11-07",
+   "notes": "$4bn cash, $12bn Facebook shares, $3bn restricted stock units: 79% of the headline price was paid in stock."
+  },
+  {
+   "id": "weapons-acq-linkedin",
+   "claim": "Microsoft agreed in June 2016 to buy LinkedIn for $26.2 billion, an all-cash, debt-financed deal.",
+   "url": "https://en.wikipedia.org/wiki/LinkedIn",
+   "quotes": [
+    "In June 2016, Microsoft announced that it would acquire LinkedIn for $196 a share, a total value of $26.2 billion.",
+    "The acquisition would be an all-cash, debt-financed transaction."
+   ],
+   "values": [
+    "26.2"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "acquisition",
+   "value": 26.2,
+   "unit": "USD bn",
+   "period": "announced June 2016; closed December 2016",
+   "from": "microsoft",
+   "to": "linkedin",
+   "accessed": "2026-11-07",
+   "notes": "Cash and debt, not stock."
+  },
+  {
+   "id": "weapons-acq-activision",
+   "claim": "Microsoft announced in January 2022 an all-cash deal for Activision Blizzard at $68.7 billion; the total cost came to $75.4 billion.",
+   "url": "https://en.wikipedia.org/wiki/Microsoft_acquisition_of_Activision_Blizzard",
+   "quotes": [
+    "On January 18, 2022, Microsoft announced its intent to acquire Activision Blizzard for $68.7 billion in an all-cash deal, or approximately $95 per share.",
+    "The acquisition was completed on October 13, 2023, with its total cost amounting to $75.4 billion."
+   ],
+   "values": [
+    "68.7",
+    "75.4"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "acquisition",
+   "value": 68.7,
+   "unit": "USD bn",
+   "period": "announced 18 January 2022; completed 13 October 2023",
+   "from": "microsoft",
+   "to": "activision",
+   "accessed": "2026-11-07",
+   "notes": "All cash; total cost 75.4 at completion."
+  },
+  {
+   "id": "weapons-acq-mellanox",
+   "claim": "NVIDIA announced in March 2019 that it would acquire Mellanox for $6.9 billion; the deal closed in April 2020.",
+   "url": "https://en.wikipedia.org/wiki/Mellanox_Technologies",
+   "quotes": [
+    "On March 11, 2019, Nvidia announced its intent to acquire the company for $6.9 billion."
+   ],
+   "values": [
+    "6.9"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "acquisition",
+   "value": 6.9,
+   "unit": "USD bn",
+   "period": "announced March 2019; closed 27 April 2020",
+   "from": "nvidia",
+   "to": "mellanox",
+   "accessed": "2026-11-07",
+   "notes": "Gave NVIDIA the InfiniBand/Ethernet networking that ties GPUs into clusters."
+  },
+  {
+   "id": "weapons-acq-wiz",
+   "claim": "Google announced an all-cash acquisition of the cloud-security firm Wiz for $32 billion in March 2025; Alphabet completed it on 11 March 2026.",
+   "url": "https://en.wikipedia.org/wiki/Wiz,_Inc.",
+   "quotes": [
+    "and on March 18, 2025, Google announced an all-cash acquisition of Wiz for $32 billion.",
+    "On 11 March 2026, Alphabet Inc. acquired Wiz in a $32 billion deal."
+   ],
+   "values": [
+    "32"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "acquisition",
+   "value": 32,
+   "unit": "USD bn",
+   "period": "announced 18 March 2025; completed 11 March 2026",
+   "from": "google",
+   "to": "wiz",
+   "accessed": "2026-11-07",
+   "notes": "All cash; the largest acquisition in Google history."
+  },
+  {
+   "id": "weapons-acq-inflection",
+   "claim": "Microsoft paid Inflection AI $650 million to license its technology and hired nearly all of its 70 staff in March 2024.",
+   "url": "https://en.wikipedia.org/wiki/Inflection_AI",
+   "quotes": [
+    "As part of the deal, Microsoft paid Inflection $650 million to license its technology.",
+    "In March 2024, Suleyman and Simonyan announced their departure from the company in order to start Microsoft AI, with Microsoft acqui-hiring nearly the entirety of its 70-person workforce."
+   ],
+   "values": [
+    "650",
+    "70"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "acquisition",
+   "value": 0.65,
+   "unit": "USD bn",
+   "period": "March 2024",
+   "from": "microsoft",
+   "to": "inflection",
+   "accessed": "2026-11-07",
+   "notes": "Licence-and-hire: the structure avoids a merger filing; proceeds reimbursed Inflection investors."
+  },
+  {
+   "id": "weapons-acq-characterai",
+   "claim": "Google reportedly paid $2.7 billion in 2024 for a licence to Character.AI's technology and to bring back its co-founder Noam Shazeer.",
+   "url": "https://www.pymnts.com/artificial-intelligence-2/2024/google-reportedly-spent-2-7-billion-to-rehire-character-ai-founder/",
+   "quotes": [
+    "Google reportedly paid $2.7 billion to rehire ex-employee/AI guru Noam Shazeer."
+   ],
+   "values": [
+    "2.7"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "acquisition",
+   "value": 2.7,
+   "unit": "USD bn",
+   "period": "August 2024",
+   "from": "google",
+   "to": "character-ai",
+   "accessed": "2026-11-07",
+   "notes": "Reported by the Wall Street Journal via PYMNTS; Google has not confirmed the figure. Licence-and-hire."
+  },
+  {
+   "id": "weapons-acq-windsurf",
+   "claim": "Google paid about $2.4 billion in July 2025 to license Windsurf's technology and hire its top staff, after OpenAI's $3 billion acquisition fell apart.",
+   "url": "https://techcrunch.com/2025/07/11/windsurfs-ceo-goes-to-google-openais-acquisition-falls-apart",
+   "quotes": [
+    "Bloomberg reports that Google is paying $2.4 billion to license Windsurf's technology and hire its top employees.",
+    "OpenAI's deal to acquire the viral AI coding startup Windsurf for $3 billion fell apart on Friday, according to The Verge."
+   ],
+   "values": [
+    "2.4",
+    "3"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "acquisition",
+   "value": 2.4,
+   "unit": "USD bn",
+   "period": "July 2025",
+   "from": "google",
+   "to": "windsurf",
+   "accessed": "2026-11-07",
+   "notes": "Licence-and-hire; the licence is nonexclusive. Cognition bought the rest of the company."
+  },
+  {
+   "id": "weapons-acq-deepmind",
+   "claim": "Google confirmed in January 2014 its acquisition of DeepMind for a price reportedly between $400 million and $650 million.",
+   "url": "https://en.wikipedia.org/wiki/Google_DeepMind",
+   "quotes": [
+    "On 26 January 2014, Google confirmed its acquisition of DeepMind for a price reportedly ranging between $400 million and $650 million."
+   ],
+   "values": [
+    "400",
+    "650"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "acquisition",
+   "value": 0.4,
+   "unit": "USD bn",
+   "period": "26 January 2014",
+   "from": "google",
+   "to": "deepmind",
+   "accessed": "2026-11-07",
+   "notes": "Value is the low end of the reported range 0.4 to 0.65 USD bn. DeepMind had also been courted by Facebook and Musk."
+  },
+  {
+   "id": "weapons-acq-youtube",
+   "claim": "Google acquired YouTube in October 2006 for $1.65 billion in Google stock.",
+   "url": "https://en.wikipedia.org/wiki/YouTube",
+   "quotes": [
+    "On October 9, 2006, Google announced that they had acquired YouTube for $1.65 billion in Google stock."
+   ],
+   "values": [
+    "1.65"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "acquisition",
+   "value": 1.65,
+   "unit": "USD bn",
+   "period": "announced 9 October 2006; finalised 13 November 2006",
+   "from": "google",
+   "to": "youtube",
+   "accessed": "2026-11-07",
+   "notes": "Paid in stock."
+  },
+  {
+   "id": "weapons-acq-github",
+   "claim": "Microsoft announced in June 2018 that it would acquire GitHub for $7.5 billion, reported as paid in stock.",
+   "url": "https://en.wikipedia.org/wiki/GitHub",
+   "quotes": [
+    "On June 4, 2018, Microsoft announced its intent to acquire GitHub for US$7.5 billion",
+    "Microsoft has acquired GitHub for $7.5B in stock"
+   ],
+   "values": [
+    "7.5"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "acquisition",
+   "value": 7.5,
+   "unit": "USD bn",
+   "period": "announced 4 June 2018; closed 26 October 2018",
+   "from": "microsoft",
+   "to": "github",
+   "accessed": "2026-11-07",
+   "notes": "Stock, per the TechCrunch headline cited by Wikipedia."
+  },
+  {
+   "id": "weapons-acq-wholefoods",
+   "claim": "John Mackey sold Whole Foods Market to Amazon for $13.7 billion on 28 August 2017.",
+   "url": "https://en.wikipedia.org/wiki/Whole_Foods_Market",
+   "quotes": [
+    "John Mackey, the last remaining co-founder of Whole Foods Market, sold the company to Amazon for $13.7 billion on August 28, 2017."
+   ],
+   "values": [
+    "13.7"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "acquisition",
+   "value": 13.7,
+   "unit": "USD bn",
+   "period": "28 August 2017",
+   "from": "amazon",
+   "to": "whole-foods",
+   "accessed": "2026-11-07",
+   "notes": "Cash deal (not shown in this quote)."
+  },
+  {
+   "id": "weapons-acq-spacex-xai",
+   "claim": "SpaceX said it acquired xAI; Bloomberg reported that the all-stock transaction values the combined SpaceX-xAI entity at $1.25 trillion.",
+   "url": "https://www.fonearena.com/blog/?p=474781",
+   "quotes": [
+    "SpaceX has acquired artificial intelligence company xAI, according to an official statement published on SpaceX's website and signed by Elon Musk.",
+    "Bloomberg reported that the all-stock transaction values the combined SpaceX–xAI entity at $1.25 trillion, citing people familiar with the matter"
+   ],
+   "values": [
+    "1.25"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "acquisition",
+   "value": 1250,
+   "unit": "USD bn",
+   "period": "February 2026",
+   "from": "spacex",
+   "to": "xai",
+   "accessed": "2026-11-07",
+   "notes": "Value is the reported combined valuation (USD 1.25 trillion), not xAI alone; all stock, an unlisted share price as currency."
+  },
+  {
+   "id": "weapons-acq-nvidia-groq",
+   "claim": "CNBC reported in December 2025 that NVIDIA agreed to acquire Groq for $20 billion in cash, though neither company commented; Groq says it licensed technology non-exclusively and staff moved to NVIDIA.",
+   "url": "https://www.storyboard18.com/digital/nvidia-to-license-groq-technology-and-hire-top-executives-in-big-tech-style-deal-86547.htm",
+   "quotes": [
+    "CNBC reported that Nvidia had agreed to acquire Groq for $20 billion in cash, though neither Nvidia nor Groq commented on the report."
+   ],
+   "values": [
+    "20"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "acquisition",
+   "value": 20,
+   "unit": "USD bn",
+   "period": "December 2025",
+   "from": "nvidia",
+   "to": "groq",
+   "accessed": "2026-11-07",
+   "notes": "Reported, not confirmed. Groq calls it a non-exclusive licence; its founder and engineers joined NVIDIA. Licence-and-hire."
+  },
+  {
+   "id": "weapons-acq-openai-io",
+   "claim": "OpenAI agreed in May 2025 to buy Jony Ive's io Products at a reported $6.5 billion valuation, paying $5 billion in shares for the 77% it did not own.",
+   "url": "https://siliconangle.com/2025/05/21/openai-acquires-jony-ives-io-products-6-5b-stock-deal/",
+   "quotes": [
+    "The deal reportedly values one-year-old io Products at $6.5 billion.",
+    "OpenAI, which already has a 23% stake in the startup as a result of an earlier investment, will pay $5 billion worth of shares for the remaining 77%."
+   ],
+   "values": [
+    "6.5",
+    "5"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "acquisition",
+   "value": 6.5,
+   "unit": "USD bn",
+   "period": "announced 21 May 2025",
+   "from": "openai",
+   "to": "io-products",
+   "accessed": "2026-11-07",
+   "notes": "All stock; a private company paying with its own valuation."
+  },
+  {
+   "id": "weapons-meta-buybacks-halted",
+   "claim": "Meta repurchased no Class A shares in the first nine months of 2026, against $26.2 billion in the first nine months of 2025, and raised $24.9 billion of long-term debt.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Repurchases of Class A common stock — (3,327) — (26,248) Payments for dividends and dividend equivalents (1,361) (1,330) (4,060) (3,986) Proceeds from issuance of long-term debt, net — — 24,910 —"
+   ],
+   "values": [
+    "26,248",
+    "24,910"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "buybacks",
+   "value": 0,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": "meta",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Columns: Q3 2026, Q3 2025, nine months 2026, nine months 2025. 2025 nine months: 26.248."
+  },
+  {
+   "id": "weapons-meta-dividends-9m",
+   "claim": "Meta paid $4.06 billion in dividends and dividend equivalents in the first nine months of 2026.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Repurchases of Class A common stock — (3,327) — (26,248) Payments for dividends and dividend equivalents (1,361) (1,330) (4,060) (3,986) Proceeds from issuance of long-term debt, net — — 24,910 —"
+   ],
+   "values": [
+    "4,060"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "dividends",
+   "value": 4.06,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": "meta",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "weapons-meta-sbc-9m",
+   "claim": "Meta's share-based compensation was $21.05 billion in the first nine months of 2026 and $7.36 billion in Q3 2026.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Depreciation and amortization 7,154 4,963 19,509 13,205 Share-based compensation 7,363 5,555 21,053 14,537"
+   ],
+   "values": [
+    "21,053",
+    "7,363"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "sbc",
+   "value": 21.053,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": "meta",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Nine months 2025: 14.537."
+  },
+  {
+   "id": "weapons-alphabet-buybacks-halted",
+   "claim": "Alphabet made no share repurchases in the first nine months of 2026, against $39.8 billion a year earlier, and raised $42.9 billion by issuing common stock.",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "quotes": [
+    "Repurchases of stock (11,504) 0 (39,810) 0 Dividend payments on preferred and common stock (2,537) (2,936) (7,513) (8,167) Proceeds from issuance of common stock, net of costs 0 12,371 0 42,870"
+   ],
+   "values": [
+    "39,810",
+    "42,870"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "buybacks",
+   "value": 0,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": "google",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Columns: Q3 2025, Q3 2026, nine months 2025, nine months 2026. The share price is being used as a funding source rather than returned."
+  },
+  {
+   "id": "weapons-alphabet-stock-issuance",
+   "claim": "Alphabet raised $42.9 billion in the first nine months of 2026 through the issuance of common stock, net of costs.",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "quotes": [
+    "Repurchases of stock (11,504) 0 (39,810) 0 Dividend payments on preferred and common stock (2,537) (2,936) (7,513) (8,167) Proceeds from issuance of common stock, net of costs 0 12,371 0 42,870"
+   ],
+   "values": [
+    "42,870"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "financing",
+   "value": 42.87,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": null,
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": "Equity raised by a company that earned over $200bn of net income in the period: the premium share price as capital."
+  },
+  {
+   "id": "weapons-alphabet-sbc",
+   "claim": "Alphabet's stock-based compensation was $23.3 billion in the first nine months of 2026 and $8.6 billion in Q3 2026.",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "quotes": [
+    "Stock-based compensation expense 6,368 8,630 17,882 23,338"
+   ],
+   "values": [
+    "23,338",
+    "8,630"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "sbc",
+   "value": 23.338,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": "google",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Columns: Q3 2025, Q3 2026, nine months 2025, nine months 2026."
+  },
+  {
+   "id": "weapons-alphabet-other-bets-loss",
+   "claim": "Other Bets revenue was $372 million, with an operating loss of $2.047 billion versus $1.426 billion a year earlier.",
+   "url": "https://www.securities.io/alphabet-q3-revenue-rises-25-as-google-cloud-revenue-jumps-103/",
+   "quotes": [
+    "Other Bets revenue was $372 million versus $344 million, with an operating loss of $2.047 billion versus $1.426 billion."
+   ],
+   "values": [
+    "2.047",
+    "1.426"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "segmentLoss",
+   "value": 2.047,
+   "unit": "USD bn",
+   "period": "quarter to 30 September 2026",
+   "from": "google",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Secondary source (securities.io) summarising Alphabet's Q3 2026 release. Alphabet-level activities (shared AI R&D) lost a further 7.655."
+  },
+  {
+   "id": "weapons-microsoft-returned-q1",
+   "claim": "Microsoft returned $10.2 billion to shareholders in dividends and repurchases in fiscal Q1 2027.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Microsoft returned $10.2 billion to shareholders in the form of dividends and share repurchases in the first quarter of fiscal year 2027."
+   ],
+   "values": [
+    "10.2"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "buybacks",
+   "value": 10.2,
+   "unit": "USD bn",
+   "period": "quarter to 30 September 2026",
+   "from": "microsoft",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Dividends plus repurchases."
+  },
+  {
+   "id": "weapons-apple-returned-q4",
+   "claim": "Apple generated $28 billion of operating cash flow in its September 2026 quarter and returned $28 billion to shareholders.",
+   "url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+   "quotes": [
+    "We generated $28 billion in operating cash flow during the quarter, allowing us to return $28 billion to shareholders."
+   ],
+   "values": [
+    "28"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "buybacks",
+   "value": 28,
+   "unit": "USD bn",
+   "period": "quarter to 26 September 2026",
+   "from": "apple",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Buybacks plus dividends."
+  },
+  {
+   "id": "weapons-nvidia-returned-q2",
+   "claim": "NVIDIA returned a record $26 billion to shareholders in fiscal Q2 2027 through buybacks and a dividend raised to $0.25 a share.",
+   "url": "https://primexbt.com/news/nvidia-returns-record-26-billion-to-shareholders-as-dividend-jumps-25-fold/",
+   "quotes": [
+    "Nvidia returned a record $26 billion to shareholders in its fiscal second quarter of 2027 through buybacks and a quarterly dividend that jumped 25-fold to $0.25 per share."
+   ],
+   "values": [
+    "26",
+    "0.25"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "buybacks",
+   "value": 26,
+   "unit": "USD bn",
+   "period": "fiscal Q2 2027 (quarter to 26 July 2026)",
+   "from": "nvidia",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Buybacks plus dividends; secondary source (PrimeXBT) summarising the earnings release."
+  },
+  {
+   "id": "weapons-reality-labs-cumulative",
+   "claim": "Reality Labs had accumulated $80 billion of operating losses by January 2026, since late 2020.",
+   "url": "https://en.wikipedia.org/wiki/Reality_Labs",
+   "quotes": [
+    "As of January 2026, Reality Labs has accumulated a total of $80 billion in total operating losses since late 2020."
+   ],
+   "values": [
+    "80"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "segmentLoss",
+   "value": 80,
+   "unit": "USD bn",
+   "period": "late 2020 to January 2026",
+   "from": "meta",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "weapons-reality-labs-q3",
+   "claim": "Reality Labs lost $4.13 billion in Q3 2026 and $12.78 billion in the first nine months.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Income (loss) from operations: Family of Apps $ 17,117 $ 24,967 $ 67,410 $ 71,702 Reality Labs (4,129) (4,432) (12,775) (13,171) Total income from operations $ 12,988 $ 20,535 $ 54,635 $ 58,531"
+   ],
+   "values": [
+    "4,129",
+    "12,775"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "segmentLoss",
+   "value": 4.129,
+   "unit": "USD bn",
+   "period": "quarter to 30 September 2026",
+   "from": "meta",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Family of Apps earned 17.1 in the quarter, so one segment funds the other."
+  },
+  {
+   "id": "weapons-reality-labs-guidance",
+   "claim": "Meta expects Reality Labs losses of $18-19 billion in 2026.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "At a segment level, we now expect Reality Labs losses to decline compared to 2025 to a range of $18-19 billion."
+   ],
+   "values": [
+    "18-19"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "segmentLoss",
+   "value": 18.5,
+   "unit": "USD bn",
+   "period": "2026 guidance",
+   "from": "meta",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Value is the midpoint of the 18-19 range."
+  },
+  {
+   "id": "weapons-amazon-leo-launches",
+   "claim": "Amazon bought 92 rocket launches for its satellite constellation at a total cost exceeding $10 billion.",
+   "url": "https://en.wikipedia.org/wiki/Project_Kuiper",
+   "quotes": [
+    "To support the constellation, Amazon has purchased 92 rocket launches from United Launch Alliance, ArianeGroup, and Blue Origin—the latter founded by Amazon executive chairman Jeff Bezos—for a total cost exceeding US$10 billion."
+   ],
+   "values": [
+    "92",
+    "10"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "contract",
+   "value": 10,
+   "unit": "USD bn",
+   "period": "as of 2026",
+   "from": "amazon",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Kuiper, renamed Amazon Leo; no revenue yet cited; funded by AWS and retail profits."
+  },
+  {
+   "id": "weapons-openai-burn-q1",
+   "claim": "OpenAI burned about $3.7 billion in cash in the first quarter of 2026, more than half of its $5.7 billion of revenue.",
+   "url": "https://the-decoder.com/openai-tripled-revenue-to-5-7-billion-in-q1-but-burned-through-3-7-billion-to-get-there/",
+   "quotes": [
+    "OpenAI burned through about $3.7 billion in the first quarter of 2026, more than half of its $5.7 billion in revenue."
+   ],
+   "values": [
+    "3.7",
+    "5.7"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "burn",
+   "value": 3.7,
+   "unit": "USD bn",
+   "period": "Q1 2026",
+   "from": "openai",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "weapons-openai-burn-2030",
+   "claim": "OpenAI expects to burn $278 billion in cash between 2026 and 2030, per a company presentation the Financial Times reviewed.",
+   "url": "https://www.thestar.com.my/tech/tech-news/2026/09/19/openai-forecasts-cash-burn-near-280-billion-by-2030-ft-reports",
+   "quotes": [
+    "burn through $278 billion in cash between 2026 and"
+   ],
+   "values": [
+    "278"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "burn",
+   "value": 278,
+   "unit": "USD bn",
+   "period": "2026 to 2030 forecast",
+   "from": "openai",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Reuters relaying the Financial Times, 18 September 2026. Forecast, not reported."
+  },
+  {
+   "id": "weapons-price-war-2026",
+   "claim": "Enterprise AI costs hit a 2026 low, driven by a global price war and cheap Chinese open-source models, according to Jefferies research.",
+   "url": "https://www.scmp.com/tech/tech-trends/article/3363549/enterprise-ai-costs-hit-2026-low-driven-price-wars-chinese-open-source-models-research",
+   "quotes": [
+    "Enterprise AI costs hit 2026 low driven by price wars, Chinese open-source models: research",
+    "The cost for businesses to run AI models has fallen to a yearly low, according to research by investment bank Jefferies, driven by a heated global price war and a surge in adoption of low-cost Chinese open-source tools, such as those from DeepSeek."
+   ],
+   "values": [
+    "2026"
+   ],
+   "dated2026": true,
+   "actor": "public-markets",
+   "kind": "pricing",
+   "value": 2026,
+   "unit": "year",
+   "period": "August 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Price war evidence; sources here do not prove below-cost pricing, so treat the subsidy claim as unverified."
+  },
+  {
+   "id": "weapons-talent-meta-300m",
+   "claim": "Wired reports that Meta is offering top AI researchers compensation packages worth up to $300 million over four years, with more than $100 million paid out in the first year alone.",
+   "url": "https://the-decoder.com/meta-reportedly-offers-top-openai-researchers-up-to-300-million-over-four-years",
+   "quotes": [
+    "Update July 2, 2025: Wired reports that Meta is offering top AI researchers compensation packages worth up to $300 million over four years, with more than $100 million paid out in the first year alone, according to multiple sources with direct knowledge of the deals."
+   ],
+   "values": [
+    "300",
+    "100"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "talent",
+   "value": 300,
+   "unit": "USD bn",
+   "period": "July 2025",
+   "from": "meta",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Packages included stock grants; at least ten offers went to OpenAI staff per the same source. Meta disputed the characterisation."
+  },
+  {
+   "id": "weapons-talent-altman-100m",
+   "claim": "Sam Altman said Meta tried to poach OpenAI staff with signing bonuses as high as $100 million.",
+   "url": "https://www.nbcdfw.com/news/business/money-report/sam-altman-says-meta-offered-openai-staff-100-million-bonuses-as-mark-zuckerberg-ramps-ai-poaching-efforts/3866383/",
+   "quotes": [
+    "Meta Platforms tried to poach OpenAI employees by offering signing bonuses as high as $100 million, with even larger annual compensation packages, OpenAI chief executive Sam Altman said."
+   ],
+   "values": [
+    "100"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "talent",
+   "value": 100,
+   "unit": "USD m",
+   "period": "June 2025",
+   "from": "meta",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Altman said none of OpenAI best people accepted. Meta CTO called the account exaggerated."
+  },
+  {
+   "id": "weapons-cisco-peak",
+   "claim": "Cisco became the world's most valuable company in March 2000 at over $500 billion, then lost $431 billion when the bubble burst.",
+   "url": "https://en.wikipedia.org/wiki/Cisco_Systems",
+   "quotes": [
+    "Cisco became the most valuable company in the world, with a market capitalization of more than $500 billion",
+    "before the loss of $431 billion when the bubble burst."
+   ],
+   "values": [
+    "500",
+    "431"
+   ],
+   "dated2026": false,
+   "actor": "cisco",
+   "kind": "marketCap",
+   "value": 500,
+   "unit": "USD bn",
+   "period": "March 2000",
+   "from": "cisco",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "weapons-dotcom-nasdaq",
+   "claim": "The Nasdaq Composite rose 600% from 1995 to March 2000 and then fell 78% by October 2002.",
+   "url": "https://en.wikipedia.org/wiki/Dot-com_bubble",
+   "quotes": [
+    "investments in the Nasdaq Composite stock market index rose by 600%",
+    "only to fall 78% from its peak by October 2002, giving up all its gains during the bubble."
+   ],
+   "values": [
+    "600",
+    "78"
+   ],
+   "dated2026": false,
+   "actor": "public-markets",
+   "kind": "event",
+   "value": 2000,
+   "unit": "year",
+   "period": "1995 to 2002",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Value is the peak year."
+  },
+  {
+   "id": "weapons-meta-2022-drawdown",
+   "claim": "Meta's share price fell 27% in February 2022 on a decline in profit, erasing about $230 billion of market value.",
+   "url": "https://en.wikipedia.org/wiki/Meta_Platforms",
+   "quotes": [
+    "The 27% reduction in the company's share price which occurred in reaction to the news eliminated some $230 billion of value from Meta's market capitalization."
+   ],
+   "values": [
+    "27",
+    "230"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "event",
+   "value": 2022,
+   "unit": "year",
+   "period": "February 2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Bloomberg called it a rout unlike anything Wall Street or Silicon Valley had seen."
+  },
+  {
+   "id": "weapons-wework-valuation",
+   "claim": "WeWork raised $12.8 billion at valuations up to $47 billion over ten years, went public by SPAC in 2021 and filed for Chapter 11 on 6 November 2023.",
+   "url": "https://en.wikipedia.org/wiki/WeWork",
+   "quotes": [
+    "Over the following 10 years, the company raised $12.8 billion in financing at valuations as high as $47 billion",
+    "filed for Chapter 11 bankruptcy protection on November 6, 2023."
+   ],
+   "values": [
+    "12.8",
+    "47"
+   ],
+   "dated2026": false,
+   "actor": "wework",
+   "kind": "valuation",
+   "value": 47,
+   "unit": "USD bn",
+   "period": "2019 peak; bankrupt November 2023",
+   "from": "wework",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "weapons-ftx-valuation",
+   "claim": "As of November 2022 FTX was valued at $32 billion; it entered Chapter 11 bankruptcy on 11 November 2022.",
+   "url": "https://en.wikipedia.org/wiki/FTX",
+   "quotes": [
+    "As of November 2022, FTX was the third-largest digital currency exchange boasting an active daily trading volume of US$10 billion and a valuation of $32 billion.",
+    "Since November 11, 2022, FTX has been in Chapter 11 bankruptcy proceedings in the US court system."
+   ],
+   "values": [
+    "32",
+    "10"
+   ],
+   "dated2026": false,
+   "actor": "ftx",
+   "kind": "valuation",
+   "value": 32,
+   "unit": "USD bn",
+   "period": "November 2022",
+   "from": "ftx",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "weapons-svb-failure",
+   "claim": "Silicon Valley Bank failed on 10 March 2023 holding $209 billion of assets, 86.4% of its deposits uninsured: the third-largest US bank failure.",
+   "url": "https://en.wikipedia.org/wiki/Collapse_of_Silicon_Valley_Bank",
+   "quotes": [
+    "As of the last call report of the bank, filed on December 31, 2022, it held $209 billion in total assets, with $175.5 billion in total deposits, of which the bank estimated $151.6 billion (86.4 percent) were uninsured.",
+    "On March 10, 2023, Silicon Valley Bank (SVB) failed after a bank run, marking the third-largest bank failure in United States history"
+   ],
+   "values": [
+    "209",
+    "86.4"
+   ],
+   "dated2026": false,
+   "actor": "svb",
+   "kind": "totalAssets",
+   "value": 209,
+   "unit": "USD bn",
+   "period": "31 December 2022",
+   "from": "svb",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "linkedin",
+   "name": "LinkedIn",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2002,
+   "role": "professional network bought by Microsoft in 2016",
+   "advantage": "Network economies over professional identity; bought with cash and debt rather than stock.",
+   "facts": [
+    "weapons-acq-linkedin"
+   ]
+  },
+  {
+   "id": "activision",
+   "name": "Activision Blizzard",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2008,
+   "role": "games publisher bought by Microsoft in 2023",
+   "advantage": "Content library that fills a platform; bought with cash.",
+   "facts": [
+    "weapons-acq-activision"
+   ]
+  },
+  {
+   "id": "wiz",
+   "name": "Wiz",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2020,
+   "role": "cloud security firm bought by Google in 2026",
+   "advantage": "Fastest-growing security product; bought for cash to harden Google Cloud.",
+   "facts": [
+    "weapons-acq-wiz"
+   ]
+  },
+  {
+   "id": "inflection",
+   "name": "Inflection AI",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2022,
+   "role": "chatbot lab emptied by a Microsoft licence-and-hire in 2024",
+   "advantage": "Talent was the asset; the licence structure moved it without a merger filing.",
+   "facts": [
+    "weapons-acq-inflection"
+   ]
+  },
+  {
+   "id": "character-ai",
+   "name": "Character.AI",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2021,
+   "role": "chatbot company whose founders returned to Google in 2024",
+   "advantage": "Talent and a user base, taken through a licence.",
+   "facts": [
+    "weapons-acq-characterai"
+   ]
+  },
+  {
+   "id": "windsurf",
+   "name": "Windsurf",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2021,
+   "role": "AI coding startup split between Google (licence-and-hire) and Cognition in 2025",
+   "advantage": "Coding agent product; its founders were hired away after OpenAI failed to buy it.",
+   "facts": [
+    "weapons-acq-windsurf"
+   ]
+  },
+  {
+   "id": "deepmind",
+   "name": "DeepMind",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2010,
+   "role": "London AI lab bought by Google in 2014; now part of google",
+   "advantage": "Research talent that Google, Facebook and Musk all courted.",
+   "facts": [
+    "weapons-acq-deepmind"
+   ]
+  },
+  {
+   "id": "youtube",
+   "name": "YouTube",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2005,
+   "role": "video platform bought by Google in 2006 for stock",
+   "advantage": "Network economies of creators and viewers.",
+   "facts": [
+    "weapons-acq-youtube"
+   ]
+  },
+  {
+   "id": "github",
+   "name": "GitHub",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2008,
+   "role": "code host bought by Microsoft in 2018 for stock",
+   "advantage": "Switching costs of repositories and developer habit.",
+   "facts": [
+    "weapons-acq-github"
+   ]
+  },
+  {
+   "id": "groq",
+   "name": "Groq",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2016,
+   "role": "inference-chip company; its leaders joined NVIDIA in a December 2025 licence deal",
+   "advantage": "Low-latency inference chips; neutralised as a rival by NVIDIA.",
+   "facts": [
+    "weapons-acq-nvidia-groq"
+   ]
+  },
+  {
+   "id": "io-products",
+   "name": "io Products",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2024,
+   "role": "Jony Ive's AI device startup, bought by OpenAI in 2025 for stock",
+   "advantage": "Design talent; paid for in OpenAI shares.",
+   "facts": [
+    "weapons-acq-openai-io"
+   ]
+  },
+  {
+   "id": "whole-foods",
+   "name": "Whole Foods Market",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 1980,
+   "role": "grocer bought by Amazon in 2017",
+   "advantage": "Physical retail footprint and brand; bought for cash.",
+   "facts": [
+    "weapons-acq-wholefoods"
+   ]
+  },
+  {
+   "id": "cisco",
+   "name": "Cisco",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 1984,
+   "role": "networking firm, most valuable company in the world in March 2000",
+   "advantage": "Scale and acquisitions paid in richly valued stock; then lost 431bn when the bubble burst.",
+   "facts": [
+    "weapons-cisco-peak"
+   ]
+  },
+  {
+   "id": "wework",
+   "name": "WeWork",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2010,
+   "role": "office-rental firm valued at 47bn in 2019, bankrupt in 2023",
+   "advantage": "Private-market valuation as a weapon: growth bought with capital, not margin.",
+   "facts": [
+    "weapons-wework-valuation"
+   ]
+  },
+  {
+   "id": "ftx",
+   "name": "FTX",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 2019,
+   "role": "crypto exchange valued at 32bn in January 2022, bankrupt in November 2022",
+   "advantage": "Valuation and venture-fund spending as a growth tool; collapsed when funding stopped.",
+   "facts": [
+    "weapons-ftx-valuation"
+   ]
+  },
+  {
+   "id": "svb",
+   "name": "Silicon Valley Bank",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "acquired or failed company",
+   "founded": 1983,
+   "role": "bank to the venture ecosystem; failed on 10 March 2023",
+   "advantage": "Concentrated deposits from venture-backed firms; a rate rise and a run ended it.",
+   "facts": [
+    "weapons-svb-failure"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "weapons-flow-google-wiz",
+   "from": "google",
+   "to": "wiz",
+   "usdBnPerYear": 32,
+   "what": "all-cash acquisition of cloud security",
+   "period": "announced March 2025, closed March 2026 (one time)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "weapons-acq-wiz"
+  },
+  {
+   "id": "weapons-flow-nvidia-groq",
+   "from": "nvidia",
+   "to": "groq",
+   "usdBnPerYear": 20,
+   "what": "cash for a licence and Groq leadership",
+   "period": "December 2025 (one time)",
+   "basis": "estimate",
+   "kind": "investment",
+   "fact": "weapons-acq-nvidia-groq"
+  },
+  {
+   "id": "weapons-flow-openai-io",
+   "from": "openai",
+   "to": "io-products",
+   "usdBnPerYear": 6.5,
+   "what": "shares for Jony Ive's device startup",
+   "period": "May 2025 (one time)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "weapons-acq-openai-io"
+  },
+  {
+   "id": "weapons-flow-google-windsurf",
+   "from": "google",
+   "to": "windsurf",
+   "usdBnPerYear": 2.4,
+   "what": "licence and hire",
+   "period": "July 2025 (one time)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "weapons-acq-windsurf"
+  },
+  {
+   "id": "weapons-flow-microsoft-inflection",
+   "from": "microsoft",
+   "to": "inflection",
+   "usdBnPerYear": 0.65,
+   "what": "licence and hire",
+   "period": "March 2024 (one time)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "weapons-acq-inflection"
+  },
+  {
+   "id": "weapons-flow-spacex-xai",
+   "from": "spacex",
+   "to": "xai",
+   "usdBnPerYear": 1250,
+   "what": "shares: merged entity valued at 1.25 trillion",
+   "period": "February 2026 (one time, valuation)",
+   "basis": "estimate",
+   "kind": "investment",
+   "fact": "weapons-acq-spacex-xai"
+  }
+ ],
+ "chokepoints": [],
+ "flashpoints": [
+  {
+   "id": "fp-facebook-instagram",
+   "year": 2012,
+   "date": "April 2012",
+   "era": "21st",
+   "holder": "meta",
+   "rivals": [
+    "instagram"
+   ],
+   "title": "Stock buys the rival before it grows",
+   "advantage": "a rising share price as currency",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "Facebook paid about $1bn in cash and stock for a photo app before it could become a rival network.",
+   "outcome": "Instagram, bought at $1bn, joined Meta; WhatsApp followed in 2014 at $19.3bn, 79% paid in stock and restricted stock.",
+   "facts": [
+    "weapons-acq-instagram",
+    "weapons-acq-whatsapp"
+   ]
+  },
+  {
+   "id": "fp-facebook-whatsapp",
+   "year": 2014,
+   "date": "February 2014",
+   "era": "21st",
+   "holder": "meta",
+   "rivals": [
+    "whatsapp"
+   ],
+   "title": "$15bn of shares for a messenger",
+   "advantage": "high-priced shares as acquisition currency",
+   "power": "network economies",
+   "triad": "environment",
+   "mechanism": "$12bn in Facebook shares plus $3bn of restricted stock units, retaining WhatsApp staff, bought the most popular messenger out of the market.",
+   "outcome": "A $19.3bn price, largest deal to date; the messenger now has billions of users inside Meta.",
+   "facts": [
+    "weapons-acq-whatsapp"
+   ]
+  },
+  {
+   "id": "fp-google-licence-hire",
+   "year": 2025,
+   "date": "2024-2025",
+   "era": "present",
+   "holder": "google",
+   "rivals": [
+    "openai",
+    "microsoft"
+   ],
+   "title": "Licence-and-hire: buying talent without buying the company",
+   "advantage": "cash pile and share price to outbid for founders",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Google paid about $2.7bn for Character.AI talent and $2.4bn for Windsurf leaders, taking them after OpenAI's $3bn bid fell apart.",
+   "outcome": "The startups remained legally independent, so the deals avoided a merger review; Microsoft had used the same structure for Inflection at $650m.",
+   "facts": [
+    "weapons-acq-characterai",
+    "weapons-acq-windsurf",
+    "weapons-acq-inflection"
+   ]
+  },
+  {
+   "id": "fp-meta-talent-raid",
+   "year": 2025,
+   "date": "June-July 2025",
+   "era": "present",
+   "holder": "meta",
+   "rivals": [
+    "openai"
+   ],
+   "title": "Meta pays for a lab",
+   "advantage": "share price funds pay no start-up can match",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Meta bought a stake in Scale AI for $14.3bn, hired its CEO, and offered researchers packages up to $300m over four years.",
+   "outcome": "Altman said none of OpenAI's best accepted; at least ten offers went to OpenAI staff. Meta's pay in stock rests on its own share price.",
+   "facts": [
+    "weapons-talent-meta-300m",
+    "weapons-talent-altman-100m",
+    "str-meta-scale-14bn"
+   ]
+  },
+  {
+   "id": "fp-meta-2022-rout",
+   "year": 2022,
+   "date": "February 2022",
+   "era": "21st",
+   "holder": "meta",
+   "rivals": [
+    "public-markets"
+   ],
+   "title": "The market punishes the loss-funded bet",
+   "advantage": "ad profits funding a VR land grab",
+   "power": "counter-positioning",
+   "triad": "environment",
+   "mechanism": "Reality Labs lost billions a year, funded by the ad business; when profit declined the share price fell 27%.",
+   "outcome": "About $230bn of value gone in a day; Reality Labs has lost $80bn since 2020 and Meta still expects $18-19bn of loss in 2026.",
+   "facts": [
+    "weapons-meta-2022-drawdown",
+    "weapons-reality-labs-cumulative",
+    "weapons-reality-labs-guidance"
+   ]
+  },
+  {
+   "id": "fp-cisco-2000",
+   "year": 2000,
+   "date": "March 2000",
+   "era": "20th",
+   "holder": "cisco",
+   "rivals": [
+    "public-markets"
+   ],
+   "title": "The biggest company in the world, then 431bn lost",
+   "advantage": "a stock price high enough to buy a whole sector",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "At the dot-com peak Cisco was worth over $500bn and paid for acquisitions with richly priced shares.",
+   "outcome": "The bubble burst: $431bn of value lost; the Nasdaq fell 78% by October 2002.",
+   "facts": [
+    "weapons-cisco-peak",
+    "weapons-dotcom-nasdaq"
+   ]
+  },
+  {
+   "id": "fp-wework-2019",
+   "year": 2019,
+   "date": "2019",
+   "era": "21st",
+   "holder": "wework",
+   "rivals": [
+    "softbank"
+   ],
+   "title": "47bn of valuation, then bankruptcy",
+   "advantage": "private valuation to subsidise growth",
+   "power": "branding",
+   "triad": "environment",
+   "mechanism": "WeWork raised $12.8bn at valuations up to $47bn and grew faster than its leases could earn.",
+   "outcome": "The IPO was cancelled in 2019; it listed by SPAC in 2021 and filed for Chapter 11 on 6 November 2023, with SoftBank affiliates taking 20% of the reorganised firm.",
+   "facts": [
+    "weapons-wework-valuation"
+   ]
+  },
+  {
+   "id": "fp-spacex-xai",
+   "year": 2026,
+   "date": "February 2026",
+   "era": "present",
+   "holder": "spacex",
+   "rivals": [
+    "openai",
+    "anthropic"
+   ],
+   "title": "Shares fold a loss-making lab into a profitable rocket firm",
+   "advantage": "an all-stock merger at a 1.25 trillion valuation",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "SpaceX swapped its own shares for xAI at a negotiated mark, tying the lab's compute needs to the parent's balance sheet and a coming IPO.",
+   "outcome": "A combined entity valued at about $1.25 trillion; SpaceX listed in June 2026 at $135 a share.",
+   "facts": [
+    "weapons-acq-spacex-xai",
+    "economy-spacex-ipo"
+   ]
+  },
+  {
+   "id": "fp-openai-burn",
+   "year": 2026,
+   "date": "2026",
+   "era": "present",
+   "holder": "openai",
+   "rivals": [
+    "anthropic",
+    "google"
+   ],
+   "title": "Losses funded by a valuation",
+   "advantage": "investor belief funds a burn that exceeds revenue",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "OpenAI burned $3.7bn in Q1 2026 on $5.7bn of revenue and forecasts $278bn of cash burn to 2030, all funded by investors and partners who trade capital for compute demand.",
+   "outcome": "The strategy works while capital stays cheap; if funding stops the burn cannot be sustained, which is how WeWork and FTX ended.",
+   "facts": [
+    "weapons-openai-burn-q1",
+    "weapons-openai-burn-2030",
+    "weapons-wework-valuation",
+    "weapons-ftx-valuation"
+   ]
+  },
+  {
+   "id": "fp-nvidia-groq",
+   "year": 2025,
+   "date": "December 2025",
+   "era": "present",
+   "holder": "nvidia",
+   "rivals": [
+    "groq",
+    "google"
+   ],
+   "title": "NVIDIA takes out an inference rival",
+   "advantage": "a cash pile that can buy a competitor's leaders",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "NVIDIA licensed Groq's technology and took its founder and engineers; CNBC put the deal at $20bn in cash, three times Groq's last valuation of $6.9bn.",
+   "outcome": "Groq stays nominally independent; the rival's team now works for the incumbent. The $20bn figure is reported, not confirmed.",
+   "facts": [
+    "weapons-acq-nvidia-groq"
+   ]
+  }
+ ],
+ "lineage": [],
+ "notes": "Unverified or excluded: Amazon Leo revenue; below-cost pricing is not proved by a primary source (only a Jefferies price-war finding). The $2.7bn Character.AI figure is WSJ-sourced and not confirmed by Google. NVIDIA-Groq $20bn is CNBC-reported. Apple, Microsoft, NVIDIA 8-Ks on sec.gov refused script fetches (403); company IR pages used where they fetched.",
+ "openQuestions": [
+  "Does a premium share price (P/E) actually predict acquisitions? Needs a dataset beyond this cluster.",
+  "Alphabet issued $42.9bn of common stock in 2026 while halting buybacks: what is it financing?",
+  "What are Meta's 2026 buyback plans after the new Class C stock?"
+ ]
+}

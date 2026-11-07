@@ -1,0 +1,1981 @@
+{
+ "cluster": "buildout",
+ "asOf": "2026-11-07",
+ "scope": "Who builds and owns the data centres, how it is paid for, and the individual-level flows (wages, buybacks, dividends, equity ownership) at the other end.",
+ "facts": [
+  {
+   "id": "buildout-coreweave-active-power",
+   "claim": "CoreWeave had 1.5 GW of active power at 30 June 2026, nearly 500 MW more than a quarter earlier.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Expanded active power by nearly 500 MWs to reach 1.5 GW Grew total contracted power to approximately 3.7 GW"
+   ],
+   "values": [
+    "1.5 GW",
+    "3.7 GW"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "capacity",
+   "value": 1.5,
+   "unit": "GW",
+   "period": "active power, 30 Jun 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Same bullet gives total contracted power of about 3.7 GW at 30 Jun 2026."
+  },
+  {
+   "id": "buildout-coreweave-contracted-power",
+   "claim": "CoreWeave raised its total contracted power to about 4.2 GW by 11 August 2026, from about 3.7 GW at 30 June 2026.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Continues-to-Contract-New-Compute-Capacity-at-Higher-Prices/default.aspx",
+   "quotes": [
+    "Furthermore, as previously announced on its second quarter earnings call on August 11, 2026, CoreWeave added more than $25 billion of net new customer commitments early in the third quarter of 2026, which are not reflected in the revenue backlog as of June 30, 2026, and increased its total contracted power to approximately 4.2 gigawatts as of August 11, 2026 from approximately 3.7 gigawatts as of June 30, 2026."
+   ],
+   "values": [
+    "4.2 gigawatts",
+    "3.7 gigawatts"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "capacity",
+   "value": 4.2,
+   "unit": "GW",
+   "period": "contracted power, 11 Aug 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The same sentence records more than $25 billion of net new customer commitments added early in Q3 2026."
+  },
+  {
+   "id": "buildout-coreweave-price-per-mw",
+   "claim": "CoreWeave signed short-dated contracts in Q3 2026 at about $40 million per megawatt of annualised revenue.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Continues-to-Contract-New-Compute-Capacity-at-Higher-Prices/default.aspx",
+   "quotes": [
+    "In the third quarter of 2026, CoreWeave has signed short-dated customer contracts of approximately three to six months, with pricing of approximately $40 million per megawatt, calculated as annualized revenue divided by power required to service the related clusters."
+   ],
+   "values": [
+    "40 million per megawatt"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "pricing",
+   "value": 40,
+   "unit": "USD mn per MW per year",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-meta-hyperion-5gw",
+   "claim": "Meta said it will expand its Hyperion campus in Louisiana to 5 GW from an initial 2 GW, with planned investment beyond $50 billion.",
+   "url": "https://www.tomshardware.com/tech-industry/data-centers/meta-expands-colossal-hyperion-ai-supercluster-plans-to-5gw-pushes-louisiana-investment-past-usd50-billion-as-ai-race-accelerates-says-it-plans-to-invest-over-usd1-billion-in-local-infrastructure-improvements",
+   "quotes": [
+    "Meta has said it will expand its Hyperion data center in Richland Parish, Louisiana, to 5 GW (gigawatts) of compute capacity from an initial 2 GW, pushing the company's planned investment in the region beyond $50 billion."
+   ],
+   "values": [
+    "5 GW",
+    "2 GW",
+    "$50 billion"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "capacity",
+   "value": 5,
+   "unit": "GW",
+   "period": "planned capacity, announced 13 Jul 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Planned, not operating."
+  },
+  {
+   "id": "buildout-meta-elpaso-1gw",
+   "claim": "Meta and BlackRock-managed funds are building a 1 GW data-centre campus in El Paso, Texas.",
+   "url": "https://about.fb.com/news/2026/07/meta-announces-new-venture-with-blackrock-to-develop-data-center-in-el-paso/",
+   "quotes": [
+    "The state-of-the-art data center campus, currently under construction in El Paso, Texas, will have 1 gigawatt of compute capacity and will play an essential role in bringing Meta's AI technologies to life, accelerating progress on AI models and supporting enhancements to the core business."
+   ],
+   "values": [
+    "1 gigawatt"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "capacity",
+   "value": 1,
+   "unit": "GW",
+   "period": "under construction, announced July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Capacity expected online from 2028 per the same release."
+  },
+  {
+   "id": "buildout-microsoft-1gw-quarter",
+   "claim": "Microsoft added 31 data centres and 1 GW of capacity in the quarter to 30 June 2026.",
+   "url": "https://www.datacenterdynamics.com/en/news/microsoft-brought-88-data-centers-online-in-fy2026/",
+   "quotes": [
+    "Speaking during the company's Q4 FY2026 and full-year earnings call, CEO Satya Nadella noted that in the last quarter alone, the company added 31 data centers across five continents, contributing 1GW of capacity. – Sebastian Moss/DatacenterDynamics This follows the trend of the previous two quarters, which also saw Microsoft growing its data center capacity by 1GW each."
+   ],
+   "values": [
+    "31",
+    "1GW"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "capacity",
+   "value": 1,
+   "unit": "GW",
+   "period": "quarter to 30 Jun 2026 (Q4 FY2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Nadella also said Microsoft remains on track to roughly double overall capacity in two years."
+  },
+  {
+   "id": "buildout-microsoft-2gw-fy2025",
+   "claim": "Microsoft brought online 2 GW of data-centre capacity in 2025.",
+   "url": "https://www.datacenterdynamics.com/en/news/microsoft-brought-88-data-centers-online-in-fy2026/",
+   "quotes": [
+    "In the full year of 2025, the company brought online 2GW. Nadella noted that the company remains on track to \"roughly double our overall capacity in just two years.\" According to the company's annual report, its total footprint, including data centers, office space and other facilities, now tops 112 million sq ft (10.4m sqm)."
+   ],
+   "values": [
+    "2GW"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "capacity",
+   "value": 2,
+   "unit": "GW",
+   "period": "full year 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-amazon-38gw",
+   "claim": "Amazon said it added more than 3.8 GW of power in the year to its Q3 2025 call, double AWS capacity in 2022, with a plan to double again by 2027.",
+   "url": "https://247wallst.com/investing/2025/11/03/3-big-winners-from-amazons-plan-to-double-capacity-by-2027/",
+   "quotes": [
+    "CEO Andy Jassy outlined Amazon's expansion plans during the earnings conference call, saying it added more than 3.8 gigawatts (GW) of power in the past year, double the power capacity that AWS had in 2022."
+   ],
+   "values": [
+    "3.8 gigawatts"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "capacity",
+   "value": 3.8,
+   "unit": "GW",
+   "period": "12 months to 30 Sep 2025 (call of 30 Oct 2025)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The source also quotes the target to double again by 2027."
+  },
+  {
+   "id": "buildout-spacex-operating-17gw",
+   "claim": "SemiAnalysis estimates SpaceX had 1.7 GW of data-centre capacity operating at the close of Q3 2026, with 3.6 GW under construction.",
+   "url": "https://aiweekly.co/alerts/spacex-pushes-13gw-data-center-target-by-2027-semianalysis-says",
+   "quotes": [
+    "SemiAnalysis pegs 1.7GW already operating at Q3 2026 close, with 3.6GW under active construction across Memphis, Starbase, and an unconfirmed Terafab site."
+   ],
+   "values": [
+    "1.7GW",
+    "3.6GW"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "capacity",
+   "value": 1.7,
+   "unit": "GW",
+   "period": "operating, close of Q3 2026 (SemiAnalysis estimate)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Third-party estimate, not a SpaceX disclosure. Includes xAI Colossus 1 and 2."
+  },
+  {
+   "id": "buildout-spacex-13gw-target",
+   "claim": "SemiAnalysis has SpaceX aiming for 13 GW of data-centre capacity by 2027, revised up from 10 GW.",
+   "url": "https://aiweekly.co/alerts/spacex-pushes-13gw-data-center-target-by-2027-semianalysis-says",
+   "quotes": [
+    "SemiAnalysis's latest energy model has SpaceX aiming for 13GW of data center capacity by 2027, revised up from an initial 10GW target, with roughly 3.6GW already under construction at sites it names as Colossus 2 near Memphis, a two-building complex at Starbase in Texas, and a 'TeraFab' project."
+   ],
+   "values": [
+    "13GW",
+    "10GW"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "capacity",
+   "value": 13,
+   "unit": "GW",
+   "period": "target for 2027 (SemiAnalysis, reported 4 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Third-party estimate."
+  },
+  {
+   "id": "buildout-spacex-colossus2-cooling",
+   "claim": "Satellite imagery in January 2026 reportedly showed Colossus 2 had cooling for 350 MW, against Musk's claim of 1 GW at launch.",
+   "url": "https://www.datacenterdynamics.com/en/news/spacex-secures-63bn-compute-capacity-deal-from-ai-startup-reflection/",
+   "quotes": [
+    "Despite Musk claiming it offered 1GW of capacity at launch, satellite imagery taken in January reportedly showed it had cooling equipment installed capable of managing 350MW. In May 2026, the company was reportedly deploying 19 natural gas turbines at the site."
+   ],
+   "values": [
+    "1GW",
+    "350MW"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "capacity",
+   "value": 350,
+   "unit": "MW",
+   "period": "Colossus 2 cooling capacity, January 2026 imagery",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Reported by DCD; claim versus imagery."
+  },
+  {
+   "id": "buildout-oracle-45gw-leasing",
+   "claim": "Oracle said it completed leasing arrangements for an additional 4.5 GW of capacity to support its commitments to OpenAI.",
+   "url": "https://tomshardware.com/tech-industry/oracle-rebuts-incorrect-reporting-on-stargate-expansion",
+   "quotes": [
+    "The company also said it has completed leasing arrangements for an additional 4.5 gigawatts of capacity to support its commitments to OpenAI. Recent media activity about the Abilene site are false and incorrect."
+   ],
+   "values": [
+    "4.5 gigawatts"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "capacity",
+   "value": 4.5,
+   "unit": "GW",
+   "period": "leasing completed, statement of 9 Mar 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Part of the Stargate build-out for OpenAI."
+  },
+  {
+   "id": "buildout-stargate-abilene-12gw",
+   "claim": "Oracle, Crusoe and OpenAI discussed lifting the Abilene campus from about 1.2 GW to about 2.0 GW; the expansion lease was not pursued.",
+   "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/openais-massive-stargate-data-center-canceled-as-firm-cant-reach-terms-with-oracle-operator-struggles-with-reliability-issues-meta-said-to-be-interested-in-snatching-excess-capacity",
+   "quotes": [
+    "Since mid-2025, Oracle, Crusoe, and OpenAI have discussed increasing data center power capacity from about 1.2 GW to roughly 2.0 GW, amid reluctance from locals."
+   ],
+   "values": [
+    "1.2 GW",
+    "2.0 GW"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "capacity",
+   "value": 1.2,
+   "unit": "GW",
+   "period": "Abilene committed capacity, reported March 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Oracle disputed the cancellation reports for the site itself; the expansion lease was dropped (see the Tom's Hardware report of 9 March 2026)."
+  },
+  {
+   "id": "buildout-meta-ppe",
+   "claim": "Meta's property and equipment, net, was $253.222 billion at 30 September 2026, against $176.400 billion at 31 December 2025.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Property and equipment, net 253,222 176,400"
+   ],
+   "values": [
+    "253,222",
+    "176,400"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "ppe",
+   "value": 253.222,
+   "unit": "USD bn",
+   "period": "30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Includes finance-lease assets as Meta groups them; Hyperion JV assets are held in the venture, not here."
+  },
+  {
+   "id": "buildout-meta-debt",
+   "claim": "Meta's long-term debt was $80.922 billion at 30 September 2026, up from $58.744 billion at year-end 2025.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Long-term debt 80,922 58,744"
+   ],
+   "values": [
+    "80,922",
+    "58,744"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "debt",
+   "value": 80.922,
+   "unit": "USD bn",
+   "period": "30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-meta-investments",
+   "claim": "Meta's non-marketable equity investments were $32.624 billion at 30 September 2026.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Non-marketable equity investments 32,624 27,524"
+   ],
+   "values": [
+    "32,624",
+    "27,524"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "investments",
+   "value": 32.624,
+   "unit": "USD bn",
+   "period": "30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-meta-no-buybacks",
+   "claim": "Meta repurchased no Class A stock in the first nine months of 2026, against $26.248 billion in the same period of 2025.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Repurchases of Class A common stock — (3,327) — (26,248)"
+   ],
+   "values": [
+    "26,248",
+    "3,327"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "buybacks",
+   "value": 0,
+   "unit": "USD bn",
+   "period": "nine months to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Columns: Q3 2026, Q3 2025, nine months 2026, nine months 2025. Cash went to capex and debt service instead."
+  },
+  {
+   "id": "buildout-meta-dividends-9m",
+   "claim": "Meta paid $4.060 billion in dividends and dividend equivalents in the first nine months of 2026.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Payments for dividends and dividend equivalents (1,361) (1,330) (4,060) (3,986)"
+   ],
+   "values": [
+    "4,060"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "dividends",
+   "value": 4.06,
+   "unit": "USD bn",
+   "period": "nine months to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-microsoft-ppe",
+   "claim": "Microsoft's property and equipment, net, was $346.844 billion at 30 September 2026, against $313.076 billion at 30 June 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Property and equipment, net of accumulated depreciation of $127,208 and $118,691 346,844 313,076"
+   ],
+   "values": [
+    "346,844",
+    "313,076"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "ppe",
+   "value": 346.844,
+   "unit": "USD bn",
+   "period": "30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Includes finance-lease assets."
+  },
+  {
+   "id": "buildout-microsoft-additions",
+   "claim": "Microsoft added $39.367 billion of property and equipment in cash in its fiscal Q1 2027, against $19.394 billion a year earlier.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Additions to property and equipment (39,367) (19,394)"
+   ],
+   "values": [
+    "39,367",
+    "19,394"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "capex",
+   "value": 39.367,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Cash additions only; Microsoft's headline capex of about $45 billion also counts finance leases."
+  },
+  {
+   "id": "buildout-microsoft-buybacks",
+   "claim": "Microsoft repurchased $4.379 billion of stock in its fiscal Q1 2027, against $5.650 billion a year earlier.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Common stock repurchased (4,379) (5,650) Common stock cash dividends paid (6,757) (6,169)"
+   ],
+   "values": [
+    "4,379",
+    "5,650"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "buybacks",
+   "value": 4.379,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-microsoft-dividends",
+   "claim": "Microsoft paid $6.757 billion of cash dividends in its fiscal Q1 2027.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Common stock repurchased (4,379) (5,650) Common stock cash dividends paid (6,757) (6,169)"
+   ],
+   "values": [
+    "6,757",
+    "6,169"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "dividends",
+   "value": 6.757,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-oracle-ppe",
+   "claim": "Oracle's property, plant and equipment, net, was $127.845 billion at 31 August 2026, up from $99.957 billion at 31 May 2026.",
+   "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+   "quotes": [
+    "Property, plant and equipment, net 127,845 99,957"
+   ],
+   "values": [
+    "127,845",
+    "99,957"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "ppe",
+   "value": 127.845,
+   "unit": "USD bn",
+   "period": "31 Aug 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-oracle-debt",
+   "claim": "Oracle's non-current notes payable and other borrowings were $117.712 billion at 31 August 2026.",
+   "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+   "quotes": [
+    "Notes payable and other borrowings, non-current 117,712 122,342"
+   ],
+   "values": [
+    "117,712",
+    "122,342"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "debt",
+   "value": 117.712,
+   "unit": "USD bn",
+   "period": "31 Aug 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Current borrowings of $7.625 billion are in addition."
+  },
+  {
+   "id": "buildout-coreweave-ppe",
+   "claim": "CoreWeave's property and equipment, net, was $46.736 billion at 30 June 2026, up from $30.557 billion at year-end 2025.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Property and equipment, net 46,736 30,557"
+   ],
+   "values": [
+    "46,736",
+    "30,557"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "ppe",
+   "value": 46.736,
+   "unit": "USD bn",
+   "period": "30 Jun 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-hyperion-bond",
+   "claim": "Blue Owl funds, through Beignet Investor, priced $27.3 billion of 6.581% senior secured bonds due May 2049 to finance Meta's Hyperion campus.",
+   "url": "https://www.ifre.com/ifr-awards/2327933/financing-package-blue-owl-capitalbeignet-investors-us27.3bn-23.6-year-bond",
+   "quotes": [
+    "On October 16, funds managed by Meta joint venture partner Blue Owl Capital, via subsidiary Beignet Investor, priced US$27.3bn of 6.581% senior secured bonds due May 2049 in 144A/Reg S format."
+   ],
+   "values": [
+    "27.3bn",
+    "6.581%"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "financing",
+   "value": 27.3,
+   "unit": "USD bn",
+   "period": "priced 16 Oct 2025",
+   "from": "bond-investors",
+   "to": "blue-owl",
+   "accessed": "2026-11-07",
+   "notes": "Beignet Investor is a Blue Owl-managed vehicle; Pimco was the main anchor investor per IFR. Meta leases the campus."
+  },
+  {
+   "id": "buildout-hyperion-jv-split",
+   "claim": "Blue Owl funds own 80% of the Hyperion joint venture and Meta 20%.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Announces-Joint-Venture-with-Funds-Managed-by-Blue-Owl-Capital-to-Develop-Hyperion-Data-Center/default.aspx",
+   "quotes": [
+    "Funds managed by Blue Owl Capital will own an 80% interest in the joint venture, while Meta will retain the remaining 20% ownership."
+   ],
+   "values": [
+    "80%",
+    "20%"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 80,
+   "unit": "%",
+   "period": "Hyperion JV, announced 2025",
+   "from": "blue-owl",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-hyperion-devcost",
+   "claim": "Meta and Blue Owl committed to fund their shares of about $27 billion of Hyperion development costs.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Announces-Joint-Venture-with-Funds-Managed-by-Blue-Owl-Capital-to-Develop-Hyperion-Data-Center/default.aspx",
+   "quotes": [
+    "The parties have committed to fund their respective pro rata share of the approximately $27 billion in total development costs for the buildings and long-lived power, cooling, and connectivity infrastructure at the campus."
+   ],
+   "values": [
+    "$27 billion"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "financing",
+   "value": 27,
+   "unit": "USD bn",
+   "period": "Hyperion total development cost, announced 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-hyperion-blueowl-cash",
+   "claim": "Blue Owl funds put about $7 billion of cash into the Hyperion venture and Meta received a distribution of about $3 billion.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Announces-Joint-Venture-with-Funds-Managed-by-Blue-Owl-Capital-to-Develop-Hyperion-Data-Center/default.aspx",
+   "quotes": [
+    "The funds managed by Blue Owl Capital made a cash contribution of approximately $7 billion to the joint venture, and Meta received a one-time distribution from the joint venture in the amount of approximately $3 billion."
+   ],
+   "values": [
+    "$7 billion",
+    "$3 billion"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "financing",
+   "value": 7,
+   "unit": "USD bn",
+   "period": "Hyperion JV formation, 2025",
+   "from": "blue-owl",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-hyperion-rvg",
+   "claim": "Meta gave the Hyperion venture a residual value guarantee for the first 16 years of operations.",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Announces-Joint-Venture-with-Funds-Managed-by-Blue-Owl-Capital-to-Develop-Hyperion-Data-Center/default.aspx",
+   "quotes": [
+    "To balance this optionality in a cost-efficient manner, Meta also provided the joint venture with a residual value guarantee for the first 16 years of operations whereby Meta would make a capped cash payment to the joint venture based on the then-current value of the campus if certain conditions are met following a non-renewal or termination of a lease."
+   ],
+   "values": [
+    "16 years"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "commitments",
+   "value": 16,
+   "unit": "years",
+   "period": "residual value guarantee, Hyperion JV",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Capped cash payment based on the campus value if a lease is not renewed or is terminated. Amount of the cap is not in this release."
+  },
+  {
+   "id": "buildout-elpaso-80pct",
+   "claim": "BlackRock-managed funds will own 80% of the El Paso data-centre venture and Meta 20%.",
+   "url": "https://about.fb.com/news/2026/07/meta-announces-new-venture-with-blackrock-to-develop-data-center-in-el-paso/",
+   "quotes": [
+    "Funds managed by BlackRock will own an 80% interest in the venture, while Meta will retain the remaining 20% ownership."
+   ],
+   "values": [
+    "80%",
+    "20%"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "stake",
+   "value": 80,
+   "unit": "%",
+   "period": "El Paso venture, July 2026",
+   "from": "blackrock",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-elpaso-devcost",
+   "claim": "Meta and BlackRock committed to fund their shares of about $14 billion of El Paso development costs.",
+   "url": "https://about.fb.com/news/2026/07/meta-announces-new-venture-with-blackrock-to-develop-data-center-in-el-paso/",
+   "quotes": [
+    "The parties have committed to fund their respective pro rata share of the approximately $14 billion in total development costs for the buildings and long-lived power, cooling, and connectivity infrastructure at the campus."
+   ],
+   "values": [
+    "$14 billion"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "financing",
+   "value": 14,
+   "unit": "USD bn",
+   "period": "El Paso total development cost, July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-oracle-vantage-loan",
+   "claim": "A record $38 billion construction loan for Vantage-built, Oracle-leased Stargate data centres had less than $1 billion left to syndicate by October 2026.",
+   "url": "https://aiweekly.co/alerts/banks-still-working-off-oracles-38b-ai-data-center-loan",
+   "quotes": [
+    "Six months in, the record $38B Oracle data-center loan has less than $1B left to syndicate across more than two dozen banks and investors."
+   ],
+   "values": [
+    "$38B",
+    "$1B"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "financing",
+   "value": 38,
+   "unit": "USD bn",
+   "period": "loan, 12 Oct 2026 report",
+   "from": "jpmorgan",
+   "to": "vantage",
+   "accessed": "2026-11-07",
+   "notes": "Lead banks JPMorgan and MUFG per the report; four-year term per Bloomberg 2025 reports."
+  },
+  {
+   "id": "buildout-oracle-vantage-split",
+   "claim": "The $38 billion loan splits into a $23.25 billion Texas facility and a $14.75 billion Wisconsin facility.",
+   "url": "https://aiweekly.co/alerts/banks-still-working-off-oracles-38b-ai-data-center-loan",
+   "quotes": [
+    "The debt splits into a $23.25B Texas facility and a $14.75B Wisconsin facility, both Vantage-built and Oracle-leased for the Stargate commitment with OpenAI. Some lenders are selling pieces to non-bank buyers at a discount; Oracle's rating sits one notch above junk after a July S&P downgrade."
+   ],
+   "values": [
+    "$23.25B",
+    "$14.75B"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "financing",
+   "value": 23.25,
+   "unit": "USD bn",
+   "period": "Texas facility (Wisconsin: 14.75)",
+   "from": "jpmorgan",
+   "to": "vantage",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-oracle-credit-rating",
+   "claim": "Oracle's credit rating sits one notch above junk after a July 2026 S&P downgrade, and lenders are selling loan pieces at a discount.",
+   "url": "https://aiweekly.co/alerts/banks-still-working-off-oracles-38b-ai-data-center-loan",
+   "quotes": [
+    "Some lenders are selling pieces to non-bank buyers at a discount; Oracle's rating sits one notch above junk after a July S&P downgrade."
+   ],
+   "values": [
+    "one notch above junk"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Oct 2026 report",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Bloomberg via AI Weekly."
+  },
+  {
+   "id": "buildout-amazon-debt",
+   "claim": "Amazon's long-term debt rose from $65.648 billion at 31 December 2025 to $173.125 billion at 30 September 2026.",
+   "url": "https://fourweekmba.com/ai-amazon-borrowed-48-1b-as-q3-capex-ran-1-8x-operating-cash/",
+   "quotes": [
+    "Long-term debt on the balance sheet rose from $65,648 million at 31 December 2025 to $173,125 million at 30 September 2026; by our arithmetic, an increase of about $107.5 billion."
+   ],
+   "values": [
+    "65,648",
+    "173,125"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "debt",
+   "value": 173.125,
+   "unit": "USD bn",
+   "period": "30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Secondary analysis of the 8-K; the arithmetic in the sentence is the source's own."
+  },
+  {
+   "id": "buildout-amazon-q3-debt-proceeds",
+   "claim": "Amazon raised $48.1 billion of long-term debt in Q3 2026, against none a year earlier.",
+   "url": "https://fourweekmba.com/ai-amazon-borrowed-48-1b-as-q3-capex-ran-1-8x-operating-cash/",
+   "quotes": [
+    "The same cash flow statement shows $48.1 billion of proceeds from long-term debt in the quarter, against none a year earlier."
+   ],
+   "values": [
+    "48.1 billion"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "financing",
+   "value": 48.1,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": "public-markets",
+   "to": "amazon",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-spacex-bond",
+   "claim": "SpaceX launched its first investment-grade bond sale, seeking at least $20 billion, on 22 June 2026.",
+   "url": "https://thenextweb.com/news/spacex-debut-investment-grade-bond-sale",
+   "quotes": [
+    "On Monday the rocket maker kicked off its first sale of investment-grade bonds. The company is seeking to raise at least $20bn, according to Bloomberg."
+   ],
+   "values": [
+    "$20bn"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "financing",
+   "value": 20,
+   "unit": "USD bn",
+   "period": "launched 22 Jun 2026",
+   "from": "public-markets",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "Most of the cash refinances a bridge loan of about the same size taken for the xAI acquisition; maturities five to 30 years."
+  },
+  {
+   "id": "buildout-xai-colossus2-debt-2025",
+   "claim": "xAI was working with a financier in July 2025 to secure $12 billion of debt for Colossus 2 and its GPU compute.",
+   "url": "https://www.datacenterdynamics.com/en/news/xai-seeks-12bn-in-debt-to-fund-colossus-2-data-center-with-first-chips-online-in-a-few-weeks/",
+   "quotes": [
+    "Elon Musk's xAI is working with a financier to secure $12 billion in debt to fund its Colossus 2 data center and its GPU compute."
+   ],
+   "values": [
+    "$12 billion"
+   ],
+   "dated2026": false,
+   "actor": "spacex",
+   "kind": "financing",
+   "value": 12,
+   "unit": "USD bn",
+   "period": "July 2025 report",
+   "from": null,
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "xAI is now part of SpaceX. Reported talks, not a closed deal."
+  },
+  {
+   "id": "buildout-coreweave-term-loan",
+   "claim": "CoreWeave closed a $3.1 billion term loan, the first publicly syndicated delayed-draw facility backed by HPC infrastructure.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Milestone $3.1 billion term loan, the first ever publicly syndicated delayed draw facility backed by HPC infrastructure"
+   ],
+   "values": [
+    "$3.1 billion"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "financing",
+   "value": 3.1,
+   "unit": "USD bn",
+   "period": "Q2 2026",
+   "from": "syndicated-lenders",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-coreweave-unsecured",
+   "claim": "CoreWeave raised more than $10 billion of unsecured debt and convertible bonds, including its first Eurobond.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "Raised more than $10 billion of unsecured debt and convertible bonds, including CoreWeave's inaugural Eurobond issuance"
+   ],
+   "values": [
+    "$10 billion"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "financing",
+   "value": 10,
+   "unit": "USD bn",
+   "period": "2026 to 11 Aug",
+   "from": "bond-investors",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-coreweave-jane-street",
+   "claim": "Jane Street made a $1 billion strategic investment in CoreWeave.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx",
+   "quotes": [
+    "$1 billion strategic investment from Jane Street following the expansion of commercial relationship in Q1 2026"
+   ],
+   "values": [
+    "$1 billion"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "investment",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "2026",
+   "from": "jane-street",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-google-cloud-backlog",
+   "claim": "Google Cloud's backlog was $561 billion in Q3 2026.",
+   "url": "https://fourweekmba.com/ai-google-cloud-revenue-doubles-to-30-7b-as-capex-hits-51-4b/",
+   "quotes": [
+    "Google Cloud's backlog was $561 billion in the third quarter, with the majority of the backlog related to typical GCP contracts."
+   ],
+   "values": [
+    "$561 billion"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "contract",
+   "value": 561,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "CFO Anat Ashkenazi on the 28 Oct 2026 call, quoted by a secondary source."
+  },
+  {
+   "id": "buildout-reflection-spacex-lease",
+   "claim": "Reflection AI agreed to pay SpaceX $150 million a month from July 2026 through 2029, $6.3 billion in total, for GB300 capacity at Colossus 2.",
+   "url": "https://www.datacenterdynamics.com/en/news/spacex-secures-63bn-compute-capacity-deal-from-ai-startup-reflection/",
+   "quotes": [
+    "CNBC reports that Reflection will be leasing access to Nvidia GB300s, and has agreed to pay $150 million per month from July 2026 through 2029, for a total of $6.3bn should the contract run to its full term."
+   ],
+   "values": [
+    "$150 million",
+    "$6.3bn"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "contract",
+   "value": 6.3,
+   "unit": "USD bn",
+   "period": "July 2026 to 2029",
+   "from": "reflection-ai",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-spacex-annual-contract-value",
+   "claim": "Anthropic and Google's compute contracts with SpaceX reach a combined annual contract value of $26 billion.",
+   "url": "https://aiweekly.co/alerts/spacex-pushes-13gw-data-center-target-by-2027-semianalysis-says",
+   "quotes": [
+    "Anthropic and Google's 90-day cancellation clauses in their compute contracts signal both buyers still see supply risk, even as combined annual contract value reaches $26B. SemiAnalysis's latest energy model has SpaceX aiming for 13GW of data center capacity by 2027, revised up from an initial 10GW target, with roughly 3.6GW already under construction at sites it names as Colossus 2 near Memphis, a two-building complex at Starbase in Texas, and a 'TeraFab' project."
+   ],
+   "values": [
+    "$26B"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "contract",
+   "value": 26,
+   "unit": "USD bn per year",
+   "period": "as of 4 Nov 2026",
+   "from": "anthropic",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "Both contracts carry 90-day cancellation clauses, per the report."
+  },
+  {
+   "id": "buildout-nvidia-customer-concentration",
+   "claim": "NVIDIA's latest disclosure shows four direct customers each above 10% of revenue, together 61% of the business, the largest at 22%.",
+   "url": "https://daloopa.com/blog/analyst-pov/nvidia-customer-concentration-a-big-4-earnings-preview",
+   "quotes": [
+    "NVIDIA's most recent disclosure shows four direct customers, each representing more than 10% of total revenue, collectively accounting for 61% of the business. The top single customer alone now represents 22%."
+   ],
+   "values": [
+    "61%",
+    "22%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 61,
+   "unit": "%",
+   "period": "latest annual disclosure (fiscal 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Direct customers include system makers and distributors; hyperscalers buy largely through them."
+  },
+  {
+   "id": "buildout-nvidia-backlog",
+   "claim": "NVIDIA's disclosed backlog for Blackwell and Rubin doubled to $1 trillion through 2027.",
+   "url": "https://daloopa.com/blog/analyst-pov/nvidia-customer-concentration-a-big-4-earnings-preview",
+   "quotes": [
+    "NVDA's disclosed backlog for Blackwell and Rubin doubled to $1 trillion through 2027, compared with the prior forecast through 2026."
+   ],
+   "values": [
+    "$1 trillion"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "contract",
+   "value": 1000,
+   "unit": "USD bn",
+   "period": "through 2027, as of the fiscal 2026 report",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-jassy-power-bottleneck",
+   "claim": "Amazon's CEO said that across the industry the bottleneck may be power.",
+   "url": "https://247wallst.com/investing/2025/11/03/3-big-winners-from-amazons-plan-to-double-capacity-by-2027/",
+   "quotes": [
+    "He noted, \"overall in the industry, maybe the bottleneck is power.\""
+   ],
+   "values": [
+    "bottleneck is power"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "statement",
+   "value": 2025,
+   "unit": "year",
+   "period": "Q3 2025 earnings call, 30 Oct 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-us-compensation-q3",
+   "claim": "Compensation of employees paid in the US ran at $16,487.969 billion a year in Q3 2026.",
+   "url": "https://fred.stlouisfed.org/data/COE.txt",
+   "quotes": [
+    "2025-10-01 15942.667 2026-01-01 16163.342 2026-04-01 16349.724 2026-07-01 16487.969"
+   ],
+   "values": [
+    "16487.969"
+   ],
+   "dated2026": true,
+   "actor": "households",
+   "kind": "flow",
+   "value": 16487.969,
+   "unit": "USD bn per year",
+   "period": "Q3 2026, seasonally adjusted annual rate",
+   "from": "enterprises",
+   "to": "households",
+   "accessed": "2026-11-07",
+   "notes": "BEA national income series COE via FRED, updated 29 Oct 2026. Includes government employers."
+  },
+  {
+   "id": "buildout-us-wages-sep",
+   "claim": "US wage and salary disbursements ran at $13,620.8 billion a year in September 2026.",
+   "url": "https://fred.stlouisfed.org/data/A576RC1.txt",
+   "quotes": [
+    "2026-08-01 13590.1 2026-09-01 13620.8"
+   ],
+   "values": [
+    "13620.8"
+   ],
+   "dated2026": true,
+   "actor": "households",
+   "kind": "flow",
+   "value": 13620.8,
+   "unit": "USD bn per year",
+   "period": "Sep 2026, seasonally adjusted annual rate",
+   "from": "enterprises",
+   "to": "households",
+   "accessed": "2026-11-07",
+   "notes": "BEA series A576RC1 via FRED, updated 29 Oct 2026."
+  },
+  {
+   "id": "buildout-us-corporate-profits-q2",
+   "claim": "US corporate profits after tax ran at $4,279.937 billion a year in Q2 2026.",
+   "url": "https://fred.stlouisfed.org/data/CP.txt",
+   "quotes": [
+    "2025-10-01 3783.725 2026-01-01 3948.352 2026-04-01 4279.937"
+   ],
+   "values": [
+    "4279.937"
+   ],
+   "dated2026": true,
+   "actor": "enterprises",
+   "kind": "netIncome",
+   "value": 4279.937,
+   "unit": "USD bn per year",
+   "period": "Q2 2026, seasonally adjusted annual rate",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "BEA series CP (without inventory valuation and capital consumption adjustments) via FRED, updated 30 Sep 2026."
+  },
+  {
+   "id": "buildout-us-personal-saving-sep",
+   "claim": "US personal saving was $911.1 billion in September 2026, a saving rate of 3.8 percent of disposable income.",
+   "url": "https://www.bea.gov/data/income-saving/personal-income",
+   "quotes": [
+    "Personal saving was $911.1 billion, and the personal saving rate—personal saving as a percentage of DPI—was 3.8 percent."
+   ],
+   "values": [
+    "$911.1 billion",
+    "3.8 percent"
+   ],
+   "dated2026": true,
+   "actor": "households",
+   "kind": "flow",
+   "value": 911.1,
+   "unit": "USD bn per year",
+   "period": "Sep 2026, seasonally adjusted annual rate",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "BEA Personal Income and Outlays, released 29 Oct 2026."
+  },
+  {
+   "id": "buildout-top1-equity-share",
+   "claim": "The top 1% of US households held 50.9% of corporate equities and mutual fund shares in Q2 2026.",
+   "url": "https://fred.stlouisfed.org/data/WFRBST01122.txt",
+   "quotes": [
+    "2025-10-01 50.599999999999994 2026-01-01 50.599999999999994 2026-04-01 50.900000000000000"
+   ],
+   "values": [
+    "50.900000000000000"
+   ],
+   "dated2026": true,
+   "actor": "top1",
+   "kind": "share",
+   "value": 50.9,
+   "unit": "%",
+   "period": "2026:Q2, Fed Distributional Financial Accounts",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Vintage of 18 Sep 2026."
+  },
+  {
+   "id": "buildout-top1-equity-share-1989",
+   "claim": "The top 1% of US households held 42.8% of corporate equities and mutual fund shares in 1989:Q3.",
+   "url": "https://fred.stlouisfed.org/data/WFRBST01122.txt",
+   "quotes": [
+    "1989-07-01 42.800000000000000 1989-10-01 42.800000000000000"
+   ],
+   "values": [
+    "42.800000000000000"
+   ],
+   "dated2026": true,
+   "actor": "top1",
+   "kind": "share",
+   "value": 42.8,
+   "unit": "%",
+   "period": "1989:Q3, Fed Distributional Financial Accounts",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-sp500-buybacks-12m",
+   "claim": "S&P 500 companies' buybacks over the 12 months to September 2025 were a record $1.020 trillion.",
+   "url": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth%2C-As-2025-Anticipates-a-Record-1-Trillion",
+   "quotes": [
+    "The 12-month September 2025 expenditure was a record $1.020 trillion and was up 11.1% from the 12-month September 2024 expenditure of $918.4 billion"
+   ],
+   "values": [
+    "$1.020 trillion"
+   ],
+   "dated2026": false,
+   "actor": "enterprises",
+   "kind": "buybacks",
+   "value": 1020,
+   "unit": "USD bn",
+   "period": "12 months to Sep 2025 (S&P DJI, 18 Dec 2025)",
+   "from": "enterprises",
+   "to": "public-markets",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-sp500-dividends-12m",
+   "claim": "S&P 500 dividends over the 12 months to September 2025 set a record $664.9 billion.",
+   "url": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth%2C-As-2025-Anticipates-a-Record-1-Trillion",
+   "quotes": [
+    "For the 12-month September 2025 period, dividends set a record $664.9 billion payment, up 7.9% on an aggregate basis from the prior 12-month's $616.2 billion."
+   ],
+   "values": [
+    "$664.9 billion"
+   ],
+   "dated2026": false,
+   "actor": "enterprises",
+   "kind": "dividends",
+   "value": 664.9,
+   "unit": "USD bn",
+   "period": "12 months to Sep 2025 (S&P DJI, 18 Dec 2025)",
+   "from": "enterprises",
+   "to": "public-markets",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-sp500-total-return-12m",
+   "claim": "S&P 500 buybacks plus dividends over the 12 months to September 2025 were a record $1.685 trillion.",
+   "url": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth%2C-As-2025-Anticipates-a-Record-1-Trillion",
+   "quotes": [
+    "Total shareholder returns for the 12-month September 2025 period increased 9.8% to a record $1.685 trillion from the 12-month September 2024's $1.535 trillion."
+   ],
+   "values": [
+    "$1.685 trillion"
+   ],
+   "dated2026": false,
+   "actor": "enterprises",
+   "kind": "buybacks",
+   "value": 1685,
+   "unit": "USD bn",
+   "period": "12 months to Sep 2025 (S&P DJI)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-sp500-buyback-concentration",
+   "claim": "The top 20 S&P 500 companies accounted for 49.5% of Q3 2025 buybacks.",
+   "url": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth%2C-As-2025-Anticipates-a-Record-1-Trillion",
+   "quotes": [
+    "Buyback concentration from the top 20 issues decreased to 49.5% from the prior 51.3%, remaining higher than the historical 47.8% rate."
+   ],
+   "values": [
+    "49.5%"
+   ],
+   "dated2026": false,
+   "actor": "enterprises",
+   "kind": "share",
+   "value": 49.5,
+   "unit": "%",
+   "period": "Q3 2025 (S&P DJI)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "buildout-sp500-top4-buybacks",
+   "claim": "Apple, NVIDIA, Alphabet and Meta accounted for $55.2 billion, over 22%, of S&P 500 buybacks in Q3 2025.",
+   "url": "https://press.spglobal.com/2025-12-18-S-P-500-Q3-2025-Buybacks-Post-Modest-6-2-Gain-to-249-0-Billion-After-Declining-20-1-Amidst-Uncertainty-in-Q2-Q4-2025-Expenditures-Expected-to-Post-Similar-Growth%2C-As-2025-Anticipates-a-Record-1-Trillion",
+   "quotes": [
+    "Of note were the top four: Apple, NVIDIA, Alphabet and Meta Platforms, which accounted for over 22% ($55.2 billion) of the S&P 500's Q3 2025 total buybacks."
+   ],
+   "values": [
+    "$55.2 billion",
+    "22%"
+   ],
+   "dated2026": false,
+   "actor": "enterprises",
+   "kind": "buybacks",
+   "value": 55.2,
+   "unit": "USD bn",
+   "period": "Q3 2025 (S&P DJI)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "meta",
+   "name": "Meta",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "internet",
+   "role": "builds gigawatt campuses for its own models and moves part of the cost into joint ventures",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "its own social-graph data and a large research bench",
+    "execution": "builds campuses in under two years and keeps no buyback running while it does",
+    "environment": "cheap investment-grade credit, and partners (Blue Owl, BlackRock) who take 80% of a campus"
+   },
+   "advantage": "Meta funds the build-out from operating cash flow, $80.9bn of debt and 80/20 joint ventures whose assets sit outside its property line, so it can plan 5 GW at one site.",
+   "standsOn": [
+    "nvidia",
+    "blue-owl",
+    "blackrock",
+    "us-gov"
+   ],
+   "competitors": [
+    "google",
+    "microsoft",
+    "amazon",
+    "spacex"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "enough compute to train frontier models on its own terms",
+   "fear": "stranded capacity if model demand does not follow the build",
+   "facts": [
+    "buildout-meta-ppe",
+    "buildout-meta-debt",
+    "buildout-meta-investments",
+    "buildout-meta-no-buybacks",
+    "buildout-meta-hyperion-5gw",
+    "buildout-meta-elpaso-1gw",
+    "buildout-hyperion-bond",
+    "buildout-hyperion-jv-split",
+    "buildout-hyperion-rvg"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "software",
+   "role": "the largest cloud buyer of GPUs for OpenAI and its own models",
+   "powers": [
+    "switching costs",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "enterprise telemetry across Azure and Office",
+    "execution": "added 1 GW in a quarter",
+    "environment": "long-term enterprise contracts and cheap credit"
+   },
+   "advantage": "Microsoft adds a gigawatt of capacity a quarter and finances it from cash flow, still returning $11bn a quarter to owners.",
+   "standsOn": [
+    "nvidia",
+    "openai"
+   ],
+   "competitors": [
+    "amazon",
+    "google",
+    "oracle"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to double capacity in two years",
+   "fear": "building ahead of paying demand",
+   "facts": [
+    "buildout-microsoft-ppe",
+    "buildout-microsoft-additions",
+    "buildout-microsoft-1gw-quarter",
+    "buildout-microsoft-2gw-fy2025",
+    "buildout-microsoft-buybacks",
+    "buildout-microsoft-dividends"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "cloud",
+   "role": "AWS is the second great owner of data-centre power",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "retail and cloud usage data",
+    "execution": "3.8 GW added in a year",
+    "environment": "access to the bond market"
+   },
+   "advantage": "Amazon has begun to fund the build with debt: long-term debt rose from $65.6bn to $173.1bn in nine months.",
+   "standsOn": [
+    "nvidia",
+    "us-gov"
+   ],
+   "competitors": [
+    "microsoft",
+    "google",
+    "oracle"
+   ],
+   "customers": [
+    "enterprises",
+    "anthropic",
+    "openai"
+   ],
+   "desire": "to double power again by 2027",
+   "fear": "power as the bottleneck",
+   "facts": [
+    "buildout-amazon-38gw",
+    "buildout-amazon-debt",
+    "buildout-amazon-q3-debt-proceeds",
+    "buildout-jassy-power-bottleneck"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Alphabet (Google)",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "internet",
+   "role": "owns TPU, cloud and DeepMind; sells capacity to rivals",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "search and model research",
+    "execution": "own chips",
+    "environment": "cash from search"
+   },
+   "advantage": "A cloud backlog of $561bn sits on its own chips and its own cash.",
+   "standsOn": [
+    "tsmc",
+    "broadcom"
+   ],
+   "competitors": [
+    "microsoft",
+    "amazon",
+    "nvidia"
+   ],
+   "customers": [
+    "anthropic",
+    "enterprises"
+   ],
+   "desire": "to turn backlog into revenue",
+   "fear": "capex outrunning backlog conversion",
+   "facts": [
+    "buildout-google-cloud-backlog"
+   ]
+  },
+  {
+   "id": "oracle",
+   "name": "Oracle",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "software",
+   "role": "builds and leases Stargate capacity for OpenAI",
+   "powers": [
+    "switching costs"
+   ],
+   "triad": {
+    "information": "enterprise database position",
+    "execution": "fast leasing",
+    "environment": "the OpenAI contract"
+   },
+   "advantage": "Oracle turned one customer's commitment into a $127.8bn property base and 4.5 GW of leases, paid for with $117.7bn of debt and off-balance-sheet lenders.",
+   "standsOn": [
+    "nvidia",
+    "openai",
+    "vantage",
+    "crusoe",
+    "jpmorgan"
+   ],
+   "competitors": [
+    "microsoft",
+    "amazon",
+    "google",
+    "coreweave"
+   ],
+   "customers": [
+    "openai"
+   ],
+   "desire": "to be the OpenAI landlord",
+   "fear": "the single customer failing to pay",
+   "facts": [
+    "buildout-oracle-ppe",
+    "buildout-oracle-debt",
+    "buildout-oracle-45gw-leasing",
+    "buildout-stargate-abilene-12gw",
+    "buildout-oracle-vantage-loan",
+    "buildout-oracle-vantage-split",
+    "buildout-oracle-credit-rating"
+   ]
+  },
+  {
+   "id": "coreweave",
+   "name": "CoreWeave",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "neocloud",
+   "role": "rents NVIDIA capacity to labs on short and long contracts",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "GPU operations",
+    "execution": "500 MW added in a quarter",
+    "environment": "NVIDIA allocation and high-yield credit"
+   },
+   "advantage": "Contracts at about $40m per MW of annual revenue back $46.7bn of property and a stack of secured and unsecured debt.",
+   "standsOn": [
+    "nvidia"
+   ],
+   "competitors": [
+    "oracle",
+    "amazon",
+    "microsoft"
+   ],
+   "customers": [
+    "openai",
+    "meta",
+    "microsoft"
+   ],
+   "desire": "4.2 GW under contract",
+   "fear": "refinancing: interest expense is already about $640m a quarter",
+   "facts": [
+    "buildout-coreweave-active-power",
+    "buildout-coreweave-contracted-power",
+    "buildout-coreweave-price-per-mw",
+    "buildout-coreweave-ppe",
+    "buildout-coreweave-term-loan",
+    "buildout-coreweave-unsecured",
+    "buildout-coreweave-jane-street"
+   ]
+  },
+  {
+   "id": "spacex",
+   "name": "SpaceX (with xAI)",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "aerospace and AI",
+   "role": "owns Colossus 1 and 2 and leases them to labs",
+   "powers": [
+    "cornered resource",
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "Grok and X data",
+    "execution": "greenfield campuses in months",
+    "environment": "behind-the-meter power and an IPO war chest"
+   },
+   "advantage": "SemiAnalysis counts 1.7 GW operating and 13 GW targeted for 2027, funded by an IPO, a bond and tenant contracts.",
+   "standsOn": [
+    "nvidia"
+   ],
+   "competitors": [
+    "microsoft",
+    "amazon",
+    "google",
+    "oracle"
+   ],
+   "customers": [
+    "anthropic",
+    "google",
+    "reflection-ai"
+   ],
+   "desire": "13 GW by 2027",
+   "fear": "tenants with 90-day cancellation clauses",
+   "facts": [
+    "buildout-spacex-operating-17gw",
+    "buildout-spacex-13gw-target",
+    "buildout-spacex-colossus2-cooling",
+    "buildout-spacex-bond",
+    "buildout-xai-colossus2-debt-2025",
+    "buildout-reflection-spacex-lease",
+    "buildout-spacex-annual-contract-value"
+   ]
+  },
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "role": "sells to the data-centre owners above",
+   "powers": [
+    "switching costs"
+   ],
+   "triad": {
+    "information": "CUDA",
+    "execution": "cadence",
+    "environment": "demand upstream"
+   },
+   "advantage": "Four direct customers are 61% of revenue; the backlog is $1 trillion through 2027.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "amd",
+    "broadcom"
+   ],
+   "customers": [
+    "microsoft",
+    "amazon",
+    "google",
+    "meta",
+    "oracle",
+    "coreweave",
+    "spacex"
+   ],
+   "desire": "to keep every build on its chips",
+   "fear": "customer concentration and in-house silicon",
+   "facts": [
+    "buildout-nvidia-customer-concentration",
+    "buildout-nvidia-backlog"
+   ]
+  },
+  {
+   "id": "blue-owl",
+   "name": "Blue Owl Capital",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "role": "holds 80% of the Hyperion venture and issued its $27.3bn bond",
+   "facts": [
+    "buildout-hyperion-jv-split",
+    "buildout-hyperion-bond",
+    "buildout-hyperion-blueowl-cash"
+   ]
+  },
+  {
+   "id": "blackrock",
+   "name": "BlackRock",
+   "kind": "fund",
+   "country": "US",
+   "layer": "owners",
+   "role": "holds 80% of the El Paso venture",
+   "facts": [
+    "buildout-elpaso-80pct",
+    "buildout-elpaso-devcost"
+   ]
+  },
+  {
+   "id": "vantage",
+   "name": "Vantage Data Centers",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "role": "builds Oracle-leased campuses with a $38bn loan",
+   "facts": [
+    "buildout-oracle-vantage-loan"
+   ]
+  },
+  {
+   "id": "bond-investors",
+   "name": "Bond investors (Pimco and others)",
+   "kind": "fund",
+   "country": "US",
+   "layer": "capital",
+   "role": "buy the vehicle and corporate bonds that fund the build",
+   "facts": [
+    "buildout-hyperion-bond",
+    "buildout-spacex-bond"
+   ]
+  },
+  {
+   "id": "syndicated-lenders",
+   "name": "Syndicated lenders",
+   "kind": "fund",
+   "country": "US",
+   "layer": "capital",
+   "role": "term-loan lenders to the neoclouds",
+   "facts": [
+    "buildout-coreweave-term-loan"
+   ]
+  },
+  {
+   "id": "jane-street",
+   "name": "Jane Street",
+   "kind": "hedge",
+   "country": "US",
+   "layer": "owners",
+   "role": "$1bn strategic investor in CoreWeave",
+   "facts": [
+    "buildout-coreweave-jane-street"
+   ]
+  },
+  {
+   "id": "reflection-ai",
+   "name": "Reflection AI",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "role": "pays SpaceX $150m a month for Colossus 2 capacity",
+   "facts": [
+    "buildout-reflection-spacex-lease"
+   ]
+  },
+  {
+   "id": "households",
+   "name": "US households",
+   "kind": "households",
+   "country": "US",
+   "layer": "owners",
+   "role": "earn compensation and own equities, half of them through the top 1%",
+   "facts": [
+    "buildout-us-compensation-q3",
+    "buildout-us-wages-sep",
+    "buildout-us-personal-saving-sep"
+   ]
+  },
+  {
+   "id": "top1",
+   "name": "Top 1% of households",
+   "kind": "households",
+   "country": "US",
+   "layer": "owners",
+   "role": "hold half of corporate equities and fund shares",
+   "facts": [
+    "buildout-top1-equity-share",
+    "buildout-top1-equity-share-1989"
+   ]
+  },
+  {
+   "id": "enterprises",
+   "name": "US corporations",
+   "kind": "aggregate",
+   "country": "US",
+   "layer": "buyers",
+   "role": "pay wages, buybacks and dividends",
+   "facts": [
+    "buildout-us-corporate-profits-q2",
+    "buildout-sp500-buybacks-12m",
+    "buildout-sp500-dividends-12m",
+    "buildout-sp500-total-return-12m",
+    "buildout-sp500-buyback-concentration",
+    "buildout-sp500-top4-buybacks"
+   ]
+  },
+  {
+   "id": "grid-power",
+   "name": "Grid and on-site power",
+   "kind": "constraint",
+   "country": "US",
+   "layer": "energy",
+   "role": "the physical limit on the build",
+   "facts": [
+    "buildout-jassy-power-bottleneck",
+    "buildout-spacex-colossus2-cooling"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "buildout-flow-hyperion-bond",
+   "from": "bond-investors",
+   "to": "blue-owl",
+   "usdBnPerYear": 27.3,
+   "what": "senior secured bonds for the Hyperion campus",
+   "period": "Oct 2025 (one-off)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "buildout-hyperion-bond",
+   "notes": "One-off raise, 23.6-year bond; not an annual flow."
+  },
+  {
+   "id": "buildout-flow-blueowl-meta",
+   "from": "blue-owl",
+   "to": "meta",
+   "usdBnPerYear": 7,
+   "what": "cash into the Hyperion venture",
+   "period": "2025 (one-off)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "buildout-hyperion-blueowl-cash",
+   "notes": "Meta received about $3bn back as a distribution."
+  },
+  {
+   "id": "buildout-flow-jpm-vantage",
+   "from": "jpmorgan",
+   "to": "vantage",
+   "usdBnPerYear": 9.5,
+   "what": "construction loan for Oracle-leased Texas and Wisconsin campuses",
+   "period": "facility of $38bn over about four years",
+   "basis": "estimate",
+   "kind": "investment",
+   "fact": "buildout-oracle-vantage-loan",
+   "notes": "$38bn divided by a four-year term (term from 2025 Bloomberg reports; not in the fact quote)."
+  },
+  {
+   "id": "buildout-flow-bonds-spacex",
+   "from": "public-markets",
+   "to": "spacex",
+   "usdBnPerYear": 20,
+   "what": "debut bond sale",
+   "period": "launched 22 Jun 2026 (one-off)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "buildout-spacex-bond",
+   "notes": "At least $20bn sought; mostly refinances a bridge loan."
+  },
+  {
+   "id": "buildout-flow-reflection-spacex",
+   "from": "reflection-ai",
+   "to": "spacex",
+   "usdBnPerYear": 1.8,
+   "what": "GB300 capacity lease at Colossus 2",
+   "period": "July 2026 to 2029",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "buildout-reflection-spacex-lease",
+   "notes": "$150m a month; $6.3bn over the term."
+  },
+  {
+   "id": "buildout-flow-wages",
+   "from": "enterprises",
+   "to": "households",
+   "usdBnPerYear": 16487.969,
+   "what": "compensation of employees (includes government employers)",
+   "period": "Q3 2026 annual rate",
+   "basis": "reported",
+   "kind": "wage",
+   "fact": "buildout-us-compensation-q3",
+   "notes": ""
+  },
+  {
+   "id": "buildout-flow-buybacks",
+   "from": "enterprises",
+   "to": "public-markets",
+   "usdBnPerYear": 1020,
+   "what": "S&P 500 buybacks",
+   "period": "12 months to Sep 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "buildout-sp500-buybacks-12m",
+   "notes": "Flows to all holders of the shares, not to households alone."
+  },
+  {
+   "id": "buildout-flow-dividends",
+   "from": "enterprises",
+   "to": "public-markets",
+   "usdBnPerYear": 664.9,
+   "what": "S&P 500 dividends",
+   "period": "12 months to Sep 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "buildout-sp500-dividends-12m",
+   "notes": "Flows to all holders of the shares."
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "nvidia",
+   "controls": "the accelerators that fill every data centre above",
+   "share": "four direct customers are 61% of revenue",
+   "alternatives": "custom silicon, ramping through 2027 per the source",
+   "facts": [
+    "buildout-nvidia-customer-concentration",
+    "buildout-nvidia-backlog"
+   ]
+  },
+  {
+   "actor": "grid-power",
+   "controls": "the speed at which a campus can be energised",
+   "share": "Amazon's CEO: maybe the bottleneck is power",
+   "alternatives": "behind-the-meter gas and batteries (SpaceX, Meta with Entergy)",
+   "facts": [
+    "buildout-jassy-power-bottleneck",
+    "buildout-spacex-colossus2-cooling"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-hyperion-spv",
+   "year": 2025,
+   "date": "2025-10-16",
+   "era": "present",
+   "holder": "meta",
+   "rivals": [
+    "microsoft",
+    "google",
+    "amazon"
+   ],
+   "title": "Meta moves a $27bn campus off its balance sheet",
+   "advantage": "cheap partner capital",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Blue Owl funds own 80% of the venture, a bond priced at 6.581% funds it, and Meta leases the campus and guarantees its value for 16 years.",
+   "outcome": "$27.3bn bond; Meta received about $3bn; a second 80/20 venture followed with BlackRock in July 2026.",
+   "facts": [
+    "buildout-hyperion-bond",
+    "buildout-hyperion-jv-split",
+    "buildout-hyperion-rvg",
+    "buildout-hyperion-blueowl-cash",
+    "buildout-elpaso-80pct"
+   ]
+  },
+  {
+   "id": "fp-spacex-warchest",
+   "year": 2026,
+   "date": "2026-06-22",
+   "era": "present",
+   "holder": "spacex",
+   "rivals": [
+    "openai",
+    "anthropic",
+    "microsoft"
+   ],
+   "title": "SpaceX turns its listing into a data-centre war chest",
+   "advantage": "equity currency and bond access",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "An IPO, then a debut bond of at least $20bn, then tenant contracts, fund a build the estimate puts at 1.7 GW now and 13 GW by 2027.",
+   "outcome": "Reflection pays $150m a month; Anthropic and Google contracts reach $26bn a year but can be cancelled in 90 days.",
+   "facts": [
+    "buildout-spacex-bond",
+    "buildout-spacex-operating-17gw",
+    "buildout-spacex-13gw-target",
+    "buildout-reflection-spacex-lease",
+    "buildout-spacex-annual-contract-value"
+   ]
+  },
+  {
+   "id": "fp-oracle-leverage",
+   "year": 2026,
+   "date": "2026-10-12",
+   "era": "present",
+   "holder": "oracle",
+   "rivals": [
+    "coreweave",
+    "microsoft",
+    "amazon"
+   ],
+   "title": "Oracle borrows to build for a single customer",
+   "advantage": "an OpenAI commitment as collateral",
+   "power": "switching costs",
+   "triad": "execution",
+   "mechanism": "A record $38bn loan to Vantage funds campuses Oracle leases for OpenAI, on top of $117.7bn of borrowings on its own balance sheet.",
+   "outcome": "Rating one notch above junk after a July downgrade; lenders sell loan pieces at a discount.",
+   "facts": [
+    "buildout-oracle-vantage-loan",
+    "buildout-oracle-vantage-split",
+    "buildout-oracle-credit-rating",
+    "buildout-oracle-debt",
+    "buildout-oracle-ppe"
+   ]
+  },
+  {
+   "id": "fp-neocloud-leverage",
+   "year": 2026,
+   "date": "2026-08-11",
+   "era": "present",
+   "holder": "coreweave",
+   "rivals": [
+    "oracle",
+    "amazon",
+    "microsoft"
+   ],
+   "title": "A neocloud buys power with debt",
+   "advantage": "speed to contracted power",
+   "power": "cornered resource",
+   "triad": "execution",
+   "mechanism": "Contracted power rose from 3.7 GW to 4.2 GW in six weeks, financed by a $3.1bn syndicated loan, over $10bn of unsecured debt and a $1bn strategic stake.",
+   "outcome": "Property and equipment grew from $30.6bn to $46.7bn in six months; short contracts now price at about $40m per MW.",
+   "facts": [
+    "buildout-coreweave-contracted-power",
+    "buildout-coreweave-term-loan",
+    "buildout-coreweave-unsecured",
+    "buildout-coreweave-jane-street",
+    "buildout-coreweave-price-per-mw",
+    "buildout-coreweave-ppe"
+   ]
+  }
+ ],
+ "lineage": [],
+ "notes": "Not verified, so kept out of the data: Alphabet property and equipment of $372.8bn at 30 Sep 2026 and Meta lease commitments of $355.7bn not yet commenced (both in 10-Qs on sec.gov, which refuses scripts); Amazon and Alphabet total gigawatts (not disclosed); the Abilene JPMorgan loans of $9.6bn and Pimco's $18bn in the Hyperion bond (press only); OpenAI's Stargate total of 8 GW and 10 GW by 2029 (openai.com refuses scripts); ICI 401(k) assets of $10.8tn at 30 Jun 2026 (ici.org refuses scripts); S&P DJI buybacks for Q4 2025 to Q2 2026 (releases not found, so the buyback facts are for the 12 months to September 2025); SpaceX bond final pricing; Colossus 2 true IT power (disputed: 350 MW cooling per imagery, 1 GW per Musk, 850 MW per Epoch AI). Several facts rest on aggregators that quote filings (fourweekmba, aiweekly, daloopa); they pass the gate only as far as the text supports them.",
+ "openQuestions": [
+  "What is the cap on Meta's residual value guarantee for Hyperion and El Paso (about $13bn aggregate for El Paso per the 10-Q)?",
+  "Did the $20bn SpaceX bond price, and at what coupon?",
+  "How much of CoreWeave's debt is non-recourse at 30 Sep 2026 (Q3 results due about 10-12 Nov)?",
+  "What share of NVIDIA revenue is hyperscaler-built capacity once indirect customers are counted?",
+  "Which S&P DJI figure covers calendar 2025 and the first half of 2026 buybacks?"
+ ]
+}

@@ -29,7 +29,11 @@ OUT = os.path.join(RESEARCH, "model.json")
 CLUSTERS = ["strategist", "compute", "labs", "economy", "lineage", "century", "archetypes"]
 SPECIAL = {"verification.json", "model.json", "judgments.json", "scenarios.json", "review.json"}
 NUMBER_KINDS = ("marketCap", "valuation", "revenue", "runRate", "netIncome", "operatingIncome", "operatingMarginPct",
-                "grossMarginPct", "assets", "capex", "headcount")
+                "grossMarginPct", "assets", "capex", "headcount",
+                # round two: the balance sheet, valuation, the share price's uses, losses
+                "totalAssets", "cash", "ppe", "goodwill", "intangibles", "investments", "totalLiabilities", "debt", "leases",
+                "equity", "peRatio", "netIncomeTTM", "revenueTTM", "buybacks", "dividends", "sbc", "burn", "segmentLoss", "commitments")
+PLAIN_UNITS = ("operatingMarginPct", "grossMarginPct", "headcount", "peRatio")
 TEXT = ("name", "kind", "country", "layer", "sector", "role", "advantage", "desire", "fear")
 LISTS = ("powers", "standsOn", "competitors", "customers", "facts")
 
@@ -196,12 +200,10 @@ def main():
                 continue
             fid = sorted(cands, key=lambda x: (not facts[x]["dated2026"], -latest_year(facts[x]["period"])))[0]
             f = facts[fid]
-            value = usd_bn(f["value"], f["unit"]) if kind not in ("operatingMarginPct", "grossMarginPct", "headcount") \
-                else number(f["value"])
+            value = usd_bn(f["value"], f["unit"]) if kind not in PLAIN_UNITS else number(f["value"])
             if value is None:
                 continue
-            nums[kind] = {"value": value, "unit": "USD bn" if kind not in ("operatingMarginPct", "grossMarginPct", "headcount")
-                          else f["unit"], "period": f["period"], "fact": fid}
+            nums[kind] = {"value": value, "unit": "USD bn" if kind not in PLAIN_UNITS else f["unit"], "period": f["period"], "fact": fid}
         if "operatingMarginPct" not in nums and "operatingIncome" in nums and "revenue" in nums \
                 and latest_year(nums["operatingIncome"]["period"]) == latest_year(nums["revenue"]["period"]) \
                 and nums["revenue"]["value"] > 0:
@@ -209,6 +211,9 @@ def main():
                                           "unit": "%", "period": nums["revenue"]["period"],
                                           "fact": [nums["operatingIncome"]["fact"], nums["revenue"]["fact"]], "derived": True}
         a["numbers"] = nums
+        a["candidates"] = {kind: [fid for fid in by_actor.get(aid, []) if facts[fid]["kind"] == kind]
+                           for kind in ("commitments", "buybacks", "dividends", "sbc", "burn", "segmentLoss")
+                           if any(facts[fid]["kind"] == kind for fid in by_actor.get(aid, []))}
         if a["era"] == "present" and not a.get("stub") and "marketCap" not in nums and "valuation" not in nums:
             report["actors without size"].append(aid)
 

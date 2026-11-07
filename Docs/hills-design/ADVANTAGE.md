@@ -1,168 +1,193 @@
-# The present as a contest: the competitive-advantage design
+# The present as a contest: the corporate biosphere
 
-Written 7 Nov 2026 for the user's request of the same day (verbatim in `Docs/research/advantage/brief.md`). The causality
-timeline stays as it is. Key I still opens the 2026 cross-section into a 3D hillside, but the hillside is rebuilt
-around competitive advantage. The industry terraces of the previous present stay reachable from the view bar.
+Rewritten 7 Nov 2026, from the user's second direction of the same day (verbatim in
+`Docs/research/advantage/brief-v2.md`). The first version, cones on a flat arena, is replaced. Key I still opens the
+2026 crest of the causality timeline, but into a three-dimensional, force-directed network of companies. Each company
+is broken into its balance sheet and still reads as one whole. They hover over a fitness landscape that their own
+positions raise. The history camera, the lineage's gold lane and the flashpoints carry over from the first version.
 
-## 1. The idea
+## 1. The idea in one paragraph
 
-The biosphere chapter already shows a trophic pyramid. Prey turn energy into calories, and predators at the top live on
-that expenditure. The 2026 economy is drawn the same way:
+Evolutionary biology draws a population on a **fitness landscape**: peaks where an organism thrives, valleys where it
+dies out. The 2026 economy is drawn the same way. Each company is an **organism** made of its balance sheet:
 
-- **Money climbs to advantage.** Buyers spend at the foot of the range. Rivers of money run back through the supply
-  chain, and at each step part of the river stays with the actor that holds the advantage.
-- **Altitude is dominance.** An actor stands as high as its competitive advantage. Altitude is judged from sourced
-  evidence with Helmer's 7 Powers, and its gold summit shows the profit it keeps above normal.
-- **Choke points are where rivers must converge.** Many rivers enter one actor that has no substitute (CUDA, CoWoS,
-  EUV), and a thinner river leaves it.
-- **Flashpoints are the contests.** A spark between two actors marks where an advantage is deciding who wins, coloured
-  by the user's triad: information, execution, environment.
-- **Scenarios change the environment.** Friendly or unfriendly conditions move every actor up or down. The view then
-  predicts who rises and who falls, and says why.
-- **The recursion is visible.** One bright thread runs back along the wave from NVIDIA's summit to the transistor of
-  1947. History's flashpoints stand on the wave at their years.
+- what it owns, above its core, and what it owes, below;
+- a translucent **shell** as large as its market value;
+- the gap between the shell and the solid book value inside it, which is the **speculative premium**, inflated by its
+  price-to-earnings ratio. That premium is a weapon: it pays for capital spending, acquisitions and losses that buy a
+  market.
 
-Actors, companies and the people in them want to win and fear extinction. The rivers carry that motive: rose where
-spending is driven by desire, ice blue where it is driven by fear. These are the economy's existing colours, kept in
-two lanes and never blended.
+Companies are joined by the **dependencies** that feed them: revenue, compute, capital and contracted commitments.
+**Rivers of capital** run along those links and between companies and people. The **owners float above** as golden
+circles. The **workers and consumers stand on the low ground** beneath. Each company hovers at an **altitude**, its
+market position, and the landscape under the network rises into high ground beneath the dominant and falls into low
+ground beneath the dependent. A **Darwinian simulation** runs the population from 2026 to 2030 under each scenario:
+
+- shells inflate or burst;
+- cash runs down and debt weighs;
+- each company holds its ground, is absorbed, or goes extinct.
 
 ## 2. What a first-time viewer should understand in ten seconds
 
-1. Who dominates in 2026? The highest summits.
-2. Where does the money go? The widest rivers, and the summits they climb to.
-3. Who depends on whom? The order of the bands, from energy and tools at the back to buyers at the front.
-4. Where is the fight? The sparks.
-5. What if the world changes? The scenario buttons move the landscape.
+1. A few giants hold the high ground, and their shells are mostly air: speculative value above their books.
+2. Everything depends on a few undergirders. The rivers converge on NVIDIA, and from it on TSMC and ASML.
+3. The owners sit above them all: index funds, sovereign funds, founders, private equity, the richest 1%.
+4. Someone is betting the company. Plumes mark losses paid for by the share price; hollow spheres mark promises not yet
+   paid.
+5. The future is a contest. Press play, or choose a world, and watch who survives.
 
-## 3. Layout
+## 3. The frame
 
-All positions are land-local, in the frame of the present (`LandFrame`: +z runs along time, +x across, +y up). The
-arena stands past the crest, where the previous present stood: z from CrestZ + 50 to CrestZ + 330, x from about 40 to
-540.
+Land-local, past the crest of 2026: z from CrestZ + 60 to about CrestZ + 420, centred on x = 290. There is no floor.
+Altitude runs from 0, the low ground, to 150, the high ground:
 
-- **Depth: the supply chain.** Bands run from the crest outward:
-  - *Energy* (power, grid) lies nearest the crest, the past;
-  - then *Tools & IP* (ASML, EDA, Arm), *Fabs & memory* (TSMC, Samsung, Intel, SK Hynix, Micron), *Chips & systems*
-    (NVIDIA, AMD, Broadcom, Huawei, servers), *Clouds* (Microsoft, Amazon, Google, Oracle, CoreWeave, Meta, xAI),
-    *Models* (OpenAI, Anthropic, DeepSeek and the open-weight labs), *Apps & platforms*;
-  - *Buyers* (consumers, enterprises, governments) lie nearest the camera, in the future.
-
-  So the foundations of the AI economy face the wave they came from, and the frontier faces the future.
-- **Across: rivals side by side.** In each band the largest actor stands at the centre and the rest alternate outward
-  by size. A rival is never above or below another in the same band except by altitude.
-- **Flanks.**
-  - *Left:* capital (SoftBank, MGX, Berkshire, JPMorgan, BlackRock, venture capital, public markets). Its rivers cross
-    to the labs and clouds.
-  - *Right:* the rest of the economy, by sector (health, retail, payments, autos, energy majors, media), each sector
-    a cluster in the band nearest its role.
-- **Under everything: the state.** A bedrock slab bears the US government's name and its roles: the IP system, export
-  controls, the rule of law. Small tiles carry the other states (China, Taiwan, the EU, the Netherlands, South Korea,
-  Japan, the Gulf), under the actors that stand on them.
-
-## 4. Encodings
-
-| Mark | Means | Source |
+| Stratum | Altitude | What stands there |
 | --- | --- | --- |
-| A peak's footprint | market cap (valuation for private firms): area proportional to value, radius = k · sqrt(USD bn) | a verified fact (2026 gate) |
-| A peak's altitude | competitive advantage: the strongest power plus half the second plus a quarter of the third (Jev scores 0-4, so 0-7) | Jev judgments over the verified facts |
-| Bands of colour up the peak | which powers hold it up: one stratum per power, as thick as its share of the altitude | Jev |
-| The gold summit | operating margin above normal profit (10%): no gold at or below normal; brighter and wider with the excess | a verified fact |
-| A ring at the foot | a choke point; brighter the less substitutable its supply | the research's choke points; Jev's substitutability |
-| A river | money a year from payer to payee, width proportional to the amount, pulses running toward the payee | a verified fact per river |
-| A river's lanes | desire (rose) and fear (ice) shares of the payer's motive | Jev, from the payer's own words on record |
-| A spark between peaks | a flashpoint: holder and rival, at the rival's height; cyan for information, amber for execution, green for environment, mixed by Jev's triad scores | the research's flashpoints; Jev |
-| A ghost outline above or below a summit | the 2030 projection (most likely course) or a scenario's effect | Jev durability / scenario scores, composed in code |
+| The ownership class | 175-215 | Golden circles: households by wealth (the top 1%, next 9%, next 40%, bottom 50%) and named founders, above the institutions (index managers, sovereign funds, private equity, venture capital, hedge funds, corporate holders) |
+| Companies | 10-150 | Their market position: high ground for the dominant |
+| Workers and consumers | -10 to 0 | The low ground: wages flow down to it, spending flows up from it |
+| The state | -25 | The bedrock under everything: rule of law, property and IP, export controls |
 
-Labels say which marks are measured and which are judged. Judged marks are italic with "J", and the legend says the
-altitude is a judgment made by an AI model from sourced facts.
+A thin altitude ruler at the left edge names the ground: "high ground: dominant", "low ground: dependent".
 
-## 5. The model: exact, in code
+## 4. The organism: a company's balance sheet in three dimensions
 
-Every composition below is done in `Tools/advantage/build.py`, which writes `Assets/Resources/Data/economy/advantage.json`.
-The app moves things but does no inference.
+Sizes are volumes: radius = k · ∛(USD bn), so a sphere's volume is proportional to its dollars.
 
-- **Advantage.** Sort the seven Jev power scores, so s1 ≥ s2 ≥ s3. Then A = s1 + s2/2 + s3/4, from 0 to 7. Helmer's
-  rule is that one power is enough, and a second and third reinforce it.
-- **Scenario effects.** Jev answers "how would this actor's position change" on a 0-4 Score. The step is
-  e = score - 2, from -2 to +2. Then A_s = clamp(A + 0.9 · e, 0, 7). The strategist sets each scenario's river
-  multipliers, for example Taiwan: flows into TSMC × 0.2. The multipliers are data, with reasons in the analysis.
-- **The 2030 projection.** Jev's durability Score gives d from -2 to +2. The 2030 altitude is A + 0.9 · d.
-- **Motive.** The fear share of a flow is Jev's motive score divided by 4.
-- **Choke strength.** Strength = 1 - substitutable / 4.
-- **Truth.**
-  - A number on screen comes only from a fact the gate verified, and 2026 numbers come through the 2026 gate.
-  - A judged value is drawn as judged.
-  - An actor without a verified size is drawn as an outline at a minimum size and labelled "size unverified".
+| Part | Shape and colour | Where | Value |
+| --- | --- | --- | --- |
+| Core | solid sphere, steel | centre | book equity (total shareholders' equity) |
+| Shell | translucent sphere with two glowing great circles | encloses the organism | market value (valuation for the private labs) |
+| Shell's colour | cool blue, then white, then gold, then magenta | | P/E: under 15, 15-35, 35-80, over 80 or loss-making with a valuation |
+| Cash and securities | bright green sphere | upper hemisphere | the war chest |
+| Property and equipment | box, slate blue | upper hemisphere | data centres, fabs, factories (what it has built) |
+| Goodwill and intangibles | octahedron, violet | upper hemisphere | what it bought |
+| Stakes in others | small gold torus | upper hemisphere, toward the owned company | strategic investments; a gold thread to the owned organism |
+| Debt | dark red sphere | below the core, hanging | borrowings |
+| Leases | dark orange sphere | below | lease liabilities (data centres rented) |
+| Commitments | hollow wire sphere | below, outside the shell | purchase and compute obligations not yet on the balance sheet |
+| Burn | orange plume from the core | sideways | an operating loss funded by others' profits or by the share price (Reality Labs, the labs' burn) |
 
-## 6. Interaction
+So an organism reads like a balance sheet. What it owns is above. What it owes hangs below. Its equity is the core in
+between, and the market's belief is the air around it. Where research gives no balance sheet, the core is drawn as an
+outline and the label says so.
 
-- **Key I, or the bar's "Advantage" button.**
+## 5. The network
+
+- **Dependencies, as rivers.** Each verified flow of money a year is a tube between two cores, as wide as √($bn)
+  allows, with pulses toward the payee. Spending carries the payer's motive in two lanes: rose for desire, ice for
+  fear, judged by Jev. Investments and capital raised run white-gold. Contracted commitments are dashed: promises.
+- **Ownership.** Gold threads run down from each owner's circle to the organisms it holds, as wide as the stake's
+  value. Buybacks and dividends rise as gold pulses up those threads.
+- **Talent.** One shared node, the people who build frontier AI, takes the companies' stock-based pay as rivers. The
+  widest rivers show who is buying the talent.
+- **People.**
+  - Wages run down from the companies to the workers.
+  - Spending runs up from consumers to the companies that sell to them.
+  - Retirement savings run up from households to the index managers.
+- **Contests.** Sparks between rival shells, as before, coloured by the triad: information, execution, environment.
+
+## 6. High ground and low ground
+
+A company's altitude is its market position:
+
+    altitude = 150 · (0.55 · A / 7 + 0.45 · log10(V / 10) / log10(5000 / 10)), clamped to 10..150
+
+- A is the judged advantage: Jev's seven powers, composed in code as before.
+- V is the market value in $bn.
+
+Both halves are the user's: durable advantage, and command of capital. A high share price is itself an advantage.
+
+The **fitness landscape** is a surface under the network:
+
+- its height at a point is the weighted mean of nearby companies' altitudes (a Gaussian kernel as wide as their
+  shells);
+- it is drawn only as glowing contour lines every 10 units, as a topographic map, never as a solid floor;
+- it rises beneath the dominant and sinks between them, and it reshapes as the simulation moves them.
+
+## 7. The force-directed layout
+
+- **Who moves.** Companies, owners and the shared nodes are bodies. Each organism moves as one rigid body as wide as
+  its shell; its parts are placed inside it by rule, not by force.
+- **Forces,** iterated about 600 times at build and then live:
+  - a strong spring holds each body at its target altitude;
+  - springs pull along every dependency, stake and commitment, with rest length the two shells plus a gap;
+  - every pair of organisms repels, with a hard collision at the shells;
+  - members of the same supply-chain layer attract weakly, so rivals sit beside each other;
+  - a weak centring pulls toward x = 290.
+- **Owners** sit at their stratum's altitude, near the weighted centre of what they hold, and repel one another.
+- **Determinism.** Seeded starting positions, so smoke frames repeat.
+- **Live.** When the year or the world changes, targets move and the layout keeps iterating, a few steps a frame, so
+  the population visibly rearranges.
+
+## 8. The Darwinian simulation (`Tools/advantage/simulate.py`, precomputed)
+
+For each scenario (now, the most likely course, and the strategist's seven) and each year from 2026 to 2030, every
+company carries:
+
+- its revenue, net income, cash, debt and book equity;
+- its market value and P/E;
+- its altitude;
+- its status: alive, absorbed (and by whom) or extinct.
+
+The rules are plain, in code, and documented in the file's header:
+
+1. **Revenue** grows at a base rate from the verified recent growth, moved by Jev's scenario judgment, plus the
+   scenario's shocks.
+2. **Net income** is revenue times the margin, with the scenario's margin shocks.
+3. **Market value** is earnings times the P/E, times the scenario's multiple factor for the year. Loss-makers are valued
+   on revenue times a multiple.
+4. **Cash** changes by net income, minus capital spending and commitments due, plus capital raised.
+5. **Raising capital.** Equity can be raised while the market is open and the shell is large: that is the share price
+   as a weapon. Debt can be raised while leverage allows.
+6. **Extinction and absorption.** A company whose cash runs out with no capital to raise dies, unless a partner it
+   depends on, or that holds a stake in it, can afford it. Then it is absorbed.
+
+Every assumption is labelled as assumed, and the panel says: a simulation, not a forecast.
+
+## 9. Interaction
+
+- **Key I** plays the opening:
   1. The crest's cut face glows.
-  2. A floor slides out of it and spreads into the arena.
-  3. Peaks rise band by band, from energy to buyers.
-  4. The rivers start to run, and the sparks light. The camera rides out to the catalog pose.
+  2. The organisms condense out of it and rise to their ground.
+  3. The landscape draws in under them.
+  4. The rivers start.
+  5. The owners' circles light above.
+- **The panel:**
+  - the worlds (now, 2030, and the seven scenarios);
+  - a year slider from 2026 to 2030, with play;
+  - the selected organism's balance sheet as a bar of assets against liabilities and equity, beside its market value;
+    with its P/E, owners, dependencies, burn, strategy and risk;
+  - the history button.
+- **Hover** shows a company's card. **Click** lights its rivers, threads and contests and dims the rest.
 
-  I again replays the choreography. Shift + I returns to the overview.
-- **Hover** over a summit shows a card with the actor's name, role, market cap, margin, primary power, triad, desire
-  and fear, each number with its source.
-- **Click** selects an actor. Its rivers and sparks stay lit and the rest dims, and the panel shows the actor in full.
-- **The panel**, on the right, has the scenario buttons:
-  - *Now (2026)* and *2030: most likely*;
-  - then the strategist's scenarios: compounding demand, capex digestion, the power wall, a Taiwan disruption, models
-    commoditised, a regulatory clampdown, China decoupling.
+## 10. Objects first
 
-  Choosing one moves the peaks and swells or dries the rivers over two seconds. The panel then says what was assumed,
-  who wins, who loses and why.
-- **History.** Flashpoints from 1947 to 2025 stand on the wave at their years, between the two companies' lifelines
-  where both have one. The archetypes are listed in the panel's "Patterns" section with their mechanism and the
-  balance that restored itself: the Mongols, Alexander, Napoleon, the two world wars, and the biosphere's pyramid and
-  extinctions. They lie outside the economy's time axis.
+- **What carries the argument.** The organisms, the circles and the landscape.
+- **Lines drawn by default:**
+  - the 14 largest rivers;
+  - the owners' threads to the 12 largest companies;
+  - the commitments over $100bn;
+  - the present contests.
+- **Selection** lights the rest. The landscape's contours are context: faint, never brighter than a river.
 
-## 7. Objects first
+## 11. Data: `advantage.json`, version 2
 
-The peaks carry the argument. By default only these lines are drawn:
+`build.py` adds to the first version:
 
-- the 12 largest rivers;
-- the choke points' converging rivers;
-- the 6 present flashpoints with the most evidence.
+- per company: `balance{totalAssets, cash, ppe, goodwill, intangibles, investments, totalLiabilities, debt, leases,
+  equity, commitments, date, facts}`, `pe`, `buybacks`, `dividends`, `sbc`, `burn`, `strategy` and `risk` (Jev);
+- `owners`, with kind, holdings and stakes;
+- the shared nodes: talent, workers and consumers, and households by wealth;
+- `simulation{scenario: {year: {company: {v, eq, cash, debt, rev, ni, pe, alt, status, by}}}}`.
 
-Selection lights the rest of an actor's lines. Labels name about 14 actors: the largest by market cap, every choke
-point, and a scenario's winners and losers. The others show on hover.
+## 12. Build plan
 
-## 8. Data: `advantage.json`
-
-The runtime file, built from the research by `Tools/advantage/build.py`:
-
-- `bands` and `flanks`, as names and order.
-- `actors`. Each one has:
-  - identity: id, name, short name, kind, country, band, sector and lifeline id;
-  - size: `{usdBn, label, fact}`;
-  - margin: `{pct, fact}`;
-  - judged values: `powers{7}`, `primary`, `triad{3}`, advantage A, a2030 and `scenario{id: A_s}`;
-  - text: role, advantage, desire, fear and a few source lines.
-- `flows`: from, to, usdBn, what, kind, basis, fear share, fact, and per-scenario multipliers.
-- `chokepoints`: actor, controls, strength.
-- `flashpoints`: holder, rivals, year, era, title, advantage, mechanism, outcome, triad{3} and power.
-- `lineage`: the thread's steps.
-- `scenarios`: id, title, friendly, premise, winners, losers, and a reading.
-- `sources`: fact id to `{claim, url}` for the cards.
-
-## 9. Build plan
-
-| Step | What | Acceptance (smoke `-smokeextra advantage`) |
+| Step | What | Acceptance (`-smokeextra advantage`) |
 | --- | --- | --- |
-| A1 | The research gated, merged, judged and built into `advantage.json` | Every size and margin points to a verified fact. Every present actor has its judgments. |
-| A2 | `HillAdvantageLayer`: the floor, bands, bedrock and peaks with strata and gold; labels; the view `advantage` on key I with its choreography | Actors do not overlap within a band. Renderers stay at 8 or fewer. 0 errors. |
-| A3 | Rivers with motive lanes and pulses; choke rings | Each river's ends are at actors. |
-| A4 | Sparks; the panel with scenarios and actor detail; hover and click | A scenario changes at least five altitudes. Frames stay under 50 ms. |
-| A5 | History on the wave and the lineage thread; the patterns list | Each flashpoint before 2026 is placed at its year. |
-| A6 | The tour stop text, unvoiced, and the handoff | |
-
-## 10. Open questions for the user
-
-1. **People.** The research names people where they are the mechanism: Shockley, the eight who left him, Noyce,
-   Moore, Grove, Huang, Altman, Sutskever, Amodei. The app shows them in text only. Approval would be needed to show
-   any of them as an image.
-2. **Altitude as a judgment.** It reads advantage, not price. A firm can be large and low, as Walmart is, or small
-   and high, as ASML is. A strategist reads it that way, but it is not a market statistic. The legend says so.
-3. **Which scenarios matter most to the user?** The strategist's seven are a start.
+| B1 | Research round two: balance sheets, owners, weapons, build-out | Every drawn number points to a verified fact |
+| B2 | `simulate.py`, and `build.py` version 2 | Deterministic. Every scenario changes at least five fates or altitudes. Assumptions listed |
+| B3 | `ContestNetwork`: force layout, organism placement, the landscape and its contours | No two shells interpenetrate. Altitude error under 2 units. Converges in 600 steps |
+| B4 | The layer: organisms, rivers, threads, circles, people, landscape, sparks, labels, opening, hover and click | Renderers within budget. Frames under 50 ms while moving |
+| B5 | The panel: worlds, year slider and play, balance-sheet bar, owners, history | |
+| B6 | Critic review, frames, handoff | |

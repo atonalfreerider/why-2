@@ -33,6 +33,9 @@ POWER_NAMES = {"scale": "scale economies", "network": "network economies", "coun
                "switching": "switching costs", "brand": "branding", "cornered": "cornered resource",
                "process": "process power", "none": "no durable power"}
 SCENARIO_STEP, MAX_A = 0.9, 7.0
+STRATEGY_NAMES = {"toll": "toll collector", "landgrab": "land grab on the share price", "fortress": "cash fortress",
+                  "builder": "debt-financed builder", "consolidator": "consolidator", "challenger": "challenger",
+                  "utility": "utility or commodity supplier"}
 
 # the supply chain from the crest outward (the past) to the buyers (the future); the flanks beside it
 BANDS = [("energy", "Energy"), ("tools", "Tools & IP"), ("fabs", "Fabs & memory"), ("chips", "Chips & systems"),
@@ -56,6 +59,28 @@ def load(path, default=None):
         return default
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def number(v):
+    if isinstance(v, (int, float)):
+        return float(v)
+    try:
+        return float(str(v).replace(",", "").replace("$", "").strip())
+    except ValueError:
+        return None
+
+
+def usd_bn(value, unit):
+    """A money value in USD billions from the unit the researcher wrote; None if it is not money in USD."""
+    v = number(value)
+    u = (unit or "").lower()
+    if v is None or ("usd" not in u and "$" not in u and "dollar" not in u):
+        return None
+    if "trillion" in u or re.search(r"\btn\b|\bt\b", u):
+        return v * 1000
+    if "million" in u or re.search(r"\bm\b|\bmn\b", u):
+        return v / 1000
+    return v
 
 
 def alnum(s):
@@ -86,6 +111,58 @@ def band_of(a):
         if re.search(pattern, sector):
             return band, "economy"
     return "apps", "economy"
+
+
+def simulation(actors, flows, owners, scenarios, problems):
+    """Runs Tools/advantage/simulate.py (the Darwinian simulation) on the companies, if the module exists."""
+    path = os.path.join(HERE, "simulate.py")
+    if not os.path.exists(path):
+        return None
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("simulate", path)
+    sim = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(sim)
+    research = load(os.path.join(RESEARCH, "model.json"), {})
+    rnums = {a["id"]: a.get("numbers", {}) for a in research.get("actors", [])}
+    companies = []
+    for a in actors:
+        if a["flank"] == "state" or a["band"] == "buyers" or not a.get("size"):
+            continue
+        n = rnums.get(a["id"], {})
+        sheet = a.get("balance") or {}
+
+        def val(kind):
+            x = n.get(kind)
+            return x["value"] if x else None
+        revenue = val("revenueTTM") or val("revenue") or val("runRate")
+        if revenue and (n.get("revenue") or {}).get("period", "").lower().startswith("q") and not val("revenueTTM"):
+            revenue *= 4
+        margin = (a.get("margin") or {}).get("pct")
+        net = val("netIncomeTTM") or val("netIncome")
+        if net is None and revenue and a.get("pe") and a["pe"] > 0:
+            net = a["size"]["usdBn"] / a["pe"]
+        companies.append({
+            "id": a["id"], "name": a["name"], "layer": a["band"], "private": a.get("private", False), "marketCap": a["size"]["usdBn"],
+            "pe": a.get("pe") if (a.get("pe") or 0) > 0 else None, "revenue": revenue, "netIncome": net,
+            "growth": None, "cash": sheet.get("cash"), "debt": sheet.get("debt"), "equity": sheet.get("equity"),
+            "capex": val("capex"), "commitments": sheet.get("commitments"), "commitmentYears": 4 if sheet.get("commitments") else None,
+            "burn": a.get("burn"), "A": a.get("A") if a.get("judged") else None,
+            "durability": a.get("durability") if a.get("durability") is not None else 2,
+            "scenario": {sid: round(2 + (A_s - a["A"]) / SCENARIO_STEP, 3) for sid, A_s in (a.get("scenario") or {}).items()} if a.get("judged") else {},
+            "dependsOn": [{"id": f["to"] if f["from"] == a["id"] else f["from"], "kind": "supplier" if f["from"] == a["id"] else "customer", "usdBn": f["usdBn"]}
+                          for f in flows if a["id"] in (f["from"], f["to"])],
+            "owners": [{"id": o["id"], "pct": st.get("pct")} for o in owners for st in o["stakes"] if st["company"] == a["id"] and st.get("pct")],
+            "operatingMarginPct": margin,
+        })
+    data = {"asOf": "2026-11-07", "years": [2026, 2027, 2028, 2029, 2030], "companies": companies, "scenarios": scenarios}
+    with open(os.path.join(HERE, ".cache", "sim-input.json") if os.path.isdir(os.path.join(HERE, ".cache")) else os.devnull, "w") as f:
+        json.dump(data, f, indent=1)
+    try:
+        run = getattr(sim, "simulate", None) or getattr(sim, "run")
+        return run(data)
+    except Exception as e:   # the app keeps working without its simulation
+        problems.append(f"simulation failed: {e}")
+        return None
 
 
 def main():
@@ -122,9 +199,14 @@ def main():
                 return life_by[key]
         return None
 
+    strategist = load(os.path.join(RESEARCH, "strategist.json"), {})
+    arena_ids = {a["id"] for a in strategist.get("actors", []) if a.get("layer") not in (None, "drop", "history", "owners")}
     actors, problems = [], []
     for a in model["actors"]:
-        if a.get("era") != "present" or a.get("stub") or a.get("layer") in (None, "drop", "history"):
+        if a.get("era") != "present" or a.get("stub") or a.get("layer") in (None, "drop", "history", "owners"):
+            continue
+        nums0 = a.get("numbers", {})
+        if a["id"] not in arena_ids and not (nums0.get("marketCap") or nums0.get("valuation")):
             continue
         band, flank = band_of(a)
         nums = a.get("numbers", {})
@@ -176,12 +258,68 @@ def main():
             problems.append(f"{a['id']}: no Jev judgment")
         if size is None and flank != "state" and band != "buyers":
             problems.append(f"{a['id']}: no verified size")
+        sheet, sheet_facts, date = {}, [], None
+        for kind in ("totalAssets", "cash", "ppe", "goodwill", "intangibles", "investments", "totalLiabilities", "debt", "leases", "equity"):
+            n = nums.get(kind)
+            if n and cite(n["fact"]):
+                sheet[kind] = round(n["value"], 2)
+                sheet_facts.append(n["fact"])
+                date = date or n.get("period")
+        # an aggregator's "total debt" includes lease liabilities: borrowings only, where both are known
+        dn = nums.get("debt")
+        if dn and "leases" in sheet and "stockanalysis" in (facts.get(dn["fact"], {}).get("url") or ""):
+            sheet["debt"] = round(max(0.0, sheet["debt"] - sheet["leases"]), 2)
+        # commitments: the company's own promises (purchase, supply, capacity), never its customers' backlog
+        promises = []
+        for fid in (a.get("candidates") or {}).get("commitments", []):
+            f = facts[fid]
+            text = ((f.get("claim") or "") + " " + fid).lower()
+            if not ok(fid) or re.search(r"performance obligation|\brpo\b|backlog|remaining performance", text):
+                continue
+            v = usd_bn(f["value"], f["unit"])
+            if v:
+                promises.append((v, fid, f.get("claim") or ""))
+        if promises:
+            v, fid, claim = max(promises)
+            sheet["commitments"] = round(v, 1)
+            sheet["commitmentsWhat"] = claim[:140]
+            sheet_facts.append(cite(fid))
+        if sheet:
+            sheet["date"] = date
+            sheet["facts"] = sheet_facts
+            rec["balance"] = sheet
+        pe = nums.get("peRatio")
+        if pe and cite(pe["fact"]):
+            rec["pe"] = round(pe["value"], 1)
+        for kind in ("buybacks", "dividends", "sbc"):
+            n = nums.get(kind)
+            if n and cite(n["fact"]):
+                rec[kind] = round(n["value"], 2)
+                rec[kind + "Period"] = n.get("period")
+        loss = nums.get("burn") or nums.get("segmentLoss")
+        if loss and cite(loss["fact"]):
+            rec["burn"] = round(abs(loss["value"]), 2)
+            rec["burnWhat"] = (facts[loss["fact"]].get("claim") or "")[:120]
+        rec["private"] = bool(size and size["kind"] == "valuation")
+        js = (judg.get("strategy") or {}).get(a["id"]) or {}
+        if js.get("strategy"):
+            rec["strategy"] = STRATEGY_NAMES.get(js["strategy"]["choice"], js["strategy"]["choice"])
+        if js.get("risk"):
+            rec["risk"] = round(js["risk"]["score"], 2)
         actors.append(rec)
     ids = {a["id"] for a in actors}
 
+    owner_ids = {a["id"] for a in model["actors"] if a.get("layer") == "owners"}
     flows = []
-    for f in model.get("flows", []):
-        if f.get("from") not in ids or f.get("to") not in ids or not cite(f.get("fact")):
+    for f0 in model.get("flows", []):
+        # a river is money a year: a one-off deal or a valuation is not one (it is a contest, an acquisition or a stake)
+        text = " ".join(str(f0.get(k) or "") for k in ("what", "notes", "basis")).lower()
+        if re.search(r"one-off|one off|merged entity|valued at|acquisition price", text):
+            continue
+        # wages and savings belong to people, who stand on the low ground as workers and consumers
+        f = dict(f0, **{k: "consumers" for k in ("from", "to") if f0.get(k) in ("households", "workers")})
+        ends = ids | owner_ids
+        if f.get("from") not in ends or f.get("to") not in ends or (f.get("from") not in ids and f.get("to") not in ids) or not cite(f.get("fact")):
             continue
         m = (jflow.get(f["id"]) or {}).get("motive")
         flows.append({"id": f["id"], "from": f["from"], "to": f["to"], "usdBn": round(f["usdBnPerYear"], 2),
@@ -236,20 +374,78 @@ def main():
                         "sources": [f for f in l.get("facts") or [] if cite(f)]})
     lineage.sort(key=lambda x: x["year"])
 
+    company_ids = {a["id"] for a in actors if a["flank"] != "state" and a["band"] != "buyers"}
+    value = {a["id"]: (a["size"] or {}).get("usdBn") for a in actors}
+    owners = {}
+    for a in model["actors"]:
+        if a.get("layer") == "owners" and a["id"] not in ids:
+            owners[a["id"]] = {"id": a["id"], "name": a.get("name") or a["id"], "kind": a.get("kind") or "fund", "stakes": []}
+    stakes_seen = set()
+    for fid, f in facts.items():
+        if f.get("kind") != "stake" or f.get("status") != "verified" or "voting" in (f.get("unit") or ""):
+            continue
+        if re.search(r"joint venture|\bjv\b|vehicle|campus|data cent|hyperion|el paso", (f.get("claim") or "").lower()):
+            continue   # a stake in a joint venture or a financing vehicle, not in the company itself
+        holder, company = f.get("from"), f.get("to")
+        if company not in company_ids or (holder not in owners and holder not in company_ids) or (holder, company) in stakes_seen:
+            continue
+        stakes_seen.add((holder, company))
+        unit = (f.get("unit") or "").lower()
+        st = {"company": company, "fact": cite(fid), "period": f.get("period")}
+        if "%" in unit:
+            st["pct"] = number(f["value"])
+        else:
+            st["usdBn"] = usd_bn(f["value"], f["unit"])
+        if holder not in owners:     # a company holding a stake in another: it owns as an organism, not as a circle
+            owners[holder] = {"id": holder, "name": next((x["name"] for x in actors if x["id"] == holder), holder), "kind": "corporate", "stakes": []}
+        owners[holder]["stakes"].append(st)
+    for o in owners.values():
+        held = 0.0
+        for st in o["stakes"]:
+            if st.get("pct") and value.get(st["company"]):
+                held += value[st["company"]] * st["pct"] / 100
+            elif st.get("usdBn"):
+                held += st["usdBn"]
+        o["holdingsUsdBn"] = round(held, 1)
+    # the households that own the shares, by wealth (Fed Distributional Financial Accounts, already in the app's
+    # circuit.json: each group's share of households' corporate equities and mutual fund shares, and their total), and abroad
+    circuit = load(os.path.join(ROOT, "Assets", "Resources", "Data", "economy", "circuit.json"), {})
+    hist = circuit.get("groupEquityHistory") or []
+    note = circuit.get("equityHoldersNote") or ""
+    m = re.search(r"directly held equities & mutual funds \(\$([0-9.]+)T\)", note)
+    if hist and m:
+        year, shares = hist[-1]
+        total = float(m.group(1)) * 1000
+        names = {"top1": "Top 1%", "next9": "Next 9%", "next40": "Next 40%", "bottom50": "Bottom 50%"}
+        for gid, gname in names.items():
+            if gid in shares:
+                owners["wealth-" + gid] = {"id": "wealth-" + gid, "name": gname, "kind": "households", "stakes": [],
+                                           "holdingsUsdBn": round(shares[gid] * total, 0), "share": shares[gid], "year": year,
+                                           "source": "Fed DFA via circuit.json (households' corporate equities and mutual fund shares)"}
+    if circuit.get("foreignEquityShare") and circuit.get("corporateEquityTotal"):
+        owners["abroad"] = {"id": "abroad", "name": "Abroad", "kind": "households", "stakes": [],
+                            "holdingsUsdBn": round(circuit["foreignEquityShare"] * circuit["corporateEquityTotal"], 0),
+                            "source": "Fed Z.1 L.224 via circuit.json (rest of world's US corporate equities)"}
+    owner_list = [o for o in owners.values() if o["stakes"] or o["kind"] == "households"]
+
     scenarios = [{"id": s["id"], "title": s.get("title"), "premise": s.get("premise"), "reading": s.get("reading"),
                   "friendly": s.get("friendly") or [], "unfriendly": s.get("unfriendly") or [],
                   "signposts": s.get("signposts") or []} for s in model.get("scenarios", [])]
     sources = {fid: {"claim": facts[fid]["claim"], "url": facts[fid]["url"]} for fid in sorted(used)}
+    sim = simulation(actors, flows, owner_list, model.get("scenarios", []), problems)
     out = {"asOf": model.get("asOf"), "judge": judg.get("model"),
            "method": "Altitude: A = s1 + s2/2 + s3/4 of Jev's seven power scores (0-4), 0-7; scenarios and 2030 move it by "
                      "0.9 per step of Jev's 0-4 answer. Sizes and margins: verified facts only.",
            "bands": [{"id": b, "name": n} for b, n in BANDS],
            "powers": POWER_NAMES, "actors": actors, "flows": flows, "chokepoints": chokes, "flashpoints": flashes,
-           "lineage": lineage, "scenarios": scenarios, "sources": sources}
+           "lineage": lineage, "scenarios": scenarios, "owners": owner_list, "simulation": sim, "sources": sources}
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
         f.write("\n")
     judged = sum(1 for a in actors if a["judged"])
+    print(f"owners: {len(owner_list)} golden circles, {sum(len(o['stakes']) for o in owner_list)} stakes; "
+          f"balance sheets: {sum(1 for a in actors if a.get('balance'))}; P/E: {sum(1 for a in actors if 'pe' in a)}; "
+          f"simulation: {len((sim or {}).get('worlds', {}))} worlds")
     print(f"advantage.json: {len(actors)} actors ({judged} judged, {sum(1 for a in actors if a['size'])} sized), "
           f"{len(flows)} flows, {len(chokes)} choke points, {len(flashes)} flashpoints "
           f"({sum(1 for p in flashes if p['inArena'])} in the arena), {len(lineage)} lineage steps, {len(scenarios)} scenarios, "

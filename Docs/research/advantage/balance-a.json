@@ -1,0 +1,3852 @@
+{
+ "cluster": "balance-a",
+ "asOf": "2026-11-07",
+ "scope": "Balance sheets (latest reported quarter), P/E and purchase commitments of NVIDIA, Microsoft, Apple, Alphabet, Amazon, Meta, Broadcom, Tesla, Oracle, AMD, Intel, CoreWeave, Palantir, Netflix and SpaceX.",
+ "facts": [
+  {
+   "id": "balancea-nvidia-totalAssets",
+   "claim": "NVIDIA's total assets was $320.272 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Total assets $ 320,272"
+   ],
+   "values": [
+    "320,272"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "totalAssets",
+   "value": 320.272,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-nvidia-cash",
+   "claim": "NVIDIA's cash, marketable debt securities and marketable equity securities combined was $99.369 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Cash and cash equivalents $ 22,443 $ 10,605",
+    "Marketable debt securities 34,143 39,065",
+    "Marketable equity securities 42,783 12,886"
+   ],
+   "values": [
+    "22,443",
+    "34,143",
+    "42,783"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "cash",
+   "value": 99.369,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Sum of three balance-sheet rows: cash and equivalents, marketable debt securities, marketable equity securities."
+  },
+  {
+   "id": "balancea-nvidia-ppe",
+   "claim": "NVIDIA's property and equipment, net was $14.285 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Property and equipment, net 14,285 10,383"
+   ],
+   "values": [
+    "14,285"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "ppe",
+   "value": 14.285,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Operating lease assets (5,390 million) are a separate line and not included."
+  },
+  {
+   "id": "balancea-nvidia-goodwill",
+   "claim": "NVIDIA's goodwill was $21.125 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Goodwill 21,125 20,832"
+   ],
+   "values": [
+    "21,125"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "goodwill",
+   "value": 21.125,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-nvidia-intangibles",
+   "claim": "NVIDIA's intangible assets, net was $2.998 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Intangible assets, net 2,998 3,306"
+   ],
+   "values": [
+    "2,998"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "intangibles",
+   "value": 2.998,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-nvidia-investments",
+   "claim": "NVIDIA's non-marketable securities (strategic stakes) was $51.157 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Non-marketable securities 51,157 22,251"
+   ],
+   "values": [
+    "51,157"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investments",
+   "value": 51.157,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Non-marketable securities line; marketable equity securities are counted in cash."
+  },
+  {
+   "id": "balancea-nvidia-totalLiabilities",
+   "claim": "NVIDIA's total liabilities was $91.288 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Total liabilities 91,288 49,510"
+   ],
+   "values": [
+    "91,288"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "totalLiabilities",
+   "value": 91.288,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-nvidia-debt",
+   "claim": "NVIDIA's short-term and long-term debt combined was $33.366 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Short-term debt 1,000 999",
+    "Long-term debt 32,366 7,469"
+   ],
+   "values": [
+    "1,000",
+    "32,366"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "debt",
+   "value": 33.366,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Two balance-sheet rows."
+  },
+  {
+   "id": "balancea-nvidia-leases",
+   "claim": "NVIDIA's long-term operating lease liabilities was $4.985 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Long-term operating lease liabilities 4,985 2,572"
+   ],
+   "values": [
+    "4,985"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "leases",
+   "value": 4.985,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Long-term portion only."
+  },
+  {
+   "id": "balancea-nvidia-equity",
+   "claim": "NVIDIA's total shareholders' equity was $228.984 billion at July 26, 2026.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Shareholders' equity 228,984 157,293"
+   ],
+   "values": [
+    "228,984"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "equity",
+   "value": 228.984,
+   "unit": "USD bn",
+   "period": "balance sheet at July 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-microsoft-totalAssets",
+   "claim": "Microsoft's total assets was $779.403 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Total assets $779,403 $758,376"
+   ],
+   "values": [
+    "779,403"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "totalAssets",
+   "value": 779.403,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-microsoft-cash",
+   "claim": "Microsoft's cash, cash equivalents and short-term investments was $64.509 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Total cash, cash equivalents, and short-term investments 64,509 76,843"
+   ],
+   "values": [
+    "64,509"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "cash",
+   "value": 64.509,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-microsoft-ppe",
+   "claim": "Microsoft's property and equipment, net was $346.844 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Property and equipment, net of accumulated depreciation of $127,208 and $118,691 346,844 313,076"
+   ],
+   "values": [
+    "346,844"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "ppe",
+   "value": 346.844,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Includes data-centre land, buildings and equipment; operating-lease right-of-use assets (30,178 million) are separate."
+  },
+  {
+   "id": "balancea-microsoft-goodwill",
+   "claim": "Microsoft's goodwill was $119.646 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Goodwill 119,646 119,651"
+   ],
+   "values": [
+    "119,646"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "goodwill",
+   "value": 119.646,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-microsoft-intangibles",
+   "claim": "Microsoft's intangible assets, net was $17.751 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Intangible assets, net 17,751 18,609"
+   ],
+   "values": [
+    "17,751"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "intangibles",
+   "value": 17.751,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-microsoft-investments",
+   "claim": "Microsoft's equity and other investments was $37.808 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Equity and other investments 37,808 36,348"
+   ],
+   "values": [
+    "37,808"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "investments",
+   "value": 37.808,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Line \"Equity and other investments\"."
+  },
+  {
+   "id": "balancea-microsoft-totalLiabilities",
+   "claim": "Microsoft's total liabilities was $308.894 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Total liabilities 308,894 315,989"
+   ],
+   "values": [
+    "308,894"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "totalLiabilities",
+   "value": 308.894,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-microsoft-debt",
+   "claim": "Microsoft's current and long-term debt combined was $35.481 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Current portion of long-term debt 4,391 9,227",
+    "Long-term debt 31,090 31,067"
+   ],
+   "values": [
+    "4,391",
+    "31,090"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "debt",
+   "value": 35.481,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Two balance-sheet rows."
+  },
+  {
+   "id": "balancea-microsoft-leases",
+   "claim": "Microsoft's long-term operating lease liabilities was $21.719 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Operating lease liabilities 21,719 16,532"
+   ],
+   "values": [
+    "21,719"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "leases",
+   "value": 21.719,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. Long-term line only; current portion is inside other current liabilities."
+  },
+  {
+   "id": "balancea-microsoft-equity",
+   "claim": "Microsoft's total stockholders' equity was $470.509 billion at September 30, 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Total stockholders' equity 470,509 442,387"
+   ],
+   "values": [
+    "470,509"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "equity",
+   "value": 470.509,
+   "unit": "USD bn",
+   "period": "balance sheet at September 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company earnings release, USD millions. "
+  },
+  {
+   "id": "balancea-apple-totalAssets",
+   "claim": "Apple's total assets (Total Assets) was 404,548 million dollars, $404.548 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 404,548 383,266 371,082",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "404,548"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "totalAssets",
+   "value": 404.548,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-apple-cash",
+   "claim": "Apple's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 56,722 million dollars, $56.722 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 56,722 62,399 68,507",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "56,722"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "cash",
+   "value": 56.722,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-apple-ppe",
+   "claim": "Apple's property, plant and equipment (Property, Plant & Equipment) was 63,720 million dollars, $63.72 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 63,720 51,431 50,116",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "63,720"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "ppe",
+   "value": 63.72,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-apple-intangibles",
+   "claim": "Apple's intangible assets (Other Intangible Assets) was 20,278 million dollars, $20.278 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 20,278 20,342 21,334",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "20,278"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "intangibles",
+   "value": 20.278,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-apple-investments",
+   "claim": "Apple's long-term investments (Long-Term Investments) was 80,213 million dollars, $80.213 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 80,213 84,118 78,088",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "80,213"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "investments",
+   "value": 80.213,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-apple-totalLiabilities",
+   "claim": "Apple's total liabilities (Total Liabilities) was 292,455 million dollars, $292.455 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 292,455 275,746 264,591",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "292,455"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "totalLiabilities",
+   "value": 292.455,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-apple-debt",
+   "claim": "Apple's total debt (Total Debt) was 94,479 million dollars, $94.479 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 94,479 84,344 84,711",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "94,479"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "debt",
+   "value": 94.479,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-apple-leases",
+   "claim": "Apple's long-term lease liabilities (Long-Term Leases) was 12,114 million dollars, $12.114 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 12,114 - -",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "12,114"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "leases",
+   "value": 12.114,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-apple-equity",
+   "claim": "Apple's shareholders' equity (Shareholders' Equity) was 112,093 million dollars, $112.093 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/aapl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Shareholders' Equity 112,093 107,520 106,491",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "112,093"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "equity",
+   "value": 112.093,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-google-totalAssets",
+   "claim": "Alphabet's total assets (Total Assets) was 1,003,312 million dollars, $1003.31 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 1,003,312 921,983 703,919",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "1,003,312"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "totalAssets",
+   "value": 1003.312,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-google-cash",
+   "claim": "Alphabet's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 265,098 million dollars, $265.098 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 265,098 242,474 126,840",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "265,098"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "cash",
+   "value": 265.098,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-google-ppe",
+   "claim": "Alphabet's property, plant and equipment (Property, Plant & Equipment) was 393,100 million dollars, $393.1 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 393,100 338,906 296,529",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "393,100"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "ppe",
+   "value": 393.1,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-google-goodwill",
+   "claim": "Alphabet's goodwill (Goodwill) was 58,117 million dollars, $58.117 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 58,117 57,828 57,774",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "58,117"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "goodwill",
+   "value": 58.117,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-google-intangibles",
+   "claim": "Alphabet's intangible assets (Other Intangible Assets) was 8,817 million dollars, $8.817 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 8,817 9,105 9,444",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "8,817"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "intangibles",
+   "value": 8.817,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-google-investments",
+   "claim": "Alphabet's long-term investments (Long-Term Investments) was 135,230 million dollars, $135.23 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 135,230 131,461 106,946",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "135,230"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "investments",
+   "value": 135.23,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-google-totalLiabilities",
+   "claim": "Alphabet's total liabilities (Total Liabilities) was 325,763 million dollars, $325.763 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 325,763 281,503 225,173",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "325,763"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "totalLiabilities",
+   "value": 325.763,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-google-debt",
+   "claim": "Alphabet's total debt (Total Debt) was 150,331 million dollars, $150.331 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 150,331 120,791 95,876",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "150,331"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "debt",
+   "value": 150.331,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-google-leases",
+   "claim": "Alphabet's long-term lease liabilities (Long-Term Leases) was 19,467 million dollars, $19.467 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 19,467 16,732 15,020",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "19,467"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "leases",
+   "value": 19.467,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-google-equity",
+   "claim": "Alphabet's shareholders' equity (Total Common Equity) was 659,526 million dollars, $659.526 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/googl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 659,526 622,457 478,746",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "659,526"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "equity",
+   "value": 659.526,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-amazon-totalAssets",
+   "claim": "Amazon's total assets (Total Assets) was 1,243,390 million dollars, $1243.39 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 1,243,390 1,095,689 916,630",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "1,243,390"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "totalAssets",
+   "value": 1243.39,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-amazon-cash",
+   "claim": "Amazon's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 114,226 million dollars, $114.226 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 114,226 122,988 143,089",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "114,226"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "cash",
+   "value": 114.226,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-amazon-ppe",
+   "claim": "Amazon's property, plant and equipment (Property, Plant & Equipment) was 605,772 million dollars, $605.772 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 605,772 538,789 486,199",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "605,772"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "ppe",
+   "value": 605.772,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-amazon-goodwill",
+   "claim": "Amazon's goodwill (Goodwill) was 23,743 million dollars, $23.743 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 23,743 23,504 23,449",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "23,743"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "goodwill",
+   "value": 23.743,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-amazon-investments",
+   "claim": "Amazon's long-term investments (Long-Term Investments) was 148,395 million dollars, $148.395 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 148,395 126,995 51,423",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "148,395"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "investments",
+   "value": 148.395,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-amazon-totalLiabilities",
+   "claim": "Amazon's total liabilities (Total Liabilities) was 629,789 million dollars, $629.789 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 629,789 544,069 474,716",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "629,789"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "totalLiabilities",
+   "value": 629.789,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-amazon-debt",
+   "claim": "Amazon's total debt (Total Debt) was 304,841 million dollars, $304.841 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 304,841 251,635 235,540",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "304,841"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "debt",
+   "value": 304.841,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-amazon-leases",
+   "claim": "Amazon's long-term lease liabilities (Long-Term Leases) was 98,824 million dollars, $98.824 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 98,824 94,338 90,814",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "98,824"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "leases",
+   "value": 98.824,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-amazon-equity",
+   "claim": "Amazon's shareholders' equity (Shareholders' Equity) was 613,601 million dollars, $613.601 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amzn/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Shareholders' Equity 613,601 551,620 441,914",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "613,601"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "equity",
+   "value": 613.601,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-meta-totalAssets",
+   "claim": "Meta's total assets (Total Assets) was 478,836 million dollars, $478.836 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 478,836 449,956 395,250",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "478,836"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "totalAssets",
+   "value": 478.836,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-meta-cash",
+   "claim": "Meta's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 82,449 million dollars, $82.449 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 82,449 90,260 81,180",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "82,449"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "cash",
+   "value": 82.449,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-meta-ppe",
+   "claim": "Meta's property, plant and equipment (Property, Plant & Equipment) was 279,798 million dollars, $279.798 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 279,798 249,709 218,044",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "279,798"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "ppe",
+   "value": 279.798,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-meta-goodwill",
+   "claim": "Meta's goodwill (Goodwill) was 23,421 million dollars, $23.421 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 23,421 23,406 24,748",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "23,421"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "goodwill",
+   "value": 23.421,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-meta-investments",
+   "claim": "Meta's long-term investments (Long-Term Investments) was 32,624 million dollars, $32.624 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 32,624 30,157 28,410",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "32,624"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "investments",
+   "value": 32.624,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-meta-totalLiabilities",
+   "claim": "Meta's total liabilities (Total Liabilities) was 206,450 million dollars, $206.45 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 206,450 188,735 151,569",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "206,450"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "totalLiabilities",
+   "value": 206.45,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-meta-debt",
+   "claim": "Meta's total debt (Total Debt) was 114,842 million dollars, $114.842 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 114,842 112,318 86,769",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "114,842"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "debt",
+   "value": 114.842,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-meta-leases",
+   "claim": "Meta's long-term lease liabilities (Long-Term Leases) was 28,651 million dollars, $28.651 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 28,651 26,229 25,607",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "28,651"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "leases",
+   "value": 28.651,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-meta-equity",
+   "claim": "Meta's shareholders' equity (Shareholders' Equity) was 272,386 million dollars, $272.386 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/meta/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Shareholders' Equity 272,386 261,221 243,681",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "272,386"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "equity",
+   "value": 272.386,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-broadcom-totalAssets",
+   "claim": "Broadcom's total assets (Total Assets) was 188,148 million dollars, $188.148 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 188,148 179,158 169,903",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "188,148"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "totalAssets",
+   "value": 188.148,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-broadcom-cash",
+   "claim": "Broadcom's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 23,975 million dollars, $23.975 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 23,975 19,628 14,174",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "23,975"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "cash",
+   "value": 23.975,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-broadcom-ppe",
+   "claim": "Broadcom's property, plant and equipment (Property, Plant & Equipment) was 3,144 million dollars, $3.144 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 3,144 2,788 2,599",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "3,144"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "ppe",
+   "value": 3.144,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-broadcom-goodwill",
+   "claim": "Broadcom's goodwill (Goodwill) was 97,801 million dollars, $97.801 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 97,801 97,801 97,801",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "97,801"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "goodwill",
+   "value": 97.801,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-broadcom-intangibles",
+   "claim": "Broadcom's intangible assets (Other Intangible Assets) was 26,325 million dollars, $26.325 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 26,325 28,333 30,302",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "26,325"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "intangibles",
+   "value": 26.325,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-broadcom-totalLiabilities",
+   "claim": "Broadcom's total liabilities (Total Liabilities) was 88,458 million dollars, $88.458 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 88,458 91,467 90,031",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "88,458"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "totalLiabilities",
+   "value": 88.458,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-broadcom-debt",
+   "claim": "Broadcom's total debt (Total Debt) was 59,419 million dollars, $59.419 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 59,419 64,907 66,057",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "59,419"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "debt",
+   "value": 59.419,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-broadcom-equity",
+   "claim": "Broadcom's shareholders' equity (Total Common Equity) was 99,690 million dollars, $99.69 billion, in the quarter ending Aug 2, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/avgo/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 99,690 87,691 79,872",
+    "Period Ending Aug '26 Aug 2, 2026"
+   ],
+   "values": [
+    "99,690"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "equity",
+   "value": 99.69,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 2, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-tesla-totalAssets",
+   "claim": "Tesla's total assets (Total Assets) was 157,517 million dollars, $157.517 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 157,517 148,524 143,724",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "157,517"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "totalAssets",
+   "value": 157.517,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-tesla-cash",
+   "claim": "Tesla's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 45,447 million dollars, $45.447 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 45,447 43,524 44,743",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "45,447"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "cash",
+   "value": 45.447,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-tesla-ppe",
+   "claim": "Tesla's property, plant and equipment (Property, Plant & Equipment) was 65,646 million dollars, $65.646 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 65,646 62,404 58,640",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "65,646"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "ppe",
+   "value": 65.646,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-tesla-investments",
+   "claim": "Tesla's long-term investments (Long-Term Investments) was 2,865 million dollars, $2.865 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 2,865 3,007 2,002",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "2,865"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "investments",
+   "value": 2.865,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-tesla-totalLiabilities",
+   "claim": "Tesla's total liabilities (Total Liabilities) was 67,628 million dollars, $67.628 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 67,628 61,005 58,922",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "67,628"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "totalLiabilities",
+   "value": 67.628,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-tesla-debt",
+   "claim": "Tesla's total debt (Total Debt) was 16,445 million dollars, $16.445 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 16,445 16,080 15,890",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "16,445"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "debt",
+   "value": 16.445,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-tesla-leases",
+   "claim": "Tesla's long-term lease liabilities (Long-Term Leases) was 6,027 million dollars, $6.027 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 6,027 5,919 5,810",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "6,027"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "leases",
+   "value": 6.027,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-tesla-equity",
+   "claim": "Tesla's shareholders' equity (Total Common Equity) was 89,289 million dollars, $89.289 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/tsla/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 89,289 86,858 84,116",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "89,289"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "equity",
+   "value": 89.289,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-oracle-totalAssets",
+   "claim": "Oracle's total assets (Total Assets) was 303,259 million dollars, $303.259 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 303,259 261,759 245,240",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "303,259"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "totalAssets",
+   "value": 303.259,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-oracle-cash",
+   "claim": "Oracle's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 37,077 million dollars, $37.077 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 37,077 31,894 39,132",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "37,077"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "cash",
+   "value": 37.077,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-oracle-ppe",
+   "claim": "Oracle's property, plant and equipment (Property, Plant & Equipment) was 161,812 million dollars, $161.812 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 161,812 129,647 83,617",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "161,812"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "ppe",
+   "value": 161.812,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-oracle-goodwill",
+   "claim": "Oracle's goodwill (Goodwill) was 62,267 million dollars, $62.267 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 62,267 62,261 62,274",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "62,267"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "goodwill",
+   "value": 62.267,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-oracle-investments",
+   "claim": "Oracle's long-term investments (Long-Term Investments) was 2,400 million dollars, $2.4 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 2,400 2,300 2,200",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "2,400"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "investments",
+   "value": 2.4,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-oracle-totalLiabilities",
+   "claim": "Oracle's total liabilities (Total Liabilities) was 236,063 million dollars, $236.063 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 236,063 218,703 206,189",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "236,063"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "totalLiabilities",
+   "value": 236.063,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-oracle-debt",
+   "claim": "Oracle's total debt (Total Debt) was 169,143 million dollars, $169.143 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 169,143 167,432 162,165",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "169,143"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "debt",
+   "value": 169.143,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-oracle-leases",
+   "claim": "Oracle's long-term lease liabilities (Long-Term Leases) was 39,030 million dollars, $39.03 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 39,030 33,729 24,223",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "39,030"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "leases",
+   "value": 39.03,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-oracle-equity",
+   "claim": "Oracle's shareholders' equity (Total Common Equity) was 61,818 million dollars, $61.818 billion, in the quarter ending Aug 31, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/orcl/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 61,818 37,554 33,541",
+    "Period Ending Aug '26 Aug 31, 2026"
+   ],
+   "values": [
+    "61,818"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "equity",
+   "value": 61.818,
+   "unit": "USD bn",
+   "period": "balance sheet at Aug 31, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-amd-totalAssets",
+   "claim": "AMD's total assets (Total Assets) was 94,812 million dollars, $94.812 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 94,812 84,464 79,642",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "94,812"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "totalAssets",
+   "value": 94.812,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-amd-cash",
+   "claim": "AMD's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 15,776 million dollars, $15.776 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 15,776 13,111 12,347",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "15,776"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "cash",
+   "value": 15.776,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-amd-ppe",
+   "claim": "AMD's property, plant and equipment (Property, Plant & Equipment) was 6,129 million dollars, $6.129 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 6,129 3,439 2,723",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "6,129"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "ppe",
+   "value": 6.129,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-amd-goodwill",
+   "claim": "AMD's goodwill (Goodwill) was 25,470 million dollars, $25.47 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 25,470 25,470 25,344",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "25,470"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "goodwill",
+   "value": 25.47,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-amd-intangibles",
+   "claim": "AMD's intangible assets (Other Intangible Assets) was 15,101 million dollars, $15.101 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 15,101 15,635 16,154",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "15,101"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "intangibles",
+   "value": 15.101,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-amd-investments",
+   "claim": "AMD's long-term investments (Long-Term Investments) was 3,554 million dollars, $3.554 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 3,554 3,222 2,277",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "3,554"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "investments",
+   "value": 3.554,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-amd-totalLiabilities",
+   "claim": "AMD's total liabilities (Total Liabilities) was 26,423 million dollars, $26.423 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 26,423 17,240 15,180",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "26,423"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "totalLiabilities",
+   "value": 26.423,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-amd-debt",
+   "claim": "AMD's total debt (Total Debt) was 9,211 million dollars, $9.211 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 9,211 4,276 3,871",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "9,211"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "debt",
+   "value": 9.211,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-amd-leases",
+   "claim": "AMD's long-term lease liabilities (Long-Term Leases) was 1,837 million dollars, $1.837 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 1,837 1,050 647",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "1,837"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "leases",
+   "value": 1.837,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-amd-equity",
+   "claim": "AMD's shareholders' equity (Shareholders' Equity) was 68,389 million dollars, $68.389 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/amd/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Shareholders' Equity 68,389 67,224 64,462",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "68,389"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "equity",
+   "value": 68.389,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-intel-totalAssets",
+   "claim": "Intel's total assets (Total Assets) was 228,574 million dollars, $228.574 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 228,574 202,439 205,332",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "228,574"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "totalAssets",
+   "value": 228.574,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-intel-cash",
+   "claim": "Intel's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 54,005 million dollars, $54.005 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 54,005 29,727 32,789",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "54,005"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "cash",
+   "value": 54.005,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-intel-ppe",
+   "claim": "Intel's property, plant and equipment (Property, Plant & Equipment) was 105,314 million dollars, $105.314 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 105,314 105,741 104,458",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "105,314"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "ppe",
+   "value": 105.314,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-intel-goodwill",
+   "claim": "Intel's goodwill (Goodwill) was 20,465 million dollars, $20.465 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 20,465 20,465 20,465",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "20,465"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "goodwill",
+   "value": 20.465,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-intel-intangibles",
+   "claim": "Intel's intangible assets (Other Intangible Assets) was 2,444 million dollars, $2.444 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 2,444 2,545 2,722",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "2,444"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "intangibles",
+   "value": 2.444,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-intel-investments",
+   "claim": "Intel's long-term investments (Long-Term Investments) was 8,798 million dollars, $8.798 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 8,798 8,410 8,481",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "8,798"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "investments",
+   "value": 8.798,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-intel-totalLiabilities",
+   "claim": "Intel's total liabilities (Total Liabilities) was 97,018 million dollars, $97.018 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 97,018 99,296 80,343",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "97,018"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "totalLiabilities",
+   "value": 97.018,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-intel-debt",
+   "claim": "Intel's total debt (Total Debt) was 50,134 million dollars, $50.134 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 50,134 50,537 45,031",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "50,134"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "debt",
+   "value": 50.134,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-intel-equity",
+   "claim": "Intel's shareholders' equity (Total Common Equity) was 114,914 million dollars, $114.914 billion, in the quarter ending Sep 26, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/intc/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 114,914 87,542 111,394",
+    "Period Ending Sep '26 Sep 26, 2026"
+   ],
+   "values": [
+    "114,914"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "equity",
+   "value": 114.914,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 26, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-coreweave-totalAssets",
+   "claim": "CoreWeave's total assets (Total Assets) was 77,070 million dollars, $77.07 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 77,070 55,573 49,302",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "77,070"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "totalAssets",
+   "value": 77.07,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-coreweave-cash",
+   "claim": "CoreWeave's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 5,539 million dollars, $5.539 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 5,539 2,266 3,161",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "5,539"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "cash",
+   "value": 5.539,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-coreweave-ppe",
+   "claim": "CoreWeave's property, plant and equipment (Property, Plant & Equipment) was 63,331 million dollars, $63.331 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 63,331 46,606 38,788",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "63,331"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "ppe",
+   "value": 63.331,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-coreweave-goodwill",
+   "claim": "CoreWeave's goodwill (Goodwill) was 1,101 million dollars, $1.101 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 1,101 1,101 1,101",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "1,101"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "goodwill",
+   "value": 1.101,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-coreweave-intangibles",
+   "claim": "CoreWeave's intangible assets (Other Intangible Assets) was 245 million dollars, $0.245 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 245 224 235",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "245"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "intangibles",
+   "value": 0.245,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-coreweave-investments",
+   "claim": "CoreWeave's long-term investments (Long-Term Investments) was 638 million dollars, $0.638 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 638 49 117",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "638"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "investments",
+   "value": 0.638,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-coreweave-totalLiabilities",
+   "claim": "CoreWeave's total liabilities (Total Liabilities) was 72,046 million dollars, $72.046 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 72,046 50,814 45,967",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "72,046"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "totalLiabilities",
+   "value": 72.046,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-coreweave-debt",
+   "claim": "CoreWeave's total debt (Total Debt) was 51,613 million dollars, $51.613 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 51,613 35,147 29,823",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "51,613"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "debt",
+   "value": 51.613,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-coreweave-leases",
+   "claim": "CoreWeave's long-term lease liabilities (Long-Term Leases) was 15,949 million dollars, $15.949 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 15,949 9,778 7,984",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "15,949"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "leases",
+   "value": 15.949,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-coreweave-equity",
+   "claim": "CoreWeave's shareholders' equity (Total Common Equity) was 5,024 million dollars, $5.024 billion, in the quarter ending Jun 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/crwv/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 5,024 4,759 3,335",
+    "Period Ending Jun '26 Jun 30, 2026"
+   ],
+   "values": [
+    "5,024"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "equity",
+   "value": 5.024,
+   "unit": "USD bn",
+   "period": "balance sheet at Jun 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-palantir-totalAssets",
+   "claim": "Palantir's total assets (Total Assets) was 13,413 million dollars, $13.413 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 13,413 11,679 10,199",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "13,413"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "totalAssets",
+   "value": 13.413,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-palantir-cash",
+   "claim": "Palantir's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 10,562 million dollars, $10.562 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 10,562 9,409 8,026",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "10,562"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "cash",
+   "value": 10.562,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-palantir-ppe",
+   "claim": "Palantir's property, plant and equipment (Property, Plant & Equipment) was 309.94 million dollars, $0.31 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 309.94 291.67 284.71",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "309.94"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "ppe",
+   "value": 0.31,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-palantir-investments",
+   "claim": "Palantir's long-term investments (Long-Term Investments) was 217 million dollars, $0.217 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 217 167 245",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "217"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "investments",
+   "value": 0.217,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-palantir-totalLiabilities",
+   "claim": "Palantir's total liabilities (Total Liabilities) was 2,068 million dollars, $2.068 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 2,068 1,794 1,643",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "2,068"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "totalLiabilities",
+   "value": 2.068,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-palantir-debt",
+   "claim": "Palantir's total debt (Total Debt) was 225.27 million dollars, $0.225 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 225.27 211.4 211.98",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "225.27"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "debt",
+   "value": 0.225,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-palantir-leases",
+   "claim": "Palantir's long-term lease liabilities (Long-Term Leases) was 225.27 million dollars, $0.225 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 225.27 211.4 211.98",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "225.27"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "leases",
+   "value": 0.225,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-palantir-equity",
+   "claim": "Palantir's shareholders' equity (Total Common Equity) was 11,228 million dollars, $11.228 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/pltr/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 11,228 9,774 8,450",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "11,228"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "equity",
+   "value": 11.228,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-netflix-totalAssets",
+   "claim": "Netflix's total assets (Total Assets) was 58,682 million dollars, $58.682 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 58,682 58,450 61,016",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "58,682"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "totalAssets",
+   "value": 58.682,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-netflix-cash",
+   "claim": "Netflix's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 8,223 million dollars, $8.223 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 8,223 9,128 12,288",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "8,223"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "cash",
+   "value": 8.223,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-netflix-ppe",
+   "claim": "Netflix's property, plant and equipment (Property, Plant & Equipment) was 4,530 million dollars, $4.53 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 4,530 4,436 4,248",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "4,530"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "ppe",
+   "value": 4.53,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-netflix-intangibles",
+   "claim": "Netflix's intangible assets (Other Intangible Assets) was 12,508 million dollars, $12.508 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 12,508 12,230 12,268",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "12,508"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "intangibles",
+   "value": 12.508,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-netflix-totalLiabilities",
+   "claim": "Netflix's total liabilities (Total Liabilities) was 29,396 million dollars, $29.396 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 29,396 28,298 29,890",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "29,396"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "totalLiabilities",
+   "value": 29.396,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-netflix-debt",
+   "claim": "Netflix's total debt (Total Debt) was 17,530 million dollars, $17.53 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 17,530 16,655 16,742",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "17,530"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "debt",
+   "value": 17.53,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-netflix-leases",
+   "claim": "Netflix's long-term lease liabilities (Long-Term Leases) was 1,817 million dollars, $1.817 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 1,817 1,899 1,948",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "1,817"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "leases",
+   "value": 1.817,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-netflix-equity",
+   "claim": "Netflix's shareholders' equity (Shareholders' Equity) was 29,286 million dollars, $29.286 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/nflx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Shareholders' Equity 29,286 30,152 31,126",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "29,286"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "equity",
+   "value": 29.286,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-spacex-totalAssets",
+   "claim": "SpaceX's total assets (Total Assets) was 254,045 million dollars, $254.045 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Assets 254,045 192,770 102,094",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "254,045"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "totalAssets",
+   "value": 254.045,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-spacex-cash",
+   "claim": "SpaceX's cash, cash equivalents and short-term investments (Cash & Short-Term Investments) was 89,855 million dollars, $89.855 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Cash & Short-Term Investments 89,855 100,009 23,675",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "89,855"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "cash",
+   "value": 89.855,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Cash & Short-Term Investments as the page groups it."
+  },
+  {
+   "id": "balancea-spacex-ppe",
+   "claim": "SpaceX's property, plant and equipment (Property, Plant & Equipment) was 90,523 million dollars, $90.523 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Property, Plant & Equipment 90,523 66,854 55,061",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "90,523"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "ppe",
+   "value": 90.523,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Property, Plant & Equipment as the page reports it; may include finance-lease assets."
+  },
+  {
+   "id": "balancea-spacex-goodwill",
+   "claim": "SpaceX's goodwill (Goodwill) was 48,423 million dollars, $48.423 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Goodwill 48,423 11,645 11,681",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "48,423"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "goodwill",
+   "value": 48.423,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-spacex-intangibles",
+   "claim": "SpaceX's intangible assets (Other Intangible Assets) was 6,354 million dollars, $6.354 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Other Intangible Assets 6,354 1,318 1,432",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "6,354"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "intangibles",
+   "value": 6.354,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Other Intangible Assets row."
+  },
+  {
+   "id": "balancea-spacex-investments",
+   "claim": "SpaceX's long-term investments (Long-Term Investments) was 297 million dollars, $0.297 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Investments 297 237 248",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "297"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "investments",
+   "value": 0.297,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Investments row of the page."
+  },
+  {
+   "id": "balancea-spacex-totalLiabilities",
+   "claim": "SpaceX's total liabilities (Total Liabilities) was 77,277 million dollars, $77.277 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Liabilities 77,277 65,546 60,512",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "77,277"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "totalLiabilities",
+   "value": 77.277,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. "
+  },
+  {
+   "id": "balancea-spacex-debt",
+   "claim": "SpaceX's total debt (Total Debt) was 39,218 million dollars, $39.218 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Debt 39,218 39,708 30,603",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "39,218"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "debt",
+   "value": 39.218,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. The page's Total Debt, which includes lease liabilities; see the leases fact for the lease part."
+  },
+  {
+   "id": "balancea-spacex-leases",
+   "claim": "SpaceX's long-term lease liabilities (Long-Term Leases) was 983 million dollars, $0.983 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Long-Term Leases 983 1,079 1,154",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "983"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "leases",
+   "value": 0.983,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Long-Term Leases row of the page (lease liabilities as the page groups them)."
+  },
+  {
+   "id": "balancea-spacex-equity",
+   "claim": "SpaceX's shareholders' equity (Total Common Equity) was 176,768 million dollars, $176.768 billion, in the quarter ending Sep 30, 2026, the newest column of the page's quarterly balance sheet.",
+   "url": "https://stockanalysis.com/stocks/spcx/financials/balance-sheet/?p=quarterly",
+   "quotes": [
+    "Total Common Equity 176,768 127,224 34,533",
+    "Period Ending Sep '26 Sep 30, 2026"
+   ],
+   "values": [
+    "176,768"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "equity",
+   "value": 176.768,
+   "unit": "USD bn",
+   "period": "balance sheet at Sep 30, 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Source: stockanalysis.com quarterly balance sheet, USD millions, newest quarter first. Equity row of the page (Total Common Equity or Shareholders' Equity, as the page labels it)."
+  },
+  {
+   "id": "balancea-nvidia-pe-ratio",
+   "claim": "companiesmarketcap.com reports NVIDIA's current price-to-earnings ratio (TTM) as 23.5673.",
+   "url": "https://companiesmarketcap.com/nvidia/pe-ratio/",
+   "quotes": [
+    "According to NVIDIA's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 23.5673."
+   ],
+   "values": [
+    "23.5673"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "peRatio",
+   "value": 23.5673,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-microsoft-pe-ratio",
+   "claim": "companiesmarketcap.com reports Microsoft's current price-to-earnings ratio (TTM) as 27.8017.",
+   "url": "https://companiesmarketcap.com/microsoft/pe-ratio/",
+   "quotes": [
+    "According to Microsoft's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 27.8017."
+   ],
+   "values": [
+    "27.8017"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "peRatio",
+   "value": 27.8017,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-apple-pe-ratio",
+   "claim": "companiesmarketcap.com reports Apple's current price-to-earnings ratio (TTM) as 39.4029.",
+   "url": "https://companiesmarketcap.com/apple/pe-ratio/",
+   "quotes": [
+    "According to Apple's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 39.4029."
+   ],
+   "values": [
+    "39.4029"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "peRatio",
+   "value": 39.4029,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-google-pe-ratio",
+   "claim": "companiesmarketcap.com reports Alphabet's current price-to-earnings ratio (TTM) as 14.6921.",
+   "url": "https://companiesmarketcap.com/alphabet-google/pe-ratio/",
+   "quotes": [
+    "According to Alphabet (Google)'s latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 14.6921."
+   ],
+   "values": [
+    "14.6921"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "peRatio",
+   "value": 14.6921,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-amazon-pe-ratio",
+   "claim": "companiesmarketcap.com reports Amazon's current price-to-earnings ratio (TTM) as 20.9338.",
+   "url": "https://companiesmarketcap.com/amazon/pe-ratio/",
+   "quotes": [
+    "According to Amazon's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 20.9338."
+   ],
+   "values": [
+    "20.9338"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "peRatio",
+   "value": 20.9338,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-meta-pe-ratio",
+   "claim": "companiesmarketcap.com reports Meta's current price-to-earnings ratio (TTM) as 20.8125.",
+   "url": "https://companiesmarketcap.com/meta-platforms/pe-ratio/",
+   "quotes": [
+    "According to Meta Platforms (Facebook)'s latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 20.8125."
+   ],
+   "values": [
+    "20.8125"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "peRatio",
+   "value": 20.8125,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-broadcom-pe-ratio",
+   "claim": "companiesmarketcap.com reports Broadcom's current price-to-earnings ratio (TTM) as 36.317.",
+   "url": "https://companiesmarketcap.com/broadcom/pe-ratio/",
+   "quotes": [
+    "According to Broadcom's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 36.317."
+   ],
+   "values": [
+    "36.317"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "peRatio",
+   "value": 36.317,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-tesla-pe-ratio",
+   "claim": "companiesmarketcap.com reports Tesla's current price-to-earnings ratio (TTM) as 363.152.",
+   "url": "https://companiesmarketcap.com/tesla/pe-ratio/",
+   "quotes": [
+    "According to Tesla's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 363.152."
+   ],
+   "values": [
+    "363.152"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "peRatio",
+   "value": 363.152,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-oracle-pe-ratio",
+   "claim": "companiesmarketcap.com reports Oracle's current price-to-earnings ratio (TTM) as 17.8009.",
+   "url": "https://companiesmarketcap.com/oracle/pe-ratio/",
+   "quotes": [
+    "According to Oracle's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 17.8009."
+   ],
+   "values": [
+    "17.8009"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "peRatio",
+   "value": 17.8009,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-amd-pe-ratio",
+   "claim": "companiesmarketcap.com reports AMD's current price-to-earnings ratio (TTM) as 112.857.",
+   "url": "https://companiesmarketcap.com/amd/pe-ratio/",
+   "quotes": [
+    "According to AMD's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 112.857."
+   ],
+   "values": [
+    "112.857"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "peRatio",
+   "value": 112.857,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-intel-pe-ratio",
+   "claim": "companiesmarketcap.com reports Intel's current price-to-earnings ratio (TTM) as -23.9307.",
+   "url": "https://companiesmarketcap.com/intel/pe-ratio/",
+   "quotes": [
+    "According to Intel's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is -23.9307."
+   ],
+   "values": [
+    "-23.9307"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "peRatio",
+   "value": -23.9307,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-coreweave-pe-ratio",
+   "claim": "companiesmarketcap.com reports CoreWeave's current price-to-earnings ratio (TTM) as -12.4986.",
+   "url": "https://companiesmarketcap.com/coreweave/pe-ratio/",
+   "quotes": [
+    "According to CoreWeave's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is -12.4986."
+   ],
+   "values": [
+    "-12.4986"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "peRatio",
+   "value": -12.4986,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-palantir-pe-ratio",
+   "claim": "companiesmarketcap.com reports Palantir's current price-to-earnings ratio (TTM) as 127.256.",
+   "url": "https://companiesmarketcap.com/palantir/pe-ratio/",
+   "quotes": [
+    "According to Palantir's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 127.256."
+   ],
+   "values": [
+    "127.256"
+   ],
+   "dated2026": true,
+   "actor": "palantir",
+   "kind": "peRatio",
+   "value": 127.256,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-netflix-pe-ratio",
+   "claim": "companiesmarketcap.com reports Netflix's current price-to-earnings ratio (TTM) as 18.1307.",
+   "url": "https://companiesmarketcap.com/netflix/pe-ratio/",
+   "quotes": [
+    "According to Netflix's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 18.1307."
+   ],
+   "values": [
+    "18.1307"
+   ],
+   "dated2026": true,
+   "actor": "netflix",
+   "kind": "peRatio",
+   "value": 18.1307,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-spacex-pe-ratio",
+   "claim": "companiesmarketcap.com reports SpaceX's current price-to-earnings ratio (TTM) as -579.37.",
+   "url": "https://companiesmarketcap.com/spacex/pe-ratio/",
+   "quotes": [
+    "According to SpaceX's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is -579.37."
+   ],
+   "values": [
+    "-579.37"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "peRatio",
+   "value": -579.37,
+   "unit": "x",
+   "period": "TTM, as of November 2026 (7 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Negative means trailing losses; the source's own computation."
+  },
+  {
+   "id": "balancea-nvidia-commit-supply",
+   "claim": "NVIDIA's 10-Q lists supply and capacity commitments of $279 billion as of 26 July 2026.",
+   "url": "https://fourweekmba.com/ai-nvidia-10-q-lists-530b-in-commitments-and-guarantees/",
+   "quotes": [
+    "It lists supply and capacity at $279 billion, cloud service agreements at $29 billion, data center leases not commenced at $25 billion, equity investments at $25 billion and capital expenditures at $8 billion, for a stated total of $366 billion."
+   ],
+   "values": [
+    "279"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "commitments",
+   "value": 279,
+   "unit": "USD bn",
+   "period": "future commitments as of 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Supply commitments are for NVIDIA's data-centre infrastructure systems, primarily memory and manufacturing facilities (the same article). Secondary reading of the 10-Q (SEC pages refuse scripts)."
+  },
+  {
+   "id": "balancea-nvidia-commit-total",
+   "claim": "NVIDIA's 10-Q table of future commitments totals $366 billion as of 26 July 2026: supply and capacity, cloud service agreements, data-centre leases not yet commenced, equity investments and capital expenditures.",
+   "url": "https://fourweekmba.com/ai-nvidia-10-q-lists-530b-in-commitments-and-guarantees/",
+   "quotes": [
+    "It lists supply and capacity at $279 billion, cloud service agreements at $29 billion, data center leases not commenced at $25 billion, equity investments at $25 billion and capital expenditures at $8 billion, for a stated total of $366 billion."
+   ],
+   "values": [
+    "366"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "commitments",
+   "value": 366,
+   "unit": "USD bn",
+   "period": "future commitments as of 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Components: supply and capacity 279, cloud service agreements 29, data-centre leases not commenced 25, equity investments 25, capital expenditures 8 (USD bn)."
+  },
+  {
+   "id": "balancea-nvidia-commit-cloud",
+   "claim": "NVIDIA's 10-Q lists cloud service agreements of $29 billion in future commitments as of 26 July 2026.",
+   "url": "https://fourweekmba.com/ai-nvidia-10-q-lists-530b-in-commitments-and-guarantees/",
+   "quotes": [
+    "It lists supply and capacity at $279 billion, cloud service agreements at $29 billion, data center leases not commenced at $25 billion, equity investments at $25 billion and capital expenditures at $8 billion, for a stated total of $366 billion."
+   ],
+   "values": [
+    "29"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "commitments",
+   "value": 29,
+   "unit": "USD bn",
+   "period": "future commitments as of 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Money NVIDIA has committed to buy back compute capacity from cloud providers."
+  },
+  {
+   "id": "balancea-nvidia-commit-leases",
+   "claim": "NVIDIA's 10-Q lists data-centre leases not yet commenced of $25 billion as of 26 July 2026.",
+   "url": "https://fourweekmba.com/ai-nvidia-10-q-lists-530b-in-commitments-and-guarantees/",
+   "quotes": [
+    "It lists supply and capacity at $279 billion, cloud service agreements at $29 billion, data center leases not commenced at $25 billion, equity investments at $25 billion and capital expenditures at $8 billion, for a stated total of $366 billion."
+   ],
+   "values": [
+    "25"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "commitments",
+   "value": 25,
+   "unit": "USD bn",
+   "period": "future commitments as of 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Off-balance-sheet lease commitments."
+  },
+  {
+   "id": "balancea-nvidia-commit-equity",
+   "claim": "NVIDIA's 10-Q lists equity-investment commitments of $25 billion as of 26 July 2026.",
+   "url": "https://fourweekmba.com/ai-nvidia-10-q-lists-530b-in-commitments-and-guarantees/",
+   "quotes": [
+    "It lists supply and capacity at $279 billion, cloud service agreements at $29 billion, data center leases not commenced at $25 billion, equity investments at $25 billion and capital expenditures at $8 billion, for a stated total of $366 billion."
+   ],
+   "values": [
+    "25"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "commitments",
+   "value": 25,
+   "unit": "USD bn",
+   "period": "future commitments as of 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Committed but unfunded stakes in other companies (circular demand for its chips); the table does not name the recipients in this excerpt."
+  },
+  {
+   "id": "balancea-nvidia-commit-supply-jump",
+   "claim": "NVIDIA increased supply commitments from $119 billion in the prior quarter to $279 billion as of 26 July 2026.",
+   "url": "https://fourweekmba.com/ai-nvidia-10-q-lists-530b-in-commitments-and-guarantees/",
+   "quotes": [
+    "The note states that NVIDIA increased supply commitments from $119 billion last quarter to $279 billion as of 26 July 2026."
+   ],
+   "values": [
+    "119",
+    "279"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "commitments",
+   "value": 160,
+   "unit": "USD bn",
+   "period": "increase over the quarter to 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Increase of 160 billion in one quarter (279 minus 119)."
+  },
+  {
+   "id": "balancea-microsoft-commit-rpo",
+   "claim": "Microsoft's commercial remaining performance obligation increased 73% to $677 billion in the quarter ended 30 September 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Commercial remaining performance obligation increased 73% to $677 billion"
+   ],
+   "values": [
+    "677"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "commitments",
+   "value": 677,
+   "unit": "USD bn",
+   "period": "as of 30 September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Customers' contracted future spend with Microsoft (a backlog, not a purchase obligation of Microsoft)."
+  },
+  {
+   "id": "balancea-oracle-commit-rpo",
+   "claim": "Oracle booked more than $30 billion of additional AI cloud contracts in Q1 FY27, increasing its remaining performance obligations to $664 billion.",
+   "url": "https://www.oracle.com/news/announcement/q1fy27-earnings-release-2026-09-10/",
+   "quotes": [
+    "Oracle booked more than $30 billion of additional AI cloud contracts in Q1 increasing its RPO to $664 billion."
+   ],
+   "values": [
+    "664"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "commitments",
+   "value": 664,
+   "unit": "USD bn",
+   "period": "as of 31 August 2026 (Q1 FY27)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Customers' contracted future spend with Oracle; the capex to serve it is financed with debt (see Oracle debt fact)."
+  },
+  {
+   "id": "balancea-coreweave-commit-backlog",
+   "claim": "CoreWeave's revenue backlog was approximately $104 billion as of 30 June 2026.",
+   "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/",
+   "quotes": [
+    "Revenue backlog1 was approximately $104 billion as of June 30, 2026."
+   ],
+   "values": [
+    "104"
+   ],
+   "dated2026": true,
+   "actor": "coreweave",
+   "kind": "commitments",
+   "value": 104,
+   "unit": "USD bn",
+   "period": "as of 30 June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Excludes more than $25 billion of net new customer commitments added in early Q3 (same release)."
+  }
+ ],
+ "actors": [
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "sells the accelerators the AI economy is trained on; holds $279 billion of supply commitments",
+   "facts": [
+    "balancea-nvidia-totalAssets",
+    "balancea-nvidia-cash",
+    "balancea-nvidia-ppe",
+    "balancea-nvidia-goodwill",
+    "balancea-nvidia-intangibles",
+    "balancea-nvidia-investments",
+    "balancea-nvidia-totalLiabilities",
+    "balancea-nvidia-debt",
+    "balancea-nvidia-leases",
+    "balancea-nvidia-equity",
+    "balancea-nvidia-pe-ratio",
+    "balancea-nvidia-commit-supply",
+    "balancea-nvidia-commit-total",
+    "balancea-nvidia-commit-cloud",
+    "balancea-nvidia-commit-leases",
+    "balancea-nvidia-commit-equity",
+    "balancea-nvidia-commit-supply-jump"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "cloud and AI platform; owns the largest data-centre property base of the group",
+   "facts": [
+    "balancea-microsoft-totalAssets",
+    "balancea-microsoft-cash",
+    "balancea-microsoft-ppe",
+    "balancea-microsoft-goodwill",
+    "balancea-microsoft-intangibles",
+    "balancea-microsoft-investments",
+    "balancea-microsoft-totalLiabilities",
+    "balancea-microsoft-debt",
+    "balancea-microsoft-leases",
+    "balancea-microsoft-equity",
+    "balancea-microsoft-pe-ratio",
+    "balancea-microsoft-commit-rpo"
+   ]
+  },
+  {
+   "id": "apple",
+   "name": "Apple",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "devices and services; net cash-light after buybacks, a debt-financed cash returner",
+   "facts": [
+    "balancea-apple-totalAssets",
+    "balancea-apple-cash",
+    "balancea-apple-ppe",
+    "balancea-apple-intangibles",
+    "balancea-apple-investments",
+    "balancea-apple-totalLiabilities",
+    "balancea-apple-debt",
+    "balancea-apple-leases",
+    "balancea-apple-equity",
+    "balancea-apple-pe-ratio"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Alphabet",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "search, cloud and TPUs under one balance sheet",
+   "facts": [
+    "balancea-google-totalAssets",
+    "balancea-google-cash",
+    "balancea-google-ppe",
+    "balancea-google-goodwill",
+    "balancea-google-intangibles",
+    "balancea-google-investments",
+    "balancea-google-totalLiabilities",
+    "balancea-google-debt",
+    "balancea-google-leases",
+    "balancea-google-equity",
+    "balancea-google-pe-ratio"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "retail and the largest cloud; the biggest debt load of the group",
+   "facts": [
+    "balancea-amazon-totalAssets",
+    "balancea-amazon-cash",
+    "balancea-amazon-ppe",
+    "balancea-amazon-goodwill",
+    "balancea-amazon-investments",
+    "balancea-amazon-totalLiabilities",
+    "balancea-amazon-debt",
+    "balancea-amazon-leases",
+    "balancea-amazon-equity",
+    "balancea-amazon-pe-ratio"
+   ]
+  },
+  {
+   "id": "meta",
+   "name": "Meta",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "advertising platform funding AI capex from operating cash and debt",
+   "facts": [
+    "balancea-meta-totalAssets",
+    "balancea-meta-cash",
+    "balancea-meta-ppe",
+    "balancea-meta-goodwill",
+    "balancea-meta-investments",
+    "balancea-meta-totalLiabilities",
+    "balancea-meta-debt",
+    "balancea-meta-leases",
+    "balancea-meta-equity",
+    "balancea-meta-pe-ratio"
+   ]
+  },
+  {
+   "id": "broadcom",
+   "name": "Broadcom",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "custom accelerators and networking; goodwill-heavy from acquisitions",
+   "facts": [
+    "balancea-broadcom-totalAssets",
+    "balancea-broadcom-cash",
+    "balancea-broadcom-ppe",
+    "balancea-broadcom-goodwill",
+    "balancea-broadcom-intangibles",
+    "balancea-broadcom-totalLiabilities",
+    "balancea-broadcom-debt",
+    "balancea-broadcom-equity",
+    "balancea-broadcom-pe-ratio"
+   ]
+  },
+  {
+   "id": "tesla",
+   "name": "Tesla",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "cars and robotics; high P/E on thin earnings",
+   "facts": [
+    "balancea-tesla-totalAssets",
+    "balancea-tesla-cash",
+    "balancea-tesla-ppe",
+    "balancea-tesla-investments",
+    "balancea-tesla-totalLiabilities",
+    "balancea-tesla-debt",
+    "balancea-tesla-leases",
+    "balancea-tesla-equity",
+    "balancea-tesla-pe-ratio"
+   ]
+  },
+  {
+   "id": "oracle",
+   "name": "Oracle",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "AI cloud build-out financed by debt; $664 billion backlog",
+   "facts": [
+    "balancea-oracle-totalAssets",
+    "balancea-oracle-cash",
+    "balancea-oracle-ppe",
+    "balancea-oracle-goodwill",
+    "balancea-oracle-investments",
+    "balancea-oracle-totalLiabilities",
+    "balancea-oracle-debt",
+    "balancea-oracle-leases",
+    "balancea-oracle-equity",
+    "balancea-oracle-pe-ratio",
+    "balancea-oracle-commit-rpo"
+   ]
+  },
+  {
+   "id": "amd",
+   "name": "AMD",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "second GPU supplier; goodwill and intangibles from the Xilinx deal",
+   "facts": [
+    "balancea-amd-totalAssets",
+    "balancea-amd-cash",
+    "balancea-amd-ppe",
+    "balancea-amd-goodwill",
+    "balancea-amd-intangibles",
+    "balancea-amd-investments",
+    "balancea-amd-totalLiabilities",
+    "balancea-amd-debt",
+    "balancea-amd-leases",
+    "balancea-amd-equity",
+    "balancea-amd-pe-ratio"
+   ]
+  },
+  {
+   "id": "intel",
+   "name": "Intel",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "foundry and CPUs; strengthened by a 2026 cash and equity infusion",
+   "facts": [
+    "balancea-intel-totalAssets",
+    "balancea-intel-cash",
+    "balancea-intel-ppe",
+    "balancea-intel-goodwill",
+    "balancea-intel-intangibles",
+    "balancea-intel-investments",
+    "balancea-intel-totalLiabilities",
+    "balancea-intel-debt",
+    "balancea-intel-equity",
+    "balancea-intel-pe-ratio"
+   ]
+  },
+  {
+   "id": "coreweave",
+   "name": "CoreWeave",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "AI-only cloud financed by debt against contracts; equity thin",
+   "facts": [
+    "balancea-coreweave-totalAssets",
+    "balancea-coreweave-cash",
+    "balancea-coreweave-ppe",
+    "balancea-coreweave-goodwill",
+    "balancea-coreweave-intangibles",
+    "balancea-coreweave-investments",
+    "balancea-coreweave-totalLiabilities",
+    "balancea-coreweave-debt",
+    "balancea-coreweave-leases",
+    "balancea-coreweave-equity",
+    "balancea-coreweave-pe-ratio",
+    "balancea-coreweave-commit-backlog"
+   ]
+  },
+  {
+   "id": "palantir",
+   "name": "Palantir",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "software with a very high P/E and almost no debt",
+   "facts": [
+    "balancea-palantir-totalAssets",
+    "balancea-palantir-cash",
+    "balancea-palantir-ppe",
+    "balancea-palantir-investments",
+    "balancea-palantir-totalLiabilities",
+    "balancea-palantir-debt",
+    "balancea-palantir-leases",
+    "balancea-palantir-equity",
+    "balancea-palantir-pe-ratio"
+   ]
+  },
+  {
+   "id": "netflix",
+   "name": "Netflix",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "streaming; content intangibles and moderate debt",
+   "facts": [
+    "balancea-netflix-totalAssets",
+    "balancea-netflix-cash",
+    "balancea-netflix-ppe",
+    "balancea-netflix-intangibles",
+    "balancea-netflix-totalLiabilities",
+    "balancea-netflix-debt",
+    "balancea-netflix-leases",
+    "balancea-netflix-equity",
+    "balancea-netflix-pe-ratio"
+   ]
+  },
+  {
+   "id": "spacex",
+   "name": "SpaceX",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "technology",
+   "role": "rockets, Starlink and xAI after the merger; listed June 2026",
+   "facts": [
+    "balancea-spacex-totalAssets",
+    "balancea-spacex-cash",
+    "balancea-spacex-ppe",
+    "balancea-spacex-goodwill",
+    "balancea-spacex-intangibles",
+    "balancea-spacex-investments",
+    "balancea-spacex-totalLiabilities",
+    "balancea-spacex-debt",
+    "balancea-spacex-leases",
+    "balancea-spacex-equity",
+    "balancea-spacex-pe-ratio"
+   ]
+  }
+ ],
+ "flows": [],
+ "chokepoints": [],
+ "flashpoints": [],
+ "lineage": [],
+ "notes": "Balance sheets for Apple, Alphabet, Amazon, Meta, Broadcom, Tesla, Oracle, AMD, Intel, CoreWeave, Palantir, Netflix and SpaceX come from stockanalysis.com's quarterly balance-sheet pages (newest column) because sec.gov refuses scripts and Apple's release PDF extracts out of order; NVIDIA's and Microsoft's come from their own releases. Dates differ by fiscal calendar: NVIDIA 26 Jul 2026, Broadcom 2 Aug 2026, Oracle 31 Aug 2026, CoreWeave 30 Jun 2026 (its Q3 report is not out), the rest 26-30 Sep 2026. On stockanalysis.com 'Total Debt' includes lease liabilities and 'PP&E' can include finance-lease assets (Apple's 63.7 versus 52.1 in Apple's own release). Equity is common equity as the page labels it. The brief's companiesmarketcap.com /pe-ratio/ pages do not exist; per-company /<slug>/pe-ratio/ pages were used. Its other per-company pages were stale for Apple (383.3 billion total assets versus 404.5 in Apple's release), so they were not used. Not found as fetchable text: Oracle's lease commitments not yet commenced, Meta's, Alphabet's and Amazon's purchase commitments, Microsoft's lease commitments (all in 10-Qs on sec.gov). NVIDIA's commitments are read from a secondary article quoting the 10-Q.",
+ "openQuestions": [
+  "Are the stockanalysis.com balance sheets, a secondary aggregator, acceptable for the 13 non-release companies, or should a later pass replace them with 10-Q text?",
+  "Should lease commitments not yet commenced (Oracle, Microsoft, Meta) be added from 10-Q text, which needs a fetch route that sec.gov permits?",
+  "CoreWeave's Q3 2026 balance sheet is due after this date; refresh then."
+ ]
+}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace Why.Economy.Model
@@ -41,6 +42,13 @@ namespace Why.Economy.Model
             public readonly Dictionary<string, double> Scenario = new Dictionary<string, double>();
             public string[] Sources = Array.Empty<string>();
 
+            /// <summary>The balance sheet (latest quarter; NaN where research gave no figure), the P/E, the share price's
+            /// uses (buybacks, dividends, stock-based pay), a loss funded by others' money, and Jev's strategy and risk.</summary>
+            public readonly Balance Sheet = new Balance();
+            public double Pe = double.NaN, Buybacks = double.NaN, Dividends = double.NaN, Sbc = double.NaN, Burn = double.NaN, Risk = double.NaN;
+            public string Strategy, BurnWhat;
+            public bool Private;
+
             public bool Sized => !double.IsNaN(SizeUsdBn) && SizeUsdBn > 0;
 
             /// <summary>The actor's advantage under a scenario id (<see cref="Now"/>, <see cref="Y2030"/> or the file's); its
@@ -62,6 +70,57 @@ namespace Why.Economy.Model
                 for (int i = 0; i < list.Count; i++) list[i] = (list[i].Item1, list[i].Item2, i < 3 ? list[i].Item2 / (1 << i) : 0);
                 return list;
             }
+        }
+
+        /// <summary>A balance sheet in $bn (NaN: not researched), its date and the facts behind it.</summary>
+        public sealed class Balance
+        {
+            public double TotalAssets = double.NaN, Cash = double.NaN, Ppe = double.NaN, Goodwill = double.NaN, Intangibles = double.NaN,
+                Investments = double.NaN, TotalLiabilities = double.NaN, Debt = double.NaN, Leases = double.NaN, Equity = double.NaN, Commitments = double.NaN;
+            public string Date, CommitmentsWhat;
+            public string[] Facts = Array.Empty<string>();
+            public bool Known => !double.IsNaN(Equity) || !double.IsNaN(TotalAssets);
+        }
+
+        /// <summary>An owner (a golden circle): who, what kind (fund, sovereign, pe, vc, hedge, corporate, person,
+        /// households) and the stakes it holds.</summary>
+        public sealed class Owner
+        {
+            public string Id, Name, Kind;
+            public double HoldingsUsdBn;
+            public readonly List<Stake> Stakes = new List<Stake>();
+        }
+
+        public sealed class Stake { public string Owner, Company, Fact, Period; public double Pct = double.NaN, UsdBn = double.NaN; }
+
+        /// <summary>A company in one year of a simulated world: market value, book equity, cash, debt, revenue, net income
+        /// ($bn), P/E (NaN for a loss), altitude (10-150) and fate (alive, absorbed by <see cref="By"/>, extinct).</summary>
+        public sealed class SimState
+        {
+            public double V, Eq, Cash, Debt, Rev, Ni, Pe = double.NaN, Alt;
+            public string Status = "alive", By;
+            public bool Alive => Status == "alive";
+        }
+
+        public sealed class SimEvent { public int Year; public string Company, What; }
+
+        /// <summary>A world of the simulation (now, the most likely course to 2030, or a scenario): its years and events.</summary>
+        public sealed class World
+        {
+            public string Id, Title;
+            public readonly SortedDictionary<int, Dictionary<string, SimState>> Years = new SortedDictionary<int, Dictionary<string, SimState>>();
+            public readonly List<SimEvent> Events = new List<SimEvent>();
+
+            /// <summary>A company's state in a year (the nearest year the world has), or null.</summary>
+            public SimState At(string company, int year)
+            {
+                Dictionary<string, SimState> best = null;
+                foreach (var kv in Years) if (kv.Key <= year || best == null) best = kv.Value;
+                return best != null && best.TryGetValue(company, out SimState s) ? s : null;
+            }
+
+            public int FirstYear => Years.Count > 0 ? Years.Keys.First() : 2026;
+            public int LastYear => Years.Count > 0 ? Years.Keys.Last() : 2026;
         }
 
         public sealed class Flow
@@ -99,6 +158,18 @@ namespace Why.Economy.Model
         public readonly List<ScenarioInfo> Scenarios = new List<ScenarioInfo>();
         public readonly Dictionary<string, Source> Sources = new Dictionary<string, Source>();
         public readonly Dictionary<string, string> PowerNames = new Dictionary<string, string>();
+        public readonly List<Owner> Owners = new List<Owner>();
+        public readonly List<Stake> Stakes = new List<Stake>();
+        public readonly Dictionary<string, World> Worlds = new Dictionary<string, World>();
+        public readonly List<string> SimAssumptions = new List<string>();
+
+        public World WorldById(string id) => id != null && Worlds.TryGetValue(id, out World w) ? w : null;
+
+        public Owner OwnerById(string id)
+        {
+            foreach (var o in Owners) if (o.Id == id) return o;
+            return null;
+        }
         readonly Dictionary<string, Actor> byId = new Dictionary<string, Actor>();
 
         public Actor Get(string id) => id != null && byId.TryGetValue(id, out Actor a) ? a : null;
@@ -151,6 +222,17 @@ namespace Why.Economy.Model
                     x.MarginPct = Num(m["pct"]); x.MarginPeriod = (string)m["period"]; x.MarginFacts = Strings(m["facts"]);
                 }
                 Fill(x.Powers, a["powers"]); Fill(x.Triad, a["triad"]); Fill(x.Scenario, a["scenario"]);
+                if (a["balance"] is JObject bs)
+                {
+                    var b = x.Sheet;
+                    b.TotalAssets = Num(bs["totalAssets"]); b.Cash = Num(bs["cash"]); b.Ppe = Num(bs["ppe"]); b.Goodwill = Num(bs["goodwill"]);
+                    b.Intangibles = Num(bs["intangibles"]); b.Investments = Num(bs["investments"]); b.TotalLiabilities = Num(bs["totalLiabilities"]);
+                    b.Debt = Num(bs["debt"]); b.Leases = Num(bs["leases"]); b.Equity = Num(bs["equity"]); b.Commitments = Num(bs["commitments"]);
+                    b.Date = (string)bs["date"]; b.CommitmentsWhat = (string)bs["commitmentsWhat"]; b.Facts = Strings(bs["facts"]);
+                }
+                x.Pe = Num(a["pe"]); x.Buybacks = Num(a["buybacks"]); x.Dividends = Num(a["dividends"]); x.Sbc = Num(a["sbc"]);
+                x.Burn = Num(a["burn"]); x.BurnWhat = (string)a["burnWhat"]; x.Risk = Num(a["risk"]); x.Strategy = (string)a["strategy"];
+                x.Private = (bool?)a["private"] ?? false;
                 if (string.IsNullOrEmpty(x.Id) || byId.ContainsKey(x.Id)) continue;
                 Actors.Add(x); byId[x.Id] = x;
             }
@@ -185,6 +267,47 @@ namespace Why.Economy.Model
                 Lineage.Add(new Step { From = (string)l["from"], To = (string)l["to"], FromName = (string)l["fromName"], ToName = (string)l["toName"], How = (string)l["how"], Year = (int?)l["year"] ?? 0, Sources = Strings(l["sources"]) });
             foreach (JObject s in Arr(root["scenarios"]))
                 Scenarios.Add(new ScenarioInfo { Id = (string)s["id"], Title = (string)s["title"], Premise = (string)s["premise"], Reading = (string)s["reading"], Friendly = Strings(s["friendly"]), Unfriendly = Strings(s["unfriendly"]), Signposts = Strings(s["signposts"]) });
+            foreach (JObject o in Arr(root["owners"]))
+            {
+                var owner = new Owner { Id = (string)o["id"], Name = (string)o["name"], Kind = (string)o["kind"], HoldingsUsdBn = Num(o["holdingsUsdBn"]) };
+                foreach (JObject st in Arr(o["stakes"]))
+                {
+                    var stake = new Stake { Owner = owner.Id, Company = (string)st["company"], Pct = Num(st["pct"]), UsdBn = Num(st["usdBn"]), Fact = (string)st["fact"], Period = (string)st["period"] };
+                    owner.Stakes.Add(stake);
+                    Stakes.Add(stake);
+                }
+
+                if (double.IsNaN(owner.HoldingsUsdBn)) owner.HoldingsUsdBn = 0;
+                Owners.Add(owner);
+            }
+
+            if (root["simulation"] is JObject sim)
+            {
+                foreach (JToken t in Arr(sim["assumptions"])) SimAssumptions.Add(t.Type == JTokenType.Object ? (string)t["name"] + ": " + (string)t["value"] + " (" + (string)t["why"] + ")" : (string)t);
+                if (sim["worlds"] is JObject worlds)
+                    foreach (var kv in worlds)
+                    {
+                        if (!(kv.Value is JObject w)) continue;
+                        var world = new World { Id = kv.Key, Title = (string)w["title"] ?? kv.Key };
+                        if (w["years"] is JObject years)
+                            foreach (var y in years)
+                            {
+                                if (!int.TryParse(y.Key, out int year) || !(y.Value is JObject cs)) continue;
+                                var states = new Dictionary<string, SimState>();
+                                foreach (var c in cs)
+                                    if (c.Value is JObject st)
+                                        states[c.Key] = new SimState
+                                        {
+                                            V = Num(st["v"]), Eq = Num(st["eq"]), Cash = Num(st["cash"]), Debt = Num(st["debt"]), Rev = Num(st["rev"]), Ni = Num(st["ni"]),
+                                            Pe = Num(st["pe"]), Alt = Num(st["alt"]), Status = (string)st["status"] ?? "alive", By = (string)st["by"],
+                                        };
+                                world.Years[year] = states;
+                            }
+                        foreach (JObject e in Arr(w["events"])) world.Events.Add(new SimEvent { Year = (int?)e["year"] ?? 0, Company = (string)e["company"], What = (string)e["what"] });
+                        Worlds[world.Id] = world;
+                    }
+            }
+
             if (root["sources"] is JObject src)
                 foreach (var kv in src)
                     if (kv.Value is JObject o) Sources[kv.Key] = new Source { Claim = (string)o["claim"], Url = (string)o["url"] };

@@ -69,8 +69,8 @@ namespace Why.Economy
             // The present as a contest (HillAdvantageLayer): the crest of 2026 opened into the arena past it, seen from the
             // future side and above, looking back toward the wave 20 degrees off its axis. Key I opens it (the crest's cut
             // face, then the floor spreading out of it as the peaks rise).
-            Add(HillAdvantageLayer.View, "The present as a contest", "2026's economy as a contest: each actor a peak as wide as its market value and as high as its competitive advantage; rivers of money climb to the choke points; sparks mark the fights.",
-                KeyCode.I, new Vector3(AdvantageLayout.X0 - 80, 14, crest + 250), 160, 34, 470);
+            Add(HillAdvantageLayer.View, "The present as a contest", "2026's economy as a living contest: each company its balance sheet inside a shell of market value, higher the more it dominates; rivers of money between them; their owners in gold above.",
+                KeyCode.I, new Vector3(ContestNetwork.X0 - 150, 96, crest + 240), 158, 13, 720);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.

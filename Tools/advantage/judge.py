@@ -21,7 +21,7 @@ what changed. The credential is found by Tools/jev.py and never printed or store
 
 Usage (from the repository root):
     python3 -I Tools/advantage/judge.py                    # every judgment
-    python3 -I Tools/advantage/judge.py --only actors      # actors | flows | chokepoints | flashpoints
+    python3 -I Tools/advantage/judge.py --only actors      # actors | strategy | flows | chokepoints | flashpoints
     python3 -I Tools/advantage/judge.py --dry              # count the requests, call nothing
     python3 -I Tools/advantage/judge.py --offline          # cached answers only
     python3 -I Tools/advantage/judge.py --model M --out J  # another model file (a test)
@@ -184,6 +184,31 @@ def actor_questions(scenarios):
                          "Strongly strengthened: it gains a great deal while rivals fall back."]}
     return q
 
+
+STRATEGY_Q = {
+    "strategy": {
+        "type": "choice",
+        "instructions": "`company` is a company in the 2026 economy, `evidence` lists verified claims about it (its balance sheet, its "
+                        "valuation, its spending, its contracts, its owners). Which strategy best describes how it competes now?",
+        "criteria": {
+            "toll": "toll collector: sells what everyone in its chain must buy, at margins rivals cannot match",
+            "landgrab": "land grab on the share price: uses a high valuation or outside capital to spend far ahead of revenue, take "
+                        "losses or price below cost to win a market before rivals",
+            "fortress": "cash fortress: funds its growth and defends its markets from its own profits, returning the rest to owners",
+            "builder": "debt-financed builder: borrows or leases to build capacity ahead of demand that is contracted but unproven",
+            "consolidator": "consolidator: buys rivals, talent and technology with its cash or its shares to keep its position",
+            "challenger": "challenger: attacks an incumbent with a cheaper, faster or different model",
+            "utility": "utility or commodity supplier: earns ordinary returns on physical assets or cyclical products",
+        }},
+    "risk": {
+        "type": "score",
+        "instructions": "`company` is a company in the 2026 economy, `evidence` lists verified claims about it. How exposed is it to a "
+                        "collapse in its own share price or in its access to outside capital (equity or debt) over the next three years?",
+        "criteria": ["Barely exposed: it funds itself from profits and holds more cash than debt.",
+                     "Lightly exposed: a collapse would slow it but not threaten any commitment.",
+                     "Moderately exposed: it needs capital markets for its growth, but not to survive.",
+                     "Heavily exposed: it depends on new capital or a high valuation to meet its commitments.",
+                     "Existentially exposed: without continued outside capital it would fail or have to sell itself."]}}
 
 FLOW_Q = {"motive": {
     "type": "score",
@@ -352,11 +377,24 @@ def main():
     actors = {a["id"]: a for a in model.get("actors", [])}
     scenarios = model.get("scenarios", [])
     jobs = []   # (section, id, state, questions)
+    strategist = load(os.path.join(RESEARCH, "strategist.json")) if os.path.exists(os.path.join(RESEARCH, "strategist.json")) else {}
+    arena = {a["id"] for a in strategist.get("actors", []) if a.get("layer") not in (None, "drop", "history", "owners")}
+
+    def in_arena(a):
+        nums = a.get("numbers") or {}
+        return a.get("era", "present") == "present" and a.get("layer") not in (None, "drop", "history", "owners") and \
+            (a["id"] in arena or nums.get("marketCap") or nums.get("valuation"))
     if only in (None, "actors"):
         aq = actor_questions(scenarios)
         for a in model.get("actors", []):
-            if a.get("era", "present") == "present":
+            if in_arena(a):
                 jobs.append(("actors", a["id"], actor_state(model, actors, a), aq))
+    if only in (None, "strategy"):
+        for a in model.get("actors", []):
+            if not in_arena(a) or a.get("layer") in ("state", "buyers"):
+                continue
+            st = actor_state(model, actors, a)
+            jobs.append(("strategy", a["id"], {"asOf": st["asOf"], "company": st["actor"], "evidence": verified_claims(model, a.get("facts"), 40)}, STRATEGY_Q))
     if only in (None, "flows"):
         for f in model.get("flows", []):
             jobs.append(("flows", f["id"], flow_state(model, actors, f), FLOW_Q))
@@ -374,7 +412,7 @@ def main():
     if not offline and not jev.available():
         sys.exit("Jev credential unavailable: no judgments made")
     out = load(OUT) if os.path.exists(OUT) else {}
-    for section in ("actors", "flows", "chokepoints", "flashpoints"):
+    for section in ("actors", "strategy", "flows", "chokepoints", "flashpoints"):
         out.setdefault(section, {})
     done = [0]
 

@@ -1,0 +1,2143 @@
+{
+ "cluster": "extinctions-big-five",
+ "asOf": "2026-11-07",
+ "facts": [
+  {
+   "id": "ext-ord-date-lome",
+   "claim": "The Late Ordovician (end-Ordovician) mass extinction, the first of the Big Five, occurred roughly 445 million years ago.",
+   "url": "https://en.wikipedia.org/wiki/Late_Ordovician_mass_extinction",
+   "quotes": [
+    "The Late Ordovician mass extinction (LOME), sometimes referred to as the end-Ordovician mass extinction or the Ordovician–Silurian extinction, is the first of the \"big five\" major mass extinction events in Earth's history, occurring roughly 445 million years ago (Ma)."
+   ],
+   "values": [
+    "445"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "date",
+   "value": 445,
+   "unit": "Ma",
+   "when": "about 445 Ma (first pulse near the Katian–Hirnantian boundary)",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "LOME article lead dates the extinction to roughly 445 Ma. The same article puts the first pulse at the Katian–Hirnantian boundary, so the span note is supported.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-date-silurian-boundary",
+   "claim": "The Ordovician Period ends, and the Silurian begins, 443.1 million years ago.",
+   "url": "https://en.wikipedia.org/wiki/Ordovician",
+   "quotes": [
+    "The Ordovician spans 43.75 million years from the end of the Cambrian Period 486.85 Ma (million years ago) to the start of the Silurian Period 443.1 Ma."
+   ],
+   "values": [
+    "443.1"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "date",
+   "value": 443.1,
+   "unit": "Ma",
+   "when": "Ordovician–Silurian boundary",
+   "accessed": "2026-11-07",
+   "notes": "Boundary age for the clock; the extinction's second pulse falls in the latest Hirnantian, just before this boundary. Older charts gave 443.8 Ma.",
+   "check": {
+    "ok": true,
+    "reason": "Ordovician article: the period ends at the start of the Silurian, 443.1 Ma (infobox 443.1 ± 0.9 Ma). It is a boundary date and is labelled as one.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-date-harper2024",
+   "claim": "Most authorities agree that the Late Ordovician mass extinction occurred about 445–443 million years ago.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10799725/fullTextXML",
+   "quotes": [
+    "Most authorities agree that the LOME occurred ∼445–443 Ma with recent duration of the entire age at ∼1.4 myr."
+   ],
+   "values": [
+    "445–443"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "date",
+   "value": 445,
+   "unit": "Ma",
+   "when": "about 445–443 Ma",
+   "accessed": "2026-11-07",
+   "notes": "Value is the older end of the 445–443 Ma range. Source: Harper 2024, National Science Review 11:nwad319, doi:10.1093/nsr/nwad319 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Harper (2024) says most authorities place the LOME at about 445–443 Ma. The value 445 is the older end of that range.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-species-lome",
+   "claim": "The Late Ordovician mass extinction eliminated nearly 85% of marine species.",
+   "url": "https://en.wikipedia.org/wiki/Late_Ordovician_mass_extinction",
+   "quotes": [
+    "Extinction was global during this interval, eliminating 49–60% of marine genera and nearly 85% of marine species."
+   ],
+   "values": [
+    "85%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "marine species lost",
+   "value": 85,
+   "unit": "% of marine species",
+   "when": "Late Ordovician, about 445 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "LOME lead: nearly 85% of marine species were lost in this event. Measure, unit and span all match.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-lome",
+   "claim": "The Late Ordovician mass extinction eliminated 49–60% of marine genera.",
+   "url": "https://en.wikipedia.org/wiki/Late_Ordovician_mass_extinction",
+   "quotes": [
+    "Extinction was global during this interval, eliminating 49–60% of marine genera and nearly 85% of marine species."
+   ],
+   "values": [
+    "49–60%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "marine genera lost",
+   "value": 49,
+   "unit": "% of marine genera",
+   "when": "Late Ordovician, about 445 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 49–60%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "LOME lead gives 49–60% of marine genera. The value 49 is the low end of that range, and the claim keeps the full range.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-species-overview",
+   "claim": "The two pulses of the Late Ordovician mass extinction (445–444 Ma) together killed 85% of all species.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Together, they killed off 27% of all families, 57% of all genera and 85% of all species."
+   ],
+   "values": [
+    "85%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "species lost (all species)",
+   "value": 85,
+   "unit": "% of all species",
+   "when": "both pulses, 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Extinction event article, section dated 445–444 Ma: the two pulses together killed 85% of species, and the article itself says all species.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-overview",
+   "claim": "The two pulses of the Late Ordovician mass extinction (445–444 Ma) together killed 57% of all genera.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Together, they killed off 27% of all families, 57% of all genera and 85% of all species."
+   ],
+   "values": [
+    "57%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "genera lost (all genera)",
+   "value": 57,
+   "unit": "% of all genera",
+   "when": "both pulses, 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "The same sentence gives 57% of all genera for both pulses. Caveat: the sentence cites Bambach (2006), whose 57% in the article's own table is a marine-genera figure. So 'all genera' is the article's wording, not a separate estimate.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-species-harper2024",
+   "claim": "Compiled biodiversity data show that the Late Ordovician mass extinction eradicated some 80% of species.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10799725/fullTextXML",
+   "quotes": [
+    "These compiled data revealed the eradication of some 25% of families, 40% of genera and 80% of species"
+   ],
+   "values": [
+    "80%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "species lost (all species)",
+   "value": 80,
+   "unit": "% of species",
+   "when": "Late Ordovician (Hirnantian)",
+   "accessed": "2026-11-07",
+   "notes": "Lower than the 85% in the Wikipedia articles. Source: Harper 2024, National Science Review 11:nwad319, doi:10.1093/nsr/nwad319 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Harper (2024), in the LOME discussion: compiled global Ordovician biodiversity data show about 80% of species lost (alongside 25% of families and 40% of genera). The paper says species, not explicitly all species. These compilations are essentially marine, so the label is acceptable. Its abstract gives about 75% of animal species.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-harper2024",
+   "claim": "Compiled biodiversity data show that the Late Ordovician mass extinction eradicated some 40% of genera.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10799725/fullTextXML",
+   "quotes": [
+    "These compiled data revealed the eradication of some 25% of families, 40% of genera and 80% of species"
+   ],
+   "values": [
+    "40%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "genera lost (all genera)",
+   "value": 40,
+   "unit": "% of genera",
+   "when": "Late Ordovician (Hirnantian)",
+   "accessed": "2026-11-07",
+   "notes": "Source: Harper 2024, National Science Review 11:nwad319, doi:10.1093/nsr/nwad319 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Same Harper (2024) sentence: about 40% of genera. Same caveat: the compiled Ordovician data are essentially marine, and the paper does not literally say all genera.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-sepkoski1996",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Sepkoski (1996) estimates 49%; in full, the Late Ordovician (Ashgillian/Hirnantian, 445–444 Ma) row gives about 49% for Sepkoski (1996, multiple-interval genera), 57% for Bambach (2006) with both pulses calculated together (40% and 31% for the pulses separately), 52% taxonomic loss and an ecological ranking of 7 for McGhee et al. (2013), and 42–46% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Ordovician (Ashgillian / Hirnantian) 445–444 ~49% 57% [d] (40%, 31%) [e] 52% 7 42–46%"
+   ],
+   "values": [
+    "49%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "marine genera lost (Sepkoski (1996))",
+   "value": 49,
+   "unit": "% of marine genera",
+   "when": "Late Ordovician (Ashgillian/Hirnantian), 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "The table is captioned as diversity loss of marine genera. In the row Late Ordovician (Ashgillian/Hirnantian), 445–444 Ma, the Sepkoski (1996) column reads ~49%. Column alignment was checked against the HTML header spans.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-bambach2006",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Bambach (2006) estimates 57%; in full, the Late Ordovician (Ashgillian/Hirnantian, 445–444 Ma) row gives about 49% for Sepkoski (1996, multiple-interval genera), 57% for Bambach (2006) with both pulses calculated together (40% and 31% for the pulses separately), 52% taxonomic loss and an ecological ranking of 7 for McGhee et al. (2013), and 42–46% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Ordovician (Ashgillian / Hirnantian) 445–444 ~49% 57% [d] (40%, 31%) [e] 52% 7 42–46%",
+    "d Diversity loss of both pulses calculated together e Pulses extend over adjacent time slices, calculated separately"
+   ],
+   "values": [
+    "57%",
+    "40%",
+    "31%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "marine genera lost (Bambach (2006))",
+   "value": 57,
+   "unit": "% of marine genera",
+   "when": "Late Ordovician (Ashgillian/Hirnantian), 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "57% with both pulses calculated together; 40% and 31% for the two pulses separately",
+   "check": {
+    "ok": true,
+    "reason": "Bambach (2006) cell: 57%, with footnote d saying both pulses were calculated together, and 40% and 31% for the pulses separately (footnote e). Matches the claim.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-mcghee2013",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, McGhee et al. (2013) estimates 52%; in full, the Late Ordovician (Ashgillian/Hirnantian, 445–444 Ma) row gives about 49% for Sepkoski (1996, multiple-interval genera), 57% for Bambach (2006) with both pulses calculated together (40% and 31% for the pulses separately), 52% taxonomic loss and an ecological ranking of 7 for McGhee et al. (2013), and 42–46% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Ordovician (Ashgillian / Hirnantian) 445–444 ~49% 57% [d] (40%, 31%) [e] 52% 7 42–46%"
+   ],
+   "values": [
+    "52%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "marine genera lost (McGhee et al. (2013))",
+   "value": 52,
+   "unit": "% of marine genera",
+   "when": "Late Ordovician (Ashgillian/Hirnantian), 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "The McGhee et al. (2013) header spans two subcolumns, taxonomic loss and ecological ranking. Taxonomic loss for this row is 52%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-genera-stanley2016",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Stanley (2016) estimates 42–46%; in full, the Late Ordovician (Ashgillian/Hirnantian, 445–444 Ma) row gives about 49% for Sepkoski (1996, multiple-interval genera), 57% for Bambach (2006) with both pulses calculated together (40% and 31% for the pulses separately), 52% taxonomic loss and an ecological ranking of 7 for McGhee et al. (2013), and 42–46% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Ordovician (Ashgillian / Hirnantian) 445–444 ~49% 57% [d] (40%, 31%) [e] 52% 7 42–46%"
+   ],
+   "values": [
+    "42–46%"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "marine genera lost (Stanley (2016))",
+   "value": 42,
+   "unit": "% of marine genera",
+   "when": "Late Ordovician (Ashgillian/Hirnantian), 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 42–46%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "Stanley (2016) cell reads 42–46%. The value 42 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-ecorank-mcghee2013",
+   "claim": "In the Extinction event article's table of mass-extinction severity, McGhee et al. (2013) give an ecological ranking of 7; in full, the Late Ordovician (Ashgillian/Hirnantian, 445–444 Ma) row gives about 49% for Sepkoski (1996, multiple-interval genera), 57% for Bambach (2006) with both pulses calculated together (40% and 31% for the pulses separately), 52% taxonomic loss and an ecological ranking of 7 for McGhee et al. (2013), and 42–46% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Ordovician (Ashgillian / Hirnantian) 445–444 ~49% 57% [d] (40%, 31%) [e] 52% 7 42–46%"
+   ],
+   "values": [
+    "7"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "ecological severity rank (McGhee et al. 2013)",
+   "value": 7,
+   "unit": "rank (1 = most severe ecologically)",
+   "when": "Late Ordovician (Ashgillian/Hirnantian), 445–444 Ma",
+   "accessed": "2026-11-07",
+   "notes": "McGhee et al. (2013) rank by ecological impact; of the Big Five only the end-Devonian Hangenberg pulse shares this low rank (7)",
+   "check": {
+    "ok": true,
+    "reason": "The McGhee et al. (2013) ecological-ranking subcolumn reads 7 for this row. The rank direction (1 = most severe) is inferred from the end-Permian holding rank 1, which is consistent.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-recovery-lome",
+   "claim": "After the Late Ordovician mass extinction, diversity gradually recovered to pre-extinction levels over the first 5 million years of the Silurian period.",
+   "url": "https://en.wikipedia.org/wiki/Late_Ordovician_mass_extinction",
+   "quotes": [
+    "Diversity gradually recovered to pre-extinction levels over the first 5 million years of the Silurian period."
+   ],
+   "values": [
+    "5 million years"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "recovery time (diversity)",
+   "value": 5,
+   "unit": "million years",
+   "when": "first 5 million years of the Silurian, after about 443 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "LOME lead: diversity returned to pre-extinction levels over the first 5 Myr of the Silurian. This is a true recovery time for this event.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-ord-recovery-krug2004",
+   "claim": "Krug and Patzkowsky (2004) find that after the Late Ordovician mass extinction, marine benthic diversity in Laurentia recovered to pre-extinction levels within 5 million years, nearly 15 million years sooner than global compilations suggested.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/15596725?resultType=core&format=xml",
+   "quotes": [
+    "After accounting for variation in sampling intensity, we find that marine benthic diversity in Laurentia recovered to preextinction levels within 5 million years, which is nearly 15 million years sooner than suggested by global compilations."
+   ],
+   "values": [
+    "5 million years",
+    "15 million years"
+   ],
+   "dated2026": false,
+   "event": "end_ordovician",
+   "measure": "recovery time (diversity, Laurentia)",
+   "value": 5,
+   "unit": "million years",
+   "when": "early Silurian, after the Late Ordovician extinction",
+   "accessed": "2026-11-07",
+   "notes": "Regional (Laurentia), sampling-standardised; global compilations implied a recovery about 15 million years longer. Source: Krug & Patzkowsky 2004, PNAS 101:17605-17610, doi:10.1073/pnas.0405199102 (abstract read through the Europe PMC API).",
+   "check": {
+    "ok": true,
+    "reason": "Krug and Patzkowsky (2004) abstract: after correcting for sampling, marine benthic diversity in Laurentia (from genus occurrences) recovered within 5 Myr, about 15 Myr sooner than global compilations suggested. The regional scope is labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-date-lde",
+   "claim": "The Late Devonian mass extinction (the Kellwasser event) occurred around 372.15 million years ago, at the Frasnian–Famennian boundary.",
+   "url": "https://en.wikipedia.org/wiki/Late_Devonian_extinction",
+   "quotes": [
+    "The Late Devonian mass extinction, also known as the Kellwasser event, was a mass extinction event which occurred around 372.15 million years ago, at the boundary between the Frasnian and Famennian ages of the Late Devonian period."
+   ],
+   "values": [
+    "372.15"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "date",
+   "value": 372.15,
+   "unit": "Ma",
+   "when": "Frasnian–Famennian boundary (Kellwasser event)",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Late Devonian extinction lead: the Kellwasser event occurred around 372.15 Ma, at the Frasnian–Famennian boundary.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-species-lde",
+   "claim": "The Late Devonian (Kellwasser) mass extinction likely killed around 40% of marine species, though its severity is contested.",
+   "url": "https://en.wikipedia.org/wiki/Late_Devonian_extinction",
+   "quotes": [
+    "It is placed as one of the \"Big Five\" most severe mass extinction events in Earth's history,[4] with likely around 40% of marine species going extinct, though the degree of severity is contested."
+   ],
+   "values": [
+    "40%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "marine species lost",
+   "value": 40,
+   "unit": "% of marine species",
+   "when": "Kellwasser event, about 372 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same lead: likely around 40% of marine species went extinct, though the severity is contested. The figure is about the Kellwasser event.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-species-overview",
+   "claim": "Together, the Late Devonian Kellwasser and Hangenberg events eliminated at least 70% of all species.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Together, the Kellwasser event and the Hangenberg event eliminated about 19% of all families, 50% of all genera[12] and at least 70% of all species."
+   ],
+   "values": [
+    "70%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "species lost (all species)",
+   "value": 70,
+   "unit": "% of all species (at least)",
+   "when": "Kellwasser (372 Ma) and Hangenberg (359 Ma) events together",
+   "accessed": "2026-11-07",
+   "notes": "both Late Devonian pulses combined, not the Kellwasser event alone",
+   "check": {
+    "ok": true,
+    "reason": "Extinction event article: the Kellwasser and Hangenberg events together eliminated at least 70% of all species. This is a combined two-event figure, as the span says. Do not use it for the Kellwasser event alone.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-genera-overview",
+   "claim": "Together, the Late Devonian Kellwasser and Hangenberg events eliminated about 50% of all genera.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Together, the Kellwasser event and the Hangenberg event eliminated about 19% of all families, 50% of all genera[12] and at least 70% of all species."
+   ],
+   "values": [
+    "50%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "genera lost (all genera)",
+   "value": 50,
+   "unit": "% of all genera",
+   "when": "Kellwasser (372 Ma) and Hangenberg (359 Ma) events together",
+   "accessed": "2026-11-07",
+   "notes": "both Late Devonian pulses combined",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: about 50% of all genera across both events combined, as labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-species-mcghee1996",
+   "claim": "A 1996 survey by McGhee estimates that at least 75% of species did not survive the Late Devonian into the Carboniferous.",
+   "url": "https://en.wikipedia.org/wiki/Late_Devonian_extinction",
+   "quotes": [
+    "A 1996 survey by McGhee estimates that 22% of all the families of marine animals (largely invertebrates) were eliminated.",
+    "On a smaller scale, 57% of genera and at least 75% of species did not survive into the Carboniferous."
+   ],
+   "values": [
+    "75%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "species lost (all species)",
+   "value": 75,
+   "unit": "% of species (at least)",
+   "when": "whole Late Devonian, to the Carboniferous",
+   "accessed": "2026-11-07",
+   "notes": "the article cautions these species estimates depend on poorly known Devonian taxa",
+   "check": {
+    "ok": false,
+    "reason": "The value and span are right: the passage covers taxa that did not survive into the Carboniferous. The measure is wrong, though. The passage describes McGhee's survey of marine animal families, and the article warns that its species estimate depends on surveys of Devonian marine taxa. So 75% is a share of marine animal species, not of all species. The genus and species sentence follows the McGhee sentence without a citation of its own, so the attribution to McGhee rests on how the paragraph reads.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-genera-mcghee1996",
+   "claim": "A 1996 survey by McGhee estimates that 57% of genera did not survive the Late Devonian into the Carboniferous.",
+   "url": "https://en.wikipedia.org/wiki/Late_Devonian_extinction",
+   "quotes": [
+    "A 1996 survey by McGhee estimates that 22% of all the families of marine animals (largely invertebrates) were eliminated.",
+    "On a smaller scale, 57% of genera and at least 75% of species did not survive into the Carboniferous."
+   ],
+   "values": [
+    "57%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "genera lost (all genera)",
+   "value": 57,
+   "unit": "% of genera",
+   "when": "whole Late Devonian, to the Carboniferous",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": false,
+    "reason": "Same passage. The 57% of genera belongs to the survey of marine animals (largely invertebrates), and the caution about Devonian marine taxa covers both of the later estimates. It is a marine-genera figure, not all genera. The span (whole Late Devonian, to the Carboniferous) is right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-genera-sepkoski1996",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Sepkoski (1996) estimates 35%; in full, the Late Devonian/Kellwasser event (Frasnian, 372 Ma) row gives about 35% for Sepkoski (1996, multiple-interval genera), 34.7% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 4 for McGhee et al. (2013), and 16–20% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Devonian/Kellwasser event (Frasnian) 372 ~35% 34.7% 40% 4 16–20%"
+   ],
+   "values": [
+    "35%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "marine genera lost (Sepkoski (1996))",
+   "value": 35,
+   "unit": "% of marine genera",
+   "when": "Kellwasser event, Frasnian–Famennian boundary, 372 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Table row Late Devonian/Kellwasser event (Frasnian), 372 Ma: Sepkoski (1996) reads ~35% with no footnote.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-genera-bambach2006",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Bambach (2006) estimates 34.7%; in full, the Late Devonian/Kellwasser event (Frasnian, 372 Ma) row gives about 35% for Sepkoski (1996, multiple-interval genera), 34.7% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 4 for McGhee et al. (2013), and 16–20% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Devonian/Kellwasser event (Frasnian) 372 ~35% 34.7% 40% 4 16–20%"
+   ],
+   "values": [
+    "34.7%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "marine genera lost (Bambach (2006))",
+   "value": 34.7,
+   "unit": "% of marine genera",
+   "when": "Kellwasser event, Frasnian–Famennian boundary, 372 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: Bambach (2006) reads 34.7%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-genera-mcghee2013",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, McGhee et al. (2013) estimates 40%; in full, the Late Devonian/Kellwasser event (Frasnian, 372 Ma) row gives about 35% for Sepkoski (1996, multiple-interval genera), 34.7% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 4 for McGhee et al. (2013), and 16–20% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Devonian/Kellwasser event (Frasnian) 372 ~35% 34.7% 40% 4 16–20%"
+   ],
+   "values": [
+    "40%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "marine genera lost (McGhee et al. (2013))",
+   "value": 40,
+   "unit": "% of marine genera",
+   "when": "Kellwasser event, Frasnian–Famennian boundary, 372 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: McGhee et al. (2013) taxonomic loss reads 40%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-genera-stanley2016",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Stanley (2016) estimates 16–20%; in full, the Late Devonian/Kellwasser event (Frasnian, 372 Ma) row gives about 35% for Sepkoski (1996, multiple-interval genera), 34.7% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 4 for McGhee et al. (2013), and 16–20% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Devonian/Kellwasser event (Frasnian) 372 ~35% 34.7% 40% 4 16–20%"
+   ],
+   "values": [
+    "16–20%"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "marine genera lost (Stanley (2016))",
+   "value": 16,
+   "unit": "% of marine genera",
+   "when": "Kellwasser event, Frasnian–Famennian boundary, 372 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 16–20%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "Same row: Stanley (2016) reads 16–20%. The value 16 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-ecorank-mcghee2013",
+   "claim": "In the Extinction event article's table of mass-extinction severity, McGhee et al. (2013) give an ecological ranking of 4; in full, the Late Devonian/Kellwasser event (Frasnian, 372 Ma) row gives about 35% for Sepkoski (1996, multiple-interval genera), 34.7% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 4 for McGhee et al. (2013), and 16–20% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Late Devonian/Kellwasser event (Frasnian) 372 ~35% 34.7% 40% 4 16–20%"
+   ],
+   "values": [
+    "4"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "ecological severity rank (McGhee et al. 2013)",
+   "value": 4,
+   "unit": "rank (1 = most severe ecologically)",
+   "when": "Kellwasser event, Frasnian–Famennian boundary, 372 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: the McGhee et al. (2013) ecological ranking is 4.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-reef-recovery-hangenberg",
+   "claim": "Metazoan (coral and sponge) reefs devastated by the Frasnian–Famennian (Kellwasser) event were still recovering during the Famennian, when the Hangenberg event struck around 13 million years after the Kellwasser event.",
+   "url": "https://en.wikipedia.org/wiki/Hangenberg_event",
+   "quotes": [
+    "taking place around 13 million years after the Late Devonian mass extinction (Kellwasser event) at the Frasnian-Famennian boundary.",
+    "Metazoan (coral and sponge) reefs had already been devastated by the Frasnian–Famennian event, and were still recovering during the Famennian."
+   ],
+   "values": [
+    "13 million years"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "recovery time (reefs, lower bound)",
+   "value": 13,
+   "unit": "million years (reefs still recovering after this)",
+   "when": "Famennian, 372 to 359 Ma",
+   "accessed": "2026-11-07",
+   "notes": "The Hangenberg event then removed reef ecosystems from the fossil record until the late Tournaisian, and the Late Devonian extinction article says reefs did not regain their Middle Devonian extent until the Mesozoic (which begins at the end-Permian boundary, fact ext-perm-date-pt).",
+   "check": {
+    "ok": true,
+    "reason": "Hangenberg article: the Hangenberg event struck about 13 Myr after the Kellwasser event. Metazoan (coral and sponge) reefs devastated by the Frasnian–Famennian event were still recovering during the Famennian and were wiped out at its end. So 13 Myr is a lower bound worked out from the gap between the two events, not a recovery time the source reports, and the fact correctly marks it as a lower bound. It applies only to metazoan reefs, because calcimicrobial reefs had not been hit, so the label should say metazoan reefs.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-date-pt",
+   "claim": "The main pulse of the end-Permian marine extinction occurred in a 60,000–100,000-year interval around 251.902 million years ago, marking the Permian–Triassic boundary.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "with the major pulse of marine extinction occurring in a 60,000-100,000 year interval around 251.902 million years ago (mya) marking the boundary between the Permian and Triassic periods."
+   ],
+   "values": [
+    "251.902",
+    "60,000-100,000"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "date",
+   "value": 251.902,
+   "unit": "Ma",
+   "when": "main marine pulse, Permian–Triassic boundary",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Permian–Triassic lead: the major pulse of marine extinction happened in a 60,000–100,000-year interval around 251.902 Ma, which marks the Permian–Triassic boundary.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-species-pt",
+   "claim": "The end-Permian (Permian–Triassic) extinction killed 81% of marine species.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "with the extinction of 57% of biological families, 62% of genera, 81% of marine species,[12][13][14] and 70% of terrestrial vertebrate species."
+   ],
+   "values": [
+    "81%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine species lost",
+   "value": 81,
+   "unit": "% of marine species",
+   "when": "end-Permian, 251.9 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Permian–Triassic lead: 81% of marine species were lost.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-genera-pt",
+   "claim": "The end-Permian (Permian–Triassic) extinction killed 62% of genera.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "with the extinction of 57% of biological families, 62% of genera, 81% of marine species,[12][13][14] and 70% of terrestrial vertebrate species."
+   ],
+   "values": [
+    "62%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "genera lost (all genera)",
+   "value": 62,
+   "unit": "% of genera",
+   "when": "end-Permian, 251.9 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": false,
+    "reason": "The lead says 62% of genera and does not say all genera, so the '(all genera)' label is unsupported. The lead cites this sentence to Stanley (2016) among others. The Extinction event table gives Stanley (2016) a Permian–Triassic figure of 62% of marine genera. So this is very probably that marine-genera figure, which duplicates ext-perm-genera-stanley2016.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-landvert-pt",
+   "claim": "The end-Permian (Permian–Triassic) extinction killed 70% of terrestrial vertebrate species.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "with the extinction of 57% of biological families, 62% of genera, 81% of marine species,[12][13][14] and 70% of terrestrial vertebrate species."
+   ],
+   "values": [
+    "70%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "terrestrial vertebrate species lost",
+   "value": 70,
+   "unit": "% of terrestrial vertebrate species",
+   "when": "end-Permian, 251.9 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Permian–Triassic lead: 70% of terrestrial vertebrate species were lost. The article notes that the timing of land extinctions relative to the main marine pulse is disputed.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-genera-overview",
+   "claim": "The end-Permian 'Great Dying' was the Phanerozoic's largest extinction, killing 84% of marine genera.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "It was the Phanerozoic Eon's largest extinction: 53% of marine families died, 84% of marine genera, about 81% of all marine species[16] and an estimated 70% of terrestrial vertebrate species."
+   ],
+   "values": [
+    "84%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine genera lost",
+   "value": 84,
+   "unit": "% of marine genera",
+   "when": "end-Permian, 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "disagrees with the 62% of genera in the Permian–Triassic article (fact ext-perm-genera-pt) and the table estimates",
+   "check": {
+    "ok": true,
+    "reason": "Extinction event, Permian–Triassic section: 84% of marine genera were lost, alongside 53% of marine families and about 81% of marine species. Note that 84% is higher than every estimate in the same article's table (55.7–83%).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-species-stanley2016",
+   "claim": "Stanley (2016) estimates that only about 81% of marine species died out in the end-Permian crisis, lower than the 90–96% often quoted in the literature.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/27698119?resultType=core&format=xml",
+   "quotes": [
+    "They indicate that only ∼81% of marine species died out in the great terminal Permian crisis, whereas levels of 90-96% have frequently been quoted in the literature."
+   ],
+   "values": [
+    "81%",
+    "90-96%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine species lost",
+   "value": 81,
+   "unit": "% of marine species (approximately)",
+   "when": "terminal Permian crisis",
+   "accessed": "2026-11-07",
+   "notes": "Source: Stanley 2016, PNAS 113:E6325-E6334, doi:10.1073/pnas.1613094113 (abstract read through the Europe PMC API).",
+   "check": {
+    "ok": true,
+    "reason": "Stanley (2016) abstract: only about 81% of marine species died out in the end-Permian crisis, against the 90–96% often quoted.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-species-older-quoted",
+   "claim": "Levels of 90–96% of marine species lost in the end-Permian crisis have frequently been quoted, but Stanley (2016) says those figures were incorrectly based on combined data for the Middle and Late Permian mass extinctions.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/27698119?resultType=core&format=xml",
+   "quotes": [
+    "They indicate that only ∼81% of marine species died out in the great terminal Permian crisis, whereas levels of 90-96% have frequently been quoted in the literature.",
+    "Calculations of the latter numbers were incorrectly based on combined data for the Middle and Late Permian mass extinctions."
+   ],
+   "values": [
+    "90-96%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine species lost",
+   "value": 90,
+   "unit": "% of marine species",
+   "when": "end-Permian (older estimates)",
+   "accessed": "2026-11-07",
+   "notes": "range 90–96%; value is the low end. The often-quoted figure that Stanley (2016) argues is too high. Source: Stanley 2016, PNAS 113:E6325-E6334, doi:10.1073/pnas.1613094113 (abstract read through the Europe PMC API).",
+   "check": {
+    "ok": false,
+    "reason": "The quote is accurate and the value 90 is the low end of 90–96%. The span is wrong, though. Stanley (2016) says those numbers were calculated from combined data for the Middle and Late Permian mass extinctions, so they do not measure the end-Permian event alone. Do not draw them as the end-Permian depth.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-species-xu2025",
+   "claim": "Xu et al. (2025) state that around 81–94% of marine invertebrate species became extinct in the Permian–Triassic mass extinction at about 252 Ma.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222451/fullTextXML",
+   "quotes": [
+    "During the Permian–Triassic Mass Extinction (PTME) at ~252 Ma, around 81–94% of marine invertebrate species and 89% of terrestrial tetrapod genera became extinct"
+   ],
+   "values": [
+    "81–94%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine invertebrate species lost",
+   "value": 81,
+   "unit": "% of marine invertebrate species",
+   "when": "end-Permian, about 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 81–94%; value is the low end. Source: Xu et al. 2025, Nature Communications 16:5400, doi:10.1038/s41467-025-60396-y (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Xu et al. (2025) introduction: around 81–94% of marine invertebrate species went extinct at about 252 Ma. The value 81 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-genera-sepkoski1996",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Sepkoski (1996) estimates 58%; in full, the Permian–Triassic (Changhsingian, 252 Ma) row gives about 58% for Sepkoski (1996, multiple-interval genera), 55.7% for Bambach (2006), 83% taxonomic loss and an ecological ranking of 1 for McGhee et al. (2013), and 62% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Permian–Triassic (Changhsingian) 252 ~58% 55.7% 83% 1 62%"
+   ],
+   "values": [
+    "58%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine genera lost (Sepkoski (1996))",
+   "value": 58,
+   "unit": "% of marine genera",
+   "when": "end-Permian (Changhsingian), 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Table row Permian–Triassic (Changhsingian), 252 Ma: Sepkoski (1996) reads ~58%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-genera-bambach2006",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Bambach (2006) estimates 55.7%; in full, the Permian–Triassic (Changhsingian, 252 Ma) row gives about 58% for Sepkoski (1996, multiple-interval genera), 55.7% for Bambach (2006), 83% taxonomic loss and an ecological ranking of 1 for McGhee et al. (2013), and 62% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Permian–Triassic (Changhsingian) 252 ~58% 55.7% 83% 1 62%"
+   ],
+   "values": [
+    "55.7%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine genera lost (Bambach (2006))",
+   "value": 55.7,
+   "unit": "% of marine genera",
+   "when": "end-Permian (Changhsingian), 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: Bambach (2006) reads 55.7%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-genera-mcghee2013",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, McGhee et al. (2013) estimates 83%; in full, the Permian–Triassic (Changhsingian, 252 Ma) row gives about 58% for Sepkoski (1996, multiple-interval genera), 55.7% for Bambach (2006), 83% taxonomic loss and an ecological ranking of 1 for McGhee et al. (2013), and 62% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Permian–Triassic (Changhsingian) 252 ~58% 55.7% 83% 1 62%"
+   ],
+   "values": [
+    "83%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine genera lost (McGhee et al. (2013))",
+   "value": 83,
+   "unit": "% of marine genera",
+   "when": "end-Permian (Changhsingian), 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: McGhee et al. (2013) taxonomic loss reads 83%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-genera-stanley2016",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Stanley (2016) estimates 62%; in full, the Permian–Triassic (Changhsingian, 252 Ma) row gives about 58% for Sepkoski (1996, multiple-interval genera), 55.7% for Bambach (2006), 83% taxonomic loss and an ecological ranking of 1 for McGhee et al. (2013), and 62% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Permian–Triassic (Changhsingian) 252 ~58% 55.7% 83% 1 62%"
+   ],
+   "values": [
+    "62%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine genera lost (Stanley (2016))",
+   "value": 62,
+   "unit": "% of marine genera",
+   "when": "end-Permian (Changhsingian), 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: Stanley (2016) reads 62%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-ecorank-mcghee2013",
+   "claim": "In the Extinction event article's table of mass-extinction severity, McGhee et al. (2013) give an ecological ranking of 1; in full, the Permian–Triassic (Changhsingian, 252 Ma) row gives about 58% for Sepkoski (1996, multiple-interval genera), 55.7% for Bambach (2006), 83% taxonomic loss and an ecological ranking of 1 for McGhee et al. (2013), and 62% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Permian–Triassic (Changhsingian) 252 ~58% 55.7% 83% 1 62%"
+   ],
+   "values": [
+    "1"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "ecological severity rank (McGhee et al. 2013)",
+   "value": 1,
+   "unit": "rank (1 = most severe ecologically)",
+   "when": "end-Permian (Changhsingian), 252 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: the ecological ranking is 1.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-10myr",
+   "claim": "The speed of recovery from the end-Permian extinction is disputed; some scientists estimate it took 10 million years, until the Middle Triassic.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "The speed of recovery from the extinction is disputed. Some scientists estimate that it took 10-million years (until the Middle Triassic) because of the severity of the extinction."
+   ],
+   "values": [
+    "10-million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (marine diversity)",
+   "value": 10,
+   "unit": "million years",
+   "when": "to the Middle Triassic",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": false,
+    "reason": "In the Marine ecosystems subsection, the article says the speed of recovery is disputed and some scientists estimate it took 10 Myr, until the Middle Triassic. That is overall recovery from the extinction (cited to a ScienceDaily report on Earth taking ten million years to recover), not diversity specifically. The same subsection says taxonomic diversity rebounded quickly and that global marine diversity took about 75 Myr. A marine-diversity label therefore conflicts with the source.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-paris-biota",
+   "claim": "A localized Early Triassic marine ecosystem, the Paris biota of Idaho, rebounded relatively quickly after the end-Permian extinction, taking around 1.3 million years to recover.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "showed a relatively quick rebound in a localized Early Triassic marine ecosystem (Paris biota), taking around 1.3-million years to recover"
+   ],
+   "values": [
+    "1.3-million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (one local marine ecosystem)",
+   "value": 1.3,
+   "unit": "million years",
+   "when": "Early Triassic, Paris biota (Idaho)",
+   "accessed": "2026-11-07",
+   "notes": "local, not global",
+   "check": {
+    "ok": true,
+    "reason": "A localized Early Triassic marine ecosystem, the Paris biota, rebounded in around 1.3 Myr. The one-ecosystem scope is labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-seafloor",
+   "claim": "After the end-Permian extinction, seafloor communities kept comparatively low diversity until the end of the Early Triassic, about 4 million years after the extinction.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "Seafloor communities maintained comparatively low diversity until the end of the Early Triassic, approximately 4-million years after the extinction event."
+   ],
+   "values": [
+    "4-million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (seafloor community diversity)",
+   "value": 4,
+   "unit": "million years",
+   "when": "to the end of the Early Triassic",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": false,
+    "reason": "The source says seafloor communities kept comparatively low diversity until the end of the Early Triassic, about 4 Myr after the extinction. That is how long diversity stayed low, so recovery was not finished before then. It is not the time taken to regain pre-extinction diversity. Compare the same paragraph's ammonoids, which exceeded pre-extinction diversity after 2 Myr.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-ecological",
+   "claim": "One study concluded that marine ecological recovery after the end-Permian extinction was still ongoing 50 million years later, in the latest Triassic, even though taxonomic diversity had rebounded in a tenth of that time.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "one study concluded that marine ecological recovery was still ongoing 50 million years after the extinction, during the latest Triassic, even though taxonomic diversity had rebounded in a tenth of that time."
+   ],
+   "values": [
+    "50 million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (marine ecological function)",
+   "value": 50,
+   "unit": "million years (still ongoing then)",
+   "when": "to the latest Triassic",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "One study found marine ecological recovery still under way 50 Myr after the extinction, in the latest Triassic, while taxonomic diversity had rebounded in a tenth of that time. The fact correctly marks this as still ongoing, a lower bound.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-global-diversity",
+   "claim": "Most marine communities had fully recovered from the end-Permian extinction by the Middle Triassic, but global marine diversity reached pre-extinction values no earlier than the Middle Jurassic, about 75 million years after the extinction.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "Whereas most marine communities were fully recovered by the Middle Triassic,[248][249] global marine diversity reached pre-extinction values no earlier than the Middle Jurassic, approximately 75-million years after the extinction event."
+   ],
+   "values": [
+    "75-million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (global marine diversity)",
+   "value": 75,
+   "unit": "million years",
+   "when": "to the Middle Jurassic",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Most marine communities had recovered by the Middle Triassic, but global marine diversity reached pre-extinction values no earlier than the Middle Jurassic, about 75 Myr after the extinction. Strictly, that means at least about 75 Myr.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-land-vertebrates",
+   "claim": "Paleontologist Michael Benton estimated that the recovery of land vertebrates from the end-Permian extinction was not complete until 30 million years later, in the Late Triassic.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "paleontologist Michael Benton estimated the recovery was not complete until 30 million years after the extinction, i.e. not until the Late Triassic"
+   ],
+   "values": [
+    "30 million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (land vertebrates)",
+   "value": 30,
+   "unit": "million years",
+   "when": "to the Late Triassic",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Michael Benton estimated that land-vertebrate recovery was not complete until 30 Myr after the extinction, in the Late Triassic.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-forests",
+   "claim": "After the end-Permian extinction, the worldwide recovery of gymnosperm forests took approximately 4–5 million years.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "The worldwide recovery of gymnosperm forests took approximately 4–5 million years."
+   ],
+   "values": [
+    "4–5 million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (gymnosperm forests)",
+   "value": 4,
+   "unit": "million years",
+   "when": "Early Triassic",
+   "accessed": "2026-11-07",
+   "notes": "range 4–5 million years; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "The worldwide recovery of gymnosperm forests took about 4–5 Myr. The value 4 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-recovery-china-2025",
+   "claim": "A 2025 study in present-day China found a thriving ecosystem just 75,000 years after the end-Permian event, pointing to faster recovery on land.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "A 2025 study in present-day China showed a thriving ecosystem just 75,000 years after the event, pointing to faster recovery."
+   ],
+   "values": [
+    "75,000"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "recovery time (one land ecosystem)",
+   "value": 75000,
+   "unit": "years",
+   "when": "earliest Triassic, a site in China",
+   "accessed": "2026-11-07",
+   "notes": "one site; the article adds that some scientists argue there may have been no mass extinction on land",
+   "check": {
+    "ok": true,
+    "reason": "Extinction event article, in its paragraph on land ecosystems: a 2025 study in China found a thriving ecosystem 75,000 years after the event, pointing to faster recovery. This is one site and an upper bound, since the ecosystem was already thriving by then. The same paragraph notes that some scientists argue there was no mass extinction on land at all.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-land-npp-loss",
+   "claim": "Reconstructed land net primary productivity fell from about 54.4–62.5 Pg C per year in the latest Permian (Changhsingian) to a low of about 13.0–19.7 Pg C per year in the Early Triassic Induan, a loss of about 70%.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222451/fullTextXML",
+   "quotes": [
+    "Our NPPL estimates based on these palaeogeographic reconstructions show fluctuations from ~54.4–62.5 Pg C/yr in the latest Permian Changhsingian, to a low of ~13.0–19.7 Pg C/yr in the Early Triassic Induan (a loss of ~70%), followed by Olenekian values of ~25.0–32.2 Pg C/yr, with ~53.8–63.5 Pg C/yr in the Anisian."
+   ],
+   "values": [
+    "54.4–62.5",
+    "13.0–19.7",
+    "70%"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "land net primary productivity (loss)",
+   "value": 70,
+   "unit": "% loss",
+   "when": "latest Permian (Changhsingian) to earliest Triassic (Induan)",
+   "accessed": "2026-11-07",
+   "notes": "Reconstructed from fossil plant occurrences and lithological indicators of climate. Source: Xu et al. 2025, Nature Communications 16:5400, doi:10.1038/s41467-025-60396-y (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Xu et al. (2025): reconstructed land NPP fell from about 54.4–62.5 to about 13.0–19.7 Pg C per year between the Changhsingian and the Induan, a loss of about 70%. These are fossil-based 'biogeographic productivity' estimates, which the paper says leave out CO2 fertilization.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-land-npp-changhsingian",
+   "claim": "Reconstructed land net primary productivity was about 54.4–62.5 Pg C per year in the latest Permian (Changhsingian), before falling to a low of about 13.0–19.7 Pg C per year in the Early Triassic Induan.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222451/fullTextXML",
+   "quotes": [
+    "Our NPPL estimates based on these palaeogeographic reconstructions show fluctuations from ~54.4–62.5 Pg C/yr in the latest Permian Changhsingian, to a low of ~13.0–19.7 Pg C/yr in the Early Triassic Induan (a loss of ~70%), followed by Olenekian values of ~25.0–32.2 Pg C/yr, with ~53.8–63.5 Pg C/yr in the Anisian."
+   ],
+   "values": [
+    "54.4–62.5"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "land net primary productivity",
+   "value": 54.4,
+   "unit": "Pg C per year",
+   "when": "latest Permian (Changhsingian), before the extinction",
+   "accessed": "2026-11-07",
+   "notes": "Range 54.4–62.5; value is the low end. Source: Xu et al. 2025, Nature Communications 16:5400, doi:10.1038/s41467-025-60396-y (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: about 54.4–62.5 Pg C per year in the latest-Permian Changhsingian. The value 54.4 is the low end. Fossil-based estimate, excluding CO2 fertilization.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-land-npp-induan",
+   "claim": "Reconstructed land net primary productivity fell to a low of about 13.0–19.7 Pg C per year in the Early Triassic Induan, from about 54.4–62.5 Pg C per year in the latest Permian (Changhsingian), a loss of about 70%.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222451/fullTextXML",
+   "quotes": [
+    "Our NPPL estimates based on these palaeogeographic reconstructions show fluctuations from ~54.4–62.5 Pg C/yr in the latest Permian Changhsingian, to a low of ~13.0–19.7 Pg C/yr in the Early Triassic Induan (a loss of ~70%), followed by Olenekian values of ~25.0–32.2 Pg C/yr, with ~53.8–63.5 Pg C/yr in the Anisian."
+   ],
+   "values": [
+    "13.0–19.7"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "land net primary productivity",
+   "value": 13.0,
+   "unit": "Pg C per year",
+   "when": "Early Triassic Induan, just after the extinction",
+   "accessed": "2026-11-07",
+   "notes": "Range 13.0–19.7; value is the low end. Source: Xu et al. 2025, Nature Communications 16:5400, doi:10.1038/s41467-025-60396-y (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: a low of about 13.0–19.7 Pg C per year in the Early Triassic Induan. The value 13 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-land-npp-olenekian",
+   "claim": "After its Early Triassic Induan low of about 13.0–19.7 Pg C per year, reconstructed land net primary productivity was about 25.0–32.2 Pg C per year in the Olenekian and about 53.8–63.5 Pg C per year in the Anisian.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222451/fullTextXML",
+   "quotes": [
+    "Our NPPL estimates based on these palaeogeographic reconstructions show fluctuations from ~54.4–62.5 Pg C/yr in the latest Permian Changhsingian, to a low of ~13.0–19.7 Pg C/yr in the Early Triassic Induan (a loss of ~70%), followed by Olenekian values of ~25.0–32.2 Pg C/yr, with ~53.8–63.5 Pg C/yr in the Anisian."
+   ],
+   "values": [
+    "25.0–32.2"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "land net primary productivity",
+   "value": 25.0,
+   "unit": "Pg C per year",
+   "when": "Early Triassic Olenekian",
+   "accessed": "2026-11-07",
+   "notes": "Range 25.0–32.2; value is the low end. Source: Xu et al. 2025, Nature Communications 16:5400, doi:10.1038/s41467-025-60396-y (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: about 25.0–32.2 Pg C per year in the Olenekian. The value 25 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-land-npp-anisian",
+   "claim": "Reconstructed land net primary productivity, after falling from about 54.4–62.5 Pg C per year in the latest Permian (Changhsingian) to about 13.0–19.7 Pg C per year in the Early Triassic Induan, was about 53.8–63.5 Pg C per year in the Anisian.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12222451/fullTextXML",
+   "quotes": [
+    "Our NPPL estimates based on these palaeogeographic reconstructions show fluctuations from ~54.4–62.5 Pg C/yr in the latest Permian Changhsingian, to a low of ~13.0–19.7 Pg C/yr in the Early Triassic Induan (a loss of ~70%), followed by Olenekian values of ~25.0–32.2 Pg C/yr, with ~53.8–63.5 Pg C/yr in the Anisian."
+   ],
+   "values": [
+    "53.8–63.5"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "land net primary productivity",
+   "value": 53.8,
+   "unit": "Pg C per year",
+   "when": "Anisian (early Middle Triassic)",
+   "accessed": "2026-11-07",
+   "notes": "Range 53.8–63.5; value is the low end. The Anisian level matches the latest Permian one, so land productivity had rebounded by then. Source: Xu et al. 2025, Nature Communications 16:5400, doi:10.1038/s41467-025-60396-y (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: about 53.8–63.5 Pg C per year in the Anisian. The value 53.8 is the low end, and the Anisian is the first stage of the Middle Triassic.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-marine-biomass-shells",
+   "claim": "In a study of marine limestone samples, the share of rock made of shell material, a record of marine biomass, was well above 20 percent through much of the 230 million years after the Cambrian, then plummeted to about 3 percent in the end-Permian 'Great Dying' about 250 million years ago, the biggest drop in the history of life.",
+   "url": "https://sustainability.stanford.edu/news/new-study-shows-how-biomass-changed-over-500-million-years",
+   "quotes": [
+    "Throughout much of the next 230 million years, shell content soared well above 20 percent, with a significant decrease during one of the \"Big Five\" mass extinction events in the Late Devonian, about 375 to 360 million years ago.",
+    "The biggest drop in living history then struck about 250 million years ago during the \"Great Dying,\" the Permian-Triassic extinction, when shell percentage plummeted to about 3 percent."
+   ],
+   "values": [
+    "20 percent",
+    "3 percent"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "marine biomass proxy (shell content of limestone)",
+   "value": 3,
+   "unit": "% of limestone made of shell material",
+   "when": "end-Permian 'Great Dying', about 250 Ma",
+   "accessed": "2026-11-07",
+   "notes": "Based on more than 7,700 limestone samples spanning 540 million years. Pre-extinction level 'well above 20 percent'. Source: Stanford Doerr School of Sustainability news, 25 June 2025, on Singh et al. 2025, Current Biology, doi:10.1016/j.cub.2025.06.006.",
+   "check": {
+    "ok": true,
+    "reason": "Stanford article: shell percentage fell to about 3% in the Great Dying, about 250 Ma, the biggest drop on record, after staying well above 20% for much of the previous 230 Myr.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-dev-marine-biomass-shells",
+   "claim": "In a study of marine limestone samples, shell content, a record of marine biomass, was well above 20 percent through much of the Paleozoic, with a significant decrease during the Late Devonian mass extinction about 375 to 360 million years ago.",
+   "url": "https://sustainability.stanford.edu/news/new-study-shows-how-biomass-changed-over-500-million-years",
+   "quotes": [
+    "Throughout much of the next 230 million years, shell content soared well above 20 percent, with a significant decrease during one of the \"Big Five\" mass extinction events in the Late Devonian, about 375 to 360 million years ago."
+   ],
+   "values": [
+    "375 to 360 million years ago",
+    "20 percent"
+   ],
+   "dated2026": false,
+   "event": "late_devonian",
+   "measure": "marine biomass decrease (date span; size not given)",
+   "value": 375,
+   "unit": "Ma (start of span)",
+   "when": "Late Devonian, about 375 to 360 Ma",
+   "accessed": "2026-11-07",
+   "notes": "Value is the start of the date span; the release gives no size for the Late Devonian decrease. Source: Stanford Doerr School of Sustainability news, 25 June 2025, on Singh et al. 2025, Current Biology, doi:10.1016/j.cub.2025.06.006.",
+   "check": {
+    "ok": true,
+    "reason": "Stanford article: shell content, the biomass record from over 7,700 marine limestone samples, stayed well above 20% for much of the next 230 Myr. It dropped significantly in the Late Devonian, about 375–360 Ma. The source gives only a date span, not a size, as labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-perm-coal-gap",
+   "claim": "After the end-Permian extinction there is a coal gap: no coal deposits are known from the Early Triassic and Middle Triassic ones are thin and low-grade; one explanation is that coal-forming plants were wiped out and it took 10 million years for new plants to adapt to peat bogs.",
+   "url": "https://en.wikipedia.org/wiki/Permian%E2%80%93Triassic_extinction_event",
+   "quotes": [
+    "No coal deposits are known from the Early Triassic, and those in the Middle Triassic are thin and low-grade.",
+    "It could simply be that all coal-forming plants were rendered extinct by the P–Tr extinction, and that it took 10 million years for a new suite of plants to adapt to the moist, acidic conditions of peat bogs."
+   ],
+   "values": [
+    "10 million years"
+   ],
+   "dated2026": false,
+   "event": "end_permian",
+   "measure": "coal gap (peat-forming plants)",
+   "value": 10,
+   "unit": "million years",
+   "when": "Early Triassic to Middle Triassic",
+   "accessed": "2026-11-07",
+   "notes": "the 10 million years is one proposed explanation; the article also cites abiotic causes and scarce Early Triassic sediments",
+   "check": {
+    "ok": false,
+    "reason": "The source gives no length for the coal gap: there is no coal in the Early Triassic and only thin, low-grade seams in the Middle Triassic. The 10 Myr is one hypothesis: coal-forming plants may have died out, and new plants may have taken 10 Myr to adapt to peat bogs. The article also offers abiotic explanations and a lack of Early Triassic sediments. The fact should be labelled as the time that hypothesis proposes, not as a measured coal gap.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-date-tj",
+   "claim": "The end-Triassic (Triassic–Jurassic) extinction marks the boundary between the Triassic and Jurassic periods, 201.4 million years ago.",
+   "url": "https://en.wikipedia.org/wiki/Triassic%E2%80%93Jurassic_extinction_event",
+   "quotes": [
+    "The Triassic–Jurassic (Tr-J) extinction event, often called the Triassic–Jurassic mass extinction (TJME) or end-Triassic extinction, marks the boundary between the Triassic and Jurassic periods, 201.4 million years ago."
+   ],
+   "values": [
+    "201.4"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "date",
+   "value": 201.4,
+   "unit": "Ma",
+   "when": "Triassic–Jurassic boundary",
+   "accessed": "2026-11-07",
+   "notes": "the Extinction event article heads this section 201.3 Ma",
+   "check": {
+    "ok": true,
+    "reason": "Triassic–Jurassic article lead: the extinction marks the Triassic–Jurassic boundary, 201.4 Ma.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-species-overview",
+   "claim": "In the end-Triassic extinction, 70% to 75% of all species became extinct.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "About 23% of all families, 48% of all genera (20% of marine families and 55% of marine genera) and 70% to 75% of all species became extinct."
+   ],
+   "values": [
+    "70% to 75%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "species lost (all species)",
+   "value": 70,
+   "unit": "% of all species",
+   "when": "end-Triassic, 201.3 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 70–75%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "Extinction event article, section dated 201.3 Ma: 70% to 75% of all species were lost. The value 70 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-genera-overview",
+   "claim": "In the end-Triassic extinction, 55% of marine genera (48% of all genera) became extinct.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "About 23% of all families, 48% of all genera (20% of marine families and 55% of marine genera) and 70% to 75% of all species became extinct."
+   ],
+   "values": [
+    "55%",
+    "48%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "marine genera lost",
+   "value": 55,
+   "unit": "% of marine genera",
+   "when": "end-Triassic, 201.3 Ma",
+   "accessed": "2026-11-07",
+   "notes": "disagrees with the 23–34% of marine genera in the Triassic–Jurassic article (fact ext-tri-genera-tj)",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: 55% of marine genera (48% of all genera). Note that this conflicts with the Triassic–Jurassic article's 23–34% of marine genera.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-genera-tj",
+   "claim": "In the end-Triassic extinction, about 23–34% of marine genera disappeared.",
+   "url": "https://en.wikipedia.org/wiki/Triassic%E2%80%93Jurassic_extinction_event",
+   "quotes": [
+    "In the seas, about 23–34% of marine genera disappeared"
+   ],
+   "values": [
+    "23–34%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "marine genera lost",
+   "value": 23,
+   "unit": "% of marine genera",
+   "when": "end-Triassic, 201.4 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 23–34%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "Triassic–Jurassic lead: about 23–34% of marine genera (the body gives 23% to 34.1%). The value 23 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-genera-sepkoski1996",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Sepkoski (1996) estimates 37%; in full, the Triassic–Jurassic (Rhaetian, 201 Ma) row gives about 37% for Sepkoski (1996, multiple-interval genera) and 47% for Bambach (2006), both including late Norian time slices, 73% taxonomic loss and an ecological ranking of 3 for McGhee et al. (2013), and no Stanley (2016) figure.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Triassic–Jurassic (Rhaetian) 201 ~37% [c] 47% [c] 73% 3 N/A [g]",
+    "c Includes late Norian time slices"
+   ],
+   "values": [
+    "37%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "marine genera lost (Sepkoski (1996))",
+   "value": 37,
+   "unit": "% of marine genera",
+   "when": "end-Triassic (Rhaetian), 201 Ma",
+   "accessed": "2026-11-07",
+   "notes": "includes late Norian time slices",
+   "check": {
+    "ok": false,
+    "reason": "In the table row Triassic–Jurassic (Rhaetian), 201 Ma, Sepkoski (1996) reads ~37% with footnote c: it includes late Norian time slices. The figure therefore covers the late Norian as well as the Rhaetian, and the span must say so. The value is right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-genera-bambach2006",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Bambach (2006) estimates 47%; in full, the Triassic–Jurassic (Rhaetian, 201 Ma) row gives about 37% for Sepkoski (1996, multiple-interval genera) and 47% for Bambach (2006), both including late Norian time slices, 73% taxonomic loss and an ecological ranking of 3 for McGhee et al. (2013), and no Stanley (2016) figure.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Triassic–Jurassic (Rhaetian) 201 ~37% [c] 47% [c] 73% 3 N/A [g]",
+    "c Includes late Norian time slices"
+   ],
+   "values": [
+    "47%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "marine genera lost (Bambach (2006))",
+   "value": 47,
+   "unit": "% of marine genera",
+   "when": "end-Triassic (Rhaetian), 201 Ma",
+   "accessed": "2026-11-07",
+   "notes": "includes late Norian time slices",
+   "check": {
+    "ok": false,
+    "reason": "Bambach (2006) reads 47% and carries the same footnote c (includes late Norian time slices). The span must include the late Norian. The value is right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-genera-mcghee2013",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, McGhee et al. (2013) estimates 73%; in full, the Triassic–Jurassic (Rhaetian, 201 Ma) row gives about 37% for Sepkoski (1996, multiple-interval genera) and 47% for Bambach (2006), both including late Norian time slices, 73% taxonomic loss and an ecological ranking of 3 for McGhee et al. (2013), and no Stanley (2016) figure.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Triassic–Jurassic (Rhaetian) 201 ~37% [c] 47% [c] 73% 3 N/A [g]"
+   ],
+   "values": [
+    "73%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "marine genera lost (McGhee et al. (2013))",
+   "value": 73,
+   "unit": "% of marine genera",
+   "when": "end-Triassic (Rhaetian), 201 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: McGhee et al. (2013) taxonomic loss reads 73%, with no footnote.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-ecorank-mcghee2013",
+   "claim": "In the Extinction event article's table of mass-extinction severity, McGhee et al. (2013) give an ecological ranking of 3; in full, the Triassic–Jurassic (Rhaetian, 201 Ma) row gives about 37% for Sepkoski (1996, multiple-interval genera) and 47% for Bambach (2006), both including late Norian time slices, 73% taxonomic loss and an ecological ranking of 3 for McGhee et al. (2013), and no Stanley (2016) figure.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Triassic–Jurassic (Rhaetian) 201 ~37% [c] 47% [c] 73% 3 N/A [g]"
+   ],
+   "values": [
+    "3"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "ecological severity rank (McGhee et al. 2013)",
+   "value": 3,
+   "unit": "rank (1 = most severe ecologically)",
+   "when": "end-Triassic (Rhaetian), 201 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: the ecological ranking is 3.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-recovery-thibodeau2016",
+   "claim": "In the Nevada section studied by Thibodeau et al. (2016), trophic complexity matching pre-extinction conditions and carbonate-dominated benthic ecosystems, including the first North American Jurassic corals, did not return until about 2 million years after the end-Triassic extinction.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4823824/fullTextXML",
+   "quotes": [
+    "Trophic complexity matching or surpassing pre-extinction conditions 40 and a return to carbonate-dominated benthic biota 36 , including the first North American Jurassic corals 41 , did not occur until ∼2 million years after the extinction",
+    "the Nevada section reveals that the carbonate-dominated ecosystems did not recover for nearly 2 million years after the extinction and ∼1 million years after the cessation of CAMP volcanism."
+   ],
+   "values": [
+    "2 million years"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "recovery time (carbonate ecosystems, one region)",
+   "value": 2,
+   "unit": "million years",
+   "when": "earliest Jurassic, Muller Canyon, Nevada",
+   "accessed": "2026-11-07",
+   "notes": "one region (Muller Canyon, Nevada); the Triassic–Jurassic article says most evidence points to a relatively fast recovery, far faster than after the end-Permian. Source: Thibodeau et al. 2016, Nature Communications 7:11147, doi:10.1038/ncomms11147 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Thibodeau et al. (2016), Muller Canyon, Nevada: pre-extinction trophic complexity and carbonate-dominated seafloor life, including the first North American Jurassic corals, did not return until about 2 Myr after the extinction. One section, as labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-coral-collapse",
+   "claim": "At the end-Triassic extinction around 96% of coral genera died out, corals practically disappeared from the Tethys Ocean (an early Hettangian coral gap), and there is good evidence for a collapse of the reef community.",
+   "url": "https://en.wikipedia.org/wiki/Triassic%E2%80%93Jurassic_extinction_event",
+   "quotes": [
+    "Around 96% of coral genera died out, with integrated corals being especially devastated.",
+    "Corals practically disappeared from the Tethys Ocean at the end of the Triassic except for its northernmost reaches,[31] resulting in an early Hettangian \"coral gap\".",
+    "There is good evidence for a collapse in the reef community, which was likely driven by ocean acidification resulting from CO2 supplied to the atmosphere by the CAMP eruptions."
+   ],
+   "values": [
+    "96%"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "coral genera lost (reef collapse)",
+   "value": 96,
+   "unit": "% of coral genera",
+   "when": "end-Triassic, 201.4 Ma, into the early Hettangian",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Triassic–Jurassic article: around 96% of coral genera died out. Corals almost vanished from the Tethys, leaving an early Hettangian coral gap, and the reef community collapsed.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-date-lowery2018",
+   "claim": "The end-Cretaceous (K–Pg) mass extinction was caused by an asteroid impact on the Yucatán carbonate platform in the southern Gulf of Mexico at 66.0 Ma.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6058194/fullTextXML",
+   "quotes": [
+    "It was caused by the impact of an asteroid 3 , 4 on the Yucatán carbonate platform in the southern Gulf of Mexico at 66.0 Ma"
+   ],
+   "values": [
+    "66.0"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "date",
+   "value": 66.0,
+   "unit": "Ma",
+   "when": "Chicxulub impact",
+   "accessed": "2026-11-07",
+   "notes": "Source: Lowery et al. 2018, Nature 558:288-291, doi:10.1038/s41586-018-0163-6 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Lowery et al. (2018): the asteroid struck the Yucatán carbonate platform at 66.0 Ma.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-date-henehan2019",
+   "claim": "A massive bolide impact at the Cretaceous–Paleogene boundary, 66.04 Ma, coincides with the mass extinction horizon.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6842625/fullTextXML",
+   "quotes": [
+    "There is abundant evidence for a massive bolide impact at the Cretaceous–Paleogene (K-Pg) boundary (66.04 Ma) that coincides in those sections with sufficient temporal resolution with a mass extinction horizon"
+   ],
+   "values": [
+    "66.04"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "date",
+   "value": 66.04,
+   "unit": "Ma",
+   "when": "K–Pg boundary impact",
+   "accessed": "2026-11-07",
+   "notes": "Source: Henehan et al. 2019, PNAS 116:22500-22504, doi:10.1073/pnas.1905989116 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Henehan et al. (2019): a bolide impact at the K–Pg boundary, 66.04 Ma, coincides with the extinction horizon.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-species-overview",
+   "claim": "In the end-Cretaceous (K–Pg) extinction, 75% of all species became extinct.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "About 17% of all families, 50% of all genera[12] and 75% of all species became extinct."
+   ],
+   "values": [
+    "75%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "species lost (all species)",
+   "value": 75,
+   "unit": "% of all species",
+   "when": "end-Cretaceous, 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Extinction event, K–Pg section: 75% of all species were lost.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-genera-overview",
+   "claim": "In the end-Cretaceous (K–Pg) extinction, 50% of all genera became extinct.",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "About 17% of all families, 50% of all genera[12] and 75% of all species became extinct."
+   ],
+   "values": [
+    "50%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "genera lost (all genera)",
+   "value": 50,
+   "unit": "% of all genera",
+   "when": "end-Cretaceous, 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same sentence: 50% of all genera were lost.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-species-lowery2018",
+   "claim": "The Cretaceous–Paleogene (K–Pg) mass extinction eradicated 76% of species on Earth.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6058194/fullTextXML",
+   "quotes": [
+    "The Cretaceous-Paleogene (K-Pg) mass extinction eradicated 76% of species on Earth"
+   ],
+   "values": [
+    "76%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "species lost (all species)",
+   "value": 76,
+   "unit": "% of species on Earth",
+   "when": "end-Cretaceous, 66.0 Ma",
+   "accessed": "2026-11-07",
+   "notes": "Source: Lowery et al. 2018, Nature 558:288-291, doi:10.1038/s41586-018-0163-6 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Lowery et al. (2018) abstract: the K–Pg extinction wiped out 76% of species on Earth.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-genera-sepkoski1996",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Sepkoski (1996) estimates 39%; in full, the Cretaceous–Paleogene (Maastrichtian, 66 Ma) row gives about 39% for Sepkoski (1996, multiple-interval genera), 40–47% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 2 for McGhee et al. (2013), and 38–40% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Cretaceous–Paleogene (Maastrichtian) 66 ~39% 40–47% 40% 2 38–40%"
+   ],
+   "values": [
+    "39%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "marine genera lost (Sepkoski (1996))",
+   "value": 39,
+   "unit": "% of marine genera",
+   "when": "end-Cretaceous (Maastrichtian), 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Table row Cretaceous–Paleogene (Maastrichtian), 66 Ma: Sepkoski (1996) reads ~39%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-genera-bambach2006",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Bambach (2006) estimates 40–47%; in full, the Cretaceous–Paleogene (Maastrichtian, 66 Ma) row gives about 39% for Sepkoski (1996, multiple-interval genera), 40–47% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 2 for McGhee et al. (2013), and 38–40% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Cretaceous–Paleogene (Maastrichtian) 66 ~39% 40–47% 40% 2 38–40%"
+   ],
+   "values": [
+    "40–47%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "marine genera lost (Bambach (2006))",
+   "value": 40,
+   "unit": "% of marine genera",
+   "when": "end-Cretaceous (Maastrichtian), 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 40–47%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "Same row: Bambach (2006) reads 40–47%. The value 40 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-genera-mcghee2013",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, McGhee et al. (2013) estimates 40%; in full, the Cretaceous–Paleogene (Maastrichtian, 66 Ma) row gives about 39% for Sepkoski (1996, multiple-interval genera), 40–47% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 2 for McGhee et al. (2013), and 38–40% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Cretaceous–Paleogene (Maastrichtian) 66 ~39% 40–47% 40% 2 38–40%"
+   ],
+   "values": [
+    "40%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "marine genera lost (McGhee et al. (2013))",
+   "value": 40,
+   "unit": "% of marine genera",
+   "when": "end-Cretaceous (Maastrichtian), 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: McGhee et al. (2013) taxonomic loss reads 40%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-genera-stanley2016",
+   "claim": "In the Extinction event article's table of the proportion of marine genera lost, Stanley (2016) estimates 38–40%; in full, the Cretaceous–Paleogene (Maastrichtian, 66 Ma) row gives about 39% for Sepkoski (1996, multiple-interval genera), 40–47% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 2 for McGhee et al. (2013), and 38–40% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Cretaceous–Paleogene (Maastrichtian) 66 ~39% 40–47% 40% 2 38–40%"
+   ],
+   "values": [
+    "38–40%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "marine genera lost (Stanley (2016))",
+   "value": 38,
+   "unit": "% of marine genera",
+   "when": "end-Cretaceous (Maastrichtian), 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "range 38–40%; value is the low end",
+   "check": {
+    "ok": true,
+    "reason": "Same row: Stanley (2016) reads 38–40%. The value 38 is the low end.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-ecorank-mcghee2013",
+   "claim": "In the Extinction event article's table of mass-extinction severity, McGhee et al. (2013) give an ecological ranking of 2; in full, the Cretaceous–Paleogene (Maastrichtian, 66 Ma) row gives about 39% for Sepkoski (1996, multiple-interval genera), 40–47% for Bambach (2006), 40% taxonomic loss and an ecological ranking of 2 for McGhee et al. (2013), and 38–40% for Stanley (2016).",
+   "url": "https://en.wikipedia.org/wiki/Extinction_event",
+   "quotes": [
+    "Extinction proportions (diversity loss) of marine genera or ecological impact in estimates of mass extinction severity Extinction name Age (Ma) Sepkoski (1996)[52] Multiple-interval genera Bambach (2006)[7] McGhee et al. (2013)[14] Stanley (2016)[16] Taxonomic loss Ecological ranking",
+    "Cretaceous–Paleogene (Maastrichtian) 66 ~39% 40–47% 40% 2 38–40%"
+   ],
+   "values": [
+    "2"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "ecological severity rank (McGhee et al. 2013)",
+   "value": 2,
+   "unit": "rank (1 = most severe ecologically)",
+   "when": "end-Cretaceous (Maastrichtian), 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Same row: the ecological ranking is 2.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-marine-productivity-loss",
+   "claim": "Henehan et al. (2019) find that a partial, roughly 50% reduction in global marine primary productivity after the K–Pg impact is sufficient to explain the observed marine carbon isotope patterns.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6842625/fullTextXML",
+   "quotes": [
+    "Our reconstructed water-column pH gradients, combined with Earth system modeling, indicate that a partial ∼50% reduction in global marine primary productivity is sufficient to explain observed marine carbon isotope patterns at the K-Pg, due to the underlying action of the solubility pump."
+   ],
+   "values": [
+    "50%"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "marine primary productivity (loss)",
+   "value": 50,
+   "unit": "% reduction (approximately, global)",
+   "when": "just after the K–Pg impact, 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "A partial collapse, not a total one: Alegret et al. (2012, PNAS) argue the decrease in export productivity was moderate and regional. Source: Henehan et al. 2019, PNAS 116:22500-22504, doi:10.1073/pnas.1905989116 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Henehan et al. (2019) abstract: water-column pH gradients plus Earth-system modelling indicate that a partial cut of about 50% in global marine primary productivity is enough to explain the isotope record. This magnitude comes from a model, not a direct measurement, and the paper says the required loss depends on vital effects. The claim states this correctly.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-marine-biomass-cenozoic",
+   "claim": "In a study of marine limestone, marine biomass generally increased over the past 500 million years with setbacks after major extinctions: after the end-Permian, life recovered and, except for the end-Triassic (about 200 million years ago) and Cretaceous–Paleogene (about 66 million years ago) mass extinctions, biomass boomed into the Cenozoic, when shells exceed 40 percent of rock volume.",
+   "url": "https://sustainability.stanford.edu/news/new-study-shows-how-biomass-changed-over-500-million-years",
+   "quotes": [
+    "Overall, the total mass of marine organisms has generally increased over the past 500 million years, the study showed, albeit with setbacks after major extinction events.",
+    "Life recovered, and except for subsequent significant mass extinctions – the end-Triassic extinction about 200 million years ago and the Cretaceous-Paleogene about 66 million years ago, which infamously killed off the non-avian dinosaurs – biomass has boomed in our current geological era, the Cenozoic, with shells exceeding 40 percent of rock volume, thanks in part to substantial contributions from mollusks and corals."
+   ],
+   "values": [
+    "40 percent"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "marine biomass proxy (shell content of limestone), Cenozoic",
+   "value": 40,
+   "unit": "% of limestone made of shell material (more than)",
+   "when": "Cenozoic, 66 Ma to present",
+   "accessed": "2026-11-07",
+   "notes": "The release names the end-Triassic and K–Pg extinctions as setbacks but gives no size for either. Source: Stanford Doerr School of Sustainability news, 25 June 2025, on Singh et al. 2025, Current Biology, doi:10.1016/j.cub.2025.06.006.",
+   "check": {
+    "ok": true,
+    "reason": "Stanford article: apart from the end-Triassic and K–Pg setbacks, biomass boomed in the Cenozoic, with shells making up more than 40% of rock volume.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-tri-marine-biomass-setback",
+   "claim": "In a study of marine limestone, the end-Triassic mass extinction about 200 million years ago is one of the significant mass extinctions that interrupted the growth of marine biomass after its recovery from the end-Permian.",
+   "url": "https://sustainability.stanford.edu/news/new-study-shows-how-biomass-changed-over-500-million-years",
+   "quotes": [
+    "Overall, the total mass of marine organisms has generally increased over the past 500 million years, the study showed, albeit with setbacks after major extinction events.",
+    "Life recovered, and except for subsequent significant mass extinctions – the end-Triassic extinction about 200 million years ago and the Cretaceous-Paleogene about 66 million years ago, which infamously killed off the non-avian dinosaurs – biomass has boomed in our current geological era, the Cenozoic, with shells exceeding 40 percent of rock volume, thanks in part to substantial contributions from mollusks and corals."
+   ],
+   "values": [
+    "200 million years ago"
+   ],
+   "dated2026": false,
+   "event": "end_triassic",
+   "measure": "marine biomass setback (date; size not given)",
+   "value": 200,
+   "unit": "Ma",
+   "when": "end-Triassic, about 200 Ma",
+   "accessed": "2026-11-07",
+   "notes": "No size is given for the end-Triassic setback. Source: Stanford Doerr School of Sustainability news, 25 June 2025, on Singh et al. 2025, Current Biology, doi:10.1016/j.cub.2025.06.006.",
+   "check": {
+    "ok": true,
+    "reason": "Stanford article: marine biomass rose overall, with setbacks after major extinctions. It names the end-Triassic extinction, about 200 Ma, as one of the later interruptions. The source gives a date only, as labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-productivity",
+   "claim": "Henehan et al. (2019) suggest that after the K–Pg impact, global new primary productivity stayed partially weakened for an initial period of up to 40 thousand years and then progressively began to recover, recovering within a few tens of thousands of years.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6842625/fullTextXML",
+   "quotes": [
+    "While primary productivity recovered within a few tens of thousands of years, inefficiency in carbon export to the deep sea lasted much longer.",
+    "We therefore suggest that after an initial period (up to 40 ky) of globally partially weakened new primary productivity globally, it progressively began to recover"
+   ],
+   "values": [
+    "40 ky"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (marine primary productivity)",
+   "value": 40,
+   "unit": "thousand years",
+   "when": "first ~40 kyr of the Paleocene",
+   "accessed": "2026-11-07",
+   "notes": "Source: Henehan et al. 2019, PNAS 116:22500-22504, doi:10.1073/pnas.1905989116 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": false,
+    "reason": "Henehan et al. (2019) say global new primary productivity stayed partly weakened for an initial period of up to 40 kyr, after which it gradually began to recover. Their abstract says productivity recovered within a few tens of thousands of years. So 40 kyr is how long the weakened period lasted (an upper limit), that is, the length of the crash, not the recovery time.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-carbon-export",
+   "claim": "After the K–Pg impact, reduced vertical carbon-isotope gradients persisted for over 1 million years, suggesting that the efficiency of organic carbon export to the deep sea was re-established slowly.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6842625/fullTextXML",
+   "quotes": [
+    "Reduced vertical δ13CCaCO3 gradients persisted for over 1 My after the K-Pg impact (e.g., ref. 27 ), which suggests that the efficiency of organic carbon export to the deep sea, a key pelagic ecosystem function, was reestablished slowly."
+   ],
+   "values": [
+    "1 My"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (deep-sea carbon export)",
+   "value": 1,
+   "unit": "million years (more than)",
+   "when": "Paleocene, after 66 Ma",
+   "accessed": "2026-11-07",
+   "notes": "Source: Henehan et al. 2019, PNAS 116:22500-22504, doi:10.1073/pnas.1905989116 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Reduced vertical δ13C gradients lasted more than 1 Myr after the impact, so organic-carbon export to the deep sea was re-established slowly. The fact correctly labels this as more than 1 Myr.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-crater",
+   "claim": "Inside the Chicxulub crater, life reappeared just years after the impact and a thriving, high-productivity ecosystem was established within 30 thousand years, faster than at many sites across the globe.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6058194/fullTextXML",
+   "quotes": [
+    "We show that life reappeared in the basin just years after the impact and a thriving, high-productivity ecosystem was established within 30 kyr, faster than many sites across the globe."
+   ],
+   "values": [
+    "30 kyr"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (productivity in the Chicxulub crater)",
+   "value": 30,
+   "unit": "thousand years",
+   "when": "earliest Paleocene, inside the crater",
+   "accessed": "2026-11-07",
+   "notes": "Source: Lowery et al. 2018, Nature 558:288-291, doi:10.1038/s41586-018-0163-6 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Lowery et al. (2018): life returned to the crater within years, and a thriving, high-productivity ecosystem was established within 30 kyr. This is local and an upper bound, as labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-export-gulf",
+   "claim": "After the K–Pg mass extinction, recovery of marine primary productivity was geographically uneven: export production in the Gulf of Mexico and North Atlantic/Tethys took 300 thousand years to return to Late Cretaceous levels, slower than most other regions.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6058194/fullTextXML",
+   "quotes": [
+    "Following the mass extinction, recovery of the global marine ecosystem, measured in terms of primary productivity, was geographically heterogeneous 8 , as export production in the Gulf of Mexico and North Atlantic/Tethys took 300 kyr to return to Late Cretaceous quantities, slower than most other regions"
+   ],
+   "values": [
+    "300 kyr"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (export production, Gulf of Mexico and North Atlantic/Tethys)",
+   "value": 300,
+   "unit": "thousand years",
+   "when": "earliest Paleocene",
+   "accessed": "2026-11-07",
+   "notes": "Source: Lowery et al. 2018, Nature 558:288-291, doi:10.1038/s41586-018-0163-6 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Lowery et al. (2018) abstract: export production in the Gulf of Mexico and North Atlantic/Tethys took 300 kyr to return to Late Cretaceous levels, slower than most other regions.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-reefs",
+   "claim": "Recovery of coral reef ecosystems from the end-Cretaceous (K–T) mass extinction was slow, taking 2–10 million years, judged by the Paleocene re-establishment of algal symbiosis.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7054358/fullTextXML",
+   "quotes": [
+    "Recovery of coral reef ecosystems from the K-T mass extinction was slow (2–10 My), as judged by the Paleocene re-establishment of algal symbiosis"
+   ],
+   "values": [
+    "2–10 My"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (coral reefs)",
+   "value": 2,
+   "unit": "million years",
+   "when": "Paleocene",
+   "accessed": "2026-11-07",
+   "notes": "range 2–10 million years; value is the low end. Source: Dishon et al. 2020, Scientific Reports 10:3903, doi:10.1038/s41598-020-60605-2 (open-access full text, Europe PMC).",
+   "check": {
+    "ok": true,
+    "reason": "Dishon et al. (2020): coral reef ecosystems recovered slowly from the K–T extinction, in 2–10 Myr, judged by when algal symbiosis was re-established in the Paleocene. The value 2 is the low end of a wide range.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-plants",
+   "claim": "The K–Pg event reshaped flora, giving rise to neotropical rainforest biomes, during about 6 million years of recovery to former levels of plant diversity.",
+   "url": "https://en.wikipedia.org/wiki/Cretaceous%E2%80%93Paleogene_extinction_event",
+   "quotes": [
+    "Beyond extinction impacts, the event also caused more general changes of flora such as giving rise to neotropical rainforest biomes like the Amazonia, replacing species composition and structure of local forests during ~6 million years of recovery to former levels of plant diversity."
+   ],
+   "values": [
+    "6 million years"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (plant diversity)",
+   "value": 6,
+   "unit": "million years (approximately)",
+   "when": "Paleocene",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": false,
+    "reason": "The ~6 Myr applies to local forests in the Neotropics. The sentence is about the event giving rise to neotropical rainforest biomes such as the Amazon, and it cites Carvalho et al. (2021) on the origin of modern Neotropical rainforests. It is not a global recovery time for plant diversity. The value and the Paleocene span are fine.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-kpg-recovery-squamates",
+   "claim": "Squamates (lizards and snakes) suffered very heavy losses in the K–Pg event and only recovered 10 million years after it.",
+   "url": "https://en.wikipedia.org/wiki/Cretaceous%E2%80%93Paleogene_extinction_event",
+   "quotes": [
+    "Fossil evidence indicates that squamates generally suffered very heavy losses in the K–Pg event, only recovering 10 million years after it."
+   ],
+   "values": [
+    "10 million years"
+   ],
+   "dated2026": false,
+   "event": "end_cretaceous",
+   "measure": "recovery time (squamates)",
+   "value": 10,
+   "unit": "million years",
+   "when": "Paleocene",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "K–Pg article: squamates suffered very heavy losses and recovered only 10 Myr after the event (cited to Longrich et al. 2012). The Paleocene span is right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  }
+ ]
+}

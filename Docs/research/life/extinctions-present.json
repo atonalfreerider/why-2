@@ -1,0 +1,891 @@
+{
+ "cluster": "extinctions-present",
+ "asOf": "2026-11-07",
+ "scope": "The sixth, present-day (Holocene or Anthropocene) extinction and the late Pleistocene megafaunal extinctions before it: measured declines of wild mammal, plant and fish biomass, monitored vertebrate population sizes, species threatened, extinction rates against background, and the dating of the event.",
+ "facts": [
+  {
+   "id": "ext-present-wild-land-mammal-biomass-baron",
+   "claim": "The biomass of wild land mammals before the Quaternary Megafauna Extinction was estimated (by Barnosky) at about 0.02 Gt C; the present-day biomass of wild land mammals is approximately sevenfold lower, at about 0.003 Gt C.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "The biomass of wild land mammals before this period of extinction was estimated by Barnosky ( 30 ) at ≈0.02 Gt C. The present-day biomass of wild land mammals is approximately sevenfold lower, at ≈0.003 Gt C ( SI Appendix , Pre-human Biomass and Chordates and Table S11 )."
+   ],
+   "values": [
+    "≈0.02 Gt C",
+    "sevenfold",
+    "≈0.003 Gt C"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (wild land mammals only, carbon mass)",
+   "value": 7,
+   "unit": "fold decrease (≈0.02 Gt C before, ≈0.003 Gt C now)",
+   "when": "before the Quaternary Megafauna Extinction (which the paper dates ≈50,000 to ≈3,000 years ago) to the present (2018 estimate)",
+   "accessed": "2026-11-07",
+   "notes": "Biomass in gigatonnes of carbon, terrestrial wild mammals only; not population size or species count. The pre-extinction value is Barnosky's (2008) estimate. Source text: Europe PMC open-access full text of Bar-On YM, Phillips R, Milo R (2018) 'The biomass distribution on Earth', PNAS 115(25):6506-6511, doi:10.1073/pnas.1711842115 (pnas.org and pmc.ncbi.nlm.nih.gov refuse the downloader).",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in Bar-On et al. 2018 (PNAS, main text). 'This period of extinction' is the Quaternary Megafauna Extinction named in the previous sentence. Land mammals only, 0.02 to 0.003 Gt C, about sevenfold: measure, value and span right. For the label: the SI says the 0.02 Gt C baseline is Barnosky's terrestrial megafauna biomass, used as a proxy for all wild land mammals. The SI dates the extinction 50,000-7,000 years ago (the main text says about 3,000).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-marine-mammal-biomass-baron",
+   "claim": "Intense whaling and exploitation of other marine mammals have caused an approximately fivefold decrease in global marine mammal biomass, from about 0.02 Gt C to about 0.004 Gt C (Bar-On et al. 2018).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "Intense whaling and exploitation of other marine mammals have resulted in an approximately fivefold decrease in marine mammal global biomass [from ≈0.02 Gt C to ≈0.004 Gt C ( 31 )]."
+   ],
+   "values": [
+    "fivefold",
+    "≈0.02 Gt C",
+    "≈0.004 Gt C"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (marine mammals only, carbon mass)",
+   "value": 5,
+   "unit": "fold decrease (≈0.02 Gt C before, ≈0.004 Gt C now)",
+   "when": "before intense whaling and exploitation of marine mammals (historical abundances from the paper's ref. 31, Christensen 2006) to the present (2018 estimate)",
+   "accessed": "2026-11-07",
+   "notes": "Marine mammals only; biomass, not population size. Europe PMC full text of Bar-On, Phillips and Milo 2018, PNAS, doi:10.1073/pnas.1711842115.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim; marine mammals only, fivefold, 0.02 to 0.004 Gt C, both values cited to ref. 31 (Christensen). Span made exact: the authors' own notebook (milo-lab.github.io/biomass_distribution, wild_mammal page) takes Christensen's 1800 values, before commercial whaling, as the baseline and his year-2000 means as the present. So the present value is a 2000 figure reported in 2018, not a 2018 estimate. The SI gives Christensen's range for the decline as 2.4- to 7-fold.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-wild-mammal-biomass-total-baron",
+   "claim": "The total biomass of wild mammals, marine and terrestrial together, decreased by a factor of about 6, while the total mass of all mammals rose about fourfold, from about 0.04 Gt C to about 0.17 Gt C, because of the growth of humanity and its livestock (Bar-On et al. 2018).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "While the total biomass of wild mammals (both marine and terrestrial) decreased by a factor of ≈6, the total mass of mammals increased approximately fourfold from ≈0.04 Gt C to ≈0.17 Gt C due to the vast increase of the biomass of humanity and its associated livestock."
+   ],
+   "values": [
+    "factor of ≈6",
+    "fourfold",
+    "≈0.04 Gt C",
+    "≈0.17 Gt C"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (all wild mammals, marine and terrestrial)",
+   "value": 6,
+   "unit": "fold decrease",
+   "when": "prehuman baseline (land mammals before the Quaternary Megafauna Extinction, marine mammals before intense whaling) to the present (2018 estimate)",
+   "accessed": "2026-11-07",
+   "notes": "The ≈0.04 to ≈0.17 Gt C rise is the mass of ALL mammals including humans and livestock: the mammal total grew fourfold while its wild part shrank sixfold. Europe PMC full text of Bar-On, Phillips and Milo 2018, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim. The SI's pre-human section repeats it: 0.04 Gt C before the Quaternary Megafauna Extinction is about 6-fold the 0.007 Gt C of extant wild mammals. The 0.04 to 0.17 Gt C fourfold rise is all mammals including humans and livestock, not wild mammals. Span made exact for the marine half (authors' notebook: 1800 baseline, year-2000 present).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-wild-mammal-biomass-now-baron",
+   "claim": "Today the biomass of humans (about 0.06 Gt C) and of livestock (about 0.1 Gt C) far surpasses that of wild mammals, about 0.007 Gt C (Bar-On et al. 2018).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "Today, the biomass of humans (≈0.06 Gt C; SI Appendix , Table S9 ) and the biomass of livestock (≈0.1 Gt C, dominated by cattle and pigs; SI Appendix , Table S10 ) far surpass that of wild mammals, which has a mass of ≈0.007 Gt C ( SI Appendix , Table S11 )."
+   ],
+   "values": [
+    "≈0.06 Gt C",
+    "≈0.1 Gt C",
+    "≈0.007 Gt C"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (present-day stock, marine and terrestrial), against humans and livestock",
+   "value": 0.007,
+   "unit": "Gt C (gigatonnes of carbon) of wild mammals; humans ≈0.06, livestock ≈0.1",
+   "when": "present (estimate published 2018)",
+   "accessed": "2026-11-07",
+   "notes": "A stock, not a decline: the level the wild-mammal branch has shrunk to. Europe PMC full text of Bar-On, Phillips and Milo 2018, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim (main text, Impact of Humanity section; paper published May 2018). Present-day stocks: wild mammals 0.007, humans 0.06, livestock 0.1 Gt C. Measure, values and span right. The SI's pre-human section rounds humans to about 0.05 Gt; the main text's 0.06 is the Table S9 value.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-plant-biomass-baron",
+   "claim": "Total plant biomass, and by proxy the total biomass on Earth, has declined approximately twofold relative to its value before the start of human civilization (Bar-On et al. 2018).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "A worldwide census of the total number of trees ( 32 ), as well as a comparison of actual and potential plant biomass ( 17 ), has suggested that the total plant biomass (and, by proxy, the total biomass on Earth) has declined approximately twofold relative to its value before the start of human civilization."
+   ],
+   "values": [
+    "twofold"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "plant biomass (all plants; by proxy total biomass on Earth)",
+   "value": 2,
+   "unit": "fold decrease",
+   "when": "before the start of human civilization to the present (2018 estimate)",
+   "accessed": "2026-11-07",
+   "notes": "The paper's ref. 17 is Erb et al. 2018 (actual against potential vegetation, see ext-present-plant-biomass-erb) and ref. 32 is a global tree census (Crowther et al. 2015). Europe PMC full text of Bar-On, Phillips and Milo 2018, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim, and the source hedges it as a suggestion. Twofold drop in total plant biomass (and by proxy all biomass) relative to before the start of human civilization. The SI rests this on Crowther et al. 2015 (trees before civilization about twice today). The main text also cites Erb et al., whose baseline is a no-land-use counterfactual under today's climate, so the pre-civilization date is approximate.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-plant-biomass-erb",
+   "claim": "Erb et al. (2018) estimate that vegetation currently stores about 450 PgC, while potential vegetation in the hypothetical absence of land use would store about 916 PgC under the current climate, so land use halves the carbon potentially stored in terrestrial biomass.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5756473/fullTextXML",
+   "quotes": [
+    "Based on a consistent integration of state-of-the art datasets, we show that vegetation currently stores ~450 PgC. In the hypothetical absence of land use, potential vegetation would store ~916 PgC, under current climate.",
+    "Our analysis thus suggests that land use halves the amount of carbon potentially stored in terrestrial biomass"
+   ],
+   "values": [
+    "~450 PgC",
+    "~916 PgC",
+    "halves"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "plant biomass (terrestrial vegetation carbon stock: actual against potential without land use)",
+   "value": 2,
+   "unit": "fold reduction (~450 PgC actual, ~916 PgC potential)",
+   "when": "present-day vegetation against a counterfactual with no land use under today's climate (not a dated pre-agricultural reconstruction)",
+   "accessed": "2026-11-07",
+   "notes": "Terrestrial vegetation only (PgC = Gt C). The baseline is counterfactual, not a past date. The abstract gives ~916 PgC; the main text gives a mean of 920 PgC (ext-present-plant-biomass-erb-ranges). Europe PMC author manuscript of Erb K-H et al. (2018) 'Unexpectedly large impact of forest management and grazing on global vegetation biomass', Nature 553:73-76, doi:10.1038/nature25138.",
+   "check": {
+    "ok": true,
+    "reason": "Both quotes verbatim in Erb et al. (Nature 553:73-76; online Dec 2017, issue Jan 2018). Abstract: about 450 PgC now vs about 916 PgC potential; the main-text mean is 920. Measure (living above- and belowground terrestrial vegetation carbon), twofold value and counterfactual span all right. The counterfactual is current climate with no land use, not a dated past.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-plant-biomass-erb-ranges",
+   "claim": "At the global scale, the biomass stocks of currently prevailing vegetation amount to a mean of 450 PgC (range of seven estimates: 380 to 536 PgC), while the biomass stocks of potential vegetation amount to a mean of 920 PgC (range of six estimates: 771 to 1,107 PgC).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5756473/fullTextXML",
+   "quotes": [
+    "At the global scale, the biomass stocks of the currently prevailing vegetation amount to a mean of 450 PgC (range of the seven estimates: 380 to 536 PgC, coefficient of variation 11%). In contrast, biomass stocks of potential vegetation amount to a mean of 920 PgC (range of the six estimates: 771 to 1,107 PgC, coefficient of variation 12%)."
+   ],
+   "values": [
+    "450 PgC",
+    "380 to 536 PgC",
+    "920 PgC",
+    "771 to 1,107 PgC"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "plant biomass (terrestrial vegetation carbon stock, actual and potential, with the spread of estimates)",
+   "value": 450,
+   "unit": "PgC actual vegetation (mean; range 380-536); potential 920 PgC (range 771-1,107)",
+   "when": "present-day vegetation against a counterfactual with no land use under today's climate",
+   "accessed": "2026-11-07",
+   "notes": "Gives the uncertainty behind ext-present-plant-biomass-erb. Europe PMC author manuscript of Erb et al. 2018, Nature, doi:10.1038/nature25138.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the main text. Means and ranges match: actual 450 PgC (380-536, seven maps); potential 920 PgC (771-1,107, six maps). Same counterfactual span (current climate, no land use).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-fish-biomass-baron",
+   "claim": "Human activity has decreased total fish biomass by about 0.1 Gt C; fish biomass today is about 0.7 Gt C (Bar-On et al. 2018).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "Human activity has also impacted global vertebrate stocks, with a decrease of ≈0.1 Gt C in total fish biomass, an amount similar to the remaining total biomass in fisheries and to the gain in the total mammalian biomass due to livestock husbandry",
+    "followed by fish (≈0.7 Gt C; SI Appendix , Table S15 )"
+   ],
+   "values": [
+    "≈0.1 Gt C",
+    "≈0.7 Gt C"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "fish biomass (decrease in total fish biomass, and the present stock)",
+   "value": 0.1,
+   "unit": "Gt C decrease (present stock ≈0.7 Gt C)",
+   "when": "prehuman values to the present, as compared in the paper (2018 estimate)",
+   "accessed": "2026-11-07",
+   "notes": "Fish only. Europe PMC full text of Bar-On, Phillips and Milo 2018, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Both quotes verbatim: about 0.1 Gt C less fish, about 0.7 Gt C today. Span made exact from the SI's pre-human section (Caltech copy of pnas.1711842115.sapp.pdf). The baseline is a modelled unfished state: fished stocks about 0.27 Gt C, roughly twice today's 0.13, from Costello et al. 2016 stock status and Thorson et al. 2012 ratios. Mesopelagic fish are assumed unaffected, giving about 0.8 Gt C of fish in all. So the loss is about 12-17% of all fish but about half of fished stocks.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-wild-mammal-biomass-wikipedia",
+   "claim": "A 2018 PNAS study found that since the dawn of human civilization the biomass of wild mammals has decreased by 83%, and that the decrease is 80% for marine mammals, 50% for plants and 15% for fish.",
+   "url": "https://en.wikipedia.org/wiki/Holocene_extinction",
+   "quotes": [
+    "A 2018 study published in PNAS found that since the dawn of human civilization, the biomass of wild mammals has decreased by 83%. The biomass decrease is 80% for marine mammals, 50% for plants, and 15% for fish."
+   ],
+   "values": [
+    "83%",
+    "80%",
+    "50%",
+    "15%"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (all wild mammals; the same sentence gives marine mammals, plants and fish)",
+   "value": 83,
+   "unit": "% decrease in biomass (marine mammals 80%, plants 50%, fish 15%)",
+   "when": "'since the dawn of human civilization', as Wikipedia words it",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's restatement of Bar-On et al. 2018. The paper itself sets the land-mammal baseline before the Quaternary Megafauna Extinction (from ≈50,000 years ago) and the marine baseline before whaling, so 'since the dawn of human civilization' is looser than the source. 83% corresponds to the paper's factor of ≈6, 80% to its fivefold marine decrease, 50% to its twofold plant decline.",
+   "check": {
+    "ok": false,
+    "reason": "Quote verbatim, but the span misstates the study it reports (Wikipedia cites the Guardian, 21 May 2018, and Bar-On et al. 2018). Bar-On's 0.04 Gt C baseline is wild land mammals before the Quaternary Megafauna Extinction (about 50,000 years ago) plus marine mammals in 1800. Neither is the dawn of civilization; only plants are compared with the start of civilization. The SI uses before/after human civilization loosely, but defines the mammal baseline as pre-extinction. The percentages fit the paper (0.04 to 0.007 Gt C is about 83%; fivefold 80%; twofold 50%). Fish 15% is not stated in it (about 0.1 of 0.8 Gt C, 12-17%). Prefer ext-present-wild-mammal-biomass-total-baron.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-wild-land-mammal-biomass-wikipedia",
+   "claim": "The biomass of wild land mammals has declined by 85% since the emergence of humans.",
+   "url": "https://en.wikipedia.org/wiki/Holocene_extinction",
+   "quotes": [
+    "The biomass of wild land mammals has declined by 85% since the emergence of humans."
+   ],
+   "values": [
+    "85%"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (wild land mammals only)",
+   "value": 85,
+   "unit": "% decrease in biomass",
+   "when": "'since the emergence of humans' (figure caption)",
+   "accessed": "2026-11-07",
+   "notes": "A figure caption in Wikipedia's Holocene extinction article; it matches Bar-On et al. 2018's ≈0.02 to ≈0.003 Gt C (ext-present-wild-land-mammal-biomass-baron).",
+   "check": {
+    "ok": true,
+    "reason": "Caption verbatim. Its cited source (Our World in Data, Ritchie, 20 Apr 2021, ourworldindata.org/wild-mammal-decline) gives about 20 Mt C around 100,000 years ago (Barnosky 2008) and 3 Mt C in 2015 (Bar-On 2018). That is the same 0.02 to 0.003 Gt C as the Bar-On land-mammal fact. Value and measure right; the caption's span is loose but not contradicted, and is made exact here.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-wild-mammal-biomass-ipbes",
+   "claim": "The IPBES 2019 Global Assessment states that the global biomass of wild mammals has fallen by 82 per cent since prehistory.",
+   "url": "https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf",
+   "quotes": [
+    "The global biomass of wild mammals has fallen by 82 per cent.*",
+    "* Since prehistory"
+   ],
+   "values": [
+    "82 per cent"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "wild mammal biomass (all wild mammals)",
+   "value": 82,
+   "unit": "% decrease in biomass",
+   "when": "since prehistory (the figure's footnote) to 2019",
+   "accessed": "2026-11-07",
+   "notes": "IPBES (2019) Summary for Policymakers of the Global Assessment Report on Biodiversity and Ecosystem Services, Figure SPM.2; the asterisk's footnote reads 'Since prehistory'.",
+   "check": {
+    "ok": true,
+    "reason": "Both quotes are in the SPM figure 'Examples of declines in nature': 82% for wild mammal biomass, carrying the asterisk whose footnote reads since prehistory (shared with the 23% biotic-integrity circle). All wild mammals, biomass, prehistory to 2019: right. Matches Bar-On's 0.04 to 0.007 Gt C (82.5%).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-extinction-rate-ipbes",
+   "claim": "The global rate of species extinction is already at least tens to hundreds of times higher than the average rate over the past 10 million years, and is accelerating (IPBES 2019).",
+   "url": "https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf",
+   "quotes": [
+    "The global rate of species extinction is already at least tens to hundreds of times higher than the average rate over the past 10 million years and is accelerating (established but incomplete)"
+   ],
+   "values": [
+    "tens to hundreds of times",
+    "10 million years"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "extinction rate (all species, against the average rate of the past 10 million years)",
+   "value": 10,
+   "unit": "times the average rate of the past 10 million years (lower bound of 'at least tens to hundreds of times')",
+   "when": "present (2019 assessment) against the average of the past 10 million years",
+   "accessed": "2026-11-07",
+   "notes": "A range, not a point: 'at least tens to hundreds of times'; value is the floor. IPBES 2019 Summary for Policymakers, key message 6 of section A.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim (SPM direct-drivers section; A5 says the same). Measure and span right. The value 10 is a floor read from words (at least tens to hundreds of times), so label it in those words, not as 10x.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-threatened-share-ipbes",
+   "claim": "An average of around 25 per cent of species in assessed animal and plant groups are threatened, suggesting that around 1 million species already face extinction, many within decades (IPBES 2019).",
+   "url": "https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf",
+   "quotes": [
+    "An average of around 25 per cent of species in assessed animal and plant",
+    "suggesting that around 1 million species already face extinction, many within decades, unless action is taken to reduce the intensity of drivers of biodiversity loss."
+   ],
+   "values": [
+    "25 per cent",
+    "1 million"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "share of species threatened with extinction (animal and plant groups that have been assessed)",
+   "value": 25,
+   "unit": "% of species threatened (average across assessed groups)",
+   "when": "present (2019 assessment)",
+   "accessed": "2026-11-07",
+   "notes": "A share of species at risk, not a share already lost. The sentence breaks across a page header in the PDF, so it is quoted in two parts. IPBES 2019 Summary for Policymakers, key message A5.",
+   "check": {
+    "ok": true,
+    "reason": "Claim is right. SPM A5 continues across a page break to say these assessed groups are threatened (Figure SPM.3), suggesting about 1 million species already face extinction. Quote 1 ends at the page break, before the predicate. A sturdier quote is the SPM direct-drivers sentence on the share threatened under IUCN Red List criteria (averaging around 25 per cent across groups studied in sufficient detail), which is one unbroken passage. Share of assessed species threatened, about 25%, 2019: right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-threatened-count-ipbes",
+   "claim": "The IPBES 2019 Global Assessment finds that around 1 million animal and plant species are now threatened with extinction, many within decades.",
+   "url": "https://www.ipbes.net/news/Media-Release-Global-Assessment",
+   "quotes": [
+    "The Report finds that around 1 million animal and plant species are now threatened with extinction, many within decades, more than ever before in human history."
+   ],
+   "values": [
+    "1 million"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "species threatened with extinction (count, animals and plants)",
+   "value": 1000000,
+   "unit": "species threatened (approximate)",
+   "when": "present (2019 assessment)",
+   "accessed": "2026-11-07",
+   "notes": "IPBES media release for the 2019 Global Assessment. Out of an estimated 8 million animal and plant species (same release).",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the IPBES media release issued 6 May 2019; its key-figures list says up to 1 million. The SPM derives the figure from the roughly 25% threatened share. Count, animals and plants, 2019: right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-threatened-by-class-wikipedia",
+   "claim": "Contemporary assessments find roughly 41% of amphibians, 25% of mammals, 21% of reptiles and 14% of birds threatened with extinction.",
+   "url": "https://en.wikipedia.org/wiki/Holocene_extinction",
+   "quotes": [
+    "Contemporary assessments have discovered that roughly 41% of amphibians, 25% of mammals, 21% of reptiles and 14% of birds are threatened with extinction"
+   ],
+   "values": [
+    "41%",
+    "25%",
+    "21%",
+    "14%"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "share of species threatened with extinction, by vertebrate class",
+   "value": 41,
+   "unit": "% of amphibian species threatened (mammals 25%, reptiles 21%, birds 14%)",
+   "when": "present (contemporary assessments)",
+   "accessed": "2026-11-07",
+   "notes": "Shares of species at risk, not already lost. Wikipedia, Holocene extinction.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim. It cites the Guardian (27 Apr 2022) and Cox et al. 2022 (Nature 605:285-290, the global reptile assessment), which gives these shares of species threatened per class. Measure and values right; the span can be dated.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-vertebrate-extinctions-ipbes",
+   "claim": "Human actions have already driven at least 680 vertebrate species to extinction since 1500 (IPBES 2019).",
+   "url": "https://files.ipbes.net/ipbes-web-prod-public-files/inline/files/ipbes_global_assessment_report_summary_for_policymakers.pdf",
+   "quotes": [
+    "Human actions have already driven at least 680 vertebrate species to extinction since 1500"
+   ],
+   "values": [
+    "680",
+    "since 1500"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "vertebrate species lost (documented extinctions)",
+   "value": 680,
+   "unit": "vertebrate species extinct (at least)",
+   "when": "1500 to 2019",
+   "accessed": "2026-11-07",
+   "notes": "Documented extinctions of vertebrate species only. IPBES 2019 Summary for Policymakers.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim (SPM, direct drivers; the media release gives the same count since the 16th century). Documented vertebrate species extinctions, at least 680, 1500 to 2019: right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-native-abundance-ipbes",
+   "claim": "The average abundance of native species in most major land-based habitats has fallen by at least 20%, mostly since 1900 (IPBES 2019).",
+   "url": "https://www.ipbes.net/news/Media-Release-Global-Assessment",
+   "quotes": [
+    "The average abundance of native species in most major land-based habitats has fallen by at least 20%, mostly since 1900."
+   ],
+   "values": [
+    "20%",
+    "1900"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "native species abundance in land habitats (population abundance, not biomass)",
+   "value": 20,
+   "unit": "% decline in average abundance (at least)",
+   "when": "mostly since 1900, to 2019",
+   "accessed": "2026-11-07",
+   "notes": "Abundance of native species in terrestrial habitats; not biomass and not species count. IPBES media release for the 2019 Global Assessment.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the 6 May 2019 media release, also in its key figures as over 20%. Measure right: average abundance of native species in most major land habitats, not biomass and not a species count. At least 20%, mostly since 1900.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-extinction-rate-wikipedia",
+   "claim": "Current extinction rates are estimated at 100 to 1,000 times higher than natural background extinction rates.",
+   "url": "https://en.wikipedia.org/wiki/Holocene_extinction",
+   "quotes": [
+    "Current extinction rates are estimated at 100 to 1,000 times higher than natural background extinction rates."
+   ],
+   "values": [
+    "100 to 1,000 times"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "extinction rate (species, against the natural background rate)",
+   "value": 100,
+   "unit": "times the natural background extinction rate (lower end of 100 to 1,000)",
+   "when": "present (contemporary rate)",
+   "accessed": "2026-11-07",
+   "notes": "A range; value is its lower end. Wikipedia, Holocene extinction (lead).",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the lead (the body repeats it). 100 is the low end of 100-1,000 times background; contemporary rate, undated in the source: right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-extinction-rate-wikipedia-high",
+   "claim": "One estimation suggested the current extinction rate could be as high as 10,000 times the background extinction rate, though this figure remains controversial.",
+   "url": "https://en.wikipedia.org/wiki/Holocene_extinction",
+   "quotes": [
+    "One estimation suggested the rate could be as high as 10,000 times the background extinction rate, though this figure remains controversial."
+   ],
+   "values": [
+    "10,000 times"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "extinction rate (species, against the background rate; disputed upper estimate)",
+   "value": 10000,
+   "unit": "times the background extinction rate (controversial upper estimate)",
+   "when": "present (contemporary rate)",
+   "accessed": "2026-11-07",
+   "notes": "Flagged as controversial by the source itself; the article's own range is 100 to 1,000 times (ext-present-extinction-rate-wikipedia). Wikipedia, Holocene extinction, section Extinction rate.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim; the source itself calls the figure controversial. Its citation (ref. 53) is Lawton and May, Extinction Rates (1995), so this is a mid-1990s estimate of the contemporary rate. Label it as a disputed upper estimate.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-extinction-rate-ceballos2015",
+   "claim": "Using a background rate of 2 mammal extinctions per 10,000 species per 100 years (2 E/MSY), Ceballos et al. (2015) find the average rate of vertebrate species loss over the last century up to 100 times higher than background, with modern vertebrate rates varying from 8 to 100 times the background rate.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4640606/fullTextXML",
+   "quotes": [
+    "First, we use a recent estimate of a background rate of 2 mammal extinctions per 10,000 species per 100 years (that is, 2 E/MSY), which is twice as high as widely used previous estimates.",
+    "Even under our assumptions, which would tend to minimize evidence of an incipient mass extinction, the average rate of vertebrate species loss over the last century is up to 100 times higher than the background rate.",
+    "modern extinction rates for vertebrates varied from 8 to 100 times higher than the background rate"
+   ],
+   "values": [
+    "2 E/MSY",
+    "up to 100 times",
+    "8 to 100 times"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "extinction rate (vertebrate species, against a background of 2 E/MSY)",
+   "value": 100,
+   "unit": "times the background rate (upper figure; 8 to 100 by taxon and assumption)",
+   "when": "the last century (since 1900, to the paper's 2014 IUCN data) against a fossil-derived mammal background rate",
+   "accessed": "2026-11-07",
+   "notes": "Vertebrates only, deliberately conservative assumptions. Europe PMC full text of Ceballos G, Ehrlich PR, Barnosky AD, Garcia A, Pringle RM, Palmer TM (2015) 'Accelerated modern human-induced species losses: Entering the sixth mass extinction', Science Advances 1(5):e1400253, doi:10.1126/sciadv.1400253.",
+   "check": {
+    "ok": true,
+    "reason": "All three quotes verbatim (abstract, Results). Per Table 2, the 100x upper figure is amphibians under the conservative count (EX+EW+PE) since 1900. All vertebrates combined since 1900 are 22x (EX only) to 53x (EX+EW+PE); since 1500, 8x to 15x. The 8-100 range is the since-1900 spread across classes and both counts. Label 100x as an upper figure, not the vertebrate average.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-genera-lost-ceballos2023",
+   "claim": "Examining 5,400 vertebrate genera (excluding fishes) comprising 34,600 species, Ceballos and Ehrlich (2023) find that 73 genera became extinct since 1500 AD.",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10523489/fullTextXML",
+   "quotes": [
+    "Here we show, by examining 5,400 vertebrate genera (excluding fishes) comprising 34,600 species, that 73 genera became EX since 1500 AD."
+   ],
+   "values": [
+    "5,400",
+    "73 genera",
+    "1500"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "genera lost (tetrapod genera: mammals, birds, reptiles, amphibians)",
+   "value": 73,
+   "unit": "genera extinct (of 5,400 examined)",
+   "when": "1500 AD to 2022",
+   "accessed": "2026-11-07",
+   "notes": "Counts IUCN Extinct, Extinct in the Wild and Possibly Extinct genera; fishes excluded. Europe PMC full text of Ceballos G, Ehrlich PR (2023) 'Mutilation of the tree of life via mass extinction of animal genera', PNAS 120(39):e2306987120, doi:10.1073/pnas.2306987120.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim (abstract); Results and Table 3 give 1500-2022, with IUCN and BirdLife data accessed March 2022. Table 1's note: the 73 genera include IUCN Extinct, Extinct in the Wild and Possibly Extinct categories (21 mammal, 44 bird, 3 reptile, 5 amphibian); fishes excluded.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-families-lost-ceballos2023",
+   "claim": "Two orders, 10 families and 73 genera of tetrapods (mammals, birds, reptiles and amphibians) have gone extinct since 1500, a major loss of branches of the tree of life (Ceballos and Ehrlich 2023).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10523489/fullTextXML",
+   "quotes": [
+    "Our analysis shows that two orders, 10 families, and 73 genera of tetrapods (i.e., mammals, birds, reptiles, and amphibians) have gone EX since 1500, representing a major loss of branches of the tree of life"
+   ],
+   "values": [
+    "two orders",
+    "10 families",
+    "73 genera",
+    "1500"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "families lost (tetrapods; also orders and genera)",
+   "value": 10,
+   "unit": "families extinct (with 2 orders and 73 genera)",
+   "when": "1500 AD to 2022",
+   "accessed": "2026-11-07",
+   "notes": "The two extinct orders are the elephant birds of Madagascar and the moas of New Zealand (same paper). Europe PMC full text of Ceballos and Ehrlich 2023, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim; Table 1: 2 extinct orders, 10 families (6 mammal, 4 bird), 73 genera since 1500. Caution from outside the source: the two orders are moas and elephant birds, whose extinctions are often dated near or before 1500.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-genera-rate-ceballos2023",
+   "claim": "Current generic extinction rates are 35 times higher than the background rates of the last million years; the genera lost in the last five centuries would have taken some 18,000 years to vanish without humans (Ceballos and Ehrlich 2023).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10523489/fullTextXML",
+   "quotes": [
+    "The current generic extinction rates are 35 times higher than expected background rates prevailing in the last million years under the absence of human impacts. The genera lost in the last five centuries would have taken some 18,000 y to vanish in the absence of human beings."
+   ],
+   "values": [
+    "35 times",
+    "18,000 y"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "extinction rate (vertebrate genera, against the background of the last million years)",
+   "value": 35,
+   "unit": "times the background generic extinction rate",
+   "when": "1500 to 2022 against the background of the last million years",
+   "accessed": "2026-11-07",
+   "notes": "Genera, not species: a coarser cut of the tree of life than the species-rate estimates. Europe PMC full text of Ceballos and Ehrlich 2023, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim (abstract). Table 3: 73 realized vs 2.1 expected genera for 1500-2022, ratio 35, about 18,150 years. The background is 0.75 genus per 10,000 genera per century, from the mammal record (Barnosky, pers. comm.).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-mammal-pd-lost-davis",
+   "claim": "The incipient sixth mass extinction that started in the Late Pleistocene has already erased over 300 mammal species and, with them, more than 2.5 billion years of unique evolutionary history (Davis, Faurby and Svenning 2018).",
+   "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=30322924&rettype=abstract&retmode=text",
+   "quotes": [
+    "The incipient sixth mass extinction that started in the Late Pleistocene has already erased over 300 mammal species and, with them, more than 2.5 billion y of unique evolutionary history."
+   ],
+   "values": [
+    "over 300 mammal species",
+    "2.5 billion y"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "phylogenetic diversity lost (mammals: summed branch length of unique evolutionary history), with species lost",
+   "value": 2500000000,
+   "unit": "years of unique mammal evolutionary history lost (more than); over 300 mammal species",
+   "when": "from the Late Pleistocene to the present (2018)",
+   "accessed": "2026-11-07",
+   "notes": "Phylogenetic diversity is total branch length of the tree of life, measured in years; it is neither biomass nor species count. PubMed abstract (NCBI E-utilities, plain text) of Davis M, Faurby S, Svenning J-C (2018) 'Mammal diversity will take millions of years to recover from the current biodiversity crisis', PNAS 115(44):11262-11267, doi:10.1073/pnas.1804906115.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the PubMed abstract (PNAS 115:11262-11267, epub 15 Oct 2018): over 2.5 billion years of mammal PD and over 300 species lost since the Late Pleistocene. The paper counts from the Last Interglacial, about 130,000 years ago.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-mammal-pd-lost-split-davis",
+   "claim": "Counting mammal extinctions since the Last Interglacial, about 130,000 years ago, prehistoric extinctions cost 2 billion years of unique evolutionary history and historic extinctions since 1500 another 500 million years (Davis et al. 2018).",
+   "url": "https://www.eurekalert.org/news-releases/598316",
+   "quotes": [
+    "Matt Davis and colleagues calculated PD loss for mammals due to extinctions since the Last Interglacial, approximately 130,000 years ago. Prehistoric extinctions led to the loss of 2 billion years of unique evolutionary history, with another 500 million years lost from historic extinctions since the year 1500."
+   ],
+   "values": [
+    "130,000 years ago",
+    "2 billion years",
+    "500 million years",
+    "1500"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "phylogenetic diversity lost (mammals), split into prehistoric and historic losses",
+   "value": 2000000000,
+   "unit": "years of mammal evolutionary history lost to prehistoric extinctions (another 500 million since 1500)",
+   "when": "prehistoric: since the Last Interglacial (≈130,000 years ago) to 1500; historic: 1500 to 2018",
+   "accessed": "2026-11-07",
+   "notes": "PNAS news release on EurekAlert for Davis, Faurby and Svenning 2018 (article 18-04906). The two parts sum to the abstract's 'more than 2.5 billion y' (ext-present-mammal-pd-lost-davis).",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the EurekAlert release of 15 Oct 2018. Prehistoric losses (Last Interglacial to 1500) are 2 billion years and historic (since 1500) 500 million, summing to the abstract's 2.5 billion. Measure, values and spans right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-mammal-recovery-davis",
+   "claim": "Even if extinction rates dropped to pre-anthropogenic levels, restoring all the mammal phylogenetic diversity lost since the Last Interglacial would take 5-7 million years, and recovering the diversity lost over the next 50 years under the status quo would take 3-5 million years (Davis et al. 2018).",
+   "url": "https://www.eurekalert.org/news-releases/598316",
+   "quotes": [
+    "If the status quo continues for the next 50 years, the authors estimate that it would take 3-5 million years to recover the PD lost during this time period, even if the extinction rate dropped to its preanthropogenic level. Restoring all of the PD lost since the Last Interglacial would take 5-7 million years."
+   ],
+   "values": [
+    "3-5 million years",
+    "5-7 million years"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "recovery time (mammal phylogenetic diversity, modelled)",
+   "value": 5000000,
+   "unit": "years to restore all mammal PD lost since the Last Interglacial (lower end of 5-7 million)",
+   "when": "projected forward from the present, assuming extinction falls to the pre-anthropogenic background rate",
+   "accessed": "2026-11-07",
+   "notes": "A model projection, not a measurement; mammals only; a recovery of evolutionary history, not of biomass. PNAS news release on EurekAlert for Davis, Faurby and Svenning 2018.",
+   "check": {
+    "ok": false,
+    "reason": "Quote verbatim; value and measure right, but the span drops the source's condition. The release frames both recovery times under 50 more years of status-quo extinctions. The paper's Recovery Times section (pmc.ncbi.nlm.nih.gov/articles/PMC6217385) computes the 5-7 My for the scenario where rates fall to the pre-anthropogenic background only after those 50 years. The recovery clock does not start today.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-lpi-2024",
+   "claim": "The 2024 Living Planet Index reports that studied wildlife populations declined by an average of 73% from 1970 through 2020, across 34,836 studied populations; it is an average change in population size, not a loss of 73% of wildlife or species.",
+   "url": "https://ourworldindata.org/2024-living-planet-index",
+   "quotes": [
+    "The headline figure from the 2024 update of the LPI is that studied wildlife populations have seen an average decline of 73% from 1970 through 2020.",
+    "What this metric tells us is that across the 34,836 studied wildlife populations, the average decline was 73%."
+   ],
+   "values": [
+    "73%",
+    "1970 through 2020",
+    "34,836"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "monitored populations (Living Planet Index: average relative change in vertebrate population size)",
+   "value": 73,
+   "unit": "% average decline in population size",
+   "when": "1970 to 2020",
+   "accessed": "2026-11-07",
+   "notes": "Population sizes of monitored vertebrate populations, averaged (geometric mean of rates of change); not biomass, not a species count, not extinctions. About half the populations declined and half rose or held steady (same page). Our World in Data's guide to the WWF Living Planet Report 2024 (WWF's own pages refuse the downloader); OWID marks it outdated since the 2026 report (ext-present-lpi-2026).",
+   "check": {
+    "ok": true,
+    "reason": "Both quotes verbatim (OWID, 10 Oct 2024). 73% average decline in monitored population size across 34,836 populations, 1970-2020; not a loss of individuals or species. The LPI tracks vertebrate populations, as the IPBES SPM also states. OWID notes the 2024 and 2026 indexes are recalculated, not a time series.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-lpi-2026",
+   "claim": "The 2026 Living Planet Index reports that studied wildlife populations of mammals, birds, reptiles, amphibians and fish declined by an average of 73% from 1970 through 2022, across 35,803 studied populations.",
+   "url": "https://ourworldindata.org/2026-lpi-update",
+   "quotes": [
+    "The headline figure from the 2026 update of the LPI is that studied wildlife populations declined by an average of 73% from 1970 through 2022.",
+    "This covers mammals, birds, reptiles, amphibians, and fish; it doesn't yet include invertebrates or plants.",
+    "Across the 35,803 wildlife populations studied, the average decline was 73%."
+   ],
+   "values": [
+    "73%",
+    "1970 through 2022",
+    "35,803"
+   ],
+   "dated2026": true,
+   "event": "present",
+   "measure": "monitored populations (Living Planet Index: average relative change in vertebrate population size)",
+   "value": 73,
+   "unit": "% average decline in population size",
+   "when": "1970 to 2022",
+   "accessed": "2026-11-07",
+   "notes": "The latest edition (report published 8 October 2026). Vertebrate population sizes only, no invertebrates or plants; not biomass. Same 73% as the 2024 edition but over a longer span and more populations; the whole trend line shifts with each edition's data. Our World in Data's overview of the WWF Living Planet Report 2026.",
+   "check": {
+    "ok": true,
+    "reason": "All three quotes verbatim (OWID, Ritchie, 8 Oct 2026). 73% average decline across 35,803 vertebrate populations, 1970-2022. It is the same 73% as 2024 over a longer span because the whole index was recomputed, so do not plot the two editions as a trend.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-megafauna-span-baron",
+   "claim": "Human activity contributed to the Quaternary Megafauna Extinction between about 50,000 and 3,000 years ago, which claimed around half of the large (over 40 kg) land mammal species (Bar-On et al. 2018).",
+   "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6016768/fullTextXML",
+   "quotes": [
+    "Human activity contributed to the Quaternary Megafauna Extinction between ≈50,000 and ≈3,000 y ago, which claimed around half of the large (>40 kg) land mammal species ( 30 )."
+   ],
+   "values": [
+    "≈50,000",
+    "≈3,000 y ago",
+    "half",
+    ">40 kg"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "date (span of the late Pleistocene megafaunal extinction); around half of large land mammal species lost",
+   "value": 50000,
+   "unit": "years ago (start of the span; end ≈3,000 years ago)",
+   "when": "≈50,000 to ≈3,000 years ago",
+   "accessed": "2026-11-07",
+   "notes": "Megafauna threshold here is >40 kg (Barnosky 2008 uses >44 kg, Wikipedia 45 kg). Europe PMC full text of Bar-On, Phillips and Milo 2018, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim; the 50,000-3,000 years ago span matches the cited Barnosky 2008 abstract. The claim's threshold needs correcting: the main text says >40 kg, but the paper's own SI (over 100 lb, i.e. 44 kg) and its cited source both say >44 kg. The SI dates the extinction 50,000-7,000 years ago.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-megafauna-genera-barnosky",
+   "claim": "The Quaternary Megafauna Extinction claimed two-thirds of mammal genera and one-half of species weighing more than 44 kg, between approximately 50,000 and 3,000 years ago (Barnosky 2008).",
+   "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=18695222&rettype=abstract&retmode=text",
+   "quotes": [
+    "Earth's most recent major extinction episode, the Quaternary Megafauna Extinction, claimed two-thirds of mammal genera and one-half of species that weighed >44 kg between approximately 50,000 and 3,000 years ago."
+   ],
+   "values": [
+    "two-thirds",
+    "one-half",
+    ">44 kg",
+    "50,000 and 3,000 years ago"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "genera lost (megafaunal mammal genera over 44 kg; also one-half of such species) and the span",
+   "value": 66.7,
+   "unit": "% of mammal genera weighing >44 kg (two-thirds); one-half of such species",
+   "when": "≈50,000 to ≈3,000 years ago",
+   "accessed": "2026-11-07",
+   "notes": "Large mammals only (>44 kg). PubMed abstract (NCBI E-utilities, plain text) of Barnosky AD (2008) 'Megafauna biomass tradeoff as a driver of Quaternary and future extinctions', PNAS 105 Suppl 1:11543-11548, doi:10.1073/pnas.0801918105.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in the PubMed abstract (PNAS 105 Suppl 1:11543, Aug 2008). The >44 kg threshold applies to both counts: two-thirds (66.7%) of megafaunal mammal genera and half of megafaunal species, about 50,000-3,000 years ago.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-megafauna-biomass-crash-barnosky",
+   "claim": "Growth of human biomass largely matched the loss of non-human megafauna biomass until about 12,000 years ago, when total megafauna biomass crashed; pre-crash biomass levels, now concentrated in humans, were regained just before the Industrial Revolution and then rose far above the pre-crash baseline with fossil fuels (Barnosky 2008).",
+   "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=18695222&rettype=abstract&retmode=text",
+   "quotes": [
+    "Estimates of megafauna biomass (including humans as a megafauna species) for before, during, and after the extinction episode suggest that growth of human biomass largely matched the loss of non-human megafauna biomass until approximately 12,000 years ago. Then, total megafauna biomass crashed, because many non-human megafauna species suddenly disappeared, whereas human biomass continued to rise.",
+    "Precrash biomass levels were finally reached just before the Industrial Revolution began, then skyrocketed above the precrash baseline as humans augmented the energy available to the global ecosystem by mining fossil fuels."
+   ],
+   "values": [
+    "12,000 years ago",
+    "Industrial Revolution"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "date (crash and recovery of megafauna biomass, humans included)",
+   "value": 12000,
+   "unit": "years ago (crash of total megafauna biomass)",
+   "when": "crash ≈12,000 years ago; pre-crash level regained just before the Industrial Revolution",
+   "accessed": "2026-11-07",
+   "notes": "The rebound is of megafauna biomass INCLUDING humans (after the crash concentrated in one species, humans), not a recovery of wild animals: wild mammal biomass remains ≈6-fold below its prehuman level (ext-present-wild-mammal-biomass-total-baron). PubMed abstract of Barnosky 2008, PNAS.",
+   "check": {
+    "ok": true,
+    "reason": "Both quotes verbatim in the abstract. The measure is total megafauna biomass with humans counted as megafauna: it crashed after about 12,000 years ago and regained the pre-crash level just before the Industrial Revolution. Label the rebound as human biomass, not wild diversity.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-megafauna-regional-wikipedia",
+   "claim": "Major late Pleistocene megafaunal extinctions occurred in Sahul (Australia-New Guinea) beginning around 50,000 years ago and in the Americas about 13,000 years ago, while extinctions in northern Eurasia were staggered between 50,000 and 10,000 years ago.",
+   "url": "https://en.wikipedia.org/wiki/Late_Pleistocene_extinctions",
+   "quotes": [
+    "Major extinctions occurred in Australia-New Guinea (Sahul) beginning around 50,000 years ago and in the Americas about 13,000 years ago, coinciding in time with the migration of modern humans into these regions.",
+    "Extinctions in northern Eurasia were staggered over tens of thousands of years between 50,000 and 10,000 years ago"
+   ],
+   "values": [
+    "50,000 years ago",
+    "13,000 years ago",
+    "between 50,000 and 10,000 years ago"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "date (regional timing of the late Pleistocene megafaunal extinctions)",
+   "value": 50000,
+   "unit": "years ago (start, Sahul; Americas ≈13,000; northern Eurasia 50,000-10,000)",
+   "when": "≈50,000 to ≈10,000 years ago",
+   "accessed": "2026-11-07",
+   "notes": "The same lead says extinctions in the Americas spanned only 3,000 years at most. Wikipedia, Late Pleistocene extinctions (lead).",
+   "check": {
+    "ok": true,
+    "reason": "Both quotes verbatim in the lead: Sahul from about 50,000 years ago, the Americas about 13,000 (within at most 3,000 years), northern Eurasia staggered 50,000-10,000. Barnosky et al. 2004 (the article's ref. 13) also has the megafaunal genera gone between 50,000 and 10,000 years ago.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-megafauna-species-lost-wikipedia",
+   "claim": "Megafauna are typically defined as animal species of 45 kg or more; during the Late Pleistocene about 65% of all megafaunal species worldwide became extinct, rising to 72% in North America, 83% in South America and 88% in Australia.",
+   "url": "https://en.wikipedia.org/wiki/Late_Pleistocene_extinctions",
+   "quotes": [
+    "which are typically defined as animal species having body masses of 45 kg (99 lb) or more",
+    "Overall, during the Late Pleistocene about 65% of all megafaunal species worldwide became extinct,[12] rising to 72% in North America, 83% in South America and 88% in Australia"
+   ],
+   "values": [
+    "45 kg",
+    "65%",
+    "72%",
+    "83%",
+    "88%"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "megafaunal species lost (animals of 45 kg or more)",
+   "value": 65,
+   "unit": "% of megafaunal species worldwide (North America 72%, South America 83%, Australia 88%)",
+   "when": "Late Pleistocene (≈50,000 to ≈10,000 years ago)",
+   "accessed": "2026-11-07",
+   "notes": "Large animals only; a species count, not biomass. Wikipedia, Late Pleistocene extinctions (lead).",
+   "check": {
+    "ok": false,
+    "reason": "Quotes verbatim, but Wikipedia labels genus counts as species. Its ref. 12 (Saltré et al. 2016, PMC4740174) opens with about 65% of megafauna genera (>40 kg) lost in the late Quaternary. Its ref. 13 (Barnosky et al. 2004, Science 306:70, Table 1, faculty.washington.edu/stevehar/BarnoskyEtAl2004.pdf) gives 72/83/88% as the percent of mammalian megafaunal genera lost per continent. At species level, the primary papers in this set give about half (Barnosky 2008; Bar-On 2018).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "ext-present-holocene-start",
+   "claim": "The International Commission on Stratigraphy defines the Holocene, the current epoch, as starting approximately 11,700 years before 2000 CE (9,700 BCE).",
+   "url": "https://en.wikipedia.org/wiki/Holocene",
+   "quotes": [
+    "The International Commission on Stratigraphy has defined the Holocene as starting approximately 11,700 years before 2000 CE (11,650 cal years BP, or 9,700 BCE)."
+   ],
+   "values": [
+    "11,700 years before 2000 CE",
+    "9,700 BCE"
+   ],
+   "dated2026": false,
+   "event": "present",
+   "measure": "date (start of the Holocene epoch, in which the present extinction is named)",
+   "value": 11700,
+   "unit": "years before 2000 CE",
+   "when": "≈11,700 years ago to the present",
+   "accessed": "2026-11-07",
+   "notes": "The epoch, not the extinction: Wikipedia's Holocene extinction article says the event's start is debated, with no consensus on when it began or whether it is distinct from the Quaternary (late Pleistocene) extinctions. Wikipedia, Holocene.",
+   "check": {
+    "ok": true,
+    "reason": "Quote verbatim in Wikipedia's Holocene article: the ICS definition is about 11,700 years before 2000 CE (11,650 cal BP, 9,700 BCE). Date, unit and span right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  }
+ ]
+}

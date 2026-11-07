@@ -1,0 +1,883 @@
+{
+ "asOf": "2026-11-07",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 0,
+  "cached": 87,
+  "tokens": 139999,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "ext-dev-date-lde": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-ecorank-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-genera-bambach2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-genera-mcghee1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-genera-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-genera-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-genera-sepkoski1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-genera-stanley2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-marine-biomass-shells": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-reef-recovery-hangenberg": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-species-lde": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-species-mcghee1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-dev-species-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-date-henehan2019": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-date-lowery2018": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-ecorank-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-genera-bambach2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-genera-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-genera-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-genera-sepkoski1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-genera-stanley2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-marine-biomass-cenozoic": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-marine-productivity-loss": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-carbon-export": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-crater": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-export-gulf": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-plants": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-productivity": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.84,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-reefs": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-recovery-squamates": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-species-lowery2018": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-kpg-species-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-date-harper2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-date-lome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-date-silurian-boundary": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-ecorank-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-bambach2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-harper2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-lome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-sepkoski1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-genera-stanley2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-recovery-krug2004": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-recovery-lome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-species-harper2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.83,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-species-lome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-ord-species-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-coal-gap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-date-pt": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-ecorank-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-genera-bambach2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-genera-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-genera-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-genera-pt": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-genera-sepkoski1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-genera-stanley2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-land-npp-anisian": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-land-npp-changhsingian": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-land-npp-induan": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-land-npp-loss": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-land-npp-olenekian": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-landvert-pt": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-marine-biomass-shells": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-10myr": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-china-2025": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-ecological": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-forests": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-global-diversity": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-land-vertebrates": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-paris-biota": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-recovery-seafloor": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-species-older-quoted": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-species-pt": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-species-stanley2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-perm-species-xu2025": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-coral-collapse": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.78,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-date-tj": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-ecorank-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.83,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-genera-bambach2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-genera-mcghee2013": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-genera-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-genera-sepkoski1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.74,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-genera-tj": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-marine-biomass-setback": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.73,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-recovery-thibodeau2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-big-five"
+  },
+  "ext-tri-species-overview": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-big-five"
+  }
+ }
+}

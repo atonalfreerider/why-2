@@ -15,6 +15,7 @@ Usage (from the repository root):
     python3 -I Tools/advantage/verify.py                 # gate every research file
     python3 -I Tools/advantage/verify.py --cluster compute   # one file (Docs/research/advantage/compute.json)
     python3 -I Tools/advantage/verify.py --offline       # from the cache only
+    python3 -I Tools/advantage/verify.py --dir Docs/research/life --cluster extinctions   # another research folder
 A whole run writes Docs/research/advantage/verification.json ({fact id: record}); a --cluster run writes
 Docs/research/advantage/gate/<cluster>.json instead, so several researchers can run the gate at once. Both print, per
 cluster, the verified count and every failure with its reason.
@@ -37,14 +38,14 @@ NOT_RESEARCH = {"verification.json", "model.json", "judgments.json"}
 REQUIRED = ("id", "claim", "url", "quotes", "values")
 
 
-def research_files(cluster=None):
+def research_files(cluster=None, folder=RESEARCH):
     out = []
-    for name in sorted(os.listdir(RESEARCH)):
+    for name in sorted(os.listdir(folder)):
         if not name.endswith(".json") or name in NOT_RESEARCH:
             continue
         if cluster and name != cluster + ".json":
             continue
-        out.append(os.path.join(RESEARCH, name))
+        out.append(os.path.join(folder, name))
     return out
 
 
@@ -68,12 +69,15 @@ def main():
     args = sys.argv[1:]
     offline = "--offline" in args
     cluster = args[args.index("--cluster") + 1] if "--cluster" in args else None
+    # another research folder (e.g. Docs/research/life) gated the same way, its records in <dir>/gate/
+    folder = os.path.abspath(args[args.index("--dir") + 1]) if "--dir" in args else RESEARCH
     as_of = datetime.date.today().isoformat()
     cache = G.Cache(offline)
-    out = os.path.join(RESEARCH, "gate", cluster + ".json") if cluster else OUT
+    out = (os.path.join(folder, "gate", cluster + ".json") if cluster
+           else OUT if folder == RESEARCH else os.path.join(folder, "verification.json"))
     results = {}
     seen = set()
-    for path in research_files(cluster):
+    for path in research_files(cluster, folder):
         name = os.path.splitext(os.path.basename(path))[0]
         facts = load_facts(path)
         ok, failures = 0, []

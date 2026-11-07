@@ -1,0 +1,353 @@
+{
+ "asOf": "2026-11-07",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 0,
+  "cached": 34,
+  "tokens": 47004,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "ext-present-extinction-rate-ceballos2015": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.84,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-extinction-rate-ipbes": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-extinction-rate-wikipedia": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-extinction-rate-wikipedia-high": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-families-lost-ceballos2023": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-fish-biomass-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.86,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-genera-lost-ceballos2023": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-genera-rate-ceballos2023": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-holocene-start": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-lpi-2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-lpi-2026": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-mammal-pd-lost-davis": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-mammal-pd-lost-split-davis": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-mammal-recovery-davis": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-marine-mammal-biomass-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.76,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-megafauna-biomass-crash-barnosky": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-megafauna-genera-barnosky": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-megafauna-regional-wikipedia": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-megafauna-span-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-megafauna-species-lost-wikipedia": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-native-abundance-ipbes": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-plant-biomass-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-plant-biomass-erb": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.81,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-plant-biomass-erb-ranges": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-threatened-by-class-wikipedia": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-threatened-count-ipbes": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-threatened-share-ipbes": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-vertebrate-extinctions-ipbes": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-wild-land-mammal-biomass-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-wild-land-mammal-biomass-wikipedia": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-wild-mammal-biomass-ipbes": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-wild-mammal-biomass-now-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-wild-mammal-biomass-total-baron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  },
+  "ext-present-wild-mammal-biomass-wikipedia": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "extinctions-present"
+  }
+ }
+}

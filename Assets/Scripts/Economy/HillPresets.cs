@@ -71,6 +71,10 @@ namespace Why.Economy
             // face, then the floor spreading out of it as the peaks rise).
             Add(HillAdvantageLayer.View, "The present as a contest", "2026's economy as a living contest: each company its balance sheet inside a shell of market value, higher the more it dominates; rivers of money between them; their owners in gold above.",
                 KeyCode.I, HillAdvantageLayer.FrameTarget(crest), HillAdvantageLayer.FrameYaw, HillAdvantageLayer.FramePitch, HillAdvantageLayer.FrameDistance);
+            // Advantage through history (HillHistoryLayer): the AI story's lanes over the wave of its years, seen from the
+            // hillside so time runs left to right; the layer flies to the story and year shown, and opens the cross-section.
+            Add(HillHistoryLayer.View, "Advantage through history", "Who held the advantage, and why: states, armies, alliances, companies and labs as tubes through time, opened into a cross-section at a moment.",
+                KeyCode.None, new Vector3(HillHistoryLayer.LaneX, 170, HillLandscape.Z(1986)), 266, 5, 330);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.
@@ -120,6 +124,11 @@ namespace Why.Economy
                 new Vector3(190, 22, (first + crest) * .5f + 30), 262, 12, 285);
         }
 
+        /// <summary>A pose of history (not in the catalog): a land-local target, the yaw from the road's direction, pitch and
+        /// distance, as the layer frames the story and year shown (HillHistoryLayer.FlyToState).</summary>
+        public static ViewPreset HistoryPose(Vector3 target, float yaw, float pitch, float distance) =>
+            Make(HillHistoryLayer.View, "Advantage through history", "", KeyCode.None, target, yaw, pitch, distance);
+
         /// <summary>The views of the followed person (keyless; the tour points at them by id).</summary>
         public static readonly string[] PersonViews = { "atom", "dilemma", "ladder" };
 
@@ -127,7 +136,7 @@ namespace Why.Economy
         {
             var f = EconomyStage.Land();
             return new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
-                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View ? 330 : id == HillPresentLayer.View || id == HillAdvantageLayer.View ? 600 : 165,
+                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View ? 330 : id == HillPresentLayer.View || id == HillAdvantageLayer.View || id == HillHistoryLayer.View ? 600 : 165,
                 YaOld = DeepTime.NowYear - EconomyStyle.FirstYear, YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
                 RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale };
         }
@@ -206,7 +215,7 @@ namespace Why.Economy
             { "social", "Attention" }, { "roots", "Supply chains" }, { "betrayal", "Betrayal" }, { "y1972", "1972" }, { "strategy", "Firm spending" },
             { "money", "Money & trade" }, { HillRegimeLayer.View, "Other states" }, { "mobility", "Mobility" }, { "atom", "One person" },
             { "dilemma", "Dilemma" }, { "ladder", "Ladder" }, { "you", "You" }, { HillPresentLayer.View, "Industries" },
-            { HillAdvantageLayer.View, "Advantage" },
+            { HillAdvantageLayer.View, "Advantage" }, { HillHistoryLayer.View, "History" },
         };
 
         /// <summary>A view's caption in the bar (its title when it has no short one).</summary>
@@ -220,6 +229,7 @@ namespace Why.Economy
             ("Money", new[] { "capture", "rivers", "companies", "strategy", "money", "social" }),
             ("People", new[] { "people", "mind", "mobility", "society", "betrayal" }),
             ("One life", new[] { "atom", "ladder", "dilemma", "you" }),
+            ("History", new[] { HillHistoryLayer.View }),
         };
 
         /// <summary>
@@ -241,7 +251,7 @@ namespace Why.Economy
 
         /// <summary>The key of a view, or null for the views of the whole wave (the legend's own key); the present's carries its
         /// year's area scale (HillPresentLayer).</summary>
-        public static ViewKey Key(string id) => id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
+        public static ViewKey Key(string id) => id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id == HillHistoryLayer.View ? HillHistoryLayer.Key : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
 
         /// <summary>The first year the attention cloud is drawn on the wave: Instagram's, whose follows place its stars (the
         /// cloud's own gate, HillSocialLayer's PlatformYear, is set from it).</summary>

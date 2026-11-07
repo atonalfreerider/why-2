@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Why.Economy.Model;
 
@@ -120,7 +121,9 @@ namespace Why.Economy.Land
             }
 
             Color debtHeat = DebtHeat(debt, equity);
-            lobes.Add(new Lobe(Vector3.zero, core, b.Alive ? EquityHeat(equity) : Unknown, .6f));
+            var corePart = parts.FirstOrDefault(p => p.Kind == ContestNetwork.PartKind.Core);
+            Color coreColor = corePart.Tint.a > 0 ? corePart.Tint : b.Alive ? EquityHeat(equity) : Unknown;
+            lobes.Add(new Lobe(Vector3.zero, core, coreColor, corePart.Solid > 0 ? corePart.Solid : .6f));
             float twist = Hash01(b.Id) * Mathf.PI * 2;
             int above = 0, k = 0;
             foreach (var p in parts) if (Above(p.Kind)) above++;
@@ -136,8 +139,8 @@ namespace Why.Economy.Land
                 else if (p.Kind == ContestNetwork.PartKind.Debt) dir = new Vector3(.12f, -1, .08f).normalized;
                 else dir = new Vector3(Mathf.Cos(twist + 2.2f) * .6f, -.8f, Mathf.Sin(twist + 2.2f) * .6f).normalized;
                 // lobes overlap the core so the parts fuse into one body
-                Color tint = p.Kind == ContestNetwork.PartKind.Debt ? debtHeat : p.Kind == ContestNetwork.PartKind.Leases ? Color.Lerp(debtHeat, Leases, .4f) : ColorOf(p.Kind);
-                lobes.Add(new Lobe(dir * (1.1f * (core + p.Radius)), p.Radius, tint, SolidOf(p.Kind)));
+                Color tint = p.Tint.a > 0 ? p.Tint : p.Kind == ContestNetwork.PartKind.Debt ? debtHeat : p.Kind == ContestNetwork.PartKind.Leases ? Color.Lerp(debtHeat, Leases, .4f) : ColorOf(p.Kind);
+                lobes.Add(new Lobe(dir * (1.1f * (core + p.Radius)), p.Radius, tint, p.Solid > 0 ? p.Solid : SolidOf(p.Kind)));
             }
 
             return lobes;

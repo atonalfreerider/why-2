@@ -32,6 +32,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCRIPTS = {
     "Assets/Resources/Data/Walkthrough/tour_narration.json": "Assets/Resources/Audio/Tour",
     "Assets/Resources/Data/Walkthrough/economy_narration.json": "Assets/Resources/Audio/EconomyTour",
+    # the history stories play in the economy scene, whose narrator reads Audio/EconomyTour (their ids are prefixed ai_, rev_)
+    "Assets/Resources/Data/Walkthrough/story_ai_narration.json": "Assets/Resources/Audio/EconomyTour",
+    "Assets/Resources/Data/Walkthrough/story_revolutions_narration.json": "Assets/Resources/Audio/EconomyTour",
 }
 
 DEFAULT_VOICE = "7NoxJCAEPTXbnfIvyaF6"  # JohnV4 (cloned)

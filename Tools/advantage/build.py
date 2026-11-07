@@ -491,8 +491,8 @@ def main():
     moats = []
     for m in model.get("moats", []):
         aid = merged.get(m.get("actor"), m.get("actor"))
-        if aid not in ids:
-            continue
+        if aid not in ids or not m.get("stratum"):
+            continue   # history's moats (with years, not strata) belong to history.json
         jm = (judg.get("moats") or {}).get(m["id"]) or {}
         srcs = [{"source": x.get("source"), "what": x.get("what"), "facts": cited(x.get("facts")),
                  "wall": round(jm["wall_" + x["source"]]["score"], 2) if "wall_" + (x.get("source") or "") in jm else None,

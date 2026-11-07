@@ -1,0 +1,3401 @@
+{
+ "cluster": "story-ai",
+ "asOf": "2026-11-07",
+ "scope": "The American century to the AI revolution, 1945-2026: the transistor, the integrated circuit, the microprocessor, the foundry, the GPU, CUDA, AlexNet, the transformer, scaling at OpenAI, ChatGPT and the 2026 frontier, told as nine periods and sixteen moments.",
+ "facts": [
+  {
+   "id": "story-ai-us-half-industrial",
+   "claim": "After the Second World War the United States was responsible for half of global industrial output.",
+   "url": "https://en.wikipedia.org/wiki/Pax_Americana",
+   "quotes": [
+    "In the Post–World War II economic expansion, the US was responsible for half of global industrial output, held 80 percent of the world's gold reserves, and was the world's sole nuclear power."
+   ],
+   "values": [
+    "half"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "share",
+   "value": 50,
+   "unit": "% of global industrial output",
+   "period": "post-WWII expansion",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-us-gold-80",
+   "claim": "After the Second World War the United States held 80 percent of the world's gold reserves.",
+   "url": "https://en.wikipedia.org/wiki/Pax_Americana",
+   "quotes": [
+    "In the Post–World War II economic expansion, the US was responsible for half of global industrial output, held 80 percent of the world's gold reserves, and was the world's sole nuclear power."
+   ],
+   "values": [
+    "80 percent"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "share",
+   "value": 80,
+   "unit": "% of world gold reserves",
+   "period": "post-WWII expansion",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gdp-1950",
+   "claim": "GDP in 1950 was 1,456 billion 1990 dollars in the United States, 510 in the Soviet Union and 161 in Japan.",
+   "url": "https://en.wikipedia.org/wiki/Economy_of_the_Soviet_Union",
+   "quotes": [
+    "GDP levels in 1950 (in billion 1990 dollars) were 510 (100%) in the Soviet Union, 161 (100%) in Japan and 1,456 (100%) in the United States."
+   ],
+   "values": [
+    "510",
+    "161",
+    "1,456"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "gdp",
+   "value": 1456,
+   "unit": "billion 1990 dollars",
+   "period": "1950",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The same fact feeds the USSR and Japan series; the 1990-dollar basis is Maddison-style purchasing-power GDP."
+  },
+  {
+   "id": "story-ai-ussr-second-economy",
+   "claim": "The Soviet Union had the world's second-largest economy and the largest standing military.",
+   "url": "https://en.wikipedia.org/wiki/Soviet_Union",
+   "quotes": [
+    "It had the world's second-largest economy and the largest standing military."
+   ],
+   "values": [
+    "second-largest"
+   ],
+   "dated2026": false,
+   "actor": "ussr",
+   "kind": "event",
+   "value": 1991,
+   "unit": "year",
+   "period": "to 1991",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia states it without a year; the value is the year the state ended."
+  },
+  {
+   "id": "story-ai-marshall-plan",
+   "claim": "The United States transferred US$13.3 billion to 17 European countries under the Marshall Plan.",
+   "url": "https://en.wikipedia.org/wiki/Marshall_Plan",
+   "quotes": [
+    "The United States transferred US$13.3 billion to 17 European countries (equivalent to $141 billion[A] in 2025[B]) in economic recovery programs to Western European economies after the end of World War II in Europe."
+   ],
+   "values": [
+    "13.3",
+    "17"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 13.3,
+   "unit": "USD bn",
+   "period": "1948-1952",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-luce-1941",
+   "claim": "In a Life magazine editorial of 17 February 1941 Henry Luce urged the United States to forsake isolationism for the role of the world's Good Samaritan.",
+   "url": "https://en.wikipedia.org/wiki/American_Century",
+   "quotes": [
+    "In a February 17, 1941, Life magazine editorial Luce, the son of missionaries, urged the United States to forsake isolationism for a missionary's role, acting as the world's Good Samaritan and spreading democracy."
+   ],
+   "values": [
+    "1941"
+   ],
+   "dated2026": false,
+   "actor": "henry-luce",
+   "kind": "statement",
+   "value": 1941,
+   "unit": "year",
+   "period": "17 February 1941",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-bretton-gold-two-thirds",
+   "claim": "At Bretton Woods in 1944 the United States, which controlled two-thirds of the world's gold, insisted that the system rest on both gold and the dollar.",
+   "url": "https://en.wikipedia.org/wiki/Bretton_Woods_system",
+   "quotes": [
+    "The United States, which controlled two-thirds of the world's gold, insisted that the Bretton Woods system rest on both gold and the US dollar."
+   ],
+   "values": [
+    "two-thirds"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "share",
+   "value": 67,
+   "unit": "% of world gold (two-thirds)",
+   "period": "1944",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's Pax Americana article says 80 percent of reserves; this article says two-thirds of the world's gold. The sources differ and both are recorded."
+  },
+  {
+   "id": "story-ai-bell-nobels",
+   "claim": "Eleven Nobel Prizes and five Turing Awards have been awarded for work completed at Bell Laboratories.",
+   "url": "https://en.wikipedia.org/wiki/Bell_Labs",
+   "quotes": [
+    "Eleven Nobel Prizes and five Turing Awards have been awarded for work completed at Bell Laboratories."
+   ],
+   "values": [
+    "Eleven",
+    "five"
+   ],
+   "dated2026": false,
+   "actor": "bell-labs",
+   "kind": "event",
+   "value": 11,
+   "unit": "Nobel Prizes",
+   "period": "to 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-fairchild-silicon",
+   "claim": "Fairchild Semiconductor was started in 1957 to make silicon transistors when germanium was still the most common semiconductor material.",
+   "url": "https://en.wikipedia.org/wiki/Fairchild_Semiconductor",
+   "quotes": [
+    "In 1957, the Fairchild Semiconductor division was started with plans to make silicon transistors at a time when germanium was still the most common material for semiconductor use."
+   ],
+   "values": [
+    "1957"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1957,
+   "unit": "year",
+   "period": "1957",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-fairchild-eight-names",
+   "claim": "The eight founders of Fairchild were Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce and Sheldon Roberts.",
+   "url": "https://en.wikipedia.org/wiki/Fairchild_Semiconductor",
+   "quotes": [
+    "The eight men were Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce, and Sheldon Roberts."
+   ],
+   "values": [
+    "Julius Blank"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 8,
+   "unit": "people",
+   "period": "1957",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-kilby-1958",
+   "claim": "Jack Kilby took part, with Robert Noyce of Fairchild, in realizing the first integrated circuit at Texas Instruments in 1958.",
+   "url": "https://en.wikipedia.org/wiki/Jack_Kilby",
+   "quotes": [
+    "Clair Kilby (November 8, 1923 – June 20, 2005) was an American electrical engineer who took part, along with Robert Noyce of Fairchild Semiconductor, in the realization of the first integrated circuit while working at Texas Instruments in 1958."
+   ],
+   "values": [
+    "1958"
+   ],
+   "dated2026": false,
+   "actor": "texas-instruments",
+   "kind": "event",
+   "value": 1958,
+   "unit": "year",
+   "period": "1958",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-moore-1965",
+   "claim": "In 1965 Gordon Moore, then director of research and development at Fairchild Semiconductor, was asked for a ten-year prediction for the semiconductor industry.",
+   "url": "https://en.wikipedia.org/wiki/Moore%27s_law",
+   "quotes": [
+    "In 1965, Gordon Moore, who at the time was working as the director of research and development at Fairchild Semiconductor, was asked to contribute to the thirty-fifth-anniversary issue of Electronics magazine with a prediction on the future of the semiconductor components industry over the next ten years."
+   ],
+   "values": [
+    "1965"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1965,
+   "unit": "year",
+   "period": "1965",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-moore-1975-two-years",
+   "claim": "In 1975 Moore revised his forecast to a doubling of components every two years, a compound annual growth rate of 41 percent.",
+   "url": "https://en.wikipedia.org/wiki/Moore%27s_law",
+   "quotes": [
+    "In 1975, looking forward to the next decade, he revised the forecast to doubling every two years, a compound annual growth rate (CAGR) of 41%."
+   ],
+   "values": [
+    "1975",
+    "41%"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1975,
+   "unit": "year",
+   "period": "1975",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-4004-transistors",
+   "claim": "The silicon-gate process let a single Intel 4004 chip contain 2,300 transistors.",
+   "url": "https://en.wikipedia.org/wiki/Intel_4004",
+   "quotes": [
+    "Together, these innovations doubled the circuit density, and thus halved cost, allowing a single chip to contain 2,300 transistors and run five times faster than designs using the previous MOS technology with aluminum gates."
+   ],
+   "values": [
+    "2,300"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "units",
+   "value": 2300,
+   "unit": "transistors",
+   "period": "1971",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-pc-primary",
+   "claim": "Intel made the first commercial microprocessor in 1971, but it was the success of the PC in the early 1980s that made it Intel's primary business.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "Although Intel created the world's first commercial microprocessor chip—the Intel 4004—in 1971, it was not until the success of the PC in the early 1980s that this became its primary business."
+   ],
+   "values": [
+    "1971"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1981,
+   "unit": "year",
+   "period": "early 1980s",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-mcap-1999",
+   "claim": "Intel's market capitalisation at the end of 1999 was $274.43 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/marketcap/",
+   "quotes": [
+    "1999 $274.43 B 39.65%"
+   ],
+   "values": [
+    "274.43"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "marketCap",
+   "value": 274.43,
+   "unit": "USD bn",
+   "period": "end of 1999",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-mcap-2012",
+   "claim": "Intel's market capitalisation at the end of 2012 was $101.94 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/marketcap/",
+   "quotes": [
+    "2012 $101.94 B -17.44%"
+   ],
+   "values": [
+    "101.94"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "marketCap",
+   "value": 101.94,
+   "unit": "USD bn",
+   "period": "end of 2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-mcap-2022",
+   "claim": "Intel's market capitalisation at the end of 2022 was $109.07 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/marketcap/",
+   "quotes": [
+    "2022 $109.07 B -47.96%"
+   ],
+   "values": [
+    "109.07"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "marketCap",
+   "value": 109.07,
+   "unit": "USD bn",
+   "period": "end of 2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-rev-1997",
+   "claim": "Intel's revenue in 1997 was $25.07 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/revenue/",
+   "quotes": [
+    "1997 $25.07 B 20.26%"
+   ],
+   "values": [
+    "25.07"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 25.07,
+   "unit": "USD bn",
+   "period": "1997",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-rev-2000",
+   "claim": "Intel's revenue in 2000 was $33.72 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/revenue/",
+   "quotes": [
+    "2000 $33.72 B 14.76%"
+   ],
+   "values": [
+    "33.72"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 33.72,
+   "unit": "USD bn",
+   "period": "2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-intel-rev-2012",
+   "claim": "Intel's revenue in 2012 was $53.34 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/revenue/",
+   "quotes": [
+    "2012 $53.34 B -1.22%"
+   ],
+   "values": [
+    "53.34"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 53.34,
+   "unit": "USD bn",
+   "period": "2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-philips",
+   "claim": "Philips put up $58 million and transferred its production technology to Taiwan's new foundry for a 27.6 percent stake in TSMC.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "Only Philips was willing to sign a joint venture contract with Taiwan to put up $58 million, transfer its production technology, and license intellectual property in exchange for a 27.6 percent stake in TSMC."
+   ],
+   "values": [
+    "58",
+    "27.6"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "investment",
+   "value": 58,
+   "unit": "USD m",
+   "period": "1987",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-chang-first-foundry",
+   "claim": "Morris Chang founded TSMC to commercialise semiconductor research developed at ITRI, becoming the world's first dedicated semiconductor foundry.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "Morris Chang founded the company to commercialise semiconductor research originally developed at ITRI, becoming the world’s first dedicated semiconductor foundry.[18][19]"
+   ],
+   "values": [
+    "ITRI"
+   ],
+   "dated2026": false,
+   "actor": "morris-chang",
+   "kind": "event",
+   "value": 1987,
+   "unit": "year",
+   "period": "1987",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Value 1987 is the founding year given in the sentence 'TSMC was established in 1987' (see lineage-tsmc-founded-1987)."
+  },
+  {
+   "id": "story-ai-tsmc-mcap-1997",
+   "claim": "TSMC's market capitalisation at the end of 1997 was $14.84 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "1997 $14.84 B"
+   ],
+   "values": [
+    "14.84"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "marketCap",
+   "value": 14.84,
+   "unit": "USD bn",
+   "period": "end of 1997",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-mcap-2012",
+   "claim": "TSMC's market capitalisation at the end of 2012 was $86.83 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "2012 $86.83 B 32.95%"
+   ],
+   "values": [
+    "86.83"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "marketCap",
+   "value": 86.83,
+   "unit": "USD bn",
+   "period": "end of 2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-mcap-2022",
+   "claim": "TSMC's market capitalisation at the end of 2022 was $386.31 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "2022 $386.31 B -32.92%"
+   ],
+   "values": [
+    "386.31"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "marketCap",
+   "value": 386.31,
+   "unit": "USD bn",
+   "period": "end of 2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-rev-1997",
+   "claim": "TSMC's revenue in 1997 was $1.34 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/revenue/",
+   "quotes": [
+    "1997 $1.34 B"
+   ],
+   "values": [
+    "1.34"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 1.34,
+   "unit": "USD bn",
+   "period": "1997",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-rev-2012",
+   "claim": "TSMC's revenue in 2012 was $17.46 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/revenue/",
+   "quotes": [
+    "2012 $17.46 B 20.48%"
+   ],
+   "values": [
+    "17.46"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 17.46,
+   "unit": "USD bn",
+   "period": "2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-rev-2022",
+   "claim": "TSMC's revenue in 2022 was $73.86 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/revenue/",
+   "quotes": [
+    "2022 $73.86 B 28.71%"
+   ],
+   "values": [
+    "73.86"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 73.86,
+   "unit": "USD bn",
+   "period": "2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-founding-capital",
+   "claim": "Nvidia was born with $40,000 in the bank.",
+   "url": "https://en.wikipedia.org/wiki/History_of_Nvidia",
+   "quotes": [
+    "With $40,000 in the bank (equivalent to $89,000 in 2025), the company was born.[14]"
+   ],
+   "values": [
+    "40,000"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 40000,
+   "unit": "USD",
+   "period": "1993",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-1996-layoff",
+   "claim": "In 1996 Jensen Huang laid off more than half of Nvidia's employees, cutting headcount from 100 to 40, to focus on the RIVA 128.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "In 1996, Huang laid off more than half of Nvidia's employees-reducing headcount from 100 to 40-and focused the company's remaining resources on developing a graphics accelerator product optimized for processing triangle primitives: the RIVA 128.[11][84]"
+   ],
+   "values": [
+    "100",
+    "40"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "headcount",
+   "value": 40,
+   "unit": "employees",
+   "period": "1996",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-geforce256-transistors",
+   "claim": "The NV10 chip of the GeForce 256, made by TSMC on a 220 nm process, had 17,000,000 transistors.",
+   "url": "https://en.wikipedia.org/wiki/Transistor_count",
+   "quotes": [
+    "NV10 17,000,000 1999 Nvidia TSMC 220 nm 111 mm2 153,000"
+   ],
+   "values": [
+    "17,000,000"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 17000000,
+   "unit": "transistors",
+   "period": "1999",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gh100-transistors",
+   "claim": "The Hopper GH100 had 80,000,000,000 transistors.",
+   "url": "https://en.wikipedia.org/wiki/Transistor_count",
+   "quotes": [
+    "GH100 Hopper 80,000,000,000 2022 Nvidia TSMC 4 nm 814 mm2 98,280,000"
+   ],
+   "values": [
+    "80,000,000,000"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 80000000000,
+   "unit": "transistors",
+   "period": "2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gb200-transistors",
+   "claim": "The GB200 Grace Blackwell package had 208,000,000,000 transistors.",
+   "url": "https://en.wikipedia.org/wiki/Transistor_count",
+   "quotes": [
+    "GB200 Grace Blackwell 208,000,000,000 (MCM) 2024 Nvidia TSMC 4 nm"
+   ],
+   "values": [
+    "208,000,000,000"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 208000000000,
+   "unit": "transistors",
+   "period": "2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-1tn-2023",
+   "claim": "In 2023 Nvidia became the seventh U.S. company to reach a US$1 trillion valuation.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "In 2023, Nvidia became the seventh U.S. company to reach a US$1 trillion valuation.[60]"
+   ],
+   "values": [
+    "1 trillion"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 1000,
+   "unit": "USD bn",
+   "period": "2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-mcap-1999",
+   "claim": "NVIDIA's market capitalisation at the end of 1999 was $0.96 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "1999 $0.96 B"
+   ],
+   "values": [
+    "0.96"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 0.96,
+   "unit": "USD bn",
+   "period": "end of 1999",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-mcap-2006",
+   "claim": "NVIDIA's market capitalisation at the end of 2006 was $13.15 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "2006 $13.15 B 110.26%"
+   ],
+   "values": [
+    "13.15"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 13.15,
+   "unit": "USD bn",
+   "period": "end of 2006",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-mcap-2012",
+   "claim": "NVIDIA's market capitalisation at the end of 2012 was $7.66 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "2012 $7.66 B -9.49%"
+   ],
+   "values": [
+    "7.66"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 7.66,
+   "unit": "USD bn",
+   "period": "end of 2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-mcap-2017",
+   "claim": "NVIDIA's market capitalisation at the end of 2017 was $117.26 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "2017 $117.26 B 103.82%"
+   ],
+   "values": [
+    "117.26"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 117.26,
+   "unit": "USD bn",
+   "period": "end of 2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-mcap-2022",
+   "claim": "NVIDIA's market capitalisation at the end of 2022 was $364.18 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "2022 $364.18 B -50.47%"
+   ],
+   "values": [
+    "364.18"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 364.18,
+   "unit": "USD bn",
+   "period": "end of 2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-rev-1999",
+   "claim": "NVIDIA's revenue for 1999, as CompaniesMarketCap tabulates it, was $0.37 billion.",
+   "url": "https://companiesmarketcap.com/nvidia/revenue/",
+   "quotes": [
+    "1999 $0.37 B"
+   ],
+   "values": [
+    "0.37"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 0.37,
+   "unit": "USD bn",
+   "period": "1999 (as CompaniesMarketCap labels the year)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-rev-2006",
+   "claim": "NVIDIA's revenue for 2006, as CompaniesMarketCap tabulates it, was $3.06 billion.",
+   "url": "https://companiesmarketcap.com/nvidia/revenue/",
+   "quotes": [
+    "2006 $3.06 B 29.17%"
+   ],
+   "values": [
+    "3.06"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 3.06,
+   "unit": "USD bn",
+   "period": "2006 (as CompaniesMarketCap labels the year)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-rev-2012",
+   "claim": "NVIDIA's revenue for 2012, as CompaniesMarketCap tabulates it, was $4.28 billion.",
+   "url": "https://companiesmarketcap.com/nvidia/revenue/",
+   "quotes": [
+    "2012 $4.28 B 7.06%"
+   ],
+   "values": [
+    "4.28"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 4.28,
+   "unit": "USD bn",
+   "period": "2012 (as CompaniesMarketCap labels the year)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-rev-2017",
+   "claim": "NVIDIA's revenue for 2017, as CompaniesMarketCap tabulates it, was $9.71 billion.",
+   "url": "https://companiesmarketcap.com/nvidia/revenue/",
+   "quotes": [
+    "2017 $9.71 B 40.58%"
+   ],
+   "values": [
+    "9.71"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 9.71,
+   "unit": "USD bn",
+   "period": "2017 (as CompaniesMarketCap labels the year)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-rev-2022",
+   "claim": "NVIDIA's revenue for 2022, as CompaniesMarketCap tabulates it, was $26.97 billion.",
+   "url": "https://companiesmarketcap.com/nvidia/revenue/",
+   "quotes": [
+    "2022 $26.97 B 0.22%"
+   ],
+   "values": [
+    "26.97"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 26.97,
+   "unit": "USD bn",
+   "period": "2022 (as CompaniesMarketCap labels the year)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-nvidia-rev-ttm",
+   "claim": "NVIDIA's trailing-twelve-month revenue in 2026 was $302.96 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/nvidia/revenue/",
+   "quotes": [
+    "2026 (TTM) $302.96 B 40.3%"
+   ],
+   "values": [
+    "302.96"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 302.96,
+   "unit": "USD bn",
+   "period": "TTM to November 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-google-mcap-2017",
+   "claim": "Alphabet's market capitalisation at the end of 2017 was $729.45 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/alphabet-google/marketcap/",
+   "quotes": [
+    "2017 $729.45 B 35.32%"
+   ],
+   "values": [
+    "729.45"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "marketCap",
+   "value": 729.45,
+   "unit": "USD bn",
+   "period": "end of 2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-google-rev-2017",
+   "claim": "Alphabet's revenue in 2017 was $110.85 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/alphabet-google/revenue/",
+   "quotes": [
+    "2017 $110.85 B 22.8%"
+   ],
+   "values": [
+    "110.85"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "revenue",
+   "value": 110.85,
+   "unit": "USD bn",
+   "period": "2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-google-mcap-2026",
+   "claim": "Alphabet's market capitalisation in November 2026 was $3.490 trillion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/alphabet-google/marketcap/",
+   "quotes": [
+    "2026 $3.490 T -8.19%"
+   ],
+   "values": [
+    "3.490"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "marketCap",
+   "value": 3490,
+   "unit": "USD bn",
+   "period": "November 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-google-rev-ttm",
+   "claim": "Alphabet's trailing-twelve-month revenue in 2026 was $471.09 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/alphabet-google/revenue/",
+   "quotes": [
+    "2026 (TTM) $471.09 B 16.95%"
+   ],
+   "values": [
+    "471.09"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "revenue",
+   "value": 471.09,
+   "unit": "USD bn",
+   "period": "TTM to November 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-microsoft-mcap-2019",
+   "claim": "Microsoft's market capitalisation at the end of 2019 was $1.200 trillion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quotes": [
+    "2019 $1.200 T 53.81%"
+   ],
+   "values": [
+    "1.200"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 1200.0,
+   "unit": "USD bn",
+   "period": "end of 2019",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-microsoft-mcap-2023",
+   "claim": "Microsoft's market capitalisation at the end of 2023 was $2.794 trillion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quotes": [
+    "2023 $2.794 T 56.33%"
+   ],
+   "values": [
+    "2.794"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 2794.0,
+   "unit": "USD bn",
+   "period": "end of 2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-microsoft-mcap-2026",
+   "claim": "Microsoft's market capitalisation in November 2026 was $3.940 trillion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quotes": [
+    "2026 $3.940 T 8.69%"
+   ],
+   "values": [
+    "3.940"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 3940.0,
+   "unit": "USD bn",
+   "period": "November 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-transformer-authors",
+   "claim": "The authors of 'Attention Is All You Need' were Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser and Polosukhin.",
+   "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+   "quotes": [
+    "The authors of the paper are Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan Gomez, Łukasz Kaiser, and Illia Polosukhin."
+   ],
+   "values": [
+    "Ashish Vaswani"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 8,
+   "unit": "authors",
+   "period": "2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-transformer-authors-left",
+   "claim": "After the paper was published by Google, each of the eight authors left the company to join other companies or to found startups.",
+   "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+   "quotes": [
+    "After the paper was published by Google, each of the eight authors left the company to join other companies or to found startups."
+   ],
+   "values": [
+    "eight"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 8,
+   "unit": "authors who left",
+   "period": "after 2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-transformer-citations",
+   "claim": "As of 2026 the paper has been cited more than 150,000 times, among the top ten most-cited papers of the 21st century.",
+   "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+   "quotes": [
+    "As of 2026,[update] the paper has been cited more than 150,000 times, placing it among the top ten most-cited papers of the 21st century.[6]"
+   ],
+   "values": [
+    "150,000"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "event",
+   "value": 150000,
+   "unit": "citations",
+   "period": "2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-transformer-gpu-parallel",
+   "claim": "Seq2seq models with attention and recurrence were hard to parallelize, which prevented them from being accelerated on GPUs.",
+   "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+   "quotes": [
+    "Seq2seq models with attention (including self-attention) still suffered from the same issue with recurrent networks, which is that they are hard to parallelize, which prevented them from being accelerated on GPUs."
+   ],
+   "values": [
+    "GPUs"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 2017,
+   "unit": "year",
+   "period": "2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Value 2017 is the paper's year; the quote carries the mechanism (recurrence blocked GPU acceleration)."
+  },
+  {
+   "id": "story-ai-alexnet-error",
+   "claim": "AlexNet won the 2012 ImageNet contest with a top-5 error rate of 15.3%, more than 10.8 percentage points better than the runner-up.",
+   "url": "https://en.wikipedia.org/wiki/AlexNet",
+   "quotes": [
+    "The network achieved a top-5 error rate of 15.3% to win the contest, more than 10.8% points better than the runner-up."
+   ],
+   "values": [
+    "15.3",
+    "10.8"
+   ],
+   "dated2026": false,
+   "actor": "alexnet-team",
+   "kind": "event",
+   "value": 15.3,
+   "unit": "% top-5 error",
+   "period": "2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-alexnet-params",
+   "claim": "AlexNet, developed in 2012 by Krizhevsky with Sutskever and Hinton at Toronto, contains 60 million parameters.",
+   "url": "https://en.wikipedia.org/wiki/AlexNet",
+   "quotes": [
+    "Developed in 2012 by Alex Krizhevsky in collaboration with Ilya Sutskever and his Ph.D. advisor Geoffrey Hinton at the University of Toronto, the model contains 60 million parameters and 650,000 neurons.[1]"
+   ],
+   "values": [
+    "60 million"
+   ],
+   "dated2026": false,
+   "actor": "alexnet-team",
+   "kind": "parameters",
+   "value": 60,
+   "unit": "million parameters",
+   "period": "2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-openai-pledge-2015",
+   "claim": "A total of $1 billion in capital was pledged to OpenAI at its founding by Musk, Altman, Brockman, Hoffman, Livingston, Thiel, AWS and Infosys.",
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quotes": [
+    "A total of $1 billion in capital was pledged by Musk, Altman, Greg Brockman, Reid Hoffman, Jessica Livingston, Peter Thiel, Amazon Web Services (AWS), and Infosys.[24][25]"
+   ],
+   "values": [
+    "1 billion"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "investment",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "December 2015",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gpt1-params",
+   "claim": "GPT-1 has 117 million parameters.",
+   "url": "https://en.wikipedia.org/wiki/GPT-1",
+   "quotes": [
+    "GPT-1 has 117 million parameters.[6]"
+   ],
+   "values": [
+    "117 million"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "parameters",
+   "value": 117,
+   "unit": "million parameters",
+   "period": "June 2018",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gpt2-params",
+   "claim": "GPT-2 was partially released in February 2019, followed by the full 1.5-billion-parameter model on 5 November 2019.",
+   "url": "https://en.wikipedia.org/wiki/GPT-2",
+   "quotes": [
+    "It was partially released in February 2019, followed by full release of the 1.5-billion-parameter model on November 5, 2019.[3][4][5]"
+   ],
+   "values": [
+    "1.5"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "parameters",
+   "value": 1.5,
+   "unit": "billion parameters",
+   "period": "November 2019",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gpt3-cost",
+   "claim": "Lambda Labs estimated a hypothetical cost of about $4.6 million and 355 years to train GPT-3 on a single GPU in 2020.",
+   "url": "https://en.wikipedia.org/wiki/GPT-3",
+   "quotes": [
+    "Lambdalabs estimated a hypothetical cost of around $4.6 million US dollars and 355 years to train GPT-3 on a single GPU in 2020,[16] with lower actual training time by using more GPUs in parallel."
+   ],
+   "values": [
+    "4.6",
+    "355"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "trainingCost",
+   "value": 4.6,
+   "unit": "USD m",
+   "period": "2020",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-gpt3-microsoft-licence",
+   "claim": "On 22 September 2020 Microsoft announced that it had licensed GPT-3 exclusively.",
+   "url": "https://en.wikipedia.org/wiki/GPT-3",
+   "quotes": [
+    "On September 22, 2020, Microsoft announced that it had licensed GPT-3 exclusively."
+   ],
+   "values": [
+    "2020"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "contract",
+   "value": 2020,
+   "unit": "year",
+   "period": "22 September 2020",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-microsoft-openai-2019",
+   "claim": "Microsoft invested $1 billion in OpenAI LP in 2019 and OpenAI's services were migrated to Microsoft Azure.",
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quotes": [
+    "Microsoft subsequently invested $1 billion in OpenAI LP, and OpenAI's services were migrated to Microsoft Azure.[49]"
+   ],
+   "values": [
+    "1 billion"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "investment",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "2019",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-microsoft-openai-2023",
+   "claim": "On 23 January 2023 Microsoft announced an additional $10 billion investment in OpenAI, much of it to be spent on Azure compute.",
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quotes": [
+    "On January 23, 2023, Microsoft announced an additional $10 billion investment in OpenAI over multiple years, of which a significant portion would be used to purchase compute on Microsoft Azure.[70][71]"
+   ],
+   "values": [
+    "10 billion"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "investment",
+   "value": 10,
+   "unit": "USD bn",
+   "period": "23 January 2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-openai-500bn-2025",
+   "claim": "In October 2025 an employee share sale of up to $10 billion valued OpenAI at $500 billion.",
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quotes": [
+    "In October 2025, OpenAI completed an employee share sale of up to $10 billion to existing investors which valued the company at $500 billion."
+   ],
+   "values": [
+    "10 billion",
+    "500 billion"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "valuation",
+   "value": 500,
+   "unit": "USD bn",
+   "period": "October 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-openai-for-profit-2019",
+   "claim": "In 2019 OpenAI transitioned from a nonprofit to a capped for-profit, with profit capped at 100 times any investment.",
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quotes": [
+    "In 2019, OpenAI transitioned from nonprofit to \"capped\" for-profit, with the profit being capped at 100 times any investment.[45]"
+   ],
+   "values": [
+    "100 times"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "event",
+   "value": 2019,
+   "unit": "year",
+   "period": "2019",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "united-states",
+   "name": "United States",
+   "kind": "state",
+   "qid": "Q30",
+   "from": 1776,
+   "to": null,
+   "successor": null,
+   "role": "the economy that held half of world industrial output and 80 percent of the world's gold when the war ended, and wrote the monetary order",
+   "facts": [
+    "story-ai-us-half-industrial",
+    "story-ai-us-gold-80",
+    "story-ai-gdp-1950",
+    "story-ai-marshall-plan",
+    "story-ai-bretton-gold-two-thirds"
+   ],
+   "country": "US",
+   "layer": "history"
+  },
+  {
+   "id": "ussr",
+   "name": "Soviet Union",
+   "kind": "state",
+   "qid": "Q15180",
+   "from": 1922,
+   "to": 1991,
+   "successor": null,
+   "role": "the second-largest economy and the largest standing army, the American century's rival",
+   "facts": [
+    "story-ai-ussr-second-economy",
+    "story-ai-gdp-1950"
+   ],
+   "country": "SU",
+   "layer": "history"
+  },
+  {
+   "id": "bell-labs",
+   "name": "Bell Labs",
+   "kind": "lab",
+   "qid": "Q217365",
+   "from": 1925,
+   "to": null,
+   "successor": null,
+   "role": "AT&T's research arm, where the transistor was invented in 1947",
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "story-ai-bell-nobels",
+    "lineage-nobel-1956"
+   ],
+   "country": "US",
+   "layer": "history"
+  },
+  {
+   "id": "shockley-semiconductor",
+   "name": "Shockley Semiconductor Laboratory",
+   "kind": "company",
+   "qid": "Q1138021",
+   "from": 1955,
+   "to": 1968,
+   "successor": "fairchild",
+   "role": "the first silicon-transistor firm in the valley, whose eight engineers walked out",
+   "facts": [
+    "lineage-shockley-lab-1955",
+    "lineage-traitorous-eight-names"
+   ],
+   "country": "US",
+   "layer": "history"
+  },
+  {
+   "id": "fairchild",
+   "name": "Fairchild Semiconductor",
+   "kind": "company",
+   "qid": "Q1096013",
+   "from": 1957,
+   "to": 2016,
+   "successor": "intel",
+   "role": "the eight defectors' company, which made silicon planar integrated circuits and seeded the valley",
+   "facts": [
+    "story-ai-fairchild-silicon",
+    "story-ai-fairchild-eight-names",
+    "lineage-fairchild-founded-1957",
+    "lineage-fairchild-planar-1959",
+    "lineage-noyce-monolithic-ic-1959",
+    "lineage-fairchildren-1960"
+   ],
+   "country": "US",
+   "layer": "history"
+  },
+  {
+   "id": "texas-instruments",
+   "name": "Texas Instruments",
+   "kind": "company",
+   "qid": "Q193412",
+   "from": 1930,
+   "to": null,
+   "successor": null,
+   "role": "where Kilby built the first integrated circuit in 1958",
+   "facts": [
+    "story-ai-kilby-1958",
+    "lineage-kilby-nobel-2000"
+   ],
+   "country": "US",
+   "layer": "history"
+  },
+  {
+   "id": "intel",
+   "name": "Intel",
+   "kind": "company",
+   "qid": "Q248",
+   "from": 1968,
+   "to": null,
+   "successor": null,
+   "role": "memory maker turned microprocessor monopolist, the first company to put a computer on a chip",
+   "facts": [
+    "story-ai-intel-4004-transistors",
+    "story-ai-intel-pc-primary",
+    "lineage-intel-founded-1968",
+    "lineage-intel-4004-1971",
+    "lineage-ibm-pc-8088-1981",
+    "lineage-compaq-386-1986",
+    "lineage-intel-japan-dram-1983"
+   ],
+   "country": "US",
+   "layer": "chips"
+  },
+  {
+   "id": "tsmc",
+   "name": "TSMC",
+   "kind": "company",
+   "qid": "Q713418",
+   "from": 1987,
+   "to": null,
+   "successor": null,
+   "role": "the pure-play foundry that made fabless design possible and now builds nearly all leading-edge AI chips",
+   "facts": [
+    "story-ai-tsmc-philips",
+    "story-ai-tsmc-chang-first-foundry",
+    "lineage-tsmc-founded-1987",
+    "compute-tsmc-foundry-share"
+   ],
+   "country": "TW",
+   "layer": "fabs"
+  },
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "qid": "Q182477",
+   "from": 1993,
+   "to": null,
+   "successor": null,
+   "role": "from a 40-person graphics start-up to the single point of failure of the AI economy",
+   "facts": [
+    "story-ai-nvidia-founding-capital",
+    "story-ai-nvidia-1996-layoff",
+    "lineage-nvidia-founded-1993",
+    "lineage-geforce-256-1999",
+    "lineage-cuda-released-2007",
+    "compute-nvidia-marketcap"
+   ],
+   "country": "US",
+   "layer": "chips"
+  },
+  {
+   "id": "alexnet-team",
+   "name": "Krizhevsky, Sutskever and Hinton (AlexNet)",
+   "kind": "lab",
+   "qid": "Q28018607",
+   "from": 2012,
+   "to": 2012,
+   "successor": null,
+   "role": "the Toronto team that trained a convolutional network on two GTX 580 GPUs and won ImageNet",
+   "facts": [
+    "story-ai-alexnet-error",
+    "story-ai-alexnet-params",
+    "lineage-alexnet-two-gtx580-2012"
+   ],
+   "country": "CA",
+   "layer": "history"
+  },
+  {
+   "id": "google",
+   "name": "Alphabet (Google)",
+   "kind": "company",
+   "qid": "Q95",
+   "from": 1998,
+   "to": null,
+   "successor": null,
+   "role": "home of the eight authors of the transformer, who then left",
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left",
+    "lineage-transformer-google-2017"
+   ],
+   "country": "US",
+   "layer": "clouds"
+  },
+  {
+   "id": "openai",
+   "name": "OpenAI",
+   "kind": "lab",
+   "qid": "Q21708200",
+   "from": 2015,
+   "to": null,
+   "successor": null,
+   "role": "the lab that scaled the transformer and put it in front of 100 million people in two months",
+   "facts": [
+    "story-ai-openai-pledge-2015",
+    "story-ai-gpt1-params",
+    "story-ai-gpt2-params",
+    "lineage-gpt3-175b-2020",
+    "lineage-chatgpt-release-2022",
+    "labs-openai-valuation"
+   ],
+   "country": "US",
+   "layer": "models"
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "company",
+   "qid": "Q2283",
+   "from": 1975,
+   "to": null,
+   "successor": null,
+   "role": "the first backer of OpenAI's scaling, with $1 billion in 2019 and $10 billion in 2023",
+   "facts": [
+    "story-ai-microsoft-openai-2019",
+    "story-ai-microsoft-openai-2023",
+    "story-ai-gpt3-microsoft-licence",
+    "labs-microsoft-openai-stake"
+   ],
+   "country": "US",
+   "layer": "clouds"
+  },
+  {
+   "id": "anthropic",
+   "name": "Anthropic",
+   "kind": "lab",
+   "qid": "Q116758847",
+   "from": 2021,
+   "to": null,
+   "successor": null,
+   "role": "founded by eleven who left OpenAI, now valued at $965 billion",
+   "facts": [
+    "lineage-anthropic-founders-from-openai",
+    "labs-anthropic-valuation"
+   ],
+   "country": "US",
+   "layer": "models"
+  },
+  {
+   "id": "busicom",
+   "name": "Busicom",
+   "kind": "company",
+   "qid": "Q1017523",
+   "from": 1945,
+   "to": 1974,
+   "successor": null,
+   "role": "the Japanese calculator maker the 4004 was designed for",
+   "facts": [
+    "lineage-intel-4004-1971"
+   ],
+   "country": "JP",
+   "layer": "history"
+  },
+  {
+   "id": "3dfx",
+   "name": "3dfx Interactive",
+   "kind": "company",
+   "qid": "Q229698",
+   "from": 1994,
+   "to": 2002,
+   "successor": null,
+   "role": "the rival whose intellectual assets Nvidia bought in December 2000",
+   "facts": [
+    "lineage-nvidia-acquires-3dfx-2000"
+   ],
+   "country": "US",
+   "layer": "history"
+  }
+ ],
+ "series": [
+  {
+   "actor": "united-states",
+   "year": 1945,
+   "part": "gdpShare",
+   "value": 50,
+   "unit": "% of global industrial output (half)",
+   "fact": "story-ai-us-half-industrial"
+  },
+  {
+   "actor": "united-states",
+   "year": 1950,
+   "part": "gdp",
+   "value": 1456,
+   "unit": "billion 1990 dollars",
+   "fact": "story-ai-gdp-1950"
+  },
+  {
+   "actor": "ussr",
+   "year": 1950,
+   "part": "gdp",
+   "value": 510,
+   "unit": "billion 1990 dollars",
+   "fact": "story-ai-gdp-1950"
+  },
+  {
+   "actor": "bell-labs",
+   "year": 1947,
+   "part": "people",
+   "value": 3,
+   "unit": "inventors (Bardeen, Brattain, Shockley)",
+   "fact": "lineage-bell-transistor-1947"
+  },
+  {
+   "actor": "shockley-semiconductor",
+   "year": 1957,
+   "part": "defections",
+   "value": 8,
+   "unit": "engineers who left",
+   "fact": "lineage-traitorous-eight-names"
+  },
+  {
+   "actor": "fairchild",
+   "year": 1957,
+   "part": "employees",
+   "value": 8,
+   "unit": "founders",
+   "fact": "story-ai-fairchild-eight-names"
+  },
+  {
+   "actor": "intel",
+   "year": 1971,
+   "part": "transistors",
+   "value": 2300,
+   "unit": "transistors on the 4004",
+   "fact": "story-ai-intel-4004-transistors"
+  },
+  {
+   "actor": "intel",
+   "year": 1997,
+   "part": "revenue",
+   "value": 25.07,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-rev-1997"
+  },
+  {
+   "actor": "intel",
+   "year": 1999,
+   "part": "marketValue",
+   "value": 274.43,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-mcap-1999"
+  },
+  {
+   "actor": "intel",
+   "year": 2000,
+   "part": "revenue",
+   "value": 33.72,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-rev-2000"
+  },
+  {
+   "actor": "intel",
+   "year": 2012,
+   "part": "marketValue",
+   "value": 101.94,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-mcap-2012"
+  },
+  {
+   "actor": "intel",
+   "year": 2012,
+   "part": "revenue",
+   "value": 53.34,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-rev-2012"
+  },
+  {
+   "actor": "intel",
+   "year": 2022,
+   "part": "marketValue",
+   "value": 109.07,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-mcap-2022"
+  },
+  {
+   "actor": "intel",
+   "year": 2026,
+   "part": "marketValue",
+   "value": 299.12,
+   "unit": "USD bn",
+   "fact": "compute-intel-marketcap"
+  },
+  {
+   "actor": "tsmc",
+   "year": 1987,
+   "part": "capital",
+   "value": 58,
+   "unit": "USD m put up by Philips",
+   "fact": "story-ai-tsmc-philips"
+  },
+  {
+   "actor": "tsmc",
+   "year": 1997,
+   "part": "marketValue",
+   "value": 14.84,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-1997"
+  },
+  {
+   "actor": "tsmc",
+   "year": 1997,
+   "part": "revenue",
+   "value": 1.34,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-rev-1997"
+  },
+  {
+   "actor": "tsmc",
+   "year": 2012,
+   "part": "marketValue",
+   "value": 86.83,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-2012"
+  },
+  {
+   "actor": "tsmc",
+   "year": 2012,
+   "part": "revenue",
+   "value": 17.46,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-rev-2012"
+  },
+  {
+   "actor": "tsmc",
+   "year": 2022,
+   "part": "marketValue",
+   "value": 386.31,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-2022"
+  },
+  {
+   "actor": "tsmc",
+   "year": 2022,
+   "part": "revenue",
+   "value": 73.86,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-rev-2022"
+  },
+  {
+   "actor": "tsmc",
+   "year": 2026,
+   "part": "marketValue",
+   "value": 1947,
+   "unit": "USD bn",
+   "fact": "compute-tsmc-marketcap"
+  },
+  {
+   "actor": "tsmc",
+   "year": 2026,
+   "part": "revenue",
+   "value": 46.72,
+   "unit": "USD bn in one quarter (Q3 2026)",
+   "fact": "compute-tsmc-q3-revenue"
+  },
+  {
+   "actor": "nvidia",
+   "year": 1993,
+   "part": "capital",
+   "value": 40000,
+   "unit": "USD in the bank",
+   "fact": "story-ai-nvidia-founding-capital"
+  },
+  {
+   "actor": "nvidia",
+   "year": 1996,
+   "part": "employees",
+   "value": 40,
+   "unit": "employees after the layoff",
+   "fact": "story-ai-nvidia-1996-layoff"
+  },
+  {
+   "actor": "nvidia",
+   "year": 1999,
+   "part": "marketValue",
+   "value": 0.96,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-mcap-1999"
+  },
+  {
+   "actor": "nvidia",
+   "year": 1999,
+   "part": "revenue",
+   "value": 0.37,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-rev-1999"
+  },
+  {
+   "actor": "nvidia",
+   "year": 1999,
+   "part": "transistors",
+   "value": 17000000,
+   "unit": "transistors on the GeForce 256's NV10",
+   "fact": "story-ai-geforce256-transistors"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2006,
+   "part": "marketValue",
+   "value": 13.15,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-mcap-2006"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2006,
+   "part": "revenue",
+   "value": 3.06,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-rev-2006"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2012,
+   "part": "marketValue",
+   "value": 7.66,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-mcap-2012"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2012,
+   "part": "revenue",
+   "value": 4.28,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-rev-2012"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2017,
+   "part": "marketValue",
+   "value": 117.26,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-mcap-2017"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2017,
+   "part": "revenue",
+   "value": 9.71,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-rev-2017"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2022,
+   "part": "marketValue",
+   "value": 364.18,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-mcap-2022"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2022,
+   "part": "revenue",
+   "value": 26.97,
+   "unit": "USD bn",
+   "fact": "story-ai-nvidia-rev-2022"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2022,
+   "part": "transistors",
+   "value": 80000000000,
+   "unit": "transistors on the GH100",
+   "fact": "story-ai-gh100-transistors"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2023,
+   "part": "marketValue",
+   "value": 1000,
+   "unit": "USD bn (US$1 trillion)",
+   "fact": "story-ai-nvidia-1tn-2023"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2024,
+   "part": "transistors",
+   "value": 208000000000,
+   "unit": "transistors on the GB200",
+   "fact": "story-ai-gb200-transistors"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2025,
+   "part": "marketValue",
+   "value": 5000,
+   "unit": "USD bn (first company past $5 trillion)",
+   "fact": "lineage-nvidia-5tn-2025"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2026,
+   "part": "marketValue",
+   "value": 4506,
+   "unit": "USD bn",
+   "fact": "compute-nvidia-marketcap"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2026,
+   "part": "revenue",
+   "value": 302.96,
+   "unit": "USD bn (trailing twelve months)",
+   "fact": "story-ai-nvidia-rev-ttm"
+  },
+  {
+   "actor": "nvidia",
+   "year": 2026,
+   "part": "employees",
+   "value": 42000,
+   "unit": "employees at the end of fiscal 2026",
+   "fact": "moats-nvidia-employees"
+  },
+  {
+   "actor": "alexnet-team",
+   "year": 2012,
+   "part": "parameters",
+   "value": 60,
+   "unit": "million parameters",
+   "fact": "story-ai-alexnet-params"
+  },
+  {
+   "actor": "google",
+   "year": 2017,
+   "part": "marketValue",
+   "value": 729.45,
+   "unit": "USD bn",
+   "fact": "story-ai-google-mcap-2017"
+  },
+  {
+   "actor": "google",
+   "year": 2017,
+   "part": "revenue",
+   "value": 110.85,
+   "unit": "USD bn",
+   "fact": "story-ai-google-rev-2017"
+  },
+  {
+   "actor": "google",
+   "year": 2017,
+   "part": "people",
+   "value": 8,
+   "unit": "authors of the transformer paper",
+   "fact": "story-ai-transformer-authors"
+  },
+  {
+   "actor": "google",
+   "year": 2026,
+   "part": "marketValue",
+   "value": 3490,
+   "unit": "USD bn",
+   "fact": "story-ai-google-mcap-2026"
+  },
+  {
+   "actor": "google",
+   "year": 2026,
+   "part": "revenue",
+   "value": 471.09,
+   "unit": "USD bn (trailing twelve months)",
+   "fact": "story-ai-google-rev-ttm"
+  },
+  {
+   "actor": "google",
+   "year": 2026,
+   "part": "capex",
+   "value": 200,
+   "unit": "USD bn (2026 guide, midpoint of $195-205 billion)",
+   "fact": "labs-alphabet-capex-2026"
+  },
+  {
+   "actor": "openai",
+   "year": 2015,
+   "part": "capital",
+   "value": 1,
+   "unit": "USD bn pledged",
+   "fact": "story-ai-openai-pledge-2015"
+  },
+  {
+   "actor": "openai",
+   "year": 2018,
+   "part": "parameters",
+   "value": 117,
+   "unit": "million parameters (GPT-1)",
+   "fact": "story-ai-gpt1-params"
+  },
+  {
+   "actor": "openai",
+   "year": 2019,
+   "part": "parameters",
+   "value": 1.5,
+   "unit": "billion parameters (GPT-2)",
+   "fact": "story-ai-gpt2-params"
+  },
+  {
+   "actor": "openai",
+   "year": 2020,
+   "part": "parameters",
+   "value": 175,
+   "unit": "billion parameters (GPT-3)",
+   "fact": "lineage-gpt3-175b-2020"
+  },
+  {
+   "actor": "openai",
+   "year": 2023,
+   "part": "users",
+   "value": 100,
+   "unit": "million monthly users, two months after release",
+   "fact": "lineage-chatgpt-users-2026"
+  },
+  {
+   "actor": "openai",
+   "year": 2025,
+   "part": "valuation",
+   "value": 500,
+   "unit": "USD bn",
+   "fact": "story-ai-openai-500bn-2025"
+  },
+  {
+   "actor": "openai",
+   "year": 2026,
+   "part": "valuation",
+   "value": 852,
+   "unit": "USD bn",
+   "fact": "labs-openai-valuation"
+  },
+  {
+   "actor": "openai",
+   "year": 2026,
+   "part": "users",
+   "value": 900,
+   "unit": "million weekly users",
+   "fact": "labs-openai-weekly-users"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2019,
+   "part": "marketValue",
+   "value": 1200,
+   "unit": "USD bn (US$1.200 trillion)",
+   "fact": "story-ai-microsoft-mcap-2019"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2023,
+   "part": "marketValue",
+   "value": 2794,
+   "unit": "USD bn (US$2.794 trillion)",
+   "fact": "story-ai-microsoft-mcap-2023"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2026,
+   "part": "marketValue",
+   "value": 3940,
+   "unit": "USD bn (US$3.940 trillion)",
+   "fact": "story-ai-microsoft-mcap-2026"
+  },
+  {
+   "actor": "anthropic",
+   "year": 2021,
+   "part": "employees",
+   "value": 11,
+   "unit": "people who left OpenAI to found it",
+   "fact": "lineage-anthropic-founders-from-openai"
+  },
+  {
+   "actor": "anthropic",
+   "year": 2026,
+   "part": "valuation",
+   "value": 965,
+   "unit": "USD bn",
+   "fact": "labs-anthropic-valuation"
+  }
+ ],
+ "moments": [
+  {
+   "id": "m-american-century",
+   "year": 1945,
+   "date": "1945",
+   "title": "The war ends, the American century begins",
+   "holder": "united-states",
+   "rivals": [
+    "ussr"
+   ],
+   "allies": [],
+   "advantage": "half of world industry, 80% of the gold",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "The only large economy not bombed produced half of global industrial output and held most of the gold, so it wrote the monetary rules and paid for Europe's recovery.",
+   "outcome": "Bretton Woods put the dollar at the centre; the Marshall Plan moved US$13.3 billion to 17 countries; by 1950 US GDP was 1,456 billion 1990 dollars against the USSR's 510.",
+   "facts": [
+    "story-ai-us-half-industrial",
+    "story-ai-us-gold-80",
+    "story-ai-bretton-gold-two-thirds",
+    "story-ai-marshall-plan",
+    "story-ai-gdp-1950",
+    "story-ai-luce-1941"
+   ]
+  },
+  {
+   "id": "m-transistor",
+   "year": 1947,
+   "date": "1947-12",
+   "title": "The transistor at Bell Labs",
+   "holder": "bell-labs",
+   "rivals": [],
+   "allies": [],
+   "advantage": "a solid-state switch",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Three Bell Labs physicists made a working solid-state amplifier, financed by a regulated telephone monopoly that could afford basic research.",
+   "outcome": "Bardeen, Brattain and Shockley shared the 1956 Nobel Prize; Bell Labs work has won eleven Nobel Prizes in all.",
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-nobel-1956",
+    "story-ai-bell-nobels",
+    "century-bell-breakup"
+   ]
+  },
+  {
+   "id": "m-traitorous-eight",
+   "year": 1957,
+   "date": "1957-09-18",
+   "title": "The traitorous eight",
+   "holder": "fairchild",
+   "rivals": [
+    "shockley-semiconductor"
+   ],
+   "allies": [],
+   "advantage": "the people, and silicon",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Eight engineers walked out of Shockley's laboratory, found a backer in Sherman Fairchild, and bet on silicon when germanium was the norm.",
+   "outcome": "Fairchild was founded on 18 September 1957; by 1960 it was the incubator of the valley.",
+   "facts": [
+    "lineage-traitorous-eight-names",
+    "lineage-fairchild-founded-1957",
+    "story-ai-fairchild-silicon",
+    "story-ai-fairchild-eight-names",
+    "lineage-fairchildren-1960"
+   ]
+  },
+  {
+   "id": "m-planar-ic",
+   "year": 1959,
+   "date": "1959",
+   "title": "The planar process and the monolithic integrated circuit",
+   "holder": "fairchild",
+   "rivals": [
+    "texas-instruments"
+   ],
+   "allies": [],
+   "advantage": "a manufacturable chip, patented",
+   "power": "patents",
+   "triad": "execution",
+   "mechanism": "Hoerni's planar process let Noyce put every component on one flat silicon chip that could be mass-produced, where Kilby's 1958 germanium circuit had wires.",
+   "outcome": "Fairchild's first batch of 100 devices sold to IBM at $150 each for the B-70 bomber's computer.",
+   "facts": [
+    "lineage-fairchild-planar-1959",
+    "lineage-noyce-monolithic-ic-1959",
+    "story-ai-kilby-1958",
+    "lineage-kilby-nobel-2000",
+    "lineage-fairchild-first-batch-ibm",
+    "story-ai-moore-1965"
+   ]
+  },
+  {
+   "id": "m-intel-4004",
+   "year": 1971,
+   "date": "1971-11-15",
+   "title": "The microprocessor",
+   "holder": "intel",
+   "rivals": [
+    "fairchild"
+   ],
+   "allies": [
+    "busicom"
+   ],
+   "advantage": "a computer on one chip",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Intel's silicon-gate process doubled circuit density, putting 2,300 transistors on one chip built for a Japanese calculator maker.",
+   "outcome": "The 4004 launched on 15 November 1971; Moore revised his law to a doubling every two years in 1975.",
+   "facts": [
+    "story-ai-intel-4004-transistors",
+    "lineage-intel-4004-1971",
+    "lineage-faggin-left-fairchild-1970",
+    "story-ai-moore-1975-two-years"
+   ]
+  },
+  {
+   "id": "m-x86-ibm-pc",
+   "year": 1981,
+   "date": "1981-08-12",
+   "title": "The IBM PC and the x86 lock-in",
+   "holder": "intel",
+   "rivals": [
+    "ibm"
+   ],
+   "allies": [
+    "compaq"
+   ],
+   "advantage": "the instruction set every PC maker needed",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "The IBM PC used an Intel 8088; Compaq's 1986 80386 clone beat IBM to the next chip and made Intel the key supplier, after Japanese memory makers squeezed Intel out of DRAM in 1983.",
+   "outcome": "Intel became a microprocessor company: the 4004's field became its primary business only in the early 1980s.",
+   "facts": [
+    "lineage-ibm-pc-8088-1981",
+    "lineage-compaq-386-1986",
+    "lineage-intel-japan-dram-1983",
+    "story-ai-intel-pc-primary",
+    "story-ai-intel-rev-1997",
+    "story-ai-intel-mcap-1999"
+   ]
+  },
+  {
+   "id": "m-tsmc-foundry",
+   "year": 1987,
+   "date": "1987",
+   "title": "The pure-play foundry",
+   "holder": "tsmc",
+   "rivals": [
+    "intel"
+   ],
+   "allies": [
+    "taiwan"
+   ],
+   "advantage": "manufacturing for everyone's designs",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "A Taiwanese government-backed joint venture, funded by Philips, built chips only for others, so any designer could start a company without a fab.",
+   "outcome": "TSMC held 72.5% of top-10 foundry revenue in Q2 2026 and 79% of its Q3 2026 wafer revenue came from 7nm and below.",
+   "facts": [
+    "lineage-tsmc-founded-1987",
+    "story-ai-tsmc-philips",
+    "story-ai-tsmc-chang-first-foundry",
+    "compute-tsmc-foundry-share",
+    "compute-tsmc-q3-advanced-share"
+   ]
+  },
+  {
+   "id": "m-geforce-gpu",
+   "year": 1999,
+   "date": "1999-10-11",
+   "title": "The GeForce 256, the first GPU",
+   "holder": "nvidia",
+   "rivals": [
+    "3dfx"
+   ],
+   "allies": [],
+   "advantage": "a single-chip graphics processor",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "After nearly dying in 1996 (staff cut from 100 to 40) Nvidia shipped on a six-month cycle and put 17 million transistors on a TSMC-made chip it marketed as the first GPU.",
+   "outcome": "Nvidia listed in January 1999; in December 2000 it agreed to acquire 3dfx's intellectual assets.",
+   "facts": [
+    "lineage-geforce-256-1999",
+    "story-ai-geforce256-transistors",
+    "story-ai-nvidia-1996-layoff",
+    "lineage-nvidia-ipo-1999",
+    "lineage-nvidia-acquires-3dfx-2000",
+    "lineage-nvidia-gpu-share-2025"
+   ]
+  },
+  {
+   "id": "m-cuda",
+   "year": 2007,
+   "date": "2007-02-16",
+   "title": "CUDA opens the GPU to programmers",
+   "holder": "nvidia",
+   "rivals": [
+    "amd"
+   ],
+   "allies": [],
+   "advantage": "a programming platform on every GeForce",
+   "power": "switching costs",
+   "triad": "information",
+   "mechanism": "Created in 2004 and released in 2007, CUDA let researchers write general programs for graphics chips already sitting in their machines.",
+   "outcome": "CUDA is now 20 years old and has 6 million developers.",
+   "facts": [
+    "lineage-cuda-released-2007",
+    "moats-nvidia-cuda-developers"
+   ]
+  },
+  {
+   "id": "m-alexnet",
+   "year": 2012,
+   "date": "2012-09-30",
+   "title": "AlexNet on two GTX 580s",
+   "holder": "nvidia",
+   "rivals": [],
+   "allies": [
+    "alexnet-team"
+   ],
+   "advantage": "deep learning only worked on GPUs",
+   "power": "technology",
+   "triad": "information",
+   "mechanism": "Krizhevsky, Sutskever and Hinton trained a 60-million-parameter network for five to six days on two $500 gaming cards, beating the runner-up by more than ten points.",
+   "outcome": "Top-5 error 15.3%; the field moved to GPUs and Nvidia's chips became research infrastructure.",
+   "facts": [
+    "lineage-alexnet-two-gtx580-2012",
+    "story-ai-alexnet-error",
+    "story-ai-alexnet-params",
+    "lineage-gtx580-price-500",
+    "lineage-dgx1-openai-2016"
+   ]
+  },
+  {
+   "id": "m-attention",
+   "year": 2017,
+   "date": "2017-06-12",
+   "title": "Attention Is All You Need",
+   "holder": "google",
+   "rivals": [],
+   "allies": [],
+   "advantage": "an architecture that parallelises on GPUs",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Eight Google researchers dropped recurrence, so training could be spread across thousands of GPUs; the advantage was published rather than kept.",
+   "outcome": "Cited more than 150,000 times; all eight authors later left Google.",
+   "facts": [
+    "lineage-attention-transformer-2017",
+    "story-ai-transformer-gpu-parallel",
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left",
+    "story-ai-transformer-citations",
+    "lineage-attention-bleu-8gpu"
+   ]
+  },
+  {
+   "id": "m-scaling",
+   "year": 2020,
+   "date": "2020-05-28",
+   "title": "OpenAI scales the transformer",
+   "holder": "openai",
+   "rivals": [
+    "google"
+   ],
+   "allies": [
+    "microsoft"
+   ],
+   "advantage": "the bet that loss falls as a power law with scale",
+   "power": "scale economies",
+   "triad": "information",
+   "mechanism": "Kaplan et al. showed loss falls as a power law in size, data and compute; OpenAI turned that into GPT-3, ten times larger than any prior dense model, on Microsoft's compute.",
+   "outcome": "Parameters went 117 million (2018), 1.5 billion (2019), 175 billion (2020); Microsoft licensed GPT-3 exclusively in September 2020.",
+   "facts": [
+    "lineage-scaling-laws-2020",
+    "lineage-gpt3-175b-2020",
+    "story-ai-gpt1-params",
+    "story-ai-gpt2-params",
+    "story-ai-gpt3-cost",
+    "story-ai-gpt3-microsoft-licence",
+    "story-ai-microsoft-openai-2019"
+   ]
+  },
+  {
+   "id": "m-chatgpt",
+   "year": 2022,
+   "date": "2022-11-30",
+   "title": "ChatGPT",
+   "holder": "openai",
+   "rivals": [
+    "google"
+   ],
+   "allies": [
+    "microsoft"
+   ],
+   "advantage": "distribution: a product anyone could use",
+   "power": "branding",
+   "triad": "execution",
+   "mechanism": "A chat interface on a scaled transformer reached 100 million monthly users in two months, with Microsoft adding $10 billion and Azure compute in January 2023.",
+   "outcome": "900 million weekly users by February 2026; OpenAI valued at $500 billion in October 2025 and $852 billion in March 2026.",
+   "facts": [
+    "lineage-chatgpt-release-2022",
+    "lineage-chatgpt-users-2026",
+    "story-ai-microsoft-openai-2023",
+    "story-ai-openai-500bn-2025",
+    "labs-openai-valuation",
+    "labs-openai-weekly-users"
+   ]
+  },
+  {
+   "id": "m-nvidia-5tn",
+   "year": 2025,
+   "date": "2025-10-29",
+   "title": "The AI revolution reaches Nvidia",
+   "holder": "nvidia",
+   "rivals": [
+    "amd",
+    "google"
+   ],
+   "allies": [
+    "tsmc"
+   ],
+   "advantage": "every frontier lab runs on its GPUs",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "Demand from clouds and labs for CUDA systems took Nvidia from $1 trillion to $2 trillion in 180 days and to $5 trillion on 29 October 2025.",
+   "outcome": "Nvidia is valued at $4.506 trillion in November 2026, with a 75% accelerator share, down from 87% in 2024.",
+   "facts": [
+    "story-ai-nvidia-1tn-2023",
+    "lineage-nvidia-2tn-180-days",
+    "lineage-nvidia-5tn-2025",
+    "compute-nvidia-marketcap",
+    "compute-nvidia-accel-share"
+   ]
+  },
+  {
+   "id": "m-deepseek-shock",
+   "year": 2025,
+   "date": "2025-01-27",
+   "title": "DeepSeek's cheaper model",
+   "holder": "nvidia",
+   "rivals": [
+    "deepseek"
+   ],
+   "allies": [],
+   "advantage": "switching costs under test",
+   "power": "switching costs",
+   "triad": "information",
+   "mechanism": "A cheaper model trained on 2.788 million H800 GPU hours briefly broke the belief that scale needs ever more Nvidia chips.",
+   "outcome": "NVIDIA lost over $589 billion of market value in a day, then recovered and passed $5 trillion in October.",
+   "facts": [
+    "entry-deepseek-v3-gpu-hours",
+    "entry-deepseek-nvidia-record-loss",
+    "lineage-nvidia-5tn-2025"
+   ]
+  },
+  {
+   "id": "m-capex-2026",
+   "year": 2026,
+   "date": "2026-11",
+   "title": "The hyperscalers' capex wall",
+   "holder": "nvidia",
+   "rivals": [
+    "amd"
+   ],
+   "allies": [
+    "microsoft",
+    "google",
+    "openai"
+   ],
+   "advantage": "customers' fear of falling behind",
+   "power": "capital",
+   "triad": "environment",
+   "mechanism": "Five hyperscalers are forecast to spend $803 to $828 billion in 2026, and NVIDIA's data-centre revenue equals about 45% of that capex.",
+   "outcome": "NVIDIA's revenue was $96.2 billion in the quarter to 26 July 2026, with $279 billion of purchase commitments.",
+   "facts": [
+    "compute-hyperscaler-capex-2026",
+    "str-nvidia-capex-capture",
+    "compute-nvidia-q2fy27-revenue",
+    "compute-nvidia-commitments",
+    "economy-hyperscaler-capex-2026"
+   ]
+  }
+ ],
+ "periods": [
+  {
+   "id": "p-american-century",
+   "from": "1945",
+   "to": "1971",
+   "title": "The American century",
+   "actors": [
+    "united-states",
+    "ussr"
+   ],
+   "what": "One economy producing half of world output sets the monetary order, funds Europe and out-competes a planned rival.",
+   "facts": [
+    "story-ai-us-half-industrial",
+    "story-ai-marshall-plan",
+    "story-ai-gdp-1950",
+    "story-ai-bretton-gold-two-thirds"
+   ]
+  },
+  {
+   "id": "p-solid-state",
+   "from": "1947",
+   "to": "1959",
+   "title": "From transistor to integrated circuit",
+   "actors": [
+    "bell-labs",
+    "fairchild",
+    "texas-instruments"
+   ],
+   "what": "Invention at a monopoly lab passes, through defection and patents, to venture-funded start-ups.",
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-traitorous-eight-names",
+    "lineage-noyce-monolithic-ic-1959",
+    "story-ai-kilby-1958"
+   ]
+  },
+  {
+   "id": "p-fairchildren",
+   "from": "1957",
+   "to": "1968",
+   "title": "The Fairchild diaspora",
+   "actors": [
+    "fairchild",
+    "intel"
+   ],
+   "what": "Fairchild's alumni found dozens of firms, Intel among them.",
+   "facts": [
+    "lineage-fairchildren-1960",
+    "lineage-intel-founded-1968"
+   ]
+  },
+  {
+   "id": "p-pc-era",
+   "from": "1971",
+   "to": "1995",
+   "title": "The microprocessor and the PC",
+   "actors": [
+    "intel",
+    "microsoft"
+   ],
+   "what": "Intel moves from memory to the x86 as IBM-compatible PCs spread.",
+   "facts": [
+    "lineage-intel-4004-1971",
+    "lineage-ibm-pc-8088-1981",
+    "story-ai-intel-pc-primary",
+    "story-ai-intel-mcap-1999"
+   ]
+  },
+  {
+   "id": "p-fabless",
+   "from": "1987",
+   "to": "2012",
+   "title": "Foundry and fabless",
+   "actors": [
+    "tsmc",
+    "nvidia"
+   ],
+   "what": "TSMC builds for designers who own no fab; Nvidia is the clearest fabless winner.",
+   "facts": [
+    "lineage-tsmc-founded-1987",
+    "story-ai-tsmc-philips",
+    "story-ai-geforce256-transistors"
+   ]
+  },
+  {
+   "id": "p-gpu",
+   "from": "1999",
+   "to": "2012",
+   "title": "The GPU decade",
+   "actors": [
+    "nvidia",
+    "3dfx"
+   ],
+   "what": "Gaming pays for a programmable parallel processor; CUDA makes it general.",
+   "facts": [
+    "lineage-geforce-256-1999",
+    "lineage-cuda-released-2007",
+    "story-ai-nvidia-mcap-2006"
+   ]
+  },
+  {
+   "id": "p-deep-learning",
+   "from": "2012",
+   "to": "2017",
+   "title": "Deep learning on GPUs",
+   "actors": [
+    "nvidia",
+    "alexnet-team",
+    "google"
+   ],
+   "what": "AlexNet proves that GPUs make deep learning practical; Nvidia's value rises from $7.66 billion to $117.26 billion.",
+   "facts": [
+    "lineage-alexnet-two-gtx580-2012",
+    "story-ai-nvidia-mcap-2012",
+    "story-ai-nvidia-mcap-2017"
+   ]
+  },
+  {
+   "id": "p-scaling",
+   "from": "2017",
+   "to": "2022",
+   "title": "The scaling era",
+   "actors": [
+    "google",
+    "openai",
+    "microsoft"
+   ],
+   "what": "The transformer is published, OpenAI scales it, Microsoft supplies the compute.",
+   "facts": [
+    "lineage-attention-transformer-2017",
+    "lineage-scaling-laws-2020",
+    "lineage-gpt3-175b-2020",
+    "story-ai-microsoft-openai-2019"
+   ]
+  },
+  {
+   "id": "p-ai-revolution",
+   "from": "2022",
+   "to": "2026",
+   "title": "The AI revolution",
+   "actors": [
+    "openai",
+    "nvidia",
+    "microsoft",
+    "anthropic",
+    "google"
+   ],
+   "what": "ChatGPT, trillion-dollar chips, and a near-trillion-dollar valuation for each of two labs.",
+   "facts": [
+    "lineage-chatgpt-release-2022",
+    "story-ai-nvidia-1tn-2023",
+    "lineage-nvidia-5tn-2025",
+    "labs-openai-valuation",
+    "labs-anthropic-valuation",
+    "compute-hyperscaler-capex-2026"
+   ]
+  }
+ ],
+ "moats": [
+  {
+   "actor": "united-states",
+   "from": 1945,
+   "to": 1971,
+   "market": "the world economy",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "half of global industrial output",
+     "facts": [
+      "story-ai-us-half-industrial"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "80 percent of the world's gold reserves",
+     "facts": [
+      "story-ai-us-gold-80"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "the dollar at the centre of Bretton Woods",
+     "facts": [
+      "story-ai-bretton-gold-two-thirds"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "Marshall Plan: US$13.3 billion to 17 countries",
+     "facts": [
+      "story-ai-marshall-plan"
+     ]
+    }
+   ],
+   "rivals": [
+    "ussr"
+   ],
+   "facts": [
+    "story-ai-gdp-1950"
+   ]
+  },
+  {
+   "actor": "bell-labs",
+   "from": 1947,
+   "to": 1984,
+   "market": "basic research in electronics",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "eleven Nobel Prizes for work done at the Labs",
+     "facts": [
+      "story-ai-bell-nobels"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "the Bell System: AT&T plus 24 operating companies and Western Electric",
+     "facts": [
+      "century-bell-breakup"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "divestiture on 1 January 1984 ended the model",
+     "facts": [
+      "century-bell-divestiture-1984"
+     ]
+    }
+   ],
+   "rivals": [
+    "fairchild"
+   ],
+   "facts": [
+    "lineage-bell-transistor-1947"
+   ]
+  },
+  {
+   "actor": "fairchild",
+   "from": 1957,
+   "to": 1968,
+   "market": "silicon semiconductors",
+   "sources": [
+    {
+     "source": "talent",
+     "what": "the eight who left Shockley",
+     "facts": [
+      "story-ai-fairchild-eight-names"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "silicon and the planar process, 1959",
+     "facts": [
+      "story-ai-fairchild-silicon",
+      "lineage-fairchild-planar-1959"
+     ]
+    },
+    {
+     "source": "patents",
+     "what": "the monolithic integrated circuit, 1959",
+     "facts": [
+      "lineage-noyce-monolithic-ic-1959"
+     ]
+    },
+    {
+     "source": "distribution",
+     "what": "first batch of 100 devices to IBM at $150",
+     "facts": [
+      "lineage-fairchild-first-batch-ibm"
+     ]
+    }
+   ],
+   "rivals": [
+    "texas-instruments",
+    "shockley-semiconductor"
+   ],
+   "facts": [
+    "lineage-fairchildren-1960"
+   ]
+  },
+  {
+   "actor": "intel",
+   "from": 1981,
+   "to": 2012,
+   "market": "PC microprocessors",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "the 4004's 2,300 transistors, then x86",
+     "facts": [
+      "story-ai-intel-4004-transistors"
+     ]
+    },
+    {
+     "source": "distribution",
+     "what": "IBM PC on an 8088; Compaq's 386 clone made Intel the key supplier",
+     "facts": [
+      "lineage-ibm-pc-8088-1981",
+      "lineage-compaq-386-1986"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "revenue of $33.72 billion in 2000",
+     "facts": [
+      "story-ai-intel-rev-2000"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$4.1 billion into ASML in 2012",
+     "facts": [
+      "lineage-intel-asml-4-1bn-2012"
+     ]
+    }
+   ],
+   "rivals": [
+    "amd",
+    "ibm"
+   ],
+   "facts": [
+    "story-ai-intel-mcap-1999"
+   ]
+  },
+  {
+   "actor": "tsmc",
+   "from": 1987,
+   "to": 2026,
+   "market": "leading-edge foundry",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "72.5% of top-10 foundry revenue, Q2 2026",
+     "facts": [
+      "compute-tsmc-foundry-share"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "first foundry to commercialise EUV in volume",
+     "facts": [
+      "lineage-tsmc-first-euv-volume"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "2026 capex guidance of US$60-64 billion",
+     "facts": [
+      "compute-tsmc-capex-2026"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "a Taiwanese government joint venture",
+     "facts": [
+      "lineage-tsmc-founded-1987"
+     ]
+    }
+   ],
+   "rivals": [
+    "intel",
+    "samsung"
+   ],
+   "facts": [
+    "compute-tsmc-q3-advanced-share"
+   ]
+  },
+  {
+   "actor": "nvidia",
+   "from": 2007,
+   "to": 2026,
+   "market": "AI accelerators",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "CUDA: 6 million developers",
+     "facts": [
+      "moats-nvidia-cuda-developers"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "about 56% of CoWoS demand in 2026",
+     "facts": [
+      "moats-nvidia-cowos-share-2026"
+     ]
+    },
+    {
+     "source": "patents",
+     "what": "more than 9,800 granted and pending patents",
+     "facts": [
+      "moats-nvidia-patents-granted-pending"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$51.157 billion of strategic stakes; $5 billion into Intel",
+     "facts": [
+      "balancea-nvidia-investments",
+      "compute-nvidia-intel-investment"
+     ]
+    },
+    {
+     "source": "talent",
+     "what": "$6.39 billion of stock-based compensation, fiscal 2026",
+     "facts": [
+      "entry-nvidia-sbc-fy2026"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "about 75% of AI accelerators in 2026",
+     "facts": [
+      "compute-nvidia-accel-share"
+     ]
+    }
+   ],
+   "rivals": [
+    "amd",
+    "broadcom",
+    "google",
+    "huawei"
+   ],
+   "facts": [
+    "compute-nvidia-marketcap"
+   ]
+  },
+  {
+   "actor": "google",
+   "from": 2017,
+   "to": 2022,
+   "market": "the transformer",
+   "sources": [
+    {
+     "source": "talent",
+     "what": "eight authors, all of whom later left",
+     "facts": [
+      "story-ai-transformer-authors",
+      "story-ai-transformer-authors-left"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "revenue of $110.85 billion in 2017",
+     "facts": [
+      "story-ai-google-rev-2017"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$729.45 billion market value at the end of 2017",
+     "facts": [
+      "story-ai-google-mcap-2017"
+     ]
+    }
+   ],
+   "rivals": [
+    "openai"
+   ],
+   "facts": [
+    "story-ai-transformer-citations"
+   ]
+  },
+  {
+   "actor": "openai",
+   "from": 2018,
+   "to": 2026,
+   "market": "frontier models",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "GPT-1 117 million to GPT-3 175 billion parameters",
+     "facts": [
+      "story-ai-gpt1-params",
+      "lineage-gpt3-175b-2020"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "Microsoft: $1 billion (2019) then $10 billion (2023)",
+     "facts": [
+      "story-ai-microsoft-openai-2019",
+      "story-ai-microsoft-openai-2023"
+     ]
+    },
+    {
+     "source": "distribution",
+     "what": "900 million weekly ChatGPT users",
+     "facts": [
+      "labs-openai-weekly-users"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "about $50 billion run-rate",
+     "facts": [
+      "labs-openai-run-rate"
+     ]
+    }
+   ],
+   "rivals": [
+    "google",
+    "anthropic"
+   ],
+   "facts": [
+    "labs-openai-valuation"
+   ]
+  }
+ ],
+ "people": [
+  {
+   "id": "henry-luce",
+   "name": "Henry Luce",
+   "qid": "Q516473",
+   "born": 1898,
+   "died": 1967,
+   "role": "publisher; in a 1941 editorial urged the United States to forsake isolationism",
+   "actors": [
+    "united-states"
+   ],
+   "facts": [
+    "story-ai-luce-1941"
+   ]
+  },
+  {
+   "id": "john-bardeen",
+   "name": "John Bardeen",
+   "qid": "Q949",
+   "born": 1908,
+   "died": 1991,
+   "role": "co-inventor of the transistor",
+   "actors": [
+    "bell-labs"
+   ],
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-nobel-1956"
+   ]
+  },
+  {
+   "id": "walter-brattain",
+   "name": "Walter Brattain",
+   "qid": "Q184577",
+   "born": 1902,
+   "died": 1987,
+   "role": "co-inventor of the transistor",
+   "actors": [
+    "bell-labs"
+   ],
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-nobel-1956"
+   ]
+  },
+  {
+   "id": "william-shockley",
+   "name": "William Shockley",
+   "qid": "Q163415",
+   "born": 1910,
+   "died": 1989,
+   "role": "co-inventor of the transistor; founder of Shockley Semiconductor",
+   "actors": [
+    "bell-labs",
+    "shockley-semiconductor"
+   ],
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-shockley-lab-1955"
+   ]
+  },
+  {
+   "id": "robert-noyce",
+   "name": "Robert Noyce",
+   "qid": "Q241735",
+   "born": 1927,
+   "died": 1990,
+   "role": "invented the monolithic integrated circuit; co-founded Fairchild and Intel",
+   "actors": [
+    "fairchild",
+    "intel"
+   ],
+   "facts": [
+    "lineage-noyce-monolithic-ic-1959",
+    "lineage-intel-founded-1968"
+   ]
+  },
+  {
+   "id": "gordon-moore",
+   "name": "Gordon Moore",
+   "qid": "Q243969",
+   "born": 1929,
+   "died": 2023,
+   "role": "one of the eight; co-founder of Intel; author of Moore's law",
+   "actors": [
+    "fairchild",
+    "intel"
+   ],
+   "facts": [
+    "story-ai-moore-1965",
+    "story-ai-moore-1975-two-years",
+    "lineage-intel-founded-1968"
+   ]
+  },
+  {
+   "id": "jack-kilby",
+   "name": "Jack Kilby",
+   "qid": "Q182031",
+   "born": 1923,
+   "died": 2005,
+   "role": "built the first integrated circuit at Texas Instruments",
+   "actors": [
+    "texas-instruments"
+   ],
+   "facts": [
+    "story-ai-kilby-1958",
+    "lineage-kilby-nobel-2000"
+   ]
+  },
+  {
+   "id": "andy-grove",
+   "name": "Andy Grove",
+   "qid": "Q432929",
+   "born": 1936,
+   "died": 2016,
+   "role": "refocused Intel on microprocessors in 1983",
+   "actors": [
+    "intel"
+   ],
+   "facts": [
+    "lineage-intel-japan-dram-1983"
+   ]
+  },
+  {
+   "id": "federico-faggin",
+   "name": "Federico Faggin",
+   "qid": "Q667095",
+   "born": 1941,
+   "died": null,
+   "role": "left Fairchild for Intel to design the first microprocessors",
+   "actors": [
+    "intel"
+   ],
+   "facts": [
+    "lineage-faggin-left-fairchild-1970"
+   ]
+  },
+  {
+   "id": "morris-chang",
+   "name": "Morris Chang",
+   "qid": "Q4745214",
+   "born": 1931,
+   "died": null,
+   "role": "founded TSMC as the first dedicated foundry",
+   "actors": [
+    "tsmc"
+   ],
+   "facts": [
+    "story-ai-tsmc-chang-first-foundry"
+   ]
+  },
+  {
+   "id": "jensen-huang",
+   "name": "Jensen Huang",
+   "qid": "Q305177",
+   "born": 1963,
+   "died": null,
+   "role": "co-founder and chief executive of Nvidia",
+   "actors": [
+    "nvidia"
+   ],
+   "facts": [
+    "lineage-nvidia-founded-1993",
+    "story-ai-nvidia-1996-layoff"
+   ]
+  },
+  {
+   "id": "geoffrey-hinton",
+   "name": "Geoffrey Hinton",
+   "qid": "Q92894",
+   "born": 1947,
+   "died": null,
+   "role": "advised AlexNet at the University of Toronto",
+   "actors": [
+    "alexnet-team"
+   ],
+   "facts": [
+    "story-ai-alexnet-params"
+   ]
+  },
+  {
+   "id": "alex-krizhevsky",
+   "name": "Alex Krizhevsky",
+   "qid": "Q28018607",
+   "born": null,
+   "died": null,
+   "role": "built AlexNet",
+   "actors": [
+    "alexnet-team"
+   ],
+   "facts": [
+    "story-ai-alexnet-params",
+    "lineage-alexnet-two-gtx580-2012"
+   ]
+  },
+  {
+   "id": "ilya-sutskever",
+   "name": "Ilya Sutskever",
+   "qid": "Q21712134",
+   "born": null,
+   "died": null,
+   "role": "AlexNet co-author, then OpenAI co-founder",
+   "actors": [
+    "alexnet-team",
+    "openai"
+   ],
+   "facts": [
+    "story-ai-alexnet-params",
+    "story-ai-openai-pledge-2015"
+   ]
+  },
+  {
+   "id": "ashish-vaswani",
+   "name": "Ashish Vaswani",
+   "qid": "Q44749723",
+   "born": null,
+   "died": null,
+   "role": "first author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors"
+   ]
+  },
+  {
+   "id": "noam-shazeer",
+   "name": "Noam Shazeer",
+   "qid": "Q30251943",
+   "born": null,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors"
+   ]
+  },
+  {
+   "id": "sam-altman",
+   "name": "Sam Altman",
+   "qid": "Q7407093",
+   "born": 1985,
+   "died": null,
+   "role": "co-chair at OpenAI's founding, later its chief executive",
+   "actors": [
+    "openai"
+   ],
+   "facts": [
+    "story-ai-openai-pledge-2015"
+   ]
+  },
+  {
+   "id": "sherman-fairchild",
+   "name": "Sherman Fairchild",
+   "qid": "Q1528185",
+   "born": 1896,
+   "died": 1971,
+   "role": "backer who created the semiconductor division for the eight",
+   "actors": [
+    "fairchild"
+   ],
+   "facts": [
+    "lineage-fairchild-founded-1957"
+   ]
+  }
+ ],
+ "notes": "Historical market values and revenues are CompaniesMarketCap's year-end and annual figures (revenue years follow its labelling, so NVIDIA's 2022 row is the fiscal year to January 2023). Sources differ on the US share of gold (80 percent against two-thirds). Not verified and left out: Bell Labs and Shockley Semiconductor headcounts, Intel and NVIDIA financials before 1996 and 1999, the US share of world GDP in 1945 as a single number, the original Transformer's parameter count, GPT-3 training compute in FLOP.",
+ "openQuestions": [
+  "Is there a single authoritative US share of world GDP at 1945 and 1950 (Maddison Project) that a script can read?",
+  "Intel's 1987 and 1993 revenue and employees need a primary source (annual reports on SEC EDGAR predate 1993).",
+  "Should the story show OpenAI's 2016 DGX-1 gift as its own moment?"
+ ]
+}

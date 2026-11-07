@@ -104,11 +104,19 @@ namespace Why.Director
         /// <summary>Resources path of a local tour draft for the current scene (without extension; ignored by Git).</summary>
         public static string ResourcePath => GraphScene.IsEconomy ? "Data/economy/tour" : "Data/tour";
 
+        /// <summary>A story's walkthrough played instead of the scene's own (the history stories, Docs/hills-design/HISTORY.md:
+        /// a Resources path such as "Data/Walkthrough/story_ai_tour"), or null for the scene's tour.</summary>
+        public static string Story;
+
         /// <summary>Resources path of the narrated walkthrough tracked with the project (without extension).</summary>
-        public static string WalkthroughPath => GraphScene.IsEconomy ? "Data/Walkthrough/economy_tour" : "Data/Walkthrough/tour";
+        public static string WalkthroughPath => Story ?? (GraphScene.IsEconomy ? "Data/Walkthrough/economy_tour" : "Data/Walkthrough/tour");
 
         [JsonProperty("title")] public string Title;
         [JsonProperty("steps")] public List<TourStep> Steps = new List<TourStep>();
+
+        /// <summary>A story's own words for its title card and end card (null: the scene's tour's own).</summary>
+        [JsonProperty("intro")] public string Intro;
+        [JsonProperty("end")] public string End;
 
         /// <summary>
         /// Loads the tour (main thread): a local draft (<see cref="ResourcePath"/>) when there is one, otherwise the
@@ -119,7 +127,7 @@ namespace Why.Director
         public static TourScript Load()
         {
             bool hills = GraphScene.IsEconomy && Economy.EconomyLayouts.UseHills;
-            if (!hills && TryLoad(ResourcePath, out TourScript draft)) return draft;
+            if (Story == null && !hills && TryLoad(ResourcePath, out TourScript draft)) return draft;
             if (TryLoad(WalkthroughPath, out TourScript walkthrough)) return walkthrough;
             Debug.LogWarning($"[Why] director: no tour at '{WalkthroughPath}', using the built-in tour");
             return hills ? HillsBuiltIn() : BuiltIn();

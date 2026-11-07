@@ -1,53 +1,279 @@
 {
-  "hills_money": [
-    "Effective federal funds rate, annual averages (FRED FEDFUNDS): 16.4% in 1981 (the highest); below 0.5% every year 2009-2016",
-    "The fed funds rate is the rate at which banks lend reserves to one another overnight; mortgage and bond rates move with it",
-    "Effective tariff rate (customs duties / goods imports, BEA): 7.0% in 1947, 1.4-1.7% in 2010-2017, 2.56% in 2024, 8.03% in 2025",
-    "Asset prices (stocks, homes) rose strongly during the near-zero-rate years 2009-2016"
-  ],
-  "hills_strategy": [
-    "The 25 stored firms' filings: operating costs (suppliers and workers) are the largest use of their money; investment, research, buybacks, dividends, taxes and lobbying follow",
-    "Jev judged each firm's investment on a scale from pursuing new demand (desire) to defending its position (fear), and which way its money moves it: climb into software/AI, reach down into its own supply, spread across, lean on the state, harvest",
-    "Hyperscaler capital expenditure in calendar 2025: Microsoft $118.0B, Alphabet $91.4B, Amazon $131.8B, Meta $72.2B, Oracle about $35.5B: about $449B in total, mostly AI data centers, chips and servers",
-    "The AI build-out money flows to computers and chips and to data-center construction",
-    "About two thirds of the five hyperscalers' capital spending is judged to be for AI: each firm's investment in its latest fiscal year times the AI share Jev judged comes to about $314B, 64% of the $494B those fiscal years invested and 70% of the $449B spent in calendar 2025"
-  ],
-  "hills_attention": [
-    "US digital advertising revenue 2025: $294.6B (IAB/PwC); $117.7B of it social media",
-    "US creator-economy ad spend 2025: about $37B (IAB)",
-    "US adult social network users spend about 114 minutes a day on social networks (eMarketer 2025)",
-    "The rings count how many of the social graph's other most-followed accounts follow each person",
-    "Each star's size is the person's followers: their reach",
-    "Jev judged how each household purchase is sold; much of what people buy is a want manufactured by advertising and status (the scene's purchase judgments)",
-    "Household spending flows back to the companies, including the ones that bought the advertising"
-  ],
-  "hills_mobility": [
-    "2015-2025 in the model: among adults 25-54, falls came with a lost job (59% of those who fell), a divorce or separation (22%), discharged debt (9%); climbs with finding work (49%), buying a home (41%), a child (37%), marriage (28%)",
-    "2015-2025 in the model, all adults: 33% climbed a fifth or more, 48% stayed in their fifth and 20% fell; the top fifth kept 71% of its members, the bottom fifth 34%",
-    "The ladder the view draws (adults 25 and older, ranked within the panel as the tax records rank people): of each fifth's members in 2015, 66% of the top fifth were still there in 2025 (about two in three), 40% of the fourth, 40% of the middle, 48% of the second and 58% of the bottom fifth: about half of the ladder's people stayed in their fifth, and the top kept its members most of all. The US Treasury's 1996-2005 tax-return panel kept 55% of its bottom fifth and 61% of its top fifth",
-    "Saving and income from ownership rise with the rung; debt service is highest at the bottom",
-    "In the ladder, gold streams are people who climbed a fifth or more, rose streams people who fell, and steel streams people who stayed in their fifth"
-  ],
-  "hills_you": [
-    "The panel places the viewer by household income and net worth among the year's simulated adults",
-    "A dollar of the viewer's spending is split, through the accounts of the industries it buys from, into wages, owners' surplus, taxes, upkeep and imports",
-    "For a median household about 85% of all simulated wages and owners' income goes to people ranked above it, weighted by its dollar's split between wages and owners: the population's distribution stands in for where the household's own dollars end up (the model assumes a household's spending pays people the way everyone's does)",
-    "The view draws the viewer's own spending as rivers from the viewer to the markets it reaches, split by what is sold out of fear",
-    "The cushion is the years of spending the viewer's net worth, home included, would cover; the gold ring at the viewer's feet shows it, one full turn for ten years",
-    "Where people like the viewer were ten years later, on a ruler of the income fifths beside the viewer: one step for each fifth that adults in the same income fifth and age band in 2015 had reached by 2025, each ribbon as wide as the share who ended there",
-    "Nothing entered in the panel is stored or sent"
-  ],
-  "hills_regimes": [
-    "General government spending in 2024 (IMF Fiscal Monitor): United States 37.6% of GDP, Sweden 49.2%, China 33.0%, Saudi Arabia 29.2%; the Soviet state budget spent 47.6% of GDP in 1980",
-    "The view draws each regime's bedrock under the same US hills (the US economy's industries): only the foundation changes",
-    "Each summit is its industry's largest firm in the country on the Fortune Global 500 2026, steel where Fortune says the government owns 50% or more",
-    "In China the largest firms of banking (ICBC), oil (China National Petroleum), utilities (State Grid), telecom (China Mobile), insurance (China Life), construction, coal, real estate, finance and post are state-controlled; the largest firms in hardware (Huawei), internet (Tencent), manufacturing (Hengli) and retail trade (JD.com) are private",
-    "79 of China's 116 Fortune Global 500 firms are state-controlled; the public sector holds 33% of the market value of China's listed companies (OECD 2025)",
-    "Oil revenue was 60.1% of Saudi government revenue in 2024 (Ministry of Finance)",
-    "The 1977 Constitution of the USSR made the basic means of production state property; the view draws every Soviet summit the state's"
-  ],
-  "atom_mind": [
-    "Out of reason's gate the mind's choice splits into spending, saving and borrowing, as shares of the year's income; the view draws the three",
-    "The choice feeds the mind's memory, what is owned and owed (net worth and debt), and the memory feeds back into the next year's drives: in the lives model a buffer under three months of spending raises the fears of ruin and exposure"
-  ]
+ "hills_money": [
+  "Effective federal funds rate, annual averages (FRED FEDFUNDS): 16.4% in 1981 (the highest); below 0.5% every year 2009-2016",
+  "The fed funds rate is the rate at which banks lend reserves to one another overnight; mortgage and bond rates move with it",
+  "Effective tariff rate (customs duties / goods imports, BEA): 7.0% in 1947, 1.4-1.7% in 2010-2017, 2.56% in 2024, 8.03% in 2025",
+  "Asset prices (stocks, homes) rose strongly during the near-zero-rate years 2009-2016"
+ ],
+ "hills_strategy": [
+  "The 25 stored firms' filings: operating costs (suppliers and workers) are the largest use of their money; investment, research, buybacks, dividends, taxes and lobbying follow",
+  "Jev judged each firm's investment on a scale from pursuing new demand (desire) to defending its position (fear), and which way its money moves it: climb into software/AI, reach down into its own supply, spread across, lean on the state, harvest",
+  "Hyperscaler capital expenditure in calendar 2025: Microsoft $118.0B, Alphabet $91.4B, Amazon $131.8B, Meta $72.2B, Oracle about $35.5B: about $449B in total, mostly AI data centers, chips and servers",
+  "The AI build-out money flows to computers and chips and to data-center construction",
+  "About two thirds of the five hyperscalers' capital spending is judged to be for AI: each firm's investment in its latest fiscal year times the AI share Jev judged comes to about $314B, 64% of the $494B those fiscal years invested and 70% of the $449B spent in calendar 2025"
+ ],
+ "hills_attention": [
+  "US digital advertising revenue 2025: $294.6B (IAB/PwC); $117.7B of it social media",
+  "US creator-economy ad spend 2025: about $37B (IAB)",
+  "US adult social network users spend about 114 minutes a day on social networks (eMarketer 2025)",
+  "The rings count how many of the social graph's other most-followed accounts follow each person",
+  "Each star's size is the person's followers: their reach",
+  "Jev judged how each household purchase is sold; much of what people buy is a want manufactured by advertising and status (the scene's purchase judgments)",
+  "Household spending flows back to the companies, including the ones that bought the advertising"
+ ],
+ "hills_mobility": [
+  "2015-2025 in the model: among adults 25-54, falls came with a lost job (59% of those who fell), a divorce or separation (22%), discharged debt (9%); climbs with finding work (49%), buying a home (41%), a child (37%), marriage (28%)",
+  "2015-2025 in the model, all adults: 33% climbed a fifth or more, 48% stayed in their fifth and 20% fell; the top fifth kept 71% of its members, the bottom fifth 34%",
+  "The ladder the view draws (adults 25 and older, ranked within the panel as the tax records rank people): of each fifth's members in 2015, 66% of the top fifth were still there in 2025 (about two in three), 40% of the fourth, 40% of the middle, 48% of the second and 58% of the bottom fifth: about half of the ladder's people stayed in their fifth, and the top kept its members most of all. The US Treasury's 1996-2005 tax-return panel kept 55% of its bottom fifth and 61% of its top fifth",
+  "Saving and income from ownership rise with the rung; debt service is highest at the bottom",
+  "In the ladder, gold streams are people who climbed a fifth or more, rose streams people who fell, and steel streams people who stayed in their fifth"
+ ],
+ "hills_you": [
+  "The panel places the viewer by household income and net worth among the year's simulated adults",
+  "A dollar of the viewer's spending is split, through the accounts of the industries it buys from, into wages, owners' surplus, taxes, upkeep and imports",
+  "For a median household about 85% of all simulated wages and owners' income goes to people ranked above it, weighted by its dollar's split between wages and owners: the population's distribution stands in for where the household's own dollars end up (the model assumes a household's spending pays people the way everyone's does)",
+  "The view draws the viewer's own spending as rivers from the viewer to the markets it reaches, split by what is sold out of fear",
+  "The cushion is the years of spending the viewer's net worth, home included, would cover; the gold ring at the viewer's feet shows it, one full turn for ten years",
+  "Where people like the viewer were ten years later, on a ruler of the income fifths beside the viewer: one step for each fifth that adults in the same income fifth and age band in 2015 had reached by 2025, each ribbon as wide as the share who ended there",
+  "Nothing entered in the panel is stored or sent"
+ ],
+ "hills_regimes": [
+  "General government spending in 2024 (IMF Fiscal Monitor): United States 37.6% of GDP, Sweden 49.2%, China 33.0%, Saudi Arabia 29.2%; the Soviet state budget spent 47.6% of GDP in 1980",
+  "The view draws each regime's bedrock under the same US hills (the US economy's industries): only the foundation changes",
+  "Each summit is its industry's largest firm in the country on the Fortune Global 500 2026, steel where Fortune says the government owns 50% or more",
+  "In China the largest firms of banking (ICBC), oil (China National Petroleum), utilities (State Grid), telecom (China Mobile), insurance (China Life), construction, coal, real estate, finance and post are state-controlled; the largest firms in hardware (Huawei), internet (Tencent), manufacturing (Hengli) and retail trade (JD.com) are private",
+  "79 of China's 116 Fortune Global 500 firms are state-controlled; the public sector holds 33% of the market value of China's listed companies (OECD 2025)",
+  "Oil revenue was 60.1% of Saudi government revenue in 2024 (Ministry of Finance)",
+  "The 1977 Constitution of the USSR made the basic means of production state property; the view draws every Soviet summit the state's"
+ ],
+ "atom_mind": [
+  "Out of reason's gate the mind's choice splits into spending, saving and borrowing, as shares of the year's income; the view draws the three",
+  "The choice feeds the mind's memory, what is owned and owed (net worth and debt), and the memory feeds back into the next year's drives: in the lives model a buffer under three months of spending raises the fears of ruin and exposure"
+ ],
+ "ai_century": [
+  "After the Second World War the United States was responsible for half of global industrial output. (story-ai-us-half-industrial)",
+  "After the Second World War the United States held 80 percent of the world's gold reserves. (story-ai-us-gold-80)",
+  "At Bretton Woods in 1944 the United States, which controlled two-thirds of the world's gold, insisted that the system rest on both gold and the dollar. (story-ai-bretton-gold-two-thirds)",
+  "The United States transferred US$13.3 billion to 17 European countries under the Marshall Plan. (story-ai-marshall-plan)",
+  "GDP in 1950 was 1,456 billion 1990 dollars in the United States, 510 in the Soviet Union and 161 in Japan. (story-ai-gdp-1950)",
+  "In a Life magazine editorial of 17 February 1941 Henry Luce urged the United States to forsake isolationism for the role of the world's Good Samaritan. (story-ai-luce-1941)"
+ ],
+ "ai_transistor": [
+  "Bell Laboratories' John Bardeen, Walter Brattain and William Shockley invented the transistor in 1947. (lineage-bell-transistor-1947)",
+  "The Bell System consisted of AT&T plus 24 local Bell Operating Companies and Western Electric, which made almost all of its equipment. (century-bell-breakup)",
+  "The 1956 Nobel Prize in Physics went jointly to Shockley, Bardeen and Brattain for the transistor effect. (lineage-nobel-1956)",
+  "Eleven Nobel Prizes and five Turing Awards have been awarded for work completed at Bell Laboratories. (story-ai-bell-nobels)",
+  "GDP in 1950 was 1,456 billion 1990 dollars in the United States, 510 in the Soviet Union and 161 in Japan. (story-ai-gdp-1950)"
+ ],
+ "ai_eight": [
+  "Shockley Semiconductor Laboratory was founded by William Shockley in 1955 with funding from Beckman Instruments. (lineage-shockley-lab-1955)",
+  "Eight Shockley Semiconductor engineers left to start their own company. (lineage-traitorous-eight-names)",
+  "The eight founders of Fairchild were Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce and Sheldon Roberts. (story-ai-fairchild-eight-names)",
+  "The eight formed Fairchild Semiconductor on 18 September 1957 after agreeing terms with Sherman Fairchild in August. (lineage-fairchild-founded-1957)",
+  "Fairchild Semiconductor was started in 1957 to make silicon transistors when germanium was still the most common semiconductor material. (story-ai-fairchild-silicon)",
+  "By 1960 Fairchild was an incubator of Silicon Valley whose alumni created dozens of corporations, including Intel and AMD. (lineage-fairchildren-1960)"
+ ],
+ "ai_chip": [
+  "Jack Kilby took part, with Robert Noyce of Fairchild, in realizing the first integrated circuit at Texas Instruments in 1958. (story-ai-kilby-1958)",
+  "Fairchild developed the planar process in 1959. (lineage-fairchild-planar-1959)",
+  "Robert Noyce invented the first monolithic integrated circuit in 1959. (lineage-noyce-monolithic-ic-1959)",
+  "Fairchild's first batch of 100 devices was sold to IBM at $150 apiece for the B-70 bomber's computer. (lineage-fairchild-first-batch-ibm)",
+  "Jack Kilby won the 2000 Nobel Prize in physics for his part in the invention of the integrated circuit. (lineage-kilby-nobel-2000)"
+ ],
+ "ai_microprocessor": [
+  "Intel was founded in 1968 by Gordon Moore and Robert Noyce with investor Arthur Rock. (lineage-intel-founded-1968)",
+  "Federico Faggin left Fairchild for Intel in 1970 to design the first microprocessors. (lineage-faggin-left-fairchild-1970)",
+  "Intel introduced the 4004 microprocessor in 1971, built for Busicom, but it did not become Intel's core business until the mid-1980s. (lineage-intel-4004-1971)",
+  "The silicon-gate process let a single Intel 4004 chip contain 2,300 transistors. (story-ai-intel-4004-transistors)",
+  "In 1975 Moore revised his forecast to a doubling of components every two years, a compound annual growth rate of 41 percent. (story-ai-moore-1975-two-years)"
+ ],
+ "ai_pc": [
+  "The IBM PC, released 12 August 1981, used an Intel 8088 processor. (lineage-ibm-pc-8088-1981)",
+  "Intel made the first commercial microprocessor in 1971, but it was the success of the PC in the early 1980s that made it Intel's primary business. (story-ai-intel-pc-primary)",
+  "In 1983 Japanese memory makers squeezed Intel's profits and Andy Grove refocused Intel on microprocessors. (lineage-intel-japan-dram-1983)",
+  "Compaq, the first IBM PC clone maker, shipped the first 80386-based system in 1986, beating IBM and making Intel a key component supplier. (lineage-compaq-386-1986)",
+  "Intel's market capitalisation at the end of 1999 was $274.43 billion, according to CompaniesMarketCap. (story-ai-intel-mcap-1999)"
+ ],
+ "ai_foundry": [
+  "TSMC was established in 1987 as a joint venture of Taiwan's government, ITRI and private investors, and became the world's first dedicated foundry. (lineage-tsmc-founded-1987)",
+  "Morris Chang founded TSMC to commercialise semiconductor research developed at ITRI, becoming the world's first dedicated semiconductor foundry. (story-ai-tsmc-chang-first-foundry)",
+  "Philips put up $58 million and transferred its production technology to Taiwan's new foundry for a 27.6 percent stake in TSMC. (story-ai-tsmc-philips)",
+  "TSMC held a record 72.5% of top-10 foundry revenue in Q2 2026 (TrendForce). (compute-tsmc-foundry-share)"
+ ],
+ "ai_gpu": [
+  "In 1996 Jensen Huang laid off more than half of Nvidia's employees, cutting headcount from 100 to 40, to focus on the RIVA 128. (story-ai-nvidia-1996-layoff)",
+  "Nvidia went public on 22 January 1999. (lineage-nvidia-ipo-1999)",
+  "In late 1999 Nvidia released the GeForce 256, its first product marketed as a GPU. (lineage-geforce-256-1999)",
+  "The NV10 chip of the GeForce 256, made by TSMC on a 220 nm process, had 17,000,000 transistors. (story-ai-geforce256-transistors)",
+  "NVIDIA's market capitalisation at the end of 1999 was $0.96 billion, according to CompaniesMarketCap. (story-ai-nvidia-mcap-1999)",
+  "Intel's market capitalisation at the end of 1999 was $274.43 billion, according to CompaniesMarketCap. (story-ai-intel-mcap-1999)",
+  "In December 2000 Nvidia agreed to acquire the intellectual assets of its one-time rival 3dfx. (lineage-nvidia-acquires-3dfx-2000)"
+ ],
+ "ai_cuda": [
+  "CUDA was created in 2004 and officially released in 2007. (lineage-cuda-released-2007)",
+  "NVIDIA said at GTC in March 2026 that CUDA, 20 years old, has 6 million developers. (moats-nvidia-cuda-developers)",
+  "HPCwire (Aug 2026) describes the GPU development market as dominated by CUDA, NVIDIA's development environment, against AMD's ROCm. (compute-cuda-dominates)",
+  "NVIDIA's market capitalisation at the end of 2006 was $13.15 billion, according to CompaniesMarketCap. (story-ai-nvidia-mcap-2006)"
+ ],
+ "ai_alexnet": [
+  "AlexNet, developed in 2012 by Krizhevsky with Sutskever and Hinton at Toronto, contains 60 million parameters. (story-ai-alexnet-params)",
+  "AlexNet was trained for five to six days on two Nvidia GTX 580 GPUs and won the 2012 ImageNet competition. (lineage-alexnet-two-gtx580-2012)",
+  "Each GTX 580 was priced at US$500 on release. (lineage-gtx580-price-500)",
+  "AlexNet won the 2012 ImageNet contest with a top-5 error rate of 15.3%, more than 10.8 percentage points better than the runner-up. (story-ai-alexnet-error)",
+  "NVIDIA's market capitalisation at the end of 2012 was $7.66 billion, according to CompaniesMarketCap. (story-ai-nvidia-mcap-2012)",
+  "NVIDIA's market capitalisation at the end of 2017 was $117.26 billion, according to CompaniesMarketCap. (story-ai-nvidia-mcap-2017)",
+  "Intel's market capitalisation at the end of 2012 was $101.94 billion, according to CompaniesMarketCap. (story-ai-intel-mcap-2012)",
+  "TSMC's market capitalisation at the end of 2012 was $86.83 billion, according to CompaniesMarketCap. (story-ai-tsmc-mcap-2012)"
+ ],
+ "ai_attention": [
+  "The Transformer, based solely on attention, was submitted to arXiv on 12 June 2017. (lineage-attention-transformer-2017)",
+  "The authors of 'Attention Is All You Need' were Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez, Kaiser and Polosukhin. (story-ai-transformer-authors)",
+  "Seq2seq models with attention and recurrence were hard to parallelize, which prevented them from being accelerated on GPUs. (story-ai-transformer-gpu-parallel)",
+  "The Transformer reached 41.8 BLEU on WMT 2014 English-to-French after 3.5 days on eight GPUs. (lineage-attention-bleu-8gpu)",
+  "After the paper was published by Google, each of the eight authors left the company to join other companies or to found startups. (story-ai-transformer-authors-left)",
+  "As of 2026 the paper has been cited more than 150,000 times, among the top ten most-cited papers of the 21st century. (story-ai-transformer-citations)",
+  "Alphabet's market capitalisation at the end of 2017 was $729.45 billion, according to CompaniesMarketCap. (story-ai-google-mcap-2017)",
+  "Alphabet's revenue in 2017 was $110.85 billion, according to CompaniesMarketCap. (story-ai-google-rev-2017)"
+ ],
+ "ai_scaling": [
+  "GPT-1 has 117 million parameters. (story-ai-gpt1-params)",
+  "GPT-2 was partially released in February 2019, followed by the full 1.5-billion-parameter model on 5 November 2019. (story-ai-gpt2-params)",
+  "Kaplan et al. found language-model loss scales as a power law in model size, data and compute over more than seven orders of magnitude (submitted 23 January 2020). (lineage-scaling-laws-2020)",
+  "GPT-3 had 175 billion parameters, ten times any previous non-sparse language model (submitted 28 May 2020). (lineage-gpt3-175b-2020)",
+  "Microsoft invested $1 billion in OpenAI LP in 2019 and OpenAI's services were migrated to Microsoft Azure. (story-ai-microsoft-openai-2019)",
+  "On 22 September 2020 Microsoft announced that it had licensed GPT-3 exclusively. (story-ai-gpt3-microsoft-licence)"
+ ],
+ "ai_chatgpt": [
+  "ChatGPT was released on 30 November 2022. (lineage-chatgpt-release-2022)",
+  "ChatGPT reached 100 million monthly users two months after release and 900 million weekly users in February 2026. (lineage-chatgpt-users-2026)",
+  "On 23 January 2023 Microsoft announced an additional $10 billion investment in OpenAI, much of it to be spent on Azure compute. (story-ai-microsoft-openai-2023)",
+  "In October 2025 an employee share sale of up to $10 billion valued OpenAI at $500 billion. (story-ai-openai-500bn-2025)",
+  "OpenAI's valuation is $852 billion after it secured $122 billion from investors including Amazon, Nvidia and SoftBank. (labs-openai-valuation)"
+ ],
+ "ai_test": [
+  "DeepSeek-V3 required only 2.788 million H800 GPU hours for its full training, by its authors' account. (entry-deepseek-v3-gpu-hours)",
+  "On 27 January 2025 NVIDIA lost over $589 billion of market value after DeepSeek's release, which Forbes called the biggest single-day loss for any company. (entry-deepseek-nvidia-record-loss)",
+  "On 29 October 2025 Nvidia became the first company to reach a $5 trillion market capitalization. (lineage-nvidia-5tn-2025)"
+ ],
+ "ai_trillions": [
+  "In 2023 Nvidia became the seventh U.S. company to reach a US$1 trillion valuation. (story-ai-nvidia-1tn-2023)",
+  "Nvidia took 180 days to go from $1 trillion to $2 trillion; Apple and Microsoft each took over 500. (lineage-nvidia-2tn-180-days)",
+  "On 29 October 2025 Nvidia became the first company to reach a $5 trillion market capitalization. (lineage-nvidia-5tn-2025)",
+  "NVIDIA's share of the AI accelerator market is projected at roughly 75% for 2026, down from a peak near 87% in 2024 (Silicon Analysts, synthesising Bloomberg Intelligence and IDC). (compute-nvidia-accel-share)"
+ ],
+ "ai_now": [
+  "Amazon, Alphabet, Meta, Microsoft and SpaceX together are forecast to spend between $803 billion and $828 billion of capex in 2026 (Business Insider, 30 Oct 2026). (compute-hyperscaler-capex-2026)",
+  "Daloopa finds NVIDIA's data-center revenue has equalled between 39% and 47% of total hyperscaler capex over eight quarters, 45% in the latest. (str-nvidia-capex-capture)",
+  "Anthropic raised $65 billion in Series H at a $965 billion post-money valuation (28 May 2026). (labs-anthropic-valuation)",
+  "OpenAI's valuation is $852 billion after it secured $122 billion from investors including Amazon, Nvidia and SoftBank. (labs-openai-valuation)",
+  "After the Second World War the United States was responsible for half of global industrial output. (story-ai-us-half-industrial)"
+ ],
+ "rev_colonies": [
+  "The colonial population of the Thirteen Colonies had grown to 2.4 million by 1775. (story-revolutions-us-population-1775)",
+  "On 14 June 1775 Congress voted to establish the Continental Army, taking over 22,000 troops outside Boston and 5,000 at New York City. (story-revolutions-continental-army-1775)",
+  "About 250,000 Americans served as regulars or militia, but there were never more than 90,000 men under arms at any time. (story-revolutions-continental-army-peak)"
+ ],
+ "rev_saratoga": [
+  "After the battles of Saratoga, Burgoyne's army totalled 5,791 men against about 12,000 colonial troops, and he surrendered it on 17 October 1777. (story-revolutions-saratoga-1777)",
+  "Estimates place French-supplied arms at up to 90% of the arms the Americans used in the Saratoga campaign. (story-revolutions-french-supplied-arms-saratoga)"
+ ],
+ "rev_alliance": [
+  "Vergennes persuaded Louis XVI to secretly fund a front company that bought munitions for the Patriots, shipped in neutral Dutch ships through Sint Eustatius. (story-revolutions-vergennes-secret-funds)",
+  "France signed a commercial agreement with the Americans, followed by a Treaty of Alliance in February 1778. (story-revolutions-alliance-1778)",
+  "France spent 1.3 billion livres to support the Americans directly, besides what it spent fighting Britain elsewhere. (story-revolutions-france-direct-aid-cost)"
+ ],
+ "rev_yorktown": [
+  "At the Chesapeake de Grasse prepared 24 ships of the line to meet the British. (story-revolutions-chesapeake-french-fleet)",
+  "Graves sailed to the Chesapeake with 19 ships of the line. (story-revolutions-chesapeake-british-fleet)",
+  "Washington never directly commanded more than 17,000 men, and the combined Franco-American army at Yorktown was only about 19,000. (story-revolutions-yorktown-allied-army)",
+  "In 1780 Rochambeau landed at Newport with a fleet and 6,000 French troops to join Washington's Continental Army. (story-revolutions-rochambeau-1780)",
+  "At Yorktown 8,000 soldiers and 214 artillery pieces were captured. (story-revolutions-yorktown-captured)",
+  "The Treaty of Paris was signed on 3 September 1783 by Adams, Franklin, Jay and Hartley. (story-revolutions-treaty-paris-1783)"
+ ],
+ "rev_debt": [
+  "The American war cost 1,066 million livres, financed by new loans at high interest and no new taxes. (story-revolutions-france-war-cost)",
+  "The war raised the French government's overall debt to about 3.315 billion (livres tournois). (story-revolutions-france-debt-after-war)",
+  "By 1788 half of French state revenue went on servicing the monarchy's debt. (story-revolutions-debt-service-1788)",
+  "On the eve of the Revolution the Church held upwards of 7% of France's land and had yearly revenues of 150 million livres. (story-revolutions-church-wealth-1789)",
+  "By the end of the 18th century France had 28 million people, against Britain's 12 million and Russia's 35 to 40 million. (story-revolutions-europe-populations-1790s)"
+ ],
+ "rev_estates": [
+  "The Estates-General of 1789 had 1,219 deputies: 302 for the clergy, 289 for the nobility and 611 for the Third Estate. (story-revolutions-estates-deputies-1789)",
+  "The Third Estate, doubled in 1789, represented about 98 percent of a population of roughly 28 million. (story-revolutions-estates-population-1789)",
+  "The First Estate represented 115,000 to 150,000 Catholic clergy, less than 1 per cent of the population. (story-revolutions-clergy-1789)"
+ ],
+ "rev_bastille": [
+  "On 14 July 1789 the Bastille held only seven inmates when it was stormed. (story-revolutions-bastille-seven)",
+  "After the storming of the Bastille on 14 July the Assembly abolished feudalism, put the Church under state control and issued the Declaration of the Rights of Man. (story-revolutions-bastille-assembly-measures)",
+  "On 2 November 1789 Church property held for revenue was nationalized and used as the backing for the assignats. (story-revolutions-church-property-1789)"
+ ],
+ "rev_king": [
+  "On 21 January 1793 Louis XVI, aged 38, was beheaded by guillotine on the Place de la Révolution. (story-revolutions-louis-executed)",
+  "In 1793 Austria, Sardinia, Naples, Prussia, Spain and Great Britain formed the First Coalition to curtail revolutionary France. (story-revolutions-first-coalition-1793)",
+  "Marie Antoinette was executed on 16 October 1793. (story-revolutions-marie-antoinette-executed)"
+ ],
+ "rev_levee": [
+  "In February 1793 the French National Convention decreed a national levy of about 300,000 men, a step toward the levee en masse. (archetypes-napoleon-levy-1793)",
+  "The Committee of Public Safety was formed on 6 April 1793 and the levée en masse drafted all men aged 18 to 25 into the army in August 1793. (story-revolutions-levee-en-masse-1793)",
+  "Depending on the source, the number of men conscripted by the French levy ranges from 750,000 to around 800,000. (archetypes-napoleon-levy-conscripts)"
+ ],
+ "rev_terror": [
+  "By the end of the Terror 16,594 official death sentences had been dispensed in France since June 1793, 2,639 of them in Paris. (story-revolutions-terror-death-sentences)",
+  "Between 10 June and 27 July 1794, after the Law of 22 Prairial, another 1,366 were executed. (story-revolutions-terror-prairial)",
+  "On 28 July 1794 Robespierre and twenty-one Robespierrists were sentenced to death by the Revolutionary Tribunal without a hearing. (story-revolutions-robespierre-executed)"
+ ],
+ "rev_brumaire": [
+  "The bloodless coup of 18 Brumaire, on 9 November 1799, overthrew the Directory and replaced it with the French Consulate. (story-revolutions-coup-1799)",
+  "The Consulate's constitution was approved by plebiscite on 7 February 1800. (story-revolutions-plebiscite-1800)",
+  "In April 1802 Bonaparte celebrated peace and his Concordat of 1801, under which the pope recognized his regime and the regime recognized Catholicism as the majority religion. (story-revolutions-concordat-recognition)"
+ ],
+ "rev_crown": [
+  "In April 1802 Bonaparte celebrated peace and his Concordat of 1801, under which the pope recognized his regime and the regime recognized Catholicism as the majority religion. (story-revolutions-concordat-recognition)",
+  "The Concordat of 1801 declared that Catholicism was the religion of the great majority of the French, but not the official state religion. (story-revolutions-concordat-majority)",
+  "On 18 May 1804 the Senate vested the government of the French Republic in an emperor, Napoleon. (archetypes-napoleon-emperor-1804)",
+  "The hereditary empire was confirmed by a plebiscite in June 1804: 3.5 million yes and 2,569 no officially, the yes count falsely inflated by 300,000 to 500,000. (story-revolutions-plebiscite-1804)",
+  "Napoleon's coronation, with the participation of Pope Pius VII, took place at Notre Dame de Paris on 2 December 1804. (story-revolutions-coronation-date)",
+  "Napoleon decided to crown himself, so the coronation omitted the formula that showed a monarch receiving his crown from the Church. (archetypes-napoleon-crowned-himself)",
+  "Britain, Russia, Sweden and the Ottoman Empire refused to recognize Napoleon's imperial title; Austria recognized it in return for his recognition of Francis I as Emperor of Austria. (story-revolutions-recognition-1804)"
+ ],
+ "rev_trafalgar": [
+  "Britain declared war on France in May 1803, beginning the Napoleonic Wars, and repeatedly financed France's enemies in Continental Europe. (story-revolutions-britain-war-1803)",
+  "Britain allied with Austria, Russia and minor powers to form the Third Coalition in April 1805. (story-revolutions-third-coalition-1805)",
+  "After 1793 Britain doubled its frigates, added 50 per cent more ships of the line and raised its sailors from 15,000 to 133,000 in eight years. (story-revolutions-navy-expansion)",
+  "Nelson's fleet at Trafalgar numbered 27 ships of the line and four frigates. (story-revolutions-trafalgar-british-fleet)",
+  "At Trafalgar Villeneuve fielded 33 ships of the line against Nelson. (story-revolutions-trafalgar-fleet)",
+  "At Trafalgar 18 French and Spanish ships were captured or destroyed while the British lost none. (story-revolutions-trafalgar-result)"
+ ],
+ "rev_austerlitz": [
+  "At Austerlitz Napoleon had some 72,000 men and 157 guns, against about 85,000 Allied soldiers, seventy percent of them Russian, and 318 guns. (story-revolutions-austerlitz-french-force)",
+  "Allied casualties at Austerlitz stood at about 36,000 out of an army of 89,000, about 38% of their effective forces. (story-revolutions-austerlitz-allied-losses)",
+  "The Grande Armee advanced with the bataillon-carre system and decisively defeated the Prussians at Jena and Auerstedt on 14 October 1806. (archetypes-napoleon-jena-1806)",
+  "At Jena in 1806 the Prussian army was about 130,000 Prussians and 20,000 Saxons. (story-revolutions-jena-prussian-army)"
+ ],
+ "rev_russia": [
+  "The Continental System, a large-scale embargo of Britain, ran from the Berlin Decree of 21 November 1806 until 11 April 1814. (story-revolutions-berlin-decree)",
+  "The loss of Britain as a trading partner also hit the economies of France and its allies, and angry governments ignored the system. (story-revolutions-system-weakened-coalition)",
+  "In November 1808 Napoleon's Armée d'Espagne of 278,670 men faced 80,000 raw, disorganized Spanish troops on the Ebro. (story-revolutions-spain-1808)",
+  "In total, excluding Austrian and Prussian contingents, Napoleon deployed 600,000 soldiers against Russia, only half of them from France. (story-revolutions-russia-deployed-600k)",
+  "By 1812 the Russian army reached a peak strength of 904,000, with perhaps 100,000 near Moscow. (story-revolutions-russia-army-peak-1812)",
+  "Of an original force of 615,000, only 110,000 survivors stumbled back; Napoleon lost more than 500,000 men in Russia. (story-revolutions-russia-survivors)"
+ ],
+ "rev_coalition": [
+  "Total cash subsidies to Britain's allies came to £46,289,549 from 1793 to 1814. (story-revolutions-britain-subsidies-total)",
+  "British subsidies paid for a large proportion of the Austrian and Russian soldiers, peaking at about 450,000 in 1813. (story-revolutions-britain-subsidy-peak)",
+  "The Battle of Leipzig involved about 560,000 soldiers, 2,200 guns and 133,000 casualties. (story-revolutions-leipzig-scale)",
+  "At Leipzig the Coalition armies of Austria, Prussia, Sweden and Russia decisively defeated Napoleon's Grande Armée. (story-revolutions-leipzig-coalition)",
+  "In 1815 about 250,000 Frenchmen faced about 850,000 allied soldiers on four fronts. (story-revolutions-allied-1815)",
+  "The French army at Waterloo was around 74,500, with 254 guns; Napoleon had raised about 300,000 men by June. (story-revolutions-french-waterloo-army)",
+  "Wellington was eventually aided by the progressively arriving 50,000 Prussians who struck the French flank at Waterloo. (story-revolutions-waterloo-prussians)",
+  "Napoleon abdicated four days after Waterloo, and coalition forces entered Paris on 7 July. (story-revolutions-napoleon-abdicated)"
+ ],
+ "rev_vienna": [
+  "The Congress of Vienna, chaired by Metternich, was held from September 1814 to June 1815. (archetypes-vienna-congress-dates)",
+  "The goal at Vienna was not simply to restore old boundaries but to resize the main powers so they could balance each other and remain at peace. (story-revolutions-vienna-goal)",
+  "The Congress of Vienna's Concert of Europe was built on closed-doors dealing among the five Great Powers: Austria, Britain, Russia, Prussia and France. (story-revolutions-vienna-five-powers)",
+  "Britain's national debt soared to £679 million, more than double GDP, and the whole cost of the war came to £831 million. (story-revolutions-britain-debt)",
+  "Total cash subsidies to Britain's allies came to £46,289,549 from 1793 to 1814. (story-revolutions-britain-subsidies-total)",
+  "The Vienna settlement gave birth to the Concert of Europe, which maintained the balance of powers until the First World War in 1914. (archetypes-vienna-concert-of-europe)"
+ ]
 }

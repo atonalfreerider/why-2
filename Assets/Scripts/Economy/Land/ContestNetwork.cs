@@ -64,6 +64,7 @@ namespace Why.Economy.Land
             public Advantage.Presence Presence;  // what a satellite (or a company in its own stratum) does there
             public float Territory;              // an advantage boundary's radius on its stratum (0: none); rivals stand outside
             public float Reach;                  // how far its drawn body reaches sideways (its balance sheet can outgrow its value's R)
+            public List<Part> CustomParts;       // a body that is not a company's balance sheet (history's states, armies, faiths)
 
             /// <summary>Its radius for keeping apart: the larger of its value's shell and its drawn body's reach.</summary>
             public float Room => Mathf.Max(R, Reach);
@@ -101,11 +102,18 @@ namespace Why.Economy.Land
             public readonly PartKind Kind;
             public readonly Vector3 Offset;      // from the organism's centre
             public readonly float Radius;
-            public readonly double UsdBn;
+            public readonly double UsdBn;        // its amount (dollars for a balance sheet; people, troops or ships for history's actors)
+            public readonly Color Tint;          // its colour when it is not a balance sheet's (alpha 0: the part kind's own)
+            public readonly float Solid;         // how tangible it reads (0: the part kind's own)
 
             public Part(PartKind kind, Vector3 offset, float radius, double usd)
             {
-                Kind = kind; Offset = offset; Radius = radius; UsdBn = usd;
+                Kind = kind; Offset = offset; Radius = radius; UsdBn = usd; Tint = default; Solid = 0;
+            }
+
+            public Part(PartKind kind, Vector3 offset, float radius, double usd, Color tint, float solid)
+            {
+                Kind = kind; Offset = offset; Radius = radius; UsdBn = usd; Tint = tint; Solid = solid;
             }
         }
 
@@ -572,6 +580,7 @@ namespace Why.Economy.Land
 
         public static List<Part> PartsOf(Body b)
         {
+            if (b.CustomParts != null) return b.Alive ? b.CustomParts : new List<Part>();
             var parts = new List<Part>(9);
             var sheet = b.Actor?.Sheet;
             if (sheet == null || !b.Alive) return parts;

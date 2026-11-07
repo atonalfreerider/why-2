@@ -52,7 +52,7 @@ namespace Why.Economy
         /// hills on other governments' foundations, and the present taken apart. The wave stays as faint context and every other layer steps back, so
         /// the story reads alone.
         /// </summary>
-        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage";
+        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage" || id == "history";
 
         /// <summary>The presets with a spec of their own (the others copy the overview's, <see cref="Get"/>).</summary>
         static readonly string[] OwnSpecs =
@@ -108,6 +108,8 @@ namespace Why.Economy
             Alphas(s);
             // a focused view's structure stands in front of the road, whose labels step aside
             if (Focused(presetId)) s.HideRoadLabels = true;
+            // history floats over the wave of its years: the wave's own names (its terraces, the crown) would be read as its
+            if (presetId == "history") s.Labels = Array.Empty<LandGroup>();
             specs[presetId] = s;
             return s;
         }

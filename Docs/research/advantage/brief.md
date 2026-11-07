@@ -286,3 +286,47 @@ Give a new actor its market cap (`marketCap`, dated 2026) when it is public, so 
 | `entry` | The barriers that keep new entrants out, and what happened to the entrants. **Talent**: frontier researchers' pay (Meta's 2025 offers, the labs' packages), stock-based compensation as a share of pay, the licence-and-hire and acqui-hire deals (Inflection by Microsoft, Character.AI and Windsurf by Google, Adept by Amazon, Scale AI's stake by Meta, Groq by NVIDIA). **Capital**: what a frontier training run costs, the capex of the incumbents against what an entrant can raise, the funding of new labs (Thinking Machines, Safe Superintelligence, Mistral, Reflection) and chip start-ups (Cerebras, Groq, SambaNova, Tenstorrent, Etched), and how each fared. **Custom silicon** as entry into NVIDIA's layer (Google's TPU sales to Anthropic and others, Amazon's Trainium for Anthropic, OpenAI with Broadcom and AMD). As `barriers` and `entrants` entries. |
 | `integration` | Vertical and horizontal integration, as `presence` entries with evidence: in which strata each company works. Alphabet (TPU, Gemini, Google Cloud, Search, YouTube, Android), Amazon (Trainium, its models, AWS, retail), Microsoft (Maia, its models and its OpenAI stake, Azure, Windows and Office, LinkedIn, GitHub, Xbox), Meta (MTIA, Llama, its own data centres, its apps), Apple (its silicon, Apple Intelligence, its devices), NVIDIA (chips, networking, systems, its cloud, its models), Tesla, SpaceX with xAI (Colossus, Grok, Starlink, X), Samsung (devices, memory, foundry), Intel (design and foundry), Broadcom (chips and VMware), Oracle, Alibaba, Huawei and Tencent. Horizontal: the families of products each holds in one stratum (Meta's apps, Microsoft's software, Alphabet's platforms, Broadcom's acquisitions). |
 | `materials` | The two deepest strata. **Raw materials** for the AI supply chain, with the companies and countries that control them: silicon wafers (Shin-Etsu, SUMCO, GlobalWafers shares), rare earths (China's share of mining and processing; its 2025 export controls; MP Materials and the US Department of Defense deal), gallium and germanium (China's share; its export bans), copper (data-centre demand; Freeport-McMoRan, BHP, Codelco), high-purity quartz, neon and helium, and the fuels for power (gas, uranium). Add their market caps when public. **Government**: the CHIPS Act's grants, the US government's stake in Intel, export-control rules and licence deals (H20), China's controls, Taiwan, the Netherlands and Japan (Rapidus), the EU Chips Act, sovereign funds' roles, semiconductor tariffs. As actors (`layer` `materials` or `state`), facts, flows (subsidies and stakes as flows from the state) and `presence` entries. |
+
+## Round four: competitive advantage through history (7 Nov 2026)
+
+The user's sixth direction is verbatim in `brief-v4.md`. Every kind of actor, not companies alone, becomes a body whose
+power is drawn from its parts. That includes states, armies, populations, religious groups, alliances and movements.
+Competitive advantage is tracked through moments (dated contests) and periods. Two stories are told as narrated
+walkthroughs. Each needs facts with numbers for every actor at the years the story visits, so the app can draw the
+actor's size through time and open a cross-section at any of those years.
+
+Add these arrays to your JSON, next to `facts` and `actors`. Every entry lists the fact ids it rests on, and only
+verified facts carry numbers.
+
+```json
+"actors": [{"id": "france", "name": "Kingdom of France", "kind": "state|army|navy|population|religion|alliance|movement|company|lab",
+            "qid": "Q70972", "from": 1589, "to": 1792, "successor": "french-republic", "role": "...", "facts": ["..."]}],
+"series": [{"actor": "france", "year": 1789, "part": "population|army|navy|revenue|debt|gdp|gdpShare|territory|adherents|marketValue|valuation|revenue|users|employees|parameters|compute|transistors",
+            "value": 28, "unit": "million people", "fact": "rev-france-population-1789"}],
+"moments": [{"id": "m-yorktown", "year": 1781, "date": "1781-10-19", "title": "Yorktown", "holder": "continental-army",
+             "rivals": ["british-army"], "allies": ["french-army", "french-navy"],
+             "advantage": "a phrase", "power": "one of the 7 Powers or the triad's word", "triad": "information|execution|environment",
+             "mechanism": "one or two sentences", "outcome": "what happened, with numbers", "facts": ["..."]}],
+"periods": [{"id": "p-terror", "from": "1793-09", "to": "1794-07", "title": "The Terror", "actors": ["french-republic"],
+             "what": "one sentence", "facts": ["..."]}],
+"moats": [{"actor": "royal-navy", "from": 1793, "to": 1815, "market": "command of the sea",
+           "sources": [{"source": "technology|supplyChain|patents|capital|talent|scale|distribution|regulation|legitimacy|geography",
+                        "what": "short label with its number", "facts": ["..."]}],
+           "rivals": ["french-navy"], "facts": ["..."]}],
+"people": [{"id": "napoleon", "name": "Napoleon Bonaparte", "qid": "Q517", "born": 1769, "died": 1821, "role": "...",
+            "actors": ["french-empire"], "facts": ["..."]}]
+```
+
+- **Parts.** Give each actor its parts at each year the story visits. A state has a population, an army, revenue and
+  debt (and territory where you find it). An army has troops. A navy has ships of the line. A religion has adherents.
+  A company has its market value, revenue and employees. A lab has its valuation, users and model scale (parameters
+  or compute). Write the unit in each series row exactly as the fact gives it.
+- **Identity.** Give every actor and person its Wikidata `qid`, so the app can fetch their logo, flag or portrait
+  (`Tools/images/fetch.py`, free-licensed only).
+- **Sources.** History may cite Wikipedia sentences, encyclopaedias, university pages and primary documents. Respect
+  the rules above: whole-sentence quotes, every number in its quote, and `dated2026` false for history.
+
+| Cluster | Scope |
+| --- | --- |
+| `story-ai` | The American century to the AI revolution, 1945-2026. The United States' share of world output after 1945 and its rival the USSR; Bell Labs' transistor (1947) and its inventors; Shockley Semiconductor and the eight who founded Fairchild (1957); the integrated circuit (Kilby and Noyce); Intel (1968), Moore's law and the microprocessor; TSMC (1987); NVIDIA (1993), the GeForce 256 sold as the first GPU (1999), CUDA (2006-2007); AlexNet trained on two GTX 580s (2012); "Attention Is All You Need" (June 2017) and its eight authors at Google; OpenAI (2015), GPT-1, GPT-2, GPT-3 (175 billion parameters), the scaling laws (2020), ChatGPT (30 November 2022) and its users; the AI revolution to 2026 (NVIDIA's market value milestones, hyperscaler capex, the labs' valuations). Series for each actor at the years the story visits (1947, 1957, 1968, 1971, 1987, 1993, 1999, 2006, 2012, 2017, 2020, 2022, 2026 where they apply). Moments for each turn of the lineage, moats for NVIDIA, Google and OpenAI at their periods, people with QIDs. Reuse the verified `lineage-*`, `century-*`, `compute-*` and `labs-*` facts in model.json by id. |
+| `story-revolutions` | The age of revolutions, 1775-1815. The American Revolution and its armies; French support (the 1778 alliance, the money France spent, Lafayette, Rochambeau, de Grasse and Yorktown, 1781); the French monarchy's fiscal collapse (the debt, its interest's share of revenue, the Estates-General of 1789); the Revolution (the Bastille, the Declaration of the Rights of Man, the king's execution in 1793); tyranny (the Terror, its executions, Robespierre); Napoleon (the coup of 1799, the Concordat with the Catholic Church in 1801, the coronation of 1804 at which he crowned himself before the Pope, Austerlitz 1805); Europe out of balance (the Continental System, the Grande Armée's size in 1812 and its losses in Russia); the alliance against France (the seven coalitions, British subsidies, Leipzig 1813, Waterloo 1815, the Congress of Vienna). Actors: the states (Britain, France in its regimes, Spain, Austria, Prussia, Russia, the United States), their armies and navies (the Royal Navy, the Grande Armée), the Catholic Church, the French population and its estates, the coalitions. Series at 1775, 1781, 1789, 1793, 1799, 1804, 1805, 1812, 1813, 1815 where they apply. Moats per period (Britain's navy and credit; the levée en masse and the corps system; Napoleon's command and his crowned legitimacy; Russia's space). People with QIDs. Reuse the verified `archetypes-*` facts on Napoleon by id. |

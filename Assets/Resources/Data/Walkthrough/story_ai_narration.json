@@ -1,0 +1,70 @@
+{
+  "voice": "JohnV4",
+  "generated": "2026-11-07",
+  "steps": [
+    {
+      "id": "ai_century",
+      "narration": "Every actor in this story is a tube through time. Its thickness is what it measured: a nation's output, a company's value, a laboratory's users. Time runs from left to right, from nineteen forty-five to today. In nineteen forty-one, the publisher Henry Luce had urged his country to give up isolation for a role in the world. Open the year nineteen fifty, and the tubes swell into bodies. After the Second World War, the United States made half of the world's industrial output and held eighty percent of its gold. At Bretton Woods it insisted that the monetary system rest on gold and the dollar, and under the Marshall Plan it sent thirteen point three billion dollars to seventeen European countries. By nineteen fifty its economy was nearly three times the Soviet Union's."
+    },
+    {
+      "id": "ai_transistor",
+      "narration": "Now look how small the next advantage is. In nineteen forty-seven, three physicists at Bell Labs, John Bardeen, Walter Brattain and William Shockley, invented the transistor. Their laboratory belonged to the Bell System: AT&T, twenty-four local telephone companies, and Western Electric, which made almost all of its equipment. The three shared the Nobel Prize in Physics in nineteen fifty-six. Work done at Bell Labs has won eleven Nobel Prizes. Its ring of advantage is technology, and the Bell System's capital."
+    },
+    {
+      "id": "ai_eight",
+      "narration": "In nineteen fifty-five, Shockley founded a laboratory of his own. Two years later, eight of his engineers walked out. Among them were Robert Noyce and Gordon Moore. With backing from Sherman Fairchild, they founded Fairchild Semiconductor on the eighteenth of September nineteen fifty-seven, to make transistors of silicon when germanium was still the common material. Fairchild became an incubator of Silicon Valley: its alumni created dozens of companies, Intel and AMD among them."
+    },
+    {
+      "id": "ai_chip",
+      "narration": "At Texas Instruments in nineteen fifty-eight, Jack Kilby made the first integrated circuit. In nineteen fifty-nine, Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Fairchild sold its first batch of one hundred devices to IBM, at a hundred and fifty dollars apiece, for the computer of the B-70 bomber. Kilby won the Nobel Prize in two thousand for his part in the invention."
+    },
+    {
+      "id": "ai_microprocessor",
+      "narration": "In nineteen sixty-eight, Noyce and Moore founded Intel. In nineteen seventy, Federico Faggin left Fairchild for Intel, to design its first microprocessors. In nineteen seventy-one, Intel introduced the four-oh-oh-four, built for Busicom: two thousand three hundred transistors on a single chip, which the silicon-gate process made possible. In nineteen seventy-five, Moore revised his forecast to a doubling of components every two years."
+    },
+    {
+      "id": "ai_pc",
+      "narration": "Intel made the first commercial microprocessor, but it was the personal computer that made it Intel's primary business. On the twelfth of August nineteen eighty-one, IBM released its PC, with an Intel 8088 processor. In nineteen eighty-three, Japanese memory makers squeezed Intel's profits, and Andy Grove refocused the company on microprocessors. In nineteen eighty-six Compaq, the first maker of IBM clones, shipped the first system based on Intel's 80386, beating IBM, and making Intel a key component supplier. By the end of nineteen ninety-nine, Intel was worth two hundred and seventy-four point four billion dollars."
+    },
+    {
+      "id": "ai_foundry",
+      "narration": "In nineteen eighty-seven, Taiwan's government, its research institute and private investors founded TSMC, the world's first dedicated semiconductor foundry. Morris Chang founded it. Philips put in fifty-eight million dollars and its production technology, for a stake of twenty-seven point six percent. In the second quarter of twenty twenty-six, TSMC took seventy-two and a half percent of the revenue of the world's ten largest foundries."
+    },
+    {
+      "id": "ai_gpu",
+      "narration": "In nineteen ninety-six, Jensen Huang laid off more than half of Nvidia's people, from a hundred to forty, to focus on one chip, the RIVA 128. In January nineteen ninety-nine it went public, and late that year it released the GeForce two fifty-six, the first product it called a GPU: seventeen million transistors, made by TSMC. Open nineteen ninety-nine and compare the bodies. Intel was worth two hundred and seventy-four billion dollars. Nvidia was worth less than one billion. A year later it agreed to buy the intellectual assets of its rival, 3dfx."
+    },
+    {
+      "id": "ai_cuda",
+      "narration": "In two thousand seven, Nvidia released CUDA, its development environment, created three years before. Twenty years later, CUDA has six million developers, and it dominates the market for GPU development against AMD's alternative."
+    },
+    {
+      "id": "ai_alexnet",
+      "narration": "In twenty twelve, Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton trained AlexNet, a network of sixty million parameters, for five to six days on two Nvidia GTX 580s, priced at five hundred dollars each. It won the twenty twelve ImageNet competition with a top-five error of fifteen point three percent, more than ten point eight points better than the runner-up. Look at the bodies. At the end of twenty twelve, Nvidia was worth seven point six six billion dollars, Intel a hundred and one point nine billion, and TSMC eighty-six point eight billion. At the end of twenty seventeen, Nvidia was worth a hundred and seventeen point three billion."
+    },
+    {
+      "id": "ai_attention",
+      "narration": "On the twelfth of June twenty seventeen, eight researchers at Google posted a paper called Attention Is All You Need. Earlier models, built with recurrence, were hard to spread across GPUs. The Transformer was built on attention alone, and reached forty-one point eight BLEU in English to French after three and a half days on eight GPUs. Google published it. All eight authors later left the company, and the paper has been cited more than a hundred and fifty thousand times."
+    },
+    {
+      "id": "ai_scaling",
+      "narration": "Watch OpenAI's tube. GPT-1 had a hundred and seventeen million parameters. The full GPT-2, in November twenty nineteen, had one and a half billion. In January twenty twenty, Kaplan and his colleagues showed that a language model's loss falls as a power law as its size, its data and its compute grow, over more than seven orders of magnitude. In May came GPT-3: a hundred and seventy-five billion parameters, ten times any earlier dense model. Microsoft had invested a billion dollars in twenty nineteen and moved OpenAI onto Azure, and in September twenty twenty it licensed GPT-3 exclusively."
+    },
+    {
+      "id": "ai_chatgpt",
+      "narration": "On the thirtieth of November twenty twenty-two, OpenAI released ChatGPT. Two months later it had a hundred million monthly users. In January twenty twenty-three, Microsoft invested another ten billion dollars, much of it to be spent on Azure computing. By February twenty twenty-six, ChatGPT had nine hundred million weekly users. In October twenty twenty-five, OpenAI was valued at five hundred billion dollars, and later at eight hundred and fifty-two billion."
+    },
+    {
+      "id": "ai_test",
+      "narration": "In January twenty twenty-five, the lab DeepSeek released a model that, by its authors' account, had needed only two point seven eight eight million GPU hours to train. On the twenty-seventh of January, Nvidia lost more than five hundred and eighty-nine billion dollars of market value, which Forbes called the biggest single-day loss for any company. On the twenty-ninth of October, Nvidia became the first company worth five trillion dollars."
+    },
+    {
+      "id": "ai_trillions",
+      "narration": "In twenty twenty-three, Nvidia became the seventh American company worth a trillion dollars. It took a hundred and eighty days to go from one trillion to two; Apple and Microsoft each took more than five hundred. On the twenty-ninth of October twenty twenty-five, it became the first company worth five trillion dollars. Its ring of advantage has six walls: technology, supply, patents, capital, talent and scale. Its share of AI accelerators is expected to be about seventy-five percent in twenty twenty-six, down from a peak near eighty-seven."
+    },
+    {
+      "id": "ai_now",
+      "narration": "And here is the present. Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend between eight hundred and three and eight hundred and twenty-eight billion dollars on capital in twenty twenty-six. Over eight quarters, Nvidia's data-centre revenue has equalled between thirty-nine and forty-seven percent of what the largest clouds spend. Anthropic was valued at nine hundred and sixty-five billion dollars in May twenty twenty-six, OpenAI at eight hundred and fifty-two billion."
+    }
+  ]
+}

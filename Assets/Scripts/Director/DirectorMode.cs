@@ -208,6 +208,7 @@ namespace Why.Director
 
         public override void Init(GraphRoot graphRoot)
         {
+            Current = this;
             root = graphRoot;
             root.TourRequested += StartTour;
             root.FocusChanged += OnFocusChanged;
@@ -267,6 +268,8 @@ namespace Why.Director
 
         void OnDestroy()
         {
+            if (Current == this) Current = null;
+            TourScript.Story = null;
             if (root == null) return;
             root.TourRequested -= StartTour;
             root.FocusChanged -= OnFocusChanged;
@@ -314,6 +317,26 @@ namespace Why.Director
 
         // ------------------------------------------------------------------ tour lifecycle
 
+        /// <summary>The director of the scene shown (set when it loads), for the panels that start a story.</summary>
+        public static DirectorMode Current { get; private set; }
+
+        /// <summary>Plays a story's walkthrough (a Resources path, <see cref="TourScript.Story"/>) instead of the scene's tour;
+        /// leaving it brings the scene's own tour back.</summary>
+        public void StartStory(string walkthrough)
+        {
+            if (Resources.Load<TextAsset>(walkthrough) == null)
+            {
+                Debug.LogWarning("[Why] tour: no story at Resources/" + walkthrough);
+                return;
+            }
+
+            if (active) ExitTour();
+            TourScript.Story = walkthrough;
+            steps = null;    // the story's script loads in its place
+            chapters = null;
+            StartTour();
+        }
+
         /// <summary>Starts the guided tour. Requests made while the graph is loading start it once loaded.</summary>
         public void StartTour()
         {
@@ -356,6 +379,13 @@ namespace Why.Director
             markers.Clear();
             stepVersion++;
             ReleaseUiFocus();
+            if (TourScript.Story != null)
+            {
+                // a story ends: the scene's own tour is the one the guided-tour button plays again
+                TourScript.Story = null;
+                steps = null;
+                chapters = null;
+            }
         }
 
         /// <summary>The universe tour's last card: open the economy scene and keep narrating there.</summary>
@@ -528,6 +558,10 @@ namespace Why.Director
         void ShowTitleCard()
         {
             Frame(TitlePreset(), null, out _);
+            // a view with states of its own opens on the first stop's (a story's first year), not whatever it showed last
+            if (steps.Count > 0 && steps[0].Step.Cues.Count > 0 && steps[0].Preset != null && ViewVariants.TryGet(steps[0].Preset.Id, out ViewVariants.Entry first))
+                for (int i = 0, n = first.Count(); i < n; i++)
+                    if (first.Name(i) == steps[0].Step.Cues[0].Show) { first.Show(i); break; }
             Highlighter.Clear();
             narrator.Stop();
             stepDuration = TitleCardSeconds;
@@ -538,9 +572,11 @@ namespace Why.Director
             panel.Present(new PanelContent
             {
                 Card = true,
-                Kicker = "Guided tour",
+                Kicker = TourScript.Story != null ? "A story" : "Guided tour",
                 Title = script.Title,
-                Body = (GraphScene.IsEconomy
+                Body = (!string.IsNullOrEmpty(script.Intro)
+                           ? script.Intro + $" {steps.Count} stops, about {minutes} minutes. "
+                           : GraphScene.IsEconomy
                            ? $"{steps.Count} stops through the economy of the United States, from 1946 to this year, about {minutes} minutes. "
                            : $"{steps.Count} stops through 13.8 billion years of cause and effect, about {minutes} minutes. ") +
                        "The narration moves on by itself; move the camera at any time to pause and look around.",
@@ -636,6 +672,26 @@ namespace Why.Director
 
         void ShowEndCard()
         {
+            if (TourScript.Story != null && !string.IsNullOrEmpty(script.End))
+            {
+                // a story's end stays on its last picture, in its own words
+                Highlighter.Clear();
+                narrator.Stop();
+                stepDuration = 0;
+                panel.Present(new PanelContent
+                {
+                    Card = true,
+                    Kicker = "The end of the story",
+                    Title = script.Title,
+                    Body = script.End,
+                    PrimaryLabel = "Explore",
+                    Primary = ExitTour,
+                    SecondaryLabel = "Restart",
+                    Secondary = Restart
+                }, size => PanelPlacement.Choose(size, CanvasSize, false, Vector2.zero, true));
+                return;
+            }
+
             Anchors.TryGet("now", out Anchor now);
             bool hasTarget = Frame(EndPreset(), now, out Vector2 placeAt);
             target = now;

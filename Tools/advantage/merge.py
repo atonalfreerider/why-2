@@ -93,7 +93,9 @@ def main():
     report = {"dropped flows": [], "stub actors": [], "actors without size": [], "duplicates": []}
     facts, actors, order = {}, {}, []
     # round three (brief.md, "Round three"): advantage boundaries, presence in the strata, barriers to entry, entrants
-    lists = {"flows": [], "chokepoints": [], "flashpoints": [], "lineage": [], "moats": [], "presence": [], "barriers": [], "entrants": []}
+    lists = {"flows": [], "chokepoints": [], "flashpoints": [], "lineage": [], "moats": [], "presence": [], "barriers": [], "entrants": [],
+             # round four (brief.md, "Round four"): history's actors' parts by year, its moments, periods and people
+             "series": [], "moments": [], "periods": [], "people": []}
     seen = {k: set() for k in lists}
     names = clusters()
     for name in names:
@@ -125,9 +127,12 @@ def main():
                     m[k] = a[k]
             if isinstance(a.get("triad"), dict) and not m.get("triad"):
                 m["triad"] = a["triad"]
-            for k in ("founded", "ended"):
+            for k in ("founded", "ended", "qid", "from", "to", "successor"):
                 if a.get(k) and not m.get(k):
                     m[k] = a[k]
+            m.setdefault("clusters_story", [])
+            if name.startswith("story-"):
+                m["clusters_story"].append(name)
             for k in LISTS:
                 for x in a.get(k) or []:
                     m.setdefault(k, [])
@@ -141,7 +146,9 @@ def main():
                 if item.get("id"):
                     iid = item["id"]
                 elif key == "moats":
-                    iid = f"moat-{item.get('actor', '')}-{item.get('stratum', '')}-{slug(item.get('market'))}"
+                    iid = f"moat-{item.get('actor', '')}-{item.get('stratum') or item.get('from') or ''}-{slug(item.get('market'))}"
+                elif key == "series":
+                    iid = f"series-{item.get('actor', '')}-{item.get('year', '')}-{item.get('part', '')}"
                 elif key == "presence":
                     iid = f"presence-{item.get('actor', '')}-{item.get('stratum', '')}"
                 elif key == "barriers":
@@ -176,6 +183,22 @@ def main():
     # round three's entries rest on verified facts: each keeps only its verified facts, and one with none is dropped
     def verified(ids):
         return [x for x in ids or [] if ok(x)]
+    series = []
+    for row in lists["series"]:
+        if ok(row.get("fact")) and number(row.get("value")) is not None:
+            series.append(dict(row, value=number(row["value"])))
+        else:
+            report.setdefault("dropped series", []).append(row["id"])
+    lists["series"] = series
+    for key in ("moments", "periods", "people"):
+        kept = []
+        for item in lists[key]:
+            item = dict(item, facts=[x for x in item.get("facts") or [] if ok(x)])
+            if key != "people" and not item["facts"]:
+                report.setdefault("dropped " + key, []).append(item["id"])
+                continue
+            kept.append(item)
+        lists[key] = kept
     for key in ("moats", "presence", "barriers", "entrants"):
         kept = []
         for item in lists[key]:

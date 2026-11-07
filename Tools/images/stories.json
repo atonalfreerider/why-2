@@ -1,0 +1,716 @@
+[
+ {
+  "id": "henry-luce",
+  "kind": "person",
+  "search": "Henry Luce",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q516473",
+  "hint": "publisher whose 1941 editorial named the American century"
+ },
+ {
+  "id": "john-bardeen",
+  "kind": "person",
+  "search": "John Bardeen",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q949",
+  "hint": "co-inventor of the transistor"
+ },
+ {
+  "id": "walter-brattain",
+  "kind": "person",
+  "search": "Walter Brattain",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q184577",
+  "hint": "co-inventor of the transistor"
+ },
+ {
+  "id": "william-shockley",
+  "kind": "person",
+  "search": "William Shockley",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q163415",
+  "hint": "co-inventor of the transistor; founder of Shockley Semiconductor"
+ },
+ {
+  "id": "robert-noyce",
+  "kind": "person",
+  "search": "Robert Noyce",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q241735",
+  "hint": "invented the monolithic integrated circuit; co-founded Fairchild and Intel",
+  "box": [
+   0.528,
+   0.0,
+   0.359,
+   0.639
+  ]
+ },
+ {
+  "id": "gordon-moore",
+  "kind": "person",
+  "search": "Gordon Moore",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q243969",
+  "hint": "one of the eight; co-founder of Intel; author of Moore's law"
+ },
+ {
+  "id": "jack-kilby",
+  "kind": "person",
+  "search": "Jack Kilby",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q182031",
+  "hint": "built the first integrated circuit at Texas Instruments"
+ },
+ {
+  "id": "andy-grove",
+  "kind": "person",
+  "search": "Andy Grove",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q432929",
+  "hint": "ran Intel through the 1980s and refocused it on microprocessors"
+ },
+ {
+  "id": "federico-faggin",
+  "kind": "person",
+  "search": "Federico Faggin",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q667095",
+  "hint": "left Fairchild for Intel to design the first microprocessors"
+ },
+ {
+  "id": "morris-chang",
+  "kind": "person",
+  "search": "Morris Chang",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q4745214",
+  "hint": "founded TSMC as the first dedicated foundry"
+ },
+ {
+  "id": "jensen-huang",
+  "kind": "person",
+  "search": "Jensen Huang",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q305177",
+  "hint": "co-founder and chief executive of Nvidia"
+ },
+ {
+  "id": "geoffrey-hinton",
+  "kind": "person",
+  "search": "Geoffrey Hinton",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q92894",
+  "hint": "advised AlexNet at the University of Toronto"
+ },
+ {
+  "id": "alex-krizhevsky",
+  "kind": "person",
+  "search": "Alex Krizhevsky",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q28018607",
+  "hint": "built AlexNet"
+ },
+ {
+  "id": "ilya-sutskever",
+  "kind": "person",
+  "search": "Ilya Sutskever",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q21712134",
+  "hint": "AlexNet co-author, then OpenAI co-founder"
+ },
+ {
+  "id": "ashish-vaswani",
+  "kind": "person",
+  "search": "Ashish Vaswani",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q44749723",
+  "hint": "first author of 'Attention Is All You Need'"
+ },
+ {
+  "id": "noam-shazeer",
+  "kind": "person",
+  "search": "Noam Shazeer",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q30251943",
+  "hint": "co-author of 'Attention Is All You Need'"
+ },
+ {
+  "id": "sam-altman",
+  "kind": "person",
+  "search": "Sam Altman",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q7407093",
+  "hint": "co-chair at OpenAI's founding, later its chief executive"
+ },
+ {
+  "id": "sherman-fairchild",
+  "kind": "person",
+  "search": "Sherman Fairchild",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q1528185",
+  "hint": "backer who created the semiconductor division for the eight"
+ },
+ {
+  "id": "united-states-ai",
+  "kind": "government",
+  "label": "United States",
+  "at": 1945,
+  "qid": "Q30"
+ },
+ {
+  "id": "ussr",
+  "kind": "government",
+  "label": "Soviet Union",
+  "at": 1945,
+  "qid": "Q15180"
+ },
+ {
+  "id": "bell-labs",
+  "kind": "company",
+  "label": "Bell Labs",
+  "at": 1947,
+  "qid": "Q217365",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "shockley-semiconductor",
+  "kind": "company",
+  "label": "Shockley Semiconductor Laboratory",
+  "at": 1957,
+  "qid": "Q1138021",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "fairchild",
+  "kind": "company",
+  "label": "Fairchild Semiconductor",
+  "at": 1957,
+  "qid": "Q1096013",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "texas-instruments",
+  "kind": "company",
+  "label": "Texas Instruments",
+  "at": 1959,
+  "qid": "Q193412",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "intel",
+  "kind": "company",
+  "label": "Intel",
+  "at": 1971,
+  "qid": "Q248",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "tsmc",
+  "kind": "company",
+  "label": "TSMC",
+  "at": 1987,
+  "qid": "Q713418",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "nvidia",
+  "kind": "company",
+  "label": "NVIDIA",
+  "at": 1999,
+  "qid": "Q182477",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "google",
+  "kind": "company",
+  "label": "Alphabet (Google)",
+  "at": 2017,
+  "qid": "Q95",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "openai",
+  "kind": "company",
+  "label": "OpenAI",
+  "at": 2020,
+  "qid": "Q21708200",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "microsoft",
+  "kind": "company",
+  "label": "Microsoft",
+  "at": 2020,
+  "qid": "Q2283",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "anthropic",
+  "kind": "company",
+  "label": "Anthropic",
+  "at": 2021,
+  "qid": "Q116758847",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "busicom",
+  "kind": "company",
+  "label": "Busicom",
+  "at": 1971,
+  "qid": "Q1017523",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "3dfx",
+  "kind": "company",
+  "label": "3dfx Interactive",
+  "at": 1999,
+  "qid": "Q229698",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "napoleon",
+  "kind": "person",
+  "search": "Napoleon Bonaparte",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q517",
+  "hint": "general, First Consul, then emperor who crowned himself",
+  "crop": "portrait"
+ },
+ {
+  "id": "louis-xvi",
+  "kind": "person",
+  "search": "Louis XVI",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q7732",
+  "hint": "king of France; allied with the Americans, executed by the Convention",
+  "crop": "portrait"
+ },
+ {
+  "id": "marie-antoinette",
+  "kind": "person",
+  "search": "Marie Antoinette",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q47365",
+  "hint": "queen of France, executed 16 October 1793",
+  "crop": "portrait"
+ },
+ {
+  "id": "george-washington",
+  "kind": "person",
+  "search": "George Washington",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q23",
+  "hint": "commander in chief of the Continental Army",
+  "crop": "portrait"
+ },
+ {
+  "id": "lafayette",
+  "kind": "person",
+  "search": "Marquis de Lafayette",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q186652",
+  "hint": "French major general at 19 in the American army; later commander of the National Guard",
+  "crop": "portrait"
+ },
+ {
+  "id": "rochambeau",
+  "kind": "person",
+  "search": "Comte de Rochambeau",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q508363",
+  "hint": "commander of the French expeditionary force",
+  "crop": "portrait"
+ },
+ {
+  "id": "de-grasse",
+  "kind": "person",
+  "search": "Comte de Grasse",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q197627",
+  "hint": "French admiral who held the Chesapeake",
+  "crop": "portrait"
+ },
+ {
+  "id": "benjamin-franklin",
+  "kind": "person",
+  "search": "Benjamin Franklin",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q34969",
+  "hint": "negotiator of the alliance and of the peace",
+  "crop": "portrait"
+ },
+ {
+  "id": "vergennes",
+  "kind": "person",
+  "search": "Comte de Vergennes",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q726681",
+  "hint": "French foreign minister who built the American alliance",
+  "crop": "portrait"
+ },
+ {
+  "id": "necker",
+  "kind": "person",
+  "search": "Jacques Necker",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q123062",
+  "hint": "finance minister; made the royal accounts public",
+  "crop": "portrait"
+ },
+ {
+  "id": "calonne",
+  "kind": "person",
+  "search": "Charles Alexandre de Calonne",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q437832",
+  "hint": "controller-general who spent to buy a way out of debt",
+  "crop": "portrait"
+ },
+ {
+  "id": "robespierre",
+  "kind": "person",
+  "search": "Maximilien Robespierre",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q44197",
+  "hint": "member of the Committee of Public Safety; executed 28 July 1794",
+  "crop": "portrait"
+ },
+ {
+  "id": "danton",
+  "kind": "person",
+  "search": "Georges Danton",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q184623",
+  "hint": "Montagnard leader, executed in the Terror",
+  "crop": "portrait"
+ },
+ {
+  "id": "sieyes",
+  "kind": "person",
+  "search": "Emmanuel Joseph Sieyès",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q294344",
+  "hint": "theorist of the Third Estate and a plotter of the coup of 18 Brumaire",
+  "crop": "portrait"
+ },
+ {
+  "id": "pius-vii",
+  "kind": "person",
+  "search": "Pope Pius VII",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q124754",
+  "hint": "signed the Concordat; present at the coronation of 1804",
+  "crop": "portrait"
+ },
+ {
+  "id": "nelson",
+  "kind": "person",
+  "search": "Horatio Nelson",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q83235",
+  "hint": "British admiral, killed at Trafalgar",
+  "crop": "portrait"
+ },
+ {
+  "id": "wellington",
+  "kind": "person",
+  "search": "Duke of Wellington",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q131691",
+  "hint": "British commander at Waterloo",
+  "crop": "portrait"
+ },
+ {
+  "id": "pitt",
+  "kind": "person",
+  "search": "William Pitt the Younger",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q128902",
+  "hint": "British prime minister who introduced the income tax and built the coalitions",
+  "crop": "portrait"
+ },
+ {
+  "id": "metternich",
+  "kind": "person",
+  "search": "Klemens von Metternich",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q45662",
+  "hint": "Austrian foreign minister and chair of the Congress of Vienna",
+  "crop": "portrait"
+ },
+ {
+  "id": "alexander-i",
+  "kind": "person",
+  "search": "Alexander I of Russia",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q15193",
+  "hint": "tsar; supreme commander of the Coalition in the east in 1813",
+  "crop": "portrait"
+ },
+ {
+  "id": "kutuzov",
+  "kind": "person",
+  "search": "Mikhail Kutuzov",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q185801",
+  "hint": "Russian commander who decided not to defend Moscow",
+  "crop": "portrait"
+ },
+ {
+  "id": "cornwallis",
+  "kind": "person",
+  "search": "Charles Cornwallis",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q164723",
+  "hint": "British general who surrendered at Yorktown",
+  "crop": "portrait"
+ },
+ {
+  "id": "george-iii",
+  "kind": "person",
+  "search": "George III",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q127318",
+  "hint": "king of Great Britain during the American war and the French wars",
+  "crop": "portrait"
+ },
+ {
+  "id": "talleyrand",
+  "kind": "person",
+  "search": "Charles-Maurice de Talleyrand-Périgord",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q160499",
+  "hint": "French foreign minister who brought France back to the Great Powers at Vienna",
+  "crop": "portrait"
+ },
+ {
+  "id": "blucher",
+  "kind": "person",
+  "search": "Gebhard Leberecht von Blücher",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q153522",
+  "hint": "Prussian field marshal; his army reached Waterloo",
+  "crop": "portrait"
+ },
+ {
+  "id": "louis-xviii",
+  "kind": "person",
+  "search": "Louis XVIII",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q7750",
+  "hint": "Bourbon king restored in 1814",
+  "crop": "portrait"
+ },
+ {
+  "id": "lord-north",
+  "kind": "person",
+  "search": "Lord North",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q312593",
+  "hint": "British prime minister during the American war; fell after Yorktown",
+  "crop": "portrait"
+ },
+ {
+  "id": "united-states-rev",
+  "kind": "government",
+  "label": "United States",
+  "at": 1778,
+  "qid": "Q30"
+ },
+ {
+  "id": "continental-army",
+  "kind": "group",
+  "label": "Continental Army",
+  "at": 1777,
+  "qid": "Q54122",
+  "prefer": [
+   "P41",
+   "P94"
+  ]
+ },
+ {
+  "id": "royal-navy",
+  "kind": "group",
+  "label": "Royal Navy",
+  "at": 1781,
+  "qid": "Q172771",
+  "prefer": [
+   "P41",
+   "P94"
+  ]
+ },
+ {
+  "id": "kingdom-of-great-britain",
+  "kind": "government",
+  "label": "Great Britain",
+  "at": 1778,
+  "qid": "Q161885"
+ },
+ {
+  "id": "united-kingdom",
+  "kind": "government",
+  "label": "United Kingdom of Great Britain and Ireland",
+  "at": 1801,
+  "qid": "Q174193"
+ },
+ {
+  "id": "france",
+  "kind": "government",
+  "label": "France (the monarchy as ally of the Americans)",
+  "at": 1778,
+  "qid": "Q70972"
+ },
+ {
+  "id": "kingdom-of-france",
+  "kind": "government",
+  "label": "Kingdom of France",
+  "at": 1788,
+  "qid": "Q70972"
+ },
+ {
+  "id": "catholic-church",
+  "kind": "group",
+  "label": "Catholic Church in France",
+  "at": 1789,
+  "qid": "Q9592"
+ },
+ {
+  "id": "french-republic",
+  "kind": "government",
+  "label": "French First Republic (Convention, Terror, Directory)",
+  "at": 1793,
+  "qid": "Q58296"
+ },
+ {
+  "id": "french-consulate",
+  "kind": "government",
+  "label": "French Consulate",
+  "at": 1799,
+  "qid": "Q877619"
+ },
+ {
+  "id": "first-french-empire",
+  "kind": "government",
+  "label": "First French Empire",
+  "at": 1801,
+  "qid": "Q71084"
+ },
+ {
+  "id": "grande-armee",
+  "kind": "group",
+  "label": "Grande Armée",
+  "at": 1805,
+  "qid": "Q504721",
+  "prefer": [
+   "P41",
+   "P94"
+  ]
+ },
+ {
+  "id": "habsburg-austria",
+  "kind": "government",
+  "label": "Habsburg Austria",
+  "at": 1805,
+  "qid": "Q153136"
+ },
+ {
+  "id": "prussia",
+  "kind": "government",
+  "label": "Kingdom of Prussia",
+  "at": 1815,
+  "qid": "Q27306"
+ },
+ {
+  "id": "prussian-army",
+  "kind": "group",
+  "label": "Prussian Army",
+  "at": 1806,
+  "search": "Prussian Army",
+  "hint": "150,000 at Jena, routed in a day; rebuilt to arrive at Waterloo with 50,000",
+  "prefer": [
+   "P41",
+   "P94"
+  ]
+ },
+ {
+  "id": "russian-empire",
+  "kind": "government",
+  "label": "Russian Empire",
+  "at": 1812,
+  "qid": "Q34266"
+ },
+ {
+  "id": "russian-army",
+  "kind": "group",
+  "label": "Russian Army",
+  "at": 1805,
+  "search": "Russian Army",
+  "hint": "904,000 strong at its 1812 peak; retreated, burned Moscow and followed Napoleon to Paris",
+  "prefer": [
+   "P41",
+   "P94"
+  ]
+ },
+ {
+  "id": "spain",
+  "kind": "government",
+  "label": "Spain",
+  "at": 1775,
+  "qid": "Q29",
+  "file": "Flag of Spain (1785–1873, 1875–1931).svg",
+  "as": "P41"
+ },
+ {
+  "id": "spanish-navy",
+  "kind": "group",
+  "label": "Spanish Navy",
+  "at": 1805,
+  "qid": "Q676404",
+  "prefer": [
+   "P41",
+   "P94"
+  ]
+ },
+ {
+  "id": "jacobins",
+  "kind": "group",
+  "label": "Jacobins and the Committee of Public Safety",
+  "at": 1794,
+  "qid": "Q179885",
+  "monogram": "JCP"
+ },
+ {
+  "id": "congress-of-vienna",
+  "kind": "group",
+  "label": "Congress of Vienna",
+  "at": 1815,
+  "qid": "Q46362",
+  "monogram": "CV"
+ }
+]

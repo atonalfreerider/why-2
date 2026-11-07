@@ -44,9 +44,9 @@ namespace Why.Economy.Layers
 
         public override IEnumerable<string> RequiredTexts => new[] { Advantage.Path };
 
-        enum Part { Organs, Shells, Rings, Rivers, Threads, Landscape, Sparks, Thread, Outlines, Columns, Walls, Count }
+        enum Part { Organs, Shells, Rings, Rivers, Threads, Landscape, Sparks, Thread, Outlines, Columns, Walls, People, Count }
 
-        static readonly string[] PartNames = { "organs", "shells", "rings", "rivers", "threads", "landscape", "sparks", "thread", "outlines", "columns", "walls" };
+        static readonly string[] PartNames = { "organs", "shells", "rings", "rivers", "threads", "landscape", "sparks", "thread", "outlines", "columns", "walls", "people" };
         static readonly int[] Keys = EconomyEmphasis.Keys("advantage", PartNames);
 
         public const float Seconds = 5f, ReverseSeconds = 1.8f;
@@ -187,10 +187,11 @@ namespace Why.Economy.Layers
         {
             current = this;
             EconomyStage.Land().Place(transform);
-            // the stack under the hill is the subject; the people on the hill, the top 1% above it and the attention cloud stay
-            // (the user, 7 Nov 2026: "people still inhabit the hill and the cloud above the hill"); the hill's ground as context
+            // the stack under the hill is the subject; the people on the hill (as this view's own point cloud, so the walking
+            // markers are off), the top 1% above it and the attention cloud stay (the user, 7 Nov 2026: "people still inhabit
+            // the hill and the cloud above the hill"); the hill's ground as context
             EconomyEmphasis.RegisterView(View, PartNames.Select(p => "advantage." + p),
-                new[] { "activity.markers", "hills.crown", "hills.pool", "social.*" },
+                new[] { "hills.crown", "hills.pool", "social.*" },
                 new[] { "wave.crest", "wave.face", "wave.lives", "wave.ribs", "wave.ridges", "land.road" }, synthesis: true);
             ViewVariants.Register(View, () => Worlds().Count, k => SetScenario(Worlds()[Mathf.Clamp(k, 0, Worlds().Count - 1)]), k => k >= 0 && k < Worlds().Count ? Worlds()[k] : k.ToString());
             if (SmokeRun) SmokeChecks.RegisterSequence(Sequence, Smoke());
@@ -532,6 +533,7 @@ namespace Why.Economy.Layers
                 if (part == Part.Landscape) a *= rise;
                 if (part != Part.Thread) a *= present;
                 else if (!History) a = 0;    // the lineage lane belongs to the history camera
+                if (part == Part.People && Focus >= 0 && Focus < Strata) a = 0;    // a stratum's close-up looks down, away from the hill
                 EconomyEmphasis.Set(r, a);
             }
 
@@ -618,6 +620,7 @@ namespace Why.Economy.Layers
         /// <summary>Every mesh from the layout's present positions (the landscape only when asked: it is the costly one).</summary>
         void Rebuild(bool landscape)
         {
+            if (peopleLand != HillLandscapeLayer.Current || !partRenderer[(int)Part.People]) People();
             Organs();
             PlaceOrganisms();
             Rings();
@@ -762,31 +765,8 @@ namespace Why.Economy.Layers
             b.Clear();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Organs]);
             var rnd = new System.Random(unchecked((int)Fnv(body.Id)));
-            // the user, 7 Nov 2026: "more of a point cloud representation with a boundary outline, rather than wireframes".
-            // The surface's points, as opaque as the parts there are tangible, hot where a frontier blooms ...
-            for (int i = 0; i < shape.Points.Length; i++)
-            {
-                float f = shape.Frontier[i], g = shape.Tint[i];
-                Color c = Color.Lerp(shape.Colors[i], Color.Lerp(shape.Colors[i], Color.white, .45f), g * .7f);
-                c = Color.Lerp(c, FrontierColor, f * .9f);
-                c.a = Mathf.Clamp01((.62f + .3f * shape.Solidity[i] + .2f * g + .3f * f) * (shape.Known ? 1 : .7f));
-                Vector3 p = shape.Points[i];
-                // a dot: a dash about a pixel long (a segment along its own normal vanishes where it faces the camera)
-                b.AddSegment(p, p + Vector3.up * DotLength, c, 3.2f + .8f * g + 2.4f * f, 0, id, f > 0 ? .9f + 5f * f * f : .93f);
-            }
-
-            // ... and a skin of points under it, between the surface and the hidden solid inside (OccluderDepth), each coloured by
-            // the parts at its place, so the body reads as a cloud of some depth while it hides what stands behind it
-            int skin = detail >= 4 ? 2 : 4;
-            for (int i = 0; i < shape.Points.Length; i++)
-                for (int k = 0; k < skin; k++)
-                {
-                    float u = Mathf.Lerp(OccluderDepth + .015f, .995f, (float)rnd.NextDouble());
-                    Vector3 p = shape.Points[i] * u + RandomDir(rnd) * (.025f * shape.MeanRadius * (float)rnd.NextDouble());
-                    Color c = shape.ColorAt(p);
-                    c.a = (.45f + .3f * (u - OccluderDepth) / (1 - OccluderDepth)) * (shape.Known ? 1 : .7f);
-                    b.AddSegment(p, p + Vector3.up * DotLength, c, 2.8f, 0, id, .92f);
-                }
+            // the user, 7 Nov 2026: "more of a point cloud representation with a boundary outline, rather than wireframes"
+            Land.PointBodies.Cloud(b, shape, id, detail >= 4 ? 2 : 4, rnd, FrontierColor);
 
             outlineShapes[body.Id] = shape;
             float rb = shape.MeanRadius;
@@ -867,11 +847,7 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ occlusion
 
-        /// <summary>The hidden solid's size against the body's surface: the skin of points lies between the two.</summary>
-        const float OccluderDepth = .9f;
-
-        /// <summary>A point's dash, in land units: about a pixel at the view's distance, so a dot reads as a dot.</summary>
-        const float DotLength = .3f;
+        const float OccluderDepth = Land.PointBodies.OccluderDepth, DotLength = Land.PointBodies.DotLength;
 
         /// <summary>Each body's hidden solid (the user, 7 Nov 2026: "we still need point cloud occlusion"): its surface drawn
         /// into depth only, before every point and line, so bodies, rivers and dust behind it are hidden while it shows
@@ -884,30 +860,11 @@ namespace Why.Economy.Layers
         {
             if (occluderMaterial == null)
             {
-                // the surface shader with its colour blended away (zero of the source, all of what is there) and depth written,
-                // just after the labels (TextMeshPro, queue 3000: names stay readable) and before every mark of this view and of
-                // the hill (3180 and up), so whatever stands behind a body is hidden
-                occluderMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3001));
-                occluderMaterial.SetFloat("_SrcBlend", (float)UnityEngine.Rendering.BlendMode.Zero);
-                occluderMaterial.SetFloat("_DstBlend", (float)UnityEngine.Rendering.BlendMode.One);
-                occluderMaterial.SetFloat("_ZWrite", 1);
-                occluderMaterial.SetFloat("_EdgeSoft", 0);
+                occluderMaterial = Land.PointBodies.OccluderMaterial();
                 owned.Add(occluderMaterial);
             }
 
-            var verts = new Vector3[shape.Points.Length];
-            var cols = new Color[verts.Length];
-            for (int i = 0; i < verts.Length; i++)
-            {
-                verts[i] = shape.Points[i] * OccluderDepth;
-                cols[i] = Color.white;
-            }
-
-            var mesh = new Mesh { name = "Occluder " + body.Id };
-            mesh.vertices = verts;
-            mesh.colors = cols;
-            mesh.triangles = Land.Organism.GeodesicFaces(detail);
-            mesh.RecalculateBounds();
+            var mesh = Land.PointBodies.Occluder(shape, detail, "Occluder " + body.Id);
             owned.Add(mesh);
             if (occluders.TryGetValue(body.Id, out var r) && r)
             {
@@ -1482,6 +1439,51 @@ namespace Why.Economy.Layers
         /// <summary>A company's column colour: its equity's heat, as its core is drawn.</summary>
         static Color ColumnColor(ContestNetwork.Body host) =>
             Color.Lerp(Land.Organism.EquityHeat(host.State != null && !double.IsNaN(host.State.Eq) ? host.State.Eq : host.Actor.Sheet.Equity), Color.white, .15f);
+
+        // ------------------------------------------------------------------ the people on the hill
+
+        /// <summary>People per point of the hill's crowd: each household group (a few hundred thousand to a few million people)
+        /// is as many points as it has hundreds of thousands of members.</summary>
+        public const double PeoplePerPoint = 1e5;
+
+        /// <summary>The people on the hill as a point cloud (the user, 7 Nov 2026: "make the people on the hill visible as a point
+        /// cloud"): each household group a cluster standing on the hill that pays it, one point per 100,000 people, rose at the
+        /// lowest income rung to gold at the highest; the top 1% in the capital cloud above, brightest.</summary>
+        void People()
+        {
+            Drop(Part.People);
+            var hill = HillLandscapeLayer.Current;
+            var players = hill?.Source?.Players?.Players;
+            if (players == null || hill.People == null) return;
+            var b = new LineMeshBuilder(16384);
+            float id = EconomyEmphasis.Id(Keys[(int)Part.People]);
+            var rnd = new System.Random(1789);
+            for (int i = 0; i < players.Length && i < hill.People.Length; i++)
+            {
+                var pl = players[i];
+                int n = Mathf.Clamp((int)Math.Round(pl.People / PeoplePerPoint), 1, 400);
+                Vector3 at = hill.People[i];
+                bool cloud = hill.Cloud != null && i < hill.Cloud.Length && hill.Cloud[i];
+                float spread = .55f * Mathf.Sqrt(n);
+                Color c = cloud ? GoldBright : Color.Lerp(new Color(.95f, .55f, .62f), new Color(1f, .86f, .52f), Mathf.Clamp01(pl.Rung / 4f));
+                for (int k = 0; k < n; k++)
+                {
+                    float a = (float)rnd.NextDouble() * Mathf.PI * 2, r = spread * Mathf.Sqrt((float)rnd.NextDouble());
+                    // on the slope of the hill that pays them (class is altitude on one's own hill), never past the crest
+                    float x = at.x + Mathf.Cos(a) * r, z = Mathf.Min(at.z + Mathf.Sin(a) * r * .6f, hill.CrestZ - .4f);
+                    int industry = hill.IndustryOf != null && i < hill.IndustryOf.Length ? hill.IndustryOf[i] : -1;
+                    float y = cloud ? at.y + ((float)rnd.NextDouble() - .5f) * 2 : (industry >= 0 ? hill.Footing(industry, x, z) : hill.Ground(x, z)) + .5f + (float)rnd.NextDouble() * .5f;
+                    Vector3 p = new Vector3(x, y, z);
+                    b.AddSegment(p, p + Vector3.up * DotLength, WithAlpha(c, cloud ? .95f : .85f), 2.6f, 0, id, cloud ? .97f : .93f);
+                }
+            }
+
+            // on the layer itself, as the lineage is: the arena's opening scales its content, and the hill does not open
+            partRenderer[(int)Part.People] = Lines(b, Part.People, transform, 3189, false);
+            peopleLand = hill;
+        }
+
+        HillLandscape peopleLand;
 
         // ------------------------------------------------------------------ advantage boundaries
 

@@ -127,7 +127,7 @@ ORDER = {
 }
 MARKS = {"P154", "P8972", "P2910", "P41", "P94", "P158"}
 KINDS = set(ORDER) | {"figure"}
-NOUN = {"P18": "Photo", "P154": "Logo", "P8972": "Logo", "P2910": "Icon", "P41": "Flag", "P94": "Arms", "P158": "Seal"}
+NOUN = {"P18": "Portrait", "P154": "Logo", "P8972": "Logo", "P2910": "Icon", "P41": "Flag", "P94": "Arms", "P158": "Seal"}
 KIND_NOUN = {"person": "a person", "company": "a company", "government": "a state or government",
              "group": "a group, union, alliance or organization", "place": "a city, region or other place"}
 HUMAN = "Q5"
@@ -1066,7 +1066,8 @@ def attribution(title, author, lic, source_page, modified, notices=()):
 def credit_short(noun, author, lic):
     who = author if author and len(author) <= 40 else (author[:37].rstrip() + "..." if author else "")
     if lic["licence"] == "Public domain":
-        return "%s: %spublic domain" % (noun, who + ", " if who and noun == "Photo" else "")
+        # a portrait (a photograph or a painting) names its maker even in the public domain
+        return "%s: %spublic domain" % (noun, who + ", " if who and noun == "Portrait" else "")
     return "%s: %s · %s" % (noun, who, lic["licence"]) if who else "%s: %s" % (noun, lic["licence"])
 
 

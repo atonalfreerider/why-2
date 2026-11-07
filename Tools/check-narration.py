@@ -8,6 +8,7 @@ contradiction or an unsupported claim is more likely than not, or faithfulness i
 Usage (from the repository root; the Jev key is found by Tools/jev.py and never printed):
     python3 Tools/check-narration.py economy hills_money hills_strategy      # the economy tour's named stops
     python3 Tools/check-narration.py tour                                     # every stop of the universe tour
+    python3 Tools/check-narration.py ai                                       # the history stories (revolutions too)
 Facts for a stop (numbers the narration may cite beyond its on-screen text) can be given in Tools/narration-facts.json:
     {"hills_money": ["fed funds 1981: 16.4%", ...]}
 """
@@ -20,7 +21,8 @@ sys.path.insert(0, os.path.join(ROOT, "Tools"))
 import jev  # noqa: E402
 
 WALK = os.path.join(ROOT, "Assets", "Resources", "Data", "Walkthrough")
-SCRIPTS = {"economy": ("economy_tour.json", "economy_narration.json"), "tour": ("tour.json", "tour_narration.json")}
+SCRIPTS = {"economy": ("economy_tour.json", "economy_narration.json"), "tour": ("tour.json", "tour_narration.json"),
+           "ai": ("story_ai_tour.json", "story_ai_narration.json"), "revolutions": ("story_revolutions_tour.json", "story_revolutions_narration.json")}
 FACTS = os.path.join(ROOT, "Tools", "narration-facts.json")
 
 QUESTIONS = {

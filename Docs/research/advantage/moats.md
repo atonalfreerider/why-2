@@ -1,0 +1,46 @@
+# Moats: where each dominant company's advantage holds
+
+As of 7 November 2026. Fact ids in brackets are either this cluster's (`moats-...`) or earlier rounds'.
+
+## NVIDIA: the hold on AI accelerators
+
+NVIDIA has about 75% of AI accelerators in 2026, an analyst estimate, down from a peak near 87% in 2024 [compute-nvidia-accel-share]. Fiscal 2026 revenue was $215.9 billion [moats-nvidia-fy2026-revenue]; the latest quarter was $96.2 billion at a 75.0% gross margin [compute-nvidia-q2fy27-revenue] [compute-nvidia-q2fy27-margin]. The advantage is several walls at once, of unequal height.
+
+- **Technology.** CUDA has 6 million developers [moats-nvidia-cuda-developers] and dominates GPU software against AMD's ROCm [compute-cuda-dominates]. Networking brought in $14.8 billion in Q1 fiscal 2027 [moats-nvidia-networking-q1fy27]: NVIDIA sells the rack, not the chip.
+- **Supply chain (now as shares).** Three press estimates put NVIDIA at roughly 56 to 60% of TSMC's 2026 CoWoS packaging: 56% of demand [moats-nvidia-cowos-share-2026] (780 thousand of 1.384 million wafers [moats-nvidia-cowos-demand-780k]), about 60% and 595,000 wafers against Broadcom's 15% and AMD's 11% [moats-nvidia-cowos-allocation-tomshw] [moats-broadcom-cowos-share], and 800,000 to 850,000 wafers booked per DigiTimes [moats-nvidia-cowos-booked]. They disagree on the base; none is a TSMC disclosure. The forecast share falls to about 45% in 2027. In HBM its hold is lower: 37.3% of 2027 demand, with Google at 36.0% [moats-nvidia-hbm-demand-share-2027]; SK Hynix says its HBM is sold out through 2029 with over 50% of 2027-28 capacity under long-term agreements [compute-skhynix-sold-out]. Commitments are $279 billion, mainly memory [compute-nvidia-commitments].
+- **Patents.** Its weakest wall. IFI Claims says NVIDIA did not collect enough 2025 US grants to make the Top 50 [moats-ifi-nvidia-not-top50], where Samsung leads with 7,054, TSMC has 4,194 and Qualcomm 3,749 [moats-samsung-patents-2025] [moats-tsmc-patents-2025] [moats-qualcomm-patents-2025]. NVIDIA's own count, 9,800+ granted and pending, reaches us only through a blog's reading of its fact sheet [moats-nvidia-patents-granted-pending]; its 10-K gives no count. The lock-in is software and supply, not patents.
+- **Capital (the share price as a weapon).** A $4.5 trillion market cap [compute-nvidia-marketcap] and $26.0 billion returned in one quarter [moats-nvidia-returned-to-shareholders-q2fy27] fund stakes in its customers. Strategic stakes stand at $51.2 billion, with $25 billion more committed [balancea-nvidia-investments] [balancea-nvidia-commit-equity]: $30 billion in OpenAI [owners-nvidia-openai-30bn], up to $10 billion in Anthropic [moats-nvidia-anthropic-10bn], $5 billion in Intel [compute-nvidia-intel-investment], $2 billion in CoreWeave [str-coreweave-nvidia-2bn], the xAI round [moats-nvidia-xai-round], 67 venture rounds in 2025 [moats-nvidia-venture-rounds-2025] and the Groq licence-and-hire [weapons-acq-nvidia-groq]. It also lends time: receivables of $63.1 billion, 60 days of sales [moats-nvidia-receivables-q2fy27].
+- **Talent.** 42,000 employees [moats-nvidia-employees], so about $5.1 million of revenue each (derived: $215.9 billion over 42,000). Stock-based compensation was $6.39 billion in fiscal 2026 [entry-nvidia-sbc-fy2026], which NVIDIA calls foundational to attract and retain talent [entry-nvidia-sbc-statement]; it also acqui-hired Enfabrica's team [entry-enfabrica-acquihire].
+- **Scale and regulation.** A $1 trillion Blackwell and Rubin backlog [buildout-nvidia-backlog]; export controls took its China share to zero [str-nvidia-china-zero].
+- **The flip side.** Four customers are 61% of revenue [str-nvidia-top-customers], and each is building rival silicon.
+
+## The others, by stratum
+
+- **TSMC (fabs):** 72.5% of top-10 foundry revenue [compute-tsmc-foundry-share]; 2nm 8% and 3nm 33% of wafer revenue [moats-tsmc-node-mix-q3-2026]; $62 billion capex [compute-tsmc-capex-2026]; NVIDIA holds about 56 to 60% of its CoWoS (above).
+- **ASML (tools):** the only EUV maker [lineage-asml-only-euv-2026]; 60+ EUV units guided [moats-asml-euv-guidance-2026]; EUV systems EUR 4.1 billion in Q3 [moats-asml-q3-euv-system-sales].
+- **EDA and IP (tools):** Synopsys, Cadence and Siemens EDA hold over 85% of EDA [moats-eda-big3-share]; Synopsys had $8 billion of CY2025 revenue and Cadence $5.30 billion [moats-eda-revenues-cy2025], about 85% of the three vendors' total (derived). Arm has 17.7% of server CPUs (UBS, Q1 2026) [moats-arm-datacentre-cpu-share-q1-2026] and, by its own account, about 50% of CPU compute at the top hyperscalers [moats-arm-hyperscaler-cpu-share].
+- **Energy:** GE Vernova's gas backlog and slot reservations are 122 GW [labs-gev-gas-backlog], with a $197 billion total backlog [str-gev-backlog]; Siemens Energy has 69 GW and Mitsubishi 35 GW [moats-gas-turbine-backlogs-q3-2026]. That is about 54% of the three makers' backlog (derived; indicative, since GE counts slot reservations).
+- **SK Hynix (memory):** 50% of HBM, down from 64% as Samsung rose to 33% [compute-skhynix-hbm-share] [compute-samsung-hbm-share]; sold out through 2029 [compute-skhynix-sold-out].
+- **Broadcom (custom silicon):** about 60% of AI server compute ASICs in 2027 per Counterpoint (a forecast) [moats-broadcom-asic-share-counterpoint]; with Marvell about 95% of ASIC co-design [moats-broadcom-marvell-asic-codesign]; about 15% of CoWoS [moats-broadcom-cowos-share]; AI revenue of $58 billion expected in FY2026 and about $115 billion in FY2027 [moats-broadcom-ai-outlook].
+- **Clouds:** Synergy's Q3 2026 shares are Amazon 26%, Microsoft 19% and Google 16% [moats-synergy-cloud-share-q3-2026-amazon] [moats-synergy-cloud-share-q3-2026-microsoft] [moats-synergy-cloud-share-q3-2026-google]. Amazon's lead is eroding: it was 29% a year earlier. Microsoft 365 Copilot has 30 million seats [moats-microsoft-365-copilot-seats]. Google's consumer boundary is separate: 91.05% of search [century-google-search-share-2026] and 1 billion Gemini users [moats-google-gemini-1bn-users].
+- **Consumer platforms:** Meta is forecast at 26.8% of global digital advertising in 2026, just ahead of Google's 26.4% [moats-meta-digital-ad-share-2026], with 3.64 billion daily people [moats-meta-family-dap]; Apple shipped 22% of smartphones in Q3 2026 [integration-apple-smartphone-share], with 2.5 billion devices and 1.5 billion paid subscriptions [moats-apple-installed-base] [moats-apple-paid-subscriptions].
+- **Labs:** ChatGPT 900 million weekly users [moats-openai-chatgpt-weekly-users] but 55.5% of chatbot web traffic, down from 73.3% [str-chatbot-share-aug2026] [str-chatbot-share-2025]; Anthropic 55% of enterprise API spend and, with Codex, 70% of coding (Menlo, an Anthropic investor) [moats-anthropic-enterprise-api-share] [moats-coding-agents-share-menlo]; OpenAI targets $600 billion of compute to 2030 [moats-openai-compute-600bn].
+
+## The wall against entrants
+
+Entry needs capital (Amazon, Alphabet, Meta, Microsoft and SpaceX are forecast to spend $803 to $828 billion of 2026 capex [compute-hyperscaler-capex-2026] ($725 billion for the first four, the earlier count [economy-hyperscaler-capex-2026])), talent (offers up to $300 million [labs-meta-talent-pay]; Alphabet stock pay $23.3 billion in nine months [weapons-alphabet-sbc]), distribution (billions of users, above) and, in chips, packaging and memory that NVIDIA has booked. Entrants that threaten are bought, licensed or hired (Groq).
+
+## What a strategist would act on
+
+1. NVIDIA's moat is software plus reserved supply, not patents. Watch CUDA alternatives and CoWoS/HBM allocation, not patent suits.
+2. Its customers are also its rivals: custom silicon is growing (Broadcom, Trainium commitments up 20x [moats-amazon-custom-silicon-commitments-20x], Google Cloud infrastructure rented to Meta for over $10 billion [moats-meta-google-cloud-10bn]). Expect share to drift down from 75% while revenue still rises.
+3. NVIDIA finances demand (stakes, receivable terms), so a funding pause at a lab hits it twice.
+4. Chokepoints beneath it (ASML 100% of EUV, TSMC packaging, HBM, EDA, gas turbines) hold more durable moats than NVIDIA's own: the EDA trio has over 85% [moats-eda-big3-share] and turbine slots are sold into the 2030s.
+
+## Sources
+
+IFI Claims via Digital Science and Quartz; SemiAnalysis; Synergy Research; Counterpoint via Finviz; Tom's Hardware; 36Kr; Xenospectrum; The Next Web (eMarketer); EUCI; Data Center Dynamics; Rallies (UBS); NVIDIA Q4 FY26 release; NVIDIA developer forum; NVIDIA Q2 FY27 CFO commentary; IFI Claims via Wccftech; Wccftech (DigiTimes); TSMC release; Silicon Analysts; MarketBeat transcripts; AppleInsider; Gadgetbond; Quartr; Roic.ai; Deccan Chronicle; TechTarget (Synergy); FourWeekMBA (Menlo); Yahoo Finance; Invezz; Asiae; TBS News (Reuters); Amazon; Mean CEO; Global Data Center Hub.
+
+Verified count: 49 of 49 facts passed the gate on 7 November 2026 (second pass).
+
+Not verified, so not in the data: NVIDIA's own patent count from a primary source; IFI's 50th-place count; IPO's Top 300 list puts NVIDIA 58th with 735 US grants, Qualcomm 3,925, Intel 2,137 and AMD 500, but its PDF cannot be quoted row by row.

@@ -1,0 +1,3042 @@
+{
+ "cluster": "entry",
+ "asOf": "2026-11-07",
+ "scope": "The barriers that keep new entrants out of the AI stack (talent, capital, custom silicon) and what happened to the entrants.",
+ "facts": [
+  {
+   "id": "entry-ai-index-industry-share",
+   "claim": "Stanford's 2025 AI Index found that nearly 90% of notable AI models in 2024 came from industry, against 60% in 2023.",
+   "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report/research-and-development",
+   "quotes": [
+    "Industry's lead in notable model development, highlighted in the two previous AI Index reports, has only grown more pronounced, with nearly 90% of notable models in 2024 (compared to 60% in 2023) originating from industry."
+   ],
+   "values": [
+    "90",
+    "60"
+   ],
+   "dated2026": false,
+   "actor": "ai-industry",
+   "kind": "share",
+   "value": 90,
+   "unit": "%",
+   "period": "2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "",
+   "scope": "notable AI models by origin"
+  },
+  {
+   "id": "entry-openai-sbc-per-employee",
+   "claim": "OpenAI's average stock-based compensation was $1.5 million among its roughly 4,000 employees in 2025, per the Wall Street Journal.",
+   "url": "https://finance.yahoo.com/news/openai-paying-workers-1-5-154647420.html",
+   "quotes": [
+    "The ChatGPT maker's average stock-based compensation hit a whopping $1.5 million among its roughly 4,000 employees in 2025, according to the Wall Street Journal."
+   ],
+   "values": [
+    "1.5",
+    "4,000"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "compensation",
+   "value": 1.5,
+   "unit": "USD m per employee",
+   "period": "2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-nvidia-sbc-fy2026",
+   "claim": "NVIDIA's stock-based compensation was $6.39 billion in its fiscal year ending 31 January 2026.",
+   "url": "https://www.alphaquery.com/stock/NVDA/fundamentals/annual/stock-based-compensation",
+   "quotes": [
+    "NVIDIA Corporation (NVDA) had Stock-Based Compensation of $6.39B for the most recently reported fiscal year, ending 2026-01-31."
+   ],
+   "values": [
+    "6.39"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "sbc",
+   "value": 6.39,
+   "unit": "USD bn",
+   "period": "FY2026 (ended 31 January 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-nvidia-sbc-statement",
+   "claim": "NVIDIA says stock-based compensation is a foundational component of its pay programme, to attract and retain world-class talent.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+   "quotes": [
+    "Stock-based compensation is a foundational component of NVIDIA's compensation program to attract and retain world-class talent."
+   ],
+   "values": [
+    "attract and retain world-class talent"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q4 FY2026 results release",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-adept-amazon",
+   "claim": "Amazon hired Adept's CEO David Luan and four other co-founders, licensed some of its technology non-exclusively, and Adept continued as an independent company with its remaining staff.",
+   "url": "https://www.geekwire.com/2024/amazon-hires-founders-from-well-funded-enterprise-ai-startup-adept-to-boost-tech-giants-agi-team/",
+   "quotes": [
+    "Adept co-founder and CEO David Luan, the former vice president of engineering at OpenAI, will join Amazon.",
+    "Adept co-founders Augustus Odena, Maxwell Nye, Erich Elsen, and Kelsey Szot will also move to Amazon, along with a few other employees.",
+    "Adept will continue operating as an independent company with its remaining workforce.",
+    "Amazon will use some of Adept's technology as part of a non-exclusive license."
+   ],
+   "values": [
+    "non-exclusive license"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "event",
+   "value": 2024,
+   "unit": "year",
+   "period": "June 2024",
+   "from": "amazon",
+   "to": "adept",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-enfabrica-acquihire",
+   "claim": "In September 2025 NVIDIA spent more than $900 million, in cash and stock, to bring Enfabrica's CEO Rochan Sankar, several of his team and key technology into the company, in a deal that looks like an acquihire.",
+   "url": "https://the-decoder.com/nvidia-makes-900-million-acquihire-style-deal-with-ai-hardware-startup-enfabrica/",
+   "quotes": [
+    "Sep 19, 2025 Nvidia has spent more than $900 million to bring Enfabrica CEO Rochan Sankar, several of his team members, and key technology from the AI hardware startup into the company, CNBC reports.",
+    "The deal combined cash and stock and looks similar to an acquihire, where companies focus on hiring talent without buying the startup outright."
+   ],
+   "values": [
+    "$900 million",
+    "Rochan Sankar",
+    "cash and stock",
+    "Sep 19, 2025"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "September 2025",
+   "from": "nvidia",
+   "to": "enfabrica",
+   "accessed": "2026-11-07",
+   "notes": "USD 0.9 billion or more (CNBC via The Decoder)."
+  },
+  {
+   "id": "entry-training-cost-gemini-gpt4",
+   "claim": "Stanford's AI Index estimates Gemini Ultra consumed $191 million of compute and GPT-4 about $78 million.",
+   "url": "https://siliconangle.com/2024/04/15/ai-becoming-powerful-expensive-people-getting-nervous/",
+   "quotes": [
+    "Its estimates show that training costs for state-of-the-art models have reached unprecedented levels, with Gemini Ultra said to have consumed $191 million worth of compute resources, and GPT-4 costing an estimated $78 million to develop."
+   ],
+   "values": [
+    "191",
+    "78"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "trainingCost",
+   "value": 191,
+   "unit": "USD m",
+   "period": "2023-24 models (AI Index 2024 estimate)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "GPT-4: $78 million."
+  },
+  {
+   "id": "entry-epoch-cost-growth",
+   "claim": "Epoch AI finds the amortized cost to train the most compute-intensive models has grown 2.4x per year since 2016.",
+   "url": "https://arxiv.org/abs/2405.21015",
+   "quotes": [
+    "The analysis reveals that the amortized cost to train the most compute-intensive models has grown precipitously at a rate of 2.4x per year since 2016 (90% CI: 2.0x to 2.9x)."
+   ],
+   "values": [
+    "2.4x"
+   ],
+   "dated2026": false,
+   "actor": "ai-industry",
+   "kind": "trainingCost",
+   "value": 2.4,
+   "unit": "x per year",
+   "period": "2016-2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-epoch-billion-2027",
+   "claim": "Epoch AI projects the largest training runs will cost more than a billion dollars by 2027, so only the most well-funded organisations can finance frontier models.",
+   "url": "https://arxiv.org/abs/2405.21015",
+   "quotes": [
+    "If the trend of growing development costs continues, the largest training runs will cost more than a billion dollars by 2027, meaning that only the most well-funded organizations will be able to finance frontier AI models."
+   ],
+   "values": [
+    "billion dollars",
+    "2027"
+   ],
+   "dated2026": false,
+   "actor": "ai-industry",
+   "kind": "trainingCost",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "by 2027 (projection)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-amodei-1bn-training",
+   "claim": "Anthropic's CEO said in July 2024 that models in development can cost up to $1 billion to train and expects $10 to $100 billion in about three years.",
+   "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-models-that-cost-dollar1-billion-to-train-are-in-development-dollar100-billion-models-coming-soon-largest-current-models-take-only-dollar100-million-to-train-anthropic-ceo",
+   "quotes": [
+    "Anthropic CEO Dario Amodei said in the In Good Company podcast that AI models in development today can cost up to $1 billion to train.",
+    "Current models like ChatGPT-4o only cost about $100 million, but he expects the cost of training these models to go up to $10 or even $100 billion in as little as three years from now."
+   ],
+   "values": [
+    "1 billion",
+    "100 million"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "trainingCost",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "July 2024 statement",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-deepseek-v3-gpu-hours",
+   "claim": "DeepSeek-V3 required only 2.788 million H800 GPU hours for its full training, by its authors' account.",
+   "url": "https://arxiv.org/abs/2412.19437",
+   "quotes": [
+    "Despite its excellent performance, DeepSeek-V3 requires only 2.788M H800 GPU hours for its full training."
+   ],
+   "values": [
+    "2.788M"
+   ],
+   "dated2026": false,
+   "actor": "deepseek",
+   "kind": "trainingCost",
+   "value": 2.788,
+   "unit": "M H800 GPU hours",
+   "period": "DeepSeek-V3 (December 2024)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-deepseek-nvidia-record-loss",
+   "claim": "On 27 January 2025 NVIDIA lost over $589 billion of market value after DeepSeek's release, which Forbes called the biggest single-day loss for any company.",
+   "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/nvidia-loses-usd589-billion-in-market-cap-broad-stock-plunge-triggered-by-deepseek-ai-release",
+   "quotes": [
+    "This wiped out over $589 billion in market capitalization for the company, which Forbes says is the biggest single-day loss for any company in history."
+   ],
+   "values": [
+    "589"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "27 January 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Loss of market value in USD bn: 589."
+  },
+  {
+   "id": "entry-meta-google-tpu-talks",
+   "claim": "Meta was reported in November 2025 to be in talks to spend billions on Google's TPUs from 2027, casting Google as a serious rival to NVIDIA.",
+   "url": "https://www.nst.com.my/amp/business/corporate/2025/11/1323188/meta-talks-spend-billions-googles-chips",
+   "quotes": [
+    "Meta Platforms is in talks with Google to spend billions of dollars on the Alphabet-owned company's chips for use in its data centres starting from 2027, The Information reported — a move that would cast Google as a serious rival to semiconductor giant Nvidia."
+   ],
+   "values": [
+    "2027"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "November 2025 (report)",
+   "from": "google",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-trainium-rainier",
+   "claim": "AWS's Project Rainier, built for Anthropic, is a cluster of nearly 500,000 Trainium2 chips.",
+   "url": "https://www.datacenterdynamics.com/en/news/aws-activates-project-rainier-cluster-of-nearly-500000-trainium2-chips/",
+   "quotes": [
+    "According to a blog post from AWS, the cluster is now fully operational, with nearly 500,000 of the home-developed Trainium2 chips."
+   ],
+   "values": [
+    "500,000"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "units",
+   "value": 500000,
+   "unit": "Trainium2 chips",
+   "period": "October 2025",
+   "from": "amazon",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-openai-broadcom-10gw",
+   "claim": "OpenAI signed a multi-year deal with Broadcom to co-develop and deploy 10 gigawatts of custom AI accelerators, announced 13 October 2025.",
+   "url": "https://www.tomshardware.com/openai-broadcom-to-co-develop-10gw-of-custom-ai-chips",
+   "quotes": [
+    "OpenAI has signed a multi-year deal with Broadcom to co-develop and deploy 10 gigawatts of custom AI accelerators and rack systems, the companies announced on October 13."
+   ],
+   "values": [
+    "10 gigawatts"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "contract",
+   "value": 10,
+   "unit": "GW",
+   "period": "announced 13 October 2025",
+   "from": "openai",
+   "to": "broadcom",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-openai-amd-warrant",
+   "claim": "AMD issued OpenAI a warrant for up to 160 million AMD shares, vesting as OpenAI deploys up to 6 gigawatts of AMD GPUs.",
+   "url": "https://d1io3yog0oux5.cloudfront.net/_be34f20d01abfe28aeec9c2c12afe601/amd/news/2025-10-06_AMD_and_OpenAI_Announce_Strategic_Partnership_to_1260.pdf",
+   "quotes": [
+    "As part of the agreement, to further align strategic interests, AMD has issued OpenAI a warrant for up to 160 million shares of AMD common stock, structured to vest as specific milestones are achieved.",
+    "The first tranche vests with the initial 1 gigawatt deployment, with additional tranches vesting as purchases scale up to 6 gigawatts."
+   ],
+   "values": [
+    "160 million",
+    "6 gigawatts"
+   ],
+   "dated2026": false,
+   "actor": "amd",
+   "kind": "investment",
+   "value": 160,
+   "unit": "M shares (warrant)",
+   "period": "announced 6 October 2025",
+   "from": "amd",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-xai-colossus-122-days",
+   "claim": "xAI's Colossus in Memphis used up to 100,000 NVIDIA H100 GPUs and, Musk said, took 122 days from start to finish.",
+   "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/xai-colossus-supercomputer-with-100k-h100-gpus-comes-online-musk-lays-out-plans-to-double-gpu-count-to-200k-with-50k-h100-and-50k-h200",
+   "quotes": [
+    "The Colossus supercomputer uses as many as 100,000 Nvidia H100 GPUs for training and is set to expand with another 50,000 Nvidia H100 and H200 GPUs in the coming months.",
+    "From start to finish, it was done in 122 days."
+   ],
+   "values": [
+    "100,000",
+    "122 days"
+   ],
+   "dated2026": false,
+   "actor": "xai",
+   "kind": "units",
+   "value": 100000,
+   "unit": "H100 GPUs",
+   "period": "2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-mistral-series-c",
+   "claim": "Mistral raised EUR 1.7 billion in September 2025, more than doubling its valuation to about EUR 11.7 billion, with ASML taking a major stake.",
+   "url": "https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/",
+   "quotes": [
+    "Mistral, the French AI company, has bagged a €1.7bn funding round, more than doubling its valuation to around €11.7bn, in a funding round which sees the Dutch chip equipment firm ASML take a major stake in Mistral as part of a strategic partnership."
+   ],
+   "values": [
+    "1.7bn",
+    "11.7bn"
+   ],
+   "dated2026": false,
+   "actor": "mistral",
+   "kind": "funding",
+   "value": 1.7,
+   "unit": "EUR bn",
+   "period": "September 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Post-money valuation about EUR 11.7 billion."
+  },
+  {
+   "id": "entry-mistral-asml-stake",
+   "claim": "ASML put EUR 1.3 billion into Mistral's round and became its biggest shareholder with 11 per cent.",
+   "url": "https://tech.eu/2025/09/09/mistral-bags-1-7bn-funding-round-as-asml-takes-significant-stake/",
+   "quotes": [
+    "ASML ploughed €1.3bn into the funding round, with other investors in the round including existing investors Nvidia, DST Global, Andreessen Horowitz, Bpifrance, General Catalyst, Index Ventures and Lightspeed.",
+    "The strategic partnership between Mistral and ASML, which now becomes Mistral's biggest shareholder owning 11 per cent, will see Mistral's AI models leveraged across ASML's portfolio as well as for research purposes."
+   ],
+   "values": [
+    "1.3bn",
+    "11 per cent"
+   ],
+   "dated2026": false,
+   "actor": "asml",
+   "kind": "investment",
+   "value": 1.3,
+   "unit": "EUR bn",
+   "period": "September 2025",
+   "from": "asml",
+   "to": "mistral",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-ssi-32bn",
+   "claim": "Safe Superintelligence raised another $2 billion in April 2025, valued at $32 billion, with no product launched.",
+   "url": "https://www.maginative.com/article/sutskevers-safe-superintelligence-raises-another-2b-at-32b-valuation/",
+   "quotes": [
+    "Safe Superintelligence, the stealthy AI company led by OpenAI co-founder Ilya Sutskever, has raised another $2 billion in funding, pushing its valuation to a staggering $32 billion—despite having not launched a product, no public roadmap, and a website that's little more than a mission statement."
+   ],
+   "values": [
+    "2 billion",
+    "32 billion"
+   ],
+   "dated2026": false,
+   "actor": "ssi",
+   "kind": "funding",
+   "value": 2,
+   "unit": "USD bn",
+   "period": "April 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 32 billion."
+  },
+  {
+   "id": "entry-tml-seed-stall",
+   "claim": "Thinking Machines raised $2 billion at a $12 billion valuation in July 2025, then sought $50 billion four months later before backers passed.",
+   "url": "https://startuphub.ai/news/figure-mira-murati-company-financial-breakdown-2026-06-02",
+   "quotes": [
+    "Thinking Machines Lab raised $2 billion at a $12 billion seed valuation in July 2025, then sought $50 billion from investors four months later before backers passed.",
+    "Today Thinking Machines sits at its original $12 billion valuation, with roughly 140 to 169 employees, two live products, and infrastructure commitments from Nvidia and Google that run into the billions."
+   ],
+   "values": [
+    "2 billion",
+    "12 billion",
+    "50 billion"
+   ],
+   "dated2026": true,
+   "actor": "thinking-machines",
+   "kind": "funding",
+   "value": 2,
+   "unit": "USD bn",
+   "period": "July 2025 seed; status June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 12 billion; 140 to 169 employees."
+  },
+  {
+   "id": "entry-tml-nvidia-gigawatt",
+   "claim": "In March 2026 NVIDIA said it would invest in Thinking Machines and supply at least one gigawatt of Vera Rubin capacity.",
+   "url": "https://startuphub.ai/news/figure-mira-murati-company-financial-breakdown-2026-06-02",
+   "quotes": [
+    "In March 2026, Nvidia announced it would invest in the lab and supply chips amounting to at least one gigawatt of Vera Rubin AI accelerator capacity, per Bloomberg."
+   ],
+   "values": [
+    "one gigawatt"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 1,
+   "unit": "GW",
+   "period": "March 2026",
+   "from": "nvidia",
+   "to": "thinking-machines",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-reflection-8bn",
+   "claim": "Reflection AI raised $2 billion in October 2025 at an $8 billion valuation.",
+   "url": "https://en.wikipedia.org/wiki/Reflection_AI",
+   "quotes": [
+    "In October 2025, Reflection raised $2 billion in a funding round that valued the company at $8 billion."
+   ],
+   "values": [
+    "2 billion",
+    "8 billion"
+   ],
+   "dated2026": true,
+   "actor": "reflection-ai",
+   "kind": "funding",
+   "value": 2,
+   "unit": "USD bn",
+   "period": "October 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 8 billion."
+  },
+  {
+   "id": "entry-reflection-beam",
+   "claim": "On 5 October 2026 Reflection announced its first model, Beam, performing similarly to a previous-generation open model from Z.ai.",
+   "url": "https://en.wikipedia.org/wiki/Reflection_AI",
+   "quotes": [
+    "On 5 October 2026 Reflection announced its first model, Beam, with 501 billion parameters, 23 billion active.",
+    "Beam performed similarly in benchmarks to GLM 5.2, a previous-generation open model by Chinese firm Z.ai."
+   ],
+   "values": [
+    "501 billion"
+   ],
+   "dated2026": true,
+   "actor": "reflection-ai",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "5 October 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-cerebras-ipo",
+   "claim": "Cerebras raised about $5.5 billion in its May 2026 IPO, at a fully diluted valuation of $56.4 billion at the $185 offer price.",
+   "url": "https://techcrunch.com/2026/05/14/cerebras-raises-5-5b-kicking-off-2026s-ipo-season-with-a-bang",
+   "quotes": [
+    "Cerebras raises $5.5B, then stock pops 108%, in the first huge tech IPO of 2026",
+    "Even at the IPO price of $185, the company entered its first day of trading at a fully diluted valuation of $56.4 billion (meaning, accounting for all shares)."
+   ],
+   "values": [
+    "5.5B",
+    "56.4 billion"
+   ],
+   "dated2026": true,
+   "actor": "cerebras",
+   "kind": "funding",
+   "value": 5.5,
+   "unit": "USD bn",
+   "period": "IPO, May 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Offer price $185; fully diluted valuation USD 56.4 billion."
+  },
+  {
+   "id": "entry-cerebras-customers",
+   "claim": "Two customers made up 62% and 24% of Cerebras's 2025 revenue (MBZUAI and G42); OpenAI and AWS signed in 2026.",
+   "url": "https://en.wikipedia.org/wiki/Cerebras",
+   "quotes": [
+    "The company has 4 major customers: the Mohamed bin Zayed University of Artificial Intelligence (62% of 2025 revenues), G42 (24% of 2025 revenues), OpenAI (signed in 2026), and Amazon Web Services (signed in 2026)."
+   ],
+   "values": [
+    "62%",
+    "24%"
+   ],
+   "dated2026": true,
+   "actor": "cerebras",
+   "kind": "share",
+   "value": 62,
+   "unit": "% (largest customer)",
+   "period": "2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "MBZUAI 62%, G42 24%.",
+   "scope": "share of Cerebras 2025 revenue from its largest customer (MBZUAI)"
+  },
+  {
+   "id": "entry-cerebras-series-g",
+   "claim": "Cerebras raised $1.1 billion in a Series G in September 2025 at a valuation of $8.1 billion.",
+   "url": "https://en.wikipedia.org/wiki/Cerebras",
+   "quotes": [
+    "In September 2025, the company raised $1.1 billion in a Series G round, selling shares for $36.23 each, or a valuation of $8.1 billion."
+   ],
+   "values": [
+    "1.1 billion",
+    "8.1 billion"
+   ],
+   "dated2026": false,
+   "actor": "cerebras",
+   "kind": "funding",
+   "value": 1.1,
+   "unit": "USD bn",
+   "period": "September 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 8.1 billion."
+  },
+  {
+   "id": "entry-groq-series-d",
+   "claim": "Groq raised $640 million in a Series D in August 2024 at a valuation of $2.8 billion.",
+   "url": "https://en.wikipedia.org/wiki/Groq",
+   "quotes": [
+    "Groq raised $640 million in a series D round led by BlackRock Private Equity Partners in August 2024, valuing the company at $2.8 billion."
+   ],
+   "values": [
+    "640 million",
+    "2.8 billion"
+   ],
+   "dated2026": false,
+   "actor": "groq",
+   "kind": "funding",
+   "value": 0.64,
+   "unit": "USD bn",
+   "period": "August 2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 2.8 billion."
+  },
+  {
+   "id": "entry-sambanova-feb2026",
+   "claim": "SambaNova raised $350 million in February 2026.",
+   "url": "https://en.wikipedia.org/wiki/SambaNova_Systems",
+   "quotes": [
+    "In February 2026, SambaNova held another funding round, raising $350 million."
+   ],
+   "values": [
+    "350 million"
+   ],
+   "dated2026": true,
+   "actor": "sambanova",
+   "kind": "funding",
+   "value": 0.35,
+   "unit": "USD bn",
+   "period": "February 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-tenstorrent-series-e",
+   "claim": "Tenstorrent closed a $1.5 billion Series E on 19 October 2026 at a $6.2 billion post-money valuation.",
+   "url": "https://letsdatascience.com/news/tenstorrent-raises-15-billion-at-62-billion-valuation-6ba88899",
+   "quotes": [
+    "Tenstorrent said on October 19 that it closed a $1.5 billion Series E financing, valuing the AI-compute company at $6.2 billion after the investment."
+   ],
+   "values": [
+    "1.5 billion",
+    "6.2 billion"
+   ],
+   "dated2026": true,
+   "actor": "tenstorrent",
+   "kind": "funding",
+   "value": 1.5,
+   "unit": "USD bn",
+   "period": "19 October 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Post-money valuation USD 6.2 billion."
+  },
+  {
+   "id": "entry-etched-series-c",
+   "claim": "Etched set a $10.3 billion valuation with a $300 million Series C in late July 2026.",
+   "url": "https://aiweekly.co/alerts/etched-doubles-to-21b-in-700m-round-led-by-jane-street",
+   "quotes": [
+    "AI inference-chip startup Etched has raised $700 million led by Jane Street at a $21 billion valuation, roughly doubling the $10.3 billion mark it set with a $300 million Series C only in late July, per the Wall Street Journal."
+   ],
+   "values": [
+    "$300 million",
+    "$10.3 billion",
+    "Series C"
+   ],
+   "dated2026": true,
+   "actor": "etched",
+   "kind": "funding",
+   "value": 0.3,
+   "unit": "USD bn",
+   "period": "late July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 10.3 billion. Re-quoted so the quote carries both numbers."
+  },
+  {
+   "id": "entry-zhipu-ipo",
+   "claim": "Zhipu AI (Z.ai) raised HK$4.35 billion (US$558 million) in a Hong Kong IPO in January 2026.",
+   "url": "https://www.thestar.com.my/aseanplus/aseanplus-news/2026/01/08/startups-go-public-in-litmus-test-for-chinese-ai",
+   "quotes": [
+    "Shares in Zhipu AI, which runs the Z.ai tool, rose more than 12 percent on Thursday after its oversubscribed initial public offering raised HK$4.35 billion (US$558 million)."
+   ],
+   "values": [
+    "4.35 billion",
+    "558 million"
+   ],
+   "dated2026": true,
+   "actor": "zhipu",
+   "kind": "funding",
+   "value": 0.558,
+   "unit": "USD bn",
+   "period": "IPO, January 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-minimax-ipo",
+   "claim": "MiniMax raised US$619 million in its Hong Kong IPO on 9 January 2026.",
+   "url": "https://officechai.com/ai/minimax-becomes-second-chinese-ai-company-to-ipo-on-the-hong-kong-exchange-stock-rises-54-on-debut",
+   "quotes": [
+    "The generative AI startup raised US$619 million in its initial public offering, becoming the second Chinese AI model company to go public following Z.AI's landmark listing just days earlier."
+   ],
+   "values": [
+    "619 million"
+   ],
+   "dated2026": true,
+   "actor": "minimax",
+   "kind": "funding",
+   "value": 0.619,
+   "unit": "USD bn",
+   "period": "IPO, 9 January 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-moonshot-35bn",
+   "claim": "Moonshot AI secured more than US$3.5 billion in July 2026, lifting its valuation to US$35 billion.",
+   "url": "https://www2.yicaiglobal.com/news/moonshot-ais-latest-fundraiser-lifts-valuation-to-usd35-billion-amid-kimis-silicon-valley-buzz",
+   "quotes": [
+    "Moonshot AI, the Chinese artificial intelligence startup behind the Kimi chatbot, secured more than USD3.5 billion in its latest funding round, exceeding expectations and lifting its valuation to USD35 billion, according to people familiar with the matter."
+   ],
+   "values": [
+    "3.5 billion",
+    "35 billion"
+   ],
+   "dated2026": true,
+   "actor": "moonshot",
+   "kind": "funding",
+   "value": 3.5,
+   "unit": "USD bn",
+   "period": "July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 35 billion."
+  },
+  {
+   "id": "entry-anthropic-founded-2021",
+   "claim": "Anthropic was founded in January 2021 by former OpenAI members, including siblings Daniela and Dario Amodei.",
+   "url": "https://en.wikipedia.org/wiki/Anthropic",
+   "quotes": [
+    "In January 2021, with the goal of promoting AI safety, Anthropic was founded by former members of OpenAI, including siblings Daniela Amodei and Dario Amodei, who are president and CEO, respectively."
+   ],
+   "values": [
+    "January 2021"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "event",
+   "value": 2021,
+   "unit": "year",
+   "period": "January 2021",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-signalfire-retention",
+   "claim": "SignalFire found 80% of Anthropic hires from two or more years earlier were still there after two years, against 78% at DeepMind, 67% at OpenAI and 64% at Meta.",
+   "url": "https://www.signalfire.com/blog/signalfire-state-of-talent-report-2025",
+   "quotes": [
+    "An impressive 80% of employees hired at least 2 years ago at Anthropic were still at the company at the end of their second year—a figure that stands out in an industry known for high turnover.",
+    "DeepMind follows closely at 78%, while OpenAI's retention trails at 67% but remains on par with large FAANG companies like Meta (64%)."
+   ],
+   "values": [
+    "80%",
+    "78%",
+    "67%",
+    "64%"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "share",
+   "value": 80,
+   "unit": "%",
+   "period": "2025 (two-year retention)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "",
+   "scope": "two-year employee retention at AI labs"
+  },
+  {
+   "id": "entry-deepseek-a100-stock",
+   "claim": "The Financial Times reported that by mid-2022 DeepSeek's parent High-Flyer had acquired more than 10,000 NVIDIA A100 chips and spent over 1.2 billion RMB on two data centres.",
+   "url": "https://www.csis.org/analysis/deepseek-huawei-export-controls-and-future-us-china-ai-race",
+   "quotes": [
+    "The Financial Times reported that, by mid-2022, High-Flyer had already acquired more than 10,000 Nvidia A100 chips (which at the time were the most advanced AI chips in the world) and spent more than 1.2 billion RMB (roughly $180 million at the time) to build two data centers."
+   ],
+   "values": [
+    "10,000",
+    "1.2 billion RMB"
+   ],
+   "dated2026": false,
+   "actor": "deepseek",
+   "kind": "units",
+   "value": 10000,
+   "unit": "A100 GPUs",
+   "period": "by mid-2022",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-deepseek-founded",
+   "claim": "DeepSeek was founded in July 2023 by Liang Wenfeng and is owned and funded by the hedge fund High-Flyer.",
+   "url": "https://en.wikipedia.org/wiki/DeepSeek",
+   "quotes": [
+    "Based in Hangzhou, Zhejiang, DeepSeek is owned and funded by High-Flyer, a Chinese hedge fund.",
+    "DeepSeek was founded in July 2023 by Liang Wenfeng, who also acts as CEO of the company."
+   ],
+   "values": [
+    "July 2023"
+   ],
+   "dated2026": true,
+   "actor": "deepseek",
+   "kind": "event",
+   "value": 2023,
+   "unit": "year",
+   "period": "July 2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-nvidia-venture-deals-2025",
+   "claim": "NVIDIA took part in nearly 67 venture capital deals in 2025, against 54 in all of 2024, per PitchBook.",
+   "url": "https://techcrunch.com/2026/01/02/nvidias-ai-empire-a-look-at-its-top-startup-investments/",
+   "quotes": [
+    "Nvidia has participated in nearly 67 venture capital deals in 2025, surpassing the 54 deals the company completed in all of 2024, according to PitchBook data."
+   ],
+   "values": [
+    "67",
+    "54"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 67,
+   "unit": "venture deals",
+   "period": "2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-nvidia-anthropic-10bn",
+   "claim": "In November 2025 NVIDIA committed up to $10 billion to Anthropic in a round that included $5 billion from Microsoft.",
+   "url": "https://techcrunch.com/2026/01/02/nvidias-ai-empire-a-look-at-its-top-startup-investments/",
+   "quotes": [
+    "Anthropic: In November 2025, Nvidia made its first direct investment in the AI lab, committing up to $10 billion as part of a strategic round that included a $5 billion check from Microsoft."
+   ],
+   "values": [
+    "10 billion",
+    "5 billion"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 10,
+   "unit": "USD bn (up to)",
+   "period": "November 2025",
+   "from": "nvidia",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-etched-21bn",
+   "claim": "Etched raised $700 million led by Jane Street at a $21 billion valuation in August 2026, roughly double the $10.3 billion set in July.",
+   "url": "https://aiweekly.co/alerts/etched-doubles-to-21b-in-700m-round-led-by-jane-street",
+   "quotes": [
+    "AI inference-chip startup Etched has raised $700 million led by Jane Street at a $21 billion valuation, roughly doubling the $10.3 billion mark it set with a $300 million Series C only in late July, per the Wall Street Journal."
+   ],
+   "values": [
+    "700 million",
+    "21 billion"
+   ],
+   "dated2026": true,
+   "actor": "etched",
+   "kind": "funding",
+   "value": 0.7,
+   "unit": "USD bn",
+   "period": "August 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Valuation USD 21 billion."
+  },
+  {
+   "id": "entry-tml-valuation",
+   "claim": "Thinking Machines Lab sits at its original $12 billion valuation, set in July 2025.",
+   "url": "https://startuphub.ai/news/figure-mira-murati-company-financial-breakdown-2026-06-02",
+   "quotes": [
+    "Today Thinking Machines sits at its original $12 billion valuation, with roughly 140 to 169 employees, two live products, and infrastructure commitments from Nvidia and Google that run into the billions."
+   ],
+   "values": [
+    "$12 billion"
+   ],
+   "dated2026": true,
+   "actor": "thinking-machines",
+   "kind": "valuation",
+   "value": 12,
+   "unit": "USD bn",
+   "period": "status June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-ssi-valuation",
+   "claim": "Safe Superintelligence was valued at $32 billion in April 2025, without a product.",
+   "url": "https://www.maginative.com/article/sutskevers-safe-superintelligence-raises-another-2b-at-32b-valuation/",
+   "quotes": [
+    "Safe Superintelligence, the stealthy AI company led by OpenAI co-founder Ilya Sutskever, has raised another $2 billion in funding, pushing its valuation to a staggering $32 billion—despite having not launched a product, no public roadmap, and a website that's little more than a mission statement."
+   ],
+   "values": [
+    "$32 billion"
+   ],
+   "dated2026": false,
+   "actor": "ssi",
+   "kind": "valuation",
+   "value": 32,
+   "unit": "USD bn",
+   "period": "April 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-reflection-valuation",
+   "claim": "Reflection AI was valued at $8 billion in October 2025.",
+   "url": "https://en.wikipedia.org/wiki/Reflection_AI",
+   "quotes": [
+    "In October 2025, Reflection raised $2 billion in a funding round that valued the company at $8 billion."
+   ],
+   "values": [
+    "$8 billion"
+   ],
+   "dated2026": false,
+   "actor": "reflection-ai",
+   "kind": "valuation",
+   "value": 8,
+   "unit": "USD bn",
+   "period": "October 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-mistral-valuation",
+   "claim": "A round led by ASML valued Mistral AI at nearly $14 billion in September 2025.",
+   "url": "https://www.itiger.com/news/2566669228",
+   "quotes": [
+    "ASML is pumping more than $1.5 billion into France's Mistral AI for an 11% stake, leading a round valuing the Paris-based startup at nearly $14 billion -- more than double its valuation last year."
+   ],
+   "values": [
+    "$14 billion"
+   ],
+   "dated2026": false,
+   "actor": "mistral",
+   "kind": "valuation",
+   "value": 14,
+   "unit": "USD bn",
+   "period": "September 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Dow Jones reports the valuation in dollars; the euro figure is in entry-mistral-series-c."
+  },
+  {
+   "id": "entry-asml-mistral-usd",
+   "claim": "ASML put more than $1.5 billion into Mistral AI for an 11% stake in September 2025.",
+   "url": "https://www.itiger.com/news/2566669228",
+   "quotes": [
+    "ASML is pumping more than $1.5 billion into France's Mistral AI for an 11% stake, leading a round valuing the Paris-based startup at nearly $14 billion -- more than double its valuation last year."
+   ],
+   "values": [
+    "$1.5 billion",
+    "11%"
+   ],
+   "dated2026": false,
+   "actor": "asml",
+   "kind": "investment",
+   "value": 1.5,
+   "unit": "USD bn",
+   "period": "September 2025 (one-off)",
+   "from": "asml",
+   "to": "mistral",
+   "accessed": "2026-11-07",
+   "notes": "The dollar form of the EUR 1.3 billion in entry-mistral-asml-stake, as Dow Jones reports it."
+  },
+  {
+   "id": "entry-moonshot-valuation",
+   "claim": "Moonshot AI was valued at USD35 billion after its July 2026 round.",
+   "url": "https://www2.yicaiglobal.com/news/moonshot-ais-latest-fundraiser-lifts-valuation-to-usd35-billion-amid-kimis-silicon-valley-buzz",
+   "quotes": [
+    "Moonshot AI, the Chinese artificial intelligence startup behind the Kimi chatbot, secured more than USD3.5 billion in its latest funding round, exceeding expectations and lifting its valuation to USD35 billion, according to people familiar with the matter."
+   ],
+   "values": [
+    "USD35 billion"
+   ],
+   "dated2026": true,
+   "actor": "moonshot",
+   "kind": "valuation",
+   "value": 35,
+   "unit": "USD bn",
+   "period": "July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-tenstorrent-valuation",
+   "claim": "Tenstorrent was valued at $6.2 billion after its $1.5 billion Series E closed on 19 October 2026.",
+   "url": "https://letsdatascience.com/news/tenstorrent-raises-15-billion-at-62-billion-valuation-6ba88899",
+   "quotes": [
+    "Tenstorrent said on October 19 that it closed a $1.5 billion Series E financing, valuing the AI-compute company at $6.2 billion after the investment."
+   ],
+   "values": [
+    "$6.2 billion"
+   ],
+   "dated2026": true,
+   "actor": "tenstorrent",
+   "kind": "valuation",
+   "value": 6.2,
+   "unit": "USD bn",
+   "period": "19 October 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-etched-valuation",
+   "claim": "Etched was valued at $21 billion after its $700 million round in August 2026.",
+   "url": "https://aiweekly.co/alerts/etched-doubles-to-21b-in-700m-round-led-by-jane-street",
+   "quotes": [
+    "AI inference-chip startup Etched has raised $700 million led by Jane Street at a $21 billion valuation, roughly doubling the $10.3 billion mark it set with a $300 million Series C only in late July, per the Wall Street Journal."
+   ],
+   "values": [
+    "$21 billion"
+   ],
+   "dated2026": true,
+   "actor": "etched",
+   "kind": "valuation",
+   "value": 21,
+   "unit": "USD bn",
+   "period": "August 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-cerebras-series-g-valuation",
+   "claim": "Cerebras was valued at $8.1 billion in its September 2025 Series G, before its IPO.",
+   "url": "https://en.wikipedia.org/wiki/Cerebras",
+   "quotes": [
+    "In September 2025, the company raised $1.1 billion in a Series G round, selling shares for $36.23 each, or a valuation of $8.1 billion."
+   ],
+   "values": [
+    "$8.1 billion"
+   ],
+   "dated2026": false,
+   "actor": "cerebras",
+   "kind": "valuation",
+   "value": 8.1,
+   "unit": "USD bn",
+   "period": "September 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-cerebras-mcap",
+   "claim": "Cerebras Systems had a market cap of $21.30 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/cerebras-systems/marketcap/",
+   "quotes": [
+    "As of November 2026 Cerebras Systems has a market cap of $21.30 Billion USD."
+   ],
+   "values": [
+    "$21.30 Billion"
+   ],
+   "dated2026": true,
+   "actor": "cerebras",
+   "kind": "marketCap",
+   "value": 21.3,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Lower than the $56.4 billion fully diluted value at the May 2026 IPO price (entry-cerebras-ipo): different share counts or a fall since; unresolved."
+  },
+  {
+   "id": "entry-zhipu-mcap",
+   "claim": "Z.ai (Zhipu, HKG:2513) had a market cap of 198.45 billion Hong Kong dollars on 6 November 2026.",
+   "url": "https://stockanalysis.com/quote/hkg/2513/market-cap/",
+   "quotes": [
+    "Z.AI Co., Ltd. has a market cap or net worth of 198.45 billion as of November 6, 2026."
+   ],
+   "values": [
+    "198.45 billion"
+   ],
+   "dated2026": true,
+   "actor": "zhipu",
+   "kind": "marketCap",
+   "value": 25.4,
+   "unit": "USD bn",
+   "period": "as of 2026-11-06",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The page prices in HKD (HKD 198.45 billion). value is converted at HKD 7.80 per USD, the middle of the HKMA band 7.75 to 7.85 (entry-hkd-peg-band): about USD 25.3 to 25.6 billion."
+  },
+  {
+   "id": "entry-hkd-peg-band",
+   "claim": "The HKMA keeps the Hong Kong dollar between HK$7.75 and HK$7.85 per US dollar through its Convertibility Undertakings.",
+   "url": "https://www.hkma.gov.hk/eng/key-functions/money/linked-exchange-rate-system/how-does-the-lers-work/",
+   "quotes": [
+    "The HKMA provides Convertibility Undertakings (CUs), under which the HKMA commits to sell Hong Kong dollars upon request by banks at the strong-side CU of HK$7.75 per US dollar, and to buy Hong Kong dollars upon request by banks at the weak-side CU of HK$7.85 per US dollar."
+   ],
+   "values": [
+    "7.75",
+    "7.85"
+   ],
+   "dated2026": true,
+   "actor": null,
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "LERS description read 7 Nov 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-minimax-mcap",
+   "claim": "MiniMax Group (0100.HK) had a market cap of $6.93 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/minimax-group/marketcap/",
+   "quotes": [
+    "As of November 2026 MiniMax Group has a market cap of $6.93 Billion USD."
+   ],
+   "values": [
+    "$6.93 Billion"
+   ],
+   "dated2026": true,
+   "actor": "minimax",
+   "kind": "marketCap",
+   "value": 6.93,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-groq-valuation-2025",
+   "claim": "Groq raised $750 million at a post-money valuation of $6.9 billion in September 2025.",
+   "url": "https://today.thefinancialexpress.com.bd/stock-corporate/chip-startup-groq-raises-750m-at-69b-valuation-1758129890?amp=true",
+   "quotes": [
+    "Artificial intelligence chip startup Groq said on Wednesday it has raised $750 million in new financing at a post-money valuation of $6.9 billion."
+   ],
+   "values": [
+    "$750 million",
+    "$6.9 billion"
+   ],
+   "dated2026": false,
+   "actor": "groq",
+   "kind": "valuation",
+   "value": 6.9,
+   "unit": "USD bn",
+   "period": "September 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "NVIDIA then paid a reported $20 billion for licence-and-hire (weapons-acq-nvidia-groq)."
+  },
+  {
+   "id": "entry-sambanova-valuation",
+   "claim": "SambaNova was valued at $11 billion as of July 2026, after a $1 billion Series F first round led by General Atlantic.",
+   "url": "https://en.wikipedia.org/wiki/SambaNova_Systems",
+   "quotes": [
+    "As of July 2026, the company was valued at $11 billion.[18] Also in July, the company closed the first round of Series F funding, in which it raised $1 billion, led by General Atlantic."
+   ],
+   "values": [
+    "$11 billion",
+    "$1 billion"
+   ],
+   "dated2026": true,
+   "actor": "sambanova",
+   "kind": "valuation",
+   "value": 11,
+   "unit": "USD bn",
+   "period": "July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-scale-valuation-2024",
+   "claim": "Scale AI's valuation reached $14 billion in May 2024, after a $1 billion round that included Amazon and Meta.",
+   "url": "https://en.wikipedia.org/wiki/Scale_AI",
+   "quotes": [
+    "In May 2024, Scale raised an additional $1 billion with new investors including Amazon and Meta Platforms. Its valuation reached $14 billion.[34]"
+   ],
+   "values": [
+    "$14 billion",
+    "$1 billion"
+   ],
+   "dated2026": false,
+   "actor": "scale-ai",
+   "kind": "valuation",
+   "value": 14,
+   "unit": "USD bn",
+   "period": "May 2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-scale-meta-stake",
+   "claim": "In June 2025 Meta spent more than $14 billion to acquire a 49% non-voting stake in Scale AI; its CEO left to join Meta.",
+   "url": "https://en.wikipedia.org/wiki/Scale_AI",
+   "quotes": [
+    "In June 2025, Meta Platforms spent more than $14 billion to acquire a 49% non-voting stake in Scale AI. CEO Alexandr Wang left Scale AI to join Meta and was replaced by Jason Droege.[15]"
+   ],
+   "values": [
+    "$14 billion",
+    "49%"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "investment",
+   "value": 14,
+   "unit": "USD bn",
+   "period": "June 2025 (one-off)",
+   "from": "meta",
+   "to": "scale-ai",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-graphcore-peak-2018",
+   "claim": "Graphcore closed a $200 million Series D at a $1.7 billion valuation in December 2018.",
+   "url": "https://en.wikipedia.org/wiki/Graphcore",
+   "quotes": [
+    "In December 2018, Graphcore closed its series D with $200 million raised at a $1.7 billion valuation, making the company a unicorn."
+   ],
+   "values": [
+    "$200 million",
+    "$1.7 billion"
+   ],
+   "dated2026": false,
+   "actor": "graphcore",
+   "kind": "valuation",
+   "value": 1.7,
+   "unit": "USD bn",
+   "period": "December 2018",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-graphcore-peak-2020",
+   "claim": "UK chipmaker Graphcore was valued at $2.8 billion in December 2020 after raising $222 million (title of a Guardian article cited by Wikipedia).",
+   "url": "https://en.wikipedia.org/wiki/Graphcore",
+   "quotes": [
+    "UK chipmaker Graphcore valued at $2.8bn after it raises $222m"
+   ],
+   "values": [
+    "$2.8bn",
+    "$222m"
+   ],
+   "dated2026": false,
+   "actor": "graphcore",
+   "kind": "valuation",
+   "value": 2.8,
+   "unit": "USD bn",
+   "period": "December 2020",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Peak valuation. Source is a cited article title on the Wikipedia page."
+  },
+  {
+   "id": "entry-graphcore-softbank",
+   "claim": "In July 2024 SoftBank Group agreed to acquire Graphcore for around $500 million.",
+   "url": "https://en.wikipedia.org/wiki/Graphcore",
+   "quotes": [
+    "In July 2024, Softbank Group agreed to acquire Graphcore for around $500 million."
+   ],
+   "values": [
+    "$500 million"
+   ],
+   "dated2026": false,
+   "actor": "softbank",
+   "kind": "acquisition",
+   "value": 0.5,
+   "unit": "USD bn",
+   "period": "July 2024",
+   "from": "softbank",
+   "to": "graphcore",
+   "accessed": "2026-11-07",
+   "notes": "Below the $2.8 billion peak valuation (entry-graphcore-peak-2020)."
+  },
+  {
+   "id": "entry-humane-raised",
+   "claim": "Humane raised more than $230 million to create the AI Pin.",
+   "url": "https://techcrunch.com/2025/02/18/humanes-ai-pin-is-dead-as-hp-buys-startups-assets-for-116m",
+   "quotes": [
+    "The Bay Area startup, founded by ex-Apple employees Bethany Bongiorno and Imran Chaudhri, raised more than $230 million to create the device."
+   ],
+   "values": [
+    "$230 million"
+   ],
+   "dated2026": false,
+   "actor": "humane",
+   "kind": "funding",
+   "value": 0.23,
+   "unit": "USD bn",
+   "period": "to February 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-humane-hp-sale",
+   "claim": "In February 2025 HP acquired most of Humane's assets for $116 million and Humane discontinued the AI Pin.",
+   "url": "https://techcrunch.com/2025/02/18/humanes-ai-pin-is-dead-as-hp-buys-startups-assets-for-116m",
+   "quotes": [
+    "Humane announced on Tuesday that most of its assets have been acquired by HP for $116 million. The hardware startup is immediately discontinuing sales of its $499 AI Pins."
+   ],
+   "values": [
+    "$116 million"
+   ],
+   "dated2026": false,
+   "actor": "hp",
+   "kind": "acquisition",
+   "value": 0.116,
+   "unit": "USD bn",
+   "period": "18 February 2025",
+   "from": "hp",
+   "to": "humane",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-builderai-raised",
+   "claim": "Builder.ai received $230 million in a 2023 round backed by Microsoft, Insight Partners, SoftBank and the Qatar Investment Authority.",
+   "url": "https://en.wikipedia.org/wiki/Builder.ai",
+   "quotes": [
+    "In 2023, the company received $230 million in a funding round by investors, including Microsoft, Insight Partners, Softbank and Qatar Investment Authority.[8]"
+   ],
+   "values": [
+    "$230 million"
+   ],
+   "dated2026": false,
+   "actor": "builder-ai",
+   "kind": "funding",
+   "value": 0.23,
+   "unit": "USD bn",
+   "period": "2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-builderai-insolvency",
+   "claim": "Builder.ai announced insolvency proceedings in May 2025 after creditors seized $50 million it had borrowed in October 2024.",
+   "url": "https://en.wikipedia.org/wiki/Builder.ai",
+   "quotes": [
+    "In May 2025, Builder.ai announced insolvency proceedings after creditors seized $50 million borrowed in October 2024.[12]"
+   ],
+   "values": [
+    "$50 million"
+   ],
+   "dated2026": false,
+   "actor": "builder-ai",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "May 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-perplexity-valuation",
+   "claim": "Perplexity AI reached a valuation of $21.21 billion in early 2026 after its Series E-6 round.",
+   "url": "https://en.wikipedia.org/wiki/Perplexity_AI",
+   "quotes": [
+    "As of early 2026, Perplexity AI reached a valuation of $21.21 billion following its Series E-6 funding round."
+   ],
+   "values": [
+    "$21.21 billion"
+   ],
+   "dated2026": true,
+   "actor": "perplexity",
+   "kind": "valuation",
+   "value": 21.21,
+   "unit": "USD bn",
+   "period": "early 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-cursor-valuation",
+   "claim": "Anysphere, which does business as Cursor, achieved a US$29.3 billion valuation and surpassed $3 billion in annual recurring revenue by early 2026.",
+   "url": "https://en.wikipedia.org/wiki/Cursor_(company)",
+   "quotes": [
+    "Anysphere, Inc., doing business as Cursor, is a subsidiary of SpaceXAI which offers generative AI for producing computer code. Its primary product is Cursor, an AI coding agent and software development environment. Founded in 2022, the company builds AI tools for writing code via natural-language instructions. Cursor achieved a US$29.3 billion valuation and surpassed $3 billion in annual recurring revenue by early 2026."
+   ],
+   "values": [
+    "$29.3 billion",
+    "$3 billion"
+   ],
+   "dated2026": true,
+   "actor": "cursor",
+   "kind": "valuation",
+   "value": 29.3,
+   "unit": "USD bn",
+   "period": "early 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-cursor-spacex",
+   "claim": "Cursor was acquired and integrated into SpaceXAI from June 2026, and became a wholly owned subsidiary in August.",
+   "url": "https://en.wikipedia.org/wiki/Cursor_(company)",
+   "quotes": [
+    "It was acquired and integrated into SpaceXAI from June 2026. In August, it became a wholly owned subsidiary of SpaceXAI."
+   ],
+   "values": [
+    "June 2026",
+    "August"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "June to August 2026",
+   "from": "spacex",
+   "to": "cursor",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-amazon-sbc-9m",
+   "claim": "Amazon's stock-based compensation was $15,476 million in the nine months to 30 September 2026 and $5,406 million in the third quarter.",
+   "url": "https://s2.q4cdn.com/299287126/files/doc_earnings/2026/q3/earnings-result/AMZN-Q3-2026-Earnings-Release.pdf",
+   "quotes": [
+    "Stock-based compensation 4,847 5,406 15,070 15,476 20,065 19,873"
+   ],
+   "values": [
+    "15,476",
+    "5,406"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "sbc",
+   "value": 15.476,
+   "unit": "USD bn",
+   "period": "nine months to 30 September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Cash-flow row, columns: Q3 2025, Q3 2026, nine months 2025, nine months 2026, TTM 2025, TTM 2026. Q3 2026 = USD 5.406 billion."
+  },
+  {
+   "id": "entry-microsoft-sbc-fy2026",
+   "claim": "Microsoft's stock-based compensation expense was $12,405 million in fiscal 2026 (year ended 30 June 2026).",
+   "url": "https://fortune.com/company-assets/1861/quartr/annual-report-10-k-83e73ff4ec29a490befb68812eb1b111-2026-07-29-20-09-47.pdf",
+   "quotes": [
+    "Stock-based compensation expense and related income tax benefits were as follows: (In millions) Year Ended June 30, Stock-based compensation expense Income tax benefits related to stock-based compensation 2026 2025 2024 $ 12,405 2,089 $ 11,974 2,027 $ 10,734 1,826"
+   ],
+   "values": [
+    "12,405"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "sbc",
+   "value": 12.405,
+   "unit": "USD bn",
+   "period": "FY2026 (ended 30 June 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "From Microsoft FY2026 Form 10-K (copy hosted by Fortune/Quartr); sec.gov refused scripts."
+  },
+  {
+   "id": "entry-microsoft-sbc-q1fy27",
+   "claim": "Microsoft's stock-based compensation expense was $3,134 million in the quarter ended 30 September 2026.",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "quotes": [
+    "Stock-based compensation expense 3,134 2,983"
+   ],
+   "values": [
+    "3,134"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "sbc",
+   "value": 3.134,
+   "unit": "USD bn",
+   "period": "Q1 FY2027 (quarter ended 30 September 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-apple-sbc-fy2026",
+   "claim": "Apple's share-based compensation expense was $13,789 million in fiscal 2026 (year ended 26 September 2026).",
+   "url": "https://s2.q4cdn.com/470004039/files/doc_earnings/2026/q4/filing/10K-Q4-2026-as-filed.pdf",
+   "quotes": [
+    "Share-based compensation expense $ 13,789 $ Income tax benefit related to share-based compensation expense $ (3,917) $ 12,863 2024 $ 11,688"
+   ],
+   "values": [
+    "13,789"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "sbc",
+   "value": 13.789,
+   "unit": "USD bn",
+   "period": "FY2026 (ended 26 September 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-meta-google-tpu-rental-feb2026",
+   "claim": "In February 2026 Meta was reported to have agreed a multibillion-dollar deal to rent Google Cloud's TPUs; a separate purchase of TPUs was still unagreed.",
+   "url": "https://siliconangle.com/2026/02/26/google-meta-reportedly-strike-new-multibillion-dollar-ai-chip-deal/",
+   "quotes": [
+    "Meta Platforms Inc. has reportedly agreed to a multibillion-dollar deal to rent Google Cloud's custom artificial intelligence chips, according to a report in The Information today.",
+    "However, no agreement has been reached so far, the report said."
+   ],
+   "values": [
+    "multibillion-dollar"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "26 February 2026",
+   "from": "google",
+   "to": "meta",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-meta-mtia-2024",
+   "claim": "Meta last updated its custom MTIA chips in 2024 and has reportedly been working with TSMC on a new design.",
+   "url": "https://siliconangle.com/2026/02/26/google-meta-reportedly-strike-new-multibillion-dollar-ai-chip-deal/",
+   "quotes": [
+    "The company last updated its custom Meta Training and Inference Accelerator or MTIA chips in 2024, and has reportedly been working with Taiwan Semiconductor Manufacturing Co. on a new design that was expected to launch sometime this year."
+   ],
+   "values": [
+    "2024"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "event",
+   "value": 2024,
+   "unit": "year",
+   "period": "2024; report of 26 February 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "entry-microsoft-maia200",
+   "claim": "Microsoft introduced Maia 200 in January 2026, to be deployed first in US Azure regions for its Superintelligence team's models.",
+   "url": "https://news.microsoft.com/source/emea/2026/01/microsoft-introduces-maia-200-new-inference-accelerator-enhances-ai-performance-in-azure/",
+   "quotes": [
+    "Maia 200 will initially be deployed in U.S. regions of the Microsoft Azure cloud and will be used for AI models from the Microsoft Superintelligence team."
+   ],
+   "values": [
+    "Maia 200"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "January 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "thinking-machines",
+   "name": "Thinking Machines Lab",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "frontier AI",
+   "founded": 2025,
+   "role": "Murati's lab; raised a $2B seed, then stalled at $12B",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "researchers from OpenAI",
+    "execution": "two products in 16 months",
+    "environment": "Nvidia and Google compute"
+   },
+   "advantage": "Talent-led entrant that raised capital on reputation alone; it has no scale or distribution yet.",
+   "standsOn": [
+    "nvidia",
+    "google"
+   ],
+   "competitors": [
+    "openai",
+    "anthropic"
+   ],
+   "customers": [],
+   "desire": "to win on interaction models",
+   "fear": "losing its few senior researchers to Meta or OpenAI",
+   "facts": [
+    "entry-tml-seed-stall",
+    "entry-tml-nvidia-gigawatt",
+    "entry-tml-valuation"
+   ]
+  },
+  {
+   "id": "ssi",
+   "name": "Safe Superintelligence",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "frontier AI",
+   "founded": 2024,
+   "role": "Sutskever's lab; no product, valued at $32B",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Sutskever",
+    "execution": "unproven",
+    "environment": "investor appetite"
+   },
+   "advantage": "Valuation rests on one founder's reputation; capital is its only moat so far.",
+   "standsOn": [
+    "google",
+    "nvidia"
+   ],
+   "competitors": [
+    "openai"
+   ],
+   "customers": [],
+   "desire": "safe superintelligence",
+   "fear": "running out of runway before a product",
+   "facts": [
+    "entry-ssi-32bn",
+    "entry-ssi-valuation"
+   ]
+  },
+  {
+   "id": "reflection-ai",
+   "name": "Reflection AI",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "open models",
+   "founded": 2024,
+   "role": "US open-weights lab backed by Nvidia",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "ex-DeepMind founders",
+    "execution": "first model Oct 2026",
+    "environment": "US wish for an open Western model"
+   },
+   "advantage": "Raised $2B on a promise; its first model only matched a previous-generation Chinese open model.",
+   "standsOn": [
+    "nvidia"
+   ],
+   "competitors": [
+    "deepseek",
+    "alibaba",
+    "meta"
+   ],
+   "customers": [],
+   "desire": "an American open frontier model",
+   "fear": "Chinese open models staying ahead",
+   "facts": [
+    "entry-reflection-8bn",
+    "entry-reflection-beam",
+    "entry-reflection-valuation"
+   ]
+  },
+  {
+   "id": "cerebras",
+   "name": "Cerebras",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2016,
+   "role": "wafer-scale AI chips; public since May 2026",
+   "powers": [
+    "process power"
+   ],
+   "triad": {
+    "information": "wafer-scale design",
+    "execution": "CS-4 in 2026",
+    "environment": "two customers were 86% of 2025 revenue"
+   },
+   "advantage": "Different architecture and now IPO capital; concentration in two customers is its weakness.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia",
+    "groq"
+   ],
+   "customers": [
+    "openai",
+    "amazon"
+   ],
+   "desire": "inference share",
+   "fear": "customer concentration",
+   "facts": [
+    "entry-cerebras-ipo",
+    "entry-cerebras-customers",
+    "entry-cerebras-series-g",
+    "entry-cerebras-series-g-valuation",
+    "entry-cerebras-mcap"
+   ]
+  },
+  {
+   "id": "groq",
+   "name": "Groq",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2016,
+   "role": "inference chips; its technology and leaders went to NVIDIA",
+   "powers": [],
+   "triad": {
+    "information": "LPU design",
+    "execution": "cloud API",
+    "environment": "Saudi commitment"
+   },
+   "advantage": "Fast inference chips, absorbed by NVIDIA through a licence-and-hire deal.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [],
+   "desire": "inference speed",
+   "fear": "NVIDIA",
+   "facts": [
+    "entry-groq-series-d",
+    "weapons-acq-nvidia-groq",
+    "entry-groq-valuation-2025"
+   ]
+  },
+  {
+   "id": "sambanova",
+   "name": "SambaNova",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2017,
+   "role": "AI systems start-up valued at $11B in July 2026",
+   "powers": [],
+   "triad": {
+    "information": "dataflow chips",
+    "execution": "software suite",
+    "environment": "funding"
+   },
+   "advantage": "Valued at $11B in July 2026 after a $1B Series F, still a fraction of the capex it competes against.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [],
+   "desire": "enterprise inference",
+   "fear": "funding gap",
+   "facts": [
+    "entry-sambanova-feb2026",
+    "entry-sambanova-valuation"
+   ]
+  },
+  {
+   "id": "tenstorrent",
+   "name": "Tenstorrent",
+   "kind": "company",
+   "country": "CA",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2016,
+   "role": "RISC-V and AI chips led by Jim Keller",
+   "powers": [
+    "patents"
+   ],
+   "triad": {
+    "information": "CPU design talent",
+    "execution": "Galaxy servers",
+    "environment": "licensable IP"
+   },
+   "advantage": "Sells licensable IP as well as servers, a route that needs less capital than a full stack.",
+   "standsOn": [
+    "tsmc",
+    "arm"
+   ],
+   "competitors": [
+    "nvidia",
+    "arm"
+   ],
+   "customers": [],
+   "desire": "volume manufacturing",
+   "fear": "NVIDIA ecosystem",
+   "facts": [
+    "entry-tenstorrent-series-e",
+    "entry-tenstorrent-valuation"
+   ]
+  },
+  {
+   "id": "etched",
+   "name": "Etched",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2022,
+   "role": "transformer-only inference chip (Sohu)",
+   "powers": [
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "transformer hardwired",
+    "execution": "TSMC 4nm",
+    "environment": "SK Hynix and Jane Street back it"
+   },
+   "advantage": "A bet that a fixed architecture beats a general GPU; valuation doubled in weeks in 2026.",
+   "standsOn": [
+    "tsmc",
+    "sk-hynix"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [],
+   "desire": "displace GPUs at inference",
+   "fear": "architecture change",
+   "facts": [
+    "entry-etched-series-c",
+    "entry-etched-21bn",
+    "entry-etched-valuation"
+   ]
+  },
+  {
+   "id": "mistral",
+   "name": "Mistral AI",
+   "kind": "company",
+   "country": "FR",
+   "layer": "models",
+   "sector": "frontier AI",
+   "founded": 2023,
+   "role": "Europe's largest model lab; ASML is its biggest shareholder",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "open models",
+    "execution": "small team",
+    "environment": "European sovereignty"
+   },
+   "advantage": "Strategic capital from a supplier chokepoint (ASML) rather than a hyperscaler.",
+   "standsOn": [
+    "nvidia",
+    "asml"
+   ],
+   "competitors": [
+    "openai"
+   ],
+   "customers": [],
+   "desire": "European champion",
+   "fear": "scale gap",
+   "facts": [
+    "entry-mistral-series-c",
+    "entry-mistral-asml-stake",
+    "entry-mistral-valuation",
+    "entry-asml-mistral-usd"
+   ]
+  },
+  {
+   "id": "moonshot",
+   "name": "Moonshot AI",
+   "kind": "company",
+   "country": "CN",
+   "layer": "models",
+   "sector": "frontier AI",
+   "founded": 2023,
+   "role": "Kimi maker valued at $35B",
+   "powers": [],
+   "triad": {
+    "information": "open models",
+    "execution": "fast releases",
+    "environment": "Chinese capital"
+   },
+   "advantage": "Chinese capital markets fund a rival wall of its own.",
+   "standsOn": [
+    "huawei"
+   ],
+   "competitors": [
+    "deepseek",
+    "alibaba"
+   ],
+   "customers": [],
+   "desire": "global users",
+   "fear": "chip access",
+   "facts": [
+    "entry-moonshot-35bn",
+    "entry-moonshot-valuation"
+   ]
+  },
+  {
+   "id": "zhipu",
+   "name": "Zhipu AI (Z.ai)",
+   "kind": "company",
+   "country": "CN",
+   "layer": "models",
+   "sector": "frontier AI",
+   "founded": 2019,
+   "role": "listed in Hong Kong in January 2026",
+   "powers": [],
+   "triad": {
+    "information": "GLM models",
+    "execution": "state ties",
+    "environment": "HK listing"
+   },
+   "advantage": "Public listing gives it share-price currency.",
+   "standsOn": [
+    "huawei"
+   ],
+   "competitors": [
+    "deepseek"
+   ],
+   "customers": [],
+   "desire": "capital for research",
+   "fear": "compute",
+   "facts": [
+    "entry-zhipu-ipo",
+    "entry-zhipu-mcap",
+    "entry-hkd-peg-band"
+   ]
+  },
+  {
+   "id": "minimax",
+   "name": "MiniMax",
+   "kind": "company",
+   "country": "CN",
+   "layer": "models",
+   "sector": "frontier AI",
+   "founded": 2021,
+   "role": "listed in Hong Kong in January 2026",
+   "powers": [],
+   "triad": {
+    "information": "multimodal models",
+    "execution": "retail demand",
+    "environment": "HK listing"
+   },
+   "advantage": "IPO retail demand, 1,830 times subscribed.",
+   "standsOn": [
+    "huawei"
+   ],
+   "competitors": [
+    "deepseek"
+   ],
+   "customers": [],
+   "desire": "AGI",
+   "fear": "compute",
+   "facts": [
+    "entry-minimax-ipo",
+    "entry-minimax-mcap"
+   ]
+  },
+  {
+   "id": "adept",
+   "name": "Adept",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "agents",
+   "founded": 2022,
+   "role": "agent start-up hollowed out by Amazon's licence-and-hire",
+   "powers": [],
+   "triad": {
+    "information": "agent research",
+    "execution": "n/a",
+    "environment": "n/a"
+   },
+   "advantage": "Its team is now Amazon's.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "agents",
+   "fear": "talent loss",
+   "facts": [
+    "entry-adept-amazon"
+   ]
+  },
+  {
+   "id": "ai-industry",
+   "name": "AI industry (aggregate)",
+   "kind": "aggregate",
+   "country": "",
+   "layer": "economy",
+   "sector": "aggregate",
+   "founded": 0,
+   "role": "aggregate for industry-wide statistics",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "entry-ai-index-industry-share",
+    "entry-epoch-cost-growth",
+    "entry-epoch-billion-2027"
+   ]
+  },
+  {
+   "id": "scale-ai",
+   "name": "Scale AI",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "data labelling",
+   "founded": 2016,
+   "role": "training-data supplier; Meta holds 49% non-voting",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Valued at $14B in 2024, then half-bought by Meta, which hired its CEO: independence traded for capital.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "data for every lab",
+   "fear": "losing neutral customers after the Meta deal",
+   "facts": [
+    "entry-scale-valuation-2024",
+    "entry-scale-meta-stake"
+   ]
+  },
+  {
+   "id": "enfabrica",
+   "name": "Enfabrica",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2019,
+   "role": "AI networking chips; CEO and team hired by NVIDIA",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "A networking start-up whose CEO, staff and technology NVIDIA bought into for more than $900M.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [],
+   "desire": "to fix GPU cluster networking",
+   "fear": "NVIDIA",
+   "facts": [
+    "entry-enfabrica-acquihire"
+   ]
+  },
+  {
+   "id": "graphcore",
+   "name": "Graphcore",
+   "kind": "company",
+   "country": "GB",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 2016,
+   "role": "UK AI chip maker sold to SoftBank in 2024",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Peak valuation $2.8B (2020) against a sale at about $500M: an entrant outspent by NVIDIA.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [],
+   "desire": "a viable IPU business",
+   "fear": "NVIDIA ecosystem",
+   "facts": [
+    "entry-graphcore-peak-2018",
+    "entry-graphcore-peak-2020",
+    "entry-graphcore-softbank"
+   ]
+  },
+  {
+   "id": "humane",
+   "name": "Humane",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "consumer devices",
+   "founded": 2018,
+   "role": "AI Pin maker; assets sold to HP, device shut down in 2025",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Raised more than $230M; most assets went to HP for $116M and the AI Pin was discontinued.",
+   "standsOn": [],
+   "competitors": [
+    "apple"
+   ],
+   "customers": [],
+   "desire": "a smartphone replacement",
+   "fear": "returns outpacing sales",
+   "facts": [
+    "entry-humane-raised",
+    "entry-humane-hp-sale"
+   ],
+   "ended": 2025
+  },
+  {
+   "id": "builder-ai",
+   "name": "Builder.ai",
+   "kind": "company",
+   "country": "GB",
+   "layer": "history",
+   "sector": "software",
+   "founded": 2016,
+   "role": "UK AI app-building firm; insolvent in 2025",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Received $230M in 2023 from Microsoft and others, then entered insolvency in May 2025.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "AI-built software",
+   "fear": "creditors",
+   "facts": [
+    "entry-builderai-raised",
+    "entry-builderai-insolvency"
+   ],
+   "ended": 2025
+  },
+  {
+   "id": "perplexity",
+   "name": "Perplexity AI",
+   "kind": "company",
+   "country": "US",
+   "layer": "consumer",
+   "sector": "search",
+   "founded": 2022,
+   "role": "AI answer engine challenging Google Search",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Valued at $21.21B in early 2026 but with no distribution of its own: it stands against Google Search and Apple and Microsoft defaults.",
+   "standsOn": [
+    "microsoft"
+   ],
+   "competitors": [
+    "google"
+   ],
+   "customers": [],
+   "desire": "replace the search box",
+   "fear": "incumbents owning the default",
+   "facts": [
+    "entry-perplexity-valuation"
+   ]
+  },
+  {
+   "id": "cursor",
+   "name": "Cursor (Anysphere)",
+   "kind": "company",
+   "country": "US",
+   "layer": "consumer",
+   "sector": "developer tools",
+   "founded": 2022,
+   "role": "AI coding agent; part of SpaceXAI from June 2026",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Reached $29.3B and $3B ARR, then was absorbed by SpaceX's AI arm: the leading entrant against GitHub Copilot did not stay independent.",
+   "standsOn": [
+    "anthropic",
+    "openai"
+   ],
+   "competitors": [
+    "microsoft"
+   ],
+   "customers": [],
+   "desire": "own the developer workflow",
+   "fear": "model suppliers competing downstream",
+   "facts": [
+    "entry-cursor-valuation",
+    "entry-cursor-spacex"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "entry-flow-asml-mistral",
+   "from": "asml",
+   "to": "mistral",
+   "usdBnPerYear": 1.5,
+   "what": "equity investment for 11% (one-off; EUR 1.3bn, USD 1.5bn)",
+   "period": "September 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "entry-asml-mistral-usd"
+  },
+  {
+   "id": "entry-flow-nvidia-enfabrica",
+   "from": "nvidia",
+   "to": "enfabrica",
+   "usdBnPerYear": 0.9,
+   "what": "acquihire: CEO, team and technology (one-off, more than)",
+   "period": "September 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "entry-enfabrica-acquihire"
+  },
+  {
+   "id": "entry-flow-meta-scale",
+   "from": "meta",
+   "to": "scale-ai",
+   "usdBnPerYear": 14.0,
+   "what": "49% non-voting stake (one-off, more than)",
+   "period": "June 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "entry-scale-meta-stake"
+  },
+  {
+   "id": "entry-flow-softbank-graphcore",
+   "from": "softbank",
+   "to": "graphcore",
+   "usdBnPerYear": 0.5,
+   "what": "acquisition (one-off, about)",
+   "period": "July 2024",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "entry-graphcore-softbank"
+  },
+  {
+   "id": "entry-flow-hp-humane",
+   "from": "hp",
+   "to": "humane",
+   "usdBnPerYear": 0.116,
+   "what": "purchase of most assets (one-off)",
+   "period": "February 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "entry-humane-hp-sale"
+  }
+ ],
+ "chokepoints": [],
+ "flashpoints": [
+  {
+   "id": "fp-deepseek-vs-capex",
+   "year": 2025,
+   "date": "2025-01-27",
+   "era": "present",
+   "holder": "deepseek",
+   "rivals": [
+    "nvidia",
+    "openai"
+   ],
+   "title": "A cheap model wipes $589B off NVIDIA",
+   "advantage": "efficiency under export controls",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "A lab with a pre-control stock of A100s trained V3 in 2.788M H800 GPU hours, showing capital is not the only way in.",
+   "outcome": "NVIDIA lost over $589B in a day, yet DeepSeek was later valued at $52B and relies on Huawei chips.",
+   "facts": [
+    "entry-deepseek-v3-gpu-hours",
+    "entry-deepseek-a100-stock",
+    "entry-deepseek-nvidia-record-loss",
+    "str-deepseek-valuation-52"
+   ]
+  },
+  {
+   "id": "fp-anthropic-talent",
+   "year": 2021,
+   "date": "2021-01",
+   "era": "present",
+   "holder": "anthropic",
+   "rivals": [
+    "openai",
+    "google"
+   ],
+   "title": "Defection builds a rival",
+   "advantage": "talent and mission",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Eleven OpenAI staff left to found Anthropic; its 80% two-year retention then pulled engineers from OpenAI and DeepMind, while Amazon, Google and NVIDIA funded the compute.",
+   "outcome": "Anthropic is valued at $965B (May 2026).",
+   "facts": [
+    "entry-anthropic-founded-2021",
+    "entry-signalfire-retention",
+    "lineage-anthropic-founders-from-openai",
+    "labs-anthropic-valuation"
+   ]
+  },
+  {
+   "id": "fp-entry-custom-silicon",
+   "year": 2025,
+   "date": "2025-10",
+   "era": "present",
+   "holder": "google",
+   "rivals": [
+    "nvidia"
+   ],
+   "title": "Custom silicon presses on NVIDIA",
+   "advantage": "own chips plus customers' capital",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "Customers with their own balance sheets contract TPUs, Trainium, Broadcom designs, Maia and MTIA to cut dependence on NVIDIA; AMD paid OpenAI with a warrant.",
+   "outcome": "Google plans 4.3M TPUs in 2026; Amazon holds over $225B of Trainium commitments; Rainier has nearly 500,000 Trainium2; OpenAI signed 10 GW with Broadcom; Meta rents TPUs.",
+   "facts": [
+    "str-google-tpu-half",
+    "integration-amazon-trainium-commitments",
+    "entry-trainium-rainier",
+    "entry-openai-broadcom-10gw",
+    "entry-openai-amd-warrant",
+    "entry-meta-google-tpu-talks",
+    "entry-meta-google-tpu-rental-feb2026",
+    "entry-meta-mtia-2024",
+    "entry-microsoft-maia200"
+   ]
+  },
+  {
+   "id": "fp-entry-cursor-absorbed",
+   "year": 2026,
+   "date": "2026-06",
+   "era": "present",
+   "holder": "spacex",
+   "rivals": [
+    "cursor",
+    "microsoft"
+   ],
+   "title": "The best coding entrant is absorbed",
+   "advantage": "capital and a model owner's balance sheet",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "Cursor reached $29.3B and $3B ARR against GitHub Copilot, then became a SpaceXAI subsidiary.",
+   "outcome": "Acquired and integrated from June 2026; wholly owned from August.",
+   "facts": [
+    "entry-cursor-valuation",
+    "entry-cursor-spacex"
+   ]
+  }
+ ],
+ "lineage": [],
+ "moats": [],
+ "presence": [],
+ "barriers": [
+  {
+   "stratum": "models",
+   "source": "talent",
+   "what": "OpenAI stock pay averages $1.5 million per employee",
+   "facts": [
+    "entry-openai-sbc-per-employee"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "talent",
+   "what": "Meta offered up to $300M over four years",
+   "facts": [
+    "labs-meta-talent-pay"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "talent",
+   "what": "Meta SBC $21.05B and Alphabet $23.3B in nine months of 2026",
+   "facts": [
+    "weapons-meta-sbc-9m",
+    "weapons-alphabet-sbc"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "talent",
+   "what": "NVIDIA stock pay $6.39B in FY2026",
+   "facts": [
+    "entry-nvidia-sbc-fy2026",
+    "entry-nvidia-sbc-statement"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "talent",
+   "what": "Licence-and-hire deals: Inflection $650M, Character.AI $2.7B, Windsurf $2.4B, Adept, Scale 49%",
+   "facts": [
+    "weapons-acq-inflection",
+    "weapons-acq-characterai",
+    "weapons-acq-windsurf",
+    "entry-adept-amazon",
+    "str-meta-scale-14bn"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "talent",
+   "what": "NVIDIA hired Enfabrica's team and Groq's leaders",
+   "facts": [
+    "entry-enfabrica-acquihire",
+    "weapons-acq-nvidia-groq"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "scale",
+   "what": "Nearly 90% of notable models come from industry",
+   "facts": [
+    "entry-ai-index-industry-share"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "capital",
+   "what": "Training cost: $191M for Gemini Ultra, growing 2.4x a year, over $1B by 2027",
+   "facts": [
+    "entry-training-cost-gemini-gpt4",
+    "entry-epoch-cost-growth",
+    "entry-epoch-billion-2027",
+    "entry-amodei-1bn-training"
+   ]
+  },
+  {
+   "stratum": "clouds",
+   "source": "capital",
+   "what": "Hyperscaler capex of $815B in 2026 versus entrants' rounds of $0.3B to $5.5B",
+   "facts": [
+    "compute-hyperscaler-capex-2026",
+    "entry-cerebras-ipo",
+    "entry-etched-series-c"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "capital",
+   "what": "NVIDIA invests in its customers: 67 deals in 2025, up to $10B in Anthropic, a stake in Thinking Machines",
+   "facts": [
+    "entry-nvidia-venture-deals-2025",
+    "entry-nvidia-anthropic-10bn",
+    "entry-tml-nvidia-gigawatt",
+    "labs-openai-nvidia-100bn"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "capital",
+   "what": "Share price as currency: AMD pays OpenAI with 160M warrant shares",
+   "facts": [
+    "entry-openai-amd-warrant"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "technology",
+   "what": "Entrants' revenue is concentrated: Cerebras's largest customer 62%",
+   "facts": [
+    "entry-cerebras-customers"
+   ]
+  },
+  {
+   "stratum": "consumer",
+   "source": "talent",
+   "what": "Stock pay at the platforms: Amazon $15.5B (nine months 2026), Microsoft $12.4B (FY2026), Apple $13.8B (FY2026)",
+   "facts": [
+    "entry-amazon-sbc-9m",
+    "entry-microsoft-sbc-fy2026",
+    "entry-microsoft-sbc-q1fy27",
+    "entry-apple-sbc-fy2026"
+   ]
+  },
+  {
+   "stratum": "consumer",
+   "source": "capital",
+   "what": "Share price buys platforms: Facebook paid $19.3B for WhatsApp mostly in shares, Google $1.65B for YouTube in stock, OpenAI $5B in shares for io",
+   "facts": [
+    "weapons-acq-whatsapp",
+    "weapons-acq-youtube",
+    "weapons-acq-openai-io"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "scale",
+   "what": "Custom silicon is the route in, bought by customers: 4.3M TPUs planned for 2026, over $225B of Trainium commitments",
+   "facts": [
+    "str-google-tpu-half",
+    "integration-amazon-trainium-commitments",
+    "entry-trainium-rainier"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "capital",
+   "what": "OpenAI contracts 10 GW of Broadcom custom accelerators; Meta rents Google TPUs and keeps MTIA; Microsoft launches Maia 200",
+   "facts": [
+    "entry-openai-broadcom-10gw",
+    "entry-meta-google-tpu-rental-feb2026",
+    "entry-meta-mtia-2024",
+    "entry-microsoft-maia200"
+   ]
+  },
+  {
+   "stratum": "clouds",
+   "source": "capital",
+   "what": "The one listed neocloud, CoreWeave, is worth $25.6B on $2.08B of quarterly revenue, against trillion-dollar hyperscalers",
+   "facts": [
+    "str-mcap-coreweave",
+    "str-coreweave-q1-2026"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "capital",
+   "what": "Entrants that sold cheaply: Graphcore, valued at $2.8B, sold for about $500M",
+   "facts": [
+    "entry-graphcore-peak-2020",
+    "entry-graphcore-softbank"
+   ]
+  },
+  {
+   "stratum": "consumer",
+   "source": "capital",
+   "what": "Entrants that failed: Humane raised $230M and sold assets for $116M; Builder.ai raised $230M and went insolvent",
+   "facts": [
+    "entry-humane-raised",
+    "entry-humane-hp-sale",
+    "entry-builderai-raised",
+    "entry-builderai-insolvency"
+   ]
+  }
+ ],
+ "entrants": [
+  {
+   "id": "anthropic",
+   "name": "Anthropic",
+   "stratum": "models",
+   "what": "founded Jan 2021 by 11 ex-OpenAI staff; $965B valuation",
+   "fate": "independent",
+   "by": "amazon",
+   "facts": [
+    "entry-anthropic-founded-2021",
+    "lineage-anthropic-founders-from-openai",
+    "labs-anthropic-valuation",
+    "str-google-anthropic-40bn",
+    "entry-nvidia-anthropic-10bn"
+   ]
+  },
+  {
+   "id": "deepseek",
+   "name": "DeepSeek",
+   "stratum": "models",
+   "what": "hedge-fund funded; 2.788M GPU hours; $52B valuation",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-deepseek-founded",
+    "entry-deepseek-v3-gpu-hours",
+    "str-deepseek-valuation-52"
+   ]
+  },
+  {
+   "id": "xai",
+   "name": "xAI",
+   "stratum": "models",
+   "what": "Colossus of 100,000 H100s in 122 days",
+   "fate": "acquired",
+   "by": "spacex",
+   "facts": [
+    "entry-xai-colossus-122-days",
+    "labs-xai-spacex-merger-value"
+   ]
+  },
+  {
+   "id": "thinking-machines",
+   "name": "Thinking Machines Lab",
+   "stratum": "models",
+   "what": "$2B seed at $12B; $50B ask passed",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-tml-seed-stall",
+    "entry-tml-nvidia-gigawatt",
+    "entry-tml-valuation"
+   ]
+  },
+  {
+   "id": "ssi",
+   "name": "Safe Superintelligence",
+   "stratum": "models",
+   "what": "$2B at $32B, no product",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-ssi-32bn",
+    "entry-ssi-valuation"
+   ]
+  },
+  {
+   "id": "mistral",
+   "name": "Mistral AI",
+   "stratum": "models",
+   "what": "EUR 1.7B at EUR 11.7B; ASML 11%",
+   "fate": "independent",
+   "by": "asml",
+   "facts": [
+    "entry-mistral-series-c",
+    "entry-mistral-asml-stake",
+    "entry-mistral-valuation",
+    "entry-asml-mistral-usd"
+   ]
+  },
+  {
+   "id": "reflection-ai",
+   "name": "Reflection AI",
+   "stratum": "models",
+   "what": "$2B at $8B; first model Oct 2026",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-reflection-8bn",
+    "entry-reflection-beam",
+    "entry-reflection-valuation"
+   ]
+  },
+  {
+   "id": "moonshot",
+   "name": "Moonshot AI",
+   "stratum": "models",
+   "what": "US$3.5B at US$35B, July 2026",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-moonshot-35bn",
+    "entry-moonshot-valuation"
+   ]
+  },
+  {
+   "id": "zhipu",
+   "name": "Zhipu AI (Z.ai)",
+   "stratum": "models",
+   "what": "HK IPO raised US$558M",
+   "fate": "public",
+   "by": null,
+   "facts": [
+    "entry-zhipu-ipo",
+    "entry-zhipu-mcap"
+   ]
+  },
+  {
+   "id": "minimax",
+   "name": "MiniMax",
+   "stratum": "models",
+   "what": "HK IPO raised US$619M",
+   "fate": "public",
+   "by": null,
+   "facts": [
+    "entry-minimax-ipo",
+    "entry-minimax-mcap"
+   ]
+  },
+  {
+   "id": "inflection",
+   "name": "Inflection AI",
+   "stratum": "models",
+   "what": "$650M licence, nearly all staff hired",
+   "fate": "licence-and-hire",
+   "by": "microsoft",
+   "facts": [
+    "weapons-acq-inflection"
+   ]
+  },
+  {
+   "id": "character-ai",
+   "name": "Character.AI",
+   "stratum": "models",
+   "what": "$2.7B licence, co-founder rehired",
+   "fate": "licence-and-hire",
+   "by": "google",
+   "facts": [
+    "weapons-acq-characterai"
+   ]
+  },
+  {
+   "id": "windsurf",
+   "name": "Windsurf",
+   "stratum": "models",
+   "what": "$2.4B licence, top staff hired",
+   "fate": "licence-and-hire",
+   "by": "google",
+   "facts": [
+    "weapons-acq-windsurf"
+   ]
+  },
+  {
+   "id": "adept",
+   "name": "Adept",
+   "stratum": "models",
+   "what": "CEO and co-founders to Amazon",
+   "fate": "licence-and-hire",
+   "by": "amazon",
+   "facts": [
+    "entry-adept-amazon"
+   ]
+  },
+  {
+   "id": "scale-ai",
+   "name": "Scale AI",
+   "stratum": "models",
+   "what": "Meta took 49% for $14.3B and hired its CEO",
+   "fate": "independent",
+   "by": "meta",
+   "facts": [
+    "str-meta-scale-14bn",
+    "entry-scale-valuation-2024",
+    "entry-scale-meta-stake"
+   ]
+  },
+  {
+   "id": "cerebras",
+   "name": "Cerebras",
+   "stratum": "chips",
+   "what": "IPO raised $5.5B; two customers dominate revenue",
+   "fate": "public",
+   "by": null,
+   "facts": [
+    "entry-cerebras-ipo",
+    "entry-cerebras-customers",
+    "entry-cerebras-mcap",
+    "entry-cerebras-series-g-valuation"
+   ]
+  },
+  {
+   "id": "groq",
+   "name": "Groq",
+   "stratum": "chips",
+   "what": "$640M at $2.8B, then NVIDIA licence-and-hire",
+   "fate": "licence-and-hire",
+   "by": "nvidia",
+   "facts": [
+    "entry-groq-series-d",
+    "weapons-acq-nvidia-groq",
+    "entry-groq-valuation-2025"
+   ]
+  },
+  {
+   "id": "enfabrica",
+   "name": "Enfabrica",
+   "stratum": "chips",
+   "what": "networking chips; NVIDIA spent over $900M on its CEO, team and technology",
+   "fate": "licence-and-hire",
+   "by": "nvidia",
+   "facts": [
+    "entry-enfabrica-acquihire"
+   ]
+  },
+  {
+   "id": "sambanova",
+   "name": "SambaNova",
+   "stratum": "chips",
+   "what": "$350M in Feb 2026; valued at $11B in July 2026 after a $1B Series F",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-sambanova-feb2026",
+    "entry-sambanova-valuation"
+   ]
+  },
+  {
+   "id": "tenstorrent",
+   "name": "Tenstorrent",
+   "stratum": "chips",
+   "what": "$1.5B at $6.2B, Oct 2026",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-tenstorrent-series-e",
+    "entry-tenstorrent-valuation"
+   ]
+  },
+  {
+   "id": "etched",
+   "name": "Etched",
+   "stratum": "chips",
+   "what": "$700M at $21B, Aug 2026",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-etched-series-c",
+    "entry-etched-21bn",
+    "entry-etched-valuation"
+   ]
+  },
+  {
+   "id": "graphcore",
+   "name": "Graphcore",
+   "stratum": "chips",
+   "what": "valued $2.8B in 2020; sold to SoftBank for about $500M in 2024",
+   "fate": "acquired",
+   "by": "softbank",
+   "facts": [
+    "entry-graphcore-peak-2020",
+    "entry-graphcore-softbank"
+   ]
+  },
+  {
+   "id": "humane",
+   "name": "Humane",
+   "stratum": "consumer",
+   "what": "raised over $230M; assets sold to HP for $116M; AI Pin shut down",
+   "fate": "failed",
+   "by": "hp",
+   "facts": [
+    "entry-humane-raised",
+    "entry-humane-hp-sale"
+   ]
+  },
+  {
+   "id": "builder-ai",
+   "name": "Builder.ai",
+   "stratum": "consumer",
+   "what": "$230M round in 2023; insolvent May 2025",
+   "fate": "failed",
+   "by": null,
+   "facts": [
+    "entry-builderai-raised",
+    "entry-builderai-insolvency"
+   ]
+  },
+  {
+   "id": "perplexity",
+   "name": "Perplexity AI",
+   "stratum": "consumer",
+   "what": "valued $21.21B in early 2026, against Google Search",
+   "fate": "independent",
+   "by": null,
+   "facts": [
+    "entry-perplexity-valuation"
+   ]
+  },
+  {
+   "id": "cursor",
+   "name": "Cursor (Anysphere)",
+   "stratum": "consumer",
+   "what": "$29.3B valuation, $3B ARR, against GitHub Copilot; absorbed by SpaceXAI in 2026",
+   "fate": "acquired",
+   "by": "spacex",
+   "facts": [
+    "entry-cursor-valuation",
+    "entry-cursor-spacex"
+   ]
+  },
+  {
+   "id": "coreweave",
+   "name": "CoreWeave",
+   "stratum": "clouds",
+   "what": "the listed neocloud: $25.59B market cap, $2.08B quarterly revenue",
+   "fate": "public",
+   "by": null,
+   "facts": [
+    "str-mcap-coreweave",
+    "str-coreweave-q1-2026"
+   ]
+  },
+  {
+   "id": "tpu",
+   "name": "Google TPU",
+   "stratum": "chips",
+   "what": "4.3M TPUs planned for 2026; Meta rents them",
+   "fate": "independent",
+   "by": "google",
+   "facts": [
+    "str-google-tpu-half",
+    "entry-meta-google-tpu-talks",
+    "entry-meta-google-tpu-rental-feb2026"
+   ]
+  },
+  {
+   "id": "trainium",
+   "name": "Amazon Trainium",
+   "stratum": "chips",
+   "what": "over $225B of commitments; Rainier ~500,000 Trainium2",
+   "fate": "independent",
+   "by": "amazon",
+   "facts": [
+    "integration-amazon-trainium-commitments",
+    "entry-trainium-rainier"
+   ]
+  },
+  {
+   "id": "mtia",
+   "name": "Meta MTIA",
+   "stratum": "chips",
+   "what": "in-house accelerator, last updated 2024, new TSMC design reported",
+   "fate": "independent",
+   "by": "meta",
+   "facts": [
+    "entry-meta-mtia-2024"
+   ]
+  },
+  {
+   "id": "maia",
+   "name": "Microsoft Maia 200",
+   "stratum": "chips",
+   "what": "inference accelerator introduced January 2026",
+   "fate": "independent",
+   "by": "microsoft",
+   "facts": [
+    "entry-microsoft-maia200"
+   ]
+  },
+  {
+   "id": "openai-broadcom",
+   "name": "OpenAI-Broadcom accelerators",
+   "stratum": "chips",
+   "what": "10 GW of custom accelerators",
+   "fate": "independent",
+   "by": "openai",
+   "facts": [
+    "entry-openai-broadcom-10gw"
+   ]
+  }
+ ],
+ "notes": "Unverified and left out: Meta's Rivos acquisition (terms undisclosed); Thinking Machines' reported $50-60B talks (secondary only); SSI's later rounds; Humane's and Builder.ai's peak valuations (no page that fetched stated them); Perplexity's reported $30B+ talks of Aug 2026 (aggregator only); Cursor's reported $50-60B figures (aggregators); a talent-concentration share from the 2026 AI Index (its page says the industry share of new AI PhDs stayed flat but gives no figure in text). Zhipu's market cap is HKD 198.45B on its page; the USD value (25.4) is a conversion at 7.80, the middle of the HKMA band (entry-hkd-peg-band). Cerebras's 7 Nov market cap ($21.3B) is far below its $56.4B IPO-day fully diluted value; unexplained. Custom-silicon entrants (tpu, trainium, mtia, maia, openai-broadcom) use fate 'independent' with the owner in 'by': they are in-house programmes, not firms. weapons-talent-meta-300m (unit 'USD bn' for $300 million) is dropped from the talent barrier; labs-meta-talent-pay carries the figure in USD m. The 'entry' cache names zhipu and minimax were touched by a failed fetch (metadata only). Inflection, Character.AI, Windsurf, Groq acquisition and Meta SBC facts are cited by id from earlier clusters.",
+ "openQuestions": [
+  "Did Thinking Machines close any round after its $12B seed?",
+  "How much did NVIDIA pay for Groq's licence and team, and did it face antitrust review?",
+  "Will Etched's transformer-only chip survive an architecture shift?",
+  "Does Cerebras's customer concentration fall now it has OpenAI and AWS?",
+  "Does the talent wall hold once Anthropic and OpenAI IPO and employees can sell stock?",
+  "Is Cerebras worth $21.3B or $56.4B: which share count does the market-cap page use?",
+  "What did NVIDIA pay for Groq: the $20B CNBC figure or a smaller licence fee?",
+  "Cursor's SpaceXAI deal price is not in a fetchable source: what was it?",
+  "Does Meta buy TPUs outright after the February 2026 rental deal?"
+ ]
+}

@@ -234,6 +234,74 @@ CHOKE_Q = {"substitutable": {
                  "At once: many suppliers offer an equivalent."]}}
 
 
+WALL_LEVELS = ["No barrier: a rival or a new entrant could match it within a year with ordinary effort.",
+               "A low barrier: a well-funded rival could match it in one or two years.",
+               "A real barrier: matching it takes several years and tens of billions of dollars, and rivals are trying.",
+               "A high barrier: only a few of the world's largest companies or states could match it, over many years.",
+               "Near-insurmountable: no rival can match it this decade; the market is built on it."]
+
+
+def moat_questions(sources):
+    """One Score per source of a moat (the fifth direction's advantage boundaries): how much that source alone keeps
+    rivals and entrants out of the company's market. The source is named in each question (ids are not sent)."""
+    return {"wall_" + src: {
+        "type": "score",
+        "instructions": "`moat` says where `moat.company` holds an advantage as of `asOf`: its market (`moat.market`) and its "
+                        "share there (`moat.share`). `moat.sources." + src + "` is one source of that advantage, with what it "
+                        "is and the verified evidence for it. Judge that source alone: how much does it keep rivals and new "
+                        "entrants from taking this market from the company?",
+        "criteria": WALL_LEVELS} for src in sources}
+
+
+ENTRY_Q = {
+    "hard": {
+        "type": "score",
+        "instructions": "`stratum` is one layer of the 2026 AI supply chain as of `asOf`, with its largest incumbents, the "
+                        "verified barriers to entry, and new entrants with their fates. How hard is it for a new company, "
+                        "starting now, to win a meaningful share (about 5%) of this layer's market by 2030?",
+        "criteria": ["Easy: many entrants win share; incumbents hold little that an entrant cannot buy or build.",
+                     "Hard but common: well-funded entrants win share within a few years.",
+                     "Very hard: a few entrants with exceptional backing have won share; most are absorbed or stall.",
+                     "Nearly closed: entrants are bought, licensed-and-hired or starved before they win share.",
+                     "Closed: no entrant can win share this decade; only states or the incumbents themselves can."]},
+    "talentCapital": {
+        "type": "score",
+        "instructions": "`stratum` is one layer of the 2026 AI supply chain as of `asOf`, with its largest incumbents, the "
+                        "verified barriers to entry, and new entrants with their fates. Of what keeps new entrants out of "
+                        "this layer, how much is the incumbents' hold on talent and the buying power of their share price "
+                        "(stock-based pay, stock- and cash-funded deals, investments in would-be rivals, capex funded by "
+                        "market value), as opposed to other barriers (technology, scarce supply, distribution, regulation)?",
+        "criteria": ["None of it: other barriers keep entrants out.",
+                     "A little: talent and the share price matter at the margin.",
+                     "About half: talent and the share price weigh as much as the other barriers.",
+                     "Most of it: talent and the share price are the main wall.",
+                     "Almost all of it: without their talent and share price the incumbents would face entrants."]},
+}
+
+
+def moat_state(model, actors, m):
+    return {"asOf": model.get("asOf"),
+            "moat": {"company": actor_brief(actors, m.get("actor")), "market": m.get("market"), "share": m.get("share"),
+                     "sources": {x["source"]: {"what": x.get("what"), "evidence": verified_claims(model, x.get("facts"), 10)}
+                                 for x in m.get("sources") or [] if x.get("source")}}}
+
+
+def entry_state(model, actors, stratum, name):
+    present = [a for a in model.get("actors", []) if a.get("era") == "present" and not a.get("stub")]
+    incumbents = [actor_brief(actors, m["actor"])["name"] for m in model.get("moats", []) if m.get("stratum") == stratum]
+    return {"asOf": model.get("asOf"),
+            "stratum": {"name": name, "incumbents": incumbents,
+                        "barriers": [{"source": b.get("source"), "what": b.get("what"), "evidence": verified_claims(model, b.get("facts"), 6)}
+                                     for b in model.get("barriers", []) if b.get("stratum") == stratum],
+                        "entrants": [{"name": e.get("name"), "what": e.get("what"), "fate": e.get("fate")}
+                                     for e in model.get("entrants", []) if e.get("stratum") == stratum]}}
+
+
+STRATA_NAMES = {"consumer": "consumer products and platforms", "models": "AI models", "clouds": "cloud and data centres",
+                "chips": "chips, memory and networking", "fabs": "fabs and packaging", "tools": "equipment, EDA and IP",
+                "energy": "energy and power", "materials": "raw materials"}
+
+
 def flashpoint_questions(firms):
     scope = ("`flashpoint` is a contest in which `flashpoint.holder` held a competitive advantage over "
              "`flashpoint.rivals`: `flashpoint.mechanism` says how, and `flashpoint.outcome` what came of it. "
@@ -401,6 +469,16 @@ def main():
     if only in (None, "chokepoints"):
         for c in model.get("chokepoints", []):
             jobs.append(("chokepoints", c.get("id") or c["actor"], choke_state(model, actors, c), CHOKE_Q))
+    if only in (None, "moats"):
+        for m in model.get("moats", []):
+            srcs = [x["source"] for x in m.get("sources") or [] if x.get("source")]
+            if srcs:
+                jobs.append(("moats", m["id"], moat_state(model, actors, m), moat_questions(srcs)))
+    if only in (None, "entry"):
+        for sid, nm in STRATA_NAMES.items():
+            st = entry_state(model, actors, sid, nm)
+            if st["stratum"]["barriers"] or st["stratum"]["entrants"]:
+                jobs.append(("entry", sid, st, ENTRY_Q))
     if only in (None, "flashpoints"):
         for p in model.get("flashpoints", []):
             firms = all(actors.get(x, {}).get("kind") in ("company", "lab")
@@ -412,7 +490,7 @@ def main():
     if not offline and not jev.available():
         sys.exit("Jev credential unavailable: no judgments made")
     out = load(OUT) if os.path.exists(OUT) else {}
-    for section in ("actors", "strategy", "flows", "chokepoints", "flashpoints"):
+    for section in ("actors", "strategy", "flows", "chokepoints", "flashpoints", "moats", "entry"):
         out.setdefault(section, {})
     done = [0]
 

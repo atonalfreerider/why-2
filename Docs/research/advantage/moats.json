@@ -1,0 +1,1984 @@
+{
+ "cluster": "moats",
+ "asOf": "2026-11-07",
+ "scope": "Sources of advantage of the companies that dominate a stratum: NVIDIA's hold on AI accelerators first, then TSMC, ASML, SK Hynix, Broadcom, the platform companies and the two leading labs.",
+ "actors": [],
+ "flows": [
+  {
+   "id": "moats-flow-nvidia-openai",
+   "from": "nvidia",
+   "to": "openai",
+   "usdBnPerYear": 30,
+   "what": "equity stake in OpenAI's 2026 round",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "owners-nvidia-openai-30bn"
+  },
+  {
+   "id": "moats-flow-nvidia-intel",
+   "from": "nvidia",
+   "to": "intel",
+   "usdBnPerYear": 5,
+   "what": "equity stake in Intel",
+   "period": "early 2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "compute-nvidia-intel-investment"
+  },
+  {
+   "id": "moats-flow-nvidia-anthropic",
+   "from": "nvidia",
+   "to": "anthropic",
+   "usdBnPerYear": 10,
+   "what": "up to $10bn commitment",
+   "period": "announced late 2025",
+   "basis": "contracted",
+   "kind": "investment",
+   "fact": "moats-nvidia-anthropic-10bn"
+  }
+ ],
+ "chokepoints": [],
+ "flashpoints": [],
+ "lineage": [],
+ "moats": [
+  {
+   "actor": "nvidia",
+   "stratum": "chips",
+   "market": "AI accelerators",
+   "share": "about 75% of AI accelerators in 2026 (an analyst estimate, down from about 87% in 2024)",
+   "shareFact": "compute-nvidia-accel-share",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "CUDA: 6 million developers; networking $14.8bn in one quarter",
+     "facts": [
+      "moats-nvidia-cuda-developers",
+      "compute-cuda-dominates",
+      "moats-nvidia-networking-q1fy27",
+      "lineage-cuda-released-2007"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "CoWoS: about 56-60% of TSMC's 2026 capacity (estimates), 800-850k wafers booked; $279bn of commitments; HBM: 37% of 2027 demand (forecast), suppliers sold out to 2029",
+     "facts": [
+      "moats-nvidia-cowos-share-2026",
+      "moats-nvidia-cowos-allocation-tomshw",
+      "moats-nvidia-cowos-booked",
+      "moats-nvidia-cowos-demand-780k",
+      "compute-nvidia-commitments",
+      "moats-nvidia-hbm-demand-share-2027",
+      "compute-skhynix-hbm-share",
+      "compute-skhynix-sold-out"
+     ]
+    },
+    {
+     "source": "patents",
+     "what": "Weakest wall: not in IFI's 2025 US Top 50 (Samsung 7,054, TSMC 4,194, Qualcomm 3,749); company says 9,800+ granted and pending patents (via a blog)",
+     "facts": [
+      "moats-ifi-nvidia-not-top50",
+      "moats-samsung-patents-2025",
+      "moats-tsmc-patents-2025",
+      "moats-qualcomm-patents-2025",
+      "moats-nvidia-patents-granted-pending"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$4.5tn market cap; $51.2bn of strategic stakes and $25bn more committed; $30bn in OpenAI, up to $10bn in Anthropic, $5bn in Intel, $2bn in CoreWeave, the xAI round; $26bn returned in a quarter",
+     "facts": [
+      "compute-nvidia-marketcap",
+      "balancea-nvidia-investments",
+      "balancea-nvidia-commit-equity",
+      "owners-nvidia-openai-30bn",
+      "moats-nvidia-anthropic-10bn",
+      "compute-nvidia-intel-investment",
+      "str-coreweave-nvidia-2bn",
+      "moats-nvidia-xai-round",
+      "moats-nvidia-venture-rounds-2025",
+      "weapons-acq-nvidia-groq",
+      "moats-nvidia-receivables-q2fy27",
+      "moats-nvidia-returned-to-shareholders-q2fy27"
+     ]
+    },
+    {
+     "source": "talent",
+     "what": "42,000 employees; $6.39bn of stock-based pay in FY2026 ('to attract and retain world-class talent'); acqui-hire of Enfabrica's team",
+     "facts": [
+      "moats-nvidia-employees",
+      "moats-nvidia-fy2026-revenue",
+      "entry-nvidia-sbc-fy2026",
+      "entry-nvidia-sbc-statement",
+      "entry-enfabrica-acquihire"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "$215.9bn revenue in FY2026; $96.2bn in the latest quarter at 75% gross margin; $1tn Blackwell and Rubin backlog",
+     "facts": [
+      "moats-nvidia-fy2026-revenue",
+      "compute-nvidia-q2fy27-revenue",
+      "compute-nvidia-q2fy27-margin",
+      "buildout-nvidia-backlog",
+      "str-nvidia-capex-capture"
+     ]
+    },
+    {
+     "source": "distribution",
+     "what": "four customers are 61% of revenue (a dependence as well as a channel)",
+     "facts": [
+      "str-nvidia-top-customers"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "China share fell to zero under export controls",
+     "facts": [
+      "str-nvidia-china-zero",
+      "compute-nvidia-china-share"
+     ]
+    }
+   ],
+   "rivals": [
+    "amd",
+    "broadcom",
+    "google",
+    "amazon",
+    "huawei"
+   ],
+   "entrants": [
+    "groq",
+    "cerebras"
+   ],
+   "facts": [
+    "compute-nvidia-accel-share",
+    "moats-nvidia-cuda-developers",
+    "moats-nvidia-cowos-booked"
+   ]
+  },
+  {
+   "actor": "tsmc",
+   "stratum": "fabs",
+   "market": "leading-edge foundry and CoWoS packaging",
+   "share": "72.5% of top-10 foundry revenue in Q2 2026",
+   "shareFact": "compute-tsmc-foundry-share",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "2nm 8% and 3nm 33% of wafer revenue",
+     "facts": [
+      "moats-tsmc-node-mix-q3-2026",
+      "compute-tsmc-q3-advanced-share"
+     ]
+    },
+    {
+     "source": "patents",
+     "what": "4,194 US patents in 2025, second in the IFI ranking",
+     "facts": [
+      "moats-tsmc-patents-2025"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "$62bn capex; 66.4% gross margin",
+     "facts": [
+      "compute-tsmc-capex-2026",
+      "compute-tsmc-q3-margin"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "NVIDIA books about 56-60% of CoWoS (estimates); Broadcom about 15%",
+     "facts": [
+      "moats-nvidia-cowos-share-2026",
+      "moats-nvidia-cowos-allocation-tomshw",
+      "moats-broadcom-cowos-share"
+     ]
+    }
+   ],
+   "rivals": [
+    "samsung",
+    "intel",
+    "smic"
+   ],
+   "entrants": [],
+   "facts": [
+    "compute-tsmc-foundry-share"
+   ]
+  },
+  {
+   "actor": "asml",
+   "stratum": "tools",
+   "market": "EUV lithography",
+   "share": "100% of EUV tools",
+   "shareFact": "lineage-asml-only-euv-2026",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "EUV 60+ units guided for 2026; EUV sales EUR 4.1bn in Q3",
+     "facts": [
+      "moats-asml-euv-guidance-2026",
+      "moats-asml-q3-euv-system-sales"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "customers co-invested 23% of ASML in 2012",
+     "facts": [
+      "lineage-asml-coinvest-2012"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "EUR 11.7bn quarterly sales, 57.5% gross margin",
+     "facts": [
+      "compute-asml-q3-sales"
+     ]
+    }
+   ],
+   "rivals": [],
+   "entrants": [],
+   "facts": [
+    "lineage-asml-only-euv-2026",
+    "compute-asml-euv-100"
+   ]
+  },
+  {
+   "actor": "sk-hynix",
+   "stratum": "chips",
+   "market": "HBM memory",
+   "share": "50% of HBM in Q2 2026, down from 64%",
+   "shareFact": "compute-skhynix-hbm-share",
+   "sources": [
+    {
+     "source": "supplyChain",
+     "what": "HBM and AI DRAM sold out through 2029; over 50% of 2027-28 capacity on long-term agreements",
+     "facts": [
+      "compute-skhynix-sold-out"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "Q3 revenue 104.6tn won",
+     "facts": [
+      "compute-skhynix-q3-results"
+     ]
+    }
+   ],
+   "rivals": [
+    "samsung",
+    "micron"
+   ],
+   "entrants": [],
+   "facts": [
+    "compute-skhynix-hbm-share",
+    "compute-samsung-hbm-share",
+    "compute-micron-hbm-share"
+   ]
+  },
+  {
+   "actor": "broadcom",
+   "stratum": "chips",
+   "market": "custom AI accelerators",
+   "share": "about 60% of AI server compute ASICs in 2027 (Counterpoint forecast); with Marvell about 95% of ASIC co-design",
+   "shareFact": "moats-broadcom-asic-share-counterpoint",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "designs Google's TPU; OpenAI 10 GW; Anthropic 3.5 GW",
+     "facts": [
+      "labs-openai-broadcom-10gw",
+      "compute-broadcom-anthropic-tpu"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "Broadcom and Marvell: about 95% of custom AI ASIC co-design; FY2026 AI revenue $58bn expected, $115bn FY2027",
+     "facts": [
+      "moats-broadcom-marvell-asic-codesign",
+      "moats-broadcom-ai-outlook",
+      "compute-broadcom-q3-ai"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "about 15% of TSMC's CoWoS allocation (versus NVIDIA about 60%)",
+     "facts": [
+      "moats-broadcom-cowos-share"
+     ]
+    }
+   ],
+   "rivals": [
+    "nvidia",
+    "marvell"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-broadcom-sixth-xpu-customer"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "clouds",
+   "market": "cloud and enterprise software",
+   "share": "19% of cloud infrastructure services (Q3 2026)",
+   "shareFact": "moats-synergy-cloud-share-q3-2026-microsoft",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "30 million paid Microsoft 365 Copilot seats",
+     "facts": [
+      "moats-microsoft-365-copilot-seats",
+      "str-msft-cloud-q1fy27"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$170bn capex; $135bn OpenAI stake",
+     "facts": [
+      "labs-microsoft-capex-fy27",
+      "labs-microsoft-openai-stake"
+     ]
+    }
+   ],
+   "rivals": [
+    "amazon",
+    "google"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-aws-cloud-share-q3-2025"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "clouds",
+   "market": "cloud infrastructure and TPU",
+   "share": "16% of cloud infrastructure services (Q3 2026)",
+   "shareFact": "moats-synergy-cloud-share-q3-2026-google",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "$200bn 2026 capex; Meta rents its cloud infrastructure for 10bn+; Alphabet stock pay $23.3bn in nine months",
+     "facts": [
+      "labs-alphabet-capex-2026",
+      "moats-meta-google-cloud-10bn",
+      "weapons-alphabet-sbc"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "TPU: up to 1 million for Anthropic",
+     "facts": [
+      "labs-anthropic-google-tpu"
+     ]
+    }
+   ],
+   "rivals": [
+    "microsoft",
+    "amazon",
+    "openai"
+   ],
+   "entrants": [],
+   "facts": [
+    "century-google-search-share-2026"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "clouds",
+   "market": "cloud infrastructure",
+   "share": "26% of cloud infrastructure services (Q3 2026)",
+   "shareFact": "moats-synergy-cloud-share-q3-2026-amazon",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "AWS $46.0bn in a quarter; $220bn capex",
+     "facts": [
+      "str-amzn-aws-q3",
+      "labs-amazon-capex-2026"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "Trainium commitments up 20x in a year",
+     "facts": [
+      "moats-amazon-custom-silicon-commitments-20x"
+     ]
+    }
+   ],
+   "rivals": [
+    "microsoft",
+    "google"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-aws-cloud-share-q3-2025"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "consumer",
+   "market": "social platforms and digital advertising",
+   "share": "26.8% of global digital ad spending in 2026 (eMarketer forecast); 3.64bn daily people",
+   "shareFact": "moats-meta-digital-ad-share-2026",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "3.64bn daily people across its apps",
+     "facts": [
+      "moats-meta-family-dap"
+     ]
+    },
+    {
+     "source": "talent",
+     "what": "pay offers up to $300m over four years",
+     "facts": [
+      "labs-meta-talent-pay",
+      "str-meta-scale-14bn"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$140bn capex",
+     "facts": [
+      "labs-meta-capex-2026"
+     ]
+    }
+   ],
+   "rivals": [
+    "google",
+    "tiktok"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-meta-family-dap"
+   ]
+  },
+  {
+   "actor": "apple",
+   "stratum": "consumer",
+   "market": "devices and services",
+   "share": "22% of smartphones shipped in Q3 2026 (Counterpoint)",
+   "shareFact": "integration-apple-smartphone-share",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "2.5bn active devices; 1.5bn paid subscriptions",
+     "facts": [
+      "moats-apple-installed-base",
+      "moats-apple-paid-subscriptions",
+      "moats-apple-services-q4"
+     ]
+    },
+    {
+     "source": "patents",
+     "what": "2,722 US patents in 2025, down from 3,082",
+     "facts": [
+      "moats-apple-patents-2025"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$4.98tn market cap",
+     "facts": [
+      "economy-mcap-apple"
+     ]
+    }
+   ],
+   "rivals": [
+    "google",
+    "samsung"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-apple-installed-base"
+   ]
+  },
+  {
+   "actor": "openai",
+   "stratum": "models",
+   "market": "consumer AI assistants",
+   "share": "55.5% of chatbot web traffic (Aug 2026), from 73.3%",
+   "shareFact": "str-chatbot-share-aug2026",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "900 million weekly users",
+     "facts": [
+      "moats-openai-chatgpt-weekly-users"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$852bn valuation; $600bn compute target to 2030",
+     "facts": [
+      "labs-openai-valuation",
+      "moats-openai-compute-600bn"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "compute locked with NVIDIA, AMD, Broadcom, AWS",
+     "facts": [
+      "labs-openai-nvidia-100bn",
+      "labs-openai-amd-warrant",
+      "labs-openai-broadcom-10gw",
+      "labs-openai-aws-38bn"
+     ]
+    }
+   ],
+   "rivals": [
+    "anthropic",
+    "google"
+   ],
+   "entrants": [],
+   "facts": [
+    "str-chatbot-share-aug2026"
+   ]
+  },
+  {
+   "actor": "anthropic",
+   "stratum": "models",
+   "market": "enterprise LLM APIs and coding",
+   "share": "55% of enterprise LLM API spend (Menlo, an investor)",
+   "shareFact": "moats-anthropic-enterprise-api-share",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "coding: Claude Code and Codex 70% of a $34bn market",
+     "facts": [
+      "moats-coding-agents-share-menlo"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$965bn valuation; $65bn Series H",
+     "facts": [
+      "labs-anthropic-valuation",
+      "owners-series-h-leads"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "TPUs, Trainium and Azure/NVIDIA compute",
+     "facts": [
+      "labs-anthropic-google-tpu",
+      "str-anthropic-aws-100bn",
+      "labs-anthropic-azure-nvidia"
+     ]
+    }
+   ],
+   "rivals": [
+    "openai",
+    "google"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-anthropic-enterprise-api-share"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "consumer",
+   "market": "web search and AI assistants",
+   "share": "91.05% of worldwide search (Oct 2026)",
+   "shareFact": "century-google-search-share-2026",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "Gemini 1 billion monthly users; Android 72% of mobile OS",
+     "facts": [
+      "moats-google-gemini-1bn-users",
+      "century-mobile-os-share-2026"
+     ]
+    }
+   ],
+   "rivals": [
+    "microsoft",
+    "openai"
+   ],
+   "entrants": [
+    "openai",
+    "anthropic"
+   ],
+   "facts": [
+    "century-google-search-share-2026",
+    "moats-google-gemini-1bn-users"
+   ]
+  },
+  {
+   "actor": "ge-vernova",
+   "stratum": "energy",
+   "market": "large gas turbines",
+   "share": "about 54% of the big three makers' backlog: 122 GW against Siemens Energy 69 GW and Mitsubishi 35 GW (derived, Q3 2026)",
+   "shareFact": "labs-gev-gas-backlog",
+   "sources": [
+    {
+     "source": "supplyChain",
+     "what": "122 GW gas backlog and slot reservations, 130+ GW expected by year-end; Siemens Energy 69 GW, Mitsubishi 35 GW",
+     "facts": [
+      "labs-gev-gas-backlog",
+      "moats-gas-turbine-backlogs-q3-2026"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "$197bn total backlog, up $20bn in one quarter",
+     "facts": [
+      "str-gev-backlog"
+     ]
+    }
+   ],
+   "rivals": [
+    "siemens-energy"
+   ],
+   "entrants": [],
+   "facts": [
+    "labs-gev-gas-backlog",
+    "str-gev-backlog",
+    "moats-gas-turbine-backlogs-q3-2026"
+   ]
+  },
+  {
+   "actor": "synopsys",
+   "stratum": "tools",
+   "market": "electronic design automation (EDA)",
+   "share": "Synopsys, Cadence and Siemens EDA hold over 85% of EDA; Synopsys $8bn and Cadence $5.30bn of CY2025 revenue",
+   "shareFact": "moats-eda-big3-share",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "Big-3 EDA: over 85% of the market; chips cannot be taped out without their tools",
+     "facts": [
+      "moats-eda-big3-share",
+      "moats-eda-revenues-cy2025"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$86bn market cap; $8bn revenue including Ansys",
+     "facts": [
+      "str-mcap-synopsys",
+      "moats-eda-revenues-cy2025"
+     ]
+    }
+   ],
+   "rivals": [
+    "cadence"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-eda-big3-share",
+    "moats-eda-revenues-cy2025"
+   ]
+  },
+  {
+   "actor": "cadence",
+   "stratum": "tools",
+   "market": "electronic design automation (EDA)",
+   "share": "with Synopsys and Siemens EDA, over 85% of EDA; Cadence $5.30bn of CY2025 revenue",
+   "shareFact": "moats-eda-big3-share",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "Big-3 EDA: over 85% of the market; Cadence $5.30bn revenue in CY2025",
+     "facts": [
+      "moats-eda-big3-share",
+      "moats-eda-revenues-cy2025"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$88bn market cap",
+     "facts": [
+      "str-mcap-cadence"
+     ]
+    }
+   ],
+   "rivals": [
+    "synopsys"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-eda-big3-share",
+    "moats-eda-revenues-cy2025"
+   ]
+  },
+  {
+   "actor": "arm",
+   "stratum": "tools",
+   "market": "CPU instruction sets and IP",
+   "share": "17.7% of data-centre CPUs in Q1 2026 (UBS); about 50% of CPU compute at top hyperscalers (Arm)",
+   "shareFact": "moats-arm-datacentre-cpu-share-q1-2026",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "about 50% of CPU compute at top hyperscalers, by Arm's account; 17.7% of server CPUs",
+     "facts": [
+      "moats-arm-hyperscaler-cpu-share",
+      "moats-arm-datacentre-cpu-share-q1-2026"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "$187bn market cap",
+     "facts": [
+      "str-mcap-arm"
+     ]
+    }
+   ],
+   "rivals": [
+    "intel",
+    "amd"
+   ],
+   "entrants": [],
+   "facts": [
+    "moats-arm-datacentre-cpu-share-q1-2026",
+    "moats-arm-hyperscaler-cpu-share"
+   ]
+  }
+ ],
+ "presence": [
+  {
+   "actor": "nvidia",
+   "stratum": "chips",
+   "what": "GPUs, NVLink and Spectrum networking ($14.8bn a quarter), systems",
+   "facts": [
+    "moats-nvidia-networking-q1fy27"
+   ]
+  },
+  {
+   "actor": "nvidia",
+   "stratum": "models",
+   "what": "open models (Nemotron, Cosmos) and stakes in OpenAI, Anthropic, xAI",
+   "facts": [
+    "moats-nvidia-anthropic-10bn",
+    "owners-nvidia-openai-30bn"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "chips",
+   "what": "TPU, sold to Anthropic; Google Cloud infrastructure rented to Meta (10bn+)",
+   "facts": [
+    "labs-anthropic-google-tpu",
+    "moats-meta-google-cloud-10bn"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "chips",
+   "what": "Trainium and Graviton",
+   "facts": [
+    "moats-amazon-custom-silicon-commitments-20x"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "consumer",
+   "what": "Microsoft 365 Copilot, 30 million paid seats",
+   "facts": [
+    "moats-microsoft-365-copilot-seats"
+   ]
+  },
+  {
+   "actor": "apple",
+   "stratum": "consumer",
+   "what": "devices and a 1.5bn-subscription services layer",
+   "facts": [
+    "moats-apple-paid-subscriptions"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "consumer",
+   "what": "family of apps reaching 3.64bn people daily",
+   "facts": [
+    "moats-meta-family-dap"
+   ]
+  }
+ ],
+ "barriers": [
+  {
+   "stratum": "chips",
+   "source": "technology",
+   "what": "CUDA: 6 million developers",
+   "facts": [
+    "moats-nvidia-cuda-developers"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "supplyChain",
+   "what": "NVIDIA holds about 56-60% of CoWoS; suppliers sold out to 2029; $279bn commitments",
+   "facts": [
+    "moats-nvidia-cowos-share-2026",
+    "moats-nvidia-cowos-allocation-tomshw",
+    "compute-skhynix-sold-out",
+    "compute-nvidia-commitments"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "capital",
+   "what": "NVIDIA returns $26bn a quarter and holds $51.2bn of stakes in its customers",
+   "facts": [
+    "moats-nvidia-returned-to-shareholders-q2fy27",
+    "moats-nvidia-venture-rounds-2025",
+    "balancea-nvidia-investments"
+   ]
+  },
+  {
+   "stratum": "tools",
+   "source": "technology",
+   "what": "one EUV supplier",
+   "facts": [
+    "lineage-asml-only-euv-2026"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "talent",
+   "what": "Meta offers up to $300m per researcher",
+   "facts": [
+    "labs-meta-talent-pay"
+   ]
+  },
+  {
+   "stratum": "models",
+   "source": "capital",
+   "what": "OpenAI targets $600bn compute to 2030",
+   "facts": [
+    "moats-openai-compute-600bn"
+   ]
+  },
+  {
+   "stratum": "clouds",
+   "source": "capital",
+   "what": "$815bn of 2026 capex forecast for Amazon, Alphabet, Meta, Microsoft and SpaceX ($725bn for the first four)",
+   "facts": [
+    "compute-hyperscaler-capex-2026",
+    "economy-hyperscaler-capex-2026"
+   ]
+  },
+  {
+   "stratum": "consumer",
+   "source": "distribution",
+   "what": "2.5bn Apple devices, 3.64bn Meta people, 1bn Gemini users, 91% of search at Google",
+   "facts": [
+    "moats-apple-installed-base",
+    "moats-meta-family-dap",
+    "moats-google-gemini-1bn-users",
+    "century-google-search-share-2026"
+   ]
+  },
+  {
+   "stratum": "tools",
+   "source": "technology",
+   "what": "three EDA vendors hold over 85% of chip-design software",
+   "facts": [
+    "moats-eda-big3-share"
+   ]
+  },
+  {
+   "stratum": "energy",
+   "source": "supplyChain",
+   "what": "gas-turbine slots sold into the 2030s: GE Vernova 122 GW, Siemens Energy 69 GW, Mitsubishi 35 GW",
+   "facts": [
+    "labs-gev-gas-backlog",
+    "moats-gas-turbine-backlogs-q3-2026"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "patents",
+   "what": "NVIDIA outside the IFI Top 50; Qualcomm 3,749 US grants",
+   "facts": [
+    "moats-ifi-nvidia-not-top50",
+    "moats-qualcomm-patents-2025"
+   ]
+  }
+ ],
+ "entrants": [
+  {
+   "id": "groq",
+   "name": "Groq",
+   "stratum": "chips",
+   "what": "licensed its inference technology to NVIDIA; reported $20bn",
+   "fate": "licence-and-hire",
+   "by": "nvidia",
+   "facts": [
+    "weapons-acq-nvidia-groq"
+   ]
+  }
+ ],
+ "notes": "Unverified and left out: NVIDIA's own count of patents from a primary source (the 10-K gives none; NVIDIA in Brief did not load; the IPO/Harrity Top 300 list puts NVIDIA 58th with 735 US grants in 2025, Qualcomm 3,925, Intel 2,137, AMD 500 and rank 50 at 810, but its PDF text cannot be quoted row by row); IFI's own table (the page shows no text; the 50th-place count is unknown; IFI says only that NVIDIA did not make it); the Morgan Stanley CoWoS 60% (blocked) is replaced by Tom's Hardware's 60% and a 56% forecast; TSMC's total 2026 CoWoS capacity (TrendForce cites 120-140k wafers a month, a monthly figure that was not used); NVIDIA's share of 2026 HBM purchases (only a 2027 forecast, 37.3%); Arm's smartphone share (company claim of 99%, not fetched); share of large gas-turbine orders from an order tracker (derived from backlogs instead). The CoWoS sources disagree on the base (595k, 780k, 800-850k wafers). Share figures marked forecast or estimate are analysts', not company disclosures. The 'about $5.1m of revenue per employee' is derived (215.9bn / 42,000), not stated by a source. The compute cluster's SK Hynix market cap ($602bn) conflicts with a May 2026 report of $1tn; check. CoreWeave's $2bn NVIDIA stake is verified in str-coreweave-nvidia-2bn. Aggregators (Mean CEO, Wccftech, Rallies, 36Kr, Xenospectrum, Tom's Hardware) are secondary.",
+ "openQuestions": [
+  "Is NVIDIA's CoWoS share nearer 50% or 60%, and what is its HBM4 share?",
+  "How much of NVIDIA's lock-in is CUDA and how much supply?",
+  "Will custom silicon (TPU, Trainium, MTIA) take accelerator share from 75% toward 50%?",
+  "Is the $600bn OpenAI compute target a cut from $1.4tn or a different measure?"
+ ],
+ "facts": [
+  {
+   "id": "moats-nvidia-cuda-developers",
+   "claim": "NVIDIA said at GTC in March 2026 that CUDA, 20 years old, has 6 million developers.",
+   "url": "https://forums.developer.nvidia.com/t/20-years-of-cuda-honoring-the-architects-of-the-accelerated-age/364654",
+   "quotes": [
+    "At #NVIDIAGTC, we honor 20 years of CUDA and the 6 million developers who turned a programming model into a global foundation for innovation."
+   ],
+   "values": [
+    "6"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "developers",
+   "value": 6,
+   "unit": "million developers",
+   "period": "March 2026 (GTC)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-nvidia-cowos-booked",
+   "claim": "DigiTimes reports that NVIDIA has booked 800,000 to 850,000 CoWoS wafers at TSMC for 2026, more than Broadcom and AMD.",
+   "url": "https://wccftech.com/nvidia-alone-has-tsmc-advanced-packaging-lines-booked-for-several-years-ahead/",
+   "quotes": [
+    "A report by DigiTimes states that NVIDIA has booked 800,000 to 850,000 wafers for 2026, which represents a substantial allocation compared to what competitors like Broadcom and AMD have been allocated."
+   ],
+   "values": [
+    "800,000 to 850,000"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 800000,
+   "unit": "wafers (low end of 800,000-850,000)",
+   "period": "calendar 2026 bookings, reported 10 Dec 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Press report of DigiTimes, not a company disclosure. 'More than half of CoWoS capacity' is the same report's framing; see moats-nvidia-cowos-majority."
+  },
+  {
+   "id": "moats-samsung-patents-2025",
+   "claim": "Samsung received 7,054 US patents in 2025, the most of any company in IFI Claims' ranking.",
+   "url": "https://wccftech.com/apple-received-fewer-patents-in-2025-than-samsung-tsmc-qualcomm-and-huawei/",
+   "quotes": [
+    "Samsung received 7,054 US patents during the year, corresponding to a year-over-year growth of 11 percent, which allowed the South Korean behemoth to clinch the top spot in IFI's patent-based ranking for the fourth consecutive year."
+   ],
+   "values": [
+    "7,054"
+   ],
+   "dated2026": true,
+   "actor": "samsung",
+   "kind": "patents",
+   "value": 7054,
+   "unit": "US patent grants",
+   "period": "calendar 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-tsmc-patents-2025",
+   "claim": "TSMC received 4,194 US patents in 2025, second in IFI Claims' ranking.",
+   "url": "https://wccftech.com/apple-received-fewer-patents-in-2025-than-samsung-tsmc-qualcomm-and-huawei/",
+   "quotes": [
+    "TSMC ranked second with 4,194 US patents, which is up 5 percent year-over-year."
+   ],
+   "values": [
+    "4,194"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "patents",
+   "value": 4194,
+   "unit": "US patent grants",
+   "period": "calendar 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-apple-patents-2025",
+   "claim": "Apple received 2,722 US patents in 2025, down from 3,082 in 2024, sixth in IFI Claims' ranking.",
+   "url": "https://wccftech.com/apple-received-fewer-patents-in-2025-than-samsung-tsmc-qualcomm-and-huawei/",
+   "quotes": [
+    "Finally, we have Apple in sixth place with 2,722 patents in 2025 vs. 3,082 patents in 2024, which corresponds to a year-over-year decline of 11.7 percent."
+   ],
+   "values": [
+    "2,722"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "patents",
+   "value": 2722,
+   "unit": "US patent grants",
+   "period": "calendar 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-apple-installed-base",
+   "claim": "Apple's active install base passed 2.5 billion active users as of January 2026.",
+   "url": "https://appleinsider.com/articles/26/01/29/apple-reaches-25-billion-active-devices-after-record-breaking-quarter",
+   "quotes": [
+    "The active install base of Apple users has increased by 150 million users since 2025 and has reached over 2.5 billion active users as of January 2026."
+   ],
+   "values": [
+    "2.5"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "users",
+   "value": 2.5,
+   "unit": "billion active users",
+   "period": "as of January 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-meta-family-dap",
+   "claim": "Meta's Family daily active people averaged 3.64 billion in September 2026.",
+   "url": "https://quartr.com/events/meta-platforms-inc-meta-q3-2026_3ewPnfSt",
+   "quotes": [
+    "Family daily active people averaged 3.64B in September, up 3% YoY; ad impressions rose 10% and average ad price increased 14%."
+   ],
+   "values": [
+    "3.64B"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "users",
+   "value": 3.64,
+   "unit": "billion daily active people",
+   "period": "September 2026 average",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-openai-chatgpt-weekly-users",
+   "claim": "ChatGPT passed 900 million weekly active users in February 2026, with about 50 million paying subscribers, per OpenAI's Nick Turley.",
+   "url": "https://www.roic.ai/news/openais-chatgpt-surpasses-900-million-weekly-users-50-million-paying-subscribers-02-27-2026",
+   "quotes": [
+    "ChatGPT's user base has surged to over 900 million weekly active users, with paying subscribers estimated at 50 million, according to OpenAI's Nick Turley."
+   ],
+   "values": [
+    "900 million"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "users",
+   "value": 900,
+   "unit": "million weekly active users",
+   "period": "February 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-google-gemini-1bn-users",
+   "claim": "Google's CEO announced in August 2026 that Gemini passed 1 billion monthly active users.",
+   "url": "https://www.deccanchronicle.com/technology/googles-gemini-app-surpasses-1-billion-monthly-active-users-1978625",
+   "quotes": [
+    "Google CEO Sundar Pichai announced that Gemini has surpassed 1 billion monthly active users."
+   ],
+   "values": [
+    "1 billion"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "users",
+   "value": 1,
+   "unit": "billion monthly active users",
+   "period": "August 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-asml-euv-guidance-2026",
+   "claim": "ASML guides to more than 60 EUV units in 2026, about 25% above 2025.",
+   "url": "https://siliconanalysts.com/analysis/asml-euv-2026-europe-china-export-controls-fab-capex",
+   "quotes": [
+    "Memory fab adoption — not foundry logic alone — is driving ASML's 60+ unit 2026 guidance, a ~25% increase over 2025"
+   ],
+   "values": [
+    "60+"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "units",
+   "value": 60,
+   "unit": "EUV systems (guidance, minimum)",
+   "period": "calendar 2026 guidance",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-broadcom-sixth-xpu-customer",
+   "claim": "Broadcom's custom accelerator programme grew from five named customers to a sixth in fiscal Q1 2026.",
+   "url": "https://futurumgroup.com/insights/broadcom-q1-fy-2026-earnings-driven-by-xpu-momentum",
+   "quotes": [
+    "its custom AI accelerator ramp is progressing across a growing customer base, expanding from five named customers to a sixth."
+   ],
+   "values": [
+    "five",
+    "sixth"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "contract",
+   "value": 6,
+   "unit": "named custom-accelerator customers",
+   "period": "FQ1 2026 (reported 5 Mar 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-nvidia-employees",
+   "claim": "NVIDIA had about 42,000 employees at the end of fiscal 2026.",
+   "url": "https://finance.yahoo.com/markets/stocks/articles/many-employees-does-nvidia-r-145900596.html",
+   "quotes": [
+    "Nvidia reported about 42,000 employees in the U.S. and 37 other countries at the end of its fiscal 2026."
+   ],
+   "values": [
+    "42,000"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "headcount",
+   "value": 42000,
+   "unit": "employees",
+   "period": "end of fiscal 2026 (January 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-nvidia-patents-granted-pending",
+   "claim": "NVIDIA's corporate fact sheet, as summarised by Mean CEO, lists more than 9,800 granted and pending patents.",
+   "url": "https://blog.mean.ceo/?p=11497",
+   "quotes": [
+    "It holds 9,800+ patents granted and pending, runs 1,300+ open source projects, and has 92% of the discrete GPU segment."
+   ],
+   "values": [
+    "9,800+"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "patents",
+   "value": 9800,
+   "unit": "granted and pending patents (minimum)",
+   "period": "fiscal 2026 fact sheet",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Secondary summary of NVIDIA's own fact sheet; third-party databases count 12,000 to 20,000 patents and applications including family members. NVIDIA is absent from IFI Claims' US top 50 for 2025."
+  },
+  {
+   "id": "moats-nvidia-returned-to-shareholders-q2fy27",
+   "claim": "NVIDIA returned a record of nearly $26.0 billion to shareholders in Q2 fiscal 2027 through buybacks and dividends.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "higher free cash flow that was used to return a record of nearly $26.0 billion to shareholders in the second quarter through share repurchases and cash dividends."
+   ],
+   "values": [
+    "26.0"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 26.0,
+   "unit": "USD bn",
+   "period": "Q2 FY2027, ended 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Capital returned, not capital invested; shows the cash and stock NVIDIA can deploy."
+  },
+  {
+   "id": "moats-nvidia-anthropic-10bn",
+   "claim": "NVIDIA committed up to $10 billion to Anthropic, part of a Microsoft-NVIDIA partnership announced in late 2025.",
+   "url": "https://www.roic.ai/news/nvidias-10-billion-anthropic-investment-likely-its-last-signaling-strategic-pivot-amid-ai-cost-surge-03-04-2026",
+   "quotes": [
+    "In statements made this week, Huang suggested the up to $10 billion commitment—part of a broader Microsoft-NVIDIA partnership announced in late 2025—would likely represent NVIDIA's last major infusion into Anthropic"
+   ],
+   "values": [
+    "10 billion"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 10,
+   "unit": "USD bn (up to)",
+   "period": "announced late 2025; reported 4 Mar 2026",
+   "from": "nvidia",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-nvidia-xai-round",
+   "claim": "NVIDIA took part in xAI's $20 billion funding round in January 2026.",
+   "url": "https://invezz.com/ca/news/2026/03/12/how-nvidia-is-funding-the-ai-boom-with-billions-in-global-startups/",
+   "quotes": [
+    "In January, Nvidia pariticpated in the $20 bn funding round for Elon Musk's xAI."
+   ],
+   "values": [
+    "20"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 20,
+   "unit": "USD bn (size of the round, NVIDIA's share not stated)",
+   "period": "January 2026",
+   "from": "nvidia",
+   "to": "xai",
+   "accessed": "2026-11-07",
+   "notes": "The amount is the round, not NVIDIA's cheque."
+  },
+  {
+   "id": "moats-amazon-custom-silicon-commitments-20x",
+   "claim": "Amazon says revenue commitments for Graviton and Trainium each rose more than 20 times in a year.",
+   "url": "https://www.aboutamazon.com/md/news/company-news/amazon-custom-chips-demand-q3-2026-earnings",
+   "quotes": [
+    "Amazon's chips business continues to grow triple-digit percentages year over year, and revenue commitments for Graviton and Trainium have each increased more than 20x year over year."
+   ],
+   "values": [
+    "20x"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "contract",
+   "value": 20,
+   "unit": "x year-over-year growth in commitments",
+   "period": "Q3 2026 (reported late Oct 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-microsoft-365-copilot-seats",
+   "claim": "Nadella's October 2026 letter said Microsoft 365 Copilot reached over 30 million paid seats in the fiscal year to June 2026.",
+   "url": "https://fourweekmba.com/ai-microsoft-takes-copilot-past-per-seat-usage-buyers-up-75/",
+   "quotes": [
+    "Microsoft 365 Copilot \"reached over 30 million paid seats\" in the fiscal year to June 2026."
+   ],
+   "values": [
+    "30 million"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "users",
+   "value": 30,
+   "unit": "million paid seats",
+   "period": "fiscal year to June 2026 (letter of 21 Oct 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-anthropic-enterprise-api-share",
+   "claim": "Menlo Ventures' November 2026 report puts Anthropic at 55% of enterprise LLM API spend (Menlo is an Anthropic investor).",
+   "url": "https://fourweekmba.com/ai-menlo-claude-code-and-codex-now-take-70-of-34b-ai-coding/",
+   "quotes": [
+    "The same report puts Anthropic at 55% of enterprise LLM API spend"
+   ],
+   "values": [
+    "55%"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "share",
+   "value": 55,
+   "unit": "% of enterprise LLM API spend",
+   "period": "2026 (Menlo report of 3 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Menlo Ventures is an investor in Anthropic."
+  },
+  {
+   "id": "moats-coding-agents-share-menlo",
+   "claim": "Menlo estimates Claude Code and Codex together take $24.0 billion, or 70%, of a $34.0 billion enterprise AI coding market.",
+   "url": "https://fourweekmba.com/ai-menlo-claude-code-and-codex-now-take-70-of-34b-ai-coding/",
+   "quotes": [
+    "Anthropic's Claude Code and OpenAI's Codex now account for $24.0 billion, or 70%, of a $34.0 billion enterprise AI coding market, Menlo Ventures estimates in 2026: The State of Enterprise AI, published on 3 November."
+   ],
+   "values": [
+    "24.0",
+    "70%",
+    "34.0"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "share",
+   "value": 70,
+   "unit": "% of enterprise AI coding market (with OpenAI Codex)",
+   "period": "2026 (Menlo, 3 Nov 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Menlo's estimate of annualised run-rate; Menlo invests in Anthropic."
+  },
+  {
+   "id": "moats-tsmc-node-mix-q3-2026",
+   "claim": "In Q3 2026 TSMC's 2-nanometer shipments were 8% of wafer revenue, 3-nanometer 33%, 5-nanometer 28% and 7-nanometer 10%.",
+   "url": "https://pr.tsmc.com/english/news/3346",
+   "quotes": [
+    "In the third quarter, shipments of 2-nanometer accounted for 8% of total wafer revenue; 3-nanometer accounted for 33%; 5-nanometer accounted for 28%; and 7-nanometer accounted for 10%."
+   ],
+   "values": [
+    "8%",
+    "33%",
+    "28%",
+    "10%"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "share",
+   "value": 8,
+   "unit": "% of wafer revenue from 2nm (3nm 33%, 5nm 28%, 7nm 10%)",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-apple-paid-subscriptions",
+   "claim": "Apple's paid subscriptions passed 1.5 billion in fiscal Q4 2026.",
+   "url": "https://gadgetbond.com/apple-q4-2026-results/",
+   "quotes": [
+    "Paid subscriptions surpassed 1.5 billion, growing at a double-digit rate year over year."
+   ],
+   "values": [
+    "1.5 billion"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "users",
+   "value": 1.5,
+   "unit": "billion paid subscriptions",
+   "period": "fiscal Q4 2026, ended 26 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-apple-services-q4",
+   "claim": "Apple's Services revenue hit an all-time high of $31.6 billion in fiscal Q4 2026.",
+   "url": "https://gadgetbond.com/apple-q4-2026-results/",
+   "quotes": [
+    "The company reported an all-time high of $31.6 billion in Services revenue for the fourth quarter, up 10% year over year"
+   ],
+   "values": [
+    "31.6"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "revenue",
+   "value": 31.6,
+   "unit": "USD bn",
+   "period": "fiscal Q4 2026, ended 26 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-asml-q3-euv-system-sales",
+   "claim": "ASML's Q3 2026 net system sales were EUR 8.4 billion, of which EUR 4.1 billion came from EUV systems.",
+   "url": "https://www.marketbeat.com/instant-alerts/transcript-what-asml-asml-said-on-its-q3-earnings-call-2026-10-14/",
+   "quotes": [
+    "Net system sales were €8.4 billion, including €4.1 billion from EUV systems and €4.3 billion from non-EUV systems."
+   ],
+   "values": [
+    "8.4",
+    "4.1"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "revenue",
+   "value": 4.1,
+   "unit": "EUR bn (EUV systems)",
+   "period": "Q3 2026, ended 2026-09",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-nvidia-networking-q1fy27",
+   "claim": "NVIDIA's networking revenue was $14.8 billion in Q1 fiscal 2027, up 199% from a year earlier.",
+   "url": "https://www.globaldatacenterhub.com/p/nvidia-posts-816-billion-quarter",
+   "quotes": [
+    "Networking revenue reached $14.8 billion, up 199 percent year over year and 35 percent sequentially."
+   ],
+   "values": [
+    "14.8"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 14.8,
+   "unit": "USD bn (networking)",
+   "period": "Q1 FY2027, ended 26 Apr 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Networking is NVLink, InfiniBand and Spectrum-X; a share of the networking market is not given by any source found."
+  },
+  {
+   "id": "moats-openai-compute-600bn",
+   "claim": "OpenAI is targeting roughly $600 billion of compute spend through 2030, Reuters reported, after Altman's $1.4 trillion for 30 gigawatts.",
+   "url": "https://www.tbsnews.net/node/1367561",
+   "quotes": [
+    "OpenAI is targeting roughly $600 billion in total compute spend through 2030, a source familiar with the matter told Reuters on Friday"
+   ],
+   "values": [
+    "600 billion"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "contract",
+   "value": 600,
+   "unit": "USD bn (target compute spend to 2030)",
+   "period": "February 2026 (reported by Reuters)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Altman's earlier $1.4 trillion over eight years for 30 GW; the two measure different things and the relation is disputed."
+  },
+  {
+   "id": "moats-broadcom-ai-outlook",
+   "claim": "Broadcom expects fiscal 2026 AI revenue of $58 billion and outlooks of about $115 billion for fiscal 2027 and $230 billion for fiscal 2028.",
+   "url": "https://www.marketbeat.com/instant-alerts/transcript-broadcom-q3-earnings-call-highlights-2026-09-02/",
+   "quotes": [
+    "The company forecasts fourth-quarter AI semiconductor revenue of $21.7 billion and expects fiscal 2026 AI revenue of $58 billion, with long-term outlooks of approximately $115 billion in fiscal 2027 and $230 billion in fiscal 2028."
+   ],
+   "values": [
+    "58 billion",
+    "115 billion",
+    "230 billion"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "revenue",
+   "value": 58,
+   "unit": "USD bn (AI revenue, fiscal 2026 forecast)",
+   "period": "fiscal 2026 (call of 2 Sep 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Management outlook, not reported revenue; FY2027 about $115 bn, FY2028 about $230 bn."
+  },
+  {
+   "id": "moats-meta-google-cloud-10bn",
+   "claim": "According to Reuters sources, Meta signed a six-year deal worth more than $10 billion with Google to use its Cloud infrastructure.",
+   "url": "https://finance.yahoo.com/news/google-takes-another-piece-nvidia-150700993.html",
+   "quotes": [
+    "According to Reuters sources, Meta has signed a six-year deal worth more than $10 billion with Google to use its Cloud infrastructure."
+   ],
+   "values": [
+    "10 billion"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "contract",
+   "value": 10,
+   "unit": "USD bn (minimum, six years)",
+   "period": "reported 2026 (Reuters sources)",
+   "from": "meta",
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": "Reported by anonymous sources; TPU rental was the reported content in the original The Information story."
+  },
+  {
+   "id": "moats-nvidia-venture-rounds-2025",
+   "claim": "NVIDIA took part in nearly 67 venture rounds in 2025, up from 54 in 2024 and 12 in 2022.",
+   "url": "https://invezz.com/ca/news/2026/03/12/how-nvidia-is-funding-the-ai-boom-with-billions-in-global-startups/",
+   "quotes": [
+    "The company participated in nearly 67 venture rounds in 2025, up from 54 in 2024 and just 12 in 2022."
+   ],
+   "values": [
+    "67",
+    "54",
+    "12"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 67,
+   "unit": "venture rounds joined",
+   "period": "calendar 2025 (PitchBook)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-nvidia-receivables-q2fy27",
+   "claim": "NVIDIA's receivables were $63.1 billion, 60 days of sales, after extended payment terms on large multi-quarter agreements with investment-grade customers.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "Accounts receivable was $63.1 billion with 60 days sales outstanding (DSO), up from 45 days sequentially, due to extended payment terms on large, multi-quarter agreements with certain investment-grade customers."
+   ],
+   "values": [
+    "63.1",
+    "60 days",
+    "45 days"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "assets",
+   "value": 63.1,
+   "unit": "USD bn (accounts receivable)",
+   "period": "as of 26 July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "NVIDIA lends time to its customers: DSO rose from 45 to 60 days."
+  },
+  {
+   "id": "moats-ifi-nvidia-not-top50",
+   "claim": "IFI Claims says NVIDIA, with Tesla and Meta, did not collect enough US patent grants in 2025 to make its Top 50.",
+   "url": "https://www.digital-science.com/press-releases/ifi-claims-2025-patent-rankings/",
+   "quotes": [
+    "As for Tesla, Nvidia, and Meta, none of them collected enough grants to make Top 50 grade."
+   ],
+   "values": [
+    "50"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "patents",
+   "value": 50,
+   "unit": "IFI Top 50 rank not reached (absent)",
+   "period": "calendar 2025 US grants (IFI Claims)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "IFI's own press release (Digital Science). NVIDIA's own count is not given here: the IPO/Harrity Top 300 list puts NVIDIA 58th with 735 US grants in 2025 (+31%), Qualcomm 3,925, Intel 2,137, AMD 500 (rank 93) and rank 50 Applied Materials 810, but its PDF text cannot be quoted row by row, so those figures stay unverified notes."
+  },
+  {
+   "id": "moats-qualcomm-patents-2025",
+   "claim": "Qualcomm received 3,749 US patent grants in 2025, third in IFI Claims' ranking.",
+   "url": "https://qz.com/most-patents-granted-by-company-2025",
+   "quotes": [
+    "Qualcomm $QCOM Inc., the California–based semiconductor and wireless technology company, received 3,749 U.S. patent grants in 2025, up 9.56% from 2024."
+   ],
+   "values": [
+    "3,749"
+   ],
+   "dated2026": false,
+   "actor": "qualcomm",
+   "kind": "patents",
+   "value": 3749,
+   "unit": "US patent grants",
+   "period": "calendar 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Chip rival; NVIDIA is outside the Top 50."
+  },
+  {
+   "id": "moats-nvidia-fy2026-revenue",
+   "claim": "NVIDIA's revenue for fiscal 2026 (ended 25 January 2026) was $215.9 billion.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+   "quotes": [
+    "For fiscal 2026, revenue was $215.9 billion, up 65% from a year ago."
+   ],
+   "values": [
+    "215.9"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 215.9,
+   "unit": "USD bn",
+   "period": "FY2026 (ended 25 January 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "With about 42,000 employees [moats-nvidia-employees] this is about $5.1m per employee (derived: 215.9bn / 42,000 = $5.14m)."
+  },
+  {
+   "id": "moats-nvidia-cowos-share-2026",
+   "claim": "A 2026 industry-press forecast puts NVIDIA at about 56% of total CoWoS demand in 2026, falling to about 45% in 2027.",
+   "url": "https://eu.36kr.com/en/p/3892020701149697",
+   "quotes": [
+    "However, it is worth noting that NVIDIA's share in total demand will drop from approximately 56% in 2026 to about 45% in 2027 — the absolute value is rising, but its proportional share is being diluted."
+   ],
+   "values": [
+    "56%",
+    "45%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 56,
+   "unit": "% of CoWoS capacity demand (forecast)",
+   "period": "calendar 2026 (translated Semiconductor Industry Observation, 13 Jul 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Analyst estimate, not a TSMC disclosure. 780 thousand wafers of NVIDIA demand [same page] against 1.384 million total. Tom's Hardware gives about 60% [moats-nvidia-cowos-allocation-tomshw]; the bases differ."
+  },
+  {
+   "id": "moats-nvidia-cowos-demand-780k",
+   "claim": "The same forecast puts NVIDIA's CoWoS capacity demand at 780 thousand pieces in 2026 and 1,200 thousand in 2027.",
+   "url": "https://eu.36kr.com/en/p/3892020701149697",
+   "quotes": [
+    "NVIDIA's CoWoS capacity demand will be 780 thousand pieces in 2026, jumping to 1,200 thousand pieces in 2027, firmly ranking first."
+   ],
+   "values": [
+    "780 thousand",
+    "1,200 thousand"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 780000,
+   "unit": "CoWoS wafers demanded (forecast)",
+   "period": "calendar 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Lower than the DigiTimes booking of 800-850k [moats-nvidia-cowos-booked]; different methods."
+  },
+  {
+   "id": "moats-nvidia-cowos-allocation-tomshw",
+   "claim": "Tom's Hardware (May 2026) says NVIDIA secured roughly 60% of CoWoS allocation (about 595,000 wafers), Broadcom about 15% and AMD about 11%.",
+   "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia",
+   "quotes": [
+    "Nvidia has secured roughly 60% of CoWoS allocation (c. 595,000 wafers), Broadcom about 15% (c. 150,000 wafers), and AMD approximately 11% (c. 105,000 wafers)."
+   ],
+   "values": [
+    "60%",
+    "595,000",
+    "15%",
+    "150,000",
+    "11%",
+    "105,000"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 60,
+   "unit": "% of TSMC CoWoS allocation",
+   "period": "calendar 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Trade-press estimate. Broadcom 15% and AMD 11% are in the same sentence."
+  },
+  {
+   "id": "moats-broadcom-cowos-share",
+   "claim": "Broadcom secured about 15% of TSMC's CoWoS allocation in 2026 (about 150,000 wafers).",
+   "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia",
+   "quotes": [
+    "Nvidia has secured roughly 60% of CoWoS allocation (c. 595,000 wafers), Broadcom about 15% (c. 150,000 wafers), and AMD approximately 11% (c. 105,000 wafers)."
+   ],
+   "values": [
+    "15%",
+    "150,000"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "share",
+   "value": 15,
+   "unit": "% of TSMC CoWoS allocation",
+   "period": "calendar 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "moats-broadcom-marvell-asic-codesign",
+   "claim": "Broadcom and Marvell together control roughly 95% of the custom AI ASIC co-design market.",
+   "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia",
+   "quotes": [
+    "Together, Broadcom and Marvell control roughly 95% of the custom AI ASIC co-design market."
+   ],
+   "values": [
+    "95%"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "share",
+   "value": 95,
+   "unit": "% of custom AI ASIC co-design market (with Marvell)",
+   "period": "2026 (Tom's Hardware, May 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Combined with Marvell; Broadcom alone is the larger [moats-broadcom-asic-share-counterpoint]."
+  },
+  {
+   "id": "moats-broadcom-asic-share-counterpoint",
+   "claim": "Counterpoint expects Broadcom to remain the top AI server compute ASIC design partner, holding about 60% market share in 2027.",
+   "url": "https://finviz.com/news/288744/broadcom-set-to-dominate-custom-ai-chip-market-with-60-share-by-2027-counterpoint-says",
+   "quotes": [
+    "Counterpoint expects Broadcom Inc (NASDAQ:AVGO) to remain the top AI server compute ASIC design partner, holding about 60% market share in 2027, despite competition from the growing Google–MediaTek alliance."
+   ],
+   "values": [
+    "60%"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "share",
+   "value": 60,
+   "unit": "% of AI server compute ASICs (forecast)",
+   "period": "calendar 2027 forecast (Counterpoint, Jan 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "A 2027 forecast, not a 2026 measurement."
+  },
+  {
+   "id": "moats-nvidia-hbm-demand-share-2027",
+   "claim": "Morgan Stanley estimates NVIDIA at 37.3% of global HBM demand in 2027, with Google at 36.0% and AMD at 12.1%.",
+   "url": "https://xenospectrum.com/en/nvidia-hbm-demand-supply-commitments/",
+   "quotes": [
+    "A forecast that NVIDIA will account for 37.3% of global HBM demand in 2027 shows how fierce the competition for AI memory has become.",
+    "Buyer Estimated 2027 HBM demand (billion Gb) Share of global demand NVIDIA 18.125 37.3% Google 17.507 36.0% AMD 5.9 12.1%"
+   ],
+   "values": [
+    "37.3%",
+    "36.0%",
+    "12.1%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 37.3,
+   "unit": "% of global HBM demand (forecast, in bits)",
+   "period": "calendar 2027 forecast (Morgan Stanley via ChosunBiz)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "A demand forecast, not a supply allocation, and for 2027. Its hold on HBM is far lower than on CoWoS because Google buys nearly as much."
+  },
+  {
+   "id": "moats-synergy-cloud-share-q3-2026-amazon",
+   "claim": "Synergy Research: among the major cloud providers (Amazon, Microsoft, Google), Q3 2026 worldwide market shares were 26%, 19% and 16% respectively, so Amazon's was 26%.",
+   "url": "https://www.srgresearch.com/articles/cloud-market-growth-rate-surges-to-well-over-50-per-year-q3-revenues-reach-168-billion",
+   "quotes": [
+    "Among the major cloud providers, Amazon maintains a strong lead in the market, while Microsoft and Google continue to achieve substantially higher growth rates. Q3's worldwide market share for these companies was 26%, 19%, and 16%, respectively."
+   ],
+   "values": [
+    "26%"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "share",
+   "value": 26,
+   "unit": "% of cloud infrastructure services spend",
+   "period": "Q3 2026 (Synergy Research, 29 Oct 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Market $168 billion in the quarter. Amazon, Microsoft and Google are named in the first quoted sentence, the shares in the second."
+  },
+  {
+   "id": "moats-synergy-cloud-share-q3-2026-microsoft",
+   "claim": "Synergy Research: among the major cloud providers (Amazon, Microsoft, Google), Q3 2026 worldwide market shares were 26%, 19% and 16% respectively, so Microsoft's was 19%.",
+   "url": "https://www.srgresearch.com/articles/cloud-market-growth-rate-surges-to-well-over-50-per-year-q3-revenues-reach-168-billion",
+   "quotes": [
+    "Among the major cloud providers, Amazon maintains a strong lead in the market, while Microsoft and Google continue to achieve substantially higher growth rates. Q3's worldwide market share for these companies was 26%, 19%, and 16%, respectively."
+   ],
+   "values": [
+    "19%"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "share",
+   "value": 19,
+   "unit": "% of cloud infrastructure services spend",
+   "period": "Q3 2026 (Synergy Research, 29 Oct 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Market $168 billion in the quarter. Amazon, Microsoft and Google are named in the first quoted sentence, the shares in the second."
+  },
+  {
+   "id": "moats-synergy-cloud-share-q3-2026-google",
+   "claim": "Synergy Research: among the major cloud providers (Amazon, Microsoft, Google), Q3 2026 worldwide market shares were 26%, 19% and 16% respectively, so Google's was 16%.",
+   "url": "https://www.srgresearch.com/articles/cloud-market-growth-rate-surges-to-well-over-50-per-year-q3-revenues-reach-168-billion",
+   "quotes": [
+    "Among the major cloud providers, Amazon maintains a strong lead in the market, while Microsoft and Google continue to achieve substantially higher growth rates. Q3's worldwide market share for these companies was 26%, 19%, and 16%, respectively."
+   ],
+   "values": [
+    "16%"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "share",
+   "value": 16,
+   "unit": "% of cloud infrastructure services spend",
+   "period": "Q3 2026 (Synergy Research, 29 Oct 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Market $168 billion in the quarter. Amazon, Microsoft and Google are named in the first quoted sentence, the shares in the second."
+  },
+  {
+   "id": "moats-meta-digital-ad-share-2026",
+   "claim": "eMarketer forecasts Meta at 26.8% of global digital ad spending in 2026, against Google's 26.4%.",
+   "url": "https://thenextweb.com/news/meta-surpass-google-digital-ad-revenue-emarketer-2026",
+   "quotes": [
+    "In market share terms, Meta would command 26.8% of global digital ad spending compared with Google's 26.4%, a margin thin enough that any disruption to Meta's momentum could reverse the order."
+   ],
+   "values": [
+    "26.8%",
+    "26.4%"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "share",
+   "value": 26.8,
+   "unit": "% of global digital ad spending (forecast)",
+   "period": "calendar 2026 (eMarketer forecast, April 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Forecast, via The Next Web. Google 26.4% in the same sentence."
+  },
+  {
+   "id": "moats-eda-big3-share",
+   "claim": "SemiAnalysis: Synopsys, Cadence and Siemens EDA hold over 85% combined market share of EDA, with Ansys now part of Synopsys.",
+   "url": "https://newsletter.semianalysis.com/p/eda-market-primer",
+   "quotes": [
+    "The Big-3 hold over 85% combined market share (Ansys now part of Synopsys), and the industry has posted positive revenue growth every single year for over a decade."
+   ],
+   "values": [
+    "85%"
+   ],
+   "dated2026": true,
+   "actor": "synopsys",
+   "kind": "share",
+   "value": 85,
+   "unit": "% of EDA market (Big-3 combined, minimum)",
+   "period": "2026 (SemiAnalysis primer, May 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Combined share of three vendors; Siemens EDA is not an app actor."
+  },
+  {
+   "id": "moats-eda-revenues-cy2025",
+   "claim": "SemiAnalysis: Synopsys generated $8B in CY2025 including Ansys and Cadence $5.30B; Siemens EDA an estimated $2.2-2.5B.",
+   "url": "https://newsletter.semianalysis.com/p/eda-market-primer",
+   "quotes": [
+    "Synopsys generated $8B in CY2025 (including Ansys), Cadence $5.30B, and Siemens EDA an estimated $2.2-2.5B, putting Big-3 combined revenue at around $16B across EDA tools, semiconductor IP, emulation hardware, and simulation software."
+   ],
+   "values": [
+    "$8B",
+    "$5.30B"
+   ],
+   "dated2026": false,
+   "actor": "cadence",
+   "kind": "revenue",
+   "value": 5.3,
+   "unit": "USD bn (Cadence; Synopsys $8bn)",
+   "period": "calendar 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Synopsys $8B, Cadence $5.30B. Derived: the two are about 85% of the three vendors' revenue (13.3 of ~15.6)."
+  },
+  {
+   "id": "moats-arm-datacentre-cpu-share-q1-2026",
+   "claim": "A UBS report says Arm's server CPU share rose 370 basis points to 17.7% in Q1 2026, with Intel at 54.9% and AMD at 27.4%.",
+   "url": "https://rallies.ai/news/arm-approached-cerebras-ahead-of-555b-ipo-as-server-cpu-share-hits-177",
+   "quotes": [
+    "A UBS report shows Arm's share rose by 370 basis points to 17.7% in Q1 2026, while Intel's share fell to 54.9% and AMD reached 27.4%."
+   ],
+   "values": [
+    "17.7%",
+    "54.9%",
+    "27.4%"
+   ],
+   "dated2026": true,
+   "actor": "arm",
+   "kind": "share",
+   "value": 17.7,
+   "unit": "% of data-centre (server) CPUs",
+   "period": "Q1 2026 (UBS via Rallies)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Secondary summary of a UBS report."
+  },
+  {
+   "id": "moats-arm-hyperscaler-cpu-share",
+   "claim": "Arm says its share of CPU compute is around 50 percent among the top hyperscalers.",
+   "url": "https://www.datacenterdynamics.com/en/news/arm-posts-recording-breaking-revenue-for-full-year-and-q4-26-with-its-share-of-hyperscaler-cpu-compute-hitting-50/",
+   "quotes": [
+    "Overall, Arm said its market share of CPU compute represents around a 50 percent share among top hyperscalers, with Google, Nvidia, Microsoft, and AWS all developing Arm-based hardware."
+   ],
+   "values": [
+    "50 percent"
+   ],
+   "dated2026": true,
+   "actor": "arm",
+   "kind": "share",
+   "value": 50,
+   "unit": "% of CPU compute at top hyperscalers (company claim)",
+   "period": "fiscal Q4 2026 results, 7 May 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company statement; not a share of the whole market."
+  },
+  {
+   "id": "moats-gas-turbine-backlogs-q3-2026",
+   "claim": "EUCI: in Q3 2026 Siemens Energy's gas-turbine backlog reached 69 GW and Mitsubishi's large-frame backlog 35 GW.",
+   "url": "https://www.euci.com/?p=190165",
+   "quotes": [
+    "Siemens Energy booked 15 GW of turbine orders in the quarter, raising its backlog to 69 GW, and Mitsubishi saw back orders for its large-frame gas turbines reach 35 GW."
+   ],
+   "values": [
+    "69 GW",
+    "35 GW"
+   ],
+   "dated2026": true,
+   "actor": "siemens-energy",
+   "kind": "energy",
+   "value": 69,
+   "unit": "GW backlog (Mitsubishi 35 GW)",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Derived share of the big three with GE Vernova at 122 GW [labs-gev-gas-backlog]: 122/(122+69+35) = 54%. GE counts slot reservations as well as orders, so this is indicative. EUCI gives GE Vernova 116 GW in the same article, which is GE's own Q2 figure."
+  }
+ ]
+}

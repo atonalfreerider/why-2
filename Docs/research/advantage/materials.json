@@ -1,0 +1,3132 @@
+{
+ "cluster": "materials",
+ "asOf": "2026-11-07",
+ "scope": "Raw materials and government strata of the AI supply chain: who controls rare earths, gallium, germanium, silicon, copper and uranium, the 2025-2026 export-control flashpoints, and state subsidies and stakes.",
+ "facts": [
+  {
+   "id": "materials-mcap-mp-materials",
+   "claim": "MP Materials's market cap was $6.30 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/mp-materials/marketcap/",
+   "quotes": [
+    "As of November 2026 MP Materials has a market cap of $6.30 Billion USD."
+   ],
+   "values": [
+    "6.30"
+   ],
+   "dated2026": true,
+   "actor": "mp-materials",
+   "kind": "marketCap",
+   "value": 6.3,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-freeport-mcmoran",
+   "claim": "Freeport-McMoRan's market cap was $85.32 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/freeport-mcmoran/marketcap/",
+   "quotes": [
+    "As of November 2026 Freeport-McMoRan has a market cap of $85.32 Billion USD."
+   ],
+   "values": [
+    "85.32"
+   ],
+   "dated2026": true,
+   "actor": "freeport-mcmoran",
+   "kind": "marketCap",
+   "value": 85.32,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-shin-etsu",
+   "claim": "Shin-Etsu Chemical's market cap was $61.01 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/shin-etsu-chemical/marketcap/",
+   "quotes": [
+    "As of November 2026 Shin-Etsu Chemical has a market cap of $61.01 Billion USD."
+   ],
+   "values": [
+    "61.01"
+   ],
+   "dated2026": true,
+   "actor": "shin-etsu",
+   "kind": "marketCap",
+   "value": 61.01,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-southern-copper",
+   "claim": "Southern Copper's market cap was $142.73 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/southern-copper/marketcap/",
+   "quotes": [
+    "As of November 2026 Southern Copper has a market cap of $142.73 Billion USD."
+   ],
+   "values": [
+    "142.73"
+   ],
+   "dated2026": true,
+   "actor": "southern-copper",
+   "kind": "marketCap",
+   "value": 142.73,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-rio-tinto",
+   "claim": "Rio Tinto's market cap was $136.18 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/rio-tinto/marketcap/",
+   "quotes": [
+    "As of November 2026 Rio Tinto has a market cap of $136.18 Billion USD."
+   ],
+   "values": [
+    "136.18"
+   ],
+   "dated2026": true,
+   "actor": "rio-tinto",
+   "kind": "marketCap",
+   "value": 136.18,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-cameco",
+   "claim": "Cameco's market cap was $31.05 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/cameco/marketcap/",
+   "quotes": [
+    "As of November 2026 Cameco has a market cap of $31.05 Billion USD."
+   ],
+   "values": [
+    "31.05"
+   ],
+   "dated2026": true,
+   "actor": "cameco",
+   "kind": "marketCap",
+   "value": 31.05,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-globalwafers",
+   "claim": "GlobalWafers's market cap was $8.32 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/globalwafers/marketcap/",
+   "quotes": [
+    "As of November 2026 GlobalWafers has a market cap of $8.32 Billion USD."
+   ],
+   "values": [
+    "8.32"
+   ],
+   "dated2026": true,
+   "actor": "globalwafers",
+   "kind": "marketCap",
+   "value": 8.32,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-kazatomprom",
+   "claim": "Kazatomprom's market cap was $15.44 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/kazatomprom/marketcap/",
+   "quotes": [
+    "As of November 2026 Kazatomprom has a market cap of $15.44 Billion USD."
+   ],
+   "values": [
+    "15.44"
+   ],
+   "dated2026": true,
+   "actor": "kazatomprom",
+   "kind": "marketCap",
+   "value": 15.44,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-mcap-air-liquide",
+   "claim": "Air Liquide's market cap was $134.61 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/air-liquide/marketcap/",
+   "quotes": [
+    "As of November 2026 Air Liquide has a market cap of $134.61 Billion USD."
+   ],
+   "values": [
+    "134.61"
+   ],
+   "dated2026": true,
+   "actor": "air-liquide",
+   "kind": "marketCap",
+   "value": 134.61,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-magnet-re-share",
+   "claim": "The IEA's 2026 outlook puts China at about 60% of mined magnet rare earths, over 90% of their refining and nearly 95% of permanent magnet production.",
+   "url": "https://aa.com.tr/en/economy/international-energy-agency-warns-rare-earth-supply-diversification-lags-rising-global-demand/3898514",
+   "quotes": [
+    "The report said China accounts for around 60% of global mined production of magnet rare earths, more than 90% of refining and nearly 95% of permanent magnet production."
+   ],
+   "values": [
+    "60%",
+    "90%",
+    "95%"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 95,
+   "unit": "%",
+   "period": "IEA critical minerals outlook, July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: magnet rare earths; value is the permanent-magnet share"
+  },
+  {
+   "id": "materials-iea-60bn-diversify",
+   "claim": "The IEA said $60 billion of investment is needed in the next decade to build more diversified supply chains, especially in refining and magnet manufacturing.",
+   "url": "https://aa.com.tr/en/economy/international-energy-agency-warns-rare-earth-supply-diversification-lags-rising-global-demand/3898514",
+   "quotes": [
+    "The IEA said $60 billion in investment will be needed in the next decade to build more diversified supply chains, especially in refining and magnet manufacturing, which remain key bottlenecks."
+   ],
+   "values": [
+    "$60 billion"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "investment",
+   "value": 60,
+   "unit": "USD bn",
+   "period": "next decade",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-iea-2035-outside-china",
+   "claim": "By 2035 non-Chinese projects are expected to cover only about half of mining needs, a quarter of refining demand and under a fifth of magnet demand outside China.",
+   "url": "https://aa.com.tr/en/economy/international-energy-agency-warns-rare-earth-supply-diversification-lags-rising-global-demand/3898514",
+   "quotes": [
+    "By 2035, they are expected to cover only about half of mining needs, a quarter of refining demand and less than one-fifth of magnet demand outside China."
+   ],
+   "values": [
+    "half",
+    "quarter",
+    "one-fifth"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 20,
+   "unit": "%",
+   "period": "2035 projection",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "value is the magnet-demand ceiling (under one-fifth)"
+  },
+  {
+   "id": "materials-bofit-refining-84",
+   "claim": "BOFIT reports China refines 84% of permanent-magnet rare earths and mines 59% of rare earths, down from over 90% refining in earlier years.",
+   "url": "https://www.bofit.fi/en/monitoring/weekly/2026/vw202632_2/",
+   "quotes": [
+    "In contrast, refining of the REEs used in permanent magnets (84 %) and mining of REEs generally (59 %) is heavily concentrated in China, even if China's share of refining magnetic REEs fell last year from its over 90 percent share in previous years."
+   ],
+   "values": [
+    "84 %",
+    "59 %"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 84,
+   "unit": "%",
+   "period": "2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-listed-mp-materials",
+   "claim": "In June 2026 China added ten US companies, including MP Materials and USA Rare Earth, to its export control list.",
+   "url": "https://www.bofit.fi/en/monitoring/weekly/2026/vw202632_2/",
+   "quotes": [
+    "In June, China added ten US companies to its export control list, including Nevada-based rare earth producer MP Materials Corp., which operates the only REE mine in the US, and Oklahoma-based REE processor USA Rare Earth."
+   ],
+   "values": [
+    "ten"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "June 2026",
+   "from": null,
+   "to": "mp-materials",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-hree-99-processing",
+   "claim": "A Reuters analysis cited by Wikipedia says China controls approximately 99% of world heavy-rare-earth processing capacity.",
+   "url": "https://en.wikipedia.org/wiki/Rare-earth_industry_in_China",
+   "quotes": [
+    "A Reuters analysis indicates that China will continue to lead global processing of HREEs in 2030, since it controls approximately 99% of the world's capacity."
+   ],
+   "values": [
+    "99%"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 99,
+   "unit": "%",
+   "period": "processing capacity, projected lead to 2030",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-re-import-china",
+   "claim": "USGS: China supplied 71% of US rare-earth compound and metal imports in 2021-24.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "quotes": [
+    "Import Sources (2021–24): Rare-earth compounds and metals: China,8 71%; Malaysia, 13%; Japan, 5%; Estonia, 5%; and other, 6%."
+   ],
+   "values": [
+    "71%"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "share",
+   "value": 71,
+   "unit": "%",
+   "period": "US imports 2021-24",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-apr-2025-controls",
+   "claim": "In April 2025 China tightened export controls on seven rare earths: samarium, gadolinium, terbium, dysprosium, lutetium, scandium and yttrium.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "quotes": [
+    "In April 2025, China tightened its export controls on rare-earth elements, adding specific controls on alloys, compounds, metals, and oxides of samarium, gadolinium, terbium, dysprosium, lutetium, scandium, and yttrium."
+   ],
+   "values": [
+    "April 2025"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "April 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-oct-2025-controls",
+   "claim": "In October 2025 China expanded its rare-earth export controls to include europium, holmium, erbium, thulium and ytterbium.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "quotes": [
+    "In October, China expanded its rare-earths export controls to include europium, holmium, erbium, thulium, and ytterbium."
+   ],
+   "values": [
+    "October"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "October 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-nov-2025-suspension",
+   "claim": "In November 2025 China suspended its October export controls for one year.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "quotes": [
+    "In November, China suspended the October export controls for 1 year."
+   ],
+   "values": [
+    "1 year"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "November 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-suspension-window",
+   "claim": "China's suspension of the October 2025 controls runs from 7 November 2025 to 10 November 2026.",
+   "url": "https://www.cirs-group.com/en/chemicals/china-temporarily-suspends-export-controls-on-key-raw-materials-including-rare-earths-lithium-batteries-and-diamond",
+   "quotes": [
+    "This indicates that from November 7, 2025, to November 10, 2026, the export of these items and technologies will not be bound by the specific provisions of the previously mentioned announcements."
+   ],
+   "values": [
+    "November 10, 2026"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "to 2026-11-10",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "expires three days after today"
+  },
+  {
+   "id": "materials-china-ga-ge-ban-suspension",
+   "claim": "On 9 November 2025 MOFCOM suspended Article 2 of Announcement No. 46 of 2024 (the gallium, germanium and antimony ban on the US) until 27 November 2026.",
+   "url": "https://www.jdsupra.com/legalnews/china-suspends-export-controls-on-3699228/",
+   "quotes": [
+    "On November 9, MOFCOM issued another announcement to suspend Article 2 of Announcement No. 46 of 2024 from November 9, 2025, until November 27, 2026."
+   ],
+   "values": [
+    "November 27, 2026"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "to 2026-11-27",
+   "from": null,
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-us-affiliates-rule-returns",
+   "claim": "The US 50%-owned-affiliates entity-list rule is suspended for one year and returns to the EAR after 10 November 2026.",
+   "url": "https://www.jdsupra.com/legalnews/china-suspends-export-controls-on-3699228/",
+   "quotes": [
+    "Following November 10, 2026, the changes included in the Affiliates Rule will be added back into the EAR."
+   ],
+   "values": [
+    "November 10, 2026"
+   ],
+   "dated2026": true,
+   "actor": "us-gov",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "to 2026-11-10",
+   "from": "us-gov",
+   "to": "china",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-ga-lifted",
+   "claim": "In November 2025 China lifted its ban on gallium exports to the United States for one year.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "quotes": [
+    "In November 2025, China lifted its ban on gallium exports to the United States for 1 year."
+   ],
+   "values": [
+    "November 2025"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "November 2025",
+   "from": null,
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-ga-import-china",
+   "claim": "China supplied 18% of US gallium metal imports in 2021-24, behind Canada (28%) and Japan (22%).",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "quotes": [
+    "Import Sources (2021–24): Metal: Canada, 28%; Japan, 22%; China, 18%; Germany, 16%; and other, 16%."
+   ],
+   "values": [
+    "18%"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "share",
+   "value": 18,
+   "unit": "%",
+   "period": "US imports 2021-24",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-ga-ic-use",
+   "claim": "Integrated circuits accounted for 73% of US gallium consumption, optoelectronics 26%.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "quotes": [
+    "Gallium nitride (GaN) was used to manufacture ICs and optoelectronic devices; ICs accounted for 73% of domestic gallium consumption, and optoelectronic devices accounted for 26%."
+   ],
+   "values": [
+    "73%",
+    "26%"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "share",
+   "value": 73,
+   "unit": "%",
+   "period": "US consumption",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-ge-import-drop",
+   "claim": "US germanium metal imports fell an estimated 67% in 2025, to 7,000 kilograms, owing to China's 2024 germanium export ban.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf",
+   "quotes": [
+    "United States imports of germanium metal were estimated to have decreased by 67% in 2025 from those in 2024 to 7,000 kilograms owing to China's ban on germanium exports to the United States in 2024."
+   ],
+   "values": [
+    "67%",
+    "7,000 kilograms"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "flow",
+   "value": 7000,
+   "unit": "kg",
+   "period": "2025",
+   "from": "china",
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-si-china-80",
+   "claim": "China accounted for almost 80% of total global estimated production of silicon materials in 2025.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-silicon.pdf",
+   "quotes": [
+    "China accounted for almost 80% of total global estimated production of silicon materials in 2025."
+   ],
+   "values": [
+    "80%"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "share",
+   "value": 80,
+   "unit": "%",
+   "period": "2025; scope: silicon materials (metal and alloys)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-wna-uranium-2024",
+   "claim": "In 2024 Kazakhstan produced 39% of world mined uranium, Canada 24% and Namibia 12%.",
+   "url": "https://world-nuclear.org/information-library/nuclear-fuel-cycle/mining-of-uranium/world-uranium-mining-production",
+   "quotes": [
+    "In 2024 Kazakhstan produced the largest share of uranium from mines (39% of world supply), followed by Canada (24%) and Namibia (12%)."
+   ],
+   "values": [
+    "39%",
+    "24%",
+    "12%"
+   ],
+   "dated2026": false,
+   "actor": "kazatomprom",
+   "kind": "share",
+   "value": 39,
+   "unit": "% of world mined uranium (Kazakhstan, country figure)",
+   "period": "2024; scope: mined uranium by country",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Country figure for Kazakhstan, not Kazatomprom's own output share (21%: materials-wna-kazatomprom-21)."
+  },
+  {
+   "id": "materials-kpler-grasberg",
+   "claim": "Freeport's Grasberg, about 3% of global copper supply, remains under force majeure after the September 2025 mud-inflow disaster, with close to 600,000 tonnes lost to end-2026.",
+   "url": "https://www.kpler.com/blog/copper-the-perfect-squeeze",
+   "quotes": [
+    "Layered on top is the overhang from Indonesia, where Freeport's Grasberg — the world's second-largest mine, around 3% of global supply — remains under force majeure after the September 2025 mud-inflow disaster, with close to 600,000 tonnes of output lost between the accident and the end of 2026 and a phased restart only reaching an estimated 85% of capacity in the second half of this year."
+   ],
+   "values": [
+    "3%",
+    "600,000 tonnes"
+   ],
+   "dated2026": true,
+   "actor": "freeport-mcmoran",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "Sept 2025 to end-2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-kpler-dc-copper",
+   "claim": "Applying 27-40 t/MW gives roughly 300,000 to 700,000 tonnes of copper embodied in 2026 data-centre construction, about half a million at the centre.",
+   "url": "https://www.kpler.com/blog/copper-the-perfect-squeeze",
+   "quotes": [
+    "Applying a facility-level intensity of 27–40 t/MW to that range gives roughly 300,000 to 700,000 tonnes of copper embodied in 2026 data-centre construction, with a central figure near half a million tonnes."
+   ],
+   "values": [
+    "300,000 to 700,000 tonnes"
+   ],
+   "dated2026": true,
+   "actor": "freeport-mcmoran",
+   "kind": "units",
+   "value": 500000,
+   "unit": "tonnes",
+   "period": "2026 estimate (Kpler)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-kpler-dc-share",
+   "claim": "The central 500,000-tonne data-centre figure is under 2% of the roughly 28.7 million tonnes of refined copper the world consumes in 2026.",
+   "url": "https://www.kpler.com/blog/copper-the-perfect-squeeze",
+   "quotes": [
+    "Put in context, the central ~500,000-tonne facility figure is under 2% of the roughly 28.7 million tonnes of refined copper the world will consume this year — small against the stock."
+   ],
+   "values": [
+    "28.7 million tonnes"
+   ],
+   "dated2026": true,
+   "actor": "freeport-mcmoran",
+   "kind": "units",
+   "value": 28.7,
+   "unit": "Mt",
+   "period": "2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-dod-mp-400m",
+   "claim": "The Department of Defense invests an initial $400 million in MP Materials for Series A Preferred Stock.",
+   "url": "https://fas.org/publication/unpacking-dod-and-mp-partnership/",
+   "quotes": [
+    "DoD will invest an initial amount of $400 million in MP Materials in return for Series A Preferred Stock."
+   ],
+   "values": [
+    "$400 million"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "investment",
+   "value": 0.4,
+   "unit": "USD bn",
+   "period": "July 2025",
+   "from": "us-gov",
+   "to": "mp-materials",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-dod-mp-warrant",
+   "claim": "A 10-year warrant lets DoD raise its MP Materials holding to 15%, making it the largest shareholder.",
+   "url": "https://fas.org/publication/unpacking-dod-and-mp-partnership/",
+   "quotes": [
+    "A 10 year warrant provides DoD with the option to increase its shares of MP Materials up to 15%, in which case DoD would become the largest shareholder of MP Materials."
+   ],
+   "values": [
+    "15%"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "share",
+   "value": 15,
+   "unit": "%",
+   "period": "warrant, 10 years from July 2025",
+   "from": "us-gov",
+   "to": "mp-materials",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-dod-mp-floor",
+   "claim": "From Q4 2025 DoD guarantees a $110/kg NdPr price floor, nearly double the then market price, over 10 years.",
+   "url": "https://fas.org/publication/unpacking-dod-and-mp-partnership/",
+   "quotes": [
+    "To ensure a stable market for MP Materials' NdPr processing facility and its expansion, starting in Q4 2025, DoD will guarantee a price floor of $110/kg for NdPr, nearly double the current market price, over 10 years."
+   ],
+   "values": [
+    "$110/kg"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "contract",
+   "value": 110,
+   "unit": "USD/kg",
+   "period": "10 years from Q4 2025",
+   "from": "us-gov",
+   "to": "mp-materials",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-dod-mp-offtake",
+   "claim": "The deal includes a ten-year offtake agreement for 100% of the 10X Facility's magnet output.",
+   "url": "https://www.engineeringnews.co.za/article/mp-materials-lands-multibillion-dollar-pentagon-deal-to-bolster-us-rare-earth-magnet-supply-2025-07-10",
+   "quotes": [
+    "The deal includes a ten-year offtake agreement for 100% of the 10X Facility's magnet output and a price floor of $110/kg for neodymium-"
+   ],
+   "values": [
+    "100%"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "contract",
+   "value": 100,
+   "unit": "%",
+   "period": "10 years",
+   "from": "us-gov",
+   "to": "mp-materials",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-us-intel-stake-89",
+   "claim": "The US government took an $8.9 billion, 9.9% stake in Intel, buying 433.3 million shares at $20.47 per share.",
+   "url": "https://finance.yahoo.com/news/intel-announces-89-billion-investment-from-us-government-which-will-own-99-of-chipmaker-180452175.html",
+   "quotes": [
+    "The US government has taken an $8.9 billion, 9.9% stake in Intel (INTC), buying 433.3 million shares in the chipmaker at a price of $20.47 per share."
+   ],
+   "values": [
+    "$8.9 billion",
+    "9.9%",
+    "433.3 million",
+    "$20.47"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "investment",
+   "value": 8.9,
+   "unit": "USD bn",
+   "period": "August 2025",
+   "from": "us-gov",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-us-intel-stake-funding",
+   "claim": "The Intel stake was funded by $5.7 billion of unpaid CHIPS Act grants and $3.2 billion of Secure Enclave awards.",
+   "url": "https://finance.yahoo.com/news/intel-announces-89-billion-investment-from-us-government-which-will-own-99-of-chipmaker-180452175.html",
+   "quotes": [
+    "Intel said the government's equity stake will be funded by the remaining $5.7 billion in grants previously awarded but not yet paid to Intel under the US CHIPS and Science Act and $3.2 billion awarded to the company as part of the Secure Enclave program."
+   ],
+   "values": [
+    "$5.7 billion",
+    "$3.2 billion"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 5.7,
+   "unit": "USD bn",
+   "period": "August 2025",
+   "from": "us-gov",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": "CHIPS grants converted to equity; Secure Enclave $3.2bn"
+  },
+  {
+   "id": "materials-chips-act-39bn",
+   "claim": "The CHIPS and Science Act of August 2022 offered $39bn in manufacturing subsidies, a 25% tax credit and $13bn for chip research.",
+   "url": "https://en.wikipedia.org/wiki/CHIPS_and_Science_Act",
+   "quotes": [
+    "It passed the CHIPS and Science Act in August 2022, offering $39bn in subsidies and a 25% tax credit to promote manufacturing at home, as well as $13bn of investment in chip research."
+   ],
+   "values": [
+    "$39bn",
+    "25%",
+    "$13bn"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "contract",
+   "value": 39,
+   "unit": "USD bn",
+   "period": "Aug 2022 act",
+   "from": "us-gov",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-eu-chips-state-aid",
+   "claim": "Only 13.75 billion euros of State aid had been approved under the EU Chips Act by early 2026, against $33.7 billion in grants and $5.5 billion in loans under the US CHIPS Act by January 2025.",
+   "url": "https://en.wikipedia.org/wiki/European_Chips_Act",
+   "quotes": [
+    "Bruegel noted that only €13.75 billion in State aid had been approved under the Act by early 2026, compared with $33.7 billion in grants and $5.5 billion in loans awarded under the US CHIPS and Science Act by January 2025.[8]"
+   ],
+   "values": [
+    "€13.75 billion",
+    "$33.7 billion"
+   ],
+   "dated2026": true,
+   "actor": "eu",
+   "kind": "flow",
+   "value": 13.75,
+   "unit": "EUR bn",
+   "period": "by early 2026",
+   "from": "eu",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-eu-chips-42bn",
+   "claim": "The EU Chips Act's 42 billion euro volume of investment is small next to the US CHIPS and Science Act's $76 billion.",
+   "url": "https://en.wikipedia.org/wiki/European_Chips_Act",
+   "quotes": [
+    "Its €42 billion volume of investment is comparatively small next to US efforts in their CHIPS and Science Act of $76 billion and efforts through the Inflation Reduction Act."
+   ],
+   "values": [
+    "€42 billion",
+    "$76 billion"
+   ],
+   "dated2026": false,
+   "actor": "eu",
+   "kind": "contract",
+   "value": 42,
+   "unit": "EUR bn",
+   "period": "Act of 2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-rapidus-424",
+   "claim": "After the latest IPA capital increase Rapidus's funding totals 424.95 billion yen.",
+   "url": "https://evertiq.com/news/2026-06-09-rapidus-corporation-completes-943-million-funding-round",
+   "quotes": [
+    "As a result of this latest capital increase by the IPA, Rapidus funding now totals 424.95 billion yen (about USD 2.7 billion), the company said."
+   ],
+   "values": [
+    "424.95 billion yen"
+   ],
+   "dated2026": true,
+   "actor": "japan",
+   "kind": "investment",
+   "value": 424.95,
+   "unit": "JPY bn",
+   "period": "June 2026",
+   "from": "japan",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-rapidus-2.9tn",
+   "claim": "Japan's METI plans an extra 1 trillion yen for Rapidus across FY2026-27, lifting total government support to 2.9 trillion yen.",
+   "url": "https://www.trendforce.com/news/2025/11/24/news-japan-reportedly-adding-%C2%A51-trillion-in-rapidus-support-as-it-targets-fy2030-profitability-fy2031-ipo/",
+   "quotes": [
+    "Beyond subsidies for technology development, the plan also includes additional capital injections, lifting total government support to ¥2.9 trillion."
+   ],
+   "values": [
+    "¥2.9 trillion"
+   ],
+   "dated2026": false,
+   "actor": "japan",
+   "kind": "investment",
+   "value": 2900,
+   "unit": "JPY bn",
+   "period": "plan reported 24 Nov 2025",
+   "from": "japan",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "reported plan, not all approved"
+  },
+  {
+   "id": "materials-sec232-25pct",
+   "claim": "From 15 January 2026 a 25% tariff applies to certain advanced computing chips whose import does not help build the US technology supply chain.",
+   "url": "https://taxnews.ey.com/news/2026-0209-us-section-232-proclamation-imposes-25-percent-tariff-on-certain-semiconductors",
+   "quotes": [
+    "EST on 15 January 2026, a 25% ad valorem tariff applies to certain advanced computing chips and specified derivative products if their importation does not contribute to building out the US technology supply chain; defined end-use exceptions apply."
+   ],
+   "values": [
+    "25%",
+    "15 January 2026"
+   ],
+   "dated2026": true,
+   "actor": "us-gov",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "15 Jan 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-h20-5-5bn-charge",
+   "claim": "Nvidia said on 15 April 2025 that it will take a quarterly charge of about $5.5 billion tied to exporting H20 GPUs to China and other destinations.",
+   "url": "https://nbcmiami.com/news/business/money-report/nvidia-says-it-will-record-5-5-billion-quarterly-charge-tied-to-h20-processors-exported-to-china/3592671",
+   "quotes": [
+    "Nvidia said Tuesday it will take a quarterly charge of about $5.5 billion tied to exporting H20 graphics processing units to China and other destinations."
+   ],
+   "values": [
+    "$5.5 billion"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "flow",
+   "value": 5.5,
+   "unit": "USD bn",
+   "period": "guided 15 April 2025",
+   "from": "nvidia",
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": "Forward-looking guidance from 15 April 2025. The booked charge was $4.5bn: see materials-nvidia-h20-charge-4-5bn."
+  },
+  {
+   "id": "materials-nexperia-suspended",
+   "claim": "The Dutch government suspended its Goods Availability Act order on Nexperia, citing constructive talks with China; the takeover was suspended, not cancelled.",
+   "url": "https://www.enca.com/business/netherlands-halts-nexperia-takeover-gesture-china-minister",
+   "quotes": [
+    "The takeover has been suspended rather than cancelled, and the minister can reinstate the measure later."
+   ],
+   "values": [
+    "suspended rather than cancelled"
+   ],
+   "dated2026": false,
+   "actor": "netherlands",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "Sept-Nov 2025",
+   "from": "netherlands",
+   "to": "china",
+   "accessed": "2026-11-07",
+   "notes": "value is the year; no numeric"
+  },
+  {
+   "id": "materials-taiwan-ndf-tsmc-638",
+   "claim": "The National Development Fund, Executive Yuan, held 6.38% of TSMC common shares, 1,653,709,980 shares, as of 17 December 2025.",
+   "url": "https://investor.tsmc.com/static/annualReports/2025/english/pdf/2025_tsmc_ar_e_ch4.pdf",
+   "quotes": [
+    "National Development Fund, Executive Yuan 1,653,709,980 6.38%"
+   ],
+   "values": [
+    "6.38",
+    "1,653,709,980"
+   ],
+   "dated2026": false,
+   "actor": "taiwan",
+   "kind": "share",
+   "value": 6.38,
+   "unit": "% of TSMC common shares",
+   "period": "record date 17 Dec 2025",
+   "from": "taiwan",
+   "to": "tsmc",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-taiwan-n1-rule",
+   "claim": "Taiwan's 'N-1' rule will apply to TSMC's planned production in the United States, allowing abroad only a process one generation older than Taiwan's most advanced.",
+   "url": "https://www.tomshardware.com/tech-industry/semiconductors/taiwans-government-strengthens-silicon-shield-restricts-exports-of-tsmcs-most-advanced-process-technologies",
+   "quotes": [
+    "The 'N-1' policy, confirmed by Premier Cho Jung-tai, will apply to TSMC's planned production in the United States.",
+    "This approach restricts export of the most advanced process technology, allowing only one generation older to be deployed abroad."
+   ],
+   "values": [
+    "N-1"
+   ],
+   "dated2026": false,
+   "actor": "taiwan",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "reported by Tom's Hardware, Economic Daily (2025)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-taiwan-us-250bn",
+   "claim": "Under the January 2026 US-Taiwan deal, Taiwanese companies are set to channel US$250 billion into US output across semiconductors, energy and AI, per a US Commerce fact sheet.",
+   "url": "https://www.trendforce.com/news/2026/01/16/news-taiwan-u-s-trade-deal-cuts-tariffs-from-20-to-15-secures-250b-investment-with-tsmc-at-center/",
+   "quotes": [
+    "In a fact sheet from U.S. Department of Commerce, Taiwanese companies are set to channel US$250 billion into boosting U.S. output across semiconductors, energy and artificial intelligence."
+   ],
+   "values": [
+    "250"
+   ],
+   "dated2026": true,
+   "actor": "taiwan",
+   "kind": "investment",
+   "value": 250,
+   "unit": "USD bn",
+   "period": "US-Taiwan trade deal, 15 January 2026",
+   "from": "taiwan",
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": "Commitment, no timeline; US$100bn of it already pledged by TSMC in 2025."
+  },
+  {
+   "id": "materials-taiwan-us-tariff-15",
+   "claim": "The January 2026 US-Taiwan deal cut broad US tariffs on most Taiwanese goods from 20% to 15%.",
+   "url": "https://www.trendforce.com/news/2026/01/16/news-taiwan-u-s-trade-deal-cuts-tariffs-from-20-to-15-secures-250b-investment-with-tsmc-at-center/",
+   "quotes": [
+    "After months of negotiations, Taiwan and the U.S. on Jan. 15 (U.S. time) sealed a long-awaited deal that cuts broad tariffs on most Taiwanese goods exported to the U.S. from 20% to 15%"
+   ],
+   "values": [
+    "20%",
+    "15%"
+   ],
+   "dated2026": true,
+   "actor": "taiwan",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "15 January 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-asml-dutch-duv-licence",
+   "claim": "From 7 September 2024 ASML must apply to the Dutch government, not the US government, for export licences for its TWINSCAN NXT:1970i and 1980i DUV immersion systems.",
+   "url": "https://www.theregister.com/2024/09/06/dutch_asml_export_controls/",
+   "quotes": [
+    "\"As a result of the updated license requirements, and in line with US Export Administration Regulation 734.4(a)(3), ASML will need to apply for export licenses with the Dutch government rather than the US government for shipments of its TWINSCAN NXT:1970i and 1980i DUV immersion lithography systems.\""
+   ],
+   "values": [
+    "1970i",
+    "1980i"
+   ],
+   "dated2026": false,
+   "actor": "netherlands",
+   "kind": "event",
+   "value": 2024,
+   "unit": "year",
+   "period": "7 September 2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-usgs-ga-china-99",
+   "claim": "China accounted for 99% of worldwide primary low-purity gallium production, according to USGS MCS 2026.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+   "quotes": [
+    "China accounted for 99% of worldwide primary low-purity gallium production."
+   ],
+   "values": [
+    "99%"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 99,
+   "unit": "% of world primary low-purity gallium",
+   "period": "2025 (USGS MCS 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-nvidia-h20-charge-4-5bn",
+   "claim": "NVIDIA incurred a $4.5 billion charge in Q1 FY2026 (quarter ended 27 April 2025) for H20 excess inventory and purchase obligations after the US required export licences.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2026",
+   "quotes": [
+    "NVIDIA incurred a $4.5 billion charge in the first quarter of fiscal 2026 associated with H20 excess inventory and purchase obligations as the demand for H20 diminished."
+   ],
+   "values": [
+    "4.5"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "flow",
+   "value": 4.5,
+   "unit": "USD bn",
+   "period": "Q1 FY2026 (ended 27 Apr 2025)",
+   "from": "nvidia",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-h20-15pct-ap",
+   "claim": "AP reported, citing a US official, that Nvidia and AMD agreed to share 15% of their revenues from China chip sales with the US government (August 2025).",
+   "url": "https://www.daytondailynews.com/news/nation-world/nvidia-and-amd-to-pay-15-of-china-chip-sale-revenue-to-us-government-in-an-unusual-agreement/YJONLOZHF5PQ3PM6SU4QRJRAOI",
+   "quotes": [
+    "Nvidia and AMD agreed to share 15% of their revenues from chip sales to China with the U.S. government, a U.S. government official has confirmed."
+   ],
+   "values": [
+    "15%"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "contract",
+   "value": 15,
+   "unit": "% of China chip revenue",
+   "period": "August 2025",
+   "from": "nvidia",
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": "Terms confirmed by an anonymous official; not formally announced at the time."
+  },
+  {
+   "id": "materials-h200-25pct-cut",
+   "claim": "Trump wrote that the US government would take a 25% cut of sales of approved chips to China, up from a previously announced 15%.",
+   "url": "https://www.nbcwashington.com/news/national-international/trump-allow-nvidia-sell-some-ai-chips-china/",
+   "quotes": [
+    "The president wrote on Truth Social that the U.S. government would take a 25% cut of sales of the approved chips, up from a previously-announced 15%."
+   ],
+   "values": [
+    "25%",
+    "15%"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "contract",
+   "value": 25,
+   "unit": "% of approved China chip sales",
+   "period": "announced December 2025",
+   "from": "nvidia",
+   "to": "us-gov",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-wna-kazatomprom-21",
+   "claim": "Kazatomprom produced 12,463 tonnes U in 2024, 21% of the world total; Cameco 17%, Orano 11%.",
+   "url": "https://world-nuclear.org/information-library/nuclear-fuel-cycle/mining-of-uranium/world-uranium-mining-production",
+   "quotes": [
+    "Uranium production by company 2024 Company tonnes U % of world total Kazatomprom 12,463 21 Cameco 10,193 17 Orano 6815 11"
+   ],
+   "values": [
+    "12,463",
+    "21",
+    "10,193",
+    "17",
+    "6815",
+    "11"
+   ],
+   "dated2026": true,
+   "actor": "kazatomprom",
+   "kind": "share",
+   "value": 21,
+   "unit": "% of world mined uranium",
+   "period": "2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-tsmc-chips-award-6-6bn",
+   "claim": "The US Commerce Department finalized a USD 6.6 billion CHIPS Act subsidy for TSMC's Arizona plant in November 2024.",
+   "url": "https://www.trendforce.com/news/2024/12/23/news-chips-act-funding-highlights-before-trump-takes-office-tsmc-intel-samsung-and-more/",
+   "quotes": [
+    "In mid-November, The US Commerce Department finalized a USD 6.6 billion government subsidy for TSMC's Arizona plant, which is identical with the agreement announced back in April."
+   ],
+   "values": [
+    "6.6"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 6.6,
+   "unit": "USD bn",
+   "period": "finalized November 2024",
+   "from": "us-gov",
+   "to": "tsmc",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-samsung-chips-award-4-75bn",
+   "claim": "The US Commerce Department finalized a nearly USD 4.75 billion CHIPS Act subsidy for Samsung, a 26% cut from the up to USD 6.4 billion preliminary award.",
+   "url": "https://www.trendforce.com/news/2024/12/23/news-chips-act-funding-highlights-before-trump-takes-office-tsmc-intel-samsung-and-more/",
+   "quotes": [
+    "According to U.S. Department of Commerce, it has finalized a nearly USD 4.75 billion government subsidy for Samsung.",
+    "However, this would mark a 26% cut compared to the preliminary award announced in April of up to USD 6.4 billion."
+   ],
+   "values": [
+    "4.75",
+    "26%",
+    "6.4"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 4.75,
+   "unit": "USD bn",
+   "period": "finalized December 2024",
+   "from": "us-gov",
+   "to": "samsung",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-japan-kumamoto-732bn",
+   "claim": "Japan's METI agreed to a 732 billion yen (US$4.86 billion) subsidy to JASM, TSMC's Kumamoto venture, for a second fab (February 2024).",
+   "url": "https://focustaiwan.tw/business/202402240011",
+   "quotes": [
+    "Japan's Economy, Trade and Industry (METI) Minister Ken Saito on Saturday confirmed that the Japanese government has agreed to grant a subsidy of 732 billion yen (US$4.86 billion) to Japan Advanced Semiconductor Manufacturing's (JASM) to build a second fab in Kumamoto."
+   ],
+   "values": [
+    "732",
+    "4.86"
+   ],
+   "dated2026": false,
+   "actor": "japan",
+   "kind": "flow",
+   "value": 732,
+   "unit": "JPY bn",
+   "period": "February 2024",
+   "from": "japan",
+   "to": "tsmc",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-eu-esmc-5bn",
+   "claim": "The European Commission approved a EUR 5 billion German State aid measure for ESMC (TSMC, Bosch, Infineon, NXP) in Dresden on 20 August 2024.",
+   "url": "https://digital-strategy.ec.europa.eu/en/news/commission-approves-eu5-billion-german-state-aid-measure-support-esmc-setting-new-semiconductor",
+   "quotes": [
+    "Commission has approved, under EU State aid rules, a €5 billion German measure to support European Semiconductor Manufacturing Company (ESMC) in the construction and operation of a microchip manufacturing plant in Dresden."
+   ],
+   "values": [
+    "5"
+   ],
+   "dated2026": false,
+   "actor": "eu",
+   "kind": "flow",
+   "value": 5,
+   "unit": "EUR bn",
+   "period": "approved 20 August 2024",
+   "from": "eu",
+   "to": "esmc",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-china-bigfund3-344bn",
+   "claim": "China established the National IC Industry Investment Fund III on 24 May 2024 with registered capital of 344 billion yuan (US$47.5 billion), larger than the first two phases.",
+   "url": "https://en.wikipedia.org/wiki/China_Integrated_Circuit_Industry_Investment_Fund",
+   "quotes": [
+    "On 24 May 2024, the National Integrated Circuit Industry Investment Fund III Co., Ltd. was established with a registered capital of 344 billion yuan (US$47.5 billion), larger than the first two phases."
+   ],
+   "values": [
+    "344",
+    "47.5"
+   ],
+   "dated2026": false,
+   "actor": "china",
+   "kind": "investment",
+   "value": 344,
+   "unit": "CNY bn",
+   "period": "established 24 May 2024",
+   "from": "china",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-wafer-share-shin-etsu",
+   "claim": "Shin-Etsu Chemical holds about 28% of the global silicon wafer market, per a 2026 industry report (SUMCO 25%, GlobalWafers 15%, Siltronic 12%, SK Siltron 11%).",
+   "url": "https://faxiangongchang.com/en/reports/china-semiconductor-silicon-wafer-2026",
+   "quotes": [
+    "The supply concentration is arguably the highest among all semiconductor materials. Japan's Shin-Etsu Chemical holds about 28% global share, Japan's SUMCO 25%, Taiwan's GlobalWafers 15%, Germany's Siltronic 12%, South Korea's SK Siltron 11%"
+   ],
+   "values": [
+    "28%",
+    "25%",
+    "15%",
+    "12%",
+    "11%"
+   ],
+   "dated2026": true,
+   "actor": "shin-etsu",
+   "kind": "share",
+   "value": 28,
+   "unit": "% of world silicon wafers",
+   "period": "2025 (report published 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Single secondary industry report (faxiangongchang, citing SEMI for the market size); not corroborated by a company filing. Treat as indicative."
+  },
+  {
+   "id": "materials-wafer-share-sumco",
+   "claim": "SUMCO holds about 25% of the global silicon wafer market, per a 2026 industry report.",
+   "url": "https://faxiangongchang.com/en/reports/china-semiconductor-silicon-wafer-2026",
+   "quotes": [
+    "The supply concentration is arguably the highest among all semiconductor materials. Japan's Shin-Etsu Chemical holds about 28% global share, Japan's SUMCO 25%, Taiwan's GlobalWafers 15%, Germany's Siltronic 12%, South Korea's SK Siltron 11%"
+   ],
+   "values": [
+    "28%",
+    "25%",
+    "15%",
+    "12%",
+    "11%"
+   ],
+   "dated2026": true,
+   "actor": "sumco",
+   "kind": "share",
+   "value": 25,
+   "unit": "% of world silicon wafers",
+   "period": "2025 (report published 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Single secondary industry report (faxiangongchang, citing SEMI for the market size); not corroborated by a company filing. Treat as indicative."
+  },
+  {
+   "id": "materials-wafer-share-globalwafers",
+   "claim": "GlobalWafers holds about 15% of the global silicon wafer market, per a 2026 industry report (Siltronic 12%, SK Siltron 11%).",
+   "url": "https://faxiangongchang.com/en/reports/china-semiconductor-silicon-wafer-2026",
+   "quotes": [
+    "The supply concentration is arguably the highest among all semiconductor materials. Japan's Shin-Etsu Chemical holds about 28% global share, Japan's SUMCO 25%, Taiwan's GlobalWafers 15%, Germany's Siltronic 12%, South Korea's SK Siltron 11%"
+   ],
+   "values": [
+    "28%",
+    "25%",
+    "15%",
+    "12%",
+    "11%"
+   ],
+   "dated2026": true,
+   "actor": "globalwafers",
+   "kind": "share",
+   "value": 15,
+   "unit": "% of world silicon wafers",
+   "period": "2025 (report published 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Single secondary industry report (faxiangongchang, citing SEMI for the market size); not corroborated by a company filing. Treat as indicative."
+  },
+  {
+   "id": "materials-mcap-sumco",
+   "claim": "SUMCO's market cap was $3.94 billion in November 2026.",
+   "url": "https://companiesmarketcap.com/sumco-corporation/marketcap/",
+   "quotes": [
+    "Market cap: $3.94 Billion USD As of November 2026 Sumco Corporation has a market cap of $3.94 Billion USD."
+   ],
+   "values": [
+    "3.94"
+   ],
+   "dated2026": true,
+   "actor": "sumco",
+   "kind": "marketCap",
+   "value": 3.94,
+   "unit": "USD bn",
+   "period": "November 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-micron-chips-award-6-165bn",
+   "claim": "Commerce awarded Micron up to $6.165 billion in direct CHIPS funding, announced 10 December 2024.",
+   "url": "https://www.ttnews.com/articles/micron-chips-award",
+   "quotes": [
+    "Today, the Biden-Harris Administration announced that @CommerceGov awarded @MicronTech up to $6.165 billion in direct funding under the CHIPS Incentives Program's Funding Opportunity for Commercial Fabrication Facilities."
+   ],
+   "values": [
+    "6.165"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 6.165,
+   "unit": "USD bn",
+   "period": "announced 10 December 2024",
+   "from": "us-gov",
+   "to": "micron",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-rapidus-ipa-150bn",
+   "claim": "Japan's state agency IPA completed an additional 150 billion yen funding round for Rapidus (June 2026).",
+   "url": "https://evertiq.com/news/2026-06-09-rapidus-corporation-completes-943-million-funding-round",
+   "quotes": [
+    "Semiconductor manufacturer Rapidus Corporation has announced that it has completed an additional funding round of 150 billion yen (equivalent to USD 943 million USD) from the Information-Technology Promotion Agency (IPA), Japan"
+   ],
+   "values": [
+    "150"
+   ],
+   "dated2026": true,
+   "actor": "japan",
+   "kind": "investment",
+   "value": 150,
+   "unit": "JPY bn",
+   "period": "June 2026",
+   "from": "japan",
+   "to": "rapidus",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "materials-rapidus-private-167",
+   "claim": "Earlier in 2026 Rapidus received 100 billion yen from the IPA plus 167.6 billion yen from 32 private companies including Canon, DBJ, Fujitsu, NTT, SoftBank and Sony.",
+   "url": "https://evertiq.com/news/2026-06-09-rapidus-corporation-completes-943-million-funding-round",
+   "quotes": [
+    "Earlier this year, the Japanese company announced that it received a 100 billion yen (about USD 620 million) investment from the IPA, in addition to private-sector funding, totaling 167.6 billion yen (about USD 1.1 billion) from 32 companies including Canon, Development Bank of Japan Inc., Fujitsu, NTT, SoftBank and Sony Group."
+   ],
+   "values": [
+    "100",
+    "167.6",
+    "32"
+   ],
+   "dated2026": true,
+   "actor": "rapidus",
+   "kind": "investment",
+   "value": 167.6,
+   "unit": "JPY bn",
+   "period": "early 2026",
+   "from": null,
+   "to": "rapidus",
+   "accessed": "2026-11-07",
+   "notes": "IPA 100bn + 150bn = 250bn yen state agency capital; the 424.95bn yen total is cumulative (stated capital and surplus 274.95bn before the June round)."
+  },
+  {
+   "id": "materials-usgs-cu-mine-2025",
+   "claim": "USGS MCS 2026 estimates 2025 world copper mine production at 23,000 thousand tonnes: Chile 5,300, Congo (Kinshasa) 3,200, Peru 2,700, China 1,800, United States 1,000.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-copper.pdf",
+   "quotes": [
+    "United States Australia Canada Chile China Congo (Kinshasa) Germany India Indonesia Japan Kazakhstan Korea, Republic of Mexico Peru Poland Russia Zambia Other countries World total (rounded) Mine production 2024 2025e 1,050 1,000 765 730 515 500 5,510 5,300 1,840 1,800 2,990 3,200 — — 27 23 1,010 710 — — 724 710 — — 717 690 2,740 2,700 400 410 1,020 1,300 823 940 2,850 3,000 23,000 23,000"
+   ],
+   "values": [
+    "5,300",
+    "3,200",
+    "2,700",
+    "1,800",
+    "23,000"
+   ],
+   "dated2026": true,
+   "actor": "chile",
+   "kind": "share",
+   "value": 5300,
+   "unit": "kt copper mined",
+   "period": "2025 estimate (USGS MCS 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Chile 5,300 of 23,000 kt is 23%, calculated here."
+  },
+  {
+   "id": "materials-usgs-cu-refinery-china-2025",
+   "claim": "USGS MCS 2026 estimates 2025 world refined copper production at 29,000 thousand tonnes, of which China produced 14,000.",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-copper.pdf",
+   "quotes": [
+    "Refinery production 2024 2025e 921 850 434 460 324 320 1,940 1,700 12,400 14,000 2,560 2,800 597 610 545 620 349 400 1,570 1,400 498 500 604 610 489 480 385 340 589 560 896 950 189 270 2,310 2,100 27,600 29,000"
+   ],
+   "values": [
+    "14,000",
+    "29,000"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 14000,
+   "unit": "kt refined copper",
+   "period": "2025 estimate (USGS MCS 2026)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "14,000 of 29,000 kt is about 48%, calculated here. Row labels are the same country list as the mine table: China is the fifth entry."
+  },
+  {
+   "id": "materials-eu-esmc-usd",
+   "claim": "The EU Commission approved a EUR 5 billion ($5.5bn) state aid package for TSMC's Dresden fab, the biggest approved under the EU Chips Act to date (August 2024).",
+   "url": "https://www.datacenterdynamics.com/en/news/eu-commission-approves-55bn-in-eu-chips-act-funding-for-german-tsmc-fab/",
+   "quotes": [
+    "The EU Commission has approved a €5 billion ($5.5bn) state aid package to support TSMC's new chip fab in Dresden, Germany.",
+    "The funding represents the biggest financial package approved under the EU Chips Act to date."
+   ],
+   "values": [
+    "5.5"
+   ],
+   "dated2026": false,
+   "actor": "eu",
+   "kind": "flow",
+   "value": 5.5,
+   "unit": "USD bn",
+   "period": "approved August 2024",
+   "from": "eu",
+   "to": "esmc",
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "mp-materials",
+   "name": "MP Materials",
+   "kind": "company",
+   "country": "US",
+   "layer": "materials",
+   "sector": "rare earths",
+   "founded": 2020,
+   "role": "mines Mountain Pass, the only US rare-earth mine, and is building magnets",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Only operating US rare-earth mine",
+    "execution": "Price floor and offtake underwrite its magnet plant",
+    "environment": "Sits inside a US-China export-control dispute"
+   },
+   "advantage": "The US Department of Defense is its largest-shareholder-in-waiting and guarantees $110/kg NdPr for 10 years, so a state removes its price risk. China listed it on its export-control list in June 2026.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "china"
+   ],
+   "customers": [
+    "us-gov"
+   ],
+   "desire": "Become the non-Chinese magnet supply chain.",
+   "fear": "China floods the market or cuts it off from inputs; the floor depends on Congress.",
+   "facts": [
+    "materials-mcap-mp-materials",
+    "materials-dod-mp-400m",
+    "materials-dod-mp-warrant",
+    "materials-dod-mp-floor",
+    "materials-dod-mp-offtake",
+    "materials-china-listed-mp-materials"
+   ]
+  },
+  {
+   "id": "freeport-mcmoran",
+   "name": "Freeport-McMoRan",
+   "kind": "company",
+   "country": "US",
+   "layer": "materials",
+   "sector": "copper",
+   "founded": null,
+   "role": "largest listed copper miner outside state firms; owns Grasberg",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Grasberg orebody",
+    "execution": "Mine operations at altitude",
+    "environment": "Indonesian licence"
+   },
+   "advantage": "Copper is the wire of every data centre and grid; Grasberg is about 3% of world supply and its outage tightened the whole market.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "southern-copper",
+    "rio-tinto"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "Restore Grasberg and sell into the AI build-out.",
+   "fear": "Another mud-inflow or licence dispute.",
+   "facts": [
+    "materials-mcap-freeport-mcmoran",
+    "materials-kpler-grasberg",
+    "materials-kpler-dc-copper",
+    "materials-kpler-dc-share"
+   ]
+  },
+  {
+   "id": "southern-copper",
+   "name": "Southern Copper",
+   "kind": "company",
+   "country": "US",
+   "layer": "materials",
+   "sector": "copper",
+   "founded": null,
+   "role": "large copper miner (Peru, Mexico)",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Reserves",
+    "execution": "Low-cost operations",
+    "environment": "Latin American licences"
+   },
+   "advantage": "Large low-cost reserves.",
+   "standsOn": [],
+   "competitors": [
+    "freeport-mcmoran"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "Raise output as demand rises.",
+   "fear": "Permitting and community conflict.",
+   "facts": [
+    "materials-mcap-southern-copper"
+   ]
+  },
+  {
+   "id": "rio-tinto",
+   "name": "Rio Tinto",
+   "kind": "company",
+   "country": "UK",
+   "layer": "materials",
+   "sector": "mining",
+   "founded": null,
+   "role": "diversified miner (copper, aluminium, iron ore)",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Geology",
+    "execution": "Operations",
+    "environment": "Licences"
+   },
+   "advantage": "Diversified reserves.",
+   "standsOn": [],
+   "competitors": [
+    "freeport-mcmoran"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "Grow copper and lithium.",
+   "fear": "Commodity cycle.",
+   "facts": [
+    "materials-mcap-rio-tinto"
+   ]
+  },
+  {
+   "id": "shin-etsu",
+   "name": "Shin-Etsu Chemical",
+   "kind": "company",
+   "country": "JP",
+   "layer": "materials",
+   "sector": "silicon wafers",
+   "founded": null,
+   "role": "largest maker of silicon wafers",
+   "powers": [
+    "process power",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Crystal-growth know-how",
+    "execution": "Qualification at every fab",
+    "environment": "Japan base"
+   },
+   "advantage": "Shin-Etsu holds about 28% of world silicon wafers, the largest share, ahead of SUMCO's 25% and GlobalWafers' 15% (single-report estimate); its market cap is $61.01 billion.",
+   "standsOn": [
+    "japan"
+   ],
+   "competitors": [
+    "globalwafers"
+   ],
+   "customers": [
+    "tsmc",
+    "samsung"
+   ],
+   "desire": "Keep leading-edge wafer supply.",
+   "fear": "Chinese wafer entrants and weak demand.",
+   "facts": [
+    "materials-mcap-shin-etsu",
+    "materials-wafer-share-shin-etsu"
+   ]
+  },
+  {
+   "id": "globalwafers",
+   "name": "GlobalWafers",
+   "kind": "company",
+   "country": "TW",
+   "layer": "materials",
+   "sector": "silicon wafers",
+   "founded": null,
+   "role": "Taiwan's wafer maker, third in the global wafer ranks",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Wafer know-how",
+    "execution": "Plants in US and Asia",
+    "environment": "Taiwan ties"
+   },
+   "advantage": "A non-Japanese wafer source near the fabs.",
+   "standsOn": [
+    "taiwan"
+   ],
+   "competitors": [
+    "shin-etsu"
+   ],
+   "customers": [
+    "tsmc"
+   ],
+   "desire": "Win US-based wafer demand.",
+   "fear": "Price competition.",
+   "facts": [
+    "materials-mcap-globalwafers",
+    "materials-wafer-share-globalwafers"
+   ]
+  },
+  {
+   "id": "kazatomprom",
+   "name": "Kazatomprom",
+   "kind": "company",
+   "country": "KZ",
+   "layer": "materials",
+   "sector": "uranium",
+   "founded": null,
+   "role": "Kazakhstan's uranium miner; Kazakhstan mined 39% of world uranium in 2024",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "In-situ leach know-how",
+    "execution": "State ownership"
+   },
+   "advantage": "Kazatomprom mined 12,463 tonnes of uranium in 2024, 21% of the world, ahead of Cameco (17%) and Orano (11%). Kazakhstan as a country mined 39%, nearly double its own output share, because Uranium One and Kazatomprom's joint ventures also work there.",
+   "standsOn": [],
+   "competitors": [
+    "cameco"
+   ],
+   "customers": [
+    "constellation"
+   ],
+   "desire": "Sell uranium for nuclear build-out.",
+   "fear": "Export-route and sanctions risk.",
+   "facts": [
+    "materials-mcap-kazatomprom",
+    "materials-wna-uranium-2024",
+    "materials-wna-kazatomprom-21"
+   ]
+  },
+  {
+   "id": "cameco",
+   "name": "Cameco",
+   "kind": "company",
+   "country": "CA",
+   "layer": "materials",
+   "sector": "uranium",
+   "founded": null,
+   "role": "Canadian uranium miner and fuel services",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Athabasca deposits",
+    "execution": "Fuel-cycle position"
+   },
+   "advantage": "Canada mined 24% of world uranium in 2024.",
+   "standsOn": [],
+   "competitors": [
+    "kazatomprom"
+   ],
+   "customers": [
+    "constellation"
+   ],
+   "desire": "Supply Western reactors.",
+   "fear": "Enrichment dependence on Russia.",
+   "facts": [
+    "materials-mcap-cameco",
+    "materials-wna-uranium-2024"
+   ]
+  },
+  {
+   "id": "air-liquide",
+   "name": "Air Liquide",
+   "kind": "company",
+   "country": "FR",
+   "layer": "materials",
+   "sector": "industrial gases",
+   "founded": null,
+   "role": "supplier of the gases fabs consume (nitrogen, argon, helium and others)",
+   "powers": [
+    "scale economies",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "Pipelines into fabs",
+    "execution": "Purity",
+    "environment": "Long contracts"
+   },
+   "advantage": "On-site gas plants at fabs create switching costs.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [
+    "tsmc"
+   ],
+   "desire": "Serve new fabs.",
+   "fear": "Helium and neon supply shocks.",
+   "facts": [
+    "materials-mcap-air-liquide"
+   ]
+  },
+  {
+   "id": "china",
+   "name": "China",
+   "kind": "state",
+   "country": "CN",
+   "layer": "state",
+   "sector": "state",
+   "founded": null,
+   "role": "controls most rare-earth refining, magnets, gallium and silicon production",
+   "powers": [
+    "regulation",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Processing know-how",
+    "execution": "Licensing regime",
+    "environment": "State planning"
+   },
+   "advantage": "China holds over 90% of magnet rare-earth refining, nearly 95% of magnets, 99% of primary low-purity gallium and about 80% of silicon materials, refines about 48% of the world's copper, and licenses exports as a weapon; the October 2025 rare-earth controls are suspended only to 10 November 2026. It also set up a 344 billion yuan chip fund (Big Fund III) in May 2024.",
+   "standsOn": [],
+   "competitors": [
+    "us-gov"
+   ],
+   "customers": [
+    "us-gov"
+   ],
+   "desire": "Hold chokepoints as leverage while building its own chips.",
+   "fear": "Loss of access to Western tools and chips.",
+   "facts": [
+    "materials-china-magnet-re-share",
+    "materials-bofit-refining-84",
+    "materials-hree-99-processing",
+    "materials-usgs-si-china-80",
+    "materials-china-apr-2025-controls",
+    "materials-china-oct-2025-controls",
+    "materials-china-nov-2025-suspension",
+    "materials-china-suspension-window",
+    "materials-china-ga-ge-ban-suspension",
+    "materials-usgs-ga-lifted",
+    "materials-usgs-ge-import-drop",
+    "materials-usgs-ga-china-99",
+    "materials-china-bigfund3-344bn",
+    "materials-usgs-cu-refinery-china-2025"
+   ]
+  },
+  {
+   "id": "us-gov",
+   "name": "United States government",
+   "kind": "state",
+   "country": "US",
+   "layer": "state",
+   "sector": "state",
+   "founded": null,
+   "role": "subsidiser, shareholder, and export-control authority",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "Export-control rules",
+    "execution": "Equity stakes",
+    "environment": "Tariffs"
+   },
+   "advantage": "The US government owns 9.9% of Intel, guarantees MP Materials a price floor, taxes some AI chip imports, and licenses what NVIDIA may sell to China, taking a share of the revenue. CHIPS Act awards of $6.6bn (TSMC), $6.165bn (Micron) and about $4.75bn (Samsung) were finalized in late 2024.",
+   "standsOn": [],
+   "competitors": [
+    "china"
+   ],
+   "customers": [],
+   "desire": "Rebuild domestic chips and magnets.",
+   "fear": "Dependence on Chinese minerals.",
+   "facts": [
+    "materials-us-intel-stake-89",
+    "materials-us-intel-stake-funding",
+    "materials-chips-act-39bn",
+    "materials-sec232-25pct",
+    "materials-us-affiliates-rule-returns",
+    "materials-dod-mp-400m",
+    "materials-nvidia-h20-charge-4-5bn",
+    "materials-h20-15pct-ap",
+    "materials-h200-25pct-cut",
+    "materials-tsmc-chips-award-6-6bn",
+    "materials-micron-chips-award-6-165bn",
+    "materials-samsung-chips-award-4-75bn",
+    "materials-h20-5-5bn-charge",
+    "str-h200-approval",
+    "compute-china-h200-customs",
+    "str-nvidia-china-zero"
+   ]
+  },
+  {
+   "id": "japan",
+   "name": "Japan",
+   "kind": "state",
+   "country": "JP",
+   "layer": "state",
+   "sector": "state",
+   "founded": null,
+   "role": "funds Rapidus and hosts the wafer makers",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "METI subsidy",
+    "execution": "Wafer makers"
+   },
+   "advantage": "Public money builds a domestic 2nm foundry (Rapidus: IPA put in 250 billion yen, 100 billion plus 150 billion, in 2026) and pays 732 billion yen for TSMC's second Kumamoto fab.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "A domestic leading-edge fab.",
+   "fear": "Rapidus failing to reach volume.",
+   "facts": [
+    "materials-rapidus-424",
+    "materials-rapidus-2.9tn",
+    "materials-japan-kumamoto-732bn",
+    "materials-rapidus-ipa-150bn"
+   ]
+  },
+  {
+   "id": "eu",
+   "name": "European Union",
+   "kind": "state",
+   "country": "EU",
+   "layer": "state",
+   "sector": "state",
+   "founded": null,
+   "role": "runs the EU Chips Act",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "State-aid approvals"
+   },
+   "advantage": "A smaller programme than the US.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "Raise its share of chips.",
+   "fear": "Falling behind.",
+   "facts": [
+    "materials-eu-chips-state-aid",
+    "materials-eu-chips-42bn",
+    "materials-eu-esmc-5bn",
+    "materials-eu-esmc-usd"
+   ]
+  },
+  {
+   "id": "netherlands",
+   "name": "Netherlands",
+   "kind": "state",
+   "country": "NL",
+   "layer": "state",
+   "sector": "state",
+   "founded": null,
+   "role": "licenses ASML's lithography exports; since September 2024 it, not the US, licenses ASML's 1970i and 1980i DUV systems",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "Export licences for lithography"
+   },
+   "advantage": "Used the Goods Availability Act, then suspended the order.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "Protect chip technology.",
+   "fear": "Chinese retaliation on car chips.",
+   "facts": [
+    "materials-nexperia-suspended",
+    "materials-asml-dutch-duv-licence"
+   ]
+  },
+  {
+   "id": "taiwan",
+   "name": "Taiwan",
+   "kind": "state",
+   "country": "TW",
+   "layer": "state",
+   "sector": "state",
+   "founded": null,
+   "role": "hosts TSMC, holds 6.38% of it, and decides which TSMC process may be built abroad",
+   "powers": [
+    "regulation",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "TSMC's process know-how stays on the island under the N-1 rule",
+    "execution": "The National Development Fund is TSMC's second-largest holder; the state sets the export rule",
+    "environment": "Hosts the foundry that held 72.5% of top-10 foundry revenue in Q2 2026"
+   },
+   "advantage": "Taiwan's state is a 6.38% shareholder of TSMC and writes the N-1 rule that lets only a process one generation older leave the island. That makes the world's AI chip supply depend on Taiwan's own law. A January 2026 deal with Washington cut US tariffs on most Taiwanese goods from 20% to 15% against US$250 billion of Taiwanese investment pledges.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "china"
+   ],
+   "customers": [
+    "tsmc",
+    "us-gov"
+   ],
+   "desire": "Keep the newest node at home while buying US protection with fabs in Arizona.",
+   "fear": "China taking the island, or a US tariff of 100% on chips if Taiwan does not build in America.",
+   "facts": [
+    "materials-taiwan-ndf-tsmc-638",
+    "materials-taiwan-n1-rule",
+    "materials-taiwan-us-250bn",
+    "materials-taiwan-us-tariff-15",
+    "compute-tsmc-foundry-share",
+    "str-asml-q3-regions",
+    "lineage-tsmc-founded-1987"
+   ]
+  },
+  {
+   "id": "rapidus",
+   "name": "Rapidus",
+   "kind": "company",
+   "country": "JP",
+   "layer": "fabs",
+   "sector": "semiconductors",
+   "founded": null,
+   "role": "state-backed Japanese start-up building a 2nm foundry",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "Seeks leading-edge process know-how through partners",
+    "execution": "Capital from the state agency IPA and 32 private companies",
+    "environment": "Japan's METI plan for domestic leading-edge supply"
+   },
+   "advantage": "Rapidus has no market share yet; its position is public money. The state agency IPA put in 100 billion yen and then 150 billion yen in 2026, and 32 companies put in 167.6 billion yen. Total funding is 424.95 billion yen, cumulative.",
+   "standsOn": [
+    "japan"
+   ],
+   "competitors": [
+    "tsmc",
+    "samsung",
+    "intel"
+   ],
+   "customers": [],
+   "desire": "Reach volume 2nm production.",
+   "fear": "Failing to reach volume while the state's patience runs out.",
+   "facts": [
+    "materials-rapidus-424",
+    "materials-rapidus-ipa-150bn",
+    "materials-rapidus-private-167",
+    "materials-rapidus-2.9tn"
+   ]
+  },
+  {
+   "id": "esmc",
+   "name": "ESMC (Dresden)",
+   "kind": "company",
+   "country": "DE",
+   "layer": "fabs",
+   "sector": "semiconductors",
+   "founded": null,
+   "role": "TSMC-led joint venture with Bosch, Infineon and NXP building a fab in Dresden",
+   "powers": [
+    "regulation"
+   ],
+   "triad": {
+    "information": "TSMC process",
+    "execution": "Joint venture of four companies",
+    "environment": "EUR 5bn German state aid approved by the Commission"
+   },
+   "advantage": "A fab that exists because of state aid: the Commission approved EUR 5 billion in August 2024, the biggest award under the EU Chips Act at the time.",
+   "standsOn": [
+    "eu",
+    "tsmc"
+   ],
+   "competitors": [],
+   "customers": [],
+   "desire": "Bring a TSMC fab to Europe.",
+   "fear": "Costs outrunning the aid.",
+   "facts": [
+    "materials-eu-esmc-5bn",
+    "materials-eu-esmc-usd"
+   ]
+  },
+  {
+   "id": "sumco",
+   "name": "SUMCO",
+   "kind": "company",
+   "country": "JP",
+   "layer": "materials",
+   "sector": "silicon wafers",
+   "founded": null,
+   "role": "second-largest silicon wafer maker",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "Crystal-growing know-how",
+    "execution": "300mm wafer volume",
+    "environment": "Sits in Japan beside the chip fabs it supplies"
+   },
+   "advantage": "SUMCO holds about 25% of world silicon wafers, second to Shin-Etsu's 28%, in a market where five firms hold about 91% (single-report estimate).",
+   "standsOn": [
+    "japan"
+   ],
+   "competitors": [
+    "shin-etsu",
+    "globalwafers"
+   ],
+   "customers": [
+    "tsmc",
+    "samsung",
+    "sk-hynix",
+    "micron"
+   ],
+   "desire": "Sell more 300mm wafers into the AI memory and logic upturn.",
+   "fear": "Chinese wafer makers and a cyclical downturn.",
+   "facts": [
+    "materials-mcap-sumco",
+    "materials-wafer-share-sumco"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "materials-flow-dod-mp",
+   "to": "mp-materials",
+   "usdBnPerYear": 0.4,
+   "what": "preferred equity (one-off)",
+   "period": "July 2025",
+   "basis": "contracted",
+   "kind": "investment",
+   "fact": "materials-dod-mp-400m",
+   "from": "us-gov"
+  },
+  {
+   "id": "materials-flow-gov-intel",
+   "to": "intel",
+   "usdBnPerYear": 8.9,
+   "what": "equity in exchange for CHIPS and Secure Enclave grants",
+   "period": "August 2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "materials-us-intel-stake-89",
+   "from": "us-gov"
+  },
+  {
+   "id": "materials-flow-chips-tsmc",
+   "from": "us-gov",
+   "to": "tsmc",
+   "usdBnPerYear": 6.6,
+   "what": "CHIPS Act award, Arizona (milestone-paid, one-off)",
+   "period": "finalized Nov 2024",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "materials-tsmc-chips-award-6-6bn",
+   "notes": "One-off award, not a yearly rate; the package also includes up to $5bn of low-cost loans per press reports (not verified here)."
+  },
+  {
+   "id": "materials-flow-chips-micron",
+   "from": "us-gov",
+   "to": "micron",
+   "usdBnPerYear": 6.165,
+   "what": "CHIPS Act award, Idaho and New York (one-off)",
+   "period": "announced 10 Dec 2024",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "materials-micron-chips-award-6-165bn",
+   "notes": "Up to $6.165bn; one-off."
+  },
+  {
+   "id": "materials-flow-chips-samsung",
+   "from": "us-gov",
+   "to": "samsung",
+   "usdBnPerYear": 4.75,
+   "what": "CHIPS Act award, Texas (one-off)",
+   "period": "finalized Dec 2024",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "materials-samsung-chips-award-4-75bn",
+   "notes": "Nearly $4.75bn, a 26% cut from the April 2024 preliminary award of up to $6.4bn; one-off."
+  },
+  {
+   "id": "materials-flow-japan-tsmc",
+   "from": "japan",
+   "to": "tsmc",
+   "usdBnPerYear": 4.86,
+   "what": "Subsidy for JASM's second Kumamoto fab (732bn yen, one-off)",
+   "period": "Feb 2024",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "materials-japan-kumamoto-732bn",
+   "notes": "Follows 476bn yen for the first fab per Bloomberg (not verified here)."
+  },
+  {
+   "id": "materials-flow-eu-esmc",
+   "from": "eu",
+   "to": "esmc",
+   "usdBnPerYear": 5.5,
+   "what": "German State aid to ESMC Dresden, approved by the Commission (EUR 5bn, one-off)",
+   "period": "Aug 2024",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "materials-eu-esmc-usd",
+   "notes": "EUR 5bn; USD figure as DCD wrote it."
+  },
+  {
+   "id": "materials-flow-ipa-rapidus-1",
+   "from": "japan",
+   "to": "rapidus",
+   "usdBnPerYear": 0.62,
+   "what": "IPA equity, first 2026 tranche (100bn yen)",
+   "period": "early 2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "materials-rapidus-private-167",
+   "notes": "The state agency IPA; the 100bn yen is part of cumulative capital, not a yearly flow."
+  },
+  {
+   "id": "materials-flow-ipa-rapidus-2",
+   "from": "japan",
+   "to": "rapidus",
+   "usdBnPerYear": 0.94,
+   "what": "IPA equity, June 2026 round (150bn yen)",
+   "period": "June 2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "materials-rapidus-ipa-150bn",
+   "notes": "IPA total in 2026: 250bn yen, a calculation of 100bn plus 150bn."
+  },
+  {
+   "id": "materials-flow-private-rapidus",
+   "from": "enterprises",
+   "to": "rapidus",
+   "usdBnPerYear": 1.1,
+   "what": "Private equity: 32 companies including Canon, DBJ, Fujitsu, NTT, SoftBank, Sony (167.6bn yen)",
+   "period": "early 2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "materials-rapidus-private-167",
+   "notes": "Private, not state, money: about 40% of the 424.95bn yen cumulative total."
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "china",
+   "controls": "magnet rare earths, heavy rare-earth processing, primary gallium, silicon, copper refining",
+   "share": "over 90% of magnet refining, nearly 95% of magnets, 99% of primary low-purity gallium, about 48% of refined copper",
+   "alternatives": "MP Materials and others, covering under a fifth of non-China magnet demand by 2035",
+   "facts": [
+    "materials-china-magnet-re-share",
+    "materials-iea-2035-outside-china",
+    "materials-hree-99-processing",
+    "materials-usgs-ga-china-99",
+    "materials-usgs-cu-refinery-china-2025"
+   ]
+  },
+  {
+   "actor": "kazatomprom",
+   "controls": "mined uranium (company share)",
+   "share": "21% of 2024 world mined uranium, 12,463 tonnes (Cameco 17%, Orano 11%); Kazakhstan as a country 39%",
+   "alternatives": "Cameco 17%, Orano 11%, Uranium One 10%; Canada 24% and Namibia 12% as countries",
+   "facts": [
+    "materials-wna-kazatomprom-21",
+    "materials-wna-uranium-2024"
+   ]
+  },
+  {
+   "actor": "freeport-mcmoran",
+   "controls": "copper at Grasberg",
+   "share": "about 3% of world supply",
+   "alternatives": "other mines; market in deficit",
+   "facts": [
+    "materials-kpler-grasberg"
+   ]
+  },
+  {
+   "actor": "taiwan",
+   "controls": "the island that builds TSMC's leading-edge chips, and the rule on what leaves it",
+   "share": "TSMC held 72.5% of top-10 foundry revenue in Q2 2026; the state holds 6.38% of TSMC; N-1 rule on overseas fabs",
+   "alternatives": "Samsung and Intel foundries; Arizona fabs run an older process under N-1",
+   "facts": [
+    "compute-tsmc-foundry-share",
+    "materials-taiwan-ndf-tsmc-638",
+    "materials-taiwan-n1-rule"
+   ]
+  },
+  {
+   "actor": "us-gov",
+   "controls": "export licences for AI chips to China",
+   "share": "licenses what NVIDIA sells to China: H20 and H200 under revenue-share terms (15%, then 25%)",
+   "alternatives": "none inside the US; China's own customs blocked H200 imports in January 2026",
+   "facts": [
+    "str-h200-approval",
+    "compute-china-h200-customs",
+    "str-nvidia-china-zero",
+    "materials-h20-15pct-ap",
+    "materials-h200-25pct-cut"
+   ]
+  },
+  {
+   "actor": "netherlands",
+   "controls": "export licences for ASML's DUV immersion systems",
+   "share": "since 7 September 2024, licenses for the NXT:1970i and 1980i go through the Dutch government, not the US",
+   "alternatives": "none for EUV; Chinese tool makers for older nodes",
+   "facts": [
+    "materials-asml-dutch-duv-licence"
+   ]
+  },
+  {
+   "actor": "shin-etsu",
+   "controls": "silicon wafers",
+   "share": "about 28% of world wafers (SUMCO 25%, GlobalWafers 15%, Siltronic 12%, SK Siltron 11%)",
+   "alternatives": "Chinese wafer makers share the remaining ~10%",
+   "facts": [
+    "materials-wafer-share-shin-etsu",
+    "materials-wafer-share-sumco",
+    "materials-wafer-share-globalwafers"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-china-rare-earth-controls",
+   "year": 2025,
+   "date": "2025-04-04",
+   "era": "present",
+   "holder": "china",
+   "rivals": [
+    "us-gov"
+   ],
+   "title": "China licenses rare earths",
+   "advantage": "processing monopoly",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Export licences on seven, then twelve, rare earths turn processing share into leverage.",
+   "outcome": "Suspended in Nov 2025 to 10 Nov 2026; April licensing remains.",
+   "facts": [
+    "materials-china-apr-2025-controls",
+    "materials-china-oct-2025-controls",
+    "materials-china-nov-2025-suspension"
+   ]
+  },
+  {
+   "id": "fp-dod-mp",
+   "year": 2025,
+   "date": "2025-07",
+   "era": "present",
+   "holder": "us-gov",
+   "rivals": [
+    "china"
+   ],
+   "title": "Pentagon underwrites MP Materials",
+   "advantage": "price floor and equity",
+   "power": "counter-positioning",
+   "triad": "environment",
+   "mechanism": "A $110/kg floor removes the price risk that Chinese pricing imposed.",
+   "outcome": "China listed MP Materials on its export-control list in June 2026.",
+   "facts": [
+    "materials-dod-mp-floor",
+    "materials-dod-mp-400m",
+    "materials-china-listed-mp-materials"
+   ]
+  },
+  {
+   "id": "fp-us-intel-stake",
+   "year": 2025,
+   "date": "2025-08",
+   "era": "present",
+   "holder": "us-gov",
+   "rivals": [
+    "china"
+   ],
+   "title": "State becomes Intel's shareholder",
+   "advantage": "capital from the state",
+   "power": "regulation",
+   "triad": "environment",
+   "mechanism": "Unpaid grants were converted into 9.9% of Intel.",
+   "outcome": "$8.9bn at $20.47 a share.",
+   "facts": [
+    "materials-us-intel-stake-89",
+    "materials-us-intel-stake-funding"
+   ]
+  },
+  {
+   "id": "fp-h20-licence",
+   "year": 2025,
+   "date": "2025-04",
+   "era": "present",
+   "holder": "us-gov",
+   "rivals": [
+    "nvidia"
+   ],
+   "title": "H20 licence rule",
+   "advantage": "licence authority",
+   "power": "regulation",
+   "triad": "environment",
+   "mechanism": "A licence requirement stranded H20 inventory. A deal reported in August 2025 gave the government 15% of Nvidia and AMD China revenue; Trump later said 25% for H200.",
+   "outcome": "NVIDIA booked a $4.5bn charge in Q1 FY2026 (guided at about $5.5bn); China's customs then blocked H200 imports and NVIDIA's China share fell to zero.",
+   "facts": [
+    "materials-nvidia-h20-charge-4-5bn",
+    "materials-h20-5-5bn-charge",
+    "materials-h20-15pct-ap",
+    "materials-h200-25pct-cut",
+    "str-h200-approval",
+    "compute-china-h200-customs",
+    "str-nvidia-china-zero"
+   ]
+  },
+  {
+   "id": "fp-taiwan-n1",
+   "year": 2025,
+   "date": "2025",
+   "era": "present",
+   "holder": "taiwan",
+   "rivals": [
+    "us-gov"
+   ],
+   "title": "Taiwan keeps TSMC's newest node at home",
+   "advantage": "state control of the process",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "The N-1 rule lets only a process one generation older leave the island, so even TSMC's US fabs trail Taiwan.",
+   "outcome": "A January 2026 deal cut US tariffs on most Taiwanese goods to 15% against US$250bn of pledged investment.",
+   "facts": [
+    "materials-taiwan-n1-rule",
+    "materials-taiwan-us-tariff-15",
+    "materials-taiwan-us-250bn"
+   ]
+  },
+  {
+   "id": "fp-china-gallium",
+   "year": 2025,
+   "date": "2025-11",
+   "era": "present",
+   "holder": "china",
+   "rivals": [
+    "us-gov"
+   ],
+   "title": "China's gallium ban on the US",
+   "advantage": "99% of primary gallium",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "One country makes 99% of primary low-purity gallium, so a ban on exports to the US bites at once.",
+   "outcome": "China lifted the ban for one year in November 2025; the related ban is suspended to 27 November 2026.",
+   "facts": [
+    "materials-usgs-ga-china-99",
+    "materials-usgs-ga-lifted",
+    "materials-china-ga-ge-ban-suspension"
+   ]
+  },
+  {
+   "id": "fp-dutch-duv-licence",
+   "year": 2024,
+   "date": "2024-09-07",
+   "era": "present",
+   "holder": "netherlands",
+   "rivals": [
+    "china"
+   ],
+   "title": "The Netherlands licenses ASML's DUV tools",
+   "advantage": "licence authority over lithography",
+   "power": "regulation",
+   "triad": "environment",
+   "mechanism": "From 7 September 2024 ASML needs a Dutch licence, not a US one, to ship the 1970i and 1980i to China.",
+   "outcome": "Control over the exports passed from Washington to The Hague.",
+   "facts": [
+    "materials-asml-dutch-duv-licence"
+   ]
+  },
+  {
+   "id": "fp-rapidus-state-money",
+   "year": 2026,
+   "date": "2026-06",
+   "era": "present",
+   "holder": "japan",
+   "rivals": [
+    "taiwan"
+   ],
+   "title": "Japan buys a 2nm foundry with state money",
+   "advantage": "state capital",
+   "power": "regulation",
+   "triad": "environment",
+   "mechanism": "The IPA put 100 billion yen and then 150 billion yen into Rapidus, beside 167.6 billion yen from 32 firms.",
+   "outcome": "Cumulative funding is 424.95 billion yen; about 59% is state-agency capital and 40% private.",
+   "facts": [
+    "materials-rapidus-424",
+    "materials-rapidus-ipa-150bn",
+    "materials-rapidus-private-167"
+   ]
+  }
+ ],
+ "lineage": [],
+ "moats": [
+  {
+   "actor": "china",
+   "stratum": "materials",
+   "market": "magnet rare earths",
+   "share": "about 95% of permanent magnets, over 90% of refining",
+   "shareFact": "materials-china-magnet-re-share",
+   "sources": [
+    {
+     "source": "regulation",
+     "what": "Export licences: 7 elements April 2025; 5 more October 2025, suspended to 10 Nov 2026",
+     "facts": [
+      "materials-china-apr-2025-controls",
+      "materials-china-oct-2025-controls",
+      "materials-china-suspension-window"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "Refines 84% of magnet rare earths; ~99% of heavy rare-earth processing",
+     "facts": [
+      "materials-bofit-refining-84",
+      "materials-hree-99-processing"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "Silicon materials: almost 80% of world production",
+     "facts": [
+      "materials-usgs-si-china-80"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "99% of primary low-purity gallium; about 48% of refined copper (14,000 of 29,000 kt)",
+     "facts": [
+      "materials-usgs-ga-china-99",
+      "materials-usgs-cu-refinery-china-2025"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "Big Fund III: 344 billion yuan, May 2024",
+     "facts": [
+      "materials-china-bigfund3-344bn"
+     ]
+    }
+   ],
+   "rivals": [
+    "mp-materials"
+   ],
+   "entrants": [
+    "mp-materials"
+   ],
+   "facts": [
+    "materials-china-magnet-re-share",
+    "materials-iea-2035-outside-china",
+    "materials-usgs-ga-china-99"
+   ]
+  },
+  {
+   "actor": "kazatomprom",
+   "stratum": "materials",
+   "market": "mined uranium",
+   "share": "21% of 2024 world mined uranium (Cameco 17%, Orano 11%); Kazakhstan as a country 39%",
+   "shareFact": "materials-wna-kazatomprom-21",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "12,463 tonnes U, 21% of world 2024 output (Cameco 17%, Orano 11%)",
+     "facts": [
+      "materials-wna-kazatomprom-21"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "Kazakhstan 39% of world mined uranium, Canada 24%, Namibia 12% (country figures)",
+     "facts": [
+      "materials-wna-uranium-2024"
+     ]
+    }
+   ],
+   "rivals": [
+    "cameco"
+   ],
+   "entrants": [],
+   "facts": [
+    "materials-wna-kazatomprom-21",
+    "materials-wna-uranium-2024"
+   ]
+  },
+  {
+   "actor": "us-gov",
+   "stratum": "state",
+   "market": "chips subsidy and control",
+   "share": "9.9% of Intel; $39bn CHIPS subsidies",
+   "shareFact": "materials-us-intel-stake-89",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "Equity in Intel funded by CHIPS grants; CHIPS awards: TSMC $6.6bn, Micron $6.165bn, Samsung $4.75bn",
+     "facts": [
+      "materials-us-intel-stake-89",
+      "materials-us-intel-stake-funding",
+      "materials-tsmc-chips-award-6-6bn",
+      "materials-micron-chips-award-6-165bn",
+      "materials-samsung-chips-award-4-75bn"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "Export licences: NVIDIA's H20 charge $4.5bn, 15% then 25% revenue share, H200 approval, China's customs block; 25% tariff on some AI chips",
+     "facts": [
+      "materials-sec232-25pct",
+      "materials-nvidia-h20-charge-4-5bn",
+      "materials-h20-15pct-ap",
+      "materials-h200-25pct-cut",
+      "str-h200-approval",
+      "compute-china-h200-customs",
+      "str-nvidia-china-zero"
+     ]
+    }
+   ],
+   "rivals": [
+    "china",
+    "eu",
+    "japan"
+   ],
+   "entrants": [],
+   "facts": [
+    "materials-chips-act-39bn",
+    "materials-h200-25pct-cut"
+   ]
+  },
+  {
+   "actor": "taiwan",
+   "stratum": "state",
+   "market": "leading-edge foundry (through TSMC)",
+   "share": "TSMC held 72.5% of top-10 foundry revenue in Q2 2026",
+   "shareFact": "compute-tsmc-foundry-share",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "National Development Fund holds 6.38% of TSMC (second-largest holder)",
+     "facts": [
+      "materials-taiwan-ndf-tsmc-638"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "N-1 rule: overseas fabs only one generation behind Taiwan's best",
+     "facts": [
+      "materials-taiwan-n1-rule"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "US deal Jan 2026: tariff 20% to 15%, US$250bn of Taiwanese investment pledged",
+     "facts": [
+      "materials-taiwan-us-tariff-15",
+      "materials-taiwan-us-250bn"
+     ]
+    },
+    {
+     "source": "supplyChain",
+     "what": "Taiwan took 32% of ASML's Q3 2026 equipment sales",
+     "facts": [
+      "str-asml-q3-regions"
+     ]
+    }
+   ],
+   "rivals": [
+    "china",
+    "us-gov",
+    "japan"
+   ],
+   "entrants": [
+    "rapidus"
+   ],
+   "facts": [
+    "materials-taiwan-ndf-tsmc-638",
+    "materials-taiwan-n1-rule",
+    "materials-taiwan-us-250bn",
+    "compute-tsmc-foundry-share"
+   ]
+  },
+  {
+   "actor": "shin-etsu",
+   "stratum": "materials",
+   "market": "silicon wafers",
+   "share": "about 28% of world silicon wafers (SUMCO 25%, GlobalWafers 15%)",
+   "shareFact": "materials-wafer-share-shin-etsu",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "28% of world wafers; five firms hold about 91%",
+     "facts": [
+      "materials-wafer-share-shin-etsu"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "Market cap $61.01bn against SUMCO's $3.94bn and GlobalWafers' $8.32bn",
+     "facts": [
+      "materials-mcap-shin-etsu",
+      "materials-mcap-sumco",
+      "materials-mcap-globalwafers"
+     ]
+    }
+   ],
+   "rivals": [
+    "sumco",
+    "globalwafers"
+   ],
+   "entrants": [],
+   "facts": [
+    "materials-wafer-share-shin-etsu",
+    "materials-wafer-share-sumco",
+    "materials-wafer-share-globalwafers"
+   ]
+  },
+  {
+   "actor": "netherlands",
+   "stratum": "state",
+   "market": "lithography export licences",
+   "share": "licenses ASML's DUV immersion systems 1970i and 1980i since 7 September 2024",
+   "shareFact": "materials-asml-dutch-duv-licence",
+   "sources": [
+    {
+     "source": "regulation",
+     "what": "Dutch licence replaced the US licence for the NXT:1970i and 1980i",
+     "facts": [
+      "materials-asml-dutch-duv-licence"
+     ]
+    }
+   ],
+   "rivals": [
+    "us-gov",
+    "china"
+   ],
+   "entrants": [],
+   "facts": [
+    "materials-asml-dutch-duv-licence",
+    "materials-nexperia-suspended"
+   ]
+  },
+  {
+   "actor": "japan",
+   "stratum": "state",
+   "market": "subsidised fabs",
+   "share": "732 billion yen for TSMC Kumamoto fab 2; Rapidus funding 424.95 billion yen",
+   "shareFact": "materials-japan-kumamoto-732bn",
+   "sources": [
+    {
+     "source": "regulation",
+     "what": "732 billion yen subsidy to JASM for a second fab",
+     "facts": [
+      "materials-japan-kumamoto-732bn"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "IPA put 250 billion yen into Rapidus in 2026; 32 firms 167.6 billion yen",
+     "facts": [
+      "materials-rapidus-ipa-150bn",
+      "materials-rapidus-private-167"
+     ]
+    }
+   ],
+   "rivals": [
+    "us-gov",
+    "taiwan",
+    "eu"
+   ],
+   "entrants": [
+    "rapidus"
+   ],
+   "facts": [
+    "materials-japan-kumamoto-732bn",
+    "materials-rapidus-424"
+   ]
+  }
+ ],
+ "presence": [
+  {
+   "actor": "us-gov",
+   "stratum": "state",
+   "what": "owns 9.9% of Intel; MP Materials equity and floor; licenses NVIDIA's China sales (15%, then 25% revenue share)",
+   "facts": [
+    "materials-us-intel-stake-89",
+    "materials-dod-mp-400m",
+    "materials-h20-15pct-ap",
+    "materials-h200-25pct-cut",
+    "str-h200-approval",
+    "compute-china-h200-customs",
+    "str-nvidia-china-zero"
+   ]
+  },
+  {
+   "actor": "us-gov",
+   "stratum": "materials",
+   "what": "MP Materials: $400M equity, warrant to 15%, $110/kg floor",
+   "facts": [
+    "materials-dod-mp-warrant",
+    "materials-dod-mp-floor"
+   ]
+  },
+  {
+   "actor": "us-gov",
+   "stratum": "fabs",
+   "what": "Intel shareholder; CHIPS awards to TSMC Arizona ($6.6bn), Micron ($6.165bn), Samsung ($4.75bn)",
+   "facts": [
+    "materials-us-intel-stake-89",
+    "materials-tsmc-chips-award-6-6bn",
+    "materials-micron-chips-award-6-165bn",
+    "materials-samsung-chips-award-4-75bn"
+   ]
+  },
+  {
+   "actor": "china",
+   "stratum": "materials",
+   "what": "rare-earth refining, magnets, 99% of primary gallium, silicon, copper refining",
+   "facts": [
+    "materials-china-magnet-re-share",
+    "materials-usgs-si-china-80",
+    "materials-usgs-ga-china-99"
+   ]
+  },
+  {
+   "actor": "china",
+   "stratum": "state",
+   "what": "export-licence regime",
+   "facts": [
+    "materials-china-apr-2025-controls",
+    "materials-china-listed-mp-materials"
+   ]
+  },
+  {
+   "actor": "japan",
+   "stratum": "fabs",
+   "what": "Rapidus 2nm foundry: IPA 250bn yen in 2026 plus 167.6bn yen from 32 companies",
+   "facts": [
+    "materials-rapidus-424",
+    "materials-rapidus-ipa-150bn",
+    "materials-rapidus-private-167"
+   ]
+  },
+  {
+   "actor": "freeport-mcmoran",
+   "stratum": "materials",
+   "what": "Grasberg copper; Chile, Congo and Peru lead world mine output",
+   "facts": [
+    "materials-kpler-grasberg",
+    "materials-usgs-cu-mine-2025"
+   ]
+  },
+  {
+   "actor": "shin-etsu",
+   "stratum": "materials",
+   "what": "silicon wafers: about 28% of world supply",
+   "facts": [
+    "materials-mcap-shin-etsu",
+    "materials-wafer-share-shin-etsu"
+   ]
+  },
+  {
+   "actor": "mp-materials",
+   "stratum": "materials",
+   "what": "Mountain Pass rare earths and magnets",
+   "facts": [
+    "materials-dod-mp-offtake"
+   ]
+  },
+  {
+   "actor": "taiwan",
+   "stratum": "state",
+   "what": "N-1 export rule on TSMC's newest process; US tariff deal: 15% and US$250bn of investment",
+   "facts": [
+    "materials-taiwan-n1-rule",
+    "materials-taiwan-us-tariff-15",
+    "materials-taiwan-us-250bn"
+   ]
+  },
+  {
+   "actor": "taiwan",
+   "stratum": "fabs",
+   "what": "National Development Fund holds 6.38% of TSMC; TSMC 72.5% of top-10 foundry revenue",
+   "facts": [
+    "materials-taiwan-ndf-tsmc-638",
+    "compute-tsmc-foundry-share"
+   ]
+  },
+  {
+   "actor": "taiwan",
+   "stratum": "tools",
+   "what": "Taiwan took 32% of ASML's Q3 2026 equipment sales",
+   "facts": [
+    "str-asml-q3-regions"
+   ]
+  },
+  {
+   "actor": "netherlands",
+   "stratum": "tools",
+   "what": "licenses ASML's DUV 1970i and 1980i exports since 7 Sept 2024; Nexperia order suspended",
+   "facts": [
+    "materials-asml-dutch-duv-licence",
+    "materials-nexperia-suspended"
+   ]
+  },
+  {
+   "actor": "netherlands",
+   "stratum": "state",
+   "what": "export-licence authority over ASML tools",
+   "facts": [
+    "materials-asml-dutch-duv-licence"
+   ]
+  },
+  {
+   "actor": "china",
+   "stratum": "fabs",
+   "what": "Big Fund III: 344bn yuan state chip fund set up May 2024",
+   "facts": [
+    "materials-china-bigfund3-344bn"
+   ]
+  },
+  {
+   "actor": "china",
+   "stratum": "materials",
+   "what": "refines about 48% of world copper (14,000 of 29,000 kt, 2025e)",
+   "facts": [
+    "materials-usgs-cu-refinery-china-2025"
+   ]
+  },
+  {
+   "actor": "eu",
+   "stratum": "fabs",
+   "what": "EUR 5bn German aid to ESMC Dresden (TSMC, Bosch, Infineon, NXP)",
+   "facts": [
+    "materials-eu-esmc-5bn",
+    "materials-eu-esmc-usd"
+   ]
+  },
+  {
+   "actor": "japan",
+   "stratum": "fabs",
+   "what": "732bn yen for TSMC's second Kumamoto fab",
+   "facts": [
+    "materials-japan-kumamoto-732bn"
+   ]
+  },
+  {
+   "actor": "sumco",
+   "stratum": "materials",
+   "what": "silicon wafers: about 25% of world supply; market cap $3.94bn",
+   "facts": [
+    "materials-wafer-share-sumco",
+    "materials-mcap-sumco"
+   ]
+  },
+  {
+   "actor": "globalwafers",
+   "stratum": "materials",
+   "what": "silicon wafers: about 15% of world supply",
+   "facts": [
+    "materials-wafer-share-globalwafers"
+   ]
+  },
+  {
+   "actor": "kazatomprom",
+   "stratum": "materials",
+   "what": "21% of 2024 world mined uranium; Kazakhstan 39%",
+   "facts": [
+    "materials-wna-kazatomprom-21",
+    "materials-wna-uranium-2024"
+   ]
+  },
+  {
+   "actor": "rapidus",
+   "stratum": "fabs",
+   "what": "2nm foundry start-up funded by IPA (250bn yen, 2026) and 32 companies (167.6bn yen)",
+   "facts": [
+    "materials-rapidus-ipa-150bn",
+    "materials-rapidus-private-167",
+    "materials-rapidus-424"
+   ]
+  },
+  {
+   "actor": "esmc",
+   "stratum": "fabs",
+   "what": "TSMC-led Dresden fab built on EUR 5bn state aid",
+   "facts": [
+    "materials-eu-esmc-5bn"
+   ]
+  }
+ ],
+ "barriers": [
+  {
+   "stratum": "materials",
+   "source": "regulation",
+   "what": "China's licence regime; controls suspended only to 10 Nov 2026",
+   "facts": [
+    "materials-china-suspension-window"
+   ]
+  },
+  {
+   "stratum": "materials",
+   "source": "supplyChain",
+   "what": "Over 90% of magnet rare-earth refining in China; $60bn needed to diversify",
+   "facts": [
+    "materials-china-magnet-re-share",
+    "materials-iea-60bn-diversify"
+   ]
+  },
+  {
+   "stratum": "state",
+   "source": "capital",
+   "what": "Government stakes: Intel 9.9%, MP Materials up to 15%",
+   "facts": [
+    "materials-us-intel-stake-89",
+    "materials-dod-mp-warrant"
+   ]
+  },
+  {
+   "stratum": "fabs",
+   "source": "regulation",
+   "what": "Taiwan's N-1 rule: no entrant abroad gets TSMC's newest process",
+   "facts": [
+    "materials-taiwan-n1-rule"
+   ]
+  },
+  {
+   "stratum": "materials",
+   "source": "supplyChain",
+   "what": "99% of primary low-purity gallium in China",
+   "facts": [
+    "materials-usgs-ga-china-99"
+   ]
+  },
+  {
+   "stratum": "materials",
+   "source": "supplyChain",
+   "what": "Five wafer makers hold about 91% of world silicon wafers; Shin-Etsu 28%, SUMCO 25%",
+   "facts": [
+    "materials-wafer-share-shin-etsu",
+    "materials-wafer-share-sumco"
+   ]
+  },
+  {
+   "stratum": "chips",
+   "source": "regulation",
+   "what": "US export licences with a revenue cut (15%, then 25%) decide NVIDIA's China sales; China's customs blocked H200",
+   "facts": [
+    "materials-h20-15pct-ap",
+    "materials-h200-25pct-cut",
+    "compute-china-h200-customs"
+   ]
+  },
+  {
+   "stratum": "fabs",
+   "source": "capital",
+   "what": "State awards: TSMC $6.6bn, Micron $6.165bn, Samsung $4.75bn; Japan 732bn yen; EU EUR 5bn",
+   "facts": [
+    "materials-tsmc-chips-award-6-6bn",
+    "materials-micron-chips-award-6-165bn",
+    "materials-samsung-chips-award-4-75bn",
+    "materials-japan-kumamoto-732bn",
+    "materials-eu-esmc-5bn"
+   ]
+  }
+ ],
+ "entrants": [
+  {
+   "id": "rapidus",
+   "name": "Rapidus",
+   "stratum": "fabs",
+   "what": "2nm foundry start-up: funding 424.95 billion yen, of which the state agency IPA put in 250 billion yen in 2026",
+   "fate": "independent",
+   "by": "japan",
+   "facts": [
+    "materials-rapidus-424",
+    "materials-rapidus-ipa-150bn",
+    "materials-rapidus-private-167"
+   ]
+  },
+  {
+   "id": "mp-materials-entrant",
+   "name": "MP Materials",
+   "stratum": "materials",
+   "what": "US rare-earth miner: $400M Pentagon equity, warrant to 15%, $110/kg floor",
+   "fate": "independent",
+   "by": "us-gov",
+   "facts": [
+    "materials-dod-mp-400m",
+    "materials-dod-mp-warrant",
+    "materials-dod-mp-floor"
+   ]
+  }
+ ],
+ "notes": "Second pass. Unverified, left out: germanium's world production share (USGS says data are limited; a 68% figure from Asian Metal/Guangxi Yusheng and S&P's 90% refining figure could not be read by the gate); Taiwan's share of advanced packaging and of leading-edge logic capacity (no readable 2025-26 source); BHP and Codelco copper shares (Engineering News paywalled); Siltronic and SK Siltron wafer shares beyond the single-report figures; the Dutch 2025-26 ASML licence changes; the stakes held by China's Big Fund III (sources disagree: China Development Bank 17.4% per The Register, Ministry of Finance 17% per others); Bloomberg's 476bn yen for Kumamoto fab 1. Wafer shares come from one secondary report (faxiangongchang, citing SEMI for market size) and are flagged as such. The 59%/40% Rapidus split is a calculation: 250bn and 167.6bn of 424.95bn yen. MGX stakes in OpenAI and Anthropic rounds: see earlier-round facts owners-openai-round-2026-leads and str-anthropic-series-g; no amount for MGX alone is verified.",
+ "openQuestions": [
+  "Will China extend the suspension past 10 November 2026, or reinstate selectively?",
+  "Does the Affiliates Rule return after 10 November 2026?",
+  "Will broader Section 232 chip tariffs follow the January 2026 narrow one?",
+  "Can MP Materials' floor survive if Congress underfunds it?",
+  "Does Taiwan keep N-1 once TSMC's 2nm is mature, and which node counts as one generation behind?",
+  "What did the 15% and 25% revenue shares actually pay the US Treasury, given China's customs blocked H200?",
+  "Who holds how much of Big Fund III?",
+  "Can a readable source give germanium's world production share?"
+ ]
+}

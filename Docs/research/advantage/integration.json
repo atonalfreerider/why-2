@@ -1,0 +1,2370 @@
+{
+ "cluster": "integration",
+ "asOf": "2026-11-07",
+ "scope": "In which strata each company works (vertical integration) and the product families it holds in each (horizontal integration), as presence entries with evidence.",
+ "facts": [
+  {
+   "id": "integration-google-gemini-app-users",
+   "actor": "google",
+   "kind": "users",
+   "value": 1,
+   "unit": "billion users",
+   "period": "Q3 2026 call, 28 Oct 2026",
+   "dated2026": true,
+   "claim": "Alphabet said the Gemini app has reached one billion users.",
+   "quotes": [
+    "On top of that, the Gemini app has reached one billion users—making it the fastest-growing product in Google's history—and we surpassed 150 million YouTube Music and Premium subscribers globally, including trials."
+   ],
+   "values": [
+    "one billion"
+   ],
+   "notes": "",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-youtube-music-subs",
+   "actor": "google",
+   "kind": "users",
+   "value": 150,
+   "unit": "million subscribers",
+   "period": "Q3 2026 call, 28 Oct 2026",
+   "dated2026": true,
+   "claim": "Alphabet said YouTube Music and Premium passed 150 million subscribers globally, including trials.",
+   "quotes": [
+    "On top of that, the Gemini app has reached one billion users—making it the fastest-growing product in Google's history—and we surpassed 150 million YouTube Music and Premium subscribers globally, including trials."
+   ],
+   "values": [
+    "150 million"
+   ],
+   "notes": "",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-tpu-systems-sales",
+   "actor": "google",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q3 2026, quarter ended 2026-09-30",
+   "dated2026": true,
+   "claim": "Alphabet's Q3 2026 release says TPU systems sales contributed meaningfully to Google Cloud revenue growth, so Google sells chips as well as renting them.",
+   "quotes": [
+    "TPU systems sales were also a meaningful contributor to revenue growth."
+   ],
+   "values": [
+    "TPU systems sales"
+   ],
+   "notes": "",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-services-scope",
+   "actor": "google",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q3 2026, quarter ended 2026-09-30",
+   "dated2026": true,
+   "claim": "Alphabet's segment note lists the products inside Google Services: ads, Android, Chrome, consumer devices, Maps, Play, Search and YouTube.",
+   "quotes": [
+    "Google Services includes products and services such as ads, Android, Chrome, consumer devices, Google Maps, Google Play, Search, and YouTube."
+   ],
+   "values": [
+    "Android, Chrome"
+   ],
+   "notes": "",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-ironwood",
+   "actor": "google",
+   "kind": "event",
+   "value": 2025,
+   "unit": "year",
+   "period": "November 2025",
+   "dated2026": false,
+   "claim": "Google launched its most advanced TPUs, called Ironwood, in November.",
+   "quotes": [
+    "Google launched its most advanced TPUs, called Ironwood, in November."
+   ],
+   "values": [
+    "Ironwood"
+   ],
+   "notes": "",
+   "url": "https://siliconangle.com/2026/02/26/google-meta-reportedly-strike-new-multibillion-dollar-ai-chip-deal/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-integrated-statement",
+   "actor": "microsoft",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Maia 200 announcement, January 2026",
+   "dated2026": true,
+   "claim": "Microsoft says its integrated model of chips, AI models and applications is a competitive advantage.",
+   "quotes": [
+    "Microsoft's integrated model — combining chips, AI models, and applications— creates a unique competitive advantage."
+   ],
+   "values": [
+    "chips, AI models, and applications"
+   ],
+   "notes": "",
+   "url": "https://news.microsoft.com/source/emea/2026/01/microsoft-introduces-maia-200-new-inference-accelerator-enhances-ai-performance-in-azure/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-linkedin-members",
+   "actor": "microsoft",
+   "kind": "users",
+   "value": 1.4,
+   "unit": "billion members",
+   "period": "FY27 Q1 call, 28 Oct 2026",
+   "dated2026": true,
+   "claim": "Microsoft said LinkedIn has more than 1.4 billion members.",
+   "quotes": [
+    "In LinkedIn, engagement continues to deepen across our more than 1.4 billion members, with time spent viewing content in the feed up 15% year over year."
+   ],
+   "values": [
+    "1.4 billion"
+   ],
+   "notes": "",
+   "url": "https://www.webull.com/news/15828153888932864",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-github-copilot-mai",
+   "actor": "microsoft",
+   "kind": "users",
+   "value": 3,
+   "unit": "million users",
+   "period": "month before the FY27 Q1 call",
+   "dated2026": true,
+   "claim": "Microsoft said its own MAI Code Flash model had 3 million users in GitHub Copilot in the last month.",
+   "quotes": [
+    "MAI Code Flash had 3 million users in GitHub Copilot last month alone, helping developers get more out of their AI credits."
+   ],
+   "values": [
+    "3 million"
+   ],
+   "notes": "",
+   "url": "https://www.webull.com/news/15828153888932864",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-devices-consumer-revenue",
+   "actor": "microsoft",
+   "kind": "revenue",
+   "value": 15.5,
+   "unit": "USD bn",
+   "period": "Q1 FY2027, quarter ended 2026-09-30",
+   "dated2026": true,
+   "claim": "Microsoft's Devices and Consumer segment (Windows OEM, Xbox, Surface, search) earned $15.5 billion in Q1 FY2027.",
+   "quotes": [
+    "Revenue in Devices and Consumer was $15.5 billion and decreased 3%"
+   ],
+   "values": [
+    "15.5"
+   ],
+   "notes": "",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-copilot-seats",
+   "actor": "microsoft",
+   "kind": "users",
+   "value": 50000,
+   "unit": "seats per customer (threshold)",
+   "period": "FY27 Q1 call, 28 Oct 2026",
+   "dated2026": true,
+   "claim": "Microsoft said the number of customers with more than 50,000 Copilot seats grew over 8x year over year.",
+   "quotes": [
+    "The number of customers with more than 50,000 Copilot seats increased over 8x year over year"
+   ],
+   "values": [
+    "50,000",
+    "8x"
+   ],
+   "notes": "",
+   "url": "https://www.webull.com/news/15828153888932864",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-chips-run-rate",
+   "actor": "amazon",
+   "kind": "runRate",
+   "value": 20,
+   "unit": "USD bn",
+   "period": "annual run rate, Q1 2026 call",
+   "dated2026": true,
+   "claim": "Amazon's custom chips (Graviton, Trainium, Nitro) have an annual revenue run rate above $20 billion.",
+   "quotes": [
+    "Amazon's custom chip unit -- Graviton processors, Trainium artificial intelligence (AI) accelerators, and Nitro networking chips, all deployed inside Amazon Web Services (AWS) -- has an annual revenue run rate above $20 billion, growing at triple-digit percentage rates year over year."
+   ],
+   "values": [
+    "$20 billion"
+   ],
+   "notes": "Run rate covers three chip lines, not Trainium alone.",
+   "url": "https://www.fool.com/investing/2026/07/16/andy-jassy-says-amazons-chip-business-already-has/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-trainium-commitments",
+   "actor": "amazon",
+   "kind": "contract",
+   "value": 225,
+   "unit": "USD bn",
+   "period": "revenue commitments, Q1 2026 call",
+   "dated2026": true,
+   "claim": "Jassy said Amazon holds more than $225 billion in revenue commitments for Trainium.",
+   "quotes": [
+    "Jassy said in the company's first-quarter earnings call that it now holds more than $225 billion in revenue commitments for Trainium."
+   ],
+   "values": [
+    "$225 billion"
+   ],
+   "notes": "",
+   "url": "https://www.fool.com/investing/2026/07/16/andy-jassy-says-amazons-chip-business-already-has/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-graviton",
+   "actor": "amazon",
+   "kind": "event",
+   "value": 40,
+   "unit": "% better price-performance",
+   "period": "Jassy shareholder letter, April 2026",
+   "dated2026": true,
+   "claim": "Jassy says Amazon's Graviton CPU delivers more than 40% better price-performance than comparable x86 processors.",
+   "quotes": [
+    "Graviton is a custom CPU that Jassy says delivers more than 40% better price-performance than comparable x86 processors, the market that Intel and AMD dominate."
+   ],
+   "values": [
+    "40%"
+   ],
+   "notes": "Company claim, reported by TNW.",
+   "url": "https://thenextweb.com/news/amazon-custom-chips-jassy-letter-fifty-billion-trainium",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-north-america-sales",
+   "actor": "amazon",
+   "kind": "revenue",
+   "value": 112.9,
+   "unit": "USD bn",
+   "period": "Q3 2026, quarter ended 2026-09-30",
+   "dated2026": true,
+   "claim": "Amazon's North America retail segment sold $112.9 billion in Q3 2026.",
+   "quotes": [
+    "North America segment sales increased 6% year-over-year to $112.9 billion."
+   ],
+   "values": [
+    "112.9"
+   ],
+   "notes": "",
+   "url": "https://s2.q4cdn.com/299287126/files/doc_earnings/2026/q3/earnings-result/AMZN-Q3-2026-Earnings-Release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-international-sales",
+   "actor": "amazon",
+   "kind": "revenue",
+   "value": 43.1,
+   "unit": "USD bn",
+   "period": "Q3 2026, quarter ended 2026-09-30",
+   "dated2026": true,
+   "claim": "Amazon's International retail segment sold $43.1 billion in Q3 2026.",
+   "quotes": [
+    "International segment sales increased 5% year-over-year to $43.1 billion, or increased 8% excluding changes in foreign exchange rates."
+   ],
+   "values": [
+    "43.1"
+   ],
+   "notes": "",
+   "url": "https://s2.q4cdn.com/299287126/files/doc_earnings/2026/q3/earnings-result/AMZN-Q3-2026-Earnings-Release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-meta-dap",
+   "actor": "meta",
+   "kind": "users",
+   "value": 3.64,
+   "unit": "billion daily active people",
+   "period": "September 2026 average",
+   "dated2026": true,
+   "claim": "Meta's family of apps had 3.64 billion daily active people on average in September 2026.",
+   "quotes": [
+    "Family daily active people (DAP) – DAP was 3.64 billion on average for September 2026, an increase of 3% year-over-year."
+   ],
+   "values": [
+    "3.64 billion"
+   ],
+   "notes": "",
+   "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-meta-mtia300-deployed",
+   "actor": "meta",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "March 2026",
+   "dated2026": true,
+   "claim": "Meta said its MTIA 300 chip was deployed to train the ranking and recommendation models behind its apps.",
+   "quotes": [
+    "The first new chip, MTIA 300, was deployed a few weeks ago and is intended to help train smaller AI models that underpin Meta's core ranking and recommendation tasks, Song said."
+   ],
+   "values": [
+    "MTIA 300"
+   ],
+   "notes": "",
+   "url": "https://hn.jakechampion.name/reader/https://www.cnbc.com/2026/03/11/meta-ai-mtia-chip-data-center.html",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-meta-mtia-roadmap",
+   "actor": "meta",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "March 2026",
+   "dated2026": true,
+   "claim": "Meta's roadmap has MTIA 400, 450 and 500 for generative AI inference, with 72 MTIA 400 chips in one rack.",
+   "quotes": [
+    "One Meta data center rack will include 72 of Meta's in-house MTIA 400 chips, optimized to accelerate AI inference."
+   ],
+   "values": [
+    "72"
+   ],
+   "notes": "",
+   "url": "https://hn.jakechampion.name/reader/https://www.cnbc.com/2026/03/11/meta-ai-mtia-chip-data-center.html",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-apple-active-devices",
+   "actor": "apple",
+   "kind": "users",
+   "value": 2.5,
+   "unit": "billion active devices",
+   "period": "announced 29 Jan 2026",
+   "dated2026": true,
+   "claim": "Apple said its installed base has more than 2.5 billion active devices.",
+   "quotes": [
+    "\"We are also excited to announce that our installed base now has more than 2.5 billion active devices, which is a testament to incredible customer satisfaction for the very best products and services in the world,\" said Apple CEO Tim Cook"
+   ],
+   "values": [
+    "2.5 billion"
+   ],
+   "notes": "",
+   "url": "https://www.macrumors.com/2026/01/29/apple-2-5-billion-active-devices/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-apple-gemini-siri",
+   "actor": "apple",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "reported January 2026",
+   "dated2026": true,
+   "claim": "Bloomberg reported that Apple, after evaluating OpenAI, Anthropic and Google, chose Google's Gemini mainly on price, so Apple rents the model layer.",
+   "quotes": [
+    "After evaluating models from OpenAI, Anthropic, and Google, Apple selected Google's Gemini based primarily on pricing rather than raw performance, Bloomberg reported."
+   ],
+   "values": [
+    "OpenAI, Anthropic, and Google"
+   ],
+   "notes": "Reported by Bloomberg; Apple did not disclose terms.",
+   "url": "https://www.unite.ai/apple-reportedly-nearing-1-billion-annual-deal-with-google-to-power-revamped-siri/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-apple-smartphone-share",
+   "actor": "apple",
+   "kind": "share",
+   "value": 22,
+   "unit": "% of global smartphone shipments",
+   "period": "Q3 2026 (Counterpoint)",
+   "dated2026": true,
+   "claim": "Apple shipped 22% of all smartphones in Q3 2026, with Samsung first at 23%.",
+   "quotes": [
+    "According to Counterpoint Research, Apple shipped 22% of all smartphones during Q3 2026, up from 18% in the year-ago period."
+   ],
+   "values": [
+    "22%"
+   ],
+   "notes": "Scope: global smartphones",
+   "url": "https://9to5mac.com/2026/10/12/iphone-hits-record-q3-shipment-share-as-global-smartphone-market-plunges-20-per-report/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-samsung-smartphone-share",
+   "actor": "samsung",
+   "kind": "share",
+   "value": 23,
+   "unit": "% of global smartphone shipments",
+   "period": "Q3 2026 (Omdia)",
+   "dated2026": true,
+   "claim": "Samsung led global smartphones in Q3 2026 with a 23% share, Apple at 22%.",
+   "quotes": [
+    "Samsung led with 23% market share, followed by Apple at 22%; both grew 4% year over year, while Xiaomi (12%), OPPO (9%), and vivo (8%) all lost ground."
+   ],
+   "values": [
+    "23%"
+   ],
+   "notes": "Scope: global smartphones",
+   "url": "https://androidheadlines.com/2026/10/global-smartphone-market-shrank-20-in-q3-2026-samsung-apple-dominate.html",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-samsung-ds-q3",
+   "actor": "samsung",
+   "kind": "operatingIncome",
+   "value": 106.5,
+   "unit": "KRW trillion",
+   "period": "Q3 2026 (preliminary)",
+   "dated2026": true,
+   "claim": "Samsung's Device Solutions (chips) division earned KRW 106.5 trillion operating profit on KRW 147.1 trillion revenue in Q3 2026.",
+   "quotes": [
+    "The DS Division posted KRW 147.1 trillion in consolidated revenue and KRW 106.5 trillion in operating profit for the third quarter."
+   ],
+   "values": [
+    "147.1 trillion",
+    "106.5 trillion"
+   ],
+   "notes": "",
+   "url": "https://www.thetechoutlook.com/current-affairs/business/samsung-electronics-announces-q3-2026-results-operating-profit-reported-at-krw-107-4-trillion/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-samsung-hbm4",
+   "actor": "samsung",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q3 2026",
+   "dated2026": true,
+   "claim": "Samsung says it significantly scaled up HBM4 sales in Q3 2026.",
+   "quotes": [
+    "It significantly scaled up sales of HBM4 on the back of industry-leading product competitiveness while proactively addressing growing demand for server SSDs."
+   ],
+   "values": [
+    "HBM4"
+   ],
+   "notes": "",
+   "url": "https://www.thetechoutlook.com/current-affairs/business/samsung-electronics-announces-q3-2026-results-operating-profit-reported-at-krw-107-4-trillion/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tesla-ai5-dual-source",
+   "actor": "tesla",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "2026",
+   "dated2026": true,
+   "claim": "Tesla designs its own AI5 chip and dual-sources it between Samsung and TSMC.",
+   "quotes": [
+    "The update is significant because Tesla is dual-sourcing AI5 between Samsung and TSMC, a strategy Musk has said is necessary to support what he expects will be one of the highest-volume AI chip deployments in the world."
+   ],
+   "values": [
+    "Samsung and TSMC"
+   ],
+   "notes": "",
+   "url": "https://driveteslacanada.ca/news/tesla-ai5-chip-samsung-tape-out-2nm/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tesla-energy-storage",
+   "actor": "tesla",
+   "kind": "energy",
+   "value": 13.7,
+   "unit": "GWh",
+   "period": "Q3 2026",
+   "dated2026": true,
+   "claim": "Tesla deployed 13.7 GWh of energy storage in Q3 2026.",
+   "quotes": [
+    "It also deployed 13.7 GWh of energy storage, up from 12.5 GWh a year ago but short of the roughly 15.9 GWh analysts expected."
+   ],
+   "values": [
+    "13.7 GWh"
+   ],
+   "notes": "",
+   "url": "https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tesla-fsd-subs",
+   "actor": "tesla",
+   "kind": "users",
+   "value": 1.74,
+   "unit": "million active FSD subscriptions",
+   "period": "Q3 2026",
+   "dated2026": true,
+   "claim": "Tesla reported 1.74 million active FSD subscriptions in Q3 2026.",
+   "quotes": [
+    "On autonomy, Tesla says active FSD subscriptions reached 1.74 million, up 67%, though that count includes upfront purchases, as defined in Musk's 2025 pay package."
+   ],
+   "values": [
+    "1.74 million"
+   ],
+   "notes": "Count includes upfront purchases.",
+   "url": "https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tesla-rd",
+   "actor": "tesla",
+   "kind": "event",
+   "value": 2.76,
+   "unit": "USD bn R&D",
+   "period": "Q3 2026",
+   "dated2026": true,
+   "claim": "Tesla's Q3 2026 R&D rose 69% to $2.76 billion, spent on Super Intelligence, Optimus and the Cybercab.",
+   "quotes": [
+    "Research and development alone jumped 69% to $2.76 billion as Tesla spends on what it now calls \"Super Intelligence\" (SI), Optimus, and the Cybercab."
+   ],
+   "values": [
+    "$2.76 billion"
+   ],
+   "notes": "",
+   "url": "https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-spacex-x-mau",
+   "actor": "spacex",
+   "kind": "users",
+   "value": 550,
+   "unit": "million monthly active users",
+   "period": "March 2026 (S-1)",
+   "dated2026": true,
+   "claim": "SpaceX's S-1 reported X at 550 million monthly active users as of March 2026.",
+   "quotes": [
+    "X reported 550M monthly active users as of March 2026, Grok reported 117M MAU (21.3% of the X ecosystem), and xAI posted a $6.4B operating loss on $3.2B of revenue"
+   ],
+   "values": [
+    "550M"
+   ],
+   "notes": "Secondary reading of the S-1.",
+   "url": "https://www.digitalapplied.com/blog/spacex-s1-first-audited-x-grok-data-2026",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-spacex-grok-mau",
+   "actor": "xai",
+   "kind": "users",
+   "value": 117,
+   "unit": "million monthly active users",
+   "period": "March 2026 (S-1)",
+   "dated2026": true,
+   "claim": "SpaceX's S-1 reported about 117 million monthly active users of Grok's AI features at 31 March 2026.",
+   "quotes": [
+    "The clearest answer is approximately 117 million monthly active users who used Grok's AI features as of March 31, 2026, according to SpaceX's SEC-filed S-1."
+   ],
+   "values": [
+    "117 million"
+   ],
+   "notes": "Secondary reading of the S-1.",
+   "url": "https://quashbugs.com/blog/grok-ai-statistics",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-spacex-starlink-subs",
+   "actor": "spacex",
+   "kind": "users",
+   "value": 10.3,
+   "unit": "million subscribers",
+   "period": "end of Q1 2026 (March 2026)",
+   "dated2026": true,
+   "claim": "Starlink had 10.3 million active subscribers at the end of March 2026.",
+   "quotes": [
+    "As of the end of the first quarter in March 2026, the active subscriber base has surged to 10.3 million users."
+   ],
+   "values": [
+    "10.3 million"
+   ],
+   "notes": "",
+   "url": "https://satnews.com/2026/06/05/analyst-projects-massive-subscription-growth-for-starlink-ahead-of-imminent-spacex-ipo/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-vera-cpu",
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 FY2027 release, 2026",
+   "dated2026": true,
+   "claim": "NVIDIA unveiled Vera, a CPU built for AI agents, widening its reach from accelerators to CPUs.",
+   "quotes": [
+    "Unveiled NVIDIA Vera, the first CPU built for AI agents, with broad adoption planned across the world’s leading technology providers."
+   ],
+   "values": [
+    "NVIDIA Vera"
+   ],
+   "notes": "",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-spectrum6",
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 FY2027 release, 2026",
+   "dated2026": true,
+   "claim": "NVIDIA revealed Spectrum-6 switch systems, supporting pluggable and co-packaged optics, as part of the Vera Rubin platform.",
+   "quotes": [
+    "Revealed that NVIDIA Spectrum™-6 switch systems — supporting both pluggable and co-packaged optics as part of the NVIDIA Vera Rubin platform — are arriving across the world’s gigascale AI factories."
+   ],
+   "values": [
+    "Spectrum™-6"
+   ],
+   "notes": "",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-nemotron",
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 FY2027 release, 2026",
+   "dated2026": true,
+   "claim": "NVIDIA publishes Nemotron open models that national and corporate customers use to build their own models.",
+   "quotes": [
+    "Partnered with the Japan government and industrial leaders to launch the world’s first national AI infrastructure; revealed that Japan’s leading enterprises, startups and research institutions are building industry-specialized AI models with NVIDIA Nemotron™ open models."
+   ],
+   "values": [
+    "NVIDIA Nemotron™"
+   ],
+   "notes": "",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-dgx-station",
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 FY2027 release, 2026",
+   "dated2026": true,
+   "claim": "NVIDIA sells the DGX Station, a deskside AI supercomputer for Windows, putting its stack on the user's desk.",
+   "quotes": [
+    "Announced NVIDIA DGX Station™ for Windows, the world’s most powerful deskside AI supercomputer for developing and running agents on Windows."
+   ],
+   "values": [
+    "DGX Station™"
+   ],
+   "notes": "",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-spacexai-vera",
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 FY2027 release, 2026",
+   "dated2026": true,
+   "claim": "NVIDIA said SpaceXAI will deploy NVIDIA Vera CPUs.",
+   "quotes": [
+    "Announced that SpaceXAI will deploy NVIDIA Vera CPUs to accelerate its next generation of agentic AI applications."
+   ],
+   "values": [
+    "SpaceXAI"
+   ],
+   "notes": "",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-intel-foundry-revenue",
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 6.7,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "dated2026": true,
+   "claim": "Intel Foundry revenue rose 58% to $6.7 billion in Q3 2026.",
+   "quotes": [
+    "Intel Foundry revenue climbed 58% year-on-year to $6.7 billion during the quarter."
+   ],
+   "values": [
+    "$6.7 billion"
+   ],
+   "notes": "Segment revenue includes intersegment sales.",
+   "url": "https://aa.com.tr/en/world/us-chipmaker-intel-posts-21-revenue-jump-in-q3-on-data-center-demand/4105484",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-intel-dcai-revenue",
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 7.3,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "dated2026": true,
+   "claim": "Intel's Data Center and AI group had revenue of $7.3 billion in Q3 2026, up 78%.",
+   "quotes": [
+    "The Data Center and AI group led the performance with revenue surging 78% year-on-year to $7.3 billion, delivering the segment's fastest growth rate in 15 years."
+   ],
+   "values": [
+    "$7.3 billion"
+   ],
+   "notes": "",
+   "url": "https://aa.com.tr/en/world/us-chipmaker-intel-posts-21-revenue-jump-in-q3-on-data-center-demand/4105484",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-intel-14a-pdk",
+   "actor": "intel",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "October 2026",
+   "dated2026": true,
+   "claim": "Intel released the Intel 14A 0.9 process design kit (PDK) in October.",
+   "quotes": [
+    "Released Intel 14A 0.9 process design kit (PDK) in October."
+   ],
+   "values": [
+    "Intel 14A"
+   ],
+   "notes": "",
+   "url": "https://www.intc.com/filings-reports/all-sec-filings/content/0000050863-26-000188/q326earningsrelease.htm",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-broadcom-semis-revenue",
+   "actor": "broadcom",
+   "kind": "revenue",
+   "value": 20.839,
+   "unit": "USD bn",
+   "period": "FQ3 2026, ended 2026-08-02",
+   "dated2026": true,
+   "claim": "Broadcom's semiconductor solutions segment earned $20,839 million in fiscal Q3 2026.",
+   "quotes": [
+    "Semiconductor solutions $ 20,839 70 % $ 9,166 57 % +127 % Infrastructure software 8,752 30 6,786 43 +29 %"
+   ],
+   "values": [
+    "20,839"
+   ],
+   "notes": "",
+   "url": "https://seekingalpha.com/pr/20639031",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-broadcom-infra-software",
+   "actor": "broadcom",
+   "kind": "revenue",
+   "value": 8.752,
+   "unit": "USD bn",
+   "period": "FQ3 2026, ended 2026-08-02",
+   "dated2026": true,
+   "claim": "Broadcom's infrastructure software segment (VMware and others) earned $8,752 million in fiscal Q3 2026.",
+   "quotes": [
+    "Semiconductor solutions $ 20,839 70 % $ 9,166 57 % +127 % Infrastructure software 8,752 30 6,786 43 +29 %"
+   ],
+   "values": [
+    "8,752"
+   ],
+   "notes": "",
+   "url": "https://seekingalpha.com/pr/20639031",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-oracle-iaas-revenue",
+   "actor": "oracle",
+   "kind": "revenue",
+   "value": 7.4,
+   "unit": "USD bn",
+   "period": "Q1 FY2027, quarter ended 2026-08-31",
+   "dated2026": true,
+   "claim": "Oracle's cloud infrastructure revenue rose 121% to $7.4 billion in fiscal Q1 2027.",
+   "quotes": [
+    "Q1 Cloud Infra (IaaS) Revenue up 121% in USD and up 120% in constant currency to $7.4 billion."
+   ],
+   "values": [
+    "$7.4 billion"
+   ],
+   "notes": "",
+   "url": "https://www.oracle.com/news/announcement/q1fy27-earnings-release-2026-09-10/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-oracle-saas-revenue",
+   "actor": "oracle",
+   "kind": "revenue",
+   "value": 4.2,
+   "unit": "USD bn",
+   "period": "Q1 FY2027, quarter ended 2026-08-31",
+   "dated2026": true,
+   "claim": "Oracle's cloud applications (SaaS) revenue was $4.2 billion in fiscal Q1 2027, up 10%.",
+   "quotes": [
+    "Q1 Cloud Apps (SaaS) Revenue up 10% in USD and constant currency to $4.2 billion."
+   ],
+   "values": [
+    "$4.2 billion"
+   ],
+   "notes": "",
+   "url": "https://www.oracle.com/news/announcement/q1fy27-earnings-release-2026-09-10/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-oracle-software-revenue",
+   "actor": "oracle",
+   "kind": "revenue",
+   "value": 5.5,
+   "unit": "USD bn",
+   "period": "Q1 FY2027, quarter ended 2026-08-31",
+   "dated2026": true,
+   "claim": "Oracle's software revenues were down 3% to $5.5 billion, which Oracle attributes to customers migrating from on-premises software to the cloud.",
+   "quotes": [
+    "Software revenues were down 3% to $5.5 billion, reflecting our customers’ continuing migration from on-premises software to the Cloud."
+   ],
+   "values": [
+    "$5.5 billion"
+   ],
+   "notes": "",
+   "url": "https://www.oracle.com/news/announcement/q1fy27-earnings-release-2026-09-10/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-alibaba-zhenwu-m890",
+   "actor": "alibaba",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Alibaba Cloud Summit, May 2026",
+   "dated2026": true,
+   "claim": "Alibaba's T-Head unit unveiled the Zhenwu M890 AI chip with 144GB of HBM, for Alibaba Cloud and Qwen.",
+   "quotes": [
+    "As the report notes, the Zhenwu M890 integrates 144GB of HBM memory and delivers inter-chip interconnect bandwidth of up to 800GB/s."
+   ],
+   "values": [
+    "144GB"
+   ],
+   "notes": "",
+   "url": "https://www.trendforce.com/news/2026/05/21/news-alibaba-t-head-unveils-zhenwu-m890-with-3x-performance-vs-prior-gen-new-ai-chips-planned-for-3q273q28/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-huawei-harmonyos-share",
+   "actor": "huawei",
+   "kind": "share",
+   "value": 17,
+   "unit": "% of mainland China smartphone OS",
+   "period": "Q2 (Counterpoint)",
+   "dated2026": false,
+   "claim": "Counterpoint put HarmonyOS at 17% of mainland China smartphones against iOS at 16%.",
+   "quotes": [
+    "In the second quarter HarmonyOS held 17 percent of the market in mainland China, compared to 16 percent for iOS, Counterpoint said."
+   ],
+   "values": [
+    "17 percent"
+   ],
+   "notes": "The page's year is not stated in the quote; sixth consecutive quarter of lead over iOS.",
+   "url": "https://www.silicon.co.uk/mobility/mobile-os/huawei-apple-china-2-626789",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-huawei-revenue-2025",
+   "actor": "huawei",
+   "kind": "revenue",
+   "value": 880,
+   "unit": "RMB bn",
+   "period": "FY2025",
+   "dated2026": true,
+   "claim": "Huawei disclosed 2025 operating revenue above RMB 880 billion.",
+   "quotes": [
+    "At the 2026 Guangdong High-quality Development Conference on February 24, Huawei disclosed 2025 operating revenue exceeding RMB 880 billion (USD 123.2 billion), its second-highest annual result, Howard Liang said, according to SCMP."
+   ],
+   "values": [
+    "RMB 880 billion"
+   ],
+   "notes": "",
+   "url": "https://letsdatascience.com/news/huawei-reports-rmb-880-billion-2025-revenue-5bd140ee",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-huawei-ascend-models",
+   "actor": "huawei",
+   "kind": "event",
+   "value": 43,
+   "unit": "large models pre-trained on Ascend",
+   "period": "FY2025",
+   "dated2026": true,
+   "claim": "Huawei said 43 mainstream large models were pre-trained on Ascend chips.",
+   "quotes": [
+    "Huawei credited a smartphone rebound—shipping 46.8 million units (17% share) in mainland China—and expansion in HarmonyOS and Ascend AI-chip support, including 43 mainstream large models pre-trained on Ascend, for strengthening second-half momentum."
+   ],
+   "values": [
+    "43 mainstream large models"
+   ],
+   "notes": "",
+   "url": "https://letsdatascience.com/news/huawei-reports-rmb-880-billion-2025-revenue-5bd140ee",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tencent-weixin-mau",
+   "actor": "tencent",
+   "kind": "users",
+   "value": 1439,
+   "unit": "million combined MAU",
+   "period": "30 June 2026",
+   "dated2026": true,
+   "claim": "Tencent's combined Weixin and WeChat monthly active users were 1,439 million at 30 June 2026.",
+   "quotes": [
+    "Combined MAU of Weixin and WeChat 1,439 1,411 2% 1,432 0.5%"
+   ],
+   "values": [
+    "1,439"
+   ],
+   "notes": "",
+   "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tencent-capex-q2",
+   "actor": "tencent",
+   "kind": "capex",
+   "value": 59.3,
+   "unit": "RMB bn",
+   "period": "Q2 2026",
+   "dated2026": true,
+   "claim": "Tencent paid RMB 59.3 billion in capital expenditure in Q2 2026.",
+   "quotes": [
+    "net cash generated from operating activities of RMB52.7 billion was more than offset by capital expenditure payments of RMB59.3 billion, media content payments of RMB5.0 billion and lease liability payments of RMB2.2 billion."
+   ],
+   "values": [
+    "RMB59.3 billion"
+   ],
+   "notes": "",
+   "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tencent-hy3",
+   "actor": "tencent",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "July 2026",
+   "dated2026": true,
+   "claim": "Tencent released the full Hy3 model in July 2026, and Hy3 ranked among the top 3 models by token use on OpenRouter.",
+   "quotes": [
+    "Since its launch, Hy3 has consistently ranked among the top 3 models globally in terms of token consumption on OpenRouter5."
+   ],
+   "values": [
+    "top 3 models"
+   ],
+   "notes": "",
+   "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-alibaba-ai-cloud-compute",
+   "actor": "alibaba",
+   "kind": "revenue",
+   "value": 48.437,
+   "unit": "RMB bn",
+   "period": "June quarter 2026",
+   "dated2026": true,
+   "claim": "Alibaba's AI Cloud and Compute Services segment (Cloud Intelligence plus T-Head chips) had revenue of RMB48,437 million in the June 2026 quarter.",
+   "quotes": [
+    "AI Cloud and Compute Services For the quarter ended June 30, 2026, revenue from AI Cloud and Compute Services was RMB48,437 million (US$7,139 million)."
+   ],
+   "values": [
+    "RMB48,437 million"
+   ],
+   "notes": "",
+   "url": "https://us.kabutan.jp/disclosures/0001104659-26-099220",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-alibaba-tHead-merged",
+   "actor": "alibaba",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "June quarter 2026",
+   "dated2026": true,
+   "claim": "Alibaba combined its Cloud Intelligence Group and T-Head chip unit into one segment.",
+   "quotes": [
+    "Cloud Intelligence Group and T-Head were combined to form AI Cloud and Compute Services."
+   ],
+   "values": [
+    "T-Head"
+   ],
+   "notes": "",
+   "url": "https://us.kabutan.jp/disclosures/0001104659-26-099220",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-alibaba-qwen-app",
+   "actor": "alibaba",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "FY2026 results commentary",
+   "dated2026": true,
+   "claim": "Alibaba said it fully integrated e-commerce into the consumer-facing Qwen app, joining its model, cloud and shop.",
+   "quotes": [
+    "we fully integrated e-commerce capabilities into the consumer-facing Qwen app, deepening synergies between AI and our consumer ecosystem."
+   ],
+   "values": [
+    "Qwen app"
+   ],
+   "notes": "",
+   "url": "https://www.alibabacloud.com/blog/603121",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-crane-ppa",
+   "actor": "microsoft",
+   "kind": "energy",
+   "value": 835,
+   "unit": "MW",
+   "period": "20-year PPA signed 20 Sep 2024",
+   "dated2026": false,
+   "claim": "Constellation signed a 20-year power purchase agreement with Microsoft that restores Three Mile Island Unit 1 (the Crane Clean Energy Center) and adds approximately 835 megawatts of carbon-free energy.",
+   "quotes": [
+    "Constellation signs its largest-ever power purchase agreement with Microsoft, a deal that will restore TMI Unit 1 to service and keep it online for decades; add approximately 835 megawatts of carbon-free energy to the grid; create 3,400 direct and indirect jobs and deliver more than $3 billion in state and federal taxes"
+   ],
+   "values": [
+    "835"
+   ],
+   "notes": "",
+   "url": "https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-talen-susquehanna",
+   "actor": "amazon",
+   "kind": "energy",
+   "value": 1.92,
+   "unit": "GW",
+   "period": "agreement of 12 Jun 2025, running to 2042",
+   "dated2026": false,
+   "claim": "Talen Energy agreed to supply 1,920 MWe from its Susquehanna nuclear plant to Amazon Web Services' data centres, running until 2042.",
+   "quotes": [
+    "Talen Energy Corporation has entered into a new agreement for the long-term supply of 1,920 MWe of electricity from its Susquehanna nuclear power plant to support Amazon Web Services' data centres, as well as looking into building SMRs and capacity uprates."
+   ],
+   "values": [
+    "1,920"
+   ],
+   "notes": "",
+   "url": "https://wnn.world-nuclear.org/articles/new-supply-agreement-expands-talen-amazon-partnership",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-meta-clinton-ppa",
+   "actor": "meta",
+   "kind": "energy",
+   "value": 1.121,
+   "unit": "GW",
+   "period": "20-year PPA from June 2027",
+   "dated2026": false,
+   "claim": "Constellation and Meta signed a 20-year power purchase agreement for 1,121 megawatts of carbon-free energy from the Clinton Clean Energy Center in Illinois, beginning June 2027.",
+   "quotes": [
+    "Constellation and Meta have signed a 20-year power purchase agreement (PPA) to secure 1,121 megawatts of carbon-free energy from the Clinton Clean Energy Center in Illinois, beginning June 2027."
+   ],
+   "values": [
+    "1,121"
+   ],
+   "notes": "",
+   "url": "https://esgnews.com/meta-and-constellation-secure-20-year-nuclear-power-deal-to-sustain-clinton-clean-energy-center",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-kairos",
+   "actor": "google",
+   "kind": "energy",
+   "value": 500,
+   "unit": "MW",
+   "period": "agreement of Oct 2024, to 2035",
+   "dated2026": false,
+   "claim": "Kairos Power and Google agreed to build a series of advanced nuclear plants delivering up to 500 MW of clean energy by 2035.",
+   "quotes": [
+    "Kairos Power and Google have entered into a Master Plant Development Agreement to build a series of advanced nuclear power plants that will deliver up to 500 MW of clean energy by 2035."
+   ],
+   "values": [
+    "500"
+   ],
+   "notes": "",
+   "url": "https://convergedigest.com/google-taps-kairos-power-to-develop-advanced-nuclear-reactors/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-intersect",
+   "actor": "google",
+   "kind": "investment",
+   "value": 4.75,
+   "unit": "USD bn",
+   "period": "completed March 2026",
+   "dated2026": true,
+   "claim": "Alphabet acquired Intersect, a data-centre and energy infrastructure developer, for $4.75 billion in cash plus the assumption of debt.",
+   "quotes": [
+    "Cleary Gottlieb represented Alphabet’s acquisition of Intersect, which provides data center and energy infrastructure solutions, for $4.75 billion in cash, plus the assumption of debt."
+   ],
+   "values": [
+    "4.75"
+   ],
+   "notes": "",
+   "url": "https://www.clearygottlieb.com/news-and-insights/news-listing/alphabet-completes-4-75-billion-acquisition-of-intersect-power",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-constellation-890mw",
+   "actor": "google",
+   "kind": "energy",
+   "value": 890,
+   "unit": "MW",
+   "period": "announced 6 Oct 2026",
+   "dated2026": true,
+   "claim": "Constellation's newsroom headline of 6 October 2026 says Google and Constellation announced an agreement to bring 890 MW of new nuclear capacity to the PJM grid.",
+   "quotes": [
+    "Google and Constellation Announce Landmark Agreement to Bring 890 MW of New Nuclear Capacity to PJM Grid as Part of Long-Term Power Deal"
+   ],
+   "values": [
+    "890"
+   ],
+   "notes": "",
+   "url": "https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-calvert-cliffs",
+   "actor": "amazon",
+   "kind": "energy",
+   "value": 190,
+   "unit": "MW",
+   "period": "announced 30 Sep 2026",
+   "dated2026": true,
+   "claim": "Constellation and Amazon announced a 20-year power purchase agreement adding 190 megawatts of nuclear capacity at Calvert Cliffs (headline in Constellation's newsroom, 30 September 2026).",
+   "quotes": [
+    "Constellation and Amazon Announce 20-Year Power Purchase Agreement Adding 190 Megawatts of Nuclear Capacity at Calvert Cliffs"
+   ],
+   "values": [
+    "190"
+   ],
+   "notes": "",
+   "url": "https://www.constellationenergy.com/news/2024/Constellation-to-Launch-Crane-Clean-Energy-Center-Restoring-Jobs-and-Carbon-Free-Power-to-The-Grid.html",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-xai-southaven-turbines",
+   "actor": "xai",
+   "kind": "energy",
+   "value": 1.2,
+   "unit": "GW",
+   "period": "permit of 10 Mar 2026",
+   "dated2026": true,
+   "claim": "xAI received permission in March 2026 to install 41 natural gas turbines at a Mississippi site that will generate 1.2 GW to power its data centres.",
+   "quotes": [
+    "xAI has received permission to install 41 natural gas turbines at a site in Mississippi that will generate 1.2GW"
+   ],
+   "values": [
+    "41",
+    "1.2GW"
+   ],
+   "notes": "",
+   "url": "https://www.datacenterdynamics.com/en/news/musks-xai-gets-go-ahead-for-41-natural-gas-turbines-in-mississippi-to-power-colossus-data-centers",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-apple-houston-600bn",
+   "actor": "apple",
+   "kind": "investment",
+   "value": 600,
+   "unit": "USD bn",
+   "period": "commitment announced 2025; Houston centre opened Aug 2026",
+   "dated2026": true,
+   "claim": "Apple's $600 billion US commitment covers custom silicon, and its Houston facility builds and ships Apple's advanced AI servers.",
+   "quotes": [
+    "Since announcing a $600 billion commitment last year, Apple and its American Manufacturing Program partners have invested in designing and producing custom silicon, advanced components, and cover glass in the U.S., demonstrating the company’s long-standing commitment to strengthening the country’s advanced manufacturing sector.",
+    "The AMC is located within the same Houston facility that builds and ships Apple’s advanced AI servers and will begin manufacturing Mac mini this year."
+   ],
+   "values": [
+    "$600 billion"
+   ],
+   "notes": "",
+   "url": "https://www.apple.com/newsroom/2026/08/apple-opens-advanced-manufacturing-center-in-houston/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-apple-m5-gpu",
+   "actor": "apple",
+   "kind": "units",
+   "value": 4,
+   "unit": "x peak GPU compute vs M4",
+   "period": "M5 announced 15 Oct 2025",
+   "dated2026": false,
+   "claim": "Apple's own M5 chip has a 10-core GPU with a Neural Accelerator in each core, delivering over 4x peak GPU compute compared to M4.",
+   "quotes": [
+    "The 10-core GPU features a dedicated Neural Accelerator in each core, delivering over 4x peak GPU compute compared to M4, and over 6x peak GPU compute for AI performance compared to M1.1"
+   ],
+   "values": [
+    "4x"
+   ],
+   "notes": "",
+   "url": "https://www.apple.com/newsroom/2025/10/apple-unleashes-m5-the-next-big-leap-in-ai-performance-for-apple-silicon/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-amazon-nova-four-models",
+   "actor": "amazon",
+   "kind": "event",
+   "value": 4,
+   "unit": "new Nova models",
+   "period": "announced 2 Dec 2025",
+   "dated2026": false,
+   "claim": "Amazon announced an expansion of its own Nova model portfolio with four new models, a service for custom variants and a service for building agents.",
+   "quotes": [
+    "Amazon announces a comprehensive expansion of its Nova portfolio with four new models, a pioneering \"open training\" service that empowers organizations to build their custom model variants with Nova, and a service for creating highly reliable AI agents."
+   ],
+   "values": [
+    "four"
+   ],
+   "notes": "",
+   "url": "https://www.aboutamazon.com/news/aws/aws-agentic-ai-amazon-bedrock-nova-models",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-huawei-cloud-revenue",
+   "actor": "huawei",
+   "kind": "revenue",
+   "value": 32.16,
+   "unit": "CNY bn",
+   "period": "2025",
+   "dated2026": false,
+   "claim": "Huawei's cloud computing revenue from external customers fell 3.5% in 2025 to 32.16 billion yuan (CNBC, relayed by TrendForce).",
+   "quotes": [
+    "Notably, CNBC reports that cloud computing revenue from external customers fell 3.5% in 2025 to 32.16 billion yuan ($4.6 billion)."
+   ],
+   "values": [
+    "32.16"
+   ],
+   "notes": "",
+   "url": "https://www.trendforce.com/news/2026/04/01/news-huawei-2025-r-cloud-revenue-slips/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-huawei-pangu-scenarios",
+   "actor": "huawei",
+   "kind": "units",
+   "value": 500,
+   "unit": "scenarios",
+   "period": "Huawei Cloud post, Sep 2025",
+   "dated2026": false,
+   "claim": "Huawei Cloud says its Pangu Models have been applied in more than 500 scenarios across over 30 industries.",
+   "quotes": [
+    "Pangu Models have been applied in more than 500 scenarios across over 30 industries, reimagining what is possible in these industries."
+   ],
+   "values": [
+    "500"
+   ],
+   "notes": "",
+   "url": "https://www.huawei.com/en/news/2025/9/hc-huawei-cloud-ai-pioneer",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-broadcom-vmware-69bn",
+   "actor": "broadcom",
+   "kind": "investment",
+   "value": 69,
+   "unit": "USD bn",
+   "period": "announced May 2022, closed Nov 2023",
+   "dated2026": false,
+   "claim": "In May 2022 Broadcom announced an agreement to acquire VMware in a cash-and-stock transaction valued at $69 billion.",
+   "quotes": [
+    "In May 2022, Broadcom announced an agreement to acquire VMware in a cash-and-stock transaction valued at $69 billion."
+   ],
+   "values": [
+    "$69 billion"
+   ],
+   "notes": "",
+   "url": "https://en.wikipedia.org/wiki/Broadcom_Inc.",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-broadcom-symantec-107bn",
+   "actor": "broadcom",
+   "kind": "investment",
+   "value": 10.7,
+   "unit": "USD bn",
+   "period": "announced Aug 2019",
+   "dated2026": false,
+   "claim": "Broadcom agreed in August 2019 to buy Symantec's enterprise security business for $10.7 billion in cash.",
+   "quotes": [
+    "After months of rumors about potential buyers and a failed earlier attempt by Broadcom, the chipmaker said it reached a deal to buy Symantec’s enterprise security business and its name for $10.7 billion in cash."
+   ],
+   "values": [
+    "10.7"
+   ],
+   "notes": "",
+   "url": "https://www.sdxcentral.com/articles/news/broadcom-pays-10-7b-puts-symantec-out-of-its-misery/2019/08/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-broadcom-ca-19bn",
+   "actor": "broadcom",
+   "kind": "investment",
+   "value": 19,
+   "unit": "USD bn (nearly)",
+   "period": "closed Nov 2018",
+   "dated2026": false,
+   "claim": "Broadcom acquired CA Technologies in 2018 for nearly $19 billion.",
+   "quotes": [
+    "In 2018, the company was acquired by Broadcom Inc., a semiconductor manufacturer, for nearly $19 billion."
+   ],
+   "values": [
+    "$19 billion"
+   ],
+   "notes": "",
+   "url": "https://en.wikipedia.org/wiki/CA_Technologies",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-google-search-youtube-q3",
+   "actor": "google",
+   "kind": "revenue",
+   "value": 63.35,
+   "unit": "USD bn (Search & other); YouTube ads 11.207",
+   "period": "Q3 2026 (quarter ended 30 Sep 2026)",
+   "dated2026": true,
+   "claim": "In Q3 2026 Google Search & other earned $63.35 billion and YouTube ads $11.2 billion (Alphabet supplemental table).",
+   "quotes": [
+    "Google Search & other YouTube ads Google Network Google advertising Google subscriptions, platforms, and devices Google Services total Google Cloud Other Bets Hedging gains (losses) Total revenues $ Total TAC 2026 $ 56,567 $ 10,261 7,354 74,182 12,870 87,052 15,157 344 (207) 102,346 $ 63,350 11,207 7,455 82,012 14,290 96,302 30,709"
+   ],
+   "values": [
+    "63,350",
+    "11,207"
+   ],
+   "notes": "value is Search & other; YouTube ads is 11.207 USD bn in the same row",
+   "url": "https://s206.q4cdn.com/479360582/files/doc_financials/2026/q3/2026q3-alphabet-earnings-release.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-agents-infra",
+   "actor": "microsoft",
+   "kind": "revenue",
+   "value": 76.8,
+   "unit": "USD bn",
+   "period": "fiscal Q1 2027 (quarter ended 30 Sep 2026)",
+   "dated2026": true,
+   "claim": "Microsoft's Agents and Infra segment had revenue of $76.8 billion, up 25%, and Azure revenue increased 48%.",
+   "quotes": [
+    "Business Highlights Revenue in Agents and Infra was $76.8 billion and increased 25%, with the following business highlights: · Commercial remaining performance obligation increased 73% to $677 billion · Microsoft Cloud revenue was $63.9 billion and increased 30% (up 31% in constant currency) · Azure revenue increased 48%"
+   ],
+   "values": [
+    "76.8",
+    "48%"
+   ],
+   "notes": "",
+   "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-data-center-q2fy27",
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 89.0,
+   "unit": "USD bn",
+   "period": "Q2 fiscal 2027",
+   "dated2026": true,
+   "claim": "NVIDIA's Data Center revenue for Q2 fiscal 2027 was a record $89.0 billion, up 117% from a year ago.",
+   "quotes": [
+    "Data Center revenue for the second quarter was a record $89.0 billion, up 117% from a year ago and up 18% sequentially, driven by the ramp of our Blackwell Ultra infrastructure."
+   ],
+   "values": [
+    "89.0",
+    "117%"
+   ],
+   "notes": "",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-edge-q2fy27",
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 7.2,
+   "unit": "USD bn",
+   "period": "Q2 fiscal 2027",
+   "dated2026": true,
+   "claim": "NVIDIA's Edge Computing revenue for Q2 fiscal 2027 was $7.2 billion, up 27% from a year ago.",
+   "quotes": [
+    "Edge Computing revenue for the second quarter was $7.2 billion, up 27% from a year ago and up 13% sequentially."
+   ],
+   "values": [
+    "7.2",
+    "27%"
+   ],
+   "notes": "",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-meta-three-billion-apps",
+   "actor": "meta",
+   "kind": "users",
+   "value": 3,
+   "unit": "billion monthly users per app (Facebook, WhatsApp, Instagram)",
+   "period": "Instagram milestone, Sep 2025",
+   "dated2026": false,
+   "claim": "Instagram reached 3 billion monthly users, joining Facebook and WhatsApp in the 3 billion users club.",
+   "quotes": [
+    "The platform previously crossed the 2 billion milestone back in 2021, and it has now joined Facebook and WhatsApp in the 3 billion users club."
+   ],
+   "values": [
+    "3 billion"
+   ],
+   "notes": "",
+   "url": "https://www.thurrott.com/cloud/327214/instagram-crosses-3-billion-monthly-active-users",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-microsoft-maia200-transistors",
+   "actor": "microsoft",
+   "kind": "units",
+   "value": 140,
+   "unit": "billion transistors per chip",
+   "period": "Maia 200, announced 26 Jan 2026",
+   "dated2026": true,
+   "claim": "Microsoft's Maia 200 accelerator is fabricated on TSMC's 3-nanometer process and has over 140 billion transistors per chip.",
+   "quotes": [
+    "YouTube Video Click here to load media Engineered for AI inference Fabricated on TSMC’s cutting-edge 3-nanometer process, each Maia 200 chip contains over 140 billion transistors and is tailored for large-scale AI workloads while also delivering efficient performance per dollar."
+   ],
+   "values": [
+    "140 billion"
+   ],
+   "notes": "",
+   "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-anthropic-claude-code-runrate",
+   "actor": "anthropic",
+   "kind": "runRate",
+   "value": 2.5,
+   "unit": "USD bn (Claude Code, over)",
+   "period": "12 Feb 2026",
+   "dated2026": true,
+   "claim": "Anthropic said Claude Code's run-rate revenue had grown to over $2.5 billion, more than doubled since the beginning of 2026.",
+   "quotes": [
+    "Today, Claude Code’s run-rate revenue has grown to over $2.5 billion; this figure has more than doubled since the beginning of 2026."
+   ],
+   "values": [
+    "2.5"
+   ],
+   "notes": "",
+   "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-tencent-hy3-params",
+   "actor": "tencent",
+   "kind": "units",
+   "value": 295,
+   "unit": "billion parameters (21 billion active)",
+   "period": "Hy3, July 2026",
+   "dated2026": true,
+   "claim": "Tencent's Hy3 is a Mixture of Experts model with 295 billion total parameters and 21 billion activated.",
+   "quotes": [
+    "Built on a Mixture of Experts (MoE) architecture, Hy3 features 295 billion total parameters with 21 billion activated parameters and supports a context window of up to 256K tokens."
+   ],
+   "values": [
+    "295 billion"
+   ],
+   "notes": "",
+   "url": "https://technode.com/2026/07/07/tencent-launches-hunyuan-hy3-integrates-model-across-multiple-products/",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  },
+  {
+   "id": "integration-nvidia-nemotron-super-params",
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 120,
+   "unit": "billion parameters (12 billion active)",
+   "period": "Nemotron 3 Super model card",
+   "dated2026": true,
+   "claim": "NVIDIA's Nemotron 3 Super model has 120 billion parameters in total and 12 billion active.",
+   "quotes": [
+    "The model has 12B active parameters and 120B parameters in total."
+   ],
+   "values": [
+    "120B"
+   ],
+   "notes": "",
+   "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+   "accessed": "2026-11-07",
+   "from": null,
+   "to": null
+  }
+ ],
+ "actors": [],
+ "flows": [],
+ "chokepoints": [],
+ "flashpoints": [],
+ "lineage": [],
+ "moats": [],
+ "presence": [
+  {
+   "actor": "google",
+   "stratum": "consumer",
+   "what": "Search, YouTube, Android, Chrome, Maps, Play; the Gemini app at 1 billion users, YouTube Music and Premium at 150 million subscribers; Q3 2026 Search & other $63.35 billion and YouTube ads $11.2 billion",
+   "facts": [
+    "integration-google-gemini-app-users",
+    "integration-google-youtube-music-subs",
+    "integration-google-services-scope",
+    "integration-google-search-youtube-q3"
+   ],
+   "family": [
+    "Search",
+    "YouTube",
+    "Android",
+    "Chrome",
+    "Maps",
+    "Play",
+    "Gemini app"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "models",
+   "what": "Gemini, built by DeepMind, serves the Gemini app and the cloud API",
+   "facts": [
+    "integration-google-gemini-app-users",
+    "str-alphabet-q3-revenue"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "clouds",
+   "what": "Google Cloud: $30.7 billion in the quarter, a $561 billion backlog, $200 billion of 2026 capex",
+   "facts": [
+    "labs-google-cloud-q3",
+    "buildout-google-cloud-backlog",
+    "labs-alphabet-capex-2026"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "chips",
+   "what": "TPU (Ironwood), now also sold as systems and used by Anthropic",
+   "facts": [
+    "integration-google-ironwood",
+    "integration-google-tpu-systems-sales",
+    "str-google-tpu-half",
+    "labs-anthropic-google-tpu"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "consumer",
+   "what": "Windows, Xbox, Surface ($15.5 billion segment), LinkedIn (1.4 billion members), GitHub Copilot, 365 Copilot",
+   "facts": [
+    "integration-microsoft-devices-consumer-revenue",
+    "integration-microsoft-linkedin-members",
+    "integration-microsoft-copilot-seats"
+   ],
+   "family": [
+    "Windows",
+    "Xbox",
+    "Surface",
+    "LinkedIn",
+    "GitHub",
+    "Microsoft 365",
+    "Copilot"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "models",
+   "what": "MAI models in GitHub Copilot, and a stake in OpenAI",
+   "facts": [
+    "integration-microsoft-github-copilot-mai",
+    "labs-microsoft-openai-stake"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "clouds",
+   "what": "Azure and Microsoft Cloud: $63.9 billion in the quarter, $677 billion contracted backlog, $45 billion capex in the quarter; Agents and Infra segment $76.8 billion, Azure up 48%",
+   "facts": [
+    "str-msft-cloud-q1fy27",
+    "balancea-microsoft-commit-rpo",
+    "labs-microsoft-capex-q1",
+    "integration-microsoft-agents-infra"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "chips",
+   "what": "Maia accelerators, in an explicit chips-models-applications model; Maia 200 on TSMC 3 nm with over 140 billion transistors",
+   "facts": [
+    "integration-microsoft-integrated-statement",
+    "integration-microsoft-maia200-transistors"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "consumer",
+   "what": "Retail: North America $112.9 billion and International $43.1 billion in the quarter; 1.5 billion fast deliveries; Leo satellites",
+   "facts": [
+    "integration-amazon-north-america-sales",
+    "integration-amazon-international-sales",
+    "str-amzn-delivery-scale",
+    "weapons-amazon-leo-launches"
+   ],
+   "family": [
+    "Retail",
+    "Prime",
+    "Advertising",
+    "Leo",
+    "Zoox"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "clouds",
+   "what": "AWS: $46.0 billion in the quarter; $220 billion of 2026 capex",
+   "facts": [
+    "str-amzn-aws-q3",
+    "labs-amazon-capex-2026"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "chips",
+   "what": "Graviton, Trainium and Nitro: $20 billion run rate, $225 billion of Trainium commitments",
+   "facts": [
+    "integration-amazon-chips-run-rate",
+    "integration-amazon-trainium-commitments",
+    "integration-amazon-graviton"
+   ],
+   "family": [
+    "Graviton",
+    "Trainium",
+    "Nitro"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "consumer",
+   "what": "Family of apps: 3.64 billion daily active people; Reality Labs devices at $80 billion of cumulative losses; Facebook, WhatsApp and Instagram each at 3 billion monthly users; Instagram bought for about $1 billion (2012), WhatsApp for about $19.3 billion (2014)",
+   "facts": [
+    "integration-meta-dap",
+    "weapons-reality-labs-cumulative",
+    "integration-meta-three-billion-apps",
+    "weapons-acq-instagram",
+    "weapons-acq-whatsapp"
+   ],
+   "family": [
+    "Facebook",
+    "Instagram",
+    "WhatsApp",
+    "Threads",
+    "Quest"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "models",
+   "what": "Muse, its first frontier model, from Meta Superintelligence Labs",
+   "facts": [
+    "str-meta-muse-spark"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "clouds",
+   "what": "Its own data centres, not sold: Hyperion planned at 5 GW, $140 billion of 2026 capex",
+   "facts": [
+    "buildout-meta-hyperion-5gw",
+    "labs-meta-capex-2026"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "chips",
+   "what": "MTIA 300 deployed; MTIA 400, 450 and 500 to follow, 72 chips to a rack",
+   "facts": [
+    "integration-meta-mtia300-deployed",
+    "integration-meta-mtia-roadmap"
+   ]
+  },
+  {
+   "actor": "apple",
+   "stratum": "consumer",
+   "what": "Devices: 2.5 billion active; 22% of global smartphones; $114.5 billion quarter",
+   "facts": [
+    "integration-apple-active-devices",
+    "integration-apple-smartphone-share",
+    "economy-apple-q4-revenue"
+   ],
+   "family": [
+    "iPhone",
+    "Mac",
+    "iPad",
+    "Watch",
+    "Services"
+   ]
+  },
+  {
+   "actor": "apple",
+   "stratum": "models",
+   "what": "Apple rents the model layer: Siri runs on a custom Google Gemini, chosen on price (reported)",
+   "facts": [
+    "integration-apple-gemini-siri"
+   ]
+  },
+  {
+   "actor": "nvidia",
+   "stratum": "chips",
+   "what": "Accelerators (75% of AI accelerators in 2026E), Vera CPU, Spectrum networking, DGX systems; Q2 FY27 Data Center $89.0 billion and Edge Computing $7.2 billion",
+   "facts": [
+    "compute-nvidia-accel-share",
+    "integration-nvidia-vera-cpu",
+    "integration-nvidia-spectrum6",
+    "integration-nvidia-dgx-station",
+    "integration-nvidia-data-center-q2fy27",
+    "integration-nvidia-edge-q2fy27"
+   ],
+   "family": [
+    "GPUs",
+    "CPUs",
+    "switches",
+    "DGX systems"
+   ]
+  },
+  {
+   "actor": "nvidia",
+   "stratum": "models",
+   "what": "Nemotron open models, used to build national and corporate models; Nemotron 3 Super at 120 billion parameters",
+   "facts": [
+    "integration-nvidia-nemotron",
+    "integration-nvidia-nemotron-super-params"
+   ]
+  },
+  {
+   "actor": "nvidia",
+   "stratum": "clouds",
+   "what": "$29 billion of cloud-service commitments, and customers such as SpaceXAI taking its CPUs",
+   "facts": [
+    "balancea-nvidia-commit-cloud",
+    "integration-nvidia-spacexai-vera"
+   ]
+  },
+  {
+   "actor": "tesla",
+   "stratum": "consumer",
+   "what": "Vehicles (486,532 delivered in the quarter) and 1.74 million active FSD subscriptions",
+   "facts": [
+    "economy-tesla-vs-byd-q3-deliveries",
+    "integration-tesla-fsd-subs"
+   ],
+   "family": [
+    "Cars",
+    "FSD",
+    "Optimus"
+   ]
+  },
+  {
+   "actor": "tesla",
+   "stratum": "models",
+   "what": "Its own driving and 'Super Intelligence' models: R&D up 69% to $2.76 billion",
+   "facts": [
+    "integration-tesla-rd"
+   ]
+  },
+  {
+   "actor": "tesla",
+   "stratum": "chips",
+   "what": "AI5 designed by Tesla, dual-sourced at Samsung and TSMC",
+   "facts": [
+    "integration-tesla-ai5-dual-source"
+   ]
+  },
+  {
+   "actor": "tesla",
+   "stratum": "energy",
+   "what": "Energy storage: 13.7 GWh deployed in the quarter",
+   "facts": [
+    "integration-tesla-energy-storage"
+   ]
+  },
+  {
+   "actor": "spacex",
+   "stratum": "consumer",
+   "what": "Starlink (10.3 million subscribers), X (550 million monthly users)",
+   "facts": [
+    "integration-spacex-starlink-subs",
+    "integration-spacex-x-mau"
+   ],
+   "family": [
+    "Starlink",
+    "X",
+    "Grok app"
+   ]
+  },
+  {
+   "actor": "xai",
+   "stratum": "models",
+   "what": "Grok: about 117 million monthly users of its AI features; $3.2 billion segment revenue in 2025",
+   "facts": [
+    "integration-spacex-grok-mau",
+    "labs-xai-segment-2025"
+   ]
+  },
+  {
+   "actor": "spacex",
+   "stratum": "clouds",
+   "what": "Colossus: 1.7 GW operating; $1.25 billion a month contracted by Anthropic",
+   "facts": [
+    "buildout-spacex-operating-17gw",
+    "labs-anthropic-colossus-contract"
+   ]
+  },
+  {
+   "actor": "samsung",
+   "stratum": "consumer",
+   "what": "Galaxy phones: 23% of global smartphones",
+   "facts": [
+    "integration-samsung-smartphone-share"
+   ],
+   "family": [
+    "Galaxy",
+    "displays",
+    "appliances"
+   ]
+  },
+  {
+   "actor": "samsung",
+   "stratum": "chips",
+   "what": "Memory: Device Solutions earned KRW 106.5 trillion in the quarter; 33% of HBM; HBM4 scaled up",
+   "facts": [
+    "integration-samsung-ds-q3",
+    "compute-samsung-hbm-share",
+    "integration-samsung-hbm4"
+   ]
+  },
+  {
+   "actor": "samsung",
+   "stratum": "fabs",
+   "what": "Foundry: 5.9% share; makes Tesla's AI5 in Texas",
+   "facts": [
+    "compute-samsung-foundry-share",
+    "integration-tesla-ai5-dual-source"
+   ]
+  },
+  {
+   "actor": "intel",
+   "stratum": "chips",
+   "what": "Intel Products: Data Center and AI group $7.3 billion, up 78%",
+   "facts": [
+    "integration-intel-dcai-revenue"
+   ]
+  },
+  {
+   "actor": "intel",
+   "stratum": "fabs",
+   "what": "Intel Foundry: $6.7 billion, 14A design kit released; NVIDIA invested $5 billion",
+   "facts": [
+    "integration-intel-foundry-revenue",
+    "integration-intel-14a-pdk",
+    "compute-nvidia-intel-investment"
+   ]
+  },
+  {
+   "actor": "broadcom",
+   "stratum": "chips",
+   "what": "Custom accelerators and networking: $20.8 billion semiconductor segment, $16.7 billion AI",
+   "facts": [
+    "integration-broadcom-semis-revenue",
+    "compute-broadcom-q3-ai",
+    "compute-broadcom-anthropic-tpu"
+   ]
+  },
+  {
+   "actor": "broadcom",
+   "stratum": "clouds",
+   "what": "Infrastructure software, built by acquisition: VMware (about $69 billion), CA Technologies (nearly $19 billion), Symantec enterprise ($10.7 billion); $8.75 billion in the latest quarter",
+   "facts": [
+    "integration-broadcom-infra-software",
+    "integration-broadcom-vmware-69bn",
+    "integration-broadcom-ca-19bn",
+    "integration-broadcom-symantec-107bn"
+   ],
+   "family": [
+    "VMware",
+    "CA Technologies",
+    "Symantec enterprise security"
+   ]
+  },
+  {
+   "actor": "oracle",
+   "stratum": "clouds",
+   "what": "Oracle Cloud Infrastructure $7.4 billion (up 121%); $664 billion backlog; on-premises software $5.5 billion",
+   "facts": [
+    "integration-oracle-iaas-revenue",
+    "labs-oracle-rpo",
+    "integration-oracle-software-revenue"
+   ]
+  },
+  {
+   "actor": "oracle",
+   "stratum": "consumer",
+   "what": "Cloud applications (SaaS): $4.2 billion in the quarter, enterprise users",
+   "facts": [
+    "integration-oracle-saas-revenue"
+   ]
+  },
+  {
+   "actor": "alibaba",
+   "stratum": "consumer",
+   "what": "Taobao and e-commerce folded into the consumer Qwen app",
+   "facts": [
+    "integration-alibaba-qwen-app"
+   ]
+  },
+  {
+   "actor": "alibaba",
+   "stratum": "models",
+   "what": "Qwen",
+   "facts": [
+    "integration-alibaba-qwen-app",
+    "integration-alibaba-ai-cloud-compute"
+   ]
+  },
+  {
+   "actor": "alibaba",
+   "stratum": "clouds",
+   "what": "AI Cloud and Compute Services: RMB48,437 million in the June quarter",
+   "facts": [
+    "integration-alibaba-ai-cloud-compute",
+    "integration-alibaba-tHead-merged"
+   ]
+  },
+  {
+   "actor": "alibaba",
+   "stratum": "chips",
+   "what": "T-Head Zhenwu accelerators (M890, 144GB HBM), merged into the cloud segment",
+   "facts": [
+    "integration-alibaba-zhenwu-m890",
+    "integration-alibaba-tHead-merged"
+   ]
+  },
+  {
+   "actor": "huawei",
+   "stratum": "consumer",
+   "what": "Phones and HarmonyOS: 17% of mainland smartphone OS use; RMB 880 billion revenue in 2025",
+   "facts": [
+    "integration-huawei-harmonyos-share",
+    "integration-huawei-revenue-2025"
+   ],
+   "family": [
+    "Phones",
+    "HarmonyOS",
+    "laptops"
+   ]
+  },
+  {
+   "actor": "huawei",
+   "stratum": "chips",
+   "what": "Ascend accelerators: $12 billion expected AI revenue; 43 large models pre-trained on Ascend",
+   "facts": [
+    "compute-huawei-ai-revenue",
+    "integration-huawei-ascend-models"
+   ]
+  },
+  {
+   "actor": "tencent",
+   "stratum": "consumer",
+   "what": "Weixin and WeChat: 1,439 million monthly users; games and advertising",
+   "facts": [
+    "integration-tencent-weixin-mau",
+    "economy-tencent-q2-revenue"
+   ],
+   "family": [
+    "Weixin",
+    "WeChat",
+    "QQ",
+    "games"
+   ]
+  },
+  {
+   "actor": "tencent",
+   "stratum": "models",
+   "what": "Hy3 (Hunyuan), top three by tokens on OpenRouter; 295 billion parameters",
+   "facts": [
+    "integration-tencent-hy3",
+    "integration-tencent-hy3-params"
+   ]
+  },
+  {
+   "actor": "tencent",
+   "stratum": "clouds",
+   "what": "Tencent Cloud, with RMB 59.3 billion of capex in the quarter",
+   "facts": [
+    "integration-tencent-capex-q2"
+   ]
+  },
+  {
+   "actor": "openai",
+   "stratum": "consumer",
+   "what": "ChatGPT: more than 900 million weekly active users and about 50 million paying subscribers; devices through the $6.5 billion io Products purchase (Jony Ive)",
+   "facts": [
+    "moats-openai-chatgpt-weekly-users",
+    "labs-openai-weekly-users",
+    "weapons-acq-openai-io"
+   ],
+   "family": [
+    "ChatGPT",
+    "Codex",
+    "io devices"
+   ]
+  },
+  {
+   "actor": "openai",
+   "stratum": "models",
+   "what": "GPT models: about $50 billion annualized revenue at an $852 billion valuation; enterprise clients roughly 40% of revenue",
+   "facts": [
+    "labs-openai-run-rate",
+    "labs-openai-valuation",
+    "str-openai-enterprise-share"
+   ]
+  },
+  {
+   "actor": "openai",
+   "stratum": "clouds",
+   "what": "Builds its own compute through Stargate: up to $500 billion planned with SoftBank, Oracle and MGX; Abilene about 1.2 GW; still rents (Oracle $300 billion, AWS $38 billion)",
+   "facts": [
+    "labs-stargate-500bn",
+    "buildout-stargate-abilene-12gw",
+    "labs-openai-oracle-300bn",
+    "labs-openai-aws-38bn"
+   ]
+  },
+  {
+   "actor": "openai",
+   "stratum": "chips",
+   "what": "Custom accelerators: 10 GW co-developed with Broadcom, plus a warrant for up to 160 million AMD shares tied to 6 GW of AMD GPUs",
+   "facts": [
+    "entry-openai-broadcom-10gw",
+    "labs-openai-broadcom-10gw",
+    "labs-openai-amd-warrant",
+    "entry-openai-amd-warrant"
+   ]
+  },
+  {
+   "actor": "anthropic",
+   "stratum": "consumer",
+   "what": "Claude apps and Claude Code: Claude Code run-rate over $2.5 billion in Feb 2026; Claude Code and Codex take 70% of a $34.0 billion enterprise AI coding market (Menlo estimate)",
+   "facts": [
+    "integration-anthropic-claude-code-runrate",
+    "moats-coding-agents-share-menlo"
+   ],
+   "family": [
+    "Claude apps",
+    "Claude Code",
+    "Claude for Work"
+   ]
+  },
+  {
+   "actor": "anthropic",
+   "stratum": "models",
+   "what": "Claude models: run-rate revenue over $47 billion in May 2026 at a $965 billion valuation; 55% of enterprise LLM API spend (Menlo, an investor)",
+   "facts": [
+    "labs-anthropic-run-rate-may",
+    "labs-anthropic-valuation",
+    "moats-anthropic-enterprise-api-share"
+   ]
+  },
+  {
+   "actor": "anthropic",
+   "stratum": "clouds",
+   "what": "Builds its own data centres: $50 billion with Fluidstack in Texas and New York; still rents AWS ($100 billion over time), Google TPUs, Azure ($30 billion) and SpaceX Colossus ($1.25 billion a month)",
+   "facts": [
+    "labs-anthropic-fluidstack-50bn",
+    "str-anthropic-aws-100bn",
+    "labs-anthropic-azure-nvidia",
+    "labs-anthropic-colossus-contract"
+   ]
+  },
+  {
+   "actor": "apple",
+   "stratum": "chips",
+   "what": "Apple silicon in its own devices: the M5 has a 10-core GPU with over 4x the peak GPU compute of M4; Apple is about $27 billion, about 18%, of TSMC's 2026 revenue (analyst estimate)",
+   "facts": [
+    "integration-apple-m5-gpu",
+    "str-tsmc-nvidia-apple"
+   ],
+   "family": [
+    "A-series",
+    "M-series",
+    "C1"
+   ]
+  },
+  {
+   "actor": "apple",
+   "stratum": "clouds",
+   "what": "Private Cloud Compute on servers Apple builds in its own Houston facility, inside a $600 billion US commitment",
+   "facts": [
+    "integration-apple-houston-600bn"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "models",
+   "what": "Nova models (four new models announced Dec 2025) and a stake in Anthropic, capped at 12%, with up to $25 billion more committed in April 2026",
+   "facts": [
+    "integration-amazon-nova-four-models",
+    "str-anthropic-aws-100bn",
+    "owners-amazon-anthropic-cap"
+   ],
+   "family": [
+    "Nova",
+    "Nova Forge",
+    "Nova Act"
+   ]
+  },
+  {
+   "actor": "huawei",
+   "stratum": "clouds",
+   "what": "Huawei Cloud: external revenue fell 3.5% to CNY 32.16 billion in 2025",
+   "facts": [
+    "integration-huawei-cloud-revenue"
+   ]
+  },
+  {
+   "actor": "huawei",
+   "stratum": "models",
+   "what": "Pangu models, applied in more than 500 scenarios across over 30 industries",
+   "facts": [
+    "integration-huawei-pangu-scenarios"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "stratum": "energy",
+   "what": "20-year Crane (Three Mile Island Unit 1) power purchase agreement with Constellation: about 835 MW",
+   "facts": [
+    "integration-microsoft-crane-ppa",
+    "str-mcap-constellation"
+   ]
+  },
+  {
+   "actor": "amazon",
+   "stratum": "energy",
+   "what": "Talen Susquehanna agreement: 1,920 MWe through 2042; a 190 MW, 20-year Calvert Cliffs deal with Constellation in Sep 2026",
+   "facts": [
+    "integration-amazon-talen-susquehanna",
+    "integration-amazon-calvert-cliffs"
+   ]
+  },
+  {
+   "actor": "meta",
+   "stratum": "energy",
+   "what": "20-year Clinton nuclear agreement with Constellation: 1,121 MW from June 2027",
+   "facts": [
+    "integration-meta-clinton-ppa"
+   ]
+  },
+  {
+   "actor": "google",
+   "stratum": "energy",
+   "what": "Kairos advanced nuclear: up to 500 MW by 2035; 890 MW new nuclear with Constellation (Oct 2026); bought Intersect for $4.75 billion in cash",
+   "facts": [
+    "integration-google-kairos",
+    "integration-google-constellation-890mw",
+    "integration-google-intersect"
+   ]
+  },
+  {
+   "actor": "xai",
+   "stratum": "energy",
+   "what": "On-site gas turbines for Colossus: 41 permitted at Southaven, Mississippi, about 1.2 GW",
+   "facts": [
+    "integration-xai-southaven-turbines"
+   ]
+  }
+ ],
+ "barriers": [],
+ "entrants": [],
+ "notes": "Round two added: OpenAI and Anthropic presence, Apple silicon and clouds, Amazon Nova, Huawei Cloud and Pangu, the energy stratum, family numbers. Still not verified: NVIDIA networking and gaming revenue (no longer reported), Meta's Llama, Microsoft's Windows user count, YouTube and Android user counts, Huawei Cloud, Taobao users, Alibaba cloud share. Starlink 12 million (Q2) rests on a secondary source. Several users figures (Grok, X) are secondary readings of SpaceX's S-1. Round two: Meta's per-app milestones rest on a secondary report (Thurrott) of Instagram's 3 billion; Apple's M-series number is Apple's own performance claim, not a unit count; the Houston server plant has no published capacity; Tesla AI5, Samsung HBM4, Alibaba T-Head and Meta MTIA still have no unit or size number.",
+ "openQuestions": [
+  "Is Colossus counted as SpaceX or xAI after the merger?",
+  "Tesla AI5, Meta MTIA, Alibaba Zhenwu and Samsung HBM4 presence still rest on events with no size number.",
+  "Is OpenAI's chip layer (Broadcom 10 GW, AMD 6 GW) a presence or only a contract until silicon ships?"
+ ]
+}

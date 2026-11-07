@@ -196,3 +196,16 @@ Chicxulub how the impact ended the dinosaurs.
 - The present's hills are piles of blocks (`PresentBlocks.cs`, drawn by `HillPresentLayer.BlockMesh`). Each block is $20B of output a year in 2025. A hill's footprint is still its value added, so its height is output over value added. From the ground up: the inputs bought from the other industries (BEA 2024 input-output table, earth tones by the seller's tier, grey unallocated), wages (blue), production taxes, and a gold crown of operating surplus. The 12 largest purchases between hills are arcs that land on the seller's own blocks. The capital threads run from each terrace's crowns, and faintly from each firm, to a hub. From the hub they fan out to the holders of corporate stock (DFA groups for the year; abroad from Z.1). Emphasis rows: `present.flows` and `present.capital`. The surface shader has an opt-in `_ZWrite`, used only by the blocks.
 - Impactors: the paths use the matter red. The grey rocks are gone: each body is a path pulse (`AddFlowPath`, `_FlowFreq` 1, one pass every 9 s).
 - Open: the owners' labels crowd at the yaw-160 pose (only two or three of the five show). The real-estate crown includes owner-occupiers' imputed rent, which the label does not yet say.
+
+## Added 6 Nov 2026 (latest): the hills as terrain of advantage
+
+The block piles (PresentBlocks) are replaced by `Assets/Scripts/Economy/Land/PresentPeaks.cs` (same .meta GUID, renamed):
+every named firm in industries.json (88 placed) is a peak whose footprint is its revenue share of the industry's IO output
+(widened when named revenue passes 70%, since revenue is worldwide) and whose height is its net margin (45 exploded units
+per 100%), so volume = profit. The rest of each industry is a Zipf spread of smaller peaks at its typical margin
+(illustrative). A glass plane at normal profit (Fortune 500 profits / revenue, circuit.json, 10%) sits on every terrace;
+the terrain is gold and blooms above it (advantage), the tier's earth tone below, with contours every 5% of margin.
+Veins (top 30 IO purchases) run from the seller's largest firm and branch into the buyer's three largest; capital
+threads come from the 10 most profitable firms' summits and each terrace's surplus. Slabs are now faint grey glass.
+Open: label crowding (only some firm labels survive layout), the bedrock dominates the lower frame, real estate's
+"rest" peaks are tall because its typical margin (REITs, 34%) is high.

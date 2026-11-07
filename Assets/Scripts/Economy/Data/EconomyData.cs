@@ -522,6 +522,11 @@ namespace Why.Economy.Data
         [JsonProperty("finalDemand")] public Dictionary<string, Dictionary<string, double>> FinalDemand;
         [JsonProperty("capture")] public List<Company> Capture;
         [JsonProperty("marketCapTotal")] public double MarketCapTotal;
+
+        /// <summary>The Fortune 500's profits and revenue ($B, latest list): their ratio is the present's normal margin.</summary>
+        [JsonProperty("fortune500Profits")] public double Fortune500Profits;
+
+        [JsonProperty("fortune500Revenue")] public double Fortune500Revenue;
         [JsonProperty("top10MarketCapShare")] public double Top10MarketCapShare;
 
         /// <summary>

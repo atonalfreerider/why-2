@@ -91,6 +91,34 @@ namespace Why
             }
         }
 
+        /// <summary>
+        /// Adds a band with a color and an intensity (HDR multiplier, &gt;1 blooms) per sample on both edges: terrain whose
+        /// glow varies across it.
+        /// </summary>
+        public void AddBand(IReadOnlyList<Vector3> inner, IReadOnlyList<Vector3> outer, IReadOnlyList<Color32> innerColors,
+            IReadOnlyList<Color32> outerColors, IReadOnlyList<float> innerIntensity, IReadOnlyList<float> outerIntensity, float id)
+        {
+            int n = Mathf.Min(inner.Count, outer.Count);
+            if (n < 2) return;
+            int b = vertices.Count;
+            for (int i = 0; i < n; i++)
+            {
+                vertices.Add(new Vertex { Pos = inner[i], Color = innerColors[i], P = new Vector4(id, innerIntensity[i], 0, 0) });
+                vertices.Add(new Vertex { Pos = outer[i], Color = outerColors[i], P = new Vector4(id, outerIntensity[i], 1, 0) });
+            }
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                int a = b + i * 2;
+                indices.Add(a);
+                indices.Add(a + 2);
+                indices.Add(a + 1);
+                indices.Add(a + 1);
+                indices.Add(a + 2);
+                indices.Add(a + 3);
+            }
+        }
+
         /// <summary>Adds a single triangle.</summary>
         public void AddTriangle(Vector3 a, Vector3 b, Vector3 c, Color32 color, float id, float intensity = 1,
             float noise = 0)

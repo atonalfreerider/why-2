@@ -24,8 +24,11 @@ namespace Why.Economy.Layers
     /// <see cref="PresentLayout.D"/> deep, lifted apart from one another;</item>
     /// <item>each industry's ridge swollen into a hill on its terrace, its footprint its value added, its relief the
     /// wave's;</item>
-    /// <item>the 25 stored firms as gold rings on stems on their hills' viewer-facing slopes, sized by market value
-    /// (HillActivityLayer's halo);</item>
+    /// <item>each hill a field of peaks (<see cref="PresentPeaks"/>): every named firm a peak as wide as its share of the
+    /// industry and as tall as its net margin, the rest of the industry smaller peaks at its typical margin; a glass plane
+    /// at normal profit on every terrace, gold where a peak rises above it (advantage);</item>
+    /// <item>veins: the largest purchases between industries, branching into the buyer's largest firms; gold threads
+    /// from the surplus and the most profitable firms to who holds corporate stock;</item>
     /// <item>faint guides from each part's near corners back to the crest face it came from, and labels: the tiers' value
     /// added and jobs, the state's account, the largest firms and industries.</item>
     /// </list>
@@ -87,19 +90,34 @@ namespace Why.Economy.Layers
 
         /// <summary>The view's key for the HUD's legend (<see cref="HillPresets.Key"/>): the tiers' and the state's colours and
         /// the year's area scale, kept from the last build.</summary>
-        public static HillPresets.ViewKey Key { get; private set; } = MakeKey(0);
+        public static HillPresets.ViewKey Key { get; private set; }
+
+        // after every static field (the key reads the colours declared below it)
+        static HillPresentLayer() => Key = MakeKey(0);
 
         InstantModel model;
         LandSnapshot snapshot;
         HillLandscape land;
         PresentLayout layout;
-        PresentBlocks blocks;
+        PresentPeaks peaks;
 
-        /// <summary>The firms' ring centres at the choreography's end (land-local), for the capital threads.</summary>
-        readonly List<Vector3> firmTops = new List<Vector3>();
+        /// <summary>The named firms' summits at the choreography's end (land-local) and their peaks, for the capital threads.</summary>
+        readonly List<(Vector3 at, PresentPeaks.Peak peak)> firmTops = new List<(Vector3, PresentPeaks.Peak)>();
 
         /// <summary>The colours of what a block is: imported or unallocated inputs, wages, production taxes, surplus.</summary>
-        static readonly Color Unallocated = new Color(.30f, .31f, .34f), WagesColor = EconomyStyle.Wages, Surplus = EconomyStyle.Capital;
+        static readonly Color Surplus = EconomyStyle.Capital;
+
+        /// <summary>Advantage's gold, from the plane (deep) to the highest margins (bright), and the normal-profit plane's glass.</summary>
+        static readonly Color GoldDeep = new Color(.78f, .52f, .14f), GoldBright = new Color(1f, .88f, .52f), Glass = new Color(.80f, .90f, 1f);
+
+        /// <summary>The margin above normal at which a peak's gold is brightest, and the contour interval (net margin).</summary>
+        const float GoldSpan = .3f, Contour = .05f;
+
+        /// <summary>A terrace's glass: its tier's earth tone greyed (gold is kept for advantage).</summary>
+        static Color SlabTone(int tier) => Color.Lerp(InputTone[Mathf.Clamp(tier, 0, 4)], new Color(.55f, .58f, .62f), .55f);
+
+        /// <summary>The terrain's grid cell (exploded units).</summary>
+        const float Cell = 1.6f;
 
         /// <summary>The owners of corporate stock: the wealth groups (Fed DFA) and abroad (Fed Z.1).</summary>
         static readonly (string id, string name)[] Owners = { ("top1", "Top 1%"), ("next9", "Next 9%"), ("next40", "Next 40%"), ("bottom50", "Bottom 50%"), ("abroad", "Abroad") };
@@ -311,11 +329,13 @@ namespace Why.Economy.Layers
             InstantYear instant = model?.Year(land.Year);
             InstantState state = instant?.State;
             layout = new PresentLayout(land, data.Industries, state?.Outlays ?? 0);
-            blocks = new PresentBlocks(layout, data.Industries, data.Circuit?.Io);
-            // the piles replace the relief: the parts' bounds (A3) and the labels stand on the blocks
-            if (blocks.Piles.Count > 0)
+            var circuit = data.Circuit;
+            double normal = circuit != null && circuit.Fortune500Revenue > 0 ? circuit.Fortune500Profits / circuit.Fortune500Revenue : .1;
+            peaks = new PresentPeaks(layout, data.Industries, circuit?.Io, normal);
+            // the peaks replace the relief: the parts' bounds (A3) and the labels stand on them
+            if (peaks.Peaks.Count > 0)
                 for (int k = 1; k <= 4; k++)
-                    layout.Terraces[k - 1].MaxRelief = blocks.MaxHeight(k);
+                    layout.Terraces[k - 1].MaxRelief = peaks.MaxHeight(k);
             content = new GameObject("The present, taken apart");
             content.transform.SetParent(transform, false);
             for (int p = 0; p < 5; p++)
@@ -331,7 +351,7 @@ namespace Why.Economy.Layers
             Labels(instant, data);
             Flows(data);
             Capital(data);
-            Key = MakeKey(layout.PerThousand, blocks.BlockValue, blocks.TableYear);
+            Key = MakeKey(layout.PerThousand, peaks.NormalMargin, peaks.TableYear);
             Log(instant, firmCount, firmOutside);
             // the new land's parts show at once at the clock (a rebuild mid-flight, a new year in the view)
             labelsShown = false;
@@ -386,7 +406,7 @@ namespace Why.Economy.Layers
         void Terraces()
         {
             Material slabs = SurfaceMaterial(3186), hills = SurfaceMaterial(3187), solid = SurfaceMaterial(3185);
-            // the blocks are solid: they write depth, before the slabs, so each hides what stands behind it
+            // the terrain is solid: it writes depth, before the slabs, so a peak hides what stands behind it
             solid.SetFloat("_ZWrite", 1);
             for (int k = 1; k <= 4; k++)
             {
@@ -409,7 +429,7 @@ namespace Why.Economy.Layers
                             high.Add(new Vector3(x, layout.Profile(j, x), d));
                         }
 
-                        b.AddBand(low, high, new[] { (Color32)WithAlpha(TierColor[j], d > 0 ? .2f : .16f) }, id);
+                        b.AddBand(low, high, new[] { (Color32)WithAlpha(SlabTone(j), d > 0 ? .09f : .07f) }, id);
                     }
 
                 // the plateau (and its riser) along the depth, the walls at both ends
@@ -422,11 +442,17 @@ namespace Why.Economy.Layers
                     high.Add(new Vector3(x, y, PresentLayout.D));
                 }
 
-                b.AddBand(low, high, new[] { (Color32)WithAlpha(Color.Lerp(TierColor[k], Color.white, .15f), .14f) }, id);
+                b.AddBand(low, high, new[] { (Color32)WithAlpha(Color.Lerp(SlabTone(k), Color.white, .15f), .1f) }, id);
+                // normal profit: a glass plane over the band at the normal margin's height; what rises through it is advantage
+                if (peaks != null && peaks.Peaks.Count > 0)
+                {
+                    float y = t.Top + PresentPeaks.Height(peaks.NormalMargin) / PresentLayout.S, d0 = 6, d1 = PresentLayout.D - 6;
+                    Quad(b, id, new Vector3(t.Band0, y, d0), new Vector3(t.Band1, y, d0), new Vector3(t.Band0, y, d1), new Vector3(t.Band1, y, d1), WithAlpha(Glass, .05f));
+                }
                 foreach (float x in new[] { t.X0, t.X1 })
                 {
                     float y = layout.Profile(k, x);
-                    if (y > .05f) Quad(b, id, new Vector3(x, 0, 0), new Vector3(x, 0, PresentLayout.D), new Vector3(x, y, 0), new Vector3(x, y, PresentLayout.D), WithAlpha(TierColor[k] * .7f, .24f));
+                    if (y > .05f) Quad(b, id, new Vector3(x, 0, 0), new Vector3(x, 0, PresentLayout.D), new Vector3(x, y, 0), new Vector3(x, y, PresentLayout.D), WithAlpha(SlabTone(k) * .7f, .12f));
                 }
 
                 AddRenderer(b.ToMesh("Present " + TierName[k]), slabs, Part.Terraces, roots[k], "Present " + TierName[k]);
@@ -434,8 +460,8 @@ namespace Why.Economy.Layers
                 hillRoots[k] = new GameObject("Hills " + TierName[k]).transform;
                 hillRoots[k].SetParent(roots[k], false);
                 hillRoots[k].localPosition = new Vector3(0, t.Top, 0);
-                bool piled = blocks != null && blocks.Piles.Count > 0;
-                AddRenderer((piled ? BlockMesh(k) : Relief(k)).ToMesh("Present hills " + TierName[k]), piled ? solid : hills, Part.Hills, hillRoots[k], "Present hills " + TierName[k]);
+                bool terrain = peaks != null && peaks.Peaks.Count > 0;
+                AddRenderer((terrain ? Terrain(k) : Relief(k)).ToMesh("Present hills " + TierName[k]), terrain ? solid : hills, Part.Hills, hillRoots[k], "Present hills " + TierName[k]);
             }
         }
 
@@ -506,65 +532,50 @@ namespace Why.Economy.Layers
             GraphMaterials.SetDash(r.sharedMaterial, 4, .55f);
         }
 
-        /// <summary>The 25 stored firms as gold rings on stems (HillActivityLayer's halo: a ring, an outer ring and an inner
-        /// one), on the viewer-facing slope of their hill, largest nearest the summit; the ring's radius grows with the square
-        /// root of market value, its width with net income, the stem with the log of market value as the wave's beams.</summary>
+        /// <summary>
+        /// The named firms' summits: a small ring on every peak that rises above normal profit, brighter and wider the more it
+        /// rises (the gold of the terrain says the same; the rings let the eye find the summits and carry the capital
+        /// threads). A firm below normal profit gets no ring: its share is ground, not advantage.
+        /// </summary>
         void Firms(out int count, out int outside)
         {
             count = outside = 0;
             firmTops.Clear();
-            TowerGeom[] towers = snapshot?.Land?.Towers;
-            if (towers == null || towers.Length == 0) return;
+            if (peaks == null) return;
+            outside = peaks.Outside;
             var b = new LineMeshBuilder();
             float id = Id(Part.Firms);
-            Color gold = EconomyStyle.Capital, pale = new Color(1, .95f, .85f);
-            foreach (IGrouping<int, TowerGeom> group in towers.GroupBy(t => t.Industry))
+            foreach (PresentPeaks.Peak p in peaks.Peaks)
             {
-                PresentLayout.Hill hill = layout.Hills.FirstOrDefault(h => h.Industry == group.Key);
-                if (hill == null) continue;
-                float d = PresentLayout.HillCenter * PresentLayout.D, previous = 0;
-                int seat = 0;
-                foreach (TowerGeom f in group.OrderByDescending(t => t.MarketCap))
-                {
-                    float r = Radius(f.MarketCap);
-                    d = seat == 0 ? d + r * .5f : d + previous + r + 2;
-                    d = Mathf.Min(d, PresentLayout.D - 2);
-                    float side = seat % 2 == 0 ? 1 : -1, x = hill.Center + side * Mathf.Min(PresentLayout.S * hill.Band * .3f, 5) / PresentLayout.S;
-                    Vector3 foot = OnGround(hill.Tier, x, d, .05f), top = foot + Vector3.up * Stem(f.MarketCap);
-                    firmTops.Add(top);
-                    float width = 1.6f + Mathf.Min(2, Mathf.Sqrt((float)Math.Max(0, f.NetIncome)) * .12f);
-                    b.AddSegment(foot, top, WithAlpha(gold, .8f), 1.4f, 0, id);
-                    Ring(b, id, top, r, gold, width);
-                    Ring(b, id, top + Vector3.up * .05f, r * 1.18f, gold, 1.2f);
-                    Ring(b, id, top, r * .72f, pale, 1.1f);
-                    if (Mathf.Abs(x - hill.Center) > hill.Band + 1e-3f || d < 0 || d > PresentLayout.D) outside++;
-                    previous = r;
-                    seat++;
-                    count++;
-                }
+                if (!p.Named) continue;
+                count++;
+                Vector3 top = InTerrace(p.Tier, peaks.Summit(p)) + Vector3.up * .3f;
+                firmTops.Add((top, p));
+                float excess = (float)(p.Margin - peaks.NormalMargin);
+                if (!p.MarginKnown || excess <= 0) continue;
+                float t = Mathf.Clamp01(excess / GoldSpan);
+                Ring(b, id, top, .8f + 2.2f * t, WithAlpha(Color.Lerp(GoldDeep, GoldBright, t), .5f + .5f * t), 1 + 1.5f * t);
             }
 
-            Lines(b, Part.Firms, content.transform, 3192, false);
+            Lines(b, Part.Firms, content.transform, 3192, true);
         }
 
-        /// <summary>A firm ring's radius (exploded units) and its stem (HillActivityLayer's beam), by market value ($B).</summary>
-        static float Radius(double marketCap) => 1.2f + .08f * Mathf.Sqrt((float)Math.Max(0, marketCap));
-
-        static float Stem(double marketCap) => 2 + Mathf.Log10(1 + (float)Math.Max(0, marketCap)) * 2.4f;
-
-        // ------------------------------------------------------------------ the blocks, the purchases and the capital
+        // ------------------------------------------------------------------ the terrain, the purchases and the capital
 
         /// <summary>How far above the present's highest point the capital canopy's hub floats, and its owners above that
         /// (exploded units).</summary>
         const float CanopyRise = 22, OwnersRise = 40;
 
-        /// <summary>A point on terrace k's ground at the choreography's end (land-local): the top of its blocks where they
-        /// stand, else the plateau (or the cut face's profile off the band), lifted by <paramref name="lift"/>.</summary>
+        /// <summary>The firms whose net income gets its own capital thread (the most profitable).</summary>
+        const int CapitalFirms = 10;
+
+        /// <summary>A point on terrace k's ground at the choreography's end (land-local): the terrain where it stands, else the
+        /// plateau (or the cut face's profile off the band), lifted by <paramref name="lift"/>.</summary>
         Vector3 OnGround(int tier, float x, float d, float lift = 0)
         {
-            if (blocks == null || blocks.Piles.Count == 0) return layout.OnTerrace(tier, x, d, lift);
+            if (peaks == null || peaks.Peaks.Count == 0) return layout.OnTerrace(tier, x, d, lift);
             PresentLayout.Terrace t = layout.Terraces[tier - 1];
-            float y = x >= t.Band0 && x <= t.Band1 ? t.Top + blocks.HeightAt(tier, x, d) : layout.Profile(tier, x);
+            float y = x >= t.Band0 && x <= t.Band1 ? t.Top + peaks.HeightAt(tier, x, d) : layout.Profile(tier, x);
             return layout.Root(tier, PresentLayout.Seconds).Apply(new Vector3(x, y, d)) + Vector3.up * lift;
         }
 
@@ -572,24 +583,9 @@ namespace Why.Economy.Layers
         Vector3 InTerrace(int tier, Vector3 local) =>
             layout.Root(tier, PresentLayout.Seconds).Apply(local + Vector3.up * layout.Terraces[tier - 1].Top);
 
-        /// <summary>What a block's face shows: an input the seller's tier colour (the state's for government; sellers in one
-        /// tier alternate a little in lightness so their sectors part), the rest by what it is.</summary>
-        static Color BlockColor(PresentBlocks.Block b)
-        {
-            switch (b.Kind)
-            {
-                case PresentBlocks.Kind.Input: return InputColor(b.SellerTier, b.Seller);
-                case PresentBlocks.Kind.Unallocated: return Unallocated;
-                case PresentBlocks.Kind.Wages: return WagesColor;
-                case PresentBlocks.Kind.Taxes: return EconomyStyle.Government;
-                default: return Surplus;
-            }
-        }
-
         /// <summary>
-        /// An input block's colour, by its seller's tier: earth tones under the value added, so the foundation reads apart
-        /// from the gold crown (raw materials the matter red, manufacturing bronze, services ochre, tech olive gold, the state
-        /// slate); sellers in one tier alternate a little in lightness so their sectors part.
+        /// An industry's earth tone, by tier: raw materials the matter red, manufacturing bronze, services ochre, tech olive,
+        /// the state slate; gold is kept for advantage. Sellers in one tier alternate a little in lightness.
         /// </summary>
         static Color InputColor(int tier, int seller)
         {
@@ -599,91 +595,134 @@ namespace Why.Economy.Layers
 
         static readonly Color[] InputTone =
         {
-            new Color(.48f, .52f, .60f), new Color(.80f, .16f, .10f), new Color(.52f, .33f, .20f), new Color(.66f, .50f, .30f), new Color(.55f, .55f, .26f)
+            new Color(.48f, .52f, .60f), new Color(.80f, .16f, .10f), new Color(.52f, .33f, .20f), new Color(.66f, .50f, .30f), new Color(.45f, .52f, .30f)
         };
 
-        /// <summary>Terrace k's piles: one box per block, a little apart from its neighbours so the courses read, shaded by
-        /// the view's light per face; faces hidden by a neighbour or the block above are left out.</summary>
-        SurfaceMeshBuilder BlockMesh(int k)
+        /// <summary>
+        /// Terrace k's terrain (<see cref="PresentPeaks"/>) over its band, crest units above its plateau: a grid of
+        /// <see cref="Cell"/> exploded units, heights first, then each vertex shaded by the view's light from the grid's own
+        /// slopes and coloured by the margin its height stands for: below normal profit the tier's earth, darker toward the
+        /// ground; above it gold, brighter and glowing (bloom) the further it rises; a faint contour every
+        /// <see cref="Contour"/> of margin, and a pale line where the terrain crosses normal profit.
+        /// </summary>
+        SurfaceMeshBuilder Terrain(int k)
         {
+            PresentLayout.Terrace t = layout.Terraces[k - 1];
+            const float d0 = 10, d1 = PresentLayout.D - 10;
+            int nx = Mathf.Clamp(Mathf.CeilToInt((t.Band1 - t.Band0) * PresentLayout.S / Cell), 4, 400), nd = Mathf.CeilToInt((d1 - d0) / Cell);
+            var h = new float[nx + 1, nd + 1];
+            for (int i = 0; i <= nx; i++)
+            for (int j = 0; j <= nd; j++)
+                h[i, j] = peaks.Exploded(k, Mathf.Lerp(t.Band0, t.Band1, i / (float)nx), Mathf.Lerp(d0, d1, j / (float)nd));
+
+            float dx = (t.Band1 - t.Band0) * PresentLayout.S / nx, dd = (d1 - d0) / nd, normal = (float)peaks.NormalMargin;
+            Color earth = InputTone[k];
             var b = new SurfaceMeshBuilder();
-            float id = Id(Part.Hills), ey = blocks.Edge / PresentLayout.S;
-            const float gap = .84f, rise = .9f;
-            foreach (PresentBlocks.Block blk in blocks.Blocks)
+            float id = Id(Part.Hills);
+            var pos = new Vector3[2][];
+            var col = new Color32[2][];
+            var glow = new float[2][];
+            for (int r = 0; r < 2; r++)
             {
-                PresentBlocks.Pile p = blocks.Of(blk.Hill);
-                if (p == null || p.Tier != k) continue;
-                int c = Mathf.RoundToInt((blk.X - p.X0) / p.PitchX), r = Mathf.RoundToInt((blk.D - p.D0) / blocks.Edge);
-                int Height(int cc, int rr) => cc < 0 || rr < 0 || cc >= p.Columns || rr >= p.Rows ? 0 : p.Heights[cc * p.Rows + rr];
-                float hx = p.PitchX * gap * .5f, hd = blocks.Edge * gap * .5f, y0 = blk.Course * ey, y1 = y0 + ey * rise;
-                Color col = BlockColor(blk);
-                float glow = blk.Kind == PresentBlocks.Kind.Surplus ? 1.5f : 1;
-                float x0 = blk.X - hx, x1 = blk.X + hx, d0 = blk.D - hd, d1 = blk.D + hd;
-                if (Height(c, r) == blk.Course + 1)
-                    Face(b, id, glow, new Vector3(x0, y1, d0), new Vector3(x1, y1, d0), new Vector3(x0, y1, d1), new Vector3(x1, y1, d1), col, Vector3.up);
-                if (Height(c - 1, r) <= blk.Course)
-                    Face(b, id, glow, new Vector3(x0, y0, d0), new Vector3(x0, y0, d1), new Vector3(x0, y1, d0), new Vector3(x0, y1, d1), col, Vector3.left);
-                if (Height(c + 1, r) <= blk.Course)
-                    Face(b, id, glow, new Vector3(x1, y0, d0), new Vector3(x1, y0, d1), new Vector3(x1, y1, d0), new Vector3(x1, y1, d1), col, Vector3.right);
-                if (Height(c, r - 1) <= blk.Course)
-                    Face(b, id, glow, new Vector3(x0, y0, d0), new Vector3(x1, y0, d0), new Vector3(x0, y1, d0), new Vector3(x1, y1, d0), col, Vector3.back);
-                if (Height(c, r + 1) <= blk.Course)
-                    Face(b, id, glow, new Vector3(x0, y0, d1), new Vector3(x1, y0, d1), new Vector3(x0, y1, d1), new Vector3(x1, y1, d1), col, Vector3.forward);
+                pos[r] = new Vector3[nx + 1];
+                col[r] = new Color32[nx + 1];
+                glow[r] = new float[nx + 1];
+            }
+
+            for (int j = 0; j <= nd; j++)
+            {
+                int row = j & 1;
+                float d = Mathf.Lerp(d0, d1, j / (float)nd);
+                for (int i = 0; i <= nx; i++)
+                {
+                    float y = h[i, j];
+                    float sx = (h[Mathf.Min(i + 1, nx), j] - h[Mathf.Max(i - 1, 0), j]) / (dx * (Mathf.Min(i + 1, nx) - Mathf.Max(i - 1, 0)));
+                    float sd = (h[i, Mathf.Min(j + 1, nd)] - h[i, Mathf.Max(j - 1, 0)]) / (dd * (Mathf.Min(j + 1, nd) - Mathf.Max(j - 1, 0)));
+                    float lit = .38f + .62f * Mathf.Clamp01(Vector3.Dot(new Vector3(-sx, 1, -sd).normalized, Light));
+                    float m = PresentPeaks.MarginOf(y), intensity = 1;
+                    Color c;
+                    if (m <= normal) c = Color.Lerp(earth * .35f, earth * 1.05f, Mathf.Sqrt(Mathf.Clamp01(m / normal)));
+                    else
+                    {
+                        float g = Mathf.Clamp01((m - normal) / GoldSpan);
+                        c = Color.Lerp(GoldDeep, GoldBright, g);
+                        intensity = 1 + 1.6f * g * g;
+                    }
+
+                    // contours (where the ground rises; flat valleys carry none) and normal profit's line
+                    float slope = Mathf.Sqrt(sx * sx + sd * sd), f = m / Contour - Mathf.Floor(m / Contour);
+                    if (m > .012f && slope > .05f && slope < 2.5f && (f < .09f || f > .97f)) c *= .7f;
+                    if (Mathf.Abs(m - normal) < .0045f && slope > .05f && slope < 2.5f)
+                    {
+                        c = Color.Lerp(c, Glass, .7f);
+                        intensity = Mathf.Max(intensity, 1.4f);
+                    }
+
+                    c *= lit;
+                    c.a = 1;
+                    pos[row][i] = new Vector3(Mathf.Lerp(t.Band0, t.Band1, i / (float)nx), y / PresentLayout.S + .02f, d);
+                    col[row][i] = c;
+                    glow[row][i] = intensity;
+                }
+
+                if (j > 0) b.AddBand(pos[row ^ 1], pos[row], col[row ^ 1], col[row], glow[row ^ 1], glow[row], id);
             }
 
             return b;
         }
 
-        static void Face(SurfaceMeshBuilder b, float id, float glow, Vector3 a0, Vector3 a1, Vector3 b0, Vector3 b1, Color c, Vector3 normal)
-        {
-            float lit = .42f + .58f * Mathf.Clamp01(Vector3.Dot(normal, Light));
-            Color shaded = c * lit;
-            shaded.a = 1;
-            b.AddBand(new[] { a0, a1 }, new[] { b0, b1 }, new[] { (Color32)shaded }, id, glow);
-        }
-
         /// <summary>
-        /// The largest purchases between hills (<see cref="PresentBlocks.Flows"/>): an arc from the seller's summit down onto
-        /// its own blocks in the buyer's ground floor, as wide as the purchase, in the seller's colour, pulses running to the
-        /// buyer; the three largest labelled. Lines only for the point: everything else the blocks' colours already say.
+        /// The industries' interdependence (<see cref="PresentPeaks.Flows"/>, the largest purchases between hills): each a
+        /// vein from the seller's largest firm, hugging the ground on one terrace or hanging like a root between two,
+        /// that branches at the buyer into its largest firms (each branch as wide as the firm's share of the purchase, by its
+        /// revenue). Veins taper from seller to buyer and grow more opaque as they arrive; the largest few carry pulses and
+        /// the three largest are labelled. Earth tones by the seller's tier, so they read as the ground's, not advantage's.
         /// </summary>
         void Flows(Data.EconomyData data)
         {
-            if (blocks == null || blocks.Flows.Count == 0) return;
+            if (peaks == null || peaks.Flows.Count == 0) return;
             var b = new LineMeshBuilder();
             float id = Id(Part.Flows);
-            double max = blocks.Flows[0].Value;
+            double max = peaks.Flows[0].Value;
             int drawn = 0;
-            foreach (PresentBlocks.Flow f in blocks.Flows)
+            foreach (PresentPeaks.Flow f in peaks.Flows)
             {
-                PresentLayout.Hill seller = layout.Hills.FirstOrDefault(h => h.Industry == f.Seller);
-                if (seller == null) continue;
-                Vector3 from = OnGround(seller.Tier, seller.Center, PresentLayout.D * .5f, 1.5f);
-                if (!blocks.Centroid(f.Buyer, x => x.Kind == PresentBlocks.Kind.Input && x.Seller == f.Seller, out Vector3 local)) continue;
-                Vector3 to = InTerrace(f.BuyerTier, local);
-                float span = Vector3.Distance(from, to);
-                Vector3 control = (from + to) * .5f + Vector3.up * (18 + .3f * span);
-                Color c = InputColor(f.SellerTier, 0);
-                float width = .8f + 2.6f * Mathf.Sqrt((float)(f.Value / max));
-                var pts = new List<LinePoint>(33);
-                float length = 0;
-                Vector3 last = from;
-                for (int i = 0; i <= 32; i++)
+                PresentPeaks.Field seller = peaks.Of(f.Seller), buyer = peaks.Of(f.Buyer);
+                if (seller == null || buyer == null || seller.Peaks.Count == 0 || buyer.Peaks.Count == 0) continue;
+                float v = Mathf.Sqrt((float)(f.Value / max)), width = .5f + 2.4f * v, alpha = .16f + .4f * v;
+                bool bright = drawn < 6;
+                Color c = Color.Lerp(InputColor(f.SellerTier, f.Seller), Color.white, .25f);
+                PresentPeaks.Peak source = seller.Peaks[0];
+                // the buyer's largest firms (its rest when it names none), the branches' ends on their near flanks
+                var ends = buyer.Peaks.Where(p => p.Named).Take(3).ToList();
+                if (ends.Count == 0) ends = buyer.Peaks.Take(2).ToList();
+                double revenue = ends.Sum(p => Math.Max(p.Revenue, p.Share));
+                Vector3 from = OnGround(seller.Tier, source.X, source.D + source.Rd * .5f, .4f);
+                Vector3 meet = Vector3.zero;
+                var targets = new List<Vector3>();
+                foreach (PresentPeaks.Peak p in ends)
                 {
-                    float t = i / 32f;
-                    Vector3 p = (1 - t) * (1 - t) * from + 2 * (1 - t) * t * control + t * t * to;
-                    length += Vector3.Distance(last, p);
-                    last = p;
-                    // faint where it leaves, full where it lands: the purchase arrives in the buyer's blocks
-                    pts.Add(new LinePoint(p, WithAlpha(c, Mathf.Lerp(.12f, .55f, t)), width, 0, 1));
+                    Vector3 at = OnGround(buyer.Tier, p.X, p.D - p.Rd * .55f, .35f);
+                    targets.Add(at);
+                    meet += at;
                 }
 
-                b.AddFlowPath(pts, id, length > 0 ? 1f / length : 1, drawn * .17f);
+                meet = Vector3.Lerp(meet / targets.Count, from, .3f);
+                meet.y = Mathf.Max(meet.y, GroundUnder(buyer.Tier, meet) + .5f);
+                float seed = drawn * 1.37f;
+                float length = Vein(b, id, from, meet, seller.Tier == buyer.Tier ? buyer.Tier : 0, c, width, width * .7f, alpha * .45f, alpha * .8f, seed, bright, drawn * .17f);
+                for (int e = 0; e < targets.Count; e++)
+                {
+                    float share = (float)(Math.Max(ends[e].Revenue, ends[e].Share) / Math.Max(1e-9, revenue));
+                    float w0 = Mathf.Max(.4f, width * .7f * Mathf.Sqrt(share));
+                    Vein(b, id, meet, targets[e], buyer.Tier, c, w0, w0 * .4f, alpha * .8f, alpha, seed + e * 2.1f, bright, drawn * .17f + length * .01f);
+                }
+
                 if (drawn < 3)
                     labels.Add(new HillLabel
                     {
                         Text = data.Industries[f.Seller].Name + " → " + data.Industries[f.Buyer].Name + " · " + LandFacts.Money(f.Value, 0) + " a year",
-                        At = .25f * from + .5f * control + .25f * to, Role = LabelRole.Note, Part = "present.flows", Rank = (float)f.Value
+                        At = Vector3.Lerp(from, meet, .5f) + Vector3.up * 3, Role = LabelRole.Note, Part = "present.flows", Rank = (float)f.Value
                     });
                 drawn++;
             }
@@ -695,13 +734,51 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
+        /// One vein from <paramref name="a"/> to <paramref name="b"/>: on one terrace (<paramref name="tier"/> &gt; 0) it
+        /// follows the ground a little above it; between terraces (0) it sags like a hanging root. Either way it meanders
+        /// (a lateral sway that vanishes at both ends), tapers from <paramref name="w0"/> to <paramref name="w1"/> and fades in
+        /// from <paramref name="a0"/> to <paramref name="a1"/>. Returns its length.
+        /// </summary>
+        float Vein(LineMeshBuilder lines, float id, Vector3 a, Vector3 b, int tier, Color c, float w0, float w1, float a0, float a1, float seed, bool pulse, float phase)
+        {
+            const int n = 28;
+            Vector3 span = b - a, side = Vector3.Cross(Vector3.up, span).normalized;
+            float distance = span.magnitude, sway = Mathf.Min(5, distance * .06f), sag = 8 + .1f * distance;
+            var pts = new List<LinePoint>(n + 1);
+            float length = 0;
+            Vector3 last = a;
+            for (int i = 0; i <= n; i++)
+            {
+                float t = i / (float)n;
+                Vector3 p = Vector3.Lerp(a, b, t) + side * (sway * Mathf.Sin(Mathf.PI * t) * Mathf.Sin(2.6f * Mathf.PI * t + seed));
+                if (tier > 0) p.y = Mathf.Max(p.y, GroundUnder(tier, p) + .45f);
+                else p.y -= sag * 4 * t * (1 - t);
+                length += Vector3.Distance(last, p);
+                last = p;
+                pts.Add(new LinePoint(p, WithAlpha(c, Mathf.Lerp(a0, a1, t)), Mathf.Lerp(w0, w1, t), 0, pulse ? 1.3f : 1));
+            }
+
+            if (pulse) lines.AddFlowPath(pts, id, length > 0 ? 1f / length : 1, phase);
+            else lines.AddPolyline(pts, id);
+            return length;
+        }
+
+        /// <summary>The ground's height (land-local y) under a land-local point on terrace k at the choreography's end.</summary>
+        float GroundUnder(int tier, Vector3 world)
+        {
+            PresentLayout.RootPose pose = layout.Root(tier, PresentLayout.Seconds);
+            float x = (world.x - pose.Position.x) / pose.Scale.x, d = (world.z - pose.Position.z) / pose.Scale.z;
+            return OnGround(tier, x, d).y;
+        }
+
+        /// <summary>
         /// Capital's connections: each terrace's operating surplus (its gold crowns) rises in one thread to a hub over the
         /// present, every stored firm's ring in a faint one, and from the hub the claims fan out to who holds corporate stock
         /// (the wealth groups' shares, Fed DFA, for the year; abroad, Fed Z.1), each owner a gold disc as large as its share.
         /// </summary>
         void Capital(Data.EconomyData data)
         {
-            if (blocks == null || blocks.Piles.Count == 0) return;
+            if (peaks == null || peaks.Peaks.Count == 0) return;
             float top = 0, x0 = float.MaxValue, x1 = float.MinValue;
             for (int k = 1; k <= 4; k++)
             {
@@ -718,29 +795,26 @@ namespace Why.Economy.Layers
             var discs = new SurfaceMeshBuilder();
             float id = Id(Part.Capital);
             Color gold = Surplus, pale = new Color(1, .93f, .78f);
-            double surplus = blocks.Surplus.Sum();
+            double surplus = peaks.Surplus.Sum();
 
-            // the crowns' threads, one per terrace from its surplus blocks' centre
+            // each terrace's operating surplus in one faint thread from its band's middle (the whole tier's, firms named or not)
             for (int k = 1; k <= 4; k++)
             {
-                Vector3 sum = Vector3.zero;
-                int n = 0;
-                foreach (PresentBlocks.Pile p in blocks.Piles)
-                {
-                    if (p.Tier != k || !blocks.Centroid(p.Industry, x => x.Kind == PresentBlocks.Kind.Surplus, out Vector3 local)) continue;
-                    int w = p.Count.TryGetValue(PresentBlocks.Kind.Surplus, out int c) ? c : 0;
-                    sum += InTerrace(k, local) * w;
-                    n += w;
-                }
-
-                if (n == 0) continue;
-                Vector3 from = sum / n;
-                float share = surplus > 0 ? (float)(blocks.Surplus[k - 1] / surplus) : 0;
-                Thread(lines, id, from, hub, WithAlpha(gold, .6f), 1 + 4.5f * Mathf.Sqrt(share), k * .21f);
+                PresentLayout.Terrace t = layout.Terraces[k - 1];
+                if (peaks.Surplus[k - 1] <= 0) continue;
+                Vector3 from = OnGround(k, (t.Band0 + t.Band1) * .5f, PresentLayout.D * .5f, 1);
+                float share = surplus > 0 ? (float)(peaks.Surplus[k - 1] / surplus) : 0;
+                Thread(lines, id, from, hub, WithAlpha(gold, .22f), .6f + 2.4f * Mathf.Sqrt(share), k * .21f);
             }
 
-            // every firm's faint thread: the same owners hold them all
-            for (int i = 0; i < firmTops.Count; i++) Thread(lines, id, firmTops[i], hub, WithAlpha(pale, .1f), .6f, i * .07f);
+            // the most profitable firms, each from its summit, as wide as its net income: advantage paid out to owners
+            var earners = firmTops.Where(f => f.peak.MarginKnown && f.peak.NetIncome > 0).OrderByDescending(f => f.peak.NetIncome).Take(CapitalFirms).ToList();
+            double most = earners.Count > 0 ? earners[0].peak.NetIncome : 1;
+            for (int i = 0; i < earners.Count; i++)
+            {
+                float v = Mathf.Sqrt((float)(earners[i].peak.NetIncome / most));
+                Thread(lines, id, earners[i].at, hub, WithAlpha(Color.Lerp(gold, pale, .3f), .1f + .32f * v), .4f + 2.2f * v, i * .07f);
+            }
 
             // the owners: the year's shares of household-held corporate stock, the rest of the world's share taken first
             var circuit = data.Circuit;
@@ -777,7 +851,7 @@ namespace Why.Economy.Layers
             Disc(discs, id, hub, 3, WithAlpha(gold, .5f));
             labels.Add(new HillLabel
             {
-                Text = "operating surplus " + LandFacts.Money(surplus, 1) + " a year: the gold crowns, owned by", At = hub + new Vector3(6, 2, 0),
+                Text = "operating surplus " + LandFacts.Money(surplus, 1) + " a year, and the " + CapitalFirms + " most profitable firms' net income, owned by", At = hub + new Vector3(6, 2, 0),
                 Role = LabelRole.Note, Part = "present.capital", Rank = 19
             });
             MeshRenderer r = Lines(lines, Part.Capital, content.transform, 3194, true);
@@ -856,17 +930,21 @@ namespace Why.Economy.Layers
                 Text = "taken from the crest: " + layout.Year + "'s cut face", At = Vector3.Lerp(new Vector3(layout.BedrockX0, 0, layout.CrestZ), bed.Apply(new Vector3(layout.BedrockX0, 0, 0)), .5f),
                 Role = LabelRole.Note, Part = "present.guides"
             });
-            TowerGeom[] towers = snapshot?.Land?.Towers;
-            if (towers == null) return;
-            foreach (TowerGeom f in towers.OrderByDescending(t => t.MarketCap).Take(FirmLabels))
-            {
-                PresentLayout.Hill hill = layout.Hills.FirstOrDefault(h => h.Industry == f.Industry);
-                if (hill == null) continue;
-                // over the hill's summit side, where its firms stand (the rings' own places are Firms')
-                Vector3 at = OnGround(hill.Tier, hill.Center, PresentLayout.HillCenter * PresentLayout.D + 10, Stem(f.MarketCap) + Radius(f.MarketCap) + 2);
-                labels.Add(new HillLabel { Text = f.Name, At = at, Role = LabelRole.Note, Part = "present.firms", Rank = (float)f.MarketCap });
-            }
+            if (peaks == null) return;
+            // advantage: the largest profits, each with its margin and share; and the largest firms below normal profit,
+            // whose share is scale without advantage
+            var named = firmTops.Where(f => f.peak.MarginKnown).ToList();
+            foreach ((Vector3 at, PresentPeaks.Peak p) in named.OrderByDescending(f => f.peak.NetIncome).Take(FirmLabels))
+                labels.Add(new HillLabel { Text = "<b>" + p.Name + "</b> · " + Percent(p.Margin) + " margin · " + Percent(p.Share) + " share", At = at + Vector3.up * 2.5f, Role = LabelRole.Note, Part = "present.firms", Rank = 12 + (float)p.NetIncome / 1000 });
+            foreach ((Vector3 at, PresentPeaks.Peak p) in named.Where(f => f.peak.Margin < peaks.NormalMargin).OrderByDescending(f => f.peak.Share * f.peak.Revenue).Take(2))
+                labels.Add(new HillLabel { Text = p.Name + " · " + Percent(p.Share) + " share, " + Percent(p.Margin) + " margin: scale, no advantage", At = at + Vector3.up * 2, Role = LabelRole.Note, Part = "present.firms", Rank = 11 });
+            // normal profit, on the plane where it meets the largest terrace's near edge
+            PresentLayout.Terrace wide = layout.Terraces.OrderByDescending(t => t.Band1 - t.Band0).First();
+            Vector3 plane = InTerrace(wide.Tier, new Vector3(wide.Band0 + (wide.Band1 - wide.Band0) * .15f, PresentPeaks.Height(peaks.NormalMargin) / PresentLayout.S, 8));
+            labels.Add(new HillLabel { Text = "normal profit · " + Percent(peaks.NormalMargin) + " net margin (Fortune 500): gold above it is advantage", At = plane, Role = LabelRole.Note, Part = "present.hills", Rank = 13 });
         }
+
+        static string Percent(double v) => (100 * v).ToString(Math.Abs(v) < .1 ? "0.#" : "0", LandFacts.Ci) + "%";
 
         /// <summary>"[Why] present YEAR: ..." with the design's checks A1-A3 (and the firms' A8), each failure an error.</summary>
         void Log(InstantYear instant, int firms, int outside)
@@ -878,27 +956,29 @@ namespace Why.Economy.Layers
             if (coincidence > MaxCoincidence) problems.Add($"at the clock's start a part stands {coincidence:0.00} off the crest's cut face (at most {MaxCoincidence})");
             var apart = new StringBuilder();
             float gap = layout.Disjoint(apart, problems);
-            if (outside > 0) problems.Add($"{outside} firm rings stand outside their hill's footprint");
+            if (outside > 0) problems.Add($"{outside} firm peaks stand outside their hill's footprint");
             Debug.Log($"[Why] present {layout.Year}: tiers 4, hills {hills}, area max err {area.ToString("0.0", LandFacts.Ci)}% " +
                       $"(1,000 u² = {LandFacts.Money(layout.PerThousand, 2)} a year; tier shares from {(shares != null ? "InstantModel" : "the industries' value added")}); " +
                       $"t0 coincidence max {coincidence.ToString("0.00", LandFacts.Ci)}; apart at t1, smallest gap {gap.ToString("0.0", LandFacts.Ci)} ({apart}); " +
                       $"firms {firms} ({outside} outside their hills); bedrock {(PresentLayout.S * layout.BedrockDepth).ToString("0", LandFacts.Ci)} deep; " +
-                      (blocks != null ? $"blocks {blocks.Blocks.Count} of {LandFacts.Money(blocks.BlockValue, 0)} on {blocks.Piles.Count} hills (edge {blocks.Edge.ToString("0.0", LandFacts.Ci)}, rounding at most {blocks.WorstRounding}), " +
-                                        $"arcs {blocks.Flows.Count} (largest {(blocks.Flows.Count > 0 ? LandFacts.Money(blocks.Flows[0].Value, 0) : "-")}), surplus {LandFacts.Money(blocks.Surplus.Sum(), 1)}" : "no blocks"));
-            if (blocks != null && blocks.WorstRounding > 1) problems.Add($"a hill's blocks are {blocks.WorstRounding} off its output over the block value");
+                      (peaks != null ? $"peaks {peaks.Peaks.Count} on {peaks.Fields.Count} fields ({peaks.Named} named firms, {peaks.Unplaced} without revenue), normal margin {Percent(peaks.NormalMargin)}, " +
+                                       $"veins {peaks.Flows.Count} (largest {(peaks.Flows.Count > 0 ? LandFacts.Money(peaks.Flows[0].Value, 0) : "-")}), surplus {LandFacts.Money(peaks.Surplus.Sum(), 1)}" : "no peaks"));
+            if (peaks != null && peaks.Named == 0) problems.Add("no named firm stands on the present's hills");
             foreach (string p in problems) Debug.LogError("[Why] present check failed: " + p);
         }
 
-        /// <summary>The view's legend: the tiers' and the state's colours, how to read area and height, and the year's scale.</summary>
-        static HillPresets.ViewKey MakeKey(double perThousand, double block = 0, int table = 0) => new HillPresets.ViewKey(new (string, Color)[]
+        /// <summary>The view's legend: how to read a peak (footprint share, height margin, volume profit), normal profit's
+        /// plane and its gold, the earth tones of the tiers and their veins, the capital threads and the bedrock.</summary>
+        static HillPresets.ViewKey MakeKey(double perThousand, double normal = 0, int table = 0) => new HillPresets.ViewKey(new (string, Color)[]
             {
-                ("Raw materials", TierColor[1]), ("Manufacturing · infrastructure", TierColor[2]), ("Services", TierColor[3]), ("Tech", TierColor[4]),
-                ("The state", TierColor[0]), ("Wages", WagesColor), ("Operating surplus · owners", Surplus), ("Imported or unallocated inputs", Unallocated)
+                ("Advantage: margin above normal profit", GoldBright), ("Normal profit", Glass), ("Raw materials", InputTone[1]), ("Manufacturing · infrastructure", InputTone[2]),
+                ("Services", InputTone[3]), ("Tech", InputTone[4]), ("The state", TierColor[0]), ("Owners of corporate stock", Surplus)
             },
-            "Each hill's footprint: its value added" + (perThousand > 0 ? " (1,000 square units = " + LandFacts.Money(perThousand, 2) + " a year)" : "") +
-            (block > 0 ? ". Each block: " + LandFacts.Money(block, 0) + " of its output a year. From the ground up, what it buys from the other industries (earth tones by the seller's tier: red raw materials, bronze manufacturing, ochre services, olive tech, slate the state), then wages, taxes and a gold crown of operating surplus: a hill stands as tall as it leans on the others" : "") +
-            (table > 0 ? " (the " + table + " input-output table, BEA, its ratios scaled to the year)" : "") +
-            ". Arcs: the largest purchases between industries, landing on the seller's own blocks. Gold threads: the surplus to who holds corporate stock (Fed DFA; abroad, Fed Z.1). The bedrock: what all levels of government spend; the white line, what they take in. Rings: the 25 stored firms, larger with market value.");
+            "Each hill's footprint: its industry's value added" + (perThousand > 0 ? " (1,000 square units = " + LandFacts.Money(perThousand, 2) + " a year)" : "") +
+            ". Each peak a firm: its footprint its share of the industry (revenue over the industry's output" + (table > 0 ? ", the " + table + " BEA input-output table scaled to the year" : "") +
+            "; worldwide revenue, so where the named firms pass 70% the industry is widened to fit), its height its net margin, so its volume is its profit. The small peaks: the rest of the industry at its typical margin (an illustrative spread)." +
+            (normal > 0 ? " The glass plane: normal profit, the Fortune 500's " + (100 * normal).ToString("0", LandFacts.Ci) + "% net margin; gold above it is advantage, brighter the higher it rises." : "") +
+            " Veins: the largest purchases between industries, branching into the buyer's largest firms. Gold threads: surplus and the most profitable firms' net income to who holds corporate stock (Fed DFA; abroad, Fed Z.1). The bedrock: what all levels of government spend; the white line, what they take in.");
 
         // ------------------------------------------------------------------ the smoke sequence
 
@@ -1012,7 +1092,7 @@ namespace Why.Economy.Layers
             labels.Clear();
             content = null;
             layout = null;
-            blocks = null;
+            peaks = null;
             firmTops.Clear();
             Array.Clear(roots, 0, roots.Length);
             Array.Clear(hillRoots, 0, hillRoots.Length);

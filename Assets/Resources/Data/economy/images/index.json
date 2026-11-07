@@ -9,7 +9,7 @@
   "actors-0.png",
   "actors-1.png"
  ],
- "manifest_sha256": "54eab77b02c0a3e434b0234f4b18f3f699b12244c26716273199aa1992017062",
+ "manifest_sha256": "da4828b72e19072f09105f3ccf452a860a58d276d0fe81a2858cfba6c1b40069",
  "cells": {
   "henry-luce": {
    "g": 0,
@@ -650,6 +650,239 @@
    "modified": "cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a circle",
    "attribution": "\"Sherman Mills Fairchild (1896–1971)\" by Pirie MacDonald, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Sherman_Mills_Fairchild_(1896%E2%80%931971).png). Cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a circle."
   },
+  "jean-hoerni": {
+   "g": 95,
+   "page": 1,
+   "slot": 31,
+   "col": 7,
+   "row": 3,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.875,
+    0.5,
+    1.0,
+    0.625
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Jean Hoerni",
+   "qid": "Q952816",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "JH",
+   "credit_short": null,
+   "attribution": "A monogram of Jean Hoerni's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
+  "jared-kaplan": {
+   "g": 96,
+   "page": 1,
+   "slot": 32,
+   "col": 0,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.0,
+    0.375,
+    0.125,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Jared Kaplan",
+   "qid": "Q102649624",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "JK",
+   "credit_short": null,
+   "attribution": "A monogram of Jared Kaplan's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
+  "niki-parmar": {
+   "g": 97,
+   "page": 1,
+   "slot": 33,
+   "col": 1,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.125,
+    0.375,
+    0.25,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Niki Parmar",
+   "qid": "Q110864221",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "NP",
+   "credit_short": null,
+   "attribution": "A monogram of Niki Parmar's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
+  "jakob-uszkoreit": {
+   "g": 98,
+   "page": 1,
+   "slot": 34,
+   "col": 2,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.25,
+    0.375,
+    0.375,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Jakob Uszkoreit",
+   "qid": "Q98891246",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "JU",
+   "credit_short": null,
+   "attribution": "A monogram of Jakob Uszkoreit's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
+  "llion-jones": {
+   "g": 99,
+   "page": 1,
+   "slot": 35,
+   "col": 3,
+   "row": 4,
+   "span": 1,
+   "shape": "circle",
+   "uv": [
+    0.375,
+    0.375,
+    0.5,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Llion Jones",
+   "qid": "Q130238722",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "author": "Syced",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "source_page": "https://commons.wikimedia.org/wiki/File:Llion_Jones,_author_of_Attention_is_All_You_Need,_at_CIC_Tokyo_speaking_about_sakana.ai_(cropped).jpg",
+   "commons_file": "Llion Jones, author of Attention is All You Need, at CIC Tokyo speaking about sakana.ai (cropped).jpg",
+   "title": "Llion Jones, author of Attention is All You Need, at CIC Tokyo speaking about sakana.ai (cropped)",
+   "credit_short": "Portrait: Syced · CC0 1.0",
+   "share_alike": false,
+   "restrictions": [],
+   "sha256": "2eb8244345ac2a60f0ae09be0292dc4c62a8b40de6a5670c6ebe60cd379bd0f5",
+   "modified": "cropped to a square around the subject and scaled to 256 px; packed into a 256 px atlas cell, masked to a circle",
+   "attribution": "\"Llion Jones, author of Attention is All You Need, at CIC Tokyo speaking about sakana.ai (cropped)\" by Syced, CC0 1.0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Llion_Jones,_author_of_Attention_is_All_You_Need,_at_CIC_Tokyo_speaking_about_sakana.ai_(cropped).jpg). Cropped to a square around the subject and scaled to 256 px; packed into a 256 px atlas cell, masked to a circle."
+  },
+  "aidan-gomez": {
+   "g": 100,
+   "page": 1,
+   "slot": 36,
+   "col": 4,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.5,
+    0.375,
+    0.625,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Aidan N. Gomez",
+   "qid": "Q110864219",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "ANG",
+   "credit_short": null,
+   "attribution": "A monogram of Aidan N. Gomez's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
+  "lukasz-kaiser": {
+   "g": 101,
+   "page": 1,
+   "slot": 37,
+   "col": 5,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.625,
+    0.375,
+    0.75,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Łukasz Kaiser",
+   "qid": "Q30251976",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "ŁK",
+   "credit_short": null,
+   "attribution": "A monogram of Łukasz Kaiser's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
+  "illia-polosukhin": {
+   "g": 102,
+   "page": 1,
+   "slot": 38,
+   "col": 6,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.75,
+    0.375,
+    0.875,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "person",
+   "label": "Illia Polosukhin",
+   "qid": "Q110864222",
+   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+   "text": "IP",
+   "credit_short": null,
+   "attribution": "A monogram of Illia Polosukhin's ticker or short name in Liberation Sans Bold; no third-party image."
+  },
   "united-states-ai": {
    "g": 18,
    "page": 0,
@@ -1071,6 +1304,33 @@
    "modified": "cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a rounded square",
    "attribution": "\"NVIDIA Headquarters\" by Coolcaesar, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:NVIDIA_Headquarters.jpg). Cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a rounded square. This thumbnail is shared under CC BY-SA 4.0."
   },
+  "alexnet-team": {
+   "g": 103,
+   "page": 1,
+   "slot": 39,
+   "col": 7,
+   "row": 4,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.875,
+    0.375,
+    1.0,
+    0.5
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "company",
+   "label": "AlexNet (Krizhevsky, Sutskever and Hinton)",
+   "qid": "Q28325009",
+   "text": "A(SH",
+   "credit_short": null,
+   "attribution": "A monogram of AlexNet (Krizhevsky, Sutskever and Hinton)'s ticker or short name in Liberation Sans Bold; no third-party image."
+  },
   "google": {
    "g": 33,
    "page": 0,
@@ -1406,6 +1666,203 @@
    "sha256": "5e8fc654ed580b40b223192ac58abff9a071ddb2bcfa92400d786dd11655102b",
    "modified": "scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted on a light rounded tile",
    "attribution": "\"3dfx logo\" by 3dfx Interactive, Inc., public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:3dfx_logo.svg). Scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted on a light rounded tile. The mark may be a trademark of 3dfx Interactive; it is shown only to identify 3dfx Interactive."
+  },
+  "ibm": {
+   "g": 104,
+   "page": 1,
+   "slot": 40,
+   "col": 0,
+   "row": 5,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.0,
+    0.25,
+    0.125,
+    0.375
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "company",
+   "label": "IBM",
+   "qid": "Q37156",
+   "text": "IBM",
+   "credit_short": null,
+   "attribution": "A monogram of IBM's ticker or short name in Liberation Sans Bold; no third-party image.",
+   "wide": "ibm@wide"
+  },
+  "ibm@wide": {
+   "g": 105,
+   "page": 1,
+   "slot": 41,
+   "col": 1,
+   "row": 5,
+   "span": 2,
+   "shape": "wordmark",
+   "uv": [
+    0.125,
+    0.25,
+    0.375,
+    0.375
+   ],
+   "content": [
+    8,
+    8,
+    496,
+    240
+   ],
+   "kind": "company",
+   "label": "IBM",
+   "qid": "Q37156",
+   "author": "Paul Rand",
+   "licence": "Public domain",
+   "licence_url": null,
+   "source_page": "https://commons.wikimedia.org/wiki/File:IBM_logo.svg",
+   "commons_file": "IBM logo.svg",
+   "title": "IBM logo",
+   "credit_short": "Logo: public domain",
+   "share_alike": false,
+   "restrictions": [
+    "trademarked"
+   ],
+   "sha256": "dfc8e2bfce47c472296c4aa8d819ffcdb30922c5f4e9df94148f75d724ff45b1",
+   "modified": "scaled to fit a 256 px square on transparency, uncropped; packed into a 512 x 256 px atlas cell, fitted on a light rounded tile",
+   "attribution": "\"IBM logo\" by Paul Rand, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:IBM_logo.svg). Scaled to fit a 256 px square on transparency, uncropped; packed into a 512 x 256 px atlas cell, fitted on a light rounded tile. The mark may be a trademark of IBM; it is shown only to identify IBM."
+  },
+  "taiwan": {
+   "g": 108,
+   "page": 1,
+   "slot": 44,
+   "col": 4,
+   "row": 5,
+   "span": 1,
+   "shape": "flag",
+   "uv": [
+    0.5,
+    0.25,
+    0.625,
+    0.375
+   ],
+   "content": [
+    8,
+    48,
+    240,
+    160
+   ],
+   "kind": "government",
+   "label": "Taiwan",
+   "qid": "Q865",
+   "author": "Sun Yat-sen",
+   "licence": "Public domain",
+   "licence_url": null,
+   "source_page": "https://commons.wikimedia.org/wiki/File:Flag_of_the_Republic_of_China.svg",
+   "commons_file": "Flag of the Republic of China.svg",
+   "title": "Flag of the Republic of China",
+   "credit_short": "Flag: public domain",
+   "share_alike": false,
+   "restrictions": [
+    "insignia"
+   ],
+   "sha256": "c7338f44e989fbfb7b842c22ec4a8f5f09ca32d4f9db3c262b3e5b06036f9f5f",
+   "modified": "scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted at its own aspect with rounded corners and a 1 px rule",
+   "attribution": "\"Flag of the Republic of China\" by Sun Yat-sen, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Flag_of_the_Republic_of_China.svg). Scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted at its own aspect with rounded corners and a 1 px rule. Official insignia, shown unaltered only to identify Taiwan."
+  },
+  "amd": {
+   "g": 109,
+   "page": 1,
+   "slot": 45,
+   "col": 5,
+   "row": 5,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.625,
+    0.25,
+    0.75,
+    0.375
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "company",
+   "label": "AMD",
+   "qid": "Q128896",
+   "text": "AMD",
+   "credit_short": null,
+   "attribution": "A monogram of AMD's ticker or short name in Liberation Sans Bold; no third-party image.",
+   "wide": "amd@wide"
+  },
+  "amd@wide": {
+   "g": 110,
+   "page": 1,
+   "slot": 46,
+   "col": 6,
+   "row": 5,
+   "span": 2,
+   "shape": "wordmark",
+   "uv": [
+    0.75,
+    0.25,
+    1.0,
+    0.375
+   ],
+   "content": [
+    8,
+    8,
+    496,
+    240
+   ],
+   "kind": "company",
+   "label": "AMD",
+   "qid": "Q128896",
+   "author": "Advanced Micro Devices, Inc.",
+   "licence": "Public domain",
+   "licence_url": null,
+   "source_page": "https://commons.wikimedia.org/wiki/File:AMD_Logo.svg",
+   "commons_file": "AMD Logo.svg",
+   "title": "AMD Logo",
+   "credit_short": "Logo: public domain",
+   "share_alike": false,
+   "restrictions": [
+    "trademarked"
+   ],
+   "sha256": "4b83eac5f604902764a0c0bf9c530054e3a403daecf69f0df676bdb1ba973557",
+   "modified": "scaled to fit a 256 px square on transparency, uncropped; packed into a 512 x 256 px atlas cell, fitted on a light rounded tile",
+   "attribution": "\"AMD Logo\" by Advanced Micro Devices, Inc., public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:AMD_Logo.svg). Scaled to fit a 256 px square on transparency, uncropped; packed into a 512 x 256 px atlas cell, fitted on a light rounded tile. The mark may be a trademark of AMD; it is shown only to identify AMD."
+  },
+  "deepseek": {
+   "g": 112,
+   "page": 1,
+   "slot": 48,
+   "col": 0,
+   "row": 6,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.0,
+    0.125,
+    0.125,
+    0.25
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "company",
+   "label": "DeepSeek",
+   "qid": "Q131577453",
+   "text": "D",
+   "credit_short": null,
+   "attribution": "A monogram of DeepSeek's ticker or short name in Liberation Sans Bold; no third-party image."
   },
   "napoleon": {
    "g": 47,
@@ -2657,6 +3114,33 @@
    "modified": "scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted at its own aspect with rounded corners and a 1 px rule",
    "attribution": "\"Royal Standard of the King of France\" by Sodacan, CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Royal_Standard_of_the_King_of_France.svg). Scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted at its own aspect with rounded corners and a 1 px rule. This thumbnail is shared under CC BY-SA 3.0. Official insignia, shown unaltered only to identify Kingdom of France."
   },
+  "french-population": {
+   "g": 113,
+   "page": 1,
+   "slot": 49,
+   "col": 1,
+   "row": 6,
+   "span": 1,
+   "shape": "monogram",
+   "uv": [
+    0.125,
+    0.125,
+    0.25,
+    0.25
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "group",
+   "label": "The French nation (the Third Estate)",
+   "qid": "Q909656",
+   "text": "TFT",
+   "credit_short": null,
+   "attribution": "A monogram of The French nation (the Third Estate)'s ticker or short name in Liberation Sans Bold; no third-party image."
+  },
   "catholic-church": {
    "g": 81,
    "page": 1,
@@ -2988,7 +3472,7 @@
    "col": 2,
    "row": 3,
    "span": 1,
-   "shape": "monogram",
+   "shape": "emblem",
    "uv": [
     0.25,
     0.5,
@@ -3003,10 +3487,19 @@
    ],
    "kind": "group",
    "label": "Russian Army",
-   "qid": null,
-   "text": "RA",
-   "credit_short": null,
-   "attribution": "A monogram of Russian Army's ticker or short name in Liberation Sans Bold; no third-party image."
+   "qid": "Q1078222",
+   "author": null,
+   "licence": "Public domain",
+   "licence_url": null,
+   "source_page": "https://commons.wikimedia.org/wiki/File:Badge_of_the_Russian_Imperial_Army.jpg",
+   "commons_file": "Badge of the Russian Imperial Army.jpg",
+   "title": "Badge of the Russian Imperial Army",
+   "credit_short": "Arms: public domain",
+   "share_alike": false,
+   "restrictions": [],
+   "sha256": "ae197b30fd0111c8c3e2304161a468682ef1741ec69fe1e8e0c1c6226048b576",
+   "modified": "scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted to the cell",
+   "attribution": "\"Badge of the Russian Imperial Army\", public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Badge_of_the_Russian_Imperial_Army.jpg). Scaled to fit a 256 px square on transparency, uncropped; packed into a 256 px atlas cell, fitted to the cell."
   },
   "spain": {
    "g": 91,
@@ -3155,6 +3648,43 @@
    "attribution": "\"Wiener Kongress Abschlussdokument 2\" by Thomas Ledl, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Wiener_Kongress_Abschlussdokument_2.JPG). Cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a rounded square. This thumbnail is shared under CC BY-SA 4.0."
   }
  },
- "retired": {},
+ "retired": {
+  "compaq": {
+   "g": 107,
+   "page": 1,
+   "slot": 43,
+   "col": 3,
+   "row": 5,
+   "span": 1,
+   "shape": "photo",
+   "uv": [
+    0.375,
+    0.25,
+    0.5,
+    0.375
+   ],
+   "content": [
+    8,
+    8,
+    240,
+    240
+   ],
+   "kind": "company",
+   "label": "Compaq",
+   "qid": "Q324603",
+   "author": "Terry Ross",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "source_page": "https://commons.wikimedia.org/wiki/File:Compaq_Presario_1200.jpg",
+   "commons_file": "Compaq Presario 1200.jpg",
+   "title": "Compaq Presario 1200",
+   "credit_short": "Portrait: Terry Ross · CC BY-SA 2.0",
+   "share_alike": true,
+   "restrictions": [],
+   "sha256": "ea0b15d03606963cd11c773ee83e73b3f66cfaeffa7ec9d017a0b6b175f31ed3",
+   "modified": "cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a rounded square",
+   "attribution": "\"Compaq Presario 1200\" by Terry Ross, CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0), via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Compaq_Presario_1200.jpg). Cropped to a centred square and scaled to 256 px; packed into a 256 px atlas cell, masked to a rounded square. This thumbnail is shared under CC BY-SA 2.0."
+  }
+ },
  "excluded": {}
 }

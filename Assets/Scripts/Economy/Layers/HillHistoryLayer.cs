@@ -242,8 +242,9 @@ namespace Why.Economy.Layers
 
         static Color PartColor(string part) => part switch
         {
-            "army" or "troops" => new Color(.95f, .46f, .34f), "navy" or "ships" => new Color(.32f, .58f, .98f),
-            "revenue" or "gdp" => new Color(.55f, .85f, .55f), "debt" => new Color(.86f, .30f, .26f), "users" => new Color(.98f, .60f, .85f),
+            "army" or "troops" or "subsidisedTroops" => new Color(.95f, .46f, .34f), "navy" or "ships" or "sailors" => new Color(.32f, .58f, .98f),
+            "revenue" or "gdp" or "incomeTax" => new Color(.55f, .85f, .55f), "debt" or "deficit" or "debtInterest" => new Color(.86f, .30f, .26f),
+            "spending" => new Color(1f, .62f, .40f), "users" => new Color(.98f, .60f, .85f),
             "parameters" or "compute" or "transistors" => new Color(.62f, .90f, 1f), "employees" or "people" or "defections" => new Color(1f, .78f, .62f),
             "marketValue" or "valuation" => new Color(.40f, .90f, .86f), "adherents" => new Color(.74f, .56f, 1f), "capital" or "capex" => new Color(1f, .82f, .45f),
             "casualties" or "executions" => new Color(.72f, .22f, .30f), "population" => new Color(1f, .74f, .62f),
@@ -622,7 +623,8 @@ namespace Why.Economy.Layers
             {
                 double size = a.SizeAt(part, year);
                 if (double.IsNaN(size) || size <= 0) continue;
-                bool below = part == "debt" || part == "casualties" || part == "executions";
+                // what it owes, spends away or loses hangs below; what it holds or fields stands above
+                bool below = part == "debt" || part == "deficit" || part == "debtInterest" || part == "spending" || part == "casualties" || part == "executions";
                 float r = LobeR(size);
                 parts.Add(new ContestNetwork.Part(below ? ContestNetwork.PartKind.Debt : ContestNetwork.PartKind.Built, Vector3.zero, r, Vol(r), PartColor(part), below ? .9f : .8f));
             }
@@ -999,7 +1001,7 @@ namespace Why.Economy.Layers
             }
         }
 
-        static string SourceWord(string source) => source switch
+        public static string SourceWord(string source) => source switch
         {
             "legitimacy" => "Legitimacy", "geography" => "Geography", "alliances" => "Allies", "capital" => "Capital", "supplyChain" => "Supply",
             _ => HillAdvantageLayer.SourceName(source),

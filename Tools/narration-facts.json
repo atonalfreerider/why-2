@@ -71,13 +71,13 @@
   "The eight founders of Fairchild were Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce and Sheldon Roberts. (story-ai-fairchild-eight-names)",
   "The eight formed Fairchild Semiconductor on 18 September 1957 after agreeing terms with Sherman Fairchild in August. (lineage-fairchild-founded-1957)",
   "Fairchild Semiconductor was started in 1957 to make silicon transistors when germanium was still the most common semiconductor material. (story-ai-fairchild-silicon)",
+  "Fairchild's first marketed transistor was the 1958 2N697 mesa transistor, whose first batch of 100 was sold to IBM at $150 apiece. (story-ai-fairchild-2n697)",
   "By 1960 Fairchild was an incubator of Silicon Valley whose alumni created dozens of corporations, including Intel and AMD. (lineage-fairchildren-1960)"
  ],
  "ai_chip": [
   "Jack Kilby took part, with Robert Noyce of Fairchild, in realizing the first integrated circuit at Texas Instruments in 1958. (story-ai-kilby-1958)",
   "Fairchild developed the planar process in 1959. (lineage-fairchild-planar-1959)",
   "Robert Noyce invented the first monolithic integrated circuit in 1959. (lineage-noyce-monolithic-ic-1959)",
-  "Fairchild's first batch of 100 devices was sold to IBM at $150 apiece for the B-70 bomber's computer. (lineage-fairchild-first-batch-ibm)",
   "Jack Kilby won the 2000 Nobel Prize in physics for his part in the invention of the integrated circuit. (lineage-kilby-nobel-2000)"
  ],
  "ai_microprocessor": [
@@ -140,7 +140,7 @@
   "GPT-2 was partially released in February 2019, followed by the full 1.5-billion-parameter model on 5 November 2019. (story-ai-gpt2-params)",
   "Kaplan et al. found language-model loss scales as a power law in model size, data and compute over more than seven orders of magnitude (submitted 23 January 2020). (lineage-scaling-laws-2020)",
   "GPT-3 had 175 billion parameters, ten times any previous non-sparse language model (submitted 28 May 2020). (lineage-gpt3-175b-2020)",
-  "Microsoft invested $1 billion in OpenAI LP in 2019 and OpenAI's services were migrated to Microsoft Azure. (story-ai-microsoft-openai-2019)",
+  "After OpenAI became a capped for-profit in 2019, Microsoft invested $1 billion in OpenAI LP. (story-ai-microsoft-openai-2019)",
   "On 22 September 2020 Microsoft announced that it had licensed GPT-3 exclusively. (story-ai-gpt3-microsoft-licence)"
  ],
  "ai_chatgpt": [
@@ -220,7 +220,8 @@
  "rev_terror": [
   "By the end of the Terror 16,594 official death sentences had been dispensed in France since June 1793, 2,639 of them in Paris. (story-revolutions-terror-death-sentences)",
   "Between 10 June and 27 July 1794, after the Law of 22 Prairial, another 1,366 were executed. (story-revolutions-terror-prairial)",
-  "On 28 July 1794 Robespierre and twenty-one Robespierrists were sentenced to death by the Revolutionary Tribunal without a hearing. (story-revolutions-robespierre-executed)"
+  "By 2 p.m. Robespierre and twenty-one Robespierrists were sentenced to death under the law of 22 Prairial, without even a cursory hearing. (story-revolutions-robespierre-executed)",
+  "Robespierre was executed on 28 July 1794, the date with which the Terror is often said to end. (story-revolutions-robespierre-guillotined)"
  ],
  "rev_brumaire": [
   "The bloodless coup of 18 Brumaire, on 9 November 1799, overthrew the Directory and replaced it with the French Consulate. (story-revolutions-coup-1799)",
@@ -248,7 +249,7 @@
   "At Austerlitz Napoleon had some 72,000 men and 157 guns, against about 85,000 Allied soldiers, seventy percent of them Russian, and 318 guns. (story-revolutions-austerlitz-french-force)",
   "Allied casualties at Austerlitz stood at about 36,000 out of an army of 89,000, about 38% of their effective forces. (story-revolutions-austerlitz-allied-losses)",
   "The Grande Armee advanced with the bataillon-carre system and decisively defeated the Prussians at Jena and Auerstedt on 14 October 1806. (archetypes-napoleon-jena-1806)",
-  "At Jena in 1806 the Prussian army was about 130,000 Prussians and 20,000 Saxons. (story-revolutions-jena-prussian-army)"
+  "The Prussian army awaiting Napoleon's advance in 1806 was a force of about 130,000 Prussians and 20,000 Saxons. (story-revolutions-jena-prussian-army)"
  ],
  "rev_russia": [
   "The Continental System, a large-scale embargo of Britain, ran from the Berlin Decree of 21 November 1806 until 11 April 1814. (story-revolutions-berlin-decree)",

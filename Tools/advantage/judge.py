@@ -21,7 +21,7 @@ what changed. The credential is found by Tools/jev.py and never printed or store
 
 Usage (from the repository root):
     python3 -I Tools/advantage/judge.py                    # every judgment
-    python3 -I Tools/advantage/judge.py --only actors      # actors | strategy | flows | chokepoints | flashpoints
+    python3 -I Tools/advantage/judge.py --only actors      # actors | strategy | flows | chokepoints | flashpoints | moats | entry | history
     python3 -I Tools/advantage/judge.py --dry              # count the requests, call nothing
     python3 -I Tools/advantage/judge.py --offline          # cached answers only
     python3 -I Tools/advantage/judge.py --model M --out J  # another model file (a test)
@@ -253,6 +253,59 @@ def moat_questions(sources):
         "criteria": WALL_LEVELS} for src in sources}
 
 
+# The history stories' advantages (Docs/hills-design/HISTORY.md): the same question for any era, its levels in the era's
+# own terms (no dollar amounts, no "this decade").
+HISTORY_WALL_LEVELS = ["No barrier: a rival could match it within a year or two with ordinary effort.",
+                       "A low barrier: a determined rival could match it within a few years.",
+                       "A real barrier: rivals needed many years and great resources to match it, and were trying.",
+                       "A high barrier: only the greatest powers of the time could match it, over a decade or more.",
+                       "Near-insurmountable: no rival of the time could match it; the period was built on it."]
+
+
+def history_questions(sources):
+    """One Score per source of a historical advantage: how much that source alone kept rivals from taking the contest
+    from its holder in that period."""
+    return {"wall_" + src: {
+        "type": "score",
+        "instructions": "`moat` says where `moat.holder` held an advantage from `moat.from` to `moat.to`: the contest "
+                        "(`moat.contest`) and its rivals (`moat.rivals`). `moat.sources." + src + "` is one source of that "
+                        "advantage, with what it was and the verified evidence for it. Judge that source alone, in that "
+                        "period: how much did it keep rivals from taking the contest from the holder?",
+        "criteria": HISTORY_WALL_LEVELS} for src in sources}
+
+
+def history_moats(model):
+    """The stories' moats (Docs/research/advantage/story-*.json) with their ids as history.py writes them, each with its
+    state: the holder, the period, the contest, the rivals, and each source's what and verified evidence (a source named
+    twice is one source with both)."""
+    facts = model.get("facts", {})
+    out = []
+    for cluster, story in (("story-ai", "ai"), ("story-revolutions", "rev")):
+        path = os.path.join(RESEARCH, cluster + ".json")
+        if not os.path.exists(path):
+            continue
+        data = load(path)
+        names = {a["id"]: a.get("name") or a["id"] for a in data.get("actors", [])}
+        for m in data.get("moats", []):
+            srcs = {}
+            for x in m.get("sources") or []:
+                src = x.get("source")
+                if not src:
+                    continue
+                e = srcs.setdefault(src, {"what": [], "evidence": []})
+                if x.get("what"):
+                    e["what"].append(x["what"])
+                e["evidence"] += [c for c in verified_claims(model, x.get("facts"), 10) if c not in e["evidence"]]
+            srcs = {k: {"what": "; ".join(v["what"]), "evidence": v["evidence"]} for k, v in srcs.items() if v["evidence"]}
+            if not srcs:
+                continue
+            mid = f"hmoat-{story}-{m.get('actor')}-{m.get('from')}"
+            state = {"moat": {"holder": names.get(m.get("actor"), m.get("actor")), "from": m.get("from"), "to": m.get("to"),
+                              "contest": m.get("market"), "rivals": [names.get(r, r) for r in m.get("rivals") or []], "sources": srcs}}
+            out.append((mid, state, list(srcs)))
+    return out
+
+
 ENTRY_Q = {
     "hard": {
         "type": "score",
@@ -474,6 +527,9 @@ def main():
             srcs = [x["source"] for x in m.get("sources") or [] if x.get("source")]
             if srcs:
                 jobs.append(("moats", m["id"], moat_state(model, actors, m), moat_questions(srcs)))
+    if only in (None, "history"):
+        for mid, state, srcs in history_moats(model):
+            jobs.append(("history", mid, state, history_questions(srcs)))
     if only in (None, "entry"):
         for sid, nm in STRATA_NAMES.items():
             st = entry_state(model, actors, sid, nm)
@@ -490,7 +546,7 @@ def main():
     if not offline and not jev.available():
         sys.exit("Jev credential unavailable: no judgments made")
     out = load(OUT) if os.path.exists(OUT) else {}
-    for section in ("actors", "strategy", "flows", "chokepoints", "flashpoints", "moats", "entry"):
+    for section in ("actors", "strategy", "flows", "chokepoints", "flashpoints", "moats", "entry", "history"):
         out.setdefault(section, {})
     done = [0]
 

@@ -316,3 +316,43 @@ Open from it:
 - *Quest.* There is no XR profile: 56 organisms means about 56 draw calls.
 - *People.* Founders are named in text only; images would need the user's approval.
 
+
+**Sixth direction** (7 Nov 2026, verbatim in `Docs/research/advantage/brief-v4.md`), built. It covers the people on the
+hill as a point cloud; the design language carried back through history for governments, armies, populations and
+faiths; shapes that compress to a timeline and explode to a cross-section; and two narrated stories with portraits and
+logos. The design is `HISTORY.md`.
+
+- *People.* `HillAdvantageLayer.People`: one point per 100,000 people.
+  - The points stand on the slope of the hill that pays each group (`HillLandscape.Footing`), so class is altitude on
+    one's own hill. They are clamped behind the crest and parented outside the arena's opening scale.
+  - The walking markers are off in this view.
+- *History view* (view `history`, view bar chapter "History"; `Layers/HillHistoryLayer.cs`, `Model/History.cs`, data
+  `Resources/Data/economy/stories.json`). Not `history.json`: that is the households' calibration series.
+  - Compressed, each actor is a tube of point rings in a lane: successor regimes share a lane, and the coalitions share
+    one. Moments are sparks with ties, periods are brackets, and the year is a gold cursor.
+  - Opened at a year, the slices become occluding point-cloud bodies. They stand in rows by kind and sides by the
+    nearest moment, each documented advantage a ring walled by its sources (Jev, `judge.py --only history`).
+  - Values hold from their measurement and are never drawn between two.
+  - The smoke sequence is `-smokeextra history`.
+- *Panel and popups.* `UI/HistoryPanel.cs`: the two stories, the moments, open or close, play the story, and the reading
+  of the moment. `UI/HistoryPopups.cs` and `UI/ActorImages.cs`: portrait and logo cards from the 256 px atlas in
+  `Resources/Data/economy/images` (75 of 81 free-licensed; credits on the cards and in
+  `Docs/research/advantage/image-credits.md`).
+- *Stories.* `Tools/advantage/story_scripts.py` writes `story_ai_*` (16 stops) and `story_revolutions_*` (17 stops)
+  in `Resources/Data/Walkthrough`.
+  - Every number is a verified fact (154 new facts in round four, `story-ai.json` and `story-revolutions.json`).
+  - Every stop passes `check-narration.py ai` and `revolutions`.
+  - They are voiced as JohnV4: 33 clips, 16.5 minutes, in `Audio/EconomyTour`, which is gitignored and local.
+  - Cues are timed from the clips' lengths.
+  - `DirectorMode.StartStory` plays a story with its own title and end cards. The smoke option is
+    `-smokestory ai,revolutions`.
+- *Images.* `Tools/advantage/story_images.py` writes `Tools/images/stories.json` from the stories, with the crop review's
+  overrides. Fetch and pack it with `Tools/images/fetch.py`; the atlas is built in the mirror's `work/stories-images`.
+
+Open from it:
+- *Thin data.* Some actors have no measured size (Habsburg Austria, Prussia, Spain, most coalitions) and stand as grey
+  "not measured" bodies. The AI story's early cross-sections are sparse: the US's first value is 1950's GDP.
+- *Portraits.* Krizhevsky, Vaswani and Shazeer have no Wikidata portrait and show monograms. The Royal Navy shows the
+  post-1801 ensign in 1781.
+- *Audio import.* `Editor/NarrationImport.cs` streams only `Audio/Tour` clips; the EconomyTour clips, the stories'
+  included, decompress on load.

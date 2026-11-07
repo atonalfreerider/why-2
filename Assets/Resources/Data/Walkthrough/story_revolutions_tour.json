@@ -15,7 +15,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 34,
+      "hold": 35,
       "cues": [
         {
           "at": 0.0,
@@ -35,7 +35,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 26,
+      "hold": 25,
       "cues": [
         {
           "at": 0.0,
@@ -55,7 +55,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 27,
+      "hold": 26,
       "cues": [
         {
           "at": 0.0,
@@ -75,14 +75,14 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 31,
+      "hold": 30,
       "cues": [
         {
           "at": 0.0,
           "show": "history:rev:1781.708:x:sel=french-navy:pop=de-grasse,rochambeau"
         },
         {
-          "at": 9.6,
+          "at": 8.8,
           "show": "history:rev:1781.792:x:sel=continental-army:pop=george-washington,rochambeau,cornwallis"
         }
       ]
@@ -106,7 +106,7 @@
           "show": "history:rev:1783.6:sel=kingdom-of-france:pop=necker,calonne"
         },
         {
-          "at": 13.6,
+          "at": 13.2,
           "show": "history:rev:1788.4:x:sel=kingdom-of-france:pop=necker,calonne,louis-xvi"
         }
       ]
@@ -123,7 +123,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 28,
+      "hold": 25,
       "cues": [
         {
           "at": 0.0,
@@ -183,7 +183,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 24,
+      "hold": 23,
       "cues": [
         {
           "at": 0.0,
@@ -194,7 +194,7 @@
     {
       "id": "rev_terror",
       "title": "The Terror",
-      "text": "From June 1793 the Terror issued 16,594 official death sentences, 2,639 of them in Paris; after the Law of 22 Prairial another 1,366 people were executed in seven weeks. On 28 July 1794 Robespierre and 21 of his followers were sentenced to death without a hearing.",
+      "text": "From June 1793 the Terror issued 16,594 official death sentences, 2,639 of them in Paris; after the Law of 22 Prairial another 1,366 people were executed in seven weeks. Robespierre and 21 of his followers were then sentenced to death under the same law without a hearing; he was executed on 28 July 1794.",
       "reading": "The dark red lobe beneath the Republic is the Terror's death sentences.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
@@ -203,7 +203,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 31,
+      "hold": 36,
       "cues": [
         {
           "at": 0.0,
@@ -250,7 +250,7 @@
           "show": "history:rev:1801.5:sel=first-french-empire:pop=napoleon,pius-vii"
         },
         {
-          "at": 10.1,
+          "at": 9.5,
           "show": "history:rev:1804.958:x:sel=first-french-empire:pop=napoleon,pius-vii"
         }
       ]
@@ -267,7 +267,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 31,
+      "hold": 32,
       "cues": [
         {
           "at": 0.0,
@@ -282,7 +282,7 @@
     {
       "id": "rev_austerlitz",
       "title": "Austerlitz and Jena",
-      "text": "At Austerlitz Napoleon had some 72,000 men and 157 guns against about 85,000 Allies, 70% of them Russian, with 318 guns. The Allies lost about 36,000 of 89,000, 38% of their force. On 14 October 1806 the Grande Armée decisively defeated the Prussians, about 130,000 with 20,000 Saxons, at Jena and Auerstedt.",
+      "text": "At Austerlitz Napoleon had some 72,000 men and 157 guns against about 85,000 Allies, 70% of them Russian, with 318 guns. Allied casualties were about 36,000 of 89,000, 38% of their force. The Prussian army awaiting Napoleon in 1806, about 130,000 with 20,000 Saxons, was decisively defeated at Jena and Auerstedt on 14 October.",
       "reading": "The Grande Armée's ring: technology, talent and scale.",
       "measured": "dates, counts and values: verified facts, each quote found on its source",
       "judged": "the walls of each advantage (0 to 4)",
@@ -291,14 +291,14 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 34,
+      "hold": 38,
       "cues": [
         {
           "at": 0.0,
           "show": "history:rev:1805.958:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov"
         },
         {
-          "at": 19.9,
+          "at": 20.4,
           "show": "history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher"
         }
       ]
@@ -322,7 +322,7 @@
           "show": "history:rev:1806.875:sel=first-french-empire:pop=napoleon"
         },
         {
-          "at": 21.8,
+          "at": 21.5,
           "show": "history:rev:1812.458:x:sel=grande-armee:pop=napoleon,alexander-i,kutuzov"
         }
       ]
@@ -339,14 +339,14 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 44,
+      "hold": 42,
       "cues": [
         {
           "at": 0.0,
           "show": "history:rev:1813.792:x:sel=sixth-coalition:pop=wellington,alexander-i"
         },
         {
-          "at": 23.7,
+          "at": 21.9,
           "show": "history:rev:1815.458:x:sel=seventh-coalition:pop=wellington,blucher"
         }
       ]
@@ -363,7 +363,7 @@
       "anchor": "",
       "side": "right",
       "highlight": [],
-      "hold": 29,
+      "hold": 27,
       "cues": [
         {
           "at": 0.0,

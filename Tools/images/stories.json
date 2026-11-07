@@ -5,7 +5,7 @@
   "search": "Henry Luce",
   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
   "qid": "Q516473",
-  "hint": "publisher whose 1941 editorial named the American century"
+  "hint": "publisher; in a 1941 editorial urged the United States to forsake isolationism"
  },
  {
   "id": "john-bardeen",
@@ -67,7 +67,7 @@
   "search": "Andy Grove",
   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
   "qid": "Q432929",
-  "hint": "ran Intel through the 1980s and refocused it on microprocessors"
+  "hint": "refocused Intel on microprocessors in 1983"
  },
  {
   "id": "federico-faggin",
@@ -148,6 +148,76 @@
   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
   "qid": "Q1528185",
   "hint": "backer who created the semiconductor division for the eight"
+ },
+ {
+  "id": "jean-hoerni",
+  "kind": "person",
+  "search": "Jean Hoerni",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q952816",
+  "hint": "one of the eight; invented the planar process at Fairchild"
+ },
+ {
+  "id": "jared-kaplan",
+  "kind": "person",
+  "search": "Jared Kaplan",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q102649624",
+  "hint": "lead author of the 2020 scaling-laws paper, later a co-founder of Anthropic"
+ },
+ {
+  "id": "niki-parmar",
+  "kind": "person",
+  "search": "Niki Parmar",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q110864221",
+  "hint": "co-author of 'Attention Is All You Need'"
+ },
+ {
+  "id": "jakob-uszkoreit",
+  "kind": "person",
+  "search": "Jakob Uszkoreit",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q98891246",
+  "hint": "co-author of 'Attention Is All You Need'"
+ },
+ {
+  "id": "llion-jones",
+  "kind": "person",
+  "search": "Llion Jones",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q130238722",
+  "hint": "co-author of 'Attention Is All You Need'",
+  "box": [
+   0.255,
+   0.039,
+   0.487,
+   0.326
+  ]
+ },
+ {
+  "id": "aidan-gomez",
+  "kind": "person",
+  "search": "Aidan Gomez",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q110864219",
+  "hint": "co-author of 'Attention Is All You Need'"
+ },
+ {
+  "id": "lukasz-kaiser",
+  "kind": "person",
+  "search": "Lukasz Kaiser",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q30251976",
+  "hint": "co-author of 'Attention Is All You Need'"
+ },
+ {
+  "id": "illia-polosukhin",
+  "kind": "person",
+  "search": "Illia Polosukhin",
+  "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
+  "qid": "Q110864222",
+  "hint": "co-author of 'Attention Is All You Need'"
  },
  {
   "id": "united-states-ai",
@@ -234,6 +304,16 @@
   ]
  },
  {
+  "id": "alexnet-team",
+  "kind": "company",
+  "label": "AlexNet (Krizhevsky, Sutskever and Hinton)",
+  "at": 2012,
+  "qid": "Q28325009",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
   "id": "google",
   "kind": "company",
   "label": "Alphabet (Google)",
@@ -294,6 +374,43 @@
   ]
  },
  {
+  "id": "ibm",
+  "kind": "company",
+  "label": "IBM",
+  "at": 1981,
+  "qid": "Q37156",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "taiwan",
+  "kind": "government",
+  "label": "Taiwan",
+  "at": 1987,
+  "qid": "Q865"
+ },
+ {
+  "id": "amd",
+  "kind": "company",
+  "label": "AMD",
+  "at": 2007,
+  "qid": "Q128896",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
+  "id": "deepseek",
+  "kind": "company",
+  "label": "DeepSeek",
+  "at": 2025,
+  "qid": "Q131577453",
+  "prefer": [
+   "P154"
+  ]
+ },
+ {
   "id": "napoleon",
   "kind": "person",
   "search": "Napoleon Bonaparte",
@@ -335,7 +452,7 @@
   "search": "Marquis de Lafayette",
   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
   "qid": "Q186652",
-  "hint": "French major general at 19 in the American army; later commander of the National Guard",
+  "hint": "French general in the American war",
   "crop": "portrait"
  },
  {
@@ -470,7 +587,7 @@
   "search": "Alexander I of Russia",
   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
   "qid": "Q15193",
-  "hint": "tsar; supreme commander of the Coalition in the east in 1813",
+  "hint": "Emperor of Russia",
   "crop": "portrait"
  },
  {
@@ -524,7 +641,7 @@
   "search": "Louis XVIII",
   "approved": "2026-11-07, the user's sixth direction (Docs/research/advantage/brief-v4.md): biographical picture popups for the AI-revolution and age-of-revolutions stories",
   "qid": "Q7750",
-  "hint": "Bourbon king restored in 1814",
+  "hint": "Bourbon king restored after Napoleon",
   "crop": "portrait"
  },
  {
@@ -576,7 +693,7 @@
   "id": "united-kingdom",
   "kind": "government",
   "label": "United Kingdom of Great Britain and Ireland",
-  "at": 1801,
+  "at": 1805,
   "qid": "Q174193"
  },
  {
@@ -592,6 +709,14 @@
   "label": "Kingdom of France",
   "at": 1788,
   "qid": "Q70972"
+ },
+ {
+  "id": "french-population",
+  "kind": "group",
+  "label": "The French nation (the Third Estate)",
+  "at": 1788,
+  "qid": "Q909656",
+  "monogram": "TFT"
  },
  {
   "id": "catholic-church",
@@ -618,7 +743,7 @@
   "id": "first-french-empire",
   "kind": "government",
   "label": "First French Empire",
-  "at": 1801,
+  "at": 1804,
   "qid": "Q71084"
  },
  {
@@ -651,8 +776,7 @@
   "kind": "group",
   "label": "Prussian Army",
   "at": 1806,
-  "search": "Prussian Army",
-  "hint": "150,000 at Jena, routed in a day; rebuilt to arrive at Waterloo with 50,000",
+  "qid": "Q706042",
   "prefer": [
    "P41",
    "P94"
@@ -670,8 +794,7 @@
   "kind": "group",
   "label": "Russian Army",
   "at": 1805,
-  "search": "Russian Army",
-  "hint": "904,000 strong at its 1812 peak; retreated, burned Moscow and followed Napoleon to Paris",
+  "qid": "Q1078222",
   "prefer": [
    "P41",
    "P94"

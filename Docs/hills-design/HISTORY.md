@@ -9,52 +9,109 @@ companies alike:
 - occlusion;
 - advantage walls built from their sources.
 
-## 1. One axis of time
+## 1. The axis of time
 
-History runs along the economy's own time axis. From 1947 the axis is the wave's z, `HillLandscape.Z(year)`, so the AI
-story lines up with the wave's yearly ribs. Before 1947 it continues back at the same slope, about two units a year,
-so the age of revolutions, 1775-1815, lies about 340 to 260 units behind the wave's tail. That stretch is empty in
-every hill view. A story's camera flies along the axis between its years.
+The AI story (1945-2026) runs on the economy's own time axis, `HillLandscape.Z(year)`, so its lanes float above the
+wave's ribs of the same years (the slope of 1940-41 before the table starts). The age of revolutions (1775-1815) lies
+before the wave on a stretch of its own: 7 units a year, ending 140 units before the wave's first year
+(`HillHistoryLayer.T`). At the wave's two units a year its forty years would be a sliver beside a stack of 23 lanes.
+The gap between the stories is not drawn.
 
 ## 2. Two views of every shape
 
-- **Compressed: a timeline.** Each actor is a tube along its own lane from its first year to its last. The tube is a
-  ring of points every half-year, as thick as the cube root of its main measure at that year: people for a state or a
-  population, troops for an army, ships of the line for a navy, followers for a faith, market value or valuation for a
-  company or a lab. A tube thickens and thins as the actor's power does, ends where the actor ends, and hands over
-  where a successor takes its place. Its colour says its kind.
-- **Moments** are sparks between tubes at their year: a burst on the holder's tube toward each rival, gold ties to
-  allies, the title written beside it.
-- **Periods** are bands across the lanes, from their first year to their last, with their titles: the Terror, the
-  Empire, the American century, the AI revolution.
-- **Exploded: a cross-section at an instant.** At a story's year the tubes' slices swell into bodies, the occluding
-  point clouds of the 2026 strata, and spread into an arena around the axis at that year. Each body's lobes are its
-  parts:
-  - its main measure at the core;
-  - what it fields above (armies, navies, revenue, users, compute);
-  - what it owes below (debt, losses).
+- **Compressed: a timeline.** Each actor is a tube along its lane, a ring of points every 1.3 units of time, as thick
+  as the cube root of what it measured then (`TubeR`).
+  - What it measured: people for a state or a population, troops for an army, ships of the line for a navy, members
+    for a church, market value, revenue or capital for a company, valuation, users or parameters for a lab
+    (`History.Actor.MainPartAt`).
+  - Where nothing was measured the tube is thin and faint.
+  - A value holds from its measurement (eight years at most, three years back for a state's slow measures, half a
+    year for anything else) and is never drawn between two measurements: most series are snapshots of different
+    things (Austerlitz's army and Jena's), not one quantity sampled (`History.Actor.SizeAt`).
+- **Lanes.** Groups top to bottom: polities, alliances, forces, peoples and churches, companies, labs. A polity, an
+  alliance or a force continues in its successor in one lane (the Kingdom of France, then the Republic, the Consulate
+  and the Empire), and the predecessor ends where the successor begins. The seven coalitions share a lane, one after
+  another. A company's heir is another company: its own lane, right below its parent, with a dotted arc from the
+  parent where it began (Shockley's lab, Fairchild, Intel).
+- **Moments** are sparks on the holder's lane, coloured by what decided them (information, execution, environment),
+  with dashed ties to the rivals' lanes and gold ties to the allies'. Each is titled under its spark.
+- **Periods** are dashed brackets above the lanes, each on the lowest level free over its years.
+- **The year** is a gold cursor through the lanes, named under them.
+- **Exploded: a cross-section at an instant.** At a year the tubes' slices swell into occluding point-cloud bodies
+  (`PointBodies`, as in the 2026 strata), moving from their lanes to a cross-section facing down the time axis. The
+  camera looks back from the future, and the last dozen years of the tubes trail faintly behind the bodies.
+  - **Rows**, top to bottom: polities and peoples, forces, enterprises.
+  - **Sides**: within a row the nearest moment's holder and allies stand on the left and its rivals on the right.
+  - **Lobes**: the core is the measure the actor is drawn by; lobes are its other measures then, each as wide as the
+    cube root of its size. What it fields stands above (troops, ships, revenue, users, capital); what it owes or lost
+    hangs below (debt, casualties, executions). A chip's transistors, a model's parameters and the few founders of a
+    company are named on the label, not drawn as parts.
+  - **Unmeasured participants** of the nearest moment stand small and grey, labelled "not measured".
+  - **Advantage rings**: each advantage the research documents for the period is a gold ring around its holder,
+    walled by one arc per source (technology, supply, patents, capital, talent, scale, distribution, regulation,
+    legitimacy, geography). Each wall is as thick as Jev judged it keeps rivals out; a source not yet judged is thin
+    and dashed.
+  - The moment's bursts point from the holder to its rivals.
+- **Labels** give the fact's own number and unit, and its year when it is not the year shown.
+- **Sizes.** One unit of size draws a lobe 2.2 times its cube root (history.py's method):
+  - a thousand people under arms, at work or in orders;
+  - a hundred thousand civilians;
+  - a ship;
+  - a billion dollars in the AI story, or a million pounds of the time in 1775-1815 (£1 = 24 livres, assumed);
+  - a hundred million parameters;
+  - a thousand transistors.
 
-  An actor whose advantage the research documents for that period stands inside its boundary: a ring walled by its
-  sources (technology, supply, patents, capital, talent, scale, distribution, regulation, legitimacy, geography), each
-  wall as tall as Jev judges it keeps rivals out. Collapsing returns the bodies into their tubes. The 2026 cross-section
-  is the strata stack under the crest (`ADVANTAGE.md` section 0).
+  A soldier therefore draws as a hundred civilians. Sizes compare within a kind of measure; across kinds they are a
+  drawing convention, stated on the panel.
 
 ## 3. The stories
 
-Two narrated walkthroughs, picked from the panel. Each stop flies the camera to a year, compresses or explodes it,
-selects actors, and pops up their portraits and logos with credits. Every number spoken or shown traces to a verified
-fact (`Tools/advantage/verify.py`); judgments are named as Jev's.
+Two narrated walkthroughs, started from the history panel ("Play the story"). Each lives in
+`Assets/Resources/Data/Walkthrough/story_ai_*` or `story_revolutions_*` and is generated by
+`Tools/advantage/story_scripts.py`.
 
-1. **The AI revolution.** The American century, the transistor, the integrated circuit and Intel, TSMC, the GPU and
-   CUDA, AlexNet, "Attention Is All You Need", OpenAI scaling transformers, ChatGPT, the AI revolution, and the 2026
-   strata.
-2. **The age of revolutions.** The American Revolution, French support and Yorktown, the French monarchy's fiscal
-   collapse, the Revolution, the Terror, Napoleon's coup and his self-crowning before the Pope, Europe out of balance,
-   the coalitions, Russia, Leipzig, Waterloo and the Congress of Vienna.
+- **What a stop does.** Its cues set the view through `ViewVariants` names of the form
+  `history:<story>:<year>[:x][:sel=<id>][:pop=<id,id>]`. These say the story, the year, whether the cross-section is
+  open, the selected actor and the portrait cards. A cue is timed to the words that name its picture, at the voice's
+  measured 17 characters a second.
+- **Facts.** Every number spoken or shown is a verified fact (`Tools/advantage/verify.py`). The generator stops on a
+  missing or unverified one. Each stop's facts go to `Tools/narration-facts.json`, and `Tools/check-narration.py ai` (or
+  `revolutions`) has Jev check the narration against its card and facts. All 33 stops pass. Interpretive asides that Jev
+  read as unsupported claims were cut rather than argued for.
+- **Voice.** JohnV4 (ElevenLabs), approved by the user for these stories. The clips go to `Audio/EconomyTour` beside the
+  economy tour's (ids prefixed `ai_` and `rev_`).
+- **Cards.** A story has its own title card (`intro`) and end card (`end`). The title card already shows the first
+  stop's state.
 
-Narration is the JohnV4 voice (ElevenLabs), approved by the user for these stories. Portraits and logos come from
-free-licensed Wikidata and Commons images, with the licence manifest (`Tools/images/fetch.py`); the people shown are
-approved by the user's message of 7 Nov 2026.
+The stories:
+
+1. **The AI revolution** (16 stops): the American century, the transistor, the traitorous eight, the integrated
+   circuit, the microprocessor, the PC and the x86, the foundry, the GPU, CUDA, AlexNet, "Attention Is All You Need",
+   scaling, ChatGPT, DeepSeek's test, five trillion dollars, the present.
+2. **The age of revolutions** (17 stops): the thirteen colonies, Saratoga, the French alliance, the Chesapeake and
+   Yorktown, the debt, the Estates-General, the Bastille, the king's execution, the levée en masse, the Terror,
+   18 Brumaire, the emperor crowning himself, Trafalgar, Austerlitz and Jena, Europe out of balance and Russia, the
+   alliance against France, the Congress of Vienna.
+
+**Portraits and logos.**
+- 75 of 81 images are free-licensed, from Wikidata and Commons through `Tools/images/fetch.py`, with the licence
+  manifest. They are packed at 256 px into `Resources/Data/economy/images`, and every card carries its credit.
+  `Docs/research/advantage/image-credits.md` has the full attributions.
+- People get circles, marks get tiles, and a wordmark wider than its tile is shown two cells wide. The people shown were
+  approved by the user's message of 7 Nov 2026.
+- The crop review of the first contact sheet re-cropped Robert Noyce. Marks of another era gave way: the British Army's
+  modern flag, the Armée de Terre logo and the tricolour for the navy of 1781 became monograms, and Spain's flag of 1873
+  was replaced by the 1785 one. The coalitions' battle paintings became numerals.
+- Three AI researchers (Krizhevsky, Vaswani, Shazeer) have no Wikidata portrait and show monograms.
+
+**Without a tour.** The history view (in the view bar, chapter "History") has a panel with:
+- the two stories;
+- the previous and next moment;
+- open or close the cross-section;
+- play the story.
+
+It also shows the reading of the moment at the year: who held the advantage over whom and with whom, how, and what
+came of it; the advantages held then with their sources and walls; and the periods the year falls in.
 
 ## 4. The people on the hill
 

@@ -14,6 +14,7 @@ never "I". A stop's narration is a list of (view state, words): each state is sh
 """
 import json
 import os
+import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -21,7 +22,22 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 WALK = os.path.join(ROOT, "Assets", "Resources", "Data", "Walkthrough")
 MODEL = os.path.join(ROOT, "Docs", "research", "advantage", "model.json")
 FACTS_OUT = os.path.join(ROOT, "Tools", "narration-facts.json")
-PACE = 17.0    # characters a second (JohnV4, measured on the economy tour's clips)
+PACE = 17.0    # characters a second (JohnV4, measured on the economy tour's clips), until a stop's own clip exists
+AUDIO = os.path.join(ROOT, "Assets", "Resources", "Audio", "EconomyTour")
+
+
+def clip_seconds(sid):
+    """The voiced clip's length (Audio/EconomyTour/<id>.ogg), or None before it is voiced: its cues are then timed by its
+    own pace, not the estimate."""
+    path = os.path.join(AUDIO, sid + ".ogg")
+    if not os.path.exists(path):
+        return None
+    try:
+        out = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path],
+                             capture_output=True, text=True, timeout=30).stdout.strip()
+        return float(out) if out else None
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
 
 AI_MEASURED = "dates, counts and values: verified facts, each quote found on its source"
 JUDGED = "the walls of each advantage (0 to 4)"
@@ -76,32 +92,32 @@ AI = {
             "id": "ai_eight", "title": "The traitorous eight",
             "text": "In 1955 Shockley founded his own laboratory. Eight of its engineers, Robert Noyce and Gordon Moore among them, left and "
                     "founded Fairchild Semiconductor on 18 September 1957 with Sherman Fairchild's backing, to make transistors of silicon "
-                    "when germanium was still the common material. Its alumni went on to create dozens of companies, Intel and AMD among them.",
+                    "when germanium was still the common material. Its first transistor, the 1958 2N697, went to IBM: a first batch of 100 at "
+                    "$150 apiece. Its alumni went on to create dozens of companies, Intel and AMD among them.",
             "reading": "The heir's lane begins where its parent's founders left: a dotted arc from Shockley's lane to Fairchild's.",
             "facts": ["lineage-shockley-lab-1955", "lineage-traitorous-eight-names", "story-ai-fairchild-eight-names", "lineage-fairchild-founded-1957",
-                      "story-ai-fairchild-silicon", "lineage-fairchildren-1960"],
+                      "story-ai-fairchild-silicon", "story-ai-fairchild-2n697", "lineage-fairchildren-1960"],
             "say": [
                 ("history:ai:1957.708:x:sel=fairchild:pop=robert-noyce,gordon-moore,sherman-fairchild",
                  "In nineteen fifty-five, Shockley founded a laboratory of his own. Two years later, eight of his engineers walked out. "
                  "Among them were Robert Noyce and Gordon Moore. With backing from Sherman Fairchild, they founded Fairchild Semiconductor "
                  "on the eighteenth of September nineteen fifty-seven, to make transistors of silicon when germanium was still the common "
-                 "material. Fairchild became an incubator of Silicon Valley: its alumni created dozens of companies, Intel and AMD among them."),
+                 "material. Its first transistor, the 2N697 of nineteen fifty-eight, went to IBM: a first batch of one hundred, at a "
+                 "hundred and fifty dollars apiece. Fairchild became an incubator of Silicon Valley: its alumni created dozens of "
+                 "companies, Intel and AMD among them."),
             ],
         },
         {
             "id": "ai_chip", "title": "The integrated circuit",
             "text": "In 1958 Jack Kilby made the first integrated circuit at Texas Instruments. In 1959 Fairchild developed the planar process, "
-                    "and Robert Noyce invented the monolithic integrated circuit. Fairchild sold its first 100 devices to IBM at $150 each, "
-                    "for the B-70 bomber's computer. Kilby won the Nobel Prize in 2000.",
+                    "and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in 2000 for his part in the invention.",
             "reading": "Moments are sparks on the holder's lane; dashed ties run to its rivals, gold ones to its allies.",
-            "facts": ["story-ai-kilby-1958", "lineage-fairchild-planar-1959", "lineage-noyce-monolithic-ic-1959", "lineage-fairchild-first-batch-ibm",
-                      "lineage-kilby-nobel-2000"],
+            "facts": ["story-ai-kilby-1958", "lineage-fairchild-planar-1959", "lineage-noyce-monolithic-ic-1959", "lineage-kilby-nobel-2000"],
             "say": [
                 ("history:ai:1959:pop=jack-kilby,robert-noyce",
                  "At Texas Instruments in nineteen fifty-eight, Jack Kilby made the first integrated circuit. In nineteen fifty-nine, "
-                 "Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Fairchild sold "
-                 "its first batch of one hundred devices to IBM, at a hundred and fifty dollars apiece, for the computer of the B-70 "
-                 "bomber. Kilby won the Nobel Prize in two thousand for his part in the invention."),
+                 "Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the "
+                 "Nobel Prize in two thousand for his part in the invention."),
             ],
         },
         {
@@ -238,8 +254,7 @@ AI = {
                  "model's loss falls as a power law as its size, its data and its compute grow, over more than seven orders of magnitude."),
                 ("history:ai:2020.375:x:sel=openai:pop=sam-altman,ilya-sutskever",
                  "In May came GPT-3: a hundred and seventy-five billion parameters, ten times any earlier dense model. Microsoft had "
-                 "invested a billion dollars in twenty nineteen and moved OpenAI onto Azure, and in September twenty twenty it licensed "
-                 "GPT-3 exclusively."),
+                 "invested a billion dollars in twenty nineteen, and in September twenty twenty it licensed GPT-3 exclusively."),
             ],
         },
         {
@@ -463,17 +478,19 @@ REV = {
         {
             "id": "rev_terror", "title": "The Terror",
             "text": "From June 1793 the Terror issued 16,594 official death sentences, 2,639 of them in Paris; after the Law of 22 Prairial "
-                    "another 1,366 people were executed in seven weeks. On 28 July 1794 Robespierre and 21 of his followers were "
-                    "sentenced to death without a hearing.",
+                    "another 1,366 people were executed in seven weeks. Robespierre and 21 of his followers were then sentenced to death "
+                    "under the same law without a hearing; he was executed on 28 July 1794.",
             "reading": "The dark red lobe beneath the Republic is the Terror's death sentences.",
-            "facts": ["story-revolutions-terror-death-sentences", "story-revolutions-terror-prairial", "story-revolutions-robespierre-executed"],
+            "facts": ["story-revolutions-terror-death-sentences", "story-revolutions-terror-prairial", "story-revolutions-robespierre-executed",
+                      "story-revolutions-robespierre-guillotined"],
             "say": [
                 ("history:rev:1794.542:x:sel=french-republic:pop=robespierre,danton",
                  "From June seventeen ninety-three, the Terror issued sixteen thousand five hundred and "
                  "ninety-four official death sentences, two thousand six hundred and thirty-nine of them in Paris. After the Law of "
                  "twenty-two Prairial, another thirteen hundred and sixty-six people were executed in seven weeks. The dark red lobe "
-                 "beneath the Republic is that toll. On the twenty-eighth of July seventeen ninety-four, Robespierre and twenty-one of "
-                 "his followers were themselves sentenced to death, without a hearing."),
+                 "beneath the Republic is that toll. Then Robespierre and twenty-one of his followers were themselves sentenced to death "
+                 "under the same law, without even a cursory hearing. Robespierre was executed on the twenty-eighth of July seventeen "
+                 "ninety-four, the date with which the Terror is often said to end."),
             ],
         },
         {
@@ -531,8 +548,8 @@ REV = {
         {
             "id": "rev_austerlitz", "title": "Austerlitz and Jena",
             "text": "At Austerlitz Napoleon had some 72,000 men and 157 guns against about 85,000 Allies, 70% of them Russian, with 318 guns. "
-                    "The Allies lost about 36,000 of 89,000, 38% of their force. On 14 October 1806 the Grande Armée decisively defeated the "
-                    "Prussians, about 130,000 with 20,000 Saxons, at Jena and Auerstedt.",
+                    "Allied casualties were about 36,000 of 89,000, 38% of their force. The Prussian army awaiting Napoleon in 1806, about "
+                    "130,000 with 20,000 Saxons, was decisively defeated at Jena and Auerstedt on 14 October.",
             "reading": "The Grande Armée's ring: technology, talent and scale.",
             "facts": ["story-revolutions-austerlitz-french-force", "story-revolutions-austerlitz-allied-losses", "archetypes-napoleon-jena-1806",
                       "story-revolutions-jena-prussian-army"],
@@ -543,8 +560,9 @@ REV = {
                  "eighteen guns. Allied casualties stood at about thirty-six thousand, out of an army of eighty-nine thousand: about "
                  "thirty-eight percent."),
                 ("history:rev:1806.792:x:sel=grande-armee:pop=napoleon,blucher",
-                 "On the fourteenth of October eighteen-oh-six, at Jena and Auerstedt, the Grande "
-                 "Armée decisively defeated a Prussian army of about a hundred and thirty thousand Prussians and twenty thousand Saxons."),
+                 "In eighteen-oh-six the Prussian army awaiting Napoleon's advance numbered about a hundred and thirty thousand "
+                 "Prussians and twenty thousand Saxons. On the fourteenth of October, at Jena and Auerstedt, the Grande Armée "
+                 "decisively defeated it."),
             ],
         },
         {
@@ -622,17 +640,19 @@ def main():
                 f = facts.get(fid)
                 if not f or f.get("status") != "verified":
                     missing.append(f"{st['id']}: {fid}")
-            words, cues, at = [], [], 0.0
+            narration = " ".join(text for _, text in st["say"])
+            seconds = clip_seconds(st["id"])
+            pace = len(narration) / seconds if seconds else PACE
+            cues, at = [], 0.0
             for show, text in st["say"]:
-                cues.append({"at": round(at, 1), "show": show})
-                words.append(text)
-                at += (len(text) + 1) / PACE
-            narration = " ".join(words)
+                # a state shows half a second before the words that name it
+                cues.append({"at": round(max(0.0, at - (.5 if at > 0 else 0)), 1), "show": show})
+                at += (len(text) + 1) / pace
             steps.append({
                 "id": st["id"], "title": st["title"], "text": st["text"], "reading": st["reading"],
                 "measured": AI_MEASURED, "judged": JUDGED, "assumed": ASSUMED,
                 "focus": "history", "anchor": "", "side": "right", "highlight": [],
-                "hold": round(len(narration) / PACE + 2), "cues": cues,
+                "hold": round((seconds or len(narration) / PACE) + 2), "cues": cues,
             })
             spoken.append({"id": st["id"], "narration": narration})
             narration_facts[st["id"]] = [f"{facts[fid]['claim']} ({fid})" for fid in st["facts"] if fid in facts]

@@ -303,6 +303,42 @@ namespace Why
                 director.ExitTour();
             }
 
+            // -smokestory ai,revolutions: the history stories (economy scene), each stop captured once it settles and, when its
+            // picture changes with the narration, again after its last cue
+            int si = System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-smokestory");
+            if (scene == GraphScene.Economy && director != null && si >= 0 && si + 1 < System.Environment.GetCommandLineArgs().Length)
+                foreach (string story in System.Environment.GetCommandLineArgs()[si + 1].Split(','))
+                {
+                    director.StartStory("Data/Walkthrough/story_" + story + "_tour");
+                    yield return new WaitForSecondsRealtime(StopSeconds);
+                    yield return SmokeChecks.Capture($"{scene}-story-{story}-00-title", root.CurrentPreset);
+                    director.NextStep();
+                    for (int n = 0; n < 60 && director.TourRunning && !director.AtEndCard; n++)
+                    {
+                        yield return new WaitForSecondsRealtime(StopSeconds);
+                        director.CompleteTyping();
+                        yield return null;
+                        string id = director.CurrentStepId;
+                        yield return SmokeChecks.Capture($"{scene}-story-{story}-{n + 1:00}-{id}", root.CurrentPreset);
+                        float last = director.CurrentStepLastCue;
+                        if (last > 0)
+                        {
+                            yield return new WaitForSecondsRealtime(Mathf.Max(.5f, last + 3.2f - StopSeconds));
+                            if (director.CurrentStepId == id) yield return SmokeChecks.Capture($"{scene}-story-{story}-{n + 1:00}-{id}-b", root.CurrentPreset);
+                        }
+
+                        director.NextStep();
+                    }
+
+                    if (director.AtEndCard)
+                    {
+                        yield return new WaitForSecondsRealtime(StopSeconds);
+                        yield return SmokeChecks.Capture($"{scene}-story-{story}-end", root.CurrentPreset);
+                    }
+
+                    director.ExitTour();
+                }
+
             // -smokeextra a,b: the packages' own sequences this scene registered, after everything else in it
             if (extras.Count > 0) yield return SmokeChecks.RunSequences(extras);
 

@@ -22,22 +22,22 @@
   "weapons"
  ],
  "counts": {
-  "facts": 1310,
-  "verified": 1310,
+  "facts": 1392,
+  "verified": 1392,
   "actors": 242,
   "present": 174,
-  "flows": 88,
+  "flows": 90,
   "chokepoints": 27,
   "flashpoints": 85,
   "lineage": 42,
-  "moats": 41,
+  "moats": 50,
   "presence": 83,
   "barriers": 38,
   "entrants": 34,
-  "series": 104,
+  "series": 192,
   "moments": 38,
   "periods": 19,
-  "people": 45,
+  "people": 53,
   "scenarios": 8
  },
  "actors": [
@@ -1965,10 +1965,13 @@
     "compute",
     "labs",
     "economy",
-    "balance-a"
+    "balance-a",
+    "story-ai"
    ],
    "name": "AMD",
-   "clusters_story": [],
+   "clusters_story": [
+    "story-ai"
+   ],
    "facts": [
     "compute-amd-q3-revenue",
     "str-amd-q3-opincome",
@@ -1987,7 +1990,10 @@
     "balancea-amd-debt",
     "balancea-amd-leases",
     "balancea-amd-equity",
-    "balancea-amd-pe-ratio"
+    "balancea-amd-pe-ratio",
+    "story-ai-amd-mcap-2006",
+    "story-ai-amd-rev-2006",
+    "lineage-fairchildren-1960"
    ],
    "pick": {
     "revenue": "compute-amd-q3-revenue"
@@ -2027,6 +2033,8 @@
     "openai",
     "anthropic"
    ],
+   "qid": "Q128896",
+   "from": 1969,
    "era": "present",
    "numbers": {
     "marketCap": {
@@ -4202,7 +4210,8 @@
   {
    "id": "deepseek",
    "clusters": [
-    "strategist"
+    "strategist",
+    "story-ai"
    ],
    "name": "DeepSeek",
    "kind": "lab",
@@ -4213,7 +4222,9 @@
    "advantage": "It releases near-frontier models free under the MIT licence, trained and served cheaply, and tuned its V4 to Huawei's Ascend chips. Its counter-position is price: closed labs must justify charging for what DeepSeek gives away.",
    "desire": "Frontier capability at a fraction of the cost, and a public listing.",
    "fear": "Compute limits from export controls, and rivals closing access after distillation accusations.",
-   "clusters_story": [],
+   "clusters_story": [
+    "story-ai"
+   ],
    "standsOn": [
     "huawei",
     "china",
@@ -4233,8 +4244,12 @@
     "str-deepseek-valuation-52",
     "str-deepseek-v4",
     "str-deepseek-v4-ascend",
-    "str-deepseek-distillation"
+    "str-deepseek-distillation",
+    "entry-deepseek-v3-gpu-hours",
+    "entry-deepseek-founded"
    ],
+   "qid": "Q131577453",
+   "from": 2023,
    "era": "present",
    "numbers": {
     "valuation": {
@@ -5330,7 +5345,8 @@
    "id": "taiwan",
    "clusters": [
     "strategist",
-    "materials"
+    "materials",
+    "story-ai"
    ],
    "name": "Taiwan",
    "kind": "state",
@@ -5341,7 +5357,9 @@
    "advantage": "It hosts most of the world's advanced chip making, a 'silicon shield' that gives the US and others a stake in its security.",
    "desire": "Stay indispensable.",
    "fear": "A blockade or attack from China.",
-   "clusters_story": [],
+   "clusters_story": [
+    "story-ai"
+   ],
    "competitors": [
     "china"
    ],
@@ -5352,7 +5370,8 @@
     "materials-taiwan-ndf-tsmc-638",
     "materials-taiwan-n1-rule",
     "materials-taiwan-us-250bn",
-    "materials-taiwan-us-tariff-15"
+    "materials-taiwan-us-tariff-15",
+    "story-ai-tsmc-taiwan-ndf-1987"
    ],
    "triad": {
     "information": "TSMC's process know-how stays on the island under the N-1 rule",
@@ -5370,6 +5389,8 @@
     "tsmc",
     "us-gov"
    ],
+   "qid": "Q865",
+   "from": 1949,
    "era": "present",
    "numbers": {},
    "candidates": {}
@@ -6888,7 +6909,14 @@
    "qid": "Q217365",
    "from": 1925,
    "era": "history",
-   "numbers": {},
+   "numbers": {
+    "headcount": {
+     "value": 9000.0,
+     "unit": "employees at the wartime peak",
+     "period": "1945",
+     "fact": "story-ai-bell-staff-wwii"
+    }
+   },
    "candidates": {}
   },
   {
@@ -6933,7 +6961,14 @@
    "to": 1968,
    "successor": "fairchild",
    "era": "history",
-   "numbers": {},
+   "numbers": {
+    "headcount": {
+     "value": 32.0,
+     "unit": "employees",
+     "period": "September 1956",
+     "fact": "story-ai-shockley-staff-1956"
+    }
+   },
    "candidates": {}
   },
   {
@@ -6989,6 +7024,12 @@
    "successor": "intel",
    "era": "history",
    "numbers": {
+    "revenue": {
+     "value": 0.02,
+     "unit": "USD bn",
+     "period": "1960",
+     "fact": "story-ai-fairchild-sales-1960"
+    },
     "headcount": {
      "value": 8.0,
      "unit": "people",
@@ -7035,14 +7076,22 @@
    "qid": "Q193412",
    "from": 1930,
    "era": "history",
-   "numbers": {},
+   "numbers": {
+    "revenue": {
+     "value": 0.092,
+     "unit": "USD bn",
+     "period": "1958",
+     "fact": "story-ai-ti-sales-1958"
+    }
+   },
    "candidates": {}
   },
   {
    "id": "ibm",
    "clusters": [
     "lineage",
-    "century"
+    "century",
+    "story-ai"
    ],
    "name": "IBM",
    "kind": "company",
@@ -7057,13 +7106,16 @@
     "environment": ""
    },
    "founded": 1911,
-   "clusters_story": [],
+   "clusters_story": [
+    "story-ai"
+   ],
    "facts": [
     "lineage-fairchild-first-batch-ibm",
     "lineage-ibm-pc-8088-1981",
     "century-ibm-1960s-share",
     "century-ibm-1993-loss",
-    "century-msdos-90pct"
+    "century-msdos-90pct",
+    "story-ai-ibm-income-1980"
    ],
    "desire": "to own the customer's whole computing",
    "fear": "an open standard it did not control",
@@ -7081,8 +7133,16 @@
    "customers": [
     "enterprises"
    ],
+   "qid": "Q37156",
+   "from": 1911,
    "era": "history",
    "numbers": {
+    "revenue": {
+     "value": 26.21,
+     "unit": "USD bn",
+     "period": "1980",
+     "fact": "story-ai-ibm-income-1980"
+    },
     "netIncome": {
      "value": -8.0,
      "unit": "USD bn",
@@ -7095,7 +7155,8 @@
   {
    "id": "compaq",
    "clusters": [
-    "lineage"
+    "lineage",
+    "story-ai"
    ],
    "name": "Compaq",
    "kind": "company",
@@ -7110,12 +7171,25 @@
     "environment": ""
    },
    "founded": 1982,
-   "clusters_story": [],
-   "facts": [
-    "lineage-compaq-386-1986"
+   "clusters_story": [
+    "story-ai"
    ],
+   "facts": [
+    "lineage-compaq-386-1986",
+    "story-ai-compaq-sales-1986"
+   ],
+   "qid": "Q324603",
+   "from": 1982,
+   "to": 2002,
    "era": "history",
-   "numbers": {},
+   "numbers": {
+    "revenue": {
+     "value": 0.329,
+     "unit": "USD bn",
+     "period": "1986",
+     "fact": "story-ai-compaq-sales-1986"
+    }
+   },
    "candidates": {}
   },
   {
@@ -7174,7 +7248,14 @@
    "from": 1994,
    "to": 2002,
    "era": "history",
-   "numbers": {},
+   "numbers": {
+    "revenue": {
+     "value": 0.3605,
+     "unit": "USD bn",
+     "period": "1999",
+     "fact": "story-ai-3dfx-revenue"
+    }
+   },
    "candidates": {}
   },
   {
@@ -7263,9 +7344,9 @@
     "story-ai-alexnet-error",
     "story-ai-alexnet-params"
    ],
-   "qid": "Q28018607",
+   "qid": "Q28325009",
    "from": 2012,
-   "to": 2012,
+   "to": "2012-12",
    "era": "history",
    "numbers": {},
    "candidates": {}
@@ -8407,6 +8488,7 @@
     "story-revolutions-britain-subsidies-total",
     "story-revolutions-britain-war-1803"
    ],
+   "qid": "Q15053704",
    "from": 1793,
    "to": 1815,
    "era": "history",
@@ -8521,7 +8603,10 @@
    "facts": [
     "archetypes-lendlease-uk",
     "story-revolutions-britain-debt",
-    "story-revolutions-britain-subsidy-peak"
+    "story-revolutions-britain-subsidy-peak",
+    "story-revolutions-uk-budget-1814",
+    "story-revolutions-peak-uk-1813",
+    "story-revolutions-continental-system-effect"
    ],
    "qid": "Q174193",
    "from": 1801,
@@ -10839,7 +10924,7 @@
    "role": "Washington's army: never more than 90,000 under arms, victorious at Saratoga and Yorktown because France stood behind it",
    "qid": "Q54122",
    "from": 1775,
-   "to": 1784,
+   "to": "1784",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -10869,7 +10954,8 @@
    "facts": [
     "story-revolutions-yorktown-captured",
     "story-revolutions-british-army-1813",
-    "story-revolutions-saratoga-1777"
+    "story-revolutions-saratoga-1777",
+    "story-revolutions-waterloo-wellington-army"
    ],
    "era": "present",
    "numbers": {},
@@ -10942,7 +11028,7 @@
    "role": "Louis XVI's France in its war of revenge on Britain: 1.3 billion livres spent on the Americans",
    "qid": "Q70972",
    "from": 1778,
-   "to": 1783,
+   "to": "1783-09",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -10993,7 +11079,11 @@
    ],
    "facts": [
     "story-revolutions-chesapeake-french-fleet",
-    "story-revolutions-trafalgar-fleet"
+    "story-revolutions-trafalgar-fleet",
+    "story-revolutions-french-navy-1789",
+    "story-revolutions-french-navy-1792-1802",
+    "story-revolutions-french-navy-1814",
+    "story-revolutions-trafalgar-order-of-battle"
    ],
    "era": "present",
    "numbers": {},
@@ -11019,7 +11109,10 @@
     "story-revolutions-royal-household-1788",
     "story-revolutions-france-debt-after-war",
     "story-revolutions-europe-populations-1790s",
-    "story-revolutions-louis-executed"
+    "story-revolutions-louis-executed",
+    "story-revolutions-france-population-1780",
+    "story-revolutions-france-income-deficit-1786",
+    "story-revolutions-french-royal-army-1789"
    ],
    "era": "present",
    "numbers": {},
@@ -11033,7 +11126,8 @@
    "name": "The French nation (the Third Estate)",
    "kind": "population",
    "role": "28 million people, 98 percent of them in the Third Estate, who forced the Revolution",
-   "from": 1789,
+   "qid": "Q909656",
+   "from": 1788,
    "clusters_story": [
     "story-revolutions"
    ],
@@ -11066,10 +11160,18 @@
     "story-revolutions-church-property-1789",
     "story-revolutions-civil-constitution-bishops",
     "story-revolutions-concordat-recognition",
-    "story-revolutions-concordat-majority"
+    "story-revolutions-concordat-majority",
+    "story-revolutions-church-sees-1801"
    ],
    "era": "present",
-   "numbers": {},
+   "numbers": {
+    "headcount": {
+     "value": 60.0,
+     "unit": "clergy (60 bishops, one for each of the 60 sees kept of 136)",
+     "period": "1801-1802",
+     "fact": "story-revolutions-church-sees-1801"
+    }
+   },
    "candidates": {}
   },
   {
@@ -11095,7 +11197,9 @@
     "story-revolutions-robespierre-executed",
     "story-revolutions-marie-antoinette-executed",
     "story-revolutions-law-of-suspects",
-    "story-revolutions-louis-executed"
+    "story-revolutions-louis-executed",
+    "story-revolutions-robespierre-guillotined",
+    "story-revolutions-first-coalition-strength"
    ],
    "era": "present",
    "numbers": {},
@@ -11119,7 +11223,10 @@
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-plebiscite-1800",
-    "story-revolutions-concordat-recognition"
+    "story-revolutions-concordat-recognition",
+    "story-revolutions-france-population-1801",
+    "story-revolutions-consulate-palace-soldiers",
+    "story-revolutions-plebiscite-1800-count"
    ],
    "era": "present",
    "numbers": {},
@@ -11135,7 +11242,7 @@
    "role": "Napoleon's crowned empire, 2.1 million conscripts strong, which fell to the alliance of Europe",
    "qid": "Q71084",
    "from": 1804,
-   "to": 1815,
+   "to": "1815-11",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -11145,7 +11252,9 @@
     "story-revolutions-recognition-1804",
     "story-revolutions-conscripts-1805-1813",
     "story-revolutions-berlin-decree",
-    "story-revolutions-napoleon-abdicated"
+    "story-revolutions-napoleon-abdicated",
+    "story-revolutions-population-britain-france",
+    "story-revolutions-peak-france-1813"
    ],
    "era": "present",
    "numbers": {},
@@ -11161,7 +11270,7 @@
    "role": "the army formed in 1804 from the Army of England, organised in corps; 600,000 deployed against Russia, 110,000 came back",
    "qid": "Q504721",
    "from": 1804,
-   "to": 1815,
+   "to": "1815-11",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -11172,7 +11281,12 @@
     "story-revolutions-russia-initial-force",
     "story-revolutions-russia-deployed-600k",
     "story-revolutions-russia-survivors",
-    "story-revolutions-french-waterloo-army"
+    "story-revolutions-french-waterloo-army",
+    "story-revolutions-leipzig-french-force",
+    "story-revolutions-jena-french-campaign",
+    "story-revolutions-grande-armee-1805-size",
+    "story-revolutions-corps-concept",
+    "story-revolutions-berthier-chief-of-staff"
    ],
    "era": "present",
    "numbers": {},
@@ -11193,7 +11307,9 @@
    "facts": [
     "story-revolutions-fifth-coalition-1809",
     "story-revolutions-austria-subsidy-1809",
-    "story-revolutions-austerlitz-allied-losses"
+    "story-revolutions-austerlitz-allied-losses",
+    "story-revolutions-austria-population-1800",
+    "story-revolutions-peak-austria-1809"
    ],
    "era": "present",
    "numbers": {},
@@ -11215,7 +11331,9 @@
    ],
    "facts": [
     "story-revolutions-jena-prussian-army",
-    "story-revolutions-waterloo-prussians"
+    "story-revolutions-waterloo-prussians",
+    "story-revolutions-prussia-population",
+    "story-revolutions-peak-prussia-1806"
    ],
    "era": "present",
    "numbers": {},
@@ -11229,12 +11347,14 @@
    "name": "Prussian Army",
    "kind": "army",
    "role": "150,000 at Jena, routed in a day; rebuilt to arrive at Waterloo with 50,000",
+   "qid": "Q706042",
    "clusters_story": [
     "story-revolutions"
    ],
    "facts": [
     "story-revolutions-jena-prussian-army",
-    "story-revolutions-waterloo-prussians"
+    "story-revolutions-waterloo-prussians",
+    "story-revolutions-jena-prussian-engaged"
    ],
    "era": "present",
    "numbers": {},
@@ -11256,7 +11376,9 @@
    ],
    "facts": [
     "story-revolutions-europe-populations-1790s",
-    "story-revolutions-russia-army-peak-1812"
+    "story-revolutions-russia-army-peak-1812",
+    "story-revolutions-russia-population-1795-1812",
+    "story-revolutions-peak-russia-1812"
    ],
    "era": "present",
    "numbers": {},
@@ -11270,12 +11392,14 @@
    "name": "Russian Army",
    "kind": "army",
    "role": "904,000 strong at its 1812 peak; retreated, burned Moscow and followed Napoleon to Paris",
+   "qid": "Q1078222",
    "clusters_story": [
     "story-revolutions"
    ],
    "facts": [
     "story-revolutions-russia-army-peak-1812",
-    "story-revolutions-austerlitz-french-force"
+    "story-revolutions-austerlitz-french-force",
+    "story-revolutions-russia-western-armies-1812"
    ],
    "era": "present",
    "numbers": {},
@@ -11295,7 +11419,9 @@
    ],
    "facts": [
     "story-revolutions-spain-1808",
-    "story-revolutions-trafalgar-fleet"
+    "story-revolutions-trafalgar-fleet",
+    "story-revolutions-spain-population-1800",
+    "story-revolutions-peak-spain-1808"
    ],
    "era": "present",
    "numbers": {},
@@ -11314,7 +11440,8 @@
     "story-revolutions"
    ],
    "facts": [
-    "story-revolutions-trafalgar-result"
+    "story-revolutions-trafalgar-result",
+    "story-revolutions-trafalgar-order-of-battle"
    ],
    "era": "present",
    "numbers": {},
@@ -11335,7 +11462,8 @@
     "story-revolutions"
    ],
    "facts": [
-    "story-revolutions-first-coalition-1793"
+    "story-revolutions-first-coalition-1793",
+    "story-revolutions-first-coalition-strength"
    ],
    "era": "present",
    "numbers": {},
@@ -11444,7 +11572,8 @@
    "facts": [
     "story-revolutions-leipzig-coalition",
     "story-revolutions-leipzig-scale",
-    "story-revolutions-sixth-coalition-losses"
+    "story-revolutions-sixth-coalition-losses",
+    "story-revolutions-leipzig-coalition-force"
    ],
    "era": "present",
    "numbers": {},
@@ -11458,8 +11587,9 @@
    "name": "Seventh Coalition (1815)",
    "kind": "alliance",
    "role": "850,000 allied soldiers against 250,000 Frenchmen; Waterloo ended the Empire",
-   "from": 1815,
-   "to": 1815,
+   "qid": "Q2724511",
+   "from": "1815-03",
+   "to": "1815-11",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -11482,7 +11612,7 @@
    "role": "the club and committee that ran the Terror; their leader Robespierre fell on 28 July 1794",
    "qid": "Q179885",
    "from": 1789,
-   "to": 1794,
+   "to": "1794-07",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -11505,7 +11635,7 @@
    "role": "the five Great Powers that rebuilt a balance of power: Austria, Britain, Russia, Prussia and France",
    "qid": "Q46362",
    "from": 1814,
-   "to": 1815,
+   "to": "1815-11",
    "clusters_story": [
     "story-revolutions"
    ],
@@ -11513,7 +11643,8 @@
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
     "archetypes-vienna-congress-dates",
-    "archetypes-vienna-concert-of-europe"
+    "archetypes-vienna-concert-of-europe",
+    "story-revolutions-concert-doctrine"
    ],
    "era": "present",
    "numbers": {},
@@ -12970,6 +13101,34 @@
    "kind": "investment",
    "fact": "owners-gic-coatue-anthropic-series-g",
    "cluster": "owners"
+  },
+  {
+   "id": "sr-flow-france-us",
+   "from": "france",
+   "to": "united-states",
+   "usdBnPerYear": 0.0406,
+   "what": "money, arms and troops for the Americans",
+   "period": "1778-1783",
+   "basis": "estimate",
+   "kind": "investment",
+   "fact": "story-revolutions-france-direct-aid-cost",
+   "amount": "1.3 billion livres over 1778-1783 (6 years): 0.217 billion livres a year",
+   "conversion": "£1 = 24 livres, US$4.5 = £1 (assumed rates, as history.py): 1.3 billion livres = £54.2 million = US$244 million, US$40.6 million a year",
+   "cluster": "story-revolutions"
+  },
+  {
+   "id": "sr-flow-britain-allies",
+   "from": "kingdom-of-great-britain",
+   "to": "coalitions",
+   "usdBnPerYear": 0.00947,
+   "what": "cash subsidies to the allies",
+   "period": "1793-1814",
+   "basis": "reported",
+   "kind": "contract",
+   "fact": "story-revolutions-britain-subsidies-total",
+   "amount": "£46,289,549 over 1793-1814 (22 years): £2.10 million a year",
+   "conversion": "US$4.5 = £1 (assumed rate, as history.py): £2.10 million a year = US$9.47 million a year",
+   "cluster": "story-revolutions"
   },
   {
    "id": "weapons-flow-google-wiz",
@@ -16884,9 +17043,16 @@
    "sources": [
     {
      "source": "technology",
-     "what": "eleven Nobel Prizes for work done at the Labs",
+     "what": "the 1956 Nobel Prize in Physics for the transistor effect",
      "facts": [
-      "story-ai-bell-nobels"
+      "lineage-nobel-1956"
+     ]
+    },
+    {
+     "source": "talent",
+     "what": "9,000 employees at the wartime peak",
+     "facts": [
+      "story-ai-bell-staff-wwii"
      ]
     },
     {
@@ -16894,6 +17060,13 @@
      "what": "the Bell System: AT&T plus 24 operating companies and Western Electric",
      "facts": [
       "century-bell-breakup"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "eleven Nobel Prizes for Bell Labs work in all, counted to 2026 (a later total, not the 1947-1984 count)",
+     "facts": [
+      "story-ai-bell-nobels"
      ]
     },
     {
@@ -16928,24 +17101,27 @@
     },
     {
      "source": "technology",
-     "what": "silicon and the planar process, 1959",
+     "what": "silicon and the planar process, 1959; Hoerni's 2N1613 licensed across the industry",
      "facts": [
       "story-ai-fairchild-silicon",
-      "lineage-fairchild-planar-1959"
+      "lineage-fairchild-planar-1959",
+      "story-ai-hoerni-2n1613"
      ]
     },
     {
      "source": "patents",
-     "what": "the monolithic integrated circuit, 1959",
+     "what": "the monolithic integrated circuit, 1959, where Kilby's was a hybrid",
      "facts": [
-      "lineage-noyce-monolithic-ic-1959"
+      "lineage-noyce-monolithic-ic-1959",
+      "story-ai-kilby-hybrid"
      ]
     },
     {
      "source": "distribution",
-     "what": "first batch of 100 devices to IBM at $150",
+     "what": "the 1958 2N697 mesa transistor, first batch of 100 to IBM at $150; sales above $20 million by 1960",
      "facts": [
-      "lineage-fairchild-first-batch-ibm"
+      "story-ai-fairchild-2n697",
+      "story-ai-fairchild-sales-1960"
      ]
     }
    ],
@@ -17007,7 +17183,7 @@
   },
   {
    "actor": "tsmc",
-   "from": 1987,
+   "from": 2012,
    "to": 2026,
    "market": "leading-edge foundry",
    "sources": [
@@ -17047,12 +17223,12 @@
    "facts": [
     "compute-tsmc-q3-advanced-share"
    ],
-   "id": "moat-tsmc-1987-leading-edge-foundry",
+   "id": "moat-tsmc-2012-leading-edge-foundry",
    "cluster": "story-ai"
   },
   {
    "actor": "nvidia",
-   "from": 2007,
+   "from": 2012,
    "to": 2026,
    "market": "AI accelerators",
    "sources": [
@@ -17094,7 +17270,7 @@
     },
     {
      "source": "scale",
-     "what": "about 75% of AI accelerators in 2026",
+     "what": "about 75% of AI accelerators, a 2026 analysts' projection (87% peak in 2024)",
      "facts": [
       "compute-nvidia-accel-share"
      ]
@@ -17109,7 +17285,7 @@
    "facts": [
     "compute-nvidia-marketcap"
    ],
-   "id": "moat-nvidia-2007-ai-accelerators",
+   "id": "moat-nvidia-2012-ai-accelerators",
    "cluster": "story-ai"
   },
   {
@@ -17198,6 +17374,159 @@
    "cluster": "story-ai"
   },
   {
+   "actor": "tsmc",
+   "from": 1987,
+   "to": 2012,
+   "market": "dedicated foundry",
+   "sources": [
+    {
+     "source": "regulation",
+     "what": "Taiwan's government provided 48.3% of the startup capital",
+     "facts": [
+      "story-ai-tsmc-taiwan-ndf-1987"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "Philips's $58 million, production technology and licences for 27.6%",
+     "facts": [
+      "story-ai-tsmc-philips"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "revenue of about $245 million in 1992, $1.34 billion in 1997, $17.46 billion in 2012",
+     "facts": [
+      "story-ai-tsmc-rev-1992",
+      "story-ai-tsmc-rev-1997",
+      "story-ai-tsmc-rev-2012"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "37% of 2012 revenue expected from 45nm and finer processing",
+     "facts": [
+      "story-ai-tsmc-45nm-2012"
+     ]
+    },
+    {
+     "source": "talent",
+     "what": "Morris Chang, who founded the first dedicated foundry",
+     "facts": [
+      "story-ai-tsmc-chang-first-foundry"
+     ]
+    }
+   ],
+   "rivals": [
+    "intel"
+   ],
+   "facts": [
+    "lineage-tsmc-founded-1987"
+   ],
+   "id": "moat-tsmc-1987-dedicated-foundry",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "nvidia",
+   "from": 1999,
+   "to": 2007,
+   "market": "PC graphics",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "17 million transistors on the GeForce 256, marketed as the first GPU",
+     "facts": [
+      "story-ai-geforce256-transistors",
+      "lineage-geforce-256-1999"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "1999 revenue of $0.37 billion against 3dfx's $360.5 million, then $3.06 billion in 2006",
+     "facts": [
+      "story-ai-nvidia-rev-1999",
+      "story-ai-3dfx-revenue",
+      "story-ai-nvidia-rev-2006"
+     ]
+    },
+    {
+     "source": "patents",
+     "what": "3dfx's intellectual assets, acquired in December 2000",
+     "facts": [
+      "lineage-nvidia-acquires-3dfx-2000"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "a market value of $0.96 billion in 1999 and $13.15 billion in 2006",
+     "facts": [
+      "story-ai-nvidia-mcap-1999",
+      "story-ai-nvidia-mcap-2006"
+     ]
+    }
+   ],
+   "rivals": [
+    "3dfx",
+    "amd"
+   ],
+   "facts": [
+    "lineage-nvidia-ipo-1999"
+   ],
+   "id": "moat-nvidia-1999-pc-graphics",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "nvidia",
+   "from": 2007,
+   "to": 2012,
+   "market": "GPU computing",
+   "sources": [
+    {
+     "source": "technology",
+     "what": "CUDA released in 2007 on every GeForce",
+     "facts": [
+      "lineage-cuda-released-2007"
+     ]
+    },
+    {
+     "source": "distribution",
+     "what": "CUDA downloaded 150 thousand times in 2008 and taught in 60 US universities",
+     "facts": [
+      "story-ai-cuda-downloads-2008"
+     ]
+    },
+    {
+     "source": "talent",
+     "what": "more than 120,000 CUDA developers in late 2011",
+     "facts": [
+      "story-ai-cuda-devs-2011"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "more than 350 million compute-capable GPUs in late 2011",
+     "facts": [
+      "story-ai-cuda-gpus-2011"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "16.9% of PC graphics shipments in Q4 2012, against AMD's 19.7% and Intel's 63.4% (the moat was software, not share)",
+     "facts": [
+      "story-ai-jpr-q4-2012"
+     ]
+    }
+   ],
+   "rivals": [
+    "amd"
+   ],
+   "facts": [
+    "lineage-cuda-released-2007"
+   ],
+   "id": "moat-nvidia-2007-gpu-computing",
+   "cluster": "story-ai"
+  },
+  {
    "actor": "continental-army",
    "from": 1777,
    "to": 1783,
@@ -17277,12 +17606,12 @@
   {
    "actor": "kingdom-of-great-britain",
    "from": 1793,
-   "to": 1815,
+   "to": 1800,
    "market": "credit and subsidies",
    "sources": [
     {
      "source": "capital",
-     "what": "£46 million of subsidies, 450,000 allied soldiers at the peak",
+     "what": "British subsidies began: £46 million by 1814",
      "facts": [
       "story-revolutions-britain-subsidies-total",
       "story-revolutions-britain-subsidy-peak"
@@ -17345,22 +17674,30 @@
    "sources": [
     {
      "source": "technology",
-     "what": "six corps under marshals; massed artillery",
+     "what": "six corps led by marshals",
      "facts": [
-      "story-revolutions-grande-armee-1804"
+      "archetypes-napoleon-grande-armee-corps"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "all-arms corps, each an army in miniature",
+     "facts": [
+      "story-revolutions-corps-concept"
      ]
     },
     {
      "source": "talent",
-     "what": "one commander, Napoleon himself",
+     "what": "Berthier as chief of staff, 1796-1814",
      "facts": [
-      "story-revolutions-austerlitz-french-force"
+      "story-revolutions-berthier-chief-of-staff"
      ]
     },
     {
      "source": "scale",
-     "what": "2.1 million conscripts from 1805 to 1813",
+     "what": "350,000 men by 1805; 2.1 million conscripts, 1805-1813",
      "facts": [
+      "story-revolutions-grande-armee-1805-size",
       "story-revolutions-conscripts-1805-1813"
      ]
     }
@@ -17505,6 +17842,189 @@
     "story-revolutions-church-property-1789"
    ],
    "id": "moat-catholic-church-1789-land-and-legitimacy",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "united-kingdom",
+   "from": 1801,
+   "to": 1815,
+   "market": "credit and subsidies",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "£46 million of subsidies, 450,000 allied soldiers at the peak",
+     "facts": [
+      "story-revolutions-britain-subsidies-total",
+      "story-revolutions-britain-subsidy-peak"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "income tax: £6 million in 1799; debt £679 million in 1815",
+     "facts": [
+      "story-revolutions-pitt-income-tax",
+      "story-revolutions-britain-debt"
+     ]
+    }
+   ],
+   "rivals": [
+    "first-french-empire"
+   ],
+   "facts": [
+    "story-revolutions-population-britain-france",
+    "story-revolutions-britain-budget-1814"
+   ],
+   "id": "moat-united-kingdom-1801-credit-and-subsidies",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "france",
+   "from": 1778,
+   "to": 1783,
+   "market": "a rival navy and treasury",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "1.3 billion livres spent on the Americans directly (1,066 million for the whole war by another count)",
+     "facts": [
+      "story-revolutions-france-direct-aid-cost",
+      "story-revolutions-france-war-cost"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "24 French ships of the line against Britain's 19 at the Chesapeake",
+     "facts": [
+      "story-revolutions-chesapeake-french-fleet",
+      "story-revolutions-chesapeake-british-fleet"
+     ]
+    }
+   ],
+   "rivals": [
+    "kingdom-of-great-britain"
+   ],
+   "facts": [
+    "story-revolutions-france-direct-aid-cost"
+   ],
+   "id": "moat-france-1778-a-rival-navy-and-treasury",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-population",
+   "from": 1789,
+   "to": 1792,
+   "market": "the Third Estate",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "98% of 28 million people",
+     "facts": [
+      "story-revolutions-estates-population-1789"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "611 of 1,219 deputies, doubled in number",
+     "facts": [
+      "story-revolutions-estates-deputies-1789"
+     ]
+    }
+   ],
+   "rivals": [
+    "kingdom-of-france"
+   ],
+   "facts": [
+    "story-revolutions-estates-population-1789"
+   ],
+   "id": "moat-french-population-1789-the-third-estate",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-consulate",
+   "from": 1799,
+   "to": 1804,
+   "market": "the army behind the coup",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "6,000 soldiers around the palace on 10 November 1799",
+     "facts": [
+      "story-revolutions-consulate-palace-soldiers"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "3,011,007 votes for the constitution, half a million cast by the army",
+     "facts": [
+      "story-revolutions-plebiscite-1800-count"
+     ]
+    }
+   ],
+   "rivals": [
+    "french-republic"
+   ],
+   "facts": [
+    "story-revolutions-coup-1799"
+   ],
+   "id": "moat-french-consulate-1799-the-army-behind-the-coup",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "congress-of-vienna",
+   "from": 1814,
+   "to": 1815,
+   "market": "the balance of five powers",
+   "sources": [
+    {
+     "source": "legitimacy",
+     "what": "five Great Powers dealing behind closed doors: Austria, Britain, Russia, Prussia, France",
+     "facts": [
+      "story-revolutions-vienna-five-powers"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "a goal to resize the powers so they could balance each other and keep the peace",
+     "facts": [
+      "story-revolutions-vienna-goal"
+     ]
+    }
+   ],
+   "rivals": [
+    "first-french-empire"
+   ],
+   "facts": [
+    "story-revolutions-concert-doctrine"
+   ],
+   "id": "moat-congress-of-vienna-1814-the-balance-of-five-powers",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "catholic-church",
+   "from": 1801,
+   "to": 1804,
+   "market": "the Church reconciled to the state",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "60 sees kept of 136, a bishop in each",
+     "facts": [
+      "story-revolutions-church-sees-1801"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "Catholicism the religion of the great majority of the French",
+     "facts": [
+      "story-revolutions-concordat-majority"
+     ]
+    }
+   ],
+   "rivals": [],
+   "facts": [
+    "story-revolutions-concordat-recognition"
+   ],
+   "id": "moat-catholic-church-1801-the-church-reconciled-to-the-state",
    "cluster": "story-revolutions"
   }
  ],
@@ -19437,11 +19957,11 @@
   {
    "actor": "united-states",
    "year": 1945,
-   "part": "gdpShare",
+   "part": "industrialShare",
    "value": 50.0,
-   "unit": "% of global industrial output (half)",
+   "unit": "% of global industrial output (half; an industrial share, not a GDP share)",
    "fact": "story-ai-us-half-industrial",
-   "id": "series-united-states-1945-gdpShare",
+   "id": "series-united-states-1945-industrialShare",
    "cluster": "story-ai"
   },
   {
@@ -19476,12 +19996,12 @@
   },
   {
    "actor": "shockley-semiconductor",
-   "year": 1957,
-   "part": "defections",
-   "value": 8.0,
-   "unit": "engineers who left",
-   "fact": "lineage-traitorous-eight-names",
-   "id": "series-shockley-semiconductor-1957-defections",
+   "year": 1956,
+   "part": "employees",
+   "value": 32.0,
+   "unit": "employees, September 1956",
+   "fact": "story-ai-shockley-staff-1956",
+   "id": "series-shockley-semiconductor-1956-employees",
    "cluster": "story-ai"
   },
   {
@@ -19579,7 +20099,7 @@
    "year": 1987,
    "part": "capital",
    "value": 58.0,
-   "unit": "USD m put up by Philips",
+   "unit": "USD m put up by Philips for 27.6% (one investor of three)",
    "fact": "story-ai-tsmc-philips",
    "id": "series-tsmc-1987-capital",
    "cluster": "story-ai"
@@ -20066,6 +20586,396 @@
   },
   {
    "actor": "united-states",
+   "year": 1945,
+   "part": "gdp",
+   "value": 1474.0,
+   "unit": "billion 1990 dollars",
+   "fact": "story-ai-gdp-1945-us",
+   "id": "series-united-states-1945-gdp",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "ussr",
+   "year": 1945,
+   "part": "gdp",
+   "value": 343.0,
+   "unit": "billion 1990 dollars",
+   "fact": "story-ai-gdp-1945-ussr",
+   "id": "series-ussr-1945-gdp",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "bell-labs",
+   "year": 1945,
+   "part": "employees",
+   "value": 9000.0,
+   "unit": "employees at the wartime peak",
+   "fact": "story-ai-bell-staff-wwii",
+   "id": "series-bell-labs-1945-employees",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "texas-instruments",
+   "year": 1958,
+   "part": "revenue",
+   "value": 0.092,
+   "unit": "USD bn",
+   "fact": "story-ai-ti-sales-1958",
+   "id": "series-texas-instruments-1958-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "fairchild",
+   "year": 1957,
+   "part": "capital",
+   "value": 0.00138,
+   "unit": "USD bn raised by the eight (USD 1.38 million)",
+   "fact": "story-ai-fairchild-raised-1957",
+   "id": "series-fairchild-1957-capital",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "fairchild",
+   "year": 1960,
+   "part": "revenue",
+   "value": 0.02,
+   "unit": "USD bn (exceeded USD 20 million)",
+   "fact": "story-ai-fairchild-sales-1960",
+   "id": "series-fairchild-1960-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "fairchild",
+   "year": 1968,
+   "part": "revenue",
+   "value": 0.15,
+   "unit": "USD bn (about USD 150 million, late sixties)",
+   "fact": "story-ai-fairchild-late-sixties",
+   "id": "series-fairchild-1968-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "fairchild",
+   "year": 1968,
+   "part": "employees",
+   "value": 30000.0,
+   "unit": "employees (some, late sixties)",
+   "fact": "story-ai-fairchild-late-sixties",
+   "id": "series-fairchild-1968-employees",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "intel",
+   "year": 1968,
+   "part": "capital",
+   "value": 0.0025,
+   "unit": "USD bn of convertible debentures (USD 2.5 million)",
+   "fact": "story-ai-intel-debentures-1968",
+   "id": "series-intel-1968-capital",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "ibm",
+   "year": 1980,
+   "part": "revenue",
+   "value": 26.21,
+   "unit": "USD bn (gross income)",
+   "fact": "story-ai-ibm-income-1980",
+   "id": "series-ibm-1980-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "ibm",
+   "year": 1980,
+   "part": "employees",
+   "value": 341279.0,
+   "unit": "employees",
+   "fact": "story-ai-ibm-income-1980",
+   "id": "series-ibm-1980-employees",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "compaq",
+   "year": 1986,
+   "part": "revenue",
+   "value": 0.329,
+   "unit": "USD bn",
+   "fact": "story-ai-compaq-sales-1986",
+   "id": "series-compaq-1986-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "taiwan",
+   "year": 1987,
+   "part": "capital",
+   "value": 48.3,
+   "unit": "% of TSMC's startup capital (National Development Fund)",
+   "fact": "story-ai-tsmc-taiwan-ndf-1987",
+   "id": "series-taiwan-1987-capital",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "tsmc",
+   "year": 1992,
+   "part": "revenue",
+   "value": 0.245,
+   "unit": "USD bn (around USD 245 million)",
+   "fact": "story-ai-tsmc-rev-1992",
+   "id": "series-tsmc-1992-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "3dfx",
+   "year": 1998,
+   "part": "revenue",
+   "value": 0.2026,
+   "unit": "USD bn (USD 202.6 million)",
+   "fact": "story-ai-3dfx-revenue",
+   "id": "series-3dfx-1998-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "3dfx",
+   "year": 1999,
+   "part": "revenue",
+   "value": 0.3605,
+   "unit": "USD bn (USD 360.5 million)",
+   "fact": "story-ai-3dfx-revenue",
+   "id": "series-3dfx-1999-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2006,
+   "part": "marketValue",
+   "value": 11.13,
+   "unit": "USD bn",
+   "fact": "story-ai-amd-mcap-2006",
+   "id": "series-amd-2006-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2007,
+   "part": "marketValue",
+   "value": 4.54,
+   "unit": "USD bn",
+   "fact": "story-ai-amd-mcap-2007",
+   "id": "series-amd-2007-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2025,
+   "part": "marketValue",
+   "value": 350.01,
+   "unit": "USD bn",
+   "fact": "story-ai-amd-mcap-2025",
+   "id": "series-amd-2025-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2026,
+   "part": "marketValue",
+   "value": 736.46,
+   "unit": "USD bn",
+   "fact": "compute-amd-marketcap",
+   "id": "series-amd-2026-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2006,
+   "part": "revenue",
+   "value": 5.64,
+   "unit": "USD bn",
+   "fact": "story-ai-amd-rev-2006",
+   "id": "series-amd-2006-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2007,
+   "part": "revenue",
+   "value": 5.93,
+   "unit": "USD bn",
+   "fact": "story-ai-amd-rev-2007",
+   "id": "series-amd-2007-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2025,
+   "part": "revenue",
+   "value": 34.63,
+   "unit": "USD bn",
+   "fact": "story-ai-amd-rev-2025",
+   "id": "series-amd-2025-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "amd",
+   "year": 2026,
+   "part": "revenue",
+   "value": 41.3,
+   "unit": "USD bn (trailing twelve months)",
+   "fact": "story-ai-amd-rev-ttm",
+   "id": "series-amd-2026-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "deepseek",
+   "year": 2025,
+   "part": "compute",
+   "value": 2.788,
+   "unit": "million H800 GPU hours (V3 training)",
+   "fact": "entry-deepseek-v3-gpu-hours",
+   "id": "series-deepseek-2025-compute",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "microsoft",
+   "year": 1997,
+   "part": "marketValue",
+   "value": 157.36,
+   "unit": "USD bn",
+   "fact": "story-ai-microsoft-mcap-1997",
+   "id": "series-microsoft-1997-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2006,
+   "part": "marketValue",
+   "value": 291.94,
+   "unit": "USD bn",
+   "fact": "story-ai-microsoft-mcap-2006",
+   "id": "series-microsoft-2006-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2012,
+   "part": "marketValue",
+   "value": 223.66,
+   "unit": "USD bn",
+   "fact": "story-ai-microsoft-mcap-2012",
+   "id": "series-microsoft-2012-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2020,
+   "part": "marketValue",
+   "value": 1681.0,
+   "unit": "USD bn (US$1.681 trillion)",
+   "fact": "story-ai-microsoft-mcap-2020",
+   "id": "series-microsoft-2020-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "microsoft",
+   "year": 2022,
+   "part": "marketValue",
+   "value": 1787.0,
+   "unit": "USD bn (US$1.787 trillion)",
+   "fact": "story-ai-microsoft-mcap-2022",
+   "id": "series-microsoft-2022-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "google",
+   "year": 2020,
+   "part": "marketValue",
+   "value": 1185.0,
+   "unit": "USD bn (US$1.185 trillion)",
+   "fact": "story-ai-google-mcap-2020",
+   "id": "series-google-2020-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "google",
+   "year": 2022,
+   "part": "marketValue",
+   "value": 1145.0,
+   "unit": "USD bn (US$1.145 trillion)",
+   "fact": "story-ai-google-mcap-2022",
+   "id": "series-google-2022-marketValue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "google",
+   "year": 2020,
+   "part": "revenue",
+   "value": 182.52,
+   "unit": "USD bn",
+   "fact": "story-ai-google-rev-2020",
+   "id": "series-google-2020-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "google",
+   "year": 2022,
+   "part": "revenue",
+   "value": 282.83,
+   "unit": "USD bn",
+   "fact": "story-ai-google-rev-2022",
+   "id": "series-google-2022-revenue",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "google",
+   "year": 2017,
+   "part": "parameters",
+   "value": 213.0,
+   "unit": "million parameters (the big Transformer; base 65)",
+   "fact": "story-ai-transformer-params",
+   "id": "series-google-2017-parameters",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "openai",
+   "year": 2019,
+   "part": "capital",
+   "value": 1.0,
+   "unit": "USD bn invested by Microsoft",
+   "fact": "story-ai-microsoft-openai-2019",
+   "id": "series-openai-2019-capital",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "openai",
+   "year": 2021,
+   "part": "valuation",
+   "value": 14.0,
+   "unit": "USD bn",
+   "fact": "story-ai-openai-val-2021",
+   "id": "series-openai-2021-valuation",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "openai",
+   "year": 2023,
+   "part": "valuation",
+   "value": 29.0,
+   "unit": "USD bn",
+   "fact": "story-ai-openai-val-2023",
+   "id": "series-openai-2023-valuation",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "openai",
+   "year": 2020,
+   "part": "compute",
+   "value": 3640.0,
+   "unit": "petaflop/s-days (3.14E+23 flops, GPT-3 175B)",
+   "fact": "story-ai-gpt3-compute",
+   "id": "series-openai-2020-compute",
+   "cluster": "story-ai"
+  },
+  {
+   "actor": "united-states",
    "year": 1775,
    "part": "population",
    "value": 2.4,
@@ -20078,30 +20988,10 @@
    "actor": "continental-army",
    "year": 1775,
    "part": "army",
-   "value": 27.0,
-   "unit": "thousand troops",
+   "value": 22.0,
+   "unit": "thousand troops (outside Boston; 5,000 more at New York City)",
    "fact": "story-revolutions-continental-army-1775",
    "id": "series-continental-army-1775-army",
-   "cluster": "story-revolutions"
-  },
-  {
-   "actor": "continental-army",
-   "year": 1781,
-   "part": "army",
-   "value": 17.0,
-   "unit": "thousand troops (the most Washington directly commanded)",
-   "fact": "story-revolutions-yorktown-allied-army",
-   "id": "series-continental-army-1781-army",
-   "cluster": "story-revolutions"
-  },
-  {
-   "actor": "british-army",
-   "year": 1781,
-   "part": "army",
-   "value": 8.0,
-   "unit": "thousand troops captured at Yorktown",
-   "fact": "story-revolutions-yorktown-captured",
-   "id": "series-british-army-1781-army",
    "cluster": "story-revolutions"
   },
   {
@@ -20116,16 +21006,6 @@
   },
   {
    "actor": "french-army",
-   "year": 1781,
-   "part": "army",
-   "value": 6.0,
-   "unit": "thousand troops (landed at Newport in 1780)",
-   "fact": "story-revolutions-rochambeau-1780",
-   "id": "series-french-army-1781-army",
-   "cluster": "story-revolutions"
-  },
-  {
-   "actor": "french-army",
    "year": 1808,
    "part": "army",
    "value": 278.67,
@@ -20136,52 +21016,42 @@
   },
   {
    "actor": "royal-navy",
-   "year": 1781,
-   "part": "navy",
+   "year": "1781-09",
+   "part": "ships",
    "value": 19.0,
-   "unit": "ships of the line",
+   "unit": "ships of the line (at the Chesapeake)",
    "fact": "story-revolutions-chesapeake-british-fleet",
-   "id": "series-royal-navy-1781-navy",
+   "id": "series-royal-navy-1781-09-ships",
    "cluster": "story-revolutions"
   },
   {
    "actor": "royal-navy",
    "year": 1801,
-   "part": "navy",
+   "part": "sailors",
    "value": 133.0,
    "unit": "thousand sailors",
    "fact": "story-revolutions-navy-expansion",
-   "id": "series-royal-navy-1801-navy",
+   "id": "series-royal-navy-1801-sailors",
    "cluster": "story-revolutions"
   },
   {
    "actor": "royal-navy",
-   "year": 1805,
-   "part": "navy",
+   "year": "1805-10",
+   "part": "ships",
    "value": 27.0,
-   "unit": "ships of the line",
+   "unit": "ships of the line (at Trafalgar)",
    "fact": "story-revolutions-trafalgar-british-fleet",
-   "id": "series-royal-navy-1805-navy",
+   "id": "series-royal-navy-1805-10-ships",
    "cluster": "story-revolutions"
   },
   {
    "actor": "french-navy",
-   "year": 1781,
-   "part": "navy",
+   "year": "1781-09",
+   "part": "ships",
    "value": 24.0,
-   "unit": "ships of the line",
+   "unit": "ships of the line (at the Chesapeake)",
    "fact": "story-revolutions-chesapeake-french-fleet",
-   "id": "series-french-navy-1781-navy",
-   "cluster": "story-revolutions"
-  },
-  {
-   "actor": "french-navy",
-   "year": 1805,
-   "part": "navy",
-   "value": 33.0,
-   "unit": "ships of the line (Franco-Spanish fleet)",
-   "fact": "story-revolutions-trafalgar-fleet",
-   "id": "series-french-navy-1805-navy",
+   "id": "series-french-navy-1781-09-ships",
    "cluster": "story-revolutions"
   },
   {
@@ -20197,21 +21067,21 @@
   {
    "actor": "france",
    "year": 1783,
-   "part": "revenue",
+   "part": "spending",
    "value": 1.3,
-   "unit": "billion livres spent on the Americans directly",
+   "unit": "1.3 billion livres spent on the Americans directly (1778-1783)",
    "fact": "story-revolutions-france-direct-aid-cost",
-   "id": "series-france-1783-revenue",
+   "id": "series-france-1783-spending",
    "cluster": "story-revolutions"
   },
   {
    "actor": "kingdom-of-france",
    "year": 1788,
-   "part": "debt",
+   "part": "debtService",
    "value": 50.0,
    "unit": "percent of revenue to debt service",
    "fact": "story-revolutions-debt-service-1788",
-   "id": "series-kingdom-of-france-1788-debt",
+   "id": "series-kingdom-of-france-1788-debtService",
    "cluster": "story-revolutions"
   },
   {
@@ -20238,8 +21108,8 @@
    "actor": "catholic-church",
    "year": 1789,
    "part": "adherents",
-   "value": 132.5,
-   "unit": "thousand clergy (midpoint of 115,000-150,000)",
+   "value": 115.0,
+   "unit": "thousand clergy (115,000 to 150,000; the low end)",
    "fact": "story-revolutions-clergy-1789",
    "id": "series-catholic-church-1789-adherents",
    "cluster": "story-revolutions"
@@ -20257,11 +21127,11 @@
   {
    "actor": "french-republic",
    "year": 1793,
-   "part": "debt",
+   "part": "deficit",
    "value": 64.0,
-   "unit": "percent of GNP (annual deficit)",
+   "unit": "percent of GNP (annual deficit, up from 10% in 1789)",
    "fact": "story-revolutions-deficit-1789-1793",
-   "id": "series-french-republic-1793-debt",
+   "id": "series-french-republic-1793-deficit",
    "cluster": "story-revolutions"
   },
   {
@@ -20296,32 +21166,32 @@
   },
   {
    "actor": "grande-armee",
-   "year": 1805,
-   "part": "army",
+   "year": "1805-12",
+   "part": "troops",
    "value": 72.0,
-   "unit": "thousand troops",
+   "unit": "thousand troops (at Austerlitz)",
    "fact": "story-revolutions-austerlitz-french-force",
-   "id": "series-grande-armee-1805-army",
+   "id": "series-grande-armee-1805-12-troops",
    "cluster": "story-revolutions"
   },
   {
    "actor": "grande-armee",
-   "year": 1806,
-   "part": "army",
+   "year": "1806-10",
+   "part": "troops",
    "value": 96.0,
-   "unit": "thousand troops",
+   "unit": "thousand troops (at Jena, of whom 40,000 fought)",
    "fact": "story-revolutions-jena-french-force",
-   "id": "series-grande-armee-1806-army",
+   "id": "series-grande-armee-1806-10-troops",
    "cluster": "story-revolutions"
   },
   {
    "actor": "grande-armee",
-   "year": 1812,
+   "year": "1812-06",
    "part": "army",
    "value": 600.0,
-   "unit": "thousand troops",
+   "unit": "thousand troops (deployed against Russia, half of them French)",
    "fact": "story-revolutions-russia-deployed-600k",
-   "id": "series-grande-armee-1812-army",
+   "id": "series-grande-armee-1812-06-army",
    "cluster": "story-revolutions"
   },
   {
@@ -20336,40 +21206,40 @@
   },
   {
    "actor": "grande-armee",
-   "year": 1815,
-   "part": "army",
+   "year": "1815-06",
+   "part": "troops",
    "value": 74.5,
-   "unit": "thousand troops at Waterloo",
+   "unit": "thousand troops (at Waterloo)",
    "fact": "story-revolutions-french-waterloo-army",
-   "id": "series-grande-armee-1815-army",
+   "id": "series-grande-armee-1815-06-troops",
    "cluster": "story-revolutions"
   },
   {
    "actor": "first-french-empire",
    "year": 1813,
-   "part": "army",
+   "part": "conscripted",
    "value": 2.1,
    "unit": "million conscripted, cumulative 1805-1813",
    "fact": "story-revolutions-conscripts-1805-1813",
-   "id": "series-first-french-empire-1813-army",
+   "id": "series-first-french-empire-1813-conscripted",
    "cluster": "story-revolutions"
   },
   {
    "actor": "third-coalition",
-   "year": 1805,
+   "year": "1805-12",
    "part": "army",
    "value": 85.0,
-   "unit": "thousand troops (Allied army at Austerlitz)",
+   "unit": "thousand troops (the Allied army at Austerlitz; 89,000 in another count)",
    "fact": "story-revolutions-austerlitz-french-force",
-   "id": "series-third-coalition-1805-army",
+   "id": "series-third-coalition-1805-12-army",
    "cluster": "story-revolutions"
   },
   {
    "actor": "prussian-army",
    "year": 1806,
    "part": "army",
-   "value": 150.0,
-   "unit": "thousand troops",
+   "value": 130.0,
+   "unit": "thousand Prussian troops (the field force awaiting Napoleon; 20,000 Saxons besides)",
    "fact": "story-revolutions-jena-prussian-army",
    "id": "series-prussian-army-1806-army",
    "cluster": "story-revolutions"
@@ -20385,16 +21255,6 @@
    "cluster": "story-revolutions"
   },
   {
-   "actor": "russian-empire",
-   "year": 1789,
-   "part": "population",
-   "value": 37.5,
-   "unit": "million people (midpoint of 35 to 40)",
-   "fact": "story-revolutions-europe-populations-1790s",
-   "id": "series-russian-empire-1789-population",
-   "cluster": "story-revolutions"
-  },
-  {
    "actor": "kingdom-of-great-britain",
    "year": 1789,
    "part": "population",
@@ -20407,41 +21267,41 @@
   {
    "actor": "kingdom-of-great-britain",
    "year": 1799,
-   "part": "revenue",
+   "part": "incomeTax",
    "value": 6.0,
-   "unit": "million pounds (income tax receipts)",
+   "unit": "million pounds (income tax receipts alone, not total revenue)",
    "fact": "story-revolutions-pitt-income-tax",
-   "id": "series-kingdom-of-great-britain-1799-revenue",
+   "id": "series-kingdom-of-great-britain-1799-incomeTax",
    "cluster": "story-revolutions"
   },
   {
-   "actor": "kingdom-of-great-britain",
+   "actor": "united-kingdom",
    "year": 1805,
    "part": "population",
    "value": 16.0,
-   "unit": "million people (c. 1800-1815)",
+   "unit": "million people (Britain and Ireland, c. 1800-1815)",
    "fact": "story-revolutions-population-britain-france",
-   "id": "series-kingdom-of-great-britain-1805-population",
+   "id": "series-united-kingdom-1805-population",
    "cluster": "story-revolutions"
   },
   {
-   "actor": "kingdom-of-great-britain",
+   "actor": "united-kingdom",
    "year": 1813,
-   "part": "army",
+   "part": "subsidisedTroops",
    "value": 450.0,
-   "unit": "thousand allied soldiers subsidised",
+   "unit": "thousand allied soldiers subsidised by Britain (Austrian and Russian)",
    "fact": "story-revolutions-britain-subsidy-peak",
-   "id": "series-kingdom-of-great-britain-1813-army",
+   "id": "series-united-kingdom-1813-subsidisedTroops",
    "cluster": "story-revolutions"
   },
   {
    "actor": "united-kingdom",
    "year": 1814,
-   "part": "debt",
+   "part": "debtInterest",
    "value": 38.0,
-   "unit": "million pounds (annual interest)",
+   "unit": "million pounds (annual interest on the national debt)",
    "fact": "story-revolutions-britain-budget-1814",
-   "id": "series-united-kingdom-1814-debt",
+   "id": "series-united-kingdom-1814-debtInterest",
    "cluster": "story-revolutions"
   },
   {
@@ -20455,16 +21315,6 @@
    "cluster": "story-revolutions"
   },
   {
-   "actor": "sixth-coalition",
-   "year": 1813,
-   "part": "army",
-   "value": 560.0,
-   "unit": "thousand soldiers at Leipzig (both sides)",
-   "fact": "story-revolutions-leipzig-scale",
-   "id": "series-sixth-coalition-1813-army",
-   "cluster": "story-revolutions"
-  },
-  {
    "actor": "seventh-coalition",
    "year": 1815,
    "part": "army",
@@ -20472,6 +21322,556 @@
    "unit": "thousand soldiers",
    "fact": "story-revolutions-allied-1815",
    "id": "series-seventh-coalition-1815-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "russian-empire",
+   "year": 1795,
+   "part": "population",
+   "value": 38.0,
+   "unit": "million people",
+   "fact": "story-revolutions-russia-population-1795-1812",
+   "id": "series-russian-empire-1795-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "russian-empire",
+   "year": 1812,
+   "part": "population",
+   "value": 43.0,
+   "unit": "million people",
+   "fact": "story-revolutions-russia-population-1795-1812",
+   "id": "series-russian-empire-1812-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1812,
+   "part": "population",
+   "value": 16.0,
+   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france",
+   "id": "series-united-kingdom-1812-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1815,
+   "part": "population",
+   "value": 16.0,
+   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france",
+   "id": "series-united-kingdom-1815-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1814,
+   "part": "spending",
+   "value": 66.0,
+   "unit": "million pounds (the 1814 budget)",
+   "fact": "story-revolutions-uk-budget-1814",
+   "id": "series-united-kingdom-1814-spending",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1813,
+   "part": "army",
+   "value": 380.0,
+   "unit": "thousand troops (regulars, sailors and marines, peak)",
+   "fact": "story-revolutions-peak-uk-1813",
+   "id": "series-united-kingdom-1813-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "kingdom-of-france",
+   "year": 1780,
+   "part": "population",
+   "value": 25.0,
+   "unit": "million people (estimate)",
+   "fact": "story-revolutions-france-population-1780",
+   "id": "series-kingdom-of-france-1780-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "kingdom-of-france",
+   "year": 1786,
+   "part": "revenue",
+   "value": 475.0,
+   "unit": "million livres (total income, before the Assembly of Notables of 1787)",
+   "fact": "story-revolutions-france-income-deficit-1786",
+   "id": "series-kingdom-of-france-1786-revenue",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "kingdom-of-france",
+   "year": 1789,
+   "part": "army",
+   "value": 172.974,
+   "unit": "thousand troops (peacetime strength of the Royal Army; 210,948 in wartime)",
+   "fact": "story-revolutions-french-royal-army-1789",
+   "id": "series-kingdom-of-france-1789-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-consulate",
+   "year": 1801,
+   "part": "population",
+   "value": 29.361,
+   "unit": "million people (official census)",
+   "fact": "story-revolutions-france-population-1801",
+   "id": "series-french-consulate-1801-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-consulate",
+   "year": "1799-11",
+   "part": "army",
+   "value": 6.0,
+   "unit": "thousand troops (soldiers around the palace at Saint-Cloud)",
+   "fact": "story-revolutions-consulate-palace-soldiers",
+   "id": "series-french-consulate-1799-11-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1805,
+   "part": "population",
+   "value": 30.0,
+   "unit": "million people (France, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france",
+   "id": "series-first-french-empire-1805-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1812,
+   "part": "population",
+   "value": 30.0,
+   "unit": "million people (France, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france",
+   "id": "series-first-french-empire-1812-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1815,
+   "part": "population",
+   "value": 30.0,
+   "unit": "million people (France, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france",
+   "id": "series-first-french-empire-1815-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1804,
+   "part": "army",
+   "value": 100.0,
+   "unit": "thousand troops (the Grande Armee, formed in 1804; over 100,000)",
+   "fact": "story-revolutions-grande-armee-1804",
+   "id": "series-first-french-empire-1804-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1805,
+   "part": "army",
+   "value": 350.0,
+   "unit": "thousand troops (the Grande Armee)",
+   "fact": "story-revolutions-grande-armee-1805-size",
+   "id": "series-first-french-empire-1805-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1812,
+   "part": "army",
+   "value": 600.0,
+   "unit": "thousand troops (deployed against Russia, half of them French)",
+   "fact": "story-revolutions-russia-deployed-600k",
+   "id": "series-first-french-empire-1812-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1813,
+   "part": "army",
+   "value": 1200.0,
+   "unit": "thousand troops (regulars, sailors, marines and militia, peak)",
+   "fact": "story-revolutions-peak-france-1813",
+   "id": "series-first-french-empire-1813-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1815,
+   "part": "army",
+   "value": 300.0,
+   "unit": "thousand troops (raised by June)",
+   "fact": "story-revolutions-french-waterloo-army",
+   "id": "series-first-french-empire-1815-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "prussia",
+   "year": 1786,
+   "part": "population",
+   "value": 5.8,
+   "unit": "million people",
+   "fact": "story-revolutions-prussia-population",
+   "id": "series-prussia-1786-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "prussia",
+   "year": 1797,
+   "part": "population",
+   "value": 8.7,
+   "unit": "million people",
+   "fact": "story-revolutions-prussia-population",
+   "id": "series-prussia-1797-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "prussia",
+   "year": 1806,
+   "part": "army",
+   "value": 281.0,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "fact": "story-revolutions-peak-prussia-1806",
+   "id": "series-prussia-1806-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": 1800,
+   "part": "population",
+   "value": 23.145,
+   "unit": "million people (Habsburg monarchy)",
+   "fact": "story-revolutions-austria-population-1800",
+   "id": "series-habsburg-austria-1800-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": 1809,
+   "part": "army",
+   "value": 630.0,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "fact": "story-revolutions-peak-austria-1809",
+   "id": "series-habsburg-austria-1809-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "spain",
+   "year": 1800,
+   "part": "population",
+   "value": 10.541,
+   "unit": "million people (Kingdom of Spain)",
+   "fact": "story-revolutions-spain-population-1800",
+   "id": "series-spain-1800-population",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "spain",
+   "year": 1808,
+   "part": "army",
+   "value": 255.0,
+   "unit": "thousand troops (regulars and guerillas, peak)",
+   "fact": "story-revolutions-peak-spain-1808",
+   "id": "series-spain-1808-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "russian-empire",
+   "year": 1812,
+   "part": "army",
+   "value": 712.0,
+   "unit": "thousand troops (regulars, Cossacks and militia, peak)",
+   "fact": "story-revolutions-peak-russia-1812",
+   "id": "series-russian-empire-1812-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-republic",
+   "year": 1794,
+   "part": "army",
+   "value": 1169.0,
+   "unit": "thousand troops",
+   "fact": "story-revolutions-first-coalition-strength",
+   "id": "series-french-republic-1794-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "first-coalition",
+   "year": 1793,
+   "part": "army",
+   "value": 800.0,
+   "unit": "thousand troops (Holy Roman Empire; Austria 500,000)",
+   "fact": "story-revolutions-first-coalition-strength",
+   "id": "series-first-coalition-1793-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-army",
+   "year": "1780-07",
+   "part": "army",
+   "value": 6.0,
+   "unit": "thousand troops (landed at Newport)",
+   "fact": "story-revolutions-rochambeau-1780",
+   "id": "series-french-army-1780-07-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "british-army",
+   "year": "1777-10",
+   "part": "troops",
+   "value": 5.791,
+   "unit": "thousand troops (Burgoyne at Saratoga)",
+   "fact": "story-revolutions-saratoga-1777",
+   "id": "series-british-army-1777-10-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "continental-army",
+   "year": "1777-10",
+   "part": "troops",
+   "value": 12.0,
+   "unit": "thousand troops (about 12,000 colonial troops at Saratoga)",
+   "fact": "story-revolutions-saratoga-1777",
+   "id": "series-continental-army-1777-10-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "continental-army",
+   "year": "1781-10",
+   "part": "troops",
+   "value": 5.9,
+   "unit": "thousand troops (regulars at Yorktown; 3,100 militia not engaged)",
+   "fact": "story-revolutions-yorktown-forces",
+   "id": "series-continental-army-1781-10-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-army",
+   "year": "1781-10",
+   "part": "troops",
+   "value": 10.8,
+   "unit": "thousand troops (at Yorktown)",
+   "fact": "story-revolutions-yorktown-forces",
+   "id": "series-french-army-1781-10-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "british-army",
+   "year": "1781-10",
+   "part": "troops",
+   "value": 8.0,
+   "unit": "thousand troops (British and Germans at Yorktown, 8,000 to 9,000)",
+   "fact": "story-revolutions-yorktown-forces",
+   "id": "series-british-army-1781-10-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "british-army",
+   "year": "1815-06",
+   "part": "troops",
+   "value": 74.326,
+   "unit": "thousand troops (Wellington's Anglo-allied army at Waterloo; 27,985 British)",
+   "fact": "story-revolutions-waterloo-wellington-army",
+   "id": "series-british-army-1815-06-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "prussian-army",
+   "year": "1815-06",
+   "part": "troops",
+   "value": 50.0,
+   "unit": "thousand troops (the Prussians arriving at Waterloo)",
+   "fact": "story-revolutions-waterloo-prussians",
+   "id": "series-prussian-army-1815-06-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "prussian-army",
+   "year": "1806-10",
+   "part": "troops",
+   "value": 46.0,
+   "unit": "thousand troops (at Jena)",
+   "fact": "story-revolutions-jena-prussian-engaged",
+   "id": "series-prussian-army-1806-10-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "grande-armee",
+   "year": 1805,
+   "part": "army",
+   "value": 350.0,
+   "unit": "thousand troops",
+   "fact": "story-revolutions-grande-armee-1805-size",
+   "id": "series-grande-armee-1805-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "grande-armee",
+   "year": "1806-10",
+   "part": "army",
+   "value": 180.0,
+   "unit": "thousand troops (the campaign force)",
+   "fact": "story-revolutions-jena-french-campaign",
+   "id": "series-grande-armee-1806-10-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "grande-armee",
+   "year": 1815,
+   "part": "army",
+   "value": 250.0,
+   "unit": "thousand troops (the French faced 850,000 allies on four fronts)",
+   "fact": "story-revolutions-allied-1815",
+   "id": "series-grande-armee-1815-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "grande-armee",
+   "year": "1812-12",
+   "part": "army",
+   "value": 110.0,
+   "unit": "thousand troops (survivors of an original 615,000)",
+   "fact": "story-revolutions-russia-survivors",
+   "id": "series-grande-armee-1812-12-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "grande-armee",
+   "year": "1813-10",
+   "part": "army",
+   "value": 198.0,
+   "unit": "thousand troops (at Leipzig; other estimates up to 225,000)",
+   "fact": "story-revolutions-leipzig-french-force",
+   "id": "series-grande-armee-1813-10-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "sixth-coalition",
+   "year": "1813-10",
+   "part": "army",
+   "value": 380.0,
+   "unit": "thousand troops (at Leipzig)",
+   "fact": "story-revolutions-leipzig-coalition-force",
+   "id": "series-sixth-coalition-1813-10-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "russian-army",
+   "year": "1805-12",
+   "part": "army",
+   "value": 59.5,
+   "unit": "thousand troops (70% of the Allied 85,000)",
+   "fact": "story-revolutions-austerlitz-french-force",
+   "id": "series-russian-army-1805-12-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": "1805-12",
+   "part": "army",
+   "value": 25.5,
+   "unit": "thousand troops (the other 30% of the Allied 85,000)",
+   "fact": "story-revolutions-austerlitz-french-force",
+   "id": "series-habsburg-austria-1805-12-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "russian-army",
+   "year": "1812-06",
+   "part": "troops",
+   "value": 180.0,
+   "unit": "thousand troops (Barclay and Bagration, 180,000 to 220,000)",
+   "fact": "story-revolutions-russia-western-armies-1812",
+   "id": "series-russian-army-1812-06-troops",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "fourth-coalition",
+   "year": "1806-10",
+   "part": "army",
+   "value": 130.0,
+   "unit": "thousand Prussian troops (the field force; 20,000 Saxons besides)",
+   "fact": "story-revolutions-jena-prussian-army",
+   "id": "series-fourth-coalition-1806-10-army",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "royal-navy",
+   "year": 1793,
+   "part": "sailors",
+   "value": 15.0,
+   "unit": "thousand sailors",
+   "fact": "story-revolutions-navy-expansion",
+   "id": "series-royal-navy-1793-sailors",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-navy",
+   "year": "1805-10",
+   "part": "ships",
+   "value": 18.0,
+   "unit": "ships of the line (French, at Trafalgar)",
+   "fact": "story-revolutions-trafalgar-order-of-battle",
+   "id": "series-french-navy-1805-10-ships",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "spanish-navy",
+   "year": "1805-10",
+   "part": "ships",
+   "value": 15.0,
+   "unit": "ships of the line (Spanish, at Trafalgar)",
+   "fact": "story-revolutions-trafalgar-order-of-battle",
+   "id": "series-spanish-navy-1805-10-ships",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1789,
+   "part": "navy",
+   "value": 71.0,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1789",
+   "id": "series-french-navy-1789-navy",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1792,
+   "part": "navy",
+   "value": 83.0,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1792-1802",
+   "id": "series-french-navy-1792-navy",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1802,
+   "part": "navy",
+   "value": 46.0,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1792-1802",
+   "id": "series-french-navy-1802-navy",
+   "cluster": "story-revolutions"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1814,
+   "part": "navy",
+   "value": 81.0,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1814",
+   "id": "series-french-navy-1814-navy",
    "cluster": "story-revolutions"
   }
  ],
@@ -20486,18 +21886,20 @@
     "ussr"
    ],
    "allies": [],
-   "advantage": "half of world industry, 80% of the gold",
+   "advantage": "half of world industrial output, 80% of the gold",
    "power": "scale economies",
    "triad": "environment",
    "mechanism": "The only large economy not bombed produced half of global industrial output and held most of the gold, so it wrote the monetary rules and paid for Europe's recovery.",
-   "outcome": "Bretton Woods put the dollar at the centre; the Marshall Plan moved US$13.3 billion to 17 countries; by 1950 US GDP was 1,456 billion 1990 dollars against the USSR's 510.",
+   "outcome": "Bretton Woods put the dollar at the centre; the Marshall Plan moved US$13.3 billion to 17 countries; US GDP was 1,474 billion 1990 dollars in 1945 against the USSR's 343, and 1,456 against 510 in 1950.",
    "facts": [
     "story-ai-us-half-industrial",
     "story-ai-us-gold-80",
     "story-ai-bretton-gold-two-thirds",
     "story-ai-marshall-plan",
     "story-ai-gdp-1950",
-    "story-ai-luce-1941"
+    "story-ai-luce-1941",
+    "story-ai-gdp-1945-us",
+    "story-ai-gdp-1945-ussr"
    ],
    "cluster": "story-ai"
   },
@@ -20512,13 +21914,14 @@
    "advantage": "a solid-state switch",
    "power": "cornered resource",
    "triad": "information",
-   "mechanism": "Three Bell Labs physicists made a working solid-state amplifier, financed by a regulated telephone monopoly that could afford basic research.",
-   "outcome": "Bardeen, Brattain and Shockley shared the 1956 Nobel Prize; Bell Labs work has won eleven Nobel Prizes in all.",
+   "mechanism": "Three Bell Labs physicists made a working solid-state amplifier at a laboratory that employed 9,000 by the war's end and was financed by a regulated telephone monopoly.",
+   "outcome": "Bardeen, Brattain and Shockley shared the 1956 Nobel Prize; Bell Labs work has since won eleven Nobel Prizes in all (a count to 2026).",
    "facts": [
     "lineage-bell-transistor-1947",
     "lineage-nobel-1956",
     "story-ai-bell-nobels",
-    "century-bell-breakup"
+    "century-bell-breakup",
+    "story-ai-bell-staff-wwii"
    ],
    "cluster": "story-ai"
   },
@@ -20535,14 +21938,18 @@
    "advantage": "the people, and silicon",
    "power": "cornered resource",
    "triad": "information",
-   "mechanism": "Eight engineers walked out of Shockley's laboratory, found a backer in Sherman Fairchild, and bet on silicon when germanium was the norm.",
-   "outcome": "Fairchild was founded on 18 September 1957; by 1960 it was the incubator of the valley.",
+   "mechanism": "Eight engineers walked out of Shockley's laboratory of 32, found a backer in Sherman Fairchild, and bet on silicon when germanium was the norm.",
+   "outcome": "Fairchild was founded on 18 September 1957 with $1.38 million; its first marketed transistor, the 1958 2N697, sold in a first batch of 100 to IBM at $150; by 1960 its sales exceeded $20 million.",
    "facts": [
     "lineage-traitorous-eight-names",
     "lineage-fairchild-founded-1957",
     "story-ai-fairchild-silicon",
     "story-ai-fairchild-eight-names",
-    "lineage-fairchildren-1960"
+    "lineage-fairchildren-1960",
+    "story-ai-shockley-staff-1956",
+    "story-ai-fairchild-raised-1957",
+    "story-ai-fairchild-2n697",
+    "story-ai-fairchild-sales-1960"
    ],
    "cluster": "story-ai"
   },
@@ -20559,15 +21966,17 @@
    "advantage": "a manufacturable chip, patented",
    "power": "patents",
    "triad": "execution",
-   "mechanism": "Hoerni's planar process let Noyce put every component on one flat silicon chip that could be mass-produced, where Kilby's 1958 germanium circuit had wires.",
-   "outcome": "Fairchild's first batch of 100 devices sold to IBM at $150 each for the B-70 bomber's computer.",
+   "mechanism": "Hoerni's planar process let Noyce put every component on one flat silicon chip that could be mass-produced; Kilby's 1958 circuit at Texas Instruments was a hybrid, not a monolithic chip.",
+   "outcome": "Fairchild licensed Hoerni's planar 2N1613 across the industry, and a 1960 planar circuit with four transistors on one silicon wafer was the first silicon integrated circuit.",
    "facts": [
     "lineage-fairchild-planar-1959",
     "lineage-noyce-monolithic-ic-1959",
     "story-ai-kilby-1958",
     "lineage-kilby-nobel-2000",
-    "lineage-fairchild-first-batch-ibm",
-    "story-ai-moore-1965"
+    "story-ai-moore-1965",
+    "story-ai-kilby-hybrid",
+    "story-ai-hoerni-2n1613",
+    "story-ai-ti-sales-1958"
    ],
    "cluster": "story-ai"
   },
@@ -20612,14 +22021,17 @@
    "power": "switching costs",
    "triad": "environment",
    "mechanism": "The IBM PC used an Intel 8088; Compaq's 1986 80386 clone beat IBM to the next chip and made Intel the key supplier, after Japanese memory makers squeezed Intel out of DRAM in 1983.",
-   "outcome": "Intel became a microprocessor company: the 4004's field became its primary business only in the early 1980s.",
+   "outcome": "Intel became a microprocessor company: the 4004's field became its primary business only in the early 1980s, while IBM's 1980 gross income was $26.2 billion and Compaq's sales reached $329 million in 1986.",
    "facts": [
     "lineage-ibm-pc-8088-1981",
     "lineage-compaq-386-1986",
     "lineage-intel-japan-dram-1983",
     "story-ai-intel-pc-primary",
     "story-ai-intel-rev-1997",
-    "story-ai-intel-mcap-1999"
+    "story-ai-intel-mcap-1999",
+    "story-ai-ibm-income-1980",
+    "story-ai-compaq-sales-1986",
+    "story-ai-intel-debentures-1968"
    ],
    "cluster": "story-ai"
   },
@@ -20638,14 +22050,16 @@
    "advantage": "manufacturing for everyone's designs",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "A Taiwanese government-backed joint venture, funded by Philips, built chips only for others, so any designer could start a company without a fab.",
+   "mechanism": "A Taiwanese government-backed joint venture, with Philips taking 27.6 percent for $58 million and the government's development fund providing 48.3 percent of the capital, built chips only for others, so any designer could start a company without a fab.",
    "outcome": "TSMC held 72.5% of top-10 foundry revenue in Q2 2026 and 79% of its Q3 2026 wafer revenue came from 7nm and below.",
    "facts": [
     "lineage-tsmc-founded-1987",
     "story-ai-tsmc-philips",
     "story-ai-tsmc-chang-first-foundry",
     "compute-tsmc-foundry-share",
-    "compute-tsmc-q3-advanced-share"
+    "compute-tsmc-q3-advanced-share",
+    "story-ai-tsmc-taiwan-ndf-1987",
+    "story-ai-tsmc-rev-1992"
    ],
    "cluster": "story-ai"
   },
@@ -20662,15 +22076,16 @@
    "advantage": "a single-chip graphics processor",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "After nearly dying in 1996 (staff cut from 100 to 40) Nvidia shipped on a six-month cycle and put 17 million transistors on a TSMC-made chip it marketed as the first GPU.",
-   "outcome": "Nvidia listed in January 1999; in December 2000 it agreed to acquire 3dfx's intellectual assets.",
+   "mechanism": "After nearly dying in 1996 (staff cut from 100 to 40) Nvidia put 17 million transistors on a TSMC-made chip it marketed as the first GPU.",
+   "outcome": "Nvidia listed in January 1999 with $0.37 billion of revenue, level with 3dfx's $360.5 million that year; in December 2000 it agreed to acquire 3dfx's intellectual assets.",
    "facts": [
     "lineage-geforce-256-1999",
     "story-ai-geforce256-transistors",
     "story-ai-nvidia-1996-layoff",
     "lineage-nvidia-ipo-1999",
     "lineage-nvidia-acquires-3dfx-2000",
-    "lineage-nvidia-gpu-share-2025"
+    "lineage-nvidia-gpu-share-2025",
+    "story-ai-3dfx-revenue"
    ],
    "cluster": "story-ai"
   },
@@ -20688,10 +22103,13 @@
    "power": "switching costs",
    "triad": "information",
    "mechanism": "Created in 2004 and released in 2007, CUDA let researchers write general programs for graphics chips already sitting in their machines.",
-   "outcome": "CUDA is now 20 years old and has 6 million developers.",
+   "outcome": "CUDA was downloaded 150 thousand times in 2008, counted more than 120,000 developers in 2011, and is now 20 years old with 6 million developers.",
    "facts": [
     "lineage-cuda-released-2007",
-    "moats-nvidia-cuda-developers"
+    "moats-nvidia-cuda-developers",
+    "story-ai-cuda-downloads-2008",
+    "story-ai-cuda-devs-2011",
+    "story-ai-cuda-gpus-2011"
    ],
    "cluster": "story-ai"
   },
@@ -20730,15 +22148,17 @@
    "advantage": "an architecture that parallelises on GPUs",
    "power": "cornered resource",
    "triad": "information",
-   "mechanism": "Eight Google researchers dropped recurrence, so training could be spread across thousands of GPUs; the advantage was published rather than kept.",
-   "outcome": "Cited more than 150,000 times; all eight authors later left Google.",
+   "mechanism": "Eight Google researchers dropped recurrence, which had kept sequence models from being accelerated on GPUs; the base model trained in 12 hours and the big model in 3.5 days on eight P100 GPUs, and the advantage was published rather than kept.",
+   "outcome": "The big model had 213 million parameters; the paper has been cited more than 150,000 times; all eight authors later left Google.",
    "facts": [
     "lineage-attention-transformer-2017",
     "story-ai-transformer-gpu-parallel",
     "story-ai-transformer-authors",
     "story-ai-transformer-authors-left",
     "story-ai-transformer-citations",
-    "lineage-attention-bleu-8gpu"
+    "lineage-attention-bleu-8gpu",
+    "story-ai-transformer-8-p100",
+    "story-ai-transformer-params"
    ],
    "cluster": "story-ai"
   },
@@ -20757,8 +22177,8 @@
    "advantage": "the bet that loss falls as a power law with scale",
    "power": "scale economies",
    "triad": "information",
-   "mechanism": "Kaplan et al. showed loss falls as a power law in size, data and compute; OpenAI turned that into GPT-3, ten times larger than any prior dense model, on Microsoft's compute.",
-   "outcome": "Parameters went 117 million (2018), 1.5 billion (2019), 175 billion (2020); Microsoft licensed GPT-3 exclusively in September 2020.",
+   "mechanism": "Kaplan et al. showed loss falls as a power law in size, data and compute; OpenAI turned that into GPT-3, ten times larger than any prior dense model and 3,640 petaflop/s-days of training, on Microsoft's compute after Microsoft's $1 billion in 2019.",
+   "outcome": "Parameters went 117 million (2018), 1.5 billion (2019), 175 billion (2020); Microsoft licensed GPT-3 exclusively in September 2020; OpenAI was valued at $14 billion in 2021 and $29 billion in 2023.",
    "facts": [
     "lineage-scaling-laws-2020",
     "lineage-gpt3-175b-2020",
@@ -20766,7 +22186,12 @@
     "story-ai-gpt2-params",
     "story-ai-gpt3-cost",
     "story-ai-gpt3-microsoft-licence",
-    "story-ai-microsoft-openai-2019"
+    "story-ai-microsoft-openai-2019",
+    "story-ai-gpt3-compute",
+    "story-ai-openai-val-2021",
+    "story-ai-openai-val-2023",
+    "story-ai-microsoft-mcap-2020",
+    "story-ai-google-mcap-2020"
    ],
    "cluster": "story-ai"
   },
@@ -20786,14 +22211,17 @@
    "power": "branding",
    "triad": "execution",
    "mechanism": "A chat interface on a scaled transformer reached 100 million monthly users in two months, with Microsoft adding $10 billion and Azure compute in January 2023.",
-   "outcome": "900 million weekly users by February 2026; OpenAI valued at $500 billion in October 2025 and $852 billion in March 2026.",
+   "outcome": "900 million weekly users by February 2026; OpenAI valued at $29 billion in 2023, $500 billion in October 2025 and $852 billion in March 2026.",
    "facts": [
     "lineage-chatgpt-release-2022",
     "lineage-chatgpt-users-2026",
     "story-ai-microsoft-openai-2023",
     "story-ai-openai-500bn-2025",
     "labs-openai-valuation",
-    "labs-openai-weekly-users"
+    "labs-openai-weekly-users",
+    "story-ai-openai-val-2023",
+    "story-ai-google-mcap-2022",
+    "story-ai-microsoft-mcap-2022"
    ],
    "cluster": "story-ai"
   },
@@ -20814,7 +22242,7 @@
    "power": "switching costs",
    "triad": "environment",
    "mechanism": "Demand from clouds and labs for CUDA systems took Nvidia from $1 trillion to $2 trillion in 180 days and to $5 trillion on 29 October 2025.",
-   "outcome": "Nvidia is valued at $4.506 trillion in November 2026, with a 75% accelerator share, down from 87% in 2024.",
+   "outcome": "Nvidia is valued at $4.506 trillion in November 2026; analysts project a 75% accelerator share for 2026, down from a peak near 87% in 2024.",
    "facts": [
     "story-ai-nvidia-1tn-2023",
     "lineage-nvidia-2tn-180-days",
@@ -20863,7 +22291,7 @@
    "advantage": "customers' fear of falling behind",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "Five hyperscalers are forecast to spend $803 to $828 billion in 2026, and NVIDIA's data-centre revenue equals about 45% of that capex.",
+   "mechanism": "Five hyperscalers are forecast to spend $803 to $828 billion in 2026; Daloopa finds that over eight quarters NVIDIA's data-centre revenue equalled 39% to 47% of hyperscaler capex, 45% in the latest quarter it measured.",
    "outcome": "NVIDIA's revenue was $96.2 billion in the quarter to 26 July 2026, with $279 billion of purchase commitments.",
    "facts": [
     "compute-hyperscaler-capex-2026",
@@ -20888,10 +22316,11 @@
    "power": "information",
    "triad": "information",
    "mechanism": "Burgoyne's army, 5,791 men, was surrounded by about 12,000 colonial troops and surrendered; France had already supplied up to 90% of the arms in the campaign.",
-   "outcome": "The surrender persuaded France to sign an alliance.",
+   "outcome": "Louis XVI opened negotiations that produced the Franco-American alliance of February 1778.",
    "facts": [
     "story-revolutions-saratoga-1777",
-    "story-revolutions-french-supplied-arms-saratoga"
+    "story-revolutions-french-supplied-arms-saratoga",
+    "story-revolutions-saratoga-persuaded-france"
    ],
    "cluster": "story-revolutions"
   },
@@ -20910,7 +22339,7 @@
    "advantage": "a great power's navy and money",
    "power": "cornered resource",
    "triad": "environment",
-   "mechanism": "France, rebuilding its fleet for a war of revenge, signed a treaty of alliance in February 1778 and sent money, arms and troops; it spent 1.3 billion livres on the Americans.",
+   "mechanism": "France, rebuilding its fleet for a war of revenge, signed a treaty of alliance in February 1778 and sent money, arms and troops; one account puts its direct spending on the Americans at 1.3 billion livres, another the whole war at 1,066 million.",
    "outcome": "The war became a world war against Britain.",
    "facts": [
     "story-revolutions-alliance-1778",
@@ -20981,13 +22410,16 @@
    "advantage": "a crown that could not tax its privileged",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "The American war cost 1,066 million livres, paid by loans at high interest with no new taxes; by 1788 half of state revenue went on servicing the debt, while the Church held 7% of the land.",
+   "mechanism": "The American war cost 1,066 million livres by one count (1.3 billion in aid alone by another), paid by loans at high interest with no new taxes; on an income of 475 million livres the deficit was some 150 million, and by 1788 half of state revenue went on servicing the debt, while the Church held 7% of the land.",
    "outcome": "The crown called the Estates-General in 1789.",
    "facts": [
     "story-revolutions-france-war-cost",
     "story-revolutions-france-debt-after-war",
     "story-revolutions-debt-service-1788",
-    "story-revolutions-church-wealth-1789"
+    "story-revolutions-church-wealth-1789",
+    "story-revolutions-france-population-1780",
+    "story-revolutions-france-income-deficit-1786",
+    "story-revolutions-french-royal-army-1789"
    ],
    "cluster": "story-revolutions"
   },
@@ -21054,7 +22486,8 @@
    "outcome": "The First Coalition formed in 1793.",
    "facts": [
     "story-revolutions-louis-executed",
-    "story-revolutions-first-coalition-1793"
+    "story-revolutions-first-coalition-1793",
+    "story-revolutions-first-coalition-strength"
    ],
    "cluster": "story-revolutions"
   },
@@ -21072,11 +22505,12 @@
    "power": "scale economies",
    "triad": "execution",
    "mechanism": "The Convention decreed a levy of about 300,000 men in February 1793, then drafted all men aged 18 to 25 in August, with 750,000 to 800,000 eventually conscripted.",
-   "outcome": "France fielded more men than any rival could pay for.",
+   "outcome": "France fielded 1,169,000 men by 1794, against a coalition whose largest part, the Holy Roman Empire, had 800,000.",
    "facts": [
     "archetypes-napoleon-levy-1793",
     "story-revolutions-levee-en-masse-1793",
-    "archetypes-napoleon-levy-conscripts"
+    "archetypes-napoleon-levy-conscripts",
+    "story-revolutions-first-coalition-strength"
    ],
    "cluster": "story-revolutions"
   },
@@ -21093,12 +22527,13 @@
    "advantage": "the Terror turning on its author",
    "power": "process power",
    "triad": "environment",
-   "mechanism": "By then 16,594 official death sentences had been issued since June 1793, and 1,366 more in the last seven weeks after the Law of 22 Prairial.",
-   "outcome": "Robespierre and twenty-one others were executed on 28 July 1794 and the Terror ended.",
+   "mechanism": "By then 16,594 official death sentences had been issued since June 1793, 1,366 of them in the last seven weeks after the Law of 22 Prairial.",
+   "outcome": "Robespierre and twenty-one others were sentenced on 27 July, and Robespierre was guillotined on 28 July 1794; the Terror ended.",
    "facts": [
     "story-revolutions-terror-death-sentences",
     "story-revolutions-terror-prairial",
-    "story-revolutions-robespierre-executed"
+    "story-revolutions-robespierre-executed",
+    "story-revolutions-robespierre-guillotined"
    ],
    "cluster": "story-revolutions"
   },
@@ -21115,11 +22550,14 @@
    "advantage": "the army's favourite general",
    "power": "cornered resource",
    "triad": "execution",
-   "mechanism": "A bloodless coup overthrew the Directory on 9 November 1799; a plebiscite approved the new constitution on 7 February 1800.",
+   "mechanism": "A bloodless coup overthrew the Directory on 9 November 1799, with 6,000 soldiers around the palace; the constitution was approved by referendum on 7 February 1800, 3,011,007 to 1,562, half a million of the votes cast by the army without valid ballots.",
    "outcome": "Napoleon became First Consul.",
    "facts": [
     "story-revolutions-coup-1799",
-    "story-revolutions-plebiscite-1800"
+    "story-revolutions-plebiscite-1800",
+    "story-revolutions-consulate-palace-soldiers",
+    "story-revolutions-plebiscite-1800-count",
+    "story-revolutions-population-britain-france"
    ],
    "cluster": "story-revolutions"
   },
@@ -21128,7 +22566,7 @@
    "year": 1801,
    "date": "1801",
    "title": "The Concordat",
-   "holder": "first-french-empire",
+   "holder": "french-consulate",
    "rivals": [
     "catholic-church"
    ],
@@ -21136,11 +22574,12 @@
    "advantage": "the Church reconciled to the state",
    "power": "branding",
    "triad": "environment",
-   "mechanism": "The Pope recognized Bonaparte's regime and the regime recognized Catholicism as the religion of the great majority of the French, while Church lands stayed seized.",
+   "mechanism": "The Pope recognized Bonaparte's regime and the regime recognized Catholicism as the religion of the great majority of the French, while Church lands stayed seized; of the 136 old sees only 60 were kept.",
    "outcome": "The hostility of devout Catholics to the Revolution ended.",
    "facts": [
     "story-revolutions-concordat-recognition",
-    "story-revolutions-concordat-majority"
+    "story-revolutions-concordat-majority",
+    "story-revolutions-church-sees-1801"
    ],
    "cluster": "story-revolutions"
   },
@@ -21181,7 +22620,7 @@
     "first-french-empire"
    ],
    "allies": [
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "advantage": "Britain's money behind Austria and Russia",
    "power": "capital",
@@ -21190,7 +22629,8 @@
    "outcome": "The Grande Armée marched to Ulm and Austerlitz.",
    "facts": [
     "story-revolutions-third-coalition-1805",
-    "story-revolutions-grande-armee-1804"
+    "story-revolutions-grande-armee-1804",
+    "story-revolutions-trafalgar-supremacy"
    ],
    "cluster": "story-revolutions"
   },
@@ -21208,12 +22648,14 @@
    "advantage": "seamanship and a navy that had blockaded for years",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "Nelson's 27 ships of the line met 33 Franco-Spanish; 18 of the enemy were captured or destroyed and the British lost none.",
-   "outcome": "Napoleon's invasion of Britain was ended; Britain held the sea until 1815.",
+   "mechanism": "Nelson's 27 ships of the line met 33 Franco-Spanish, 18 French and 15 Spanish; 18 of the enemy were captured or destroyed and the British lost none.",
+   "outcome": "The invasion army had already marched into Germany in August; Trafalgar ended any real effort to invade Britain and confirmed British naval supremacy.",
    "facts": [
     "story-revolutions-trafalgar-british-fleet",
     "story-revolutions-trafalgar-fleet",
-    "story-revolutions-trafalgar-result"
+    "story-revolutions-trafalgar-result",
+    "story-revolutions-trafalgar-order-of-battle",
+    "story-revolutions-trafalgar-supremacy"
    ],
    "cluster": "story-revolutions"
   },
@@ -21232,12 +22674,14 @@
    "advantage": "the corps system and a lure",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "Napoleon had some 72,000 men and 157 guns against about 85,000 Allies and 318 guns, and induced them to attack; massed artillery became his spearhead.",
-   "outcome": "About 36,000 Allied casualties of 89,000, 38% of their force.",
+   "mechanism": "Napoleon had some 72,000 men and 157 guns on the field, from a Grande Armée of 350,000, against about 85,000 Allies (seventy percent of them Russian) and 318 guns, and induced them to attack; his corps, each a small army, could split and rejoin.",
+   "outcome": "About 36,000 Allied casualties out of 89,000 by another count (the army is 85,000 in the mechanism), 38% of their force.",
    "facts": [
     "story-revolutions-austerlitz-french-force",
     "story-revolutions-austerlitz-allied-losses",
-    "archetypes-napoleon-massed-artillery"
+    "archetypes-napoleon-grande-armee-corps",
+    "story-revolutions-grande-armee-1805-size",
+    "story-revolutions-corps-concept"
    ],
    "cluster": "story-revolutions"
   },
@@ -21255,12 +22699,14 @@
    "advantage": "a modern army against a bloated command",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "The Prussian army of about 130,000 Prussians and 20,000 Saxons was slower to react than Napoleon's 96,000 who reached local superiority.",
+   "mechanism": "The Prussian army awaiting the advance was about 130,000 Prussians and 20,000 Saxons, but at Jena only 46,000 of them met 96,000 French, 40,000 of whom fought, out of a 180,000-strong campaign force.",
    "outcome": "Prussia was crushed in a day.",
    "facts": [
     "story-revolutions-jena-prussian-army",
     "story-revolutions-jena-french-force",
-    "archetypes-napoleon-jena-1806"
+    "archetypes-napoleon-jena-1806",
+    "story-revolutions-jena-prussian-engaged",
+    "story-revolutions-jena-french-campaign"
    ],
    "cluster": "story-revolutions"
   },
@@ -21271,18 +22717,20 @@
    "title": "The Continental System",
    "holder": "first-french-empire",
    "rivals": [
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "allies": [],
    "advantage": "a blockade of Britain by land",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "The Berlin Decree of 21 November 1806 embargoed Britain; the loss of trade hit France and its allies, and angry governments ignored it.",
-   "outcome": "Napoleon invaded Spain and Russia to enforce it; the embargo ended 11 April 1814.",
+   "mechanism": "The Berlin Decree of 21 November 1806 embargoed Britain; British exports to the continent fell 25 to 55 percent against pre-1806 levels, but the loss of trade also hit France and its allies, and angry governments ignored the system.",
+   "outcome": "Napoleon, realising that trade ran through Spain and Russia, invaded both; the embargo ended 11 April 1814.",
    "facts": [
     "story-revolutions-berlin-decree",
     "story-revolutions-system-weakened-coalition",
-    "story-revolutions-spain-1808"
+    "story-revolutions-spain-1808",
+    "story-revolutions-continental-system-effect",
+    "story-revolutions-continental-system-invasions"
    ],
    "cluster": "story-revolutions"
   },
@@ -21299,13 +22747,15 @@
    "advantage": "space, winter and a retreat",
    "power": "cornered resource",
    "triad": "environment",
-   "mechanism": "Napoleon deployed 600,000 soldiers, half of them French; the Russian army, 904,000 at its peak, retreated and let Moscow burn.",
+   "mechanism": "Napoleon deployed 600,000 soldiers, half of them French, against about 180,000 to 220,000 Russians in the western armies in June; the Russian army, 712,000 to 904,000 at its peak by two counts, retreated and let Moscow burn.",
    "outcome": "Of 615,000, only 110,000 came back; more than 500,000 men lost.",
    "facts": [
     "story-revolutions-russia-initial-force",
     "story-revolutions-russia-deployed-600k",
     "story-revolutions-russia-army-peak-1812",
-    "story-revolutions-russia-survivors"
+    "story-revolutions-russia-survivors",
+    "story-revolutions-russia-western-armies-1812",
+    "story-revolutions-peak-russia-1812"
    ],
    "cluster": "story-revolutions"
   },
@@ -21319,18 +22769,20 @@
     "grande-armee"
    ],
    "allies": [
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "advantage": "every great power in one camp, paid by Britain",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "About 560,000 soldiers and 2,200 guns; British subsidies paid for a large share of the Austrian and Russian soldiers, about 450,000 at their peak in 1813.",
+   "mechanism": "About 198,000 French (up to 225,000 by other estimates) met about 380,000 Coalition troops and 2,200 guns; British subsidies paid for a large share of the Austrian and Russian soldiers, about 450,000 at their peak in 1813.",
    "outcome": "133,000 casualties; the Coalition decisively defeated the Grande Armée; Paris fell in March 1814.",
    "facts": [
     "story-revolutions-leipzig-scale",
     "story-revolutions-leipzig-coalition",
     "story-revolutions-britain-subsidy-peak",
-    "archetypes-napoleon-leipzig-1813"
+    "archetypes-napoleon-leipzig-1813",
+    "story-revolutions-leipzig-french-force",
+    "story-revolutions-leipzig-coalition-force"
    ],
    "cluster": "story-revolutions"
   },
@@ -21350,14 +22802,15 @@
    "advantage": "two armies against one",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "About 250,000 Frenchmen faced 850,000 allied soldiers; at Waterloo Napoleon's 74,500 met Wellington, then 50,000 arriving Prussians.",
+   "mechanism": "About 250,000 Frenchmen faced 850,000 allied soldiers on four fronts; at Waterloo Napoleon's 74,500 met Wellington's 74,326, then 50,000 arriving Prussians.",
    "outcome": "Napoleon abdicated four days later and went to Saint Helena.",
    "facts": [
     "story-revolutions-allied-1815",
     "story-revolutions-french-waterloo-army",
     "story-revolutions-waterloo-prussians",
     "story-revolutions-napoleon-abdicated",
-    "archetypes-napoleon-waterloo-1815"
+    "archetypes-napoleon-waterloo-1815",
+    "story-revolutions-waterloo-wellington-army"
    ],
    "cluster": "story-revolutions"
   },
@@ -21371,7 +22824,7 @@
     "first-french-empire"
    ],
    "allies": [
-    "kingdom-of-great-britain",
+    "united-kingdom",
     "habsburg-austria",
     "russian-empire",
     "prussia"
@@ -21380,12 +22833,12 @@
    "power": "legitimacy",
    "triad": "environment",
    "mechanism": "The five Great Powers, Austria, Britain, Russia, Prussia and France, resized each other so they could balance each other and remain at peace.",
-   "outcome": "The Concert of Europe kept the balance until 1914.",
+   "outcome": "The Concert of Europe, a doctrine that emphasized the balance of powers, guided European foreign policy until 1914.",
    "facts": [
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
-    "archetypes-vienna-concert-of-europe",
-    "archetypes-vienna-chaumont"
+    "archetypes-vienna-chaumont",
+    "story-revolutions-concert-doctrine"
    ],
    "cluster": "story-revolutions"
   }
@@ -21400,7 +22853,7 @@
     "united-states",
     "ussr"
    ],
-   "what": "One economy producing half of world output sets the monetary order, funds Europe and out-competes a planned rival.",
+   "what": "One economy producing half of world industrial output sets the monetary order, funds Europe and out-competes a planned rival.",
    "facts": [
     "story-ai-us-half-industrial",
     "story-ai-marshall-plan",
@@ -21617,7 +23070,8 @@
    "title": "The Revolution",
    "actors": [
     "french-population",
-    "french-republic"
+    "french-republic",
+    "kingdom-of-france"
    ],
    "what": "The Estates-General, the Bastille, the Church's property nationalised, the Declaration of the Rights of Man.",
    "facts": [
@@ -21651,13 +23105,17 @@
    "to": "1804-05",
    "title": "The Consulate",
    "actors": [
-    "french-consulate"
+    "french-consulate",
+    "catholic-church"
    ],
    "what": "The coup of 18 Brumaire, the plebiscite of 1800, the Concordat with the Church.",
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-plebiscite-1800",
-    "story-revolutions-concordat-recognition"
+    "story-revolutions-concordat-recognition",
+    "story-revolutions-consulate-palace-soldiers",
+    "story-revolutions-plebiscite-1800-count",
+    "story-revolutions-church-sees-1801"
    ],
    "cluster": "story-revolutions"
   },
@@ -21687,7 +23145,7 @@
    "actors": [
     "first-french-empire",
     "grande-armee",
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "what": "Austerlitz, Jena, Spain and the Continental System: France's weight overruns the other powers until Russia.",
    "facts": [
@@ -21705,7 +23163,7 @@
    "title": "The seven coalitions",
    "actors": [
     "coalitions",
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "what": "Each coalition re-formed after defeat; British subsidies totalled £46 million by 1814.",
    "facts": [
@@ -21726,13 +23184,18 @@
    "to": "1815-06",
    "title": "The Congress of Vienna",
    "actors": [
-    "congress-of-vienna"
+    "congress-of-vienna",
+    "united-kingdom",
+    "habsburg-austria",
+    "russian-empire",
+    "prussia"
    ],
    "what": "The five Great Powers rebuild a balance of power.",
    "facts": [
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
-    "archetypes-vienna-congress-dates"
+    "archetypes-vienna-congress-dates",
+    "story-revolutions-concert-doctrine"
    ],
    "cluster": "story-revolutions"
   }
@@ -21949,7 +23412,7 @@
    "id": "ilya-sutskever",
    "name": "Ilya Sutskever",
    "qid": "Q21712134",
-   "born": null,
+   "born": 1986,
    "died": null,
    "role": "AlexNet co-author, then OpenAI co-founder",
    "actors": [
@@ -21966,7 +23429,7 @@
    "id": "ashish-vaswani",
    "name": "Ashish Vaswani",
    "qid": "Q44749723",
-   "born": null,
+   "born": 1985,
    "died": null,
    "role": "first author of 'Attention Is All You Need'",
    "actors": [
@@ -21981,7 +23444,7 @@
    "id": "noam-shazeer",
    "name": "Noam Shazeer",
    "qid": "Q30251943",
-   "born": null,
+   "born": 1976,
    "died": null,
    "role": "co-author of 'Attention Is All You Need'",
    "actors": [
@@ -22023,13 +23486,145 @@
    "cluster": "story-ai"
   },
   {
+   "id": "jean-hoerni",
+   "name": "Jean Hoerni",
+   "qid": "Q952816",
+   "born": 1924,
+   "died": 1997,
+   "role": "one of the eight; invented the planar process at Fairchild",
+   "actors": [
+    "fairchild"
+   ],
+   "facts": [
+    "lineage-fairchild-planar-1959",
+    "story-ai-hoerni-2n1613",
+    "story-ai-fairchild-eight-names"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "jared-kaplan",
+   "name": "Jared Kaplan",
+   "qid": "Q102649624",
+   "born": null,
+   "died": null,
+   "role": "lead author of the 2020 scaling-laws paper, later a co-founder of Anthropic",
+   "actors": [
+    "openai"
+   ],
+   "facts": [
+    "lineage-scaling-laws-2020"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "niki-parmar",
+   "name": "Niki Parmar",
+   "qid": "Q110864221",
+   "born": null,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "jakob-uszkoreit",
+   "name": "Jakob Uszkoreit",
+   "qid": "Q98891246",
+   "born": null,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "llion-jones",
+   "name": "Llion Jones",
+   "qid": "Q130238722",
+   "born": 1984,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "aidan-gomez",
+   "name": "Aidan Gomez",
+   "qid": "Q110864219",
+   "born": null,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "lukasz-kaiser",
+   "name": "Lukasz Kaiser",
+   "qid": "Q30251976",
+   "born": 1981,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left"
+   ],
+   "cluster": "story-ai"
+  },
+  {
+   "id": "illia-polosukhin",
+   "name": "Illia Polosukhin",
+   "qid": "Q110864222",
+   "born": null,
+   "died": null,
+   "role": "co-author of 'Attention Is All You Need'",
+   "actors": [
+    "google"
+   ],
+   "facts": [
+    "story-ai-transformer-authors",
+    "story-ai-transformer-authors-left"
+   ],
+   "cluster": "story-ai"
+  },
+  {
    "id": "napoleon",
    "name": "Napoleon Bonaparte",
    "qid": "Q517",
    "born": 1769,
    "died": 1821,
    "role": "general, First Consul, then emperor who crowned himself",
-   "actors": "first-french-empire",
+   "actors": [
+    "french-consulate",
+    "first-french-empire",
+    "grande-armee"
+   ],
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-coronation-date",
@@ -22044,7 +23639,9 @@
    "born": 1754,
    "died": 1793,
    "role": "king of France; allied with the Americans, executed by the Convention",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-louis-executed",
     "story-revolutions-vergennes-secret-funds"
@@ -22058,7 +23655,9 @@
    "born": 1755,
    "died": 1793,
    "role": "queen of France, executed 16 October 1793",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-marie-antoinette-executed"
    ],
@@ -22071,7 +23670,9 @@
    "born": 1732,
    "died": 1799,
    "role": "commander in chief of the Continental Army",
-   "actors": "continental-army",
+   "actors": [
+    "continental-army"
+   ],
    "facts": [
     "story-revolutions-continental-army-1775",
     "story-revolutions-yorktown-allied-army"
@@ -22085,7 +23686,10 @@
    "born": 1757,
    "died": 1834,
    "role": "French general in the American war",
-   "actors": "french-army",
+   "actors": [
+    "french-army",
+    "continental-army"
+   ],
    "facts": [
     "story-revolutions-lafayette-major-general"
    ],
@@ -22098,7 +23702,9 @@
    "born": 1725,
    "died": 1807,
    "role": "commander of the French expeditionary force",
-   "actors": "french-army",
+   "actors": [
+    "french-army"
+   ],
    "facts": [
     "story-revolutions-rochambeau-1780"
    ],
@@ -22111,7 +23717,9 @@
    "born": 1722,
    "died": 1788,
    "role": "French admiral who held the Chesapeake",
-   "actors": "french-navy",
+   "actors": [
+    "french-navy"
+   ],
    "facts": [
     "story-revolutions-chesapeake-french-fleet"
    ],
@@ -22124,7 +23732,9 @@
    "born": 1706,
    "died": 1790,
    "role": "negotiator of the alliance and of the peace",
-   "actors": "united-states",
+   "actors": [
+    "united-states"
+   ],
    "facts": [
     "story-revolutions-treaty-paris-1783"
    ],
@@ -22137,7 +23747,9 @@
    "born": 1719,
    "died": 1787,
    "role": "French foreign minister who built the American alliance",
-   "actors": "france",
+   "actors": [
+    "france"
+   ],
    "facts": [
     "story-revolutions-vergennes-secret-funds"
    ],
@@ -22150,7 +23762,9 @@
    "born": 1732,
    "died": 1804,
    "role": "finance minister; made the royal accounts public",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-debt-service-1788"
    ],
@@ -22163,7 +23777,9 @@
    "born": 1734,
    "died": 1802,
    "role": "controller-general who spent to buy a way out of debt",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-france-war-cost"
    ],
@@ -22176,7 +23792,10 @@
    "born": 1758,
    "died": 1794,
    "role": "member of the Committee of Public Safety; executed 28 July 1794",
-   "actors": "french-republic",
+   "actors": [
+    "french-republic",
+    "jacobins"
+   ],
    "facts": [
     "story-revolutions-robespierre-executed",
     "story-revolutions-terror-death-sentences"
@@ -22190,7 +23809,10 @@
    "born": 1759,
    "died": 1794,
    "role": "Montagnard leader, executed in the Terror",
-   "actors": "french-republic",
+   "actors": [
+    "french-republic",
+    "jacobins"
+   ],
    "facts": [
     "story-revolutions-terror-death-sentences"
    ],
@@ -22203,7 +23825,9 @@
    "born": 1748,
    "died": 1836,
    "role": "theorist of the Third Estate and a plotter of the coup of 18 Brumaire",
-   "actors": "french-consulate",
+   "actors": [
+    "french-consulate"
+   ],
    "facts": [
     "story-revolutions-coup-1799"
    ],
@@ -22216,7 +23840,9 @@
    "born": 1742,
    "died": 1823,
    "role": "signed the Concordat; present at the coronation of 1804",
-   "actors": "catholic-church",
+   "actors": [
+    "catholic-church"
+   ],
    "facts": [
     "story-revolutions-coronation-date",
     "story-revolutions-concordat-recognition"
@@ -22230,7 +23856,9 @@
    "born": 1758,
    "died": 1805,
    "role": "British admiral, killed at Trafalgar",
-   "actors": "royal-navy",
+   "actors": [
+    "royal-navy"
+   ],
    "facts": [
     "story-revolutions-trafalgar-british-fleet",
     "story-revolutions-trafalgar-result"
@@ -22244,7 +23872,10 @@
    "born": 1769,
    "died": 1852,
    "role": "British commander at Waterloo",
-   "actors": "british-army",
+   "actors": [
+    "british-army",
+    "seventh-coalition"
+   ],
    "facts": [
     "story-revolutions-waterloo-prussians",
     "story-revolutions-wellington-nearest-run"
@@ -22258,7 +23889,10 @@
    "born": 1759,
    "died": 1806,
    "role": "British prime minister who introduced the income tax and built the coalitions",
-   "actors": "kingdom-of-great-britain",
+   "actors": [
+    "kingdom-of-great-britain",
+    "united-kingdom"
+   ],
    "facts": [
     "story-revolutions-pitt-income-tax",
     "story-revolutions-second-coalition-1798"
@@ -22272,7 +23906,10 @@
    "born": 1773,
    "died": 1859,
    "role": "Austrian foreign minister and chair of the Congress of Vienna",
-   "actors": "congress-of-vienna",
+   "actors": [
+    "congress-of-vienna",
+    "habsburg-austria"
+   ],
    "facts": [
     "story-revolutions-vienna-five-powers"
    ],
@@ -22285,7 +23922,10 @@
    "born": 1777,
    "died": 1825,
    "role": "Emperor of Russia",
-   "actors": "russian-empire",
+   "actors": [
+    "russian-empire",
+    "russian-army"
+   ],
    "facts": [
     "story-revolutions-leipzig-coalition"
    ],
@@ -22298,7 +23938,10 @@
    "born": 1745,
    "died": 1813,
    "role": "Russian commander who decided not to defend Moscow",
-   "actors": "russian-army",
+   "actors": [
+    "russian-army",
+    "russian-empire"
+   ],
    "facts": [
     "story-revolutions-russia-army-peak-1812"
    ],
@@ -22311,7 +23954,9 @@
    "born": 1738,
    "died": 1805,
    "role": "British general who surrendered at Yorktown",
-   "actors": "british-army",
+   "actors": [
+    "british-army"
+   ],
    "facts": [
     "story-revolutions-yorktown-captured"
    ],
@@ -22324,7 +23969,10 @@
    "born": 1738,
    "died": 1820,
    "role": "king of Great Britain during the American war and the French wars",
-   "actors": "kingdom-of-great-britain",
+   "actors": [
+    "kingdom-of-great-britain",
+    "united-kingdom"
+   ],
    "facts": [
     "story-revolutions-britain-war-1803"
    ],
@@ -22337,7 +23985,10 @@
    "born": 1754,
    "died": 1838,
    "role": "French foreign minister who brought France back to the Great Powers at Vienna",
-   "actors": "congress-of-vienna",
+   "actors": [
+    "congress-of-vienna",
+    "first-french-empire"
+   ],
    "facts": [
     "story-revolutions-vienna-five-powers"
    ],
@@ -22350,7 +24001,10 @@
    "born": 1742,
    "died": 1819,
    "role": "Prussian field marshal; his army reached Waterloo",
-   "actors": "prussian-army",
+   "actors": [
+    "prussian-army",
+    "seventh-coalition"
+   ],
    "facts": [
     "story-revolutions-waterloo-prussians"
    ],
@@ -22363,7 +24017,9 @@
    "born": 1755,
    "died": 1824,
    "role": "Bourbon king restored after Napoleon",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-napoleon-abdicated"
    ],
@@ -22376,7 +24032,9 @@
    "born": 1732,
    "died": 1792,
    "role": "British prime minister during the American war; fell after Yorktown",
-   "actors": "kingdom-of-great-britain",
+   "actors": [
+    "kingdom-of-great-britain"
+   ],
    "facts": [
     "story-revolutions-treaty-paris-1783"
    ],
@@ -45162,7 +46820,7 @@
    "reason": null
   },
   "story-ai-microsoft-openai-2019": {
-   "claim": "Microsoft invested $1 billion in OpenAI LP in 2019 and OpenAI's services were migrated to Microsoft Azure.",
+   "claim": "After OpenAI became a capped for-profit in 2019, Microsoft invested $1 billion in OpenAI LP.",
    "actor": "microsoft",
    "kind": "investment",
    "value": 1,
@@ -45172,11 +46830,11 @@
    "from": null,
    "to": null,
    "url": "https://en.wikipedia.org/wiki/OpenAI",
-   "quote": "Microsoft subsequently invested $1 billion in OpenAI LP, and OpenAI's services were migrated to Microsoft Azure.[49]",
+   "quote": "In 2019, OpenAI transitioned from nonprofit to \"capped\" for-profit, with the profit being capped at 100 times any investment.[45]",
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.73,
+   "supportedJ": 0.93,
    "verifiedOn": "2026-11-07",
    "reason": null
   },
@@ -45237,6 +46895,823 @@
    "verifiedOn": "2026-11-07",
    "reason": null
   },
+  "story-ai-gdp-1945-us": {
+   "claim": "The United States' GDP in 1945, the last column of a 1938-1945 table in billions of international dollars at 1990 prices, was 1,474.",
+   "actor": "united-states",
+   "kind": "gdp",
+   "value": 1474,
+   "unit": "billion 1990 dollars",
+   "period": "1945",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quote": "United States 800 869 943 1094 1235 1399 1499 1474",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.91,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-gdp-1945-ussr": {
+   "claim": "The Soviet Union's GDP in 1945, the last column of a 1938-1945 table in billions of international dollars at 1990 prices, was 343.",
+   "actor": "ussr",
+   "kind": "gdp",
+   "value": 343,
+   "unit": "billion 1990 dollars",
+   "period": "1945",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quote": "Soviet Union 359 366 417 359 274 305 362 343",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-ti-sales-1958": {
+   "claim": "Texas Instruments' sales were $92 million in 1958.",
+   "actor": "texas-instruments",
+   "kind": "revenue",
+   "value": 92,
+   "unit": "USD m",
+   "period": "1958",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.fundinguniverse.com/company-histories/texas-instruments-inc-history/",
+   "quote": "Sales skyrocketed from $6.4 million in 1949 to $20 million in 1952 to $92 million in 1958, establishing TI as a major electronics manufacturer.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-fairchild-raised-1957": {
+   "claim": "The eight founders of Fairchild Semiconductor raised $1.38 million from Fairchild Camera & Instrument in 1957.",
+   "actor": "fairchild",
+   "kind": "investment",
+   "value": 1.38,
+   "unit": "USD m",
+   "period": "1957",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.computerhistory.org/atchm/fairchild-semiconductor-the-60th-anniversary-of-a-silicon-valley-legend/",
+   "quote": "Assisted by Arthur Rock, who later formed one of the first West Coast venture capital firms, the eight men raised $1.38 million from East Coast−based Fairchild Camera & Instrument Corporation.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.94,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-fairchild-sales-1960": {
+   "claim": "By 1960 Fairchild Semiconductor's sales had already exceeded $20 million.",
+   "actor": "fairchild",
+   "kind": "revenue",
+   "value": 20,
+   "unit": "USD m (exceeded)",
+   "period": "1960",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.galaxus.ch/en/page/how-the-fairchildren-founded-silicon-valley-11845",
+   "quote": "By 1960, the company's sales had already exceeded 20 million dollars and the Fairchild Semiconductor Corporation was regarded as a leader in the field of transistors.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-fairchild-late-sixties": {
+   "claim": "Gordon Moore said Fairchild had grown to about a $150 million business with some 30,000 employees by the late sixties.",
+   "actor": "fairchild",
+   "kind": "revenue",
+   "value": 150,
+   "unit": "USD m (about; by the late sixties)",
+   "period": "late 1960s",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.computerhistory.org/atchm/fairchild-semiconductor-the-60th-anniversary-of-a-silicon-valley-legend/",
+   "quote": "As Gordon Moore explained: \"Fairchild grew to be about a $150 million business and some 30,000 employees by the late sixties.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-intel-debentures-1968": {
+   "claim": "At Intel's incorporation in 1968 Arthur Rock offered $2,500,000 of convertible debentures to private investors.",
+   "actor": "intel",
+   "kind": "investment",
+   "value": 2.5,
+   "unit": "USD m",
+   "period": "1968",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quote": "Rock offered $2,500,000 of convertible debentures to a limited group of private investors (equivalent to $21 million in 2022), convertible at $5 per share.[4][7]",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.77,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-ibm-income-1980": {
+   "claim": "IBM's gross income in 1980 was $26,210 million, with 341,279 employees.",
+   "actor": "ibm",
+   "kind": "revenue",
+   "value": 26.21,
+   "unit": "USD bn (gross income)",
+   "period": "1980",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/History_of_IBM",
+   "quote": "Year Gross income (in $m) Employees 1975 14,430 288,647 1980 26,210 341,279 1985 50,050 405,535 1990 69,010 373,816 1995 71,940 225,347",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.92,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-compaq-sales-1986": {
+   "claim": "Compaq's record sales in 1986 were $329 million from 150,000 PCs.",
+   "actor": "compaq",
+   "kind": "revenue",
+   "value": 0.329,
+   "unit": "USD bn",
+   "period": "1986",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Compaq",
+   "quote": "In 1986, it enjoyed record sales of $329 million from 150,000 PCs and became the youngest-ever firm to make the Fortune 500.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-tsmc-taiwan-ndf-1987": {
+   "claim": "Taiwan's government, through the National Development Fund, provided 48.3 percent of TSMC's startup capital.",
+   "actor": "taiwan",
+   "kind": "share",
+   "value": 48.3,
+   "unit": "% of TSMC's startup capital",
+   "period": "1987",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quote": "Alongside generous tax benefits, the Taiwanese government, through the National Development Fund, Executive Yuan, provided another 48.3 percent of the startup capital for TSMC.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-tsmc-rev-1992": {
+   "claim": "TSMC's revenue for 1992 was around $245 million.",
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 245,
+   "unit": "USD m",
+   "period": "1992",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.fundinguniverse.com/company-histories/taiwan-semiconductor-manufacturing-company-ltd-history/",
+   "quote": "Revenue for 1992 was around $245 million.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-tsmc-45nm-2012": {
+   "claim": "In 2012 about 37% of TSMC's revenue was expected, by IC Insights, to come from 45nm and finer processing.",
+   "actor": "tsmc",
+   "kind": "share",
+   "value": 37,
+   "unit": "% of TSMC revenue expected from 45nm and below",
+   "period": "2012",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://us.design-reuse.com/news/30342/ic-foundries-market-globalfoundries-tsmc.html",
+   "quote": "In 2012, about 37% of TSMC's revenue is expected to come from ≤45nm processing.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-bell-staff-wwii": {
+   "claim": "During the Second World War Bell Labs doubled in size from 4,600 to 9,000 employees.",
+   "actor": "bell-labs",
+   "kind": "headcount",
+   "value": 9000,
+   "unit": "employees at the wartime peak",
+   "period": "1945",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.morven.org/online/ma-bell/gallery4",
+   "quote": "Money was poured into new technology and Bell labs doubled in size from 4,600 to 9,000 employees – most of them worked a 6-day work week.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.91,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-shockley-staff-1956": {
+   "claim": "By September 1956 Shockley's laboratory had 32 employees, including Shockley.",
+   "actor": "shockley-semiconductor",
+   "kind": "headcount",
+   "value": 32,
+   "unit": "employees",
+   "period": "September 1956",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://ftp.libre-soc.org/FH%20Research%20Bulletin%202021-03%20The%20Roots%20of%20Silicon%20Valley.pdf",
+   "quote": "by September 1956, the lab had 32 employees, including Shockley.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-3dfx-revenue": {
+   "claim": "3dfx's revenue for the year 1999 was $360.5 million, against $202.6 million in 1998.",
+   "actor": "3dfx",
+   "kind": "revenue",
+   "value": 360.5,
+   "unit": "USD m (1999; 1998 was 202.6)",
+   "period": "1999",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.gamedeveloper.com/game-platforms/3dfx-financials",
+   "quote": "Revenues for the entire year of 1999 rose to $360.5 million compared to 1998's total of $202.6 million.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-openai-val-2021": {
+   "claim": "OpenAI's valuation after its 2021 tender offer was $14 billion.",
+   "actor": "openai",
+   "kind": "valuation",
+   "value": 14,
+   "unit": "USD bn",
+   "period": "2021",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://siliconangle.com/2023/01/05/openai-startup-behind-chatgpt-discusses-tender-offer-value-29b/",
+   "quote": "If the deal goes ahead, it would more than double OpenAI's previous valuation of $14 billion, set following its most recent tender offer in 2021.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-openai-val-2023": {
+   "claim": "Microsoft's 2019 and 2023 investments in OpenAI were made at a $29 billion valuation.",
+   "actor": "openai",
+   "kind": "valuation",
+   "value": 29,
+   "unit": "USD bn",
+   "period": "2023",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quote": "These investments were made at a $29 billion valuation, double OpenAI's 2021 valuation.[72]",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.81,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-gpt3-compute": {
+   "claim": "GPT-3 175B's pre-training took 3.64E+03 petaflop/s-days, or 3.14E+23 flops, in the paper's Table D.1.",
+   "actor": "openai",
+   "kind": "compute",
+   "value": 3640,
+   "unit": "petaflop/s-days (3.14E+23 flops)",
+   "period": "2020",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://arxiv.org/pdf/2005.14165",
+   "quote": "training the GPT-3 175B consumed several thousand petaflop/s-days of compute during pre-training",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-transformer-params": {
+   "claim": "In Table 3 of the Transformer paper the base model has 65 million parameters and the big model 213 million.",
+   "actor": "google",
+   "kind": "parameters",
+   "value": 213,
+   "unit": "million parameters (big model; base 65)",
+   "period": "2017",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://arxiv.org/pdf/1706.03762",
+   "quote": "params ×106 65 58 60 36 50 80 28 168 53 90 213",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.93,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-transformer-8-p100": {
+   "claim": "The Transformer models were trained on 8 NVIDIA P100 GPUs, the base model for 12 hours and the big model for 3.5 days.",
+   "actor": "google",
+   "kind": "units",
+   "value": 8,
+   "unit": "NVIDIA P100 GPUs",
+   "period": "2017",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+   "quote": "Hardware - The models were trained using 8 NVIDIA P100 GPUs.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-kilby-hybrid": {
+   "claim": "Kilby's integrated circuit was a hybrid IC rather than a monolithic chip.",
+   "actor": "texas-instruments",
+   "kind": "event",
+   "value": 1958,
+   "unit": "year",
+   "period": "1958",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Invention_of_the_integrated_circuit",
+   "quote": "Kilby's invention was a hybrid integrated circuit (hybrid IC), rather than a monolithic integrated circuit (monolithic IC) chip.[1]",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-hoerni-2n1613": {
+   "claim": "Hoerni's planar 2N1613 was a major success, and Fairchild licensed the design across the industry.",
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1960,
+   "unit": "year",
+   "period": "c. 1960",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Fairchild_Semiconductor",
+   "quote": "Hoerni's 2N1613 was a major success, with Fairchild licensing the design across the industry.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.93,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-fairchild-2n697": {
+   "claim": "Fairchild's first marketed transistor was the 1958 2N697 mesa transistor, whose first batch of 100 was sold to IBM at $150 apiece.",
+   "actor": "fairchild",
+   "kind": "units",
+   "value": 100,
+   "unit": "transistors in the first batch, sold to IBM at $150 each",
+   "period": "1958",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Fairchild_Semiconductor",
+   "quote": "Fairchild's first marketed transistor was the 1958 2N697, a mesa transistor developed by Moore,[10] and it was a success. The first batch of 100 was sold to IBM for $150 apiece in order to build the computer for the B-70 bomber.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-cuda-downloads-2008": {
+   "claim": "CUDA was downloaded 150 thousand times in 2008 and was taught in 60 US universities.",
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 150000,
+   "unit": "CUDA downloads in 2008",
+   "period": "2008",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.slashgear.com/nvidias-jen-hsung-huang-shows-explosive-growth-of-cuda-at-gtc-2012-15228456",
+   "quote": "NVIDIA's CUDA was downloaded 150 thousand times in 2008 and was a subject in classrooms in 60 universities across the United States.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.94,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-cuda-devs-2011": {
+   "claim": "In late 2011 NVIDIA counted more than 120,000 CUDA developers and more than a million direct downloads.",
+   "actor": "nvidia",
+   "kind": "headcount",
+   "value": 120000,
+   "unit": "CUDA developers (more than)",
+   "period": "late 2011",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.theregister.com/2011/12/12/ian_buck_nvidia/",
+   "quote": "NVIDIA has served more than a million direct CUDA downloads and figures there are more than 120,000 CUDA developers.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.87,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-cuda-gpus-2011": {
+   "claim": "In late 2011 there were more than 350 million compute-capable GPUs in the world, in Nvidia's count.",
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 350,
+   "unit": "million compute-capable GPUs (more than)",
+   "period": "late 2011",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.theregister.com/2011/12/12/ian_buck_nvidia/",
+   "quote": "Right now there are more than 350 million compute-capable GPUs in the world: more than one for every man, woman and child in the US.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.88,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-jpr-q4-2012": {
+   "claim": "In Q4 2012 Jon Peddie Research put Nvidia's share of PC graphics shipments at 16.9%, AMD's at 19.7% and Intel's at 63.4%.",
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 16.9,
+   "unit": "% of all PC graphics shipments (Q4 2012, Jon Peddie Research; AMD 19.7, Intel 63.4)",
+   "period": "Q4 2012",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.techspot.com/news/51688-jpr-gpu-shipments-down-in-q4-2012-for-amd-intel-and-nvidia.html",
+   "quote": "In terms of market share Intel held on to its dominant position and actually gained 3.4% to 63.4% at the expense of AMD and Nvidia, which dropped 1.2 and 1.73 points respectively to 19.7% and 16.9%.",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-mcap-2006": {
+   "claim": "AMD's market capitalisation at the end of 2006 was $11.13 billion, according to CompaniesMarketCap.",
+   "actor": "amd",
+   "kind": "marketCap",
+   "value": 11.13,
+   "unit": "USD bn",
+   "period": "end of 2006",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/marketcap/",
+   "quote": "2006 $11.13 B -16.48%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-mcap-2007": {
+   "claim": "AMD's market capitalisation at the end of 2007 was $4.54 billion, according to CompaniesMarketCap.",
+   "actor": "amd",
+   "kind": "marketCap",
+   "value": 4.54,
+   "unit": "USD bn",
+   "period": "end of 2007",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/marketcap/",
+   "quote": "2007 $4.54 B -59.17%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-mcap-2025": {
+   "claim": "AMD's market capitalisation at the end of 2025 was $350.01 billion, according to CompaniesMarketCap.",
+   "actor": "amd",
+   "kind": "marketCap",
+   "value": 350.01,
+   "unit": "USD bn",
+   "period": "end of 2025",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/marketcap/",
+   "quote": "2025 $350.01 B 72.28%",
+   "dated2026": true,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-rev-2006": {
+   "claim": "AMD's revenue for 2006, as CompaniesMarketCap tabulates it, was $5.64 billion.",
+   "actor": "amd",
+   "kind": "revenue",
+   "value": 5.64,
+   "unit": "USD bn",
+   "period": "2006 (as CompaniesMarketCap labels the year)",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/revenue/",
+   "quote": "2006 $5.64 B -3.39%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-rev-2007": {
+   "claim": "AMD's revenue for 2007, as CompaniesMarketCap tabulates it, was $5.93 billion.",
+   "actor": "amd",
+   "kind": "revenue",
+   "value": 5.93,
+   "unit": "USD bn",
+   "period": "2007 (as CompaniesMarketCap labels the year)",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/revenue/",
+   "quote": "2007 $5.93 B 5.13%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-rev-2025": {
+   "claim": "AMD's revenue for 2025, as CompaniesMarketCap tabulates it, was $34.63 billion.",
+   "actor": "amd",
+   "kind": "revenue",
+   "value": 34.63,
+   "unit": "USD bn",
+   "period": "2025 (as CompaniesMarketCap labels the year)",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/revenue/",
+   "quote": "2025 $34.63 B 34.34%",
+   "dated2026": true,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-amd-rev-ttm": {
+   "claim": "AMD's revenue for the trailing twelve months, as CompaniesMarketCap's 2026 (TTM) row tabulates it, was $41.30 billion.",
+   "actor": "amd",
+   "kind": "revenue",
+   "value": 41.3,
+   "unit": "USD bn (trailing twelve months)",
+   "period": "2026 (TTM)",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/amd/revenue/",
+   "quote": "2026 (TTM) $41.30 B 19.24%",
+   "dated2026": true,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-microsoft-mcap-2006": {
+   "claim": "Microsoft's market capitalisation at the end of 2006 was $291.94 billion, according to CompaniesMarketCap.",
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 291.94,
+   "unit": "USD bn",
+   "period": "end of 2006",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quote": "2006 $291.94 B 7.51%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-microsoft-mcap-2012": {
+   "claim": "Microsoft's market capitalisation at the end of 2012 was $223.66 billion, according to CompaniesMarketCap.",
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 223.66,
+   "unit": "USD bn",
+   "period": "end of 2012",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quote": "2012 $223.66 B 2.42%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-microsoft-mcap-1997": {
+   "claim": "Microsoft's market capitalisation at the end of 1997 was $157.36 billion, according to CompaniesMarketCap.",
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 157.36,
+   "unit": "USD bn",
+   "period": "end of 1997",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quote": "1997 $157.36 B 58.29%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-microsoft-mcap-2020": {
+   "claim": "Microsoft's market capitalisation at the end of 2020 was $1.681 trillion, according to CompaniesMarketCap.",
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 1681.0,
+   "unit": "USD bn (US$1.681 trillion)",
+   "period": "end of 2020",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quote": "2020 $1.681 T 40.1%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-microsoft-mcap-2022": {
+   "claim": "Microsoft's market capitalisation at the end of 2022 was $1.787 trillion, according to CompaniesMarketCap.",
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 1787.0,
+   "unit": "USD bn (US$1.787 trillion)",
+   "period": "end of 2022",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/microsoft/marketcap/",
+   "quote": "2022 $1.787 T -29.13%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-google-mcap-2020": {
+   "claim": "Alphabet's market capitalisation at the end of 2020 was $1.185 trillion, according to CompaniesMarketCap.",
+   "actor": "google",
+   "kind": "marketCap",
+   "value": 1185.0,
+   "unit": "USD bn (US$1.185 trillion)",
+   "period": "end of 2020",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/alphabet-google/marketcap/",
+   "quote": "2020 $1.185 T 28.68%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-google-mcap-2022": {
+   "claim": "Alphabet's market capitalisation at the end of 2022 was $1.145 trillion, according to CompaniesMarketCap.",
+   "actor": "google",
+   "kind": "marketCap",
+   "value": 1145.0,
+   "unit": "USD bn (US$1.145 trillion)",
+   "period": "end of 2022",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/alphabet-google/marketcap/",
+   "quote": "2022 $1.145 T -40.27%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-google-rev-2020": {
+   "claim": "Alphabet's revenue for 2020, as CompaniesMarketCap tabulates it, was $182.52 billion.",
+   "actor": "google",
+   "kind": "revenue",
+   "value": 182.52,
+   "unit": "USD bn",
+   "period": "2020",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/alphabet-google/revenue/",
+   "quote": "2020 $182.52 B 12.77%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-google-rev-2022": {
+   "claim": "Alphabet's revenue for 2022, as CompaniesMarketCap tabulates it, was $282.83 billion.",
+   "actor": "google",
+   "kind": "revenue",
+   "value": 282.83,
+   "unit": "USD bn",
+   "period": "2022",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://companiesmarketcap.com/alphabet-google/revenue/",
+   "quote": "2022 $282.83 B 9.78%",
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
   "story-revolutions-us-population-1775": {
    "claim": "The colonial population of the Thirteen Colonies had grown to 2.4 million by 1775.",
    "actor": "united-states",
@@ -45260,8 +47735,8 @@
    "claim": "On 14 June 1775 Congress voted to establish the Continental Army, taking over 22,000 troops outside Boston and 5,000 at New York City.",
    "actor": "continental-army",
    "kind": "troops",
-   "value": 27,
-   "unit": "thousand troops",
+   "value": 22,
+   "unit": "thousand troops (outside Boston; 5,000 more at New York City)",
    "period": "1775",
    "scope": null,
    "from": null,
@@ -45504,7 +47979,7 @@
    "reason": null
   },
   "story-revolutions-war-deaths": {
-   "claim": "More than 25,000 Patriots died in service, about 6,800 in battle and at least 17,000 from disease.",
+   "claim": "More than 25,000 Patriots died during active military service.",
    "actor": "continental-army",
    "kind": "casualties",
    "value": 25,
@@ -45518,7 +47993,7 @@
    "dated2026": false,
    "cluster": "story-revolutions",
    "status": "verified",
-   "supportedJ": 0.92,
+   "supportedJ": 0.9,
    "verifiedOn": "2026-11-07",
    "reason": null
   },
@@ -45602,8 +48077,8 @@
    "claim": "The First Estate represented 115,000 to 150,000 Catholic clergy, less than 1 per cent of the population.",
    "actor": "catholic-church",
    "kind": "adherents",
-   "value": 132.5,
-   "unit": "thousand clergy (midpoint of 115,000-150,000)",
+   "value": 115,
+   "unit": "thousand clergy (115,000 to 150,000; the low end)",
    "period": "1789",
    "scope": null,
    "from": null,
@@ -45827,12 +48302,12 @@
    "reason": null
   },
   "story-revolutions-robespierre-executed": {
-   "claim": "On 28 July 1794 Robespierre and twenty-one Robespierrists were sentenced to death by the Revolutionary Tribunal without a hearing.",
+   "claim": "By 2 p.m. Robespierre and twenty-one Robespierrists were sentenced to death under the law of 22 Prairial, without even a cursory hearing.",
    "actor": "french-republic",
    "kind": "event",
    "value": 1794,
    "unit": "year",
-   "period": "28 July 1794",
+   "period": "27 July 1794 (9 Thermidor)",
    "scope": null,
    "from": null,
    "to": null,
@@ -46226,11 +48701,11 @@
    "reason": null
   },
   "story-revolutions-jena-prussian-army": {
-   "claim": "At Jena in 1806 the Prussian army was about 130,000 Prussians and 20,000 Saxons.",
+   "claim": "The Prussian army awaiting Napoleon's advance in 1806 was a force of about 130,000 Prussians and 20,000 Saxons.",
    "actor": "prussian-army",
    "kind": "troops",
-   "value": 150,
-   "unit": "thousand troops (130,000 Prussians and 20,000 Saxons)",
+   "value": 130,
+   "unit": "thousand Prussian troops (the field force awaiting Napoleon; 20,000 Saxons besides)",
    "period": "October 1806",
    "scope": null,
    "from": null,
@@ -46240,7 +48715,7 @@
    "dated2026": false,
    "cluster": "story-revolutions",
    "status": "verified",
-   "supportedJ": 0.75,
+   "supportedJ": 0.9,
    "verifiedOn": "2026-11-07",
    "reason": null
   },
@@ -46868,6 +49343,747 @@
    "cluster": "story-revolutions",
    "status": "verified",
    "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-leipzig-french-force": {
+   "claim": "At Leipzig the French had about 160,000 soldiers plus Poles, Italians and Rhine Germans, 198,000 troops in all, and other estimates run up to 225,000.",
+   "actor": "grande-armee",
+   "kind": "troops",
+   "value": 198,
+   "unit": "thousand troops (160,000 French plus 38,000 Poles, Italians and Rhine Germans; other estimates up to 225,000)",
+   "period": "16-19 October 1813",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leipzig",
+   "quote": "The French had around 160,000 soldiers along with 700 guns[8] plus 10,000 Poles, 9,000 Italians, and 19,000 Germans belonging to the Confederation of the Rhine, totalling 198,000 troops.[9]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-leipzig-coalition-force": {
+   "claim": "At Leipzig the Coalition had about 380,000 troops: 145,000 to 150,000 Russians, 115,000 Austrians, 75,000 to 90,000 Prussians and 19,000 to 30,000 Swedes.",
+   "actor": "sixth-coalition",
+   "kind": "troops",
+   "value": 380,
+   "unit": "thousand troops (145,000-150,000 Russians, 115,000 Austrians, 75,000-90,000 Prussians, 19,000-30,000 Swedes)",
+   "period": "16-19 October 1813",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leipzig",
+   "quote": "The Coalition had around 380,000 troops along with 1,500 guns,[33][8] consisting of 145,000–150,000[4] Russians, 115,000 Austrians, 75,000[4]–90,000 Prussians, and from 19,000[4] to 23,000[34]–30,000 Swedes.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-waterloo-wellington-army": {
+   "claim": "Wellington's Anglo-allied army at Waterloo had 74,326 men, of whom 27,985 were British.",
+   "actor": "british-army",
+   "kind": "troops",
+   "value": 74.326,
+   "unit": "thousand troops (Wellington's Anglo-allied army; 27,985 British)",
+   "period": "18 June 1815",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Waterloo",
+   "quote": "His troops consisted of 74,326 men: 53,607 infantry, 13,400 cavalry, and 5,596 artillery with 156 guns plus engineers and staff.[65]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.87,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-france-population-1801": {
+   "claim": "The official French census of 1801 counted 29,361,000 people.",
+   "actor": "french-consulate",
+   "kind": "population",
+   "value": 29.361,
+   "unit": "million people (official census, France without the annexed departments)",
+   "period": "1801",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Demographics_of_France",
+   "quote": "figures from 1801 (included) onwards are based on the official French censuses.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.92,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-russia-population-1795-1812": {
+   "claim": "The Russian Empire had 38 million people in 1795, after the Partitions of Poland, and 43 million in 1812.",
+   "actor": "russian-empire",
+   "kind": "population",
+   "value": 38,
+   "unit": "million people",
+   "period": "1795; 43 million in 1812",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Russian_Empire",
+   "quote": "By 1795, after the Partitions of Poland, Russia became the most populous state in Europe, ahead of France.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-spain-population-1800": {
+   "claim": "The Kingdom of Spain had 10,541,000 people around 1800.",
+   "actor": "spain",
+   "kind": "population",
+   "value": 10.541,
+   "unit": "million people (Kingdom of Spain, without its possessions)",
+   "period": "c. 1800",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/List_of_countries_by_population_in_1800",
+   "quote": "8 Spain and possessions[2][19] subdivisions Kingdom of Spain – 10,541,000 New Spain – 5,945,000",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-austria-population-1800": {
+   "claim": "The Habsburg monarchy had about 23,145,000 people around 1800.",
+   "actor": "habsburg-austria",
+   "kind": "population",
+   "value": 23.145,
+   "unit": "million people (Habsburg monarchy)",
+   "period": "c. 1800",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/List_of_countries_by_population_in_1800",
+   "quote": "County of Gorizia and Gradisca – 120,000 23,145,000 2.3% 11 Joseon[25]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.94,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-prussia-population": {
+   "claim": "Prussia had 5,800,000 people in 1786 and 8,700,000 in 1797.",
+   "actor": "prussia",
+   "kind": "population",
+   "value": 8.7,
+   "unit": "million people",
+   "period": "1797; 5.8 million in 1786",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Kingdom_of_Prussia",
+   "quote": "Population • 1713[3] 1,500,000 • 1740[4][5] 2,200,000 • 1756[6] 4,500,000 • 1786[7] 5,800,000 • 1797[8] 8,700,000",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-france-population-1780": {
+   "claim": "Around 1780 the population of France was estimated at around 25 million.",
+   "actor": "kingdom-of-france",
+   "kind": "population",
+   "value": 25,
+   "unit": "million people (estimate)",
+   "period": "c. 1780",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://emersonkent.com/history_dictionary/taxation_in_pre_revolutionary_france.htm",
+   "quote": "Population estimated at around 25 million.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-france-income-deficit-1786": {
+   "claim": "Before the Assembly of Notables the French crown had a total income of 475 million livres and an annual deficit of some 150 million.",
+   "actor": "kingdom-of-france",
+   "kind": "revenue",
+   "value": 475,
+   "unit": "million livres (total income, before the Assembly of Notables of 1787)",
+   "period": "c. 1786",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Estates_General_of_1789",
+   "quote": "For a total income of 475 million livres, the annual deficit was some 150 million.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.69,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-french-royal-army-1789": {
+   "claim": "On 14 July 1789 the French Royal Army's normal strength was 172,974 men in peacetime and 210,948 in wartime.",
+   "actor": "kingdom-of-france",
+   "kind": "army",
+   "value": 172.974,
+   "unit": "thousand troops (peacetime strength of the Royal Army; 210,948 in wartime)",
+   "period": "14 July 1789",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/National_Volunteers_(France)",
+   "quote": "Its normal strength was therefore 172,974 men during peacetime or 210,948 men during wartime.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-yorktown-forces": {
+   "claim": "At Yorktown the Americans had 5,900 regular troops and 3,100 militia not engaged, the French 10,800 men and 29 warships, and the British and Germans 8,000 to 9,000.",
+   "actor": "continental-army",
+   "kind": "troops",
+   "value": 5.9,
+   "unit": "thousand troops (regulars at Yorktown; 3,100 militia not engaged)",
+   "period": "October 1781",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Yorktown",
+   "quote": "Strength Americans: 8,000–9,000 men[1] • 5,900 regular troops • 3,100 militia (not engaged)[1][2] French: 10,800 men[1] and 29 warships[2] Total: 19,800 (fewer engaged) British: 5,000[3] German: fewer than 3,000 Total: 8,000–9,000[1][4]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.91,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-jena-prussian-engaged": {
+   "claim": "At Jena the Prussians had 46,000 men, and at Auerstedt 64,000.",
+   "actor": "prussian-army",
+   "kind": "troops",
+   "value": 46,
+   "unit": "thousand troops (at Jena; 64,000 at Auerstedt)",
+   "period": "14 October 1806",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Jena%E2%80%93Auerstedt",
+   "quote": "Total engaged: 66,000 46,000 (Jena)[5] 40,000 directly under Hohenlohe, with 33,000 of them engaged[3] 15,000 under Rüchel, with 13,000 of them engaged[3] 64,000 (Auerstedt)[5] Total engaged: 110,000",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.91,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-jena-french-campaign": {
+   "claim": "Napoleon began the campaign against the Fourth Coalition by thrusting a 180,000-strong force through the Franconian Forest.",
+   "actor": "grande-armee",
+   "kind": "army",
+   "value": 180,
+   "unit": "thousand troops (the campaign force)",
+   "period": "October 1806",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Jena%E2%80%93Auerstedt",
+   "quote": "Following the Prussian declaration of war, Napoleon initiated his campaign against the Fourth Coalition by thrusting a 180,000-strong force through the Franconian Forest.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.82,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-trafalgar-order-of-battle": {
+   "claim": "The combined fleet at Trafalgar had 18 French ships of the line and 15 Spanish ships of the line.",
+   "actor": "french-navy",
+   "kind": "ships",
+   "value": 18,
+   "unit": "ships of the line (French, at Trafalgar)",
+   "period": "21 October 1805",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Trafalgar_order_of_battle",
+   "quote": "The combined fleet consisted of 40 vessels with 18 French ships of the line and 15 Spanish ships of the line.[75]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-french-navy-1789": {
+   "claim": "In 1789 the French Navy had 71 ships of the line, with 12 more under construction.",
+   "actor": "french-navy",
+   "kind": "navy",
+   "value": 71,
+   "unit": "ships of the line (all in the fleet)",
+   "period": "1789",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/History_of_the_French_Navy",
+   "quote": "In 1789, the French Navy had 71 ships of the line, 64 frigates, 45 corvettes and 32 smaller units; a further 12 ships of the line and 10 frigates were under construction and expected to be launched within the year.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-french-navy-1792-1802": {
+   "claim": "The French navy had 83 ships of the line in 1792 and only 46 ten years later.",
+   "actor": "french-navy",
+   "kind": "navy",
+   "value": 83,
+   "unit": "ships of the line (all in the fleet)",
+   "period": "1792; 46 in 1802",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/French_Imperial_Navy",
+   "quote": "The navy had 83 ships of the line in 1792, but only 46 ten years later, while the numbers of frigates had gone from 74 to 37.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-french-navy-1814": {
+   "claim": "In April 1814 the French fleet had 81 ships of the line, with 18 more under construction.",
+   "actor": "french-navy",
+   "kind": "navy",
+   "value": 81,
+   "unit": "ships of the line (all in the fleet)",
+   "period": "April 1814",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/French_Imperial_Navy",
+   "quote": "The French fleet then had 81 ships of the line with 18 more under construction.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.84,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-continental-system-effect": {
+   "claim": "British exports to the continent fell between 25% and 55% compared to pre-1806 levels.",
+   "actor": "united-kingdom",
+   "kind": "share",
+   "value": 25,
+   "unit": "percent fall in British exports to the continent (25 to 55 percent below pre-1806 levels)",
+   "period": "1806-1812",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "quote": "British exports to the continent fell between 25% and 55% compared to pre-1806 levels.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-continental-system-invasions": {
+   "claim": "Napoleon realised that extensive trade was going through Spain and Russia and invaded both; Russia had reopened trade with Britain in 1810.",
+   "actor": "first-french-empire",
+   "kind": "event",
+   "value": 1810,
+   "unit": "year",
+   "period": "1810-1812",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "quote": "As Napoleon realised that extensive trade was going through Spain and Russia, he invaded those two countries.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-saratoga-persuaded-france": {
+   "claim": "Once news of Burgoyne's surrender reached France, Louis XVI decided to negotiate with the Americans, which resulted in a formal Franco-American alliance.",
+   "actor": "france",
+   "kind": "event",
+   "value": 1777,
+   "unit": "year",
+   "period": "October 1777 to February 1778",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battles_of_Saratoga",
+   "quote": "Once news of Burgoyne's surrender reached France, King Louis XVI decided to enter into negotiations with the Americans that resulted in a formal Franco-American alliance and French entry into the war.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-trafalgar-supremacy": {
+   "claim": "Trafalgar confirmed Britain's naval supremacy in the Napoleonic Wars, and the army of invasion had already marched into Germany in August.",
+   "actor": "royal-navy",
+   "kind": "event",
+   "value": 1805,
+   "unit": "year",
+   "period": "25 August and 21 October 1805",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Trafalgar",
+   "quote": "The victory confirmed Britain's naval supremacy in the Napoleonic Wars and was achieved in part through Nelson's departure from prevailing sailing ship tactics.[6]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.94,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-church-sees-1801": {
+   "claim": "Under the Concordat of 1801 the pope agreed to a new circumscription of the French dioceses, and of the 136 sees only 60 were retained.",
+   "actor": "catholic-church",
+   "kind": "headcount",
+   "value": 60,
+   "unit": "clergy (60 bishops, one for each of the 60 sees kept of 136)",
+   "period": "1801-1802",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://www.catholic.com/encyclopedia/french-concordat-of-1801-the",
+   "quote": "The pope agreed to a fresh circumscription of the French dioceses. When this subsequently took place, of the 136 sees only 60 were retained.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-consulate-palace-soldiers": {
+   "claim": "To prevent a violent uprising by the deputies, Napoleon had the palace surrounded by 6,000 soldiers on 10 November 1799.",
+   "actor": "french-consulate",
+   "kind": "troops",
+   "value": 6,
+   "unit": "thousand troops (soldiers around the palace at Saint-Cloud)",
+   "period": "10 November 1799",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Coup_of_18_Brumaire",
+   "quote": "To prevent a violent uprising by the deputies, Napoleon had the palace surrounded by 6,000 soldiers.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.93,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-plebiscite-1800-count": {
+   "claim": "The constitution of 1799 was put to a referendum: 3,011,007 votes in favour against 1,562, with half a million votes cast by the army without valid ballot papers.",
+   "actor": "french-consulate",
+   "kind": "votes",
+   "value": 3011.007,
+   "unit": "thousand votes in favour (1,562 against; half a million cast by the army without valid ballots)",
+   "period": "December 1799 to February 1800",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Coup_of_18_Brumaire",
+   "quote": "To avoid any appearance of a restoration of the monarchy and the divine right of kings, Napoleon put the constitution to a referendum: 3,011,007 votes in favour versus 1,562 against. Half a million votes had been cast by the army without valid ballot papers, whilst in the rest of the country votes at public meetings were recorded solely by a show of hands.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.72,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-first-coalition-strength": {
+   "claim": "The infobox of the War of the First Coalition gives the coalition's 1793 strength as 800,000+ (the Holy Roman Empire, of which Austria 500,000) and the French Republic's 1794 strength as 1,169,000.",
+   "actor": "first-coalition",
+   "kind": "army",
+   "value": 800,
+   "unit": "thousand troops (Holy Roman Empire; Austria 500,000; the Dutch 60,000; Britain 20,000)",
+   "period": "1793",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/War_of_the_First_Coalition",
+   "quote": "Strength 1793: 800,000+[2] 500,000[3] 65,000[4] 60,000[5] 25,000 20,000[6] 1794: 1,169,000[7]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.73,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-russia-western-armies-1812": {
+   "claim": "In June 1812 the disparate Russian forces led by Barclay de Tolly and Bagration totalled approximately 180,000 to 220,000 soldiers.",
+   "actor": "russian-army",
+   "kind": "troops",
+   "value": 180,
+   "unit": "thousand troops (Barclay's and Bagration's armies, 180,000-220,000, facing the invasion)",
+   "period": "June 1812",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/French_invasion_of_Russia",
+   "quote": "Napoleon rapidly advanced his army of nearly half a million men through Western Russia, encompassing present-day Belarus, in a bid to dismantle the disparate Russian forces led by Barclay de Tolly and Pyotr Bagration totaling approximately 180,000–220,000 soldiers at that juncture.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.72,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-peak-russia-1812": {
+   "claim": "Russia's peak strength was 712,000 regulars, Cossacks and militia in 1812.",
+   "actor": "russian-empire",
+   "kind": "army",
+   "value": 712,
+   "unit": "thousand troops (regulars, Cossacks and militia, peak)",
+   "period": "1812",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quote": "Russia: 712,000 regulars, Cossacks and militia at peak strength (1812)[4]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-peak-austria-1809": {
+   "claim": "Austria's peak strength was 630,000 regulars and militia in 1809.",
+   "actor": "habsburg-austria",
+   "kind": "army",
+   "value": 630,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "period": "1809",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quote": "Austria: 630,000 regulars and militia at peak strength (1809)[5][6]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-peak-prussia-1806": {
+   "claim": "Prussia's peak strength was 281,000 regulars and militia in 1806.",
+   "actor": "prussia",
+   "kind": "army",
+   "value": 281,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "period": "1806",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quote": "Prussia: 281,000 regulars and militia at peak strength (1806)[10][11]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-peak-spain-1808": {
+   "claim": "Spain's peak strength was 255,000 regulars and guerillas in 1808.",
+   "actor": "spain",
+   "kind": "army",
+   "value": 255,
+   "unit": "thousand troops (regulars and guerillas, peak)",
+   "period": "1808",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quote": "Spain: 255,000 regulars and guerillas at peak strength (1808)[12][s]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-peak-uk-1813": {
+   "claim": "The United Kingdom's peak strength was 380,000 regulars, sailors and marines in 1813.",
+   "actor": "united-kingdom",
+   "kind": "army",
+   "value": 380,
+   "unit": "thousand troops (regulars, sailors and marines, peak)",
+   "period": "1813",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quote": "United Kingdom: 380,000 regulars, sailors, and marines at peak strength (1813)[q][8]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-peak-france-1813": {
+   "claim": "France's peak strength was 1,200,000 regulars, sailors, marines and militia in 1813.",
+   "actor": "first-french-empire",
+   "kind": "army",
+   "value": 1200,
+   "unit": "thousand troops (regulars, sailors, marines and militia, peak)",
+   "period": "1813",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quote": "France: 1,200,000 regulars, sailors, marines and militia at peak strength (1813)[15]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-uk-budget-1814": {
+   "claim": "The British budget in 1814 reached £66 million, including £10 million for the Navy, £40 million for the Army, £10 million for the Allies and £38 million as interest on the national debt.",
+   "actor": "united-kingdom",
+   "kind": "spending",
+   "value": 66,
+   "unit": "million pounds (the 1814 budget)",
+   "period": "1814",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/United_Kingdom_in_the_Napoleonic_Wars",
+   "quote": "The British budget in 1814 reached £66 million, including £10 million for the Navy, £40 million for the Army, £10 million for the Allies, and £38 million as interest on the national debt.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.94,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-grande-armee-1805-size": {
+   "claim": "By 1805 the Grande Armée had grown to a force of 350,000 men.",
+   "actor": "grande-armee",
+   "kind": "army",
+   "value": 350,
+   "unit": "thousand troops",
+   "period": "1805",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Austerlitz",
+   "quote": "By 1805, the Grande Armée had grown to a force of 350,000 men,[45] who were well equipped, well trained, and led by competent officers.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-corps-concept": {
+   "claim": "Napoleon introduced all-arms corps, each a traditional army in miniature, so that the field force could split across several lines of march and rejoin or operate independently.",
+   "actor": "grande-armee",
+   "kind": "event",
+   "value": 1804,
+   "unit": "year",
+   "period": "1804-1805",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/French_Army",
+   "quote": "Napoleon introduced the concept of all arms Corps, each one a traditional army 'in miniature', permitting the field force to be split across several lines of march and rejoin or to operate independently.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-berthier-chief-of-staff": {
+   "claim": "Marshal Berthier acted as Napoleon's chief of staff from 1796 until 1814.",
+   "actor": "grande-armee",
+   "kind": "event",
+   "value": 1796,
+   "unit": "year",
+   "period": "1796-1814",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Grande_Arm%C3%A9e",
+   "quote": "Marshal Louis-Alexandre Berthier acted as Napoleon's chief of staff from 1796 until 1814, being replaced by Marshal Jean-de-Dieu Soult during the Hundred Days.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-concert-doctrine": {
+   "claim": "The Congress of Vienna settlement gave birth to the Concert of Europe, a doctrine that emphasized the balance of powers and guided European foreign policy until 1914.",
+   "actor": "congress-of-vienna",
+   "kind": "statement",
+   "value": 1914,
+   "unit": "year",
+   "period": "1815-1914",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Vienna",
+   "quote": "The Congress of Vienna settlement gave birth to the Concert of Europe, an international political doctrine that emphasized the maintaining of political boundaries, the balance of powers, and respecting spheres of influence and which guided foreign policy among the nations of Europe until the outbreak of the First World War in 1914.",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-revolutions-robespierre-guillotined": {
+   "claim": "Robespierre was executed on 28 July 1794, the date with which the Terror is often said to end.",
+   "actor": "french-republic",
+   "kind": "event",
+   "value": 1794,
+   "unit": "year",
+   "period": "28 July 1794",
+   "scope": null,
+   "from": null,
+   "to": null,
+   "url": "https://en.wikipedia.org/wiki/Reign_of_Terror",
+   "quote": "Will Durant stated that \"strictly, it should be dated from the Law of Suspects, 17 September 1793, to the execution of Maximilien Robespierre, 28 July 1794.\"[5]",
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.8,
    "verifiedOn": "2026-11-07",
    "reason": null
   },
@@ -47652,10 +50868,7 @@
   }
  },
  "report": {
-  "dropped flows": [
-   "sr-flow-france-us (no amount)",
-   "sr-flow-britain-allies (no amount)"
-  ],
+  "dropped flows": [],
   "stub actors": [
    "hp (entry-flow-hp-humane)"
   ],

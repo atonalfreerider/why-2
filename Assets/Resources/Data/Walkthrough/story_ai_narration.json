@@ -12,11 +12,11 @@
     },
     {
       "id": "ai_eight",
-      "narration": "In nineteen fifty-five, Shockley founded a laboratory of his own. Two years later, eight of his engineers walked out. Among them were Robert Noyce and Gordon Moore. With backing from Sherman Fairchild, they founded Fairchild Semiconductor on the eighteenth of September nineteen fifty-seven, to make transistors of silicon when germanium was still the common material. Fairchild became an incubator of Silicon Valley: its alumni created dozens of companies, Intel and AMD among them."
+      "narration": "In nineteen fifty-five, Shockley founded a laboratory of his own. Two years later, eight of his engineers walked out. Among them were Robert Noyce and Gordon Moore. With backing from Sherman Fairchild, they founded Fairchild Semiconductor on the eighteenth of September nineteen fifty-seven, to make transistors of silicon when germanium was still the common material. Its first transistor, the 2N697 of nineteen fifty-eight, went to IBM: a first batch of one hundred, at a hundred and fifty dollars apiece. Fairchild became an incubator of Silicon Valley: its alumni created dozens of companies, Intel and AMD among them."
     },
     {
       "id": "ai_chip",
-      "narration": "At Texas Instruments in nineteen fifty-eight, Jack Kilby made the first integrated circuit. In nineteen fifty-nine, Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Fairchild sold its first batch of one hundred devices to IBM, at a hundred and fifty dollars apiece, for the computer of the B-70 bomber. Kilby won the Nobel Prize in two thousand for his part in the invention."
+      "narration": "At Texas Instruments in nineteen fifty-eight, Jack Kilby made the first integrated circuit. In nineteen fifty-nine, Fairchild developed the planar process, and Robert Noyce invented the monolithic integrated circuit. Kilby won the Nobel Prize in two thousand for his part in the invention."
     },
     {
       "id": "ai_microprocessor",
@@ -48,7 +48,7 @@
     },
     {
       "id": "ai_scaling",
-      "narration": "Watch OpenAI's tube. GPT-1 had a hundred and seventeen million parameters. The full GPT-2, in November twenty nineteen, had one and a half billion. In January twenty twenty, Kaplan and his colleagues showed that a language model's loss falls as a power law as its size, its data and its compute grow, over more than seven orders of magnitude. In May came GPT-3: a hundred and seventy-five billion parameters, ten times any earlier dense model. Microsoft had invested a billion dollars in twenty nineteen and moved OpenAI onto Azure, and in September twenty twenty it licensed GPT-3 exclusively."
+      "narration": "Watch OpenAI's tube. GPT-1 had a hundred and seventeen million parameters. The full GPT-2, in November twenty nineteen, had one and a half billion. In January twenty twenty, Kaplan and his colleagues showed that a language model's loss falls as a power law as its size, its data and its compute grow, over more than seven orders of magnitude. In May came GPT-3: a hundred and seventy-five billion parameters, ten times any earlier dense model. Microsoft had invested a billion dollars in twenty nineteen, and in September twenty twenty it licensed GPT-3 exclusively."
     },
     {
       "id": "ai_chatgpt",

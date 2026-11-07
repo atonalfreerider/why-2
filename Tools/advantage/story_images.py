@@ -28,12 +28,14 @@ ORDINALS = {"first": "I", "second": "II", "third": "III", "fourth": "IV", "fifth
 #   a portrait whose face fell outside the centre square gets a box (fractions of the original);
 #   a mark of another era (the British Army's modern flag, the Armee de Terre logo, the tricolour for the navy of 1781,
 #   Spain's flag of 1873) gives way to a pinned mark of the time, or to the actor's monogram; the coalitions' battle
-#   paintings show no mark of the coalition, so the coalitions keep their numerals.
+#   paintings show no mark of the coalition, so the coalitions keep their numerals; Compaq's only image was a laptop of
+#   1999, so it keeps its monogram for 1986.
 OVERRIDES = {
     "robert-noyce": {"box": [0.528, 0.0, 0.359, 0.639]},
+    "llion-jones": {"box": [0.255, 0.039, 0.487, 0.326]},
     "spain": {"file": "Flag of Spain (1785–1873, 1875–1931).svg", "as": "P41"},
 }
-MONOGRAM_ONLY = {"british-army", "french-army", "french-navy", "first-coalition", "second-coalition", "third-coalition",
+MONOGRAM_ONLY = {"compaq", "british-army", "french-army", "french-navy", "first-coalition", "second-coalition", "third-coalition",
                  "fourth-coalition", "fifth-coalition", "sixth-coalition", "seventh-coalition", "coalitions"}
 
 

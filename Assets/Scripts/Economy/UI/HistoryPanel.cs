@@ -141,7 +141,7 @@ namespace Why.Economy.UI
             var moats = s.Moats.Where(x => year >= x.From - .01f && year <= (Mathf.Approximately(x.To, Mathf.Round(x.To)) ? x.To + 1 : x.To) + .01f).ToList();
             if (moats.Count > 0)
             {
-                sb.Append("\n<b>Advantages held then</b>\n");
+                sb.Append("\n<b>Advantages held then</b> <size=86%><color=#9AA4B2>(walls 0-4, judged by Jev)</color></size>\n");
                 foreach (var moat in moats)
                 {
                     sb.Append("<b>").Append(Name(moat.Actor)).Append("</b>");
@@ -150,7 +150,7 @@ namespace Why.Economy.UI
                     sb.Append(string.Join("; ", moat.Sources.GroupBy(x => x.Source).Select(g =>
                     {
                         var x = g.OrderByDescending(v => double.IsNaN(v.Wall) ? -1 : v.Wall).First();
-                        return "<color=#" + UiFactory.Hex(HillAdvantageLayer.SourceColor(x.Source)) + ">" + x.Source + "</color>" +
+                        return "<color=#" + UiFactory.Hex(HillAdvantageLayer.SourceColor(x.Source)) + ">" + HillHistoryLayer.SourceWord(x.Source) + "</color>" +
                                (double.IsNaN(x.Wall) ? "" : " " + x.Wall.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture));
                     })));
                     sb.Append('\n');

@@ -2,13 +2,23 @@
  "asOf": "2026-11-07",
  "threshold": 0.6,
  "jev": {
-  "requests": 68,
-  "cached": 0,
-  "tokens": 109771,
+  "requests": 1,
+  "cached": 110,
+  "tokens": 177717,
   "model": "jev-1.14.0",
   "errors": 0
  },
  "facts": {
+  "story-ai-3dfx-revenue": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-alexnet-error": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -29,12 +39,92 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-amd-mcap-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-amd-mcap-2007": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-amd-mcap-2025": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-amd-rev-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-amd-rev-2007": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-amd-rev-2025": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-amd-rev-ttm": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-bell-nobels": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-bell-staff-wwii": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -49,12 +139,92 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-compaq-sales-1986": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-cuda-devs-2011": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-cuda-downloads-2008": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-cuda-gpus-2011": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-fairchild-2n697": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-fairchild-eight-names": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.86,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-fairchild-late-sixties": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-fairchild-raised-1957": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-fairchild-sales-1960": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -70,6 +240,26 @@
    "cluster": "story-ai"
   },
   "story-ai-gb200-transistors": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-gdp-1945-us": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-gdp-1945-ussr": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
@@ -119,6 +309,26 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-google-mcap-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-google-mcap-2022": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-google-mcap-2026": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -135,6 +345,26 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-google-rev-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-google-rev-2022": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -169,6 +399,16 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-gpt3-compute": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "story-ai"
+  },
   "story-ai-gpt3-cost": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -189,12 +429,42 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-hoerni-2n1613": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-ibm-income-1980": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-intel-4004-transistors": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-intel-debentures-1968": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.77,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -269,12 +539,32 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-jpr-q4-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-kilby-1958": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-kilby-hybrid": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -299,7 +589,57 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-microsoft-mcap-1997": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-microsoft-mcap-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-microsoft-mcap-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-microsoft-mcap-2019": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-microsoft-mcap-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-microsoft-mcap-2022": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
@@ -334,9 +674,9 @@
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
-   "supportedJ": 0.73,
+   "supportedJ": 0.93,
    "fetched": "2026-11-07",
-   "quotesFound": "1/1",
+   "quotesFound": "2/2",
    "cluster": "story-ai"
   },
   "story-ai-microsoft-openai-2023": {
@@ -539,6 +879,56 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-openai-val-2021": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-openai-val-2023": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.81,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-shockley-staff-1956": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-ti-sales-1958": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-transformer-8-p100": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-ai"
+  },
   "story-ai-transformer-authors": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -575,6 +965,26 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-transformer-params": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-tsmc-45nm-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -629,6 +1039,16 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-tsmc-rev-1992": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-tsmc-rev-1997": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -655,6 +1075,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-tsmc-taiwan-ndf-1987": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"

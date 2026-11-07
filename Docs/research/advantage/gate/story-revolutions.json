@@ -3,8 +3,8 @@
  "threshold": 0.6,
  "jev": {
   "requests": 0,
-  "cached": 86,
-  "tokens": 122851,
+  "cached": 125,
+  "tokens": 186217,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -49,6 +49,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-austria-population-1800": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-austria-subsidy-1809": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -85,6 +95,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-berthier-chief-of-staff": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -179,6 +199,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-church-sees-1801": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-church-wealth-1789": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -205,6 +235,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-concert-doctrine": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -239,6 +279,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-consulate-palace-soldiers": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-continental-army-1775": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -259,6 +309,26 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-continental-system-effect": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-continental-system-invasions": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-coronation-ceremony": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -275,6 +345,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-corps-concept": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -359,6 +439,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-first-coalition-strength": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.73,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-fourth-coalition-1806": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -389,7 +479,77 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-france-income-deficit-1786": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.69,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-france-population-1780": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-france-population-1801": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-france-war-cost": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-french-navy-1789": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-french-navy-1792-1802": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-french-navy-1814": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.84,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-french-royal-army-1789": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
@@ -429,6 +589,26 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-grande-armee-1805-size": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-jena-french-campaign": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-jena-french-force": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -444,7 +624,17 @@
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
-   "supportedJ": 0.75,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-jena-prussian-engaged": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -477,6 +667,26 @@
    "supportedJ": 0.96,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-leipzig-coalition-force": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-leipzig-french-force": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
    "cluster": "story-revolutions"
   },
   "story-revolutions-leipzig-scale": {
@@ -539,6 +749,66 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-peak-austria-1809": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-peak-france-1813": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-peak-prussia-1806": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-peak-russia-1812": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-peak-spain-1808": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-peak-uk-1813": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-pitt-income-tax": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -559,6 +829,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-plebiscite-1800-count": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.72,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-plebiscite-1804": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -570,6 +850,16 @@
    "cluster": "story-revolutions"
   },
   "story-revolutions-population-britain-france": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-prussia-population": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
@@ -595,6 +885,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-robespierre-guillotined": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.8,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -649,12 +949,32 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-russia-population-1795-1812": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-russia-survivors": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-russia-western-armies-1812": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.72,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -667,6 +987,16 @@
    "supportedJ": 0.96,
    "fetched": "2026-11-07",
    "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-saratoga-persuaded-france": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
   "story-revolutions-second-coalition-1798": {
@@ -695,6 +1025,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-spain-population-1800": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -759,6 +1099,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-trafalgar-order-of-battle": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-trafalgar-result": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -769,12 +1119,32 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-trafalgar-supremacy": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-treaty-paris-1783": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-uk-budget-1814": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -824,7 +1194,7 @@
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
-   "supportedJ": 0.92,
+   "supportedJ": 0.9,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
@@ -837,6 +1207,16 @@
    "supportedJ": 0.97,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-waterloo-wellington-army": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
    "cluster": "story-revolutions"
   },
   "story-revolutions-wellington-nearest-run": {
@@ -865,6 +1245,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-yorktown-forces": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"

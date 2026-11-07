@@ -38,8 +38,8 @@
    "dated2026": false,
    "actor": "continental-army",
    "kind": "troops",
-   "value": 27,
-   "unit": "thousand troops",
+   "value": 22,
+   "unit": "thousand troops (outside Boston; 5,000 more at New York City)",
    "period": "1775",
    "from": null,
    "to": null,
@@ -88,7 +88,7 @@
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": "The 19,000 includes the French army under Rochambeau."
+   "notes": "Washington never directly commanded more than 17,000 men at any time: a ceiling, not a 1781 strength."
   },
   {
    "id": "story-revolutions-saratoga-1777",
@@ -197,7 +197,7 @@
    "from": "france",
    "to": "united-states",
    "accessed": "2026-11-07",
-   "notes": "Page cites a range of sources; the figure is the page's own."
+   "notes": "Sources differ: 1.3 billion livres directly for the Americans (this article), 'over a billion livres' (the same article), 1,25 billion in the Estates-General article, and 1,066 million for the whole war (Louis XVI)."
   },
   {
    "id": "story-revolutions-france-debt-after-war",
@@ -307,7 +307,7 @@
   },
   {
    "id": "story-revolutions-war-deaths",
-   "claim": "More than 25,000 Patriots died in service, about 6,800 in battle and at least 17,000 from disease.",
+   "claim": "More than 25,000 Patriots died during active military service.",
    "url": "https://en.wikipedia.org/wiki/American_Revolutionary_War",
    "quotes": [
     "More than 25,000 Patriots died during active military service."
@@ -324,7 +324,7 @@
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "The earlier claim added 6,800 killed in action and 17,000 dead from disease, which this quote does not contain; they are left out."
   },
   {
    "id": "story-revolutions-debt-service-1788",
@@ -428,8 +428,8 @@
    "dated2026": false,
    "actor": "catholic-church",
    "kind": "adherents",
-   "value": 132.5,
-   "unit": "thousand clergy (midpoint of 115,000-150,000)",
+   "value": 115,
+   "unit": "thousand clergy (115,000 to 150,000; the low end)",
    "period": "1789",
    "from": null,
    "to": null,
@@ -481,7 +481,7 @@
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "Russia's 35 to 40 million is a range; the series uses the stated 38 million of 1795 (story-revolutions-russia-population-1795-1812)."
   },
   {
    "id": "story-revolutions-bastille-seven",
@@ -678,11 +678,11 @@
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "Within the 16,594 official death sentences, the Revolutionary Tribunal executed 1,366 under the Law of 22 Prairial."
   },
   {
    "id": "story-revolutions-robespierre-executed",
-   "claim": "On 28 July 1794 Robespierre and twenty-one Robespierrists were sentenced to death by the Revolutionary Tribunal without a hearing.",
+   "claim": "By 2 p.m. Robespierre and twenty-one Robespierrists were sentenced to death under the law of 22 Prairial, without even a cursory hearing.",
    "url": "https://en.wikipedia.org/wiki/Maximilien_Robespierre",
    "quotes": [
     "By 2 p.m., Robespierre and twenty-one \"Robespierrists\" faced accusations of counter-revolution and were sentenced to death under the provisions of the law of 22 Prairial, although without even a cursory hearing."
@@ -696,11 +696,11 @@
    "kind": "event",
    "value": 1794,
    "unit": "year",
-   "period": "28 July 1794",
+   "period": "27 July 1794 (9 Thermidor)",
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "The sentence only; the execution on 28 July 1794 is story-revolutions-robespierre-guillotined."
   },
   {
    "id": "story-revolutions-coup-1799",
@@ -944,7 +944,7 @@
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "The Allied army is 85,000 in the mechanism (Chandler) and 89,000 here (the infobox's other count); the page says accounts give 73,000, 84,000 or 89,000."
   },
   {
    "id": "story-revolutions-trafalgar-fleet",
@@ -1140,7 +1140,7 @@
   },
   {
    "id": "story-revolutions-jena-prussian-army",
-   "claim": "At Jena in 1806 the Prussian army was about 130,000 Prussians and 20,000 Saxons.",
+   "claim": "The Prussian army awaiting Napoleon's advance in 1806 was a force of about 130,000 Prussians and 20,000 Saxons.",
    "url": "https://en.wikipedia.org/wiki/Battle_of_Jena%E2%80%93Auerstedt",
    "quotes": [
     "The Prussian army, meanwhile, awaited Napoleon's advance with a force composed of about 130,000 Prussians and 20,000 Saxons."
@@ -1152,13 +1152,13 @@
    "dated2026": false,
    "actor": "prussian-army",
    "kind": "troops",
-   "value": 150,
-   "unit": "thousand troops (130,000 Prussians and 20,000 Saxons)",
+   "value": 130,
+   "unit": "thousand Prussian troops (the field force awaiting Napoleon; 20,000 Saxons besides)",
    "period": "October 1806",
    "from": null,
    "to": null,
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "A field force awaiting the advance, not the Prussian strength at the battle (46,000 at Jena: story-revolutions-jena-prussian-engaged)."
   },
   {
    "id": "story-revolutions-jena-french-force",
@@ -1875,6 +1875,860 @@
    "to": null,
    "accessed": "2026-11-07",
    "notes": ""
+  },
+  {
+   "id": "story-revolutions-leipzig-french-force",
+   "claim": "At Leipzig the French had about 160,000 soldiers plus Poles, Italians and Rhine Germans, 198,000 troops in all, and other estimates run up to 225,000.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leipzig",
+   "quotes": [
+    "The French had around 160,000 soldiers along with 700 guns[8] plus 10,000 Poles, 9,000 Italians, and 19,000 Germans belonging to the Confederation of the Rhine, totalling 198,000 troops.[9]",
+    "In accordance with other estimates, their combined forces were up to 225,000[33] whilst the total number of guns brought in for all four days was 900.[5]"
+   ],
+   "values": [
+    "160,000",
+    "198,000",
+    "225,000"
+   ],
+   "dated2026": false,
+   "actor": "grande-armee",
+   "kind": "troops",
+   "value": 198,
+   "unit": "thousand troops (160,000 French plus 38,000 Poles, Italians and Rhine Germans; other estimates up to 225,000)",
+   "period": "16-19 October 1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-leipzig-coalition-force",
+   "claim": "At Leipzig the Coalition had about 380,000 troops: 145,000 to 150,000 Russians, 115,000 Austrians, 75,000 to 90,000 Prussians and 19,000 to 30,000 Swedes.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Leipzig",
+   "quotes": [
+    "The Coalition had around 380,000 troops along with 1,500 guns,[33][8] consisting of 145,000–150,000[4] Russians, 115,000 Austrians, 75,000[4]–90,000 Prussians, and from 19,000[4] to 23,000[34]–30,000 Swedes."
+   ],
+   "values": [
+    "380,000",
+    "145,000",
+    "115,000"
+   ],
+   "dated2026": false,
+   "actor": "sixth-coalition",
+   "kind": "troops",
+   "value": 380,
+   "unit": "thousand troops (145,000-150,000 Russians, 115,000 Austrians, 75,000-90,000 Prussians, 19,000-30,000 Swedes)",
+   "period": "16-19 October 1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-waterloo-wellington-army",
+   "claim": "Wellington's Anglo-allied army at Waterloo had 74,326 men, of whom 27,985 were British.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Waterloo",
+   "quotes": [
+    "His troops consisted of 74,326 men: 53,607 infantry, 13,400 cavalry, and 5,596 artillery with 156 guns plus engineers and staff.[65]",
+    "Of these, 27,985 (38%) were British, with another 7,686 (10%) from the King's German"
+   ],
+   "values": [
+    "74,326",
+    "27,985"
+   ],
+   "dated2026": false,
+   "actor": "british-army",
+   "kind": "troops",
+   "value": 74.326,
+   "unit": "thousand troops (Wellington's Anglo-allied army; 27,985 British)",
+   "period": "18 June 1815",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-france-population-1801",
+   "claim": "The official French census of 1801 counted 29,361,000 people.",
+   "url": "https://en.wikipedia.org/wiki/Demographics_of_France",
+   "quotes": [
+    "figures from 1801 (included) onwards are based on the official French censuses.",
+    "1792 28,000,000 1886 39,783,000 2006 61,399,733 1801 29,361,000"
+   ],
+   "values": [
+    "1801",
+    "29,361,000"
+   ],
+   "dated2026": false,
+   "actor": "french-consulate",
+   "kind": "population",
+   "value": 29.361,
+   "unit": "million people (official census, France without the annexed departments)",
+   "period": "1801",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-russia-population-1795-1812",
+   "claim": "The Russian Empire had 38 million people in 1795, after the Partitions of Poland, and 43 million in 1812.",
+   "url": "https://en.wikipedia.org/wiki/Russian_Empire",
+   "quotes": [
+    "By 1795, after the Partitions of Poland, Russia became the most populous state in Europe, ahead of France.",
+    "Year Population of Russia (millions) [51] Notes 1720 16 includes new Baltic and Polish territories 1795 38 includes part of Poland 1812 43 includes Grand Duchy of Finland"
+   ],
+   "values": [
+    "1795",
+    "38",
+    "43"
+   ],
+   "dated2026": false,
+   "actor": "russian-empire",
+   "kind": "population",
+   "value": 38,
+   "unit": "million people",
+   "period": "1795; 43 million in 1812",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-spain-population-1800",
+   "claim": "The Kingdom of Spain had 10,541,000 people around 1800.",
+   "url": "https://en.wikipedia.org/wiki/List_of_countries_by_population_in_1800",
+   "quotes": [
+    "8 Spain and possessions[2][19] subdivisions Kingdom of Spain – 10,541,000 New Spain – 5,945,000"
+   ],
+   "values": [
+    "10,541,000"
+   ],
+   "dated2026": false,
+   "actor": "spain",
+   "kind": "population",
+   "value": 10.541,
+   "unit": "million people (Kingdom of Spain, without its possessions)",
+   "period": "c. 1800",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-austria-population-1800",
+   "claim": "The Habsburg monarchy had about 23,145,000 people around 1800.",
+   "url": "https://en.wikipedia.org/wiki/List_of_countries_by_population_in_1800",
+   "quotes": [
+    "County of Gorizia and Gradisca – 120,000 23,145,000 2.3% 11 Joseon[25]"
+   ],
+   "values": [
+    "23,145,000"
+   ],
+   "dated2026": false,
+   "actor": "habsburg-austria",
+   "kind": "population",
+   "value": 23.145,
+   "unit": "million people (Habsburg monarchy)",
+   "period": "c. 1800",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-prussia-population",
+   "claim": "Prussia had 5,800,000 people in 1786 and 8,700,000 in 1797.",
+   "url": "https://en.wikipedia.org/wiki/Kingdom_of_Prussia",
+   "quotes": [
+    "Population • 1713[3] 1,500,000 • 1740[4][5] 2,200,000 • 1756[6] 4,500,000 • 1786[7] 5,800,000 • 1797[8] 8,700,000"
+   ],
+   "values": [
+    "5,800,000",
+    "8,700,000"
+   ],
+   "dated2026": false,
+   "actor": "prussia",
+   "kind": "population",
+   "value": 8.7,
+   "unit": "million people",
+   "period": "1797; 5.8 million in 1786",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-france-population-1780",
+   "claim": "Around 1780 the population of France was estimated at around 25 million.",
+   "url": "https://emersonkent.com/history_dictionary/taxation_in_pre_revolutionary_france.htm",
+   "quotes": [
+    "Population estimated at around 25 million."
+   ],
+   "values": [
+    "25 million"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-france",
+   "kind": "population",
+   "value": 25,
+   "unit": "million people (estimate)",
+   "period": "c. 1780",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-france-income-deficit-1786",
+   "claim": "Before the Assembly of Notables the French crown had a total income of 475 million livres and an annual deficit of some 150 million.",
+   "url": "https://en.wikipedia.org/wiki/Estates_General_of_1789",
+   "quotes": [
+    "For a total income of 475 million livres, the annual deficit was some 150 million."
+   ],
+   "values": [
+    "475 million",
+    "150 million"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-france",
+   "kind": "revenue",
+   "value": 475,
+   "unit": "million livres (total income, before the Assembly of Notables of 1787)",
+   "period": "c. 1786",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-french-royal-army-1789",
+   "claim": "On 14 July 1789 the French Royal Army's normal strength was 172,974 men in peacetime and 210,948 in wartime.",
+   "url": "https://en.wikipedia.org/wiki/National_Volunteers_(France)",
+   "quotes": [
+    "Its normal strength was therefore 172,974 men during peacetime or 210,948 men during wartime."
+   ],
+   "values": [
+    "172,974",
+    "210,948"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-france",
+   "kind": "army",
+   "value": 172.974,
+   "unit": "thousand troops (peacetime strength of the Royal Army; 210,948 in wartime)",
+   "period": "14 July 1789",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-yorktown-forces",
+   "claim": "At Yorktown the Americans had 5,900 regular troops and 3,100 militia not engaged, the French 10,800 men and 29 warships, and the British and Germans 8,000 to 9,000.",
+   "url": "https://en.wikipedia.org/wiki/Siege_of_Yorktown",
+   "quotes": [
+    "Strength Americans: 8,000–9,000 men[1] • 5,900 regular troops • 3,100 militia (not engaged)[1][2] French: 10,800 men[1] and 29 warships[2] Total: 19,800 (fewer engaged) British: 5,000[3] German: fewer than 3,000 Total: 8,000–9,000[1][4]"
+   ],
+   "values": [
+    "5,900",
+    "10,800",
+    "29",
+    "8,000"
+   ],
+   "dated2026": false,
+   "actor": "continental-army",
+   "kind": "troops",
+   "value": 5.9,
+   "unit": "thousand troops (regulars at Yorktown; 3,100 militia not engaged)",
+   "period": "October 1781",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-jena-prussian-engaged",
+   "claim": "At Jena the Prussians had 46,000 men, and at Auerstedt 64,000.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Jena%E2%80%93Auerstedt",
+   "quotes": [
+    "Total engaged: 66,000 46,000 (Jena)[5] 40,000 directly under Hohenlohe, with 33,000 of them engaged[3] 15,000 under Rüchel, with 13,000 of them engaged[3] 64,000 (Auerstedt)[5] Total engaged: 110,000"
+   ],
+   "values": [
+    "46,000",
+    "64,000"
+   ],
+   "dated2026": false,
+   "actor": "prussian-army",
+   "kind": "troops",
+   "value": 46,
+   "unit": "thousand troops (at Jena; 64,000 at Auerstedt)",
+   "period": "14 October 1806",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-jena-french-campaign",
+   "claim": "Napoleon began the campaign against the Fourth Coalition by thrusting a 180,000-strong force through the Franconian Forest.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Jena%E2%80%93Auerstedt",
+   "quotes": [
+    "Following the Prussian declaration of war, Napoleon initiated his campaign against the Fourth Coalition by thrusting a 180,000-strong force through the Franconian Forest."
+   ],
+   "values": [
+    "180,000"
+   ],
+   "dated2026": false,
+   "actor": "grande-armee",
+   "kind": "army",
+   "value": 180,
+   "unit": "thousand troops (the campaign force)",
+   "period": "October 1806",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-trafalgar-order-of-battle",
+   "claim": "The combined fleet at Trafalgar had 18 French ships of the line and 15 Spanish ships of the line.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Trafalgar_order_of_battle",
+   "quotes": [
+    "The combined fleet consisted of 40 vessels with 18 French ships of the line and 15 Spanish ships of the line.[75]"
+   ],
+   "values": [
+    "18",
+    "15"
+   ],
+   "dated2026": false,
+   "actor": "french-navy",
+   "kind": "ships",
+   "value": 18,
+   "unit": "ships of the line (French, at Trafalgar)",
+   "period": "21 October 1805",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-french-navy-1789",
+   "claim": "In 1789 the French Navy had 71 ships of the line, with 12 more under construction.",
+   "url": "https://en.wikipedia.org/wiki/History_of_the_French_Navy",
+   "quotes": [
+    "In 1789, the French Navy had 71 ships of the line, 64 frigates, 45 corvettes and 32 smaller units; a further 12 ships of the line and 10 frigates were under construction and expected to be launched within the year."
+   ],
+   "values": [
+    "71",
+    "12"
+   ],
+   "dated2026": false,
+   "actor": "french-navy",
+   "kind": "navy",
+   "value": 71,
+   "unit": "ships of the line (all in the fleet)",
+   "period": "1789",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-french-navy-1792-1802",
+   "claim": "The French navy had 83 ships of the line in 1792 and only 46 ten years later.",
+   "url": "https://en.wikipedia.org/wiki/French_Imperial_Navy",
+   "quotes": [
+    "The navy had 83 ships of the line in 1792, but only 46 ten years later, while the numbers of frigates had gone from 74 to 37."
+   ],
+   "values": [
+    "83",
+    "46"
+   ],
+   "dated2026": false,
+   "actor": "french-navy",
+   "kind": "navy",
+   "value": 83,
+   "unit": "ships of the line (all in the fleet)",
+   "period": "1792; 46 in 1802",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-french-navy-1814",
+   "claim": "In April 1814 the French fleet had 81 ships of the line, with 18 more under construction.",
+   "url": "https://en.wikipedia.org/wiki/French_Imperial_Navy",
+   "quotes": [
+    "The French fleet then had 81 ships of the line with 18 more under construction."
+   ],
+   "values": [
+    "81",
+    "18"
+   ],
+   "dated2026": false,
+   "actor": "french-navy",
+   "kind": "navy",
+   "value": 81,
+   "unit": "ships of the line (all in the fleet)",
+   "period": "April 1814",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-continental-system-effect",
+   "claim": "British exports to the continent fell between 25% and 55% compared to pre-1806 levels.",
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "quotes": [
+    "British exports to the continent fell between 25% and 55% compared to pre-1806 levels."
+   ],
+   "values": [
+    "25%",
+    "55%"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "share",
+   "value": 25,
+   "unit": "percent fall in British exports to the continent (25 to 55 percent below pre-1806 levels)",
+   "period": "1806-1812",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-continental-system-invasions",
+   "claim": "Napoleon realised that extensive trade was going through Spain and Russia and invaded both; Russia had reopened trade with Britain in 1810.",
+   "url": "https://en.wikipedia.org/wiki/Continental_System",
+   "quotes": [
+    "As Napoleon realised that extensive trade was going through Spain and Russia, he invaded those two countries.",
+    "Russia also chafed under the embargo, and in 1810 reopened trade with Britain."
+   ],
+   "values": [
+    "Spain and Russia",
+    "1810"
+   ],
+   "dated2026": false,
+   "actor": "first-french-empire",
+   "kind": "event",
+   "value": 1810,
+   "unit": "year",
+   "period": "1810-1812",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-saratoga-persuaded-france",
+   "claim": "Once news of Burgoyne's surrender reached France, Louis XVI decided to negotiate with the Americans, which resulted in a formal Franco-American alliance.",
+   "url": "https://en.wikipedia.org/wiki/Battles_of_Saratoga",
+   "quotes": [
+    "Once news of Burgoyne's surrender reached France, King Louis XVI decided to enter into negotiations with the Americans that resulted in a formal Franco-American alliance and French entry into the war."
+   ],
+   "values": [
+    "Burgoyne's surrender"
+   ],
+   "dated2026": false,
+   "actor": "france",
+   "kind": "event",
+   "value": 1777,
+   "unit": "year",
+   "period": "October 1777 to February 1778",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-trafalgar-supremacy",
+   "claim": "Trafalgar confirmed Britain's naval supremacy in the Napoleonic Wars, and the army of invasion had already marched into Germany in August.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Trafalgar",
+   "quotes": [
+    "The victory confirmed Britain's naval supremacy in the Napoleonic Wars and was achieved in part through Nelson's departure from prevailing sailing ship tactics.[6]",
+    "With no sign of Villeneuve's fleet, on 25 August, the three French army corps' invasion force near Boulogne broke camp and marched into Germany, where it was later engaged."
+   ],
+   "values": [
+    "25 August",
+    "naval supremacy"
+   ],
+   "dated2026": false,
+   "actor": "royal-navy",
+   "kind": "event",
+   "value": 1805,
+   "unit": "year",
+   "period": "25 August and 21 October 1805",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-church-sees-1801",
+   "claim": "Under the Concordat of 1801 the pope agreed to a new circumscription of the French dioceses, and of the 136 sees only 60 were retained.",
+   "url": "https://www.catholic.com/encyclopedia/french-concordat-of-1801-the",
+   "quotes": [
+    "The pope agreed to a fresh circumscription of the French dioceses. When this subsequently took place, of the 136 sees only 60 were retained."
+   ],
+   "values": [
+    "136",
+    "60"
+   ],
+   "dated2026": false,
+   "actor": "catholic-church",
+   "kind": "headcount",
+   "value": 60,
+   "unit": "clergy (60 bishops, one for each of the 60 sees kept of 136)",
+   "period": "1801-1802",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-consulate-palace-soldiers",
+   "claim": "To prevent a violent uprising by the deputies, Napoleon had the palace surrounded by 6,000 soldiers on 10 November 1799.",
+   "url": "https://en.wikipedia.org/wiki/Coup_of_18_Brumaire",
+   "quotes": [
+    "To prevent a violent uprising by the deputies, Napoleon had the palace surrounded by 6,000 soldiers."
+   ],
+   "values": [
+    "6,000"
+   ],
+   "dated2026": false,
+   "actor": "french-consulate",
+   "kind": "troops",
+   "value": 6,
+   "unit": "thousand troops (soldiers around the palace at Saint-Cloud)",
+   "period": "10 November 1799",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-plebiscite-1800-count",
+   "claim": "The constitution of 1799 was put to a referendum: 3,011,007 votes in favour against 1,562, with half a million votes cast by the army without valid ballot papers.",
+   "url": "https://en.wikipedia.org/wiki/Coup_of_18_Brumaire",
+   "quotes": [
+    "To avoid any appearance of a restoration of the monarchy and the divine right of kings, Napoleon put the constitution to a referendum: 3,011,007 votes in favour versus 1,562 against. Half a million votes had been cast by the army without valid ballot papers, whilst in the rest of the country votes at public meetings were recorded solely by a show of hands."
+   ],
+   "values": [
+    "3,011,007",
+    "1,562"
+   ],
+   "dated2026": false,
+   "actor": "french-consulate",
+   "kind": "votes",
+   "value": 3011.007,
+   "unit": "thousand votes in favour (1,562 against; half a million cast by the army without valid ballots)",
+   "period": "December 1799 to February 1800",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-first-coalition-strength",
+   "claim": "The infobox of the War of the First Coalition gives the coalition's 1793 strength as 800,000+ (the Holy Roman Empire, of which Austria 500,000) and the French Republic's 1794 strength as 1,169,000.",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_First_Coalition",
+   "quotes": [
+    "Strength 1793: 800,000+[2] 500,000[3] 65,000[4] 60,000[5] 25,000 20,000[6] 1794: 1,169,000[7]"
+   ],
+   "values": [
+    "800,000",
+    "1,169,000"
+   ],
+   "dated2026": false,
+   "actor": "first-coalition",
+   "kind": "army",
+   "value": 800,
+   "unit": "thousand troops (Holy Roman Empire; Austria 500,000; the Dutch 60,000; Britain 20,000)",
+   "period": "1793",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-russia-western-armies-1812",
+   "claim": "In June 1812 the disparate Russian forces led by Barclay de Tolly and Bagration totalled approximately 180,000 to 220,000 soldiers.",
+   "url": "https://en.wikipedia.org/wiki/French_invasion_of_Russia",
+   "quotes": [
+    "Napoleon rapidly advanced his army of nearly half a million men through Western Russia, encompassing present-day Belarus, in a bid to dismantle the disparate Russian forces led by Barclay de Tolly and Pyotr Bagration totaling approximately 180,000–220,000 soldiers at that juncture."
+   ],
+   "values": [
+    "180,000",
+    "220,000"
+   ],
+   "dated2026": false,
+   "actor": "russian-army",
+   "kind": "troops",
+   "value": 180,
+   "unit": "thousand troops (Barclay's and Bagration's armies, 180,000-220,000, facing the invasion)",
+   "period": "June 1812",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-peak-russia-1812",
+   "claim": "Russia's peak strength was 712,000 regulars, Cossacks and militia in 1812.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "Russia: 712,000 regulars, Cossacks and militia at peak strength (1812)[4]"
+   ],
+   "values": [
+    "712,000"
+   ],
+   "dated2026": false,
+   "actor": "russian-empire",
+   "kind": "army",
+   "value": 712,
+   "unit": "thousand troops (regulars, Cossacks and militia, peak)",
+   "period": "1812",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-peak-austria-1809",
+   "claim": "Austria's peak strength was 630,000 regulars and militia in 1809.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "Austria: 630,000 regulars and militia at peak strength (1809)[5][6]"
+   ],
+   "values": [
+    "630,000"
+   ],
+   "dated2026": false,
+   "actor": "habsburg-austria",
+   "kind": "army",
+   "value": 630,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "period": "1809",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-peak-prussia-1806",
+   "claim": "Prussia's peak strength was 281,000 regulars and militia in 1806.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "Prussia: 281,000 regulars and militia at peak strength (1806)[10][11]"
+   ],
+   "values": [
+    "281,000"
+   ],
+   "dated2026": false,
+   "actor": "prussia",
+   "kind": "army",
+   "value": 281,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "period": "1806",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-peak-spain-1808",
+   "claim": "Spain's peak strength was 255,000 regulars and guerillas in 1808.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "Spain: 255,000 regulars and guerillas at peak strength (1808)[12][s]"
+   ],
+   "values": [
+    "255,000"
+   ],
+   "dated2026": false,
+   "actor": "spain",
+   "kind": "army",
+   "value": 255,
+   "unit": "thousand troops (regulars and guerillas, peak)",
+   "period": "1808",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-peak-uk-1813",
+   "claim": "The United Kingdom's peak strength was 380,000 regulars, sailors and marines in 1813.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "United Kingdom: 380,000 regulars, sailors, and marines at peak strength (1813)[q][8]"
+   ],
+   "values": [
+    "380,000"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "army",
+   "value": 380,
+   "unit": "thousand troops (regulars, sailors and marines, peak)",
+   "period": "1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-peak-france-1813",
+   "claim": "France's peak strength was 1,200,000 regulars, sailors, marines and militia in 1813.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "France: 1,200,000 regulars, sailors, marines and militia at peak strength (1813)[15]"
+   ],
+   "values": [
+    "1,200,000"
+   ],
+   "dated2026": false,
+   "actor": "first-french-empire",
+   "kind": "army",
+   "value": 1200,
+   "unit": "thousand troops (regulars, sailors, marines and militia, peak)",
+   "period": "1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-uk-budget-1814",
+   "claim": "The British budget in 1814 reached £66 million, including £10 million for the Navy, £40 million for the Army, £10 million for the Allies and £38 million as interest on the national debt.",
+   "url": "https://en.wikipedia.org/wiki/United_Kingdom_in_the_Napoleonic_Wars",
+   "quotes": [
+    "The British budget in 1814 reached £66 million, including £10 million for the Navy, £40 million for the Army, £10 million for the Allies, and £38 million as interest on the national debt."
+   ],
+   "values": [
+    "£66 million"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "spending",
+   "value": 66,
+   "unit": "million pounds (the 1814 budget)",
+   "period": "1814",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-grande-armee-1805-size",
+   "claim": "By 1805 the Grande Armée had grown to a force of 350,000 men.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Austerlitz",
+   "quotes": [
+    "By 1805, the Grande Armée had grown to a force of 350,000 men,[45] who were well equipped, well trained, and led by competent officers."
+   ],
+   "values": [
+    "350,000"
+   ],
+   "dated2026": false,
+   "actor": "grande-armee",
+   "kind": "army",
+   "value": 350,
+   "unit": "thousand troops",
+   "period": "1805",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-corps-concept",
+   "claim": "Napoleon introduced all-arms corps, each a traditional army in miniature, so that the field force could split across several lines of march and rejoin or operate independently.",
+   "url": "https://en.wikipedia.org/wiki/French_Army",
+   "quotes": [
+    "Napoleon introduced the concept of all arms Corps, each one a traditional army 'in miniature', permitting the field force to be split across several lines of march and rejoin or to operate independently."
+   ],
+   "values": [
+    "all arms Corps"
+   ],
+   "dated2026": false,
+   "actor": "grande-armee",
+   "kind": "event",
+   "value": 1804,
+   "unit": "year",
+   "period": "1804-1805",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-berthier-chief-of-staff",
+   "claim": "Marshal Berthier acted as Napoleon's chief of staff from 1796 until 1814.",
+   "url": "https://en.wikipedia.org/wiki/Grande_Arm%C3%A9e",
+   "quotes": [
+    "Marshal Louis-Alexandre Berthier acted as Napoleon's chief of staff from 1796 until 1814, being replaced by Marshal Jean-de-Dieu Soult during the Hundred Days."
+   ],
+   "values": [
+    "1796",
+    "1814"
+   ],
+   "dated2026": false,
+   "actor": "grande-armee",
+   "kind": "event",
+   "value": 1796,
+   "unit": "year",
+   "period": "1796-1814",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-concert-doctrine",
+   "claim": "The Congress of Vienna settlement gave birth to the Concert of Europe, a doctrine that emphasized the balance of powers and guided European foreign policy until 1914.",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Vienna",
+   "quotes": [
+    "The Congress of Vienna settlement gave birth to the Concert of Europe, an international political doctrine that emphasized the maintaining of political boundaries, the balance of powers, and respecting spheres of influence and which guided foreign policy among the nations of Europe until the outbreak of the First World War in 1914."
+   ],
+   "values": [
+    "1914",
+    "balance of powers"
+   ],
+   "dated2026": false,
+   "actor": "congress-of-vienna",
+   "kind": "statement",
+   "value": 1914,
+   "unit": "year",
+   "period": "1815-1914",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-revolutions-robespierre-guillotined",
+   "claim": "Robespierre was executed on 28 July 1794, the date with which the Terror is often said to end.",
+   "url": "https://en.wikipedia.org/wiki/Reign_of_Terror",
+   "quotes": [
+    "Will Durant stated that \"strictly, it should be dated from the Law of Suspects, 17 September 1793, to the execution of Maximilien Robespierre, 28 July 1794.\"[5]"
+   ],
+   "values": [
+    "28 July 1794",
+    "17 September 1793"
+   ],
+   "dated2026": false,
+   "actor": "french-republic",
+   "kind": "event",
+   "value": 1794,
+   "unit": "year",
+   "period": "28 July 1794",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
   }
  ],
  "actors": [
@@ -1897,7 +2751,7 @@
    "kind": "army",
    "qid": "Q54122",
    "from": 1775,
-   "to": 1784,
+   "to": "1784",
    "role": "Washington's army: never more than 90,000 under arms, victorious at Saratoga and Yorktown because France stood behind it",
    "facts": [
     "story-revolutions-continental-army-1775",
@@ -1917,7 +2771,8 @@
    "facts": [
     "story-revolutions-yorktown-captured",
     "story-revolutions-british-army-1813",
-    "story-revolutions-saratoga-1777"
+    "story-revolutions-saratoga-1777",
+    "story-revolutions-waterloo-wellington-army"
    ]
   },
   {
@@ -1963,7 +2818,10 @@
    "role": "Great Britain's successor state from 1801, the paymaster of the Sixth and Seventh Coalitions",
    "facts": [
     "story-revolutions-britain-debt",
-    "story-revolutions-britain-subsidy-peak"
+    "story-revolutions-britain-subsidy-peak",
+    "story-revolutions-uk-budget-1814",
+    "story-revolutions-peak-uk-1813",
+    "story-revolutions-continental-system-effect"
    ]
   },
   {
@@ -1972,7 +2830,7 @@
    "kind": "state",
    "qid": "Q70972",
    "from": 1778,
-   "to": 1783,
+   "to": "1783-09",
    "role": "Louis XVI's France in its war of revenge on Britain: 1.3 billion livres spent on the Americans",
    "facts": [
     "story-revolutions-alliance-1778",
@@ -2005,7 +2863,11 @@
    "role": "de Grasse's 24 ships of the line won the Chesapeake in 1781; beaten at Trafalgar in 1805",
    "facts": [
     "story-revolutions-chesapeake-french-fleet",
-    "story-revolutions-trafalgar-fleet"
+    "story-revolutions-trafalgar-fleet",
+    "story-revolutions-french-navy-1789",
+    "story-revolutions-french-navy-1792-1802",
+    "story-revolutions-french-navy-1814",
+    "story-revolutions-trafalgar-order-of-battle"
    ]
   },
   {
@@ -2021,7 +2883,10 @@
     "story-revolutions-royal-household-1788",
     "story-revolutions-france-debt-after-war",
     "story-revolutions-europe-populations-1790s",
-    "story-revolutions-louis-executed"
+    "story-revolutions-louis-executed",
+    "story-revolutions-france-population-1780",
+    "story-revolutions-france-income-deficit-1786",
+    "story-revolutions-french-royal-army-1789"
    ],
    "successor": "french-republic"
   },
@@ -2029,8 +2894,8 @@
    "id": "french-population",
    "name": "The French nation (the Third Estate)",
    "kind": "population",
-   "qid": null,
-   "from": 1789,
+   "qid": "Q909656",
+   "from": 1788,
    "to": null,
    "role": "28 million people, 98 percent of them in the Third Estate, who forced the Revolution",
    "facts": [
@@ -2055,7 +2920,8 @@
     "story-revolutions-church-property-1789",
     "story-revolutions-civil-constitution-bishops",
     "story-revolutions-concordat-recognition",
-    "story-revolutions-concordat-majority"
+    "story-revolutions-concordat-majority",
+    "story-revolutions-church-sees-1801"
    ]
   },
   {
@@ -2074,7 +2940,9 @@
     "story-revolutions-robespierre-executed",
     "story-revolutions-marie-antoinette-executed",
     "story-revolutions-law-of-suspects",
-    "story-revolutions-louis-executed"
+    "story-revolutions-louis-executed",
+    "story-revolutions-robespierre-guillotined",
+    "story-revolutions-first-coalition-strength"
    ],
    "successor": "french-consulate"
   },
@@ -2089,7 +2957,10 @@
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-plebiscite-1800",
-    "story-revolutions-concordat-recognition"
+    "story-revolutions-concordat-recognition",
+    "story-revolutions-france-population-1801",
+    "story-revolutions-consulate-palace-soldiers",
+    "story-revolutions-plebiscite-1800-count"
    ],
    "successor": "first-french-empire"
   },
@@ -2099,7 +2970,7 @@
    "kind": "state",
    "qid": "Q71084",
    "from": 1804,
-   "to": 1815,
+   "to": "1815-11",
    "role": "Napoleon's crowned empire, 2.1 million conscripts strong, which fell to the alliance of Europe",
    "facts": [
     "story-revolutions-coronation-date",
@@ -2107,7 +2978,9 @@
     "story-revolutions-recognition-1804",
     "story-revolutions-conscripts-1805-1813",
     "story-revolutions-berlin-decree",
-    "story-revolutions-napoleon-abdicated"
+    "story-revolutions-napoleon-abdicated",
+    "story-revolutions-population-britain-france",
+    "story-revolutions-peak-france-1813"
    ]
   },
   {
@@ -2116,7 +2989,7 @@
    "kind": "army",
    "qid": "Q504721",
    "from": 1804,
-   "to": 1815,
+   "to": "1815-11",
    "role": "the army formed in 1804 from the Army of England, organised in corps; 600,000 deployed against Russia, 110,000 came back",
    "facts": [
     "story-revolutions-grande-armee-1804",
@@ -2125,7 +2998,12 @@
     "story-revolutions-russia-initial-force",
     "story-revolutions-russia-deployed-600k",
     "story-revolutions-russia-survivors",
-    "story-revolutions-french-waterloo-army"
+    "story-revolutions-french-waterloo-army",
+    "story-revolutions-leipzig-french-force",
+    "story-revolutions-jena-french-campaign",
+    "story-revolutions-grande-armee-1805-size",
+    "story-revolutions-corps-concept",
+    "story-revolutions-berthier-chief-of-staff"
    ]
   },
   {
@@ -2139,7 +3017,9 @@
    "facts": [
     "story-revolutions-fifth-coalition-1809",
     "story-revolutions-austria-subsidy-1809",
-    "story-revolutions-austerlitz-allied-losses"
+    "story-revolutions-austerlitz-allied-losses",
+    "story-revolutions-austria-population-1800",
+    "story-revolutions-peak-austria-1809"
    ]
   },
   {
@@ -2152,20 +3032,23 @@
    "role": "crushed at Jena in 1806, a pillar of the Sixth and Seventh Coalitions",
    "facts": [
     "story-revolutions-jena-prussian-army",
-    "story-revolutions-waterloo-prussians"
+    "story-revolutions-waterloo-prussians",
+    "story-revolutions-prussia-population",
+    "story-revolutions-peak-prussia-1806"
    ]
   },
   {
    "id": "prussian-army",
    "name": "Prussian Army",
    "kind": "army",
-   "qid": null,
+   "qid": "Q706042",
    "from": null,
    "to": null,
    "role": "150,000 at Jena, routed in a day; rebuilt to arrive at Waterloo with 50,000",
    "facts": [
     "story-revolutions-jena-prussian-army",
-    "story-revolutions-waterloo-prussians"
+    "story-revolutions-waterloo-prussians",
+    "story-revolutions-jena-prussian-engaged"
    ]
   },
   {
@@ -2178,20 +3061,23 @@
    "role": "35 to 40 million people and the space that swallowed the Grande Armée in 1812",
    "facts": [
     "story-revolutions-europe-populations-1790s",
-    "story-revolutions-russia-army-peak-1812"
+    "story-revolutions-russia-army-peak-1812",
+    "story-revolutions-russia-population-1795-1812",
+    "story-revolutions-peak-russia-1812"
    ]
   },
   {
    "id": "russian-army",
    "name": "Russian Army",
    "kind": "army",
-   "qid": null,
+   "qid": "Q1078222",
    "from": null,
    "to": null,
    "role": "904,000 strong at its 1812 peak; retreated, burned Moscow and followed Napoleon to Paris",
    "facts": [
     "story-revolutions-russia-army-peak-1812",
-    "story-revolutions-austerlitz-french-force"
+    "story-revolutions-austerlitz-french-force",
+    "story-revolutions-russia-western-armies-1812"
    ]
   },
   {
@@ -2204,7 +3090,9 @@
    "role": "ally of France against Britain, then a bleeding ulcer for Napoleon from 1808",
    "facts": [
     "story-revolutions-spain-1808",
-    "story-revolutions-trafalgar-fleet"
+    "story-revolutions-trafalgar-fleet",
+    "story-revolutions-spain-population-1800",
+    "story-revolutions-peak-spain-1808"
    ]
   },
   {
@@ -2216,7 +3104,8 @@
    "to": null,
    "role": "joined the French fleet at Trafalgar",
    "facts": [
-    "story-revolutions-trafalgar-result"
+    "story-revolutions-trafalgar-result",
+    "story-revolutions-trafalgar-order-of-battle"
    ]
   },
   {
@@ -2228,7 +3117,8 @@
    "to": 1797,
    "role": "Austria, Sardinia, Naples, Prussia, Spain and Britain against revolutionary France",
    "facts": [
-    "story-revolutions-first-coalition-1793"
+    "story-revolutions-first-coalition-1793",
+    "story-revolutions-first-coalition-strength"
    ]
   },
   {
@@ -2292,16 +3182,17 @@
    "facts": [
     "story-revolutions-leipzig-coalition",
     "story-revolutions-leipzig-scale",
-    "story-revolutions-sixth-coalition-losses"
+    "story-revolutions-sixth-coalition-losses",
+    "story-revolutions-leipzig-coalition-force"
    ]
   },
   {
    "id": "seventh-coalition",
    "name": "Seventh Coalition (1815)",
    "kind": "alliance",
-   "qid": null,
-   "from": 1815,
-   "to": 1815,
+   "qid": "Q2724511",
+   "from": "1815-03",
+   "to": "1815-11",
    "role": "850,000 allied soldiers against 250,000 Frenchmen; Waterloo ended the Empire",
    "facts": [
     "story-revolutions-allied-1815",
@@ -2313,7 +3204,7 @@
    "id": "coalitions",
    "name": "The seven coalitions",
    "kind": "alliance",
-   "qid": null,
+   "qid": "Q15053704",
    "from": 1793,
    "to": 1815,
    "role": "the changing alliance against France, paid for in part by British subsidies of £46 million",
@@ -2328,7 +3219,7 @@
    "kind": "movement",
    "qid": "Q179885",
    "from": 1789,
-   "to": 1794,
+   "to": "1794-07",
    "role": "the club and committee that ran the Terror; their leader Robespierre fell on 28 July 1794",
    "facts": [
     "story-revolutions-terror-death-sentences",
@@ -2342,13 +3233,14 @@
    "kind": "alliance",
    "qid": "Q46362",
    "from": 1814,
-   "to": 1815,
+   "to": "1815-11",
    "role": "the five Great Powers that rebuilt a balance of power: Austria, Britain, Russia, Prussia and France",
    "facts": [
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
     "archetypes-vienna-congress-dates",
-    "archetypes-vienna-concert-of-europe"
+    "archetypes-vienna-concert-of-europe",
+    "story-revolutions-concert-doctrine"
    ]
   }
  ],
@@ -2365,25 +3257,9 @@
    "actor": "continental-army",
    "year": 1775,
    "part": "army",
-   "value": 27,
-   "unit": "thousand troops",
+   "value": 22,
+   "unit": "thousand troops (outside Boston; 5,000 more at New York City)",
    "fact": "story-revolutions-continental-army-1775"
-  },
-  {
-   "actor": "continental-army",
-   "year": 1781,
-   "part": "army",
-   "value": 17,
-   "unit": "thousand troops (the most Washington directly commanded)",
-   "fact": "story-revolutions-yorktown-allied-army"
-  },
-  {
-   "actor": "british-army",
-   "year": 1781,
-   "part": "army",
-   "value": 8,
-   "unit": "thousand troops captured at Yorktown",
-   "fact": "story-revolutions-yorktown-captured"
   },
   {
    "actor": "british-army",
@@ -2395,14 +3271,6 @@
   },
   {
    "actor": "french-army",
-   "year": 1781,
-   "part": "army",
-   "value": 6,
-   "unit": "thousand troops (landed at Newport in 1780)",
-   "fact": "story-revolutions-rochambeau-1780"
-  },
-  {
-   "actor": "french-army",
    "year": 1808,
    "part": "army",
    "value": 278.67,
@@ -2411,43 +3279,35 @@
   },
   {
    "actor": "royal-navy",
-   "year": 1781,
-   "part": "navy",
+   "year": "1781-09",
+   "part": "ships",
    "value": 19,
-   "unit": "ships of the line",
+   "unit": "ships of the line (at the Chesapeake)",
    "fact": "story-revolutions-chesapeake-british-fleet"
   },
   {
    "actor": "royal-navy",
    "year": 1801,
-   "part": "navy",
+   "part": "sailors",
    "value": 133,
    "unit": "thousand sailors",
    "fact": "story-revolutions-navy-expansion"
   },
   {
    "actor": "royal-navy",
-   "year": 1805,
-   "part": "navy",
+   "year": "1805-10",
+   "part": "ships",
    "value": 27,
-   "unit": "ships of the line",
+   "unit": "ships of the line (at Trafalgar)",
    "fact": "story-revolutions-trafalgar-british-fleet"
   },
   {
    "actor": "french-navy",
-   "year": 1781,
-   "part": "navy",
+   "year": "1781-09",
+   "part": "ships",
    "value": 24,
-   "unit": "ships of the line",
+   "unit": "ships of the line (at the Chesapeake)",
    "fact": "story-revolutions-chesapeake-french-fleet"
-  },
-  {
-   "actor": "french-navy",
-   "year": 1805,
-   "part": "navy",
-   "value": 33,
-   "unit": "ships of the line (Franco-Spanish fleet)",
-   "fact": "story-revolutions-trafalgar-fleet"
   },
   {
    "actor": "france",
@@ -2460,15 +3320,15 @@
   {
    "actor": "france",
    "year": 1783,
-   "part": "revenue",
+   "part": "spending",
    "value": 1.3,
-   "unit": "billion livres spent on the Americans directly",
+   "unit": "1.3 billion livres spent on the Americans directly (1778-1783)",
    "fact": "story-revolutions-france-direct-aid-cost"
   },
   {
    "actor": "kingdom-of-france",
    "year": 1788,
-   "part": "debt",
+   "part": "debtService",
    "value": 50,
    "unit": "percent of revenue to debt service",
    "fact": "story-revolutions-debt-service-1788"
@@ -2493,8 +3353,8 @@
    "actor": "catholic-church",
    "year": 1789,
    "part": "adherents",
-   "value": 132.5,
-   "unit": "thousand clergy (midpoint of 115,000-150,000)",
+   "value": 115,
+   "unit": "thousand clergy (115,000 to 150,000; the low end)",
    "fact": "story-revolutions-clergy-1789"
   },
   {
@@ -2508,9 +3368,9 @@
   {
    "actor": "french-republic",
    "year": 1793,
-   "part": "debt",
+   "part": "deficit",
    "value": 64,
-   "unit": "percent of GNP (annual deficit)",
+   "unit": "percent of GNP (annual deficit, up from 10% in 1789)",
    "fact": "story-revolutions-deficit-1789-1793"
   },
   {
@@ -2539,26 +3399,26 @@
   },
   {
    "actor": "grande-armee",
-   "year": 1805,
-   "part": "army",
+   "year": "1805-12",
+   "part": "troops",
    "value": 72,
-   "unit": "thousand troops",
+   "unit": "thousand troops (at Austerlitz)",
    "fact": "story-revolutions-austerlitz-french-force"
   },
   {
    "actor": "grande-armee",
-   "year": 1806,
-   "part": "army",
+   "year": "1806-10",
+   "part": "troops",
    "value": 96,
-   "unit": "thousand troops",
+   "unit": "thousand troops (at Jena, of whom 40,000 fought)",
    "fact": "story-revolutions-jena-french-force"
   },
   {
    "actor": "grande-armee",
-   "year": 1812,
+   "year": "1812-06",
    "part": "army",
    "value": 600,
-   "unit": "thousand troops",
+   "unit": "thousand troops (deployed against Russia, half of them French)",
    "fact": "story-revolutions-russia-deployed-600k"
   },
   {
@@ -2571,34 +3431,34 @@
   },
   {
    "actor": "grande-armee",
-   "year": 1815,
-   "part": "army",
+   "year": "1815-06",
+   "part": "troops",
    "value": 74.5,
-   "unit": "thousand troops at Waterloo",
+   "unit": "thousand troops (at Waterloo)",
    "fact": "story-revolutions-french-waterloo-army"
   },
   {
    "actor": "first-french-empire",
    "year": 1813,
-   "part": "army",
+   "part": "conscripted",
    "value": 2.1,
    "unit": "million conscripted, cumulative 1805-1813",
    "fact": "story-revolutions-conscripts-1805-1813"
   },
   {
    "actor": "third-coalition",
-   "year": 1805,
+   "year": "1805-12",
    "part": "army",
    "value": 85,
-   "unit": "thousand troops (Allied army at Austerlitz)",
+   "unit": "thousand troops (the Allied army at Austerlitz; 89,000 in another count)",
    "fact": "story-revolutions-austerlitz-french-force"
   },
   {
    "actor": "prussian-army",
    "year": 1806,
    "part": "army",
-   "value": 150,
-   "unit": "thousand troops",
+   "value": 130,
+   "unit": "thousand Prussian troops (the field force awaiting Napoleon; 20,000 Saxons besides)",
    "fact": "story-revolutions-jena-prussian-army"
   },
   {
@@ -2608,14 +3468,6 @@
    "value": 904,
    "unit": "thousand troops",
    "fact": "story-revolutions-russia-army-peak-1812"
-  },
-  {
-   "actor": "russian-empire",
-   "year": 1789,
-   "part": "population",
-   "value": 37.5,
-   "unit": "million people (midpoint of 35 to 40)",
-   "fact": "story-revolutions-europe-populations-1790s"
   },
   {
    "actor": "kingdom-of-great-britain",
@@ -2628,33 +3480,33 @@
   {
    "actor": "kingdom-of-great-britain",
    "year": 1799,
-   "part": "revenue",
+   "part": "incomeTax",
    "value": 6,
-   "unit": "million pounds (income tax receipts)",
+   "unit": "million pounds (income tax receipts alone, not total revenue)",
    "fact": "story-revolutions-pitt-income-tax"
   },
   {
-   "actor": "kingdom-of-great-britain",
+   "actor": "united-kingdom",
    "year": 1805,
    "part": "population",
    "value": 16,
-   "unit": "million people (c. 1800-1815)",
+   "unit": "million people (Britain and Ireland, c. 1800-1815)",
    "fact": "story-revolutions-population-britain-france"
   },
   {
-   "actor": "kingdom-of-great-britain",
+   "actor": "united-kingdom",
    "year": 1813,
-   "part": "army",
+   "part": "subsidisedTroops",
    "value": 450,
-   "unit": "thousand allied soldiers subsidised",
+   "unit": "thousand allied soldiers subsidised by Britain (Austrian and Russian)",
    "fact": "story-revolutions-britain-subsidy-peak"
   },
   {
    "actor": "united-kingdom",
    "year": 1814,
-   "part": "debt",
+   "part": "debtInterest",
    "value": 38,
-   "unit": "million pounds (annual interest)",
+   "unit": "million pounds (annual interest on the national debt)",
    "fact": "story-revolutions-britain-budget-1814"
   },
   {
@@ -2666,20 +3518,452 @@
    "fact": "story-revolutions-britain-debt"
   },
   {
-   "actor": "sixth-coalition",
-   "year": 1813,
-   "part": "army",
-   "value": 560,
-   "unit": "thousand soldiers at Leipzig (both sides)",
-   "fact": "story-revolutions-leipzig-scale"
-  },
-  {
    "actor": "seventh-coalition",
    "year": 1815,
    "part": "army",
    "value": 850,
    "unit": "thousand soldiers",
    "fact": "story-revolutions-allied-1815"
+  },
+  {
+   "actor": "russian-empire",
+   "year": 1795,
+   "part": "population",
+   "value": 38,
+   "unit": "million people",
+   "fact": "story-revolutions-russia-population-1795-1812"
+  },
+  {
+   "actor": "russian-empire",
+   "year": 1812,
+   "part": "population",
+   "value": 43,
+   "unit": "million people",
+   "fact": "story-revolutions-russia-population-1795-1812"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1812,
+   "part": "population",
+   "value": 16,
+   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1815,
+   "part": "population",
+   "value": 16,
+   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1814,
+   "part": "spending",
+   "value": 66,
+   "unit": "million pounds (the 1814 budget)",
+   "fact": "story-revolutions-uk-budget-1814"
+  },
+  {
+   "actor": "united-kingdom",
+   "year": 1813,
+   "part": "army",
+   "value": 380,
+   "unit": "thousand troops (regulars, sailors and marines, peak)",
+   "fact": "story-revolutions-peak-uk-1813"
+  },
+  {
+   "actor": "kingdom-of-france",
+   "year": 1780,
+   "part": "population",
+   "value": 25,
+   "unit": "million people (estimate)",
+   "fact": "story-revolutions-france-population-1780"
+  },
+  {
+   "actor": "kingdom-of-france",
+   "year": 1786,
+   "part": "revenue",
+   "value": 475,
+   "unit": "million livres (total income, before the Assembly of Notables of 1787)",
+   "fact": "story-revolutions-france-income-deficit-1786"
+  },
+  {
+   "actor": "kingdom-of-france",
+   "year": 1789,
+   "part": "army",
+   "value": 172.974,
+   "unit": "thousand troops (peacetime strength of the Royal Army; 210,948 in wartime)",
+   "fact": "story-revolutions-french-royal-army-1789"
+  },
+  {
+   "actor": "french-consulate",
+   "year": 1801,
+   "part": "population",
+   "value": 29.361,
+   "unit": "million people (official census)",
+   "fact": "story-revolutions-france-population-1801"
+  },
+  {
+   "actor": "french-consulate",
+   "year": "1799-11",
+   "part": "army",
+   "value": 6,
+   "unit": "thousand troops (soldiers around the palace at Saint-Cloud)",
+   "fact": "story-revolutions-consulate-palace-soldiers"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1805,
+   "part": "population",
+   "value": 30,
+   "unit": "million people (France, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1812,
+   "part": "population",
+   "value": 30,
+   "unit": "million people (France, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1815,
+   "part": "population",
+   "value": 30,
+   "unit": "million people (France, c. 1800-1815)",
+   "fact": "story-revolutions-population-britain-france"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1804,
+   "part": "army",
+   "value": 100,
+   "unit": "thousand troops (the Grande Armee, formed in 1804; over 100,000)",
+   "fact": "story-revolutions-grande-armee-1804"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1805,
+   "part": "army",
+   "value": 350,
+   "unit": "thousand troops (the Grande Armee)",
+   "fact": "story-revolutions-grande-armee-1805-size"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1812,
+   "part": "army",
+   "value": 600,
+   "unit": "thousand troops (deployed against Russia, half of them French)",
+   "fact": "story-revolutions-russia-deployed-600k"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1813,
+   "part": "army",
+   "value": 1200,
+   "unit": "thousand troops (regulars, sailors, marines and militia, peak)",
+   "fact": "story-revolutions-peak-france-1813"
+  },
+  {
+   "actor": "first-french-empire",
+   "year": 1815,
+   "part": "army",
+   "value": 300,
+   "unit": "thousand troops (raised by June)",
+   "fact": "story-revolutions-french-waterloo-army"
+  },
+  {
+   "actor": "prussia",
+   "year": 1786,
+   "part": "population",
+   "value": 5.8,
+   "unit": "million people",
+   "fact": "story-revolutions-prussia-population"
+  },
+  {
+   "actor": "prussia",
+   "year": 1797,
+   "part": "population",
+   "value": 8.7,
+   "unit": "million people",
+   "fact": "story-revolutions-prussia-population"
+  },
+  {
+   "actor": "prussia",
+   "year": 1806,
+   "part": "army",
+   "value": 281,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "fact": "story-revolutions-peak-prussia-1806"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": 1800,
+   "part": "population",
+   "value": 23.145,
+   "unit": "million people (Habsburg monarchy)",
+   "fact": "story-revolutions-austria-population-1800"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": 1809,
+   "part": "army",
+   "value": 630,
+   "unit": "thousand troops (regulars and militia, peak)",
+   "fact": "story-revolutions-peak-austria-1809"
+  },
+  {
+   "actor": "spain",
+   "year": 1800,
+   "part": "population",
+   "value": 10.541,
+   "unit": "million people (Kingdom of Spain)",
+   "fact": "story-revolutions-spain-population-1800"
+  },
+  {
+   "actor": "spain",
+   "year": 1808,
+   "part": "army",
+   "value": 255,
+   "unit": "thousand troops (regulars and guerillas, peak)",
+   "fact": "story-revolutions-peak-spain-1808"
+  },
+  {
+   "actor": "russian-empire",
+   "year": 1812,
+   "part": "army",
+   "value": 712,
+   "unit": "thousand troops (regulars, Cossacks and militia, peak)",
+   "fact": "story-revolutions-peak-russia-1812"
+  },
+  {
+   "actor": "french-republic",
+   "year": 1794,
+   "part": "army",
+   "value": 1169,
+   "unit": "thousand troops",
+   "fact": "story-revolutions-first-coalition-strength"
+  },
+  {
+   "actor": "first-coalition",
+   "year": 1793,
+   "part": "army",
+   "value": 800,
+   "unit": "thousand troops (Holy Roman Empire; Austria 500,000)",
+   "fact": "story-revolutions-first-coalition-strength"
+  },
+  {
+   "actor": "french-army",
+   "year": "1780-07",
+   "part": "army",
+   "value": 6,
+   "unit": "thousand troops (landed at Newport)",
+   "fact": "story-revolutions-rochambeau-1780"
+  },
+  {
+   "actor": "british-army",
+   "year": "1777-10",
+   "part": "troops",
+   "value": 5.791,
+   "unit": "thousand troops (Burgoyne at Saratoga)",
+   "fact": "story-revolutions-saratoga-1777"
+  },
+  {
+   "actor": "continental-army",
+   "year": "1777-10",
+   "part": "troops",
+   "value": 12,
+   "unit": "thousand troops (about 12,000 colonial troops at Saratoga)",
+   "fact": "story-revolutions-saratoga-1777"
+  },
+  {
+   "actor": "continental-army",
+   "year": "1781-10",
+   "part": "troops",
+   "value": 5.9,
+   "unit": "thousand troops (regulars at Yorktown; 3,100 militia not engaged)",
+   "fact": "story-revolutions-yorktown-forces"
+  },
+  {
+   "actor": "french-army",
+   "year": "1781-10",
+   "part": "troops",
+   "value": 10.8,
+   "unit": "thousand troops (at Yorktown)",
+   "fact": "story-revolutions-yorktown-forces"
+  },
+  {
+   "actor": "british-army",
+   "year": "1781-10",
+   "part": "troops",
+   "value": 8,
+   "unit": "thousand troops (British and Germans at Yorktown, 8,000 to 9,000)",
+   "fact": "story-revolutions-yorktown-forces"
+  },
+  {
+   "actor": "british-army",
+   "year": "1815-06",
+   "part": "troops",
+   "value": 74.326,
+   "unit": "thousand troops (Wellington's Anglo-allied army at Waterloo; 27,985 British)",
+   "fact": "story-revolutions-waterloo-wellington-army"
+  },
+  {
+   "actor": "prussian-army",
+   "year": "1815-06",
+   "part": "troops",
+   "value": 50,
+   "unit": "thousand troops (the Prussians arriving at Waterloo)",
+   "fact": "story-revolutions-waterloo-prussians"
+  },
+  {
+   "actor": "prussian-army",
+   "year": "1806-10",
+   "part": "troops",
+   "value": 46,
+   "unit": "thousand troops (at Jena)",
+   "fact": "story-revolutions-jena-prussian-engaged"
+  },
+  {
+   "actor": "grande-armee",
+   "year": 1805,
+   "part": "army",
+   "value": 350,
+   "unit": "thousand troops",
+   "fact": "story-revolutions-grande-armee-1805-size"
+  },
+  {
+   "actor": "grande-armee",
+   "year": "1806-10",
+   "part": "army",
+   "value": 180,
+   "unit": "thousand troops (the campaign force)",
+   "fact": "story-revolutions-jena-french-campaign"
+  },
+  {
+   "actor": "grande-armee",
+   "year": 1815,
+   "part": "army",
+   "value": 250,
+   "unit": "thousand troops (the French faced 850,000 allies on four fronts)",
+   "fact": "story-revolutions-allied-1815"
+  },
+  {
+   "actor": "grande-armee",
+   "year": "1812-12",
+   "part": "army",
+   "value": 110,
+   "unit": "thousand troops (survivors of an original 615,000)",
+   "fact": "story-revolutions-russia-survivors"
+  },
+  {
+   "actor": "grande-armee",
+   "year": "1813-10",
+   "part": "army",
+   "value": 198,
+   "unit": "thousand troops (at Leipzig; other estimates up to 225,000)",
+   "fact": "story-revolutions-leipzig-french-force"
+  },
+  {
+   "actor": "sixth-coalition",
+   "year": "1813-10",
+   "part": "army",
+   "value": 380,
+   "unit": "thousand troops (at Leipzig)",
+   "fact": "story-revolutions-leipzig-coalition-force"
+  },
+  {
+   "actor": "russian-army",
+   "year": "1805-12",
+   "part": "army",
+   "value": 59.5,
+   "unit": "thousand troops (70% of the Allied 85,000)",
+   "fact": "story-revolutions-austerlitz-french-force"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": "1805-12",
+   "part": "army",
+   "value": 25.5,
+   "unit": "thousand troops (the other 30% of the Allied 85,000)",
+   "fact": "story-revolutions-austerlitz-french-force"
+  },
+  {
+   "actor": "russian-army",
+   "year": "1812-06",
+   "part": "troops",
+   "value": 180,
+   "unit": "thousand troops (Barclay and Bagration, 180,000 to 220,000)",
+   "fact": "story-revolutions-russia-western-armies-1812"
+  },
+  {
+   "actor": "fourth-coalition",
+   "year": "1806-10",
+   "part": "army",
+   "value": 130,
+   "unit": "thousand Prussian troops (the field force; 20,000 Saxons besides)",
+   "fact": "story-revolutions-jena-prussian-army"
+  },
+  {
+   "actor": "royal-navy",
+   "year": 1793,
+   "part": "sailors",
+   "value": 15,
+   "unit": "thousand sailors",
+   "fact": "story-revolutions-navy-expansion"
+  },
+  {
+   "actor": "french-navy",
+   "year": "1805-10",
+   "part": "ships",
+   "value": 18,
+   "unit": "ships of the line (French, at Trafalgar)",
+   "fact": "story-revolutions-trafalgar-order-of-battle"
+  },
+  {
+   "actor": "spanish-navy",
+   "year": "1805-10",
+   "part": "ships",
+   "value": 15,
+   "unit": "ships of the line (Spanish, at Trafalgar)",
+   "fact": "story-revolutions-trafalgar-order-of-battle"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1789,
+   "part": "navy",
+   "value": 71,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1789"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1792,
+   "part": "navy",
+   "value": 83,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1792-1802"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1802,
+   "part": "navy",
+   "value": 46,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1792-1802"
+  },
+  {
+   "actor": "french-navy",
+   "year": 1814,
+   "part": "navy",
+   "value": 81,
+   "unit": "ships of the line (all in the fleet)",
+   "fact": "story-revolutions-french-navy-1814"
   }
  ],
  "moments": [
@@ -2697,10 +3981,11 @@
    "power": "information",
    "triad": "information",
    "mechanism": "Burgoyne's army, 5,791 men, was surrounded by about 12,000 colonial troops and surrendered; France had already supplied up to 90% of the arms in the campaign.",
-   "outcome": "The surrender persuaded France to sign an alliance.",
+   "outcome": "Louis XVI opened negotiations that produced the Franco-American alliance of February 1778.",
    "facts": [
     "story-revolutions-saratoga-1777",
-    "story-revolutions-french-supplied-arms-saratoga"
+    "story-revolutions-french-supplied-arms-saratoga",
+    "story-revolutions-saratoga-persuaded-france"
    ]
   },
   {
@@ -2718,7 +4003,7 @@
    "advantage": "a great power's navy and money",
    "power": "cornered resource",
    "triad": "environment",
-   "mechanism": "France, rebuilding its fleet for a war of revenge, signed a treaty of alliance in February 1778 and sent money, arms and troops; it spent 1.3 billion livres on the Americans.",
+   "mechanism": "France, rebuilding its fleet for a war of revenge, signed a treaty of alliance in February 1778 and sent money, arms and troops; one account puts its direct spending on the Americans at 1.3 billion livres, another the whole war at 1,066 million.",
    "outcome": "The war became a world war against Britain.",
    "facts": [
     "story-revolutions-alliance-1778",
@@ -2786,13 +4071,16 @@
    "advantage": "a crown that could not tax its privileged",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "The American war cost 1,066 million livres, paid by loans at high interest with no new taxes; by 1788 half of state revenue went on servicing the debt, while the Church held 7% of the land.",
+   "mechanism": "The American war cost 1,066 million livres by one count (1.3 billion in aid alone by another), paid by loans at high interest with no new taxes; on an income of 475 million livres the deficit was some 150 million, and by 1788 half of state revenue went on servicing the debt, while the Church held 7% of the land.",
    "outcome": "The crown called the Estates-General in 1789.",
    "facts": [
     "story-revolutions-france-war-cost",
     "story-revolutions-france-debt-after-war",
     "story-revolutions-debt-service-1788",
-    "story-revolutions-church-wealth-1789"
+    "story-revolutions-church-wealth-1789",
+    "story-revolutions-france-population-1780",
+    "story-revolutions-france-income-deficit-1786",
+    "story-revolutions-french-royal-army-1789"
    ]
   },
   {
@@ -2856,7 +4144,8 @@
    "outcome": "The First Coalition formed in 1793.",
    "facts": [
     "story-revolutions-louis-executed",
-    "story-revolutions-first-coalition-1793"
+    "story-revolutions-first-coalition-1793",
+    "story-revolutions-first-coalition-strength"
    ]
   },
   {
@@ -2873,11 +4162,12 @@
    "power": "scale economies",
    "triad": "execution",
    "mechanism": "The Convention decreed a levy of about 300,000 men in February 1793, then drafted all men aged 18 to 25 in August, with 750,000 to 800,000 eventually conscripted.",
-   "outcome": "France fielded more men than any rival could pay for.",
+   "outcome": "France fielded 1,169,000 men by 1794, against a coalition whose largest part, the Holy Roman Empire, had 800,000.",
    "facts": [
     "archetypes-napoleon-levy-1793",
     "story-revolutions-levee-en-masse-1793",
-    "archetypes-napoleon-levy-conscripts"
+    "archetypes-napoleon-levy-conscripts",
+    "story-revolutions-first-coalition-strength"
    ]
   },
   {
@@ -2893,12 +4183,13 @@
    "advantage": "the Terror turning on its author",
    "power": "process power",
    "triad": "environment",
-   "mechanism": "By then 16,594 official death sentences had been issued since June 1793, and 1,366 more in the last seven weeks after the Law of 22 Prairial.",
-   "outcome": "Robespierre and twenty-one others were executed on 28 July 1794 and the Terror ended.",
+   "mechanism": "By then 16,594 official death sentences had been issued since June 1793, 1,366 of them in the last seven weeks after the Law of 22 Prairial.",
+   "outcome": "Robespierre and twenty-one others were sentenced on 27 July, and Robespierre was guillotined on 28 July 1794; the Terror ended.",
    "facts": [
     "story-revolutions-terror-death-sentences",
     "story-revolutions-terror-prairial",
-    "story-revolutions-robespierre-executed"
+    "story-revolutions-robespierre-executed",
+    "story-revolutions-robespierre-guillotined"
    ]
   },
   {
@@ -2914,11 +4205,14 @@
    "advantage": "the army's favourite general",
    "power": "cornered resource",
    "triad": "execution",
-   "mechanism": "A bloodless coup overthrew the Directory on 9 November 1799; a plebiscite approved the new constitution on 7 February 1800.",
+   "mechanism": "A bloodless coup overthrew the Directory on 9 November 1799, with 6,000 soldiers around the palace; the constitution was approved by referendum on 7 February 1800, 3,011,007 to 1,562, half a million of the votes cast by the army without valid ballots.",
    "outcome": "Napoleon became First Consul.",
    "facts": [
     "story-revolutions-coup-1799",
-    "story-revolutions-plebiscite-1800"
+    "story-revolutions-plebiscite-1800",
+    "story-revolutions-consulate-palace-soldiers",
+    "story-revolutions-plebiscite-1800-count",
+    "story-revolutions-population-britain-france"
    ]
   },
   {
@@ -2926,7 +4220,7 @@
    "year": 1801,
    "date": "1801",
    "title": "The Concordat",
-   "holder": "first-french-empire",
+   "holder": "french-consulate",
    "rivals": [
     "catholic-church"
    ],
@@ -2934,11 +4228,12 @@
    "advantage": "the Church reconciled to the state",
    "power": "branding",
    "triad": "environment",
-   "mechanism": "The Pope recognized Bonaparte's regime and the regime recognized Catholicism as the religion of the great majority of the French, while Church lands stayed seized.",
+   "mechanism": "The Pope recognized Bonaparte's regime and the regime recognized Catholicism as the religion of the great majority of the French, while Church lands stayed seized; of the 136 old sees only 60 were kept.",
    "outcome": "The hostility of devout Catholics to the Revolution ended.",
    "facts": [
     "story-revolutions-concordat-recognition",
-    "story-revolutions-concordat-majority"
+    "story-revolutions-concordat-majority",
+    "story-revolutions-church-sees-1801"
    ]
   },
   {
@@ -2977,7 +4272,7 @@
     "first-french-empire"
    ],
    "allies": [
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "advantage": "Britain's money behind Austria and Russia",
    "power": "capital",
@@ -2986,7 +4281,8 @@
    "outcome": "The Grande Armée marched to Ulm and Austerlitz.",
    "facts": [
     "story-revolutions-third-coalition-1805",
-    "story-revolutions-grande-armee-1804"
+    "story-revolutions-grande-armee-1804",
+    "story-revolutions-trafalgar-supremacy"
    ]
   },
   {
@@ -3003,12 +4299,14 @@
    "advantage": "seamanship and a navy that had blockaded for years",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "Nelson's 27 ships of the line met 33 Franco-Spanish; 18 of the enemy were captured or destroyed and the British lost none.",
-   "outcome": "Napoleon's invasion of Britain was ended; Britain held the sea until 1815.",
+   "mechanism": "Nelson's 27 ships of the line met 33 Franco-Spanish, 18 French and 15 Spanish; 18 of the enemy were captured or destroyed and the British lost none.",
+   "outcome": "The invasion army had already marched into Germany in August; Trafalgar ended any real effort to invade Britain and confirmed British naval supremacy.",
    "facts": [
     "story-revolutions-trafalgar-british-fleet",
     "story-revolutions-trafalgar-fleet",
-    "story-revolutions-trafalgar-result"
+    "story-revolutions-trafalgar-result",
+    "story-revolutions-trafalgar-order-of-battle",
+    "story-revolutions-trafalgar-supremacy"
    ]
   },
   {
@@ -3026,12 +4324,14 @@
    "advantage": "the corps system and a lure",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "Napoleon had some 72,000 men and 157 guns against about 85,000 Allies and 318 guns, and induced them to attack; massed artillery became his spearhead.",
-   "outcome": "About 36,000 Allied casualties of 89,000, 38% of their force.",
+   "mechanism": "Napoleon had some 72,000 men and 157 guns on the field, from a Grande Armée of 350,000, against about 85,000 Allies (seventy percent of them Russian) and 318 guns, and induced them to attack; his corps, each a small army, could split and rejoin.",
+   "outcome": "About 36,000 Allied casualties out of 89,000 by another count (the army is 85,000 in the mechanism), 38% of their force.",
    "facts": [
     "story-revolutions-austerlitz-french-force",
     "story-revolutions-austerlitz-allied-losses",
-    "archetypes-napoleon-massed-artillery"
+    "archetypes-napoleon-grande-armee-corps",
+    "story-revolutions-grande-armee-1805-size",
+    "story-revolutions-corps-concept"
    ]
   },
   {
@@ -3048,12 +4348,14 @@
    "advantage": "a modern army against a bloated command",
    "power": "process power",
    "triad": "execution",
-   "mechanism": "The Prussian army of about 130,000 Prussians and 20,000 Saxons was slower to react than Napoleon's 96,000 who reached local superiority.",
+   "mechanism": "The Prussian army awaiting the advance was about 130,000 Prussians and 20,000 Saxons, but at Jena only 46,000 of them met 96,000 French, 40,000 of whom fought, out of a 180,000-strong campaign force.",
    "outcome": "Prussia was crushed in a day.",
    "facts": [
     "story-revolutions-jena-prussian-army",
     "story-revolutions-jena-french-force",
-    "archetypes-napoleon-jena-1806"
+    "archetypes-napoleon-jena-1806",
+    "story-revolutions-jena-prussian-engaged",
+    "story-revolutions-jena-french-campaign"
    ]
   },
   {
@@ -3063,18 +4365,20 @@
    "title": "The Continental System",
    "holder": "first-french-empire",
    "rivals": [
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "allies": [],
    "advantage": "a blockade of Britain by land",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "The Berlin Decree of 21 November 1806 embargoed Britain; the loss of trade hit France and its allies, and angry governments ignored it.",
-   "outcome": "Napoleon invaded Spain and Russia to enforce it; the embargo ended 11 April 1814.",
+   "mechanism": "The Berlin Decree of 21 November 1806 embargoed Britain; British exports to the continent fell 25 to 55 percent against pre-1806 levels, but the loss of trade also hit France and its allies, and angry governments ignored the system.",
+   "outcome": "Napoleon, realising that trade ran through Spain and Russia, invaded both; the embargo ended 11 April 1814.",
    "facts": [
     "story-revolutions-berlin-decree",
     "story-revolutions-system-weakened-coalition",
-    "story-revolutions-spain-1808"
+    "story-revolutions-spain-1808",
+    "story-revolutions-continental-system-effect",
+    "story-revolutions-continental-system-invasions"
    ]
   },
   {
@@ -3090,13 +4394,15 @@
    "advantage": "space, winter and a retreat",
    "power": "cornered resource",
    "triad": "environment",
-   "mechanism": "Napoleon deployed 600,000 soldiers, half of them French; the Russian army, 904,000 at its peak, retreated and let Moscow burn.",
+   "mechanism": "Napoleon deployed 600,000 soldiers, half of them French, against about 180,000 to 220,000 Russians in the western armies in June; the Russian army, 712,000 to 904,000 at its peak by two counts, retreated and let Moscow burn.",
    "outcome": "Of 615,000, only 110,000 came back; more than 500,000 men lost.",
    "facts": [
     "story-revolutions-russia-initial-force",
     "story-revolutions-russia-deployed-600k",
     "story-revolutions-russia-army-peak-1812",
-    "story-revolutions-russia-survivors"
+    "story-revolutions-russia-survivors",
+    "story-revolutions-russia-western-armies-1812",
+    "story-revolutions-peak-russia-1812"
    ]
   },
   {
@@ -3109,18 +4415,20 @@
     "grande-armee"
    ],
    "allies": [
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "advantage": "every great power in one camp, paid by Britain",
    "power": "capital",
    "triad": "environment",
-   "mechanism": "About 560,000 soldiers and 2,200 guns; British subsidies paid for a large share of the Austrian and Russian soldiers, about 450,000 at their peak in 1813.",
+   "mechanism": "About 198,000 French (up to 225,000 by other estimates) met about 380,000 Coalition troops and 2,200 guns; British subsidies paid for a large share of the Austrian and Russian soldiers, about 450,000 at their peak in 1813.",
    "outcome": "133,000 casualties; the Coalition decisively defeated the Grande Armée; Paris fell in March 1814.",
    "facts": [
     "story-revolutions-leipzig-scale",
     "story-revolutions-leipzig-coalition",
     "story-revolutions-britain-subsidy-peak",
-    "archetypes-napoleon-leipzig-1813"
+    "archetypes-napoleon-leipzig-1813",
+    "story-revolutions-leipzig-french-force",
+    "story-revolutions-leipzig-coalition-force"
    ]
   },
   {
@@ -3139,14 +4447,15 @@
    "advantage": "two armies against one",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "About 250,000 Frenchmen faced 850,000 allied soldiers; at Waterloo Napoleon's 74,500 met Wellington, then 50,000 arriving Prussians.",
+   "mechanism": "About 250,000 Frenchmen faced 850,000 allied soldiers on four fronts; at Waterloo Napoleon's 74,500 met Wellington's 74,326, then 50,000 arriving Prussians.",
    "outcome": "Napoleon abdicated four days later and went to Saint Helena.",
    "facts": [
     "story-revolutions-allied-1815",
     "story-revolutions-french-waterloo-army",
     "story-revolutions-waterloo-prussians",
     "story-revolutions-napoleon-abdicated",
-    "archetypes-napoleon-waterloo-1815"
+    "archetypes-napoleon-waterloo-1815",
+    "story-revolutions-waterloo-wellington-army"
    ]
   },
   {
@@ -3159,7 +4468,7 @@
     "first-french-empire"
    ],
    "allies": [
-    "kingdom-of-great-britain",
+    "united-kingdom",
     "habsburg-austria",
     "russian-empire",
     "prussia"
@@ -3168,12 +4477,12 @@
    "power": "legitimacy",
    "triad": "environment",
    "mechanism": "The five Great Powers, Austria, Britain, Russia, Prussia and France, resized each other so they could balance each other and remain at peace.",
-   "outcome": "The Concert of Europe kept the balance until 1914.",
+   "outcome": "The Concert of Europe, a doctrine that emphasized the balance of powers, guided European foreign policy until 1914.",
    "facts": [
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
-    "archetypes-vienna-concert-of-europe",
-    "archetypes-vienna-chaumont"
+    "archetypes-vienna-chaumont",
+    "story-revolutions-concert-doctrine"
    ]
   }
  ],
@@ -3236,7 +4545,8 @@
    "title": "The Revolution",
    "actors": [
     "french-population",
-    "french-republic"
+    "french-republic",
+    "kingdom-of-france"
    ],
    "what": "The Estates-General, the Bastille, the Church's property nationalised, the Declaration of the Rights of Man.",
    "facts": [
@@ -3268,13 +4578,17 @@
    "to": "1804-05",
    "title": "The Consulate",
    "actors": [
-    "french-consulate"
+    "french-consulate",
+    "catholic-church"
    ],
    "what": "The coup of 18 Brumaire, the plebiscite of 1800, the Concordat with the Church.",
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-plebiscite-1800",
-    "story-revolutions-concordat-recognition"
+    "story-revolutions-concordat-recognition",
+    "story-revolutions-consulate-palace-soldiers",
+    "story-revolutions-plebiscite-1800-count",
+    "story-revolutions-church-sees-1801"
    ]
   },
   {
@@ -3302,7 +4616,7 @@
    "actors": [
     "first-french-empire",
     "grande-armee",
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "what": "Austerlitz, Jena, Spain and the Continental System: France's weight overruns the other powers until Russia.",
    "facts": [
@@ -3319,7 +4633,7 @@
    "title": "The seven coalitions",
    "actors": [
     "coalitions",
-    "kingdom-of-great-britain"
+    "united-kingdom"
    ],
    "what": "Each coalition re-formed after defeat; British subsidies totalled £46 million by 1814.",
    "facts": [
@@ -3339,13 +4653,18 @@
    "to": "1815-06",
    "title": "The Congress of Vienna",
    "actors": [
-    "congress-of-vienna"
+    "congress-of-vienna",
+    "united-kingdom",
+    "habsburg-austria",
+    "russian-empire",
+    "prussia"
    ],
    "what": "The five Great Powers rebuild a balance of power.",
    "facts": [
     "story-revolutions-vienna-five-powers",
     "story-revolutions-vienna-goal",
-    "archetypes-vienna-congress-dates"
+    "archetypes-vienna-congress-dates",
+    "story-revolutions-concert-doctrine"
    ]
   }
  ],
@@ -3426,12 +4745,12 @@
   {
    "actor": "kingdom-of-great-britain",
    "from": 1793,
-   "to": 1815,
+   "to": 1800,
    "market": "credit and subsidies",
    "sources": [
     {
      "source": "capital",
-     "what": "£46 million of subsidies, 450,000 allied soldiers at the peak",
+     "what": "British subsidies began: £46 million by 1814",
      "facts": [
       "story-revolutions-britain-subsidies-total",
       "story-revolutions-britain-subsidy-peak"
@@ -3490,22 +4809,30 @@
    "sources": [
     {
      "source": "technology",
-     "what": "six corps under marshals; massed artillery",
+     "what": "six corps led by marshals",
      "facts": [
-      "story-revolutions-grande-armee-1804"
+      "archetypes-napoleon-grande-armee-corps"
+     ]
+    },
+    {
+     "source": "technology",
+     "what": "all-arms corps, each an army in miniature",
+     "facts": [
+      "story-revolutions-corps-concept"
      ]
     },
     {
      "source": "talent",
-     "what": "one commander, Napoleon himself",
+     "what": "Berthier as chief of staff, 1796-1814",
      "facts": [
-      "story-revolutions-austerlitz-french-force"
+      "story-revolutions-berthier-chief-of-staff"
      ]
     },
     {
      "source": "scale",
-     "what": "2.1 million conscripts from 1805 to 1813",
+     "what": "350,000 men by 1805; 2.1 million conscripts, 1805-1813",
      "facts": [
+      "story-revolutions-grande-armee-1805-size",
       "story-revolutions-conscripts-1805-1813"
      ]
     }
@@ -3641,6 +4968,177 @@
    "facts": [
     "story-revolutions-church-property-1789"
    ]
+  },
+  {
+   "actor": "united-kingdom",
+   "from": 1801,
+   "to": 1815,
+   "market": "credit and subsidies",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "£46 million of subsidies, 450,000 allied soldiers at the peak",
+     "facts": [
+      "story-revolutions-britain-subsidies-total",
+      "story-revolutions-britain-subsidy-peak"
+     ]
+    },
+    {
+     "source": "capital",
+     "what": "income tax: £6 million in 1799; debt £679 million in 1815",
+     "facts": [
+      "story-revolutions-pitt-income-tax",
+      "story-revolutions-britain-debt"
+     ]
+    }
+   ],
+   "rivals": [
+    "first-french-empire"
+   ],
+   "facts": [
+    "story-revolutions-population-britain-france",
+    "story-revolutions-britain-budget-1814"
+   ]
+  },
+  {
+   "actor": "france",
+   "from": 1778,
+   "to": 1783,
+   "market": "a rival navy and treasury",
+   "sources": [
+    {
+     "source": "capital",
+     "what": "1.3 billion livres spent on the Americans directly (1,066 million for the whole war by another count)",
+     "facts": [
+      "story-revolutions-france-direct-aid-cost",
+      "story-revolutions-france-war-cost"
+     ]
+    },
+    {
+     "source": "scale",
+     "what": "24 French ships of the line against Britain's 19 at the Chesapeake",
+     "facts": [
+      "story-revolutions-chesapeake-french-fleet",
+      "story-revolutions-chesapeake-british-fleet"
+     ]
+    }
+   ],
+   "rivals": [
+    "kingdom-of-great-britain"
+   ],
+   "facts": [
+    "story-revolutions-france-direct-aid-cost"
+   ]
+  },
+  {
+   "actor": "french-population",
+   "from": 1789,
+   "to": 1792,
+   "market": "the Third Estate",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "98% of 28 million people",
+     "facts": [
+      "story-revolutions-estates-population-1789"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "611 of 1,219 deputies, doubled in number",
+     "facts": [
+      "story-revolutions-estates-deputies-1789"
+     ]
+    }
+   ],
+   "rivals": [
+    "kingdom-of-france"
+   ],
+   "facts": [
+    "story-revolutions-estates-population-1789"
+   ]
+  },
+  {
+   "actor": "french-consulate",
+   "from": 1799,
+   "to": 1804,
+   "market": "the army behind the coup",
+   "sources": [
+    {
+     "source": "scale",
+     "what": "6,000 soldiers around the palace on 10 November 1799",
+     "facts": [
+      "story-revolutions-consulate-palace-soldiers"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "3,011,007 votes for the constitution, half a million cast by the army",
+     "facts": [
+      "story-revolutions-plebiscite-1800-count"
+     ]
+    }
+   ],
+   "rivals": [
+    "french-republic"
+   ],
+   "facts": [
+    "story-revolutions-coup-1799"
+   ]
+  },
+  {
+   "actor": "congress-of-vienna",
+   "from": 1814,
+   "to": 1815,
+   "market": "the balance of five powers",
+   "sources": [
+    {
+     "source": "legitimacy",
+     "what": "five Great Powers dealing behind closed doors: Austria, Britain, Russia, Prussia, France",
+     "facts": [
+      "story-revolutions-vienna-five-powers"
+     ]
+    },
+    {
+     "source": "regulation",
+     "what": "a goal to resize the powers so they could balance each other and keep the peace",
+     "facts": [
+      "story-revolutions-vienna-goal"
+     ]
+    }
+   ],
+   "rivals": [
+    "first-french-empire"
+   ],
+   "facts": [
+    "story-revolutions-concert-doctrine"
+   ]
+  },
+  {
+   "actor": "catholic-church",
+   "from": 1801,
+   "to": 1804,
+   "market": "the Church reconciled to the state",
+   "sources": [
+    {
+     "source": "distribution",
+     "what": "60 sees kept of 136, a bishop in each",
+     "facts": [
+      "story-revolutions-church-sees-1801"
+     ]
+    },
+    {
+     "source": "legitimacy",
+     "what": "Catholicism the religion of the great majority of the French",
+     "facts": [
+      "story-revolutions-concordat-majority"
+     ]
+    }
+   ],
+   "rivals": [],
+   "facts": [
+    "story-revolutions-concordat-recognition"
+   ]
   }
  ],
  "people": [
@@ -3651,7 +5149,11 @@
    "born": 1769,
    "died": 1821,
    "role": "general, First Consul, then emperor who crowned himself",
-   "actors": "first-french-empire",
+   "actors": [
+    "french-consulate",
+    "first-french-empire",
+    "grande-armee"
+   ],
    "facts": [
     "story-revolutions-coup-1799",
     "story-revolutions-coronation-date",
@@ -3665,7 +5167,9 @@
    "born": 1754,
    "died": 1793,
    "role": "king of France; allied with the Americans, executed by the Convention",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-louis-executed",
     "story-revolutions-vergennes-secret-funds"
@@ -3678,7 +5182,9 @@
    "born": 1755,
    "died": 1793,
    "role": "queen of France, executed 16 October 1793",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-marie-antoinette-executed"
    ]
@@ -3690,7 +5196,9 @@
    "born": 1732,
    "died": 1799,
    "role": "commander in chief of the Continental Army",
-   "actors": "continental-army",
+   "actors": [
+    "continental-army"
+   ],
    "facts": [
     "story-revolutions-continental-army-1775",
     "story-revolutions-yorktown-allied-army"
@@ -3703,7 +5211,10 @@
    "born": 1757,
    "died": 1834,
    "role": "French general in the American war",
-   "actors": "french-army",
+   "actors": [
+    "french-army",
+    "continental-army"
+   ],
    "facts": [
     "story-revolutions-lafayette-major-general"
    ]
@@ -3715,7 +5226,9 @@
    "born": 1725,
    "died": 1807,
    "role": "commander of the French expeditionary force",
-   "actors": "french-army",
+   "actors": [
+    "french-army"
+   ],
    "facts": [
     "story-revolutions-rochambeau-1780"
    ]
@@ -3727,7 +5240,9 @@
    "born": 1722,
    "died": 1788,
    "role": "French admiral who held the Chesapeake",
-   "actors": "french-navy",
+   "actors": [
+    "french-navy"
+   ],
    "facts": [
     "story-revolutions-chesapeake-french-fleet"
    ]
@@ -3739,7 +5254,9 @@
    "born": 1706,
    "died": 1790,
    "role": "negotiator of the alliance and of the peace",
-   "actors": "united-states",
+   "actors": [
+    "united-states"
+   ],
    "facts": [
     "story-revolutions-treaty-paris-1783"
    ]
@@ -3751,7 +5268,9 @@
    "born": 1719,
    "died": 1787,
    "role": "French foreign minister who built the American alliance",
-   "actors": "france",
+   "actors": [
+    "france"
+   ],
    "facts": [
     "story-revolutions-vergennes-secret-funds"
    ]
@@ -3763,7 +5282,9 @@
    "born": 1732,
    "died": 1804,
    "role": "finance minister; made the royal accounts public",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-debt-service-1788"
    ]
@@ -3775,7 +5296,9 @@
    "born": 1734,
    "died": 1802,
    "role": "controller-general who spent to buy a way out of debt",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-france-war-cost"
    ]
@@ -3787,7 +5310,10 @@
    "born": 1758,
    "died": 1794,
    "role": "member of the Committee of Public Safety; executed 28 July 1794",
-   "actors": "french-republic",
+   "actors": [
+    "french-republic",
+    "jacobins"
+   ],
    "facts": [
     "story-revolutions-robespierre-executed",
     "story-revolutions-terror-death-sentences"
@@ -3800,7 +5326,10 @@
    "born": 1759,
    "died": 1794,
    "role": "Montagnard leader, executed in the Terror",
-   "actors": "french-republic",
+   "actors": [
+    "french-republic",
+    "jacobins"
+   ],
    "facts": [
     "story-revolutions-terror-death-sentences"
    ]
@@ -3812,7 +5341,9 @@
    "born": 1748,
    "died": 1836,
    "role": "theorist of the Third Estate and a plotter of the coup of 18 Brumaire",
-   "actors": "french-consulate",
+   "actors": [
+    "french-consulate"
+   ],
    "facts": [
     "story-revolutions-coup-1799"
    ]
@@ -3824,7 +5355,9 @@
    "born": 1742,
    "died": 1823,
    "role": "signed the Concordat; present at the coronation of 1804",
-   "actors": "catholic-church",
+   "actors": [
+    "catholic-church"
+   ],
    "facts": [
     "story-revolutions-coronation-date",
     "story-revolutions-concordat-recognition"
@@ -3837,7 +5370,9 @@
    "born": 1758,
    "died": 1805,
    "role": "British admiral, killed at Trafalgar",
-   "actors": "royal-navy",
+   "actors": [
+    "royal-navy"
+   ],
    "facts": [
     "story-revolutions-trafalgar-british-fleet",
     "story-revolutions-trafalgar-result"
@@ -3850,7 +5385,10 @@
    "born": 1769,
    "died": 1852,
    "role": "British commander at Waterloo",
-   "actors": "british-army",
+   "actors": [
+    "british-army",
+    "seventh-coalition"
+   ],
    "facts": [
     "story-revolutions-waterloo-prussians",
     "story-revolutions-wellington-nearest-run"
@@ -3863,7 +5401,10 @@
    "born": 1759,
    "died": 1806,
    "role": "British prime minister who introduced the income tax and built the coalitions",
-   "actors": "kingdom-of-great-britain",
+   "actors": [
+    "kingdom-of-great-britain",
+    "united-kingdom"
+   ],
    "facts": [
     "story-revolutions-pitt-income-tax",
     "story-revolutions-second-coalition-1798"
@@ -3876,7 +5417,10 @@
    "born": 1773,
    "died": 1859,
    "role": "Austrian foreign minister and chair of the Congress of Vienna",
-   "actors": "congress-of-vienna",
+   "actors": [
+    "congress-of-vienna",
+    "habsburg-austria"
+   ],
    "facts": [
     "story-revolutions-vienna-five-powers"
    ]
@@ -3888,7 +5432,10 @@
    "born": 1777,
    "died": 1825,
    "role": "Emperor of Russia",
-   "actors": "russian-empire",
+   "actors": [
+    "russian-empire",
+    "russian-army"
+   ],
    "facts": [
     "story-revolutions-leipzig-coalition"
    ]
@@ -3900,7 +5447,10 @@
    "born": 1745,
    "died": 1813,
    "role": "Russian commander who decided not to defend Moscow",
-   "actors": "russian-army",
+   "actors": [
+    "russian-army",
+    "russian-empire"
+   ],
    "facts": [
     "story-revolutions-russia-army-peak-1812"
    ]
@@ -3912,7 +5462,9 @@
    "born": 1738,
    "died": 1805,
    "role": "British general who surrendered at Yorktown",
-   "actors": "british-army",
+   "actors": [
+    "british-army"
+   ],
    "facts": [
     "story-revolutions-yorktown-captured"
    ]
@@ -3924,7 +5476,10 @@
    "born": 1738,
    "died": 1820,
    "role": "king of Great Britain during the American war and the French wars",
-   "actors": "kingdom-of-great-britain",
+   "actors": [
+    "kingdom-of-great-britain",
+    "united-kingdom"
+   ],
    "facts": [
     "story-revolutions-britain-war-1803"
    ]
@@ -3936,7 +5491,10 @@
    "born": 1754,
    "died": 1838,
    "role": "French foreign minister who brought France back to the Great Powers at Vienna",
-   "actors": "congress-of-vienna",
+   "actors": [
+    "congress-of-vienna",
+    "first-french-empire"
+   ],
    "facts": [
     "story-revolutions-vienna-five-powers"
    ]
@@ -3948,7 +5506,10 @@
    "born": 1742,
    "died": 1819,
    "role": "Prussian field marshal; his army reached Waterloo",
-   "actors": "prussian-army",
+   "actors": [
+    "prussian-army",
+    "seventh-coalition"
+   ],
    "facts": [
     "story-revolutions-waterloo-prussians"
    ]
@@ -3960,7 +5521,9 @@
    "born": 1755,
    "died": 1824,
    "role": "Bourbon king restored after Napoleon",
-   "actors": "kingdom-of-france",
+   "actors": [
+    "kingdom-of-france"
+   ],
    "facts": [
     "story-revolutions-napoleon-abdicated"
    ]
@@ -3972,7 +5535,9 @@
    "born": 1732,
    "died": 1792,
    "role": "British prime minister during the American war; fell after Yorktown",
-   "actors": "kingdom-of-great-britain",
+   "actors": [
+    "kingdom-of-great-britain"
+   ],
    "facts": [
     "story-revolutions-treaty-paris-1783"
    ]
@@ -3983,31 +5548,33 @@
    "id": "sr-flow-france-us",
    "from": "france",
    "to": "united-states",
-   "usdBnPerYear": null,
+   "usdBnPerYear": 0.0406,
    "what": "money, arms and troops for the Americans",
    "period": "1778-1783",
    "basis": "estimate",
    "kind": "investment",
    "fact": "story-revolutions-france-direct-aid-cost",
-   "amount": "1.3 billion livres (cumulative)"
+   "amount": "1.3 billion livres over 1778-1783 (6 years): 0.217 billion livres a year",
+   "conversion": "£1 = 24 livres, US$4.5 = £1 (assumed rates, as history.py): 1.3 billion livres = £54.2 million = US$244 million, US$40.6 million a year"
   },
   {
    "id": "sr-flow-britain-allies",
    "from": "kingdom-of-great-britain",
    "to": "coalitions",
-   "usdBnPerYear": null,
+   "usdBnPerYear": 0.00947,
    "what": "cash subsidies to the allies",
    "period": "1793-1814",
    "basis": "reported",
    "kind": "contract",
    "fact": "story-revolutions-britain-subsidies-total",
-   "amount": "46.3 million pounds (cumulative)"
+   "amount": "£46,289,549 over 1793-1814 (22 years): £2.10 million a year",
+   "conversion": "US$4.5 = £1 (assumed rate, as history.py): £2.10 million a year = US$9.47 million a year"
   }
  ],
- "notes": "Unverified and left out: the French royal revenue in livres for 1788 and the debt total (sources found were either dead or secondary); the population of Spain, Austria and Prussia; the size of the Royal Navy in ships of the line in 1793 and 1815; the US population in 1790. The French spending on the Americans (1.3 billion livres) and the war debt (about 3.315 billion) are the figures of one Wikipedia article which itself cites several sources; British subsidies are £46.3 million (cash, 1793-1814) in that article, and about £66 million in other accounts that include loans. Grande Armée figures for 1812 differ by source (450,000 entering Russia; 600,000 and 615,000 counting later columns; 685,000 with allies); each is a separate fact. The series row for the Terror uses the part name executions, which is not in the brief's list. The Seventh Coalition, the population of France and the coalitions as a whole carry no QID because no Wikidata item fits; the actors france and kingdom-of-france share a QID on purpose (the monarchy as the ally of the Americans, and as a state).",
+ "notes": "Second pass (7 Nov 2026): 39 facts added, 7 corrected, battle forces moved to separate parts, actors and lifetimes fixed, moats added for the four bare periods. Unverified: Britain's total revenue; the Royal Navy's and Spain's total ships of the line; 1778 populations of Britain and France; Prussia's 1815 and Austria's and Spain's later populations; the Empire's revenue; the Church's clergy after 1801; the French debt of 1788. Two counts of the Russian army's peak (712,000 and 904,000) are both kept. The archetypes facts on the Concert of Europe and massed artillery overstate their quotes; this cluster stops citing them and cannot edit them.",
  "openQuestions": [
-  "Which French royal revenue figure for 1788 (about 503 million livres in some accounts) can a script-readable academic source support?",
-  "Should the Grande Armée at Leipzig and the Royal Navy's ship count in 1815 be added from a naval-history source?",
-  "Declaration of the Rights of Man: the date 26 August 1789 is on the moment but not in a fetched quote."
+  "Which script-readable source gives the Royal Navy's total ships of the line in 1778, 1793, 1805 and 1815, and Britain's total revenue?",
+  "Should archetypes-vienna-concert-of-europe and archetypes-napoleon-massed-artillery have their claims narrowed to their quotes (another cluster's files)?",
+  "The infobox figures for the First Coalition list a total of 800,000+ for the Holy Roman Empire; is a per-member breakdown from a historian available?"
  ]
 }

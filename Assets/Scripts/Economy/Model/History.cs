@@ -48,7 +48,7 @@ namespace Why.Economy.Model
                         "religion" => new[] { "adherents" },
                         "company" => new[] { "marketValue", "revenue", "employees" },
                         "lab" => new[] { "valuation", "users", "revenue", "employees", "parameters" },
-                        "alliance" => new[] { "army", "population" },
+                        "alliance" => new[] { "army", "troops", "population" },
                         _ => new[] { "population", "army", "marketValue", "valuation", "adherents" },
                     };
                     foreach (string p in order) if (Series.Any(v => v.Part == p)) return p;
@@ -123,7 +123,7 @@ namespace Why.Economy.Model
                 "religion" => new[] { "adherents", "revenue" },
                 "company" => new[] { "marketValue", "revenue", "capital", "employees", "people", "defections" },
                 "lab" => new[] { "valuation", "users", "parameters", "revenue", "capital", "employees", "people" },
-                "alliance" => new[] { "army", "population" },
+                "alliance" => new[] { "army", "troops", "population" },
                 _ => new[] { "population", "army", "marketValue", "valuation", "adherents" },
             };
 

@@ -155,6 +155,11 @@ namespace Why.Director
         /// <summary>The id of the stop on screen (null on the cards and outside the tour).</summary>
         public string CurrentStepId => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Step.Id : null;
 
+        /// <summary>The time into the current stop of its last cue (0 when it has none or one at its start), for the smoke
+        /// test's second frame of a stop whose picture changes with the narration.</summary>
+        public float CurrentStepLastCue => active && steps != null && index >= 0 && index < steps.Count && steps[index].Step.Cues.Count > 0
+            ? steps[index].Step.Cues.Max(c => c.At) : 0;
+
         /// <summary>The view of the stop on screen (null on the cards and outside the tour).</summary>
         public string CurrentPresetId => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Preset?.Id : null;
 

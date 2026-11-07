@@ -260,7 +260,7 @@ namespace Why.Economy.Emphasis
         /// <summary>The views that tell one story on a structure of their own (EconomyViews.Focused at the transcription, and
         /// the present taken apart since).</summary>
         public static bool Focused(string view) =>
-            view == "mobility" || view == "strategy" || view == "you" || view == "money" || view == "regimes" || view == "present";
+            view == "mobility" || view == "strategy" || view == "you" || view == "money" || view == "regimes" || view == "present" || view == "advantage";
 
         /// <summary>The views the capture layer's switch gave rules of their own; the selection's dimming and the ledger's
         /// level of detail belong to the rest (its last branch) and, for the dimming, to the rivers view.</summary>

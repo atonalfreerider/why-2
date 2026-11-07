@@ -52,7 +52,7 @@ namespace Why.Economy
         /// hills on other governments' foundations, and the present taken apart. The wave stays as faint context and every other layer steps back, so
         /// the story reads alone.
         /// </summary>
-        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present";
+        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage";
 
         /// <summary>The presets with a spec of their own (the others copy the overview's, <see cref="Get"/>).</summary>
         static readonly string[] OwnSpecs =

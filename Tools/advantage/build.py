@@ -13,7 +13,7 @@ Every composition is here, in code, so the app only draws (Docs/hills-design/ADV
 Numbers come only from facts the gate verified (sizes and margins dated 2026 through the 2026 gate); an actor without a
 verified size gets none, and the app draws it as unverified. Judgments are labelled as judgments.
 
-Usage (from the repository root): python3 -I Tools/advantage/build.py [--judgments PATH]
+Usage (from the repository root): python3 -I Tools/advantage/build.py [--model PATH] [--judgments PATH]
 """
 import json
 import math
@@ -90,7 +90,7 @@ def band_of(a):
 
 def main():
     args = sys.argv[1:]
-    model = load(os.path.join(RESEARCH, "model.json"))
+    model = load(args[args.index("--model") + 1] if "--model" in args else os.path.join(RESEARCH, "model.json"))
     judg = load(args[args.index("--judgments") + 1] if "--judgments" in args else os.path.join(RESEARCH, "judgments.json"), {})
     review = load(os.path.join(RESEARCH, "review.json"), {})
     lives = load(LIVES, {}).get("companies", [])

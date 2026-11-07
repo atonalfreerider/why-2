@@ -195,7 +195,9 @@ namespace Why.Economy.Layers
         {
             Keyboard kb = Keyboard.current;
             GraphRoot root = GraphRoot.Instance;
-            if (kb == null || root == null || !root.AllowPresetKeys || HudKit.TypingInField() || !kb.iKey.wasPressedThisFrame) return;
+            // key I opens the present as a contest (HillAdvantageLayer) since 7 Nov 2026; this view is reached from the bar, and
+            // Shift + I still takes it back to the overview
+            if (kb == null || root == null || !root.AllowPresetKeys || HudKit.TypingInField() || !kb.iKey.wasPressedThisFrame || LandView.PresetId != View || !kb.shiftKey.isPressed) return;
             bool here = LandView.PresetId == View;
             if (kb.shiftKey.isPressed)
             {

@@ -110,7 +110,7 @@ namespace Why.Economy.Layers
             // own view shows it, as a ghost.
             bool early = land.Year < PlatformYear, social = view == "social";
             bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money" || view == "regimes"
-                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || view == "present" || early && !social;
+                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || view == "present" || view == "advantage" || early && !social;
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;

@@ -64,8 +64,8 @@ namespace Why.Economy
             // The present, taken apart (HillPresentLayer): the crest's cut face exploded into the empty future beyond it, seen
             // from further on, looking back at the crest 20 degrees off the wave's axis (the design's pose, its distance grown
             // with the present's width). Entering plays the choreography (PresentFace, then PresentRise, then this pose).
-            Add(HillPresentLayer.View, "The present, taken apart", "This year's economy taken out of the wave: the state beneath, tiers as terraces, industries as hills as large as their output.",
-                KeyCode.I, new Vector3(PresentX, 50, crest + PresentLayout.Gap0 + 100), 160, 22, 640);
+            Add(HillPresentLayer.View, "The present, taken apart", "This year's economy taken out of the wave: the state beneath, tiers as terraces, each industry a hill built of what it buys from the others, pays its workers and keeps, its profits threaded to who owns them.",
+                KeyCode.I, new Vector3(PresentX, 66, crest + PresentLayout.Gap0 + 100), 160, 22, 700);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.

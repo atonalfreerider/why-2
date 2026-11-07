@@ -245,6 +245,8 @@ namespace Why.Economy.Emphasis
             Row("present.hills",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
             Row("present.guides",              0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,  .35f,     0,     0,     0,     0,     0),
             Row("present.firms",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            Row("present.flows",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+            Row("present.capital",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
             //                             ovrvw, sectn, lands, captr, peopl, rivrs,  mind, socty, found, comps, socal, roots, betry, y1972, strat, money, regms, mobil, prsnt,  atom, dilem, laddr,   you,     *
         };
 

@@ -12,8 +12,9 @@ namespace Why.Matter
     /// rocks, and the asteroid that ended the dinosaurs at Chicxulub. The red layer's radius is the real distance from our
     /// lineage (<see cref="MatterScale"/>), so each body's path is drawn where it was: it starts when and where the body
     /// formed, out in the young solar system, keeps its distance from Earth while it waits (in the asteroid belt for
-    /// billions of years), and plunges back into the inner track on the day it struck. A rock travels each path, slow out
-    /// in space and fast at the end, and flashes where it hits. An impact that changed life rises in one line from the
+    /// billions of years), and plunges back into the inner track on the day it struck. Everything is a red line, as the rest
+    /// of the matter layer: the body itself is a bloomed red streak (the line shader's path pulse) running along its path
+    /// from where it formed to where it struck, one pass every <see cref="TravelSeconds"/>. An impact that changed life rises in one line from the
     /// impact to the life event it caused (the end-Cretaceous extinction). Each path's key points say which distances are
     /// measured and which are schematic (impactors.json and Docs/research/impacts.md).
     /// </summary>
@@ -27,19 +28,16 @@ namespace Why.Matter
         /// <summary>Samples per segment between two key points of a path.</summary>
         const int SegmentSamples = 40;
 
-        /// <summary>Seconds a rock takes along its whole path, then a pause at the impact.</summary>
-        const float TravelSeconds = 9f, HoldSeconds = 1.6f;
+        /// <summary>Seconds the body's streak takes along its whole path (the paths' phase runs 0..1 from formation to
+        /// impact, so every body, long path or short, takes the same time).</summary>
+        const float TravelSeconds = 9f;
 
-        /// <summary>A rock's size on screen (px at 1080p), and its flash at the impact.</summary>
-        const float RockPx = 13f, FlashScale = 2.6f;
+        /// <summary>Path opacity at zero matter emphasis, the path's glow where it plunges, and the streak's strength (the
+        /// shader brightens the pulse's head by up to 1 + 3 × this).</summary>
+        const float AlphaFloor = 0.3f, PlungeIntensity = 2.2f, StreakFlow = 2.5f;
 
-        /// <summary>Path opacity at zero matter emphasis, and the path's glow where it plunges.</summary>
-        const float AlphaFloor = 0.3f, PlungeIntensity = 2.2f;
-
-        /// <summary>The path's hue: the matter red, lightened so the paths read over the red bands.</summary>
-        static readonly Color PathColor = Color.Lerp(GraphStyle.Matter, Color.white, 0.35f);
-
-        static readonly Color RockColor = new Color(0.62f, 0.57f, 0.52f), FlashColor = new Color(1f, 0.82f, 0.55f);
+        /// <summary>The path's hue: the matter layer's own red (the bloom whitens its brightest parts, as on the bands).</summary>
+        static readonly Color PathColor = GraphStyle.Matter;
 
         sealed class KeyPoint
         {
@@ -79,9 +77,6 @@ namespace Why.Matter
         sealed class Track
         {
             public Vector3[] Data;
-            public float Phase;
-            public Transform Rock;
-            public Material RockMat;
             public IdRange Ids;
         }
 
@@ -96,9 +91,8 @@ namespace Why.Matter
         readonly List<Rise> rises = new List<Rise>();
         LineMeshBuilder lines;
         Material lineMat;
-        Mesh rockMesh;
         IdRange allIds = IdRange.Empty;
-        float emphasis = -1, clock;
+        float emphasis = -1;
 
         public override void Prepare(GraphContext ctx)
         {
@@ -145,6 +139,8 @@ namespace Why.Matter
                     if (k == 0) formedAt = data[0];
 
                     pts.Clear();
+                    float length = 0;
+                    for (int i = 1; i < data.Length; i++) length += Vector3.Distance(data[i - 1], data[i]);
                     for (int i = 0; i < data.Length; i++)
                     {
                         // faint while the body waits, brightening as it closes in: the plunge is the point
@@ -155,8 +151,10 @@ namespace Why.Matter
                             Mathf.Lerp(1f, PlungeIntensity, close)));
                     }
 
-                    lines.AddPolyline(pts, id, 1f);
-                    tracks.Add(new Track { Data = data, Phase = (k * 0.37f) % 1f, Ids = IdRange.Single(id) });
+                    // the body: one streak per pass, its phase normalised to the path (0 formed .. 1 struck); a swarm's
+                    // rocks start their passes apart
+                    lines.AddFlowPath(pts, id, length > 0 ? 1f / length : 1f, (k * 0.37f) % 1f);
+                    tracks.Add(new Track { Data = data, Ids = IdRange.Single(id) });
                     id++;
                     rocks++;
                 }
@@ -258,7 +256,10 @@ namespace Why.Matter
                         Mathf.Lerp(PlungeIntensity, 1f, t)));
                 }
 
-                lines.AddPolyline(pts, rise.Ids.Max, 1f);
+                // the consequence rises from the impact into life, its streak in step with the body's (one pass per path)
+                float rl = 0;
+                for (int i = 1; i < pts.Count; i++) rl += Vector3.Distance(pts[i - 1].Data, pts[i].Data);
+                lines.AddFlowPath(pts, rise.Ids.Max, rl > 0 ? 1f / rl : 1f, 0.5f);
                 if (!string.IsNullOrEmpty(rise.Label))
                 {
                     ctx.Labels.Add(new LabelSpec
@@ -270,102 +271,23 @@ namespace Why.Matter
                 }
             }
 
-            lineMat = GraphMaterials.Line(PathColor, 1f, GraphMaterials.QueueMatter + 2, true, 0f, 1f);
+            lineMat = GraphMaterials.Line(PathColor, 1.4f, GraphMaterials.QueueMatter + 2, true, 0f, StreakFlow);
+            lineMat.SetFloat("_FlowFreq", 1f);
+            lineMat.SetFloat("_FlowSpeed", 1f / TravelSeconds);
             AddMesh("ImpactorPaths", lines.ToMesh("ImpactorPaths"), lineMat);
             lines = null;
-
-            rockMesh = RockMesh();
-            Shader shader = Shader.Find("Sprites/Default");
-            for (int i = 0; i < tracks.Count; i++)
-            {
-                GameObject go = new GameObject("Impactor rock " + i);
-                go.transform.SetParent(transform, false);
-                go.AddComponent<MeshFilter>().sharedMesh = rockMesh;
-                Material m = new Material(shader) { color = RockColor, renderQueue = GraphMaterials.QueueMatter + 3 };
-                go.AddComponent<MeshRenderer>().sharedMaterial = m;
-                tracks[i].Rock = go.transform;
-                tracks[i].RockMat = m;
-            }
         }
 
-        /// <summary>The rocks travel their paths; the paths dim with the red layer unless the director points at them.</summary>
+        /// <summary>The paths dim with the red layer unless the director points at them; the streaks move in the shader.</summary>
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
-            if (lineMat == null || rig == null) return;
+            if (lineMat == null) return;
             float target = 1f;
             GraphRoot root = GraphRoot.Instance;
             if (root != null && root.CurrentPreset != null) target = root.CurrentPreset.MatterEmphasis;
-            bool lit = !allIds.IsEmpty && Highlighter.IsHighlighted(allIds);
-            if (lit) target = 1f;
+            if (!allIds.IsEmpty && Highlighter.IsHighlighted(allIds)) target = 1f;
             emphasis = emphasis < 0 ? target : Mathf.MoveTowards(emphasis, target, GraphTime.Delta * 1.6f);
             GraphMaterials.SetAlpha(lineMat, Mathf.Lerp(AlphaFloor, 1f, emphasis));
-
-            clock += GraphTime.Delta;
-            Camera cam = rig.Cam;
-            float pxToWorld = cam != null ? 2f * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad) / Mathf.Max(1, Screen.height) * (Screen.height / 1080f) : 0;
-            bool show = emphasis > 0.15f;
-            foreach (Track track in tracks)
-            {
-                if (track.Rock == null) continue;
-                track.Rock.gameObject.SetActive(show);
-                if (!show) continue;
-                float period = TravelSeconds + HoldSeconds;
-                float time = (clock / period + track.Phase) % 1f * period;
-                float s = Mathf.Clamp01(time / TravelSeconds);
-                float f = s * (track.Data.Length - 1);
-                int i = Mathf.Min((int)f, track.Data.Length - 2);
-                Vector3 world = GraphWarp.ToWorld(Vector3.Lerp(track.Data[i], track.Data[i + 1], f - i));
-                float flash = time > TravelSeconds ? 1f - (time - TravelSeconds) / HoldSeconds : 0f;
-                float size = cam != null ? Vector3.Distance(cam.transform.position, world) * pxToWorld * RockPx : 0.05f;
-                track.Rock.position = world;
-                // faces the camera, so its baked light stays put
-                if (cam != null) track.Rock.rotation = cam.transform.rotation;
-                track.Rock.localScale = Vector3.one * size * (1f + (FlashScale - 1f) * flash);
-                Color c = Color.Lerp(RockColor, FlashColor, flash);
-                c.a = Mathf.Clamp01(emphasis) * (time > TravelSeconds ? flash : 1f);
-                track.RockMat.color = c;
-            }
-        }
-
-        /// <summary>A lumpy unit rock with its light baked into the vertex colors (the sprite shader is unlit).</summary>
-        static Mesh RockMesh()
-        {
-            const int rings = 10, segments = 14;
-            List<Vector3> v = new List<Vector3>();
-            List<Color32> c = new List<Color32>();
-            List<int> tri = new List<int>();
-            Vector3 light = new Vector3(0.5f, 0.7f, -0.5f).normalized;
-            for (int r = 0; r <= rings; r++)
-            {
-                float lat = Mathf.PI * r / rings;
-                for (int s = 0; s <= segments; s++)
-                {
-                    float lon = 2 * Mathf.PI * s / segments;
-                    Vector3 n = new Vector3(Mathf.Sin(lat) * Mathf.Cos(lon), Mathf.Cos(lat), Mathf.Sin(lat) * Mathf.Sin(lon));
-                    // a fixed lumpiness (no randomness: every build draws the same rock)
-                    float bump = 1f + 0.16f * Mathf.Sin(3 * lat + 1.3f) * Mathf.Cos(2 * lon + 0.4f) + 0.08f * Mathf.Sin(5 * lon + 2 * lat);
-                    v.Add(n * 0.5f * bump);
-                    float shade = 0.35f + 0.65f * Mathf.Clamp01(Vector3.Dot(n, light));
-                    byte g = (byte)(255 * shade);
-                    c.Add(new Color32(g, g, g, 255));
-                }
-            }
-
-            for (int r = 0; r < rings; r++)
-            {
-                for (int s = 0; s < segments; s++)
-                {
-                    int a = r * (segments + 1) + s, b = a + segments + 1;
-                    tri.AddRange(new[] { a, b, a + 1, a + 1, b, b + 1 });
-                }
-            }
-
-            Mesh m = new Mesh { name = "Impactor rock" };
-            m.SetVertices(v);
-            m.SetColors(c);
-            m.SetTriangles(tri, 0);
-            m.RecalculateBounds();
-            return m;
         }
     }
 }

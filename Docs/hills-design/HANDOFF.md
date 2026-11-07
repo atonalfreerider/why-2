@@ -190,3 +190,9 @@ Chicxulub how the impact ended the dinosaurs.
   continue the workflow from map:lines (in a new session: `args: {skip: ["research:mobility", "research:collective",
   "research:images"]}` once images is confirmed complete). The Workflow tool may be switched off in a session; then run
   the remaining steps as background agents with the same prompts (in `workflow/design-workflow.js`).
+
+### Added 6 Nov 2026 (later): the hills built of blocks; red impactors
+
+- The present's hills are piles of blocks (`PresentBlocks.cs`, drawn by `HillPresentLayer.BlockMesh`). Each block is $20B of output a year in 2025. A hill's footprint is still its value added, so its height is output over value added. From the ground up: the inputs bought from the other industries (BEA 2024 input-output table, earth tones by the seller's tier, grey unallocated), wages (blue), production taxes, and a gold crown of operating surplus. The 12 largest purchases between hills are arcs that land on the seller's own blocks. The capital threads run from each terrace's crowns, and faintly from each firm, to a hub. From the hub they fan out to the holders of corporate stock (DFA groups for the year; abroad from Z.1). Emphasis rows: `present.flows` and `present.capital`. The surface shader has an opt-in `_ZWrite`, used only by the blocks.
+- Impactors: the paths use the matter red. The grey rocks are gone: each body is a path pulse (`AddFlowPath`, `_FlowFreq` 1, one pass every 9 s).
+- Open: the owners' labels crowd at the yaw-160 pose (only two or three of the five show). The real-estate crown includes owner-occupiers' imputed rent, which the label does not yet say.

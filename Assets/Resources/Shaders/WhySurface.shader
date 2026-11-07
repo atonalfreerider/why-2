@@ -14,6 +14,8 @@ Shader "Why/Surface"
         _Hatch ("Hatch: period px, duty, strength (strength 0 = off)", Vector) = (0, 0, 0, 0)
         [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 5
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 10
+        // solid geometry that must hide what is behind it (the present's blocks); every band keeps the default, off
+        [Enum(Off, 0, On, 1)] _ZWrite ("Depth Write", Float) = 0
     }
 
     SubShader
@@ -31,7 +33,7 @@ Shader "Why/Surface"
             Name "WhySurface"
             Tags { "LightMode" = "UniversalForward" }
             Blend [_SrcBlend] [_DstBlend]
-            ZWrite Off
+            ZWrite [_ZWrite]
             ZTest LEqual
             Cull Off
 

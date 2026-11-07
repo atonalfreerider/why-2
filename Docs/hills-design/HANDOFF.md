@@ -357,8 +357,17 @@ logos. The design is `HISTORY.md`.
 - *Images.* `Tools/advantage/story_images.py` writes `Tools/images/stories.json` from the stories, with the crop review's
   overrides. Fetch and pack it with `Tools/images/fetch.py`; the atlas is built in the mirror's `work/stories-images`.
 
-- *Review.* Workflow `wf_b3e44be8-acc` (truth on screen, drawing, panel, director, data) was run against the working
-  tree. Its confirmed findings are fixed; the last was Russia's 904,000 peak, now dated December 1812.
+- *Review.* Workflow `wf_b3e44be8-acc` (85 agents: truth on screen, drawing, panel, director, data) was run against
+  the working tree. Every finding that still held is fixed (commits a142f6c, 1c9ddc5): Russia's 904,000 peak dated
+  December 1812; portraits only of people active at the moment (`history.py` `ACTIVE`); rings capped at their
+  holder's lane; no invented year beside a "c. 1800-1815" value; the Austerlitz 70/30 split and Anthropic's founders
+  no longer drawn; moment texts cut to what their facts say; the footer's units and holds as the code applies them.
+- *Layout* (9a202df). A column takes one to three bodies to a line, whichever lets the camera come nearest. Names
+  alternate above and below; in the top row the middle column's stand half a name further out; a name steps out at
+  most four times (72 px) and is otherwise left to its card; the title and heads are placed after the names. The
+  latest frames are in the mirror's `Shots/hist14` (and `hist11`); 6 were sent to the user on 7 Nov 2026.
+- *Still open in the layout.* The most crowded stop, Vienna (13 bodies), leaves the Prussian Army's name to its
+  ring and card. Coalition, Russia and AI stops each leave one or two wall names unshown.
 
 Open from it:
 - *Thin data.* A fifth research round (20 facts through the gate and a checker) measured Austria, Prussia and

@@ -1,0 +1,1738 @@
+{
+ "cluster": "archetypes",
+ "asOf": "2026-11-07",
+ "scope": "Competitive advantage before the corporation and in nature: the Mongols, Alexander, Napoleon, the two world wars, and the biosphere.",
+ "facts": [
+  {
+   "id": "archetypes-mongol-horses-per-soldier",
+   "claim": "Each Mongol soldier typically maintained three or four horses, rotating mounts to keep up speed for days.",
+   "url": "https://en.wikipedia.org/wiki/Mongol_military_tactics_and_organization",
+   "quotes": [
+    "Each Mongol soldier typically maintained three or four horses."
+   ],
+   "values": [
+    "three or four"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "units",
+   "value": 4,
+   "unit": "horses per soldier (upper figure; sources say three or four)",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-empire-extent",
+   "claim": "By Genghis Khan's death in 1227 the Mongol Empire ruled from the Pacific to the Caspian, twice the size of the Roman Empire, the largest contiguous state in history.",
+   "url": "https://en.wikipedia.org/wiki/Mongol_Empire",
+   "quotes": [
+    "Genghis Khan died on 18 August 1227, by which time the Mongol Empire ruled from the Pacific Ocean to the Caspian Sea, twice the size of the Roman Empire or Umayyad Caliphate at their height, and the largest contiguous state in history."
+   ],
+   "values": [
+    "1227"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "event",
+   "value": 1227,
+   "unit": "year",
+   "period": "1227",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-stirrup-chinese-origin",
+   "claim": "The stirrup was invented in China in the 4th century and spread across Eurasia through nomadic peoples; it was not a Mongol invention.",
+   "url": "https://en.wikipedia.org/wiki/Stirrup",
+   "quotes": [
+    "The stirrup was invented in the Chinese Jin dynasty during the 4th century, was in common use throughout China by the 5th century, and was spread across Eurasia to Europe through the nomadic peoples of Central Eurasia by the 7th or 8th century."
+   ],
+   "values": [
+    "4th century"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "event",
+   "value": 300,
+   "unit": "year (4th century)",
+   "period": "4th century",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-bow-quivers",
+   "claim": "Mongol cavalry carried quivers of 60 arrows, strapped to riders and to their horses, and two or three bows each.",
+   "url": "https://en.wikipedia.org/wiki/Mongol_military_tactics_and_organization",
+   "quotes": [
+    "Quivers containing 60 arrows were strapped to the backs of their cavalrymen and to their horses."
+   ],
+   "values": [
+    "60"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "units",
+   "value": 60,
+   "unit": "arrows per quiver",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-meritocracy",
+   "claim": "Genghis Khan turned the Mongols' tribal structure into an integrated meritocracy serving the ruling family.",
+   "url": "https://en.wikipedia.org/wiki/Genghis_Khan",
+   "quotes": [
+    "Carrying out reforms designed to ensure long-term stability, he transformed the Mongols' tribal structure into an integrated meritocracy dedicated to the service of the ruling family."
+   ],
+   "values": [
+    "meritocracy"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "event",
+   "value": 1206,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-prisoners-driven-forward",
+   "claim": "The Mongols gathered prisoners captured in earlier battles and drove them forward in sieges and battles.",
+   "url": "https://en.wikipedia.org/wiki/Mongol_military_tactics_and_organization",
+   "quotes": [
+    "The Mongols would gather prisoners captured in previous battles and would drive them forward in sieges and battles."
+   ],
+   "values": [
+    "prisoners"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "event",
+   "value": 1206,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-emperor-1804",
+   "claim": "On 18 May 1804 the Senate vested the government of the French Republic in an emperor, Napoleon.",
+   "url": "https://en.wikipedia.org/wiki/Coronation_of_Napoleon_I",
+   "quotes": [
+    "On May 18, 1804, the Sénat conservateur vested the Republican government of the French First Republic in an emperor, and preparations for the coronation followed."
+   ],
+   "values": [
+    "1804"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1804,
+   "unit": "year",
+   "period": "1804",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-crowned-himself",
+   "claim": "Napoleon decided to crown himself, so the coronation omitted the formula that showed a monarch receiving his crown from the Church.",
+   "url": "https://en.wikipedia.org/wiki/Coronation_of_Napoleon_I",
+   "quotes": [
+    "As for the omitted Roman formula Accipe coronam..., which depicted the monarch as receiving his crown from the Church, its use would have clashed with Napoleon's decision to crown himself."
+   ],
+   "values": [
+    "crown himself"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1804,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-levy-1793",
+   "claim": "In February 1793 the French National Convention decreed a national levy of about 300,000 men, a step toward the levee en masse.",
+   "url": "https://en.wikipedia.org/wiki/Lev%C3%A9e_en_masse",
+   "quotes": [
+    "This ragtag group was spread thin, and, by February 1793, the new regime needed more men, so the National Convention passed a decree on 24 February allowing for the national levy of about 300,000 with each French département to supply a quota of recruits."
+   ],
+   "values": [
+    "1793",
+    "300,000"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "units",
+   "value": 300000,
+   "unit": "men",
+   "period": "February 1793",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-grande-armee-corps",
+   "claim": "The Grande Armée consisted, on formation, of six corps led by Napoleon's marshals and senior generals.",
+   "url": "https://en.wikipedia.org/wiki/Grande_Arm%C3%A9e",
+   "quotes": [
+    "Upon its formation, it consisted of six corps led by Napoleon's marshals and senior generals."
+   ],
+   "values": [
+    "six"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "units",
+   "value": 6,
+   "unit": "corps",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-massed-artillery",
+   "claim": "After 1807 Napoleon used massed artillery as a spearhead to pound a break in the enemy's line.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "Napoleon, rather than relying on infantry to wear away the enemy's defences, could now use massed artillery as a spearhead to pound a break in the enemy's line."
+   ],
+   "values": [
+    "massed artillery"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1807,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-leipzig-1813",
+   "claim": "The Sixth Coalition defeated Napoleon at Leipzig in October 1813.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "The Sixth Coalition defeated Napoleon at Leipzig in October 1813."
+   ],
+   "values": [
+    "1813"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1813,
+   "unit": "year",
+   "period": "October 1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-waterloo-1815",
+   "claim": "The Seventh Coalition defeated Napoleon at Waterloo in June 1815 and exiled him to Saint Helena.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "The allies formed the Seventh Coalition, which defeated him at Waterloo in June 1815 and exiled him to the British island of Saint Helena, where he died in 1821."
+   ],
+   "values": [
+    "1815"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1815,
+   "unit": "year",
+   "period": "June 1815",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-vienna-congress-dates",
+   "claim": "The Congress of Vienna, chaired by Metternich, was held from September 1814 to June 1815.",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Vienna",
+   "quotes": [
+    "The Congress was chaired by Austrian statesman Klemens von Metternich (Duke Metternich)  and was held in Vienna from September 1814 to June 1815."
+   ],
+   "values": [
+    "1814",
+    "1815"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1814,
+   "unit": "year",
+   "period": "September 1814 to June 1815",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-vienna-concert-of-europe",
+   "claim": "The Vienna settlement gave birth to the Concert of Europe, which maintained the balance of powers until the First World War in 1914.",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Vienna",
+   "quotes": [
+    "The Congress of Vienna settlement gave birth to the Concert of Europe, an international political doctrine that emphasized the maintaining of political boundaries, the balance of powers, and respecting spheres of influence and which guided foreign policy among the nations of Europe until the outbreak of the First World War in 1914."
+   ],
+   "values": [
+    "1914"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1914,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-alexander-phalanx-edge",
+   "claim": "Alexander's phalanx, armed with long pikes, had a considerable advantage over the Persians' scimitars and javelins.",
+   "url": "https://en.wikipedia.org/wiki/Alexander_the_Great",
+   "quotes": [
+    "This ensured that Alexander would not be outflanked, while his phalanx, armed with long pikes, had a considerable advantage over the Persians' scimitars and javelins."
+   ],
+   "values": [
+    "long pikes"
+   ],
+   "dated2026": false,
+   "actor": "alexander",
+   "kind": "event",
+   "value": 334,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-gaugamela-wedge",
+   "claim": "At Gaugamela Alexander drew the Persian cavalry to the flanks to open a gap, then led a wedge into the weakened centre.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gaugamela",
+   "quotes": [
+    "He formed his units into a giant wedge, with him leading the charge."
+   ],
+   "values": [
+    "giant wedge"
+   ],
+   "dated2026": false,
+   "actor": "alexander",
+   "kind": "event",
+   "value": 331,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-alexander-persian-officers",
+   "claim": "Alexander gave Persians command posts and Macedonian military titles to Persian units, which his Macedonians resented.",
+   "url": "https://en.wikipedia.org/wiki/Alexander_the_Great",
+   "quotes": [
+    "After three days, unable to persuade his men to back down, Alexander gave Persians command posts in the army and conferred Macedonian military titles upon Persian units."
+   ],
+   "values": [
+    "command posts"
+   ],
+   "dated2026": false,
+   "actor": "alexander",
+   "kind": "event",
+   "value": 324,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-darius-immortals",
+   "claim": "Darius's only respectable infantry were 2,000 Greek hoplites and his 10,000 Immortals.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gaugamela",
+   "quotes": [
+    "The only respectable infantry Darius had were his 2,000 Greek hoplites[7] and his personal bodyguard, the 10,000 Immortals."
+   ],
+   "values": [
+    "2,000",
+    "10,000"
+   ],
+   "dated2026": false,
+   "actor": "persia",
+   "kind": "units",
+   "value": 12000,
+   "unit": "infantry",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-trophic-ten-percent",
+   "claim": "Only about 10% of the energy passing between trophic levels is converted to biomass, which limits the number of levels.",
+   "url": "https://en.wikipedia.org/wiki/Trophic_level",
+   "quotes": [
+    "Only about 10% of the energy transferred between each trophic level is converted to biomass."
+   ],
+   "values": [
+    "10%"
+   ],
+   "dated2026": false,
+   "actor": "trophic-pyramid",
+   "kind": "share",
+   "value": 10,
+   "unit": "% of energy passed up",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-kpg-three-quarters",
+   "claim": "The end-Cretaceous extinction killed three-quarters (75%) of plant and animal species.",
+   "url": "https://en.wikipedia.org/wiki/Cretaceous%E2%80%93Paleogene_extinction_event",
+   "quotes": [
+    "Based on marine fossils, it is estimated that 75% or more of all species became extinct."
+   ],
+   "values": [
+    "75%"
+   ],
+   "dated2026": false,
+   "actor": "mass-extinction",
+   "kind": "share",
+   "value": 75,
+   "unit": "% of species lost",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-kpg-mammals-survived",
+   "claim": "All major Late Cretaceous mammalian lineages survived the end-Cretaceous extinction, although they suffered losses.",
+   "url": "https://en.wikipedia.org/wiki/Cretaceous%E2%80%93Paleogene_extinction_event",
+   "quotes": [
+    "All major Late Cretaceous mammalian lineages, including monotremes (egg-laying mammals), multituberculates, metatherians (which includes modern marsupials), eutherians (which includes modern placentals), meridiolestidans,[150] and gondwanatheres[151] survived the K–Pg extinction event, although they suffered losses."
+   ],
+   "values": [
+    "survived"
+   ],
+   "dated2026": false,
+   "actor": "mass-extinction",
+   "kind": "event",
+   "value": 66,
+   "unit": "million years ago",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-kpg-dinosaurs-no-shelter",
+   "claim": "There is no evidence that late Maastrichtian non-avian dinosaurs could burrow, swim or dive, so they could not shelter from the worst of the stress.",
+   "url": "https://en.wikipedia.org/wiki/Cretaceous%E2%80%93Paleogene_extinction_event",
+   "quotes": [
+    "There is no evidence that late Maastrichtian non-avian dinosaurs could burrow, swim, or dive, which suggests they were unable to shelter themselves from the worst parts of any environmental stress that occurred at the K–Pg boundary."
+   ],
+   "values": [
+    "burrow"
+   ],
+   "dated2026": false,
+   "actor": "mass-extinction",
+   "kind": "event",
+   "value": 66,
+   "unit": "million years ago",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-convergent-flight",
+   "claim": "Flying insects, birds, pterosaurs and bats independently evolved flight, a classic case of convergent evolution.",
+   "url": "https://en.wikipedia.org/wiki/Convergent_evolution",
+   "quotes": [
+    "The recurrent evolution of flight is a classic example, as flying insects, birds, pterosaurs, and bats have independently evolved the useful capacity of flight."
+   ],
+   "values": [
+    "flight"
+   ],
+   "dated2026": false,
+   "actor": "convergent-evolution",
+   "kind": "event",
+   "value": 0,
+   "unit": "n/a",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-lotka-volterra",
+   "claim": "The Lotka-Volterra equations describe two species interacting, one as predator and one as prey.",
+   "url": "https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations",
+   "quotes": [
+    "The Lotka–Volterra equations, also known as the Lotka–Volterra predator–prey model, are a pair of first-order nonlinear differential equations, frequently used to describe the dynamics of biological systems in which two species interact, one as a predator and the other as prey."
+   ],
+   "values": [
+    "predator"
+   ],
+   "dated2026": false,
+   "actor": "predator-prey",
+   "kind": "event",
+   "value": 1925,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-bretton-woods-44",
+   "claim": "The Bretton Woods system set the rules of commercial relations among 44 countries after the 1944 agreement until 1976.",
+   "url": "https://en.wikipedia.org/wiki/Bretton_Woods_system",
+   "quotes": [
+    "The Bretton Woods system of monetary management established the rules for commercial relations[1] among 44 countries, including the United Kingdom, United States, Canada, European countries, and Australia, after the 1944 Bretton Woods Agreement until the Jamaica Accords in 1976."
+   ],
+   "values": [
+    "44",
+    "1944",
+    "1976"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "event",
+   "value": 1944,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-bretton-woods-gold",
+   "claim": "The United States controlled two-thirds of the world's gold and insisted that Bretton Woods rest on both gold and the dollar.",
+   "url": "https://en.wikipedia.org/wiki/Bretton_Woods_system",
+   "quotes": [
+    "The United States, which controlled two-thirds of the world's gold, insisted that the Bretton Woods system rest on both gold and the US dollar."
+   ],
+   "values": [
+    "two-thirds"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "share",
+   "value": 66.7,
+   "unit": "% of world gold",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww2-us-two-thirds-munitions",
+   "claim": "American industry produced nearly two thirds of the munitions used by Allied forces in the Second World War.",
+   "url": "https://en.wikipedia.org/wiki/World_War_II",
+   "quotes": [
+    "By producing nearly two thirds of the munitions used by Allied forces – including huge numbers of aircraft, ships, tanks, trucks, rifles, artillery shells, and bombs – American industry became what President Franklin D."
+   ],
+   "values": [
+    "two thirds"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "share",
+   "value": 66.7,
+   "unit": "% of Allied munitions",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww2-crude-oil",
+   "claim": "Allied crude oil output was 1,043,000,000 tonnes against 66,000,000 for the Axis.",
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quotes": [
+    "Crude oil 1,043,000,000 66,000,000"
+   ],
+   "values": [
+    "1,043,000,000",
+    "66,000,000"
+   ],
+   "dated2026": false,
+   "actor": "allies",
+   "kind": "share",
+   "value": 94,
+   "unit": "% of combined crude oil (Allies share)",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "tonnes: Allies 1,043,000,000; Axis 66,000,000"
+  },
+  {
+   "id": "archetypes-ww2-roosevelt-185000-aircraft",
+   "claim": "In 1939 US military aircraft production was under 3,000 planes a year; Roosevelt called for 185,000 aeroplanes and 120,000 tanks in two years.",
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quotes": [
+    "Roosevelt called for the production of 185,000 aeroplanes, 120,000 tanks, 55,000 anti-aircraft guns and 18 million tons of merchant shipping in two years."
+   ],
+   "values": [
+    "185,000",
+    "120,000"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "units",
+   "value": 185000,
+   "unit": "aeroplanes called for (1940 target)",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww2-hitler-propaganda",
+   "claim": "Hitler was told by his advisors that Roosevelt's target was American propaganda; in 1939 US military aircraft production was under 3,000.",
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quotes": [
+    "Adolf Hitler was told by his advisors that this was American propaganda; in 1939, annual aircraft production for the US military was less than 3,000 planes."
+   ],
+   "values": [
+    "3,000"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "units",
+   "value": 3000,
+   "unit": "planes (1939, upper bound)",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww2-germany-resource-dependence",
+   "claim": "Germany's military production was tied to resources outside its area of control, a great disadvantage against the Allies.",
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quotes": [
+    "Germany's military production was tied to resources outside its area of control, a great disadvantage as compared to the Allies."
+   ],
+   "values": [
+    "resources outside"
+   ],
+   "dated2026": false,
+   "actor": "germany",
+   "kind": "event",
+   "value": 1939,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-gaugamela-outnumbered",
+   "claim": "Heavily outnumbered at Gaugamela, the Macedonian army won through superior tactics and clever use of light infantry.",
+   "url": "https://en.wikipedia.org/wiki/Battle_of_Gaugamela",
+   "quotes": [
+    "Despite being heavily outnumbered, the Army of Macedon emerged victorious due to the employment of superior tactics and the clever usage of light infantry forces."
+   ],
+   "values": [
+    "outnumbered"
+   ],
+   "dated2026": false,
+   "actor": "alexander",
+   "kind": "event",
+   "value": 331,
+   "unit": "year",
+   "period": "331 BC",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-chinese-engineers",
+   "claim": "One thousand North Chinese engineer squads accompanied Hulagu Khan in his conquest of the Middle East.",
+   "url": "https://en.wikipedia.org/wiki/Mongol_conquests",
+   "quotes": [
+    "One thousand North Chinese engineer squads accompanied the Mongol Hulagu Khan during his conquest of the Middle East."
+   ],
+   "values": [
+    "One thousand"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "units",
+   "value": 1000,
+   "unit": "engineer squads",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-muslim-engineers-1273",
+   "claim": "In 1273 the Mongols enlisted two Muslim engineers, one from Persia and one from Syria, who built counterweight trebuchets.",
+   "url": "https://en.wikipedia.org/wiki/Military_of_the_Mongol_Empire",
+   "quotes": [
+    "They ultimately succeeded in reaching the city walls but in 1273, the Mongols enlisted the expertise of two Muslim engineers, one from Persia and one from Syria, who helped in the construction of counterweight trebuchets."
+   ],
+   "values": [
+    "1273"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "event",
+   "value": 1273,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-mongol-unite-tribes-1206",
+   "claim": "By 1206 Genghis Khan had conquered all Mongol and Turkic tribes in Mongolia and southern Siberia.",
+   "url": "https://en.wikipedia.org/wiki/Mongol_conquests",
+   "quotes": [
+    "By 1206, Genghis Khan had conquered all Mongol and Turkic tribes in Mongolia and southern Siberia."
+   ],
+   "values": [
+    "1206"
+   ],
+   "dated2026": false,
+   "actor": "mongols",
+   "kind": "event",
+   "value": 1206,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-lendlease-total",
+   "claim": "US Lend-Lease shipped $50.1 billion of supplies, 17 per cent of US war expenditures.",
+   "url": "https://en.wikipedia.org/wiki/Lend-Lease",
+   "quotes": [
+    "A total of $50.1 billion (equivalent to $709 billion in 2025 when accounting for inflation) worth of supplies was shipped, or 17 per cent of the total war expenditures of the US."
+   ],
+   "values": [
+    "50.1",
+    "17 per cent"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 50.1,
+   "unit": "USD bn (1940s dollars, 1941-1945)",
+   "period": "1941-1945",
+   "from": "us-gov",
+   "to": "allies",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-lendlease-uk",
+   "claim": "Of Lend-Lease supplies, $31.4 billion went to the United Kingdom and $11.3 billion to the Soviet Union.",
+   "url": "https://en.wikipedia.org/wiki/Lend-Lease",
+   "quotes": [
+    "In all, $31.4 billion went to the United Kingdom, $11.3 billion to the Soviet Union, $3.2 billion to France, $1.6 billion to China, and the remaining $2.6 billion to other Allies."
+   ],
+   "values": [
+    "31.4",
+    "11.3"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 31.4,
+   "unit": "USD bn (1940s dollars, 1941-1945)",
+   "period": "1941-1945",
+   "from": "us-gov",
+   "to": "united-kingdom",
+   "accessed": "2026-11-07",
+   "notes": "UK total 31.4; USSR 11.3"
+  },
+  {
+   "id": "archetypes-ww1-german-steel-1893",
+   "claim": "German steel production surpassed Britain's in 1893 and almost doubled the British effort by the outbreak of the First World War.",
+   "url": "https://courses.worldcampus.psu.edu/welcome/hist120/samplecontent/lesson04_08.html",
+   "quotes": [
+    "German steel production, the major index of industrial power, for example, surpassed that of Britain in 1893 and had almost doubled the British effort by the outbreak of the First World War."
+   ],
+   "values": [
+    "1893"
+   ],
+   "dated2026": false,
+   "actor": "germany",
+   "kind": "event",
+   "value": 1893,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-us-1950-share-of-activity",
+   "claim": "In 1950 the United States had 6.0 percent of world population, 27.3 percent of all economic activity and 66.3 percent of world military expenditure.",
+   "url": "https://www.cambridge.org/core/books/cambridge-history-of-america-and-the-world/introduction-to-volume-iv/0AB3FB2ABC09C57EB0F60C5242507BD9",
+   "quotes": [
+    "Indexes of that power abound: In 1950, for instance, the United States accounted for only 6.0 percent of the world population – but 27.3 percent of all economic activity (and a far larger share of industrial production), along with 66.3 percent of world military expenditure."
+   ],
+   "values": [
+    "27.3",
+    "6.0",
+    "66.3"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "share",
+   "value": 27.3,
+   "unit": "% of world economic activity",
+   "period": "1950",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww1-us-joined-1917",
+   "claim": "The United States joined the Allies in April 1917 after Germany resumed unrestricted submarine warfare.",
+   "url": "https://en.wikipedia.org/wiki/World_War_I",
+   "quotes": [
+    "In April 1917, the United States joined the Allies after Germany resumed unrestricted submarine warfare against Atlantic shipping."
+   ],
+   "values": [
+    "1917"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "event",
+   "value": 1917,
+   "unit": "year",
+   "period": "April 1917",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww1-schlieffen-80",
+   "claim": "Under the Schlieffen Plan 80% of the German Army was on the Western Front, with the remainder screening the East.",
+   "url": "https://en.wikipedia.org/wiki/World_War_I",
+   "quotes": [
+    "Upon mobilisation, in accordance with the Schlieffen Plan, 80% of the German Army was located on the Western Front, with the remainder acting as a screening force in the East."
+   ],
+   "values": [
+    "80%"
+   ],
+   "dated2026": false,
+   "actor": "germany",
+   "kind": "share",
+   "value": 80,
+   "unit": "% of army in the West",
+   "period": "1914",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww2-us-enters-1941",
+   "claim": "In December 1941 Japan attacked American and British territories including Pearl Harbor, leading the United States to enter the war.",
+   "url": "https://en.wikipedia.org/wiki/World_War_II",
+   "quotes": [
+    "In December 1941, Japan attacked American and British territories in Asia and the Pacific, including Pearl Harbor in Hawaii, leading the United States to enter the war against the Axis."
+   ],
+   "values": [
+    "1941"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "event",
+   "value": 1941,
+   "unit": "year",
+   "period": "December 1941",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-lynx-hare-cycle",
+   "claim": "The Canada lynx population rises and falls with snowshoe hare populations in a prey-predator cycle.",
+   "url": "https://en.wikipedia.org/wiki/Canada_lynx",
+   "quotes": [
+    "This leads to a prey-predator cycle, as the Canada lynx population responds to the cyclic rises and falls in snowshoe hare populations over the years in Alaska and central Canada."
+   ],
+   "values": [
+    "prey-predator cycle"
+   ],
+   "dated2026": false,
+   "actor": "predator-prey",
+   "kind": "event",
+   "value": 0,
+   "unit": "n/a",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-six-days-1814",
+   "claim": "In the Six Days' Campaign of February 1814 the 30,000-man Grande Armée inflicted 20,000 casualties on Blucher's scattered corps at a cost of just 2,000.",
+   "url": "https://en.wikipedia.org/wiki/Grande_Arm%C3%A9e",
+   "quotes": [
+    "In the Six Days' Campaign of February 1814, the 30,000-man Grande Armée inflicted 20,000 casualties on Field Marshal Gebhard Leberecht von Blücher's scattered corps at a cost of just 2,000 for themselves."
+   ],
+   "values": [
+    "30,000",
+    "20,000",
+    "2,000"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "units",
+   "value": 30000,
+   "unit": "men",
+   "period": "February 1814",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-ww2-coal-allies-axis",
+   "claim": "Allied coal output was 4,581,400,000 tonnes against 2,629,900,000 for the Axis.",
+   "url": "https://en.wikipedia.org/wiki/Military_production_during_World_War_II",
+   "quotes": [
+    "Coal 4,581,400,000 2,629,900,000"
+   ],
+   "values": [
+    "4,581,400,000",
+    "2,629,900,000"
+   ],
+   "dated2026": false,
+   "actor": "allies",
+   "kind": "share",
+   "value": 63.5,
+   "unit": "% of combined coal (Allies share)",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "tonnes: Allies 4,581,400,000; Axis 2,629,900,000"
+  },
+  {
+   "id": "archetypes-napoleon-jena-1806",
+   "claim": "The Grande Armee advanced with the bataillon-carre system and decisively defeated the Prussians at Jena and Auerstedt on 14 October 1806.",
+   "url": "https://en.wikipedia.org/wiki/Grande_Arm%C3%A9e",
+   "quotes": [
+    "The Grande Armée advanced into Prussian territory with the famed bataillon-carré (battalion square) system, whereby corps marched in close supporting distances and became vanguards, rearguards, or flank forces as the situation demanded, and decisively defeated the Prussians at Jena and Auerstedt, both fought on 14 October 1806."
+   ],
+   "values": [
+    "1806"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1806,
+   "unit": "year",
+   "period": "14 October 1806",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-napoleon-levy-conscripts",
+   "claim": "Depending on the source, the number of men conscripted by the French levy ranges from 750,000 to around 800,000.",
+   "url": "https://en.wikipedia.org/wiki/Lev%C3%A9e_en_masse",
+   "quotes": [
+    "Depending on the source, the exact number of those conscripted ranges from 750,000 to around 800,000."
+   ],
+   "values": [
+    "750,000"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "units",
+   "value": 750000,
+   "unit": "men (lower figure)",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "archetypes-vienna-chaumont",
+   "claim": "The Treaty of Chaumont became the cornerstone of the European Alliance that formed the balance of power for decades.",
+   "url": "https://en.wikipedia.org/wiki/Congress_of_Vienna",
+   "quotes": [
+    "The Treaty of Chaumont became the cornerstone of the European Alliance that formed the balance of power for decades."
+   ],
+   "values": [
+    "Chaumont"
+   ],
+   "dated2026": false,
+   "actor": "napoleon",
+   "kind": "event",
+   "value": 1814,
+   "unit": "year",
+   "period": "",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "mongols",
+   "name": "Mongol Empire",
+   "kind": "state",
+   "country": "Mongolia",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1206,
+   "role": "a steppe army-state organised as one mounted war machine",
+   "powers": [
+    "process power",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "couriers and scouts, and engineers captured from the Chinese and Persian worlds",
+    "execution": "three or four horses per rider, the composite bow, tribal units rebuilt as a meritocracy",
+    "environment": "the steppe itself: horses, grass and mobility; settled rivals who could not catch it"
+   },
+   "advantage": "The stirrup was not unique to the Mongols: it was invented in China in the 4th century. Their advantage was the system: horse herds that let every rider change mounts, a bow made for the saddle, a loyalty-based meritocracy, and the absorption of the defeated, whose engineers and soldiers they put to work.",
+   "standsOn": [
+    "steppe-horse-economy"
+   ],
+   "competitors": [
+    "jin-dynasty",
+    "khwarazm"
+   ],
+   "customers": [],
+   "desire": "to unite the tribes and rule the settled world",
+   "fear": "a split among the khan's heirs; loss of long-term loyalty of the conquered",
+   "facts": [
+    "archetypes-mongol-horses-per-soldier",
+    "archetypes-mongol-empire-extent",
+    "archetypes-stirrup-chinese-origin",
+    "archetypes-mongol-bow-quivers",
+    "archetypes-mongol-meritocracy",
+    "archetypes-mongol-prisoners-driven-forward",
+    "archetypes-mongol-chinese-engineers",
+    "archetypes-mongol-muslim-engineers-1273",
+    "archetypes-mongol-unite-tribes-1206"
+   ]
+  },
+  {
+   "id": "alexander",
+   "name": "Alexander and Macedon",
+   "kind": "state",
+   "country": "Macedon",
+   "layer": "history",
+   "sector": "history",
+   "founded": -336,
+   "role": "a professional army with a pike phalanx and a decisive cavalry arm",
+   "powers": [
+    "process power",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "tactics fitted to the enemy's layout",
+    "execution": "phalanx with long pikes; Companion cavalry leading a wedge",
+    "environment": "a state and an army built by his father; a divided, overstretched Persia"
+   },
+   "advantage": "Pike phalanx held the line while the Companion cavalry struck at the point where the Persian line opened. After Gaugamela he took Persians into his command structure, which grew the army but strained the loyalty of Macedonians.",
+   "standsOn": [
+    "macedon-state"
+   ],
+   "competitors": [
+    "persia"
+   ],
+   "customers": [],
+   "desire": "to rule Asia",
+   "fear": "a mutiny of exhausted troops",
+   "facts": [
+    "archetypes-alexander-phalanx-edge",
+    "archetypes-gaugamela-wedge",
+    "archetypes-gaugamela-outnumbered",
+    "archetypes-alexander-persian-officers"
+   ]
+  },
+  {
+   "id": "persia",
+   "name": "Achaemenid Persia",
+   "kind": "state",
+   "country": "Persia",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "a huge multi-ethnic empire with an expensive, uneven army",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "a king at the centre of his line",
+    "execution": "scythed chariots, cavalry from the satrapies, only 12,000 first-rate infantry",
+    "environment": "size and wealth; open ground chosen by Darius"
+   },
+   "advantage": "Numbers and wealth that could not be turned into a coherent line when the king's position was struck.",
+   "standsOn": [],
+   "competitors": [
+    "alexander"
+   ],
+   "customers": [],
+   "desire": "to hold the empire",
+   "fear": "a decapitation blow to the centre",
+   "facts": [
+    "archetypes-darius-immortals"
+   ]
+  },
+  {
+   "id": "napoleon",
+   "name": "Napoleonic France",
+   "kind": "state",
+   "country": "France",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1799,
+   "role": "a revolutionary mass army with a corps system and massed artillery",
+   "powers": [
+    "scale economies",
+    "process power",
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "staff and speed of decision",
+    "execution": "corps able to march apart and fight together; massed artillery as a spearhead",
+    "environment": "a revolution that made mass conscription legitimate and removed monarchies' dependence on God-given rule"
+   },
+   "advantage": "The levy of 1793 filled the ranks, the corps system let them move and mass faster than rivals, and artillery broke the line. After 1804 the crown was taken, not given by the Church; the empire then pressed the whole continent out of balance.",
+   "standsOn": [
+    "france-revolution"
+   ],
+   "competitors": [
+    "coalitions"
+   ],
+   "customers": [],
+   "desire": "to dominate the continent",
+   "fear": "a coalition of every power at once",
+   "facts": [
+    "archetypes-napoleon-levy-1793",
+    "archetypes-napoleon-grande-armee-corps",
+    "archetypes-napoleon-massed-artillery",
+    "archetypes-napoleon-emperor-1804",
+    "archetypes-napoleon-crowned-himself",
+    "archetypes-napoleon-six-days-1814"
+   ]
+  },
+  {
+   "id": "coalitions",
+   "name": "The Coalitions against Napoleon",
+   "kind": "bloc",
+   "country": "Europe",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "Austria, Prussia, Russia and Britain acting together",
+   "powers": [
+    "network economies"
+   ],
+   "triad": {
+    "information": "shared intelligence among allies",
+    "execution": "joint campaigns, Treaty of Chaumont",
+    "environment": "a continent's combined population and resources"
+   },
+   "advantage": "No single power could beat the corps system, but combined powers wore it down: Leipzig, then Waterloo, then the Vienna settlement.",
+   "standsOn": [
+    "britain-navy-finance"
+   ],
+   "competitors": [
+    "napoleon"
+   ],
+   "customers": [],
+   "desire": "to restore a balance",
+   "fear": "a single hegemon",
+   "facts": [
+    "archetypes-napoleon-leipzig-1813",
+    "archetypes-napoleon-waterloo-1815",
+    "archetypes-vienna-chaumont",
+    "archetypes-vienna-congress-dates",
+    "archetypes-vienna-concert-of-europe"
+   ]
+  },
+  {
+   "id": "germany",
+   "name": "Germany 1914-1945",
+   "kind": "state",
+   "country": "Germany",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "Europe's largest industrial power, twice pushed out of balance",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "science and engineering",
+    "execution": "industrial and staff excellence",
+    "environment": "a central position surrounded by rivals on two fronts"
+   },
+   "advantage": "German steel passed Britain's in 1893, and it was the strongest economy on the Continent; but its military production depended on resources outside its control and it fought on two fronts.",
+   "standsOn": [],
+   "competitors": [
+    "allies"
+   ],
+   "customers": [],
+   "desire": "to be the dominant continental power",
+   "fear": "encirclement and blockade",
+   "facts": [
+    "archetypes-ww1-german-steel-1893",
+    "archetypes-ww1-schlieffen-80",
+    "archetypes-ww2-germany-resource-dependence"
+   ]
+  },
+  {
+   "id": "allies",
+   "name": "The Allies of the World Wars",
+   "kind": "bloc",
+   "country": "UK, US, USSR",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "a coalition with the larger resource base",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "shared intelligence, radar, the Manhattan Project",
+    "execution": "industrial mobilisation",
+    "environment": "oil, coal and steel on their side of the ledger"
+   },
+   "advantage": "Allied crude oil output was about 94 per cent of the combined Allied-Axis total, and coal about 64 per cent; American industry made nearly two thirds of Allied munitions.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "germany"
+   ],
+   "customers": [],
+   "desire": "to win",
+   "fear": "a separate peace, or a defeat before US mobilisation",
+   "facts": [
+    "archetypes-ww2-crude-oil",
+    "archetypes-ww2-coal-allies-axis",
+    "archetypes-lendlease-total",
+    "archetypes-ww1-us-joined-1917"
+   ]
+  },
+  {
+   "id": "us-gov",
+   "name": "United States (1941-1950)",
+   "kind": "state",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "a state with an untouched industrial base and the world's reserve",
+   "powers": [
+    "scale economies",
+    "cornered resource",
+    "process power"
+   ],
+   "triad": {
+    "information": "a research and industry base",
+    "execution": "assembly-line mobilisation",
+    "environment": "an ocean on either side; two thirds of the world's gold; most of the world's economic activity"
+   },
+   "advantage": "The war enlarged the US economy while rivals' were destroyed; Bretton Woods then wrote its currency into the rules of trade.",
+   "standsOn": [],
+   "competitors": [
+    "germany"
+   ],
+   "customers": [
+    "allies"
+   ],
+   "desire": "to shape the post-war order",
+   "fear": "a repeat of the interwar collapse",
+   "facts": [
+    "archetypes-ww2-us-two-thirds-munitions",
+    "archetypes-ww2-roosevelt-185000-aircraft",
+    "archetypes-ww2-hitler-propaganda",
+    "archetypes-bretton-woods-44",
+    "archetypes-bretton-woods-gold",
+    "archetypes-us-1950-share-of-activity",
+    "archetypes-ww2-us-enters-1941"
+   ]
+  },
+  {
+   "id": "united-kingdom",
+   "name": "United Kingdom",
+   "kind": "state",
+   "country": "UK",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "an island empire with a navy and merchant fleet",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "empire-wide intelligence",
+    "execution": "convoy and radar",
+    "environment": "the sea"
+   },
+   "advantage": "Sea power and finance let it fund coalitions in 1815 and 1941.",
+   "standsOn": [],
+   "competitors": [
+    "germany"
+   ],
+   "customers": [],
+   "desire": "to hold the balance",
+   "fear": "invasion or starvation",
+   "facts": [
+    "archetypes-lendlease-uk"
+   ]
+  },
+  {
+   "id": "trophic-pyramid",
+   "name": "The trophic pyramid",
+   "kind": "biosphere",
+   "country": "Earth",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "energy passed up from producers to predators",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "n/a",
+    "execution": "n/a",
+    "environment": "the sun, photosynthesis"
+   },
+   "advantage": "Only about 10% of energy passes up each level, so predators are few and need a large prey base; a falling prey base is felt hardest at the top.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "energy",
+   "fear": "loss of the prey base",
+   "facts": [
+    "archetypes-trophic-ten-percent"
+   ]
+  },
+  {
+   "id": "predator-prey",
+   "name": "Predator and prey",
+   "kind": "biosphere",
+   "country": "Earth",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "a pair of populations that regulate each other",
+   "powers": [
+    "network economies"
+   ],
+   "triad": {
+    "information": "n/a",
+    "execution": "n/a",
+    "environment": "habitat"
+   },
+   "advantage": "Predator numbers follow prey numbers, and prey numbers recover when predators fall; no side wins for long.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "prey",
+   "fear": "starvation",
+   "facts": [
+    "archetypes-lotka-volterra",
+    "archetypes-lynx-hare-cycle"
+   ]
+  },
+  {
+   "id": "mass-extinction",
+   "name": "Survivors of mass extinction",
+   "kind": "biosphere",
+   "country": "Earth",
+   "layer": "history",
+   "sector": "history",
+   "founded": -66000000,
+   "role": "lineages that can shelter, eat little and adapt",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "n/a",
+    "execution": "small body, burrowing, diverse diet",
+    "environment": "an asteroid impact and its aftermath"
+   },
+   "advantage": "Dinosaurs could not shelter or burrow and died; all the main mammal lineages survived, with losses, and later radiated.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "survival",
+   "fear": "environmental shock",
+   "facts": [
+    "archetypes-kpg-three-quarters",
+    "archetypes-kpg-mammals-survived",
+    "archetypes-kpg-dinosaurs-no-shelter"
+   ]
+  },
+  {
+   "id": "convergent-evolution",
+   "name": "Convergent evolution",
+   "kind": "biosphere",
+   "country": "Earth",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "unrelated lineages reaching the same solution",
+   "powers": [],
+   "triad": {
+    "information": "n/a",
+    "execution": "n/a",
+    "environment": "the same environmental problem"
+   },
+   "advantage": "Insects, birds, pterosaurs and bats each evolved flight independently: an environment shapes its organisms.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "fit",
+   "fear": "mismatch",
+   "facts": [
+    "archetypes-convergent-flight"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "archetypes-flow-us-allies-lendlease",
+   "from": "us-gov",
+   "to": "allies",
+   "usdBnPerYear": 12.5,
+   "what": "Lend-Lease supplies",
+   "period": "1941-1945",
+   "basis": "reported",
+   "kind": "contract",
+   "fact": "archetypes-lendlease-total",
+   "notes": "$50.1 billion total in 1940s dollars over about four years; yearly rate is the total divided by 4 (an average, not a reported yearly figure)."
+  },
+  {
+   "id": "archetypes-flow-us-uk-lendlease",
+   "from": "us-gov",
+   "to": "united-kingdom",
+   "usdBnPerYear": 7.85,
+   "what": "Lend-Lease supplies to the UK",
+   "period": "1941-1945",
+   "basis": "reported",
+   "kind": "contract",
+   "fact": "archetypes-lendlease-uk",
+   "notes": "$31.4 billion total in 1940s dollars over about four years; yearly rate is the total divided by 4."
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "mongols",
+   "controls": "the horse-and-bow system across the steppe",
+   "share": "no settled rival matched its mobility",
+   "alternatives": "fortified cities, until Mongol engineers took them",
+   "facts": [
+    "archetypes-mongol-horses-per-soldier",
+    "archetypes-mongol-chinese-engineers"
+   ]
+  },
+  {
+   "actor": "us-gov",
+   "controls": "the dollar and gold convertibility",
+   "share": "two thirds of the world's gold in 1944",
+   "alternatives": "none until Bretton Woods ended in the 1970s",
+   "facts": [
+    "archetypes-bretton-woods-gold",
+    "archetypes-bretton-woods-44"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-mongols-vs-jin",
+   "year": 1215,
+   "date": "",
+   "era": "archetype",
+   "holder": "mongols",
+   "rivals": [
+    "jin-dynasty",
+    "khwarazm"
+   ],
+   "title": "The steppe system against walled cities",
+   "advantage": "mobility plus captured engineers",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Rider mobility took the field; captured engineers and prisoners took the walls.",
+   "outcome": "By 1227 the empire ran from the Pacific to the Caspian, the largest contiguous state in history.",
+   "facts": [
+    "archetypes-mongol-horses-per-soldier",
+    "archetypes-mongol-chinese-engineers",
+    "archetypes-mongol-prisoners-driven-forward",
+    "archetypes-mongol-empire-extent"
+   ]
+  },
+  {
+   "id": "fp-gaugamela",
+   "year": -331,
+   "date": "331 BC",
+   "era": "archetype",
+   "holder": "alexander",
+   "rivals": [
+    "persia"
+   ],
+   "title": "Gaugamela",
+   "advantage": "pike line plus a cavalry wedge",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Cavalry drew Persian horse to the flanks and the wedge struck the centre.",
+   "outcome": "A heavily outnumbered Macedonian army won; the Achaemenid empire broke.",
+   "facts": [
+    "archetypes-gaugamela-wedge",
+    "archetypes-gaugamela-outnumbered",
+    "archetypes-alexander-phalanx-edge",
+    "archetypes-darius-immortals"
+   ]
+  },
+  {
+   "id": "fp-napoleon-jena",
+   "year": 1806,
+   "date": "1806-10-14",
+   "era": "archetype",
+   "holder": "napoleon",
+   "rivals": [
+    "coalitions"
+   ],
+   "title": "Jena and Auerstedt",
+   "advantage": "corps system plus massed artillery",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Corps marched apart and fought together, with artillery spearheading.",
+   "outcome": "The Prussian army was broken on 14 October 1806.",
+   "facts": [
+    "archetypes-napoleon-jena-1806",
+    "archetypes-napoleon-grande-armee-corps",
+    "archetypes-napoleon-massed-artillery"
+   ]
+  },
+  {
+   "id": "fp-napoleon-coalition",
+   "year": 1815,
+   "date": "",
+   "era": "archetype",
+   "holder": "coalitions",
+   "rivals": [
+    "napoleon"
+   ],
+   "title": "The coalitions restore the balance",
+   "advantage": "combined resources",
+   "power": "network economies",
+   "triad": "environment",
+   "mechanism": "Austria, Prussia, Russia and Britain acted together after 1813.",
+   "outcome": "Leipzig (1813) and Waterloo (1815); the Vienna settlement kept a balance of powers until 1914.",
+   "facts": [
+    "archetypes-napoleon-leipzig-1813",
+    "archetypes-napoleon-waterloo-1815",
+    "archetypes-vienna-concert-of-europe"
+   ]
+  },
+  {
+   "id": "fp-ww2-industrial-edge",
+   "year": 1941,
+   "date": "",
+   "era": "archetype",
+   "holder": "allies",
+   "rivals": [
+    "germany"
+   ],
+   "title": "Industrial weight decides the Second World War",
+   "advantage": "oil, coal and steel on the Allied side",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "Allied output dwarfed Axis output; the US supplied two thirds of Allied munitions.",
+   "outcome": "Allied crude oil was 1,043,000,000 tonnes against 66,000,000.",
+   "facts": [
+    "archetypes-ww2-crude-oil",
+    "archetypes-ww2-coal-allies-axis",
+    "archetypes-ww2-us-two-thirds-munitions",
+    "archetypes-lendlease-total"
+   ]
+  },
+  {
+   "id": "fp-bretton-woods",
+   "year": 1944,
+   "date": "",
+   "era": "archetype",
+   "holder": "us-gov",
+   "rivals": [
+    "united-kingdom"
+   ],
+   "title": "Bretton Woods",
+   "advantage": "control of the world's gold and the dollar",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "The dollar became the anchor of a 44-country order.",
+   "outcome": "The US held two thirds of the world's gold; by 1950 it had 27.3 percent of world economic activity.",
+   "facts": [
+    "archetypes-bretton-woods-gold",
+    "archetypes-bretton-woods-44",
+    "archetypes-us-1950-share-of-activity"
+   ]
+  },
+  {
+   "id": "fp-kpg",
+   "year": -66000000,
+   "date": "",
+   "era": "biosphere",
+   "holder": "mass-extinction",
+   "rivals": [
+    "trophic-pyramid"
+   ],
+   "title": "The end-Cretaceous extinction",
+   "advantage": "adaptability to shock",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Animals that could shelter and eat little outlived the impact winter.",
+   "outcome": "About 75% of species died; non-avian dinosaurs could not shelter, mammal lineages survived with losses.",
+   "facts": [
+    "archetypes-kpg-three-quarters",
+    "archetypes-kpg-mammals-survived",
+    "archetypes-kpg-dinosaurs-no-shelter"
+   ]
+  },
+  {
+   "id": "fp-lynx-hare",
+   "year": 1925,
+   "date": "",
+   "era": "biosphere",
+   "holder": "predator-prey",
+   "rivals": [],
+   "title": "The predator-prey cycle",
+   "advantage": "coupled populations",
+   "power": "network economies",
+   "triad": "environment",
+   "mechanism": "Predator numbers follow prey numbers; the cycle repeats.",
+   "outcome": "Lynx rise and fall with hare, in Alaska and central Canada.",
+   "facts": [
+    "archetypes-lotka-volterra",
+    "archetypes-lynx-hare-cycle"
+   ]
+  }
+ ],
+ "lineage": [
+  {
+   "from": "jin-dynasty",
+   "to": "mongols",
+   "year": 1215,
+   "how": "captured engineers and soldiers were put to work against the next city",
+   "facts": [
+    "archetypes-mongol-chinese-engineers"
+   ]
+  },
+  {
+   "from": "persia",
+   "to": "alexander",
+   "year": -330,
+   "how": "Persians given command posts in Alexander's army",
+   "facts": [
+    "archetypes-alexander-persian-officers"
+   ]
+  },
+  {
+   "from": "napoleon",
+   "to": "coalitions",
+   "year": 1813,
+   "how": "Sixth Coalition formed after the retreat",
+   "facts": [
+    "archetypes-napoleon-leipzig-1813"
+   ]
+  },
+  {
+   "from": "germany",
+   "to": "us-gov",
+   "year": 1945,
+   "how": "allied victory, Bretton Woods, and the shift of the world's industrial centre",
+   "facts": [
+    "archetypes-bretton-woods-gold",
+    "archetypes-us-1950-share-of-activity"
+   ]
+  }
+ ],
+ "notes": "Unverified or contested: German total industrial output versus Britain's before 1914 (steel is clear; overall productivity is debated by economic historians); the US share of world GDP in 1945 (secondary sources say about half of manufacturing capacity; the only sourced figure here is 27.3 percent of world economic activity in 1950); Mongol decimal units (arban, jaghun, mingghan, tumen) were not on a fetched page; Alexander's and Darius's numbers at Gaugamela vary widely between ancient and modern sources. Premise corrections: stirrups were invented in China by the 4th century, not by the Mongols; Napoleon crowned himself emperor in 1804 after the Senate vested the government in an emperor, and the Revolution had ended divine-right monarchy in France; Germany was the leading continental industrial power but the Allied bloc held far more oil, coal and steel.",
+ "openQuestions": [
+  "Should the app show the tiny US-to-world-GDP share for 1945, or use the 1950 figure from the Cambridge History?",
+  "Is the Lend-Lease yearly rate (total divided by four) acceptable as a river?",
+  "Which Mongol decimal-organisation source should be fetched to add the arban/tumen structure?"
+ ]
+}

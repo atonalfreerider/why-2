@@ -1,0 +1,2361 @@
+{
+ "cluster": "lineage",
+ "asOf": "2026-11-07",
+ "scope": "The advantage chain from the 1947 transistor to the 2026 AI economy.",
+ "facts": [
+  {
+   "id": "lineage-bell-transistor-1947",
+   "claim": "Bell Laboratories' John Bardeen, Walter Brattain and William Shockley invented the transistor in 1947.",
+   "url": "https://en.wikipedia.org/wiki/Bell_Labs",
+   "quotes": [
+    "In 1947, the transistor, arguably the most important invention developed by Bell Laboratories, was invented by John Bardeen, Walter Houser Brattain, and William Bradford Shockley (who subsequently shared the Nobel Prize in Physics in 1956)."
+   ],
+   "values": [
+    "1947"
+   ],
+   "dated2026": false,
+   "actor": "bell-labs",
+   "kind": "event",
+   "value": 1947,
+   "unit": "year",
+   "period": "1947",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nobel-1956",
+   "claim": "The 1956 Nobel Prize in Physics went jointly to Shockley, Bardeen and Brattain for the transistor effect.",
+   "url": "https://www.nobelprize.org/prizes/physics/1956/summary/",
+   "quotes": [
+    "The Nobel Prize in Physics 1956 was awarded jointly to William Bradford Shockley, John Bardeen and Walter Houser Brattain \"for their researches on semiconductors and their discovery of the transistor effect\""
+   ],
+   "values": [
+    "1956"
+   ],
+   "dated2026": false,
+   "actor": "bell-labs",
+   "kind": "event",
+   "value": 1956,
+   "unit": "year",
+   "period": "1956",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-shockley-lab-1955",
+   "claim": "Shockley Semiconductor Laboratory was founded by William Shockley in 1955 with funding from Beckman Instruments.",
+   "url": "https://en.wikipedia.org/wiki/Shockley_Semiconductor_Laboratory",
+   "quotes": [
+    "Shockley Semiconductor Laboratory, later known as Shockley Transistor Corporation, was a pioneering semiconductor developer founded by William Shockley, and funded by Beckman Instruments, Inc., in 1955."
+   ],
+   "values": [
+    "1955"
+   ],
+   "dated2026": false,
+   "actor": "shockley-semiconductor",
+   "kind": "event",
+   "value": 1955,
+   "unit": "year",
+   "period": "1955",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-traitorous-eight-names",
+   "claim": "Eight Shockley Semiconductor engineers left to start their own company.",
+   "url": "https://en.wikipedia.org/wiki/Traitorous_eight",
+   "quotes": [
+    "The eight who left Shockley Semiconductor were Julius Blank, Victor Grinich, Jean Hoerni, Eugene Kleiner, Jay Last, Gordon Moore, Robert Noyce, and Sheldon Roberts."
+   ],
+   "values": [
+    "eight"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "headcount",
+   "value": 8,
+   "unit": "people",
+   "period": "1957",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-fairchild-founded-1957",
+   "claim": "The eight formed Fairchild Semiconductor on 18 September 1957 after agreeing terms with Sherman Fairchild in August.",
+   "url": "https://en.wikipedia.org/wiki/Traitorous_eight",
+   "quotes": [
+    "In August 1957, they reached an agreement with Sherman Fairchild, and on September 18, 1957, they formed Fairchild Semiconductor."
+   ],
+   "values": [
+    "1957"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1957,
+   "unit": "year",
+   "period": "1957-09-18",
+   "from": "shockley-semiconductor",
+   "to": "fairchild",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-fairchildren-1960",
+   "claim": "By 1960 Fairchild was an incubator of Silicon Valley whose alumni created dozens of corporations, including Intel and AMD.",
+   "url": "https://en.wikipedia.org/wiki/Traitorous_eight",
+   "quotes": [
+    "In 1960, it became an incubator of Silicon Valley and was directly or indirectly involved in the creation of dozens of corporations, including Intel and AMD."
+   ],
+   "values": [
+    "1960"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1960,
+   "unit": "year",
+   "period": "1960",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-fairchild-planar-1959",
+   "claim": "Fairchild developed the planar process in 1959.",
+   "url": "https://en.wikipedia.org/wiki/Planar_process",
+   "quotes": [
+    "The planar process was developed at Fairchild Semiconductor in 1959 and it proved to be one of the most important single advances in semiconductor technology."
+   ],
+   "values": [
+    "1959"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1959,
+   "unit": "year",
+   "period": "1959",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-bell-passivation-preprint-1956",
+   "claim": "Shockley circulated the Bell Labs passivation preprint to his senior staff, including Jean Hoerni, in December 1956.",
+   "url": "https://en.wikipedia.org/wiki/Planar_process",
+   "quotes": [
+    "At Shockley Semiconductor, Shockley had circulated the preprint of their article in December 1956 to all his senior staff, including Jean Hoerni."
+   ],
+   "values": [
+    "1956"
+   ],
+   "dated2026": false,
+   "actor": "bell-labs",
+   "kind": "event",
+   "value": 1956,
+   "unit": "year",
+   "period": "1956-12",
+   "from": "bell-labs",
+   "to": "fairchild",
+   "accessed": "2026-11-07",
+   "notes": "Hoerni then proposed oxide-protected transistors; the passivation discovery itself was Frosch and Derick at Bell Labs in 1955."
+  },
+  {
+   "id": "lineage-noyce-monolithic-ic-1959",
+   "claim": "Robert Noyce invented the first monolithic integrated circuit in 1959.",
+   "url": "https://en.wikipedia.org/wiki/Integrated_circuit",
+   "quotes": [
+    "Robert Noyce invented the first monolithic integrated circuit in 1959."
+   ],
+   "values": [
+    "1959"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "event",
+   "value": 1959,
+   "unit": "year",
+   "period": "1959",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-kilby-nobel-2000",
+   "claim": "Jack Kilby won the 2000 Nobel Prize in physics for his part in the invention of the integrated circuit.",
+   "url": "https://en.wikipedia.org/wiki/Integrated_circuit",
+   "quotes": [
+    "Kilby won the 2000 Nobel Prize in physics for his part in the invention of the integrated circuit."
+   ],
+   "values": [
+    "2000"
+   ],
+   "dated2026": false,
+   "actor": "texas-instruments",
+   "kind": "event",
+   "value": 2000,
+   "unit": "year",
+   "period": "2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-fairchild-first-batch-ibm",
+   "claim": "Fairchild's first batch of 100 devices was sold to IBM at $150 apiece for the B-70 bomber's computer.",
+   "url": "https://en.wikipedia.org/wiki/Fairchild_Semiconductor",
+   "quotes": [
+    "The first batch of 100 was sold to IBM for $150 apiece in order to build the computer for the B-70 bomber."
+   ],
+   "values": [
+    "100",
+    "150"
+   ],
+   "dated2026": false,
+   "actor": "fairchild",
+   "kind": "contract",
+   "value": 150,
+   "unit": "USD per unit",
+   "period": "1958",
+   "from": "fairchild",
+   "to": "ibm",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-intel-founded-1968",
+   "claim": "Intel was founded in 1968 by Gordon Moore and Robert Noyce with investor Arthur Rock.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "Intel was founded in 1968 by engineers Gordon Moore and Robert Noyce, along with investor Arthur Rock, and is associated with the executive leadership and vision of Andrew Grove."
+   ],
+   "values": [
+    "1968"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1968,
+   "unit": "year",
+   "period": "1968",
+   "from": "fairchild",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-faggin-left-fairchild-1970",
+   "claim": "Federico Faggin left Fairchild for Intel in 1970 to design the first microprocessors.",
+   "url": "https://en.wikipedia.org/wiki/Fairchild_Semiconductor",
+   "quotes": [
+    "Federico Faggin, frustrated, left Fairchild to join Intel in 1970 and design the first microprocessors using SGT."
+   ],
+   "values": [
+    "1970"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1970,
+   "unit": "year",
+   "period": "1970",
+   "from": "fairchild",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-intel-1103-dram-1970",
+   "claim": "Intel's 1103, released in 1970, was the first commercially available DRAM.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "The three-transistor cell implemented in the first commercially available dynamic random-access memory (DRAM), the 1103 released in 1970, solved these issues."
+   ],
+   "values": [
+    "1970"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1970,
+   "unit": "year",
+   "period": "1970",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-intel-1103-bestseller-1972",
+   "claim": "The 1103 was the world's bestselling semiconductor memory chip by 1972.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "The 1103 was the bestselling semiconductor memory chip in the world by 1972, as it replaced core memory in many applications."
+   ],
+   "values": [
+    "1972"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1972,
+   "unit": "year",
+   "period": "1972",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-intel-4004-1971",
+   "claim": "Intel introduced the 4004 microprocessor in 1971, built for Busicom, but it did not become Intel's core business until the mid-1980s.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "Originally developed for the Japanese company Busicom to replace a number of ASICs in a calculator already produced by Busicom, the Intel 4004 was introduced to the mass market on November 15, 1971, though the microprocessor did not become the core of Intel's business until the mid-1980s."
+   ],
+   "values": [
+    "1971"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1971,
+   "unit": "year",
+   "period": "1971-11-15",
+   "from": "busicom",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-intel-japan-dram-1983",
+   "claim": "In 1983 Japanese memory makers squeezed Intel's profits and Andy Grove refocused Intel on microprocessors.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "In 1983, at the dawn of the personal computer era, Intel's profits came under increased pressure from Japanese memory-chip manufacturers, and then-president Andy Grove focused the company on microprocessors."
+   ],
+   "values": [
+    "1983"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1983,
+   "unit": "year",
+   "period": "1983",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The brief dates the exit to 1985; the page says Grove closed much of the DRAM business 'during this period' without a precise year."
+  },
+  {
+   "id": "lineage-ibm-pc-8088-1981",
+   "claim": "The IBM PC, released 12 August 1981, used an Intel 8088 processor.",
+   "url": "https://en.wikipedia.org/wiki/IBM_Personal_Computer",
+   "quotes": [
+    "Powered by an x86-architecture Intel 8088 processor, the machine was based on open architecture and third-party peripherals.",
+    "Released August 12, 1981; 45 years ago (1981-08-12)"
+   ],
+   "values": [
+    "8088",
+    "1981"
+   ],
+   "dated2026": false,
+   "actor": "ibm",
+   "kind": "event",
+   "value": 1981,
+   "unit": "year",
+   "period": "1981-08-12",
+   "from": "intel",
+   "to": "ibm",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-compaq-386-1986",
+   "claim": "Compaq, the first IBM PC clone maker, shipped the first 80386-based system in 1986, beating IBM and making Intel a key component supplier.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "Compaq, the first IBM PC \"clone\" manufacturer, produced a desktop system based on the faster 80286 processor in 1985 and in 1986 quickly followed with the first 80386-based system, beating IBM and establishing a competitive market for PC-compatible systems and setting up Intel as a key component supplier."
+   ],
+   "values": [
+    "1986"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "event",
+   "value": 1986,
+   "unit": "year",
+   "period": "1986",
+   "from": "intel",
+   "to": "compaq",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-tsmc-founded-1987",
+   "claim": "TSMC was established in 1987 as a joint venture of Taiwan's government, ITRI and private investors, and became the world's first dedicated foundry.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "TSMC was established in 1987 as a joint venture between Taiwan's government, the Industrial Technology Research Institute (ITRI), and private investors.",
+    "Morris Chang founded the company to commercialise semiconductor research originally developed at ITRI, becoming the world's first dedicated semiconductor foundry."
+   ],
+   "values": [
+    "1987"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "event",
+   "value": 1987,
+   "unit": "year",
+   "period": "1987",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-tsmc-foundry-share-2026",
+   "claim": "TSMC holds approximately 70% of the global foundry market.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "It holds a commanding majority in the semiconductor foundry market, accounting for approximately 70% of the global market share."
+   ],
+   "values": [
+    "70"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "share",
+   "value": 70,
+   "unit": "%",
+   "period": "as read 2026-11-07 (Wikipedia; market: semiconductor foundry)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-tsmc-first-euv-volume",
+   "claim": "TSMC was the first foundry to commercialise ASML's EUV lithography in high volume.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "TSMC was the first foundry to market 7-nanometre and 5-nanometre (used by the 2020 Apple A14 and M1 SoCs, the MediaTek Dimensity 8100, and AMD Ryzen 7000 series processors) production capabilities, and the first to commercialise ASML's extreme ultraviolet (EUV) lithography technology in high volume."
+   ],
+   "values": [
+    "EUV"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "event",
+   "value": 0,
+   "unit": "flag",
+   "period": "2018-2020",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "No year in the quote; value 0 is a flag."
+  },
+  {
+   "id": "lineage-nvidia-founded-1993",
+   "claim": "Nvidia was founded in 1993 by Jensen Huang, Chris Malachowsky and Curtis Priem.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "Founded in 1993 by Jensen Huang, Chris Malachowsky, and Curtis Priem, Nvidia has been described as a Big Tech company and is among the largest companies by market capitalization."
+   ],
+   "values": [
+    "1993"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 1993,
+   "unit": "year",
+   "period": "1993",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-sega-invest-5m",
+   "claim": "Sega's Shoichiro Irimajiri persuaded Sega to invest $5 million in Nvidia after Nvidia had failed to deliver on its contract.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "However, Irimajiri believed in Nvidia's potential and persuaded Sega's management to invest $5 million into the company.",
+    "Investing in Nvidia after it had already failed to deliver on its contract turned out to be Irimajiri's best decision as Sega's president."
+   ],
+   "values": [
+    "5"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 0.005,
+   "unit": "USD bn",
+   "period": "c.1996",
+   "from": "sega",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-sega-sold-15m",
+   "claim": "Sega sold its Nvidia stock for $15 million after 2000.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "After Irimajiri left Sega in 2000, Sega sold its Nvidia stock for $15 million."
+   ],
+   "values": [
+    "15",
+    "2000"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 0.015,
+   "unit": "USD bn",
+   "period": "after 2000",
+   "from": "nvidia",
+   "to": "sega",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nvidia-ipo-1999",
+   "claim": "Nvidia went public on 22 January 1999.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "Nvidia went public on January 22, 1999."
+   ],
+   "values": [
+    "1999"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 1999,
+   "unit": "year",
+   "period": "1999-01-22",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-geforce-256-1999",
+   "claim": "In late 1999 Nvidia released the GeForce 256, its first product marketed as a GPU.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "In late 1999, Nvidia released the GeForce 256 (NV10), its first product expressly marketed as a GPU, which was most notable for introducing onboard transformation and lighting (T&L) to consumer-level 3D hardware."
+   ],
+   "values": [
+    "1999",
+    "256"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 1999,
+   "unit": "year",
+   "period": "1999",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nvidia-acquires-3dfx-2000",
+   "claim": "In December 2000 Nvidia agreed to acquire the intellectual assets of its one-time rival 3dfx.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "In December 2000, Nvidia reached an agreement to acquire the intellectual assets of its one-time rival 3dfx, a pioneer in consumer 3D graphics technology leading the field from the mid-1990s until 2000."
+   ],
+   "values": [
+    "2000"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2000,
+   "unit": "year",
+   "period": "2000-12",
+   "from": "3dfx",
+   "to": "nvidia",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-cuda-released-2007",
+   "claim": "CUDA was created in 2004 and officially released in 2007.",
+   "url": "https://en.wikipedia.org/wiki/CUDA",
+   "quotes": [
+    "CUDA was created in 2004 and was officially released in 2007."
+   ],
+   "values": [
+    "2004",
+    "2007"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2007,
+   "unit": "year",
+   "period": "2007",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-alexnet-two-gtx580-2012",
+   "claim": "AlexNet was trained for five to six days on two Nvidia GTX 580 GPUs and won the 2012 ImageNet competition.",
+   "url": "https://en.wikipedia.org/wiki/AlexNet",
+   "quotes": [
+    "The model was trained for 90 epochs over a period of five to six days using two Nvidia GTX 580 GPUs (3GB each).",
+    "During 2012, Krizhevsky performed hyperparameter optimization on the network until it won the ImageNet competition later the same year."
+   ],
+   "values": [
+    "2012",
+    "GTX 580"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2012,
+   "unit": "year",
+   "period": "2012",
+   "from": "nvidia",
+   "to": "alexnet-team",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-gtx580-price-500",
+   "claim": "Each GTX 580 was priced at US$500 on release.",
+   "url": "https://en.wikipedia.org/wiki/AlexNet",
+   "quotes": [
+    "These GPUs have a theoretical performance of 1.581 TFLOPS in float32 and were priced at US$500 upon release."
+   ],
+   "values": [
+    "500",
+    "1.581"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "units",
+   "value": 500,
+   "unit": "USD per GPU",
+   "period": "2010 release",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-dgx1-openai-2016",
+   "claim": "Nvidia gifted its first DGX-1 to OpenAI in August 2016, cutting a training run from six days to two hours.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "Nvidia gifted its first DGX-1 to OpenAI in August 2016 to help it train larger and more complex AI models with the capability of reducing processing time from six days to two hours."
+   ],
+   "values": [
+    "2016"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 2016,
+   "unit": "year",
+   "period": "2016-08",
+   "from": "nvidia",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-mellanox-6-9bn-2019",
+   "claim": "Nvidia announced on 11 March 2019 that it would acquire Mellanox for $6.9 billion.",
+   "url": "https://en.wikipedia.org/wiki/Mellanox_Technologies",
+   "quotes": [
+    "On March 11, 2019, Nvidia announced its intent to acquire the company for $6.9 billion."
+   ],
+   "values": [
+    "6.9",
+    "2019"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 6.9,
+   "unit": "USD bn",
+   "period": "2019-03-11 announced; closed 2020",
+   "from": "nvidia",
+   "to": "mellanox",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-attention-transformer-2017",
+   "claim": "The Transformer, based solely on attention, was submitted to arXiv on 12 June 2017.",
+   "url": "https://arxiv.org/abs/1706.03762",
+   "quotes": [
+    "We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.",
+    "Submitted on 12 Jun 2017"
+   ],
+   "values": [
+    "2017"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 2017,
+   "unit": "year",
+   "period": "2017-06-12",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Authors at Google, per the Wikipedia transformer article (lineage-transformer-google-2017)."
+  },
+  {
+   "id": "lineage-attention-bleu-8gpu",
+   "claim": "The Transformer reached 41.8 BLEU on WMT 2014 English-to-French after 3.5 days on eight GPUs.",
+   "url": "https://arxiv.org/abs/1706.03762",
+   "quotes": [
+    "On the WMT 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art BLEU score of 41.8 after training for 3.5 days on eight GPUs, a small fraction of the training costs of the best models from the literature."
+   ],
+   "values": [
+    "41.8",
+    "3.5"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 41.8,
+   "unit": "BLEU",
+   "period": "2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-transformer-google-2017",
+   "claim": "The original transformer architecture was proposed in the 2017 paper 'Attention Is All You Need' by researchers at Google.",
+   "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+   "quotes": [
+    "The original version of the transformer architecture was proposed in the 2017 paper \"Attention Is All You Need\" by researchers at Google."
+   ],
+   "values": [
+    "2017"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "event",
+   "value": 2017,
+   "unit": "year",
+   "period": "2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-scaling-laws-2020",
+   "claim": "Kaplan et al. found language-model loss scales as a power law in model size, data and compute over more than seven orders of magnitude (submitted 23 January 2020).",
+   "url": "https://arxiv.org/abs/2001.08361",
+   "quotes": [
+    "The loss scales as a power-law with model size, dataset size, and the amount of compute used for training, with some trends spanning more than seven orders of magnitude.",
+    "Submitted on 23 Jan 2020"
+   ],
+   "values": [
+    "seven",
+    "2020"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "event",
+   "value": 2020,
+   "unit": "year",
+   "period": "2020-01-23",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-gpt3-175b-2020",
+   "claim": "GPT-3 had 175 billion parameters, ten times any previous non-sparse language model (submitted 28 May 2020).",
+   "url": "https://arxiv.org/abs/2005.14165",
+   "quotes": [
+    "Specifically, we train GPT-3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model, and test its performance in the few-shot setting.",
+    "Submitted on 28 May 2020"
+   ],
+   "values": [
+    "175",
+    "10x",
+    "2020"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "event",
+   "value": 2020,
+   "unit": "year",
+   "period": "2020-05-28",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-anthropic-founders-from-openai",
+   "claim": "Eleven OpenAI employees left between December 2020 and January 2021 to establish Anthropic.",
+   "url": "https://en.wikipedia.org/wiki/OpenAI",
+   "quotes": [
+    "Eleven employees left OpenAI, mostly between December 2020 and January 2021, in order to establish Anthropic."
+   ],
+   "values": [
+    "Eleven",
+    "2020",
+    "2021"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "headcount",
+   "value": 11,
+   "unit": "people",
+   "period": "2020-12 to 2021-01",
+   "from": "openai",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-chatgpt-release-2022",
+   "claim": "ChatGPT was released on 30 November 2022.",
+   "url": "https://en.wikipedia.org/wiki/ChatGPT",
+   "quotes": [
+    "Originally released on November 30, 2022, the product uses large language models – specifically generative pre-trained transformers (GPTs) – to generate text, speech, and images in response to user prompts."
+   ],
+   "values": [
+    "2022"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "event",
+   "value": 2022,
+   "unit": "year",
+   "period": "2022-11-30",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-chatgpt-users-2026",
+   "claim": "ChatGPT reached 100 million monthly users two months after release and 900 million weekly users in February 2026.",
+   "url": "https://en.wikipedia.org/wiki/ChatGPT",
+   "quotes": [
+    "ChatGPT was quickly adopted, reaching 100 million monthly active users two months after its release and 900 million weekly active users in February 2026."
+   ],
+   "values": [
+    "100",
+    "900"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "units",
+   "value": 900,
+   "unit": "million weekly users",
+   "period": "February 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-asml-euv-1997",
+   "claim": "ASML began developing EUV lithography in 1997.",
+   "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+   "quotes": [
+    "Meanwhile, in 1997, ASML began developing its EUV lithography technology."
+   ],
+   "values": [
+    "1997"
+   ],
+   "dated2026": false,
+   "actor": "asml",
+   "kind": "event",
+   "value": 1997,
+   "unit": "year",
+   "period": "1997",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-asml-coinvest-2012",
+   "claim": "In 2012 ASML sold 23 percent of itself to Intel, TSMC and Samsung.",
+   "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+   "quotes": [
+    "To achieve this, ASML launched a co-investment program in 2012, under which 23 percent of the company was sold to its three largest customers: Intel, TSMC and Samsung."
+   ],
+   "values": [
+    "2012",
+    "23"
+   ],
+   "dated2026": false,
+   "actor": "asml",
+   "kind": "investment",
+   "value": 23,
+   "unit": "% of ASML",
+   "period": "2012",
+   "from": "intel",
+   "to": "asml",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-intel-asml-4-1bn-2012",
+   "claim": "Intel invested $4.1 billion in ASML in July 2012 for a 15 percent stake.",
+   "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+   "quotes": [
+    "To help fund the expensive research and development required, Intel invested $4.1 billion in ASML in July 2012 in exchange for a 15 percent stake."
+   ],
+   "values": [
+    "4.1",
+    "15",
+    "2012"
+   ],
+   "dated2026": false,
+   "actor": "asml",
+   "kind": "investment",
+   "value": 4.1,
+   "unit": "USD bn",
+   "period": "2012-07",
+   "from": "intel",
+   "to": "asml",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-asml-only-euv-2026",
+   "claim": "ASML is, as of 2026, the world's only manufacturer of EUV lithography machines.",
+   "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+   "quotes": [
+    "It is the largest supplier to the semiconductor industry and, as of 2026[update] , the world's only manufacturer of extreme ultraviolet (EUV) lithography machines, which are required to manufacture the most advanced semiconductor chips."
+   ],
+   "values": [
+    "2026"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "share",
+   "value": 100,
+   "unit": "% of EUV tools",
+   "period": "as read 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nvidia-2tn-180-days",
+   "claim": "Nvidia took 180 days to go from $1 trillion to $2 trillion; Apple and Microsoft each took over 500.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "Nvidia needed only 180 days to get to $2 trillion from $1 trillion, while the first two companies, Apple and Microsoft, each took over 500 days."
+   ],
+   "values": [
+    "180",
+    "500"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 180,
+   "unit": "days",
+   "period": "2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nvidia-5tn-2025",
+   "claim": "On 29 October 2025 Nvidia became the first company to reach a $5 trillion market capitalization.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "On October 29, 2025, Nvidia became the first company to reach a market capitalization of $5 trillion."
+   ],
+   "values": [
+    "5",
+    "2025"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 5000,
+   "unit": "USD bn",
+   "period": "2025-10-29",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nvidia-marketcap-now",
+   "claim": "NVIDIA's market capitalization in November 2026 was $4.506 trillion, the world's 2nd most valuable company by that data.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "Market capitalization of NVIDIA (NVDA) Market cap: $4.506 Trillion USD As of November 2026",
+    "This makes NVIDIA the world's 2nd most valuable company by market cap according to our data."
+   ],
+   "values": [
+    "4.506",
+    "2nd"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 4506,
+   "unit": "USD bn",
+   "period": "November 2026 (companiesmarketcap.com, read 2026-11-07)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-nvidia-gpu-share-2025",
+   "claim": "As of Q1 2025 Nvidia held 92% of the discrete desktop and laptop GPU market.",
+   "url": "https://en.wikipedia.org/wiki/Nvidia",
+   "quotes": [
+    "As of the first quarter of 2025, Nvidia held a 92% share of the discrete desktop and laptop GPU market."
+   ],
+   "values": [
+    "92"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 92,
+   "unit": "%",
+   "period": "Q1 2025 (market: discrete desktop and laptop GPUs, not AI accelerators)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "lineage-us-gov-intel-stake-2025",
+   "claim": "In August 2025 the US government bought 433.3 million Intel shares at $20.47, a 9.9% stake.",
+   "url": "https://en.wikipedia.org/wiki/Intel",
+   "quotes": [
+    "In August 2025, the United States government purchased 433.3 million Intel shares at $20.47 per share, equivalent to a 9.9% stake."
+   ],
+   "values": [
+    "433.3",
+    "20.47",
+    "9.9",
+    "2025"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "investment",
+   "value": 8.87,
+   "unit": "USD bn",
+   "period": "2025-08",
+   "from": "us-gov",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": "433.3 million x $20.47 = $8.87 billion, computed here."
+  },
+  {
+   "id": "lineage-hutter-compression-ai",
+   "claim": "The Hutter Prize, launched in 2006, rests on the organizers' belief that text compression and AI are equivalent problems.",
+   "url": "https://en.wikipedia.org/wiki/Hutter_Prize",
+   "quotes": [
+    "Launched in 2006, the prize awards 5,000 euros for each one percent improvement",
+    "The organizers believe that text compression and AI are equivalent problems."
+   ],
+   "values": [
+    "2006"
+   ],
+   "dated2026": false,
+   "actor": "hutter-prize",
+   "kind": "statement",
+   "value": 2006,
+   "unit": "year",
+   "period": "2006",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Supports the 'intelligence as compression' premise only as a position of the prize organizers, not a settled result."
+  },
+  {
+   "id": "lineage-huang-amd-first-job",
+   "claim": "Jensen Huang began as a microchip designer in Silicon Valley and chose AMD over Texas Instruments and LSI Logic.",
+   "url": "https://en.wikipedia.org/wiki/Jensen_Huang",
+   "quotes": [
+    "He was approached for positions at Texas Instruments, Advanced Micro Devices (AMD), and LSI Logic,[30] ultimately choosing the California-based AMD due to already being familiar with the company."
+   ],
+   "values": [
+    "AMD"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "event",
+   "value": 0,
+   "unit": "flag",
+   "period": "1980s",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "No year in quote."
+  }
+ ],
+ "actors": [
+  {
+   "id": "bell-labs",
+   "name": "Bell Labs (AT&T)",
+   "kind": "lab",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1925,
+   "role": "invented the transistor in 1947",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "the physics and the passivation discovery",
+    "execution": "lab-scale prototypes",
+    "environment": "a regulated monopoly's research budget"
+   },
+   "advantage": "A monopoly telephone company funded open-ended physics; the transistor came from that protected research budget, and its people and ideas then leaked outward.",
+   "standsOn": [],
+   "competitors": [
+    "shockley-semiconductor"
+   ],
+   "customers": [
+    "fairchild",
+    "texas-instruments"
+   ],
+   "desire": "a better amplifier than the vacuum tube for the phone network",
+   "fear": "being outflanked by others commercialising its invention",
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-nobel-1956",
+    "lineage-bell-passivation-preprint-1956"
+   ]
+  },
+  {
+   "id": "shockley-semiconductor",
+   "name": "Shockley Semiconductor",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1955,
+   "role": "the first Silicon Valley semiconductor firm; its talent walked out",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Shockley's name and theory",
+    "execution": "poor management",
+    "environment": "Beckman's capital, Stanford's neighbourhood"
+   },
+   "advantage": "It gathered the best young semiconductor engineers but could not keep them: its founder's management drove eight of them out.",
+   "standsOn": [
+    "bell-labs"
+   ],
+   "competitors": [
+    "fairchild"
+   ],
+   "customers": [],
+   "desire": "mass production of advanced transistors",
+   "fear": "losing its people",
+   "facts": [
+    "lineage-shockley-lab-1955",
+    "lineage-traitorous-eight-names"
+   ]
+  },
+  {
+   "id": "fairchild",
+   "name": "Fairchild Semiconductor",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1957,
+   "role": "planar process and monolithic IC; the root of Silicon Valley",
+   "powers": [
+    "process power",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "the passivation idea, the planar insight",
+    "execution": "batch fabrication on photo-masked wafers",
+    "environment": "Cold-War orders and Sherman Fairchild's parent"
+   },
+   "advantage": "Silicon, the planar process and the monolithic integrated circuit gave it a manufacturable device that rivals could not yet make; early military and IBM orders paid for it. Its engineers then left to found dozens of firms.",
+   "standsOn": [
+    "shockley-semiconductor",
+    "bell-labs"
+   ],
+   "competitors": [
+    "texas-instruments"
+   ],
+   "customers": [
+    "ibm"
+   ],
+   "desire": "to make silicon the standard and ICs cheap",
+   "fear": "its own people leaving with the know-how",
+   "facts": [
+    "lineage-fairchild-founded-1957",
+    "lineage-fairchild-planar-1959",
+    "lineage-noyce-monolithic-ic-1959",
+    "lineage-fairchild-first-batch-ibm",
+    "lineage-fairchildren-1960"
+   ]
+  },
+  {
+   "id": "texas-instruments",
+   "name": "Texas Instruments",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1930,
+   "role": "Kilby's rival integrated circuit",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Kilby's first IC",
+    "execution": "germanium and gold wires",
+    "environment": "US Air Force demand"
+   },
+   "advantage": "Co-inventor of the integrated circuit (Kilby, 1958), but its version was not monolithic and was harder to manufacture at scale.",
+   "standsOn": [],
+   "competitors": [
+    "fairchild"
+   ],
+   "customers": [],
+   "desire": "to win the IC race",
+   "fear": "being the second source of a better process",
+   "facts": [
+    "lineage-kilby-nobel-2000"
+   ]
+  },
+  {
+   "id": "intel",
+   "name": "Intel",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1968,
+   "role": "memory pioneer turned x86 monopolist, now US-state-supported",
+   "powers": [
+    "switching costs",
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "Moore's observation, Faggin's design",
+    "execution": "its own fabs",
+    "environment": "the IBM PC's open architecture"
+   },
+   "advantage": "Intel moved from DRAM to the microprocessor, and the IBM PC and its clones made x86 the standard; software lock-in and fab scale held the position for decades until the foundry model beat its process lead.",
+   "standsOn": [
+    "fairchild",
+    "asml",
+    "us-gov"
+   ],
+   "competitors": [
+    "amd",
+    "tsmc"
+   ],
+   "customers": [
+    "ibm",
+    "compaq"
+   ],
+   "desire": "a process lead and foundry business",
+   "fear": "irrelevance to AI and to leading-edge manufacturing",
+   "facts": [
+    "lineage-intel-founded-1968",
+    "lineage-faggin-left-fairchild-1970",
+    "lineage-intel-1103-dram-1970",
+    "lineage-intel-1103-bestseller-1972",
+    "lineage-intel-4004-1971",
+    "lineage-intel-japan-dram-1983",
+    "lineage-ibm-pc-8088-1981",
+    "lineage-compaq-386-1986",
+    "lineage-us-gov-intel-stake-2025",
+    "lineage-intel-asml-4-1bn-2012"
+   ]
+  },
+  {
+   "id": "tsmc",
+   "name": "TSMC",
+   "kind": "company",
+   "country": "Taiwan",
+   "layer": "fabs",
+   "sector": "semiconductors",
+   "founded": 1987,
+   "role": "the pure-play foundry that makes the world's leading-edge chips",
+   "powers": [
+    "scale economies",
+    "process power",
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "process know-how from ITRI",
+    "execution": "yield and node cadence",
+    "environment": "Taiwan's state and talent"
+   },
+   "advantage": "By manufacturing for everyone and competing with no customer, it let design-only firms exist; its volume funded the lead in each node and the first volume EUV production.",
+   "standsOn": [
+    "taiwan",
+    "asml"
+   ],
+   "competitors": [
+    "intel",
+    "samsung"
+   ],
+   "customers": [
+    "nvidia",
+    "apple",
+    "amd"
+   ],
+   "desire": "to stay one node ahead",
+   "fear": "a Taiwan crisis or a customer building its own fab",
+   "facts": [
+    "lineage-tsmc-founded-1987",
+    "lineage-tsmc-foundry-share-2026",
+    "lineage-tsmc-first-euv-volume"
+   ]
+  },
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1993,
+   "role": "designs the GPUs that frontier AI is trained on",
+   "powers": [
+    "switching costs",
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "Huang's bets, CUDA's developers",
+    "execution": "yearly architecture cadence",
+    "environment": "the gaming market that paid for it"
+   },
+   "advantage": "Three decades of GPU work for gamers produced a parallel chip and the CUDA software layer; when neural networks, then transformers, proved to run best on them, the gamers' installed base became the AI industry's default platform.",
+   "standsOn": [
+    "tsmc",
+    "asml",
+    "us-gov"
+   ],
+   "competitors": [
+    "amd",
+    "google"
+   ],
+   "customers": [
+    "openai",
+    "microsoft"
+   ],
+   "desire": "to be the platform for all accelerated computing",
+   "fear": "a cheaper chip or a model that no longer needs it",
+   "facts": [
+    "lineage-nvidia-founded-1993",
+    "lineage-sega-invest-5m",
+    "lineage-nvidia-ipo-1999",
+    "lineage-geforce-256-1999",
+    "lineage-nvidia-acquires-3dfx-2000",
+    "lineage-cuda-released-2007",
+    "lineage-alexnet-two-gtx580-2012",
+    "lineage-dgx1-openai-2016",
+    "lineage-mellanox-6-9bn-2019",
+    "lineage-nvidia-5tn-2025",
+    "lineage-nvidia-marketcap-now",
+    "lineage-nvidia-gpu-share-2025",
+    "lineage-nvidia-2tn-180-days",
+    "lineage-huang-amd-first-job"
+   ]
+  },
+  {
+   "id": "asml",
+   "name": "ASML",
+   "kind": "company",
+   "country": "Netherlands",
+   "layer": "tools",
+   "sector": "semiconductors",
+   "founded": 1984,
+   "role": "the only maker of EUV lithography machines",
+   "powers": [
+    "cornered resource",
+    "process power"
+   ],
+   "triad": {
+    "information": "20 years of EUV research",
+    "execution": "modular outsourcing to partners",
+    "environment": "a US-funded research consortium"
+   },
+   "advantage": "Its customers funded and co-owned it: Intel, TSMC and Samsung bought 23 percent in 2012 to pay for EUV, which took from 1997 until the late 2010s to build.",
+   "standsOn": [
+    "netherlands",
+    "us-gov"
+   ],
+   "competitors": [],
+   "customers": [
+    "tsmc",
+    "intel",
+    "samsung"
+   ],
+   "desire": "to keep Moore's law going",
+   "fear": "a customer or a state replicating EUV",
+   "facts": [
+    "lineage-asml-euv-1997",
+    "lineage-asml-coinvest-2012",
+    "lineage-asml-only-euv-2026",
+    "lineage-intel-asml-4-1bn-2012"
+   ]
+  },
+  {
+   "id": "openai",
+   "name": "OpenAI",
+   "kind": "lab",
+   "country": "US",
+   "layer": "models",
+   "sector": "semiconductors",
+   "founded": 2015,
+   "role": "scaled the transformer into GPT-3 and ChatGPT",
+   "powers": [
+    "cornered resource",
+    "branding"
+   ],
+   "triad": {
+    "information": "scaling laws and its people",
+    "execution": "engineering at scale",
+    "environment": "first access to the GPUs"
+   },
+   "advantage": "It bet that scaling transformers on large compute would keep improving results, then shipped ChatGPT, the product that made the bet visible.",
+   "standsOn": [
+    "nvidia",
+    "microsoft"
+   ],
+   "competitors": [
+    "google",
+    "anthropic"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "to scale to general intelligence",
+   "fear": "being out-scaled or out-financed",
+   "facts": [
+    "lineage-scaling-laws-2020",
+    "lineage-gpt3-175b-2020",
+    "lineage-chatgpt-release-2022",
+    "lineage-chatgpt-users-2026",
+    "lineage-dgx1-openai-2016"
+   ]
+  },
+  {
+   "id": "anthropic",
+   "name": "Anthropic",
+   "kind": "lab",
+   "country": "US",
+   "layer": "models",
+   "sector": "semiconductors",
+   "founded": 2021,
+   "role": "founded by OpenAI alumni",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "OpenAI's scaling know-how",
+    "execution": "a split-off team",
+    "environment": "capital from cloud partners"
+   },
+   "advantage": "Its founders carried the scaling playbook out of OpenAI; the lineage is people, not patents.",
+   "standsOn": [
+    "nvidia",
+    "amazon",
+    "google"
+   ],
+   "competitors": [
+    "openai",
+    "google"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "safer, more capable models",
+   "fear": "falling behind in compute",
+   "facts": [
+    "lineage-anthropic-founders-from-openai"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Google (Brain/DeepMind)",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "semiconductors",
+   "founded": 1998,
+   "role": "published the Transformer in 2017",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Vaswani et al.",
+    "execution": "TPU hardware",
+    "environment": "a huge ad business"
+   },
+   "advantage": "It held the research that made the modern AI industry and published it, letting rivals build on it.",
+   "standsOn": [
+    "nvidia",
+    "tsmc"
+   ],
+   "competitors": [
+    "openai",
+    "nvidia"
+   ],
+   "customers": [],
+   "desire": "to lead AI",
+   "fear": "its search business being disrupted",
+   "facts": [
+    "lineage-attention-transformer-2017",
+    "lineage-attention-bleu-8gpu",
+    "lineage-transformer-google-2017"
+   ]
+  },
+  {
+   "id": "ibm",
+   "name": "IBM",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1911,
+   "role": "first big buyer of Fairchild devices; created the PC market with an open design",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "first big buyer of Fairchild devices; created the PC market with an open design",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-fairchild-first-batch-ibm",
+    "lineage-ibm-pc-8088-1981"
+   ]
+  },
+  {
+   "id": "compaq",
+   "name": "Compaq",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1982,
+   "role": "first IBM PC clone maker; shipped the first 80386 system",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "first IBM PC clone maker; shipped the first 80386 system",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-compaq-386-1986"
+   ]
+  },
+  {
+   "id": "sega",
+   "name": "Sega",
+   "kind": "company",
+   "country": "Japan",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1960,
+   "role": "early investor that kept Nvidia alive",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "early investor that kept Nvidia alive",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-sega-invest-5m",
+    "lineage-sega-sold-15m"
+   ]
+  },
+  {
+   "id": "3dfx",
+   "name": "3dfx Interactive",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1994,
+   "role": "consumer 3D pioneer, bought by Nvidia for its assets",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "consumer 3D pioneer, bought by Nvidia for its assets",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-nvidia-acquires-3dfx-2000"
+   ]
+  },
+  {
+   "id": "mellanox",
+   "name": "Mellanox Technologies",
+   "kind": "company",
+   "country": "Israel",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1999,
+   "role": "networking bought by Nvidia for $6.9 billion",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "networking bought by Nvidia for $6.9 billion",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-mellanox-6-9bn-2019"
+   ]
+  },
+  {
+   "id": "busicom",
+   "name": "Busicom",
+   "kind": "company",
+   "country": "Japan",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 1918,
+   "role": "calculator maker that commissioned the 4004",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "calculator maker that commissioned the 4004",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-intel-4004-1971"
+   ]
+  },
+  {
+   "id": "alexnet-team",
+   "name": "AlexNet team (Toronto)",
+   "kind": "group",
+   "country": "Canada",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 2012,
+   "role": "showed deep nets on two gaming GPUs beat everything",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "showed deep nets on two gaming GPUs beat everything",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-alexnet-two-gtx580-2012",
+    "lineage-gtx580-price-500"
+   ]
+  },
+  {
+   "id": "hutter-prize",
+   "name": "Hutter Prize",
+   "kind": "prize",
+   "country": "n/a",
+   "layer": "history",
+   "sector": "semiconductors",
+   "founded": 2006,
+   "role": "states that compression and AI are equivalent problems",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "states that compression and AI are equivalent problems",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "lineage-hutter-compression-ai"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "lineage-flow-intel-asml",
+   "from": "intel",
+   "to": "asml",
+   "usdBnPerYear": 4.1,
+   "what": "equity investment to fund EUV (one-off)",
+   "period": "2012",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "lineage-intel-asml-4-1bn-2012"
+  },
+  {
+   "id": "lineage-flow-nvidia-mellanox",
+   "from": "nvidia",
+   "to": "mellanox",
+   "usdBnPerYear": 6.9,
+   "what": "acquisition price (one-off)",
+   "period": "2019-2020",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "lineage-mellanox-6-9bn-2019"
+  },
+  {
+   "id": "lineage-flow-usgov-intel",
+   "from": "us-gov",
+   "to": "intel",
+   "usdBnPerYear": 8.87,
+   "what": "equity purchase for 9.9% (one-off; computed 433.3m x $20.47)",
+   "period": "2025",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "lineage-us-gov-intel-stake-2025"
+  },
+  {
+   "id": "lineage-flow-sega-nvidia",
+   "from": "sega",
+   "to": "nvidia",
+   "usdBnPerYear": 0.005,
+   "what": "equity investment that kept Nvidia alive (one-off)",
+   "period": "c.1996",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "lineage-sega-invest-5m"
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "asml",
+   "controls": "EUV lithography",
+   "share": "the world's only manufacturer",
+   "alternatives": "none; development took from 1997 to the late 2010s",
+   "facts": [
+    "lineage-asml-only-euv-2026",
+    "lineage-asml-euv-1997"
+   ]
+  },
+  {
+   "actor": "tsmc",
+   "controls": "leading-edge foundry capacity",
+   "share": "about 70% of the global foundry market",
+   "alternatives": "Samsung and Intel are behind on volume",
+   "facts": [
+    "lineage-tsmc-foundry-share-2026",
+    "lineage-tsmc-first-euv-volume"
+   ]
+  },
+  {
+   "actor": "nvidia",
+   "controls": "GPUs and CUDA",
+   "share": "92% of discrete desktop and laptop GPUs (Q1 2025); accelerator share is in the compute cluster",
+   "alternatives": "AMD, Google TPU, custom chips",
+   "facts": [
+    "lineage-nvidia-gpu-share-2025",
+    "lineage-cuda-released-2007"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-fairchild-vs-shockley",
+   "year": 1957,
+   "date": "",
+   "era": "20th",
+   "holder": "fairchild",
+   "rivals": [
+    "shockley-semiconductor"
+   ],
+   "title": "The eight leave Shockley",
+   "advantage": "silicon plus the people",
+   "power": "cornered resource",
+   "triad": "execution",
+   "mechanism": "A founder who could recruit but not manage lost his whole team, who took the technique with them.",
+   "outcome": "Fairchild formed 18 Sept 1957; Shockley's firm was acquired by Clevite.",
+   "facts": [
+    "lineage-fairchild-founded-1957",
+    "lineage-traitorous-eight-names"
+   ]
+  },
+  {
+   "id": "fp-planar-vs-ti",
+   "year": 1959,
+   "date": "",
+   "era": "20th",
+   "holder": "fairchild",
+   "rivals": [
+    "texas-instruments"
+   ],
+   "title": "Planar monolithic IC against Kilby's version",
+   "advantage": "a manufacturable process",
+   "power": "process power",
+   "triad": "information",
+   "mechanism": "Photo-masked planar fabrication turned the IC from a lab result into a product.",
+   "outcome": "Noyce's monolithic IC, 1959; Kilby later won the Nobel Prize.",
+   "facts": [
+    "lineage-fairchild-planar-1959",
+    "lineage-noyce-monolithic-ic-1959",
+    "lineage-kilby-nobel-2000"
+   ]
+  },
+  {
+   "id": "fp-intel-dram-exit",
+   "year": 1983,
+   "date": "",
+   "era": "20th",
+   "holder": "intel",
+   "rivals": [
+    "fairchild"
+   ],
+   "title": "Intel leaves DRAM for microprocessors",
+   "advantage": "giving up a lost market",
+   "power": "counter-positioning",
+   "triad": "execution",
+   "mechanism": "When Japanese memory makers crushed DRAM margins, Intel moved its capital to the microprocessor that the PC market needed.",
+   "outcome": "Grove closed much of the DRAM business; the 386 made Intel near-exclusive supplier.",
+   "facts": [
+    "lineage-intel-japan-dram-1983",
+    "lineage-compaq-386-1986"
+   ]
+  },
+  {
+   "id": "fp-ibm-pc-x86",
+   "year": 1981,
+   "date": "",
+   "era": "20th",
+   "holder": "intel",
+   "rivals": [
+    "ibm"
+   ],
+   "title": "The IBM PC adopts Intel",
+   "advantage": "a standard set by an open design",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "IBM's open architecture let clones copy the PC but not the chip, so the standard's value went to Intel and Microsoft.",
+   "outcome": "Compaq's 1986 386 machine beat IBM to market and made Intel the key supplier.",
+   "facts": [
+    "lineage-ibm-pc-8088-1981",
+    "lineage-compaq-386-1986"
+   ]
+  },
+  {
+   "id": "fp-tsmc-foundry",
+   "year": 1987,
+   "date": "",
+   "era": "20th",
+   "holder": "tsmc",
+   "rivals": [
+    "intel"
+   ],
+   "title": "The pure-play foundry",
+   "advantage": "a foundry that competes with no customer",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "By making chips for others, TSMC let designers without fabs exist and pooled their volume.",
+   "outcome": "About 70% of the global foundry market today.",
+   "facts": [
+    "lineage-tsmc-founded-1987",
+    "lineage-tsmc-foundry-share-2026"
+   ]
+  },
+  {
+   "id": "fp-nvidia-vs-3dfx",
+   "year": 2000,
+   "date": "",
+   "era": "21st",
+   "holder": "nvidia",
+   "rivals": [
+    "3dfx"
+   ],
+   "title": "Nvidia buys 3dfx",
+   "advantage": "a faster product cadence",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "After the GeForce 256, the one-time leader in consumer 3D lost ground and sold its assets.",
+   "outcome": "Nvidia agreed in Dec 2000 to acquire 3dfx's intellectual assets.",
+   "facts": [
+    "lineage-geforce-256-1999",
+    "lineage-nvidia-acquires-3dfx-2000"
+   ]
+  },
+  {
+   "id": "fp-alexnet-gpu",
+   "year": 2012,
+   "date": "",
+   "era": "21st",
+   "holder": "nvidia",
+   "rivals": [
+    "intel"
+   ],
+   "title": "AlexNet on two gaming GPUs",
+   "advantage": "parallel hardware already in the market",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "A deep network trained in 5 to 6 days on two $500 GPUs beat every other ImageNet entry, showing that GPUs, not CPUs, were the engine of deep learning.",
+   "outcome": "Won ImageNet 2012; CUDA (2007) was the ready software.",
+   "facts": [
+    "lineage-alexnet-two-gtx580-2012",
+    "lineage-gtx580-price-500",
+    "lineage-cuda-released-2007"
+   ]
+  },
+  {
+   "id": "fp-transformer",
+   "year": 2017,
+   "date": "",
+   "era": "21st",
+   "holder": "google",
+   "rivals": [
+    "nvidia"
+   ],
+   "title": "Attention Is All You Need",
+   "advantage": "an architecture that parallelises",
+   "power": "information",
+   "triad": "information",
+   "mechanism": "Dropping recurrence let training spread across many GPUs, so scale became the lever; the paper was public.",
+   "outcome": "41.8 BLEU after 3.5 days on eight GPUs.",
+   "facts": [
+    "lineage-attention-transformer-2017",
+    "lineage-attention-bleu-8gpu"
+   ]
+  },
+  {
+   "id": "fp-chatgpt",
+   "year": 2022,
+   "date": "",
+   "era": "21st",
+   "holder": "openai",
+   "rivals": [
+    "google"
+   ],
+   "title": "ChatGPT",
+   "advantage": "betting on scale and shipping first",
+   "power": "cornered resource",
+   "triad": "execution",
+   "mechanism": "OpenAI turned scaling laws and GPT-3 into a product the public could use.",
+   "outcome": "100 million monthly users in two months; 900 million weekly in February 2026.",
+   "facts": [
+    "lineage-scaling-laws-2020",
+    "lineage-gpt3-175b-2020",
+    "lineage-chatgpt-release-2022",
+    "lineage-chatgpt-users-2026"
+   ]
+  },
+  {
+   "id": "fp-asml-euv",
+   "year": 2012,
+   "date": "",
+   "era": "21st",
+   "holder": "asml",
+   "rivals": [
+    "tsmc"
+   ],
+   "title": "Customers fund EUV",
+   "advantage": "customers who paid in advance",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Intel, TSMC and Samsung bought 23 percent of ASML in 2012 to underwrite EUV.",
+   "outcome": "As of 2026 ASML is the only EUV maker.",
+   "facts": [
+    "lineage-asml-coinvest-2012",
+    "lineage-intel-asml-4-1bn-2012",
+    "lineage-asml-only-euv-2026"
+   ]
+  },
+  {
+   "id": "fp-nvidia-present",
+   "year": 2026,
+   "date": "",
+   "era": "present",
+   "holder": "nvidia",
+   "rivals": [
+    "amd",
+    "intel"
+   ],
+   "title": "Nvidia at the top",
+   "advantage": "the platform the whole AI chain stands on",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "Gaming, CUDA, AlexNet, the Transformer and scale all led to the same chip.",
+   "outcome": "$4.5 trillion market cap, 2nd in the world; first to $5 trillion in 2025.",
+   "facts": [
+    "lineage-nvidia-marketcap-now",
+    "lineage-nvidia-5tn-2025",
+    "lineage-nvidia-gpu-share-2025"
+   ]
+  }
+ ],
+ "lineage": [
+  {
+   "from": "bell-labs",
+   "to": "bell-labs",
+   "year": 1947,
+   "how": "Three physicists at a monopoly's lab invented the transistor",
+   "facts": [
+    "lineage-bell-transistor-1947",
+    "lineage-nobel-1956"
+   ]
+  },
+  {
+   "from": "bell-labs",
+   "to": "shockley-semiconductor",
+   "year": 1955,
+   "how": "One of the inventors left to commercialise it, funded by Beckman Instruments",
+   "facts": [
+    "lineage-shockley-lab-1955"
+   ]
+  },
+  {
+   "from": "shockley-semiconductor",
+   "to": "fairchild",
+   "year": 1957,
+   "how": "Eight engineers left Shockley and formed Fairchild with Sherman Fairchild's money",
+   "facts": [
+    "lineage-traitorous-eight-names",
+    "lineage-fairchild-founded-1957"
+   ]
+  },
+  {
+   "from": "bell-labs",
+   "to": "fairchild",
+   "year": 1956,
+   "how": "Bell Labs' oxide-passivation preprint reached Hoerni, who built the planar process on it in 1959",
+   "facts": [
+    "lineage-bell-passivation-preprint-1956",
+    "lineage-fairchild-planar-1959"
+   ]
+  },
+  {
+   "from": "fairchild",
+   "to": "fairchild",
+   "year": 1959,
+   "how": "The planar process allowed Noyce's monolithic integrated circuit; Kilby at Texas Instruments had a rival, harder-to-make design",
+   "facts": [
+    "lineage-noyce-monolithic-ic-1959",
+    "lineage-kilby-nobel-2000"
+   ]
+  },
+  {
+   "from": "fairchild",
+   "to": "ibm",
+   "year": 1958,
+   "how": "First orders: IBM bought the first batch of 100 devices for a bomber computer",
+   "facts": [
+    "lineage-fairchild-first-batch-ibm"
+   ]
+  },
+  {
+   "from": "fairchild",
+   "to": "intel",
+   "year": 1968,
+   "how": "Noyce and Moore left Fairchild to found Intel; Faggin followed in 1970",
+   "facts": [
+    "lineage-fairchildren-1960",
+    "lineage-intel-founded-1968",
+    "lineage-faggin-left-fairchild-1970"
+   ]
+  },
+  {
+   "from": "intel",
+   "to": "intel",
+   "year": 1970,
+   "how": "Intel's 1103 DRAM became the world's best-selling memory chip by 1972",
+   "facts": [
+    "lineage-intel-1103-dram-1970",
+    "lineage-intel-1103-bestseller-1972"
+   ]
+  },
+  {
+   "from": "busicom",
+   "to": "intel",
+   "year": 1971,
+   "how": "A Japanese calculator job produced the 4004 microprocessor",
+   "facts": [
+    "lineage-intel-4004-1971"
+   ]
+  },
+  {
+   "from": "intel",
+   "to": "intel",
+   "year": 1983,
+   "how": "Japanese memory makers squeezed DRAM profits; Grove moved Intel to microprocessors",
+   "facts": [
+    "lineage-intel-japan-dram-1983"
+   ]
+  },
+  {
+   "from": "intel",
+   "to": "ibm",
+   "year": 1981,
+   "how": "IBM's PC used Intel's 8088 and open architecture",
+   "facts": [
+    "lineage-ibm-pc-8088-1981"
+   ]
+  },
+  {
+   "from": "ibm",
+   "to": "compaq",
+   "year": 1986,
+   "how": "Clones broke IBM's control of the standard; Compaq's 386 machine made Intel the key supplier",
+   "facts": [
+    "lineage-compaq-386-1986"
+   ]
+  },
+  {
+   "from": "intel",
+   "to": "tsmc",
+   "year": 1987,
+   "how": "TSMC created the pure-play foundry; its model later out-scaled Intel's own fabs",
+   "facts": [
+    "lineage-tsmc-founded-1987",
+    "lineage-tsmc-foundry-share-2026"
+   ]
+  },
+  {
+   "from": "fairchild",
+   "to": "nvidia",
+   "year": 1993,
+   "how": "A Fairchild-lineage industry (via AMD, where Huang worked) supplied the founder; Nvidia was founded by Huang, Malachowsky and Priem",
+   "facts": [
+    "lineage-fairchildren-1960",
+    "lineage-huang-amd-first-job",
+    "lineage-nvidia-founded-1993"
+   ]
+  },
+  {
+   "from": "sega",
+   "to": "nvidia",
+   "year": 1996,
+   "how": "Sega's $5 million kept Nvidia alive after a failed contract",
+   "facts": [
+    "lineage-sega-invest-5m",
+    "lineage-sega-sold-15m"
+   ]
+  },
+  {
+   "from": "nvidia",
+   "to": "nvidia",
+   "year": 1999,
+   "how": "Nvidia went public and shipped the GeForce 256, the first 'GPU'",
+   "facts": [
+    "lineage-nvidia-ipo-1999",
+    "lineage-geforce-256-1999"
+   ]
+  },
+  {
+   "from": "3dfx",
+   "to": "nvidia",
+   "year": 2000,
+   "how": "Nvidia bought its fallen rival's intellectual assets",
+   "facts": [
+    "lineage-nvidia-acquires-3dfx-2000"
+   ]
+  },
+  {
+   "from": "nvidia",
+   "to": "nvidia",
+   "year": 2007,
+   "how": "CUDA opened the GPU to general computation",
+   "facts": [
+    "lineage-cuda-released-2007"
+   ]
+  },
+  {
+   "from": "nvidia",
+   "to": "alexnet-team",
+   "year": 2012,
+   "how": "Two $500 gaming GPUs trained AlexNet, which won ImageNet",
+   "facts": [
+    "lineage-alexnet-two-gtx580-2012",
+    "lineage-gtx580-price-500"
+   ]
+  },
+  {
+   "from": "nvidia",
+   "to": "openai",
+   "year": 2016,
+   "how": "Nvidia handed OpenAI the first DGX-1",
+   "facts": [
+    "lineage-dgx1-openai-2016"
+   ]
+  },
+  {
+   "from": "nvidia",
+   "to": "mellanox",
+   "year": 2019,
+   "how": "Nvidia bought Mellanox to own the network between its GPUs",
+   "facts": [
+    "lineage-mellanox-6-9bn-2019"
+   ]
+  },
+  {
+   "from": "alexnet-team",
+   "to": "google",
+   "year": 2017,
+   "how": "Google researchers published the Transformer, which parallelises well on GPUs",
+   "facts": [
+    "lineage-attention-transformer-2017",
+    "lineage-attention-bleu-8gpu",
+    "lineage-transformer-google-2017"
+   ]
+  },
+  {
+   "from": "google",
+   "to": "openai",
+   "year": 2020,
+   "how": "OpenAI's scaling laws and GPT-3 turned the Transformer into a scaling bet",
+   "facts": [
+    "lineage-scaling-laws-2020",
+    "lineage-gpt3-175b-2020"
+   ]
+  },
+  {
+   "from": "openai",
+   "to": "openai",
+   "year": 2022,
+   "how": "ChatGPT turned the model into a consumer product",
+   "facts": [
+    "lineage-chatgpt-release-2022",
+    "lineage-chatgpt-users-2026"
+   ]
+  },
+  {
+   "from": "openai",
+   "to": "anthropic",
+   "year": 2021,
+   "how": "Eleven employees left OpenAI to establish Anthropic",
+   "facts": [
+    "lineage-anthropic-founders-from-openai"
+   ]
+  },
+  {
+   "from": "asml",
+   "to": "tsmc",
+   "year": 2012,
+   "how": "Intel, TSMC and Samsung co-funded ASML so EUV would exist; TSMC first used it in volume",
+   "facts": [
+    "lineage-asml-euv-1997",
+    "lineage-asml-coinvest-2012",
+    "lineage-intel-asml-4-1bn-2012",
+    "lineage-tsmc-first-euv-volume"
+   ]
+  },
+  {
+   "from": "asml",
+   "to": "asml",
+   "year": 2026,
+   "how": "ASML is the only EUV maker",
+   "facts": [
+    "lineage-asml-only-euv-2026"
+   ]
+  },
+  {
+   "from": "intel",
+   "to": "intel",
+   "year": 2025,
+   "how": "The US government bought 9.9% of Intel",
+   "facts": [
+    "lineage-us-gov-intel-stake-2025"
+   ]
+  },
+  {
+   "from": "nvidia",
+   "to": "nvidia",
+   "year": 2026,
+   "how": "Nvidia stands at $4.5 trillion, second in the world, after being first to $5 trillion in 2025",
+   "facts": [
+    "lineage-nvidia-5tn-2025",
+    "lineage-nvidia-marketcap-now",
+    "lineage-nvidia-gpu-share-2025"
+   ]
+  }
+ ],
+ "notes": "Unverified: Intel's exact DRAM exit year (1985 in the brief; the source says 1983 pressure); 'intelligence is compression' as a statement by OpenAI figures (only the Hutter Prize organizers' view is sourced); AT&T's 1956 consent decree and licensing terms (not found on fetched pages); Sutskever's scaling bet; Nvidia's 2024-26 customer concentration (compute and labs clusters). Nvidia's 92% is of discrete PC GPUs, not AI accelerators. CUDA announced 2006, officially released 2007 per Wikipedia.",
+ "openQuestions": [
+  "Exact year of Intel's DRAM exit (1984-86)?",
+  "Primary source for intelligence-as-compression from OpenAI's own people.",
+  "How much of Fairchild's early revenue came from military versus commercial buyers?",
+  "Is Intel's 2025 state stake a rescue or the start of a US foundry policy?"
+ ]
+}

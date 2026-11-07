@@ -1,0 +1,2689 @@
+{
+ "cluster": "economy",
+ "asOf": "2026-11-07",
+ "scope": "The 2026 economy beyond the AI chain and its environment.",
+ "facts": [
+  {
+   "id": "economy-mcap-apple",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Apple (AAPL) is ranked number 1 with a market cap of $4.975 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "1 Apple AAPL $4.975 T $342.37 0.52%"
+   ],
+   "values": [
+    "4.975"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "marketCap",
+   "value": 4975.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 1 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-nvidia",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, NVIDIA (NVDA) is ranked number 2 with a market cap of $4.506 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "2 NVIDIA NVDA $4.506 T $186.64 2.78%"
+   ],
+   "values": [
+    "4.506"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 4506.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 2 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-microsoft",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Microsoft (MSFT) is ranked number 3 with a market cap of $3.940 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "3 Microsoft MSFT $3.940 T $530.61 0.99%"
+   ],
+   "values": [
+    "3.940"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "marketCap",
+   "value": 3940.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 3 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-google",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Alphabet (Google) (GOOG) is ranked number 4 with a market cap of $3.490 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "4 Alphabet (Google) GOOG $3.490 T $283.93 0.78%"
+   ],
+   "values": [
+    "3.490"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "marketCap",
+   "value": 3490.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 4 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-amazon",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Amazon (AMZN) is ranked number 5 with a market cap of $2.803 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "5 Amazon AMZN $2.803 T $259.30 0.35%"
+   ],
+   "values": [
+    "2.803"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "marketCap",
+   "value": 2803.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 5 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-tsmc",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, TSMC (TSM) is ranked number 6 with a market cap of $1.947 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "6 TSMC TSM $1.947 T $375.44 6.33%"
+   ],
+   "values": [
+    "1.947"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "marketCap",
+   "value": 1947.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 6 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-spacex",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, SpaceX (SPCX) is ranked number 7 with a market cap of $1.823 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "7 SpaceX SPCX $1.823 T $134.27 8.62%"
+   ],
+   "values": [
+    "1.823"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "marketCap",
+   "value": 1823.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 7 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-saudi-aramco",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Saudi Aramco (2222.SR) is ranked number 8 with a market cap of $1.687 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "8 Saudi Aramco 2222.SR $1.687 T $6.97 0.30%"
+   ],
+   "values": [
+    "1.687"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "marketCap",
+   "value": 1687.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 8 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-meta",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Meta Platforms (Facebook) (META) is ranked number 9 with a market cap of $1.560 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "9 Meta Platforms (Facebook) META $1.560 T $610.15 0.84%"
+   ],
+   "values": [
+    "1.560"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "marketCap",
+   "value": 1560.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 9 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-tesla",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Tesla (TSLA) is ranked number 10 with a market cap of $1.415 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "10 Tesla TSLA $1.415 T $358.22 4.23%"
+   ],
+   "values": [
+    "1.415"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "marketCap",
+   "value": 1415.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 10 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-broadcom",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Broadcom (AVGO) is ranked number 11 with a market cap of $1.401 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "11 Broadcom AVGO $1.401 T $293.69 0.74%"
+   ],
+   "values": [
+    "1.401"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "marketCap",
+   "value": 1401.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 11 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-berkshire",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Berkshire Hathaway (BRK-B) is ranked number 12 with a market cap of $1.222 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "12 Berkshire Hathaway BRK-B $1.222 T $570.89 0.25%"
+   ],
+   "values": [
+    "1.222"
+   ],
+   "dated2026": true,
+   "actor": "berkshire",
+   "kind": "marketCap",
+   "value": 1222.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 12 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-eli-lilly",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Eli Lilly (LLY) is ranked number 13 with a market cap of $1.206 T.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "13 Eli Lilly LLY $1.206 T $1,354 0.79%"
+   ],
+   "values": [
+    "1.206"
+   ],
+   "dated2026": true,
+   "actor": "eli-lilly",
+   "kind": "marketCap",
+   "value": 1206.0,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 13 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-walmart",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Walmart (WMT) is ranked number 14 with a market cap of $995.84 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "14 Walmart WMT $995.84 B $125.52 1.72%"
+   ],
+   "values": [
+    "995.84"
+   ],
+   "dated2026": true,
+   "actor": "walmart",
+   "kind": "marketCap",
+   "value": 995.8,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 14 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-samsung",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Samsung (005930.KS) is ranked number 15 with a market cap of $927.27 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "15 Samsung 005930.KS $927.27 B $142.40 6.35%"
+   ],
+   "values": [
+    "927.27"
+   ],
+   "dated2026": true,
+   "actor": "samsung",
+   "kind": "marketCap",
+   "value": 927.3,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 15 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-jpmorgan",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, JPMorgan Chase (JPM) is ranked number 16 with a market cap of $888.27 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "16 JPMorgan Chase JPM $888.27 B $334.49 0.84%"
+   ],
+   "values": [
+    "888.27"
+   ],
+   "dated2026": true,
+   "actor": "jpmorgan",
+   "kind": "marketCap",
+   "value": 888.3,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 16 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-visa",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Visa (V) is ranked number 17 with a market cap of $789.93 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "17 Visa V $789.93 B $422.65 0.01%"
+   ],
+   "values": [
+    "789.93"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "marketCap",
+   "value": 789.9,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 17 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-micron",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Micron Technology (MU) is ranked number 18 with a market cap of $780.68 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "18 Micron Technology MU $780.68 B $690.00 5.12%"
+   ],
+   "values": [
+    "780.68"
+   ],
+   "dated2026": true,
+   "actor": "micron",
+   "kind": "marketCap",
+   "value": 780.7,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 18 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-amd",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, AMD (AMD) is ranked number 19 with a market cap of $736.46 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "19 AMD AMD $736.46 B $449.04 11.04%"
+   ],
+   "values": [
+    "736.46"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "marketCap",
+   "value": 736.5,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 19 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-exxon-mobil",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Exxon Mobil (XOM) is ranked number 20 with a market cap of $676.62 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "20 Exxon Mobil XOM $676.62 B $165.87 0.34%"
+   ],
+   "values": [
+    "676.62"
+   ],
+   "dated2026": true,
+   "actor": "exxon-mobil",
+   "kind": "marketCap",
+   "value": 676.6,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 20 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-johnson-and-johnson",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Johnson & Johnson (JNJ) is ranked number 21 with a market cap of $664.94 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "21 Johnson & Johnson JNJ $664.94 B $276.22 1.43%"
+   ],
+   "values": [
+    "664.94"
+   ],
+   "dated2026": true,
+   "actor": "johnson-and-johnson",
+   "kind": "marketCap",
+   "value": 664.9,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 21 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-sk-hynix",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, SK Hynix (000660.KS) is ranked number 22 with a market cap of $602.37 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "22 SK Hynix 000660.KS $602.37 B $854.22 10.44%"
+   ],
+   "values": [
+    "602.37"
+   ],
+   "dated2026": true,
+   "actor": "sk-hynix",
+   "kind": "marketCap",
+   "value": 602.4,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 22 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-mastercard",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, Mastercard (MA) is ranked number 23 with a market cap of $568.61 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "23 Mastercard MA $568.61 B $652.70 0.49%"
+   ],
+   "values": [
+    "568.61"
+   ],
+   "dated2026": true,
+   "actor": "mastercard",
+   "kind": "marketCap",
+   "value": 568.6,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 23 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-asml",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, ASML (ASML) is ranked number 24 with a market cap of $549.12 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "24 ASML ASML $549.12 B $1,425 5.02%"
+   ],
+   "values": [
+    "549.12"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "marketCap",
+   "value": 549.1,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 24 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-mcap-abbvie",
+   "claim": "In the CompaniesMarketCap table of companies ranked by market cap, AbbVie (ABBV) is ranked number 25 with a market cap of $514.92 B.",
+   "url": "https://companiesmarketcap.com/",
+   "quotes": [
+    "25 AbbVie ABBV $514.92 B $291.31 1.07%"
+   ],
+   "values": [
+    "514.92"
+   ],
+   "dated2026": true,
+   "actor": "abbvie",
+   "kind": "marketCap",
+   "value": 514.9,
+   "unit": "USD bn",
+   "period": "as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "rank 25 on companiesmarketcap.com (global table, listed companies)"
+  },
+  {
+   "id": "economy-fed-hold-oct2026",
+   "claim": "The Federal Open Market Committee, on 28 October 2026, decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent.",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+   "quotes": [
+    "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate."
+   ],
+   "values": [
+    "3-3/4 to 4"
+   ],
+   "dated2026": true,
+   "actor": "federal-reserve",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "FOMC meeting of 2026-10-28",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "range 3.75% to 4.00%; vote 10-2"
+  },
+  {
+   "id": "economy-fed-dissent-hike",
+   "claim": "Two FOMC members, Lisa D. Cook and Beth M. Hammack, voted on 28 October 2026 for a quarter-point rise rather than a hold.",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+   "quotes": [
+    "Voting against the monetary policy action were Lisa D. Cook and Beth M. Hammack, who preferred to raise the target range for the federal funds rate by 1/4 percentage point at this meeting."
+   ],
+   "values": [
+    "1/4"
+   ],
+   "dated2026": true,
+   "actor": "federal-reserve",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "FOMC meeting of 2026-10-28",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-fed-inflation-statement",
+   "claim": "The Federal Reserve's 28 October 2026 statement said inflation remains elevated.",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+   "quotes": [
+    "Inflation remains elevated. The accumulation of more information will help the Committee determine the policy stance appropriate to ensure a timely return of inflation to the Committee's 2 percent goal."
+   ],
+   "values": [
+    "2 percent"
+   ],
+   "dated2026": true,
+   "actor": "federal-reserve",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "FOMC statement of 2026-10-28",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-sp500-top10-weight",
+   "claim": "As of 30 September 2026 the ten largest constituents were 39.1% of the S&P 500 and the largest alone carried an 8.4% weight, according to S&P Dow Jones Indices data cited by KuCoin.",
+   "url": "https://www.kucoin.com/blog/th-nvidia-apple-and-microsoft-sp500-concentration",
+   "quotes": [
+    "According to S&P Dow Jones Indices data as of September 30, 2026, the largest constituent already carried an 8.4% weight, and the top 10 constituents reached 39.1% of an index with 503 members and about $68.4 trillion in total constituent market capitalization."
+   ],
+   "values": [
+    "39.1",
+    "8.4"
+   ],
+   "dated2026": true,
+   "actor": "public-markets",
+   "kind": "share",
+   "value": 39.1,
+   "unit": "% of S&P 500",
+   "period": "30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "share of index market cap; market: S&P 500"
+  },
+  {
+   "id": "economy-ai-share-of-gdp-growth",
+   "claim": "ING estimates that broad tech investment (information processing, data centres and software, without subtracting imports) accounted for 50.2% of year-on-year US GDP growth in Q2 2026.",
+   "url": "https://think.ing.com/opinions/how-much-is-ai-contributing-to-us-economic-growth/",
+   "quotes": [
+    "This categorisation has headline investment accounting for 50.2% of YoY GDP growth in second quarter 2026, with 46.6% being the average contribution to YoY GDP growth over the past four quarters."
+   ],
+   "values": [
+    "50.2",
+    "46.6"
+   ],
+   "dated2026": true,
+   "actor": "us-gov",
+   "kind": "share",
+   "value": 50.2,
+   "unit": "% of YoY GDP growth",
+   "period": "Q2 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "ING estimate; ING's own judgement is that AI contributes about one-third of growth in 2026 after allowing for imported supply chains"
+  },
+  {
+   "id": "economy-vc-deal-value-q3",
+   "claim": "US venture deal value reached $515.8 billion through Q3 2026, about 44% above the previous full-year record set in 2021 (PitchBook-NVCA Venture Monitor).",
+   "url": "https://nvca.org/pitchbook-nvca-venture-monitor",
+   "quotes": [
+    "Record venture investment: U.S. VC deal value reached $515.8 billion through Q3, roughly 44% above the previous full-year record set in 2021."
+   ],
+   "values": [
+    "515.8",
+    "44"
+   ],
+   "dated2026": true,
+   "actor": "venture-capital",
+   "kind": "investment",
+   "value": 515.8,
+   "unit": "USD bn",
+   "period": "Jan-Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-vc-ai-share",
+   "claim": "AI companies took 82.7% of US venture deal value through September 2026, the highest annual share in the PitchBook-NVCA dataset.",
+   "url": "https://nvca.org/pitchbook-nvca-venture-monitor",
+   "quotes": [
+    "AI's continued prominence: AI companies accounted for 82.7% of venture deal value through September, the highest annual share in the report's dataset."
+   ],
+   "values": [
+    "82.7"
+   ],
+   "dated2026": true,
+   "actor": "venture-capital",
+   "kind": "share",
+   "value": 82.7,
+   "unit": "% of VC deal value",
+   "period": "Jan-Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "market: US venture capital deal value"
+  },
+  {
+   "id": "economy-business-applications-sep2026",
+   "claim": "Seasonally adjusted US business applications were 534,947 in September 2026, up 0.5 percent on August (Census Bureau).",
+   "url": "https://www.census.gov/econ/bfs/current/index.html",
+   "quotes": [
+    "Business Applications for September 2026, adjusted for seasonal variation, were 534,947, an increase of 0.5 percent compared to August 2026."
+   ],
+   "values": [
+    "534,947",
+    "0.5"
+   ],
+   "dated2026": true,
+   "actor": "us-gov",
+   "kind": "event",
+   "value": 534947,
+   "unit": "applications per month",
+   "period": "September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "monthly count of applications for employer ID numbers"
+  },
+  {
+   "id": "economy-hyperscaler-capex-2026",
+   "claim": "Google, Amazon, Microsoft and Meta collectively plan to spend $725 billion on capex in 2026, up 77% from last year's record $410 billion (Financial Times tally, via Tom's Hardware, April 2026).",
+   "url": "https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion",
+   "quotes": [
+    "Google, Amazon, Microsoft, and Meta collectively plan to spend $725 billion on capex in 2026, up 77% from last year's record $410 billion, according to first-quarter earnings compiled by the Financial Times."
+   ],
+   "values": [
+    "725",
+    "77",
+    "410"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "capex",
+   "value": 725,
+   "unit": "USD bn",
+   "period": "calendar 2026 plan, as of Q1 earnings",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "aggregate of four actors; later guidance moved (Alphabet higher), see labs cluster"
+  },
+  {
+   "id": "economy-tariff-refunds-wharton",
+   "claim": "Penn Wharton Budget Model projected on 20 February 2026 that reversing the IEEPA tariffs will generate up to $175 billion in refunds.",
+   "url": "https://budgetmodel.wharton.upenn.edu/p/2026-02-20-supreme-court-tariff-ruling/",
+   "quotes": [
+    "We project that reversing the IEEPA tariffs will generate up to $175 billion in refunds."
+   ],
+   "values": [
+    "175"
+   ],
+   "dated2026": true,
+   "actor": "us-gov",
+   "kind": "flow",
+   "value": 175,
+   "unit": "USD bn",
+   "period": "projected, from Feb 2026",
+   "from": "us-gov",
+   "to": "enterprises",
+   "accessed": "2026-11-07",
+   "notes": "a projection by a named source, not a payout"
+  },
+  {
+   "id": "economy-apple-q4-revenue",
+   "claim": "Apple's revenue in its fiscal fourth quarter of 2026 (ended 26 September 2026) was $114.5 billion, up 12 percent year over year.",
+   "url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+   "quotes": [
+    "The Company posted quarterly revenue of $114.5 billion, up 12 percent year over year."
+   ],
+   "values": [
+    "114.5",
+    "12"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "revenue",
+   "value": 114.5,
+   "unit": "USD bn",
+   "period": "fiscal Q4 2026, ended 2026-09-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-apple-q4-gross-margin",
+   "claim": "Apple's gross margin in fiscal Q4 2026 was 47.9 percent, including about 1 percentage point from tariff refunds.",
+   "url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+   "quotes": [
+    "Company gross margin was 47.9 percent, including a favorable impact of approximately 1 percentage point from tariff refunds."
+   ],
+   "values": [
+    "47.9",
+    "1"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "grossMarginPct",
+   "value": 47.9,
+   "unit": "%",
+   "period": "fiscal Q4 2026, ended 2026-09-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-lilly-q3-revenue",
+   "claim": "Eli Lilly's Q3 2026 revenue was $24.40 billion, up 39% year over year, driven by volume growth of Mounjaro and Zepbound (Zacks).",
+   "url": "https://www.zacks.com/stock/news/3018734/lly-stock-jumps-as-q3-earnings-beat-estimates-2026-sales-view-raised",
+   "quotes": [
+    "Revenues of $24.40 billion rose 39% year over year, driven by robust volume growth of Lilly's popular GLP-1 drugs, Mounjaro and Zepbound."
+   ],
+   "values": [
+    "24.40",
+    "39"
+   ],
+   "dated2026": true,
+   "actor": "eli-lilly",
+   "kind": "revenue",
+   "value": 24.4,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-lilly-guidance-2026",
+   "claim": "Lilly raised its 2026 revenue guidance to $91-$92 billion after the Q3 2026 report (Zacks).",
+   "url": "https://www.zacks.com/stock/news/3018734/lly-stock-jumps-as-q3-earnings-beat-estimates-2026-sales-view-raised",
+   "quotes": [
+    "Lilly raised 2026 revenue guidance to $91-$92 billion, sending shares up around 4% in pre-market."
+   ],
+   "values": [
+    "91",
+    "92"
+   ],
+   "dated2026": true,
+   "actor": "eli-lilly",
+   "kind": "revenue",
+   "value": 91.5,
+   "unit": "USD bn",
+   "period": "2026 guidance (midpoint of 91-92)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "guidance range, value is the midpoint"
+  },
+  {
+   "id": "economy-novo-q3-net-sales",
+   "claim": "Novo Nordisk's net sales in Q3 2026 were DKK 79,195 million, up 6% in Danish kroner and 4% at constant exchange rates.",
+   "url": "https://www.novonordisk.com/news-and-media/news-and-ir-materials/news-details.html?id=919765",
+   "quotes": [
+    "Net sales 79,195 6% 4% 254,506 11% 13%"
+   ],
+   "values": [
+    "79,195"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "revenue",
+   "value": 79.195,
+   "unit": "DKK bn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "table row: Q3 2026 net sales, growth in DKK, growth at CER, then nine months"
+  },
+  {
+   "id": "economy-novo-outlook-2026",
+   "claim": "Novo Nordisk expects 2026 adjusted sales growth and adjusted operating profit growth of -2% to +2% at constant exchange rates.",
+   "url": "https://www.novonordisk.com/news-and-media/news-and-ir-materials/news-details.html?id=919765",
+   "quotes": [
+    "Adjusted sales growth for 2026 is now expected to be -2% to +2% at CER and adjusted operating profit growth is now expected to be -2% to +2% at CER."
+   ],
+   "values": [
+    "-2% to +2%"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "outlook of 2026-11-04",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "outlook range, adjusted basis"
+  },
+  {
+   "id": "economy-novo-wegovy-share",
+   "claim": "Novo Nordisk says the Wegovy franchise keeps its US leadership in new patient starts, with more than 50% share in the branded obesity market.",
+   "url": "https://www.novonordisk.com/news-and-media/news-and-ir-materials/news-details.html?id=919765",
+   "quotes": [
+    "The Wegovy® franchise maintains its US leadership in new patient starts, with more than 50% share in the branded obesity market."
+   ],
+   "values": [
+    "50%"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "share",
+   "value": 50,
+   "unit": "% of new patient starts, US branded obesity market",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "company claim, 'more than 50%'"
+  },
+  {
+   "id": "economy-tesla-q3-operating-margin",
+   "claim": "Tesla's Q3 2026 operating income fell 56% to $718 million, an operating margin of 2.6% against 5.8% a year earlier.",
+   "url": "https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/",
+   "quotes": [
+    "Operating income fell 56% to $718 million, for an operating margin of 2.6%, compared with 5.8% a year ago and 1.4% last quarter."
+   ],
+   "values": [
+    "718",
+    "2.6",
+    "5.8"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "operatingMarginPct",
+   "value": 2.6,
+   "unit": "%",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-tesla-q3-capex",
+   "claim": "Tesla's Q3 2026 capital spending was $4.73 billion, more than double the $2.25 billion a year earlier.",
+   "url": "https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/",
+   "quotes": [
+    "Capital spending was $4.73 billion, more than double the $2.25 billion of a year ago, and free cash flow came in at $1.53 billion, compared with $3.99 billion a year ago and negative $1.09 billion in Q2."
+   ],
+   "values": [
+    "4.73",
+    "2.25"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "capex",
+   "value": 4.73,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-tesla-vs-byd-q3-deliveries",
+   "claim": "Tesla delivered 486,532 vehicles in Q3 2026 while BYD sold 762,478 passenger battery-electric vehicles (CnEVPost).",
+   "url": "https://cnevpost.com/2026/10/02/tesla-q3-delivery-byd-bev-sales/",
+   "quotes": [
+    "Tesla delivered 486,532 vehicles globally in the third quarter, down 2.13% year-on-year but above market expectations. BYD sold 762,478 passenger BEVs in the same period, widening its lead over Tesla from about 77,000 vehicles in the second quarter to about 276,000."
+   ],
+   "values": [
+    "486,532",
+    "762,478"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "units",
+   "value": 486532,
+   "unit": "vehicles",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "BYD 762,478 passenger BEVs; BYD lead about 276,000"
+  },
+  {
+   "id": "economy-spacex-ipo",
+   "claim": "SpaceX's shares closed at about $161 on 12 June 2026, nearly 20% above the $135 IPO price, valuing the company at more than $2 trillion (ABC News).",
+   "url": "https://www.goodmorningamerica.com/news/story/spacex-ipo-133713436",
+   "quotes": [
+    "Elon Musk-led rocket and AI company SpaceX soared in trading on Friday, moving well above an initial public offering (IPO) price of $135 per share. The stock price closed at about $161 a share on Friday, marking a nearly 20% rise from the IPO price and setting the value of SpaceX at more than $2 trillion."
+   ],
+   "values": [
+    "135",
+    "161",
+    "2 trillion"
+   ],
+   "dated2026": true,
+   "actor": "spacex",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "first trading day, 2026-06-12",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "described as the largest IPO of all time"
+  },
+  {
+   "id": "economy-tesla-spacex-stake",
+   "claim": "Tesla's Q3 2026 net income included a $142 million unrealized loss on its SpaceX equity investment.",
+   "url": "https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/",
+   "quotes": [
+    "GAAP net income included a $288 million unrealized gain on Tesla's bitcoin holdings, partly offset by a $142 million unrealized loss on its SpaceX equity investment."
+   ],
+   "values": [
+    "142"
+   ],
+   "dated2026": true,
+   "actor": "tesla",
+   "kind": "investment",
+   "value": 142,
+   "unit": "USD mn (unrealized loss)",
+   "period": "Q3 2026",
+   "from": "tesla",
+   "to": "spacex",
+   "accessed": "2026-11-07",
+   "notes": "shows Tesla holds SpaceX equity; amount of the stake not given in this quote"
+  },
+  {
+   "id": "economy-aramco-q3-adjusted-ni",
+   "claim": "Aramco's adjusted net income in Q3 2026 was $31.2 billion against $28.6 billion in Q3 2025.",
+   "url": "https://www.aramco.com/en/news-media/news/2026/aramco-announces-third-quarter-2026-results",
+   "quotes": [
+    "Adjusted net income1: $31.2 billion (Q3 2025: $28.6 billion2)"
+   ],
+   "values": [
+    "31.2",
+    "28.6"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "netIncome",
+   "value": 31.2,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "adjusted basis; reported net income is higher on a one-off asset-sale gain"
+  },
+  {
+   "id": "economy-aramco-q3-dividend",
+   "claim": "Aramco's board declared a Q3 2026 base dividend of $21.9 billion, up 3.5% year on year.",
+   "url": "https://www.aramco.com/en/news-media/news/2026/aramco-announces-third-quarter-2026-results",
+   "quotes": [
+    "Board declares Q3 2026 base dividend of $21.9 billion, up 3.5% year-on-year, to be paid in the fourth quarter"
+   ],
+   "values": [
+    "21.9",
+    "3.5"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "flow",
+   "value": 21.9,
+   "unit": "USD bn",
+   "period": "Q3 2026 dividend",
+   "from": "saudi-aramco",
+   "to": "gulf-states",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-eia-brent-2026",
+   "claim": "The US EIA expects Brent crude to average about $98 a barrel in 2026, up 8% from its previous forecast (October 2026 Short-Term Energy Outlook, reported by BOE Report).",
+   "url": "https://www.oilandgas360.com/us-eia-hikes-oil-price-forecasts-again-as-iran-war-drains-global-stockpile/",
+   "quotes": [
+    "Global benchmark Brent crude is now expected to average about $98 a barrel in 2026, up 8% from the EIA's previous forecast, the agency said in its Short-Term Energy Outlook."
+   ],
+   "values": [
+    "98",
+    "8"
+   ],
+   "dated2026": true,
+   "actor": "gulf-states",
+   "kind": "event",
+   "value": 98,
+   "unit": "USD per barrel",
+   "period": "2026 average forecast, STEO of 2026-10-06",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "forecast, not a realised price"
+  },
+  {
+   "id": "economy-hormuz-oil-share",
+   "claim": "The Strait of Hormuz carried about 20% of global oil supplies before the 2026 war with Iran, which has disrupted its flows.",
+   "url": "https://www.oilandgas360.com/us-eia-hikes-oil-price-forecasts-again-as-iran-war-drains-global-stockpile/",
+   "quotes": [
+    "Oil and fuel prices have risen dramatically due to the US-Israeli war on Iran, which in turn has disrupted oil flows through the Strait of Hormuz, which carried about 20% of global oil supplies before the war."
+   ],
+   "values": [
+    "20%"
+   ],
+   "dated2026": true,
+   "actor": "gulf-states",
+   "kind": "share",
+   "value": 20,
+   "unit": "% of global oil supply",
+   "period": "before the 2026 Iran war",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "market: seaborne passage of global oil"
+  },
+  {
+   "id": "economy-visa-fy2026-net-revenue",
+   "claim": "Visa's net revenue for fiscal 2026 was $45.9 billion, up 15%.",
+   "url": "https://s1.q4cdn.com/050606653/files/content_files/4Q26-Earnings-Release_vFINAL.pdf",
+   "quotes": [
+    "Net revenue of $45.9B, an increase of 15%, or 14% on a constant-dollar basis"
+   ],
+   "values": [
+    "45.9",
+    "15"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "revenue",
+   "value": 45.9,
+   "unit": "USD bn",
+   "period": "fiscal 2026 (year to 2026-09-30)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-jpm-q3-net-income",
+   "claim": "JPMorgan Chase reported net income of $15.3 billion for Q3 2026, or $5.57 per diluted share.",
+   "url": "https://pulse2.com/jpmorgan-chase-q3-2026-results",
+   "quotes": [
+    "JPMorgan Chase reported third-quarter 2026 net income of $15.3 billion, or $5.57 per diluted share, as revenue rose and several major businesses posted double-digit growth."
+   ],
+   "values": [
+    "15.3",
+    "5.57"
+   ],
+   "dated2026": true,
+   "actor": "jpmorgan",
+   "kind": "netIncome",
+   "value": 15.3,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-berkshire-cash-q2",
+   "claim": "Berkshire Hathaway had $365.5 billion of cash on hand at 30 June 2026, down 8.0% from a record $397.4 billion at 31 March (CNBC).",
+   "url": "https://www.cnbc.com/2026/08/09/abel-puts-a-big-chunk-of-berkshires-cash-to-work.html",
+   "quotes": [
+    "Saturday morning's financial report for the three months ending June 30 shows Berkshire had $365.5 billion on hand, a reduction of 8.0% from its record high $397.4 billion as of March 31."
+   ],
+   "values": [
+    "365.5",
+    "8.0",
+    "397.4"
+   ],
+   "dated2026": true,
+   "actor": "berkshire",
+   "kind": "assets",
+   "value": 365.5,
+   "unit": "USD bn (cash on hand)",
+   "period": "30 Jun 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-tencent-q2-revenue",
+   "claim": "Tencent's Q2 2026 revenue was 204.8 billion yuan (US$30.36 billion).",
+   "url": "https://www.thestandard.com.hk/finance/article/339740/Tencent-Q2-revenue-climbs-11-percent-on-AI-driven-ad-gains-but-profit-falls-short",
+   "quotes": [
+    "For the three months to the end of June, the Shenzhen-based gaming and internet company reported revenue of 204.8 billion yuan (US$30.36 billion), in line with analyst estimates of 202.2 billion yuan, according to LSEG data.",
+    "Net profit rose only 0.7 percent from a year earlier to 56 billion yuan, falling short of analyst expectations of 61.8 billion yuan."
+   ],
+   "values": [
+    "204.8",
+    "30.36",
+    "0.7",
+    "56"
+   ],
+   "dated2026": true,
+   "actor": "tencent",
+   "kind": "revenue",
+   "value": 30.36,
+   "unit": "USD bn",
+   "period": "Q2 2026, ended 2026-06-30",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "RMB 204.8 billion"
+  },
+  {
+   "id": "economy-tencent-compute-statement",
+   "claim": "In its Q2 2026 results Tencent said it substantially stepped up its procurement of compute; its revenues were up 11% year on year.",
+   "url": "https://www.tencent.com/wp-content/uploads/2026/08/Tencent-Announces-2026-Second-Quarter-Results.pdf",
+   "quotes": [
+    "At the infrastructure level, we substantially stepped up our procurement of compute, which will enable us to convert usage of our applications and models into revenue going forward.",
+    "Revenues: +11% YoY, gross profit: +13% YoY, non-IFRS operating profit: +9% YoY"
+   ],
+   "values": [
+    "11%"
+   ],
+   "dated2026": true,
+   "actor": "tencent",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 2026 results, August 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-walmart-advertising-q2",
+   "claim": "Walmart's global advertising business grew 38% in Q2 fiscal 2027, with Walmart Connect in the US up 43% excluding VIZIO.",
+   "url": "https://corporate.walmart.com/news/2026/08/20/walmart-releases-q2-fy27-earnings",
+   "quotes": [
+    "Global advertising3 38% Walmart Connect in the U.S. grew 43% (excluding VIZIO)"
+   ],
+   "values": [
+    "38",
+    "43"
+   ],
+   "dated2026": true,
+   "actor": "walmart",
+   "kind": "event",
+   "value": 38,
+   "unit": "% growth",
+   "period": "Q2 FY27 (quarter ended 2026-07-31)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "growth rate of advertising revenue"
+  },
+  {
+   "id": "economy-apple-ceo-statement",
+   "claim": "Apple's CEO John Ternus said the company reported a September-quarter revenue record, with iPhone at a September-quarter record and Services at an all-time high.",
+   "url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+   "quotes": [
+    "\"Today, Apple is proud to report a September quarter revenue record of $114.5 billion, up 12 percent from a year ago, with iPhone reaching a September quarter record and Services reaching an all-time high, capping off our best fiscal year ever,\" said John Ternus, Apple's CEO."
+   ],
+   "values": [
+    "114.5"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "press release of 2026-11-02",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "economy-aramco-downstream",
+   "claim": "Aramco's downstream adjusted EBIT rose 234.0% year on year in Q3 2026 on stronger refining margins.",
+   "url": "https://www.aramco.com/en/news-media/news/2026/aramco-announces-third-quarter-2026-results",
+   "quotes": [
+    "Downstream adjusted EBIT rises 234.0% year-on-year due to stronger refining margins"
+   ],
+   "values": [
+    "234.0"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "operatingIncome",
+   "value": 234.0,
+   "unit": "% growth",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "growth of the downstream segment's adjusted EBIT"
+  },
+  {
+   "id": "economy-aramco-attacks",
+   "claim": "MEED reported that Aramco's Q3 2026 profit rose 9% despite attacks on its facilities.",
+   "url": "https://www.meed.com/aramco-q3-profit-rises-9-despite-attacks-on-facilities",
+   "quotes": [
+    "Aramco Q3 profit rises 9% despite attacks on facilities"
+   ],
+   "values": [
+    "9%"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "headline; adjusted profit rose 9%"
+  }
+ ],
+ "actors": [
+  {
+   "id": "apple",
+   "name": "Apple",
+   "kind": "company",
+   "country": "US",
+   "layer": "apps",
+   "sector": "consumer electronics and services",
+   "founded": 1976,
+   "role": "sells the devices through which most consumers meet AI, and the services layer on top of them",
+   "powers": [
+    "switching costs",
+    "branding",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "owns the customer relationship and the usage data of its device base",
+    "execution": "designs hardware and software together and has others build and supply them at scale",
+    "environment": "US consumer and tariff policy: a tariff refund added about a point to its Q4 gross margin"
+   },
+   "advantage": "An installed base locked into one ecosystem (switching costs) and a brand that carries a premium price; Services then earns on that base without the cost of building the hardware again. Rivals can make a phone but not copy the base. It is the largest company on the scoreboard.",
+   "standsOn": [
+    "tsmc",
+    "us-gov",
+    "china"
+   ],
+   "competitors": [
+    "samsung",
+    "google"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to keep the device and Services flywheel growing: its CEO calls the year its best fiscal year ever",
+   "fear": "that the AI interface moves to someone else's model or device and the base stops being the gate; and that tariffs return",
+   "facts": [
+    "economy-mcap-apple",
+    "economy-apple-q4-revenue",
+    "economy-apple-q4-gross-margin",
+    "economy-apple-ceo-statement",
+    "economy-tariff-refunds-wharton"
+   ]
+  },
+  {
+   "id": "berkshire",
+   "name": "Berkshire Hathaway",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "conglomerate: insurance, rail, energy",
+   "founded": null,
+   "role": "a holding company that turns insurance float and cash flow into ownership of other firms; the economy's patient buyer",
+   "powers": [
+    "cornered resource",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "decades of capital-allocation judgement that now passes from Buffett to Abel",
+    "execution": "buys whole businesses and leaves operators alone; keeps a very large cash buffer",
+    "environment": "its cash earns interest at 3.75 to 4.00 percent funds-rate levels while it waits"
+   },
+   "advantage": "Cheap, sticky capital (insurance float) plus the ability to wait. Its advantage is the option to buy when others must sell. A cash pile of $365.5 billion is a weapon in a crisis and a drag in a boom; in 2026 the new CEO began to spend it.",
+   "standsOn": [
+    "us-gov",
+    "public-markets"
+   ],
+   "competitors": [
+    "public-markets"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "to buy great businesses at fair prices when fear makes them cheap",
+   "fear": "a permanent loss of capital and a market in which nothing is cheap enough to buy",
+   "facts": [
+    "economy-mcap-berkshire",
+    "economy-berkshire-cash-q2"
+   ]
+  },
+  {
+   "id": "jpmorgan",
+   "name": "JPMorgan Chase",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "banking",
+   "founded": null,
+   "role": "the largest US bank; the plumbing through which AI-era capital raising and trading passes",
+   "powers": [
+    "scale economies",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "sees payments, lending and trading flows across the economy",
+    "execution": "runs consumer, investment-banking and markets businesses at scale",
+    "environment": "gains when rates are high and capital markets are busy"
+   },
+   "advantage": "Balance-sheet scale and the deposit base lower its cost of funds; being the dealer in the biggest capital raisings gives it fees from the AI financing boom. A bank's rivals are regulation and its own credit losses more than other banks.",
+   "standsOn": [
+    "us-gov",
+    "federal-reserve"
+   ],
+   "competitors": [
+    "public-markets"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises",
+    "governments"
+   ],
+   "desire": "to be the bank every large capital raising and payment flows through",
+   "fear": "a credit event in the loans and bonds that fund the AI build, and rules that cap its balance sheet",
+   "facts": [
+    "economy-mcap-jpmorgan",
+    "economy-jpm-q3-net-income"
+   ]
+  },
+  {
+   "id": "eli-lilly",
+   "name": "Eli Lilly",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "pharmaceuticals (GLP-1)",
+   "founded": 1876,
+   "role": "the leader of the GLP-1 obesity and diabetes drug wave, now the thirteenth largest company in the world",
+   "powers": [
+    "cornered resource",
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "clinical data and the patents behind tirzepatide",
+    "execution": "manufactures injectables at huge volume and launched Zepbound fast",
+    "environment": "a US market where a patented drug earns a premium and an obesity epidemic supplies demand"
+   },
+   "advantage": "A patented molecule that works better than the first generation, protected for years, made at a scale rivals struggle to match; volume rose while price fell. Revenue rose 39% in Q3 2026 and guidance rose to $91-$92 billion. The advantage is a cornered resource (the patent) turned into process power (supply).",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "novo-nordisk",
+    "abbvie"
+   ],
+   "customers": [
+    "consumers",
+    "governments"
+   ],
+   "desire": "to make GLP-1 the default treatment for obesity and widen into new indications",
+   "fear": "price cuts from payers and governments, a rival with a better pill, and patent expiry",
+   "facts": [
+    "economy-mcap-eli-lilly",
+    "economy-lilly-q3-revenue",
+    "economy-lilly-guidance-2026"
+   ]
+  },
+  {
+   "id": "novo-nordisk",
+   "name": "Novo Nordisk",
+   "kind": "company",
+   "country": "Denmark",
+   "layer": "economy",
+   "sector": "pharmaceuticals (GLP-1)",
+   "founded": 1923,
+   "role": "the first mover in GLP-1 for obesity (Wegovy), now defending against Lilly",
+   "powers": [
+    "cornered resource",
+    "branding"
+   ],
+   "triad": {
+    "information": "first clinical evidence for semaglutide in obesity",
+    "execution": "scaled supply, then right-sized its factory network after a slowdown",
+    "environment": "a market whose growth drew a stronger rival"
+   },
+   "advantage": "It created the category and still claims more than half of branded new patient starts in the US, and launched a Wegovy pill. But it expects 2026 adjusted sales growth of only -2% to +2%, while Lilly grows 39%: a first mover whose advantage was copied faster than it could be protected.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "eli-lilly"
+   ],
+   "customers": [
+    "consumers",
+    "governments"
+   ],
+   "desire": "to keep leadership in obesity care with the Wegovy pill and new launches",
+   "fear": "losing the lead to Lilly, and price pressure; it took impairment charges in Q3 2026",
+   "facts": [
+    "economy-novo-q3-net-sales",
+    "economy-novo-outlook-2026",
+    "economy-novo-wegovy-share"
+   ]
+  },
+  {
+   "id": "walmart",
+   "name": "Walmart",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "retail",
+   "founded": 1962,
+   "role": "the largest physical retail distribution network, growing a digital and advertising business on top of it",
+   "powers": [
+    "scale economies",
+    "branding"
+   ],
+   "triad": {
+    "information": "sees what a very large share of US households buy, which feeds its ad business",
+    "execution": "supply chain and low prices at scale",
+    "environment": "tariffs and consumer spending"
+   },
+   "advantage": "Purchasing and logistics scale allow the lowest prices; the store network turns into fast delivery that online rivals cannot copy cheaply; advertising on its own data (up 38% in Q2 FY27) earns a margin that groceries cannot. It stands as the consumer end of the global supply chain.",
+   "standsOn": [
+    "china",
+    "us-gov"
+   ],
+   "competitors": [
+    "amazon",
+    "costco"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to be the cheapest and the fastest and to add high-margin advertising and membership",
+   "fear": "consumers trading down or away, and tariffs on imported goods",
+   "facts": [
+    "economy-mcap-walmart",
+    "economy-walmart-advertising-q2"
+   ]
+  },
+  {
+   "id": "visa",
+   "name": "Visa",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "payments network",
+   "founded": null,
+   "role": "the rail on which card payments run: a toll on consumption",
+   "powers": [
+    "network economies",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "sees transaction data across the world",
+    "execution": "runs an authorisation network at high uptime",
+    "environment": "grows with nominal spending and cross-border travel, so inflation helps it"
+   },
+   "advantage": "A two-sided network: more cards make merchants accept Visa, more merchants make cards worth carrying (network economies). It takes a small fee on every payment and carries little capital, so its margins are very high. It is a choke point for consumption, not for AI.",
+   "standsOn": [
+    "us-gov",
+    "jpmorgan"
+   ],
+   "competitors": [
+    "mastercard"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "to be the default rail for new forms of payment",
+   "fear": "regulation of card fees, and a rival rail (account-to-account, stablecoins)",
+   "facts": [
+    "economy-mcap-visa",
+    "economy-visa-fy2026-net-revenue"
+   ]
+  },
+  {
+   "id": "mastercard",
+   "name": "Mastercard",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "payments network",
+   "founded": 1966,
+   "role": "the other card rail",
+   "powers": [
+    "network economies"
+   ],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "The twin of Visa in a duopoly; it shares the same network economics.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "visa"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-mastercard"
+   ]
+  },
+  {
+   "id": "saudi-aramco",
+   "name": "Saudi Aramco",
+   "kind": "company",
+   "country": "Saudi Arabia",
+   "layer": "economy",
+   "sector": "oil and gas",
+   "founded": 1933,
+   "role": "the world's largest oil producer by value; the Gulf's cash machine",
+   "powers": [
+    "cornered resource",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "knows its reservoirs and the oil market better than anyone",
+    "execution": "runs production, refining and chemicals at huge scale",
+    "environment": "sits inside the Gulf: the geology is its advantage and the Strait of Hormuz is its exposure"
+   },
+   "advantage": "Ownership of low-cost reserves, a state that backs it, and a downstream arm that earns when refining margins widen. In Q3 2026 its adjusted net income rose to $31.2 billion and downstream earnings jumped 234% while the Iran war pushed oil up; it pays a $21.9 billion quarterly base dividend to its shareholders.",
+   "standsOn": [
+    "gulf-states",
+    "us-gov"
+   ],
+   "competitors": [
+    "exxon-mobil"
+   ],
+   "customers": [
+    "governments",
+    "enterprises"
+   ],
+   "desire": "to keep the dividend and fund diversification into refining and chemicals",
+   "fear": "attacks on its facilities and the closure of the Strait of Hormuz, and demand destruction if prices stay high",
+   "facts": [
+    "economy-mcap-saudi-aramco",
+    "economy-aramco-q3-adjusted-ni",
+    "economy-aramco-q3-dividend",
+    "economy-eia-brent-2026",
+    "economy-hormuz-oil-share",
+    "economy-aramco-downstream",
+    "economy-aramco-attacks"
+   ]
+  },
+  {
+   "id": "exxon-mobil",
+   "name": "Exxon Mobil",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "oil and gas",
+   "founded": null,
+   "role": "the largest Western oil major",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "A scoreboard entry: integrated scale in oil and gas, benefiting from the 2026 oil shock; see the notes.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "saudi-aramco"
+   ],
+   "customers": [
+    "enterprises",
+    "consumers"
+   ],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-exxon-mobil"
+   ]
+  },
+  {
+   "id": "johnson-and-johnson",
+   "name": "Johnson & Johnson",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "pharmaceuticals and devices",
+   "founded": 1886,
+   "role": "a diversified healthcare group",
+   "powers": [
+    "scale economies",
+    "branding"
+   ],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "A scoreboard entry: diversified pharma and devices.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "abbvie",
+    "eli-lilly"
+   ],
+   "customers": [
+    "consumers",
+    "governments"
+   ],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-johnson-and-johnson"
+   ]
+  },
+  {
+   "id": "abbvie",
+   "name": "AbbVie",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "pharmaceuticals",
+   "founded": 2013,
+   "role": "a large immunology and neuroscience drug maker",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "A scoreboard entry: patented biologics.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "eli-lilly",
+    "johnson-and-johnson"
+   ],
+   "customers": [
+    "consumers",
+    "governments"
+   ],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-abbvie"
+   ]
+  },
+  {
+   "id": "tesla",
+   "name": "Tesla",
+   "kind": "company",
+   "country": "US",
+   "layer": "economy",
+   "sector": "electric vehicles, energy and robotics",
+   "founded": 2003,
+   "role": "electric-car maker repositioning as an AI and robotics company",
+   "powers": [
+    "process power",
+    "branding"
+   ],
+   "triad": {
+    "information": "fleet data from millions of cars",
+    "execution": "vertical integration and fast manufacturing",
+    "environment": "US policy on credits and tariffs; competes against subsidised Chinese makers"
+   },
+   "advantage": "A first-mover in electric cars with in-house manufacturing, but in 2026 it has been overtaken in battery-electric volume by BYD (Q3: 486,532 vs 762,478) and its operating margin fell to 2.6%. It is spending (capex $4.73 billion in Q3, R&D up sharply) on robotaxis and robots: a bet that its advantage moves from cars to autonomy and data. The market still values it at $1.415 trillion, tenth in the world.",
+   "standsOn": [
+    "china",
+    "us-gov"
+   ],
+   "competitors": [
+    "byd"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to make autonomy and robots the next business, funded by the cars",
+   "fear": "BYD's cost lead in cars and failing to make robotaxis pay before the cars' margin runs out",
+   "facts": [
+    "economy-mcap-tesla",
+    "economy-tesla-q3-operating-margin",
+    "economy-tesla-q3-capex",
+    "economy-tesla-vs-byd-q3-deliveries",
+    "economy-tesla-spacex-stake"
+   ]
+  },
+  {
+   "id": "byd",
+   "name": "BYD",
+   "kind": "company",
+   "country": "China",
+   "layer": "economy",
+   "sector": "electric vehicles",
+   "founded": 1995,
+   "role": "China's battery-and-car maker; the world's largest battery-electric seller by units",
+   "powers": [
+    "scale economies",
+    "process power",
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "",
+    "execution": "builds its own batteries, chips and cars, which lets it cut cost fast",
+    "environment": "China's industrial policy, the largest home market and its supply of batteries"
+   },
+   "advantage": "A vertically integrated maker with a cost advantage; it sold 762,478 passenger BEVs in Q3 2026, widening its lead over Tesla to about 276,000. Its position rests on the Chinese supply chain, not on a single technology.",
+   "standsOn": [
+    "china"
+   ],
+   "competitors": [
+    "tesla"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to lead the world in electric vehicles",
+   "fear": "trade barriers abroad and price wars at home",
+   "facts": [
+    "economy-tesla-vs-byd-q3-deliveries"
+   ]
+  },
+  {
+   "id": "spacex",
+   "name": "SpaceX",
+   "kind": "company",
+   "country": "US",
+   "layer": "apps",
+   "sector": "launch, satellites and AI (including xAI)",
+   "founded": 2002,
+   "role": "a rocket maker, satellite network and AI lab now listed as the seventh largest company; its IPO priced at $135 a share",
+   "powers": [
+    "scale economies",
+    "cornered resource",
+    "process power"
+   ],
+   "triad": {
+    "information": "flight data and launch cadence",
+    "execution": "reusable rockets and fast iteration",
+    "environment": "capital markets let it list at a value above $2 trillion on day one, and US government contracts"
+   },
+   "advantage": "A reusable launch system gives the lowest cost to orbit; that cost lets it build a satellite network, and the listing gives it capital to follow into AI. The market values it at $1.823 trillion. Tesla holds a stake in it.",
+   "standsOn": [
+    "us-gov",
+    "public-markets"
+   ],
+   "competitors": [
+    "amazon"
+   ],
+   "customers": [
+    "governments",
+    "consumers"
+   ],
+   "desire": "to extend the launch advantage into a space-and-AI conglomerate",
+   "fear": "an IPO valuation that assumes growth it cannot deliver, and loss of government favour",
+   "facts": [
+    "economy-mcap-spacex",
+    "economy-spacex-ipo",
+    "economy-tesla-spacex-stake"
+   ]
+  },
+  {
+   "id": "tencent",
+   "name": "Tencent",
+   "kind": "company",
+   "country": "China",
+   "layer": "apps",
+   "sector": "social, games and cloud",
+   "founded": 1998,
+   "role": "China's largest social, games and payment platform; spending heavily on AI compute",
+   "powers": [
+    "network economies",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "the data of a very large number of WeChat users",
+    "execution": "ships AI features into an app everyone already uses",
+    "environment": "China's regulation and export controls on chips"
+   },
+   "advantage": "WeChat's network gives it distribution for any AI product; Q2 2026 revenue rose 11% (US$30.36 billion) while it stepped up compute purchases and profit rose only 0.7%. Its fear is the chip supply.",
+   "standsOn": [
+    "china",
+    "nvidia"
+   ],
+   "competitors": [
+    "alibaba"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "to convert usage of its apps and models into revenue, in its own words",
+   "fear": "not being able to buy enough compute, and a slowdown in advertising",
+   "facts": [
+    "economy-tencent-q2-revenue",
+    "economy-tencent-compute-statement"
+   ]
+  },
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1993,
+   "role": "designs the accelerators that frontier models train on",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-nvidia"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "cloud and software",
+   "founded": 1975,
+   "role": "cloud and software platform; hyperscaler",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-microsoft"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Alphabet (Google)",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "search, cloud, AI",
+   "founded": 1998,
+   "role": "search, cloud, TPU and DeepMind",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-google",
+    "economy-hyperscaler-capex-2026"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "retail and cloud",
+   "founded": 1994,
+   "role": "retail and the largest cloud",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-amazon"
+   ]
+  },
+  {
+   "id": "meta",
+   "name": "Meta Platforms",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "social media and AI",
+   "founded": 2004,
+   "role": "social platforms and open-weight models",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-meta"
+   ]
+  },
+  {
+   "id": "tsmc",
+   "name": "TSMC",
+   "kind": "company",
+   "country": "Taiwan",
+   "layer": "fabs",
+   "sector": "foundry",
+   "founded": 1987,
+   "role": "makes the leading-edge chips",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-tsmc"
+   ]
+  },
+  {
+   "id": "broadcom",
+   "name": "Broadcom",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1961,
+   "role": "networking and custom accelerators",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-broadcom"
+   ]
+  },
+  {
+   "id": "samsung",
+   "name": "Samsung",
+   "kind": "company",
+   "country": "South Korea",
+   "layer": "memory",
+   "sector": "electronics and memory",
+   "founded": 1969,
+   "role": "memory and foundry",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-samsung"
+   ]
+  },
+  {
+   "id": "micron",
+   "name": "Micron Technology",
+   "kind": "company",
+   "country": "US",
+   "layer": "memory",
+   "sector": "memory",
+   "founded": 1978,
+   "role": "memory including HBM",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-micron"
+   ]
+  },
+  {
+   "id": "amd",
+   "name": "AMD",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1969,
+   "role": "rival accelerator maker",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-amd"
+   ]
+  },
+  {
+   "id": "sk-hynix",
+   "name": "SK Hynix",
+   "kind": "company",
+   "country": "South Korea",
+   "layer": "memory",
+   "sector": "memory",
+   "founded": 1983,
+   "role": "HBM leader",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-sk-hynix"
+   ]
+  },
+  {
+   "id": "asml",
+   "name": "ASML",
+   "kind": "company",
+   "country": "Netherlands",
+   "layer": "tools",
+   "sector": "lithography",
+   "founded": 1984,
+   "role": "the only maker of EUV machines",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Part of the AI chain: see the compute and labs clusters for its advantage; here it appears as a scoreboard entry.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-mcap-asml"
+   ]
+  },
+  {
+   "id": "federal-reserve",
+   "name": "Federal Reserve",
+   "kind": "state",
+   "country": "US",
+   "layer": "economy",
+   "sector": "central bank",
+   "founded": 1913,
+   "role": "sets the price of money for every company",
+   "powers": [],
+   "triad": {
+    "information": "data on inflation and jobs",
+    "execution": "committee votes",
+    "environment": "its mandate"
+   },
+   "advantage": "Not a firm: it sets the environment. On 28 October 2026 it held at 3-3/4 to 4 percent by 10-2 with two members preferring a rise; inflation remains elevated.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [],
+   "customers": [
+    "public-markets"
+   ],
+   "desire": "price stability",
+   "fear": "inflation staying high",
+   "facts": [
+    "economy-fed-hold-oct2026",
+    "economy-fed-dissent-hike",
+    "economy-fed-inflation-statement"
+   ]
+  },
+  {
+   "id": "public-markets",
+   "name": "Public markets",
+   "kind": "aggregate",
+   "country": "US",
+   "layer": "capital",
+   "sector": "equities",
+   "founded": null,
+   "role": "the pool of capital that values and funds the largest firms",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Concentrated: the ten largest S&P 500 members are 39.1% of its value and the largest alone is 8.4%; a loss of faith in the top names is a loss of faith in the index.",
+   "standsOn": [
+    "federal-reserve"
+   ],
+   "competitors": [],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "growth",
+   "fear": "a fall in the AI leaders",
+   "facts": [
+    "economy-sp500-top10-weight"
+   ]
+  },
+  {
+   "id": "venture-capital",
+   "name": "Venture capital",
+   "kind": "aggregate",
+   "country": "US",
+   "layer": "capital",
+   "sector": "startup funding",
+   "founded": null,
+   "role": "the openness engine: it pays for new firms to try to beat the old ones",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "US venture investment reached $515.8 billion through Q3 2026, a record; AI took 82.7% of it, so the risk-taking system is now one bet.",
+   "standsOn": [
+    "public-markets"
+   ],
+   "competitors": [],
+   "customers": [
+    "us-ai-startups"
+   ],
+   "desire": "to back the next winner",
+   "fear": "a failed exit window: exits stay limited",
+   "facts": [
+    "economy-vc-deal-value-q3",
+    "economy-vc-ai-share",
+    "economy-business-applications-sep2026"
+   ]
+  },
+  {
+   "id": "us-ai-startups",
+   "name": "US AI start-ups",
+   "kind": "aggregate",
+   "country": "US",
+   "layer": "models",
+   "sector": "AI start-ups",
+   "founded": null,
+   "role": "the firms that receive most venture money",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Aggregate recipient of venture capital; see the labs cluster for named labs.",
+   "standsOn": [
+    "venture-capital"
+   ],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-vc-ai-share"
+   ]
+  },
+  {
+   "id": "big-four-hyperscalers",
+   "name": "Big four hyperscalers",
+   "kind": "aggregate",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "cloud",
+   "founded": null,
+   "role": "Google, Amazon, Microsoft and Meta, taken together",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "They plan $725 billion of capex for 2026, up from $410 billion in 2025; this sets the demand the whole chain lives on.",
+   "standsOn": [
+    "public-markets"
+   ],
+   "competitors": [],
+   "customers": [
+    "ai-supply-chain"
+   ],
+   "desire": "to win AI",
+   "fear": "over-building",
+   "facts": [
+    "economy-hyperscaler-capex-2026"
+   ]
+  },
+  {
+   "id": "ai-supply-chain",
+   "name": "AI supply chain",
+   "kind": "aggregate",
+   "country": "global",
+   "layer": "chips",
+   "sector": "chips, memory, systems, power",
+   "founded": null,
+   "role": "the firms that receive hyperscaler capex",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Aggregate recipient of capex; see the compute and labs clusters.",
+   "standsOn": [
+    "big-four-hyperscalers"
+   ],
+   "competitors": [],
+   "customers": [],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-hyperscaler-capex-2026"
+   ]
+  },
+  {
+   "id": "gulf-states",
+   "name": "Gulf states",
+   "kind": "state",
+   "country": "Saudi Arabia and others",
+   "layer": "state",
+   "sector": "oil exporters",
+   "founded": null,
+   "role": "sits on the Hormuz sea lane and the world's spare oil",
+   "powers": [],
+   "triad": {
+    "information": "",
+    "execution": "",
+    "environment": ""
+   },
+   "advantage": "Its position at the Strait of Hormuz, which carried about 20% of global oil before the war, makes it both a source of leverage and a target. Brent is forecast near $98 in 2026.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [
+    "saudi-aramco"
+   ],
+   "desire": "",
+   "fear": "",
+   "facts": [
+    "economy-hormuz-oil-share",
+    "economy-eia-brent-2026"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "economy-flow-vc-to-ai",
+   "from": "venture-capital",
+   "to": "us-ai-startups",
+   "usdBnPerYear": 426.6,
+   "what": "venture deal value that went to AI companies, January to September 2026 (82.7% of $515.8 billion)",
+   "period": "Jan-Sep 2026 (nine months, not annualised)",
+   "basis": "estimate",
+   "kind": "investment",
+   "fact": "economy-vc-deal-value-q3",
+   "facts": [
+    "economy-vc-deal-value-q3",
+    "economy-vc-ai-share"
+   ]
+  },
+  {
+   "id": "economy-flow-capex-big-four",
+   "from": "big-four-hyperscalers",
+   "to": "ai-supply-chain",
+   "usdBnPerYear": 725,
+   "what": "planned 2026 capital spending of Google, Amazon, Microsoft and Meta (data centres, chips, power)",
+   "period": "calendar 2026 plan as of Q1 earnings",
+   "basis": "estimate",
+   "kind": "capex",
+   "fact": "economy-hyperscaler-capex-2026",
+   "facts": [
+    "economy-hyperscaler-capex-2026"
+   ]
+  },
+  {
+   "id": "economy-flow-tariff-refunds",
+   "from": "us-gov",
+   "to": "enterprises",
+   "usdBnPerYear": 175,
+   "what": "projected refunds of IEEPA tariffs (a one-off, not yearly)",
+   "period": "projected, Feb 2026",
+   "basis": "estimate",
+   "kind": "tax",
+   "fact": "economy-tariff-refunds-wharton",
+   "facts": [
+    "economy-tariff-refunds-wharton",
+    "economy-apple-q4-gross-margin"
+   ]
+  },
+  {
+   "id": "economy-flow-visa-fees",
+   "from": "enterprises",
+   "to": "visa",
+   "usdBnPerYear": 45.9,
+   "what": "net revenue Visa earned from the payments ecosystem",
+   "period": "fiscal 2026",
+   "basis": "reported",
+   "kind": "revenue",
+   "fact": "economy-visa-fy2026-net-revenue",
+   "facts": [
+    "economy-visa-fy2026-net-revenue"
+   ]
+  },
+  {
+   "id": "economy-flow-aramco-dividend",
+   "from": "saudi-aramco",
+   "to": "gulf-states",
+   "usdBnPerYear": 87.6,
+   "what": "Q3 2026 base dividend of $21.9 billion annualised (four times); the shareholders chiefly the Saudi state",
+   "period": "Q3 2026 annualised",
+   "basis": "estimate",
+   "kind": "investment",
+   "fact": "economy-aramco-q3-dividend",
+   "facts": [
+    "economy-aramco-q3-dividend"
+   ]
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "gulf-states",
+   "controls": "the Strait of Hormuz sea lane",
+   "share": "about 20% of global oil supplies before the 2026 war",
+   "alternatives": "few; flows were disrupted and Brent is forecast near $98 for 2026",
+   "facts": [
+    "economy-hormuz-oil-share",
+    "economy-eia-brent-2026"
+   ]
+  },
+  {
+   "actor": "federal-reserve",
+   "controls": "the price of money (the federal funds target range)",
+   "share": "one range, 3-3/4 to 4 percent, set by a 10-2 vote on 28 October 2026",
+   "alternatives": "none: every borrower's cost is anchored to it",
+   "facts": [
+    "economy-fed-hold-oct2026",
+    "economy-fed-dissent-hike"
+   ]
+  },
+  {
+   "actor": "public-markets",
+   "controls": "the equity capital the biggest firms depend on",
+   "share": "the ten largest S&P 500 members are 39.1% of the index",
+   "alternatives": "private capital and venture funds, which are themselves 82.7% AI",
+   "facts": [
+    "economy-sp500-top10-weight",
+    "economy-vc-ai-share"
+   ]
+  },
+  {
+   "actor": "eli-lilly",
+   "controls": "tirzepatide (Mounjaro, Zepbound), a leading GLP-1 franchise",
+   "share": "revenue $24.40 billion in Q3 2026, up 39%; Novo claims more than 50% of US branded obesity new starts",
+   "alternatives": "semaglutide (Novo Nordisk) and later entrants",
+   "facts": [
+    "economy-lilly-q3-revenue",
+    "economy-novo-wegovy-share"
+   ]
+  },
+  {
+   "actor": "visa",
+   "controls": "the card payment rail",
+   "share": "net revenue $45.9 billion in fiscal 2026 (no market-share figure gated)",
+   "alternatives": "Mastercard, and account-to-account rails",
+   "facts": [
+    "economy-visa-fy2026-net-revenue"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-glp1-lilly-vs-novo",
+   "year": 2026,
+   "date": "Q3 2026",
+   "era": "present",
+   "holder": "eli-lilly",
+   "rivals": [
+    "novo-nordisk"
+   ],
+   "title": "GLP-1: Lilly passes Novo",
+   "advantage": "a patented drug that works better, made at volume",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Novo made the market; Lilly's tirzepatide took the growth by working better and scaling faster, and grew volume faster than rivals.",
+   "outcome": "Lilly Q3 revenue $24.40 billion, +39%; Novo guides 2026 adjusted sales to -2% to +2%; Lilly's market cap $1.206 trillion (rank 13).",
+   "facts": [
+    "economy-lilly-q3-revenue",
+    "economy-lilly-guidance-2026",
+    "economy-novo-outlook-2026",
+    "economy-novo-wegovy-share",
+    "economy-mcap-eli-lilly"
+   ]
+  },
+  {
+   "id": "fp-byd-vs-tesla",
+   "year": 2026,
+   "date": "Q3 2026",
+   "era": "present",
+   "holder": "byd",
+   "rivals": [
+    "tesla"
+   ],
+   "title": "BYD out-builds Tesla",
+   "advantage": "vertical integration and low cost",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "BYD makes its own batteries and cars at a cost Tesla cannot match; Tesla answers by moving its story to autonomy and robots.",
+   "outcome": "Q3 2026 deliveries: BYD 762,478 passenger BEVs, Tesla 486,532; Tesla's operating margin 2.6%; Tesla still valued at $1.415 trillion.",
+   "facts": [
+    "economy-tesla-vs-byd-q3-deliveries",
+    "economy-tesla-q3-operating-margin",
+    "economy-tesla-q3-capex",
+    "economy-mcap-tesla"
+   ]
+  },
+  {
+   "id": "fp-apple-vs-tariffs",
+   "year": 2026,
+   "date": "2026",
+   "era": "present",
+   "holder": "apple",
+   "rivals": [
+    "us-gov"
+   ],
+   "title": "Apple and the tariff refunds",
+   "advantage": "scale and brand that absorb a trade shock",
+   "power": "branding",
+   "triad": "environment",
+   "mechanism": "Apple's scale let it take the tariff cost; when the Supreme Court struck down the IEEPA tariffs the refunds returned about a point of gross margin.",
+   "outcome": "Gross margin 47.9% in fiscal Q4 2026; projected refunds up to $175 billion across firms.",
+   "facts": [
+    "economy-apple-q4-gross-margin",
+    "economy-tariff-refunds-wharton",
+    "economy-apple-q4-revenue"
+   ]
+  },
+  {
+   "id": "fp-spacex-ipo",
+   "year": 2026,
+   "date": "12 June 2026",
+   "era": "present",
+   "holder": "spacex",
+   "rivals": [
+    "tesla"
+   ],
+   "title": "SpaceX lists and passes Tesla",
+   "advantage": "capital: the market pays for a launch monopoly plus AI",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "A company with the lowest cost to orbit used the public market to raise at a valuation above $2 trillion; it now ranks seventh and Tesla tenth.",
+   "outcome": "IPO at $135, closed near $161 on day one; scoreboard market cap $1.823 trillion against Tesla's $1.415 trillion.",
+   "facts": [
+    "economy-spacex-ipo",
+    "economy-mcap-spacex",
+    "economy-mcap-tesla",
+    "economy-tesla-spacex-stake"
+   ]
+  },
+  {
+   "id": "fp-hormuz-aramco",
+   "year": 2026,
+   "date": "2026",
+   "era": "present",
+   "holder": "saudi-aramco",
+   "rivals": [
+    "exxon-mobil"
+   ],
+   "title": "The Iran war lifts the oil majors",
+   "advantage": "low-cost reserves, and a position at the sea lane",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "War in the Gulf disrupted flows through Hormuz and lifted oil; Aramco's refining margins widened, but its facilities were attacked.",
+   "outcome": "Aramco Q3 adjusted net income $31.2 billion (from $28.6 billion); EIA expects Brent about $98 in 2026.",
+   "facts": [
+    "economy-aramco-q3-adjusted-ni",
+    "economy-eia-brent-2026",
+    "economy-hormuz-oil-share",
+    "economy-mcap-saudi-aramco"
+   ]
+  },
+  {
+   "id": "fp-berkshire-cash",
+   "year": 2026,
+   "date": "Q2 2026",
+   "era": "present",
+   "holder": "berkshire",
+   "rivals": [
+    "public-markets"
+   ],
+   "title": "Berkshire starts spending the cash",
+   "advantage": "the patience that only cheap, sticky capital allows",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Berkshire kept a cash mountain while prices were high; under its new CEO it began deploying it.",
+   "outcome": "Cash fell 8.0% to $365.5 billion from a record $397.4 billion.",
+   "facts": [
+    "economy-berkshire-cash-q2",
+    "economy-mcap-berkshire"
+   ]
+  },
+  {
+   "id": "fp-rates-vs-ai-capex",
+   "year": 2026,
+   "date": "28 October 2026",
+   "era": "present",
+   "holder": "federal-reserve",
+   "rivals": [
+    "big-four-hyperscalers"
+   ],
+   "title": "Rates against the AI build-out",
+   "advantage": "control of the cost of capital",
+   "power": "",
+   "triad": "environment",
+   "mechanism": "Inflation remains elevated and two members wanted a rise; the price of money decides whether $725 billion of annual capex is paid for by cash flow or by debt.",
+   "outcome": "Funds-rate range held at 3-3/4 to 4 percent by a 10-2 vote.",
+   "facts": [
+    "economy-fed-hold-oct2026",
+    "economy-fed-dissent-hike",
+    "economy-fed-inflation-statement",
+    "economy-hyperscaler-capex-2026"
+   ]
+  }
+ ],
+ "lineage": [],
+ "notes": "Not verified and left out of the numbers: Walmart's Q2 FY27 total revenue ($187.9 billion by secondary press; its release page is a slide script and Chain Store Age refused the script) and Walmart's operating income; Lilly's own 8-K and press release (SEC and investor.lilly.com returned 403), so Lilly's figures come from Zacks; Novo's adjusted operating profit; Apple's iPhone and Services split (sources disagree: 57.6 vs 54.3 billion); JPMorgan's revenue; Berkshire's Q3 2026 results (nothing found yet, so the latest cash figure is 30 June 2026); SpaceX's IPO proceeds (a reported $75 billion) and its revenue; Tesla's 2026 capex guidance (sources disagree: more than $25 billion vs $20 billion); the current US effective tariff rate and the status of the Section 122 tariff (sources conflict); Aramco's average realised crude price ($95.2 a barrel by secondary press); Tencent's Q2 capex (RMB 52.8 billion by press). Founding years in the actor records come from general knowledge and are not gated. Market caps are one snapshot of one aggregator (companiesmarketcap.com, 7 November 2026, a total of $146.443 trillion across 11,396 companies) and move daily; CompaniesMarketCap lists Samsung, SK Hynix and others by local listing. The 'AI contributes about one-third of 2026 US growth' claim is ING's judgement, quoted in a fact note; the 50.2% figure is a gross measure without subtracting imports, and Goldman Sachs argues the net effect is much smaller.",
+ "openQuestions": [
+  "Is the 2026 US growth supported by AI capex net of imports, or is the 50.2% gross figure mostly imported hardware?",
+  "Does the Fed's next move (two members wanted a hike) fall before or after the hyperscalers have to finance the next leg of capex with debt?",
+  "Does Lilly's growth hold once payers and governments push on GLP-1 prices?",
+  "What is the current effective US tariff rate after the Section 122 surcharge ended, and who now bears it?",
+  "How much of Berkshire's remaining cash will Abel deploy before the next downturn, and into what?",
+  "Which non-AI leaders (Walmart, Visa, JPMorgan) are exposed to an AI-capex pullback through consumers and credit rather than directly?"
+ ]
+}

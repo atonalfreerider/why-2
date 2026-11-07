@@ -1,0 +1,1873 @@
+{
+ "cluster": "compute",
+ "asOf": "2026-11-07",
+ "scope": "The 2026 compute stack from tools to chips: NVIDIA, AMD, Broadcom, custom accelerators, TSMC, ASML, the HBM makers, Intel, export controls; their size, margins, shares and the choke points.",
+ "facts": [
+  {
+   "id": "compute-nvidia-q2fy27-revenue",
+   "claim": "NVIDIA's revenue in the second quarter of fiscal 2027 (ended 26 July 2026) was $96.2 billion, up 106% from a year ago.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "NVIDIA (NASDAQ: NVDA) today reported revenue for the second quarter ended July 26, 2026, of $96.2 billion, up 18% from the previous quarter and up 106% from a year ago."
+   ],
+   "values": [
+    "96.2",
+    "106%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 96.2,
+   "unit": "USD bn",
+   "period": "Q2 FY2027, ended 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-nvidia-q2fy27-datacenter",
+   "claim": "NVIDIA's Data Center revenue in Q2 fiscal 2027 was $89.0 billion, up 117% from a year ago.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Second-quarter revenue was $89.0 billion, up 18% from the previous quarter and up 117% from a year ago."
+   ],
+   "values": [
+    "89.0",
+    "117%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 89.0,
+   "unit": "USD bn",
+   "period": "Q2 FY2027, ended 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Data Center segment"
+  },
+  {
+   "id": "compute-nvidia-q2fy27-margin",
+   "claim": "NVIDIA's GAAP gross margin in Q2 fiscal 2027 was 75.0%.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Gross margin 75.0 % 74.9 % 72.4 % 0.1 pts 2.6 pts"
+   ],
+   "values": [
+    "75.0"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "grossMarginPct",
+   "value": 75.0,
+   "unit": "%",
+   "period": "Q2 FY2027, ended 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-nvidia-q2fy27-opincome",
+   "claim": "NVIDIA's GAAP operating income in Q2 fiscal 2027 was $63,734 million.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Operating income $63,734 $53,536 $28,440 19 % 124 %"
+   ],
+   "values": [
+    "63,734"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "operatingIncome",
+   "value": 63.734,
+   "unit": "USD bn",
+   "period": "Q2 FY2027, ended 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-nvidia-q3fy27-guidance",
+   "claim": "NVIDIA guided Q3 fiscal 2027 revenue to $108.0 billion, plus or minus 2%, assuming no Data Center compute revenue from China.",
+   "url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+   "quotes": [
+    "Revenue is expected to be $108.0 billion, plus or minus 2%. NVIDIA is not assuming any Data Center compute revenue from China in its outlook."
+   ],
+   "values": [
+    "108.0"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 108.0,
+   "unit": "USD bn",
+   "period": "Q3 FY2027 guidance (quarter ends 2026-10-25)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "guidance, not reported"
+  },
+  {
+   "id": "compute-tsmc-q3-revenue",
+   "claim": "TSMC's Q3 2026 revenue was $46.72 billion, up 41.2% year over year.",
+   "url": "https://pr.tsmc.com/english/news/3346",
+   "quotes": [
+    "In US dollars, third quarter revenue was $46.72 billion, which increased 41.2% year-over-year and increased 16.2% from the previous quarter."
+   ],
+   "values": [
+    "46.72",
+    "41.2%"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 46.72,
+   "unit": "USD bn",
+   "period": "Q3 2026, ended 2026-09-30",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-tsmc-q3-margin",
+   "claim": "TSMC's Q3 2026 gross margin was 66.4% and operating margin 58.7%.",
+   "url": "https://pr.tsmc.com/english/news/3346",
+   "quotes": [
+    "Gross margin for the quarter was 66.4%, operating margin was 58.7%, and net profit margin was 51.1%."
+   ],
+   "values": [
+    "66.4%",
+    "58.7%"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "grossMarginPct",
+   "value": 66.4,
+   "unit": "%",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-tsmc-q3-advanced-share",
+   "claim": "Advanced technologies (7nm and below) were 79% of TSMC's Q3 2026 wafer revenue.",
+   "url": "https://pr.tsmc.com/english/news/3346",
+   "quotes": [
+    "Advanced technologies, defined as 7-nanometer and more advanced technologies, accounted for 79% of total wafer revenue."
+   ],
+   "values": [
+    "79%"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "share",
+   "value": 79,
+   "unit": "%",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: share of TSMC's own wafer revenue"
+  },
+  {
+   "id": "compute-amd-q3-revenue",
+   "claim": "AMD's Q3 2026 revenue was $13.4 billion with GAAP gross margin 54%.",
+   "url": "https://newsroom.amd.com/news/amd-reports-third-quarter-2026-earnings/",
+   "quotes": [
+    "Third quarter revenue was $13.4 billion, gross margin was 54%, operating income was $2.8 billion, net income was $2.4 billion and diluted earnings per share was $1.46."
+   ],
+   "values": [
+    "13.4",
+    "54%"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "revenue",
+   "value": 13.4,
+   "unit": "USD bn",
+   "period": "Q3 2026, ended 2026-09-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-amd-q3-datacenter",
+   "claim": "AMD's Q3 2026 Data Center segment revenue was a record $8.5 billion, up 97% year over year.",
+   "url": "https://newsroom.amd.com/news/amd-reports-third-quarter-2026-earnings/",
+   "quotes": [
+    "Data Center segment revenue was a record $8.5 billion, up 97% year-over-year, driven by strong demand for AMD EPYC™ processors and the launch of AMD Instinct™ MI450 Series GPUs."
+   ],
+   "values": [
+    "8.5",
+    "97%"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "revenue",
+   "value": 8.5,
+   "unit": "USD bn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Data Center segment (EPYC and Instinct)"
+  },
+  {
+   "id": "compute-broadcom-q3-revenue",
+   "claim": "Broadcom's revenue for fiscal Q3 2026 (ended 2 Aug 2026) was $29.6 billion, up 86%.",
+   "url": "https://seekingalpha.com/pr/20639031",
+   "quotes": [
+    "Revenue of $29.6 billion for the third quarter, up 86 percent from the prior year period"
+   ],
+   "values": [
+    "29.6",
+    "86"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "revenue",
+   "value": 29.6,
+   "unit": "USD bn",
+   "period": "FQ3 2026, ended 2026-08-02",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-broadcom-q3-ai",
+   "claim": "Broadcom's AI semiconductor revenue in fiscal Q3 2026 was $16.7 billion, up 221% year over year; Q4 is guided to $21.7 billion.",
+   "url": "https://seekingalpha.com/pr/20639031",
+   "quotes": [
+    "Q3 AI semiconductor revenue of $16.7 billion grew 221% year-over-year, and 54% quarter-over-quarter,\" said Hock Tan, President and CEO of Broadcom Inc."
+   ],
+   "values": [
+    "16.7",
+    "221%"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "revenue",
+   "value": 16.7,
+   "unit": "USD bn",
+   "period": "FQ3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "AI semiconductors: custom accelerators and networking"
+  },
+  {
+   "id": "compute-nvidia-marketcap",
+   "claim": "NVIDIA's market cap in November 2026 was $4.506 Trillion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/nvidia/marketcap/",
+   "quotes": [
+    "As of November 2026 NVIDIA has a market cap of $4.506 Trillion USD."
+   ],
+   "values": [
+    "4.506"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "marketCap",
+   "value": 4506,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-tsmc-marketcap",
+   "claim": "TSMC's market cap in November 2026 was $1.947 Trillion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "As of November 2026 TSMC has a market cap of $1.947 Trillion USD."
+   ],
+   "values": [
+    "1.947"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "marketCap",
+   "value": 1947,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-broadcom-marketcap",
+   "claim": "Broadcom's market cap in November 2026 was $1.401 Trillion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/broadcom/marketcap/",
+   "quotes": [
+    "As of November 2026 Broadcom has a market cap of $1.401 Trillion USD."
+   ],
+   "values": [
+    "1.401"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "marketCap",
+   "value": 1401,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-samsung-marketcap",
+   "claim": "Samsung's market cap in November 2026 was $927.27 Billion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/samsung/marketcap/",
+   "quotes": [
+    "As of November 2026 Samsung has a market cap of $927.27 Billion USD."
+   ],
+   "values": [
+    "927.27"
+   ],
+   "dated2026": true,
+   "actor": "samsung",
+   "kind": "marketCap",
+   "value": 927.27,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-micron-marketcap",
+   "claim": "Micron Technology's market cap in November 2026 was $780.68 Billion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/micron-technology/marketcap/",
+   "quotes": [
+    "As of November 2026 Micron Technology has a market cap of $780.68 Billion USD."
+   ],
+   "values": [
+    "780.68"
+   ],
+   "dated2026": true,
+   "actor": "micron",
+   "kind": "marketCap",
+   "value": 780.68,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-amd-marketcap",
+   "claim": "AMD's market cap in November 2026 was $736.46 Billion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/amd/marketcap/",
+   "quotes": [
+    "As of November 2026 AMD has a market cap of $736.46 Billion USD."
+   ],
+   "values": [
+    "736.46"
+   ],
+   "dated2026": true,
+   "actor": "amd",
+   "kind": "marketCap",
+   "value": 736.46,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-sk-hynix-marketcap",
+   "claim": "SK Hynix's market cap in November 2026 was $602.37 Billion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/sk-hynix/marketcap/",
+   "quotes": [
+    "As of November 2026 SK Hynix has a market cap of $602.37 Billion USD."
+   ],
+   "values": [
+    "602.37"
+   ],
+   "dated2026": true,
+   "actor": "sk-hynix",
+   "kind": "marketCap",
+   "value": 602.37,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-asml-marketcap",
+   "claim": "ASML's market cap in November 2026 was $549.12 Billion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/asml/marketcap/",
+   "quotes": [
+    "As of November 2026 ASML has a market cap of $549.12 Billion USD."
+   ],
+   "values": [
+    "549.12"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "marketCap",
+   "value": 549.12,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-intel-marketcap",
+   "claim": "Intel's market cap in November 2026 was $299.12 Billion USD, according to companiesmarketcap.com.",
+   "url": "https://companiesmarketcap.com/intel/marketcap/",
+   "quotes": [
+    "As of November 2026 Intel has a market cap of $299.12 Billion USD."
+   ],
+   "values": [
+    "299.12"
+   ],
+   "dated2026": true,
+   "actor": "intel",
+   "kind": "marketCap",
+   "value": 299.12,
+   "unit": "USD bn",
+   "period": "2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-nvidia-q2fy27-hyperscale",
+   "claim": "NVIDIA's Hyperscale revenue in Q2 fiscal 2027 was $48,710 million, up 102% from a year ago.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "Hyperscale 48,710 43,050 24,168 13 % 102 %"
+   ],
+   "values": [
+    "48,710",
+    "102"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 48.71,
+   "unit": "USD bn",
+   "period": "Q2 FY2027, ended 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Data Center, Hyperscale customers (one company reclassified from ACIE this quarter)"
+  },
+  {
+   "id": "compute-nvidia-q2fy27-acie",
+   "claim": "NVIDIA's AI Clouds, Industrial and Enterprise (ACIE) revenue in Q2 fiscal 2027 was $40,313 million, up 138%.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "AI Clouds, Industrial, & Enterprise 40,313 32,196 16,928 25 % 138 %"
+   ],
+   "values": [
+    "40,313",
+    "138"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "revenue",
+   "value": 40.313,
+   "unit": "USD bn",
+   "period": "Q2 FY2027, ended 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Data Center, non-hyperscale: AI natives, enterprises, sovereigns, AI clouds"
+  },
+  {
+   "id": "compute-nvidia-commitments",
+   "claim": "NVIDIA says its commitments increased from $119 billion to $279 billion, primarily related to the procurement of memory.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "Our commitments increased from $119 billion last quarter to $279 billion, primarily related to the procurement of memory."
+   ],
+   "values": [
+    "119",
+    "279"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "contract",
+   "value": 279,
+   "unit": "USD bn",
+   "period": "as of 2026-07-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "total commitments across supply, cloud, leases and equity investments; memory procurement is the driver"
+  },
+  {
+   "id": "compute-nvidia-china-share",
+   "claim": "Shipments of Data Center Hopper products to China were under 1% of NVIDIA's Data Center revenue in Q2 fiscal 2027.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "Shipments of Data Center Hopper products to China during the quarter were less than 1% of Data Center revenue."
+   ],
+   "values": [
+    "1%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 1,
+   "unit": "%",
+   "period": "Q2 FY2027",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "upper bound: less than 1%; scope: China share of NVIDIA Data Center revenue"
+  },
+  {
+   "id": "compute-nvidia-accel-share",
+   "claim": "NVIDIA's share of the AI accelerator market is projected at roughly 75% for 2026, down from a peak near 87% in 2024 (Silicon Analysts, synthesising Bloomberg Intelligence and IDC).",
+   "url": "https://siliconanalysts.com/analysis/amd-vs-nvidia-ai-gpu-market-share-2026",
+   "quotes": [
+    "NVIDIA ~75% ~86% ~87% (peak) ~80–81% ~75%"
+   ],
+   "values": [
+    "75%",
+    "87%"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "share",
+   "value": 75,
+   "unit": "%",
+   "period": "2026E",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: AI accelerator market, revenue basis incl. custom silicon; estimate by analysts, not audited"
+  },
+  {
+   "id": "compute-tsmc-foundry-share",
+   "claim": "TSMC held a record 72.5% of top-10 foundry revenue in Q2 2026 (TrendForce).",
+   "url": "https://www.trendforce.com/presscenter/news/20260909-13225.html",
+   "quotes": [
+    "Among the top 10 foundries, TSMC maintained its lead with 2Q26 revenue nearing $40.2 billion, a 12.1% increase QoQ, capturing a 72.5% market share."
+   ],
+   "values": [
+    "72.5%",
+    "40.2"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "share",
+   "value": 72.5,
+   "unit": "%",
+   "period": "2Q26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: foundry revenue among the top 10 foundries"
+  },
+  {
+   "id": "compute-samsung-foundry-share",
+   "claim": "Samsung's foundry market share was 5.9% in Q2 2026 (TrendForce).",
+   "url": "https://www.trendforce.com/presscenter/news/20260909-13225.html",
+   "quotes": [
+    "However, Samsung’s market share declined to 5.9% as competitors grew at a faster pace."
+   ],
+   "values": [
+    "5.9%"
+   ],
+   "dated2026": true,
+   "actor": "samsung",
+   "kind": "share",
+   "value": 5.9,
+   "unit": "%",
+   "period": "2Q26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: foundry revenue among the top 10 foundries"
+  },
+  {
+   "id": "compute-smic-foundry-share",
+   "claim": "SMIC ranked third in foundry with a 5.4% share in Q2 2026 (TrendForce).",
+   "url": "https://www.trendforce.com/presscenter/news/20260909-13225.html",
+   "quotes": [
+    "SMIC ranked third, with revenue surging 20% QoQ to more than $3 billion. Its market share edged up to 5.4%, narrowing the gap with Samsung."
+   ],
+   "values": [
+    "5.4%"
+   ],
+   "dated2026": true,
+   "actor": "smic",
+   "kind": "share",
+   "value": 5.4,
+   "unit": "%",
+   "period": "2Q26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: foundry revenue among the top 10 foundries"
+  },
+  {
+   "id": "compute-skhynix-hbm-share",
+   "claim": "SK Hynix held 50% of the HBM market in Q2 2026, down from 64% a year earlier (Counterpoint).",
+   "url": "https://counterpointresearch.com/insights/global-dram-and-hbm-market-share",
+   "quotes": [
+    "In Q2 2026, SK Hynix maintained its top position with 50%, but showed a decline compared to 64% in the same period of the previous year."
+   ],
+   "values": [
+    "50%",
+    "64%"
+   ],
+   "dated2026": true,
+   "actor": "sk-hynix",
+   "kind": "share",
+   "value": 50,
+   "unit": "%",
+   "period": "Q2 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: HBM market share (Counterpoint, Memory Tracker)"
+  },
+  {
+   "id": "compute-samsung-hbm-share",
+   "claim": "Samsung's HBM share rose from 21% in Q1 to 33% in Q2 2026 (Counterpoint via Edaily).",
+   "url": "https://en.edaily.co.kr/news/eda202609035608/",
+   "quotes": [
+    "SamsungElectronics increased its market share by 12 percentage points, from 21% in the first quarter to 33% in the second quarter."
+   ],
+   "values": [
+    "21%",
+    "33%"
+   ],
+   "dated2026": true,
+   "actor": "samsung",
+   "kind": "share",
+   "value": 33,
+   "unit": "%",
+   "period": "Q2 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: HBM market share"
+  },
+  {
+   "id": "compute-micron-hbm-share",
+   "claim": "Micron ranked third in HBM with an 18% share in Q2 2026, down from 21% (Counterpoint via Edaily).",
+   "url": "https://en.edaily.co.kr/news/eda202609035608/",
+   "quotes": [
+    "Micron ranked third, capturing an 18% market share."
+   ],
+   "values": [
+    "18%"
+   ],
+   "dated2026": true,
+   "actor": "micron",
+   "kind": "share",
+   "value": 18,
+   "unit": "%",
+   "period": "Q2 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: HBM market share"
+  },
+  {
+   "id": "compute-asml-q3-sales",
+   "claim": "ASML's Q3 2026 total net sales were €11.7 billion, gross margin 57.5%, net income €5.0 billion.",
+   "url": "https://seekingalpha.com/pr/20684919",
+   "quotes": [
+    "Q3 total net sales of €11.7 billion, gross margin of 57.5%, net income of €5.0 billion"
+   ],
+   "values": [
+    "11.7",
+    "57.5%"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "revenue",
+   "value": 11.7,
+   "unit": "EUR bn",
+   "period": "Q3 2026, ended 2026-09-27",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-asml-supply-short",
+   "claim": "ASML expects its planned supply for 2027 and 2028 not to fully meet customer demand.",
+   "url": "https://seekingalpha.com/pr/20684919",
+   "quotes": [
+    "With such strong visibility and an order book momentum that continues to increase quarter on quarter this year, we now expect that our supply as currently planned for both 2027 and 2028 will not fully meet the demand of our customers"
+   ],
+   "values": [
+    "2027",
+    "2028"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q3 2026 results, 2026-10-14",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-asml-euv-100",
+   "claim": "Bloomberg, relayed by Gizmodo: ASML's share of premium lithography is 'a cool 100%' and it is the only company making EUV systems.",
+   "url": "https://gizmodo.com/asml-high-na-transition-2000699553",
+   "quotes": [
+    "Bloomberg describes ASML’s chokehold on premium lithography in blunt terms: its market share is “a cool 100%,” and ASML is “still the only company” capable of making the extreme ultraviolet (EUV) systems high-end chips require."
+   ],
+   "values": [
+    "100%"
+   ],
+   "dated2026": true,
+   "actor": "asml",
+   "kind": "share",
+   "value": 100,
+   "unit": "%",
+   "period": "2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "scope: EUV lithography systems"
+  },
+  {
+   "id": "compute-skhynix-q3-results",
+   "claim": "SK Hynix reported Q3 2026 revenue of 104.6 trillion won and operating profit of 83.33 trillion won.",
+   "url": "https://www.koreatimes.co.kr/business/companies/20261028/sk-hynix-logs-record-q3-operating-profit-of-628-bil",
+   "quotes": [
+    "The company reported third-quarter revenue of 104.6 trillion won and operating profit of 83.33 trillion won, while saying memory-chip demand remains strong and supply is expected to fall short of demand through 2030."
+   ],
+   "values": [
+    "104.6",
+    "83.33"
+   ],
+   "dated2026": true,
+   "actor": "sk-hynix",
+   "kind": "revenue",
+   "value": 104.6,
+   "unit": "KRW tn",
+   "period": "Q3 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "operating profit 83.33 trillion won = about 80% margin"
+  },
+  {
+   "id": "compute-skhynix-sold-out",
+   "claim": "SK Hynix says its HBM and other AI-related DRAM is sold out through 2029, with over 50% of 2027-28 capacity under long-term agreements.",
+   "url": "https://www.koreatimes.co.kr/business/companies/20261028/sk-hynix-logs-record-q3-operating-profit-of-628-bil",
+   "quotes": [
+    "SK hynix said its HBM products for AI accelerators and other DRAM products are sold out through 2029, and more than 50 percent of its production capacity for 2027 and 2028 is covered by long-term agreements."
+   ],
+   "values": [
+    "2029",
+    "50 percent"
+   ],
+   "dated2026": true,
+   "actor": "sk-hynix",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q3 2026 results, 2026-10-28",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-micron-fq4-revenue",
+   "claim": "Micron's fiscal Q4 2026 revenue (ended 3 Sept 2026) was $54.23 billion, up from $11.32 billion a year earlier.",
+   "url": "https://pulse2.com/micron-reports-record-fiscal-q4-revenue-of-54-23-billion-and-fy2026-revenue-of-133-19-billion/",
+   "quotes": [
+    "Micron Technology reported record fiscal fourth-quarter revenue of $54.23 billion, up from $41.46 billion in the previous quarter and $11.32 billion during the same period a year earlier."
+   ],
+   "values": [
+    "54.23",
+    "11.32"
+   ],
+   "dated2026": true,
+   "actor": "micron",
+   "kind": "revenue",
+   "value": 54.23,
+   "unit": "USD bn",
+   "period": "FQ4 2026, ended 2026-09-03",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-micron-fq4-margin",
+   "claim": "Micron's GAAP gross margin in fiscal Q4 2026 was 86.8%, and GAAP operating income $43.75 billion.",
+   "url": "https://pulse2.com/micron-reports-record-fiscal-q4-revenue-of-54-23-billion-and-fy2026-revenue-of-133-19-billion/",
+   "quotes": [
+    "Micron’s GAAP gross margin for fiscal Q4 reached 86.8%, while GAAP operating income totaled $43.75 billion."
+   ],
+   "values": [
+    "86.8%",
+    "43.75"
+   ],
+   "dated2026": true,
+   "actor": "micron",
+   "kind": "grossMarginPct",
+   "value": 86.8,
+   "unit": "%",
+   "period": "FQ4 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-huawei-ai-revenue",
+   "claim": "Huawei expects about $12 billion of AI-processor revenue in 2026, up from $7.5 billion in 2025 (Tom's Hardware).",
+   "url": "https://www.tomshardware.com/tech-industry/huawei-expects-12-billion-in-ai-chip-revenue-this-year-as-nvidias-china-market-share-hits-zero",
+   "quotes": [
+    "Huawei expects revenue from its AI processors to reach roughly $12 billion in 2026, up from $7.5 billion last year."
+   ],
+   "values": [
+    "12",
+    "7.5"
+   ],
+   "dated2026": true,
+   "actor": "huawei",
+   "kind": "revenue",
+   "value": 12,
+   "unit": "USD bn",
+   "period": "2026E",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "estimate/projection based on orders from Alibaba, ByteDance, Tencent"
+  },
+  {
+   "id": "compute-broadcom-anthropic-tpu",
+   "claim": "Broadcom will supply Anthropic about 3.5 GW of Google TPU capacity from 2027 and design Google's TPUs through 2031 (securities filing, April 2026).",
+   "url": "https://www.tomshardware.com/tech-industry/broadcom-expands-anthropic-deal-to-3-5gw-of-google-tpu-capacity-from-2027",
+   "quotes": [
+    "Broadcom disclosed in a securities filing on Monday that it’ll supply Anthropic with roughly 3.5 gigawatts of Google TPU capacity starting in 2027, and separately committed to designing and supplying future generations of Google's TPUs through 2031."
+   ],
+   "values": [
+    "3.5",
+    "2031"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "contract",
+   "value": 3.5,
+   "unit": "GW",
+   "period": "filing April 2026; supply from 2027",
+   "from": "broadcom",
+   "to": "anthropic",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-hyperscaler-capex-2026",
+   "claim": "Amazon, Alphabet, Meta, Microsoft and SpaceX together are forecast to spend between $803 billion and $828 billion of capex in 2026 (Business Insider, 30 Oct 2026).",
+   "url": "https://www.hl.co.uk/news/ai-hyperscalers-are-expected-to-finish-the-year-spending-a-whopping-828-billion-on-capex",
+   "quotes": [
+    "Total spend for 2026 is forecast to be between $803B and $828B."
+   ],
+   "values": [
+    "803",
+    "828"
+   ],
+   "dated2026": true,
+   "actor": "hyperscalers",
+   "kind": "capex",
+   "value": 815,
+   "unit": "USD bn",
+   "period": "CY2026 forecast",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "range 803-828; midpoint shown; covers broad capex, not only AI; includes SpaceX"
+  },
+  {
+   "id": "compute-hyperscaler-q3-capex",
+   "claim": "The five hyperscalers spent about $227 billion of capex in calendar Q3 2026, about 20% above the previous quarter.",
+   "url": "https://www.hl.co.uk/news/ai-hyperscalers-are-expected-to-finish-the-year-spending-a-whopping-828-billion-on-capex",
+   "quotes": [
+    "Across all five companies, total spending for the third quarter of the calendar year was about $227 billion."
+   ],
+   "values": [
+    "227"
+   ],
+   "dated2026": true,
+   "actor": "hyperscalers",
+   "kind": "capex",
+   "value": 227,
+   "unit": "USD bn",
+   "period": "CY2026 Q3",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-tsmc-capex-2026",
+   "claim": "TSMC kept its 2026 capital expenditure guidance at US$60-64 billion and plans to expand 3nm and accelerate 2nm.",
+   "url": "https://www.trendforce.com/news/2026/10/16/news-after-tsmcs-3q26-earnings-key-brokerage-takeaways-as-2028-capex-forecasts-reach-us105b/",
+   "quotes": [
+    "While maintaining its 2026 capex guidance at US$60–64 billion, TSMC signaled plans to accelerate 2nm production and expand 3nm capacity, with four fabs planned for the latter."
+   ],
+   "values": [
+    "60",
+    "64"
+   ],
+   "dated2026": true,
+   "actor": "tsmc",
+   "kind": "capex",
+   "value": 62,
+   "unit": "USD bn",
+   "period": "2026 guidance",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "range 60-64; midpoint shown"
+  },
+  {
+   "id": "compute-nvidia-customer-financing",
+   "claim": "NVIDIA says it has entered arrangements that help select customers secure the land, power and data center capacity they need to grow.",
+   "url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q227/Q2FY27-CFO-Commentary.pdf",
+   "quotes": [
+    "In response, we have entered into arrangements that help select customers secure the land, power and data center capacity needed to support their growth."
+   ],
+   "values": [
+    "land, power"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Q2 FY2027 CFO commentary, 2026-08-26",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "qualitative; paired with NVIDIA's remark that AI clouds and model makers are growing faster than their balance sheets support"
+  },
+  {
+   "id": "compute-nvidia-intel-investment",
+   "claim": "NVIDIA completed a $5 billion investment in Intel, taking a stake in the US chipmaker.",
+   "url": "https://www.techrepublic.com/article/news-nvidia-5b-bet-on-intel/",
+   "quotes": [
+    "Nvidia has completed a $5 billion investment in Intel, formally taking a stake in the US chipmaker months after the deal was first announced."
+   ],
+   "values": [
+    "5 billion"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 5,
+   "unit": "USD bn",
+   "period": "completed early 2026",
+   "from": "nvidia",
+   "to": "intel",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "compute-china-h200-customs",
+   "claim": "Reuters reported in January 2026 that Chinese customs agents were told not to allow NVIDIA H200 imports into China.",
+   "url": "https://www.tomshardware.com/tech-industry/chinese-customs-told-to-block-h200-imports-report-claims-directive-would-effectively-ban-the-nvidia-ai-chip-from-china",
+   "quotes": [
+    "Chinese customs agents have been told not to allow Nvidia H200 imports into China, according to Reuters."
+   ],
+   "values": [
+    "H200"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "event",
+   "value": 2026,
+   "unit": "year",
+   "period": "January 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "reported by Reuters via Tom's Hardware; status in November 2026 unconfirmed"
+  },
+  {
+   "id": "compute-cuda-dominates",
+   "claim": "HPCwire (Aug 2026) describes the GPU development market as dominated by CUDA, NVIDIA's development environment, against AMD's ROCm.",
+   "url": "https://www.hpcwire.com/aiwire/2026/08/04/can-amd-lower-cudas-moat-with-rocm-ai/",
+   "quotes": [
+    "But will it have an impact on the market, which is dominated by CUDA, Nvidia’s popular development environment?"
+   ],
+   "values": [
+    "CUDA"
+   ],
+   "dated2026": true,
+   "actor": "nvidia",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "August 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "qualitative; no share number verified for CUDA"
+  }
+ ],
+ "actors": [
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1993,
+   "role": "designs the accelerators, networking and software that nearly every frontier model is trained and served on",
+   "powers": [
+    "switching costs",
+    "scale economies",
+    "process power",
+    "network economies"
+   ],
+   "triad": {
+    "information": "Two decades of GPU and CUDA know-how, plus first sight of every lab's roadmap because every lab is a customer",
+    "execution": "Annual product cadence (Blackwell Ultra now shipping, Vera Rubin in production) and the ability to lock up scarce supply years ahead",
+    "environment": "Sits between the capital of the hyperscalers and the capacity of TSMC and the memory makers; the US government decides where it may sell"
+   },
+   "advantage": "CUDA and the NVLink and networking stack make each model, library and engineer a sunk cost, so buyers pay a gross margin no merchant chip company has held before. It is also the biggest single buyer of memory and packaging, so it can buy the scarce inputs first.",
+   "standsOn": [
+    "tsmc",
+    "sk-hynix",
+    "samsung",
+    "micron",
+    "asml",
+    "us-gov",
+    "taiwan"
+   ],
+   "competitors": [
+    "amd",
+    "broadcom",
+    "google",
+    "amazon",
+    "huawei"
+   ],
+   "customers": [
+    "hyperscalers",
+    "ai-clouds-enterprise-sovereign"
+   ],
+   "desire": "Make compute the unit of the economy: 'compute is revenue' (Jensen Huang, Aug 2026), and keep customers able to afford more of it by financing their land, power and capacity.",
+   "fear": "A hyperscaler or lab that stops buying at the margin (half its revenue is hyperscale), a cheaper accelerator that runs frontier models without CUDA, Taiwan, and an export regime that closes China for good.",
+   "facts": [
+    "compute-nvidia-q2fy27-revenue",
+    "compute-nvidia-q2fy27-datacenter",
+    "compute-nvidia-q2fy27-margin",
+    "compute-nvidia-q2fy27-opincome",
+    "compute-nvidia-q3fy27-guidance",
+    "compute-nvidia-marketcap",
+    "compute-nvidia-q2fy27-hyperscale",
+    "compute-nvidia-q2fy27-acie",
+    "compute-nvidia-commitments",
+    "compute-nvidia-china-share",
+    "compute-nvidia-accel-share",
+    "compute-nvidia-customer-financing",
+    "compute-nvidia-intel-investment",
+    "compute-cuda-dominates"
+   ]
+  },
+  {
+   "id": "tsmc",
+   "name": "TSMC",
+   "kind": "company",
+   "country": "Taiwan",
+   "layer": "fabs",
+   "sector": "semiconductors",
+   "founded": 1987,
+   "role": "makes the leading-edge chips (and packages the largest accelerators) for NVIDIA, AMD, Broadcom's customers and Apple",
+   "powers": [
+    "process power",
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Years of yield learning at each node that a rival cannot buy",
+    "execution": "Pure-play model: it never competes with its customers, so they hand it their designs",
+    "environment": "Taiwan: concentration of the world's leading-edge capacity on one island"
+   },
+   "advantage": "A pure-play foundry that out-executed Samsung and Intel on every recent node. Customers co-design with it, so it holds a record share of foundry revenue and fully booked 3nm and 5nm capacity. Its margin stays high even while it spends heavily.",
+   "standsOn": [
+    "asml",
+    "taiwan",
+    "us-gov",
+    "japan"
+   ],
+   "competitors": [
+    "samsung",
+    "intel",
+    "smic"
+   ],
+   "customers": [
+    "nvidia",
+    "amd",
+    "broadcom",
+    "apple"
+   ],
+   "desire": "Be the only place every advanced chip is made, and ration its capacity at rising prices.",
+   "fear": "A Taiwan Strait crisis, tool inflation and EUV supply, a customer that moves to Intel or Samsung, and losing the favour of Washington.",
+   "facts": [
+    "compute-tsmc-marketcap",
+    "compute-tsmc-q3-revenue",
+    "compute-tsmc-q3-margin",
+    "compute-tsmc-q3-advanced-share",
+    "compute-tsmc-foundry-share",
+    "compute-tsmc-capex-2026"
+   ]
+  },
+  {
+   "id": "asml",
+   "name": "ASML",
+   "kind": "company",
+   "country": "Netherlands",
+   "layer": "tools",
+   "sector": "semiconductor equipment",
+   "founded": 1984,
+   "role": "the only maker of extreme-ultraviolet lithography machines",
+   "powers": [
+    "cornered resource",
+    "process power",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Decades of accumulated optics, light-source and software know-how and a supplier web around Zeiss and Cymer",
+    "execution": "Ships machines that no one else can build, on a schedule customers plan their fabs around",
+    "environment": "Dutch and US export rules decide which fabs may buy"
+   },
+   "advantage": "No rival makes EUV systems. Every leading-edge fab at TSMC, Samsung, Intel, SK Hynix and Micron queues for the same machines, and ASML says its planned supply for 2027 and 2028 will not meet demand.",
+   "standsOn": [
+    "netherlands",
+    "us-gov"
+   ],
+   "competitors": [],
+   "customers": [
+    "tsmc",
+    "samsung",
+    "intel",
+    "sk-hynix",
+    "micron"
+   ],
+   "desire": "Raise capacity as fast as its supplier base allows and keep the lead into High-NA.",
+   "fear": "Export rules that cut China, a capex pause by customers, and a slow second-source such as nanoimprint or a Chinese EUV effort.",
+   "facts": [
+    "compute-asml-marketcap",
+    "compute-asml-q3-sales",
+    "compute-asml-supply-short",
+    "compute-asml-euv-100"
+   ]
+  },
+  {
+   "id": "sk-hynix",
+   "name": "SK Hynix",
+   "kind": "company",
+   "country": "South Korea",
+   "layer": "memory",
+   "sector": "semiconductors",
+   "founded": 1983,
+   "role": "the leading maker of high-bandwidth memory, which is stacked beside every NVIDIA accelerator",
+   "powers": [
+    "process power",
+    "cornered resource",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "Early HBM bet and qualification history with NVIDIA",
+    "execution": "Yields on stacked memory and early HBM4 shipments",
+    "environment": "Long-term agreements covering over half of 2027-28 capacity and a memory shortage"
+   },
+   "advantage": "It moved first on HBM, qualified with NVIDIA, and now sells out through 2029. Its operating margin (about 80%) is higher than NVIDIA's, which shows the scarce input has become the best business in the chain.",
+   "standsOn": [
+    "asml",
+    "south-korea"
+   ],
+   "competitors": [
+    "samsung",
+    "micron"
+   ],
+   "customers": [
+    "nvidia"
+   ],
+   "desire": "Turn an HBM lead into long-term contracts before Samsung catches up.",
+   "fear": "Samsung's HBM4 recovery, a cyclical memory downturn, and customers that integrate (Google, Amazon) or push prices back.",
+   "facts": [
+    "compute-sk-hynix-marketcap",
+    "compute-skhynix-q3-results",
+    "compute-skhynix-sold-out",
+    "compute-skhynix-hbm-share"
+   ]
+  },
+  {
+   "id": "samsung",
+   "name": "Samsung",
+   "kind": "company",
+   "country": "South Korea",
+   "layer": "memory",
+   "sector": "semiconductors",
+   "founded": 1969,
+   "role": "the largest memory maker and the second-ranked foundry; HBM challenger",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Everything from memory to logic under one roof",
+    "execution": "Lost HBM3E qualification time, regained share with HBM4",
+    "environment": "Home market capital and a captive demand base"
+   },
+   "advantage": "Largest DRAM scale and the one HBM supplier able to add large capacity quickly. Its HBM share jumped as HBM4 ramped. Its foundry arm trails TSMC badly.",
+   "standsOn": [
+    "asml",
+    "south-korea"
+   ],
+   "competitors": [
+    "sk-hynix",
+    "micron",
+    "tsmc"
+   ],
+   "customers": [
+    "nvidia"
+   ],
+   "desire": "Take back HBM leadership and prove its foundry.",
+   "fear": "Staying second in both memory logic and foundry; Chinese DRAM (CXMT) at the low end.",
+   "facts": [
+    "compute-samsung-marketcap",
+    "compute-samsung-hbm-share",
+    "compute-samsung-foundry-share"
+   ]
+  },
+  {
+   "id": "micron",
+   "name": "Micron",
+   "kind": "company",
+   "country": "US",
+   "layer": "memory",
+   "sector": "semiconductors",
+   "founded": 1978,
+   "role": "the only US memory maker; third in HBM",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Own HBM and server-DRAM roadmaps",
+    "execution": "Booked most of its 2027 HBM supply",
+    "environment": "US support for domestic memory"
+   },
+   "advantage": "A scarce input at a time of shortage: its gross margin reached 86.8% and revenue went from $11.32 billion to $54.23 billion in a year, but its HBM share slipped.",
+   "standsOn": [
+    "asml",
+    "us-gov"
+   ],
+   "competitors": [
+    "sk-hynix",
+    "samsung"
+   ],
+   "customers": [
+    "nvidia",
+    "amd"
+   ],
+   "desire": "Hold HBM share and lock multi-year prices.",
+   "fear": "Share loss to Samsung and the end of the shortage.",
+   "facts": [
+    "compute-micron-marketcap",
+    "compute-micron-fq4-revenue",
+    "compute-micron-fq4-margin",
+    "compute-micron-hbm-share"
+   ]
+  },
+  {
+   "id": "amd",
+   "name": "AMD",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1969,
+   "role": "the merchant alternative to NVIDIA, with the Instinct accelerators and EPYC CPUs",
+   "powers": [
+    "counter-positioning",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Rack-scale (Helios) design now matched to NVIDIA's",
+    "execution": "MI450 launch, EPYC share gains",
+    "environment": "Customers want a second source: Anthropic, Meta, Microsoft, OpenAI and Oracle run workloads on Helios"
+   },
+   "advantage": "It is the only merchant accelerator with the scale to be a second source. Buyers back it to hold NVIDIA's pricing. Its data-center segment nearly doubled in a year but its gross margin is far below NVIDIA's.",
+   "standsOn": [
+    "tsmc",
+    "sk-hynix",
+    "samsung",
+    "micron"
+   ],
+   "competitors": [
+    "nvidia",
+    "broadcom"
+   ],
+   "customers": [
+    "microsoft",
+    "meta",
+    "oracle",
+    "openai",
+    "anthropic"
+   ],
+   "desire": "Win a double-digit share of AI accelerators with rack-scale systems.",
+   "fear": "ROCm still trailing CUDA, and the same TSMC and HBM supply constraints as NVIDIA but less priority.",
+   "facts": [
+    "compute-amd-marketcap",
+    "compute-amd-q3-revenue",
+    "compute-amd-q3-datacenter"
+   ]
+  },
+  {
+   "id": "broadcom",
+   "name": "Broadcom",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1991,
+   "role": "designs custom AI accelerators (Google's TPU) and AI networking for the hyperscalers",
+   "powers": [
+    "switching costs",
+    "counter-positioning",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Years inside Google's TPU designs",
+    "execution": "Delivers racks and networking to a cadence the hyperscalers cannot match in-house",
+    "environment": "Hyperscalers want to escape the NVIDIA margin"
+   },
+   "advantage": "The hyperscalers' path round NVIDIA. It designs the TPU and the networking and has contracts to supply Google's TPUs through 2031, including capacity for Anthropic.",
+   "standsOn": [
+    "tsmc",
+    "sk-hynix",
+    "samsung"
+   ],
+   "competitors": [
+    "nvidia",
+    "marvell",
+    "amd"
+   ],
+   "customers": [
+    "google",
+    "anthropic",
+    "meta"
+   ],
+   "desire": "Be the default design house for every hyperscaler's custom silicon.",
+   "fear": "Customers insourcing design, and a hyperscaler capex cut.",
+   "facts": [
+    "compute-broadcom-marketcap",
+    "compute-broadcom-q3-revenue",
+    "compute-broadcom-q3-ai",
+    "compute-broadcom-anthropic-tpu"
+   ]
+  },
+  {
+   "id": "intel",
+   "name": "Intel",
+   "kind": "company",
+   "country": "US",
+   "layer": "fabs",
+   "sector": "semiconductors",
+   "founded": 1968,
+   "role": "the American fab trying to become the second source to TSMC",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Legacy of x86 and process know-how",
+    "execution": "Lost the lead in the 2010s; rebuilding with 18A and 14A",
+    "environment": "Backed by the US government and by NVIDIA, which invested to keep a domestic alternative to Taiwan"
+   },
+   "advantage": "Mostly political and strategic: it is the one US leading-edge fab, so Washington and its rivals' customers want it to survive. NVIDIA completed a $5 billion investment in it.",
+   "standsOn": [
+    "asml",
+    "us-gov"
+   ],
+   "competitors": [
+    "tsmc",
+    "samsung"
+   ],
+   "customers": [
+    "nvidia"
+   ],
+   "desire": "Win an external foundry customer at 14A.",
+   "fear": "Being a customer-less fab; running out of capital before a customer commits.",
+   "facts": [
+    "compute-intel-marketcap",
+    "compute-nvidia-intel-investment"
+   ]
+  },
+  {
+   "id": "huawei",
+   "name": "Huawei",
+   "kind": "company",
+   "country": "China",
+   "layer": "chips",
+   "sector": "semiconductors",
+   "founded": 1987,
+   "role": "China's leading domestic AI accelerator maker (Ascend), built at SMIC",
+   "powers": [
+    "cornered resource",
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "Full-stack from chip to model host",
+    "execution": "Output limited by SMIC yield and cycle time",
+    "environment": "Protected domestic market as Beijing blocks NVIDIA H200 and Washington blocks the best chips"
+   },
+   "advantage": "A captive market: Alibaba, ByteDance and Tencent have orders in. Policy, not product, is its moat.",
+   "standsOn": [
+    "smic",
+    "china"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [
+    "alibaba",
+    "tencent"
+   ],
+   "desire": "Replace NVIDIA inside China.",
+   "fear": "Supply: SMIC cannot make enough chips, and it lacks EUV and HBM supply.",
+   "facts": [
+    "compute-huawei-ai-revenue",
+    "compute-china-h200-customs"
+   ]
+  },
+  {
+   "id": "smic",
+   "name": "SMIC",
+   "kind": "company",
+   "country": "China",
+   "layer": "fabs",
+   "sector": "semiconductors",
+   "founded": 2000,
+   "role": "China's leading foundry, now third in the world",
+   "powers": [
+    "environment"
+   ],
+   "triad": {
+    "information": "Learning 7nm-class without EUV",
+    "execution": "Multi-patterning DUV at low yield",
+    "environment": "State capital and a protected market"
+   },
+   "advantage": "State-backed and shielded from foreign competition. Third by foundry revenue and gaining share, but without EUV it is stuck behind TSMC.",
+   "standsOn": [
+    "china"
+   ],
+   "competitors": [
+    "tsmc",
+    "samsung"
+   ],
+   "customers": [
+    "huawei"
+   ],
+   "desire": "Reach parity at 5nm without EUV.",
+   "fear": "Tool restrictions tightening.",
+   "facts": [
+    "compute-smic-foundry-share"
+   ]
+  },
+  {
+   "id": "china",
+   "name": "China",
+   "kind": "state",
+   "country": "China",
+   "layer": "state",
+   "sector": "state",
+   "founded": 1949,
+   "role": "the second AI power, with its own chip, model and demand base",
+   "powers": [
+    "environment"
+   ],
+   "triad": {
+    "information": "Own models (DeepSeek, Alibaba) running on domestic chips",
+    "execution": "Industrial policy: blocked NVIDIA to nurture Huawei",
+    "environment": "Largest manufacturing base but cut off from EUV and top-end chips"
+   },
+   "advantage": "It can close its own market and order its firms to buy domestic.",
+   "standsOn": [],
+   "competitors": [
+    "us-gov"
+   ],
+   "customers": [],
+   "desire": "Self-sufficiency in AI compute.",
+   "fear": "Dependence on foreign tools and Taiwan's fabs.",
+   "facts": [
+    "compute-china-h200-customs",
+    "compute-nvidia-china-share"
+   ]
+  },
+  {
+   "id": "hyperscalers",
+   "name": "Hyperscalers (aggregate)",
+   "kind": "aggregate",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "cloud computing",
+   "founded": null,
+   "role": "Amazon, Alphabet, Meta, Microsoft (and Oracle, SpaceX): the buyers of half of NVIDIA's revenue; an aggregate placeholder for the labs cluster's separate actors",
+   "powers": [
+    "scale economies",
+    "network economies"
+   ],
+   "triad": {
+    "information": "Own the demand data",
+    "execution": "Build the data centres",
+    "environment": "Cheap capital"
+   },
+   "advantage": "They hold the demand: roughly half of NVIDIA's revenue and the largest capex budgets in history. That is the counterweight to NVIDIA's pricing power.",
+   "standsOn": [
+    "nvidia",
+    "tsmc"
+   ],
+   "competitors": [],
+   "customers": [],
+   "desire": "Win the AI race.",
+   "fear": "Under-building while rivals build, and over-building if returns do not arrive.",
+   "facts": [
+    "compute-hyperscaler-capex-2026",
+    "compute-hyperscaler-q3-capex",
+    "compute-nvidia-q2fy27-hyperscale"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "compute-flow-hyperscalers-nvidia",
+   "from": "hyperscalers",
+   "to": "nvidia",
+   "usdBnPerYear": 194.8,
+   "what": "GPUs, systems and networking bought by the hyperscalers",
+   "period": "Q2 FY2027 (quarter ended 2026-07-26) annualised x4",
+   "basis": "reported",
+   "kind": "revenue",
+   "fact": "compute-nvidia-q2fy27-hyperscale"
+  },
+  {
+   "id": "compute-flow-acie-nvidia",
+   "from": "ai-clouds-enterprise-sovereign",
+   "to": "nvidia",
+   "usdBnPerYear": 161.3,
+   "what": "accelerators bought by AI clouds, AI-native labs, enterprises and sovereigns",
+   "period": "Q2 FY2027 annualised x4",
+   "basis": "reported",
+   "kind": "revenue",
+   "fact": "compute-nvidia-q2fy27-acie"
+  },
+  {
+   "id": "compute-flow-nvidia-memory",
+   "from": "nvidia",
+   "to": "sk-hynix",
+   "usdBnPerYear": null,
+   "what": "HBM and other memory under multi-year supply commitments (shared with Samsung and Micron)",
+   "period": "commitments as of 2026-07-26",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "compute-nvidia-commitments",
+   "notes": "NVIDIA says total commitments rose from $119bn to $279bn, primarily for memory; the split between SK Hynix, Samsung and Micron and the yearly rate are not disclosed in the text the gate verified"
+  },
+  {
+   "id": "compute-flow-nvidia-tsmc",
+   "from": "nvidia",
+   "to": "tsmc",
+   "usdBnPerYear": null,
+   "what": "wafers and CoWoS packaging",
+   "period": "2026",
+   "basis": "estimate",
+   "kind": "revenue",
+   "fact": "compute-tsmc-q3-revenue",
+   "notes": "amount not disclosed; TSMC's total revenue is $46.72bn for Q3 2026 and NVIDIA is its largest AI customer"
+  },
+  {
+   "id": "compute-flow-nvidia-intel",
+   "from": "nvidia",
+   "to": "intel",
+   "usdBnPerYear": 5,
+   "what": "equity investment to keep a second US fab alive",
+   "period": "completed early 2026 (one-off)",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "compute-nvidia-intel-investment"
+  },
+  {
+   "id": "compute-flow-broadcom-anthropic",
+   "from": "anthropic",
+   "to": "broadcom",
+   "usdBnPerYear": null,
+   "what": "Google TPU capacity: about 3.5 GW supplied from 2027",
+   "period": "2027-2031",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "compute-broadcom-anthropic-tpu",
+   "notes": "contract is in gigawatts; no dollar amount in the filing text verified"
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "nvidia",
+   "controls": "AI accelerators and the CUDA software stack",
+   "share": "about 75% of AI accelerators in 2026 (analyst estimate), down from about 87% in 2024",
+   "alternatives": "AMD Instinct (a second source), Google TPU and Amazon Trainium (inside their own clouds), Huawei Ascend (China only); all are weaker on software",
+   "facts": [
+    "compute-nvidia-accel-share",
+    "compute-cuda-dominates",
+    "compute-amd-q3-datacenter",
+    "compute-nvidia-q2fy27-hyperscale"
+   ]
+  },
+  {
+   "actor": "tsmc",
+   "controls": "leading-edge logic and CoWoS-class advanced packaging",
+   "share": "72.5% of top-10 foundry revenue in Q2 2026; Samsung 5.9%, SMIC 5.4%",
+   "alternatives": "Samsung and Intel exist but are not trusted with the largest designs; SMIC cannot reach the leading edge without EUV",
+   "facts": [
+    "compute-tsmc-foundry-share",
+    "compute-samsung-foundry-share",
+    "compute-smic-foundry-share",
+    "compute-tsmc-q3-advanced-share",
+    "compute-tsmc-q3-margin"
+   ]
+  },
+  {
+   "actor": "asml",
+   "controls": "EUV lithography",
+   "share": "the only supplier of EUV systems",
+   "alternatives": "none; ASML says planned supply for 2027 and 2028 will not fully meet demand",
+   "facts": [
+    "compute-asml-euv-100",
+    "compute-asml-supply-short",
+    "compute-asml-q3-sales"
+   ]
+  },
+  {
+   "actor": "sk-hynix",
+   "controls": "HBM, the memory stacked on every accelerator",
+   "share": "HBM Q2 2026: SK Hynix 50%, Samsung 33%, Micron 18%",
+   "alternatives": "three suppliers only; all sold out for years",
+   "facts": [
+    "compute-skhynix-hbm-share",
+    "compute-samsung-hbm-share",
+    "compute-micron-hbm-share",
+    "compute-skhynix-sold-out",
+    "compute-nvidia-commitments"
+   ]
+  },
+  {
+   "actor": "hyperscalers",
+   "controls": "demand: half of NVIDIA's revenue and the capex budgets that pay for the whole chain",
+   "share": "hyperscale revenue $48.7bn of NVIDIA's $96.2bn in Q2 FY2027",
+   "alternatives": "AI clouds, labs and sovereigns are the other half and growing faster",
+   "facts": [
+    "compute-nvidia-q2fy27-hyperscale",
+    "compute-nvidia-q2fy27-acie",
+    "compute-hyperscaler-capex-2026"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-cuda-vs-rocm",
+   "year": 2026,
+   "date": "2026-11-03",
+   "era": "present",
+   "holder": "nvidia",
+   "rivals": [
+    "amd",
+    "broadcom",
+    "google"
+   ],
+   "title": "CUDA against the second sources",
+   "advantage": "software lock-in",
+   "power": "switching costs",
+   "triad": "information",
+   "mechanism": "Every framework and engineer is tuned to CUDA, so AMD and the TPU win only where a buyer can rewrite its stack and wants a second source.",
+   "outcome": "NVIDIA keeps about 75% of accelerators; AMD's data-center revenue nearly doubled to $8.5bn in a quarter while Broadcom's AI revenue reached $16.7bn.",
+   "facts": [
+    "compute-nvidia-accel-share",
+    "compute-cuda-dominates",
+    "compute-amd-q3-datacenter",
+    "compute-broadcom-q3-ai"
+   ]
+  },
+  {
+   "id": "fp-memory-bottleneck",
+   "year": 2026,
+   "date": "2026-10-28",
+   "era": "present",
+   "holder": "sk-hynix",
+   "rivals": [
+    "samsung",
+    "micron",
+    "nvidia"
+   ],
+   "title": "The bottleneck moves to memory",
+   "advantage": "scarce HBM, sold out to 2029",
+   "power": "cornered resource",
+   "triad": "execution",
+   "mechanism": "HBM supply could not grow as fast as accelerators, so memory makers sold out multi-year and NVIDIA committed capital to secure it.",
+   "outcome": "SK Hynix earned an 80% operating margin, Micron's gross margin reached 86.8% and NVIDIA's commitments rose from $119bn to $279bn.",
+   "facts": [
+    "compute-skhynix-q3-results",
+    "compute-skhynix-sold-out",
+    "compute-micron-fq4-margin",
+    "compute-nvidia-commitments"
+   ]
+  },
+  {
+   "id": "fp-hbm-samsung-return",
+   "year": 2026,
+   "date": "2026-09-03",
+   "era": "present",
+   "holder": "samsung",
+   "rivals": [
+    "sk-hynix",
+    "micron"
+   ],
+   "title": "Samsung claws back HBM share",
+   "advantage": "scale and fast capacity",
+   "power": "scale economies",
+   "triad": "execution",
+   "mechanism": "With HBM4 ramping, Samsung's capacity let it take share in one quarter from the early leader.",
+   "outcome": "Samsung's HBM share rose from 21% to 33% in Q2 2026; SK Hynix fell from 58% to 50% and Micron from 21% to 18%.",
+   "facts": [
+    "compute-samsung-hbm-share",
+    "compute-skhynix-hbm-share",
+    "compute-micron-hbm-share"
+   ]
+  },
+  {
+   "id": "fp-tsmc-foundry",
+   "year": 2026,
+   "date": "2026-09-09",
+   "era": "present",
+   "holder": "tsmc",
+   "rivals": [
+    "samsung",
+    "intel",
+    "smic"
+   ],
+   "title": "TSMC takes nearly three quarters of foundry",
+   "advantage": "process lead and trust",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Customers design for TSMC first because only it delivers leading-edge yield at volume, and a pure-play never competes with them.",
+   "outcome": "72.5% of top-10 foundry revenue in Q2 2026, against Samsung 5.9% and SMIC 5.4%; gross margin 66.4% in Q3.",
+   "facts": [
+    "compute-tsmc-foundry-share",
+    "compute-samsung-foundry-share",
+    "compute-smic-foundry-share",
+    "compute-tsmc-q3-margin"
+   ]
+  },
+  {
+   "id": "fp-euv-monopoly",
+   "year": 2026,
+   "date": "2026-10-14",
+   "era": "present",
+   "holder": "asml",
+   "rivals": [
+    "smic",
+    "china"
+   ],
+   "title": "EUV: one machine, one maker",
+   "advantage": "cornered resource",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Only ASML can build EUV systems, so every fab must buy from it and export rules can switch China off.",
+   "outcome": "ASML reported record Q3 net sales of EUR 11.7bn and says supply for 2027 and 2028 will not meet demand.",
+   "facts": [
+    "compute-asml-euv-100",
+    "compute-asml-q3-sales",
+    "compute-asml-supply-short"
+   ]
+  },
+  {
+   "id": "fp-custom-silicon",
+   "year": 2026,
+   "date": "2026-04-06",
+   "era": "present",
+   "holder": "broadcom",
+   "rivals": [
+    "nvidia"
+   ],
+   "title": "The hyperscalers' bypass: custom TPU",
+   "advantage": "counter-positioning",
+   "power": "counter-positioning",
+   "triad": "environment",
+   "mechanism": "A hyperscaler that owns its workload designs its own chip with Broadcom and avoids paying NVIDIA's margin, which NVIDIA cannot match without cutting that margin.",
+   "outcome": "Broadcom signed to supply about 3.5 GW of TPU capacity to Anthropic from 2027 and Google's TPUs through 2031; its AI revenue was $16.7bn in one quarter.",
+   "facts": [
+    "compute-broadcom-anthropic-tpu",
+    "compute-broadcom-q3-ai",
+    "compute-broadcom-q3-revenue"
+   ]
+  },
+  {
+   "id": "fp-china-export",
+   "year": 2026,
+   "date": "2026-01-14",
+   "era": "present",
+   "holder": "china",
+   "rivals": [
+    "nvidia",
+    "us-gov"
+   ],
+   "title": "China shuts its own door on NVIDIA",
+   "advantage": "state control of a market",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "After Washington allowed some H200 exports, Beijing told customs not to let them in, protecting Huawei's orders.",
+   "outcome": "NVIDIA assumes no China data-center compute revenue in its Q3 guidance and Hopper shipments to China were under 1% of data-center revenue; Huawei expects about $12bn of AI-chip revenue in 2026.",
+   "facts": [
+    "compute-china-h200-customs",
+    "compute-nvidia-china-share",
+    "compute-nvidia-q3fy27-guidance",
+    "compute-huawei-ai-revenue"
+   ]
+  }
+ ],
+ "lineage": [],
+ "notes": "Unverified or excluded: (1) NVIDIA's 10-Q customer concentration (one direct customer 16% of Q2 FY2027 revenue, reported by a search summary) because sec.gov refuses scripted fetches. (2) CoWoS capacity and NVIDIA's share of it: analysts quote roughly half to 60% of TSMC's CoWoS and capacity of 95,000-150,000 wafers a month by end-2026, but these are sell-side estimates in secondary pages and TSMC does not disclose allocation. (3) Broadcom FQ4 guidance of $21.7bn AI revenue is in the gated Broadcom quote only as the Q3 figure's context. (4) SK Hynix figures are preliminary and unaudited; the Korea Times headline gives operating profit as about $62.8bn. (5) TSMC's market cap: companiesmarketcap.com gives $1.947 trillion (ADR basis); stockanalysis.com shows $1.69 trillion for the same date, so TSMC's size depends on the share-count convention. (6) TSMC capex 2027-28 estimates (UBS $90bn and $105bn) are brokerage forecasts. (7) AMD-OpenAI 6 GW and Anthropic-Trainium numbers were not fetched here (labs cluster). (8) ASML Q3 2026 bookings not found. (9) Market caps are from companiesmarketcap.com on 7 Nov 2026 and move daily. Hyperscaler and AI-cloud actors are aggregates until the labs cluster provides separate ones; 'ai-clouds-enterprise-sovereign' and 'hyperscalers' are non-canonical aggregate ids.",
+ "openQuestions": [
+  "What share of TSMC's CoWoS capacity does NVIDIA hold in 2026 and 2027, from a source the gate can read?",
+  "How is NVIDIA's $279bn of commitments split between SK Hynix, Samsung, Micron and TSMC, and what is the yearly rate?",
+  "Does the memory shortage end in 2028-2030 (SK Hynix says supply falls short of demand through 2030) and what happens to the memory makers' 80% margins when it does?",
+  "Is China's H200 ban still in force, and how many Ascend chips does SMIC actually ship in 2026?",
+  "What happens to the TSMC, memory and NVIDIA chain if hyperscaler capex flattens in 2027 after $803-828bn in 2026?",
+  "Will Intel 14A win an external customer, and does NVIDIA move any production off Taiwan?"
+ ]
+}

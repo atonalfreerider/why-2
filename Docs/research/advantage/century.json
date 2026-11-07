@@ -1,0 +1,2595 @@
+{
+ "cluster": "century",
+ "asOf": "2026-11-07",
+ "scope": "The 20th and 21st centuries' corporate winners and losers, walked back from 2026: the advantage, the rival beaten or the lead lost, the mechanism, years and numbers, and the repeating patterns that kill dominant firms.",
+ "facts": [
+  {
+   "id": "century-standard-oil-1904-share",
+   "claim": "In 1904 Standard Oil controlled 91% of US oil refining and 85% of final sales.",
+   "url": "https://en.wikipedia.org/wiki/Standard_Oil",
+   "quotes": [
+    "In 1904 Standard Oil controlled 91% of oil refinement and 85% of final sales in the United States.[31]"
+   ],
+   "values": [
+    "91%",
+    "85%"
+   ],
+   "dated2026": false,
+   "actor": "standard-oil",
+   "kind": "share",
+   "value": 91,
+   "unit": "% of US refining",
+   "period": "1904",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-standard-oil-1911-share",
+   "claim": "Standard Oil's market share had fallen to 64% by 1911, when it was ordered broken up.",
+   "url": "https://en.wikipedia.org/wiki/Standard_Oil",
+   "quotes": [
+    "Standard's market share was 64% by 1911 when Standard was ordered broken up.[50]"
+   ],
+   "values": [
+    "64%",
+    "1911"
+   ],
+   "dated2026": false,
+   "actor": "standard-oil",
+   "kind": "share",
+   "value": 64,
+   "unit": "% of US market",
+   "period": "1911",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-us-steel-1901-share",
+   "claim": "In 1901 U.S. Steel produced roughly two-thirds of the steel made in the United States.",
+   "url": "https://en.wikipedia.org/wiki/U.S._Steel",
+   "quotes": [
+    "In 1901, the company was far and away the largest steel manufacturer, producing roughly two-thirds of the steel in the United States.[20]"
+   ],
+   "values": [
+    "two-thirds",
+    "1901"
+   ],
+   "dated2026": false,
+   "actor": "us-steel",
+   "kind": "share",
+   "value": 67,
+   "unit": "% of US steel (about two-thirds)",
+   "period": "1901",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-ibm-1960s-share",
+   "claim": "In the 1960s and 1970s IBM produced 80 percent of computers in the US and 70 percent worldwide.",
+   "url": "https://en.wikipedia.org/wiki/IBM",
+   "quotes": [
+    "During the 1960s and 1970s, the IBM mainframe, exemplified by the System/360 and its successors, was the world's dominant computing platform, with the company producing 80 percent of computers in the U.S. and 70 percent of computers worldwide.[11]"
+   ],
+   "values": [
+    "80 percent",
+    "70 percent"
+   ],
+   "dated2026": false,
+   "actor": "ibm",
+   "kind": "share",
+   "value": 80,
+   "unit": "% of US computers",
+   "period": "1960s-1970s",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-ibm-1993-loss",
+   "claim": "In 1993 IBM posted an $8 billion loss, the biggest in American corporate history at the time.",
+   "url": "https://en.wikipedia.org/wiki/IBM",
+   "quotes": [
+    "In 1993, IBM posted an $8 billion loss – at the time the biggest in American corporate history.[61]"
+   ],
+   "values": [
+    "$8 billion",
+    "1993"
+   ],
+   "dated2026": false,
+   "actor": "ibm",
+   "kind": "netIncome",
+   "value": -8,
+   "unit": "USD bn",
+   "period": "1993",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-gm-lost-title-2008",
+   "claim": "GM was the world's largest automaker for 77 years before losing the title to Toyota in 2008.",
+   "url": "https://en.wikipedia.org/wiki/General_Motors",
+   "quotes": [
+    "By total sales, it has continuously been the largest automaker in the United States, and was the largest in the world for 77 years before losing the title to Toyota in 2008.[4][5]"
+   ],
+   "values": [
+    "77 years",
+    "2008"
+   ],
+   "dated2026": false,
+   "actor": "gm",
+   "kind": "event",
+   "value": 2008,
+   "unit": "year",
+   "period": "2008",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-ge-2000-market-cap",
+   "claim": "In August 2000 General Electric had a market capitalization of $601 billion and was the most valuable company in the world.",
+   "url": "https://en.wikipedia.org/wiki/General_Electric",
+   "quotes": [
+    "In August 2000, the company had a market capitalization of $601 billion, and was the most valuable company in the world.[176]"
+   ],
+   "values": [
+    "$601 billion",
+    "August 2000"
+   ],
+   "dated2026": false,
+   "actor": "ge",
+   "kind": "marketCap",
+   "value": 601,
+   "unit": "USD bn",
+   "period": "August 2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-ge-removed-dow-2018",
+   "claim": "GE was removed from the Dow Jones Industrial Average on 28 June 2018 after its weight fell below 1% of the index.",
+   "url": "https://en.wikipedia.org/wiki/General_Electric",
+   "quotes": [
+    "GE was removed from the Dow Jones Industrial Average on June 28, 2018, after the value had dropped below 1% of the index's weight.[206]"
+   ],
+   "values": [
+    "June 28, 2018",
+    "1%"
+   ],
+   "dated2026": false,
+   "actor": "ge",
+   "kind": "event",
+   "value": 2018,
+   "unit": "year",
+   "period": "2018",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-nokia-2007-share",
+   "claim": "In Q4 2007 Nokia reached an all-time high 40.4% of handset sales and 51% of smartphones.",
+   "url": "https://en.wikipedia.org/wiki/Nokia",
+   "quotes": [
+    "However, by 2006, the company was steadily gaining again[74][75] and in Q4 2007 reached its all-time high figure of 40.4%.[76]",
+    "Its smartphone market share in that quarter was 51%.[77]"
+   ],
+   "values": [
+    "40.4%",
+    "51%"
+   ],
+   "dated2026": false,
+   "actor": "nokia",
+   "kind": "share",
+   "value": 40.4,
+   "unit": "% of mobile handsets",
+   "period": "Q4 2007",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-blackberry-subscribers",
+   "claim": "BlackBerry had 85 million subscribers at its September 2011 peak, down to 23 million by March 2016.",
+   "url": "https://en.wikipedia.org/wiki/BlackBerry",
+   "quotes": [
+    "At its peak in September 2011, there were 85 million BlackBerry services subscribers worldwide;[21][22] its numbers had fallen to 23 million in March 2016 as its remaining international strongholds also lost share."
+   ],
+   "values": [
+    "85 million",
+    "23 million"
+   ],
+   "dated2026": false,
+   "actor": "blackberry",
+   "kind": "units",
+   "value": 85,
+   "unit": "million subscribers",
+   "period": "September 2011",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-blockbuster-2004-peak",
+   "claim": "At its 2004 peak Blockbuster employed 84,300 people and operated 9,094 stores.",
+   "url": "https://en.wikipedia.org/wiki/Blockbuster_LLC",
+   "quotes": [
+    "At its peak in 2004,[4][5] Blockbuster employed 84,300 people worldwide and operated 9,094 stores.[6]"
+   ],
+   "values": [
+    "84,300",
+    "9,094"
+   ],
+   "dated2026": false,
+   "actor": "blockbuster",
+   "kind": "units",
+   "value": 9094,
+   "unit": "stores",
+   "period": "2004",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-blockbuster-declined-netflix",
+   "claim": "In 2000 Blockbuster turned down a chance to buy Netflix for $50 million.",
+   "url": "https://en.wikipedia.org/wiki/Blockbuster_LLC",
+   "quotes": [
+    "Also in 2000, Blockbuster turned down a chance to purchase the fledgling Netflix for $50 million (~$88.7 million in 2025).[57]"
+   ],
+   "values": [
+    "$50 million",
+    "2000"
+   ],
+   "dated2026": false,
+   "actor": "blockbuster",
+   "kind": "event",
+   "value": 2000,
+   "unit": "year",
+   "period": "2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-blockbuster-2010-bankruptcy",
+   "claim": "On 23 September 2010 Blockbuster filed for Chapter 11 with $900 million of debt, citing competition from Netflix, Redbox and video on demand.",
+   "url": "https://en.wikipedia.org/wiki/Blockbuster_LLC",
+   "quotes": [
+    "On September 23, 2010, Blockbuster filed for Chapter 11 bankruptcy protection due to challenging losses, $900 million (~$1.3 billion in 2025) in debt, and strong competition from Netflix, Redbox, and video on-demand services.[82][83]"
+   ],
+   "values": [
+    "September 23, 2010",
+    "$900 million"
+   ],
+   "dated2026": false,
+   "actor": "blockbuster",
+   "kind": "event",
+   "value": 2010,
+   "unit": "year",
+   "period": "2010",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-fuji-kodak-share",
+   "claim": "Fuji's share of the US film market rose from 10% in the early 1990s to 17% in 1997, taking share from Kodak.",
+   "url": "https://en.wikipedia.org/wiki/Kodak",
+   "quotes": [
+    "Fuji opened a film plant in the U.S., and its aggressive marketing and price cutting began taking market share from Kodak, rising from a 10% share in the early 1990s to 17% in 1997.[12]"
+   ],
+   "values": [
+    "10%",
+    "17%"
+   ],
+   "dated2026": false,
+   "actor": "fujifilm",
+   "kind": "share",
+   "value": 17,
+   "unit": "% of US film",
+   "period": "1997",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-kodak-2012-chapter11",
+   "claim": "Kodak filed for Chapter 11 bankruptcy in January 2012.",
+   "url": "https://en.wikipedia.org/wiki/Kodak",
+   "quotes": [
+    "These strategies failed to improve the company's finances, and in January 2012, Kodak filed for Chapter 11 bankruptcy protection in the United States Bankruptcy Court for the Southern District of New York.[16][17][18]"
+   ],
+   "values": [
+    "January 2012"
+   ],
+   "dated2026": false,
+   "actor": "kodak",
+   "kind": "event",
+   "value": 2012,
+   "unit": "year",
+   "period": "January 2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-walmart-passes-sears",
+   "claim": "Walmart became the largest US retailer by revenue by October 1989.",
+   "url": "https://en.wikipedia.org/wiki/Walmart",
+   "quotes": [
+    "By 1988, it was the most profitable retailer in the U.S.,[27] and it had become the largest in terms of revenue by October 1989.[28]"
+   ],
+   "values": [
+    "October 1989",
+    "1988"
+   ],
+   "dated2026": false,
+   "actor": "walmart",
+   "kind": "event",
+   "value": 1989,
+   "unit": "year",
+   "period": "October 1989",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-enron-2000-revenue",
+   "claim": "Enron claimed revenues of nearly $101 billion in 2000 and went bankrupt on 2 December 2001.",
+   "url": "https://en.wikipedia.org/wiki/Enron",
+   "quotes": [
+    "Before its bankruptcy on December 2, 2001, Enron employed approximately 20,600 staff and was a major electricity, natural gas, communications, and pulp and paper company, with claimed revenues of nearly $101 billion during 2000.[1]"
+   ],
+   "values": [
+    "$101 billion",
+    "December 2, 2001"
+   ],
+   "dated2026": false,
+   "actor": "enron",
+   "kind": "revenue",
+   "value": 101,
+   "unit": "USD bn",
+   "period": "2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-lehman-assets",
+   "claim": "Lehman Brothers filed for bankruptcy on 15 September 2008 with assets worth $639 billion.",
+   "url": "https://en.wikipedia.org/wiki/Lehman_Brothers",
+   "quotes": [
+    "Shortly before 1 am Monday morning (UTC−5), Lehman Brothers Holdings announced it would file for Chapter 11 bankruptcy protection citing bank debt of $613 billion, $155 billion in bond debt,[109] and assets worth $639 billion.[110]"
+   ],
+   "values": [
+    "$639 billion",
+    "$613 billion"
+   ],
+   "dated2026": false,
+   "actor": "lehman",
+   "kind": "assets",
+   "value": 639,
+   "unit": "USD bn",
+   "period": "September 2008",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-nikkei-1989-peak",
+   "claim": "The Nikkei 225 touched a record 38,957.44 on 29 December 1989 and had halved by August 1990.",
+   "url": "https://en.wikipedia.org/wiki/Japanese_asset_price_bubble",
+   "quotes": [
+    "Nikkei 225 touched a then-historical all-time high of 38,957.44 on December 29, 1989.[12]",
+    "By August 1990, the Nikkei stock index had plummeted to half its peak by the time of the fifth monetary tightening by the Bank of Japan (BOJ).[2]"
+   ],
+   "values": [
+    "38,957.44",
+    "December 29, 1989"
+   ],
+   "dated2026": false,
+   "actor": "japan",
+   "kind": "event",
+   "value": 1989,
+   "unit": "year",
+   "period": "December 1989",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-yahoo-google-offer",
+   "claim": "In 1998 Yahoo declined to buy Google for $1 million, and in 2002 its final offer of $3 billion was rejected.",
+   "url": "https://en.wikipedia.org/wiki/Yahoo!",
+   "quotes": [
+    "The company had two failed attempts to acquire Google; in 1998, Larry Page and Sergey Brin approached Yahoo to sell their nascent search engine for $1 million, but Yahoo declined the offer.[33][34]",
+    "After weeks of negotiation, Yahoo's final offer was $3 billion, a figure that Google's leadership rejected.[33]"
+   ],
+   "values": [
+    "$1 million",
+    "$3 billion"
+   ],
+   "dated2026": false,
+   "actor": "yahoo",
+   "kind": "event",
+   "value": 2002,
+   "unit": "year",
+   "period": "1998 and 2002",
+   "from": null,
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-microsoft-yahoo-bid",
+   "claim": "In February 2008 Microsoft made an unsolicited $44.6 billion bid for Yahoo, which Yahoo's board resisted.",
+   "url": "https://en.wikipedia.org/wiki/Yahoo!",
+   "quotes": [
+    "In February 2008, Microsoft made an unsolicited bid to acquire Yahoo for $44.6 billion.[36][37]"
+   ],
+   "values": [
+    "$44.6 billion",
+    "February 2008"
+   ],
+   "dated2026": false,
+   "actor": "yahoo",
+   "kind": "event",
+   "value": 2008,
+   "unit": "year",
+   "period": "2008",
+   "from": "microsoft",
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-instagram-acquired",
+   "claim": "In April 2012 Facebook acquired Instagram for approximately US$1 billion in cash and stock.",
+   "url": "https://en.wikipedia.org/wiki/Instagram",
+   "quotes": [
+    "In April 2012, Facebook acquired the service for approximately US$1 billion in cash and stock."
+   ],
+   "values": [
+    "US$1 billion",
+    "April 2012"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "investment",
+   "value": 1,
+   "unit": "USD bn",
+   "period": "April 2012",
+   "from": null,
+   "to": "instagram",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-aws-share-2023",
+   "claim": "As of Q1 2023 AWS had 31% of cloud infrastructure, against Azure 25% and Google Cloud 11%.",
+   "url": "https://en.wikipedia.org/wiki/Amazon_Web_Services",
+   "quotes": [
+    "As of 2023 Q1, AWS has 31% market share for cloud infrastructure while the next two competitors Microsoft Azure and Google Cloud have 25%, and 11% respectively, according to Synergy Research Group.[12][13]"
+   ],
+   "values": [
+    "31%",
+    "25%",
+    "11%"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "share",
+   "value": 31,
+   "unit": "% of cloud infrastructure",
+   "period": "Q1 2023",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-xerox-parc-apple-1979",
+   "claim": "In 1979 Steve Jobs arranged a visit to Xerox PARC where Apple saw the Alto's technology, in exchange for Xerox buying Apple stock options.",
+   "url": "https://en.wikipedia.org/wiki/Xerox_Alto",
+   "quotes": [
+    "In 1979, Steve Jobs arranged a visit to Xerox PARC, during which Apple Computer personnel received demonstrations of Xerox technology in exchange for Xerox being able to purchase stock options in Apple.[9]"
+   ],
+   "values": [
+    "1979"
+   ],
+   "dated2026": false,
+   "actor": "xerox",
+   "kind": "event",
+   "value": 1979,
+   "unit": "year",
+   "period": "1979",
+   "from": null,
+   "to": "apple",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-microsoft-guilty-2000",
+   "claim": "On 3 April 2000 Judge Jackson ruled that Microsoft was guilty of monopolization and tying under the Sherman Act.",
+   "url": "https://en.wikipedia.org/wiki/Dot-com_bubble",
+   "quotes": [
+    "Tangentially to all of speculation, on April 3, 2000 Judge Thomas Penfield Jackson issued his conclusions of law in the case of United States v. Microsoft Corp. (2001) and ruled that Microsoft was guilty of monopolization and tying in violation of the Sherman Antitrust Act."
+   ],
+   "values": [
+    "April 3, 2000"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "event",
+   "value": 2000,
+   "unit": "year",
+   "period": "2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-huawei-passes-ericsson",
+   "claim": "In 2012 Huawei surpassed Ericsson to become the world's largest telecommunications equipment manufacturer.",
+   "url": "https://en.wikipedia.org/wiki/Huawei",
+   "quotes": [
+    "In 2012, it surpassed Ericsson to become the world's largest telecommunications equipment manufacturer.[6]"
+   ],
+   "values": [
+    "2012"
+   ],
+   "dated2026": false,
+   "actor": "huawei",
+   "kind": "event",
+   "value": 2012,
+   "unit": "year",
+   "period": "2012",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-ford-assembly-line-1913",
+   "claim": "Ford introduced the first moving assembly line in 1913 at its Highland Park factory.",
+   "url": "https://en.wikipedia.org/wiki/Ford_Motor_Company",
+   "quotes": [
+    "More efficient production methods were needed to make automobiles affordable for middle class people; Ford contributed to this effort through a variety of innovations, including the introduction of the first moving assembly line in 1913 at the Ford factory in Highland Park.[18]"
+   ],
+   "values": [
+    "1913"
+   ],
+   "dated2026": false,
+   "actor": "ford",
+   "kind": "event",
+   "value": 1913,
+   "unit": "year",
+   "period": "1913",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-bell-breakup",
+   "claim": "The Bell System consisted of AT&T plus 24 local Bell Operating Companies and Western Electric, which made almost all of its equipment.",
+   "url": "https://en.wikipedia.org/wiki/Breakup_of_the_Bell_System",
+   "quotes": [
+    "It consisted of the parent American Telephone & Telegraph Company (AT&T), which directly provided long-distance service, while local service was provided by 24 local Bell Operating Companies, which were owned whole or in part by AT&T, while its manufacturing subsidiary Western Electric produced almost all of its equipment, which was largely designed at the research and development subsidiary Bell Labs."
+   ],
+   "values": [
+    "24"
+   ],
+   "dated2026": false,
+   "actor": "att",
+   "kind": "event",
+   "value": 24,
+   "unit": "local operating companies",
+   "period": "pre-1984",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-apple-1t-2018",
+   "claim": "On 2 August 2018 Apple became the first publicly traded US company to reach a $1 trillion market value.",
+   "url": "https://en.wikipedia.org/wiki/Apple_Inc.",
+   "quotes": [
+    "On August 2, 2018, Apple became the first publicly traded US company to reach a $1 trillion market value,[284][285] and, as of October 2025[update] , is valued at just over $4 trillion.[286]"
+   ],
+   "values": [
+    "$1 trillion",
+    "August 2, 2018"
+   ],
+   "dated2026": false,
+   "actor": "apple",
+   "kind": "marketCap",
+   "value": 1000,
+   "unit": "USD bn",
+   "period": "August 2018",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-walmart-2026-rank",
+   "claim": "As of 2026 Walmart is the second-largest company by revenue globally and the world's largest private employer, with 2.1 million employees.",
+   "url": "https://en.wikipedia.org/wiki/Walmart",
+   "quotes": [
+    "As of 2026, Walmart is the second-largest company by revenue globally[f] and the largest private employer in the world,[g] with 2.1 million employees.[a]"
+   ],
+   "values": [
+    "2.1 million",
+    "2026"
+   ],
+   "dated2026": true,
+   "actor": "walmart",
+   "kind": "headcount",
+   "value": 2.1,
+   "unit": "million",
+   "period": "2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-sears-bankruptcy-2018",
+   "claim": "Sears Holdings filed for Chapter 11 on 15 October 2018 and sold its assets to ESL Investments in 2019.",
+   "url": "https://en.wikipedia.org/wiki/Sears_Holdings",
+   "quotes": [
+    "It filed for Chapter 11 bankruptcy on October 15, 2018, and sold its assets to ESL Investments in 2019.[9]"
+   ],
+   "values": [
+    "October 15, 2018",
+    "2019"
+   ],
+   "dated2026": false,
+   "actor": "sears",
+   "kind": "event",
+   "value": 2018,
+   "unit": "year",
+   "period": "October 2018",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-gm-bailout-2009",
+   "claim": "By March 2009 GM had received $17.4 billion in bailouts when the US President forced the resignation of its CEO.",
+   "url": "https://en.wikipedia.org/wiki/General_Motors",
+   "quotes": [
+    "In March 2009, after the company had received $17.4 billion in bailouts but was not effective in a turnaround, President Barack Obama forced the resignation of CEO Rick Wagoner.[113]"
+   ],
+   "values": [
+    "$17.4 billion",
+    "March 2009"
+   ],
+   "dated2026": false,
+   "actor": "gm",
+   "kind": "investment",
+   "value": 17.4,
+   "unit": "USD bn",
+   "period": "March 2009",
+   "from": "us-gov",
+   "to": "gm",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-nokia-windows-phone-2011",
+   "claim": "On 11 February 2011 Nokia announced a partnership with Microsoft to adopt Windows Phone 7 as its primary smartphone operating system.",
+   "url": "https://en.wikipedia.org/wiki/Nokia",
+   "quotes": [
+    "On 11 February 2011, Nokia announced a \"strategic partnership\" with Microsoft, under which it would adopt Windows Phone 7 as its primary operating system on smartphones, and integrate its services and platforms with its own, including Bing as its default search engine, and integration of Nokia Maps data into Bing Maps."
+   ],
+   "values": [
+    "11 February 2011",
+    "Windows Phone 7"
+   ],
+   "dated2026": false,
+   "actor": "nokia",
+   "kind": "event",
+   "value": 2011,
+   "unit": "year",
+   "period": "February 2011",
+   "from": "nokia",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-msdos-90pct",
+   "claim": "Of 15 million Americans who used a personal computer at work, more than 90% used MS-DOS.",
+   "url": "https://en.wikipedia.org/wiki/United_States_v._Microsoft_Corp.",
+   "quotes": [
+    "Of the 15 million Americans who used a personal computer in their job, more than 90% used MS-DOS.[5]"
+   ],
+   "values": [
+    "15 million",
+    "90%"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "share",
+   "value": 90,
+   "unit": "% of US workplace PC users",
+   "period": "c. 1990 (page undated)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-microsoft-breakup-ordered-2000",
+   "claim": "On 7 June 2000 the District Court ordered a breakup of Microsoft as its remedy.",
+   "url": "https://en.wikipedia.org/wiki/United_States_v._Microsoft_Corp.",
+   "quotes": [
+    "On June 7, 2000, the District Court ordered a breakup of Microsoft as its remedy.[22]"
+   ],
+   "values": [
+    "June 7, 2000"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "event",
+   "value": 2000,
+   "unit": "year",
+   "period": "June 2000",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-bell-divestiture-1984",
+   "claim": "The divestiture of the local operating companies to the Baby Bells became effective on 1 January 1984.",
+   "url": "https://en.wikipedia.org/wiki/Breakup_of_the_Bell_System",
+   "quotes": [
+    "The divesture of the local operating companies to the Baby Bells became effective on January 1, 1984."
+   ],
+   "values": [
+    "January 1, 1984"
+   ],
+   "dated2026": false,
+   "actor": "att",
+   "kind": "event",
+   "value": 1984,
+   "unit": "year",
+   "period": "1 January 1984",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-yahoo-verizon-2016",
+   "claim": "On 25 July 2016 Verizon announced it would buy Yahoo's core Internet business for $4.83 billion.",
+   "url": "https://en.wikipedia.org/wiki/Yahoo!",
+   "quotes": [
+    "On July 25, 2016, Verizon Communications announced it would acquire Yahoo's core Internet business for $4.83 billion, a stunning collapse from the company's peak valuation.[97][98][99][100]"
+   ],
+   "values": [
+    "July 25, 2016",
+    "$4.83 billion"
+   ],
+   "dated2026": false,
+   "actor": "yahoo",
+   "kind": "investment",
+   "value": 4.83,
+   "unit": "USD bn",
+   "period": "July 2016",
+   "from": "verizon",
+   "to": "yahoo",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-china-manufacturing-nine",
+   "claim": "China is the world's largest manufacturing economy; its production exceeds that of the nine next largest manufacturers combined.",
+   "url": "https://en.wikipedia.org/wiki/Economy_of_China",
+   "quotes": [
+    "China is the world's largest manufacturing industrial economy and exporter of goods.",
+    "Its production exceeds that of the nine next largest manufacturers combined.[32][33][34]"
+   ],
+   "values": [
+    "nine"
+   ],
+   "dated2026": true,
+   "actor": "china",
+   "kind": "share",
+   "value": 10,
+   "unit": "manufacturers combined (nine next largest)",
+   "period": "as of 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-toyota-2024-largest",
+   "claim": "As of 2024 Toyota was the world's largest car company with revenues exceeding US$400 billion.",
+   "url": "https://en.wikipedia.org/wiki/Toyota",
+   "quotes": [
+    "As of 2024[update] , Toyota was the world's largest car company with revenues exceeding US$400 billion."
+   ],
+   "values": [
+    "US$400 billion",
+    "2024"
+   ],
+   "dated2026": false,
+   "actor": "toyota",
+   "kind": "revenue",
+   "value": 400,
+   "unit": "USD bn (exceeding)",
+   "period": "2024",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-whatsapp-2014",
+   "claim": "In February 2014 Facebook agreed to acquire WhatsApp for US$19 billion, its largest acquisition to date.",
+   "url": "https://en.wikipedia.org/wiki/WhatsApp",
+   "quotes": [
+    "Feb 19, 2014 Facebook, Inc. announces its acquisition of WhatsApp for US$19 billion, its largest acquisition to date.[43]"
+   ],
+   "values": [
+    "US$19 billion",
+    "2014"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "investment",
+   "value": 19,
+   "unit": "USD bn",
+   "period": "February 2014",
+   "from": null,
+   "to": "whatsapp",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-google-search-share-2026",
+   "claim": "In October 2026 Google held 91.05% of worldwide search, Bing 4.8% and Yahoo! 1.18%.",
+   "url": "https://gs.statcounter.com/search-engine-market-share",
+   "quotes": [
+    "Search Engine Market Share Worldwide - October 2026 Google 91.05% bing 4.8% Yahoo! 1.18% YANDEX 1.14% DuckDuckGo 0.64% Baidu 0.42%"
+   ],
+   "values": [
+    "91.05%",
+    "4.8%",
+    "1.18%"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "share",
+   "value": 91.05,
+   "unit": "% of worldwide search",
+   "period": "October 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "century-mobile-os-share-2026",
+   "claim": "In October 2026 Android held 72.36% and iOS 27.61% of worldwide mobile operating systems; Windows 0%.",
+   "url": "https://gs.statcounter.com/os-market-share/mobile/worldwide",
+   "quotes": [
+    "Mobile Operating System Market Share Worldwide - October 2026 Android 72.36% iOS 27.61% Linux 0.01% KaiOS 0.01% Windows 0% Samsung 0%"
+   ],
+   "values": [
+    "72.36%",
+    "27.61%"
+   ],
+   "dated2026": true,
+   "actor": "apple",
+   "kind": "share",
+   "value": 27.61,
+   "unit": "% of mobile OS",
+   "period": "October 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  }
+ ],
+ "actors": [
+  {
+   "id": "standard-oil",
+   "name": "Standard Oil",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1870,
+   "role": "refined and shipped most US oil, then was broken up by the courts",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "knew every competitor's costs and volumes",
+    "execution": "ran refining and shipping as one system",
+    "environment": "railroad rebates and the 1890s trust structure"
+   },
+   "advantage": "Control of refining and transport let it undercut every rival until it held about nine tenths of US refining; the state, not a rival, ended it.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "us-steel"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to hold every barrel's path from well to lamp",
+   "fear": "an antitrust suit and cheaper rivals",
+   "facts": [
+    "century-standard-oil-1904-share",
+    "century-standard-oil-1911-share"
+   ]
+  },
+  {
+   "id": "us-steel",
+   "name": "U.S. Steel",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1901,
+   "role": "the first giant merger, making about two-thirds of US steel",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "merged Carnegie, Federal and National Steel",
+    "execution": "mass production of rails and plate",
+    "environment": "protected home market in the railroad age"
+   },
+   "advantage": "Merging the three largest steelmakers in 1901 gave it about two-thirds of US output; later rivals left it a smaller producer.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "japan"
+   ],
+   "customers": [
+    "ford"
+   ],
+   "desire": "to be the permanent price setter",
+   "fear": "cheaper imports and new process technology",
+   "facts": [
+    "century-us-steel-1901-share"
+   ]
+  },
+  {
+   "id": "ford",
+   "name": "Ford",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1903,
+   "role": "made the car affordable with the moving assembly line",
+   "powers": [
+    "process power",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "engineered manufacturing sequence",
+    "execution": "moving assembly line in 1913, vertical integration",
+    "environment": "a growing road and middle-class market"
+   },
+   "advantage": "The assembly line cut the cost and time of making a car, so the Model T could be bought by the middle class; GM later beat it with choice and financing, not price.",
+   "standsOn": [
+    "us-steel"
+   ],
+   "competitors": [
+    "gm"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to put the world on wheels at the lowest cost",
+   "fear": "a rival that sells variety instead of one car",
+   "facts": [
+    "century-ford-assembly-line-1913"
+   ]
+  },
+  {
+   "id": "gm",
+   "name": "General Motors",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1908,
+   "role": "the world's largest automaker for 77 years, then a bailout",
+   "powers": [
+    "scale economies",
+    "branding"
+   ],
+   "triad": {
+    "information": "segmented brands and consumer finance",
+    "execution": "large dealer network",
+    "environment": "US home market"
+   },
+   "advantage": "Brand ladder and scale kept it first for 77 years; labour and pension costs and Toyota's quality and cost process ended its lead in 2008 and led to a bailout.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "toyota",
+    "ford"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to stay number one by volume",
+   "fear": "a rival with lower costs and fewer defects",
+   "facts": [
+    "century-gm-lost-title-2008",
+    "century-gm-bailout-2009"
+   ]
+  },
+  {
+   "id": "toyota",
+   "name": "Toyota",
+   "kind": "company",
+   "country": "JP",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1937,
+   "role": "won the car industry with lean production and quality",
+   "powers": [
+    "process power"
+   ],
+   "triad": {
+    "information": "learned continuously from its own line",
+    "execution": "the Toyota Production System",
+    "environment": "a Japanese state that kept foreign carmakers out while it grew"
+   },
+   "advantage": "A manufacturing system of just-in-time parts and constant improvement made better cars with fewer defects at lower cost, and Toyota overtook GM in 2008.",
+   "standsOn": [
+    "japan"
+   ],
+   "competitors": [
+    "gm",
+    "ford"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to build the best car at the lowest cost",
+   "fear": "a disruptive supply shock or a move to electric cars",
+   "facts": [
+    "century-toyota-2024-largest",
+    "century-gm-lost-title-2008"
+   ]
+  },
+  {
+   "id": "att",
+   "name": "AT&T and the Bell System",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1885,
+   "role": "ran US telephony as a regulated monopoly with Bell Labs and Western Electric",
+   "powers": [
+    "scale economies",
+    "network economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Bell Labs research",
+    "execution": "Western Electric built nearly all the equipment",
+    "environment": "regulation that granted the monopoly"
+   },
+   "advantage": "One firm owned the long-distance lines, the 24 local companies and the factory and laboratory behind them; the state ended it in 1984 with a divestiture.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to keep the network whole",
+   "fear": "the antitrust suit it believed it would lose",
+   "facts": [
+    "century-bell-breakup",
+    "century-bell-divestiture-1984"
+   ]
+  },
+  {
+   "id": "ibm",
+   "name": "IBM",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1911,
+   "role": "made 80 percent of US computers, then lost the PC to its suppliers",
+   "powers": [
+    "switching costs",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "mainframe software that customers could not leave",
+    "execution": "sales force and service",
+    "environment": "System/360 compatible family"
+   },
+   "advantage": "IBM's mainframe ecosystem locked customers in, but its PC used outside parts and an outside operating system, so clones and Microsoft kept the profits.",
+   "standsOn": [
+    "att"
+   ],
+   "competitors": [
+    "microsoft",
+    "apple"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to own the customer's whole computing",
+   "fear": "an open standard it did not control",
+   "facts": [
+    "century-ibm-1960s-share",
+    "century-ibm-1993-loss",
+    "century-msdos-90pct"
+   ]
+  },
+  {
+   "id": "xerox",
+   "name": "Xerox and PARC",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1906,
+   "role": "invented the personal computer's graphical interface and let others sell it",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "PARC's researchers invented the GUI, mouse and Ethernet",
+    "execution": "a copier business that did not need them",
+    "environment": "a stock-for-demo deal with Apple"
+   },
+   "advantage": "PARC created more than it could use; because its owner earned money from copiers, the ideas passed to Apple and others.",
+   "standsOn": [],
+   "competitors": [
+    "apple"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to build the office of the future",
+   "fear": "a rival who commercialises its research",
+   "facts": [
+    "century-xerox-parc-apple-1979"
+   ]
+  },
+  {
+   "id": "kodak",
+   "name": "Kodak",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1888,
+   "role": "dominated film, then lost to digital and to Fuji's price cutting",
+   "powers": [
+    "branding",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "film chemistry and distribution",
+    "execution": "invented the first digital camera but protected film",
+    "environment": "brand and retail shelf"
+   },
+   "advantage": "Film earned the profit, Kodak had built a digital camera prototype but stayed tied to film; Fuji took share first, then digital shrank the film market, and it filed for Chapter 11 in 2012.",
+   "standsOn": [],
+   "competitors": [
+    "fujifilm"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to keep film profitable as long as possible",
+   "fear": "the market it invented replacing film",
+   "facts": [
+    "century-fuji-kodak-share",
+    "century-kodak-2012-chapter11"
+   ]
+  },
+  {
+   "id": "fujifilm",
+   "name": "Fujifilm",
+   "kind": "company",
+   "country": "JP",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1934,
+   "role": "cut Kodak's film share in the 1990s",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "price cutting and aggressive marketing",
+    "execution": "film plant in the US",
+    "environment": "long near-monopoly at home"
+   },
+   "advantage": "Fuji used its Japanese home base and price cuts to take share from Kodak, rising from 10 to 17 percent of the US film market by 1997.",
+   "standsOn": [],
+   "competitors": [
+    "kodak"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to win Kodak's market",
+   "fear": "a trade case or a collapse in film",
+   "facts": [
+    "century-fuji-kodak-share"
+   ]
+  },
+  {
+   "id": "walmart",
+   "name": "Walmart",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "retail",
+   "founded": 1962,
+   "role": "became the largest US retailer by revenue by 1989 and stays the largest private employer",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "tracked inventory and price per store",
+    "execution": "logistics and distribution network",
+    "environment": "small-town sites ignored by rivals"
+   },
+   "advantage": "Low prices from logistics and buying scale and a profit lead over Kmart and Sears led it to pass Sears in 1989.",
+   "standsOn": [],
+   "competitors": [
+    "sears",
+    "amazon"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to sell everything for less",
+   "fear": "an online rival with a better cost curve",
+   "facts": [
+    "century-walmart-passes-sears",
+    "century-walmart-2026-rank"
+   ]
+  },
+  {
+   "id": "sears",
+   "name": "Sears",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1893,
+   "role": "the largest US retailer through the 1980s, bankrupt in 2018",
+   "powers": [
+    "scale economies",
+    "branding"
+   ],
+   "triad": {
+    "information": "catalog data on rural customers",
+    "execution": "owned brands and credit",
+    "environment": "big stores in malls"
+   },
+   "advantage": "Sears diversified into finance and real estate while Walmart and Kmart took retail ground; a merger with Kmart did not stop the decline, and it filed for Chapter 11 in 2018.",
+   "standsOn": [],
+   "competitors": [
+    "walmart"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to be everything to the American household",
+   "fear": "cheaper focused retailers",
+   "facts": [
+    "century-walmart-passes-sears",
+    "century-sears-bankruptcy-2018"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "software",
+   "founded": 1975,
+   "role": "owned the PC operating system after IBM outsourced it",
+   "powers": [
+    "switching costs",
+    "network economies"
+   ],
+   "triad": {
+    "information": "licensed MS-DOS to every PC maker",
+    "execution": "developers wrote only for Windows",
+    "environment": "a contract with IBM it could resell"
+   },
+   "advantage": "Selling one operating system to every PC maker made Microsoft the standard; more than 90 percent of US workplace PC users used MS-DOS, and a court found it a monopolist in 2000.",
+   "standsOn": [
+    "ibm",
+    "us-gov"
+   ],
+   "competitors": [
+    "apple",
+    "google"
+   ],
+   "customers": [
+    "enterprises",
+    "consumers"
+   ],
+   "desire": "to put Windows everywhere",
+   "fear": "regulation and the loss of mobile",
+   "facts": [
+    "century-msdos-90pct",
+    "century-microsoft-guilty-2000",
+    "century-microsoft-breakup-ordered-2000",
+    "century-nokia-windows-phone-2011",
+    "century-mobile-os-share-2026"
+   ]
+  },
+  {
+   "id": "apple",
+   "name": "Apple",
+   "kind": "company",
+   "country": "US",
+   "layer": "apps",
+   "sector": "consumer electronics",
+   "founded": 1976,
+   "role": "turned a copied GUI and then the iPhone into the most valuable company",
+   "powers": [
+    "branding",
+    "switching costs",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "saw the GUI at Xerox PARC in 1979",
+    "execution": "iPhone integrated hardware, software and services",
+    "environment": "a premium customer base"
+   },
+   "advantage": "Apple took the GUI from PARC in 1979, then the iPhone in 2007 beat Nokia and BlackBerry; it holds about 28 percent of mobile OS use and the profits.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "microsoft",
+    "google",
+    "samsung"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to own the device and the customer",
+   "fear": "a regulator or a lost platform",
+   "facts": [
+    "century-xerox-parc-apple-1979",
+    "century-apple-1t-2018",
+    "century-mobile-os-share-2026"
+   ]
+  },
+  {
+   "id": "nokia",
+   "name": "Nokia",
+   "kind": "company",
+   "country": "FI",
+   "layer": "history",
+   "sector": "telecom equipment",
+   "founded": 1865,
+   "role": "the largest phone maker, then lost the smartphone",
+   "powers": [
+    "scale economies",
+    "branding"
+   ],
+   "triad": {
+    "information": "hardware scale and carrier ties",
+    "execution": "Symbian operating system",
+    "environment": "no software ecosystem"
+   },
+   "advantage": "Nokia peaked in Q4 2007 with 40.4 percent of handsets, then fell behind iPhone and Android and bet on Windows Phone, which now has 0 percent of mobile OS use.",
+   "standsOn": [],
+   "competitors": [
+    "apple",
+    "google"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to stay the default phone",
+   "fear": "an ecosystem it did not own",
+   "facts": [
+    "century-nokia-2007-share",
+    "century-nokia-windows-phone-2011",
+    "century-mobile-os-share-2026"
+   ]
+  },
+  {
+   "id": "blackberry",
+   "name": "BlackBerry",
+   "kind": "company",
+   "country": "CA",
+   "layer": "history",
+   "sector": "telecom",
+   "founded": 1984,
+   "role": "owned the business smartphone until the touchscreen",
+   "powers": [
+    "switching costs"
+   ],
+   "triad": {
+    "information": "secure e-mail for enterprises",
+    "execution": "keyboard",
+    "environment": "carrier relationships"
+   },
+   "advantage": "Its secure e-mail locked in enterprise users until iPhone and Android took consumers and then companies; subscribers fell from 85 million to 23 million.",
+   "standsOn": [],
+   "competitors": [
+    "apple",
+    "google"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to be the business phone",
+   "fear": "a better device its customers carried at home",
+   "facts": [
+    "century-blackberry-subscribers"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Alphabet (Google)",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "internet",
+   "founded": 1998,
+   "role": "search plus the Android operating system",
+   "powers": [
+    "network economies",
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "PageRank patent",
+    "execution": "data from every query",
+    "environment": "Android given free to phone makers"
+   },
+   "advantage": "Google won search through a better ranking algorithm and then through volume of data; it now has 91.05 percent of worldwide search and Android has 72.36 percent of mobile OS use.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "microsoft",
+    "yahoo"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "to organise the world's information",
+   "fear": "regulation and AI chat replacing search",
+   "facts": [
+    "century-yahoo-google-offer",
+    "century-google-search-share-2026",
+    "century-mobile-os-share-2026"
+   ]
+  },
+  {
+   "id": "yahoo",
+   "name": "Yahoo",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "internet",
+   "founded": 1994,
+   "role": "the web portal that twice declined to buy Google",
+   "powers": [
+    "branding"
+   ],
+   "triad": {
+    "information": "directory and portal",
+    "execution": "human-edited search",
+    "environment": "brand"
+   },
+   "advantage": "Yahoo declined to buy Google for 1 million dollars in 1998 and rejected a deal in 2002; it now has 1.18 percent of search and its core was sold to Verizon in 2016.",
+   "standsOn": [],
+   "competitors": [
+    "google"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to be the home page of the web",
+   "fear": "a better search engine",
+   "facts": [
+    "century-yahoo-google-offer",
+    "century-microsoft-yahoo-bid",
+    "century-yahoo-verizon-2016",
+    "century-google-search-share-2026"
+   ]
+  },
+  {
+   "id": "netflix",
+   "name": "Netflix",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "media",
+   "founded": 1997,
+   "role": "beat Blockbuster by mailing discs, then streaming",
+   "powers": [
+    "counter-positioning",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "rental history data",
+    "execution": "no late fees",
+    "environment": "mail order and then streaming"
+   },
+   "advantage": "Blockbuster could not copy the model without hurting its store income; Blockbuster declined to buy Netflix for 50 million dollars in 2000 and filed for bankruptcy in 2010.",
+   "standsOn": [],
+   "competitors": [
+    "blockbuster"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to be the video store of the internet",
+   "fear": "a larger studio or tech platform",
+   "facts": [
+    "century-blockbuster-declined-netflix",
+    "century-blockbuster-2010-bankruptcy"
+   ]
+  },
+  {
+   "id": "blockbuster",
+   "name": "Blockbuster",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "media",
+   "founded": 1985,
+   "role": "9,094 stores at the 2004 peak, bankrupt in 2010",
+   "powers": [
+    "branding",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "store network",
+    "execution": "late-fee income",
+    "environment": "no subscription data"
+   },
+   "advantage": "Blockbuster's store network and late fees earned the income, so it would not move to mail and streaming fast enough.",
+   "standsOn": [],
+   "competitors": [
+    "netflix"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to rent every movie in every town",
+   "fear": "a rival that shut the store",
+   "facts": [
+    "century-blockbuster-2004-peak",
+    "century-blockbuster-declined-netflix",
+    "century-blockbuster-2010-bankruptcy"
+   ]
+  },
+  {
+   "id": "meta",
+   "name": "Meta (Facebook)",
+   "kind": "company",
+   "country": "US",
+   "layer": "apps",
+   "sector": "internet",
+   "founded": 2004,
+   "role": "bought rivals before they could threaten its network",
+   "powers": [
+    "network economies"
+   ],
+   "triad": {
+    "information": "social graph",
+    "execution": "acquisition of Instagram and WhatsApp",
+    "environment": "mobile advertising"
+   },
+   "advantage": "Buying Instagram for about 1 billion dollars in 2012 and WhatsApp for 19 billion in 2014 removed the two networks that could have replaced it.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [
+    "google"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to own every social connection",
+   "fear": "regulation and a new network",
+   "facts": [
+    "century-instagram-acquired",
+    "century-whatsapp-2014"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "retail and cloud",
+   "founded": 1994,
+   "role": "retail plus the largest cloud",
+   "powers": [
+    "scale economies",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "internal platform turned into AWS",
+    "execution": "logistics",
+    "environment": "Prime"
+   },
+   "advantage": "Amazon's cloud had 31 percent of cloud infrastructure in Q1 2023, ahead of Azure at 25 percent and Google Cloud at 11 percent.",
+   "standsOn": [],
+   "competitors": [
+    "microsoft",
+    "google",
+    "walmart"
+   ],
+   "customers": [
+    "enterprises",
+    "consumers"
+   ],
+   "desire": "to sell everything and rent all the compute",
+   "fear": "regulation and a cost war in cloud",
+   "facts": [
+    "century-aws-share-2023"
+   ]
+  },
+  {
+   "id": "ge",
+   "name": "General Electric",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "conglomerate",
+   "founded": 1892,
+   "role": "the most valuable company in the world in 2000, removed from the Dow in 2018",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "finance arm and industrial reach",
+    "execution": "management system",
+    "environment": "brand"
+   },
+   "advantage": "GE was worth 601 billion dollars in August 2000; leverage in a conglomerate with a finance arm and weak industrial returns shrank it until it left the Dow in 2018.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to grow earnings every quarter",
+   "fear": "a financing shock",
+   "facts": [
+    "century-ge-2000-market-cap",
+    "century-ge-removed-dow-2018"
+   ]
+  },
+  {
+   "id": "enron",
+   "name": "Enron",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "energy trading",
+   "founded": 1985,
+   "role": "claimed 101 billion dollars of revenue in 2000 and went bankrupt in 2001",
+   "powers": [
+    "process power"
+   ],
+   "triad": {
+    "information": "trading and market-making",
+    "execution": "accounting that hid debt",
+    "environment": "political access"
+   },
+   "advantage": "Enron sold itself as a trading platform; the accounts did not show the debt, and it went bankrupt on 2 December 2001.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to be the market itself",
+   "fear": "an audit that exposed the accounts",
+   "facts": [
+    "century-enron-2000-revenue"
+   ]
+  },
+  {
+   "id": "lehman",
+   "name": "Lehman Brothers",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "finance",
+   "founded": 1850,
+   "role": "investment bank that failed with 639 billion dollars of assets",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "mortgage-backed securities",
+    "execution": "high leverage",
+    "environment": "short-term funding"
+   },
+   "advantage": "Lehman held large subprime mortgage exposure financed with short-term debt, and its clients left when confidence went.",
+   "standsOn": [
+    "us-gov"
+   ],
+   "competitors": [],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "to be the top mortgage underwriter",
+   "fear": "a run of lenders",
+   "facts": [
+    "century-lehman-assets"
+   ]
+  },
+  {
+   "id": "japan",
+   "name": "Japan Inc.",
+   "kind": "state",
+   "country": "JP",
+   "layer": "history",
+   "sector": "state",
+   "founded": null,
+   "role": "the 1980s' rising economic challenger whose stock market peaked in 1989",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "industrial policy",
+    "execution": "export manufacturing",
+    "environment": "cheap capital"
+   },
+   "advantage": "Japan's asset bubble ended when the Nikkei peaked at 38,957.44 on 29 December 1989 and halved by August 1990.",
+   "standsOn": [],
+   "competitors": [
+    "us-gov"
+   ],
+   "customers": [],
+   "desire": "to overtake the US economy",
+   "fear": "a credit and currency shock",
+   "facts": [
+    "century-nikkei-1989-peak"
+   ]
+  },
+  {
+   "id": "huawei",
+   "name": "Huawei",
+   "kind": "company",
+   "country": "CN",
+   "layer": "history",
+   "sector": "telecom equipment",
+   "founded": 1987,
+   "role": "overtook Ericsson in 2012",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "state-backed financing",
+    "execution": "engineers",
+    "environment": "fast iteration"
+   },
+   "advantage": "In 2012 Huawei surpassed Ericsson to become the largest telecom equipment maker, using scale and Chinese state support.",
+   "standsOn": [
+    "china"
+   ],
+   "competitors": [
+    "nokia"
+   ],
+   "customers": [
+    "governments"
+   ],
+   "desire": "to be the global network supplier",
+   "fear": "sanctions",
+   "facts": [
+    "century-huawei-passes-ericsson"
+   ]
+  },
+  {
+   "id": "china",
+   "name": "China",
+   "kind": "state",
+   "country": "CN",
+   "layer": "history",
+   "sector": "history",
+   "founded": null,
+   "role": "the world's largest manufacturer",
+   "powers": [
+    "scale economies",
+    "process power"
+   ],
+   "triad": {
+    "information": "cheap labour then engineers",
+    "execution": "state direction and cheap capital",
+    "environment": "supplier clusters"
+   },
+   "advantage": "China's factory output exceeds that of the nine next largest manufacturers combined, which makes it the production base of the world.",
+   "standsOn": [],
+   "competitors": [
+    "us-gov"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to climb into technology-intensive manufacturing",
+   "fear": "export controls",
+   "facts": [
+    "century-china-manufacturing-nine"
+   ]
+  },
+  {
+   "id": "us-gov",
+   "name": "US government",
+   "kind": "state",
+   "country": "US",
+   "layer": "history",
+   "sector": "history",
+   "founded": 1776,
+   "role": "the referee that broke up Standard Oil, AT&T and nearly Microsoft, and bailed out GM",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "antitrust law",
+    "execution": "intellectual property protection",
+    "environment": "capital markets"
+   },
+   "advantage": "The state is both the foundation of firms and the threat to monopolies: it ended Standard Oil in 1911 and AT&T's integrated system in 1984, and a court ordered a Microsoft breakup in 2000.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [],
+   "desire": "stability and innovation",
+   "fear": "a rival state",
+   "facts": [
+    "century-standard-oil-1911-share",
+    "century-bell-divestiture-1984",
+    "century-microsoft-breakup-ordered-2000",
+    "century-gm-bailout-2009"
+   ]
+  },
+  {
+   "id": "instagram",
+   "name": "Instagram",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "internet",
+   "founded": 2010,
+   "role": "photo network bought by Facebook",
+   "powers": [
+    "network economies"
+   ],
+   "triad": {
+    "information": "user data",
+    "execution": "a simple product",
+    "environment": "mobile growth"
+   },
+   "advantage": "Acquired by Facebook in April 2012 for approximately US$1 billion.",
+   "standsOn": [
+    "meta"
+   ],
+   "competitors": [],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to grow its network",
+   "fear": "being bought or copied",
+   "facts": [
+    "century-instagram-acquired"
+   ]
+  },
+  {
+   "id": "whatsapp",
+   "name": "WhatsApp",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "internet",
+   "founded": 2009,
+   "role": "messaging network bought by Facebook",
+   "powers": [
+    "network economies"
+   ],
+   "triad": {
+    "information": "user data",
+    "execution": "a simple product",
+    "environment": "mobile growth"
+   },
+   "advantage": "Bought in February 2014 for US$19 billion, Facebook's largest acquisition to date.",
+   "standsOn": [
+    "meta"
+   ],
+   "competitors": [],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to grow its network",
+   "fear": "being bought or copied",
+   "facts": [
+    "century-whatsapp-2014"
+   ]
+  },
+  {
+   "id": "verizon",
+   "name": "Verizon",
+   "kind": "company",
+   "country": "US",
+   "layer": "history",
+   "sector": "telecom",
+   "founded": 1983,
+   "role": "telecom group that bought Yahoo's core business",
+   "powers": [
+    "scale economies"
+   ],
+   "triad": {
+    "information": "user data",
+    "execution": "a simple product",
+    "environment": "mobile growth"
+   },
+   "advantage": "Paid $4.83 billion in 2016 for Yahoo's core Internet business.",
+   "standsOn": [],
+   "competitors": [],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "to grow its network",
+   "fear": "being bought or copied",
+   "facts": [
+    "century-yahoo-verizon-2016"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "century-flow-facebook-instagram",
+   "from": "meta",
+   "to": "instagram",
+   "usdBnPerYear": 1,
+   "what": "cash and stock to buy Instagram",
+   "period": "2012",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "century-instagram-acquired"
+  },
+  {
+   "id": "century-flow-facebook-whatsapp",
+   "from": "meta",
+   "to": "whatsapp",
+   "usdBnPerYear": 19,
+   "what": "purchase of WhatsApp",
+   "period": "2014",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "century-whatsapp-2014"
+  },
+  {
+   "id": "century-flow-verizon-yahoo",
+   "from": "verizon",
+   "to": "yahoo",
+   "usdBnPerYear": 4.83,
+   "what": "purchase of Yahoo's core Internet business",
+   "period": "2016",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "century-yahoo-verizon-2016"
+  },
+  {
+   "id": "century-flow-usgov-gm",
+   "from": "us-gov",
+   "to": "gm",
+   "usdBnPerYear": 17.4,
+   "what": "bailout loans before the 2009 reorganisation",
+   "period": "to March 2009",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "century-gm-bailout-2009"
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "att",
+   "controls": "the long-distance lines, 24 local operating companies and the equipment maker",
+   "share": "almost all US telephone equipment",
+   "alternatives": "none until the 1984 divestiture",
+   "facts": [
+    "century-bell-breakup",
+    "century-bell-divestiture-1984"
+   ]
+  },
+  {
+   "actor": "standard-oil",
+   "controls": "US oil refining and final sales",
+   "share": "91% of refining and 85% of final sales in 1904",
+   "alternatives": "independent refiners, who held the rest of the market by 1911",
+   "facts": [
+    "century-standard-oil-1904-share",
+    "century-standard-oil-1911-share"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "controls": "the PC operating system",
+   "share": "more than 90% of US workplace PC users on MS-DOS",
+   "alternatives": "none until the Mac and then smartphones",
+   "facts": [
+    "century-msdos-90pct"
+   ]
+  },
+  {
+   "actor": "google",
+   "controls": "web search entry point",
+   "share": "91.05% of worldwide search in October 2026",
+   "alternatives": "Bing 4.8%",
+   "facts": [
+    "century-google-search-share-2026"
+   ]
+  },
+  {
+   "actor": "china",
+   "controls": "mass manufacturing",
+   "share": "output exceeds the nine next largest manufacturers combined",
+   "alternatives": "Vietnam and other lower-wage producers are small",
+   "facts": [
+    "century-china-manufacturing-nine"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-standard-oil-vs-state",
+   "year": 1911,
+   "date": "",
+   "era": "20th",
+   "holder": "us-gov",
+   "rivals": [
+    "standard-oil"
+   ],
+   "title": "The state breaks Standard Oil",
+   "advantage": "antitrust law",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Standard Oil's share fell from 91% to 64% as rivals grew, and the courts ordered it broken up.",
+   "outcome": "Share 91% in 1904, 64% in 1911, then dissolution.",
+   "facts": [
+    "century-standard-oil-1904-share",
+    "century-standard-oil-1911-share"
+   ]
+  },
+  {
+   "id": "fp-us-steel-merger",
+   "year": 1901,
+   "date": "",
+   "era": "20th",
+   "holder": "us-steel",
+   "rivals": [
+    "standard-oil"
+   ],
+   "title": "US Steel merges the giants",
+   "advantage": "scale",
+   "power": "scale economies",
+   "triad": "execution",
+   "mechanism": "Merging Carnegie, Federal and National Steel put about two thirds of US steel in one firm.",
+   "outcome": "About two thirds of US steel in 1901.",
+   "facts": [
+    "century-us-steel-1901-share"
+   ]
+  },
+  {
+   "id": "fp-ford-assembly-line",
+   "year": 1913,
+   "date": "",
+   "era": "20th",
+   "holder": "ford",
+   "rivals": [
+    "gm"
+   ],
+   "title": "Ford's moving assembly line",
+   "advantage": "manufacturing process",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "The moving line at Highland Park made the car affordable to the middle class, until GM sold brands and credit.",
+   "outcome": "The Model T sold in millions over nearly two decades; GM later held first place for 77 years.",
+   "facts": [
+    "century-ford-assembly-line-1913",
+    "century-gm-lost-title-2008"
+   ]
+  },
+  {
+   "id": "fp-ibm-mainframe",
+   "year": 1965,
+   "date": "",
+   "era": "20th",
+   "holder": "ibm",
+   "rivals": [
+    "xerox"
+   ],
+   "title": "IBM's mainframe lock-in",
+   "advantage": "switching costs",
+   "power": "switching costs",
+   "triad": "information",
+   "mechanism": "System/360 made a compatible family customers could not leave; IBM made 80% of US computers.",
+   "outcome": "80% of US and 70% of world computers in the 1960s-1970s; an $8 billion loss in 1993.",
+   "facts": [
+    "century-ibm-1960s-share",
+    "century-ibm-1993-loss"
+   ]
+  },
+  {
+   "id": "fp-xerox-to-apple",
+   "year": 1979,
+   "date": "",
+   "era": "20th",
+   "holder": "apple",
+   "rivals": [
+    "xerox"
+   ],
+   "title": "Apple sees the GUI at PARC",
+   "advantage": "information",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Xerox let Apple see the Alto in exchange for stock options; Apple built the mass-market GUI.",
+   "outcome": "Apple released the first mass-market GUI computers.",
+   "facts": [
+    "century-xerox-parc-apple-1979"
+   ]
+  },
+  {
+   "id": "fp-ibm-pc-microsoft",
+   "year": 1981,
+   "date": "1981",
+   "era": "20th",
+   "holder": "microsoft",
+   "rivals": [
+    "ibm"
+   ],
+   "title": "The PC clones and MS-DOS",
+   "advantage": "switching costs",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "IBM used an outside operating system and an open design, so clones could copy the PC and only Microsoft kept control.",
+   "outcome": "More than 90% of US workplace PC users on MS-DOS; IBM's $8 billion loss in 1993.",
+   "facts": [
+    "century-msdos-90pct",
+    "century-ibm-1993-loss"
+   ]
+  },
+  {
+   "id": "fp-att-breakup",
+   "year": 1984,
+   "date": "1984-01-01",
+   "era": "20th",
+   "holder": "us-gov",
+   "rivals": [
+    "att"
+   ],
+   "title": "The Bell System is broken up",
+   "advantage": "antitrust",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "AT&T settled the antitrust suit by giving up its 24 local companies, keeping long distance, Western Electric and Bell Labs.",
+   "outcome": "Divestiture effective 1 January 1984.",
+   "facts": [
+    "century-bell-breakup",
+    "century-bell-divestiture-1984"
+   ]
+  },
+  {
+   "id": "fp-walmart-sears",
+   "year": 1989,
+   "date": "1989-10",
+   "era": "20th",
+   "holder": "walmart",
+   "rivals": [
+    "sears"
+   ],
+   "title": "Walmart passes Sears",
+   "advantage": "logistics and price",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Walmart's profit lead over Kmart and Sears by the late 1980s led to the largest revenue by October 1989; Sears sold off assets and went bankrupt in 2018.",
+   "outcome": "Largest retailer from 1989; Sears bankrupt October 2018.",
+   "facts": [
+    "century-walmart-passes-sears",
+    "century-sears-bankruptcy-2018"
+   ]
+  },
+  {
+   "id": "fp-fuji-vs-kodak",
+   "year": 1997,
+   "date": "",
+   "era": "20th",
+   "holder": "fujifilm",
+   "rivals": [
+    "kodak"
+   ],
+   "title": "Fuji's price war on Kodak",
+   "advantage": "price",
+   "power": "scale economies",
+   "triad": "execution",
+   "mechanism": "Fuji cut price and marketed aggressively, taking Kodak's film share before digital made film shrink.",
+   "outcome": "Fuji's US film share 10% to 17%; Kodak Chapter 11 in January 2012.",
+   "facts": [
+    "century-fuji-kodak-share",
+    "century-kodak-2012-chapter11"
+   ]
+  },
+  {
+   "id": "fp-japan-1989",
+   "year": 1989,
+   "date": "1989-12-29",
+   "era": "20th",
+   "holder": "us-gov",
+   "rivals": [
+    "japan"
+   ],
+   "title": "Japan's bubble peak",
+   "advantage": "capital",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "Cheap capital lifted the Nikkei to 38,957.44, then tightening halved it in under a year.",
+   "outcome": "Nikkei peak 29 December 1989; half by August 1990.",
+   "facts": [
+    "century-nikkei-1989-peak"
+   ]
+  },
+  {
+   "id": "fp-microsoft-antitrust",
+   "year": 2000,
+   "date": "2000-04-03",
+   "era": "21st",
+   "holder": "us-gov",
+   "rivals": [
+    "microsoft"
+   ],
+   "title": "US v. Microsoft",
+   "advantage": "antitrust",
+   "power": "cornered resource",
+   "triad": "environment",
+   "mechanism": "The court found monopolisation and tying and ordered a breakup in June 2000; the remedy was an ordered breakup.",
+   "outcome": "Judgment 3 April 2000, breakup order 7 June 2000.",
+   "facts": [
+    "century-microsoft-guilty-2000",
+    "century-microsoft-breakup-ordered-2000"
+   ]
+  },
+  {
+   "id": "fp-enron",
+   "year": 2001,
+   "date": "2001-12-02",
+   "era": "21st",
+   "holder": "us-gov",
+   "rivals": [
+    "enron"
+   ],
+   "title": "Enron collapses",
+   "advantage": "accounting",
+   "power": "process power",
+   "triad": "information",
+   "mechanism": "A trading firm that claimed almost 101 billion dollars of revenue hid its debt and filed for bankruptcy.",
+   "outcome": "Chapter 11 on 2 December 2001.",
+   "facts": [
+    "century-enron-2000-revenue"
+   ]
+  },
+  {
+   "id": "fp-google-vs-yahoo",
+   "year": 2002,
+   "date": "2002",
+   "era": "21st",
+   "holder": "google",
+   "rivals": [
+    "yahoo"
+   ],
+   "title": "Yahoo declines Google",
+   "advantage": "information",
+   "power": "network economies",
+   "triad": "information",
+   "mechanism": "Yahoo declined to buy Google for 1 million dollars in 1998 and rejected Yahoo's final 3 billion dollar offer in 2002; Google's search won.",
+   "outcome": "Google 91.05% of search in October 2026; Yahoo 1.18%.",
+   "facts": [
+    "century-yahoo-google-offer",
+    "century-google-search-share-2026"
+   ]
+  },
+  {
+   "id": "fp-netflix-blockbuster",
+   "year": 2010,
+   "date": "2010-09-23",
+   "era": "21st",
+   "holder": "netflix",
+   "rivals": [
+    "blockbuster"
+   ],
+   "title": "Netflix beats Blockbuster",
+   "advantage": "counter-positioning",
+   "power": "counter-positioning",
+   "triad": "execution",
+   "mechanism": "Blockbuster declined to buy Netflix for 50 million dollars in 2000 and filed for Chapter 11 in 2010 with 900 million dollars of debt.",
+   "outcome": "From 9,094 stores in 2004 to bankruptcy in 2010.",
+   "facts": [
+    "century-blockbuster-2004-peak",
+    "century-blockbuster-declined-netflix",
+    "century-blockbuster-2010-bankruptcy"
+   ]
+  },
+  {
+   "id": "fp-iphone-vs-nokia",
+   "year": 2011,
+   "date": "2011-02-11",
+   "era": "21st",
+   "holder": "apple",
+   "rivals": [
+    "nokia",
+    "blackberry"
+   ],
+   "title": "The iPhone against Nokia and BlackBerry",
+   "advantage": "ecosystem",
+   "power": "switching costs",
+   "triad": "information",
+   "mechanism": "Nokia held 40.4% of handsets in Q4 2007, then turned to Windows Phone in 2011; BlackBerry fell from 85 million to 23 million subscribers.",
+   "outcome": "iOS holds 27.61% and Android 72.36% of mobile OS use; Windows 0%.",
+   "facts": [
+    "century-nokia-2007-share",
+    "century-nokia-windows-phone-2011",
+    "century-blackberry-subscribers",
+    "century-mobile-os-share-2026"
+   ]
+  },
+  {
+   "id": "fp-toyota-over-gm",
+   "year": 2008,
+   "date": "2008",
+   "era": "21st",
+   "holder": "toyota",
+   "rivals": [
+    "gm"
+   ],
+   "title": "Toyota passes GM",
+   "advantage": "process power",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Toyota's production system gave lower cost and fewer defects; GM lost the world title after 77 years and took a bailout.",
+   "outcome": "GM bailouts of 17.4 billion dollars by March 2009.",
+   "facts": [
+    "century-gm-lost-title-2008",
+    "century-gm-bailout-2009"
+   ]
+  },
+  {
+   "id": "fp-lehman-2008",
+   "year": 2008,
+   "date": "2008-09-15",
+   "era": "21st",
+   "holder": "us-gov",
+   "rivals": [
+    "lehman"
+   ],
+   "title": "Lehman fails",
+   "advantage": "leverage",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "Lehman's subprime exposure and short-term funding failed when clients left.",
+   "outcome": "Assets of 639 billion dollars at the filing on 15 September 2008.",
+   "facts": [
+    "century-lehman-assets"
+   ]
+  },
+  {
+   "id": "fp-facebook-buys-rivals",
+   "year": 2014,
+   "date": "2014-02",
+   "era": "21st",
+   "holder": "meta",
+   "rivals": [
+    "google"
+   ],
+   "title": "Meta buys the networks that could replace it",
+   "advantage": "network economies",
+   "power": "network economies",
+   "triad": "execution",
+   "mechanism": "Buying Instagram and WhatsApp removed the two likeliest challengers.",
+   "outcome": "1 billion dollars in 2012, 19 billion in 2014.",
+   "facts": [
+    "century-instagram-acquired",
+    "century-whatsapp-2014"
+   ]
+  },
+  {
+   "id": "fp-huawei-ericsson",
+   "year": 2012,
+   "date": "2012",
+   "era": "21st",
+   "holder": "huawei",
+   "rivals": [
+    "nokia"
+   ],
+   "title": "Huawei passes Ericsson",
+   "advantage": "scale",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "State-backed scale made Huawei the largest telecom equipment maker.",
+   "outcome": "Largest telecom equipment maker from 2012.",
+   "facts": [
+    "century-huawei-passes-ericsson"
+   ]
+  },
+  {
+   "id": "fp-ge-fall",
+   "year": 2018,
+   "date": "2018-06-28",
+   "era": "21st",
+   "holder": "us-gov",
+   "rivals": [
+    "ge"
+   ],
+   "title": "GE leaves the Dow",
+   "advantage": "leverage",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "From the most valuable company at 601 billion dollars to under 1% of the Dow's weight.",
+   "outcome": "601 billion dollars in August 2000; removed June 2018.",
+   "facts": [
+    "century-ge-2000-market-cap",
+    "century-ge-removed-dow-2018"
+   ]
+  },
+  {
+   "id": "fp-aws-cloud",
+   "year": 2023,
+   "date": "",
+   "era": "present",
+   "holder": "amazon",
+   "rivals": [
+    "microsoft",
+    "google"
+   ],
+   "title": "AWS leads cloud",
+   "advantage": "scale",
+   "power": "scale economies",
+   "triad": "execution",
+   "mechanism": "Amazon turned its internal platform into the largest cloud, with 31% of the market against Azure's 25%.",
+   "outcome": "31% vs 25% vs 11% in Q1 2023.",
+   "facts": [
+    "century-aws-share-2023"
+   ]
+  }
+ ],
+ "lineage": [
+  {
+   "from": "xerox",
+   "to": "apple",
+   "year": 1979,
+   "how": "Jobs arranged a visit to PARC; Apple saw the Alto's GUI and mouse in exchange for stock options",
+   "facts": [
+    "century-xerox-parc-apple-1979"
+   ]
+  },
+  {
+   "from": "ibm",
+   "to": "microsoft",
+   "year": 1981,
+   "how": "IBM took an outside operating system for its PC; Microsoft kept the right to license it to every clone",
+   "facts": [
+    "century-msdos-90pct"
+   ]
+  },
+  {
+   "from": "att",
+   "to": "bell-labs-successors",
+   "year": 1984,
+   "how": "the Bell System was divided into the local companies, with long distance, Western Electric and Bell Labs kept by AT&T",
+   "facts": [
+    "century-bell-divestiture-1984"
+   ]
+  },
+  {
+   "from": "yahoo",
+   "to": "verizon",
+   "year": 2016,
+   "how": "the core internet business sold to Verizon",
+   "facts": [
+    "century-yahoo-verizon-2016"
+   ]
+  },
+  {
+   "from": "nokia",
+   "to": "microsoft",
+   "year": 2011,
+   "how": "Nokia chose Windows Phone as its primary smartphone platform",
+   "facts": [
+    "century-nokia-windows-phone-2011"
+   ]
+  },
+  {
+   "from": "standard-oil",
+   "to": "successor-companies",
+   "year": 1911,
+   "how": "ordered dissolved after its share had fallen to 64%",
+   "facts": [
+    "century-standard-oil-1911-share"
+   ]
+  },
+  {
+   "from": "meta",
+   "to": "instagram",
+   "year": 2012,
+   "how": "acquired for about 1 billion dollars",
+   "facts": [
+    "century-instagram-acquired"
+   ]
+  },
+  {
+   "from": "meta",
+   "to": "whatsapp",
+   "year": 2014,
+   "how": "acquired for 19 billion dollars",
+   "facts": [
+    "century-whatsapp-2014"
+   ]
+  }
+ ],
+ "notes": "Unverified and left out of the data: Ford's Model T share of US output at its peak and GM's brand-ladder history (sources were qualitative); Netflix's 2026 revenue and membership (the only sources found were secondary and the company has stopped reporting members); Toyota's overtaking GM by output in 2008 appears on the GM page only as a title; Japan's share of world stock-market value in 1989; Microsoft's market cap peak in 1999 and Apple's current market cap (economy cluster). The MS-DOS 90% fact comes from an undated passage of Wikipedia. Wikipedia pages in the cache carry the standard caveat that figures can change.",
+ "openQuestions": [
+  "Sears's share of US retail in the 1970s (needs a Census or annual-report source).",
+  "Kodak's peak share of US film (the Wikipedia page gives 80.1% to 74.7% without a clear year).",
+  "Whether Microsoft's 2011 Nokia partnership or its 2013 purchase of the devices business is the better flashpoint for the app.",
+  "Netflix's 2026 revenue from its investor-relations letter.",
+  "Which 2026 winners (Nvidia, TSMC) the app wants linked to history actors; this cluster supplied Apple, Microsoft, Google, Amazon, Meta."
+ ]
+}

@@ -1,0 +1,1876 @@
+{
+ "cluster": "labs",
+ "asOf": "2026-11-07",
+ "scope": "2026 model labs, clouds, energy, capital and talent: valuations, run-rates, capex, compute contracts, executives' words",
+ "facts": [
+  {
+   "id": "labs-openai-run-rate",
+   "claim": "OpenAI is on track to generate annualized revenue of roughly $50 billion (Bloomberg, 8 October 2026).",
+   "url": "https://news.bgov.com/artificial-intelligence/openais-annualized-revenue-nears-50-billion-ft-says",
+   "quotes": [
+    "OpenAI is on track to generate annualized revenue of roughly $50 billion based on its current performance, according to people familiar with the matter, an uptick from the prior year but less than some recently reported estimates for the ChatGPT maker."
+   ],
+   "values": [
+    "50"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "runRate",
+   "value": 50,
+   "unit": "USD bn",
+   "period": "annualized, as of 8 Oct 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Bloomberg says this is lower than some earlier reports."
+  },
+  {
+   "id": "labs-openai-valuation",
+   "claim": "OpenAI's valuation is $852 billion after it secured $122 billion from investors including Amazon, Nvidia and SoftBank.",
+   "url": "https://builtin.com/articles/openai-raises-122b-852b-valuation-20260401",
+   "quotes": [
+    "This latest tranche brings OpenAI’s valuation to $852 billion.",
+    "Generative AI giant OpenAI has announced another hefty capital injection, having secured $122 billion in a funding round from investors including Amazon, Nvidia, SoftBank and Andreessen Horowitz."
+   ],
+   "values": [
+    "852",
+    "122"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "valuation",
+   "value": 852,
+   "unit": "USD bn",
+   "period": "post-money, March 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-openai-weekly-users",
+   "claim": "ChatGPT has more than 900 million weekly active users and over 50 million subscribers.",
+   "url": "https://builtin.com/articles/openai-raises-122b-852b-valuation-20260401",
+   "quotes": [
+    "The platform has more than 900 million weekly active users and over 50 million subscribers, and enterprise clients comprise roughly 40 percent of OpenAI’s revenue."
+   ],
+   "values": [
+    "900",
+    "50"
+   ],
+   "dated2026": true,
+   "actor": "openai",
+   "kind": "units",
+   "value": 900,
+   "unit": "million weekly users",
+   "period": "April 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-anthropic-valuation",
+   "claim": "Anthropic raised $65 billion in Series H at a $965 billion post-money valuation (28 May 2026).",
+   "url": "https://www.anthropic.com/news/series-h",
+   "quotes": [
+    "Anthropic has raised $65 billion in Series H funding led by Altimeter Capital, Dragoneer, Greenoaks, and Sequoia Capital, valuing the company at $965 billion post-money."
+   ],
+   "values": [
+    "65",
+    "965"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "valuation",
+   "value": 965,
+   "unit": "USD bn",
+   "period": "post-money, 28 May 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-anthropic-run-rate-may",
+   "claim": "Anthropic's run-rate revenue crossed $47 billion in May 2026.",
+   "url": "https://www.anthropic.com/news/series-h",
+   "quotes": [
+    "Since our Series G in February, adoption has continued to grow across global enterprise customers, and our run-rate revenue crossed $47 billion earlier this month."
+   ],
+   "values": [
+    "47"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "runRate",
+   "value": 47,
+   "unit": "USD bn",
+   "period": "run rate, May 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company's own run-rate metric."
+  },
+  {
+   "id": "labs-anthropic-run-rate-apr",
+   "claim": "Anthropic's run-rate revenue surpassed $30 billion in April 2026, up from about $9 billion at the end of 2025.",
+   "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+   "quotes": [
+    "Our run-rate revenue has now surpassed $30 billion—up from approximately $9 billion at the end of 2025."
+   ],
+   "values": [
+    "30",
+    "9"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "runRate",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "run rate, 6 Apr 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-anthropic-run-rate-feb",
+   "claim": "Anthropic said its run-rate revenue was $14 billion.",
+   "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+   "quotes": [
+    "Today, our run-rate revenue is $14 billion, with this figure growing over 10x annually in each of those past three years."
+   ],
+   "values": [
+    "14"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "runRate",
+   "value": 14,
+   "unit": "USD bn",
+   "period": "run rate, 12 Feb 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-anthropic-revenue-2025",
+   "claim": "Anthropic's reported full-year revenue was $4,585 million in 2025, per its Form S-1.",
+   "url": "https://fourweekmba.com/anthropic-revenue/",
+   "quotes": [
+    "Full-year revenue went from $41 million in 2023 to $386 million in 2024 and $4,585 million in 2025."
+   ],
+   "values": [
+    "4,585"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "revenue",
+   "value": 4.585,
+   "unit": "USD bn",
+   "period": "FY2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Reported (gross) revenue, much lower than the run-rate metric; secondary source citing the S-1 filed 26 Oct 2026."
+  },
+  {
+   "id": "labs-xai-spacex-merger-value",
+   "claim": "SpaceX, X and xAI were valued at $1.25 trillion combined when the merger concluded on 30 January 2026.",
+   "url": "https://www.fool.com/investing/2026/02/22/what-you-need-to-know-about-the-spacex-xai-merger/",
+   "quotes": [
+    "Thus, when xAI and SpaceX concluded their merger on Jan. 30, this was the valuation they used: SpaceX plus X plus xAI are worth $1.25 trillion combined."
+   ],
+   "values": [
+    "1.25"
+   ],
+   "dated2026": true,
+   "actor": "xai",
+   "kind": "valuation",
+   "value": 1250,
+   "unit": "USD bn",
+   "period": "combined SpaceX+X+xAI, Jan 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Combined entity; xAI itself was valued about $250bn in the same piece."
+  },
+  {
+   "id": "labs-xai-segment-2025",
+   "claim": "SpaceX's AI segment (xAI and X) generated $3.2 billion of revenue with a $6.4 billion operating loss in 2025.",
+   "url": "https://www.thevccorner.com/p/spacex-spcx-ipo-s1-teardown-valuation-2026",
+   "quotes": [
+    "The AI segment generated $3.2 billion with a $6.4 billion operating loss."
+   ],
+   "values": [
+    "3.2",
+    "6.4"
+   ],
+   "dated2026": true,
+   "actor": "xai",
+   "kind": "revenue",
+   "value": 3.2,
+   "unit": "USD bn",
+   "period": "FY2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Operating loss 6.4 bn."
+  },
+  {
+   "id": "labs-anthropic-colossus-contract",
+   "claim": "Anthropic will pay SpaceX/xAI $1.25 billion per month through May 2029 for Colossus 1 capacity.",
+   "url": "https://www.thevccorner.com/p/spacex-spcx-ipo-s1-teardown-valuation-2026",
+   "quotes": [
+    "The terms: $1.25 billion per month through May 2029, terminable by either party on 90 days notice, with Anthropic retaining ownership of its content, models, and data."
+   ],
+   "values": [
+    "1.25",
+    "2029"
+   ],
+   "dated2026": true,
+   "actor": "xai",
+   "kind": "contract",
+   "value": 1.25,
+   "unit": "USD bn per month",
+   "period": "through May 2029",
+   "from": "anthropic",
+   "to": "xai",
+   "accessed": "2026-11-07",
+   "notes": "About $15bn a year; 300 MW at Colossus per AI Business."
+  },
+  {
+   "id": "labs-microsoft-capex-fy27",
+   "claim": "Microsoft expects around $170 billion of capital spending for the year and more than $50 billion in the second quarter.",
+   "url": "https://investinglive.com/stocks/microsoft-sees-170bn-capex-in-fiscal-2027-but-says-it-will-stay-cash-flow-positive/",
+   "quotes": [
+    "Spending of more than $50 billion next quarter and around $170 billion for the year, led by CPUs and GPUs, points to sustained demand for chipmakers and third-party data centre providers."
+   ],
+   "values": [
+    "50",
+    "170"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "capex",
+   "value": 170,
+   "unit": "USD bn",
+   "period": "fiscal 2027 (to June 2027), guided 28 Oct 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Sources differ between fiscal-2027 and calendar-2026 framing; headline says fiscal 2027."
+  },
+  {
+   "id": "labs-microsoft-capex-q1",
+   "claim": "Microsoft spent around $45 billion on capital expenditures in fiscal Q1 2027 and expects more than $50 billion in the second.",
+   "url": "https://investinglive.com/stocks/microsoft-sees-170bn-capex-in-fiscal-2027-but-says-it-will-stay-cash-flow-positive/",
+   "quotes": [
+    "Hood said Microsoft spent around $45 billion on capital expenditures in the fiscal first quarter and expects to spend more than $50 billion in the second."
+   ],
+   "values": [
+    "45",
+    "50"
+   ],
+   "dated2026": true,
+   "actor": "microsoft",
+   "kind": "capex",
+   "value": 45,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-alphabet-capex-2026",
+   "claim": "Alphabet raised its 2026 capex guide to $195-205 billion and signalled 2027 capex above $300 billion.",
+   "url": "https://aiweekly.co/alerts/alphabet-posts-1276b-q3-with-google-cloud-up-103-to-307b-as-2027-capex-set-to",
+   "quotes": [
+    "Alphabet raised its FY26 capex guide to $195B-$205B and signaled 2027 capex will top $300B."
+   ],
+   "values": [
+    "195",
+    "205",
+    "300"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "capex",
+   "value": 200,
+   "unit": "USD bn",
+   "period": "FY2026 guidance, 28 Oct 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Value is the midpoint of the $195-205bn range."
+  },
+  {
+   "id": "labs-alphabet-capex-q3",
+   "claim": "Alphabet's Q3 2026 capital expenditures were $51.4 billion against $24.0 billion a year earlier.",
+   "url": "https://fourweekmba.com/ai-google-cloud-revenue-doubles-to-30-7b-as-capex-hits-51-4b/",
+   "quotes": [
+    "Purchases of property and equipment, Alphabet’s capital expenditures, reached $51.4 billion in the quarter, against $24.0 billion a year earlier."
+   ],
+   "values": [
+    "51.4",
+    "24.0"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "capex",
+   "value": 51.4,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-google-cloud-q3",
+   "claim": "Google Cloud revenue doubled to $30.7 billion in Q3 2026, with capex $51.4 billion.",
+   "url": "https://fourweekmba.com/ai-google-cloud-revenue-doubles-to-30-7b-as-capex-hits-51-4b/",
+   "quotes": [
+    "The key insight: Alphabet’s capital expenditures of $51.4 billion exceeded its $42.3 billion of operating cash flow in the third quarter, while Google Cloud revenue doubled to $30.7 billion, according to the release."
+   ],
+   "values": [
+    "51.4",
+    "42.3",
+    "30.7"
+   ],
+   "dated2026": true,
+   "actor": "google",
+   "kind": "revenue",
+   "value": 30.7,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Capex exceeded operating cash flow of $42.3bn."
+  },
+  {
+   "id": "labs-amazon-capex-2026",
+   "claim": "Amazon expects 2026 cash capital expenditures of approximately $220 billion.",
+   "url": "https://fourweekmba.com/ai-jassy-projects-40-aws-growth-as-capex-guide-holds-at-220b/",
+   "quotes": [
+    "In the same release, Amazon said it continues to expect 2026 cash capital expenditures of “approximately $220 billion”."
+   ],
+   "values": [
+    "220"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "capex",
+   "value": 220,
+   "unit": "USD bn",
+   "period": "FY2026 guidance, 29 Oct 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-amazon-capex-q3",
+   "claim": "Amazon's Q3 2026 purchases of property and equipment were $77.3 billion.",
+   "url": "https://fourweekmba.com/ai-jassy-projects-40-aws-growth-as-capex-guide-holds-at-220b/",
+   "quotes": [
+    "By our arithmetic, that leaves about $44.3 billion for the fourth quarter, after $77.3 billion in the third."
+   ],
+   "values": [
+    "77.3",
+    "44.3"
+   ],
+   "dated2026": true,
+   "actor": "amazon",
+   "kind": "capex",
+   "value": 77.3,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-meta-capex-2026",
+   "claim": "Meta narrowed its 2026 capital expenditure outlook to $135-145 billion.",
+   "url": "https://letsdatascience.com/news/meta-narrows-2026-capital-spending-range-to-135-billion-145-46f12e07",
+   "quotes": [
+    "Meta reported third-quarter 2026 revenue of $64.6 billion, up 26% from a year earlier, and narrowed its full-year capital-expenditure outlook to $135 billion-$145 billion."
+   ],
+   "values": [
+    "64.6",
+    "135",
+    "145"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "capex",
+   "value": 140,
+   "unit": "USD bn",
+   "period": "FY2026 guidance, 21 Oct 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Midpoint of the range; Q3 revenue $64.6bn."
+  },
+  {
+   "id": "labs-meta-capex-q3",
+   "claim": "Meta's capital expenditures, including finance-lease principal, were $34.9 billion in Q3 2026.",
+   "url": "https://letsdatascience.com/news/meta-narrows-2026-capital-spending-range-to-135-billion-145-46f12e07",
+   "quotes": [
+    "The company said capital expenditures, including principal payments on finance leases, were $34.9 billion in the September quarter."
+   ],
+   "values": [
+    "34.9"
+   ],
+   "dated2026": true,
+   "actor": "meta",
+   "kind": "capex",
+   "value": 34.9,
+   "unit": "USD bn",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-oracle-rpo",
+   "claim": "Oracle books $664 billion in remaining performance obligations.",
+   "url": "https://fourweekmba.com/ai-oracle-q1-fy2027-backlog-capex-analysis/",
+   "quotes": [
+    "Oracle books $664 billion in remaining performance obligations while confirming its newest contracts do not enlarge its capital plan."
+   ],
+   "values": [
+    "664"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "contract",
+   "value": 664,
+   "unit": "USD bn",
+   "period": "backlog, quarter to 31 Aug 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-oracle-capex-q1",
+   "claim": "Oracle spent $28.5 billion on capex in a single fiscal quarter.",
+   "url": "https://fourweekmba.com/ai-oracle-q1-fy2027-backlog-capex-analysis/",
+   "quotes": [
+    "Oracle’s own disclosure demonstrates the limit of that strategy: at some point, somebody holds the capex, and this quarter Oracle held $28.5 billion of it."
+   ],
+   "values": [
+    "28.5"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "capex",
+   "value": 28.5,
+   "unit": "USD bn",
+   "period": "fiscal Q1 2027",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-oracle-capex-fy27",
+   "claim": "Oracle expects $70 billion of its own capital spending in fiscal 2027, plus $20-25 billion repaid by customers.",
+   "url": "https://www.outlookbusiness.com/corporate/oracle-forecasts-95-bn-in-capex-for-fy27-plans-to-raise-40-bn-in-debt-and-equity",
+   "quotes": [
+    "Data Centre Build-Out at Scale Oracle Chief Financial Officer Hilary Maxson said on the company's earnings conference call that Oracle expects $70 billion in capital spending of its own in fiscal 2027, plus an additional $20 billion to $25 billion it expects to be repaid by customers, though she did not give a timeline for those repayments."
+   ],
+   "values": [
+    "70",
+    "20",
+    "25"
+   ],
+   "dated2026": true,
+   "actor": "oracle",
+   "kind": "capex",
+   "value": 70,
+   "unit": "USD bn",
+   "period": "fiscal 2027 guidance, June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Headline figure up to $95bn gross."
+  },
+  {
+   "id": "labs-microsoft-openai-stake",
+   "claim": "Microsoft holds about $135 billion of OpenAI Group PBC, roughly 27 percent, and OpenAI contracted to buy an incremental $250 billion of Azure.",
+   "url": "https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/",
+   "quotes": [
+    "Following the recapitalization, Microsoft holds an investment in OpenAI Group PBC valued at approximately $135 billion, representing roughly 27 percent on an as-converted diluted basis, inclusive of all owners – employees, investors, and the OpenAI Foundation.",
+    "OpenAI has contracted to purchase an incremental $250B of Azure services, and Microsoft will no longer have a right of first refusal to be OpenAI’s compute provider."
+   ],
+   "values": [
+    "135",
+    "27",
+    "250"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "investment",
+   "value": 135,
+   "unit": "USD bn",
+   "period": "stake value at 28 Oct 2025",
+   "from": "microsoft",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Azure commitment 250bn total (multi-year); stake value at the time of the recapitalization."
+  },
+  {
+   "id": "labs-openai-nvidia-100bn",
+   "claim": "NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt of NVIDIA systems is deployed.",
+   "url": "https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems",
+   "quotes": [
+    "To support the partnership, NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed."
+   ],
+   "values": [
+    "100"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "investment",
+   "value": 100,
+   "unit": "USD bn",
+   "period": "letter of intent, Sept 2025; 10 GW",
+   "from": "nvidia",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "Letter of intent for 10 GW; first GW in 2H 2026 on Vera Rubin."
+  },
+  {
+   "id": "labs-openai-amd-warrant",
+   "claim": "AMD issued OpenAI a warrant for up to 160 million AMD shares, vesting as purchases scale up to 6 gigawatts.",
+   "url": "https://ir.amd.com/news-events/press-releases/detail/1260/amd-and-openai-announce-strategic-partnership-to-deploy-6-gigawatts-of-amd-gpus",
+   "quotes": [
+    "As part of the agreement, to further align strategic interests, AMD has issued OpenAI a warrant for up to 160 million shares of AMD common stock, structured to vest as specific milestones are achieved.",
+    "The first tranche vests with the initial 1 gigawatt deployment, with additional tranches vesting as purchases scale up to 6 gigawatts."
+   ],
+   "values": [
+    "160",
+    "6"
+   ],
+   "dated2026": false,
+   "actor": "amd",
+   "kind": "contract",
+   "value": 6,
+   "unit": "GW",
+   "period": "announced 6 Oct 2025",
+   "from": "openai",
+   "to": "amd",
+   "accessed": "2026-11-07",
+   "notes": "Warrant of 160m shares."
+  },
+  {
+   "id": "labs-openai-broadcom-10gw",
+   "claim": "OpenAI and Broadcom will co-develop and deploy 10 gigawatts of accelerators and network systems.",
+   "url": "https://www.storagenewsletter.com/2025/12/30/openai-and-broadcom-announce-strategic-collaboration-to-deploy-10-gigawatts-of-openai-designed-ai-accelerators/",
+   "quotes": [
+    "“OpenAI has been in the forefront of the AI revolution since the ChatGPT moment, and we are thrilled to co-develop and deploy 10 gigawatts of next- generation accelerators and network systems to pave the way for the future of AI.”"
+   ],
+   "values": [
+    "10"
+   ],
+   "dated2026": false,
+   "actor": "broadcom",
+   "kind": "contract",
+   "value": 10,
+   "unit": "GW",
+   "period": "announced 13 Oct 2025",
+   "from": "openai",
+   "to": "broadcom",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-openai-oracle-300bn",
+   "claim": "OpenAI agreed to buy $300 billion of computing power from Oracle over five years, per the Wall Street Journal.",
+   "url": "https://builtin.com/articles/openai-300b-cloud-deal-oracle-20250911",
+   "quotes": [
+    "OpenAI established a partnership with Oracle, signing off on an agreement to buy $300 billion in computing power over a five-year period, according to reporting by The Wall Street Journal."
+   ],
+   "values": [
+    "300"
+   ],
+   "dated2026": false,
+   "actor": "oracle",
+   "kind": "contract",
+   "value": 300,
+   "unit": "USD bn",
+   "period": "five years from 2027, reported Sept 2025",
+   "from": "openai",
+   "to": "oracle",
+   "accessed": "2026-11-07",
+   "notes": "About $60bn a year."
+  },
+  {
+   "id": "labs-openai-aws-38bn",
+   "claim": "OpenAI will rent $38 billion of cloud infrastructure from AWS in a seven-year partnership.",
+   "url": "https://siliconangle.com/?p=719267",
+   "quotes": [
+    "OpenAI Group PBC will rent $38 billion worth of cloud infrastructure from Amazon Web Services Inc. as part of a seven-year partnership announced today."
+   ],
+   "values": [
+    "38"
+   ],
+   "dated2026": false,
+   "actor": "amazon",
+   "kind": "contract",
+   "value": 38,
+   "unit": "USD bn",
+   "period": "seven years from 3 Nov 2025",
+   "from": "openai",
+   "to": "amazon",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-openai-coreweave-22bn",
+   "claim": "CoreWeave signed a $22.4 billion deal with OpenAI for dedicated compute capacity.",
+   "url": "https://builtin.com/articles/openai-cloud-deals",
+   "quotes": [
+    "CoreWeave CoreWeave, a specialist AI cloud provider known for its high-performance GPU infrastructure, signed a $22.4 billion deal with OpenAI to deliver dedicated compute capacity."
+   ],
+   "values": [
+    "22.4"
+   ],
+   "dated2026": false,
+   "actor": "coreweave",
+   "kind": "contract",
+   "value": 22.4,
+   "unit": "USD bn",
+   "period": "multi-year, total across 2025 agreements",
+   "from": "openai",
+   "to": "coreweave",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-softbank-openai-total",
+   "claim": "SoftBank completed its final payment, taking its cumulative investment in OpenAI to $64.6 billion (2 October 2026).",
+   "url": "https://letsdatascience.com/news/softbank-completes-openai-investment-reaches-646-billion-d201a16e",
+   "quotes": [
+    "SoftBank Group announced on October 2 that it had completed its final payment for an additional investment in OpenAI, taking its cumulative investment in the AI company to $64.6 billion."
+   ],
+   "values": [
+    "64.6"
+   ],
+   "dated2026": true,
+   "actor": "softbank",
+   "kind": "investment",
+   "value": 64.6,
+   "unit": "USD bn",
+   "period": "cumulative to 2 Oct 2026",
+   "from": "softbank",
+   "to": "openai",
+   "accessed": "2026-11-07",
+   "notes": "About 13% stake per the same source."
+  },
+  {
+   "id": "labs-stargate-500bn",
+   "claim": "Stargate, the OpenAI, SoftBank, Oracle and MGX joint venture, plans to spend up to $500 billion on US AI infrastructure by 2029.",
+   "url": "https://en.wikipedia.org/wiki/Stargate_LLC",
+   "quotes": [
+    "The venture plans to spend up to US$500 billion to build AI infrastructure in the United States by 2029."
+   ],
+   "values": [
+    "500",
+    "2029"
+   ],
+   "dated2026": false,
+   "actor": "softbank",
+   "kind": "investment",
+   "value": 500,
+   "unit": "USD bn",
+   "period": "plan to 2029",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia also records a Bloomberg report that in August 2025 no funds had been raised against the initial budget."
+  },
+  {
+   "id": "labs-anthropic-azure-nvidia",
+   "claim": "Anthropic committed to purchase $30 billion of Azure compute, and NVIDIA and Microsoft committed to invest up to $10 billion and $5 billion in Anthropic.",
+   "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+   "quotes": [
+    "Anthropic has committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt.",
+    "As part of the partnership, NVIDIA and Microsoft are committing to invest up to $10 billion and up to $5 billion respectively in Anthropic."
+   ],
+   "values": [
+    "30",
+    "10",
+    "5"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "contract",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "announced Nov 2025",
+   "from": "anthropic",
+   "to": "microsoft",
+   "accessed": "2026-11-07",
+   "notes": "Plus up to 1 GW more. NVIDIA up to $10bn and Microsoft up to $5bn invest in Anthropic."
+  },
+  {
+   "id": "labs-anthropic-google-tpu",
+   "claim": "Anthropic plans to use up to one million Google TPUs, worth tens of billions of dollars and well over a gigawatt in 2026.",
+   "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+   "quotes": [
+    "Today, we are announcing that we plan to expand our use of Google Cloud technologies, including up to one million TPUs, dramatically increasing our compute resources as we continue to push the boundaries of AI research and product development."
+   ],
+   "values": [
+    "one million"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "contract",
+   "value": 1,
+   "unit": "million TPUs",
+   "period": "announced Oct 2025",
+   "from": "anthropic",
+   "to": "google",
+   "accessed": "2026-11-07",
+   "notes": "Worth tens of billions of dollars; well over 1 GW online in 2026."
+  },
+  {
+   "id": "labs-anthropic-broadcom-tpu",
+   "claim": "Broadcom disclosed it will supply Anthropic with roughly 3.5 gigawatts of Google TPU capacity starting in 2027.",
+   "url": "https://www.tomshardware.com/tech-industry/broadcom-expands-anthropic-deal-to-3-5gw-of-google-tpu-capacity-from-2027",
+   "quotes": [
+    "Broadcom to supply Anthropic with 3.5 gigawatts of Google TPU capacity from 2027 — Claude pioneer says its annual revenue run rate has passed $30 billion | Tom's Hardware Skip to main content"
+   ],
+   "values": [
+    "3.5",
+    "2027"
+   ],
+   "dated2026": true,
+   "actor": "broadcom",
+   "kind": "contract",
+   "value": 3.5,
+   "unit": "GW",
+   "period": "from 2027, filing April 2026",
+   "from": "anthropic",
+   "to": "broadcom",
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-anthropic-fluidstack-50bn",
+   "claim": "Anthropic announced a $50 billion investment in American computing infrastructure with Fluidstack in Texas and New York.",
+   "url": "https://www.anthropic.com/news/anthropic-invests-50-billion-in-american-ai-infrastructure",
+   "quotes": [
+    "Today, we are announcing a $50 billion investment in American computing infrastructure, building data centers with Fluidstack in Texas and New York, with more sites to come."
+   ],
+   "values": [
+    "50"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "investment",
+   "value": 50,
+   "unit": "USD bn",
+   "period": "announced 12 Nov 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-zuckerberg-misspend",
+   "claim": "Zuckerberg on the record: Meta might misspend a couple hundred billion dollars, but the risk is higher on the other side.",
+   "url": "https://fortune.com/2025/09/19/zuckerberg-ai-bubble-definitely-possibility-sam-altman-collapse/",
+   "quotes": [
+    "“If we end up misspending a couple hundred billion dollars, that’s going to be very unfortunate obviously. But I would say the risk is higher on the other side,” Zuckerberg said."
+   ],
+   "values": [
+    "couple hundred billion"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "statement",
+   "value": 2025,
+   "unit": "year",
+   "period": "Sept 2025",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Quote about underinvesting being the larger risk."
+  },
+  {
+   "id": "labs-pichai-irrationality",
+   "claim": "Pichai on the record: there is some irrationality in the AI boom and no company, Google included, would be immune if it bursts.",
+   "url": "https://www.thelowdownblog.com/2025/11/google-ceo-ai-boom-has-elements-of.html",
+   "quotes": [
+    "\"No company is going to be immune, including us.\""
+   ],
+   "values": [
+    "immune"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "statement",
+   "value": 2025,
+   "unit": "year",
+   "period": "Nov 2025 (BBC)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Quote of Pichai via BBC as reproduced by a blog; BBC interview Nov 2025."
+  },
+  {
+   "id": "labs-amodei-bankrupt",
+   "claim": "Amodei on the record: if revenue is only $800 billion rather than $1 trillion, no hedge could stop him going bankrupt if he bought that much compute.",
+   "url": "https://fortune.com/2026/02/14/anthropic-ceo-dario-amodei-spending-capex-risk-ai-revenue-forecasts-bankruptcy/",
+   "quotes": [
+    "“If my revenue is not $1 trillion, if it’s even $800 billion, there’s no force on Earth, there’s no hedge on Earth that could stop me from going bankrupt if I buy that much compute,”"
+   ],
+   "values": [
+    "$1 trillion",
+    "$800 billion"
+   ],
+   "dated2026": true,
+   "actor": "anthropic",
+   "kind": "statement",
+   "value": 2026,
+   "unit": "year",
+   "period": "Feb 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Said on Dwarkesh Patel's podcast per Fortune."
+  },
+  {
+   "id": "labs-meta-talent-pay",
+   "claim": "Wired reported Meta offered top AI researchers packages worth up to $300 million over four years, with more than $100 million in the first year.",
+   "url": "https://the-decoder.com/meta-reportedly-offers-top-openai-researchers-up-to-300-million-over-four-years",
+   "quotes": [
+    "Update July 2, 2025: Wired reports that Meta is offering top AI researchers compensation packages worth up to $300 million over four years, with more than $100 million paid out in the first year alone, according to multiple sources with direct knowledge of the deals."
+   ],
+   "values": [
+    "300",
+    "100"
+   ],
+   "dated2026": false,
+   "actor": "meta",
+   "kind": "compensation",
+   "value": 300,
+   "unit": "USD m",
+   "period": "July 2025, over four years",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Meta disputed the framing; reported, not confirmed."
+  },
+  {
+   "id": "labs-anthropic-founding",
+   "claim": "Anthropic was founded in January 2021 by seven former OpenAI employees, including Daniela and Dario Amodei.",
+   "url": "https://en.wikipedia.org/wiki/Anthropic",
+   "quotes": [
+    "Anthropic was founded in January 2021[1] by seven former employees of OpenAI, including siblings Daniela Amodei and Dario Amodei, the latter of whom was OpenAI's Vice President of Research.[22][23]"
+   ],
+   "values": [
+    "2021",
+    "seven"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "event",
+   "value": 2021,
+   "unit": "year",
+   "period": "January 2021",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "labs-iea-datacentre-2030",
+   "claim": "The IEA projects data centres will use 945 TWh of electricity in 2030, against 415 TWh in 2024.",
+   "url": "https://scientificamerican.com/article/ai-will-drive-doubling-of-data-center-energy-demand-by-2030",
+   "quotes": [
+    "IEA’s models project that data centres will use 945 terawatt-hours (TWh) in 2030, roughly equivalent to the current annual electricity consumption of Japan."
+   ],
+   "values": [
+    "945"
+   ],
+   "dated2026": false,
+   "actor": "us-gov",
+   "kind": "energy",
+   "value": 945,
+   "unit": "TWh",
+   "period": "2030 projection (IEA, April 2025)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "415 TWh in 2024 per the same article."
+  },
+  {
+   "id": "labs-gev-gas-backlog",
+   "claim": "GE Vernova's gas power backlog and slot reservations grew from 116 to 122 GW in Q3 2026, with at least 130 GW expected by year-end.",
+   "url": "https://www.gevernova.com/news/ge-vernova-reports-strong-third-quarter-2026-financial-performance",
+   "quotes": [
+    "Gas Power equipment backlog and slot reservation agreements grew from 116 to 122 GW; now anticipate reaching at least 130 GW by year-end 2026"
+   ],
+   "values": [
+    "116",
+    "122",
+    "130"
+   ],
+   "dated2026": true,
+   "actor": "ge-vernova",
+   "kind": "energy",
+   "value": 122,
+   "unit": "GW",
+   "period": "quarter to 30 Sep 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Company backlog $197bn."
+  }
+ ],
+ "actors": [
+  {
+   "id": "openai",
+   "name": "OpenAI",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "artificial intelligence",
+   "founded": 2015,
+   "role": "trains ChatGPT and frontier models; buys compute from every cloud",
+   "powers": [
+    "scale economies",
+    "branding",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Scaling insight and a deep research bench",
+    "execution": "Fastest consumer product ramp (900M weekly users)",
+    "environment": "Capital from Amazon, NVIDIA, SoftBank and Microsoft"
+   },
+   "advantage": "OpenAI owns the largest consumer AI audience and has turned it into the largest private compute buyer, with contracts at Microsoft, Oracle, AWS, CoreWeave, NVIDIA, AMD and Broadcom. The advantage is real but financed: a run-rate near $50bn sits against hundreds of billions of commitments, so it must keep growing faster than its bills.",
+   "standsOn": [
+    "nvidia",
+    "microsoft",
+    "oracle",
+    "amazon",
+    "coreweave",
+    "amd",
+    "broadcom",
+    "softbank"
+   ],
+   "competitors": [
+    "anthropic",
+    "google",
+    "meta",
+    "xai"
+   ],
+   "customers": [
+    "consumers",
+    "enterprises"
+   ],
+   "desire": "Be the default intelligence layer and win the compute race",
+   "fear": "That a growth miss strands commitments it cannot pay",
+   "facts": [
+    "labs-openai-run-rate",
+    "labs-openai-valuation",
+    "labs-openai-weekly-users",
+    "labs-openai-nvidia-100bn",
+    "labs-openai-oracle-300bn",
+    "labs-openai-aws-38bn",
+    "labs-openai-coreweave-22bn",
+    "labs-microsoft-openai-stake"
+   ]
+  },
+  {
+   "id": "anthropic",
+   "name": "Anthropic",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "artificial intelligence",
+   "founded": 2021,
+   "role": "trains Claude, strongest in enterprise and coding; multi-cloud",
+   "powers": [
+    "cornered resource",
+    "switching costs",
+    "process power"
+   ],
+   "triad": {
+    "information": "Alignment and interpretability research; talent from OpenAI",
+    "execution": "Enterprise and Claude Code distribution; capacity bought in step with revenue",
+    "environment": "Only frontier model on all three big clouds"
+   },
+   "advantage": "Anthropic grew run-rate from about $9bn to over $47bn in five months by selling to enterprises and developers, then bought compute from Google, Amazon, Microsoft, NVIDIA and xAI so no single supplier holds it. Its edge is revenue quality and a deliberately hedged compute plan.",
+   "standsOn": [
+    "google",
+    "amazon",
+    "microsoft",
+    "nvidia",
+    "xai",
+    "broadcom"
+   ],
+   "competitors": [
+    "openai",
+    "google",
+    "xai"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "Frontier model leadership with revenue to match",
+   "fear": "Over-buying compute by a year and going bankrupt (its CEO's words)",
+   "facts": [
+    "labs-anthropic-valuation",
+    "labs-anthropic-run-rate-may",
+    "labs-anthropic-run-rate-apr",
+    "labs-anthropic-run-rate-feb",
+    "labs-anthropic-revenue-2025",
+    "labs-anthropic-azure-nvidia",
+    "labs-anthropic-google-tpu",
+    "labs-anthropic-broadcom-tpu",
+    "labs-anthropic-fluidstack-50bn",
+    "labs-amodei-bankrupt",
+    "labs-anthropic-founding"
+   ]
+  },
+  {
+   "id": "xai",
+   "name": "xAI (SpaceX)",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "artificial intelligence",
+   "founded": 2023,
+   "role": "Grok and the Colossus data centres, now part of SpaceX",
+   "powers": [
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Grok models and X data",
+    "execution": "Builds data centres fast in Tennessee",
+    "environment": "Capital and cross-subsidy from SpaceX"
+   },
+   "advantage": "xAI's advantage is speed of building and a rich parent. It also rents Colossus capacity to a rival lab for $1.25bn a month, which turns a model competitor into a landlord.",
+   "standsOn": [
+    "nvidia",
+    "spacex"
+   ],
+   "competitors": [
+    "openai",
+    "anthropic",
+    "google"
+   ],
+   "customers": [
+    "anthropic"
+   ],
+   "desire": "Catch the lead labs",
+   "fear": "Burning cash faster than the parent can fund",
+   "facts": [
+    "labs-xai-spacex-merger-value",
+    "labs-xai-segment-2025",
+    "labs-anthropic-colossus-contract"
+   ]
+  },
+  {
+   "id": "microsoft",
+   "name": "Microsoft",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "artificial intelligence",
+   "founded": 1975,
+   "role": "Azure, OpenAI's early backer, reseller of Claude",
+   "powers": [
+    "switching costs",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Access to OpenAI models",
+    "execution": "Enterprise distribution (Copilot)",
+    "environment": "Azure capacity"
+   },
+   "advantage": "Microsoft owns about 27 percent of OpenAI and a $250bn Azure commitment from it, while also selling Anthropic's Claude. It is hedged on both labs and supplies the enterprise channel.",
+   "standsOn": [
+    "nvidia",
+    "openai"
+   ],
+   "competitors": [
+    "amazon",
+    "google",
+    "oracle"
+   ],
+   "customers": [
+    "enterprises",
+    "openai",
+    "anthropic"
+   ],
+   "desire": "Keep Azure the default enterprise AI cloud",
+   "fear": "Spending $170bn a year on capacity that demand does not fill",
+   "facts": [
+    "labs-microsoft-capex-fy27",
+    "labs-microsoft-capex-q1",
+    "labs-microsoft-openai-stake",
+    "labs-anthropic-azure-nvidia"
+   ]
+  },
+  {
+   "id": "google",
+   "name": "Alphabet (Google)",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "artificial intelligence",
+   "founded": 1998,
+   "role": "TPU chips, Cloud, Gemini and DeepMind",
+   "powers": [
+    "process power",
+    "scale economies",
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "DeepMind research; the transformer paper came from Google",
+    "execution": "Own chips (TPU) and own cloud",
+    "environment": "Search and Android distribution"
+   },
+   "advantage": "Alphabet is the only large player with models, chips, cloud and distribution in one company. Google Cloud revenue doubled in the latest quarter and Anthropic buys its TPUs, so Google earns from a rival's growth.",
+   "standsOn": [
+    "broadcom",
+    "tsmc"
+   ],
+   "competitors": [
+    "openai",
+    "anthropic",
+    "microsoft",
+    "amazon"
+   ],
+   "customers": [
+    "anthropic",
+    "enterprises",
+    "consumers"
+   ],
+   "desire": "Own the full stack and monetise through Cloud",
+   "fear": "Capex outrunning cash flow; Pichai: no company would be immune if the boom bursts",
+   "facts": [
+    "labs-alphabet-capex-2026",
+    "labs-alphabet-capex-q3",
+    "labs-google-cloud-q3",
+    "labs-anthropic-google-tpu",
+    "labs-pichai-irrationality"
+   ]
+  },
+  {
+   "id": "amazon",
+   "name": "Amazon",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "artificial intelligence",
+   "founded": 1994,
+   "role": "AWS, Trainium chips, backer and host of Anthropic and OpenAI",
+   "powers": [
+    "scale economies",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "Workload data across customers",
+    "execution": "Largest cloud, custom silicon",
+    "environment": "Capital and logistics"
+   },
+   "advantage": "AWS is the largest cloud and Amazon guides about $220bn of 2026 capex, the largest of any firm. It sells compute to both leading labs.",
+   "standsOn": [
+    "nvidia",
+    "tsmc"
+   ],
+   "competitors": [
+    "microsoft",
+    "google",
+    "oracle"
+   ],
+   "customers": [
+    "openai",
+    "anthropic",
+    "enterprises"
+   ],
+   "desire": "Be the cloud under every lab",
+   "fear": "Free cash flow turning deeply negative",
+   "facts": [
+    "labs-amazon-capex-2026",
+    "labs-amazon-capex-q3",
+    "labs-openai-aws-38bn"
+   ]
+  },
+  {
+   "id": "meta",
+   "name": "Meta",
+   "kind": "company",
+   "country": "US",
+   "layer": "models",
+   "sector": "artificial intelligence",
+   "founded": 2004,
+   "role": "open-weight models, Superintelligence Labs, 3bn-user apps",
+   "powers": [
+    "network economies",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Talent bought at scale",
+    "execution": "Own data centres",
+    "environment": "Advertising cash flow"
+   },
+   "advantage": "Meta funds the buildout from advertising cash flow and pays top researchers packages reported up to $300m. Its chief says he would rather misspend hundreds of billions than be late.",
+   "standsOn": [
+    "nvidia"
+   ],
+   "competitors": [
+    "openai",
+    "google",
+    "anthropic"
+   ],
+   "customers": [
+    "consumers"
+   ],
+   "desire": "Superintelligence first",
+   "fear": "Being late to it",
+   "facts": [
+    "labs-meta-capex-2026",
+    "labs-meta-capex-q3",
+    "labs-zuckerberg-misspend",
+    "labs-meta-talent-pay"
+   ]
+  },
+  {
+   "id": "oracle",
+   "name": "Oracle",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "artificial intelligence",
+   "founded": 1977,
+   "role": "builds OpenAI's Stargate capacity; largest backlog per revenue",
+   "powers": [
+    "switching costs"
+   ],
+   "triad": {
+    "information": "Database footprint",
+    "execution": "Fast build-out of leased sites",
+    "environment": "Willingness to take debt"
+   },
+   "advantage": "Oracle booked $664bn of remaining performance obligations, much of it OpenAI's $300bn deal. It holds the cost of serving that demand, with $28.5bn capex in one quarter, so its advantage is also its risk.",
+   "standsOn": [
+    "nvidia"
+   ],
+   "competitors": [
+    "microsoft",
+    "amazon",
+    "google",
+    "coreweave"
+   ],
+   "customers": [
+    "openai",
+    "meta"
+   ],
+   "desire": "Become a top-three cloud",
+   "fear": "Funding gap and a single large customer",
+   "facts": [
+    "labs-oracle-rpo",
+    "labs-oracle-capex-q1",
+    "labs-oracle-capex-fy27",
+    "labs-openai-oracle-300bn"
+   ]
+  },
+  {
+   "id": "coreweave",
+   "name": "CoreWeave",
+   "kind": "company",
+   "country": "US",
+   "layer": "clouds",
+   "sector": "artificial intelligence",
+   "founded": 2017,
+   "role": "GPU cloud specialist renting capacity to OpenAI",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "GPU operations know-how",
+    "execution": "Early access to NVIDIA supply",
+    "environment": "Contracts with OpenAI"
+   },
+   "advantage": "CoreWeave converts NVIDIA allocation and speed into long contracts, such as the $22.4bn with OpenAI. It depends on one customer and on credit.",
+   "standsOn": [
+    "nvidia"
+   ],
+   "competitors": [
+    "oracle",
+    "microsoft"
+   ],
+   "customers": [
+    "openai"
+   ],
+   "desire": "Stay the neutral GPU landlord",
+   "fear": "Customer concentration and debt",
+   "facts": [
+    "labs-openai-coreweave-22bn"
+   ]
+  },
+  {
+   "id": "softbank",
+   "name": "SoftBank",
+   "kind": "company",
+   "country": "JP",
+   "layer": "capital",
+   "sector": "investment",
+   "founded": 1981,
+   "role": "Stargate chair, OpenAI's largest outside investor",
+   "powers": [
+    "cornered resource"
+   ],
+   "triad": {
+    "information": "Masayoshi Son's conviction",
+    "execution": "Speed of wiring money",
+    "environment": "Access to Japanese and Gulf capital"
+   },
+   "advantage": "SoftBank has put $64.6bn into OpenAI and chairs Stargate. It buys position by capital alone.",
+   "standsOn": [],
+   "competitors": [
+    "mgx",
+    "venture-capital"
+   ],
+   "customers": [
+    "openai"
+   ],
+   "desire": "Own the intelligence layer through OpenAI",
+   "fear": "A leveraged balance sheet if OpenAI falters",
+   "facts": [
+    "labs-softbank-openai-total",
+    "labs-stargate-500bn"
+   ]
+  },
+  {
+   "id": "nvidia",
+   "name": "NVIDIA",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "artificial intelligence",
+   "founded": 1993,
+   "role": "supplies the GPUs under every lab, and invests in them",
+   "powers": [
+    "switching costs",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "CUDA ecosystem",
+    "execution": "Annual cadence",
+    "environment": "Allocation power"
+   },
+   "advantage": "NVIDIA sells to every lab and also funds them: up to $100bn into OpenAI as GW deploy and up to $10bn into Anthropic. That is vendor financing, which both locks demand in and ties NVIDIA to its customers' health.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "amd",
+    "broadcom",
+    "google"
+   ],
+   "customers": [
+    "openai",
+    "anthropic",
+    "xai",
+    "microsoft",
+    "amazon",
+    "meta"
+   ],
+   "desire": "Keep every lab on its stack",
+   "fear": "Custom chips from Broadcom, Google and AMD",
+   "facts": [
+    "labs-openai-nvidia-100bn",
+    "labs-anthropic-azure-nvidia"
+   ]
+  },
+  {
+   "id": "amd",
+   "name": "AMD",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "artificial intelligence",
+   "founded": 1969,
+   "role": "second GPU source; OpenAI gets a warrant",
+   "powers": [
+    "counter-positioning"
+   ],
+   "triad": {
+    "information": "MI450 roadmap",
+    "execution": "Price",
+    "environment": "OpenAI as anchor customer"
+   },
+   "advantage": "AMD gave OpenAI a warrant for up to 160m shares in exchange for a 6 GW commitment, paying equity to buy a customer.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia"
+   ],
+   "customers": [
+    "openai"
+   ],
+   "desire": "A real second source",
+   "fear": "Software ecosystem gap",
+   "facts": [
+    "labs-openai-amd-warrant"
+   ]
+  },
+  {
+   "id": "broadcom",
+   "name": "Broadcom",
+   "kind": "company",
+   "country": "US",
+   "layer": "chips",
+   "sector": "artificial intelligence",
+   "founded": 1991,
+   "role": "custom accelerators for Google TPU, OpenAI and Anthropic",
+   "powers": [
+    "process power",
+    "switching costs"
+   ],
+   "triad": {
+    "information": "Custom-silicon design",
+    "execution": "Delivery",
+    "environment": "Customers who want out of NVIDIA"
+   },
+   "advantage": "Broadcom is the quiet winner of custom silicon: 3.5 GW of TPU capacity for Anthropic from 2027 and 10 GW co-developed with OpenAI.",
+   "standsOn": [
+    "tsmc"
+   ],
+   "competitors": [
+    "nvidia",
+    "marvell"
+   ],
+   "customers": [
+    "google",
+    "openai",
+    "anthropic"
+   ],
+   "desire": "Be the custom-chip partner for every lab",
+   "fear": "Customers taking design in-house",
+   "facts": [
+    "labs-openai-broadcom-10gw",
+    "labs-anthropic-broadcom-tpu"
+   ]
+  },
+  {
+   "id": "ge-vernova",
+   "name": "GE Vernova",
+   "kind": "company",
+   "country": "US",
+   "layer": "energy",
+   "sector": "energy",
+   "founded": 2024,
+   "role": "gas turbines for data-centre power",
+   "powers": [
+    "cornered resource",
+    "scale economies"
+   ],
+   "triad": {
+    "information": "Installed base",
+    "execution": "Factory capacity",
+    "environment": "Utilities short of power"
+   },
+   "advantage": "Gas turbines are sold out for years; GE Vernova has 122 GW of backlog and slot reservations. Power, not chips, may be the binding constraint.",
+   "standsOn": [],
+   "competitors": [
+    "siemens-energy"
+   ],
+   "customers": [
+    "enterprises"
+   ],
+   "desire": "Capture the power buildout",
+   "fear": "A demand pause",
+   "facts": [
+    "labs-gev-gas-backlog",
+    "labs-iea-datacentre-2030"
+   ]
+  }
+ ],
+ "flows": [
+  {
+   "id": "labs-flow-openai-oracle",
+   "from": "openai",
+   "to": "oracle",
+   "usdBnPerYear": 60,
+   "what": "Stargate compute contract",
+   "period": "five years from 2027",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "labs-openai-oracle-300bn",
+   "notes": "$300bn total; 60 per year is simple division."
+  },
+  {
+   "id": "labs-flow-openai-microsoft",
+   "from": "openai",
+   "to": "microsoft",
+   "usdBnPerYear": 250,
+   "what": "Azure compute commitment",
+   "period": "multi-year, term not stated",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "labs-microsoft-openai-stake",
+   "notes": "$250bn total; yearly rate not stated so total shown."
+  },
+  {
+   "id": "labs-flow-openai-aws",
+   "from": "openai",
+   "to": "amazon",
+   "usdBnPerYear": 5.4,
+   "what": "AWS cloud capacity",
+   "period": "seven years",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "labs-openai-aws-38bn",
+   "notes": "$38bn over seven years."
+  },
+  {
+   "id": "labs-flow-openai-coreweave",
+   "from": "openai",
+   "to": "coreweave",
+   "usdBnPerYear": 22.4,
+   "what": "dedicated GPU capacity (total)",
+   "period": "multi-year",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "labs-openai-coreweave-22bn",
+   "notes": "Total contract value, term not stated."
+  },
+  {
+   "id": "labs-flow-nvidia-openai",
+   "from": "nvidia",
+   "to": "openai",
+   "usdBnPerYear": 100,
+   "what": "NVIDIA equity into OpenAI as GW deploy (up to)",
+   "period": "letter of intent, to 10 GW",
+   "basis": "contracted",
+   "kind": "investment",
+   "fact": "labs-openai-nvidia-100bn",
+   "notes": "Total ceiling."
+  },
+  {
+   "id": "labs-flow-softbank-openai",
+   "from": "softbank",
+   "to": "openai",
+   "usdBnPerYear": 64.6,
+   "what": "SoftBank equity into OpenAI (cumulative)",
+   "period": "to 2 Oct 2026",
+   "basis": "reported",
+   "kind": "investment",
+   "fact": "labs-softbank-openai-total"
+  },
+  {
+   "id": "labs-flow-anthropic-xai",
+   "from": "anthropic",
+   "to": "xai",
+   "usdBnPerYear": 15,
+   "what": "Colossus 1 capacity rental",
+   "period": "through May 2029",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "labs-anthropic-colossus-contract",
+   "notes": "1.25bn a month times 12."
+  },
+  {
+   "id": "labs-flow-anthropic-microsoft",
+   "from": "anthropic",
+   "to": "microsoft",
+   "usdBnPerYear": 30,
+   "what": "Azure capacity commitment (total)",
+   "period": "multi-year",
+   "basis": "contracted",
+   "kind": "contract",
+   "fact": "labs-anthropic-azure-nvidia",
+   "notes": "Total commitment, term not stated."
+  },
+  {
+   "id": "labs-flow-anthropic-fluidstack",
+   "from": "anthropic",
+   "to": "anthropic",
+   "usdBnPerYear": 50,
+   "what": "own data centres with Fluidstack (total)",
+   "period": "multi-year",
+   "basis": "contracted",
+   "kind": "capex",
+   "fact": "labs-anthropic-fluidstack-50bn",
+   "notes": "Self capex; total."
+  },
+  {
+   "id": "labs-flow-amazon-capex",
+   "from": "amazon",
+   "to": "nvidia",
+   "usdBnPerYear": 220,
+   "what": "Amazon capex (all suppliers, total)",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "capex",
+   "fact": "labs-amazon-capex-2026",
+   "notes": "Aggregate capex, not only NVIDIA."
+  },
+  {
+   "id": "labs-flow-alphabet-capex",
+   "from": "google",
+   "to": "broadcom",
+   "usdBnPerYear": 200,
+   "what": "Alphabet capex (all suppliers, midpoint)",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "capex",
+   "fact": "labs-alphabet-capex-2026",
+   "notes": "Aggregate capex."
+  },
+  {
+   "id": "labs-flow-meta-capex",
+   "from": "meta",
+   "to": "nvidia",
+   "usdBnPerYear": 140,
+   "what": "Meta capex (all suppliers, midpoint)",
+   "period": "2026",
+   "basis": "reported",
+   "kind": "capex",
+   "fact": "labs-meta-capex-2026",
+   "notes": "Aggregate capex."
+  },
+  {
+   "id": "labs-flow-microsoft-capex",
+   "from": "microsoft",
+   "to": "nvidia",
+   "usdBnPerYear": 170,
+   "what": "Microsoft capex (all suppliers)",
+   "period": "fiscal 2027",
+   "basis": "reported",
+   "kind": "capex",
+   "fact": "labs-microsoft-capex-fy27",
+   "notes": "Aggregate capex."
+  },
+  {
+   "id": "labs-flow-oracle-capex",
+   "from": "oracle",
+   "to": "nvidia",
+   "usdBnPerYear": 70,
+   "what": "Oracle own capex (all suppliers)",
+   "period": "fiscal 2027",
+   "basis": "reported",
+   "kind": "capex",
+   "fact": "labs-oracle-capex-fy27",
+   "notes": "Aggregate; plus $20-25bn repaid by customers."
+  }
+ ],
+ "chokepoints": [
+  {
+   "actor": "ge-vernova",
+   "controls": "large gas turbines for data-centre power",
+   "share": "122 GW of backlog and slot reservations",
+   "alternatives": "other turbine makers, grid, batteries; none at the same scale before 2030",
+   "facts": [
+    "labs-gev-gas-backlog",
+    "labs-iea-datacentre-2030"
+   ]
+  },
+  {
+   "actor": "oracle",
+   "controls": "OpenAI's largest compute contract",
+   "share": "$664bn of backlog, $300bn from one customer",
+   "alternatives": "Microsoft, AWS, CoreWeave",
+   "facts": [
+    "labs-oracle-rpo",
+    "labs-openai-oracle-300bn"
+   ]
+  },
+  {
+   "actor": "microsoft",
+   "controls": "OpenAI's compute and stake",
+   "share": "27% of OpenAI; $250bn Azure commitment",
+   "alternatives": "Oracle, AWS, CoreWeave since the right of first refusal ended",
+   "facts": [
+    "labs-microsoft-openai-stake"
+   ]
+  }
+ ],
+ "flashpoints": [
+  {
+   "id": "fp-circular-capital",
+   "year": 2026,
+   "date": "",
+   "era": "present",
+   "holder": "nvidia",
+   "rivals": [
+    "amd",
+    "broadcom"
+   ],
+   "title": "Chips for equity",
+   "advantage": "vendors fund their own customers",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "NVIDIA offers up to $100bn into OpenAI as it deploys systems; AMD issues OpenAI up to 160m warrant shares for a 6 GW commitment.",
+   "outcome": "Demand is partly financed by its sellers, so revenue and valuation are linked.",
+   "facts": [
+    "labs-openai-nvidia-100bn",
+    "labs-openai-amd-warrant"
+   ]
+  },
+  {
+   "id": "fp-openai-hedge",
+   "year": 2025,
+   "date": "2025-10-28",
+   "era": "present",
+   "holder": "microsoft",
+   "rivals": [
+    "oracle",
+    "amazon"
+   ],
+   "title": "OpenAI leaves exclusivity",
+   "advantage": "stake plus a $250bn Azure commitment",
+   "power": "switching costs",
+   "triad": "environment",
+   "mechanism": "Microsoft gave up its right of first refusal on compute in exchange for a 27 percent stake and a large commitment.",
+   "outcome": "OpenAI then bought from Oracle ($300bn), AWS ($38bn) and CoreWeave ($22.4bn).",
+   "facts": [
+    "labs-microsoft-openai-stake",
+    "labs-openai-oracle-300bn",
+    "labs-openai-aws-38bn",
+    "labs-openai-coreweave-22bn"
+   ]
+  },
+  {
+   "id": "fp-anthropic-multicloud",
+   "year": 2026,
+   "date": "2026-04-06",
+   "era": "present",
+   "holder": "anthropic",
+   "rivals": [
+    "openai"
+   ],
+   "title": "Anthropic hedges its compute",
+   "advantage": "revenue growth with capacity bought in step",
+   "power": "process power",
+   "triad": "execution",
+   "mechanism": "Run-rate went from $9bn to over $47bn while compute was bought from Google, Microsoft, xAI and own sites.",
+   "outcome": "Valued at $965bn in May 2026, above OpenAI's $852bn.",
+   "facts": [
+    "labs-anthropic-run-rate-apr",
+    "labs-anthropic-run-rate-may",
+    "labs-anthropic-valuation",
+    "labs-openai-valuation",
+    "labs-anthropic-google-tpu",
+    "labs-anthropic-azure-nvidia"
+   ]
+  },
+  {
+   "id": "fp-talent-meta",
+   "year": 2025,
+   "date": "2025-07-02",
+   "era": "present",
+   "holder": "meta",
+   "rivals": [
+    "openai",
+    "anthropic",
+    "google"
+   ],
+   "title": "The talent auction",
+   "advantage": "cash flow buys the people who build models",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Meta offered top researchers packages reported up to $300m over four years.",
+   "outcome": "Reported, disputed by Meta; shows people are priced like assets.",
+   "facts": [
+    "labs-meta-talent-pay"
+   ]
+  },
+  {
+   "id": "fp-openai-anthropic-split",
+   "year": 2021,
+   "date": "2021-01",
+   "era": "present",
+   "holder": "anthropic",
+   "rivals": [
+    "openai"
+   ],
+   "title": "Seven leave OpenAI",
+   "advantage": "a spin-off carrying the talent",
+   "power": "cornered resource",
+   "triad": "information",
+   "mechanism": "Seven former OpenAI employees founded Anthropic.",
+   "outcome": "By 2026 Anthropic's valuation is above its parent rival's.",
+   "facts": [
+    "labs-anthropic-founding",
+    "labs-anthropic-valuation",
+    "labs-openai-valuation"
+   ]
+  },
+  {
+   "id": "fp-capex-vs-cash",
+   "year": 2026,
+   "date": "2026-10-28",
+   "era": "present",
+   "holder": "google",
+   "rivals": [
+    "amazon",
+    "meta",
+    "microsoft",
+    "oracle"
+   ],
+   "title": "Capex outruns cash",
+   "advantage": "can fund it from operations, for now",
+   "power": "scale economies",
+   "triad": "environment",
+   "mechanism": "Alphabet's Q3 capex of $51.4bn exceeded operating cash flow of $42.3bn; Meta's capex of $34.9bn also exceeded its operating cash.",
+   "outcome": "2026 guides: Amazon $220bn, Alphabet $195-205bn, Microsoft about $170bn, Meta $135-145bn, Oracle $70bn own.",
+   "facts": [
+    "labs-google-cloud-q3",
+    "labs-amazon-capex-2026",
+    "labs-alphabet-capex-2026",
+    "labs-microsoft-capex-fy27",
+    "labs-meta-capex-2026",
+    "labs-oracle-capex-fy27"
+   ]
+  }
+ ],
+ "lineage": [
+  {
+   "from": "openai",
+   "to": "anthropic",
+   "year": 2021,
+   "how": "seven former OpenAI employees founded Anthropic",
+   "facts": [
+    "labs-anthropic-founding"
+   ]
+  },
+  {
+   "from": "spacex",
+   "to": "xai",
+   "year": 2026,
+   "how": "xAI merged into SpaceX at $1.25tn combined",
+   "facts": [
+    "labs-xai-spacex-merger-value"
+   ]
+  }
+ ],
+ "notes": "Unverified or not used: Amazon's investment in Anthropic and Google's equity stake (no fetched primary page); Stargate's actual capital raised; OpenAI-Microsoft revenue share; SoftBank fiscal H1 results (not yet out); reported $65bn Anthropic run-rate at end July and the $70bn OpenAI Bloomberg figure (single outlets, contradicted by Bloomberg's own $50bn); xAI Q2 2026 revenue $2.56bn (one blog). Many 2026 figures come from secondary write-ups of company releases because sec.gov, openai.com and IR sites returned 403. Microsoft capex framing differs by source (fiscal 2027 vs calendar 2026). Flow amounts marked 'total' are contract totals with term unstated.",
+ "openQuestions": [
+  "How much of OpenAI's $250bn Azure and $300bn Oracle commitments is firm versus cancellable?",
+  "Does the $50bn OpenAI run-rate cover the $1.4tn of commitments often cited?",
+  "Will gas turbine and grid supply limit 2027 capex more than chips?",
+  "What are Amazon's and Google's current equity stakes in Anthropic?"
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "asOf": "2026-11-07",
+ "overrides": {},
+ "notes": [
+  "No override was needed. Every judgment the strategist doubted was fixed by better evidence, so all altitudes in advantage.json are Jev's judgments over verified facts.",
+  "OpenAI's primary power was split between cornered resource (0.28) and network economies (0.27), with confidence 0.18. Adding the chatbot traffic shares (ChatGPT 73.3% in summer 2025, 55.5% in August 2026; Gemini 25.6%) and naming the mechanism in its advantage text gave branding at 0.44, and its 2030 projection turned slightly down (-0.3).",
+  "Amazon (4.31) stood below Walmart (4.51) because its evidence was all AWS. Adding its delivery scale (1.5 billion items same-day or overnight in a quarter) and naming its two scale businesses raised it to 4.70.",
+  "GE Vernova (3.56) stood below Siemens Energy (3.83) despite the larger order book. Adding its $197bn backlog raised it to 3.97.",
+  "BYD (3.02) stood below Tesla (3.48) although BYD holds the flashpoint. Naming the mechanism (in-house batteries, chips and motors) gave BYD process power at 0.66 and A 4.11, level with Tesla today and well above it by 2030 (4.83 against 3.57).",
+  "Oracle's primary power was cornered resource (0.36). Naming its database installed base gave switching costs at 0.87 (A 4.58). Tesla's primary moved from cornered resource (0.38) to branding (0.44) once its text named what remains of its advantage.",
+  "Judgments kept although a strategist might argue them: KLA (5.85) stands just above NVIDIA (5.73); memory makers stand low (SK Hynix 3.87, Micron 3.06 with no durable power), against the compute cluster's view that memory is the highest position of the next two years. The 7 Powers read memory's 80% margins as a shortage, not a moat, and SK Hynix's 18.8% share fall on peak fears agrees.",
+  "Anthropic (3.37) stands a full point below OpenAI (4.35) while the market values it higher ($965bn against $852bn). The judge reads OpenAI's consumer brand as the more durable power and Anthropic's lead as execution. The strategist's own reading is close (about 3.5 to 4.0 with real process power and switching costs in coding), so the judgment stands; the analysis explains the gap.",
+  "In five present flashpoints the holder stands below its rival (the TPU bypass, AMD's second source, memory against NVIDIA, Anthropic against OpenAI, open weights against the closed labs). These are contests in progress: momentum against durable power. The sparks mark them; the altitudes say who still holds the deeper advantage.",
+  "Scenario lists were aligned with Jev's per-actor scenario answers where its mechanism held: a full tool and servicing cutoff hurts SMIC and CXMT more than protection helps them (decoupling); xAI gains in the power wall because Colossus has its own power; DeepSeek and China gain relative ground under a Western clampdown; the clouds and Apple are little changed when models commoditise; no actor in the chain loses outright when demand compounds.",
+  "States and the three buyer aggregates are judged like firms but drawn as tiles and the front band; their altitudes (the Netherlands 6.20, Taiwan 5.75, Japan 5.19, the US government 5.16) are not peaks and are left out of the firms' ranking in the analysis."
+ ]
+}

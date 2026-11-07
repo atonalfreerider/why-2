@@ -1,0 +1,335 @@
+{
+ "asOf": "2026-11-07",
+ "note": "The strategist's seven scenarios for the 2026 arena. Each premise is stated in the conditional, so the judge (Jev) can reason about every actor; friendly and unfriendly name the actors the strategist expects to gain and lose; flowScale multiplies the 2026 rivers (a flow id, or an actor id for the rivers into it, else out of it). The environment of November 2026: hyperscaler capex near $725-828bn for 2026, the Strait of Hormuz disrupted by the war with Iran and Brent near $98, the IEEPA tariffs struck down with refunds due, and the Fed holding at 3.75-4% with two members voting for a rise.",
+ "scenarios": [
+  {
+   "id": "compounding",
+   "title": "Compounding demand",
+   "premise": "Suppose AI revenue keeps pace with spending: the leading labs' combined revenue run-rate more than doubles from about $100bn in late 2026 to over $200bn by the end of 2027 and the clouds' AI revenue grows 40% or more a year, so the hyperscalers raise capex from about $725-828bn in 2026 to over $1 trillion in 2027 and keep raising it through 2028, with chips, memory, packaging and power staying sold out.",
+   "friendly": [
+    "asml",
+    "tsmc",
+    "constellation",
+    "broadcom",
+    "ge-vernova",
+    "vertiv",
+    "samsung",
+    "nvidia",
+    "sk-hynix",
+    "micron",
+    "amazon",
+    "google",
+    "microsoft",
+    "oracle",
+    "amd"
+   ],
+   "unfriendly": [],
+   "flowScale": {
+    "nvidia": 1.4,
+    "tsmc": 1.3,
+    "sk-hynix": 1.5,
+    "asml": 1.3,
+    "ge-vernova": 1.3,
+    "str-flow-apple-tsmc": 1.0,
+    "str-flow-china-asml": 1.0,
+    "str-flow-enterprises-anthropic": 1.8,
+    "str-flow-enterprises-openai": 1.8,
+    "str-flow-consumers-openai": 1.5,
+    "str-flow-enterprises-microsoft": 1.3,
+    "str-flow-enterprises-amazon": 1.3,
+    "str-flow-enterprises-google": 1.2,
+    "labs-flow-openai-oracle": 1.2,
+    "labs-flow-openai-coreweave": 1.3,
+    "str-flow-vc-openai": 1.2,
+    "str-flow-vc-anthropic": 1.2
+   },
+   "signposts": [
+    "The labs' combined run-rate passing $150bn during 2027",
+    "Hyperscalers guiding 2027 capex above $1 trillion",
+    "NVIDIA's data-centre revenue still rising quarter on quarter",
+    "HBM and CoWoS lead times lengthening rather than shortening"
+   ],
+   "reading": "The scarcest inputs win most: ASML, TSMC, memory, power and NVIDIA keep pricing power, and the clouds earn back their capex. The labs grow in absolute terms but not against each other, since all of them ride the same wave. No one in the chain loses outright; the losers are relative, firms outside it that lose capital and attention."
+  },
+  {
+   "id": "digestion",
+   "title": "Capex digestion",
+   "premise": "Suppose AI revenue disappoints in 2027: the labs' run-rate growth slows to under 30% a year and enterprises cut pilots, so the hyperscalers cut capex by 30-40% from the 2026 level of about $725-828bn and hold it there for at least 18 months, as in past telecom and memory busts, while the Fed keeps rates near 4% and credit for data-centre builders tightens.",
+   "friendly": [
+    "berkshire"
+   ],
+   "unfriendly": [
+    "coreweave",
+    "openai",
+    "oracle",
+    "micron",
+    "sk-hynix",
+    "samsung",
+    "nvidia",
+    "softbank",
+    "amd",
+    "marvell",
+    "dell",
+    "anthropic",
+    "venture-capital"
+   ],
+   "flowScale": {
+    "nvidia": 0.6,
+    "sk-hynix": 0.5,
+    "tsmc": 0.75,
+    "asml": 0.65,
+    "coreweave": 0.5,
+    "oracle": 0.6,
+    "ge-vernova": 0.75,
+    "str-flow-apple-tsmc": 1.0,
+    "str-flow-china-asml": 1.0,
+    "str-flow-enterprises-anthropic": 0.8,
+    "str-flow-enterprises-openai": 0.8,
+    "str-flow-consumers-openai": 0.85,
+    "str-flow-enterprises-microsoft": 0.9,
+    "str-flow-enterprises-amazon": 0.9,
+    "str-flow-vc-openai": 0.3,
+    "str-flow-vc-anthropic": 0.4,
+    "labs-flow-softbank-openai": 0.3,
+    "str-flow-amazon-anthropic": 0.5,
+    "str-flow-google-anthropic": 0.5,
+    "str-flow-nvidia-anthropic": 0.3,
+    "str-flow-microsoft-anthropic": 0.5,
+    "str-flow-nvidia-coreweave": 0.2
+   },
+   "signposts": [
+    "A hyperscaler cutting its 2027 capex guidance",
+    "GPU rental prices and HBM contract prices falling",
+    "Neocloud refinancing stress: CoreWeave's and Oracle's borrowing costs",
+    "Memory-maker shares falling on record earnings (SK Hynix fell 18.8% from 1 September 2026)"
+   ],
+   "reading": "The scarcity premium reverses: the leveraged builders (CoreWeave, Oracle) and the labs with the largest commitments fall first, then memory and NVIDIA, whose $279bn of purchase commitments and customer financing become liabilities, and SoftBank with them. Cash-rich holders such as Berkshire gain the chance to buy; Apple, Visa, Walmart and Lilly are barely touched, and buyers get cheaper compute."
+  },
+  {
+   "id": "powerwall",
+   "title": "The power wall",
+   "premise": "Suppose electricity, not chips or money, becomes the binding limit: grid connections in the main US markets take four years or more, large gas turbines are sold out to 2030 and the Hormuz disruption keeps gas and power prices high, so new data-centre capacity comes online 30-50% slower than planned through 2028 and firms that already own powered sites or their own generation are the only ones that can grow on schedule.",
+   "friendly": [
+    "constellation",
+    "xai",
+    "ge-vernova",
+    "siemens-energy",
+    "berkshire",
+    "exxon-mobil",
+    "amazon",
+    "nextera"
+   ],
+   "unfriendly": [
+    "openai",
+    "coreweave",
+    "foxconn",
+    "sk-hynix",
+    "dell"
+   ],
+   "flowScale": {
+    "ge-vernova": 1.5,
+    "nvidia": 0.8,
+    "tsmc": 0.9,
+    "sk-hynix": 0.85,
+    "asml": 0.9,
+    "coreweave": 0.7,
+    "oracle": 0.8,
+    "str-flow-apple-tsmc": 1.0,
+    "str-flow-china-asml": 1.0,
+    "economy-flow-aramco-dividend": 1.2,
+    "str-flow-enterprises-anthropic": 0.85,
+    "str-flow-enterprises-openai": 0.85,
+    "str-flow-consumers-openai": 0.9
+   },
+   "signposts": [
+    "GE Vernova's gas backlog passing 130 GW, with delivery slots beyond 2030",
+    "Grid-connection waits for data centres in Virginia, Texas and Arizona",
+    "Wholesale power prices near data-centre clusters",
+    "Hyperscalers buying power plants or building their own generation"
+   ],
+   "reading": "Advantage moves from chips to watts: nuclear owners (Constellation), turbine makers and whoever already holds powered capacity gain, including xAI, whose Colossus has its own power, and Berkshire through its utilities. Labs and GPU landlords that must buy new capacity lose time that money cannot buy back, and the server builders sell fewer racks."
+  },
+  {
+   "id": "taiwan",
+   "title": "Taiwan disruption",
+   "premise": "Suppose a Chinese blockade or quarantine of Taiwan in 2027 halts most of TSMC's Taiwan output for six months or more: most of the world's leading-edge logic and advanced packaging stops, shipping and insurance to Taiwan freeze, and no other foundry can replace the lost volume for several years.",
+   "friendly": [
+    "intel",
+    "smic",
+    "samsung",
+    "huawei"
+   ],
+   "unfriendly": [
+    "tsmc",
+    "taiwan",
+    "apple",
+    "nvidia",
+    "foxconn",
+    "amd",
+    "broadcom",
+    "marvell",
+    "coreweave",
+    "openai",
+    "anthropic",
+    "oracle",
+    "meta",
+    "microsoft",
+    "google",
+    "amazon"
+   ],
+   "flowScale": {
+    "tsmc": 0.2,
+    "str-flow-apple-tsmc": 0.2,
+    "nvidia": 0.35,
+    "sk-hynix": 0.5,
+    "asml": 0.7,
+    "str-flow-tsmc-asml": 0.2,
+    "str-flow-china-asml": 1.0,
+    "str-flow-consumers-apple": 0.6,
+    "str-flow-enterprises-microsoft": 0.85,
+    "str-flow-enterprises-amazon": 0.85,
+    "str-flow-enterprises-google": 0.9,
+    "str-flow-enterprises-meta": 0.95,
+    "str-flow-enterprises-anthropic": 0.7,
+    "str-flow-enterprises-openai": 0.7,
+    "str-flow-consumers-openai": 0.8,
+    "compute-flow-nvidia-intel": 1.0,
+    "lineage-flow-usgov-intel": 1.0
+   },
+   "signposts": [
+    "Chinese military exercises around Taiwan and war-risk insurance for shipping",
+    "The ramp of TSMC's fabs in Arizona and Japan",
+    "Intel's 18A and 14A winning outside customers",
+    "Governments stockpiling chips and packaging capacity"
+   ],
+   "reading": "Everyone above TSMC loses, NVIDIA and Apple most, because the choke point has no substitute for years. Intel and Samsung gain as the only other leading-edge fabs, and China's own stack (SMIC, Huawei) gains relative ground. Firms that hold inventory or own their workloads survive; leveraged buyers of compute are in danger."
+  },
+  {
+   "id": "commodity",
+   "title": "Models commoditised",
+   "premise": "Suppose open-weight models (DeepSeek, Qwen and others) match each new frontier model within a few months and are served at a tenth of the price or less from 2027, while the closed labs' prices per token fall 70-90% a year, so model makers lose pricing power even though total use of AI keeps growing.",
+   "friendly": [
+    "deepseek",
+    "china",
+    "alibaba",
+    "tencent",
+    "meta",
+    "walmart",
+    "enterprises",
+    "consumers"
+   ],
+   "unfriendly": [
+    "openai",
+    "anthropic",
+    "venture-capital",
+    "coreweave",
+    "oracle",
+    "softbank"
+   ],
+   "flowScale": {
+    "str-flow-consumers-openai": 0.6,
+    "str-flow-enterprises-openai": 0.6,
+    "str-flow-enterprises-anthropic": 0.6,
+    "str-flow-vc-openai": 0.4,
+    "str-flow-vc-anthropic": 0.4,
+    "labs-flow-softbank-openai": 0.4,
+    "str-flow-google-anthropic": 0.6,
+    "str-flow-amazon-anthropic": 0.6,
+    "str-flow-nvidia-anthropic": 0.5,
+    "str-flow-microsoft-anthropic": 0.6,
+    "labs-flow-openai-oracle": 0.7,
+    "labs-flow-openai-coreweave": 0.7,
+    "labs-flow-anthropic-xai": 0.7,
+    "str-flow-enterprises-microsoft": 1.1,
+    "str-flow-enterprises-amazon": 1.15,
+    "str-flow-enterprises-google": 1.05
+   },
+   "signposts": [
+    "Open-weight models' benchmark scores against the frontier",
+    "The price per million tokens of the leading APIs",
+    "The labs' gross margins and enterprise churn",
+    "Usage share of Chinese open models outside China"
+   ],
+   "reading": "The model stops being the toll-gate: DeepSeek and China's open-model ecosystem gain, and so do the buyers and firms that use AI rather than sell it. The closed labs and their financiers lose pricing power, and the GPU landlords that depend on them lose contracts. The big clouds and Apple are little changed: they sell whatever model wins."
+  },
+  {
+   "id": "clampdown",
+   "title": "Regulatory clampdown",
+   "premise": "Suppose the US, the EU and several US states impose binding AI rules from 2027 (licensing and audits of frontier models, liability for harms, limits on training data and on data-centre power use) and antitrust remedies force the largest platforms to separate parts of their search, advertising, app-store or AI businesses, so frontier development slows and compliance costs billions a year.",
+   "friendly": [
+    "palantir",
+    "deepseek",
+    "china",
+    "walmart",
+    "berkshire"
+   ],
+   "unfriendly": [
+    "google",
+    "meta",
+    "openai",
+    "microsoft",
+    "nvidia",
+    "coreweave",
+    "sk-hynix",
+    "venture-capital"
+   ],
+   "flowScale": {
+    "str-flow-enterprises-google": 0.85,
+    "str-flow-enterprises-meta": 0.85,
+    "str-flow-consumers-apple": 0.95,
+    "str-flow-consumers-openai": 0.8,
+    "str-flow-enterprises-openai": 0.85,
+    "str-flow-enterprises-anthropic": 0.9,
+    "nvidia": 0.85,
+    "tsmc": 0.95,
+    "sk-hynix": 0.85,
+    "coreweave": 0.8,
+    "oracle": 0.85,
+    "str-flow-vc-openai": 0.7,
+    "str-flow-vc-anthropic": 0.8,
+    "str-flow-apple-tsmc": 1.0,
+    "str-flow-china-asml": 1.0
+   },
+   "signposts": [
+    "Fines and obligations under the EU AI Act for general-purpose models",
+    "US federal or state bills licensing frontier models",
+    "Remedies in the US search and advertising antitrust cases",
+    "Moratoria or power-use rules for new data centres"
+   ],
+   "reading": "Western rules and remedies slow the Western frontier: Alphabet, Meta, OpenAI and Microsoft face the costs and the break-ups, and the chain that sells to them slows. Labs outside the rules (DeepSeek, China) gain relative ground, as does Palantir, already built for government compliance."
+  },
+  {
+   "id": "decoupling",
+   "title": "US-China decoupling",
+   "premise": "Suppose the US and China cut technology trade almost entirely from 2027 for at least three years: no US or allied chips, chipmaking tools, servicing, design software or cloud services sold to China; China bans US AI chips and restricts exports of rare earths and other critical minerals; and new legislation reimposes broad tariffs on Chinese goods.",
+   "friendly": [
+    "intel",
+    "tsmc",
+    "palantir",
+    "us-gov"
+   ],
+   "unfriendly": [
+    "cxmt",
+    "smic",
+    "tencent",
+    "foxconn",
+    "apple",
+    "byd"
+   ],
+   "flowScale": {
+    "str-flow-china-asml": 0.1,
+    "str-flow-tsmc-asml": 1.0,
+    "str-flow-consumers-apple": 0.85,
+    "str-flow-apple-tsmc": 0.9,
+    "str-flow-enterprises-nvidia": 0.95
+   },
+   "signposts": [
+    "New US rules on DUV servicing and memory-making tools",
+    "China's licences for rare-earth exports",
+    "Apple's and Tesla's sales in China",
+    "Huawei's Ascend shipments and SMIC's capacity"
+   ],
+   "reading": "A full cutoff of tools and servicing hurts China's fabs (SMIC, CXMT) more than protection helps them, at least for two or three years, while Huawei holds. Firms that build or sell across the line (Apple, Foxconn, Tencent, BYD abroad) lose; Intel and TSMC gain as the West's fabs. Western toolmakers lose revenue but not position, and NVIDIA has already lost China."
+  }
+ ]
+}

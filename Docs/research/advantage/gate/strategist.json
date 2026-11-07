@@ -1,0 +1,773 @@
+{
+ "asOf": "2026-11-07",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 0,
+  "cached": 76,
+  "tokens": 138022,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "str-alphabet-q3-revenue": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-amd-q3-opincome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-amzn-aws-q3": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-amzn-delivery-scale": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-amzn-q3-opincome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-amzn-q3-sales": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-anthropic-aws-100bn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-anthropic-business-customers": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-anthropic-series-g": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-asml-q3-china": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-asml-q3-regions": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-chatbot-share-2025": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-chatbot-share-aug2026": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-coreweave-debt": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-coreweave-meta-21bn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-coreweave-nvidia-2bn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-coreweave-openai-term": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-coreweave-q1-2026": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-deepseek-distillation": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-deepseek-v4": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-deepseek-v4-ascend": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-deepseek-valuation-52": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-ecb-krw-rate": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-ecb-usd-rate": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-gev-backlog": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-gev-q3": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-google-anthropic-40bn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-google-tpu-half": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-h200-approval": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-huawei-orders": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-alibaba": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-applied-materials": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-arista": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-arm": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-byd": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-cadence": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-constellation": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-coreweave": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-cxmt": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-dell": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-foxconn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-ge-vernova": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-kla": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-lam-research": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-marvell": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-nextera": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-novo-nordisk": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-oracle": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-palantir": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-siemens-energy": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-smic": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-softbank": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-synopsys": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-tencent": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-tokyo-electron": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-mcap-vertiv": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-meta-amd-60bn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-meta-muse-spark": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-meta-q3-revenue": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-meta-scale-14bn": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-micron-fq4-opincome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-msft-cloud-q1fy27": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-msft-fcf-positive": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-msft-q1fy27-opincome": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-msft-q1fy27-revenue": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-nvidia-capex-capture": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-nvidia-china-zero": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-nvidia-customer-shares": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-nvidia-top-customers": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-openai-enterprise-share": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-skhynix-nvidia-1h25": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "strategist"
+  },
+  "str-skhynix-q3-margin": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-skhynix-shares-fall": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "strategist"
+  },
+  "str-tsmc-nvidia-apple": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-tsmc-q3-opmargin": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  },
+  "str-xai-valuation-250": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "strategist"
+  }
+ }
+}

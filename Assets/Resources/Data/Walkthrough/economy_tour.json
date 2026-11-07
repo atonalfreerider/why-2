@@ -250,6 +250,51 @@
       "hold": 14
     },
     {
+      "id": "hills_advantage",
+      "title": "The present as a contest",
+      "text": "Open this year's crest and the economy becomes a contest. Each peak is one actor, as wide as its market value and as high as its competitive advantage. Money climbs to advantage. Google, Amazon, Microsoft and Meta plan to spend $725 billion on capital in 2026, and NVIDIA, worth $4.5 trillion, sold $48.7 billion to the hyperscalers in one quarter. Behind it stand the choke points: ASML is the only company that makes EUV machines, and SK Hynix says its AI memory is sold out through 2029. Every peak here descends from 1947, when Bell Labs invented the transistor; the gold lane follows the line from there to NVIDIA's summit.",
+      "key": [
+        {
+          "color": "gold",
+          "label": "profit above normal, and the money climbing to it"
+        },
+        {
+          "color": "rose",
+          "label": "spent toward a want"
+        },
+        {
+          "color": "ice",
+          "label": "spent from fear"
+        },
+        {
+          "color": "white",
+          "label": "choke point"
+        }
+      ],
+      "reading": "Peaks: width is market value; height is competitive advantage, Helmer's seven powers judged by Jev from sourced facts; the bands are the powers that hold a peak up. The panel switches worlds: now, a Taiwan disruption, 2030.",
+      "measured": "market values on 7 November 2026, the latest quarterly reports, capex plans and contracts, each through the truth gate",
+      "judged": "each actor's seven powers, its course to 2030 and each scenario's effect; each payer's motive (Jev)",
+      "assumed": "advantage composed as the strongest power plus half the second plus a quarter of the third; the scenarios' premises",
+      "focus": "advantage",
+      "anchor": "",
+      "highlight": [],
+      "hold": 30,
+      "cues": [
+        {
+          "at": 0,
+          "show": "now"
+        },
+        {
+          "at": 11,
+          "show": "taiwan"
+        },
+        {
+          "at": 21,
+          "show": "2030"
+        }
+      ]
+    },
+    {
       "id": "hills_owners",
       "title": "Golden circles",
       "text": "At every market the dollar splits: wages run back down to workers, taxes fall to the bedrock, and the surplus climbs to gold halos above the summits and to the rings of owners around the top firms - the golden circles.",

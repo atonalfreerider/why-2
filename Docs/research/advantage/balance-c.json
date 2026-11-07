@@ -1,0 +1,2130 @@
+{
+ "cluster": "balance-c",
+ "asOf": "2026-11-07",
+ "scope": "Balance sheets and P/E for 16 arena companies from companiesmarketcap.com per-company pages.",
+ "facts": [
+  {
+   "id": "balancec-amat-ta",
+   "claim": "Applied Materials's total assets was $43.52 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/applied-materials/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of July 2026 : $43.52 Billion USD"
+   ],
+   "values": [
+    "43.52"
+   ],
+   "dated2026": true,
+   "actor": "applied-materials",
+   "kind": "totalAssets",
+   "value": 43.52,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-amat-td",
+   "claim": "Applied Materials's total debt (short- and long-term borrowings, as the source groups them) was $7.34 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/applied-materials/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of July 2026 : $7.34 Billion USD"
+   ],
+   "values": [
+    "7.34"
+   ],
+   "dated2026": true,
+   "actor": "applied-materials",
+   "kind": "debt",
+   "value": 7.34,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-amat-cash",
+   "claim": "Applied Materials's cash and cash equivalents with short-term investments, as the source groups them, was $9.23 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/applied-materials/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of July 2026 : $9.23 Billion USD"
+   ],
+   "values": [
+    "9.23"
+   ],
+   "dated2026": true,
+   "actor": "applied-materials",
+   "kind": "cash",
+   "value": 9.23,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-amat-na",
+   "claim": "Applied Materials's net assets (assets minus liabilities, i.e. shareholders' equity) was $25.62 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/applied-materials/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of July 2026 : $25.62 Billion USD"
+   ],
+   "values": [
+    "25.62"
+   ],
+   "dated2026": true,
+   "actor": "applied-materials",
+   "kind": "equity",
+   "value": 25.62,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-amat-pe",
+   "claim": "According to companiesmarketcap.com, Applied Materials's current price-to-earnings ratio (TTM) is 28.6097.",
+   "url": "https://companiesmarketcap.com/applied-materials/pe-ratio/",
+   "quotes": [
+    "According to Applied Materials's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 28.6097."
+   ],
+   "values": [
+    "28.6097"
+   ],
+   "dated2026": true,
+   "actor": "applied-materials",
+   "kind": "peRatio",
+   "value": 28.6097,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-lam-ta",
+   "claim": "Lam Research's total assets was $26.35 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/lam-research/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of September 2026 : $26.35 Billion USD"
+   ],
+   "values": [
+    "26.35"
+   ],
+   "dated2026": true,
+   "actor": "lam-research",
+   "kind": "totalAssets",
+   "value": 26.35,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-lam-td",
+   "claim": "Lam Research's total debt (short- and long-term borrowings, as the source groups them) was $3.73 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/lam-research/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of September 2026 : $3.73 Billion USD"
+   ],
+   "values": [
+    "3.73"
+   ],
+   "dated2026": true,
+   "actor": "lam-research",
+   "kind": "debt",
+   "value": 3.73,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-lam-cash",
+   "claim": "Lam Research's cash and cash equivalents with short-term investments, as the source groups them, was $7.43 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/lam-research/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of September 2026 : $7.43 Billion USD"
+   ],
+   "values": [
+    "7.43"
+   ],
+   "dated2026": true,
+   "actor": "lam-research",
+   "kind": "cash",
+   "value": 7.43,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-lam-na",
+   "claim": "Lam Research's net assets (assets minus liabilities, i.e. shareholders' equity) was $13.9 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/lam-research/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of September 2026 : $13.90 Billion USD"
+   ],
+   "values": [
+    "13.90"
+   ],
+   "dated2026": true,
+   "actor": "lam-research",
+   "kind": "equity",
+   "value": 13.9,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-lam-pe",
+   "claim": "According to companiesmarketcap.com, Lam Research's current price-to-earnings ratio (TTM) is 29.5652.",
+   "url": "https://companiesmarketcap.com/lam-research/pe-ratio/",
+   "quotes": [
+    "According to Lam Research's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 29.5652."
+   ],
+   "values": [
+    "29.5652"
+   ],
+   "dated2026": true,
+   "actor": "lam-research",
+   "kind": "peRatio",
+   "value": 29.5652,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-kla-ta",
+   "claim": "KLA's total assets was $18.4 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/kla/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of September 2026 : $18.40 Billion USD"
+   ],
+   "values": [
+    "18.40"
+   ],
+   "dated2026": true,
+   "actor": "kla",
+   "kind": "totalAssets",
+   "value": 18.4,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-kla-td",
+   "claim": "KLA's total debt (short- and long-term borrowings, as the source groups them) was $5.99 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/kla/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of September 2026 : $5.99 Billion USD"
+   ],
+   "values": [
+    "5.99"
+   ],
+   "dated2026": true,
+   "actor": "kla",
+   "kind": "debt",
+   "value": 5.99,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-kla-cash",
+   "claim": "KLA's cash and cash equivalents with short-term investments, as the source groups them, was $4.74 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/kla/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of September 2026 : $4.74 Billion USD"
+   ],
+   "values": [
+    "4.74"
+   ],
+   "dated2026": true,
+   "actor": "kla",
+   "kind": "cash",
+   "value": 4.74,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-kla-na",
+   "claim": "KLA's net assets (assets minus liabilities, i.e. shareholders' equity) was $6.52 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/kla/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of September 2026 : $6.52 Billion USD"
+   ],
+   "values": [
+    "6.52"
+   ],
+   "dated2026": true,
+   "actor": "kla",
+   "kind": "equity",
+   "value": 6.52,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-kla-pe",
+   "claim": "According to companiesmarketcap.com, KLA's current price-to-earnings ratio (TTM) is 34.3532.",
+   "url": "https://companiesmarketcap.com/kla/pe-ratio/",
+   "quotes": [
+    "According to KLA's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 34.3532."
+   ],
+   "values": [
+    "34.3532"
+   ],
+   "dated2026": true,
+   "actor": "kla",
+   "kind": "peRatio",
+   "value": 34.3532,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-tel-ta",
+   "claim": "Tokyo Electron's total assets was $18.17 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/tokyo-electron/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $18.17 Billion USD"
+   ],
+   "values": [
+    "18.17"
+   ],
+   "dated2026": true,
+   "actor": "tokyo-electron",
+   "kind": "totalAssets",
+   "value": 18.17,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-tel-cash",
+   "claim": "Tokyo Electron's cash and cash equivalents with short-term investments, as the source groups them, was $2.51 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/tokyo-electron/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $2.51 Billion USD"
+   ],
+   "values": [
+    "2.51"
+   ],
+   "dated2026": true,
+   "actor": "tokyo-electron",
+   "kind": "cash",
+   "value": 2.51,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-tel-na",
+   "claim": "Tokyo Electron's net assets (assets minus liabilities, i.e. shareholders' equity) was $13.17 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/tokyo-electron/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $13.17 Billion USD"
+   ],
+   "values": [
+    "13.17"
+   ],
+   "dated2026": true,
+   "actor": "tokyo-electron",
+   "kind": "equity",
+   "value": 13.17,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-tel-pe",
+   "claim": "According to companiesmarketcap.com, Tokyo Electron's current price-to-earnings ratio (TTM) is 39.2435.",
+   "url": "https://companiesmarketcap.com/tokyo-electron/pe-ratio/",
+   "quotes": [
+    "According to Tokyo Electron's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 39.2435."
+   ],
+   "values": [
+    "39.2435"
+   ],
+   "dated2026": true,
+   "actor": "tokyo-electron",
+   "kind": "peRatio",
+   "value": 39.2435,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-snps-ta",
+   "claim": "Synopsys's total assets was $47.72 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/synopsys/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of July 2026 : $47.72 Billion USD"
+   ],
+   "values": [
+    "47.72"
+   ],
+   "dated2026": true,
+   "actor": "synopsys",
+   "kind": "totalAssets",
+   "value": 47.72,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-snps-td",
+   "claim": "Synopsys's total debt (short- and long-term borrowings, as the source groups them) was $10.84 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/synopsys/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of July 2026 : $10.84 Billion USD"
+   ],
+   "values": [
+    "10.84"
+   ],
+   "dated2026": true,
+   "actor": "synopsys",
+   "kind": "debt",
+   "value": 10.84,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-snps-cash",
+   "claim": "Synopsys's cash and cash equivalents with short-term investments, as the source groups them, was $3.6 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/synopsys/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of July 2026 : $3.60 Billion USD"
+   ],
+   "values": [
+    "3.60"
+   ],
+   "dated2026": true,
+   "actor": "synopsys",
+   "kind": "cash",
+   "value": 3.6,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-snps-na",
+   "claim": "Synopsys's net assets (assets minus liabilities, i.e. shareholders' equity) was $31.15 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/synopsys/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of July 2026 : $31.15 Billion USD"
+   ],
+   "values": [
+    "31.15"
+   ],
+   "dated2026": true,
+   "actor": "synopsys",
+   "kind": "equity",
+   "value": 31.15,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-snps-pe",
+   "claim": "According to companiesmarketcap.com, Synopsys's current price-to-earnings ratio (TTM) is 78.3579.",
+   "url": "https://companiesmarketcap.com/synopsys/pe-ratio/",
+   "quotes": [
+    "According to Synopsys's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 78.3579."
+   ],
+   "values": [
+    "78.3579"
+   ],
+   "dated2026": true,
+   "actor": "synopsys",
+   "kind": "peRatio",
+   "value": 78.3579,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-cdns-ta",
+   "claim": "Cadence's total assets was $12.22 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/cadence-design-systems/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of September 2026 : $12.22 Billion USD"
+   ],
+   "values": [
+    "12.22"
+   ],
+   "dated2026": true,
+   "actor": "cadence",
+   "kind": "totalAssets",
+   "value": 12.22,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-cdns-td",
+   "claim": "Cadence's total debt (short- and long-term borrowings, as the source groups them) was $2.81 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/cadence-design-systems/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of September 2026 : $2.81 Billion USD"
+   ],
+   "values": [
+    "2.81"
+   ],
+   "dated2026": true,
+   "actor": "cadence",
+   "kind": "debt",
+   "value": 2.81,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-cdns-cash",
+   "claim": "Cadence's cash and cash equivalents with short-term investments, as the source groups them, was $1.45 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/cadence-design-systems/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of September 2026 : $1.45 Billion USD"
+   ],
+   "values": [
+    "1.45"
+   ],
+   "dated2026": true,
+   "actor": "cadence",
+   "kind": "cash",
+   "value": 1.45,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-cdns-na",
+   "claim": "Cadence's net assets (assets minus liabilities, i.e. shareholders' equity) was $6.87 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/cadence-design-systems/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of September 2026 : $6.87 Billion USD"
+   ],
+   "values": [
+    "6.87"
+   ],
+   "dated2026": true,
+   "actor": "cadence",
+   "kind": "equity",
+   "value": 6.87,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-cdns-pe",
+   "claim": "According to companiesmarketcap.com, Cadence's current price-to-earnings ratio (TTM) is 62.1413.",
+   "url": "https://companiesmarketcap.com/cadence-design-systems/pe-ratio/",
+   "quotes": [
+    "According to Cadence Design Systems's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 62.1413."
+   ],
+   "values": [
+    "62.1413"
+   ],
+   "dated2026": true,
+   "actor": "cadence",
+   "kind": "peRatio",
+   "value": 62.1413,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-mrvl-ta",
+   "claim": "Marvell's total assets was $27.55 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/marvell/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of July 2026 : $27.55 Billion USD"
+   ],
+   "values": [
+    "27.55"
+   ],
+   "dated2026": true,
+   "actor": "marvell",
+   "kind": "totalAssets",
+   "value": 27.55,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mrvl-td",
+   "claim": "Marvell's total debt (short- and long-term borrowings, as the source groups them) was $5.28 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/marvell/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of July 2026 : $5.28 Billion USD"
+   ],
+   "values": [
+    "5.28"
+   ],
+   "dated2026": true,
+   "actor": "marvell",
+   "kind": "debt",
+   "value": 5.28,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mrvl-cash",
+   "claim": "Marvell's cash and cash equivalents with short-term investments, as the source groups them, was $3.93 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/marvell/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of July 2026 : $3.93 Billion USD"
+   ],
+   "values": [
+    "3.93"
+   ],
+   "dated2026": true,
+   "actor": "marvell",
+   "kind": "cash",
+   "value": 3.93,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mrvl-na",
+   "claim": "Marvell's net assets (assets minus liabilities, i.e. shareholders' equity) was $18.53 billion as of July 2026.",
+   "url": "https://companiesmarketcap.com/marvell/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of July 2026 : $18.53 Billion USD"
+   ],
+   "values": [
+    "18.53"
+   ],
+   "dated2026": true,
+   "actor": "marvell",
+   "kind": "equity",
+   "value": 18.53,
+   "unit": "USD bn",
+   "period": "balance sheet as of July 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mrvl-pe",
+   "claim": "According to companiesmarketcap.com, Marvell's current price-to-earnings ratio (TTM) is 45.0638.",
+   "url": "https://companiesmarketcap.com/marvell/pe-ratio/",
+   "quotes": [
+    "According to Marvell Technology's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 45.0638."
+   ],
+   "values": [
+    "45.0638"
+   ],
+   "dated2026": true,
+   "actor": "marvell",
+   "kind": "peRatio",
+   "value": 45.0638,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-foxconn-ta",
+   "claim": "Foxconn / Hon Hai's total assets was $176.62 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/foxconn/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $176.62 Billion USD"
+   ],
+   "values": [
+    "176.62"
+   ],
+   "dated2026": true,
+   "actor": "foxconn",
+   "kind": "totalAssets",
+   "value": 176.62,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-foxconn-td",
+   "claim": "Foxconn / Hon Hai's total debt (short- and long-term borrowings, as the source groups them) was $42.29 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/foxconn/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $42.29 Billion USD"
+   ],
+   "values": [
+    "42.29"
+   ],
+   "dated2026": true,
+   "actor": "foxconn",
+   "kind": "debt",
+   "value": 42.29,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-foxconn-cash",
+   "claim": "Foxconn / Hon Hai's cash and cash equivalents with short-term investments, as the source groups them, was $48.1 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/foxconn/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $48.10 Billion USD"
+   ],
+   "values": [
+    "48.10"
+   ],
+   "dated2026": true,
+   "actor": "foxconn",
+   "kind": "cash",
+   "value": 48.1,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-foxconn-na",
+   "claim": "Foxconn / Hon Hai's net assets (assets minus liabilities, i.e. shareholders' equity) was $66.58 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/foxconn/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $66.58 Billion USD"
+   ],
+   "values": [
+    "66.58"
+   ],
+   "dated2026": true,
+   "actor": "foxconn",
+   "kind": "equity",
+   "value": 66.58,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-foxconn-pe",
+   "claim": "According to companiesmarketcap.com, Foxconn / Hon Hai's current price-to-earnings ratio (TTM) is 14.0652.",
+   "url": "https://companiesmarketcap.com/foxconn/pe-ratio/",
+   "quotes": [
+    "According to Foxconn (Hon Hai Precision Industry)'s latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 14.0652."
+   ],
+   "values": [
+    "14.0652"
+   ],
+   "dated2026": true,
+   "actor": "foxconn",
+   "kind": "peRatio",
+   "value": 14.0652,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-softbank-ta",
+   "claim": "SoftBank Group's total assets was $383.08 billion as of March 2026.",
+   "url": "https://companiesmarketcap.com/softbank/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of March 2026 : $383.08 Billion USD"
+   ],
+   "values": [
+    "383.08"
+   ],
+   "dated2026": true,
+   "actor": "softbank",
+   "kind": "totalAssets",
+   "value": 383.08,
+   "unit": "USD bn",
+   "period": "balance sheet as of March 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-softbank-td",
+   "claim": "SoftBank Group's total debt (short- and long-term borrowings, as the source groups them) was $161.83 billion as of March 2026.",
+   "url": "https://companiesmarketcap.com/softbank/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of March 2026 : $161.83 Billion USD"
+   ],
+   "values": [
+    "161.83"
+   ],
+   "dated2026": true,
+   "actor": "softbank",
+   "kind": "debt",
+   "value": 161.83,
+   "unit": "USD bn",
+   "period": "balance sheet as of March 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-softbank-cash",
+   "claim": "SoftBank Group's cash and cash equivalents with short-term investments, as the source groups them, was $47.28 billion as of March 2026.",
+   "url": "https://companiesmarketcap.com/softbank/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of March 2026 : $47.28 Billion USD"
+   ],
+   "values": [
+    "47.28"
+   ],
+   "dated2026": true,
+   "actor": "softbank",
+   "kind": "cash",
+   "value": 47.28,
+   "unit": "USD bn",
+   "period": "balance sheet as of March 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-softbank-na",
+   "claim": "SoftBank Group's net assets (assets minus liabilities, i.e. shareholders' equity) was $129.07 billion as of March 2026.",
+   "url": "https://companiesmarketcap.com/softbank/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of March 2026 : $129.07 Billion USD"
+   ],
+   "values": [
+    "129.07"
+   ],
+   "dated2026": true,
+   "actor": "softbank",
+   "kind": "equity",
+   "value": 129.07,
+   "unit": "USD bn",
+   "period": "balance sheet as of March 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-softbank-pe",
+   "claim": "According to companiesmarketcap.com, SoftBank Group's current price-to-earnings ratio (TTM) is 6.74287.",
+   "url": "https://companiesmarketcap.com/softbank/pe-ratio/",
+   "quotes": [
+    "According to SoftBank Group Corp.'s latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 6.74287."
+   ],
+   "values": [
+    "6.74287"
+   ],
+   "dated2026": true,
+   "actor": "softbank",
+   "kind": "peRatio",
+   "value": 6.74287,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-visa-ta",
+   "claim": "Visa's total assets was $94.59 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/visa/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $94.59 Billion USD"
+   ],
+   "values": [
+    "94.59"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "totalAssets",
+   "value": 94.59,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-visa-td",
+   "claim": "Visa's total debt (short- and long-term borrowings, as the source groups them) was $23.85 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/visa/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $23.85 Billion USD"
+   ],
+   "values": [
+    "23.85"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "debt",
+   "value": 23.85,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-visa-cash",
+   "claim": "Visa's cash and cash equivalents with short-term investments, as the source groups them, was $13.79 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/visa/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $13.79 Billion USD"
+   ],
+   "values": [
+    "13.79"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "cash",
+   "value": 13.79,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-visa-na",
+   "claim": "Visa's net assets (assets minus liabilities, i.e. shareholders' equity) was $35.17 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/visa/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $35.17 Billion USD"
+   ],
+   "values": [
+    "35.17"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "equity",
+   "value": 35.17,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-visa-pe",
+   "claim": "According to companiesmarketcap.com, Visa's current price-to-earnings ratio (TTM) is 34.3173.",
+   "url": "https://companiesmarketcap.com/visa/pe-ratio/",
+   "quotes": [
+    "According to Visa's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 34.3173."
+   ],
+   "values": [
+    "34.3173"
+   ],
+   "dated2026": true,
+   "actor": "visa",
+   "kind": "peRatio",
+   "value": 34.3173,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-aramco-ta",
+   "claim": "Saudi Aramco's total assets was $736.76 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/saudi-aramco/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $736.76 Billion USD"
+   ],
+   "values": [
+    "736.76"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "totalAssets",
+   "value": 736.76,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-aramco-td",
+   "claim": "Saudi Aramco's total debt (short- and long-term borrowings, as the source groups them) was $97.68 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/saudi-aramco/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $97.68 Billion USD"
+   ],
+   "values": [
+    "97.68"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "debt",
+   "value": 97.68,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-aramco-cash",
+   "claim": "Saudi Aramco's cash and cash equivalents with short-term investments, as the source groups them, was $63.1 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/saudi-aramco/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $63.10 Billion USD"
+   ],
+   "values": [
+    "63.10"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "cash",
+   "value": 63.1,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-aramco-na",
+   "claim": "Saudi Aramco's net assets (assets minus liabilities, i.e. shareholders' equity) was $493.83 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/saudi-aramco/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $493.83 Billion USD"
+   ],
+   "values": [
+    "493.83"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "equity",
+   "value": 493.83,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-aramco-pe",
+   "claim": "According to companiesmarketcap.com, Saudi Aramco's current price-to-earnings ratio (TTM) is 14.8058.",
+   "url": "https://companiesmarketcap.com/saudi-aramco/pe-ratio/",
+   "quotes": [
+    "According to Saudi Aramco's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 14.8058."
+   ],
+   "values": [
+    "14.8058"
+   ],
+   "dated2026": true,
+   "actor": "saudi-aramco",
+   "kind": "peRatio",
+   "value": 14.8058,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-exxon-ta",
+   "claim": "ExxonMobil's total assets was $464.48 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/exxon-mobil/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $464.48 Billion USD"
+   ],
+   "values": [
+    "464.48"
+   ],
+   "dated2026": true,
+   "actor": "exxon-mobil",
+   "kind": "totalAssets",
+   "value": 464.48,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-exxon-td",
+   "claim": "ExxonMobil's total debt (short- and long-term borrowings, as the source groups them) was $42.36 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/exxon-mobil/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $42.36 Billion USD"
+   ],
+   "values": [
+    "42.36"
+   ],
+   "dated2026": true,
+   "actor": "exxon-mobil",
+   "kind": "debt",
+   "value": 42.36,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-exxon-cash",
+   "claim": "ExxonMobil's cash and cash equivalents with short-term investments, as the source groups them, was $10.58 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/exxon-mobil/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $10.58 Billion USD"
+   ],
+   "values": [
+    "10.58"
+   ],
+   "dated2026": true,
+   "actor": "exxon-mobil",
+   "kind": "cash",
+   "value": 10.58,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-exxon-na",
+   "claim": "ExxonMobil's net assets (assets minus liabilities, i.e. shareholders' equity) was $266.11 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/exxon-mobil/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $266.11 Billion USD"
+   ],
+   "values": [
+    "266.11"
+   ],
+   "dated2026": true,
+   "actor": "exxon-mobil",
+   "kind": "equity",
+   "value": 266.11,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-exxon-pe",
+   "claim": "According to companiesmarketcap.com, ExxonMobil's current price-to-earnings ratio (TTM) is 21.3488.",
+   "url": "https://companiesmarketcap.com/exxon-mobil/pe-ratio/",
+   "quotes": [
+    "According to Exxon Mobil's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 21.3488."
+   ],
+   "values": [
+    "21.3488"
+   ],
+   "dated2026": true,
+   "actor": "exxon-mobil",
+   "kind": "peRatio",
+   "value": 21.3488,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-jnj-ta",
+   "claim": "Johnson & Johnson's total assets was $197.42 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/johnson-and-johnson/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of September 2026 : $197.42 Billion USD"
+   ],
+   "values": [
+    "197.42"
+   ],
+   "dated2026": true,
+   "actor": "johnson-and-johnson",
+   "kind": "totalAssets",
+   "value": 197.42,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-jnj-td",
+   "claim": "Johnson & Johnson's total debt (short- and long-term borrowings, as the source groups them) was $44.65 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/johnson-and-johnson/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of September 2026 : $44.65 Billion USD"
+   ],
+   "values": [
+    "44.65"
+   ],
+   "dated2026": true,
+   "actor": "johnson-and-johnson",
+   "kind": "debt",
+   "value": 44.65,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-jnj-cash",
+   "claim": "Johnson & Johnson's cash and cash equivalents with short-term investments, as the source groups them, was $17.22 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/johnson-and-johnson/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of September 2026 : $17.22 Billion USD"
+   ],
+   "values": [
+    "17.22"
+   ],
+   "dated2026": true,
+   "actor": "johnson-and-johnson",
+   "kind": "cash",
+   "value": 17.22,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-jnj-na",
+   "claim": "Johnson & Johnson's net assets (assets minus liabilities, i.e. shareholders' equity) was $81.52 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/johnson-and-johnson/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of September 2026 : $81.52 Billion USD"
+   ],
+   "values": [
+    "81.52"
+   ],
+   "dated2026": true,
+   "actor": "johnson-and-johnson",
+   "kind": "equity",
+   "value": 81.52,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-jnj-pe",
+   "claim": "According to companiesmarketcap.com, Johnson & Johnson's current price-to-earnings ratio (TTM) is 41.2139.",
+   "url": "https://companiesmarketcap.com/johnson-and-johnson/pe-ratio/",
+   "quotes": [
+    "According to Johnson & Johnson's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 41.2139."
+   ],
+   "values": [
+    "41.2139"
+   ],
+   "dated2026": true,
+   "actor": "johnson-and-johnson",
+   "kind": "peRatio",
+   "value": 41.2139,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-novo-ta",
+   "claim": "Novo Nordisk's total assets was $90.85 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/novo-nordisk/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $90.85 Billion USD"
+   ],
+   "values": [
+    "90.85"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "totalAssets",
+   "value": 90.85,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-novo-td",
+   "claim": "Novo Nordisk's total debt (short- and long-term borrowings, as the source groups them) was $21.39 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/novo-nordisk/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $21.39 Billion USD"
+   ],
+   "values": [
+    "21.39"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "debt",
+   "value": 21.39,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-novo-cash",
+   "claim": "Novo Nordisk's cash and cash equivalents with short-term investments, as the source groups them, was $6.86 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/novo-nordisk/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $6.86 Billion USD"
+   ],
+   "values": [
+    "6.86"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "cash",
+   "value": 6.86,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-novo-na",
+   "claim": "Novo Nordisk's net assets (assets minus liabilities, i.e. shareholders' equity) was $33.79 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/novo-nordisk/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $33.79 Billion USD"
+   ],
+   "values": [
+    "33.79"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "equity",
+   "value": 33.79,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-novo-pe",
+   "claim": "According to companiesmarketcap.com, Novo Nordisk's current price-to-earnings ratio (TTM) is 9.91632.",
+   "url": "https://companiesmarketcap.com/novo-nordisk/pe-ratio/",
+   "quotes": [
+    "According to Novo Nordisk's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 9.91632."
+   ],
+   "values": [
+    "9.91632"
+   ],
+   "dated2026": true,
+   "actor": "novo-nordisk",
+   "kind": "peRatio",
+   "value": 9.91632,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-byd-ta",
+   "claim": "BYD's total assets was $141.53 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/byd/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of September 2026 : $141.53 Billion USD"
+   ],
+   "values": [
+    "141.53"
+   ],
+   "dated2026": true,
+   "actor": "byd",
+   "kind": "totalAssets",
+   "value": 141.53,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-byd-td",
+   "claim": "BYD's total debt (short- and long-term borrowings, as the source groups them) was $15.75 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/byd/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of September 2026 : $15.75 Billion USD"
+   ],
+   "values": [
+    "15.75"
+   ],
+   "dated2026": true,
+   "actor": "byd",
+   "kind": "debt",
+   "value": 15.75,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-byd-cash",
+   "claim": "BYD's cash and cash equivalents with short-term investments, as the source groups them, was $10.69 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/byd/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of September 2026 : $10.69 Billion USD"
+   ],
+   "values": [
+    "10.69"
+   ],
+   "dated2026": true,
+   "actor": "byd",
+   "kind": "cash",
+   "value": 10.69,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-byd-na",
+   "claim": "BYD's net assets (assets minus liabilities, i.e. shareholders' equity) was $41.58 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/byd/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of September 2026 : $41.58 Billion USD"
+   ],
+   "values": [
+    "41.58"
+   ],
+   "dated2026": true,
+   "actor": "byd",
+   "kind": "equity",
+   "value": 41.58,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-byd-pe",
+   "claim": "According to companiesmarketcap.com, BYD's current price-to-earnings ratio (TTM) is 36.5271.",
+   "url": "https://companiesmarketcap.com/byd/pe-ratio/",
+   "quotes": [
+    "According to BYD's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 36.5271."
+   ],
+   "values": [
+    "36.5271"
+   ],
+   "dated2026": true,
+   "actor": "byd",
+   "kind": "peRatio",
+   "value": 36.5271,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-abbvie-ta",
+   "claim": "AbbVie's total assets was $135.11 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/abbvie/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $135.11 Billion USD"
+   ],
+   "values": [
+    "135.11"
+   ],
+   "dated2026": true,
+   "actor": "abbvie",
+   "kind": "totalAssets",
+   "value": 135.11,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-abbvie-td",
+   "claim": "AbbVie's total debt (short- and long-term borrowings, as the source groups them) was $70.82 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/abbvie/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $70.82 Billion USD"
+   ],
+   "values": [
+    "70.82"
+   ],
+   "dated2026": true,
+   "actor": "abbvie",
+   "kind": "debt",
+   "value": 70.82,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-abbvie-cash",
+   "claim": "AbbVie's cash and cash equivalents with short-term investments, as the source groups them, was $6.56 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/abbvie/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $6.56 Billion USD"
+   ],
+   "values": [
+    "6.56"
+   ],
+   "dated2026": true,
+   "actor": "abbvie",
+   "kind": "cash",
+   "value": 6.56,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-abbvie-na",
+   "claim": "AbbVie's net assets (assets minus liabilities, i.e. shareholders' equity) was $-5.89 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/abbvie/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : -$5.89 Billion USD"
+   ],
+   "values": [
+    "5.89"
+   ],
+   "dated2026": true,
+   "actor": "abbvie",
+   "kind": "equity",
+   "value": -5.89,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report. Negative: liabilities exceed assets."
+  },
+  {
+   "id": "balancec-abbvie-pe",
+   "claim": "According to companiesmarketcap.com, AbbVie's current price-to-earnings ratio (TTM) is 81.3383.",
+   "url": "https://companiesmarketcap.com/abbvie/pe-ratio/",
+   "quotes": [
+    "According to AbbVie's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 81.3383."
+   ],
+   "values": [
+    "81.3383"
+   ],
+   "dated2026": true,
+   "actor": "abbvie",
+   "kind": "peRatio",
+   "value": 81.3383,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-mastercard-ta",
+   "claim": "Mastercard's total assets was $58.14 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/mastercard/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of September 2026 : $58.14 Billion USD"
+   ],
+   "values": [
+    "58.14"
+   ],
+   "dated2026": true,
+   "actor": "mastercard",
+   "kind": "totalAssets",
+   "value": 58.14,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mastercard-td",
+   "claim": "Mastercard's total debt (short- and long-term borrowings, as the source groups them) was $23.93 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/mastercard/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of September 2026 : $23.93 Billion USD"
+   ],
+   "values": [
+    "23.93"
+   ],
+   "dated2026": true,
+   "actor": "mastercard",
+   "kind": "debt",
+   "value": 23.93,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mastercard-cash",
+   "claim": "Mastercard's cash and cash equivalents with short-term investments, as the source groups them, was $10.46 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/mastercard/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of September 2026 : $10.46 Billion USD"
+   ],
+   "values": [
+    "10.46"
+   ],
+   "dated2026": true,
+   "actor": "mastercard",
+   "kind": "cash",
+   "value": 10.46,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mastercard-na",
+   "claim": "Mastercard's net assets (assets minus liabilities, i.e. shareholders' equity) was $6.74 billion as of September 2026.",
+   "url": "https://companiesmarketcap.com/mastercard/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of September 2026 : $6.74 Billion USD"
+   ],
+   "values": [
+    "6.74"
+   ],
+   "dated2026": true,
+   "actor": "mastercard",
+   "kind": "equity",
+   "value": 6.74,
+   "unit": "USD bn",
+   "period": "balance sheet as of September 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-mastercard-pe",
+   "claim": "According to companiesmarketcap.com, Mastercard's current price-to-earnings ratio (TTM) is 34.2757.",
+   "url": "https://companiesmarketcap.com/mastercard/pe-ratio/",
+   "quotes": [
+    "According to Mastercard's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 34.2757."
+   ],
+   "values": [
+    "34.2757"
+   ],
+   "dated2026": true,
+   "actor": "mastercard",
+   "kind": "peRatio",
+   "value": 34.2757,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  },
+  {
+   "id": "balancec-alibaba-ta",
+   "claim": "Alibaba's total assets was $288.81 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/alibaba/total-assets/",
+   "quotes": [
+    "Total assets on the balance sheet as of June 2026 : $288.81 Billion USD"
+   ],
+   "values": [
+    "288.81"
+   ],
+   "dated2026": true,
+   "actor": "alibaba",
+   "kind": "totalAssets",
+   "value": 288.81,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-alibaba-td",
+   "claim": "Alibaba's total debt (short- and long-term borrowings, as the source groups them) was $39.23 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/alibaba/total-debt/",
+   "quotes": [
+    "Total debt on the balance sheet as of June 2026 : $39.23 Billion USD"
+   ],
+   "values": [
+    "39.23"
+   ],
+   "dated2026": true,
+   "actor": "alibaba",
+   "kind": "debt",
+   "value": 39.23,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-alibaba-cash",
+   "claim": "Alibaba's cash and cash equivalents with short-term investments, as the source groups them, was $56.77 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/alibaba/cash-on-hand/",
+   "quotes": [
+    "Cash on Hand as of June 2026 : $56.77 Billion USD"
+   ],
+   "values": [
+    "56.77"
+   ],
+   "dated2026": true,
+   "actor": "alibaba",
+   "kind": "cash",
+   "value": 56.77,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-alibaba-na",
+   "claim": "Alibaba's net assets (assets minus liabilities, i.e. shareholders' equity) was $163.96 billion as of June 2026.",
+   "url": "https://companiesmarketcap.com/alibaba/net-assets/",
+   "quotes": [
+    "Net assets on the balance sheet as of June 2026 : $163.96 Billion USD"
+   ],
+   "values": [
+    "163.96"
+   ],
+   "dated2026": true,
+   "actor": "alibaba",
+   "kind": "equity",
+   "value": 163.96,
+   "unit": "USD bn",
+   "period": "balance sheet as of June 2026",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Converted to USD by the source from the company's reported figures; dated as the source dates its latest report."
+  },
+  {
+   "id": "balancec-alibaba-pe",
+   "claim": "According to companiesmarketcap.com, Alibaba's current price-to-earnings ratio (TTM) is 24.1266.",
+   "url": "https://companiesmarketcap.com/alibaba/pe-ratio/",
+   "quotes": [
+    "According to Alibaba's latest financial reports and stock price the company's current price-to-earnings ratio (TTM) is 24.1266."
+   ],
+   "values": [
+    "24.1266"
+   ],
+   "dated2026": true,
+   "actor": "alibaba",
+   "kind": "peRatio",
+   "value": 24.1266,
+   "unit": "x",
+   "period": "TTM, as of 2026-11-07",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computed by the source from the latest financial reports and the share price."
+  }
+ ],
+ "actors": [
+  {
+   "id": "applied-materials",
+   "name": "Applied Materials",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-amat-ta",
+    "balancec-amat-td",
+    "balancec-amat-cash",
+    "balancec-amat-na",
+    "balancec-amat-pe"
+   ]
+  },
+  {
+   "id": "lam-research",
+   "name": "Lam Research",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-lam-ta",
+    "balancec-lam-td",
+    "balancec-lam-cash",
+    "balancec-lam-na",
+    "balancec-lam-pe"
+   ]
+  },
+  {
+   "id": "kla",
+   "name": "KLA",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-kla-ta",
+    "balancec-kla-td",
+    "balancec-kla-cash",
+    "balancec-kla-na",
+    "balancec-kla-pe"
+   ]
+  },
+  {
+   "id": "tokyo-electron",
+   "name": "Tokyo Electron",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-tel-ta",
+    "balancec-tel-cash",
+    "balancec-tel-na",
+    "balancec-tel-pe"
+   ]
+  },
+  {
+   "id": "synopsys",
+   "name": "Synopsys",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-snps-ta",
+    "balancec-snps-td",
+    "balancec-snps-cash",
+    "balancec-snps-na",
+    "balancec-snps-pe"
+   ]
+  },
+  {
+   "id": "cadence",
+   "name": "Cadence",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-cdns-ta",
+    "balancec-cdns-td",
+    "balancec-cdns-cash",
+    "balancec-cdns-na",
+    "balancec-cdns-pe"
+   ]
+  },
+  {
+   "id": "marvell",
+   "name": "Marvell",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-mrvl-ta",
+    "balancec-mrvl-td",
+    "balancec-mrvl-cash",
+    "balancec-mrvl-na",
+    "balancec-mrvl-pe"
+   ]
+  },
+  {
+   "id": "foxconn",
+   "name": "Foxconn / Hon Hai",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-foxconn-ta",
+    "balancec-foxconn-td",
+    "balancec-foxconn-cash",
+    "balancec-foxconn-na",
+    "balancec-foxconn-pe"
+   ]
+  },
+  {
+   "id": "softbank",
+   "name": "SoftBank Group",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-softbank-ta",
+    "balancec-softbank-td",
+    "balancec-softbank-cash",
+    "balancec-softbank-na",
+    "balancec-softbank-pe"
+   ]
+  },
+  {
+   "id": "visa",
+   "name": "Visa",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-visa-ta",
+    "balancec-visa-td",
+    "balancec-visa-cash",
+    "balancec-visa-na",
+    "balancec-visa-pe"
+   ]
+  },
+  {
+   "id": "saudi-aramco",
+   "name": "Saudi Aramco",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-aramco-ta",
+    "balancec-aramco-td",
+    "balancec-aramco-cash",
+    "balancec-aramco-na",
+    "balancec-aramco-pe"
+   ]
+  },
+  {
+   "id": "exxon-mobil",
+   "name": "ExxonMobil",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-exxon-ta",
+    "balancec-exxon-td",
+    "balancec-exxon-cash",
+    "balancec-exxon-na",
+    "balancec-exxon-pe"
+   ]
+  },
+  {
+   "id": "johnson-and-johnson",
+   "name": "Johnson & Johnson",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-jnj-ta",
+    "balancec-jnj-td",
+    "balancec-jnj-cash",
+    "balancec-jnj-na",
+    "balancec-jnj-pe"
+   ]
+  },
+  {
+   "id": "novo-nordisk",
+   "name": "Novo Nordisk",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-novo-ta",
+    "balancec-novo-td",
+    "balancec-novo-cash",
+    "balancec-novo-na",
+    "balancec-novo-pe"
+   ]
+  },
+  {
+   "id": "byd",
+   "name": "BYD",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-byd-ta",
+    "balancec-byd-td",
+    "balancec-byd-cash",
+    "balancec-byd-na",
+    "balancec-byd-pe"
+   ]
+  },
+  {
+   "id": "abbvie",
+   "name": "AbbVie",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-abbvie-ta",
+    "balancec-abbvie-td",
+    "balancec-abbvie-cash",
+    "balancec-abbvie-na",
+    "balancec-abbvie-pe"
+   ]
+  },
+  {
+   "id": "mastercard",
+   "name": "Mastercard",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-mastercard-ta",
+    "balancec-mastercard-td",
+    "balancec-mastercard-cash",
+    "balancec-mastercard-na",
+    "balancec-mastercard-pe"
+   ]
+  },
+  {
+   "id": "alibaba",
+   "name": "Alibaba",
+   "kind": "company",
+   "layer": "economy",
+   "role": "balance-sheet and P/E record for the balance-sheet view",
+   "facts": [
+    "balancec-alibaba-ta",
+    "balancec-alibaba-td",
+    "balancec-alibaba-cash",
+    "balancec-alibaba-na",
+    "balancec-alibaba-pe"
+   ]
+  }
+ ],
+ "notes": "Skipped: Tokyo Electron debt: source's debt figure dated March 2014, stale"
+}

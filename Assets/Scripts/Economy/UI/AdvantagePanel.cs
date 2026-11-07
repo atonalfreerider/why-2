@@ -240,7 +240,7 @@ namespace Why.Economy.UI
                 var st = world.At(a.Id, year);
                 var was = now?.At(a.Id, 2026) ?? world.At(a.Id, world.FirstYear);
                 if (st == null || was == null) continue;
-                if (!st.Alive) { fallen.Add(a.Name + (st.Status == "extinct" ? " ✕" : " → " + (data.Get(st.By)?.Name ?? st.By))); continue; }
+                if (!st.Alive) { fallen.Add(a.Name + (st.Status == "extinct" ? " (extinct)" : " → " + (data.Get(st.By)?.Name ?? st.By))); continue; }
                 moves.Add((a, st.Alt - was.Alt));
             }
 
@@ -278,6 +278,8 @@ namespace Why.Economy.UI
             if (!double.IsNaN(a.Dividends)) weapons.Add("dividends " + HillAdvantageLayer.Money(a.Dividends));
             if (!double.IsNaN(a.Sbc)) weapons.Add("stock pay " + HillAdvantageLayer.Money(a.Sbc));
             if (weapons.Count > 0) b.Append("<b>The share price at work:</b> ").Append(string.Join(", ", weapons)).Append('\n');
+            if (a.Acquisitions.Count > 0) b.Append("<b>Bought:</b> ").Append(string.Join("; ", a.Acquisitions.Take(4))).Append('\n');
+            if (a.Capacity.Count > 0) b.Append("<b>Data-centre power:</b> ").Append(string.Join("; ", a.Capacity.Take(3))).Append('\n');
             if (!double.IsNaN(a.Burn) && a.Burn > 0) b.Append("<color=#FF9A40><b>Burning</b></color> ").Append(HillAdvantageLayer.Money(a.Burn)).Append(" a year").Append(string.IsNullOrEmpty(a.BurnWhat) ? "" : " (" + a.BurnWhat + ")").Append('\n');
             if (!string.IsNullOrEmpty(a.Strategy)) b.Append("<i>Strategy (judged):</i> ").Append(a.Strategy).Append(double.IsNaN(a.Risk) ? "" : "; <i>risk</i> " + a.Risk.ToString("0.0") + " of 4").Append('\n');
             var owners = data.Stakes.Where(s => s.Company == a.Id).OrderByDescending(s => double.IsNaN(s.Pct) ? 0 : s.Pct).Take(6).ToList();

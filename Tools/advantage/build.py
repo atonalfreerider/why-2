@@ -159,10 +159,24 @@ def simulation(actors, flows, owners, scenarios, problems):
         json.dump(data, f, indent=1)
     try:
         run = getattr(sim, "simulate", None) or getattr(sim, "run")
-        return run(data)
+        out = run(data)
     except Exception as e:   # the app keeps working without its simulation
         problems.append(f"simulation failed: {e}")
         return None
+    # a company whose revenue, cash and debt are all assumed is not simulated: its fate would be the fallbacks' fate, not
+    # its own. It holds its 2026 state in every world, and the panel says so.
+    blind = sorted(cid for cid, notes in (out.get("fallbacks") or {}).items()
+                   if sum(1 for n in notes if n.split(":")[0] in ("revenue", "cash", "debt")) >= 3)
+    now = ((out.get("worlds") or {}).get("now") or {}).get("years") or {}
+    first = now.get(min(now, key=int)) if now else {}
+    for w in (out.get("worlds") or {}).values():
+        for states in (w.get("years") or {}).values():
+            for cid in blind:
+                if cid in states and cid in first:
+                    states[cid] = dict(first[cid])
+        w["events"] = [e for e in w.get("events") or [] if e.get("company") not in blind]
+    out["notSimulated"] = blind
+    return out
 
 
 def main():
@@ -301,6 +315,16 @@ def main():
             rec["burn"] = round(abs(loss["value"]), 2)
             rec["burnWhat"] = (facts[loss["fact"]].get("claim") or "")[:120]
         rec["private"] = bool(size and size["kind"] == "valuation")
+        # what it bought (the share price and the cash at work) and the data-centre power it builds, each with its period
+        bought = sorted(((fid, f) for fid, f in facts.items() if f.get("kind") == "acquisition" and f.get("from") == a["id"] and f.get("status") == "verified"),
+                        key=lambda x: -(number(x[1].get("value")) or 0))[:5]
+        if bought:
+            rec["acquisitions"] = [{"target": next((x.get("name") for x in model["actors"] if x["id"] == f.get("to")), f.get("to")),
+                                    "usdBn": number(f.get("value")), "period": f.get("period"), "claim": (f.get("claim") or "")[:140], "fact": cite(fid)}
+                                   for fid, f in bought]
+        power = [(fid, f) for fid, f in facts.items() if f.get("kind") == "capacity" and f.get("actor") == a["id"] and f.get("status") == "verified"]
+        if power:
+            rec["capacity"] = [{"value": number(f.get("value")), "unit": f.get("unit"), "period": f.get("period"), "fact": cite(fid)} for fid, f in power[:4]]
         js = (judg.get("strategy") or {}).get(a["id"]) or {}
         if js.get("strategy"):
             rec["strategy"] = STRATEGY_NAMES.get(js["strategy"]["choice"], js["strategy"]["choice"])

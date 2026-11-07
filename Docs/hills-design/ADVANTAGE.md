@@ -50,27 +50,47 @@ Altitude runs from 0, the low ground, to 150, the high ground:
 
 A thin altitude ruler at the left edge names the ground: "high ground: dominant", "low ground: dependent".
 
-## 4. The organism: a company's balance sheet in three dimensions
+## 4. The organism: one organic body made of a balance sheet
 
-Sizes are volumes: radius = k · ∛(USD bn), so a sphere's volume is proportional to its dollars.
+The user's third direction (7 Nov 2026), verbatim:
 
-| Part | Shape and colour | Where | Value |
-| --- | --- | --- | --- |
-| Core | solid sphere, steel | centre | book equity (total shareholders' equity) |
-| Shell | translucent sphere with two glowing great circles | encloses the organism | market value (valuation for the private labs) |
-| Shell's colour | cool blue, then white, then gold, then magenta | | P/E: under 15, 15-35, 35-80, over 80 or loss-making with a valuation |
-| Cash and securities | bright green sphere | upper hemisphere | the war chest |
-| Property and equipment | box, slate blue | upper hemisphere | data centres, fabs, factories (what it has built) |
-| Goodwill and intangibles | octahedron, violet | upper hemisphere | what it bought |
-| Stakes in others | small gold torus | upper hemisphere, toward the owned company | strategic investments; a gold thread to the owned organism |
-| Debt | dark red sphere | below the core, hanging | borrowings |
-| Leases | dark orange sphere | below | lease liabilities (data centres rented) |
-| Commitments | hollow wire sphere | below, outside the shell | purchase and compute obligations not yet on the balance sheet |
-| Burn | orange plume from the core | sideways | an operating loss funded by others' profits or by the share price (Reality Labs, the labs' burn) |
+> the geometric shapes are completely irrelevant to the concepts they are representing. there needs to be a coherence
+> and organic shape to the groups that represent a company. point cloud meshes with variable wireframe opacity and
+> muted color punctuated by intense bloom for attention to important advantage frontiers. do a redesign
 
-So an organism reads like a balance sheet. What it owns is above. What it owes hangs below. Its equity is the core in
-between, and the market's belief is the air around it. Where research gives no balance sheet, the core is drawn as an
-outline and the label says so.
+So a company is not a set of solids but **one body** (`Land/Organism.cs`):
+
+- **Lobes, not parts.** Each part of the balance sheet is a lobe of a single implicit surface: a Gaussian as wide as
+  k · ∛($bn) of the part, so volume tracks dollars. The lobes overlap and fuse.
+  - Equity is the core.
+  - Cash, what it built (property and equipment), what it bought (goodwill and intangibles) and its stakes swell above.
+  - Debt and leases sag below.
+  - A company without a researched balance sheet is one faint lobe a twelfth of its value, labelled as such.
+- **Points and wire.** The surface is sampled along a geodesic sphere: 162 vertices, or 642 for the giants. Each vertex
+  is a point, and each geodesic edge is a wire, so the points and the mesh share one topology. A seeded noise roughens
+  the surface so no two bodies are alike.
+- **Muted colour by region.** A point takes the colour of the lobes that make the surface there, so the balance sheet
+  reads as regions of one whole. Equity is pearl, cash sage, what it built slate, what it bought mauve, stakes ochre,
+  debt brick and leases rust.
+- **Variable wireframe opacity.** A wire is as opaque as the parts there are tangible. What it built and what it owes
+  read solid. Cash and leases read firm. Equity sits between. What it bought and its stakes read ghostly.
+- **Speculation as dust.** A dust of points fills the space between what earnings justify and the market value. What
+  earnings justify is net income at a reference P/E of 15 (assumed), drawn as a faint dotted inner membrane. The dust
+  holds as many points as the cube root of the premium allows. The market value itself is a dotted membrane, tinted by
+  the P/E. So the P/E the user named is visible as size: a high P/E is a body swimming in dust.
+- **Promises** (purchase and compute commitments) are a ghost lobe of points beneath the body, on a dotted stalk.
+- **Burn.** A loss funded by others' money is a comet of points, its head hot, trailing from the body toward the
+  market it buys.
+- **Intense bloom only at the advantage frontiers.** A body glows only on the face that presses on others:
+  - toward the dollar-weighted middle of those who must pay it at a choke point, as hard as the choke is hard to
+    replace (Jev) times its judged advantage;
+  - toward each of the two rivals it is beating in a present contest.
+
+  Everything else stays muted. So the eye goes first to NVIDIA's face toward the clouds, ASML's toward the fabs, and
+  TSMC's toward its customers.
+
+Each body is its own mesh, built in its own frame and moved by its transform. The force layout moves the population
+every frame without rebuilding; a body is rebuilt, four a frame, only when its world, year or frontiers change.
 
 ## 5. The network
 

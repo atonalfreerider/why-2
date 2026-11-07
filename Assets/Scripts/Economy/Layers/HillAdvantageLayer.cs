@@ -386,7 +386,7 @@ namespace Why.Economy.Layers
             if (sinceRebuild >= 1 / 15f || done)
             {
                 sinceRebuild = 0;
-                bool contours = sinceLandscape >= .25f || done;
+                bool contours = sinceLandscape >= 1f || done;
                 if (contours) sinceLandscape = 0;
                 using (LayerClock.Measure("advantage: rebuild")) Rebuild(contours);
             }
@@ -467,12 +467,16 @@ namespace Why.Economy.Layers
             if (now) BuildQueued(int.MaxValue);
         }
 
+        /// <summary>Rebuilds queued organisms within a frame's budget: a giant (642 points, about 13k vertices) costs 3, the
+        /// rest 1, so a world's change never stalls a frame.</summary>
         void BuildQueued(int budget)
         {
-            while (budget-- > 0 && organismQueue.Count > 0)
+            while (budget > 0 && organismQueue.Count > 0)
             {
                 var body = net.Get(organismQueue.Dequeue());
-                if (body != null) Organism(body);
+                if (body == null) continue;
+                Organism(body);
+                budget -= body.R > 14 ? 3 : 1;
             }
         }
 
@@ -675,6 +679,13 @@ namespace Why.Economy.Layers
                 }
             }
 
+            // the low ground: a dotted hairline where workers and consumers stand, and the state's beneath it
+            float gx0 = net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x - x.R).DefaultIfEmpty(ContestNetwork.X0 - 200).Min() - 10;
+            float gx1 = net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x + x.R).DefaultIfEmpty(ContestNetwork.X0 + 200).Max() + 10;
+            float gz = net.CrestZ + (ContestNetwork.ZFrom + ContestNetwork.ZTo) * .5f;
+            foreach (var (y, a) in new[] { (0f, .22f), (ContestNetwork.StateY, .16f) })
+                for (float x = gx0; x <= gx1; x += 3) b.AddSegment(new Vector3(x, y, gz), new Vector3(x + .05f, y, gz), WithAlpha(Ruler, a), 1.2f, 0, id, 1);
+
             // the altitude ruler: low ground to high ground, at the near left of the population
             float rx = RulerX(), rz = net.CrestZ + ContestNetwork.ZTo - 20;
             b.AddSegment(new Vector3(rx, 0, rz), new Vector3(rx, ContestNetwork.MaxAlt, rz), WithAlpha(Ruler, .4f), 1.2f, 0, id, 1);
@@ -759,10 +770,13 @@ namespace Why.Economy.Layers
             var b = new LineMeshBuilder();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Rivers]);
             var flows = net.Links.Where(l => l.Kind == "flow" && l.A.Alive && l.B.Alive).OrderByDescending(l => l.UsdBn).ToList();
+            // by default, the story: money converging on the supply chain (tools, fabs, chips, clouds, models) and capital into
+            // the labs, largest first; the buyers' spending stays faint until a company is chosen
+            var story = new HashSet<ContestNetwork.Link>(flows.Where(l => l.A.Kind != ContestNetwork.Kind.Buyer && StoryLayers.Contains(l.B.Layer ?? "")).Take(RiverHighlights));
             for (int i = 0; i < flows.Count; i++)
             {
                 var l = flows[i];
-                bool lit = Selected == null ? i < RiverHighlights : l.A.Id == Selected || l.B.Id == Selected;
+                bool lit = Selected == null ? story.Contains(l) : l.A.Id == Selected || l.B.Id == Selected;
                 float alpha = lit ? .9f : Selected == null ? .16f : .06f;
                 double usd = l.Flow != null ? l.Flow.In(Scenario) : l.UsdBn;
                 River(b, id, l, usd, alpha, i);
@@ -867,7 +881,7 @@ namespace Why.Economy.Layers
             Drop(Part.Landscape);
             var b = new LineMeshBuilder();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Landscape]);
-            foreach (var (p, q, level) in net.Contours(6, 10))
+            foreach (var (p, q, level) in net.Contours(8, 10))
             {
                 if (level < 20) continue;
                 bool major = Mathf.Abs(level % 50) < .01f;
@@ -919,6 +933,8 @@ namespace Why.Economy.Layers
             if (Selected != null) return present.Where(f => f.Holder == Selected || f.Rivals.Contains(Selected));
             return present.OrderByDescending(f => f.Sources.Length).ThenByDescending(f => f.Year).Take(SparkDefault);
         }
+
+        static readonly HashSet<string> StoryLayers = new HashSet<string> { "tools", "fabs", "chips", "clouds", "models" };
 
         static Vector3 SparkAt(Vector3 a, Vector3 z) => Vector3.Lerp(a, z, .5f) + Vector3.up * (4 + .06f * Vector3.Distance(a, z));
 
@@ -1079,7 +1095,7 @@ namespace Why.Economy.Layers
                         string value = double.IsNaN(body.Value) ? " <i>value unverified</i>" : " " + Money(body.Value);
                         double pe = body.State != null && !double.IsNaN(body.State.Pe) ? body.State.Pe : body.Actor.Pe;
                         string peText = !double.IsNaN(pe) && pe > 0 ? " · P/E " + pe.ToString("0") : (body.State != null && body.State.Ni < 0) || body.Actor.Private || pe < 0 ? " · loss" : "";
-                        string fate = body.State == null || body.State.Alive ? "" : body.State.Status == "extinct" ? " <color=#F59A9A>✕ extinct</color>" : " <color=#C9CED6>absorbed by " + (net.Get(body.State.By)?.Name ?? body.State.By) + "</color>";
+                        string fate = body.State == null || body.State.Alive ? "" : body.State.Status == "extinct" ? " <color=#F59A9A>extinct</color>" : " <color=#C9CED6>absorbed by " + (net.Get(body.State.By)?.Name ?? body.State.By) + "</color>";
                         labels.Add(new HillLabel
                         {
                             Text = "<b>" + body.Name + "</b>" + value + peText + fate, At = body.Pos + Vector3.up * (body.R + 2.5f), Role = LabelRole.Name, Part = "advantage.organs",
@@ -1114,6 +1130,8 @@ namespace Why.Economy.Layers
             labels.Add(new HillLabel { Text = "HIGH GROUND · dominant", At = new Vector3(rx, ContestNetwork.MaxAlt + 4, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 5, Color = Roles.Encoded(Roles.InkDim) });
             labels.Add(new HillLabel { Text = "LOW GROUND · dependent", At = new Vector3(rx, 4, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 5, Color = Roles.Encoded(Roles.InkDim) });
             labels.Add(new HillLabel { Text = "THE OWNERS", At = new Vector3(rx, ContestNetwork.OwnerY, rz), Role = LabelRole.Name, Part = "advantage.rings", Rank = 5, Color = Gold });
+            labels.Add(new HillLabel { Text = "WORKERS AND CONSUMERS", At = new Vector3(rx, -3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 4, Color = Roles.Encoded(Roles.InkDim) });
+            labels.Add(new HillLabel { Text = "THE STATE · rule of law, property, export controls", At = new Vector3(rx, ContestNetwork.StateY - 3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 4, Color = Roles.Encoded(Roles.InkDim) });
             for (int i = 0; i < threadBeads.Count && History; i++)
             {
                 var (at, step) = threadBeads[i];

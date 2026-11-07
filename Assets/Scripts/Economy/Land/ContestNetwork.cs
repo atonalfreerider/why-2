@@ -26,7 +26,7 @@ namespace Why.Economy.Land
     public sealed class ContestNetwork
     {
         /// <summary>The middle across the land; the depth band past the crest; the volume scale; the strata's altitudes.</summary>
-        public const float X0 = 290, ZFrom = 70, ZTo = 440, KR = 1.55f, MinR = 1.6f, MinAlt = 10, MaxAlt = 150,
+        public const float X0 = 290, ZFrom = 110, ZTo = 300, KR = 1.55f, MinR = 1.6f, MinAlt = 10, MaxAlt = 130,
             OwnerY = 188, WealthY = 222, BuyerY = -4, StateY = -24;
 
         public enum Kind { Company, Owner, Wealth, Buyer, State }
@@ -182,7 +182,7 @@ namespace Why.Economy.Land
                     b.EarningsR = double.IsNaN(b.EarningsValue) || b.EarningsValue <= 0 ? 0 : Mathf.Min(b.R, Radius(b.EarningsValue));
                     double adv = a.AdvantageIn(World);
                     b.TargetY = st != null && !double.IsNaN(st.Alt) ? (float)st.Alt : Altitude(adv, b.Value);
-                    if (!b.Alive) b.TargetY = st != null && st.Status == "extinct" ? 2 : b.TargetY;
+                    if (!b.Alive && st != null && st.Status == "extinct") b.TargetY = 2;
                 }
                 else if (b.Kind == Kind.Buyer) { b.R = 11; b.TargetY = BuyerY; }
                 else if (b.Kind == Kind.State) { b.R = b.Id == "us-gov" ? 14 : 8; b.TargetY = StateY; }
@@ -215,6 +215,10 @@ namespace Why.Economy.Land
                 b.R = Mathf.Max(2.5f, .22f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
                 b.TargetY = b.Kind == Kind.Wealth ? WealthY : OwnerY;
             }
+
+            foreach (var b in Bodies)
+                if (b.Kind == Kind.Company && !b.Alive && b.AbsorbedBy != null && Get(b.AbsorbedBy) is Body host)
+                    b.TargetY = host.TargetY;
 
             foreach (var l in Links)
             {
@@ -275,10 +279,21 @@ namespace Why.Economy.Land
                 {
                     var a = Bodies[i];
                     if (!a.Moves) continue;
+                    // an absorbed company drifts into its absorber's side and stays there
+                    if (a.Kind == Kind.Company && !a.Alive && a.AbsorbedBy != null && Get(a.AbsorbedBy) is Body host)
+                    {
+                        Vector3 side = a.Pos - host.Pos;
+                        side.y = 0;
+                        side = side.sqrMagnitude > 1e-3f ? side.normalized : Vector3.right;
+                        Vector3 goal = host.Pos + side * (host.R * .9f);
+                        force[i] += (goal - a.Pos) * .06f;
+                        continue;
+                    }
+
                     // the layer's depth (weak, companies only), the middle (weak); altitude is a constraint, eased below
                     if (a.Kind == Kind.Company)
                     {
-                        force[i].z += .0035f * (a.LayerZ - a.Pos.z);
+                        force[i].z += .0028f * (a.LayerZ - a.Pos.z);
                         force[i].x += .0015f * (X0 - a.Pos.x);
                     }
                     else
@@ -292,6 +307,7 @@ namespace Why.Economy.Land
                     {
                         var b = Bodies[j];
                         if (!b.Moves || (a.Kind == Kind.Company) != (b.Kind == Kind.Company)) continue;
+                        if (a.Kind == Kind.Company && (!a.Alive || !b.Alive)) continue;
                         Vector3 d = b.Pos - a.Pos;
                         if (a.Kind != Kind.Company) d.y = 0;
                         float dist = Mathf.Max(.5f, d.magnitude), min = a.R + b.R + (a.Kind == Kind.Company ? 7 : 5);
@@ -431,23 +447,26 @@ namespace Why.Economy.Land
 
         // ------------------------------------------------------------------ the landscape
 
-        /// <summary>The fitness landscape's height at a point: the kernel-weighted mean of the living companies' ground (their
-        /// altitude less 0.9 of their shell), each kernel as wide as 14 + 1.4 times its shell, falling to the low ground (0)
-        /// far from them.</summary>
+        /// <summary>The fitness landscape's height at a point: one smooth field, the mean of the living companies' altitudes
+        /// weighted by their size (market value to the 2/3, kernels 40 units wide), falling to the low ground at the edges (a
+        /// baseline a tenth of the largest weight), drawn 30 units under the bodies so it never passes through them.</summary>
         public float Height(float x, float z)
         {
-            float sw = .12f, sh = 0;
+            float sw = baseline, sh = 0;
             foreach (var b in Bodies)
             {
                 if (b.Kind != Kind.Company || !b.Alive) continue;
-                float dx = x - b.Pos.x, dz = z - b.Pos.z, sigma = 14 + 1.4f * b.R;
-                float w = Mathf.Exp(-(dx * dx + dz * dz) / (2 * sigma * sigma));
+                float dx = x - b.Pos.x, dz = z - b.Pos.z, d2 = dx * dx + dz * dz;
+                if (d2 > 14400) continue;   // beyond three kernel widths a body adds nothing visible
+                float w = b.R * b.R * Mathf.Exp(-d2 / (2 * 40f * 40f));
                 sw += w;
-                sh += w * Mathf.Max(0, b.Pos.y - .9f * b.R);
+                sh += w * b.Pos.y;
             }
 
-            return sh / sw;
+            return Mathf.Max(0, sh / sw - 30);
         }
+
+        float baseline = 1;
 
         /// <summary>The landscape's contours: segments at each level (every <paramref name="step"/> units) by marching squares
         /// over a grid of <paramref name="cell"/> units covering the population.</summary>
@@ -463,7 +482,10 @@ namespace Why.Economy.Land
 
             var segs = new List<(Vector3, Vector3, float)>();
             if (x0 >= x1) return segs;
-            int nx = Mathf.Min(140, Mathf.CeilToInt((x1 - x0) / cell)), nz = Mathf.Min(140, Mathf.CeilToInt((z1 - z0) / cell));
+            float wmax = 1;
+            foreach (var b in Bodies) if (b.Kind == Kind.Company && b.Alive) wmax = Mathf.Max(wmax, b.R * b.R);
+            baseline = .1f * wmax;
+            int nx = Mathf.Min(90, Mathf.CeilToInt((x1 - x0) / cell)), nz = Mathf.Min(90, Mathf.CeilToInt((z1 - z0) / cell));
             var h = new float[nx + 1, nz + 1];
             for (int i = 0; i <= nx; i++)
                 for (int k = 0; k <= nz; k++)

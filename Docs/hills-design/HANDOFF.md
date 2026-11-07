@@ -210,48 +210,59 @@ threads come from the 10 most profitable firms' summits and each terrace's surpl
 Open: label crowding (only some firm labels survive layout), the bedrock dominates the lower frame, real estate's
 "rest" peaks are tall because its typical margin (REITs, 34%) is high.
 
-## Added 7 Nov 2026: competitive advantage (in flight)
+## Added 7 Nov 2026: competitive advantage, the corporate biosphere
 
-The user asked (7 Nov) to rebuild the economy around **competitive advantage**. Their request is verbatim in
-`Docs/research/advantage/brief.md`. In short:
+The user gave three directions on 7 Nov 2026. All three are verbatim: the first two in
+`Docs/research/advantage/brief.md` and `brief-v2.md`, the third in `ADVANTAGE.md`, section 4.
 
-- Keep the causality timeline.
-- Rebuild the 2026 cross-section, opened into the 3D hillside, as a simulation of advantage. Actors stand higher the
-  more they dominate. They are placed above, below or beside each other by advantage and supply-chain position.
-- Revenue, cost and capital rivers are coloured by desire or fear, and they show the choke points.
-- Flashpoints are sparks between rivals, in 2026 and back through history.
-- Scenarios make the environment friendly or unfriendly, so the view predicts winners and losers.
-- The user also said to pace usage across the 5-hour window, to commit to main as the work lands, and to take
-  screenshots only of significant changes. Jev is available.
+1. Rebuild the economy around competitive advantage, with flashpoints, choke points, rivers of fear and desire, a
+   strategist's predictions and scenarios, and history.
+2. Make it a 3D force-directed network:
+   - companies broken into their balance sheets;
+   - speculative size and the P/E, with the share price as a weapon;
+   - dependencies, with NVIDIA as the undergirder;
+   - rivers at the corporate and the individual level;
+   - the ownership class as golden circles, including private equity, hedge funds and sovereign funds;
+   - a Darwinian simulation, with high and low ground.
+3. No geometric shapes: organic point-cloud meshes with variable wireframe opacity, in muted colour, and intense bloom
+   only at the advantage frontiers.
 
-**Built and pushed** (commit 1a0dc6f), smoke-tested in the mirror with 0 errors:
+**Built** (key I; view `advantage`; design `Docs/hills-design/ADVANTAGE.md`):
 
-- *The design* is `Docs/hills-design/ADVANTAGE.md`.
-- *The view `advantage`* (key I; the bar's "Advantage"):
-  - `Layers/HillAdvantageLayer.cs`: peaks with strata and gold, flat rivers in two lanes, gold climbs, choke rings,
-    sparks, the lineage's gold lane along the wave, the opening choreography, scenario moves, hover and click, and the
-    smoke sequence `-smokeextra advantage` (frames now, a scenario, history, selected);
-  - `Land/AdvantageLayout.cs`: bands, flanks, states, mouths and rivers;
-  - `Model/Advantage.cs`: the loader;
-  - `UI/AdvantagePanel.cs`: the worlds, the reading, the actor, the history and the strata key.
-- *The old present* is in the bar as "Industries". It answers only Shift + I.
-- *The scenarios* are registered as the view's variants, so tour cues can show them.
+- *Organisms.* `Land/Organism.cs`: each company is one body.
+  - Its balance sheet's parts are fused lobes: equity at the core, assets above, debt below.
+  - Points and wire are sampled on a geodesic sphere, coloured by part, with wire opacity by how tangible the part is.
+  - Speculation is a dust out to the market value, beyond an earnings shell at a reference P/E of 15.
+  - Promises are a ghost lobe, and burn a comet.
+  - Bloom appears only where a choke point or a contest presses.
+- *Layout.* `Land/ContestNetwork.cs`: force-directed in x and z; altitude is market position, 10 to 130. Owners' circles
+  float above at 188 and 222. A smooth, contoured fitness landscape lies beneath.
+- *The layer.* `Layers/HillAdvantageLayer.cs`. Each organism is its own mesh, moved by its transform and rebuilt within
+  a budget. It also draws the rivers by story, the cap tables, the golden circles, the low ground and the state, the
+  sparks, and the history lane and contests. The smoke sequence is `-smokeextra advantage`.
+- *The panel.* `UI/AdvantagePanel.cs`: the worlds and years with play; the events and fates; and the selected company's
+  balance-sheet bars against its market value, P/E, share price at work, acquisitions, data-centre power, owners,
+  rivers, strategy and risk.
 
-**Data pipeline**, all in `Tools/advantage/`:
+**Data** (`Tools/advantage/`):
 
-1. `verify.py`: the truth gate per research file.
-2. `merge.py`: model.json from the clusters, plus the strategist's `strategist.json` and `scenarios.json`.
-3. `judge.py`: Jev's judgments into `judgments.json`.
-4. `build.py`: writes `Assets/Resources/Data/economy/advantage.json`.
+- `verify.py` is the truth gate.
+- `merge.py` builds the model.
+- `judge.py` asks Jev for:
+  - the 7 Powers, the triad, durability and the eight worlds;
+  - strategy and risk;
+  - motives, substitutability and contest triads.
+- `simulate.py` (written by an agent) is the Darwinian simulation.
+- `build.py` writes `advantage.json`. Companies whose revenue, cash and debt are all assumed are not simulated.
+- The research holds 883 facts, all verified, in `Docs/research/advantage/`. The strategist's reading is `analysis.md`.
 
-The research is six clusters, 294 facts, all verified (`Docs/research/advantage/`, run `wf_237bc6f9-020`).
+**Open:**
 
-**In flight:** the strategist (run `wf_2236604c-5ee`, script `Docs/research/advantage/workflow/strategist.js` once
-copied). It cleans the model, adds 2026 sizes and flows through the gate, writes the scenarios, runs Jev, reviews and
-writes `analysis.md`.
+- *Coupling and competition.* The critics asked for revenue to be coupled through the network and for direct
+  competition. The agent's `simulate.py` couples lost customers, shocks, capital raising and absorption, but has no
+  market-share contests between rivals.
+- *Talent.* There is no talent node.
+- *Performance.* Settling frames peak around 70 ms, and the label layout spikes when the labels appear.
+- *Quest.* There is no XR profile: 56 organisms means about 56 draw calls.
+- *People.* Founders are named in text only; images would need the user's approval.
 
-- **The data file is not committed yet.** The `advantage.json` in Assets is a dev build from placeholder judgments, in
-  `work/advantage/dev/`. Rebuild it with `python3 -I Tools/advantage/build.py` after the strategist's judge run, then
-  commit it with its `.meta`.
-- **Then:** check the frames with real data; add the tour stop (economy_tour.json, text only: narration is not
-  approved); report to the user.

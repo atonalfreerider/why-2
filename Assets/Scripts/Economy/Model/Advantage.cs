@@ -49,6 +49,9 @@ namespace Why.Economy.Model
             public string Strategy, BurnWhat;
             public bool Private;
 
+            /// <summary>What it bought (target, price, when) and the data-centre power it builds, as lines with their periods.</summary>
+            public readonly List<string> Acquisitions = new List<string>(), Capacity = new List<string>();
+
             public bool Sized => !double.IsNaN(SizeUsdBn) && SizeUsdBn > 0;
 
             /// <summary>The actor's advantage under a scenario id (<see cref="Now"/>, <see cref="Y2030"/> or the file's); its
@@ -233,6 +236,14 @@ namespace Why.Economy.Model
                 x.Pe = Num(a["pe"]); x.Buybacks = Num(a["buybacks"]); x.Dividends = Num(a["dividends"]); x.Sbc = Num(a["sbc"]);
                 x.Burn = Num(a["burn"]); x.BurnWhat = (string)a["burnWhat"]; x.Risk = Num(a["risk"]); x.Strategy = (string)a["strategy"];
                 x.Private = (bool?)a["private"] ?? false;
+                foreach (JObject q in Arr(a["acquisitions"]))
+                {
+                    double usd = Num(q["usdBn"]);
+                    x.Acquisitions.Add(Text(q["target"]) + (double.IsNaN(usd) ? "" : " $" + (usd >= 10 ? usd.ToString("0") : usd.ToString("0.#")) + "B") + " (" + Text(q["period"]) + ")");
+                }
+
+                foreach (JObject q in Arr(a["capacity"]))
+                    x.Capacity.Add(Num(q["value"]).ToString("0.#") + " " + Text(q["unit"]) + " (" + Text(q["period"]) + ")");
                 if (string.IsNullOrEmpty(x.Id) || byId.ContainsKey(x.Id)) continue;
                 Actors.Add(x); byId[x.Id] = x;
             }
@@ -283,12 +294,13 @@ namespace Why.Economy.Model
 
             if (root["simulation"] is JObject sim)
             {
-                foreach (JToken t in Arr(sim["assumptions"])) SimAssumptions.Add(t.Type == JTokenType.Object ? (string)t["name"] + ": " + (string)t["value"] + " (" + (string)t["why"] + ")" : (string)t);
+                foreach (JToken t in Arr(sim["assumptions"]))
+                    SimAssumptions.Add(t is JObject o ? Text(o["name"]) + ": " + Text(o["value"]) + " (" + Text(o["why"]) + ")" : Text(t));
                 if (sim["worlds"] is JObject worlds)
                     foreach (var kv in worlds)
                     {
                         if (!(kv.Value is JObject w)) continue;
-                        var world = new World { Id = kv.Key, Title = (string)w["title"] ?? kv.Key };
+                        var world = new World { Id = kv.Key, Title = w["title"] != null ? Text(w["title"]) : kv.Key };
                         if (w["years"] is JObject years)
                             foreach (var y in years)
                             {
@@ -299,11 +311,11 @@ namespace Why.Economy.Model
                                         states[c.Key] = new SimState
                                         {
                                             V = Num(st["v"]), Eq = Num(st["eq"]), Cash = Num(st["cash"]), Debt = Num(st["debt"]), Rev = Num(st["rev"]), Ni = Num(st["ni"]),
-                                            Pe = Num(st["pe"]), Alt = Num(st["alt"]), Status = (string)st["status"] ?? "alive", By = (string)st["by"],
+                                            Pe = Num(st["pe"]), Alt = Num(st["alt"]), Status = st["status"] != null ? Text(st["status"]) : "alive", By = st["by"] != null && st["by"].Type != JTokenType.Null ? Text(st["by"]) : null,
                                         };
                                 world.Years[year] = states;
                             }
-                        foreach (JObject e in Arr(w["events"])) world.Events.Add(new SimEvent { Year = (int?)e["year"] ?? 0, Company = (string)e["company"], What = (string)e["what"] });
+                        foreach (JObject e in Arr(w["events"])) world.Events.Add(new SimEvent { Year = (int?)e["year"] ?? 0, Company = Text(e["company"]), What = Text(e["what"]) });
                         Worlds[world.Id] = world;
                     }
             }
@@ -314,6 +326,9 @@ namespace Why.Economy.Model
         }
 
         static JArray Arr(JToken t) => t as JArray ?? new JArray();
+
+        /// <summary>Any token as plain text: a string as it is, a number, list or object compactly.</summary>
+        static string Text(JToken t) => t == null || t.Type == JTokenType.Null ? "" : t.Type == JTokenType.String ? (string)t : t.ToString(Newtonsoft.Json.Formatting.None);
 
         static double Num(JToken t) => t == null || t.Type == JTokenType.Null ? double.NaN : (double)t;
 

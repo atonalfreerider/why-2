@@ -30,6 +30,8 @@ namespace Why.Economy.UI
         readonly List<(Image background, TextMeshProUGUI label, string id)> worlds = new List<(Image, TextMeshProUGUI, string)>();
         readonly List<(Image background, TextMeshProUGUI label, int year)> years = new List<(Image, TextMeshProUGUI, int)>();
         readonly List<(Image background, TextMeshProUGUI label, bool history)> modes = new List<(Image, TextMeshProUGUI, bool)>();
+        readonly List<(Image background, TextMeshProUGUI label, int focus)> focuses = new List<(Image, TextMeshProUGUI, int)>();
+        int shownFocus = -2;
         Image playBack; TextMeshProUGUI playLabel;
         readonly List<GameObject> segments = new List<GameObject>();
         string shownScenario, shownSelected, hoverShown;
@@ -103,7 +105,20 @@ namespace Why.Economy.UI
             });
             Place((RectTransform)play.transform, Width - 12 - 80, yearsTop, 80, 22);
             playBack = (Image)play.targetGraphic; playLabel = play.GetComponentInChildren<TextMeshProUGUI>();
-            readingTop = yearsTop + 30;
+            // the strata: fly to the hill (the view's own pose), to one stratum, or to the whole stack
+            var stops = new List<(int focus, string label)> { (-1, "Whole stack"), (HillAdvantageLayer.Strata, "The hill") };
+            for (int i = 0; i < ContestNetwork.StratumOrder.Length; i++) stops.Add((i, StratumShort(ContestNetwork.StratumOrder[i])));
+            const int perRow2 = 6;
+            float fw = (Width - 24 - gap * (perRow2 - 1)) / perRow2, focusTop = yearsTop + 28;
+            for (int i = 0; i < stops.Count; i++)
+            {
+                var (focus, label) = stops[i];
+                var b = UiFactory.Button(panel, "Focus " + focus, label, 9.5f, () => HillAdvantageLayer.FocusOn(focus));
+                Place((RectTransform)b.transform, 12 + (i % perRow2) * (fw + gap), focusTop + (i / perRow2) * 24, fw, 20);
+                focuses.Add(((Image)b.targetGraphic, b.GetComponentInChildren<TextMeshProUGUI>(), focus));
+            }
+
+            readingTop = focusTop + ((stops.Count + perRow2 - 1) / perRow2) * 24 + 6;
         }
 
         void Update()
@@ -120,8 +135,10 @@ namespace Why.Economy.UI
             if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(Width, canvas.x - 16), Mathf.Min(Height, canvas.y * .55f)); }
             else { float top = EconomyUiLayout.SideColumnTop; panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -top); panel.sizeDelta = new Vector2(Width, Mathf.Min(Height, canvas.y - top - 54)); }
             if (!shown || HillAdvantageLayer.Scenario != shownScenario || HillAdvantageLayer.Year != shownYear || HillAdvantageLayer.Selected != shownSelected ||
-                HillAdvantageLayer.History != shownHistory || HillAdvantageLayer.Playing != shownPlaying)
+                HillAdvantageLayer.History != shownHistory || HillAdvantageLayer.Playing != shownPlaying || HillAdvantageLayer.Focus != shownFocus)
             {
+                shownFocus = HillAdvantageLayer.Focus;
+                foreach (var b in focuses) Mark(b.background, b.label, b.focus == HillAdvantageLayer.Focus);
                 shown = true;
                 shownScenario = HillAdvantageLayer.Scenario;
                 shownYear = HillAdvantageLayer.Year;
@@ -242,25 +259,114 @@ namespace Why.Economy.UI
                 b.Append("<b>The most likely course, ").Append(year).Append("</b>  <i>a simulation, not a forecast</i>\nEach company follows the AI model's judgment of whether its position holds, grows or erodes, read from the sourced facts.\n");
             else
             {
-                b.Append("<b>Now, November 2026</b>\n");
-                var giants = data.Actors.Where(a => a.Sized && a.Flank != "state").OrderByDescending(a => a.SizeUsdBn).Take(6).ToList();
-                if (giants.Count > 0) b.Append("<b>The giants:</b> ").Append(string.Join(", ", giants.Select(a => a.Name + " " + HillAdvantageLayer.Money(a.SizeUsdBn)))).Append('\n');
-                var spec = data.Actors.Where(a => a.Sized && !a.Private && a.Pe > 0).OrderByDescending(a => a.Pe).Take(4).ToList();
-                if (spec.Count > 0) b.Append("<b>Most speculative</b> (price over earnings): ").Append(string.Join(", ", spec.Select(a => a.Name + " " + a.Pe.ToString("0")))).Append('\n');
-                var bets = data.Actors.Where(a => a.Sized && a.LossEvidence && a.SizeUsdBn >= 100).OrderByDescending(a => a.SizeUsdBn).Take(4).ToList();
-                if (bets.Count > 0) b.Append("<b>Valued on losses</b> (the share price paying for the future): ").Append(string.Join(", ", bets.Select(a => a.Name + " " + HillAdvantageLayer.Money(a.SizeUsdBn)))).Append('\n');
-                b.Append("<i>Hover over a company for its card; click it to light its rivers and owners. Choose a world to watch it play out from 2026, or choose a year.</i>\n");
+                b.Append("<b>Now, November 2026</b>: the supply chain in strata under the hill, consumer products on top, government the floor.\n");
+                int focus = HillAdvantageLayer.Focus;
+                if (focus >= 0 && focus < HillAdvantageLayer.Strata) StratumReading(data, ContestNetwork.StratumOrder[focus], b);
+                else
+                {
+                    var nv = data.Moats.FirstOrDefault(m => m.Actor == "nvidia");
+                    if (nv != null) MoatReading(data, nv, b, 5);
+                    EntryReading(data, b);
+                }
+
+                b.Append("<i>Walls: as tall as Jev judges each source keeps rivals and entrants out (0-4). Choose a stratum to see its boundaries up close; click a company for its column through the strata.</i>\n");
             }
 
             if (world != null)
             {
                 var events = world.Events.Where(e => e.Year == year).Take(8).ToList();
                 if (events.Count > 0)
-                    b.Append("<b>").Append(year).Append(":</b> ").Append(string.Join("; ", events.Select(e => (data.Get(e.Company)?.Name ?? e.Company) + " " + e.What))).Append('\n');
+                    b.Append("<b>").Append(year).Append(":</b> ").Append(string.Join("; ", events.Select(e => (data.Get(e.Company)?.Name ?? e.Company) + " " + EventText(data, e.What)))).Append('\n');
                 Movers(data, world, year, b);
             }
 
             return b.ToString();
+        }
+
+        /// <summary>A simulated event in words: its numbers are the model's (≈), its companies named, not by their ids.</summary>
+        static string EventText(Advantage data, string what)
+        {
+            if (string.IsNullOrEmpty(what)) return "";
+            string t = System.Text.RegularExpressions.Regex.Replace(what, @"(?<![≈\w])(\$?\d[\d,.]*\s*(bn|%|tn)?)", "≈$1");
+            return System.Text.RegularExpressions.Regex.Replace(t, @"\b(by|into|to) ([a-z0-9]+(?:-[a-z0-9]+)*)\b", m =>
+                data.Get(m.Groups[2].Value) is Advantage.Actor a ? m.Groups[1].Value + " " + a.Name : m.Value);
+        }
+
+        static string StratumShort(string id) => id switch
+        {
+            "consumer" => "Consumer", "models" => "Models", "clouds" => "Clouds", "chips" => "Chips", "fabs" => "Fabs", "tools" => "Tools",
+            "energy" => "Energy", "materials" => "Materials", "state" => "Government", _ => id,
+        };
+
+        /// <summary>An advantage boundary in words: the company, its market and share, and its walls tallest first, each with
+        /// its evidence and Jev's height.</summary>
+        static void MoatReading(Advantage data, Advantage.Moat m, StringBuilder b, int take)
+        {
+            string name = data.Get(m.Actor)?.Name ?? m.Actor;
+            b.Append("<b>").Append(name).Append(" holds ").Append(m.Market).Append("</b>");
+            if (!string.IsNullOrEmpty(m.Share)) b.Append(" (").Append(m.Share).Append(')');
+            b.Append(". Its walls, tallest first:\n");
+            foreach (var x in m.Sources.OrderByDescending(x => double.IsNaN(x.Wall) ? -1 : x.Wall).Take(take))
+                b.Append("  <color=#").Append(ColorUtility.ToHtmlStringRGB(HillAdvantageLayer.SourceColor(x.Source))).Append("><b>").Append(HillAdvantageLayer.SourceName(x.Source))
+                 .Append("</b></color> ").Append(x.What).Append(double.IsNaN(x.Wall) ? "" : " <i>(wall " + x.Wall.ToString("0.0") + ")</i>").Append('\n');
+            var low = m.Sources.Where(x => !double.IsNaN(x.Wall)).OrderBy(x => x.Wall).FirstOrDefault();
+            if (low != null && m.Sources.Count > take)
+                b.Append("  <i>Lowest:</i> ").Append(HillAdvantageLayer.SourceName(low.Source)).Append(", ").Append(low.What).Append(" <i>(").Append(low.Wall.ToString("0.0")).Append(")</i>\n");
+        }
+
+        /// <summary>What keeps new entrants out, stratum by stratum (Jev), with the evidence where talent and the share price are
+        /// most of it, and what became of the entrants.</summary>
+        static void EntryReading(Advantage data, StringBuilder b)
+        {
+            var talent = data.Strata.Where(x => !double.IsNaN(x.TalentCapital) && x.TalentCapital >= 1.5).OrderByDescending(x => x.TalentCapital).ToList();
+            foreach (var st in talent)
+            {
+                b.Append("<b>Keeping entrants out of ").Append(st.Name.ToLowerInvariant()).Append("</b>: talent and the share price are ")
+                 .Append(st.TalentCapital >= 2.5 ? "most" : "about half").Append(" of the wall <i>(judged ").Append(st.TalentCapital.ToString("0.0")).Append(" of 4)</i>. ");
+                var ev = data.Barriers.Where(x => x.Stratum == st.Id && (x.Source == "talent" || x.Source == "capital")).Take(3).Select(x => x.What).ToList();
+                if (ev.Count > 0) b.Append(string.Join("; ", ev)).Append(". ");
+                var es = data.Entrants.Where(x => x.Stratum == st.Id).ToList();
+                if (es.Count > 0)
+                {
+                    var taken = es.Where(x => x.Fate == "acquired" || x.Fate == "licence-and-hire").ToList();
+                    b.Append("Of ").Append(es.Count).Append(" entrants, ").Append(taken.Count).Append(" were taken");
+                    if (taken.Count > 0) b.Append(" (").Append(string.Join(", ", taken.Take(4).Select(x => x.Name + " → " + (data.Get(x.By)?.Name ?? x.By)))).Append(')');
+                    var free = es.Where(x => x.Fate == "independent" || x.Fate == "public").Take(4).Select(x => x.Name).ToList();
+                    if (free.Count > 0) b.Append("; still independent: ").Append(string.Join(", ", free));
+                    b.Append(".\n");
+                }
+                else b.Append('\n');
+            }
+
+            var other = data.Strata.Where(x => !double.IsNaN(x.TalentCapital) && x.TalentCapital < 1.5 && !double.IsNaN(x.Hard)).OrderByDescending(x => x.Hard).ToList();
+            if (other.Count > 0)
+                b.Append("<b>Elsewhere the wall is not talent</b> <i>(judged)</i>: ").Append(string.Join("; ", other.Select(x =>
+                {
+                    var top = data.Moats.Where(m => m.Stratum == x.Id).SelectMany(m => m.Sources.Select(src => (m, src))).Where(t => !double.IsNaN(t.src.Wall))
+                        .OrderByDescending(t => t.src.Wall).FirstOrDefault();
+                    return x.Name.ToLowerInvariant() + " (entry " + x.Hard.ToString("0.0") + " of 4" +
+                           (top.m != null ? "; tallest wall: " + (data.Get(top.m.Actor)?.Name ?? top.m.Actor) + "'s " + HillAdvantageLayer.SourceName(top.src.Source).ToLowerInvariant() : "") + ")";
+                }))).Append(".\n");
+        }
+
+        /// <summary>One stratum up close: its boundaries (every source with its evidence), its entry reading and entrants.</summary>
+        static void StratumReading(Advantage data, string id, StringBuilder b)
+        {
+            var st = data.StratumById(id);
+            if (st == null) return;
+            b.Append("<b>").Append(st.Name).Append("</b>");
+            if (!double.IsNaN(st.Hard)) b.Append(": entry ").Append(st.Hard.ToString("0.0")).Append(" of 4 <i>(judged)</i>");
+            b.Append('\n');
+            foreach (var m in data.Moats.Where(m => m.Stratum == id)) MoatReading(data, m, b, 8);
+            foreach (var x in data.Barriers.Where(x => x.Stratum == id).Take(5))
+                b.Append("  <i>").Append(HillAdvantageLayer.SourceName(x.Source)).Append(" barrier:</i> ").Append(x.What).Append('\n');
+            var es = data.Entrants.Where(x => x.Stratum == id).ToList();
+            if (es.Count > 0)
+                b.Append("<b>Entrants:</b> ").Append(string.Join("; ", es.Select(x => x.Name + " (" + x.Fate + (x.By != null && x.Fate != "independent" ? " → " + (data.Get(x.By)?.Name ?? x.By) : "") + ")"))).Append('\n');
+            var who = data.Actors.Where(a => a.StratumId == id && a.Sized).OrderByDescending(a => a.SizeUsdBn).Select(a => a.Name).ToList();
+            var visitors = data.Actors.Where(a => a.StratumId != id && a.Presence.Any(p => p.Stratum == id)).Select(a => a.Name).ToList();
+            if (who.Count > 0) b.Append("<b>Here:</b> ").Append(string.Join(", ", who)).Append('\n');
+            if (visitors.Count > 0) b.Append("<b>Also working here</b> (their columns): ").Append(string.Join(", ", visitors)).Append('\n');
         }
 
         /// <summary>Who stands highest above, and lowest below, where they stood in 2026; and the fallen.</summary>
@@ -340,6 +446,9 @@ namespace Why.Economy.UI
                 b.Append('\n');
             }
 
+            if (!double.IsNaN(a.SegmentLoss) && a.SegmentLoss > 0)
+                b.Append("<b>Segment loss</b> ").Append(HillAdvantageLayer.Money(a.SegmentLoss)).Append(Per(a.SegmentLossPeriod))
+                 .Append(string.IsNullOrEmpty(a.SegmentLossWhat) ? "" : ". <color=#C9CED6>" + a.SegmentLossWhat + "</color>").Append('\n');
             if (!string.IsNullOrEmpty(a.Strategy)) b.Append("<i>Strategy (judged):</i> ").Append(a.Strategy).Append(double.IsNaN(a.Risk) ? "" : "; <i>risk</i> " + a.Risk.ToString("0.0") + " of 4").Append('\n');
             var owners = data.Stakes.Where(s => s.Company == a.Id).OrderByDescending(s => double.IsNaN(s.Pct) ? 0 : s.Pct).Take(6).ToList();
             if (owners.Count > 0)
@@ -347,6 +456,10 @@ namespace Why.Economy.UI
                     string.Join(", ", g.Select(s => Name(data, s.Owner) + (double.IsNaN(s.Pct) ? double.IsNaN(s.UsdBn) ? "" : " " + HillAdvantageLayer.Money(s.UsdBn) : " " + s.Pct.ToString("0.#") + "%"))) + Per(g.Key)))).Append('\n');
             var flows = data.Flows.Where(f => f.From == a.Id || f.To == a.Id).OrderByDescending(f => f.UsdBn).Take(5).ToList();
             if (flows.Count > 0) b.Append("<b>Rivers:</b> ").Append(string.Join("; ", flows.Select(f => River(data, a, f)))).Append('\n');
+            if (a.Presence.Count > 0)
+                b.Append("<b>Works in:</b> ").Append(string.Join("; ", a.Presence.Select(p => StratumShort(p.Stratum).ToLowerInvariant() + " (" +
+                    (p.Family.Length > 0 ? string.Join(", ", p.Family.Take(6)) : Words(p.What, 10)) + ")"))).Append('\n');
+            foreach (var m in data.Moats.Where(m => m.Actor == a.Id)) MoatReading(data, m, b, 8);
             if (!string.IsNullOrEmpty(a.Desire)) b.Append("<color=#EF5B98><b>Wants:</b></color> ").Append(a.Desire).Append('\n');
             if (!string.IsNullOrEmpty(a.Fear)) b.Append("<color=#79E4F0><b>Fears:</b></color> ").Append(a.Fear).Append('\n');
             return b.ToString();
@@ -406,7 +519,8 @@ namespace Why.Economy.UI
             double pe = st != null ? st.Pe : a.Pe;
             bool loss = st != null ? st.Ni < 0 : a.LossEvidence;
             Color eqColor = Organism.EquityHeat(equity), debtColor = Organism.DebtHeat(debt, equity), air = Organism.SpecHeat(pe, loss), other = new Color(.4f, .43f, .48f);
-            double width = System.Math.Max(cash + ppe + bought + stakes + rest, System.Math.Max(double.IsNaN(v) ? 0 : v, 1));
+            double owes = debt + leases + otherLiab + System.Math.Max(0, equity);
+            double width = System.Math.Max(System.Math.Max(cash + ppe + bought + stakes + rest, owes), System.Math.Max(double.IsNaN(v) ? 0 : v, 1));
             float w = Width - 24 - 64;
             Row(0, "owns", new[] { (cash, Organism.Cash), (ppe, Organism.Built), (bought, Organism.Bought), (stakes, Organism.Stakes), (rest, other) }, width, w);
             Row(1, "owes", new[] { (debt, debtColor), (leases, Organism.Leases), (otherLiab, new Color(.45f, .3f, .3f)), (System.Math.Max(0, equity), eqColor) }, width, w);
@@ -461,7 +575,7 @@ namespace Why.Economy.UI
             if (older.Count > 0)
             {
                 b.Append("\n<b>The older pattern</b>  <i>before the wave begins</i>\n");
-                foreach (var f in older) b.Append(f.Year < 0 ? -f.Year + " BC" : f.Year.ToString()).Append("  <b>").Append(f.Title).Append("</b>: ").Append(Words(f.Mechanism, 16)).Append(" <color=#C9CED6>").Append(Words(f.Outcome, 12)).Append("</color>\n");
+                foreach (var f in older) b.Append(f.Year <= -10000 ? "about " + (-f.Year / 1e6).ToString("0.#") + " million years ago" : f.Year < 0 ? -f.Year + " BC" : f.Year.ToString()).Append("  <b>").Append(f.Title).Append("</b>: ").Append(Words(f.Mechanism, 16)).Append(" <color=#C9CED6>").Append(Words(f.Outcome, 12)).Append("</color>\n");
             }
 
             return b.ToString();
@@ -491,6 +605,9 @@ namespace Why.Economy.UI
 
         static string Method(Advantage data) =>
             "As of " + data.AsOf + ". " + data.Method + " Judgments by " + (data.Judge ?? "Jev") + " (TypeSafe System One): a model's reading of the evidence, not facts. " +
+            "Strata, presence, advantage boundaries, barriers and entrants come from research round three (Docs/research/advantage: moats, entry, " +
+            "integration, materials), every number verified; each company stands in the stratum where most of its revenue is earned (Tools/advantage/build.py, " +
+            "HOME_STRATUM). The walls' heights (how much a source keeps rivals and entrants out) and the strata's entry readings are Jev's judgments (0-4), not facts. " +
             "Every 2026 number is a verified fact unless marked derived, est. or ≈: its quote was found on its source and Jev judged it to support the number " +
             "(Tools/advantage/verify.py); 2026 numbers were read on the as-of date, and each is shown with its period. Height and glow are Jev's judgments: " +
             "height is 55% judged advantage and 45% market value; the glow marks the three hardest choke points. " +

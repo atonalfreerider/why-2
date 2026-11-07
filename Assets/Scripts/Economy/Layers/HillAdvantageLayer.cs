@@ -44,9 +44,9 @@ namespace Why.Economy.Layers
 
         public override IEnumerable<string> RequiredTexts => new[] { Advantage.Path };
 
-        enum Part { Organs, Shells, Rings, Rivers, Threads, Landscape, Sparks, Thread, Outlines, Count }
+        enum Part { Organs, Shells, Rings, Rivers, Threads, Landscape, Sparks, Thread, Outlines, Columns, Walls, Count }
 
-        static readonly string[] PartNames = { "organs", "shells", "rings", "rivers", "threads", "landscape", "sparks", "thread", "outlines" };
+        static readonly string[] PartNames = { "organs", "shells", "rings", "rivers", "threads", "landscape", "sparks", "thread", "outlines", "columns", "walls" };
         static readonly int[] Keys = EconomyEmphasis.Keys("advantage", PartNames);
 
         public const float Seconds = 5f, ReverseSeconds = 1.8f;
@@ -130,8 +130,14 @@ namespace Why.Economy.Layers
         public static void Select(string id)
         {
             if (id == Selected) return;
+            string was = Selected;
             Selected = id;
-            if (current != null) current.dirty = true;
+            if (current == null) return;
+            current.dirty = true;
+            // its organism's frontiers bloom while it is selected: rebuild it and the one it replaces
+            foreach (var x in new[] { was, id })
+                if (current.net?.Get(x) is ContestNetwork.Body b && b.Kind == ContestNetwork.Kind.Company && !current.organismQueue.Contains(x))
+                    current.organismQueue.Enqueue(x);
         }
 
         public static void ShowHistory(bool history)
@@ -142,18 +148,21 @@ namespace Why.Economy.Layers
             if (current != null) current.dirty = true;
         }
 
+        static string Glyph(Color c) => "<color=#" + ColorUtility.ToHtmlStringRGB(c) + ">●</color>";
+
         public static HillPresets.ViewKey Key { get; } = new HillPresets.ViewKey(new (string, Color)[]
             {
-                ("Equity: small to large", Land.Organism.EquityHeat(10)), ("", Land.Organism.EquityHeat(2000)),
-                ("Debt: light to heavy", Land.Organism.DebtHeat(5, 100)), ("", Land.Organism.DebtHeat(500, 100)),
-                ("Speculation: P/E low to high", Land.Organism.SpecHeat(9, false)), ("", Land.Organism.SpecHeat(140, false)),
+                ("Equity: small to large " + Glyph(Land.Organism.EquityHeat(2000)), Land.Organism.EquityHeat(10)),
+                ("Debt: light to heavy " + Glyph(Land.Organism.DebtHeat(500, 100)), Land.Organism.DebtHeat(5, 100)),
+                ("Speculation: P/E low to high " + Glyph(Land.Organism.SpecHeat(140, false)), Land.Organism.SpecHeat(9, false)),
                 ("Cash", Land.Organism.Cash), ("Built", Land.Organism.Built), ("Bought", Land.Organism.Bought), ("Stakes", Land.Organism.Stakes), ("Leases", Land.Organism.Leases),
                 ("Owners", Gold), ("Advantage frontier (judged)", FrontierColor),
             },
             "Each company is one body made of its balance sheet, coloured as heat maps: its core by its equity (navy to white as it grows), what it owes below by its " +
             "leverage (red to yellow as it rises), and the dust of speculation out to its market value by its P/E (violet to pink as it inflates). " +
-            "Cash, what it built, what it bought, its stakes and its leases keep muted tones. It glows only where Jev judges its advantage presses on others " +
-            "(the hardest choke points). Height: Jev's judged advantage (55%) and market value (45%).");
+            "Cash, what it built, what it bought, its stakes and its leases keep muted tones. The supply chain stands in strata under the hill, consumer " +
+            "products on top, government the floor; a company's column runs through the strata it works in. A dominant company's boundary is a ring as wide " +
+            "as its share, walled by its sources of advantage, each as tall as Jev judges it keeps rivals and entrants out. Rose walls: talent and share price.");
 
         // ------------------------------------------------------------------ the layer
 
@@ -178,7 +187,11 @@ namespace Why.Economy.Layers
         {
             current = this;
             EconomyStage.Land().Place(transform);
-            EconomyEmphasis.RegisterView(View, PartNames.Select(p => "advantage." + p), null, new[] { "wave.crest", "wave.face", "wave.lives" }, synthesis: true);
+            // the stack under the hill is the subject; the people on the hill, the top 1% above it and the attention cloud stay
+            // (the user, 7 Nov 2026: "people still inhabit the hill and the cloud above the hill"); the hill's ground as context
+            EconomyEmphasis.RegisterView(View, PartNames.Select(p => "advantage." + p),
+                new[] { "activity.markers", "hills.crown", "hills.pool", "social.*" },
+                new[] { "wave.crest", "wave.face", "wave.lives", "wave.ribs", "wave.ridges", "land.road" }, synthesis: true);
             ViewVariants.Register(View, () => Worlds().Count, k => SetScenario(Worlds()[Mathf.Clamp(k, 0, Worlds().Count - 1)]), k => k >= 0 && k < Worlds().Count ? Worlds()[k] : k.ToString());
             if (SmokeRun) SmokeChecks.RegisterSequence(Sequence, Smoke());
         }
@@ -244,13 +257,14 @@ namespace Why.Economy.Layers
                 Rebuild(true);
             }
 
-            Apply();
             if (here && !settling && Turned())
             {
                 // the owners' circles and the bodies' outlines keep facing a camera that has orbited
                 Rings();
                 Outlines();
             }
+
+            Apply();
             if (here && direction == 0 && !settling && rig != null && rig.Cam != null) Pick(rig.Cam);
             ShowLabels(here && direction >= 0 && Reveal(clock) > .5f && !settling);
         }
@@ -358,56 +372,75 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ the framing
 
-        /// <summary>The view's camera angles (land-local yaw, pitch), kept by every framing.</summary>
-        public const float FrameYaw = 158, FramePitch = 12;
+        /// <summary>The view's camera angles (land-local yaw, pitch): from the future side, looking back at the crest and down
+        /// the stack under it.</summary>
+        public const float FrameYaw = 166, FramePitch = 12, StratumPitch = 34;
 
         /// <summary>The fitted pose: the target as an offset from the crest (land-local), and the distance; until the first fit,
-        /// the authored pose.</summary>
-        static Vector3 frameOffset = new Vector3(ContestNetwork.X0 - 95, 104, 205);
-        static float frameDistance = 600;
+        /// a pose on the crest's cut face and the stack's top.</summary>
+        static Vector3 frameOffset = new Vector3(ContestNetwork.StackX, -120, 40);
+        static float frameDistance = 900;
 
         public static Vector3 FrameTarget(float crestZ) => new Vector3(frameOffset.x, frameOffset.y, crestZ + frameOffset.z);
 
         public static float FrameDistance => frameDistance;
 
-        /// <summary>The screen left free for the population (normalized device coordinates, -1..1): clear of the title and the
-        /// key on the left, the panel on the right, the preset bar below.</summary>
+        /// <summary>The screen left free (normalized device coordinates, -1..1): clear of the title and the key on the left,
+        /// the panel on the right, the preset bar below.</summary>
         const float FreeLeft = -.94f, FreeRight = .48f, FreeBottom = -.62f, FreeTop = .76f;
 
-        /// <summary>Fits the view's pose to the population as it stands: keeps the yaw and pitch, and moves the target and the
-        /// distance until every living organism and golden circle falls inside the free screen. Done when the network is
-        /// built, so the camera stays put as worlds and years move the population.</summary>
-        void Frame()
+        /// <summary>What the camera shows: the whole stack under the hill (-1, the view's own pose), one stratum (0-8, with the
+        /// strata above it as ghosts), or the hill with its people, the cloud and the consumer stratum (Strata).</summary>
+        public static int Focus { get; private set; } = -1;
+
+        public static int Strata => ContestNetwork.StratumOrder.Length;
+
+        /// <summary>The hill at the crest (its tiers from raw materials up to tech, HillLandscape's profile), the attention cloud
+        /// above it and the top 1%: the people's places, kept in view by the default framing.</summary>
+        IEnumerable<(Vector3 c, float r)> HillSpheres()
         {
-            if (ScreenLayout.IsPortrait || Xr.XrSession.Active || net == null) return;
-            float aspect = Screen.height > 0 ? (float)Screen.width / Screen.height : 16f / 9, th = Mathf.Tan(CameraRig.FieldOfView * .5f * Mathf.Deg2Rad);
-            // what must stay in view: each living organism's membrane (its market value) and its body's own bounds (a dangling
-            // lobe is not a sphere), and each golden circle with its label
-            var spheres = new List<(Vector3 c, float r, string id)>();
+            float cz = net.CrestZ;
+            foreach (var (x, h) in new[] { (30f, 10f), (70f, 24f), (110f, 30f), (160f, 40f), (200f, 40f), (232f, 58f) })
+                yield return (new Vector3(x, h * .5f, cz - 6), Mathf.Max(18, h * .6f));
+            yield return (new Vector3(84.6f, 102, cz - 10), 34);
+            yield return (new Vector3(135.8f, 84, cz - 30), 22);
+        }
+
+        /// <summary>The bodies of strata lo..hi with their boundaries and walls, as spheres.</summary>
+        List<(Vector3 c, float r)> StratumSpheres(int lo, int hi)
+        {
+            var list = new List<(Vector3, float)>();
             foreach (var b in net.Bodies)
             {
-                if (b.Kind == ContestNetwork.Kind.Company && b.Alive)
+                if (b.Stratum < lo || b.Stratum > hi || !b.Alive) continue;
+                if (b.Kind == ContestNetwork.Kind.Company || b.Kind == ContestNetwork.Kind.Satellite || b.Kind == ContestNetwork.Kind.State)
                 {
-                    spheres.Add((b.Pos, b.R, b.Id));
-                    if (b.BodyR > 0)
-                        for (int corner = 0; corner < 8; corner++)
-                            spheres.Add((b.Pos + new Vector3((corner & 1) == 0 ? b.BodyMin.x : b.BodyMax.x, (corner & 2) == 0 ? b.BodyMin.y : b.BodyMax.y,
-                                (corner & 4) == 0 ? b.BodyMin.z : b.BodyMax.z) * .8f, 0, b.Id));
+                    list.Add((b.Pos, Mathf.Max(b.R, b.BodyR)));
+                    if (b.Territory > 0)
+                    {
+                        float top = 0;
+                        foreach (var m in model.Moats.Where(m => m.Actor == b.Id)) foreach (var x in m.Sources) top = Mathf.Max(top, WallHeight(x.Wall));
+                        Vector3 g = new Vector3(b.Pos.x, net.StratumY[b.Stratum], b.Pos.z);
+                        list.Add((g + Vector3.up * top * .5f, b.Territory));
+                    }
                 }
-                else if (b.Kind == ContestNetwork.Kind.Owner || b.Kind == ContestNetwork.Kind.Wealth) spheres.Add((b.Pos + Vector3.up * 3, b.R + 3, b.Id));
             }
 
-            if (spheres.Count == 0) return;
-            Quaternion rot = Quaternion.Euler(FramePitch, FrameYaw, 0);
-            Vector3 fwd = rot * Vector3.forward, right = rot * Vector3.right, up = rot * Vector3.up;
-            Vector3 target = new Vector3(ContestNetwork.X0 - 95, 104, net.CrestZ + 205);
-            float d = 600, minX = 0, maxX = 0, minY = 0, maxY = 0;
-            for (int it = 0; it < 40; it++)
+            return list;
+        }
+
+        /// <summary>The target and distance that put every sphere inside the free screen at a yaw and pitch (land-local).</summary>
+        (Vector3 target, float d) Fit(List<(Vector3 c, float r)> spheres, float yaw, float pitch, Vector3 start)
+        {
+            float aspect = Screen.height > 0 ? (float)Screen.width / Screen.height : 16f / 9, th = Mathf.Tan(CameraRig.FieldOfView * .5f * Mathf.Deg2Rad);
+            Quaternion rot = Quaternion.Euler(pitch, yaw, 0);
+            Vector3 fwd = rot * Vector3.forward, right = rot * Vector3.right, up = rot * Vector3.up, target = start;
+            float d = 600;
+            for (int it = 0; it < 40 && spheres.Count > 0; it++)
             {
                 Vector3 eye = target - fwd * d;
-                minX = minY = float.MaxValue;
-                maxX = maxY = float.MinValue;
-                foreach (var (c, r, _) in spheres)
+                float minX = float.MaxValue, minY = float.MaxValue, maxX = float.MinValue, maxY = float.MinValue;
+                foreach (var (c, r) in spheres)
                 {
                     Vector3 v = c - eye;
                     float z = Mathf.Max(1, Vector3.Dot(v, fwd)), x = Vector3.Dot(v, right), y = Vector3.Dot(v, up);
@@ -417,17 +450,27 @@ namespace Why.Economy.Layers
 
                 float scale = Mathf.Max((maxX - minX) / (FreeRight - FreeLeft), (maxY - minY) / (FreeTop - FreeBottom));
                 target += right * ((minX + maxX - FreeLeft - FreeRight) * .5f * d * th * aspect) + up * ((minY + maxY - FreeBottom - FreeTop) * .5f * d * th);
-                d = Mathf.Clamp(d * Mathf.Lerp(1, scale, .5f), 250, 1800);
+                d = Mathf.Clamp(d * Mathf.Lerp(1, scale, .5f), 120, 3000);
             }
 
+            return (target, d);
+        }
+
+        /// <summary>Fits the view's own pose (the default focus) when the network is built: the hill with its people and the
+        /// cloud, the owners above, and the stack's top four strata (consumer products down to chips). The camera stays put as
+        /// worlds and years move the population; the panel's strata buttons fly to the others.</summary>
+        void Frame()
+        {
+            if (ScreenLayout.IsPortrait || Xr.XrSession.Active || net == null) return;
+            var spheres = StratumSpheres(0, Strata - 1);
+            spheres.AddRange(HillSpheres());
+            foreach (var b in net.Bodies)
+                if ((b.Kind == ContestNetwork.Kind.Owner || b.Kind == ContestNetwork.Kind.Wealth) && b.Alive) spheres.Add((b.Pos + Vector3.up * 3, b.R + 3));
+            var (target, d) = Fit(spheres, FrameYaw, FramePitch, new Vector3(ContestNetwork.StackX, -120, net.CrestZ + 40));
             frameOffset = new Vector3(target.x, target.y, target.z - net.CrestZ);
             frameDistance = d;
-            // the nearest bodies loom: name the three that fill the most of the screen
-            Vector3 at = target - fwd * d;
-            string loom = string.Join(", ", spheres.Where(x => x.r > 0).OrderByDescending(x => x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd))).Take(3)
-                .Select(x => x.id + " " + (x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd)) / th * .5f * 100).ToString("0") + "% of the height"));
-            Debug.Log($"[Why] advantage framing: target {target.x:0},{target.y:0},crest+{target.z - net.CrestZ:0}, distance {d:0}; " +
-                      $"bounds x {minX:0.00}..{maxX:0.00}, y {minY:0.00}..{maxY:0.00}; largest on screen: {loom}");
+            Debug.Log($"[Why] advantage framing: target {target.x:0},{target.y:0},crest+{target.z - net.CrestZ:0}, distance {d:0}; strata at " +
+                      string.Join(", ", net.StratumY.Select(y => y.ToString("0"))));
             var preset = ViewPresets.Get(View);
             if (preset != null && preset.Id == View)
             {
@@ -435,7 +478,38 @@ namespace Why.Economy.Layers
                 preset.Distance = frameDistance;
             }
 
-            if (LandView.PresetId == View && direction == 0 && !History) Fly(ViewPresets.Get(View), instantMoves ? 0 : .8f);
+            if (LandView.PresetId == View && direction == 0 && !History && Focus < 0) Fly(ViewPresets.Get(View), instantMoves ? 0 : .8f);
+        }
+
+        /// <summary>Flies to one stratum (0-8: its plane, bodies, boundaries and walls from above, as close as fits), the whole
+        /// stack (Strata), or back to the view's own pose (-1).</summary>
+        public static void FocusOn(int focus)
+        {
+            Focus = focus;
+            if (current == null || current.net == null) return;
+            if (History) ShowHistory(false);
+            current.dirty = true;    // the cutaway and the close-up's labels
+            current.FlyFocus(instantMoves ? 0 : 1.4f);
+        }
+
+        void FlyFocus(float seconds)
+        {
+            if (Focus < 0) { Fly(ViewPresets.Get(View), seconds); return; }
+            bool hill = Focus >= Strata;
+            var spheres = hill ? StratumSpheres(0, 0) : StratumSpheres(Focus, Focus);
+            if (hill)
+            {
+                spheres.Clear();
+                spheres.AddRange(HillSpheres());
+                // the consumer stratum's nearest band: what people buy, right under the hill
+                foreach (var b in net.Bodies)
+                    if (b.Stratum == 0 && b.Alive && (b.Kind == ContestNetwork.Kind.Company || b.Kind == ContestNetwork.Kind.Satellite) && Mathf.Abs(b.Pos.x - 130) < 160)
+                        spheres.Add((b.Pos, b.R * .6f));
+            }
+
+            float pitch = hill ? FramePitch + 4 : StratumPitch;
+            var (target, d) = Fit(spheres, FrameYaw, pitch, new Vector3(ContestNetwork.StackX, hill ? 0 : net.StratumY[Focus], net.StackZ));
+            Fly(HillPresets.AdvantagePose(EconomyStage.Land().World(target), pitch, d), seconds);
         }
 
         static void Fly(ViewPreset preset, float seconds)
@@ -457,6 +531,7 @@ namespace Why.Economy.Layers
                 if (part != Part.Organs && part != Part.Shells && part != Part.Landscape) a *= reveal;
                 if (part == Part.Landscape) a *= rise;
                 if (part != Part.Thread) a *= present;
+                else if (!History) a = 0;    // the lineage lane belongs to the history camera
                 EconomyEmphasis.Set(r, a);
             }
 
@@ -547,6 +622,12 @@ namespace Why.Economy.Layers
             PlaceOrganisms();
             Rings();
             Outlines();
+            // the heavy, slow-changing parts follow the landscape's cadence while the population settles
+            if (landscape || !settling || !partRenderer[(int)Part.Walls])
+            {
+                Columns();
+                Walls();
+            }
             Rivers();
             Threads();
             Sparks();
@@ -858,17 +939,18 @@ namespace Why.Economy.Layers
             Vector3 eye = Eye();
             foreach (var body in net.Bodies)
             {
-                if (body.Kind != ContestNetwork.Kind.Company || !body.Alive || !outlineShapes.TryGetValue(body.Id, out var shape)) continue;
+                if (body.Kind != ContestNetwork.Kind.Company || !body.Alive || !outlineShapes.TryGetValue(body.Id, out var shape) || Above(body.Id)) continue;
                 float lit = Lit(body.Id);
                 Vector3 v = eye - body.Pos;
                 v = v.sqrMagnitude > 1e-3f ? v.normalized : Vector3.forward;
                 Vector3 u = Vector3.Cross(v, Mathf.Abs(v.y) > .95f ? Vector3.right : Vector3.up).normalized, w = Vector3.Cross(v, u);
                 // about five surface points to a bin, so each bin's reach comes from a point near the rim
-                int bins = Mathf.Clamp(shape.Points.Length / 5, 24, OutlineBins);
+                int bins = Mathf.Clamp(shape.Points.Length / 5 / Mathf.Max(1, shape.Points.Length / 700), 24, OutlineBins);
                 Array.Clear(outlineR, 0, OutlineBins);
                 Array.Clear(outlineF, 0, OutlineBins);
                 Color mean = Color.black;
-                for (int i = 0; i < shape.Points.Length; i++)
+                int stride = Mathf.Max(1, shape.Points.Length / 700);    // the silhouette from at most ~700 points
+                for (int i = 0; i < shape.Points.Length; i += stride)
                 {
                     Vector3 p = shape.Points[i];
                     float a = Vector3.Dot(p, u), c = Vector3.Dot(p, w), r = Mathf.Sqrt(a * a + c * c);
@@ -878,7 +960,7 @@ namespace Why.Economy.Layers
                     mean += shape.Colors[i];
                 }
 
-                mean /= Mathf.Max(1, shape.Points.Length);
+                mean /= Mathf.Max(1, (shape.Points.Length + stride - 1) / stride);
                 // bins no point fell in take their neighbours' reach; then a light smoothing that never cuts inside a point
                 for (int pass = 0; pass < 3; pass++)
                     for (int k = 0; k < bins; k++)
@@ -911,8 +993,8 @@ namespace Why.Economy.Layers
                     for (int i = 0; i < n; i++)
                     {
                         float ang = i * 2 * Mathf.PI / n;
-                        Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * body.R;
-                        b.AddSegment(p, p + v * .05f, pc, 2.8f, 0, id, .95f);
+                        Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * body.R, t = -u * Mathf.Sin(ang) + w * Mathf.Cos(ang);
+                        b.AddSegment(p - t * DotLength * .5f, p + t * DotLength * .5f, pc, 2.8f, 0, id, .95f);
                     }
 
                     if (body.EarningsR > shape.MeanRadius + .5f && body.EarningsR < body.R - .5f)
@@ -921,8 +1003,8 @@ namespace Why.Economy.Layers
                         for (int i = 0; i < m; i++)
                         {
                             float ang = (i + .5f) * 2 * Mathf.PI / m;
-                            Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * body.EarningsR;
-                            b.AddSegment(p, p + v * .05f, WithAlpha(new Color(.80f, .84f, .92f), .45f * lit), 1.4f, 0, id, .9f);
+                            Vector3 p = body.Pos + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * body.EarningsR, t = -u * Mathf.Sin(ang) + w * Mathf.Cos(ang);
+                            b.AddSegment(p - t * DotLength * .5f, p + t * DotLength * .5f, WithAlpha(new Color(.80f, .84f, .92f), .45f * lit), 1.4f, 0, id, .9f);
                         }
                     }
                 }
@@ -969,7 +1051,31 @@ namespace Why.Economy.Layers
             return Color.Lerp(PeHigh, PeBubble, Mathf.Clamp01(((float)pe - 35) / 65f));
         }
 
-        float Lit(string id) => Selected == null || id == Selected || Linked(id) ? 1 : .35f;
+        float Lit(string id) => (Selected == null || id == Selected || Linked(id) ? 1 : .35f) * (Above(id) ? 0 : Below(id) ? .28f : 1);
+
+        /// <summary>Whether a body stands below the focused stratum: kept as faded context in a close-up.</summary>
+        bool Below(string id)
+        {
+            if (Focus < 0 || Focus >= Strata || net == null) return false;
+            var b = net.Get(id);
+            return b != null && (b.Kind == ContestNetwork.Kind.Company || b.Kind == ContestNetwork.Kind.Satellite || b.Kind == ContestNetwork.Kind.State) && b.Stratum > Focus;
+        }
+
+        /// <summary>Whether a stratum other than the focused one is shown only as context (its walls and names left out).</summary>
+        bool OffFocus(int stratum) => Focus >= 0 && Focus < Strata && stratum != Focus;
+
+        /// <summary>Whether a body stands above the focused stratum (the cutaway: the strata above a focused one are ghosts,
+        /// so the camera looks down onto its territories unobstructed).</summary>
+        bool Above(string id)
+        {
+            if (Focus < 0 || Focus >= Strata || net == null) return false;
+            var b = net.Get(id);
+            if (b == null) return false;
+            int st = b.Kind == ContestNetwork.Kind.Company || b.Kind == ContestNetwork.Kind.Satellite || b.Kind == ContestNetwork.Kind.State ? b.Stratum : -1;
+            return st < Focus;
+        }
+
+        bool AboveStratum(int stratum) => Focus >= 0 && Focus < Strata && stratum < Focus;
 
         bool Linked(string id)
         {
@@ -981,6 +1087,8 @@ namespace Why.Economy.Layers
 
         /// <summary>The ownership class and the ruler: the owners' golden circles (muted gold, the wealth groups' brighter), each
         /// company's cap table as gold arcs around it, and the altitude ruler from the low ground to the high.</summary>
+        int wallTick;
+
         Vector3 ringsEye;
         float ringsClock;
 
@@ -1013,18 +1121,6 @@ namespace Why.Economy.Layers
                 {
                     if (!body.Alive) continue;
                     CapTable(b, id, body, lit);
-                    // a faint stem from the body down to the landscape under it: altitude reads against the ground, not depth
-                    float ground = net.Height(body.Pos.x, body.Pos.z), bottom = body.Pos.y - Edge(body);
-                    if (bottom > ground + 1) b.AddSegment(new Vector3(body.Pos.x, bottom, body.Pos.z), new Vector3(body.Pos.x, ground, body.Pos.z), WithAlpha(Ruler, .14f * lit), 1f, 0, id, .9f);
-                    // in a simulated year, how far it rose or fell from its 2026 ground: green up, red down, a tick at 2026
-                    float moved = body.TargetY - body.Y2026;
-                    if (Year > 2026 && Mathf.Abs(moved) > 4)
-                    {
-                        Color mc = WithAlpha(moved > 0 ? Rose : Fell, .75f * lit);
-                        Vector3 at = new Vector3(body.Pos.x, body.Y2026, body.Pos.z), now = new Vector3(body.Pos.x, body.Pos.y + (moved > 0 ? -Edge(body) : Edge(body)), body.Pos.z);
-                        if ((now.y - at.y) * moved > 0) b.AddSegment(at, now, mc, 2.2f, 0, id, .95f);
-                        Circle(b, id, at, Mathf.Max(2.5f, Edge(body) * .6f), Vector3.up, mc, 1.6f, .95f, true);
-                    }
                 }
                 else if (body.Kind == ContestNetwork.Kind.Owner || body.Kind == ContestNetwork.Kind.Wealth)
                 {
@@ -1037,18 +1133,6 @@ namespace Why.Economy.Layers
                 }
             }
 
-            // the low ground: a dotted hairline where workers and consumers stand, and the state's beneath it
-            float gx0 = net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x - x.R).DefaultIfEmpty(ContestNetwork.X0 - 200).Min() - 10;
-            float gx1 = net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x + x.R).DefaultIfEmpty(ContestNetwork.X0 + 200).Max() + 10;
-            float gz = net.CrestZ + (ContestNetwork.ZFrom + ContestNetwork.ZTo) * .5f;
-            foreach (var (y, a) in new[] { (0f, .22f), (ContestNetwork.StateY, .16f) })
-                for (float x = gx0; x <= gx1; x += 3) b.AddSegment(new Vector3(x, y, gz), new Vector3(x + .05f, y, gz), WithAlpha(Ruler, a), 1.2f, 0, id, 1);
-
-            // the altitude ruler: low ground to high ground, at the near left of the population
-            float rx = RulerX(), rz = net.CrestZ + ContestNetwork.ZTo - 20;
-            b.AddSegment(new Vector3(rx, 0, rz), new Vector3(rx, ContestNetwork.MaxAlt, rz), WithAlpha(Ruler, .4f), 1.2f, 0, id, 1);
-            for (int y = 0; y <= ContestNetwork.MaxAlt; y += 25)
-                b.AddSegment(new Vector3(rx - 2.5f, y, rz), new Vector3(rx + 2.5f, y, rz), WithAlpha(Ruler, .5f), 1.2f, 0, id, 1);
             partRenderer[(int)Part.Rings] = Lines(b, Part.Rings, arena, 3188, true);
         }
 
@@ -1075,8 +1159,8 @@ namespace Why.Economy.Layers
                 for (int i = 0; i < n; i++)
                 {
                     float a = (i + k * .5f) * Mathf.PI * 2 / n;
-                    Vector3 p = at + (u * Mathf.Cos(a) + w * Mathf.Sin(a)) * r;
-                    b.AddSegment(p, p + normal * .05f, c, 1.6f, 0, id, .92f);
+                    Vector3 p = at + (u * Mathf.Cos(a) + w * Mathf.Sin(a)) * r, t = -u * Mathf.Sin(a) + w * Mathf.Cos(a);
+                    b.AddSegment(p - t * DotLength * .5f, p + t * DotLength * .5f, c, 1.8f, 0, id, .92f);
                 }
             }
         }
@@ -1087,8 +1171,8 @@ namespace Why.Economy.Layers
             for (int i = 0; i < n; i++)
             {
                 float a = i * Mathf.PI * 2 / n;
-                Vector3 p = at + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * radius;
-                b.AddSegment(p, p + Vector3.up * .05f, c, widthPx, 0, id, intensity);
+                Vector3 p = at + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * radius, t = new Vector3(-Mathf.Sin(a), 0, Mathf.Cos(a));
+                b.AddSegment(p - t * DotLength * .5f, p + t * DotLength * .5f, c, widthPx, 0, id, intensity);
             }
         }
 
@@ -1159,7 +1243,7 @@ namespace Why.Economy.Layers
             Drop(Part.Rivers);
             var b = new LineMeshBuilder();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Rivers]);
-            var flows = net.Links.Where(l => l.Kind == "flow" && l.A.Alive && l.B.Alive).OrderByDescending(l => l.UsdBn).ToList();
+            var flows = net.Links.Where(l => l.Kind == "flow" && l.A.Alive && l.B.Alive && (l.Flow == null || l.Flow.Start <= Year)).OrderByDescending(l => l.UsdBn).ToList();
             // by default, the story, hop by hop down the chain the user named: the labs' compute into the builders, the builders'
             // capex into the chips, the chips into the fabs, the fabs into the tools; capital into the labs; and the payouts that
             // rise to the owners. At least two rivers a hop, largest first; every other river waits for a selection.
@@ -1171,7 +1255,10 @@ namespace Why.Economy.Layers
                 var l = flows[i];
                 bool lit = Selected == null ? story.Contains(l) : l.A.Id == Selected || l.B.Id == Selected;
                 if (!lit) continue;
-                float alpha = .85f;
+                if (Focus >= 0 && Focus < Strata && l.A.Stratum != Focus && l.B.Stratum != Focus) continue;
+                if (Above(l.A.Id) && Above(l.B.Id)) continue;
+                float closeUp = Focus >= 0 && Focus < Strata ? .4f : 1;
+                float alpha = .85f * closeUp;
                 double usd = l.Flow != null ? l.Flow.In(Scenario) : l.UsdBn;
                 River(b, id, l, usd, alpha, i);
             }
@@ -1195,6 +1282,13 @@ namespace Why.Economy.Layers
             float width = Mathf.Clamp(.3f * Mathf.Sqrt((float)Math.Max(0, usd)), .4f, l.A.Kind == ContestNetwork.Kind.Buyer ? 3f : 7f);
             string kind = l.Flow?.Kind ?? "";
             bool capital = kind == "investment" || kind == "financing" || kind == "equity";
+            bool owner = l.A.Kind == ContestNetwork.Kind.Owner || l.A.Kind == ContestNetwork.Kind.Wealth || l.B.Kind == ContestNetwork.Kind.Owner || l.B.Kind == ContestNetwork.Kind.Wealth;
+            if (owner)
+            {
+                // the payouts that rise to the owners and the rounds that come down from them: thin, muted gold
+                Lane(b, id, p0, p1, p2, side, 0, Mathf.Min(width, 1.4f), Color.Lerp(CapitalFlow, Gold, .3f), alpha * (Focus >= 0 ? .18f : .4f));
+                return;
+            }
             double fear = l.Flow != null ? l.Flow.Fear : double.NaN;
             if (capital || double.IsNaN(fear))
             {
@@ -1241,7 +1335,8 @@ namespace Why.Economy.Layers
             {
                 if (l.Kind != "owns" && l.Kind != "stake") continue;
                 bool lit = Selected == null ? shown.Contains(l) || l.Kind == "stake" : l.A.Id == Selected || l.B.Id == Selected;
-                if (!lit) continue;
+                if (!lit || Selected == null && Focus >= 0) continue;
+                if (Above(l.B.Id) || l.A.Kind == ContestNetwork.Kind.Company && Above(l.A.Id)) continue;
                 double usd = Usd(l);
                 float width = Mathf.Max(.15f, .035f * Mathf.Sqrt((float)Math.Max(0, usd)));
                 Vector3 from = l.B.Pos + Vector3.up * Edge(l.B), to = l.A.Kind == ContestNetwork.Kind.Company ? l.A.Pos + Vector3.down * Edge(l.A) * .2f : l.A.Pos;
@@ -1270,20 +1365,271 @@ namespace Why.Economy.Layers
 
         /// <summary>The fitness landscape: contours of the height field under the population every 10 units, faint, every
         /// fiftieth a little brighter.</summary>
+        // ------------------------------------------------------------------ the strata
+
+        /// <summary>A stratum's extent on its plane: its bodies and their advantage boundaries, with a margin (land-local x, z).</summary>
+        Rect StratumRect(int i)
+        {
+            float x0 = float.MaxValue, x1 = float.MinValue, z0 = float.MaxValue, z1 = float.MinValue;
+            foreach (var b in net.Bodies)
+            {
+                if (b.Stratum != i || (!b.InStratum && b.Kind != ContestNetwork.Kind.State) || !b.Alive) continue;
+                float r = Mathf.Max(b.R, b.Territory) + 10;
+                x0 = Mathf.Min(x0, b.Pos.x - r); x1 = Mathf.Max(x1, b.Pos.x + r);
+                z0 = Mathf.Min(z0, b.Pos.z - r); z1 = Mathf.Max(z1, b.Pos.z + r);
+            }
+
+            if (x0 > x1) return new Rect(ContestNetwork.StackX - 60, net.StackZ - 40, 120, 80);
+            return Rect.MinMaxRect(x0, z0, x1, z1);
+        }
+
+        /// <summary>A stratum's tint: warm at the consumer's end, cool toward government (muted, under the bloom).</summary>
+        static Color StratumColor(int i) => Color.Lerp(new Color(.95f, .78f, .55f), new Color(.55f, .70f, .95f), i / (float)(ContestNetwork.StratumOrder.Length - 1));
+
+        /// <summary>The strata: each a plane at its height, drawn as a dotted rim around what stands in it and a sparse lattice
+        /// of points across it, so the supply chain reads as layers (consumer products on top, government the floor).</summary>
         void Landscape()
         {
             Drop(Part.Landscape);
-            var b = new LineMeshBuilder();
+            var b = new LineMeshBuilder(16384);
             float id = EconomyEmphasis.Id(Keys[(int)Part.Landscape]);
-            foreach (var (p, q, level) in net.Contours(8, 10))
+            for (int i = 0; i < ContestNetwork.StratumOrder.Length; i++)
             {
-                if (level < 20) continue;
-                bool major = Mathf.Abs(level % 50) < .01f;
-                Color c = WithAlpha(Color.Lerp(Contour, GoldBright, level / ContestNetwork.MaxAlt * .5f), major ? .2f : .08f);
-                b.AddSegment(p, q, c, major ? 1.3f : 1f, 0, id, 1);
+                if (AboveStratum(i)) continue;
+                Rect r = StratumRect(i);
+                float y = net.StratumY[i];
+                Color c = StratumColor(i);
+                // the rim: dots every 3 units around a rounded rectangle
+                float rad = Mathf.Min(18, Mathf.Min(r.width, r.height) * .3f);
+                var rim = RoundedRect(r, rad, 3f);
+                foreach (var q in rim) b.AddSegment(new Vector3(q.x, y, q.y), new Vector3(q.x, y + DotLength, q.y), WithAlpha(c, .42f), 1.8f, 0, id, .95f);
+                // the lattice: one faint point every 12 units
+                for (float x = r.xMin + 6; x < r.xMax - 4; x += 12)
+                    for (float z = r.yMin + 6; z < r.yMax - 4; z += 12)
+                        b.AddSegment(new Vector3(x, y, z), new Vector3(x, y + DotLength, z), WithAlpha(c, .12f), 1.4f, 0, id, .9f);
             }
 
-            partRenderer[(int)Part.Landscape] = Lines(b, Part.Landscape, arena, 3181, true);
+            partRenderer[(int)Part.Landscape] = Lines(b, Part.Landscape, arena, 3181, false);
+        }
+
+        /// <summary>Points along a rounded rectangle (x, z in a Rect's x and y), one every <paramref name="step"/> units.</summary>
+        static List<Vector2> RoundedRect(Rect r, float rad, float step)
+        {
+            var pts = new List<Vector2>();
+            void Line(Vector2 a, Vector2 c)
+            {
+                float len = Vector2.Distance(a, c);
+                for (float t = 0; t < len; t += step) pts.Add(Vector2.Lerp(a, c, t / len));
+            }
+
+            void Arc(Vector2 centre, float a0)
+            {
+                int n = Mathf.Max(2, Mathf.CeilToInt(rad * Mathf.PI / 2 / step));
+                for (int k = 0; k < n; k++)
+                {
+                    float a = a0 + k * Mathf.PI / 2 / n;
+                    pts.Add(centre + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rad);
+                }
+            }
+
+            Line(new Vector2(r.xMin + rad, r.yMin), new Vector2(r.xMax - rad, r.yMin));
+            Arc(new Vector2(r.xMax - rad, r.yMin + rad), -Mathf.PI / 2);
+            Line(new Vector2(r.xMax, r.yMin + rad), new Vector2(r.xMax, r.yMax - rad));
+            Arc(new Vector2(r.xMax - rad, r.yMax - rad), 0);
+            Line(new Vector2(r.xMax - rad, r.yMax), new Vector2(r.xMin + rad, r.yMax));
+            Arc(new Vector2(r.xMin + rad, r.yMax - rad), Mathf.PI / 2);
+            Line(new Vector2(r.xMin, r.yMax - rad), new Vector2(r.xMin, r.yMin + rad));
+            Arc(new Vector2(r.xMin + rad, r.yMin + rad), Mathf.PI);
+            return pts;
+        }
+
+        /// <summary>Vertical integration: each company's column through the strata it works in, a dotted vein from its body to
+        /// its farthest presence, and at each presence a small cloud in the company's colour (horizontal integration, its
+        /// family of products there, is named in its label and the panel).</summary>
+        void Columns()
+        {
+            Drop(Part.Columns);
+            var b = new LineMeshBuilder(16384);
+            float id = EconomyEmphasis.Id(Keys[(int)Part.Columns]);
+            var (gd, _) = Land.Organism.Geodesic(2);
+            foreach (var host in net.Bodies)
+            {
+                if (host.Kind != ContestNetwork.Kind.Company || !host.Alive) continue;
+                var sats = net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Satellite && x.Host == host).ToList();
+                if (sats.Count == 0) continue;
+                float lit = Lit(host.Id);
+                Color c = ColumnColor(host);
+                float lo = Mathf.Min(host.Pos.y, sats.Min(x => x.Pos.y)), hi = Mathf.Max(host.Pos.y, sats.Max(x => x.Pos.y));
+                for (float y = lo; y < hi; y += 2.6f)
+                {
+                    if (Mathf.Abs(y - host.Pos.y) < Edge(host)) continue;
+                    if (Focus >= 0 && Focus < Strata && y > net.StratumY[Focus] + 60) continue;    // the cutaway
+                    if (sats.Any(x => Mathf.Abs(y - x.Pos.y) < x.R)) continue;
+                    b.AddSegment(new Vector3(host.Pos.x, y, host.Pos.z), new Vector3(host.Pos.x, y + 1.1f, host.Pos.z), WithAlpha(c, .55f * lit), 2f, 0, id, .93f);
+                }
+
+                foreach (var sat in sats.Where(x => !AboveStratum(x.Stratum)))
+                    foreach (var d in gd)
+                    {
+                        Vector3 p = sat.Pos + d * sat.R;
+                        b.AddSegment(p, p + Vector3.up * DotLength, WithAlpha(c, .75f * lit), 2.6f, 0, id, .93f);
+                    }
+            }
+
+            partRenderer[(int)Part.Columns] = Lines(b, Part.Columns, arena, 3182, false);
+        }
+
+        /// <summary>A company's column colour: its equity's heat, as its core is drawn.</summary>
+        static Color ColumnColor(ContestNetwork.Body host) =>
+            Color.Lerp(Land.Organism.EquityHeat(host.State != null && !double.IsNaN(host.State.Eq) ? host.State.Eq : host.Actor.Sheet.Equity), Color.white, .15f);
+
+        // ------------------------------------------------------------------ advantage boundaries
+
+        public static readonly string[] SourceOrder = { "technology", "supplyChain", "patents", "capital", "talent", "scale", "distribution", "regulation" };
+
+        public static string SourceName(string source) => source switch
+        {
+            "technology" => "Technology", "supplyChain" => "Supply", "patents" => "Patents", "capital" => "Share price and cash",
+            "talent" => "Talent", "scale" => "Scale", "distribution" => "Distribution", "regulation" => "Regulation", _ => source,
+        };
+
+        public static Color SourceColor(string source) => source switch
+        {
+            "technology" => new Color(.40f, .85f, 1f), "supplyChain" => new Color(1f, .68f, .28f), "patents" => new Color(.74f, .56f, 1f),
+            "capital" => new Color(1f, .86f, .40f), "talent" => new Color(1f, .48f, .64f), "scale" => new Color(.62f, .72f, .88f),
+            "distribution" => new Color(.48f, .95f, .60f), "regulation" => new Color(.92f, .92f, .92f), _ => Color.white,
+        };
+
+        /// <summary>The height of a wall: as tall as Jev judged that source keeps rivals and entrants out (0-4).</summary>
+        static float WallHeight(double wall) => 4 + 9 * (float)(double.IsNaN(wall) ? 1 : wall);
+
+        /// <summary>The arc of a moat's circle that each source of its advantage holds: the sources in order around the
+        /// territory, each an equal share of the circle.</summary>
+        static (float a0, float a1) SourceArc(int k, int n) => (k * 2 * Mathf.PI / n + .06f, (k + 1) * 2 * Mathf.PI / n - .06f);
+
+        /// <summary>The advantage boundaries (the user, 7 Nov 2026: "I need to see competitive advantage boundaries"): each
+        /// dominant company's territory on its stratum, a ring as wide as its shell and its share of the market, fenced by a
+        /// wall made of its sources of advantage, one arc each, each arc as tall as Jev judged that source keeps rivals and
+        /// new entrants out, in the source's colour. Rivals stand outside (the layout keeps them there). And where talent and
+        /// the share price are most of what keeps entrants out (Jev), a rose wall around the stratum's incumbents, with the
+        /// entrants outside it and a dotted line from each one taken to whoever took it.</summary>
+        void Walls()
+        {
+            Drop(Part.Walls);
+            var b = new LineMeshBuilder(16384);
+            float id = EconomyEmphasis.Id(Keys[(int)Part.Walls]);
+            foreach (var moat in model.Moats)
+            {
+                var body = Holder(moat);
+                if (body == null || !body.Alive || body.Territory <= 0 || OffFocus(body.Stratum)) continue;
+                float lit = Lit(body.Id), ground = net.StratumY[Mathf.Max(0, body.Stratum)];
+                // the territory: a dotted ring on the stratum's plane
+                int n = Mathf.Clamp(Mathf.RoundToInt(body.Territory * 2.2f), 40, 220);
+                for (int i = 0; i < n; i++)
+                {
+                    float a = i * 2 * Mathf.PI / n;
+                    Vector3 p = new Vector3(body.Pos.x + Mathf.Cos(a) * body.Territory, ground, body.Pos.z + Mathf.Sin(a) * body.Territory),
+                        t = new Vector3(-Mathf.Sin(a), 0, Mathf.Cos(a));
+                    b.AddSegment(p - t * DotLength * .5f, p + t * DotLength * .5f, WithAlpha(GoldBright, .65f * lit), 2f, 0, id, .95f);
+                }
+
+                // the wall: one arc per source, posts as tall as the judged wall, a rail along their tops
+                var srcs = moat.Sources.OrderBy(x => Array.IndexOf(SourceOrder, x.Source)).ToList();
+                for (int k = 0; k < srcs.Count; k++)
+                {
+                    var (a0, a1) = SourceArc(k, srcs.Count);
+                    float h = WallHeight(srcs[k].Wall);
+                    Color c = WithAlpha(SourceColor(srcs[k].Source), .7f * lit);
+                    int posts = Mathf.Max(3, Mathf.RoundToInt((a1 - a0) * body.Territory / 3.2f));
+                    Vector3 prevTop = Vector3.zero;
+                    for (int i = 0; i <= posts; i++)
+                    {
+                        float a = Mathf.Lerp(a0, a1, i / (float)posts);
+                        Vector3 foot = new Vector3(body.Pos.x + Mathf.Cos(a) * body.Territory, ground, body.Pos.z + Mathf.Sin(a) * body.Territory), top = foot + Vector3.up * h;
+                        for (float t = 0; t < h; t += 1.6f) b.AddSegment(foot + Vector3.up * t, foot + Vector3.up * (t + .7f), WithAlpha(c, c.a * .55f), 1.3f, 0, id, .92f);
+                        if (i > 0) b.AddSegment(prevTop, top, c, 2.2f, 0, id, .95f);
+                        prevTop = top;
+                    }
+                }
+            }
+
+            foreach (var st in model.Strata)
+            {
+                if (double.IsNaN(st.TalentCapital) || st.TalentCapital < 1.5 || OffFocus(st.Index)) continue;
+                var ring = EntryRing(st);
+                if (ring.r <= 0) continue;
+                float h = WallHeight(st.Hard) * 1.4f;
+                Color c = WithAlpha(SourceColor("talent"), .6f);
+                int n = Mathf.Clamp(Mathf.RoundToInt(ring.r * 1.6f), 60, 260);
+                Vector3 prevTop = Vector3.zero;
+                for (int i = 0; i <= n; i++)
+                {
+                    float a = i * 2 * Mathf.PI / n;
+                    Vector3 foot = new Vector3(ring.c.x + Mathf.Cos(a) * ring.r, ring.c.y, ring.c.z + Mathf.Sin(a) * ring.r), top = foot + Vector3.up * h;
+                    if (i % 2 == 0)
+                        for (float t = 0; t < h; t += 2.2f) b.AddSegment(foot + Vector3.up * t, foot + Vector3.up * (t + .8f), WithAlpha(c, .32f), 1.2f, 0, id, .9f);
+                    if (i > 0) b.AddSegment(prevTop, top, c, 2.4f, 0, id, .95f);
+                    prevTop = top;
+                }
+
+                // the entrants, outside the wall: taken ones joined to whoever took them
+                foreach (var (e, at) in EntrantPlaces(st, ring))
+                {
+                    Color ec = e.Fate == "independent" || e.Fate == "public" ? new Color(.85f, .92f, 1f) : e.Fate == "failed" ? new Color(.6f, .6f, .62f) : SourceColor("talent");
+                    foreach (var d in Land.Organism.Geodesic(1).dirs)
+                        b.AddSegment(at + d * 2.6f, at + d * 2.6f + Vector3.up * DotLength, WithAlpha(ec, .85f), 2.4f, 0, id, .95f);
+                    var by = e.By != null ? net.Get(e.By) : null;
+                    if (by != null && by.Alive && e.Fate != "independent" && e.Fate != "public")
+                    {
+                        Vector3 to = by.Pos, dir = (to - at).normalized;
+                        float len = Vector3.Distance(at, to) - Edge(by);
+                        for (float t = 3; t < len; t += 3f) b.AddSegment(at + dir * t, at + dir * (t + 1.4f), WithAlpha(ec, .5f), 1.4f, 0, id, .92f);
+                    }
+                }
+            }
+
+            partRenderer[(int)Part.Walls] = Lines(b, Part.Walls, arena, 3187, false);
+        }
+
+        /// <summary>Who holds a boundary in its stratum: the actor's own body there, or its satellite (its column's presence).</summary>
+        ContestNetwork.Body Holder(Advantage.Moat moat)
+        {
+            var body = net.Get(moat.Actor);
+            if (body == null) return null;
+            int si = Array.IndexOf(ContestNetwork.StratumOrder, moat.Stratum);
+            return body.Stratum == si ? body : net.Get(moat.Actor + "@" + moat.Stratum);
+        }
+
+        /// <summary>The ring of a stratum's incumbents (the companies whose advantage boundaries stand there, and the giants
+        /// working there): its centre on the stratum's plane and its radius around them all.</summary>
+        (Vector3 c, float r) EntryRing(Advantage.Stratum st)
+        {
+            int si = Array.IndexOf(ContestNetwork.StratumOrder, st.Id);
+            if (si < 0) return (Vector3.zero, 0);
+            var inside = net.Bodies.Where(x => x.Stratum == si && x.InStratum && x.Alive &&
+                                               (x.Territory > 0 || x.Kind == ContestNetwork.Kind.Satellite || x.R >= 22)).ToList();
+            if (inside.Count == 0) return (Vector3.zero, 0);
+            Vector3 c = Vector3.zero;
+            foreach (var x in inside) c += x.Pos;
+            c /= inside.Count;
+            c.y = net.StratumY[si];
+            float r = 0;
+            foreach (var x in inside) r = Mathf.Max(r, new Vector2(x.Pos.x - c.x, x.Pos.z - c.z).magnitude + Mathf.Max(x.R, x.Territory));
+            return (c, r + 8);
+        }
+
+        /// <summary>Where each of a stratum's entrants stands: just outside its incumbents' wall, spread around it.</summary>
+        List<(Advantage.Entrant e, Vector3 at)> EntrantPlaces(Advantage.Stratum st, (Vector3 c, float r) ring)
+        {
+            var list = new List<(Advantage.Entrant, Vector3)>();
+            var es = model.Entrants.Where(e => e.Stratum == st.Id && net.Get(e.Id) == null).ToList();
+            for (int k = 0; k < es.Count; k++)
+            {
+                float a = (k + .5f) * 2 * Mathf.PI / Mathf.Max(1, es.Count) + .3f;
+                list.Add((es[k], ring.c + new Vector3(Mathf.Cos(a), 0, Mathf.Sin(a)) * (ring.r + 12)));
+            }
+
+            return list;
         }
 
         /// <summary>The present contests: a burst on the holder's face toward its living rival, coloured by the strongest of the
@@ -1508,7 +1854,7 @@ namespace Why.Economy.Layers
                 switch (body.Kind)
                 {
                     case ContestNetwork.Kind.Company:
-                        if (!named.Contains(body.Id) || History) continue;
+                        if (!named.Contains(body.Id) && Focus != body.Stratum || History || Above(body.Id) || Below(body.Id)) continue;
                         // a simulated year's numbers carry ≈: they are the model's, not measured
                         string sim = body.State != null ? "≈" : "";
                         string held = simulated && model.NotSimulated.Contains(body.Id) ? " (2026)" : "";
@@ -1519,7 +1865,7 @@ namespace Why.Economy.Layers
                         string fate = body.Alive ? "" : " " + FateText(model, Scenario, body.Id, Year, true);
                         labels.Add(new HillLabel
                         {
-                            Text = "<b>" + body.Name + "</b>" + value + peText + fate, At = body.Pos + Vector3.up * (Edge(body) + 2.5f), Role = LabelRole.Name, Part = "advantage.organs",
+                            Text = "<b>" + body.Name + "</b>" + value + peText + fate, At = body.Pos + Vector3.up * ((body.BodyR > 0 ? body.BodyMax.y : body.R) + 2.5f), Role = LabelRole.Name, Part = "advantage.organs",
                             Rank = body.R + (body.Id == Selected ? 1000 : 0) + (hotChokes.Contains(body.Id) ? 500 : chokes.Contains(body.Id) ? 300 : 0), Plate = new Color(0, 0, 0, .85f),
                             // the population is packed: a name whose place is taken steps just above or below, then aside
                             Fallbacks = NameFallbacks,
@@ -1528,10 +1874,13 @@ namespace Why.Economy.Layers
                     case ContestNetwork.Kind.Owner:
                     case ContestNetwork.Kind.Wealth:
                         if (History || body.Kind == ContestNetwork.Kind.Owner && body.Value < 150 && Selected == null && !leaders.Contains(body.Id)) continue;
+                        bool leader = leaders.Contains(body.Id);
+                        string kindTag = body.Kind == ContestNetwork.Kind.Owner && leader ? " · " + OwnerKindWord(body.Owner?.Kind) : "";
                         labels.Add(new HillLabel
                         {
-                            Text = body.Name + " " + (simulated ? "≈" : "") + Money(body.Value), At = body.Pos + Vector3.up * (body.R + 2.5f), Role = body.Kind == ContestNetwork.Kind.Wealth ? LabelRole.Name : LabelRole.Note,
-                            Part = "advantage.rings", Rank = (float)Math.Log10(1 + body.Value), Color = body.Kind == ContestNetwork.Kind.Wealth ? GoldBright : Gold,
+                            Text = body.Name + kindTag + " " + (simulated ? "≈" : "") + Money(body.Value), At = body.Pos + Vector3.up * (body.R + 2.5f),
+                            Role = body.Kind == ContestNetwork.Kind.Wealth || leader ? LabelRole.Name : LabelRole.Note,
+                            Part = "advantage.rings", Rank = (leader ? 250 : 0) + (float)Math.Log10(1 + body.Value), Color = body.Kind == ContestNetwork.Kind.Wealth ? GoldBright : Gold,
                         });
                         break;
                     case ContestNetwork.Kind.Buyer:
@@ -1550,12 +1899,72 @@ namespace Why.Economy.Layers
                 labels.Add(new HillLabel { Text = fp.Title, At = m + Vector3.up * 4, Role = LabelRole.Note, Part = "advantage.sparks", Rank = 3, Color = TriadColor(fp.Triad) });
             }
 
-            float rx = RulerX(), rz = net.CrestZ + ContestNetwork.ZTo - 20;
-            labels.Add(new HillLabel { Text = "HIGH GROUND · judged dominant", At = new Vector3(rx, ContestNetwork.MaxAlt + 4, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 400, Color = Roles.Encoded(Roles.InkDim) });
-            labels.Add(new HillLabel { Text = "LOW GROUND · dependent", At = new Vector3(rx, ContestNetwork.MinAlt, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 400, Color = Roles.Encoded(Roles.InkDim) });
-            labels.Add(new HillLabel { Text = "THE OWNERS", At = new Vector3(rx, ContestNetwork.OwnerY, rz), Role = LabelRole.Name, Part = "advantage.rings", Rank = 300, Color = Gold });
-            labels.Add(new HillLabel { Text = "WORKERS AND CONSUMERS", At = new Vector3(rx, -3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 300, Color = Roles.Encoded(Roles.InkDim) });
-            labels.Add(new HillLabel { Text = "THE STATE · rule of law, property, export controls", At = new Vector3(rx, ContestNetwork.StateY - 3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 300, Color = Roles.Encoded(Roles.InkDim) });
+            // the strata, named at their left ends (from the future, the left of the screen is +x)
+            for (int i = 0; i < ContestNetwork.StratumOrder.Length && !History; i++)
+            {
+                if (OffFocus(i)) continue;
+                var st = model.StratumById(ContestNetwork.StratumOrder[i]);
+                Rect r = StratumRect(i);
+                string entry = st != null && !double.IsNaN(st.Hard) ? " · entry " + EntryWord(st.Hard) : "";
+                labels.Add(new HillLabel
+                {
+                    Text = "<b>" + (st?.Name ?? ContestNetwork.StratumOrder[i]).ToUpperInvariant() + "</b>" + entry,
+                    At = new Vector3(r.xMax + 6, net.StratumY[i], r.center.y), Role = LabelRole.Note, Part = "advantage.landscape", Rank = 450,
+                    Color = StratumColor(i), Plate = new Color(0, 0, 0, .7f),
+                });
+            }
+
+            // the advantage boundaries' sources, named with their evidence and Jev's judged wall: NVIDIA's (the user's example)
+            // always, and the selected company's
+            foreach (var moat in model.Moats)
+            {
+                var body = Holder(moat);
+                if (body == null || !body.Alive || body.Territory <= 0 || History || OffFocus(body.Stratum)) continue;
+                // NVIDIA's (the user's example) always; in a stratum's close-up, every boundary there; the selected company's
+                bool shown = moat.Actor == "nvidia" || moat.Actor == Selected || Focus == body.Stratum;
+                var srcs = moat.Sources.OrderBy(x => Array.IndexOf(SourceOrder, x.Source)).ToList();
+                float ground = net.StratumY[Mathf.Max(0, body.Stratum)];
+                for (int k = 0; k < srcs.Count && shown; k++)
+                {
+                    var (a0, a1) = SourceArc(k, srcs.Count);
+                    float a = (a0 + a1) * .5f;
+                    Vector3 at = new Vector3(body.Pos.x + Mathf.Cos(a) * body.Territory, ground + WallHeight(srcs[k].Wall) + 2, body.Pos.z + Mathf.Sin(a) * body.Territory);
+                    labels.Add(new HillLabel
+                    {
+                        Text = "<b>" + SourceName(srcs[k].Source) + "</b> " + Words(srcs[k].What, 9) + (double.IsNaN(srcs[k].Wall) ? "" : " <i>· wall " + srcs[k].Wall.ToString("0.0") + "</i>"),
+                        At = at, Role = LabelRole.Note, Part = "advantage.walls", Rank = 420 + (float)(double.IsNaN(srcs[k].Wall) ? 0 : srcs[k].Wall), Color = SourceColor(srcs[k].Source),
+                        Plate = new Color(0, 0, 0, .75f), Fallbacks = NameFallbacks,
+                    });
+                }
+            }
+
+            // the walls against entrants, and the entrants with their fates
+            foreach (var st in model.Strata)
+            {
+                if (History || double.IsNaN(st.TalentCapital) || st.TalentCapital < 1.5 || OffFocus(st.Index)) continue;
+                var ring = EntryRing(st);
+                if (ring.r <= 0) continue;
+                labels.Add(new HillLabel
+                {
+                    Text = "<b>Talent and share price</b>: " + ShareWord(st.TalentCapital) + " of what keeps entrants out of " + st.Name.ToLowerInvariant() + " <i>(judged)</i>",
+                    At = ring.c + new Vector3(0, WallHeight(st.Hard) * 1.4f + 3, -ring.r), Role = LabelRole.Note, Part = "advantage.walls", Rank = 440,
+                    Color = SourceColor("talent"), Plate = new Color(0, 0, 0, .75f), Fallbacks = NameFallbacks,
+                });
+                foreach (var (e, at) in EntrantPlaces(st, ring))
+                    labels.Add(new HillLabel
+                    {
+                        Text = e.Name + " <i>· " + FateWord(e, net.Get(e.By)?.Name ?? e.By) + "</i>", At = at + Vector3.up * 3.5f, Role = LabelRole.Note,
+                        Part = "advantage.walls", Rank = 300, Color = new Color(.86f, .88f, .92f),
+                    });
+            }
+
+            // the selected company's column: what it does in each stratum it works in
+            foreach (var sat in net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Satellite && x.Host.Id == Selected && x.Alive && !History))
+                labels.Add(new HillLabel
+                {
+                    Text = sat.Name + " · " + Words(sat.Presence?.What, 8), At = sat.Pos + Vector3.up * (sat.R + 2), Role = LabelRole.Note,
+                    Part = "advantage.columns", Rank = 800, Color = ColumnColor(sat.Host), Plate = new Color(0, 0, 0, .75f), Fallbacks = NameFallbacks,
+                });
             for (int i = 0; i < threadBeads.Count && History; i++)
             {
                 var (at, step) = threadBeads[i];
@@ -1585,6 +1994,29 @@ namespace Why.Economy.Layers
             }
 
             return "";
+        }
+
+        static string OwnerKindWord(string kind) => kind switch
+        {
+            "fund" => "index and asset manager", "sovereign" => "sovereign fund", "pe" => "private capital", "vc" => "venture capital",
+            "hedge" => "hedge fund", "corporate" => "company", _ => kind ?? "owner",
+        };
+
+        static string EntryWord(double hard) => hard >= 3.5 ? "closed" : hard >= 2.75 ? "nearly closed" : hard >= 2 ? "very hard" : hard >= 1 ? "hard" : "open";
+
+        static string ShareWord(double tc) => tc >= 3.5 ? "almost all" : tc >= 2.5 ? "most" : tc >= 1.5 ? "about half" : tc >= .5 ? "a little" : "none";
+
+        static string FateWord(Advantage.Entrant e, string by) => e.Fate switch
+        {
+            "acquired" => "acquired by " + by, "licence-and-hire" => "licensed and hired by " + by, "failed" => "failed",
+            "public" => "listed", _ => "independent",
+        };
+
+        static string Words(string s, int n)
+        {
+            if (string.IsNullOrEmpty(s)) return "";
+            var w = s.Split(' ');
+            return w.Length <= n ? s : string.Join(" ", w.Take(n)) + "…";
         }
 
         static readonly Vector2[] NameFallbacks = { new Vector2(0, 18), new Vector2(0, -18), new Vector2(0, 36), new Vector2(0, -36), new Vector2(120, 0), new Vector2(-120, 0) };
@@ -1633,7 +2065,8 @@ namespace Why.Economy.Layers
             Debug.Log($"[Why] advantage {model.AsOf}: {companies} organisms ({sheets} with a balance sheet), {owners} owners, {net.Links.Count} links " +
                       $"({net.Links.Count(l => l.Kind == "flow")} rivers, {net.Links.Count(l => l.Kind != "flow")} stakes), {model.Worlds.Count} simulated worlds; " +
                       $"world {Scenario} {Year}: worst shell overlap {overlap:0.0} ({pair}), worst altitude error {alt:0.0}, energy {net.Energy:0.0000}");
-            if (overlap > 1.5f) Debug.LogError($"[Why] advantage: shells interpenetrate by {overlap:0.0} ({pair})");
+            // the overlap is measured by each body's widest drawn reach (lumpy, so a few units of touching do not show)
+            if (overlap > 4f) Debug.LogError($"[Why] advantage: bodies interpenetrate by {overlap:0.0} ({pair})");
             if (alt > 3) Debug.LogError($"[Why] advantage: an organism stands {alt:0.0} units off its altitude");
             if (companies == 0) Debug.LogError("[Why] advantage: no organisms");
             foreach (var a in model.Actors)
@@ -1673,6 +2106,23 @@ namespace Why.Economy.Layers
             if (bodies > companies) Debug.LogError($"[Why] advantage: {bodies} organisms drawn for {companies} companies");
             if (vertices > MaxOrganismVertices) Debug.LogError($"[Why] advantage: the organisms hold {vertices} vertices, more than {MaxOrganismVertices}");
 
+            // the strata up close: NVIDIA's boundary in chips, the wall of talent and share price in models, then the whole stack
+            foreach (var (focus, name) in new[] { (3, "chips"), (1, "models"), (0, "consumer"), (Strata, "hill") })
+            {
+                FocusOn(focus);
+                yield return new WaitForSecondsRealtime(2.2f);
+                yield return SmokeChecks.Capture("economy-advantage-" + name, root.CurrentPreset);
+            }
+
+            FocusOn(-1);
+            yield return new WaitForSecondsRealtime(1.5f);
+            int walls = model.Moats.Count(m => Holder(m) is ContestNetwork.Body mb && mb.Alive && mb.Territory > 0);
+            int columns = net.Bodies.Count(x => x.Kind == ContestNetwork.Kind.Satellite);
+            Debug.Log($"[Why] advantage strata: {walls} advantage boundaries, {columns} presences in other strata, {model.Entrants.Count} entrants; strata at " +
+                      string.Join(", ", net.StratumY.Select(y => y.ToString("0"))));
+            if (walls == 0) Debug.LogError("[Why] advantage: no advantage boundary is drawn");
+            if (columns == 0) Debug.LogError("[Why] advantage: no company shows its presence in other strata");
+
             // play from now steps through the years (it once jumped from 2026 to 2030)
             Playing = true;
             yield return new WaitForSecondsRealtime(YearSeconds * 1.5f);
@@ -1686,7 +2136,7 @@ namespace Why.Economy.Layers
             string harsh = model.WorldById("digestion") != null ? "digestion" : Worlds().Count > 2 ? Worlds()[2] : null;
             if (harsh != null)
             {
-                var before = net.Bodies.Where(b => b.Kind == ContestNetwork.Kind.Company).ToDictionary(b => b.Id, b => (b.TargetY, b.Alive));
+                var before = net.Bodies.Where(b => b.Kind == ContestNetwork.Kind.Company).ToDictionary(b => b.Id, b => (b.Value, b.Alive));
                 float longest = 0;
                 SetScenario(harsh);
                 SetYear(2030);
@@ -1696,9 +2146,10 @@ namespace Why.Economy.Layers
                     longest = Mathf.Max(longest, Time.unscaledDeltaTime);
                 }
 
-                int moved = net.Bodies.Count(b => b.Kind == ContestNetwork.Kind.Company && before.TryGetValue(b.Id, out var was) && (Mathf.Abs(was.TargetY - b.TargetY) > 3 || was.Alive != b.Alive));
+                int moved = net.Bodies.Count(b => b.Kind == ContestNetwork.Kind.Company && before.TryGetValue(b.Id, out var was) &&
+                                                  (was.Alive != b.Alive || !double.IsNaN(was.Value) && !double.IsNaN(b.Value) && Math.Abs(b.Value - was.Value) > .1 * was.Value));
                 int dead = net.Bodies.Count(b => b.Kind == ContestNetwork.Kind.Company && !b.Alive);
-                Debug.Log($"[Why] advantage world {harsh} 2030: {moved} organisms changed ground or fate, {dead} absorbed or extinct; longest frame {1000 * longest:0} ms");
+                Debug.Log($"[Why] advantage world {harsh} 2030: {moved} organisms changed value (over 10%) or fate, {dead} absorbed or extinct; longest frame {1000 * longest:0} ms");
                 Log();
                 if (model.Worlds.Count > 0 && moved < 5) Debug.LogError($"[Why] advantage: world {harsh} moved {moved} organisms, fewer than 5");
                 if (longest > .05f) Debug.LogWarning($"[Why] advantage: a settling frame took {1000 * longest:0} ms, over 50");

@@ -51,10 +51,20 @@ namespace Why.Economy.Model
             public bool Private, BuybacksReturned;
 
             /// <summary>A loss on the record: a burn, a negative P/E (not merely a missing one).</summary>
-            public bool LossEvidence => (!double.IsNaN(Burn) && Burn > 0) || Pe < 0;
+            /// <summary>Evidence that the company as a whole loses money: a negative P/E, or a burn when no positive P/E is on
+            /// record (a segment's loss, Alphabet's Other Bets or Meta's Reality Labs, is not the company's).</summary>
+            public bool LossEvidence => Pe < 0 || (!(Pe > 0) && !double.IsNaN(Burn) && Burn > 0);
+
+            /// <summary>A segment's operating loss inside a profitable company, with its period (shown, never counted as a loss).</summary>
+            public double SegmentLoss = double.NaN, SegmentLossYearly = double.NaN;
+            public string SegmentLossPeriod, SegmentLossWhat;
 
             /// <summary>What it bought (target, price, when) and the data-centre power it builds, as lines with their periods.</summary>
             public readonly List<string> Acquisitions = new List<string>(), Capacity = new List<string>();
+
+            /// <summary>Its home stratum (where most of its revenue is earned), and every stratum it works in.</summary>
+            public string StratumId;
+            public readonly List<Presence> Presence = new List<Presence>();
 
             public bool Sized => !double.IsNaN(SizeUsdBn) && SizeUsdBn > 0;
 
@@ -136,11 +146,45 @@ namespace Why.Economy.Model
             public double UsdBn, Fear = double.NaN;
             /// <summary>Money a year (spending, revenue, capex, wages, a contract's yearly rate); false for capital raised once.</summary>
             public bool Yearly = true;
+
+            /// <summary>The year a contracted river starts (0: already flowing); before it, the river is not drawn.</summary>
+            public int Start;
             public readonly Dictionary<string, double> Scale = new Dictionary<string, double>();
             public double In(string scenario) => scenario != null && Scale.TryGetValue(scenario, out double s) ? UsdBn * s : UsdBn;
         }
 
         public sealed class Choke { public string Id, Actor, Controls, Share, Alternatives; public double Strength = double.NaN; public string[] Sources = Array.Empty<string>(); }
+
+        /// <summary>A stratum of the supply chain (the fifth direction): consumer products on top, government underneath.</summary>
+        public sealed class Stratum
+        {
+            public string Id, Name;
+            public int Index;
+
+            /// <summary>Jev's judgments (0-4): how hard a new company finds it to win share here by 2030, and how much of what
+            /// keeps entrants out is the incumbents' talent and share price.</summary>
+            public double Hard = double.NaN, TalentCapital = double.NaN;
+        }
+
+        /// <summary>A company's presence in a stratum (vertical integration), with its families of products there (horizontal).</summary>
+        public sealed class Presence { public string Stratum, What; public string[] Family = Array.Empty<string>(), Facts = Array.Empty<string>(); }
+
+        /// <summary>A source of a company's advantage in its market, named with its evidence; Wall is Jev's judgment of how
+        /// much it keeps rivals and entrants out (0-4, NaN when not judged).</summary>
+        public sealed class MoatSource { public string Source, What; public double Wall = double.NaN; public string[] Facts = Array.Empty<string>(); }
+
+        /// <summary>An advantage boundary: where a company's advantage holds (a market in its stratum), what it is made of.</summary>
+        public sealed class Moat
+        {
+            public string Id, Actor, Stratum, Market, Share, ShareFact;
+            public readonly List<MoatSource> Sources = new List<MoatSource>();
+            public string[] Rivals = Array.Empty<string>(), Entrants = Array.Empty<string>(), Facts = Array.Empty<string>();
+        }
+
+        public sealed class Barrier { public string Id, Stratum, Source, What; public string[] Facts = Array.Empty<string>(); }
+
+        /// <summary>A new entrant and its fate: independent, acquired, licence-and-hire, failed or public (By: who took it).</summary>
+        public sealed class Entrant { public string Id, Name, Stratum, What, Fate, By; public string[] Facts = Array.Empty<string>(); }
 
         public sealed class Flashpoint
         {
@@ -159,6 +203,12 @@ namespace Why.Economy.Model
 
         public readonly string AsOf, Judge, Method;
         public readonly List<Band> Bands = new List<Band>();
+        public readonly List<Stratum> Strata = new List<Stratum>();
+        public readonly List<Moat> Moats = new List<Moat>();
+        public readonly List<Barrier> Barriers = new List<Barrier>();
+        public readonly List<Entrant> Entrants = new List<Entrant>();
+
+        public Stratum StratumById(string id) => Strata.FirstOrDefault(x => x.Id == id);
         public readonly List<Actor> Actors = new List<Actor>();
         public readonly List<Flow> Flows = new List<Flow>();
         public readonly List<Choke> Chokes = new List<Choke>();
@@ -218,6 +268,30 @@ namespace Why.Economy.Model
             AsOf = (string)root["asOf"]; Judge = (string)root["judge"]; Method = (string)root["method"];
             int bi = 0;
             foreach (JObject b in Arr(root["bands"])) Bands.Add(new Band { Id = (string)b["id"], Name = (string)b["name"], Index = bi++ });
+            int si = 0;
+            foreach (JObject b in Arr(root["strata"]))
+                Strata.Add(new Stratum { Id = (string)b["id"], Name = (string)b["name"], Index = si++, Hard = Num(b["hard"]), TalentCapital = Num(b["talentCapital"]) });
+            foreach (JObject m in Arr(root["moats"]))
+            {
+                var moat = new Moat
+                {
+                    Id = (string)m["id"], Actor = (string)m["actor"], Stratum = (string)m["stratum"], Market = (string)m["market"], Share = (string)m["share"],
+                    ShareFact = m["shareFact"] != null && m["shareFact"].Type != JTokenType.Null ? (string)m["shareFact"] : null,
+                    Rivals = Strings(m["rivals"]), Entrants = Strings(m["entrants"]), Facts = Strings(m["facts"]),
+                };
+                foreach (JObject x in Arr(m["sources"]))
+                    moat.Sources.Add(new MoatSource { Source = (string)x["source"], What = (string)x["what"], Wall = Num(x["wall"]), Facts = Strings(x["facts"]) });
+                Moats.Add(moat);
+            }
+
+            foreach (JObject b in Arr(root["barriers"]))
+                Barriers.Add(new Barrier { Id = (string)b["id"], Stratum = (string)b["stratum"], Source = (string)b["source"], What = (string)b["what"], Facts = Strings(b["facts"]) });
+            foreach (JObject e in Arr(root["entrants"]))
+                Entrants.Add(new Entrant
+                {
+                    Id = (string)e["id"], Name = (string)e["name"], Stratum = (string)e["stratum"], What = (string)e["what"], Fate = (string)e["fate"],
+                    By = e["by"] != null && e["by"].Type != JTokenType.Null ? (string)e["by"] : null, Facts = Strings(e["facts"]),
+                });
             if (root["powers"] is JObject pw) foreach (var kv in pw) PowerNames[kv.Key] = (string)kv.Value;
             foreach (JObject a in Arr(root["actors"]))
             {
@@ -248,9 +322,14 @@ namespace Why.Economy.Model
                 }
                 x.Pe = Num(a["pe"]); x.Buybacks = Num(a["buybacks"]); x.Dividends = Num(a["dividends"]); x.Sbc = Num(a["sbc"]);
                 x.Burn = Num(a["burn"]); x.BurnWhat = (string)a["burnWhat"]; x.Risk = Num(a["risk"]); x.Strategy = (string)a["strategy"];
+                x.SegmentLoss = Num(a["segmentLoss"]); x.SegmentLossYearly = Num(a["segmentLossYearly"]);
+                x.SegmentLossPeriod = (string)a["segmentLossPeriod"]; x.SegmentLossWhat = (string)a["segmentLossWhat"];
                 x.BurnPeriod = (string)a["burnPeriod"]; x.PePeriod = (string)a["pePeriod"]; x.BurnYearly = Num(a["burnYearly"]); x.BuybacksPeriod = (string)a["buybacksPeriod"];
                 x.DividendsPeriod = (string)a["dividendsPeriod"]; x.SbcPeriod = (string)a["sbcPeriod"]; x.BuybacksReturned = (bool?)a["buybacksReturned"] ?? false;
                 x.Private = (bool?)a["private"] ?? false;
+                x.StratumId = (string)a["stratum"];
+                foreach (JObject pr in Arr(a["presence"]))
+                    x.Presence.Add(new Presence { Stratum = (string)pr["stratum"], What = (string)pr["what"], Family = Strings(pr["family"]), Facts = Strings(pr["facts"]) });
                 foreach (JObject q in Arr(a["acquisitions"]))
                 {
                     double usd = Num(q["usdBn"]);
@@ -262,6 +341,9 @@ namespace Why.Economy.Model
                 if (string.IsNullOrEmpty(x.Id) || byId.ContainsKey(x.Id)) continue;
                 Actors.Add(x); byId[x.Id] = x;
             }
+            // the owners' ids first: a river may run to or from an owner (payouts to the wealth groups, rounds from funds)
+            var ownerIds = new HashSet<string>();
+            foreach (JObject o in Arr(root["owners"])) ownerIds.Add((string)o["id"]);
             foreach (JObject f in Arr(root["flows"]))
             {
                 var x = new Flow
@@ -271,7 +353,9 @@ namespace Why.Economy.Model
                     Yearly = (bool?)f["yearly"] ?? true,
                 };
                 Fill(x.Scale, f["scale"]);
-                if (x.UsdBn > 0 && byId.ContainsKey(x.From ?? "") && byId.ContainsKey(x.To ?? "")) Flows.Add(x);
+                x.Start = f["start"] != null && f["start"].Type != JTokenType.Null ? (int)f["start"] : 0;
+                bool from = byId.ContainsKey(x.From ?? "") || ownerIds.Contains(x.From ?? ""), to = byId.ContainsKey(x.To ?? "") || ownerIds.Contains(x.To ?? "");
+                if (x.UsdBn > 0 && from && to && (byId.ContainsKey(x.From ?? "") || byId.ContainsKey(x.To ?? ""))) Flows.Add(x);
             }
             foreach (JObject c in Arr(root["chokepoints"]))
             {

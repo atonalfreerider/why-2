@@ -97,6 +97,15 @@ namespace Why.Economy
         public static ViewPreset PresentRise() => Make(HillPresentLayer.View, "The present, taken apart", "", KeyCode.None,
             new Vector3(PresentX - 20, 40, HillLandscape.Z(EconomyState.Year) + PresentLayout.Gap0 + 100), 160, 18, 700);
 
+        /// <summary>A pose of the contest at a world target (the strata's focus, HillAdvantageLayer.FocusOn): the view's yaw,
+        /// the given pitch and distance (not in the catalog).</summary>
+        public static ViewPreset AdvantagePose(Vector3 worldTarget, float pitch, float distance)
+        {
+            var p = Make(HillAdvantageLayer.View, "The present as a contest", "", KeyCode.None, Vector3.zero, HillAdvantageLayer.FrameYaw, pitch, distance);
+            p.FixedTarget = worldTarget;
+            return p;
+        }
+
         /// <summary>The contest's first pose (not in the catalog): the crest's cut face from the future, where the arena opens.</summary>
         public static ViewPreset AdvantageFace() => Make(HillAdvantageLayer.View, "The present as a contest", "", KeyCode.None,
             new Vector3(110, 24, HillLandscape.Z(EconomyState.Year)), 172, 8, 320);

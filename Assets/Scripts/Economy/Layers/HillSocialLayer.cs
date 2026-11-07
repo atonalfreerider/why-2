@@ -107,10 +107,10 @@ namespace Why.Economy.Layers
             // the rivers, the bedrock, the roots), in the companies' lives (whose key names no white mark, and whose frame
             // cuts the cloud at its top, its name above it), in the games (society, betrayal) and in the present taken apart
             // (whose own cloud comes with its figures, and which the wave's cloud stood behind at full strength); before Instagram only its
-            // own view shows it, as a ghost.
+            // own view shows it, as a ghost. The present as a contest keeps it: people inhabit the hill and the cloud above it there.
             bool early = land.Year < PlatformYear, social = view == "social";
             bool hidden = view == "mind" || view == "section" || PersonFocus.IsView(view) || view == "mobility" || view == "you" || view == "money" || view == "regimes"
-                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || view == "present" || view == "advantage" || early && !social;
+                || view == "capture" || view == "rivers" || view == "foundation" || view == "roots" || view == "companies" || view == "society" || view == "betrayal" || view == "present" || early && !social;
             content.SetActive(!hidden); if (hidden) { HoverPerson = -1; return; }
             float d = Vector3.Distance(rig.Cam.transform.position, frame.World(center));
             lod = d < 45 ? 2 : d < 140 ? 1 : 0;

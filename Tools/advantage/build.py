@@ -47,6 +47,27 @@ SECTOR_BAND = [("oil|gas|energy|utilit|power|mining|material", "energy"),
                ("auto|vehicle|car|industrial|aerospace|defen|manufactur|pharma|drug|semicond", "fabs"),
                ("telecom|network|logistic|transport", "clouds"),
                ("", "apps")]
+# The fifth direction (Docs/research/advantage/brief-v3.md): the supply chain in strata, consumer-facing products on top,
+# government underneath. Each company has a home stratum: where most of its revenue is earned (the integrated giants'
+# other strata are its presence, from the research's presence entries).
+STRATA = [("consumer", "Consumer products and platforms"), ("models", "AI models"), ("clouds", "Cloud and data centres"),
+          ("chips", "Chips, memory and networking"), ("fabs", "Fabs and packaging"), ("tools", "Equipment, EDA and IP"),
+          ("energy", "Energy and power"), ("materials", "Raw materials"), ("state", "Government")]
+BAND_STRATUM = {"apps": "consumer", "models": "models", "clouds": "clouds", "chips": "chips", "fabs": "fabs", "tools": "tools",
+                "energy": "energy", "materials": "materials", "consumer": "consumer"}
+HOME_STRATUM = {
+    # most revenue from people and advertisers: stores, search, video, devices, social apps, payments, cars, medicines
+    "google": "consumer", "amazon": "consumer", "meta": "consumer", "apple": "consumer", "alibaba": "consumer", "tencent": "consumer",
+    "spacex": "consumer", "walmart": "consumer", "visa": "consumer", "mastercard": "consumer", "tesla": "consumer", "byd": "consumer",
+    "eli-lilly": "consumer", "novo-nordisk": "consumer", "johnson-and-johnson": "consumer", "jpmorgan": "consumer",
+    "berkshire": "consumer", "palantir": "consumer", "netflix": "consumer",
+    # most revenue from the cloud: Microsoft Cloud is $63.9bn of $92.3bn a quarter; SoftBank's AI role is Stargate's build-out
+    "microsoft": "clouds", "oracle": "clouds", "coreweave": "clouds", "softbank": "clouds",
+    # memory makers design and fab their chips: they stand with the chips, their fabs are their presence below
+    "sk-hynix": "chips", "samsung": "chips", "micron": "chips", "cxmt": "chips",
+    # oil and gas are fuels: raw materials for power
+    "saudi-aramco": "materials", "exxon-mobil": "materials",
+}
 ALIASES = {"google": "alphabet", "eli-lilly": "lilly", "exxon-mobil": "exxon", "johnson-and-johnson": "jnj",
            "bank-of-america": "bofa", "coca-cola": "coca_cola", "general-electric": "ge", "us-steel": "ussteel",
            "general-motors": "gm", "home-depot": "homedepot", "bear-stearns": "bearstearns", "at-t": "att",
@@ -171,7 +192,7 @@ def simulation(actors, flows, owners, scenarios, problems):
             "pe": a.get("pe") if (a.get("pe") or 0) > 0 else None, "revenue": revenue, "netIncome": net,
             "growth": None, "cash": sheet.get("cash"), "debt": sheet.get("debt"), "equity": sheet.get("equity"),
             "capex": val("capex"), "commitments": sheet.get("commitments"), "commitmentYears": 4 if sheet.get("commitments") else None,
-            "burn": a.get("burn"), "A": a.get("A") if a.get("judged") else None,
+            "burn": a.get("burnYearly") if a.get("burnYearly") is not None else a.get("burn"), "A": a.get("A") if a.get("judged") else None,
             "durability": a.get("durability") if a.get("durability") is not None else 2,
             "scenario": {sid: round(2 + (A_s - a["A"]) / SCENARIO_STEP, 3) for sid, A_s in (a.get("scenario") or {}).items()} if a.get("judged") else {},
             "dependsOn": [{"id": f["to"] if f["from"] == a["id"] else f["from"], "kind": "supplier" if f["from"] == a["id"] else "customer", "usdBn": f["usdBn"]}
@@ -345,17 +366,19 @@ def main():
                 rec[kind + "Period"] = n.get("period")
                 if re.search(r"returned|return of capital|buybacks and dividends", (facts[n["fact"]].get("claim") or "").lower()):
                     rec[kind + "Returned"] = True   # a shareholder-return total, not buybacks alone
-        losses = [fid for k in ("burn", "segmentLoss") for fid in (a.get("candidates") or {}).get(k, []) if ok(fid)]
-        losses = [fid for fid in losses if not re.search(NOT_YEARLY, (facts[fid].get("period") or "").lower())]
-        if losses:
+        for kind, key in (("burn", "burn"), ("segmentLoss", "segmentLoss")):
+            losses = [fid for fid in (a.get("candidates") or {}).get(kind, []) if ok(fid)]
+            losses = [fid for fid in losses if not re.search(NOT_YEARLY, (facts[fid].get("period") or "").lower())]
+            if not losses:
+                continue
             fid = max(losses, key=lambda x: year_of(facts[x].get("period")))
             f = facts[fid]
             v = usd_bn(f["value"], f["unit"])
             if v:
-                rec["burn"] = round(abs(v), 2)
-                rec["burnPeriod"] = f.get("period")
-                rec["burnYearly"] = round(abs(per_year(v, f.get("period"))), 2)
-                rec["burnWhat"] = (f.get("claim") or "")[:120]
+                rec[key] = round(abs(v), 2)
+                rec[key + "Period"] = f.get("period")
+                rec[key + "Yearly"] = round(abs(per_year(v, f.get("period"))), 2)
+                rec[key + "What"] = (f.get("claim") or "")[:120]
                 cite(fid)
         rec["private"] = bool(size and size["kind"] == "valuation")
         # what it bought (the share price and the cash at work) and the data-centre power it builds, each with its period
@@ -375,6 +398,8 @@ def main():
             rec["strategy"] = STRATEGY_NAMES.get(js["strategy"]["choice"], js["strategy"]["choice"])
         if js.get("risk"):
             rec["risk"] = round(js["risk"]["score"], 2)
+        rec["stratum"] = "state" if flank == "state" else HOME_STRATUM.get(a["id"]) or BAND_STRATUM.get(a.get("layer") or "") \
+            or BAND_STRATUM.get(band or "") or "consumer"
         actors.append(rec)
     merged = {}
     if any(a["id"] == "xai" for a in actors) and any(a["id"] == "spacex" for a in actors):
@@ -413,6 +438,7 @@ def main():
         # yearly: spending, revenue, capex, wages, contracts at a yearly rate; a funding round is capital raised once
         yearly = kind not in ("investment", "financing", "equity") and not re.search(r"\bround\b|series [a-z]\b", text)
         flows.append({"id": f["id"], "from": f["from"], "to": f["to"], "usdBn": round(float(f["usdBnPerYear"]), 2),
+                      "start": (lambda m: int(m.group(1)) if m else None)(re.search(r"from (\d{4})", f.get("period") or "")),
                       "what": f.get("what"), "kind": kind, "basis": f.get("basis"), "period": f.get("period"), "yearly": yearly,
                       "fear": round(m["score"] / 4, 3) if m else None, "fact": f["fact"]})
     # one river per payer, payee and kind: the newest fact wins (rounds and restated contracts must not count twice)
@@ -442,13 +468,57 @@ def main():
                        "alternatives": c.get("alternatives"), "strength": round(1 - sub["score"] / 4, 3) if sub else None,
                        "sources": [f for f in c.get("facts") or [] if cite(f)]})
 
+    # round three: each company's presence in the strata (its home one included), the advantage boundaries (moats) with their
+    # sources, the barriers to entry, and the entrants with their fates; every entry keeps only facts that cite
+    def cited(ids_):
+        return [x for x in ids_ or [] if cite(x)]
+    strata_ids = [sid for sid, _ in STRATA]
+    by_actor = {}
+    for pr in model.get("presence", []):
+        aid = merged.get(pr.get("actor"), pr.get("actor"))
+        st = pr.get("stratum")
+        fl = cited(pr.get("facts"))
+        if aid not in ids or st not in strata_ids or not fl:
+            continue
+        by_actor.setdefault(aid, {})
+        if st in by_actor[aid]:
+            by_actor[aid][st]["facts"] = list(dict.fromkeys(by_actor[aid][st]["facts"] + fl))
+            continue
+        by_actor[aid][st] = {"stratum": st, "what": pr.get("what"), "family": pr.get("family") or [], "facts": fl}
+    for a in actors:
+        pres = by_actor.get(a["id"], {})
+        a["presence"] = [pres[st] for st in strata_ids if st in pres]
+    moats = []
+    for m in model.get("moats", []):
+        aid = merged.get(m.get("actor"), m.get("actor"))
+        if aid not in ids:
+            continue
+        jm = (judg.get("moats") or {}).get(m["id"]) or {}
+        srcs = [{"source": x.get("source"), "what": x.get("what"), "facts": cited(x.get("facts")),
+                 "wall": round(jm["wall_" + x["source"]]["score"], 2) if "wall_" + (x.get("source") or "") in jm else None,
+                 "wallConfidence": round(jm["wall_" + x["source"]]["confidence"], 2) if "wall_" + (x.get("source") or "") in jm else None}
+                for x in m.get("sources") or []]
+        srcs = [x for x in srcs if x["facts"]]
+        if not srcs:
+            continue
+        moats.append({"id": m["id"], "actor": aid, "stratum": m.get("stratum"), "market": m.get("market"), "share": m.get("share"),
+                      "shareFact": cite(m.get("shareFact")) if m.get("shareFact") else None, "sources": srcs,
+                      "rivals": [merged.get(r, r) for r in m.get("rivals") or []], "entrants": m.get("entrants") or [],
+                      "facts": cited(m.get("facts"))})
+    barriers = [{"id": b["id"], "stratum": b.get("stratum"), "source": b.get("source"), "what": b.get("what"), "facts": cited(b.get("facts"))}
+                for b in model.get("barriers", []) if cited(b.get("facts"))]
+    entrants = [{"id": e["id"], "name": e.get("name") or e["id"], "stratum": e.get("stratum"), "what": e.get("what"), "fate": e.get("fate"),
+                 "by": merged.get(e.get("by"), e.get("by")), "facts": cited(e.get("facts"))}
+                for e in model.get("entrants", []) if cited(e.get("facts"))]
+
     names = {a["id"]: a.get("name") or a["id"] for a in model["actors"]}
     flashes = []
     for p in model.get("flashpoints", []):
         j = jflash.get(p["id"], {})
         year = p.get("year")
         try:
-            year = int(str(year)[:4]) if year not in (None, "") else None
+            m = re.search(r"-?\d+", str(year)) if year not in (None, "") else None
+            year = int(m.group()) if m else None
         except ValueError:
             year = None
         flashes.append({"id": p["id"], "year": year, "era": p.get("era"), "holder": p.get("holder"),
@@ -466,7 +536,10 @@ def main():
     for l in model.get("lineage", []):
         y = l.get("year")
         try:
-            y = int(str(y)[:4])
+            m = re.search(r"-?\d+", str(y))
+            if not m:
+                continue
+            y = int(m.group())
         except (TypeError, ValueError):
             continue
         lineage.append({"from": l.get("from"), "to": l.get("to"), "fromName": names.get(l.get("from"), l.get("from")),
@@ -491,6 +564,8 @@ def main():
             continue
         if re.search(r"\bcap(ped)?\b|up to|at most|maximum", (f.get("claim") or "").lower()):
             continue   # a ceiling on a stake is not a holding
+        if f.get("kind") == "investment" and re.search(r"\bseries [a-z]\b|\bround\b|co-led|led by", (f.get("claim") or "").lower()):
+            continue   # a funding round's total (led or co-led by several) is not one investor's holding
         if f.get("kind") == "investment" and f.get("from") not in owners and f.get("from") != "venture-capital":
             continue   # a company's investment in another is a river or a stake fact of its own
         f = dict(f, **{k: merged[f[k]] for k in ("from", "to") if f.get(k) in merged})
@@ -574,6 +649,9 @@ def main():
            "method": "Altitude: A = s1 + s2/2 + s3/4 of Jev's seven power scores (0-4), 0-7; scenarios and 2030 move it by "
                      "0.9 per step of Jev's 0-4 answer. Sizes and margins: verified facts only.",
            "bands": [{"id": b, "name": n} for b, n in BANDS],
+           "strata": [dict({"id": sid, "name": nm}, **{k: round(v["score"], 2) for k, v in ((judg.get("entry") or {}).get(sid) or {}).items()})
+                      for sid, nm in STRATA],
+           "moats": moats, "barriers": barriers, "entrants": entrants,
            "powers": POWER_NAMES, "actors": actors, "flows": flows, "chokepoints": chokes, "flashpoints": flashes,
            "lineage": lineage, "scenarios": scenarios, "owners": owner_list, "simulation": sim, "sources": sources}
     with open(OUT, "w", encoding="utf-8") as f:
@@ -583,6 +661,8 @@ def main():
     print(f"owners: {len(owner_list)} golden circles, {sum(len(o['stakes']) for o in owner_list)} stakes; "
           f"balance sheets: {sum(1 for a in actors if a.get('balance'))}; P/E: {sum(1 for a in actors if 'pe' in a)}; "
           f"simulation: {len((sim or {}).get('worlds', {}))} worlds")
+    print(f"strata: " + ", ".join(f"{sid} {sum(1 for a in actors if a.get('stratum') == sid)}" for sid, _ in STRATA) +
+          f"; presence {sum(len(a.get('presence', [])) for a in actors)}, moats {len(moats)}, barriers {len(barriers)}, entrants {len(entrants)}")
     print(f"advantage.json: {len(actors)} actors ({judged} judged, {sum(1 for a in actors if a['size'])} sized), "
           f"{len(flows)} flows, {len(chokes)} choke points, {len(flashes)} flashpoints "
           f"({sum(1 for p in flashes if p['inArena'])} in the arena), {len(lineage)} lineage steps, {len(scenarios)} scenarios, "

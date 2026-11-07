@@ -6,6 +6,65 @@ Rewritten 7 Nov 2026, from the user's second direction of the same day (verbatim
 is broken into its balance sheet and still reads as one whole. They hover over a fitness landscape that their own
 positions raise. The history camera, the lineage's gold lane and the flashpoints carry over from the first version.
 
+## 0. The fifth direction: the hill cut open (7 Nov 2026)
+
+The user's fifth direction is verbatim in `Docs/research/advantage/brief-v3.md`. It replaces sections 3, 6 and 7 below:
+altitude is no longer market position.
+
+- **Strata.** The supply chain stands in strata under the hill's 2026 crest (`ContestNetwork.StratumOrder`):
+  1. consumer products and platforms, on top;
+  2. AI models;
+  3. cloud and data centres;
+  4. chips, memory and networking;
+  5. fabs and packaging;
+  6. equipment, EDA and IP;
+  7. energy and power;
+  8. raw materials;
+  9. government, the floor.
+
+  Each stratum is a wide, shallow band (`StratumY`, from y −101 to −742). Its gap from the next leaves room for both
+  strata's largest bodies. The hill stays on top: its people, the top 1% and the attention cloud above it stay
+  visible (the view's emphasis row). The owners' golden circles float above them.
+- **Home stratum.** Each company stands where most of its revenue is earned (`build.py`, `HOME_STRATUM`, stated rules).
+- **Integration.**
+  - *Vertical.* A company's presence in another stratum (research cluster `integration`) is a satellite in its
+    column, at the same x and z, joined by a dotted vein. Alphabet's column runs from consumer down to chips.
+  - *Horizontal.* A company's families of products in one stratum are named in the panel.
+- **Advantage boundaries.** Research cluster `moats` gives each dominant company's sources of advantage, with
+  evidence:
+  - technology;
+  - supply;
+  - patents;
+  - share price and cash;
+  - talent;
+  - scale;
+  - distribution;
+  - regulation.
+
+  The boundary is a ring on the holder's stratum, as wide as its shell and its share of the market. Rivals are held
+  outside it. It is walled by one arc per source, each as tall as Jev judges that source keeps rivals and entrants
+  out (`judge.py`, section `moats`, 0-4), in the source's colour and named with its evidence. NVIDIA's walls are
+  always labelled; a stratum's close-up labels all of its own.
+- **The wall against entrants.** Where Jev judges talent and the share price to be about half or more of what keeps
+  entrants out (`judge.py`, section `entry`), a rose wall rings the stratum's incumbents. It is as tall as Jev's
+  entry difficulty. The entrants stand outside it (research cluster `entry`), each with its fate. The taken ones are
+  joined by a dotted line to whoever took them.
+- **Bodies.**
+  - *Points.* Point clouds with a boundary outline, no wireframe: the surface's points and a skin beneath them,
+    coloured by the parts at each place (the three heat maps kept).
+  - *Outlines.* They face the camera: the body's silhouette, the market value as a dotted circle in the P/E's heat,
+    and what the earnings justify as a faint dotted circle.
+  - *Occlusion.* Each body's hidden solid (depth only, drawn after the labels and before every mark) hides what
+    stands behind it. Labels opt in to being drawn over depth (`LabelSpec.OnTop`).
+- **Camera.**
+  - *Overview.* The whole stack under the hill is the view's own pose (fitted, `Frame`).
+  - *Close-ups.* The panel's strata buttons fly to one stratum at a time, a cutaway: the strata above vanish and
+    those below fade, so the camera looks down onto its territories. "The hill" frames the hill, its people, the
+    cloud and the consumer stratum.
+- **Explanation.** The panel reads NVIDIA's walls, tallest first, with their evidence and Jev's heights, and how
+  entry is closed in each stratum: where talent and the share price are most of the wall, the evidence and the
+  entrants' fates; elsewhere, the tallest wall.
+
 ## 1. The idea in one paragraph
 
 Evolutionary biology draws a population on a **fitness landscape**: peaks where an organism thrives, valleys where it

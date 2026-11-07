@@ -17,8 +17,9 @@ namespace Why.Economy.Land
     public sealed class Organism
     {
         /// <summary>Muted tones of the balance sheet's parts (sRGB): the bloom is kept for the frontiers.</summary>
-        public static readonly Color Equity = new Color(.62f, .64f, .68f), Cash = new Color(.36f, .80f, .50f), Built = new Color(.40f, .58f, .95f),
-            Bought = new Color(.74f, .48f, .95f), Stakes = new Color(.92f, .72f, .30f), Debt = new Color(.86f, .30f, .26f), Leases = new Color(.90f, .50f, .24f),
+        // muted (low chroma): the saturated hues belong to the three heat maps (equity, debt, speculation)
+        public static readonly Color Equity = new Color(.62f, .64f, .68f), Cash = new Color(.60f, .70f, .58f), Built = new Color(.56f, .62f, .74f),
+            Bought = new Color(.68f, .60f, .74f), Stakes = new Color(.76f, .68f, .52f), Debt = new Color(.86f, .30f, .26f), Leases = new Color(.76f, .58f, .50f),
             Unknown = new Color(.52f, .54f, .58f);
 
         // ------------------------------------------------------------------ heat maps (user, 7 Nov: "color coded heatmaps for the
@@ -199,7 +200,7 @@ namespace Why.Economy.Land
                 Vector3 d = dirs[i];
                 // march out to the last point inside, then refine by halving
                 float lo = 0, hi = reach;
-                const int steps = 26;
+                const int steps = 16;
                 for (int s = 1; s <= steps; s++)
                 {
                     float r = reach * s / steps;
@@ -207,7 +208,7 @@ namespace Why.Economy.Land
                 }
 
                 hi = Mathf.Min(reach, lo + reach / steps);
-                for (int s = 0; s < 6; s++)
+                for (int s = 0; s < 5; s++)
                 {
                     float mid = (lo + hi) * .5f;
                     if (Field(lobes, d * mid) >= iso) lo = mid;

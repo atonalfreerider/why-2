@@ -268,6 +268,29 @@ the panel's bars), and the bodies are larger: each scaled so its volume is the d
   2026; the camera fits the population inside the screen the panel leaves free; a republished land with the same crest
   keeps the live layout.
 
+**Fifth direction** (7 Nov 2026, verbatim in `Docs/research/advantage/brief-v3.md`): point clouds with a boundary outline
+and occlusion; competitive-advantage boundaries illustrated and explained; the supply chain stratified vertically under the
+hill; integration shown; people and the attention cloud kept. Built (design `ADVANTAGE.md` section 0):
+
+- *Bodies.* Points and a skin, outlines facing the camera, and a hidden solid per body (depth only) for occlusion.
+  `LabelSpec.OnTop` (off by default) keeps this view's names over it.
+- *Strata.* Nine bands under the crest (`ContestNetwork.StratumOrder`, `StratumY`). Home strata come from `build.py`
+  (`HOME_STRATUM`). Satellites in each company's column show its presence elsewhere (`integration` cluster); actors
+  with a boundary in a stratum where they have no body get a satellite there.
+- *Boundaries.* Rings walled by source (`moats` cluster; Jev's wall heights, `judge.py --only moats`). A rose wall
+  rings the incumbents where talent and the share price are half or more of what keeps entrants out (`judge.py --only
+  entry`). The entrants stand outside it with their fates.
+- *Camera and panel.* The whole stack is the default pose. Strata buttons fly to cutaway close-ups; "The hill" frames
+  the people, the cloud and the consumer layer. The panel explains the walls and entry with evidence.
+- *Research round three:* `moats`, `entry`, `integration`, `materials`. The model has 1,156 verified facts.
+
+Open from it:
+- *Frame time.* World changes and opening frames ran 130-166 ms. Mitigated (bounds cached, coarser marching, walls at
+  the landscape's cadence); measure again.
+- *People.* The hill's households are too small to read at the hill's close-up distance: a people point cloud for
+  this view would carry them.
+- *Panel length.* The reading is long, and its font shrinks to fit.
+
 **Data** (`Tools/advantage/`):
 
 - `verify.py` is the truth gate.

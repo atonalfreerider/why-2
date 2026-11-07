@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Why.Economy.Model;
 
@@ -27,9 +28,25 @@ namespace Why.Economy.Land
     {
         /// <summary>The middle across the land; the depth band past the crest; the volume scale; the strata's altitudes.</summary>
         public const float X0 = 290, ZFrom = 120, ZTo = 290, KR = 2.4f, MinR = 2.4f, MinAlt = 14, MaxAlt = 150,
-            OwnerY = 208, WealthY = 240, BuyerY = -6, StateY = -30;
+            OwnerY = 150, WealthY = 185, BuyerY = -6, StateY = -30;
 
-        public enum Kind { Company, Owner, Wealth, Buyer, State }
+        /// <summary>The supply chain in strata under the hill (the user's fifth direction, Docs/research/advantage/brief-v3.md):
+        /// consumer-facing products on top, the infrastructure beneath, raw materials, government the floor. The stack stands
+        /// under the 2026 crest (x across the hill, centred on the crest's cut face), from StackTop down; each stratum's height
+        /// leaves room for its largest body and the next one's (Gap between).</summary>
+        public const float StackTop = -60, StackX = 130, StackDz = 20, Gap = 24;
+
+        public static readonly string[] StratumOrder = { "consumer", "models", "clouds", "chips", "fabs", "tools", "energy", "materials", "state" };
+
+        /// <summary>Each stratum's plane (land-local y), from the 2026 sizes (fixed, so every world reads on one stack).</summary>
+        public readonly float[] StratumY = new float[StratumOrder.Length];
+
+        public float StackZ => CrestZ + StackDz;
+
+        /// <summary>Where the extinct fall: below the government floor.</summary>
+        public float GraveY => StratumY[StratumOrder.Length - 1] - 70;
+
+        public enum Kind { Company, Owner, Wealth, Buyer, State, Satellite }
 
         public enum PartKind { Core, Cash, Built, Bought, Stakes, Debt, Leases, Promises }
 
@@ -42,6 +59,14 @@ namespace Why.Economy.Land
             public float EarningsR;              // the earnings shell's radius (0: no profits)
             public float BodyR;                  // the visible body's radius (its balance sheet), set when its organism is built
             public Vector3 BodyMin, BodyMax;     // the visible body's bounds from its centre, set with BodyR
+            public int Stratum = -1;             // its stratum (StratumOrder), -1 above the stack
+            public Body Host;                    // a satellite's company: its presence in another stratum, in the company's column
+            public Advantage.Presence Presence;  // what a satellite (or a company in its own stratum) does there
+            public float Territory;              // an advantage boundary's radius on its stratum (0: none); rivals stand outside
+            public float Reach;                  // how far its drawn body reaches sideways (its balance sheet can outgrow its value's R)
+
+            /// <summary>Its radius for keeping apart: the larger of its value's shell and its drawn body's reach.</summary>
+            public float Room => Mathf.Max(R, Reach);
             public double EarningsValue = double.NaN;
             public float Y2026;                  // the altitude it held in 2026 (where a simulated year's move is measured from)
             public string Id, Name, Layer;
@@ -56,6 +81,9 @@ namespace Why.Economy.Land
             public bool Alive = true;
             public string AbsorbedBy;
             public bool Moves => Kind == Kind.Company || Kind == Kind.Owner || Kind == Kind.Wealth;
+
+            /// <summary>Stands in a stratum and is pushed by the bodies there (a company, or a satellite whose company moves).</summary>
+            public bool InStratum => (Kind == Kind.Company || Kind == Kind.Satellite || Kind == Kind.State) && Stratum >= 0;
         }
 
         public sealed class Link
@@ -148,9 +176,44 @@ namespace Why.Economy.Land
                 {
                     Id = a.Id, Name = a.Name, Kind = kind, Actor = a, Layer = a.Band,
                     LayerZ = crestZ + ZFrom + (layer < 0 ? 4.5f : layer) / (LayerOrder.Length - 1) * (ZTo - ZFrom),
+                    Stratum = kind == Kind.Buyer ? -1 : Array.IndexOf(StratumOrder, kind == Kind.State ? "state" : a.StratumId ?? "consumer"),
                 };
+                b.Presence = a.Presence.FirstOrDefault(x => x.Stratum == a.StratumId);
                 Add(b);
             }
+
+            // vertical integration: a company's presence in another stratum is a satellite in its column (same x and z); so is an
+            // actor's advantage boundary in a stratum it has no body in (China's hold on rare earths, under the state's floor)
+            foreach (var host in Bodies.Where(x => x.Kind == Kind.Company || x.Kind == Kind.State).ToList())
+            {
+                foreach (var pr in host.Actor.Presence)
+                {
+                    int si = Array.IndexOf(StratumOrder, pr.Stratum);
+                    if (si < 0 || si == host.Stratum || byId.ContainsKey(host.Id + "@" + pr.Stratum)) continue;
+                    Add(new Body { Id = host.Id + "@" + pr.Stratum, Name = host.Name, Kind = Kind.Satellite, Actor = host.Actor, Host = host, Stratum = si, Presence = pr });
+                }
+
+                foreach (var m in model.Moats.Where(m => m.Actor == host.Id))
+                {
+                    int si = Array.IndexOf(StratumOrder, m.Stratum);
+                    if (si < 0 || si == host.Stratum || byId.ContainsKey(host.Id + "@" + m.Stratum)) continue;
+                    Add(new Body { Id = host.Id + "@" + m.Stratum, Name = host.Name, Kind = Kind.Satellite, Actor = host.Actor, Host = host, Stratum = si,
+                                   Presence = new Advantage.Presence { Stratum = m.Stratum, What = m.Market, Facts = m.Facts } });
+                }
+            }
+
+            // the strata's planes: each as far below the last as their largest bodies (at 2026's sizes) need
+            var maxR = new float[StratumOrder.Length];
+            foreach (var b in Bodies)
+            {
+                if (b.Stratum < 0) continue;
+                float r = b.Kind == Kind.State ? 20 : b.Kind == Kind.Satellite ? SatelliteR(b.Host.Actor.Sized ? Radius(b.Host.Actor.SizeUsdBn) : MinR)
+                    : b.Actor.Sized ? Radius(b.Actor.SizeUsdBn) : MinR;
+                maxR[b.Stratum] = Mathf.Max(maxR[b.Stratum], r);
+            }
+
+            for (int i = 0; i < StratumOrder.Length; i++)
+                StratumY[i] = i == 0 ? StackTop - maxR[0] : StratumY[i - 1] - (maxR[i - 1] + maxR[i] + Gap);
 
             foreach (var o in model.Owners)
             {
@@ -176,6 +239,27 @@ namespace Why.Economy.Land
             Retarget(world, year);
             Seed();
             for (int i = 0; i < 700; i++) Step(1);
+        }
+
+        /// <summary>The advantage boundary a body holds in a stratum (its actor's moat there), as a radius; 0 without one.</summary>
+        float TerritoryIn(Body b, string stratum)
+        {
+            var moat = MoatOf(b.Actor?.Id ?? b.Id, stratum);
+            return moat != null ? TerritoryOf(b.Room, moat.Share) : 0;
+        }
+
+        public Advantage.Moat MoatOf(string actor, string stratum) => Model.Moats.FirstOrDefault(m => m.Actor == actor && m.Stratum == stratum);
+
+        /// <summary>A satellite's radius: a share of its company's (its presence there is a part of the company).</summary>
+        public static float SatelliteR(float hostR) => Mathf.Max(3.5f, hostR * .38f);
+
+        /// <summary>An advantage boundary's radius around its holder: its shell plus room for its share of the market (a share
+        /// given in percent; otherwise a fixed margin).</summary>
+        public static float TerritoryOf(float r, string share)
+        {
+            var m = share != null ? System.Text.RegularExpressions.Regex.Match(share, @"(\d+(?:\.\d+)?)\s*%") : null;
+            double pct = m != null && m.Success ? double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture) : double.NaN;
+            return r + 8 + (double.IsNaN(pct) ? 12 : (float)Math.Min(100, pct) * .32f);
         }
 
         void Add(Body b)
@@ -210,13 +294,42 @@ namespace Why.Economy.Land
                     double ni = st != null && !double.IsNaN(st.Ni) ? st.Ni : a.Pe > 0 && !double.IsNaN(b.Value) ? b.Value / a.Pe : double.NaN;
                     b.EarningsValue = double.IsNaN(ni) ? double.NaN : Math.Max(0, ni) * ReferencePe;
                     b.EarningsR = double.IsNaN(b.EarningsValue) || b.EarningsValue <= 0 ? 0 : Mathf.Min(b.R, Radius(b.EarningsValue));
-                    double adv = AdvantageAt(a, World, year);
-                    b.TargetY = Stretch(st != null && !double.IsNaN(st.Alt) ? (float)st.Alt : Altitude(adv, b.Value));
-                    b.Y2026 = Stretch(Altitude(a.AdvantageIn(Advantage.Now), a.Sized ? a.SizeUsdBn : double.NaN));
-                    if (!b.Alive && st != null && st.Status == "extinct") b.TargetY = StateY - 14;
+                    // its height is its stratum: the supply chain stands in layers, consumer products on top
+                    b.TargetY = b.Stratum >= 0 ? StratumY[b.Stratum] : StackTop;
+                    b.Y2026 = b.TargetY;
+                    if (!b.Alive && st != null && st.Status == "extinct") b.TargetY = GraveY;
+                    if (b.Alive && b.BodyR <= 0)
+                    {
+                        // bounds only, the first time: the coarse sphere is within a few percent, and the drawn organism refines
+                        // them whenever it is rebuilt (a world's or year's change rebuilds it)
+                        var shape = new Organism(b, null, 1);
+                        b.BodyR = shape.MaxRadius;
+                        b.BodyMin = shape.Min;
+                        b.BodyMax = shape.Max;
+                        b.Reach = Mathf.Max(Mathf.Max(-shape.Min.x, shape.Max.x), Mathf.Max(-shape.Min.z, shape.Max.z));
+                    }
+                    else if (!b.Alive) b.Reach = 0;
+                    else b.Reach = Mathf.Max(Mathf.Max(-b.BodyMin.x, b.BodyMax.x), Mathf.Max(-b.BodyMin.z, b.BodyMax.z));
+
+                    b.Territory = b.Alive ? TerritoryIn(b, a.StratumId) : 0;
                 }
-                else if (b.Kind == Kind.Buyer) { b.R = 16; b.TargetY = BuyerY; }
-                else if (b.Kind == Kind.State) { b.R = b.Id == "us-gov" ? 20 : 11; b.TargetY = StateY; }
+                else if (b.Kind == Kind.Buyer) { b.R = 16; b.TargetY = StackTop + 34; }
+                else if (b.Kind == Kind.State)
+                {
+                    b.R = b.Id == "us-gov" ? 20 : 11;
+                    b.TargetY = StratumY[StratumOrder.Length - 1];
+                    b.Territory = TerritoryIn(b, "state");
+                }
+            }
+
+            foreach (var b in Bodies)
+            {
+                if (b.Kind != Kind.Satellite) continue;
+                b.Alive = b.Host.Alive;
+                b.R = SatelliteR(b.Host.R);
+                b.Value = double.NaN;
+                b.TargetY = StratumY[b.Stratum];
+                b.Territory = b.Alive ? TerritoryIn(b, StratumOrder[b.Stratum]) : 0;
             }
 
             // the whole: the companies' value in this world and year against now (the wealth groups own the market)
@@ -238,11 +351,13 @@ namespace Why.Economy.Land
                 foreach (var s in b.Owner.Stakes)
                 {
                     var c = Get(s.Company);
+                    if (c != null && c.Kind == Kind.Company && !c.Alive) continue;    // an absorbed or extinct company's stake is gone
                     if (c != null && c.Kind == Kind.Company && !double.IsNaN(s.Pct) && !double.IsNaN(c.Value)) held += c.Value * s.Pct / 100;
                     else if (!double.IsNaN(s.UsdBn)) held += s.UsdBn;
                 }
 
-                b.Value = b.Owner.Kind == "households" || b.Owner.Kind == "abroad" ? b.Owner.HoldingsUsdBn * MarketRatio : Math.Max(held, b.Owner.HoldingsUsdBn);
+                b.Value = b.Owner.Kind == "households" || b.Owner.Kind == "abroad" ? b.Owner.HoldingsUsdBn * MarketRatio
+                    : b.Owner.Stakes.Count > 0 ? held : b.Owner.HoldingsUsdBn;
                 b.R = Mathf.Max(3f, .22f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
                 b.TargetY = b.Kind == Kind.Wealth ? WealthY : OwnerY;
             }
@@ -254,7 +369,8 @@ namespace Why.Economy.Land
             foreach (var l in Links)
             {
                 l.Rest = l.A.R + l.B.R + (l.Kind == "flow" ? 8 : 5);
-                l.K = l.Kind == "owns" ? 0 : .012f * Mathf.Clamp(Mathf.Log10(2 + (float)Math.Max(0, double.IsNaN(l.UsdBn) ? 5 : l.UsdBn)), .4f, 3f);
+                l.K = l.Kind == "owns" || l.A.Kind == Kind.Owner || l.A.Kind == Kind.Wealth || l.B.Kind == Kind.Owner || l.B.Kind == Kind.Wealth ? 0
+                    : .012f * Mathf.Clamp(Mathf.Log10(2 + (float)Math.Max(0, double.IsNaN(l.UsdBn) ? 5 : l.UsdBn)), .4f, 3f);
             }
         }
 
@@ -269,17 +385,20 @@ namespace Why.Economy.Land
                 switch (b.Kind)
                 {
                     case Kind.Company:
-                        b.Pos = new Vector3(X0 + (h - .5f) * 260, b.TargetY, b.LayerZ + (h2 - .5f) * 40);
+                        b.Pos = new Vector3(StackX + (h - .5f) * 300, b.TargetY, StackZ + (h2 - .5f) * 140);
+                        break;
+                    case Kind.Satellite:
+                        b.Pos = new Vector3(b.Host.Pos.x, b.TargetY, b.Host.Pos.z);
                         break;
                     case Kind.Buyer:
-                        b.Pos = new Vector3(X0 - 60 + buyers++ * 60, BuyerY, CrestZ + ZTo + 10);
+                        b.Pos = new Vector3(StackX - 60 + buyers++ * 60, b.TargetY, StackZ + 70);
                         break;
                     case Kind.State:
-                        b.Pos = new Vector3(X0 + (states % 2 == 0 ? 1 : -1) * (states + 1) / 2 * 34, StateY, CrestZ + ZFrom - 30);
+                        b.Pos = new Vector3(StackX + (states % 2 == 0 ? 1 : -1) * (states + 1) / 2 * 40, b.TargetY, StackZ + 20 * ((states % 3) - 1));
                         states++;
                         break;
                     default:
-                        b.Pos = new Vector3(X0 + (h - .5f) * 220, b.TargetY, CrestZ + (ZFrom + ZTo) * .5f + (h2 - .5f) * 200);
+                        b.Pos = new Vector3(StackX + (h - .5f) * 260, b.TargetY, StackZ + (h2 - .5f) * 160);
                         break;
                 }
 
@@ -301,7 +420,6 @@ namespace Why.Economy.Land
         /// stay where they stand.</summary>
         public void Step(int steps)
         {
-            float zMid = CrestZ + (ZFrom + ZTo) * .5f;
             if (force == null || force.Length != Bodies.Count) force = new Vector3[Bodies.Count];
             for (int s = 0; s < steps; s++)
             {
@@ -309,7 +427,7 @@ namespace Why.Economy.Land
                 for (int i = 0; i < Bodies.Count; i++)
                 {
                     var a = Bodies[i];
-                    if (!a.Moves) continue;
+                    if (!a.Moves && a.Kind != Kind.Satellite) continue;
                     // an absorbed company drifts into its absorber's side and stays there
                     if (a.Kind == Kind.Company && !a.Alive && a.AbsorbedBy != null && Get(a.AbsorbedBy) is Body host)
                     {
@@ -321,35 +439,52 @@ namespace Why.Economy.Land
                         continue;
                     }
 
-                    // the layer's depth (companies only) and the middle: strong enough that the population packs close (the
-                    // user, 7 Nov 2026: "less empty space in between"); altitude is a constraint, eased below
+                    // the stack's middle, under the crest: strong enough that each stratum packs close
                     if (a.Kind == Kind.Company)
                     {
-                        force[i].z += .012f * (a.LayerZ - a.Pos.z);
-                        force[i].x += .012f * (X0 - a.Pos.x);
+                        // wide, shallow bands: each stratum spreads across the screen and stays thin in depth
+                        force[i].x += .004f * (StackX - a.Pos.x);
+                        force[i].z += .03f * (StackZ - a.Pos.z);
                     }
-                    else
+                    else if (a.Kind != Kind.Satellite)
                     {
-                        force[i].x += .006f * (X0 - a.Pos.x);
-                        force[i].z += .006f * (zMid - a.Pos.z);
+                        force[i].x += .006f * (StackX - a.Pos.x);
+                        force[i].z += .006f * (StackZ - a.Pos.z);
                     }
 
-                    // repulsion between bodies of the same stratum (companies with companies, owners with owners)
                     for (int j = i + 1; j < Bodies.Count; j++)
                     {
                         var b = Bodies[j];
-                        if (!b.Moves || (a.Kind == Kind.Company) != (b.Kind == Kind.Company)) continue;
-                        if (a.Kind == Kind.Company && (!a.Alive || !b.Alive)) continue;
-                        Vector3 d = b.Pos - a.Pos;
-                        if (a.Kind != Kind.Company) d.y = 0;
-                        float dist = Mathf.Max(.5f, d.magnitude), min = a.R + b.R + (a.Kind == Kind.Company ? 3 : 4);
-                        // long-range repulsion: weak between organisms (they pack, held apart by the collision), strong between circles
-                        float push = (a.Kind == Kind.Company ? .6f : 2.2f) * (a.R + b.R) * (a.R + b.R) / (dist * dist + 40);
-                        if (dist < min) push += .45f * (min - dist);
-                        Vector3 f = d / dist * push;
-                        if (a.Kind == Kind.Company) f.y *= .25f;       // altitude is the springs' business
-                        force[i] -= f;
-                        force[j] += f;
+                        if (a.InStratum && b.InStratum)
+                        {
+                            // bodies of one stratum push each other apart; a satellite's push moves its whole column
+                            if (a.Stratum != b.Stratum || !a.Alive || !b.Alive) continue;
+                            int ia = a.Kind == Kind.Satellite ? a.Host.Index : i, ib = b.Kind == Kind.Satellite ? b.Host.Index : j;
+                            if (ia == ib) continue;
+                            Vector3 d = b.Pos - a.Pos;
+                            d.y = 0;
+                            float dist = Mathf.Max(.5f, d.magnitude);
+                            // an advantage boundary keeps rivals outside it; bodies keep apart by what is drawn, not only their value
+                            float ra = a.Room, rb = b.Room;
+                            float min = Mathf.Max(ra + rb, Mathf.Max(a.Territory + rb, b.Territory + ra)) + 3;
+                            float push = .6f * (ra + rb) * (ra + rb) / (dist * dist + 40);
+                            if (dist < min) push += .45f * (min - dist);
+                            Vector3 f = d / dist * push;
+                            force[ia] -= f;
+                            force[ib] += f;
+                        }
+                        else if (!a.InStratum && !b.InStratum && a.Moves && b.Moves && a.Kind != Kind.Company && b.Kind != Kind.Company)
+                        {
+                            // the golden circles keep apart in their sky
+                            Vector3 d = b.Pos - a.Pos;
+                            d.y = 0;
+                            float dist = Mathf.Max(.5f, d.magnitude), min = a.R + b.R + 4;
+                            float push = 2.2f * (a.R + b.R) * (a.R + b.R) / (dist * dist + 40);
+                            if (dist < min) push += .45f * (min - dist);
+                            Vector3 f = d / dist * push;
+                            force[i] -= f;
+                            force[j] += f;
+                        }
                     }
                 }
 
@@ -367,10 +502,11 @@ namespace Why.Economy.Land
                         continue;
                     }
 
+                    // between strata a river pulls across, never up or down: the strata keep their heights
                     Vector3 dd = l.B.Pos - l.A.Pos;
-                    dd.y *= .3f;
-                    float dist = Mathf.Max(.5f, dd.magnitude);
-                    Vector3 f = dd / dist * (l.K * (dist - l.Rest));
+                    dd.y = 0;
+                    float dist = Mathf.Max(.5f, dd.magnitude), rest = l.A.Stratum == l.B.Stratum ? l.Rest : 0;
+                    Vector3 f = dd / dist * (l.K * Mathf.Max(0, dist - rest) * .5f);
                     if (l.A.Moves) force[ia] += f;
                     if (l.B.Moves) force[ib] -= f;
                 }
@@ -387,12 +523,16 @@ namespace Why.Economy.Land
                     b.Vel = (b.Vel + f) * .82f;
                     b.Vel.y = 0;
                     b.Pos += b.Vel;
-                    // altitude is market position: exact at rest, eased while it moves
+                    // a stratum's height is exact at rest, eased while it moves
                     float dy = b.TargetY - b.Pos.y;
                     b.Pos.y = b.Kind == Kind.Company ? b.Pos.y + dy * .12f : b.TargetY;
                     energy += b.Vel.sqrMagnitude + dy * dy * .0144f;
                 }
 
+                // satellites stand in their company's column
+                foreach (var b in Bodies)
+                    if (b.Kind == Kind.Satellite)
+                        b.Pos = new Vector3(b.Host.Pos.x, b.Pos.y + (b.TargetY - b.Pos.y) * .12f, b.Host.Pos.z);
                 Energy = energy / Math.Max(1, Bodies.Count);
             }
         }
@@ -406,8 +546,8 @@ namespace Why.Economy.Land
                 for (int j = i + 1; j < Bodies.Count; j++)
                 {
                     Body a = Bodies[i], b = Bodies[j];
-                    if (a.Kind != Kind.Company || b.Kind != Kind.Company || !a.Alive || !b.Alive) continue;
-                    float o = a.R + b.R - Vector3.Distance(a.Pos, b.Pos);
+                    if (a.Kind != Kind.Company || b.Kind != Kind.Company || !a.Alive || !b.Alive || a.Stratum != b.Stratum) continue;
+                    float o = a.Room + b.Room - new Vector2(a.Pos.x - b.Pos.x, a.Pos.z - b.Pos.z).magnitude;
                     if (o > worst) { worst = o; pair = a.Name + "/" + b.Name; }
                 }
 

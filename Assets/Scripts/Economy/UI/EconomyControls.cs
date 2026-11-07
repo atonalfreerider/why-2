@@ -189,9 +189,12 @@ namespace Why.Economy.UI
         {
             if (!loaded) return;
             bool tour = root.TourActive;
-            bool show = !tour && model != null;
+            // the present as a contest has its own years (2026 measured, 2027-2030 simulated) in its panel: the wave's year
+            // chip would show a second year beside them
+            bool contest = Why.Economy.Land.LandView.PresetId == Why.Economy.Layers.HillAdvantageLayer.View;
+            bool show = !tour && model != null && !contest;
             if (show != chipFade.Shown) Show(show);
-            if (!tour)
+            if (!tour && !contest)
             {
                 HandleKeys();
                 HandleScrubber();

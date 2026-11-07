@@ -361,8 +361,13 @@ logos. The design is `HISTORY.md`.
   tree. Its confirmed findings are fixed; the last was Russia's 904,000 peak, now dated December 1812.
 
 Open from it:
-- *Thin data.* Some actors have no measured size (Habsburg Austria, Prussia, Spain, most coalitions) and stand as grey
-  "not measured" bodies. The AI story's early cross-sections are sparse: the US's first value is 1950's GDP.
+- *Thin data.* A fifth research round (20 facts through the gate and a checker) measured Austria, Prussia and
+  its army in 1813-1815, Britain's 1793 debt, the Royal Navy's seamen 1805-1813, Intel and TSMC in 1980, 2006,
+  2017 and 2019, and Bell Labs in 1981. Still grey by nature or by want of a source: the Congress of Vienna, the
+  coalitions without their own count, the Jacobins, the AlexNet team (a lab sized only by parameters), Bell Labs in
+  1957, the Royal Navy at the coronation (the only 1803-1804 counts are from uncited pages), Compaq before its
+  founding. Rejected: a 2017 TSMC revenue that was a November projection, ships-of-the-line tables from enthusiast
+  pages, a 1780 Continental Army figure that counted all who served.
 - *Portraits.* Krizhevsky, Vaswani and Shazeer have no Wikidata portrait and show monograms. The Royal Navy shows the
   post-1801 ensign in 1781.
 - *Audio import.* `Editor/NarrationImport.cs` streams only `Audio/Tour` clips; the EconomyTour clips, the stories'

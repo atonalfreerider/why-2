@@ -56,8 +56,8 @@ def standing(a, part, year, hold=None, ahead=3):
         if happened(v, year):
             if lo is None or v['year'] > lo['year']: lo = v
         elif hi is None or v['year'] < hi['year']: hi = v
-    if lo is not None and year - effective(lo) <= hold + 1e-3: return lo
-    if hi is not None and hi['year'] - year <= ahead: return hi
+    if lo is not None and year - effective(lo) <= min(hold, lo.get('hold') or hold) + 1e-3: return lo
+    if hi is not None and hi['year'] - year <= ahead and (hi.get('from') is None or year >= hi['from'] - 1e-3): return hi
     return None
 
 
@@ -147,13 +147,15 @@ def show(story, state):
                 part_ids |= {m['holder'], *m['allies'], *m['rivals']}
     moats = active_moats(s, year)
     part_ids |= set(moats)
-    forces = {a['id'] for a in s['actors'] if a['kind'] in ('army', 'navy') and main_part(a, year, True)}
+    forces = {a['id']: a['kind'] for a in s['actors'] if a['kind'] in ('army', 'navy') and main_part(a, year, True)}
     print(f"   sides from: {moment['id'] if moment else None}; title: {(nearest(s, year, .75, sel) or {}).get('title')}")
     for a in s['actors']:
         f, t = sp[a['id']]
         alive = f - .01 <= year <= t + .01
-        own = any(x in forces for x in a.get('forces') or [])
-        p = main_part(a, year, True, FORCE_PARTS if own else ())
+        # a state's standing army keeps its soldiers, its standing navy its ships and sailors
+        kinds = {forces[x] for x in a.get('forces') or [] if x in forces}
+        kept = ({"army", "troops"} if kinds - {"navy"} else set()) | ({"navy", "ships", "sailors"} if "navy" in kinds else set())
+        p = main_part(a, year, True, kept)
         ended = year > t + .01 and year - t <= .25    # a participant its moment has just ended stands a quarter-year more
         if p is None and not (a['id'] in part_ids and (alive or abs(year - f) < 1.5 or ended)): continue
         if p is not None and not alive and not (a['id'] in part_ids and ended): continue
@@ -161,7 +163,7 @@ def show(story, state):
         if p:
             for q in dict.fromkeys(v['part'] for v in a['series']):
                 if q == p or q in LOBED_NOT: continue
-                if own and q in ('army', 'navy', 'troops'): continue
+                if q in kept: continue
                 if a.get('order') and (q not in a['order'] or q == 'population'): continue
                 v = standing(a, q, year)
                 if v: lobes.append(f"{q}={fmt(v)}")

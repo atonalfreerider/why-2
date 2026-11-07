@@ -2366,6 +2366,217 @@
    "to": null,
    "accessed": "2026-11-07",
    "notes": ""
+  },
+  {
+   "id": "story-ai-intel-rev-1980",
+   "claim": "Intel's revenue for 1980 rose 29 percent to $855 million, from $661 million in 1979, according to the company, as Computerwoche reported on 13 February 1981.",
+   "url": "https://www.computerwoche.de/article/2874271/intel-fuerchtet-preisverfall.html",
+   "quotes": [
+    "Netto stellte sich der Gewinn nach Mitteilung des Unternehmens 1980 auf rund 96,7 (1979: 77,8) Millionen Dollar, was gegenüber dem Vorjahr eine Steigerung von 24 Prozent bedeute. Der Umsatz erhöhte sich Unternehmensangaben zufolge um 29 Prozent auf 855 (661) Millionen Dollar."
+   ],
+   "values": [
+    "855"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 0.855,
+   "unit": "USD bn (USD 855 million)",
+   "period": "fiscal 1980",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Computerwoche, 13 February 1981 ('Intel fuerchtet Preisverfall'), reporting the company's own 1980 figures in German: revenue up 29 percent to 855 (661) million dollars."
+  },
+  {
+   "id": "story-ai-intel-rev-2006",
+   "claim": "Intel's net revenue for fiscal 2006 was $35.4 billion, a decrease of 9% compared to 2005, according to Intel's 2006 annual report.",
+   "url": "https://www.intel.com/content/dam/www/central-libraries/us/en/documents/2025-05/history-2006-annual-report.pdf",
+   "quotes": [
+    "Our net revenue was $35.4 billion in 2006, a decrease of 9% compared to 2005."
+   ],
+   "values": [
+    "35.4"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "revenue",
+   "value": 35.4,
+   "unit": "USD bn",
+   "period": "fiscal 2006 (year ended 30 December 2006)",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Intel's 2006 annual report (Form 10-K), hosted in Intel's historical annual reports; the income statement gives $35,382 million."
+  },
+  {
+   "id": "story-ai-intel-mcap-2006",
+   "claim": "Intel's market capitalisation at the end of 2006 was $116.78 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/intel/marketcap/",
+   "quotes": [
+    "2006 $116.78 B -20.95%"
+   ],
+   "values": [
+    "116.78"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "marketValue",
+   "value": 116.78,
+   "unit": "USD bn",
+   "period": "end of 2006",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Year-end market value, the same measure as Nvidia's end-2006 body at the CUDA stop."
+  },
+  {
+   "id": "story-ai-tsmc-rev-2006",
+   "claim": "TSMC's revenue in 2006 was US$9,748 million (about $9.75 billion), up 19% from US$8,217 million in 2005, the largest of the pure-play semiconductor foundries.",
+   "url": "https://en.wikipedia.org/wiki/Foundry_model",
+   "quotes": [
+    "1 TSMC Taiwan 10,556 9,813 9,748",
+    "6 7 TSMC Taiwan 9,748 8,217 +19%"
+   ],
+   "values": [
+    "9,748"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 9.748,
+   "unit": "USD bn (USD 9,748 million)",
+   "period": "2006",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's foundry sales leaders tables (revenue in million USD): the 2008-2006 table and the worldwide ranking for 2006/2005."
+  },
+  {
+   "id": "story-ai-tsmc-mcap-2006",
+   "claim": "TSMC's market capitalisation at the end of 2006 was $56.46 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "2006 $56.46 B 15.2%"
+   ],
+   "values": [
+    "56.46"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "marketValue",
+   "value": 56.46,
+   "unit": "USD bn",
+   "period": "end of 2006",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Year-end market value, the same measure as Nvidia's end-2006 body at the CUDA stop."
+  },
+  {
+   "id": "story-ai-tsmc-mcap-2017-03",
+   "claim": "In March 2017 TSMC's market capitalisation reached NT$5.14 trillion (US$168.4 billion), surpassing Intel's US$165.7 billion for the first time.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "In March 2017, TSMC's market capitalisation surpassed that of semiconductor giant Intel for the first time, hitting NT$5.14 trillion (US$168.4 billion), with Intel's at US$165.7 billion."
+   ],
+   "values": [
+    "168.4"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "marketValue",
+   "value": 168.4,
+   "unit": "USD bn",
+   "period": "March 2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-mcap-2017",
+   "claim": "TSMC's market capitalisation at the end of 2017 was $199.41 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "2017 $199.41 B 36.86%"
+   ],
+   "values": [
+    "199.41"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "marketValue",
+   "value": 199.41,
+   "unit": "USD bn",
+   "period": "end of 2017",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Year-end market value, the same measure as Google's end-2017 body at the attention stop."
+  },
+  {
+   "id": "story-ai-tsmc-rev-2019",
+   "claim": "TSMC's consolidated revenue in 2019 was US$34.63 billion, with net income of US$11.18 billion.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "For 2020, TSMC had a net income of US$17.60 billion on a consolidated revenue of US$45.51 billion, an increase of 57.5 percent and 31.4 percent respectively from the 2019 level of US$11.18 billion net income and US$34.63 billion consolidated revenue."
+   ],
+   "values": [
+    "34.63"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "revenue",
+   "value": 34.63,
+   "unit": "USD bn",
+   "period": "2019",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": ""
+  },
+  {
+   "id": "story-ai-tsmc-mcap-2019",
+   "claim": "TSMC's market capitalisation at the end of 2019 was $286.57 billion, according to CompaniesMarketCap.",
+   "url": "https://companiesmarketcap.com/tsmc/marketcap/",
+   "quotes": [
+    "2019 $286.57 B 49.89%"
+   ],
+   "values": [
+    "286.57"
+   ],
+   "dated2026": false,
+   "actor": "tsmc",
+   "kind": "marketValue",
+   "value": 286.57,
+   "unit": "USD bn",
+   "period": "end of 2019",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Year-end market value."
+  },
+  {
+   "id": "story-ai-bell-staff-1981",
+   "claim": "Bell Labs had over 24,000 employees in 1981, up from over 14,000 in 1965.",
+   "url": "https://ethw-images.s3.us-east-va.perf.cloud.ovh.us/ethw/1/1e/Memories_-_A_Personal_History_of_Bell_Telephone_Laboratories.pdf",
+   "quotes": [
+    "Bell Labs was a very large organization, with over 14,000 employees in 1965, which had grown to over 24,000 in 1981."
+   ],
+   "values": [
+    "24,000"
+   ],
+   "dated2026": false,
+   "actor": "bell-labs",
+   "kind": "headcount",
+   "value": 24,
+   "unit": "thousand employees (over 24,000)",
+   "period": "1981",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "A. Michael Noll, Memories: A Personal History of Bell Telephone Laboratories (hosted by the IEEE's Engineering and Technology History Wiki), citing his 'Bell System R&D Activities', Telecommunications Policy, June 1987."
   }
  ],
  "actors": [
@@ -3550,6 +3761,86 @@
    "value": 3640,
    "unit": "petaflop/s-days (3.14E+23 flops, GPT-3 175B)",
    "fact": "story-ai-gpt3-compute"
+  },
+  {
+   "actor": "intel",
+   "year": "1980-12",
+   "part": "revenue",
+   "value": 0.855,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-rev-1980"
+  },
+  {
+   "actor": "intel",
+   "year": "2006-12",
+   "part": "revenue",
+   "value": 35.4,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-rev-2006"
+  },
+  {
+   "actor": "intel",
+   "year": "2006-12",
+   "part": "marketValue",
+   "value": 116.78,
+   "unit": "USD bn",
+   "fact": "story-ai-intel-mcap-2006"
+  },
+  {
+   "actor": "tsmc",
+   "year": "2006-12",
+   "part": "revenue",
+   "value": 9.748,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-rev-2006"
+  },
+  {
+   "actor": "tsmc",
+   "year": "2006-12",
+   "part": "marketValue",
+   "value": 56.46,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-2006"
+  },
+  {
+   "actor": "tsmc",
+   "year": "2017-03",
+   "part": "marketValue",
+   "value": 168.4,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-2017-03"
+  },
+  {
+   "actor": "tsmc",
+   "year": "2017-12",
+   "part": "marketValue",
+   "value": 199.41,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-2017"
+  },
+  {
+   "actor": "tsmc",
+   "year": "2019-12",
+   "part": "revenue",
+   "value": 34.63,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-rev-2019"
+  },
+  {
+   "actor": "tsmc",
+   "year": "2019-12",
+   "part": "marketValue",
+   "value": 286.57,
+   "unit": "USD bn",
+   "fact": "story-ai-tsmc-mcap-2019"
+  },
+  {
+   "actor": "bell-labs",
+   "year": 1981,
+   "part": "employees",
+   "value": 24,
+   "unit": "thousand employees (over 24,000)",
+   "fact": "story-ai-bell-staff-1981"
   }
  ],
  "moments": [

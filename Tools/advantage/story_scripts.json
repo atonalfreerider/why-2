@@ -119,14 +119,15 @@
      "id": "ai_pc",
      "title": "The PC and the x86",
      "text": "Intel made the first commercial microprocessor, but the PC made it Intel's primary business. The IBM PC, released on 12 August 1981, used an Intel 8088. In 1983 Japanese memory makers squeezed Intel's profits and Andy Grove refocused it on microprocessors. In 1986 Compaq, the first IBM PC clone maker, shipped the first 80386 system, beating IBM and making Intel a key component supplier. At the end of 1999 Intel was worth $274.43 billion.",
-     "reading": "Opened: Intel, unmeasured here, walled by technology, distribution, scale and capital; IBM beside it, by its 1980 income.",
+     "reading": "Opened: Intel, by its 1980 revenue of $855 million, walled by technology, distribution, scale and capital; IBM by its 1980 income.",
      "facts": [
       "lineage-ibm-pc-8088-1981",
       "story-ai-intel-pc-primary",
       "lineage-intel-japan-dram-1983",
       "lineage-compaq-386-1986",
       "story-ai-intel-mcap-1999",
-      "story-ai-ibm-income-1980"
+      "story-ai-ibm-income-1980",
+      "story-ai-intel-rev-1980"
      ],
      "say": [
       {

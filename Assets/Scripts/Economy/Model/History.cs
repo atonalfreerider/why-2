@@ -25,6 +25,12 @@ namespace Why.Economy.Model
             public float Year;
             public string Part, Unit, Fact;
             public double V, Raw = double.NaN, Size = double.NaN;
+            /// <summary>The earliest date the value may stand from, when its own scope began later than the look-ahead
+            /// would reach (Prussia's 1816 count, of the kingdom in the borders drawn in June 1815); NaN when none.</summary>
+            public float From = float.NaN;
+            /// <summary>How long this value stands, when shorter than its part's (Britain's 1793 debt, before the war's loans
+            /// more than doubled it); NaN for the part's own.</summary>
+            public float HoldFor = float.NaN;
         }
 
         public sealed class Actor
@@ -124,9 +130,9 @@ namespace Why.Economy.Model
                     else if (hi == null || v.Year < hi.Year) hi = v;
                 }
 
-                // a stale value gives way to a near one still to come
-                if (lo != null && year - Effective(lo) <= hold + 1e-3) return lo;
-                if (hi != null && hi.Year - year <= ahead) return hi;
+                // a stale value gives way to a near one still to come, though never before its own scope began
+                if (lo != null && year - Effective(lo) <= (float.IsNaN(lo.HoldFor) ? hold : Math.Min(hold, lo.HoldFor)) + 1e-3) return lo;
+                if (hi != null && hi.Year - year <= ahead && (float.IsNaN(hi.From) || year >= hi.From - 1e-3)) return hi;
                 return null;
             }
 
@@ -280,7 +286,8 @@ namespace Why.Economy.Model
                         DrawnBy = Strings(a["order"]), Forces = Strings(a["forces"]),
                     };
                     foreach (JObject v in Arr(a["series"]))
-                        actor.Series.Add(new Value { Year = F(v["year"]), Part = (string)v["part"], Unit = (string)v["unit"], Fact = (string)v["fact"], V = D(v["value"]), Raw = D(v["raw"]), Size = D(v["size"]) });
+                        actor.Series.Add(new Value { Year = F(v["year"]), Part = (string)v["part"], Unit = (string)v["unit"], Fact = (string)v["fact"], V = D(v["value"]), Raw = D(v["raw"]), Size = D(v["size"]),
+                                             From = F(v["from"]), HoldFor = F(v["hold"]) });
                     story.Actors.Add(actor);
                 }
 

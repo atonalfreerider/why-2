@@ -2729,6 +2729,223 @@
    "to": null,
    "accessed": "2026-11-07",
    "notes": ""
+  },
+  {
+   "id": "story-revolutions-austria-armies-1813",
+   "claim": "During the armistice that lasted from 4 June to 13 August 1813, Allied negotiations brought Austria out in open opposition to France, and two principal Austrian armies, deployed in Bohemia and northern Italy, added 300,000 troops to the Allied armies.",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Sixth_Coalition",
+   "quotes": [
+    "Two principal Austrian armies deployed in Bohemia and Northern Italy, adding 300,000 troops to the Allied armies."
+   ],
+   "values": [
+    "300,000"
+   ],
+   "dated2026": false,
+   "actor": "habsburg-austria",
+   "kind": "troops",
+   "value": 300,
+   "unit": "thousand troops (two armies, in Bohemia and northern Italy)",
+   "period": "August 1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Austria came out against France during the armistice of 4 June to 13 August 1813 (the paragraph before the quote); its armies stand from August 1813, when hostilities resumed."
+  },
+  {
+   "id": "story-revolutions-prussians-frontline-1813",
+   "claim": "When the Allies stood up their main field armies for the autumn campaign of 1813, their front line consisted of 184,000 Russians, 162,000 Prussians, 127,000 Austrians, 39,000 Swedes and 9,000 other Germans.",
+   "url": "https://en.wikipedia.org/wiki/War_of_the_Sixth_Coalition",
+   "quotes": [
+    "By nationality, the frontline consisted of 184,000 Russians, 162,000 Prussians, 127,000 Austrians, 39,000 Swedes, and 9,000 other Germans."
+   ],
+   "values": [
+    "162,000"
+   ],
+   "dated2026": false,
+   "actor": "prussian-army",
+   "kind": "troops",
+   "value": 162,
+   "unit": "thousand troops (Prussians in the Allied front line, August 1813)",
+   "period": "August 1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The front line only: the Allies had a further 350,000 in a second line (reserves and sieges), so this is the Prussian field strength, not every Prussian under arms."
+  },
+  {
+   "id": "story-revolutions-blucher-army-june-1815",
+   "claim": "In the early days of June 1815, Blücher's Prussian army in Belgium numbered 116,000 men, with headquarters at Namur.",
+   "url": "https://en.wikipedia.org/wiki/Waterloo_campaign",
+   "quotes": [
+    "In the early days of June 1815, Wellington and Blücher's forces were disposed as follows:",
+    "Blücher's Prussian army of 116,000 men, with headquarters at Namur, was distributed as follows:"
+   ],
+   "values": [
+    "116,000"
+   ],
+   "dated2026": false,
+   "actor": "prussian-army",
+   "kind": "troops",
+   "value": 116,
+   "unit": "thousand troops (Blücher's army in Belgium, early June 1815)",
+   "period": "early June 1815",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Four corps (30,800, 31,000, 23,900 and 30,300) cantoned between Charleroi and Liège before hostilities opened on 15 June."
+  },
+  {
+   "id": "story-revolutions-prussia-population-1816",
+   "claim": "Prussia had a population of 10,349,000 in 1816.",
+   "url": "https://en.wikipedia.org/wiki/Prussia",
+   "quotes": [
+    "Population • 1816[2] 10,349,000 • 1871[2] 24,689,000"
+   ],
+   "values": [
+    "10,349,000"
+   ],
+   "dated2026": false,
+   "actor": "prussia",
+   "kind": "population",
+   "value": 10.349,
+   "unit": "million people (the kingdom in its borders of 1815)",
+   "period": "1816",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The first count after the Congress of Vienna roughly doubled the kingdom; the infobox cites tacitus.nu's table of the German states in 1816."
+  },
+  {
+   "id": "story-revolutions-austria-population-1815",
+   "claim": "The territories that the Congress of Vienna and the Treaty of Paris of 1815 confirmed to Austria had a population of 27,926,000 in all.",
+   "url": "https://jimclifford.ca/early_encyclopedia_britannica/articles/1823/eb_6th_1823_020547.html",
+   "quotes": [
+    "The treaty, or act of Congress at Vienna, in 1815, and the subsequent treaty of Paris in the same year, have confirmed Austria in the possession of the following territories:",
+    "<th>Total</th> <td></td> <td>27,926,000</td>"
+   ],
+   "values": [
+    "27,926,000"
+   ],
+   "dated2026": false,
+   "actor": "habsburg-austria",
+   "kind": "population",
+   "value": 27.926,
+   "unit": "million people (the lands confirmed to Austria in 1815)",
+   "period": "c. 1815",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Encyclopaedia Britannica, 1823 edition, article AUSTRIA, as transcribed at jimclifford.ca: the province-by-province table of the lands of the 1815 settlement, totalled. The table sits on the page as escaped HTML, so the quote keeps its tags."
+  },
+  {
+   "id": "story-revolutions-austria-population-1809",
+   "claim": "By the peace of 1809, the Austrian empire was reduced to a population of 20,000,000.",
+   "url": "https://jimclifford.ca/early_encyclopedia_britannica/articles/1823/eb_6th_1823_020547.html",
+   "quotes": [
+    "By the peace of 1809, the Austrian empire was reduced to a population of 20,000,000."
+   ],
+   "values": [
+    "20,000,000"
+   ],
+   "dated2026": false,
+   "actor": "habsburg-austria",
+   "kind": "population",
+   "value": 20,
+   "unit": "million people (after the peace of 1809)",
+   "period": "1809",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The Austria of 1810-1813, before it regained Tyrol, Illyria and Lombardy-Venetia (story-revolutions-austria-population-1815)."
+  },
+  {
+   "id": "story-revolutions-britain-debt-1793",
+   "claim": "Pitt's Sinking Fund, established in 1786, had redeemed about £10,250,000 of the national debt by 1793, leaving a net capital of £228,000,000.",
+   "url": "https://www.econlib.org/book-chapters/chapter-bk-vch-iii/",
+   "quotes": [
+    "In 1786 the new Sinking Fund was established, and by 1793 it had redeemed about £10,250,000, leaving a net capital charge of £228,000,000."
+   ],
+   "values": [
+    "228,000,000"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-great-britain",
+   "kind": "debt",
+   "value": 228,
+   "unit": "million pounds (net of the Sinking Fund's redemptions)",
+   "period": "1793",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "C. F. Bastable, Public Finance, book V, chapter III (The History of the English Debt), on Econlib. The debt before the war loans: from 1793 to the peace of Amiens it grew by over £270,000,000 to £500,000,000 (the same chapter)."
+  },
+  {
+   "id": "story-revolutions-royal-navy-trafalgar-sailors",
+   "claim": "At the time of the Battle of Trafalgar in 1805 the Royal Navy had 120,000 sailors, over half of them pressed men.",
+   "url": "https://en.wikipedia.org/wiki/Impressment",
+   "quotes": [
+    "At the time of the Battle of Trafalgar in 1805, over half the Royal Navy's 120,000 sailors were pressed men."
+   ],
+   "values": [
+    "120,000"
+   ],
+   "dated2026": false,
+   "actor": "royal-navy",
+   "kind": "headcount",
+   "value": 120,
+   "unit": "thousand sailors",
+   "period": "October 1805",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Trafalgar was fought on 21 October 1805."
+  },
+  {
+   "id": "story-revolutions-royal-navy-1812-seamen",
+   "claim": "Britain enlarged the Royal Navy from 135 ships in 1793 to 584 in 1812, and its personnel from 36,000 seamen in 1793 to 114,000 in 1812.",
+   "url": "https://en.wikipedia.org/wiki/Impressment",
+   "quotes": [
+    "Britain fought the war against Napoleon on the high seas, enlarging its Royal Navy from 135 ships in 1793 to 584 in 1812, and expanding personnel from 36,000 seamen in 1793 to 114,000 in 1812."
+   ],
+   "values": [
+    "135",
+    "584",
+    "36,000",
+    "114,000"
+   ],
+   "dated2026": false,
+   "actor": "royal-navy",
+   "kind": "headcount",
+   "value": 114,
+   "unit": "thousand sailors (seamen)",
+   "period": "1812",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "Only the 1812 figure is used. The 584 ships are vessels of every kind, not ships of the line. For 1793 this sentence gives 36,000 seamen where the series keeps the Napoleonic Wars article's 15,000 sailors."
+  },
+  {
+   "id": "story-revolutions-royal-navy-1813-peak",
+   "claim": "At the United Kingdom's peak strength in 1813, 130,000 of its 380,000 regulars, sailors and marines were in the Royal Navy and 250,000 in the British Army.",
+   "url": "https://en.wikipedia.org/wiki/Napoleonic_Wars",
+   "quotes": [
+    "United Kingdom: 380,000 regulars, sailors, and marines at peak strength (1813)",
+    "250,000 in the British Army and 130,000 in the Royal Navy."
+   ],
+   "values": [
+    "380,000",
+    "130,000"
+   ],
+   "dated2026": false,
+   "actor": "royal-navy",
+   "kind": "headcount",
+   "value": 130,
+   "unit": "thousand sailors (sailors and marines, at the 1813 peak)",
+   "period": "1813",
+   "from": null,
+   "to": null,
+   "accessed": "2026-11-07",
+   "notes": "The second quote is the infobox note on the first line (Clodfelter 2017, p. 170): the Royal Navy's share of the United Kingdom's 1813 peak that the series already gives the state (story-revolutions-peak-uk-1813)."
   }
  ],
  "actors": [
@@ -3948,6 +4165,88 @@
    "value": 81,
    "unit": "ships of the line (all in the fleet)",
    "fact": "story-revolutions-french-navy-1814"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": "1813-08",
+   "part": "army",
+   "value": 300,
+   "unit": "thousand troops (two armies, in Bohemia and northern Italy)",
+   "fact": "story-revolutions-austria-armies-1813"
+  },
+  {
+   "actor": "prussian-army",
+   "year": "1813-08",
+   "part": "army",
+   "value": 162,
+   "unit": "thousand troops (Prussians in the Allied front line)",
+   "fact": "story-revolutions-prussians-frontline-1813"
+  },
+  {
+   "actor": "prussian-army",
+   "year": "1815-06-01",
+   "part": "army",
+   "value": 116,
+   "unit": "thousand troops (Blücher's army in Belgium)",
+   "fact": "story-revolutions-blucher-army-june-1815"
+  },
+  {
+   "actor": "prussia",
+   "year": 1816,
+   "part": "population",
+   "value": 10.349,
+   "unit": "million people (the kingdom in its borders of 1815)",
+   "fact": "story-revolutions-prussia-population-1816",
+   "from": "1815-06-09"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": 1815,
+   "part": "population",
+   "value": 27.926,
+   "unit": "million people (the lands confirmed to Austria in 1815)",
+   "fact": "story-revolutions-austria-population-1815"
+  },
+  {
+   "actor": "habsburg-austria",
+   "year": "1809-12",
+   "part": "population",
+   "value": 20,
+   "unit": "million people (after the peace of 1809)",
+   "fact": "story-revolutions-austria-population-1809"
+  },
+  {
+   "actor": "kingdom-of-great-britain",
+   "year": 1793,
+   "part": "debt",
+   "value": 228,
+   "unit": "million pounds (net of the Sinking Fund's redemptions)",
+   "fact": "story-revolutions-britain-debt-1793",
+   "hold": 3
+  },
+  {
+   "actor": "royal-navy",
+   "year": "1805-10",
+   "part": "sailors",
+   "value": 120,
+   "unit": "thousand sailors (at the time of Trafalgar)",
+   "fact": "story-revolutions-royal-navy-trafalgar-sailors"
+  },
+  {
+   "actor": "royal-navy",
+   "year": 1812,
+   "part": "sailors",
+   "value": 114,
+   "unit": "thousand sailors (seamen)",
+   "fact": "story-revolutions-royal-navy-1812-seamen"
+  },
+  {
+   "actor": "royal-navy",
+   "year": "1813-12",
+   "part": "sailors",
+   "value": 130,
+   "unit": "thousand sailors (sailors and marines, at the 1813 peak)",
+   "fact": "story-revolutions-royal-navy-1813-peak"
   }
  ],
  "moments": [

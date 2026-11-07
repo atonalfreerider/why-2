@@ -618,11 +618,11 @@ namespace Why.Economy.Layers
         /// fields above, what it owes or lost below), each as wide as the cube root of its size. Each lobe's amount is the
         /// volume its radius stands for, so the fused body keeps the lobes' sizes. An actor measured nowhere near the year is a
         /// small grey core.</summary>
-        static List<ContestNetwork.Part> PartsAt(History.Actor a, float year, ISet<string> forcesStanding, out bool measured)
+        static List<ContestNetwork.Part> PartsAt(History.Actor a, float year, IReadOnlyDictionary<string, string> forcesStanding, out bool measured)
         {
             var parts = new List<ContestNetwork.Part>();
-            // a state whose own forces stand as their own actors is never drawn by their soldiers
-            bool ownForces = a.Forces.Any(forcesStanding.Contains);
+            // a state whose own forces stand as their own actors is never drawn by their soldiers or ships
+            var kept = OwnForceParts(a, forcesStanding);
             string main = MainOf(a, year, forcesStanding);
             measured = main != null;
             Color kind = KindColor(a.Kind);
@@ -637,7 +637,7 @@ namespace Why.Economy.Layers
             // a state's own forces drawn as their own actors keep their soldiers there; an actor drawn by its own measures (the
             // crown by its money) keeps to them, its people being another actor's
             foreach (string part in a.Series.Select(v => v.Part).Distinct()
-                         .Where(p => p != main && Lobed(p) && !(ownForces && (p == "army" || p == "navy" || p == "troops")) &&
+                         .Where(p => p != main && Lobed(p) && (kept == null || !kept.Contains(p)) &&
                                      (a.DrawnBy.Length == 0 || (a.DrawnBy.Contains(p) && p != "population"))).Take(5))
             {
                 double size = a.SizeAt(part, year);
@@ -653,15 +653,34 @@ namespace Why.Economy.Layers
 
         static double Vol(float r) => Math.Pow(r / ContestNetwork.KR, 3);
 
-        static readonly string[] ForceParts = { "army", "navy", "troops", "ships", "sailors" };
+        static readonly string[] ArmyParts = { "army", "troops" }, NavyParts = { "navy", "ships", "sailors" };
+
+        /// <summary>
+        /// The parts a state's own forces keep while they stand as their own actors: an army's soldiers, a navy's ships and
+        /// sailors. Only those: while the Republic's navy alone stands, its levy of 300,000 is still its own. Null when none.
+        /// </summary>
+        static string[] OwnForceParts(History.Actor a, IReadOnlyDictionary<string, string> forcesStanding)
+        {
+            bool army = false, navy = false;
+            foreach (string id in a.Forces)
+                if (forcesStanding.TryGetValue(id, out string kind))
+                {
+                    if (kind == "navy") navy = true;
+                    else army = true;
+                }
+
+            if (!army && !navy) return null;
+            return (army ? ArmyParts : Array.Empty<string>()).Concat(navy ? NavyParts : Array.Empty<string>()).ToArray();
+        }
 
         /// <summary>The measure a body is drawn by at a year (its label and card name the same one): a state whose own forces
-        /// stand as their own actors is never drawn by their soldiers.</summary>
-        static string MainOf(History.Actor a, float year, ISet<string> forcesStanding) =>
-            a.MainPartAt(year, true, a.Forces.Any(forcesStanding.Contains) ? ForceParts : null);
+        /// stand as their own actors is never drawn by their soldiers or ships.</summary>
+        static string MainOf(History.Actor a, float year, IReadOnlyDictionary<string, string> forcesStanding) =>
+            a.MainPartAt(year, true, OwnForceParts(a, forcesStanding));
 
-        static HashSet<string> ForcesStanding(History.Story s, float year) =>
-            new HashSet<string>(s.Actors.Where(f => (f.Kind == "army" || f.Kind == "navy") && f.MainPartAt(year, true) != null).Select(f => f.Id));
+        /// <summary>The armies and navies measured at a year, by id, with their kind.</summary>
+        static Dictionary<string, string> ForcesStanding(History.Story s, float year) =>
+            s.Actors.Where(f => (f.Kind == "army" || f.Kind == "navy") && f.MainPartAt(year, true) != null).ToDictionary(f => f.Id, f => f.Kind);
 
         /// <summary>Whether a measure is a part of the body (what the actor holds, fields or owes: people, troops, ships,
         /// money, members, users), not a property of its product (a chip's transistors, a model's parameters) or a count of
@@ -1106,6 +1125,39 @@ namespace Why.Economy.Layers
             return (word != null ? word + ": " : "") + Raw(v) + " " + v.Unit + (dated ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
         }
 
+        /// <summary>
+        /// A value as a body's label gives it: the number line kept short, and a long note of its unit under it, wrapped, so
+        /// the label stays narrow enough to stand beside its neighbours and clear of the panel and the story's card.
+        /// </summary>
+        static string LabelValue(History.Value v)
+        {
+            string full = ValueText(v);
+            if (full.Length <= 46) return full;
+            string unit = v.Unit ?? "";
+            int open = unit.IndexOf(" (", StringComparison.Ordinal);
+            if (open < 0 || !unit.EndsWith(")", StringComparison.Ordinal)) return Wrap(full, 44);
+            string word = MeasureWord(v.Part);
+            bool dated = Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) && !Spans(v.Unit, Year);
+            string line = (word != null ? word + ": " : "") + Raw(v) + " " + unit.Substring(0, open) + (dated ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
+            return line + "\n<size=76%>" + Wrap(unit.Substring(open + 2, unit.Length - open - 3), 44) + "</size>";
+        }
+
+        /// <summary>Text broken into lines of at most about this many characters, at spaces.</summary>
+        static string Wrap(string text, int width)
+        {
+            var sb = new System.Text.StringBuilder();
+            int col = 0;
+            foreach (string w in text.Split(' '))
+            {
+                if (col > 0 && col + 1 + w.Length > width) { sb.Append('\n'); col = 0; }
+                else if (col > 0) { sb.Append(' '); col++; }
+                sb.Append(w);
+                col += w.Length;
+            }
+
+            return sb.ToString();
+        }
+
         static readonly System.Text.RegularExpressions.Regex Circa = new System.Text.RegularExpressions.Regex(@"c\.\s*(\d{4})\s*[-\u2013]\s*(\d{4})");
 
         /// <summary>Whether a unit gives its value for a span of years ("c. 1800-1815") that holds the year.</summary>
@@ -1176,7 +1228,7 @@ namespace Why.Economy.Layers
                     if (a == null) continue;
                     string main = kv.Value.Main;
                     var v = main != null ? a.Shown(main, Year) : null;
-                    string measure = v != null ? "\n" + ValueText(v) : "\n<i>not measured</i>";
+                    string measure = v != null ? "\n" + LabelValue(v) : "\n<i>not measured</i>";
                     float above = ringed.Contains(kv.Key) ? kv.Value.Shape.MaxRadius + 4 + 3 : kv.Value.Shape.MaxRadius + 4.5f;
                     labels.Add(new HillLabel
                     {
@@ -1238,8 +1290,8 @@ namespace Why.Economy.Layers
             }
         }
 
-        static readonly Vector2[] AboveFallbacks = { new Vector2(0, 18), new Vector2(0, 36), new Vector2(0, 54) };
-        static readonly Vector2[] BelowFallbacks = { new Vector2(0, -18), new Vector2(0, -36), new Vector2(0, -54) };
+        static readonly Vector2[] AboveFallbacks = { new Vector2(0, 18), new Vector2(0, 36), new Vector2(0, 54), new Vector2(0, 72), new Vector2(0, 90) };
+        static readonly Vector2[] BelowFallbacks = { new Vector2(0, -18), new Vector2(0, -36), new Vector2(0, -54), new Vector2(0, -72), new Vector2(0, -90) };
 
         /// <summary>A wall whose judgment Jev was unsure of: its confidence under 0.15 (its answer spread over the levels).</summary>
         public static bool Uncertain(History.MoatSource x) => !double.IsNaN(x.Confidence) && x.Confidence < .15;

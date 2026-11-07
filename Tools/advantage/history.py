@@ -163,6 +163,17 @@ def active_of(p):
     return [lo, hi]
 
 
+def plain_unit(unit, value):
+    """The unit without a note that only restates the value in another form ('1,145 USD bn (US$1.145 trillion)'): the same
+    number to the last digit, and a label short enough to stand beside its neighbours."""
+    if not unit or not isinstance(value, (int, float)):
+        return unit
+
+    def same(m):
+        return "" if abs(float(m.group(1)) * 1000 - value) < 0.5 else m.group(0)
+    return re.sub(r"\s*\(US\$([0-9.]+) trillion\)", same, unit)
+
+
 def pounds(part, value, unit):
     """Money in billions of pounds of the time (sizes only); None when the currency is unknown."""
     u = (unit or "").lower()
@@ -249,8 +260,13 @@ def main():
                 v = base_value(row.get("part"), row.get("value"), row.get("unit"))
             except (TypeError, ValueError):
                 continue
-            entry = {"year": year_of(row.get("year")), "part": row.get("part"), "unit": row.get("unit"), "fact": row["fact"],
-                     "raw": row.get("value"), "value": v}
+            entry = {"year": year_of(row.get("year")), "part": row.get("part"), "unit": plain_unit(row.get("unit"), row.get("value")),
+                     "fact": row["fact"], "raw": row.get("value"), "value": v}
+            # a row's own limits: the earliest date it may stand (its scope began then) and a hold shorter than its part's
+            if row.get("from") is not None:
+                entry["from"] = year_of(row.get("from"))
+            if row.get("hold") is not None:
+                entry["hold"] = float(row.get("hold"))
             if entry["year"] is None:
                 continue
             actor = row.get("actor")
@@ -282,7 +298,8 @@ def main():
                            "from": year_of(a.get("from")), "to": year_of(a.get("to")), "successor": a.get("successor"),
                            "role": a.get("role"), "image": aid, "facts": cite(a.get("facts")),
                            "series": [{"year": r["year"], "part": r["part"], "unit": r["unit"], "fact": r["fact"], "value": r["value"], "raw": r["raw"],
-                                       "size": None if r["size"] is None else round(r["size"], 6)}
+                                       "size": None if r["size"] is None else round(r["size"], 6),
+                                       **{k: r[k] for k in ("from", "hold") if r.get(k) is not None}}
                                       for r in rows if r["value"] is not None or r["part"] in ("gdpShare", "share")]})
         moments = []
         for m in data.get("moments", []):

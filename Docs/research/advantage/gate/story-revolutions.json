@@ -2,9 +2,9 @@
  "asOf": "2026-11-07",
  "threshold": 0.6,
  "jev": {
-  "requests": 1,
-  "cached": 124,
-  "tokens": 186227,
+  "requests": 0,
+  "cached": 135,
+  "tokens": 202035,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -49,6 +49,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-austria-armies-1813": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-austria-population-1800": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -57,6 +67,26 @@
    "supportedJ": 0.94,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-austria-population-1809": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-austria-population-1815": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
    "cluster": "story-revolutions"
   },
   "story-revolutions-austria-subsidy-1809": {
@@ -109,6 +139,16 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-blucher-army-june-1815": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-britain-budget-1814": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -127,6 +167,16 @@
    "supportedJ": 0.96,
    "fetched": "2026-11-07",
    "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-britain-debt-1793": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
   "story-revolutions-britain-subsidies-total": {
@@ -869,6 +919,26 @@
    "quotesFound": "1/1",
    "cluster": "story-revolutions"
   },
+  "story-revolutions-prussia-population-1816": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-prussians-frontline-1813": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.74,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
   "story-revolutions-recognition-1804": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -915,6 +985,36 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-royal-navy-1812-seamen": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-royal-navy-1813-peak": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-royal-navy-trafalgar-sailors": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"

@@ -29,8 +29,10 @@ The gap between the stories is not drawn.
     - market value, revenue or capital for a company;
     - valuation, users or (in its tube only) parameters for a lab.
   - **Per-actor exceptions.** The crown of France is drawn by its money, its people being the nation's own actor
-    (`history.py` `ORDERS`). A state whose own forces stand as their own actors is never drawn by their soldiers
-    (`FORCES`). A product's property (a model's compute, a chip's transistors) never sizes a body.
+    (`history.py` `ORDERS`). A state whose own forces stand as their own actors is not drawn by what they keep
+    (`FORCES`): its standing army keeps its soldiers, its standing navy its ships and sailors, and nothing else (while
+    only the Republic's navy stands, the levy of 300,000 is still the Republic's). A product's property (a model's
+    compute, a chip's transistors) never sizes a body.
   - **When a value stands** (`History.Actor.SizeAt`, `Standing`). A value counts from its own date:
     - `history.py` keeps months and days; rows whose facts say "at the end of 1999" or "in November 2026" are dated so;
     - a year-only value counts for its whole calendar year if it is a standing quantity, and from the year's end if it
@@ -38,7 +40,10 @@ The gap between the stories is not drawn.
   - **How long it holds:** half a year for an event (a battle's force or fleet, a loss, the Terror's sentences, a year's
     spending), three years for an army or a navy, five for money, eight for a people's count or a debt.
   - **Before its date:** only a state's or a people's population or GDP may stand, up to three years before it was
-    counted.
+    counted, and never before its own scope began: a row may say from when it holds (Prussia's 1816 count, of the
+    kingdom in the borders drawn on 9 June 1815, stands from that day, not at Leipzig).
+  - **A row's own hold:** a row may hold for less than its part (Britain's 1793 debt for three years, before the war's
+    loans more than doubled it).
   - **Never between two:** no line is drawn between measurements. Most series are snapshots of different things
     (Austerlitz's army and Jena's), not one quantity sampled.
 - **Lanes.** Groups top to bottom: polities, alliances, forces, peoples and churches, companies, labs.
@@ -62,7 +67,12 @@ The gap between the stories is not drawn.
       pixels at a time) rather than going unshown. The column's head stands under the column and is placed after the
       names, so it steps down past a name in the last line.
     - The camera fits the bodies to three quarters of the screen left free by the panel and the cards, so the names
-      that reach past them stay clear of both.
+      that reach past them stay clear of both. A column holds one to three bodies to a line, whichever count lets the
+      camera come nearest: a wide contest stacks into the screen's height.
+    - A long note of a unit goes on its own line under the number, so a name stays narrow. A note that only restates the
+      value ("US$1.145 trillion" beside "1,145 USD bn") is dropped by `history.py`.
+    - An advantage stands only while its holder's lane does. A side of the moment whose lane has just ended stands a
+      quarter-year more (the Republic at Brumaire).
     - Of two moments on the same date, the selected actor's sets the sides.
     - The participants of that moment, and every holder of an advantage documented for the year, stand even when
       unmeasured: small, grey, "not measured".

@@ -2,9 +2,9 @@
  "asOf": "2026-11-07",
  "threshold": 0.6,
  "jev": {
-  "requests": 1,
-  "cached": 110,
-  "tokens": 177717,
+  "requests": 0,
+  "cached": 121,
+  "tokens": 194750,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -115,6 +115,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-bell-staff-1981": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"
@@ -479,6 +489,16 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-intel-mcap-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-intel-mcap-2012": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -509,6 +529,16 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-intel-rev-1980": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-intel-rev-1997": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -520,6 +550,16 @@
    "cluster": "story-ai"
   },
   "story-ai-intel-rev-2000": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-intel-rev-2006": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
@@ -1009,7 +1049,47 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-tsmc-mcap-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
   "story-ai-tsmc-mcap-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-tsmc-mcap-2017": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-tsmc-mcap-2017-03": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-tsmc-mcap-2019": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
@@ -1059,12 +1139,32 @@
    "quotesFound": "1/1",
    "cluster": "story-ai"
   },
+  "story-ai-tsmc-rev-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-ai"
+  },
   "story-ai-tsmc-rev-2012": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "story-ai"
+  },
+  "story-ai-tsmc-rev-2019": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-ai"

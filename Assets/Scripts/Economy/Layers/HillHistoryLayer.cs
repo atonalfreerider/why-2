@@ -93,7 +93,7 @@ namespace Why.Economy.Layers
             public MeshRenderer Body, Occluder;
             public Organism Shape;
             public Vector3 From, To;
-            public bool Measured;
+            public bool Measured, LabelBelow;
             public int Side;
             public string Main;
         }
@@ -755,7 +755,7 @@ namespace Why.Economy.Layers
             {
                 float colCentre = xCol - colW[c] * .5f;
                 float yRow = mid + totalH * .5f;
-                float colTop = float.NegativeInfinity;
+                float colBottom = float.PositiveInfinity;
                 foreach (int k in kinds)
                 {
                     if (cells.TryGetValue((c, k), out var lines))
@@ -765,18 +765,20 @@ namespace Why.Economy.Layers
                         {
                             float lineH = line.Max(x => Foot(x.shape, x.a.Id));
                             float lw = line.Sum(x => 2 * Foot(x.shape, x.a.Id)) + BodyGap * (line.Count - 1), x0 = colCentre + lw * .5f;
+                            int inLine = 0;
                             foreach (var it in line)
                             {
                                 float rad = it.shape.MaxRadius, foot = Foot(it.shape, it.a.Id);
                                 var to = new Vector3(x0 - foot, yLine - lineH, z);
-                                colTop = Mathf.Max(colTop, to.y + foot);
+                                colBottom = Mathf.Min(colBottom, to.y - foot);
+                                bool below = inLine++ % 2 == 1;    // neighbours' names alternate above and below, so they do not cover each other
                                 x0 -= 2 * foot + BodyGap;
                                 int lane = L.LaneOf.TryGetValue(it.a.Id, out int ln) ? ln : 0;
                                 var from = new Vector3(LaneX, L.LaneY.Count > 0 ? L.LaneY[Mathf.Clamp(lane, 0, L.LaneY.Count - 1)] : LaneBase, z);
                                 it.body.BodyR = rad;
                                 var (mr, or) = BuildBody(it.a, it.shape, it.measured);
                                 bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side,
-                                                              Main = MainOf(it.a, Year, forcesStanding) };
+                                                              Main = MainOf(it.a, Year, forcesStanding), LabelBelow = below };
                             }
 
                             yLine -= 2 * lineH + LineGap;
@@ -786,7 +788,8 @@ namespace Why.Economy.Layers
                     yRow -= rowH[k] + RowGap;
                 }
 
-                if (moment != null && cols.Count > 1 && !float.IsNegativeInfinity(colTop)) columnHeads.Add((c, new Vector3(colCentre, colTop + 16, z)));
+                // the column's head under it, where no body's name stands
+                if (moment != null && cols.Count > 1 && !float.IsPositiveInfinity(colBottom)) columnHeads.Add((c, new Vector3(colCentre, colBottom - 12, z)));
                 xCol -= colW[c] + ColGap;
             }
 
@@ -964,7 +967,9 @@ namespace Why.Economy.Layers
                 // down the time axis from the future (+x runs to the left), the cross-section filling the free screen
                 Vector3 c = (arenaMin + arenaMax) * .5f;
                 float w = arenaMax.x - arenaMin.x + 26, h = arenaMax.y - arenaMin.y + 40;
-                float d = Mathf.Max(w * .5f / (tanH * FreeWidth * .94f), h * .5f / (tanV * .76f), 110);
+                // the bodies take three quarters of the free width: their names reach past them, and a name that would run under
+                // the panel or a story's card is not shown
+                float d = Mathf.Max(w * .5f / (tanH * FreeWidth * .74f), h * .5f / (tanV * .76f), 110);
                 float dx = shift * 2 * d * tanH;
                 p = HillPresets.HistoryPose(new Vector3(c.x - dx, c.y + 4, T(story, Year)), 180, 3, d);
             }
@@ -1087,9 +1092,12 @@ namespace Why.Economy.Layers
                     float above = ringed.Contains(kv.Key) ? kv.Value.Shape.MaxRadius + 4 + 3 : kv.Value.Shape.MaxRadius + 4.5f;
                     labels.Add(new HillLabel
                     {
-                        Text = "<b>" + a.Name + "</b> <size=80%>" + KindWord(a.Kind) + "</size><size=86%>" + measure + "</size>", At = kv.Value.To + Vector3.up * above,
+                        Text = "<b>" + a.Name + "</b> <size=80%>" + KindWord(a.Kind) + "</size><size=86%>" + measure + "</size>",
+                        At = kv.Value.To + Vector3.up * (kv.Value.LabelBelow ? -above : above),
                         Role = LabelRole.Name, Part = "history.bodies", Rank = 300 + kv.Value.Shape.MaxRadius + (Selected == a.Id ? 400 : 0), Plate = new Color(0, 0, 0, .78f),
                         Color = KindColor(a.Kind), OnTop = true,
+                        // a name whose place a neighbour's name took stacks beyond it, away from its body, rather than going unshown
+                        Fallbacks = kv.Value.LabelBelow ? BelowFallbacks : AboveFallbacks,
                     });
                 }
 
@@ -1125,7 +1133,8 @@ namespace Why.Economy.Layers
                         {
                             Text = side < 0 ? "<b>" + (s.Get(cm.Holder)?.Name ?? cm.Holder) + "</b>" + (cm.Allies.Length > 0 ? " and allies" : "")
                                  : side > 0 ? "<b>Rivals</b>" : "Others",
-                            At = at, Role = LabelRole.Name, Part = "history.walls", Rank = 900, OnTop = true,
+                            // placed after the bodies' names, so a name in the column's last line keeps its place and the head steps down
+                            At = at, Role = LabelRole.Name, Part = "history.walls", Rank = 290, OnTop = true, Fallbacks = BelowFallbacks,
                             Color = side < 0 ? TriadColor(cm.Triad) : side > 0 ? new Color(.95f, .62f, .6f) : new Color(.72f, .76f, .82f),
                         });
 
@@ -1138,6 +1147,9 @@ namespace Why.Economy.Layers
                     });
             }
         }
+
+        static readonly Vector2[] AboveFallbacks = { new Vector2(0, 18), new Vector2(0, 36), new Vector2(0, 54) };
+        static readonly Vector2[] BelowFallbacks = { new Vector2(0, -18), new Vector2(0, -36), new Vector2(0, -54) };
 
         /// <summary>A wall whose judgment Jev was unsure of: its confidence under 0.15 (its answer spread over the levels).</summary>
         public static bool Uncertain(History.MoatSource x) => !double.IsNaN(x.Confidence) && x.Confidence < .15;

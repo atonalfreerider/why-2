@@ -58,6 +58,11 @@ The gap between the stories is not drawn.
     the others, and one for its rivals, each headed. Rows run polities and peoples, then forces, then enterprises, at
     most three bodies to a line.
     - Each body is spaced by its advantage ring's reach.
+    - Neighbours' names alternate above and below their bodies. A name whose place is taken steps further out (18
+      pixels at a time) rather than going unshown. The column's head stands under the column and is placed after the
+      names, so it steps down past a name in the last line.
+    - The camera fits the bodies to three quarters of the screen left free by the panel and the cards, so the names
+      that reach past them stay clear of both.
     - Of two moments on the same date, the selected actor's sets the sides.
     - The participants of that moment, and every holder of an advantage documented for the year, stand even when
       unmeasured: small, grey, "not measured".

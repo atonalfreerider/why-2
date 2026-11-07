@@ -86,6 +86,12 @@ namespace Why.Economy.UI
 
             var name = UiFactory.Text(rect, "Name", "", 15, GraphStyle.Text);
             name.fontStyle = FontStyles.Bold;
+            // one line: a long name (Charles-Maurice de Talleyrand-Périgord) is set smaller rather than wrapped over the line below
+            name.textWrappingMode = TextWrappingModes.NoWrap;
+            name.enableAutoSizing = true;
+            name.fontSizeMin = 10;
+            name.fontSizeMax = 15;
+            name.overflowMode = TextOverflowModes.Ellipsis;
             Place(name.rectTransform, Image + 18, 10, CardW - Image - 26, 20);
             var line = UiFactory.Text(rect, "Line", "", 11.5f, new Color(.78f, .82f, .88f));
             line.textWrappingMode = TextWrappingModes.Normal;

@@ -21246,12 +21246,12 @@
   },
   {
    "actor": "russian-army",
-   "year": 1812,
+   "year": "1812-12",
    "part": "army",
    "value": 904.0,
-   "unit": "thousand troops",
+   "unit": "thousand troops (peak 1812 strength)",
    "fact": "story-revolutions-russia-army-peak-1812",
-   "id": "series-russian-army-1812-army",
+   "id": "series-russian-army-1812-12-army",
    "cluster": "story-revolutions"
   },
   {
@@ -48832,7 +48832,7 @@
    "reason": null
   },
   "story-revolutions-russia-army-peak-1812": {
-   "claim": "By 1812 the Russian army reached a peak strength of 904,000, with perhaps 100,000 near Moscow.",
+   "claim": "Drafting large numbers of reinforcements brought the Russian army to its peak 1812 strength of 904,000, with perhaps 100,000 near Moscow.",
    "actor": "russian-army",
    "kind": "troops",
    "value": 904,
@@ -48846,7 +48846,7 @@
    "dated2026": false,
    "cluster": "story-revolutions",
    "status": "verified",
-   "supportedJ": 0.96,
+   "supportedJ": 0.97,
    "verifiedOn": "2026-11-07",
    "reason": null
   },

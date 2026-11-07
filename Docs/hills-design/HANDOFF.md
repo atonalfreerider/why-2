@@ -333,6 +333,14 @@ logos. The design is `HISTORY.md`.
   - Opened at a year, the slices become occluding point-cloud bodies. They stand in rows by kind and sides by the
     nearest moment, each documented advantage a ring walled by its sources (Jev, `judge.py --only history`).
   - Values hold from their measurement and are never drawn between two.
+    - A month-dated value counts from its month. A year-only standing value counts for its whole year; a year-only
+      event (a battle's troops, a loss) counts from the year's end.
+    - Holds: events half a year; armies and navies 3 years; populations, GDP, faiths and debts 8; the rest 5.
+    - An army, navy or alliance is drawn by its battle force within a quarter-year of the battle.
+    - `Tools/advantage/story_cues.py` ports these rules and prints every cue's bodies, measures, lobes, sides and rings.
+      Use it before changing a reading or a cue.
+  - The opened picture is a contest: columns by side (the holder and its allies, the others, the rivals), rows by kind.
+    Names alternate above and below and step outward when their place is taken; the heads stand under the columns.
   - The smoke sequence is `-smokeextra history`.
 - *Panel and popups.* `UI/HistoryPanel.cs`: the two stories, the moments, open or close, play the story, and the reading
   of the moment. `UI/HistoryPopups.cs` and `UI/ActorImages.cs`: portrait and logo cards from the 256 px atlas in
@@ -348,6 +356,9 @@ logos. The design is `HISTORY.md`.
     `-smokestory ai,revolutions`.
 - *Images.* `Tools/advantage/story_images.py` writes `Tools/images/stories.json` from the stories, with the crop review's
   overrides. Fetch and pack it with `Tools/images/fetch.py`; the atlas is built in the mirror's `work/stories-images`.
+
+- *Review.* Workflow `wf_b3e44be8-acc` (truth on screen, drawing, panel, director, data) was run against the working
+  tree. Its confirmed findings are fixed; the last was Russia's 904,000 peak, now dated December 1812.
 
 Open from it:
 - *Thin data.* Some actors have no measured size (Habsburg Austria, Prussia, Spain, most coalitions) and stand as grey

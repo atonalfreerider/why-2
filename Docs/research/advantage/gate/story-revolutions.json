@@ -2,9 +2,9 @@
  "asOf": "2026-11-07",
  "threshold": 0.6,
  "jev": {
-  "requests": 0,
-  "cached": 125,
-  "tokens": 186217,
+  "requests": 1,
+  "cached": 124,
+  "tokens": 186227,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -924,7 +924,7 @@
    "verifiedOn": "2026-11-07",
    "quoteFound": true,
    "valuesFound": true,
-   "supportedJ": 0.96,
+   "supportedJ": 0.97,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
    "cluster": "story-revolutions"

@@ -219,28 +219,39 @@ The user asked (7 Nov) to rebuild the economy around **competitive advantage**. 
 - Rebuild the 2026 cross-section, opened into the 3D hillside, as a simulation of advantage. Actors stand higher the
   more they dominate. They are placed above, below or beside each other by advantage and supply-chain position.
 - Revenue, cost and capital rivers are coloured by desire or fear, and they show the choke points.
-- Flashpoints are sparks between rivals, in 2026 and back through history (archetypes, the 20th and 21st centuries,
-  the transistor-to-NVIDIA lineage).
+- Flashpoints are sparks between rivals, in 2026 and back through history.
 - Scenarios make the environment friendly or unfriendly, so the view predicts winners and losers.
 - The user also said to pace usage across the 5-hour window, to commit to main as the work lands, and to take
   screenshots only of significant changes. Jev is available.
 
-**State.**
+**Built and pushed** (commit 1a0dc6f), smoke-tested in the mirror with 0 errors:
 
-- *Research run.* `Docs/research/advantage/workflow/research.js` (run `wf_237bc6f9-020`) has six Sonnet researchers and
-  a code mapper. They write `Docs/research/advantage/{compute,labs,economy,lineage,century,archetypes}.{json,md}` and
-  `maps/code.md`.
-- *Truth gate.* Each fact must pass `python3 -I Tools/advantage/verify.py [--cluster NAME]`: a verbatim quote, the
-  values inside it, Jev at 0.6 or more, and 2026 facts re-read on the as-of date.
-- *Resuming.* In the same session, resume the run with its scriptPath and runId. In a new session, start the committed
-  copy with `args: {skip: [...finished keys]}`. A cluster whose files exist but whose gate record is missing or weak
-  reruns.
+- *The design* is `Docs/hills-design/ADVANTAGE.md`.
+- *The view `advantage`* (key I; the bar's "Advantage"):
+  - `Layers/HillAdvantageLayer.cs`: peaks with strata and gold, flat rivers in two lanes, gold climbs, choke rings,
+    sparks, the lineage's gold lane along the wave, the opening choreography, scenario moves, hover and click, and the
+    smoke sequence `-smokeextra advantage` (frames now, a scenario, history, selected);
+  - `Land/AdvantageLayout.cs`: bands, flanks, states, mouths and rivers;
+  - `Model/Advantage.cs`: the loader;
+  - `UI/AdvantagePanel.cs`: the worlds, the reading, the actor, the history and the strata key.
+- *The old present* is in the bar as "Industries". It answers only Shift + I.
+- *The scenarios* are registered as the view's variants, so tour cues can show them.
 
-**Next.**
+**Data pipeline**, all in `Tools/advantage/`:
 
-1. The strategist step merges the clusters into `Docs/research/advantage/model.json` and runs the Jev judgments
-   (`Tools/advantage/judge.py`): the 7 Powers, the information, execution and environment triad, flow motive,
-   choke-point substitutability, and scenario effects.
-2. It writes `analysis.md`, with predictions by scenario, and the runtime data
-   `Assets/Resources/Data/economy/advantage.json`.
-3. Then the design `Docs/hills-design/ADVANTAGE.md`, and the build in the mirror, with smoke tests and commits.
+1. `verify.py`: the truth gate per research file.
+2. `merge.py`: model.json from the clusters, plus the strategist's `strategist.json` and `scenarios.json`.
+3. `judge.py`: Jev's judgments into `judgments.json`.
+4. `build.py`: writes `Assets/Resources/Data/economy/advantage.json`.
+
+The research is six clusters, 294 facts, all verified (`Docs/research/advantage/`, run `wf_237bc6f9-020`).
+
+**In flight:** the strategist (run `wf_2236604c-5ee`, script `Docs/research/advantage/workflow/strategist.js` once
+copied). It cleans the model, adds 2026 sizes and flows through the gate, writes the scenarios, runs Jev, reviews and
+writes `analysis.md`.
+
+- **The data file is not committed yet.** The `advantage.json` in Assets is a dev build from placeholder judgments, in
+  `work/advantage/dev/`. Rebuild it with `python3 -I Tools/advantage/build.py` after the strategist's judge run, then
+  commit it with its `.meta`.
+- **Then:** check the frames with real data; add the tour stop (economy_tour.json, text only: narration is not
+  approved); report to the user.

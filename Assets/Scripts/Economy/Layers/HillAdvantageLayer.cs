@@ -162,7 +162,18 @@ namespace Why.Economy.Layers
             current = this;
             EconomyStage.Land().Place(transform);
             EconomyEmphasis.RegisterView(View, PartNames.Select(p => "advantage." + p), null, new[] { "wave.crest", "wave.face", "wave.lives" }, synthesis: true);
+            // the worlds are the view's variants (now, 2030, then the scenarios), so a tour stop's cues can show each in turn
+            ViewVariants.Register(View, () => Worlds().Count, k => SetScenario(Worlds()[Mathf.Clamp(k, 0, Worlds().Count - 1)]), k => k >= 0 && k < Worlds().Count ? Worlds()[k] : k.ToString());
             if (SmokeRun) SmokeChecks.RegisterSequence(Sequence, Smoke());
+        }
+
+        /// <summary>The worlds the view can show: now, 2030 on the most likely course, then the file's scenarios.</summary>
+        static List<string> Worlds()
+        {
+            var list = new List<string> { Advantage.Now, Advantage.Y2030 };
+            var data = Advantage.Get();
+            if (data != null) foreach (var s in data.Scenarios) list.Add(s.Id);
+            return list;
         }
 
         public override void OnFocus(ViewPreset preset)

@@ -20,40 +20,59 @@ The gap between the stories is not drawn.
 ## 2. Two views of every shape
 
 - **Compressed: a timeline.** Each actor is a tube along its lane, a ring of points every 1.3 units of time, as thick
-  as the cube root of what it measured then (`TubeR`).
-  - What it measured: people for a state or a population, troops for an army, ships of the line for a navy, members
-    for a church, market value, revenue or capital for a company, valuation, users or parameters for a lab
-    (`History.Actor.MainPartAt`).
-  - Where nothing was measured the tube is thin and faint.
-  - A value holds from its measurement (eight years at most, three years back for a state's slow measures, half a
-    year for anything else) and is never drawn between two measurements: most series are snapshots of different
-    things (Austerlitz's army and Jena's), not one quantity sampled (`History.Actor.SizeAt`).
-- **Lanes.** Groups top to bottom: polities, alliances, forces, peoples and churches, companies, labs. A polity, an
-  alliance or a force continues in its successor in one lane (the Kingdom of France, then the Republic, the Consulate
-  and the Empire), and the predecessor ends where the successor begins. The seven coalitions share a lane, one after
-  another. A company's heir is another company: its own lane, right below its parent, with a dotted arc from the
-  parent where it began (Shockley's lab, Fairchild, Intel).
+  as the cube root of what it measured then (`TubeR`). Where nothing was measured the tube is thin and faint.
+  - **What it measured** (`History.Actor.MainPartAt`):
+    - people for a state or a population;
+    - troops for an army, or its force at a battle within a quarter-year before;
+    - ships of the line for a navy;
+    - members for a church;
+    - market value, revenue or capital for a company;
+    - valuation, users or (in its tube only) parameters for a lab.
+  - **Per-actor exceptions.** The crown of France is drawn by its money, its people being the nation's own actor
+    (`history.py` `ORDERS`). A state whose own forces stand as their own actors is never drawn by their soldiers
+    (`FORCES`). A product's property (a model's compute, a chip's transistors) never sizes a body.
+  - **When a value stands** (`History.Actor.SizeAt`, `Standing`). A value counts from its own date:
+    - `history.py` keeps months and days; rows whose facts say "at the end of 1999" or "in November 2026" are dated so;
+    - a year-only value counts for its whole calendar year if it is a standing quantity, and from the year's end if it
+      is an event.
+  - **How long it holds:** half a year for an event (a battle's force or fleet, a loss, the Terror's sentences, a year's
+    spending), three years for an army or a navy, five for money, eight for a people's count or a debt.
+  - **Before its date:** only a state's or a people's population or GDP may stand, up to three years before it was
+    counted.
+  - **Never between two:** no line is drawn between measurements. Most series are snapshots of different things
+    (Austerlitz's army and Jena's), not one quantity sampled.
+- **Lanes.** Groups top to bottom: polities, alliances, forces, peoples and churches, companies, labs.
+  - A polity, an alliance or a force continues in its successor in one lane: the Kingdom of France, then the
+    Republic, the Consulate and the Empire. The predecessor ends where the successor begins.
+  - The coalitions follow one another on a lane where they do not overlap.
+  - A company's heir is another company, so it gets its own lane, right below its parent, with a dotted arc from the
+    parent where it began: Shockley's lab, Fairchild, Intel.
 - **Moments** are sparks on the holder's lane, coloured by what decided them (information, execution, environment),
   with dashed ties to the rivals' lanes and gold ties to the allies'. Each is titled under its spark.
 - **Periods** are dashed brackets above the lanes, each on the lowest level free over its years.
 - **The year** is a gold cursor through the lanes, named under them.
 - **Exploded: a cross-section at an instant.** At a year the tubes' slices swell into occluding point-cloud bodies
-  (`PointBodies`, as in the 2026 strata), moving from their lanes to a cross-section facing down the time axis. The
-  camera looks back from the future, and the last dozen years of the tubes trail faintly behind the bodies.
-  - **Rows**, top to bottom: polities and peoples, forces, enterprises.
-  - **Sides**: within a row the nearest moment's holder and allies stand on the left and its rivals on the right.
-  - **Lobes**: the core is the measure the actor is drawn by; lobes are its other measures then, each as wide as the
-    cube root of its size. What it fields stands above (troops, ships, revenue, users, capital); what it owes or lost
-    hangs below (debt, casualties, executions). A chip's transistors, a model's parameters and the few founders of a
-    company are named on the label, not drawn as parts.
-  - **Unmeasured participants** of the nearest moment stand small and grey, labelled "not measured".
-  - **Advantage rings**: each advantage the research documents for the period is a gold ring around its holder,
-    walled by one arc per source (technology, supply, patents, capital, talent, scale, distribution, regulation,
-    legitimacy, geography). Each wall is as thick as Jev judged it keeps rivals out; a source not yet judged is thin
-    and dashed.
+  (`PointBodies`, as in the 2026 strata). The tubes give way to the bodies, and nothing else is drawn: the wave, the
+  hill's marks and the attention cloud all step out of the history view.
+  - **The contest.** There is a column for the holder of the moment within a year and a half and its allies, one for
+    the others, and one for its rivals, each headed. Rows run polities and peoples, then forces, then enterprises, at
+    most three bodies to a line.
+    - Each body is spaced by its advantage ring's reach.
+    - Of two moments on the same date, the selected actor's sets the sides.
+    - The participants of that moment, and every holder of an advantage documented for the year, stand even when
+      unmeasured: small, grey, "not measured".
+  - **Lobes.** The core is the measure the body is drawn by; lobes are its other measures then, each as wide as the cube
+    root of its size. What it fields stands above; what it owes, spends away or loses hangs below. The fused body is
+    scaled so the volume it encloses is the lobes' total (`Organism`, `trueVolume`).
+  - **Advantage rings.** One ring per actor: its latest documented advantage, walled by one arc per source. Each wall is
+    as thick as Jev judged it keeps rivals out (`judge.py --only history`, levels in the era's own terms). A source not
+    judged, or one Jev was unsure of (confidence under 0.15), is dashed and marked "uncertain". The sources' names
+    show for the moment's holder and the selection; the panel lists every advantage.
   - The moment's bursts point from the holder to its rivals.
-- **Labels** give the fact's own number and unit, and its year when it is not the year shown.
-- **Sizes.** One unit of size draws a lobe 2.2 times its cube root (history.py's method):
+- **Labels and cards** give the fact's own number and unit with every digit it has, the measure's name where the unit
+  does not say it (market value, revenue, GDP, debt), and the value's year when it is not the year shown. An actor's
+  portrait card says what it is and what it measured then, from the verified series, not the research's prose.
+- **Sizes.** One unit of size draws a lobe 2.2 times its cube root (radius 1.6 to 42; history.py's method):
   - a thousand people under arms, at work or in orders;
   - a hundred thousand civilians;
   - a ship;
@@ -62,7 +81,7 @@ The gap between the stories is not drawn.
   - a thousand transistors.
 
   A soldier therefore draws as a hundred civilians. Sizes compare within a kind of measure; across kinds they are a
-  drawing convention, stated on the panel.
+  drawing convention, stated on every stop's card.
 
 ## 3. The stories
 
@@ -76,8 +95,13 @@ Two narrated walkthroughs, started from the history panel ("Play the story"). Ea
   measured 17 characters a second.
 - **Facts.** Every number spoken or shown is a verified fact (`Tools/advantage/verify.py`). The generator stops on a
   missing or unverified one. Each stop's facts go to `Tools/narration-facts.json`, and `Tools/check-narration.py ai` (or
-  `revolutions`) has Jev check the narration against its card and facts. All 33 stops pass. Interpretive asides that Jev
-  read as unsupported claims were cut rather than argued for.
+  `revolutions`) has Jev check the narration against its card and facts. All 33 stops pass, twice, since Jev's scores
+  move by about 0.1 between runs. Interpretive asides that Jev read as unsupported claims were cut rather than argued
+  for.
+- **The words** live in `Tools/advantage/story_scripts.json`, edited as data. An independent review checked every card,
+  reading and intro against its facts and against what the picture draws: a port of the drawing rules, run over every
+  cue, showed what each opened year draws. Where two facts disagree (France's war spending, the Allied army at
+  Austerlitz, the invasion of Russia), the card names both counts.
 - **Voice.** JohnV4 (ElevenLabs), approved by the user for these stories. The clips go to `Audio/EconomyTour` beside the
   economy tour's (ids prefixed `ai_` and `rev_`).
 - **Cards.** A story has its own title card (`intro`) and end card (`end`). The title card already shows the first

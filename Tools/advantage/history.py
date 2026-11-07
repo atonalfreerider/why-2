@@ -215,14 +215,15 @@ def main():
         series = {}
         spans = {a.get("id"): (year_of(a.get("from")), year_of(a.get("to")), a.get("successor")) for a in data.get("actors", [])}
         kinds = {a.get("id"): a.get("kind") for a in data.get("actors", [])}
-        member_facts = {r.get("fact") for r in data.get("series", []) if kinds.get(r.get("actor")) != "alliance"}
+        # a fact can size both sides (250,000 French against 850,000 allies): only the same figure under the same fact is a member's
+        member_facts = {(r.get("fact"), r.get("value")) for r in data.get("series", []) if kinds.get(r.get("actor")) != "alliance"}
         moved = 0
         for row in data.get("series", []):
             if not ok(row.get("fact")):
                 continue
             if "both sides" in (row.get("unit") or "").lower():
                 continue    # a battle's total is not one side's size (the fact stays on its moment)
-            if kinds.get(row.get("actor")) == "alliance" and (row.get("fact") in member_facts or (row.get("actor"), row.get("fact")) in MEMBER_SIZED):
+            if kinds.get(row.get("actor")) == "alliance" and ((row.get("fact"), row.get("value")) in member_facts or (row.get("actor"), row.get("fact")) in MEMBER_SIZED):
                 continue    # an alliance sized by one member's force is that member's, drawn once
             try:
                 v = base_value(row.get("part"), row.get("value"), row.get("unit"))

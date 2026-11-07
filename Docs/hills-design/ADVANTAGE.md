@@ -69,9 +69,16 @@ So a company is not a set of solids but **one body** (`Land/Organism.cs`):
 - **Points and wire.** The surface is sampled along a geodesic sphere: 162 vertices, or 642 for the giants. Each vertex
   is a point, and each geodesic edge is a wire, so the points and the mesh share one topology. A seeded noise roughens
   the surface so no two bodies are alike.
-- **Muted colour by region.** A point takes the colour of the lobes that make the surface there, so the balance sheet
-  reads as regions of one whole. Equity is pearl, cash sage, what it built slate, what it bought mauve, stakes ochre,
-  debt brick and leases rust.
+- **Colour by region, with three heat maps.** A point takes the colour of the lobes that make the surface there, so the
+  balance sheet reads as regions of one whole. The user's fourth direction (7 Nov 2026): "they should still have color
+  coded heatmaps for the core equity value, debt, and speculation asset swell". So three regions are heat maps, each in
+  its own hue family and kept under the bloom threshold:
+  - the equity core, by book value on a log scale ($10bn navy to $3tn white; negative equity violet);
+  - debt, by leverage, debt over equity (0.05 dark red to 5 and beyond yellow-hot);
+  - the speculative dust and the market-value membrane, by P/E (8 violet to 150 pink-white; a loss carried by its value
+    hottest).
+
+  Cash (sage), what it built (slate), what it bought (mauve), stakes (ochre) and leases (rust) keep muted tones.
 - **Variable wireframe opacity.** A wire is as opaque as the parts there are tangible. What it built and what it owes
   read solid. Cash and leases read firm. Equity sits between. What it bought and its stakes read ghostly.
 - **Speculation as dust.** A dust of points fills the space between what earnings justify and the market value. What
@@ -116,7 +123,15 @@ A company's altitude is its market position:
 - A is the judged advantage: Jev's seven powers, composed in code as before.
 - V is the market value in $bn.
 
-Both halves are the user's: durable advantage, and command of capital. A high share price is itself an advantage.
+Both halves are the user's: durable advantage, and command of capital. A high share price is itself an advantage. A
+world's judged advantage arrives over three years, as the simulation ramps it: none of the change in 2026, all of it from
+2029. So 2026 is the same network in every world.
+
+In a simulated year, each company that moved more than 4 units carries a **trail** from its 2026 ground: a ring where it
+stood, and a line to its body, green where it rose and red where it fell. A faint stem drops from every body to the
+landscape under it, so altitude reads against the ground rather than depth. The fallen keep their names in the 2026 top
+22, with their fate and its year: "† extinct 2028" or "→ absorbed by Microsoft, 2028". Companies whose inputs would all
+be assumed are not simulated: they stay at their verified 2026 values, marked "(2026)".
 
 The **fitness landscape** is a surface under the network:
 
@@ -174,12 +189,19 @@ Every assumption is labelled as assumed, and the panel says: a simulation, not a
   4. The rivers start.
   5. The owners' circles light above.
 - **The panel:**
-  - the worlds (now, 2030, and the seven scenarios);
-  - a year slider from 2026 to 2030, with play;
+  - the worlds (now, the most likely course, and the strategist's scenarios): choosing one plays it from the measured
+    2026, a year every 2.6 s, so the contest is seen to unfold;
+  - the years from 2026 to 2030, with play (from now it steps onto the most likely course);
   - the selected organism's balance sheet as a bar of assets against liabilities and equity, beside its market value;
     with its P/E, owners, dependencies, burn, strategy and risk;
   - the history button.
 - **Hover** shows a company's card. **Click** lights its rivers, threads and contests and dims the rest.
+- **Truth on screen.** Every 2026 number is a verified fact shown with its period (a quarter's buybacks say so; a burn
+  says its period and what it comes to a year at that rate; a river is "/yr" only when it is yearly, and capital raised is
+  a dated round, not a river a year). Simulated numbers carry ≈, with the assumed inputs listed for the company and all
+  of the simulation's assumptions in the method.
+- **The owners' circles** face the camera, filled with dots, as wide as √ of what they hold, and turn with it as it
+  orbits. The largest owner of each kind is always named.
 
 ## 10. Objects first
 

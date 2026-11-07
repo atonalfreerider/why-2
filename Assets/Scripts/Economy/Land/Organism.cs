@@ -17,8 +17,8 @@ namespace Why.Economy.Land
     public sealed class Organism
     {
         /// <summary>Muted tones of the balance sheet's parts (sRGB): the bloom is kept for the frontiers.</summary>
-        public static readonly Color Equity = new Color(.62f, .64f, .68f), Cash = new Color(.48f, .66f, .54f), Built = new Color(.46f, .54f, .68f),
-            Bought = new Color(.60f, .51f, .68f), Stakes = new Color(.70f, .62f, .44f), Debt = new Color(.66f, .36f, .34f), Leases = new Color(.68f, .48f, .34f),
+        public static readonly Color Equity = new Color(.62f, .64f, .68f), Cash = new Color(.36f, .80f, .50f), Built = new Color(.40f, .58f, .95f),
+            Bought = new Color(.74f, .48f, .95f), Stakes = new Color(.92f, .72f, .30f), Debt = new Color(.86f, .30f, .26f), Leases = new Color(.90f, .50f, .24f),
             Unknown = new Color(.52f, .54f, .58f);
 
         // ------------------------------------------------------------------ heat maps (user, 7 Nov: "color coded heatmaps for the
@@ -54,10 +54,12 @@ namespace Why.Economy.Land
 
         public readonly Vector3[] Points;     // local, from the body's centre
         public readonly Color[] Colors;
-        public readonly float[] Frontier;     // 0 muted .. 1 the hottest frontier
+        public readonly float[] Frontier;     // 0 muted .. 1 the hottest frontier (bloom)
+        public readonly float[] Tint;         // 0 .. 1 a softer frontier: coloured, never blooming
         public readonly float[] Solidity;     // how tangible the parts are there: 0.3 (goodwill, stakes) .. 1 (what it built)
         public readonly int[] Edges;          // pairs of point indices
-        public readonly float MeanRadius, MaxRadius;
+        public readonly float MeanRadius;
+        public float MaxRadius;
         public readonly bool Known;           // drawn from a balance sheet (else one lobe sized by its value)
 
         public readonly struct Lobe
@@ -77,10 +79,11 @@ namespace Why.Economy.Land
         {
             public readonly Vector3 Direction;
             public readonly float Strength;
+            public readonly bool Hot;
 
-            public Front(Vector3 direction, float strength)
+            public Front(Vector3 direction, float strength, bool hot = true)
             {
-                Direction = direction; Strength = strength;
+                Direction = direction; Strength = strength; Hot = hot;
             }
         }
 
@@ -110,7 +113,7 @@ namespace Why.Economy.Land
             }
 
             Color debtHeat = DebtHeat(debt, equity);
-            lobes.Add(new Lobe(Vector3.zero, core, EquityHeat(equity), .6f));
+            lobes.Add(new Lobe(Vector3.zero, core, b.Alive ? EquityHeat(equity) : Unknown, .6f));
             float twist = Hash01(b.Id) * Mathf.PI * 2;
             int above = 0, k = 0;
             foreach (var p in parts) if (Above(p.Kind)) above++;
@@ -127,7 +130,7 @@ namespace Why.Economy.Land
                 else dir = new Vector3(Mathf.Cos(twist + 2.2f) * .6f, -.8f, Mathf.Sin(twist + 2.2f) * .6f).normalized;
                 // lobes overlap the core so the parts fuse into one body
                 Color tint = p.Kind == ContestNetwork.PartKind.Debt ? debtHeat : p.Kind == ContestNetwork.PartKind.Leases ? Color.Lerp(debtHeat, Leases, .4f) : ColorOf(p.Kind);
-                lobes.Add(new Lobe(dir * (core * .72f + p.Radius * .45f), p.Radius, tint, SolidOf(p.Kind)));
+                lobes.Add(new Lobe(dir * (1.1f * (core + p.Radius)), p.Radius, tint, SolidOf(p.Kind)));
             }
 
             return lobes;
@@ -158,6 +161,7 @@ namespace Why.Economy.Land
             Points = new Vector3[dirs.Length];
             Colors = new Color[dirs.Length];
             Frontier = new float[dirs.Length];
+            Tint = new float[dirs.Length];
             Solidity = new float[dirs.Length];
             Edges = edges;
             float reach = 0;
@@ -204,15 +208,30 @@ namespace Why.Economy.Land
 
                 Colors[i] = wsum > 0 ? c / wsum : Unknown;
                 Solidity[i] = wsum > 0 ? solid / wsum : .3f;
-                float f = 0;
+                float f = 0, g = 0;
                 if (fronts != null)
                     foreach (var fr in fronts)
-                        f = Mathf.Max(f, fr.Strength * Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.78f, .975f, Vector3.Dot(d, fr.Direction))));
+                    {
+                        float x = fr.Strength * Mathf.SmoothStep(0, 1, Mathf.InverseLerp(.78f, .975f, Vector3.Dot(d, fr.Direction)));
+                        if (fr.Hot) f = Mathf.Max(f, x);
+                        else g = Mathf.Max(g, x);
+                    }
+
                 Frontier[i] = f;
+                Tint[i] = g;
             }
 
             MeanRadius = sum / Math.Max(1, dirs.Length);
             MaxRadius = max;
+            double assets = b.Actor != null ? b.Actor.Sheet.TotalAssets : double.NaN;
+            if (Known && !double.IsNaN(assets) && assets > 0 && MeanRadius > 0)
+            {
+                double scaleTo = b.State != null && !double.IsNaN(b.State.Eq) && b.Actor.Sheet.Equity > 0 ? Math.Max(.05, b.State.Eq / b.Actor.Sheet.Equity) : 1;
+                float k = ContestNetwork.Radius(assets * scaleTo) / MeanRadius;
+                for (int i = 0; i < Points.Length; i++) Points[i] *= k;
+                MeanRadius *= k;
+                MaxRadius *= k;
+            }
         }
 
         static float Field(List<Lobe> lobes, Vector3 p)

@@ -40,7 +40,9 @@ namespace Why.Economy.Land
         public sealed class Body
         {
             public float EarningsR;              // the earnings shell's radius (0: no profits)
+            public float BodyR;                  // the visible body's radius (its balance sheet), set when its organism is built
             public double EarningsValue = double.NaN;
+            public float Y2026;                  // the altitude it held in 2026 (where a simulated year's move is measured from)
             public string Id, Name, Layer;
             public Kind Kind;
             public Advantage.Actor Actor;
@@ -100,6 +102,15 @@ namespace Why.Economy.Land
 
         public static float Radius(double usdBn) => double.IsNaN(usdBn) || usdBn <= 0 ? MinR : Mathf.Max(MinR, KR * Mathf.Pow((float)usdBn, 1f / 3));
 
+        /// <summary>A company's judged advantage in a world's year: 2026's (A) moving to the world's judged value over three years,
+        /// as the simulation ramps it (simulate.py, rampYears: none of the change in 2026, all of it from 2029).</summary>
+        public static double AdvantageAt(Advantage.Actor a, string world, int year)
+        {
+            double a0 = a.AdvantageIn(Advantage.Now), a1 = a.AdvantageIn(world);
+            if (double.IsNaN(a0) || double.IsNaN(a1) || year <= 2026) return a0;
+            return a0 + (a1 - a0) * Mathf.Clamp01((year - 2026) / 3f);
+        }
+
         /// <summary>Market position as altitude (design section 6): 150 (0.55 A/7 + 0.45 log10(V/10)/log10(500)), 10..150.</summary>
         public static float Altitude(double a, double valueBn)
         {
@@ -108,10 +119,26 @@ namespace Why.Economy.Land
             return Mathf.Clamp(MaxAlt * (.55f * adv / 7f + .45f * cap), MinAlt, MaxAlt);
         }
 
+        /// <summary>2026's lowest and highest raw altitude: every world and year is stretched by this one map, so the
+        /// population spans the low ground to the high ground and a change in any world reads against the same scale.</summary>
+        float rawLo = MinAlt, rawHi = MaxAlt;
+
+        float Stretch(float raw) => Mathf.Clamp(MinAlt + (raw - rawLo) / Mathf.Max(1, rawHi - rawLo) * (MaxAlt - MinAlt), MinAlt - 6, MaxAlt + 6);
+
         public ContestNetwork(Advantage model, float crestZ, string world, int year)
         {
             Model = model;
             CrestZ = crestZ;
+            float lo = float.MaxValue, hi = float.MinValue;
+            foreach (var a in model.Actors)
+            {
+                if (a.Flank == "state" || a.Band == "buyers" || !a.Sized) continue;
+                float raw = Altitude(a.A, a.SizeUsdBn);
+                lo = Mathf.Min(lo, raw);
+                hi = Mathf.Max(hi, raw);
+            }
+
+            if (hi > lo) { rawLo = lo; rawHi = hi; }
             foreach (var a in model.Actors)
             {
                 Kind kind = a.Flank == "state" ? Kind.State : a.Band == "buyers" ? Kind.Buyer : Kind.Company;
@@ -170,8 +197,9 @@ namespace Why.Economy.Land
                 if (b.Kind == Kind.Company)
                 {
                     var a = b.Actor;
-                    // 2026 is the measured year in every world: its numbers are the verified facts, never the simulation's
-                    var st = World == Advantage.Now || year <= 2026 ? null : w?.At(a.Id, year);
+                    // 2026 is the measured year in every world: its numbers are the verified facts, never the simulation's; a
+                    // company the simulation could not run (all its inputs assumed) stays at its verified 2026 values
+                    var st = World == Advantage.Now || year <= 2026 || Model.NotSimulated.Contains(a.Id) ? null : w?.At(a.Id, year);
                     b.State = st;
                     b.Value = st != null && !double.IsNaN(st.V) ? st.V : a.Sized ? a.SizeUsdBn : double.NaN;
                     b.Alive = st == null || st.Alive;
@@ -181,9 +209,10 @@ namespace Why.Economy.Land
                     double ni = st != null && !double.IsNaN(st.Ni) ? st.Ni : a.Pe > 0 && !double.IsNaN(b.Value) ? b.Value / a.Pe : double.NaN;
                     b.EarningsValue = double.IsNaN(ni) ? double.NaN : Math.Max(0, ni) * ReferencePe;
                     b.EarningsR = double.IsNaN(b.EarningsValue) || b.EarningsValue <= 0 ? 0 : Mathf.Min(b.R, Radius(b.EarningsValue));
-                    double adv = a.AdvantageIn(World);
-                    b.TargetY = st != null && !double.IsNaN(st.Alt) ? (float)st.Alt : Altitude(adv, b.Value);
-                    if (!b.Alive && st != null && st.Status == "extinct") b.TargetY = 2;
+                    double adv = AdvantageAt(a, World, year);
+                    b.TargetY = Stretch(st != null && !double.IsNaN(st.Alt) ? (float)st.Alt : Altitude(adv, b.Value));
+                    b.Y2026 = Stretch(Altitude(a.AdvantageIn(Advantage.Now), a.Sized ? a.SizeUsdBn : double.NaN));
+                    if (!b.Alive && st != null && st.Status == "extinct") b.TargetY = StateY - 14;
                 }
                 else if (b.Kind == Kind.Buyer) { b.R = 16; b.TargetY = BuyerY; }
                 else if (b.Kind == Kind.State) { b.R = b.Id == "us-gov" ? 20 : 11; b.TargetY = StateY; }
@@ -212,7 +241,7 @@ namespace Why.Economy.Land
                     else if (!double.IsNaN(s.UsdBn)) held += s.UsdBn;
                 }
 
-                b.Value = b.Owner.Kind == "households" ? b.Owner.HoldingsUsdBn * MarketRatio : Math.Max(held, b.Owner.HoldingsUsdBn);
+                b.Value = b.Owner.Kind == "households" || b.Owner.Kind == "abroad" ? b.Owner.HoldingsUsdBn * MarketRatio : Math.Max(held, b.Owner.HoldingsUsdBn);
                 b.R = Mathf.Max(3f, .3f * Mathf.Sqrt((float)Math.Max(1, b.Value)));
                 b.TargetY = b.Kind == Kind.Wealth ? WealthY : OwnerY;
             }
@@ -402,7 +431,7 @@ namespace Why.Economy.Land
         {
             var parts = new List<Part>(9);
             var sheet = b.Actor?.Sheet;
-            if (sheet == null) return parts;
+            if (sheet == null || !b.Alive) return parts;
             double scale = 1;
             if (b.State != null && !double.IsNaN(b.State.Eq) && !double.IsNaN(sheet.Equity) && sheet.Equity > 0) scale = Math.Max(.05, b.State.Eq / sheet.Equity);
             double equity = b.State != null && !double.IsNaN(b.State.Eq) ? b.State.Eq : sheet.Equity;
@@ -412,7 +441,7 @@ namespace Why.Economy.Land
             double cash = b.State != null && !double.IsNaN(b.State.Cash) ? b.State.Cash : sheet.Cash;
             if (cash > 0) above.Add((PartKind.Cash, cash));
             if (sheet.Ppe > 0) above.Add((PartKind.Built, sheet.Ppe * scale));
-            double bought = (double.IsNaN(sheet.Goodwill) ? 0 : sheet.Goodwill) + (double.IsNaN(sheet.Intangibles) ? 0 : sheet.Intangibles);
+            double bought = ((double.IsNaN(sheet.Goodwill) ? 0 : sheet.Goodwill) + (double.IsNaN(sheet.Intangibles) ? 0 : sheet.Intangibles)) * scale;
             if (bought > 0) above.Add((PartKind.Bought, bought));
             if (sheet.Investments > 0) above.Add((PartKind.Stakes, sheet.Investments * scale));
             float twist = Hash01(b.Id) * Mathf.PI * 2;
@@ -432,15 +461,15 @@ namespace Why.Economy.Land
 
             if (sheet.Leases > 0)
             {
-                float r = Radius(sheet.Leases);
+                float r = Radius(sheet.Leases * scale);
                 Vector3 dir = new Vector3(Mathf.Cos(twist + 2.2f) * .7f, -.7f, Mathf.Sin(twist + 2.2f) * .7f).normalized;
-                parts.Add(new Part(PartKind.Leases, dir * (core + r + .5f), r, sheet.Leases));
+                parts.Add(new Part(PartKind.Leases, dir * (core + r + .5f), r, sheet.Leases * scale));
             }
 
             if (sheet.Commitments > 0)
             {
-                float r = Radius(sheet.Commitments);
-                parts.Add(new Part(PartKind.Promises, Vector3.down * (b.R + r + 2), r, sheet.Commitments));
+                float r = Radius(sheet.Commitments * scale);
+                parts.Add(new Part(PartKind.Promises, Vector3.down * (b.R + r + 2), r, sheet.Commitments * scale));
             }
 
             return parts;

@@ -235,14 +235,37 @@ The user gave three directions on 7 Nov 2026. All three are verbatim: the first 
   - Speculation is a dust out to the market value, beyond an earnings shell at a reference P/E of 15.
   - Promises are a ghost lobe, and burn a comet.
   - Bloom appears only where a choke point or a contest presses.
-- *Layout.* `Land/ContestNetwork.cs`: force-directed in x and z; altitude is market position, 10 to 130. Owners' circles
-  float above at 188 and 222. A smooth, contoured fitness landscape lies beneath.
+- *Layout.* `Land/ContestNetwork.cs`: force-directed in x and z; altitude is market position, 14 to 150, stretched by
+  2026's range so every world reads on one scale. Owners' circles float above at 228, the wealth groups at 268. A smooth,
+  contoured fitness landscape lies beneath. A world's judged advantage ramps in over three years, as the simulation's
+  does, so 2026 is the same network in every world.
 - *The layer.* `Layers/HillAdvantageLayer.cs`. Each organism is its own mesh, moved by its transform and rebuilt within
   a budget. It also draws the rivers by story, the cap tables, the golden circles, the low ground and the state, the
   sparks, and the history lane and contests. The smoke sequence is `-smokeextra advantage`.
 - *The panel.* `UI/AdvantagePanel.cs`: the worlds and years with play; the events and fates; and the selected company's
   balance-sheet bars against its market value, P/E, share price at work, acquisitions, data-centre power, owners,
   rivers, strategy and risk.
+
+**Fourth direction** (7 Nov 2026, after the point-cloud redesign): keep colour-coded heat maps for the equity core, the
+debt and the speculative swell, and scale everything up so there is less empty space. Done: the core is coloured by book
+value, debt by leverage, the dust and membrane by P/E (`Organism.EquityHeat`, `DebtHeat`, `SpecHeat`, shown in the key and
+the panel's bars), and the bodies are normalised to their total assets at a larger volume scale.
+
+**Reviewer fixes** (two critics and a truth audit; their findings are in the mirror's
+`work/advantage/verify-findings.txt`). All applied:
+
+- *Truth.* Every 2026 number carries its period: burns (with their yearly rate), buybacks, dividends, stock pay, stakes,
+  private valuations, rivers ("/yr" only when yearly; capital raised as a dated round). Simulated values carry ≈, with
+  the company's assumed inputs and all 126 assumptions in the method. Companies with all inputs assumed are not
+  simulated and stay at 2026, marked "(2026)". The fallen keep their names with their fate and year.
+- *Render.* Alpha-blended points and wire, lobes with waists, bloom reserved for the three hardest choke points, a
+  visible market-value membrane, dust density by P/E, owners' circles facing the camera.
+- *Data.* Quarter and half-year figures annualised for the simulation; combined-entity and licensing deals out of
+  "Bought"; caps out of stakes; xAI merged into SpaceX; venture capital an owner; payouts to the wealth groups; Blue Owl
+  as private capital, its holding the Hyperion venture with Meta (not Meta's shares).
+- *Behaviour.* Play steps one year at a time (it once jumped from 2026 to 2030); a world chosen in the panel plays from
+  2026; the camera fits the population inside the screen the panel leaves free; a republished land with the same crest
+  keeps the live layout.
 
 **Data** (`Tools/advantage/`):
 
@@ -262,7 +285,10 @@ The user gave three directions on 7 Nov 2026. All three are verbatim: the first 
   competition. The agent's `simulate.py` couples lost customers, shocks, capital raising and absorption, but has no
   market-share contests between rivals.
 - *Talent.* There is no talent node.
-- *Performance.* Settling frames peak around 70 ms, and the label layout spikes when the labels appear.
+- *Private capital.* Blue Owl, through Meta's Hyperion venture, is the only private-equity or private-credit owner;
+  the hedge funds hold little in the arena (Jane Street, Magnetar). A research round on Blackstone, KKR, Apollo and
+  Brookfield's data-centre holdings would fill it.
+- *Performance.* A settling frame in the digestion world took 52 ms (budget 50); the choreography peaks at 34 ms.
 - *Quest.* There is no XR profile: 56 organisms means about 56 draw calls.
 - *People.* Founders are named in text only; images would need the user's approval.
 

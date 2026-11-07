@@ -32,9 +32,13 @@ namespace Why.Economy.UI
         readonly List<(Image background, TextMeshProUGUI label, bool history)> modes = new List<(Image, TextMeshProUGUI, bool)>();
         Image playBack; TextMeshProUGUI playLabel;
         readonly List<GameObject> segments = new List<GameObject>();
-        string shownKey, laidOut, hoverShown;
+        string shownScenario, shownSelected, hoverShown;
+        int shownYear = -1;
+        bool shownHistory, shownPlaying, shown;
+        Vector2 laidSize;
+        bool laidPortrait, laidMethod, laidBars, layoutDirty = true, barsWanted;
         float readingTop = 160;
-        bool methodOpen, shownPlaying;
+        bool methodOpen;
 
         public override void Init(GraphRoot graphRoot)
         {
@@ -43,16 +47,17 @@ namespace Why.Economy.UI
             panel = UiFactory.Panel(canvas.transform, "Contest", new Color(.02f, .03f, .05f, .94f)).rectTransform;
             panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1);
             panel.anchoredPosition = new Vector2(-18, -176); panel.sizeDelta = new Vector2(Width, Height);
+            HudBlocks.Register(panel);    // the hills' labels keep out from under it
             var title = Text("Title", 15, 12, 10, Width - 24, 22); title.text = "<b>THE PRESENT AS A CONTEST</b>";
             var note = Text("Note", 10.5f, 12, 32, Width - 24, 44); note.textWrappingMode = TextWrappingModes.Normal; note.color = new Color(.7f, .76f, .84f);
-            note.text = "Each company is its balance sheet: equity at the core, what it owns above, what it owes below, inside a shell as large as its market value. Height is market position. Gold circles: its owners.";
+            note.text = "Each company is its balance sheet: equity at the core, what it owns above, what it owes below, in a dust out to its market value. Height: Jev's judged advantage (55%) and market value (45%). Gold circles: its owners.";
             reading = Text("Reading", 11, 12, readingTop, Width - 24, 300); reading.textWrappingMode = TextWrappingModes.Normal; reading.overflowMode = TextOverflowModes.Overflow;
             bars = new GameObject("Balance bars", typeof(RectTransform)).GetComponent<RectTransform>();
             bars.SetParent(panel, false);
             barLabel = UiFactory.Text(bars, "Bar legend", "", 9.5f, new Color(.74f, .79f, .86f));
             barLabel.textWrappingMode = TextWrappingModes.Normal;
             detail = Text("Detail", 11, 12, readingTop + 300, Width - 24, 300); detail.textWrappingMode = TextWrappingModes.Normal; detail.overflowMode = TextOverflowModes.Overflow;
-            var m = UiFactory.Button(panel, "Method", "", 10.5f, () => { methodOpen = !methodOpen; laidOut = null; });
+            var m = UiFactory.Button(panel, "Method", "", 10.5f, () => { methodOpen = !methodOpen; layoutDirty = true; });
             methodButton = (RectTransform)m.transform; methodLabel = m.GetComponentInChildren<TextMeshProUGUI>();
             method = Text("Method", 9.5f, 12, Height - 128, Width - 24, 118); method.textWrappingMode = TextWrappingModes.Normal; method.overflowMode = TextOverflowModes.Overflow;
             method.color = new Color(.74f, .79f, .86f);
@@ -77,7 +82,7 @@ namespace Why.Economy.UI
             for (int i = 0; i < list.Count; i++)
             {
                 var (id, label) = list[i];
-                var b = UiFactory.Button(panel, "World " + id, label, 10.5f, () => HillAdvantageLayer.SetScenario(id));
+                var b = UiFactory.Button(panel, "World " + id, label, 10.5f, () => HillAdvantageLayer.PlayWorld(id));
                 Place((RectTransform)b.transform, 12 + (i % perRow) * (w + gap), WorldsTop + (i / perRow) * 26, w, 22);
                 worlds.Add(((Image)b.targetGraphic, b.GetComponentInChildren<TextMeshProUGUI>(), id));
             }
@@ -114,10 +119,14 @@ namespace Why.Economy.UI
             bool portrait = ScreenLayout.IsPortrait;
             if (portrait) { panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0); panel.anchoredPosition = new Vector2(0, 8); panel.sizeDelta = new Vector2(Mathf.Min(Width, canvas.x - 16), Mathf.Min(Height, canvas.y * .55f)); }
             else { float top = EconomyUiLayout.SideColumnTop; panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1); panel.anchoredPosition = new Vector2(-18, -top); panel.sizeDelta = new Vector2(Width, Mathf.Min(Height, canvas.y - top - 54)); }
-            string key = HillAdvantageLayer.Scenario + "|" + HillAdvantageLayer.Year + "|" + HillAdvantageLayer.Selected + "|" + HillAdvantageLayer.History;
-            if (key != shownKey || shownPlaying != HillAdvantageLayer.Playing)
+            if (!shown || HillAdvantageLayer.Scenario != shownScenario || HillAdvantageLayer.Year != shownYear || HillAdvantageLayer.Selected != shownSelected ||
+                HillAdvantageLayer.History != shownHistory || HillAdvantageLayer.Playing != shownPlaying)
             {
-                shownKey = key;
+                shown = true;
+                shownScenario = HillAdvantageLayer.Scenario;
+                shownYear = HillAdvantageLayer.Year;
+                shownSelected = HillAdvantageLayer.Selected;
+                shownHistory = HillAdvantageLayer.History;
                 shownPlaying = HillAdvantageLayer.Playing;
                 foreach (var b in worlds) Mark(b.background, b.label, b.id == HillAdvantageLayer.Scenario);
                 foreach (var b in years) Mark(b.background, b.label, b.year == HillAdvantageLayer.Year);
@@ -129,7 +138,7 @@ namespace Why.Economy.UI
                 detail.text = sel != null && !HillAdvantageLayer.History ? Detail(data, sel) : "";
                 Bars(data, HillAdvantageLayer.History ? null : sel);
                 method.text = Method(data);
-                laidOut = null;
+                layoutDirty = true;
             }
 
             Layout(portrait);
@@ -161,25 +170,47 @@ namespace Why.Economy.UI
             if (hoverShown != id)
             {
                 hoverShown = id;
-                if (a != null) card.Show(id, a.Name, Meta(a), Card(a));
-                else card.Show(id, o.Name, KindName(o.Kind) + " · holds " + HillAdvantageLayer.Money(Holdings(data, o)) + (o.Kind == "households"
-                        ? " of US stocks (Fed accounts)" : " in the companies shown (its verified stakes x their market value)"), Stakes(data, o));
+                if (a != null) card.Show(id, a.Name, Meta(data, a), Card(a));
+                else card.Show(id, o.Name, OwnerMeta(data, o), Stakes(data, o));
             }
 
             card.Tick(PointerInput.Position, canvas, Time.unscaledDeltaTime);
         }
 
-        static string Meta(Advantage.Actor a)
+        /// <summary>Whether the year on screen is simulated (its numbers carry ≈).</summary>
+        static bool Simulated => HillAdvantageLayer.Scenario != Advantage.Now && HillAdvantageLayer.Year > 2026;
+
+        static string Meta(Advantage data, Advantage.Actor a)
         {
-            var net = HillAdvantageLayer.Network;
-            var body = net?.Get(a.Id);
+            var body = HillAdvantageLayer.Network?.Get(a.Id);
+            var st = body?.State;
+            string sim = st != null ? "≈" : "";
             var s = new List<string>();
+            if (body != null && !body.Alive)
+            {
+                s.Add(HillAdvantageLayer.FateText(data, HillAdvantageLayer.Scenario, a.Id, HillAdvantageLayer.Year, false));
+                return string.Join(" · ", s);
+            }
+
             double v = body != null && !double.IsNaN(body.Value) ? body.Value : a.SizeUsdBn;
-            if (!double.IsNaN(v)) s.Add((a.Private ? "valued at " : "market value ") + HillAdvantageLayer.Money(v));
-            double pe = body?.State != null && !double.IsNaN(body.State.Pe) ? body.State.Pe : a.Pe;
-            if (!double.IsNaN(pe)) s.Add(pe > 0 ? "P/E " + pe.ToString("0") : "loss-making");
-            if (!double.IsNaN(a.Sheet.Equity)) s.Add("book " + HillAdvantageLayer.Money(a.Sheet.Equity));
+            if (!double.IsNaN(v)) s.Add((a.Private ? "valued at " : "market value ") + sim + HillAdvantageLayer.Money(v));
+            double pe = st != null ? st.Pe : a.Pe;
+            bool loss = st != null ? st.Ni < 0 : a.LossEvidence;
+            if (!double.IsNaN(pe) && pe > 0) s.Add("P/E " + sim + pe.ToString("0"));
+            else if (loss) s.Add(sim + "loss-making");
+            double eq = st != null && !double.IsNaN(st.Eq) ? st.Eq : a.Sheet.Equity;
+            if (!double.IsNaN(eq)) s.Add((st != null ? "book ≈" : Simulated ? "2026 book " : "book ") + HillAdvantageLayer.Money(eq));
+            if (Simulated && data.NotSimulated.Contains(a.Id)) s.Add("not simulated: its 2026 values");
             return string.Join(" · ", s);
+        }
+
+        static string OwnerMeta(Advantage data, Advantage.Owner o)
+        {
+            string held = (Simulated ? "≈" : "") + HillAdvantageLayer.Money(Holdings(data, o));
+            if (o.Kind == "households" || o.Kind == "abroad")
+                return (o.Kind == "abroad" ? "the rest of the world · holds " : "households · hold ") + held + " of US corporate stock (" +
+                       (Simulated ? "their 2026 holdings × the simulated market" : o.Source ?? "Federal Reserve accounts") + ")";
+            return KindName(o.Kind) + " · holds " + held + " in the companies shown (its verified stakes × their " + (Simulated ? "simulated values)" : "market values)");
         }
 
         static string Card(Advantage.Actor a)
@@ -214,9 +245,11 @@ namespace Why.Economy.UI
                 b.Append("<b>Now, November 2026</b>\n");
                 var giants = data.Actors.Where(a => a.Sized && a.Flank != "state").OrderByDescending(a => a.SizeUsdBn).Take(6).ToList();
                 if (giants.Count > 0) b.Append("<b>The giants:</b> ").Append(string.Join(", ", giants.Select(a => a.Name + " " + HillAdvantageLayer.Money(a.SizeUsdBn)))).Append('\n');
-                var air = data.Actors.Where(a => a.Sized && !double.IsNaN(a.Sheet.Equity) && a.Sheet.Equity > 0).Select(a => (a, x: a.SizeUsdBn / a.Sheet.Equity)).OrderByDescending(t => t.x).Take(4).ToList();
-                if (air.Count > 0) b.Append("<b>Most air in the shell</b> (market value over book): ").Append(string.Join(", ", air.Select(t => t.a.Name + " " + t.x.ToString("0") + "×"))).Append('\n');
-                b.Append("<i>Hover over a company for its card; click it to light its rivers and owners. Choose a world, then a year, or press play.</i>\n");
+                var spec = data.Actors.Where(a => a.Sized && !a.Private && a.Pe > 0).OrderByDescending(a => a.Pe).Take(4).ToList();
+                if (spec.Count > 0) b.Append("<b>Most speculative</b> (price over earnings): ").Append(string.Join(", ", spec.Select(a => a.Name + " " + a.Pe.ToString("0")))).Append('\n');
+                var bets = data.Actors.Where(a => a.Sized && a.LossEvidence && a.SizeUsdBn >= 100).OrderByDescending(a => a.SizeUsdBn).Take(4).ToList();
+                if (bets.Count > 0) b.Append("<b>Valued on losses</b> (the share price paying for the future): ").Append(string.Join(", ", bets.Select(a => a.Name + " " + HillAdvantageLayer.Money(a.SizeUsdBn)))).Append('\n');
+                b.Append("<i>Hover over a company for its card; click it to light its rivers and owners. Choose a world to watch it play out from 2026, or choose a year.</i>\n");
             }
 
             if (world != null)
@@ -241,7 +274,7 @@ namespace Why.Economy.UI
                 var st = world.At(a.Id, year);
                 var was = now?.At(a.Id, 2026) ?? world.At(a.Id, world.FirstYear);
                 if (st == null || was == null) continue;
-                if (!st.Alive) { fallen.Add(a.Name + (st.Status == "extinct" ? " (extinct)" : " → " + (data.Get(st.By)?.Name ?? st.By))); continue; }
+                if (!st.Alive) { fallen.Add(a.Name + " " + HillAdvantageLayer.FateText(data, world.Id, a.Id, year, false)); continue; }
                 moves.Add((a, st.Alt - was.Alt));
             }
 
@@ -253,58 +286,109 @@ namespace Why.Economy.UI
         }
 
         /// <summary>The selected company: what it is, its market value against its books, its P/E, its uses of the share price,
-        /// its losses, its owners and its largest rivers.</summary>
+        /// its losses, its owners and its largest rivers; every figure with its period, simulated ones with ≈.</summary>
         static string Detail(Advantage data, Advantage.Actor a)
         {
             var b = new StringBuilder();
             var body = HillAdvantageLayer.Network?.Get(a.Id);
             var st = body?.State;
+            bool alive = body == null || body.Alive;
             b.Append("<b><size=115%>").Append(a.Name).Append("</size></b>");
             if (!string.IsNullOrEmpty(a.Country)) b.Append("  ").Append(a.Country);
             b.Append('\n');
             if (!string.IsNullOrEmpty(a.Role)) b.Append(Cap(a.Role)).Append(".\n");
-            double v = body != null && !double.IsNaN(body.Value) ? body.Value : a.SizeUsdBn;
-            double eq = st != null && !double.IsNaN(st.Eq) ? st.Eq : a.Sheet.Equity;
+            if (!alive) b.Append("<b>").Append(HillAdvantageLayer.FateText(data, HillAdvantageLayer.Scenario, a.Id, HillAdvantageLayer.Year, true)).Append("</b> in this simulated world.\n");
             string sim = st != null ? "≈" : "";
             if (st != null) b.Append("<i>Simulated ").Append(HillAdvantageLayer.Year).Append(" (≈): the model's numbers, not measured.</i>\n");
-            if (!double.IsNaN(v))
+            else if (Simulated && data.NotSimulated.Contains(a.Id))
+                b.Append("<i>Not simulated: its revenue, cash and debt would all have been assumed, so it stands at its verified 2026 values.</i>\n");
+            double v = body != null && !double.IsNaN(body.Value) ? body.Value : a.SizeUsdBn;
+            double eq = st != null && !double.IsNaN(st.Eq) ? st.Eq : a.Sheet.Equity;
+            if (!double.IsNaN(v) && alive)
             {
                 b.Append(a.Private ? "Valued at " : "Market value ").Append(sim).Append(HillAdvantageLayer.Money(v));
-                if (!double.IsNaN(eq) && eq > 0) b.Append(", ").Append((v / eq).ToString("0.#")).Append("× its book of ").Append(HillAdvantageLayer.Money(eq));
-                b.Append(Host(data, a.SizeFact)).Append('\n');
+                if (st == null && a.Private) b.Append(Per(a.SizePeriod));
+                if (!double.IsNaN(eq) && eq > 0) b.Append(", ").Append(sim).Append((v / eq).ToString("0.#")).Append("× its book of ").Append(HillAdvantageLayer.Money(eq));
+                if (st == null) b.Append(Host(data, a.SizeFact));
+                b.Append('\n');
             }
 
-            double pe = st != null && !double.IsNaN(st.Pe) ? st.Pe : a.Pe;
-            if (!double.IsNaN(pe)) b.Append(pe > 0 ? "P/E " + sim + pe.ToString("0.#") + (pe > 60 ? ": a price that pays for the future" : "") : "Loss-making: valued on its future").Append('\n');
+            double pe = st != null ? st.Pe : a.Pe;
+            bool loss = st != null ? st.Ni < 0 : a.LossEvidence;
+            if (alive && !double.IsNaN(pe) && pe > 0)
+                b.Append("P/E ").Append(sim).Append(pe.ToString("0.#")).Append(st == null ? Per(a.PePeriod) : "").Append(pe > 60 ? ": a price that pays for the future" : "").Append('\n');
+            else if (alive && loss) b.Append(st != null ? "≈ Loss-making this year" : "Loss-making: valued on its future").Append('\n');
+            if (st != null && alive)
+            {
+                b.Append("≈ revenue ").Append(HillAdvantageLayer.Money(st.Rev)).Append(st.Ni < 0 ? ", loss " + HillAdvantageLayer.Money(-st.Ni) : ", net income " + HillAdvantageLayer.Money(st.Ni))
+                 .Append(", cash ").Append(HillAdvantageLayer.Money(st.Cash)).Append(", debt ").Append(HillAdvantageLayer.Money(st.Debt)).Append('\n');
+                if (data.Fallbacks.TryGetValue(a.Id, out var fb) && fb.Length > 0) b.Append("<i>Assumed inputs:</i> <color=#C9CED6>").Append(string.Join("; ", fb)).Append("</color>\n");
+            }
+
             var weapons = new List<string>();
-            if (!double.IsNaN(a.Buybacks)) weapons.Add("buybacks " + HillAdvantageLayer.Money(a.Buybacks));
-            if (!double.IsNaN(a.Dividends)) weapons.Add("dividends " + HillAdvantageLayer.Money(a.Dividends));
-            if (!double.IsNaN(a.Sbc)) weapons.Add("stock pay " + HillAdvantageLayer.Money(a.Sbc));
+            if (!double.IsNaN(a.Buybacks)) weapons.Add((a.BuybacksReturned ? "returned to shareholders " : "buybacks ") + HillAdvantageLayer.Money(a.Buybacks) + Per(a.BuybacksPeriod));
+            if (!double.IsNaN(a.Dividends)) weapons.Add("dividends " + HillAdvantageLayer.Money(a.Dividends) + Per(a.DividendsPeriod));
+            if (!double.IsNaN(a.Sbc)) weapons.Add("stock pay " + HillAdvantageLayer.Money(a.Sbc) + Per(a.SbcPeriod));
             if (weapons.Count > 0) b.Append("<b>The share price at work:</b> ").Append(string.Join(", ", weapons)).Append('\n');
             if (a.Acquisitions.Count > 0) b.Append("<b>Bought:</b> ").Append(string.Join("; ", a.Acquisitions.Take(4))).Append('\n');
             if (a.Capacity.Count > 0) b.Append("<b>Data-centre power:</b> ").Append(string.Join("; ", a.Capacity.Take(3))).Append('\n');
-            if (!double.IsNaN(a.Burn) && a.Burn > 0) b.Append("<color=#FF9A40><b>Burning</b></color> ").Append(HillAdvantageLayer.Money(a.Burn)).Append(" a year").Append(string.IsNullOrEmpty(a.BurnWhat) ? "" : " (" + a.BurnWhat + ")").Append('\n');
+            if (!double.IsNaN(a.Burn) && a.Burn > 0)
+            {
+                b.Append("<color=#FF9A40><b>Burning</b></color> ").Append(HillAdvantageLayer.Money(a.Burn)).Append(Per(a.BurnPeriod));
+                if (!double.IsNaN(a.BurnYearly) && System.Math.Abs(a.BurnYearly - a.Burn) > .05) b.Append(", about ").Append(HillAdvantageLayer.Money(a.BurnYearly)).Append(" a year at that rate");
+                if (!string.IsNullOrEmpty(a.BurnWhat)) b.Append(". <color=#C9CED6>").Append(a.BurnWhat).Append("</color>");
+                b.Append('\n');
+            }
+
             if (!string.IsNullOrEmpty(a.Strategy)) b.Append("<i>Strategy (judged):</i> ").Append(a.Strategy).Append(double.IsNaN(a.Risk) ? "" : "; <i>risk</i> " + a.Risk.ToString("0.0") + " of 4").Append('\n');
             var owners = data.Stakes.Where(s => s.Company == a.Id).OrderByDescending(s => double.IsNaN(s.Pct) ? 0 : s.Pct).Take(6).ToList();
             if (owners.Count > 0)
-                b.Append("<color=#EFB146><b>Owners:</b></color> ").Append(string.Join(", ", owners.Select(s => (data.OwnerById(s.Owner)?.Name ?? data.Get(s.Owner)?.Name ?? s.Owner) + (double.IsNaN(s.Pct) ? "" : " " + s.Pct.ToString("0.#") + "%")))).Append('\n');
-            var flows = data.Flows.Where(f => f.From == a.Id || f.To == a.Id).OrderByDescending(f => f.UsdBn).Take(4).ToList();
-            if (flows.Count > 0)
-                b.Append("<b>Rivers:</b> ").Append(string.Join("; ", flows.Select(f => (f.To == a.Id ? "from " + (data.Get(f.From)?.Name ?? f.From) : "to " + (data.Get(f.To)?.Name ?? f.To)) + " " + HillAdvantageLayer.Money(f.UsdBn) + "/yr"))).Append('\n');
+                b.Append("<color=#EFB146><b>Owners:</b></color> ").Append(string.Join("; ", owners.GroupBy(s => s.Period ?? "").Select(g =>
+                    string.Join(", ", g.Select(s => Name(data, s.Owner) + (double.IsNaN(s.Pct) ? double.IsNaN(s.UsdBn) ? "" : " " + HillAdvantageLayer.Money(s.UsdBn) : " " + s.Pct.ToString("0.#") + "%"))) + Per(g.Key)))).Append('\n');
+            var flows = data.Flows.Where(f => f.From == a.Id || f.To == a.Id).OrderByDescending(f => f.UsdBn).Take(5).ToList();
+            if (flows.Count > 0) b.Append("<b>Rivers:</b> ").Append(string.Join("; ", flows.Select(f => River(data, a, f)))).Append('\n');
             if (!string.IsNullOrEmpty(a.Desire)) b.Append("<color=#EF5B98><b>Wants:</b></color> ").Append(a.Desire).Append('\n');
             if (!string.IsNullOrEmpty(a.Fear)) b.Append("<color=#79E4F0><b>Fears:</b></color> ").Append(a.Fear).Append('\n');
             return b.ToString();
         }
 
-        /// <summary>The selected company's balance sheet as bars: what it owns (cash, built, bought, stakes, the rest) above what
-        /// it owes and its equity (debt, leases, other liabilities, equity), and its market value: one scale for all three.</summary>
+        /// <summary>A river in words: capital raised or invested once, with its date; money a year only where it is yearly, with
+        /// its period; estimates and contracts tagged.</summary>
+        static string River(Advantage data, Advantage.Actor a, Advantage.Flow f)
+        {
+            bool inbound = f.To == a.Id;
+            string other = Name(data, inbound ? f.From : f.To), money = HillAdvantageLayer.Money(f.UsdBn);
+            string tag = f.Basis == "estimate" ? "est." : f.Basis == "contracted" ? "contracted" : null;
+            string per = string.IsNullOrEmpty(f.Period) ? tag : tag == null ? Flat(f.Period) : Flat(f.Period) + "; " + tag;
+            per = string.IsNullOrEmpty(per) ? "" : " (" + per + ")";
+            if (f.Kind == "investment") return (inbound ? "raised " + money + " from " + other : "invested " + money + " in " + other) + per;
+            string what = f.Kind == "wage" ? "wages " : f.Kind == "payout" ? "payouts " : "";
+            return what + (inbound ? "from " : "to ") + other + " " + money + (f.Yearly ? "/yr" : "") + per;
+        }
+
+        static string Name(Advantage data, string id) => data.Get(id)?.Name ?? data.OwnerById(id)?.Name ?? id;
+
+        /// <summary>A period in parentheses, its own parentheses flattened to commas.</summary>
+        static string Per(string period) => string.IsNullOrEmpty(period) ? "" : " (" + Flat(period) + ")";
+
+        static string Flat(string period) => period.Replace(" (", ", ").Replace("(", "").Replace(")", "");
+
+        /// <summary>The selected company's balance sheet as bars, in the organism's colours (equity, debt and the speculative air
+        /// as their heat maps): what it owns (cash, built, bought, stakes, the rest) above what it owes and its equity (debt,
+        /// leases, other liabilities, equity), and its market value: one scale for all three. A simulated year takes cash, debt
+        /// and book from the model and scales the other parts with its book, as the organism does.</summary>
         void Bars(Advantage data, Advantage.Actor a)
         {
             foreach (var s in segments) if (s) Destroy(s);
             segments.Clear();
-            bars.gameObject.SetActive(a != null && a.Sheet.Known);
-            if (a == null || !a.Sheet.Known) return;
+            var body = HillAdvantageLayer.Network?.Get(a?.Id);
+            bool on = a != null && a.Sheet.Known && (body == null || body.Alive);
+            barsWanted = on;
+            bars.gameObject.SetActive(on && !methodOpen);
+            if (!on) return;
             var sh = a.Sheet;
+            var st = body?.State;
+            double scale = st != null && !double.IsNaN(st.Eq) && sh.Equity > 0 ? System.Math.Max(.05, st.Eq / sh.Equity) : 1;
             double total = Pos(sh.TotalAssets);
             double cash = Pos(sh.Cash), ppe = Pos(sh.Ppe), bought = Pos(sh.Goodwill) + Pos(sh.Intangibles), stakes = Pos(sh.Investments);
             if (total <= 0) total = cash + ppe + bought + stakes;
@@ -312,17 +396,29 @@ namespace Why.Economy.UI
             double debt = Pos(sh.Debt), leases = Pos(sh.Leases), equity = sh.Equity;
             double liabilities = !double.IsNaN(sh.TotalLiabilities) ? sh.TotalLiabilities : !double.IsNaN(equity) ? total - equity : debt + leases;
             double otherLiab = System.Math.Max(0, liabilities - debt - leases);
-            var body = HillAdvantageLayer.Network?.Get(a.Id);
+            if (st != null)
+            {
+                cash = Pos(st.Cash); debt = Pos(st.Debt); equity = st.Eq;
+                ppe *= scale; bought *= scale; stakes *= scale; rest *= scale; leases *= scale; otherLiab *= scale;
+            }
+
             double v = body != null && !double.IsNaN(body.Value) ? body.Value : a.SizeUsdBn;
-            double scale = System.Math.Max(total, System.Math.Max(double.IsNaN(v) ? 0 : v, 1));
+            double pe = st != null ? st.Pe : a.Pe;
+            bool loss = st != null ? st.Ni < 0 : a.LossEvidence;
+            Color eqColor = Organism.EquityHeat(equity), debtColor = Organism.DebtHeat(debt, equity), air = Organism.SpecHeat(pe, loss), other = new Color(.4f, .43f, .48f);
+            double width = System.Math.Max(cash + ppe + bought + stakes + rest, System.Math.Max(double.IsNaN(v) ? 0 : v, 1));
             float w = Width - 24 - 64;
-            Row(0, "owns", new[] { (cash, HillAdvantageLayer.CashColor), (ppe, HillAdvantageLayer.BuiltColor), (bought, HillAdvantageLayer.BoughtColor), (stakes, HillAdvantageLayer.StakeColor), (rest, new Color(.4f, .43f, .48f)) }, scale, w);
-            Row(1, "owes", new[] { (debt, HillAdvantageLayer.DebtColor), (leases, HillAdvantageLayer.LeaseColor), (otherLiab, new Color(.45f, .3f, .3f)), (System.Math.Max(0, equity), HillAdvantageLayer.CoreColor) }, scale, w);
-            if (!double.IsNaN(v)) Row(2, "market", new[] { (System.Math.Max(0, equity), HillAdvantageLayer.CoreColor), (System.Math.Max(0, v - System.Math.Max(0, equity)), HillAdvantageLayer.PeColor(body ?? new ContestNetwork.Body { Actor = a })) }, scale, w);
-            barLabel.text = "<color=#66E08F>■</color> cash  <color=#7394DB>■</color> built  <color=#B385F0>■</color> bought  <color=#FFCC5C>■</color> stakes  " +
-                            "<color=#B32429>■</color> debt  <color=#D16B24>■</color> leases  <color=#A8B3C2>■</color> equity; market: book, then the air (" + HillAdvantageLayer.Money(scale) + " across). " +
-                            (string.IsNullOrEmpty(sh.Date) ? "" : "Balance sheet " + sh.Date + ".");
+            Row(0, "owns", new[] { (cash, Organism.Cash), (ppe, Organism.Built), (bought, Organism.Bought), (stakes, Organism.Stakes), (rest, other) }, width, w);
+            Row(1, "owes", new[] { (debt, debtColor), (leases, Organism.Leases), (otherLiab, new Color(.45f, .3f, .3f)), (System.Math.Max(0, equity), eqColor) }, width, w);
+            if (!double.IsNaN(v)) Row(2, "market", new[] { (System.Math.Max(0, equity), eqColor), (System.Math.Max(0, v - System.Math.Max(0, equity)), air) }, width, w);
+            barLabel.text = Swatch(Organism.Cash) + " cash  " + Swatch(Organism.Built) + " built  " + Swatch(Organism.Bought) + " bought  " + Swatch(Organism.Stakes) + " stakes  " +
+                            Swatch(debtColor) + " debt  " + Swatch(Organism.Leases) + " leases  " + Swatch(eqColor) + " equity; market: book, then " + Swatch(air) + " the air (" +
+                            (st != null ? "≈" : "") + HillAdvantageLayer.Money(width) + " across). " +
+                            (st != null ? "≈ Simulated " + HillAdvantageLayer.Year + ": cash, debt and book from the model, the other parts scaled with its book."
+                                : string.IsNullOrEmpty(sh.Date) ? "" : Cap(sh.Date) + ".");
         }
+
+        static string Swatch(Color c) => "<color=#" + ColorUtility.ToHtmlStringRGB(c) + ">■</color>";
 
         void Row(int row, string name, (double value, Color color)[] parts, double scale, float width)
         {
@@ -382,8 +478,8 @@ namespace Why.Economy.UI
 
         static string KindName(string kind) => kind switch
         {
-            "fund" => "index or asset manager", "sovereign" => "sovereign fund", "pe" => "private equity", "vc" => "venture capital", "hedge" => "hedge fund",
-            "corporate" => "company", "person" => "founder or individual", "households" => "households", _ => kind ?? "owner",
+            "fund" => "index or asset manager", "sovereign" => "sovereign fund", "pe" => "private capital (equity and credit)", "vc" => "venture capital", "hedge" => "hedge fund",
+            "corporate" => "company", "person" => "founder or individual", "households" => "households", "abroad" => "the rest of the world (Fed Z.1)", _ => kind ?? "owner",
         };
 
         static string Host(Advantage data, string fact)
@@ -395,11 +491,14 @@ namespace Why.Economy.UI
 
         static string Method(Advantage data) =>
             "As of " + data.AsOf + ". " + data.Method + " Judgments by " + (data.Judge ?? "Jev") + " (TypeSafe System One): a model's reading of the evidence, not facts. " +
-            "Every number shown is a fact whose quote was found on its source and that Jev judged to support it (Tools/advantage/verify.py); 2026 numbers were read on the as-of date. " +
+            "Every 2026 number is a verified fact unless marked derived, est. or ≈: its quote was found on its source and Jev judged it to support the number " +
+            "(Tools/advantage/verify.py); 2026 numbers were read on the as-of date, and each is shown with its period. Height and glow are Jev's judgments: " +
+            "height is 55% judged advantage and 45% market value; the glow marks the three hardest choke points. " +
             "Derived, not measured: an owner's circle is the sum of its verified stakes at today's market values; the wealth groups' are the Fed's shares of households' stocks; " +
             "market value over book divides two facts; the earnings shell is net income at a P/E of 15 (assumed). Rivers marked as estimates in the research are estimates. " +
-            "Years after 2026 are simulated (≈). " +
-            (data.SimAssumptions.Count > 0 ? "The simulation's assumptions: " + string.Join("; ", data.SimAssumptions.Take(12)) + ". " : "") +
+            "Years after 2026 are simulated (≈); " + data.NotSimulated.Count + " companies whose inputs would all be assumed are not simulated and stay at 2026. " +
+            (data.SimAssumptionValues.Count > 0 ? "All " + data.SimAssumptionValues.Count + " of the simulation's assumptions (each with its reason in Tools/advantage/simulate.py): " +
+                string.Join("; ", data.SimAssumptionValues.Select(x => x.name + " " + Short(x.value.Replace(",", ", "), 34))) + ". " : "") +
             "Research and analysis: Docs/research/advantage (" + data.Sources.Count + " sources cited here).";
 
         static string Words(string s, int n)
@@ -409,27 +508,52 @@ namespace Why.Economy.UI
             return w.Length <= n ? s : string.Join(" ", w.Take(n)) + "…";
         }
 
+        static string Short(string s, int n) => string.IsNullOrEmpty(s) || s.Length <= n ? s : s.Substring(0, n).TrimEnd(',', ' ') + "…";
+
         static string Cap(string s) => string.IsNullOrEmpty(s) ? s : char.ToUpperInvariant(s[0]) + s.Substring(1);
 
         // ------------------------------------------------------------------ layout
 
+        /// <summary>Lays the panel out when something it depends on changed: the reading, the bars and the detail, shrunk to fit;
+        /// or, with the method open, the method alone in their place.</summary>
         void Layout(bool portrait)
         {
-            string key = reading.text + "|" + detail.text + "|" + panel.sizeDelta + "|" + portrait + "|" + methodOpen + "|" + bars.gameObject.activeSelf;
-            if (key == laidOut) return;
-            laidOut = key;
-            methodLabel.text = methodOpen ? "Hide sources & method" : "Show sources & method";
+            if (!layoutDirty && laidSize == panel.sizeDelta && laidPortrait == portrait && laidMethod == methodOpen && laidBars == barsWanted) return;
+            layoutDirty = false;
+            laidSize = panel.sizeDelta;
+            laidPortrait = portrait;
+            laidMethod = methodOpen;
+            laidBars = barsWanted;
+            methodLabel.text = methodOpen ? "Back to the reading" : "Show sources & method";
             method.gameObject.SetActive(methodOpen);
-            float w = panel.sizeDelta.x - 24, top = readingTop, barsH = bars.gameObject.activeSelf ? 3 * (BarHeight + 4) + 30 : 0;
+            reading.gameObject.SetActive(!methodOpen);
+            detail.gameObject.SetActive(!methodOpen);
+            bars.gameObject.SetActive(barsWanted && !methodOpen);
+            float w = panel.sizeDelta.x - 24, top = readingTop;
+            if (methodOpen)
+            {
+                float roomM = panel.sizeDelta.y - top - 12 - MethodHeight - 8, ms = portrait ? 8.5f : 9.5f, hm = 0;
+                for (int i = 0; i < 10; i++, ms -= .4f)
+                {
+                    method.fontSize = ms;
+                    hm = method.GetPreferredValues(method.text, w, 0).y;
+                    if (hm <= roomM) break;
+                }
+
+                Place(methodButton, 12, top, w, MethodHeight);
+                Place(method.rectTransform, 12, top + MethodHeight + 8, w, hm);
+                return;
+            }
+
+            float labelH = barsWanted ? barLabel.GetPreferredValues(barLabel.text, w, 0).y + 4 : 0, barsH = barsWanted ? 3 * (BarHeight + 4) + labelH : 0;
             float room = panel.sizeDelta.y - top - 12 - MethodHeight - 8 - barsH;
-            float size = portrait ? 9 : 11, msize = portrait ? 8.5f : 9.5f, scale = 1, hr = 0, hd = 0, hm = 0;
+            float size = portrait ? 9 : 11, scale = 1, hr = 0, hd = 0;
             for (int i = 0; i < 8; i++, scale -= .05f)
             {
-                reading.fontSize = detail.fontSize = size * scale; method.fontSize = msize * scale;
+                reading.fontSize = detail.fontSize = size * scale;
                 hr = reading.GetPreferredValues(reading.text, w, 0).y;
                 hd = string.IsNullOrEmpty(detail.text) ? 0 : detail.GetPreferredValues(detail.text, w, 0).y;
-                hm = methodOpen ? method.GetPreferredValues(method.text, w, 0).y : 0;
-                if (hr + hd + hm + (methodOpen ? 8 : 0) <= room) break;
+                if (hr + hd <= room) break;
             }
 
             Place(reading.rectTransform, 12, top, w, hr);
@@ -437,14 +561,13 @@ namespace Why.Economy.UI
             if (barsH > 0)
             {
                 Place(bars, 12, y, w, barsH);
-                Place(barLabel.rectTransform, 0, 3 * (BarHeight + 4), w, 30);
+                Place(barLabel.rectTransform, 0, 3 * (BarHeight + 4), w, labelH);
                 y += barsH;
             }
 
             Place(detail.rectTransform, 12, y, w, hd);
             y += hd + 6;
             Place(methodButton, 12, y, w, MethodHeight);
-            Place(method.rectTransform, 12, y + MethodHeight + 8, w, hm);
         }
 
         TextMeshProUGUI Text(string name, float size, float x, float y, float w, float h)

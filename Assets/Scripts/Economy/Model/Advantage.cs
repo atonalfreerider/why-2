@@ -46,8 +46,12 @@ namespace Why.Economy.Model
             /// uses (buybacks, dividends, stock-based pay), a loss funded by others' money, and Jev's strategy and risk.</summary>
             public readonly Balance Sheet = new Balance();
             public double Pe = double.NaN, Buybacks = double.NaN, Dividends = double.NaN, Sbc = double.NaN, Burn = double.NaN, Risk = double.NaN;
-            public string Strategy, BurnWhat;
-            public bool Private;
+            public string Strategy, BurnWhat, BurnPeriod, BuybacksPeriod, DividendsPeriod, SbcPeriod, PePeriod;
+            public double BurnYearly = double.NaN;
+            public bool Private, BuybacksReturned;
+
+            /// <summary>A loss on the record: a burn, a negative P/E (not merely a missing one).</summary>
+            public bool LossEvidence => (!double.IsNaN(Burn) && Burn > 0) || Pe < 0;
 
             /// <summary>What it bought (target, price, when) and the data-centre power it builds, as lines with their periods.</summary>
             public readonly List<string> Acquisitions = new List<string>(), Capacity = new List<string>();
@@ -89,7 +93,7 @@ namespace Why.Economy.Model
         /// households) and the stakes it holds.</summary>
         public sealed class Owner
         {
-            public string Id, Name, Kind;
+            public string Id, Name, Kind, Source;
             public double HoldingsUsdBn;
             public readonly List<Stake> Stakes = new List<Stake>();
         }
@@ -130,6 +134,8 @@ namespace Why.Economy.Model
         {
             public string Id, From, To, What, Kind, Basis, Period, Fact;
             public double UsdBn, Fear = double.NaN;
+            /// <summary>Money a year (spending, revenue, capex, wages, a contract's yearly rate); false for capital raised once.</summary>
+            public bool Yearly = true;
             public readonly Dictionary<string, double> Scale = new Dictionary<string, double>();
             public double In(string scenario) => scenario != null && Scale.TryGetValue(scenario, out double s) ? UsdBn * s : UsdBn;
         }
@@ -165,6 +171,13 @@ namespace Why.Economy.Model
         public readonly List<Stake> Stakes = new List<Stake>();
         public readonly Dictionary<string, World> Worlds = new Dictionary<string, World>();
         public readonly List<string> SimAssumptions = new List<string>();
+
+        /// <summary>The simulation's assumptions as name and value (their reasons are in <see cref="SimAssumptions"/>).</summary>
+        public readonly List<(string name, string value)> SimAssumptionValues = new List<(string, string)>();
+
+        /// <summary>Companies the simulation holds at 2026 (no data of their own), and each company's assumed inputs.</summary>
+        public readonly HashSet<string> NotSimulated = new HashSet<string>();
+        public readonly Dictionary<string, string[]> Fallbacks = new Dictionary<string, string[]>();
 
         public World WorldById(string id) => id != null && Worlds.TryGetValue(id, out World w) ? w : null;
 
@@ -235,6 +248,8 @@ namespace Why.Economy.Model
                 }
                 x.Pe = Num(a["pe"]); x.Buybacks = Num(a["buybacks"]); x.Dividends = Num(a["dividends"]); x.Sbc = Num(a["sbc"]);
                 x.Burn = Num(a["burn"]); x.BurnWhat = (string)a["burnWhat"]; x.Risk = Num(a["risk"]); x.Strategy = (string)a["strategy"];
+                x.BurnPeriod = (string)a["burnPeriod"]; x.PePeriod = (string)a["pePeriod"]; x.BurnYearly = Num(a["burnYearly"]); x.BuybacksPeriod = (string)a["buybacksPeriod"];
+                x.DividendsPeriod = (string)a["dividendsPeriod"]; x.SbcPeriod = (string)a["sbcPeriod"]; x.BuybacksReturned = (bool?)a["buybacksReturned"] ?? false;
                 x.Private = (bool?)a["private"] ?? false;
                 foreach (JObject q in Arr(a["acquisitions"]))
                 {
@@ -253,6 +268,7 @@ namespace Why.Economy.Model
                 {
                     Id = (string)f["id"], From = (string)f["from"], To = (string)f["to"], What = (string)f["what"], Kind = (string)f["kind"],
                     Basis = (string)f["basis"], Period = (string)f["period"], Fact = (string)f["fact"], UsdBn = Num(f["usdBn"]), Fear = Num(f["fear"]),
+                    Yearly = (bool?)f["yearly"] ?? true,
                 };
                 Fill(x.Scale, f["scale"]);
                 if (x.UsdBn > 0 && byId.ContainsKey(x.From ?? "") && byId.ContainsKey(x.To ?? "")) Flows.Add(x);
@@ -280,7 +296,7 @@ namespace Why.Economy.Model
                 Scenarios.Add(new ScenarioInfo { Id = (string)s["id"], Title = (string)s["title"], Premise = (string)s["premise"], Reading = (string)s["reading"], Friendly = Strings(s["friendly"]), Unfriendly = Strings(s["unfriendly"]), Signposts = Strings(s["signposts"]) });
             foreach (JObject o in Arr(root["owners"]))
             {
-                var owner = new Owner { Id = (string)o["id"], Name = (string)o["name"], Kind = (string)o["kind"], HoldingsUsdBn = Num(o["holdingsUsdBn"]) };
+                var owner = new Owner { Id = (string)o["id"], Name = (string)o["name"], Kind = (string)o["kind"], HoldingsUsdBn = Num(o["holdingsUsdBn"]), Source = (string)o["source"] };
                 foreach (JObject st in Arr(o["stakes"]))
                 {
                     var stake = new Stake { Owner = owner.Id, Company = (string)st["company"], Pct = Num(st["pct"]), UsdBn = Num(st["usdBn"]), Fact = (string)st["fact"], Period = (string)st["period"] };
@@ -294,8 +310,13 @@ namespace Why.Economy.Model
 
             if (root["simulation"] is JObject sim)
             {
+                foreach (JToken t in Arr(sim["notSimulated"])) NotSimulated.Add(Text(t));
+                if (sim["fallbacks"] is JObject fb) foreach (var kv in fb) Fallbacks[kv.Key] = Strings(kv.Value);
                 foreach (JToken t in Arr(sim["assumptions"]))
+                {
                     SimAssumptions.Add(t is JObject o ? Text(o["name"]) + ": " + Text(o["value"]) + " (" + Text(o["why"]) + ")" : Text(t));
+                    if (t is JObject ov) SimAssumptionValues.Add((Text(ov["name"]), Text(ov["value"])));
+                }
                 if (sim["worlds"] is JObject worlds)
                     foreach (var kv in worlds)
                     {

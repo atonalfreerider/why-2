@@ -50,6 +50,8 @@ namespace Why.Economy.Layers
         static readonly int[] Keys = EconomyEmphasis.Keys("advantage", PartNames);
 
         public const float Seconds = 5f, ReverseSeconds = 1.8f;
+        const int MaxOrganismVertices = 700000;
+
         const int MaxRenderers = 12, RiverHighlights = 14, ThreadCompanies = 10, SparkDefault = 7, NameLabels = 22;
 
         // ------------------------------------------------------------------ colours (sRGB authored; surfaces stored linear)
@@ -65,7 +67,10 @@ namespace Why.Economy.Layers
         /// <summary>The triad's colours (sparks): information, execution, environment.</summary>
         public static readonly Color InfoColor = new Color(.68f, .54f, 1f), ExecColor = new Color(1f, .58f, .24f), EnvColor = new Color(.45f, .95f, .55f);
 
-        static readonly Color Gold = EconomyStyle.Capital, GoldBright = new Color(1f, .88f, .50f), Neutral = new Color(.75f, .71f, .67f), CapitalFlow = new Color(1f, .93f, .78f),
+        /// <summary>The frontier's colour: a white heat (the only intense bloom in the view, kept for the three hardest choke points).</summary>
+        static readonly Color FrontierColor = new Color(1f, .97f, .86f);
+
+        static readonly Color Gold = EconomyStyle.Capital, GoldBright = new Color(1f, .88f, .50f), Neutral = new Color(.75f, .71f, .67f), CapitalFlow = new Color(.78f, .72f, .58f),
             Contour = new Color(.40f, .62f, .66f), BuyerColor = new Color(.34f, .47f, .72f), StateColor = new Color(.50f, .55f, .62f), ThreadColor = new Color(1f, .92f, .72f),
             Ruler = new Color(.62f, .68f, .76f);
 
@@ -142,11 +147,13 @@ namespace Why.Economy.Layers
                 ("Equity: small to large", Land.Organism.EquityHeat(10)), ("", Land.Organism.EquityHeat(2000)),
                 ("Debt: light to heavy", Land.Organism.DebtHeat(5, 100)), ("", Land.Organism.DebtHeat(500, 100)),
                 ("Speculation: P/E low to high", Land.Organism.SpecHeat(9, false)), ("", Land.Organism.SpecHeat(140, false)),
-                ("Owners", Gold), ("Advantage frontier", FrontierColor),
+                ("Cash", Land.Organism.Cash), ("Built", Land.Organism.Built), ("Bought", Land.Organism.Bought), ("Stakes", Land.Organism.Stakes), ("Leases", Land.Organism.Leases),
+                ("Owners", Gold), ("Advantage frontier (judged)", FrontierColor),
             },
             "Each company is one body made of its balance sheet, coloured as heat maps: its core by its equity (navy to white as it grows), what it owes below by its " +
             "leverage (red to yellow as it rises), and the dust of speculation out to its market value by its P/E (violet to pink as it inflates). " +
-            "It glows only where its advantage presses on others. Height is market position.");
+            "Cash, what it built, what it bought, its stakes and its leases keep muted tones. It glows only where Jev judges its advantage presses on others " +
+            "(the hardest choke points). Height: Jev's judged advantage (55%) and market value (45%).");
 
         // ------------------------------------------------------------------ the layer
 
@@ -218,8 +225,12 @@ namespace Why.Economy.Layers
             if (model == null) return;
             if (land != HillLandscapeLayer.Current || net == null)
             {
-                if (!HillRebuilds.Take()) return;
-                using (LayerClock.Measure("advantage: build")) Build();
+                if (net != null && land != null && Mathf.Approximately(land.CrestZ, HillLandscapeLayer.Current.CrestZ)) land = HillLandscapeLayer.Current;
+                else
+                {
+                    if (!HillRebuilds.Take()) return;
+                    using (LayerClock.Measure("advantage: build")) Build();
+                }
             }
 
             if (content == null) return;
@@ -234,18 +245,34 @@ namespace Why.Economy.Layers
             }
 
             Apply();
+            if (here && !settling && Turned()) Rings();    // the owners' circles keep facing a camera that has orbited
             if (here && direction == 0 && !settling && rig != null && rig.Cam != null) Pick(rig.Cam);
             ShowLabels(here && direction >= 0 && Reveal(clock) > .5f && !settling);
         }
 
+        /// <summary>One simulated year every <see cref="YearSeconds"/> to the world's last (SetYear moves "now" onto the most
+        /// likely course), then stops.</summary>
         void PlayYears()
         {
             playClock += GraphTime.Delta;
             if (playClock < YearSeconds) return;
             playClock = 0;
-            if (Scenario == Advantage.Now) SetScenario(Advantage.Y2030);
-            if (Year >= 2030) { Playing = false; return; }
-            SetYear(Year + 1);
+            int last = Mathf.Min(2030, model.WorldById(Scenario == Advantage.Now ? Advantage.Y2030 : Scenario)?.LastYear ?? 2030);
+            if (Year < last) SetYear(Year + 1);
+            if (Year >= last) Playing = false;
+        }
+
+        /// <summary>The panel's world buttons: the chosen world from its measured 2026, its years then played forward, so the
+        /// contest is seen to unfold (scrub the years to go back). Now stays still.</summary>
+        public static void PlayWorld(string id)
+        {
+            id = string.IsNullOrEmpty(id) ? Advantage.Now : id;
+            bool changed = id != Scenario || Year != 2026;
+            Scenario = id;
+            Year = 2026;
+            Playing = id != Advantage.Now;
+            if (current != null) current.playClock = YearSeconds * .6f;    // the first year comes sooner: 2026 is the same in every world
+            if (changed) current?.Retarget();
         }
 
         // ------------------------------------------------------------------ the choreography
@@ -322,6 +349,80 @@ namespace Why.Economy.Layers
                 direction = 0;
                 if (moveCamera) GraphRoot.Instance?.Focus("overview", 1.2f);
             }
+        }
+
+        // ------------------------------------------------------------------ the framing
+
+        /// <summary>The view's camera angles (land-local yaw, pitch), kept by every framing.</summary>
+        public const float FrameYaw = 158, FramePitch = 12;
+
+        /// <summary>The fitted pose: the target as an offset from the crest (land-local), and the distance; until the first fit,
+        /// the authored pose.</summary>
+        static Vector3 frameOffset = new Vector3(ContestNetwork.X0 - 95, 104, 205);
+        static float frameDistance = 600;
+
+        public static Vector3 FrameTarget(float crestZ) => new Vector3(frameOffset.x, frameOffset.y, crestZ + frameOffset.z);
+
+        public static float FrameDistance => frameDistance;
+
+        /// <summary>The screen left free for the population (normalized device coordinates, -1..1): clear of the title and the
+        /// key on the left, the panel on the right, the preset bar below.</summary>
+        const float FreeLeft = -.94f, FreeRight = .48f, FreeBottom = -.62f, FreeTop = .76f;
+
+        /// <summary>Fits the view's pose to the population as it stands: keeps the yaw and pitch, and moves the target and the
+        /// distance until every living organism and golden circle falls inside the free screen. Done when the network is
+        /// built, so the camera stays put as worlds and years move the population.</summary>
+        void Frame()
+        {
+            if (ScreenLayout.IsPortrait || Xr.XrSession.Active || net == null) return;
+            float aspect = Screen.height > 0 ? (float)Screen.width / Screen.height : 16f / 9, th = Mathf.Tan(CameraRig.FieldOfView * .5f * Mathf.Deg2Rad);
+            var spheres = new List<(Vector3 c, float r, string id)>();
+            foreach (var b in net.Bodies)
+            {
+                if (b.Kind == ContestNetwork.Kind.Company && b.Alive)
+                    spheres.Add((b.Pos, Mathf.Max(b.R, b.BodyR > 0 ? b.BodyR : b.Actor.Sheet.Known ? ContestNetwork.Radius(b.Actor.Sheet.TotalAssets) : 0), b.Id));
+                else if (b.Kind == ContestNetwork.Kind.Owner || b.Kind == ContestNetwork.Kind.Wealth) spheres.Add((b.Pos + Vector3.up * 3, b.R + 3, b.Id));
+            }
+
+            if (spheres.Count == 0) return;
+            Quaternion rot = Quaternion.Euler(FramePitch, FrameYaw, 0);
+            Vector3 fwd = rot * Vector3.forward, right = rot * Vector3.right, up = rot * Vector3.up;
+            Vector3 target = new Vector3(ContestNetwork.X0 - 95, 104, net.CrestZ + 205);
+            float d = 600, minX = 0, maxX = 0, minY = 0, maxY = 0;
+            for (int it = 0; it < 40; it++)
+            {
+                Vector3 eye = target - fwd * d;
+                minX = minY = float.MaxValue;
+                maxX = maxY = float.MinValue;
+                foreach (var (c, r, _) in spheres)
+                {
+                    Vector3 v = c - eye;
+                    float z = Mathf.Max(1, Vector3.Dot(v, fwd)), x = Vector3.Dot(v, right), y = Vector3.Dot(v, up);
+                    minX = Mathf.Min(minX, (x - r) / (z * th * aspect)); maxX = Mathf.Max(maxX, (x + r) / (z * th * aspect));
+                    minY = Mathf.Min(minY, (y - r) / (z * th)); maxY = Mathf.Max(maxY, (y + r) / (z * th));
+                }
+
+                float scale = Mathf.Max((maxX - minX) / (FreeRight - FreeLeft), (maxY - minY) / (FreeTop - FreeBottom));
+                target += right * ((minX + maxX - FreeLeft - FreeRight) * .5f * d * th * aspect) + up * ((minY + maxY - FreeBottom - FreeTop) * .5f * d * th);
+                d = Mathf.Clamp(d * Mathf.Lerp(1, scale, .5f), 250, 1800);
+            }
+
+            frameOffset = new Vector3(target.x, target.y, target.z - net.CrestZ);
+            frameDistance = d;
+            // the nearest bodies loom: name the three that fill the most of the screen
+            Vector3 at = target - fwd * d;
+            string loom = string.Join(", ", spheres.OrderByDescending(x => x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd))).Take(3)
+                .Select(x => x.id + " " + (x.r / Mathf.Max(1, Vector3.Dot(x.c - at, fwd)) / th * .5f * 100).ToString("0") + "% of the height"));
+            Debug.Log($"[Why] advantage framing: target {target.x:0},{target.y:0},crest+{target.z - net.CrestZ:0}, distance {d:0}; " +
+                      $"bounds x {minX:0.00}..{maxX:0.00}, y {minY:0.00}..{maxY:0.00}; largest on screen: {loom}");
+            var preset = ViewPresets.Get(View);
+            if (preset != null && preset.Id == View)
+            {
+                preset.FixedTarget = EconomyStage.Land().World(FrameTarget(net.CrestZ));
+                preset.Distance = frameDistance;
+            }
+
+            if (LandView.PresetId == View && direction == 0 && !History) Fly(ViewPresets.Get(View), instantMoves ? 0 : .8f);
         }
 
         static void Fly(ViewPreset preset, float seconds)
@@ -418,8 +519,9 @@ namespace Why.Economy.Layers
             arena = new GameObject("Network").transform;
             arena.SetParent(content.transform, false);
             arena.localPosition = new Vector3(0, 0, -land.CrestZ);
-            Organisms(true);
+            Organisms(SmokeRun);    // a normal entry builds them a few a frame while the opening condenses them
             Rebuild(true);
+            Frame();
             Log();
         }
 
@@ -468,6 +570,7 @@ namespace Why.Economy.Layers
         /// <summary>Queues every company's organism for rebuilding; <paramref name="now"/> builds them all at once.</summary>
         void Organisms(bool now)
         {
+            HotChokes();
             organismQueue.Clear();
             foreach (var body in net.Bodies)
                 if (body.Kind == ContestNetwork.Kind.Company) organismQueue.Enqueue(body.Id);
@@ -490,88 +593,126 @@ namespace Why.Economy.Layers
         /// <summary>Where a company's advantage presses (its frontiers): toward those who pay it at a choke point (as hard as
         /// the choke is hard to replace, times its judged advantage), toward the rivals it is beating in a present contest,
         /// and, more softly, toward the holder of a contest it is losing.</summary>
+        /// <summary>The world's three hardest choke points (the choke's strength times the holder's judged advantage there): the
+        /// only bodies that bloom, so the eye goes to them first.</summary>
+        HashSet<string> hotChokes = new HashSet<string>();
+
+        void HotChokes()
+        {
+            hotChokes = new HashSet<string>(model.Chokes
+                .Select(c => (c, b: net.Get(c.Actor)))
+                .Where(x => x.b != null && x.b.Kind == ContestNetwork.Kind.Company && x.b.Alive)
+                .OrderByDescending(x => (double.IsNaN(x.c.Strength) ? .6 : x.c.Strength) * (double.IsNaN(ContestNetwork.AdvantageAt(x.b.Actor, Scenario, Year)) ? 3 : ContestNetwork.AdvantageAt(x.b.Actor, Scenario, Year)))
+                .Select(x => x.b.Id).Distinct().Take(3));
+        }
+
+        /// <summary>Where a company's advantage presses: toward the living who must pay it at a choke point (bloom for the three
+        /// hardest, a tint for the rest), and toward the living rivals it is beating now (a tint; bloom when it is selected).
+        /// The dead press on nothing.</summary>
         List<Organism.Front> Fronts(ContestNetwork.Body body)
         {
             var fronts = new List<Organism.Front>();
-            float adv = body.Actor != null && !double.IsNaN(body.Actor.A) ? Mathf.Clamp01((float)body.Actor.A / 6f) : .4f;
-            // a choke point: one front, toward the dollar-weighted middle of those who must pay it
+            if (!body.Alive || body.Actor == null) return fronts;
+            double a0 = ContestNetwork.AdvantageAt(body.Actor, Scenario, Year);
+            float adv = !double.IsNaN(a0) ? Mathf.Clamp01((float)a0 / 6f) : .4f;
             foreach (var c in model.Chokes.Where(c => c.Actor == body.Id).OrderByDescending(c => double.IsNaN(c.Strength) ? 0 : c.Strength).Take(1))
             {
                 Vector3 sum = Vector3.zero;
                 foreach (var l in net.Links)
-                    if (l.Kind == "flow" && l.B == body && l.A != body) sum += (l.A.Pos - body.Pos).normalized * Mathf.Sqrt((float)Math.Max(1, l.UsdBn));
-                if (sum.sqrMagnitude > 1e-4f) fronts.Add(new Organism.Front(sum.normalized, (double.IsNaN(c.Strength) ? .6f : (float)c.Strength) * adv));
+                    if (l.Kind == "flow" && l.B == body && l.A != body && l.A.Alive && l.A.Kind == ContestNetwork.Kind.Company)
+                        sum += (l.A.Pos - body.Pos).normalized * Mathf.Sqrt((float)Math.Max(1, l.UsdBn));
+                if (sum.sqrMagnitude > 1e-4f)
+                    fronts.Add(new Organism.Front(sum.normalized, (double.IsNaN(c.Strength) ? .6f : (float)c.Strength) * adv, hotChokes.Contains(body.Id)));
             }
 
-            // the contests it is winning now: a front toward each of its two strongest rivals
-            var won = model.Flashpoints.Where(fp => fp.InArena && fp.Year >= 2023 && fp.Holder == body.Id).OrderByDescending(fp => fp.Sources.Length).Take(2);
-            foreach (var fp in won)
+            var rivals = new HashSet<string>();
+            foreach (var fp in model.Flashpoints.Where(fp => fp.InArena && fp.Year >= 2023 && fp.Holder == body.Id).OrderByDescending(fp => fp.Sources.Length))
             {
-                var rv = fp.Rivals.Select(r => net.Get(r)).FirstOrDefault(x => x != null && x != body);
-                if (rv != null) fronts.Add(new Organism.Front((rv.Pos - body.Pos).normalized, .7f * adv));
+                var rv = fp.Rivals.Select(r => net.Get(r)).FirstOrDefault(x => x != null && x != body && x.Alive);
+                if (rv == null || !rivals.Add(rv.Id)) continue;
+                fronts.Add(new Organism.Front((rv.Pos - body.Pos).normalized, .7f * adv, Selected == body.Id));
+                if (rivals.Count >= 2) break;
             }
 
             return fronts;
         }
 
+        readonly LineMeshBuilder organismBuilder = new LineMeshBuilder(8192);
+
+        static uint Fnv(string s)
+        {
+            unchecked
+            {
+                uint h = 2166136261;
+                foreach (char ch in s ?? "") h = (h ^ ch) * 16777619;
+                return h;
+            }
+        }
+
         void Organism(ContestNetwork.Body body)
         {
             var fronts = Fronts(body);
-            string key = Scenario + "|" + Year + "|" + body.Value.ToString("0.0") + "|" + body.Alive + "|" + string.Join(",", fronts.Select(f => (f.Direction * 10).ToString("0") + f.Strength.ToString("0.0")));
+            string key = Scenario + "|" + Year + "|" + body.Value.ToString("0.0") + "|" + body.Alive + "|" + (Selected == body.Id) + "|" +
+                         string.Join(",", fronts.Select(f => (f.Direction * 10).ToString("0") + f.Strength.ToString("0.0") + f.Hot));
             if (organisms.TryGetValue(body.Id, out var have) && have.key == key && have.renderer) return;
-            if (have.renderer) DropRenderer(have.renderer);
-            int detail = body.R > 24 ? 3 : 2;
+            int detail = body.R > 30 ? 3 : 2;
             var shape = new Organism(body, fronts, detail);
-            var b = new LineMeshBuilder(shape.Points.Length * 3 + shape.Edges.Length * 2);
+            body.BodyR = shape.MaxRadius;
+            var b = organismBuilder;
+            b.Clear();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Organs]);
-            // the wire: each edge as opaque as the parts there are tangible, hot where it meets a frontier
+            // the wire: each edge as opaque as the parts there are tangible; hot where it meets a blooming frontier, lit where a soft one
             for (int e = 0; e < shape.Edges.Length; e += 2)
             {
                 int i = shape.Edges[e], j = shape.Edges[e + 1];
-                float f = Mathf.Max(shape.Frontier[i], shape.Frontier[j]), solid = (shape.Solidity[i] + shape.Solidity[j]) * .5f;
+                float f = Mathf.Max(shape.Frontier[i], shape.Frontier[j]), g = Mathf.Max(shape.Tint[i], shape.Tint[j]), solid = (shape.Solidity[i] + shape.Solidity[j]) * .5f;
                 Color c = Color.Lerp(shape.Colors[i], shape.Colors[j], .5f);
-                c = Color.Lerp(c, FrontierColor, f * .8f);
-                c.a = Mathf.Clamp01(.05f + .26f * solid + .6f * f) * (shape.Known ? 1 : .6f);
-                b.AddSegment(shape.Points[i], shape.Points[j], c, 1f + 1.1f * f, 0, id, .85f + 4.2f * f * f);
+                c = Color.Lerp(c, Color.Lerp(c, Color.white, .45f), g * .7f);
+                c = Color.Lerp(c, FrontierColor, f * .85f);
+                c.a = Mathf.Clamp01(.08f + .34f * solid + .22f * g + .55f * f) * (shape.Known ? 1 : .6f);
+                b.AddSegment(shape.Points[i], shape.Points[j], c, 1f + .5f * g + 1.1f * f, 0, id, f > 0 ? .85f + 4.2f * f * f : .9f);
             }
 
-            // the points: a dot at each vertex, brighter at the frontier
+            // the points: a dot at each vertex
             for (int i = 0; i < shape.Points.Length; i++)
             {
-                float f = shape.Frontier[i];
-                Color c = Color.Lerp(shape.Colors[i], FrontierColor, f * .85f);
-                c.a = Mathf.Clamp01(.35f + .3f * shape.Solidity[i] + .35f * f);
+                float f = shape.Frontier[i], g = shape.Tint[i];
+                Color c = Color.Lerp(shape.Colors[i], Color.Lerp(shape.Colors[i], Color.white, .45f), g * .7f);
+                c = Color.Lerp(c, FrontierColor, f * .9f);
+                c.a = Mathf.Clamp01(.45f + .3f * shape.Solidity[i] + .25f * g + .3f * f);
                 Vector3 p = shape.Points[i];
-                b.AddSegment(p, p + p.normalized * .06f, c, 2.1f + 2.2f * f, 0, id, .9f + 5f * f * f);
+                b.AddSegment(p, p + p.normalized * .06f, c, 2.1f + .8f * g + 2.2f * f, 0, id, f > 0 ? .9f + 5f * f * f : .92f);
             }
 
             float rb = shape.MeanRadius;
-            var rnd = new System.Random(body.Id.GetHashCode());
-            // speculation: a dust of points between what its profits justify (the earnings shell, at the reference P/E) and its
-            // market value, as many as the premium's cube root allows; the market value itself a dotted membrane
-            if (!double.IsNaN(body.Value) && body.R > rb + .3f)
+            var rnd = new System.Random(unchecked((int)Fnv(body.Id)));
+            bool loss = body.State != null ? body.State.Ni < 0 : body.Actor.LossEvidence;
+            double pe = body.State != null ? body.State.Pe : body.Actor.Pe;
+            Color pc = Land.Organism.SpecHeat(pe, loss);
+            // speculation: the market value as a dotted membrane with a sparse wire, and between what its profits justify (the
+            // earnings shell, at the reference P/E) and that membrane a dust as dense as the P/E is high (loss-makers densest)
+            if (!double.IsNaN(body.Value) && body.Alive && body.R > rb + .3f)
             {
-                bool loss = body.State != null ? body.State.Ni < 0 : body.Actor.Private || body.Actor.Pe < 0;
-                double pe = body.State != null && !double.IsNaN(body.State.Pe) ? body.State.Pe : body.Actor.Pe;
-                Color pc = Land.Organism.SpecHeat(pe, loss);
                 float inner = Mathf.Max(rb, body.EarningsR);
-                double premium = body.Value - Math.Max(body.Actor.Sheet.Equity > 0 ? body.Actor.Sheet.Equity : 0, double.IsNaN(body.EarningsValue) ? 0 : body.EarningsValue);
-                int dust = premium > 0 ? Mathf.Clamp((int)(Math.Pow(premium, 1.0 / 3) * 26), 12, 620) : 0;
+                double shell = 4.0 / 3 * Math.PI * (Math.Pow(body.R, 3) - Math.Pow(inner, 3));
+                double heat = loss ? 4.5 : double.IsNaN(pe) || pe <= 0 ? 1 : Math.Max(0, Math.Min(4.5, Math.Log(pe / 15, 2)));
+                int dust = shell > 0 ? Mathf.Clamp((int)(shell * .004 * heat), 0, 900) : 0;
                 for (int k = 0; k < dust; k++)
                 {
                     Vector3 d = RandomDir(rnd);
-                    float u = (float)rnd.NextDouble(), rr = Mathf.Lerp(inner, body.R, Mathf.Pow(u, .55f));
+                    float u = (float)rnd.NextDouble(), rr = Mathf.Lerp(inner, body.R, Mathf.Pow(u, .5f));
                     Vector3 p = d * rr;
-                    b.AddSegment(p, p + d * .05f, WithAlpha(pc, .26f + .22f * u), 1.6f, 0, id, 1f);
+                    b.AddSegment(p, p + d * .05f, WithAlpha(pc, .3f + .25f * u), 1.6f, 0, id, .93f);
                 }
 
-                var (dirs, _) = Land.Organism.Geodesic(2);
-                foreach (var d in dirs)
-                    b.AddSegment(d * body.R, d * (body.R + .06f), WithAlpha(pc, .42f), 1.4f, 0, id, 1.05f);
+                var (md, me) = Land.Organism.Geodesic(3);
+                foreach (var d in md) b.AddSegment(d * body.R, d * (body.R + .06f), WithAlpha(pc, .45f), 1.5f, 0, id, .95f);
+                var (wd, we) = Land.Organism.Geodesic(2);
+                for (int e = 0; e < we.Length; e += 2) b.AddSegment(wd[we[e]] * body.R, wd[we[e + 1]] * body.R, WithAlpha(pc, .12f), 1f, 0, id, .9f);
                 if (body.EarningsR > rb + .5f && body.EarningsR < body.R - .5f)
                 {
-                    var (ed, _) = Land.Organism.Geodesic(1);
-                    foreach (var d in ed) b.AddSegment(d * body.EarningsR, d * (body.EarningsR + .05f), WithAlpha(new Color(.80f, .84f, .92f), .35f), 1.2f, 0, id, 1);
+                    var (ed, _) = Land.Organism.Geodesic(2);
+                    foreach (var d in ed) b.AddSegment(d * body.EarningsR, d * (body.EarningsR + .05f), WithAlpha(new Color(.80f, .84f, .92f), .4f), 1.3f, 0, id, .9f);
                 }
             }
 
@@ -580,18 +721,18 @@ namespace Why.Economy.Layers
             {
                 if (part.Kind != ContestNetwork.PartKind.Promises || part.Radius <= 0) continue;
                 var (gd, _) = Land.Organism.Geodesic(2);
-                foreach (var d in gd) b.AddSegment(part.Offset + d * part.Radius, part.Offset + d * (part.Radius + .06f), WithAlpha(PromiseColor * .8f, .38f), 1.5f, 0, id, 1.05f);
+                Vector3 at = Vector3.down * (body.R + part.Radius + 2);
+                foreach (var d in gd) b.AddSegment(at + d * part.Radius, at + d * (part.Radius + .06f), WithAlpha(PromiseColor * .8f, .42f), 1.5f, 0, id, .93f);
                 for (int k = 1; k < 8; k++)
                 {
-                    Vector3 p = Vector3.Lerp(Vector3.down * rb, part.Offset + Vector3.up * part.Radius, k / 8f);
-                    b.AddSegment(p, p + Vector3.down * .3f, WithAlpha(PromiseColor * .8f, .4f), 1.4f, 0, id, 1);
+                    Vector3 p = Vector3.Lerp(Vector3.down * rb, at + Vector3.up * part.Radius, k / 8f);
+                    b.AddSegment(p, p + Vector3.down * .3f, WithAlpha(PromiseColor * .8f, .4f), 1.4f, 0, id, .9f);
                 }
             }
 
-            // a loss paid for by others' money: a comet of points from the body toward the market it buys, its head hot
-            double burn = body.Actor.Burn;
-            if (double.IsNaN(burn) && body.State != null && body.State.Ni < 0) burn = -body.State.Ni;
-            if (burn > 0)
+            // a loss paid for by others' money (a year's, where known): a comet of points from the body toward the market it buys
+            double burn = !body.Alive ? 0 : body.State != null ? Math.Max(0, -body.State.Ni) : !double.IsNaN(body.Actor.BurnYearly) ? body.Actor.BurnYearly : body.Actor.Burn;
+            if (burn > 0 && !double.IsNaN(burn))
             {
                 var market = net.Get("consumers") ?? net.Get("enterprises");
                 Vector3 dir = market != null ? (market.Pos - body.Pos).normalized : new Vector3(.8f, .35f, -.45f).normalized;
@@ -601,14 +742,25 @@ namespace Why.Economy.Layers
                 {
                     float t = k / (float)(n - 1), spread = t * 1.4f;
                     Vector3 p = dir * (rb + len * t) + RandomDir(rnd) * spread * (float)rnd.NextDouble();
-                    b.AddSegment(p, p + dir * .2f, WithAlpha(BurnColor, (1 - t) * .75f), Mathf.Lerp(2.6f, 1.2f, t), 0, id, Mathf.Lerp(3.2f, 1f, t));
+                    b.AddSegment(p, p + dir * .2f, WithAlpha(BurnColor, (1 - t) * .8f), Mathf.Lerp(2.6f, 1.2f, t), 0, id, .95f);
                 }
             }
 
             var mesh = b.ToMesh("Organism " + body.Id);
-            Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3183, true));
-            owned.Add(m);
             owned.Add(mesh);
+            if (have.renderer)
+            {
+                // keep the organism's object and material; swap its mesh
+                var mf = have.renderer.GetComponent<MeshFilter>();
+                if (mf.sharedMesh) { owned.Remove(mf.sharedMesh); Destroy(mf.sharedMesh); }
+                mf.sharedMesh = mesh;
+                organisms[body.Id] = (have.renderer, key);
+                return;
+            }
+
+            // alpha-blended, not additive, so the parts' hues survive their overlaps
+            Material m = GraphMaterials.Raw(GraphMaterials.Line(Color.white, 1, 3183, false));
+            owned.Add(m);
             MeshRenderer mr = AddMesh("Organism " + body.Id, mesh, m);
             mr.transform.SetParent(arena, false);
             mr.transform.localPosition = body.Pos;
@@ -640,8 +792,6 @@ namespace Why.Economy.Layers
             Destroy(r.gameObject);
         }
 
-        /// <summary>The frontier's colour: a white heat with gold in it (the only intense bloom in the view).</summary>
-        static readonly Color FrontierColor = new Color(1f, .86f, .58f);
 
         /// <summary>The shell's colour by P/E (the world's year where simulated): cool blue under 15, white to 35, gold to 80,
         /// magenta beyond and for a loss-maker carried by a valuation.</summary>
@@ -667,8 +817,28 @@ namespace Why.Economy.Layers
 
         /// <summary>The ownership class and the ruler: the owners' golden circles (muted gold, the wealth groups' brighter), each
         /// company's cap table as gold arcs around it, and the altitude ruler from the low ground to the high.</summary>
+        Vector3 ringsEye;
+        float ringsClock;
+
+        /// <summary>Whether the camera has swung more than 8° around the population since the circles were last turned to it
+        /// (checked four times a second).</summary>
+        bool Turned()
+        {
+            if ((ringsClock += GraphTime.Delta) < .25f || arena == null) return false;
+            ringsClock = 0;
+            Vector3 c = new Vector3(ContestNetwork.X0, ContestNetwork.OwnerY, net.CrestZ + (ContestNetwork.ZFrom + ContestNetwork.ZTo) * .5f);
+            return Vector3.Angle(Eye() - c, ringsEye - c) > 8;
+        }
+
+        Vector3 Eye()
+        {
+            var cam = GraphRoot.Instance != null && GraphRoot.Instance.Rig != null ? GraphRoot.Instance.Rig.Cam : null;
+            return cam != null && arena != null ? arena.InverseTransformPoint(cam.transform.position) : Vector3.zero;
+        }
+
         void Rings()
         {
+            ringsEye = Eye();
             Drop(Part.Rings);
             var b = new LineMeshBuilder();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Rings]);
@@ -677,14 +847,29 @@ namespace Why.Economy.Layers
                 float lit = Lit(body.Id);
                 if (body.Kind == ContestNetwork.Kind.Company)
                 {
-                    if (body.Alive) CapTable(b, id, body, lit);
+                    if (!body.Alive) continue;
+                    CapTable(b, id, body, lit);
+                    // a faint stem from the body down to the landscape under it: altitude reads against the ground, not depth
+                    float ground = net.Height(body.Pos.x, body.Pos.z), bottom = body.Pos.y - Edge(body);
+                    if (bottom > ground + 1) b.AddSegment(new Vector3(body.Pos.x, bottom, body.Pos.z), new Vector3(body.Pos.x, ground, body.Pos.z), WithAlpha(Ruler, .14f * lit), 1f, 0, id, .9f);
+                    // in a simulated year, how far it rose or fell from its 2026 ground: green up, red down, a tick at 2026
+                    float moved = body.TargetY - body.Y2026;
+                    if (Year > 2026 && Mathf.Abs(moved) > 4)
+                    {
+                        Color mc = WithAlpha(moved > 0 ? Rose : Fell, .75f * lit);
+                        Vector3 at = new Vector3(body.Pos.x, body.Y2026, body.Pos.z), now = new Vector3(body.Pos.x, body.Pos.y + (moved > 0 ? -Edge(body) : Edge(body)), body.Pos.z);
+                        if ((now.y - at.y) * moved > 0) b.AddSegment(at, now, mc, 2.2f, 0, id, .95f);
+                        Circle(b, id, at, Mathf.Max(2.5f, Edge(body) * .6f), Vector3.up, mc, 1.6f, .95f, true);
+                    }
                 }
                 else if (body.Kind == ContestNetwork.Kind.Owner || body.Kind == ContestNetwork.Kind.Wealth)
                 {
+                    // a golden circle facing the camera, filled with dots, as wide as √ of what it holds; styled by the kind of owner
                     bool wealth = body.Kind == ContestNetwork.Kind.Wealth;
-                    Color c = WithAlpha(Color.Lerp(wealth ? GoldBright : Gold, new Color(.6f, .55f, .45f), .35f), (wealth ? .9f : .7f) * lit);
-                    DottedCircle(b, id, body.Pos, body.R, c, wealth ? 2.4f : 1.8f, wealth ? 1.25f : 1.05f);
-                    Circle(b, id, body.Pos, body.R, Vector3.up, WithAlpha(c, .25f * lit), 1f, 1);
+                    Vector3 normal = Facing(body.Pos);
+                    Color c = WithAlpha(Color.Lerp(wealth ? GoldBright : OwnerColor(body.Owner?.Kind), new Color(.6f, .55f, .45f), .25f), (wealth ? .95f : .8f) * lit);
+                    Circle(b, id, body.Pos, body.R, normal, c, wealth ? 2.6f : 2f, .95f);
+                    DottedDisc(b, id, body.Pos, body.R, normal, WithAlpha(c, .55f * lit));
                 }
             }
 
@@ -701,6 +886,35 @@ namespace Why.Economy.Layers
             for (int y = 0; y <= ContestNetwork.MaxAlt; y += 25)
                 b.AddSegment(new Vector3(rx - 2.5f, y, rz), new Vector3(rx + 2.5f, y, rz), WithAlpha(Ruler, .5f), 1.2f, 0, id, 1);
             partRenderer[(int)Part.Rings] = Lines(b, Part.Rings, arena, 3188, true);
+        }
+
+        /// <summary>A rise from the 2026 ground, and a fall (muted, under the bloom).</summary>
+        static readonly Color Rose = new Color(.45f, .92f, .58f), Fell = new Color(.98f, .42f, .40f);
+
+        /// <summary>The direction from a point toward the camera (land-local), so a golden circle faces the viewer.</summary>
+        Vector3 Facing(Vector3 at)
+        {
+            var cam = GraphRoot.Instance != null && GraphRoot.Instance.Rig != null ? GraphRoot.Instance.Rig.Cam : null;
+            if (cam == null || arena == null) return new Vector3(.35f, .2f, .92f).normalized;
+            Vector3 local = arena.InverseTransformPoint(cam.transform.position) - at;
+            return local.sqrMagnitude > 1e-3f ? local.normalized : Vector3.forward;
+        }
+
+        /// <summary>A disc of dots in the plane facing <paramref name="normal"/>, three rings inside the circle.</summary>
+        static void DottedDisc(LineMeshBuilder b, float id, Vector3 at, float radius, Vector3 normal, Color c)
+        {
+            Vector3 u = Vector3.Cross(normal, Mathf.Abs(normal.y) > .9f ? Vector3.right : Vector3.up).normalized, w = Vector3.Cross(normal, u).normalized;
+            for (int k = 1; k <= 3; k++)
+            {
+                float r = radius * k / 4f;
+                int n = Mathf.Clamp(Mathf.RoundToInt(r * 2.2f), 8, 120);
+                for (int i = 0; i < n; i++)
+                {
+                    float a = (i + k * .5f) * Mathf.PI * 2 / n;
+                    Vector3 p = at + (u * Mathf.Cos(a) + w * Mathf.Sin(a)) * r;
+                    b.AddSegment(p, p + normal * .05f, c, 1.6f, 0, id, .92f);
+                }
+            }
         }
 
         static void DottedCircle(LineMeshBuilder b, float id, Vector3 at, float radius, Color c, float widthPx, float intensity)
@@ -768,7 +982,10 @@ namespace Why.Economy.Layers
 
         static readonly Color ChokeColor = new Color(1f, .93f, .75f);
 
-        float RulerX() => net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x - x.R).DefaultIfEmpty(ContestNetwork.X0).Min() - 26;
+        /// <summary>Where a line meets a body: a company's visible body, an owner's circle, a disc's rim.</summary>
+        static float Edge(ContestNetwork.Body b) => b.Kind == ContestNetwork.Kind.Company && b.BodyR > 0 ? b.BodyR : b.R;
+
+        float RulerX() => net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x + x.R).DefaultIfEmpty(ContestNetwork.X0).Max() + 26;
 
         /// <summary>The rivers: each flow a curved band between the two shells, in two lanes (rose desire, ice fear) where the
         /// payer's motive was judged, white-gold for capital, as wide as 0.35 √$bn a year; pulses toward the payee. The largest
@@ -779,14 +996,18 @@ namespace Why.Economy.Layers
             var b = new LineMeshBuilder();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Rivers]);
             var flows = net.Links.Where(l => l.Kind == "flow" && l.A.Alive && l.B.Alive).OrderByDescending(l => l.UsdBn).ToList();
-            // by default, the story: money converging on the supply chain (tools, fabs, chips, clouds, models) and capital into
-            // the labs, largest first; the buyers' spending stays faint until a company is chosen
-            var story = new HashSet<ContestNetwork.Link>(flows.Where(l => l.A.Kind != ContestNetwork.Kind.Buyer && StoryLayers.Contains(l.B.Layer ?? "")).Take(RiverHighlights));
+            // by default, the story, hop by hop down the chain the user named: the labs' compute into the builders, the builders'
+            // capex into the chips, the chips into the fabs, the fabs into the tools; capital into the labs; and the payouts that
+            // rise to the owners. At least two rivers a hop, largest first; every other river waits for a selection.
+            var story = new HashSet<ContestNetwork.Link>();
+            foreach (var (from, to) in StoryHops)
+                foreach (var l in flows.Where(l => Hop(l.A, from) && Hop(l.B, to)).Take(3)) story.Add(l);
             for (int i = 0; i < flows.Count; i++)
             {
                 var l = flows[i];
                 bool lit = Selected == null ? story.Contains(l) : l.A.Id == Selected || l.B.Id == Selected;
-                float alpha = lit ? .9f : Selected == null ? .16f : .06f;
+                if (!lit) continue;
+                float alpha = .85f;
                 double usd = l.Flow != null ? l.Flow.In(Scenario) : l.UsdBn;
                 River(b, id, l, usd, alpha, i);
             }
@@ -803,11 +1024,11 @@ namespace Why.Economy.Layers
             Vector3 a = l.A.Pos, z = l.B.Pos, d = z - a;
             float dist = d.magnitude;
             if (dist < 1) return;
-            Vector3 dir = d / dist, p0 = a + dir * l.A.R * .95f, p2 = z - dir * l.B.R * .95f;
+            Vector3 dir = d / dist, p0 = a + dir * Edge(l.A) * .95f, p2 = z - dir * Edge(l.B) * .95f;
             Vector3 side = Vector3.Cross(Vector3.up, dir);
             side = side.sqrMagnitude < .01f ? Vector3.right : side.normalized;
             Vector3 p1 = (p0 + p2) * .5f + Vector3.up * (dist * .12f) + side * (dist * .06f * ((salt & 1) == 0 ? 1 : -1));
-            float width = Mathf.Clamp(.3f * Mathf.Sqrt((float)Math.Max(0, usd)), .4f, 8f);
+            float width = Mathf.Clamp(.3f * Mathf.Sqrt((float)Math.Max(0, usd)), .4f, l.A.Kind == ContestNetwork.Kind.Buyer ? 3f : 7f);
             string kind = l.Flow?.Kind ?? "";
             bool capital = kind == "investment" || kind == "financing" || kind == "equity";
             double fear = l.Flow != null ? l.Flow.Fear : double.NaN;
@@ -834,7 +1055,7 @@ namespace Why.Economy.Layers
                 Vector3 p = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2 + side * offset * taper;
                 length += Vector3.Distance(last, p);
                 last = p;
-                pts.Add(new LinePoint(p, WithAlpha(c, alpha), 0, width * Mathf.Lerp(.35f, 1, taper), 1.25f));
+                pts.Add(new LinePoint(p, WithAlpha(c, alpha), 0, width * Mathf.Lerp(.35f, 1, taper), .92f));
             }
 
             b.AddFlowPath(pts, id, 1f / Mathf.Max(1, length) * 6);
@@ -859,7 +1080,7 @@ namespace Why.Economy.Layers
                 if (!lit) continue;
                 double usd = Usd(l);
                 float width = Mathf.Max(.15f, .035f * Mathf.Sqrt((float)Math.Max(0, usd)));
-                Vector3 from = l.B.Pos + Vector3.up * l.B.R, to = l.A.Kind == ContestNetwork.Kind.Company ? l.A.Pos + Vector3.down * l.A.R * .2f : l.A.Pos;
+                Vector3 from = l.B.Pos + Vector3.up * Edge(l.B), to = l.A.Kind == ContestNetwork.Kind.Company ? l.A.Pos + Vector3.down * Edge(l.A) * .2f : l.A.Pos;
                 Vector3 mid = (from + to) * .5f + Vector3.up * 6;
                 var pts = new List<LinePoint>(13);
                 float length = 0;
@@ -870,7 +1091,7 @@ namespace Why.Economy.Layers
                     Vector3 p = (1 - t) * (1 - t) * from + 2 * (1 - t) * t * mid + t * t * to;
                     length += Vector3.Distance(last, p);
                     last = p;
-                    pts.Add(new LinePoint(p, WithAlpha(Gold, Selected == null ? .45f : .8f), 0, width, 1.25f));
+                    pts.Add(new LinePoint(p, WithAlpha(Gold, Selected == null ? .4f : .8f), 0, width, .92f));
                 }
 
                 b.AddFlowPath(pts, id, 1f / Mathf.Max(1, length) * 4);
@@ -901,8 +1122,8 @@ namespace Why.Economy.Layers
             partRenderer[(int)Part.Landscape] = Lines(b, Part.Landscape, arena, 3181, true);
         }
 
-        /// <summary>The present contests: a spark between the shells of holder and rival, coloured by the strongest of the
-        /// triad (judged). The selected actor's, else the best-sourced few.</summary>
+        /// <summary>The present contests: a burst on the holder's face toward its living rival, coloured by the strongest of the
+        /// triad (judged), with a short dashed tether toward the rival; the full bolt between them only for a selected actor.</summary>
         void Sparks()
         {
             Drop(Part.Sparks);
@@ -911,21 +1132,25 @@ namespace Why.Economy.Layers
             foreach (var fp in ShownSparks())
             {
                 var h = net.Get(fp.Holder);
+                var r = LiveRival(fp);
+                if (h == null || r == null) continue;
                 Color c = TriadColor(fp.Triad);
-                var seed = new System.Random(fp.Id.GetHashCode());
-                foreach (string rid in fp.Rivals)
+                var seed = new System.Random(unchecked((int)Fnv(fp.Id ?? fp.Title)));
+                Vector3 dir = (r.Pos - h.Pos).normalized, m = h.Pos + dir * (Edge(h) + 2);
+                for (int k = 0; k < 8; k++)
                 {
-                    var r = net.Get(rid);
-                    if (h == null || r == null || !h.Alive || !r.Alive) continue;
-                    Vector3 a = h.Pos + Vector3.up * h.R, z = r.Pos + Vector3.up * r.R, m = SparkAt(a, z);
-                    Bolt(b, id, m, a, c, seed);
-                    Bolt(b, id, m, z, c, seed);
-                    for (int k = 0; k < 8; k++)
-                    {
-                        float ang = k * Mathf.PI / 4 + (float)seed.NextDouble() * .3f;
-                        Vector3 ray = new Vector3(Mathf.Cos(ang), Mathf.Sin(ang) * .8f, Mathf.Sin(ang * 1.7f) * .5f).normalized * (k % 2 == 0 ? 3.2f : 1.8f);
-                        b.AddSegment(m, m + ray, c, 2.2f, 0, id, 1.7f);
-                    }
+                    float ang = k * Mathf.PI / 4 + (float)seed.NextDouble() * .3f;
+                    Vector3 ray = new Vector3(Mathf.Cos(ang), Mathf.Sin(ang) * .8f, Mathf.Sin(ang * 1.7f) * .5f).normalized * (k % 2 == 0 ? 3.2f : 1.8f);
+                    b.AddSegment(m, m + ray, c, 2.2f, 0, id, .95f);
+                }
+
+                float tether = Mathf.Min(15, Vector3.Distance(m, r.Pos) - Edge(r));
+                for (float t = 2; t < tether; t += 2.5f) b.AddSegment(m + dir * t, m + dir * (t + 1.2f), WithAlpha(c, .6f), 1.4f, 0, id, .9f);
+                if (Selected != null && (fp.Holder == Selected || fp.Rivals.Contains(Selected)))
+                {
+                    Vector3 a = h.Pos + Vector3.up * Edge(h), z = r.Pos + Vector3.up * Edge(r);
+                    Bolt(b, id, SparkAt(a, z), a, c, seed);
+                    Bolt(b, id, SparkAt(a, z), z, c, seed);
                 }
             }
 
@@ -936,14 +1161,28 @@ namespace Why.Economy.Layers
             partRenderer[(int)Part.Sparks] = sr;
         }
 
+        /// <summary>A contest's first rival still alive in the world shown.</summary>
+        ContestNetwork.Body LiveRival(Advantage.Flashpoint fp) => fp.Rivals.Select(x => net.Get(x)).FirstOrDefault(x => x != null && x.Alive && x.Id != fp.Holder);
+
         IEnumerable<Advantage.Flashpoint> ShownSparks()
         {
-            var present = model.Flashpoints.Where(f => f.InArena && f.Year >= 2023 && net.Get(f.Holder) != null).ToList();
+            var present = model.Flashpoints.Where(f => f.InArena && f.Year >= 2023 && net.Get(f.Holder) is ContestNetwork.Body h && h.Alive && LiveRival(f) != null).ToList();
             if (Selected != null) return present.Where(f => f.Holder == Selected || f.Rivals.Contains(Selected));
             return present.OrderByDescending(f => f.Sources.Length).ThenByDescending(f => f.Year).Take(SparkDefault);
         }
 
-        static readonly HashSet<string> StoryLayers = new HashSet<string> { "tools", "fabs", "chips", "clouds", "models" };
+        /// <summary>The chain's hops, as (payer, payee) groups: a layer, "capital" for investors and owners, "owners" for the
+        /// golden circles (payouts).</summary>
+        static readonly (string from, string to)[] StoryHops =
+            { ("models", "clouds"), ("clouds", "chips"), ("chips", "fabs"), ("fabs", "tools"), ("capital", "models"), ("payer", "owners") };
+
+        static bool Hop(ContestNetwork.Body b, string group) => group switch
+        {
+            "capital" => b.Kind == ContestNetwork.Kind.Owner || b.Actor?.Flank == "capital",
+            "owners" => b.Kind == ContestNetwork.Kind.Owner || b.Kind == ContestNetwork.Kind.Wealth,
+            "payer" => b.Kind == ContestNetwork.Kind.Buyer || b.Kind == ContestNetwork.Kind.Company,
+            _ => b.Kind == ContestNetwork.Kind.Company && b.Layer == group,
+        };
 
         static Vector3 SparkAt(Vector3 a, Vector3 z) => Vector3.Lerp(a, z, .5f) + Vector3.up * (4 + .06f * Vector3.Distance(a, z));
 
@@ -955,7 +1194,7 @@ namespace Why.Economy.Layers
                 float t = i / 8f;
                 Vector3 p = Vector3.Lerp(from, to, t);
                 if (i > 0 && i < 8) p += new Vector3((float)seed.NextDouble() - .5f, (float)seed.NextDouble() - .5f, (float)seed.NextDouble() - .5f) * 2.4f;
-                pts.Add(new LinePoint(p, WithAlpha(c, Mathf.Lerp(1, .35f, t)), 1.8f, 0, Mathf.Lerp(1.5f, 1f, t)));
+                pts.Add(new LinePoint(p, WithAlpha(c, Mathf.Lerp(1, .35f, t)), 1.8f, 0, .95f));
             }
 
             b.AddFlowPath(pts, id, 1f / Mathf.Max(1, Vector3.Distance(from, to)) * 3);
@@ -1045,11 +1284,11 @@ namespace Why.Economy.Layers
                 for (int i = 0; i < pts.Count; i++)
                 {
                     if (i > 0) length += Vector3.Distance(pts[i - 1], pts[i]);
-                    line.Add(new LinePoint(pts[i], ThreadColor, 2.2f, 0, 1.5f));
+                    line.Add(new LinePoint(pts[i], ThreadColor, 2.2f, 0, .95f));
                 }
 
                 b.AddFlowPath(line, id, 1f / Mathf.Max(1, length) * 40);
-                foreach (var (at, _) in threadBeads) Circle(b, id, at, 1.3f, Vector3.up, ThreadColor, 2, 1.8f);
+                foreach (var (at, _) in threadBeads) Circle(b, id, at, 1.3f, Vector3.up, ThreadColor, 2, .95f);
                 foreach (var fp in model.Flashpoints.Where(f => f.Year >= 1947 && f.Year < 2023))
                 {
                     Vector3 at;
@@ -1065,7 +1304,7 @@ namespace Why.Economy.Layers
                     for (int k = 0; k < 6; k++)
                     {
                         float ang = k * Mathf.PI / 3;
-                        b.AddSegment(at, at + new Vector3(Mathf.Cos(ang), Mathf.Sin(ang), 0) * 1.6f, c, 1.8f, 0, id, 1.6f);
+                        b.AddSegment(at, at + new Vector3(Mathf.Cos(ang), Mathf.Sin(ang), 0) * 1.6f, c, 1.8f, 0, id, .95f);
                     }
 
                     historySparks.Add((at, fp));
@@ -1090,7 +1329,11 @@ namespace Why.Economy.Layers
         void MakeLabels()
         {
             labels.Clear();
-            var named = new HashSet<string>(net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).OrderByDescending(x => x.R).Take(NameLabels).Select(x => x.Id));
+            var named = new HashSet<string>(net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).OrderByDescending(x => x.Actor.Sized ? x.Actor.SizeUsdBn : 0).Take(NameLabels).Select(x => x.Id));
+            bool simulated = Scenario != Advantage.Now && Year > 2026;
+            // the largest owner of each kind is always named, so sovereigns, venture capital and hedge funds are seen
+            var leaders = new HashSet<string>(net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Owner && x.Owner != null)
+                .GroupBy(x => x.Owner.Kind).Select(g => g.OrderByDescending(x => x.Value).First().Id));
             foreach (var c in model.Chokes) named.Add(c.Actor);
             if (Selected != null) named.Add(Selected);
             var info = model.ScenarioById(Scenario);
@@ -1103,22 +1346,24 @@ namespace Why.Economy.Layers
                         if (!named.Contains(body.Id) || History) continue;
                         // a simulated year's numbers carry ≈: they are the model's, not measured
                         string sim = body.State != null ? "≈" : "";
-                        string value = double.IsNaN(body.Value) ? " <i>value unverified</i>" : " " + sim + Money(body.Value);
-                        double pe = body.State != null && !double.IsNaN(body.State.Pe) ? body.State.Pe : body.Actor.Pe;
-                        string peText = !double.IsNaN(pe) && pe > 0 ? " · P/E " + sim + pe.ToString("0") : (body.State != null && body.State.Ni < 0) || body.Actor.Private || pe < 0 ? " · loss" : "";
-                        string fate = body.State == null || body.State.Alive ? "" : body.State.Status == "extinct" ? " <color=#F59A9A>extinct</color>" : " <color=#C9CED6>absorbed by " + (net.Get(body.State.By)?.Name ?? body.State.By) + "</color>";
+                        string held = simulated && model.NotSimulated.Contains(body.Id) ? " (2026)" : "";
+                        string value = !body.Alive ? "" : double.IsNaN(body.Value) ? " <i>value unverified</i>" : " " + sim + Money(body.Value) + held;
+                        double pe = body.State != null ? body.State.Pe : body.Actor.Pe;
+                        bool lossNow = body.State != null ? body.State.Ni < 0 : body.Actor.LossEvidence;
+                        string peText = !body.Alive ? "" : !double.IsNaN(pe) && pe > 0 ? " · P/E " + sim + pe.ToString("0") : lossNow ? " · loss" : "";
+                        string fate = body.Alive ? "" : " " + FateText(model, Scenario, body.Id, Year, true);
                         labels.Add(new HillLabel
                         {
-                            Text = "<b>" + body.Name + "</b>" + value + peText + fate, At = body.Pos + Vector3.up * (body.R + 2.5f), Role = LabelRole.Name, Part = "advantage.organs",
-                            Rank = body.R + (body.Id == Selected ? 1000 : 0), Plate = new Color(0, 0, 0, .55f),
+                            Text = "<b>" + body.Name + "</b>" + value + peText + fate, At = body.Pos + Vector3.up * (Edge(body) + 2.5f), Role = LabelRole.Name, Part = "advantage.organs",
+                            Rank = body.R + (body.Id == Selected ? 1000 : 0) + (hotChokes.Contains(body.Id) ? 500 : 0), Plate = new Color(0, 0, 0, .85f),
                         });
                         break;
                     case ContestNetwork.Kind.Owner:
                     case ContestNetwork.Kind.Wealth:
-                        if (History || body.Kind == ContestNetwork.Kind.Owner && body.Value < 150 && Selected == null) continue;
+                        if (History || body.Kind == ContestNetwork.Kind.Owner && body.Value < 150 && Selected == null && !leaders.Contains(body.Id)) continue;
                         labels.Add(new HillLabel
                         {
-                            Text = body.Name + " " + Money(body.Value), At = body.Pos + Vector3.up * 2.5f, Role = body.Kind == ContestNetwork.Kind.Wealth ? LabelRole.Name : LabelRole.Note,
+                            Text = body.Name + " " + (simulated ? "≈" : "") + Money(body.Value), At = body.Pos + Vector3.up * (body.R + 2.5f), Role = body.Kind == ContestNetwork.Kind.Wealth ? LabelRole.Name : LabelRole.Note,
                             Part = "advantage.rings", Rank = (float)Math.Log10(1 + body.Value), Color = body.Kind == ContestNetwork.Kind.Wealth ? GoldBright : Gold,
                         });
                         break;
@@ -1132,17 +1377,18 @@ namespace Why.Economy.Layers
             foreach (var fp in ShownSparks().Take(6))
             {
                 var h = net.Get(fp.Holder);
-                var r = fp.Rivals.Select(x => net.Get(x)).FirstOrDefault(x => x != null);
+                var r = LiveRival(fp);
                 if (h == null || r == null) continue;
-                labels.Add(new HillLabel { Text = fp.Title, At = SparkAt(h.Pos + Vector3.up * h.R, r.Pos + Vector3.up * r.R) + Vector3.up * 3, Role = LabelRole.Note, Part = "advantage.sparks", Rank = 3, Color = TriadColor(fp.Triad) });
+                Vector3 m = h.Pos + (r.Pos - h.Pos).normalized * (Edge(h) + 2);
+                labels.Add(new HillLabel { Text = fp.Title, At = m + Vector3.up * 4, Role = LabelRole.Note, Part = "advantage.sparks", Rank = 3, Color = TriadColor(fp.Triad) });
             }
 
             float rx = RulerX(), rz = net.CrestZ + ContestNetwork.ZTo - 20;
-            labels.Add(new HillLabel { Text = "HIGH GROUND · dominant", At = new Vector3(rx, ContestNetwork.MaxAlt + 4, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 5, Color = Roles.Encoded(Roles.InkDim) });
-            labels.Add(new HillLabel { Text = "LOW GROUND · dependent", At = new Vector3(rx, 4, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 5, Color = Roles.Encoded(Roles.InkDim) });
-            labels.Add(new HillLabel { Text = "THE OWNERS", At = new Vector3(rx, ContestNetwork.OwnerY, rz), Role = LabelRole.Name, Part = "advantage.rings", Rank = 5, Color = Gold });
-            labels.Add(new HillLabel { Text = "WORKERS AND CONSUMERS", At = new Vector3(rx, -3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 4, Color = Roles.Encoded(Roles.InkDim) });
-            labels.Add(new HillLabel { Text = "THE STATE · rule of law, property, export controls", At = new Vector3(rx, ContestNetwork.StateY - 3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 4, Color = Roles.Encoded(Roles.InkDim) });
+            labels.Add(new HillLabel { Text = "HIGH GROUND · judged dominant", At = new Vector3(rx, ContestNetwork.MaxAlt + 4, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 400, Color = Roles.Encoded(Roles.InkDim) });
+            labels.Add(new HillLabel { Text = "LOW GROUND · dependent", At = new Vector3(rx, ContestNetwork.MinAlt, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 400, Color = Roles.Encoded(Roles.InkDim) });
+            labels.Add(new HillLabel { Text = "THE OWNERS", At = new Vector3(rx, ContestNetwork.OwnerY, rz), Role = LabelRole.Name, Part = "advantage.rings", Rank = 300, Color = Gold });
+            labels.Add(new HillLabel { Text = "WORKERS AND CONSUMERS", At = new Vector3(rx, -3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 300, Color = Roles.Encoded(Roles.InkDim) });
+            labels.Add(new HillLabel { Text = "THE STATE · rule of law, property, export controls", At = new Vector3(rx, ContestNetwork.StateY - 3, rz), Role = LabelRole.Note, Part = "advantage.rings", Rank = 300, Color = Roles.Encoded(Roles.InkDim) });
             for (int i = 0; i < threadBeads.Count && History; i++)
             {
                 var (at, step) = threadBeads[i];
@@ -1152,6 +1398,24 @@ namespace Why.Economy.Layers
 
             foreach (var (at, fp) in historySparks.Where(_ => History))
                 labels.Add(new HillLabel { Text = fp.Year + " " + fp.Title, At = at + Vector3.up * 3.5f, Role = LabelRole.Note, Part = "advantage.thread", Rank = 1.5f, Color = TriadColor(fp.Triad) });
+        }
+
+        /// <summary>How and when a company left a world by a year: "† extinct 2028" or "→ absorbed by Microsoft, 2028" (the
+        /// first simulated year it is not alive), or "" while it lives.</summary>
+        public static string FateText(Advantage data, string world, string id, int year, bool rich)
+        {
+            var w = data?.WorldById(world);
+            if (w == null) return "";
+            foreach (int y in w.Years.Keys)
+            {
+                if (y > year) break;
+                var st = w.At(id, y);
+                if (st == null || st.Alive) continue;
+                string text = st.Status == "extinct" ? "† extinct " + y : "→ absorbed by " + (data.Get(st.By)?.Name ?? st.By) + ", " + y;
+                return rich ? (st.Status == "extinct" ? "<color=#F59A9A>" : "<color=#C9CED6>") + text + "</color>" : text;
+            }
+
+            return "";
         }
 
         public static string Money(double bn) => double.IsNaN(bn) ? "" : bn >= 1000 ? "$" + (bn / 1000).ToString("0.0") + "T" : bn >= 10 ? "$" + bn.ToString("0") + "B" : "$" + bn.ToString("0.0") + "B";
@@ -1230,8 +1494,23 @@ namespace Why.Economy.Layers
             yield return SmokeChecks.Capture("economy-advantage-now", root.CurrentPreset);
             int active = 0;
             foreach ((Renderer r, Part _) in renderers) if (r && r.enabled && r.gameObject.activeInHierarchy) active++;
-            Debug.Log($"[Why] advantage: {active} renderers active (at most {MaxRenderers}), and {organisms.Count} organisms, {organisms.Values.Sum(o => o.renderer ? o.renderer.GetComponent<MeshFilter>().sharedMesh.vertexCount : 0)} vertices in them");
-            if (active > MaxRenderers) Debug.LogError($"[Why] advantage: {active} renderers active, more than {MaxRenderers}");
+            int companies = net.Bodies.Count(b => b.Kind == ContestNetwork.Kind.Company);
+            int bodies = organisms.Values.Count(o => o.renderer && o.renderer.enabled && o.renderer.gameObject.activeInHierarchy);
+            int vertices = organisms.Values.Sum(o => o.renderer ? o.renderer.GetComponent<MeshFilter>().sharedMesh.vertexCount : 0);
+            Debug.Log($"[Why] advantage: {active} part renderers active (at most {MaxRenderers}); {bodies} organisms (at most {companies}), {vertices} vertices in them (at most {MaxOrganismVertices})");
+            if (active > MaxRenderers) Debug.LogError($"[Why] advantage: {active} part renderers active, more than {MaxRenderers}");
+            if (bodies > companies) Debug.LogError($"[Why] advantage: {bodies} organisms drawn for {companies} companies");
+            if (vertices > MaxOrganismVertices) Debug.LogError($"[Why] advantage: the organisms hold {vertices} vertices, more than {MaxOrganismVertices}");
+
+            // play from now steps through the years (it once jumped from 2026 to 2030)
+            Playing = true;
+            yield return new WaitForSecondsRealtime(YearSeconds * 1.5f);
+            int played = Year;
+            Playing = false;
+            Debug.Log($"[Why] advantage play: {played} after {YearSeconds * 1.5f:0.0} s from 2026 ({Scenario})");
+            if (played != 2027) Debug.LogError($"[Why] advantage: play reached {played}, not 2027, after one year's time");
+            SetScenario(Advantage.Now);
+            for (float t = 0; t < 7.5f && settling; t += Time.unscaledDeltaTime) yield return null;
 
             string harsh = model.WorldById("digestion") != null ? "digestion" : Worlds().Count > 2 ? Worlds()[2] : null;
             if (harsh != null)

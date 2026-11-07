@@ -83,6 +83,31 @@ def usd_bn(value, unit):
     return v
 
 
+def year_of(period):
+    years = [int(y) for y in re.findall(r"(?:19|20)\d\d", period or "")]
+    return max(years) if years else 0
+
+
+def per_year(value, period, kind=""):
+    """A flow or income figure as a year's: a quarter x 4, nine months x 4/3, a half x 2; TTM and run-rates as they are."""
+    if value is None:
+        return None
+    per = (period or "").lower()
+    if kind in ("revenueTTM", "netIncomeTTM", "runRate") or re.search(r"ttm|trailing|twelve months|12 months|run-rate|run rate|annuali", per):
+        return value
+    if re.search(r"\b(f?q[1-4]|quarter)\b", per):
+        return value * 4
+    if re.search(r"nine months|9 months|first three quarters", per):
+        return value * 4 / 3
+    if re.search(r"\bh[12]\b|\b[12]h\b|first half|six months|6 months", per):
+        return value * 2
+    return value
+
+
+NOT_YEARLY = (r"cumulative|accumulated|forecast|\b(19|20)\d\d\s*(-|–|to)\s*(19|20)?\d\d\b|over (five|four|three|\d+) years|since|"
+              r"\b(19|20)\d\d\b[^()]*\bto\b[^()]*\b(19|20)\d\d\b")
+
+
 def alnum(s):
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
@@ -133,14 +158,14 @@ def simulation(actors, flows, owners, scenarios, problems):
 
         def val(kind):
             x = n.get(kind)
-            return x["value"] if x else None
-        revenue = val("revenueTTM") or val("revenue") or val("runRate")
-        if revenue and (n.get("revenue") or {}).get("period", "").lower().startswith("q") and not val("revenueTTM"):
-            revenue *= 4
+            return per_year(x["value"], x.get("period"), kind) if x else None
+        # revenue: the latest-dated of the trailing year, the latest reported period (as a year's) and the run-rate
+        cands = [(year_of((n.get(k) or {}).get("period")), i, val(k)) for i, k in enumerate(("revenueTTM", "runRate", "revenue")) if n.get(k)]
+        revenue = max(cands)[2] if cands else None
         margin = (a.get("margin") or {}).get("pct")
         net = val("netIncomeTTM") or val("netIncome")
-        if net is None and revenue and a.get("pe") and a["pe"] > 0:
-            net = a["size"]["usdBn"] / a["pe"]
+        if net is None and a.get("pe"):
+            net = a["size"]["usdBn"] / a["pe"]   # a negative P/E keeps a loss a loss
         companies.append({
             "id": a["id"], "name": a["name"], "layer": a["band"], "private": a.get("private", False), "marketCap": a["size"]["usdBn"],
             "pe": a.get("pe") if (a.get("pe") or 0) > 0 else None, "revenue": revenue, "netIncome": net,
@@ -273,9 +298,15 @@ def main():
         if size is None and flank != "state" and band != "buyers":
             problems.append(f"{a['id']}: no verified size")
         sheet, sheet_facts, date = {}, [], None
+        anchor = nums.get("equity") or nums.get("totalAssets")
+        sheet_year = year_of(anchor.get("period")) if anchor else 0
         for kind in ("totalAssets", "cash", "ppe", "goodwill", "intangibles", "investments", "totalLiabilities", "debt", "leases", "equity"):
             n = nums.get(kind)
-            if n and cite(n["fact"]):
+            if n and ok(n["fact"]):
+                if sheet_year and year_of(n.get("period")) and year_of(n.get("period")) != sheet_year:
+                    problems.append(f"{a['id']}: {kind} dated {n.get('period')} left out of a {sheet_year} balance sheet")
+                    continue
+                cite(n["fact"])
                 sheet[kind] = round(n["value"], 2)
                 sheet_facts.append(n["fact"])
                 date = date or n.get("period")
@@ -305,21 +336,35 @@ def main():
         pe = nums.get("peRatio")
         if pe and cite(pe["fact"]):
             rec["pe"] = round(pe["value"], 1)
+            if pe.get("period"):
+                rec["pePeriod"] = pe["period"]
         for kind in ("buybacks", "dividends", "sbc"):
             n = nums.get(kind)
             if n and cite(n["fact"]):
                 rec[kind] = round(n["value"], 2)
                 rec[kind + "Period"] = n.get("period")
-        loss = nums.get("burn") or nums.get("segmentLoss")
-        if loss and cite(loss["fact"]):
-            rec["burn"] = round(abs(loss["value"]), 2)
-            rec["burnWhat"] = (facts[loss["fact"]].get("claim") or "")[:120]
+                if re.search(r"returned|return of capital|buybacks and dividends", (facts[n["fact"]].get("claim") or "").lower()):
+                    rec[kind + "Returned"] = True   # a shareholder-return total, not buybacks alone
+        losses = [fid for k in ("burn", "segmentLoss") for fid in (a.get("candidates") or {}).get(k, []) if ok(fid)]
+        losses = [fid for fid in losses if not re.search(NOT_YEARLY, (facts[fid].get("period") or "").lower())]
+        if losses:
+            fid = max(losses, key=lambda x: year_of(facts[x].get("period")))
+            f = facts[fid]
+            v = usd_bn(f["value"], f["unit"])
+            if v:
+                rec["burn"] = round(abs(v), 2)
+                rec["burnPeriod"] = f.get("period")
+                rec["burnYearly"] = round(abs(per_year(v, f.get("period"))), 2)
+                rec["burnWhat"] = (f.get("claim") or "")[:120]
+                cite(fid)
         rec["private"] = bool(size and size["kind"] == "valuation")
         # what it bought (the share price and the cash at work) and the data-centre power it builds, each with its period
-        bought = sorted(((fid, f) for fid, f in facts.items() if f.get("kind") == "acquisition" and f.get("from") == a["id"] and f.get("status") == "verified"),
+        bought = sorted(((fid, f) for fid, f in facts.items() if f.get("kind") == "acquisition" and f.get("from") == a["id"] and f.get("status") == "verified"
+                         and not re.search(r"combined|merged entity|entity valued", (f.get("claim") or "").lower())),
                         key=lambda x: -(number(x[1].get("value")) or 0))[:5]
         if bought:
-            rec["acquisitions"] = [{"target": next((x.get("name") for x in model["actors"] if x["id"] == f.get("to")), f.get("to")),
+            rec["acquisitions"] = [{"target": ("licence + hire: " if re.search(r"licen[cs]|hire", (f.get("claim") or "").lower()) else "") +
+                                              next((x.get("name") for x in model["actors"] if x["id"] == f.get("to")), f.get("to")),
                                     "usdBn": number(f.get("value")), "period": f.get("period"), "claim": (f.get("claim") or "")[:140], "fact": cite(fid)}
                                    for fid, f in bought]
         power = [(fid, f) for fid, f in facts.items() if f.get("kind") == "capacity" and f.get("actor") == a["id"] and f.get("status") == "verified"]
@@ -331,24 +376,55 @@ def main():
         if js.get("risk"):
             rec["risk"] = round(js["risk"]["score"], 2)
         actors.append(rec)
+    merged = {}
+    if any(a["id"] == "xai" for a in actors) and any(a["id"] == "spacex" for a in actors):
+        merged["xai"] = "spacex"
+        actors = [a for a in actors if a["id"] != "xai"]
+    # venture capital is an owner (a golden circle), not a company
+    vc = next((a for a in actors if a["id"] == "venture-capital"), None)
+    if vc:
+        actors = [a for a in actors if a["id"] != "venture-capital"]
     ids = {a["id"] for a in actors}
 
-    owner_ids = {a["id"] for a in model["actors"] if a.get("layer") == "owners"}
+    owner_ids = {a["id"] for a in model["actors"] if a.get("layer") == "owners"} | ({"venture-capital"} if vc else set())
     flows = []
-    for f0 in model.get("flows", []):
-        # a river is money a year: a one-off deal or a valuation is not one (it is a contest, an acquisition or a stake)
-        text = " ".join(str(f0.get(k) or "") for k in ("what", "notes", "basis")).lower()
-        if re.search(r"one-off|one off|merged entity|valued at|acquisition price", text):
+    raw_flows = list(model.get("flows", []))
+    # a verified contract with a yearly amount is a river too (contracted), e.g. compute bought from a builder
+    for fid, f in facts.items():
+        if f.get("kind") == "contract" and f.get("status") == "verified" and f.get("from") and f.get("to") \
+                and re.search(r"a year|per year|annual|/yr|each year", (f.get("claim") or "").lower()) and usd_bn(f["value"], f["unit"]):
+            raw_flows.append({"id": "contract-" + fid, "from": f["from"], "to": f["to"], "usdBnPerYear": usd_bn(f["value"], f["unit"]),
+                              "what": (f.get("claim") or "")[:90], "kind": "contract", "basis": "contracted", "period": f.get("period"), "fact": fid})
+    for f0 in raw_flows:
+        # a river is money a year: a one-off deal, a valuation, a cumulative total or an "up to" is not one
+        text = " ".join(str(f0.get(k) or "") for k in ("what", "notes", "basis", "period")).lower()
+        if re.search(r"one-off|one off|merged entity|valued at|acquisition price|\ba total\b|cumulative|up to|tranche", text):
             continue
-        # wages and savings belong to people, who stand on the low ground as workers and consumers
+        # wages and savings belong to people, who stand on the low ground as workers and consumers; xAI is SpaceX's
         f = dict(f0, **{k: "consumers" for k in ("from", "to") if f0.get(k) in ("households", "workers")})
+        f = dict(f, **{k: merged[f[k]] for k in ("from", "to") if f.get(k) in merged})
+        if f.get("from") == f.get("to"):
+            continue
         ends = ids | owner_ids
         if f.get("from") not in ends or f.get("to") not in ends or (f.get("from") not in ids and f.get("to") not in ids) or not cite(f.get("fact")):
             continue
         m = (jflow.get(f["id"]) or {}).get("motive")
-        flows.append({"id": f["id"], "from": f["from"], "to": f["to"], "usdBn": round(f["usdBnPerYear"], 2),
-                      "what": f.get("what"), "kind": f.get("kind"), "basis": f.get("basis"), "period": f.get("period"),
+        kind = f.get("kind") or ""
+        # yearly: spending, revenue, capex, wages, contracts at a yearly rate; a funding round is capital raised once
+        yearly = kind not in ("investment", "financing", "equity") and not re.search(r"\bround\b|series [a-z]\b", text)
+        flows.append({"id": f["id"], "from": f["from"], "to": f["to"], "usdBn": round(float(f["usdBnPerYear"]), 2),
+                      "what": f.get("what"), "kind": kind, "basis": f.get("basis"), "period": f.get("period"), "yearly": yearly,
                       "fear": round(m["score"] / 4, 3) if m else None, "fact": f["fact"]})
+    # one river per payer, payee and kind: the newest fact wins (rounds and restated contracts must not count twice)
+    best = {}
+    for fl in flows:
+        key = (fl["from"], fl["to"], "capital" if not fl["yearly"] else "yearly")
+        if key not in best or year_of(fl.get("period")) > year_of(best[key].get("period")):
+            best[key] = fl
+    dropped = [fl["id"] for fl in flows if best.get((fl["from"], fl["to"], "capital" if not fl["yearly"] else "yearly")) is not fl]
+    if dropped:
+        problems.append("duplicate rivers left out: " + ", ".join(dropped))
+    flows = list(best.values())
     scale = {s["id"]: s.get("flowScale") or {} for s in model.get("scenarios", [])}
     for fl in flows:
         fl["scale"] = {}
@@ -402,12 +478,22 @@ def main():
     value = {a["id"]: (a["size"] or {}).get("usdBn") for a in actors}
     owners = {}
     for a in model["actors"]:
-        if a.get("layer") == "owners" and a["id"] not in ids:
-            owners[a["id"]] = {"id": a["id"], "name": a.get("name") or a["id"], "kind": a.get("kind") or "fund", "stakes": []}
+        if a.get("layer") == "owners" and a["id"] not in ids and a["id"] not in ("households", "top1", "next9", "next40", "bottom50", "foreign-holders"):
+            kind = a.get("kind") or "fund"
+            if re.search(r"blue owl|blackstone|\bkkr\b|apollo global|carlyle|brookfield|\btpg\b|silver lake", (a.get("name") or a["id"]).lower()):
+                kind = "pe"   # private capital: private equity and private credit firms, whatever the cluster called them
+            owners[a["id"]] = {"id": a["id"], "name": a.get("name") or a["id"], "kind": kind, "stakes": []}
+    if vc:
+        owners["venture-capital"] = {"id": "venture-capital", "name": "Venture capital funds", "kind": "vc", "stakes": []}
     stakes_seen = set()
     for fid, f in facts.items():
-        if f.get("kind") != "stake" or f.get("status") != "verified" or "voting" in (f.get("unit") or ""):
+        if f.get("kind") not in ("stake", "investment") or f.get("status") != "verified" or "voting" in (f.get("unit") or ""):
             continue
+        if re.search(r"\bcap(ped)?\b|up to|at most|maximum", (f.get("claim") or "").lower()):
+            continue   # a ceiling on a stake is not a holding
+        if f.get("kind") == "investment" and f.get("from") not in owners and f.get("from") != "venture-capital":
+            continue   # a company's investment in another is a river or a stake fact of its own
+        f = dict(f, **{k: merged[f[k]] for k in ("from", "to") if f.get(k) in merged})
         if re.search(r"joint venture|\bjv\b|vehicle|campus|data cent|hyperion|el paso", (f.get("claim") or "").lower()):
             continue   # a stake in a joint venture or a financing vehicle, not in the company itself
         holder, company = f.get("from"), f.get("to")
@@ -423,6 +509,19 @@ def main():
         if holder not in owners:     # a company holding a stake in another: it owns as an organism, not as a circle
             owners[holder] = {"id": holder, "name": next((x["name"] for x in actors if x["id"] == holder), holder), "kind": "corporate", "stakes": []}
         owners[holder]["stakes"].append(st)
+    # private capital financing the build-out through a venture with a company (Blue Owl's cash into Meta's Hyperion
+    # campus): a holding in the venture, drawn as a thread to the company and labelled as the venture, never as its shares
+    for fid, f in facts.items():
+        if f.get("kind") != "financing" or f.get("status") != "verified" or "usd" not in (f.get("unit") or "").lower():
+            continue
+        holder, company = f.get("from"), merged.get(f.get("to"), f.get("to"))
+        if holder not in owners or company not in company_ids or (holder, company) in stakes_seen:
+            continue
+        m = re.search(r"\b([A-Z][\w-]+) (?:joint )?venture", f.get("claim") or "")
+        what = (m.group(1) + " venture" if m else "a venture") + " with " + next((x["name"] for x in actors if x["id"] == company), company)
+        stakes_seen.add((holder, company))
+        owners[holder]["stakes"].append({"company": company, "fact": cite(fid), "usdBn": usd_bn(f["value"], f["unit"]),
+                                         "period": f"{f.get('period')}; in the {what}, not its shares", "venture": True})
     for o in owners.values():
         held = 0.0
         for st in o["stakes"]:
@@ -447,10 +546,24 @@ def main():
                                            "holdingsUsdBn": round(shares[gid] * total, 0), "share": shares[gid], "year": year,
                                            "source": "Fed DFA via circuit.json (households' corporate equities and mutual fund shares)"}
     if circuit.get("foreignEquityShare") and circuit.get("corporateEquityTotal"):
-        owners["abroad"] = {"id": "abroad", "name": "Abroad", "kind": "households", "stakes": [],
+        owners["abroad"] = {"id": "abroad", "name": "Abroad", "kind": "abroad", "stakes": [],
                             "holdingsUsdBn": round(circuit["foreignEquityShare"] * circuit["corporateEquityTotal"], 0),
                             "source": "Fed Z.1 L.224 via circuit.json (rest of world's US corporate equities)"}
-    owner_list = [o for o in owners.values() if o["stakes"] or o["kind"] == "households"]
+    owner_list = [o for o in owners.values() if (o["stakes"] or o["kind"] in ("households", "abroad")) and o.get("holdingsUsdBn", 0) > 0]
+
+    # the individual level: what US companies pay their owners (buybacks and dividends, S&P 500, verified) rising to the
+    # golden circles by the Fed's shares of who owns the stocks (an estimate, labelled so); wages already run to the people
+    payouts = [nums_by[k] for k in ("buybacks", "dividends") for nums_by in [next((x.get("numbers") or {} for x in model["actors"] if x["id"] == "enterprises"), {})] if nums_by.get(k)]
+    total = sum(n["value"] for n in payouts if ok(n["fact"]))
+    if total > 0 and "enterprises" in ids:
+        abroad_share = circuit.get("foreignEquityShare") or 0
+        for o in owner_list:
+            share = (1 - abroad_share) * o.get("share", 0) if o["id"].startswith("wealth-") else abroad_share if o["id"] == "abroad" else 0
+            if share > 0:
+                flows.append({"id": "payout-" + o["id"], "from": "enterprises", "to": o["id"], "usdBn": round(total * share, 1),
+                              "what": "buybacks and dividends paid by S&P 500 companies, by the Fed's shares of who owns US stocks",
+                              "kind": "payout", "basis": "estimate", "period": payouts[0].get("period"), "yearly": True, "fear": None,
+                              "fact": next(n["fact"] for n in payouts if ok(n["fact"]))})
 
     scenarios = [{"id": s["id"], "title": s.get("title"), "premise": s.get("premise"), "reading": s.get("reading"),
                   "friendly": s.get("friendly") or [], "unfriendly": s.get("unfriendly") or [],

@@ -374,8 +374,9 @@ namespace Why.Economy.Layers
             var m = NearestMoment(s, year, 1.5f);
             if (m == null) return Array.Empty<string>();
             var ids = new[] { m.Holder }.Concat(m.Allies).Concat(m.Rivals).ToList();
-            int y = Mathf.FloorToInt(year);
-            return s.People.Where(p => p.Actors.Any(ids.Contains) && (p.Born == 0 || p.Born <= y) && (p.Died == 0 || p.Died >= y))
+            // only people active at the moment's own date: grown (Wellington was 8 at Saratoga), alive (Pitt died in January
+            // 1806) and in office where the research's dates say so (George III, under the Regency from 1811)
+            return s.People.Where(p => p.Actors.Any(ids.Contains) && m.Year >= p.ActiveFrom && m.Year <= p.ActiveTo)
                 .OrderBy(p => p.Actors.Select(a => ids.IndexOf(a)).Where(i => i >= 0).DefaultIfEmpty(99).Min())
                 .Take(3).Select(p => p.Id).ToArray();
         }
@@ -713,8 +714,11 @@ namespace Why.Economy.Layers
                 if (!L.Span.TryGetValue(a.Id, out var span)) continue;
                 bool alive = Year >= span.from - .01f && Year <= span.to + .01f;
                 var parts = PartsAt(a, Year, forcesStanding, out bool measured);
-                if (!measured && !(participants.Contains(a.Id) && (alive || Mathf.Abs(Year - span.from) < 1.5f))) continue;
-                if (measured && !alive) continue;
+                // a participant of the moment stands even unmeasured (grey); one its moment has just ended (the Republic at
+                // Brumaire) stands for a quarter-year after its lane ends, so the moment never loses a side
+                bool participant = participants.Contains(a.Id), ended = Year > span.to + .01f && Year - span.to <= .25f;
+                if (!measured && !(participant && (alive || Mathf.Abs(Year - span.from) < 1.5f || ended))) continue;
+                if (measured && !alive && !(participant && ended)) continue;
                 var body = new ContestNetwork.Body { Id = a.Id, Name = a.Name, Kind = ContestNetwork.Kind.Company, CustomParts = parts, Alive = true, Value = double.NaN };
                 var shape = new Organism(body, null, measured ? 3 : 2, trueVolume: true);
                 string g = GroupOf(a.Kind);
@@ -729,6 +733,47 @@ namespace Why.Economy.Layers
             // so the holder's column takes the high x
             var cols = new[] { -1, 0, 1 }.Where(sd => items.Any(x => x.side == sd)).ToList();
             var kinds = items.Select(x => x.row).Distinct().OrderBy(k => k).ToList();
+
+            // the contest's width and height with n bodies to a line
+            (float w, float h) Extent(int n)
+            {
+                var cw = new Dictionary<int, float>();
+                var rh = new Dictionary<int, float>();
+                foreach (int c in cols)
+                    foreach (int k in kinds)
+                    {
+                        var list = items.Where(x => x.side == c && x.row == k).OrderByDescending(x => x.shape.MaxRadius).ToList();
+                        if (list.Count == 0) continue;
+                        float lw = 0, lh = 0;
+                        int count = 0;
+                        for (int i = 0; i < list.Count; i += n, count++)
+                        {
+                            var line = list.Skip(i).Take(n).ToList();
+                            lw = Mathf.Max(lw, line.Sum(x => 2 * Foot(x.shape, x.a.Id)) + BodyGap * (line.Count - 1));
+                            lh += 2 * line.Max(x => Foot(x.shape, x.a.Id));
+                        }
+
+                        lh += LineGap * (count - 1);
+                        cw[c] = Mathf.Max(cw.TryGetValue(c, out float a) ? a : 0, lw);
+                        rh[k] = Mathf.Max(rh.TryGetValue(k, out float b) ? b : 0, lh);
+                    }
+
+                return (cols.Sum(c => cw[c]) + ColGap * Mathf.Max(0, cols.Count - 1), kinds.Sum(k => rh[k]) + RowGap * Mathf.Max(0, kinds.Count - 1));
+            }
+
+            // how many bodies stand to a line: the count the camera can come nearest to, so a wide contest stacks into the free
+            // screen's height instead of shrinking into its width (fewer lines when two counts fit alike)
+            int perLine = PerLine;
+            if (FitFrame(out float tanV, out float tanH, out float freeWidth, out _))
+            {
+                float best = float.PositiveInfinity;
+                for (int n = PerLine; n >= 1; n--)
+                {
+                    var (ew, eh) = Extent(n);
+                    float d = FitDistance(ew + 26, eh + 40, tanV, tanH, freeWidth);
+                    if (d < best - .5f) { best = d; perLine = n; }
+                }
+            }
             var cells = new Dictionary<(int col, int kind), List<List<(History.Actor a, ContestNetwork.Body body, Organism shape, bool measured, int row, int side)>>>();
             var colW = new Dictionary<int, float>();
             var rowH = new Dictionary<int, float>();
@@ -738,7 +783,7 @@ namespace Why.Economy.Layers
                     var list = items.Where(x => x.side == c && x.row == k).OrderByDescending(x => x.shape.MaxRadius).ToList();
                     if (list.Count == 0) continue;
                     var lines = new List<List<(History.Actor a, ContestNetwork.Body body, Organism shape, bool measured, int row, int side)>>();
-                    for (int i = 0; i < list.Count; i += PerLine) lines.Add(list.Skip(i).Take(PerLine).ToList());
+                    for (int i = 0; i < list.Count; i += perLine) lines.Add(list.Skip(i).Take(perLine).ToList());
                     cells[(c, k)] = lines;
                     float w = lines.Max(l => l.Sum(x => 2 * Foot(x.shape, x.a.Id)) + BodyGap * (l.Count - 1));
                     float h = lines.Sum(l => 2 * l.Max(x => Foot(x.shape, x.a.Id))) + LineGap * (lines.Count - 1);
@@ -918,8 +963,19 @@ namespace Why.Economy.Layers
         /// <summary>The advantages documented for the year, the latest begun per actor (where two of an actor's periods meet,
         /// one ring).</summary>
         IEnumerable<History.Moat> ActiveMoats(History.Story s) =>
-            s.Moats.Where(m => Year >= m.From - .01f && Year <= (Mathf.Approximately(m.To, Mathf.Round(m.To)) ? m.To + 1 : m.To) + .01f)
-                .GroupBy(m => m.Actor).Select(g => g.OrderByDescending(m => m.From).First());
+            s.Moats.Where(m => MoatStands(s, m, Year)).GroupBy(m => m.Actor).Select(g => g.OrderByDescending(m => m.From).First());
+
+        /// <summary>
+        /// Whether a documented advantage stands at a year: within its period (a year-only end runs to that year's close), and
+        /// not after its holder's lane ends, so no advantage the panel lists is left without a body to ring.
+        /// </summary>
+        public static bool MoatStands(History.Story s, History.Moat m, float year)
+        {
+            float to = Mathf.Approximately(m.To, Mathf.Round(m.To)) ? m.To + 1 : m.To;
+            var L = current != null ? current.LayoutOf(s) : Lay(s);
+            if (L != null && m.Actor != null && L.Span.TryGetValue(m.Actor, out var span)) to = Mathf.Min(to, span.to);
+            return year >= m.From - .01f && year <= to + .01f;
+        }
 
         /// <summary>A moat's sources in the advantage view's order, the same source twice joined (its strongest judged wall).</summary>
         static List<History.MoatSource> Sources(History.Moat moat) => moat.Sources.GroupBy(x => x.Source)
@@ -956,20 +1012,14 @@ namespace Why.Economy.Layers
             // the cross-section's extent decides the pose: build it now if the year changed
             string key = StoryId + "|" + Year.ToString("0.000", CultureInfo.InvariantCulture) + "|" + Selected + "|" + Exploded;
             if (content != null && (dirty || key != builtFor)) { dirty = false; builtFor = key; Rebuild(); }
-            var cam = root.Rig.Cam;
-            float tanV = Mathf.Tan(cam.fieldOfView * .5f * Mathf.Deg2Rad), tanH = tanV * Mathf.Max(1, cam.aspect);
             // the picture fits the screen the panel (or a story's card) and the portrait cards leave free, its middle moved there
-            float freeLeft = popups.Length > 0 ? FreeLeftCards : FreeLeftBare, FreeWidth = FreeRight - freeLeft;
-            float shift = .5f - (freeLeft + FreeRight) * .5f;
+            FitFrame(out float tanV, out float tanH, out float FreeWidth, out float shift);
             ViewPreset p;
             if (Exploded && bodies.Count > 0)
             {
                 // down the time axis from the future (+x runs to the left), the cross-section filling the free screen
                 Vector3 c = (arenaMin + arenaMax) * .5f;
-                float w = arenaMax.x - arenaMin.x + 26, h = arenaMax.y - arenaMin.y + 40;
-                // the bodies take three quarters of the free width: their names reach past them, and a name that would run under
-                // the panel or a story's card is not shown
-                float d = Mathf.Max(w * .5f / (tanH * FreeWidth * .74f), h * .5f / (tanV * .76f), 110);
+                float d = FitDistance(arenaMax.x - arenaMin.x + 26, arenaMax.y - arenaMin.y + 40, tanV, tanH, FreeWidth);
                 float dx = shift * 2 * d * tanH;
                 p = HillPresets.HistoryPose(new Vector3(c.x - dx, c.y + 4, T(story, Year)), 180, 3, d);
             }
@@ -993,6 +1043,32 @@ namespace Why.Economy.Layers
 
             root.Rig.FlyTo(p.Pose(), seconds);
         }
+
+        /// <summary>
+        /// The camera's half-angle tangents, and the share of the screen's width the panel (or a story's card) and the
+        /// portrait cards leave free, with how far its middle sits from the screen's. False without a camera.
+        /// </summary>
+        bool FitFrame(out float tanV, out float tanH, out float freeWidth, out float shift)
+        {
+            float freeLeft = popups.Length > 0 ? FreeLeftCards : FreeLeftBare;
+            freeWidth = FreeRight - freeLeft;
+            shift = .5f - (freeLeft + FreeRight) * .5f;
+            tanV = Mathf.Tan(30 * Mathf.Deg2Rad);
+            tanH = tanV * 16 / 9f;
+            GraphRoot root = GraphRoot.Instance;
+            if (root == null || root.Rig == null || root.Rig.Cam == null) return false;
+            var cam = root.Rig.Cam;
+            tanV = Mathf.Tan(cam.fieldOfView * .5f * Mathf.Deg2Rad);
+            tanH = tanV * Mathf.Max(1, cam.aspect);
+            return true;
+        }
+
+        /// <summary>
+        /// How far the camera stands to fit a cross-section w wide and h high: the bodies take three quarters of the free
+        /// width (their names reach past them, and a name that would run under the panel or a story's card is not shown).
+        /// </summary>
+        static float FitDistance(float w, float h, float tanV, float tanH, float freeWidth) =>
+            Mathf.Max(w * .5f / (tanH * freeWidth * .74f), h * .5f / (tanV * .76f), 110);
 
         void ShowPopups()
         {
@@ -1025,7 +1101,19 @@ namespace Why.Economy.Layers
         public static string ValueText(History.Value v)
         {
             string word = MeasureWord(v.Part);
-            return (word != null ? word + ": " : "") + Raw(v) + " " + v.Unit + (Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
+            // a value the fact gives for a span of years ("c. 1800-1815") is not of the year its row was filed under: no year
+            bool dated = Mathf.FloorToInt(v.Year) != Mathf.FloorToInt(Year) && !Spans(v.Unit, Year);
+            return (word != null ? word + ": " : "") + Raw(v) + " " + v.Unit + (dated ? " (" + Mathf.FloorToInt(v.Year) + ")" : "");
+        }
+
+        static readonly System.Text.RegularExpressions.Regex Circa = new System.Text.RegularExpressions.Regex(@"c\.\s*(\d{4})\s*[-\u2013]\s*(\d{4})");
+
+        /// <summary>Whether a unit gives its value for a span of years ("c. 1800-1815") that holds the year.</summary>
+        static bool Spans(string unit, float year)
+        {
+            var m = Circa.Match(unit ?? "");
+            return m.Success && year >= int.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture) - .01f &&
+                   year < int.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture) + 1;
         }
 
         static string CardLine(History.Story s, History.Actor a)
@@ -1115,12 +1203,14 @@ namespace Why.Economy.Layers
                         double w = srcs[k].Wall;
                         float thick = double.IsNaN(w) ? 1.2f : 1.2f + 2.4f * (float)w;
                         Vector3 at = hb.To + new Vector3(Mathf.Cos(a), Mathf.Sin(a), 0) * (R + thick + 4);
+                        // from the future +x runs to screen-left: a name whose place is taken steps outward from the ring
+                        var outward = new Vector2(-Mathf.Cos(a), Mathf.Sin(a));
                         labels.Add(new HillLabel
                         {
                             Text = "<b>" + SourceWord(srcs[k].Source) + "</b>" + (double.IsNaN(w) ? "" : " <size=80%>wall " + w.ToString("0.0", CultureInfo.InvariantCulture) + " of 4" +
                                    (Uncertain(srcs[k]) ? ", uncertain" : "") + "</size>"),
                             At = at, Role = LabelRole.Note, Part = "history.walls", Rank = 250 + (float)(double.IsNaN(w) ? 0 : w), Color = HillAdvantageLayer.SourceColor(srcs[k].Source),
-                            Plate = new Color(0, 0, 0, .7f), OnTop = true,
+                            Plate = new Color(0, 0, 0, .7f), OnTop = true, Fallbacks = new[] { outward * 16, outward * 32, outward * 48 },
                         });
                     }
                 }

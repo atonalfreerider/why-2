@@ -3226,7 +3226,7 @@
   {
    "actor": "anthropic",
    "year": 2021,
-   "part": "employees",
+   "part": "people",
    "value": 11,
    "unit": "people who left OpenAI to found it",
    "fact": "lineage-anthropic-founders-from-openai"
@@ -3433,7 +3433,7 @@
   },
   {
    "actor": "deepseek",
-   "year": 2025,
+   "year": "2024-12",
    "part": "compute",
    "value": 2.788,
    "unit": "million H800 GPU hours (V3 training)",
@@ -3566,7 +3566,7 @@
    "advantage": "half of world industrial output, 80% of the gold",
    "power": "scale economies",
    "triad": "environment",
-   "mechanism": "The only large economy not bombed produced half of global industrial output and held most of the gold, so it wrote the monetary rules and paid for Europe's recovery.",
+   "mechanism": "The United States produced half of the world's industrial output and held 80 percent of its gold reserves.",
    "outcome": "Bretton Woods put the dollar at the centre; the Marshall Plan moved US$13.3 billion to 17 countries; US GDP was 1,474 billion 1990 dollars in 1945 against the USSR's 343, and 1,456 against 510 in 1950.",
    "facts": [
     "story-ai-us-half-industrial",
@@ -3737,7 +3737,7 @@
    "id": "m-geforce-gpu",
    "year": 1999,
    "date": "1999-10-11",
-   "title": "The GeForce 256, the first GPU",
+   "title": "The GeForce 256, marketed as a GPU",
    "holder": "nvidia",
    "rivals": [
     "3dfx"
@@ -3747,7 +3747,7 @@
    "power": "process power",
    "triad": "execution",
    "mechanism": "After cutting its staff from 100 to 40 in 1996, Nvidia put 17 million transistors, made by TSMC, on the GeForce 256, its first product marketed as a GPU.",
-   "outcome": "Nvidia listed in January 1999 with $0.37 billion of revenue, level with 3dfx's $360.5 million that year; in December 2000 it agreed to acquire 3dfx's intellectual assets.",
+   "outcome": "Nvidia went public on 22 January 1999; its revenue for 1999 was $0.37 billion, against 3dfx's $360.5 million; in December 2000 it agreed to acquire 3dfx's intellectual assets.",
    "facts": [
     "lineage-geforce-256-1999",
     "story-ai-geforce256-transistors",
@@ -3755,7 +3755,8 @@
     "lineage-nvidia-ipo-1999",
     "lineage-nvidia-acquires-3dfx-2000",
     "lineage-nvidia-gpu-share-2025",
-    "story-ai-3dfx-revenue"
+    "story-ai-3dfx-revenue",
+    "story-ai-nvidia-rev-1999"
    ]
   },
   {
@@ -4548,7 +4549,7 @@
    "sources": [
     {
      "source": "technology",
-     "what": "17 million transistors on the GeForce 256, marketed as the first GPU",
+     "what": "17 million transistors on the GeForce 256, Nvidia's first product marketed as a GPU",
      "facts": [
       "story-ai-geforce256-transistors",
       "lineage-geforce-256-1999"

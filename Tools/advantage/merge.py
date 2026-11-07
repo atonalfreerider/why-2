@@ -110,6 +110,7 @@ def main():
             facts[fid] = {"claim": f.get("claim"), "actor": f.get("actor"), "kind": f.get("kind"), "value": f.get("value"),
                           "unit": f.get("unit"), "period": f.get("period"), "scope": f.get("scope"), "from": f.get("from"),
                           "to": f.get("to"), "url": f.get("url"), "quote": (f.get("quotes") or [""])[0],
+                          "quotes": f.get("quotes") or [],   # every quote, so each number on screen traces to its words
                           "dated2026": bool(f.get("dated2026")), "cluster": name,
                           "status": g.get("status", "unverified"), "supportedJ": g.get("supportedJ"),
                           "verifiedOn": g.get("verifiedOn"), "reason": g.get("reason")}

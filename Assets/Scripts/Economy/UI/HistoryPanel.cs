@@ -50,7 +50,7 @@ namespace Why.Economy.UI
             note.text = "Each actor is a tube through time, as thick as what it measured then. Open a moment to see the actors side by side, each advantage a ring walled by its sources.";
             reading = Text("Reading", 11, 12, 168, Width - 24, Height - 168 - 70); reading.textWrappingMode = TextWrappingModes.Normal; reading.overflowMode = TextOverflowModes.Ellipsis;
             method = Text("Method", 9, 12, Height - 64, Width - 24, 58); method.textWrappingMode = TextWrappingModes.Normal; method.color = new Color(.62f, .67f, .74f);
-            method.text = "Every number is a fact whose quote was found on its cited page. Sizes are the cube root of a measure: a thousand under arms draws as a hundred thousand civilians; money of 1775-1815 at £1 = 24 livres (assumed). Walls: Jev's judgments, 0-4.";
+            method.text = "Every number is a fact whose quote was found on its cited page. Sizes are the cube root of a measure: a thousand under arms, at work or in orders draws as a hundred thousand civilians; money of 1775-1815 at £1 = 24 livres (assumed). Walls: Jev's judgments, 0-4.";
             HillHistoryLayer.Changed += OnChanged;
         }
 
@@ -143,7 +143,7 @@ namespace Why.Economy.UI
                 sb.Append("<size=86%><color=#9AA4B2>").Append(m.Facts.Length).Append(m.Facts.Length == 1 ? " fact" : " facts").Append(" behind this moment</color></size>\n");
             }
 
-            var moats = s.Moats.Where(x => year >= x.From - .01f && year <= (Mathf.Approximately(x.To, Mathf.Round(x.To)) ? x.To + 1 : x.To) + .01f).ToList();
+            var moats = s.Moats.Where(x => HillHistoryLayer.MoatStands(s, x, year)).ToList();
             if (moats.Count > 0)
             {
                 sb.Append("\n<b>Advantages of the period</b> <size=86%><color=#9AA4B2>(walls 0-4, judged by Jev on all the evidence, some of it later; ? where Jev was unsure)</color></size>\n");

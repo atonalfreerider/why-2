@@ -2951,7 +2951,7 @@
    "name": "French Consulate",
    "kind": "state",
    "qid": "Q877619",
-   "from": 1799,
+   "from": "1799-11",
    "to": 1804,
    "role": "Bonaparte's regime after the coup of 18 Brumaire, confirmed by plebiscite",
    "facts": [
@@ -3490,7 +3490,7 @@
    "year": 1805,
    "part": "population",
    "value": 16,
-   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "unit": "million people (Britain, c. 1800-1815)",
    "fact": "story-revolutions-population-britain-france"
   },
   {
@@ -3546,7 +3546,7 @@
    "year": 1812,
    "part": "population",
    "value": 16,
-   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "unit": "million people (Britain, c. 1800-1815)",
    "fact": "story-revolutions-population-britain-france"
   },
   {
@@ -3554,7 +3554,7 @@
    "year": 1815,
    "part": "population",
    "value": 16,
-   "unit": "million people (Britain and Ireland, c. 1800-1815)",
+   "unit": "million people (Britain, c. 1800-1815)",
    "fact": "story-revolutions-population-britain-france"
   },
   {
@@ -3879,22 +3879,6 @@
   },
   {
    "actor": "russian-army",
-   "year": "1805-12",
-   "part": "army",
-   "value": 59.5,
-   "unit": "thousand troops (70% of the Allied 85,000)",
-   "fact": "story-revolutions-austerlitz-french-force"
-  },
-  {
-   "actor": "habsburg-austria",
-   "year": "1805-12",
-   "part": "army",
-   "value": 25.5,
-   "unit": "thousand troops (the other 30% of the Allied 85,000)",
-   "fact": "story-revolutions-austerlitz-french-force"
-  },
-  {
-   "actor": "russian-army",
    "year": "1812-06",
    "part": "troops",
    "value": 180,
@@ -3985,7 +3969,8 @@
    "facts": [
     "story-revolutions-saratoga-1777",
     "story-revolutions-french-supplied-arms-saratoga",
-    "story-revolutions-saratoga-persuaded-france"
+    "story-revolutions-saratoga-persuaded-france",
+    "story-revolutions-alliance-1778"
    ]
   },
   {
@@ -4008,7 +3993,8 @@
    "facts": [
     "story-revolutions-alliance-1778",
     "story-revolutions-france-direct-aid-cost",
-    "story-revolutions-vergennes-secret-funds"
+    "story-revolutions-vergennes-secret-funds",
+    "story-revolutions-france-war-cost"
    ]
   },
   {
@@ -4055,7 +4041,8 @@
     "story-revolutions-yorktown-allied-army",
     "story-revolutions-yorktown-captured",
     "story-revolutions-rochambeau-1780",
-    "story-revolutions-treaty-paris-1783"
+    "story-revolutions-treaty-paris-1783",
+    "story-revolutions-yorktown-forces"
    ]
   },
   {
@@ -4080,7 +4067,8 @@
     "story-revolutions-church-wealth-1789",
     "story-revolutions-france-population-1780",
     "story-revolutions-france-income-deficit-1786",
-    "story-revolutions-french-royal-army-1789"
+    "story-revolutions-french-royal-army-1789",
+    "story-revolutions-france-direct-aid-cost"
    ]
   },
   {
@@ -4096,7 +4084,7 @@
    "advantage": "98 percent of the nation, doubled in number",
    "power": "scale economies",
    "triad": "information",
-   "mechanism": "The Third Estate, about 98 percent of 28 million, sent 611 of 1,219 deputies, against 302 clergy and 289 nobles.",
+   "mechanism": "The Third Estate, about 98 percent of 28 million, sent 611 deputies, against 302 clergy and 289 nobles.",
    "outcome": null,
    "facts": [
     "story-revolutions-estates-population-1789",
@@ -4298,7 +4286,7 @@
    "power": "process power",
    "triad": "execution",
    "mechanism": "Nelson's 27 ships of the line met 33 Franco-Spanish, 18 French and 15 Spanish; 18 of the enemy were captured or destroyed and the British lost none.",
-   "outcome": "The invasion army had already marched into Germany in August; Trafalgar ended any real effort to invade Britain and confirmed British naval supremacy.",
+   "outcome": "The army of invasion had already marched into Germany in August; Trafalgar confirmed Britain's naval supremacy.",
    "facts": [
     "story-revolutions-trafalgar-british-fleet",
     "story-revolutions-trafalgar-fleet",
@@ -4913,7 +4901,7 @@
   {
    "actor": "sixth-coalition",
    "from": 1813,
-   "to": 1815,
+   "to": 1814,
    "market": "all of Europe against one",
    "sources": [
     {
@@ -5043,7 +5031,7 @@
     },
     {
      "source": "legitimacy",
-     "what": "611 of 1,219 deputies, doubled in number",
+     "what": "611 deputies, doubled in number",
      "facts": [
       "story-revolutions-estates-deputies-1789"
      ]

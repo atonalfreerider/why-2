@@ -143,6 +143,26 @@ def size_of(story, part, base, unit):
     return base / 1e3
 
 
+# When a person may stand for an actor while browsing a story (its tours choose their portraits by hand): from age 16 to
+# the end of the year of death, unless stated here. Selection only: these dates are never shown.
+ADULT = 16
+ACTIVE = {
+    "george-iii": (None, 1811.09),   # the Regency from 5 February 1811
+    "pitt": (None, 1806.06),         # died on 23 January 1806
+}
+
+
+def active_of(p):
+    born, died = p.get("born"), p.get("died")
+    lo = born + ADULT if isinstance(born, (int, float)) else None
+    hi = died + 0.999 if isinstance(died, (int, float)) else None
+    over = ACTIVE.get(p.get("id"))
+    if over:
+        lo = over[0] if over[0] is not None else lo
+        hi = over[1] if over[1] is not None else hi
+    return [lo, hi]
+
+
 def pounds(part, value, unit):
     """Money in billions of pounds of the time (sizes only); None when the currency is unknown."""
     u = (unit or "").lower()
@@ -293,7 +313,8 @@ def main():
                 moats.append({"id": mid, "actor": m.get("actor"), "from": year_of(m.get("from")), "to": year_of(m.get("to")),
                               "market": m.get("market"), "sources": srcs, "rivals": m.get("rivals") or [], "facts": cite(m.get("facts"))})
         people = [{"id": p["id"], "name": p.get("name"), "qid": p.get("qid"), "born": p.get("born"), "died": p.get("died"), "role": p.get("role"),
-                   "image": p["id"], "actors": p.get("actors") or [], "facts": cite(p.get("facts"))} for p in data.get("people", [])]
+                   "image": p["id"], "actors": p.get("actors") or [], "facts": cite(p.get("facts")), "active": active_of(p)}
+                  for p in data.get("people", [])]
         stories.append({"id": prefix, "title": st["title"], "from": st["from"], "to": st["to"], "actors": actors, "moments": moments,
                         "periods": periods, "moats": moats, "people": people})
         print(f"{prefix}: {len(actors)} actors ({sum(len(a['series']) for a in actors)} values), {len(moments)} moments, "

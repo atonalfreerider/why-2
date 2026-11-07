@@ -224,6 +224,9 @@ namespace Why.Economy.Model
         {
             public string Id, Name, Qid, Role, Image;
             public int Born, Died;
+            /// <summary>When the person can stand for an actor while browsing: from age 16 to the end of the year of death, or
+            /// as history.py's ACTIVE states (selection only; never shown).</summary>
+            public float ActiveFrom = float.NegativeInfinity, ActiveTo = float.PositiveInfinity;
             public string[] Actors = Array.Empty<string>(), Facts = Array.Empty<string>();
         }
 
@@ -307,6 +310,8 @@ namespace Why.Economy.Model
                     {
                         Id = (string)p["id"], Name = (string)p["name"], Qid = (string)p["qid"], Role = (string)p["role"], Image = (string)p["image"],
                         Born = float.IsNaN(F(p["born"])) ? 0 : (int)F(p["born"]), Died = float.IsNaN(F(p["died"])) ? 0 : (int)F(p["died"]), Actors = Strings(p["actors"]), Facts = Strings(p["facts"]),
+                        ActiveFrom = p["active"] is JArray act && act.Count == 2 && !float.IsNaN(F(act[0])) ? F(act[0]) : float.NegativeInfinity,
+                        ActiveTo = p["active"] is JArray act2 && act2.Count == 2 && !float.IsNaN(F(act2[1])) ? F(act2[1]) : float.PositiveInfinity,
                     });
                 Stories.Add(story);
             }

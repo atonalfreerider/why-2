@@ -92,8 +92,10 @@ def nearest(s, year, within, sel=None):
 
 def active_moats(s, year):
     out = {}
+    sp = spans(s)
     for m in s['moats']:
         to = m['to'] + 1 if m['to'] is not None and abs(m['to'] - round(m['to'])) < 1e-6 else m['to']
+        if to is not None and m['actor'] in sp: to = min(to, sp[m['actor']][1])    # never after the holder's lane ends
         if m['from'] is not None and to is not None and m['from'] - .01 <= year <= to + .01:
             if m['actor'] not in out or m['from'] > out[m['actor']]['from']: out[m['actor']] = m
     return out
@@ -152,8 +154,9 @@ def show(story, state):
         alive = f - .01 <= year <= t + .01
         own = any(x in forces for x in a.get('forces') or [])
         p = main_part(a, year, True, FORCE_PARTS if own else ())
-        if p is None and not (a['id'] in part_ids and (alive or abs(year - f) < 1.5)): continue
-        if p is not None and not alive: continue
+        ended = year > t + .01 and year - t <= .25    # a participant its moment has just ended stands a quarter-year more
+        if p is None and not (a['id'] in part_ids and (alive or abs(year - f) < 1.5 or ended)): continue
+        if p is not None and not alive and not (a['id'] in part_ids and ended): continue
         lobes = []
         if p:
             for q in dict.fromkeys(v['part'] for v in a['series']):

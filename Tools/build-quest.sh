@@ -3,7 +3,8 @@
 #
 # Usage: Tools/build-quest.sh [--install] [--copy] [--unity PATH]
 #   --copy     build from a mirror of the project (../.why-2-build) so it works while the Editor has this project
-#              open; the mirror keeps its own Library, so later builds are incremental
+#              open, synced first as work/mirror-build.sh and Tools/capture-walkthrough.sh sync it (the source trees
+#              only); the mirror keeps its own Library, so later builds are incremental
 #   --install  adb install the APK onto the headset connected by USB (developer mode on, USB debugging allowed)
 # Output: Builds/Quest/why.apk (in the project, or copied back from the mirror).
 set -euo pipefail
@@ -33,8 +34,22 @@ PROJECT="$ROOT"
 if [ "$COPY" = 1 ]; then
   PROJECT="$(dirname "$ROOT")/.why-2-build"
   mkdir -p "$PROJECT"
-  rsync -a --delete --exclude Library --exclude Temp --exclude Logs --exclude UserSettings --exclude Builds \
-    --exclude .git --exclude .claude "$ROOT/" "$PROJECT/"
+  # The source trees only, as Tools/capture-walkthrough.sh syncs them. Never the repository's root: its --delete would
+  # remove the mirror's own work/, Shots/ and research/. Each tree by content (-c, no times: copied times make Unity
+  # reimport untouched assets) with --delete inside it, keeping the three assets the mirror's Unity reserialized and
+  # leaving out the 152 MB social graph DB (StreamingAssets), which the app does not read at runtime.
+  for d in Assets Packages ProjectSettings Tools Docs; do
+    rsync -rlpDc --delete \
+      --exclude '/StreamingAssets/' --exclude '/StreamingAssets.meta' \
+      --exclude '/DefaultVolumeProfile.asset' --exclude '/UniversalRenderPipelineGlobalSettings.asset' --exclude '/Settings/WhyURP.asset' \
+      --exclude '.cache/' --exclude '__pycache__/' \
+      "$ROOT/$d/" "$PROJECT/$d/" || { echo "SYNC FAILED: $d" >&2; exit 1; }
+  done
+  # a new mirror has none of those three assets yet: they start as this repository's
+  for f in Assets/DefaultVolumeProfile.asset Assets/UniversalRenderPipelineGlobalSettings.asset Assets/Settings/WhyURP.asset; do
+    [ -e "$PROJECT/$f" ] || [ ! -e "$ROOT/$f" ] || cp "$ROOT/$f" "$PROJECT/$f"
+  done
+  echo "synced the source trees into $PROJECT"
 elif [ -e "$ROOT/Temp/UnityLockfile" ] && pgrep -f "projectpath $ROOT" >/dev/null 2>&1; then
   echo "The Editor has this project open: close it, or run with --copy" >&2
   exit 1

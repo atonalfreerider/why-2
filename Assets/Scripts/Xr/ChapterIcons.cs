@@ -47,7 +47,7 @@ namespace Why.Xr
             switch (id)
             {
                 case "cosmos": case "stars": case "earth": return GraphStyle.Matter;
-                case "life": case "complex_life": case "mammals": case "hominins": return GraphStyle.Life;
+                case "life": case "complex_life": case "permian_triassic": case "kpg": case "mammals": case "hominins": return GraphStyle.Life;
                 case "prehistory": case "civilizations": case "modern": case "smv": case "present": case "footprint":
                 case "people": case "section": case "society": case "betrayal": case "atom": case "ladder":
                     return GraphStyle.Humans;
@@ -69,7 +69,8 @@ namespace Why.Xr
                 case "stars": return p => Star(p, 5, 0.78f, 0.34f);
                 case "earth": return p => Min(Ring(p, Vector2.zero, 0.42f), Ring(p, Vector2.zero, 0.72f, 0.035f), Disc(p, new Vector2(0.72f, 0.06f), 0.1f));
                 case "life": return p => Min(Ring(p, Vector2.zero, 0.7f), Disc(p, new Vector2(0.12f, 0.08f), 0.2f));
-                case "complex_life": return p => Fish(p);
+                case "complex_life": case "permian_triassic": return p => Fish(p);
+                case "kpg": return p => Tree(p);
                 case "mammals": return p => Tree(p);
                 case "hominins": return p => Figure(p, 0f, 1f);
                 case "prehistory": return p => Flame(p);

@@ -34,9 +34,10 @@ reached Earth from the main asteroid belt (section 3).
 - **measured**: the point's date (and, for impacts, its place) rests on a cited measurement.
   **schematic**: a defensible illustration. Real orbits swing in and out every year or so, and some stages
   (when a body left the belt, for instance) are unknown. Distances are orbit-averaged.
-- Impact points use `log10DistanceM = 0`: the path joins the inner track, which is drawn at human scale by
-  convention (`MatterScale.InnerMetres = 1 m`). Each impactor also has `contactLog10M`, the centre-to-centre
-  distance at contact (Earth's radius is 6371 km, log10 6.80).
+- Impact points use `log10DistanceM = 0`: the path joins the inner track, the trunk, which is a comoving kilometre
+  (`MatterLayout.TrunkLog10 = 3`: 10^3 m today, scaled back by the cosmic scale factor); every distance below it,
+  such as 1 m, lies on it. Each impactor also has `contactLog10M`, the centre-to-centre distance at contact (Earth's
+  radius is 6371 km, log10 6.80).
 
 | Impactor | Formed | Struck | Size | Path (ya → log10 m) |
 | --- | --- | --- | --- | --- |

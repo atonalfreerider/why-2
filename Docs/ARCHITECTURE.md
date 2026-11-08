@@ -68,6 +68,11 @@ years ago and the handoff. Labels opt in with `LabelSpec.HandoffFade`.
   `widthPx + widthWorld * pixelsPerUnit`, so lines never vanish at huge scale and thicken close up.
   Additive blending, HDR color -> bloom.
 * `Why/Surface` - filled bands (alpha blended) with radial dissipation and optional nebula noise.
+* `Why/ScaleWaves` - the scale of space in the red layer (`Matter/ExpansionGridLayer.cs`): one procedural fan in
+  one draw call, additive. The vertices carry only the wave coordinate and the fades; the fragment shader draws the
+  waves per pixel (wave k is the shell of matter 10^k .. 10^(k+1) m from us today, cut into ten by 2..9 x 10^k, then
+  tenths, hundredths and thousandths) and opens each level by its spacing on screen, which it takes from the
+  screen-space derivatives of the wave coordinate, so it is exact under the lens and the perspective.
 * All meshes use 32-bit indices and infinite bounds (the vertex shader moves vertices).
 
 ### Line vertex layout (`LineMeshBuilder`)
@@ -89,6 +94,30 @@ years ago and the handoff. Labels opt in with `LabelSpec.HandoffFade`.
 | TEXCOORD0 | float4 | highlight id, intensity, across (0 inner edge .. 1 outer edge), noise amount |
 | COLOR | unorm8 x4 | tint rgb, alpha |
 
+### Scale-wave vertex layout (`ExpansionGridLayer`)
+
+The fan is strips between rows that never cross (the inner track, every decade's crest, each bound body's edge, the
+horizon), a vertex of each row at every sample of the clock. Across a strip the four wave values are linear in rho,
+which is what the interpolation between its two rows needs. The highlight id is the material's (`_Id`, the whole
+grid: `GraphIds.Matter(998)`), not a vertex attribute.
+
+| Attribute | Format | Content |
+| --- | --- | --- |
+| POSITION | float3 | data position (u, `MatterY`, rho) |
+| COLOR | unorm8 x4 | white; alpha: the dissolve ahead of the human branch |
+| TEXCOORD0 | float4 | the wave: decades (log10 m today) above the strip's base decade, decades above the trunk, rho over the fan's width (rho / E), decades free of a body's edge (capped at 10) |
+| TEXCOORD1 | float2 | the strip's base decade (an integer: the wave is stored above it, so a thousandth of a decade stays above float precision on the outermost waves), world units per decade at that moment |
+
+`SpaceLod` (`Matter/SpaceLod.cs`) mirrors the shader's rule line for line: when a level's lines emerge and open
+(3 to 7.4 px apart), each level's weight and the floor it fades to as the next opens. The material takes those
+constants from it, so its readings name exactly the waves drawn. The grid publishes a reading of the centre of the
+screen to it from `Tick` (shown above the HUD's legend), and the probe (G) reads the cursor through
+`ExpansionGridLayer.Read`. Each reading carries the grid's own fades there (`SpaceLod.Reading.Fade`: born on the
+inner track, dissolving toward the horizon, gone just outside a body's edge), and both are shown only where the
+waves show at a tenth of their full strength or more (`ExpansionGridLayer.Shows`, with the view's matter emphasis,
+the dissolve ahead of the human branch and the lens window's fade), never in a headset or while the graph grows from
+the Big Bang.
+
 ## Highlight ids
 
 Ids are exact integers stored in floats (< 2^24). `Highlighter` uploads up to 8 inclusive id ranges
@@ -96,9 +125,11 @@ with a glow multiplier, plus a global dim factor for everything not highlighted.
 
 | Range | Owner |
 | --- | --- |
-| 0 | never highlighted (axes, grid) |
-| 1 .. 999 | matter bands (`GraphIds.Matter(index)`) |
-| 10 000 .. 19 999 | tree of life, `10 000 + preorder node index`; a clade is a contiguous range; our lineage (root -> Hominidae) is `[10 000, 10 000 + depth]` because the human-bearing child is always ordered first |
+| 0 | never highlighted (axes) |
+| 1 .. 999 | matter bands (`GraphIds.Matter(index)`); 999 (`GraphIds.Matter(998)`) is the scale of space's grid |
+| 10 000 .. 19 999 | tree of life, `10 000 + preorder node index` (10 000 .. 13 103 for the TimeTree's 3104 nodes); a clade is a contiguous range; our lineage (root -> Hominidae) is `[10 000, 10 000 + depth]` because the human-bearing child is always ordered first |
+| 19 000 .. 19 005 | the tree's outline along its outer edge (`LifeLayer.OutlineId`, from the free top of the life range): 19 000 outside the mass extinctions, 19 001 + k the dip and rebound of the k-th (`LifeLayer.DipIdBase`, oldest first: end-Ordovician .. end-Cretaceous). A mass extinction's `lifeevent:` anchor carries its dip's id and those of the dips nested in its window (the end-Permian's holds the end-Triassic's); the layer logs an error if the nodes' ids ever reach 19 000 |
+| 20 000 .. 29 999 | the farm (`FarmLayer`, the range its strata emphasis follows): `+0..4` livestock streams, `+50` cropland, `+100..` the domestications; `farm:all` is `[20 000, 20 099]`. The wild mammals stream is 29 000 (`farm:wild_mammals`): outside `farm:all`, so the two never light each other, but inside the farm's range, so highlighting it brings the faint farm stratum (the stream included) back to full strength |
 | 50 000 .. 50 047 | calorie flow (`TrophicFlowLayer`): 16 per time slice (Devonian, Jurassic, Miocene) |
 | 1 000 000 + c * 100 000 | civilization `c` block: `+0` band, `+1..999` figures of that civ (`GraphIds.Figure`), `+1000..` lifelines ordered by birth date (a generation is a contiguous range) |
 
@@ -124,9 +155,15 @@ uploads. Target: interactive in well under two seconds.
 ## View presets
 
 `ViewPresets` defines named focus states (`overview`, `cosmos`, `stars`, `earth`, `life`,
-`complex_life`, `mammals`, `hominins`, `prehistory`, `civilizations`, `modern`, `smv`, `present`):
-a time window, unroll amount, log offset, radial/height scale and a camera pose. The number keys,
-the HUD and the director all go through `GraphRoot.Focus(preset)`.
+`complex_life`, `permian_triassic`, `mammals`, `kpg`, `hominins`, `prehistory`, `civilizations`, `modern`,
+`footprint`, `smv`, `present`): a time window, unroll amount, log offset, radial/height scale and a camera pose.
+The number keys, the HUD and the director all go through `GraphRoot.Focus(preset)`. Two narrow lenses frame the
+mass extinctions, where the tree narrows with the species lost and regrows over the recovery, at a scale where the
+rebound reads: `permian_triassic` ("The Great Dying", 300 to 170 million years ago: the end-Permian collapse, its
+75-million-year rebound and the end-Triassic inside it, about half the screen where the complex life lens gives it a
+twentieth) and `kpg` ("The asteroid", 100 to 30 million years ago: the end-Cretaceous and its 10-million-year
+rebound, 14% of the lens where the mammals lens gives it 3%). They have no number key; the tour's `great_dying` and
+`chicxulub` stops use them.
 
 ## Portrait / vertical mode
 

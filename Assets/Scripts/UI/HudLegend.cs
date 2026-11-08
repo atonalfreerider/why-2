@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Why.Humans;
+using Why.Matter;
 
 namespace Why.UI
 {
     /// <summary>
     /// Bottom-left key to the graph: the current view's swatches (the only hue in the UI) and how to read its marks, and
-    /// above it the lifeline readout ("1 line = 100,000 people at this zoom - United States 1950 - now") while lifelines
-    /// are visible. The universe keys its three levels with the clock's grammar (the civilization views with their own:
+    /// above it two readouts: the scale of space at the centre of the screen ("Space here: 1 px² ≈ 10^6.2 m² · waves 10^5.0 m
+    /// apart - 7.91 billion years ago") while the centre lies on the red layer's waves (<see cref="SpaceLod"/>), and above
+    /// that the lifeline readout ("1 line = 100,000 people at this zoom - United States 1950 - now") while lifelines are
+    /// visible; both stay through the tour with the key. The universe keys its three levels with the clock's grammar (the
+    /// civilization views with their own:
     /// the streams run west to east there). The economy keys each view by its own key (<see cref="Economy.HillPresets.Key"/>)
     /// or, for the views of the whole wave, the hills' hues and grammar, so the key stays true in every view and at every
     /// tour stop (it is the one key the tour keeps on screen), and in every year (the attention cloud's swatch only where the
@@ -81,6 +86,18 @@ namespace Why.UI
         readonly RectTransform readout;
         readonly TextMeshProUGUI readoutText;
         readonly UiFade readoutFade;
+        readonly RectTransform space;
+        readonly TextMeshProUGUI spaceText;
+        readonly UiFade spaceFade;
+
+        /// <summary>What the space readout shows, to the precision it shows it: tenths of a decade of area and of the waves'
+        /// spacing, and the moment (none: hidden). Its text is built again only when this changes.</summary>
+        (int area, int waves, int when) shownSpace = NoSpace;
+
+        /// <summary>Whether the readouts were last laid out with the space readout in its slot (<see cref="SpaceHeld"/>).</summary>
+        bool spaceLaidOut;
+
+        static readonly (int, int, int) NoSpace = (int.MinValue, 0, 0);
         (string, Color)[] shownItems;
         string shownReading;
         float shownGap, maxTextWidth = MaxTextWidth, firstLine, lineAdvance;
@@ -110,11 +127,18 @@ namespace Why.UI
             readout.Place(Vector2.zero, Vector2.zero, Vector2.zero, readout.sizeDelta);
             readoutText = HudKit.Line(readout, "Text", "", HudKit.SizeSmall, GraphStyle.Text);
             readoutFade = new UiFade(readout.gameObject, 0, 4f, false);
+
+            // the scale of space wraps to the key's width (a portrait screen is narrower than its one line)
+            space = HudKit.FramedPanel(parent, "SpaceReadout", Fill);
+            space.Place(Vector2.zero, Vector2.zero, Vector2.zero, space.sizeDelta);
+            spaceText = UiFactory.Text(space, "Text", "", HudKit.SizeSmall, GraphStyle.Text);
+            spaceFade = new UiFade(space.gameObject, 0, 4f, false);
             SetBottom(HudKit.Margin, true);
 
-            // the graph's labels keep out from under the key and the readout (a label there showed through the panel)
+            // the graph's labels keep out from under the key and the readouts (a label there showed through the panel)
             LabelSystem.KeepClear(legend);
             LabelSystem.KeepClear(readout);
+            LabelSystem.KeepClear(space);
         }
 
         /// <summary>
@@ -158,6 +182,8 @@ namespace Why.UI
             maxTextWidth = width;
             maxLines = lines;
             if (shownItems != null) Layout();
+            // the space readout wraps again to the new width on the next tick
+            if (shownSpace != NoSpace) shownSpace = (int.MinValue + 1, 0, 0);
         }
 
         /// <summary>Lays the shown key out: the swatches in rows, then the reading, wrapped to the legend's width. True when
@@ -211,7 +237,7 @@ namespace Why.UI
             Width = width;
             Height = height;
             legend.sizeDelta = new Vector2(Width, Height);
-            if (readout != null) ApplyBottom();
+            if (readout != null && space != null) ApplyBottom();
             return resized;
         }
 
@@ -226,7 +252,7 @@ namespace Why.UI
         }
 
         /// <summary>
-        /// Move the legend (and the readout above it) so its bottom edge sits at y (canvas units), at once or
+        /// Move the legend (and the readouts above it) so its bottom edge sits at y (canvas units), at once or
         /// easing there (e.g. when the preset bar beneath it steps aside for the tour).
         /// </summary>
         public void SetBottom(float y, bool instant)
@@ -238,25 +264,40 @@ namespace Why.UI
             ApplyBottom();
         }
 
-        /// <summary>Distance of the legend and the readout from the left screen edge (canvas units).</summary>
+        /// <summary>Distance of the legend and the readouts from the left screen edge (canvas units).</summary>
         public void SetLeft(float x)
         {
             left = Mathf.Round(x);
             ApplyBottom();
         }
 
+        /// <summary>The legend at the bottom, the scale of space just above it while it holds its slot, the lifelines above that.</summary>
         void ApplyBottom()
         {
             float y = Mathf.Round(bottom);
             legend.anchoredPosition = new Vector2(left, y);
-            readout.anchoredPosition = new Vector2(left, y + Height + HudKit.Gap);
+            float top = y + Height + HudKit.Gap;
+            space.anchoredPosition = new Vector2(left, top);
+            spaceLaidOut = SpaceHeld;
+            if (spaceLaidOut) top += space.sizeDelta.y + HudKit.Gap;
+            readout.anchoredPosition = new Vector2(left, top);
             ReportTop();
         }
 
+        /// <summary>
+        /// True while the space readout holds its slot above the key: while it shows, and after it hides until it has faded
+        /// out, so the lifeline readout above it moves down into the slot only once the panel is gone, never over it while it
+        /// still fades (<see cref="Tick"/> lays the readouts out again when this changes).
+        /// </summary>
+        bool SpaceHeld => spaceFade != null && (spaceFade.Shown || spaceFade.Alpha > 0f);
+
         /// <summary>Tells the tour's panel placement where the legend block ends (canvas units above the bottom edge): the
-        /// legend and, while it shows, the readout above it; bottom-left cards and the portrait sheet dock above it.</summary>
+        /// legend and, while they show (the space readout while it holds its slot), the readouts above it; bottom-left cards
+        /// and the portrait sheet dock above it.</summary>
         void ReportTop() => Director.PanelPlacement.LegendTop =
-            bottomTarget + Height + (readoutFade != null && readoutFade.Shown ? HudKit.Gap + readout.sizeDelta.y : 0);
+            bottomTarget + Height +
+            (SpaceHeld ? HudKit.Gap + space.sizeDelta.y : 0) +
+            (readoutFade != null && readoutFade.Shown ? HudKit.Gap + readout.sizeDelta.y : 0);
 
         /// <summary>
         /// Follow <see cref="HumansLod"/>: show what one lifeline stands for, hide when none are drawn. While the graph grows
@@ -284,7 +325,53 @@ namespace Why.UI
                 ReportTop();
             }
 
+            TickSpace();
             readoutFade.Tick(dt);
+            spaceFade.Tick(dt);
+            // the space readout has faded out: only now the lifeline readout moves down into its slot above the key
+            if (SpaceHeld != spaceLaidOut) ApplyBottom();
+        }
+
+        /// <summary>
+        /// Follow <see cref="SpaceLod"/>: the scale of space at the centre of the screen while the grid publishes it (the red
+        /// layer's waves under the centre; never in a headset, while the graph grows from the Big Bang, or in the economy).
+        /// The text is built again only when what it shows changes.
+        /// </summary>
+        void TickSpace()
+        {
+            bool show = SpaceLod.Published && !GraphScene.IsEconomy && !GraphReveal.On;
+            SpaceLod.Reading r = SpaceLod.Current;
+            (int, int, int) key = show ? SpaceKey(r) : NoSpace;
+            if (key == shownSpace) return;
+            bool moved = spaceFade.Shown != show || shownSpace == NoSpace;
+            shownSpace = key;
+            spaceFade.Show(show); // activates the panel before its text is measured
+            if (show) SetSpace(r);
+            if (show || moved) ApplyBottom();
+        }
+
+        /// <summary>The reading to the precision the readout shows it.</summary>
+        static (int, int, int) SpaceKey(SpaceLod.Reading r)
+        {
+            bool waves = r.FinestLevel >= 0 && !double.IsNaN(r.Log10WaveSpacing) && !double.IsInfinity(r.Log10WaveSpacing);
+            return ((int)Math.Round(r.Log10AreaPerPixel * 10), waves ? (int)Math.Round(r.Log10WaveSpacing * 10) : int.MaxValue,
+                (int)Math.Round(Math.Log10(Math.Max(r.YearsAgo, 1)) * 2000));
+        }
+
+        /// <summary>
+        /// "Space here: 1 px² ≈ 10^6.2 m² · waves 10^5.0 m apart - 7.91 billion years ago": the area one pixel covers at the
+        /// centre of the screen and the spacing of the finest waves fully open there (physical metres at that moment), and the
+        /// moment, which names the point.
+        /// </summary>
+        void SetSpace(SpaceLod.Reading r)
+        {
+            string text = "Space here: " + SpaceLod.Describe(r, true) +
+                          "<color=#" + UiFactory.Hex(GraphStyle.TextDim) + ">  -  " +
+                          DeepTime.FormatYearsAgo(r.YearsAgo, DeepTime.NowYear) + "</color>";
+            spaceText.text = text;
+            Vector2 size = HudKit.Measure(spaceText, text, maxTextWidth);
+            HudKit.PlaceTopLeft(spaceText.rectTransform, HudKit.Pad, 7, size);
+            space.sizeDelta = new Vector2(Mathf.Ceil(size.x + 2 * HudKit.Pad), Mathf.Ceil(size.y + 14));
         }
 
         /// <summary>

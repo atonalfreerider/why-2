@@ -506,7 +506,9 @@ namespace Why.UI
 
         /// <summary>
         /// The scale probe (G): the point of the matter plane under the cursor, read off the physical map the
-        /// grid is drawn from (<see cref="MatterScale"/>): metres from our lineage, metres and years per world unit.
+        /// grid is drawn from (<see cref="MatterScale"/>): metres from our lineage, metres and years per world unit; and,
+        /// as the grid draws its waves there (<see cref="ExpansionGridLayer.Read"/>) where they show, the area one pixel
+        /// covers with the finest waves open, the wave under the cursor and its nearest crest.
         /// </summary>
         bool TryProbe(Vector2 screen, out string heading, out string metaText, out string body)
         {
@@ -537,14 +539,26 @@ namespace Why.UI
             string when = DeepTime.FormatYearsAgo(DeepTime.YearsAgo(u), root.Context.NowYear).ToUpperInvariant();
             metaText = when + "    " + (beyond ? "BEYOND THE OBSERVABLE UNIVERSE" : "INSIDE: " + region.Name.ToUpperInvariant());
 
-            // the nearest shell of the grid, so a line on screen can be checked against its number
-            int shell = (int)Math.Round(log10Radius);
-            float shellRho = scale.Rho(u, shell);
-            string nearest = shellRho >= 0
-                ? "nearest shell: 10^" + shell + " m, " + (shellRho - rho).ToString("+0.00;-0.00", System.Globalization.CultureInfo.InvariantCulture) + " units from here"
-                : "nearest shell: none (beyond the universe)";
             body = "1 unit of the graph outward = " + Power(log10Scale) + " m\n" +
-                   "1 unit along the clock = " + Power(log10Years) + " years\n" + nearest;
+                   "1 unit along the clock = " + Power(log10Years) + " years";
+
+            // the waves under the cursor as the grid draws them (the matter's collapse into our lineage's bodies included): the
+            // area a pixel covers with the finest waves open there, as the legend's readout says it of the centre of the screen,
+            // and the wave the cursor is in with its nearest crest, so a line on screen can be checked against its number. By
+            // the readout's rule: never in a headset or while the graph grows from the Big Bang (Readable), and only where the
+            // waves under the cursor show (Shows: the view, the lens and the grid's own fades there)
+            ExpansionGridLayer grid = ExpansionGridLayer.Current;
+            if (grid != null && grid.Readable && grid.Read(root.Rig.Cam, screen, out SpaceLod.Reading waves) && grid.Shows(waves))
+            {
+                body += "\n" + SpaceLod.Describe(waves, false, true) +
+                        "\nmatter here lies " + Power(waves.ComovingLog10) + " m from us today; nearest crest 10^" + waves.CrestDecade + " m, " +
+                        (waves.CrestRho - waves.Rho).ToString("+0.00;-0.00", System.Globalization.CultureInfo.InvariantCulture) + " units from here";
+            }
+            else if (beyond)
+            {
+                body += "\nno waves: beyond the observable universe";
+            }
+
             return true;
         }
 

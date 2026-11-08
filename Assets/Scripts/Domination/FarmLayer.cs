@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using Why.Humans;
@@ -13,7 +14,8 @@ namespace Why.Domination
     /// (green: it is still life). Livestock is stacked from the inner track on the same mass scale as the
     /// human layer (humans ~60 MtC = the human layer's width today), so its greater weight is visible;
     /// cropland lies outside it and fades to black. Each domestication is anchored (with a small label) where
-    /// the species enters the farm layer, for the tour and tooltips.
+    /// the species enters the farm layer, for the tour and tooltips. Below the farm, on the life plane, the wild
+    /// mammals shrink on the same carbon scale while the livestock grows: the present mass extinction as biomass.
     /// </summary>
     public sealed class FarmLayer : GraphLayer
     {
@@ -26,6 +28,27 @@ namespace Why.Domination
         const double CroplandMhaNow = 1600;
         const float CroplandWidthNow = 2.2f;
 
+        /// <summary>
+        /// Highlight id of the wild mammals stream: outside farm:all (FarmBase .. FarmBase+99), so picking the livestock and
+        /// crops never lights the wild mammals or the reverse (a tour stop names farm:wild_mammals to light them), but inside
+        /// the farm's <see cref="StrataEmphasis"/> range (FarmBase .. ExtractionBase - 1), so highlighting it brings the faint
+        /// farm stratum, the stream included, back to full strength. Livestock takes FarmBase+0..4, cropland FarmBase+50 and
+        /// the domestications FarmBase+100 on (+100 .. +134 for the 35 of domestication.json).
+        /// </summary>
+        const int WildMammalsId = GraphIds.FarmBase + 9_000;
+
+        /// <summary>
+        /// Years before its first value over which the wild mammals stream fades in, at that first value, so it does
+        /// not start as a wall.
+        /// </summary>
+        const double WildFadeYears = 2000;
+
+        /// <summary>
+        /// Calendar year of the wild mammals stream's label: inside the footprint view, before the collapse, where the
+        /// tour's farm stops (looking from about 10,500 years ago to the 1950s) all keep it in frame.
+        /// </summary>
+        const double WildLabelYear = 500;
+
         static readonly (string key, string name)[] Livestock =
         {
             ("cattle", "Cattle"), ("sheep_goats", "Sheep & goats"), ("pigs", "Pigs"), ("poultry", "Poultry"),
@@ -37,9 +60,13 @@ namespace Why.Domination
 
         const float FillAlpha = 0.3f;
 
-        SurfaceMeshBuilder fills;
-        LineMeshBuilder lines;
-        Material fillMat, lineMat;
+        /// <summary>The wild mammals' fill: a faint wash, its outer edge line carrying the shape, so a band several units wide on
+        /// the life plane does not read as a green slab over the human branch in the overview and the footprint view.</summary>
+        const float WildFillAlpha = 0.035f;
+
+        SurfaceMeshBuilder fills, wildFills;
+        LineMeshBuilder lines, wildLines;
+        Material fillMat, lineMat, wildFillMat, wildLineMat;
         readonly List<LabelSpec> labels = new List<LabelSpec>();
         readonly StrataEmphasis emphasis = new StrataEmphasis(new IdRange(GraphIds.FarmBase, GraphIds.ExtractionBase - 1));
 
@@ -136,9 +163,124 @@ namespace Why.Domination
             });
 
             RegisterDomestications(ctx, domestications, animalStack, cropStack, animals, now);
+            bool wild = BuildWildMammals(ctx, series?["wildMammalMtC"], livestockMass, now, fade);
             Debug.Log($"[Why] FarmLayer.Prepare {sw.ElapsedMilliseconds} ms ({animals.Count} livestock streams, " +
-                      $"{domestications.Count} domestications)");
+                      $"{domestications.Count} domestications{(wild ? ", wild mammals" : "")})");
         }
+
+        /// <summary>
+        /// The present mass extinction as biomass: wild land and marine mammals (series.wildMammalMtC) as one stream
+        /// on the life plane, where the tree of life ran before it dissolved, on the livestock's carbon scale and width
+        /// rule, so it is seen to shrink while the livestock above it grows past it. The series opens at full strength
+        /// and the stream fades in at that first value: a width rising from nothing would draw a growth the data does
+        /// not have (its notes have the American extinctions still under way at the first year). The stream keeps a
+        /// line along its outer edge, as the livestock has the cropland's, so the two widths read alike. Returns false,
+        /// after an error, when the series is missing or malformed.
+        /// </summary>
+        bool BuildWildMammals(GraphContext ctx, JToken token, Func<double, double> livestockMass, double now, float fade)
+        {
+            List<double[]> data = ReadWildMammals(token);
+            if (data == null) return false;
+
+            double first = data[0][0];
+            double fadeStart = first - WildFadeYears;
+            List<double[]> drawn = new List<double[]>(data.Count + 1) { new[] { fadeStart, data[0][1] } };
+            drawn.AddRange(data);
+            Stream wild = new Stream { Id = "wild_mammals", Name = "Wild mammals", Values = new Series(drawn) };
+
+            wildFills = new SurfaceMeshBuilder();
+            wildLines = new LineMeshBuilder(1024);
+            StackedStreams.Built built = StackedStreams.Build(new List<Stream> { wild },
+                year => StackedStreams.Width(wild.Values.At(year), HumanMtCNow, HumanWorld.WidthNow), fadeStart, now,
+                GraphStyle.LifeY, WildMammalsId, fade, wildFills, wildLines, fadeOuter: false, outerEdge: true,
+                fadeIn: year => year >= first ? 1f : Mathf.SmoothStep(0f, 1f, (float)((year - fadeStart) / WildFadeYears)));
+
+            // the anchor stands where the series begins (the tooltip spans it to now), the label where the tour looks
+            IdRange ids = IdRange.Single(WildMammalsId);
+            (float lo0, float hi0) = built.BandAt(0, first);
+            Anchor anchor = new Anchor
+            {
+                Key = "farm:wild_mammals", Label = wild.Name, Level = GraphLevel.Life,
+                Blurb = WildMammalsBlurb(data, livestockMass),
+                YearsAgo = now - first, EndYearsAgo = 0, Y = GraphStyle.LifeY, Rho = 0.5f * (lo0 + hi0), Ids = ids, Tier = 2
+            };
+            Anchors.Register(anchor);
+
+            double labelYear = Math.Min(Math.Max(WildLabelYear, first), now);
+            (float lo, float hi) = built.BandAt(0, labelYear);
+            AddLabel(ctx, new LabelSpec
+            {
+                Text = wild.Name, Data = new Vector3(DeepTime.Arc(Math.Max(now - labelYear, 1e-6)), GraphStyle.LifeY,
+                    0.5f * (lo + hi)),
+                Priority = 16, SizePx = 12.5f, Color = GraphStyle.Text, AnchorKey = anchor.Key, Ids = ids
+            });
+            return true;
+        }
+
+        /// <summary>
+        /// The wild mammals' tooltip: the series' own first and last values, the livestock in the last year from the
+        /// same file, and the sources and caveat domestication.json gives for the series.
+        /// </summary>
+        static string WildMammalsBlurb(List<double[]> data, Func<double, double> livestockMass)
+        {
+            CultureInfo c = CultureInfo.InvariantCulture;
+            double[] a = data[0], b = data[data.Count - 1];
+            double livestock = livestockMass(b[0]);
+            return $"Wild land and marine mammals: {a[1].ToString("0.##", c)} megatonnes of carbon in {Year(a[0])}, " +
+                   $"{b[1].ToString("0.##", c)} in {Year(b[0])}" +
+                   (livestock > 0 ? $", against {livestock.ToString("0", c)} for livestock. " : ". ") +
+                   "After Bar-On, Phillips and Milo 2018, Greenspoon et al. 2023 and Barnosky 2008 (PNAS); before " +
+                   "about 1900 a rough reconstruction.";
+        }
+
+        /// <summary>A calendar year of the data as text: "10,000 BCE" (negative years are BCE) or "2023".</summary>
+        static string Year(double year)
+        {
+            double y = Math.Round(year);
+            return y < 0 ? (-y).ToString("#,0", CultureInfo.InvariantCulture) + " BCE" : y.ToString("0", CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// series.wildMammalMtC as [calendar year, MtC] rows, read strictly because the stream and its tooltip quote
+        /// them: at least two rows, each two finite numbers, the years rising and no mass below zero. Null, after an
+        /// error, when the series is missing or malformed.
+        /// </summary>
+        static List<double[]> ReadWildMammals(JToken token)
+        {
+            string problem = null;
+            List<double[]> rows = new List<double[]>();
+            JArray array = token as JArray;
+            if (token == null) problem = "is missing";
+            else if (array == null || array.Count < 2) problem = "is not a list of at least two [year, MtC] rows";
+            else
+            {
+                for (int i = 0; i < array.Count && problem == null; i++)
+                {
+                    JArray row = array[i] as JArray;
+                    if (row == null || row.Count != 2 || !IsNumber(row[0]) || !IsNumber(row[1]))
+                    {
+                        problem = $"has a row {i} that is not [year, MtC]";
+                        continue;
+                    }
+
+                    double year = (double)row[0], mass = (double)row[1];
+                    if (double.IsNaN(year) || double.IsInfinity(year) || double.IsNaN(mass) || double.IsInfinity(mass) ||
+                        mass < 0)
+                        problem = $"has a row {i} whose year or mass is not a finite number (masses at least zero)";
+                    else if (rows.Count > 0 && year <= rows[rows.Count - 1][0])
+                        problem = $"has a row {i} whose year does not follow the row before it";
+                    else
+                        rows.Add(new[] { year, mass });
+                }
+            }
+
+            if (problem == null) return rows;
+            Debug.LogError($"[Why] FarmLayer: series.wildMammalMtC in domestication.json {problem}; " +
+                           "the wild mammals stream is not drawn");
+            return null;
+        }
+
+        static bool IsNumber(JToken t) => t.Type == JTokenType.Integer || t.Type == JTokenType.Float;
 
         void RegisterStreams(GraphContext ctx, StackedStreams.Built built, string kind)
         {
@@ -239,6 +381,22 @@ namespace Why.Domination
 
             emphasis.Add(fillMat, FillAlpha);
             emphasis.Add(lineMat, 1f);
+            if (wildFills != null)
+            {
+                // the wild mammals' plane lies between the extraction stratum and the farm, and is drawn between them
+                wildFillMat = GraphMaterials.Surface(GraphStyle.Life, 1f, GraphMaterials.QueueHumans - 30, false, 0f, 4f);
+                wildFillMat.SetFloat("_EdgeSoft", 0.25f);
+                wildFillMat.SetFloat("_Alpha", WildFillAlpha);
+                AddMesh("WildMammals", wildFills.ToMesh("WildMammals"), wildFillMat);
+                wildLineMat = GraphMaterials.Line(GraphStyle.Life, 1f, GraphMaterials.QueueHumans - 29, true, 0f, 1f);
+                AddMesh("WildMammalsLines", wildLines.ToMesh("WildMammalsLines"), wildLineMat);
+                wildFills = null;
+                wildLines = null;
+
+                emphasis.Add(wildFillMat, WildFillAlpha);
+                emphasis.Add(wildLineMat, 0.7f);
+            }
+
             lock (labels) labels.ForEach(emphasis.Add);
         }
 

@@ -29,12 +29,22 @@ modeled, not measured; the graph is an education tool about cause and effect, no
   (Omega_Lambda 0.69, 1/H0 = 14.4 Gyr), so most of the fan opens in the first few billion years.
   Groups that form inside an older body (the solar system inside the Milky Way) open gradually over a
   long arc, so there is no step in scale anywhere.
-* The same numbers make the layer a map with a definite scale (`Scripts/Matter/MatterScale.cs`): each
-  lineage body's band ends at its real radius (`sizeM` / 2, unbound structures and the observable
-  universe, 4.4e26 m, scaled back by the scale factor), the inner track is 1 m by convention, and the
-  distance from our lineage grows exponentially with rho between those knots. The scale grid draws
-  shells at every round distance (10^N m, with log-ruler steps between) and comoving rays; the HUD's
-  probe (G) reads metres from us and metres per world unit at any point.
+* The same numbers make the layer a map with a definite scale (`Scripts/Matter/MatterScale.cs`), a comb of
+  comoving distances from our lineage: at every moment the distance from us grows exponentially with rho,
+  from the trunk at rho = 0 (a comoving kilometre: 10^3 m today, scaled back by the scale factor) to the
+  horizon at the envelope's edge (the observable universe, 4.4e26 m, scaled back), 23.6 decades across
+  the fan. A bound body of our lineage gathers its matter from a comoving region `CollapseFactor` (6)
+  times its radius; as it forms, its band's edge and the matter inside it relax inward onto its radius
+  today, so near the present every lineage body ends at its real radius (`sizeM` / 2).
+* The scale grid (`Scripts/Matter/ExpansionGridLayer.cs`, shader `Why/ScaleWaves`) draws that field as
+  waves: wave k is the shell of matter 10^k .. 10^(k+1) m from us today, from 10^-1 m (the matter that
+  collapsed into the Earth, the Sun and the solar nebula, which slides into the trunk as they form) to the
+  horizon, cut into ten by 2..9 x 10^k, then tenths, hundredths and thousandths. A level opens where its
+  lines are 3 to 7.4 px apart on screen and fades to a floor as the next opens (`Scripts/Matter/SpaceLod.cs`
+  mirrors the rule). The HUD reads the scale of space at the centre of the screen above its key: the area
+  one pixel covers (physical m² at that moment: the outward scale squared, the screen's other direction
+  being time) and the spacing of the finest waves fully open there; the probe (G) reads the same at the
+  cursor, with metres from us and metres per world unit.
 * `epochs` are cosmic and geologic markers (Big Bang ... Chicxulub impact).
 * Sources: Planck 2018; Tully et al. 2014 (*The Laniakea supercluster of galaxies*, Nature);
   Wikipedia *Chronology of the universe*, *Observable universe*, *Virgo Supercluster*, *Local Group*,
@@ -59,9 +69,24 @@ modeled, not measured; the graph is an education tool about cause and effect, no
   the ~10% transfer per step is Lindeman's rule of thumb for ecological efficiency.
 * `Data/life_clades.json` -
   `{ "clades": [{ "id", "name", "mrca": [leafA, leafB], "treeAgeMya", "leafCount", "tier", "blurb" }],
-     "events": [{ "id", "name", "mya", "tier", "blurb" }] }`. A clade is the most recent common
-  ancestor of two leaves; events are dated milestones (Great Oxidation, Cambrian explosion, the Big Five
+     "events": [{ "id", "name", "mya", "tier", "blurb",
+                  "loss", "lossMeasure", "recoveryMyr", "recoveryMeasure", "facts" }] }`. A clade is the most recent
+  common ancestor of two leaves; events are dated milestones (Great Oxidation, Cambrian explosion, the Big Five
   extinctions, first hominins, agriculture...).
+* The Big Five events also give what the tree collapses by (`Scripts/Life/MassExtinctions.cs`): `loss`, the share
+  of species lost (0..1), in the measure `lossMeasure` names ("marine species", "all species"); `recoveryMyr`, the
+  millions of years until the measure `recoveryMeasure` names had recovered ("global marine diversity took 75
+  million years, to the Middle Jurassic"); and `facts`, the ids of the facts both numbers come from, in
+  `Docs/research/life/extinctions-big-five.json` (each passed the truth gate and a skeptical second reading; see
+  that folder's README). The TimeTree holds only families alive today, so the losses come from here: the tree's
+  living weight drops to 1 - loss at the event and grows back along an S-curve by the end of the recovery, and
+  overlapping windows multiply (the end-Triassic strikes inside the end-Permian's rebound). The depth of a dip is
+  the share of species lost, not measured biomass, which deep time does not have; each event's card says so
+  ("Lost: 81% of marine species. Recovery: ... The tree's dip stands for this share of species, not for measured
+  biomass."). A thin outline along the tree's outer edge draws every dip, and highlighting an event lights its dip
+  (the end-Permian's with the end-Triassic's inside it). An event without `loss` draws no dip; one whose loss is not
+  between 0 and 1, or whose recovery is longer than the time since it or too short to draw, is left out with an
+  error. Only the present-day collapse is measured biomass: the farm layer's wild mammals stream (below).
 
 ## Humans (blue)
 
@@ -104,11 +129,27 @@ modeled, not measured; the graph is an education tool about cause and effect, no
 ## The hierarchy of human domination
 
 * `Data/domestication.json` - life under human control, drawn in green directly beneath the
-  civilizations: global cropland and pasture (HYDE 3.2/3.3), livestock biomass by type in megatonnes of
-  carbon (Bar-On et al. 2018, Greenspoon et al. 2023, FAO), crop, human and wild-mammal biomass, and
-  35 domestications (dog, sheep, cattle, wheat, rice, maize...), each anchored where the species enters
-  the farm layer (`wildFamily` = the exact leaf label of its wild family in the tree of life, which stays
-  lit until the moment of domestication). Livestock is drawn on the same mass scale as the human layer.
+  civilizations: global cropland and grazing land (HYDE 3.5, 2025, via Our World in Data; cross-checked against
+  the HYDE 3.2 totals of Klein Goldewijk et al. 2017, which differ by 5-10 percent in 1700-1850), livestock
+  biomass by type in megatonnes of carbon (Bar-On et al. 2018, Greenspoon et al. 2023, FAO), crop, human and
+  wild-mammal biomass, and 35 domestications (dog, sheep, cattle, wheat, rice, maize...), each anchored where
+  the species enters the farm layer (`wildFamily` = the exact leaf label of its wild family in the tree of
+  life, which stays lit until the moment of domestication). Livestock is drawn on the same mass scale as the
+  human layer.
+  Wild land and marine mammals (`wildMammalMtC`, after Bar-On, Phillips and Milo 2018, Greenspoon et al.
+  2023 and Barnosky 2008; a rough reconstruction before about 1900) are one stream below the farm, on
+  the life plane (`GraphStyle.LifeY`), on the livestock's carbon scale and width rule: the present mass
+  extinction as biomass, shrinking while livestock grows. The series begins at full strength, so the
+  stream fades in over the 2000 years before its first year at that first value (a width rising from
+  zero would draw a growth the data does not have), and a line marks its outer edge as the cropland's
+  inner edge marks the livestock's. Its anchor `farm:wild_mammals` stands where the series begins; its
+  tooltip quotes the series' first and last values, the livestock in that last year and these sources.
+  Its id (`FarmBase + 9000`) lies outside `farm:all` (`FarmBase` .. `FarmBase + 99`), so picking the
+  livestock and crops does not light the wild mammals nor the reverse, but inside the farm stratum's
+  range, so it comes back to full strength with the farm; the tour's `farm_rises` stop names
+  `farm:wild_mammals` beside `farm:all` to light both. The series must be at least two [year, MtC] pairs
+  of finite numbers, the years rising and no mass below zero; when it is missing or malformed the layer
+  logs an error and leaves the stream out.
 * `Data/extraction.json` - matter under human control, drawn in red beneath the farm layer: annual global
   extraction of fossil fuels, metal ores and non-metallic minerals (UN IRP Global Material Flows,
   Krausmann et al. 2009/2018; rough historical estimates before 1900), 16 materials with first use

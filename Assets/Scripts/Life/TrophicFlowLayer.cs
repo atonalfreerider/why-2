@@ -200,6 +200,15 @@ namespace Why.Life
                     continue;
                 }
 
+                // a food chain at the depth of a mass extinction would stand on a collapsed tree (its arcs still follow the
+                // narrowed branches): keep the slices outside the dips
+                float standing = life.Extinctions.B(u);
+                if (standing < 0.99f)
+                {
+                    Debug.LogWarning($"[Why] trophic slice '{slice.Id}' lies in a mass extinction's dip " +
+                                     $"(B = {standing.ToString("0.00", CultureInfo.InvariantCulture)})");
+                }
+
                 ResolveChain(tree, life, counts, slice, u, chain);
                 if (chain.Count < 2) continue;
 

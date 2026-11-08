@@ -5,24 +5,26 @@ using UnityEngine;
 namespace Why.Matter
 {
     /// <summary>
-    /// The physical scale of the red layer: what a point of the matter plane stands for in metres. The layout
-    /// already fixes it: every body on our lineage ends at the outer edge of its band with its real radius
-    /// (<see cref="MatterItem.SizeM"/> / 2, bound bodies keeping their size, unbound structures and the observable
-    /// universe growing with the cosmic scale factor), and everything expands with <see cref="MatterLayout.Envelope"/>.
-    /// Between those knots the distance from our lineage grows exponentially with rho (linear in log10), so the
-    /// map has a definite scale everywhere: metres per world unit outward. The grid draws this field and the HUD's
-    /// probe reads it. The inner track is human scale by convention (<see cref="InnerMetres"/>): where we live.
-    /// Pure data; safe on the worker thread once built.
+    /// The physical scale of the red layer: what a point of the matter plane stands for in metres. It reads
+    /// <see cref="MatterLayout"/>'s comb, one continuous field with no knots: at every moment the distance from our lineage
+    /// grows exponentially with rho (linear in log10) at <see cref="UnitsPerDecade"/> world units a decade, from the trunk at
+    /// rho = 0 (a comoving kilometre, 10^3 m today, scaled back by the cosmic scale factor: <see cref="HomeLog10"/>) to the
+    /// horizon at the envelope's edge (the observable universe, scaled back: <see cref="OuterLog10"/>). So the map has a
+    /// definite scale everywhere, metres per world unit outward, and a body's band ends on the comb where its edge lies
+    /// (<see cref="MatterLayout.EdgeLog10"/>). The grid's waves follow the same field (<see cref="ExpansionGridLayer"/>, which
+    /// adds the collapse of our lineage's bound bodies to the matter they enclose) and the HUD's probe reads it.
+    /// Pure data; safe on the worker thread once built, but one instance per thread for what reads the bands
+    /// (<see cref="Knots"/>, <see cref="EnvelopeAt"/>, <see cref="Region"/>, <see cref="Log10BoundRadius"/>: they reuse a list).
     /// </summary>
     public sealed class MatterScale
     {
         /// <summary>Radius today of the observable universe (metres): the envelope's outer edge, comoving.</summary>
         public const double ObservableRadiusM = MatterLayout.ObservableRadiusM;
 
-        /// <summary>Distance from our lineage at rho = 0 (metres): a person, where we live.</summary>
-        public const double InnerMetres = 1.0;
-
-        /// <summary>A knot of the map: a band's outer edge (world units) and the real radius there (metres).</summary>
+        /// <summary>
+        /// A body's band on the comb at some moment, for the probe's "inside" readout: the band's outer edge (world units)
+        /// and the distance from our lineage there (log10 metres), from the inner track out to the horizon.
+        /// </summary>
         public struct Knot
         {
             public float Rho;
@@ -51,7 +53,7 @@ namespace Why.Matter
             knotsArc = u;
             knots.Clear();
             layout.Evaluate(u, inner, outer, out _, out knotsEnvelope);
-            knots.Add(new Knot { Rho = 0, Log10Radius = Math.Log10(InnerMetres), Name = "our lineage", Bound = true });
+            knots.Add(new Knot { Rho = 0, Log10Radius = HomeLog10(u), Name = "our lineage", Bound = true });
 
             float a = layout.ScaleFactor(u);
             foreach (MatterBand band in layout.Bands)
@@ -118,6 +120,9 @@ namespace Why.Matter
 
         /// <summary>Metres per world unit outward at (u, rho): the local scale of the map.</summary>
         public double MetresPerUnit(float u, float rho) => Radius(u, rho) * Math.Log(10) / UnitsPerDecade(u);
+
+        /// <summary>log10 of <see cref="MetresPerUnit"/>, without forming the power (the grid's readout of metres per pixel).</summary>
+        public double Log10MetresPerUnit(float u, float rho) => Log10Radius(u, rho) + Math.Log10(Math.Log(10)) - Math.Log10(UnitsPerDecade(u));
 
         /// <summary>The rho at which the distance from our lineage is 10^<paramref name="log10Radius"/> metres, or -1 beyond the envelope.</summary>
         public float Rho(float u, double log10Radius)

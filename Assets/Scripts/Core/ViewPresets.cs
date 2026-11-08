@@ -397,9 +397,27 @@ namespace Why
                 },
                 new ViewPreset
                 {
+                    // the end-Permian collapse, its 75-million-year rebound and the end-Triassic inside it: on the complex
+                    // life lens that whole rebound spans about a twentieth of the screen, here about half of it
+                    Id = "permian_triassic", Title = "The Great Dying",
+                    Subtitle = "300 to 170 million years ago · the tree narrows with the species lost, then regrows",
+                    YaOld = 3.0e8, YaNew = 1.7e8, LogOffset = 1e6, Length = 14,
+                    TargetRho = 0.8f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 11, MatterEmphasis = LifeMatterEmphasis
+                },
+                new ViewPreset
+                {
                     Id = "mammals", Title = "Mammals", Subtitle = "The last 250 million years",
                     YaOld = 2.5e8, YaNew = 2e3, LogOffset = 1e6, Length = 14,
                     TargetRho = 0.8f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 10, MatterEmphasis = LifeMatterEmphasis
+                },
+                new ViewPreset
+                {
+                    // the end-Cretaceous collapse and its 10-million-year rebound: 3% of the mammals lens's length, 14% of
+                    // this one's
+                    Id = "kpg", Title = "The asteroid",
+                    Subtitle = "100 to 30 million years ago · the tree narrows with the species lost, then regrows",
+                    YaOld = 1.0e8, YaNew = 3.0e7, LogOffset = 1e6, Length = 14,
+                    TargetRho = 1.0f, TargetY = GraphStyle.LifeY, Pitch = 58, Distance = 10, MatterEmphasis = LifeMatterEmphasis
                 },
                 new ViewPreset
                 {

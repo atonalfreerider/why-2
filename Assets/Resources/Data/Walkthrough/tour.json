@@ -337,11 +337,13 @@
       "id": "great_dying",
       "title": "The Great Dying",
       "text": "About 252 million years ago, on the supercontinent Pangaea, huge Siberian eruptions heated and acidified the planet. The Great Dying killed over 80 percent of marine species, the worst extinction known; matter reset life, and in the recovering world dinosaurs and mammals arose.",
-      "focus": "complex_life",
+      "focus": "permian_triassic",
+      "side": "left",
       "anchor": "lifeevent:end_permian_extinction",
       "highlight": [
         "epoch:great_dying",
-        "epoch:pangaea"
+        "epoch:pangaea",
+        "lifeevent:end_permian_extinction"
       ],
       "hold": 14
     },
@@ -362,7 +364,7 @@
       "id": "chicxulub",
       "title": "The asteroid",
       "text": "Then, 66 million years ago, an asteroid about 10 km wide struck what is now Mexico's Yucatan. The impact winter killed about three-quarters of species, including every dinosaur except the birds. Watch the red layer strike the green: without this impact, mammals - and we - might never have had our turn.",
-      "focus": "mammals",
+      "focus": "kpg",
       "anchor": "epoch:chicxulub",
       "highlight": [
         "lifeevent:end_cretaceous_extinction",
@@ -477,7 +479,8 @@
       "highlight": [
         "domestication:cattle",
         "domestication:sheep",
-        "farm:all"
+        "farm:all",
+        "farm:wild_mammals"
       ],
       "hold": 13
     },

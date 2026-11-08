@@ -25,14 +25,18 @@ an icon (sun, spiral galaxy, galaxy group, supercluster, cosmic web ...). The re
 lineage, one cell per order of magnitude, from the trunk (the inner track: a kilometre, the most granular scale) out to
 the observable universe, twenty-three decades in all, like the rings of a logarithmic map of the universe. The comb's
 spacing is the fan's width at each moment, so at the Big Bang every line lies on the trunk; as space inflates (a burst
-at the cusp, then the cosmic scale factor) the comb opens: the outermost lines race outward fastest, every inner cell's
-growth pushes everything beyond it further out, and each finer line separates from its parent only once their cell has
-grown, so the scale branches open like a tree, decades first, then the 2..9 steps, tenths and hundredths as you close
-in. The bodies' edges are lines in the same comb: a bound body keeps its physical size, so its edge and the grid inside
-it drift gently inward through the comoving comb once it has formed, and before that its matter's region rides the
-expansion, relaxing inward as the body collapses. Out on the envelope the lines dissolve into black. The probe (G) reads real numbers anywhere: metres from
-us, metres per unit of the graph. Matter
-dissolves before the human branch.
+at the cusp, then the cosmic scale factor) the comb opens: the outermost lines race outward fastest, and every inner
+cell's growth pushes everything beyond it further out. The scale of space is drawn on it as waves, ten inside ten inside
+ten: wave k is the shell of matter 10^k to 10^(k+1) m from us today, born at the Big Bang and riding outward, and inside
+it the next level cuts it into ten (2..9 x 10^k), then tenths, hundredths and thousandths, finer and finer toward its
+outer crest. Each level opens where its lines are a few pixels apart on screen, with a gold glint where a line opens,
+so the waves always match the scale on screen, and a faint swell runs outward through the decades. Above the key the
+HUD reads the scale at the centre of the screen ("Space here: 1 px² ≈ 10^6.2 m² · waves 10^5.0 m apart", physical metres
+at that moment), by the same rule the waves open by. The bodies' edges are lines in the same comb: until a bound body
+forms its matter rides the expansion, spread over six times its radius, and as the body collapses its edge relaxes
+inward, with the waves of the matter inside it, onto its radius today. Out on the envelope the lines dissolve into
+black. The probe (G) reads real numbers anywhere: metres from us, metres per unit of the graph, the area a pixel
+covers there. Matter dissolves before the human branch.
 
 **Green - life.** The TimeTree of Life (1610 families) drawn as an expanding set of roots. Branches are
 ordered by food chain with the top predator on the inside track, so the innermost root is the one that

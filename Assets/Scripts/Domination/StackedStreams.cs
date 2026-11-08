@@ -62,9 +62,18 @@ namespace Why.Domination
 
         /// <param name="baseRho">inner edge of the stack over time (null = the inner track, rho 0)</param>
         /// <param name="fadeOuter">whether the outermost stream fades to transparent (no border)</param>
+        /// <param name="outerEdge">
+        /// whether a line also runs along the stack's outer edge when it does not fade, drawn like the edges between
+        /// streams: a stack read by its width beside another (the wild mammals beside the livestock) needs that edge
+        /// </param>
+        /// <param name="fadeIn">
+        /// opacity of the stack by calendar year, 0..1 (null = 1 throughout): eases in a stack whose series begins at
+        /// full strength without drawing a rise the data does not have
+        /// </param>
         public static Built Build(IReadOnlyList<Stream> streams, Func<double, float> totalWidth, double startYear,
             double nowYear, float y, int idBase, float fadeRadius, SurfaceMeshBuilder fills, LineMeshBuilder lines,
-            Func<double, float> baseRho = null, bool fadeOuter = true)
+            Func<double, float> baseRho = null, bool fadeOuter = true, bool outerEdge = false,
+            Func<double, float> fadeIn = null)
         {
             baseRho ??= _ => 0f;
             Built result = new Built { Source = streams, Total = totalWidth, Base = baseRho };
@@ -87,12 +96,14 @@ namespace Why.Domination
             int m = years.Count;
             float[,] lo = new float[n, m], hi = new float[n, m];
             float[] us = new float[m];
+            float[] opacity = new float[m];
             float[] widths = new float[n];
             float maxWidth = 0;
             for (int j = 0; j < m; j++)
             {
                 double year = years[j];
                 us[j] = DeepTime.Arc(Math.Max(nowYear - year, 1e-6));
+                opacity[j] = fadeIn == null ? 1f : Mathf.Clamp01(fadeIn(year));
                 double sum = 0;
                 for (int i = 0; i < n; i++) sum += streams[i].Values.At(year);
                 float w = sum > 0 ? totalWidth(year) : 0;
@@ -127,16 +138,17 @@ namespace Why.Domination
                     float fall = Mathf.Exp(-Mathf.Pow(mid / fadeRadius, 2f));
                     inner.Add(new Vector3(us[j], y, lo[i, j]));
                     outer.Add(new Vector3(us[j], y, hi[i, j]));
-                    cols.Add(new Color32(255, 255, 255, (byte)(255 * Mathf.Clamp01(0.55f * fall + 0.05f))));
+                    cols.Add(new Color32(255, 255, 255, (byte)(255 * Mathf.Clamp01((0.55f * fall + 0.05f) * opacity[j]))));
 
                     float edgeFall = Mathf.Exp(-Mathf.Pow(lo[i, j] / fadeRadius, 2f));
-                    byte ea = (byte)(255 * Mathf.Clamp01((i == 0 && lo[i, j] < 1e-4f ? 0.9f : 0.45f) * edgeFall));
+                    byte ea = (byte)(255 * Mathf.Clamp01((i == 0 && lo[i, j] < 1e-4f ? 0.9f : 0.45f) * edgeFall * opacity[j]));
                     edge.Add(new LinePoint(new Vector3(us[j], y + 0.001f, lo[i, j]), new Color32(255, 255, 255, ea),
                         i == 0 ? 1.4f : 0.9f, 0, i == 0 ? 1.6f : 1f));
 
                     float w = hi[i, j] - lo[i, j];
-                    // label where the stream is wide but not yet lost in the fade
-                    float score = w * fall;
+                    // label where the stream is wide but not yet lost in the fade, outward or in (a stack still fading in
+                    // is as faint there as it is drawn)
+                    float score = w * fall * opacity[j];
                     if (score > best)
                     {
                         best = score;
@@ -158,6 +170,20 @@ namespace Why.Domination
                 }
 
                 lines.AddPolyline(edge, id);
+                if (outerEdge && i == n - 1 && !outermost)
+                {
+                    edge.Clear();
+                    for (int j = 0; j < m; j++)
+                    {
+                        float outerFall = Mathf.Exp(-Mathf.Pow(hi[i, j] / fadeRadius, 2f));
+                        byte oa = (byte)(255 * Mathf.Clamp01(0.45f * outerFall * opacity[j]));
+                        edge.Add(new LinePoint(new Vector3(us[j], y + 0.001f, hi[i, j]), new Color32(255, 255, 255, oa),
+                            0.9f, 0, 1f));
+                    }
+
+                    lines.AddPolyline(edge, id);
+                }
+
                 Vector3 label = new Vector3(us[bestJ], y, 0.5f * (lo[i, bestJ] + hi[i, bestJ]));
                 result.Streams.Add((streams[i], label, IdRange.Single(id), years[bestJ]));
             }

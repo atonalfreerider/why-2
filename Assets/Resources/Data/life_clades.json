@@ -893,7 +893,15 @@
       "name": "End-Ordovician mass extinction",
       "mya": 443.8,
       "tier": 2,
-      "blurb": "A sharp ice age drained shallow seas and wiped out about 85 percent of marine species, the first of the Big Five mass extinctions. Survivors restocked the Silurian seas."
+      "blurb": "A sharp ice age drained shallow seas and wiped out about 85 percent of marine species, the first of the Big Five mass extinctions. Survivors restocked the Silurian seas.",
+      "loss": 0.85,
+      "lossMeasure": "marine species",
+      "recoveryMyr": 5,
+      "recoveryMeasure": "diversity recovered in the first 5 million years of the Silurian",
+      "facts": [
+        "ext-ord-species-lome",
+        "ext-ord-recovery-lome"
+      ]
     },
     {
       "id": "first_forests",
@@ -907,7 +915,15 @@
       "name": "Late Devonian mass extinction",
       "mya": 372,
       "tier": 2,
-      "blurb": "Pulses of extinction, possibly tied to oxygen-starved seas, killed most reef builders and many armored fish. The survivors included the fish lineage that would walk on land."
+      "blurb": "Pulses of extinction, possibly tied to oxygen-starved seas, killed most reef builders and many armored fish. The survivors included the fish lineage that would walk on land.",
+      "loss": 0.4,
+      "lossMeasure": "marine species, Kellwasser event",
+      "recoveryMyr": 13,
+      "recoveryMeasure": "metazoan (coral and sponge) reefs were still recovering at least 13 million years later",
+      "facts": [
+        "ext-dev-species-lde",
+        "ext-dev-reef-recovery-hangenberg"
+      ]
     },
     {
       "id": "tetrapods_on_land",
@@ -921,7 +937,15 @@
       "name": "End-Permian mass extinction",
       "mya": 251.9,
       "tier": 1,
-      "blurb": "The Great Dying: massive Siberian volcanism heated and acidified the oceans, killing over 80 percent of marine species. The recovering world gave rise to dinosaurs and mammals."
+      "blurb": "The Great Dying: massive Siberian volcanism heated and acidified the oceans, killing over 80 percent of marine species. The recovering world gave rise to dinosaurs and mammals.",
+      "loss": 0.81,
+      "lossMeasure": "marine species",
+      "recoveryMyr": 75,
+      "recoveryMeasure": "global marine diversity took 75 million years, to the Middle Jurassic",
+      "facts": [
+        "ext-perm-species-pt",
+        "ext-perm-recovery-global-diversity"
+      ]
     },
     {
       "id": "first_dinosaurs",
@@ -942,7 +966,15 @@
       "name": "End-Triassic mass extinction",
       "mya": 201.4,
       "tier": 2,
-      "blurb": "Vast volcanic eruptions as the supercontinent Pangaea split apart upset the climate and killed about three-quarters of species. Dinosaurs emerged as the dominant land animals."
+      "blurb": "Vast volcanic eruptions as the supercontinent Pangaea split apart upset the climate and killed about 70 percent of species. Dinosaurs emerged as the dominant land animals.",
+      "loss": 0.7,
+      "lossMeasure": "all species",
+      "recoveryMyr": 2,
+      "recoveryMeasure": "carbonate ecosystems in one region recovered in about 2 million years",
+      "facts": [
+        "ext-tri-species-overview",
+        "ext-tri-recovery-thibodeau2016"
+      ]
     },
     {
       "id": "first_flowers",
@@ -956,7 +988,15 @@
       "name": "End-Cretaceous mass extinction",
       "mya": 66.0,
       "tier": 1,
-      "blurb": "An asteroid struck Chicxulub, Mexico, killing about three-quarters of species, including all dinosaurs except birds. Small surviving mammals inherited the Earth, opening the path to primates."
+      "blurb": "An asteroid struck Chicxulub, Mexico, killing about three-quarters of species, including all dinosaurs except birds. Small surviving mammals inherited the Earth, opening the path to primates.",
+      "loss": 0.76,
+      "lossMeasure": "species on Earth",
+      "recoveryMyr": 10,
+      "recoveryMeasure": "squamate diversity took about 10 million years",
+      "facts": [
+        "ext-kpg-species-lowery2018",
+        "ext-kpg-recovery-squamates"
+      ]
     },
     {
       "id": "grasslands_spread",

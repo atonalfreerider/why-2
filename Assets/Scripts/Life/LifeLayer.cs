@@ -19,6 +19,11 @@ namespace Why.Life
     /// fixed outer edge. Life dissolves before the straight human branch at 3 o'clock, except our own
     /// lineage, which stays lit until Homo sapiens rises into the human layer (300,000 years ago).
     ///
+    /// The mass extinctions narrow the tree (<see cref="MassExtinctions"/>): the TimeTree holds only families that survive
+    /// today, so the share of species each extinction removed scales the living weight inside the log, B(u) on top of
+    /// the summed weight, and the tree shrinks at each extinction and grows back over its recovery. A thin outline along
+    /// the tree's outer edge shows the dips as spikes even where a recovery is a hairline on the clock.
+    ///
     /// Everything is computed on a worker thread and uploaded as one mesh (one draw call).
     /// </summary>
     public sealed class LifeLayer : GraphLayer
@@ -31,11 +36,28 @@ namespace Why.Life
         /// <summary>Radial extent of the fully grown root system (world units at rhoScale 1).</summary>
         public const float TotalWidth = 3.6f;
 
+        /// <summary>
+        /// Highlight ids of the outline along the tree's outer edge, from the free top of the life range (GraphIds.LifeBase,
+        /// 10 000 .. 19 999; the tree's nodes take LifeBase + preorder, 10 000 .. 13 103 for the 3104 nodes of the TimeTree
+        /// of 2009): 19 000 for the outline outside the mass extinctions, 19 001 + k for the dip and rebound of the k-th
+        /// extinction (oldest first, the order of <see cref="MassExtinctions"/>). Each extinction's lifeevent anchor carries
+        /// its id, with those of the dips nested in its window, so highlighting the event lights its dip.
+        /// </summary>
+        public const int OutlineId = GraphIds.LifeBase + 9_000;
+
+        public const int DipIdBase = OutlineId + 1;
+
         /// <summary>Radius over which the roots fade toward transparent black (no outer border).</summary>
         const float OuterFade = 2.0f;
 
         /// <summary>How much more space a lineage claims as it ages (1 + RootGrowth * age^2).</summary>
         const float RootGrowth = 40f;
+
+        /// <summary>
+        /// The outline along the tree's outer edge: faint life green, so the roots still fade out without a hard border; it
+        /// glows where the director highlights an extinction's dip.
+        /// </summary>
+        const float OutlineAlpha = 0.3f, OutlineIntensity = 0.55f, OutlineWidthPx = 1.2f;
 
         const float GridStep = 0.001f;
         const string Us = "Hominidae";
@@ -50,6 +72,12 @@ namespace Why.Life
         /// <summary>Trophic level, role and common name of every leaf (life_traits.json), read-only after Prepare.</summary>
         public IReadOnlyDictionary<string, Trait> Traits { get; private set; }
 
+        /// <summary>
+        /// The mass extinctions the tree narrows at (life_clades.json events with a loss): B(u), immutable after Prepare and
+        /// safe to read from other layers' worker threads.
+        /// </summary>
+        public MassExtinctions Extinctions { get; private set; } = MassExtinctions.None;
+
         LineMeshBuilder lines;
         Material lineMat;
 
@@ -61,6 +89,7 @@ namespace Why.Life
         float gridTop, gridBottom, growthSpan, prefixTotal = 1f, logK = 1f, logNorm = 1f;
         int gridCount;
         float[] prefix;             // [grid * lineageCount + lineage] = summed weight inside the lineage
+        float[] totals;             // [grid] = summed weight of every lineage (the tree's outer edge)
 
         /// <summary>One leaf of life_traits.json: trophic level t (1 producers .. 5), ecological role, common name.</summary>
         public sealed class Trait
@@ -86,6 +115,14 @@ namespace Why.Life
             public double mya;
             public int tier = 2;
             public string blurb;
+
+            // a mass extinction: the share of species lost and in what measure, the years until the named measure had
+            // recovered, and the fact ids (Docs/research/life) both numbers come from
+            public double? loss;
+            public string lossMeasure;
+            public double? recoveryMyr;
+            public string recoveryMeasure;
+            public string[] facts;
         }
 
         sealed class CladeFile
@@ -107,6 +144,9 @@ namespace Why.Life
             Traits = traits;
             CladeFile cladeFile = ParseOr(ctx.Text(CladesPath), new CladeFile());
             Dictionary<string, double> domesticated = DomesticatedFamilies(ctx.Text(DomesticationPath));
+            List<string> problems = new List<string>();
+            MassExtinctions extinctions = new MassExtinctions(ExtinctionsOf(cladeFile), problems);
+            Extinctions = extinctions;
 
             // --- ordering: our lineage first, then by food-chain position (top predators inside) ---
             int us = tree.FindLeaf(Us);
@@ -205,6 +245,7 @@ namespace Why.Life
             growthSpan = Mathf.Max(uRoot - uHandoff, 1e-3f);
             gridCount = Mathf.CeilToInt((gridTop - gridBottom) / GridStep) + 1;
             prefix = new float[gridCount * lineageCount];
+            totals = new float[gridCount];
             float total = 0;
             for (int g = 0; g < gridCount; g++)
             {
@@ -217,6 +258,7 @@ namespace Why.Life
                     sum += Weight(l, u);
                 }
 
+                totals[g] = sum;
                 total = Mathf.Max(total, sum);
             }
 
@@ -230,8 +272,8 @@ namespace Why.Life
             for (int x = us; x >= 0; x = tree.Parent[x]) LineagePathLength++;
 
 
-            // --- geometry: one polyline per lineage ---
-            lines = new LineMeshBuilder(160_000);
+            // --- geometry: one polyline per lineage (about 200 000 points with the extinctions' cliffs and windows) ---
+            lines = new LineMeshBuilder(220_000);
             List<LinePoint> pts = new List<LinePoint>(512);
             List<float> ids = new List<float>(512);
             float y = GraphStyle.LifeY;
@@ -267,32 +309,63 @@ namespace Why.Life
                     while (ci < chain.Count - 1 && u < nodeU[chain[ci]]) ci++;
                     int node = chain[ci];
 
-                    float rho = RhoAt(l, u);
+                    // the mass extinctions narrow the tree (B inside the log). It narrows without brightening: relevance
+                    // stays with the undipped radius, and lines squeezed closer together are dimmed by the squeeze, which
+                    // keeps the light per area as it was
+                    float b = extinctions.B(u);
+                    float weight = PrefixAt(l, u);
+                    float rho0 = Radius(weight, 1f);
+                    float rho = b < 1f ? Radius(weight, b) : rho0;
+                    float squeeze = b < 1f ? Squeeze(weight, b) : 1f;
                     // relevance: the farther from our lineage, the fainter - fading out to transparent black
-                    float relevance = Mathf.Exp(-Mathf.Pow(rho / OuterFade, 2.2f));
+                    float relevance = Mathf.Exp(-Mathf.Pow(rho0 / OuterFade, 2.2f));
                     float handoff = GraphStyle.HandoffFade(u);
                     float fade = ours ? OurFade(u, uSapiens, uHandoff)
                         : uDomesticated > 0 ? DomesticatedFade(u, uDomesticated, handoff)
                         : handoff * handoff * handoff;
                     // attention on our direct ancestors: the rest of the biosphere is a quiet backdrop
-                    float alpha = (ours ? 1f : 0.2f * relevance) * fade;
+                    float alpha = (ours ? 1f : 0.2f * relevance * squeeze) * fade;
+                    // every lineage drops at the same arc, so its cliffs would stack into one bright spoke: the cliff
+                    // stays unlit and the outline draws it
+                    if (!ours && extinctions.OnCliff(u)) alpha = 0f;
+                    // a rebound narrower than a few pixels would stack into a spoke the same way: only the outline lights it
+                    else if (!ours) alpha *= extinctions.LitShare(u);
                     float intensity = ours ? 3f : 0.25f + 0.3f * relevance;
                     float widthWorld = 0.0006f * Mathf.Log(1 + leaves[node], 2) + (ours ? 0.004f : 0f);
                     pts.Add(new LinePoint(new Vector3(u, y, rho), Tint(alpha), ours ? 2.8f : 1f, widthWorld, intensity));
                     ids.Add(GraphIds.LifeNode(pre[node]));
 
                     if (u <= uEnd) break;
+                    // both sides of every extinction's cliff, and fine steps through its recovery
                     float step = u > rampEnd ? GridStep : GridStep * 2.5f;
-                    u = Mathf.Max(uEnd, u - step);
+                    u = extinctions.Next(u, step, uEnd);
                 }
 
                 lines.AddPolyline(pts, ids, ours ? 1f : 0f);
             }
 
+            AddOutline(pts, ids, y, uHandoff);
+
             // --- anchors and labels ---
             RegisterLeaves(ctx, tree, traits, pre);
             RegisterClades(ctx, tree, cladeFile, pre, size, onPath);
             RegisterEvents(ctx, cladeFile);
+
+            // --- self-checks of the collapse: an error fails the smoke test ---
+            extinctions.Verify(gridTop, gridBottom, problems);
+            for (int k = 0; k < extinctions.Count; k++)
+            {
+                MassExtinctions.Extinction e = extinctions[k];
+                float before = OuterRho(e.UTop, extinctions.B(e.UTop)), after = OuterRho(e.UEvent, extinctions.B(e.UEvent));
+                if (!(after < before))
+                {
+                    problems.Add($"'{e.Id}': the tree's outer edge right after the extinction ({after:0.000}) is not narrower " +
+                                 $"than just before it ({before:0.000})");
+                }
+            }
+
+            if (GraphIds.LifeNode(n - 1) >= OutlineId) problems.Add($"the tree's {n} node ids reach the outline's ({OutlineId})");
+            foreach (string problem in problems) Debug.LogError("[Why] mass extinctions: " + problem);
 
             ctx.Share("life.layer", this);
             Debug.Log($"[Why] LifeLayer.Prepare {sw.ElapsedMilliseconds} ms ({lineageCount} lineages, {lines.VertexCount / 2} points)");
@@ -317,19 +390,86 @@ namespace Why.Life
             return t * t * (3 - 2 * t) * growth;
         }
 
-        /// <summary>Radial position of a lineage at an arc (interpolated on the grid).</summary>
-        public float RhoAt(int lineage, float u)
+        /// <summary>Radial position of a lineage at an arc (interpolated on the grid), narrowed by the mass extinctions.</summary>
+        public float RhoAt(int lineage, float u) => Radius(PrefixAt(lineage, u), Extinctions.B(u));
+
+        /// <summary>
+        /// Radius of a summed weight with the living weight scaled by b: B(u) applies inside the log, so the radius stays
+        /// the log of the summed weight standing inside (b = 1: the undipped tree). The grid and the normalization keep the
+        /// undipped weights: on 0.001-arc rows the dips (0.0004 to 0.013 arc) would alias.
+        /// </summary>
+        float Radius(float weight, float b) => logNorm * Mathf.Log(1f + b * weight / logK);
+
+        /// <summary>
+        /// How much closer lines stand where b narrows the tree: d radius / d undipped radius at this weight, b near the
+        /// inner track (where the log is almost linear) rising toward 1 at large weights.
+        /// </summary>
+        float Squeeze(float weight, float b) => b * (logK + weight) / (logK + b * weight);
+
+        /// <summary>The undipped summed weight inside a lineage at an arc (interpolated on the grid).</summary>
+        float PrefixAt(int lineage, float u)
         {
             float gf = Mathf.Clamp((gridTop - u) / GridStep, 0, gridCount - 1);
             int g0 = Mathf.Min((int)gf, gridCount - 2);
             float t = gf - g0;
-            float a = prefix[g0 * lineageCount + lineage];
-            float b = prefix[(g0 + 1) * lineageCount + lineage];
-            return logNorm * Mathf.Log(1f + (a + (b - a) * t) / logK);
+            float p0 = prefix[g0 * lineageCount + lineage];
+            float p1 = prefix[(g0 + 1) * lineageCount + lineage];
+            return p0 + (p1 - p0) * t;
         }
 
-        /// <summary>Radial position of a node's lineage at an arc.</summary>
+        /// <summary>The tree's summed living weight at an arc, every lineage alive (interpolated on the grid).</summary>
+        float TotalAt(float u)
+        {
+            float gf = Mathf.Clamp((gridTop - u) / GridStep, 0, gridCount - 1);
+            int g0 = Mathf.Min((int)gf, gridCount - 2);
+            float t = gf - g0;
+            return totals[g0] + (totals[g0 + 1] - totals[g0]) * t;
+        }
+
+        /// <summary>Radius of the tree's outer edge at an arc with the living weight scaled by b.</summary>
+        float OuterRho(float u, float b) => Radius(TotalAt(u), b);
+
+        /// <summary>Radial position of a node's lineage at an arc (narrowed where a mass extinction's dip holds it).</summary>
         public float NodeRho(int node, float u) => RhoAt(nodeLineage[node], Mathf.Clamp(u, gridBottom, gridTop));
+
+        /// <summary>Where the node's lineage would stand without the extinctions: fades by distance from our lineage use it.</summary>
+        float UndippedNodeRho(int node, float u) => Radius(PrefixAt(nodeLineage[node], Mathf.Clamp(u, gridBottom, gridTop)), 1f);
+
+        /// <summary>The events of life_clades.json that carry a loss: the mass extinctions the tree collapses at.</summary>
+        static IEnumerable<MassExtinctions.Extinction> ExtinctionsOf(CladeFile file)
+        {
+            foreach (EventDto e in file.events)
+            {
+                if (e?.loss == null || string.IsNullOrEmpty(e.id)) continue;
+                yield return new MassExtinctions.Extinction(e.id, e.mya, e.loss.Value, e.recoveryMyr ?? 0);
+            }
+        }
+
+        /// <summary>
+        /// One thin line along the tree's outer edge over its whole span, rho = logNorm ln(1 + B(u) total(u) / logK): the
+        /// collapses read as spikes in a diversity curve even where a window is a hairline on the log clock. Each
+        /// extinction's dip carries its own highlight id (<see cref="DipIdBase"/>), the rest <see cref="OutlineId"/>; the
+        /// line dissolves before the human branch like the rest of the biosphere.
+        /// </summary>
+        void AddOutline(List<LinePoint> pts, List<float> ids, float y, float uEnd)
+        {
+            MassExtinctions extinctions = Extinctions;
+            pts.Clear();
+            ids.Clear();
+            float u = gridTop;
+            while (true)
+            {
+                float handoff = GraphStyle.HandoffFade(u);
+                int dip = extinctions.DipAt(u);
+                pts.Add(new LinePoint(new Vector3(u, y, OuterRho(u, extinctions.B(u))), Tint(OutlineAlpha * handoff * handoff * handoff),
+                    OutlineWidthPx, 0f, OutlineIntensity));
+                ids.Add(dip >= 0 ? DipIdBase + dip : OutlineId);
+                if (u <= uEnd) break;
+                u = extinctions.Next(u, GridStep, uEnd);
+            }
+
+            lines.AddPolyline(pts, ids, 0f);
+        }
 
         /// <summary>Fully lit until domestication, then gone within a short arc (the thread rises into the farm layer).</summary>
         static float DomesticatedFade(float u, float uDomesticated, float handoff)
@@ -405,7 +545,7 @@ namespace Why.Life
                     Data = new Vector3(u0 - 0.004f, GraphStyle.LifeY, rho),
                     Priority = isUs ? 60 : 0.2f + (tr?.T ?? 2) * 0.02f,
                     SizePx = isUs ? 15 : 10.5f,
-                    Color = isUs ? GraphStyle.Text : Faded(GraphStyle.TextDim, rho, 0.2f),
+                    Color = isUs ? GraphStyle.Text : Faded(GraphStyle.TextDim, UndippedNodeRho(v, u0 - 0.004f), 0.2f),
                     PixelOffset = new Vector2(4, 6),
                     AnchorKey = a.Key,
                     HandoffFade = !isUs,
@@ -456,7 +596,7 @@ namespace Why.Life
                     // our ancestors (clades that contain us) lead; the rest of the biosphere recedes
                     Priority = (c.tier == 1 ? 40 : c.tier == 2 ? 20 : 8) + (ancestral ? 30 : 0),
                     SizePx = c.tier == 1 ? 15 : c.tier == 2 ? 13 : 11.5f,
-                    Color = ancestral ? GraphStyle.Text : Faded(GraphStyle.TextDim, anchor.Rho, 0.3f),
+                    Color = ancestral ? GraphStyle.Text : Faded(GraphStyle.TextDim, UndippedNodeRho(node, u), 0.3f),
                     PixelOffset = new Vector2(6, 9),
                     AnchorKey = anchor.Key,
                     HandoffFade = c.id != "hominidae",
@@ -478,16 +618,21 @@ namespace Why.Life
             foreach (EventDto e in file.events)
             {
                 if (e == null || string.IsNullOrEmpty(e.id)) continue;
+
+                // a mass extinction carries its dip on the outline (and the dips nested in its window): highlighting the
+                // event lights them, and its card states the loss and the recovery in the data's own measures
+                int k = Extinctions.IndexOf(e.id);
                 Anchor a = new Anchor
                 {
                     Key = "lifeevent:" + e.id,
                     Label = e.name ?? e.id,
-                    Blurb = e.blurb,
+                    Blurb = k >= 0 ? JoinBlurb(e.blurb, LossText(e)) : e.blurb,
                     Level = GraphLevel.Life,
                     YearsAgo = e.mya * 1e6,
                     EndYearsAgo = e.mya * 1e6,
                     Y = GraphStyle.LifeY,
                     Rho = -0.06f,
+                    Ids = k >= 0 ? new IdRange(DipIdBase + k, DipIdBase + Extinctions.LastNested(k)) : IdRange.Empty,
                     Tier = e.tier
                 };
                 Anchors.Register(a);
@@ -500,10 +645,28 @@ namespace Why.Life
                     Color = GraphStyle.TextDim,
                     Align = TMPro.TextAlignmentOptions.Right,
                     PixelOffset = new Vector2(-6, 0),
-                    AnchorKey = a.Key
+                    AnchorKey = a.Key,
+                    // the label brightens with its own dip: highlighting the end-Permian (whose window holds the
+                    // end-Triassic's dip) lights both labels, highlighting the end-Triassic only its own
+                    Ids = k >= 0 ? IdRange.Single(DipIdBase + k) : IdRange.Empty
                 });
             }
         }
+
+        /// <summary>
+        /// What a mass extinction's dip stands for, in the data's own measures, e.g. "Lost: 81% of marine species. Recovery:
+        /// global marine diversity took 75 million years, to the Middle Jurassic." The depth of the dip is a share of
+        /// species, never measured biomass, and the card says so.
+        /// </summary>
+        static string LossText(EventDto e)
+        {
+            string percent = Math.Round((e.loss ?? 0) * 100).ToString("0", System.Globalization.CultureInfo.InvariantCulture);
+            string text = $"Lost: {percent}% of {(string.IsNullOrEmpty(e.lossMeasure) ? "species" : e.lossMeasure)}.";
+            if (!string.IsNullOrEmpty(e.recoveryMeasure)) text += $" Recovery: {e.recoveryMeasure}.";
+            return text + " The tree's dip stands for this share of species, not for measured biomass.";
+        }
+
+        static string JoinBlurb(string blurb, string more) => string.IsNullOrEmpty(blurb) ? more : blurb + "\n\n" + more;
 
         public override void Upload(GraphContext ctx)
         {

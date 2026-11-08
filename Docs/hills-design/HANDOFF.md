@@ -381,3 +381,26 @@ Open from it:
   post-1801 ensign in 1781.
 - *Audio import.* `Editor/NarrationImport.cs` streams only `Audio/Tour` clips; the EconomyTour clips, the stories'
   included, decompress on load.
+
+## Added 7 Nov 2026 (evening): universe revisions, narration pictures, politics
+
+**Universe (committed 12f5b42).** The tree of life collapses at the Big Five by the share of species lost and regrows over
+each recovery (`Life/MassExtinctions.cs`, facts in `Docs/research/life`); lens views `permian_triassic` and `kpg` frame the two
+narrated extinctions. The present-day collapse is the farm layer's wild mammals stream. The expansion grid is nested decade waves
+(`Matter/ExpansionGridLayer.cs`, `Resources/Shaders/WhyScaleWaves.shader`, `Matter/SpaceLod.cs`) with the "Space here: 1 px² ≈
+10^n m²" readout. `Tools/capture-walkthrough.sh` records the whole tour safely (`--copy`, both orientations, about 2 hours;
+50 s tests in `Captures/why-*-50s.mp4`).
+
+**Recording: stopped at the user's request**, to add picture popups first. The October videos are kept.
+
+**Narration pictures (in flight).** The user's request and plan: `Docs/research/pictures/README.md`. Workflows: the stop-by-stop
+plan and the tools (`Tools/images/pictures.py` for Commons files, `Tools/images/generate.py` for OpenAI `chatgpt-image-latest`,
+key read at run time from `~/Desktop/openai-key.txt`, never printed or committed); the Unity module (cards beside the
+narration, `tour.json` steps' `pictures`, `Resources/Data/pictures/index.json` and images). Then fetch, generate, review a
+contact sheet, smoke frames, and re-record.
+
+**Politics (seventh direction).** Brief `Docs/research/advantage/brief-v5.md` (with the user's approval of public-domain
+portraits for the executive cascade); design `Docs/hills-design/POLITICS.md`; research `Docs/research/politics` (about 1,400
+gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. Next: `Tools/politics/build.py` →
+`Data/economy/politics.json`, `Model/Politics.cs`, the flow clock and packets, `Layers/HillPoliticsLayer.cs`,
+`UI/PoliticsPanel.cs`, portraits (approval recorded), review, frames.

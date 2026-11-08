@@ -108,6 +108,29 @@ namespace Why.Economy.Model
         {
             public string Id, Kind, Title, Claim, Url, Fact;
             public float Date;
+
+            /// <summary>The industries the moment touched, highest score first; empty when Jev did not judge it (see
+            /// <see cref="Touch"/>).</summary>
+            public readonly List<Touch> Touches = new List<Touch>();
+
+            /// <summary>Whether Jev judged the moment (politics.json gives it "touches"): a judged moment may touch no
+            /// industry.</summary>
+            public bool Judged;
+        }
+
+        /// <summary>
+        /// An industry a key moment touched: <see cref="Industry"/> is an id in industries.json (a ridge of the landscape view),
+        /// and <see cref="Score"/> how directly the moment changed the rules, costs, demand or competition that industry faced
+        /// in the United States in the five years after it, 0-4 (1 indirectly, through a minor input or another industry; 2 a
+        /// clear but secondary effect; 3 a direct effect on a large part of it; 4 written for, or aimed squarely at, it), with
+        /// the <see cref="Confidence"/> of the answer (0-1). These are Jev's judgments over the moment's gated claim
+        /// (Tools/politics/touches.py, Docs/research/politics/touches.json), not measurements; only industries scored 1 or
+        /// more are listed.
+        /// </summary>
+        public sealed class Touch
+        {
+            public string Industry;
+            public float Score, Confidence;
         }
 
         public sealed class Accession
@@ -288,11 +311,22 @@ namespace Why.Economy.Model
 
             foreach (JObject m in Arr(root["moments"]))
             {
-                Moments.Add(new Moment
+                var moment = new Moment
                 {
                     Id = (string)m["id"], Kind = (string)m["kind"], Title = (string)m["title"], Claim = (string)m["claim"], Url = (string)m["url"],
-                    Fact = (string)m["fact"], Date = F(m["date"]),
-                });
+                    Fact = (string)m["fact"], Date = F(m["date"]), Judged = m["touches"] is JArray,
+                };
+                // in build.py's order: highest score first, industries.json's order between equal scores
+                // a row that is not an industry's score is skipped (build.py fails on one; this keeps the rest of the data)
+                foreach (JToken row in Arr(m["touches"]))
+                {
+                    if (!(row is JObject t) || !(t["industry"] is JValue id) || id.Type != JTokenType.String) continue;
+                    float score = t["score"] is JValue s && (s.Type == JTokenType.Float || s.Type == JTokenType.Integer) ? (float)s : float.NaN;
+                    if (float.IsNaN(score)) continue;
+                    float confidence = t["confidence"] is JValue c && (c.Type == JTokenType.Float || c.Type == JTokenType.Integer) ? (float)c : 0;
+                    moment.Touches.Add(new Touch { Industry = (string)id, Score = score, Confidence = confidence });
+                }
+                Moments.Add(moment);
             }
         }
 

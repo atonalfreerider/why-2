@@ -219,10 +219,42 @@ with nothing in their place: the EU before 1995 (its first benchmark is 1997), a
   1950, 1965, 1985, 2001 and 2025, each at the middle of its year, and fails a year that draws no executive, no streams or no
   presidency's track, or whose fitted essentials run off the screen; each logs its fit (the box, the distance, the cards).
 
+**Moments as topology.** (8 Nov 2026, choice 8's second half) `Layers/HillMomentsLayer.cs` (Order 68) lands the key moments
+on the economy, in the landscape view ("Layers of the economy") only.
+
+- **Data.** Each moment's `touches` in `politics.json` (`Politics.Moment.Touches`): Jev's (TypeSafe's model, jev-1.14.0)
+  score 0-4 of how directly the moment changed the rules, costs, demand or competition each of the 25 industries of
+  `industries.json` faced in the five years after it, with its confidence. Judged over the gated claims by
+  `Tools/politics/touches.py` (17 anchor expectations met; answers in `Docs/research/politics/touches.json`), written by
+  `Tools/politics/build.py`. Judgments, not measurements.
+- **Fences.** Each moment up to the year shown stands at its date (`HillLandscape.Z`; never past the crest, which stands at
+  the year's start: the moments of the year shown and the year before are drawn in, in their order, to stand behind it) as a thin translucent fence across the ridge of each industry it touched with a score of 2 or more:
+  across the ridge where its own relief stands above the strata at that date (`Bump`), its foot on the surface the ribs draw
+  (`Ground`), 2.2 units tall per point (a 4 stands 9, a little over the median ridge's own relief; at 1.5 the first frames showed only faint strokes), in the moment's kind colour
+  (`KindColor`): a faint fill, pickets every 1.5 units and a rail, dashed where Jev's confidence is under 0.15. The past fades
+  as this view's does (to 0.25 at 20 years). No packet lane: a fence is a standing rule, not a flow.
+- **Left out.** The government's own industries (federal; state and local), which lie in the bedrock with no ridge (21
+  touches by 2025; the panel lists them), and Bretton Woods (1944), before the land's first rib.
+- **Names.** Moments of the last three years only (as the politics view names its latest): "2022 · CHIPS and Science Act"
+  over the tallest fence, role labels ranked by score and age, placed or culled by the label system. The first frames named
+  every moment with a touch of 3.5 or more too, 20 names over 2025's land whose plates hid the wave's company names; older
+  moments are named in the politics view and its panel.
+- **Expected.** 2025: 124 fences on 20 ridges for 42 moments, 24 names; 1985: 39 fences on 16 ridges for 14 moments, 8 names.
+- **Registration.** Emphasis rows `moments.fences` and `moments.rails` (the landscape only). The landscape's legend key is the
+  wave's own with a line on the fences. The panel's Moments tab lists under each moment the industries Jev scored 2 or
+  more, by name with the score (as many as fit one line, the rest counted).
+- **Smoke.** The check `moments` after every capture of the landscape logs what it drew and fails a year with touches to
+  fence but no fences; `-smokeextra moments` captures the landscape at 1985 and 2025.
+
 **Left for later.**
 
 - The open portrait sheet has no smoke state, so no frame shows it yet.
 - In portrait, at labels 1.5 times larger, the cascade's lower names (the Speaker, Defense) and some decade marks are culled.
-- The moments land on an abstract floor, not on the industries they touched (the data has no affected industries).
+- Jev's touches to doubt (review of 8 Nov 2026; the questions, not the answers, are what would change): parts of laws not in
+  their claims are missed (TARP's carmakers and AIG, the CARES Act's airline grants, the American Rescue Plan's restaurant
+  fund, the One Big Beautiful Bill Act, which touches no industry; Section 230 of the Telecommunications Act, internet 1.8);
+  monetary turns put banking at about 3.5, which rounds to "written for" it; the five years after a moment of 2022-2026
+  have not all passed, so those touches are partly forecasts; defense drawdowns and procurement cuts (the Soviet
+  dissolution, the Budget Control Act) do not reach Manufacturing.
 - Not yet drawn: the warhead and fleet series (they reach the view only through Jev's walls) and the governors.
 - Not yet built: the other countries, a tour stop and its narration.

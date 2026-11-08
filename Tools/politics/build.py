@@ -8,7 +8,10 @@ are used; a replacement fact ("replaces": "<old id>") takes the place of the one
 names the fact it came from, so the view's panel can cite it. Nothing is interpolated or invented here: series are the
 measured points; the C# model (Assets/Scripts/Economy/Model/Politics.cs) decides how to draw between them. The standing
 army's walls are Jev's judgments over these facts (Tools/politics/judge.py writes Docs/research/politics/walls.json), merged
-in when judged as military.walls; a wall that cites a fact that is not usable fails the build.
+in when judged as military.walls; a wall that cites a fact that is not usable fails the build. So are the industries each key
+moment touched (Tools/politics/touches.py writes Docs/research/politics/touches.json): each moment Jev judged gets "touches",
+the landscape industries it scored 1 or more, highest first; a moment it was not asked about, or was asked about in other
+words than its gated fact's now, gets none, and the build says so.
 
     python3 -I Tools/politics/build.py            # writes politics.json and prints what it left out
     python3 -I Tools/politics/build.py --check    # builds in memory and fails on a broken series, writing nothing
@@ -20,6 +23,7 @@ of its chamber. A projection is not a measured point, so no series draws one.
 """
 
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -70,6 +74,7 @@ MONTHS = {m: i + 1 for i, m in enumerate(["january", "february", "march", "april
 
 problems = []   # fail the build
 left_out = []   # printed, not fatal
+touch_log = []  # moments without Jev's touches, and why: printed, not fatal
 
 
 # ---------------------------------------------------------------------------------------------------- loading
@@ -440,10 +445,28 @@ def trade(tr):
 KINDS = ("law", "regulation", "trade", "monetary", "treaty", "conflict")
 
 
+def kind_of(fact):
+    """A moment's kind, the word before the colon of its measure ('law: signed into law (year)' is a law)."""
+    return fact["measure"].split(":")[0].strip().lower()
+
+
+def moment_state(fact):
+    """What Jev is told about a key moment when it judges the industries the moment touched (Tools/politics/touches.py): its
+    title, its date as the research gives it, its kind and the claim of its gated fact. Touches judged on other words than
+    these are stale (touches())."""
+    return {"title": fact["subject"], "date": fact.get("when"), "kind": kind_of(fact), "claim": fact["claim"]}
+
+
+def told(fact):
+    """The digest of moment_state(fact), which touches.json records for each moment it judged."""
+    blob = json.dumps(moment_state(fact), sort_keys=True, ensure_ascii=False)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:16]
+
+
 def moments(km):
     rows = []
     for fid, fact in km.items():
-        kind = fact["measure"].split(":")[0].strip().lower()
+        kind = kind_of(fact)
         if kind not in KINDS:
             problems.append(f"{fid}: unknown kind '{kind}'")
             continue
@@ -453,6 +476,68 @@ def moments(km):
                      "claim": fact["claim"], "url": fact["url"], "fact": fid})
     rows.sort(key=lambda r: r["date"])
     return rows
+
+
+# ---------------------------------------------------------------------------------------------------- touches
+
+TOUCHES = os.path.join(RESEARCH, "touches.json")
+INDUSTRIES = os.path.join(ROOT, "Assets", "Resources", "Data", "economy", "industries.json")
+TOUCH_FLOOR = 1   # a moment touches an industry Jev scored 1 ("indirectly") or more
+
+
+def touches(rows, km):
+    """
+    Jev's touches (POLITICS.md choice 8; Tools/politics/touches.py writes touches.json): each moment it judged gets "touches",
+    the landscape's industries it scored 1 or more, highest first (industries.json's order between equal scores), as
+    {"industry", "score", "confidence"}. A moment Jev was not asked about, or was asked about in other words than its gated
+    fact's now (told()), gets no "touches" and is logged, and so is an industry a moment was not judged for; a malformed or
+    repeated row, or an industry the landscape does not have, is a problem.
+    """
+    if not os.path.exists(TOUCHES):
+        touch_log.append(f"no touches for any moment: no {os.path.relpath(TOUCHES, ROOT)} (run Tools/politics/touches.py)")
+        return
+    with open(INDUSTRIES, encoding="utf-8") as f:
+        order = [i["id"] for i in json.load(f)["industries"]]
+    with open(TOUCHES, encoding="utf-8") as f:
+        judged = json.load(f).get("moments") or []
+
+    def within(v, top):
+        return isinstance(v, (int, float)) and not isinstance(v, bool) and 0 <= v <= top
+
+    by_id = {}
+    for m in judged:
+        fid = m.get("id")
+        if not isinstance(fid, str) or fid in by_id:
+            problems.append(f"touches: {fid!r} is " + ("judged twice" if fid in by_id else "not a moment id"))
+            continue
+        by_id[fid] = m
+        if fid not in km:
+            touch_log.append(f"touches of {fid} not merged: it is not a usable key moment")
+    for row in rows:
+        fid = row["id"]
+        m = by_id.get(fid)
+        if m is None:
+            touch_log.append(f"no touches for {fid}: Jev was not asked about it "
+                             f"(python3 -I Tools/politics/touches.py --moment {fid})")
+            continue
+        if m.get("told") != told(km[fid]):
+            touch_log.append(f"no touches for {fid}: judged on other words than its gated fact's now "
+                             f"(python3 -I Tools/politics/touches.py --moment {fid})")
+            continue
+        scored = {}
+        for s in m.get("scores") or []:
+            iid = s.get("industry") if isinstance(s, dict) else None
+            if iid not in order or iid in scored or not within(s.get("score"), 4) or not within(s.get("confidence"), 1):
+                problems.append(f"touches: {fid} has a row that is not an industry's score (a landscape industry judged once, a "
+                                f"score 0-4 and a confidence 0-1): {s!r}")
+                continue
+            scored[iid] = s
+        missing = [iid for iid in order if iid not in scored]
+        if missing:
+            touch_log.append(f"touches of {fid}: not judged for {', '.join(missing)}")
+        row["touches"] = [{"industry": iid, "score": scored[iid]["score"], "confidence": scored[iid]["confidence"]}
+                          for iid in sorted(scored, key=lambda i: (-scored[i]["score"], order.index(i)))
+                          if scored[iid]["score"] >= TOUCH_FLOOR]
 
 
 # ---------------------------------------------------------------------------------------------------- walls
@@ -538,6 +623,7 @@ def build():
         "trade": trade(facts["trade-balances"]),
         "moments": moments(facts["key-moments"]),
     }
+    touches(out["moments"], facts["key-moments"])
     if os.path.exists(WALLS):
         out["military"]["walls"] = walls({fid: fact for cluster in facts.values() for fid, fact in cluster.items()})
     return out
@@ -551,8 +637,16 @@ def main():
         for p in problems:
             print("PROBLEM", p)
         sys.exit(1)
+    for line in touch_log:
+        print(line)
     counts = {k: len(v) if isinstance(v, list) else None for k, v in out.items()}
     print("politics:", ", ".join(f"{k} {n}" for k, n in counts.items() if n is not None))
+    touched = [m for m in out["moments"] if "touches" in m]
+    if touched:
+        scores = [t["score"] for m in touched for t in m["touches"]]
+        print(f"touches: {len(touched)} of {len(out['moments'])} moments judged, {len(scores)} touches scored {TOUCH_FLOOR} or "
+              f"more ({sum(s >= 2 for s in scores)} 2 or more, {sum(s >= 3 for s in scores)} 3 or more), from "
+              f"{os.path.relpath(TOUCHES, ROOT)}")
     if "walls" in out["military"]:
         print(f"walls: {len(out['military']['walls'])} judged, from {os.path.relpath(WALLS, ROOT)}")
     if "--check" in sys.argv:

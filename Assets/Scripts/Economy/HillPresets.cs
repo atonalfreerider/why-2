@@ -264,9 +264,42 @@ namespace Why.Economy
         public static readonly Color White = new Color(1f, .97f, .92f), Amber = new Color(1f, .80f, .52f);
 
         /// <summary>The key of a view, or null for the views of the whole wave (the legend's own key); the present's carries its
-        /// year's area scale (HillPresentLayer).</summary>
+        /// year's area scale (HillPresentLayer), and the landscape's is the legend's own with a line on its fences
+        /// (<see cref="LandscapeKey"/>).</summary>
         public static ViewKey Key(string id) => id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id == HillHistoryLayer.View ? HillHistoryLayer.Key :
-            id == HillPoliticsLayer.View ? HillPoliticsLayer.Key : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
+            id == HillPoliticsLayer.View ? HillPoliticsLayer.Key : id == HillMomentsLayer.View ? LandscapeKey() : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
+
+        /// <summary>
+        /// The line the landscape view's key adds to the wave's own: what its fences are (HillMomentsLayer) and whose judgment
+        /// sets their heights. A rail is dashed where Jev's answer was uncertain (its confidence under 0.15, its probability spread
+        /// over the levels), the history view's word for its walls.
+        /// </summary>
+        const string FencesReading =
+            "Fences: the government's key moments, on the industries Jev (TypeSafe's model) judged each touched at 2 or more of 4, as tall as that score (dashed: uncertain).";
+
+        /// <summary>The landscape view's key with and without the attention cloud's swatch, made at the first call: the
+        /// legend's own swatches name the hills' colours (Why.UI.HudLegend), whose static fields read this class's.</summary>
+        static ViewKey landscapeKey, landscapeKeyNoAttention;
+
+        /// <summary>
+        /// The landscape view's key ("Layers of the economy"): the wave's own, the hills' hues (the attention cloud's swatch only
+        /// where the cloud is drawn, as the legend's own key does) and their grammar, with the fences' line after the ridges'
+        /// (a portrait screen, which shows the first two lines of a reading, reads the same as in the other views of the wave).
+        /// The same object is returned until the cloud comes or goes, so the legend lays it out once.
+        /// </summary>
+        static ViewKey LandscapeKey()
+        {
+            if (AttentionDrawn) return landscapeKey ??= new ViewKey(Why.UI.HudLegend.EconomySwatches, LandscapeReading());
+            return landscapeKeyNoAttention ??= new ViewKey(Why.UI.HudLegend.EconomySwatchesNoAttention, LandscapeReading());
+        }
+
+        /// <summary>The wave's grammar with the fences' line after the ridges' line, or last where that line is not found.</summary>
+        static string LandscapeReading()
+        {
+            string grammar = Why.UI.HudLegend.EconomyGrammar;
+            int ridge = grammar.IndexOf("Each ridge", StringComparison.Ordinal), end = ridge >= 0 ? grammar.IndexOf('\n', ridge) : -1;
+            return end >= 0 ? grammar.Substring(0, end + 1) + FencesReading + grammar.Substring(end) : grammar + "\n" + FencesReading;
+        }
 
         /// <summary>The first year the attention cloud is drawn on the wave: Instagram's, whose follows place its stars (the
         /// cloud's own gate, HillSocialLayer's PlatformYear, is set from it).</summary>

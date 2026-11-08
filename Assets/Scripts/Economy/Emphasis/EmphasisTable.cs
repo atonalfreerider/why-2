@@ -247,6 +247,13 @@ namespace Why.Economy.Emphasis
             Row("present.firms",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
             Row("present.flows",               0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
             Row("present.capital",             0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     1,     0,     0,     0,     0,     0),
+
+            // HillMomentsLayer (drawn in the landscape view only, at full alpha; its names show there only): the government's key
+            // moments as fences on the ridges of the industries Jev judged they touched, the walls (fill and pickets) and their
+            // rails. The other views of the wave tell other stories on the same ridges, where a hundred fences would be noise. Last,
+            // so the keys before keep their part ids
+            Row("moments.fences",              0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
+            Row("moments.rails",               0,     0,     1,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0,     0),
             //                             ovrvw, sectn, lands, captr, peopl, rivrs,  mind, socty, found, comps, socal, roots, betry, y1972, strat, money, regms, mobil, prsnt,  atom, dilem, laddr,   you,     *
         };
 

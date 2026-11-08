@@ -35,9 +35,9 @@ namespace Why.UI
         /// so no screen direction here: the past lies behind the crest, and the arrow the wave draws in the world beyond it
         /// (in the views of the whole wave, which this key serves) points to later years whichever way the camera looks; the
         /// flat charts say "left to right" in their own keys. The arrow comes last: a portrait screen shows only the first
-        /// two lines of the reading.
+        /// two lines of the reading. The landscape view's key adds a line on its fences to these (HillPresets.Key).
         /// </summary>
-        const string EconomyGrammar =
+        internal const string EconomyGrammar =
             "Road and ribs: time, one rib a year; the bright crest is the year shown, the past behind it.\nEach ridge is an industry, as wide as its share of what the economy produces.\nHigher layers depend on lower ones; the heights are a drawing choice, not measured.\nGold lines are companies, rising with their market value (compressed).\nEach moving dot is a fifth of a group of households.\nThe arrow beyond the crest points to later years.";
 
         /// <summary>The attention cloud's swatch: its stars are the most-followed Americans.</summary>
@@ -45,7 +45,7 @@ namespace Why.UI
 
         /// <summary>The hills' hues: capital, people, the two motives money is spent with, the state, attention, and the
         /// universe's matter and life, which the raw industries keep.</summary>
-        static readonly (string, Color)[] EconomySwatches =
+        internal static readonly (string, Color)[] EconomySwatches =
         {
             ("Owners and profit", Economy.EconomyStyle.Capital), ("People and wages", Economy.EconomyStyle.Wages), ("Spent on wants", Economy.EconomyStyle.Desire),
             ("Spent from fear", Economy.EconomyStyle.Fear), ("Government", Economy.EconomyStyle.Government), (Attention, Economy.HillPresets.White),
@@ -54,7 +54,7 @@ namespace Why.UI
 
         /// <summary>The same where the attention cloud is not drawn (1972's view, a year before it; see
         /// <see cref="Economy.HillPresets.AttentionDrawn"/>): no swatch for a mark that is not on screen.</summary>
-        static readonly (string, Color)[] EconomySwatchesNoAttention = System.Array.FindAll(EconomySwatches, s => s.Item1 != Attention);
+        internal static readonly (string, Color)[] EconomySwatchesNoAttention = System.Array.FindAll(EconomySwatches, s => s.Item1 != Attention);
 
         static readonly (string, Color)[] Levels = { ("Matter", GraphStyle.Matter), ("Life", GraphStyle.Life), ("Humans", GraphStyle.Humans) };
 

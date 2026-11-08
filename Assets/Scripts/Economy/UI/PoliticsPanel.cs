@@ -60,6 +60,15 @@ namespace Why.Economy.UI
         /// counted.</summary>
         const int MomentYears = 3, MaxMoments = 8;
 
+        /// <summary>
+        /// The industries' line under a moment, in characters (its tags not counted): the next industry is counted rather than
+        /// named ("+10 more") where it would run past this. A line of the landscape column is 380 units at 85% of 10.5, about 98
+        /// of LiberationSans' characters; at 84 the widest line the research gives measures 346 units by the font's advances, so
+        /// a row stays two lines unless its title wraps and the eight moments still fit beside the view (September 11 touched
+        /// thirteen industries at 2 or more). The first is always named.
+        /// </summary>
+        const int TouchLineChars = 84;
+
         static readonly string MoreMoments = "more within " + MomentYears + " years";
 
         /// <summary>A partner's benchmark year (the research measured them about every five years from 1985) stands for the year
@@ -613,7 +622,9 @@ namespace Why.Economy.UI
         /// the one the view is pinned to is told in the research's words above them. The note says where the view draws them,
         /// as sparks on the government's track (the presidency through time) and not on a party's stream, so a moment is not
         /// read as one party's act. Only moments within the data's span are listed: the view draws none before it, and a row's
-        /// pin to an earlier date (Bretton Woods, 1944) would land on the span's first day, its moment never marked.</summary>
+        /// pin to an earlier date (Bretton Woods, 1944) would land on the span's first day, its moment never marked. Under each
+        /// moment, the industries Jev judged it touched with a score of 2 or more (<see cref="Touched"/>): the ones the landscape
+        /// view fences on their ridges (HillMomentsLayer), and the government's own, which have no ridge there.</summary>
         void MomentsTab(Politics p, float t, float pinned)
         {
             moments.Clear();
@@ -634,9 +645,10 @@ namespace Why.Economy.UI
             if (moments.Count == 0) sb.Append("No key moment in the research within ").Append(MomentYears).Append(" years of ").Append(When(t)).Append('.');
             else
             {
+                // three lines at the column's width, as before the industries came under each row: the sparks' sentence is shorter
                 sb.Append("Within ").Append(MomentYears).Append(" years of ").Append(When(t))
-                    .Append(", newest first; those after it dimmed. In the view each is a spark on the government's track (the presidency")
-                    .Append(" through time), not on a party. Pick one to show the view at its date.");
+                    .Append(", newest first; those after it dimmed: sparks on the government's track, not a party's. Pick one to show its")
+                    .Append(" date. Under each, the industries it touched at 2 or more of 4, as Jev (TypeSafe's model) judged them.");
             }
 
             AddBlock(sb.ToString(), false);
@@ -652,11 +664,60 @@ namespace Why.Economy.UI
                 bool later = m.Date > t + 1e-3f;
                 sb.Clear().Append(later ? "<alpha=#80>" : "<alpha=#A8>").Append(When(m.Date)).Append(" · ").Append(m.Kind)
                     .Append(later ? "  " : "<alpha=#FF>  ").Append(m.Title);
+                Touched(m, later);
                 AddRow(null, sb.ToString(), m.Date);
             }
 
             moreWord = MoreMoments;
         }
+
+        /// <summary>
+        /// Appends, on a smaller line under a moment's row, the industries Jev judged it touched with a score of
+        /// <see cref="HillMomentsLayer.MinScore"/> or more, highest first, by their names in the economy's model
+        /// (industries.json), each with its score to one decimal ("Jev: Banking 3.9 · Finance &amp; investing 3.8"), as many as
+        /// fit a line (<see cref="TouchLineChars"/>) and the rest counted; a moment Jev judged to touch none so strongly says so,
+        /// and one it was not asked about too.
+        /// </summary>
+        void Touched(Politics.Moment m, bool later)
+        {
+            sb.Append("\n<size=85%>").Append(later ? "" : "<alpha=#B0>").Append("Jev: ");
+            if (!m.Judged)
+            {
+                sb.Append("not judged</size>");
+                return;
+            }
+
+            // the line's length so far ("Jev: "), and the room kept for the count (" · +12 more") while more industries follow
+            const int lead = 5, count = 11;
+            int touched = 0;
+            foreach (Politics.Touch touch in m.Touches)
+                if (touch.Score >= HillMomentsLayer.MinScore)
+                    touched++;
+            int named = 0, more = 0, seen = 0, length = lead;
+            foreach (Politics.Touch touch in m.Touches)
+            {
+                if (touch.Score < HillMomentsLayer.MinScore) continue;
+                seen++;
+                string name = IndustryName(touch.Industry), score = touch.Score.ToString("0.0", LandFacts.Ci);
+                int add = (named > 0 ? 3 : 0) + name.Length + 1 + score.Length;
+                if (more > 0 || named > 0 && length + add + (seen < touched ? count : 0) > TouchLineChars)
+                {
+                    more++;
+                    continue;
+                }
+
+                sb.Append(named > 0 ? " · " : "").Append(name).Append(' ').Append(score);
+                length += add;
+                named++;
+            }
+
+            if (named == 0) sb.Append("no industry 2 or more");
+            else if (more > 0) sb.Append(" · +").Append(more.ToString(LandFacts.Ci)).Append(" more");
+            sb.Append("</size>");
+        }
+
+        /// <summary>An industry's name as the economy's model reads it from industries.json (its id before the model is loaded).</summary>
+        static string IndustryName(string id) => LandService.Model?.Data?.IndustryById(id)?.Name ?? id;
 
         // ------------------------------------------------------------------ readings
 

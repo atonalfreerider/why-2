@@ -35,7 +35,8 @@ namespace Why
     /// published at the end of the run (<see cref="ModelFacts"/>, read by Tools/export-facts.py), and
     /// <c>-smoketestfacts</c> publishes two test facts to try that without a model. The run sees no pointer, so nothing in
     /// its frames is hovered, unless <c>-smokepointer X,Y</c> parks one at that pixel from the frame's top left
-    /// (<see cref="ParkPointer"/>).
+    /// (<see cref="ParkPointer"/>). <c>-smokeclip SECONDS</c> also records that many seconds of each view after its frame, as
+    /// numbered frames at 30 a second on a fixed capture step (<see cref="Clip"/>), to show the motion a still cannot.
     /// </summary>
     [GraphScenes(GraphScene.Why, GraphScene.Economy)]
     public sealed class SmokeTest : GraphModule
@@ -52,6 +53,9 @@ namespace Why
         static bool enabledByArgs, hooked, argsRead, logFacts;
         static HashSet<string> only;
         static int zooms;
+
+        /// <summary>Seconds of each view to record as frames (<c>-smokeclip SECONDS</c>); 0 records none.</summary>
+        static float clipSeconds;
         static readonly HashSet<string> visited = new HashSet<string>();
         static readonly List<string> problems = new List<string>();
         static int errors;
@@ -128,6 +132,13 @@ namespace Why
             if (o >= 0 && o + 1 < args.Length) only = new HashSet<string>(args[o + 1].Split(','));
             int zi = System.Array.IndexOf(args, "-smokezoom");
             if (zi >= 0 && zi + 1 < args.Length) int.TryParse(args[zi + 1], out zooms);
+            int ci = System.Array.IndexOf(args, "-smokeclip");
+            if (ci >= 0 && (ci + 1 >= args.Length || !float.TryParse(args[ci + 1], NumberStyles.Float, CultureInfo.InvariantCulture, out clipSeconds) ||
+                            !(clipSeconds > 0) || clipSeconds > 60))
+            {
+                Debug.LogError("[Why] smoke: -smokeclip takes the seconds to record of each view, more than 0 and at most 60 (-smokeclip 6)");
+                clipSeconds = 0;
+            }
 
             // in each scene (checks belong to the scene that registers them)
             if (args.Contains("-smokecheckfail"))
@@ -260,6 +271,8 @@ namespace Why
                 // a view that must never stand still: read again over half a second of the flow clock, after its frame (which
                 // stays as it was) and in its default state
                 if (SmokeChecks.MustMove(p.Id)) yield return SmokeChecks.NeverStill($"{scene}-view-{p.Id}");
+                // -smokeclip SECONDS: the view moving, as frames a video can be made of
+                if (clipSeconds > 0 && SmokeChecks.ShotsDir != null) yield return Clip($"{scene}-view-{p.Id}", clipSeconds);
                 // a view with states of its own (ViewVariants): each state in turn, then back to the default
                 if (ViewVariants.TryGet(p.Id, out ViewVariants.Entry variants))
                 {
@@ -385,6 +398,39 @@ namespace Why
             foreach (string p in problems) Debug.Log("[Why] smoke problem: " + p);
             Debug.Log($"[Why] smoke: finished, {errors} errors");
             Application.Quit(errors > 0 ? 1 : 0);
+        }
+
+        /// <summary>
+        /// <c>-smokeclip SECONDS</c>: that many seconds of the view on screen as numbered frames, DIR/clip-NAME/f0000.png on, at
+        /// 30 a second of the flow clock whatever the frames cost to save: a fixed capture step for the clip's length (the flow
+        /// clock starts the clip from 0, as a capture's first frame does), then the step it had. Make a video of them with
+        /// <c>ffmpeg -framerate 30 -i DIR/clip-NAME/f%04d.png -c:v libx264 -pix_fmt yuv420p NAME.mp4</c>.
+        /// </summary>
+        static IEnumerator Clip(string name, float seconds)
+        {
+            string dir = Path.Combine(SmokeChecks.ShotsDir, "clip-" + name);
+            Directory.CreateDirectory(dir);
+            int frames = Mathf.Max(1, Mathf.RoundToInt(seconds * 30));
+            float step = Time.captureDeltaTime;
+            Time.captureDeltaTime = 1f / 30;
+            try
+            {
+                for (int f = 0; f < frames; f++)
+                {
+                    yield return new WaitForEndOfFrame();
+                    ScreenCapture.CaptureScreenshot(Path.Combine(dir, "f" + f.ToString("0000", CultureInfo.InvariantCulture) + ".png"));
+                }
+
+                // the last frame is written at the end of the next
+                yield return null;
+                yield return null;
+            }
+            finally
+            {
+                Time.captureDeltaTime = step;
+            }
+
+            Debug.Log($"[Why] smoke clip {name}: {frames} frames at 30 a second in {dir}");
         }
 
         /// <summary><c>-smokefacts</c>: every fact the models published, sorted by key, one line each (Tools/export-facts.py).</summary>

@@ -9,7 +9,11 @@
       "anchor": "",
       "highlight": [],
       "hold": 16,
-      "effect": "genesis"
+      "effect": "genesis",
+      "pictures": [
+        "genesis-expansion",
+        "genesis-blue-marble"
+      ]
     },
     {
       "id": "origin",
@@ -18,7 +22,12 @@
       "focus": "overview",
       "anchor": "now",
       "highlight": [],
-      "hold": 20
+      "hold": 20,
+      "pictures": [
+        "origin-standard-model",
+        "origin-tree-of-life",
+        "origin-three-orders"
+      ]
     },
     {
       "id": "welcome",
@@ -27,7 +36,10 @@
       "focus": "overview",
       "anchor": "now",
       "highlight": [],
-      "hold": 12
+      "hold": 12,
+      "pictures": [
+        "welcome-dominoes"
+      ]
     },
     {
       "id": "read_clock",
@@ -40,7 +52,10 @@
         "civ:egyptians",
         "now"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "read-clock-spiral"
+      ]
     },
     {
       "id": "three_levels",
@@ -52,7 +67,10 @@
         "clade:life",
         "civ:egyptians"
       ],
-      "hold": 12
+      "hold": 12,
+      "pictures": [
+        "three-levels-stack"
+      ]
     },
     {
       "id": "relevance",
@@ -65,7 +83,11 @@
         "matter:sun",
         "clade:hominidae"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "relevance-log-universe",
+        "relevance-haeckel"
+      ]
     },
     {
       "id": "rescale",
@@ -74,7 +96,10 @@
       "focus": "overview",
       "anchor": "time:66e6",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "rescale-cosmic-calendar"
+      ]
     },
     {
       "id": "big_bang",
@@ -86,7 +111,10 @@
         "matter:universe",
         "epoch:inflation"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "big-bang-history"
+      ]
     },
     {
       "id": "one_in_a_billion",
@@ -98,7 +126,11 @@
         "epoch:quark_epoch",
         "epoch:bbn"
       ],
-      "hold": 16
+      "hold": 16,
+      "pictures": [
+        "one-in-a-billion-quarks",
+        "one-in-a-billion-positron"
+      ]
     },
     {
       "id": "first_light",
@@ -110,7 +142,11 @@
         "epoch:matter_radiation_equality",
         "epoch:dark_ages"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "first-light-cmb",
+        "first-light-dark-ages"
+      ]
     },
     {
       "id": "first_stars",
@@ -121,7 +157,11 @@
       "highlight": [
         "matter:first_stars"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "first-stars-ignite",
+        "first-stars-cas-a"
+      ]
     },
     {
       "id": "galaxies_split",
@@ -134,7 +174,11 @@
         "matter:local_group",
         "epoch:dark_energy"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "galaxies-xdf",
+        "galaxies-cosmic-web"
+      ]
     },
     {
       "id": "milky_way",
@@ -147,7 +191,11 @@
         "epoch:gaia_enceladus",
         "epoch:cosmic_noon"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "milky-way-gaia",
+        "milky-way-gaia-enceladus"
+      ]
     },
     {
       "id": "solar_nebula",
@@ -158,7 +206,11 @@
       "highlight": [
         "epoch:solar_nebula_collapse"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "solar-nebula-cosmic-cliffs",
+        "solar-nebula-hl-tau"
+      ]
     },
     {
       "id": "sun_planets",
@@ -170,7 +222,11 @@
         "epoch:solar_system_forms",
         "matter:other_planets"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "sun-planets-sun",
+        "sun-planets-to-scale"
+      ]
     },
     {
       "id": "earth_forms",
@@ -181,7 +237,12 @@
       "highlight": [
         "epoch:earth_accretion"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "earth-forms-cutaway",
+        "earth-forms-magnetosphere",
+        "earth-forms-planetesimals"
+      ]
     },
     {
       "id": "moon",
@@ -192,7 +253,12 @@
       "highlight": [
         "epoch:moon_impact"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "moon-impact",
+        "moon-full-moon",
+        "moon-tides"
+      ]
     },
     {
       "id": "origin_of_life",
@@ -204,7 +270,12 @@
         "clade:life",
         "epoch:first_oceans"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "isua-graphitic-rock",
+        "jack-hills-zircons",
+        "genetic-code-wheel"
+      ]
     },
     {
       "id": "tree_of_life",
@@ -217,7 +288,11 @@
         "clade:archaea",
         "clade:eukaryotes"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "three-domain-tree",
+        "darwin-tree-sketch-1837"
+      ]
     },
     {
       "id": "photosynthesis",
@@ -229,7 +304,11 @@
         "clade:cyanobacteria",
         "leaf:Nostocaceae"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "anabaena-cyanobacteria",
+        "shark-bay-stromatolites"
+      ]
     },
     {
       "id": "great_oxidation",
@@ -241,7 +320,11 @@
         "epoch:great_oxidation",
         "clade:cyanobacteria"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "banded-iron-dales-gorge",
+        "huronian-dropstone"
+      ]
     },
     {
       "id": "eukaryotes",
@@ -254,7 +337,11 @@
         "clade:archaea",
         "clade:proteobacteria"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "mitochondria-in-cells",
+        "asgard-archaeon"
+      ]
     },
     {
       "id": "multicellular",
@@ -267,7 +354,11 @@
         "clade:fungi",
         "clade:animals"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "bangiomorpha-filaments",
+        "fly-agaric"
+      ]
     },
     {
       "id": "cambrian",
@@ -280,7 +371,12 @@
         "epoch:snowball_earth",
         "lifeevent:ediacaran_biota"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "anomalocaris-fossil",
+        "paradoxides-trilobite",
+        "dickinsonia-fossil"
+      ]
     },
     {
       "id": "vertebrates",
@@ -293,7 +389,11 @@
         "clade:jawed_vertebrates",
         "leaf:Myxinidae"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "pikaia-fossil",
+        "dunkleosteus-skull"
+      ]
     },
     {
       "id": "land_plants",
@@ -305,7 +405,11 @@
         "clade:plants",
         "lifeevent:first_forests"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "cooksonia-fossil",
+        "gilboa-tree-stump"
+      ]
     },
     {
       "id": "tetrapods",
@@ -318,7 +422,11 @@
         "lifeevent:tetrapods_on_land",
         "lifeevent:late_devonian_extinction"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "tiktaalik-fossil",
+        "fins-to-hands"
+      ]
     },
     {
       "id": "amniotes",
@@ -331,7 +439,11 @@
         "clade:reptiles",
         "clade:mammals"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "turtles-hatching",
+        "frog-spawn"
+      ]
     },
     {
       "id": "great_dying",
@@ -345,7 +457,11 @@
         "epoch:pangaea",
         "lifeevent:end_permian_extinction"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "putorana-traps",
+        "pangaea-250ma"
+      ]
     },
     {
       "id": "dinosaurs",
@@ -358,7 +474,11 @@
         "lifeevent:end_triassic_extinction",
         "lifeevent:first_mammals"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "trex-sue",
+        "eomaia-fossil"
+      ]
     },
     {
       "id": "chicxulub",
@@ -370,7 +490,11 @@
         "lifeevent:end_cretaceous_extinction",
         "clade:birds"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "chicxulub-impact-painting",
+        "chicxulub-crater-relief"
+      ]
     },
     {
       "id": "mammals_radiate",
@@ -384,7 +508,12 @@
         "leaf:Felidae",
         "clade:whales_dolphins"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "cheetah-impala",
+        "humpback-breaching",
+        "flying-fox"
+      ]
     },
     {
       "id": "calorie_flow",
@@ -396,7 +525,12 @@
         "trophic:jurassic",
         "trophic:devonian"
       ],
-      "hold": 16
+      "hold": 16,
+      "pictures": [
+        "grass-moth",
+        "barn-swallow",
+        "eurasian-hobby"
+      ]
     },
     {
       "id": "primates",
@@ -408,7 +542,11 @@
         "clade:anthropoids",
         "clade:apes"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "primates-tarsier",
+        "primates-chimps-grooming"
+      ]
     },
     {
       "id": "hominins",
@@ -421,7 +559,12 @@
         "leaf:Hominidae",
         "lifeevent:grasslands_spread"
       ],
-      "hold": 12
+      "hold": 12,
+      "pictures": [
+        "hominins-laetoli",
+        "hominins-toumai",
+        "hominins-savanna"
+      ]
     },
     {
       "id": "tools_fire",
@@ -434,7 +577,12 @@
         "lifeevent:control_of_fire",
         "epoch:ice_ages"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "tools-olduvai-chopper",
+        "tools-dmanisi-skull",
+        "tools-erectus-hearth"
+      ]
     },
     {
       "id": "homo_sapiens",
@@ -445,7 +593,11 @@
       "highlight": [
         "leaf:Hominidae"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "sapiens-jebel-irhoud",
+        "sapiens-diepkloof-eggshell"
+      ]
     },
     {
       "id": "out_of_africa",
@@ -454,7 +606,11 @@
       "focus": "prehistory",
       "anchor": "lifeevent:out_of_africa",
       "highlight": [],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "ooa-migration-map",
+        "ooa-neanderthal-skull"
+      ]
     },
     {
       "id": "agriculture",
@@ -468,7 +624,11 @@
         "leaf:Poaceae",
         "clade:flowering_plants"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "agri-emmer-wheat",
+        "agri-beer-ration-tablet"
+      ]
     },
     {
       "id": "farm_rises",
@@ -482,7 +642,11 @@
         "farm:all",
         "farm:wild_mammals"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "farm-texas-feedlot",
+        "farm-palouse-wheat-harvest"
+      ]
     },
     {
       "id": "matter_rises",
@@ -495,7 +659,11 @@
         "extractionevent:iron_smelting",
         "extraction:all"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "matter-bingham-canyon",
+        "matter-uluburun-ingot"
+      ]
     },
     {
       "id": "civ_streams",
@@ -509,7 +677,11 @@
         "civ:hittites",
         "civ:indians"
       ],
-      "hold": 16
+      "hold": 16,
+      "pictures": [
+        "streams-strass-1841",
+        "streams-world-2000bce"
+      ]
     },
     {
       "id": "population_curve",
@@ -521,7 +693,11 @@
         "figure:hatshepsut",
         "figure:hammurabi"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "popcurve-hatshepsut",
+        "popcurve-hammurabi"
+      ]
     },
     {
       "id": "lifespans_gender",
@@ -532,7 +708,11 @@
       "highlight": [
         "civ:romans"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "lifespans-flavia-augustina",
+        "lifespans-childbirth-stele"
+      ]
     },
     {
       "id": "bronze_age",
@@ -546,7 +726,11 @@
         "civ:aegeans",
         "civ:greeks"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "bronze-kadesh-treaty",
+        "bronze-mycenae-lion-gate"
+      ]
     },
     {
       "id": "axial_age",
@@ -559,7 +743,12 @@
         "figure:buddha",
         "figure:socrates"
       ],
-      "hold": 13
+      "hold": 13,
+      "pictures": [
+        "axial-confucius",
+        "axial-buddha",
+        "axial-socrates"
+      ]
     },
     {
       "id": "alexander",
@@ -573,7 +762,12 @@
         "civ:seleucids",
         "civ:egyptians2"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "alexander-issus-mosaic",
+        "alexander-diadochi-map",
+        "alexander-tomb-of-cyrus"
+      ]
     },
     {
       "id": "rome",
@@ -587,7 +781,12 @@
         "figure:julius_caesar",
         "figure:augustus"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "rome-empire-117",
+        "rome-augustus",
+        "rome-appian-way"
+      ]
     },
     {
       "id": "faiths",
@@ -601,7 +800,12 @@
         "figure:muhammad",
         "civ:arabs"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "faiths-isaiah-scroll",
+        "faiths-paul-journeys",
+        "faiths-caliphate-map"
+      ]
     },
     {
       "id": "fall_of_rome",
@@ -616,7 +820,11 @@
         "civ:franks",
         "figure:charlemagne"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "fallrome-invasions-map",
+        "fallrome-charlemagne-denier"
+      ]
     },
     {
       "id": "mongols",
@@ -630,7 +838,12 @@
         "civ:russia",
         "civ:ottomans"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "mongol-khanates-c1300",
+        "genghis-khan-yuan-portrait",
+        "tournai-black-death-burials"
+      ]
     },
     {
       "id": "printing",
@@ -644,7 +857,12 @@
         "figure:isaac_newton",
         "figure:columbus"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "gutenberg-bible-lenox",
+        "galileo-sidereus-moon",
+        "juan-de-la-cosa-map-1500"
+      ]
     },
     {
       "id": "revolutions",
@@ -658,7 +876,12 @@
         "civ:britain",
         "figure:james_watt"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "declaration-dunlap-1776",
+        "watt-type-beam-engine",
+        "coalbrookdale-by-night"
+      ]
     },
     {
       "id": "longer_lives",
@@ -671,7 +894,12 @@
         "figure:jonas_salk",
         "figure:norman_borlaug"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "fleming-penicillin-mould",
+        "smallpox-vaccine-needle",
+        "pasteur-swan-neck-flask"
+      ]
     },
     {
       "id": "world_wars",
@@ -686,7 +914,11 @@
         "figure:joseph_stalin",
         "figure:franklin_d_roosevelt"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "chateau-wood-ypres-1917",
+        "stalingrad-centre-1943"
+      ]
     },
     {
       "id": "new_balance",
@@ -700,7 +932,11 @@
         "civ:japan",
         "civ:indians"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "deng-xiaoping-1979",
+        "shenzhen-futian-skyline"
+      ]
     },
     {
       "id": "explosion",
@@ -712,7 +948,12 @@
         "farm:all",
         "extraction:all"
       ],
-      "hold": 12
+      "hold": 12,
+      "pictures": [
+        "explosion-population-curve",
+        "earth-at-night-2012",
+        "kansas-pivot-cropland"
+      ]
     },
     {
       "id": "people_threads",
@@ -725,7 +966,11 @@
         "figure:marie_curie",
         "figure:charles_darwin"
       ],
-      "hold": 12
+      "hold": 12,
+      "pictures": [
+        "isaac-newton-kneller",
+        "einstein-vienna-1921"
+      ]
     },
     {
       "id": "smv_intro",
@@ -736,7 +981,10 @@
       "highlight": [
         "civ:united_states"
       ],
-      "hold": 12
+      "hold": 12,
+      "pictures": [
+        "us-population-pyramid-2023"
+      ]
     },
     {
       "id": "smv_lifelines",
@@ -745,7 +993,11 @@
       "focus": "smv",
       "anchor": "smv:us",
       "highlight": [],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "life-and-age-of-woman-1848",
+        "life-and-age-of-man-1848"
+      ]
     },
     {
       "id": "smv_scale",
@@ -756,7 +1008,10 @@
       "highlight": [
         "gen:boomers"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "montizon-dot-map-1830"
+      ]
     },
     {
       "id": "baby_boom",
@@ -769,7 +1024,11 @@
         "gen:silent",
         "war:ww2"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "us-birth-rate-boom",
+        "queen-mary-troops-1945"
+      ]
     },
     {
       "id": "divorce",
@@ -782,7 +1041,11 @@
         "gen:genz",
         "gen:alpha"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "us-marriage-divorce-rates",
+        "us-age-at-first-marriage"
+      ]
     },
     {
       "id": "branch_tip",
@@ -793,7 +1056,10 @@
       "highlight": [
         "now"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "earth-dscovr-2015"
+      ]
     },
     {
       "id": "convergence",
@@ -806,7 +1072,12 @@
         "clade:hominidae",
         "smv:us"
       ],
-      "hold": 15
+      "hold": 15,
+      "pictures": [
+        "origin-of-elements-table",
+        "crab-nebula-hubble",
+        "paleoarchean-stromatolite"
+      ]
     },
     {
       "id": "step_back",
@@ -817,7 +1088,11 @@
       "highlight": [
         "epoch:big_bang"
       ],
-      "hold": 14
+      "hold": 14,
+      "pictures": [
+        "step-back-geologic-clock",
+        "priestley-chart-of-history"
+      ]
     }
   ]
 }

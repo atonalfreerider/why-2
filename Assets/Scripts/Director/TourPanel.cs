@@ -259,6 +259,19 @@ namespace Why.Director
             return Rect.MinMaxRect(Corners[0].x * k, Corners[0].y * k, Corners[2].x * k, Corners[2].y * k);
         }
 
+        /// <summary>
+        /// The rectangle the panel stands in once it has slid into its slot (canvas units, origin bottom-left), for panels that
+        /// keep clear of it (the tour's picture cards); false while hidden, and while one content slides out for the next (the
+        /// next one's slot is chosen only once it is laid out).
+        /// </summary>
+        public bool TryGetSettledRect(Vector2 canvas, out Rect rect)
+        {
+            rect = default;
+            if (phase == Phase.Hidden || content == null || (phase == Phase.Out && pendingContent != null)) return false;
+            rect = PanelPlacement.SlotRect(slot, root.sizeDelta, canvas);
+            return true;
+        }
+
         /// <summary>Advances transitions and the typewriter (unscaled time).</summary>
         public void Tick(float dt)
         {
@@ -296,7 +309,9 @@ namespace Why.Director
             float e = Smooth(visibility);
             group.alpha = e;
             group.interactable = group.blocksRaycasts = phase != Phase.Out;
-            offset = Vector2.Lerp(offset, PanelPlacement.SlotOffset(slot), 1f - Mathf.Exp(-OffsetRate * dt));
+            // a panel on its way out stays where it is: its slot may move for the next stop (the picture cards take the left
+            // edge, PanelPlacement.LeftInset), and it would sweep across the screen as it fades
+            if (phase != Phase.Out) offset = Vector2.Lerp(offset, PanelPlacement.SlotOffset(slot), 1f - Mathf.Exp(-OffsetRate * dt));
             root.anchoredPosition = offset + PanelPlacement.SlideDirection(slot) * (SlideDistance * (1 - e));
             float scale = 0.985f + 0.015f * e;
             root.localScale = new Vector3(scale, scale, 1);

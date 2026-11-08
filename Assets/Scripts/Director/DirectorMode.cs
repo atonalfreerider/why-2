@@ -129,6 +129,11 @@ namespace Why.Director
 
         readonly List<IdRange> ranges = new List<IdRange>();
 
+        /// <summary>Where the stop's anchor lands when the flight ends (<see cref="TryGetTargetPoint"/>), and whether it has one.</summary>
+        Vector2 stepTargetPoint;
+
+        bool stepHasTarget;
+
         public override int Order => 50;
 
         /// <summary>True while the guided tour runs.</summary>
@@ -162,6 +167,29 @@ namespace Why.Director
 
         /// <summary>The view of the stop on screen (null on the cards and outside the tour).</summary>
         public string CurrentPresetId => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Preset?.Id : null;
+
+        /// <summary>The stop on screen as its script gives it (null on the cards and outside the tour): its pictures are shown
+        /// beside the card (<see cref="UI.TourPictures"/>).</summary>
+        public TourStep CurrentTourStep => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Step : null;
+
+        /// <summary>
+        /// Where the stop's anchor stands once the camera's flight has ended (canvas units, origin bottom-left; on the screen's
+        /// edge when it lies off screen), the point the card was placed away from, for panels that keep clear of it (the
+        /// picture cards); false on the cards, at a stop without an anchor, and outside the tour.
+        /// </summary>
+        public bool TryGetTargetPoint(out Vector2 canvasPoint)
+        {
+            canvasPoint = stepTargetPoint;
+            return stepHasTarget && CurrentTourStep != null;
+        }
+
+        /// <summary>The narration card's rectangle once it has slid into its slot (canvas units, origin bottom-left); false while
+        /// it is hidden and outside the tour.</summary>
+        public bool TryGetCardRect(out Rect rect)
+        {
+            rect = default;
+            return active && panel != null && panel.TryGetSettledRect(CanvasSize, out rect);
+        }
 
         /// <summary>True while the tour runs but does not advance on its own.</summary>
         public bool Paused => active && !autoplay;
@@ -521,6 +549,8 @@ namespace Why.Director
             }
 
             bool hasTarget = Frame(preset, anchor, out Vector2 placeAt);
+            stepHasTarget = !card && hasTarget;
+            stepTargetPoint = placeAt;
             PanelSlot? side = PreferredSlot;
             panel.Relocate(size => PanelPlacement.Choose(size, CanvasSize, hasTarget, placeAt, card, side));
             relocateTimer = RelocateCooldown;
@@ -553,6 +583,7 @@ namespace Why.Director
             targetCaption = null;
             markers.Clear();
             stepVersion++;
+            stepHasTarget = false;
 
             if (index < 0) ShowTitleCard();
             else if (index >= steps.Count) ShowEndCard();
@@ -621,6 +652,8 @@ namespace Why.Director
                 hasTarget = Frame(preset, s.Target, out placeAt);
             }
 
+            stepHasTarget = hasTarget;
+            stepTargetPoint = placeAt;
             target = s.Target;
             targetCaption = s.Step.Caption;
             markers.AddRange(s.Highlights);

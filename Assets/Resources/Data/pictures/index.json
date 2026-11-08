@@ -1,0 +1,863 @@
+{
+ "about": "Picture cards by id (tour.json's stops name them); licences, sources and prompts are in manifest.json beside this file.",
+ "pictures": {
+  "genesis-expansion": {
+   "caption": "The universe expanding since the Big Bang",
+   "credit": "Image: NASA, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "genesis-blue-marble": {
+   "caption": "Earth from Apollo 17, 1972",
+   "credit": "Image: NASA/Apollo 17 crew, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "origin-standard-model": {
+   "caption": "The Standard Model of particle physics",
+   "credit": "Image: Cush, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "origin-tree-of-life": {
+   "caption": "The tree of life, drawn from sequenced genomes",
+   "credit": "Image: Ivica Letunic: Iletunic. Retraced by Mari..., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "origin-three-orders": {
+   "caption": "Medieval social order: cleric, knight, worker",
+   "credit": "Image: Unknown author Unknown author, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "welcome-dominoes": {
+   "caption": "A chain of falling dominoes",
+   "credit": "Image: Kurt:S, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "read-clock-spiral": {
+   "caption": "Deep time drawn as a spiral (USGS)",
+   "credit": "Image: United States Geological Survey, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "three-levels-stack": {
+   "caption": "Matter, life and people, stacked",
+   "credit": "AI-generated image (OpenAI chatgpt-image-latest)",
+   "generated": true,
+   "fit": "cover"
+  },
+  "relevance-log-universe": {
+   "caption": "The observable universe on a log scale, Solar System at centre",
+   "credit": "Image: Unmismoobjetivo, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "relevance-haeckel": {
+   "caption": "Haeckel's tree of life, 1879",
+   "credit": "Image: Ernst Haeckel, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "rescale-cosmic-calendar": {
+   "caption": "The Cosmic Calendar: 13.8 billion years in one year",
+   "credit": "Image: Efbrazil, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "big-bang-history": {
+   "caption": "History of the universe, from inflation (NASA)",
+   "credit": "Image: NASA, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "one-in-a-billion-quarks": {
+   "caption": "Quarks in a proton and a neutron",
+   "credit": "Image: PelicanTwo, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "one-in-a-billion-positron": {
+   "caption": "First antimatter seen: a positron track, 1932",
+   "credit": "Image: Carl D. Anderson (1905–1991), public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "first-light-cmb": {
+   "caption": "The oldest light: Planck's microwave sky",
+   "credit": "Image: NASA's Scientific Visualization Studio -..., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "first-light-dark-ages": {
+   "caption": "First light, the Dark Ages, then the first stars (illustration)",
+   "credit": "Image: (Credit: NASA/CXC/M.Weiss), public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "first-stars-ignite": {
+   "caption": "The first stars switch on (NASA artist's concept)",
+   "credit": "Image: NASA/WMAP Science Team, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "first-stars-cas-a": {
+   "caption": "Cassiopeia A: a star's scattered remains",
+   "credit": "Image: Oliver Krause George H. Rieke Stephan M...., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "galaxies-xdf": {
+   "caption": "Hubble eXtreme Deep Field: thousands of galaxies",
+   "credit": "Image: NASA, ESA, G. Illingworth, D. Magee, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "galaxies-cosmic-web": {
+   "caption": "Gas and dark matter between galaxies (simulation)",
+   "credit": "Image: ESO, CC BY 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "milky-way-gaia": {
+   "caption": "The Milky Way mapped by Gaia",
+   "credit": "Image: ESA/Gaia/DPAC, CC BY-SA IGO 3.0, CC BY-SA 3.0 IGO",
+   "generated": false,
+   "fit": "cover"
+  },
+  "milky-way-gaia-enceladus": {
+   "caption": "Gaia-Enceladus debris around the Milky Way (simulation)",
+   "credit": "Image: ESA; Koppelman, Villalobos and Helmi, CC BY-SA 3.0 IGO",
+   "generated": false,
+   "fit": "cover"
+  },
+  "solar-nebula-cosmic-cliffs": {
+   "caption": "A star-forming cloud: the Cosmic Cliffs (Webb)",
+   "credit": "Image: Image: National Aeronautics, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "solar-nebula-hl-tau": {
+   "caption": "HL Tauri's planet-forming disk (ALMA)",
+   "credit": "Image: ALMA, CC BY 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "sun-planets-sun": {
+   "caption": "The Sun in ultraviolet (NASA SDO)",
+   "credit": "Image: NASA/SDO (AIA), public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "sun-planets-to-scale": {
+   "caption": "The Sun and planets to scale",
+   "credit": "Image: CactiStaccingCrane, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "earth-forms-cutaway": {
+   "caption": "Inside the Earth: core, mantle, crust",
+   "credit": "Image: Surachit, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "earth-forms-magnetosphere": {
+   "caption": "Earth's magnetic shield (illustration)",
+   "credit": "Image: NASA, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "earth-forms-planetesimals": {
+   "caption": "Rocky bodies colliding to build planets (artist's concept)",
+   "credit": "Image: NASA/JPL-Caltech/T. Pyle (SSC), public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "moon-impact": {
+   "caption": "A giant impact like Theia's (artist's concept)",
+   "credit": "Image: NASA/JPL-Caltech, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "moon-full-moon": {
+   "caption": "The Moon",
+   "credit": "Image: Gregory H. Revera, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "moon-tides": {
+   "caption": "Low and high tide, Portishead",
+   "credit": "Image: Soerfm, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "isua-graphitic-rock": {
+   "caption": "Isua rock with graphite, Greenland, 3.8 billion years old",
+   "credit": "Image: James St. John, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "jack-hills-zircons": {
+   "caption": "Jack Hills zircons, Australia (electron microscope)",
+   "credit": "Image: Original work: Aaron Cavosie, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "genetic-code-wheel": {
+   "caption": "The genetic code all life shares",
+   "credit": "Image: Mouagip, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "three-domain-tree": {
+   "caption": "Tree of life: bacteria, archaea, eukaryotes",
+   "credit": "Image: This vector version: Eric Gaba, Cherkash, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "darwin-tree-sketch-1837": {
+   "caption": "Darwin's first tree of descent, 1837",
+   "credit": "Image: Charles Darwin, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "anabaena-cyanobacteria": {
+   "caption": "Cyanobacteria (Anabaena) under the microscope",
+   "credit": "Image: CSIRO, CC BY 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "shark-bay-stromatolites": {
+   "caption": "Living stromatolites, Shark Bay, Australia",
+   "credit": "Image: Paul Harrison, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "banded-iron-dales-gorge": {
+   "caption": "Banded iron formation, Karijini, Australia",
+   "credit": "Image: Graeme Churchard from Bristol, UK, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "huronian-dropstone": {
+   "caption": "Ice-age dropstone, Ontario, 2.3 billion years old",
+   "credit": "Image: James St. John, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "mitochondria-in-cells": {
+   "caption": "Mitochondria (red) inside animal cells",
+   "credit": "Image: ZEISS Microscopy from Germany, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "asgard-archaeon": {
+   "caption": "Asgard archaeon, closest kin of the host cell",
+   "credit": "Image: Hiroyuki Imachi, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "bangiomorpha-filaments": {
+   "caption": "Bangiomorpha, a red alga of a billion years ago (illustration)",
+   "credit": "AI-generated image (OpenAI chatgpt-image-latest)",
+   "generated": true,
+   "fit": "cover"
+  },
+  "fly-agaric": {
+   "caption": "Fungi: closer kin to us than to plants",
+   "credit": "Image: Holger Krisp, CC BY 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "anomalocaris-fossil": {
+   "caption": "Anomalocaris, Cambrian top predator (fossil cast)",
+   "credit": "Image: Chris Woodrich, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "paradoxides-trilobite": {
+   "caption": "Paradoxides, an armoured Cambrian trilobite",
+   "credit": "Image: Mike Peel, CC BY-SA 2.0 uk",
+   "generated": false,
+   "fit": "cover"
+  },
+  "dickinsonia-fossil": {
+   "caption": "Dickinsonia, a soft-bodied Ediacaran creature",
+   "credit": "Image: Ghedo, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "pikaia-fossil": {
+   "caption": "Pikaia, a Cambrian chordate, Burgess Shale",
+   "credit": "Image: Chip Clark, CC0 1.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "dunkleosteus-skull": {
+   "caption": "Dunkleosteus: armoured head and hinged jaws",
+   "credit": "Image: Vassil, CC0 1.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "cooksonia-fossil": {
+   "caption": "Cooksonia, one of the first land plants",
+   "credit": "Image: CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "gilboa-tree-stump": {
+   "caption": "Stump of one of the first trees, Gilboa, New York",
+   "credit": "Image: James St. John, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "tiktaalik-fossil": {
+   "caption": "Tiktaalik, a fish with limb-like fins",
+   "credit": "Image: Ghedoghedo, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "fins-to-hands": {
+   "caption": "Fin bones to hand bones",
+   "credit": "Image: Neil Pezzoni, CC BY 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "turtles-hatching": {
+   "caption": "Turtles hatching from shelled eggs",
+   "credit": "Image: Mack_L, CC BY-SA 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "frog-spawn": {
+   "caption": "A frog among its spawn in a pond",
+   "credit": "Image: Frog with Frog Spawn by Ian S, CC BY-SA 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "putorana-traps": {
+   "caption": "Putorana Plateau: lava of the Siberian eruptions",
+   "credit": "Image: EugeneF, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "pangaea-250ma": {
+   "caption": "Pangaea, about 250 million years ago",
+   "credit": "Image: Scotese, Christopher R.; Vérard, Christian, CC BY 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "trex-sue": {
+   "caption": "Tyrannosaurus rex 'Sue', Field Museum",
+   "credit": "Image: Zissoudisctrucker, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "eomaia-fossil": {
+   "caption": "Eomaia, a small furry mammal of the dinosaur age",
+   "credit": "Image: Marie-Lan Taÿ Pamart, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "chicxulub-impact-painting": {
+   "caption": "The asteroid strikes Yucatán (NASA painting)",
+   "credit": "Image: Donald E. Davis, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "chicxulub-crater-relief": {
+   "caption": "Rim of the buried Chicxulub crater, Yucatán",
+   "credit": "Image: Shuttle Radar Topography Mission, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "cheetah-impala": {
+   "caption": "A cheetah chasing an impala",
+   "credit": "Image: Clayhill1, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "humpback-breaching": {
+   "caption": "Whales: a humpback breaching",
+   "credit": "Image: National Marine Sanctuaries, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "flying-fox": {
+   "caption": "Bats: a fruit bat in flight",
+   "credit": "Image: Charles J. Sharp, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "grass-moth": {
+   "caption": "Grass moth on a grass head",
+   "credit": "Image: Line Sabroe from Denmark, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "barn-swallow": {
+   "caption": "Barn swallow hunting on the wing",
+   "credit": "Image: © Giles Laurent, gileslaurent.com, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "eurasian-hobby": {
+   "caption": "Hobby, a falcon that hunts swallows",
+   "credit": "Image: Mike Prince from Bangalore, India, CC BY 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "primates-tarsier": {
+   "caption": "Philippine tarsier: grasping hands, forward-facing eyes",
+   "credit": "Image: lumoplank, CC0 1.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "primates-chimps-grooming": {
+   "caption": "Chimpanzees grooming, Kibale Forest, Uganda",
+   "credit": "Image: Charles J. Sharp, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "hominins-laetoli": {
+   "caption": "Laetoli footprints, 3.66 million years old (replica)",
+   "credit": "Image: Momotarou2012, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "hominins-toumai": {
+   "caption": "Toumai, Sahelanthropus skull, about 7 million years old (cast)",
+   "credit": "Image: Didier Descouens, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "hominins-savanna": {
+   "caption": "Grassland and acacia woodland, Serengeti, Tanzania",
+   "credit": "Image: Bjørn Christian Tørrissen, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "tools-olduvai-chopper": {
+   "caption": "Chopping tool, Olduvai Gorge, 1.8 to 2 million years old",
+   "credit": "Image: BabelStone, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "tools-dmanisi-skull": {
+   "caption": "Homo erectus skull, Dmanisi, Georgia, 1.8 million years old (cast)",
+   "credit": "Image: Ryan Somma from Occoquan, USA, CC BY-SA 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "tools-erectus-hearth": {
+   "caption": "Homo erectus at a cooking fire (illustration)",
+   "credit": "AI-generated image (OpenAI chatgpt-image-latest)",
+   "generated": true,
+   "fit": "cover"
+  },
+  "sapiens-jebel-irhoud": {
+   "caption": "Jebel Irhoud 1, Morocco: early Homo sapiens, about 300,000 years old (cast)",
+   "credit": "Image: Ryan Somma from Occoquan, USA, CC BY-SA 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "sapiens-diepkloof-eggshell": {
+   "caption": "Engraved ostrich eggshell, Diepkloof, South Africa, about 60,000 years old",
+   "credit": "Image: Nkansah Rexford, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "ooa-migration-map": {
+   "caption": "How Homo sapiens spread out of Africa (years ago)",
+   "credit": "Image: NordNordWest, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "ooa-neanderthal-skull": {
+   "caption": "Neanderthal skull, La Chapelle-aux-Saints, France",
+   "credit": "Image: Luna04, CC BY 2.5",
+   "generated": false,
+   "fit": "cover"
+  },
+  "agri-emmer-wheat": {
+   "caption": "Emmer wheat, one of the first domesticated grains",
+   "credit": "Image: Globe Master - SideEffect, CC BY 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "agri-beer-ration-tablet": {
+   "caption": "Clay tablet recording beer rations, Iraq, about 3100 to 3000 BCE",
+   "credit": "Image: BabelStone, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "farm-texas-feedlot": {
+   "caption": "Cattle feedlot, Texas",
+   "credit": "Image: Preston Keres/USDA/FPAC, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "farm-palouse-wheat-harvest": {
+   "caption": "Wheat harvest on the Palouse, Idaho",
+   "credit": "Image: public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "matter-bingham-canyon": {
+   "caption": "Bingham Canyon copper mine, Utah",
+   "credit": "Image: David Ratledge, CC BY 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "matter-uluburun-ingot": {
+   "caption": "Bronze Age copper ingot, Uluburun shipwreck, about 1300 BCE",
+   "credit": "Image: Zunkir, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "streams-strass-1841": {
+   "caption": "The Stream of Time: nations drawn as streams (after Strass, 1841)",
+   "credit": "Image: Goodrich, Samuel G., 1793-1860, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "streams-world-2000bce": {
+   "caption": "The world around 2000 BCE",
+   "credit": "Image: User:Mr.absurd, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "popcurve-hatshepsut": {
+   "caption": "Hatshepsut, female pharaoh of Egypt",
+   "credit": "Image: CC0 1.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "popcurve-hammurabi": {
+   "caption": "Hammurabi before the god Shamash, top of his law code (Louvre)",
+   "credit": "Image: Mbzt, CC BY 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "lifespans-flavia-augustina": {
+   "caption": "Roman tombstone, York: a mother dead at 39, two children dead as infants",
+   "credit": "Image: Photographed by: York Museums Trust Staff, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "lifespans-childbirth-stele": {
+   "caption": "Athenian grave relief of a woman who died in childbirth, about 340 BCE",
+   "credit": "Image: Giovanni Dall'Orto, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "bronze-kadesh-treaty": {
+   "caption": "Kadesh peace treaty, the Hittite copy, about 1259 BCE",
+   "credit": "Image: Carole Raddato from FRANKFURT, Germany, CC BY-SA 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "bronze-mycenae-lion-gate": {
+   "caption": "Lion Gate of Mycenae, an Aegean palace citadel",
+   "credit": "Image: Andreas Trepte, CC BY-SA 2.5",
+   "generated": false,
+   "fit": "cover"
+  },
+  "axial-confucius": {
+   "caption": "Confucius, painted by Ma Yuan, about 1200 CE",
+   "credit": "Image: Ma Yuan, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "axial-buddha": {
+   "caption": "The Buddha, Gandhara statue, 1st to 2nd century CE",
+   "credit": "Image: World Imaging, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "axial-socrates": {
+   "caption": "Socrates, Roman marble portrait (Louvre)",
+   "credit": "Image: Copy of Lysippos (?), public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "alexander-issus-mosaic": {
+   "caption": "Alexander the Great at Issus, Pompeii mosaic, about 100 BCE",
+   "credit": "Image: Unknown creator, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "alexander-diadochi-map": {
+   "caption": "Kingdoms of Alexander's successors, about 300 BCE",
+   "credit": "Image: Diadochi PT.svg: Luigi Chiesa derivative..., CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "alexander-tomb-of-cyrus": {
+   "caption": "Tomb of Cyrus the Great, Pasargadae, Iran",
+   "credit": "Image: Diego Delso, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "rome-empire-117": {
+   "caption": "The Roman Empire at its greatest extent, 117 CE",
+   "credit": "Image: Tataryn, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "rome-augustus": {
+   "caption": "Augustus, first Roman emperor (Prima Porta statue)",
+   "credit": "Image: Till Niermann, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "rome-appian-way": {
+   "caption": "The Appian Way, a Roman road near Rome",
+   "credit": "Image: Livioandronico2013, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "faiths-isaiah-scroll": {
+   "caption": "Great Isaiah Scroll, Qumran, 2nd century BCE",
+   "credit": "Image: Photographs by Ardon Bar Hama, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "faiths-paul-journeys": {
+   "caption": "Paul's journeys across the Roman world",
+   "credit": "Image: Biblica, Inc, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "faiths-caliphate-map": {
+   "caption": "Expansion of the caliphates, 622 to 750",
+   "credit": "Image: DieBuche, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "fallrome-invasions-map": {
+   "caption": "Invasions of the Roman Empire, 100 to 500 CE",
+   "credit": "Image: User:MapMaster, CC BY-SA 2.5",
+   "generated": false,
+   "fit": "cover"
+  },
+  "fallrome-charlemagne-denier": {
+   "caption": "Charlemagne on a silver denier, about 812 to 814",
+   "credit": "Image: Charlemagne. Autorité émettrice de monnai..., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "mongol-khanates-c1300": {
+   "caption": "The Mongol Empire c. 1300, split into four khanates",
+   "credit": "Image: Gabagool, CC BY 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "genghis-khan-yuan-portrait": {
+   "caption": "Genghis Khan, Yuan court album portrait, 14th century",
+   "credit": "Image: public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "tournai-black-death-burials": {
+   "caption": "Burying Black Death victims, Tournai, c. 1353",
+   "credit": "Image: Pierart dou Tielt (fl. 1340-1360), public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "gutenberg-bible-lenox": {
+   "caption": "A Gutenberg Bible, Mainz, c. 1455",
+   "credit": "Image: NYC Wanderer (Kevin Eng), CC BY-SA 2.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "galileo-sidereus-moon": {
+   "caption": "Galileo's Moon, printed in Sidereus Nuncius, 1610",
+   "credit": "Image: Galileo, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "juan-de-la-cosa-map-1500": {
+   "caption": "Juan de la Cosa's world map, 1500: the Americas at left",
+   "credit": "Image: Kimon Berlin, user:Gribeco, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "declaration-dunlap-1776": {
+   "caption": "The Declaration of Independence as first printed, July 1776",
+   "credit": "Image: Unknown author Unknown author or not prov..., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "watt-type-beam-engine": {
+   "caption": "A Watt-type beam engine (built 1832), Madrid",
+   "credit": "Image: Nicolás Pérez, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "coalbrookdale-by-night": {
+   "caption": "Coalbrookdale by Night, Loutherbourg, 1801",
+   "credit": "Image: Philip James de Loutherbourg, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "fleming-penicillin-mould": {
+   "caption": "Penicillin mould from Alexander Fleming, 1935",
+   "credit": "Image: Science Museum London / Science, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "smallpox-vaccine-needle": {
+   "caption": "Smallpox vaccine and bifurcated needle",
+   "credit": "Image: Photo Credit: James Gathany Content Provi..., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "pasteur-swan-neck-flask": {
+   "caption": "Pasteur's swan-necked flask",
+   "credit": "Image: CC BY 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "chateau-wood-ypres-1917": {
+   "caption": "Chateau Wood, Ypres, October 1917",
+   "credit": "Image: Frank Hurley, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "stalingrad-centre-1943": {
+   "caption": "Central Stalingrad, 2 February 1943",
+   "credit": "Image: RIA Novosti archive, image #602161, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "deng-xiaoping-1979": {
+   "caption": "Deng Xiaoping, Washington, January 1979",
+   "credit": "Image: public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "shenzhen-futian-skyline": {
+   "caption": "Shenzhen, China's first special economic zone (1980)",
+   "credit": "Image: Charlie fong, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "explosion-population-curve": {
+   "caption": "World population over 12,000 years: the leap after 1800",
+   "credit": "Image: Max Roser, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "earth-at-night-2012": {
+   "caption": "Earth at night, 2012 composite (NASA)",
+   "credit": "Image: NASA Earth Observatory, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "kansas-pivot-cropland": {
+   "caption": "Irrigated crop circles in Kansas, seen from orbit",
+   "credit": "Image: NASA, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "isaac-newton-kneller": {
+   "caption": "Isaac Newton, by Godfrey Kneller, 1689",
+   "credit": "Image: Godfrey Kneller, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "einstein-vienna-1921": {
+   "caption": "Albert Einstein lecturing in Vienna, 1921",
+   "credit": "Image: Ferdinand Schmutzer / Adam Cuerden, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "us-population-pyramid-2023": {
+   "caption": "US population by age and sex, December 2023",
+   "credit": "Image: Kaj Tallungs, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "life-and-age-of-woman-1848": {
+   "caption": "The Life and Age of Woman, popular print, 1848",
+   "credit": "Image: James Baillie, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "life-and-age-of-man-1848": {
+   "caption": "The Life and Age of Man, popular print, 1848",
+   "credit": "Image: James Baillie, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "montizon-dot-map-1830": {
+   "caption": "The first dot map, France 1830: one dot = 10,000 people",
+   "credit": "Image: Armand Joseph Frère de Montizon, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "us-birth-rate-boom": {
+   "caption": "US births per 1,000 people, 1909–2008: the boom in red",
+   "credit": "Image: Saiarcot895, CC0 1.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "queen-mary-troops-1945": {
+   "caption": "The Queen Mary brings US troops home, June 1945",
+   "credit": "Image: USN, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "us-marriage-divorce-rates": {
+   "caption": "US marriage and divorce rates, 1960–2011",
+   "credit": "Image: Rcragun, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "us-age-at-first-marriage": {
+   "caption": "Median age at first marriage, US, 1890–2025",
+   "credit": "Image: RCraig09, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "earth-dscovr-2015": {
+   "caption": "The whole sunlit Earth, 6 July 2015 (DSCOVR)",
+   "credit": "Image: NASA, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "origin-of-elements-table": {
+   "caption": "Where your elements were made",
+   "credit": "Image: Cmglee, CC BY-SA 3.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "crab-nebula-hubble": {
+   "caption": "The Crab Nebula, debris of a star that exploded in 1054",
+   "credit": "Image: NASA, ESA, J. Hester and A. Loll, public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "paleoarchean-stromatolite": {
+   "caption": "Stromatolite over 3.2 billion years old, Western Australia",
+   "credit": "Image: Didier Descouens, CC BY-SA 4.0",
+   "generated": false,
+   "fit": "cover"
+  },
+  "step-back-geologic-clock": {
+   "caption": "Earth's history on a clock face",
+   "credit": "Image: Woudloper Derivative work: Hardwigg Simon..., public domain",
+   "generated": false,
+   "fit": "cover"
+  },
+  "priestley-chart-of-history": {
+   "caption": "Priestley's New Chart of History, 1769",
+   "credit": "Image: Joseph Priestley, public domain",
+   "generated": false,
+   "fit": "cover"
+  }
+ }
+}

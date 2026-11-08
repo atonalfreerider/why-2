@@ -289,6 +289,8 @@ namespace Why
                 {
                     yield return new WaitForSecondsRealtime(StopSeconds);
                     director.CompleteTyping();
+                    // the stop's picture cards in their settled state (faded in, at their places), checked by "tour-pictures"
+                    UI.TourPictures.Settle();
                     yield return null;
                     yield return SmokeChecks.Capture($"{scene}-tour-{n + 1:00}-{director.CurrentStepId}", root.CurrentPreset);
                     director.NextStep();

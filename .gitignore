@@ -110,3 +110,6 @@ Tools/advantage/.cache/
 # Python bytecode caches (tools run with plain python3)
 __pycache__/
 *.pyc
+
+# Commons and image-generation downloads (Tools/images/pictures.py, generate.py)
+/Tools/images/.cache/

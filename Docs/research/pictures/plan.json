@@ -1,0 +1,1433 @@
+{
+ "stops": null,
+ "pictures": [
+  {
+   "stop": "genesis",
+   "id": "genesis-expansion",
+   "caption": "The universe expanding since the Big Bang",
+   "source": "commons",
+   "file": "File:CMB Timeline No Labels or WMAP.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/WMAP Science Team (map.gsfc.nasa.gov/media/060915); labels removed by Efbrazil.",
+   "person": false,
+   "why": "Verified on Commons: PD, 3200x1800 (16:9). Matches 'and then it expanded. Matter fans outward as space itself stretches': NASA's timeline art opens out from a point at left to galaxies at right, with no labels. big_bang uses NASA's labelled 2024 timeline of the same trumpet shape. Both are kept because this one is the bare picture and that one names the stages. Card: cover."
+  },
+  {
+   "stop": "genesis",
+   "id": "genesis-blue-marble",
+   "caption": "Earth from Apollo 17, 1972",
+   "source": "commons",
+   "file": "File:The Earth seen from Apollo 17.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/Apollo 17 crew (Harrison Schmitt or Ron Evans), 7 December 1972.",
+   "person": false,
+   "why": "Verified: PD, 3000x3002. 'On one small planet, life takes root', shown in a real photograph. Africa, where the twig of people began, is at the centre. Card: contain on black (a cover crop would cut off the poles)."
+  },
+  {
+   "stop": "origin",
+   "id": "origin-standard-model",
+   "caption": "The Standard Model of particle physics",
+   "source": "commons",
+   "file": "File:Standard Model of Elementary Particles.svg",
+   "licence": "Public domain (PD-user). Author: Cush.",
+   "person": false,
+   "why": "Verified: PD, vector (nominal 1390x1330), English labels. The narration names the Standard Model as the rulebook of the red matter level, and this is the standard chart of its 12 fermions and 5 bosons. Card: contain, matte white."
+  },
+  {
+   "stop": "origin",
+   "id": "origin-tree-of-life",
+   "caption": "The tree of life, drawn from sequenced genomes",
+   "source": "commons",
+   "file": "File:Tree of life SVG.svg",
+   "licence": "Public domain (PD-self). Author: Ivica Letunic (iTOL, original image), retraced as SVG by Mariana Ruiz Villarreal (LadyofHats), 2008; tree after Ciccarelli et al. 2006.",
+   "person": false,
+   "why": "REPLACED. The plan used File:Phylogenetic tree.svg here and again at tree_of_life, which highlights bacteria, archaea and eukaryotes and keeps it. This circular iTOL tree (PD, vector, nominal 1355x1355; viewed) shows every sequenced species branching from one root, coloured by domain. It stands for 'Green is life, ordered by the tree of life' without repeating the later card. The species names are too small to read at card size, so the shape and the three colours carry it. Card: contain, matte white."
+  },
+  {
+   "stop": "origin",
+   "id": "origin-three-orders",
+   "caption": "Medieval social order: cleric, knight, worker",
+   "source": "commons",
+   "file": "File:Cleric, Knight, and Workman representing the Three Classes.jpg",
+   "licence": "Public domain (PD-Art, PD-old-100-expired). Author: unknown French illuminator, late 13th century, Li Livres dou Santé (British Library, Sloane MS 2435, f. 85).",
+   "person": false,
+   "why": "Verified: PD, 1278x1262. It is the third of three cards because the narration names three levels and what orders each. A hierarchy people built, of those who pray, fight and work, stands for the blue level's 'social market hierarchies'. It is a period artefact, not a likeness of anyone. Card: contain."
+  },
+  {
+   "stop": "welcome",
+   "id": "welcome-dominoes",
+   "caption": "A chain of falling dominoes",
+   "source": "commons",
+   "file": "File:Dominoes falling.jpg",
+   "licence": "CC BY 2.0 (FlickreviewR passed). Author: Kurt:S (Flickr).",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 6016x4000, a real photo with no people. 'One unbroken chain of causes... cause and effect runs one way only': each domino knocks over the next. Card: cover."
+  },
+  {
+   "stop": "read_clock",
+   "id": "read-clock-spiral",
+   "caption": "Deep time drawn as a spiral (USGS)",
+   "source": "commons",
+   "file": "File:Geological time spiral.png",
+   "licence": "Public domain (PD-USGov-Interior-USGS). Author: U.S. Geological Survey (Joseph Graham, William Newman, John Stacy), The geologic time spiral, 2008.",
+   "person": false,
+   "why": "Verified: PD, 2424x2145. A real scientific chart that does what the narration describes: deep time wound into a spiral so the early eons don't swallow everything after them. It is now this stop's only card. The plan used the same file again at step_back, where it is removed. The geologic clock moved to step_back, because its own positions (Earth's formation at twelve, first life near one) would contradict this narration's 'Big Bang at six, life near ten'. Card: contain."
+  },
+  {
+   "stop": "three_levels",
+   "id": "three-levels-stack",
+   "caption": "Matter, life and people, stacked",
+   "source": "generate",
+   "prompt": "Clean scientific illustration, 16:9 landscape, of a cutaway block made of three horizontal layers stacked like rock strata, on a plain dark background. Bottom layer in warm reds and rust: bare rock, mineral crystals and a few faint points of starlight and glowing gas, standing for matter. Middle layer in greens, growing out of the rock: soil threaded with roots, grasses, a tree, fungi and a few animals such as a deer and small birds, standing for life. Top layer in blues, resting on the green: a small village of simple houses with crop fields and a road and a few tiny generic human figures, standing for humanity. Roots reach down from the green layer into the red rock and the village's fields draw on the green layer, so each layer visibly rests on and depends on the one beneath it. Flat colours with soft shading, evenly lit, uncluttered, clearly an illustration and not a photograph. No text, no labels, no numbers, no logos, no recognisable real people.",
+   "person": false,
+   "why": "Checked: no free image shows matter, life and people stacked in order of dependence. Commons searches for levels-of-organisation, geosphere-biosphere-anthroposphere and noosphere diagrams found nothing usable. Ecological energy pyramids show only the food chain inside the life level (calorie_flow covers that), and charts of biological organisation stop at the biosphere. The README names 'an abstract idea of the graph' as a case for generating. The prompt is safe: it asks for no text, labels, numbers or logos, allows only tiny generic figures, and asks to look plainly like an illustration. The colours follow the graph: red for matter, green for life, blue for people."
+  },
+  {
+   "stop": "relevance",
+   "id": "relevance-log-universe",
+   "caption": "The observable universe on a log scale, Solar System at centre",
+   "source": "commons",
+   "file": "File:Observable universe logarithmic illustration.png",
+   "licence": "CC BY-SA 3.0. Author: Pablo Carlos Budassi (User:Unmismoobjetivo); the file page asks that his name be credited.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 4200x4200, an artist's composite. It is the closest picture of 'distance from the inner track measures relevance to us': the Sun and planets at the centre, then the Milky Way, other galaxies, the cosmic web and the Big Bang's afterglow further and further out. Card: contain (square)."
+  },
+  {
+   "stop": "relevance",
+   "id": "relevance-haeckel",
+   "caption": "Haeckel's tree of life, 1879",
+   "source": "commons",
+   "file": "File:Tree of life by Haeckel.jpg",
+   "licence": "Public domain (PD-US). Author: Ernst Haeckel, The Evolution of Man (1879); scan from the American Philosophical Society.",
+   "person": false,
+   "why": "Verified: PD, 1804x2856. It shows our lineage as a trunk running from simple organisms through animals and apes to humans, with every other group branching away. That is the life half of the inner track. It is 1879 science with 'Man' at the crown, so the caption keeps the date. Card: contain (portrait)."
+  },
+  {
+   "stop": "rescale",
+   "id": "rescale-cosmic-calendar",
+   "caption": "The Cosmic Calendar: 13.8 billion years in one year",
+   "source": "commons",
+   "file": "File:Cosmic Calendar.png",
+   "licence": "CC BY-SA 3.0. Author: Eric Fisk (User:Efbrazil); composite of NASA, public-domain and Wikimedia images listed on the file page.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 4050x2700. 'No single scale fits this story': the universe's history is squeezed into one year, with rows that zoom in to December, the last day and the last minute. That is the same move as rescaling the graph. Card: contain."
+  },
+  {
+   "stop": "big_bang",
+   "id": "big-bang-history",
+   "caption": "History of the universe, from inflation (NASA)",
+   "source": "commons",
+   "file": "File:History-of-the-Universe.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA (science.nasa.gov Cosmic History, 2024).",
+   "person": false,
+   "why": "Verified: PD, 2560x1440 (16:9), English labels (viewed). It starts with inflation, as the narration does, then shows the stages inflation set in motion: first particles, first nuclei, first light at 380,000 years, first stars, galaxies and dark matter, dark energy, and today at 13.8 billion years. Card: cover."
+  },
+  {
+   "stop": "one_in_a_billion",
+   "id": "one-in-a-billion-quarks",
+   "caption": "Quarks in a proton and a neutron",
+   "source": "commons",
+   "file": "File:Proton and neutron.jpg",
+   "licence": "CC BY-SA 4.0 (from CC BY-SA 2.5 originals). Author: Harp (Quark structure proton.svg and neutron.svg); derived work by PelicanTwo.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 1412x760. Viewed: the labels are in English ('PROTON', 'NEUTRON', u and d), although the file's description is in Hebrew. It illustrates 'quarks bound into protons and neutrons'. Card: contain (keeps both labels)."
+  },
+  {
+   "stop": "one_in_a_billion",
+   "id": "one-in-a-billion-positron",
+   "caption": "First antimatter seen: a positron track, 1932",
+   "source": "commons",
+   "file": "File:PositronDiscovery.jpg",
+   "licence": "Public domain (PD-US-not renewed). Author: Carl D. Anderson, photographed 2 August 1932, published in Physical Review 43 (1933).",
+   "person": false,
+   "why": "Verified: PD, 2408x2374. A real photograph for 'matter met antimatter': Anderson's cloud-chamber picture of the first positron ever recorded, curving through a lead plate. Card: contain (a cover crop could cut off the ends of the track)."
+  },
+  {
+   "stop": "first_light",
+   "id": "first-light-cmb",
+   "caption": "The oldest light: Planck's microwave sky",
+   "source": "commons",
+   "file": "File:Oldest Light in the Universe (SVS30133).jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA Scientific Visualization Studio (Marit Jentoft-Nilsen, Mark Malanoski); Planck data from ESA and the Planck Collaboration.",
+   "person": false,
+   "why": "Verified: PD, 4096x2304 (16:9). The cosmic microwave background, 'the oldest light there is', shown as the Planck all-sky map. It is now the plan's only microwave-sky map, because the WMAP map at step_back was a near-duplicate and is removed. Card: cover."
+  },
+  {
+   "stop": "first_light",
+   "id": "first-light-dark-ages",
+   "caption": "First light, the Dark Ages, then the first stars (illustration)",
+   "source": "commons",
+   "file": "File:Illustration of Reionization (2011-cdfs-more-6 -).jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/CXC/M. Weiss.",
+   "person": false,
+   "why": "Verified: PD, 1800x792, no labels. It runs from the afterglow at left through the dark, starless fog of the Dark Ages to the first starlight and galaxies, which is 'preparing the ground for the first fire'. Card: contain (a 2.3:1 strip)."
+  },
+  {
+   "stop": "first_stars",
+   "id": "first-stars-ignite",
+   "caption": "The first stars switch on (NASA artist's concept)",
+   "source": "commons",
+   "file": "File:NASA-WMAP-first-stars.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/WMAP Science Team, c. 2006.",
+   "person": false,
+   "why": "REPLACED the plan's 'Stellar Fireworks Finale' (STScI, 2002). That image shows starbursts in young galaxies rather than the first stars, and it has a credit line printed in its corner. NASA's concept (viewed) shows exactly 'those clumps grew dense enough to ignite': a few blue giant stars lighting up inside filaments of gas. No camera can see this, so a NASA artist's concept fits the rules. PD, 5333x3000 (16:9). Card: cover."
+  },
+  {
+   "stop": "first_stars",
+   "id": "first-stars-cas-a",
+   "caption": "Cassiopeia A: a star's scattered remains",
+   "source": "commons",
+   "file": "File:Cassiopeia A Spitzer Crop.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/JPL-Caltech/O. Krause (Steward Observatory) et al.; Spitzer, Hubble and Chandra data.",
+   "person": false,
+   "why": "Verified: PD, 2560x1949. A real supernova remnant: the explosion of a massive star scattering newly forged elements into space, as 'the explosions that ended them forged and scattered' carbon, oxygen and iron. Card: cover."
+  },
+  {
+   "stop": "galaxies_split",
+   "id": "galaxies-xdf",
+   "caption": "Hubble eXtreme Deep Field: thousands of galaxies",
+   "source": "commons",
+   "file": "File:The Hubble eXtreme Deep Field.jpg",
+   "licence": "Public domain (PD-Hubble). Author: NASA, ESA, G. Illingworth, D. Magee and P. Oesch (UC Santa Cruz), R. Bouwens (Leiden University) and the HUDF09 Team.",
+   "person": false,
+   "why": "Verified: PD, 2382x2078. It shows 'the first galaxies' and 'one among countless others': thousands of galaxies in one tiny patch of sky, the faintest seen as they were about 13 billion years ago. Card: cover."
+  },
+  {
+   "stop": "galaxies_split",
+   "id": "galaxies-cosmic-web",
+   "caption": "Gas and dark matter between galaxies (simulation)",
+   "source": "commons",
+   "file": "File:Simulation of large scale structure (eso1438b).jpg",
+   "licence": "CC BY 4.0 (ESO, eso1438b). Author: Illustris Collaboration.",
+   "person": false,
+   "why": "Verified: CC BY 4.0, 8192x8192. 'Most ordinary matter stayed behind as thin gas between the galaxies': the Illustris cosmic web, with gas in orange and dark matter in blue. The plan's third card here, the Diemand, Stadel and Moore structure-growth TIFF, is dropped. Its snapshots are scaled to the same size, so it shows matter clumping but not the faster expansion its caption claimed. Card: cover."
+  },
+  {
+   "stop": "milky_way",
+   "id": "milky-way-gaia",
+   "caption": "The Milky Way mapped by Gaia",
+   "source": "commons",
+   "file": "File:Gaia’s sky in colour ESA393127.png",
+   "licence": "CC BY-SA 3.0 IGO. Author: ESA/Gaia/DPAC.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0 IGO, 8000x4000. Real data rather than art: our galaxy seen from inside, built from measurements of nearly 1.7 billion stars. Gaia's data also revealed the Gaia-Enceladus merger that the graph highlights. Card: contain (2:1 all-sky ellipse)."
+  },
+  {
+   "stop": "milky_way",
+   "id": "milky-way-gaia-enceladus",
+   "caption": "Gaia-Enceladus debris around the Milky Way (simulation)",
+   "source": "commons",
+   "file": "File:Simulated Gaia-Enceladus debris.jpg",
+   "licence": "CC BY-SA 3.0 IGO. Author: ESA (artist's impression and composition); Koppelman, Villalobos and Helmi (simulation).",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0 IGO, 2000x1806. It shows the Milky Way growing 'by merging with smaller galaxies': our spiral face-on, with the swallowed galaxy's simulated stars drawn as arrows. The caption now says simulation, as the file is. The plan's third card here, the nucleosynthesis periodic table, was the same file as convergence's first card. It stays at convergence, whose narration names both the hydrogen from the Big Bang and the carbon and oxygen from stars. Card: contain."
+  },
+  {
+   "stop": "solar_nebula",
+   "id": "solar-nebula-cosmic-cliffs",
+   "caption": "A star-forming cloud: the Cosmic Cliffs (Webb)",
+   "source": "commons",
+   "file": "File:NASA’s Webb Reveals Cosmic Cliffs, Glittering Landscape of Star Birth.jpg",
+   "licence": "Public domain (PD-USGov-NASA, Webb). Author: NASA, ESA, CSA, STScI.",
+   "person": false,
+   "why": "Verified: PD, 14575x8441. A real image of 'a cloud of gas and dust' in the Milky Way's disk (NGC 3324), with new stars forming where parts of it collapse. Card: cover."
+  },
+  {
+   "stop": "solar_nebula",
+   "id": "solar-nebula-hl-tau",
+   "caption": "HL Tauri's planet-forming disk (ALMA)",
+   "source": "commons",
+   "file": "File:HL Tau protoplanetary disk.jpg",
+   "licence": "CC BY 4.0 (licence reviewed). Author: ALMA (ESO/NAOJ/NRAO).",
+   "person": false,
+   "why": "Verified: CC BY 4.0, 1800x1800. A real picture of 'the rest flattened into a spinning disk, and in that disk the planets would grow': a young star's disk, with dark gaps where planets are forming. Card: cover, centre."
+  },
+  {
+   "stop": "sun_planets",
+   "id": "sun-planets-sun",
+   "caption": "The Sun in ultraviolet (NASA SDO)",
+   "source": "commons",
+   "file": "File:The Sun by the Atmospheric Imaging Assembly of NASA's Solar Dynamics Observatory - 20100819.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/SDO (AIA 304), 19 August 2010.",
+   "person": false,
+   "why": "Verified: PD, 4044x3860. A real image for 'The Sun ignited', in false colour (extreme ultraviolet). Card: contain on black (the whole disk)."
+  },
+  {
+   "stop": "sun_planets",
+   "id": "sun-planets-to-scale",
+   "caption": "The Sun and planets to scale",
+   "source": "commons",
+   "file": "File:Solar System true color.jpg",
+   "licence": "CC BY-SA 4.0. Author: CactiStaccingCrane (composite of spacecraft images credited on the file page).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 3840x2160 (16:9). It covers 'the leftover disk built Jupiter and the other planets': the planets in true colour and to scale beside the Sun's edge. Card: cover."
+  },
+  {
+   "stop": "earth_forms",
+   "id": "earth-forms-cutaway",
+   "caption": "Inside the Earth: core, mantle, crust",
+   "source": "commons",
+   "file": "File:Earth-crust-cutaway-english.svg",
+   "licence": "CC BY-SA 3.0 (multi-licensed with GFDL and CC BY-SA 2.5/2.0/1.0). Author: Surachit, after Jeremy Kemp.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, vector (nominal 995x684). It shows the result of 'iron sinking into a core, rock floating into a mantle'. Card: contain, matte white."
+  },
+  {
+   "stop": "earth_forms",
+   "id": "earth-forms-magnetosphere",
+   "caption": "Earth's magnetic shield (illustration)",
+   "source": "commons",
+   "file": "File:Magnetosphere rendition.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA (source page on esa.int, 'The Sun-Earth connection', 2007).",
+   "person": false,
+   "why": "Verified: PD, 1200x656 (viewed). The 'shield' the narration names: the magnetic field of the churning iron core turning aside the solar wind. Card: cover."
+  },
+  {
+   "stop": "earth_forms",
+   "id": "earth-forms-planetesimals",
+   "caption": "Rocky bodies colliding to build planets (artist's concept)",
+   "source": "commons",
+   "file": "File:The Rocky World of Young Planetary Systems.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/JPL-Caltech/T. Pyle (SSC).",
+   "person": false,
+   "why": "Verified: PD, 1861x561. Viewed: three panels of bodies meeting, colliding and merging. It illustrates 'colliding planetesimals built the Earth', which nothing can photograph. The stop has three cards because the narration names the collisions and three causes: water at the right distance, rock and a shield. Card: contain (a 3.3:1 strip; a cover crop would leave half-panels at both edges)."
+  },
+  {
+   "stop": "moon",
+   "id": "moon-impact",
+   "caption": "A giant impact like Theia's (artist's concept)",
+   "source": "commons",
+   "file": "File:Artist's concept of collision at HD 172555.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/JPL-Caltech.",
+   "person": false,
+   "why": "Verified: PD, 3000x2400. A planet-sized collision of the kind that made the Moon, which no camera saw. It was drawn for the star HD 172555, so the caption says 'like Theia's'. A Commons search found no larger free picture of the Theia impact itself; the user-drawn 'Giant impact.jpg' is 960 px. Card: cover."
+  },
+  {
+   "stop": "moon",
+   "id": "moon-full-moon",
+   "caption": "The Moon",
+   "source": "commons",
+   "file": "File:FullMoon2010.jpg",
+   "licence": "CC BY-SA 3.0 (also GFDL). Author: Gregory H. Revera.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2580x2452. A real telescope photograph for 'Look up at it tonight'. Card: contain on black (the whole disk)."
+  },
+  {
+   "stop": "moon",
+   "id": "moon-tides",
+   "caption": "Low and high tide, Portishead",
+   "source": "commons",
+   "file": "File:PortisheadDocks Tides.JPG",
+   "licence": "CC BY-SA 3.0. Author: Soerfm.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2501x1053. It shows the tides the Moon 'raises': the same Bristol Channel dock at low tide and near high tide, in one file. The stop has three cards because the narration names the impact, the Moon itself and its effects. Card: contain (2.4:1; a cover crop would cut into both halves)."
+  },
+  {
+   "stop": "origin_of_life",
+   "id": "isua-graphitic-rock",
+   "caption": "Isua rock with graphite, Greenland, 3.8 billion years old",
+   "source": "commons",
+   "file": "File:Graphitic BIF (meta-BIF) (Eoarchean, 3.8 Ga; Isua Supracrustal Belt, southwestern Greenland) (15056531391).jpg",
+   "licence": "CC BY 2.0. Author: James St. John (Field Museum specimen FMNH Li 9223).",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 2988x1876. The narration's 'carbon traces in rocks from Greenland': graphite-bearing banded rock from the Isua belt, whose carbon is read as the oldest trace of life. It is the stop's main claim, so it goes first. Card: cover, focus [0.55, 0.6] (a small specimen label sits at upper left)."
+  },
+  {
+   "stop": "origin_of_life",
+   "id": "jack-hills-zircons",
+   "caption": "Jack Hills zircons, Australia (electron microscope)",
+   "source": "commons",
+   "file": "File:Jack Hills detrital zircons BSE micrographs.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: Aaron Cavosie and John Valley, NASA Astrobiology Institute 2014 Annual Science Report; panels extracted by Gretarsson.",
+   "person": false,
+   "why": "Verified: PD, 886x1129, over the 800 px floor (the card scales it up about 1.08x). The 'zircon crystals' that hint at liquid water by 4.4 billion years ago are the Jack Hills detrital zircons. Card: cover, focus [0.5, 0.72] (the lower, faceted crystal)."
+  },
+  {
+   "stop": "origin_of_life",
+   "id": "genetic-code-wheel",
+   "caption": "The genetic code all life shares",
+   "source": "commons",
+   "file": "File:Aminoacids table.svg",
+   "licence": "Public domain (PD-user). Author: Mouagip.",
+   "person": false,
+   "why": "Verified: PD, vector (nominal 650x640; vectors are exempt from the width rule). 'We all still share its genetic code': the codon wheel that maps each RNA codon to its amino acid, the same in bacteria and in us. A code cannot be photographed. Card: contain, matte white."
+  },
+  {
+   "stop": "tree_of_life",
+   "id": "three-domain-tree",
+   "caption": "Tree of life: bacteria, archaea, eukaryotes",
+   "source": "commons",
+   "file": "File:Phylogenetic tree.svg",
+   "licence": "Public domain (PD-retouched-user). Author: NASA Astrobiology Institute, after Carl Woese; vector version by Eric Gaba (Sting) and Cherkash.",
+   "person": false,
+   "why": "Verified: PD, vector (nominal 1860x1010), English labels. Woese's rRNA tree shows descent from one ancestor into the three clades this stop highlights. This is now the only use of the file, since origin has a different tree. Card: contain, matte white."
+  },
+  {
+   "stop": "tree_of_life",
+   "id": "darwin-tree-sketch-1837",
+   "caption": "Darwin's first tree of descent, 1837",
+   "source": "commons",
+   "file": "File:Darwin Tree 1837.png",
+   "licence": "Public domain (PD-old-70-expired). Author: Charles Darwin, Notebook B p. 36, via Darwin Online.",
+   "person": false,
+   "why": "Verified: PD, 1390x2265. 'Along time, it follows descent: who came from whom': Darwin's 'I think' sketch, with living tips and extinct branches. It is a document, not a portrait. Card: cover, focus [0.5, 0.33] (the sketch in the upper half of the page)."
+  },
+  {
+   "stop": "photosynthesis",
+   "id": "anabaena-cyanobacteria",
+   "caption": "Cyanobacteria (Anabaena) under the microscope",
+   "source": "commons",
+   "file": "File:CSIRO ScienceImage 6737 Anabaena chain.jpg",
+   "licence": "CC BY 3.0. Author: CSIRO (CSIRO ScienceImage 6737).",
+   "person": false,
+   "why": "Verified: CC BY 3.0, 1841x1191, a real micrograph. The cyanobacteria the narration names, which are also the stop's highlight (Nostocaceae): spiral chains of Anabaena cells. Card: cover, centre."
+  },
+  {
+   "stop": "photosynthesis",
+   "id": "shark-bay-stromatolites",
+   "caption": "Living stromatolites, Shark Bay, Australia",
+   "source": "commons",
+   "file": "File:Stromatolites in Sharkbay.jpg",
+   "licence": "CC BY-SA 3.0 (migrated from GFDL). Author: Paul Harrison.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2440x1816. Mounds built by mats of cyanobacteria, the same structures that record oxygen-making microbes in Earth's oldest rocks. They are 'the floor of every food chain', and they are still alive today. Card: cover, focus [0.5, 0.6]."
+  },
+  {
+   "stop": "great_oxidation",
+   "id": "banded-iron-dales-gorge",
+   "caption": "Banded iron formation, Karijini, Australia",
+   "source": "commons",
+   "file": "File:Banded iron formation Dales Gorge.jpg",
+   "licence": "CC BY 2.0. Author: Graeme Churchard.",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 4288x2848, no people. Oxygen built up and rusted the iron out of the seas, laying this rock down around 2.5 billion years ago. It is the classic visible record of 'life changing the matter of the planet'. Card: cover, centre."
+  },
+  {
+   "stop": "great_oxidation",
+   "id": "huronian-dropstone",
+   "caption": "Ice-age dropstone, Ontario, 2.3 billion years old",
+   "source": "commons",
+   "file": "File:Dropstones in argillite (Coleman Member, Gowganda Formation, Paleoproterozoic, ~2.3 Ga; Straight Lake West roadcut, north of Temagami, Ontario, Canada) 2 (40849289653).jpg",
+   "licence": "CC BY 2.0. Author: James St. John.",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 4000x3000. The check's 'may show people' note is a false positive from the rock unit name 'Member'. It shows the 'long ice age' the oxygen likely set off: a stone dropped by melting ice into seabed mud in the Gowganda Formation. Real evidence was chosen over a painting of a frozen Earth. Card: cover, focus [0.45, 0.55]."
+  },
+  {
+   "stop": "eukaryotes",
+   "id": "mitochondria-in-cells",
+   "caption": "Mitochondria (red) inside animal cells",
+   "source": "commons",
+   "file": "File:Indian Muntjac fibroblast cells (24271618921).jpg",
+   "licence": "CC BY 2.0. Author: ZEISS Microscopy (sample courtesy of Michael W. Davidson, Florida State University).",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 1923x1210. 'That bacterium became the mitochondrion, the power plant inside nearly every one of your cells': deer cells with mitochondria stained red and nuclei blue. Card: cover, centre."
+  },
+  {
+   "stop": "eukaryotes",
+   "id": "asgard-archaeon",
+   "caption": "Asgard archaeon, closest kin of the host cell",
+   "source": "commons",
+   "file": "File:Promethearchaeum syntrophicum.jpg",
+   "licence": "CC BY-SA 4.0. Author: Hiroyuki Imachi, Masaru K. Nobu et al. (Imachi et al. 2020, Nature 577:519-525).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2048x2048, an electron micrograph. It is the 'archaeon' that took the bacterium in: the first Asgard archaeon grown in culture, from the living group closest to the first complex cell's host. Card: cover, focus [0.45, 0.45] (the scale bar at lower right may be cropped)."
+  },
+  {
+   "stop": "multicellular",
+   "id": "bangiomorpha-filaments",
+   "caption": "Bangiomorpha, a red alga of a billion years ago (illustration)",
+   "source": "generate",
+   "prompt": "Scientific illustration in the clean, uncluttered style of a natural-history museum panel, wide 16:9 landscape. Subject: Bangiomorpha pubescens, a red alga that lived about 1.05 billion years ago. Left two-thirds: a small tuft of short, unbranched, hair-thin filaments, deep red to maroon, a few millimetres tall, fixed by tiny holdfasts to a pale rock in very shallow, clear, sunlit sea water, with soft rippled light on the rock. Right third: a single filament shown greatly magnified inside a soft circular vignette, a column of stacked disc-shaped cells, some segments divided lengthwise into compact clusters of small round cells. Nothing else living in the scene. Muted natural colours, soft even light, plain background. Clearly a painted illustration, not a photograph, not a fossil, not a microscope photograph. No text, no labels, no letters or numbers, no scale bar, no arrows, no logos, no people.",
+   "person": false,
+   "why": "Checked: Commons' only free image of Bangiomorpha (CC BY 4.0, by Anderson, Mughal and Wedlake) is 447x1169, under the 800 px rule, and would be a thin strip in a 16:9 card. The Bangia images (Anna Atkins's 1853 cyanotype and a 1000 px iNaturalist photo of reddish streaks) do not show the filaments. A billion-year-old microscopic alga cannot be photographed alive, so an illustration of the filaments is justified, credited as AI-generated. The prompt is safe: it asks for no text, scale bar, logos or people, and not to look like a photograph, a fossil or a micrograph."
+  },
+  {
+   "stop": "multicellular",
+   "id": "fly-agaric",
+   "caption": "Fungi: closer kin to us than to plants",
+   "source": "commons",
+   "file": "File:Fliegenpilz fly agaric Amanita muscaria.JPG",
+   "licence": "CC BY 3.0. Author: Holger Krisp.",
+   "person": false,
+   "why": "Verified: CC BY 3.0, 3000x2000. The 'may show people' note is a false positive from 'Family: Amanitaceae'. It shows the narration's surprise, 'fungi are closer kin to us than they are to plants', with the most recognisable fungus (a featured picture). Card: cover, centre."
+  },
+  {
+   "stop": "cambrian",
+   "id": "anomalocaris-fossil",
+   "caption": "Anomalocaris, Cambrian top predator (fossil cast)",
+   "source": "commons",
+   "file": "File:Anomalocaris canadensis (TMP 2023.003.0003), Royal Tyrrell Museum, Drumheller, Alberta, 2025-07-13.jpg",
+   "licence": "CC BY-SA 4.0. Author: Chris Woodrich.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2820x4010. 'Eyes, shells and predators set off an arms race': the Burgess Shale's top predator, shown whole, with grasping claws and large eyes (a cast; featured picture). Portrait, on black. Card: contain."
+  },
+  {
+   "stop": "cambrian",
+   "id": "paradoxides-trilobite",
+   "caption": "Paradoxides, an armoured Cambrian trilobite",
+   "source": "commons",
+   "file": "File:BLW Trilobite (Paradoxides sp.).jpg",
+   "licence": "CC BY-SA 2.0 UK. Author: Mike Peel (Manchester Museum, Britain Loves Wikipedia).",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0 UK, 3888x2592. 'Eyes, shells': a large trilobite from about 500 million years ago, with its armoured exoskeleton and eyes. Card: cover, centre."
+  },
+  {
+   "stop": "cambrian",
+   "id": "dickinsonia-fossil",
+   "caption": "Dickinsonia, a soft-bodied Ediacaran creature",
+   "source": "commons",
+   "file": "File:Dickinsonia costata Ediacara 67.jpg",
+   "licence": "CC BY-SA 4.0. Author: Ghedo.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2250x1658. 'Soft-bodied Ediacaran creatures appeared': the best-known Ediacaran animal, which came before the explosion. The stop has three cards because the narration names the Ediacarans, the explosion of body plans and the predators. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "vertebrates",
+   "id": "pikaia-fossil",
+   "caption": "Pikaia, a Cambrian chordate, Burgess Shale",
+   "source": "commons",
+   "file": "File:USNM PAL 57628 Pikaia gracilens.jpg",
+   "licence": "CC0. Author: Chip Clark (Smithsonian National Museum of Natural History, USNM PAL 57628).",
+   "person": false,
+   "why": "Verified: CC0, 2500x1305, a real specimen. 'Our own branch, the chordates: small swimmers with a stiff rod along the back'. Card: cover, centre."
+  },
+  {
+   "stop": "vertebrates",
+   "id": "dunkleosteus-skull",
+   "caption": "Dunkleosteus: armoured head and hinged jaws",
+   "source": "commons",
+   "file": "File:Dunkleosteus Vienna 22 04 2013 1.jpg",
+   "licence": "CC0. Author: Vassil.",
+   "person": false,
+   "why": "Verified: CC0, 2068x1589. 'Then came hinged jaws, which made them active predators': the head of a Devonian jawed fish (a real fossil, background removed). Card: cover, focus [0.45, 0.45]."
+  },
+  {
+   "stop": "land_plants",
+   "id": "cooksonia-fossil",
+   "caption": "Cooksonia, one of the first land plants",
+   "source": "commons",
+   "file": "File:Amgueddfa Cymru - Cooksonia pertoni - 211800.jpeg",
+   "licence": "CC BY-SA 4.0. Author: Amgueddfa Cymru – Museum Wales (no photographer named; specimen 79.17G.3). Commons has no machine-readable author, so set the credit to the museum by hand.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4000x2667. 'Plants crept onto land': a Silurian land plant with forked stems tipped with spore capsules. Card: cover, centre."
+  },
+  {
+   "stop": "land_plants",
+   "id": "gilboa-tree-stump",
+   "caption": "Stump of one of the first trees, Gilboa, New York",
+   "source": "commons",
+   "file": "File:Eospermatopteris textilis fossil tree trunk (Ithaca Formation, Upper Devonian; Riverside Quarry, Gilboa, Schoharie County, New York State, USA) (15523316876).jpg",
+   "licence": "CC BY 2.0. Author: James St. John (Field Museum FMNH P21740).",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 1798x1902. 'The first forests stood': a fossil stump of Eospermatopteris (the Wattieza tree) from Gilboa, the oldest known forest. Card: contain (near-square, on a dark background)."
+  },
+  {
+   "stop": "tetrapods",
+   "id": "tiktaalik-fossil",
+   "caption": "Tiktaalik, a fish with limb-like fins",
+   "source": "commons",
+   "file": "File:Tiktaalik roseae.jpg",
+   "licence": "CC BY-SA 3.0. Author: Ghedoghedo.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 1955x1051. The lobe-finned fish on the way to four limbs, about 375 million years old (as displayed in Brussels). Card: cover, centre."
+  },
+  {
+   "stop": "tetrapods",
+   "id": "fins-to-hands",
+   "caption": "Fin bones to hand bones",
+   "source": "commons",
+   "file": "File:Fins to hands.png",
+   "licence": "CC BY 4.0. Author: Neil Pezzoni.",
+   "person": false,
+   "why": "Verified: CC BY 4.0, 2576x1295. 'The bones inside them trace back to a fin': the same bones, colour-coded, from Eusthenopteron through Tiktaalik to Acanthostega. Card: contain, matte white."
+  },
+  {
+   "stop": "amniotes",
+   "id": "turtles-hatching",
+   "caption": "Turtles hatching from shelled eggs",
+   "source": "commons",
+   "file": "File:Hatching turtles.jpg",
+   "licence": "CC BY-SA 2.0. Author: Mack_L (Flickr).",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0, 3072x2304. 'An egg that carries its own water': hatchlings breaking out of shelled eggs. Card: cover, centre."
+  },
+  {
+   "stop": "amniotes",
+   "id": "frog-spawn",
+   "caption": "A frog among its spawn in a pond",
+   "source": "commons",
+   "file": "File:Frog with Frog Spawn - geograph.org.uk - 7119482.jpg",
+   "licence": "CC BY-SA 2.0. Author: Ian S (Geograph Britain and Ireland).",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0, 3008x2000. 'Amphibians still had to return to the water to breed': jelly-coated eggs laid in water, the problem the amniote egg solved. Card: cover, focus [0.45, 0.45]."
+  },
+  {
+   "stop": "great_dying",
+   "id": "putorana-traps",
+   "caption": "Putorana Plateau: lava of the Siberian eruptions",
+   "source": "commons",
+   "file": "File:Плато Путорана 2.jpg",
+   "licence": "CC BY-SA 4.0. Author: EugeneF.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4896x3672. 'Vast eruptions in Siberia': the stepped, flat-topped mountains are stacked lava flows of the Siberian Traps. Card: cover, focus [0.5, 0.35] (keeps the mesas and drops the snowy foreground)."
+  },
+  {
+   "stop": "great_dying",
+   "id": "pangaea-250ma",
+   "caption": "Pangaea, about 250 million years ago",
+   "source": "commons",
+   "file": "File:Mollweide Paleographic Map of Earth, 250 Ma (Olenekian Age).png",
+   "licence": "CC BY 4.0. Author: Christopher R. Scotese, Christian Vérard, Landon Burgener, Reece P. Elling, Ádám T. Kocsis (PALEOMAP).",
+   "person": false,
+   "why": "Verified: CC BY 4.0, 3610x1810. 'On the supercontinent Pangaea': a reconstruction of Earth just after the extinction, with today's borders faintly overlaid. Card: cover, focus [0.55, 0.5] (only open ocean is lost at the ends)."
+  },
+  {
+   "stop": "dinosaurs",
+   "id": "trex-sue",
+   "caption": "Tyrannosaurus rex 'Sue', Field Museum",
+   "source": "commons",
+   "file": "File:FMNH Tyrannosaurus rex Sue.jpg",
+   "licence": "CC BY-SA 4.0. Author: Zissoudisctrucker.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4032x3024. Viewed: no people in frame. Dinosaurs 'held the top of the food chain', and this is the best-known top predator, a real skeleton. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "dinosaurs",
+   "id": "eomaia-fossil",
+   "caption": "Eomaia, a small furry mammal of the dinosaur age",
+   "source": "commons",
+   "file": "File:Eomaia scansoria Liaoning cast MNHN Sur les traces des dinosaures.jpg",
+   "licence": "CC BY 4.0 for the photo, by Marie-Lan Taÿ Pamart. The cast is PD-ineligible, which is why the API's LicenseShortName reads 'Public domain'. Credit the photographer with CC BY 4.0 by hand.",
+   "person": false,
+   "why": "Verified: 7339x5504. 'Small nocturnal insect eaters. Warm blood, fur': a 125-million-year-old mammal from Liaoning whose fossil keeps the outline of its fur (a cast at MNHN Paris). It is not one of the first mammals, hence 'of the dinosaur age'. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "chicxulub",
+   "id": "chicxulub-impact-painting",
+   "caption": "The asteroid strikes Yucatán (NASA painting)",
+   "source": "commons",
+   "file": "File:Chicxulub impact - artist impression.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: Donald E. Davis for NASA, 1994.",
+   "person": false,
+   "why": "Verified: PD, 2785x2228. 'An asteroid about ten kilometres wide struck what is now the Yucatan': no camera saw it, so the card uses NASA's own artist's impression. Commons files it under inaccurate paleoart because of its pterosaurs, but it is still the standard image. Card: cover, focus [0.5, 0.42]."
+  },
+  {
+   "stop": "chicxulub",
+   "id": "chicxulub-crater-relief",
+   "caption": "Rim of the buried Chicxulub crater, Yucatán",
+   "source": "commons",
+   "file": "File:Chicxulub.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA/JPL-Caltech, Shuttle Radar Topography Mission (PIA03381).",
+   "person": false,
+   "why": "Verified: PD, 3010x3416. Where it struck, as real data: a shallow arc in the radar relief traces the rim of the buried crater. Use only the top (SRTM) panel, which is almost exactly 16:9. Card: cover, focus [0.5, 0.25]."
+  },
+  {
+   "stop": "mammals_radiate",
+   "id": "cheetah-impala",
+   "caption": "A cheetah chasing an impala",
+   "source": "commons",
+   "file": "File:Cheetah chasing impala 2 - DSC 8630 TOPAZ 6x9 300 in AIR 14.jpg",
+   "licence": "CC BY-SA 4.0. Author: Clayhill1.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2740x1840. 'Hunters, like the cats. The plant eaters they prey on': a cat and its prey in one frame, with no gore (Masai Mara; a Wiki Science Competition 2025 finalist). Card: cover, box [0.38, 0.33, 0.45, 0.5] (frames both animals)."
+  },
+  {
+   "stop": "mammals_radiate",
+   "id": "humpback-breaching",
+   "caption": "Whales: a humpback breaching",
+   "source": "commons",
+   "file": "File:HIHWNMS - Humpback Breaching (33591142200).jpg",
+   "licence": "Public domain (PD-USGov-NOAA). Author: A. Debich/NOAA (NOAA Permit #15240), National Marine Sanctuaries.",
+   "person": false,
+   "why": "Verified: PD, 5472x3648. 'Whales': mammals spreading from land into the sea. Card: cover, focus [0.55, 0.5]."
+  },
+  {
+   "stop": "mammals_radiate",
+   "id": "flying-fox",
+   "caption": "Bats: a fruit bat in flight",
+   "source": "commons",
+   "file": "File:Indian flying fox (Pteropus giganteus giganteus) in flight.jpg",
+   "licence": "CC BY-SA 4.0. Author: Charles J. Sharp.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2924x1950. 'Bats': mammals taking to the air. The stop has three cards because the narration names whales, bats, and the cats with their prey. Card: cover, focus [0.65, 0.45]."
+  },
+  {
+   "stop": "calorie_flow",
+   "id": "grass-moth",
+   "caption": "Grass moth on a grass head",
+   "source": "commons",
+   "file": "File:Garden Grass-veneer - Chrysoteuchia culmella (21626787034).jpg",
+   "licence": "CC BY 2.0. Author: Line Sabroe.",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 3536x2383. 'Grasses feed moths': a garden grass-veneer, a moth whose caterpillars eat grass, resting on a grass seed head. It shows the first two links of the chain in one picture. Card: cover, focus [0.4, 0.5]."
+  },
+  {
+   "stop": "calorie_flow",
+   "id": "barn-swallow",
+   "caption": "Barn swallow hunting on the wing",
+   "source": "commons",
+   "file": "File:080 Wild Barn swallow in flight at Pfyn-Finges Photo by Giles Laurent.jpg",
+   "licence": "CC BY-SA 4.0. Author: Giles Laurent.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 3361x2241. 'Moths feed swallows': a bird that lives on insects caught in flight. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "calorie_flow",
+   "id": "eurasian-hobby",
+   "caption": "Hobby, a falcon that hunts swallows",
+   "source": "commons",
+   "file": "File:Eurasian Hobby (14574008925) (cropped).jpg",
+   "licence": "CC BY 2.0. Author: Mike Prince.",
+   "person": false,
+   "why": "Verified: CC BY 2.0, 1640x1093. 'Swallows feed falcons': the falcon that specialises in catching swallows and martins in the air, the small top of the chain. The stop has three cards for the three links the narration names. Card: cover, focus [0.5, 0.55]."
+  },
+  {
+   "stop": "primates",
+   "id": "primates-tarsier",
+   "caption": "Philippine tarsier: grasping hands, forward-facing eyes",
+   "source": "commons",
+   "file": "File:Tarsiers of Bohol - Bohol1892.jpg",
+   "licence": "CC0. Author: lumoplank (Flickr, FlickreviewR passed).",
+   "person": false,
+   "why": "Verified: CC0, 5184x3456. It shows the first two primate traits the narration names, grasping hands and forward-facing eyes, on an animal gripping a branch. Card: cover."
+  },
+  {
+   "stop": "primates",
+   "id": "primates-chimps-grooming",
+   "caption": "Chimpanzees grooming, Kibale Forest, Uganda",
+   "source": "commons",
+   "file": "File:Common chimpanzee (Pan troglodytes schweinfurthii) grooming Kibale.jpg",
+   "licence": "CC BY-SA 4.0. Author: Charles J. Sharp.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4061x2707. Wild apes keeping up social bonds, the social group the narration asks the viewer to keep in mind. Card: cover."
+  },
+  {
+   "stop": "hominins",
+   "id": "hominins-laetoli",
+   "caption": "Laetoli footprints, 3.66 million years old (replica)",
+   "source": "commons",
+   "file": "File:Laetoli footprints replica.jpg",
+   "licence": "CC BY-SA 3.0. Author: Momotarou2012.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2672x1164. Direct evidence of walking upright, which is the stop's subject (a museum replica in Tokyo). Card: cover."
+  },
+  {
+   "stop": "hominins",
+   "id": "hominins-toumai",
+   "caption": "Toumai, Sahelanthropus skull, about 7 million years old (cast)",
+   "source": "commons",
+   "file": "File:Sahelanthropus tchadensis - TM 266-01-060-1.jpg",
+   "licence": "CC BY-SA 4.0. Author: Didier Descouens.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4239x3571. One of the oldest known possible hominins, from near the split from the chimpanzees' line about 7 million years ago (a featured picture, on black). Card: cover."
+  },
+  {
+   "stop": "hominins",
+   "id": "hominins-savanna",
+   "caption": "Grassland and acacia woodland, Serengeti, Tanzania",
+   "source": "commons",
+   "file": "File:Serengeti-Landscape-2012.JPG",
+   "licence": "CC BY-SA 3.0. Author: Bjørn Christian Tørrissen.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 4589x2643. It shows the cause the narration stresses: a cooling climate opened African forest into woodland and grassland. It is the third card because the narration names three things: the habitat, the split and walking upright. Card: cover."
+  },
+  {
+   "stop": "tools_fire",
+   "id": "tools-olduvai-chopper",
+   "caption": "Chopping tool, Olduvai Gorge, 1.8 to 2 million years old",
+   "source": "commons",
+   "file": "File:Olduvai stone chopping tool at British Museum.jpg",
+   "licence": "CC BY-SA 3.0. Author: BabelStone (Andrew West).",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 4000x2248. A real early stone tool (British Museum 1934,1214.1). No free photo of the 3.3-million-year-old Lomekwi tools exists, so the caption gives this tool's own age. Card: cover."
+  },
+  {
+   "stop": "tools_fire",
+   "id": "tools-dmanisi-skull",
+   "caption": "Homo erectus skull, Dmanisi, Georgia, 1.8 million years old (cast)",
+   "source": "commons",
+   "file": "File:Dmanisi-D3444. Homo erectus or Homo georgicus.jpg",
+   "licence": "CC BY-SA 2.0. Author: Ryan Somma (Flickr).",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0, 2048x1360. Homo erectus outside Africa, among the earliest hominin fossils found there: 'Homo erectus spread out of Africa'. It is a Smithsonian cast, chosen by the planner over File:D4500.jpg, which shows a visitor behind the skull. Card: cover."
+  },
+  {
+   "stop": "tools_fire",
+   "id": "tools-erectus-hearth",
+   "caption": "Homo erectus at a cooking fire (illustration)",
+   "source": "generate",
+   "prompt": "Scientific illustration in a muted, naturalistic painted style, clearly a painting and not a photograph. Dusk in open East African woodland about one million years ago. In the foreground, a small hearth of burning branches on bare earth, ringed by a few stones; two wild tubers and a split antelope leg bone roast at the edge of the glowing embers, and a teardrop-shaped stone hand axe lies on the ground beside them. In the middle distance, three early humans (Homo erectus), small and in dark silhouette against the firelight so that no face or body detail is visible, stand upright with long legs and modern human body proportions; no weapons, ornaments or clothing details. Scattered acacia trees and dry grass under a deep blue twilight sky. Wide 16:9 composition, uncluttered, with the fire as the clear focal point. No text, no labels, no captions, no logos, no frame, no modern objects.",
+   "person": false,
+   "why": "Checked: Commons has no free image of early cooking fire. Searches for Homo erectus fire dioramas, Peking Man and the control of fire found nothing; the planner rightly rejected a composite built from other people's images. Cooking happened long before any camera. The prompt sticks to the narration's evidence (a hand axe, roasted tubers and a marrow bone) and draws the hominins as small silhouettes, so the model invents no faces. It asks for no text, logos or modern objects, and to look plainly like a painting. It is the third of three things named: tools, Homo erectus and fire."
+  },
+  {
+   "stop": "homo_sapiens",
+   "id": "sapiens-jebel-irhoud",
+   "caption": "Jebel Irhoud 1, Morocco: early Homo sapiens, about 300,000 years old (cast)",
+   "source": "commons",
+   "file": "File:Jebel Irhoud 1. Homo Sapiens.jpg",
+   "licence": "CC BY-SA 2.0. Author: Ryan Somma (Flickr).",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0, 2048x1360. These are the oldest known Homo sapiens fossils, dated to about 315,000 years ago (the Flickr title's '160,000' is the museum's older date). They fit 'about three hundred thousand years ago, our own species appears in Africa'. Card: cover."
+  },
+  {
+   "stop": "homo_sapiens",
+   "id": "sapiens-diepkloof-eggshell",
+   "caption": "Engraved ostrich eggshell, Diepkloof, South Africa, about 60,000 years old",
+   "source": "commons",
+   "file": "File:Iziko engraving ostrich eggshell.JPG",
+   "licence": "CC BY-SA 3.0. Author: Nkansah Rexford.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2690x1512; the museum label dates it to 55,000 to 65,000 years ago. Shared culture made visible: the same engraved motifs repeat across many containers, a design tradition passed on by teaching. Card: cover."
+  },
+  {
+   "stop": "out_of_africa",
+   "id": "ooa-migration-map",
+   "caption": "How Homo sapiens spread out of Africa (years ago)",
+   "source": "commons",
+   "file": "File:Spreading homo sapiens la.svg",
+   "licence": "Public domain (PD-user). Author: NordNordWest, after Altaileopard's map.",
+   "person": false,
+   "why": "Verified: PD, vector (nominal 1692x791). Viewed: red routes with dates into Asia, Europe, Australia and the Americas, and the Neanderthal range in ochre. The only labels are Latin species names and numbers. Card: contain."
+  },
+  {
+   "stop": "out_of_africa",
+   "id": "ooa-neanderthal-skull",
+   "caption": "Neanderthal skull, La Chapelle-aux-Saints, France",
+   "source": "commons",
+   "file": "File:Homo sapiens neanderthalensis.jpg",
+   "licence": "CC BY 2.5 (also GFDL, CC BY-SA 3.0). Author: Luna04.",
+   "person": false,
+   "why": "Verified: CC BY 2.5, 1098x1400. Neanderthals were among the peoples the migrants met and mixed with; this is the classic skull, in frontal view. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "agriculture",
+   "id": "agri-emmer-wheat",
+   "caption": "Emmer wheat, one of the first domesticated grains",
+   "source": "commons",
+   "file": "File:Triticum dicoccon - emmer wheat.jpg",
+   "licence": "CC BY 3.0. Author: Globe Master - SideEffect.",
+   "person": false,
+   "why": "Verified: CC BY 3.0, 1594x896 (16:9). One of the grasses with large, food-storing seeds that people domesticated, growing in the field of the Biskupin archaeological museum. Card: cover."
+  },
+  {
+   "stop": "agriculture",
+   "id": "agri-beer-ration-tablet",
+   "caption": "Clay tablet recording beer rations, Iraq, about 3100 to 3000 BCE",
+   "source": "commons",
+   "file": "File:Early writing tablet recording the allocation of beer.jpg",
+   "licence": "CC BY-SA 3.0. Author: BabelStone (Andrew West); British Museum.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2191x1679. It shows the chain from surplus to writing to the first civilizations: one of the earliest written records, accounting for food and drink. Card: cover."
+  },
+  {
+   "stop": "farm_rises",
+   "id": "farm-texas-feedlot",
+   "caption": "Cattle feedlot, Texas",
+   "source": "commons",
+   "file": "File:Cattle in Canyon, Texas (9383).jpg",
+   "licence": "Public domain (PD-USGov-USDA). Author: Preston Keres, USDA/FPAC.",
+   "person": false,
+   "why": "Verified: PD, 3840x2160 (16:9). Livestock under human control at scale, which is the stop's closing fact: livestock outweighs all wild mammals more than ten to one. Card: cover."
+  },
+  {
+   "stop": "farm_rises",
+   "id": "farm-palouse-wheat-harvest",
+   "caption": "Wheat harvest on the Palouse, Idaho",
+   "source": "commons",
+   "file": "File:Wheat harvest on the Palouse.jpg",
+   "licence": "Public domain (PD-USGov-USDA). Author: USDA Agricultural Research Service, image K1441-5 (photographer not named). There is no machine-readable author, so credit the ARS by hand.",
+   "person": false,
+   "why": "Verified: PD, 2700x1835. Crops as the calorie layer humans arrange: a combine in a vast wheat monoculture. With the feedlot, it covers the narration's 'livestock and crops'. Card: cover."
+  },
+  {
+   "stop": "matter_rises",
+   "id": "matter-bingham-canyon",
+   "caption": "Bingham Canyon copper mine, Utah",
+   "source": "commons",
+   "file": "File:Bingham Canyon Mine (1) - Salt Lake County, Utah - May 11, 2012.jpg",
+   "licence": "CC BY 4.0 (also CC BY 2.0). Author: David Ratledge.",
+   "person": false,
+   "why": "Verified: CC BY 4.0, 2581x1936. The matter we dig up, at modern scale. Because it is a copper mine, it links the narration's first metal to today's 100 billion tonnes a year. This is now the only use of the file; explosion had it too. Card: cover."
+  },
+  {
+   "stop": "matter_rises",
+   "id": "matter-uluburun-ingot",
+   "caption": "Bronze Age copper ingot, Uluburun shipwreck, about 1300 BCE",
+   "source": "commons",
+   "file": "File:Uluburun copper ingot oxhide shaped.jpg",
+   "licence": "CC BY-SA 4.0. Author: Zunkir.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 5564x3173. The early trickle: smelted copper in the oxhide shape it was traded in across the Bronze Age Mediterranean (Bodrum Museum). Card: cover."
+  },
+  {
+   "stop": "civ_streams",
+   "id": "streams-strass-1841",
+   "caption": "The Stream of Time: nations drawn as streams (after Strass, 1841)",
+   "source": "commons",
+   "file": "File:Universal history illustrated, or the stream of time, made visible.png",
+   "licence": "Public domain (PD-old-70-1923). Author: Samuel G. Goodrich, after Friedrich Strass's Strom der Zeiten (1804); 1841; scan by Harvard Library.",
+   "person": false,
+   "why": "NEW, placed first. The Histomap the narration names is not on Commons: searches for Histomap, 'John B. Sparks' and Rand McNally 1931 found only Berlin city plans. Strass's Stream of Time is its direct ancestor and draws exactly what this stop explains: each nation as a stream that widens, merges and splits over time. 12391x20404; Commons rendered its 500 and 960 px thumbnails. Card: cover, focus [0.5, 0.25] (the title globe and the ancient streams flowing down into Persia and Rome; checked on the 960 px thumbnail)."
+  },
+  {
+   "stop": "civ_streams",
+   "id": "streams-world-2000bce",
+   "caption": "The world around 2000 BCE",
+   "source": "commons",
+   "file": "File:World in 2000 BC.svg",
+   "licence": "Public domain (PD-self). Author: Mr.absurd, after Briangotts's World 2000 BCE map.",
+   "person": false,
+   "why": "Verified: PD, vector (nominal 4500x2234). It shows the moment the Histomap opens on, with Egypt, Ur III Mesopotamia, the Hittites, the Indus civilisation and China side by side, west to east. Shown whole, it reads as yellow hunter-gatherer land at card size, so crop it to the band from Egypt to China (checked on a 1280 px thumbnail). Card: cover, box [0.46, 0.12, 0.353, 0.40]."
+  },
+  {
+   "stop": "population_curve",
+   "id": "popcurve-hatshepsut",
+   "caption": "Hatshepsut, female pharaoh of Egypt",
+   "source": "commons",
+   "file": "File:Seated Statue of Hatshepsut MET DP116059.jpg",
+   "licence": "CC0. Author: The Metropolitan Museum of Art (Open Access), 29.3.2. There is no machine-readable author, so credit the Met by hand.",
+   "person": true,
+   "why": "Verified: CC0, 2581x3836. Named in the narration as one of the lives that glow; a statue made during her reign. Card: cover, focus portrait (0.5, 0.3)."
+  },
+  {
+   "stop": "population_curve",
+   "id": "popcurve-hammurabi",
+   "caption": "Hammurabi before the god Shamash, top of his law code (Louvre)",
+   "source": "commons",
+   "file": "File:F0182 Louvre Code Hammourabi Bas-relief Sb8 rwk.jpg",
+   "licence": "CC BY 3.0 (also GFDL). Author: Mbzt.",
+   "person": true,
+   "why": "Verified: CC BY 3.0, 3170x3500. Named in the narration; the relief at the top of his law-code stele shows the king himself. Card: cover, focus [0.5, 0.4]."
+  },
+  {
+   "stop": "lifespans_gender",
+   "id": "lifespans-flavia-augustina",
+   "caption": "Roman tombstone, York: a mother dead at 39, two children dead as infants",
+   "source": "commons",
+   "file": "File:Tombstone of Flavia Augustina YORYM 1998 18.jpg",
+   "licence": "CC BY-SA 4.0. Author: York Museums Trust staff photographer.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2168x3194. The short lines in a single stone: the epitaph (RIB 685) records that Flavia Augustina died at 39 and that two of her children died at about a year old. The family relief is a stock funerary type, not a likeness. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "lifespans_gender",
+   "id": "lifespans-childbirth-stele",
+   "caption": "Athenian grave relief of a woman who died in childbirth, about 340 BCE",
+   "source": "commons",
+   "file": "File:7175 - Piraeus Arch. Museum, Athens - A woman dead in childbirth - Photo by Giovanni Dall'Orto, Nov 14 2.jpg",
+   "licence": "CC BY-SA 3.0. Author: Giovanni Dall'Orto.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 1880x2816. It shows why women's edge in lifespan stayed small until childbirth became safer: a seated mother takes leave of her family (Piraeus Archaeological Museum, 350 to 330 BCE). The figures are idealized Classical types, not likenesses. Card: cover, focus [0.5, 0.4]."
+  },
+  {
+   "stop": "bronze_age",
+   "id": "bronze-kadesh-treaty",
+   "caption": "Kadesh peace treaty, the Hittite copy, about 1259 BCE",
+   "source": "commons",
+   "file": "File:The Hittite version of the Egyptian–Hittite peace treaty (Treaty of Kadesh), discovered at Boğazköy (Turkey), 1258 BC, Istanbul Archeology Museum (46731345944).jpg",
+   "licence": "CC BY-SA 2.0. Author: Carole Raddato (Flickr, Following Hadrian).",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0, 4096x3032. The narration's 'one of the oldest known peace treaties': the clay tablet the Hittites kept of their treaty with Egypt after Kadesh. Card: cover."
+  },
+  {
+   "stop": "bronze_age",
+   "id": "bronze-mycenae-lion-gate",
+   "caption": "Lion Gate of Mycenae, an Aegean palace citadel",
+   "source": "commons",
+   "file": "File:Lions-Gate-Mycenae.jpg",
+   "licence": "CC BY-SA 2.5. Author: Andreas Trepte.",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.5, 3000x2430. Viewed: no people. It stands for 'the palaces of the Aegean' brought down in the Late Bronze Age collapse, on the ground where the Greek city-states later grew. Card: cover."
+  },
+  {
+   "stop": "axial_age",
+   "id": "axial-confucius",
+   "caption": "Confucius, painted by Ma Yuan, about 1200 CE",
+   "source": "commons",
+   "file": "File:Ma Yuan-Confucius.png",
+   "licence": "Public domain (PD-Art, PD-old-100). Author: Ma Yuan (Southern Song); Palace Museum, Beijing.",
+   "person": true,
+   "why": "Verified: PD, 1519x1870. Named first in the narration. A classic Chinese portrait, though like every image of him it was made long after his lifetime. Card: cover, focus portrait."
+  },
+  {
+   "stop": "axial_age",
+   "id": "axial-buddha",
+   "caption": "The Buddha, Gandhara statue, 1st to 2nd century CE",
+   "source": "commons",
+   "file": "File:Gandhara Buddha (tnm).jpeg",
+   "licence": "Public domain (PD-user, the photographer's release; PD-US for the statue). Author: World Imaging; Tokyo National Museum.",
+   "person": true,
+   "why": "Verified: PD, 1746x2894. Named in the narration. This Greco-Buddhist statue is among the earliest images of the Buddha. Card: cover, focus portrait."
+  },
+  {
+   "stop": "axial_age",
+   "id": "axial-socrates",
+   "caption": "Socrates, Roman marble portrait (Louvre)",
+   "source": "commons",
+   "file": "File:Socrates Louvre.jpg",
+   "licence": "CC BY-SA 2.5 for the photograph, by Eric Gaba (User:Sting); the bust is public domain (PD-old-100). The API's LicenseShortName reports only the bust's 'Public domain', so set the card's credit to Eric Gaba, CC BY-SA 2.5, by hand.",
+   "person": true,
+   "why": "Verified: 1944x2592. Named in the narration: a 1st-century Roman copy of a Greek portrait type of Socrates. The narration names four thinkers and three cards is the limit. Laozi is the one left out, since Confucius already stands for China. Card: cover, focus portrait."
+  },
+  {
+   "stop": "alexander",
+   "id": "alexander-issus-mosaic",
+   "caption": "Alexander the Great at Issus, Pompeii mosaic, about 100 BCE",
+   "source": "commons",
+   "file": "File:Alexander and Bucephalus - Battle of Issus mosaic - Museo Archeologico Nazionale - Naples BW.jpg",
+   "licence": "Licensed-PD: public domain (PD-art, PD-anon-expired) where that applies, otherwise CC BY-SA 3.0 by Berthold Werner. The API reports only 'Public domain', so credit Berthold Werner by hand.",
+   "person": true,
+   "why": "Verified: 3905x2766. Alexander himself, charging the Persian king Darius III: the conquest of Persia in one image. Card: cover, centre."
+  },
+  {
+   "stop": "alexander",
+   "id": "alexander-diadochi-map",
+   "caption": "Kingdoms of Alexander's successors, about 300 BCE",
+   "source": "commons",
+   "file": "File:Diadochi EN.png",
+   "licence": "CC BY-SA 4.0. Author: Luigi Chiesa (original map), Morningstar1814 (English version).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 2000x961. The split the narration asks the viewer to watch: Ptolemaic Egypt, the Seleucid Empire and the other successor states. Card: contain."
+  },
+  {
+   "stop": "alexander",
+   "id": "alexander-tomb-of-cyrus",
+   "caption": "Tomb of Cyrus the Great, Pasargadae, Iran",
+   "source": "commons",
+   "file": "File:Pasargadae, Irán, 2016-09-24, DD 01.jpg",
+   "licence": "CC BY-SA 4.0. Author: Diego Delso.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 8385x5590. Viewed: the only people are a few tiny, unidentifiable visitors at the far left. Cyrus is shown through his own monument because no reliable portrait of him survives. He is the third thing named, after Alexander and the split. Card: cover, focus [0.5, 0.5]."
+  },
+  {
+   "stop": "rome",
+   "id": "rome-empire-117",
+   "caption": "The Roman Empire at its greatest extent, 117 CE",
+   "source": "commons",
+   "file": "File:Roman Empire Trajan 117AD.png",
+   "licence": "CC BY-SA 3.0. Author: Tataryn.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 2534x1614. Rome uniting the Mediterranean at its widest, the width the narration asks the viewer to watch. Card: contain."
+  },
+  {
+   "stop": "rome",
+   "id": "rome-augustus",
+   "caption": "Augustus, first Roman emperor (Prima Porta statue)",
+   "source": "commons",
+   "file": "File:Statue-Augustus.jpg",
+   "licence": "CC BY-SA 2.5 (also GFDL) for the photograph, by Till Niermann; the statue is public domain. The API's LicenseShortName reports only 'Public domain', so set the card's credit to Till Niermann, CC BY-SA 2.5, by hand.",
+   "person": true,
+   "why": "Verified: 1500x2250. Named in the narration: Rome 'became an empire under Augustus'. This is his best-known portrait statue (Vatican). Card: cover, focus portrait."
+  },
+  {
+   "stop": "rome",
+   "id": "rome-appian-way",
+   "caption": "The Appian Way, a Roman road near Rome",
+   "source": "commons",
+   "file": "File:Appian Way.jpg",
+   "licence": "CC BY-SA 4.0. Author: Livioandronico2013.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 6016x4000. Viewed: no people. The roads behind Rome's width, which the narration counts among the causes the world still lives with: original basalt paving near Casal Rotondo. Card: cover."
+  },
+  {
+   "stop": "faiths",
+   "id": "faiths-isaiah-scroll",
+   "caption": "Great Isaiah Scroll, Qumran, 2nd century BCE",
+   "source": "commons",
+   "file": "File:Great Isaiah Scroll.jpg",
+   "licence": "Public domain (PD-Art, PD-old-100). Photographs by Ardon Bar Hama, Israel Museum; the scribe is unknown.",
+   "person": false,
+   "why": "Verified: PD, 12540x3960. The scriptures of Israel and Judah that shaped both faiths, in the oldest complete copy of the Book of Isaiah. Card: cover, centre (a few columns of text)."
+  },
+  {
+   "stop": "faiths",
+   "id": "faiths-paul-journeys",
+   "caption": "Paul's journeys across the Roman world",
+   "source": "commons",
+   "file": "File:Biblica Open Bible Map COLOR 18 Paul's Journeys.png",
+   "licence": "CC BY-SA 4.0. Author: Biblica, Inc. (Open Bible resources).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4000x3000. Viewed: a clear relief map with the four journeys in distinct lines. Christianity spreading along Rome's roads and sea lanes after Jesus and Paul, shown with a map instead of a devotional portrait. Card: contain."
+  },
+  {
+   "stop": "faiths",
+   "id": "faiths-caliphate-map",
+   "caption": "Expansion of the caliphates, 622 to 750",
+   "source": "commons",
+   "file": "File:Map of expansion of Caliphate.svg",
+   "licence": "Public domain (PD-self). Author: DieBuche.",
+   "person": false,
+   "why": "Verified: PD, vector (nominal 900x413), language-neutral. Islam uniting Arabia under Muhammad, then caliphates stretching from Spain to the Indus. It depicts no person. The stop has three cards because the narration names the scriptures, Christianity and Islam. Card: contain."
+  },
+  {
+   "stop": "fall_of_rome",
+   "id": "fallrome-invasions-map",
+   "caption": "Invasions of the Roman Empire, 100 to 500 CE",
+   "source": "commons",
+   "file": "File:Invasions of the Roman Empire 1.png",
+   "licence": "CC BY-SA 2.5. Author: MapMaster.",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.5, 1954x1382, English labels. Huns and Germanic peoples pushing into the Western Empire: one stream breaking into many. Card: contain."
+  },
+  {
+   "stop": "fall_of_rome",
+   "id": "fallrome-charlemagne-denier",
+   "caption": "Charlemagne on a silver denier, about 812 to 814",
+   "source": "commons",
+   "file": "File:Charlemagne denier Mayence 812 814.jpg",
+   "licence": "Public domain (PD-France). Author: Bibliothèque nationale de France, Monnaies, médailles et antiques (Gallica).",
+   "person": true,
+   "why": "Verified: PD, 2070x2070. Viewed: one face of the coin, his laureate bust with KAROLVS IMP AVG. A coin struck in his lifetime that carries his portrait as emperor. Card: contain on black (a round coin)."
+  },
+  {
+   "stop": "mongols",
+   "id": "mongol-khanates-c1300",
+   "caption": "The Mongol Empire c. 1300, split into four khanates",
+   "source": "commons",
+   "file": "File:MongolEmpireDivisions1300.png",
+   "licence": "CC BY 3.0. Author: Gabagool.",
+   "person": false,
+   "why": "Verified: CC BY 3.0, 1644x959. The land empire from Korea to Anatolia and its split into the Golden Horde, the Chagatai Khanate, the Ilkhanate and the Yuan: the extent and the fracture the narration describes. Card: contain."
+  },
+  {
+   "stop": "mongols",
+   "id": "genghis-khan-yuan-portrait",
+   "caption": "Genghis Khan, Yuan court album portrait, 14th century",
+   "source": "commons",
+   "file": "File:YuanEmperorAlbumGenghisPortrait.jpg",
+   "licence": "Public domain (PD-Art, PD-old-100-expired). Author: unknown Yuan court artist; National Palace Museum, Taipei. There is no machine-readable author, so credit the museum.",
+   "person": true,
+   "why": "Verified: PD, 3180x4040. Named in the narration. This is the standard portrait, painted after his death for the Yuan imperial album. Card: cover, focus portrait (head and shoulders)."
+  },
+  {
+   "stop": "mongols",
+   "id": "tournai-black-death-burials",
+   "caption": "Burying Black Death victims, Tournai, c. 1353",
+   "source": "commons",
+   "file": "File:Doutielt3.jpg",
+   "licence": "Public domain (PD-Art, PD-old-100). Author: Pierart dou Tielt; KBR Brussels ms 13076-77, f. 24v (photo KIK-IRPA).",
+   "person": false,
+   "why": "Verified: PD, 801x482, just over the width floor, so the card scales it up 1.2x and it will look slightly soft. A search found no larger copy: 'Burying Plague Victims of Tournai.jpg' is 400 px and 'Doutielt1.jpg' is a different miniature. It is a contemporary picture of the Black Death the empire carried. Card: cover."
+  },
+  {
+   "stop": "printing",
+   "id": "gutenberg-bible-lenox",
+   "caption": "A Gutenberg Bible, Mainz, c. 1455",
+   "source": "commons",
+   "file": "File:Gutenberg Bible, Lenox Copy, New York Public Library, 2009. Pic 01.jpg",
+   "licence": "CC BY-SA 2.0. Author: NYC Wanderer (Kevin Eng), Flickr.",
+   "person": false,
+   "why": "Verified: CC BY-SA 2.0, 1920x1200. Viewed: the open book in its case, no people. The first major book printed with Gutenberg's press, which the narration names first. Card: cover."
+  },
+  {
+   "stop": "printing",
+   "id": "galileo-sidereus-moon",
+   "caption": "Galileo's Moon, printed in Sidereus Nuncius, 1610",
+   "source": "commons",
+   "file": "File:Galileo's sketches of the moon (cropped).png",
+   "licence": "Public domain (PD-Art, PD-old-100). Author: Galileo Galilei.",
+   "person": false,
+   "why": "Verified: PD, 2200x1979. Printed science spreading: Galileo's telescope drawings were engraved, printed and read across Europe within months. It stands for 'the science of Galileo and Newton'. Card: contain."
+  },
+  {
+   "stop": "printing",
+   "id": "juan-de-la-cosa-map-1500",
+   "caption": "Juan de la Cosa's world map, 1500: the Americas at left",
+   "source": "commons",
+   "file": "File:1500 map by Juan de la Cosa-North up.jpg",
+   "licence": "Public domain (PD-old). Author: Juan de la Cosa (north-up version by Kimon Berlin / Gribeco).",
+   "person": false,
+   "why": "Verified: PD, 2105x1161. The oldest surviving map to show the Americas, made by a mariner who sailed with Columbus. It shows the link between Europe and the Americas that the 1492 voyage opened. Card: cover."
+  },
+  {
+   "stop": "revolutions",
+   "id": "declaration-dunlap-1776",
+   "caption": "The Declaration of Independence as first printed, July 1776",
+   "source": "commons",
+   "file": "File:Dunlap Broadside (Declaration of Independence) - NARA - 301682.jpg",
+   "licence": "Public domain (a 1776 work; NARA). Author: John Dunlap (printer), Philadelphia, 4-5 July 1776, for the Continental Congress; U.S. National Archives (NARA 301682). There is no machine-readable author, so credit NARA by hand.",
+   "person": false,
+   "why": "REPLACED Trumbull's 1819 painting. That painting is a later imagining of a scene that never happened in one room, and it is a gallery of some 40 portraits of real people the narration does not name; the rules prefer the real thing. This is the document itself, as printed by John Dunlap on the night of 4 July 1776. Viewed: its headline ('IN CONGRESS, JULY 4, 1776. A DECLARATION...') reads at card size, and the print echoes the stop's 'Printing... fed two revolutions'. PD, 2969x3600. Card: cover, focus [0.5, 0.15] (the headline)."
+  },
+  {
+   "stop": "revolutions",
+   "id": "watt-type-beam-engine",
+   "caption": "A Watt-type beam engine (built 1832), Madrid",
+   "source": "commons",
+   "file": "File:Maquina vapor Watt ETSIIM.jpg",
+   "licence": "CC BY-SA 3.0 (also GFDL). Author: Nicolás Pérez.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 1024x760. Viewed: the whole machine, with no people. It shows the beam, cylinder, governor and flywheel of the design Watt made standard. It was built by D. Napier & Son in 1832, so the caption does not call it Watt's own engine. Card: cover."
+  },
+  {
+   "stop": "revolutions",
+   "id": "coalbrookdale-by-night",
+   "caption": "Coalbrookdale by Night, Loutherbourg, 1801",
+   "source": "commons",
+   "file": "File:Philipp Jakob Loutherbourg d. J. 002.jpg",
+   "licence": "Public domain (PD-Art, Yorck Project). Author: Philip James de Loutherbourg; Science Museum, London.",
+   "person": false,
+   "why": "Verified: PD, 2048x1309. Coal-fired ironworks in the Severn gorge, picturing 'coal and steam drawing energy out of the red layer'. The stop has three cards for independence, Watt's engines and the coal-fired industry. Card: cover."
+  },
+  {
+   "stop": "longer_lives",
+   "id": "fleming-penicillin-mould",
+   "caption": "Penicillin mould from Alexander Fleming, 1935",
+   "source": "commons",
+   "file": "File:Sample of penicillin mould presented by Alexander Fleming to Douglas Macleod, 1935 (9672239344).jpg",
+   "licence": "CC BY-SA 4.0. Author: Science Museum London / Science and Society Picture Library.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4684x3796. Antibiotics: a culture of the mould Fleming discovered, in a case labelled with his name. It is an object, not his portrait. Card: cover."
+  },
+  {
+   "stop": "longer_lives",
+   "id": "smallpox-vaccine-needle",
+   "caption": "Smallpox vaccine and bifurcated needle",
+   "source": "commons",
+   "file": "File:Smallpox vaccine (cropped).jpg",
+   "licence": "Public domain (PD-USGov-HHS-CDC, PHIL #2674). Author: James Gathany, CDC.",
+   "person": false,
+   "why": "Verified: PD, 2647x1577. Vaccines: the vaccine and the two-pronged needle of the campaign that eradicated smallpox. Card: cover."
+  },
+  {
+   "stop": "longer_lives",
+   "id": "pasteur-swan-neck-flask",
+   "caption": "Pasteur's swan-necked flask",
+   "source": "commons",
+   "file": "File:Swan-necked flask used by Pasteur. Wellcome M0012521.jpg",
+   "licence": "CC BY 4.0. Author: Wellcome Collection (Wellcome Images M0012521). There is no machine-readable author, so credit Wellcome Collection by hand.",
+   "person": false,
+   "why": "Verified: CC BY 4.0, 4040x2904. Germ theory: a flask Pasteur used in the experiments that disproved spontaneous generation. High-yield crops are left out because no free photo shows Green Revolution varieties as such. Card: cover."
+  },
+  {
+   "stop": "world_wars",
+   "id": "chateau-wood-ypres-1917",
+   "caption": "Chateau Wood, Ypres, October 1917",
+   "source": "commons",
+   "file": "File:Chateau Wood Ypres 1917.jpg",
+   "licence": "Public domain (PD-Australia). Author: Frank Hurley (Australian official photographer).",
+   "person": false,
+   "why": "Verified: PD, 5341x3936. World War I's industrial destruction: a shattered forest and flooded shell holes. The soldiers on the duckboards are small and long dead; the landscape is the subject. Card: cover."
+  },
+  {
+   "stop": "world_wars",
+   "id": "stalingrad-centre-1943",
+   "caption": "Central Stalingrad, 2 February 1943",
+   "source": "commons",
+   "file": "File:RIAN archive 602161 Center of Stalingrad after liberation.jpg",
+   "licence": "CC BY-SA 3.0. Author: Georgy Zelma, RIA Novosti archive #602161.",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, 5332x3543. World War II on the Eastern Front, where most of the German and Soviet military dead fell: the city centre in ruins on the day the battle ended. The figures are small and unidentifiable. Card: cover."
+  },
+  {
+   "stop": "new_balance",
+   "id": "deng-xiaoping-1979",
+   "caption": "Deng Xiaoping, Washington, January 1979",
+   "source": "commons",
+   "file": "File:Deng Xiaoping and Jimmy Carter at the arrival ceremony for the Vice Premier of China. - NARA - 183157-restored(cropped).jpg",
+   "licence": "Public domain (PD-USGov, NARA 183157). Author: a White House photographer, not named; there is no machine-readable author, so credit NARA. Commons gives it the restriction class 'communist', which fetch.py rules 'identity', so it passes unaltered.",
+   "person": true,
+   "why": "Verified: PD, 956x1203; pictures.py check passes it as a portrait. The narration names Deng and his 1978 reforms. Jimmy Carter, blurred behind him, is not named and died in 2024. Card: cover, focus portrait."
+  },
+  {
+   "stop": "new_balance",
+   "id": "shenzhen-futian-skyline",
+   "caption": "Shenzhen, China's first special economic zone (1980)",
+   "source": "commons",
+   "file": "File:Commercial area of futian to east2020.jpg",
+   "licence": "CC BY-SA 4.0. Author: Charlie fong.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 4644x3096; China's freedom of panorama (FoP-China) covers the buildings. It makes China's rise under the reforms concrete: the Futian skyline, in the city the reforms built. Card: cover."
+  },
+  {
+   "stop": "explosion",
+   "id": "explosion-population-curve",
+   "caption": "World population over 12,000 years: the leap after 1800",
+   "source": "commons",
+   "file": "File:Annual World Population Since 10,000 BC.png",
+   "licence": "CC BY-SA 3.0. Author: Max Roser, Our World in Data (2021; HYDE and UN data).",
+   "person": false,
+   "why": "NEW, placed first. It replaces bingham-canyon-mine, the same file as matter_rises' first card. The stop's main claim is 'For most of history the human branch was a thin thread. After eighteen hundred... from one billion to eight billion'. This chart (viewed) shows exactly that: flat for 12,000 years, then from 990 million in 1800 to 7.9 billion in 2022. 2674x1881. Card: contain."
+  },
+  {
+   "stop": "explosion",
+   "id": "earth-at-night-2012",
+   "caption": "Earth at night, 2012 composite (NASA)",
+   "source": "commons",
+   "file": "File:The earth at night.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA Earth Observatory (Suomi NPP VIIRS data, NOAA).",
+   "person": false,
+   "why": "Verified: PD, 13500x6750. 'The planet is now visibly shaped by the species at its top': the lights of eight billion people and their fuels. Card: cover, focus [0.5, 0.45] (trims the poles)."
+  },
+  {
+   "stop": "explosion",
+   "id": "kansas-pivot-cropland",
+   "caption": "Irrigated crop circles in Kansas, seen from orbit",
+   "source": "commons",
+   "file": "File:Crops Kansas AST 20010624.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA (ASTER on Terra, 24 June 2001), Earth Observatory.",
+   "person": false,
+   "why": "Verified: PD, 2589x2481. Cropland, which the narration names: centre-pivot fields over the Ogallala aquifer, farming at the scale fertilizer and pumping allow (a featured picture). The stop has three cards for the population leap, the layers beneath it and the visibly changed planet. Card: cover."
+  },
+  {
+   "stop": "people_threads",
+   "id": "isaac-newton-kneller",
+   "caption": "Isaac Newton, by Godfrey Kneller, 1689",
+   "source": "commons",
+   "file": "File:Portrait of Sir Isaac Newton, 1689.jpg",
+   "licence": "Public domain (PD-Art, PD-old-100-expired). Author: Godfrey Kneller.",
+   "person": true,
+   "why": "Verified: PD, 2218x2671. Named in 'Newton to Einstein'. A high-resolution copy of the standard portrait, from Cambridge University Library. Card: cover, focus portrait."
+  },
+  {
+   "stop": "people_threads",
+   "id": "einstein-vienna-1921",
+   "caption": "Albert Einstein lecturing in Vienna, 1921",
+   "source": "commons",
+   "file": "File:Einstein 1921 by F Schmutzer - restoration.jpg",
+   "licence": "Public domain (PD-Austria; also PD in the US, published 1921). Author: Ferdinand Schmutzer (died 1928); restoration by Adam Cuerden.",
+   "person": true,
+   "why": "Verified: PD, 2523x3313. Named in the narration. Einstein at a blackboard fits 'teacher to student'. Card: cover, focus portrait."
+  },
+  {
+   "stop": "smv_intro",
+   "id": "us-population-pyramid-2023",
+   "caption": "US population by age and sex, December 2023",
+   "source": "commons",
+   "file": "File:USA Population Pyramid.svg",
+   "licence": "CC BY-SA 4.0. Author: Kaj Tallungs (data: US Census Bureau, NC-EST2022).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, vector (nominal 2822x2418). Caption and id corrected: the file shows the population on 1 December 2023, not 2024 as the plan said. An age pyramid with men on one side and women on the other, the form the stream is built from. The data are the Census Bureau's, not the UN's, so credit it that way. Card: contain, matte white."
+  },
+  {
+   "stop": "smv_lifelines",
+   "id": "life-and-age-of-woman-1848",
+   "caption": "The Life and Age of Woman, popular print, 1848",
+   "source": "commons",
+   "file": "File:Life and age of woman.jpg",
+   "licence": "Public domain (PD-old). Author: James Baillie (publisher), New York, c. 1848; Library of Congress ppmsca.12817.",
+   "person": false,
+   "why": "Verified: PD, 4008x2820. A 19th-century popular picture of a life rising and falling decade by decade, drawn separately for women and men. It is an old version of the 'model of a popular idea' the narration warns about. It does not show the model's curve, and the caption does not claim it does. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "smv_lifelines",
+   "id": "life-and-age-of-man-1848",
+   "caption": "The Life and Age of Man, popular print, 1848",
+   "source": "commons",
+   "file": "File:The Life and Age of Man-Stages of Man's Life, from the Cradle to the Grave by James Baillie.jpg",
+   "licence": "Public domain (PD-US). Author: James Baillie (publisher), New York, c. 1848; Library of Congress ppmsca.12818.",
+   "person": false,
+   "why": "Verified: PD, 3848x2685. The matching men's print, so the two cards echo 'women's value... men's...'. The planner rightly avoided a generated curve, which could be read as a measurement, the very thing the narration says this is not. Card: cover, focus [0.5, 0.45]."
+  },
+  {
+   "stop": "smv_scale",
+   "id": "montizon-dot-map-1830",
+   "caption": "The first dot map, France 1830: one dot = 10,000 people",
+   "source": "commons",
+   "file": "File:Carte Philosophique figurant la Population de la France (cropped).jpg",
+   "licence": "Public domain (PD-Art, PD-old-auto-expired). Author: Armand Joseph Frère de Montizon; Bibliothèque nationale de France (Gallica).",
+   "person": false,
+   "why": "Verified: PD, 7800x5570. The narration's own device: one mark stands for many people because nobody can draw them all (the legend gives one point per 10,000). France fills the whole height of the sheet, so any 16:9 crop cuts it; a closer box keeps the dots legible (checked on a 1280 px thumbnail). Card: cover, box [0.24, 0.04, 0.52, 0.41] (northern and central France, with the dense cluster at Paris)."
+  },
+  {
+   "stop": "baby_boom",
+   "id": "us-birth-rate-boom",
+   "caption": "US births per 1,000 people, 1909–2008: the boom in red",
+   "source": "commons",
+   "file": "File:US Birth Rates.svg",
+   "licence": "CC0. Author: Saiarcot895 (data: CDC NCHS).",
+   "person": false,
+   "why": "Verified: CC0, vector (nominal 1016x766). It shows the surge the narration names, with 1946 to 1964 in red. Card: contain, matte white."
+  },
+  {
+   "stop": "baby_boom",
+   "id": "queen-mary-troops-1945",
+   "caption": "The Queen Mary brings US troops home, June 1945",
+   "source": "commons",
+   "file": "File:RMS Queen Mary 20Jun1945 NewYork.jpeg",
+   "licence": "Public domain (PD-USGov). Author: US Navy photo 80-GK-5645 (NARA).",
+   "person": false,
+   "why": "Verified: PD, 2925x2177. 'Returning soldiers', the first cause named: the liner arriving in New York with thousands of troops on deck, none identifiable. Card: cover."
+  },
+  {
+   "stop": "divorce",
+   "id": "us-marriage-divorce-rates",
+   "caption": "US marriage and divorce rates, 1960–2011",
+   "source": "commons",
+   "file": "File:Marriage and Divorce Rates 1960-2011.png",
+   "licence": "CC BY-SA 4.0. Author: Rcragun.",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 1652x1082. Both claims in two lines: the divorce rate more than doubling from 1960 to 1980, and the marriage rate falling by more than a third. Card: contain."
+  },
+  {
+   "stop": "divorce",
+   "id": "us-age-at-first-marriage",
+   "caption": "Median age at first marriage, US, 1890–2025",
+   "source": "commons",
+   "file": "File:1890- Age at first marriage - by gender.svg",
+   "licence": "CC BY-SA 4.0. Author: RCraig09 (data: US Census Bureau CPS table MS-2).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, vector (nominal 1200x675, 16:9), with data through 2025. It shows 'a world of later marriages'. Card: contain."
+  },
+  {
+   "stop": "branch_tip",
+   "id": "earth-dscovr-2015",
+   "caption": "The whole sunlit Earth, 6 July 2015 (DSCOVR)",
+   "source": "commons",
+   "file": "File:Earth as seen on July 6, 2015 from a distance of one million miles by DSCOVR's EPIC scientific camera.jpg",
+   "licence": "Public domain (PD-USGov-NASA). Author: NASA (DSCOVR EPIC camera).",
+   "person": false,
+   "why": "Verified: PD, 2048x2048. The present moment the branch arrives at: the planet where matter, life and people are all still here, including 'the ground beneath you'. Card: contain on black."
+  },
+  {
+   "stop": "convergence",
+   "id": "origin-of-elements-table",
+   "caption": "Where your elements were made",
+   "source": "commons",
+   "file": "File:Nucleosynthesis periodic table.svg",
+   "licence": "CC BY-SA 3.0 (also GFDL). Author: Cmglee (data: Jennifer Johnson, Ohio State University).",
+   "person": false,
+   "why": "Verified: CC BY-SA 3.0, vector (nominal 512x256). Both of the narration's claims in one picture: hydrogen from the Big Bang, and carbon and oxygen from dying and exploding stars. This is now the only use of the file; milky_way had it too. Card: contain, matte white."
+  },
+  {
+   "stop": "convergence",
+   "id": "crab-nebula-hubble",
+   "caption": "The Crab Nebula, debris of a star that exploded in 1054",
+   "source": "commons",
+   "file": "File:Crab Nebula.jpg",
+   "licence": "Public domain (PD-Hubble). Author: NASA, ESA, J. Hester and A. Loll (Arizona State University).",
+   "person": false,
+   "why": "Verified: PD, 3864x3864. A star's elements thrown back into space, 'made in stars'. It is not used elsewhere: first_stars shows Cassiopeia A, a different remnant. Card: cover, centre."
+  },
+  {
+   "stop": "convergence",
+   "id": "paleoarchean-stromatolite",
+   "caption": "Stromatolite over 3.2 billion years old, Western Australia",
+   "source": "commons",
+   "file": "File:Stromatolithe Paléoarchéen - MNHT.PAL.2009.10.1.jpg",
+   "licence": "CC BY-SA 4.0. Author: Didier Descouens (specimen MNHT.PAL.2009.10.1, Muséum de Toulouse).",
+   "person": false,
+   "why": "Verified: CC BY-SA 4.0, 5185x3655. Life's oldest kind of fossil: layers laid down by microbial mats in the Paleoarchean (Strelley Pool Chert), near the start of the 3.7 billion years of life the narration names. A fossil was preferred to the living Shark Bay analogue, which photosynthesis already uses. The stop has three cards for the Big Bang's elements, the stars' elements and life's 3.7 billion years. Card: cover."
+  },
+  {
+   "stop": "step_back",
+   "id": "step-back-geologic-clock",
+   "caption": "Earth's history on a clock face",
+   "source": "commons",
+   "file": "File:Geologic Clock with events and periods.svg",
+   "licence": "Public domain (PD-self). Author: Woudloper; derivative work by Hardwigg (French translation by Simon Villeneuve).",
+   "person": false,
+   "why": "MOVED from read_clock, where its id was read-clock-clock. 'Around the clock of deep time': 4.55 billion years of Earth laid around a clock face, with the eons and the start of life, multicellular life, the Cambrian, land animals, dinosaurs and hominins marked (viewed; the English labels are legible). It replaces the plan's geological time spiral here, which was the same file as read_clock's card. Vector (nominal 512x491). Card: contain, matte white."
+  },
+  {
+   "stop": "step_back",
+   "id": "priestley-chart-of-history",
+   "caption": "Priestley's New Chart of History, 1769",
+   "source": "commons",
+   "file": "File:A New Chart of History color.jpg",
+   "licence": "Public domain (PD-old-100-expired). Author: Joseph Priestley (1769); scan via University of Oregon.",
+   "person": false,
+   "why": "Verified: PD, 3400x2379. 'Down the road of human history... hierarchies that rise and fall': empires drawn as bands that widen and vanish over time. The plan's WMAP microwave map is removed from this stop as a near-duplicate of first_light's Planck map. Card: contain."
+  }
+ ],
+ "notes": "I reviewed all 146 entries in the plan (143 Commons, 3 generate) against Commons' API and the stops in tour.json and tour_narration.json. The corrected plan has 143 entries (140 Commons, 3 generate). It covers all 66 stops with 1 to 3 cards each, and no file is used twice.\n\nHow I checked:\n- I ran Tools/images/pictures.py check, which reads only metadata. Its cache was in my scratchpad, and nothing was written to the repository.\n- All 143 Commons files in the original plan passed: each exists, has a licence on the whitelist, and is at least 800 px wide or a vector file.\n- The corrected plan also passes: 140 files ok, none failed, 66 of 66 stops covered.\n- I read each file's description, author, date and categories. Where the machine-readable licence or author was incomplete, I read the file page's wikitext.\n- I looked at thumbnails of about 25 files where the labels, people in frame or the crop were in doubt. I downloaded nothing in bulk.\n\nChanges:\n- Four files were used at two stops each:\n  - File:Phylogenetic tree.svg stays at tree_of_life. origin now uses File:Tree of life SVG.svg, a public-domain circular tree.\n  - File:Geological time spiral.png stays at read_clock and is removed from step_back.\n  - File:Nucleosynthesis periodic table.svg stays at convergence and is removed from milky_way.\n  - File:Bingham Canyon Mine (1) stays at matter_rises. At explosion it is replaced by Max Roser's Our World in Data chart of world population over 12,000 years (CC BY-SA 3.0). That chart shows the stop's main claim: the leap from one billion to eight billion people after 1800.\n- Near-duplicate removed: the WMAP 2012 microwave map at step_back, because first_light already shows Planck's map.\n- Moved: the geologic clock SVG goes from read_clock to step_back, with the new id step-back-geologic-clock. Its own clock positions (Earth forming at twelve, life near one) would contradict read_clock's 'Big Bang at six, life near ten'.\n- Replaced at first_stars: 'Stellar Fireworks Finale' (2002 art of starburst galaxies, with a credit line printed on it) becomes NASA-WMAP-first-stars.jpg. It is public domain and shows the first stars switching on.\n- Replaced at revolutions: Trumbull's 1819 painting becomes the Dunlap broadside, the Declaration as first printed in July 1776 (U.S. National Archives, public domain). The painting shows a scene that never happened and contains about 40 portraits of real people the narration does not name.\n- Added at civ_streams, as the first card: Strass's Stream of Time, in Goodrich's 1841 English edition (Harvard scan, public domain). It draws nations as streams that widen, merge and split, and it is the ancestor of the Histomap, which is not on Commons. The 2000 BC map stays as the second card, cropped to the band from Egypt to China.\n- Dropped as weak: galaxies-structure-growth. Its snapshots are scaled to the same size, so it does not show the faster expansion its caption claimed.\n- Captions corrected:\n  - The smv_intro pyramid shows 1 December 2023, not 2024, so its id is now us-population-pyramid-2023.\n  - The Gaia-Enceladus card now says it is a simulation.\n  - Illustrations are now labelled as illustrations.\n\nCredits that pictures.py will get wrong (set licence and credit_author by hand):\n- For four files the API reports only the artwork's 'Public domain', not the photo's licence:\n  - axial-socrates: photo CC BY-SA 2.5, by Eric Gaba.\n  - rome-augustus: photo CC BY-SA 2.5 and GFDL, by Till Niermann.\n  - alexander-issus-mosaic: public domain where that applies, otherwise CC BY-SA 3.0 by Berthold Werner.\n  - eomaia-fossil: photo CC BY 4.0, by Marie-Lan Taÿ Pamart.\n- These have no machine-readable author, so the credit must be typed in:\n  - cooksonia-fossil: Amgueddfa Cymru – Museum Wales.\n  - pasteur-swan-neck-flask: Wellcome Collection.\n  - popcurve-hatshepsut: the Metropolitan Museum of Art.\n  - farm-palouse-wheat-harvest: USDA Agricultural Research Service.\n  - genghis-khan-yuan-portrait: National Palace Museum, Taipei.\n  - deng-xiaoping-1979: NARA.\n  - declaration-dunlap-1776: NARA.\n- deng-xiaoping-1979 has Commons' 'communist' restriction class. fetch.py rules that class 'identity', so the picture passes as long as it is shown unaltered.\n\nPeople:\n- The check's 'may show people' notes are all harmless. Some are false positives: the rock unit 'Member' and the taxon 'Family'. The rest are long-dead or unidentifiable figures: medieval and Roman reliefs, the 1848 prints, and soldiers in 1917 and 1943.\n- From the thumbnails: Sue, the Appian Way, the Lion Gate and the Watt engine have no people. The tomb of Cyrus has a few tiny visitors at the far left.\n\nCaveats:\n- tournai-black-death-burials is only 801 px wide, so the card scales it up 1.2x. Commons has no larger copy.\n- genesis-expansion and big-bang-history share the same trumpet-shaped timeline: the first is the bare art, the second is NASA's labelled stages.\n- streams-strass-1841 is a 252-megapixel PNG. Commons rendered its 500 and 960 px thumbnails. If a fetch fails, the fallback is the more vivid C. Smith 1849 edition (a JPEG). Its file page has the public-domain tag but also carries David Rumsey's CC BY-NC-SA note.\n\nCandidates I rejected:\n- File:Circular timetree-of-life 2009.jpg. It matches the narration's 'sixteen hundred groups', but its 'own work' claim on a figure from Hedges and Kumar's book is doubtful.\n- File:Giant impact.jpg, a user drawing only 960 px wide.\n\nGenerated pictures: all three are justified.\n- Bangiomorpha's only free image is 447x1169.\n- Commons has nothing that shows the three-level stack or Homo erectus cooking.\n- The prompts are safe and unchanged: no text, logos or real people, the hominins are silhouettes, and each prompt asks for a plain illustration.\n\nFormat:\n- The schema has no fit, focus or box fields, so each 'why' ends with the card hint: 'Card: cover' or 'contain', plus focus [x, y] or box [x, y, w, h] where needed.\n- 'person' is true or false here, but pictures.py expects the person's name in that field. Put the name in when building plan.json.\n\nScratch files: the plan inputs, the check outputs (check1.txt for the plan as given, check3.txt for the corrected plan) and the thumbnails are in /tmp/claude-1000/-home-john-Desktop-Unity-why-2/359430d1-65d4-4cd9-92cc-b04971ea8393/scratchpad/picreview-r1/. A safety check blocked a command that would have deleted my own thumbnails in the subfolder thumbs/. I used new folders instead, and the whole picreview-r1 folder can be deleted whenever convenient."
+}

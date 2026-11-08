@@ -462,6 +462,17 @@ namespace Why.UI
         float LegendBottom => presetFade.Shown ? legendBottomWithBar : legendBottomAlone;
 
         /// <summary>
+        /// The bottom of the view title's block, canvas units down from the top of the screen, at the tallest it grows to on this
+        /// screen (two subtitle lines, three in portrait), whether or not it shows: the tour steps it aside, and the tour's
+        /// picture cards (<see cref="TourPictures"/>) stand below its place, so it never comes back under them and they do not
+        /// move with each view's subtitle.
+        /// </summary>
+        public float TitleBottom => titleBlock == null
+            ? HudKit.Margin + TitleHeight
+            : -titleBlock.anchoredPosition.y + Mathf.Max(titleBlock.sizeDelta.y,
+                TitlePad + SubtitleRowY + (ScreenLayout.IsPortrait ? subtitleThreeLines : subtitleTwoLines) + TitlePad);
+
+        /// <summary>
         /// Preset buttons explain their view; labels with an anchor explain what they mark, except while the tour runs: as
         /// with clicks, the director owns the screen then, and a label drifting under a resting pointer put its tooltip over
         /// the tour's card (the overlay sits above it).

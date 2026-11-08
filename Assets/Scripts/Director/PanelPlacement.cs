@@ -51,6 +51,14 @@ namespace Why.Director
         /// </summary>
         public static float LegendTop { get; set; }
 
+        /// <summary>
+        /// Landscape: where left-side panels begin, canvas units from the left edge, while something holds the screen's left
+        /// edge for the stop on screen (the tour's picture cards, <see cref="UI.TourPictures"/>, which set it); 0, or anything
+        /// below <see cref="SideMargin"/>, leaves them at <see cref="SideMargin"/>. <see cref="Choose"/> keeps its clearance
+        /// from the target with the panels where this puts them.
+        /// </summary>
+        public static float LeftInset { get; set; }
+
         /// <summary>Minimum gap between the panel and the point it refers to.</summary>
         public const float Clearance = 56f;
 
@@ -108,7 +116,7 @@ namespace Why.Director
             if (slot == PanelSlot.Top) return new Vector2(0, -PortraitTopMargin);
             if (slot == PanelSlot.Bottom) return new Vector2(0, LegendTop > 0 ? LegendTop + LegendGap : PortraitBottomMargin);
             Vector2 a = SlotAnchor(slot);
-            float x = a.x < 0.25f ? SideMargin : a.x > 0.75f ? -SideMargin : 0;
+            float x = a.x < 0.25f ? Mathf.Max(SideMargin, LeftInset) : a.x > 0.75f ? -SideMargin : 0;
             float y = a.y > 0.75f ? -EdgeMargin : a.y < 0.25f ? BottomMargin(a.x < 0.25f) : 0;
             return new Vector2(x, y);
         }

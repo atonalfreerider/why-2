@@ -59,6 +59,12 @@ namespace Why.Director
 
         /// <summary>States of the stop's view shown in turn as the narration reaches them (<see cref="ViewVariants"/>).</summary>
         [JsonProperty("cues")] public List<TourCue> Cues = new List<TourCue>();
+
+        /// <summary>
+        /// Picture cards shown beside the narration while the stop plays (ids of Data/pictures/index.json, whose images are
+        /// Data/pictures/&lt;id&gt;.jpg or .png; at most three show, <see cref="UI.TourPictures"/>), in the order they are named.
+        /// </summary>
+        [JsonProperty("pictures")] public List<string> Pictures = new List<string>();
     }
 
     /// <summary>A swatch of a stop's key: a color ("gold", "rose" ... or "#RRGGBB") and what it marks.</summary>
@@ -188,6 +194,9 @@ namespace Why.Director
                 s.Cues = s.Cues ?? new List<TourCue>();
                 s.Cues.RemoveAll(c => c == null || string.IsNullOrWhiteSpace(c.Show));
                 s.Cues.Sort((a, b) => a.At.CompareTo(b.At));
+                s.Pictures = s.Pictures ?? new List<string>();
+                s.Pictures.RemoveAll(string.IsNullOrWhiteSpace);
+                for (int p = 0; p < s.Pictures.Count; p++) s.Pictures[p] = s.Pictures[p].Trim();
             }
 
             script.Title = string.IsNullOrWhiteSpace(script.Title) ? "Why: from the Big Bang to this moment" : script.Title;

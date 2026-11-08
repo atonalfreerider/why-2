@@ -186,6 +186,14 @@ A step may also carry (both tours read them; empty or missing fields are left ou
   names a view registers with `ViewVariants`, e.g. `se` for Sweden in the regimes view); leaving the stop
   returns the view to its default.
 * `effect` - a scripted effect played instead of a camera flight (`genesis`: the Big Bang's flash).
+* `pictures` - `["id", ...]` (the universe tour): picture cards shown beside the narration while the stop plays, at most
+  three, in the order named (`Scripts/UI/TourPictures.cs`; `Docs/research/pictures/README.md` for how they are chosen).
+  Each id is an entry of `Data/pictures/index.json` - `{ "pictures": { "<id>": { "caption", "credit", "generated", "fit" } } }`
+  - whose image is `Data/pictures/<id>.jpg` or `.png` (960 x 540; imported at its own size, `Scripts/Editor/PictureImport.cs`).
+  A card shows the image at 16:9 (`fit`: `cover` crops it to fill the frame, `contain` letterboxes it whole), the caption
+  under it and the credit under that; a `generated` picture's credit is shown in full, exactly as given. An id the index
+  does not list, or whose image is missing, is skipped with one warning. Landscape: a column at the left edge between the
+  view title's place and the legend (the card's left slots move right of it); portrait: a row under the title's place.
 
 * `Data/tour_narration.json` - `{ "model", "generated", "steps": [{ "id", "narration" }] }`: the spoken
   script, one entry per tour step (60-110 words each), written by `Tools/generate-narration.ps1` with

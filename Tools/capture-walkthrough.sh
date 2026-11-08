@@ -3,12 +3,14 @@
 # and writes H.264 MP4s with the voice and the tour's chapters to Captures/. By default the whole tour (66 stops, about
 # 33 minutes of video with the clips voiced on 2026-10-12), until 10 s into its end card.
 #
-# Usage: Tools/capture-walkthrough.sh [SECONDS | --opening] [--copy] [--only landscape|portrait] [--mix-only] [--force]
+# Usage: Tools/capture-walkthrough.sh [SECONDS | --opening] [--copy [--as-is]] [--only landscape|portrait] [--mix-only] [--force]
 #   SECONDS     a video of that many seconds, why-<o>-<SECONDS>s.mp4 (0, the default: the whole tour, why-<o>.mp4)
 #   --opening   the tour's first three stops, ending on the frame before read_clock appears (about 114.5 s):
 #               why-<o>-opening.mp4
 #   --copy      record in the mirror (../.why-2-build), synced first as work/mirror-build.sh syncs it; the Editor on this
 #               project must still be closed (one Unity process at a time)
+#   --as-is     with --copy: record the mirror as it stands, without syncing it first (when this working tree holds
+#               unfinished changes the recording must not take; the mirror keeps what its last sync or build gave it)
 #   --only o    one orientation, landscape or portrait
 #   --mix-only  make the MP4s again from the last recording's picture and cue log, without Unity, with this repository's
 #               narration clips (it syncs nothing, so a mirror's clips may be older)
@@ -28,6 +30,7 @@ PROJECT="$ROOT"
 ORIENTATIONS="landscape portrait"
 MIX_ONLY=0
 FORCE=0
+AS_IS=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --copy) PROJECT="$(dirname "$ROOT")/.why-2-build" ;;
@@ -40,6 +43,7 @@ while [ $# -gt 0 ]; do
       shift ;;
     --mix-only) MIX_ONLY=1 ;;
     --force) FORCE=1 ;;
+    --as-is) AS_IS=1 ;;
     -h|--help) awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"; exit 0 ;;
     *)
       [[ "$1" =~ ^[0-9]+([.][0-9]+)?$ ]] || { echo "unknown argument $1 (see --help)" >&2; exit 2; }
@@ -231,7 +235,11 @@ if [ "$MIX_ONLY" = 0 ]; then
   [ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ] || refuse "no desktop session for the Editor's window (DISPLAY is not set)"
   [ -f "$PROJECT/ProjectSettings/ProjectVersion.txt" ] || refuse "no Unity project at $PROJECT to record in"
   guard
-  if [ "$PROJECT" != "$ROOT" ]; then sync_mirror; fi
+  if [ "$PROJECT" != "$ROOT" ] && [ "$AS_IS" = 0 ]; then sync_mirror; fi
+  if [ "$AS_IS" = 1 ]; then
+    [ "$PROJECT" != "$ROOT" ] || { echo "--as-is records the mirror: give --copy too" >&2; exit 2; }
+    echo "recording the mirror as it stands (not synced)"
+  fi
   # scripts that do not compile would hold the Editor at its Safe Mode dialog until the time limit: check them first
   # (Tools/compile-check.py: a few seconds, nothing written; this project borrows the mirror's package assemblies, as
   # its Library may lag behind a package added since the Editor last opened it)

@@ -26,18 +26,20 @@ namespace Why.UI
     /// right of the column meanwhile (<see cref="PanelPlacement.LeftInset"/>). In portrait they stand in a row under the title's
     /// place, or under the narration sheet when it docks at the top; while the narration card moves between slots they keep
     /// clear of where it stood, so a picture two stops share does not move up into its place and back. They keep clear of the
-    /// point the narration's arrow points at (with room for its caption): when the room is short they get smaller, and then
-    /// fewer of them show; when not even the stop's first picture keeps clear of it, that picture alone stands where it covers
-    /// the least of it (one warning for the stop). A stop that shows fewer of its pictures than it names (up to
-    /// <see cref="MaxCards"/>) is warned about once, when its narration card has landed.
+    /// point the narration's arrow points at (with room for its caption) and of the arrow itself, from the narration card to
+    /// the point: when the room is short they get smaller, and then fewer places show; when not even one place keeps clear of
+    /// the point, one card stands where it covers the least of it (one warning for the stop). A stop with more pictures than
+    /// places (up to <see cref="MaxCards"/>) shows them in turn: the places show the next of them each turn, the stop's time
+    /// shared evenly between the turns, so every picture the narration names comes on screen while it is told.
     /// </para>
     /// <para>
     /// A picture the index does not list, or whose image is missing, is skipped with one warning, and a caption or credit with
     /// characters the cards' font and its fallbacks lack (TMP draws each as a box) is warned about once as the index loads.
     /// Cards animate on <see cref="GraphTime"/> (so a recording shows what a viewer sees), the graph's labels keep out from
     /// under them, and an image is unloaded as soon as its card has faded out. The smoke test captures each stop with its cards
-    /// settled (<see cref="Settle"/>) and checks them there (the "tour-pictures" check, which also reports a stop that shows
-    /// fewer pictures than it names, as a warning). Not in a headset: the canvas is not one the headset keeps.
+    /// settled (<see cref="Settle"/>) and checks them there (the "tour-pictures" check: on screen, clear of the title's place,
+    /// the HUD's blocks, the narration card, its arrow and each other; a stop whose pictures show in turn is noted, its frame
+    /// showing the first turn). Not in a headset: the canvas is not one the headset keeps.
     /// </para>
     /// </summary>
     [GraphScenes(GraphScene.Why)]
@@ -95,6 +97,15 @@ namespace Why.UI
         /// it, the stop's first picture alone stands where it covers the least of it.
         /// </summary>
         const float TargetBand = 32f, TargetReach = 340f;
+
+        /// <summary>How far the cards keep from the narration's arrow (its dashes, and its head 6.5 units each side).</summary>
+        const float ArrowClear = 12f;
+
+        /// <summary>
+        /// A stop with more pictures than places shows them in turn, the stop's time shared evenly between the turns, each
+        /// at least this long (s); while the stop's time is not known, each this long.
+        /// </summary>
+        const float MinTurnSeconds = 5f, DefaultTurnSeconds = 8f;
 
         /// <summary>
         /// Fades: in and out (s), the wait of a card that arrives with a new stop (the narration card slides out for 0.2 s
@@ -171,14 +182,20 @@ namespace Why.UI
         }
 
         /// <summary>
-        /// A layout: how many of the stop's pictures show, at what width, and the top-left corner of their block; and whether it
-        /// covers part of the band around the arrow's point (no card kept clear of it).
+        /// A layout: how many places the stop's pictures have (fewer than its pictures: they show in turn), at what width, and
+        /// the top-left corner of their block; and whether it covers part of the band around the arrow's point (no place kept
+        /// clear of it), or of the arrow (not even that).
         /// </summary>
         struct Plan
         {
             public int Count;
             public float Width, X, Y;
-            public bool Portrait, CoversTarget;
+
+            /// <summary>Landscape, while the pictures show in turn: the column's places this far apart (the tallest of them and
+            /// a gap), so a card does not move as the pictures above it change; 0 stacks the cards by their own heights.</summary>
+            public float Pitch;
+
+            public bool Portrait, CoversTarget, CoversArrow;
         }
 
         GraphRoot root;
@@ -230,6 +247,15 @@ namespace Why.UI
         // the stretches a block is kept out of, and the stretches left clear of them (canvas units down from the top)
         readonly List<(float start, float end)> blocked = new List<(float, float)>();
         readonly List<(float start, float end)> gaps = new List<(float, float)>();
+
+        /// <summary>The narration's arrow as the last layout found it (<see cref="ArrowPath"/>; canvas units down from the top).</summary>
+        readonly List<Vector2> arrowPath = new List<Vector2>();
+
+        /// <summary>While the stop has more pictures than places: the picture the first place shows now (its index among the
+        /// stop's pictures), and how long the places have shown this turn (s).</summary>
+        int turnFirst;
+
+        float turnAge;
 
         public override int Order => 52;
 
@@ -448,6 +474,8 @@ namespace Why.UI
                 shownStep = step;
                 BuildEntries(step);
                 roomWarned = targetWarned = false;
+                turnFirst = 0;
+                turnAge = 0;
                 dirty = true;
             }
 
@@ -502,12 +530,26 @@ namespace Why.UI
                 laidCard = card;
                 // a picture whose image fails to load is dropped and the rest laid out again without it (each time one fewer, so
                 // this ends: with no pictures left every card just fades out)
-                plan = Layout(size, portrait, title, stopLegendTop, hasTarget, target, hasCard, card);
-                while (!Assign(stopChanged)) plan = Layout(size, portrait, title, stopLegendTop, hasTarget, target, hasCard, card);
+                LayOut(stopChanged);
             }
 
             // while the smoke test captures and checks this stop (Settle), every card stays where it is going, faded fully in or out
-            if (Time.frameCount <= settleUntil && ReferenceEquals(step, settleStep)) SettleCards();
+            bool settling = Time.frameCount <= settleUntil && ReferenceEquals(step, settleStep);
+
+            // a stop with more pictures than places shows them in turn: the leaving cards fade out, then the next ones come in
+            int wanted = Mathf.Min(entries.Count, MaxCards);
+            if (plan.Count > 0 && plan.Count < wanted && !settling)
+            {
+                turnAge += dt;
+                if (turnAge >= TurnSeconds(wanted))
+                {
+                    turnAge = 0;
+                    turnFirst = (turnFirst + plan.Count) % wanted;
+                    while (!Assign(true)) plan = LaidLayout();
+                }
+            }
+
+            if (settling) SettleCards();
             else Animate(dt, snap);
             snap = false;
 
@@ -524,27 +566,55 @@ namespace Why.UI
             Mathf.Abs(a.xMin - b.xMin) < 0.5f && Mathf.Abs(a.yMin - b.yMin) < 0.5f && Mathf.Abs(a.width - b.width) < 0.5f &&
             Mathf.Abs(a.height - b.height) < 0.5f;
 
+        /// <summary>Lays the stop's pictures out for what the cards keep clear of now (the laid values) and gives them their
+        /// cards; a picture whose image fails to load is dropped and the rest laid out again without it (each time one fewer, so
+        /// this ends: with no pictures left every card just fades out).</summary>
+        void LayOut(bool stopChanged)
+        {
+            plan = LaidLayout();
+            while (!Assign(stopChanged)) plan = LaidLayout();
+        }
+
+        Plan LaidLayout() => Layout(laidCanvas, laidPortrait, laidTitle, laidLegend, laidHasTarget, laidTarget, laidHasCard, laidCard);
+
         /// <summary>
-        /// The stop's warnings, each once per stop for the run: when no card could keep clear of the point the narration's arrow
-        /// points at (<see cref="Plan.CoversTarget"/>), and when the stop shows fewer of its pictures than it names (up to
-        /// <see cref="MaxCards"/>), each naming the room the cards had.
+        /// How long each turn lasts while the stop's pictures show in turn: the stop's time shared evenly between the turns it
+        /// takes to show them all once (at least <see cref="MinTurnSeconds"/>), or <see cref="DefaultTurnSeconds"/> while that
+        /// time is not known (the tour does not play on its own).
+        /// </summary>
+        float TurnSeconds(int wanted)
+        {
+            int turns = Mathf.CeilToInt(wanted / (float)Mathf.Max(plan.Count, 1));
+            float stop = director != null ? director.CurrentStepSeconds : 0;
+            return stop > 0 && turns > 0 ? Mathf.Max(MinTurnSeconds, stop / turns) : DefaultTurnSeconds;
+        }
+
+        /// <summary>
+        /// The stop's notes, each once per stop for the run: a warning when no place kept clear of the point the narration's
+        /// arrow points at (<see cref="Plan.CoversTarget"/>) or of the arrow (<see cref="Plan.CoversArrow"/>), and a log line
+        /// when the stop shows its pictures in turn (it has more than places), each naming the room the cards had.
         /// </summary>
         void WarnShort(TourStep step)
         {
-            if (plan.CoversTarget && !targetWarned)
+            if ((plan.CoversTarget || plan.CoversArrow) && !targetWarned)
             {
                 targetWarned = true;
                 Vector2 point = Down(laidTarget, laidCanvas.y);
                 WarnOnce("target:" + step.Id, $"[Why] tour pictures: stop '{step.Id}': no card keeps clear of the point the narration " +
-                                              $"points at ({point.x:0},{point.y:0} from the top left), so its first picture alone stands " +
-                                              $"where it covers the least of it; {Room()}");
+                                              $"points at ({point.x:0},{point.y:0} from the top left)" +
+                                              (plan.CoversArrow ? " or of its arrow, so one card stands where it covers the least of the point"
+                                                  : ", so one card stands where it covers the least of it") + $"; {Room()}");
             }
 
             int wanted = Mathf.Min(entries.Count, MaxCards);
-            if (plan.Count < wanted && !roomWarned)
+            if (plan.Count > 0 && plan.Count < wanted && !roomWarned)
             {
                 roomWarned = true;
-                WarnOnce("room:" + step.Id, $"[Why] tour pictures: stop '{step.Id}' shows {plan.Count} of its {wanted} pictures; {Room()}");
+                if (warned.Add("room:" + step.Id))
+                {
+                    Debug.Log($"[Why] tour pictures: stop '{step.Id}' shows its {wanted} pictures {plan.Count} at a time, in turns of " +
+                              $"{TurnSeconds(wanted):0.0} s; {Room()}");
+                }
             }
         }
 
@@ -561,12 +631,12 @@ namespace Why.UI
             float top = laidTitle + TitleGap, bottom = laidCanvas.y - laidLegend - LegendGap;
             float narrowest = laidPortrait ? RowCardMinWidth : ColumnMinWidth;
             float across = laidPortrait ? wanted * narrowest + (wanted - 1) * CardGap : narrowest;
-            Gaps(x, across, top, bottom, laidHasCard, Down(laidCard, laidCanvas.y), laidHasTarget, Down(laidTarget, laidCanvas.y), gaps);
+            Gaps(x, across, top, bottom, laidHasCard, Down(laidCard, laidCanvas.y), laidHasTarget, Down(laidTarget, laidCanvas.y), true, gaps);
             float clear = 0;
             foreach ((float start, float end) in gaps) clear = Mathf.Max(clear, end - start);
             string row = laidPortrait ? $", in a row {laidCanvas.x - 2 * x:0} wide (they need {across:0})" : "";
             return $"the room between the title's place and the legend block is {Mathf.Max(0, bottom - top):0} units tall, {clear:0} of " +
-                   $"them in one stretch clear of the narration card{(laidHasTarget ? " and the arrow's point" : "")}, and {wanted} cards " +
+                   $"them in one stretch clear of the narration card{(laidHasTarget ? ", the arrow and its point" : "")}, and {wanted} cards " +
                    $"need {BlockHeight(wanted, narrowest, laidPortrait):0} at their narrowest{row}";
         }
 
@@ -579,15 +649,17 @@ namespace Why.UI
         // ------------------------------------------------------------------ layout
 
         /// <summary>
-        /// Where the stop's cards go: as many of its pictures as fit (at most <see cref="MaxCards"/>), as wide as they can be,
-        /// in the topmost place that holds them between the title's place and the legend block, clear of the narration card
-        /// and of the band around the point the arrow points at. More pictures at a smaller width come before fewer at a larger
-        /// one, down to the stop's first picture alone. When not even that keeps clear of the band, the first picture alone
-        /// stands, clear of the narration card, where it covers the least of the band (<see cref="Plan.CoversTarget"/>).
-        /// Landscape: a column at the left edge. Portrait: a row from the left edge.
+        /// Where the stop's cards go: as many places as fit (one per picture, at most <see cref="MaxCards"/>), as wide as they
+        /// can be, in the topmost place that holds them between the title's place and the legend block, clear of the narration
+        /// card, of the arrow from it and of the band around the point the arrow points at. More places at a smaller width come
+        /// before fewer at a larger one, down to one; with fewer places than pictures, each place is as tall as the tallest of
+        /// them (they show in turn). When not even one place keeps clear of the band, one card stands, clear of the narration
+        /// card (and of the arrow, where it can be), where it covers the least of the band (<see cref="Plan.CoversTarget"/>).
+        /// Landscape: a column at the left edge. Portrait: a row from the left or the right edge, whichever stands higher.
         /// </summary>
         Plan Layout(Vector2 size, bool portrait, float title, float legendTop, bool hasTarget, Vector2 target, bool hasCard, Rect card)
         {
+            ArrowPath(hasCard, card, hasTarget, target, size.y, arrowPath);
             int most = Mathf.Min(entries.Count, MaxCards);
             if (most == 0) return default;
 
@@ -601,6 +673,9 @@ namespace Why.UI
             Rect cardBox = hasCard ? Down(card, size.y) : default;
             Vector2 point = Down(target, size.y);
 
+            // portrait rows may stand at either edge (the arrow often runs up one side of the screen); landscape keeps its
+            // column at the left edge, where the narration card's left slots step aside for it
+            int anchors = portrait ? 2 : 1;
             for (int n = most; n >= 1; n--)
             {
                 float widest = portrait ? Mathf.Min(RowCardWidth, (row - (n - 1) * CardGap) / n) : ColumnWidth;
@@ -608,49 +683,101 @@ namespace Why.UI
                 {
                     float blockWidth = portrait ? n * w + (n - 1) * CardGap : w;
                     float blockHeight = BlockHeight(n, w, portrait);
-                    if (!Fits(x, blockWidth, blockHeight, top, bottom, hasCard, cardBox, hasTarget, point, out float y)) continue;
-                    return new Plan { Count = n, Width = w, X = x, Y = y, Portrait = portrait };
+                    Plan found = default;
+                    for (int anchor = 0; anchor < anchors; anchor++)
+                    {
+                        // the higher of the two places; a tie keeps the left one
+                        float bx = anchor == 0 ? x : size.x - x - blockWidth;
+                        if (!Fits(bx, blockWidth, blockHeight, top, bottom, hasCard, cardBox, hasTarget, point, out float y)) continue;
+                        if (found.Count > 0 && y >= found.Y - 0.5f) continue;
+                        found = new Plan { Count = n, Width = w, X = bx, Y = y, Pitch = Pitch(n, w, portrait), Portrait = portrait };
+                    }
+
+                    if (found.Count > 0) return found;
                 }
             }
 
             if (!hasTarget) return default;
 
-            // not even the first picture keeps clear of the arrow's point: it alone (more cards would only cover more), at the
-            // width and in the place clear of the narration card where it covers the least of the band. Along a clear stretch
-            // that is at one of its ends (as a card moves down through the band, what it covers only grows, then only shrinks);
-            // a tie keeps the wider card, then the higher place.
-            Plan best = default;
-            float least = float.MaxValue;
-            for (float w = Mathf.Floor(portrait ? Mathf.Min(RowCardWidth, row) : ColumnWidth); w >= narrowest; w -= WidthStep)
+            // not even one place keeps clear of the arrow's point: one (more would only cover more), at the width and in the
+            // place clear of the narration card where it covers the least of the band, and clear of the arrow too where any
+            // place is. Along a clear stretch that is at one of its ends (as a card moves down through the band, what it covers
+            // only grows, then only shrinks); a tie keeps the wider card, then the higher place, then the left edge.
+            for (int pass = 0; pass < 2; pass++)
             {
-                float height = BlockHeight(1, w, portrait);
-                Gaps(x, w, top, bottom, hasCard, cardBox, false, point, gaps);
-                foreach ((float start, float end) in gaps)
+                bool avoidArrow = pass == 0;
+                Plan best = default;
+                float least = float.MaxValue;
+                for (float w = Mathf.Floor(portrait ? Mathf.Min(RowCardWidth, row) : ColumnWidth); w >= narrowest; w -= WidthStep)
                 {
-                    if (end - start < height) continue;
-                    for (int side = 0; side < 2; side++)
+                    float height = BlockHeight(1, w, portrait);
+                    for (int anchor = 0; anchor < anchors; anchor++)
                     {
-                        float y = side == 0 ? start : end - height;
-                        float cover = Cover(x, w, y, height, point);
-                        if (cover >= least - 0.5f) continue;
-                        least = cover;
-                        best = new Plan { Count = 1, Width = w, X = x, Y = y, Portrait = portrait, CoversTarget = true };
+                        float bx = anchor == 0 ? x : size.x - x - w;
+                        Gaps(bx, w, top, bottom, hasCard, cardBox, false, point, avoidArrow, gaps);
+                        foreach ((float start, float end) in gaps)
+                        {
+                            if (end - start < height) continue;
+                            for (int side = 0; side < 2; side++)
+                            {
+                                float y = side == 0 ? start : end - height;
+                                float cover = Cover(bx, w, y, height, point);
+                                if (cover >= least - 0.5f) continue;
+                                least = cover;
+                                best = new Plan
+                                {
+                                    Count = 1, Width = w, X = bx, Y = y, Portrait = portrait, CoversTarget = true,
+                                    CoversArrow = !avoidArrow && arrowPath.Count > 0
+                                };
+                            }
+                        }
                     }
                 }
+
+                if (best.Count > 0) return best;
             }
 
-            return best;
+            return default;
+        }
+
+        /// <summary>
+        /// The narration's arrow as the director draws it (<c>DirectorMode</c>'s attention, <see cref="AttentionArrow"/>): a
+        /// cubic Bezier that leaves the narration card's edge (<see cref="PanelPlacement.EdgePoint"/>, 10 units out) along its
+        /// normal and arrives at the point; sampled at most 6 units apart along its chord (closer than the cards'
+        /// <see cref="ArrowClear"/>, so the stretches the samples block join up), in canvas units down from the top of a canvas
+        /// this tall (the card and the point in canvas units from the bottom-left corner). None without the card or the point,
+        /// or with the point under the card (the director draws none then).
+        /// </summary>
+        static void ArrowPath(bool hasCard, Rect card, bool hasTarget, Vector2 target, float height, List<Vector2> path)
+        {
+            path.Clear();
+            if (!hasCard || !hasTarget || card.Contains(target)) return;
+            Vector2 from = PanelPlacement.EdgePoint(card, target, 10f, out Vector2 outward);
+            float d = (target - from).magnitude;
+            if (d < 1f) return;
+            Vector2 p1 = from + outward * (d * 0.4f);
+            Vector2 arrive = target - p1;
+            Vector2 p2 = target - (arrive.sqrMagnitude > 1e-8f ? arrive.normalized : Vector2.right) * (d * 0.3f);
+            // the curve's length is at most its control polygon's
+            float polygon = (p1 - from).magnitude + (p2 - p1).magnitude + (target - p2).magnitude;
+            int n = Mathf.Clamp(Mathf.CeilToInt(polygon / 6f), 16, 1000);
+            for (int i = 0; i <= n; i++)
+            {
+                float t = i / (float)n, s = 1 - t;
+                Vector2 q = s * s * s * from + 3 * s * s * t * p1 + 3 * s * t * t * p2 + t * t * t * target;
+                path.Add(new Vector2(q.x, height - q.y));
+            }
         }
 
         /// <summary>
         /// The topmost place between <paramref name="top"/> and <paramref name="bottom"/> (canvas units down from the top) where a
-        /// block this wide, at <paramref name="x"/>, and this tall stands clear of the narration card and (when asked) of the
-        /// band around the arrow's point.
+        /// block this wide, at <paramref name="x"/>, and this tall stands clear of the narration card, of its arrow and (when
+        /// asked) of the band around the arrow's point.
         /// </summary>
         bool Fits(float x, float width, float height, float top, float bottom, bool hasCard, Rect card, bool avoidTarget, Vector2 point,
             out float y)
         {
-            Gaps(x, width, top, bottom, hasCard, card, avoidTarget, point, gaps);
+            Gaps(x, width, top, bottom, hasCard, card, avoidTarget, point, true, gaps);
             foreach ((float start, float end) in gaps)
             {
                 if (end - start < height) continue;
@@ -664,10 +791,11 @@ namespace Why.UI
 
         /// <summary>
         /// The stretches between <paramref name="top"/> and <paramref name="bottom"/> (canvas units down from the top), top first,
-        /// where a block this wide at <paramref name="x"/> stands clear of the narration card and (when asked) of the band around
-        /// the arrow's point, which it keeps out of wherever it comes within <see cref="TargetReach"/> of the point across.
+        /// where a block this wide at <paramref name="x"/> stands clear of the narration card, (when asked) of the band around
+        /// the arrow's point, which it keeps out of wherever it comes within <see cref="TargetReach"/> of the point across, and
+        /// (when asked) of the arrow, which it keeps <see cref="ArrowClear"/> from wherever the arrow passes across it.
         /// </summary>
-        void Gaps(float x, float width, float top, float bottom, bool hasCard, Rect card, bool avoidTarget, Vector2 point,
+        void Gaps(float x, float width, float top, float bottom, bool hasCard, Rect card, bool avoidTarget, Vector2 point, bool avoidArrow,
             List<(float start, float end)> clear)
         {
             blocked.Clear();
@@ -675,6 +803,14 @@ namespace Why.UI
             if (avoidTarget && point.x > x - TargetReach && point.x < x + width + TargetReach)
             {
                 blocked.Add((point.y - TargetBand, point.y + TargetBand));
+            }
+
+            if (avoidArrow)
+            {
+                foreach (Vector2 q in arrowPath)
+                {
+                    if (q.x > x - ArrowClear && q.x < x + width + ArrowClear) blocked.Add((q.y - ArrowClear, q.y + ArrowClear));
+                }
             }
 
             blocked.Sort((a, b) => a.start.CompareTo(b.start));
@@ -702,9 +838,20 @@ namespace Why.UI
             return across > 0 && down > 0 ? across * down : 0;
         }
 
-        /// <summary>The height of the first <paramref name="n"/> pictures' block: stacked (landscape) or side by side (portrait).</summary>
+        /// <summary>
+        /// The height of a block of <paramref name="n"/> places: stacked (landscape) or side by side (portrait). With a place for
+        /// each of the stop's pictures, the pictures' own; with fewer (they show in turn), each place as tall as the tallest
+        /// of them, so whichever picture comes into a place fits it.
+        /// </summary>
         float BlockHeight(int n, float width, bool portrait)
         {
+            int most = Mathf.Min(entries.Count, MaxCards);
+            if (n < most)
+            {
+                float tallest = Tallest(most, width, portrait);
+                return portrait ? tallest : n * tallest + (n - 1) * CardGap;
+            }
+
             float h = 0;
             for (int i = 0; i < n; i++)
             {
@@ -713,6 +860,21 @@ namespace Why.UI
             }
 
             return h;
+        }
+
+        /// <summary>The tallest of the stop's first <paramref name="n"/> pictures' cards at a width.</summary>
+        float Tallest(int n, float width, bool portrait)
+        {
+            float h = 0;
+            for (int i = 0; i < n; i++) h = Mathf.Max(h, CardHeight(entries[i], width, portrait, out _, out _));
+            return h;
+        }
+
+        /// <summary>Landscape, with fewer places than pictures: the column's places' spacing (<see cref="Plan.Pitch"/>); else 0.</summary>
+        float Pitch(int n, float width, bool portrait)
+        {
+            int most = Mathf.Min(entries.Count, MaxCards);
+            return !portrait && n < most ? Tallest(most, width, false) + CardGap : 0;
         }
 
         /// <summary>A card's height at a width: the picture at 16:9, the caption (at most its lines), the whole credit line.</summary>
@@ -754,18 +916,22 @@ namespace Why.UI
         }
 
         /// <summary>
-        /// Gives the plan's pictures their cards: one already showing that picture keeps it (it fades back in if it was leaving,
-        /// and glides to its new place), any other gets a free card and its image, and waits for the leaving cards when the stop
-        /// has just changed; every other card fades out. False when an image could not be loaded: that picture is dropped (one
-        /// warning) and the stop is laid out again.
+        /// Gives the plan's places their pictures' cards: the stop's pictures in order, or with fewer places than pictures,
+        /// those whose turn it is (from <see cref="turnFirst"/>). A card already showing that picture keeps it (it fades back in
+        /// if it was leaving, and glides to its new place), any other gets a free card and its image, and waits for the leaving
+        /// cards when the stop has just changed or the turn has; every other card fades out. False when an image could not be
+        /// loaded: that picture is dropped (one warning) and the stop is laid out again.
         /// </summary>
         bool Assign(bool stopChanged)
         {
             foreach (Card c in cards) c.Keep = false;
+            int wanted = Mathf.Min(entries.Count, MaxCards);
+            bool turns = plan.Count < wanted;
             float y = plan.Y;
             for (int i = 0; i < plan.Count; i++)
             {
-                Entry e = entries[i];
+                int which = turns ? (turnFirst + i) % wanted : i;
+                Entry e = entries[which];
                 Card c = cards.Find(k => k.Entry != null && k.Id == e.Id);
                 if (c == null)
                 {
@@ -774,7 +940,8 @@ namespace Why.UI
                     {
                         WarnOnce("image:" + e.Id, $"[Why] tour pictures: picture '{e.Id}' has no image at Resources/{Folder}{e.Id}.jpg or .png; skipped");
                         missing.Add(e.Id);
-                        entries.RemoveAt(i);
+                        entries.RemoveAt(which);
+                        if (turnFirst > which) turnFirst--;
                         return false;
                     }
 
@@ -796,7 +963,7 @@ namespace Why.UI
                 float height = CardHeight(e, plan.Width, plan.Portrait, out c.CaptionH, out c.CreditH);
                 c.GoalWidth = plan.Width;
                 c.GoalPos = plan.Portrait ? new Vector2(plan.X + i * (plan.Width + CardGap), plan.Y) : new Vector2(plan.X, y);
-                y += height + CardGap;
+                y += plan.Pitch > 0 ? plan.Pitch : height + CardGap;
                 c.ShownWidth = float.NaN; // its texts' heights may have changed: lay it out again
             }
 
@@ -1019,8 +1186,8 @@ namespace Why.UI
             int wanted = Mathf.Min(entries.Count, MaxCards);
             if (plan.Count < wanted)
             {
-                Debug.LogWarning($"[Why] smoke check '{CheckName}' warns at stop '{stop}' (not a failure): it shows {plan.Count} of its " +
-                                 $"{wanted} pictures; {Room()}");
+                Debug.Log($"[Why] smoke check '{CheckName}' at stop '{stop}': it shows its {wanted} pictures {plan.Count} at a time, in " +
+                          $"turns (the frame shows the first); {Room()}");
             }
 
             List<(string id, Rect box)> shown = new List<(string, Rect)>();
@@ -1062,6 +1229,18 @@ namespace Why.UI
                 foreach ((string what, Rect box) in blocks)
                 {
                     if (Overlap(shown[i].box, box)) problems.Add($"stop '{stop}': picture '{shown[i].id}' ({Describe(shown[i].box)}) overlaps {what} ({Describe(box)})");
+                }
+
+                // the narration's arrow (as the last layout found it), unless no place could keep clear of it
+                if (!plan.CoversArrow)
+                {
+                    foreach (Vector2 q in arrowPath)
+                    {
+                        if (!shown[i].box.Contains(q)) continue;
+                        problems.Add($"stop '{stop}': picture '{shown[i].id}' ({Describe(shown[i].box)}) covers the narration's arrow " +
+                                     $"(at {q.x:0},{q.y:0})");
+                        break;
+                    }
                 }
 
                 for (int j = i + 1; j < shown.Count; j++)

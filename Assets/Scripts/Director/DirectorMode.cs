@@ -172,6 +172,10 @@ namespace Why.Director
         /// beside the card (<see cref="UI.TourPictures"/>).</summary>
         public TourStep CurrentTourStep => active && steps != null && index >= 0 && index < steps.Count ? steps[index].Step : null;
 
+        /// <summary>How long the stop on screen lasts when the tour plays on its own (its narration and the pause after it, s);
+        /// 0 on the cards and outside the tour.</summary>
+        public float CurrentStepSeconds => CurrentTourStep != null ? stepDuration : 0;
+
         /// <summary>
         /// Where the stop's anchor stands once the camera's flight has ended (canvas units, origin bottom-left; on the screen's
         /// edge when it lies off screen), the point the card was placed away from, for panels that keep clear of it (the

@@ -22,8 +22,8 @@
   "weapons"
  ],
  "counts": {
-  "facts": 1412,
-  "verified": 1412,
+  "facts": 1442,
+  "verified": 1431,
   "actors": 242,
   "present": 174,
   "flows": 90,
@@ -49401,7 +49401,7 @@
    "unit": "USD bn",
    "period": "1948-1952",
    "scope": null,
-   "from": null,
+   "from": "united-states",
    "to": null,
    "url": "https://en.wikipedia.org/wiki/Marshall_Plan",
    "quote": "The United States transferred US$13.3 billion to 17 European countries (equivalent to $141 billion[A] in 2025[B]) in economic recovery programs to Western European economies after the end of World War II in Europe.",
@@ -49654,7 +49654,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-intel-mcap-2012": {
@@ -49676,7 +49676,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-intel-mcap-2022": {
@@ -49698,7 +49698,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-intel-rev-1997": {
@@ -49720,7 +49720,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-intel-rev-2000": {
@@ -49742,7 +49742,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-intel-rev-2012": {
@@ -49763,8 +49763,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-philips": {
@@ -49776,7 +49776,7 @@
    "period": "1987",
    "scope": null,
    "from": null,
-   "to": null,
+   "to": "tsmc",
    "url": "https://en.wikipedia.org/wiki/TSMC",
    "quote": "Only Philips was willing to sign a joint venture contract with Taiwan to put up $58 million, transfer its production technology, and license intellectual property in exchange for a 27.6 percent stake in TSMC.",
    "quotes": [
@@ -49830,7 +49830,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-mcap-2012": {
@@ -49851,8 +49851,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-mcap-2022": {
@@ -49874,7 +49874,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-rev-1997": {
@@ -49896,7 +49896,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-rev-2012": {
@@ -49918,7 +49918,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-rev-2022": {
@@ -49940,7 +49940,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-founding-capital": {
@@ -49952,7 +49952,7 @@
    "period": "1993",
    "scope": null,
    "from": null,
-   "to": null,
+   "to": "nvidia",
    "url": "https://en.wikipedia.org/wiki/History_of_Nvidia",
    "quote": "With $40,000 in the bank (equivalent to $89,000 in 2025), the company was born.[14]",
    "quotes": [
@@ -50093,8 +50093,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.96,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-mcap-2006": {
@@ -50116,7 +50116,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-mcap-2012": {
@@ -50138,7 +50138,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-mcap-2017": {
@@ -50160,7 +50160,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-mcap-2022": {
@@ -50181,8 +50181,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-rev-1999": {
@@ -50204,7 +50204,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-rev-2006": {
@@ -50226,7 +50226,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-rev-2012": {
@@ -50248,7 +50248,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-rev-2017": {
@@ -50270,7 +50270,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-rev-2022": {
@@ -50292,7 +50292,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-nvidia-rev-ttm": {
@@ -50314,7 +50314,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.95,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-mcap-2017": {
@@ -50335,8 +50335,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-rev-2017": {
@@ -50358,7 +50358,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-mcap-2026": {
@@ -50379,8 +50379,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-rev-ttm": {
@@ -50402,7 +50402,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.96,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2019": {
@@ -50423,8 +50423,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2023": {
@@ -50445,8 +50445,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2026": {
@@ -50468,7 +50468,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.96,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-transformer-authors": {
@@ -50490,7 +50490,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-transformer-authors-left": {
@@ -50512,7 +50512,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.96,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-transformer-citations": {
@@ -50534,7 +50534,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.96,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-transformer-gpu-parallel": {
@@ -50556,7 +50556,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.96,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-alexnet-error": {
@@ -50612,7 +50612,7 @@
    "period": "December 2015",
    "scope": null,
    "from": null,
-   "to": null,
+   "to": "openai",
    "url": "https://en.wikipedia.org/wiki/OpenAI",
    "quote": "A total of $1 billion in capital was pledged by Musk, Altman, Greg Brockman, Reid Hoffman, Jessica Livingston, Peter Thiel, Amazon Web Services (AWS), and Infosys.[24][25]",
    "quotes": [
@@ -50699,8 +50699,8 @@
    "unit": "year",
    "period": "22 September 2020",
    "scope": null,
-   "from": null,
-   "to": null,
+   "from": "microsoft",
+   "to": "openai",
    "url": "https://en.wikipedia.org/wiki/GPT-3",
    "quote": "On September 22, 2020, Microsoft announced that it had licensed GPT-3 exclusively.",
    "quotes": [
@@ -50721,8 +50721,8 @@
    "unit": "USD bn",
    "period": "2019",
    "scope": null,
-   "from": null,
-   "to": null,
+   "from": "microsoft",
+   "to": "openai",
    "url": "https://en.wikipedia.org/wiki/OpenAI",
    "quote": "In 2019, OpenAI transitioned from nonprofit to \"capped\" for-profit, with the profit being capped at 100 times any investment.[45]",
    "quotes": [
@@ -50744,8 +50744,8 @@
    "unit": "USD bn",
    "period": "23 January 2023",
    "scope": null,
-   "from": null,
-   "to": null,
+   "from": "microsoft",
+   "to": "openai",
    "url": "https://en.wikipedia.org/wiki/OpenAI",
    "quote": "On January 23, 2023, Microsoft announced an additional $10 billion investment in OpenAI over multiple years, of which a significant portion would be used to purchase compute on Microsoft Azure.[70][71]",
    "quotes": [
@@ -50877,7 +50877,7 @@
    "period": "1957",
    "scope": null,
    "from": null,
-   "to": null,
+   "to": "fairchild",
    "url": "https://www.computerhistory.org/atchm/fairchild-semiconductor-the-60th-anniversary-of-a-silicon-valley-legend/",
    "quote": "Assisted by Arthur Rock, who later formed one of the first West Coast venture capital firms, the eight men raised $1.38 million from East Coast−based Fairchild Camera & Instrument Corporation.",
    "quotes": [
@@ -50943,7 +50943,7 @@
    "period": "1968",
    "scope": null,
    "from": null,
-   "to": null,
+   "to": "intel",
    "url": "https://en.wikipedia.org/wiki/Intel",
    "quote": "Rock offered $2,500,000 of convertible debentures to a limited group of private investors (equivalent to $21 million in 2022), convertible at $5 per share.[4][7]",
    "quotes": [
@@ -51242,7 +51242,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.95,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-kilby-hybrid": {
@@ -51418,7 +51418,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-amd-mcap-2007": {
@@ -51440,7 +51440,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-amd-mcap-2025": {
@@ -51461,8 +51461,8 @@
    "dated2026": true,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-amd-rev-2006": {
@@ -51484,7 +51484,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-amd-rev-2007": {
@@ -51506,7 +51506,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.99,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-amd-rev-2025": {
@@ -51528,7 +51528,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-amd-rev-ttm": {
@@ -51550,7 +51550,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2006": {
@@ -51571,8 +51571,8 @@
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2012": {
@@ -51593,8 +51593,8 @@
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-1997": {
@@ -51615,8 +51615,8 @@
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2020": {
@@ -51637,8 +51637,8 @@
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-microsoft-mcap-2022": {
@@ -51660,7 +51660,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-mcap-2020": {
@@ -51682,7 +51682,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-mcap-2022": {
@@ -51703,8 +51703,8 @@
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-rev-2020": {
@@ -51726,7 +51726,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-google-rev-2022": {
@@ -51748,7 +51748,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-intel-rev-1980": {
@@ -51814,7 +51814,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-rev-2006": {
@@ -51859,7 +51859,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.97,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-mcap-2017-03": {
@@ -51902,8 +51902,8 @@
    "dated2026": false,
    "cluster": "story-ai",
    "status": "verified",
-   "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-tsmc-rev-2019": {
@@ -51947,7 +51947,7 @@
    "cluster": "story-ai",
    "status": "verified",
    "supportedJ": 0.98,
-   "verifiedOn": "2026-11-07",
+   "verifiedOn": "2026-11-08",
    "reason": null
   },
   "story-ai-bell-staff-1981": {
@@ -51971,6 +51971,350 @@
    "supportedJ": 0.99,
    "verifiedOn": "2026-11-07",
    "reason": null
+  },
+  "story-ai-flow-us-taiwan-aid-1950-1965": {
+   "claim": "By the time US aid to Taiwan officially ended in July 1965, the Americans had provided about US$1.4 billion in economic assistance over 15 years; US aid to Taiwan ran from 1950 to 1965.",
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 1.4,
+   "unit": "USD bn",
+   "period": "1950-1965",
+   "scope": null,
+   "from": "united-states",
+   "to": "taiwan",
+   "url": "https://www.taipeitimes.com/News/feat/archives/2019/07/07/2003718247",
+   "quote": "By the time US aid to Taiwan officially terminated in July 1965, the Americans had provided about US$1.4 billion in economic assistance over 15 years, supporting a large number of vital industries",
+   "quotes": [
+    "By the time US aid to Taiwan officially terminated in July 1965, the Americans had provided about US$1.4 billion in economic assistance over 15 years, supporting a large number of vital industries",
+    "A logo for US Aid to Taiwan between 1950 and 1965."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-ai-flow-intel-busicom-1971": {
+   "claim": "In May 1971 Busicom agreed to release Intel from the exclusivity agreement in exchange for a lower chip price, on condition that the chip not be used for any other calculator project and that Intel repay Busicom's $60,000 development costs.",
+   "actor": "intel",
+   "kind": "flow",
+   "value": 60000,
+   "unit": "USD",
+   "period": "1971",
+   "scope": null,
+   "from": "intel",
+   "to": "busicom",
+   "url": "https://en.wikipedia.org/wiki/Intel_4004",
+   "quote": "Faggin then convinced Noyce to lower the price in exchange for releasing Intel from the exclusivity agreement. In May 1971, Busicom agreed to this, on the condition that it not be used for any other calculator project and that Intel would repay their $60,000 development costs.",
+   "quotes": [
+    "Faggin then convinced Noyce to lower the price in exchange for releasing Intel from the exclusivity agreement. In May 1971, Busicom agreed to this, on the condition that it not be used for any other calculator project and that Intel would repay their $60,000 development costs."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.93,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-flow-ibm-intel-1982": {
+   "claim": "On 23 December 1982 the Christian Science Monitor reported that IBM had paid $250 million, or $40 a share, for 12 percent of the shares of Intel.",
+   "actor": "ibm",
+   "kind": "flow",
+   "value": 250,
+   "unit": "USD m",
+   "period": "1982",
+   "scope": null,
+   "from": "ibm",
+   "to": "intel",
+   "url": "https://www.csmonitor.com/1982/1223/122312.html",
+   "quote": "Dec. 23, 1982",
+   "quotes": [
+    "Dec. 23, 1982",
+    "International Business Machines Corporation has paid $250 million, or $40 a share, for 12 percent of the shares of Intel Corporation, a major semiconductor manufacturer."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-ai-flow-taiwan-tsmc-1987": {
+   "claim": "TSMC was established in 1987. Philips put up $58 million, transferred its production technology and licensed intellectual property in exchange for a 27.6 percent stake; alongside generous tax benefits, the Taiwanese government, through the National Development Fund of the Executive Yuan, provided another 48.3 percent of TSMC's startup capital.",
+   "actor": "taiwan",
+   "kind": "flow",
+   "value": 48.3,
+   "unit": "percent of TSMC's startup capital",
+   "period": "1987",
+   "scope": null,
+   "from": "taiwan",
+   "to": "tsmc",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quote": "TSMC was established in 1987 as a joint venture between Taiwan's government, the Industrial Technology Research Institute (ITRI), and private investors.",
+   "quotes": [
+    "TSMC was established in 1987 as a joint venture between Taiwan's government, the Industrial Technology Research Institute (ITRI), and private investors.",
+    "Only Philips was willing to sign a joint venture contract with Taiwan to put up $58 million, transfer its production technology, and license intellectual property in exchange for a 27.6 percent stake in TSMC. Alongside generous tax benefits, the Taiwanese government, through the National Development Fund, Executive Yuan, provided another 48.3 percent of the startup capital for TSMC."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.85,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-flow-microsoft-nvidia-xbox-2000": {
+   "claim": "On 16 March 2000 The Register reported that Nvidia was to receive a $200 million payment from Microsoft the following month, as an advance on multimedia development work for the Xbox.",
+   "actor": "microsoft",
+   "kind": "flow",
+   "value": 200,
+   "unit": "USD m",
+   "period": "2000",
+   "scope": null,
+   "from": "microsoft",
+   "to": "nvidia",
+   "url": "https://www.theregister.co.uk/2000/03/16/nvidia_gets_200m_xbox_injection/",
+   "quote": "Published thu 16 Mar 2000",
+   "quotes": [
+    "Published thu 16 Mar 2000",
+    "Graphics chip giant, Nvidia, is to receive a $200 million payment from Microsoft next month as an advance on multimedia development work for the X-Box."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-ai-flow-nvidia-3dfx-2000": {
+   "claim": "On 15 December 2000 NVIDIA announced a definitive agreement to acquire certain graphics-related assets of 3dfx Interactive, for which NVIDIA will pay 3dfx a total consideration of $70 million in cash and 1 million shares of common stock.",
+   "actor": "nvidia",
+   "kind": "flow",
+   "value": 70,
+   "unit": "USD m",
+   "period": "2000",
+   "scope": null,
+   "from": "nvidia",
+   "to": "3dfx",
+   "url": "https://pcstats.com/articles/498/index.html",
+   "quote": "Dec 15 2000",
+   "quotes": [
+    "Dec 15 2000",
+    "NVIDIA Corporation (Nasdaq:NVDA) today announced that it has signed a definitive agreement to acquire certain graphics related assets of 3dfx Interactive (Nasdaq:TDFX), a pioneer and a recognized leader in graphics technology.",
+    "Under the terms of the agreement, NVIDIA will pay to 3dfx a total consideration of $70 million in cash and 1 million shares of common stock."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "rejected",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: Wrong year. 15 December 2000 is the signing; the purchase closed on 18 April 2001. NVIDIA's 10-K405 for fiscal 2001: 'On April 18, 2001, our subsidiary completed the purchase contemplated by the definitive agreement. We have paid 3dfx approximately $70 million in total consideration.' Its 10-Q for the quarter to 29 April 2001: 'the cash consideration due at the closing was $70.0 million, less $15.0 million that was loaned to 3dfx pursuant to a Credit Agreement dated December 15, 2000', so $55 million moved in April 2001. The share consideration was contingent, and NVIDIA's 10-K for fiscal 2002 says 3dfx had not yet met the conditions for it. Re-add with period 2001 (or 2000-2001) from those filings."
+  },
+  "story-ai-flow-intel-nvidia-licence-2011": {
+   "claim": "On 10 January 2011 NVIDIA announced a new six-year cross-licensing agreement with Intel, under which Intel will pay NVIDIA an aggregate of $1.5 billion in licensing fees in five annual installments, beginning 18 January 2011.",
+   "actor": "intel",
+   "kind": "flow",
+   "value": 1.5,
+   "unit": "USD bn",
+   "period": "2011-2015",
+   "scope": null,
+   "from": "intel",
+   "to": "nvidia",
+   "url": "https://nvidianews.nvidia.com/news/intel-to-pay-nvidia-technology-licensing-fees-of-1-5-billion",
+   "quote": "January 10, 2011 SANTA CLARA, CA -- NVIDIA announced today that it has signed a new six-year cross-licensing agreement with Intel.",
+   "quotes": [
+    "January 10, 2011 SANTA CLARA, CA -- NVIDIA announced today that it has signed a new six-year cross-licensing agreement with Intel.",
+    "For the future use of NVIDIA's technology, Intel will pay NVIDIA an aggregate of $1.5 billion in licensing fees payable in five annual installments, beginning Jan. 18, 2011."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "rejected",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: Wrong period. Intel's 10-K for 2011 (sec.gov, Note 17): 'We agreed to make payments totaling $1.5 billion to NVIDIA over six years ($300 million in each of January 2011, 2012, and 2013; and $200 million in each of January 2014, 2015, and 2016)'. So there were six installments over 2011-2016, not five ending in 2015. Drawn over 2011-2015, the January 2016 payment is lost and every year's rate is wrong. Re-add with period 2011-2016 from the 10-K."
+  },
+  "story-ai-flow-google-dnnresearch-2013": {
+   "claim": "Hinton co-founded DNNresearch Inc. in 2012 with his two graduate students Alex Krizhevsky and Ilya Sutskever, and in March 2013 Google acquired DNNresearch Inc. for $44 million.",
+   "actor": "google",
+   "kind": "flow",
+   "value": 44,
+   "unit": "USD m",
+   "period": "2013",
+   "scope": null,
+   "from": "google",
+   "to": "alexnet-team",
+   "url": "https://en.wikipedia.org/wiki/Geoffrey_Hinton",
+   "quote": "He co-founded DNNresearch Inc. in 2012 with his two graduate students, Alex Krizhevsky and Ilya Sutskever, at the University of Toronto's department of computer science. In March 2013, Google acquired DNNresearch Inc. for $44 million",
+   "quotes": [
+    "He co-founded DNNresearch Inc. in 2012 with his two graduate students, Alex Krizhevsky and Ilya Sutskever, at the University of Toronto's department of computer science. In March 2013, Google acquired DNNresearch Inc. for $44 million"
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-ai-flow-google-anthropic-2023": {
+   "claim": "In October 2023 Google invested $500 million in Anthropic and committed to an additional $1.5 billion over time.",
+   "actor": "google",
+   "kind": "flow",
+   "value": 500,
+   "unit": "USD m",
+   "period": "2023",
+   "scope": null,
+   "from": "google",
+   "to": "anthropic",
+   "url": "https://en.wikipedia.org/wiki/Anthropic",
+   "quote": "In October 2023, Google invested $500 million in Anthropic and committed to an additional $1.5 billion over time.",
+   "quotes": [
+    "In October 2023, Google invested $500 million in Anthropic and committed to an additional $1.5 billion over time."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-flow-amazon-anthropic-2023-2024": {
+   "claim": "In September 2023 Amazon became a minority stakeholder in Anthropic by initially investing $1.25 billion, planning a total investment of $4 billion; the remaining $2.75 billion was invested in March 2024.",
+   "actor": "anthropic",
+   "kind": "flow",
+   "value": 4,
+   "unit": "USD bn",
+   "period": "2023-2024",
+   "scope": null,
+   "from": null,
+   "to": "anthropic",
+   "url": "https://en.wikipedia.org/wiki/Anthropic",
+   "quote": "In September 2023, Amazon announced a partnership with Anthropic. Amazon became a minority stakeholder by initially investing $1.25 billion and planning a total investment of $4 billion.",
+   "quotes": [
+    "In September 2023, Amazon announced a partnership with Anthropic. Amazon became a minority stakeholder by initially investing $1.25 billion and planning a total investment of $4 billion.",
+    "The remaining $2.75 billion was invested in March 2024."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-07",
+   "reason": null
+  },
+  "story-ai-flow-us-tsmc-chips-2024": {
+   "claim": "In April 2024 TSMC announced it had received $6.6 billion to build a third fab in Arizona; the grant was finalized on 15 November.",
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 6.6,
+   "unit": "USD bn",
+   "period": "2024",
+   "scope": null,
+   "from": "united-states",
+   "to": "tsmc",
+   "url": "https://en.wikipedia.org/wiki/CHIPS_and_Science_Act",
+   "quote": "In April 2024, TSMC announced they had received $6.6 billion to build a third fab in Arizona, with the intent to host the 2 nm process, and construction slated to begin in 2028.",
+   "quotes": [
+    "In April 2024, TSMC announced they had received $6.6 billion to build a third fab in Arizona, with the intent to host the 2 nm process, and construction slated to begin in 2028.",
+    "The grant was finalized on November 15."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "rejected",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-07",
+   "reason": "rejected by the skeptic: An award, not a payment. CHIPS grants are paid out as construction and production milestones are met, and TSMC's CFO said in January 2025 that it had received the first batch, $1.5 billion, in the fourth quarter of 2024 (CNBC, 19 January 2025). Drawn as $6.6 billion moving in 2024, the flow overstates 2024 by about $5.1 billion. Re-add the $1.5 billion received in 2024 (and later receipts) from a source that can pass the gate."
+  },
+  "story-ai-flow-us-intel-chips-grants-2024-2025": {
+   "claim": "On 22 August 2025 Intel said that the government's $8.9 billion investment came in addition to the $2.2 billion in CHIPS grants Intel had received to date, making a total investment of $11.1 billion.",
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 2.2,
+   "unit": "USD bn",
+   "period": "2024-2025",
+   "scope": null,
+   "from": "united-states",
+   "to": "intel",
+   "url": "https://d1io3yog0oux5.cloudfront.net/_57627f36f021419831e44f49449e5f89/intel/news/2025-08-22_Intel_and_Trump_Administration_Reach_Historic_1748.pdf",
+   "quote": "August 22, 2025 Intel and Trump Administration Reach Historic Agreement to Accelerate American Technology and Manufacturing Leadership",
+   "quotes": [
+    "August 22, 2025 Intel and Trump Administration Reach Historic Agreement to Accelerate American Technology and Manufacturing Leadership",
+    "The $8.9 billion investment is in addition to the $2.2 billion in CHIPS grants Intel has received to date, making for a total investment of $11.1 billion."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-ai-flow-us-intel-stake-2025": {
+   "claim": "On 22 August 2025 Intel announced that the US government would make an $8.9 billion investment in Intel common stock, funded by the remaining $5.7 billion of CHIPS Act grants awarded but not yet paid and $3.2 billion awarded under the Secure Enclave program.",
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 8.9,
+   "unit": "USD bn",
+   "period": "2025",
+   "scope": null,
+   "from": "united-states",
+   "to": "intel",
+   "url": "https://d1io3yog0oux5.cloudfront.net/_57627f36f021419831e44f49449e5f89/intel/news/2025-08-22_Intel_and_Trump_Administration_Reach_Historic_1748.pdf",
+   "quote": "August 22, 2025 Intel and Trump Administration Reach Historic Agreement to Accelerate American Technology and Manufacturing Leadership",
+   "quotes": [
+    "August 22, 2025 Intel and Trump Administration Reach Historic Agreement to Accelerate American Technology and Manufacturing Leadership",
+    "Under terms of the agreement, the United States government will make an $8.9 billion investment in Intel common stock",
+    "The government's equity stake will be funded by the remaining $5.7 billion in grants previously awarded, but not yet paid, to Intel under the U.S. CHIPS and Science Act and $3.2 billion awarded to the company as part of the Secure Enclave program."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "rejected",
+   "supportedJ": 0.95,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: It overstates 2025 by about $3.1 billion. Intel's Q3 2025 10-Q: on 27 August 2025 'we received from the DOC the $5.7 billion of remaining potential disbursements under the DFA'. The other $3.2 billion, from Secure Enclave, is paid 'as we perform on our commitments'. Intel's 10-K for 2025 shows only 3 million escrowed shares released against Secure Enclave receipts by 27 December 2025, about $60 million at $20 a share. Re-add as $5.7 billion on 27 August 2025 from the 10-Q quote, and add the Secure Enclave money as its own flow once its receipts are published."
+  },
+  "story-ai-flow-openai-microsoft-azure-2025": {
+   "claim": "On 28 October 2025 Microsoft announced that OpenAI has contracted to purchase an incremental $250 billion of Azure services, and that Microsoft will no longer have a right of first refusal to be OpenAI's compute provider.",
+   "actor": "openai",
+   "kind": "flow",
+   "value": 250,
+   "unit": "USD bn",
+   "period": "2025",
+   "scope": null,
+   "from": "openai",
+   "to": "microsoft",
+   "url": "https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/",
+   "quote": "Oct 28, 2025 | Microsoft Corporate Blogs",
+   "quotes": [
+    "Oct 28, 2025 | Microsoft Corporate Blogs",
+    "OpenAI has contracted to purchase an incremental $250B of Azure services, and Microsoft will no longer have a right of first refusal to be OpenAI's compute provider."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "rejected",
+   "supportedJ": 0.94,
+   "verifiedOn": "2026-11-07",
+   "reason": "rejected by the skeptic: A purchase commitment, not money that moved: OpenAI 'has contracted to purchase an incremental $250B of Azure services', with no schedule. Drawn in 2025 at its total, it would show $250 billion moving in a single year. It is not a flow until a source says what is paid and when. At most it could be shown as an unsized contract at its signing."
+  },
+  "story-ai-flow-anthropic-microsoft-azure-2025": {
+   "claim": "On 18 November 2025 Microsoft, NVIDIA and Anthropic announced strategic partnerships in which Anthropic committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt.",
+   "actor": "anthropic",
+   "kind": "flow",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "2025",
+   "scope": null,
+   "from": "anthropic",
+   "to": "microsoft",
+   "url": "https://blogs.microsoft.com/blog/2025/11/18/microsoft-nvidia-and-anthropic-announce-strategic-partnerships/",
+   "quote": "Microsoft, NVIDIA and Anthropic announce strategic partnerships Nov 18, 2025",
+   "quotes": [
+    "Microsoft, NVIDIA and Anthropic announce strategic partnerships Nov 18, 2025",
+    "Anthropic has committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt."
+   ],
+   "dated2026": false,
+   "cluster": "story-ai",
+   "status": "rejected",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: A purchase commitment, not money that moved: Anthropic 'has committed to purchase $30 billion of Azure compute capacity', with no schedule. Nothing says $30 billion moved in 2025, so drawn as a 2025 flow at its total it is false. At most it could be shown as an unsized contract at its signing."
   },
   "story-revolutions-us-population-1775": {
    "claim": "The colonial population of the Thirteen Colonies had grown to 2.4 million by 1775.",
@@ -54958,6 +55302,353 @@
    "verifiedOn": "2026-11-07",
    "reason": null
   },
+  "story-revolutions-flow-france-us-gifts-1776-1777": {
+   "claim": "Three million livres of the French King's gratuitous aid to the Congress of the United States were granted before the treaty of February 1778; with six million in 1781 these gifts came to nine million livres tournois in all.",
+   "actor": "kingdom-of-france",
+   "kind": "flow",
+   "value": 3,
+   "unit": "million livres tournois",
+   "period": "1776-1777",
+   "scope": null,
+   "from": "kingdom-of-france",
+   "to": "united-states",
+   "url": "https://avalon.law.yale.edu/18th_century/fr-1783.asp",
+   "quote": "In the third class are comprehended the aids and subsidies furnished to the Congress of the United States under the title of gratuitous assistance from the pure generosity of the King, three millions of which were granted before the treaty of February, 1778, and six millions in 1781; which aids and subsidies amount in the whole to nine million livres tournois.",
+   "quotes": [
+    "In the third class are comprehended the aids and subsidies furnished to the Congress of the United States under the title of gratuitous assistance from the pure generosity of the King, three millions of which were granted before the treaty of February, 1778, and six millions in 1781; which aids and subsidies amount in the whole to nine million livres tournois."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-france-us-loans-1778-1782": {
+   "claim": "The sums the King of France advanced to the Congress of the United States as loans in 1778, 1779, 1780, 1781 and 1782 amounted to eighteen million livres, as certified in the contract signed at Versailles on 16 July 1782.",
+   "actor": "kingdom-of-france",
+   "kind": "flow",
+   "value": 18,
+   "unit": "million livres",
+   "period": "1778-1782",
+   "scope": null,
+   "from": "kingdom-of-france",
+   "to": "united-states",
+   "url": "https://avalon.law.yale.edu/18th_century/fr-1782.asp",
+   "quote": "Contract Between the King and the Thirteen United States of North America, signed at Versailles July 16, 1782.",
+   "quotes": [
+    "Contract Between the King and the Thirteen United States of North America, signed at Versailles July 16, 1782.",
+    "It is agreed and certified that the sums advanced by His Majesty to the Congress of the United States under the title of a loan, in the years 1778, 1779, 1780, 1781, and the present 1782, amount to the sum of eighteen million of livres, money of France"
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-dutch-loan-1781": {
+   "claim": "A loan of five million Dutch florins, agreed by the States General of the United Provinces on 5 November 1781, made in the French King's name and guaranteed by him, was made for the service of the United States, and its capital, valued at ten million livres tournois, was paid to the United States.",
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 10,
+   "unit": "million livres tournois",
+   "period": "1781-1782",
+   "scope": null,
+   "from": null,
+   "to": "united-states",
+   "url": "https://avalon.law.yale.edu/18th_century/fr-1782.asp",
+   "quote": "Although the loan of five millions of florins of Holland, agreed to by the States General of the United Provinces of the Netherlands on the terms of the obligation passed on the 5th of November, 1781, between His Majesty and the said States General, has been made in His Majesty's name and guaranteed by him; it is never the less acknowledged by these presents that the said loan was made in reality on account and for the service of the United States of North America, and that the capital, amounting at a moderate valuation to the sum of ten millions livres tournois, has been paid to the said United States",
+   "quotes": [
+    "Although the loan of five millions of florins of Holland, agreed to by the States General of the United Provinces of the Netherlands on the terms of the obligation passed on the 5th of November, 1781, between His Majesty and the said States General, has been made in His Majesty's name and guaranteed by him; it is never the less acknowledged by these presents that the said loan was made in reality on account and for the service of the United States of North America, and that the capital, amounting at a moderate valuation to the sum of ten millions livres tournois, has been paid to the said United States"
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-spain-us-loan-1777": {
+   "claim": "In 1777, the year of Saratoga, Benjamin Franklin thanked Spain's envoy in Paris, the Count of Aranda, for Spain's further loan of nearly 200,000 livres in cash, along with naval provisions.",
+   "actor": "spain",
+   "kind": "flow",
+   "value": 200000,
+   "unit": "livres",
+   "period": "1777",
+   "scope": null,
+   "from": "spain",
+   "to": "united-states",
+   "url": "https://en.wikipedia.org/wiki/Spain_and_the_American_Revolutionary_War",
+   "quote": "General Horatio Gates triumphed over General John Burgoyne at Saratoga on 17 October 1777.",
+   "quotes": [
+    "General Horatio Gates triumphed over General John Burgoyne at Saratoga on 17 October 1777.",
+    "The same year, in correspondence with Spain's envoy in Paris, the Count of Aranda from Aragon, Benjamin Franklin expressed gratitude for Spain's further loan of nearly 200,000 livres in cash, \"along with naval provisions from its harbors.\""
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-church-lands-1789": {
+   "claim": "On 2 November 1789 the National Assembly voted that all the goods of the clergy be placed at the disposal of the nation as biens nationaux, to be auctioned on behalf of the State; this legacy was evaluated at about 3 billion livres.",
+   "actor": "catholic-church",
+   "kind": "flow",
+   "value": 3,
+   "unit": "billion livres",
+   "period": "1789",
+   "scope": null,
+   "from": "catholic-church",
+   "to": "kingdom-of-france",
+   "url": "https://en.wikipedia.org/wiki/Biens_nationaux",
+   "quote": "on 2 November 1789, the Assemblée Nationale voted that all the goods of the clergy \"will be placed at the disposal of the nation\", declared to be henceforth biens nationaux , national goods, to be put out to bid at auction on behalf of the State.",
+   "quotes": [
+    "on 2 November 1789, the Assemblée Nationale voted that all the goods of the clergy \"will be placed at the disposal of the nation\", declared to be henceforth biens nationaux , national goods, to be put out to bid at auction on behalf of the State.",
+    "This legacy, evaluated to just about 3 billion livres , constituted a substantial improvement for public finance."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.97,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-britain-prussia-1794": {
+   "claim": "Lord Castlereagh told the Commons on 26 May 1815 that Britain's subsidy of 1,800,000l. to Prussia in 1794, for 60,000 men, came to 30l. a man.",
+   "actor": "kingdom-of-great-britain",
+   "kind": "flow",
+   "value": 1800000,
+   "unit": "pounds (l.)",
+   "period": "1794",
+   "scope": null,
+   "from": "kingdom-of-great-britain",
+   "to": "prussia",
+   "url": "https://api.parliament.uk/historic-hansard/commons/1815/may/26/suesides-to-the-allied-powers",
+   "quote": "The Speaker having left the chair, Lord Castlereagh said, he felt an anxious desire to pat Parliament in possession",
+   "quotes": [
+    "The Speaker having left the chair, Lord Castlereagh said, he felt an anxious desire to pat Parliament in possession",
+    "Even the subsidy of 1,800,000l. to Prussia, in 1794, for 60,000 men, was 30l. a man."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "rejected",
+   "supportedJ": 0.88,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: Not what Britain paid. The figure is Castlereagh's comparison in 1815 (1,800,000l. for 60,000 men, 30l. a man), recalled 21 years later: the treaty's yearly cost, not a payment. The Hague treaty of 19 Apr 1794 promised £300,000 and then 50,000 a month for 62,400 men (Britannica); Britain repudiated it in October 1794 (napoleon.org, Haugwitz). Sheridan's Commons motion (reported March 1795) put what Prussia had received at 'twelve hundred thousand pounds, and upwards'. The page of story-revolutions-britain-subsidies-total gives Prussia 3.1 million for all of 1793-1814, which 1.8M plus 1813's 666,666 plus a third of 1814 would exceed. A sum paid in 1794 (about 1.2 million) needs its own source."
+  },
+  "story-revolutions-flow-britain-austria-loan-1795": {
+   "claim": "The House of Commons, by an address, enabled the King to guarantee a loan to be raised by the Emperor, and by the convention of 1795, signed at Vienna on 4 May between the King and the Emperor, 4,600,000l. was advanced.",
+   "actor": "kingdom-of-great-britain",
+   "kind": "flow",
+   "value": 4600000,
+   "unit": "pounds (l.)",
+   "period": "1795",
+   "scope": null,
+   "from": "kingdom-of-great-britain",
+   "to": "habsburg-austria",
+   "url": "https://api.parliament.uk/historic-hansard/commons/1821/mar/14/austrian-loan",
+   "quote": "an address was presented to his majesty, enabling him, under proper conditions, to guaranty the loan to be raised by the emperor. In consequence of this, on the 4th of May following, a convention was signed at Vienna, between his majesty and the emperor, by which the sum of 4,600,000l. was advanced",
+   "quotes": [
+    "an address was presented to his majesty, enabling him, under proper conditions, to guaranty the loan to be raised by the emperor. In consequence of this, on the 4th of May following, a convention was signed at Vienna, between his majesty and the emperor, by which the sum of 4,600,000l. was advanced",
+    "the re-payment of monies due to this country under the Conventions of 1795 and 1797"
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.81,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-louisiana-purchase-1803": {
+   "claim": "In 1803 the United States acquired Louisiana from the French First Republic; the negotiators settled on a price of 80 million francs ($15 million), of which the United States assumed up to 20 million francs of French debts owed to its citizens and financed the remaining 60 million francs through 6% government bonds.",
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 80,
+   "unit": "million francs",
+   "period": "1803",
+   "scope": null,
+   "from": "united-states",
+   "to": "french-consulate",
+   "url": "https://en.wikipedia.org/wiki/Louisiana_Purchase",
+   "quote": "was the acquisition of the territory of Louisiana by the United States from the French First Republic in 1803.",
+   "quotes": [
+    "was the acquisition of the territory of Louisiana by the United States from the French First Republic in 1803.",
+    "With the bankers' help, the French and American negotiators settled on a price of 80 million francs ($15 million), down from an initial price of 100 million francs, a sum the Americans could not afford and the financers could not provide.",
+    "As part of the deal, the U.S. assumed responsibility for up to 20 million francs ($3.75 million) of French debts owed to U.S. citizens. The remaining 60 million francs ($11.25 million) were financed through U.S. government bonds carrying 6% interest, redeemable between 1819 and 1822."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "rejected",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: The price, not a flow from the United States to France. Of the 80 million francs, 20 million were French debts to US citizens that the United States took over and paid at home. The other 60 million were US 6% bonds, which France sold to Barings and Hope for 52 million francs, paid July 1803 to April 1804 (the same page); the United States repaid the bondholders in 1819-1822. No 80 million francs moved from the United States to France in 1803. As flows it needs those parts as their own facts (the bankers to France, 52 million, 1803-1804)."
+  },
+  "story-revolutions-flow-britain-russia-terms-1805": {
+   "claim": "Britain offered to pay Russia 1,250,000 pounds a year for every 100,000 troops Russia put up, and on 11 April 1805 the two agreed to join the fighting.",
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 1250000,
+   "unit": "pounds a year for every 100,000 troops",
+   "period": "1805",
+   "scope": null,
+   "from": "united-kingdom",
+   "to": "russian-empire",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Potsdam_(1805)",
+   "quote": "After an agreement between the two countries, where the British offered to pay 1,250,000 pounds a year for every 100,000 troops Russia put up, they agreed to join the fighting on 11 April 1805.",
+   "quotes": [
+    "After an agreement between the two countries, where the British offered to pay 1,250,000 pounds a year for every 100,000 troops Russia put up, they agreed to join the fighting on 11 April 1805."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "rejected",
+   "supportedJ": 0.96,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: A rate offered, not an amount paid: the quote says Britain 'offered to pay 1,250,000 pounds a year for every 100,000 troops'. No gated fact gives the troops it paid for or what was paid before Austerlitz (2 Dec 1805), so a flow would invent its amount (total: false, a unit per 100,000 troops). True as a term of the Third Coalition: re-add it as a term or a moment's fact, not a flow, if wanted."
+  },
+  "story-revolutions-flow-prussia-tribute-1808": {
+   "claim": "On 9 March 1808 France fixed the tribute to be levied from Prussia at 154,500,000 francs, deducting 53,500,000 already raised during the French occupation, and the sum was lowered in two steps to 120 million francs by 1 November 1808.",
+   "actor": "prussia",
+   "kind": "flow",
+   "value": 120,
+   "unit": "million francs",
+   "period": "1808",
+   "scope": null,
+   "from": "prussia",
+   "to": "first-french-empire",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Tilsit",
+   "quote": "on 9 March 1808, France fixed its tribute to be levied from Prussia at 154,500,000 francs (= Prussian dollar 41.73 mio.)",
+   "quotes": [
+    "on 9 March 1808, France fixed its tribute to be levied from Prussia at 154,500,000 francs (= Prussian dollar 41.73 mio.)",
+    "deducting 53,500,000, which had been raised so far during the ongoing French occupation. The sum was lowered in two steps to 120 million francs by 1 November 1808."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "rejected",
+   "supportedJ": 0.99,
+   "verifiedOn": "2026-11-07",
+   "reason": "rejected by the skeptic: Wrong years. 1808 is when the sum was fixed (lowered to 120 million francs by 1 Nov 1808), not when it was paid, and the page gives no payment dates. The Convention of Paris (8 Sep 1808) left French garrisons in Glogau, Stettin and Küstrin until the debt was discharged, so payments ran past 1808. Drawn as 120 million francs in 1808 alone, it puts several years' payments into one. The 53.5 million raised during the occupation (1806-1808) also moved and is outside the figure. Needs a payment schedule."
+  },
+  "story-revolutions-flow-britain-prussia-1813": {
+   "claim": "By the Treaty of Reichenbach, signed on 14 June 1813, Britain agreed to provide Prussia a subsidy of 666,666 pounds sterling to maintain a force of 80,000 men.",
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 666666,
+   "unit": "pounds sterling",
+   "period": "1813",
+   "scope": null,
+   "from": "united-kingdom",
+   "to": "prussia",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Reichenbach_(1813)",
+   "quote": "On 14 June 1813 the Treaty of Reichenbach was signed between Great Britain and Prussia.",
+   "quotes": [
+    "On 14 June 1813 the Treaty of Reichenbach was signed between Great Britain and Prussia.",
+    "insisted on paying for 80,000 only. To maintain this force, Britain agreed to provide Prussia a subsidy of 666,666 pounds sterling."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-britain-russia-1813": {
+   "claim": "By the Treaty of Reichenbach, signed on 15 June 1813, Russia was to supply 160,000 troops and Britain to provide Russia with a subsidy of 1,333,334 pounds sterling to pay for them.",
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 1333334,
+   "unit": "pounds sterling",
+   "period": "1813",
+   "scope": null,
+   "from": "united-kingdom",
+   "to": "russian-empire",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Reichenbach_(1813)",
+   "quote": "On 15 June 1813 the Treaty of Reichenbach was signed between Great Britain and Russia.",
+   "quotes": [
+    "On 15 June 1813 the Treaty of Reichenbach was signed between Great Britain and Russia.",
+    "After difficult negotiations, the sides agreed that Russia will supply 160,000 troops while Britain will provide Russia with a subsidy of 1,333,334 pounds sterling to pay for them."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.98,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-britain-allies-1814": {
+   "claim": "By the Treaty of Chaumont, signed on 9 March 1814, Britain engaged to furnish a subsidy of £5,000,000 for the service of the year 1814, divided in equal proportions among the three Powers and paid in London by monthly instalments.",
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 5000000,
+   "unit": "£",
+   "period": "1814",
+   "scope": null,
+   "from": "united-kingdom",
+   "to": "sixth-coalition",
+   "url": "https://en.wikisource.org/wiki/Treaty_of_Chaumont",
+   "quote": "TREATY of Union, Concert, and Subsidy, between Britannic Majesty and His Imperial and Royal Apostolic Majesty the Emperor of Austria.—Signed at Chaumont, the 9th of March, 1814.",
+   "quotes": [
+    "TREATY of Union, Concert, and Subsidy, between Britannic Majesty and His Imperial and Royal Apostolic Majesty the Emperor of Austria.—Signed at Chaumont, the 9th of March, 1814.",
+    "His Britannic Majesty engages to furnish a Subsidy of £5,000,000 for the service of the year 1814, to be divided in equal proportions amongst the 3 Powers",
+    "The Subsidy above stipulated of £5,000,000 shall be paid in London, by monthly instalments, and in equal proportions, to the Ministers of the respective Powers duly authorized to receive the same."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.92,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-britain-allies-1815": {
+   "claim": "On 26 May 1815 Lord Castlereagh moved in the Commons that a sum not exceeding five millions be granted to the King to make good his engagements with the Emperor of Austria, the Emperor of Russia and the King of Prussia, the sum to be distributed between those three great military Powers.",
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 5,
+   "unit": "million pounds",
+   "period": "1815",
+   "scope": null,
+   "from": "united-kingdom",
+   "to": "seventh-coalition",
+   "url": "https://api.parliament.uk/historic-hansard/commons/1815/may/26/suesides-to-the-allied-powers",
+   "quote": "The Speaker having left the chair, Lord Castlereagh said, he felt an anxious desire to pat Parliament in possession",
+   "quotes": [
+    "The Speaker having left the chair, Lord Castlereagh said, he felt an anxious desire to pat Parliament in possession",
+    "he should only think it necessary simply to move the Resolution for granting a sum of five millions to be distributed between the three great military Powers he had named.",
+    "That it is the opinion of this Committee, That a sum not exceeding five millions be granted to his Majesty, to make good the engagements which his Majesty has entered into with the Emperor of Austria, the Emperor of Russia, and the King of Prussia."
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "verified",
+   "supportedJ": 0.73,
+   "verifiedOn": "2026-11-08",
+   "reason": null
+  },
+  "story-revolutions-flow-france-indemnity-1815": {
+   "claim": "The Second Treaty of Paris, signed on 20 November 1815, ordered France to pay 700 million francs in indemnities, to be paid day by day in equal portions over five years from 1 December 1815, the Coalition's commissioners receiving the whole sum in fifteen bonds.",
+   "actor": "seventh-coalition",
+   "kind": "flow",
+   "value": 700,
+   "unit": "million francs",
+   "period": "1815-1820",
+   "scope": null,
+   "from": null,
+   "to": "seventh-coalition",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1815)",
+   "quote": "The Treaty of Paris of 1815, also known as the Second Treaty of Paris, was signed on 20 November 1815, after the defeat and the second abdication of Napoleon Bonaparte.",
+   "quotes": [
+    "The Treaty of Paris of 1815, also known as the Second Treaty of Paris, was signed on 20 November 1815, after the defeat and the second abdication of Napoleon Bonaparte.",
+    "France was ordered to pay 700 million francs in indemnities, and its borders were reduced to those that had existed on 1 January 1790.",
+    "The sum was to be paid, day by day, in equal portions, in the space of five years, from 1 December 1815.",
+    "the Coalition Commissioners were to receive the whole of the 700 million in fifteen bonds"
+   ],
+   "dated2026": false,
+   "cluster": "story-revolutions",
+   "status": "rejected",
+   "supportedJ": 0.92,
+   "verifiedOn": "2026-11-08",
+   "reason": "rejected by the skeptic: Outside the story and without a payer actor. Payment began on 1 Dec 1815 (the first of the fifteen bonds was due 31 Mar 1816): after the story's end (1815) and after the seventh-coalition actor's end (1815-11), and from is null. The 700 million over 1815-1820 is the treaty's schedule, not what happened: at Aix-la-Chapelle (1818) 332 million were still owed and France paid 265 million for them, the occupation ending 30 Nov 1818, so about 633 million were paid, and not to 1820."
+  },
   "weapons-acq-instagram": {
    "claim": "Facebook bought Instagram in April 2012 for about $1 billion in cash and stock.",
    "actor": "meta",
@@ -56057,6 +56748,19 @@
    "presence-apple-consumer",
    "presence-meta-consumer",
    "groq"
+  ],
+  "rejected by the skeptic": [
+   "story-ai-flow-nvidia-3dfx-2000",
+   "story-ai-flow-intel-nvidia-licence-2011",
+   "story-ai-flow-us-tsmc-chips-2024",
+   "story-ai-flow-us-intel-stake-2025",
+   "story-ai-flow-openai-microsoft-azure-2025",
+   "story-ai-flow-anthropic-microsoft-azure-2025",
+   "story-revolutions-flow-britain-prussia-1794",
+   "story-revolutions-flow-louisiana-purchase-1803",
+   "story-revolutions-flow-britain-russia-terms-1805",
+   "story-revolutions-flow-prussia-tribute-1808",
+   "story-revolutions-flow-france-indemnity-1815"
   ]
  }
 }

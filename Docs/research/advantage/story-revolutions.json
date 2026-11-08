@@ -197,7 +197,13 @@
    "from": "france",
    "to": "united-states",
    "accessed": "2026-11-07",
-   "notes": "Sources differ: 1.3 billion livres directly for the Americans (this article), 'over a billion livres' (the same article), 1,25 billion in the Estates-General article, and 1,066 million for the whole war (Louis XVI)."
+   "notes": "Sources differ: 1.3 billion livres directly for the Americans (this article), 'over a billion livres' (the same article), 1,25 billion in the Estates-General article, and 1,066 million for the whole war (Louis XVI).",
+   "check": {
+    "ok": true,
+    "flow": false,
+    "reason": "Not a flow between its ends: French war spending in support of the Americans, mostly on France's own forces, not money sent to the United States (the skeptic's report, 8 Nov 2026, which keeps the claim: true, and cited by moments, periods, moats, a series row and the narration). The money sent is drawn on its own: the King's gifts (1776-1777), his loans (1778-1782) and the Dutch loan he guaranteed (1781-1782), which this total probably includes. Drawn as a flow it would show 1.3 billion livres reaching Congress, far more than the 37 million livres of gifts and loans the contracts of 1782 and 1783 record.",
+    "by": "flow builder, 2026-11-08, from the skeptic's report"
+   }
   },
   {
    "id": "story-revolutions-france-debt-after-war",
@@ -1811,7 +1817,13 @@
    "from": "france",
    "to": "continental-army",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": null,
+    "flow": false,
+    "reason": "No amount: its value is the year 1776. The same money, the King's million of June 1776 paid through Hortalez & Cie, is inside story-revolutions-flow-france-us-gifts-1776-1777 (the skeptic's report, 8 Nov 2026), which is drawn.",
+    "by": "flow builder, 2026-11-08, from the skeptic's report"
+   }
   },
   {
    "id": "story-revolutions-lafayette-major-general",
@@ -2946,6 +2958,472 @@
    "to": null,
    "accessed": "2026-11-07",
    "notes": "The second quote is the infobox note on the first line (Clodfelter 2017, p. 170): the Royal Navy's share of the United Kingdom's 1813 peak that the series already gives the state (story-revolutions-peak-uk-1813)."
+  },
+  {
+   "id": "story-revolutions-flow-france-us-gifts-1776-1777",
+   "claim": "Three million livres of the French King's gratuitous aid to the Congress of the United States were granted before the treaty of February 1778; with six million in 1781 these gifts came to nine million livres tournois in all.",
+   "url": "https://avalon.law.yale.edu/18th_century/fr-1783.asp",
+   "quotes": [
+    "In the third class are comprehended the aids and subsidies furnished to the Congress of the United States under the title of gratuitous assistance from the pure generosity of the King, three millions of which were granted before the treaty of February, 1778, and six millions in 1781; which aids and subsidies amount in the whole to nine million livres tournois."
+   ],
+   "values": [
+    "three millions",
+    "February, 1778",
+    "nine million livres tournois"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-france",
+   "kind": "flow",
+   "value": 3,
+   "unit": "million livres tournois",
+   "period": "1776-1777",
+   "from": "kingdom-of-france",
+   "to": "united-states",
+   "flowKind": "grant",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Contract between the King and the Thirteen United States, 25 February 1783 (Avalon Project, from Hunter Miller's Treaties, 1931). The value is the part granted before the alliance; the contract dates it only 'before the treaty of February, 1778', so the period is the secret aid's span from 1776 (story-revolutions-vergennes-secret-funds). The six million of 1781 (the same quote) is not a separate flow here.",
+   "check": {
+    "ok": true,
+    "reason": "The 1783 contract (Avalon, Art. 2) says it: three millions granted before the treaty of February 1778, nine million with the six of 1781. The period holds: the three are 1,000,000 livres from the royal treasury on 10 June 1776, paid to Beaumarchais's Hortalez & Cie for arms, and 2,000,000 advanced to the commissioners' banker Grand in 1777 (Hamilton's Treasury papers; a Serial Set report). Caveat: the United States contested the June 1776 million (Grand credited it with only two before 1778, the 'lost million'). No overlap: story-revolutions-france-direct-aid-cost starts in 1778, and story-revolutions-vergennes-secret-funds is the same 1776 money with no amount.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-france-us-loans-1778-1782",
+   "claim": "The sums the King of France advanced to the Congress of the United States as loans in 1778, 1779, 1780, 1781 and 1782 amounted to eighteen million livres, as certified in the contract signed at Versailles on 16 July 1782.",
+   "url": "https://avalon.law.yale.edu/18th_century/fr-1782.asp",
+   "quotes": [
+    "Contract Between the King and the Thirteen United States of North America, signed at Versailles July 16, 1782.",
+    "It is agreed and certified that the sums advanced by His Majesty to the Congress of the United States under the title of a loan, in the years 1778, 1779, 1780, 1781, and the present 1782, amount to the sum of eighteen million of livres, money of France"
+   ],
+   "values": [
+    "eighteen million of livres",
+    "1778",
+    "1782"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-france",
+   "kind": "flow",
+   "value": 18,
+   "unit": "million livres",
+   "period": "1778-1782",
+   "from": "kingdom-of-france",
+   "to": "united-states",
+   "flowKind": "loan",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Twenty-one receipts, 28 February 1778 to July 1782 (Article 1 lists them: 3,000,000 in 1778, 1,000,000 in 1779, 4,000,000 in 1780, 4,000,000 in 1781, 6,000,000 in 1782). Repayable from the third year after the peace in twelve payments of 1,500,000 livres. Likely counted within France's 1.3 billion livres of direct support (story-revolutions-france-direct-aid-cost); a builder should not add the two.",
+   "check": {
+    "ok": true,
+    "reason": "The 1782 contract (Avalon, Art. 1) lists the 21 receipts: 3,000,000 livres in 1778 (from 28 Feb), 1,000,000 in 1779, 4,000,000 in 1780, 4,000,000 in 1781 and 6,000,000 in 1782 (to 5 July), 18 million in all: a sum over 1778-1782, lent by the King to Congress, in livres tournois. Amount, direction, years and total hold. Overlap: story-revolutions-france-direct-aid-cost (1.3 billion livres, 1778-1783) is France's war spending, mostly on its own forces, and likely includes these loans: do not draw both as France-to-United States rivers.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-dutch-loan-1781",
+   "claim": "A loan of five million Dutch florins, agreed by the States General of the United Provinces on 5 November 1781, made in the French King's name and guaranteed by him, was made for the service of the United States, and its capital, valued at ten million livres tournois, was paid to the United States.",
+   "url": "https://avalon.law.yale.edu/18th_century/fr-1782.asp",
+   "quotes": [
+    "Although the loan of five millions of florins of Holland, agreed to by the States General of the United Provinces of the Netherlands on the terms of the obligation passed on the 5th of November, 1781, between His Majesty and the said States General, has been made in His Majesty's name and guaranteed by him; it is never the less acknowledged by these presents that the said loan was made in reality on account and for the service of the United States of North America, and that the capital, amounting at a moderate valuation to the sum of ten millions livres tournois, has been paid to the said United States"
+   ],
+   "values": [
+    "five millions of florins",
+    "5th of November, 1781",
+    "ten millions livres tournois"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 10,
+   "unit": "million livres tournois",
+   "period": "1781-1782",
+   "from": null,
+   "fromName": "the States General of the United Provinces (the Dutch Republic), lending in the French King's name under his guarantee",
+   "to": "united-states",
+   "flowKind": "loan",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Article 5 of the contract of 16 July 1782. The loan is five million florins of Holland, valued at ten million livres; agreed 5 November 1781, the capital paid by June 1782 (the receipt of 'the seventh day of June last'). The King of France borrowed in his own name and guaranteed it (kingdom-of-france is the guarantor).",
+   "check": {
+    "ok": true,
+    "reason": "The 1782 contract (Avalon, Art. 5) holds: 5 million Holland florins on the obligation of 5 Nov 1781 between the King and the States General, in the King's name and under his guarantee, valued at 10 million livres tournois and paid to the United States (receipt of 7 June 1782). A class apart from the 18 million (1783 contract, Art. 2), so no overlap with it. The payer of record is the King: the 1783 contract counts it among 'the preceding aids granted by the King', and the United States repaid the royal treasury. To draw it between two actors, take kingdom-of-france as the source (Dutch lenders behind it); from: null leaves it no lane. Likely inside story-revolutions-france-direct-aid-cost, like the loans.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-spain-us-loan-1777",
+   "claim": "In 1777, the year of Saratoga, Benjamin Franklin thanked Spain's envoy in Paris, the Count of Aranda, for Spain's further loan of nearly 200,000 livres in cash, along with naval provisions.",
+   "url": "https://en.wikipedia.org/wiki/Spain_and_the_American_Revolutionary_War",
+   "quotes": [
+    "General Horatio Gates triumphed over General John Burgoyne at Saratoga on 17 October 1777.",
+    "The same year, in correspondence with Spain's envoy in Paris, the Count of Aranda from Aragon, Benjamin Franklin expressed gratitude for Spain's further loan of nearly 200,000 livres in cash, \"along with naval provisions from its harbors.\""
+   ],
+   "values": [
+    "200,000 livres",
+    "1777"
+   ],
+   "dated2026": false,
+   "actor": "spain",
+   "kind": "flow",
+   "value": 200000,
+   "unit": "livres",
+   "period": "1777",
+   "from": "spain",
+   "to": "united-states",
+   "flowKind": "loan",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "'Nearly' 200,000 livres: an upper bound. Spain's earlier help, a confidential line of credit of four million reales de vellon for the 1776 arms shipments (the same page), is in reales and not used.",
+   "check": {
+    "ok": true,
+    "reason": "Holds as a rounded sum. 'The same year' follows Saratoga (17 Oct 1777). The American commissioners' memorial to Vergennes and Aranda of 25 Sep 1777 (Franklin Papers) gives the exact figure: Spain had furnished 187,500 livres in money, besides naval stores. So 200,000 is the quote's 'nearly', an upper bound 6.7% high. The memorial says 'furnished', not lent: 'loan' is the page's word. Spain to the United States, 1777, a sum: right.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-church-lands-1789",
+   "claim": "On 2 November 1789 the National Assembly voted that all the goods of the clergy be placed at the disposal of the nation as biens nationaux, to be auctioned on behalf of the State; this legacy was evaluated at about 3 billion livres.",
+   "url": "https://en.wikipedia.org/wiki/Biens_nationaux",
+   "quotes": [
+    "on 2 November 1789, the Assemblée Nationale voted that all the goods of the clergy \"will be placed at the disposal of the nation\", declared to be henceforth biens nationaux , national goods, to be put out to bid at auction on behalf of the State.",
+    "This legacy, evaluated to just about 3 billion livres , constituted a substantial improvement for public finance."
+   ],
+   "values": [
+    "2 November 1789",
+    "3 billion livres"
+   ],
+   "dated2026": false,
+   "actor": "catholic-church",
+   "kind": "flow",
+   "value": 3,
+   "unit": "billion livres",
+   "period": "1789",
+   "from": "catholic-church",
+   "to": "kingdom-of-france",
+   "flowKind": "confiscation",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "The capital (land and buildings) passed to the state at the decree; it was sold through the Caisse de l'Extraordinaire and backed the assignats over the following years. The page's 3 billion is an estimate of the property's value, not cash received. The Church's own yearly revenue of 150 million livres is story-revolutions-church-wealth-1789.",
+   "check": {
+    "ok": true,
+    "reason": "Biens nationaux holds: the decree of 2 Nov 1789 put the clergy's goods at the nation's disposal, to be sold on behalf of the State, a legacy 'evaluated to just about 3 billion livres' (Hérodote also gives 3 milliards; some accounts say 2 billion). It is an estimate of property, not cash: a one-time transfer of ownership at the decree, sold from 1790 on through the Caisse de l'Extraordinaire, backing the assignats. Draw it as one transfer in November 1789, not as a yearly rate. The recipient is the state (kingdom-of-france, 'on behalf of the State'); the older event fact story-revolutions-church-property-1789 names french-population. No overlap with another flow.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-prussia-1794",
+   "claim": "Lord Castlereagh told the Commons on 26 May 1815 that Britain's subsidy of 1,800,000l. to Prussia in 1794, for 60,000 men, came to 30l. a man.",
+   "url": "https://api.parliament.uk/historic-hansard/commons/1815/may/26/suesides-to-the-allied-powers",
+   "quotes": [
+    "The Speaker having left the chair, Lord Castlereagh said, he felt an anxious desire to pat Parliament in possession",
+    "Even the subsidy of 1,800,000l. to Prussia, in 1794, for 60,000 men, was 30l. a man."
+   ],
+   "values": [
+    "1,800,000",
+    "1794",
+    "60,000"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-great-britain",
+   "kind": "flow",
+   "value": 1800000,
+   "unit": "pounds (l.)",
+   "period": "1794",
+   "from": "kingdom-of-great-britain",
+   "to": "prussia",
+   "flowKind": "subsidy",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Hansard, HC Deb 26 May 1815 vol 31 cc454-74 (the page's title misspells 'Subsidies'). The subsidy treaty was signed at The Hague on 19 April 1794; Castlereagh's figure, given 21 years later, is likely the year's stipulated sum. Britain repudiated the treaty in October 1794 (napoleon.org's Haugwitz biography, not gated), so less was paid.",
+   "check": {
+    "ok": false,
+    "reason": "Not what Britain paid. The figure is Castlereagh's comparison in 1815 (1,800,000l. for 60,000 men, 30l. a man), recalled 21 years later: the treaty's yearly cost, not a payment. The Hague treaty of 19 Apr 1794 promised £300,000 and then 50,000 a month for 62,400 men (Britannica); Britain repudiated it in October 1794 (napoleon.org, Haugwitz). Sheridan's Commons motion (reported March 1795) put what Prussia had received at 'twelve hundred thousand pounds, and upwards'. The page of story-revolutions-britain-subsidies-total gives Prussia 3.1 million for all of 1793-1814, which 1.8M plus 1813's 666,666 plus a third of 1814 would exceed. A sum paid in 1794 (about 1.2 million) needs its own source.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-austria-loan-1795",
+   "claim": "The House of Commons, by an address, enabled the King to guarantee a loan to be raised by the Emperor, and by the convention of 1795, signed at Vienna on 4 May between the King and the Emperor, 4,600,000l. was advanced.",
+   "url": "https://api.parliament.uk/historic-hansard/commons/1821/mar/14/austrian-loan",
+   "quotes": [
+    "an address was presented to his majesty, enabling him, under proper conditions, to guaranty the loan to be raised by the emperor. In consequence of this, on the 4th of May following, a convention was signed at Vienna, between his majesty and the emperor, by which the sum of 4,600,000l. was advanced",
+    "the re-payment of monies due to this country under the Conventions of 1795 and 1797"
+   ],
+   "values": [
+    "4,600,000",
+    "1795"
+   ],
+   "dated2026": false,
+   "actor": "kingdom-of-great-britain",
+   "kind": "flow",
+   "value": 4600000,
+   "unit": "pounds (l.)",
+   "period": "1795",
+   "from": "kingdom-of-great-britain",
+   "to": "habsburg-austria",
+   "flowKind": "loan",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Hansard, HC Deb 14 March 1821 vol 4 cc1219-26 (Robert Smith's motion on the Austrian loan). Raised in London under the British guarantee; the same speech gives the second loan, 1,620,000l. on 29 April 1797, and says Austria had paid nothing since 1 May 1797. The £46,289,549 of cash subsidies (story-revolutions-britain-subsidies-total) credits Austria with only 2.4 million, so this loan is evidently outside that total.",
+   "check": {
+    "ok": true,
+    "reason": "The 1821 Hansard holds: the convention signed at Vienna on 4 May 1795, 4,600,000l. advanced, and Castlereagh in the same debate: 'the original debt was only 4,600,000l.'. A loan raised in London under the King's guarantee: capital from Britain to Austria in 1795, a sum. Bankes (Hansard, 5 Mar 1807) dates it 1796; the 1821 debate's Convention of 1795 stands. Caveat: face value. Lord Aberdeen told the Lords in 1824 that of the two loans' (1795, 1797) six millions 'not much more than three millions had reached the coffers of Austria'. Not inside story-revolutions-britain-subsidies-total (cash subsidies; its Austria share is only 2.4 million).",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-louisiana-purchase-1803",
+   "claim": "In 1803 the United States acquired Louisiana from the French First Republic; the negotiators settled on a price of 80 million francs ($15 million), of which the United States assumed up to 20 million francs of French debts owed to its citizens and financed the remaining 60 million francs through 6% government bonds.",
+   "url": "https://en.wikipedia.org/wiki/Louisiana_Purchase",
+   "quotes": [
+    "was the acquisition of the territory of Louisiana by the United States from the French First Republic in 1803.",
+    "With the bankers' help, the French and American negotiators settled on a price of 80 million francs ($15 million), down from an initial price of 100 million francs, a sum the Americans could not afford and the financers could not provide.",
+    "As part of the deal, the U.S. assumed responsibility for up to 20 million francs ($3.75 million) of French debts owed to U.S. citizens. The remaining 60 million francs ($11.25 million) were financed through U.S. government bonds carrying 6% interest, redeemable between 1819 and 1822."
+   ],
+   "values": [
+    "1803",
+    "80 million francs",
+    "20 million francs",
+    "60 million francs"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 80,
+   "unit": "million francs",
+   "period": "1803",
+   "from": "united-states",
+   "to": "french-consulate",
+   "flowKind": "purchase",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "The price, not cash to France: 20 million francs were French debts to US citizens that the United States took over, and France sold the 60 million francs of bonds to Barings and Hope for 52 million francs, paid July 1803 to April 1804 (the same page). Land and sovereignty went the other way.",
+   "check": {
+    "ok": false,
+    "reason": "The price, not a flow from the United States to France. Of the 80 million francs, 20 million were French debts to US citizens that the United States took over and paid at home. The other 60 million were US 6% bonds, which France sold to Barings and Hope for 52 million francs, paid July 1803 to April 1804 (the same page); the United States repaid the bondholders in 1819-1822. No 80 million francs moved from the United States to France in 1803. As flows it needs those parts as their own facts (the bankers to France, 52 million, 1803-1804).",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-russia-terms-1805",
+   "claim": "Britain offered to pay Russia 1,250,000 pounds a year for every 100,000 troops Russia put up, and on 11 April 1805 the two agreed to join the fighting.",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Potsdam_(1805)",
+   "quotes": [
+    "After an agreement between the two countries, where the British offered to pay 1,250,000 pounds a year for every 100,000 troops Russia put up, they agreed to join the fighting on 11 April 1805."
+   ],
+   "values": [
+    "1,250,000 pounds",
+    "100,000",
+    "11 April 1805"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 1250000,
+   "unit": "pounds a year for every 100,000 troops",
+   "period": "1805",
+   "from": "united-kingdom",
+   "to": "russian-empire",
+   "flowKind": "subsidy",
+   "total": false,
+   "accessed": "2026-11-08",
+   "notes": "A rate, not a sum: the Third Coalition's terms (the Anglo-Russian treaty of 11 April 1805). The yearly flow is this rate times Russia's troops in hundreds of thousands; the campaign ended at Austerlitz in December 1805.",
+   "check": {
+    "ok": false,
+    "reason": "A rate offered, not an amount paid: the quote says Britain 'offered to pay 1,250,000 pounds a year for every 100,000 troops'. No gated fact gives the troops it paid for or what was paid before Austerlitz (2 Dec 1805), so a flow would invent its amount (total: false, a unit per 100,000 troops). True as a term of the Third Coalition: re-add it as a term or a moment's fact, not a flow, if wanted.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-prussia-tribute-1808",
+   "claim": "On 9 March 1808 France fixed the tribute to be levied from Prussia at 154,500,000 francs, deducting 53,500,000 already raised during the French occupation, and the sum was lowered in two steps to 120 million francs by 1 November 1808.",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Tilsit",
+   "quotes": [
+    "on 9 March 1808, France fixed its tribute to be levied from Prussia at 154,500,000 francs (= Prussian dollar 41.73 mio.)",
+    "deducting 53,500,000, which had been raised so far during the ongoing French occupation. The sum was lowered in two steps to 120 million francs by 1 November 1808."
+   ],
+   "values": [
+    "154,500,000 francs",
+    "53,500,000",
+    "120 million francs"
+   ],
+   "dated2026": false,
+   "actor": "prussia",
+   "kind": "flow",
+   "value": 120,
+   "unit": "million francs",
+   "period": "1808",
+   "from": "prussia",
+   "to": "first-french-empire",
+   "flowKind": "indemnity",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "The indemnity after Tilsit (July 1807), fixed in 1808; the page gives no schedule of payment. The same page puts the further requisitions of the occupation until 1812 at 146 to 309 million francs, not used.",
+   "check": {
+    "ok": false,
+    "reason": "Wrong years. 1808 is when the sum was fixed (lowered to 120 million francs by 1 Nov 1808), not when it was paid, and the page gives no payment dates. The Convention of Paris (8 Sep 1808) left French garrisons in Glogau, Stettin and Küstrin until the debt was discharged, so payments ran past 1808. Drawn as 120 million francs in 1808 alone, it puts several years' payments into one. The 53.5 million raised during the occupation (1806-1808) also moved and is outside the figure. Needs a payment schedule.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-prussia-1813",
+   "claim": "By the Treaty of Reichenbach, signed on 14 June 1813, Britain agreed to provide Prussia a subsidy of 666,666 pounds sterling to maintain a force of 80,000 men.",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Reichenbach_(1813)",
+   "quotes": [
+    "On 14 June 1813 the Treaty of Reichenbach was signed between Great Britain and Prussia.",
+    "insisted on paying for 80,000 only. To maintain this force, Britain agreed to provide Prussia a subsidy of 666,666 pounds sterling."
+   ],
+   "values": [
+    "14 June 1813",
+    "80,000",
+    "666,666 pounds sterling"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 666666,
+   "unit": "pounds sterling",
+   "period": "1813",
+   "from": "united-kingdom",
+   "to": "prussia",
+   "flowKind": "subsidy",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "For the rest of the 1813 campaign. Part of the year's subsidies behind story-revolutions-britain-subsidy-peak (about 450,000 allied soldiers paid for in 1813).",
+   "check": {
+    "ok": true,
+    "reason": "Reichenbach, 14 June 1813: a subsidy of £666,666 for 80,000 men for the rest of the 1813 campaign, a third of the 2 million of the two June treaties. Amount, direction (the United Kingdom) and year hold, a sum. It runs June to December, so its rate in those months is above the year's average. Overlap: inside story-revolutions-britain-subsidies-total (£46,289,549, 1793-1814): draw these parts and leave that total undrawn for the years they cover.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-russia-1813",
+   "claim": "By the Treaty of Reichenbach, signed on 15 June 1813, Russia was to supply 160,000 troops and Britain to provide Russia with a subsidy of 1,333,334 pounds sterling to pay for them.",
+   "url": "https://en.wikipedia.org/wiki/Treaties_of_Reichenbach_(1813)",
+   "quotes": [
+    "On 15 June 1813 the Treaty of Reichenbach was signed between Great Britain and Russia.",
+    "After difficult negotiations, the sides agreed that Russia will supply 160,000 troops while Britain will provide Russia with a subsidy of 1,333,334 pounds sterling to pay for them."
+   ],
+   "values": [
+    "15 June 1813",
+    "160,000",
+    "1,333,334 pounds sterling"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 1333334,
+   "unit": "pounds sterling",
+   "period": "1813",
+   "from": "united-kingdom",
+   "to": "russian-empire",
+   "flowKind": "subsidy",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "For the rest of the 1813 campaign; with Prussia's 666,666 it makes the £2 million of the two treaties.",
+   "check": {
+    "ok": true,
+    "reason": "Reichenbach, 15 June 1813: Russia to supply 160,000 troops, Britain to pay a subsidy of £1,333,334 for them for the rest of the 1813 campaign, two thirds of the 2 million of the two June treaties. Amount, direction and year hold, a sum running June to December. Overlap: inside story-revolutions-britain-subsidies-total, as with Prussia's: draw the parts, not the total.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-allies-1814",
+   "claim": "By the Treaty of Chaumont, signed on 9 March 1814, Britain engaged to furnish a subsidy of £5,000,000 for the service of the year 1814, divided in equal proportions among the three Powers and paid in London by monthly instalments.",
+   "url": "https://en.wikisource.org/wiki/Treaty_of_Chaumont",
+   "quotes": [
+    "TREATY of Union, Concert, and Subsidy, between Britannic Majesty and His Imperial and Royal Apostolic Majesty the Emperor of Austria.—Signed at Chaumont, the 9th of March, 1814.",
+    "His Britannic Majesty engages to furnish a Subsidy of £5,000,000 for the service of the year 1814, to be divided in equal proportions amongst the 3 Powers",
+    "The Subsidy above stipulated of £5,000,000 shall be paid in London, by monthly instalments, and in equal proportions, to the Ministers of the respective Powers duly authorized to receive the same."
+   ],
+   "values": [
+    "9th of March, 1814",
+    "£5,000,000",
+    "1814"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 5000000,
+   "unit": "£",
+   "period": "1814",
+   "from": "united-kingdom",
+   "to": "sixth-coalition",
+   "flowKind": "subsidy",
+   "total": false,
+   "accessed": "2026-11-08",
+   "notes": "The treaty text (Britain and Austria; the treaties with Prussia and Russia were in the same terms). The three Powers are Austria, Prussia and Russia, a third each. A year's amount; by Article III, if peace came before the year's end the subsidy ran to the end of the month of the definitive treaty, plus two months for Austria and Prussia and four for Russia.",
+   "check": {
+    "ok": true,
+    "reason": "Chaumont, Art. III (Wikisource), holds: £5,000,000 for the service of 1814, a third each to Austria, Prussia and Russia, paid monthly in London; as a year's rate, total: false is right. By the same article it ended with the peace: the scale ran to the end of the month of the definitive treaty (Paris, 30 May 1814), plus 2 months for Austria and Prussia and 4 for Russia. So the river runs at 5 million a year to the end of July 1814, then Russia's third to the end of September: about 3.2 million in the year, not 5. Overlap: inside story-revolutions-britain-subsidies-total: draw the parts, not the total.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-britain-allies-1815",
+   "claim": "On 26 May 1815 Lord Castlereagh moved in the Commons that a sum not exceeding five millions be granted to the King to make good his engagements with the Emperor of Austria, the Emperor of Russia and the King of Prussia, the sum to be distributed between those three great military Powers.",
+   "url": "https://api.parliament.uk/historic-hansard/commons/1815/may/26/suesides-to-the-allied-powers",
+   "quotes": [
+    "The Speaker having left the chair, Lord Castlereagh said, he felt an anxious desire to pat Parliament in possession",
+    "he should only think it necessary simply to move the Resolution for granting a sum of five millions to be distributed between the three great military Powers he had named.",
+    "That it is the opinion of this Committee, That a sum not exceeding five millions be granted to his Majesty, to make good the engagements which his Majesty has entered into with the Emperor of Austria, the Emperor of Russia, and the King of Prussia."
+   ],
+   "values": [
+    "five millions"
+   ],
+   "dated2026": false,
+   "actor": "united-kingdom",
+   "kind": "flow",
+   "value": 5,
+   "unit": "million pounds",
+   "period": "1815",
+   "from": "united-kingdom",
+   "to": "seventh-coalition",
+   "flowKind": "subsidy",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Hansard, HC Deb 26 May 1815 vol 31 cc454-74. The source writes 'five millions' (pounds sterling). Besides it the same speech gives 2,500,000l. to the minor Powers for the 100,000 men Britain did not furnish under the Chaumont schedule, not used.",
+   "check": {
+    "ok": true,
+    "reason": "The Hansard of 26 May 1815 holds: a sum not exceeding five millions (pounds) for the engagements with Austria, Russia and Prussia, at 11l. 2s. a man; the budget debate of 14 June 1815 has 5,000,000l. voted 'for the expense of Subsidies this year to the Allies', to the three powers. A year's subsidy that Castlereagh says began on 1 April 1815: draw it from April 1815. After story-revolutions-britain-subsidies-total (1793-1814), so no overlap. The speech's 2,500,000l. for the smaller powers is separate and not included.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-revolutions-flow-france-indemnity-1815",
+   "claim": "The Second Treaty of Paris, signed on 20 November 1815, ordered France to pay 700 million francs in indemnities, to be paid day by day in equal portions over five years from 1 December 1815, the Coalition's commissioners receiving the whole sum in fifteen bonds.",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Paris_(1815)",
+   "quotes": [
+    "The Treaty of Paris of 1815, also known as the Second Treaty of Paris, was signed on 20 November 1815, after the defeat and the second abdication of Napoleon Bonaparte.",
+    "France was ordered to pay 700 million francs in indemnities, and its borders were reduced to those that had existed on 1 January 1790.",
+    "The sum was to be paid, day by day, in equal portions, in the space of five years, from 1 December 1815.",
+    "the Coalition Commissioners were to receive the whole of the 700 million in fifteen bonds"
+   ],
+   "values": [
+    "20 November 1815",
+    "700 million francs",
+    "five years",
+    "1 December 1815"
+   ],
+   "dated2026": false,
+   "actor": "seventh-coalition",
+   "kind": "flow",
+   "value": 700,
+   "unit": "million francs",
+   "period": "1815-1820",
+   "from": null,
+   "fromName": "the Kingdom of France (the restored Bourbon monarchy of Louis XVIII)",
+   "to": "seventh-coalition",
+   "flowKind": "indemnity",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Payable over five years from 1 December 1815, beyond the story's end (1815). The same page puts the whole burden, with interest and the upkeep of 150,000 occupying soldiers, near 1.7 billion francs; not used.",
+   "check": {
+    "ok": false,
+    "reason": "Outside the story and without a payer actor. Payment began on 1 Dec 1815 (the first of the fifteen bonds was due 31 Mar 1816): after the story's end (1815) and after the seventh-coalition actor's end (1815-11), and from is null. The 700 million over 1815-1820 is the treaty's schedule, not what happened: at Aix-la-Chapelle (1818) 332 million were still owed and France paid 265 million for them, the occupation ending 30 Nov 1818, so about 633 million were paid, and not to 1820.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   }
  ],
  "actors": [
@@ -5856,7 +6334,7 @@
    "conversion": "US$4.5 = £1 (assumed rate, as history.py): £2.10 million a year = US$9.47 million a year"
   }
  ],
- "notes": "Second pass (7 Nov 2026): 39 facts added, 7 corrected, battle forces moved to separate parts, actors and lifetimes fixed, moats added for the four bare periods. Unverified: Britain's total revenue; the Royal Navy's and Spain's total ships of the line; 1778 populations of Britain and France; Prussia's 1815 and Austria's and Spain's later populations; the Empire's revenue; the Church's clergy after 1801; the French debt of 1788. Two counts of the Russian army's peak (712,000 and 904,000) are both kept. The archetypes facts on the Concert of Europe and massed artillery overstate their quotes; this cluster stops citing them and cannot edit them.",
+ "notes": "Second pass (7 Nov 2026): 39 facts added, 7 corrected, battle forces moved to separate parts, actors and lifetimes fixed, moats added for the four bare periods. Unverified: Britain's total revenue; the Royal Navy's and Spain's total ships of the line; 1778 populations of Britain and France; Prussia's 1815 and Austria's and Spain's later populations; the Empire's revenue; the Church's clergy after 1801; the French debt of 1788. Two counts of the Russian army's peak (712,000 and 904,000) are both kept. The archetypes facts on the Concert of Europe and massed artillery overstate their quotes; this cluster stops citing them and cannot edit them. Third pass (8 Nov 2026): 15 flow facts (kind 'flow', with flowKind and total) between the story's actors, 1776-1815: France's gifts and loans and the Dutch loan to the United States, Spain's loan, the Church's lands, Britain's subsidies and loans by period, the Louisiana Purchase, Prussia's tribute after Tilsit and the 1815 indemnity. They overlap the two totals (story-revolutions-france-direct-aid-cost, story-revolutions-britain-subsidies-total); see each fact's notes.",
  "openQuestions": [
   "Which script-readable source gives the Royal Navy's total ships of the line in 1778, 1793, 1805 and 1815, and Britain's total revenue?",
   "Should archetypes-vienna-concert-of-europe and archetypes-napoleon-massed-artillery have their claims narrowed to their quotes (another cluster's files)?",

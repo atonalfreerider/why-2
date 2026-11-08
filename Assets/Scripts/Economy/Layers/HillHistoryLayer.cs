@@ -8,6 +8,7 @@ using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
 using Why.Economy.UI;
+using Roles = Why.Economy.EconomyStyle.Roles;
 
 namespace Why.Economy.Layers
 {
@@ -25,6 +26,10 @@ namespace Why.Economy.Layers
     /// and spread into a cross-section facing down the time axis: rows of polities, forces and enterprises, each row the
     /// moment's holder and allies on the left and its rivals on the right; every advantage documented for the period a
     /// ring around its holder, walled by its sources, each wall as thick as Jev judged it keeps rivals out.</item>
+    /// <item><b>Flows</b>: money paid and capital lent or invested from one actor to another (Britain's subsidies to the
+    /// coalitions, the French King's loans to the Americans, the rounds into Intel and Anthropic), as packets that move on the
+    /// flow clock while the year stands still: rungs between two lanes across the years a flow ran, rivers between two bodies
+    /// at the year (<see cref="Flows"/>).</item>
     /// </list>
     /// The AI story runs on the wave's own time axis, above the hills of its years; the age of revolutions, before the wave,
     /// on a stretched stretch of its own (<see cref="PreWaveScale"/> units a year). The stories' walkthroughs drive the view
@@ -39,7 +44,10 @@ namespace Why.Economy.Layers
 
         public override IEnumerable<string> RequiredTexts => new[] { History.Path };
 
-        enum Part { Tubes, Marks, Bodies, Walls, Outlines, Count }
+        /// <summary>The meshes the view draws. The flows' bands and packets have no row of their own in the emphasis table:
+        /// they draw with the part of what they join, the tubes' (lanes) compressed and the bodies' opened (<see cref="FlowId"/>),
+        /// so only the first five have keys.</summary>
+        enum Part { Tubes, Marks, Bodies, Walls, Outlines, Flows, Packets, Count }
 
         static readonly string[] PartNames = { "tubes", "marks", "bodies", "walls", "outlines" };
         static readonly int[] Keys = EconomyEmphasis.Keys("history", PartNames);
@@ -86,6 +94,11 @@ namespace Why.Economy.Layers
         string[] popups = Array.Empty<string>();
         Layout layout;
 
+        /// <summary>The flows' labels of the last build (<see cref="MakeLabels"/> adds them after the rest) and how many packet
+        /// lanes it drew (the smoke sequence checks them).</summary>
+        readonly List<HillLabel> flowLabels = new List<HillLabel>();
+        int flowLanes;
+
         /// <summary>A body of the cross-section: its renderers, its shape, where it comes from (its tube's slice) and where it
         /// stands exploded, and whether anything was measured for it at the year.</summary>
         sealed class Shown
@@ -96,6 +109,9 @@ namespace Why.Economy.Layers
             public bool Measured, LabelBelow, TopLine;
             public int Side;
             public string Main;
+
+            /// <summary>How far its advantage ring, walls and their names reach beyond the body (0 without a ring).</summary>
+            public float Reach;
         }
 
         // ------------------------------------------------------------------ the axis and the lanes
@@ -268,8 +284,9 @@ namespace Why.Economy.Layers
             {
                 ("State", KindColor("state")), ("Army", KindColor("army")), ("Navy", KindColor("navy")), ("Alliance", KindColor("alliance")),
                 ("People or church", KindColor("population")), ("Company", KindColor("company")), ("Lab", KindColor("lab")),
+                ("Money paid", Roles.Encoded(Roles.Commerce)), ("Capital lent or invested", Roles.Encoded(Roles.Owners)),
             },
-            "Each tube is one actor through time, as thick as the cube root of what it measured then (troops, people, ships, money, users); faint where nothing was measured. Sparks: the moments that turned an advantage. Opened at a year: each actor's measures as lobes, its advantage a ring walled by its sources (thicker where Jev judged the wall higher).");
+            "Each tube is one actor through time, as thick as the cube root of what it measured then (troops, people, ships, money, users); faint where nothing was measured. Sparks: the moments that turned an advantage. Opened at a year: each actor's measures as lobes, its advantage a ring walled by its sources (thicker where Jev judged the wall higher). Rungs between lanes, and rivers between bodies when opened: money paid (dots) and capital lent or invested (ingots) moving from payer to payee, as wide as the cube root of a year's amount (a total spread evenly over its years).");
 
         // ------------------------------------------------------------------ life cycle
 
@@ -503,6 +520,7 @@ namespace Why.Economy.Layers
             Marks(story, L);
             Bodies(story, L);
             Walls(story);
+            Flows(story, L);
             outlinesFor = -1;
             MakeLabels(story, L);
             if (labelsShown) HillLabels.Set(this, labels);
@@ -843,7 +861,8 @@ namespace Why.Economy.Layers
                                 it.body.BodyR = rad;
                                 var (mr, or) = BuildBody(it.a, it.shape, it.measured);
                                 bodies[it.a.Id] = new Shown { Body = mr, Occluder = or, Shape = it.shape, From = from, To = to, Measured = it.measured, Side = it.side,
-                                                              Main = MainOf(it.a, Year, forcesStanding), LabelBelow = below, TopLine = top };
+                                                              Main = MainOf(it.a, Year, forcesStanding), LabelBelow = below, TopLine = top,
+                                                              Reach = reach.TryGetValue(it.a.Id, out float ring) ? ring : 0 };
                             }
 
                             yLine -= 2 * lineH + LineGap;
@@ -916,6 +935,9 @@ namespace Why.Economy.Layers
 
             foreach (var p in new[] { Part.Walls, Part.Outlines })
                 if (partRenderer[(int)p]) partRenderer[(int)p].enabled = e > .95f;
+            // the flows: the rungs with the tubes, the rivers once the bodies stand at their places
+            foreach (var p in new[] { Part.Flows, Part.Packets })
+                if (partRenderer[(int)p]) partRenderer[(int)p].enabled = !Exploded || e > .95f;
         }
 
         /// <summary>The advantages documented for the year: each holder's boundary, a ring around its body in the
@@ -1019,6 +1041,392 @@ namespace Why.Economy.Layers
 
             Lines(b, Part.Outlines, 3195);
             Place();
+        }
+
+        // ------------------------------------------------------------------ the flows
+
+        /// <summary>Path units a second every packet of the view travels, on every rung and river: about 50 pixels a second in
+        /// the view's poses (110 to 400 units away), so a rung between neighbouring lanes is crossed in under a second and a
+        /// river across the cross-section in a few.</summary>
+        const float PacketSpeed = 12;
+
+        /// <summary>A flow over years draws a rung every this many years of its span, each near the middle of its share (a
+        /// one-year flow draws one; <see cref="RungTimes"/>): a few rungs, not a fence.</summary>
+        const float RungYears = 4;
+
+        /// <summary>The flows whose amount is labelled: the largest this many by a year's amount (compressed: over the whole
+        /// story, at the rung nearest the year; opened: of the year's rivers). The label system culls what does not fit.</summary>
+        const int LabelledFlows = 5;
+
+        /// <summary>The compressed view's flow labels rank below every other label of it, so the label system culls them first:
+        /// below the periods (60) and below a moment as far from the year as the story allows (90 less its years, over 8).</summary>
+        const float CompressedFlowRank = 5;
+
+        /// <summary>A flow's band, under the tubes' rings; its packets, over every mark of the view (the bodies' occluders still
+        /// hide what passes behind a body).</summary>
+        const int FlowQueue = 3190, PacketQueue = 3196;
+
+        /// <summary>A rung from outside the story rises half a lane's gap into its lane over this many units of time (one to
+        /// outside as far out of it); a short river at a body reaches at least this far beyond the body's edge (past its
+        /// advantage ring, where it has one).</summary>
+        const float StubRun = 4, StubLength = 12;
+
+        const int RungSegments = 8, RiverSegments = 16;
+
+        /// <summary>
+        /// A flow's width (world units) for a year's amount in the story's unit of size (a million pounds, a billion dollars):
+        /// 0.8 times its cube root, as the tubes and lobes draw sizes, at most 6. The Church's lands (£125 million) draw 4,
+        /// Britain's subsidies of 1815 (£5 million a year) 1.4, Reichenbach's to Prussia (£666,666) 0.7, Microsoft's billion
+        /// into OpenAI 0.8, Busicom's $60,000 a hairline. A flow's amount is its width, never its packets' rate.
+        /// </summary>
+        static float FlowWidth(double perYear) => Mathf.Min(.8f * Mathf.Pow((float)perYear, 1f / 3), 6f);
+
+        /// <summary>Packets a second for a year's amount: one at one unit of size and 0.35 more for each tenfold, from 0.5 to
+        /// 2.5 (a lane at most four: faster ones strobe at 30 frames a second). The rate only follows the amount, gently; the
+        /// width shows it.</summary>
+        static float FlowRate(double perYear) => Mathf.Clamp(1 + .35f * Mathf.Log10((float)perYear), .5f, 2.5f);
+
+        /// <summary>Whether a flow draws: its amount was measured (a share of a company's capital draws nothing).</summary>
+        static bool Drawn(History.Flow f) => f.PerYear > 0 && !double.IsInfinity(f.PerYear);
+
+        /// <summary>What a flow carries: capital lent, invested, bought or seized as ingots; money paid (subsidies, aid, grants,
+        /// payments, purchases, indemnities) as dots.</summary>
+        static PacketKind Carries(History.Flow f) =>
+            f.Kind == "loan" || f.Kind == "investment" || f.Kind == "acquisition" || f.Kind == "confiscation" ? PacketKind.Capital : PacketKind.Money;
+
+        /// <summary>A flow's palette role, as the advantage view's rivers take theirs: capital in the owners' gold, money paid in
+        /// commerce's.</summary>
+        static Color FlowRole(PacketKind carries) => carries == PacketKind.Capital ? Roles.Owners : Roles.Commerce;
+
+        /// <summary>The highlight id the flows draw with, and their labels' emphasis key: the part of what they join, the
+        /// lanes' (tubes) compressed and the bodies' opened, so the emphasis table needs no row of their own.</summary>
+        static float FlowId() => EconomyEmphasis.Id(Keys[(int)(Exploded ? Part.Bodies : Part.Tubes)]);
+
+        static string FlowPart() => Exploded ? "history.bodies" : "history.tubes";
+
+        /// <summary>
+        /// The flows (HISTORY.md section 5): money paid and capital lent or invested from one actor to another, as packets on
+        /// the flow clock (<see cref="FlowClock"/>) that move while the year stands still, a tour holds or the play pauses.
+        /// Compressed, rungs between the payer's lane and the payee's across the years each flow ran (<see cref="Rungs"/>);
+        /// opened at a year, a river between the two bodies for each flow running then (<see cref="Rivers"/>). A flow's width is
+        /// a year's amount (a total spread evenly over its years, <see cref="History.Flow.PerYear"/>) and its packets come at a
+        /// rate that follows it gently, one speed for the view: money paid as dots in commerce's colour, capital as ingots in the
+        /// owners' gold. An unmeasured amount draws nothing; a flow neither of whose ends is the selection dims with the rest.
+        /// Built with the view (its story, year, selection or cross-section changing), never a frame at a time: the packets'
+        /// motion is the shader's.
+        /// </summary>
+        void Flows(History.Story s, Layout L)
+        {
+            flowLabels.Clear();
+            var bands = new LineMeshBuilder(1024);
+            var packets = new PacketMeshBuilder(1024);
+            if (Exploded) Rivers(s, L, bands, packets);
+            else Rungs(s, L, bands, packets);
+            flowLanes = packets.LaneCount;
+            if (bands.VertexCount > 0) Lines(bands, Part.Flows, FlowQueue);
+            else Drop(Part.Flows);
+            UploadPackets(packets, Part.Packets, PacketQueue);
+        }
+
+        /// <summary>
+        /// The compressed view's flows: for each, a rung every <see cref="RungYears"/> years of its span (outside its gaps),
+        /// from the payer's lane to the payee's, bowed a little toward the future so it never reads as the year's cursor or a
+        /// moment's straight tie. An end that had ended is its successor on the same lane (Britain after 1800); a rung a little
+        /// past an end's lane stands at its end (Google's purchase of DNNresearch in March 2013, the AlexNet team's lane
+        /// ending in December 2012). A flow from outside the story rises into the payee's lane from below and before, one to
+        /// outside rises out of the payer's lane above and after, named by the research's words where the label system has room.
+        /// </summary>
+        void Rungs(History.Story s, Layout L, LineMeshBuilder bands, PacketMeshBuilder packets)
+        {
+            float id = FlowId();
+            var amounts = s.Flows.Where(Drawn).OrderByDescending(f => f.PerYear).ThenBy(f => f.Id, StringComparer.Ordinal).Take(LabelledFlows).ToList();
+            foreach (var f in s.Flows)
+            {
+                // a flow needs an end in the story to stand on (history.py never writes one with neither; a hand-edited file might)
+                if (!Drawn(f) || (f.From == null && f.To == null)) continue;
+                double perYear = f.PerYear;
+                float width = FlowWidth(perYear), rate = FlowRate(perYear), seed = Organism.Hash01(f.Id);
+                PacketKind carries = Carries(f);
+                Color role = FlowRole(carries);
+                // the label stands at the rung nearest the year
+                float nearest = float.PositiveInfinity;
+                Vector3 labelAt = default;
+                int labelSide = 0;
+                int k = 0;
+                foreach (float t in RungTimes(f))
+                {
+                    string payer = f.From != null ? StandingFor(s, L, f.From, t) : null, payee = f.To != null ? StandingFor(s, L, f.To, t) : null;
+                    if (!RungAt(L, payer, payee, t, out float at)) continue;
+                    float z = T(s, at), ahead = Mathf.Sign(T(s, at + 1) - z);
+                    Vector3[] path;
+                    int side = 0;
+                    if (payer != null && payee != null)
+                    {
+                        int la = L.LaneOf[payer], lb = L.LaneOf[payee];
+                        if (la == lb) continue;    // one lane (an actor and its successor): nothing between them to draw
+                        path = Bowed(new Vector3(LaneX, L.LaneY[la], z), new Vector3(LaneX, L.LaneY[lb], z), ahead);
+                    }
+                    else if (payee != null)
+                    {
+                        // from outside the story: it rises into the payee's lane from below and before
+                        Vector3 into = new Vector3(LaneX, L.LaneY[L.LaneOf[payee]], z);
+                        path = new[] { into + new Vector3(0, -LaneGap * .5f, -StubRun * ahead), into };
+                        side = -1;
+                    }
+                    else
+                    {
+                        // to outside the story: it rises out of the payer's lane above and after
+                        Vector3 from = new Vector3(LaneX, L.LaneY[L.LaneOf[payer]], z);
+                        path = new[] { from, from + new Vector3(0, LaneGap * .5f, StubRun * ahead) };
+                        side = 1;
+                    }
+
+                    bool lit = Selected == null || Selected == payer || Selected == payee || Selected == f.From || Selected == f.To;
+                    FlowLane(bands, packets, path, carries, role, width, rate, (seed + k++ * .37f) % 1f, lit, id);
+                    if (Mathf.Abs(t - Year) < nearest)
+                    {
+                        nearest = Mathf.Abs(t - Year);
+                        labelSide = side;
+                        labelAt = side < 0 ? path[0] : side > 0 ? path[path.Length - 1] : path[path.Length / 2];
+                    }
+                }
+
+                if (float.IsPositiveInfinity(nearest)) continue;
+                int rank = amounts.IndexOf(f);
+                string name = labelSide < 0 ? Named("from", f.FromName) : labelSide > 0 ? Named("to", f.ToName) : null;
+                // beside a rung, to its right (later); past a rise from outside, before it; past a rise to outside, after it
+                FlowLabel(f, labelAt, name, rank >= 0, labelSide < 0 ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Left,
+                    new Vector2(labelSide < 0 ? -4 : labelSide > 0 ? 4 : 8, 0), rank >= 0 ? CompressedFlowRank - rank * .5f : CompressedFlowRank - 3);
+            }
+        }
+
+        /// <summary>
+        /// The cross-section's flows at the year: for each flow running then (outside its gaps), largest first, a river from the
+        /// payer's body to the payee's, bowed in the cross-section's plane (a second river between the same two bodies bows
+        /// the other way). An end with no body in the picture (outside the story, or not drawn this year) makes a short river
+        /// from beside the body that has one, pointing away from the picture's middle and named; a flow neither of whose ends
+        /// has a body draws nothing.
+        /// </summary>
+        void Rivers(History.Story s, Layout L, LineMeshBuilder bands, PacketMeshBuilder packets)
+        {
+            float id = FlowId();
+            Vector3 middle = (arenaMin + arenaMax) * .5f;
+            var between = new Dictionary<(string, string), int>();
+            var beside = new Dictionary<string, int>();
+            int order = 0;
+            foreach (var f in s.Flows.Where(x => Drawn(x) && x.Runs(Year)).OrderByDescending(x => x.PerYear).ThenBy(x => x.Id, StringComparer.Ordinal))
+            {
+                string payer = f.From != null ? StandingFor(s, L, f.From, Year) : null, payee = f.To != null ? StandingFor(s, L, f.To, Year) : null;
+                Shown pa = BodyOf(payer, f.From), pb = BodyOf(payee, f.To);
+                if ((pa == null && pb == null) || pa == pb) continue;
+                double perYear = f.PerYear;
+                float width = FlowWidth(perYear), rate = FlowRate(perYear);
+                PacketKind carries = Carries(f);
+                Color role = FlowRole(carries);
+                Vector3[] path;
+                Vector3 labelAt;
+                string name = null;
+                var align = TMPro.TextAlignmentOptions.Center;
+                if (pa != null && pb != null)
+                {
+                    // the pair in one order, so the rivers between two bodies alternate sides whichever way each runs
+                    bool forward = string.CompareOrdinal(payer, payee) < 0;
+                    var key = forward ? (payer, payee) : (payee, payer);
+                    between.TryGetValue(key, out int n);
+                    between[key] = n + 1;
+                    path = RiverPath(pa, pb, forward, n);
+                    if (path == null) continue;    // the bodies touch
+                    // the amount stands off the river's middle on the outside of its bend, clear of its packets
+                    Vector3 mid = path[path.Length / 2], bend = mid - (path[0] + path[path.Length - 1]) * .5f;
+                    labelAt = mid + (bend.sqrMagnitude > 1e-4f ? bend.normalized : Vector3.up) * (width * .5f + 3);
+                }
+                else
+                {
+                    Shown at = pa ?? pb;
+                    string atId = pa != null ? payer : payee;
+                    beside.TryGetValue(atId, out int n);
+                    beside[atId] = n + 1;
+                    // it reaches past the body's advantage ring and its walls' names, so its own name stands clear of them
+                    Vector3 o = Outward(at.To, middle, n);
+                    Vector3 edge = at.To + o * (at.Shape.MaxRadius + 1), far = at.To + o * (at.Shape.MaxRadius + Mathf.Max(StubLength, at.Reach + 4));
+                    path = pa != null ? new[] { edge, far } : new[] { far, edge };
+                    labelAt = far;
+                    name = pa != null ? Named("to", payee != null ? s.Get(payee)?.Name ?? payee : f.ToName)
+                        : Named("from", payer != null ? s.Get(payer)?.Name ?? payer : f.FromName);
+                    // from the future +x is screen-left: a name past a short river to the left ends at it, one to the right begins there
+                    align = Mathf.Abs(o.x) < .35f ? TMPro.TextAlignmentOptions.Center : o.x > 0 ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Left;
+                }
+
+                bool lit = Selected == null || Selected == payer || Selected == payee || Selected == f.From || Selected == f.To;
+                FlowLane(bands, packets, path, carries, role, width, rate, Organism.Hash01(f.Id), lit, id);
+                bool amount = order < LabelledFlows;
+                FlowLabel(f, labelAt, name, amount, align, Vector2.zero, (amount ? 200 : 180) - order);
+                order++;
+            }
+        }
+
+        /// <summary>The body standing for an end in the cross-section: its own, or (an actor whose lane has just ended still
+        /// standing for its moment) its predecessor's; null when neither is drawn.</summary>
+        Shown BodyOf(string standing, string original) =>
+            standing != null && bodies.TryGetValue(standing, out var b) ? b : original != null && bodies.TryGetValue(original, out var o) ? o : null;
+
+        /// <summary>One rung's or river's band (a hairline at least, as wide as the year's amount) and its packets, which leave
+        /// the path's first point for its last.</summary>
+        static void FlowLane(LineMeshBuilder bands, PacketMeshBuilder packets, Vector3[] path, PacketKind carries, Color role, float width, float rate,
+            float seed, bool lit, float id)
+        {
+            bands.AddPolyline(path, WithAlpha(role, lit ? .3f : .1f), .8f, width, id);
+            packets.AddLane(path, carries, WithAlpha(role, lit ? .92f : .35f), rate, PacketSpeed, lit ? 3.5f : 2.5f, id, seed: seed,
+                sizeWorld: Mathf.Min(width * .85f, 2.4f));
+        }
+
+        /// <summary>When a flow's rungs stand: its years outside its gaps, in runs of consecutive years, each run cut into shares
+        /// of at most <see cref="RungYears"/> years with a rung near each share's middle (one year: near its middle), moved
+        /// within the share by up to a quarter of it on the flow's own hash, so two flows of one year from one lane (Britain's
+        /// two subsidies of Reichenbach, 1813) stand apart instead of on each other.</summary>
+        static IEnumerable<float> RungTimes(History.Flow f)
+        {
+            float shift = (Organism.Hash01(f.Id + "|rung") - .5f) * .5f;
+            for (int y = f.FromYear; y <= f.ToYear; y++)
+            {
+                if (Array.IndexOf(f.Gaps, y) >= 0) continue;
+                int end = y;
+                while (end + 1 <= f.ToYear && Array.IndexOf(f.Gaps, end + 1) < 0) end++;
+                int years = end - y + 1, n = Mathf.Max(1, Mathf.CeilToInt(years / RungYears));
+                for (int k = 0; k < n; k++) yield return y + (k + .5f + shift) * years / n;
+                y = end;
+            }
+        }
+
+        /// <summary>The actor an id stands for at a time: itself, or its successor once its lane has ended (Britain's subsidies
+        /// after 1800 are the United Kingdom's, on the same lane and, opened, from its body).</summary>
+        static string StandingFor(History.Story s, Layout L, string id, float year)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (!L.Span.TryGetValue(id, out var span) || year < span.to) return id;
+                string next = s.Get(id)?.Successor;
+                if (next == null || !L.Span.ContainsKey(next)) return id;
+                id = next;
+            }
+
+            return id;
+        }
+
+        /// <summary>Where a rung meant for time <paramref name="t"/> stands: at t when both ends' lanes run then; else at the
+        /// nearest time both run, when that is within a year (a flow just past an actor's lane is drawn at its end); else
+        /// nowhere.</summary>
+        static bool RungAt(Layout L, string payer, string payee, float t, out float at)
+        {
+            float lo = float.NegativeInfinity, hi = float.PositiveInfinity;
+            at = t;
+            foreach (string id in new[] { payer, payee })
+            {
+                if (id == null) continue;
+                if (!L.Span.TryGetValue(id, out var span)) return false;
+                lo = Mathf.Max(lo, span.from);
+                hi = Mathf.Min(hi, span.to);
+            }
+
+            if (lo > hi) return false;
+            float margin = Mathf.Min(.02f, (hi - lo) * .5f);
+            at = Mathf.Clamp(t, lo + margin, hi - margin);
+            return Mathf.Abs(at - t) <= 1;
+        }
+
+        /// <summary>A rung from one lane to another at one time, bowed toward the future (<paramref name="ahead"/>: the sign of
+        /// later times along z) by a twelfth of its height, at most 3 units.</summary>
+        static Vector3[] Bowed(Vector3 a, Vector3 b, float ahead)
+        {
+            Vector3 p1 = (a + b) * .5f + Vector3.forward * (ahead * Mathf.Min(3, Mathf.Abs(b.y - a.y) / 12));
+            var path = new Vector3[RungSegments + 1];
+            for (int i = 0; i <= RungSegments; i++)
+            {
+                float t = i / (float)RungSegments;
+                path[i] = (1 - t) * (1 - t) * a + 2 * (1 - t) * t * p1 + t * t * b;
+            }
+
+            return path;
+        }
+
+        /// <summary>A river in the cross-section's plane: a curve from the payer's edge to the payee's, bowed to one side by an
+        /// eighth of its length (the n-th between the same two bodies further, on alternate sides); null when the bodies touch.</summary>
+        static Vector3[] RiverPath(Shown a, Shown b, bool forward, int n)
+        {
+            Vector3 d = b.To - a.To;
+            d.z = 0;
+            float dist = d.magnitude;
+            if (dist < 1e-3f) return null;
+            Vector3 dir = d / dist, p0 = a.To + dir * a.Shape.MaxRadius, p2 = b.To - dir * b.Shape.MaxRadius;
+            float length = Vector3.Dot(p2 - p0, dir);
+            if (length < 2) return null;
+            Vector3 canon = forward ? dir : -dir, side = new Vector3(-canon.y, canon.x, 0);
+            Vector3 p1 = (p0 + p2) * .5f + side * (length * .12f * (1 + n / 2) * (n % 2 == 0 ? 1 : -1));
+            var path = new Vector3[RiverSegments + 1];
+            for (int i = 0; i <= RiverSegments; i++)
+            {
+                float t = i / (float)RiverSegments;
+                path[i] = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
+            }
+
+            return path;
+        }
+
+        /// <summary>The way a short river leaves a body in the cross-section's plane: away from the picture's middle (up for a
+        /// body at it); a second and a third at the same body turn 35 degrees either way.</summary>
+        static Vector3 Outward(Vector3 at, Vector3 middle, int n)
+        {
+            Vector3 o = at - middle;
+            o.z = 0;
+            o = o.sqrMagnitude < 1e-4f ? Vector3.up : o.normalized;
+            return Quaternion.AngleAxis((n + 1) / 2 * 35f * (n % 2 == 1 ? 1 : -1), Vector3.forward) * o;
+        }
+
+        /// <summary>The name of an end outside the picture, as a label gives it ("from Amazon", "to 17 European countries");
+        /// null when the source names no one.</summary>
+        static string Named(string way, string name) => string.IsNullOrEmpty(name) ? null : way + " " + name;
+
+        /// <summary>A flow as its label gives it: what moved, the fact's own number and unit, "in total" for a total over years or
+        /// "a year" for a rate, and its years: "Loan · 18 million livres in total, 1778-1782", "Subsidy · £5,000,000 a year,
+        /// 1814".</summary>
+        public static string FlowText(History.Flow f)
+        {
+            string unit = f.Unit ?? "", number = Number(f.Value);
+            string amount = unit == "£" || unit == "$" ? unit + number : number + (unit.Length > 0 ? " " + unit : "");
+            string how = !f.Total ? " a year" : f.Years > 1 ? " in total" : "";
+            string years = f.FromYear.ToString(CultureInfo.InvariantCulture) + (f.ToYear != f.FromYear ? "-" + f.ToYear.ToString(CultureInfo.InvariantCulture) : "");
+            string word = string.IsNullOrEmpty(f.Kind) ? "" : char.ToUpperInvariant(f.Kind[0]) + f.Kind.Substring(1) + " · ";
+            return word + amount + how + ", " + years;
+        }
+
+        /// <summary>A flow's label, when it has something to say: the name of an end outside the picture and, for the
+        /// <see cref="LabelledFlows"/> largest, <see cref="FlowText"/>; in the flow's colour on the ink's backing, after every
+        /// other label of the view (lower ranks), so the label system culls these first.</summary>
+        void FlowLabel(History.Flow f, Vector3 at, string name, bool amount, TMPro.TextAlignmentOptions align, Vector2 offset, float rank)
+        {
+            string text = (name != null ? "<b>" + (name.Length > 34 ? Wrap(name, 32) : name) + "</b>" : "") +
+                          (amount ? (name != null ? "\n" : "") + FlowText(f) : "");
+            if (text.Length == 0) return;
+            flowLabels.Add(new HillLabel
+            {
+                Text = text, At = at, Role = LabelRole.Note, Part = FlowPart(), Rank = rank, Color = Roles.Encoded(FlowRole(Carries(f))),
+                Plate = Roles.Encoded(Roles.InkBacking), OnTop = true, Align = align, PixelOffset = offset,
+            });
+        }
+
+        /// <summary>Uploads a part's packets (Why/Packets, placed in the view's own space), replacing its last mesh and
+        /// material; none when no lane moves.</summary>
+        void UploadPackets(PacketMeshBuilder p, Part part, int queue)
+        {
+            Drop(part);
+            if (p.VertexCount == 0) return;
+            var mesh = p.ToMesh("History " + part);
+            owned.Add(mesh);
+            Material m = GraphMaterials.Raw(GraphMaterials.Packets(Color.white, 1, queue));
+            owned.Add(m);
+            var r = AddMesh("History " + part, mesh, m);
+            r.transform.SetParent(content.transform, false);
+            partRenderer[(int)part] = r;
         }
 
         // ------------------------------------------------------------------ the camera
@@ -1298,6 +1706,9 @@ namespace Why.Economy.Layers
                         Fallbacks = Enumerable.Range(1, 6).Select(k => new Vector2(0, 18 * k)).ToArray(),    // the title may climb further
                     });
             }
+
+            // the flows' amounts and the names of their ends outside the picture, after everything else (lower ranks)
+            labels.AddRange(flowLabels);
         }
 
         static readonly Vector2[] AboveFallbacks = Steps(1, 0), BelowFallbacks = Steps(-1, 0);
@@ -1328,10 +1739,12 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>The number as the fact gives it, in its own unit (never the size it is drawn by).</summary>
-        public static string Raw(History.Value v)
+        public static string Raw(History.Value v) => Number(double.IsNaN(v.Raw) ? v.V : v.Raw);
+
+        /// <summary>A number as a fact gives it: as many digits as it has, so a small amount never shows as 0 and a precise one
+        /// is not rounded away.</summary>
+        static string Number(double x)
         {
-            // as many digits as the fact gives, so a small amount never shows as 0 and a precise one is not rounded away
-            double x = double.IsNaN(v.Raw) ? v.V : v.Raw;
             if (Math.Abs(x - Math.Round(x)) < 1e-9) return x.ToString("#,0", CultureInfo.InvariantCulture);
             return Math.Abs(x) >= 1000 ? x.ToString("#,0.###", CultureInfo.InvariantCulture) : x.ToString("#,0.######", CultureInfo.InvariantCulture);
         }
@@ -1349,7 +1762,10 @@ namespace Why.Economy.Layers
         // ------------------------------------------------------------------ smoke
 
         /// <summary><c>-smokeextra history</c>: each story compressed and opened at its turns, with checks that every story has
-        /// lanes, moments and bodies.</summary>
+        /// lanes, moments and bodies, and that a story's flows draw their rungs compressed (the view must never stand still).
+        /// Two states are there for the flows: 2019 opened (Microsoft's billion into OpenAI, a river between two bodies) and
+        /// 1795 opened (Britain's loan to Austria and its subsidies to the coalitions, short rivers from Britain's body, the
+        /// other ends not drawn that year).</summary>
         IEnumerator Smoke()
         {
             GraphRoot root = GraphRoot.Instance;
@@ -1361,17 +1777,21 @@ namespace Why.Economy.Layers
             foreach (var s in h.Stories)
             {
                 var L = Lay(s);
-                Debug.Log($"[Why] history {s.Id}: {s.Actors.Count} actors in {L.LaneY.Count} lanes ({s.Actors.Sum(a => a.Series.Count)} values), {s.Moments.Count} moments, {s.Periods.Count} periods, {s.Moats.Count} moats, {s.People.Count} people");
+                Debug.Log($"[Why] history {s.Id}: {s.Actors.Count} actors in {L.LaneY.Count} lanes ({s.Actors.Sum(a => a.Series.Count)} values), {s.Moments.Count} moments, {s.Periods.Count} periods, {s.Moats.Count} moats, {s.People.Count} people, {s.Flows.Count} flows ({s.Flows.Count(Drawn)} with an amount)");
                 if (s.Actors.Count == 0 || s.Moments.Count == 0) Debug.LogError($"[Why] history: story {s.Id} has no actors or moments");
             }
 
-            foreach (string state in new[] { "history:ai:1971.9", "history:ai:1947.9:x", "history:ai:2017.5:x:sel=google", "history:ai:2025.8:x", "history:rev:1789.5",
-                         "history:rev:1781.8:x", "history:rev:1805.9:x", "history:rev:1813.8:x" })
+            foreach (string state in new[] { "history:ai:1971.9", "history:ai:1947.9:x", "history:ai:2017.5:x:sel=google", "history:ai:2019.5:x", "history:ai:2025.8:x",
+                         "history:rev:1789.5", "history:rev:1781.8:x", "history:rev:1795.5:x", "history:rev:1805.9:x", "history:rev:1813.8:x" })
             {
                 ShowState(state);
                 yield return new WaitForSecondsRealtime(3.2f);
-                Debug.Log($"[Why] history {state}: {bodies.Count} bodies, {labels.Count} labels");
+                Debug.Log($"[Why] history {state}: {bodies.Count} bodies, {labels.Count} labels, {flowLanes} flow lanes ({flowLabels.Count} labelled)");
                 if (state.Contains(":x") && bodies.Count == 0) Debug.LogError($"[Why] history: {state} opened no bodies");
+                // compressed, every flow with an amount draws its rungs, so the lanes never stand still
+                var shown = h.StoryById(StoryId);
+                if (!state.Contains(":x") && shown != null && shown.Flows.Any(Drawn) && flowLanes == 0)
+                    Debug.LogError($"[Why] history: {state} drew none of its story's {shown.Flows.Count(Drawn)} flows");
                 yield return SmokeChecks.Capture("economy-" + state.Replace(':', '-').Replace('.', '_'), root.CurrentPreset);
             }
 

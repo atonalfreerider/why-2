@@ -7,6 +7,10 @@ Each story keeps only what rests on verified facts:
   actors   id, name, kind, qid, years, successor, role, and a series of parts by year, each value normalised to its base
            (people, troops, ships, or money in billions of its currency) with the unit as the fact wrote it
   moments, periods, moats (with Jev's wall heights), people (with their Wikidata ids, for the portraits)
+  flows    money paid and capital lent or invested from one actor to another over the years a fact gives (Britain's
+           subsidies to the coalitions, France's loans to the Americans, the rounds into Intel and Anthropic): only facts the
+           gate verified that no skeptic rejected or found to be no flow (their "check"), each with its amount as the fact
+           gives it and normalised as the series' money is (see build_flows); what is left out is printed with why
   sources  the cited facts' claims and URLs
 
 Sizes compare money at fixed rates (assumed, stated in the file's method): £1 = 24 livres = 24 francs of the 1790s;
@@ -37,6 +41,37 @@ FORCES = {"united-states": ["continental-army"], "kingdom-of-great-britain": ["b
           "french-republic": ["french-army", "french-navy"], "french-consulate": ["french-army", "french-navy", "grande-armee"],
           "first-french-empire": ["grande-armee", "french-army", "french-navy"], "prussia": ["prussian-army"],
           "russian-empire": ["russian-army"]}
+
+# Flows (the flows map's proposal 6, Docs/research/politics/maps/government-flows-power-2026-11-07.json; HISTORY.md section 5).
+# A flow fact is a fact of kind "flow", or an investment or contract with an end (from, to, fromName or toName). It is
+# drawn when the gate verified it (model.json; a skeptic's "check": {"ok": false} makes it "rejected" there) and its check
+# does not say "flow": false (a claim that stands but moved no money between its ends then: a pledge, a commitment with no
+# schedule, a cost spent at home).
+FLOW_FACT_KINDS = ("investment", "contract")
+# The kind of flow of the facts researched before flows had kinds, as the skeptics read them (8 Nov 2026).
+FLOW_KINDS = {
+    "story-ai-marshall-plan": "aid",
+    "story-ai-microsoft-openai-2019": "investment",
+    "story-ai-nvidia-founding-capital": "investment",
+    "story-ai-fairchild-raised-1957": "loan",           # agreed in August 1957 as a loan (Wikipedia, Traitorous eight)
+    "story-ai-intel-debentures-1968": "loan",           # convertible debentures
+    "story-revolutions-austria-subsidy-1809": "subsidy",
+    "story-revolutions-britain-subsidies-total": "subsidy",
+}
+# The payer of record where the research left the payer outside the story (the skeptic, 8 Nov 2026): the Dutch loan of 1781
+# was raised in the French King's name and under his guarantee, counted among "the preceding aids granted by the King" (the
+# contract of 1783) and repaid to the royal treasury, so it is drawn from the crown, the Dutch lenders behind it.
+PAYERS = {"story-revolutions-flow-dutch-loan-1781": "kingdom-of-france"}
+# A total over years that holds flows drawn on their own (the skeptic, 8 Nov 2026: "draw the parts, and the total at most as
+# what's left over"): the total is not drawn in the years its parts run (its "gaps"), so no pound is drawn twice. Britain's
+# £46.3 million of cash subsidies (1793-1814) holds Austria's £250,000 of 1809 and the subsidies of Reichenbach (1813) and
+# Chaumont (1814). Spread over its 22 years, the rest of it draws at most what is left over.
+WITHIN = {
+    "story-revolutions-austria-subsidy-1809": "story-revolutions-britain-subsidies-total",
+    "story-revolutions-flow-britain-prussia-1813": "story-revolutions-britain-subsidies-total",
+    "story-revolutions-flow-britain-russia-1813": "story-revolutions-britain-subsidies-total",
+    "story-revolutions-flow-britain-allies-1814": "story-revolutions-britain-subsidies-total",
+}
 
 STORIES = [
     {"id": "ai", "cluster": "story-ai", "title": "The AI revolution", "from": 1945, "to": 2026},
@@ -221,6 +256,159 @@ def apply_aliases(data, mapping):
     return data
 
 
+def years_of(period):
+    """A period's first and last calendar years ("1778-1782", "1813", "December 2015"); (None, None) when it names none."""
+    ys = [int(y) for y in re.findall(r"(?<!\d)(1[5-9]\d\d|20\d\d)(?!\d)", str(period or ""))]
+    return (min(ys), max(ys)) if ys else (None, None)
+
+
+def flow_unit(unit):
+    """A flow's unit for its label: the fact's own, without a note that it is a sum over the years (the label says "in total"
+    and gives them: "million pounds (cumulative 1793-1814)" is "million pounds") or the source's abbreviation beside the word
+    it abbreviates (Hansard's "l.": "pounds (l.)" is "pounds")."""
+    plain = re.sub(r"\s*\(cumulative[^)]*\)", "", unit or "").strip()
+    plain = re.sub(r"\bpounds\s*\(l\.\)", "pounds", plain).strip()
+    return plain or unit
+
+
+def flow_money(prefix, value, unit):
+    """A flow's amount in the story's money: billions of pounds of the time for the age of revolutions (£1 = 24 livres or
+    francs, as the series' money), billions of dollars as written for the AI story; None for a share, a ratio, a count or a
+    currency the story cannot compare."""
+    if not isinstance(value, (int, float)) or is_share(None, unit) or not is_money(None, unit):
+        return None
+    v = base_value(None, value, unit)
+    if v is None:
+        return None
+    if prefix == "rev":
+        return pounds(None, v, unit)
+    return v if re.search(r"\b(usd|dollars?)\b|\$", (unit or "").lower()) else None
+
+
+def short(reason, n=110):
+    """A reason's first sentence, at most about n characters, for the build's log."""
+    s = re.split(r"(?<=\.)\s", str(reason or "").strip(), 1)[0]
+    return s if len(s) <= n else s[:n - 1].rstrip() + "…"
+
+
+def build_flows(prefix, cluster, data, facts, mapping, story_actors, model_actors, cite):
+    """The story's flows, from its cluster's flow facts (see FLOW_FACT_KINDS), and the build's notes: what is left out and
+    why, and what was read in. Each flow:
+      id, fact             "hflow-<story>-<fact id without its cluster>", and the fact it rests on
+      from, to             the payer and the payee among the story's actors, through the story's aliases, the payer of record
+                           (PAYERS) and a successor for an actor that had ended before the flow began; null for an end
+                           outside the story, then named by fromName or toName (the research's words, or the actor's name)
+      value, unit          the fact's own number and unit, for labels (a "(cumulative ...)" note dropped: "in total" says it)
+      money, size          the amount in the story's money (billions of pounds of the time, or of dollars) and in its unit of
+                           size (a million pounds, a billion dollars), as the series' money is; null when the fact gives no
+                           money (a share of a company's capital), which draws nothing
+      fromYear, toYear     the calendar years it ran, both included
+      flowKind, total      what moved (subsidy, aid, grant, payment, purchase, indemnity; loan, investment, acquisition,
+                           confiscation) and whether the amount is a sum over the years (else a year's rate)
+      gaps                 years it is not drawn in, because flows inside it are drawn there on their own (WITHIN)"""
+    spans = {a.get("id"): (year_of(a.get("from")), year_of(a.get("to")), a.get("successor")) for a in story_actors}
+    names = {a.get("id"): a.get("name") or a.get("id") for a in model_actors}
+    names.update({a.get("id"): a.get("name") or a.get("id") for a in story_actors})
+    out, notes, kept = [], [], {}
+
+    def leave(fid, why):
+        notes.append(f"  left out {fid}: {why}")
+
+    def alias(x):
+        return mapping.get(x, x) if x else None
+
+    def standing(aid, year):
+        """The actor an id stands for in a year: itself, or its successor once it had ended (Great Britain after 1800)."""
+        for _ in range(8):
+            span = spans.get(aid)
+            if not span or span[1] is None or not span[2] or span[2] not in spans or year <= span[1] + .5:
+                return aid
+            aid = span[2]
+        return aid
+
+    for f in data.get("facts", []):
+        fid = f.get("id")
+        ends = any(f.get(k) for k in ("from", "to", "fromName", "toName"))
+        if not fid or not (f.get("kind") == "flow" or (f.get("kind") in FLOW_FACT_KINDS and ends)):
+            continue
+        status = facts.get(fid, {}).get("status")
+        if status != "verified":
+            leave(fid, short(facts.get(fid, {}).get("reason")) if status == "rejected" else f"not verified ({status})")
+            continue
+        check = f.get("check") if isinstance(f.get("check"), dict) else {}
+        if check.get("flow") is False:
+            leave(fid, "no flow, by its check: " + short(check.get("reason")))
+            continue
+        y0, y1 = years_of(f.get("period"))
+        if y0 is None:
+            leave(fid, f"no years in its period ({f.get('period')!r})")
+            continue
+        if (f.get("unit") or "").strip().lower() == "year":
+            leave(fid, "no amount: its value is a year")
+            continue
+        payer, payee = alias(PAYERS.get(fid) or f.get("from")), alias(f.get("to"))
+        if fid in PAYERS:
+            notes.append(f"  {fid}: drawn from {payer}, the payer of record (PAYERS), not from {f.get('fromName') or f.get('from')}")
+        from_name, to_name = (f.get("fromName") if payer is None else None), (f.get("toName") if payee is None else None)
+        # an end the story does not draw is outside it, named
+        if payer is not None and payer not in spans:
+            notes.append(f"  {fid}: its payer {payer} is no actor of the story: drawn from outside it")
+            payer, from_name = None, names.get(payer, payer)
+        if payee is not None and payee not in spans:
+            notes.append(f"  {fid}: its payee {payee} is no actor of the story: drawn to outside it")
+            payee, to_name = None, names.get(payee, payee)
+        if payer is None and payee is None:
+            leave(fid, "neither end is an actor of the story")
+            continue
+        # an actor that had ended when the flow began is its successor (Britain's subsidy of 1809 is the United Kingdom's)
+        for end in ("payer", "payee"):
+            aid = payer if end == "payer" else payee
+            moved = standing(aid, y0) if aid else None
+            if moved != aid:
+                notes.append(f"  {fid}: {end} {aid} had ended by {y0}: drawn from its successor {moved}" if end == "payer"
+                             else f"  {fid}: {end} {aid} had ended by {y0}: drawn to its successor {moved}")
+                if end == "payer":
+                    payer = moved
+                else:
+                    payee = moved
+        money = flow_money(prefix, f.get("value"), f.get("unit"))
+        if money is None:
+            notes.append(f"  {fid}: no money amount ({f.get('value')} {f.get('unit')}): kept unsized, drawn as nothing")
+        total = f.get("total") if isinstance(f.get("total"), bool) else True
+        if not isinstance(f.get("total"), bool):
+            notes.append(f"  {fid}: no total given: read as the sum over {y0 if y0 == y1 else f'{y0}-{y1}'}")
+        kind = f.get("flowKind") or FLOW_KINDS.get(fid)
+        if not kind:
+            kind = "investment" if f.get("kind") == "investment" else "payment"
+            notes.append(f"  {fid}: no kind of flow given: read as {kind}")
+        rest = fid[len(cluster) + 1:] if fid.startswith(cluster + "-") else fid
+        rest = rest[5:] if rest.startswith("flow-") else rest
+        entry = {"id": f"hflow-{prefix}-{rest}", "from": payer, "to": payee}
+        if payer is None:
+            entry["fromName"] = from_name
+        if payee is None:
+            entry["toName"] = to_name
+        money = None if money is None else float(f"{money:.10g}")   # 18 million livres are 0.00075 billion pounds, not 0.000749999...
+        entry.update({"value": f.get("value"), "unit": flow_unit(f.get("unit")), "money": money,
+                      "size": None if money is None else round(money / (0.001 if prefix == "rev" else 1.0), 6),
+                      "fromYear": y0, "toYear": y1, "flowKind": kind, "total": total, "fact": fid})
+        out.append(entry)
+        kept[fid] = entry
+        cite(fid)
+
+    # a total is not drawn in the years its parts run on their own; a part left out leaves its years to the total
+    for part, whole in WITHIN.items():
+        if whole in kept and part in kept:
+            p = kept[part]
+            gaps = set(kept[whole].get("gaps") or [])
+            gaps.update(range(p["fromYear"], p["toYear"] + 1))
+            kept[whole]["gaps"] = sorted(y for y in gaps if kept[whole]["fromYear"] <= y <= kept[whole]["toYear"])
+    for whole in {w for w in WITHIN.values() if w in kept and kept[w].get("gaps")}:
+        notes.append(f"  {whole}: not drawn in {', '.join(map(str, kept[whole]['gaps']))}, where flows inside it are (WITHIN)")
+    out.sort(key=lambda x: (x["fromYear"], x["id"]))
+    return out, notes
+
+
 def main():
     model = load(os.path.join(RESEARCH, "model.json"))
     if not model:
@@ -332,10 +520,15 @@ def main():
         people = [{"id": p["id"], "name": p.get("name"), "qid": p.get("qid"), "born": p.get("born"), "died": p.get("died"), "role": p.get("role"),
                    "image": p["id"], "actors": p.get("actors") or [], "facts": cite(p.get("facts")), "active": active_of(p)}
                   for p in data.get("people", [])]
+        flows, flow_notes = build_flows(prefix, cluster, data, facts, ALIASES.get(st["id"], {}), data.get("actors", []),
+                                        model.get("actors", []), used.add)
         stories.append({"id": prefix, "title": st["title"], "from": st["from"], "to": st["to"], "actors": actors, "moments": moments,
-                        "periods": periods, "moats": moats, "people": people})
+                        "periods": periods, "moats": moats, "people": people, "flows": flows})
         print(f"{prefix}: {len(actors)} actors ({sum(len(a['series']) for a in actors)} values), {len(moments)} moments, "
               f"{len(periods)} periods, {len(moats)} moats, {len(people)} people")
+        print(f"{prefix}: {len(flows)} flows ({sum(1 for f in flows if f['money'] is not None)} with an amount)")
+        for line in flow_notes:
+            print(line)
     # an actor in two stories (the United States of 1781 and of 1945) has an image for each: its flag then
     count = {}
     for st in stories:

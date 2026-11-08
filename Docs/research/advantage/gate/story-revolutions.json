@@ -1,10 +1,10 @@
 {
- "asOf": "2026-11-07",
+ "asOf": "2026-11-08",
  "threshold": 0.6,
  "jev": {
   "requests": 0,
-  "cached": 135,
-  "tokens": 202035,
+  "cached": 150,
+  "tokens": 224292,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -497,6 +497,156 @@
    "supportedJ": 0.73,
    "fetched": "2026-11-07",
    "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-allies-1814": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "3/3",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-allies-1815": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.73,
+   "fetched": "2026-11-08",
+   "quotesFound": "3/3",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-austria-loan-1795": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.81,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-prussia-1794": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-prussia-1813": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-russia-1813": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-britain-russia-terms-1805": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-church-lands-1789": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-dutch-loan-1781": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-france-indemnity-1815": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "4/4",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-france-us-gifts-1776-1777": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-france-us-loans-1778-1782": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-louisiana-purchase-1803": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "3/3",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-prussia-tribute-1808": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.99,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "story-revolutions"
+  },
+  "story-revolutions-flow-spain-us-loan-1777": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "2/2",
    "cluster": "story-revolutions"
   },
   "story-revolutions-fourth-coalition-1806": {

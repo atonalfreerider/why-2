@@ -3,7 +3,8 @@
 (Docs/research/advantage/model.json), mechanically: no judgment is made here.
 
 - facts: every cluster's facts with the gate's verdict (gate/<cluster>.json, else verification.json); only verified
-  facts may carry a number into the model.
+  facts may carry a number into the model. A fact a skeptic rejected ("check": {"ok": false, "reason", "by"}) is
+  "rejected", whatever the gate said, so history.py, build.py and every other reader of status leave it out.
 - actors: merged by id. Text fields come from the first cluster that has them, in the order of CLUSTERS (the
   strategist's corrections first); lists and fact ids are unions. Each present actor gets its numbers (market cap or
   valuation, revenue, margins, assets) from its own verified facts, preferring facts dated 2026 and the latest year;
@@ -107,6 +108,12 @@ def main():
                     report["duplicates"].append(fid)
                 continue
             g = gate.get(fid, {})
+            # a skeptic's rejection outweighs the gate: "check": {"ok": false, "reason": ..., "by": ...} on the research fact (the
+            # politics research's record, Docs/research/politics/README.md) makes it "rejected", which every reader leaves out
+            rejected = isinstance(f.get("check"), dict) and f["check"].get("ok") is False
+            if rejected:
+                g = dict(g, status="rejected", reason="rejected by the skeptic: " + str(f["check"].get("reason") or ""))
+                report.setdefault("rejected by the skeptic", []).append(fid)
             facts[fid] = {"claim": f.get("claim"), "actor": f.get("actor"), "kind": f.get("kind"), "value": f.get("value"),
                           "unit": f.get("unit"), "period": f.get("period"), "scope": f.get("scope"), "from": f.get("from"),
                           "to": f.get("to"), "url": f.get("url"), "quote": (f.get("quotes") or [""])[0],

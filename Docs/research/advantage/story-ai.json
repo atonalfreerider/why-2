@@ -106,10 +106,17 @@
    "value": 13.3,
    "unit": "USD bn",
    "period": "1948-1952",
-   "from": null,
+   "from": "united-states",
    "to": null,
+   "toName": "17 European countries",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "Wikipedia: the plan transferred US$13.3 billion to 17 countries and operated for four years from 3 April 1948. This is a total over 1948-1952, not a year's amount, from the United States to Europe (toName). The fact has no flowKind or total field, so the builder must treat 13.3 as the sum over the period.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-luce-1941",
@@ -467,9 +474,16 @@
    "unit": "USD m",
    "period": "1987",
    "from": null,
-   "to": null,
+   "fromName": "Philips",
+   "to": "tsmc",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": null,
+    "flow": false,
+    "reason": "This flow is not usable as $58 million moving in 1987. TSMC's own annual report (2016, Chinese edition, company history) says the company was founded in February 1987 with paid-in capital of NT$1.3775 billion, about US$40-48 million at 1987 rates. Philips's 27.5 percent of that founding capital was therefore roughly US$11-13 million. TechInsights gives $48 million of start-up funding and two more rounds in 1988 ($29 million and $205 million), and another account gives Philips $40 million of $145 million. The $58 million (Wikipedia, citing Morris Chang's autobiography) may be Philips's commitment over several rounds, but no source dates its payments. The claim is not judged here as a whole (ok is null): the same number is drawn as TSMC's 1987 capital (series tsmc/capital@1987) and narrated in story_scripts.json, which is the lead's call.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-tsmc-chang-first-foundry",
@@ -635,9 +649,15 @@
    "unit": "USD",
    "period": "1993",
    "from": null,
-   "to": null,
+   "to": "nvidia",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "History of Nvidia: 'With $40,000 in the bank... the company was born' (early 1993); the $20 million of venture funding that followed is a separate matter and not included. Money into Nvidia in 1993. The source names no payer, so the flow has no from and must be drawn arriving from outside.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-nvidia-1996-layoff",
@@ -1267,9 +1287,16 @@
    "unit": "USD bn",
    "period": "December 2015",
    "from": null,
-   "to": null,
+   "fromName": "Musk, Altman, Brockman, Hoffman, Livingston, Thiel, AWS and Infosys",
+   "to": "openai",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": true,
+    "flow": false,
+    "reason": "A pledge, not money that moved. The same page continues: 'However, the actual capital collected significantly lagged pledges. According to tax filings, only $133 million had been received by 2021.' Drawing $1 billion into OpenAI in 2015 is false. The claim that the money was pledged stands. The series openai/capital@2015 also draws this pledge as OpenAI's 2015 capital, which has the same problem.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-gpt1-params",
@@ -1351,10 +1378,16 @@
    "value": 2020,
    "unit": "year",
    "period": "22 September 2020",
-   "from": null,
-   "to": null,
+   "from": "microsoft",
+   "to": "openai",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": true,
+    "flow": false,
+    "reason": "This fact has no amount: its value is the year 2020 (unit 'year'), and no source gives a licence fee or says money moved for the licence. Its ends are right (Microsoft licensed from OpenAI), but it is not a money flow. At most it could be shown as an unsized contract in September 2020.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-microsoft-openai-2019",
@@ -1374,10 +1407,16 @@
    "value": 1,
    "unit": "USD bn",
    "period": "2019",
-   "from": null,
-   "to": null,
+   "from": "microsoft",
+   "to": "openai",
    "accessed": "2026-11-07",
-   "notes": "The year comes from the preceding sentence of the page; the second sentence carries the amount."
+   "notes": "The year comes from the preceding sentence of the page; the second sentence carries the amount.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "The OpenAI page: after the 2019 capped-profit transition, Microsoft invested $1 billion in OpenAI LP, and the partnership section calls it 'its original $1 billion investment in 2019' (announced 22 July 2019). Microsoft to OpenAI, 2019. The split between cash and Azure credits was not disclosed; either way it is value Microsoft put in for its stake. It is distinct from the $2 billion through 2022 and the 2023 investment.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-microsoft-openai-2023",
@@ -1395,10 +1434,16 @@
    "value": 10,
    "unit": "USD bn",
    "period": "23 January 2023",
-   "from": null,
-   "to": null,
+   "from": "microsoft",
+   "to": "openai",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": true,
+    "flow": false,
+    "reason": "Its own quote says the $10 billion was invested 'over multiple years', but its period is one day, 23 January 2023, so drawn as a flow it would put the whole $10 billion in 2023. No source here gives the schedule. The claim that the investment was announced stands.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-openai-500bn-2025",
@@ -1523,9 +1568,16 @@
    "unit": "USD m",
    "period": "1957",
    "from": null,
-   "to": null,
+   "fromName": "Fairchild Camera & Instrument",
+   "to": "fairchild",
    "accessed": "2026-11-07",
-   "notes": "The page's own sentence does not carry the year; the page is about the 1957 founding."
+   "notes": "The page's own sentence does not carry the year; the page is about the 1957 founding.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "The Computer History Museum says the eight raised $1.38 million from Fairchild Camera & Instrument. Wikipedia's Traitorous eight article adds that the agreement was reached in August 1957 and that the $1.38 million was a loan; Fairchild also got the right to buy the founders' shares for $3 million (exercised in 1959). So the flow runs from Fairchild Camera to Fairchild Semiconductor in 1957, as a loan. The 1959 buyout paid the founders and is not this flow.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-fairchild-sales-1960",
@@ -1588,9 +1640,16 @@
    "unit": "USD m",
    "period": "1968",
    "from": null,
-   "to": null,
+   "fromName": "private investors",
+   "to": "intel",
    "accessed": "2026-11-07",
-   "notes": ""
+   "notes": "",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "The quote says 'offered', not raised, but Wikipedia's Arthur Rock article says: 'Rock raised $2.5 million of convertible debentures from a limited group of private investors in one day.' The flow runs from private investors to Intel in 1968, as a loan convertible at $5 a share.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   },
   {
    "id": "story-ai-ibm-income-1980",
@@ -2577,6 +2636,484 @@
    "to": null,
    "accessed": "2026-11-07",
    "notes": "A. Michael Noll, Memories: A Personal History of Bell Telephone Laboratories (hosted by the IEEE's Engineering and Technology History Wiki), citing his 'Bell System R&D Activities', Telecommunications Policy, June 1987."
+  },
+  {
+   "id": "story-ai-flow-us-taiwan-aid-1950-1965",
+   "claim": "By the time US aid to Taiwan officially ended in July 1965, the Americans had provided about US$1.4 billion in economic assistance over 15 years; US aid to Taiwan ran from 1950 to 1965.",
+   "url": "https://www.taipeitimes.com/News/feat/archives/2019/07/07/2003718247",
+   "quotes": [
+    "By the time US aid to Taiwan officially terminated in July 1965, the Americans had provided about US$1.4 billion in economic assistance over 15 years, supporting a large number of vital industries",
+    "A logo for US Aid to Taiwan between 1950 and 1965."
+   ],
+   "values": [
+    "1.4 billion",
+    "15",
+    "1965"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 1.4,
+   "unit": "USD bn",
+   "period": "1950-1965",
+   "from": "united-states",
+   "to": "taiwan",
+   "flowKind": "aid",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Taipei Times, 7 July 2019 (Han Cheung). Economic assistance only; the article gives no figure for military aid. The years are the article's caption of the US Aid logo; the text's own span is 15 years ending July 1965.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "Taipei Times (7 July 2019): about US$1.4 billion of economic assistance over 15 years, ending July 1965; its caption dates US Aid 1950-1965. Other accounts put 1951-1965 economic aid at US$1.4-1.48 billion (about $100 million a year), so 'about 1.4' holds. A total over the period, United States to Taiwan; economic aid only (military aid is not in it).",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-intel-busicom-1971",
+   "claim": "In May 1971 Busicom agreed to release Intel from the exclusivity agreement in exchange for a lower chip price, on condition that the chip not be used for any other calculator project and that Intel repay Busicom's $60,000 development costs.",
+   "url": "https://en.wikipedia.org/wiki/Intel_4004",
+   "quotes": [
+    "Faggin then convinced Noyce to lower the price in exchange for releasing Intel from the exclusivity agreement. In May 1971, Busicom agreed to this, on the condition that it not be used for any other calculator project and that Intel would repay their $60,000 development costs."
+   ],
+   "values": [
+    "1971",
+    "60,000"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "flow",
+   "value": 60000,
+   "unit": "USD",
+   "period": "1971",
+   "from": "intel",
+   "to": "busicom",
+   "flowKind": "payment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "A repayment that bought Intel the right to sell the 4004 beyond Busicom's calculators (the original contract had assigned all rights to the design to Busicom). The page gives the condition, not the date the money was paid.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "Intel's own history of the 4004 (intel.com) agrees: in May 1971 Noyce repurchased the rights to the chip for everything but calculators in exchange for returning Busicom's $60,000 investment in its development. Intel paid Busicom, once, in 1971 (no source gives the day the money moved).",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-ibm-intel-1982",
+   "claim": "On 23 December 1982 the Christian Science Monitor reported that IBM had paid $250 million, or $40 a share, for 12 percent of the shares of Intel.",
+   "url": "https://www.csmonitor.com/1982/1223/122312.html",
+   "quotes": [
+    "Dec. 23, 1982",
+    "International Business Machines Corporation has paid $250 million, or $40 a share, for 12 percent of the shares of Intel Corporation, a major semiconductor manufacturer."
+   ],
+   "values": [
+    "1982",
+    "250 million",
+    "12"
+   ],
+   "dated2026": false,
+   "actor": "ibm",
+   "kind": "flow",
+   "value": 250,
+   "unit": "USD m",
+   "period": "1982",
+   "from": "ibm",
+   "to": "intel",
+   "flowKind": "investment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "The article adds that the agreement was subject to antitrust review under the Hart-Scott-Rodino Act.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "The Monitor (23 December 1982) says IBM has paid $250 million for 12 percent and that Intel issued the shares to IBM, so the money went to Intel. Computer Business Review (11 June 1987, techmonitor.ai) agrees: 'At the end of 1982, IBM paid $250m for new Intel Corp shares.' One payment in 1982.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-taiwan-tsmc-1987",
+   "claim": "TSMC was established in 1987. Philips put up $58 million, transferred its production technology and licensed intellectual property in exchange for a 27.6 percent stake; alongside generous tax benefits, the Taiwanese government, through the National Development Fund of the Executive Yuan, provided another 48.3 percent of TSMC's startup capital.",
+   "url": "https://en.wikipedia.org/wiki/TSMC",
+   "quotes": [
+    "TSMC was established in 1987 as a joint venture between Taiwan's government, the Industrial Technology Research Institute (ITRI), and private investors.",
+    "Only Philips was willing to sign a joint venture contract with Taiwan to put up $58 million, transfer its production technology, and license intellectual property in exchange for a 27.6 percent stake in TSMC. Alongside generous tax benefits, the Taiwanese government, through the National Development Fund, Executive Yuan, provided another 48.3 percent of the startup capital for TSMC."
+   ],
+   "values": [
+    "1987",
+    "58",
+    "27.6",
+    "48.3"
+   ],
+   "dated2026": false,
+   "actor": "taiwan",
+   "kind": "flow",
+   "value": 48.3,
+   "unit": "percent of TSMC's startup capital",
+   "period": "1987",
+   "from": "taiwan",
+   "to": "tsmc",
+   "flowKind": "investment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "A share of the capital, not an amount: the page gives no sum for the government's part (a 1990 Dataquest backgrounder gives the same 48.3 percent and no sum). Philips's 27.6 percent was paid in technology and licences as well as $58 million, so the government's share cannot be priced from Philips's cash.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "48.3 percent is corroborated by Dataquest's 1990 TSMC backgrounder (Executive Yuan Development Fund 48.3%, Philips 27.5%, nine Taiwanese companies 24.2%); the page cites Morris Chang's autobiography. Government to TSMC at its founding in 1987: right. It carries no money amount, so draw it unsized and never read 48.3 as money. Its claim repeats Philips's $58 million, which is contested (see story-ai-tsmc-philips). The same share is already story-ai-tsmc-taiwan-ndf-1987 (no ends): do not give that one ends too, or the flow is drawn twice.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-microsoft-nvidia-xbox-2000",
+   "claim": "On 16 March 2000 The Register reported that Nvidia was to receive a $200 million payment from Microsoft the following month, as an advance on multimedia development work for the Xbox.",
+   "url": "https://www.theregister.co.uk/2000/03/16/nvidia_gets_200m_xbox_injection/",
+   "quotes": [
+    "Published thu 16 Mar 2000",
+    "Graphics chip giant, Nvidia, is to receive a $200 million payment from Microsoft next month as an advance on multimedia development work for the X-Box."
+   ],
+   "values": [
+    "2000",
+    "200 million"
+   ],
+   "dated2026": false,
+   "actor": "microsoft",
+   "kind": "flow",
+   "value": 200,
+   "unit": "USD m",
+   "period": "2000",
+   "from": "microsoft",
+   "to": "nvidia",
+   "flowKind": "payment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "An advance on the Xbox graphics contract (Wikipedia's Nvidia article: the contract 'included a $200 million advance'). The Register's 2000 URL redirects to its current address.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "NVIDIA's 10-K405 for fiscal 2001 (sec.gov) confirms the payment: 'In April 2000, Microsoft paid us $200.0 million as an advance against graphics chip purchases.' Amount, direction and year hold. It was a prepayment for Xbox chips, set against Microsoft's later purchases, rather than only development work as The Register put it: if Xbox chip sales are ever drawn, net these $200 million out.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-nvidia-3dfx-2000",
+   "claim": "On 15 December 2000 NVIDIA announced a definitive agreement to acquire certain graphics-related assets of 3dfx Interactive, for which NVIDIA will pay 3dfx a total consideration of $70 million in cash and 1 million shares of common stock.",
+   "url": "https://pcstats.com/articles/498/index.html",
+   "quotes": [
+    "Dec 15 2000",
+    "NVIDIA Corporation (Nasdaq:NVDA) today announced that it has signed a definitive agreement to acquire certain graphics related assets of 3dfx Interactive (Nasdaq:TDFX), a pioneer and a recognized leader in graphics technology.",
+    "Under the terms of the agreement, NVIDIA will pay to 3dfx a total consideration of $70 million in cash and 1 million shares of common stock."
+   ],
+   "values": [
+    "2000",
+    "70 million",
+    "1 million"
+   ],
+   "dated2026": false,
+   "actor": "nvidia",
+   "kind": "flow",
+   "value": 70,
+   "unit": "USD m",
+   "period": "2000",
+   "from": "nvidia",
+   "to": "3dfx",
+   "flowKind": "acquisition",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "NVIDIA's press release as reprinted by PCSTATS. The value is the cash; the 1 million NVIDIA shares come on top. The release expected the purchase to complete in the first quarter of NVIDIA's fiscal 2002.",
+   "check": {
+    "ok": false,
+    "flow": false,
+    "reason": "Wrong year. 15 December 2000 is the signing; the purchase closed on 18 April 2001. NVIDIA's 10-K405 for fiscal 2001: 'On April 18, 2001, our subsidiary completed the purchase contemplated by the definitive agreement. We have paid 3dfx approximately $70 million in total consideration.' Its 10-Q for the quarter to 29 April 2001: 'the cash consideration due at the closing was $70.0 million, less $15.0 million that was loaned to 3dfx pursuant to a Credit Agreement dated December 15, 2000', so $55 million moved in April 2001. The share consideration was contingent, and NVIDIA's 10-K for fiscal 2002 says 3dfx had not yet met the conditions for it. Re-add with period 2001 (or 2000-2001) from those filings.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-intel-nvidia-licence-2011",
+   "claim": "On 10 January 2011 NVIDIA announced a new six-year cross-licensing agreement with Intel, under which Intel will pay NVIDIA an aggregate of $1.5 billion in licensing fees in five annual installments, beginning 18 January 2011.",
+   "url": "https://nvidianews.nvidia.com/news/intel-to-pay-nvidia-technology-licensing-fees-of-1-5-billion",
+   "quotes": [
+    "January 10, 2011 SANTA CLARA, CA -- NVIDIA announced today that it has signed a new six-year cross-licensing agreement with Intel.",
+    "For the future use of NVIDIA's technology, Intel will pay NVIDIA an aggregate of $1.5 billion in licensing fees payable in five annual installments, beginning Jan. 18, 2011."
+   ],
+   "values": [
+    "2011",
+    "1.5 billion"
+   ],
+   "dated2026": false,
+   "actor": "intel",
+   "kind": "flow",
+   "value": 1.5,
+   "unit": "USD bn",
+   "period": "2011-2015",
+   "from": "intel",
+   "to": "nvidia",
+   "flowKind": "payment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "NVIDIA's press release. Five annual installments from January 2011 put the payments in 2011-2015. The two companies also dropped all outstanding legal disputes.",
+   "check": {
+    "ok": false,
+    "flow": false,
+    "reason": "Wrong period. Intel's 10-K for 2011 (sec.gov, Note 17): 'We agreed to make payments totaling $1.5 billion to NVIDIA over six years ($300 million in each of January 2011, 2012, and 2013; and $200 million in each of January 2014, 2015, and 2016)'. So there were six installments over 2011-2016, not five ending in 2015. Drawn over 2011-2015, the January 2016 payment is lost and every year's rate is wrong. Re-add with period 2011-2016 from the 10-K.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-google-dnnresearch-2013",
+   "claim": "Hinton co-founded DNNresearch Inc. in 2012 with his two graduate students Alex Krizhevsky and Ilya Sutskever, and in March 2013 Google acquired DNNresearch Inc. for $44 million.",
+   "url": "https://en.wikipedia.org/wiki/Geoffrey_Hinton",
+   "quotes": [
+    "He co-founded DNNresearch Inc. in 2012 with his two graduate students, Alex Krizhevsky and Ilya Sutskever, at the University of Toronto's department of computer science. In March 2013, Google acquired DNNresearch Inc. for $44 million"
+   ],
+   "values": [
+    "2012",
+    "2013",
+    "44 million"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "flow",
+   "value": 44,
+   "unit": "USD m",
+   "period": "2013",
+   "from": "google",
+   "to": "alexnet-team",
+   "flowKind": "acquisition",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "DNNresearch is the company of the three AlexNet authors (the alexnet-team actor). That actor's span ends in December 2012; the sale is in March 2013.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "The Hinton page says that in March 2013 Google acquired DNNresearch Inc. (Hinton and his students Krizhevsky and Sutskever) for $44 million. Google did not disclose the price at the time; $44 million is the figure later reported from the December 2012 auction (Cade Metz, Genius Makers). Google paid the three founders, once, in 2013. The alexnet-team actor ends in 2012-12, so its lane must reach March 2013 or the flow must be drawn at its end.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-google-anthropic-2023",
+   "claim": "In October 2023 Google invested $500 million in Anthropic and committed to an additional $1.5 billion over time.",
+   "url": "https://en.wikipedia.org/wiki/Anthropic",
+   "quotes": [
+    "In October 2023, Google invested $500 million in Anthropic and committed to an additional $1.5 billion over time."
+   ],
+   "values": [
+    "2023",
+    "500 million",
+    "1.5 billion"
+   ],
+   "dated2026": false,
+   "actor": "google",
+   "kind": "flow",
+   "value": 500,
+   "unit": "USD m",
+   "period": "2023",
+   "from": "google",
+   "to": "anthropic",
+   "flowKind": "investment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "The value is the $500 million invested; the further $1.5 billion is a commitment the page does not date. The page adds that Google agreed to invest another $1 billion in March 2025 (not added, to keep within the cap).",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "The Anthropic page: in October 2023 Google invested $500 million and committed $1.5 billion more over time (that part is undated and rightly left out). Google to Anthropic, 2023. Reuters and DCD (27-30 October 2023) confirm the $500 million paid upfront. This is only part of Google's money: its earlier 2023 investment (reported at $300-550 million) and the later $1.5 billion are not here. So it understates Google's total, but nothing is double-counted.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-amazon-anthropic-2023-2024",
+   "claim": "In September 2023 Amazon became a minority stakeholder in Anthropic by initially investing $1.25 billion, planning a total investment of $4 billion; the remaining $2.75 billion was invested in March 2024.",
+   "url": "https://en.wikipedia.org/wiki/Anthropic",
+   "quotes": [
+    "In September 2023, Amazon announced a partnership with Anthropic. Amazon became a minority stakeholder by initially investing $1.25 billion and planning a total investment of $4 billion.",
+    "The remaining $2.75 billion was invested in March 2024."
+   ],
+   "values": [
+    "2023",
+    "1.25 billion",
+    "4 billion",
+    "2.75 billion",
+    "2024"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "flow",
+   "value": 4,
+   "unit": "USD bn",
+   "period": "2023-2024",
+   "from": null,
+   "fromName": "Amazon",
+   "to": "anthropic",
+   "flowKind": "investment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Amazon is not one of the story's actors. The page adds that Amazon invested another $4 billion in November 2024, doubling its total (not added, to keep within the cap).",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "Amazon's 10-Qs (sec.gov) confirm both payments: 'in September 2023 we invested in a $1.25 billion note from Anthropic, PBC, which is convertible to equity' and 'In Q1 2024, we invested $2.75 billion in a second convertible note.' $4 billion over 2023-2024 is their sum: 1.25 in 2023 and 2.75 in 2024, both in the quotes, so each year can be drawn at its own rate. The money moved as convertible notes, Amazon to Anthropic.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-us-tsmc-chips-2024",
+   "claim": "In April 2024 TSMC announced it had received $6.6 billion to build a third fab in Arizona; the grant was finalized on 15 November.",
+   "url": "https://en.wikipedia.org/wiki/CHIPS_and_Science_Act",
+   "quotes": [
+    "In April 2024, TSMC announced they had received $6.6 billion to build a third fab in Arizona, with the intent to host the 2 nm process, and construction slated to begin in 2028.",
+    "The grant was finalized on November 15."
+   ],
+   "values": [
+    "2024",
+    "6.6 billion"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 6.6,
+   "unit": "USD bn",
+   "period": "2024",
+   "from": "united-states",
+   "to": "tsmc",
+   "flowKind": "grant",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "One of the CHIPS and Science Act's awards, listed on the Act's page among its grants. An award: the page does not say when the money is paid out.",
+   "check": {
+    "ok": false,
+    "flow": false,
+    "reason": "An award, not a payment. CHIPS grants are paid out as construction and production milestones are met, and TSMC's CFO said in January 2025 that it had received the first batch, $1.5 billion, in the fourth quarter of 2024 (CNBC, 19 January 2025). Drawn as $6.6 billion moving in 2024, the flow overstates 2024 by about $5.1 billion. Re-add the $1.5 billion received in 2024 (and later receipts) from a source that can pass the gate.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-us-intel-chips-grants-2024-2025",
+   "claim": "On 22 August 2025 Intel said that the government's $8.9 billion investment came in addition to the $2.2 billion in CHIPS grants Intel had received to date, making a total investment of $11.1 billion.",
+   "url": "https://d1io3yog0oux5.cloudfront.net/_57627f36f021419831e44f49449e5f89/intel/news/2025-08-22_Intel_and_Trump_Administration_Reach_Historic_1748.pdf",
+   "quotes": [
+    "August 22, 2025 Intel and Trump Administration Reach Historic Agreement to Accelerate American Technology and Manufacturing Leadership",
+    "The $8.9 billion investment is in addition to the $2.2 billion in CHIPS grants Intel has received to date, making for a total investment of $11.1 billion."
+   ],
+   "values": [
+    "2025",
+    "2.2 billion",
+    "11.1 billion"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 2.2,
+   "unit": "USD bn",
+   "period": "2024-2025",
+   "from": "united-states",
+   "to": "intel",
+   "flowKind": "grant",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Intel's press release of 22 August 2025 (its investor-relations copy). The grants had been received by that date; the release gives no payment dates, and the CHIPS and Science Act page dates Intel's award to March 2024, hence 2024-2025. The rest of the award was turned into shares: story-ai-flow-us-intel-stake-2025.",
+   "check": {
+    "ok": true,
+    "flow": true,
+    "reason": "Intel's 10-K for 2024 (sec.gov): 'we received $1.1 billion of cash in 2024 and have received an additional $1.1 billion of cash in 2025'. Its Q2 2025 10-Q: '$2.2 billion of cash to date, $1.1 billion of which was received in Q1 2025'. So the 2024-2025 period, the total and the rate ($1.1 billion a year) are right, United States to Intel. It does not overlap the stake, whose $5.7 billion is the unpaid rest of the same award.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-us-intel-stake-2025",
+   "claim": "On 22 August 2025 Intel announced that the US government would make an $8.9 billion investment in Intel common stock, funded by the remaining $5.7 billion of CHIPS Act grants awarded but not yet paid and $3.2 billion awarded under the Secure Enclave program.",
+   "url": "https://d1io3yog0oux5.cloudfront.net/_57627f36f021419831e44f49449e5f89/intel/news/2025-08-22_Intel_and_Trump_Administration_Reach_Historic_1748.pdf",
+   "quotes": [
+    "August 22, 2025 Intel and Trump Administration Reach Historic Agreement to Accelerate American Technology and Manufacturing Leadership",
+    "Under terms of the agreement, the United States government will make an $8.9 billion investment in Intel common stock",
+    "The government's equity stake will be funded by the remaining $5.7 billion in grants previously awarded, but not yet paid, to Intel under the U.S. CHIPS and Science Act and $3.2 billion awarded to the company as part of the Secure Enclave program."
+   ],
+   "values": [
+    "2025",
+    "8.9 billion",
+    "5.7 billion",
+    "3.2 billion"
+   ],
+   "dated2026": false,
+   "actor": "united-states",
+   "kind": "flow",
+   "value": 8.9,
+   "unit": "USD bn",
+   "period": "2025",
+   "from": "united-states",
+   "to": "intel",
+   "flowKind": "investment",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "Intel's press release of 22 August 2025. The release adds that the government buys 433.3 million primary shares at $20.47, a 9.9 percent stake. Of the $8.9 billion, $5.7 billion is CHIPS grant money not yet paid, so this flow and story-ai-flow-us-intel-chips-grants-2024-2025 do not overlap.",
+   "check": {
+    "ok": false,
+    "flow": false,
+    "reason": "It overstates 2025 by about $3.1 billion. Intel's Q3 2025 10-Q: on 27 August 2025 'we received from the DOC the $5.7 billion of remaining potential disbursements under the DFA'. The other $3.2 billion, from Secure Enclave, is paid 'as we perform on our commitments'. Intel's 10-K for 2025 shows only 3 million escrowed shares released against Secure Enclave receipts by 27 December 2025, about $60 million at $20 a share. Re-add as $5.7 billion on 27 August 2025 from the 10-Q quote, and add the Secure Enclave money as its own flow once its receipts are published.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-openai-microsoft-azure-2025",
+   "claim": "On 28 October 2025 Microsoft announced that OpenAI has contracted to purchase an incremental $250 billion of Azure services, and that Microsoft will no longer have a right of first refusal to be OpenAI's compute provider.",
+   "url": "https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/",
+   "quotes": [
+    "Oct 28, 2025 | Microsoft Corporate Blogs",
+    "OpenAI has contracted to purchase an incremental $250B of Azure services, and Microsoft will no longer have a right of first refusal to be OpenAI's compute provider."
+   ],
+   "values": [
+    "2025",
+    "250B"
+   ],
+   "dated2026": false,
+   "actor": "openai",
+   "kind": "flow",
+   "value": 250,
+   "unit": "USD bn",
+   "period": "2025",
+   "from": "openai",
+   "to": "microsoft",
+   "flowKind": "purchase",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "A contract for future purchases of Azure services; the post gives no schedule, so the period is the year it was signed.",
+   "check": {
+    "ok": false,
+    "flow": false,
+    "reason": "A purchase commitment, not money that moved: OpenAI 'has contracted to purchase an incremental $250B of Azure services', with no schedule. Drawn in 2025 at its total, it would show $250 billion moving in a single year. It is not a flow until a source says what is paid and when. At most it could be shown as an unsized contract at its signing.",
+    "by": "skeptic agent, 2026-11-08"
+   }
+  },
+  {
+   "id": "story-ai-flow-anthropic-microsoft-azure-2025",
+   "claim": "On 18 November 2025 Microsoft, NVIDIA and Anthropic announced strategic partnerships in which Anthropic committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt.",
+   "url": "https://blogs.microsoft.com/blog/2025/11/18/microsoft-nvidia-and-anthropic-announce-strategic-partnerships/",
+   "quotes": [
+    "Microsoft, NVIDIA and Anthropic announce strategic partnerships Nov 18, 2025",
+    "Anthropic has committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt."
+   ],
+   "values": [
+    "2025",
+    "30 billion"
+   ],
+   "dated2026": false,
+   "actor": "anthropic",
+   "kind": "flow",
+   "value": 30,
+   "unit": "USD bn",
+   "period": "2025",
+   "from": "anthropic",
+   "to": "microsoft",
+   "flowKind": "purchase",
+   "total": true,
+   "accessed": "2026-11-08",
+   "notes": "A commitment with no schedule on the page, so the period is the year it was made. The same post has NVIDIA and Microsoft committing to invest up to $10 billion and up to $5 billion in Anthropic (not added, to keep within the cap).",
+   "check": {
+    "ok": false,
+    "flow": false,
+    "reason": "A purchase commitment, not money that moved: Anthropic 'has committed to purchase $30 billion of Azure compute capacity', with no schedule. Nothing says $30 billion moved in 2025, so drawn as a 2025 flow at its total it is false. At most it could be shown as an unsized contract at its signing.",
+    "by": "skeptic agent, 2026-11-08"
+   }
   }
  ],
  "actors": [

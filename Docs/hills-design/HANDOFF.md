@@ -439,6 +439,17 @@ gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. St
     also logs what still moves with the clock held). On 8 Nov: rivers 78k px, overview 25k, politics 18k, industries 12k,
     advantage 8k, money 0.4k, all 0 when held. The history view stays off the list until its stories carry flows (proposal
     6: research gated flows such as the rounds into Fairchild, Intel, TSMC and OpenAI, and the subsidies of 1775-1815).
-- **Next:** the history view's flows; the key moments as topology on the industries they touched (Jev's judgment of each
-  moment and industry, drawn on the landscape); a tour stop for the view (narration needs the user's go-ahead: ElevenLabs
-  credits); the open portrait sheet's smoke state; other countries after the user's look.
+- **Moments as topology (059c174).** Jev scored each of the 61 moments against each of the 25 industries, 0-4
+  (`Tools/politics/touches.py`, `Docs/research/politics/touches.json`, moments[].touches in politics.json);
+  `Layers/HillMomentsLayer.cs` stands fences on the landscape's ridges at each moment's date (2 or more of 4), naming the
+  last three years'; the politics panel lists every touch. Doubts in POLITICS.md (laws whose key parts are not in their
+  claims). Tuning the questions cost about 4M Jev tokens: rerun with `--offline` from the cache.
+- **History flows (8 Nov).** 13 AI and 12 revolutions flows (gated, skeptic-checked; 11 rejected, 6 kept as facts but not
+  drawn) built by `Tools/advantage/history.py` into stories.json `flows`; `HillHistoryLayer` draws rungs between lanes
+  (compressed) and rivers between bodies (opened) with packets, and history is back on the never-still list.
+  `Tools/advantage/merge.py` now honours a skeptic's `"check": {"ok": false}` (the politics research's record). Left: 8 of
+  the AI tour's 12 opened stops have no flow that year (candidate facts in the skeptics' reports: Intel to Nvidia 2011-16,
+  3dfx 2001, US to Intel $5.7bn 2025, US to TSMC 2024); the narration does not mention the rivers.
+- **Next:** a tour stop for the politics view (narration needs the user's go-ahead: ElevenLabs credits); the open portrait
+  sheet's smoke state; other countries after the user's look; the 8 missing portraits (7 CC-only, Marshall none: a
+  fetch.py choice to allow non-P18 public-domain files).

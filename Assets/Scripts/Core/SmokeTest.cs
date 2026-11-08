@@ -68,16 +68,17 @@ namespace Why
 
         /// <summary>
         /// The economy's views that must never stand still (<see cref="SmokeChecks.RegisterNeverStill"/>): the wave, the
-        /// contest, the present taken apart (industries), the rivers, the money chart and who holds power, whose flows of
-        /// capital, goods and people move on the flow clock while the year stands still (the user, 7 Nov 2026: "an
-        /// instantaneous view that's showing the motion of capital, goods, people at all times"). Advantage through history
-        /// joins once its stories carry flows (the flows map's proposal 6): on 8 Nov 2026 nothing on it moved, 0 pixels in half a
-        /// second, and the check failed it.
+        /// contest, the present taken apart (industries), the rivers, the money chart, who holds power and advantage through
+        /// history, whose flows of capital, goods and people move on the flow clock while the year stands still (the user, 7
+        /// Nov 2026: "an instantaneous view that's showing the motion of capital, goods, people at all times"). History moves
+        /// since its stories carry flows (the flows map's proposal 6, 8 Nov 2026): its default state, the AI story compressed,
+        /// draws every flow's rungs between the actors' lanes, packets marching from payer to payee (on 8 Nov 2026, before
+        /// them, nothing on it moved: 0 pixels in half a second).
         /// </summary>
         static readonly string[] NeverStillViews =
         {
             "overview", Economy.Layers.HillAdvantageLayer.View, Economy.Layers.HillPresentLayer.View, "rivers", "money",
-            Economy.Layers.HillPoliticsLayer.View
+            Economy.Layers.HillPoliticsLayer.View, Economy.Layers.HillHistoryLayer.View
         };
 
         public override int Order => 1000;

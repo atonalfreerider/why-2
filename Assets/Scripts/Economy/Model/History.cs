@@ -9,9 +9,10 @@ namespace Why.Economy.Model
     /// <summary>
     /// Competitive advantage through history (Docs/hills-design/HISTORY.md): the stories' actors (states, armies, navies,
     /// populations, faiths, alliances, companies, labs) with their parts by year, the moments and periods, the advantage
-    /// boundaries with their sources by period, and the people. Built by Tools/advantage/history.py from the verified
-    /// research (Docs/research/advantage/story-*.json) into Resources/Data/economy/stories.json (not history.json: that is the households' calibration series); every number here rests on
-    /// a fact whose quote was found on its source.
+    /// boundaries with their sources by period, the people, and the flows of money and capital between the actors. Built by
+    /// Tools/advantage/history.py from the verified research (Docs/research/advantage/story-*.json) into
+    /// Resources/Data/economy/stories.json (not history.json: that is the households' calibration series); every number here
+    /// rests on a fact whose quote was found on its source.
     /// </summary>
     public sealed class History
     {
@@ -236,6 +237,49 @@ namespace Why.Economy.Model
             public string[] Actors = Array.Empty<string>(), Facts = Array.Empty<string>();
         }
 
+        /// <summary>
+        /// Money paid or capital lent or invested from one actor to another over the years a fact gives (history.py's
+        /// build_flows): Britain's subsidies to the coalitions, the French King's loans to the Americans, the rounds into
+        /// Intel and Anthropic. Only facts the gate verified that no skeptic rejected or found to be no flow. An end outside
+        /// the story is null and named by <see cref="FromName"/> or <see cref="ToName"/> (null when the source names no one).
+        /// </summary>
+        public sealed class Flow
+        {
+            public string Id, From, To, FromName, ToName, Unit, Fact;
+
+            /// <summary>What moved: subsidy, aid, grant, payment, purchase or indemnity (money paid); loan, investment,
+            /// acquisition or confiscation (capital).</summary>
+            public string Kind;
+
+            /// <summary>The fact's own number (for labels, with <see cref="Unit"/>), the amount in the story's money (billions
+            /// of pounds of the time, or of dollars) and in its unit of size (a million pounds, a billion dollars: history.py's
+            /// method); NaN where the fact gives no money (a share of a company's capital), which draws nothing.</summary>
+            public double Value = double.NaN, Money = double.NaN, Size = double.NaN;
+
+            /// <summary>The calendar years it ran, both included.</summary>
+            public int FromYear, ToYear;
+
+            /// <summary>Whether the amount is a sum over its years; else it is a year's rate (Chaumont's £5 million for 1814).</summary>
+            public bool Total = true;
+
+            /// <summary>Years it is not drawn in, because flows inside it run there on their own (Britain's £46 million of
+            /// 1793-1814 holds its subsidies of 1809, 1813 and 1814).</summary>
+            public int[] Gaps = Array.Empty<int>();
+
+            public int Years => Math.Max(1, ToYear - FromYear + 1);
+
+            /// <summary>A year's amount in the story's unit of size: a total spread evenly over its years, a rate as it is;
+            /// NaN where unmeasured.</summary>
+            public double PerYear => double.IsNaN(Size) ? double.NaN : Total ? Size / Years : Size;
+
+            /// <summary>Whether it runs in the calendar year of <paramref name="year"/>, outside its gaps.</summary>
+            public bool Runs(float year)
+            {
+                int y = (int)Math.Floor(year);
+                return y >= FromYear && y <= ToYear && Array.IndexOf(Gaps, y) < 0;
+            }
+        }
+
         public sealed class Story
         {
             public string Id, Title;
@@ -245,6 +289,9 @@ namespace Why.Economy.Model
             public readonly List<Period> Periods = new List<Period>();
             public readonly List<Moat> Moats = new List<Moat>();
             public readonly List<Person> People = new List<Person>();
+
+            /// <summary>The flows between the actors (never null; empty in a stories.json built before flows).</summary>
+            public readonly List<Flow> Flows = new List<Flow>();
 
             public Actor Get(string id) => Actors.FirstOrDefault(a => a.Id == id);
             public Person PersonById(string id) => People.FirstOrDefault(p => p.Id == id);
@@ -320,6 +367,19 @@ namespace Why.Economy.Model
                         ActiveFrom = p["active"] is JArray act && act.Count == 2 && !float.IsNaN(F(act[0])) ? F(act[0]) : float.NegativeInfinity,
                         ActiveTo = p["active"] is JArray act2 && act2.Count == 2 && !float.IsNaN(F(act2[1])) ? F(act2[1]) : float.PositiveInfinity,
                     });
+                foreach (JObject f in Arr(s["flows"]))
+                {
+                    float y0 = F(f["fromYear"]), y1 = F(f["toYear"]);
+                    if (float.IsNaN(y0) || float.IsNaN(y1)) continue;    // a flow without its years has nowhere to be drawn
+                    story.Flows.Add(new Flow
+                    {
+                        Id = (string)f["id"], From = (string)f["from"], To = (string)f["to"], FromName = (string)f["fromName"], ToName = (string)f["toName"],
+                        Unit = (string)f["unit"], Kind = (string)f["flowKind"], Fact = (string)f["fact"], Value = D(f["value"]), Money = D(f["money"]), Size = D(f["size"]),
+                        FromYear = (int)y0, ToYear = (int)y1, Total = f["total"] == null || f["total"].Type != JTokenType.Boolean || (bool)f["total"],
+                        Gaps = Arr(f["gaps"]).Select(F).Where(y => !float.IsNaN(y)).Select(y => (int)y).ToArray(),
+                    });
+                }
+
                 Stories.Add(story);
             }
 

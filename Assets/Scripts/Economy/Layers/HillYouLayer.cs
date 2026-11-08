@@ -76,7 +76,7 @@ namespace Why.Economy.Layers
             bool on = LandView.PresetId == "you";
             content.SetActive(on); if (!on) return;
             foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
-            clock += Time.deltaTime;
+            clock = (float)FlowClock.Seconds;   // the flow clock: the figure breathes at a frozen year, alike in every capture
             // the figure breathes under the bloom: brighter, it would wash its gold cushion and the labels around it to white
             if (figure) figure.sharedMaterial.SetColor("_Color", Color.white * (.85f + .15f * Mathf.Sin(clock * 2.2f)));
             foreach (var t in labels) t.transform.rotation = rig.Cam.transform.rotation;

@@ -28,14 +28,18 @@ namespace Why.Economy.Layers
     /// industry and as tall as its net margin, the rest of the industry smaller peaks at its typical margin; a glass plane
     /// at normal profit on every terrace, gold where a peak rises above it (advantage);</item>
     /// <item>veins: the largest purchases between industries, branching into the buyer's largest firms; gold threads
-    /// from the surplus and the most profitable firms to who holds corporate stock;</item>
+    /// from the surplus and the most profitable firms to who holds corporate stock; and what moves along them, packets on
+    /// the flow clock (<see cref="PacketMeshBuilder"/>, <see cref="FlowClock"/>): the goods bought as squares from the seller
+    /// to the buyer's firms, the money paid for them coming back as dots on the largest few veins, and capital rising as
+    /// gold ingots to the owners, so the present is never still, at a frozen year, a paused tour or a held replay;</item>
     /// <item>faint guides from each part's near corners back to the crest face it came from, and labels: the tiers' value
     /// added and jobs, the state's account, the largest firms and industries.</item>
     /// </list>
     /// Entering the view (key I, the bar or the catalog) plays the 6.4 s choreography: face, cut, grow, separate, rise,
     /// arrive. Shift + I plays it backward in 2 s and returns to the overview. Every mesh is built once per land, in one
     /// <see cref="HillRebuilds"/> slot, the first time the view is wanted; the choreography moves root transforms and sets
-    /// materials' alpha only (no mesh rebuilds, no allocation per frame). Nothing is built or drawn outside the view.
+    /// materials' alpha only (no mesh rebuilds, no allocation per frame), and the packets move in the shader alone. Nothing is
+    /// built or drawn outside the view.
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillPresentLayer : GraphLayer
@@ -128,6 +132,17 @@ namespace Why.Economy.Layers
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         readonly List<HillLabel> labels = new List<HillLabel>();
         bool labelsShown;
+
+        /// <summary>The renderer of the view's packets (the veins' goods and money and the threads' capital in one mesh, within
+        /// A6's budget) and the lanes the last build gave it.</summary>
+        MeshRenderer packetRenderer;
+
+        int packetLanes;
+
+        /// <summary>Each packet lane's rate as a build set it, by the lane's key (its flow's ends): a lane rebuilt for another
+        /// year or by the replay keeps its rate while the new one stands within <see cref="RateHold"/>, and its seed is its
+        /// key's, so its packets do not jump.</summary>
+        readonly Dictionary<string, float> laneRates = new Dictionary<string, float>();
 
         /// <summary>The firms the last build drew, and those it found outside their hill's footprint (A8).</summary>
         int firmCount, firmOutside;
@@ -304,6 +319,9 @@ namespace Why.Economy.Layers
             foreach ((Renderer r, Part part) in renderers)
             {
                 float a = EconomyEmphasis.Get(Keys[(int)part]);
+                // the veins' and the capital threads' packets share one renderer (A6's budget, filed under the flows): shown
+                // while either part is, their highlight ids each part's own
+                if (ReferenceEquals(r, packetRenderer)) a = Mathf.Max(a, EconomyEmphasis.Get(Keys[(int)Part.Capital]));
                 if (part == Part.Hills) a *= rise > .01f ? 1 : 0;
                 else if (part == Part.Guides) a *= guides;
                 else if (part == Part.Firms || part == Part.Flows || part == Part.Capital) a *= reveal;
@@ -351,8 +369,11 @@ namespace Why.Economy.Layers
             Guides();
             Firms(out firmCount, out firmOutside);
             Labels(instant, data);
-            Flows(data);
-            Capital(data);
+            // what moves: the veins' goods and money and the threads' capital, one mesh of packets on the flow clock
+            var packets = new PacketMeshBuilder(4096);
+            Flows(data, packets);
+            Capital(data, packets);
+            Packets(packets);
             Key = MakeKey(layout.PerThousand, peaks.NormalMargin, peaks.TableYear);
             Log(instant, firmCount, firmOutside);
             // the new land's parts show at once at the clock (a rebuild mid-flight, a new year in the view)
@@ -571,6 +592,29 @@ namespace Why.Economy.Layers
         /// <summary>The firms whose net income gets its own capital thread (the most profitable).</summary>
         const int CapitalFirms = 10;
 
+        /// <summary>Land units a second every packet of the view travels: about 30 px a second at the view's pose, as the
+        /// politics view's.</summary>
+        const float PacketSpeed = 14;
+
+        /// <summary>
+        /// A lane's packets a second: <see cref="MinRate"/> at <see cref="RateFloor"/> ($B a year) and below, and
+        /// <see cref="RatePerDecade"/> more for every tenfold of its dollars, never past <see cref="MaxRate"/> (faster lanes
+        /// strobe at 30 frames a second). A flow's size is its band's width; the rate only grows gently with it. A lane
+        /// rebuilt keeps its rate while the new one stands within <see cref="RateHold"/>.
+        /// </summary>
+        const float MinRate = .4f, MaxRate = 4, RatePerDecade = .6f, RateHold = .15f;
+
+        const double RateFloor = 50;
+
+        /// <summary>The largest few veins, drawn brighter, whose money comes back beside their goods, and the pixels each
+        /// direction keeps to the right of its travel, so the two pass each other.</summary>
+        const int BrightVeins = 6;
+
+        const float TwoWayOffset = 2;
+
+        /// <summary>A vein's packets' alpha over its band's: faint veins carry faint packets, so the terraces read first.</summary>
+        const float VeinPacketAlpha = 1.4f;
+
         /// <summary>A point on terrace k's ground at the choreography's end (land-local): the terrain where it stands, else the
         /// plateau (or the cut face's profile off the band), lifted by <paramref name="lift"/>.</summary>
         Vector3 OnGround(int tier, float x, float d, float lift = 0)
@@ -677,10 +721,12 @@ namespace Why.Economy.Layers
         /// The industries' interdependence (<see cref="PresentPeaks.Flows"/>, the largest purchases between hills): each a
         /// vein from the seller's largest firm, hugging the ground on one terrace or hanging like a root between two,
         /// that branches at the buyer into its largest firms (each branch as wide as the firm's share of the purchase, by its
-        /// revenue). Veins taper from seller to buyer and grow more opaque as they arrive; the largest few carry pulses and
+        /// revenue). Veins taper from seller to buyer and grow more opaque as they arrive; the largest few are brighter and
         /// the three largest are labelled. Earth tones by the seller's tier, so they read as the ground's, not advantage's.
+        /// Every vein carries its goods, and the largest few the money paid back (<see cref="Goods"/>): the packets are the
+        /// veins' motion, so their bands no longer pulse.
         /// </summary>
-        void Flows(Data.EconomyData data)
+        void Flows(Data.EconomyData data, PacketMeshBuilder packets)
         {
             if (peaks == null || peaks.Flows.Count == 0) return;
             var b = new LineMeshBuilder();
@@ -692,7 +738,7 @@ namespace Why.Economy.Layers
                 PresentPeaks.Field seller = peaks.Of(f.Seller), buyer = peaks.Of(f.Buyer);
                 if (seller == null || buyer == null || seller.Peaks.Count == 0 || buyer.Peaks.Count == 0) continue;
                 float v = Mathf.Sqrt((float)(f.Value / max)), width = .5f + 2.4f * v, alpha = .16f + .4f * v;
-                bool bright = drawn < 6;
+                bool bright = drawn < BrightVeins;
                 Color c = Color.Lerp(InputColor(f.SellerTier, f.Seller), Color.white, .25f);
                 PresentPeaks.Peak source = seller.Peaks[0];
                 // the buyer's largest firms (its rest when it names none), the branches' ends on their near flanks
@@ -711,13 +757,18 @@ namespace Why.Economy.Layers
 
                 meet = Vector3.Lerp(meet / targets.Count, from, .3f);
                 meet.y = Mathf.Max(meet.y, GroundUnder(buyer.Tier, meet) + .5f);
-                float seed = drawn * 1.37f;
-                float length = Vein(b, id, from, meet, seller.Tier == buyer.Tier ? buyer.Tier : 0, c, width, width * .7f, alpha * .45f, alpha * .8f, seed, bright, drawn * .17f);
+                float seed = drawn * 1.37f, intensity = bright ? 1.3f : 1;
+                // the goods ride the trunk from the seller's firm to the branching, then each branch to its firm (its share of
+                // the purchase); a lane's key is its flow's ends, so a rebuild keeps its rate and seed
+                string key = f.Seller + ">" + f.Buyer;
+                Vector3[] trunk = Vein(b, id, from, meet, seller.Tier == buyer.Tier ? buyer.Tier : 0, c, width, width * .7f, alpha * .45f, alpha * .8f, seed, intensity);
+                Goods(packets, id, trunk, key, f.Value, v, alpha, bright);
                 for (int e = 0; e < targets.Count; e++)
                 {
                     float share = (float)(Math.Max(ends[e].Revenue, ends[e].Share) / Math.Max(1e-9, revenue));
                     float w0 = Mathf.Max(.4f, width * .7f * Mathf.Sqrt(share));
-                    Vein(b, id, meet, targets[e], buyer.Tier, c, w0, w0 * .4f, alpha * .8f, alpha, seed + e * 2.1f, bright, drawn * .17f + length * .01f);
+                    Vector3[] branch = Vein(b, id, meet, targets[e], buyer.Tier, c, w0, w0 * .4f, alpha * .8f, alpha, seed + e * 2.1f, intensity);
+                    Goods(packets, id, branch, key + ">" + (ends[e].Name ?? "#" + e), f.Value * share, v * Mathf.Sqrt(share), alpha, bright);
                 }
 
                 if (drawn < 3)
@@ -729,40 +780,84 @@ namespace Why.Economy.Layers
                 drawn++;
             }
 
-            MeshRenderer r = Lines(b, Part.Flows, content.transform, 3193, true);
-            r.sharedMaterial.SetFloat("_Flow", 1.2f);
-            r.sharedMaterial.SetFloat("_FlowFreq", 3);
-            r.sharedMaterial.SetFloat("_FlowSpeed", .3f);
+            Lines(b, Part.Flows, content.transform, 3193, true);
         }
 
         /// <summary>
         /// One vein from <paramref name="a"/> to <paramref name="b"/>: on one terrace (<paramref name="tier"/> &gt; 0) it
         /// follows the ground a little above it; between terraces (0) it sags like a hanging root. Either way it meanders
         /// (a lateral sway that vanishes at both ends), tapers from <paramref name="w0"/> to <paramref name="w1"/> and fades in
-        /// from <paramref name="a0"/> to <paramref name="a1"/>. Returns its length.
+        /// from <paramref name="a0"/> to <paramref name="a1"/>. Returns its points, the path its packets take.
         /// </summary>
-        float Vein(LineMeshBuilder lines, float id, Vector3 a, Vector3 b, int tier, Color c, float w0, float w1, float a0, float a1, float seed, bool pulse, float phase)
+        Vector3[] Vein(LineMeshBuilder lines, float id, Vector3 a, Vector3 b, int tier, Color c, float w0, float w1, float a0, float a1, float seed, float intensity)
         {
             const int n = 28;
             Vector3 span = b - a, side = Vector3.Cross(Vector3.up, span).normalized;
             float distance = span.magnitude, sway = Mathf.Min(5, distance * .06f), sag = 8 + .1f * distance;
             var pts = new List<LinePoint>(n + 1);
-            float length = 0;
-            Vector3 last = a;
+            var path = new Vector3[n + 1];
             for (int i = 0; i <= n; i++)
             {
                 float t = i / (float)n;
                 Vector3 p = Vector3.Lerp(a, b, t) + side * (sway * Mathf.Sin(Mathf.PI * t) * Mathf.Sin(2.6f * Mathf.PI * t + seed));
                 if (tier > 0) p.y = Mathf.Max(p.y, GroundUnder(tier, p) + .45f);
                 else p.y -= sag * 4 * t * (1 - t);
-                length += Vector3.Distance(last, p);
-                last = p;
-                pts.Add(new LinePoint(p, WithAlpha(c, Mathf.Lerp(a0, a1, t)), Mathf.Lerp(w0, w1, t), 0, pulse ? 1.3f : 1));
+                path[i] = p;
+                pts.Add(new LinePoint(p, WithAlpha(c, Mathf.Lerp(a0, a1, t)), Mathf.Lerp(w0, w1, t), 0, intensity));
             }
 
-            if (pulse) lines.AddFlowPath(pts, id, length > 0 ? 1f / length : 1, phase);
-            else lines.AddPolyline(pts, id);
-            return length;
+            lines.AddPolyline(pts, id);
+            return path;
+        }
+
+        // ------------------------------------------------------------------ what moves: goods, money and capital
+
+        /// <summary>
+        /// The packets on one path of a vein: the goods bought, squares from the seller toward the buyer at a rate that grows
+        /// gently with the path's dollars (<see cref="Rate"/>), as faint as the vein (<see cref="VeinPacketAlpha"/>) and
+        /// 2.5 to 3.5 px; on the largest few (<paramref name="twoWay"/>) the money paid for them comes back as dots at the same
+        /// rate, each direction keeping to the right of its travel so the two pass each other. Both in commerce's role (money
+        /// and goods between businesses), with the vein's highlight id. A purchase not measured draws none.
+        /// </summary>
+        void Goods(PacketMeshBuilder packets, float id, Vector3[] path, string key, double dollars, float v, float alpha, bool twoWay)
+        {
+            float rate = Rate(key, dollars), seed = Organism.Hash01(key), size = 2.5f + Mathf.Clamp01(v);
+            Color c = WithAlpha(EconomyStyle.Roles.Commerce, Mathf.Clamp01(VeinPacketAlpha * alpha));
+            float offset = twoWay ? TwoWayOffset : 0;
+            packets.AddLane(path, PacketKind.Goods, c, rate, PacketSpeed, size, id, offsetPx: offset, seed: seed);
+            if (twoWay) packets.AddLane(path, PacketKind.Money, c, rate, PacketSpeed, size, id, offsetPx: offset, seed: (seed + .5f) % 1f, backward: true);
+        }
+
+        /// <summary>Capital rising along a thread (<see cref="Thread"/>): gold ingots in the owners' role from its first point to
+        /// its last, at a rate that grows gently with its dollars (<see cref="Rate"/>), with the thread's highlight id.</summary>
+        void Rising(PacketMeshBuilder packets, float id, Vector3[] path, string key, double dollars, float alpha, float size) =>
+            packets.AddLane(path, PacketKind.Capital, WithAlpha(EconomyStyle.Roles.Owners, alpha), Rate(key, dollars), PacketSpeed, size, id, seed: Organism.Hash01(key));
+
+        /// <summary>
+        /// The packets a second of lane <paramref name="key"/>, which carries <paramref name="dollars"/> ($B a year): the view's
+        /// one gentle curve over its dollars (<see cref="MinRate"/> at <see cref="RateFloor"/> and below,
+        /// <see cref="RatePerDecade"/> more for every tenfold, at most <see cref="MaxRate"/>), or the rate the lane had when last
+        /// built while the new one stands within <see cref="RateHold"/> of it, so a year's rebuild does not jump its pattern.
+        /// NaN, which draws no packets, when the amount is not measured (NaN) or not positive.
+        /// </summary>
+        float Rate(string key, double dollars)
+        {
+            if (!(dollars > 0) || double.IsInfinity(dollars)) return float.NaN;
+            float rate = Mathf.Clamp(MinRate + RatePerDecade * (float)Math.Log10(dollars / RateFloor), MinRate, MaxRate);
+            if (laneRates.TryGetValue(key, out float kept) && Mathf.Abs(kept - rate) < RateHold) return kept;
+            laneRates[key] = rate;
+            return rate;
+        }
+
+        /// <summary>The view's packets in one renderer over the content, at the parts' end poses as the veins and threads are;
+        /// shown as the flows and the capital arrive (<see cref="Apply"/>) and moved by the shader on the flow clock alone.</summary>
+        void Packets(PacketMeshBuilder packets)
+        {
+            packetLanes = packets.LaneCount;
+            if (packetLanes == 0) return;
+            Material m = GraphMaterials.Raw(GraphMaterials.Packets(Color.white, 1, 3195));
+            owned.Add(m);
+            packetRenderer = AddRenderer(packets.ToMesh("Present packets"), m, Part.Flows, content.transform, "Present packets");
         }
 
         /// <summary>The ground's height (land-local y) under a land-local point on terrace k at the choreography's end.</summary>
@@ -777,8 +872,10 @@ namespace Why.Economy.Layers
         /// Capital's connections: each terrace's operating surplus (its gold crowns) rises in one thread to a hub over the
         /// present, every stored firm's ring in a faint one, and from the hub the claims fan out to who holds corporate stock
         /// (the wealth groups' shares, Fed DFA, for the year; abroad, Fed Z.1), each owner a gold disc as large as its share.
+        /// Capital rises along every thread as gold ingots (<see cref="Rising"/>): the surplus's, the firm's net income, the
+        /// owner's share of the surplus; the ingots are the threads' motion, so the threads no longer pulse.
         /// </summary>
-        void Capital(Data.EconomyData data)
+        void Capital(Data.EconomyData data, PacketMeshBuilder packets)
         {
             if (peaks == null || peaks.Peaks.Count == 0) return;
             float top = 0, x0 = float.MaxValue, x1 = float.MinValue;
@@ -805,8 +902,9 @@ namespace Why.Economy.Layers
                 PresentLayout.Terrace t = layout.Terraces[k - 1];
                 if (peaks.Surplus[k - 1] <= 0) continue;
                 Vector3 from = OnGround(k, (t.Band0 + t.Band1) * .5f, PresentLayout.D * .5f, 1);
-                float share = surplus > 0 ? (float)(peaks.Surplus[k - 1] / surplus) : 0;
-                Thread(lines, id, from, hub, WithAlpha(gold, .22f), .6f + 2.4f * Mathf.Sqrt(share), k * .21f);
+                float share = surplus > 0 ? (float)(peaks.Surplus[k - 1] / surplus) : 0, s = Mathf.Sqrt(share);
+                Vector3[] path = Thread(lines, id, from, hub, WithAlpha(gold, .22f), .6f + 2.4f * s);
+                Rising(packets, id, path, "surplus " + k, peaks.Surplus[k - 1], .6f + .3f * s, 3 + .6f * s);
             }
 
             // the most profitable firms, each from its summit, as wide as its net income: advantage paid out to owners
@@ -814,8 +912,10 @@ namespace Why.Economy.Layers
             double most = earners.Count > 0 ? earners[0].peak.NetIncome : 1;
             for (int i = 0; i < earners.Count; i++)
             {
-                float v = Mathf.Sqrt((float)(earners[i].peak.NetIncome / most));
-                Thread(lines, id, earners[i].at, hub, WithAlpha(Color.Lerp(gold, pale, .3f), .1f + .32f * v), .4f + 2.2f * v, i * .07f);
+                PresentPeaks.Peak firm = earners[i].peak;
+                float v = Mathf.Sqrt((float)(firm.NetIncome / most));
+                Vector3[] path = Thread(lines, id, earners[i].at, hub, WithAlpha(Color.Lerp(gold, pale, .3f), .1f + .32f * v), .4f + 2.2f * v);
+                Rising(packets, id, path, "firm " + firm.Industry + " " + firm.Name, firm.NetIncome, .35f + .45f * v, 2.5f + .8f * v);
             }
 
             // the owners: the year's shares of household-held corporate stock, the rest of the world's share taken first
@@ -838,7 +938,9 @@ namespace Why.Economy.Layers
                 if (shares[o] <= 0) continue;
                 Vector3 at = new Vector3(hub.x + spread * (o / (float)(Owners.Length - 1) - .5f), top + OwnersRise, z + 30);
                 float radius = 1.5f + 11 * Mathf.Sqrt((float)shares[o]);
-                Thread(lines, id, hub, at, WithAlpha(gold, .65f), 1 + 6 * (float)shares[o], o * .19f);
+                Vector3[] path = Thread(lines, id, hub, at, WithAlpha(gold, .65f), 1 + 6 * (float)shares[o]);
+                // the owner's share of the surplus the hub gathers, as the thread's width draws it
+                Rising(packets, id, path, "owner " + Owners[o].id, shares[o] * surplus, .85f, 3 + 2 * (float)shares[o]);
                 Ring(lines, id, at, radius, gold, 2);
                 Ring(lines, id, at + Vector3.up * .05f, radius * 1.15f, gold, 1.1f);
                 Disc(discs, id, at, radius, WithAlpha(gold, .28f));
@@ -856,31 +958,27 @@ namespace Why.Economy.Layers
                 Text = "operating surplus " + LandFacts.Money(surplus, 1) + " a year, and the " + CapitalFirms + " most profitable firms' net income, owned by", At = hub + new Vector3(6, 2, 0),
                 Role = LabelRole.Note, Part = "present.capital", Rank = 19
             });
-            MeshRenderer r = Lines(lines, Part.Capital, content.transform, 3194, true);
-            r.sharedMaterial.SetFloat("_Flow", 1.4f);
-            r.sharedMaterial.SetFloat("_FlowFreq", 2);
-            r.sharedMaterial.SetFloat("_FlowSpeed", .25f);
+            Lines(lines, Part.Capital, content.transform, 3194, true);
             Surface(discs, Part.Capital, content.transform, 3188);
         }
 
-        /// <summary>A thread of capital: a gentle curve from <paramref name="from"/> up to <paramref name="to"/>, pulses
-        /// running upward.</summary>
-        static void Thread(LineMeshBuilder b, float id, Vector3 from, Vector3 to, Color c, float width, float phase)
+        /// <summary>A thread of capital: a gentle curve from <paramref name="from"/> up to <paramref name="to"/>. Returns its
+        /// points, the path its ingots rise along.</summary>
+        static Vector3[] Thread(LineMeshBuilder b, float id, Vector3 from, Vector3 to, Color c, float width)
         {
             Vector3 control = new Vector3(from.x, Mathf.Lerp(from.y, to.y, .75f), Mathf.Lerp(from.z, to.z, .5f));
             var pts = new List<LinePoint>(21);
-            float length = 0;
-            Vector3 last = from;
+            var path = new Vector3[21];
             for (int i = 0; i <= 20; i++)
             {
                 float t = i / 20f;
                 Vector3 p = (1 - t) * (1 - t) * from + 2 * (1 - t) * t * control + t * t * to;
-                length += Vector3.Distance(last, p);
-                last = p;
+                path[i] = p;
                 pts.Add(new LinePoint(p, c, width, 0, 1.2f));
             }
 
-            b.AddFlowPath(pts, id, length > 0 ? 1f / length : 1, phase);
+            b.AddPolyline(pts, id);
+            return path;
         }
 
         static void Disc(SurfaceMeshBuilder b, float id, Vector3 at, float radius, Color c)
@@ -964,13 +1062,15 @@ namespace Why.Economy.Layers
                       $"t0 coincidence max {coincidence.ToString("0.00", LandFacts.Ci)}; apart at t1, smallest gap {gap.ToString("0.0", LandFacts.Ci)} ({apart}); " +
                       $"firms {firms} ({outside} outside their hills); bedrock {(PresentLayout.S * layout.BedrockDepth).ToString("0", LandFacts.Ci)} deep; " +
                       (peaks != null ? $"peaks {peaks.Peaks.Count} on {peaks.Fields.Count} fields ({peaks.Named} named firms, {peaks.Unplaced} without revenue), normal margin {Percent(peaks.NormalMargin)}, " +
-                                       $"veins {peaks.Flows.Count} (largest {(peaks.Flows.Count > 0 ? LandFacts.Money(peaks.Flows[0].Value, 0) : "-")}), surplus {LandFacts.Money(peaks.Surplus.Sum(), 1)}" : "no peaks"));
+                                       $"veins {peaks.Flows.Count} (largest {(peaks.Flows.Count > 0 ? LandFacts.Money(peaks.Flows[0].Value, 0) : "-")}), surplus {LandFacts.Money(peaks.Surplus.Sum(), 1)}, " +
+                                       $"packet lanes {packetLanes} at {PacketSpeed.ToString("0", LandFacts.Ci)} u/s" : "no peaks"));
             if (peaks != null && peaks.Named == 0) problems.Add("no named firm stands on the present's hills");
             foreach (string p in problems) Debug.LogError("[Why] present check failed: " + p);
         }
 
         /// <summary>The view's legend: how to read a peak (footprint share, height margin, volume profit), normal profit's
-        /// plane and its gold, the earth tones of the tiers and their veins, the capital threads and the bedrock.</summary>
+        /// plane and its gold, the earth tones of the tiers and their veins, the capital threads, what moves along both, and
+        /// the bedrock.</summary>
         static HillPresets.ViewKey MakeKey(double perThousand, double normal = 0, int table = 0) => new HillPresets.ViewKey(new (string, Color)[]
             {
                 ("Advantage: margin above normal profit", GoldBright), ("Normal profit", Glass), ("Raw materials", InputTone[1]), ("Manufacturing · infrastructure", InputTone[2]),
@@ -980,7 +1080,9 @@ namespace Why.Economy.Layers
             ". Each peak a firm: its footprint its share of the industry (revenue over the industry's output" + (table > 0 ? ", the " + table + " BEA input-output table scaled to the year" : "") +
             "; worldwide revenue, so where the named firms pass 70% the industry is widened to fit), its height its net margin, so its volume is its profit. The small peaks: the rest of the industry at its typical margin (an illustrative spread)." +
             (normal > 0 ? " The glass plane: normal profit, the Fortune 500's " + (100 * normal).ToString("0", LandFacts.Ci) + "% net margin; gold above it is advantage, brighter the higher it rises." : "") +
-            " Veins: the largest purchases between industries, branching into the buyer's largest firms. Gold threads: surplus and the most profitable firms' net income to who holds corporate stock (Fed DFA; abroad, Fed Z.1). The bedrock: what all levels of government spend; the white line, what they take in.");
+            " Veins: the largest purchases between industries, branching into the buyer's largest firms. Gold threads: surplus and the most profitable firms' net income to who holds corporate stock (Fed DFA; abroad, Fed Z.1)." +
+            " The marks moving along them: squares, the goods bought; dots, the money paid back on the largest veins; ingots, profit rising to its owners." +
+            " The bedrock: what all levels of government spend; the white line, what they take in.");
 
         // ------------------------------------------------------------------ the smoke sequence
 
@@ -1095,6 +1197,8 @@ namespace Why.Economy.Layers
             content = null;
             layout = null;
             peaks = null;
+            packetRenderer = null;
+            packetLanes = 0;
             firmTops.Clear();
             Array.Clear(roots, 0, roots.Length);
             Array.Clear(hillRoots, 0, hillRoots.Length);

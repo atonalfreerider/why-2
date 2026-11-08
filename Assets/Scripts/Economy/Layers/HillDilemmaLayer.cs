@@ -56,7 +56,7 @@ namespace Why.Economy.Layers
         /// <summary>The ledger's plate, resized whenever a round rewrites the ledger.</summary>
         Transform ledgerPlate;
         Vector3 center; Vector3[] seats;
-        int version = -1; float clock; bool wasShown;
+        int version = -1; float clock; double roundStart; bool wasShown;
 
         public override void Prepare(GraphContext ctx) { }
         public override void Upload(GraphContext ctx) { EconomyStage.Land().Place(transform); }
@@ -76,8 +76,11 @@ namespace Why.Economy.Layers
             // Entering the view starts a fresh match, so the slip always comes a few seconds in.
             if (!wasShown) { wasShown = true; Build(); if (content == null) return; content.SetActive(true); }
             EconomyEmphasis.Apply(arenaLines, Part.Arena); EconomyEmphasis.Apply(arenaFloor, Part.Floor); EconomyEmphasis.Apply(dynamicLines, Part.Moves); EconomyEmphasis.Apply(pulses, Part.Pulses);
-            clock += Time.deltaTime;
-            if (clock >= RoundSeconds) { clock = 0; arena.Step(); Dynamic(); }
+            // the round's clock is the flow clock's (FlowClock), so the rounds play on at a frozen year; a capture sets the flow
+            // clock back to 0, and the round starts again with it
+            clock = (float)(FlowClock.Seconds - roundStart);
+            if (clock < 0) { roundStart = FlowClock.Seconds; clock = 0; }
+            if (clock >= RoundSeconds) { roundStart = FlowClock.Seconds; clock = 0; arena.Step(); Dynamic(); }
             Pulses(clock / RoundSeconds);
             foreach (var l in labels) if (l) l.transform.rotation = rig.Cam.transform.rotation;
         }
@@ -133,7 +136,7 @@ namespace Why.Economy.Layers
             arenaFloor = Surface(fill, "Arena floor");
             dynamicLines = Lines(new LineMeshBuilder(), "Arena moves", true);
             pulses = Lines(new LineMeshBuilder(), "Arena pulses", false);
-            clock = 0; Dynamic();
+            clock = 0; roundStart = FlowClock.Seconds; Dynamic();
             var groups = Groups(0);
             Anchors.Register(new Anchor { Key = "dilemma:groups", Label = "Groups", Blurb = "Cooperation within and across tribes, the season's mean field.", Level = GraphLevel.Humans,
                 Tier = 1, YearsAgo = DeepTime.NowYear - snapshot.Year, EndYearsAgo = DeepTime.NowYear - snapshot.Year, Fixed = EconomyStage.Land().World(groups) });

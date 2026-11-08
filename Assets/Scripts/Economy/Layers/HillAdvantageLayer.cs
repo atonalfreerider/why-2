@@ -27,13 +27,16 @@ namespace Why.Economy.Layers
     /// white-gold for capital); gold threads run up to the owners' golden circles above, the ownership class: households
     /// by wealth and founders over the funds, sovereigns, private equity and hedge funds; buyers and the states stand on
     /// the low ground beneath;</item>
+    /// <item>what the rivers and threads carry moves at every instant, as packets on the flow clock (<see cref="Rivers"/>):
+    /// money, capital, payouts rising to the owners, and the dashes of contracts not yet paid, whether the year is still,
+    /// played or changing;</item>
     /// <item>a world (now, 2030, a scenario) and a year (2026-2030) of the Darwinian simulation retarget every organism:
     /// shells inflate or burst, the extinct sink and fade, the absorbed join their absorber, and the layout keeps moving
     /// until the population settles;</item>
     /// <item>sparks mark the contests; the history camera follows the lineage's gold lane along the wave from 1947.</item>
     /// </list>
     /// Key I enters (the crest opens, the organisms rise); I again replays; Shift + I returns to the overview. Meshes are
-    /// rebuilt about 15 times a second while the population moves and not at all at rest.
+    /// rebuilt about 15 times a second while the population moves and not at all at rest (the packets move in the shader).
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillAdvantageLayer : GraphLayer
@@ -162,7 +165,8 @@ namespace Why.Economy.Layers
             "leverage (red to yellow as it rises), and the dust of speculation out to its market value by its P/E (violet to pink as it inflates). " +
             "Cash, what it built, what it bought, its stakes and its leases keep muted tones. The supply chain stands in strata under the hill, consumer " +
             "products on top, government the floor; a company's column runs through the strata it works in. A dominant company's boundary is a ring as wide " +
-            "as its share, walled by its sources of advantage, each as tall as Jev judges it keeps rivals and entrants out. Rose walls: talent and share price.");
+            "as its share, walled by its sources of advantage, each as tall as Jev judges it keeps rivals and entrants out. Rose walls: talent and share price. " +
+            "Moving on the rivers and threads: dots of money, gold ingots of capital and payouts, dashes of contracts not yet paid.");
 
         // ------------------------------------------------------------------ the layer
 
@@ -637,8 +641,11 @@ namespace Why.Economy.Layers
                 Columns();
                 Walls();
             }
+            // the rivers and threads lay their packets in one builder; one mesh carries them all
+            packets.Clear();
             Rivers();
             Threads();
+            Packets();
             Sparks();
             Lineage();
             if (landscape || !partRenderer[(int)Part.Landscape]) Landscape();
@@ -1198,42 +1205,114 @@ namespace Why.Economy.Layers
 
         float RulerX() => net.Bodies.Where(x => x.Kind == ContestNetwork.Kind.Company).Select(x => x.Pos.x + x.R).DefaultIfEmpty(ContestNetwork.X0).Max() + 26;
 
+        // ------------------------------------------------------------------ the rivers and threads, and what moves on them
+
+        /// <summary>
+        /// What moves at every instant (the user, 7 Nov 2026, Docs/research/advantage/brief-v5.md: "It should be a continuous
+        /// animation, so there isn't any static frozen moment in time"): packets (<see cref="PacketMeshBuilder"/>) marching from
+        /// payer to payee on the flow clock (<see cref="FlowClock"/>), so they move while the year is still, the play paused, a
+        /// world settling or a tour held. On every river the view draws, lit or faint (<see cref="River"/>): money as dots in its
+        /// band's palette role, capital (investment, and the payouts that rise to the owners) as ingots in the owners' gold, a
+        /// contract before its start year as the marching dashes of a promise, a one-off amount as one larger packet every three
+        /// seconds; and up each owner's thread from a company whose buybacks or dividends are on record, gold ingots
+        /// (<see cref="Threads"/>). They replace the rivers' and threads' pulses: one motion, not two. One mesh in one draw,
+        /// rebuilt with the rivers (not at all at rest; about 15 times a second while the population moves).
+        /// <list type="bullet">
+        /// <item>A flow's dollars stay its band's width. Its packets come at a rate that follows its measured dollars gently
+        /// (<see cref="Rate"/>), never the world's or the year's, and each lane's seed is its flow's: a rebuild, a year or a world
+        /// never makes a pattern jump (only a contract's start turns its dashes into money).</item>
+        /// <item>An unmeasured amount draws no packets, and a thread carries none from a company with no payout on record.</item>
+        /// </list>
+        /// </summary>
+        readonly PacketMeshBuilder packets = new PacketMeshBuilder(2048);
+
+        MeshRenderer packetRenderer;
+
+        /// <summary>World units a second every packet of the view travels: about 23 pixels a second in the view's own pose
+        /// (1,690 units away), so a river between neighbouring strata is crossed in about four seconds.</summary>
+        const float PacketSpeed = 30;
+
+        /// <summary>Packets a second (a lane at most four: faster ones strobe at 30 frames a second): a promise's dashes, close
+        /// enough to read as a dashed line; a one-off amount's single packet, one every three seconds; the payouts up a thread.</summary>
+        const float PromiseRate = 2f, OneOffRate = 1 / 3f, PayoutRate = .5f;
+
+        /// <summary>A faint river's band against a lit one's; a promised river's ghost (as wide as the dollars it will carry a
+        /// year) against a flowing one's.</summary>
+        const float FaintRiver = .25f, PromiseGhost = .35f;
+
+        /// <summary>The packets' render queue: after every band and thread of the view, so they read over them.</summary>
+        const int PacketQueue = 3191;
+
+        /// <summary>A yearly flow's packets a second from its measured dollars ($bn a year; a motive's lane, its share): 0.6 for
+        /// $1bn, 1.1 for $50bn, 1.4 for $500bn, 1.8 for the $8tn of wages in each motive's lane, at most 2: the band's width shows
+        /// the dollars, the rate only follows them. NaN for an unmeasured amount, which draws no packets.</summary>
+        static float Rate(double usdBn) => double.IsNaN(usdBn) ? float.NaN : Mathf.Clamp(.6f + .3f * Mathf.Log10((float)Math.Max(1, usdBn)), .5f, 2f);
+
+        /// <summary>Whether a river is a contract that starts after the year shown: a promise, drawn as one (ADVANTAGE.md
+        /// section 5: "Contracted commitments are dashed: promises").</summary>
+        bool Promised(ContestNetwork.Link l) => l.Flow != null && l.Flow.Kind == "contract" && l.Flow.Start > Year;
+
+        /// <summary>Each river's place among the rivers flowing in 2026, largest first (the contracts that start later after
+        /// them): the side its band bends to. Fixed for the network, so a year or a world that ends some rivers never flips the
+        /// others' bends, and their packets never jump across; in 2026 it is the order the bends always took.</summary>
+        readonly Dictionary<ContestNetwork.Link, int> riverSalt = new Dictionary<ContestNetwork.Link, int>();
+
+        ContestNetwork saltNet;
+
+        int RiverSalt(ContestNetwork.Link l)
+        {
+            if (saltNet != net)
+            {
+                saltNet = net;
+                riverSalt.Clear();
+                int k = 0;
+                foreach (var x in net.Links.Where(x => x.Kind == "flow").OrderBy(x => x.Flow != null && x.Flow.Start > 2026).ThenByDescending(x => x.UsdBn))
+                    riverSalt[x] = k++;
+            }
+
+            return riverSalt.TryGetValue(l, out int s) ? s : 0;
+        }
+
         /// <summary>The rivers: each flow a curved band between the two shells, in two lanes (rose desire, ice fear) where the
-        /// payer's motive was judged, white-gold for capital, as wide as 0.35 √$bn a year; pulses toward the payee. The largest
-        /// few are lit, the rest faint, a selection lights its own.</summary>
+        /// payer's motive was judged, white-gold for capital, as wide as 0.3 √$bn a year, its packets moving toward the payee.
+        /// The story's hops are lit and every other living river runs faint, still moving; a selection lights its own. A
+        /// contract before its start year is a ghost of its river under its promise's marching dashes.</summary>
         void Rivers()
         {
             Drop(Part.Rivers);
             var b = new LineMeshBuilder();
             float id = EconomyEmphasis.Id(Keys[(int)Part.Rivers]);
-            var flows = net.Links.Where(l => l.Kind == "flow" && l.A.Alive && l.B.Alive && (l.Flow == null || l.Flow.Start <= Year)).OrderByDescending(l => l.UsdBn).ToList();
+            // every living river (both ends alive): flowing, or a contract promised for a later year; anything else not yet
+            // started waits for its year
+            var flows = net.Links.Where(l => l.Kind == "flow" && l.A.Alive && l.B.Alive && (l.Flow == null || l.Flow.Start <= Year || Promised(l)))
+                .OrderByDescending(l => l.UsdBn).ToList();
             // by default, the story, hop by hop down the chain the user named: the labs' compute into the builders, the builders'
             // capex into the chips, the chips into the fabs, the fabs into the tools; capital into the labs; and the payouts that
-            // rise to the owners. At least two rivers a hop, largest first; every other river waits for a selection.
+            // rise to the owners. Up to three flowing rivers a hop, largest first, lit (the rivers the story always lit), and
+            // beside them a hop's contracts not yet started, lit as promises; every other river faint, but moving.
             var story = new HashSet<ContestNetwork.Link>();
             foreach (var (from, to) in StoryHops)
-                foreach (var l in flows.Where(l => Hop(l.A, from) && Hop(l.B, to)).Take(3)) story.Add(l);
-            for (int i = 0; i < flows.Count; i++)
             {
-                var l = flows[i];
-                bool lit = Selected == null ? story.Contains(l) : l.A.Id == Selected || l.B.Id == Selected;
-                if (!lit) continue;
-                if (Focus >= 0 && Focus < Strata && l.A.Stratum != Focus && l.B.Stratum != Focus) continue;
+                foreach (var l in flows.Where(l => !Promised(l) && Hop(l.A, from) && Hop(l.B, to)).Take(3)) story.Add(l);
+                foreach (var l in flows.Where(l => Promised(l) && Hop(l.A, from) && Hop(l.B, to))) story.Add(l);
+            }
+            bool closeUp = Focus >= 0 && Focus < Strata;
+            foreach (var l in flows)
+            {
+                if (closeUp && l.A.Stratum != Focus && l.B.Stratum != Focus) continue;
                 if (Above(l.A.Id) && Above(l.B.Id)) continue;
-                float closeUp = Focus >= 0 && Focus < Strata ? .4f : 1;
-                float alpha = .85f * closeUp;
+                bool lit = Selected == null ? story.Contains(l) : l.A.Id == Selected || l.B.Id == Selected;
                 double usd = l.Flow != null ? l.Flow.In(Scenario) : l.UsdBn;
-                River(b, id, l, usd, alpha, i);
+                River(b, id, l, usd, .85f * (lit ? 1 : FaintRiver) * (closeUp ? .4f : 1), RiverSalt(l), lit, closeUp);
             }
 
-            var r = Lines(b, Part.Rivers, arena, 3184, true);
-            r.sharedMaterial.SetFloat("_Flow", 1.3f);
-            r.sharedMaterial.SetFloat("_FlowFreq", 3);
-            r.sharedMaterial.SetFloat("_FlowSpeed", .35f);
-            partRenderer[(int)Part.Rivers] = r;
+            // the packets are the rivers' motion now: the bands no longer pulse (the material's flow stays 0)
+            partRenderer[(int)Part.Rivers] = Lines(b, Part.Rivers, arena, 3184, true);
         }
 
-        void River(LineMeshBuilder b, float id, ContestNetwork.Link l, double usd, float alpha, int salt)
+        /// <summary>One river: its band (or its two lanes) and the packets each carries from payer to payee, in the band's
+        /// palette role, at a rate from its measured dollars (whatever the world or the year) and a seed from its id.</summary>
+        void River(LineMeshBuilder b, float id, ContestNetwork.Link l, double usd, float alpha, int salt, bool lit, bool closeUp)
         {
             Vector3 a = l.A.Pos, z = l.B.Pos, d = z - a;
             float dist = d.magnitude;
@@ -1243,48 +1322,108 @@ namespace Why.Economy.Layers
             side = side.sqrMagnitude < .01f ? Vector3.right : side.normalized;
             Vector3 p1 = (p0 + p2) * .5f + Vector3.up * (dist * .12f) + side * (dist * .06f * ((salt & 1) == 0 ? 1 : -1));
             float width = Mathf.Clamp(.3f * Mathf.Sqrt((float)Math.Max(0, usd)), .4f, l.A.Kind == ContestNetwork.Kind.Buyer ? 3f : 7f);
-            string kind = l.Flow?.Kind ?? "";
+            var flow = l.Flow;
+            string kind = flow?.Kind ?? "";
             bool capital = kind == "investment" || kind == "financing" || kind == "equity";
             bool owner = l.A.Kind == ContestNetwork.Kind.Owner || l.A.Kind == ContestNetwork.Kind.Wealth || l.B.Kind == ContestNetwork.Kind.Owner || l.B.Kind == ContestNetwork.Kind.Wealth;
+            bool promise = Promised(l), oneOff = flow != null && !flow.Yearly;
+            // a promised river is a ghost of the river it will be, as wide as the dollars it will carry a year
+            float band = promise ? alpha * PromiseGhost : alpha;
+
+            // its packets: a contract not yet started marches as a promise; capital and the payouts to the owners as ingots;
+            // money paid (revenue, capex, wages, a contract once started) as dots. A one-off amount is one larger packet
+            // every three seconds; a faint river's packets are smaller and fainter. None where the dollars are unmeasured or
+            // none in the world shown (its scale): no motion where the data holds no flow
+            PacketKind carries = promise ? PacketKind.Promise : capital || owner ? PacketKind.Capital : PacketKind.Money;
+            double measured = flow != null ? flow.UsdBn : l.UsdBn;
+            bool moves = usd > 0 && measured > 0;
+            float seed = Hash(flow?.Id ?? l.A.Id + ">" + l.B.Id), shown = (lit ? .9f : .45f) * (closeUp ? .6f : 1);
+            float px = (promise ? 4 : oneOff ? 5 : 3) - (lit ? 0 : .5f);
+            void Carry(Vector3[] path, float w, Color role, double dollars, float shift) =>
+                packets.AddLane(path, carries, WithAlpha(role, shown), !moves ? float.NaN : promise ? PromiseRate : oneOff ? OneOffRate : Rate(dollars),
+                    PacketSpeed, px, id, seed: (seed + shift) % 1f, sizeWorld: Mathf.Min(.3f * w, .5f));
+
             if (owner)
             {
-                // the payouts that rise to the owners and the rounds that come down from them: thin, muted gold
-                Lane(b, id, p0, p1, p2, side, 0, Mathf.Min(width, 1.4f), Color.Lerp(CapitalFlow, Gold, .3f), alpha * (Focus >= 0 ? .18f : .4f));
+                // the payouts that rise to the owners and the rounds that come down from them: thin, muted gold, carrying gold
+                var path = LanePath(p0, p1, p2, side, 0);
+                float w = Mathf.Min(width, 1.4f);
+                Lane(b, id, path, w, Color.Lerp(CapitalFlow, Gold, .3f), band * (Focus >= 0 ? .18f : .4f));
+                Carry(path, w, Roles.Owners, measured, 0);
                 return;
             }
-            double fear = l.Flow != null ? l.Flow.Fear : double.NaN;
+
+            double fear = flow != null ? flow.Fear : double.NaN;
             if (capital || double.IsNaN(fear))
             {
-                Lane(b, id, p0, p1, p2, side, 0, width, capital ? CapitalFlow : Neutral, alpha);
+                var path = LanePath(p0, p1, p2, side, 0);
+                Lane(b, id, path, width, capital ? CapitalFlow : Neutral, band);
+                Carry(path, width, capital ? Roles.Owners : Roles.Commerce, measured, 0);
                 return;
             }
 
+            // each motive's lane carries its own share, the two streams half a gap apart so their packets alternate
             float f = Mathf.Clamp01((float)fear), wd = width * (1 - f), wf = width * f;
-            if (wd > .05f) Lane(b, id, p0, p1, p2, side, -wf * .5f, wd, EconomyStyle.Desire, alpha);
-            if (wf > .05f) Lane(b, id, p0, p1, p2, side, wd * .5f, wf, EconomyStyle.Fear, alpha);
+            bool single = promise || oneOff;
+            if (wd > .05f)
+            {
+                var path = LanePath(p0, p1, p2, side, -wf * .5f);
+                Lane(b, id, path, wd, EconomyStyle.Desire, band);
+                if (!single) Carry(path, wd, Roles.Desire, measured * (1 - f), 0);
+            }
+
+            if (wf > .05f)
+            {
+                var path = LanePath(p0, p1, p2, side, wd * .5f);
+                Lane(b, id, path, wf, EconomyStyle.Fear, band);
+                if (!single) Carry(path, wf, Roles.Fear, measured * f, .5f);
+            }
+
+            // a promise's dashes, or a one-off amount's single packet, run once down the river's middle, in its larger motive
+            if (single) Carry(LanePath(p0, p1, p2, side, 0), width, f > .5f ? Roles.Fear : Roles.Desire, measured, 0);
         }
 
-        static void Lane(LineMeshBuilder b, float id, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 side, float offset, float width, Color c, float alpha)
+        const int LaneSegments = 18;
+
+        readonly Vector3[] lanePath = new Vector3[LaneSegments + 1], threadPath = new Vector3[13];
+
+        /// <summary>The path a river's lane follows: a quadratic from the payer's edge (p0) through p1 to the payee's (p2), held
+        /// <paramref name="offset"/> to the side away from its ends. One buffer, refilled for each lane: its band and its
+        /// packets read it before the next lane's.</summary>
+        Vector3[] LanePath(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 side, float offset)
         {
-            const int n = 18;
-            var pts = new List<LinePoint>(n + 1);
-            float length = 0;
-            Vector3 last = p0;
-            for (int i = 0; i <= n; i++)
+            for (int i = 0; i <= LaneSegments; i++)
             {
-                float t = i / (float)n, taper = Mathf.Clamp01(Mathf.Min(t, 1 - t) * 6);
-                Vector3 p = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2 + side * offset * taper;
-                length += Vector3.Distance(last, p);
-                last = p;
-                pts.Add(new LinePoint(p, WithAlpha(c, alpha), 0, width * Mathf.Lerp(.35f, 1, taper), .92f));
+                float t = i / (float)LaneSegments;
+                lanePath[i] = (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2 + side * offset * Taper(t);
+            }
+
+            return lanePath;
+        }
+
+        /// <summary>How far toward its full offset and width a lane stands at t along it: none at the shells, all of it from a
+        /// sixth of the way in.</summary>
+        static float Taper(float t) => Mathf.Clamp01(Mathf.Min(t, 1 - t) * 6);
+
+        /// <summary>A lane's band along its path, narrowing to a third of its width where it meets the shells.</summary>
+        static void Lane(LineMeshBuilder b, float id, Vector3[] path, float width, Color c, float alpha)
+        {
+            var pts = new List<LinePoint>(path.Length);
+            float length = 0;
+            for (int i = 0; i < path.Length; i++)
+            {
+                if (i > 0) length += Vector3.Distance(path[i - 1], path[i]);
+                pts.Add(new LinePoint(path[i], WithAlpha(c, alpha), 0, width * Mathf.Lerp(.35f, 1, Taper(i / (float)(path.Length - 1))), .92f));
             }
 
             b.AddFlowPath(pts, id, 1f / Mathf.Max(1, length) * 6);
         }
 
-        /// <summary>The gold threads: from each owner's circle down to the organisms it holds (as wide as 0.12 √$bn of the
-        /// stake), and between companies where one holds a stake in another; their pulses rise (dividends and buybacks go up
-        /// to the owners). By default only the stakes in the largest companies, and every stake of a selected actor.</summary>
+        /// <summary>The gold threads: from each owner's circle down to the organisms it holds (as wide as 0.035 √$bn of the
+        /// stake), and between companies where one holds a stake in another. Where the company's buybacks or dividends are on
+        /// record, its payouts rise up them to the holder as gold ingots; a thread from a company with no payout on record
+        /// stays still (it pulsed once, implying payouts the data does not hold). By default only the stakes in the largest
+        /// companies, and every stake of a selected actor.</summary>
         void Threads()
         {
             Drop(Part.Threads);
@@ -1313,17 +1452,57 @@ namespace Why.Economy.Layers
                     Vector3 p = (1 - t) * (1 - t) * from + 2 * (1 - t) * t * mid + t * t * to;
                     length += Vector3.Distance(last, p);
                     last = p;
+                    threadPath[i] = p;
                     pts.Add(new LinePoint(p, WithAlpha(Gold, Selected == null ? .4f : .8f), 0, width, .92f));
                 }
 
                 b.AddFlowPath(pts, id, 1f / Mathf.Max(1, length) * 4);
+                // the payouts rise from the company to whoever holds it, at one rate whatever the stake (its width is the stake)
+                if (Pays(l.B) && (l.A.Kind != ContestNetwork.Kind.Company || l.A.Alive))
+                    packets.AddLane(threadPath, PacketKind.Capital, WithAlpha(Roles.Owners, Selected == null ? .7f : .9f), PayoutRate, PacketSpeed, 3, id,
+                        seed: Hash(l.A.Id + ">" + l.B.Id), sizeWorld: .2f);
             }
 
-            var r = Lines(b, Part.Threads, arena, 3185, true);
-            r.sharedMaterial.SetFloat("_Flow", 1.2f);
-            r.sharedMaterial.SetFloat("_FlowFreq", 2);
-            r.sharedMaterial.SetFloat("_FlowSpeed", .3f);
-            partRenderer[(int)Part.Threads] = r;
+            // the packets are the threads' motion now: the threads no longer pulse (the material's flow stays 0)
+            partRenderer[(int)Part.Threads] = Lines(b, Part.Threads, arena, 3185, true);
+        }
+
+        /// <summary>Whether a living company paid its owners on the record: buybacks or dividends over their stated period (an
+        /// unresearched one, NaN, pays nothing here).</summary>
+        static bool Pays(ContestNetwork.Body b) => b.Kind == ContestNetwork.Kind.Company && b.Alive && b.Actor != null && (b.Actor.Buybacks > 0 || b.Actor.Dividends > 0);
+
+        /// <summary>Uploads the packets the rivers and threads laid, one mesh in one draw: a new mesh under the same renderer and
+        /// material, which stand in the arena (the opening scales them with the rivers) and take the rivers' emphasis (counted
+        /// with the part renderers, faded by the opening's reveal and the history camera as the rivers are; each packet glows
+        /// and dims with its own part's highlight ids).</summary>
+        void Packets()
+        {
+            if (packets.VertexCount == 0)
+            {
+                DropPackets();
+                return;
+            }
+
+            var mesh = packets.ToMesh("Advantage packets");
+            if (packetRenderer)
+            {
+                owned.Add(mesh);
+                var mf = packetRenderer.GetComponent<MeshFilter>();
+                if (mf.sharedMesh) { owned.Remove(mf.sharedMesh); Destroy(mf.sharedMesh); }
+                mf.sharedMesh = mesh;
+                return;
+            }
+
+            Material m = GraphMaterials.Raw(GraphMaterials.Packets(Color.white, 1, PacketQueue));
+            owned.Add(m);
+            packetRenderer = AddRenderer(mesh, m, Part.Rivers, arena, "Advantage packets");
+        }
+
+        void DropPackets()
+        {
+            if (packetRenderer) renderers.RemoveAll(x => x.renderer == packetRenderer);
+            DropRenderer(packetRenderer);
+            packetRenderer = null;
         }
 
         /// <summary>The fitness landscape: contours of the height field under the population every 10 units, faint, every
@@ -2375,6 +2554,11 @@ namespace Why.Economy.Layers
             renderers.Clear();
             labels.Clear();
             Array.Clear(partRenderer, 0, partRenderer.Length);
+            // the packets' renderer went with the content (its mesh and material with the rest owned): a new network makes its own
+            packetRenderer = null;
+            packets.Clear();
+            riverSalt.Clear();
+            saltNet = null;
             content = null;
             net = null;
             if (labelsShown) HillLabels.Clear(this);

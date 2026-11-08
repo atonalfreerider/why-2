@@ -426,5 +426,19 @@ gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. St
   row ("More" opens the sheet downward). Details and what is left: `POLITICS.md` ("Implementation", "Left for later").
 - **Walls and portraits (committed).** Jev's walls `Tools/politics/judge.py` → `Docs/research/politics/walls.json`; 160
   portraits through `Tools/politics/portraits.py` (public domain only, fetched with the stories' items in one go).
-- **Next:** a tour stop for the view (narration needs the user's go-ahead: ElevenLabs credits), the open portrait sheet's
-  smoke state, other countries.
+- **No frozen moment (8 Nov).** Packets on the flow clock now move in five more views at a frozen year (the flows map's
+  proposal 3, 4 and 8a, `Docs/research/politics/maps/government-flows-power-2026-11-07.json`):
+  - **Advantage:** rivers carry money dots, one-off investments single ingots and contracts not yet started marching dashes;
+    payouts rise as ingots up the owners' threads. Faint rivers are drawn again, and the pulses are off.
+  - **Industries:** goods squares on every vein, money returning on the six largest, capital ingots to the owners.
+  - **Rivers:** money dots replace the CPU sparks; the markers run on the flow clock.
+  - **Money & trade:** a trade-balance strip from BEA NIPA 4.1 (exports above, imports below, the gap hatched) with goods and
+    money crossing it at the year shown.
+  - **Clocks:** the person, dilemma and you views' clocks moved to the flow clock, the regimes' to `GraphTime.Now`.
+  - **Check:** `SmokeChecks` has a never-still check (a view fails when fewer than 50 px change in 0.5 s of the flow clock; it
+    also logs what still moves with the clock held). On 8 Nov: rivers 78k px, overview 25k, politics 18k, industries 12k,
+    advantage 8k, money 0.4k, all 0 when held. The history view stays off the list until its stories carry flows (proposal
+    6: research gated flows such as the rounds into Fairchild, Intel, TSMC and OpenAI, and the subsidies of 1775-1815).
+- **Next:** the history view's flows; the key moments as topology on the industries they touched (Jev's judgment of each
+  moment and industry, drawn on the landscape); a tour stop for the view (narration needs the user's go-ahead: ElevenLabs
+  credits); the open portrait sheet's smoke state; other countries after the user's look.

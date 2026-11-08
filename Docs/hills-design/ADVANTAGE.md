@@ -161,10 +161,19 @@ every frame without rebuilding; a body is rebuilt, four a frame, only when its w
 ## 5. The network
 
 - **Dependencies, as rivers.** Each verified flow of money a year is a tube between two cores, as wide as √($bn)
-  allows, with pulses toward the payee. Spending carries the payer's motive in two lanes: rose for desire, ice for
+  allows, its packets moving toward the payee. Spending carries the payer's motive in two lanes: rose for desire, ice for
   fear, judged by Jev. Investments and capital raised run white-gold. Contracted commitments are dashed: promises.
+- **Motion** (the seventh direction, `Docs/research/advantage/brief-v5.md`). Packets on the flow clock
+  (`PacketMeshBuilder`, `FlowClock`) replace the pulses of the rivers and the threads, so nothing stands still at a frozen
+  year, a paused play or a settling world. Every living river carries them from payer to payee, the story's hops lit
+  and the rest faint but moving: dots of money in the lane's rose or ice; gold ingots of capital and of the payouts to
+  the wealth groups; and, before a contract's start year, the marching dashes of its promise over a ghost of its river.
+  A one-off amount crosses as one larger packet every three seconds. Gold ingots rise up an owner's thread only from a
+  company with buybacks or dividends on record. The dollars stay the width: a yearly flow's 0.5 to 2 packets a second follow
+  its measured dollars gently, all at one speed, and its rate and seed are fixed by its flow, so no year, world or
+  rebuild makes a pattern jump.
 - **Ownership.** Gold threads run down from each owner's circle to the organisms it holds, as wide as the stake's
-  value. Buybacks and dividends rise as gold pulses up those threads.
+  value. Buybacks and dividends rise as gold ingots up those threads.
 - **Talent.** One shared node, the people who build frontier AI, takes the companies' stock-based pay as rivers. The
   widest rivers show who is buying the talent.
 - **People.**

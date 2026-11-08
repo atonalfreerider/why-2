@@ -10,7 +10,10 @@ using Why.Economy.UI;
 namespace Why.Economy.Layers
 {
     /// <summary>Moving cohort markers, balance-sheet rings, live demand rivers and an illustrative corporate interior.
-    /// Animation is a repeated visual itinerary: only PlayerMindProgram.Step books annual transactions.</summary>
+    /// Animation is a repeated visual itinerary: only PlayerMindProgram.Step books annual transactions. What moves runs on the
+    /// flow clock (<see cref="FlowClock"/>), so nothing stops at a frozen year, a paused tour or a held replay: the markers walk
+    /// on it, and the money the rivers carry moves along them as packets the shader places from the clock alone
+    /// (<see cref="PacketMeshBuilder"/>, <see cref="Money"/>), built when the flows or the focus change, never to move them.</summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class HillActivityLayer : GraphLayer
     {
@@ -56,8 +59,30 @@ namespace Why.Economy.Layers
         /// <summary>The camera distance (the rivers view's) at which the caption has its drawn size; it keeps that size on screen.</summary>
         const float CaptionDistance=176;
         /// <summary>How far a flow's pulse brightens a line (1 = the shader's fourfold): a sheen, under the bloom. The hovered or
-        /// selected cohort's rivers bloom by their own intensity and highlights (Water).</summary>
+        /// selected cohort's rivers bloom by their own intensity and highlights (Water). A river whose money moves as packets
+        /// draws its centre lines without it, so the packets are its one motion.</summary>
         const float Pulse=.2f;
+        /// <summary>Land units a second every packet of the rivers travels: about 30 px a second at the rivers view's pose, as
+        /// the politics view's; the trunks, a few units from the valley to their markets, are crossed in a second or two.</summary>
+        const float PacketSpeed=4;
+        /// <summary>
+        /// A lane's packets a second: <see cref="MinRate"/> at <see cref="RateFloor"/> ($B a year) and below, and
+        /// <see cref="RatePerDecade"/> more for every tenfold of its dollars, never past <see cref="MaxRate"/> (faster lanes strobe
+        /// at 30 frames a second): a cohort's trip lane (a few $B) about 0.4 to 1, the largest trunk's lane ($2T) about 2. A
+        /// flow's size is its lane's width; the rate only grows gently with it. A lane rebuilt keeps its rate while the new one
+        /// stands within <see cref="RateHold"/> of it, so a year's swap does not jump its pattern.
+        /// </summary>
+        const float MinRate=.4f,MaxRate=4,RatePerDecade=.5f,RateHold=.15f;
+        const double RateFloor=1;
+        /// <summary>The packets' alpha at rest (the trunks' money), added over their lanes, whose hue they share: a blended mark
+        /// of a lane's own role vanishes into its ribbon. The material takes it times the square root of the trunks' emphasis,
+        /// a trace where the trunks are one. On the hovered or selected cohort's rivers, the only packets lit into bloom.</summary>
+        const float RestPacketAlpha=.6f,ActivePacketAlpha=.9f,ActivePacketIntensity=3;
+        /// <summary>A packet's size in pixels, and the world units added to it, which tell only where the camera comes close
+        /// (under a pixel at the rivers view's distance).</summary>
+        const float RestPacketPx=3,ActivePacketPx=3.5f,PacketWorld=.1f;
+        /// <summary>Seconds of the flow clock between the rivers' redraws: their trips leave from the markers, which walk on it.</summary>
+        const double RedrawSeconds=.2;
         readonly List<MeshRenderer> actors=new List<MeshRenderer>(), firms=new List<MeshRenderer>(), controls=new List<MeshRenderer>(), orgs=new List<MeshRenderer>();
         float[] haloScale;
         readonly List<Mesh> owned=new List<Mesh>();
@@ -83,14 +108,21 @@ namespace Why.Economy.Layers
         /// <summary>The dark plate behind the trunks' names (a unit square scaled to each name, and its material drawn just
         /// before the raised text, queue 3251), kept across rebuilds.</summary>
         Mesh plateQuad;Material plateMaterial;
-        LineMeshBuilder pulseGeometry;
-        MeshRenderer pulses, rivers, riverFill, focus, structure, rivalry, circles, circleThreads;
+        MeshRenderer packets, rivers, riverFill, focus, structure, rivalry, circles, circleThreads;
+        /// <summary>The focused cohort the packets were built for (-1 none: the trunks at rest; -2 not built yet), and whether
+        /// the flows changed since (<see cref="PlanTrips"/>).</summary>
+        int packetFocus=-2;bool packetsStale=true;
+        /// <summary>Each lane's packets a second when last built (<see cref="Rate"/>), by lane: kept across the year's swaps.</summary>
+        readonly Dictionary<long,float> laneRates=new Dictionary<long,float>();
         double[] eliteClaim;
         double eliteShare;
         LandSnapshot snapshot;
         HillLandscape land;
         GameObject content;
-        float animation, refresh;
+        /// <summary>The rivers are redrawn at once (the flows, the year or the view changed), else in the next fifth of a second
+        /// of the flow clock after <see cref="redrawSlot"/>.</summary>
+        bool redraw;
+        long redrawSlot=-1;
         int version=-1, selection=-2, lod=-1;
         /// <summary>The scenario program the trips and balances were drawn for (a new year brings a new one).</summary>
         PlayerMindProgram programSeen;
@@ -123,9 +155,11 @@ namespace Why.Economy.Layers
             {
                 if(!HillRebuilds.Take())return;
                 programSeen=program;version=program?.Revision??-1;selection=EconomyState.SelectedPlayer;
-                Competition.Update(program);PlanTrips();UpdateBalances();refresh=1;
+                Competition.Update(program);PlanTrips();UpdateBalances();redraw=true;
             }
-            animation+=Time.deltaTime;
+            // the markers walk their loops on the flow clock: on at a frozen year, a paused tour or a held replay, and from the
+            // same place in every capture (held for the highlight check)
+            double clock=FlowClock.Seconds;
             bool hidden=LandView.PresetId=="mind"||LandView.PresetId=="section";
             // The money chart's series wear the rivers' rose and ice and the halos' gold (the mortgage, the Treasury, the bank's
             // rate): seen edge-on behind its panel, the crest's trunks, halos and owner rings added up to the series' own
@@ -133,13 +167,16 @@ namespace Why.Economy.Layers
             // table's activity rows).
             bool chart=LandView.PresetId=="money";
             content.SetActive(!hidden);riversRoot.SetActive(!hidden&&!chart);if(hidden)return;
-            EconomyEmphasis.Apply(rivers,Part.Rivers);EconomyEmphasis.Apply(riverFill,Part.Rivers);EconomyEmphasis.Apply(pulses,Part.Sparks);EconomyEmphasis.Apply(focus,Part.Ring);
+            EconomyEmphasis.Apply(rivers,Part.Rivers);EconomyEmphasis.Apply(riverFill,Part.Rivers);EconomyEmphasis.Apply(focus,Part.Ring);
+            // the money packets are the table's sparks (activity.sparks); at rest, on the trunks alone, as strong as the square
+            // root of the trunks' emphasis (eased here a frame at a time, not baked as the trunks' own alpha is at each redraw)
+            EconomyEmphasis.Set(packets,EconomyEmphasis.Get(Part.Sparks)*(packetFocus>=0?1:Mathf.Sqrt(Mathf.Clamp01(EconomyEmphasis.Get(Part.Trunks)))));
             int focusPlayer=selection>=0?selection:HillLandscapeLayer.HoverPlayer;
             int focusIndustry=focusPlayer>=0?land.IndustryOf[focusPlayer]:HillExplorer.Industry>=0?HillExplorer.Industry:HillLandscapeLayer.HoverIndustry;
             float markers=EconomyEmphasis.Get(Part.Markers);
             for(int p=0;p<actors.Count;p++)
             {
-                float progress=(1-Mathf.Cos(animation*(.055f+.015f*(1-FearOf(p)))+p*2.399963f))*.5f;
+                float progress=(float)((1-Math.Cos(clock*(.055f+.015f*(1-FearOf(p)))+p*2.399963))*.5);
                 Vector3 at=Vector3.Lerp(home[p],destinations[p],progress);
                 if(!land.Cloud[p/Subgroups])at.y=Mathf.Lerp(land.Footing(land.IndustryOf[p/Subgroups],at.x,at.z),land.Footing(recipient[p],at.x,at.z),progress)+.3f;
                 if(HillExplorer.Depth>=3&&p/Subgroups==HillExplorer.Group)at=HillExplorer.GroupCenter;
@@ -209,11 +246,13 @@ namespace Why.Economy.Layers
             }
             caption.gameObject.SetActive(riversView);
             if(riversView){caption.rotation=rig.Cam.transform.rotation;caption.localScale=Vector3.one*Mathf.Max(.5f,Vector3.Distance(rig.Cam.transform.position,caption.position)/CaptionDistance);}
-            if(view!=LandView.PresetId){view=LandView.PresetId;refresh=1;}
-            refresh+=Time.deltaTime;
-            // redrawn five times a second, never in a frame another layer rebuilds in (after a swap: the next free frame), and
-            // not while the money chart's view hides them
-            if(refresh>=.2f&&!chart&&HillRebuilds.Take()){refresh=0;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
+            if(view!=LandView.PresetId){view=LandView.PresetId;redraw=true;}
+            // The trips leave from the markers, so the rivers follow them, redrawn every fifth of a second of the flow clock the
+            // markers walk on (a capture redraws them in the same frames each run; a held clock holds them) and at once when the
+            // flows, the year or the view change; never in a frame another layer rebuilds in (after a swap: the next free
+            // frame), nor while the money chart's view hides them. Their money moves in the shader, not by these redraws.
+            long slot=(long)Math.Floor(clock/RedrawSeconds);
+            if((redraw||slot!=redrawSlot)&&!chart&&HillRebuilds.Take()){redraw=false;redrawSlot=slot;DrawRivers(focusPlayer);DrawFocus(focusIndustry);}
         }
         /// <summary>The followed person's employer (tower index), as the person layer draws it: the firm nearest the person on
         /// their household's hill, when they earn; -1 otherwise.</summary>
@@ -263,7 +302,7 @@ namespace Why.Economy.Layers
             // built for the program and selection it saw: the next Tick redoes the trips and balances only if they change
             programSeen=Program;version=programSeen?.Revision??-1;selection=EconomyState.SelectedPlayer;
             DropRetired();content.SetActive(true);stage=0;
-            refresh=1;   // the rivers follow in the next free frame
+            redraw=true;   // the rivers follow in the next free frame
         }
         void PlanTrips()
         {
@@ -282,6 +321,7 @@ namespace Why.Economy.Layers
                 if(land.Cloud[p/Subgroups])destinations[p].y=home[p].y;
             }
             Trunks();
+            packetsStale=true;   // the rivers' dollars and splits changed: their packets are rebuilt with the next redraw
         }
         /// <summary>
         /// The trunks' split and names: per hill, the fear share of all households' spending at its market (each cohort's
@@ -472,9 +512,18 @@ namespace Why.Economy.Layers
             for(int k=0;k<=n;k++){float a=Mathf.Lerp(a0,a1,k/(float)n);pts[k]=c+new Vector3(Mathf.Cos(a)*r,0,Mathf.Sin(a)*r);}
             b.AddPolyline(pts,color,width,0,id,intensity);
         }
+        /// <summary>
+        /// The rivers: each drawn trip from a cohort's marker to the market it buys at, and each industry's trunk, as split fear
+        /// and desire lanes (<see cref="Water"/>). The money moves along the trunks at rest, and along the hovered or selected
+        /// cohort's trips and the trunks they reach when one is focused, as packets (<see cref="Money"/>); the faint trips at
+        /// rest keep their centre lines' pulse (with packets at one speed, the long trips of every third subgroup would carry
+        /// thousands of dots). The packets are rebuilt only when the flows or the focus change, and with each redraw while a
+        /// cohort is focused, whose trips leave from its walking markers.
+        /// </summary>
         void DrawRivers(int focused)
         {
-            var b=new LineMeshBuilder();var fill=new SurfaceMeshBuilder();pulseGeometry=new LineMeshBuilder();
+            var b=new LineMeshBuilder();var fill=new SurfaceMeshBuilder();
+            var money=packetsStale||focused!=packetFocus||focused>=0?new PacketMeshBuilder(land.Hills.Length*82+(focused>=0?Subgroups*66:0)):null;
             // the rivers' own view draws every third subgroup's trip at half strength and the trunks at full; elsewhere one
             // trip in fifteen and the trunks are a trace under the view's own story
             bool own=LandView.PresetId=="rivers";float trips=EconomyEmphasis.Get(Part.Trips),trunks=EconomyEmphasis.Get(Part.Trunks);
@@ -494,7 +543,8 @@ namespace Why.Economy.Layers
                     at.y=land.Cloud[p/Subgroups]?Mathf.Lerp(Positions[p].y,ground,Mathf.SmoothStep(0,1,t)):ground;
                     path[k]=new LinePoint(at,color,(active?2:1)+(float)Math.Log10(1+riverAmount[p])*.3f,0,active?2.3f:1.0f);
                 }
-                Water(fill,b,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,riverFear[p],active?.8f:focused>=0?.008f:trips,p,active);
+                Water(fill,b,money,path,.12f+(float)Math.Sqrt(riverAmount[p])*.055f,riverFear[p],active?.8f:focused>=0?.008f:trips,p,active,
+                    active,riverAmount[p],p,recipient[p]);
             }
             // Each industry's trunk carries all households' spending at its market, as wide as its share of the year's
             // dollars (linear, unlike the trips), split into the fear and desire lanes of what is bought there (Trunks).
@@ -513,12 +563,23 @@ namespace Why.Economy.Layers
                     path[k]=new LinePoint(point,Color.white,1);
                 }
                 bool active=false;if(focused>=0)for(int p=focused*Subgroups;p<(focused+1)*Subgroups;p++)if(recipient[p]==h)active=true;
-                Water(fill,b,path,.25f+TrunkWidth*(float)(amount/total),(float)trunkFear[h],active?.55f:focused>=0?.015f:trunks,home.Length+h,active);
+                // every trunk carries its money at rest; while a cohort is focused, those it buys at (the rest step back to a trace)
+                Water(fill,b,money,path,.25f+TrunkWidth*(float)(amount/total),(float)trunkFear[h],active?.55f:focused>=0?.015f:trunks,home.Length+h,active,
+                    focused<0||active,amount,-1-h,0);
             }
-            Redraw(rivers,b.ToMesh(rivers.name));Redraw(pulses,pulseGeometry.ToMesh(pulses.name));Redraw(riverFill,fill.ToMesh("Fear desire ribbons"));
+            Redraw(rivers,b.ToMesh(rivers.name));Redraw(riverFill,fill.ToMesh("Fear desire ribbons"));
+            if(money!=null){Redraw(packets,money.ToMesh(packets.name));packetsStale=false;packetFocus=focused;}
         }
-        // Adapted from FlowsLayer.Ribbons: nonadditive split lanes plus moving centers.
-        void Water(SurfaceMeshBuilder fill,LineMeshBuilder b,LinePoint[] path,float width,float fear,float alpha,int id,bool active)
+        /// <summary>
+        /// One river (adapted from FlowsLayer.Ribbons): its fear and desire lanes side by side, nonadditive, each a band with a
+        /// centre line, the fear lane <paramref name="fear"/> of the width. A river that <paramref name="carries"/> its money as
+        /// packets draws its centre lines still, so the packets are its one motion, and adds them to <paramref name="money"/> when
+        /// they are rebuilt (non-null); one that does not keeps its lines' pulse. <paramref name="dollars"/> ($B a year) is the
+        /// river's, which its lanes split as its width; <paramref name="laneA"/> and <paramref name="laneB"/> name its lanes for
+        /// their rates and seeds across rebuilds (<see cref="Money"/>).
+        /// </summary>
+        void Water(SurfaceMeshBuilder fill,LineMeshBuilder b,PacketMeshBuilder money,LinePoint[] path,float width,float fear,float alpha,int id,bool active,
+            bool carries,double dollars,int laneA,int laneB)
         {
             float split=-width*.5f+width*fear;
             for(int lane=0;lane<2;lane++)
@@ -536,24 +597,46 @@ namespace Why.Economy.Layers
                 }
                 // a river keeps its index for its highlight id: the universe's lineage highlight stays set in this scene
                 // (Highlighter.SetPersistent "matter", ids 3-10) and lights the rivers view's trips 3, 6 and 9 a little, which the
-                // part's ids would drop, a change on screen the emphasis table's move must not make
-                fill.AddBand(left,right,new[]{(Color32)hue},id,.9f);b.AddFlowPath(middle,id,1.6f);
-                if(alpha>.05f&&(active||id>=home.Length))
-                {
-                    int count=active?3:1;
-                    for(int spark=0;spark<count;spark++)
-                    {
-                        float t=Mathf.Repeat(animation*.16f+id*.381966f+lane*.27f+spark/(float)count,1);
-                        float index=t*(middle.Length-1);int k=Mathf.Min(middle.Length-2,(int)index);
-                        Vector3 head=Vector3.Lerp(middle[k].Data,middle[k+1].Data,index-k)+Vector3.up*.09f;
-                        Vector3 tail=middle[Mathf.Max(0,k-2)].Data+Vector3.up*.09f;
-                        // HDR only on the hovered or selected cohort's rivers: the trunks' pulses stay in their hue
-                        Color light=hue;light.a=active?.95f:.65f;
-                        pulseGeometry.AddSegment(tail,head,light,active?3.5f:2.5f,0,EconomyEmphasis.Id(Part.Sparks),active?7:1);
-                        pulseGeometry.AddSegment(head-Vector3.up*.13f,head+Vector3.up*.13f,light,3,0,EconomyEmphasis.Id(Part.Sparks),active?8:1);
-                    }
-                }
+                // part's ids would drop, a change on screen the emphasis table's move must not make (its packets carry it too)
+                fill.AddBand(left,right,new[]{(Color32)hue},id,.9f);
+                if(carries)b.AddPolyline(middle,id);else b.AddFlowPath(middle,id,1.6f);
+                if(carries&&money!=null)Money(money,middle,lane,dollars*(lane==0?fear:1-fear),id,active,laneA,laneB*2+lane);
             }
+        }
+        /// <summary>
+        /// A lane's money, moving from the households to the market along its centre line as packets (dots, the money's shape)
+        /// in the lane's role: <see cref="EconomyStyle.Roles.Fear"/> for what is bought away from a fear,
+        /// <see cref="EconomyStyle.Roles.Desire"/> for what is bought toward a want. They are added over the lane at
+        /// <see cref="RestPacketAlpha"/> (the material takes the emphasis, Tick), and on the hovered or selected cohort's rivers
+        /// lit into bloom; the shader places them from the flow clock alone, all at <see cref="PacketSpeed"/>, at the lane's
+        /// <see cref="Rate"/>; a lane with no dollars (none, or not a number) draws none. The pattern is anchored at the market:
+        /// the seed takes away the lane's whole length in gaps, so a trip redrawn from its walking marker, or a trunk rebuilt for
+        /// the next year, keeps its packets where they stand toward its end (packets placed from the source moved with it).
+        /// </summary>
+        void Money(PacketMeshBuilder money,LinePoint[] middle,int lane,double dollars,float id,bool active,int laneA,int laneB)
+        {
+            float rate=Rate(laneA,laneB,dollars);
+            if(float.IsNaN(rate))return;
+            var points=new Vector3[middle.Length];float length=0;
+            for(int k=0;k<points.Length;k++){points[k]=middle[k].Data;if(k>0)length+=Vector3.Distance(points[k-1],points[k]);}
+            float seed=Mathf.Repeat(LandMath.Hash01(laneA,laneB)-length*FlowClock.SeamlessRate(rate)/PacketSpeed,1);
+            Color role=lane==0?EconomyStyle.Roles.Fear:EconomyStyle.Roles.Desire;role.a=active?ActivePacketAlpha:RestPacketAlpha;
+            money.AddLane(points,PacketKind.Money,role,rate,PacketSpeed,active?ActivePacketPx:RestPacketPx,id,active?ActivePacketIntensity:1,
+                seed:seed,sizeWorld:PacketWorld);
+        }
+        /// <summary>
+        /// The packets a second of the lane <paramref name="laneA"/>, <paramref name="laneB"/>, which carries
+        /// <paramref name="dollars"/> ($B a year): one gentle curve over its dollars (<see cref="MinRate"/>), or the rate the lane
+        /// had when last built while the new one stands within <see cref="RateHold"/> of it. NaN, which draws no packets, when
+        /// the dollars are not a positive number.
+        /// </summary>
+        float Rate(int laneA,int laneB,double dollars)
+        {
+            if(!(dollars>0)||double.IsInfinity(dollars))return float.NaN;
+            float rate=Mathf.Clamp(MinRate+RatePerDecade*(float)Math.Log10(dollars/RateFloor),MinRate,MaxRate);
+            long key=((long)laneA<<32)|(uint)laneB;
+            if(laneRates.TryGetValue(key,out float kept)&&Mathf.Abs(kept-rate)<RateHold)return kept;
+            laneRates[key]=rate;return rate;
         }
         /// <summary>The focused summit's ring: the selected or hovered group's industry, else the explored or hovered one, lit
         /// into bloom; with none, the summit most is spent at, in its hue. The regimes view draws its own summits, where gold is
@@ -648,7 +731,11 @@ namespace Why.Economy.Layers
             var surfaceMat=GraphMaterials.Raw(GraphMaterials.Surface(Color.white,1,3208,false));kept.Add(surfaceMat);
             riverFill=AddMesh("Split fear and desire water",surface,surfaceMat);riverFill.transform.SetParent(riversRoot.transform,false);
             focus=Kept(empty,"Focused summit",true);
-            pulses=Kept(empty,"Moving HDR river highlights",true);pulses.sharedMaterial.SetFloat("_Flow",0);
+            // the money on its way along the rivers (Money): packets the shader moves on the flow clock, added just over the
+            // rivers' lanes and lines, whose hue they share
+            var none=new PacketMeshBuilder(1).ToMesh("River money");kept.Add(none);
+            var moneyMat=GraphMaterials.Raw(GraphMaterials.Packets(Color.white,1,3211,true));kept.Add(moneyMat);
+            packets=AddMesh("River money",none,moneyMat);packets.transform.SetParent(riversRoot.transform,false);
             // The rivers view's caption: the year's split of household spending in words over a rose / ice bar, turned to
             // the camera with its bar (written by Trunks). Hidden only once its words are raised: they wake while it is active.
             caption=new GameObject("Rivers caption").transform;caption.SetParent(riversRoot.transform,false);

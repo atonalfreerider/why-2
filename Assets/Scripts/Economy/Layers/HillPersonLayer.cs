@@ -98,7 +98,7 @@ namespace Why.Economy.Layers
             float atom = EconomyEmphasis.Get(Keys[(int)Part.Atom]), pulls = EconomyEmphasis.Get(Keys[(int)Part.Pulls]), ladder = EconomyEmphasis.Get(Keys[(int)Part.Ladder]);
             bool show = atom + pulls + ladder > 0;
             content.SetActive(show); if (!show) return;
-            clock += Time.deltaTime;
+            clock = (float)FlowClock.Seconds;   // the flow clock: the figure sways and the walker walks at a frozen year, alike in every capture
             foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             foreach (var e in labels)
             {

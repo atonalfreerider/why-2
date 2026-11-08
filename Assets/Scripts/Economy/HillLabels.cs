@@ -150,7 +150,7 @@ namespace Why.Economy
         /// Stand-ins for two panels that stood over the hills' world labels in the smoke frames of 4 Nov 2026, as fractions of
         /// the frame from its top-left (measured on 1920x1080 captures): the tour's card at stop 13 over the mobility bars'
         /// captions and records (economy-tour-13-hills_mobility: 57-575 across, 440-935 down), and the replay's readout over
-        /// the money board's OPEN TO TRADE strip (economy-replay-1983-money: 638-1350 across, 851-978 down). The stress labels
+        /// the money board's trade strip (economy-replay-1983-money: 638-1350 across, 851-978 down). The stress labels
         /// under them must move to a candidate place or be culled, as the mobility and money labels will once on HillLabels.
         /// </summary>
         static readonly (string name, Rect frame)[] StandIns =

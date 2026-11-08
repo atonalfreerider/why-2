@@ -128,7 +128,7 @@ namespace Why.Economy.Layers
             bool on = LandView.PresetId == View;
             if (!on) { wasOn = false; if (content) content.SetActive(false); return; }
             // stepping through starts at the baseline each time the view opens, in the order the tour's card names the states
-            if (!wasOn) { wasOn = true; enteredAt = Time.unscaledTime; }
+            if (!wasOn) { wasOn = true; enteredAt = GraphTime.Now; }
             if (regimes == null)
             {
                 Regimes.Provide(LandService.Model.Data, json); regimes = Regimes.Get();
@@ -140,7 +140,10 @@ namespace Why.Economy.Layers
                 }
             }
             int n = regimes.All.Length; if (n == 0) return;
-            float stepped = Time.unscaledTime - enteredAt; bool tour = GraphRoot.Instance != null && GraphRoot.Instance.TourActive;
+            // on the graph's clock (GraphTime): real time, and in a capture the recording's own, so the tour's steps land on the same frames
+            // (a capture's clock can run ahead of real time, so GraphTime.Now may step back when it ends: start the cycle again
+            // rather than step to a negative state)
+            float stepped = GraphTime.Now - enteredAt; if (stepped < 0) { enteredAt = GraphTime.Now; stepped = 0; } bool tour = GraphRoot.Instance != null && GraphRoot.Instance.TourActive;
             int shown = Pinned >= 0 && Pinned < n ? Pinned : tour ? Mathf.Min(n - 1, (int)(stepped / TourCycleSeconds)) : (int)(stepped / CycleSeconds) % n;
             if (snapshot != LandService.Current || land != HillLandscapeLayer.Current || shown != built)
             {

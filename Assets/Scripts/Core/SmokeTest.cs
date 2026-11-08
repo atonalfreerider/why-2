@@ -27,7 +27,9 @@ namespace Why
     /// add <c>-xr</c> to exercise the headset
     /// presentation on a desktop (canvases on the HUD plane, the diorama rig) without a headset.
     /// After every view, view state, tour card and stop and replay frame (saved or not), the checks the packages registered
-    /// run on it (<see cref="SmokeChecks"/>; each problem is an error); <c>-smokeextra a,b</c> runs the packages' own
+    /// run on it (<see cref="SmokeChecks"/>; each problem is an error); a view the scene named as never still (the economy's
+    /// <see cref="NeverStillViews"/>) is then read over half a second of the flow clock and fails when nothing on it moved,
+    /// the user's "no frozen moment" (<see cref="SmokeChecks.NeverStill"/>); <c>-smokeextra a,b</c> runs the packages' own
     /// sequences of those names after the tour (a name no scene ran is an error); <c>-smokecheckfail</c> registers a check
     /// that always fails, to prove that a failing check fails the run; <c>-smokefacts</c> logs every fact the models
     /// published at the end of the run (<see cref="ModelFacts"/>, read by Tools/export-facts.py), and
@@ -59,6 +61,20 @@ namespace Why
         /// never null, so the run can go on even when Init failed before reading them.
         /// </summary>
         static readonly List<string> extras = new List<string>();
+
+        /// <summary>
+        /// The economy's views that must never stand still (<see cref="SmokeChecks.RegisterNeverStill"/>): the wave, the
+        /// contest, the present taken apart (industries), the rivers, the money chart and who holds power, whose flows of
+        /// capital, goods and people move on the flow clock while the year stands still (the user, 7 Nov 2026: "an
+        /// instantaneous view that's showing the motion of capital, goods, people at all times"). Advantage through history
+        /// joins once its stories carry flows (the flows map's proposal 6): on 8 Nov 2026 nothing on it moved, 0 pixels in half a
+        /// second, and the check failed it.
+        /// </summary>
+        static readonly string[] NeverStillViews =
+        {
+            "overview", Economy.Layers.HillAdvantageLayer.View, Economy.Layers.HillPresentLayer.View, "rivers", "money",
+            Economy.Layers.HillPoliticsLayer.View
+        };
 
         public override int Order => 1000;
 
@@ -118,6 +134,9 @@ namespace Why
             {
                 SmokeChecks.Register("smokecheckfail", view => new[] { "registered by -smokecheckfail, so the run must exit 1" });
             }
+
+            if (GraphScene.IsEconomy)
+                foreach (string view in NeverStillViews) SmokeChecks.RegisterNeverStill(view);
 
             Debug.Log($"[Why] smoke: scene '{GraphScene.Current}' starting");
         }
@@ -238,6 +257,9 @@ namespace Why
                 root.Focus(p, 0.6f);
                 yield return new WaitForSecondsRealtime(ViewSeconds);
                 yield return SmokeChecks.Capture($"{scene}-view-{p.Id}", p);
+                // a view that must never stand still: read again over half a second of the flow clock, after its frame (which
+                // stays as it was) and in its default state
+                if (SmokeChecks.MustMove(p.Id)) yield return SmokeChecks.NeverStill($"{scene}-view-{p.Id}");
                 // a view with states of its own (ViewVariants): each state in turn, then back to the default
                 if (ViewVariants.TryGet(p.Id, out ViewVariants.Entry variants))
                 {

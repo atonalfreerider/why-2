@@ -1,0 +1,993 @@
+{
+ "asOf": "2026-11-07",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 0,
+  "cached": 98,
+  "tokens": 214787,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "pol-us-house-pv-1948": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1950": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1952": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.8,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1954": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1956": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1958": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1960": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1962": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1964": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1966": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1968": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1970": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1972": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1974": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1976": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1978": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1980": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1982": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1984": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1986": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1988": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1990": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1992": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1994": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.76,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1998": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.8,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2000": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2002": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2004": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2006": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2008": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2010": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2014": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2018": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2022": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-1948": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-1950": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-1960": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-1970": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-1980": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-1990": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-2000": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-2010": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pop-2025": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1948": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1952": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1956": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1960": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1964": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1968": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1972": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1976": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1980": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1984": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1988": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1992": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2000": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2004": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2008": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-1948-thurmond": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.76,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-1948-wallace": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-1968-wallace": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-1980-anderson": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-1992-perot": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-1996-perot": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-2000-nader": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-third-2016-johnson": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1948": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1952": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1956": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1960": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1964": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1968": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1972": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1976": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1980": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1984": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1988": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1992": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-1996": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2000": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2004": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2008": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2012": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2016": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2020": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  },
+  "pol-us-turnout-2024": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
+   "cluster": "us-votes"
+  }
+ }
+}

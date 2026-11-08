@@ -1,0 +1,2781 @@
+{
+ "cluster": "us-votes",
+ "asOf": "2026-11-07",
+ "facts": [
+  {
+   "id": "pol-us-pres-pv-1948",
+   "claim": "In the 1948 US presidential election, the Democratic nominee Harry S. Truman won 24,178,347 popular votes (49.55%) and the Republican nominee Thomas E. Dewey won 21,991,292 popular votes (45.07%).",
+   "url": "https://en.wikipedia.org/wiki/1948_United_States_presidential_election",
+   "quotes": [
+    "Harry S. Truman (incumbent) Democratic[g] Missouri 24,178,347 49.55% 303 Alben W. Barkley Kentucky 303",
+    "Thomas E. Dewey Republican[h] New York 21,991,292 45.07% 189 Earl Warren California 189"
+   ],
+   "values": [
+    "24,178,347",
+    "49.55",
+    "21,991,292",
+    "45.07"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 24178347,
+   "unit": "votes",
+   "when": "1948-11-02",
+   "subject": "US presidential election 1948: Democratic Party (Harry S. Truman) and Republican Party (Thomas E. Dewey)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote. Wikipedia's turnout table (Voter turnout in United States presidential elections) lists slightly different counts: Harry S. Truman 24,179,347.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees. The page uses 24,178,347 consistently (infobox, results table, state totals); The American Presidency Project and the turnout page give 24,179,347, so the last thousand is uncertain; 49.55% is unaffected.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1952",
+   "claim": "In the 1952 US presidential election, the Democratic nominee Adlai Stevenson II won 27,375,090 popular votes (44.33%) and the Republican nominee Dwight D. Eisenhower won 34,075,529 popular votes (55.18%).",
+   "url": "https://en.wikipedia.org/wiki/1952_United_States_presidential_election",
+   "quotes": [
+    "Adlai Stevenson II Democratic Illinois 27,375,090 44.33% 89 John Sparkman Alabama 89",
+    "Dwight D. Eisenhower Republican New York 34,075,529 55.18% 442 Richard Nixon California 442"
+   ],
+   "values": [
+    "27,375,090",
+    "44.33",
+    "34,075,529",
+    "55.18"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 27375090,
+   "unit": "votes",
+   "when": "1952-11-04",
+   "subject": "US presidential election 1952: Democratic Party (Adlai Stevenson II) and Republican Party (Dwight D. Eisenhower)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1956",
+   "claim": "In the 1956 US presidential election, the Democratic nominee Adlai Stevenson II won 26,028,028 popular votes (41.97%) and the Republican nominee Dwight D. Eisenhower won 35,579,180 popular votes (57.37%).",
+   "url": "https://en.wikipedia.org/wiki/1956_United_States_presidential_election",
+   "quotes": [
+    "Adlai Stevenson II Democratic Illinois 26,028,028 41.97% 73 Estes Kefauver Tennessee 73",
+    "Dwight D. Eisenhower (incumbent) Republican Pennsylvania 35,579,180 57.37% 457 Richard Nixon (incumbent) California 457"
+   ],
+   "values": [
+    "26,028,028",
+    "41.97",
+    "35,579,180",
+    "57.37"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 26028028,
+   "unit": "votes",
+   "when": "1956-11-06",
+   "subject": "US presidential election 1956: Democratic Party (Adlai Stevenson II) and Republican Party (Dwight D. Eisenhower)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1960",
+   "claim": "In the 1960 US presidential election, the Democratic nominee John F. Kennedy won 34,220,984 popular votes (49.72%) and the Republican nominee Richard Nixon won 34,108,157 popular votes (49.55%).",
+   "url": "https://en.wikipedia.org/wiki/1960_United_States_presidential_election",
+   "quotes": [
+    "John F. Kennedy Democratic Massachusetts 34,220,984(a) 49.72% 303 Lyndon B. Johnson Texas 303",
+    "Richard Nixon Republican California 34,108,157 49.55% 219 Henry Cabot Lodge Jr. Massachusetts 219"
+   ],
+   "values": [
+    "34,220,984",
+    "49.72",
+    "34,108,157",
+    "49.55"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 34220984,
+   "unit": "votes",
+   "when": "1960-11-08",
+   "subject": "US presidential election 1960: Democratic Party (John F. Kennedy) and Republican Party (Richard Nixon)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees. Kennedy's total carries the page's footnote on Alabama's split Democratic slate (all of Alabama's Democratic vote credited to him).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1964",
+   "claim": "In the 1964 US presidential election, the Democratic nominee Lyndon B. Johnson won 43,129,040 popular votes (61.05%) and the Republican nominee Barry Goldwater won 27,175,754 popular votes (38.47%).",
+   "url": "https://en.wikipedia.org/wiki/1964_United_States_presidential_election",
+   "quotes": [
+    "Lyndon B. Johnson (incumbent) Democratic Texas 43,129,040 61.05% 486 Hubert Humphrey Minnesota 486",
+    "Barry Goldwater Republican Arizona 27,175,754 38.47% 52 William E. Miller New York 52"
+   ],
+   "values": [
+    "43,129,040",
+    "61.05",
+    "27,175,754",
+    "38.47"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 43129040,
+   "unit": "votes",
+   "when": "1964-11-03",
+   "subject": "US presidential election 1964: Democratic Party (Lyndon B. Johnson) and Republican Party (Barry Goldwater)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote. Wikipedia's turnout table (Voter turnout in United States presidential elections) lists slightly different counts: Lyndon B. Johnson 43,127,041.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees. The turnout page/APP give Johnson 43,127,041 (older compilation).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1968",
+   "claim": "In the 1968 US presidential election, the Democratic nominee Hubert Humphrey won 31,271,839 popular votes (42.72%) and the Republican nominee Richard Nixon won 31,783,783 popular votes (43.42%).",
+   "url": "https://en.wikipedia.org/wiki/1968_United_States_presidential_election",
+   "quotes": [
+    "Hubert Humphrey Democratic Minnesota 31,271,839 42.72% 191 Edmund Muskie Maine 191",
+    "Richard Nixon Republican New York[c] 31,783,783 43.42% 301 Spiro Agnew Maryland 301"
+   ],
+   "values": [
+    "31,271,839",
+    "42.72",
+    "31,783,783",
+    "43.42"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 31271839,
+   "unit": "votes",
+   "when": "1968-11-05",
+   "subject": "US presidential election 1968: Democratic Party (Hubert Humphrey) and Republican Party (Richard Nixon)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1972",
+   "claim": "In the 1972 US presidential election, the Democratic nominee George McGovern won 29,173,222 popular votes (37.52%) and the Republican nominee Richard Nixon won 47,168,710 popular votes (60.67%).",
+   "url": "https://en.wikipedia.org/wiki/1972_United_States_presidential_election",
+   "quotes": [
+    "George McGovern Democratic South Dakota 29,173,222 37.52% 17 Sargent Shriver Maryland 17",
+    "Richard Nixon (incumbent) Republican California 47,168,710 60.67% 520 Spiro T. Agnew (incumbent) Maryland 520"
+   ],
+   "values": [
+    "29,173,222",
+    "37.52",
+    "47,168,710",
+    "60.67"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 29173222,
+   "unit": "votes",
+   "when": "1972-11-07",
+   "subject": "US presidential election 1972: Democratic Party (George McGovern) and Republican Party (Richard Nixon)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1976",
+   "claim": "In the 1976 US presidential election, the Democratic nominee Jimmy Carter won 40,831,881 popular votes (50.08%) and the Republican nominee Gerald Ford won 39,148,634 popular votes (48.02%).",
+   "url": "https://en.wikipedia.org/wiki/1976_United_States_presidential_election",
+   "quotes": [
+    "Jimmy Carter Democratic Georgia 40,831,881 50.08% 297 Walter Mondale Minnesota 297",
+    "Gerald Ford (incumbent) Republican Michigan 39,148,634 48.02% 240 Bob Dole Kansas 241"
+   ],
+   "values": [
+    "40,831,881",
+    "50.08",
+    "39,148,634",
+    "48.02"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 40831881,
+   "unit": "votes",
+   "when": "1976-11-02",
+   "subject": "US presidential election 1976: Democratic Party (Jimmy Carter) and Republican Party (Gerald Ford)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1980",
+   "claim": "In the 1980 US presidential election, the Democratic nominee Jimmy Carter won 35,481,115 popular votes (41.01%) and the Republican nominee Ronald Reagan won 43,903,230 popular votes (50.75%).",
+   "url": "https://en.wikipedia.org/wiki/1980_United_States_presidential_election",
+   "quotes": [
+    "Jimmy Carter (incumbent) Democratic Georgia 35,481,115 41.01% 49 Walter Mondale (incumbent) Minnesota 49",
+    "Ronald Reagan Republican California 43,903,230 50.75% 489 George H. W. Bush Texas 489"
+   ],
+   "values": [
+    "35,481,115",
+    "41.01",
+    "43,903,230",
+    "50.75"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 35481115,
+   "unit": "votes",
+   "when": "1980-11-04",
+   "subject": "US presidential election 1980: Democratic Party (Jimmy Carter) and Republican Party (Ronald Reagan)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote. Wikipedia's turnout table (Voter turnout in United States presidential elections) lists slightly different counts: Jimmy Carter 35,480,115.",
+   "check": {
+    "ok": false,
+    "reason": "Carter's 35,481,115 in the national results table is a one-digit slip: with it the table sums to 86,510,678, exactly 1,000 more than its stated total 86,509,678. The same page's state-by-state TOTALS row and The American Presidency Project (the turnout page's 1980 row) give 35,480,115, which makes the table sum exactly (the infobox shows yet another figure, 35,481,436). Reagan's 43,903,230 and both shares (41.01%, 50.75%) are right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1984",
+   "claim": "In the 1984 US presidential election, the Democratic nominee Walter Mondale won 37,577,352 popular votes (40.56%) and the Republican nominee Ronald Reagan won 54,455,472 popular votes (58.77%).",
+   "url": "https://en.wikipedia.org/wiki/1984_United_States_presidential_election",
+   "quotes": [
+    "Walter Mondale Democratic Minnesota 37,577,352 40.56% 13 Geraldine Ferraro New York 13",
+    "Ronald Reagan (incumbent) Republican California 54,455,472 58.77% 525 George H. W. Bush (incumbent) Texas 525"
+   ],
+   "values": [
+    "37,577,352",
+    "40.56",
+    "54,455,472",
+    "58.77"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 37577352,
+   "unit": "votes",
+   "when": "1984-11-06",
+   "subject": "US presidential election 1984: Democratic Party (Walter Mondale) and Republican Party (Ronald Reagan)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1988",
+   "claim": "In the 1988 US presidential election, the Democratic nominee Michael Dukakis won 41,809,476 popular votes (45.65%) and the Republican nominee George H. W. Bush won 48,886,597 popular votes (53.37%).",
+   "url": "https://en.wikipedia.org/wiki/1988_United_States_presidential_election",
+   "quotes": [
+    "Michael Dukakis Democratic Massachusetts 41,809,476 45.65% 111 Lloyd Bentsen Texas 111",
+    "George H. W. Bush Republican Texas 48,886,597 53.37% 426 Dan Quayle Indiana 426"
+   ],
+   "values": [
+    "41,809,476",
+    "45.65",
+    "48,886,597",
+    "53.37"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 41809476,
+   "unit": "votes",
+   "when": "1988-11-08",
+   "subject": "US presidential election 1988: Democratic Party (Michael Dukakis) and Republican Party (George H. W. Bush)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1992",
+   "claim": "In the 1992 US presidential election, the Democratic nominee Bill Clinton won 44,909,889 popular votes (43.01%) and the Republican nominee George H. W. Bush won 39,104,550 popular votes (37.45%).",
+   "url": "https://en.wikipedia.org/wiki/1992_United_States_presidential_election",
+   "quotes": [
+    "Bill Clinton Democratic Arkansas 44,909,889 43.01% 370 Al Gore Tennessee 370",
+    "George H. W. Bush (incumbent) Republican Texas 39,104,550 37.45% 168 Dan Quayle (incumbent) Indiana 168"
+   ],
+   "values": [
+    "44,909,889",
+    "43.01",
+    "39,104,550",
+    "37.45"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 44909889,
+   "unit": "votes",
+   "when": "1992-11-03",
+   "subject": "US presidential election 1992: Democratic Party (Bill Clinton) and Republican Party (George H. W. Bush)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-1996",
+   "claim": "In the 1996 US presidential election, the Democratic nominee Bill Clinton won 47,402,357 popular votes (49.24%) and the Republican nominee Bob Dole won 39,198,755 popular votes (40.71%).",
+   "url": "https://en.wikipedia.org/wiki/1996_United_States_presidential_election",
+   "quotes": [
+    "Bill Clinton (incumbent) Democratic[b] Arkansas 47,402,357 49.24% 379 Al Gore (incumbent) Tennessee 379",
+    "Bob Dole Republican[c] Kansas 39,198,755 40.71% 159 Jack Kemp New York[32] 159"
+   ],
+   "values": [
+    "47,402,357",
+    "49.24",
+    "39,198,755",
+    "40.71"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 47402357,
+   "unit": "votes",
+   "when": "1996-11-05",
+   "subject": "US presidential election 1996: Democratic Party (Bill Clinton) and Republican Party (Bob Dole)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote. Wikipedia's turnout table (Voter turnout in United States presidential elections) lists slightly different counts: Bill Clinton 47,401,185; Bob Dole 39,197,469.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees. The turnout page's APP-based row gives 47,401,185 and 39,197,469 (another compilation); the page is self-consistent.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2000",
+   "claim": "In the 2000 US presidential election, the Democratic nominee Al Gore won 50,999,897 popular votes (48.38%) and the Republican nominee George W. Bush won 50,456,002 popular votes (47.87%).",
+   "url": "https://en.wikipedia.org/wiki/2000_United_States_presidential_election",
+   "quotes": [
+    "Al Gore Democratic Tennessee 50,999,897 48.38% 266 Joe Lieberman Connecticut 266",
+    "George W. Bush Republican Texas 50,456,002 47.87% 271 Dick Cheney Wyoming 271"
+   ],
+   "values": [
+    "50,999,897",
+    "48.38",
+    "50,456,002",
+    "47.87"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 50999897,
+   "unit": "votes",
+   "when": "2000-11-07",
+   "subject": "US presidential election 2000: Democratic Party (Al Gore) and Republican Party (George W. Bush)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2004",
+   "claim": "In the 2004 US presidential election, the Democratic nominee John Kerry won 59,028,444 popular votes (48.27%) and the Republican nominee George W. Bush won 62,040,610 popular votes (50.73%).",
+   "url": "https://en.wikipedia.org/wiki/2004_United_States_presidential_election",
+   "quotes": [
+    "John Kerry Democratic Massachusetts 59,028,444 48.27% 251 John Edwards North Carolina 251",
+    "George W. Bush (incumbent) Republican Texas 62,040,610 50.73% 286 Dick Cheney (incumbent) Wyoming 286"
+   ],
+   "values": [
+    "59,028,444",
+    "48.27",
+    "62,040,610",
+    "50.73"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 59028444,
+   "unit": "votes",
+   "when": "2004-11-02",
+   "subject": "US presidential election 2004: Democratic Party (John Kerry) and Republican Party (George W. Bush)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2008",
+   "claim": "In the 2008 US presidential election, the Democratic nominee Barack Obama won 69,498,516 popular votes (52.93%) and the Republican nominee John McCain won 59,948,323 popular votes (45.65%).",
+   "url": "https://en.wikipedia.org/wiki/2008_United_States_presidential_election",
+   "quotes": [
+    "Barack Obama Democratic Illinois 69,498,516 52.93% 365 Joe Biden Delaware 365",
+    "John McCain Republican Arizona 59,948,323 45.65% 173 Sarah Palin Alaska 173"
+   ],
+   "values": [
+    "69,498,516",
+    "52.93",
+    "59,948,323",
+    "45.65"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 69498516,
+   "unit": "votes",
+   "when": "2008-11-04",
+   "subject": "US presidential election 2008: Democratic Party (Barack Obama) and Republican Party (John McCain)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2012",
+   "claim": "In the 2012 US presidential election, the Democratic nominee Barack Obama won 65,915,795 popular votes (51.06%) and the Republican nominee Mitt Romney won 60,933,504 popular votes (47.20%).",
+   "url": "https://en.wikipedia.org/wiki/2012_United_States_presidential_election",
+   "quotes": [
+    "Barack Obama (incumbent) Democratic Illinois 65,915,795 51.06% 332 Joe Biden (incumbent) Delaware 332",
+    "Mitt Romney Republican Massachusetts 60,933,504 47.20% 206 Paul Ryan Wisconsin 206"
+   ],
+   "values": [
+    "65,915,795",
+    "51.06",
+    "60,933,504",
+    "47.20"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 65915795,
+   "unit": "votes",
+   "when": "2012-11-06",
+   "subject": "US presidential election 2012: Democratic Party (Barack Obama) and Republican Party (Mitt Romney)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2016",
+   "claim": "In the 2016 US presidential election, the Democratic nominee Hillary Clinton won 65,853,514 popular votes (48.18%) and the Republican nominee Donald Trump won 62,984,828 popular votes (46.09%).",
+   "url": "https://en.wikipedia.org/wiki/2016_United_States_presidential_election",
+   "quotes": [
+    "Hillary Clinton Democratic New York 65,853,514 48.18% 227 (232) Tim Kaine Virginia 227",
+    "Donald Trump Republican New York 62,984,828 46.09% 304 (306) Mike Pence Indiana 304[c]"
+   ],
+   "values": [
+    "65,853,514",
+    "48.18",
+    "62,984,828",
+    "46.09"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 65853514,
+   "unit": "votes",
+   "when": "2016-11-08",
+   "subject": "US presidential election 2016: Democratic Party (Hillary Clinton) and Republican Party (Donald Trump)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2020",
+   "claim": "In the 2020 US presidential election, the Democratic nominee Joe Biden won 81,283,501 popular votes (51.31%) and the Republican nominee Donald Trump won 74,223,975 popular votes (46.85%).",
+   "url": "https://en.wikipedia.org/wiki/2020_United_States_presidential_election",
+   "quotes": [
+    "Joe Biden Democratic Delaware 81,283,501 51.31% 306 Kamala Harris California 306",
+    "Donald Trump (incumbent) Republican Florida 74,223,975 46.85% 232 Mike Pence (incumbent) Indiana 232"
+   ],
+   "values": [
+    "81,283,501",
+    "51.31",
+    "74,223,975",
+    "46.85"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 81283501,
+   "unit": "votes",
+   "when": "2020-11-03",
+   "subject": "US presidential election 2020: Democratic Party (Joe Biden) and Republican Party (Donald Trump)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-pv-2024",
+   "claim": "In the 2024 US presidential election, the Democratic nominee Kamala Harris won 75,017,613 popular votes (48.32%) and the Republican nominee Donald Trump won 77,302,580 popular votes (49.80%).",
+   "url": "https://en.wikipedia.org/wiki/2024_United_States_presidential_election",
+   "quotes": [
+    "Kamala Harris Democratic California 75,017,613 48.32% 226 Tim Walz Minnesota 226",
+    "Donald Trump Republican Florida 77,302,580 49.80% 312 JD Vance Ohio 312"
+   ],
+   "values": [
+    "75,017,613",
+    "48.32",
+    "77,302,580",
+    "49.80"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 75017613,
+   "unit": "votes",
+   "when": "2024-11-05",
+   "subject": "US presidential election 2024: Democratic Party (Kamala Harris) and Republican Party (Donald Trump)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article (one row per nominee). Shares are of the national popular vote. Wikipedia's turnout table (Voter turnout in United States presidential elections) lists slightly different counts: Donald Trump 77,303,568; Kamala Harris 75,019,230.",
+   "check": {
+    "ok": true,
+    "reason": "National results table rows match the Democratic and Republican votes and shares; infobox agrees.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1948",
+   "claim": "In the 1948 US House of Representatives elections, Democratic candidates received 24,217,516 votes nationwide (52.6%) and Republican candidates received 20,894,960 votes (45.4%).",
+   "url": "https://en.wikipedia.org/wiki/1948_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 263 75 60.5% 52.6% 24,217,516",
+    "Republican Party 171 75 39.3% 45.4% 20,894,960"
+   ],
+   "values": [
+    "24,217,516",
+    "52.6",
+    "20,894,960",
+    "45.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 24217516,
+   "unit": "votes",
+   "when": "1948-11-02",
+   "subject": "US House of Representatives elections 1948: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1950",
+   "claim": "In the 1950 US House of Representatives elections, Democratic candidates received 19,991,683 votes nationwide (49.6%) and Republican candidates received 19,735,173 votes (48.9%).",
+   "url": "https://en.wikipedia.org/wiki/1950_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 235 -28 54.0% 49.6% 19,991,683",
+    "Republican Party 199 +28 45.7% 48.9% 19,735,173"
+   ],
+   "values": [
+    "19,991,683",
+    "49.6",
+    "19,735,173",
+    "48.9"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 19991683,
+   "unit": "votes",
+   "when": "1950-11-07",
+   "subject": "US House of Representatives elections 1950: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1952",
+   "claim": "In the 1952 US House of Representatives elections, Democratic candidates received 28,642,537 votes nationwide (49.8%) and Republican candidates received 28,393,794 votes (49.3%).",
+   "url": "https://en.wikipedia.org/wiki/1952_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Republican Democratic",
+    "Popular vote 28,393,794 28,642,537",
+    "Percentage 49.3% 49.8%"
+   ],
+   "values": [
+    "28,642,537",
+    "49.8",
+    "28,393,794",
+    "49.3"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 28642537,
+   "unit": "votes",
+   "when": "1952-11-04",
+   "subject": "US House of Representatives elections 1952: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Republican then Democratic, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1954",
+   "claim": "In the 1954 US House of Representatives elections, Democratic candidates received 22,366,386 votes nationwide (52.5%) and Republican candidates received 20,016,809 votes (47.0%).",
+   "url": "https://en.wikipedia.org/wiki/1954_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 22,366,386 20,016,809",
+    "Percentage 52.5% 47.0%"
+   ],
+   "values": [
+    "22,366,386",
+    "52.5",
+    "20,016,809",
+    "47.0"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 22366386,
+   "unit": "votes",
+   "when": "1954-11-02",
+   "subject": "US House of Representatives elections 1954: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1956",
+   "claim": "In the 1956 US House of Representatives elections, Democratic candidates received 30,062,042 votes nationwide (51.2%) and Republican candidates received 28,698,083 votes (48.7%).",
+   "url": "https://en.wikipedia.org/wiki/1956_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic 234 2 53.8% 51.2% 30,062,042",
+    "Republican 201 2 46.2% 48.7% 28,698,083"
+   ],
+   "values": [
+    "30,062,042",
+    "51.2",
+    "28,698,083",
+    "48.7"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 30062042,
+   "unit": "votes",
+   "when": "1956-11-06",
+   "subject": "US House of Representatives elections 1956: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1958",
+   "claim": "In the 1958 US House of Representatives elections, Democratic candidates received 25,604,679 votes nationwide (56.0%) and Republican candidates received 19,931,409 votes (43.6%).",
+   "url": "https://en.wikipedia.org/wiki/1958_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic 283 49 64.9% 56.0% 25,604,679",
+    "Republican 153 48 35.1% 43.6% 19,931,409"
+   ],
+   "values": [
+    "25,604,679",
+    "56.0",
+    "19,931,409",
+    "43.6"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 25604679,
+   "unit": "votes",
+   "when": "1958-11-04",
+   "subject": "US House of Representatives elections 1958: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1960",
+   "claim": "In the 1960 US House of Representatives elections, Democratic candidates received 35,125,032 votes nationwide (54.8%) and Republican candidates received 28,750,866 votes (44.8%).",
+   "url": "https://en.wikipedia.org/wiki/1960_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic 283 262 21 60.0% 35,125,032 54.8% 1.2%",
+    "Republican 153 175 22 40.0% 28,750,866 44.8% 1.2%"
+   ],
+   "values": [
+    "35,125,032",
+    "54.8",
+    "28,750,866",
+    "44.8"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 35125032,
+   "unit": "votes",
+   "when": "1960-11-08",
+   "subject": "US House of Representatives elections 1960: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1962",
+   "claim": "In the 1962 US House of Representatives elections, Democratic candidates received 26,860,184 votes nationwide (52.4%) and Republican candidates received 24,160,387 votes (47.1%).",
+   "url": "https://en.wikipedia.org/wiki/1962_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 262 259 3 59.3% 26,860,184 52.4% 2.4%",
+    "Republican Party 175 176 1 40.5% 24,160,387 47.1% 2.3%"
+   ],
+   "values": [
+    "26,860,184",
+    "52.4",
+    "24,160,387",
+    "47.1"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 26860184,
+   "unit": "votes",
+   "when": "1962-11-06",
+   "subject": "US House of Representatives elections 1962: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1964",
+   "claim": "In the 1964 US House of Representatives elections, Democratic candidates received 37,643,960 votes nationwide (57.1%) and Republican candidates received 27,916,576 votes (42.4%).",
+   "url": "https://en.wikipedia.org/wiki/1964_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 259 295 36 67.8% 37,643,960 57.1% 4.7%",
+    "Republican Party 176 140 36 32.2% 27,916,576 42.4% 4.7%"
+   ],
+   "values": [
+    "37,643,960",
+    "57.1",
+    "27,916,576",
+    "42.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 37643960,
+   "unit": "votes",
+   "when": "1964-11-03",
+   "subject": "US House of Representatives elections 1964: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1966",
+   "claim": "In the 1966 US House of Representatives elections, Democratic candidates received 26,934,136 votes nationwide (50.9%) and Republican candidates received 25,521,157 votes (48.2%).",
+   "url": "https://en.wikipedia.org/wiki/1966_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 295 248 47 57.0% 26,934,136 50.9% 6.2%",
+    "Republican Party 140 187 47 43.0% 25,521,157 48.2% 5.8%"
+   ],
+   "values": [
+    "26,934,136",
+    "50.9",
+    "25,521,157",
+    "48.2"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 26934136,
+   "unit": "votes",
+   "when": "1966-11-08",
+   "subject": "US House of Representatives elections 1966: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1968",
+   "claim": "In the 1968 US House of Representatives elections, Democratic candidates received 33,214,994 votes nationwide (50.2%) and Republican candidates received 32,059,047 votes (48.5%).",
+   "url": "https://en.wikipedia.org/wiki/1968_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 248 243 5 55.9% 33,214,994 50.2% 0.7%",
+    "Republican Party 187 192 5 44.1% 32,059,047 48.5% 0.3%"
+   ],
+   "values": [
+    "33,214,994",
+    "50.2",
+    "32,059,047",
+    "48.5"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 33214994,
+   "unit": "votes",
+   "when": "1968-11-05",
+   "subject": "US House of Representatives elections 1968: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1970",
+   "claim": "In the 1970 US House of Representatives elections, Democratic candidates received 29,080,212 votes nationwide (53.6%) and Republican candidates received 24,352,657 votes (44.9%).",
+   "url": "https://en.wikipedia.org/wiki/1970_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 243 255 12 58.6% 29,080,212 53.6% 3.4%",
+    "Republican Party 192 180 12 41.4% 24,352,657 44.9% 3.6%"
+   ],
+   "values": [
+    "29,080,212",
+    "53.6",
+    "24,352,657",
+    "44.9"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 29080212,
+   "unit": "votes",
+   "when": "1970-11-03",
+   "subject": "US House of Representatives elections 1970: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1972",
+   "claim": "In the 1972 US House of Representatives elections, Democratic candidates received 36,780,100 votes nationwide (51.7%) and Republican candidates received 33,064,172 votes (46.4%).",
+   "url": "https://en.wikipedia.org/wiki/1972_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 36,780,100 33,064,172",
+    "Percentage 51.7% 46.4%"
+   ],
+   "values": [
+    "36,780,100",
+    "51.7",
+    "33,064,172",
+    "46.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 36780100,
+   "unit": "votes",
+   "when": "1972-11-07",
+   "subject": "US House of Representatives elections 1972: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1974",
+   "claim": "In the 1974 US House of Representatives elections, Democratic candidates received 30,054,097 votes nationwide (57.5%) and Republican candidates received 21,271,332 votes (40.7%).",
+   "url": "https://en.wikipedia.org/wiki/1974_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 242 291 +49 66.9% 30,054,097 57.5% +5.4%",
+    "Republican Party 192 144 -48 33.1% 21,271,332 40.7% -5.8%"
+   ],
+   "values": [
+    "30,054,097",
+    "57.5",
+    "21,271,332",
+    "40.7"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 30054097,
+   "unit": "votes",
+   "when": "1974-11-05",
+   "subject": "US House of Representatives elections 1974: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1976",
+   "claim": "In the 1976 US House of Representatives elections, Democratic candidates received 41,474,890 votes nationwide (55.9%) and Republican candidates received 31,380,535 votes (42.3%).",
+   "url": "https://en.wikipedia.org/wiki/1976_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 41,474,890 31,380,535",
+    "Percentage 55.9% 42.3%"
+   ],
+   "values": [
+    "41,474,890",
+    "55.9",
+    "31,380,535",
+    "42.3"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 41474890,
+   "unit": "votes",
+   "when": "1976-11-02",
+   "subject": "US House of Representatives elections 1976: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1978",
+   "claim": "In the 1978 US House of Representatives elections, Democratic candidates received 29,317,777 votes nationwide (53.7%) and Republican candidates received 24,464,665 votes (44.8%).",
+   "url": "https://en.wikipedia.org/wiki/1978_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 29,317,777 24,464,665",
+    "Percentage 53.7% 44.8%"
+   ],
+   "values": [
+    "29,317,777",
+    "53.7",
+    "24,464,665",
+    "44.8"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 29317777,
+   "unit": "votes",
+   "when": "1978-11-07",
+   "subject": "US House of Representatives elections 1978: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": false,
+    "reason": "29,317,777 is the infobox figure; the page's own overall-results table, sourced to the Clerk's election statistics, gives 29,317,222, and only that figure makes the table sum to its stated total 54,583,922 (the infobox figure overshoots by 555). Republican 24,464,665 and the shares 53.7% / 44.8% are unaffected.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1980",
+   "claim": "In the 1980 US House of Representatives elections, Democratic candidates received 39,347,947 votes nationwide (50.5%) and Republican candidates received 37,222,588 votes (47.8%).",
+   "url": "https://en.wikipedia.org/wiki/1980_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 39,347,947 37,222,588",
+    "Percentage 50.5% 47.8%"
+   ],
+   "values": [
+    "39,347,947",
+    "50.5",
+    "37,222,588",
+    "47.8"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 39347947,
+   "unit": "votes",
+   "when": "1980-11-04",
+   "subject": "US House of Representatives elections 1980: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1982",
+   "claim": "In the 1982 US House of Representatives elections, Democratic candidates received 35,284,473 votes nationwide (55.2%) and Republican candidates received 27,625,593 votes (43.4%).",
+   "url": "https://en.wikipedia.org/wiki/1982_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 243 269 26 61.8% 35,284,473 55.2% 4.7%",
+    "Republican Party 191 165 26 38.0% 27,625,593 43.4% 4.4%"
+   ],
+   "values": [
+    "35,284,473",
+    "55.2",
+    "27,625,593",
+    "43.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 35284473,
+   "unit": "votes",
+   "when": "1982-11-02",
+   "subject": "US House of Representatives elections 1982: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1984",
+   "claim": "In the 1984 US House of Representatives elections, Democratic candidates received 42,973,494 votes nationwide (52.1%) and Republican candidates received 38,642,646 votes (47.0%).",
+   "url": "https://en.wikipedia.org/wiki/1984_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 42,973,494 38,642,646",
+    "Percentage 52.1% 47.0%"
+   ],
+   "values": [
+    "42,973,494",
+    "52.1",
+    "38,642,646",
+    "47.0"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 42973494,
+   "unit": "votes",
+   "when": "1984-11-06",
+   "subject": "US House of Representatives elections 1984: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1986",
+   "claim": "In the 1986 US House of Representatives elections, Democratic candidates received 32,447,021 votes nationwide (54.3%) and Republican candidates received 26,533,178 votes (44.4%).",
+   "url": "https://en.wikipedia.org/wiki/1986_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 32,447,021 26,533,178",
+    "Percentage 54.3% 44.4%"
+   ],
+   "values": [
+    "32,447,021",
+    "54.3",
+    "26,533,178",
+    "44.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 32447021,
+   "unit": "votes",
+   "when": "1986-11-04",
+   "subject": "US House of Representatives elections 1986: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1988",
+   "claim": "In the 1988 US House of Representatives elections, Democratic candidates received 43,544,565 votes nationwide (53.3%) and Republican candidates received 37,209,219 votes (45.6%).",
+   "url": "https://en.wikipedia.org/wiki/1988_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 43,544,565 37,209,219",
+    "Percentage 53.3% 45.6%"
+   ],
+   "values": [
+    "43,544,565",
+    "53.3",
+    "37,209,219",
+    "45.6"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 43544565,
+   "unit": "votes",
+   "when": "1988-11-08",
+   "subject": "US House of Representatives elections 1988: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1990",
+   "claim": "In the 1990 US House of Representatives elections, Democratic candidates received 32,463,372 votes nationwide (52.1%) and Republican candidates received 27,596,256 votes (44.3%).",
+   "url": "https://en.wikipedia.org/wiki/1990_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 32,463,372 27,596,256",
+    "Percentage 52.1% 44.3%"
+   ],
+   "values": [
+    "32,463,372",
+    "52.1",
+    "27,596,256",
+    "44.3"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 32463372,
+   "unit": "votes",
+   "when": "1990-11-06",
+   "subject": "US House of Representatives elections 1990: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1992",
+   "claim": "In the 1992 US House of Representatives elections, Democratic candidates received 48,654,189 votes nationwide (50.1%) and Republican candidates received 43,812,063 votes (45.1%).",
+   "url": "https://en.wikipedia.org/wiki/1992_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 48,654,189 43,812,063",
+    "Percentage 50.1% 45.1%"
+   ],
+   "values": [
+    "48,654,189",
+    "50.1",
+    "43,812,063",
+    "45.1"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 48654189,
+   "unit": "votes",
+   "when": "1992-11-03",
+   "subject": "US House of Representatives elections 1992: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1994",
+   "claim": "In the 1994 US House of Representatives elections, Democratic candidates received 31,542,823 votes nationwide (44.7%) and Republican candidates received 36,325,809 votes (51.5%).",
+   "url": "https://en.wikipedia.org/wiki/1994_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic 258 204 54 46.9% 44.7% 31,542,823",
+    "Republican 176 230 54 52.9% 51.5% 36,325,809"
+   ],
+   "values": [
+    "31,542,823",
+    "44.7",
+    "36,325,809",
+    "51.5"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 31542823,
+   "unit": "votes",
+   "when": "1994-11-08",
+   "subject": "US House of Representatives elections 1994: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1996",
+   "claim": "In the 1996 US House of Representatives elections, Democratic candidates received 43,507,586 votes nationwide (48.22%) and Republican candidates received 43,447,962 votes (48.15%).",
+   "url": "https://en.wikipedia.org/wiki/1996_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Republican Democratic",
+    "Popular vote 43,447,962 43,507,586",
+    "Percentage 48.15% 48.22%"
+   ],
+   "values": [
+    "43,507,586",
+    "48.22",
+    "43,447,962",
+    "48.15"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 43507586,
+   "unit": "votes",
+   "when": "1996-11-05",
+   "subject": "US House of Representatives elections 1996: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Republican then Democratic, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1998",
+   "claim": "In the 1998 US House of Representatives elections, Democratic candidates received 31,490,298 votes nationwide (47.3%) and Republican candidates received 32,237,964 votes (48.4%).",
+   "url": "https://en.wikipedia.org/wiki/1998_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Republican Democratic",
+    "Popular vote 32,237,964 31,490,298",
+    "Percentage 48.4% 47.3%"
+   ],
+   "values": [
+    "31,490,298",
+    "47.3",
+    "32,237,964",
+    "48.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 31490298,
+   "unit": "votes",
+   "when": "1998-11-03",
+   "subject": "US House of Representatives elections 1998: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Republican then Democratic, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2000",
+   "claim": "In the 2000 US House of Representatives elections, Democratic candidates received 46,582,167 votes nationwide (47.1%) and Republican candidates received 46,992,383 votes (47.6%).",
+   "url": "https://en.wikipedia.org/wiki/2000_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 211 212 1 48.7% 46,582,167 47.1% -0.2%",
+    "Republican Party 223 221 2 50.8% 46,992,383 47.6% -0.8%"
+   ],
+   "values": [
+    "46,582,167",
+    "47.1",
+    "46,992,383",
+    "47.6"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 46582167,
+   "unit": "votes",
+   "when": "2000-11-07",
+   "subject": "US House of Representatives elections 2000: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2002",
+   "claim": "In the 2002 US House of Representatives elections, Democratic candidates received 33,795,885 votes nationwide (45.2%) and Republican candidates received 37,332,552 votes (50.0%).",
+   "url": "https://en.wikipedia.org/wiki/2002_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 212 205 7 47.1% 33,795,885 45.2% -1.9%",
+    "Republican Party 221 229 8 52.6% 37,332,552 50.0% +2.4%"
+   ],
+   "values": [
+    "33,795,885",
+    "45.2",
+    "37,332,552",
+    "50.0"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 33795885,
+   "unit": "votes",
+   "when": "2002-11-05",
+   "subject": "US House of Representatives elections 2002: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2004",
+   "claim": "In the 2004 US House of Representatives elections, Democratic candidates received 52,969,786 votes nationwide (46.8%) and Republican candidates received 55,958,144 votes (49.4%).",
+   "url": "https://en.wikipedia.org/wiki/2004_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 205 202 3 46.4% 52,969,786 46.8% +1.6%",
+    "Republican Party 229 232 3 53.3% 55,958,144 49.4% -0.6%"
+   ],
+   "values": [
+    "52,969,786",
+    "46.8",
+    "55,958,144",
+    "49.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 52969786,
+   "unit": "votes",
+   "when": "2004-11-02",
+   "subject": "US House of Representatives elections 2004: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2006",
+   "claim": "In the 2006 US House of Representatives elections, Democratic candidates received 42,338,795 votes nationwide (52.3%) and Republican candidates received 35,857,334 votes (44.3%).",
+   "url": "https://en.wikipedia.org/wiki/2006_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 202 233 31 53.6% 42,338,795 52.3% +5.5%",
+    "Republican Party 232 202 30 46.4% 35,857,334 44.3% −5.1%"
+   ],
+   "values": [
+    "42,338,795",
+    "52.3",
+    "35,857,334",
+    "44.3"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 42338795,
+   "unit": "votes",
+   "when": "2006-11-07",
+   "subject": "US House of Representatives elections 2006: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2008",
+   "claim": "In the 2008 US House of Representatives elections, Democratic candidates received 64,888,090 votes nationwide (52.9%) and Republican candidates received 51,952,981 votes (42.4%).",
+   "url": "https://en.wikipedia.org/wiki/2008_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Democratic Republican",
+    "Popular vote 64,888,090 51,952,981",
+    "Percentage 52.9% 42.4%"
+   ],
+   "values": [
+    "64,888,090",
+    "52.9",
+    "51,952,981",
+    "42.4"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 64888090,
+   "unit": "votes",
+   "when": "2008-11-04",
+   "subject": "US House of Representatives elections 2008: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Democratic then Republican, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2010",
+   "claim": "In the 2010 US House of Representatives elections, Democratic candidates received 38,980,192 votes nationwide (44.9%) and Republican candidates received 44,829,751 votes (51.7%).",
+   "url": "https://en.wikipedia.org/wiki/2010_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Party Republican Democratic",
+    "Popular vote 44,829,751[5] 38,980,192",
+    "Percentage 51.7% 44.9%"
+   ],
+   "values": [
+    "38,980,192",
+    "44.9",
+    "44,829,751",
+    "51.7"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 38980192,
+   "unit": "votes",
+   "when": "2010-11-02",
+   "subject": "US House of Representatives elections 2010: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's election infobox: the Party row lists Republican then Democratic, and the Popular vote and Percentage rows follow that order.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2012",
+   "claim": "In the 2012 US House of Representatives elections, Democratic candidates received 59,645,531 votes nationwide (48.8%) and Republican candidates received 58,283,314 votes (47.7%).",
+   "url": "https://en.wikipedia.org/wiki/2012_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 193 201 8 46.2% 59,645,531 48.8% +3.9%",
+    "Republican Party 242 234 8 53.8% 58,283,314 47.7% −4.0%"
+   ],
+   "values": [
+    "59,645,531",
+    "48.8",
+    "58,283,314",
+    "47.7"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 59645531,
+   "unit": "votes",
+   "when": "2012-11-06",
+   "subject": "US House of Representatives elections 2012: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2014",
+   "claim": "In the 2014 US House of Representatives elections, Democratic candidates received 35,624,357 votes nationwide (45.5%) and Republican candidates received 40,081,282 votes (51.2%).",
+   "url": "https://en.wikipedia.org/wiki/2014_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 201 188 13 43.2% 35,624,357 45.5% -3.3%",
+    "Republican Party 234 247 13 56.8% 40,081,282 51.2% +3.6%"
+   ],
+   "values": [
+    "35,624,357",
+    "45.5",
+    "40,081,282",
+    "51.2"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 35624357,
+   "unit": "votes",
+   "when": "2014-11-04",
+   "subject": "US House of Representatives elections 2014: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2016",
+   "claim": "In the 2016 US House of Representatives elections, Democratic candidates received 61,417,454 votes nationwide (47.3%) and Republican candidates received 62,772,225 votes (48.3%).",
+   "url": "https://en.wikipedia.org/wiki/2016_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 188 194 6 44.6% 61,417,454 47.3% +1.8pp",
+    "Republican Party 247 241 6 55.4% 62,772,225 48.3% -2.9pp"
+   ],
+   "values": [
+    "61,417,454",
+    "47.3",
+    "62,772,225",
+    "48.3"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 61417454,
+   "unit": "votes",
+   "when": "2016-11-08",
+   "subject": "US House of Representatives elections 2016: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares. The page cites the Clerk's official statistics; older compilations (e.g. the 2018 page's 'last election' 48.0% / 49.1%) differ.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2018",
+   "claim": "In the 2018 US House of Representatives elections, Democratic candidates received 60,572,245 votes nationwide (53.4%) and Republican candidates received 50,861,970 votes (44.8%).",
+   "url": "https://en.wikipedia.org/wiki/2018_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 194 235 41 54.0% 60,572,245 53.4% +5.4%",
+    "Republican Party 241 199 42 45.7% 50,861,970 44.8% –4.3%"
+   ],
+   "values": [
+    "60,572,245",
+    "53.4",
+    "50,861,970",
+    "44.8"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 60572245,
+   "unit": "votes",
+   "when": "2018-11-06",
+   "subject": "US House of Representatives elections 2018: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2020",
+   "claim": "In the 2020 US House of Representatives elections, Democratic candidates received 77,122,690 votes nationwide (50.27%) and Republican candidates received 72,466,576 votes (47.23%).",
+   "url": "https://en.wikipedia.org/wiki/2020_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 77,122,690 50.27% –3.1% 235 222 13 51.0%",
+    "Republican Party 72,466,576 47.23% +2.4% 199 213 14 49.0%"
+   ],
+   "values": [
+    "77,122,690",
+    "50.27",
+    "72,466,576",
+    "47.23"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 77122690,
+   "unit": "votes",
+   "when": "2020-11-03",
+   "subject": "US House of Representatives elections 2020: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2022",
+   "claim": "In the 2022 US House of Representatives elections, Democratic candidates received 51,280,463 votes nationwide (47.29%) and Republican candidates received 54,227,992 votes (50.01%).",
+   "url": "https://en.wikipedia.org/wiki/2022_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 51,280,463 47.29% –2.97% 222 213 9 49.0%",
+    "Republican Party 54,227,992 50.01% +2.78% 213 222 9 51.0%"
+   ],
+   "values": [
+    "51,280,463",
+    "47.29",
+    "54,227,992",
+    "50.01"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 51280463,
+   "unit": "votes",
+   "when": "2022-11-08",
+   "subject": "US House of Representatives elections 2022: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-2024",
+   "claim": "In the 2024 US House of Representatives elections, Democratic candidates received 70,571,330 votes nationwide (47.19%) and Republican candidates received 74,390,864 votes (49.75%).",
+   "url": "https://en.wikipedia.org/wiki/2024_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Democratic Party 70,571,330 47.19%",
+    "Republican Party 74,390,864 49.75%"
+   ],
+   "values": [
+    "70,571,330",
+    "47.19",
+    "74,390,864",
+    "49.75"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 70571330,
+   "unit": "votes",
+   "when": "2024-11-05",
+   "subject": "US House of Representatives elections 2024: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's results table of the election article (one row per party).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia infobox and overall-results table agree on the Democratic and Republican national House vote and shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1948",
+   "claim": "In the 1948 US presidential election, 48,833,680 votes were cast, a turnout of 51.47% of the voting-age population of 94,877,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1948 94,877,000 — 48,833,680 51.47% — 24,179,347 21,991,292 — —"
+   ],
+   "values": [
+    "94,877,000",
+    "48,833,680",
+    "51.47"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 51.47,
+   "unit": "% of voting-age population",
+   "when": "1948-11-02",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares. The 1948 results page totals 48,793,535 (40k fewer); the turnout figures are APP's.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1952",
+   "claim": "In the 1952 US presidential election, 61,551,919 votes were cast, a turnout of 62.74% of the voting-age population of 98,113,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1952 98,113,000 — 61,551,919 62.74% — 34,075,529 27,375,090 — —"
+   ],
+   "values": [
+    "98,113,000",
+    "61,551,919",
+    "62.74"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 62.74,
+   "unit": "% of voting-age population",
+   "when": "1952-11-04",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares. Caution: 61,551,919 is an older compilation's total (APP); the 1952 results page totals 61,751,942, which would give 62.94%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1956",
+   "claim": "In the 1956 US presidential election, 62,027,040 votes were cast, a turnout of 60.37% of the voting-age population of 102,753,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1956 102,753,000 — 62,027,040 60.37% — 35,579,180 26,028,028 — —"
+   ],
+   "values": [
+    "102,753,000",
+    "62,027,040",
+    "60.37"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 60.37,
+   "unit": "% of voting-age population",
+   "when": "1956-11-06",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The American Presidency Project's current table (updated 24 May 2025) gives different figures for this year: VAP 102,743,000.",
+   "check": {
+    "ok": true,
+    "reason": "Votes and share match The American Presidency Project table the page cites; shares recompute. APP, which the page cites, has the VAP as 102,743,000, not 102,753,000; 60.37% holds either way.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1960",
+   "claim": "In the 1960 US presidential election, 68,836,385 votes were cast, a turnout of 63.47% of the voting-age population of 108,458,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1960 108,458,000 — 68,836,385 63.47% — 34,220,984 34,108,157 — —"
+   ],
+   "values": [
+    "108,458,000",
+    "68,836,385",
+    "63.47"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 63.47,
+   "unit": "% of voting-age population",
+   "when": "1960-11-08",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1964",
+   "claim": "In the 1964 US presidential election, 70,097,935 votes were cast, a turnout of 63.38% of the voting-age population of 110,604,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1964 110,604,000 — 70,097,935 63.38% — 43,127,041 27,175,754 — —"
+   ],
+   "values": [
+    "110,604,000",
+    "70,097,935",
+    "63.38"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 63.38,
+   "unit": "% of voting-age population",
+   "when": "1964-11-03",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": false,
+    "reason": "The row is impossible: 70,097,935 votes cast is less than Johnson plus Goldwater alone (43,127,041 + 27,175,754 = 70,302,795 on the same row; 70,304,794 on the 1964 results page, whose total is 70,641,751). The American Presidency Project table the page copies has the same figure, and its 110,604,000 VAP grows only 2.1M on 1960 against about 5.7M on either side, suggesting a change of basis. On the results-page total and the same VAP the share would be about 63.9%; no corrected value is certain.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1968",
+   "claim": "In the 1968 US presidential election, 73,026,831 votes were cast, a turnout of 62.76% of the voting-age population of 116,353,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1968 116,353,000 — 73,026,831 62.76% — 31,783,783 31,271,839 — —"
+   ],
+   "values": [
+    "116,353,000",
+    "73,026,831",
+    "62.76"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 62.76,
+   "unit": "% of voting-age population",
+   "when": "1968-11-05",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares. The 1968 results page totals 73,199,999 (173k more), which would give 62.91%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1972",
+   "claim": "In the 1972 US presidential election, 77,625,152 votes were cast, a turnout of 56.99% of the voting-age population of 136,203,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1972 136,203,000 — 77,625,152 56.99% — 47,168,710 29,173,222 — —"
+   ],
+   "values": [
+    "136,203,000",
+    "77,625,152",
+    "56.99"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 56.99,
+   "unit": "% of voting-age population",
+   "when": "1972-11-07",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares. The 1972 results page totals 77,744,030 (119k more), which would give 57.08%.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1976",
+   "claim": "In the 1976 US presidential election, 81,603,346 votes were cast, a turnout of 55.68% of the voting-age population of 146,548,000.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1976 146,548,000 — 81,603,346 55.68% — 40,831,881 39,148,634 — —"
+   ],
+   "values": [
+    "146,548,000",
+    "81,603,346",
+    "55.68"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP",
+   "value": 55.68,
+   "unit": "% of voting-age population",
+   "when": "1976-11-02",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1980",
+   "claim": "In the 1980 US presidential election, 86,496,851 votes were cast, a turnout of 55.06% of the voting-age population of 157,085,000, or 58.49% of the voting-eligible population of 147,870,815.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1980 157,085,000 147,870,815 86,496,851 55.06% 58.49% 43,903,230 35,480,115 29.69% 23.99%"
+   ],
+   "values": [
+    "157,085,000",
+    "86,496,851",
+    "55.06",
+    "147,870,815",
+    "58.49"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 55.06,
+   "unit": "% of voting-age population",
+   "when": "1980-11-04",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The American Presidency Project marks this VEP as its own calculation with the United States Elections Project's method.",
+   "check": {
+    "ok": false,
+    "reason": "The VAP part is right (86,496,851 / 157,085,000 = 55.06%, as in APP), but the VEP part is not usable in a series: 147,870,815 is a footnoted APP calculation ('U.S. Elections Project method'), 19.8M below the 1984 VEP of 167,701,904 that the later rows use, so 58.49% is out of line with the series; the 1980 results page's infobox gives 54.2% turnout. Keep 55.06% of VAP; drop or replace the VEP figures.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1984",
+   "claim": "In the 1984 US presidential election, 92,654,861 votes were cast, a turnout of 54.51% of the voting-age population of 169,963,000, or 55.25% of the voting-eligible population of 167,701,904.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1984 169,963,000 167,701,904 92,654,861 54.51% 55.25% 54,455,472 37,577,352 32.47% 22.41%"
+   ],
+   "values": [
+    "169,963,000",
+    "92,654,861",
+    "54.51",
+    "167,701,904",
+    "55.25"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 54.51,
+   "unit": "% of voting-age population",
+   "when": "1984-11-06",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1988",
+   "claim": "In the 1988 US presidential election, 91,586,725 votes were cast, a turnout of 51.42% of the voting-age population of 178,098,000, or 52.76% of the voting-eligible population of 173,579,281.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1988 178,098,000 173,579,281 91,586,725 51.42% 52.76% 48,886,597 41,809,476 28.16% 24.09%"
+   ],
+   "values": [
+    "178,098,000",
+    "91,586,725",
+    "51.42",
+    "173,579,281",
+    "52.76"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 51.42,
+   "unit": "% of voting-age population",
+   "when": "1988-11-08",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1992",
+   "claim": "In the 1992 US presidential election, 104,600,366 votes were cast, a turnout of 56.33% of the voting-age population of 185,684,000, or 58.22% of the voting-eligible population of 179,655,523.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1992 185,684,000 179,655,523 104,600,366 56.33% 58.22% 44,909,889 39,104,550 25% 21.77%"
+   ],
+   "values": [
+    "185,684,000",
+    "104,600,366",
+    "56.33",
+    "179,655,523",
+    "58.22"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 56.33,
+   "unit": "% of voting-age population",
+   "when": "1992-11-03",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-1996",
+   "claim": "In the 1996 US presidential election, 96,389,818 votes were cast, a turnout of 49.77% of the voting-age population of 193,652,000, or 51.73% of the voting-eligible population of 186,347,044.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "1996 193,652,000 186,347,044 96,389,818 49.77% 51.73% 47,401,185 39,197,469 25.44% 21.03%"
+   ],
+   "values": [
+    "193,652,000",
+    "96,389,818",
+    "49.77",
+    "186,347,044",
+    "51.73"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 49.77,
+   "unit": "% of voting-age population",
+   "when": "1996-11-05",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2000",
+   "claim": "In the 2000 US presidential election, 105,405,100 votes were cast, a turnout of 52.02% of the voting-age population of 202,609,000, or 54.24% of the voting-eligible population of 194,331,436.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2000 202,609,000 194,331,436 105,405,100 52.02% 54.24% 50,456,002 50,999,897 25.96% 26.24%"
+   ],
+   "values": [
+    "202,609,000",
+    "105,405,100",
+    "52.02",
+    "194,331,436",
+    "54.24"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 52.02,
+   "unit": "% of voting-age population",
+   "when": "2000-11-07",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The American Presidency Project's current table (updated 24 May 2025) gives different figures for this year: votes cast 105,594,024.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row's VAP and VEP match The American Presidency Project table it cites; its votes figure is the presidential-vote total (APP uses a slightly different total); shares recompute.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2004",
+   "claim": "In the 2004 US presidential election, 122,349,480 votes were cast, a turnout of 55.74% of the voting-age population of 219,508,000, or 60.13% of the voting-eligible population of 203,483,455.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2004 219,508,000 203,483,455 122,349,480 55.74% 60.13% 62,040,610 59,028,444 30.49% 29.01%"
+   ],
+   "values": [
+    "219,508,000",
+    "122,349,480",
+    "55.74",
+    "203,483,455",
+    "60.13"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 55.74,
+   "unit": "% of voting-age population",
+   "when": "2004-11-02",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The American Presidency Project's current table (updated 24 May 2025) gives different figures for this year: VAP 215,694,000.",
+   "check": {
+    "ok": false,
+    "reason": "The 219,508,000 VAP is off the series' basis: The American Presidency Project table the page cites gives 215,694,000 for 2004 (the Census voting-and-registration figure, on the same basis as its 2000 and 2008 rows); 219.5M would make VAP jump 16.9M in 2000-04 against 6.0M in 2004-08. On 215,694,000 the turnout is 122,349,480 / 215,694,000 = 56.72% (APP: 56.7%), not 55.74%. The VEP part (60.13% of 203,483,455) matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2008",
+   "claim": "In the 2008 US presidential election, 131,406,895 votes were cast, a turnout of 58.27% of the voting-age population of 225,499,000, or 61.6% of the voting-eligible population of 213,313,508.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2008 225,499,000 213,313,508 131,406,895 58.27% 61.6% 69,498,516 59,948,323 32.58% 28.1%"
+   ],
+   "values": [
+    "225,499,000",
+    "131,406,895",
+    "58.27",
+    "213,313,508",
+    "61.6"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 58.27,
+   "unit": "% of voting-age population",
+   "when": "2008-11-04",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2012",
+   "claim": "In the 2012 US presidential election, 129,139,997 votes were cast, a turnout of 54.9% of the voting-age population of 235,248,000, or 58.05% of the voting-eligible population of 222,474,111.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2012 235,248,000 222,474,111 129,139,997 54.9% 58.05% 65,915,795 60,933,504 29.63% 27.39%"
+   ],
+   "values": [
+    "235,248,000",
+    "129,139,997",
+    "54.9",
+    "222,474,111",
+    "58.05"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 54.9,
+   "unit": "% of voting-age population",
+   "when": "2012-11-06",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row matches The American Presidency Project table it cites; votes / VAP (and / VEP) recompute to the stated shares.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2016",
+   "claim": "In the 2016 US presidential election, 136,669,237 votes were cast, a turnout of 55.67% of the voting-age population of 245,502,000, or 59.18% of the voting-eligible population of 230,931,921.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2016 245,502,000 230,931,921 136,669,237 55.67% 59.18% 62,984,828 65,853,514 27.27% 28.52%"
+   ],
+   "values": [
+    "245,502,000",
+    "136,669,237",
+    "55.67",
+    "230,931,921",
+    "59.18"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 55.67,
+   "unit": "% of voting-age population",
+   "when": "2016-11-08",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The American Presidency Project's current table (updated 24 May 2025) gives different figures for this year: votes cast 136,787,187.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row's VAP and VEP match The American Presidency Project table it cites; its votes figure is the presidential-vote total (APP uses a slightly different total); shares recompute.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2020",
+   "claim": "In the 2020 US presidential election, 158,427,986 votes were cast, a turnout of 62.8% of the voting-age population of 252,274,000, or 65.28% of the voting-eligible population of 242,690,810.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2020 252,274,000 242,690,810 158,427,986 62.8% 65.28% 81,283,501 74,223,975 33.49% 30.58%"
+   ],
+   "values": [
+    "252,274,000",
+    "158,427,986",
+    "62.8",
+    "242,690,810",
+    "65.28"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 62.8,
+   "unit": "% of voting-age population",
+   "when": "2020-11-03",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The American Presidency Project's current table (updated 24 May 2025) gives different figures for this year: votes cast 158,481,688.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row's VAP and VEP match The American Presidency Project table it cites; its votes figure is the presidential-vote total (APP uses a slightly different total); shares recompute.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-turnout-2024",
+   "claim": "In the 2024 US presidential election, 156,766,239 votes were cast, a turnout of 59.2% of the voting-age population of 264,798,961, or 64.3% of the voting-eligible population of 243,803,423.",
+   "url": "https://en.wikipedia.org/wiki/Voter_turnout_in_United_States_presidential_elections",
+   "quotes": [
+    "2024* 264,798,961 243,803,423 156,766,239 59.2% 64.3% 77,303,568 75,019,230 31.71% 30.77%"
+   ],
+   "values": [
+    "264,798,961",
+    "156,766,239",
+    "59.2",
+    "243,803,423",
+    "64.3"
+   ],
+   "context": [
+    "Election Voting-age population (VAP)[11] Voting-eligible population (VEP)[11] Turnout[11] Turnout as % of VAP[11] Turnout as % of VEP[11][12] Winner votes Runner-up votes Winner as % of VEP[11][13] Runner-up as % of VEP[11][13]"
+   ],
+   "dated2026": false,
+   "measure": "presidential election turnout as a share of the voting-age population (value); values list VAP, votes cast, % of VAP, VEP, % of VEP",
+   "value": 59.2,
+   "unit": "% of voting-age population",
+   "when": "2024-11-05",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's turnout table, whose VAP, VEP and turnout columns cite the American Presidency Project (UCSB); the numerator is the votes cast for president. The 2024 row is marked as an estimate by the University of Florida Election Lab as of March 2, 2026. The American Presidency Project's current table (updated 24 May 2025) gives different figures for this year: votes cast 154,308,000, VAP 266,978,268, VEP 244,666,890.",
+   "check": {
+    "ok": true,
+    "reason": "Turnout row (UF Election Lab estimate, footnoted) matches the claim; shares recompute. Estimate as of 2026-03-02 (the presidential vote itself was 155,238,302). Its VAP comes from a different source than the 2020 row's (252,274,000), so the 2020-24 VAP comparison mixes bases; APP's current 2024 row differs (57.8% VAP, 63.1% VEP).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-2020",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 331,449,281 in the 2020 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "331,449,281"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 331449281,
+   "unit": "people",
+   "when": "2020-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row).",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-2010",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 308,745,538 in the 2010 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "308,745,538"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 308745538,
+   "unit": "people",
+   "when": "2010-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row).",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-2000",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 281,421,906 in the 2000 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "281,421,906"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 281421906,
+   "unit": "people",
+   "when": "2000-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row).",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-1990",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 248,709,873 in the 1990 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "248,709,873"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 248709873,
+   "unit": "people",
+   "when": "1990-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row).",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-1980",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 226,545,805 in the 1980 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "226,545,805"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 226545805,
+   "unit": "people",
+   "when": "1980-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row).",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-1970",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 203,211,926 in the 1970 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "203,211,926"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 203211926,
+   "unit": "people",
+   "when": "1970-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row). Wikipedia's Demographics of the United States table gives the originally published 1970 count, 203,392,031; this Census table gives 203,211,926.",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches. The measure's 'originally published 203,392,031' is not on the cited page but matches Wikipedia's census table.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-1960",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 179,323,175 in the 1960 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "179,323,175"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 179323175,
+   "unit": "people",
+   "when": "1960-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row).",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-1950",
+   "claim": "The US Census Bureau's historical table gives the United States a resident population of 151,325,798 in the 1950 census.",
+   "url": "https://www.census.gov/data/tables/time-series/dec/popchange-data-text.html",
+   "quotes": [
+    "United States Resident Population 331,449,281 308,745,538 281,421,906 248,709,873 226,545,805 203,211,926 179,323,175 151,325,798 132,165,129 123,202,660 106,021,568 92,228,531"
+   ],
+   "values": [
+    "151,325,798"
+   ],
+   "context": [
+    "Change in Resident Population of the 50 States, the District of Columbia, and Puerto Rico: 1910 to 2020 State or Region 2020 Census 2010 Census 2000 Census 1990 Census 1980 Census 1970 Census 1960 Census 1950 Census 1940 Census 1930 Census 1920 Census 1910 Census"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, decennial census",
+   "value": 151325798,
+   "unit": "people",
+   "when": "1950-04-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau table of the 50 states and DC (Puerto Rico is a separate row). Alaska and Hawaii are counted here; the census count for the 48 states and DC (150,697,361 in Wikipedia's Demographics of the United States table) is smaller.",
+   "check": {
+    "ok": true,
+    "reason": "Census decennial table (50 states and DC, resident population) gives this figure; matches.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-1948",
+   "claim": "The Census Bureau estimated the US population on July 1, 1948 at 146,631,302 (resident population plus Armed Forces overseas, excluding Alaska and Hawaii).",
+   "url": "https://www2.census.gov/programs-surveys/popest/tables/1900-1980/national/totals/popclockest.txt",
+   "quotes": [
+    "July 1, 1948 146,631,302 2,505,231 1.72"
+   ],
+   "values": [
+    "146,631,302"
+   ],
+   "context": [
+    "Historical National Population Estimates: July 1, 1900 to July 1, 1999"
+   ],
+   "textKind": "text",
+   "dated2026": false,
+   "measure": "US population estimate, July 1 (resident population plus Armed Forces overseas, 48 states and DC)",
+   "value": 146631302,
+   "unit": "people",
+   "when": "1948-07-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "Census Bureau Population Estimates Program, Historical National Population Estimates 1900-1999 (row columns: date, population, change, average annual percent change). The file's notes say data for 1900-1949 exclude Alaska and Hawaii and data for 1940-1979 include Armed Forces overseas.",
+   "check": {
+    "ok": true,
+    "reason": "Census popclockest.txt row 'July 1, 1948 146,631,302' matches. Coverage per the file's note (48 states plus DC, Armed Forces overseas included), so not like-for-like with the 50-state census counts.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-2024",
+   "claim": "According to the Census Bureau's Vintage 2024 population estimates (released December 19, 2024), the US population surpassed 340 million in 2024, after growing by nearly 1.0% between 2023 and 2024.",
+   "url": "https://www.census.gov/newsroom/press-releases/2024/population-estimates-international-migration.html",
+   "quotes": [
+    "DEC. 19, 2024 — The U.S. population grew by nearly 1.0% between 2023 and 2024, according to the new Vintage 2024 population estimates released today by the U.S. Census Bureau.",
+    "As the nation's population surpasses 340 million, this is the fastest annual population growth the nation has seen since 2001 — a notable increase from the record low growth rate of 0.2% in 2021."
+   ],
+   "values": [
+    "340",
+    "1.0"
+   ],
+   "dated2026": false,
+   "measure": "US resident population, July 1, 2024 estimate (Vintage 2024), stated as a lower bound",
+   "value": 340,
+   "unit": "million people (more than)",
+   "when": "2024-07-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "The release gives the level only as 'surpasses 340 million'; Vintage 2024 estimates are for July 1, 2024.",
+   "check": {
+    "ok": true,
+    "reason": "Census release (Dec 19, 2024, Vintage 2024): population 'surpasses 340 million', growth nearly 1.0%; a lower bound, as labelled.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pop-2025",
+   "claim": "The US Census Bureau estimated the US population at 341,784,857 on July 1, 2025.",
+   "url": "https://en.wikipedia.org/wiki/Demographics_of_the_United_States",
+   "quotes": [
+    "Its estimated population was 341,784,857 on July 1, 2025, according to the U.S. Census Bureau."
+   ],
+   "values": [
+    "341,784,857"
+   ],
+   "dated2026": false,
+   "measure": "US resident population estimate, July 1, 2025 (Census Vintage 2025, 50 states and DC)",
+   "value": 341784857,
+   "unit": "people",
+   "when": "2025-07-01",
+   "subject": "United States",
+   "accessed": "2026-11-07",
+   "notes": "The latest benchmark after the span; the article cites the Census Bureau's Vintage 2025 national totals.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia states the Census estimate of 341,784,857 for July 1, 2025. Wikipedia citing the Census Bureau (Vintage 2025); not read from a Census page.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-1948-thurmond",
+   "claim": "In the 1948 US presidential election, Strom Thurmond of the States' Rights Democratic Party received 1,176,023 popular votes, 2.41% of the total and 39 electoral votes.",
+   "url": "https://en.wikipedia.org/wiki/1948_United_States_presidential_election",
+   "quotes": [
+    "Strom Thurmond States' Rights Democratic South Carolina 1,176,023 2.41% 39[126] Fielding L. Wright Mississippi 39[127]",
+    "Popular vote Truman 49.55% Dewey 45.07% Thurmond 2.41% Wallace 2.37% Others 0.60%"
+   ],
+   "values": [
+    "1,176,023",
+    "2.41",
+    "39"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 1176023,
+   "unit": "votes",
+   "when": "1948-11-02",
+   "subject": "US presidential election 1948: Strom Thurmond (States' Rights Democratic)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote. The States' Rights Democrats are better known as the Dixiecrats.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-1948-wallace",
+   "claim": "In the 1948 US presidential election, Henry A. Wallace of the Progressive Party received 1,157,328 popular votes, 2.37% of the total.",
+   "url": "https://en.wikipedia.org/wiki/1948_United_States_presidential_election",
+   "quotes": [
+    "Henry A. Wallace Wallace Progressive/American Labor New York 1,157,328 2.37% 0 Glen H. Taylor Idaho 0",
+    "Popular vote Truman 49.55% Dewey 45.07% Thurmond 2.41% Wallace 2.37% Others 0.60%"
+   ],
+   "values": [
+    "1,157,328",
+    "2.37"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 1157328,
+   "unit": "votes",
+   "when": "1948-11-02",
+   "subject": "US presidential election 1948: Henry A. Wallace (Progressive and American Labor)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-1968-wallace",
+   "claim": "In the 1968 US presidential election, George Wallace of the American Independent Party received 9,901,118 popular votes, 13.53% of the total and 46 electoral votes.",
+   "url": "https://en.wikipedia.org/wiki/1968_United_States_presidential_election",
+   "quotes": [
+    "George Wallace American Independent Alabama 9,901,118 13.53% 46[h] Curtis LeMay California[130] 46[i]",
+    "Popular vote Nixon 43.42% Humphrey 42.72% Wallace 13.53% Others 0.33%"
+   ],
+   "values": [
+    "9,901,118",
+    "13.53",
+    "46"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 9901118,
+   "unit": "votes",
+   "when": "1968-11-05",
+   "subject": "US presidential election 1968: George Wallace (American Independent)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-1980-anderson",
+   "claim": "In the 1980 US presidential election, John B. Anderson running as an independent received 5,719,850 popular votes, 6.61% of the total.",
+   "url": "https://en.wikipedia.org/wiki/1980_United_States_presidential_election",
+   "quotes": [
+    "John B. Anderson Independent Illinois 5,719,850 6.61% 0 Patrick Lucey Wisconsin 0",
+    "Popular vote Reagan 50.75% Carter 41.01% Anderson 6.61% Clark 1.06% Commoner 0.27% Others 0.30%"
+   ],
+   "values": [
+    "5,719,850",
+    "6.61"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 5719850,
+   "unit": "votes",
+   "when": "1980-11-04",
+   "subject": "US presidential election 1980: John B. Anderson (Independent)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-1992-perot",
+   "claim": "In the 1992 US presidential election, Ross Perot running as an independent received 19,743,821 popular votes, 18.91% of the total.",
+   "url": "https://en.wikipedia.org/wiki/1992_United_States_presidential_election",
+   "quotes": [
+    "Ross Perot Independent Texas 19,743,821 18.91% 0 James Stockdale California 0",
+    "Popular vote Clinton 43.01% Bush 37.45% Perot 18.91% Marrou 0.28% Others 0.35%"
+   ],
+   "values": [
+    "19,743,821",
+    "18.91"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 19743821,
+   "unit": "votes",
+   "when": "1992-11-03",
+   "subject": "US presidential election 1992: Ross Perot (Independent)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated). The page's state TOTALS row gives 19,742,267 (state-level vintage); the national row is the standard figure.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-1996-perot",
+   "claim": "In the 1996 US presidential election, Ross Perot of the Reform Party received 8,085,402 popular votes, 8.40% of the total.",
+   "url": "https://en.wikipedia.org/wiki/1996_United_States_presidential_election",
+   "quotes": [
+    "Ross Perot Reform[d] Texas 8,085,402 8.40% 0 Patrick Choate[e] Washington, D.C. 0",
+    "Popular vote Clinton 49.24% Dole 40.71% Perot 8.40% Nader 0.71% Browne 0.50% Others 0.44%"
+   ],
+   "values": [
+    "8,085,402",
+    "8.40"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 8085402,
+   "unit": "votes",
+   "when": "1996-11-05",
+   "subject": "US presidential election 1996: Ross Perot (Reform)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-2000-nader",
+   "claim": "In the 2000 US presidential election, Ralph Nader of the Green Party received 2,882,955 popular votes, 2.74% of the total.",
+   "url": "https://en.wikipedia.org/wiki/2000_United_States_presidential_election",
+   "quotes": [
+    "Ralph Nader Green Connecticut 2,882,955 2.74% 0 Winona LaDuke Minnesota 0",
+    "Popular vote Gore 48.38% Bush 47.87% Nader 2.74% Buchanan 0.43% Browne 0.36% Others 0.22%"
+   ],
+   "values": [
+    "2,882,955",
+    "2.74"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 2882955,
+   "unit": "votes",
+   "when": "2000-11-07",
+   "subject": "US presidential election 2000: Ralph Nader (Green)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-pres-third-2016-johnson",
+   "claim": "In the 2016 US presidential election, Gary Johnson of the Libertarian Party received 4,489,341 popular votes, 3.28% of the total.",
+   "url": "https://en.wikipedia.org/wiki/2016_United_States_presidential_election",
+   "quotes": [
+    "Gary Johnson Libertarian New Mexico 4,489,341 3.28% 0 William Weld Massachusetts 0",
+    "Popular vote[2][243] Clinton 48.18% Trump 46.09% Johnson 3.28% Stein 1.07% Others 1.38%"
+   ],
+   "values": [
+    "4,489,341",
+    "3.28"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote of a third-party or independent candidate",
+   "value": 4489341,
+   "unit": "votes",
+   "when": "2016-11-08",
+   "subject": "US presidential election 2016: Gary Johnson (Libertarian)",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's 'Electoral results' table of the election article and its popular-vote summary bar. Included where a candidate outside the two parties won electoral votes or more than 2% of the national vote.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the national results table row (votes, share, electoral votes where stated).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  }
+ ]
+}

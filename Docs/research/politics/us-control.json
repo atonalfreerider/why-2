@@ -1,0 +1,4464 @@
+{
+ "cluster": "us-control",
+ "asOf": "2026-11-07",
+ "scope": "US party control 1945-2026: each president's party and term (Truman to Trump's second term); the party division of the Senate and of the House at the start of every Congress from the 79th (1945) to the 119th (2025-2027); governors by party in benchmark years.",
+ "facts": [
+  {
+   "id": "pol-senate-079",
+   "claim": "At the start of the 79th Congress (January 3, 1945; it ran to January 3, 1947), the U.S. Senate's 96 seats were divided 57 Democrats (the majority party), 38 Republicans, 1 other and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "79th Congress (1/3/1945 to 1/3/1947) 57 Democrats 38 Republicans 1 0 96"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "57 Democrats",
+    "38 Republicans",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 57,
+   "unit": "Senate seats held by the majority party (Democratic) of 96",
+   "when": "1945-01-03 (start of the 79th Congress, 1945-1947)",
+   "subject": "U.S. Senate, 79th Congress (1945-1947)",
+   "chamber": "Senate",
+   "congress": 79,
+   "seats": {
+    "democrats": 57,
+    "republicans": 38,
+    "others": 1,
+    "vacant": 0,
+    "total": 96,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 79th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-080",
+   "claim": "At the start of the 80th Congress (January 3, 1947; it ran to January 3, 1949), the U.S. Senate's 96 seats were divided 51 Republicans (the majority party), 44 Democrats, no others and 1 vacant (Mississippi's seat, whose 1946 election of Theodore Bilbo was contested).",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "80th Congress (1/3/1947 to 1/3/1949) 51 Republicans 44 Democrats 0 1 96",
+    "At the opening of the 1st session, the 1946 election of Theodore Bilbo (D) of Mississippi was contested.",
+    "His Class 1 seat is counted as vacant here."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "51 Republicans",
+    "44 Democrats",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 51,
+   "unit": "Senate seats held by the majority party (Republican) of 96",
+   "when": "1947-01-03 (start of the 80th Congress, 1947-1949)",
+   "subject": "U.S. Senate, 80th Congress (1947-1949)",
+   "chamber": "Senate",
+   "congress": 80,
+   "seats": {
+    "democrats": 44,
+    "republicans": 51,
+    "others": 0,
+    "vacant": 1,
+    "total": 96,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 80th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-081",
+   "claim": "At the start of the 81st Congress (January 3, 1949; it ran to January 3, 1951), the U.S. Senate's 96 seats were divided 54 Democrats (the majority party), 42 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "81st Congress (1/3/1949 to 1/3/1951) 54 Democrats 42 Republicans 0 0 96"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "54 Democrats",
+    "42 Republicans",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 54,
+   "unit": "Senate seats held by the majority party (Democratic) of 96",
+   "when": "1949-01-03 (start of the 81st Congress, 1949-1951)",
+   "subject": "U.S. Senate, 81st Congress (1949-1951)",
+   "chamber": "Senate",
+   "congress": 81,
+   "seats": {
+    "democrats": 54,
+    "republicans": 42,
+    "others": 0,
+    "vacant": 0,
+    "total": 96,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 81st Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-082",
+   "claim": "At the start of the 82nd Congress (January 3, 1951; it ran to January 3, 1953), the U.S. Senate's 96 seats were divided 49 Democrats (the majority party), 47 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "82nd Congress (1/3/1951 to 1/3/1953) 49 Democrats 47 Republicans 0 0 96"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "49 Democrats",
+    "47 Republicans",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 49,
+   "unit": "Senate seats held by the majority party (Democratic) of 96",
+   "when": "1951-01-03 (start of the 82nd Congress, 1951-1953)",
+   "subject": "U.S. Senate, 82nd Congress (1951-1953)",
+   "chamber": "Senate",
+   "congress": 82,
+   "seats": {
+    "democrats": 49,
+    "republicans": 47,
+    "others": 0,
+    "vacant": 0,
+    "total": 96,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 82nd Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-083",
+   "claim": "At the start of the 83rd Congress (January 3, 1953; it ran to January 3, 1955), the U.S. Senate's 96 seats were divided 48 Republicans (the majority party), 47 Democrats and 1 Independent, Wayne Morse, who voted with the Republicans to organize the Senate; none were vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "83rd Congress 1 (1/3/1953 to 1/3/1955) 48 Republicans 47 Democrats 1 0 96",
+    "The election of 1952 produced a closely divided Senate, with 48 Republicans, 47 Democrats, and one Independent.",
+    "Wayne Morse (I) agreed to vote with Republicans to organize the Senate."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "48 Republicans",
+    "47 Democrats",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 48,
+   "unit": "Senate seats held by the majority party (Republican) of 96",
+   "when": "1953-01-03 (start of the 83rd Congress, 1953-1955)",
+   "subject": "U.S. Senate, 83rd Congress (1953-1955)",
+   "chamber": "Senate",
+   "congress": 83,
+   "seats": {
+    "democrats": 47,
+    "republicans": 48,
+    "others": 1,
+    "vacant": 0,
+    "total": 96,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 83rd Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-084",
+   "claim": "At the start of the 84th Congress (January 3, 1955; it ran to January 3, 1957), the U.S. Senate's 96 seats were divided 47 Democrats (the majority party), 47 Republicans and 2 Independents, Wayne Morse and Strom Thurmond, who caucused with the Democrats; none were vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "84th Congress (1/3/1955 to 1/3/1957) 47 Democrats 47 Republicans 2 0 96",
+    "The two Independent senators, Wayne Morse of Oregon and Strom Thurmond of South Carolina, caucused with the Democrats."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "47 Democrats",
+    "47 Republicans",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 47,
+   "unit": "Senate seats held by the majority party (Democratic) of 96",
+   "when": "1955-01-03 (start of the 84th Congress, 1955-1957)",
+   "subject": "U.S. Senate, 84th Congress (1955-1957)",
+   "chamber": "Senate",
+   "congress": 84,
+   "seats": {
+    "democrats": 47,
+    "republicans": 47,
+    "others": 2,
+    "vacant": 0,
+    "total": 96,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 84th Congress (seats, total, majority). Senate.gov lists both Morse and Thurmond as Independents caucusing with the Democrats (other compilations count Thurmond as a Democrat).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-085",
+   "claim": "At the start of the 85th Congress (January 3, 1957; it ran to January 3, 1959), the U.S. Senate's 96 seats were divided 49 Democrats (the majority party), 47 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "85th Congress (1/3/1957 to 1/3/1959) 49 Democrats 47 Republicans 0 0 96"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "49 Democrats",
+    "47 Republicans",
+    "96"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 49,
+   "unit": "Senate seats held by the majority party (Democratic) of 96",
+   "when": "1957-01-03 (start of the 85th Congress, 1957-1959)",
+   "subject": "U.S. Senate, 85th Congress (1957-1959)",
+   "chamber": "Senate",
+   "congress": 85,
+   "seats": {
+    "democrats": 49,
+    "republicans": 47,
+    "others": 0,
+    "vacant": 0,
+    "total": 96,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 85th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-086",
+   "claim": "At the start of the 86th Congress (January 3, 1959; it ran to January 3, 1961), the U.S. Senate's 98 seats were divided 64 Democrats (the majority party), 34 Republicans, no others and none vacant; the total was 98 because Alaska's two senators had joined and Hawaii's had not yet.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "86th Congress (1/3/1959 to 1/3/1961) 64 Democrats 34 Republicans 0 0 98",
+    "Alaska became the 49th state on January 3, 1959. Its two Democratic senators were seated at the start of the 1st session.",
+    "Hawaii became the 50th state on August 21, 1959."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "64 Democrats",
+    "34 Republicans",
+    "98"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 64,
+   "unit": "Senate seats held by the majority party (Democratic) of 98",
+   "when": "1959-01-03 (start of the 86th Congress, 1959-1961)",
+   "subject": "U.S. Senate, 86th Congress (1959-1961)",
+   "chamber": "Senate",
+   "congress": 86,
+   "seats": {
+    "democrats": 64,
+    "republicans": 34,
+    "others": 0,
+    "vacant": 0,
+    "total": 98,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 86th Congress (seats, total, majority). Alaska's two Democrats were seated at the opening of the 1st session (1/7/1959), which is the table's start-of-Congress row.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-087",
+   "claim": "At the start of the 87th Congress (January 3, 1961; it ran to January 3, 1963), the U.S. Senate's 100 seats were divided 65 Democrats (the majority party), 35 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "87th Congress (1/3/1961 to 1/3/1963) 65 Democrats 35 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "65 Democrats",
+    "35 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 65,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1961-01-03 (start of the 87th Congress, 1961-1963)",
+   "subject": "U.S. Senate, 87th Congress (1961-1963)",
+   "chamber": "Senate",
+   "congress": 87,
+   "seats": {
+    "democrats": 65,
+    "republicans": 35,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 87th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-088",
+   "claim": "At the start of the 88th Congress (January 3, 1963; it ran to January 3, 1965), the U.S. Senate's 100 seats were divided 67 Democrats (the majority party), 33 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "88th Congress (1/3/1963 to 1/3/1965) 67 Democrats 33 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "67 Democrats",
+    "33 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 67,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1963-01-03 (start of the 88th Congress, 1963-1965)",
+   "subject": "U.S. Senate, 88th Congress (1963-1965)",
+   "chamber": "Senate",
+   "congress": 88,
+   "seats": {
+    "democrats": 67,
+    "republicans": 33,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 88th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-089",
+   "claim": "At the start of the 89th Congress (January 3, 1965; it ran to January 3, 1967), the U.S. Senate's 100 seats were divided 68 Democrats (the majority party), 32 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "89th Congress (1/3/1965 to 1/3/1967) 68 Democrats 32 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "68 Democrats",
+    "32 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 68,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1965-01-03 (start of the 89th Congress, 1965-1967)",
+   "subject": "U.S. Senate, 89th Congress (1965-1967)",
+   "chamber": "Senate",
+   "congress": 89,
+   "seats": {
+    "democrats": 68,
+    "republicans": 32,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 89th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-090",
+   "claim": "At the start of the 90th Congress (January 3, 1967; it ran to January 3, 1969), the U.S. Senate's 100 seats were divided 64 Democrats (the majority party), 36 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "90th Congress (1/3/1967 to 1/3/1969) 64 Democrats 36 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "64 Democrats",
+    "36 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 64,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1967-01-03 (start of the 90th Congress, 1967-1969)",
+   "subject": "U.S. Senate, 90th Congress (1967-1969)",
+   "chamber": "Senate",
+   "congress": 90,
+   "seats": {
+    "democrats": 64,
+    "republicans": 36,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 90th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-091",
+   "claim": "At the start of the 91st Congress (January 3, 1969; it ran to January 3, 1971), the U.S. Senate's 100 seats were divided 57 Democrats (the majority party), 43 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "91st Congress (1/3/1969 to 1/3/1971) 57 Democrats 43 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "57 Democrats",
+    "43 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 57,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1969-01-03 (start of the 91st Congress, 1969-1971)",
+   "subject": "U.S. Senate, 91st Congress (1969-1971)",
+   "chamber": "Senate",
+   "congress": 91,
+   "seats": {
+    "democrats": 57,
+    "republicans": 43,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 91st Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-092",
+   "claim": "At the start of the 92nd Congress (January 3, 1971; it ran to January 3, 1973), the U.S. Senate's 100 seats were divided 54 Democrats (the majority party), 44 Republicans, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "92nd Congress (1/3/1971 to 1/3/1973) 54 Democrats 44 Republicans 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "54 Democrats",
+    "44 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 54,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1971-01-03 (start of the 92nd Congress, 1971-1973)",
+   "subject": "U.S. Senate, 92nd Congress (1971-1973)",
+   "chamber": "Senate",
+   "congress": 92,
+   "seats": {
+    "democrats": 54,
+    "republicans": 44,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 92nd Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-093",
+   "claim": "At the start of the 93rd Congress (January 3, 1973; it ran to January 3, 1975), the U.S. Senate's 100 seats were divided 56 Democrats (the majority party), 42 Republicans, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "93rd Congress (1/3/1973 to 1/3/1975) 56 Democrats 42 Republicans 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "56 Democrats",
+    "42 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 56,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1973-01-03 (start of the 93rd Congress, 1973-1975)",
+   "subject": "U.S. Senate, 93rd Congress (1973-1975)",
+   "chamber": "Senate",
+   "congress": 93,
+   "seats": {
+    "democrats": 56,
+    "republicans": 42,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 93rd Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-094",
+   "claim": "At the start of the 94th Congress (January 3, 1975; it ran to January 3, 1977), the U.S. Senate's 100 seats were divided 60 Democrats (the majority party), 37 Republicans, 2 others and 1 vacant (New Hampshire's seat, owing to a contested election).",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "94th Congress (1/3/1975 to 1/3/1977) 60 Democrats 37 Republicans 2 1 100",
+    "Vacancy in New Hampshire Class 3 seat owing to contested election."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "60 Democrats",
+    "37 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 60,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1975-01-03 (start of the 94th Congress, 1975-1977)",
+   "subject": "U.S. Senate, 94th Congress (1975-1977)",
+   "chamber": "Senate",
+   "congress": 94,
+   "seats": {
+    "democrats": 60,
+    "republicans": 37,
+    "others": 2,
+    "vacant": 1,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 94th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-095",
+   "claim": "At the start of the 95th Congress (January 3, 1977; it ran to January 3, 1979), the U.S. Senate's 100 seats were divided 61 Democrats (the majority party), 38 Republicans, 1 other and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "95th Congress (1/3/1977 to 1/3/1979) 61 Democrats 38 Republicans 1 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "61 Democrats",
+    "38 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 61,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1977-01-03 (start of the 95th Congress, 1977-1979)",
+   "subject": "U.S. Senate, 95th Congress (1977-1979)",
+   "chamber": "Senate",
+   "congress": 95,
+   "seats": {
+    "democrats": 61,
+    "republicans": 38,
+    "others": 1,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 95th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-096",
+   "claim": "At the start of the 96th Congress (January 3, 1979; it ran to January 3, 1981), the U.S. Senate's 100 seats were divided 58 Democrats (the majority party), 41 Republicans, 1 other and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "96th Congress (1/3/1979 to 1/3/1981) 58 Democrats 41 Republicans 1 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "58 Democrats",
+    "41 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 58,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1979-01-03 (start of the 96th Congress, 1979-1981)",
+   "subject": "U.S. Senate, 96th Congress (1979-1981)",
+   "chamber": "Senate",
+   "congress": 96,
+   "seats": {
+    "democrats": 58,
+    "republicans": 41,
+    "others": 1,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 96th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-097",
+   "claim": "At the start of the 97th Congress (January 3, 1981; it ran to January 3, 1983), the U.S. Senate's 100 seats were divided 53 Republicans (the majority party), 46 Democrats, 1 other and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "97th Congress (1/3/1981 to 1/3/1983) 53 Republicans 46 Democrats 1 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53 Republicans",
+    "46 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "1981-01-03 (start of the 97th Congress, 1981-1983)",
+   "subject": "U.S. Senate, 97th Congress (1981-1983)",
+   "chamber": "Senate",
+   "congress": 97,
+   "seats": {
+    "democrats": 46,
+    "republicans": 53,
+    "others": 1,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 97th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-098",
+   "claim": "At the start of the 98th Congress (January 3, 1983; it ran to January 3, 1985), the U.S. Senate's 100 seats were divided 54 Republicans (the majority party), 46 Democrats, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "98th Congress (1/3/1983 to 1/3/1985) 54 Republicans 46 Democrats 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "54 Republicans",
+    "46 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 54,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "1983-01-03 (start of the 98th Congress, 1983-1985)",
+   "subject": "U.S. Senate, 98th Congress (1983-1985)",
+   "chamber": "Senate",
+   "congress": 98,
+   "seats": {
+    "democrats": 46,
+    "republicans": 54,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 98th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-099",
+   "claim": "At the start of the 99th Congress (January 3, 1985; it ran to January 3, 1987), the U.S. Senate's 100 seats were divided 53 Republicans (the majority party), 47 Democrats, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "99th Congress (1/3/1985 to 1/3/1987) 53 Republicans 47 Democrats 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53 Republicans",
+    "47 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "1985-01-03 (start of the 99th Congress, 1985-1987)",
+   "subject": "U.S. Senate, 99th Congress (1985-1987)",
+   "chamber": "Senate",
+   "congress": 99,
+   "seats": {
+    "democrats": 47,
+    "republicans": 53,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 99th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-100",
+   "claim": "At the start of the 100th Congress (January 3, 1987; it ran to January 3, 1989), the U.S. Senate's 100 seats were divided 55 Democrats (the majority party), 45 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "100th Congress (1/3/1987 to 1/3/1989) 55 Democrats 45 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "55 Democrats",
+    "45 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 55,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1987-01-03 (start of the 100th Congress, 1987-1989)",
+   "subject": "U.S. Senate, 100th Congress (1987-1989)",
+   "chamber": "Senate",
+   "congress": 100,
+   "seats": {
+    "democrats": 55,
+    "republicans": 45,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 100th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-101",
+   "claim": "At the start of the 101st Congress (January 3, 1989; it ran to January 3, 1991), the U.S. Senate's 100 seats were divided 55 Democrats (the majority party), 45 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "101st Congress (1/3/1989 to 1/3/1991) 55 Democrats 45 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "55 Democrats",
+    "45 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 55,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1989-01-03 (start of the 101st Congress, 1989-1991)",
+   "subject": "U.S. Senate, 101st Congress (1989-1991)",
+   "chamber": "Senate",
+   "congress": 101,
+   "seats": {
+    "democrats": 55,
+    "republicans": 45,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 101st Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-102",
+   "claim": "At the start of the 102nd Congress (January 3, 1991; it ran to January 3, 1993), the U.S. Senate's 100 seats were divided 56 Democrats (the majority party), 44 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "102nd Congress (1/3/1991 to 1/3/1993) 56 Democrats 44 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "56 Democrats",
+    "44 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 56,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1991-01-03 (start of the 102nd Congress, 1991-1993)",
+   "subject": "U.S. Senate, 102nd Congress (1991-1993)",
+   "chamber": "Senate",
+   "congress": 102,
+   "seats": {
+    "democrats": 56,
+    "republicans": 44,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 102nd Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-103",
+   "claim": "At the start of the 103rd Congress (January 3, 1993; it ran to January 3, 1995), the U.S. Senate's 100 seats were divided 57 Democrats (the majority party), 43 Republicans, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "103rd Congress (1/3/1993 to 1/3/1995) 57 Democrats 43 Republicans 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "57 Democrats",
+    "43 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 57,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "1993-01-03 (start of the 103rd Congress, 1993-1995)",
+   "subject": "U.S. Senate, 103rd Congress (1993-1995)",
+   "chamber": "Senate",
+   "congress": 103,
+   "seats": {
+    "democrats": 57,
+    "republicans": 43,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 103rd Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-104",
+   "claim": "At the start of the 104th Congress (January 3, 1995; it ran to January 3, 1997), the U.S. Senate's 100 seats were divided 53 Republicans (the majority party), 47 Democrats, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "104th Congress (1/3/1995 to 1/3/1997) 53 Republicans 47 Democrats 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53 Republicans",
+    "47 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "1995-01-03 (start of the 104th Congress, 1995-1997)",
+   "subject": "U.S. Senate, 104th Congress (1995-1997)",
+   "chamber": "Senate",
+   "congress": 104,
+   "seats": {
+    "democrats": 47,
+    "republicans": 53,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 104th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-105",
+   "claim": "At the start of the 105th Congress (January 3, 1997; it ran to January 3, 1999), the U.S. Senate's 100 seats were divided 55 Republicans (the majority party), 45 Democrats, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "105th Congress (1/3/1997 to 1/3/1999) 55 Republicans 45 Democrats 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "55 Republicans",
+    "45 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 55,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "1997-01-03 (start of the 105th Congress, 1997-1999)",
+   "subject": "U.S. Senate, 105th Congress (1997-1999)",
+   "chamber": "Senate",
+   "congress": 105,
+   "seats": {
+    "democrats": 45,
+    "republicans": 55,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 105th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-106",
+   "claim": "At the start of the 106th Congress (January 3, 1999; it ran to January 3, 2001), the U.S. Senate's 100 seats were divided 55 Republicans (the majority party), 45 Democrats, no others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "106th Congress (1/3/1999 to 1/3/2001) 55 Republicans 45 Democrats 0 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "55 Republicans",
+    "45 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 55,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "1999-01-03 (start of the 106th Congress, 1999-2001)",
+   "subject": "U.S. Senate, 106th Congress (1999-2001)",
+   "chamber": "Senate",
+   "congress": 106,
+   "seats": {
+    "democrats": 45,
+    "republicans": 55,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 106th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-107",
+   "claim": "At the start of the 107th Congress (January 3, 2001; it ran to January 3, 2003), the U.S. Senate's 100 seats were split 50 Republicans and 50 Democrats; Democrats held the majority from January 3 to January 20, 2001 through Vice President Al Gore's deciding vote, Republicans from January 20 through Vice President Richard Cheney's, and Democrats again after Jim Jeffords left the Republicans to caucus with them.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "107th Congress (1/3/2001 to 1/3/2003) 50 Republicans 50 Democrats 0 0 100",
+    "From January 3 to January 20, 2001, with the Senate divided evenly between the two parties, the Democrats held the majority due to the deciding vote of outgoing Democratic Vice President Al Gore.",
+    "Beginning on January 20, 2001, Republican Vice President Richard Cheney held the deciding vote, giving the majority to the Republicans.",
+    "Jim Jeffords of Vermont changed his party affiliation from Republican to Independent and agreed to caucus with the Democrats, giving the Democrats the majority."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "50 Republicans",
+    "50 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 50,
+   "unit": "Senate seats held by each party (50 Republican, 50 Democratic) of 100",
+   "when": "2001-01-03 (start of the 107th Congress, 2001-2003)",
+   "subject": "U.S. Senate, 107th Congress (2001-2003)",
+   "chamber": "Senate",
+   "congress": 107,
+   "seats": {
+    "democrats": 50,
+    "republicans": 50,
+    "others": 0,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Control changed twice in the 107th Congress: Democratic 2001-01-03 to 2001-01-20 (Gore), Republican 2001-01-20 to 2001-06-06 (Cheney), Democratic from 2001-06-06 (Jeffords). The table's summary row lists Republicans first.",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 107th Congress (seats, total, majority). Caution: us-control.json stores seats.majority 'Republican' for the 107th; Democrats held the majority at the start (1/3-1/20/2001, VP Gore) and from 6/6/2001 (Jeffords), Republicans only 1/20-6/6/2001.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-108",
+   "claim": "At the start of the 108th Congress (January 3, 2003; it ran to January 3, 2005), the U.S. Senate's 100 seats were divided 51 Republicans (the majority party), 48 Democrats, 1 other and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "108th Congress (1/3/2003 to 1/3/2005) 51 Republicans 48 Democrats 1 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "51 Republicans",
+    "48 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 51,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2003-01-03 (start of the 108th Congress, 2003-2005)",
+   "subject": "U.S. Senate, 108th Congress (2003-2005)",
+   "chamber": "Senate",
+   "congress": 108,
+   "seats": {
+    "democrats": 48,
+    "republicans": 51,
+    "others": 1,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 108th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-109",
+   "claim": "At the start of the 109th Congress (January 3, 2005; it ran to January 3, 2007), the U.S. Senate's 100 seats were divided 55 Republicans (the majority party), 44 Democrats, 1 other and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "109th Congress (1/3/2005 to 1/3/2007) 55 Republicans 44 Democrats 1 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "55 Republicans",
+    "44 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 55,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2005-01-03 (start of the 109th Congress, 2005-2007)",
+   "subject": "U.S. Senate, 109th Congress (2005-2007)",
+   "chamber": "Senate",
+   "congress": 109,
+   "seats": {
+    "democrats": 44,
+    "republicans": 55,
+    "others": 1,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 109th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-110",
+   "claim": "At the start of the 110th Congress (January 3, 2007; it ran to January 3, 2009), the U.S. Senate's 100 seats were divided 49 Democrats (the majority party), 49 Republicans and 2 others, both caucusing with the Democrats; none were vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "110th Congress (1/3/2007 to 1/3/2009) 49 Democrats 49 Republicans 2 0 100",
+    "Both the Independent and the Independent Democrat caucused with the Democrats."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "49 Democrats",
+    "49 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 49,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "2007-01-03 (start of the 110th Congress, 2007-2009)",
+   "subject": "U.S. Senate, 110th Congress (2007-2009)",
+   "chamber": "Senate",
+   "congress": 110,
+   "seats": {
+    "democrats": 49,
+    "republicans": 49,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 110th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-111",
+   "claim": "At the start of the 111th Congress (January 3, 2009; it ran to January 3, 2011), the U.S. Senate's 100 seats were divided 56 Democrats (the majority party), 41 Republicans and 2 others, both caucusing with the Democrats, with Minnesota's seat vacant owing to a contested election.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "111th Congress (1/3/2009 to 1/3/2011) 56 Democrats 41 Republicans 2 1 100",
+    "Vacancy in Minnesota's Class 2 seat owing to contested election. Both Independent senators caucused with the Democrats."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "56 Democrats",
+    "41 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 56,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "2009-01-03 (start of the 111th Congress, 2009-2011)",
+   "subject": "U.S. Senate, 111th Congress (2009-2011)",
+   "chamber": "Senate",
+   "congress": 111,
+   "seats": {
+    "democrats": 56,
+    "republicans": 41,
+    "others": 2,
+    "vacant": 1,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 111th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-112",
+   "claim": "At the start of the 112th Congress (January 3, 2011; it ran to January 3, 2013), the U.S. Senate's 100 seats were divided 51 Democrats (the majority party), 47 Republicans, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "112th Congress (1/3/2011 to 1/3/2013) 51 Democrats 47 Republicans 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "51 Democrats",
+    "47 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 51,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "2011-01-03 (start of the 112th Congress, 2011-2013)",
+   "subject": "U.S. Senate, 112th Congress (2011-2013)",
+   "chamber": "Senate",
+   "congress": 112,
+   "seats": {
+    "democrats": 51,
+    "republicans": 47,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 112th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-113",
+   "claim": "At the start of the 113th Congress (January 3, 2013; it ran to January 3, 2015), the U.S. Senate's 100 seats were divided 53 Democrats (the majority party), 45 Republicans, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "113th Congress (1/3/2013 to 1/3/2015) 53 Democrats 45 Republicans 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53 Democrats",
+    "45 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "2013-01-03 (start of the 113th Congress, 2013-2015)",
+   "subject": "U.S. Senate, 113th Congress (2013-2015)",
+   "chamber": "Senate",
+   "congress": 113,
+   "seats": {
+    "democrats": 53,
+    "republicans": 45,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 113th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-114",
+   "claim": "At the start of the 114th Congress (January 3, 2015; it ran to January 3, 2017), the U.S. Senate's 100 seats were divided 54 Republicans (the majority party), 44 Democrats, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "114th Congress (1/3/2015 to 1/3/2017) 54 Republicans 44 Democrats 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "54 Republicans",
+    "44 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 54,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2015-01-03 (start of the 114th Congress, 2015-2017)",
+   "subject": "U.S. Senate, 114th Congress (2015-2017)",
+   "chamber": "Senate",
+   "congress": 114,
+   "seats": {
+    "democrats": 44,
+    "republicans": 54,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 114th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-115",
+   "claim": "At the start of the 115th Congress (January 3, 2017; it ran to January 3, 2019), the U.S. Senate's 100 seats were divided 52 Republicans (the majority party), 46 Democrats, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "115th Congress (1/3/2017 to 1/3/2019) 52 Republicans 46 Democrats 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "52 Republicans",
+    "46 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 52,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2017-01-03 (start of the 115th Congress, 2017-2019)",
+   "subject": "U.S. Senate, 115th Congress (2017-2019)",
+   "chamber": "Senate",
+   "congress": 115,
+   "seats": {
+    "democrats": 46,
+    "republicans": 52,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 115th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-116",
+   "claim": "At the start of the 116th Congress (January 3, 2019; it ran to January 3, 2021), the U.S. Senate's 100 seats were divided 53 Republicans (the majority party), 45 Democrats, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "116th Congress (1/3/2019 to 1/3/2021) 53 Republicans 45 Democrats 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53 Republicans",
+    "45 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2019-01-03 (start of the 116th Congress, 2019-2021)",
+   "subject": "U.S. Senate, 116th Congress (2019-2021)",
+   "chamber": "Senate",
+   "congress": 116,
+   "seats": {
+    "democrats": 45,
+    "republicans": 53,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 116th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-117",
+   "claim": "The Senate's party-division table gives the 117th Congress (January 3, 2021 to January 3, 2023) as 48 Democrats (the majority party), 50 Republicans and 2 others; at its opening session (January 3 to January 20, 2021) the division was 51 Republicans, 46 Democrats, 2 Independents and 1 vacancy, and Democrats gained the majority once the two Georgia Democrats were seated, with both Independents caucusing with them and Vice President Kamala Harris holding the tie-breaking vote.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "117th Congress (1/3/2021 to 1/3/2023) 48 Democrats 50 Republicans 2 0 100 1st session (1/3/2021-1/20/2021) 1 Republicans Democrats Other Vacant Total 51 46 2 Independents 1 100",
+    "Following runoff elections on January 5, 2021, for both the general (Class 2) and special (Class 3) elections in Georgia, Jon Ossoff (D) was seated, filling the Class 2 vacancy, and Raphael Warnock (D) was seated, replacing appointed Senator Kelly Loeffler (R).",
+    "With both Independents caucusing with the Democrats and the tie-breaking vote held by Democratic Vice President Kamala Harris, Democrats gained the majority."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "48 Democrats",
+    "50 Republicans",
+    "100",
+    "51",
+    "46"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 48,
+   "unit": "Senate seats held by the majority party (Democratic, from January 20, 2021) of 100",
+   "when": "2021-01-03 to 2021-01-20 (opening session) and from 2021-01-20 (rest of the 117th Congress, 2021-2023)",
+   "subject": "U.S. Senate, 117th Congress (2021-2023)",
+   "chamber": "Senate",
+   "congress": 117,
+   "seats": {
+    "democrats": 48,
+    "republicans": 50,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Not a plain start-of-Congress row: the summary row (48 D, 50 R, 2 I) is the division from January 20, 2021. On January 3, 2021 Republicans held 51 seats, Democrats 46, Independents 2, with 1 vacancy.",
+   "check": {
+    "ok": false,
+    "reason": "Measure is seats at the start of the Congress, but 48 Democrats is the division from 2021-01-20. The Senate table's opening-session row (1/3/2021-1/20/2021) gives 51 Republicans, 46 Democrats, 2 Independents, 1 vacancy (Georgia Class 2): Republicans held the majority at the start. Use 51 (Republican) for the start of the 117th, or relabel this fact as the division from 2021-01-20 (48 D plus 2 I caucusing with them vs 50 R, Democratic majority via VP Harris).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-118",
+   "claim": "At the start of the 118th Congress (January 3, 2023; it ran to January 3, 2025), the U.S. Senate's 100 seats were divided 48 Democrats (the majority party), 49 Republicans and 3 others, all three caucusing with the Democrats; none were vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "118th Congress (1/3/2023 to 1/3/2025) 48 Democrats 49 Republicans 3 0 100",
+    "The three Independent senators caucused with the Democrats."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "48 Democrats",
+    "49 Republicans",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 48,
+   "unit": "Senate seats held by the majority party (Democratic) of 100",
+   "when": "2023-01-03 (start of the 118th Congress, 2023-2025)",
+   "subject": "U.S. Senate, 118th Congress (2023-2025)",
+   "chamber": "Senate",
+   "congress": 118,
+   "seats": {
+    "democrats": 48,
+    "republicans": 49,
+    "others": 3,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 118th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-119",
+   "claim": "At the start of the 119th Congress (January 3, 2025; it runs to January 3, 2027), the U.S. Senate's 100 seats were divided 53 Republicans (the majority party), 45 Democrats, 2 others and none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "119th Congress (1/3/2025 to 1/3/2027) 53 Republicans 45 Democrats 2 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53 Republicans",
+    "45 Democrats",
+    "100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2025-01-03 (start of the 119th Congress, 2025-2027)",
+   "subject": "U.S. Senate, 119th Congress (2025-2027)",
+   "chamber": "Senate",
+   "congress": 119,
+   "seats": {
+    "democrats": 45,
+    "republicans": 53,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's start-of-Congress row for the 119th Congress (seats, total, majority).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-119-2026",
+   "claim": "In the second session of the 119th Congress, which began on January 3, 2026, the U.S. Senate's 100 seats were divided 53 Republicans, 45 Democrats and 2 Independents, with none vacant.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "2nd session (1/3/2026---) Republicans Democrats Other Vacant Total 53 45 2 Independents 0 100"
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "53",
+    "45",
+    "2 Independents"
+   ],
+   "dated2026": true,
+   "measure": "Senate seats by party in the 119th Congress's second session",
+   "value": 53,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "from 2026-01-03 (2nd session of the 119th Congress), as listed on 2026-11-07",
+   "subject": "U.S. Senate, 119th Congress, 2nd session (2026)",
+   "chamber": "Senate",
+   "congress": 119,
+   "seats": {
+    "democrats": 45,
+    "republicans": 53,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table lists no change in party balance after January 3, 2026 as of the access date.",
+   "check": {
+    "ok": true,
+    "reason": "Matches Senate.gov's 2nd-session row (53 R, 45 D, 2 I, 0 vacant). Same composition as the 119th's opening row (pol-senate-119): a later timestamp, not an extra change.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-079",
+   "claim": "As of the initial election results for the 79th Congress (1945–1947), the U.S. House of Representatives' 435 seats were held by 244 Democrats, 189 Republicans and 2 others (Progressives 1, American Labor 1); Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "79th (1945–1947) 435 244 189 Progressives (1), American Labor (1) 2/2"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "244",
+    "189",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 244,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 79th Congress (1945-1947), as of the initial election results",
+   "subject": "U.S. House of Representatives, 79th Congress (1945-1947)",
+   "chamber": "House",
+   "congress": 79,
+   "seats": {
+    "democrats": 244,
+    "republicans": 189,
+    "others": 2,
+    "otherParties": {
+     "Progressives": 1,
+     "American Labor": 1
+    },
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 79th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory. Other compilations differ by 1-2 seats (Congressional Directory 243 D / 190 R; Wikipedia's 1944 results table 242 / 191, partly over Augustus Bennet, elected on the Democratic line but caucusing Republican); the historian's figure matches Wikipedia's 1944 infobox.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-080",
+   "claim": "As of the initial election results for the 80th Congress (1947–1949), the U.S. House of Representatives' 435 seats were held by 188 Democrats, 246 Republicans and 1 other (American Labor 1); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "80th (1947–1949) 435 188 246 American Labor (1) 2/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "188",
+    "246",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 246,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 80th Congress (1947-1949), as of the initial election results",
+   "subject": "U.S. House of Representatives, 80th Congress (1947-1949)",
+   "chamber": "House",
+   "congress": 80,
+   "seats": {
+    "democrats": 188,
+    "republicans": 246,
+    "others": 1,
+    "otherParties": {
+     "American Labor": 1
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 80th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-081",
+   "claim": "As of the initial election results for the 81st Congress (1949–1951), the U.S. House of Representatives' 435 seats were held by 263 Democrats, 171 Republicans and 1 other (American Labor 1); Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "81st (1949–1951) 435 263 171 American Labor (1) 2/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "263",
+    "171",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 263,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 81st Congress (1949-1951), as of the initial election results",
+   "subject": "U.S. House of Representatives, 81st Congress (1949-1951)",
+   "chamber": "House",
+   "congress": 81,
+   "seats": {
+    "democrats": 263,
+    "republicans": 171,
+    "others": 1,
+    "otherParties": {
+     "American Labor": 1
+    },
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 81st-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-082",
+   "claim": "As of the initial election results for the 82nd Congress (1951–1953), the U.S. House of Representatives' 435 seats were held by 235 Democrats, 199 Republicans and 1 other (Independent 1); Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "82nd (1951–1953) 435 235 199 Independent (1) 2/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "235",
+    "199",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 235,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 82nd Congress (1951-1953), as of the initial election results",
+   "subject": "U.S. House of Representatives, 82nd Congress (1951-1953)",
+   "chamber": "House",
+   "congress": 82,
+   "seats": {
+    "democrats": 235,
+    "republicans": 199,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 82nd-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-083",
+   "claim": "As of the initial election results for the 83rd Congress (1953–1955), the U.S. House of Representatives' 435 seats were held by 213 Democrats, 221 Republicans and 1 other (Independent 1); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "83rd (1953–1955) 435 213 221 Independent (1) 2/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "213",
+    "221",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 221,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 83rd Congress (1953-1955), as of the initial election results",
+   "subject": "U.S. House of Representatives, 83rd Congress (1953-1955)",
+   "chamber": "House",
+   "congress": 83,
+   "seats": {
+    "democrats": 213,
+    "republicans": 221,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 83rd-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-084",
+   "claim": "As of the initial election results for the 84th Congress (1955–1957), the U.S. House of Representatives' 435 seats were held by 232 Democrats, 203 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "84th (1955–1957) 435 232 203 0 2/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "232",
+    "203",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 232,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 84th Congress (1955-1957), as of the initial election results",
+   "subject": "U.S. House of Representatives, 84th Congress (1955-1957)",
+   "chamber": "House",
+   "congress": 84,
+   "seats": {
+    "democrats": 232,
+    "republicans": 203,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 84th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-085",
+   "claim": "As of the initial election results for the 85th Congress (1957–1959), the U.S. House of Representatives' 435 seats were held by 232 Democrats, 203 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "85th (1957–1959) 435 232 203 0 2/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "232",
+    "203",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 232,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 85th Congress (1957-1959), as of the initial election results",
+   "subject": "U.S. House of Representatives, 85th Congress (1957-1959)",
+   "chamber": "House",
+   "congress": 85,
+   "seats": {
+    "democrats": 232,
+    "republicans": 203,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": false,
+    "reason": "The House historian's 85th row (232 D, 203 R) repeats the 84th row and is contradicted by every independent source: the Congressional Directory's political-divisions table gives 234 D, 201 R; Wikipedia's 1956 House election infobox and its district-by-district winners (cached page) give 234 D (incl. 5 DFL) and 201 R; Wikipedia's 85th Congress article opens at 233 D, 200 R, 2 vacant. The 1956 election returned 234 Democrats and 201 Republicans.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-086",
+   "claim": "As of the initial election results for the 86th Congress (1959–1961), the U.S. House of Representatives had 282 Democrats, 153 Republicans and 1 other (Independent Democrat 1); Alaska's new seat made 436 in all, and Hawaii's Representative joined only on August 21, 1959; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "86th (1959–1961) 4363 282 153 Independent Democrat (1) 1/1",
+    "Alaska entered Congress at the beginning of the 86th Congress, while Hawaii's Representative did not join Congress until August 21, 1959."
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "282",
+    "153"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 282,
+   "unit": "House seats held by the majority party (Democratic) of 436",
+   "when": "start of the 86th Congress (1959-1961), as of the initial election results",
+   "subject": "U.S. House of Representatives, 86th Congress (1959-1961)",
+   "chamber": "House",
+   "congress": 86,
+   "seats": {
+    "democrats": 282,
+    "republicans": 153,
+    "others": 1,
+    "otherParties": {
+     "Independent Democrat": 1
+    },
+    "total": 436,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table prints the total as '4363': 436 with footnote 3, so the total is not a checked value. Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 86th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory. Wikipedia counts Dale Alford (AR-5, write-in Independent Democrat) among 283 Democrats.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-087",
+   "claim": "As of the initial election results for the 87th Congress (1961–1963), the U.S. House of Representatives' 437 seats were held by 264 Democrats, 173 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "87th (1961–1963) 437 264 173 0 0/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "264",
+    "173",
+    "437"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 264,
+   "unit": "House seats held by the majority party (Democratic) of 437",
+   "when": "start of the 87th Congress (1961-1963), as of the initial election results",
+   "subject": "U.S. House of Representatives, 87th Congress (1961-1963)",
+   "chamber": "House",
+   "congress": 87,
+   "seats": {
+    "democrats": 264,
+    "republicans": 173,
+    "others": 0,
+    "otherParties": {},
+    "total": 437,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": false,
+    "reason": "No source supports the historian's 264 D / 173 R for the 87th (only Wikipedia's list page, which copies the historian). The Congressional Directory and Wikipedia's 1960 election infobox give 262 D, 175 R; Wikipedia's district winners and its 87th Congress article give 263 D, 174 R, counting J. Edward Roush (D), whose contested Indiana 5th seat the House awarded him in June 1961. As initial election results the likely figure is 262 D / 175 R (263/174 after the contest); not certain which, but 264 is unsupported.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-088",
+   "claim": "As of the initial election results for the 88th Congress (1963–1965), the U.S. House of Representatives' 435 seats were held by 258 Democrats, 176 Republicans and 1 other (Independent Democrat 1); Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "88th (1963–1965) 435 258 176 Independent Democrat (1) 0/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "258",
+    "176",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 258,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 88th Congress (1963-1965), as of the initial election results",
+   "subject": "U.S. House of Representatives, 88th Congress (1963-1965)",
+   "chamber": "House",
+   "congress": 88,
+   "seats": {
+    "democrats": 258,
+    "republicans": 176,
+    "others": 1,
+    "otherParties": {
+     "Independent Democrat": 1
+    },
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 88th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory. The Independent Democrat is Richard Fulton (TN-5); the 258 include Clem Miller (CA-1), re-elected posthumously.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-089",
+   "claim": "As of the initial election results for the 89th Congress (1965–1967), the U.S. House of Representatives' 435 seats were held by 295 Democrats, 140 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "89th (1965–1967) 435 295 140 0 0/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "295",
+    "140",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 295,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 89th Congress (1965-1967), as of the initial election results",
+   "subject": "U.S. House of Representatives, 89th Congress (1965-1967)",
+   "chamber": "House",
+   "congress": 89,
+   "seats": {
+    "democrats": 295,
+    "republicans": 140,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 89th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-090",
+   "claim": "As of the initial election results for the 90th Congress (1967–1969), the U.S. House of Representatives' 435 seats were held by 248 Democrats, 187 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "90th (1967–1969) 435 248 187 0 0/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "248",
+    "187",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 248,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 90th Congress (1967-1969), as of the initial election results",
+   "subject": "U.S. House of Representatives, 90th Congress (1967-1969)",
+   "chamber": "House",
+   "congress": 90,
+   "seats": {
+    "democrats": 248,
+    "republicans": 187,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 90th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-091",
+   "claim": "As of the initial election results for the 91st Congress (1969–1971), the U.S. House of Representatives' 435 seats were held by 243 Democrats, 192 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "91st (1969–1971) 435 243 192 0 0/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "243",
+    "192",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 243,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 91st Congress (1969-1971), as of the initial election results",
+   "subject": "U.S. House of Representatives, 91st Congress (1969-1971)",
+   "chamber": "House",
+   "congress": 91,
+   "seats": {
+    "democrats": 243,
+    "republicans": 192,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 91st-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-092",
+   "claim": "As of the initial election results for the 92nd Congress (1971–1973), the U.S. House of Representatives' 435 seats were held by 255 Democrats, 180 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "92nd (1971–1973) 435 255 180 0 1/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "255",
+    "180",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 255,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 92nd Congress (1971-1973), as of the initial election results",
+   "subject": "U.S. House of Representatives, 92nd Congress (1971-1973)",
+   "chamber": "House",
+   "congress": 92,
+   "seats": {
+    "democrats": 255,
+    "republicans": 180,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 92nd-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-093",
+   "claim": "As of the initial election results for the 93rd Congress (1973–1975), the U.S. House of Representatives' 435 seats were held by 243 Democrats, 192 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "93rd (1973–1975) 435 243 192 0 3/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "243",
+    "192",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 243,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 93rd Congress (1973-1975), as of the initial election results",
+   "subject": "U.S. House of Representatives, 93rd Congress (1973-1975)",
+   "chamber": "House",
+   "congress": 93,
+   "seats": {
+    "democrats": 243,
+    "republicans": 192,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 93rd-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory. The 243 Democrats include Joe Moakley (MA-9), elected as an Independent Democrat and seated as a Democrat; the Congressional Directory shows 242 D, 192 R, 1 other.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-094",
+   "claim": "As of the initial election results for the 94th Congress (1975–1977), the U.S. House of Representatives' 435 seats were held by 291 Democrats, 144 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "94th (1975–1977) 435 291 144 0 3/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "291",
+    "144",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 291,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 94th Congress (1975-1977), as of the initial election results",
+   "subject": "U.S. House of Representatives, 94th Congress (1975-1977)",
+   "chamber": "House",
+   "congress": 94,
+   "seats": {
+    "democrats": 291,
+    "republicans": 144,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 94th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-095",
+   "claim": "As of the initial election results for the 95th Congress (1977–1979), the U.S. House of Representatives' 435 seats were held by 292 Democrats, 143 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "95th (1977–1979) 435 292 143 0 3/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "292",
+    "143",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 292,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 95th Congress (1977-1979), as of the initial election results",
+   "subject": "U.S. House of Representatives, 95th Congress (1977-1979)",
+   "chamber": "House",
+   "congress": 95,
+   "seats": {
+    "democrats": 292,
+    "republicans": 143,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 95th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-096",
+   "claim": "As of the initial election results for the 96th Congress (1979–1981), the U.S. House of Representatives' 435 seats were held by 278 Democrats, 157 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "96th (1979–1981) 435 278 157 0 3/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "278",
+    "157",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 278,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 96th Congress (1979-1981), as of the initial election results",
+   "subject": "U.S. House of Representatives, 96th Congress (1979-1981)",
+   "chamber": "House",
+   "congress": 96,
+   "seats": {
+    "democrats": 278,
+    "republicans": 157,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": false,
+    "reason": "The historian's 96th row (278 D, 157 R, 0 other) has one Democrat too many. The 1978 election returned 277 Democrats, 157 Republicans and 1 Conservative, William Carney (NY-1), who sat with the Republicans: Wikipedia's 1978 infobox and district winners (cached) give 277/157/1; its 96th Congress article opens at 276 D, 156 R, 1 C, 2 vacant (Leo Ryan (D) and William Steiger (R) died after winning); the Congressional Directory gives 277 D, 158 R, counting Carney as Republican as the historian itself does for 1980-84. The row's 278 D / 157 R adds up only if Carney is filed as a Democrat. Corrected: 277 D, 158 R incl. Carney.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-097",
+   "claim": "As of the initial election results for the 97th Congress (1981–1983), the U.S. House of Representatives' 435 seats were held by 243 Democrats, 192 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "97th (1981–1983) 435 243 192 0 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "243",
+    "192",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 243,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 97th Congress (1981-1983), as of the initial election results",
+   "subject": "U.S. House of Representatives, 97th Congress (1981-1983)",
+   "chamber": "House",
+   "congress": 97,
+   "seats": {
+    "democrats": 243,
+    "republicans": 192,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 97th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory. The figures fold in Thomas Foglietta (PA-1, elected as an Independent, sat as a Democrat) and William Carney (NY-1, Conservative, sat as a Republican); Wikipedia's district winners give 242 D, 191 R, 1 I, 1 C.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-098",
+   "claim": "As of the initial election results for the 98th Congress (1983–1985), the U.S. House of Representatives' 435 seats were held by 269 Democrats, 166 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "98th (1983–1985) 435 269 166 0 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "269",
+    "166",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 269,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 98th Congress (1983-1985), as of the initial election results",
+   "subject": "U.S. House of Representatives, 98th Congress (1983-1985)",
+   "chamber": "House",
+   "congress": 98,
+   "seats": {
+    "democrats": 269,
+    "republicans": 166,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 98th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory. The 166 Republicans include William Carney (NY-1, Conservative).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-099",
+   "claim": "As of the initial election results for the 99th Congress (1985–1987), the U.S. House of Representatives had 253 Democrats, 181 Republicans and no others; the 435-seat total includes one vacancy; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "99th (1985–1987) 4354 253 181 0 4/1",
+    "This total includes one vacancy."
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "253",
+    "181"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 253,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 99th Congress (1985-1987), as of the initial election results",
+   "subject": "U.S. House of Representatives, 99th Congress (1985-1987)",
+   "chamber": "House",
+   "congress": 99,
+   "seats": {
+    "democrats": 253,
+    "republicans": 181,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table prints the total as '4354': 435 with footnote 4, so the total is not a checked value. Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": false,
+    "reason": "The historian's 99th row (253 D, 181 R, no others, one vacancy) is off by one seat. The 1984 election returned 253 Democrats counting Frank McCloskey (D) in Indiana's contested 8th, 181 Republicans and 1 Conservative, William Carney (NY-1), who sat with the Republicans (Wikipedia's 1984 infobox and district winners; the Congressional Directory gives 253 D, 182 R). With the Indiana 8th as the vacancy, as the row's footnote has it, Democrats held 252 and Republicans 182 including Carney; 253 D / 181 R only adds up if Carney is filed as a Democrat (the same slip as the 96th row). Corrected: 252 D (or 253 D, 182 R and no vacancy if McCloskey is counted).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-100",
+   "claim": "As of the initial election results for the 100th Congress (1987–1989), the U.S. House of Representatives' 435 seats were held by 258 Democrats, 177 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "100th (1987–1989) 435 258 177 0 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "258",
+    "177",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 258,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 100th Congress (1987-1989), as of the initial election results",
+   "subject": "U.S. House of Representatives, 100th Congress (1987-1989)",
+   "chamber": "House",
+   "congress": 100,
+   "seats": {
+    "democrats": 258,
+    "republicans": 177,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 100th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-101",
+   "claim": "As of the initial election results for the 101st Congress (1989–1991), the U.S. House of Representatives' 435 seats were held by 260 Democrats, 175 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "101st (1989–1991) 435 260 175 0 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "260",
+    "175",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 260,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 101st Congress (1989-1991), as of the initial election results",
+   "subject": "U.S. House of Representatives, 101st Congress (1989-1991)",
+   "chamber": "House",
+   "congress": 101,
+   "seats": {
+    "democrats": 260,
+    "republicans": 175,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 101st-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-102",
+   "claim": "As of the initial election results for the 102nd Congress (1991–1993), the U.S. House of Representatives' 435 seats were held by 267 Democrats, 167 Republicans and 1 other (Independent 1); Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "102nd (1991–1993) 435 267 167 Independent (1) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "267",
+    "167",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 267,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 102nd Congress (1991-1993), as of the initial election results",
+   "subject": "U.S. House of Representatives, 102nd Congress (1991-1993)",
+   "chamber": "House",
+   "congress": 102,
+   "seats": {
+    "democrats": 267,
+    "republicans": 167,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 102nd-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-103",
+   "claim": "As of the initial election results for the 103rd Congress (1993–1995), the U.S. House of Representatives' 435 seats were held by 258 Democrats, 176 Republicans and 1 other (Independent 1); Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "103rd (1993–1995) 435 258 176 Independent (1) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "258",
+    "176",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 258,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 103rd Congress (1993-1995), as of the initial election results",
+   "subject": "U.S. House of Representatives, 103rd Congress (1993-1995)",
+   "chamber": "House",
+   "congress": 103,
+   "seats": {
+    "democrats": 258,
+    "republicans": 176,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 103rd-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-104",
+   "claim": "As of the initial election results for the 104th Congress (1995–1997), the U.S. House of Representatives' 435 seats were held by 204 Democrats, 230 Republicans and 1 other (Independent 1); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "104th (1995–1997) 435 204 230 Independent (1) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "204",
+    "230",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 230,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 104th Congress (1995-1997), as of the initial election results",
+   "subject": "U.S. House of Representatives, 104th Congress (1995-1997)",
+   "chamber": "House",
+   "congress": 104,
+   "seats": {
+    "democrats": 204,
+    "republicans": 230,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 104th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-105",
+   "claim": "As of the initial election results for the 105th Congress (1997–1999), the U.S. House of Representatives' 435 seats were held by 207 Democrats, 226 Republicans and 2 others (Independent 2); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "105th (1997–1999) 435 207 226 Independent (2) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "207",
+    "226",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 226,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 105th Congress (1997-1999), as of the initial election results",
+   "subject": "U.S. House of Representatives, 105th Congress (1997-1999)",
+   "chamber": "House",
+   "congress": 105,
+   "seats": {
+    "democrats": 207,
+    "republicans": 226,
+    "others": 2,
+    "otherParties": {
+     "Independent": 2
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 105th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-106",
+   "claim": "As of the initial election results for the 106th Congress (1999–2001), the U.S. House of Representatives' 435 seats were held by 211 Democrats, 223 Republicans and 1 other (Independent 1); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "106th (1999–2001) 435 211 223 Independent (1) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "211",
+    "223",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 223,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 106th Congress (1999-2001), as of the initial election results",
+   "subject": "U.S. House of Representatives, 106th Congress (1999-2001)",
+   "chamber": "House",
+   "congress": 106,
+   "seats": {
+    "democrats": 211,
+    "republicans": 223,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 106th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-107",
+   "claim": "As of the initial election results for the 107th Congress (2001–2003), the U.S. House of Representatives' 435 seats were held by 212 Democrats, 221 Republicans and 2 others (Independent 2); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "107th (2001–2003) 435 212 221 Independent (2) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "212",
+    "221",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 221,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 107th Congress (2001-2003), as of the initial election results",
+   "subject": "U.S. House of Representatives, 107th Congress (2001-2003)",
+   "chamber": "House",
+   "congress": 107,
+   "seats": {
+    "democrats": 212,
+    "republicans": 221,
+    "others": 2,
+    "otherParties": {
+     "Independent": 2
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 107th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-108",
+   "claim": "As of the initial election results for the 108th Congress (2003–2005), the U.S. House of Representatives' 435 seats were held by 205 Democrats, 229 Republicans and 1 other (Independent 1); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "108th (2003–2005) 435 205 229 Independent (1) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "205",
+    "229",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 229,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 108th Congress (2003-2005), as of the initial election results",
+   "subject": "U.S. House of Representatives, 108th Congress (2003-2005)",
+   "chamber": "House",
+   "congress": 108,
+   "seats": {
+    "democrats": 205,
+    "republicans": 229,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 108th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-109",
+   "claim": "As of the initial election results for the 109th Congress (2005–2007), the U.S. House of Representatives' 435 seats were held by 202 Democrats, 232 Republicans and 1 other (Independent 1); Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "109th (2005–2007) 435 202 232 Independent (1) 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "202",
+    "232",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 232,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 109th Congress (2005-2007), as of the initial election results",
+   "subject": "U.S. House of Representatives, 109th Congress (2005-2007)",
+   "chamber": "House",
+   "congress": 109,
+   "seats": {
+    "democrats": 202,
+    "republicans": 232,
+    "others": 1,
+    "otherParties": {
+     "Independent": 1
+    },
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 109th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-110",
+   "claim": "As of the initial election results for the 110th Congress (2007–2009), the U.S. House of Representatives' 435 seats were held by 233 Democrats, 202 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "110th (2007–2009) 435 233 202 0 4/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "233",
+    "202",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 233,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 110th Congress (2007-2009), as of the initial election results",
+   "subject": "U.S. House of Representatives, 110th Congress (2007-2009)",
+   "chamber": "House",
+   "congress": 110,
+   "seats": {
+    "democrats": 233,
+    "republicans": 202,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 110th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-111",
+   "claim": "As of the initial election results for the 111th Congress (2009–2011), the U.S. House of Representatives' 435 seats were held by 257 Democrats, 178 Republicans and no others; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "111th (2009–2011) 435 257 178 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "257",
+    "178",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 257,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 111th Congress (2009-2011), as of the initial election results",
+   "subject": "U.S. House of Representatives, 111th Congress (2009-2011)",
+   "chamber": "House",
+   "congress": 111,
+   "seats": {
+    "democrats": 257,
+    "republicans": 178,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 111th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-112",
+   "claim": "As of the initial election results for the 112th Congress (2011–2013), the U.S. House of Representatives' 435 seats were held by 193 Democrats, 242 Republicans and no others; Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "112th (2011–2013) 435 193 242 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "193",
+    "242",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 242,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 112th Congress (2011-2013), as of the initial election results",
+   "subject": "U.S. House of Representatives, 112th Congress (2011-2013)",
+   "chamber": "House",
+   "congress": 112,
+   "seats": {
+    "democrats": 193,
+    "republicans": 242,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 112th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-113",
+   "claim": "As of the initial election results for the 113th Congress (2013–2015), the U.S. House of Representatives' 435 seats were held by 201 Democrats, 234 Republicans and no others; Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "113th (2013–2015) 435 201 234 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "201",
+    "234",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 234,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 113th Congress (2013-2015), as of the initial election results",
+   "subject": "U.S. House of Representatives, 113th Congress (2013-2015)",
+   "chamber": "House",
+   "congress": 113,
+   "seats": {
+    "democrats": 201,
+    "republicans": 234,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 113th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-114",
+   "claim": "As of the initial election results for the 114th Congress (2015–2017), the U.S. House of Representatives' 435 seats were held by 188 Democrats, 247 Republicans and no others; Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "114th (2015–2017) 435 188 247 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "188",
+    "247",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 247,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 114th Congress (2015-2017), as of the initial election results",
+   "subject": "U.S. House of Representatives, 114th Congress (2015-2017)",
+   "chamber": "House",
+   "congress": 114,
+   "seats": {
+    "democrats": 188,
+    "republicans": 247,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 114th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-115",
+   "claim": "As of the initial election results for the 115th Congress (2017–2019), the U.S. House of Representatives' 435 seats were held by 194 Democrats, 241 Republicans and no others; Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "115th (2017–2019) 435 194 241 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "194",
+    "241",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 241,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 115th Congress (2017-2019), as of the initial election results",
+   "subject": "U.S. House of Representatives, 115th Congress (2017-2019)",
+   "chamber": "House",
+   "congress": 115,
+   "seats": {
+    "democrats": 194,
+    "republicans": 241,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 115th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-116",
+   "claim": "As of the initial election results for the 116th Congress (2019–2021), the U.S. House of Representatives had 235 Democrats, 199 Republicans and no others; North Carolina's Ninth District had no certified winner by the opening day; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "116th (2019-2021) 4355 235 199 0 5/1",
+    "The State of North Carolina did not submit an election certificate for the Ninth U.S. Congressional District prior to the opening day of the 116th Congress."
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "235",
+    "199"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 235,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 116th Congress (2019-2021), as of the initial election results",
+   "subject": "U.S. House of Representatives, 116th Congress (2019-2021)",
+   "chamber": "House",
+   "congress": 116,
+   "seats": {
+    "democrats": 235,
+    "republicans": 199,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table prints the total as '4355': 435 with footnote 5, so the total is not a checked value. Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 116th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-117",
+   "claim": "As of the initial election results for the 117th Congress (2021–2023), the U.S. House of Representatives had 222 Democrats, 212 Republicans and no others; New York's Twenty-Second District had no certified winner by the opening day; Democrats held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "117th (2021–2023) 4356 222 212 0 5/1",
+    "The State of New York did not submit an election certificate for the Twenty-Second U.S. Congressional District prior to the opening day of the 117th Congress."
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "222",
+    "212"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 222,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 117th Congress (2021-2023), as of the initial election results",
+   "subject": "U.S. House of Representatives, 117th Congress (2021-2023)",
+   "chamber": "House",
+   "congress": 117,
+   "seats": {
+    "democrats": 222,
+    "republicans": 212,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table prints the total as '4356': 435 with footnote 6, so the total is not a checked value. Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 117th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-118",
+   "claim": "As of the initial election results for the 118th Congress (2023–2025), the U.S. House of Representatives' 435 seats were held by 213 Democrats, 222 Republicans and no others; Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "118th (2023–2025) 435 213 222 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "213",
+    "222",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 222,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 118th Congress (2023-2025), as of the initial election results",
+   "subject": "U.S. House of Representatives, 118th Congress (2023-2025)",
+   "chamber": "House",
+   "congress": 118,
+   "seats": {
+    "democrats": 213,
+    "republicans": 222,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 118th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-119",
+   "claim": "As of the initial election results for the 119th Congress (2025–2027), the U.S. House of Representatives' 435 seats were held by 215 Democrats, 220 Republicans and no others; Republicans held the majority.",
+   "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
+   "quotes": [
+    "The figures presented are the House party divisions as of the initial election results for a particular Congress.",
+    "119th (2025–2027) 435 215 220 0 5/1"
+   ],
+   "context": [
+    "Congress (Years) # of House Seats Democrats Republicans Other Del./Res.",
+    "This means that subsequent changes in House membership due to deaths, resignations, contested or special elections, or changes in a Member's party affiliation are not included."
+   ],
+   "values": [
+    "215",
+    "220",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 220,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "start of the 119th Congress (2025-2027), as of the initial election results",
+   "subject": "U.S. House of Representatives, 119th Congress (2025-2027)",
+   "chamber": "House",
+   "congress": 119,
+   "seats": {
+    "democrats": 215,
+    "republicans": 220,
+    "others": 0,
+    "otherParties": {},
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Later changes (deaths, resignations, special elections, party switches) are not included, per the source.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the House historian's 119th-Congress row (initial election results); consistent with Wikipedia's election page and the Congressional Directory.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-119-2026",
+   "claim": "The House Press Gallery's party breakdown of the 119th Congress lists 218 Republicans, 214 Democrats, 1 Independent and 2 vacancies, the two vacancies being the seats of Rep. Tony Gonzales (R-TX), who resigned on April 14, 2026, and Rep. Sheila Cherfilus-McCormick (D-FL), who resigned on April 21, 2026.",
+   "url": "https://pressgallery.house.gov/member-data/party-breakdown",
+   "quotes": [
+    "Party Breakdown 119th Congress 218 Republicans 214 Democrats 1Independent 2* Vacancies",
+    "Rep. Tony Gonzales (R-TX) resigned 04/14/2026.",
+    "Rep. Sheila Cherfilus-McCormick (D-FL) resigned 04/21/26."
+   ],
+   "values": [
+    "218 Republicans",
+    "214 Democrats",
+    "2* Vacancies"
+   ],
+   "dated2026": true,
+   "measure": "House seats by party in the 119th Congress on the access date",
+   "value": 218,
+   "unit": "House seats held by the majority party (Republican) of 435",
+   "when": "2026-11-07 (access date; 119th Congress, 2025-2027)",
+   "subject": "U.S. House of Representatives, 119th Congress (November 2026)",
+   "chamber": "House",
+   "congress": 119,
+   "seats": {
+    "democrats": 214,
+    "republicans": 218,
+    "others": 1,
+    "vacant": 2,
+    "total": 435,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Read on 2026-11-07. The page says it is not updated until member departures are read on the House floor, so it can lag a departure.",
+   "check": {
+    "ok": true,
+    "reason": "House Press Gallery page reads 218 Republicans, 214 Democrats, 1 Independent, 2 vacancies (Gonzales resigned 4/14/2026, Cherfilus-McCormick 4/21/2026); matches. The page says it is not updated until departures are read on the floor, so it can lag.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-33",
+   "claim": "Harry S. Truman, the 33rd president of the United States, belonged to the Democratic Party and served from April 12, 1945 to January 20, 1953. He was elected in 1948.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "33 Harry S. Truman (1884–1972) [62] April 12, 1945[r] – January 20, 1953 Democratic – Vacant through January 20, 1949 1948 Alben W. Barkley"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "April 12, 1945",
+    "January 20, 1953",
+    "Democratic",
+    "1948"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 33,
+   "unit": "ordinal number of the presidency",
+   "when": "April 12, 1945 to January 20, 1953",
+   "subject": "Harry S. Truman, 33rd President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "April 12, 1945",
+   "termEnd": "January 20, 1953",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-34",
+   "claim": "Dwight D. Eisenhower, the 34th president of the United States, belonged to the Republican Party and served from January 20, 1953 to January 20, 1961. He was elected in 1952 and 1956.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "34 Dwight D. Eisenhower (1890–1969) [64] January 20, 1953 – January 20, 1961 Republican 1952 Richard Nixon 1956"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1953",
+    "January 20, 1961",
+    "Republican",
+    "1952",
+    "1956"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 34,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1953 to January 20, 1961",
+   "subject": "Dwight D. Eisenhower, 34th President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 1953",
+   "termEnd": "January 20, 1961",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-35",
+   "claim": "John F. Kennedy, the 35th president of the United States, belonged to the Democratic Party and served from January 20, 1961 to November 22, 1963. He was elected in 1960.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "35 John F. Kennedy (1917–1963) [65] January 20, 1961 – November 22, 1963[e] Democratic 1960 Lyndon B. Johnson"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1961",
+    "November 22, 1963",
+    "Democratic",
+    "1960"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 35,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1961 to November 22, 1963",
+   "subject": "John F. Kennedy, 35th President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "January 20, 1961",
+   "termEnd": "November 22, 1963",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-36",
+   "claim": "Lyndon B. Johnson, the 36th president of the United States, belonged to the Democratic Party and served from November 22, 1963 to January 20, 1969. He was elected in 1964.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "36 Lyndon B. Johnson (1908–1973) [66] November 22, 1963[s] – January 20, 1969 Democratic – Vacant through January 20, 1965 1964 Hubert Humphrey"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "November 22, 1963",
+    "January 20, 1969",
+    "Democratic",
+    "1964"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 36,
+   "unit": "ordinal number of the presidency",
+   "when": "November 22, 1963 to January 20, 1969",
+   "subject": "Lyndon B. Johnson, 36th President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "November 22, 1963",
+   "termEnd": "January 20, 1969",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-37",
+   "claim": "Richard Nixon, the 37th president of the United States, belonged to the Republican Party and served from January 20, 1969 to August 9, 1974. He was elected in 1968 and 1972.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "37 Richard Nixon (1913–1994) [68] January 20, 1969 – August 9, 1974[h] Republican 1968 Spiro Agnew[h] 1972 Vacant: October 10 – December 6, 1973 Gerald Ford[t]"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1969",
+    "August 9, 1974",
+    "Republican",
+    "1968",
+    "1972"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 37,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1969 to August 9, 1974",
+   "subject": "Richard Nixon, 37th President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 1969",
+   "termEnd": "August 9, 1974",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-38",
+   "claim": "Gerald Ford, the 38th president of the United States, belonged to the Republican Party and served from August 9, 1974 to January 20, 1977.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "38 Gerald Ford (1913–2006) [69] August 9, 1974[u] – January 20, 1977 Republican – Vacant through December 19, 1974 Nelson Rockefeller[t]"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "August 9, 1974",
+    "January 20, 1977",
+    "Republican"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 38,
+   "unit": "ordinal number of the presidency",
+   "when": "August 9, 1974 to January 20, 1977",
+   "subject": "Gerald Ford, 38th President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "August 9, 1974",
+   "termEnd": "January 20, 1977",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-39",
+   "claim": "Jimmy Carter, the 39th president of the United States, belonged to the Democratic Party and served from January 20, 1977 to January 20, 1981. He was elected in 1976.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "39 Jimmy Carter (1924–2024) [70] January 20, 1977 – January 20, 1981 Democratic 1976 Walter Mondale"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1977",
+    "January 20, 1981",
+    "Democratic",
+    "1976"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 39,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1977 to January 20, 1981",
+   "subject": "Jimmy Carter, 39th President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "January 20, 1977",
+   "termEnd": "January 20, 1981",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-40",
+   "claim": "Ronald Reagan, the 40th president of the United States, belonged to the Republican Party and served from January 20, 1981 to January 20, 1989. He was elected in 1980 and 1984.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "40 Ronald Reagan (1911–2004) [71] January 20, 1981 – January 20, 1989 Republican 1980 George H. W. Bush 1984"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1981",
+    "January 20, 1989",
+    "Republican",
+    "1980",
+    "1984"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 40,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1981 to January 20, 1989",
+   "subject": "Ronald Reagan, 40th President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 1981",
+   "termEnd": "January 20, 1989",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-41",
+   "claim": "George H. W. Bush, the 41st president of the United States, belonged to the Republican Party and served from January 20, 1989 to January 20, 1993. He was elected in 1988.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "41 George H. W. Bush (1924–2018) [72] January 20, 1989 – January 20, 1993 Republican 1988 Dan Quayle"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1989",
+    "January 20, 1993",
+    "Republican",
+    "1988"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 41,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1989 to January 20, 1993",
+   "subject": "George H. W. Bush, 41st President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 1989",
+   "termEnd": "January 20, 1993",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-42",
+   "claim": "Bill Clinton, the 42nd president of the United States, belonged to the Democratic Party and served from January 20, 1993 to January 20, 2001. He was elected in 1992 and 1996.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "42 Bill Clinton (b. 1946) [73] January 20, 1993 – January 20, 2001 Democratic 1992 Al Gore 1996"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 1993",
+    "January 20, 2001",
+    "Democratic",
+    "1992",
+    "1996"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 42,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 1993 to January 20, 2001",
+   "subject": "Bill Clinton, 42nd President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "January 20, 1993",
+   "termEnd": "January 20, 2001",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-43",
+   "claim": "George W. Bush, the 43rd president of the United States, belonged to the Republican Party and served from January 20, 2001 to January 20, 2009. He was elected in 2000 and 2004.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "43 George W. Bush (b. 1946) [74] January 20, 2001 – January 20, 2009 Republican 2000 Dick Cheney 2004"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 2001",
+    "January 20, 2009",
+    "Republican",
+    "2000",
+    "2004"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 43,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 2001 to January 20, 2009",
+   "subject": "George W. Bush, 43rd President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 2001",
+   "termEnd": "January 20, 2009",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-44",
+   "claim": "Barack Obama, the 44th president of the United States, belonged to the Democratic Party and served from January 20, 2009 to January 20, 2017. He was elected in 2008 and 2012.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "44 Barack Obama (b. 1961) [75] January 20, 2009 – January 20, 2017 Democratic 2008 Joe Biden 2012"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 2009",
+    "January 20, 2017",
+    "Democratic",
+    "2008",
+    "2012"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 44,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 2009 to January 20, 2017",
+   "subject": "Barack Obama, 44th President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "January 20, 2009",
+   "termEnd": "January 20, 2017",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-45",
+   "claim": "Donald Trump, the 45th president of the United States (first term), belonged to the Republican Party and served from January 20, 2017 to January 20, 2021. He was elected in 2016.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "45 Donald Trump (b. 1946) 1st term [76] January 20, 2017 – January 20, 2021 Republican 2016 Mike Pence"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 2017",
+    "January 20, 2021",
+    "Republican",
+    "2016"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 45,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 2017 to January 20, 2021",
+   "subject": "Donald Trump, 45th President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 2017",
+   "termEnd": "January 20, 2021",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-46",
+   "claim": "Joe Biden, the 46th president of the United States, belonged to the Democratic Party and served from January 20, 2021 to January 20, 2025. He was elected in 2020.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "46 Joe Biden (b. 1942) [77] January 20, 2021 – January 20, 2025 Democratic 2020 Kamala Harris"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 2021",
+    "January 20, 2025",
+    "Democratic",
+    "2020"
+   ],
+   "dated2026": false,
+   "measure": "president's party and term",
+   "value": 46,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 2021 to January 20, 2025",
+   "subject": "Joe Biden, 46th President of the United States",
+   "office": "President of the United States",
+   "party": "Democratic",
+   "termStart": "January 20, 2021",
+   "termEnd": "January 20, 2025",
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-president-47",
+   "claim": "Donald Trump, the 47th president of the United States (second term), belongs to the Republican Party and has served since January 20, 2025; he is the incumbent. He was elected in 2024.",
+   "url": "https://en.wikipedia.org/w/index.php?title=List_of_presidents_of_the_United_States&useparsoid=0",
+   "quotes": [
+    "47 Donald Trump (b. 1946) 2nd term [76] January 20, 2025 – Incumbent Republican 2024 JD Vance"
+   ],
+   "context": [
+    "No.[a] Portrait Name (birth–death) Term[16] Party[b][17] Election Vice President[18]",
+    "Reflects the president's political party at the start of their presidency. Changes during their time in office are noted."
+   ],
+   "values": [
+    "January 20, 2025",
+    "Incumbent",
+    "Republican",
+    "2024"
+   ],
+   "dated2026": true,
+   "measure": "president's party and term",
+   "value": 47,
+   "unit": "ordinal number of the presidency",
+   "when": "January 20, 2025 to incumbent as of 2026-11-07",
+   "subject": "Donald Trump, 47th President of the United States",
+   "office": "President of the United States",
+   "party": "Republican",
+   "termStart": "January 20, 2025",
+   "termEnd": null,
+   "accessed": "2026-11-07",
+   "notes": "Incumbent on the access date; a 2026 status, so the page is re-read on the as-of date.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the list row: party, term dates, election years.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-1946",
+   "claim": "After the gubernatorial elections of November 5, 1946 (in Maine, September 9, 1946), Republicans held 25 state governorships and Democrats 23; before the elections Republicans held 22 and Democrats 26.",
+   "url": "https://en.wikipedia.org/w/index.php?title=1946_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 22 26[a] Seats after 25 23"
+   ],
+   "values": [
+    "25",
+    "23",
+    "22",
+    "26"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 25,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 5, 1946 (in Maine, September 9, 1946)",
+   "subject": "US state governors by party, 1946",
+   "governors": {
+    "after": {
+     "Republican": "25",
+     "Democratic": "23"
+    },
+    "before": {
+     "Republican": "22",
+     "Democratic": "26"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-1950",
+   "claim": "After the gubernatorial elections of November 7, 1950 (in Maine, September 11, 1950), Republicans held 25 state governorships and Democrats 23; before the elections Republicans held 19 and Democrats 29.",
+   "url": "https://en.wikipedia.org/w/index.php?title=1950_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 19 29 Seats after 25 23"
+   ],
+   "values": [
+    "25",
+    "23",
+    "19",
+    "29"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 25,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 7, 1950 (in Maine, September 11, 1950)",
+   "subject": "US state governors by party, 1950",
+   "governors": {
+    "after": {
+     "Republican": "25",
+     "Democratic": "23"
+    },
+    "before": {
+     "Republican": "19",
+     "Democratic": "29"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-1960",
+   "claim": "After the gubernatorial elections of November 8, 1960, Democrats held 34 state governorships and Republicans 16; before the elections Democrats held 33 and Republicans 17.",
+   "url": "https://en.wikipedia.org/w/index.php?title=1960_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Democratic Republican Seats before 33 17[a][b] Seats after 34 16"
+   ],
+   "values": [
+    "34",
+    "16",
+    "33",
+    "17"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 34,
+   "unit": "state governorships held by the Democratic Party (the larger party) after the elections",
+   "when": "after the elections of November 8, 1960",
+   "subject": "US state governors by party, 1960",
+   "governors": {
+    "after": {
+     "Democratic": "34",
+     "Republican": "16"
+    },
+    "before": {
+     "Democratic": "33",
+     "Republican": "17"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-1970",
+   "claim": "After the gubernatorial elections of November 3, 1970, Democrats held 29 state governorships and Republicans 21; before the elections Democrats held 18 and Republicans 32.",
+   "url": "https://en.wikipedia.org/w/index.php?title=1970_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Democratic Republican Seats before 18 32 Seats after 29 21"
+   ],
+   "values": [
+    "29",
+    "21",
+    "18",
+    "32"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 29,
+   "unit": "state governorships held by the Democratic Party (the larger party) after the elections",
+   "when": "after the elections of November 3, 1970",
+   "subject": "US state governors by party, 1970",
+   "governors": {
+    "after": {
+     "Democratic": "29",
+     "Republican": "21"
+    },
+    "before": {
+     "Democratic": "18",
+     "Republican": "32"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-1980",
+   "claim": "After the gubernatorial elections of November 4, 1980, Democrats held 27 state governorships and Republicans 23; before the elections Democrats held 31 and Republicans 19.",
+   "url": "https://en.wikipedia.org/w/index.php?title=1980_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Democratic Republican Seats before 31 19 Seats after 27 23"
+   ],
+   "values": [
+    "27",
+    "23",
+    "31",
+    "19"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 27,
+   "unit": "state governorships held by the Democratic Party (the larger party) after the elections",
+   "when": "after the elections of November 4, 1980",
+   "subject": "US state governors by party, 1980",
+   "governors": {
+    "after": {
+     "Democratic": "27",
+     "Republican": "23"
+    },
+    "before": {
+     "Democratic": "31",
+     "Republican": "19"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-1990",
+   "claim": "After the gubernatorial elections of November 6, 1990, Democrats held 28 state governorships and Republicans 20, plus one governorship each for A Connecticut Party and the Alaskan Independence Party (none before); before the elections Democrats held 29 and Republicans 21.",
+   "url": "https://en.wikipedia.org/w/index.php?title=1990_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Democratic Republican Seats before 29 21 Seats after 28 20",
+    "Party A Connecticut Party Alaskan Independence Seats before 0 0 Seats after 1 1"
+   ],
+   "values": [
+    "28",
+    "20",
+    "29",
+    "21"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 28,
+   "unit": "state governorships held by the Democratic Party (the larger party) after the elections",
+   "when": "after the elections of November 6, 1990",
+   "subject": "US state governors by party, 1990",
+   "governors": {
+    "after": {
+     "Democratic": "28",
+     "Republican": "20"
+    },
+    "before": {
+     "Democratic": "29",
+     "Republican": "21"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2000",
+   "claim": "After the gubernatorial elections of November 7, 2000, Republicans held 29 state governorships and Democrats 19; before the elections Republicans held 30 and Democrats 18.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2000_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 30 18 Seats after 29 19"
+   ],
+   "values": [
+    "29",
+    "19",
+    "30",
+    "18"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 29,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 7, 2000",
+   "subject": "US state governors by party, 2000",
+   "governors": {
+    "after": {
+     "Republican": "29",
+     "Democratic": "19"
+    },
+    "before": {
+     "Republican": "30",
+     "Democratic": "18"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox lists only the two major parties (29 + 19 = 48); the other two governors, of Maine and Minnesota, were not Democrats or Republicans.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2010",
+   "claim": "After the gubernatorial elections of November 2, 2010, Republicans held 29 state governorships and Democrats 20, plus 1 Independent (1 before); before the elections Republicans held 23 and Democrats 26.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2010_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 23[b] 26 Seats after 29 20",
+    "Third party Party Independent Seats before 1 Seats after 1"
+   ],
+   "values": [
+    "29",
+    "20",
+    "23",
+    "26"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 29,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 2, 2010",
+   "subject": "US state governors by party, 2010",
+   "governors": {
+    "after": {
+     "Republican": "29",
+     "Democratic": "20"
+    },
+    "before": {
+     "Republican": "23",
+     "Democratic": "26"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2020",
+   "claim": "After the gubernatorial elections of November 3, 2020, Republicans held 27 state governorships and Democrats 23; before the elections Republicans held 26 and Democrats 24.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2020_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 26 24 Seats after 27 23"
+   ],
+   "values": [
+    "27",
+    "23",
+    "26",
+    "24"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 27,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 3, 2020",
+   "subject": "US state governors by party, 2020",
+   "governors": {
+    "after": {
+     "Republican": "27",
+     "Democratic": "23"
+    },
+    "before": {
+     "Republican": "26",
+     "Democratic": "24"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2024",
+   "claim": "After the gubernatorial elections of November 5, 2024, Republicans held 27 state governorships and Democrats 23; before the elections Republicans held 27 and Democrats 23.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2024_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 27 23 Seats after 27 23"
+   ],
+   "values": [
+    "27",
+    "23",
+    "27",
+    "23"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 27,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 5, 2024",
+   "subject": "US state governors by party, 2024",
+   "governors": {
+    "after": {
+     "Republican": "27",
+     "Democratic": "23"
+    },
+    "before": {
+     "Republican": "27",
+     "Democratic": "23"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2025",
+   "claim": "After the gubernatorial elections of November 4, 2025, Republicans held 26 state governorships and Democrats 24; before the elections Republicans held 27 and Democrats 23.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2025_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Republican Democratic Seats before 27 23 Seats after 26 24"
+   ],
+   "values": [
+    "26",
+    "24",
+    "27",
+    "23"
+   ],
+   "dated2026": false,
+   "measure": "state governorships by party after the year's elections",
+   "value": 26,
+   "unit": "state governorships held by the Republican Party (the larger party) after the elections",
+   "when": "after the elections of November 4, 2025",
+   "subject": "US state governors by party, 2025",
+   "governors": {
+    "after": {
+     "Republican": "26",
+     "Democratic": "24"
+    },
+    "before": {
+     "Republican": "27",
+     "Democratic": "23"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "The infobox counts state governorships only; territories are not included.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only). Same composition as pol-governors-2026-before (26 R, 24 D); the Virginia change took effect at the January 2026 inauguration.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2026-after",
+   "claim": "After the gubernatorial elections of November 3, 2026, Democrats were set to hold 28 to 30 state governorships and Republicans 20 to 22, with the winners in Alaska and Kansas not yet called; it was the first time since 2009 that Democrats won a majority of governorships. Going in, Democrats held 24 and Republicans 26.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2026_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Party Democratic Republican Seats before 24 26 Seats after 28–30[a] 20–22[a]",
+    "The winners of the Alaska and Kansas elections are yet to be called.",
+    "This was the first time since 2009 that the Democrats won a majority of governorships."
+   ],
+   "values": [
+    "28–30",
+    "20–22",
+    "24",
+    "26"
+   ],
+   "dated2026": true,
+   "measure": "state governorships by party after the year's elections",
+   "value": 28,
+   "unit": "state governorships set to be held by Democrats (lower bound of 28 to 30)",
+   "when": "after the elections of 2026-11-03 (results as reported on 2026-11-07, two races uncalled)",
+   "subject": "US state governors by party, 2026",
+   "governors": {
+    "after": {
+     "Democratic": "28–30",
+     "Republican": "20–22"
+    },
+    "before": {
+     "Democratic": "24",
+     "Republican": "26"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "A projection while two races were uncalled; re-read after Alaska and Kansas are called. The new governors take office in 2027.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Wikipedia infobox seats before and after (state governorships only). Provisional: Alaska and Kansas uncalled on 2026-11-07; 28 is the lower bound.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-governors-2026-before",
+   "claim": "Going into the gubernatorial elections of November 3, 2026, there were 26 Republican governors and 24 Democratic governors in the United States.",
+   "url": "https://en.wikipedia.org/w/index.php?title=2026_United_States_gubernatorial_elections&useparsoid=0",
+   "quotes": [
+    "Going into the election, there were 26 Republican governors and 24 Democratic governors in the United States."
+   ],
+   "values": [
+    "26",
+    "24"
+   ],
+   "dated2026": true,
+   "measure": "state governors by party in office before the 2026 elections",
+   "value": 26,
+   "unit": "Republican governors (Democratic: 24) of 50",
+   "when": "2026, before the elections of 2026-11-03",
+   "subject": "US state governors by party, 2026",
+   "governors": {
+    "inOffice": {
+     "Republican": "26",
+     "Democratic": "24"
+    }
+   },
+   "accessed": "2026-11-07",
+   "notes": "Matches the 2025 infobox's seats after (26 Republican, 24 Democratic).",
+   "check": {
+    "ok": true,
+    "reason": "Page text: 26 Republican and 24 Democratic governors going into the 2026 elections; matches. Same composition as pol-governors-2025's seats after: draw it once, not as a second change.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  }
+ ]
+}

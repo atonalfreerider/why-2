@@ -1,0 +1,1568 @@
+{
+ "cluster": "key-moments",
+ "asOf": "2026-11-07",
+ "facts": [
+  {
+   "id": "pol-1944-bretton-woods",
+   "claim": "Delegates from 44 Allied countries met at Bretton Woods from 1 to 22 July 1944 and signed the Bretton Woods agreement on 22 July 1944; the accords set rules for the international monetary system and established the IMF and the International Bank for Reconstruction and Development.",
+   "url": "https://en.wikipedia.org/wiki/Bretton_Woods_system",
+   "quotes": [
+    "delegates from 44 Allied countries gathered at the Mount Washington Hotel in Bretton Woods, New Hampshire, United States, for the United Nations Monetary and Financial Conference, also known as the Bretton Woods Conference. The delegates deliberated from 1 to 22 July 1944, and signed the Bretton Woods agreement on its final day.",
+    "Setting up a system of rules, institutions, and procedures to regulate the international monetary system, these accords established the IMF and the International Bank for Reconstruction and Development (IBRD), which today is part of the World Bank Group."
+   ],
+   "values": [
+    "22 July 1944",
+    "44"
+   ],
+   "dated2026": false,
+   "measure": "treaty: Bretton Woods agreement signed (year)",
+   "value": 1944,
+   "unit": "year",
+   "when": "1944-07-22",
+   "subject": "Bretton Woods Agreement",
+   "accessed": "2026-11-07",
+   "notes": "kind: treaty. Also in Docs/research/advantage (archetypes, story-ai) from the same page.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: delegates of 44 Allied countries deliberated 1-22 July 1944 and signed the agreement on its final day; the accords established the IMF and IBRD. 22 Jul 1944 is the signing (the Articles entered into force in Dec 1945), matching the measure.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1947-gatt",
+   "claim": "The General Agreement on Tariffs and Trade, whose purpose was to promote trade by reducing or eliminating barriers such as tariffs or quotas, was signed by 23 nations in Geneva on 30 October 1947 and applied provisionally from 1 January 1948; it remained in effect until the WTO was established on 1 January 1995.",
+   "url": "https://en.wikipedia.org/wiki/General_Agreement_on_Tariffs_and_Trade",
+   "quotes": [
+    "The General Agreement on Tariffs and Trade (GATT) is a legal agreement between many countries, whose overall purpose was to promote international trade by reducing or eliminating trade barriers such as tariffs or quotas.",
+    "It was signed by 23 nations[3] in Geneva on 30 October 1947, and was applied on a provisional basis 1 January 1948.[1] It remained in effect until 1 January 1995, when the World Trade Organization (WTO) was established"
+   ],
+   "values": [
+    "30 October 1947",
+    "23",
+    "1 January 1948"
+   ],
+   "dated2026": false,
+   "measure": "trade: GATT signed (year)",
+   "value": 1947,
+   "unit": "year",
+   "when": "1947-10-30",
+   "subject": "General Agreement on Tariffs and Trade (GATT)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by 23 nations in Geneva on 30 Oct 1947, applied provisionally from 1 Jan 1948, in effect until the WTO was established on 1 Jan 1995. The marker is the signing date, as the measure says.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1948-marshall-plan",
+   "claim": "President Truman signed the Economic Cooperation Act, the law behind the Marshall Plan, on 3 April 1948; under the plan the United States transferred US$13.3 billion to 17 European countries in economic recovery programs after World War II.",
+   "url": "https://en.wikipedia.org/wiki/Marshall_Plan",
+   "quotes": [
+    "Truman signed the Economic Cooperation Act into law on April 3, 1948; the Act established the Economic Cooperation Administration (ECA) to administer the program.",
+    "The United States transferred US$13.3 billion to 17 European countries (equivalent to $141 billion[A] in 2025[B]) in economic recovery programs to Western European economies after the end of World War II in Europe."
+   ],
+   "values": [
+    "April 3, 1948",
+    "13.3",
+    "17"
+   ],
+   "dated2026": false,
+   "measure": "law: Economic Cooperation Act (Marshall Plan) signed into law (year)",
+   "value": 1948,
+   "unit": "year",
+   "when": "1948-04-03",
+   "subject": "Marshall Plan (Economic Cooperation Act of 1948)",
+   "accessed": "2026-11-07",
+   "notes": "kind: law. The $13.3bn quote is also story-ai-marshall-plan in Docs/research/advantage/story-ai.json.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: 'Truman signed the Economic Cooperation Act into law on April 3, 1948'; lead: US$13.3bn to 17 European countries. Signed-into-law date matches the measure.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1949-nato",
+   "claim": "The North Atlantic Treaty, the legal basis of NATO, was signed in Washington, D.C., on 4 April 1949; the twelve states that signed it became NATO's founding members.",
+   "url": "https://en.wikipedia.org/wiki/North_Atlantic_Treaty",
+   "quotes": [
+    "The North Atlantic Treaty, also known as the Washington Treaty,[1] forms the legal basis of, and is implemented by, the North Atlantic Treaty Organization (NATO). The treaty was signed in Washington, D.C., on 4 April 1949.",
+    "The following twelve states signed the treaty and thus became the founding members of NATO."
+   ],
+   "values": [
+    "4 April 1949"
+   ],
+   "dated2026": false,
+   "measure": "treaty: North Atlantic Treaty signed (year)",
+   "value": 1949,
+   "unit": "year",
+   "when": "1949-04-04",
+   "subject": "North Atlantic Treaty (NATO)",
+   "accessed": "2026-11-07",
+   "notes": "kind: treaty.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: treaty signed in Washington on 4 Apr 1949; the twelve signatories became NATO's founding members. Signing date is the marker (in force Aug 1949).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1950-korean-war",
+   "claim": "The Korean War, fought between North Korea and South Korea and their allies, lasted from 25 June 1950 to the ceasefire of 27 July 1953.",
+   "url": "https://en.wikipedia.org/wiki/Korean_War",
+   "quotes": [
+    "The Korean War (25 June 1950 – 27 July 1953) was an armed conflict fought on the Korean Peninsula between North Korea (Democratic People's Republic of Korea; DPRK) and South Korea (Republic of Korea; ROK) and their allies."
+   ],
+   "values": [
+    "25 June 1950",
+    "27 July 1953"
+   ],
+   "dated2026": false,
+   "measure": "conflict: war began (year)",
+   "value": 1950,
+   "unit": "year",
+   "when": "1950-06-25",
+   "subject": "Korean War",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. Ended 1953-07-27 (ceasefire).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Korean War 25 June 1950 - 27 July 1953 (armistice). Start date 1950-06-25 right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1951-treasury-fed-accord",
+   "claim": "On 4 March 1951 the US Treasury and the Federal Reserve announced their accord, an agreement that separated government debt management from monetary policy and laid the foundation for the modern Fed.",
+   "url": "https://www.federalreservehistory.org/essays/treasury-fed-accord",
+   "quotes": [
+    "In March 1951, the US Treasury and the Federal Reserve reached an agreement to separate government debt management from monetary policy, laying the foundation for the modern Fed.",
+    "On March 4, 1951, the Treasury and the Fed issued a statement saying they had \"reached full accord with respect to debt management and monetary policies"
+   ],
+   "values": [
+    "March 4, 1951"
+   ],
+   "dated2026": false,
+   "measure": "monetary: Treasury-Fed Accord announced (year)",
+   "value": 1951,
+   "unit": "year",
+   "when": "1951-03-04",
+   "subject": "Treasury-Federal Reserve Accord",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Federal Reserve History: on March 4, 1951 the Treasury and the Fed issued a statement that they had 'reached full accord'; the accord separated debt management from monetary policy. Date right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1956-highway-act",
+   "claim": "The Federal-Aid Highway Act of 1956 was signed into law by President Eisenhower on 29 June 1956, authorizing $25 billion to build 41,000 miles of the Interstate Highway System over 10 years, the largest public works project in American history to that time.",
+   "url": "https://en.wikipedia.org/wiki/Federal-Aid_Highway_Act_of_1956",
+   "quotes": [
+    "The Federal-Aid Highway Act of 1956, also known as the National Interstate and Defense Highways Act, Pub. L. 84–627 was enacted on June 29, 1956, when President Dwight D. Eisenhower signed the bill into law.",
+    "With an original authorization of $25 billion (equivalent to $226 billion in 2025)[1] for the construction of 41,000 miles (66,000 km) of the Interstate Highway System over a 10-year period, it was the largest public works project in American history through that time."
+   ],
+   "values": [
+    "June 29, 1956",
+    "$25 billion",
+    "41,000"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 1956,
+   "unit": "year",
+   "when": "1956-06-29",
+   "subject": "Federal-Aid Highway Act of 1956",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Pub. L. 84-627 enacted 29 June 1956 when Eisenhower signed it; $25bn for 41,000 miles over 10 years, largest public works project to that time. Signed = enacted date, right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1957-treaty-of-rome",
+   "claim": "The Treaty of Rome, signed on 25 March 1957 by Belgium, France, Italy, Luxembourg, the Netherlands and West Germany and in force from 1 January 1958, created the European Economic Community.",
+   "url": "https://en.wikipedia.org/wiki/Treaty_of_Rome",
+   "quotes": [
+    "The Treaty of Rome, or EEC Treaty (officially the Treaty establishing the European Economic Community), brought about the creation of the European Economic Community (EEC), the best known of the European Communities (EC). The treaty was signed on 25 March 1957 by Belgium, France, Italy, Luxembourg, the Netherlands and West Germany, and it came into force on 1 January 1958."
+   ],
+   "values": [
+    "25 March 1957",
+    "1 January 1958"
+   ],
+   "dated2026": false,
+   "measure": "treaty: Treaty of Rome signed (year)",
+   "value": 1957,
+   "unit": "year",
+   "when": "1957-03-25",
+   "subject": "Treaty of Rome (European Economic Community)",
+   "accessed": "2026-11-07",
+   "notes": "kind: treaty.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed 25 Mar 1957 by the six named states, in force 1 Jan 1958, created the EEC. Marker is the signing date, as the measure says.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1964-civil-rights-act",
+   "claim": "The Civil Rights Act of 1964, enacted on 2 July 1964, outlaws discrimination based on race, color, religion, sex and national origin, and prohibits racial segregation in schools and public accommodations and employment discrimination.",
+   "url": "https://en.wikipedia.org/wiki/Civil_Rights_Act_of_1964",
+   "quotes": [
+    "The Civil Rights Act of 1964 (Pub. L. 88–352, 78 Stat. 241, enacted July 2, 1964) is a landmark civil rights and labor law in the United States that outlaws discrimination based on race, color, religion, sex,[a] and national origin.",
+    "It prohibits unequal application of voter registration requirements, racial segregation in schools and public accommodations, and employment discrimination."
+   ],
+   "values": [
+    "July 2, 1964"
+   ],
+   "dated2026": false,
+   "measure": "law: enacted (year)",
+   "value": 1964,
+   "unit": "year",
+   "when": "1964-07-02",
+   "subject": "Civil Rights Act of 1964",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Pub. L. 88-352 enacted July 2, 1964 (signed that day); outlaws discrimination on race, color, religion, sex, national origin; bars segregation in schools and public accommodations and employment discrimination. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1965-vietnam-war",
+   "claim": "Following the Gulf of Tonkin incident in 1964, Congress gave President Johnson authority to increase the US military presence in Vietnam without declaring war; direct US military involvement escalated from 1965 and peaked in 1969, when deployment reached 536,000, and US forces were completely withdrawn in 1973.",
+   "url": "https://en.wikipedia.org/wiki/Vietnam_War",
+   "quotes": [
+    "Following the Gulf of Tonkin incident in 1964, the US Congress passed a resolution that gave President Lyndon B. Johnson authority to increase military presence without declaring war. Johnson launched a bombing campaign of the north and deployed combat troops, dramatically increasing deployment to 184,000 by 1966, and 536,000 by 1969.",
+    "Direct US military involvement escalated from 1965 and peaked in 1969. After this, the US scaled back involvement (while upgrading the South Vietnamese forces) until US forces were completely withdrawn in 1973."
+   ],
+   "values": [
+    "1964",
+    "1965",
+    "536,000",
+    "1973"
+   ],
+   "dated2026": false,
+   "measure": "conflict: direct US military involvement escalated (year)",
+   "value": 1965,
+   "unit": "year",
+   "when": "1965",
+   "subject": "Vietnam War",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. The war ran from c. 1955 to the fall of Saigon on 1975-04-30; the date here is the year US involvement escalated.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia supports: Tonkin resolution after the 1964 incident, escalation from 1965, peak in 1969, withdrawal complete 1973; 1965 is right for the measure. Wording only: the page says deployment rose to 536,000 'by 1969' (the actual peak was about 543,000 in April 1969), so say '536,000 by 1969' rather than implying 536,000 was the peak.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1965-medicare",
+   "claim": "The Social Security Amendments of 1965, signed into law by President Lyndon B. Johnson on 30 July 1965, created Medicare and Medicaid.",
+   "url": "https://en.wikipedia.org/wiki/Social_Security_Amendments_of_1965",
+   "quotes": [
+    "Signed into law by President Lyndon B. Johnson on July 30, 1965",
+    "The Social Security Amendments of 1965, Pub. L. 89–97, 79 Stat. 286, enacted July 30, 1965, was legislation in the United States whose most important provisions resulted in creation of two programs: Medicare and Medicaid."
+   ],
+   "values": [
+    "July 30, 1965"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 1965,
+   "unit": "year",
+   "when": "1965-07-30",
+   "subject": "Social Security Amendments of 1965 (Medicare and Medicaid)",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed into law by Johnson on July 30, 1965 (Pub. L. 89-97), creating Medicare and Medicaid. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1970-epa",
+   "claim": "The Environmental Protection Agency, the US federal agency for environmental protection, began operation on 2 December 1970 after President Nixon signed an executive order.",
+   "url": "https://en.wikipedia.org/wiki/United_States_Environmental_Protection_Agency",
+   "quotes": [
+    "The Environmental Protection Agency (EPA) is an independent agency of the United States government tasked with environmental protection matters.",
+    "President Richard Nixon proposed the establishment of EPA on July 9, 1970; it began operation on December 2, 1970, after Nixon signed an executive order."
+   ],
+   "values": [
+    "December 2, 1970"
+   ],
+   "dated2026": false,
+   "measure": "regulation: EPA began operation (year)",
+   "value": 1970,
+   "unit": "year",
+   "when": "1970-12-02",
+   "subject": "Environmental Protection Agency",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Nixon proposed EPA on 9 July 1970; it began operation on 2 Dec 1970. Date right. Wording: the 'executive order' is Wikipedia's term; the EPA was created by Reorganization Plan No. 3 of 1970, sent to Congress under the Reorganization Act (the page's next sentence), so prefer 'reorganization plan' if that clause is shown.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1971-nixon-shock",
+   "claim": "On 15 August 1971 President Nixon unilaterally cancelled the direct international convertibility of the US dollar to gold, together with wage and price freezes and import surcharges, which effectively rendered the Bretton Woods system inoperative.",
+   "url": "https://en.wikipedia.org/wiki/Nixon_shock",
+   "quotes": [
+    "The Nixon shock was the effect of a series of economic measures, including wage and price freezes, surcharges on imports, and the unilateral cancellation of the direct international convertibility of the United States dollar to gold, taken by United States president Richard Nixon on August 15, 1971, in response to increasing inflation and threats of a currency crisis.",
+    "Although Nixon's actions did not formally abolish the existing Bretton Woods system of international financial exchange, the suspension of one of its key components effectively rendered the Bretton Woods system inoperative."
+   ],
+   "values": [
+    "August 15, 1971"
+   ],
+   "dated2026": false,
+   "measure": "monetary: dollar's gold convertibility suspended (year)",
+   "value": 1971,
+   "unit": "year",
+   "when": "1971-08-15",
+   "subject": "Nixon shock (end of dollar-gold convertibility)",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: on August 15, 1971 Nixon suspended direct dollar-gold convertibility, with wage/price freezes and an import surcharge, effectively rendering Bretton Woods inoperative. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1973-oil-embargo",
+   "claim": "In October 1973 the Arab oil exporters (OAPEC) announced a total oil embargo against countries that had supported Israel in the Yom Kippur War, first targeting Canada, Japan, the Netherlands, the United Kingdom and the United States; when it was lifted in March 1974 the oil price had risen by nearly 300%, from US$3 to nearly US$12 a barrel.",
+   "url": "https://en.wikipedia.org/wiki/1973_oil_crisis",
+   "quotes": [
+    "In October 1973, the Organization of Arab Petroleum Exporting Countries (OAPEC) announced that it was implementing a total oil embargo against countries that had supported Israel at any point during the 1973 Yom Kippur War",
+    "the initial countries that OAPEC targeted were Canada, Japan, the Netherlands, the United Kingdom, and the United States.",
+    "In March 1974, OAPEC lifted the embargo,[2] but the price of oil had risen by nearly 300%: from US$3/barrel to nearly US$12/barrel globally."
+   ],
+   "values": [
+    "October 1973",
+    "March 1974",
+    "300%"
+   ],
+   "dated2026": false,
+   "measure": "trade: oil embargo announced (year)",
+   "value": 1973,
+   "unit": "year",
+   "when": "1973-10",
+   "subject": "1973 OAPEC oil embargo",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. Lifted March 1974.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: OAPEC announced a total embargo in October 1973 against supporters of Israel in the Yom Kippur War, first targeting Canada, Japan, the Netherlands, the UK and the US; lifted March 1974, oil from US$3 to nearly US$12 (nearly 300%). Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1978-airline-deregulation",
+   "claim": "The Airline Deregulation Act, signed into law by President Carter on 24 October 1978, deregulated the US airline industry, removing federal control over fares, routes and market entry of new airlines.",
+   "url": "https://en.wikipedia.org/wiki/Airline_Deregulation_Act",
+   "quotes": [
+    "Signed into law by President Jimmy Carter on October 24, 1978",
+    "The Airline Deregulation Act is a 1978 United States federal law that deregulated the airline industry in the United States, removing federal control over such areas as fares, routes, and market entry of new airlines."
+   ],
+   "values": [
+    "October 24, 1978"
+   ],
+   "dated2026": false,
+   "measure": "regulation: signed into law (year)",
+   "value": 1978,
+   "unit": "year",
+   "when": "1978-10-24",
+   "subject": "Airline Deregulation Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed into law by Carter on October 24, 1978; removed federal control over fares, routes and market entry. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1978-china-open-door",
+   "claim": "In December 1978 Deng Xiaoping announced the Open Door Policy, opening China to foreign businesses and to foreign investment for the first time since the Kuomintang era, and created Special Economic Zones such as Shenzhen, Zhuhai and Xiamen for foreign investment.",
+   "url": "https://en.wikipedia.org/wiki/Reform_and_opening_up",
+   "quotes": [
+    "At the same time, in December 1978, Deng announced a new policy, the Open Door Policy, to open the door to foreign businesses that wanted to set up in China.[35][36] For the first time since the Kuomintang era, the country was opened to foreign investment.",
+    "Deng created a series of Special Economic Zones, including Shenzhen, Zhuhai and Xiamen, for foreign investment"
+   ],
+   "values": [
+    "December 1978"
+   ],
+   "dated2026": false,
+   "measure": "trade: Open Door Policy announced (year)",
+   "value": 1978,
+   "unit": "year",
+   "when": "1978-12",
+   "subject": "China's reform and opening up (Open Door Policy)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade.",
+   "check": {
+    "ok": false,
+    "reason": "Year and month are right (the page: 'in December 1978, Deng announced ... the Open Door Policy'), but the claim also puts the creation of the Special Economic Zones in December 1978. The quote gives no date for the SEZs and they were set up in 1980 (Shenzhen and Zhuhai Aug 1980, Xiamen Oct 1980; the page itself dates the Shekou zone to 31 Jan 1979). Keep 1978 / 1978-12 and drop the SEZ clause or date it 1980, then re-gate.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1979-oil-crisis",
+   "claim": "The 1979 oil crisis followed the drop in oil production after the Iranian Revolution: global oil supply fell only about four percent, but the crude oil price more than doubled over the next 12 months, to $39.50 a barrel.",
+   "url": "https://en.wikipedia.org/wiki/1979_oil_crisis",
+   "quotes": [
+    "The 1979 oil crisis, sometimes referred to as the second oil crisis (in reference to the 1973 oil crisis), refers to the drop in oil production in the aftermath of the Iranian Revolution that led to an energy crisis in 1979. Although the global oil supply only decreased by approximately four percent,[2] the oil markets' reaction raised the price of crude oil drastically over the next 12 months, more than doubling it to $39.50 per barrel"
+   ],
+   "values": [
+    "1979",
+    "$39.50"
+   ],
+   "dated2026": false,
+   "measure": "conflict: oil shock after the Iranian Revolution (year)",
+   "value": 1979,
+   "unit": "year",
+   "when": "1979",
+   "subject": "1979 oil crisis (Iranian Revolution)",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: drop in oil production after the Iranian Revolution, supply down about 4%, crude more than doubled over 12 months to $39.50 per barrel. Year 1979 right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1979-volcker-tightening",
+   "claim": "On 6 October 1979 Fed Chairman Paul Volcker announced that the FOMC would manage the volume of bank reserves instead of the day-to-day level of the federal funds rate, to rein in inflation; under the restrictive money-supply targets the federal funds rate reached a record high of 20 percent in late 1980.",
+   "url": "https://www.federalreservehistory.org/essays/anti-inflation-measures",
+   "quotes": [
+    "During a rare press conference on the evening of October 6, 1979, the Saturday before Columbus Day, Volcker announced the results of an unscheduled FOMC meeting held earlier that day.",
+    "Volcker explained the FOMC would shift its focus to managing the volume of bank reserves in the system instead of trying to manage the day-to-day level of the federal funds rate",
+    "As a result of the new focus and the restrictive targets set for the money supply, the federal funds rate reached a record high of 20 percent in late 1980."
+   ],
+   "values": [
+    "October 6, 1979",
+    "20 percent"
+   ],
+   "dated2026": false,
+   "measure": "monetary: Volcker's anti-inflation measures announced (year)",
+   "value": 1979,
+   "unit": "year",
+   "when": "1979-10-06",
+   "subject": "Volcker's monetary tightening",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Federal Reserve History: press conference on the evening of October 6, 1979; FOMC to target the volume of reserves rather than the daily federal funds rate; funds rate reached a record 20% in late 1980. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1981-reagan-tax-cut",
+   "claim": "The Economic Recovery Tax Act of 1981 (the Kemp-Roth or Reagan tax cut), signed into law by President Reagan on 13 August 1981, cut the top marginal income tax rate from 70% to 50% and the lowest from 14% to 11%.",
+   "url": "https://en.wikipedia.org/wiki/Economic_Recovery_Tax_Act_of_1981",
+   "quotes": [
+    "Signed into law by President Ronald Reagan on August 13, 1981",
+    "The highest marginal tax rate fell from 70% to 50%, the lowest marginal rate from 14% to 11%."
+   ],
+   "values": [
+    "August 13, 1981",
+    "70%",
+    "50%"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 1981,
+   "unit": "year",
+   "when": "1981-08-13",
+   "subject": "Economic Recovery Tax Act of 1981 (Reagan tax cut)",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: ERTA (Kemp-Roth) signed by Reagan on August 13, 1981; top marginal rate 70% to 50%, lowest 14% to 11% (phased in over 1981-1984). Signing date right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1984-bell-breakup",
+   "claim": "After the Justice Department's antitrust lawsuit United States v. AT&T, a settlement finalized on 8 January 1982 ended the Bell System's telephone monopoly; the divestiture of AT&T's local operating companies to the Baby Bells took effect on 1 January 1984 and cut AT&T's book value by about 70%.",
+   "url": "https://en.wikipedia.org/wiki/Breakup_of_the_Bell_System",
+   "quotes": [
+    "The breakup of the system was initiated in 1974 when the United States Department of Justice filed United States v. AT&T, an antitrust lawsuit against AT&T.",
+    "The settlement was finalized on January 8, 1982, with some changes ordered by the decree court: the regional holding companies received the Bell trademark, the Yellow Pages, and half of Bell Labs. The divesture of the local operating companies to the Baby Bells became effective on January 1, 1984. This divestiture reduced the book value of AT&T by approximately 70%."
+   ],
+   "values": [
+    "January 1, 1984",
+    "January 8, 1982",
+    "70%"
+   ],
+   "dated2026": false,
+   "measure": "regulation: Bell System divestiture effective (year)",
+   "value": 1984,
+   "unit": "year",
+   "when": "1984-01-01",
+   "subject": "Breakup of the Bell System (United States v. AT&T)",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation. Advantage flashpoint 'AT&T 1984' (advantage.json) cites the same event.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: divestiture of the local operating companies to the Baby Bells effective January 1, 1984 (the marker); settlement 'finalized' January 8, 1982 (the page's word; it was announced then and entered by the court in Aug 1982); book value cut about 70%; the page's lead dates the end of the virtual monopoly to 8 Jan 1982. Right for the measure.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1985-plaza-accord",
+   "claim": "In the Plaza Accord, signed on 22 September 1985 at the Plaza Hotel in New York, France, West Germany, Japan, the United Kingdom and the United States agreed to depreciate the US dollar against the franc, the Deutsche Mark, the yen and the pound by intervening in currency markets.",
+   "url": "https://en.wikipedia.org/wiki/Plaza_Accord",
+   "quotes": [
+    "The Plaza Accord was a joint agreement signed on September 22, 1985, at the Plaza Hotel in New York City, between France, West Germany, Japan, the United Kingdom, and the United States, to depreciate the U.S. dollar in relation to the French franc, the German Deutsche Mark, the Japanese yen and the British pound sterling by intervening in currency markets."
+   ],
+   "values": [
+    "September 22, 1985"
+   ],
+   "dated2026": false,
+   "measure": "monetary: Plaza Accord signed (year)",
+   "value": 1985,
+   "unit": "year",
+   "when": "1985-09-22",
+   "subject": "Plaza Accord",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed September 22, 1985 at the Plaza Hotel by France, West Germany, Japan, the UK and the US to depreciate the dollar by market intervention. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1989-berlin-wall",
+   "claim": "On 9 November 1989, after weeks of civil unrest, the East German government announced that all GDR citizens could visit West Germany and West Berlin, and crowds of East Germans crossed and climbed onto the Berlin Wall.",
+   "url": "https://en.wikipedia.org/wiki/Berlin_Wall",
+   "quotes": [
+    "After several weeks of civil unrest, the East German government announced on 9 November 1989 that all GDR citizens could visit the FRG and West Berlin. Crowds of East Germans crossed and climbed onto the Wall, joined by West Germans on the other side, and souvenir hunters chipped away parts of the Wall over the next few weeks."
+   ],
+   "values": [
+    "9 November 1989"
+   ],
+   "dated2026": false,
+   "measure": "conflict: Berlin Wall opened (year)",
+   "value": 1989,
+   "unit": "year",
+   "when": "1989-11-09",
+   "subject": "Fall of the Berlin Wall",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: on 9 November 1989 the GDR announced all citizens could visit the FRG and West Berlin; crowds crossed and climbed onto the Wall. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1990-gulf-war",
+   "claim": "The Gulf War was fought by a 42-country coalition led by the United States in response to Iraq's invasion of Kuwait on 2 August 1990; Operation Desert Storm began with the bombing of Iraq on 17 January 1991 and continued until the liberation of Kuwait on 28 February 1991.",
+   "url": "https://en.wikipedia.org/wiki/Gulf_War",
+   "quotes": [
+    "The Gulf War was an armed conflict between Iraq and a 42-country coalition led by the United States in response to the Iraqi invasion of Kuwait on 2 August 1990. The coalition's efforts were carried out in two phases: Operation Desert Shield, which marked the military buildup in the Persian Gulf region from August 1990 to January 1991; and Operation Desert Storm, which began with the bombing campaign against Iraq on 17 January and continued until the liberation of Kuwait on 28 February."
+   ],
+   "values": [
+    "2 August 1990",
+    "42"
+   ],
+   "dated2026": false,
+   "measure": "conflict: Iraq invaded Kuwait (war began) (year)",
+   "value": 1990,
+   "unit": "year",
+   "when": "1990-08-02",
+   "subject": "Gulf War",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. Ended 1991-02-28.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: 42-country US-led coalition after Iraq's invasion of Kuwait on 2 August 1990; Desert Storm from the 17 January bombing to the liberation of Kuwait on 28 February (1991, from the Desert Shield phase 'August 1990 to January 1991'). Start 1990-08-02 right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1991-ussr-dissolved",
+   "claim": "On 26 December 1991 the Soviet Union was formally dissolved and ceased to exist as a sovereign state, after all 15 union republics broke away between 1990 and 1991.",
+   "url": "https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union",
+   "quotes": [
+    "On 26 December 1991, the Soviet Union was formally dissolved and ceased to exist as a sovereign state.",
+    "Between 1990 and 1991, all 15 union republics broke away from the Soviet Union."
+   ],
+   "values": [
+    "26 December 1991",
+    "15"
+   ],
+   "dated2026": false,
+   "measure": "conflict: Soviet Union dissolved (year)",
+   "value": 1991,
+   "unit": "year",
+   "when": "1991-12-26",
+   "subject": "Dissolution of the Soviet Union",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. The end of the Cold War, with the opening of the Berlin Wall (pol-1989-berlin-wall).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: formally dissolved 26 December 1991; all 15 union republics broke away in 1990-1991. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1992-maastricht",
+   "claim": "The Maastricht Treaty, the founding treaty of the European Union, was signed on 7 February 1992 by the twelve members of the European Communities and provided for a shared European citizenship and the eventual introduction of a single currency.",
+   "url": "https://en.wikipedia.org/wiki/Maastricht_Treaty",
+   "quotes": [
+    "The Treaty on European Union, commonly known as the Maastricht Treaty, is the foundation treaty of the European Union (EU).",
+    "it announced \"a new stage in the process of European integration\"[4] chiefly in provisions for a shared European citizenship, for the eventual introduction of a single currency",
+    "The twelve members of the European Communities signing the Treaty on 7 February 1992 were Belgium, Denmark, France, Germany, Greece, Ireland, Italy, Luxembourg, Portugal, Spain, the Netherlands and the United Kingdom."
+   ],
+   "values": [
+    "7 February 1992"
+   ],
+   "dated2026": false,
+   "measure": "treaty: Maastricht Treaty signed (year)",
+   "value": 1992,
+   "unit": "year",
+   "when": "1992-02-07",
+   "subject": "Maastricht Treaty (Treaty on European Union)",
+   "accessed": "2026-11-07",
+   "notes": "kind: treaty. In force 1993-11-01.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed 7 February 1992 by the twelve EC members; citizenship and single-currency provisions; in force 1 Nov 1993. Signing date is the marker, as the measure says.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1994-nafta",
+   "claim": "The North American Free Trade Agreement among Canada, Mexico and the United States created a trilateral trade bloc in North America and came into force on 1 January 1994, superseding the 1988 Canada-United States Free Trade Agreement.",
+   "url": "https://en.wikipedia.org/wiki/North_American_Free_Trade_Agreement",
+   "quotes": [
+    "was an agreement signed by Canada, Mexico, and the United States that created a trilateral trade bloc in North America. The agreement came into force on January 1, 1994, and superseded the 1988 Canada–United States Free Trade Agreement between the United States and Canada."
+   ],
+   "values": [
+    "January 1, 1994"
+   ],
+   "dated2026": false,
+   "measure": "trade: NAFTA came into force (year)",
+   "value": 1994,
+   "unit": "year",
+   "when": "1994-01-01",
+   "subject": "North American Free Trade Agreement (NAFTA)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. Replaced by the USMCA on 2020-07-01 (pol-2020-usmca).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: came into force January 1, 1994, superseding the 1988 Canada-US FTA. The measure is entry into force (signed Dec 1992), so 1994-01-01 is right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1995-wto",
+   "claim": "The World Trade Organization, which regulates and facilitates international trade, was established on 1 January 1995 under the 1994 Marrakesh Agreement, succeeding the GATT.",
+   "url": "https://en.wikipedia.org/wiki/World_Trade_Organization",
+   "quotes": [
+    "The World Trade Organization (WTO) is an intergovernmental organization that regulates and facilitates international trade. Established on 1 January 1995, pursuant to the 1994 Marrakesh Agreement, it succeeded the General Agreement on Tariffs and Trade (GATT), which was created in 1948."
+   ],
+   "values": [
+    "1 January 1995"
+   ],
+   "dated2026": false,
+   "measure": "trade: WTO established (year)",
+   "value": 1995,
+   "unit": "year",
+   "when": "1995-01-01",
+   "subject": "World Trade Organization",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: established 1 January 1995 under the 1994 Marrakesh Agreement, succeeding the GATT. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1996-telecom-act",
+   "claim": "The Telecommunications Act of 1996, signed into law by President Clinton on 8 February 1996, was the first significant overhaul of US telecommunications law in more than sixty years, amending the Communications Act of 1934.",
+   "url": "https://en.wikipedia.org/wiki/Telecommunications_Act_of_1996",
+   "quotes": [
+    "The Telecommunications Act of 1996 is a United States federal law enacted by the 104th United States Congress on January 3, 1996, and signed into law on February 8, 1996 by President Bill Clinton.",
+    "the act was the first significant overhaul of United States telecommunications law in more than sixty years. It amended the Communications Act of 1934"
+   ],
+   "values": [
+    "February 8, 1996"
+   ],
+   "dated2026": false,
+   "measure": "regulation: signed into law (year)",
+   "value": 1996,
+   "unit": "year",
+   "when": "1996-02-08",
+   "subject": "Telecommunications Act of 1996",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed into law by Clinton on February 8, 1996; first major overhaul in over sixty years, amending the Communications Act of 1934. Signing date right (the page's 'enacted ... January 3, 1996' is not used).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1999-euro",
+   "claim": "The euro was introduced to world financial markets as an accounting currency on 1 January 1999, replacing the European Currency Unit at a ratio of 1:1; euro coins and banknotes entered circulation on 1 January 2002.",
+   "url": "https://en.wikipedia.org/wiki/Euro",
+   "quotes": [
+    "The euro was introduced to world financial markets as an accounting currency on 1 January 1999, replacing the former European Currency Unit (ECU) at a ratio of 1:1. Physical euro coins and banknotes entered into circulation on 1 January 2002, making it the day-to-day operating currency of its original members"
+   ],
+   "values": [
+    "1 January 1999",
+    "1 January 2002"
+   ],
+   "dated2026": false,
+   "measure": "monetary: euro introduced (year)",
+   "value": 1999,
+   "unit": "year",
+   "when": "1999-01-01",
+   "subject": "Euro",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: introduced as an accounting currency 1 January 1999 replacing the ECU 1:1; notes and coins from 1 January 2002. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-1999-gramm-leach-bliley",
+   "claim": "The Gramm-Leach-Bliley Act, enacted on 12 November 1999, repealed part of the Glass-Steagall Act of 1933, removing the barriers that kept any one institution from combining investment banking, commercial banking and insurance.",
+   "url": "https://en.wikipedia.org/wiki/Gramm%E2%80%93Leach%E2%80%93Bliley_Act",
+   "quotes": [
+    "The Gramm–Leach–Bliley Act (GLBA), also known as the Financial Services Modernization Act of 1999, (Pub. L. 106–102 (text) (PDF), 113 Stat. 1338, enacted November 12, 1999) is an Act of the 106th United States Congress (1999–2001). It repealed part of the Glass–Steagall Act of 1933, removing barriers in the market among banking companies, securities companies, and insurance companies that prohibited any one institution from acting as any combination of an investment bank, a commercial bank, and an insurance company."
+   ],
+   "values": [
+    "November 12, 1999"
+   ],
+   "dated2026": false,
+   "measure": "regulation: enacted (year)",
+   "value": 1999,
+   "unit": "year",
+   "when": "1999-11-12",
+   "subject": "Gramm-Leach-Bliley Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: enacted (signed by Clinton) November 12, 1999; repealed part of Glass-Steagall, letting one institution combine investment banking, commercial banking and insurance. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2001-china-wto",
+   "claim": "China became a member of the World Trade Organization on 11 December 2001; after its entry it pursued export-led growth and became a key link in global supply chains.",
+   "url": "https://en.wikipedia.org/wiki/China_and_the_World_Trade_Organization",
+   "quotes": [
+    "China became a member of the World Trade Organization (WTO) on 11 December 2001,[1] after the agreement of the Ministerial Conference of the WTO.[2] The admission was preceded by a lengthy process of negotiations and required significant changes to the Chinese economy.",
+    "After its entry into the WTO in December 2001, China began pursuing export-led growth and became a key link in global supply chains."
+   ],
+   "values": [
+    "11 December 2001"
+   ],
+   "dated2026": false,
+   "measure": "trade: China became a WTO member (year)",
+   "value": 2001,
+   "unit": "year",
+   "when": "2001-12-11",
+   "subject": "China's accession to the WTO",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. The WTO's own member page gives the same date: https://www.wto.org/english/thewto_e/countries_e/china_e.htm",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: China became a WTO member on 11 December 2001; afterwards pursued export-led growth and became a key supply-chain link. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2001-september-11",
+   "claim": "Early on 11 September 2001 nineteen hijackers took control of four commercial airliners; American Airlines 11 and United Airlines 175 crashed into the North and South Towers of the World Trade Center and American Airlines 77 into the west wall of the Pentagon.",
+   "url": "https://en.wikipedia.org/wiki/September_11_attacks",
+   "quotes": [
+    "Early on the morning of September 11, 2001, nineteen hijackers took control of four commercial airliners (two Boeing 757s and two Boeing 767s)."
+   ],
+   "values": [
+    "September 11, 2001"
+   ],
+   "dated2026": false,
+   "measure": "conflict: attacks on the United States (year)",
+   "value": 2001,
+   "unit": "year",
+   "when": "2001-09-11",
+   "subject": "September 11 attacks",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. The attacks were carried out by al-Qaeda (same page, lead). The FBI's case history gives 2,976 killed: https://www.fbi.gov/history/cases-and-criminals/911-investigation",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: nineteen hijackers took four airliners early on September 11, 2001; the flight table right after the quote gives AA11 North Tower, UA175 South Tower, AA77 west wall of the Pentagon. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2001-afghanistan-war",
+   "claim": "The US-led war in Afghanistan, launched as Operation Enduring Freedom in response to the September 11 attacks, officially started on 7 October 2001 and lasted until 2021.",
+   "url": "https://en.wikipedia.org/wiki/War_in_Afghanistan_(2001%E2%80%932021)",
+   "quotes": [
+    "The war in Afghanistan was a prolonged armed conflict from 2001 to 2021. It began with an invasion by a United States–led coalition under the name Operation Enduring Freedom in response to the September 11 attacks (9/11) carried out by the Taliban-allied and Afghanistan-based al-Qaeda.",
+    "Covert US military action began soon after, and the war started officially on 7 October 2001."
+   ],
+   "values": [
+    "7 October 2001",
+    "2021"
+   ],
+   "dated2026": false,
+   "measure": "conflict: war began (year)",
+   "value": 2001,
+   "unit": "year",
+   "when": "2001-10-07",
+   "subject": "War in Afghanistan (2001-2021)",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. Ended 2021-08-30.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: US-led invasion as Operation Enduring Freedom after 9/11; 'the war started officially on 7 October 2001'; conflict 2001-2021. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2002-sarbanes-oxley",
+   "claim": "The Sarbanes-Oxley Act, enacted on 30 July 2002, is a US federal law that mandates certain practices in financial record keeping and reporting for corporations.",
+   "url": "https://en.wikipedia.org/wiki/Sarbanes%E2%80%93Oxley_Act",
+   "quotes": [
+    "The Sarbanes–Oxley Act of 2002 is a United States federal law that mandates certain practices in financial record keeping and reporting for corporations. The act, Pub. L. 107–204 (text) (PDF), 116 Stat. 745, enacted July 30, 2002,"
+   ],
+   "values": [
+    "July 30, 2002"
+   ],
+   "dated2026": false,
+   "measure": "regulation: enacted (year)",
+   "value": 2002,
+   "unit": "year",
+   "when": "2002-07-30",
+   "subject": "Sarbanes-Oxley Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Pub. L. 107-204 enacted July 30, 2002; mandates financial record-keeping and reporting practices. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2003-iraq-war",
+   "claim": "The Iraq War began in March 2003 with the invasion of Iraq by a US-led coalition, which overthrew Saddam Hussein's government; US forces were officially withdrawn in 2011.",
+   "url": "https://en.wikipedia.org/wiki/Iraq_War",
+   "quotes": [
+    "was a protracted armed conflict in Iraq from 2003 to 2011. It began in March 2003 with the invasion by a United States–led coalition, which resulted in the overthrow of the Ba'athist government of Saddam Hussein.",
+    "US forces were officially withdrawn in 2011."
+   ],
+   "values": [
+    "March 2003",
+    "2011"
+   ],
+   "dated2026": false,
+   "measure": "conflict: invasion of Iraq began (year)",
+   "value": 2003,
+   "unit": "year",
+   "when": "2003-03",
+   "subject": "Iraq War",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: began March 2003 (the page: 20 March 2003) with the US-led invasion that overthrew Saddam Hussein; US forces officially withdrawn 2011. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2008-tarp",
+   "claim": "The Emergency Economic Stabilization Act of 2008 became law on 3 October 2008 and created the Troubled Asset Relief Program, which originally authorized $700 billion of spending.",
+   "url": "https://en.wikipedia.org/wiki/Troubled_Asset_Relief_Program",
+   "quotes": [
+    "The authority of the United States Department of the Treasury to establish and manage TARP under a newly created Office of Financial Stability became law October 3, 2008, the result of an initial proposal that ultimately was passed by Congress as H.R. 1424, enacting the Emergency Economic Stabilization Act of 2008 and several other acts.",
+    "The TARP originally authorized expenditures of $700 billion. The Emergency Economic Stabilization Act of 2008 created the TARP."
+   ],
+   "values": [
+    "October 3, 2008",
+    "$700 billion"
+   ],
+   "dated2026": false,
+   "measure": "law: Emergency Economic Stabilization Act (TARP) became law (year)",
+   "value": 2008,
+   "unit": "year",
+   "when": "2008-10-03",
+   "subject": "Troubled Asset Relief Program (Emergency Economic Stabilization Act of 2008)",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Treasury's TARP authority became law October 3, 2008 via H.R. 1424 enacting the Emergency Economic Stabilization Act; TARP originally authorized $700bn. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2008-fed-zero-rates",
+   "claim": "On 16 December 2008 the Federal Open Market Committee set a target range for the federal funds rate of 0 to 1/4 percent, and said the Federal Reserve would purchase large quantities of agency debt and mortgage-backed securities.",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20081216b.htm",
+   "quotes": [
+    "December 16, 2008 FOMC statement",
+    "The Federal Open Market Committee decided today to establish a target range for the federal funds rate of 0 to 1/4 percent.",
+    "over the next few quarters the Federal Reserve will purchase large quantities of agency debt and mortgage-backed securities to provide support to the mortgage and housing markets"
+   ],
+   "values": [
+    "December 16, 2008",
+    "0 to 1/4 percent"
+   ],
+   "dated2026": false,
+   "measure": "monetary: federal funds target cut to 0-0.25% (year)",
+   "value": 2008,
+   "unit": "year",
+   "when": "2008-12-16",
+   "subject": "Federal Reserve: zero interest rates and asset purchases (2008)",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Federal Reserve press release, December 16, 2008 FOMC statement: target range 0 to 1/4 percent; large purchases of agency debt and MBS. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2009-arra",
+   "claim": "The American Recovery and Reinvestment Act, a stimulus package responding to the Great Recession, was signed into law by President Obama on 17 February 2009; its cost was estimated at $787 billion at passage, later revised to $831 billion.",
+   "url": "https://en.wikipedia.org/wiki/American_Recovery_and_Reinvestment_Act_of_2009",
+   "quotes": [
+    "Signed into law by President Barack Obama on February 17, 2009",
+    "nicknamed the Recovery Act, was a stimulus package enacted by the 111th U.S. Congress and signed into law by President Barack Obama in February 2009. Developed in response to the Great Recession,",
+    "The approximate cost of the economic stimulus package was estimated to be $787 billion at the time of passage, later revised to $831 billion between 2009 and 2019."
+   ],
+   "values": [
+    "February 17, 2009",
+    "$787 billion",
+    "$831 billion"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2009,
+   "unit": "year",
+   "when": "2009-02-17",
+   "subject": "American Recovery and Reinvestment Act of 2009",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed into law by Obama on February 17, 2009; response to the Great Recession; $787bn at passage, revised to $831bn. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2010-aca",
+   "claim": "The Affordable Care Act was signed into law by President Obama on 23 March 2010; with its 2010 amendments it was the US healthcare system's most significant regulatory overhaul and expansion of coverage since Medicare and Medicaid in 1965.",
+   "url": "https://en.wikipedia.org/wiki/Affordable_Care_Act",
+   "quotes": [
+    "The Affordable Care Act (ACA), formally the Patient Protection and Affordable Care Act (PPACA) and informally known as Obamacare, is a landmark U.S. federal statute enacted by the 111th United States Congress and signed into law by President Barack Obama on March 23, 2010. Together with amendments made to it by the Health Care and Education Reconciliation Act of 2010, it represents the U.S. healthcare system's most significant regulatory overhaul and expansion of coverage since the enactment of Medicare and Medicaid in 1965."
+   ],
+   "values": [
+    "March 23, 2010"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2010,
+   "unit": "year",
+   "when": "2010-03-23",
+   "subject": "Affordable Care Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed into law March 23, 2010; with the 2010 reconciliation amendments, the largest overhaul since Medicare/Medicaid in 1965. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2010-dodd-frank",
+   "claim": "The Dodd-Frank Act, enacted on 21 July 2010 as the primary legislative response to the 2007-2008 financial crisis, aims to promote financial stability, end 'too big to fail', prevent taxpayer-funded bailouts and protect consumers from abusive financial practices.",
+   "url": "https://en.wikipedia.org/wiki/Dodd%E2%80%93Frank_Wall_Street_Reform_and_Consumer_Protection_Act",
+   "quotes": [
+    "The Dodd–Frank Wall Street Reform and Consumer Protection Act, commonly referred to as the Dodd–Frank Act, is a United States federal law enacted on July 21, 2010, as the primary legislative response to the 2007–2008 financial crisis—the worst financial crisis since the Great Depression.",
+    "Its stated purposes are to promote financial stability, end \"too big to fail,\" prevent taxpayer-funded bailouts, and protect consumers from abusive financial practices."
+   ],
+   "values": [
+    "July 21, 2010"
+   ],
+   "dated2026": false,
+   "measure": "regulation: enacted (year)",
+   "value": 2010,
+   "unit": "year",
+   "when": "2010-07-21",
+   "subject": "Dodd-Frank Wall Street Reform and Consumer Protection Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: enacted and signed July 21, 2010 as the main response to the 2007-2008 crisis; stated purposes as claimed. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2011-budget-control-act",
+   "claim": "The Budget Control Act of 2011, signed into law by President Obama on 2 August 2011, ended the 2011 debt-ceiling crisis and introduced a joint select committee on deficit reduction and automatic budget sequestration.",
+   "url": "https://en.wikipedia.org/wiki/Budget_Control_Act_of_2011",
+   "quotes": [
+    "The Budget Control Act of 2011 (Pub. L. 112–25 (text) (PDF), S. 365, 125 Stat. 240, enacted August 2, 2011) is a federal statute enacted by the 112th United States Congress and signed into law by US President Barack Obama on August 2, 2011. The Act brought conclusion to the 2011 US debt-ceiling crisis.",
+    "The law involves the introduction of several complex mechanisms, such as creation of the Congressional Joint Select Committee on Deficit Reduction (sometimes called the \"super committee\"),[1] options for a balanced budget amendment, and automatic budget sequestration."
+   ],
+   "values": [
+    "August 2, 2011"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2011,
+   "unit": "year",
+   "when": "2011-08-02",
+   "subject": "Budget Control Act of 2011",
+   "accessed": "2026-11-07",
+   "notes": "kind: law. The House vote (269-161) is in Docs/research/holistic/collective.json.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by Obama on August 2, 2011; ended the 2011 debt-ceiling crisis; joint select committee and automatic sequestration. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2014-crimea",
+   "claim": "In February and March 2014 Russia invaded and annexed Ukraine's Crimean Peninsula, beginning the Russo-Ukrainian war; the other G8 members suspended Russia from the group and imposed sanctions on Russia.",
+   "url": "https://en.wikipedia.org/wiki/Annexation_of_Crimea_by_the_Russian_Federation",
+   "quotes": [
+    "In February and March 2014, Russia invaded the Crimean Peninsula of Ukraine, occupied it, and then annexed it after an illegitimate referendum.",
+    "The invasion marked the beginning of the Russo-Ukrainian war.",
+    "The other members of the G8 suspended Russia from the group[54] and imposed sanctions on Russia."
+   ],
+   "values": [
+    "March 2014"
+   ],
+   "dated2026": false,
+   "measure": "conflict: Crimea invaded and annexed (year)",
+   "value": 2014,
+   "unit": "year",
+   "when": "2014-03",
+   "subject": "Russian annexation of Crimea",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: Russia invaded Crimea in February-March 2014 and annexed it after a referendum, beginning the Russo-Ukrainian war; other G8 members suspended Russia and imposed sanctions. 2014-03 (annexation, 18 Mar) right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2017-tcja",
+   "claim": "The Tax Cuts and Jobs Act, signed into law by President Trump on 22 December 2017, replaced the tiered corporate tax rate (from 15% to as high as 39%) with a flat 21%.",
+   "url": "https://en.wikipedia.org/wiki/Tax_Cuts_and_Jobs_Act",
+   "quotes": [
+    "Signed into law by President Donald Trump on December 22, 2017",
+    "The corporate tax rate was changed from a tiered tax rate ranging from 15% to as high as 39% depending on taxable income[40] to a flat 21%, while some related business deductions and credits were reduced or eliminated."
+   ],
+   "values": [
+    "December 22, 2017",
+    "21%",
+    "39%"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2017,
+   "unit": "year",
+   "when": "2017-12-22",
+   "subject": "Tax Cuts and Jobs Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by Trump on December 22, 2017; corporate rate changed from a tiered 15%-39% schedule to a flat 21%. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2018-steel-aluminum-tariffs",
+   "claim": "In March 2018 the United States imposed tariffs of 25% on steel and 10% on aluminum from most countries, covering an estimated 4.1% of US imports (the order was signed on 8 March, effective after 15 days); in June 2018 they were extended to the European Union, Canada and Mexico, and trading partners imposed retaliatory tariffs.",
+   "url": "https://en.wikipedia.org/wiki/Tariffs_in_the_first_Trump_administration",
+   "quotes": [
+    "In March 2018, he imposed tariffs on steel (25%) and aluminum (10%) from most countries,[3][4][5] which, according to Morgan Stanley, covered an estimated 4.1% of U.S. imports.[6] In June 2018, this was extended to the European Union, Canada, and Mexico.[4] The Trump administration separately set and escalated tariffs on goods imported from China, leading to a trade war.[7] Trading partners implemented retaliatory tariffs on U.S. goods.",
+    "On March 8, he signed an order to impose the tariffs effective after 15 days."
+   ],
+   "values": [
+    "March 2018",
+    "25%",
+    "4.1%"
+   ],
+   "dated2026": false,
+   "measure": "trade: tariff order signed (year)",
+   "value": 2018,
+   "unit": "year",
+   "when": "2018-03-08",
+   "subject": "2018 US steel and aluminum tariffs (Section 232)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. global.json event us_232_2018 (2018-03-23 effective) cites a CSV timeline for the same tariffs.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: order signed March 8, 2018, effective after 15 days; 25% steel, 10% aluminum from most countries; extended to the EU, Canada and Mexico in June 2018 (announced 31 May); retaliation followed. The 4.1% of imports is a Morgan Stanley estimate - attribute it if shown. Date right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2018-china-tariffs",
+   "claim": "On 15 June 2018 the United States declared a 25% tariff on $50 billion of Chinese exports, with $34 billion taking effect on 6 July 2018; China said it would respond in kind with similar tariffs on US imports from the same day.",
+   "url": "https://en.wikipedia.org/wiki/China%E2%80%93United_States_trade_war",
+   "quotes": [
+    "June 15: Trump declared that the United States would impose a 25% tariff on $50 billion of Chinese exports. $34 billion would start July 6, 2018, with a further $16 billion to begin at a later date.",
+    "China's Commerce Ministry accused the United States of launching a trade war and said China would respond in kind with similar tariffs for US imports, starting on July 6."
+   ],
+   "values": [
+    "July 6, 2018",
+    "25%",
+    "$50 billion",
+    "$34 billion"
+   ],
+   "dated2026": false,
+   "measure": "trade: first Section 301 tariffs on China took effect (year)",
+   "value": 2018,
+   "unit": "year",
+   "when": "2018-07-06",
+   "subject": "US-China trade war (2018 tariffs)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. global.json event us_china_trade_war (PIIE) holds the tariff levels.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia timeline: 'June 15: ... 25% tariff on $50 billion of Chinese exports. $34 billion would start July 6, 2018'; China said it would respond in kind from July 6. Effective date 2018-07-06 right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2020-brexit",
+   "claim": "The United Kingdom officially left the European Union on 31 January 2020 after Parliament passed a withdrawal deal, while staying in the EU single market and customs union for an eleven-month transition period.",
+   "url": "https://en.wikipedia.org/wiki/Brexit",
+   "quotes": [
+    "The UK officially left the European Union on 31 January 2020 after a withdrawal deal was passed by Parliament, but continued to participate in many EU institutions (including the single market and customs union) during an eleven-month transition period"
+   ],
+   "values": [
+    "31 January 2020"
+   ],
+   "dated2026": false,
+   "measure": "treaty: UK left the EU (year)",
+   "value": 2020,
+   "unit": "year",
+   "when": "2020-01-31",
+   "subject": "Brexit (UK withdrawal from the EU)",
+   "accessed": "2026-11-07",
+   "notes": "kind: treaty.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: the UK officially left the EU on 31 January 2020 after Parliament passed the withdrawal deal, staying in the single market and customs union during an eleven-month transition. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2020-fed-zero-rates",
+   "claim": "On 15 March 2020, citing the coronavirus outbreak, the Federal Open Market Committee lowered the target range for the federal funds rate to 0 to 1/4 percent.",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20200315a.htm",
+   "quotes": [
+    "March 15, 2020 Federal Reserve issues FOMC statement",
+    "The effects of the coronavirus will weigh on economic activity in the near term and pose risks to the economic outlook. In light of these developments, the Committee decided to lower the target range for the federal funds rate to 0 to 1/4 percent."
+   ],
+   "values": [
+    "March 15, 2020",
+    "0 to 1/4 percent"
+   ],
+   "dated2026": false,
+   "measure": "monetary: federal funds target cut to 0-0.25% (year)",
+   "value": 2020,
+   "unit": "year",
+   "when": "2020-03-15",
+   "subject": "Federal Reserve: emergency rate cut (COVID-19)",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Federal Reserve press release, March 15, 2020 FOMC statement: citing the coronavirus, target range lowered to 0 to 1/4 percent. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2020-cares-act",
+   "claim": "The CARES Act, a $2.2 trillion economic stimulus bill responding to the economic fallout of the COVID-19 pandemic, was signed into law by President Trump on 27 March 2020.",
+   "url": "https://en.wikipedia.org/wiki/CARES_Act",
+   "quotes": [
+    "also known as the CARES Act,[2] is a $2.2 trillion economic stimulus bill passed by the 116th United States Congress and signed into law by President Donald Trump on March 27, 2020, in response to the economic fallout of the COVID-19 pandemic in the United States."
+   ],
+   "values": [
+    "March 27, 2020",
+    "$2.2 trillion"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2020,
+   "unit": "year",
+   "when": "2020-03-27",
+   "subject": "CARES Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: $2.2 trillion stimulus signed by Trump on March 27, 2020. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2020-usmca",
+   "claim": "The United States-Mexico-Canada Agreement (USMCA) entered into force on 1 July 2020, replacing NAFTA.",
+   "url": "https://ustr.gov/trade-agreements/free-trade-agreements/united-states-mexico-canada-agreement",
+   "quotes": [
+    "The United States-Mexico-Canada Agreement (USMCA) entered into force on July 1, 2020. The USMCA, which substituted the North America Free Trade Agreement (NAFTA)"
+   ],
+   "values": [
+    "July 1, 2020"
+   ],
+   "dated2026": false,
+   "measure": "trade: USMCA entered into force (year)",
+   "value": 2020,
+   "unit": "year",
+   "when": "2020-07-01",
+   "subject": "United States-Mexico-Canada Agreement (USMCA)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. Same source and quote as global.json event usmca.",
+   "check": {
+    "ok": true,
+    "reason": "USTR: 'The United States-Mexico-Canada Agreement (USMCA) entered into force on July 1, 2020', substituting NAFTA. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2021-american-rescue-plan",
+   "claim": "The American Rescue Plan Act, a US$1.9 trillion economic stimulus bill to speed recovery from the COVID-19 pandemic and recession, was signed into law by President Biden on 11 March 2021.",
+   "url": "https://en.wikipedia.org/wiki/American_Rescue_Plan_Act_of_2021",
+   "quotes": [
+    "The American Rescue Plan Act of 2021, also called the COVID-19 Stimulus Package or American Rescue Plan, is a US$1.9 trillion economic stimulus bill passed by the 117th United States Congress and signed into law by President Joe Biden on March 11, 2021, to speed up the country's recovery from the economic and health effects of the COVID-19 pandemic and recession."
+   ],
+   "values": [
+    "March 11, 2021",
+    "US$1.9 trillion"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2021,
+   "unit": "year",
+   "when": "2021-03-11",
+   "subject": "American Rescue Plan Act of 2021",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: US$1.9 trillion stimulus signed by Biden on March 11, 2021. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2021-infrastructure-act",
+   "claim": "The Infrastructure Investment and Jobs Act, enacted on 15 November 2021, included approximately $1.2 trillion in spending, with $550 billion authorized for new programs or investments on top of $650 billion for existing infrastructure.",
+   "url": "https://en.wikipedia.org/wiki/Infrastructure_Investment_and_Jobs_Act",
+   "quotes": [
+    "Enacted by the 117th United States Congress Effective November 15, 2021",
+    "This amended version included approximately $1.2 trillion in spending, with $550 billion in spending authorized for \"new\" programs or investments, on top of $650 billion authorized by Congress for work on existing infrastructure."
+   ],
+   "values": [
+    "November 15, 2021",
+    "$1.2 trillion",
+    "$550 billion"
+   ],
+   "dated2026": false,
+   "measure": "law: enacted (year)",
+   "value": 2021,
+   "unit": "year",
+   "when": "2021-11-15",
+   "subject": "Infrastructure Investment and Jobs Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: infobox 'Effective November 15, 2021'; House passage 5 Nov, signed by Biden ten days later; about $1.2tn, $550bn new on top of $650bn for existing infrastructure. Signed/enacted 2021-11-15 right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2022-russia-invades-ukraine",
+   "claim": "On 24 February 2022 Russia invaded Ukraine, starting the largest and deadliest war in Europe since World War II.",
+   "url": "https://en.wikipedia.org/wiki/Russian_invasion_of_Ukraine",
+   "quotes": [
+    "On 24 February 2022, Russia invaded Ukraine, starting the largest and deadliest war in Europe since World War II, in a major escalation of the existing war between the two countries that began when Russia attacked Ukraine in 2014."
+   ],
+   "values": [
+    "24 February 2022"
+   ],
+   "dated2026": false,
+   "measure": "conflict: full-scale invasion began (year)",
+   "value": 2022,
+   "unit": "year",
+   "when": "2022-02-24",
+   "subject": "Russia's invasion of Ukraine",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. global.json events ukraine_war, russia_sanctions, russia_reserves and russia_price_cap hold the sanctions that followed.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: 'On 24 February 2022, Russia invaded Ukraine, starting the largest and deadliest war in Europe since World War II'. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2022-fed-tightening",
+   "claim": "On 16 March 2022 the Federal Open Market Committee raised the target range for the federal funds rate to 1/4 to 1/2 percent and said it anticipated that ongoing increases would be appropriate.",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20220316a.htm",
+   "quotes": [
+    "March 16, 2022 Federal Reserve issues FOMC statement",
+    "In support of these goals, the Committee decided to raise the target range for the federal funds rate to 1/4 to 1/2 percent and anticipates that ongoing increases in the target range will be appropriate."
+   ],
+   "values": [
+    "March 16, 2022",
+    "1/4 to 1/2 percent"
+   ],
+   "dated2026": false,
+   "measure": "monetary: first rate rise of the 2022 tightening (year)",
+   "value": 2022,
+   "unit": "year",
+   "when": "2022-03-16",
+   "subject": "Federal Reserve: 2022 tightening",
+   "accessed": "2026-11-07",
+   "notes": "kind: monetary.",
+   "check": {
+    "ok": true,
+    "reason": "Federal Reserve press release, March 16, 2022: target range raised to 1/4 to 1/2 percent, ongoing increases anticipated. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2022-chips-act",
+   "claim": "The CHIPS and Science Act, signed into law by President Biden on 9 August 2022, authorizes roughly $280 billion in new funding for domestic semiconductor research and manufacturing, appropriating $52.7 billion, including $39 billion in subsidies for chip manufacturing in the US.",
+   "url": "https://en.wikipedia.org/wiki/CHIPS_and_Science_Act",
+   "quotes": [
+    "The CHIPS and Science Act is a U.S. federal statute enacted by the 117th United States Congress and signed into law by President Joe Biden on August 9, 2022. The act authorizes roughly $280 billion in new funding to boost domestic research and manufacturing of semiconductors in the United States, for which it appropriates $52.7 billion.",
+    "The act includes $39 billion in subsidies for chip manufacturing on U.S. soil"
+   ],
+   "values": [
+    "August 9, 2022",
+    "$280 billion",
+    "$52.7 billion",
+    "$39 billion"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2022,
+   "unit": "year",
+   "when": "2022-08-09",
+   "subject": "CHIPS and Science Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law. materials-chips-act-39bn in Docs/research/advantage/materials.json uses the same page.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by Biden on August 9, 2022; roughly $280bn authorized, $52.7bn appropriated, $39bn manufacturing subsidies. Date and numbers right. Wording: the same page puts $174bn of the $280bn into broader public science research, so '$280bn for semiconductor research and manufacturing' overstates the chip share.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2022-inflation-reduction-act",
+   "claim": "The Inflation Reduction Act, signed into law by President Biden on 16 August 2022, aimed to reduce the deficit, lower prescription drug prices and invest in domestic energy production; CBO and JCT estimated it authorizes $891 billion in total spending, including $391 billion on energy and climate change.",
+   "url": "https://en.wikipedia.org/wiki/Inflation_Reduction_Act",
+   "quotes": [
+    "is a United States federal law which aimed to reduce the federal government budget deficit, lower prescription drug prices, and invest in domestic energy production while promoting renewable energy. It was passed by the 117th United States Congress and signed into law by President Joe Biden on August 16, 2022.",
+    "the law will raise $738 billion from tax reform and prescription drug reform to lower prices, as well as authorize $891 billion in total spending – including $391 billion on energy and climate change"
+   ],
+   "values": [
+    "August 16, 2022",
+    "$891 billion",
+    "$391 billion"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2022,
+   "unit": "year",
+   "when": "2022-08-16",
+   "subject": "Inflation Reduction Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by Biden on August 16, 2022; CBO/JCT: $891bn total spending authorized, including $391bn on energy and climate. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2022-chip-export-controls",
+   "claim": "In a rule effective 7 October 2022, the US Bureau of Industry and Security imposed export controls on advanced computing chips and certain semiconductor manufacturing items, to limit China's ability to obtain advanced semiconductor manufacturing capabilities.",
+   "url": "https://www.federalregister.gov/documents/full_text/text/2022/10/13/2022-21658.txt",
+   "quotes": [
+    "In this rule, the Bureau of Industry and Security (BIS) is amending the Export Administration Regulations (EAR) to implement necessary controls on advanced computing integrated circuits (ICs), computer commodities that contain such ICs, and certain semiconductor manufacturing items.",
+    "With this rule, BIS intends to limit the PRC's ability to obtain semiconductor manufacturing capabilities to produce ICs (packaged or unpackaged) for uses that are contrary to U.S. national security and foreign policy interests.",
+    "As of the effective date of this rule on October 7, 2022, the specified semiconductor manufacturing equipment is controlled for RS reasons under the EAR"
+   ],
+   "values": [
+    "October 7, 2022"
+   ],
+   "dated2026": false,
+   "measure": "regulation: export controls effective (year)",
+   "value": 2022,
+   "unit": "year",
+   "when": "2022-10-07",
+   "subject": "US export controls on advanced chips and chipmaking equipment to China",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation. Federal Register document 2022-21658 (raw text); global.json event us_chip_controls cites the same rule.",
+   "check": {
+    "ok": true,
+    "reason": "Federal Register 2022-21658 (BIS interim final rule, published 13 Oct 2022): controls on advanced computing ICs and semiconductor manufacturing items to limit the PRC; its DATES section makes parts effective 7 Oct 2022 and others 12 and 21 Oct 2022, so 'effective 7 October 2022' is the first effective date. Year right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2025-liberation-day-tariffs",
+   "claim": "On 2 April 2025, which he called 'Liberation Day', President Trump signed Executive Order 14257, declaring a national emergency over the US trade deficit and invoking IEEPA to raise tariffs on nearly all countries to 10% from 5 April, with higher rates for major trading partners from 9 April.",
+   "url": "https://en.wikipedia.org/wiki/Liberation_Day_tariffs",
+   "quotes": [
+    "United States president Donald Trump announced a broad package of import duties on April 2, 2025—a date he called \"Liberation Day\". In a White House Rose Garden ceremony, Trump signed Executive Order 14257",
+    "This order declared a national emergency over the United States' trade deficit and invoked the International Emergency Economic Powers Act (IEEPA) to authorize sweeping tariffs on foreign imports. Executive Order 14257 raised tariffs on nearly all countries to 10% beginning April 5, with higher rates for major trading partners scheduled to begin April 9."
+   ],
+   "values": [
+    "April 2, 2025",
+    "10%"
+   ],
+   "dated2026": false,
+   "measure": "trade: reciprocal tariffs announced (EO 14257) (year)",
+   "value": 2025,
+   "unit": "year",
+   "when": "2025-04-02",
+   "subject": "2025 'Liberation Day' reciprocal tariffs",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. The IEEPA tariffs ended with the Supreme Court ruling of 2026-02-20 (pol-2026-ieepa-ruling).",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: on April 2, 2025 ('Liberation Day') Trump signed EO 14257, declaring a national emergency over the trade deficit and invoking IEEPA; 10% on nearly all countries from April 5, higher rates 'scheduled to begin April 9'. Date right. Wording: the same page says the higher rates took effect on the morning of 9 April and were paused that day for 90 days for all but China, so do not imply they ran from 9 April.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2025-one-big-beautiful-bill",
+   "claim": "The One Big Beautiful Bill Act, signed into law by President Trump on 4 July 2025, contains the tax and spending policies at the core of his second-term agenda and permanently extends the 2017 individual tax rates that were set to expire at the end of 2025.",
+   "url": "https://en.wikipedia.org/wiki/One_Big_Beautiful_Bill_Act",
+   "quotes": [
+    "is a U.S. federal statute passed by the 119th United States Congress containing tax and spending policies that form the core of President Donald Trump's second-term agenda. The bill was signed into law by Trump on July 4, 2025.",
+    "It permanently extends the individual tax rates Trump signed into law in 2017, which were set to expire at the end of 2025."
+   ],
+   "values": [
+    "July 4, 2025"
+   ],
+   "dated2026": false,
+   "measure": "law: signed into law (year)",
+   "value": 2025,
+   "unit": "year",
+   "when": "2025-07-04",
+   "subject": "One Big Beautiful Bill Act",
+   "accessed": "2026-11-07",
+   "notes": "kind: law.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by Trump on July 4, 2025 (P.L. 119-21); permanently extends the 2017 individual rates due to expire end-2025. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2025-genius-act",
+   "claim": "The GENIUS Act, signed into law by President Trump on 18 July 2025, is a US federal law that aims to create a comprehensive regulatory framework for stablecoins.",
+   "url": "https://en.wikipedia.org/wiki/GENIUS_Act",
+   "quotes": [
+    "Signed into law by President Donald Trump on July 18, 2025",
+    "The Guiding and Establishing National Innovation for U.S. Stablecoins Act (GENIUS Act) is a United States federal law that aims to create a comprehensive regulatory framework for stablecoins."
+   ],
+   "values": [
+    "July 18, 2025"
+   ],
+   "dated2026": false,
+   "measure": "regulation: signed into law (year)",
+   "value": 2025,
+   "unit": "year",
+   "when": "2025-07-18",
+   "subject": "GENIUS Act (stablecoins)",
+   "accessed": "2026-11-07",
+   "notes": "kind: regulation.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia: signed by Trump on July 18, 2025 (Pub. L. 119-27); stablecoin regulatory framework. Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2026-ieepa-ruling",
+   "claim": "On 20 February 2026, in Learning Resources, Inc. v. Trump, the Supreme Court held that IEEPA does not authorize the President to impose tariffs.",
+   "url": "https://www.supremecourt.gov/opinions/25pdf/607us2r12_8nj9.pdf",
+   "quotes": [
+    "Argued November 5, 2025—Decided February 20, 2026",
+    "Held: IEEPA does not authorize the President to impose tariffs."
+   ],
+   "values": [
+    "February 20, 2026"
+   ],
+   "dated2026": true,
+   "measure": "trade: Supreme Court decision (year)",
+   "value": 2026,
+   "unit": "year",
+   "when": "2026-02-20",
+   "subject": "Learning Resources, Inc. v. Trump (IEEPA tariffs struck down)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. Same source and quote as global.json event ieepa_ruling.",
+   "check": {
+    "ok": true,
+    "reason": "Supreme Court slip opinion (read 2026-11-07), Learning Resources, Inc. v. Trump, No. 24-1287: 'Argued November 5, 2025-Decided February 20, 2026'; 'Held: IEEPA does not authorize the President to impose tariffs.' Right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-2026-iran-war",
+   "claim": "Since 28 February 2026 the United States and Israel have been at war with Iran and its regional allies; Iran responded with missile and drone attacks and blocked the Strait of Hormuz.",
+   "url": "https://en.wikipedia.org/wiki/2026_Iran_war",
+   "quotes": [
+    "Since 28 February 2026, the United States and Israel have been at war with Iran and its regional allies.",
+    "Following a decentralized strategy, Iran responded with a series of missile and drone attacks against Israel and US military bases in the Middle East, attacked US allies in the Middle East and blocked the Strait of Hormuz, subsequently claiming sovereignty over it."
+   ],
+   "values": [
+    "28 February 2026"
+   ],
+   "dated2026": true,
+   "measure": "conflict: war began (year)",
+   "value": 2026,
+   "unit": "year",
+   "when": "2026-02-28",
+   "subject": "2026 Iran war",
+   "accessed": "2026-11-07",
+   "notes": "kind: conflict. global.json events iran_war and hormuz_disruption (EIA) hold the oil effects.",
+   "check": {
+    "ok": true,
+    "reason": "Wikipedia (read 2026-11-07): US and Israel at war with Iran since 28 February 2026; infobox '28 February 2026 - present', status ongoing; Iran answered with missile/drone attacks and blocked the Strait of Hormuz (ceasefires of April-June collapsed 8 July). Start date right.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  }
+ ]
+}

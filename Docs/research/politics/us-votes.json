@@ -255,6 +255,35 @@
    }
   },
   {
+   "id": "pol-us-pres-pv-1980-fix",
+   "replaces": "pol-us-pres-pv-1980",
+   "claim": "In the 1980 US presidential election, the Democratic nominee Jimmy Carter won 35,480,115 popular votes (41.01%) and the Republican nominee Ronald Reagan won 43,903,230 popular votes (50.75%).",
+   "url": "https://en.wikipedia.org/wiki/1980_United_States_presidential_election",
+   "quotes": [
+    "Ronald Reagan Republican Jimmy Carter Democratic John Anderson Independent Ed Clark Libertarian Margin Margin Swing[f] State Total",
+    "TOTALS: 538 43,903,230 50.75 489 35,480,115 41.01 49 5,719,850 6.61 - 921,128 1.06 - 8,423,115 9.74 11.80 86,509,678 US"
+   ],
+   "values": [
+    "35,480,115",
+    "41.01",
+    "43,903,230",
+    "50.75"
+   ],
+   "dated2026": false,
+   "measure": "national presidential popular vote: Democratic nominee (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 35480115,
+   "unit": "votes",
+   "when": "1980-11-04",
+   "subject": "US presidential election 1980: Democratic Party (Jimmy Carter) and Republican Party (Ronald Reagan)",
+   "accessed": "2026-11-07",
+   "notes": "The TOTALS row of the page's results-by-state table, whose columns run the state electoral votes, then Reagan's votes, % and electoral votes, then Carter's; the values keep the series' order (Democratic votes, Democratic %, Republican votes, Republican %). The page's national 'Electoral results' table gives Carter 35,481,115, a one-digit slip (with it that table adds up to 86,510,678, 1,000 more than its stated total of 86,509,678), and its infobox 35,481,436. Wikipedia's turnout article (from The American Presidency Project) also gives Carter 35,480,115. Replaces pol-us-pres-pv-1980.",
+   "check": {
+    "ok": true,
+    "reason": "35,480,115 is the internally consistent figure: with it the page's national results table sums exactly to its stated 86,509,678, and the TOTALS row's margin, 43,903,230 - 35,480,115 = 8,423,115, is as printed; 41.01% and 50.75% follow. It is the Leip's Atlas count that the page's national table cites as its source (the table the series uses for its other years), and Wikipedia's turnout article gives the same 43,903,230 / 35,480,115. The American Presidency Project's 1980 page carries a different compilation (Carter 35,483,883, Reagan 43,904,153 of 86,513,813), within 0.01%, which is not the series' basis.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
    "id": "pol-us-pres-pv-1984",
    "claim": "In the 1984 US presidential election, the Democratic nominee Walter Mondale won 37,577,352 popular votes (40.56%) and the Republican nominee Ronald Reagan won 54,455,472 popular votes (58.77%).",
    "url": "https://en.wikipedia.org/wiki/1984_United_States_presidential_election",
@@ -1012,6 +1041,42 @@
    "check": {
     "ok": false,
     "reason": "29,317,777 is the infobox figure; the page's own overall-results table, sourced to the Clerk's election statistics, gives 29,317,222, and only that figure makes the table sum to its stated total 54,583,922 (the infobox figure overshoots by 555). Republican 24,464,665 and the shares 53.7% / 44.8% are unaffected.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-us-house-pv-1978-fix",
+   "replaces": "pol-us-house-pv-1978",
+   "claim": "In the 1978 US House of Representatives elections, Democratic candidates received 29,317,222 votes nationwide (53.7%) and Republican candidates received 24,464,665 votes (44.8%).",
+   "url": "https://en.wikipedia.org/wiki/1978_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "Parties Seats Popular vote Previous election This election +/- Strength Vote % Change Democratic",
+    "29,317,222",
+    "53.7% 2.2% Republican 143 157",
+    "14 36.1% 24,464,665 44.8%",
+    "Total 435 435 0 100.0% 54,583,922 100.0% - Source: Election Statistics - Office of the Clerk Popular vote Democratic 53.71% Republican 44.82% Others 1.47%"
+   ],
+   "values": [
+    "29,317,222",
+    "53.7",
+    "24,464,665",
+    "44.8"
+   ],
+   "dated2026": false,
+   "measure": "national House popular vote: Democratic candidates (value); values list Democratic votes, Democratic %, Republican votes, Republican %",
+   "value": 29317222,
+   "unit": "votes",
+   "when": "1978-11-07",
+   "subject": "US House of Representatives elections 1978: Democratic Party and Republican Party",
+   "accessed": "2026-11-07",
+   "notes": "Wikipedia's overall-results table, sourced to the Clerk's Election Statistics (columns: seats in the previous and this election, change, strength, votes, vote % and change; the page's styling splits the row's cells, hence the short quotes): Democratic 29,317,222 (53.7%), Republican 24,464,665 (44.8%); with these the table adds up to its stated total of 54,583,922. The page's infobox gives the Democrats 29,317,777, which overshoots that total by 555. Replaces pol-us-house-pv-1978.",
+   "context": [
+    "The 1978 United States House of Representatives elections was an election for the United States House of Representatives on November 7, 1978, to elect members to serve in the 96th United States Congress."
+   ],
+   "tight": true,
+   "check": {
+    "ok": true,
+    "reason": "29,317,222 is the figure consistent with the page's own results table: with it the rows sum exactly to the stated 54,583,922, which is also the total of the Clerk's 1978 House recapitulation (Election Statistics, p. 43); the infobox's 29,317,777 overshoots by 555. 53.71% and 44.82% check. Counted the same way as the series: every year uses Wikipedia's party totals, which fold fusion-line votes into the major parties (the Clerk's raw party columns are 29,129,007 D / 24,401,021 R for 1978 and 39,178,066 D / 37,068,791 R for 1980, against Wikipedia's 39,347,947 / 37,222,588), and the infobox and table agree for 1980 and 1984.",
     "by": "skeptic agent, 2026-11-07"
    }
   },

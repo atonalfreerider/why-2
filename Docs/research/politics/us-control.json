@@ -1581,6 +1581,91 @@
    }
   },
   {
+   "id": "pol-senate-117-open",
+   "replaces": "pol-senate-117",
+   "claim": "At the opening of the 117th Congress, from January 3 to January 20, 2021, the U.S. Senate's 100 seats were divided 51 Republicans (the majority party), 46 Democrats, 2 Independents and 1 vacancy: Georgia's Class 2 seat, vacant because neither candidate won 50 percent of the vote in the November 3, 2020 general election. Both Independent senators caucused with the Democrats.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "1st session (1/3/2021-1/20/2021) 1 Republicans Democrats Other Vacant Total 51 46 2 Independents 1 100",
+    "Vacancy in Georgia's Class 2 seat owing to neither candidate achieving 50 percent of the vote in the November 3, 2020, general election. Both Independent senators caucused with the Democrats."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "51",
+    "46",
+    "2 Independents 1 100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party at the start of the Congress",
+   "value": 51,
+   "unit": "Senate seats held by the majority party (Republican) of 100",
+   "when": "2021-01-03 to 2021-01-20 (opening of the 117th Congress, 2021-2023)",
+   "subject": "U.S. Senate, 117th Congress (2021-2023), opening (January 3-20, 2021)",
+   "chamber": "Senate",
+   "congress": 117,
+   "seats": {
+    "democrats": 46,
+    "republicans": 51,
+    "others": 2,
+    "vacant": 1,
+    "total": 100,
+    "majority": "Republican"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table's first row for the 117th Congress, its opening session (1/3/2021-1/20/2021); the Congress's summary row (48 D, 50 R, 2 I) is the division from January 20, 2021, which is pol-senate-117-from-0120. The vacant seat was Georgia's Class 2 seat until Jon Ossoff (D) was seated after the January 5, 2021 runoff. The 2 Independents (others) caucused with the Democrats. Replaces pol-senate-117, which gave the January 20 division as the start of the Congress.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Senate table's opening-session row for the 117th (1/3/2021-1/20/2021): 51 R, 46 D, 2 I, 1 vacant (Georgia Class 2), both Independents caucusing with the Democrats. Independently, Wikipedia's 117th Congress article begins the Senate on January 3, 2021 at 51 R, 46 D, 2 I, 1 vacant, Republicans holding the majority until January 20. This is the start of the Congress, the series' measure, and the 2 Independents are filed as others as in the 110th-116th rows. (Brookings' Vital Statistics lists 48 D, 50 R, 2 for the 117th by counting Ossoff and Warnock from the first day, a different convention.)",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-senate-117-from-0120",
+   "replaces": "pol-senate-117",
+   "claim": "From January 20, 2021, after the Georgia runoff elections of January 5, 2021 seated Democrats Jon Ossoff (filling the Class 2 vacancy) and Raphael Warnock (replacing appointed Senator Kelly Loeffler, a Republican), the U.S. Senate of the 117th Congress was divided 48 Democrats, 50 Republicans and 2 Independents, with no vacancy; with both Independents caucusing with the Democrats and the tie-breaking vote held by Democratic Vice President Kamala Harris, Democrats held the majority.",
+   "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
+   "quotes": [
+    "Statistics listed in this table reflect party division at the start of each Congress (unless otherwise noted) and throughout each Congress (in the drop-down feature) as the ratios changed due to deaths, resignations, filled vacancies, contested elections, or new states entering the Union.",
+    "1st session (1/20/2021-1/3/2022) 2 Democrats Republicans Other Vacant Total 48 50 2 Independents 0 100",
+    "Following runoff elections on January 5, 2021, for both the general (Class 2) and special (Class 3) elections in Georgia, Jon Ossoff (D) was seated, filling the Class 2 vacancy, and Raphael Warnock (D) was seated, replacing appointed Senator Kelly Loeffler (R).",
+    "With both Independents caucusing with the Democrats and the tie-breaking vote held by Democratic Vice President Kamala Harris, Democrats gained the majority."
+   ],
+   "context": [
+    "Congress Majority Minority Other Vacant Total"
+   ],
+   "values": [
+    "48",
+    "50",
+    "2 Independents 0 100"
+   ],
+   "dated2026": false,
+   "measure": "Senate seats by party from a change within the Congress",
+   "value": 48,
+   "unit": "Senate seats held by the majority party (Democratic, with the 2 Independents and the Vice President's tie-breaking vote) of 100",
+   "when": "from 2021-01-20 (117th Congress, 2021-2023)",
+   "subject": "U.S. Senate, 117th Congress (2021-2023), from January 20, 2021",
+   "chamber": "Senate",
+   "congress": 117,
+   "seats": {
+    "democrats": 48,
+    "republicans": 50,
+    "others": 2,
+    "vacant": 0,
+    "total": 100,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The table's row from January 20, 2021 (1/20/2021-1/3/2022); the 117th Congress's summary row and its second-session row (from 1/3/2022) give the same 48 D, 50 R, 2 I. The Senate stood 50-50 with the 2 Independents (others) counted with the Democrats, and Vice President Harris's tie-breaking vote gave them the majority. The opening division (January 3-20, 2021) is pol-senate-117-open. Replaces pol-senate-117.",
+   "check": {
+    "ok": true,
+    "reason": "Matches the Senate table's row from 1/20/2021 (48 D, 50 R, 2 I, 0 vacant; the second-session row repeats it) and its note on the Georgia runoffs and the Democratic majority through both Independents and VP Harris's tie-break. Independently, Wikipedia's 117th Congress article gives 48 D, 2 I, 50 R from January 20, 2021 and notes that the Senate kept recognizing Kyrsten Sinema as a Democrat to the end of the Congress despite her December 9, 2022 announcement, so the division held throughout; Brookings also lists 48 D, 50 R, 2. Correctly labeled as a change within the Congress, not its start.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
    "id": "pol-senate-118",
    "claim": "At the start of the 118th Congress (January 3, 2023; it ran to January 3, 2025), the U.S. Senate's 100 seats were divided 48 Democrats (the majority party), 49 Republicans and 3 others, all three caucusing with the Democrats; none were vacant.",
    "url": "https://www.senate.gov/about/parties-leadership/party-division.htm",
@@ -2000,6 +2085,46 @@
    }
   },
   {
+   "id": "pol-house-085-fix",
+   "replaces": "pol-house-085",
+   "claim": "In the 1956 elections to the U.S. House of Representatives, which chose the 85th Congress (1957-1959), Democrats won 234 of the 435 seats and Republicans 201; no other party won a seat, and Democrats kept the majority.",
+   "url": "https://en.wikipedia.org/wiki/1956_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "All 435 seats in the United States House of Representatives 218 seats needed for a majority Majority party Minority party Leader Sam Rayburn Joseph Martin Party Democratic Republican Leader since September 16, 1940 January 3, 1939 Leader's seat Texas 4th Massachusetts 14th Last election 232 seats 203 seats Seats won 234 201 Seat change 2 2",
+    "Party Seats Change Seat percentage Vote percentage Popular Vote Democratic 234 2 53.8% 51.2% 30,062,042 Republican 201 2 46.2% 48.7% 28,698,083 Liberal 0 0.0% 0.1% 68,130",
+    "Totals 435 100.0% 100.0% 58,885,743 Source: Election Statistics - Office of the Clerk"
+   ],
+   "values": [
+    "234",
+    "201",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 234,
+   "unit": "House seats won by the majority party (Democratic) of 435",
+   "when": "start of the 85th Congress (1957-1959), as elected on 1956-11-06 (Maine 1956-09-10)",
+   "subject": "U.S. House of Representatives, 85th Congress (1957-1959)",
+   "chamber": "House",
+   "congress": 85,
+   "seats": {
+    "democrats": 234,
+    "republicans": 201,
+    "others": 0,
+    "otherParties": {},
+    "vacant": 0,
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Seats won in the 1956 election, the basis of the House Historian's 'initial election results', from Wikipedia's infobox and results table (the table is sourced to the Clerk's Election Statistics): 234 D + 201 R = 435, no third-party winner, no vacancy. The 234 Democrats include Minnesota's 5 Democratic-Farmer-Labor members (the district tables list 229 Democratic, 5 DFL and 201 Republican winners). Not the opening-day count: Wikipedia's 85th Congress article begins the Congress at 233 D, 200 R and 2 vacancies. Replaces pol-house-085, whose House Historian row (232 D, 203 R) repeats the 84th Congress's.",
+   "check": {
+    "ok": true,
+    "reason": "234 D, 201 R is the 1956 result on the series' basis (initial election results): the page's infobox and Clerk-sourced results table give 234/201, and its district winners count 229 D + 5 DFL + 201 R = 435. Independently, the Clerk's own political-divisions table ('all figures reflect immediate result of elections', in its 1978 and 1984 Election Statistics) gives the 85th as 234 D, 201 R, as does Brookings' Vital Statistics table 1-20. DFL members are counted with the Democrats as in the historian's rows. Correctly not the opening-day count (Wikipedia's 85th Congress article: 233 D, 200 R, 2 vacant).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
    "id": "pol-house-086",
    "claim": "As of the initial election results for the 86th Congress (1959–1961), the U.S. House of Representatives had 282 Democrats, 153 Republicans and 1 other (Independent Democrat 1); Alaska's new seat made 436 in all, and Hawaii's Representative joined only on August 21, 1959; Democrats held the majority.",
    "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
@@ -2080,6 +2205,47 @@
    "check": {
     "ok": false,
     "reason": "No source supports the historian's 264 D / 173 R for the 87th (only Wikipedia's list page, which copies the historian). The Congressional Directory and Wikipedia's 1960 election infobox give 262 D, 175 R; Wikipedia's district winners and its 87th Congress article give 263 D, 174 R, counting J. Edward Roush (D), whose contested Indiana 5th seat the House awarded him in June 1961. As initial election results the likely figure is 262 D / 175 R (263/174 after the contest); not certain which, but 264 is unsupported.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-087-fix",
+   "replaces": "pol-house-087",
+   "claim": "In the November 8, 1960 elections to the U.S. House of Representatives, which chose the 87th Congress (1961-1963), Democrats won 262 of the 437 seats and Republicans 175 according to the results table sourced to the Clerk's election statistics, with no other party winning a seat; Democrats kept the majority. The district results list Indiana's 5th district, split 50.0% to 50.0%, as re-elected Democrat J. Edward Roush over Republican George O. Chambers.",
+   "url": "https://en.wikipedia.org/wiki/1960_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "All 437 seats in the United States House of Representatives 219 seats needed for a majority Majority party Minority party Leader Sam Rayburn Charles A. Halleck Party Democratic Republican Leader since September 16, 1940 January 3, 1959 Leader's seat Texas 4th Indiana 2nd Last election 283 seats 153 seats Seats won 262 175 Seat change 21 22",
+    "Democratic 283 262 21 60.0% 35,125,032 54.8% 1.2%",
+    "Total 436 437 1 100.0% 64,124,310 100.0% Source: Election Statistics - Office of the Clerk",
+    "Incumbent re-elected. ▌ Y J. Edward Roush (Democratic) 50.0% ▌George O. Chambers (Republican) 50.0%"
+   ],
+   "values": [
+    "262",
+    "175",
+    "437"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 262,
+   "unit": "House seats won by the majority party (Democratic) of 437",
+   "when": "start of the 87th Congress (1961-1963), as elected on 1960-11-08",
+   "subject": "U.S. House of Representatives, 87th Congress (1961-1963)",
+   "chamber": "House",
+   "congress": 87,
+   "seats": {
+    "democrats": 262,
+    "republicans": 175,
+    "others": 0,
+    "otherParties": {},
+    "vacant": 0,
+    "total": 437,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Seats won in the 1960 election, the basis of the House Historian's 'initial election results', from Wikipedia's infobox and results table (sourced to the Clerk's Election Statistics): 262 D + 175 R = 437 (435 plus one seat each for Alaska and Hawaii), no third-party winner, no vacancy. Indiana's 5th was contested: the page's district table lists J. Edward Roush (D) as re-elected at 50.0% to 50.0%, and its winners add up to 263 D (incl. 3 DFL) and 174 R, one seat off the results table's 262/175, which matches that seat counted for Republican George O. Chambers. Wikipedia's 87th Congress article has the seat pass from George O. Chambers (R) to Roush after a House recount in June 1961, and begins the Congress at 263 D, 174 R. Replaces pol-house-087 (the House Historian's 264 D, 173 R, which no other source gives).",
+   "check": {
+    "ok": true,
+    "reason": "262 D, 175 R is the immediate result of the 1960 election: the Clerk's political-divisions table ('all figures reflect immediate result of elections', 1978 and 1984 Election Statistics) and Brookings' Vital Statistics table 1-20 both give the 87th as 262 D, 175 R, as does the page's results table. The 175 include George O. Chambers (R, Indiana 5th), who held the Governor's certificate of election by 12 votes (Deschler's Precedents ch. 9, sec. 59.1); the House swore in neither man on January 3, 1961 and seated Roush (D) in June 1961 after its own recount, a later contested-election change the series' basis leaves out. The claim states both counts and the notes explain the one-seat gap.",
     "by": "skeptic agent, 2026-11-07"
    }
   },
@@ -2455,6 +2621,94 @@
    }
   },
   {
+   "id": "pol-house-096-fix",
+   "replaces": "pol-house-096",
+   "claim": "In the November 7, 1978 elections to the U.S. House of Representatives, which chose the 96th Congress (1979-1981), Democrats won 277 of the 435 seats, Republicans 157 and the Conservative Party 1: William Carney of New York's 1st district, a registered Conservative Party member elected as the Republican nominee. Democrats kept the majority.",
+   "url": "https://en.wikipedia.org/wiki/1978_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "All 435 seats in the United States House of Representatives 218 seats needed for a majority Majority party Minority party Leader Tip O'Neill John Rhodes Party Democratic Republican Leader since January 4, 1977 December 7, 1973 Leader's seat Massachusetts 8th Arizona 1st Last election 292 seats 143 seats Seats won 277 157 Seat change 15 14",
+    "Third party Party Conservative Last election 0 seats Seats won 1[a] Seat change 1",
+    "Incumbent retired. Conservative gain. Y William Carney (Con/Republican)[a] 56.3% John Randolph (Democratic) 41.9%",
+    "1 2 Winner was elected as a Republican nominee. ↑ Representative William Carney of Long Island, New York a registered Conservative Party member running with Republican support."
+   ],
+   "values": [
+    "277",
+    "157",
+    "435",
+    "Seats won 1"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 277,
+   "unit": "House seats won by the majority party (Democratic) of 435",
+   "when": "start of the 96th Congress (1979-1981), as elected on 1978-11-07",
+   "subject": "U.S. House of Representatives, 96th Congress (1979-1981)",
+   "chamber": "House",
+   "congress": 96,
+   "seats": {
+    "democrats": 277,
+    "republicans": 157,
+    "others": 1,
+    "otherParties": {
+     "Conservative": 1
+    },
+    "vacant": 0,
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Seats won in the 1978 election, the basis of the House Historian's 'initial election results', from Wikipedia's infobox and results table (sourced to the Clerk's Election Statistics, total 435): 277 D + 157 R + 1 Conservative = 435, no vacancy; the district tables agree (273 Democratic and 4 DFL winners). The source files William Carney (NY-1) as Conservative, so he is under others here, not with the Republicans he sat with (with him they were 158; the 1984 election article notes that he caucused with Republicans). Not the opening-day count: Wikipedia's 96th Congress article begins the Congress at 276 D, 156 R, 1 C and 2 vacancies. Replaces pol-house-096 (the House Historian's 278 D, 157 R, 0 other).",
+   "check": {
+    "ok": false,
+    "reason": "277 Democrats is right, but the party filing breaks the series. The fix puts William Carney (NY-1, Conservative, elected as the Republican nominee) under others (157 R + 1 C), while the neighbouring pol-house-097 (192 R) and pol-house-098 (166 R) count him with the Republicans. The Clerk's own political-divisions table ('all figures reflect immediate result of elections', 1978 and 1984 Election Statistics) gives the 96th as 277 D, 158 R and no others; Brookings' first-day count (276 D, 157 R, 2 vacant) also has him with the Republicans. As filed, Carney would be an other in the 96th, a Republican in the 97th-98th and an other again in the 99th. Corrected: 277 D, 158 R (incl. Carney), 0 others, 0 vacant, Democratic majority.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-096-clerk",
+   "replaces": "pol-house-096-fix",
+   "claim": "The Clerk of the House's table of the political divisions of the Senate and House, whose figures reflect the immediate result of elections, gives the U.S. House of Representatives of the 96th Congress (1979–1981) 435 seats: 277 Democrats and 158 Republicans, with no other-party members or vacancies listed; Democrats held the majority.",
+   "url": "https://clerk.house.gov/member_info/electionInfo/1998election.pdf",
+   "quotes": [
+    "Political divisions of the U.S. Senate and House of Representatives from 1867 (40th Cong.) to 2000 (106th Cong.) [ALL FIGURES REFLECT IMMEDIATE RESULT OF ELECTIONS]",
+    "96th ...................... 1979–1981 100 58 41 1 ........ 435 277 158 ........ ........",
+    "COMPILED FROM OFFICIAL SOURCES BY JEFF TRANDAHL CLERK OF THE HOUSE OF REPRESENTATIVES"
+   ],
+   "context": [
+    "STATISTICS OF THE CONGRESSIONAL ELECTION OF NOVEMBER 3, 1998",
+    "Senate House of Representatives Congress Years Number of Senators Democrats Republicans Other parties Vacant Number of Representatives Democrats Republicans Other parties Vacant"
+   ],
+   "values": [
+    "277",
+    "158",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 277,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 96th Congress (1979-1981), as of the immediate result of the 1978-11-07 election",
+   "subject": "U.S. House of Representatives, 96th Congress (1979-1981)",
+   "chamber": "House",
+   "congress": 96,
+   "seats": {
+    "democrats": 277,
+    "republicans": 158,
+    "others": 0,
+    "otherParties": {},
+    "vacant": 0,
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The Clerk of the House's political-divisions table ('[ALL FIGURES REFLECT IMMEDIATE RESULT OF ELECTIONS]'), as printed in the Clerk's Statistics of the Congressional Election of November 3, 1998 (p. 53), an edition with a text layer. The same 96th row (House: 435, 277 D, 158 R, no other party, none vacant) is printed in the Clerk's Statistics of the Congressional Election of November 7, 1978 (https://clerk.house.gov/member_info/electionInfo/1978election.pdf, corrected to April 1, 1979; PDF p. 46, in its table of political divisions from 1855 (34th Congress) to 1979-81 (96th Congress)), in its 1984 edition (PDF p. 74) and in its 2000 edition (https://clerk.house.gov/member_info/electionInfo/2000election.pdf, PDF p. 80). The 1978 and 1984 PDFs are image scans with no text layer, so the gate extracts no text from them (their rows were read from the page images, not gate-checked). The row is the result of the November 7, 1978 election, the same basis as the neighbouring rows' 'initial election results'; later changes (deaths, resignations, special elections, party switches) are not included. 277 + 158 = 435 with no other party, so William Carney (NY-1), a Conservative elected as the Republican nominee, is counted among the 158 Republicans, as he is in pol-house-097 (192 R) and pol-house-098 (166 R). Replaces pol-house-096-fix (277 D, 157 R, 1 Conservative), which filed Carney under others, and thereby pol-house-096 (the House Historian's 278 D, 157 R).",
+   "check": {
+    "ok": true,
+    "reason": "Opened the URL (same bytes as the gate's copy): the Clerk's political-divisions table, headed '[ALL FIGURES REFLECT IMMEDIATE RESULT OF ELECTIONS]', prints the 96th House as 435, 277 D, 158 R, with the other-party and vacant cells blank (dot leaders, i.e. none). The contemporary 1978 Statistics (scan, corrected to April 1, 1979; table titled from 1855 to 1979-81, row on PDF p. 46, viewed as an image) prints the same row, as do the 1984 (scan, PDF p. 74) and 2000 (PDF p. 80) editions. Same basis as the neighbours: the same table's 95th (292/143), 98th (269/166) and 100th (258/177) rows equal pol-house-095, -098 and -100. Carney is filed the same way: against the gate-verified 1978 result of 277 D, 157 R and 1 Conservative (pol-house-096-fix), the 158 R must include him, as the table's 97th (192 R; its 1 other is Foglietta) and 98th (166 R) rows and pol-house-097/-098 do. 277 + 158 + 0 others + 0 vacant = 435. Quotes verbatim (the row in pdftotext -layout, the title and cover in both orders); gate verified, Jev 0.91. Like the neighbours, it is the election's result, so seats vacated by deaths after the election are not netted out at the opening.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
    "id": "pol-house-097",
    "claim": "As of the initial election results for the 97th Congress (1981–1983), the U.S. House of Representatives' 435 seats were held by 243 Democrats, 192 Republicans and no others; Democrats held the majority.",
    "url": "https://history.house.gov/Institution/Party-Divisions/Party-Divisions/",
@@ -2574,6 +2828,93 @@
    "check": {
     "ok": false,
     "reason": "The historian's 99th row (253 D, 181 R, no others, one vacancy) is off by one seat. The 1984 election returned 253 Democrats counting Frank McCloskey (D) in Indiana's contested 8th, 181 Republicans and 1 Conservative, William Carney (NY-1), who sat with the Republicans (Wikipedia's 1984 infobox and district winners; the Congressional Directory gives 253 D, 182 R). With the Indiana 8th as the vacancy, as the row's footnote has it, Democrats held 252 and Republicans 182 including Carney; 253 D / 181 R only adds up if Carney is filed as a Democrat (the same slip as the 96th row). Corrected: 252 D (or 253 D, 182 R and no vacancy if McCloskey is counted).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-099-fix",
+   "replaces": "pol-house-099",
+   "claim": "In the November 6, 1984 elections to the U.S. House of Representatives, which chose the 99th Congress (1985-1987), Democrats won 253 of the 435 seats, Republicans 181 and the Conservative Party 1, William Carney of New York's 1st district, who caucused with the Republicans; Democrats kept the majority. The district results list Indiana's 8th district, split 49.8% to 49.8%, as re-elected Democrat Frank McCloskey over Republican Richard D. McIntyre.",
+   "url": "https://en.wikipedia.org/wiki/1984_United_States_House_of_Representatives_elections",
+   "quotes": [
+    "All 435 seats in the United States House of Representatives 218 seats needed for a majority Majority party Minority party Leader Tip O'Neill Bob Michel Party Democratic Republican Leader since January 4, 1977 January 3, 1981 Leader's seat Massachusetts 8th Illinois 18th Last election 269 seats 165 seats Seats won 253 181 Seat change 16 16",
+    "Conservative 1978 Incumbent re-elected. ▌ Y William Carney (Conservative/Rep.) 53.1% ▌George J. Hochbrueckner (Democratic) 46.9%",
+    "Notes [edit] 1 2 Caucused with Republicans.",
+    "Democratic 1982 Incumbent re-elected. ▌ Y Frank McCloskey (Democratic) 49.8% ▌Richard D. McIntyre (Republican) 49.8%"
+   ],
+   "values": [
+    "253",
+    "181",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 253,
+   "unit": "House seats won by the majority party (Democratic) of 435",
+   "when": "start of the 99th Congress (1985-1987), as elected on 1984-11-06",
+   "subject": "U.S. House of Representatives, 99th Congress (1985-1987)",
+   "chamber": "House",
+   "congress": 99,
+   "seats": {
+    "democrats": 253,
+    "republicans": 181,
+    "others": 1,
+    "otherParties": {
+     "Conservative": 1
+    },
+    "vacant": 0,
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "Seats won in the 1984 election, from Wikipedia's infobox and results table (sourced to the Clerk's Election Statistics, total 435): 253 D + 181 R + 1 Conservative = 435, no vacancy; the district tables agree (incl. 5 DFL, 1 Democratic-NPL and 3 Independent-Republican winners). The source files William Carney (NY-1) as Conservative, with a note that he caucused with Republicans, so he is under others here (with him the Republicans were 182). The 253 count Frank McCloskey (IN-8), listed as re-elected at 49.8% to 49.8%: the seat was disputed and vacant when the Congress opened (the House Historian's row notes one vacancy), and the House seated McCloskey on May 1, 1985 after a GAO recount; Wikipedia's 99th Congress article begins the Congress at 252 D, 181 R, 1 C and 1 vacancy. Replaces pol-house-099 (the House Historian's 253 D, 181 R, 0 other with one vacancy, which adds up only with Carney filed as a Democrat).",
+   "check": {
+    "ok": false,
+    "reason": "Same filing break as the 96th: William Carney (NY-1, Conservative/Republican) is under others (181 R + 1 C), while pol-house-097/098 count him among the Republicans. The Clerk's political-divisions table in its 1984 Election Statistics ('all figures reflect immediate result of elections') gives the 99th as 253 D, 182 R and no others; Brookings' first-day count is 252 D, 182 R, 1 vacant. The 253 D count Frank McCloskey (IN-8), as the Clerk's table does, but that seat was vacant from January 3 until the House seated him on May 1, 1985 (the House Historian's row footnotes one vacancy), so it is not the opening-day division. Corrected: 253 D, 182 R (incl. Carney), 0 others, noting IN-8 vacant until May 1, 1985 (opening day: 252 D, 182 R, 1 vacant).",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
+   "id": "pol-house-099-clerk",
+   "replaces": "pol-house-099-fix",
+   "claim": "The Clerk of the House's table of the political divisions of the Senate and House, whose figures reflect the immediate result of elections, gives the U.S. House of Representatives of the 99th Congress (1985–1987) 435 seats: 253 Democrats and 182 Republicans, with no other-party members or vacancies listed; Democrats held the majority.",
+   "url": "https://clerk.house.gov/member_info/electionInfo/1998election.pdf",
+   "quotes": [
+    "Political divisions of the U.S. Senate and House of Representatives from 1867 (40th Cong.) to 2000 (106th Cong.) [ALL FIGURES REFLECT IMMEDIATE RESULT OF ELECTIONS]",
+    "99th ...................... 1985–1987 100 47 53 ........ ........ 435 253 182 ........ ........",
+    "COMPILED FROM OFFICIAL SOURCES BY JEFF TRANDAHL CLERK OF THE HOUSE OF REPRESENTATIVES"
+   ],
+   "context": [
+    "STATISTICS OF THE CONGRESSIONAL ELECTION OF NOVEMBER 3, 1998",
+    "Senate House of Representatives Congress Years Number of Senators Democrats Republicans Other parties Vacant Number of Representatives Democrats Republicans Other parties Vacant"
+   ],
+   "values": [
+    "253",
+    "182",
+    "435"
+   ],
+   "dated2026": false,
+   "measure": "House seats by party at the start of the Congress (initial election results)",
+   "value": 253,
+   "unit": "House seats held by the majority party (Democratic) of 435",
+   "when": "start of the 99th Congress (1985-1987), as of the immediate result of the 1984-11-06 election (Indiana's 8th contested; its member seated 1985-05-01)",
+   "subject": "U.S. House of Representatives, 99th Congress (1985-1987)",
+   "chamber": "House",
+   "congress": 99,
+   "seats": {
+    "democrats": 253,
+    "republicans": 182,
+    "others": 0,
+    "otherParties": {},
+    "vacant": 0,
+    "total": 435,
+    "majority": "Democratic"
+   },
+   "accessed": "2026-11-07",
+   "notes": "The Clerk of the House's political-divisions table ('[ALL FIGURES REFLECT IMMEDIATE RESULT OF ELECTIONS]'), as printed in the Clerk's Statistics of the Congressional Election of November 3, 1998 (p. 53), an edition with a text layer. The same 99th row (House: 435, 253 D, 182 R, no other party, none vacant) is printed in the Clerk's Statistics of the Presidential and Congressional Election of November 6, 1984 (https://clerk.house.gov/member_info/electionInfo/1984election.pdf, corrected to May 1, 1985; PDF p. 74, in its table of political divisions from 1855 (34th Congress) to 1985-87 (99th Congress)) and in the 2000 edition (https://clerk.house.gov/member_info/electionInfo/2000election.pdf, PDF p. 80). The 1984 PDF is an image scan with no text layer, so the gate extracts no text from it (its row was read from the page image, not gate-checked). This row is the election's result, like its neighbours (pol-house-098, pol-house-100), not the opening-day count: its 253 Democrats include Frank McCloskey of Indiana's 8th district, whose election was contested. The Indiana Secretary of State certified Richard D. McIntyre (R) on December 14, 1984; on January 3, 1985 the House resolved that neither McIntyre nor McCloskey would be seated and referred the contest to the Committee on House Administration; on May 1, 1985 it seated McCloskey, 236 to 190, and he was sworn in. The seat was therefore vacant from January 3 to May 1, 1985. These actions are stated in Precedents of the U.S. House of Representatives, vol. 3, ch. 9, sec. 20.1, McCloskey v. McIntyre (https://www.govinfo.gov/content/pkg/GPO-HPREC-PRECEDENTS-V3/pdf/GPO-HPREC-PRECEDENTS-V3-4-5-7.pdf), and the House Historian's 99th row (pol-house-099) footnotes 'This total includes one vacancy'. 253 + 182 = 435 with no other party, so William Carney (NY-1, Conservative, elected with Republican support) is counted among the 182 Republicans, as in pol-house-097 and pol-house-098. Replaces pol-house-099-fix (253 D, 181 R, 1 Conservative), which filed Carney under others, and thereby pol-house-099 (the House Historian's 253 D, 181 R with one vacancy).",
+   "check": {
+    "ok": true,
+    "reason": "Opened the URL (same bytes as the gate's copy): the same Clerk table ('[ALL FIGURES REFLECT IMMEDIATE RESULT OF ELECTIONS]') prints the 99th House as 435, 253 D, 182 R, with the other-party and vacant cells blank. The contemporary 1984 Statistics (scan, 'Corrected to May 1, 1985', PDF p. 74, viewed as an image) and the 2000 edition (PDF p. 80) print the same row. It is the election's result as the Clerk counts it: the 1984 edition's Indiana page (PDF p. 18) gives the 8th district to Frank McCloskey (D), 116,645 to Richard D. McIntyre's (R) 116,641, so the 253 D include McCloskey; against the gate-verified 1984 result of 253 D, 181 R and 1 Conservative (pol-house-099-fix), the 182 R include Carney, filed as in pol-house-097/-098 and in the table's own 97th and 98th rows. Same basis as the neighbours: the table's 98th (269/166) and 100th (258/177) rows equal pol-house-098 and -100. 253 + 182 + 0 others + 0 vacant = 435. The notes' Indiana history (McIntyre certified December 14, 1984; neither seated on January 3, 1985; McCloskey seated 236 to 190 and sworn in on May 1, 1985) matches Precedents vol. 3, ch. 9, sec. 20.1. Caveat for the view: vacant 0 is the election-result basis; the seat was vacant from the opening until May 1, 1985 (one Democrat fewer then), as the notes say. Quotes verbatim; gate verified, Jev 0.93.",
     "by": "skeptic agent, 2026-11-07"
    }
   },

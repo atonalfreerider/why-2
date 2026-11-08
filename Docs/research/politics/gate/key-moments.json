@@ -3,8 +3,8 @@
  "threshold": 0.6,
  "jev": {
   "requests": 1,
-  "cached": 60,
-  "tokens": 85375,
+  "cached": 61,
+  "tokens": 86764,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -167,6 +167,16 @@
    "supportedJ": 0.96,
    "fetched": "2026-11-07",
    "quotesFound": "2/2",
+   "cluster": "key-moments"
+  },
+  "pol-1978-china-open-door-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-07",
+   "quotesFound": "1/1",
    "cluster": "key-moments"
   },
   "pol-1979-oil-crisis": {

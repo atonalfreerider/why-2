@@ -2,9 +2,9 @@
  "asOf": "2026-11-07",
  "threshold": 0.6,
  "jev": {
-  "requests": 0,
+  "requests": 2,
   "cached": 98,
-  "tokens": 214787,
+  "tokens": 217362,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -167,6 +167,16 @@
    "supportedJ": 0.93,
    "fetched": "2026-11-07",
    "quotesFound": "3/3",
+   "cluster": "us-votes"
+  },
+  "pol-us-house-pv-1978-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "5/5",
    "cluster": "us-votes"
   },
   "pol-us-house-pv-1980": {
@@ -595,6 +605,16 @@
    "quoteFound": true,
    "valuesFound": true,
    "supportedJ": 0.98,
+   "fetched": "2026-11-07",
+   "quotesFound": "2/2",
+   "cluster": "us-votes"
+  },
+  "pol-us-pres-pv-1980-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
    "fetched": "2026-11-07",
    "quotesFound": "2/2",
    "cluster": "us-votes"

@@ -391,16 +391,32 @@ narrated extinctions. The present-day collapse is the farm layer's wild mammals 
 10^n m²" readout. `Tools/capture-walkthrough.sh` records the whole tour safely (`--copy`, both orientations, about 2 hours;
 50 s tests in `Captures/why-*-50s.mp4`).
 
-**Recording: stopped at the user's request**, to add picture popups first. The October videos are kept.
+**Recording: done with picture cards.** `Captures/why-landscape.mp4` and `why-portrait.mp4` (33:15 each, 66 narration clips,
+chapters); the October ones are kept as `why-*-20261012-*.mp4`. The portrait video was re-recorded after the card fix below
+(`Tools/capture-walkthrough.sh --copy --as-is --only portrait`: `--as-is` records the mirror without syncing, for when the
+working tree holds unfinished changes).
 
-**Narration pictures (in flight).** The user's request and plan: `Docs/research/pictures/README.md`. Workflows: the stop-by-stop
-plan and the tools (`Tools/images/pictures.py` for Commons files, `Tools/images/generate.py` for OpenAI `chatgpt-image-latest`,
-key read at run time from `~/Desktop/openai-key.txt`, never printed or committed); the Unity module (cards beside the
-narration, `tour.json` steps' `pictures`, `Resources/Data/pictures/index.json` and images). Then fetch, generate, review a
-contact sheet, smoke frames, and re-record.
+**Narration pictures (done, fe857b9 and 3371331).** 143 pictures over the 66 stops (`Docs/research/pictures/README.md`): 140
+free-licensed Commons files, 3 generated with `chatgpt-image-latest` and credited so. `UI/TourPictures.cs` keeps the cards clear
+of the narration card, its arrow (the director's Bezier, `ArrowPath`) and the point's band; a portrait row stands at whichever
+edge is higher; a stop with more pictures than places shows them in turns (the stop's time shared evenly). Portrait: 20 stops
+show their pictures in turns, 10 cover part of the point's band (logged), none covers the arrow; landscape unchanged.
 
 **Politics (seventh direction).** Brief `Docs/research/advantage/brief-v5.md` (with the user's approval of public-domain
 portraits for the executive cascade); design `Docs/hills-design/POLITICS.md`; research `Docs/research/politics` (about 1,400
-gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. Next: `Tools/politics/build.py` →
-`Data/economy/politics.json`, `Model/Politics.cs`, the flow clock and packets, `Layers/HillPoliticsLayer.cs`,
-`UI/PoliticsPanel.cs`, portraits (approval recorded), review, frames.
+gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. State (7 Nov, night):
+- **Data.** `Tools/politics/build.py` (usable facts only: gate-verified, not skeptic-rejected; replacements by `"replaces"`;
+  SIPRI 1972's mixed-basis shares left out, so the spending series starts in 1955) → `Data/economy/politics.json`;
+  `Model/Politics.cs` (power by the stated rule, popular vote, offices, military series, walls, trade, moments, `ImageId`).
+  Replacement facts for the rejected Senate 117th, House 85th/87th, the 1980 and 1978 votes and the 1978 Open Door are gated
+  and skeptic-checked; the House 96th/99th need the Clerk's basis (Carney counted Republican; workflow in flight).
+- **Flow clock (uncommitted until rendered).** `Core/FlowClock.cs` (`_WhyFlowTime`, never stops, resets at a capture's first
+  frame, seamless 4096 s wrap), `Core/PacketMeshBuilder.cs` + `Resources/Shaders/WhyPackets.shader` (Money, Goods, Capital,
+  People, Promise); Why/Line's pulses run on it. Keep packet lanes at 4 a second or fewer (they strobe above about 15 at
+  30 fps).
+- **In flight:** the army's walls (Jev, `Tools/politics/judge.py` → `Docs/research/politics/walls.json`); portraits of the
+  cascade (`Tools/politics/portraits.py`, public domain only, with the stories' items in one fetch); the layer
+  (`Layers/HillPoliticsLayer.cs`: parties left to right, up power, width votes, back time; the executive and its cascade; the
+  army as the country's shell sized by its share of world military spending, walls outside, rivals beyond; trade lanes
+  through the shell with deficits hatched; moments as sparks with strands to the floor; packets that never stop) and
+  `PoliticsPanel`. Then: mirror build, `-smokeextra politics` frames, review, commit.

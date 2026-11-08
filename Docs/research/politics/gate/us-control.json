@@ -3,8 +3,8 @@
  "threshold": 0.6,
  "jev": {
   "requests": 0,
-  "cached": 112,
-  "tokens": 209170,
+  "cached": 120,
+  "tokens": 227939,
   "model": "jev-1.14.0",
   "errors": 0
  },
@@ -209,6 +209,16 @@
    "quotesFound": "2/2",
    "cluster": "us-control"
   },
+  "pol-house-085-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.86,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-control"
+  },
   "pol-house-086": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -227,6 +237,16 @@
    "supportedJ": 0.94,
    "fetched": "2026-11-07",
    "quotesFound": "2/2",
+   "cluster": "us-control"
+  },
+  "pol-house-087-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-07",
+   "quotesFound": "4/4",
    "cluster": "us-control"
   },
   "pol-house-088": {
@@ -319,6 +339,26 @@
    "quotesFound": "2/2",
    "cluster": "us-control"
   },
+  "pol-house-096-clerk": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-control"
+  },
+  "pol-house-096-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-07",
+   "quotesFound": "4/4",
+   "cluster": "us-control"
+  },
   "pol-house-097": {
    "status": "verified",
    "verifiedOn": "2026-11-07",
@@ -347,6 +387,26 @@
    "supportedJ": 0.81,
    "fetched": "2026-11-07",
    "quotesFound": "3/3",
+   "cluster": "us-control"
+  },
+  "pol-house-099-clerk": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
+   "cluster": "us-control"
+  },
+  "pol-house-099-fix": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.8,
+   "fetched": "2026-11-07",
+   "quotesFound": "4/4",
    "cluster": "us-control"
   },
   "pol-house-100": {
@@ -1097,6 +1157,26 @@
    "supportedJ": 0.86,
    "fetched": "2026-11-07",
    "quotesFound": "4/4",
+   "cluster": "us-control"
+  },
+  "pol-senate-117-from-0120": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-07",
+   "quotesFound": "4/4",
+   "cluster": "us-control"
+  },
+  "pol-senate-117-open": {
+   "status": "verified",
+   "verifiedOn": "2026-11-07",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-07",
+   "quotesFound": "3/3",
    "cluster": "us-control"
   },
   "pol-senate-118": {

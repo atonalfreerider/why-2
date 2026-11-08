@@ -416,6 +416,31 @@
    }
   },
   {
+   "id": "pol-1978-china-open-door-fix",
+   "replaces": "pol-1978-china-open-door",
+   "claim": "In December 1978 Deng Xiaoping announced the Open Door Policy, opening China to foreign businesses that wanted to set up there; for the first time since the Kuomintang era, the country was opened to foreign investment.",
+   "url": "https://en.wikipedia.org/wiki/Reform_and_opening_up",
+   "quotes": [
+    "At the same time, in December 1978, Deng announced a new policy, the Open Door Policy, to open the door to foreign businesses that wanted to set up in China.[35][36] For the first time since the Kuomintang era, the country was opened to foreign investment."
+   ],
+   "values": [
+    "December 1978"
+   ],
+   "dated2026": false,
+   "measure": "trade: Open Door Policy announced (year)",
+   "value": 1978,
+   "unit": "year",
+   "when": "1978-12",
+   "subject": "China's reform and opening up (Open Door Policy)",
+   "accessed": "2026-11-07",
+   "notes": "kind: trade. Replaces pol-1978-china-open-door without its Special Economic Zones clause: the zones (Shenzhen, Zhuhai, Xiamen) were set up in 1980, not in December 1978.",
+   "check": {
+    "ok": true,
+    "reason": "The quote is verbatim and the claim now restates only it (in December 1978 Deng announced the Open Door Policy; the country opened to foreign investment). The date is corroborated independently: China Daily ('This Day, That Year: Dec 18') and an ORF backgrounder place the decision to open China to the world, driven by Deng, at the Third Plenum of the 11th Central Committee, 18-22 December 1978. The undated Special Economic Zones clause is gone, so value 1978 and when 1978-12 fit.",
+    "by": "skeptic agent, 2026-11-07"
+   }
+  },
+  {
    "id": "pol-1979-oil-crisis",
    "claim": "The 1979 oil crisis followed the drop in oil production after the Iranian Revolution: global oil supply fell only about four percent, but the crude oil price more than doubled over the next 12 months, to $39.50 a barrel.",
    "url": "https://en.wikipedia.org/wiki/1979_oil_crisis",

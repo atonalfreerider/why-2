@@ -49,10 +49,10 @@ namespace Why.Economy
         /// <summary>
         /// Views that tell one story on a structure of their own: what moves people up or down the hill (the decade's
         /// ladder), what companies spend and which way they push, the viewer's own place, the state's levers, and the same
-        /// hills on other governments' foundations, and the present taken apart. The wave stays as faint context and every other layer steps back, so
-        /// the story reads alone.
+        /// hills on other governments' foundations, and the present taken apart; advantage through history, and who holds power. The wave stays as
+        /// faint context and every other layer steps back, so the story reads alone.
         /// </summary>
-        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage" || id == "history";
+        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage" || id == "history" || id == "politics";
 
         /// <summary>The presets with a spec of their own (the others copy the overview's, <see cref="Get"/>).</summary>
         static readonly string[] OwnSpecs =
@@ -108,8 +108,9 @@ namespace Why.Economy
             Alphas(s);
             // a focused view's structure stands in front of the road, whose labels step aside
             if (Focused(presetId)) s.HideRoadLabels = true;
-            // history floats over the wave of its years: the wave's own names (its terraces, the crown) would be read as its
-            if (presetId == "history") s.Labels = Array.Empty<LandGroup>();
+            // history floats over the wave of its years and politics stands alone in front of it: the wave's own names (its
+            // terraces, the crown) would be read as theirs
+            if (presetId == "history" || presetId == "politics") s.Labels = Array.Empty<LandGroup>();
             specs[presetId] = s;
             return s;
         }

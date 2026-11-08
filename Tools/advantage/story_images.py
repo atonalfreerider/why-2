@@ -6,8 +6,13 @@ arms then, an army's or navy's flag or arms, a monogram for an alliance or a peo
 the app finds each image by the id it draws (History.Actor.Image, History.Person.Image).
 
     python3 -I Tools/advantage/story_images.py
-    python3 -I -B Tools/images/fetch.py fetch Tools/images/stories.json --out W --cache C --jev --maxlag 0
+    python3 -I Tools/politics/portraits.py merge W        W/items.json: these items, then Tools/images/politics.json
+    python3 -I -B Tools/images/fetch.py fetch W/items.json --out W --cache C --jev --maxlag 0
+    python3 -I Tools/politics/portraits.py licences W
     python3 -I -B Tools/images/fetch.py pack W --cell 256
+
+The atlas also holds the politics view's portraits (Tools/politics/portraits.py): fetch rewrites W/manifest.json with only
+the items it is given and pack retires every id missing from it, so never fetch this list alone.
 """
 import json
 import os

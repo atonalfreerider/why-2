@@ -696,9 +696,9 @@ namespace Why.Economy.Emphasis
         const float StrayShare = 1e-4f;
 
         /// <summary>
-        /// <c>-smokeextra emphasis</c>: the overview, held still (time stopped, so the flows' pulses, the markers and the
-        /// rivers' sparks keep their place; bloom off, so a lit part's own pixels are measured, not its glow; the label system's
-        /// labels hidden, which a highlight dims and lays out again), captured
+        /// <c>-smokeextra emphasis</c>: the overview, held still (time stopped and the flow clock held, which no time scale
+        /// stops, so the flows' pulses, the markers and the rivers' sparks keep their place; bloom off, so a lit part's own
+        /// pixels are measured, not its glow; the label system's labels hidden, which a highlight dims and lays out again), captured
         /// (economy-emphasis-crest-off), then wave.crest lit by its part's ids (<see cref="EmphasisIds"/>, nothing dimmed)
         /// and captured again (economy-emphasis-crest-on). Only pixels inside the crest line's projected box (grown by
         /// <see cref="BoxMarginPx"/>) may brighten: a part id another mesh shared would light pixels outside it. Logs the
@@ -718,6 +718,7 @@ namespace Why.Economy.Emphasis
             int crest = Key("wave.crest");
             IdRange ids = Ids(crest);
             float timeScale = Time.timeScale;
+            bool flowHeld = false;
             UnityEngine.Rendering.Universal.Bloom bloom = root.Bloom;
             bool bloomActive = bloom != null && bloom.active;
             GameObject labels = root.Labels != null ? root.Labels.gameObject : null;
@@ -730,6 +731,8 @@ namespace Why.Economy.Emphasis
                 yield return new WaitForSecondsRealtime(3f);
                 for (float waited = 0; waited < 3f && Shader.GetGlobalFloat("_WhyDim") > .002f; waited += Time.unscaledDeltaTime) yield return null;
                 Time.timeScale = 0;
+                FlowClock.Hold();
+                flowHeld = true;
                 if (bloom != null) bloom.active = false;
                 if (labels != null) labels.SetActive(false);
                 yield return new WaitForSecondsRealtime(.5f);
@@ -786,6 +789,7 @@ namespace Why.Economy.Emphasis
             finally
             {
                 Time.timeScale = timeScale;
+                if (flowHeld) FlowClock.Release();
                 if (bloom != null) bloom.active = bloomActive;
                 if (labels != null) labels.SetActive(labelsActive);
                 Highlighter.Clear();

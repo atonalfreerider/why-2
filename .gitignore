@@ -107,6 +107,9 @@ Tools/lives/.cache/
 Tools/global/.cache/
 Tools/advantage/.cache/
 
+# Politics pipeline cache (Wikidata and Commons lookups for the portraits, Tools/politics/portraits.py)
+Tools/politics/.cache/
+
 # Python bytecode caches (tools run with plain python3)
 __pycache__/
 *.pyc

@@ -19,7 +19,15 @@ float _WhyLnAge;    // ln(age of universe in years)
 float4 _WhyHi[8];
 float _WhyHiCount;
 float _WhyDim;
-float _WhyTime;
+float _WhyTime;     // Unity's scaled Time.time (Highlighter): the surfaces' noise drifts on it
+
+// The flow clock (FlowClock.cs): seconds that never stop while the app runs (a frozen year, a paused tour or replay and
+// Time.timeScale do not hold it), counted from a capture's first frame while the Recorder runs, so recordings repeat. It comes
+// modulo WHY_FLOW_WRAP (2^12 s), which a float holds to half a millisecond: take a periodic motion's phase from WhyFlowCycles,
+// never from _WhyFlowTime * rate, which jumps when the clock wraps.
+float _WhyFlowTime;
+
+#define WHY_FLOW_WRAP 4096.0
 
 // Genesis (GraphReveal): x = arc length of the growth front along the base path from the Big Bang, y = width of the
 // front, z = glow at the front, w = 1 while the graph is growing (0: everything shown, no cost).
@@ -143,6 +151,14 @@ float WhyReveal(float u, float rho, float id, float raw, out float glow)
     float trail = max(_WhyReveal2.z, 1e-4);
     glow = 1.0 + _WhyReveal.z * (d >= 0.0 ? exp(-d / trail) : exp(-d * d / (w * w)));
     return saturate((d + w) / w);
+}
+
+// Cycles (0..1) of a motion that repeats `rate` times a second, now on the flow clock. The rate is taken to a whole number of
+// cycles per wrap, rounded half up as FlowClock.SeamlessRate does in C# (at most 1/8192 Hz off), so the motion runs on unbroken
+// when the clock wraps.
+float WhyFlowCycles(float rate)
+{
+    return frac(_WhyFlowTime * (floor(rate * WHY_FLOW_WRAP + 0.5) / WHY_FLOW_WRAP));
 }
 
 // Returns glow multiplier (>= 1) for highlighted ids, and an alpha multiplier for the rest.

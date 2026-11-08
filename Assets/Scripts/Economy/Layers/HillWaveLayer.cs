@@ -201,8 +201,9 @@ namespace Why.Economy.Layers
             }
             if (content == null) return;
             string view = LandView.PresetId;
-            // history is drawn alone (HillHistoryLayer): the wave's names and decades would float under its lanes and bodies
-            bool hidden = view == "mind" || view == HillHistoryLayer.View;
+            // history and politics are drawn alone (HillHistoryLayer, HillPoliticsLayer): the wave's names and decades would
+            // float under their streams and bodies
+            bool hidden = view == "mind" || view == HillHistoryLayer.View || view == HillPoliticsLayer.View;
             content.SetActive(!hidden); if (hidden) { HoverCompany = -1; return; }
             foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             Pick(rig.Cam);

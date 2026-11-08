@@ -30,3 +30,9 @@ congressional leaders and the Joint Chiefs), the user answered:
 
 Record it as the `approved` reason for each of these people in `Tools/images/fetch.py`'s manifest; public-domain (official US
 government) portraits only.
+
+Note (7 Nov 2026, later): "official US government" above was this file's gloss, narrower than the user's words. Applied as
+written ("use public domain portraits"), the portraits are public-domain ones: US government works where they exist, and
+otherwise portraits whose Commons pages show them free for another reason (copyright not renewed, published without notice),
+which brought in Truman, Henry A. Wallace, Wallace H. White Jr., John Foster Dulles, Henry L. Stimson, Clark Clifford and Bill
+Clements. CC-licensed portraits stay out (`Tools/politics/portraits.py licences`).

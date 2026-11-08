@@ -177,8 +177,9 @@ Shader "Why/Line"
                 float3 rgb = IN.color.rgb;
                 if (IN.flow > 0)
                 {
-                    // pulses travel with time: from larger u (past) toward u = 0 (present)
-                    float ph = frac(IN.edge.z * _FlowFreq + _WhyTime * _FlowSpeed);
+                    // pulses travel with time: from larger u (past) toward u = 0 (present), on the flow clock, so they keep moving
+                    // while the year is frozen or the tour paused, and a capture repeats them
+                    float ph = frac(IN.edge.z * _FlowFreq + WhyFlowCycles(_FlowSpeed));
                     float pulse = pow(ph, 24.0);
                     rgb *= 1.0 + IN.flow * pulse * 3.0;
                 }

@@ -1493,19 +1493,27 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ advantage boundaries
 
-        public static readonly string[] SourceOrder = { "technology", "supplyChain", "patents", "capital", "talent", "scale", "distribution", "regulation" };
+        /// <summary>The sources of an advantage in the order its walls stand: a company's eight, then the standing army's four
+        /// (the politics view: Politics.WallSources).</summary>
+        public static readonly string[] SourceOrder =
+            { "technology", "supplyChain", "patents", "capital", "talent", "scale", "distribution", "regulation", "seaControl", "nuclear", "alliances", "spending" };
 
         public static string SourceName(string source) => source switch
         {
             "technology" => "Technology", "supplyChain" => "Supply", "patents" => "Patents", "capital" => "Share price and cash",
-            "talent" => "Talent", "scale" => "Scale", "distribution" => "Distribution", "regulation" => "Regulation", _ => source,
+            "talent" => "Talent", "scale" => "Scale", "distribution" => "Distribution", "regulation" => "Regulation",
+            "seaControl" => "Command of the sea", "nuclear" => "Nuclear weapons", "alliances" => "Alliances", "spending" => "Military spending", _ => source,
         };
 
+        /// <summary>A source's colour. The standing army's four walls are a chart of their own around its shell, each arc named
+        /// where it stands, so they take the palette's chart series (sea blue, nuclear orange, the allies' gold, spending's
+        /// grey) rather than colours of their own.</summary>
         public static Color SourceColor(string source) => source switch
         {
             "technology" => new Color(.40f, .85f, 1f), "supplyChain" => new Color(1f, .68f, .28f), "patents" => new Color(.74f, .56f, 1f),
             "capital" => new Color(1f, .86f, .40f), "talent" => new Color(1f, .48f, .64f), "scale" => new Color(.62f, .72f, .88f),
-            "distribution" => new Color(.48f, .95f, .60f), "regulation" => new Color(.92f, .92f, .92f), _ => Color.white,
+            "distribution" => new Color(.48f, .95f, .60f), "regulation" => new Color(.92f, .92f, .92f),
+            "seaControl" => Roles.Series[2], "nuclear" => Roles.Series[0], "alliances" => Roles.Series[1], "spending" => Roles.Series[3], _ => Color.white,
         };
 
         /// <summary>The height of a wall: as tall as Jev judged that source keeps rivals and entrants out (0-4).</summary>

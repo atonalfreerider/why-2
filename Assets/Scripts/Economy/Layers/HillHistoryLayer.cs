@@ -1311,9 +1311,12 @@ namespace Why.Economy.Layers
         /// <summary>A wall whose judgment Jev was unsure of: its confidence under 0.15 (its answer spread over the levels).</summary>
         public static bool Uncertain(History.MoatSource x) => !double.IsNaN(x.Confidence) && x.Confidence < .15;
 
+        /// <summary>A source's name on a wall: history's own words for the sources a state's or a company's advantage drew on,
+        /// else the advantage view's name (which also names the standing army's four: command of the sea, nuclear weapons,
+        /// alliances and military spending).</summary>
         public static string SourceWord(string source) => source switch
         {
-            "legitimacy" => "Legitimacy", "geography" => "Geography", "alliances" => "Allies", "capital" => "Capital", "supplyChain" => "Supply",
+            "legitimacy" => "Legitimacy", "geography" => "Geography", "capital" => "Capital", "supplyChain" => "Supply",
             _ => HillAdvantageLayer.SourceName(source),
         };
 

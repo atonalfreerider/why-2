@@ -132,6 +132,16 @@ namespace Why.Economy
             /// <summary>Tariffs, sanctions, export controls, war; always in a conflict form (a wall, a cut, a valve, a war zone).</summary>
             public static readonly Color Conflict = Srgb(0x864AD2);
 
+            /// <summary>
+            /// The Democratic Party (the politics view): its conventional blue, darker than <see cref="People"/>'s and bluer than
+            /// <see cref="State"/>'s slate and <see cref="Conflict"/>'s violet, so it stays apart from all three under every
+            /// vision Tools/check-palette.py measures (a lighter blue met people's, and a more violet one met conflict's).
+            /// </summary>
+            public static readonly Color Democratic = Srgb(0x3A4E98);
+
+            /// <summary>The Republican Party (the politics view): its conventional red, apart from <see cref="Desire"/>'s rose.</summary>
+            public static readonly Color Republican = Srgb(0xDC2626);
+
             /// <summary>Raw matter: M2's energy exporters only, and the universe scene. It never touches <see cref="Life"/> in the new views.</summary>
             public static readonly Color Matter = Srgb(0xCA4B20);
 

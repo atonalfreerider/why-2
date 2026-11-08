@@ -237,6 +237,8 @@ namespace Why
         void Update()
         {
             float dt = GraphTime.Delta;
+            // first, so every layer's Tick and every material see this frame's moment on the clock that never stops
+            FlowClock.Tick();
             FollowScreen();
             GraphWarp.Tick(dt);
             Highlighter.Tick(dt);

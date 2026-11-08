@@ -1,0 +1,1340 @@
+{
+ "asOf": "2026-11-07",
+ "model": "jev-1.14.0",
+ "levels": [
+  "No barrier: in it the strongest rival of the time already matched or outdid the United States, or could have within a year or two.",
+  "A low barrier: the United States led in it by a margin its strongest rival could have made up within a few years.",
+  "A real barrier: the United States led in it by a margin that would have taken its strongest rival many years and great resources to make up.",
+  "A high barrier: the United States led in it by a margin that only the greatest powers of the time could have made up, over a decade or more.",
+  "Near-insurmountable: no rival of the time could have come close to it; the world order of the period was built on it."
+ ],
+ "method": "For each benchmark year (1945 to 2025, every five years, standing at mid-year) and each source of the standing army's advantage, Jev (TypeSafe System One) judged how far that source alone kept the strongest rival of the time (the Soviet Union until 1991, then Russia and China; for alliances, the Warsaw Pact from 1955 to 1991) from matching the United States, as a Score on the five levels below. Its state held only usable facts (gate-verified, not rejected by a skeptic): for each measure the measurement nearest the year within three years, the memberships in force, and the events and statements within three years, for the United States and each rival, saying so in words where the research holds no measurement for a rival; nothing reported more than a year after the year (no later measurement, and no span that closed later, so no hindsight). The spending shares are those the build draws (the SIPRI 1972 yearbook's are left out: their world totals mix price bases); projections are not measurements. A year and source with no US measurement is skipped. One request per year asked the sources' questions together; each names its source alone. `wall` is the probability-weighted level (0-4), `confidence` how concentrated the probabilities are (under 0.15 reads as uncertain), `p` the probability of each level, `facts` the facts its state held. Model judgments over the facts, not facts. Built by Tools/politics/judge.py.",
+ "skipped": [
+  {
+   "t": 1945.5,
+   "source": "alliances",
+   "why": "no US measurement from 1942 to 1946"
+  },
+  {
+   "t": 1945.5,
+   "source": "spending",
+   "why": "no US measurement from 1942 to 1946"
+  },
+  {
+   "t": 1950.5,
+   "source": "spending",
+   "why": "no US measurement from 1947 to 1951"
+  }
+ ],
+ "judgments": [
+  {
+   "t": 1945.5,
+   "source": "seaControl",
+   "wall": 2.97,
+   "confidence": 0.16,
+   "p": {
+    "0": 0.02,
+    "1": 0.06,
+    "2": 0.22,
+    "3": 0.31,
+    "4": 0.39
+   },
+   "facts": [
+    "pol-mil-navy-carriers-1945",
+    "pol-mil-sea-usn-supplants-rn",
+    "pol-mil-sea-leyte-1944"
+   ],
+   "reading": "Command of the sea: wall 3.0 of 4"
+  },
+  {
+   "t": 1945.5,
+   "source": "nuclear",
+   "wall": 1.41,
+   "confidence": 0.59,
+   "p": {
+    "0": 0.04,
+    "1": 0.66,
+    "2": 0.21,
+    "3": 0.03,
+    "4": 0.06
+   },
+   "facts": [
+    "pol-mil-nukes-us-1945",
+    "pol-mil-nukes-russia-1945"
+   ],
+   "reading": "Nuclear weapons: wall 1.4 of 4"
+  },
+  {
+   "t": 1950.5,
+   "source": "seaControl",
+   "wall": 3.38,
+   "confidence": 0.47,
+   "p": {
+    "0": 0.01,
+    "1": 0.02,
+    "2": 0.14,
+    "3": 0.26,
+    "4": 0.57
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1950",
+    "pol-mil-navy-carriers-1950"
+   ],
+   "reading": "Command of the sea: wall 3.4 of 4"
+  },
+  {
+   "t": 1950.5,
+   "source": "nuclear",
+   "wall": 1.79,
+   "confidence": 0.48,
+   "p": {
+    "0": 0.02,
+    "1": 0.39,
+    "2": 0.44,
+    "3": 0.1,
+    "4": 0.05
+   },
+   "facts": [
+    "pol-mil-nukes-us-1950",
+    "pol-mil-nukes-us-monopoly-1945",
+    "pol-mil-nukes-russia-1950",
+    "pol-mil-nukes-ussr-first-test-1949"
+   ],
+   "reading": "Nuclear weapons: wall 1.8 of 4"
+  },
+  {
+   "t": 1950.5,
+   "source": "alliances",
+   "wall": 2.4,
+   "confidence": 0.29,
+   "p": {
+    "0": 0.04,
+    "1": 0.15,
+    "2": 0.34,
+    "3": 0.32,
+    "4": 0.15
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949"
+   ],
+   "reading": "Alliances: wall 2.4 of 4"
+  },
+  {
+   "t": 1955.5,
+   "source": "seaControl",
+   "wall": 3.32,
+   "confidence": 0.42,
+   "p": {
+    "0": 0.01,
+    "1": 0.02,
+    "2": 0.14,
+    "3": 0.32,
+    "4": 0.51
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1955",
+    "pol-mil-navy-carriers-1955"
+   ],
+   "reading": "Command of the sea: wall 3.3 of 4"
+  },
+  {
+   "t": 1955.5,
+   "source": "nuclear",
+   "wall": 2.14,
+   "confidence": 0.44,
+   "p": {
+    "0": 0.01,
+    "1": 0.25,
+    "2": 0.43,
+    "3": 0.22,
+    "4": 0.09
+   },
+   "facts": [
+    "pol-mil-nukes-us-1955",
+    "pol-mil-nukes-russia-1955"
+   ],
+   "reading": "Nuclear weapons: wall 2.1 of 4"
+  },
+  {
+   "t": 1955.5,
+   "source": "alliances",
+   "wall": 2.44,
+   "confidence": 0.36,
+   "p": {
+    "0": 0.01,
+    "1": 0.14,
+    "2": 0.38,
+    "3": 0.33,
+    "4": 0.14
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-milex-nato-1955-yb1976",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-warsaw-pact-response-1955",
+    "pol-mil-milex-wto-1955-yb1976"
+   ],
+   "reading": "Alliances: wall 2.4 of 4"
+  },
+  {
+   "t": 1955.5,
+   "source": "spending",
+   "wall": 2.26,
+   "confidence": 0.43,
+   "p": {
+    "0": 0.01,
+    "1": 0.2,
+    "2": 0.41,
+    "3": 0.29,
+    "4": 0.09
+   },
+   "facts": [
+    "pol-mil-milex-usa-1955-yb1976",
+    "pol-mil-milex-ussr-1955-yb1976"
+   ],
+   "reading": "Military spending: wall 2.3 of 4"
+  },
+  {
+   "t": 1960.5,
+   "source": "seaControl",
+   "wall": 3.25,
+   "confidence": 0.38,
+   "p": {
+    "0": 0.01,
+    "1": 0.01,
+    "2": 0.15,
+    "3": 0.37,
+    "4": 0.46
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1960",
+    "pol-mil-navy-carriers-1960"
+   ],
+   "reading": "Command of the sea: wall 3.2 of 4"
+  },
+  {
+   "t": 1960.5,
+   "source": "nuclear",
+   "wall": 2.37,
+   "confidence": 0.38,
+   "p": {
+    "0": 0.0,
+    "1": 0.18,
+    "2": 0.38,
+    "3": 0.32,
+    "4": 0.12
+   },
+   "facts": [
+    "pol-mil-nukes-us-1960",
+    "pol-mil-nukes-russia-1960"
+   ],
+   "reading": "Nuclear weapons: wall 2.4 of 4"
+  },
+  {
+   "t": 1960.5,
+   "source": "alliances",
+   "wall": 2.68,
+   "confidence": 0.44,
+   "p": {
+    "0": 0.01,
+    "1": 0.07,
+    "2": 0.33,
+    "3": 0.42,
+    "4": 0.17
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-milex-nato-1960",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-milex-wto-1960"
+   ],
+   "reading": "Alliances: wall 2.7 of 4"
+  },
+  {
+   "t": 1960.5,
+   "source": "spending",
+   "wall": 2.11,
+   "confidence": 0.5,
+   "p": {
+    "0": 0.01,
+    "1": 0.22,
+    "2": 0.45,
+    "3": 0.28,
+    "4": 0.04
+   },
+   "facts": [
+    "pol-mil-milex-usa-1960",
+    "pol-mil-milex-ussr-1960"
+   ],
+   "reading": "Military spending: wall 2.1 of 4"
+  },
+  {
+   "t": 1965.5,
+   "source": "seaControl",
+   "wall": 3.25,
+   "confidence": 0.36,
+   "p": {
+    "0": 0.02,
+    "1": 0.02,
+    "2": 0.15,
+    "3": 0.33,
+    "4": 0.48
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1965",
+    "pol-mil-navy-carriers-1965"
+   ],
+   "reading": "Command of the sea: wall 3.2 of 4"
+  },
+  {
+   "t": 1965.5,
+   "source": "nuclear",
+   "wall": 2.16,
+   "confidence": 0.44,
+   "p": {
+    "0": 0.01,
+    "1": 0.23,
+    "2": 0.41,
+    "3": 0.28,
+    "4": 0.07
+   },
+   "facts": [
+    "pol-mil-nukes-us-1965",
+    "pol-mil-nukes-russia-1965"
+   ],
+   "reading": "Nuclear weapons: wall 2.2 of 4"
+  },
+  {
+   "t": 1965.5,
+   "source": "alliances",
+   "wall": 2.54,
+   "confidence": 0.34,
+   "p": {
+    "0": 0.01,
+    "1": 0.11,
+    "2": 0.37,
+    "3": 0.36,
+    "4": 0.15
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-milex-nato-1965",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-milex-wto-1965"
+   ],
+   "reading": "Alliances: wall 2.5 of 4"
+  },
+  {
+   "t": 1965.5,
+   "source": "spending",
+   "wall": 1.83,
+   "confidence": 0.46,
+   "p": {
+    "0": 0.02,
+    "1": 0.36,
+    "2": 0.39,
+    "3": 0.21,
+    "4": 0.02
+   },
+   "facts": [
+    "pol-mil-milex-usa-1965",
+    "pol-mil-milex-ussr-1965"
+   ],
+   "reading": "Military spending: wall 1.8 of 4"
+  },
+  {
+   "t": 1970.5,
+   "source": "seaControl",
+   "wall": 2.84,
+   "confidence": 0.36,
+   "p": {
+    "0": 0.04,
+    "1": 0.06,
+    "2": 0.23,
+    "3": 0.37,
+    "4": 0.3
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1970",
+    "pol-mil-navy-carriers-1970"
+   ],
+   "reading": "Command of the sea: wall 2.8 of 4"
+  },
+  {
+   "t": 1970.5,
+   "source": "nuclear",
+   "wall": 1.54,
+   "confidence": 0.48,
+   "p": {
+    "0": 0.05,
+    "1": 0.5,
+    "2": 0.33,
+    "3": 0.11,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-1970",
+    "pol-mil-nukes-russia-1970"
+   ],
+   "reading": "Nuclear weapons: wall 1.5 of 4"
+  },
+  {
+   "t": 1970.5,
+   "source": "alliances",
+   "wall": 2.39,
+   "confidence": 0.32,
+   "p": {
+    "0": 0.02,
+    "1": 0.15,
+    "2": 0.36,
+    "3": 0.37,
+    "4": 0.1
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-milex-nato-1970",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-warsaw-pact-albania-1968",
+    "pol-mil-milex-wto-1970"
+   ],
+   "reading": "Alliances: wall 2.4 of 4"
+  },
+  {
+   "t": 1970.5,
+   "source": "spending",
+   "wall": 1.58,
+   "confidence": 0.42,
+   "p": {
+    "0": 0.05,
+    "1": 0.47,
+    "2": 0.33,
+    "3": 0.14,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-milex-usa-1970",
+    "pol-mil-milex-ussr-1970"
+   ],
+   "reading": "Military spending: wall 1.6 of 4"
+  },
+  {
+   "t": 1975.5,
+   "source": "seaControl",
+   "wall": 2.64,
+   "confidence": 0.31,
+   "p": {
+    "0": 0.08,
+    "1": 0.06,
+    "2": 0.23,
+    "3": 0.39,
+    "4": 0.24
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1975",
+    "pol-mil-navy-carriers-1975"
+   ],
+   "reading": "Command of the sea: wall 2.6 of 4"
+  },
+  {
+   "t": 1975.5,
+   "source": "nuclear",
+   "wall": 1.1,
+   "confidence": 0.72,
+   "p": {
+    "0": 0.12,
+    "1": 0.69,
+    "2": 0.17,
+    "3": 0.02,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-nukes-us-1975",
+    "pol-mil-nukes-russia-1975"
+   ],
+   "reading": "Nuclear weapons: wall 1.1 of 4"
+  },
+  {
+   "t": 1975.5,
+   "source": "alliances",
+   "wall": 2.16,
+   "confidence": 0.38,
+   "p": {
+    "0": 0.04,
+    "1": 0.21,
+    "2": 0.37,
+    "3": 0.31,
+    "4": 0.07
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-milex-nato-1975",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-warsaw-pact-albania-1968",
+    "pol-mil-milex-wto-1975"
+   ],
+   "reading": "Alliances: wall 2.2 of 4"
+  },
+  {
+   "t": 1975.5,
+   "source": "spending",
+   "wall": 1.0,
+   "confidence": 0.73,
+   "p": {
+    "0": 0.17,
+    "1": 0.7,
+    "2": 0.11,
+    "3": 0.02,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-milex-usa-1975",
+    "pol-mil-milex-ussr-1975"
+   ],
+   "reading": "Military spending: wall 1.0 of 4"
+  },
+  {
+   "t": 1980.5,
+   "source": "seaControl",
+   "wall": 2.43,
+   "confidence": 0.22,
+   "p": {
+    "0": 0.1,
+    "1": 0.1,
+    "2": 0.25,
+    "3": 0.37,
+    "4": 0.18
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1980",
+    "pol-mil-navy-carriers-1980",
+    "pol-mil-sea-fon-program-1979",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 2.4 of 4"
+  },
+  {
+   "t": 1980.5,
+   "source": "nuclear",
+   "wall": 0.02,
+   "confidence": 0.99,
+   "p": {
+    "0": 0.99,
+    "1": 0.01,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-nukes-us-1980",
+    "pol-mil-nukes-russia-1980"
+   ],
+   "reading": "Nuclear weapons: wall 0.0 of 4"
+  },
+  {
+   "t": 1980.5,
+   "source": "alliances",
+   "wall": 2.32,
+   "confidence": 0.36,
+   "p": {
+    "0": 0.04,
+    "1": 0.15,
+    "2": 0.37,
+    "3": 0.34,
+    "4": 0.1
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-milex-nato-1980",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-warsaw-pact-albania-1968",
+    "pol-mil-milex-wto-1980"
+   ],
+   "reading": "Alliances: wall 2.3 of 4"
+  },
+  {
+   "t": 1980.5,
+   "source": "spending",
+   "wall": 0.78,
+   "confidence": 0.72,
+   "p": {
+    "0": 0.28,
+    "1": 0.67,
+    "2": 0.04,
+    "3": 0.01,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-milex-usa-1980",
+    "pol-mil-milex-ussr-1980"
+   ],
+   "reading": "Military spending: wall 0.8 of 4"
+  },
+  {
+   "t": 1985.5,
+   "source": "seaControl",
+   "wall": 2.43,
+   "confidence": 0.17,
+   "p": {
+    "0": 0.11,
+    "1": 0.1,
+    "2": 0.26,
+    "3": 0.32,
+    "4": 0.21
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1985",
+    "pol-mil-navy-carriers-1985",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 2.4 of 4"
+  },
+  {
+   "t": 1985.5,
+   "source": "nuclear",
+   "wall": 0.02,
+   "confidence": 0.99,
+   "p": {
+    "0": 0.99,
+    "1": 0.01,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-nukes-us-1985",
+    "pol-mil-nukes-russia-1985"
+   ],
+   "reading": "Nuclear weapons: wall 0.0 of 4"
+  },
+  {
+   "t": 1985.5,
+   "source": "alliances",
+   "wall": 2.16,
+   "confidence": 0.28,
+   "p": {
+    "0": 0.08,
+    "1": 0.19,
+    "2": 0.32,
+    "3": 0.31,
+    "4": 0.1
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-milex-nato-1984",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-warsaw-pact-albania-1968",
+    "pol-mil-milex-wto-1985"
+   ],
+   "reading": "Alliances: wall 2.2 of 4"
+  },
+  {
+   "t": 1985.5,
+   "source": "spending",
+   "wall": 1.37,
+   "confidence": 0.52,
+   "p": {
+    "0": 0.09,
+    "1": 0.53,
+    "2": 0.29,
+    "3": 0.08,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-milex-usa-1985",
+    "pol-mil-milex-ussr-1985"
+   ],
+   "reading": "Military spending: wall 1.4 of 4"
+  },
+  {
+   "t": 1990.5,
+   "source": "seaControl",
+   "wall": 2.53,
+   "confidence": 0.19,
+   "p": {
+    "0": 0.09,
+    "1": 0.1,
+    "2": 0.25,
+    "3": 0.31,
+    "4": 0.25
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1990",
+    "pol-mil-navy-carriers-1990",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 2.5 of 4"
+  },
+  {
+   "t": 1990.5,
+   "source": "nuclear",
+   "wall": 0.02,
+   "confidence": 0.99,
+   "p": {
+    "0": 0.99,
+    "1": 0.01,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-nukes-us-1990",
+    "pol-mil-nukes-russia-1990"
+   ],
+   "reading": "Nuclear weapons: wall 0.0 of 4"
+  },
+  {
+   "t": 1990.5,
+   "source": "alliances",
+   "wall": 2.53,
+   "confidence": 0.24,
+   "p": {
+    "0": 0.07,
+    "1": 0.11,
+    "2": 0.26,
+    "3": 0.34,
+    "4": 0.22
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-milex-nato-1990",
+    "pol-mil-warsaw-pact-founding-1955",
+    "pol-mil-warsaw-pact-albania-1968",
+    "pol-mil-warsaw-pact-dates",
+    "pol-mil-warsaw-pact-end-1991",
+    "pol-mil-warsaw-pact-counterweight"
+   ],
+   "reading": "Alliances: wall 2.5 of 4"
+  },
+  {
+   "t": 1990.5,
+   "source": "spending",
+   "wall": 1.77,
+   "confidence": 0.44,
+   "p": {
+    "0": 0.05,
+    "1": 0.35,
+    "2": 0.4,
+    "3": 0.18,
+    "4": 0.02
+   },
+   "facts": [
+    "pol-mil-milex-usa-1990",
+    "pol-mil-milex-ussr-1990"
+   ],
+   "reading": "Military spending: wall 1.8 of 4"
+  },
+  {
+   "t": 1995.5,
+   "source": "seaControl",
+   "wall": 3.44,
+   "confidence": 0.52,
+   "p": {
+    "0": 0.01,
+    "1": 0.02,
+    "2": 0.1,
+    "3": 0.27,
+    "4": 0.6
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy1995",
+    "pol-mil-navy-carriers-1995",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 3.4 of 4"
+  },
+  {
+   "t": 1995.5,
+   "source": "nuclear",
+   "wall": 0.11,
+   "confidence": 0.93,
+   "p": {
+    "0": 0.95,
+    "1": 0.03,
+    "2": 0.01,
+    "3": 0.01,
+    "4": 0.0
+   },
+   "facts": [
+    "pol-mil-nukes-us-1995",
+    "pol-mil-nukes-russia-1995",
+    "pol-mil-nukes-china-1995"
+   ],
+   "reading": "Nuclear weapons: wall 0.1 of 4"
+  },
+  {
+   "t": 1995.5,
+   "source": "alliances",
+   "wall": 3.47,
+   "confidence": 0.54,
+   "p": {
+    "0": 0.02,
+    "1": 0.02,
+    "2": 0.08,
+    "3": 0.25,
+    "4": 0.63
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-milex-nato-1995"
+   ],
+   "reading": "Alliances: wall 3.5 of 4"
+  },
+  {
+   "t": 1995.5,
+   "source": "spending",
+   "wall": 3.14,
+   "confidence": 0.48,
+   "p": {
+    "0": 0.01,
+    "1": 0.04,
+    "2": 0.14,
+    "3": 0.43,
+    "4": 0.38
+   },
+   "facts": [
+    "pol-mil-milex-usa-1995",
+    "pol-mil-milex-russia-1995",
+    "pol-mil-milex-china-1995"
+   ],
+   "reading": "Military spending: wall 3.1 of 4"
+  },
+  {
+   "t": 2000.5,
+   "source": "seaControl",
+   "wall": 3.13,
+   "confidence": 0.28,
+   "p": {
+    "0": 0.01,
+    "1": 0.07,
+    "2": 0.16,
+    "3": 0.3,
+    "4": 0.46
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy2000",
+    "pol-mil-navy-carriers-2000",
+    "pol-mil-navy-china-oni-2000",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 3.1 of 4"
+  },
+  {
+   "t": 2000.5,
+   "source": "nuclear",
+   "wall": 0.11,
+   "confidence": 0.9,
+   "p": {
+    "0": 0.94,
+    "1": 0.03,
+    "2": 0.01,
+    "3": 0.01,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-2000",
+    "pol-mil-nukes-russia-2000",
+    "pol-mil-nukes-china-2000"
+   ],
+   "reading": "Nuclear weapons: wall 0.1 of 4"
+  },
+  {
+   "t": 2000.5,
+   "source": "alliances",
+   "wall": 3.4,
+   "confidence": 0.49,
+   "p": {
+    "0": 0.03,
+    "1": 0.02,
+    "2": 0.09,
+    "3": 0.25,
+    "4": 0.61
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-nato-accession-1999",
+    "pol-mil-milex-nato-2000"
+   ],
+   "reading": "Alliances: wall 3.4 of 4"
+  },
+  {
+   "t": 2000.5,
+   "source": "spending",
+   "wall": 3.13,
+   "confidence": 0.28,
+   "p": {
+    "0": 0.01,
+    "1": 0.05,
+    "2": 0.15,
+    "3": 0.38,
+    "4": 0.41
+   },
+   "facts": [
+    "pol-mil-milex-usa-2000",
+    "pol-mil-milex-russia-1999",
+    "pol-mil-milex-china-1999"
+   ],
+   "reading": "Military spending: wall 3.1 of 4"
+  },
+  {
+   "t": 2005.5,
+   "source": "seaControl",
+   "wall": 2.92,
+   "confidence": 0.09,
+   "p": {
+    "0": 0.02,
+    "1": 0.13,
+    "2": 0.17,
+    "3": 0.28,
+    "4": 0.4
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy2005",
+    "pol-mil-navy-carriers-2005",
+    "pol-mil-navy-china-2005",
+    "pol-mil-navy-china-oni-2005",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 2.9 of 4, uncertain"
+  },
+  {
+   "t": 2005.5,
+   "source": "nuclear",
+   "wall": 1.29,
+   "confidence": 0.44,
+   "p": {
+    "0": 0.19,
+    "1": 0.49,
+    "2": 0.17,
+    "3": 0.14,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-2005",
+    "pol-mil-nukes-russia-2005",
+    "pol-mil-nukes-china-2005"
+   ],
+   "reading": "Nuclear weapons: wall 1.3 of 4"
+  },
+  {
+   "t": 2005.5,
+   "source": "alliances",
+   "wall": 3.46,
+   "confidence": 0.56,
+   "p": {
+    "0": 0.01,
+    "1": 0.02,
+    "2": 0.08,
+    "3": 0.27,
+    "4": 0.62
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-nato-accession-1999",
+    "pol-mil-nato-accession-2004",
+    "pol-mil-milex-nato-2005"
+   ],
+   "reading": "Alliances: wall 3.5 of 4"
+  },
+  {
+   "t": 2005.5,
+   "source": "spending",
+   "wall": 3.11,
+   "confidence": 0.46,
+   "p": {
+    "0": 0.01,
+    "1": 0.04,
+    "2": 0.17,
+    "3": 0.41,
+    "4": 0.37
+   },
+   "facts": [
+    "pol-mil-milex-usa-2005",
+    "pol-mil-milex-russia-2005",
+    "pol-mil-milex-china-2005"
+   ],
+   "reading": "Military spending: wall 3.1 of 4"
+  },
+  {
+   "t": 2010.5,
+   "source": "seaControl",
+   "wall": 2.84,
+   "confidence": 0.05,
+   "p": {
+    "0": 0.04,
+    "1": 0.1,
+    "2": 0.17,
+    "3": 0.34,
+    "4": 0.35
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy2010",
+    "pol-mil-navy-carriers-2010",
+    "pol-mil-navy-china-2010",
+    "pol-mil-navy-china-oni-2010",
+    "pol-mil-sea-fon-challenges"
+   ],
+   "reading": "Command of the sea: wall 2.8 of 4, uncertain"
+  },
+  {
+   "t": 2010.5,
+   "source": "nuclear",
+   "wall": 0.13,
+   "confidence": 0.88,
+   "p": {
+    "0": 0.93,
+    "1": 0.03,
+    "2": 0.01,
+    "3": 0.02,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-2010",
+    "pol-mil-nukes-russia-2010",
+    "pol-mil-nukes-china-2010"
+   ],
+   "reading": "Nuclear weapons: wall 0.1 of 4"
+  },
+  {
+   "t": 2010.5,
+   "source": "alliances",
+   "wall": 3.41,
+   "confidence": 0.52,
+   "p": {
+    "0": 0.01,
+    "1": 0.03,
+    "2": 0.09,
+    "3": 0.27,
+    "4": 0.6
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-nato-accession-1999",
+    "pol-mil-nato-accession-2004",
+    "pol-mil-nato-accession-2009",
+    "pol-mil-milex-nato-2010"
+   ],
+   "reading": "Alliances: wall 3.4 of 4"
+  },
+  {
+   "t": 2010.5,
+   "source": "spending",
+   "wall": 2.76,
+   "confidence": 0.48,
+   "p": {
+    "0": 0.01,
+    "1": 0.07,
+    "2": 0.26,
+    "3": 0.46,
+    "4": 0.2
+   },
+   "facts": [
+    "pol-mil-milex-usa-2010",
+    "pol-mil-milex-russia-2010",
+    "pol-mil-milex-china-2010"
+   ],
+   "reading": "Military spending: wall 2.8 of 4"
+  },
+  {
+   "t": 2015.5,
+   "source": "seaControl",
+   "wall": 2.53,
+   "confidence": 0.16,
+   "p": {
+    "0": 0.12,
+    "1": 0.09,
+    "2": 0.21,
+    "3": 0.32,
+    "4": 0.26
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy2015",
+    "pol-mil-navy-carriers-2015",
+    "pol-mil-navy-china-2015",
+    "pol-mil-navy-china-oni-2015",
+    "pol-mil-sea-fon-challenges",
+    "pol-mil-sea-fonop-subi-2015"
+   ],
+   "reading": "Command of the sea: wall 2.5 of 4"
+  },
+  {
+   "t": 2015.5,
+   "source": "nuclear",
+   "wall": 0.57,
+   "confidence": 0.52,
+   "p": {
+    "0": 0.65,
+    "1": 0.21,
+    "2": 0.06,
+    "3": 0.07,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-2015",
+    "pol-mil-nukes-russia-2015",
+    "pol-mil-nukes-china-2015"
+   ],
+   "reading": "Nuclear weapons: wall 0.6 of 4"
+  },
+  {
+   "t": 2015.5,
+   "source": "alliances",
+   "wall": 3.24,
+   "confidence": 0.4,
+   "p": {
+    "0": 0.02,
+    "1": 0.03,
+    "2": 0.11,
+    "3": 0.33,
+    "4": 0.51
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-nato-accession-1999",
+    "pol-mil-nato-accession-2004",
+    "pol-mil-nato-accession-2009",
+    "pol-mil-milex-nato-2014"
+   ],
+   "reading": "Alliances: wall 3.2 of 4"
+  },
+  {
+   "t": 2015.5,
+   "source": "spending",
+   "wall": 2.33,
+   "confidence": 0.42,
+   "p": {
+    "0": 0.02,
+    "1": 0.15,
+    "2": 0.39,
+    "3": 0.37,
+    "4": 0.07
+   },
+   "facts": [
+    "pol-mil-milex-usa-2015",
+    "pol-mil-milex-russia-2015",
+    "pol-mil-milex-china-2015"
+   ],
+   "reading": "Military spending: wall 2.3 of 4"
+  },
+  {
+   "t": 2020.5,
+   "source": "seaControl",
+   "wall": 1.17,
+   "confidence": 0.02,
+   "p": {
+    "0": 0.53,
+    "1": 0.06,
+    "2": 0.19,
+    "3": 0.14,
+    "4": 0.08
+   },
+   "facts": [
+    "pol-mil-navy-ships-fy2020",
+    "pol-mil-navy-us-displacement-2021",
+    "pol-mil-navy-china-2020",
+    "pol-mil-navy-china-oni-2020",
+    "pol-mil-navy-china-overtakes",
+    "pol-mil-sea-fon-challenges",
+    "pol-mil-sea-maritime-trade-80"
+   ],
+   "reading": "Command of the sea: wall 1.2 of 4, uncertain"
+  },
+  {
+   "t": 2020.5,
+   "source": "nuclear",
+   "wall": 0.15,
+   "confidence": 0.88,
+   "p": {
+    "0": 0.94,
+    "1": 0.02,
+    "2": 0.01,
+    "3": 0.02,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-2020",
+    "pol-mil-nukes-russia-2020",
+    "pol-mil-nukes-china-2020"
+   ],
+   "reading": "Nuclear weapons: wall 0.1 of 4"
+  },
+  {
+   "t": 2020.5,
+   "source": "alliances",
+   "wall": 2.87,
+   "confidence": 0.3,
+   "p": {
+    "0": 0.07,
+    "1": 0.05,
+    "2": 0.18,
+    "3": 0.35,
+    "4": 0.35
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-nato-accession-1999",
+    "pol-mil-nato-accession-2004",
+    "pol-mil-nato-accession-2009",
+    "pol-mil-nato-accession-2017",
+    "pol-mil-nato-accession-2020",
+    "pol-mil-milex-nato-2020"
+   ],
+   "reading": "Alliances: wall 2.9 of 4"
+  },
+  {
+   "t": 2020.5,
+   "source": "spending",
+   "wall": 2.57,
+   "confidence": 0.47,
+   "p": {
+    "0": 0.02,
+    "1": 0.08,
+    "2": 0.32,
+    "3": 0.48,
+    "4": 0.1
+   },
+   "facts": [
+    "pol-mil-milex-usa-2020",
+    "pol-mil-milex-russia-2020",
+    "pol-mil-milex-china-2020"
+   ],
+   "reading": "Military spending: wall 2.6 of 4"
+  },
+  {
+   "t": 2025.5,
+   "source": "seaControl",
+   "wall": 1.6,
+   "confidence": 0.0,
+   "p": {
+    "0": 0.27,
+    "1": 0.19,
+    "2": 0.26,
+    "3": 0.22,
+    "4": 0.06
+   },
+   "facts": [
+    "pol-mil-navy-ships-2025-10-01",
+    "pol-mil-navy-us-carriers-2024",
+    "pol-mil-navy-carriers-us-2026",
+    "pol-mil-navy-carriers-russia-2026",
+    "pol-mil-navy-china-2023",
+    "pol-mil-navy-china-dod-370",
+    "pol-mil-navy-carriers-china-2026",
+    "pol-mil-navy-composition",
+    "pol-mil-sea-fon-challenges",
+    "pol-mil-sea-china-challenge",
+    "pol-mil-sea-nato-hormuz-2026",
+    "pol-sea-share-unctad-2024"
+   ],
+   "reading": "Command of the sea: wall 1.6 of 4, uncertain"
+  },
+  {
+   "t": 2025.5,
+   "source": "nuclear",
+   "wall": 0.19,
+   "confidence": 0.83,
+   "p": {
+    "0": 0.91,
+    "1": 0.03,
+    "2": 0.02,
+    "3": 0.03,
+    "4": 0.01
+   },
+   "facts": [
+    "pol-mil-nukes-us-2025",
+    "pol-mil-nukes-us-2026-fas-inventory",
+    "pol-mil-nukes-russia-2025",
+    "pol-mil-nukes-russia-2026-fas-inventory",
+    "pol-mil-nukes-china-2025",
+    "pol-mil-nukes-china-2026-fas-inventory",
+    "pol-mil-nukes-us-russia-share-2026"
+   ],
+   "reading": "Nuclear weapons: wall 0.2 of 4"
+  },
+  {
+   "t": 2025.5,
+   "source": "alliances",
+   "wall": 3.14,
+   "confidence": 0.26,
+   "p": {
+    "0": 0.04,
+    "1": 0.03,
+    "2": 0.13,
+    "3": 0.38,
+    "4": 0.42
+   },
+   "facts": [
+    "pol-mil-nato-founding-1949",
+    "pol-mil-nato-accession-1952",
+    "pol-mil-nato-accession-1955",
+    "pol-mil-nato-accession-1982",
+    "pol-mil-nato-accession-1999",
+    "pol-mil-nato-accession-2004",
+    "pol-mil-nato-accession-2009",
+    "pol-mil-nato-accession-2017",
+    "pol-mil-nato-accession-2020",
+    "pol-mil-nato-accession-2023",
+    "pol-mil-nato-accession-2024",
+    "pol-mil-nato-members-32",
+    "pol-mil-milex-nato-2025",
+    "pol-mil-nato-spending-over-half",
+    "pol-mil-sea-nato-hormuz-2026"
+   ],
+   "reading": "Alliances: wall 3.1 of 4"
+  },
+  {
+   "t": 2025.5,
+   "source": "spending",
+   "wall": 2.42,
+   "confidence": 0.39,
+   "p": {
+    "0": 0.02,
+    "1": 0.13,
+    "2": 0.34,
+    "3": 0.44,
+    "4": 0.07
+   },
+   "facts": [
+    "pol-mil-milex-usa-2025",
+    "pol-mil-milex-russia-2025",
+    "pol-mil-milex-china-2025"
+   ],
+   "reading": "Military spending: wall 2.4 of 4"
+  }
+ ]
+}

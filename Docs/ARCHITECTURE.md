@@ -73,6 +73,16 @@ years ago and the handoff. Labels opt in with `LabelSpec.HandoffFade`.
   waves per pixel (wave k is the shell of matter 10^k .. 10^(k+1) m from us today, cut into ten by 2..9 x 10^k, then
   tenths, hundredths and thousandths) and opens each level by its spacing on screen, which it takes from the
   screen-space derivatives of the wave coordinate, so it is exact under the lens and the perspective.
+* `Why/Packets` - the things that move along paths (money, goods, capital, people, promises: `PacketKind`) as small
+  marks marching from each lane's source to its sink (`PacketMeshBuilder`). Lanes are expanded on screen as `Why/Line`'s
+  polylines are, optionally kept a few pixels to the right of their travel so the two directions of a two-way lane pass;
+  the fragment shader draws the packet nearest each pixel, placed from the lane's distance and the flow clock alone, so
+  a mesh is built once and costs no CPU a frame. Alpha blended (`GraphMaterials.Packets`).
+* Two shader clocks (`WhyCommon.hlsl`): `_WhyFlowTime` (`FlowClock`) never stops while the app runs - a frozen year, a
+  paused tour or replay and `Time.timeScale` do not hold it - and counts from a capture's first frame, so recordings
+  repeat. It is published modulo 4096 s (a float holds half a millisecond); periodic motion takes its phase from
+  `WhyFlowCycles(rate)`, which keeps the wrap seamless. `Why/Line`'s flow pulses and `Why/Packets` run on it.
+  `_WhyTime` (Unity's scaled `Time.time`, set by `Highlighter`) drifts `Why/Surface`'s noise.
 * All meshes use 32-bit indices and infinite bounds (the vertex shader moves vertices).
 
 ### Line vertex layout (`LineMeshBuilder`)
@@ -92,6 +102,22 @@ years ago and the handoff. Labels opt in with `LabelSpec.HandoffFade`.
 | --- | --- | --- |
 | POSITION | float3 | data position |
 | TEXCOORD0 | float4 | highlight id, intensity, across (0 inner edge .. 1 outer edge), noise amount |
+| COLOR | unorm8 x4 | tint rgb, alpha |
+
+### Packet vertex layout (`PacketMeshBuilder`)
+
+A lane's points are written in the order of travel. A cycle is one gap between packets: a lane at `r` packets a second
+and speed `v` has `r / v` cycles per unit of path, and its packets stand where `frac(cycles + seed - WhyFlowCycles(r))`
+is one half.
+
+| Attribute | Format | Content |
+| --- | --- | --- |
+| POSITION | float3 | position of this point (data space, or object space with `_Raw`) |
+| TEXCOORD0 | float3 | position of the previous point in the order of travel (== this for the source) |
+| TEXCOORD1 | float3 | position of the next point (== this for the sink) |
+| TEXCOORD2 | float4 | side (+-1), size px, size world, highlight id |
+| TEXCOORD3 | float3 | intensity (HDR multiplier), kind (`PacketKind`), offset px to the right of travel |
+| TEXCOORD4 | float4 | cycles from the source, cycles to the sink, packets a second (`FlowClock.SeamlessRate`), seed |
 | COLOR | unorm8 x4 | tint rgb, alpha |
 
 ### Scale-wave vertex layout (`ExpansionGridLayer`)

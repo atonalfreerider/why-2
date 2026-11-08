@@ -5,7 +5,9 @@ namespace Why
     /// <summary>
     /// The graph's clock: real time (unscaled), except while the Unity Recorder captures with a fixed frame rate - then
     /// every animation (camera flights, the warp, the opening, the tour's autoplay, fades) advances by the recording's
-    /// step, so a capture shows exactly what a viewer sees however fast the Editor renders its frames.
+    /// step, so a capture shows exactly what a viewer sees however fast the Editor renders its frames. Motion that is no
+    /// event of the story (the flows' pulses, the packets of money and goods) runs on <see cref="FlowClock"/> instead, which
+    /// nothing in the story pauses and a capture starts at zero.
     /// </summary>
     public static class GraphTime
     {

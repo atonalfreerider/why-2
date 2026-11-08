@@ -47,10 +47,16 @@ LITERAL = re.compile(r"\bnew\s+Color(?:32)?\s*\(")
 RETIRED = re.compile(r"\[GraphScenes\(\s*EconomyLayouts\.BowlScene\s*\)\]")
 
 # the roles PaletteCheck measures, as EconomyStyle.Roles names them, and the pairs of spec 3.2 (people-commerce: spec 0, rule 5)
-ROLES = ["Owners", "People", "Desire", "Fear", "State", "Attention", "Commerce", "Conflict", "Matter", "Life"]
+ROLES = ["Owners", "People", "Desire", "Fear", "State", "Attention", "Commerce", "Conflict", "Matter", "Life", "Democratic",
+         "Republican"]
+# the parties (the politics view) touch each other, the people drifting along their streams, the moments' sparks on them
+# (conflict, commerce, owners, the state's laws), the state's forces and the trade lanes; and stay apart from desire's rose
 TOUCHING = [("Desire", "Fear"), ("People", "Fear"), ("Desire", "People"), ("Owners", "Desire"), ("Owners", "People"),
             ("State", "People"), ("Desire", "State"), ("Owners", "Commerce"), ("People", "Conflict"),
-            ("Desire", "Conflict"), ("State", "Conflict"), ("Commerce", "Fear"), ("People", "Commerce")]
+            ("Desire", "Conflict"), ("State", "Conflict"), ("Commerce", "Fear"), ("People", "Commerce"),
+            ("Democratic", "Republican"), ("Democratic", "People"), ("Republican", "People"), ("Republican", "Desire"),
+            ("Democratic", "Conflict"), ("Republican", "Conflict"), ("Democratic", "Commerce"), ("Republican", "Commerce"),
+            ("Democratic", "State"), ("Republican", "State"), ("Democratic", "Owners"), ("Republican", "Owners")]
 WEAK = [("Attention", "Fear", "the cloud's points and the spending lanes never touch"),
         ("Matter", "Life", "the two never appear together in the new views")]
 PAIR_FLOOR, DESIRE_FEAR_FLOOR = 8.0, 15.0

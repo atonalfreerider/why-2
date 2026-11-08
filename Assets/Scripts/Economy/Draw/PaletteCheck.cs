@@ -104,15 +104,22 @@ namespace Why.Economy.Draw
         {
             ("owners", Roles.Owners), ("people", Roles.People), ("desire", Roles.Desire), ("fear", Roles.Fear),
             ("state", Roles.State), ("attention", Roles.Attention), ("commerce", Roles.Commerce), ("conflict", Roles.Conflict),
-            ("matter", Roles.Matter), ("life", Roles.Life)
+            ("matter", Roles.Matter), ("life", Roles.Life), ("democratic", Roles.Democratic), ("republican", Roles.Republican)
         };
 
-        /// <summary>The pairs that can touch: spec 3.2's table, and people-commerce from the rules every package obeys (spec 0, rule 5).</summary>
+        /// <summary>
+        /// The pairs that can touch: spec 3.2's table, people-commerce from the rules every package obeys (spec 0, rule 5),
+        /// and the parties of the politics view with each other, the people along their streams, the moments' sparks on them
+        /// (conflict, commerce, owners, the state's laws), the forces and the trade lanes, and apart from desire's rose.
+        /// </summary>
         static readonly (string a, string b)[] Touching =
         {
             ("desire", "fear"), ("people", "fear"), ("desire", "people"), ("owners", "desire"), ("owners", "people"),
             ("state", "people"), ("desire", "state"), ("owners", "commerce"), ("people", "conflict"), ("desire", "conflict"),
-            ("state", "conflict"), ("commerce", "fear"), ("people", "commerce")
+            ("state", "conflict"), ("commerce", "fear"), ("people", "commerce"),
+            ("democratic", "republican"), ("democratic", "people"), ("republican", "people"), ("republican", "desire"),
+            ("democratic", "conflict"), ("republican", "conflict"), ("democratic", "commerce"), ("republican", "commerce"),
+            ("democratic", "state"), ("republican", "state"), ("democratic", "owners"), ("republican", "owners")
         };
 
         /// <summary>The known weak pairs, kept apart by placement (spec 3.2): measured and listed with their rule, never failed.</summary>

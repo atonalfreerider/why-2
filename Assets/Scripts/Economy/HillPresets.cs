@@ -75,6 +75,11 @@ namespace Why.Economy
             // hillside so time runs left to right; the layer flies to the story and year shown, and opens the cross-section.
             Add(HillHistoryLayer.View, "Advantage through history", "Who held the advantage, and why: states, armies, alliances, companies and labs as tubes through time, opened into a cross-section at a moment.",
                 KeyCode.None, new Vector3(HillHistoryLayer.LaneX, 170, HillLandscape.Z(1986)), 266, 5, 330);
+            // Who holds power (HillPoliticsLayer): the government's cross-section at the crest's year, seen from the future down
+            // the time axis with the parties' past behind it; the layer flies to the year shown, fitting the army, its rivals
+            // and the trade partners into the screen the panel and the portrait cards leave free.
+            Add(HillPoliticsLayer.View, PoliticsTitle, "Parties rise with power; the president's officers cascade below; the armed forces ring the country.",
+                KeyCode.None, new Vector3(130, 90, crest), 180, 6, 330);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.
@@ -129,6 +134,14 @@ namespace Why.Economy
         public static ViewPreset HistoryPose(Vector3 target, float yaw, float pitch, float distance) =>
             Make(HillHistoryLayer.View, "Advantage through history", "", KeyCode.None, target, yaw, pitch, distance);
 
+        /// <summary>The politics view's title, in the catalog and in its fitted poses.</summary>
+        const string PoliticsTitle = "Who holds power";
+
+        /// <summary>A pose of the politics view (not in the catalog): a land-local target, the yaw from the road's direction,
+        /// pitch and distance, as the layer frames the year shown (HillPoliticsLayer.FlyToState).</summary>
+        public static ViewPreset PoliticsPose(Vector3 target, float yaw, float pitch, float distance) =>
+            Make(HillPoliticsLayer.View, PoliticsTitle, "", KeyCode.None, target, yaw, pitch, distance);
+
         /// <summary>The views of the followed person (keyless; the tour points at them by id).</summary>
         public static readonly string[] PersonViews = { "atom", "dilemma", "ladder" };
 
@@ -136,7 +149,7 @@ namespace Why.Economy
         {
             var f = EconomyStage.Land();
             return new ViewPreset { Id = id, Title = title, Subtitle = subtitle, Key = key, FixedTarget = f.World(target), FixedYaw = f.Yaw + yaw,
-                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View ? 330 : id == HillPresentLayer.View || id == HillAdvantageLayer.View ? 600 : 165,
+                Pitch = pitch, Distance = distance, PortraitWidth = id == "mind" ? 12 : id == "atom" || id == "dilemma" ? 24 : id == "you" ? 44 : id == "mobility" ? 70 : id == HillRegimeLayer.View || id == HillPoliticsLayer.View ? 330 : id == HillPresentLayer.View || id == HillAdvantageLayer.View ? 600 : 165,
                 YaOld = DeepTime.NowYear - EconomyStyle.FirstYear, YaNew = 0, LogOffset = EconomyStyle.WindowLogOffset, Length = EconomyStyle.WindowLength,
                 RhoScale = EconomyStyle.RhoScale, YScale = EconomyStyle.YScale };
         }
@@ -215,7 +228,7 @@ namespace Why.Economy
             { "social", "Attention" }, { "roots", "Supply chains" }, { "betrayal", "Betrayal" }, { "y1972", "1972" }, { "strategy", "Firm spending" },
             { "money", "Money & trade" }, { HillRegimeLayer.View, "Other states" }, { "mobility", "Mobility" }, { "atom", "One person" },
             { "dilemma", "Dilemma" }, { "ladder", "Ladder" }, { "you", "You" }, { HillPresentLayer.View, "Industries" },
-            { HillAdvantageLayer.View, "Advantage" }, { HillHistoryLayer.View, "History" },
+            { HillAdvantageLayer.View, "Advantage" }, { HillHistoryLayer.View, "History" }, { HillPoliticsLayer.View, "Power" },
         };
 
         /// <summary>A view's caption in the bar (its title when it has no short one).</summary>
@@ -225,7 +238,7 @@ namespace Why.Economy
         /// <summary>The views grouped for the help sheet, each chapter in the order a first visit would take them.</summary>
         public static readonly (string chapter, string[] ids)[] Chapters =
         {
-            ("The wave", new[] { "overview", "landscape", "foundation", "roots", "y1972", "section", HillRegimeLayer.View, HillAdvantageLayer.View, HillPresentLayer.View }),
+            ("The wave", new[] { "overview", "landscape", "foundation", "roots", "y1972", "section", HillRegimeLayer.View, HillPoliticsLayer.View, HillAdvantageLayer.View, HillPresentLayer.View }),
             ("Money", new[] { "capture", "rivers", "companies", "strategy", "money", "social" }),
             ("People", new[] { "people", "mind", "mobility", "society", "betrayal" }),
             ("One life", new[] { "atom", "ladder", "dilemma", "you" }),
@@ -251,7 +264,8 @@ namespace Why.Economy
 
         /// <summary>The key of a view, or null for the views of the whole wave (the legend's own key); the present's carries its
         /// year's area scale (HillPresentLayer).</summary>
-        public static ViewKey Key(string id) => id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id == HillHistoryLayer.View ? HillHistoryLayer.Key : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
+        public static ViewKey Key(string id) => id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id == HillHistoryLayer.View ? HillHistoryLayer.Key :
+            id == HillPoliticsLayer.View ? HillPoliticsLayer.Key : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
 
         /// <summary>The first year the attention cloud is drawn on the wave: Instagram's, whose follows place its stars (the
         /// cloud's own gate, HillSocialLayer's PlatformYear, is set from it).</summary>

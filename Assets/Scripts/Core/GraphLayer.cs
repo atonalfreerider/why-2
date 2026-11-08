@@ -92,10 +92,11 @@ namespace Why
         public const int QueueHumans = 3200;
         public const int QueueOverlay = 3300;
 
-        static Shader lineShader, surfaceShader;
+        static Shader lineShader, surfaceShader, packetShader;
 
         public static Shader LineShader => lineShader ? lineShader : (lineShader = Shader.Find("Why/Line"));
         public static Shader SurfaceShader => surfaceShader ? surfaceShader : (surfaceShader = Shader.Find("Why/Surface"));
+        public static Shader PacketShader => packetShader ? packetShader : (packetShader = Shader.Find("Why/Packets"));
 
         /// <summary>Line material. Additive by default so overlapping lines accumulate light.</summary>
         public static Material Line(Color color, float intensity, int queue, bool additive = true, float rhoFade = 0,
@@ -118,6 +119,19 @@ namespace Why
             m.SetColor("_Color", new Color(color.r * intensity, color.g * intensity, color.b * intensity, color.a));
             m.SetFloat("_RhoFade", rhoFade);
             m.SetFloat("_NoiseScale", noiseScale);
+            m.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
+            m.SetFloat("_DstBlend", (float)(additive ? BlendMode.One : BlendMode.OneMinusSrcAlpha));
+            return m;
+        }
+
+        /// <summary>
+        /// Packet material (Why/Packets, <see cref="PacketMeshBuilder"/>). Alpha blended by default: a packet carries its own
+        /// alpha, so it stays legible over a faint channel or a bright hill, where an additive mark would wash out to white.
+        /// </summary>
+        public static Material Packets(Color color, float intensity, int queue, bool additive = false)
+        {
+            Material m = new Material(PacketShader) { renderQueue = queue };
+            m.SetColor("_Color", new Color(color.r * intensity, color.g * intensity, color.b * intensity, color.a));
             m.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
             m.SetFloat("_DstBlend", (float)(additive ? BlendMode.One : BlendMode.OneMinusSrcAlpha));
             return m;

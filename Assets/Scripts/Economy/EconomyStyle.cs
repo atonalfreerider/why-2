@@ -133,11 +133,13 @@ namespace Why.Economy
             public static readonly Color Conflict = Srgb(0x864AD2);
 
             /// <summary>
-            /// The Democratic Party (the politics view): its conventional blue, darker than <see cref="People"/>'s and bluer than
-            /// <see cref="State"/>'s slate and <see cref="Conflict"/>'s violet, so it stays apart from all three under every
-            /// vision Tools/check-palette.py measures (a lighter blue met people's, and a more violet one met conflict's).
+            /// The Democratic Party (the politics view): its conventional blue at <see cref="Republican"/>'s OKLab lightness (0.58),
+            /// so neither party's streams and names read fainter than the other's (the darker #3A4E98, at 0.45, made the
+            /// Democrats look the weaker party). Darker than <see cref="People"/>'s blue and bluer than <see cref="State"/>'s
+            /// slate and <see cref="Conflict"/>'s violet, it stays apart from all three and from every other role it touches under
+            /// each vision Tools/check-palette.py measures (8.4 at the least: conflict, seen with deuteranopia).
             /// </summary>
-            public static readonly Color Democratic = Srgb(0x3A4E98);
+            public static readonly Color Democratic = Srgb(0x4F7BB4);
 
             /// <summary>The Republican Party (the politics view): its conventional red, apart from <see cref="Desire"/>'s rose.</summary>
             public static readonly Color Republican = Srgb(0xDC2626);

@@ -22,7 +22,8 @@ Usage (from the repository root):
     python3 Tools/check-palette.py --strict             # ... and exit 1 while any remain (after WP15-WP18)
     python3 Tools/check-palette.py --pairs [--tonemap none|neutral [--vignette INTENSITY,SMOOTHNESS]]
 Exits 1 when a file with local colours has no migration package (or, with --strict, when any remain), or when a pair
-is under its floor (8; 15 for desire and fear) with --pairs.
+is under its floor (8; 15 for desire and fear) or the two parties' targets differ in lightness (by more than 0.02 in OKLab)
+with --pairs.
 """
 import argparse
 import math
@@ -49,8 +50,9 @@ RETIRED = re.compile(r"\[GraphScenes\(\s*EconomyLayouts\.BowlScene\s*\)\]")
 # the roles PaletteCheck measures, as EconomyStyle.Roles names them, and the pairs of spec 3.2 (people-commerce: spec 0, rule 5)
 ROLES = ["Owners", "People", "Desire", "Fear", "State", "Attention", "Commerce", "Conflict", "Matter", "Life", "Democratic",
          "Republican"]
-# the parties (the politics view) touch each other, the people drifting along their streams, the moments' sparks on them
-# (conflict, commerce, owners, the state's laws), the state's forces and the trade lanes; and stay apart from desire's rose
+# the parties (the politics view) touch each other (and on the presidency's track, coloured term by term), the people drifting
+# along their streams, the moments' sparks on that track (conflict, commerce, owners, the state's laws), the state's forces and
+# the trade lanes; and stay apart from desire's rose. The two share one lightness, so neither reads fainter.
 TOUCHING = [("Desire", "Fear"), ("People", "Fear"), ("Desire", "People"), ("Owners", "Desire"), ("Owners", "People"),
             ("State", "People"), ("Desire", "State"), ("Owners", "Commerce"), ("People", "Conflict"),
             ("Desire", "Conflict"), ("State", "Conflict"), ("Commerce", "Fear"), ("People", "Commerce"),
@@ -60,6 +62,8 @@ TOUCHING = [("Desire", "Fear"), ("People", "Fear"), ("Desire", "People"), ("Owne
 WEAK = [("Attention", "Fear", "the cloud's points and the spending lanes never touch"),
         ("Matter", "Life", "the two never appear together in the new views")]
 PAIR_FLOOR, DESIRE_FEAR_FLOOR = 8.0, 15.0
+# the two parties stand at one lightness (OKLab L, within this much), so neither's streams and names read fainter
+PARTIES, PARTY_LIGHTNESS = ("Democratic", "Republican"), 0.02
 
 # PaletteCheck.Spots: where it reads each role, as shares of the frame's width and height from its centre
 SPOTS = [(0.0, 0.0), (0.42, 0.0), (0.3, -0.3)]
@@ -210,7 +214,11 @@ def pairs(tonemap, vignette):
             n, d, p = separations(colour[a], colour[b])
             print(f"  {a.lower() + '-' + b.lower():18} {n:5.1f} {d:5.1f} {p:5.1f}   known weak: {rule}")
     print(f"  {len(TOUCHING)} touching pairs, {len(below)} below their floor" + (f" at {len(spots)} spots" if vignette else ""))
-    return 1 if below else 0
+    lightness = [oklab(found[p][1])[0] for p in PARTIES]
+    even = abs(lightness[0] - lightness[1]) <= PARTY_LIGHTNESS
+    print(f"  the parties' lightness (OKLab L of the targets): " + ", ".join(f"{p.lower()} {l:.3f}" for p, l in zip(PARTIES, lightness)) +
+          f": {'even' if even else 'UNEVEN'} (within {PARTY_LIGHTNESS:g})")
+    return 1 if below or not even else 0
 
 
 def vignette_arg(text):

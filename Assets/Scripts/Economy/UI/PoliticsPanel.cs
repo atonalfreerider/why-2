@@ -20,14 +20,34 @@ namespace Why.Economy.UI
     /// walls), trade (the US balance and its partners') and the key moments around the year. Every number is read from
     /// <see cref="Politics"/> with the date it was measured, and what was not measured says so. A row is a button that
     /// highlights its subject in the view (a moment's row shows the view at its date), the highlighted row marked: buttons,
-    /// not keys, so it works by pinch in the headset. One tab at a time keeps it short beside the view in either orientation;
-    /// it hides during a tour, whose card takes the right side.
+    /// not keys, so it works by pinch in the headset. One tab at a time keeps it short beside the view; it hides during a
+    /// tour, whose card takes the right side.
+    /// <para>
+    /// In landscape it stands in the right column, never past the HUD's preset bar. In portrait the whole sheet would cover
+    /// the view, so there it starts collapsed to its header row (the title, and the year between its steps) just above the
+    /// HUD's legend and preset bar: the header is the only block the view's labels keep out of. Its More button opens the
+    /// sheet downward over the legend and the bar, the header staying in place, and Hide gives them back.
+    /// </para>
     /// </summary>
     [GraphScenes(EconomyLayouts.HillsScene)]
     public sealed class PoliticsPanel : GraphModule
     {
         const float Width = 420, Height = 520, Pad = 12, Gap = 4, ControlsTop = 54, DecadesTop = 82, TabsTop = 108,
             ContentTop = 140, RowMin = 22, RowInset = 8, MoreHeight = 16, StepWidth = 84;
+
+        /// <summary>The landscape column's inset from the right edge, where the history and regimes panels stand.</summary>
+        const float ColumnInset = 18;
+
+        /// <summary>
+        /// The portrait header row: a button's height with a margin above and below (the collapsed panel's whole height),
+        /// its steps narrower than the column's, and the year between them as wide as a month's date ("Sep 2025", where a
+        /// moment's row pins the view).
+        /// </summary>
+        const float HeaderHeight = 40, HeaderTop = 8, HeaderStep = 56, YearWidth = 60, ToggleWidth = 60;
+
+        /// <summary>The least room the open portrait sheet takes below its top: the controls and four rows. Where the HUD's
+        /// bottom blocks leave less below the header, the header rises as the sheet opens.</summary>
+        const float SheetRoom = 256;
 
         /// <summary>
         /// The pools the tabs fill: the cascade needs the most rows (the president and eight offices in the years of a
@@ -69,6 +89,10 @@ namespace Why.Economy.UI
         /// <summary>The ink of text and of dimmed text, as UI takes the palette's roles (sRGB-encoded).</summary>
         static readonly Color Ink = EconomyStyle.Roles.Encoded(EconomyStyle.Roles.InkText), Dim = EconomyStyle.Roles.Encoded(EconomyStyle.Roles.InkDim);
 
+        /// <summary>The panel's backing: the ink's backing, made opaque while the portrait sheet is open, because it then
+        /// covers the HUD's legend and preset bar, whose text would show through it.</summary>
+        static readonly Color Backing = EconomyStyle.Roles.Encoded(EconomyStyle.Roles.InkBacking), SheetBacking = WithAlpha(Backing, 1);
+
         /// <summary>A row of the shown tab: a button whose label is the reading, and the id it highlights in the view or, for a
         /// key moment, the date it shows.</summary>
         sealed class Row
@@ -96,10 +120,15 @@ namespace Why.Economy.UI
         }
 
         GraphRoot root;
-        RectTransform panel;
-        TextMeshProUGUI heading, yearLine, more, prevLabel, nextLabel, followLabel;
-        Button prev, next, follow;
-        Image followBack;
+        HudBlocks hud;
+
+        /// <summary>The panel's canvas, its box, and the sheet below the header row: the controls and the tab's readings,
+        /// shown in portrait only while the sheet is open.</summary>
+        RectTransform canvasRect, panel, body;
+
+        Image backing, followBack, toggleBack;
+        TextMeshProUGUI heading, yearLine, more, prevLabel, nextLabel, followLabel, toggleLabel;
+        Button prev, next, follow, toggle;
         readonly List<(Button button, Image back, TextMeshProUGUI label, int decade)> decades = new List<(Button, Image, TextMeshProUGUI, int)>();
         readonly List<(Button button, Image back, TextMeshProUGUI label)> tabs = new List<(Button, Image, TextMeshProUGUI)>();
         readonly List<Row> rows = new List<Row>(MaxRows);
@@ -110,9 +139,18 @@ namespace Why.Economy.UI
         Tab tab = Tab.Power, shownTab;
         Politics shownModel;
         string shownSelected, moreWord = "more";
-        float shownYear = float.NaN, shownPinned = float.NaN, placedTop = -1, maxHeight = Height;
-        Vector2 placedCanvas;
-        bool dirty = true, laidOut, placedPortrait;
+        float shownYear = float.NaN, shownPinned = float.NaN, maxHeight = Height;
+
+        /// <summary>Where the panel was placed (canvas units from the top-left: its corner, its width and the most height it
+        /// may take), in which orientation and with the portrait sheet open or not, so it is placed again only when one of
+        /// them moves.</summary>
+        UiBox placed = UiBox.Empty;
+
+        bool dirty = true, laidOut, placedPortrait, placedOpen;
+
+        /// <summary>The portrait sheet is open below its header row. It starts collapsed, so the view keeps the screen until
+        /// the viewer asks for the readings.</summary>
+        bool open;
 
         /// <summary>Rows the shown tab left out (the moments beyond the eight nearest the year), counted at the foot with those
         /// the panel's room hides.</summary>
@@ -122,12 +160,20 @@ namespace Why.Economy.UI
         {
             root = graphRoot;
             Canvas canvas = UiFactory.CreateCanvas("Who holds power", 47, transform);
-            panel = UiFactory.Panel(canvas.transform, "Politics", EconomyStyle.Roles.Encoded(EconomyStyle.Roles.InkBacking)).rectTransform;
-            HudBlocks.Register(panel);    // the hills' labels keep out from under it
-            heading = Text("Title", 15, Ink);
+            canvasRect = (RectTransform)canvas.transform;
+            backing = UiFactory.Panel(canvas.transform, "Politics", Backing);
+            panel = backing.rectTransform;
+            // the hills' labels keep out from under it: the panel's box, so the collapsed portrait sheet's header row alone
+            HudBlocks.Register(panel);
+            heading = Text(panel, "Title", 15, Ink);
             heading.text = "<b>WHO HOLDS POWER</b>";
-            yearLine = Text("Year", 12, Ink);
-            more = Text("More", 9.5f, Dim);
+            yearLine = Text(panel, "Year", 12, Ink);
+            // one line each, as the portrait header row holds them beside the steps
+            heading.textWrappingMode = yearLine.textWrappingMode = TextWrappingModes.NoWrap;
+            heading.overflowMode = yearLine.overflowMode = TextOverflowModes.Ellipsis;
+            body = UiFactory.Rect(panel, "Sheet");
+            body.Fill();
+            more = Text(body, "More", 9.5f, Dim);
             HillPoliticsLayer.Changed += OnChanged;
             // hidden until the view is shown, so it never stands empty over the loading screen
             panel.gameObject.SetActive(false);
@@ -137,14 +183,18 @@ namespace Why.Economy.UI
 
         void OnDestroy() => HillPoliticsLayer.Changed -= OnChanged;
 
-        /// <summary>The year controls, the tabs and the tabs' pools, once the data gives the span the decade buttons cover.</summary>
+        /// <summary>The year controls, the tabs and the tabs' pools, once the data gives the span the decade buttons cover. The
+        /// steps and the portrait sheet's button stand in the header row; the rest in the sheet below it.</summary>
         void Make(Politics model)
         {
             prev = UiFactory.Button(panel, "Previous year", "", 10.5f, () => Step(-1));
             prevLabel = Label(prev);
             next = UiFactory.Button(panel, "Next year", "", 10.5f, () => Step(1));
             nextLabel = Label(next);
-            follow = UiFactory.Button(panel, "Follow the chip", "", 10.5f, () => HillPoliticsLayer.Pin(float.NaN));
+            toggle = UiFactory.Button(panel, "Open or close", "", 10.5f, () => open = !open);
+            toggleBack = (Image)toggle.targetGraphic;
+            toggleLabel = Label(toggle);
+            follow = UiFactory.Button(body, "Follow the chip", "", 10.5f, () => HillPoliticsLayer.Pin(float.NaN));
             followBack = (Image)follow.targetGraphic;
             followLabel = Label(follow);
             // the whole decades within the span: from 1950, which is also the year chip's first year
@@ -154,7 +204,7 @@ namespace Why.Economy.UI
                 for (int d = Mathf.CeilToInt(model.From / 10) * 10; d <= last && decades.Count < 10; d += 10)
                 {
                     int decade = d;
-                    var b = UiFactory.Button(panel, "Decade " + d, d.ToString(LandFacts.Ci), 10.5f, () => HillPoliticsLayer.Pin(decade + .5f));
+                    var b = UiFactory.Button(body, "Decade " + d, d.ToString(LandFacts.Ci), 10.5f, () => HillPoliticsLayer.Pin(decade + .5f));
                     decades.Add((b, (Image)b.targetGraphic, Label(b), d));
                 }
             }
@@ -162,7 +212,7 @@ namespace Why.Economy.UI
             for (int i = 0; i < TabNames.Length; i++)
             {
                 var t = (Tab)i;
-                var b = UiFactory.Button(panel, "Tab " + TabNames[i], TabNames[i], 10.5f, () =>
+                var b = UiFactory.Button(body, "Tab " + TabNames[i], TabNames[i], 10.5f, () =>
                 {
                     tab = t;
                     dirty = true;
@@ -173,7 +223,7 @@ namespace Why.Economy.UI
             for (int i = 0; i < MaxRows; i++)
             {
                 int k = i;
-                var b = UiFactory.Button(panel, "Row " + i, "", 10.5f, () => Click(k));
+                var b = UiFactory.Button(body, "Row " + i, "", 10.5f, () => Click(k));
                 TextMeshProUGUI label = Label(b);
                 label.alignment = TextAlignmentOptions.Left;
                 label.textWrappingMode = TextWrappingModes.Normal;
@@ -182,7 +232,7 @@ namespace Why.Economy.UI
                 rows.Add(new Row { Button = b, Back = (Image)b.targetGraphic, Label = label });
             }
 
-            for (int i = 0; i < MaxBlocks; i++) blocks.Add(Text("Block " + i, 9.5f, Dim));
+            for (int i = 0; i < MaxBlocks; i++) blocks.Add(Text(body, "Block " + i, 9.5f, Dim));
         }
 
         /// <summary>The year before or after the one shown, pinned at its middle, where the research stands a year's measures
@@ -227,34 +277,54 @@ namespace Why.Economy.UI
         }
 
         /// <summary>
-        /// Where the panel stands: in landscape the right column under the year chip and its readout, in portrait a sheet along
-        /// the bottom, as the history and regimes panels stand; placed again only when the screen or the chip's readout moved.
+        /// Where the panel stands, measured against the HUD's blocks as they are now (the preset bar wraps to the screen, the
+        /// legend to the view's key) and placed again only when that moved: in landscape the right column under the year
+        /// chip and its readout (<see cref="Column"/>), in portrait a sheet across the screen (<see cref="Sheet"/>). Allocates
+        /// nothing.
         /// </summary>
         void Dock()
         {
-            bool portrait = ScreenLayout.IsPortrait;
-            Vector2 canvas = UiFactory.CanvasSize;
-            float top = portrait ? 0 : EconomyUiLayout.SideColumnTop;
-            if (portrait == placedPortrait && canvas == placedCanvas && top == placedTop) return;
-            placedPortrait = portrait;
-            placedCanvas = canvas;
-            placedTop = top;
-            if (portrait)
+            hud ??= new HudBlocks(root);
+            HudFrame f = hud.Measure(canvasRect, UiFactory.CanvasSize);
+            UiBox box = f.Portrait ? Sheet(f) : Column(f);
+            if (f.Portrait == placedPortrait && open == placedOpen && box.Near(placed)) return;
+            if (f.Portrait != placedPortrait)
             {
-                panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(.5f, 0);
-                panel.anchoredPosition = new Vector2(0, 8);
-                panel.sizeDelta = new Vector2(Mathf.Min(Width, canvas.x - 16), panel.sizeDelta.y);
-                maxHeight = Mathf.Min(Height, canvas.y * .5f);
-            }
-            else
-            {
-                panel.anchorMin = panel.anchorMax = panel.pivot = new Vector2(1, 1);
-                panel.anchoredPosition = new Vector2(-18, -top);
-                panel.sizeDelta = new Vector2(Width, panel.sizeDelta.y);
-                maxHeight = Mathf.Min(Height, canvas.y - top - 54);
+                // the portrait header row centres the title and the year on its buttons; the year line reads differently there
+                heading.alignment = f.Portrait ? TextAlignmentOptions.Left : TextAlignmentOptions.TopLeft;
+                yearLine.alignment = f.Portrait ? TextAlignmentOptions.Center : TextAlignmentOptions.TopLeft;
+                dirty = true;
             }
 
+            placedPortrait = f.Portrait;
+            placedOpen = open;
+            placed = box;
+            Place(panel, box.X, box.Y, box.W, panel.sizeDelta.y);
+            maxHeight = box.H;
+            backing.color = f.Portrait && open ? SheetBacking : Backing;
             laidOut = false;
+        }
+
+        /// <summary>The landscape column: at the right edge under the year chip and its readout, as tall as its content up to
+        /// <see cref="Height"/>, and never past the first of the HUD's bottom blocks in its column (the preset bar).</summary>
+        static UiBox Column(HudFrame f)
+        {
+            float top = EconomyUiLayout.SideColumnTop, right = f.Canvas.x - ColumnInset;
+            return new UiBox(right - Width, top, Width, Mathf.Min(Height, EconomyUiLayout.RoomBelow(f, top, right - Width, right) - top));
+        }
+
+        /// <summary>
+        /// The portrait sheet, across the screen between the margins. Collapsed, its header row stands just above the HUD's
+        /// bottom blocks (the legend and the preset bar), where the view's own screen ends. Open, it runs from there down to
+        /// the bottom margin over those blocks, as the economy's portrait sheets do, so it covers none of the view; the header
+        /// rises only where that leaves less than <see cref="SheetRoom"/>. Never above the title and the year chip.
+        /// </summary>
+        UiBox Sheet(HudFrame f)
+        {
+            float floor = Mathf.Max(EconomyUiLayout.TitleBottom(f), EconomyControls.Occupied.Bottom) + f.Gap, bottom = EconomyUiLayout.SheetBottom(f);
+            float header = Mathf.Max(floor, EconomyUiLayout.RoomBelow(f, floor, f.Margin, f.Canvas.x - f.Margin) - HeaderHeight);
+            float top = open ? Mathf.Max(floor, Mathf.Min(header, bottom - SheetRoom)) : header;
+            return new UiBox(f.Margin, top, f.Canvas.x - 2 * f.Margin, open ? bottom - top : HeaderHeight);
         }
 
         /// <summary>The header, the controls' marks and the shown tab's rows and blocks for the year, the pin and the selection.</summary>
@@ -267,8 +337,14 @@ namespace Why.Economy.UI
             else if (float.IsNaN(year)) yearLine.text = "The view has no year yet.";
             else
             {
-                sb.Clear().Append("<b>").Append(When(year)).Append("</b>  <size=85%><alpha=#B0>").Append(model.Name).Append(" · ")
-                    .Append(float.IsNaN(pinned) ? "the year chip's year" : "pinned").Append("</size>");
+                // in portrait the year stands alone between its steps, and the follow button in the sheet says whether it is pinned
+                sb.Clear().Append("<b>").Append(When(year)).Append("</b>");
+                if (!placedPortrait)
+                {
+                    sb.Append("  <size=85%><alpha=#B0>").Append(model.Name).Append(" · ").Append(float.IsNaN(pinned) ? "the year chip's year" : "pinned")
+                        .Append("</size>");
+                }
+
                 yearLine.text = sb.ToString();
                 MarkControls(model, year, pinned);
                 switch (tab)
@@ -534,9 +610,10 @@ namespace Why.Economy.UI
         }
 
         /// <summary>The key moments within a few years of the year (the eight nearest it), newest first, those after it dimmed;
-        /// the one the view is pinned to is told in the research's words above them. Only moments within the data's span are
-        /// listed: the view draws none before it, and a row's pin to an earlier date (Bretton Woods, 1944) would land on the
-        /// span's first day, its moment never marked.</summary>
+        /// the one the view is pinned to is told in the research's words above them. The note says where the view draws them,
+        /// as sparks on the government's track (the presidency through time) and not on a party's stream, so a moment is not
+        /// read as one party's act. Only moments within the data's span are listed: the view draws none before it, and a row's
+        /// pin to an earlier date (Bretton Woods, 1944) would land on the span's first day, its moment never marked.</summary>
         void MomentsTab(Politics p, float t, float pinned)
         {
             moments.Clear();
@@ -558,7 +635,8 @@ namespace Why.Economy.UI
             else
             {
                 sb.Append("Within ").Append(MomentYears).Append(" years of ").Append(When(t))
-                    .Append(", newest first; those after it dimmed. Pick one to show the view at its date.");
+                    .Append(", newest first; those after it dimmed. In the view each is a spark on the government's track (the presidency")
+                    .Append(" through time), not on a party. Pick one to show the view at its date.");
             }
 
             AddBlock(sb.ToString(), false);
@@ -692,7 +770,9 @@ namespace Why.Economy.UI
 
         /// <summary>A party's key before its name: a square in the colour the view draws the party in (sRGB-encoded for text, as
         /// the legend's swatches are), so the panel's parties read in the view's colours, left before right as the view
-        /// stands them; none for an id the data has no party of.</summary>
+        /// stands them; none for an id the data has no party of. The colour is the palette's role itself
+        /// (<see cref="HillPoliticsLayer.PartyColor"/> returns it), read at every refresh and never kept, so a change of the
+        /// role reaches the panel as it reaches the view and the legend.</summary>
         static string Swatch(Politics p, string party) =>
             p.PartyById(party) == null ? "" : "<color=#" + UiFactory.Hex(EconomyStyle.Roles.Encoded(HillPoliticsLayer.PartyColor(party))) + ">■</color> ";
 
@@ -787,29 +867,54 @@ namespace Why.Economy.UI
 
         /// <summary>
         /// Places the controls across the panel's width and the shown tab top down by their measured heights, as far as the
-        /// panel's room goes: what does not fit is hidden and its rows counted at the foot ("+3 earlier"); the panel then ends
-        /// under the last thing shown, so a short tab leaves the column below it to the view.
+        /// panel's room goes: what does not fit is hidden and its rows counted at the foot ("+3 earlier"). The landscape
+        /// column then ends under the last thing shown, so a short tab leaves the column below it to the view; the open
+        /// portrait sheet keeps its whole height, so it covers the HUD's bottom blocks whole rather than cut a row of the
+        /// preset bar, and the collapsed one is its header row alone.
         /// </summary>
         void Layout()
         {
             laidOut = true;
-            float w = panel.sizeDelta.x - 2 * Pad, y = ContentTop;
-            Place(heading.rectTransform, Pad, 10, w, 22);
-            Place(yearLine.rectTransform, Pad, 32, w, 20);
-            if (rows.Count == 0)
+            float w = panel.sizeDelta.x - 2 * Pad;
+            bool made = rows.Count > 0;
+            if (placedPortrait) HeaderRow(w, made);
+            else
+            {
+                Place(heading.rectTransform, Pad, 10, w, 22);
+                Place(yearLine.rectTransform, Pad, 32, w, 20);
+            }
+
+            if (!made)
             {
                 more.gameObject.SetActive(false);
-                Resize(58);
+                Resize(placedPortrait ? HeaderHeight : 58);
                 return;
             }
 
-            Place((RectTransform)prev.transform, Pad, ControlsTop, StepWidth, 24);
-            Place((RectTransform)next.transform, Pad + StepWidth + Gap, ControlsTop, StepWidth, 24);
-            Place((RectTransform)follow.transform, Pad + 2 * (StepWidth + Gap), ControlsTop, w - 2 * (StepWidth + Gap), 24);
+            bool sheet = !placedPortrait || open;
+            toggle.gameObject.SetActive(placedPortrait);
+            body.gameObject.SetActive(sheet);
+            if (!sheet)
+            {
+                Resize(HeaderHeight);
+                return;
+            }
+
+            // in portrait the steps stand in the header row: the follow button has the controls' row to itself, and it and all
+            // below it rise by the height the one-row header saves over the title and year lines
+            float rise = placedPortrait ? ControlsTop - HeaderHeight : 0, y = ContentTop - rise;
+            if (placedPortrait) Place((RectTransform)follow.transform, Pad, ControlsTop - rise, w, 24);
+            else
+            {
+                Place((RectTransform)prev.transform, Pad, ControlsTop, StepWidth, 24);
+                Place((RectTransform)next.transform, Pad + StepWidth + Gap, ControlsTop, StepWidth, 24);
+                Place((RectTransform)follow.transform, Pad + 2 * (StepWidth + Gap), ControlsTop, w - 2 * (StepWidth + Gap), 24);
+            }
+
             float dw = (w - Gap * (decades.Count - 1)) / Mathf.Max(1, decades.Count);
-            for (int i = 0; i < decades.Count; i++) Place((RectTransform)decades[i].button.transform, Pad + i * (dw + Gap), DecadesTop, dw, 22);
+            for (int i = 0; i < decades.Count; i++) Place((RectTransform)decades[i].button.transform, Pad + i * (dw + Gap), DecadesTop - rise, dw, 22);
             float tw = (w - Gap * (tabs.Count - 1)) / tabs.Count;
-            for (int i = 0; i < tabs.Count; i++) Place((RectTransform)tabs[i].button.transform, Pad + i * (tw + Gap), TabsTop, tw, 24);
+            for (int i = 0; i < tabs.Count; i++) Place((RectTransform)tabs[i].button.transform, Pad + i * (tw + Gap), TabsTop - rise, tw, 24);
 
             float bottom = maxHeight - 10;
             int hidden = leftOut;
@@ -847,7 +952,31 @@ namespace Why.Economy.UI
                 y += MoreHeight;
             }
 
-            Resize(y + 6);
+            Resize(placedPortrait ? maxHeight : y + 6);
+        }
+
+        /// <summary>The portrait header row: the title at the left; at the right the year between its steps and the button that
+        /// opens and closes the sheet. Before the data, the year's line takes the right half to say there is none.</summary>
+        void HeaderRow(float w, bool made)
+        {
+            float x = Pad + w * .5f;
+            if (made)
+            {
+                toggleLabel.text = open ? "Hide ▼" : "More ►";
+                Mark(toggleBack, toggleLabel, open, true);
+                x = Pad + w - ToggleWidth;
+                Place((RectTransform)toggle.transform, x, HeaderTop, ToggleWidth, 24);
+                x -= 2 * Gap + HeaderStep;
+                Place((RectTransform)next.transform, x, HeaderTop, HeaderStep, 24);
+                x -= Gap + YearWidth;
+                Place(yearLine.rectTransform, x, HeaderTop, YearWidth, 24);
+                x -= Gap + HeaderStep;
+                Place((RectTransform)prev.transform, x, HeaderTop, HeaderStep, 24);
+                x -= 2 * Gap;
+            }
+            else Place(yearLine.rectTransform, x, HeaderTop, Pad + w - x, 24);
+
+            Place(heading.rectTransform, Pad, HeaderTop, x - Pad, 24);
         }
 
         void Resize(float height) => panel.sizeDelta = new Vector2(panel.sizeDelta.x, Mathf.Min(maxHeight, height));
@@ -869,9 +998,16 @@ namespace Why.Economy.UI
             label.color = on ? Ink : Dim;
         }
 
-        static TextMeshProUGUI Label(Button b) => b.GetComponentInChildren<TextMeshProUGUI>();
+        /// <summary>A button's label, found even under the collapsed portrait sheet.</summary>
+        static TextMeshProUGUI Label(Button b) => b.GetComponentInChildren<TextMeshProUGUI>(true);
 
-        TextMeshProUGUI Text(string name, float size, Color color) => UiFactory.Text(panel, name, "", size, color);
+        static TextMeshProUGUI Text(Transform parent, string name, float size, Color color) => UiFactory.Text(parent, name, "", size, color);
+
+        static Color WithAlpha(Color c, float a)
+        {
+            c.a = a;
+            return c;
+        }
 
         static void Place(RectTransform r, float x, float y, float width, float height)
         {

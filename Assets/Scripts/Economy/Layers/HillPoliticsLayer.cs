@@ -16,30 +16,36 @@ namespace Why.Economy.Layers
     /// <summary>
     /// Who holds power (Docs/hills-design/POLITICS.md; the user's seventh direction, 7 Nov 2026, verbatim in
     /// Docs/research/advantage/brief-v5.md): the government of the United States since 1945 in the history view's point-cloud
-    /// language, seen from the future down the time axis, the shown year a cross-section and the past receding behind it.
+    /// language, the shown year a cross-section and the past receding behind it. The camera looks straight from the future and a
+    /// little from above, so the cross-section faces it square and both parties draw at one scale; the past is set back along
+    /// a slant (<see cref="Shear"/>), so the decades run back to the screen's left and up, fading, and the parties' rise and
+    /// fall reads along them. The camera is fitted to the shell, the parties and the trade partners in the screen the HUD's
+    /// blocks, the panel and the portrait cards leave free.
     /// <list type="bullet">
     /// <item><b>The parties</b> are streams of dot rings through time, the Democrats on the screen's left (the political left
     /// takes +x, which a camera from the future sees on its left) and the Republicans on its right, each as high as its power
     /// by the stated rule (<see cref="Politics.PowerRule"/>: the presidency and each chamber's share of seats) and as wide as
     /// the votes it won in the last national election, faint and thin before the first one measured. A change of power eases
     /// over a tenth of a year, so it reads as a step rather than a cliff.</item>
-    /// <item><b>Key moments</b> (laws, regulations, trade actions, monetary turns, treaties and conflicts) are sparks on the
-    /// stream of the president's party at their dates, each with a strand straight down to the floor of no power: the
-    /// topology the economy adapts to. The latest few are named beside that party's head.</item>
+    /// <item><b>The presidency</b> is a thin track through time between them at the executive's height, term by term in the
+    /// president's party colour. <b>Key moments</b> (laws, regulations, trade actions, monetary turns, treaties and
+    /// conflicts) are sparks on it at their dates, the recent ones with a strand straight down to the floor of no power: the
+    /// topology the economy adapts to, the government's doing rather than a party's. The latest few are named beside the
+    /// president.</item>
     /// <item><b>The cross-section</b> at the shown year: the president at the top centre and the offices cascading below by
     /// rank (the vice president; the Speaker and the Senate's leader; State, the Treasury and Defense; the Chairman of the
     /// Joint Chiefs standing on the army's shell), each a body in its holder's party colour (an appointee whose party the
     /// research takes from the appointing president in the administration's colour, and named as serving in it, never as a
-    /// member; the military in the state's slate), and the parties' heads at their streams' ends, sized by their votes, with
-    /// lobes for their House and Senate seats.</item>
+    /// member; the military in the state's slate), and the parties' heads at their streams' ends outside the cascade, sized
+    /// by their votes, with lobes for their House and Senate seats.</item>
     /// <item><b>The standing army</b> rings the country as a shell of dots as thick as its share of the world's military
     /// spending, NATO's share a fainter layer outside it, walled by Jev's judgments of its sources of advantage (command of
     /// the sea, nuclear weapons, alliances, spending); the rival powers stand beyond it on the right as shells of their
     /// own.</item>
-    /// <item><b>Trade</b> crosses the shell under the sea-control wall to the partners on the left and below: goods out and
-    /// goods in as two lanes of packets as wide as their dollars, the money paid for the deficit as a thin lane, and the
-    /// deficit itself the hatched gap where the lanes cross the shell. Before partners are measured, one lane runs to the
-    /// world.</item>
+    /// <item><b>Trade</b> runs from the country's edge through the shell under the sea-control wall to the partners on the
+    /// lower left: goods out and goods in as two slim lanes of packets either side of the path, as wide as their dollars, the
+    /// money paid for the deficit as a thin lane between them, and the deficit itself the hatched gap where the lanes cross
+    /// the shell. Before partners are measured, one lane runs to the world.</item>
     /// </list>
     /// What moves at a frozen year (the goods and money of trade, the people along the streams, the chain of command) is a
     /// packet lane on the flow clock (<see cref="PacketMeshBuilder"/>, <see cref="FlowClock"/>), built once per rebuild, each
@@ -78,8 +84,10 @@ namespace Why.Economy.Layers
         /// <summary>The power axis: a party holding all the power the rule counts stands this high above the floor.</summary>
         const float PowerHeight = 60;
 
-        /// <summary>How far each party's stream stands from the middle: wide enough for the cascade's lines between them.</summary>
-        const float PartyX = 34;
+        /// <summary>How far each party's stream stands from the middle: outside the cascade's widest line (State, the Treasury
+        /// and Defense 24 units either side, their names below them) and the Speaker's and the Senate leader's names, so the
+        /// heads and their names, which stand outside them, keep clear of the officers' names.</summary>
+        const float PartyX = 50;
 
         /// <summary>Votes per unit of a stream's radius: 80 million votes draw a ring 14 units across.</summary>
         const float VotesPerUnit = 80e6f / 7;
@@ -91,10 +99,25 @@ namespace Why.Economy.Layers
         /// is read this long before it.</summary>
         const float Ease = .1f, Before = .001f;
 
-        /// <summary>The army's shell: its centre's height, its inner radius (just outside the cross-section), its thickness for
-        /// the whole of the world's military spending (a share of 37% draws 9.6 units), and the thickness of a share not
-        /// measured (two faint circles).</summary>
-        const float ShellY = Floor + 24, ShellR = 64, ShareDepth = 26, Unmeasured = 1.2f;
+        /// <summary>
+        /// The view's time axis: a year back from the shown year stands this many times as deep as on the land
+        /// (<see cref="HillLandscape.Z"/>, about two units a year), the shown year's cross-section staying at its own plane.
+        /// At the three-quarter pose the land's own depth set 2025's 80 years in about 200 pixels, a four-year term in 9 or
+        /// 10, the decade marks atop one another and the past inside the shell; half as deep again, a term spans 13 to 22
+        /// pixels over the years shown and the oldest decades stand clear of the shell, while the fitted cross-section keeps
+        /// 97% of its size or more (twice as deep cost 2025 15% of it).
+        /// </summary>
+        const float TimeScale = 1.5f;
+
+        /// <summary>A stream's ring every this many units of the view's time axis (every two thirds of a year, three pixels
+        /// apart across the screen at the cross-section and two in the distance), dense enough that the rings read as a
+        /// tube.</summary>
+        const float RingEvery = 2;
+
+        /// <summary>The army's shell: its centre's height, its inner radius (outside the parties' heads with their seat lobes
+        /// at the most power a party has held, 84%), its thickness for the whole of the world's military spending (a share of
+        /// 37% draws 9.6 units), and the thickness of a share not measured (two faint circles).</summary>
+        const float ShellY = Floor + 24, ShellR = 74, ShareDepth = 26, Unmeasured = 1.2f;
 
         /// <summary>The shell's circles: one every this many units out, a dot every this many units around.</summary>
         const float RingStep = 1.2f, DotStep = 1.6f;
@@ -115,23 +138,27 @@ namespace Why.Economy.Layers
         const float SeatLobe = 5.2f;
 
         /// <summary>The rivals' shells beyond the US's, on the screen's right: their screen angles (degrees counter-clockwise
-        /// from the screen's right), how far out from the middle, and the empty core each stands around.</summary>
-        const float RivalUpper = 24, RivalLower = -24, RivalD = 116, RivalCore = 5;
+        /// from the screen's right), how far out from the middle (beyond the Republicans' name, which stands outside their head
+        /// between the two), and the empty core each stands around.</summary>
+        const float RivalUpper = 24, RivalLower = -24, RivalD = ShellR + 58, RivalCore = 5;
 
         /// <summary>Partner nodes: how far out from the middle (beyond the tallest walls and the walls' names, which stand
-        /// between them), their size, and how far from the middle their lanes start.</summary>
-        const float NodeR = 112, NodeSize = 2.4f, LaneStart = 10;
+        /// between them), their size, and how far inside the shell's inner edge their lanes start: at the country's edge, so
+        /// the lanes cross the shell without crossing the cross-section's middle.</summary>
+        const float NodeR = ShellR + 48, NodeSize = 2.4f, LaneInside = 8;
 
         /// <summary>The partners in the research (Politics.Partners' keys), the names labels give them, and their screen angles:
-        /// left and below, away from the rivals, in a fixed order so a node stays put across years.</summary>
+        /// on the lower left, away from the rivals, below the Democrats' name and the past receding above it, and no lower
+        /// than the shell's reach so they stay in the screen the camera fits it to; in a fixed order so a node stays put across
+        /// years.</summary>
         static readonly (string id, string name, float angle)[] PartnerSeats =
         {
-            ("canada", "Canada", 150), ("eu", "European Union", 171), ("germany", "Germany", 192), ("japan", "Japan", 213),
-            ("mexico", "Mexico", 234), ("china", "China", 255),
+            ("canada", "Canada", 192), ("eu", "European Union", 200), ("germany", "Germany", 208), ("japan", "Japan", 216),
+            ("mexico", "Mexico", 224), ("china", "China", 232),
         };
 
-        /// <summary>The screen angle of the lane to the world, drawn before partners are measured.</summary>
-        const float WorldAngle = 195;
+        /// <summary>The screen angle of the lane to the world, drawn before partners are measured: the partners' middle.</summary>
+        const float WorldAngle = 212;
 
         /// <summary>Where the shell's labels stand (screen angles): the forces' low on the right, clear of the cascade's names
         /// and the trade lanes; NATO's high on the right, clear of the president's name and the rivals'.</summary>
@@ -144,23 +171,100 @@ namespace Why.Economy.Layers
         /// fps of a gap a frame): a flow's size is its lane's width, never its rate.</summary>
         const float GoodsRate = 1.5f, MoneyRate = .8f, PeopleRate = 1.2f, PromiseRate = 1.6f;
 
-        /// <summary>Trade lanes: world units of width per million dollars a year (a unit for $100bn), and the gap between the
-        /// two directions.</summary>
-        const float WidthPerMillion = 1e-5f, LaneGap = .6f;
+        /// <summary>Trade lanes: world units of width per million dollars a year (0.3 units for $100bn, so the data's widest
+        /// flow, the European Union's $633bn of goods in 2024, draws 1.9 units: slim lanes, not slabs, in proportion to the
+        /// last dollar), and the gap between the two directions, where the money paid for a deficit runs.</summary>
+        const float WidthPerMillion = 3e-6f, LaneGap = 1.2f;
 
-        /// <summary>Moments this many years before the shown year spark brighter and are named beside the president's party.</summary>
+        /// <summary>Moments this many years before the shown year spark brighter and are named beside the president.</summary>
         const float NamedYears = 3;
 
-        /// <summary>The most moments named at once, the newest first: a longer list would run into the trade lanes below.</summary>
+        /// <summary>The most moments named at once, the newest first: a longer list would run down past the vice president.</summary>
         const int NamedMoments = 6;
 
         /// <summary>A partner is drawn when one of its benchmarks stands this many years from the shown year (the nearest is).</summary>
         const float PartnerYears = 3;
 
-        /// <summary>The free screen across its width: right of the portrait cards (24 + 330 of 1920 pixels and a margin), left
-        /// of the panel's column; and the pose, from the future down the time axis, a little from above so the streams' past
-        /// rises behind the heads.</summary>
-        const float FreeRight = .70f, FreeLeft = .20f, Yaw = 180, Pitch = 6;
+        /// <summary>
+        /// The pose: straight from the future, 15 degrees from above. The cross-section faces the camera square, so the two
+        /// parties stand at one depth and draw at one scale: a camera turned 30 degrees toward the Democrats' side drew their
+        /// nearer head a tenth to a sixth larger, enough to reverse 2024's close popular vote on screen. The past is set back
+        /// along a slant instead (<see cref="Shear"/>).
+        /// </summary>
+        const float Yaw = 180, Pitch = 15;
+
+        /// <summary>
+        /// The time axis's slant: a time standing a unit back from the shown year's plane stands this far toward +x too, the
+        /// screen's left seen from the future, so the past recedes to the screen's left and up (with <see cref="Pitch"/>)
+        /// behind the cross-section, the present on the right as a chart reads, while the cross-section stays square to the
+        /// camera. 0.6 opens the decades as far as the 30-degree turn did.
+        /// </summary>
+        const float Shear = .6f;
+
+        /// <summary>
+        /// The past fades: a stream's rings, the track and the sparks a time stands this many years before the shown year draw
+        /// at <see cref="PastAlpha"/> of their own alpha (eased from the shown year's whole; the track and the sparks keep at
+        /// least half), so the present reads first and the decades the slant sets behind the cascade stay faint. A moment more
+        /// than <see cref="StrandYears"/> before the shown year keeps its spark but not its strand to the floor: 56 strands by
+        /// 2025 hung a curtain over the streams.
+        /// </summary>
+        const float FadeYears = 20, PastAlpha = .25f, StrandYears = 8;
+
+        /// <summary>The decade marks along the track: every decade over a span this long or shorter, every second one over a
+        /// longer span, where a decade's mark would stand on its neighbour's in the distance.</summary>
+        const float EveryDecadeSpan = 40;
+
+        /// <summary>
+        /// The portrait cards' column as <see cref="HistoryPopups"/> lays it out (canvas units: its left, its top, a card's
+        /// width and height, the gap between cards), which the camera's fit keeps clear of; and how many cards stand in it:
+        /// the president and the three most senior holders on a landscape screen, at most the president's on a portrait one,
+        /// where four tall cards would cover the view.
+        /// </summary>
+        const float CardLeft = 24, CardTop = 176, CardWidth = 330, CardHeight = 96, CardGap = 10;
+
+        const int LandscapeCards = 4;
+
+        /// <summary>
+        /// The camera's fit (<see cref="FlyToState"/>): the screen's margin and the gap kept from each of the HUD's blocks
+        /// (pixels at 1080p), the share of the screen's height within which a block standing against its top or bottom edge
+        /// bounds the view's whole width (the title, the year chip, the preset bar: the view stands between them, never
+        /// beside the title), and the least side a free rect may have.
+        /// </summary>
+        const float ScreenMargin = 16, BlockGap = 12, EdgeBand = .08f, MinFree = 120;
+
+        /// <summary>The fit's passes (each scales the distance to the free rect, then centres the essentials in it; six come
+        /// within a pixel, perspective and all), the distances it may choose between, and the points the shell's reach is
+        /// sampled at.</summary>
+        const int FitPasses = 6, ReachPoints = 24;
+
+        const float MinDistance = 110, MaxDistance = 3000;
+
+        /// <summary>Free rects whose essentials' scales differ by less than this are equals, and the larger is taken.</summary>
+        const float Tie = 1e-3f;
+
+        /// <summary>
+        /// The room names take beyond their anchors (pixels at 1080p): a party's, the longest reading ("Republicans 76% of
+        /// power", "votes not measured before 1948") at the name role's 15 pixels, and half its two lines' height; half the
+        /// title's line at the title role's 18; and a decade mark's height above the presidency's track.
+        /// </summary>
+        const float PartyNamePx = 210, NameHalfPx = 19, TitleHalfPx = 14, DecadePx = 16;
+
+        /// <summary>
+        /// The room a trade node's name takes toward the screen's left of its anchor (pixels at 1080p, at the note role's 12):
+        /// a partner's ("European Union", "US deficit $220bn (2025)", 115 pixels in v1's frames) and the world's, broken as a
+        /// partner's is ("The world", "US surplus $4.7bn (1965)", "by partner from 1985": on one line it took 205 pixels and
+        /// set the whole view's width on a portrait screen), and half their lines' height. The camera fits them, as v1's did:
+        /// the nodes stand at the essentials' lower left, so a name left out ran onto the legend and was dropped.
+        /// </summary>
+        const float PartnerNamePx = 125, WorldNamePx = 125, NodeHalfPx = 16, WorldHalfPx = 24;
+
+        /// <summary>The frames the HUD's blocks must hold still before the camera fits them again: a sheet opening or a panel
+        /// sliding in is fitted once it stands, not chased.</summary>
+        const int HudSettleFrames = 8;
+
+        /// <summary>The decade marks along the presidency's track stop this many years before the shown year, where the
+        /// president and the latest moments' names stand.</summary>
+        const float DecadeClear = 4;
 
         /// <summary>The research's words for a party it infers rather than states: a cabinet secretary's from the appointing
         /// president, a chamber leader's from the chamber's majority (Tools/politics/build.py).</summary>
@@ -220,7 +324,7 @@ namespace Why.Economy.Layers
                 ("The state: forces, laws, rules", Roles.Encoded(Roles.State)), ("Trade", Roles.Encoded(Roles.Commerce)),
                 ("Money: deficits, monetary turns", Roles.Encoded(Roles.Owners)), ("War and treaties", Roles.Encoded(Roles.Conflict)),
             },
-            "Left to right, the parties; up, their power by the stated rule (the presidency and each chamber's share of seats); ring width, the votes they won (faint before the first election measured); back, time. Sparks: laws, regulations, trade actions, monetary turns, treaties and wars, each with a strand to the floor. The dotted shell: the armed forces, as thick as their share of world military spending (NATO's fainter outside), walled by Jev's judgments, the sea wall over the trade lanes (freedom of navigation). Lanes: trade with each partner, goods both ways, the deficit hatched.");
+            "Left to right, the parties; up, their power by the stated rule (the presidency and each chamber's share of seats); ring width, the votes they won (faint before the first election measured); back and to the left, time, fading, by decade. The middle track: the presidency, term by term in the president's party colour; its sparks are the key moments (laws, regulations, trade actions, monetary turns, treaties, wars), the last eight years' with a strand to the floor. The dotted shell: the armed forces, as thick as their share of world military spending (NATO's fainter outside), walled by Jev's judgments, the sea wall over the trade lanes (freedom of navigation). Lanes: trade with each partner from the country's edge, goods out and in either side, the deficit hatched.");
 
         Politics model, builtModel, changesFor;
         GameObject content;
@@ -235,11 +339,40 @@ namespace Why.Economy.Layers
         float[] changes = Array.Empty<float>();
         bool dirty = true, labelsShown, executiveDrawn;
         float builtYear = float.NaN, announcedYear = float.NaN, poseDistance = 330;
-        int streamRings;
+        int streamRings, trackTerms;
         string builtSelected;
-        Vector3 outlineEye, lastEye, arenaMin, arenaMax;
+        Vector3 outlineEye, lastEye;
         List<string> states = new List<string>();
         Scene scene;
+
+        /// <summary>
+        /// What the camera fits (<see cref="FlyToState"/>): the essentials, each a point in the content's frame and the room
+        /// its name takes around it in pixels at 1080p (left, right, down, up). Built with the labels, once per rebuild.
+        /// </summary>
+        readonly List<Vector3> fitAt = new List<Vector3>(ReachPoints + 16);
+
+        readonly List<Vector4> fitRoom = new List<Vector4>(ReachPoints + 16);
+
+        /// <summary>The HUD's blocks as the labels keep out of them (screen pixels, origin bottom-left), the cards' column with
+        /// them, and the free rect's candidate edges: filled again at each fit, never allocated after the first.</summary>
+        readonly List<Rect> hudRects = new List<Rect>(32), obstacles = new List<Rect>(33);
+
+        readonly List<float> lefts = new List<float>(34), rights = new List<float>(34), lows = new List<float>(34), highs = new List<float>(34);
+
+        /// <summary>The camera's axes at the view's pose (in the content's frame) and its half-angle tangents and pixels,
+        /// read at each fit.</summary>
+        Vector3 camRight, camUp, camFwd;
+
+        float tanV, tanH, screenW, screenH;
+
+        /// <summary>The portrait cards shown (decided at each fit), the essentials' box on screen at the last fit, the HUD's
+        /// blocks as that fit measured them, and a change of them waiting to hold still (<see cref="HudSettleFrames"/>).</summary>
+        int shownCards, fittedHud, settlingHud, settling;
+
+        Rect fittedBox;
+
+        /// <summary>The pose the camera last flew to for this view (world), which a refit for the HUD compares with.</summary>
+        CameraPose flown;
 
         /// <summary>The ids the parties' bodies are built under (see <see cref="FacingId"/>).</summary>
         static readonly Dictionary<string, string> facingIds = new Dictionary<string, string>();
@@ -291,7 +424,6 @@ namespace Why.Economy.Layers
         sealed class Partner
         {
             public string Id, Select, Name;
-            public float Angle;
             public Vector3 Node;
             public Politics.PartnerYear Year;
         }
@@ -307,7 +439,11 @@ namespace Why.Economy.Layers
             public double UsShare = double.NaN, NatoShare = double.NaN;
             public Politics.Point UsPoint, NatoPoint;
             public int NatoMembers;
-            public float UsThick, NatoThick, OuterR, WallR;
+
+            /// <summary>The shell's layers and walls by their radii; Reach is the walls' outer edge all round (the essentials'
+            /// circle, with the title above it).</summary>
+            public float UsThick, NatoThick, OuterR, WallR, Reach;
+
             public readonly List<Rival> Rivals = new List<Rival>();
             public readonly List<Politics.Wall> Walls = new List<Politics.Wall>();
             public readonly List<Partner> Partners = new List<Partner>();
@@ -392,12 +528,12 @@ namespace Why.Economy.Layers
             Changed?.Invoke();
         }
 
+        /// <summary>Flies to the year shown, which also shows the portrait cards the fit leaves room for.</summary>
         public override void OnFocus(ViewPreset preset)
         {
             if (preset == null || preset.Id != View) return;
             dirty = true;
             FlyToState(SmokeRun ? 0 : 1.4f);
-            ShowPopups();
         }
 
         void OnDestroy()
@@ -441,6 +577,23 @@ namespace Why.Economy.Layers
                     // view opened: the camera fits it
                     if (chipMoved || loaded) FlyToState(SmokeRun ? 0 : .8f);
                 }
+            }
+
+            // the HUD's blocks moved (the panel shows a frame after the view, a portrait sheet opens, a tour's card comes, the
+            // screen turns): once they have held still a few frames, the camera fits the screen they leave. A drawing still
+            // waiting for its turn to rebuild (HillRebuilds) waits: that rebuild fits the camera itself, and a refit now would
+            // rebuild out of turn
+            int hud = MeasureHud();
+            if (hud == fittedHud) settling = 0;
+            else if (hud != settlingHud)
+            {
+                settlingHud = hud;
+                settling = 0;
+            }
+            else if (++settling >= HudSettleFrames && !Stale(year))
+            {
+                settling = 0;
+                FlyToState(SmokeRun ? 0 : .6f, refit: true);
             }
 
             // the outlines face the camera: rebuilt once it has settled somewhere new, never through a flight
@@ -492,6 +645,7 @@ namespace Why.Economy.Layers
             Changes();
             scene = Lay(year);
             Streams();
+            Track();
             Marks();
             Bodies();
             Army();
@@ -499,10 +653,27 @@ namespace Why.Economy.Layers
             Lanes();
             Outlines(Eye());
             MakeLabels();
+            Essentials();
             if (labelsShown) HillLabels.Set(this, labels);
             if (LandView.PresetId == View) ShowPopups();
             Changed?.Invoke();
         }
+
+        /// <summary>Where a time stands on the view's time axis: the shown year's plane, and the years before it
+        /// <see cref="TimeScale"/> times as deep as on the land.</summary>
+        static float Back(float shownZ, float t) => shownZ + TimeScale * (HillLandscape.Z(t) - shownZ);
+
+        /// <summary>A point of the past: at (x, y) in its time's plane on the view's time axis (<see cref="Back"/>), slanted
+        /// toward +x as far as it stands back (<see cref="Shear"/>), so the past recedes to the screen's left.</summary>
+        static Vector3 Past(float x, float y, float shownZ, float t)
+        {
+            float back = Back(shownZ, t);
+            return new Vector3(x + Shear * (shownZ - back), y, back);
+        }
+
+        /// <summary>How much of its own alpha a time draws with: whole at the shown year, <see cref="PastAlpha"/> from
+        /// <see cref="FadeYears"/> before it.</summary>
+        float Age(float t) => Mathf.Lerp(1, PastAlpha, Mathf.SmoothStep(0, 1, (scene.Year - t) / FadeYears));
 
         /// <summary>A mesh of lines under the content, alpha-blended and in object space; its renderer, mesh and material are
         /// the build's.</summary>
@@ -589,8 +760,8 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>Lays out the cross-section at a year: the president and the cascade, the parties' heads, the army and its
-        /// rivals and walls, the partners measured near the year (or the world), the moments up to it, and the extent the
-        /// camera fits.</summary>
+        /// rivals and walls, the partners measured near the year (or the world), and the moments up to it on the presidency's
+        /// track.</summary>
         Scene Lay(float year)
         {
             float z = HillLandscape.Z(year);
@@ -638,6 +809,7 @@ namespace Why.Economy.Layers
             s.OuterR = ShellR + s.UsThick + s.NatoThick;
             s.WallR = s.OuterR + 2.5f;
             s.Walls.AddRange(model.WallsAt(year));
+            s.Reach = s.WallR + s.Walls.Select(WallThickness).DefaultIfEmpty(0).Max();
 
             bool soviet = year < SovietEnd(model);
             AddRival(s, soviet ? "ussr" : "russia", soviet ? "Soviet Union" : "Russia", RivalUpper, soviet && model.WarsawPactAt(year));
@@ -649,47 +821,15 @@ namespace Why.Economy.Layers
                 if (!model.Partners.TryGetValue(id, out var rows)) continue;
                 var near = rows.Where(r => Mathf.Abs(r.T - year) <= PartnerYears).OrderBy(r => Mathf.Abs(r.T - year)).FirstOrDefault();
                 if (near == null) continue;
-                s.Partners.Add(new Partner { Id = id, Select = id == "china" ? "china-trade" : id, Name = name, Angle = angle, Node = s.Centre + ScreenDir(angle) * NodeR, Year = near });
+                s.Partners.Add(new Partner { Id = id, Select = id == "china" ? "china-trade" : id, Name = name, Node = s.Centre + ScreenDir(angle) * NodeR, Year = near });
             }
 
             s.WorldNode = s.Centre + ScreenDir(WorldAngle) * NodeR;
             if (s.Partners.Count == 0) s.World = model.TradeAt(year);
 
-            foreach (var m in model.MomentsBetween(model.From, year))
-            {
-                var party = model.PartyById(model.PresidentAt(m.Date)?.Party);
-                if (party == null) continue;
-                s.Moments.Add((m, new Vector3(X0 - party.Side * PartyX, Floor + PowerHeight * EasedPower(party.Id, m.Date), HillLandscape.Z(m.Date))));
-            }
-
-            // the extent the camera fits: the walls' reach, the rivals and the partners with the names beside them
-            float reach = s.WallR + 1.2f + 2.4f * s.Walls.Select(w => float.IsNaN(w.Height) ? 0 : w.Height).DefaultIfEmpty(0).Max() + 6;
-            arenaMin = s.Centre - new Vector3(reach, reach, 0);
-            arenaMax = s.Centre + new Vector3(reach, reach, 0);
-            foreach (var r in s.Rivals)
-            {
-                // the rival's name stands outside it, above the upper one and under the lower
-                float outer = RivalCore + r.Thick + r.PactThick, up = r.At.y > s.Centre.y ? 10 : 0;
-                Include(r.At - new Vector3(Mathf.Max(outer, 30), outer + 10 - up, 0), r.At + new Vector3(outer, outer + up, 0));
-            }
-
-            foreach (var p in s.Partners) IncludeNode(p.Node, p.Angle);
-            if (s.Partners.Count == 0) IncludeNode(s.WorldNode, WorldAngle);
+            // every moment on the presidency's track, whichever party held it: the government did them, not a party
+            foreach (var m in model.MomentsBetween(model.From, year)) s.Moments.Add((m, Past(X0, ExecY, z, m.Date)));
             return s;
-        }
-
-        /// <summary>Grows the extent the camera fits by a box.</summary>
-        void Include(Vector3 min, Vector3 max)
-        {
-            arenaMin = Vector3.Min(arenaMin, min);
-            arenaMax = Vector3.Max(arenaMax, max);
-        }
-
-        /// <summary>A partner's node in the extent, with its name: beside it toward the screen's left, or under it.</summary>
-        void IncludeNode(Vector3 node, float angle)
-        {
-            bool side = Mathf.Cos(angle * Mathf.Deg2Rad) < -.45f;
-            Include(node - new Vector3(side ? NodeSize : 24, NodeSize + 12, 0), node + new Vector3(side ? 40 : 24, NodeSize + 4, 0));
         }
 
         /// <summary>A rival power at its screen angle: its share and, while its pact stands, the pact's (which holds it) as the
@@ -718,8 +858,8 @@ namespace Why.Economy.Layers
         /// </summary>
         void Streams()
         {
-            float perYear = Mathf.Max(.5f, Mathf.Abs(HillLandscape.Z(model.From + 1) - HillLandscape.Z(model.From)));
-            var times = SampleTimes(scene.Year, 1.3f / perYear);
+            float perYear = TimeScale * Mathf.Max(.5f, Mathf.Abs(HillLandscape.Z(model.From + 1) - HillLandscape.Z(model.From)));
+            var times = SampleTimes(scene.Year, RingEvery / perYear);
             // sized to its content: at most 16 dots a ring, each a two-point dash
             var b = new LineMeshBuilder(times.Count * model.Parties.Count * 16 * 2);
             float id = Id(Part.Streams);
@@ -735,9 +875,9 @@ namespace Why.Economy.Layers
                     float votes = EasedVotes(party.Id, t);
                     bool measured = t >= firstVote && votes > 0;
                     float r = measured ? Mathf.Max(ThreadR, votes / VotesPerUnit) : ThreadR;
-                    var centre = new Vector3(x, Floor + PowerHeight * EasedPower(party.Id, t), HillLandscape.Z(t));
+                    var centre = Past(x, Floor + PowerHeight * EasedPower(party.Id, t), scene.Z, t);
                     int n = Mathf.Clamp(Mathf.RoundToInt(r * 3.6f), 5, 16);
-                    float alpha = (measured ? .82f : .26f) * lit, phase = t * 7.3f % 1f;
+                    float alpha = (measured ? .82f : .26f) * lit * Age(t), phase = t * 7.3f % 1f;
                     for (int i = 0; i < n; i++)
                     {
                         float ang = (i + phase) * 2 * Mathf.PI / n;
@@ -756,8 +896,9 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>
-        /// The times the streams are drawn at: about every 1.3 units of time from the span's start to the year, and through
-        /// each change before it, densely enough that its eased step reads as one (a ring every 1.5 units of the jump).
+        /// The times the streams are drawn at: every <see cref="RingEvery"/> units of the view's time axis from the span's
+        /// start to the year, and through each change before it, densely enough that its eased step reads as one (a ring every
+        /// 1.5 units of the jump).
         /// </summary>
         List<float> SampleTimes(float year, float step)
         {
@@ -791,8 +932,44 @@ namespace Why.Economy.Layers
             return times;
         }
 
-        /// <summary>The key moments up to the year: a spark on the president's party's stream at each one's date, coloured by
-        /// its kind (the named ones brighter), with a strand straight down to the floor and a foot where it lands.</summary>
+        /// <summary>
+        /// The presidency through time: a thin track at the executive's height down the middle from the span's start to the
+        /// year, each president's term in the party's colour (Truman's blue, Eisenhower's red), with a short tick where each
+        /// term begins, so a successor of the same party (Johnson after Kennedy) reads as a new term. The key moments spark on
+        /// it (<see cref="Marks"/>): the parties' streams carry only the parties.
+        /// </summary>
+        void Track()
+        {
+            // a piece every two years at most, each as faded as its middle (the track keeps half its alpha however old), and
+            // the term's tick: six segments a term at most, each two points
+            var b = new LineMeshBuilder(model.Presidents.Count * 12);
+            float id = Id(Part.Streams), lit = Lit("president");
+            trackTerms = 0;
+            foreach (var term in model.Presidents)
+            {
+                float from = Mathf.Max(term.From, model.From), to = float.IsNaN(term.To) ? scene.Year : Mathf.Min(term.To, scene.Year);
+                if (to <= from) continue;
+                Color c = PartyColor(term.Party);
+                int pieces = Mathf.Max(1, Mathf.CeilToInt((to - from) / 2));
+                for (int k = 0; k < pieces; k++)
+                {
+                    float a = Mathf.Lerp(from, to, (float)k / pieces), e = Mathf.Lerp(from, to, (float)(k + 1) / pieces);
+                    b.AddSegment(Past(X0, ExecY, scene.Z, a), Past(X0, ExecY, scene.Z, e), WithAlpha(c, .9f * lit * Mathf.Max(Age((a + e) * .5f), .5f)),
+                        2.6f, 0, id, 1);
+                }
+
+                Vector3 start = Past(X0, ExecY, scene.Z, from);
+                if (term.From > model.From)
+                    b.AddSegment(start + Vector3.down * 1.6f, start + Vector3.up * 1.6f, WithAlpha(c, .9f * lit * Mathf.Max(Age(from), .5f)), 2f, 0, id, 1);
+                trackTerms++;
+            }
+
+            Lines(b, "presidency", 3191);
+        }
+
+        /// <summary>The key moments up to the year: a spark on the presidency's track at each one's date, coloured by its kind
+        /// (the named ones larger and brighter, the old ones faded as the track is), and for those of the last
+        /// <see cref="StrandYears"/> a faint strand straight down to the floor with a foot where it lands.</summary>
         void Marks()
         {
             var b = new LineMeshBuilder(4096);
@@ -801,17 +978,17 @@ namespace Why.Economy.Layers
             {
                 Color c = KindColor(m.Kind);
                 bool named = scene.Year - m.Date <= NamedYears;
-                float size = named ? 1.4f : 1, glow = named ? 1.4f : 1;
+                float size = named ? 1.4f : 1, glow = named ? 1.4f : 1, fade = Mathf.Max(Age(m.Date), .5f);
                 for (int k = 0; k < 8; k++)
                 {
                     float ang = k * Mathf.PI / 4;
                     Vector3 ray = new Vector3(Mathf.Cos(ang), Mathf.Sin(ang), Mathf.Cos(ang) * .35f) * (k % 2 == 0 ? 3.2f : 1.9f) * size;
-                    b.AddSegment(at, at + ray, WithAlpha(c, .92f), 2.2f, 0, id, glow);
+                    b.AddSegment(at, at + ray, WithAlpha(c, .92f * fade), 2.2f, 0, id, glow);
                 }
 
-                if (at.y - Floor < 2) continue;
+                if (scene.Year - m.Date > StrandYears) continue;
                 var foot = new Vector3(at.x, Floor, at.z);
-                b.AddSegment(at + Vector3.down * 1.4f, foot, WithAlpha(c, .4f), 1.2f, 0, id, .95f);
+                b.AddSegment(at + Vector3.down * 1.4f, foot, WithAlpha(c, named ? .5f : .28f), 1, 0, id, .95f);
                 b.AddSegment(foot + Vector3.right * 1.6f, foot - Vector3.right * 1.6f, WithAlpha(c, .65f), 1.8f, 0, id, .95f);
             }
 
@@ -900,18 +1077,19 @@ namespace Why.Economy.Layers
         /// <summary>
         /// The id a party's body is built under: the party's own, or the first of its numbered variants whose seeded twist
         /// turns its two seat lobes to the camera's left and right. Organism spreads the lobes above a core around an angle
-        /// seeded by the id, and seen from the future a lobe turned toward or away from the camera hides behind the core; here
-        /// the House lobe stands on the screen's left and the Senate's on its right for both parties.
+        /// seeded by the id (the first lobe toward +x at a twist of 0, turning toward +z), and a lobe turned toward or away from
+        /// the camera hides behind the core; the camera's left at the view's pose lies <see cref="Yaw"/> - 180 degrees from +x
+        /// toward -z, so here the House lobe stands on the screen's left and the Senate's on its right for both parties.
         /// </summary>
         static string FacingId(string id)
         {
             if (facingIds.TryGetValue(id, out string found)) return found;
             string best = id;
-            float bestCos = -2;
+            float bestCos = -2, facing = (180 - Yaw) * Mathf.Deg2Rad;
             for (int k = 0; k < 256 && bestCos < .97f; k++)
             {
                 string candidate = k == 0 ? id : id + "#" + k.ToString(Ci);
-                float c = Mathf.Cos(Organism.Hash01(candidate) * Mathf.PI * 2);
+                float c = Mathf.Cos(Organism.Hash01(candidate) * Mathf.PI * 2 - facing);
                 if (c > bestCos)
                 {
                     bestCos = c;
@@ -1066,11 +1244,12 @@ namespace Why.Economy.Layers
         // ------------------------------------------------------------------ what moves: trade, people, command
 
         /// <summary>
-        /// The packets and the trade lanes: for each partner (or the world) goods out and goods in as two bands from the
-        /// middle through the shell to its node, each as wide as its dollars, their packets as wide as the band; the dollars
-        /// paid for a deficit (or received for a surplus) as a thin lane between them; the deficit as the hatched gap beside the
-        /// exports where the lanes cross the shell, as wide as the imports beyond the exports. The people of each party drift
-        /// along its stream toward the present, and the chain of command marches from the president down to the forces.
+        /// The packets and the trade lanes: for each partner (or the world) goods out and goods in as two slim bands either side
+        /// of a path from the country's edge through the shell to its node, each as wide as its dollars, their packets as wide
+        /// as the band; the dollars paid for a deficit (or received for a surplus) as a thin lane between them; the deficit as
+        /// the hatched gap beside the exports where the lanes cross the shell, as wide as the imports beyond the exports. The
+        /// people of each party drift along its stream toward the present, and the chain of command marches from the president
+        /// down to the forces.
         /// </summary>
         void Lanes()
         {
@@ -1088,7 +1267,7 @@ namespace Why.Economy.Layers
             if (scene.World != null) Trade(bands, marks, packets, scene.WorldNode, scene.World.Exports, scene.World.Imports, Lit("world"), id, 0);
             else if (scene.Partners.Count == 0)
                 // trade not measured yet: a faint thread to the world, no flow implied
-                bands.AddSegment(scene.Centre + ScreenDir(WorldAngle) * LaneStart, scene.WorldNode - ScreenDir(WorldAngle) * (NodeSize + 1.2f),
+                bands.AddSegment(scene.Centre + ScreenDir(WorldAngle) * (ShellR - LaneInside), scene.WorldNode - ScreenDir(WorldAngle) * (NodeSize + 1.2f),
                     WithAlpha(Roles.Commerce, .25f), 1.2f, 0, id, 1);
 
             float streams = Id(Part.Streams);
@@ -1116,19 +1295,20 @@ namespace Why.Economy.Layers
         }
 
         /// <summary>One trade lane (amounts in millions of dollars a year): its two bands and their packets, the money between
-        /// them, and the deficit's hatched gap where the lane crosses the shell.</summary>
+        /// them, and the deficit's hatched gap where the lane crosses the shell. Each band keeps a hairline under its width, so
+        /// a small flow still shows its lane, and its packets a few pixels, so each direction's goods are seen moving.</summary>
         void Trade(LineMeshBuilder bands, MarkMeshes marks, PacketMeshBuilder packets, Vector3 node, double exports, double imports, float lit, float id, float seed)
         {
             if (double.IsNaN(exports) || double.IsNaN(imports)) return;
             Vector3 c = scene.Centre, dir = (node - c).normalized, across = new Vector3(-dir.y, dir.x, 0);
-            Vector3 from = c + dir * LaneStart, to = node - dir * (NodeSize + 1.2f);
+            Vector3 from = c + dir * (ShellR - LaneInside), to = node - dir * (NodeSize + 1.2f);
             float we = (float)exports * WidthPerMillion, wi = (float)imports * WidthPerMillion;
             Vector3 oe = across * (LaneGap * .5f + we * .5f), oi = -across * (LaneGap * .5f + wi * .5f);
             Color goods = WithAlpha(Roles.Commerce, .9f * lit);
-            bands.AddSegment(from + oe, to + oe, WithAlpha(Roles.Commerce, .16f * lit), 0, we, id, 1);
-            bands.AddSegment(from + oi, to + oi, WithAlpha(Roles.Commerce, .16f * lit), 0, wi, id, 1);
-            packets.AddLane(new[] { from + oe, to + oe }, PacketKind.Goods, goods, GoodsRate, PacketSpeed, 2, id, seed: seed, sizeWorld: we * .85f);
-            packets.AddLane(new[] { from + oi, to + oi }, PacketKind.Goods, goods, GoodsRate, PacketSpeed, 2, id, seed: (seed + .5f) % 1f, backward: true, sizeWorld: wi * .85f);
+            bands.AddSegment(from + oe, to + oe, WithAlpha(Roles.Commerce, .22f * lit), 1, we, id, 1);
+            bands.AddSegment(from + oi, to + oi, WithAlpha(Roles.Commerce, .22f * lit), 1, wi, id, 1);
+            packets.AddLane(new[] { from + oe, to + oe }, PacketKind.Goods, goods, GoodsRate, PacketSpeed, 2.5f, id, seed: seed, sizeWorld: we * .85f);
+            packets.AddLane(new[] { from + oi, to + oi }, PacketKind.Goods, goods, GoodsRate, PacketSpeed, 2.5f, id, seed: (seed + .5f) % 1f, backward: true, sizeWorld: wi * .85f);
             // the dollars go out for a deficit and come in for a surplus (the money's colour: they return as the partner's claims)
             if (exports != imports)
                 packets.AddLane(new[] { from, to }, PacketKind.Money, WithAlpha(Roles.Owners, .85f * lit), MoneyRate, PacketSpeed, 3, id, seed: (seed + .25f) % 1f, backward: exports > imports);
@@ -1154,8 +1334,8 @@ namespace Why.Economy.Layers
         /// <summary>The year a value was measured, as labels give it: " (2024)".</summary>
         static string Measured(float t) => " (" + Mathf.FloorToInt(t).ToString(Ci) + ")";
 
-        /// <summary>A role as a label's text takes it: lightened toward the ink's text, so a dark role (the Democrats' blue, the
-        /// state's slate) reads on its plate, and sRGB-encoded.</summary>
+        /// <summary>A role as a label's text takes it: lightened toward the ink's text, so a dark role (the state's slate) reads
+        /// on its plate, and the two parties' names, lightened alike from colours of one lightness, read alike; sRGB-encoded.</summary>
         static Color Ink(Color role) => Roles.Encoded(Color.Lerp(role, Roles.InkText, .45f));
 
         /// <summary>The selected thing's labels are placed first.</summary>
@@ -1198,8 +1378,14 @@ namespace Why.Economy.Layers
             return float.IsNaN(Pinned) || Mathf.Abs(year - Mathf.Floor(year) - .5f) < 1e-3f ? Mathf.FloorToInt(year).ToString(Ci) : HillHistoryLayer.YearText(year);
         }
 
-        /// <summary>The view's names: the title, the president, the cascade, the parties with the latest moments under the
-        /// president's, then the army's and the trade's.</summary>
+        /// <summary>The view's title: the country and the year shown.</summary>
+        string TitleText() => model.Name + ", " + TitleYear() + ": who holds power";
+
+        /// <summary>Where the title stands: over the middle, above the walls' reach.</summary>
+        static Vector3 TitleAt(Scene s) => new Vector3(s.Centre.x, s.Centre.y + s.Reach + 8, s.Z);
+
+        /// <summary>The view's names: the title, the president with the latest moments beside, the cascade, the parties, the
+        /// decades along the presidency's track, then the army's and the trade's.</summary>
         void MakeLabels()
         {
             labels.Clear();
@@ -1207,8 +1393,8 @@ namespace Why.Economy.Layers
             Color plate = Roles.Encoded(Roles.InkBacking);
             labels.Add(new HillLabel
             {
-                Text = "<b>" + model.Name + ", " + TitleYear() + ": who holds power</b>", At = new Vector3(s.Centre.x, arenaMax.y + 6, s.Z),
-                Role = LabelRole.Title, Part = View + ".bodies", Rank = 500, Plate = plate, OnTop = true, Fallbacks = Steps(1, 0),
+                Text = "<b>" + TitleText() + "</b>", At = TitleAt(s), Role = LabelRole.Title, Part = View + ".bodies", Rank = 500, Plate = plate,
+                OnTop = true, Fallbacks = Steps(1, 0),
             });
 
             if (s.President != null)
@@ -1219,6 +1405,20 @@ namespace Why.Economy.Layers
                     At = s.Exec + Vector3.up * (ExecR + 3.2f), Role = LabelRole.Name, Part = View + ".bodies", Rank = 480 + Sel("president"),
                     Color = Ink(PartyColor(s.President.Party)), Plate = plate, OnTop = true, Fallbacks = Steps(1, 0),
                 });
+
+                // the latest moments, newest first, listed beside the president on the screen's right (-x seen from the future),
+                // clear of their sparks just behind it on the track, which recedes to the left
+                int k = 0;
+                foreach (var (m, _) in s.Moments.Where(x => s.Year - x.moment.Date <= NamedYears).OrderByDescending(x => x.moment.Date).Take(NamedMoments))
+                {
+                    labels.Add(new HillLabel
+                    {
+                        Text = "<b>" + Mathf.FloorToInt(m.Date).ToString(Ci) + "</b> · " + m.Title, At = s.Exec + Vector3.left * (ExecR + 4),
+                        Role = LabelRole.Note, Part = View + ".marks", Rank = 300 - k, Color = Ink(KindColor(m.Kind)), Plate = plate, OnTop = true,
+                        Align = TMPro.TextAlignmentOptions.Left, PixelOffset = new Vector2(0, -17 * k), Fallbacks = Steps(-1, 17 * k),
+                    });
+                    k++;
+                }
             }
 
             foreach (var seat in s.Offices)
@@ -1233,44 +1433,87 @@ namespace Why.Economy.Layers
                 });
             }
 
-            Head presidentsParty = null;
             foreach (var h in s.Heads)
             {
-                // beside the body on the screen's outer side: the Democrats' to the left, the Republicans' to the right
-                float r = h.Shape != null ? h.Shape.MaxRadius : 2.2f, outward = -h.Party.Side;
-                string votes = h.Votes > 0 && h.Election != null
-                    ? (h.Votes / 1e6).ToString("0.0", Ci) + "M " + (h.Election.Presidential ? "" : "House ") + "votes" + Measured(h.Election.Date)
-                    : "votes not measured" + (model.Elections.Count > 0 ? " before " + Mathf.FloorToInt(model.Elections[0].Date).ToString(Ci) : "");
+                // outside the body, away from the middle: the Democrats' to the screen's left, the Republicans' to its right
                 labels.Add(new HillLabel
                 {
-                    Text = "<b>" + (h.Party.Short ?? h.Party.Name) + "</b> " + Mathf.RoundToInt(h.Power * 100).ToString(Ci) + "% of power\n<size=86%>" + votes + "</size>",
-                    At = h.At + Vector3.right * (outward * (r + 4)), Role = LabelRole.Name, Part = View + ".bodies", Rank = 460 + Sel(h.Party.Id),
-                    Color = Ink(PartyColor(h.Party.Id)), Plate = plate, OnTop = true,
-                    Align = outward > 0 ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Left, Fallbacks = Steps(1, 0),
+                    Text = "<b>" + (h.Party.Short ?? h.Party.Name) + "</b> " + Mathf.RoundToInt(h.Power * 100).ToString(Ci) + "% of power\n<size=86%>" + VotesText(h) + "</size>",
+                    At = HeadNameAt(h), Role = LabelRole.Name, Part = View + ".bodies", Rank = 460 + Sel(h.Party.Id), Color = Ink(PartyColor(h.Party.Id)),
+                    Plate = plate, OnTop = true, Align = h.Party.Side < 0 ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Left,
+                    Fallbacks = Steps(1, 0),
                 });
-                if (s.President != null && h.Party.Id == s.President.Party) presidentsParty = h;
             }
 
-            // the latest moments, newest first, listed under the president's party's name, where their sparks stand behind
-            if (presidentsParty != null)
+            // the decades along the presidency's track, so the time axis reads back to the first (every second one over a long
+            // span); none near the present, where the president and the latest moments' names stand
+            int every = s.Year - model.From > EveryDecadeSpan ? 20 : 10;
+            for (int decade = Mathf.CeilToInt(model.From / 10) * 10; decade <= s.Year - DecadeClear; decade += every)
             {
-                float r = presidentsParty.Shape != null ? presidentsParty.Shape.MaxRadius : 2.2f, outward = -presidentsParty.Party.Side;
-                int k = 0;
-                foreach (var (m, _) in s.Moments.Where(x => s.Year - x.moment.Date <= NamedYears).OrderByDescending(x => x.moment.Date).Take(NamedMoments))
+                labels.Add(new HillLabel
                 {
-                    labels.Add(new HillLabel
-                    {
-                        Text = "<b>" + Mathf.FloorToInt(m.Date).ToString(Ci) + "</b> · " + m.Title, At = presidentsParty.At + Vector3.right * (outward * (r + 4)),
-                        Role = LabelRole.Note, Part = View + ".marks", Rank = 300 - k, Color = Ink(KindColor(m.Kind)), Plate = plate, OnTop = true,
-                        Align = outward > 0 ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Left,
-                        PixelOffset = new Vector2(0, -(40 + 17 * k)), Fallbacks = Steps(-1, 40 + 17 * k),
-                    });
-                    k++;
-                }
+                    Text = decade.ToString(Ci), At = Past(X0, ExecY, s.Z, decade), Role = LabelRole.Note, Part = View + ".streams", Rank = 120,
+                    Color = Roles.Encoded(Roles.InkDim), Plate = plate, OnTop = true, PixelOffset = new Vector2(0, DecadePx * .7f), Fallbacks = Steps(1, DecadePx * .7f),
+                });
             }
 
             ArmyLabels(s, plate);
             TradeLabels(s, plate);
+        }
+
+        /// <summary>A party's votes as its name gives them, with the election they were cast in, or that they were not measured.</summary>
+        string VotesText(Head h) => h.Votes > 0 && h.Election != null
+            ? (h.Votes / 1e6).ToString("0.0", Ci) + "M " + (h.Election.Presidential ? "" : "House ") + "votes" + Measured(h.Election.Date)
+            : "votes not measured" + (model.Elections.Count > 0 ? " before " + Mathf.FloorToInt(model.Elections[0].Date).ToString(Ci) : "");
+
+        /// <summary>Where a party's name stands: beside its head on the side away from the middle (+x is the screen's left seen
+        /// from the future), its text running outward from there.</summary>
+        static Vector3 HeadNameAt(Head h) => h.At + Vector3.right * (-h.Party.Side * ((h.Shape != null ? h.Shape.MaxRadius : 2.2f) + 4));
+
+        /// <summary>
+        /// The essentials the camera fits (<see cref="FlyToState"/>): the walls' reach all round the shell, each party's name
+        /// with the room it takes outward, the title above, and the far end of the past (each stream's first ring and the
+        /// presidency's, with its decade's mark above). The partners' nodes with their names (or the world's) are held inside
+        /// too: on the lower left, nearer the camera than the shell, and named toward the screen's left, they would otherwise
+        /// stand on the legend or the preset bar, where the labels drop a name and its balance. The rivals (always within the
+        /// Republicans' name's reach) and the walls' names may stand near the free screen's edges.
+        /// </summary>
+        void Essentials()
+        {
+            fitAt.Clear();
+            fitRoom.Clear();
+            for (int i = 0; i < ReachPoints; i++)
+            {
+                fitAt.Add(scene.Centre + ScreenDir(i * 360f / ReachPoints) * scene.Reach);
+                fitRoom.Add(Vector4.zero);
+            }
+
+            // a node's name runs to the screen's left of its anchor, which stands beyond the node itself; every partner's seat
+            // and the world's are held whichever stand at the year, so the frame keeps still from year to year (the European Union,
+            // measured from 1997, swung it 150 pixels)
+            foreach (var (_, _, angle) in PartnerSeats)
+            {
+                fitAt.Add(NodeNameAt(scene.Centre + ScreenDir(angle) * NodeR));
+                fitRoom.Add(new Vector4(PartnerNamePx, 0, NodeHalfPx, NodeHalfPx));
+            }
+
+            fitAt.Add(NodeNameAt(scene.WorldNode));
+            fitRoom.Add(new Vector4(WorldNamePx, 0, WorldHalfPx, WorldHalfPx));
+
+            foreach (var h in scene.Heads)
+            {
+                fitAt.Add(HeadNameAt(h));
+                fitRoom.Add(h.Party.Side < 0 ? new Vector4(PartyNamePx, 0, NameHalfPx, NameHalfPx) : new Vector4(0, PartyNamePx, NameHalfPx, NameHalfPx));
+                fitAt.Add(Past(X0 - h.Party.Side * PartyX, Floor + PowerHeight * EasedPower(h.Party.Id, model.From), scene.Z, model.From));
+                fitRoom.Add(Vector4.zero);
+            }
+
+            // the title: its characters at about half an em each at the title role's 18 pixels, half each side
+            float half = TitleText().Length * .55f * 18 * .5f;
+            fitAt.Add(TitleAt(scene));
+            fitRoom.Add(new Vector4(half, half, TitleHalfPx, TitleHalfPx));
+            fitAt.Add(Past(X0, ExecY, scene.Z, model.From));
+            fitRoom.Add(new Vector4(DecadePx, 0, 0, DecadePx * 1.4f));
         }
 
         /// <summary>The forces' and NATO's shares on the shell, the rivals' outside theirs, and each wall's name and reading.</summary>
@@ -1334,17 +1577,18 @@ namespace Why.Economy.Layers
         {
             Color ink = Ink(Roles.Commerce);
             foreach (var p in s.Partners)
-                labels.Add(NodeLabel(p.Node, p.Angle, "<b>" + p.Name + "</b>\n<size=86%>US " + Balance(p.Year.Balance) + Measured(p.Year.T) + "</size>", ink, plate,
+                labels.Add(NodeLabel(p.Node, "<b>" + p.Name + "</b>\n<size=86%>US " + Balance(p.Year.Balance) + Measured(p.Year.T) + "</size>", ink, plate,
                     300 + Sel(p.Select)));
 
             if (s.Partners.Count > 0) return;
             float byPartner = model.Partners.Values.Where(rows => rows.Count > 0).Select(rows => rows[0].T).DefaultIfEmpty(float.NaN).Min();
             // the lane is every partner together, and says from when the partners are measured one by one
-            string later = float.IsNaN(byPartner) ? "" : "\n<size=86%>by partner from " + Mathf.FloorToInt(byPartner).ToString(Ci) + "</size>";
+            string later = float.IsNaN(byPartner) ? "" : "\nby partner from " + Mathf.FloorToInt(byPartner).ToString(Ci);
             string text = s.World != null
-                ? "<b>The world</b>: US " + Balance(s.World.Balance) + Measured(s.World.T) + later
-                : "<b>Trade</b>: not measured" + (model.Trade.Count > 0 && s.Year < model.Trade[0].T ? " before " + Mathf.FloorToInt(model.Trade[0].T).ToString(Ci) : "");
-            labels.Add(NodeLabel(s.WorldNode, WorldAngle, text, ink, plate, 300 + Sel("world")));
+                ? "<b>The world</b>\n<size=86%>US " + Balance(s.World.Balance) + Measured(s.World.T) + later + "</size>"
+                : "<b>Trade</b>\n<size=86%>not measured" + (model.Trade.Count > 0 && s.Year < model.Trade[0].T ? " before " + Mathf.FloorToInt(model.Trade[0].T).ToString(Ci) : "") +
+                  "</size>";
+            labels.Add(NodeLabel(s.WorldNode, text, ink, plate, 300 + Sel("world")));
         }
 
         /// <summary>A balance in millions of dollars as the labels give it: "deficit $297bn", "surplus $3.5bn", "balanced", or
@@ -1352,17 +1596,16 @@ namespace Why.Economy.Layers
         static string Balance(double millions) =>
             double.IsNaN(millions) ? "balance not measured" : millions < 0 ? "deficit " + Money(millions) : millions > 0 ? "surplus " + Money(millions) : "balanced";
 
-        /// <summary>A trade node's name: beside it toward the screen's left for a node on the left, under it for one below.</summary>
-        HillLabel NodeLabel(Vector3 node, float angle, string text, Color colour, Color plate, float rank)
+        /// <summary>Where a trade node's name stands: beside it toward the screen's left (+x seen from the future), its text
+        /// running outward from there; every node stands on the lower left (<see cref="PartnerSeats"/>, <see cref="WorldAngle"/>).</summary>
+        static Vector3 NodeNameAt(Vector3 node) => node + Vector3.right * (NodeSize + 3);
+
+        /// <summary>A trade node's name, beside it toward the screen's left (<see cref="NodeNameAt"/>).</summary>
+        static HillLabel NodeLabel(Vector3 node, string text, Color colour, Color plate, float rank) => new HillLabel
         {
-            bool side = Mathf.Cos(angle * Mathf.Deg2Rad) < -.45f;
-            return new HillLabel
-            {
-                Text = text, At = node + (side ? Vector3.right * (NodeSize + 3) : Vector3.down * (NodeSize + 4)), Role = LabelRole.Note, Part = View + ".lanes",
-                Rank = rank, Color = colour, Plate = plate, OnTop = true, Align = side ? TMPro.TextAlignmentOptions.Right : TMPro.TextAlignmentOptions.Center,
-                Fallbacks = Steps(-1, 0),
-            };
-        }
+            Text = text, At = NodeNameAt(node), Role = LabelRole.Note, Part = View + ".lanes", Rank = rank, Color = colour, Plate = plate, OnTop = true,
+            Align = TMPro.TextAlignmentOptions.Right, Fallbacks = Steps(-1, 0),
+        };
 
         /// <summary>Puts the view's labels on screen or takes them off, once per change.</summary>
         void ShowLabels(bool show)
@@ -1381,10 +1624,18 @@ namespace Why.Economy.Layers
 
         // ------------------------------------------------------------------ the camera and the portraits
 
-        /// <summary>Flies to the cross-section at the year shown, built first if it changed, so the pose fits it: from the
-        /// future down the time axis, the whole of it (the rivals and the partners too) in the screen the portrait cards and
-        /// the panel leave free.</summary>
-        void FlyToState(float seconds)
+        /// <summary>
+        /// Flies to the cross-section at the year shown, built first if it changed, so the pose fits it: from the future in the
+        /// three-quarter view, the essentials (<see cref="Essentials"/>: the shell with its walls, the parties and the trade
+        /// partners with their names, the title and the far end of the past) as large as they go in the free screen, the rivals
+        /// near its edges. The free screen is the largest rect the HUD's blocks leave (the labels' keep-outs, the panel among them, so a
+        /// portrait sheet's height counts) and, on a landscape screen, the portrait cards' column, below the blocks standing
+        /// against the screen's top and above those against its bottom (<see cref="LargestFree"/>). On a portrait screen the
+        /// view takes the screen first, and the president's card shows only where it then covers none of the essentials. A
+        /// refit for the HUD's blocks flies only when the pose it finds moved: a panel that grew without narrowing the free
+        /// screen neither restarts a flight nor takes back a camera the viewer turned.
+        /// </summary>
+        void FlyToState(float seconds, bool refit = false)
         {
             GraphRoot root = GraphRoot.Instance;
             model = Politics.Get();
@@ -1392,35 +1643,227 @@ namespace Why.Economy.Layers
             EnsureContent();
             float year = Year;
             if (Stale(year)) Rebuild(year);
-            Camera cam = root.Rig.Cam;
-            float free = FreeRight - FreeLeft, shift = .5f - (FreeLeft + FreeRight) * .5f;
-            float tanV = Mathf.Tan(cam.fieldOfView * .5f * Mathf.Deg2Rad), tanH = tanV * Mathf.Max(1, cam.aspect);
-            Vector3 c = (arenaMin + arenaMax) * .5f;
-            float w = arenaMax.x - arenaMin.x + 26, h = arenaMax.y - arenaMin.y + 40;
-            // the bodies take three quarters of the free width: their names reach past them
-            float d = Mathf.Max(w * .5f / (tanH * free * .74f), h * .5f / (tanV * .76f), 110);
-            // from the future +x runs to the screen's left: the target moves right of the middle so the cross-section sits in
-            // the free screen's middle
-            var p = HillPresets.PoliticsPose(new Vector3(c.x - shift * 2 * d * tanH, c.y + 4, scene.Z), Yaw, Pitch, d);
-            p.PortraitWidth = w;
+            fittedHud = MeasureHud();
+            Axes(root.Rig.Cam);
+            bool portrait = ScreenLayout.IsPortrait;
+            int wanted = scene.President == null ? 0 : portrait ? 1 : Mathf.Min(LandscapeCards, 1 + scene.Offices.Count(x => !x.Office.Vacant));
+            shownCards = portrait ? 0 : wanted;
+            obstacles.Clear();
+            obstacles.AddRange(hudRects);
+            if (shownCards > 0) obstacles.Add(CardsRect(shownCards));
+            // the essentials' shape from a first fit to the whole screen (the world's part of their box and their names'
+            // pixels) chooses the free rect they stand largest in; the second fit puts them there
+            Vector3 target = scene.Centre;
+            float d = poseDistance, m = ScreenMargin * ScreenLayout.UiScale;
+            Solve(Rect.MinMaxRect(m, m, screenW - m, screenH - m), ref target, ref d);
+            Measure(target, d, out _, out Vector4 at, out Vector4 room);
+            Rect free = LargestFree(Mathf.Max(at.y - at.x, 1), room.x + room.y, Mathf.Max(at.w - at.z, 1), room.z + room.w);
+            fittedBox = Solve(free, ref target, ref d);
+            if (portrait && wanted > 0 && !CardsRect(1).Overlaps(fittedBox)) shownCards = 1;
             poseDistance = d;
-            root.Rig.FlyTo(p.Pose(), seconds);
+            var p = HillPresets.PoliticsPose(target, Yaw, Pitch, d);
+            // the fitted distance stands on a portrait screen too: the preset's portrait width would step it back
+            p.PortraitWidth = 0;
+            CameraPose pose = p.Pose();
+            if (!refit || (pose.Target - flown.Target).sqrMagnitude > .25f || Mathf.Abs(pose.Distance - flown.Distance) > .5f)
+            {
+                flown = pose;
+                root.Rig.FlyTo(pose, seconds);
+            }
+
+            ShowPopups();
         }
 
-        /// <summary>The portrait cards: the president and the three most senior holders below (the selected office first),
-        /// from the portraits' atlas by <see cref="Politics.ImageId"/> (a monogram where none is packed).</summary>
+        /// <summary>The camera's axes at the view's pose in the content's frame (the land's, which a pose's yaw turns from), its
+        /// half-angle tangents and its pixels.</summary>
+        void Axes(Camera cam)
+        {
+            Quaternion q = Quaternion.Euler(Pitch, Yaw, 0);
+            camRight = q * Vector3.right;
+            camUp = q * Vector3.up;
+            camFwd = q * Vector3.forward;
+            screenW = cam.pixelWidth;
+            screenH = cam.pixelHeight;
+            tanV = Mathf.Tan(cam.fieldOfView * .5f * Mathf.Deg2Rad);
+            tanH = tanV * screenW / Mathf.Max(screenH, 1);
+        }
+
+        /// <summary>
+        /// Moves the target and the distance until the essentials' box fills a screen rect on its tighter side and stands at its
+        /// middle: each pass scales the distance by how far the world's part of the box (its names' pixels kept as they are)
+        /// misses the rect, then centres the box in it. Returns the box on screen (pixels, origin bottom-left).
+        /// </summary>
+        Rect Solve(Rect free, ref Vector3 target, ref float distance)
+        {
+            for (int pass = 0; pass < FitPasses; pass++)
+            {
+                Measure(target, distance, out _, out Vector4 at, out Vector4 room);
+                float across = (free.width - room.x - room.y) / Mathf.Max(at.y - at.x, 1), up = (free.height - room.z - room.w) / Mathf.Max(at.w - at.z, 1);
+                distance = Mathf.Clamp(distance / Mathf.Max(Mathf.Min(across, up), .05f), MinDistance, MaxDistance);
+                Measure(target, distance, out Vector4 edge, out _, out _);
+                float perUnit = screenH * .5f / (distance * tanV);
+                target += camRight * (((edge.x + edge.y) * .5f - free.center.x) / perUnit) + camUp * (((edge.z + edge.w) * .5f - free.center.y) / perUnit);
+            }
+
+            Measure(target, distance, out Vector4 box, out _, out _);
+            return Rect.MinMaxRect(box.x, box.z, box.y, box.w);
+        }
+
+        /// <summary>The essentials' box on screen (pixels, origin bottom-left) with the camera at a target and a distance: its
+        /// edges (left, right, bottom, top), the screen place of the essential at each edge, and the room its name takes
+        /// beyond it there at the screen's label scale.</summary>
+        void Measure(Vector3 target, float distance, out Vector4 edge, out Vector4 at, out Vector4 room)
+        {
+            Vector3 eye = target - camFwd * distance;
+            float scale = ScreenLayout.LabelScale;
+            edge = new Vector4(float.MaxValue, float.MinValue, float.MaxValue, float.MinValue);
+            at = room = Vector4.zero;
+            for (int i = 0; i < fitAt.Count; i++)
+            {
+                Vector3 v = fitAt[i] - eye;
+                float depth = Mathf.Max(Vector3.Dot(v, camFwd), 1);
+                float x = screenW * .5f * (1 + Vector3.Dot(v, camRight) / (depth * tanH)), y = screenH * .5f * (1 + Vector3.Dot(v, camUp) / (depth * tanV));
+                Vector4 r = fitRoom[i] * scale;
+                if (x - r.x < edge.x)
+                {
+                    edge.x = x - r.x;
+                    at.x = x;
+                    room.x = r.x;
+                }
+
+                if (x + r.y > edge.y)
+                {
+                    edge.y = x + r.y;
+                    at.y = x;
+                    room.y = r.y;
+                }
+
+                if (y - r.z < edge.z)
+                {
+                    edge.z = y - r.z;
+                    at.z = y;
+                    room.z = r.z;
+                }
+
+                if (y + r.w > edge.w)
+                {
+                    edge.w = y + r.w;
+                    at.w = y;
+                    room.w = r.w;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The free screen: of the rects whose edges are the screen's margins or the obstacles' edges (a gap away), between the
+        /// blocks standing against the screen's top and its bottom (<see cref="EdgeBand"/>: the view never climbs beside the
+        /// title) and clear of every obstacle, the one in which the essentials stand largest (their names' pixels taken off its
+        /// width and height before the world's part of their box is set against them), and of equals the largest; the whole
+        /// screen between the margins and those bands when none is clear. The candidates are a few dozen edges each way.
+        /// </summary>
+        Rect LargestFree(float spanX, float roomX, float spanY, float roomY)
+        {
+            float m = ScreenMargin * ScreenLayout.UiScale, gap = BlockGap * ScreenLayout.UiScale, band = EdgeBand * screenH;
+            float bottom = m, top = screenH - m;
+            foreach (Rect r in obstacles)
+            {
+                if (r.yMax > screenH - band) top = Mathf.Min(top, r.yMin - gap);
+                if (r.yMin < band) bottom = Mathf.Max(bottom, r.yMax + gap);
+            }
+
+            lefts.Clear();
+            rights.Clear();
+            lows.Clear();
+            highs.Clear();
+            lefts.Add(m);
+            rights.Add(screenW - m);
+            lows.Add(bottom);
+            highs.Add(top);
+            foreach (Rect r in obstacles)
+            {
+                lefts.Add(r.xMax + gap);
+                rights.Add(r.xMin - gap);
+                if (r.yMax + gap > bottom) lows.Add(r.yMax + gap);
+                if (r.yMin - gap < top) highs.Add(r.yMin - gap);
+            }
+
+            Rect best = Rect.MinMaxRect(m, bottom, screenW - m, Mathf.Max(top, bottom + MinFree));
+            float bestScale = float.NegativeInfinity, bestArea = 0;
+            foreach (float x0 in lefts)
+            {
+                foreach (float x1 in rights)
+                {
+                    float w = x1 - x0, acrossScale = (w - roomX) / spanX;
+                    // a rect this narrow cannot beat the best, however tall
+                    if (x0 < m || x1 > screenW - m || w < MinFree || acrossScale < bestScale - Tie) continue;
+                    foreach (float y0 in lows)
+                    {
+                        foreach (float y1 in highs)
+                        {
+                            float h = y1 - y0, scale = Mathf.Min(acrossScale, (h - roomY) / spanY), area = w * h;
+                            if (h < MinFree || scale < bestScale - Tie || (scale < bestScale + Tie && area <= bestArea) || Blocked(x0, y0, x1, y1)) continue;
+                            best = Rect.MinMaxRect(x0, y0, x1, y1);
+                            bestScale = scale;
+                            bestArea = area;
+                        }
+                    }
+                }
+            }
+
+            return best;
+        }
+
+        /// <summary>Whether a rect overlaps an obstacle.</summary>
+        bool Blocked(float x0, float y0, float x1, float y1)
+        {
+            foreach (Rect r in obstacles)
+                if (r.xMin < x1 && r.xMax > x0 && r.yMin < y1 && r.yMax > y0)
+                    return true;
+            return false;
+        }
+
+        /// <summary>The portrait cards' column on screen (pixels, origin bottom-left) for a number of cards, as
+        /// <see cref="HistoryPopups"/> stands them on a canvas scaled as every HUD canvas is.</summary>
+        Rect CardsRect(int cards)
+        {
+            float s = UiFactory.CanvasScale, top = screenH - CardTop * s;
+            return Rect.MinMaxRect(CardLeft * s, top - (cards * (CardHeight + CardGap) - CardGap) * s, (CardLeft + CardWidth) * s, top);
+        }
+
+        /// <summary>Measures the HUD's blocks shown now as the labels keep out of them (<see cref="LabelSystem.HudRects"/>: the
+        /// title, the year chip, the legend, the preset bar, the panels and the tour's card, in screen pixels) and returns a
+        /// signature that changes when one moves by a few pixels, comes or goes, or the screen changes. Allocates nothing.</summary>
+        int MeasureHud()
+        {
+            hudRects.Clear();
+            GraphRoot root = GraphRoot.Instance;
+            if (root != null && root.Labels != null) root.Labels.HudRects?.Invoke(hudRects);
+            int signature = ScreenLayout.Version;
+            unchecked
+            {
+                foreach (Rect r in hudRects)
+                    signature = (((signature * 31 + Mathf.RoundToInt(r.xMin / 8)) * 31 + Mathf.RoundToInt(r.yMin / 8)) * 31 + Mathf.RoundToInt(r.xMax / 8)) * 31 +
+                                Mathf.RoundToInt(r.yMax / 8);
+            }
+
+            return signature;
+        }
+
+        /// <summary>The portrait cards the fit left room for (<see cref="shownCards"/>): the president, then the most senior
+        /// holders below (the selected office first), from the portraits' atlas by <see cref="Politics.ImageId"/> (a monogram
+        /// where none is packed).</summary>
         void ShowPopups()
         {
-            if (scene == null || model == null)
+            if (scene == null || model == null || shownCards == 0)
             {
                 HistoryPopups.Clear();
                 return;
             }
 
-            var items = new List<(string, string, string)>(4);
+            var items = new List<(string, string, string)>(shownCards);
             if (scene.President != null)
                 items.Add((Politics.ImageId(scene.President.Name), scene.President.Name, "President · " + (model.PartyById(scene.President.Party)?.Name ?? "")));
-            foreach (var seat in scene.Offices.Where(x => !x.Office.Vacant).OrderBy(x => x.Office.Id == Selected ? 0 : 1).ThenBy(x => x.Office.Rank).Take(4 - items.Count))
+            foreach (var seat in scene.Offices.Where(x => !x.Office.Vacant).OrderBy(x => x.Office.Id == Selected ? 0 : 1).ThenBy(x => x.Office.Rank).Take(shownCards - items.Count))
                 items.Add((Politics.ImageId(seat.Office.Name), seat.Office.Name, OfficeLine(seat)));
             HistoryPopups.Show(items);
         }
@@ -1428,7 +1871,8 @@ namespace Why.Economy.Layers
         // ------------------------------------------------------------------ smoke
 
         /// <summary><c>-smokeextra politics</c>: the view at five years from Truman's second term to now, each captured, with an
-        /// error for a year that draws no executive or no streams.</summary>
+        /// error for a year that draws no executive, no streams or no presidency's track, or whose fitted essentials run off the
+        /// screen; each logs the camera's fit (the free screen, the distance and the portrait cards beside it).</summary>
         IEnumerator Smoke()
         {
             GraphRoot root = GraphRoot.Instance;
@@ -1448,10 +1892,14 @@ namespace Why.Economy.Layers
             {
                 ShowState(state);
                 yield return new WaitForSecondsRealtime(3.2f);
-                Debug.Log($"[Why] politics {state}: {bodies.Count} bodies, {streamRings} stream rings, {scene?.Moments.Count ?? 0} moments, " +
-                          $"{scene?.Walls.Count ?? 0} walls, {scene?.Partners.Count ?? 0} partners, {labels.Count} labels");
+                Debug.Log($"[Why] politics {state}: {bodies.Count} bodies, {streamRings} stream rings, {trackTerms} presidential terms, " +
+                          $"{scene?.Moments.Count ?? 0} moments, {scene?.Walls.Count ?? 0} walls, {scene?.Partners.Count ?? 0} partners, {labels.Count} labels; " +
+                          $"fit {fittedBox.xMin:0}-{fittedBox.xMax:0} x {fittedBox.yMin:0}-{fittedBox.yMax:0} px of {screenW:0}x{screenH:0}, distance {poseDistance:0}, {shownCards} cards");
                 if (!executiveDrawn) Debug.LogError($"[Why] politics: {state} draws no executive");
                 if (streamRings == 0) Debug.LogError($"[Why] politics: {state} draws no streams");
+                if (trackTerms == 0) Debug.LogError($"[Why] politics: {state} draws no presidency's track");
+                if (fittedBox.xMin < 0 || fittedBox.yMin < 0 || fittedBox.xMax > screenW || fittedBox.yMax > screenH)
+                    Debug.LogError($"[Why] politics: {state}'s essentials run off the screen ({fittedBox})");
                 yield return SmokeChecks.Capture("economy-" + state.Replace(':', '-').Replace('.', '_'), root.CurrentPreset);
             }
 

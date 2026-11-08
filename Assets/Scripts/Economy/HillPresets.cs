@@ -75,11 +75,12 @@ namespace Why.Economy
             // hillside so time runs left to right; the layer flies to the story and year shown, and opens the cross-section.
             Add(HillHistoryLayer.View, "Advantage through history", "Who held the advantage, and why: states, armies, alliances, companies and labs as tubes through time, opened into a cross-section at a moment.",
                 KeyCode.None, new Vector3(HillHistoryLayer.LaneX, 170, HillLandscape.Z(1986)), 266, 5, 330);
-            // Who holds power (HillPoliticsLayer): the government's cross-section at the crest's year, seen from the future down
-            // the time axis with the parties' past behind it; the layer flies to the year shown, fitting the army, its rivals
-            // and the trade partners into the screen the panel and the portrait cards leave free.
-            Add(HillPoliticsLayer.View, PoliticsTitle, "Parties rise with power; the president's officers cascade below; the armed forces ring the country.",
-                KeyCode.None, new Vector3(130, 90, crest), 180, 6, 330);
+            // Who holds power (HillPoliticsLayer): the government's cross-section at the crest's year, seen straight from the
+            // future and 15 degrees from above, the parties' past slanting back to the left behind it; the layer flies to the
+            // year shown, fitting the shell and the parties into the screen the HUD, the panel and the portrait cards leave
+            // free. This pose only starts the flight.
+            Add(HillPoliticsLayer.View, PoliticsTitle, "Parties rise and fall with power through time; the president's officers cascade below; the armed forces ring the country.",
+                KeyCode.None, new Vector3(130, 84, crest), 180, 15, 400);
             // The followed person (HillPersonLayer, HillDilemmaLayer): poses follow where the person stands.
             foreach (string id in PersonViews) list.Add(Person(id));
             // The viewer (HillYouLayer): the pose follows where the "You" panel places them.

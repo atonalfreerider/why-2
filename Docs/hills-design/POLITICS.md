@@ -49,12 +49,15 @@ so far; the maps of what exists are in `Docs/research/politics/maps/` (key `gove
 4. `Layers/HillPoliticsLayer.cs` and `UI/PoliticsPanel.cs`, the preset and view variants, smoke states.
 5. Review, frames, and the user's look before more countries.
 
-## Implementation (v1)
+## Implementation (v2)
 
 `Layers/HillPoliticsLayer.cs` (view `politics`, Order 67) draws the United States from Truman's accession to the year shown,
-all from `Model/Politics.cs` (`politics.json`). Land-local frame; the cross-section stands at `HillLandscape.Z(year)` and the
-camera looks from the future (yaw 180, pitch 6), fitted to the cross-section, the rivals and the partners between the
-portrait cards and the panel's column.
+all from `Model/Politics.cs` (`politics.json`). Land-local frame; the cross-section stands at `HillLandscape.Z(year)`.
+
+v2 (7 Nov 2026) answers the review of v1's frames (`Shots/pol1l`, `pol1p`): time did not show (the camera looked straight
+down the time axis), the view filled the middle third of the screen, the party heads stood inside the cascade, every moment
+sat on the president's party's stream, the Democratic blue read fainter than the red, the trade bands were wide slabs, and in
+portrait four tall cards and the panel's sheet covered the view.
 
 **The year.** The view follows the year chip, at the middle of the chip's year (where the data's annual measures stand),
 rebuilding under `HillRebuilds` and flying along as the crest moves. A tour cue or the panel pins a year:
@@ -62,16 +65,70 @@ rebuilding under `HillRebuilds` and flying along as the crest moves. A tour cue 
 panel's steps do, and a decimal year (`2025.06`) pins that date; `ShowState(null)` follows the chip again. The panel's
 contract is `Year`, `Pinned`, `Selected`, `Changed`, `Pin` and `Select`.
 
+**The pose and the time axis.** (v3, from the v2 frames)
+
+- The camera looks straight from the future (yaw 180) and 15 degrees from above, so the cross-section faces it square and
+  both parties stand at one depth. v2 turned the camera 30 degrees toward the Democrats' side (yaw 210); on its frames the
+  nearer side drew a tenth to a sixth larger (measured on a mock-up of its fit), enough to reverse 2024's close popular vote on screen (3% fewer Democratic votes
+  drew 7% wider), and the fit swung 150 pixels when the European Union's lane appeared.
+- The past is set back along a slant instead: a time a unit back from the shown year's plane stands `Shear` 0.6 units toward
+  +x as well (`Past(x, y, z, t)`), so it recedes to the screen's left and up behind the cross-section and each stream reads
+  as a chart, time running toward the present on the right; 0.6 opens the decades as far as the 30-degree turn did.
+- The view's own time axis: a year back stands `TimeScale` 1.5 times as deep as on the land (`Back(z, t) = z + 1.5 (Z(t) -
+  z)`), the cross-section staying at the shown year's plane. At the land's own depth the decade marks stood atop one another.
+- The past fades: a stream's rings, the presidency's track and the sparks draw at `PastAlpha` 0.25 of their own alpha from
+  `FadeYears` 20 years back (eased from the shown year's whole; the track and the sparks keep at least half). The slant sets
+  the Republicans' recent past behind the cascade's names, and the fade keeps it from crowding them.
+- The parties' seat lobes are turned to the camera's left and right (`FacingId`: the twist nearest `180 - Yaw` degrees, 0).
+
+**The fit.** `FlyToState` puts the essentials as large as they go into the free screen.
+
+- The essentials (`Essentials`, built with the labels): the shell's reach (the walls' outer edge, 24 points round), each
+  party's name with 210 pixels of room outward and 19 up and down, the title above, the past's far end (each stream's first
+  ring, and the presidency track's first point with a decade mark's room), and every partner's seat with its name's room (125
+  pixels toward the screen's left, 16 up and down) and the world's (125, 24 up and down: its label is broken into three lines
+  as a partner's is, where on one line it took 205 pixels and set the portrait view's width). Every seat is held whichever
+  partners stand at the year, so the frame keeps still from year to year. The nodes stand at the essentials' lower left;
+  fitted without their names (a first v2), the names ran onto the legend, where the labels drop them. The rivals and the
+  walls' names may stand near the free screen's edges.
+- The free screen (`LargestFree`): of the rects whose edges are the screen's 16-pixel margins or the obstacles' edges (a
+  12-pixel gap away), the one where the essentials stand largest, their names' pixels taken off its width and height before
+  their world box is set against them; the larger on ties. The obstacles are the HUD's blocks as the labels keep out of them
+  (`LabelSystem.HudRects`: the title, the buttons, the year chip and its readout, the legend, the preset bar, the economy's
+  panels, `PoliticsPanel` among them through `HudBlocks.Register`, and the tour's card) and, in landscape, the portrait cards'
+  column (`HistoryPopups`' layout: left 24, top 176, 330 wide, four cards of 96 with gaps of 10, canvas units). The rect lies
+  below every block standing in the screen's top 8% (the title, the chip) and above those in its bottom 8% (the preset bar),
+  so the view never climbs beside the HUD's title.
+- The solve (`Solve`): six passes, each scaling the distance by how far the essentials' world box misses the rect (their
+  names' pixels kept as they are), then centring the box; within a pixel, perspective included. Distance 110 to 3000. The
+  pose's `PortraitWidth` is 0, so the fitted distance stands in portrait too.
+- When it fits: on focus, a pin and a year change (as v1), and when the HUD's blocks change (the panel shows a frame after
+  the view, a portrait sheet opens, a tour's card comes, the screen turns) and then hold still for 8 frames; that refit flies
+  only if the pose moved, and waits while a year change waits for its turn to rebuild (`HillRebuilds`), whose rebuild fits
+  the camera itself. Flights take 0 s under `-smoketest`.
+- On the v3 frames: in landscape 1920x1080 the essentials stand in the rect right of the cards and above the legend for
+  every smoke year, x 419-1381 to 439-1361 by y 133-798, distance 387 (1950) to 422 (2001), the shell about 560 pixels
+  across; in portrait 1080x1920 they take the width between the What-if button and the panel's header row, distance 797 to
+  838. v1's shell was about 340 pixels across in landscape.
+
 **Encodings and scales.**
 
-- **Parties.** Streams of dot rings from 1945 to the year, a ring about every 1.3 units of time. The Democrats stand at
-  x + 34 (the screen's left from the future) and the Republicans at x - 34. Height is 60 units times power by the stated rule,
-  above a floor at y 60. A ring's radius is the votes the party represents over 11.4 million, so 80 million votes draw 14
-  units across. Every change of power or votes eases over 0.1 year, with extra rings through the jump so it reads as a step.
-  Before the first election measured (November 1948) a stream is a faint 0.45-unit thread with no width implied.
+- **Parties.** Streams of dot rings from 1945 to the year, a ring every 2 units of the view's time axis (two thirds of a
+  year). The Democrats stand at x + 50 (the screen's left from the future) and the Republicans at x - 50 (v1: 34), outside
+  the cascade's widest line. Height is 60 units times power by the stated rule, above a floor at y 60. A ring's radius is the
+  votes the party represents over 11.4 million, so 80 million votes draw 14 units across. Every change of power or votes
+  eases over 0.1 year, with extra rings through the jump so it reads as a step. Before the first election measured (November
+  1948) a stream is a faint 0.45-unit thread with no width implied.
 - **People.** Soft People packets drift along each stream toward the present (1.2 a second), from the first measured election.
-- **Key moments.** Sparks on the president's party's stream at each date, each with a strand straight down to the floor and
-  a foot where it lands. Colours by kind, from palette roles:
+- **The presidency.** A thin track (2.6 pixels) through time at x 0 of the cross-section and the executive's height (y 138),
+  term by term in the president's party colour (Truman blue, Eisenhower red ...), with a short tick where each term begins,
+  so a successor of the same party reads as a new term. Decade marks ("1950", dim ink, the lowest rank) stand above it, none
+  within four years of the year shown, and every second decade over a span longer than 40 years (they stood on one another
+  in the distance).
+- **Key moments.** Sparks on the presidency's track at each date, whichever party held it (v1 put them on the president's
+  party's stream, which read as if that party had done foreign events). Those of the last eight years (`StrandYears`) have
+  a strand straight down to the floor (alpha 0.28, the named ones 0.5) and a foot where it lands; v2 drew all 56 by 2025,
+  a curtain over the streams. Colours by kind, from palette roles:
   - conflict: Conflict;
   - trade: Commerce;
   - monetary: Owners;
@@ -79,9 +136,10 @@ contract is `Year`, `Pinned`, `Selected`, `Changed`, `Pin` and `Select`.
   - regulation: the slate, lightened a quarter;
   - treaty: Conflict, lightened halfway.
 
-  Moments of the last three years spark larger and are listed under the president's party's label, newest first, six at most.
+  Moments of the last three years spark larger and are listed beside the president on the screen's right, newest first, six
+  at most.
 - **The cascade.** The president's body (radius 4.6) stands at the top centre, coloured by party. Four lines step down evenly
-  to the Chairman of the Joint Chiefs, who stands on the shell:
+  (31.3 units) to the Chairman of the Joint Chiefs, who stands on the shell:
   1. the vice president;
   2. the Speaker and the Senate's leader;
   3. State, the Treasury and Defense (War and the Navy, four on the line, before 1947);
@@ -89,16 +147,18 @@ contract is `Year`, `Pinned`, `Selected`, `Changed`, `Pin` and `Select`.
 
   Each holder is a small body (radius 2.3) in its party's colour, with a thin line up to the nearest holder on the line
   above. An appointee whose party the research infers from the appointing president takes the administration's colour and
-  reads "in the Democratic administration". The military are the state's slate. A vacancy is an empty dotted outline
-  labelled "vacant".
+  reads "in the Democratic administration"; a chamber leader's inferred party reads "of the Democratic majority". The
+  military are the state's slate. A vacancy is an empty dotted outline labelled "vacant".
 - **Party heads.** Point-cloud bodies at the streams' ends, the core as wide as the last ring (the votes). House and Senate
-  lobes are 5.2 × ∛(seat share), so their volumes are the shares; the body's id is chosen so the lobes stand left (House) and
-  right (Senate) of the camera. Each is labelled with its power ("82% of power") and its votes with their election year.
-- **The army.** A shell of dotted circles (every 1.2 units out, a dot every 1.6 around) centred at y 84, inner radius 64. It is
-  26 units thick for the whole of the world's military spending, so the 37% of 2024 draws 9.6 units. While NATO stands, its
-  share beyond the US's is a fainter layer outside. Rivals stand beyond the shell on the screen's right (±24°, 116 units
-  out) as shells on the same scale around an empty core: the Soviet Union until the dissolution moment (with the Warsaw
-  Pact's layer while it stands), then Russia, and China.
+  lobes are 5.2 × ∛(seat share), so their volumes are the shares, the House lobe on the screen's left and the Senate's on its
+  right. Each is labelled outside its head, away from the middle, with its power ("82% of power") and its votes with their
+  election year.
+- **The army.** A shell of dotted circles (every 1.2 units out, a dot every 1.6 around) centred at y 84, inner radius 74 (v1:
+  64), enclosing the heads with their lobes at the most power a party has held (84%). It is 26 units thick for the whole of the
+  world's military spending, so the 37% of 2024 draws 9.6 units. While NATO stands, its share beyond the US's is a fainter
+  layer outside. Rivals stand beyond the shell on the screen's right (±24°, 132 units out, beyond the Republicans' name) as
+  shells on the same scale around an empty core: the Soviet Union until the dissolution moment (with the Warsaw Pact's layer
+  while it stands), then Russia, and China.
 - **Walls.** From `WallsAt` (Jev's judgments at the nearest benchmark, within two and a half years; alliances only while
   NATO stands), as arcs outside the shell:
   - nuclear weapons face the rivals (-60° to 40°);
@@ -109,21 +169,27 @@ contract is `Year`, `Pinned`, `Selected`, `Changed`, `Pin` and `Select`.
   Each arc is 1.2 + 2.4 × the wall thick and dashed under a confidence of 0.15. The colours are the palette's chart series,
   and each wall is labelled with Jev's reading and the benchmark's year. The key names the sea wall over the trade lanes
   as freedom of navigation.
-- **Trade.** Partners measured within three years of the year (their nearest benchmark) stand at fixed angles, 150° to
-  255° and 112 units out. Each lane has two bands, goods out and goods in, each a unit wide per $100bn a year, carrying
-  Goods packets as wide as the band at 1.5 a second. The dollars for the deficit go out as a thin Money lane in the Owners
-  colour (0.8 a second, inward for a surplus). The deficit is the hatched `Mark.Owed` gap beside the exports band where the
-  lane crosses the US shell, as wide as imports beyond exports. Before any partner is measured, one lane runs to the world
-  (goods and services, `TradeAt`), labelled with the first partner year; before 1960, a faint thread reads "Trade: not
-  measured before 1960".
+- **Trade.** Partners measured within three years of the year (their nearest benchmark) stand on the lower left at fixed
+  angles, 192° to 232° (8° apart; v1 150° to 255°), 122 units out; the lane to the world stands at 212°. Each lane runs from
+  8 units inside the shell's inner edge (the country's edge; v1 started 10 units from the middle and crossed the left half)
+  to its node. Its two bands, goods out and goods in, stand either side of the path, 1.2 units apart, each 0.3 units wide per
+  $100bn a year (v1: 1), so the data's widest flow, the EU's $633bn of goods in 2024, draws 1.9 units, with a 1-pixel
+  hairline so a small flow still shows its lane; each carries Goods packets 2.5 pixels plus 0.85 of the band at 1.5 a
+  second. The dollars for the deficit go out between them as a thin Money lane in the Owners colour (0.8 a second, inward
+  for a surplus). The deficit is the hatched `Mark.Owed` gap beside the exports band where the lane crosses the US shell, as
+  wide as imports beyond exports (at the bands' scale, so the EU's $220bn of 2025 is 0.66 units). Before any partner is
+  measured, one lane runs to the world (goods and services, `TradeAt`), labelled with the first partner year; before 1960, a
+  faint thread reads "Trade: not measured before 1960".
 - **Command.** A Promise lane of marching dashes (1.6 a second) runs from the president down beside the cascade to the shell.
 
 **Packets.** All packets share one speed (9 units a second), one mesh and one material, and are built once per rebuild. No
 lane exceeds 4 packets a second; a flow's size is its lane's width.
 
-**Labels and cards.** There are about 20 to 32 labels a year, every number from `Politics` with the year it was measured.
-The portrait cards (`HistoryPopups`, ids from `Politics.ImageId`) show the president and the three most senior holders
-below, the selected office first.
+**Labels and cards.** About 23 to 37 labels a year (the decade marks the lowest rank, culled first), every number from
+`Politics` with the year it was measured. The portrait cards (`HistoryPopups`, ids from `Politics.ImageId`) show the
+president and the three most senior holders below, the selected office first, on a landscape screen; on a portrait one at
+most the president's card, and only where the fitted essentials leave its place free (at 9:16 with today's HUD they fill the
+width, so none shows).
 
 **Not measured.** These draw faint and say so:
 
@@ -138,21 +204,25 @@ with nothing in their place: the EU before 1995 (its first benchmark is 1997), a
 
 **Palette and registration.**
 
-- Two new roles, Democratic `#3A4E98` and Republican `#DC2626`. They are in `Tools/check-palette.py` and `PaletteCheck`
-  with twelve touching pairs (each other, People, Desire, Conflict, Commerce, State, Owners), all above the floor.
+- Two party roles, Democratic `#4F7BB4` (v1 `#3A4E98`) and Republican `#DC2626`, at one OKLab lightness (0.576 and 0.577;
+  v1's blue was 0.448 and made the Democrats read fainter). Both are in `Tools/check-palette.py` and `PaletteCheck` with twelve
+  touching pairs (each other, People, Desire, Conflict, Commerce, State, Owners), all above the floor of 8; the least is
+  democratic-conflict, 8.4 under deuteranopia (8.7 rendered without a tonemapper, as the hills are). `--pairs` also fails when
+  the two parties' targets differ in lightness by more than 0.02.
 - The four military sources are in `HillAdvantageLayer.SourceOrder`, `SourceName` and `SourceColor`. `HillHistoryLayer.
-  SourceWord` now gives the advantage view's name for alliances: "Alliances", not "Allies".
-- The preset is "Who holds power" ("Power" in the bar), in the wave chapter beside the regimes view, with portrait width
-  330, the legend key and `EconomyViews.Focused`.
+  SourceWord` gives the advantage view's name for alliances: "Alliances", not "Allies".
+- The preset is "Who holds power" ("Power" in the bar), in the wave chapter beside the regimes view, with the legend key and
+  `EconomyViews.Focused`; its catalog pose (yaw 180, pitch 15) only starts the layer's flight.
 - The view is drawn alone: it is hidden from the wave, the attention cloud and the land's labels. Its emphasis row holds
-  seven parts as a synthesis view.
+  seven parts as a synthesis view (the presidency's track and the decade marks with the streams, the sparks with the marks).
 - Its states are `politics:us:1965`, `politics:us:2025` and any walkthrough cue. The smoke sequence `politics` captures
-  1950, 1965, 1985, 2001 and 2025, each at the middle of its year.
+  1950, 1965, 1985, 2001 and 2025, each at the middle of its year, and fails a year that draws no executive, no streams or no
+  presidency's track, or whose fitted essentials run off the screen; each logs its fit (the box, the distance, the cards).
 
 **Left for later.**
 
-- No run in the player yet. The frames, label crowding, camera fit and frame time need
-  `-smokeonly politics -smokeextra politics`.
+- The open portrait sheet has no smoke state, so no frame shows it yet.
+- In portrait, at labels 1.5 times larger, the cascade's lower names (the Speaker, Defense) and some decade marks are culled.
 - The moments land on an abstract floor, not on the industries they touched (the data has no affected industries).
 - Not yet drawn: the warhead and fleet series (they reach the view only through Jev's walls) and the governors.
-- Not yet built: the other countries, a tour stop and its narration, and a portrait-screen layout of the cross-section.
+- Not yet built: the other countries, a tour stop and its narration.

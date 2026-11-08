@@ -404,19 +404,27 @@ show their pictures in turns, 10 cover part of the point's band (logged), none c
 
 **Politics (seventh direction).** Brief `Docs/research/advantage/brief-v5.md` (with the user's approval of public-domain
 portraits for the executive cascade); design `Docs/hills-design/POLITICS.md`; research `Docs/research/politics` (about 1,400
-gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. State (7 Nov, night):
+gated facts, 24 rejected by the skeptic); maps `Docs/research/politics/maps`. State (8 Nov, early):
 - **Data.** `Tools/politics/build.py` (usable facts only: gate-verified, not skeptic-rejected; replacements by `"replaces"`;
   SIPRI 1972's mixed-basis shares left out, so the spending series starts in 1955) → `Data/economy/politics.json`;
   `Model/Politics.cs` (power by the stated rule, popular vote, offices, military series, walls, trade, moments, `ImageId`).
   Replacement facts for the rejected Senate 117th, House 85th/87th, the 1980 and 1978 votes and the 1978 Open Door are gated
-  and skeptic-checked; the House 96th/99th need the Clerk's basis (Carney counted Republican; workflow in flight).
-- **Flow clock (uncommitted until rendered).** `Core/FlowClock.cs` (`_WhyFlowTime`, never stops, resets at a capture's first
+  and skeptic-checked, as are the House 96th and 99th on the Clerk's basis (`pol-house-096-clerk`, `pol-house-099-clerk`).
+- **Flow clock (committed bda6acd).** `Core/FlowClock.cs` (`_WhyFlowTime`, never stops, resets at a capture's first
   frame, seamless 4096 s wrap), `Core/PacketMeshBuilder.cs` + `Resources/Shaders/WhyPackets.shader` (Money, Goods, Capital,
   People, Promise); Why/Line's pulses run on it. Keep packet lanes at 4 a second or fewer (they strobe above about 15 at
   30 fps).
-- **In flight:** the army's walls (Jev, `Tools/politics/judge.py` → `Docs/research/politics/walls.json`); portraits of the
-  cascade (`Tools/politics/portraits.py`, public domain only, with the stories' items in one fetch); the layer
-  (`Layers/HillPoliticsLayer.cs`: parties left to right, up power, width votes, back time; the executive and its cascade; the
-  army as the country's shell sized by its share of world military spending, walls outside, rivals beyond; trade lanes
-  through the shell with deficits hatched; moments as sparks with strands to the floor; packets that never stop) and
-  `PoliticsPanel`. Then: mirror build, `-smokeextra politics` frames, review, commit.
+- **The view (v1 bda6acd; v2 and v3 committed 8 Nov).** `Layers/HillPoliticsLayer.cs` and `UI/PoliticsPanel.cs`, the preset
+  "Who holds power" ("Power"). Parties left to right (Democrats `#4F7BB4`, Republicans `#DC2626`, one lightness), up power by
+  the stated rule, ring width the popular vote, the past slanting back to the left and fading; the presidency as a track
+  through time carrying the moments' sparks (the last eight years' with strands to the floor); the president and the
+  cascade with public-domain portrait cards (four in landscape, at most the president's in portrait); the army as the
+  country's shell sized by its share of world military spending, NATO outside, Jev's walls beyond, the rivals on the right;
+  trade lanes to six partners on the lower left with deficits hatched; packets that never stop. The camera looks straight
+  from the future (v2's 30-degree turn drew the nearer party up to a sixth larger) and is fitted to the screen the HUD
+  leaves free, holding every partner seat so it keeps still from year to year. Portrait: the panel collapses to one header
+  row ("More" opens the sheet downward). Details and what is left: `POLITICS.md` ("Implementation", "Left for later").
+- **Walls and portraits (committed).** Jev's walls `Tools/politics/judge.py` → `Docs/research/politics/walls.json`; 160
+  portraits through `Tools/politics/portraits.py` (public domain only, fetched with the stories' items in one go).
+- **Next:** a tour stop for the view (narration needs the user's go-ahead: ElevenLabs credits), the open portrait sheet's
+  smoke state, other countries.

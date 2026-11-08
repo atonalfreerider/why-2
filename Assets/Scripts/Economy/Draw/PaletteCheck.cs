@@ -109,8 +109,9 @@ namespace Why.Economy.Draw
 
         /// <summary>
         /// The pairs that can touch: spec 3.2's table, people-commerce from the rules every package obeys (spec 0, rule 5),
-        /// and the parties of the politics view with each other, the people along their streams, the moments' sparks on them
-        /// (conflict, commerce, owners, the state's laws), the forces and the trade lanes, and apart from desire's rose.
+        /// and the parties of the politics view with each other (and on the presidency's track, coloured term by term), the
+        /// people along their streams, the moments' sparks on that track (conflict, commerce, owners, the state's laws), the
+        /// forces and the trade lanes, and apart from desire's rose.
         /// </summary>
         static readonly (string a, string b)[] Touching =
         {

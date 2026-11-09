@@ -138,7 +138,7 @@ namespace Why.Economy.UI
             // wave's names; a click on the land in the other views that take one (1972, the encounters, the bedrock, a firm's
             // ring in a company's spending: see Steps) flies there without leaving the view
             string view=LandView.PresetId??"";
-            if(!LandViews.Contains(view)&&(shown||view=="section"))root.Focus("landscape",0);
+            if(!IsLandView(view)&&(shown||view=="section"))root.Focus("landscape",0);
             var pose=root.Rig.Pose;pose.Target=EconomyStage.Land().World(local);pose.Distance=distance;pose.Pitch=25;root.Rig.FlyTo(pose,1.1f);
         }
         /// <summary>The tiers from the top of the hill down (tech first, as the hill stands).</summary>
@@ -314,7 +314,9 @@ namespace Why.Economy.UI
         /// <summary>Whether the explorer (its panel or chip) stands over a view: a desktop navigator of the land, so on a
         /// portrait (phone-video) screen the preset bar and the HUD's blocks fill the room it needs; the mind keeps it only for
         /// a viewer who walked there through it (its Up leads back).</summary>
-        bool Shows(string view)=>!root.TourActive&&!ScreenLayout.IsPortrait&&(LandViews.Contains(view)||Depth>=4&&view=="mind");
+        bool Shows(string view)=>!root.TourActive&&!ScreenLayout.IsPortrait&&(IsLandView(view)||Depth>=4&&view=="mind");
+        /// <summary>A view whose subject is the land: the Wave view is not while it shows the sweep through time (HillSweepLayer).</summary>
+        static bool IsLandView(string view)=>LandViews.Contains(view)&&!(view=="overview"&&HillSweepLayer.On);
         /// <summary>Whether a click on the land (a hilltop, a firm's gold ring, a group) takes the explorer into it in the view
         /// on screen; the explorer's own rows are shown only where it does. Not during the tour, whose stop holds the camera
         /// while its card and voice describe it, nor where the land is only the faint ground of another story (the focused

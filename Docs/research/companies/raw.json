@@ -1,0 +1,4921 @@
+{
+ "cluster": "raw",
+ "asOf": "2026-11-08",
+ "scope": "Year-end market capitalizations of the major US companies of the industries agriculture, oil_gas, mining_metals, utilities (by the industry authored in Tools/companies/candidates.json), from CompaniesMarketCap's market cap history pages, 1996-2025: one fact per company, its quote the table's rows. Written by Tools/companies/fetch.py.",
+ "notes": "CompaniesMarketCap's history begins in 1996 or 1997 (or at listing). The current year's row (today's value) and a delisted company's last row (its last known value, unless it stopped trading in December) are left out. Values are nominal US dollars as the table writes them.",
+ "facts": [
+  {
+   "id": "co-exxon-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Exxon Mobil gives its market capitalization as $121.71 billion at the end of 1996; $150.33 billion at the end of 1997; $177.54 billion at the end of 1998; $280.12 billion at the end of 1999; $301.24 billion at the end of 2000; $267.59 billion at the end of 2001; $234.50 billion at the end of 2002; $269.28 billion at the end of 2003; $328.11 billion at the end of 2004; $344.49 billion at the end of 2005; $439.01 billion at the end of 2006; $504.23 billion at the end of 2007; $406.06 billion at the end of 2008; $322.33 billion at the end of 2009; $364.06 billion at the end of 2010; $406.27 billion at the end of 2011; $389.64 billion at the end of 2012; $438.70 billion at the end of 2013; $388.38 billion at the end of 2014; $323.96 billion at the end of 2015; $374.28 billion at the end of 2016; $354.39 billion at the end of 2017; $288.92 billion at the end of 2018; $295.44 billion at the end of 2019; $174.28 billion at the end of 2020; $259.38 billion at the end of 2021; $454.24 billion at the end of 2022; $399.59 billion at the end of 2023; $467.98 billion at the end of 2024; $507.79 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/exxon-mobil/marketcap/",
+   "quotes": [
+    "2025 $507.79 B 8.51% 2024 $467.98 B 17.12% 2023 $399.59 B -12.03% 2022 $454.24 B 75.13% 2021 $259.38 B 48.83% 2020 $174.28 B -41.01% 2019 $295.44 B 2.26% 2018 $288.92 B -18.47% 2017 $354.39 B -5.31% 2016 $374.28 B 15.53% 2015 $323.96 B -16.59% 2014 $388.38 B -11.47% 2013 $438.70 B 12.59% 2012 $389.64 B -4.09% 2011 $406.27 B 11.59% 2010 $364.06 B 12.95% 2009 $322.33 B -20.62% 2008 $406.06 B -19.47% 2007 $504.23 B 14.86% 2006 $439.01 B 27.44% 2005 $344.49 B 4.99% 2004 $328.11 B 21.85% 2003 $269.28 B 14.83% 2002 $234.50 B -12.37% 2001 $267.59 B -11.17% 2000 $301.24 B 7.54% 1999 $280.12 B 57.77% 1998 $177.54 B 18.1% 1997 $150.33 B 23.52% 1996 $121.71 B"
+   ],
+   "values": [
+    "2025 $507.79 B",
+    "2024 $467.98 B",
+    "2023 $399.59 B",
+    "2022 $454.24 B",
+    "2021 $259.38 B",
+    "2020 $174.28 B",
+    "2019 $295.44 B",
+    "2018 $288.92 B",
+    "2017 $354.39 B",
+    "2016 $374.28 B",
+    "2015 $323.96 B",
+    "2014 $388.38 B",
+    "2013 $438.70 B",
+    "2012 $389.64 B",
+    "2011 $406.27 B",
+    "2010 $364.06 B",
+    "2009 $322.33 B",
+    "2008 $406.06 B",
+    "2007 $504.23 B",
+    "2006 $439.01 B",
+    "2005 $344.49 B",
+    "2004 $328.11 B",
+    "2003 $269.28 B",
+    "2002 $234.50 B",
+    "2001 $267.59 B",
+    "2000 $301.24 B",
+    "1999 $280.12 B",
+    "1998 $177.54 B",
+    "1997 $150.33 B",
+    "1996 $121.71 B"
+   ],
+   "context": [
+    "Market cap history of Exxon Mobil from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/exxon-mobil.html",
+   "dated2026": false,
+   "actor": "exxon",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     121.71
+    ],
+    [
+     1997,
+     150.33
+    ],
+    [
+     1998,
+     177.54
+    ],
+    [
+     1999,
+     280.12
+    ],
+    [
+     2000,
+     301.24
+    ],
+    [
+     2001,
+     267.59
+    ],
+    [
+     2002,
+     234.5
+    ],
+    [
+     2003,
+     269.28
+    ],
+    [
+     2004,
+     328.11
+    ],
+    [
+     2005,
+     344.49
+    ],
+    [
+     2006,
+     439.01
+    ],
+    [
+     2007,
+     504.23
+    ],
+    [
+     2008,
+     406.06
+    ],
+    [
+     2009,
+     322.33
+    ],
+    [
+     2010,
+     364.06
+    ],
+    [
+     2011,
+     406.27
+    ],
+    [
+     2012,
+     389.64
+    ],
+    [
+     2013,
+     438.7
+    ],
+    [
+     2014,
+     388.38
+    ],
+    [
+     2015,
+     323.96
+    ],
+    [
+     2016,
+     374.28
+    ],
+    [
+     2017,
+     354.39
+    ],
+    [
+     2018,
+     288.92
+    ],
+    [
+     2019,
+     295.44
+    ],
+    [
+     2020,
+     174.28
+    ],
+    [
+     2021,
+     259.38
+    ],
+    [
+     2022,
+     454.24
+    ],
+    [
+     2023,
+     399.59
+    ],
+    [
+     2024,
+     467.98
+    ],
+    [
+     2025,
+     507.79
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Exxon Mobil, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-chevron-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Chevron gives its market capitalization as $42.40 billion at the end of 1996; $50.56 billion at the end of 1997; $54.11 billion at the end of 1998; $56.84 billion at the end of 1999; $54.19 billion at the end of 2000; $57.57 billion at the end of 2001; $42.71 billion at the end of 2002; $93.00 billion at the end of 2003; $110.64 billion at the end of 2004; $126.74 billion at the end of 2005; $159.15 billion at the end of 2006; $195.10 billion at the end of 2007; $148.25 billion at the end of 2008; $154.57 billion at the end of 2009; $183.18 billion at the end of 2010; $211.89 billion at the end of 2011; $210.51 billion at the end of 2012; $239.02 billion at the end of 2013; $210.85 billion at the end of 2014; $169.37 billion at the end of 2015; $222.19 billion at the end of 2016; $237.78 billion at the end of 2017; $207.00 billion at the end of 2018; $226.82 billion at the end of 2019; $162.56 billion at the end of 2020; $226.21 billion at the end of 2021; $347.06 billion at the end of 2022; $281.57 billion at the end of 2023; $256.74 billion at the end of 2024; $302.26 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/chevron/marketcap/",
+   "quotes": [
+    "2025 $302.26 B 17.73% 2024 $256.74 B -8.82% 2023 $281.57 B -18.87% 2022 $347.06 B 53.43% 2021 $226.21 B 39.15% 2020 $162.56 B -28.33% 2019 $226.82 B 9.57% 2018 $207.00 B -12.94% 2017 $237.78 B 7.02% 2016 $222.19 B 31.18% 2015 $169.37 B -19.67% 2014 $210.85 B -11.78% 2013 $239.02 B 13.54% 2012 $210.51 B -0.65% 2011 $211.89 B 15.67% 2010 $183.18 B 18.51% 2009 $154.57 B 4.26% 2008 $148.25 B -24.01% 2007 $195.10 B 22.58% 2006 $159.15 B 25.57% 2005 $126.74 B 14.56% 2004 $110.64 B 18.97% 2003 $93.00 B 117.75% 2002 $42.71 B -25.81% 2001 $57.57 B 6.24% 2000 $54.19 B -4.67% 1999 $56.84 B 5.06% 1998 $54.11 B 7.01% 1997 $50.56 B 19.25% 1996 $42.40 B"
+   ],
+   "values": [
+    "2025 $302.26 B",
+    "2024 $256.74 B",
+    "2023 $281.57 B",
+    "2022 $347.06 B",
+    "2021 $226.21 B",
+    "2020 $162.56 B",
+    "2019 $226.82 B",
+    "2018 $207.00 B",
+    "2017 $237.78 B",
+    "2016 $222.19 B",
+    "2015 $169.37 B",
+    "2014 $210.85 B",
+    "2013 $239.02 B",
+    "2012 $210.51 B",
+    "2011 $211.89 B",
+    "2010 $183.18 B",
+    "2009 $154.57 B",
+    "2008 $148.25 B",
+    "2007 $195.10 B",
+    "2006 $159.15 B",
+    "2005 $126.74 B",
+    "2004 $110.64 B",
+    "2003 $93.00 B",
+    "2002 $42.71 B",
+    "2001 $57.57 B",
+    "2000 $54.19 B",
+    "1999 $56.84 B",
+    "1998 $54.11 B",
+    "1997 $50.56 B",
+    "1996 $42.40 B"
+   ],
+   "context": [
+    "Market cap history of Chevron from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/chevron.html",
+   "dated2026": false,
+   "actor": "chevron",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     42.4
+    ],
+    [
+     1997,
+     50.56
+    ],
+    [
+     1998,
+     54.11
+    ],
+    [
+     1999,
+     56.84
+    ],
+    [
+     2000,
+     54.19
+    ],
+    [
+     2001,
+     57.57
+    ],
+    [
+     2002,
+     42.71
+    ],
+    [
+     2003,
+     93.0
+    ],
+    [
+     2004,
+     110.64
+    ],
+    [
+     2005,
+     126.74
+    ],
+    [
+     2006,
+     159.15
+    ],
+    [
+     2007,
+     195.1
+    ],
+    [
+     2008,
+     148.25
+    ],
+    [
+     2009,
+     154.57
+    ],
+    [
+     2010,
+     183.18
+    ],
+    [
+     2011,
+     211.89
+    ],
+    [
+     2012,
+     210.51
+    ],
+    [
+     2013,
+     239.02
+    ],
+    [
+     2014,
+     210.85
+    ],
+    [
+     2015,
+     169.37
+    ],
+    [
+     2016,
+     222.19
+    ],
+    [
+     2017,
+     237.78
+    ],
+    [
+     2018,
+     207.0
+    ],
+    [
+     2019,
+     226.82
+    ],
+    [
+     2020,
+     162.56
+    ],
+    [
+     2021,
+     226.21
+    ],
+    [
+     2022,
+     347.06
+    ],
+    [
+     2023,
+     281.57
+    ],
+    [
+     2024,
+     256.74
+    ],
+    [
+     2025,
+     302.26
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Chevron, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-ussteel-mcap",
+   "claim": "CompaniesMarketCap's market cap history of U.S. Steel gives its market capitalization as $2.65 billion at the end of 1996; $2.70 billion at the end of 1997; $2.03 billion at the end of 1998; $2.91 billion at the end of 1999; $1.59 billion at the end of 2000; $1.61 billion at the end of 2001; $1.34 billion at the end of 2002; $3.63 billion at the end of 2003; $5.84 billion at the end of 2004; $5.50 billion at the end of 2005; $8.67 billion at the end of 2006; $14.24 billion at the end of 2007; $4.32 billion at the end of 2008; $7.90 billion at the end of 2009; $8.39 billion at the end of 2010; $3.81 billion at the end of 2011; $3.44 billion at the end of 2012; $4.26 billion at the end of 2013; $3.89 billion at the end of 2014; $1.16 billion at the end of 2015; $5.69 billion at the end of 2016; $6.15 billion at the end of 2017; $3.18 billion at the end of 2018; $1.94 billion at the end of 2019; $3.69 billion at the end of 2020; $6.43 billion at the end of 2021; $5.86 billion at the end of 2022; $10.85 billion at the end of 2023; $7.01 billion at the end of 2024.",
+   "url": "https://companiesmarketcap.com/us-steel/marketcap/",
+   "quotes": [
+    "2024 $7.01 B -35.41% 2023 $10.85 B 84.98% 2022 $5.86 B -8.79% 2021 $6.43 B 74.08% 2020 $3.69 B 90.5% 2019 $1.94 B -39.05% 2018 $3.18 B -48.31% 2017 $6.15 B 8.17% 2016 $5.69 B 387.69% 2015 $1.16 B -70.03% 2014 $3.89 B -8.75% 2013 $4.26 B 24.03% 2012 $3.44 B -9.69% 2011 $3.81 B -54.61% 2010 $8.39 B 6.23% 2009 $7.90 B 82.7% 2008 $4.32 B -69.64% 2007 $14.24 B 64.27% 2006 $8.67 B 57.41% 2005 $5.50 B -5.73% 2004 $5.84 B 60.94% 2003 $3.63 B 169.99% 2002 $1.34 B -16.76% 2001 $1.61 B 1.1% 2000 $1.59 B -45.23% 1999 $2.91 B 43.58% 1998 $2.03 B -24.91% 1997 $2.70 B 2.07% 1996 $2.65 B"
+   ],
+   "values": [
+    "2024 $7.01 B",
+    "2023 $10.85 B",
+    "2022 $5.86 B",
+    "2021 $6.43 B",
+    "2020 $3.69 B",
+    "2019 $1.94 B",
+    "2018 $3.18 B",
+    "2017 $6.15 B",
+    "2016 $5.69 B",
+    "2015 $1.16 B",
+    "2014 $3.89 B",
+    "2013 $4.26 B",
+    "2012 $3.44 B",
+    "2011 $3.81 B",
+    "2010 $8.39 B",
+    "2009 $7.90 B",
+    "2008 $4.32 B",
+    "2007 $14.24 B",
+    "2006 $8.67 B",
+    "2005 $5.50 B",
+    "2004 $5.84 B",
+    "2003 $3.63 B",
+    "2002 $1.34 B",
+    "2001 $1.61 B",
+    "2000 $1.59 B",
+    "1999 $2.91 B",
+    "1998 $2.03 B",
+    "1997 $2.70 B",
+    "1996 $2.65 B"
+   ],
+   "context": [
+    "Market cap history of U.S. Steel from 1996 to 2025 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/us-steel.html",
+   "dated2026": false,
+   "actor": "ussteel",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     2.65
+    ],
+    [
+     1997,
+     2.7
+    ],
+    [
+     1998,
+     2.03
+    ],
+    [
+     1999,
+     2.91
+    ],
+    [
+     2000,
+     1.59
+    ],
+    [
+     2001,
+     1.61
+    ],
+    [
+     2002,
+     1.34
+    ],
+    [
+     2003,
+     3.63
+    ],
+    [
+     2004,
+     5.84
+    ],
+    [
+     2005,
+     5.5
+    ],
+    [
+     2006,
+     8.67
+    ],
+    [
+     2007,
+     14.24
+    ],
+    [
+     2008,
+     4.32
+    ],
+    [
+     2009,
+     7.9
+    ],
+    [
+     2010,
+     8.39
+    ],
+    [
+     2011,
+     3.81
+    ],
+    [
+     2012,
+     3.44
+    ],
+    [
+     2013,
+     4.26
+    ],
+    [
+     2014,
+     3.89
+    ],
+    [
+     2015,
+     1.16
+    ],
+    [
+     2016,
+     5.69
+    ],
+    [
+     2017,
+     6.15
+    ],
+    [
+     2018,
+     3.18
+    ],
+    [
+     2019,
+     1.94
+    ],
+    [
+     2020,
+     3.69
+    ],
+    [
+     2021,
+     6.43
+    ],
+    [
+     2022,
+     5.86
+    ],
+    [
+     2023,
+     10.85
+    ],
+    [
+     2024,
+     7.01
+    ]
+   ],
+   "period": "1996-2024",
+   "from": 1996,
+   "to": 2024,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of U.S. Steel, nominal US dollars; the 2026 row (today's value) is left out; delisted, its last known value on 2025-07-11 (that row is left out: not a year-end value)"
+  },
+  {
+   "id": "co-enron-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Enron gives its market capitalization as $12.42 billion at the end of 1997; $19.14 billion at the end of 1998; $31.75 billion at the end of 1999; $62.05 billion at the end of 2000; $0.44 billion at the end of 2001.",
+   "url": "https://companiesmarketcap.com/enron/marketcap/",
+   "quotes": [
+    "2001 $0.44 B -99.28% 2000 $62.05 B 95.42% 1999 $31.75 B 65.85% 1998 $19.14 B 54.09% 1997 $12.42 B"
+   ],
+   "values": [
+    "2001 $0.44 B",
+    "2000 $62.05 B",
+    "1999 $31.75 B",
+    "1998 $19.14 B",
+    "1997 $12.42 B"
+   ],
+   "context": [
+    "Market cap history of Enron from 1997 to 2001 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/enron.html",
+   "dated2026": false,
+   "actor": "enron",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1997,
+     12.42
+    ],
+    [
+     1998,
+     19.14
+    ],
+    [
+     1999,
+     31.75
+    ],
+    [
+     2000,
+     62.05
+    ],
+    [
+     2001,
+     0.44
+    ]
+   ],
+   "period": "1997-2001",
+   "from": 1997,
+   "to": 2001,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Enron, nominal US dollars; the 2026 row (today's value) is left out; delisted, its last known value on 2001-12-31"
+  },
+  {
+   "id": "co-corteva-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Corteva gives its market capitalization as $22.12 billion at the end of 2019; $28.84 billion at the end of 2020; $34.46 billion at the end of 2021; $41.99 billion at the end of 2022; $33.77 billion at the end of 2023; $39.34 billion at the end of 2024; $45.79 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/corteva/marketcap/",
+   "quotes": [
+    "2025 $45.79 B 16.42% 2024 $39.34 B 16.49% 2023 $33.77 B -19.59% 2022 $41.99 B 21.86% 2021 $34.46 B 19.47% 2020 $28.84 B 30.36% 2019 $22.12 B"
+   ],
+   "values": [
+    "2025 $45.79 B",
+    "2024 $39.34 B",
+    "2023 $33.77 B",
+    "2022 $41.99 B",
+    "2021 $34.46 B",
+    "2020 $28.84 B",
+    "2019 $22.12 B"
+   ],
+   "context": [
+    "Market cap history of Corteva from 2019 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/corteva.html",
+   "dated2026": false,
+   "actor": "corteva",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     2019,
+     22.12
+    ],
+    [
+     2020,
+     28.84
+    ],
+    [
+     2021,
+     34.46
+    ],
+    [
+     2022,
+     41.99
+    ],
+    [
+     2023,
+     33.77
+    ],
+    [
+     2024,
+     39.34
+    ],
+    [
+     2025,
+     45.79
+    ]
+   ],
+   "period": "2019-2025",
+   "from": 2019,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Corteva, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-monsanto-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Monsanto gives its market capitalization as $6.98 billion at the end of 2000; $8.72 billion at the end of 2001; $5.03 billion at the end of 2002; $7.53 billion at the end of 2003; $14.68 billion at the end of 2004; $20.81 billion at the end of 2005; $28.53 billion at the end of 2006; $61.11 billion at the end of 2007; $38.55 billion at the end of 2008; $44.58 billion at the end of 2009; $37.35 billion at the end of 2010; $37.51 billion at the end of 2011; $50.58 billion at the end of 2012; $61.65 billion at the end of 2013; $57.83 billion at the end of 2014; $43.33 billion at the end of 2015; $46.06 billion at the end of 2016; $51.40 billion at the end of 2017.",
+   "url": "https://companiesmarketcap.com/monsanto/marketcap/",
+   "quotes": [
+    "2017 $51.40 B 11.61% 2016 $46.06 B 6.29% 2015 $43.33 B -25.07% 2014 $57.83 B -6.21% 2013 $61.65 B 21.9% 2012 $50.58 B 34.82% 2011 $37.51 B 0.43% 2010 $37.35 B -16.22% 2009 $44.58 B 15.65% 2008 $38.55 B -36.92% 2007 $61.11 B 114.22% 2006 $28.53 B 37.07% 2005 $20.81 B 41.73% 2004 $14.68 B 94.87% 2003 $7.53 B 49.77% 2002 $5.03 B -42.31% 2001 $8.72 B 24.92% 2000 $6.98 B"
+   ],
+   "values": [
+    "2017 $51.40 B",
+    "2016 $46.06 B",
+    "2015 $43.33 B",
+    "2014 $57.83 B",
+    "2013 $61.65 B",
+    "2012 $50.58 B",
+    "2011 $37.51 B",
+    "2010 $37.35 B",
+    "2009 $44.58 B",
+    "2008 $38.55 B",
+    "2007 $61.11 B",
+    "2006 $28.53 B",
+    "2005 $20.81 B",
+    "2004 $14.68 B",
+    "2003 $7.53 B",
+    "2002 $5.03 B",
+    "2001 $8.72 B",
+    "2000 $6.98 B"
+   ],
+   "context": [
+    "Market cap history of Monsanto from 2000 to 2018 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/monsanto.html",
+   "dated2026": false,
+   "actor": "monsanto",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     2000,
+     6.98
+    ],
+    [
+     2001,
+     8.72
+    ],
+    [
+     2002,
+     5.03
+    ],
+    [
+     2003,
+     7.53
+    ],
+    [
+     2004,
+     14.68
+    ],
+    [
+     2005,
+     20.81
+    ],
+    [
+     2006,
+     28.53
+    ],
+    [
+     2007,
+     61.11
+    ],
+    [
+     2008,
+     38.55
+    ],
+    [
+     2009,
+     44.58
+    ],
+    [
+     2010,
+     37.35
+    ],
+    [
+     2011,
+     37.51
+    ],
+    [
+     2012,
+     50.58
+    ],
+    [
+     2013,
+     61.65
+    ],
+    [
+     2014,
+     57.83
+    ],
+    [
+     2015,
+     43.33
+    ],
+    [
+     2016,
+     46.06
+    ],
+    [
+     2017,
+     51.4
+    ]
+   ],
+   "period": "2000-2017",
+   "from": 2000,
+   "to": 2017,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Monsanto, nominal US dollars; the 2026 row (today's value) is left out; delisted, its last known value on 2018-06-06 (that row is left out: not a year-end value)"
+  },
+  {
+   "id": "co-cal_maine-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Cal-Maine Foods gives its market capitalization as $81.64 million at the end of 1997; $58.11 million at the end of 1998; $44.09 million at the end of 1999; $72.13 million at the end of 2000; $42.58 million at the end of 2001; $41.76 million at the end of 2002; $0.44 billion at the end of 2003; $0.28 billion at the end of 2004; $0.16 billion at the end of 2005; $0.20 billion at the end of 2006; $0.62 billion at the end of 2007; $0.68 billion at the end of 2008; $0.81 billion at the end of 2009; $0.75 billion at the end of 2010; $0.87 billion at the end of 2011; $0.96 billion at the end of 2012; $1.45 billion at the end of 2013; $1.88 billion at the end of 2014; $2.24 billion at the end of 2015; $2.14 billion at the end of 2016; $2.15 billion at the end of 2017; $2.05 billion at the end of 2018; $2.08 billion at the end of 2019; $1.83 billion at the end of 2020; $1.80 billion at the end of 2021; $2.66 billion at the end of 2022; $2.81 billion at the end of 2023; $4.95 billion at the end of 2024; $3.97 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/cal-maine-foods/marketcap/",
+   "quotes": [
+    "2025 $3.97 B -19.83% 2024 $4.95 B 76.43% 2023 $2.81 B 5.51% 2022 $2.66 B 47.42% 2021 $1.80 B -1.29% 2020 $1.83 B -12.05% 2019 $2.08 B 1.2% 2018 $2.05 B -4.73% 2017 $2.15 B 0.72% 2016 $2.14 B -4.6% 2015 $2.24 B 19.01% 2014 $1.88 B 30.05% 2013 $1.45 B 50.21% 2012 $0.96 B 10.74% 2011 $0.87 B 15.89% 2010 $0.75 B -7.16% 2009 $0.81 B 18.84% 2008 $0.68 B 8.54% 2007 $0.62 B 209.21% 2006 $0.20 B 26.51% 2005 $0.16 B -43.84% 2004 $0.28 B -35.33% 2003 $0.44 B 960.06% 2002 $41.76 M -1.93% 2001 $42.58 M -40.96% 2000 $72.13 M 63.58% 1999 $44.09 M -24.11% 1998 $58.11 M -28.82% 1997 $81.64 M"
+   ],
+   "values": [
+    "2025 $3.97 B",
+    "2024 $4.95 B",
+    "2023 $2.81 B",
+    "2022 $2.66 B",
+    "2021 $1.80 B",
+    "2020 $1.83 B",
+    "2019 $2.08 B",
+    "2018 $2.05 B",
+    "2017 $2.15 B",
+    "2016 $2.14 B",
+    "2015 $2.24 B",
+    "2014 $1.88 B",
+    "2013 $1.45 B",
+    "2012 $0.96 B",
+    "2011 $0.87 B",
+    "2010 $0.75 B",
+    "2009 $0.81 B",
+    "2008 $0.68 B",
+    "2007 $0.62 B",
+    "2006 $0.20 B",
+    "2005 $0.16 B",
+    "2004 $0.28 B",
+    "2003 $0.44 B",
+    "2002 $41.76 M",
+    "2001 $42.58 M",
+    "2000 $72.13 M",
+    "1999 $44.09 M",
+    "1998 $58.11 M",
+    "1997 $81.64 M"
+   ],
+   "context": [
+    "Market cap history of Cal-Maine Foods from 1997 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/cal-maine-foods.html",
+   "dated2026": false,
+   "actor": "cal_maine",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1997,
+     0.0816
+    ],
+    [
+     1998,
+     0.0581
+    ],
+    [
+     1999,
+     0.0441
+    ],
+    [
+     2000,
+     0.0721
+    ],
+    [
+     2001,
+     0.0426
+    ],
+    [
+     2002,
+     0.0418
+    ],
+    [
+     2003,
+     0.44
+    ],
+    [
+     2004,
+     0.28
+    ],
+    [
+     2005,
+     0.16
+    ],
+    [
+     2006,
+     0.2
+    ],
+    [
+     2007,
+     0.62
+    ],
+    [
+     2008,
+     0.68
+    ],
+    [
+     2009,
+     0.81
+    ],
+    [
+     2010,
+     0.75
+    ],
+    [
+     2011,
+     0.87
+    ],
+    [
+     2012,
+     0.96
+    ],
+    [
+     2013,
+     1.45
+    ],
+    [
+     2014,
+     1.88
+    ],
+    [
+     2015,
+     2.24
+    ],
+    [
+     2016,
+     2.14
+    ],
+    [
+     2017,
+     2.15
+    ],
+    [
+     2018,
+     2.05
+    ],
+    [
+     2019,
+     2.08
+    ],
+    [
+     2020,
+     1.83
+    ],
+    [
+     2021,
+     1.8
+    ],
+    [
+     2022,
+     2.66
+    ],
+    [
+     2023,
+     2.81
+    ],
+    [
+     2024,
+     4.95
+    ],
+    [
+     2025,
+     3.97
+    ]
+   ],
+   "period": "1997-2025",
+   "from": 1997,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Cal-Maine Foods, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-weyerhaeuser-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Weyerhaeuser gives its market capitalization as $9.39 billion at the end of 1996; $9.78 billion at the end of 1997; $10.11 billion at the end of 1998; $14.44 billion at the end of 1999; $10.80 billion at the end of 2000; $11.89 billion at the end of 2001; $10.77 billion at the end of 2002; $14.09 billion at the end of 2003; $16.15 billion at the end of 2004; $16.12 billion at the end of 2005; $16.67 billion at the end of 2006; $15.45 billion at the end of 2007; $6.46 billion at the end of 2008; $9.11 billion at the end of 2009; $10.14 billion at the end of 2010; $10.01 billion at the end of 2011; $15.08 billion at the end of 2012; $18.42 billion at the end of 2013; $18.82 billion at the end of 2014; $15.30 billion at the end of 2015; $22.50 billion at the end of 2016; $26.61 billion at the end of 2017; $16.31 billion at the end of 2018; $22.50 billion at the end of 2019; $25.02 billion at the end of 2020; $30.77 billion at the end of 2021; $22.81 billion at the end of 2022; $25.38 billion at the end of 2023; $20.33 billion at the end of 2024; $17.12 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/weyerhaeuser/marketcap/",
+   "quotes": [
+    "2025 $17.12 B -15.78% 2024 $20.33 B -19.88% 2023 $25.38 B 11.26% 2022 $22.81 B -25.87% 2021 $30.77 B 22.96% 2020 $25.02 B 11.19% 2019 $22.50 B 37.95% 2018 $16.31 B -38.7% 2017 $26.61 B 18.24% 2016 $22.50 B 47.08% 2015 $15.30 B -18.7% 2014 $18.82 B 2.18% 2013 $18.42 B 22.09% 2012 $15.08 B 50.67% 2011 $10.01 B -1.29% 2010 $10.14 B 11.27% 2009 $9.11 B 40.98% 2008 $6.46 B -58.14% 2007 $15.45 B -7.33% 2006 $16.67 B 3.38% 2005 $16.12 B -0.17% 2004 $16.15 B 14.65% 2003 $14.09 B 30.8% 2002 $10.77 B -9.38% 2001 $11.89 B 10.08% 2000 $10.80 B -25.24% 1999 $14.44 B 42.87% 1998 $10.11 B 3.32% 1997 $9.78 B 4.16% 1996 $9.39 B"
+   ],
+   "values": [
+    "2025 $17.12 B",
+    "2024 $20.33 B",
+    "2023 $25.38 B",
+    "2022 $22.81 B",
+    "2021 $30.77 B",
+    "2020 $25.02 B",
+    "2019 $22.50 B",
+    "2018 $16.31 B",
+    "2017 $26.61 B",
+    "2016 $22.50 B",
+    "2015 $15.30 B",
+    "2014 $18.82 B",
+    "2013 $18.42 B",
+    "2012 $15.08 B",
+    "2011 $10.01 B",
+    "2010 $10.14 B",
+    "2009 $9.11 B",
+    "2008 $6.46 B",
+    "2007 $15.45 B",
+    "2006 $16.67 B",
+    "2005 $16.12 B",
+    "2004 $16.15 B",
+    "2003 $14.09 B",
+    "2002 $10.77 B",
+    "2001 $11.89 B",
+    "2000 $10.80 B",
+    "1999 $14.44 B",
+    "1998 $10.11 B",
+    "1997 $9.78 B",
+    "1996 $9.39 B"
+   ],
+   "context": [
+    "Market cap history of Weyerhaeuser from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/weyerhaeuser.html",
+   "dated2026": false,
+   "actor": "weyerhaeuser",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     9.39
+    ],
+    [
+     1997,
+     9.78
+    ],
+    [
+     1998,
+     10.11
+    ],
+    [
+     1999,
+     14.44
+    ],
+    [
+     2000,
+     10.8
+    ],
+    [
+     2001,
+     11.89
+    ],
+    [
+     2002,
+     10.77
+    ],
+    [
+     2003,
+     14.09
+    ],
+    [
+     2004,
+     16.15
+    ],
+    [
+     2005,
+     16.12
+    ],
+    [
+     2006,
+     16.67
+    ],
+    [
+     2007,
+     15.45
+    ],
+    [
+     2008,
+     6.46
+    ],
+    [
+     2009,
+     9.11
+    ],
+    [
+     2010,
+     10.14
+    ],
+    [
+     2011,
+     10.01
+    ],
+    [
+     2012,
+     15.08
+    ],
+    [
+     2013,
+     18.42
+    ],
+    [
+     2014,
+     18.82
+    ],
+    [
+     2015,
+     15.3
+    ],
+    [
+     2016,
+     22.5
+    ],
+    [
+     2017,
+     26.61
+    ],
+    [
+     2018,
+     16.31
+    ],
+    [
+     2019,
+     22.5
+    ],
+    [
+     2020,
+     25.02
+    ],
+    [
+     2021,
+     30.77
+    ],
+    [
+     2022,
+     22.81
+    ],
+    [
+     2023,
+     25.38
+    ],
+    [
+     2024,
+     20.33
+    ],
+    [
+     2025,
+     17.12
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Weyerhaeuser, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-fresh_del_monte-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Fresh Del Monte Produce gives its market capitalization as $0.18 billion at the end of 1997; $1.16 billion at the end of 1998; $0.48 billion at the end of 1999; $0.23 billion at the end of 2000; $0.81 billion at the end of 2001; $1.06 billion at the end of 2002; $1.36 billion at the end of 2003; $1.70 billion at the end of 2004; $1.32 billion at the end of 2005; $0.86 billion at the end of 2006; $2.10 billion at the end of 2007; $1.42 billion at the end of 2008; $1.40 billion at the end of 2009; $1.46 billion at the end of 2010; $1.44 billion at the end of 2011; $1.52 billion at the end of 2012; $1.59 billion at the end of 2013; $1.80 billion at the end of 2014; $2.03 billion at the end of 2015; $3.10 billion at the end of 2016; $2.32 billion at the end of 2017; $1.36 billion at the end of 2018; $1.67 billion at the end of 2019; $1.14 billion at the end of 2020; $1.31 billion at the end of 2021; $1.25 billion at the end of 2022; $1.26 billion at the end of 2023; $1.58 billion at the end of 2024; $1.72 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/fresh-del-monte-produce/marketcap/",
+   "quotes": [
+    "2025 $1.72 B 8.48% 2024 $1.58 B 25.53% 2023 $1.26 B 0.82% 2022 $1.25 B -4.51% 2021 $1.31 B 15.1% 2020 $1.14 B -32.12% 2019 $1.67 B 22.64% 2018 $1.36 B -41.08% 2017 $2.32 B -25.21% 2016 $3.10 B 52.96% 2015 $2.03 B 12.35% 2014 $1.80 B 13.66% 2013 $1.59 B 4.63% 2012 $1.52 B 5.25% 2011 $1.44 B -1.4% 2010 $1.46 B 4.24% 2009 $1.40 B -1.32% 2008 $1.42 B -32.35% 2007 $2.10 B 144.75% 2006 $0.86 B -34.88% 2005 $1.32 B -22.67% 2004 $1.70 B 25.14% 2003 $1.36 B 28.43% 2002 $1.06 B 30.56% 2001 $0.81 B 241.19% 2000 $0.23 B -50.69% 1999 $0.48 B -58.5% 1998 $1.16 B 524.54% 1997 $0.18 B"
+   ],
+   "values": [
+    "2025 $1.72 B",
+    "2024 $1.58 B",
+    "2023 $1.26 B",
+    "2022 $1.25 B",
+    "2021 $1.31 B",
+    "2020 $1.14 B",
+    "2019 $1.67 B",
+    "2018 $1.36 B",
+    "2017 $2.32 B",
+    "2016 $3.10 B",
+    "2015 $2.03 B",
+    "2014 $1.80 B",
+    "2013 $1.59 B",
+    "2012 $1.52 B",
+    "2011 $1.44 B",
+    "2010 $1.46 B",
+    "2009 $1.40 B",
+    "2008 $1.42 B",
+    "2007 $2.10 B",
+    "2006 $0.86 B",
+    "2005 $1.32 B",
+    "2004 $1.70 B",
+    "2003 $1.36 B",
+    "2002 $1.06 B",
+    "2001 $0.81 B",
+    "2000 $0.23 B",
+    "1999 $0.48 B",
+    "1998 $1.16 B",
+    "1997 $0.18 B"
+   ],
+   "context": [
+    "Market cap history of Fresh Del Monte Produce from 1997 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/fresh-del-monte-produce.html",
+   "dated2026": false,
+   "actor": "fresh_del_monte",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1997,
+     0.18
+    ],
+    [
+     1998,
+     1.16
+    ],
+    [
+     1999,
+     0.48
+    ],
+    [
+     2000,
+     0.23
+    ],
+    [
+     2001,
+     0.81
+    ],
+    [
+     2002,
+     1.06
+    ],
+    [
+     2003,
+     1.36
+    ],
+    [
+     2004,
+     1.7
+    ],
+    [
+     2005,
+     1.32
+    ],
+    [
+     2006,
+     0.86
+    ],
+    [
+     2007,
+     2.1
+    ],
+    [
+     2008,
+     1.42
+    ],
+    [
+     2009,
+     1.4
+    ],
+    [
+     2010,
+     1.46
+    ],
+    [
+     2011,
+     1.44
+    ],
+    [
+     2012,
+     1.52
+    ],
+    [
+     2013,
+     1.59
+    ],
+    [
+     2014,
+     1.8
+    ],
+    [
+     2015,
+     2.03
+    ],
+    [
+     2016,
+     3.1
+    ],
+    [
+     2017,
+     2.32
+    ],
+    [
+     2018,
+     1.36
+    ],
+    [
+     2019,
+     1.67
+    ],
+    [
+     2020,
+     1.14
+    ],
+    [
+     2021,
+     1.31
+    ],
+    [
+     2022,
+     1.25
+    ],
+    [
+     2023,
+     1.26
+    ],
+    [
+     2024,
+     1.58
+    ],
+    [
+     2025,
+     1.72
+    ]
+   ],
+   "period": "1997-2025",
+   "from": 1997,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Fresh Del Monte Produce, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-conocophillips-mcap",
+   "claim": "CompaniesMarketCap's market cap history of ConocoPhillips gives its market capitalization as $11.65 billion at the end of 1996; $12.79 billion at the end of 1997; $10.74 billion at the end of 1998; $11.91 billion at the end of 1999; $14.52 billion at the end of 2000; $23.02 billion at the end of 2001; $32.78 billion at the end of 2002; $44.77 billion at the end of 2003; $60.32 billion at the end of 2004; $80.16 billion at the end of 2005; $118.41 billion at the end of 2006; $137.88 billion at the end of 2007; $77.22 billion at the end of 2008; $77.88 billion at the end of 2009; $99.94 billion at the end of 2010; $96.75 billion at the end of 2011; $70.74 billion at the end of 2012; $86.61 billion at the end of 2013; $85.03 billion at the end of 2014; $57.70 billion at the end of 2015; $62.12 billion at the end of 2016; $65.62 billion at the end of 2017; $70.97 billion at the end of 2018; $70.54 billion at the end of 2019; $42.70 billion at the end of 2020; $95.20 billion at the end of 2021; $147.03 billion at the end of 2022; $137.82 billion at the end of 2023; $125.37 billion at the end of 2024; $114.32 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/conocophillips/marketcap/",
+   "quotes": [
+    "2025 $114.32 B -8.81% 2024 $125.37 B -9.03% 2023 $137.82 B -6.27% 2022 $147.03 B 54.45% 2021 $95.20 B 122.9% 2020 $42.70 B -39.46% 2019 $70.54 B -0.6% 2018 $70.97 B 8.16% 2017 $65.62 B 5.63% 2016 $62.12 B 7.65% 2015 $57.70 B -32.14% 2014 $85.03 B -1.82% 2013 $86.61 B 22.42% 2012 $70.74 B -26.88% 2011 $96.75 B -3.2% 2010 $99.94 B 28.33% 2009 $77.88 B 0.85% 2008 $77.22 B -43.99% 2007 $137.88 B 16.44% 2006 $118.41 B 47.71% 2005 $80.16 B 32.88% 2004 $60.32 B 34.75% 2003 $44.77 B 36.55% 2002 $32.78 B 42.38% 2001 $23.02 B 58.54% 2000 $14.52 B 21.86% 1999 $11.91 B 10.97% 1998 $10.74 B -16.06% 1997 $12.79 B 9.84% 1996 $11.65 B"
+   ],
+   "values": [
+    "2025 $114.32 B",
+    "2024 $125.37 B",
+    "2023 $137.82 B",
+    "2022 $147.03 B",
+    "2021 $95.20 B",
+    "2020 $42.70 B",
+    "2019 $70.54 B",
+    "2018 $70.97 B",
+    "2017 $65.62 B",
+    "2016 $62.12 B",
+    "2015 $57.70 B",
+    "2014 $85.03 B",
+    "2013 $86.61 B",
+    "2012 $70.74 B",
+    "2011 $96.75 B",
+    "2010 $99.94 B",
+    "2009 $77.88 B",
+    "2008 $77.22 B",
+    "2007 $137.88 B",
+    "2006 $118.41 B",
+    "2005 $80.16 B",
+    "2004 $60.32 B",
+    "2003 $44.77 B",
+    "2002 $32.78 B",
+    "2001 $23.02 B",
+    "2000 $14.52 B",
+    "1999 $11.91 B",
+    "1998 $10.74 B",
+    "1997 $12.79 B",
+    "1996 $11.65 B"
+   ],
+   "context": [
+    "Market cap history of ConocoPhillips from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/conocophillips.html",
+   "dated2026": false,
+   "actor": "conocophillips",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     11.65
+    ],
+    [
+     1997,
+     12.79
+    ],
+    [
+     1998,
+     10.74
+    ],
+    [
+     1999,
+     11.91
+    ],
+    [
+     2000,
+     14.52
+    ],
+    [
+     2001,
+     23.02
+    ],
+    [
+     2002,
+     32.78
+    ],
+    [
+     2003,
+     44.77
+    ],
+    [
+     2004,
+     60.32
+    ],
+    [
+     2005,
+     80.16
+    ],
+    [
+     2006,
+     118.41
+    ],
+    [
+     2007,
+     137.88
+    ],
+    [
+     2008,
+     77.22
+    ],
+    [
+     2009,
+     77.88
+    ],
+    [
+     2010,
+     99.94
+    ],
+    [
+     2011,
+     96.75
+    ],
+    [
+     2012,
+     70.74
+    ],
+    [
+     2013,
+     86.61
+    ],
+    [
+     2014,
+     85.03
+    ],
+    [
+     2015,
+     57.7
+    ],
+    [
+     2016,
+     62.12
+    ],
+    [
+     2017,
+     65.62
+    ],
+    [
+     2018,
+     70.97
+    ],
+    [
+     2019,
+     70.54
+    ],
+    [
+     2020,
+     42.7
+    ],
+    [
+     2021,
+     95.2
+    ],
+    [
+     2022,
+     147.03
+    ],
+    [
+     2023,
+     137.82
+    ],
+    [
+     2024,
+     125.37
+    ],
+    [
+     2025,
+     114.32
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of ConocoPhillips, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-eog-mcap",
+   "claim": "CompaniesMarketCap's market cap history of EOG Resources gives its market capitalization as $4.03 billion at the end of 1996; $3.28 billion at the end of 1997; $2.65 billion at the end of 1998; $2.09 billion at the end of 1999; $6.39 billion at the end of 2000; $4.51 billion at the end of 2001; $4.60 billion at the end of 2002; $5.35 billion at the end of 2003; $8.48 billion at the end of 2004; $17.76 billion at the end of 2005; $15.22 billion at the end of 2006; $22.00 billion at the end of 2007; $16.61 billion at the end of 2008; $24.56 billion at the end of 2009; $23.22 billion at the end of 2010; $26.48 billion at the end of 2011; $32.81 billion at the end of 2012; $45.83 billion at the end of 2013; $50.48 billion at the end of 2014; $38.92 billion at the end of 2015; $58.27 billion at the end of 2016; $62.39 billion at the end of 2017; $50.58 billion at the end of 2018; $48.74 billion at the end of 2019; $29.09 billion at the end of 2020; $51.97 billion at the end of 2021; $76.07 billion at the end of 2022; $70.53 billion at the end of 2023; $67.71 billion at the end of 2024; $56.51 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/eog-resources/marketcap/",
+   "quotes": [
+    "2025 $56.51 B -16.55% 2024 $67.71 B -3.99% 2023 $70.53 B -7.29% 2022 $76.07 B 46.38% 2021 $51.97 B 78.65% 2020 $29.09 B -40.31% 2019 $48.74 B -3.64% 2018 $50.58 B -18.93% 2017 $62.39 B 7.06% 2016 $58.27 B 49.73% 2015 $38.92 B -22.89% 2014 $50.48 B 10.14% 2013 $45.83 B 39.7% 2012 $32.81 B 23.89% 2011 $26.48 B 14.03% 2010 $23.22 B -5.47% 2009 $24.56 B 47.85% 2008 $16.61 B -24.48% 2007 $22.00 B 44.55% 2006 $15.22 B -14.3% 2005 $17.76 B 109.28% 2004 $8.48 B 58.58% 2003 $5.35 B 16.33% 2002 $4.60 B 1.88% 2001 $4.51 B -29.37% 2000 $6.39 B 205.61% 1999 $2.09 B -21.11% 1998 $2.65 B -19.29% 1997 $3.28 B -18.55% 1996 $4.03 B"
+   ],
+   "values": [
+    "2025 $56.51 B",
+    "2024 $67.71 B",
+    "2023 $70.53 B",
+    "2022 $76.07 B",
+    "2021 $51.97 B",
+    "2020 $29.09 B",
+    "2019 $48.74 B",
+    "2018 $50.58 B",
+    "2017 $62.39 B",
+    "2016 $58.27 B",
+    "2015 $38.92 B",
+    "2014 $50.48 B",
+    "2013 $45.83 B",
+    "2012 $32.81 B",
+    "2011 $26.48 B",
+    "2010 $23.22 B",
+    "2009 $24.56 B",
+    "2008 $16.61 B",
+    "2007 $22.00 B",
+    "2006 $15.22 B",
+    "2005 $17.76 B",
+    "2004 $8.48 B",
+    "2003 $5.35 B",
+    "2002 $4.60 B",
+    "2001 $4.51 B",
+    "2000 $6.39 B",
+    "1999 $2.09 B",
+    "1998 $2.65 B",
+    "1997 $3.28 B",
+    "1996 $4.03 B"
+   ],
+   "context": [
+    "Market cap history of EOG Resources from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/eog-resources.html",
+   "dated2026": false,
+   "actor": "eog",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     4.03
+    ],
+    [
+     1997,
+     3.28
+    ],
+    [
+     1998,
+     2.65
+    ],
+    [
+     1999,
+     2.09
+    ],
+    [
+     2000,
+     6.39
+    ],
+    [
+     2001,
+     4.51
+    ],
+    [
+     2002,
+     4.6
+    ],
+    [
+     2003,
+     5.35
+    ],
+    [
+     2004,
+     8.48
+    ],
+    [
+     2005,
+     17.76
+    ],
+    [
+     2006,
+     15.22
+    ],
+    [
+     2007,
+     22.0
+    ],
+    [
+     2008,
+     16.61
+    ],
+    [
+     2009,
+     24.56
+    ],
+    [
+     2010,
+     23.22
+    ],
+    [
+     2011,
+     26.48
+    ],
+    [
+     2012,
+     32.81
+    ],
+    [
+     2013,
+     45.83
+    ],
+    [
+     2014,
+     50.48
+    ],
+    [
+     2015,
+     38.92
+    ],
+    [
+     2016,
+     58.27
+    ],
+    [
+     2017,
+     62.39
+    ],
+    [
+     2018,
+     50.58
+    ],
+    [
+     2019,
+     48.74
+    ],
+    [
+     2020,
+     29.09
+    ],
+    [
+     2021,
+     51.97
+    ],
+    [
+     2022,
+     76.07
+    ],
+    [
+     2023,
+     70.53
+    ],
+    [
+     2024,
+     67.71
+    ],
+    [
+     2025,
+     56.51
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of EOG Resources, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-occidental-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Occidental Petroleum gives its market capitalization as $7.69 billion at the end of 1996; $9.99 billion at the end of 1997; $5.86 billion at the end of 1998; $7.95 billion at the end of 1999; $8.97 billion at the end of 2000; $9.92 billion at the end of 2001; $10.75 billion at the end of 2002; $16.34 billion at the end of 2003; $23.15 billion at the end of 2004; $32.12 billion at the end of 2005; $41.07 billion at the end of 2006; $63.79 billion at the end of 2007; $48.58 billion at the end of 2008; $66.04 billion at the end of 2009; $79.73 billion at the end of 2010; $76.06 billion at the end of 2011; $61.71 billion at the end of 2012; $75.69 billion at the end of 2013; $62.11 billion at the end of 2014; $51.63 billion at the end of 2015; $54.43 billion at the end of 2016; $56.36 billion at the end of 2017; $45.99 billion at the end of 2018; $36.84 billion at the end of 2019; $16.11 billion at the end of 2020; $27.07 billion at the end of 2021; $57.25 billion at the end of 2022; $52.40 billion at the end of 2023; $45.56 billion at the end of 2024; $39.26 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/occidental-petroleum/marketcap/",
+   "quotes": [
+    "2025 $39.26 B -13.84% 2024 $45.56 B -13.04% 2023 $52.40 B -8.47% 2022 $57.25 B 111.45% 2021 $27.07 B 67.97% 2020 $16.11 B -56.25% 2019 $36.84 B -19.89% 2018 $45.99 B -18.4% 2017 $56.36 B 3.55% 2016 $54.43 B 5.42% 2015 $51.63 B -16.88% 2014 $62.11 B -17.94% 2013 $75.69 B 22.67% 2012 $61.71 B -18.87% 2011 $76.06 B -4.6% 2010 $79.73 B 20.72% 2009 $66.04 B 35.95% 2008 $48.58 B -23.84% 2007 $63.79 B 55.33% 2006 $41.07 B 27.83% 2005 $32.12 B 38.77% 2004 $23.15 B 41.62% 2003 $16.34 B 52.08% 2002 $10.75 B 8.31% 2001 $9.92 B 10.63% 2000 $8.97 B 12.77% 1999 $7.95 B 35.59% 1998 $5.86 B -41.32% 1997 $9.99 B 29.94% 1996 $7.69 B"
+   ],
+   "values": [
+    "2025 $39.26 B",
+    "2024 $45.56 B",
+    "2023 $52.40 B",
+    "2022 $57.25 B",
+    "2021 $27.07 B",
+    "2020 $16.11 B",
+    "2019 $36.84 B",
+    "2018 $45.99 B",
+    "2017 $56.36 B",
+    "2016 $54.43 B",
+    "2015 $51.63 B",
+    "2014 $62.11 B",
+    "2013 $75.69 B",
+    "2012 $61.71 B",
+    "2011 $76.06 B",
+    "2010 $79.73 B",
+    "2009 $66.04 B",
+    "2008 $48.58 B",
+    "2007 $63.79 B",
+    "2006 $41.07 B",
+    "2005 $32.12 B",
+    "2004 $23.15 B",
+    "2003 $16.34 B",
+    "2002 $10.75 B",
+    "2001 $9.92 B",
+    "2000 $8.97 B",
+    "1999 $7.95 B",
+    "1998 $5.86 B",
+    "1997 $9.99 B",
+    "1996 $7.69 B"
+   ],
+   "context": [
+    "Market cap history of Occidental Petroleum from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/occidental-petroleum.html",
+   "dated2026": false,
+   "actor": "occidental",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     7.69
+    ],
+    [
+     1997,
+     9.99
+    ],
+    [
+     1998,
+     5.86
+    ],
+    [
+     1999,
+     7.95
+    ],
+    [
+     2000,
+     8.97
+    ],
+    [
+     2001,
+     9.92
+    ],
+    [
+     2002,
+     10.75
+    ],
+    [
+     2003,
+     16.34
+    ],
+    [
+     2004,
+     23.15
+    ],
+    [
+     2005,
+     32.12
+    ],
+    [
+     2006,
+     41.07
+    ],
+    [
+     2007,
+     63.79
+    ],
+    [
+     2008,
+     48.58
+    ],
+    [
+     2009,
+     66.04
+    ],
+    [
+     2010,
+     79.73
+    ],
+    [
+     2011,
+     76.06
+    ],
+    [
+     2012,
+     61.71
+    ],
+    [
+     2013,
+     75.69
+    ],
+    [
+     2014,
+     62.11
+    ],
+    [
+     2015,
+     51.63
+    ],
+    [
+     2016,
+     54.43
+    ],
+    [
+     2017,
+     56.36
+    ],
+    [
+     2018,
+     45.99
+    ],
+    [
+     2019,
+     36.84
+    ],
+    [
+     2020,
+     16.11
+    ],
+    [
+     2021,
+     27.07
+    ],
+    [
+     2022,
+     57.25
+    ],
+    [
+     2023,
+     52.4
+    ],
+    [
+     2024,
+     45.56
+    ],
+    [
+     2025,
+     39.26
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Occidental Petroleum, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-slb-mcap",
+   "claim": "CompaniesMarketCap's market cap history of SLB (Schlumberger) gives its market capitalization as $24.62 billion at the end of 1996; $40.09 billion at the end of 1997; $25.19 billion at the end of 1998; $30.85 billion at the end of 1999; $45.78 billion at the end of 2000; $31.64 billion at the end of 2001; $24.50 billion at the end of 2002; $32.06 billion at the end of 2003; $39.40 billion at the end of 2004; $57.40 billion at the end of 2005; $74.39 billion at the end of 2006; $117.81 billion at the end of 2007; $50.63 billion at the end of 2008; $77.77 billion at the end of 2009; $113.64 billion at the end of 2010; $91.68 billion at the end of 2011; $92.04 billion at the end of 2012; $117.80 billion at the end of 2013; $108.92 billion at the end of 2014; $87.63 billion at the end of 2015; $116.80 billion at the end of 2016; $93.35 billion at the end of 2017; $49.89 billion at the end of 2018; $55.65 billion at the end of 2019; $30.38 billion at the end of 2020; $42.03 billion at the end of 2021; $75.80 billion at the end of 2022; $74.33 billion at the end of 2023; $53.37 billion at the end of 2024; $56.45 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/schlumberger/marketcap/",
+   "quotes": [
+    "2025 $56.45 B 5.76% 2024 $53.37 B -28.19% 2023 $74.33 B -1.94% 2022 $75.80 B 80.36% 2021 $42.03 B 38.32% 2020 $30.38 B -45.4% 2019 $55.65 B 11.54% 2018 $49.89 B -46.55% 2017 $93.35 B -20.07% 2016 $116.80 B 33.29% 2015 $87.63 B -19.55% 2014 $108.92 B -7.54% 2013 $117.80 B 27.98% 2012 $92.04 B 0.4% 2011 $91.68 B -19.33% 2010 $113.64 B 46.13% 2009 $77.77 B 53.59% 2008 $50.63 B -57.02% 2007 $117.81 B 58.37% 2006 $74.39 B 29.6% 2005 $57.40 B 45.69% 2004 $39.40 B 22.88% 2003 $32.06 B 30.85% 2002 $24.50 B -22.57% 2001 $31.64 B -30.88% 2000 $45.78 B 48.36% 1999 $30.85 B 22.51% 1998 $25.19 B -37.17% 1997 $40.09 B 62.82% 1996 $24.62 B"
+   ],
+   "values": [
+    "2025 $56.45 B",
+    "2024 $53.37 B",
+    "2023 $74.33 B",
+    "2022 $75.80 B",
+    "2021 $42.03 B",
+    "2020 $30.38 B",
+    "2019 $55.65 B",
+    "2018 $49.89 B",
+    "2017 $93.35 B",
+    "2016 $116.80 B",
+    "2015 $87.63 B",
+    "2014 $108.92 B",
+    "2013 $117.80 B",
+    "2012 $92.04 B",
+    "2011 $91.68 B",
+    "2010 $113.64 B",
+    "2009 $77.77 B",
+    "2008 $50.63 B",
+    "2007 $117.81 B",
+    "2006 $74.39 B",
+    "2005 $57.40 B",
+    "2004 $39.40 B",
+    "2003 $32.06 B",
+    "2002 $24.50 B",
+    "2001 $31.64 B",
+    "2000 $45.78 B",
+    "1999 $30.85 B",
+    "1998 $25.19 B",
+    "1997 $40.09 B",
+    "1996 $24.62 B"
+   ],
+   "context": [
+    "Market cap history of SLB (Schlumberger) from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/schlumberger.html",
+   "dated2026": false,
+   "actor": "slb",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     24.62
+    ],
+    [
+     1997,
+     40.09
+    ],
+    [
+     1998,
+     25.19
+    ],
+    [
+     1999,
+     30.85
+    ],
+    [
+     2000,
+     45.78
+    ],
+    [
+     2001,
+     31.64
+    ],
+    [
+     2002,
+     24.5
+    ],
+    [
+     2003,
+     32.06
+    ],
+    [
+     2004,
+     39.4
+    ],
+    [
+     2005,
+     57.4
+    ],
+    [
+     2006,
+     74.39
+    ],
+    [
+     2007,
+     117.81
+    ],
+    [
+     2008,
+     50.63
+    ],
+    [
+     2009,
+     77.77
+    ],
+    [
+     2010,
+     113.64
+    ],
+    [
+     2011,
+     91.68
+    ],
+    [
+     2012,
+     92.04
+    ],
+    [
+     2013,
+     117.8
+    ],
+    [
+     2014,
+     108.92
+    ],
+    [
+     2015,
+     87.63
+    ],
+    [
+     2016,
+     116.8
+    ],
+    [
+     2017,
+     93.35
+    ],
+    [
+     2018,
+     49.89
+    ],
+    [
+     2019,
+     55.65
+    ],
+    [
+     2020,
+     30.38
+    ],
+    [
+     2021,
+     42.03
+    ],
+    [
+     2022,
+     75.8
+    ],
+    [
+     2023,
+     74.33
+    ],
+    [
+     2024,
+     53.37
+    ],
+    [
+     2025,
+     56.45
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of SLB (Schlumberger), nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-halliburton-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Halliburton gives its market capitalization as $7.54 billion at the end of 1996; $13.60 billion at the end of 1997; $13.03 billion at the end of 1998; $17.79 billion at the end of 1999; $15.47 billion at the end of 2000; $5.68 billion at the end of 2001; $8.18 billion at the end of 2002; $11.49 billion at the end of 2003; $17.34 billion at the end of 2004; $31.84 billion at the end of 2005; $30.98 billion at the end of 2006; $33.36 billion at the end of 2007; $16.24 billion at the end of 2008; $27.14 billion at the end of 2009; $37.15 billion at the end of 2010; $31.75 billion at the end of 2011; $32.22 billion at the end of 2012; $43.08 billion at the end of 2013; $33.35 billion at the end of 2014; $29.13 billion at the end of 2015; $46.75 billion at the end of 2016; $42.64 billion at the end of 2017; $23.15 billion at the end of 2018; $21.48 billion at the end of 2019; $16.70 billion at the end of 2020; $20.47 billion at the end of 2021; $35.73 billion at the end of 2022; $32.35 billion at the end of 2023; $23.53 billion at the end of 2024; $23.83 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/halliburton/marketcap/",
+   "quotes": [
+    "2025 $23.83 B 1.29% 2024 $23.53 B -27.26% 2023 $32.35 B -9.45% 2022 $35.73 B 74.55% 2021 $20.47 B 22.53% 2020 $16.70 B -22.23% 2019 $21.48 B -7.2% 2018 $23.15 B -45.71% 2017 $42.64 B -8.81% 2016 $46.75 B 60.47% 2015 $29.13 B -12.63% 2014 $33.35 B -22.59% 2013 $43.08 B 33.7% 2012 $32.22 B 1.49% 2011 $31.75 B -14.53% 2010 $37.15 B 36.9% 2009 $27.14 B 67.04% 2008 $16.24 B -51.3% 2007 $33.36 B 7.68% 2006 $30.98 B -2.7% 2005 $31.84 B 83.62% 2004 $17.34 B 50.85% 2003 $11.49 B 40.49% 2002 $8.18 B 43.94% 2001 $5.68 B -63.27% 2000 $15.47 B -12.99% 1999 $17.79 B 36.48% 1998 $13.03 B -4.2% 1997 $13.60 B 80.24% 1996 $7.54 B"
+   ],
+   "values": [
+    "2025 $23.83 B",
+    "2024 $23.53 B",
+    "2023 $32.35 B",
+    "2022 $35.73 B",
+    "2021 $20.47 B",
+    "2020 $16.70 B",
+    "2019 $21.48 B",
+    "2018 $23.15 B",
+    "2017 $42.64 B",
+    "2016 $46.75 B",
+    "2015 $29.13 B",
+    "2014 $33.35 B",
+    "2013 $43.08 B",
+    "2012 $32.22 B",
+    "2011 $31.75 B",
+    "2010 $37.15 B",
+    "2009 $27.14 B",
+    "2008 $16.24 B",
+    "2007 $33.36 B",
+    "2006 $30.98 B",
+    "2005 $31.84 B",
+    "2004 $17.34 B",
+    "2003 $11.49 B",
+    "2002 $8.18 B",
+    "2001 $5.68 B",
+    "2000 $15.47 B",
+    "1999 $17.79 B",
+    "1998 $13.03 B",
+    "1997 $13.60 B",
+    "1996 $7.54 B"
+   ],
+   "context": [
+    "Market cap history of Halliburton from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/halliburton.html",
+   "dated2026": false,
+   "actor": "halliburton",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     7.54
+    ],
+    [
+     1997,
+     13.6
+    ],
+    [
+     1998,
+     13.03
+    ],
+    [
+     1999,
+     17.79
+    ],
+    [
+     2000,
+     15.47
+    ],
+    [
+     2001,
+     5.68
+    ],
+    [
+     2002,
+     8.18
+    ],
+    [
+     2003,
+     11.49
+    ],
+    [
+     2004,
+     17.34
+    ],
+    [
+     2005,
+     31.84
+    ],
+    [
+     2006,
+     30.98
+    ],
+    [
+     2007,
+     33.36
+    ],
+    [
+     2008,
+     16.24
+    ],
+    [
+     2009,
+     27.14
+    ],
+    [
+     2010,
+     37.15
+    ],
+    [
+     2011,
+     31.75
+    ],
+    [
+     2012,
+     32.22
+    ],
+    [
+     2013,
+     43.08
+    ],
+    [
+     2014,
+     33.35
+    ],
+    [
+     2015,
+     29.13
+    ],
+    [
+     2016,
+     46.75
+    ],
+    [
+     2017,
+     42.64
+    ],
+    [
+     2018,
+     23.15
+    ],
+    [
+     2019,
+     21.48
+    ],
+    [
+     2020,
+     16.7
+    ],
+    [
+     2021,
+     20.47
+    ],
+    [
+     2022,
+     35.73
+    ],
+    [
+     2023,
+     32.35
+    ],
+    [
+     2024,
+     23.53
+    ],
+    [
+     2025,
+     23.83
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Halliburton, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-marathon_petroleum-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Marathon Petroleum gives its market capitalization as $11.86 billion at the end of 2011; $20.97 billion at the end of 2012; $27.24 billion at the end of 2013; $24.73 billion at the end of 2014; $27.52 billion at the end of 2015; $26.57 billion at the end of 2016; $32.22 billion at the end of 2017; $40.12 billion at the end of 2018; $39.10 billion at the end of 2019; $26.91 billion at the end of 2020; $39.39 billion at the end of 2021; $54.54 billion at the end of 2022; $56.33 billion at the end of 2023; $43.60 billion at the end of 2024; $49.76 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/marathon-petroleum/marketcap/",
+   "quotes": [
+    "2025 $49.76 B 14.13% 2024 $43.60 B -22.6% 2023 $56.33 B 3.27% 2022 $54.54 B 38.48% 2021 $39.39 B 46.38% 2020 $26.91 B -31.18% 2019 $39.10 B -2.55% 2018 $40.12 B 24.52% 2017 $32.22 B 21.26% 2016 $26.57 B -3.46% 2015 $27.52 B 11.3% 2014 $24.73 B -9.22% 2013 $27.24 B 29.86% 2012 $20.97 B 76.76% 2011 $11.86 B"
+   ],
+   "values": [
+    "2025 $49.76 B",
+    "2024 $43.60 B",
+    "2023 $56.33 B",
+    "2022 $54.54 B",
+    "2021 $39.39 B",
+    "2020 $26.91 B",
+    "2019 $39.10 B",
+    "2018 $40.12 B",
+    "2017 $32.22 B",
+    "2016 $26.57 B",
+    "2015 $27.52 B",
+    "2014 $24.73 B",
+    "2013 $27.24 B",
+    "2012 $20.97 B",
+    "2011 $11.86 B"
+   ],
+   "context": [
+    "Market cap history of Marathon Petroleum from 2011 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/marathon-petroleum.html",
+   "dated2026": false,
+   "actor": "marathon_petroleum",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     2011,
+     11.86
+    ],
+    [
+     2012,
+     20.97
+    ],
+    [
+     2013,
+     27.24
+    ],
+    [
+     2014,
+     24.73
+    ],
+    [
+     2015,
+     27.52
+    ],
+    [
+     2016,
+     26.57
+    ],
+    [
+     2017,
+     32.22
+    ],
+    [
+     2018,
+     40.12
+    ],
+    [
+     2019,
+     39.1
+    ],
+    [
+     2020,
+     26.91
+    ],
+    [
+     2021,
+     39.39
+    ],
+    [
+     2022,
+     54.54
+    ],
+    [
+     2023,
+     56.33
+    ],
+    [
+     2024,
+     43.6
+    ],
+    [
+     2025,
+     49.76
+    ]
+   ],
+   "period": "2011-2025",
+   "from": 2011,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Marathon Petroleum, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-valero-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Valero Energy gives its market capitalization as $1.76 billion at the end of 1997; $1.18 billion at the end of 1998; $1.11 billion at the end of 1999; $2.26 billion at the end of 2000; $3.97 billion at the end of 2001; $3.95 billion at the end of 2002; $5.57 billion at the end of 2003; $11.59 billion at the end of 2004; $31.85 billion at the end of 2005; $30.88 billion at the end of 2006; $37.58 billion at the end of 2007; $11.16 billion at the end of 2008; $9.45 billion at the end of 2009; $13.14 billion at the end of 2010; $11.78 billion at the end of 2011; $18.83 billion at the end of 2012; $26.99 billion at the end of 2013; $25.45 billion at the end of 2014; $33.44 billion at the end of 2015; $30.92 billion at the end of 2016; $40.21 billion at the end of 2017; $31.30 billion at the end of 2018; $38.33 billion at the end of 2019; $23.06 billion at the end of 2020; $30.70 billion at the end of 2021; $48.90 billion at the end of 2022; $44.25 billion at the end of 2023; $37.85 billion at the end of 2024; $50.94 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/valero/marketcap/",
+   "quotes": [
+    "2025 $50.94 B 34.58% 2024 $37.85 B -14.46% 2023 $44.25 B -9.5% 2022 $48.90 B 59.27% 2021 $30.70 B 33.11% 2020 $23.06 B -39.82% 2019 $38.33 B 22.43% 2018 $31.30 B -22.16% 2017 $40.21 B 30.05% 2016 $30.92 B -7.54% 2015 $33.44 B 31.39% 2014 $25.45 B -5.69% 2013 $26.99 B 43.29% 2012 $18.83 B 59.88% 2011 $11.78 B -10.34% 2010 $13.14 B 38.93% 2009 $9.45 B -15.29% 2008 $11.16 B -70.29% 2007 $37.58 B 21.67% 2006 $30.88 B -3.05% 2005 $31.85 B 174.68% 2004 $11.59 B 108.12% 2003 $5.57 B 40.82% 2002 $3.95 B -0.36% 2001 $3.97 B 75.56% 2000 $2.26 B 103.02% 1999 $1.11 B -6.26% 1998 $1.18 B -32.64% 1997 $1.76 B"
+   ],
+   "values": [
+    "2025 $50.94 B",
+    "2024 $37.85 B",
+    "2023 $44.25 B",
+    "2022 $48.90 B",
+    "2021 $30.70 B",
+    "2020 $23.06 B",
+    "2019 $38.33 B",
+    "2018 $31.30 B",
+    "2017 $40.21 B",
+    "2016 $30.92 B",
+    "2015 $33.44 B",
+    "2014 $25.45 B",
+    "2013 $26.99 B",
+    "2012 $18.83 B",
+    "2011 $11.78 B",
+    "2010 $13.14 B",
+    "2009 $9.45 B",
+    "2008 $11.16 B",
+    "2007 $37.58 B",
+    "2006 $30.88 B",
+    "2005 $31.85 B",
+    "2004 $11.59 B",
+    "2003 $5.57 B",
+    "2002 $3.95 B",
+    "2001 $3.97 B",
+    "2000 $2.26 B",
+    "1999 $1.11 B",
+    "1998 $1.18 B",
+    "1997 $1.76 B"
+   ],
+   "context": [
+    "Market cap history of Valero Energy from 1997 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/valero.html",
+   "dated2026": false,
+   "actor": "valero",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1997,
+     1.76
+    ],
+    [
+     1998,
+     1.18
+    ],
+    [
+     1999,
+     1.11
+    ],
+    [
+     2000,
+     2.26
+    ],
+    [
+     2001,
+     3.97
+    ],
+    [
+     2002,
+     3.95
+    ],
+    [
+     2003,
+     5.57
+    ],
+    [
+     2004,
+     11.59
+    ],
+    [
+     2005,
+     31.85
+    ],
+    [
+     2006,
+     30.88
+    ],
+    [
+     2007,
+     37.58
+    ],
+    [
+     2008,
+     11.16
+    ],
+    [
+     2009,
+     9.45
+    ],
+    [
+     2010,
+     13.14
+    ],
+    [
+     2011,
+     11.78
+    ],
+    [
+     2012,
+     18.83
+    ],
+    [
+     2013,
+     26.99
+    ],
+    [
+     2014,
+     25.45
+    ],
+    [
+     2015,
+     33.44
+    ],
+    [
+     2016,
+     30.92
+    ],
+    [
+     2017,
+     40.21
+    ],
+    [
+     2018,
+     31.3
+    ],
+    [
+     2019,
+     38.33
+    ],
+    [
+     2020,
+     23.06
+    ],
+    [
+     2021,
+     30.7
+    ],
+    [
+     2022,
+     48.9
+    ],
+    [
+     2023,
+     44.25
+    ],
+    [
+     2024,
+     37.85
+    ],
+    [
+     2025,
+     50.94
+    ]
+   ],
+   "period": "1997-2025",
+   "from": 1997,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Valero Energy, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-mobil-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Mobil Oil Corporation gives its market capitalization as $56.62 billion at the end of 1997; $67.94 billion at the end of 1998.",
+   "url": "https://companiesmarketcap.com/mobil-oil-corporation/marketcap/",
+   "quotes": [
+    "1998 $67.94 B 19.99% 1997 $56.62 B"
+   ],
+   "values": [
+    "1998 $67.94 B",
+    "1997 $56.62 B"
+   ],
+   "context": [
+    "Market cap history of Mobil Oil Corporation from 1997 to 1999 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/mobil-oil-corporation.html",
+   "dated2026": false,
+   "actor": "mobil",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1997,
+     56.62
+    ],
+    [
+     1998,
+     67.94
+    ]
+   ],
+   "period": "1997-1998",
+   "from": 1997,
+   "to": 1998,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Mobil Oil Corporation, nominal US dollars; the 2026 row (today's value) is left out; delisted, its last known value on 1999-11-30 (that row is left out: not a year-end value)"
+  },
+  {
+   "id": "co-texaco-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Texaco gives its market capitalization as $28.76 billion at the end of 1997; $28.33 billion at the end of 1998; $30.03 billion at the end of 1999; $34.17 billion at the end of 2000.",
+   "url": "https://companiesmarketcap.com/texaco/marketcap/",
+   "quotes": [
+    "2000 $34.17 B 13.78% 1999 $30.03 B 6.03% 1998 $28.33 B -1.51% 1997 $28.76 B"
+   ],
+   "values": [
+    "2000 $34.17 B",
+    "1999 $30.03 B",
+    "1998 $28.33 B",
+    "1997 $28.76 B"
+   ],
+   "context": [
+    "Market cap history of Texaco from 1997 to 2001 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/texaco.html",
+   "dated2026": false,
+   "actor": "texaco",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1997,
+     28.76
+    ],
+    [
+     1998,
+     28.33
+    ],
+    [
+     1999,
+     30.03
+    ],
+    [
+     2000,
+     34.17
+    ]
+   ],
+   "period": "1997-2000",
+   "from": 1997,
+   "to": 2000,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Texaco, nominal US dollars; the 2026 row (today's value) is left out; delisted, its last known value on 2001-10-09 (that row is left out: not a year-end value)"
+  },
+  {
+   "id": "co-freeport-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Freeport-McMoRan gives its market capitalization as $5.99 billion at the end of 1996; $2.84 billion at the end of 1997; $1.72 billion at the end of 1998; $3.45 billion at the end of 1999; $1.27 billion at the end of 2000; $1.92 billion at the end of 2001; $2.43 billion at the end of 2002; $7.72 billion at the end of 2003; $6.84 billion at the end of 2004; $10.05 billion at the end of 2005; $10.97 billion at the end of 2006; $39.23 billion at the end of 2007; $9.22 billion at the end of 2008; $34.52 billion at the end of 2009; $56.74 billion at the end of 2010; $34.87 billion at the end of 2011; $32.45 billion at the end of 2012; $39.17 billion at the end of 2013; $24.27 billion at the end of 2014; $8.43 billion at the end of 2015; $18.99 billion at the end of 2016; $27.44 billion at the end of 2017; $14.93 billion at the end of 2018; $19.03 billion at the end of 2019; $37.80 billion at the end of 2020; $61.27 billion at the end of 2021; $54.31 billion at the end of 2022; $61.04 billion at the end of 2023; $55.83 billion at the end of 2024; $76.16 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/freeport-mcmoran/marketcap/",
+   "quotes": [
+    "2025 $76.16 B 36.4% 2024 $55.83 B -8.53% 2023 $61.04 B 12.39% 2022 $54.31 B -11.37% 2021 $61.27 B 62.1% 2020 $37.80 B 98.58% 2019 $19.03 B 27.43% 2018 $14.93 B -45.57% 2017 $27.44 B 44.5% 2016 $18.99 B 125.16% 2015 $8.43 B -65.24% 2014 $24.27 B -38.04% 2013 $39.17 B 20.7% 2012 $32.45 B -6.93% 2011 $34.87 B -38.54% 2010 $56.74 B 64.35% 2009 $34.52 B 274.06% 2008 $9.22 B -76.48% 2007 $39.23 B 257.43% 2006 $10.97 B 9.22% 2005 $10.05 B 46.87% 2004 $6.84 B -11.42% 2003 $7.72 B 217.7% 2002 $2.43 B 26.13% 2001 $1.92 B 51.62% 2000 $1.27 B -63.18% 1999 $3.45 B 99.86% 1998 $1.72 B -39.35% 1997 $2.84 B -52.47% 1996 $5.99 B"
+   ],
+   "values": [
+    "2025 $76.16 B",
+    "2024 $55.83 B",
+    "2023 $61.04 B",
+    "2022 $54.31 B",
+    "2021 $61.27 B",
+    "2020 $37.80 B",
+    "2019 $19.03 B",
+    "2018 $14.93 B",
+    "2017 $27.44 B",
+    "2016 $18.99 B",
+    "2015 $8.43 B",
+    "2014 $24.27 B",
+    "2013 $39.17 B",
+    "2012 $32.45 B",
+    "2011 $34.87 B",
+    "2010 $56.74 B",
+    "2009 $34.52 B",
+    "2008 $9.22 B",
+    "2007 $39.23 B",
+    "2006 $10.97 B",
+    "2005 $10.05 B",
+    "2004 $6.84 B",
+    "2003 $7.72 B",
+    "2002 $2.43 B",
+    "2001 $1.92 B",
+    "2000 $1.27 B",
+    "1999 $3.45 B",
+    "1998 $1.72 B",
+    "1997 $2.84 B",
+    "1996 $5.99 B"
+   ],
+   "context": [
+    "Market cap history of Freeport-McMoRan from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/freeport-mcmoran.html",
+   "dated2026": false,
+   "actor": "freeport",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     5.99
+    ],
+    [
+     1997,
+     2.84
+    ],
+    [
+     1998,
+     1.72
+    ],
+    [
+     1999,
+     3.45
+    ],
+    [
+     2000,
+     1.27
+    ],
+    [
+     2001,
+     1.92
+    ],
+    [
+     2002,
+     2.43
+    ],
+    [
+     2003,
+     7.72
+    ],
+    [
+     2004,
+     6.84
+    ],
+    [
+     2005,
+     10.05
+    ],
+    [
+     2006,
+     10.97
+    ],
+    [
+     2007,
+     39.23
+    ],
+    [
+     2008,
+     9.22
+    ],
+    [
+     2009,
+     34.52
+    ],
+    [
+     2010,
+     56.74
+    ],
+    [
+     2011,
+     34.87
+    ],
+    [
+     2012,
+     32.45
+    ],
+    [
+     2013,
+     39.17
+    ],
+    [
+     2014,
+     24.27
+    ],
+    [
+     2015,
+     8.43
+    ],
+    [
+     2016,
+     18.99
+    ],
+    [
+     2017,
+     27.44
+    ],
+    [
+     2018,
+     14.93
+    ],
+    [
+     2019,
+     19.03
+    ],
+    [
+     2020,
+     37.8
+    ],
+    [
+     2021,
+     61.27
+    ],
+    [
+     2022,
+     54.31
+    ],
+    [
+     2023,
+     61.04
+    ],
+    [
+     2024,
+     55.83
+    ],
+    [
+     2025,
+     76.16
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Freeport-McMoRan, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-newmont-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Newmont gives its market capitalization as $4.45 billion at the end of 1996; $4.59 billion at the end of 1997; $3.05 billion at the end of 1998; $4.10 billion at the end of 1999; $2.91 billion at the end of 2000; $3.74 billion at the end of 2001; $11.66 billion at the end of 2002; $19.90 billion at the end of 2003; $19.71 billion at the end of 2004; $23.85 billion at the end of 2005; $18.81 billion at the end of 2006; $22.13 billion at the end of 2007; $17.96 billion at the end of 2008; $22.79 billion at the end of 2009; $29.89 billion at the end of 2010; $29.29 billion at the end of 2011; $22.83 billion at the end of 2012; $11.34 billion at the end of 2013; $9.42 billion at the end of 2014; $9.52 billion at the end of 2015; $18.08 billion at the end of 2016; $20.01 billion at the end of 2017; $18.46 billion at the end of 2018; $35.10 billion at the end of 2019; $48.11 billion at the end of 2020; $49.45 billion at the end of 2021; $37.46 billion at the end of 2022; $47.70 billion at the end of 2023; $43.07 billion at the end of 2024; $116.19 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/newmont/marketcap/",
+   "quotes": [
+    "2025 $116.19 B 169.72% 2024 $43.07 B -9.69% 2023 $47.70 B 27.32% 2022 $37.46 B -24.25% 2021 $49.45 B 2.79% 2020 $48.11 B 37.04% 2019 $35.10 B 90.09% 2018 $18.46 B -7.71% 2017 $20.01 B 10.66% 2016 $18.08 B 89.78% 2015 $9.52 B 1.1% 2014 $9.42 B -16.94% 2013 $11.34 B -50.31% 2012 $22.83 B -22.06% 2011 $29.29 B -2.01% 2010 $29.89 B 31.19% 2009 $22.79 B 26.85% 2008 $17.96 B -18.83% 2007 $22.13 B 17.63% 2006 $18.81 B -21.13% 2005 $23.85 B 21.02% 2004 $19.71 B -0.95% 2003 $19.90 B 70.67% 2002 $11.66 B 211.1% 2001 $3.74 B 28.51% 2000 $2.91 B -28.99% 1999 $4.10 B 34.6% 1998 $3.05 B -33.62% 1997 $4.59 B 3.22% 1996 $4.45 B"
+   ],
+   "values": [
+    "2025 $116.19 B",
+    "2024 $43.07 B",
+    "2023 $47.70 B",
+    "2022 $37.46 B",
+    "2021 $49.45 B",
+    "2020 $48.11 B",
+    "2019 $35.10 B",
+    "2018 $18.46 B",
+    "2017 $20.01 B",
+    "2016 $18.08 B",
+    "2015 $9.52 B",
+    "2014 $9.42 B",
+    "2013 $11.34 B",
+    "2012 $22.83 B",
+    "2011 $29.29 B",
+    "2010 $29.89 B",
+    "2009 $22.79 B",
+    "2008 $17.96 B",
+    "2007 $22.13 B",
+    "2006 $18.81 B",
+    "2005 $23.85 B",
+    "2004 $19.71 B",
+    "2003 $19.90 B",
+    "2002 $11.66 B",
+    "2001 $3.74 B",
+    "2000 $2.91 B",
+    "1999 $4.10 B",
+    "1998 $3.05 B",
+    "1997 $4.59 B",
+    "1996 $4.45 B"
+   ],
+   "context": [
+    "Market cap history of Newmont from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/newmont.html",
+   "dated2026": false,
+   "actor": "newmont",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     4.45
+    ],
+    [
+     1997,
+     4.59
+    ],
+    [
+     1998,
+     3.05
+    ],
+    [
+     1999,
+     4.1
+    ],
+    [
+     2000,
+     2.91
+    ],
+    [
+     2001,
+     3.74
+    ],
+    [
+     2002,
+     11.66
+    ],
+    [
+     2003,
+     19.9
+    ],
+    [
+     2004,
+     19.71
+    ],
+    [
+     2005,
+     23.85
+    ],
+    [
+     2006,
+     18.81
+    ],
+    [
+     2007,
+     22.13
+    ],
+    [
+     2008,
+     17.96
+    ],
+    [
+     2009,
+     22.79
+    ],
+    [
+     2010,
+     29.89
+    ],
+    [
+     2011,
+     29.29
+    ],
+    [
+     2012,
+     22.83
+    ],
+    [
+     2013,
+     11.34
+    ],
+    [
+     2014,
+     9.42
+    ],
+    [
+     2015,
+     9.52
+    ],
+    [
+     2016,
+     18.08
+    ],
+    [
+     2017,
+     20.01
+    ],
+    [
+     2018,
+     18.46
+    ],
+    [
+     2019,
+     35.1
+    ],
+    [
+     2020,
+     48.11
+    ],
+    [
+     2021,
+     49.45
+    ],
+    [
+     2022,
+     37.46
+    ],
+    [
+     2023,
+     47.7
+    ],
+    [
+     2024,
+     43.07
+    ],
+    [
+     2025,
+     116.19
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Newmont, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-southern_copper-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Southern Copper gives its market capitalization as $1.17 billion at the end of 1996; $1.07 billion at the end of 1997; $0.75 billion at the end of 1998; $1.23 billion at the end of 1999; $1.03 billion at the end of 2000; $0.95 billion at the end of 2001; $1.15 billion at the end of 2002; $3.77 billion at the end of 2003; $3.77 billion at the end of 2004; $9.86 billion at the end of 2005; $15.86 billion at the end of 2006; $30.95 billion at the end of 2007; $13.98 billion at the end of 2008; $27.97 billion at the end of 2009; $41.42 billion at the end of 2010; $25.38 billion at the end of 2011; $32.01 billion at the end of 2012; $23.98 billion at the end of 2013; $22.91 billion at the end of 2014; $20.26 billion at the end of 2015; $24.69 billion at the end of 2016; $36.68 billion at the end of 2017; $23.78 billion at the end of 2018; $32.83 billion at the end of 2019; $50.34 billion at the end of 2020; $47.70 billion at the end of 2021; $46.68 billion at the end of 2022; $66.54 billion at the end of 2023; $73.67 billion at the end of 2024; $122.47 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/southern-copper/marketcap/",
+   "quotes": [
+    "2025 $122.47 B 66.23% 2024 $73.67 B 10.72% 2023 $66.54 B 42.53% 2022 $46.68 B -2.14% 2021 $47.70 B -5.24% 2020 $50.34 B 53.3% 2019 $32.83 B 38.06% 2018 $23.78 B -35.15% 2017 $36.68 B 48.56% 2016 $24.69 B 21.82% 2015 $20.26 B -11.56% 2014 $22.91 B -4.45% 2013 $23.98 B -25.09% 2012 $32.01 B 26.13% 2011 $25.38 B -38.74% 2010 $41.42 B 48.1% 2009 $27.97 B 99.98% 2008 $13.98 B -54.81% 2007 $30.95 B 95.09% 2006 $15.86 B 60.92% 2005 $9.86 B 161.04% 2004 $3.77 B 0.11% 2003 $3.77 B 227.52% 2002 $1.15 B 20.51% 2001 $0.95 B -7.18% 2000 $1.03 B -16.62% 1999 $1.23 B 63.85% 1998 $0.75 B -29.72% 1997 $1.07 B -8.47% 1996 $1.17 B"
+   ],
+   "values": [
+    "2025 $122.47 B",
+    "2024 $73.67 B",
+    "2023 $66.54 B",
+    "2022 $46.68 B",
+    "2021 $47.70 B",
+    "2020 $50.34 B",
+    "2019 $32.83 B",
+    "2018 $23.78 B",
+    "2017 $36.68 B",
+    "2016 $24.69 B",
+    "2015 $20.26 B",
+    "2014 $22.91 B",
+    "2013 $23.98 B",
+    "2012 $32.01 B",
+    "2011 $25.38 B",
+    "2010 $41.42 B",
+    "2009 $27.97 B",
+    "2008 $13.98 B",
+    "2007 $30.95 B",
+    "2006 $15.86 B",
+    "2005 $9.86 B",
+    "2004 $3.77 B",
+    "2003 $3.77 B",
+    "2002 $1.15 B",
+    "2001 $0.95 B",
+    "2000 $1.03 B",
+    "1999 $1.23 B",
+    "1998 $0.75 B",
+    "1997 $1.07 B",
+    "1996 $1.17 B"
+   ],
+   "context": [
+    "Market cap history of Southern Copper from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/southern-copper.html",
+   "dated2026": false,
+   "actor": "southern_copper",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     1.17
+    ],
+    [
+     1997,
+     1.07
+    ],
+    [
+     1998,
+     0.75
+    ],
+    [
+     1999,
+     1.23
+    ],
+    [
+     2000,
+     1.03
+    ],
+    [
+     2001,
+     0.95
+    ],
+    [
+     2002,
+     1.15
+    ],
+    [
+     2003,
+     3.77
+    ],
+    [
+     2004,
+     3.77
+    ],
+    [
+     2005,
+     9.86
+    ],
+    [
+     2006,
+     15.86
+    ],
+    [
+     2007,
+     30.95
+    ],
+    [
+     2008,
+     13.98
+    ],
+    [
+     2009,
+     27.97
+    ],
+    [
+     2010,
+     41.42
+    ],
+    [
+     2011,
+     25.38
+    ],
+    [
+     2012,
+     32.01
+    ],
+    [
+     2013,
+     23.98
+    ],
+    [
+     2014,
+     22.91
+    ],
+    [
+     2015,
+     20.26
+    ],
+    [
+     2016,
+     24.69
+    ],
+    [
+     2017,
+     36.68
+    ],
+    [
+     2018,
+     23.78
+    ],
+    [
+     2019,
+     32.83
+    ],
+    [
+     2020,
+     50.34
+    ],
+    [
+     2021,
+     47.7
+    ],
+    [
+     2022,
+     46.68
+    ],
+    [
+     2023,
+     66.54
+    ],
+    [
+     2024,
+     73.67
+    ],
+    [
+     2025,
+     122.47
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Southern Copper, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-nucor-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Nucor gives its market capitalization as $4.47 billion at the end of 1996; $4.25 billion at the end of 1997; $3.77 billion at the end of 1998; $4.77 billion at the end of 1999; $3.07 billion at the end of 2000; $4.12 billion at the end of 2001; $3.23 billion at the end of 2002; $4.40 billion at the end of 2003; $8.32 billion at the end of 2004; $10.38 billion at the end of 2005; $16.44 billion at the end of 2006; $17.05 billion at the end of 2007; $14.50 billion at the end of 2008; $14.68 billion at the end of 2009; $13.83 billion at the end of 2010; $12.53 billion at the end of 2011; $13.71 billion at the end of 2012; $16.99 billion at the end of 2013; $15.64 billion at the end of 2014; $12.81 billion at the end of 2015; $18.95 billion at the end of 2016; $20.21 billion at the end of 2017; $15.83 billion at the end of 2018; $16.98 billion at the end of 2019; $16.05 billion at the end of 2020; $31.04 billion at the end of 2021; $33.81 billion at the end of 2022; $42.78 billion at the end of 2023; $27.53 billion at the end of 2024; $38.07 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/nucor/marketcap/",
+   "quotes": [
+    "2025 $38.07 B 38.24% 2024 $27.53 B -35.64% 2023 $42.78 B 26.53% 2022 $33.81 B 8.91% 2021 $31.04 B 93.33% 2020 $16.05 B -5.45% 2019 $16.98 B 7.28% 2018 $15.83 B -21.67% 2017 $20.21 B 6.63% 2016 $18.95 B 47.94% 2015 $12.81 B -18.11% 2014 $15.64 B -7.91% 2013 $16.99 B 23.94% 2012 $13.71 B 9.4% 2011 $12.53 B -9.44% 2010 $13.83 B -5.79% 2009 $14.68 B 1.26% 2008 $14.50 B -14.96% 2007 $17.05 B 3.7% 2006 $16.44 B 58.43% 2005 $10.38 B 24.69% 2004 $8.32 B 89.2% 2003 $4.40 B 35.84% 2002 $3.23 B -21.38% 2001 $4.12 B 33.84% 2000 $3.07 B -35.53% 1999 $4.77 B 26.42% 1998 $3.77 B -11.13% 1997 $4.25 B -5.06% 1996 $4.47 B"
+   ],
+   "values": [
+    "2025 $38.07 B",
+    "2024 $27.53 B",
+    "2023 $42.78 B",
+    "2022 $33.81 B",
+    "2021 $31.04 B",
+    "2020 $16.05 B",
+    "2019 $16.98 B",
+    "2018 $15.83 B",
+    "2017 $20.21 B",
+    "2016 $18.95 B",
+    "2015 $12.81 B",
+    "2014 $15.64 B",
+    "2013 $16.99 B",
+    "2012 $13.71 B",
+    "2011 $12.53 B",
+    "2010 $13.83 B",
+    "2009 $14.68 B",
+    "2008 $14.50 B",
+    "2007 $17.05 B",
+    "2006 $16.44 B",
+    "2005 $10.38 B",
+    "2004 $8.32 B",
+    "2003 $4.40 B",
+    "2002 $3.23 B",
+    "2001 $4.12 B",
+    "2000 $3.07 B",
+    "1999 $4.77 B",
+    "1998 $3.77 B",
+    "1997 $4.25 B",
+    "1996 $4.47 B"
+   ],
+   "context": [
+    "Market cap history of Nucor from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/nucor.html",
+   "dated2026": false,
+   "actor": "nucor",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     4.47
+    ],
+    [
+     1997,
+     4.25
+    ],
+    [
+     1998,
+     3.77
+    ],
+    [
+     1999,
+     4.77
+    ],
+    [
+     2000,
+     3.07
+    ],
+    [
+     2001,
+     4.12
+    ],
+    [
+     2002,
+     3.23
+    ],
+    [
+     2003,
+     4.4
+    ],
+    [
+     2004,
+     8.32
+    ],
+    [
+     2005,
+     10.38
+    ],
+    [
+     2006,
+     16.44
+    ],
+    [
+     2007,
+     17.05
+    ],
+    [
+     2008,
+     14.5
+    ],
+    [
+     2009,
+     14.68
+    ],
+    [
+     2010,
+     13.83
+    ],
+    [
+     2011,
+     12.53
+    ],
+    [
+     2012,
+     13.71
+    ],
+    [
+     2013,
+     16.99
+    ],
+    [
+     2014,
+     15.64
+    ],
+    [
+     2015,
+     12.81
+    ],
+    [
+     2016,
+     18.95
+    ],
+    [
+     2017,
+     20.21
+    ],
+    [
+     2018,
+     15.83
+    ],
+    [
+     2019,
+     16.98
+    ],
+    [
+     2020,
+     16.05
+    ],
+    [
+     2021,
+     31.04
+    ],
+    [
+     2022,
+     33.81
+    ],
+    [
+     2023,
+     42.78
+    ],
+    [
+     2024,
+     27.53
+    ],
+    [
+     2025,
+     38.07
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Nucor, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-cleveland_cliffs-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Cleveland-Cliffs gives its market capitalization as $0.51 billion at the end of 1996; $0.51 billion at the end of 1997; $0.44 billion at the end of 1998; $0.33 billion at the end of 1999; $0.21 billion at the end of 2000; $0.18 billion at the end of 2001; $0.20 billion at the end of 2002; $0.53 billion at the end of 2003; $1.12 billion at the end of 2004; $1.94 billion at the end of 2005; $1.98 billion at the end of 2006; $4.39 billion at the end of 2007; $2.90 billion at the end of 2008; $6.03 billion at the end of 2009; $10.56 billion at the end of 2010; $8.91 billion at the end of 2011; $5.49 billion at the end of 2012; $4.01 billion at the end of 2013; $1.09 billion at the end of 2014; $0.24 billion at the end of 2015; $1.93 billion at the end of 2016; $2.13 billion at the end of 2017; $2.25 billion at the end of 2018; $2.26 billion at the end of 2019; $6.95 billion at the end of 2020; $10.88 billion at the end of 2021; $8.30 billion at the end of 2022; $10.30 billion at the end of 2023; $4.56 billion at the end of 2024; $7.87 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/cleveland-cliffs/marketcap/",
+   "quotes": [
+    "2025 $7.87 B 72.63% 2024 $4.56 B -55.73% 2023 $10.30 B 24.19% 2022 $8.30 B -23.75% 2021 $10.88 B 56.62% 2020 $6.95 B 206.4% 2019 $2.26 B 0.82% 2018 $2.25 B 5.26% 2017 $2.13 B 10.24% 2016 $1.93 B 699.15% 2015 $0.24 B -77.82% 2014 $1.09 B -72.74% 2013 $4.01 B -26.98% 2012 $5.49 B -38.36% 2011 $8.91 B -15.62% 2010 $10.56 B 75.05% 2009 $6.03 B 107.67% 2008 $2.90 B -33.83% 2007 $4.39 B 121.07% 2006 $1.98 B 2.38% 2005 $1.94 B 72.71% 2004 $1.12 B 110.12% 2003 $0.53 B 164.58% 2002 $0.20 B 8.62% 2001 $0.18 B -14.79% 2000 $0.21 B -34.09% 1999 $0.33 B -26.28% 1998 $0.44 B -13.23% 1997 $0.51 B 0.42% 1996 $0.51 B"
+   ],
+   "values": [
+    "2025 $7.87 B",
+    "2024 $4.56 B",
+    "2023 $10.30 B",
+    "2022 $8.30 B",
+    "2021 $10.88 B",
+    "2020 $6.95 B",
+    "2019 $2.26 B",
+    "2018 $2.25 B",
+    "2017 $2.13 B",
+    "2016 $1.93 B",
+    "2015 $0.24 B",
+    "2014 $1.09 B",
+    "2013 $4.01 B",
+    "2012 $5.49 B",
+    "2011 $8.91 B",
+    "2010 $10.56 B",
+    "2009 $6.03 B",
+    "2008 $2.90 B",
+    "2007 $4.39 B",
+    "2006 $1.98 B",
+    "2005 $1.94 B",
+    "2004 $1.12 B",
+    "2003 $0.53 B",
+    "2002 $0.20 B",
+    "2001 $0.18 B",
+    "2000 $0.21 B",
+    "1999 $0.33 B",
+    "1998 $0.44 B",
+    "1997 $0.51 B",
+    "1996 $0.51 B"
+   ],
+   "context": [
+    "Market cap history of Cleveland-Cliffs from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/cleveland-cliffs.html",
+   "dated2026": false,
+   "actor": "cleveland_cliffs",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     0.51
+    ],
+    [
+     1997,
+     0.51
+    ],
+    [
+     1998,
+     0.44
+    ],
+    [
+     1999,
+     0.33
+    ],
+    [
+     2000,
+     0.21
+    ],
+    [
+     2001,
+     0.18
+    ],
+    [
+     2002,
+     0.2
+    ],
+    [
+     2003,
+     0.53
+    ],
+    [
+     2004,
+     1.12
+    ],
+    [
+     2005,
+     1.94
+    ],
+    [
+     2006,
+     1.98
+    ],
+    [
+     2007,
+     4.39
+    ],
+    [
+     2008,
+     2.9
+    ],
+    [
+     2009,
+     6.03
+    ],
+    [
+     2010,
+     10.56
+    ],
+    [
+     2011,
+     8.91
+    ],
+    [
+     2012,
+     5.49
+    ],
+    [
+     2013,
+     4.01
+    ],
+    [
+     2014,
+     1.09
+    ],
+    [
+     2015,
+     0.24
+    ],
+    [
+     2016,
+     1.93
+    ],
+    [
+     2017,
+     2.13
+    ],
+    [
+     2018,
+     2.25
+    ],
+    [
+     2019,
+     2.26
+    ],
+    [
+     2020,
+     6.95
+    ],
+    [
+     2021,
+     10.88
+    ],
+    [
+     2022,
+     8.3
+    ],
+    [
+     2023,
+     10.3
+    ],
+    [
+     2024,
+     4.56
+    ],
+    [
+     2025,
+     7.87
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Cleveland-Cliffs, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-alcoa-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Alcoa gives its market capitalization as $5.13 billion at the end of 2016; $9.96 billion at the end of 2017; $4.91 billion at the end of 2018; $3.99 billion at the end of 2019; $4.28 billion at the end of 2020; $10.96 billion at the end of 2021; $8.04 billion at the end of 2022; $6.06 billion at the end of 2023; $9.73 billion at the end of 2024; $14.04 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/alcoa/marketcap/",
+   "quotes": [
+    "2025 $14.04 B 44.31% 2024 $9.73 B 60.43% 2023 $6.06 B -24.58% 2022 $8.04 B -26.65% 2021 $10.96 B 155.94% 2020 $4.28 B 7.36% 2019 $3.99 B -18.72% 2018 $4.91 B -50.73% 2017 $9.96 B 94.1% 2016 $5.13 B"
+   ],
+   "values": [
+    "2025 $14.04 B",
+    "2024 $9.73 B",
+    "2023 $6.06 B",
+    "2022 $8.04 B",
+    "2021 $10.96 B",
+    "2020 $4.28 B",
+    "2019 $3.99 B",
+    "2018 $4.91 B",
+    "2017 $9.96 B",
+    "2016 $5.13 B"
+   ],
+   "context": [
+    "Market cap history of Alcoa from 2016 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/alcoa.html",
+   "dated2026": false,
+   "actor": "alcoa",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     2016,
+     5.13
+    ],
+    [
+     2017,
+     9.96
+    ],
+    [
+     2018,
+     4.91
+    ],
+    [
+     2019,
+     3.99
+    ],
+    [
+     2020,
+     4.28
+    ],
+    [
+     2021,
+     10.96
+    ],
+    [
+     2022,
+     8.04
+    ],
+    [
+     2023,
+     6.06
+    ],
+    [
+     2024,
+     9.73
+    ],
+    [
+     2025,
+     14.04
+    ]
+   ],
+   "period": "2016-2025",
+   "from": 2016,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Alcoa, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-vulcan-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Vulcan Materials gives its market capitalization as $2.08 billion at the end of 1996; $3.44 billion at the end of 1997; $4.41 billion at the end of 1998; $4.02 billion at the end of 1999; $4.83 billion at the end of 2000; $4.85 billion at the end of 2001; $3.80 billion at the end of 2002; $4.84 billion at the end of 2003; $5.60 billion at the end of 2004; $6.79 billion at the end of 2005; $8.50 billion at the end of 2006; $8.56 billion at the end of 2007; $7.66 billion at the end of 2008; $6.63 billion at the end of 2009; $5.70 billion at the end of 2010; $5.08 billion at the end of 2011; $6.75 billion at the end of 2012; $7.73 billion at the end of 2013; $8.67 billion at the end of 2014; $12.64 billion at the end of 2015; $16.55 billion at the end of 2016; $16.98 billion at the end of 2017; $13.01 billion at the end of 2018; $19.06 billion at the end of 2019; $19.65 billion at the end of 2020; $27.54 billion at the end of 2021; $23.27 billion at the end of 2022; $30.16 billion at the end of 2023; $34.64 billion at the end of 2024; $38.87 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/vulcan-materials/marketcap/",
+   "quotes": [
+    "2025 $38.87 B 12.2% 2024 $34.64 B 14.87% 2023 $30.16 B 29.61% 2022 $23.27 B -15.51% 2021 $27.54 B 40.17% 2020 $19.65 B 3.11% 2019 $19.06 B 46.41% 2018 $13.01 B -23.34% 2017 $16.98 B 2.55% 2016 $16.55 B 30.92% 2015 $12.64 B 45.87% 2014 $8.67 B 12.07% 2013 $7.73 B 14.58% 2012 $6.75 B 32.77% 2011 $5.08 B -10.84% 2010 $5.70 B -14% 2009 $6.63 B -13.47% 2008 $7.66 B -10.47% 2007 $8.56 B 0.68% 2006 $8.50 B 25.09% 2005 $6.79 B 21.24% 2004 $5.60 B 15.76% 2003 $4.84 B 27.17% 2002 $3.80 B -21.59% 2001 $4.85 B 0.37% 2000 $4.83 B 20.29% 1999 $4.02 B -8.8% 1998 $4.41 B 28.1% 1997 $3.44 B 65.05% 1996 $2.08 B"
+   ],
+   "values": [
+    "2025 $38.87 B",
+    "2024 $34.64 B",
+    "2023 $30.16 B",
+    "2022 $23.27 B",
+    "2021 $27.54 B",
+    "2020 $19.65 B",
+    "2019 $19.06 B",
+    "2018 $13.01 B",
+    "2017 $16.98 B",
+    "2016 $16.55 B",
+    "2015 $12.64 B",
+    "2014 $8.67 B",
+    "2013 $7.73 B",
+    "2012 $6.75 B",
+    "2011 $5.08 B",
+    "2010 $5.70 B",
+    "2009 $6.63 B",
+    "2008 $7.66 B",
+    "2007 $8.56 B",
+    "2006 $8.50 B",
+    "2005 $6.79 B",
+    "2004 $5.60 B",
+    "2003 $4.84 B",
+    "2002 $3.80 B",
+    "2001 $4.85 B",
+    "2000 $4.83 B",
+    "1999 $4.02 B",
+    "1998 $4.41 B",
+    "1997 $3.44 B",
+    "1996 $2.08 B"
+   ],
+   "context": [
+    "Market cap history of Vulcan Materials from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/vulcan-materials.html",
+   "dated2026": false,
+   "actor": "vulcan",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     2.08
+    ],
+    [
+     1997,
+     3.44
+    ],
+    [
+     1998,
+     4.41
+    ],
+    [
+     1999,
+     4.02
+    ],
+    [
+     2000,
+     4.83
+    ],
+    [
+     2001,
+     4.85
+    ],
+    [
+     2002,
+     3.8
+    ],
+    [
+     2003,
+     4.84
+    ],
+    [
+     2004,
+     5.6
+    ],
+    [
+     2005,
+     6.79
+    ],
+    [
+     2006,
+     8.5
+    ],
+    [
+     2007,
+     8.56
+    ],
+    [
+     2008,
+     7.66
+    ],
+    [
+     2009,
+     6.63
+    ],
+    [
+     2010,
+     5.7
+    ],
+    [
+     2011,
+     5.08
+    ],
+    [
+     2012,
+     6.75
+    ],
+    [
+     2013,
+     7.73
+    ],
+    [
+     2014,
+     8.67
+    ],
+    [
+     2015,
+     12.64
+    ],
+    [
+     2016,
+     16.55
+    ],
+    [
+     2017,
+     16.98
+    ],
+    [
+     2018,
+     13.01
+    ],
+    [
+     2019,
+     19.06
+    ],
+    [
+     2020,
+     19.65
+    ],
+    [
+     2021,
+     27.54
+    ],
+    [
+     2022,
+     23.27
+    ],
+    [
+     2023,
+     30.16
+    ],
+    [
+     2024,
+     34.64
+    ],
+    [
+     2025,
+     38.87
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Vulcan Materials, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-nextera-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Nextera Energy gives its market capitalization as $8.39 billion at the end of 1996; $10.75 billion at the end of 1997; $11.13 billion at the end of 1998; $7.66 billion at the end of 1999; $12.61 billion at the end of 2000; $9.91 billion at the end of 2001; $10.98 billion at the end of 2002; $12.05 billion at the end of 2003; $13.91 billion at the end of 2004; $16.41 billion at the end of 2005; $22.06 billion at the end of 2006; $27.60 billion at the end of 2007; $20.57 billion at the end of 2008; $21.86 billion at the end of 2009; $21.88 billion at the end of 2010; $25.72 billion at the end of 2011; $29.33 billion at the end of 2012; $37.24 billion at the end of 2013; $47.08 billion at the end of 2014; $47.89 billion at the end of 2015; $55.90 billion at the end of 2016; $73.56 billion at the end of 2017; $83.08 billion at the end of 2018; $118.41 billion at the end of 2019; $151.14 billion at the end of 2020; $183.18 billion at the end of 2021; $166.12 billion at the end of 2022; $124.62 billion at the end of 2023; $148.28 billion at the end of 2024; $167.46 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/nextera-energy/marketcap/",
+   "quotes": [
+    "2025 $167.46 B 12.93% 2024 $148.28 B 18.99% 2023 $124.62 B -24.98% 2022 $166.12 B -9.31% 2021 $183.18 B 21.2% 2020 $151.14 B 27.64% 2019 $118.41 B 42.52% 2018 $83.08 B 12.94% 2017 $73.56 B 31.58% 2016 $55.90 B 16.73% 2015 $47.89 B 1.71% 2014 $47.08 B 26.42% 2013 $37.24 B 26.96% 2012 $29.33 B 14.04% 2011 $25.72 B 17.53% 2010 $21.88 B 0.09% 2009 $21.86 B 6.3% 2008 $20.57 B -25.49% 2007 $27.60 B 25.15% 2006 $22.06 B 34.44% 2005 $16.41 B 17.92% 2004 $13.91 B 15.45% 2003 $12.05 B 9.7% 2002 $10.98 B 10.8% 2001 $9.91 B -21.35% 2000 $12.61 B 64.43% 1999 $7.66 B -31.13% 1998 $11.13 B 3.52% 1997 $10.75 B 28.19% 1996 $8.39 B"
+   ],
+   "values": [
+    "2025 $167.46 B",
+    "2024 $148.28 B",
+    "2023 $124.62 B",
+    "2022 $166.12 B",
+    "2021 $183.18 B",
+    "2020 $151.14 B",
+    "2019 $118.41 B",
+    "2018 $83.08 B",
+    "2017 $73.56 B",
+    "2016 $55.90 B",
+    "2015 $47.89 B",
+    "2014 $47.08 B",
+    "2013 $37.24 B",
+    "2012 $29.33 B",
+    "2011 $25.72 B",
+    "2010 $21.88 B",
+    "2009 $21.86 B",
+    "2008 $20.57 B",
+    "2007 $27.60 B",
+    "2006 $22.06 B",
+    "2005 $16.41 B",
+    "2004 $13.91 B",
+    "2003 $12.05 B",
+    "2002 $10.98 B",
+    "2001 $9.91 B",
+    "2000 $12.61 B",
+    "1999 $7.66 B",
+    "1998 $11.13 B",
+    "1997 $10.75 B",
+    "1996 $8.39 B"
+   ],
+   "context": [
+    "Market cap history of Nextera Energy from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/nextera-energy.html",
+   "dated2026": false,
+   "actor": "nextera",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     8.39
+    ],
+    [
+     1997,
+     10.75
+    ],
+    [
+     1998,
+     11.13
+    ],
+    [
+     1999,
+     7.66
+    ],
+    [
+     2000,
+     12.61
+    ],
+    [
+     2001,
+     9.91
+    ],
+    [
+     2002,
+     10.98
+    ],
+    [
+     2003,
+     12.05
+    ],
+    [
+     2004,
+     13.91
+    ],
+    [
+     2005,
+     16.41
+    ],
+    [
+     2006,
+     22.06
+    ],
+    [
+     2007,
+     27.6
+    ],
+    [
+     2008,
+     20.57
+    ],
+    [
+     2009,
+     21.86
+    ],
+    [
+     2010,
+     21.88
+    ],
+    [
+     2011,
+     25.72
+    ],
+    [
+     2012,
+     29.33
+    ],
+    [
+     2013,
+     37.24
+    ],
+    [
+     2014,
+     47.08
+    ],
+    [
+     2015,
+     47.89
+    ],
+    [
+     2016,
+     55.9
+    ],
+    [
+     2017,
+     73.56
+    ],
+    [
+     2018,
+     83.08
+    ],
+    [
+     2019,
+     118.41
+    ],
+    [
+     2020,
+     151.14
+    ],
+    [
+     2021,
+     183.18
+    ],
+    [
+     2022,
+     166.12
+    ],
+    [
+     2023,
+     124.62
+    ],
+    [
+     2024,
+     148.28
+    ],
+    [
+     2025,
+     167.46
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Nextera Energy, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-southern_co-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Southern Company gives its market capitalization as $15.31 billion at the end of 1996; $17.93 billion at the end of 1997; $20.21 billion at the end of 1998; $15.65 billion at the end of 1999; $22.67 billion at the end of 2000; $17.71 billion at the end of 2001; $20.35 billion at the end of 2002; $22.22 billion at the end of 2003; $24.86 billion at the end of 2004; $25.60 billion at the end of 2005; $27.51 billion at the end of 2006; $29.58 billion at the end of 2007; $28.77 billion at the end of 2008; $27.30 billion at the end of 2009; $32.24 billion at the end of 2010; $39.89 billion at the end of 2011; $37.15 billion at the end of 2012; $36.47 billion at the end of 2013; $44.60 billion at the end of 2014; $42.65 billion at the end of 2015; $48.20 billion at the end of 2016; $48.26 billion at the end of 2017; $45.40 billion at the end of 2018; $67.07 billion at the end of 2019; $64.88 billion at the end of 2020; $72.68 billion at the end of 2021; $77.74 billion at the end of 2022; $76.47 billion at the end of 2023; $91.09 billion at the end of 2024; $95.98 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/southern-company/marketcap/",
+   "quotes": [
+    "2025 $95.98 B 5.37% 2024 $91.09 B 19.12% 2023 $76.47 B -1.63% 2022 $77.74 B 6.96% 2021 $72.68 B 12.02% 2020 $64.88 B -3.27% 2019 $67.07 B 47.73% 2018 $45.40 B -5.93% 2017 $48.26 B 0.12% 2016 $48.20 B 13.02% 2015 $42.65 B -4.38% 2014 $44.60 B 22.29% 2013 $36.47 B -1.84% 2012 $37.15 B -6.87% 2011 $39.89 B 23.73% 2010 $32.24 B 18.1% 2009 $27.30 B -5.09% 2008 $28.77 B -2.77% 2007 $29.58 B 7.55% 2006 $27.51 B 7.44% 2005 $25.60 B 2.99% 2004 $24.86 B 11.87% 2003 $22.22 B 9.21% 2002 $20.35 B 14.86% 2001 $17.71 B -21.86% 2000 $22.67 B 44.89% 1999 $15.65 B -22.58% 1998 $20.21 B 12.75% 1997 $17.93 B 17.07% 1996 $15.31 B"
+   ],
+   "values": [
+    "2025 $95.98 B",
+    "2024 $91.09 B",
+    "2023 $76.47 B",
+    "2022 $77.74 B",
+    "2021 $72.68 B",
+    "2020 $64.88 B",
+    "2019 $67.07 B",
+    "2018 $45.40 B",
+    "2017 $48.26 B",
+    "2016 $48.20 B",
+    "2015 $42.65 B",
+    "2014 $44.60 B",
+    "2013 $36.47 B",
+    "2012 $37.15 B",
+    "2011 $39.89 B",
+    "2010 $32.24 B",
+    "2009 $27.30 B",
+    "2008 $28.77 B",
+    "2007 $29.58 B",
+    "2006 $27.51 B",
+    "2005 $25.60 B",
+    "2004 $24.86 B",
+    "2003 $22.22 B",
+    "2002 $20.35 B",
+    "2001 $17.71 B",
+    "2000 $22.67 B",
+    "1999 $15.65 B",
+    "1998 $20.21 B",
+    "1997 $17.93 B",
+    "1996 $15.31 B"
+   ],
+   "context": [
+    "Market cap history of Southern Company from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/southern-company.html",
+   "dated2026": false,
+   "actor": "southern_co",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     15.31
+    ],
+    [
+     1997,
+     17.93
+    ],
+    [
+     1998,
+     20.21
+    ],
+    [
+     1999,
+     15.65
+    ],
+    [
+     2000,
+     22.67
+    ],
+    [
+     2001,
+     17.71
+    ],
+    [
+     2002,
+     20.35
+    ],
+    [
+     2003,
+     22.22
+    ],
+    [
+     2004,
+     24.86
+    ],
+    [
+     2005,
+     25.6
+    ],
+    [
+     2006,
+     27.51
+    ],
+    [
+     2007,
+     29.58
+    ],
+    [
+     2008,
+     28.77
+    ],
+    [
+     2009,
+     27.3
+    ],
+    [
+     2010,
+     32.24
+    ],
+    [
+     2011,
+     39.89
+    ],
+    [
+     2012,
+     37.15
+    ],
+    [
+     2013,
+     36.47
+    ],
+    [
+     2014,
+     44.6
+    ],
+    [
+     2015,
+     42.65
+    ],
+    [
+     2016,
+     48.2
+    ],
+    [
+     2017,
+     48.26
+    ],
+    [
+     2018,
+     45.4
+    ],
+    [
+     2019,
+     67.07
+    ],
+    [
+     2020,
+     64.88
+    ],
+    [
+     2021,
+     72.68
+    ],
+    [
+     2022,
+     77.74
+    ],
+    [
+     2023,
+     76.47
+    ],
+    [
+     2024,
+     91.09
+    ],
+    [
+     2025,
+     95.98
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Southern Company, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-duke-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Duke Energy gives its market capitalization as $9.32 billion at the end of 1996; $19.94 billion at the end of 1997; $23.28 billion at the end of 1998; $18.38 billion at the end of 1999; $31.62 billion at the end of 2000; $30.50 billion at the end of 2001; $17.48 billion at the end of 2002; $18.62 billion at the end of 2003; $24.24 billion at the end of 2004; $25.47 billion at the end of 2005; $41.74 billion at the end of 2006; $25.47 billion at the end of 2007; $19.23 billion at the end of 2008; $22.52 billion at the end of 2009; $23.66 billion at the end of 2010; $29.32 billion at the end of 2011; $44.91 billion at the end of 2012; $48.72 billion at the end of 2013; $59.06 billion at the end of 2014; $49.11 billion at the end of 2015; $53.47 billion at the end of 2016; $58.87 billion at the end of 2017; $62.74 billion at the end of 2018; $66.85 billion at the end of 2019; $67.38 billion at the end of 2020; $80.70 billion at the end of 2021; $79.30 billion at the end of 2022; $74.78 billion at the end of 2023; $83.69 billion at the end of 2024; $91.12 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/duke-energy/marketcap/",
+   "quotes": [
+    "2025 $91.12 B 8.88% 2024 $83.69 B 11.9% 2023 $74.78 B -5.7% 2022 $79.30 B -1.73% 2021 $80.70 B 19.77% 2020 $67.38 B 0.79% 2019 $66.85 B 6.56% 2018 $62.74 B 6.57% 2017 $58.87 B 10.1% 2016 $53.47 B 8.88% 2015 $49.11 B -16.84% 2014 $59.06 B 21.23% 2013 $48.72 B 8.47% 2012 $44.91 B 53.19% 2011 $29.32 B 23.87% 2010 $23.66 B 5.07% 2009 $22.52 B 17.15% 2008 $19.23 B -24.5% 2007 $25.47 B -38.98% 2006 $41.74 B 63.88% 2005 $25.47 B 5.09% 2004 $24.24 B 30.12% 2003 $18.62 B 6.53% 2002 $17.48 B -42.67% 2001 $30.50 B -3.55% 2000 $31.62 B 72.07% 1999 $18.38 B -21.06% 1998 $23.28 B 16.76% 1997 $19.94 B 113.91% 1996 $9.32 B"
+   ],
+   "values": [
+    "2025 $91.12 B",
+    "2024 $83.69 B",
+    "2023 $74.78 B",
+    "2022 $79.30 B",
+    "2021 $80.70 B",
+    "2020 $67.38 B",
+    "2019 $66.85 B",
+    "2018 $62.74 B",
+    "2017 $58.87 B",
+    "2016 $53.47 B",
+    "2015 $49.11 B",
+    "2014 $59.06 B",
+    "2013 $48.72 B",
+    "2012 $44.91 B",
+    "2011 $29.32 B",
+    "2010 $23.66 B",
+    "2009 $22.52 B",
+    "2008 $19.23 B",
+    "2007 $25.47 B",
+    "2006 $41.74 B",
+    "2005 $25.47 B",
+    "2004 $24.24 B",
+    "2003 $18.62 B",
+    "2002 $17.48 B",
+    "2001 $30.50 B",
+    "2000 $31.62 B",
+    "1999 $18.38 B",
+    "1998 $23.28 B",
+    "1997 $19.94 B",
+    "1996 $9.32 B"
+   ],
+   "context": [
+    "Market cap history of Duke Energy from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/duke-energy.html",
+   "dated2026": false,
+   "actor": "duke",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     9.32
+    ],
+    [
+     1997,
+     19.94
+    ],
+    [
+     1998,
+     23.28
+    ],
+    [
+     1999,
+     18.38
+    ],
+    [
+     2000,
+     31.62
+    ],
+    [
+     2001,
+     30.5
+    ],
+    [
+     2002,
+     17.48
+    ],
+    [
+     2003,
+     18.62
+    ],
+    [
+     2004,
+     24.24
+    ],
+    [
+     2005,
+     25.47
+    ],
+    [
+     2006,
+     41.74
+    ],
+    [
+     2007,
+     25.47
+    ],
+    [
+     2008,
+     19.23
+    ],
+    [
+     2009,
+     22.52
+    ],
+    [
+     2010,
+     23.66
+    ],
+    [
+     2011,
+     29.32
+    ],
+    [
+     2012,
+     44.91
+    ],
+    [
+     2013,
+     48.72
+    ],
+    [
+     2014,
+     59.06
+    ],
+    [
+     2015,
+     49.11
+    ],
+    [
+     2016,
+     53.47
+    ],
+    [
+     2017,
+     58.87
+    ],
+    [
+     2018,
+     62.74
+    ],
+    [
+     2019,
+     66.85
+    ],
+    [
+     2020,
+     67.38
+    ],
+    [
+     2021,
+     80.7
+    ],
+    [
+     2022,
+     79.3
+    ],
+    [
+     2023,
+     74.78
+    ],
+    [
+     2024,
+     83.69
+    ],
+    [
+     2025,
+     91.12
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Duke Energy, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-constellation-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Constellation Energy gives its market capitalization as $28.19 billion at the end of 2022; $37.33 billion at the end of 2023; $70.85 billion at the end of 2024; $112.60 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/constellation-energy/marketcap/",
+   "quotes": [
+    "2025 $112.60 B 58.93% 2024 $70.85 B 89.79% 2023 $37.33 B 32.42% 2022 $28.19 B"
+   ],
+   "values": [
+    "2025 $112.60 B",
+    "2024 $70.85 B",
+    "2023 $37.33 B",
+    "2022 $28.19 B"
+   ],
+   "context": [
+    "Market cap history of Constellation Energy from 2022 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/constellation-energy.html",
+   "dated2026": false,
+   "actor": "constellation",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     2022,
+     28.19
+    ],
+    [
+     2023,
+     37.33
+    ],
+    [
+     2024,
+     70.85
+    ],
+    [
+     2025,
+     112.6
+    ]
+   ],
+   "period": "2022-2025",
+   "from": 2022,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Constellation Energy, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-dominion-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Dominion Energy gives its market capitalization as $6.97 billion at the end of 1996; $7.99 billion at the end of 1997; $9.09 billion at the end of 1998; $7.53 billion at the end of 1999; $16.46 billion at the end of 2000; $15.90 billion at the end of 2001; $16.90 billion at the end of 2002; $20.74 billion at the end of 2003; $23.03 billion at the end of 2004; $26.78 billion at the end of 2005; $29.26 billion at the end of 2006; $27.37 billion at the end of 2007; $20.83 billion at the end of 2008; $23.31 billion at the end of 2009; $24.82 billion at the end of 2010; $30.23 billion at the end of 2011; $29.83 billion at the end of 2012; $37.58 billion at the end of 2013; $44.98 billion at the end of 2014; $40.31 billion at the end of 2015; $48.00 billion at the end of 2016; $52.24 billion at the end of 2017; $48.66 billion at the end of 2018; $69.40 billion at the end of 2019; $61.34 billion at the end of 2020; $63.62 billion at the end of 2021; $51.09 billion at the end of 2022; $39.32 billion at the end of 2023; $45.30 billion at the end of 2024; $50.55 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/dominion-energy/marketcap/",
+   "quotes": [
+    "2025 $50.55 B 11.59% 2024 $45.30 B 15.19% 2023 $39.32 B -23.03% 2022 $51.09 B -19.69% 2021 $63.62 B 3.71% 2020 $61.34 B -11.6% 2019 $69.40 B 42.62% 2018 $48.66 B -6.86% 2017 $52.24 B 8.85% 2016 $48.00 B 19.07% 2015 $40.31 B -10.39% 2014 $44.98 B 19.69% 2013 $37.58 B 25.97% 2012 $29.83 B -1.32% 2011 $30.23 B 21.82% 2010 $24.82 B 6.47% 2009 $23.31 B 11.89% 2008 $20.83 B -23.9% 2007 $27.37 B -6.43% 2006 $29.26 B 9.23% 2005 $26.78 B 16.31% 2004 $23.03 B 11.02% 2003 $20.74 B 22.68% 2002 $16.90 B 6.29% 2001 $15.90 B -3.4% 2000 $16.46 B 118.56% 1999 $7.53 B -17.13% 1998 $9.09 B 13.76% 1997 $7.99 B 14.57% 1996 $6.97 B"
+   ],
+   "values": [
+    "2025 $50.55 B",
+    "2024 $45.30 B",
+    "2023 $39.32 B",
+    "2022 $51.09 B",
+    "2021 $63.62 B",
+    "2020 $61.34 B",
+    "2019 $69.40 B",
+    "2018 $48.66 B",
+    "2017 $52.24 B",
+    "2016 $48.00 B",
+    "2015 $40.31 B",
+    "2014 $44.98 B",
+    "2013 $37.58 B",
+    "2012 $29.83 B",
+    "2011 $30.23 B",
+    "2010 $24.82 B",
+    "2009 $23.31 B",
+    "2008 $20.83 B",
+    "2007 $27.37 B",
+    "2006 $29.26 B",
+    "2005 $26.78 B",
+    "2004 $23.03 B",
+    "2003 $20.74 B",
+    "2002 $16.90 B",
+    "2001 $15.90 B",
+    "2000 $16.46 B",
+    "1999 $7.53 B",
+    "1998 $9.09 B",
+    "1997 $7.99 B",
+    "1996 $6.97 B"
+   ],
+   "context": [
+    "Market cap history of Dominion Energy from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/dominion-energy.html",
+   "dated2026": false,
+   "actor": "dominion",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     6.97
+    ],
+    [
+     1997,
+     7.99
+    ],
+    [
+     1998,
+     9.09
+    ],
+    [
+     1999,
+     7.53
+    ],
+    [
+     2000,
+     16.46
+    ],
+    [
+     2001,
+     15.9
+    ],
+    [
+     2002,
+     16.9
+    ],
+    [
+     2003,
+     20.74
+    ],
+    [
+     2004,
+     23.03
+    ],
+    [
+     2005,
+     26.78
+    ],
+    [
+     2006,
+     29.26
+    ],
+    [
+     2007,
+     27.37
+    ],
+    [
+     2008,
+     20.83
+    ],
+    [
+     2009,
+     23.31
+    ],
+    [
+     2010,
+     24.82
+    ],
+    [
+     2011,
+     30.23
+    ],
+    [
+     2012,
+     29.83
+    ],
+    [
+     2013,
+     37.58
+    ],
+    [
+     2014,
+     44.98
+    ],
+    [
+     2015,
+     40.31
+    ],
+    [
+     2016,
+     48.0
+    ],
+    [
+     2017,
+     52.24
+    ],
+    [
+     2018,
+     48.66
+    ],
+    [
+     2019,
+     69.4
+    ],
+    [
+     2020,
+     61.34
+    ],
+    [
+     2021,
+     63.62
+    ],
+    [
+     2022,
+     51.09
+    ],
+    [
+     2023,
+     39.32
+    ],
+    [
+     2024,
+     45.3
+    ],
+    [
+     2025,
+     50.55
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Dominion Energy, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-exelon-mcap",
+   "claim": "CompaniesMarketCap's market cap history of Exelon Corporation gives its market capitalization as $5.61 billion at the end of 1996; $5.39 billion at the end of 1997; $9.38 billion at the end of 1998; $6.29 billion at the end of 1999; $22.47 billion at the end of 2000; $15.36 billion at the end of 2001; $17.06 billion at the end of 2002; $21.76 billion at the end of 2003; $29.39 billion at the end of 2004; $35.41 billion at the end of 2005; $41.46 billion at the end of 2006; $53.96 billion at the end of 2007; $36.60 billion at the end of 2008; $32.25 billion at the end of 2009; $27.56 billion at the end of 2010; $28.75 billion at the end of 2011; $25.42 billion at the end of 2012; $23.47 billion at the end of 2013; $31.88 billion at the end of 2014; $25.54 billion at the end of 2015; $32.76 billion at the end of 2016; $37.86 billion at the end of 2017; $43.65 billion at the end of 2018; $44.35 billion at the end of 2019; $41.18 billion at the end of 2020; $56.50 billion at the end of 2021; $42.95 billion at the end of 2022; $35.73 billion at the end of 2023; $37.61 billion at the end of 2024; $43.99 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/exelon-corporation/marketcap/",
+   "quotes": [
+    "2025 $43.99 B 16.97% 2024 $37.61 B 5.25% 2023 $35.73 B -16.81% 2022 $42.95 B -23.98% 2021 $56.50 B 37.19% 2020 $41.18 B -7.15% 2019 $44.35 B 1.61% 2018 $43.65 B 15.29% 2017 $37.86 B 15.57% 2016 $32.76 B 28.25% 2015 $25.54 B -19.88% 2014 $31.88 B 35.85% 2013 $23.47 B -7.69% 2012 $25.42 B -11.57% 2011 $28.75 B 4.31% 2010 $27.56 B -14.54% 2009 $32.25 B -11.89% 2008 $36.60 B -32.17% 2007 $53.96 B 30.14% 2006 $41.46 B 17.1% 2005 $35.41 B 20.47% 2004 $29.39 B 35.05% 2003 $21.76 B 27.58% 2002 $17.06 B 11% 2001 $15.36 B -31.6% 2000 $22.47 B 256.74% 1999 $6.29 B -32.85% 1998 $9.38 B 73.82% 1997 $5.39 B -3.94% 1996 $5.61 B"
+   ],
+   "values": [
+    "2025 $43.99 B",
+    "2024 $37.61 B",
+    "2023 $35.73 B",
+    "2022 $42.95 B",
+    "2021 $56.50 B",
+    "2020 $41.18 B",
+    "2019 $44.35 B",
+    "2018 $43.65 B",
+    "2017 $37.86 B",
+    "2016 $32.76 B",
+    "2015 $25.54 B",
+    "2014 $31.88 B",
+    "2013 $23.47 B",
+    "2012 $25.42 B",
+    "2011 $28.75 B",
+    "2010 $27.56 B",
+    "2009 $32.25 B",
+    "2008 $36.60 B",
+    "2007 $53.96 B",
+    "2006 $41.46 B",
+    "2005 $35.41 B",
+    "2004 $29.39 B",
+    "2003 $21.76 B",
+    "2002 $17.06 B",
+    "2001 $15.36 B",
+    "2000 $22.47 B",
+    "1999 $6.29 B",
+    "1998 $9.38 B",
+    "1997 $5.39 B",
+    "1996 $5.61 B"
+   ],
+   "context": [
+    "Market cap history of Exelon Corporation from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/exelon-corporation.html",
+   "dated2026": false,
+   "actor": "exelon",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     5.61
+    ],
+    [
+     1997,
+     5.39
+    ],
+    [
+     1998,
+     9.38
+    ],
+    [
+     1999,
+     6.29
+    ],
+    [
+     2000,
+     22.47
+    ],
+    [
+     2001,
+     15.36
+    ],
+    [
+     2002,
+     17.06
+    ],
+    [
+     2003,
+     21.76
+    ],
+    [
+     2004,
+     29.39
+    ],
+    [
+     2005,
+     35.41
+    ],
+    [
+     2006,
+     41.46
+    ],
+    [
+     2007,
+     53.96
+    ],
+    [
+     2008,
+     36.6
+    ],
+    [
+     2009,
+     32.25
+    ],
+    [
+     2010,
+     27.56
+    ],
+    [
+     2011,
+     28.75
+    ],
+    [
+     2012,
+     25.42
+    ],
+    [
+     2013,
+     23.47
+    ],
+    [
+     2014,
+     31.88
+    ],
+    [
+     2015,
+     25.54
+    ],
+    [
+     2016,
+     32.76
+    ],
+    [
+     2017,
+     37.86
+    ],
+    [
+     2018,
+     43.65
+    ],
+    [
+     2019,
+     44.35
+    ],
+    [
+     2020,
+     41.18
+    ],
+    [
+     2021,
+     56.5
+    ],
+    [
+     2022,
+     42.95
+    ],
+    [
+     2023,
+     35.73
+    ],
+    [
+     2024,
+     37.61
+    ],
+    [
+     2025,
+     43.99
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of Exelon Corporation, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-aep-mcap",
+   "claim": "CompaniesMarketCap's market cap history of American Electric Power gives its market capitalization as $7.74 billion at the end of 1996; $9.80 billion at the end of 1997; $9.02 billion at the end of 1998; $6.23 billion at the end of 1999; $14.97 billion at the end of 2000; $14.02 billion at the end of 2001; $9.26 billion at the end of 2002; $12.08 billion at the end of 2003; $13.59 billion at the end of 2004; $14.60 billion at the end of 2005; $16.89 billion at the end of 2006; $18.64 billion at the end of 2007; $13.51 billion at the end of 2008; $16.63 billion at the end of 2009; $17.29 billion at the end of 2010; $19.94 billion at the end of 2011; $20.72 billion at the end of 2012; $22.79 billion at the end of 2013; $29.71 billion at the end of 2014; $28.61 billion at the end of 2015; $30.95 billion at the end of 2016; $36.19 billion at the end of 2017; $36.86 billion at the end of 2018; $46.70 billion at the end of 2019; $41.33 billion at the end of 2020; $44.16 billion at the end of 2021; $48.79 billion at the end of 2022; $42.71 billion at the end of 2023; $49.26 billion at the end of 2024; $61.91 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/american-electric-power/marketcap/",
+   "quotes": [
+    "2025 $61.91 B 25.67% 2024 $49.26 B 15.35% 2023 $42.71 B -12.46% 2022 $48.79 B 10.48% 2021 $44.16 B 6.85% 2020 $41.33 B -11.5% 2019 $46.70 B 26.69% 2018 $36.86 B 1.85% 2017 $36.19 B 16.92% 2016 $30.95 B 8.19% 2015 $28.61 B -3.71% 2014 $29.71 B 30.34% 2013 $22.79 B 9.99% 2012 $20.72 B 3.91% 2011 $19.94 B 15.32% 2010 $17.29 B 4.02% 2009 $16.63 B 23.07% 2008 $13.51 B -27.51% 2007 $18.64 B 10.38% 2006 $16.89 B 15.66% 2005 $14.60 B 7.42% 2004 $13.59 B 12.5% 2003 $12.08 B 30.49% 2002 $9.26 B -33.98% 2001 $14.02 B -6.32% 2000 $14.97 B 140.14% 1999 $6.23 B -30.93% 1998 $9.02 B -7.96% 1997 $9.80 B 26.7% 1996 $7.74 B"
+   ],
+   "values": [
+    "2025 $61.91 B",
+    "2024 $49.26 B",
+    "2023 $42.71 B",
+    "2022 $48.79 B",
+    "2021 $44.16 B",
+    "2020 $41.33 B",
+    "2019 $46.70 B",
+    "2018 $36.86 B",
+    "2017 $36.19 B",
+    "2016 $30.95 B",
+    "2015 $28.61 B",
+    "2014 $29.71 B",
+    "2013 $22.79 B",
+    "2012 $20.72 B",
+    "2011 $19.94 B",
+    "2010 $17.29 B",
+    "2009 $16.63 B",
+    "2008 $13.51 B",
+    "2007 $18.64 B",
+    "2006 $16.89 B",
+    "2005 $14.60 B",
+    "2004 $13.59 B",
+    "2003 $12.08 B",
+    "2002 $9.26 B",
+    "2001 $14.02 B",
+    "2000 $14.97 B",
+    "1999 $6.23 B",
+    "1998 $9.02 B",
+    "1997 $9.80 B",
+    "1996 $7.74 B"
+   ],
+   "context": [
+    "Market cap history of American Electric Power from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/american-electric-power.html",
+   "dated2026": false,
+   "actor": "aep",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     7.74
+    ],
+    [
+     1997,
+     9.8
+    ],
+    [
+     1998,
+     9.02
+    ],
+    [
+     1999,
+     6.23
+    ],
+    [
+     2000,
+     14.97
+    ],
+    [
+     2001,
+     14.02
+    ],
+    [
+     2002,
+     9.26
+    ],
+    [
+     2003,
+     12.08
+    ],
+    [
+     2004,
+     13.59
+    ],
+    [
+     2005,
+     14.6
+    ],
+    [
+     2006,
+     16.89
+    ],
+    [
+     2007,
+     18.64
+    ],
+    [
+     2008,
+     13.51
+    ],
+    [
+     2009,
+     16.63
+    ],
+    [
+     2010,
+     17.29
+    ],
+    [
+     2011,
+     19.94
+    ],
+    [
+     2012,
+     20.72
+    ],
+    [
+     2013,
+     22.79
+    ],
+    [
+     2014,
+     29.71
+    ],
+    [
+     2015,
+     28.61
+    ],
+    [
+     2016,
+     30.95
+    ],
+    [
+     2017,
+     36.19
+    ],
+    [
+     2018,
+     36.86
+    ],
+    [
+     2019,
+     46.7
+    ],
+    [
+     2020,
+     41.33
+    ],
+    [
+     2021,
+     44.16
+    ],
+    [
+     2022,
+     48.79
+    ],
+    [
+     2023,
+     42.71
+    ],
+    [
+     2024,
+     49.26
+    ],
+    [
+     2025,
+     61.91
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of American Electric Power, nominal US dollars; the 2026 row (today's value) is left out"
+  },
+  {
+   "id": "co-pge-mcap",
+   "claim": "CompaniesMarketCap's market cap history of PG&E Corporation gives its market capitalization as $8.47 billion at the end of 1996; $12.66 billion at the end of 1997; $12.05 billion at the end of 1998; $7.88 billion at the end of 1999; $7.74 billion at the end of 2000; $7.46 billion at the end of 2001; $5.63 billion at the end of 2002; $11.56 billion at the end of 2003; $13.11 billion at the end of 2004; $13.61 billion at the end of 2005; $16.50 billion at the end of 2006; $15.32 billion at the end of 2007; $13.97 billion at the end of 2008; $16.54 billion at the end of 2009; $18.90 billion at the end of 2010; $16.73 billion at the end of 2011; $17.30 billion at the end of 2012; $18.39 billion at the end of 2013; $25.33 billion at the end of 2014; $26.17 billion at the end of 2015; $30.72 billion at the end of 2016; $23.06 billion at the end of 2017; $12.35 billion at the end of 2018; $5.75 billion at the end of 2019; $24.72 billion at the end of 2020; $27.31 billion at the end of 2021; $34.51 billion at the end of 2022; $45.85 billion at the end of 2023; $44.17 billion at the end of 2024; $34.66 billion at the end of 2025.",
+   "url": "https://companiesmarketcap.com/pacific-gas-and-electric/marketcap/",
+   "quotes": [
+    "2025 $34.66 B -21.54% 2024 $44.17 B -3.67% 2023 $45.85 B 32.87% 2022 $34.51 B 26.37% 2021 $27.31 B 10.45% 2020 $24.72 B 329.84% 2019 $5.75 B -53.45% 2018 $12.35 B -46.41% 2017 $23.06 B -24.95% 2016 $30.72 B 17.42% 2015 $26.17 B 3.29% 2014 $25.33 B 37.74% 2013 $18.39 B 6.29% 2012 $17.30 B 3.44% 2011 $16.73 B -11.51% 2010 $18.90 B 14.26% 2009 $16.54 B 18.42% 2008 $13.97 B -8.84% 2007 $15.32 B -7.15% 2006 $16.50 B 21.23% 2005 $13.61 B 3.87% 2004 $13.11 B 13.35% 2003 $11.56 B 105.22% 2002 $5.63 B -24.48% 2001 $7.46 B -3.62% 2000 $7.74 B -1.73% 1999 $7.88 B -34.61% 1998 $12.05 B -4.81% 1997 $12.66 B 49.41% 1996 $8.47 B"
+   ],
+   "values": [
+    "2025 $34.66 B",
+    "2024 $44.17 B",
+    "2023 $45.85 B",
+    "2022 $34.51 B",
+    "2021 $27.31 B",
+    "2020 $24.72 B",
+    "2019 $5.75 B",
+    "2018 $12.35 B",
+    "2017 $23.06 B",
+    "2016 $30.72 B",
+    "2015 $26.17 B",
+    "2014 $25.33 B",
+    "2013 $18.39 B",
+    "2012 $17.30 B",
+    "2011 $16.73 B",
+    "2010 $18.90 B",
+    "2009 $16.54 B",
+    "2008 $13.97 B",
+    "2007 $15.32 B",
+    "2006 $16.50 B",
+    "2005 $13.61 B",
+    "2004 $13.11 B",
+    "2003 $11.56 B",
+    "2002 $5.63 B",
+    "2001 $7.46 B",
+    "2000 $7.74 B",
+    "1999 $7.88 B",
+    "1998 $12.05 B",
+    "1997 $12.66 B",
+    "1996 $8.47 B"
+   ],
+   "context": [
+    "Market cap history of PG&E Corporation from 1996 to 2026 End of year Market Cap Year Marketcap Change"
+   ],
+   "tight": true,
+   "cacheName": "companies/pacific-gas-and-electric.html",
+   "dated2026": false,
+   "actor": "pge",
+   "kind": "marketCap",
+   "unit": "USD bn, end of year (nominal)",
+   "rows": [
+    [
+     1996,
+     8.47
+    ],
+    [
+     1997,
+     12.66
+    ],
+    [
+     1998,
+     12.05
+    ],
+    [
+     1999,
+     7.88
+    ],
+    [
+     2000,
+     7.74
+    ],
+    [
+     2001,
+     7.46
+    ],
+    [
+     2002,
+     5.63
+    ],
+    [
+     2003,
+     11.56
+    ],
+    [
+     2004,
+     13.11
+    ],
+    [
+     2005,
+     13.61
+    ],
+    [
+     2006,
+     16.5
+    ],
+    [
+     2007,
+     15.32
+    ],
+    [
+     2008,
+     13.97
+    ],
+    [
+     2009,
+     16.54
+    ],
+    [
+     2010,
+     18.9
+    ],
+    [
+     2011,
+     16.73
+    ],
+    [
+     2012,
+     17.3
+    ],
+    [
+     2013,
+     18.39
+    ],
+    [
+     2014,
+     25.33
+    ],
+    [
+     2015,
+     26.17
+    ],
+    [
+     2016,
+     30.72
+    ],
+    [
+     2017,
+     23.06
+    ],
+    [
+     2018,
+     12.35
+    ],
+    [
+     2019,
+     5.75
+    ],
+    [
+     2020,
+     24.72
+    ],
+    [
+     2021,
+     27.31
+    ],
+    [
+     2022,
+     34.51
+    ],
+    [
+     2023,
+     45.85
+    ],
+    [
+     2024,
+     44.17
+    ],
+    [
+     2025,
+     34.66
+    ]
+   ],
+   "period": "1996-2025",
+   "from": 1996,
+   "to": 2025,
+   "accessed": "2026-11-08",
+   "notes": "CompaniesMarketCap's end-of-year market capitalization of PG&E Corporation, nominal US dollars; the 2026 row (today's value) is left out"
+  }
+ ]
+}

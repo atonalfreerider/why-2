@@ -55,7 +55,7 @@ namespace Why.Economy.UI
         public static bool TookClick => tookFrame == Time.frameCount;
 
         /// <summary>The views where a click on the wall or a lifeline opens the year clicked (1.3).</summary>
-        public static bool YearClicks(ViewPreset preset) => preset != null && (preset.Id == "overview" || preset.Id == "section");
+        public static bool YearClicks(ViewPreset preset) => preset != null && (preset.Id == "overview" && !Layers.HillSweepLayer.On || preset.Id == "section");
 
         GraphRoot root;
         RectTransform canvasRect;

@@ -110,6 +110,9 @@ Tools/advantage/.cache/
 # Politics pipeline cache (Wikidata and Commons lookups for the portraits, Tools/politics/portraits.py)
 Tools/politics/.cache/
 
+# Companies roster pipeline cache (Wikipedia summaries, CompaniesMarketCap pages, Jev answers: Tools/companies/)
+Tools/companies/.cache/
+
 # Python bytecode caches (tools run with plain python3)
 __pycache__/
 *.pyc

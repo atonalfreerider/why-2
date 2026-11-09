@@ -1,0 +1,543 @@
+{
+ "asOf": "2026-11-08",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 53,
+  "cached": 0,
+  "tokens": 68500,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "co-accenture-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-adp-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-adtalem-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-aecom-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-airbnb-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-aramark-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-booking-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-bright_horizons-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-caesars-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-chipotle-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-cintas-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-community_health-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-darden-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-davita-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-draftkings-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-duolingo-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-encompass-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-ensign-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-equifax-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-expedia-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-graham_holdings-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-grand_canyon-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-hca-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-hilton-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-interpublic-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-iqvia-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-jacobs-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-labcorp-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-las_vegas_sands-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-legalzoom-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.81,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-leidos-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-live_nation-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-marriott-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-mcdonalds-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-mgm-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-moodys-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-omnicom-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-quest-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-republic_services-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-rollins-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-royal_caribbean-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-service_corp-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-sp_global-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-starbucks-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-stericycle-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-strategic_education-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-stride-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-tenet-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-uhs-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-waste_connections-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-waste_management-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-wynn-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  },
+  "co-yum-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "services"
+  }
+ }
+}

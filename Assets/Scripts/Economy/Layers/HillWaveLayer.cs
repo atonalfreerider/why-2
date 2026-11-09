@@ -202,8 +202,8 @@ namespace Why.Economy.Layers
             if (content == null) return;
             string view = LandView.PresetId;
             // history and politics are drawn alone (HillHistoryLayer, HillPoliticsLayer): the wave's names and decades would
-            // float under their streams and bodies
-            bool hidden = view == "mind" || view == HillHistoryLayer.View || view == HillPoliticsLayer.View;
+            // float under their streams and bodies; so is the sweep through time, which is the Wave view unless -classicwave
+            bool hidden = view == "mind" || view == HillHistoryLayer.View || view == HillPoliticsLayer.View || view == HillSweepLayer.View && HillSweepLayer.On;
             content.SetActive(!hidden); if (hidden) { HoverCompany = -1; return; }
             foreach (var e in renderers) EconomyEmphasis.Apply(e.renderer, Keys[(int)e.part]);
             Pick(rig.Cam);

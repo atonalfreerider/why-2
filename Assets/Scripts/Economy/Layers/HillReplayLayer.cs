@@ -103,7 +103,8 @@ namespace Why.Economy.Layers
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             string view = LandView.PresetId;
-            bool on = EconomyReplay.Active && (view == "overview" || view == "landscape" || view == "companies");
+            // the Wave view drawn as the sweep through time (HillSweepLayer) has no wave to tag
+            bool on = EconomyReplay.Active && (view == "overview" && !HillSweepLayer.On || view == "landscape" || view == "companies");
             if (!on)
             {
                 if (content) content.SetActive(false);

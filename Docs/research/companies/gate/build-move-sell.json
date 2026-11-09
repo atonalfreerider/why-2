@@ -1,0 +1,383 @@
+{
+ "asOf": "2026-11-08",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 37,
+  "cached": 0,
+  "tokens": 52567,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "co-amazon-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-american_airlines-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-cardinal-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-cencora-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.86,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-costco-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-csx-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-cvs-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-delta-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-dr_horton-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-ebay-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-emcor-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-enterprise_products-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-fedex-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-fluor-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-homedepot-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-jc_penney-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-kinder_morgan-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-kroger-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-lennar-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-lowes-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-mckesson-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-norfolk_southern-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-nvr-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-pulte-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-quanta-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-safeway-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.86,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-southwest-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-sysco-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-target-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-tjx-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-toll-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-uber-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-union_pacific-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-united_airlines-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-ups-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-walgreens-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  },
+  "co-walmart-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "build-move-sell"
+  }
+ }
+}

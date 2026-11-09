@@ -1,0 +1,344 @@
+{
+ "asOf": "2026-11-08",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 33,
+  "cached": 0,
+  "tokens": 43886,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "co-aep-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-alcoa-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-cal_maine-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-chevron-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-cleveland_cliffs-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-conocophillips-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-constellation-mcap": {
+   "status": "unverified",
+   "verifiedOn": null,
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.35,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "reason": "Jev support 0.35 below 0.6",
+   "cluster": "raw"
+  },
+  "co-corteva-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.82,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-dominion-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-duke-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-enron-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-eog-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-exelon-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-exxon-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-freeport-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-fresh_del_monte-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-halliburton-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-marathon_petroleum-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-mobil-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-monsanto-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-newmont-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-nextera-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-nucor-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-occidental-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-pge-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-slb-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-southern_co-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-southern_copper-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-texaco-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-ussteel-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-valero-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-vulcan-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  },
+  "co-weyerhaeuser-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "raw"
+  }
+ }
+}

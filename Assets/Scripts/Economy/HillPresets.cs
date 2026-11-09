@@ -22,7 +22,13 @@ namespace Why.Economy
             // present whatever year the crest stands at: an earlier year, or the replay, grows the wave across them instead of
             // carrying them into the empty past before the first rib. The other views stand on the crest.
             float axis = HillLandscape.Z(System.Math.Max(EconomyState.Year, EconomyState.DefaultYear(EconomyState.MaxYear)));
-            Add("overview", "The US economy, a wave through time", "Each rib across the wave is one year's economy; the bright crest in front is the year shown, and the past stretches behind it.", KeyCode.Alpha1, new Vector3(95, 18, axis - 70), 140, 26, 270);
+            // The Wave view is the sweep through time redrawn as point-cloud bodies (HillSweepLayer; Docs/hills-design/SWEEP.md),
+            // unless the app runs with -classicwave: then the wave of ridges and ribs, for comparison. The layer fits the camera
+            // to the year shown; this pose only starts the flight.
+            if (HillSweepLayer.On)
+                Add("overview", HillSweepLayer.Title, HillSweepLayer.Subtitle, KeyCode.Alpha1, HillSweepLayer.DefaultTarget, 180, 8, 1150);
+            else
+                Add("overview", "The US economy, a wave through time", "Each rib across the wave is one year's economy; the bright crest in front is the year shown, and the past stretches behind it.", KeyCode.Alpha1, new Vector3(95, 18, axis - 70), 140, 26, 270);
             Add("section", "Families through time", "Each line is one simulated life. Partners' lines meet, and a child's life begins where they join.", KeyCode.Alpha2, Vector3.zero, 0, 6, 6.2f);
             Add("landscape", "Layers of the economy", "Each industry is a ridge as wide as its share of what the economy produces, layered from raw materials up to tech.", KeyCode.Alpha3, new Vector3(105, 26, crest - 20), 152, 18, 210);
             // A lower camera than the other crest views: the owners' climbs end in the clouds above the hills, in frame. The
@@ -142,6 +148,16 @@ namespace Why.Economy
         /// pitch and distance, as the layer frames the year shown (HillPoliticsLayer.FlyToState).</summary>
         public static ViewPreset PoliticsPose(Vector3 target, float yaw, float pitch, float distance) =>
             Make(HillPoliticsLayer.View, PoliticsTitle, "", KeyCode.None, target, yaw, pitch, distance);
+
+        /// <summary>A pose of the sweep through time (not in the catalog): a land-local target, the yaw from the road's direction,
+        /// pitch and distance, as the layer fits the year shown (HillSweepLayer.FlyToState); its portrait width is 0, the fitted
+        /// distance standing on a portrait screen too.</summary>
+        public static ViewPreset SweepPose(Vector3 target, float yaw, float pitch, float distance)
+        {
+            var p = Make(HillSweepLayer.View, HillSweepLayer.Title, "", KeyCode.None, target, yaw, pitch, distance);
+            p.PortraitWidth = 0;
+            return p;
+        }
 
         /// <summary>The views of the followed person (keyless; the tour points at them by id).</summary>
         public static readonly string[] PersonViews = { "atom", "dilemma", "ladder" };
@@ -266,7 +282,8 @@ namespace Why.Economy
         /// <summary>The key of a view, or null for the views of the whole wave (the legend's own key); the present's carries its
         /// year's area scale (HillPresentLayer), and the landscape's is the legend's own with a line on its fences
         /// (<see cref="LandscapeKey"/>).</summary>
-        public static ViewKey Key(string id) => id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id == HillHistoryLayer.View ? HillHistoryLayer.Key :
+        public static ViewKey Key(string id) => id == HillSweepLayer.View && HillSweepLayer.On ? HillSweepLayer.Key :
+            id == HillPresentLayer.View ? HillPresentLayer.Key : id == HillAdvantageLayer.View ? HillAdvantageLayer.Key : id == HillHistoryLayer.View ? HillHistoryLayer.Key :
             id == HillPoliticsLayer.View ? HillPoliticsLayer.Key : id == HillMomentsLayer.View ? LandscapeKey() : id != null && Keys.TryGetValue(id, out ViewKey k) ? k : null;
 
         /// <summary>

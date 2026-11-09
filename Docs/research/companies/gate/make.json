@@ -1,0 +1,384 @@
+{
+ "asOf": "2026-11-08",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 37,
+  "cached": 0,
+  "tokens": 51491,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "co-abbott-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-abbvie-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-adm-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-altria-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-amgen-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-bms-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-boeing-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.89,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-caterpillar-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-chrysler-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-coca_cola-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-deere-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.86,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-dow-mcap-1": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-dow-mcap-2": {
+   "status": "unverified",
+   "verifiedOn": null,
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.47,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "reason": "Jev support 0.47 below 0.6",
+   "cluster": "make"
+  },
+  "co-dupont-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-ford-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-ge-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-general_dynamics-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-gilead-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-gm-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-honeywell-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-jnj-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-lilly-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-lockheed-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-merck-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-nike-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-northrop-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-pepsico-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-pfizer-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-pg-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-philip_morris_intl-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-rtx-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-tesla-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-thermo_fisher-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-three_m-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-tyson-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-wyeth-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  },
+  "co-xerox-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "make"
+  }
+ }
+}

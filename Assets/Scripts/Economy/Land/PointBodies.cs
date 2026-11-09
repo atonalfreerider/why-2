@@ -81,8 +81,11 @@ namespace Why.Economy.Land
 
         /// <summary>The body's silhouette from <paramref name="eye"/> (both in the builder's frame, the body at
         /// <paramref name="centre"/>): a closed line in the plane facing the eye at the reach of the body's points in each
-        /// direction, lit where a frontier blooms. Returns the body's mean colour (for its other marks).</summary>
-        public static Color Silhouette(LineMeshBuilder b, Organism shape, Vector3 centre, Vector3 eye, float id, float alpha, Color frontier, float widthPx = 1.3f)
+        /// direction, lit where a frontier blooms. With <paramref name="dashEvery"/> 2 only every other segment is drawn: the
+        /// dotted outline of a value that is approximate or estimated (the sweep's). Returns the body's mean colour (for its
+        /// other marks).</summary>
+        public static Color Silhouette(LineMeshBuilder b, Organism shape, Vector3 centre, Vector3 eye, float id, float alpha, Color frontier, float widthPx = 1.3f,
+            int dashEvery = 1)
         {
             Vector3 v = eye - centre;
             v = v.sqrMagnitude > 1e-3f ? v.normalized : Vector3.forward;
@@ -118,7 +121,7 @@ namespace Why.Economy.Land
                 float r = Mathf.Max(reach[kk], .5f * (reach[(kk + bins - 1) % bins] + reach[(kk + 1) % bins])) * 1.03f;
                 float ang = (kk + .5f) * 2 * Mathf.PI / bins;
                 Vector3 p = centre + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * r;
-                if (k > 0)
+                if (k > 0 && (dashEvery <= 1 || kk % dashEvery == 0))
                 {
                     float f = front[kk];
                     Color fc = frontier;

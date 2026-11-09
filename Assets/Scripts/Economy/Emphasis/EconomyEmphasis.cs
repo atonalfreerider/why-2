@@ -726,7 +726,9 @@ namespace Why.Economy.Emphasis
             Texture2D off = null, on = null;
             try
             {
-                root.Focus("overview", 0f);
+                // the crest is drawn in the overview, unless the overview is the sweep through time (HillSweepLayer): then in
+                // the landscape view, which draws it at full strength as the overview did
+                root.Focus(Layers.HillSweepLayer.On ? "landscape" : "overview", 0f);
                 Highlighter.Clear();
                 yield return new WaitForSecondsRealtime(3f);
                 for (float waited = 0; waited < 3f && Shader.GetGlobalFloat("_WhyDim") > .002f; waited += Time.unscaledDeltaTime) yield return null;

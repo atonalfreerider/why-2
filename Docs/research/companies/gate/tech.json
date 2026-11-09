@@ -1,0 +1,633 @@
+{
+ "asOf": "2026-11-08",
+ "threshold": 0.6,
+ "jev": {
+  "requests": 62,
+  "cached": 0,
+  "tokens": 72801,
+  "model": "jev-1.14.0",
+  "errors": 0
+ },
+ "facts": {
+  "co-activision-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-adobe-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-akamai-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-alphabet-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-amd-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-amphenol-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-analog_devices-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-apple-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-applied_materials-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-applovin-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-arista-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.96,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-att_inc-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-bellsouth-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-broadcom-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-cadence-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-charter-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-cisco-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-cloudflare-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-comcast-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-compaq-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.87,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-coreweave-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-crowdstrike-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.9,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-dell-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.85,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-disney-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-doordash-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.83,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-electronic_arts-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-emc-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.92,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-hp-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-ibm-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-intel-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-intuit-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-lam_research-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-linkedin-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-lucent-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.81,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-meta-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.76,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-micron-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-microsoft-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.79,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-motorola-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-netflix-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-nvidia-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-oracle-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-palantir-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.88,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-palo_alto-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-paramount-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-qualcomm-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-reddit-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.75,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-salesforce-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.91,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-servicenow-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-snap-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.86,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-sprint-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-sun_micro-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-synopsys-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-t_mobile-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-texas_instruments-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-time_warner-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.95,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-twitter-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-verizon-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-vmware-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.98,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-warner_bros_discovery-mcap-1": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.93,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-warner_bros_discovery-mcap-2": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.7,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-worldcom-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.97,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  },
+  "co-yahoo-mcap": {
+   "status": "verified",
+   "verifiedOn": "2026-11-08",
+   "quoteFound": true,
+   "valuesFound": true,
+   "supportedJ": 0.94,
+   "fetched": "2026-11-08",
+   "quotesFound": "1/1",
+   "cluster": "tech"
+  }
+ }
+}

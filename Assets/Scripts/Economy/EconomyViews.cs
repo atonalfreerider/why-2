@@ -52,7 +52,8 @@ namespace Why.Economy
         /// hills on other governments' foundations, and the present taken apart; advantage through history, and who holds power. The wave stays as
         /// faint context and every other layer steps back, so the story reads alone.
         /// </summary>
-        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage" || id == "history" || id == "politics";
+        public static bool Focused(string id) => id == "mobility" || id == "strategy" || id == "you" || id == "money" || id == "regimes" || id == "present" || id == "advantage" || id == "history" || id == "politics" ||
+                                                 id == "overview" && Layers.HillSweepLayer.On;
 
         /// <summary>The presets with a spec of their own (the others copy the overview's, <see cref="Get"/>).</summary>
         static readonly string[] OwnSpecs =
@@ -101,6 +102,9 @@ namespace Why.Economy
         public static ViewSpec Get(string presetId)
         {
             Build();
+            // the Wave view drawn as the sweep through time (HillSweepLayer) stands alone: the land hidden, its names and the
+            // road's off. The cached overview spec stays as it was, since the views without a spec of their own copy it
+            if ((presetId == null || presetId == "overview") && Layers.HillSweepLayer.On) return Sweep();
             if (presetId == null) return specs["overview"];
             if (specs.TryGetValue(presetId, out ViewSpec s)) return s;
             ViewSpec o = specs["overview"];
@@ -114,6 +118,16 @@ namespace Why.Economy
             specs[presetId] = s;
             return s;
         }
+
+        static ViewSpec sweep;
+
+        /// <summary>
+        /// The overview's spec while it shows the sweep through time: every land group at 0 (the emphasis table's overview row
+        /// is the sweep's own, HillSweepLayer.Prepare, but this spec may be built before that row is registered), no land
+        /// labels, the road's labels aside, and the land folded (morph target 0) so no part of the HUD keeps clear of a bowl
+        /// that is not drawn.
+        /// </summary>
+        static ViewSpec Sweep() => sweep ??= new ViewSpec { Id = "overview", MorphTarget = 0, HideRoadLabels = true, Labels = Array.Empty<LandGroup>() };
 
         static void Build()
         {

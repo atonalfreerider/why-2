@@ -119,3 +119,10 @@ __pycache__/
 
 # Commons and image-generation downloads (Tools/images/pictures.py, generate.py)
 /Tools/images/.cache/
+.venv/
+venv/
+Builds/
+Build/
+Library/
+Temp/
+Logs/

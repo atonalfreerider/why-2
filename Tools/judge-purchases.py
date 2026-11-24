@@ -159,8 +159,11 @@ def judge(job):
         json.dump(request, f)
     try:
         for _attempt in range(3):
-            run = subprocess.run(["powershell", "-NoProfile", "-File", os.path.join(ROOT, "Tools", "jev.ps1"),
-                                  "-RequestPath", path], capture_output=True, text=True, encoding="utf-8")
+            if os.name == "nt":
+                cmd = ["powershell", "-NoProfile", "-File", os.path.join(ROOT, "Tools", "jev.ps1"), "-RequestPath", path]
+            else:
+                cmd = [sys.executable, os.path.join(ROOT, "Tools", "jev.py"), path]
+            run = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
             if run.returncode == 0:
                 return json.loads(run.stdout)
         print(f"{iid}: {run.stderr.strip().splitlines()[0] if run.stderr.strip() else 'failed'}", file=sys.stderr)

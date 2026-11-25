@@ -1,0 +1,387 @@
+{
+ "asOf": "2026-11-25",
+ "model": "jev-1.14.0",
+ "tokens": 17270,
+ "note": "Structured TypeSafe Jev (System One) priors for the Individual Actor Causal Behavioral Predictor: economic river siphoning channels, fame's dual effect on mobility and happiness, and behavioral responses under fear vs desire. These are model judgments combined in code with calibrated simulation records (EconomicLives, Mobility, ValueCapture) and the social cloud (SocialPeople).",
+ "channels": [
+  {
+   "id": "wage_skill",
+   "name": "Specialized wage & career climb",
+   "description": "Increasing human capital, credentials, or high-margin industry placement (e.g. tech, finance, health) to earn higher labor compensation without owning significant equity.",
+   "leverage": {
+    "score": 1.78,
+    "confidence": 0.68
+   },
+   "capitalBarrier": {
+    "score": 1.92,
+    "confidence": 0.76
+   },
+   "networkDependency": {
+    "score": 1.69,
+    "confidence": 0.68
+   },
+   "downsideRisk": {
+    "score": 1.83,
+    "confidence": 0.72
+   }
+  },
+  {
+   "id": "equity_investing",
+   "name": "Broad equity & capital compounding",
+   "description": "Saving surplus income and allocating into diversified public equities, index funds, or retirement accounts to siphon corporate operating surplus over decades.",
+   "leverage": {
+    "score": 2.34,
+    "confidence": 0.69
+   },
+   "capitalBarrier": {
+    "score": 0.46,
+    "confidence": 0.63
+   },
+   "networkDependency": {
+    "score": 0.0,
+    "confidence": 1.0
+   },
+   "downsideRisk": {
+    "score": 1.19,
+    "confidence": 0.52
+   }
+  },
+  {
+   "id": "property_ownership",
+   "name": "Property & real-estate ownership",
+   "description": "Acquiring a primary home or rental real estate using mortgage leverage to build home equity, hedge shelter costs, and capture appreciation or rent flows.",
+   "leverage": {
+    "score": 2.47,
+    "confidence": 0.54
+   },
+   "capitalBarrier": {
+    "score": 2.22,
+    "confidence": 0.82
+   },
+   "networkDependency": {
+    "score": 1.47,
+    "confidence": 0.51
+   },
+   "downsideRisk": {
+    "score": 2.97,
+    "confidence": 0.94
+   }
+  },
+  {
+   "id": "operating_business",
+   "name": "Small business & enterprise ownership",
+   "description": "Founding or buying an operating business (services, trades, local commerce, agency) to retain owners' operating surplus rather than pure wages.",
+   "leverage": {
+    "score": 2.55,
+    "confidence": 0.59
+   },
+   "capitalBarrier": {
+    "score": 2.04,
+    "confidence": 0.73
+   },
+   "networkDependency": {
+    "score": 2.17,
+    "confidence": 0.77
+   },
+   "downsideRisk": {
+    "score": 2.98,
+    "confidence": 0.91
+   }
+  },
+  {
+   "id": "innovation_ip",
+   "name": "Innovative product, software, or IP creation",
+   "description": "Creating scalable technology, software, media IP, or venture-backed products with near-zero marginal distribution cost positioned inside high-growth economic rivers.",
+   "leverage": {
+    "score": 3.93,
+    "confidence": 0.95
+   },
+   "capitalBarrier": {
+    "score": 1.04,
+    "confidence": 0.74
+   },
+   "networkDependency": {
+    "score": 2.75,
+    "confidence": 0.64
+   },
+   "downsideRisk": {
+    "score": 2.64,
+    "confidence": 0.62
+   }
+  },
+  {
+   "id": "attention_monetization",
+   "name": "Public fame & attention-platform monetization",
+   "description": "Building a large social-media or media following to convert audience attention into sponsorships, creator revenue, brand equity, or deal flow.",
+   "leverage": {
+    "score": 3.71,
+    "confidence": 0.75
+   },
+   "capitalBarrier": {
+    "score": 0.46,
+    "confidence": 0.62
+   },
+   "networkDependency": {
+    "score": 3.68,
+    "confidence": 0.73
+   },
+   "downsideRisk": {
+    "score": 1.27,
+    "confidence": 0.52
+   }
+  }
+ ],
+ "fameTiers": [
+  {
+   "id": "private",
+   "name": "Private citizen (anonymous)",
+   "followers": "< 1,000",
+   "mobilityBoost": {
+    "score": 0.27,
+    "confidence": 0.78
+   },
+   "happiness": {
+    "score": 2.31,
+    "confidence": 0.74
+   },
+   "fearExposure": {
+    "score": 0.24,
+    "confidence": 0.8
+   },
+   "autonomy": {
+    "score": 3.97,
+    "confidence": 0.98
+   }
+  },
+  {
+   "id": "domain_specialist",
+   "name": "Domain / local reputation",
+   "followers": "1K - 25K",
+   "mobilityBoost": {
+    "score": 1.08,
+    "confidence": 0.93
+   },
+   "happiness": {
+    "score": 2.98,
+    "confidence": 0.98
+   },
+   "fearExposure": {
+    "score": 1.03,
+    "confidence": 0.98
+   },
+   "autonomy": {
+    "score": 2.94,
+    "confidence": 0.95
+   }
+  },
+  {
+   "id": "niche_creator",
+   "name": "Niche creator / rising public figure",
+   "followers": "25K - 500K",
+   "mobilityBoost": {
+    "score": 2.13,
+    "confidence": 0.89
+   },
+   "happiness": {
+    "score": 1.86,
+    "confidence": 0.77
+   },
+   "fearExposure": {
+    "score": 2.32,
+    "confidence": 0.73
+   },
+   "autonomy": {
+    "score": 1.74,
+    "confidence": 0.78
+   }
+  },
+  {
+   "id": "major_figure",
+   "name": "Major public figure",
+   "followers": "500K - 20M",
+   "mobilityBoost": {
+    "score": 3.08,
+    "confidence": 0.93
+   },
+   "happiness": {
+    "score": 1.26,
+    "confidence": 0.75
+   },
+   "fearExposure": {
+    "score": 3.15,
+    "confidence": 0.88
+   },
+   "autonomy": {
+    "score": 0.84,
+    "confidence": 0.83
+   }
+  },
+  {
+   "id": "global_icon",
+   "name": "Global icon / mega-influencer",
+   "followers": "20M+",
+   "mobilityBoost": {
+    "score": 3.99,
+    "confidence": 0.99
+   },
+   "happiness": {
+    "score": 0.71,
+    "confidence": 0.73
+   },
+   "fearExposure": {
+    "score": 3.97,
+    "confidence": 0.98
+   },
+   "autonomy": {
+    "score": 0.03,
+    "confidence": 0.98
+   }
+  }
+ ],
+ "archetypes": [
+  {
+   "id": "distressed_thin_buffer",
+   "name": "Thin-buffer / economically stressed actor",
+   "primaryResponse": {
+    "choice": "defensive_retrenchment",
+    "confidence": 1.0,
+    "probabilities": {
+     "defensive_retrenchment": 1.0,
+     "debt_financed_consumption": 0.0,
+     "skill_and_career_climb": 0.0,
+     "river_positioning_investment": 0.0,
+     "capital_compounding": 0.0,
+     "attention_monetization": 0.0
+    }
+   },
+   "cooperation": {
+    "score": 0.63,
+    "confidence": 0.65
+   },
+   "desireDominance": {
+    "score": 0.06,
+    "confidence": 0.95
+   }
+  },
+  {
+   "id": "aspiring_striver",
+   "name": "Upwardly mobile striver",
+   "primaryResponse": {
+    "choice": "river_positioning_investment",
+    "confidence": 0.56,
+    "probabilities": {
+     "defensive_retrenchment": 0.0,
+     "debt_financed_consumption": 0.0,
+     "skill_and_career_climb": 0.37,
+     "river_positioning_investment": 0.63,
+     "capital_compounding": 0.0,
+     "attention_monetization": 0.0
+    }
+   },
+   "cooperation": {
+    "score": 2.47,
+    "confidence": 0.61
+   },
+   "desireDominance": {
+    "score": 2.86,
+    "confidence": 0.88
+   }
+  },
+  {
+   "id": "leveraged_homeowner",
+   "name": "Leveraged middle/upper-middle homeowner",
+   "primaryResponse": {
+    "choice": "river_positioning_investment",
+    "confidence": 0.3,
+    "probabilities": {
+     "defensive_retrenchment": 0.13,
+     "debt_financed_consumption": 0.29,
+     "skill_and_career_climb": 0.12,
+     "river_positioning_investment": 0.42,
+     "capital_compounding": 0.04,
+     "attention_monetization": 0.0
+    }
+   },
+   "cooperation": {
+    "score": 2.06,
+    "confidence": 0.89
+   },
+   "desireDominance": {
+    "score": 1.74,
+    "confidence": 0.77
+   }
+  },
+  {
+   "id": "river_builder",
+   "name": "Business owner / economic river builder",
+   "primaryResponse": {
+    "choice": "river_positioning_investment",
+    "confidence": 0.96,
+    "probabilities": {
+     "defensive_retrenchment": 0.0,
+     "debt_financed_consumption": 0.0,
+     "skill_and_career_climb": 0.0,
+     "river_positioning_investment": 0.97,
+     "capital_compounding": 0.03,
+     "attention_monetization": 0.0
+    }
+   },
+   "cooperation": {
+    "score": 2.84,
+    "confidence": 0.87
+   },
+   "desireDominance": {
+    "score": 3.0,
+    "confidence": 0.97
+   }
+  },
+  {
+   "id": "capital_owner",
+   "name": "High-agency capital owner (top 1-10%)",
+   "primaryResponse": {
+    "choice": "capital_compounding",
+    "confidence": 1.0,
+    "probabilities": {
+     "defensive_retrenchment": 0.0,
+     "debt_financed_consumption": 0.0,
+     "skill_and_career_climb": 0.0,
+     "river_positioning_investment": 0.0,
+     "capital_compounding": 1.0,
+     "attention_monetization": 0.0
+    }
+   },
+   "cooperation": {
+    "score": 2.92,
+    "confidence": 0.86
+   },
+   "desireDominance": {
+    "score": 3.34,
+    "confidence": 0.63
+   }
+  },
+  {
+   "id": "attention_anchor",
+   "name": "High-fame attention anchor",
+   "primaryResponse": {
+    "choice": "attention_monetization",
+    "confidence": 0.99,
+    "probabilities": {
+     "defensive_retrenchment": 0.0,
+     "debt_financed_consumption": 0.0,
+     "skill_and_career_climb": 0.0,
+     "river_positioning_investment": 0.0,
+     "capital_compounding": 0.01,
+     "attention_monetization": 0.99
+    }
+   },
+   "cooperation": {
+    "score": 2.36,
+    "confidence": 0.47
+   },
+   "desireDominance": {
+    "score": 2.34,
+    "confidence": 0.43
+   }
+  }
+ ]
+}

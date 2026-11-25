@@ -198,7 +198,7 @@ namespace Why.Economy.Layers
         void OnDestroy()
         {
             LandService.Changed -= OnChanged;
-            LogControls(true);
+            LogControls(false);
         }
     }
 

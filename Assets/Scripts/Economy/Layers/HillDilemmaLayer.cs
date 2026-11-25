@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Draw;
 using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
@@ -52,7 +53,7 @@ namespace Why.Economy.Layers
                 Moves = EconomyEmphasis.Key("dilemma.moves"), Pulses = EconomyEmphasis.Key("dilemma.pulses");
         }
         TextMeshPro roundLabel, ledgerLabel, slipLabel, groupLabel;
-        Material raisedText, plateMaterial; Mesh plateQuad;
+        readonly WorldLabelPlates plates = new WorldLabelPlates("Arena plate", .75f);
         /// <summary>The ledger's plate, resized whenever a round rewrites the ledger.</summary>
         Transform ledgerPlate;
         Vector3 center; Vector3[] seats;
@@ -336,43 +337,22 @@ namespace Why.Economy.Layers
             var go = new GameObject("Arena label"); go.transform.SetParent(content.transform, false); go.transform.localPosition = at;
             var t = go.AddComponent<TextMeshPro>(); t.text = text; t.fontSize = 24; t.alignment = TextAlignmentOptions.Center;
             t.color = color; t.textWrappingMode = TextWrappingModes.NoWrap; t.rectTransform.sizeDelta = new Vector2(40, 8);
-            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
-            if (raisedText != null) t.fontSharedMaterial = raisedText;
+            plates.Raise(t);
             go.transform.localScale = Vector3.one * size; labels.Add(t); return t;
         }
 
-        /// <summary>A dark plate behind a label, sized by <see cref="PlateSize"/>: drawn at queue 3251, after the arena's lines
-        /// (3222) and before the raised text (3252), so the figures, bars and rings behind the label step back. It is the
-        /// label's child, so it turns and hides with it.</summary>
-        Transform Plate(TextMeshPro t)
-        {
-            if (plateQuad == null)
-            {
-                var b = new SurfaceMeshBuilder();
-                b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
-                    new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
-                plateQuad = b.ToMesh("Arena plate"); owned.Add(plateQuad);
-                plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
-            }
-            var r = AddMesh("Arena plate", plateQuad, plateMaterial); r.transform.SetParent(t.transform, false); r.transform.localScale = PlateSize(t);
-            return r.transform;
-        }
+        Transform Plate(TextMeshPro t) => plates.AttachPlate(t, AddMesh);
 
-        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and
-        /// .12 em above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
-        static Vector3 PlateSize(TextMeshPro t)
-        {
-            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
-            return new Vector3(s.x, s.y, 1);
-        }
+        static Vector3 PlateSize(TextMeshPro t) => WorldLabelPlates.PlateSize(t);
 
-        static Color WithAlpha(Color c, float a) { c.a = a; return c; }
+        static Color WithAlpha(Color c, float a) => c.WithAlpha(a);
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); labels.Clear(); seatLabels.Clear(); content = null; arena = null; dynamicLines = pulses = arenaLines = arenaFloor = null; raisedText = plateMaterial = null; plateQuad = null; ledgerPlate = null;
+            plates.Clear();
+            owned.Clear(); labels.Clear(); seatLabels.Clear(); content = null; arena = null; dynamicLines = pulses = arenaLines = arenaFloor = null; ledgerPlate = null;
         }
 
         void OnDestroy() => Clear();

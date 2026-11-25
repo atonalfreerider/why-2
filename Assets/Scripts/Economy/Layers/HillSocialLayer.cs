@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Draw;
 using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
@@ -74,10 +75,11 @@ namespace Why.Economy.Layers
         /// <summary>The cloud's name (kept legible from any distance), and its text without and with the key of its rings, and
         /// with the key in portrait (its long lines broken in two).</summary>
         TextMeshPro title; string titleFar, titleNear, titleNearPortrait;
-        /// <summary>The font's material drawn after the hills and the cloud's lines (queue 3252), shared by the labels read over
-        /// them; and the dark plate behind those that stand on bright marks (a unit square scaled to each label, and its
-        /// material drawn just before the raised text, queue 3251).</summary>
-        Material raisedText, plateMaterial; Mesh plateQuad;
+        readonly WorldLabelPlates plates = new WorldLabelPlates("Popular plate", 1f);
+        Vector2 lastPickPointer = new Vector2(float.NaN, float.NaN);
+        Vector3 lastPickCamPos;
+        Quaternion lastPickCamRot;
+        int lastPickLod = -1;
 
         string programsJson;
         public override void Prepare(GraphContext ctx) { People = SocialPeople.Parse(ctx.Text(SocialPeople.Path)); programsJson = ctx.Text(CorporatePrograms.Path); }
@@ -149,6 +151,12 @@ namespace Why.Economy.Layers
             // Above the wave, over the road side of the crest and higher than the gold pool of wealth.
             center = new Vector3(HillLandscape.FootX + land.CrestWidth * .30f, land.CloudY + 20, land.CrestZ - 10);
             var lives = CompanyLives.Get();
+            Dictionary<string, int> lifeIndex = null;
+            if (lives != null && lives.Lives != null)
+            {
+                lifeIndex = new Dictionary<string, int>(lives.Lives.Length, StringComparer.Ordinal);
+                for (int i = 0; i < lives.Lives.Length; i++) lifeIndex[lives.Lives[i].Id] = i;
+            }
             var stars = new LineMeshBuilder(); var bright = new LineMeshBuilder(); var ties = new LineMeshBuilder(); var rings = new LineMeshBuilder();
             var anchors = new LineMeshBuilder(); var threads = new LineMeshBuilder(); var glow = new SurfaceMeshBuilder();
             var us = People.ByRegion[Math.Max(0, People.RegionIndex("us"))];
@@ -166,26 +174,26 @@ namespace Why.Economy.Layers
                 Vector3 inCloud = center + Vector3.Scale(Spread(p.Layout), new Vector3(CloudRadius, CloudRadius * Squash, CloudRadius));
                 // Capital first: a person who controls a listed company stands in its circle of owners. Stars are white at
                 // intensity 1: fame is their size, and bloom is left to what is hovered or selected.
-                if (Anchor(p, lives, out Vector3 firm, out var others))
+                if (Anchor(p, lives, lifeIndex, out Vector3 firm, out var others))
                 {
                     Star(anchors, Id(Part.Anchors), firm, .35f + .55f * fame);
                     foreach (var o in others) Rope(anchors, Id(Part.Anchors), firm, o, WithAlpha(Gold, .7f), 1.2f, 1.5f);
                     Rope(threads, Id(Part.Threads), firm, inCloud, WithAlpha(SocialPeople.White, .35f), .6f, 4);
                     if (seatOf.TryGetValue(p.Index, out Vector3 office)) Rope(threads, Id(Part.Threads), firm, office, WithAlpha(Grey, .5f), .7f, -3);
-                    Placed[p.Index] = (firm, 1); Name(p, firm, fame, true);
+                    Placed[p.Index] = (firm, 1); Name(p, firm, fame, true, lives, lifeIndex);
                     continue;
                 }
                 if (seatOf.TryGetValue(p.Index, out Vector3 seat))
                 {
                     Star(anchors, Id(Part.Anchors), seat, .3f + .5f * fame);
                     Rope(threads, Id(Part.Threads), seat, inCloud, WithAlpha(SocialPeople.White, .25f), .5f, 6);
-                    Placed[p.Index] = (seat, 2); Name(p, seat, fame, true);
+                    Placed[p.Index] = (seat, 2); Name(p, seat, fame, true, lives, lifeIndex);
                     continue;
                 }
                 Star(rank < 16 ? bright : stars, Id(rank < 16 ? Part.Bright : Part.Stars), inCloud, .22f + .7f * fame, StarAlpha);
                 Placed[p.Index] = (inCloud, 0); top = Mathf.Max(top, inCloud.y);
                 if (p.cloud >= 0) { if (!cats.TryGetValue(p.cloud, out var list)) cats[p.cloud] = list = new List<Vector3>(); list.Add(inCloud); }
-                if (rank < 60 || fame > .6f) Name(p, inCloud, fame, false);
+                if (rank < 60 || fame > .6f) Name(p, inCloud, fame, false, lives, lifeIndex);
             }
             foreach (var e in People.edges)
             {
@@ -319,14 +327,13 @@ namespace Why.Economy.Layers
 
         /// <summary>The company circle a capital holder stands in: their first listed company with a tower (its gold
         /// inner circle of owners), else its lifeline at the crest; the others they are tied to.</summary>
-        bool Anchor(SocialPeople.Person p, CompanyLives lives, out Vector3 at, out List<Vector3> others)
+        bool Anchor(SocialPeople.Person p, CompanyLives lives, Dictionary<string, int> lifeIndex, out Vector3 at, out List<Vector3> others)
         {
             at = default; others = new List<Vector3>(); bool found = false;
-            if (lives == null || p.firms.Length == 0) return false;
+            if (lives == null || lifeIndex == null || p.firms.Length == 0) return false;
             foreach (string id in p.firms)
             {
-                int life = Array.FindIndex(lives.Lives, l => l.Id == id);
-                if (life < 0 || lives.Lives[life].Founded > land.Year) continue;
+                if (!lifeIndex.TryGetValue(id, out int life) || lives.Lives[life].Founded > land.Year) continue;
                 Vector3 spot;
                 if (HillActivityLayer.OwnerCircle(lives.Lives[life], out Vector3 c, out float r))
                 {
@@ -340,29 +347,43 @@ namespace Why.Economy.Layers
             return found;
         }
 
-        void Name(SocialPeople.Person p, Vector3 at, float fame, bool placed)
+        void Name(SocialPeople.Person p, Vector3 at, float fame, bool placed, CompanyLives lives, Dictionary<string, int> lifeIndex)
         {
-            var lives = CompanyLives.Get(); var names = new List<string>();
-            foreach (string id in p.firms) { var l = lives == null ? null : Array.Find(lives.Lives, x => x.Id == id); names.Add(l != null ? l.Name : id); }
-            string extra = placed && names.Count > 0 ? "\n" + string.Join(" · ", names) : "";
+            string extra = "";
+            if (placed && p.firms.Length > 0)
+            {
+                var names = new List<string>(p.firms.Length);
+                foreach (string id in p.firms)
+                {
+                    names.Add(lives != null && lifeIndex != null && lifeIndex.TryGetValue(id, out int idx) ? lives.Lives[idx].Name : id);
+                }
+                extra = "\n" + string.Join(" · ", names);
+            }
             TextLabel(p.name + extra, at + Vector3.up * (1 + fame), .16f + .12f * fame, placed ? new Color(1, .93f, .8f) : new Color(.88f, .95f, 1f), p.Index, fame);
         }
 
         void Pick(Camera cam)
         {
-            HoverPerson = -1;
             var mouse = UnityEngine.InputSystem.Mouse.current;
-            if (mouse == null || lod < 1) return;
-            Vector2 pointer = mouse.position.ReadValue(); float best = 14 * Screen.height / 1080f;
-            foreach (var kv in Placed)
+            if (mouse == null || lod < 1) { HoverPerson = -1; lastPickLod = lod; return; }
+            Vector2 pointer = mouse.position.ReadValue();
+            Transform camT = cam.transform;
+            if (lod != lastPickLod || (pointer - lastPickPointer).sqrMagnitude > .25f ||
+                (camT.position - lastPickCamPos).sqrMagnitude > 1e-6f || Quaternion.Angle(camT.rotation, lastPickCamRot) > 1e-3f)
             {
-                Vector3 s = cam.WorldToScreenPoint(frame.World(kv.Value.at));
-                float d = Vector2.Distance(pointer, s);
-                if (s.z > 0 && d < best) { best = d; HoverPerson = kv.Key; }
+                lastPickPointer = pointer; lastPickCamPos = camT.position; lastPickCamRot = camT.rotation; lastPickLod = lod;
+                HoverPerson = -1;
+                float best = 14 * Screen.height / 1080f;
+                foreach (var kv in Placed)
+                {
+                    Vector3 s = cam.WorldToScreenPoint(frame.World(kv.Value.at));
+                    float d = Vector2.Distance(pointer, s);
+                    if (s.z > 0 && d < best) { best = d; HoverPerson = kv.Key; }
+                }
             }
             // the hovered person's name shows however small or far (Tick turns only the names it shows)
             if (HoverPerson >= 0)
-                foreach (var l in labels) if (l.person == HoverPerson) { l.text.gameObject.SetActive(true); l.text.transform.rotation = cam.transform.rotation; }
+                foreach (var l in labels) if (l.person == HoverPerson) { l.text.gameObject.SetActive(true); l.text.transform.rotation = camT.rotation; }
         }
 
         /// <summary>The force-directed layout crowds its hubs at the center; a radial power spreads the core so stars stay apart.</summary>
@@ -434,40 +455,11 @@ namespace Why.Economy.Layers
             return t;
         }
 
-        /// <summary>Gives a label the raised font material (<see cref="raisedText"/>). The label has woken (it was made under
-        /// the active content), so it has the font's material to copy.</summary>
-        TextMeshPro Raised(TextMeshPro t)
-        {
-            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
-            if (raisedText != null) t.fontSharedMaterial = raisedText;
-            return t;
-        }
+        TextMeshPro Raised(TextMeshPro t) => plates.Raise(t);
 
-        /// <summary>A dark plate behind a raised label, sized by <see cref="PlateSize"/>: the stars, names and lines behind it
-        /// are hidden, so the label reads over them. Opaque: the names Stack lowers into the cloud's core stand on its densest
-        /// stars, and the tenth of them a .9 plate let through (and a quarter, at .75) left those names on mid-grey. It turns
-        /// and hides with the label, under its text (to the right of its place for a left-aligned one).</summary>
-        void Plate(TextMeshPro t)
-        {
-            if (plateQuad == null)
-            {
-                var b = new SurfaceMeshBuilder();
-                b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
-                    new[] { (Color32)WithAlpha(GraphStyle.Background, 1) }, 0, 1);
-                plateQuad = b.ToMesh("Popular plate"); owned.Add(plateQuad);
-                plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
-            }
-            var r = AddMesh("Popular plate", plateQuad, plateMaterial); r.transform.SetParent(t.transform, false); r.transform.localScale = PlateSize(t);
-            if (t.alignment == TextAlignmentOptions.Left) r.transform.localPosition = new Vector3(t.rectTransform.rect.xMin + t.GetPreferredValues(t.text).x * .5f, 0, 0);
-        }
+        void Plate(TextMeshPro t) => plates.AttachPlate(t, AddMesh);
 
-        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and
-        /// .12 em above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
-        static Vector3 PlateSize(TextMeshPro t)
-        {
-            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
-            return new Vector3(s.x, s.y, 1);
-        }
+        static Vector3 PlateSize(TextMeshPro t) => WorldLabelPlates.PlateSize(t);
 
         /// <summary>
         /// Keeps the names of the most followed by the others (shown only in the social view), then the category clouds' names
@@ -510,13 +502,14 @@ namespace Why.Economy.Layers
             foreach (var t in under) Place(t, float.IsNegativeInfinity(highest) ? float.PositiveInfinity : highest);
         }
 
-        static Color WithAlpha(Color c, float a) { c.a = a; return c; }
+        static Color WithAlpha(Color c, float a) => c.WithAlpha(a);
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; title = null; raisedText = plateMaterial = null; plateQuad = null;
+            plates.Clear();
+            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; title = null; lastPickLod = -1;
         }
 
         void OnDestroy() { Clear(); Placed.Clear(); People = null; HoverPerson = -1; }

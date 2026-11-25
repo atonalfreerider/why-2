@@ -27,7 +27,8 @@ namespace Why
 
         public static bool IsXr => Source != null;
 
-        static Camera Cam => Camera.main;
+        static Camera cachedCam;
+        static Camera Cam => cachedCam != null ? cachedCam : (cachedCam = Camera.main);
 
         /// <summary>Pointer position in screen pixels of the main camera (mouse, or the aim ray's projection).</summary>
         public static Vector2 Position

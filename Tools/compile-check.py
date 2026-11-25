@@ -63,6 +63,35 @@ def main():
         if not args.editor and (".Editor" in name or "Editor." in name or name.endswith("Editor.dll")):
             continue
         refs.add(dll)
+    if args.editor:
+        for nunit in glob.glob(os.path.join(ref_root, "Library", "PackageCache", "com.unity.ext.nunit*", "**", "nunit.framework.dll"), recursive=True):
+            refs.add(nunit)
+            break
+        else:
+            for nunit in glob.glob(os.path.join(find_editor(), "Resources", "PackageManager", "BuiltInPackages", "com.unity.ext.nunit", "**", "nunit.framework.dll"), recursive=True):
+                refs.add(nunit)
+                break
+    data = find_editor()
+    # Remap Editor/Data HintPaths across OS/version upgrades (e.g. Windows csproj opened on Linux 6000.6.10f1)
+    remapped = set()
+    for r in refs:
+        if os.path.exists(r):
+            remapped.add(r)
+            continue
+        norm = r.replace("\\", "/")
+        idx = norm.find("Editor/Data/")
+        if idx >= 0:
+            cand = os.path.join(data, norm[idx + len("Editor/Data/"):])
+            if os.path.exists(cand):
+                remapped.add(cand)
+                continue
+        rel_idx = norm.find("Library/")
+        if rel_idx >= 0:
+            cand = os.path.join(ref_root, norm[rel_idx:])
+            if os.path.exists(cand):
+                remapped.add(cand)
+                continue
+    refs = remapped
     # drop references that are no longer there (Library is rebuilt by the Editor)
     refs = sorted(r for r in refs if os.path.exists(r) and not os.path.basename(r).startswith("Assembly-CSharp"))
     # de-duplicate by assembly name: prefer the ScriptAssemblies copy (newest package)
@@ -86,7 +115,6 @@ def main():
     if not sources:
         sys.exit("no sources")
 
-    data = find_editor()
     dotnet = os.path.join(data, "DotNetSdk", "dotnet")
     csc = sorted(glob.glob(os.path.join(data, "DotNetSdk", "sdk", "*", "Roslyn", "bincore", "csc.dll")))[-1]
     with tempfile.TemporaryDirectory() as tmp:

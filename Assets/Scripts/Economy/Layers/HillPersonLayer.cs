@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Draw;
 using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
@@ -72,8 +73,7 @@ namespace Why.Economy.Layers
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         LandSnapshot snapshot; HillLandscape land; GameObject content; LandFrame frame;
         MeshRenderer figure, walker; TextMeshPro walkerLabel;
-        /// <summary>The raised font material (<see cref="Raised"/>) and the dark plates' quad and material (<see cref="Plate"/>).</summary>
-        Material raisedText, plateMaterial; Mesh plateQuad;
+        readonly WorldLabelPlates plates = new WorldLabelPlates("Person plate", .9f);
         /// <summary>The walker caption's plate, resized whenever the walker reaches another year.</summary>
         Transform walkerPlate;
         Vector3 sway; Vector3[] path; float[] pathLength; int[] pathRecord;
@@ -463,50 +463,21 @@ namespace Why.Economy.Layers
             go.transform.localScale = Vector3.one * size; labels.Add((t, part)); return t;
         }
 
-        /// <summary>Gives a label a copy of its font material drawn after every line of the view (queue 3252), shared by the
-        /// raised labels. The label has woken (it was made under the active content), so it has the font's material to copy.</summary>
-        TextMeshPro Raised(TextMeshPro t)
-        {
-            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
-            if (raisedText != null) t.fontSharedMaterial = raisedText;
-            return t;
-        }
+        TextMeshPro Raised(TextMeshPro t) => plates.Raise(t);
 
-        /// <summary>A dark plate behind a raised label, sized by <see cref="PlateSize"/>: drawn at queue 3251, after the person's
-        /// lines (3220) and before the raised text, so the lines behind the label step back. .9 opaque, the rule for plates over
-        /// bloomed marks: the hills blend in linear light, where the quarter a .75 plate lets through reads at about half
-        /// brightness, and the figure's foot rings still ran behind "pushed by fear" about as bright as its steel letters. It is
-        /// the label's child, so it turns, scales and hides with it.</summary>
-        Transform Plate(TextMeshPro t)
-        {
-            if (plateQuad == null)
-            {
-                var b = new SurfaceMeshBuilder();
-                b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
-                    new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
-                plateQuad = b.ToMesh("Person plate"); owned.Add(plateQuad);
-                plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
-            }
-            var r = AddMesh("Person plate", plateQuad, plateMaterial); r.transform.SetParent(t.transform, false); r.transform.localScale = PlateSize(t);
-            return r.transform;
-        }
+        Transform Plate(TextMeshPro t) => plates.AttachPlate(t, AddMesh);
 
-        /// <summary>A label's plate in the label's own units: its text with the label system's margin, .35 em sideways and
-        /// .12 em above and below (TextMeshPro sets 2.4 local units per em at its font size 24).</summary>
-        static Vector3 PlateSize(TextMeshPro t)
-        {
-            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
-            return new Vector3(s.x, s.y, 1);
-        }
+        static Vector3 PlateSize(TextMeshPro t) => WorldLabelPlates.PlateSize(t);
 
-        static Color WithAlpha(Color c, float a) { c.a = a; return c; }
+        static Color WithAlpha(Color c, float a) => c.WithAlpha(a);
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
+            plates.Clear();
             owned.Clear(); renderers.Clear(); labels.Clear(); content = null; figure = walker = null; walkerLabel = null; path = null;
-            raisedText = plateMaterial = null; plateQuad = null; walkerPlate = null;
+            walkerPlate = null;
         }
 
         void OnDestroy() { Clear(); PersonFocus.Life = null; PersonFocus.Ready = false; }

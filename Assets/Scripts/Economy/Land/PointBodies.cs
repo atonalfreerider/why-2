@@ -77,30 +77,34 @@ namespace Why.Economy.Land
             return m;
         }
 
-        static readonly float[] reach = new float[96], front = new float[96];
+        const int MaxSilhouetteBins = 96;
+        [ThreadStatic] static float[] reachBuf, frontBuf;
 
         /// <summary>The body's silhouette from <paramref name="eye"/> (both in the builder's frame, the body at
         /// <paramref name="centre"/>): a closed line in the plane facing the eye at the reach of the body's points in each
         /// direction, lit where a frontier blooms. With <paramref name="dashEvery"/> 2 only every other segment is drawn: the
         /// dotted outline of a value that is approximate or estimated (the sweep's). Returns the body's mean colour (for its
-        /// other marks).</summary>
+        /// other marks). Thread-safe via per-thread scratch buffers.</summary>
         public static Color Silhouette(LineMeshBuilder b, Organism shape, Vector3 centre, Vector3 eye, float id, float alpha, Color frontier, float widthPx = 1.3f,
             int dashEvery = 1)
         {
+            float[] reach = reachBuf ??= new float[MaxSilhouetteBins];
+            float[] front = frontBuf ??= new float[MaxSilhouetteBins];
             Vector3 v = eye - centre;
             v = v.sqrMagnitude > 1e-3f ? v.normalized : Vector3.forward;
             Vector3 u = Vector3.Cross(v, Mathf.Abs(v.y) > .95f ? Vector3.right : Vector3.up).normalized, w = Vector3.Cross(v, u);
             int stride = Mathf.Max(1, shape.Points.Length / 700);
-            int bins = Mathf.Clamp(shape.Points.Length / 5 / stride, 24, reach.Length);
-            Array.Clear(reach, 0, reach.Length);
-            Array.Clear(front, 0, front.Length);
+            int bins = Mathf.Clamp(shape.Points.Length / 5 / stride, 24, MaxSilhouetteBins);
+            Array.Clear(reach, 0, bins);
+            Array.Clear(front, 0, bins);
+            const float InvTwoPi = 1f / (2f * Mathf.PI);
             Color mean = Color.black;
             int count = 0;
             for (int i = 0; i < shape.Points.Length; i += stride)
             {
                 Vector3 p = shape.Points[i];
                 float a = Vector3.Dot(p, u), c = Vector3.Dot(p, w), r = Mathf.Sqrt(a * a + c * c);
-                int k = (int)((Mathf.Atan2(c, a) / (2 * Mathf.PI) + 1) * bins) % bins;
+                int k = (int)((Mathf.Atan2(c, a) * InvTwoPi + 1f) * bins) % bins;
                 if (r > reach[k]) reach[k] = r;
                 if (shape.Frontier[i] > front[k]) front[k] = shape.Frontier[i];
                 mean += shape.Colors[i];
@@ -114,12 +118,13 @@ namespace Why.Economy.Land
             Color line = mean * 1.15f;
             line = Color.Lerp(line, Color.white, .12f);
             line.a = .62f * alpha;
+            float angleStep = 2f * Mathf.PI / bins;
             Vector3 prev = Vector3.zero;
             for (int k = 0; k <= bins; k++)
             {
                 int kk = k % bins;
                 float r = Mathf.Max(reach[kk], .5f * (reach[(kk + bins - 1) % bins] + reach[(kk + 1) % bins])) * 1.03f;
-                float ang = (kk + .5f) * 2 * Mathf.PI / bins;
+                float ang = (kk + .5f) * angleStep;
                 Vector3 p = centre + (u * Mathf.Cos(ang) + w * Mathf.Sin(ang)) * r;
                 if (k > 0 && (dashEvery <= 1 || kk % dashEvery == 0))
                 {

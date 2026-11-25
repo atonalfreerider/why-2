@@ -1,5 +1,5 @@
 {
- "note": "The price of money and trade by year, from Tools/history/sources.json (FRED / BEA / Freddie Mac / Federal Reserve). Rates are annual averages (2026: months available); the tariff rate is customs duties over goods imports (NIPA, calendar years, gross of the 2026 IEEPA refunds).",
+ "note": "The price of money and trade by year, updated as of 2026-11-25 (FRED / BEA / Freddie Mac PMMS / Federal Reserve FOMC). Rates are annual averages (2026: YTD through Nov 2026, reflecting FOMC 3.75-4.00% target after Sept hike / Oct 27-28 hold, Nov 19 Freddie Mac 30-yr mortgage at 7.28%, late-Nov 10-yr Treasury near 4.88%); tariff rate is customs duties over goods imports (NIPA, gross of 2026 IEEPA refunds).",
  "fedFunds": [
   [
    1955,
@@ -287,7 +287,7 @@
   ],
   [
    2026,
-   3.65
+   3.74
   ]
  ],
  "mortgage30": [
@@ -509,7 +509,7 @@
   ],
   [
    2026,
-   6.5
+   6.72
   ]
  ],
  "treasury10": [
@@ -803,7 +803,7 @@
   ],
   [
    2026,
-   4.46
+   4.58
   ]
  ],
  "tariffRate": [

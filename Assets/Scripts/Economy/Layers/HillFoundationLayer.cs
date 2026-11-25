@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Draw;
 using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
@@ -82,8 +83,7 @@ namespace Why.Economy.Layers
         LandSnapshot snapshot; HillLandscape land; GameObject content;
         int selection = -2, lod;
         HillLandscape seatedFor;
-        /// <summary>The font's material drawn after the block and its strands (queue 3252), for the names read on top of them.</summary>
-        Material raisedText;
+        readonly WorldLabelPlates plates = new WorldLabelPlates("Government plate", .75f);
 
         public override void Prepare(GraphContext ctx) { History = GovernmentHistory.Parse(ctx.Text(GovernmentHistory.Path)); }
         public override void Upload(GraphContext ctx)
@@ -445,36 +445,20 @@ namespace Why.Economy.Layers
             // own queue would draw over them: they take a copy of its material drawn after the hills
             if (minLod == FoundationOnly)
             {
-                if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
-                if (raisedText != null) t.fontSharedMaterial = raisedText;
-                if (plate) Plate(t);
+                plates.Raise(t);
+                if (plate) plates.AttachPlate(t, AddMesh);
             }
             go.transform.localScale = Vector3.one * size; labels.Add((t, minLod));
         }
 
-        /// <summary>A dark plate behind a label, the label system's margin (.35 em sideways, .12 em above and below) around its
-        /// text: drawn after the hills and the strands and before the raised text. It is the label's child, so it shows,
-        /// hides and turns with it.</summary>
-        void Plate(TextMeshPro t)
-        {
-            // TextMeshPro sets 2.4 local units per em at its font size 24
-            Vector2 half = (t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f) * .5f;
-            var b = new SurfaceMeshBuilder();
-            b.AddBand(new[] { new Vector3(-half.x, -half.y, 0), new Vector3(half.x, -half.y, 0) }, new[] { new Vector3(-half.x, half.y, 0), new Vector3(half.x, half.y, 0) },
-                new[] { (Color32)WithAlpha(GraphStyle.Background, .75f) }, 0, 1);
-            Mesh mesh = b.ToMesh("Government plate"); owned.Add(mesh);
-            Material material = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3251)); owned.Add(material);
-            material.SetFloat("_EdgeSoft", 0);
-            AddMesh("Government plate", mesh, material).transform.SetParent(t.transform, false);
-        }
-
-        static Color WithAlpha(Color c, float a) { c.a = a; return c; }
+        static Color WithAlpha(Color c, float a) => c.WithAlpha(a);
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
+            plates.Clear();
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); content = null; raisedText = null;
+            owned.Clear(); renderers.Clear(); labels.Clear(); content = null;
         }
 
         void OnDestroy() { Clear(); pillars.Clear(); seats.Clear(); History = null; }

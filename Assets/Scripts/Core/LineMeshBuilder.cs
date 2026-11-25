@@ -76,12 +76,22 @@ namespace Why
             PolylineCount = 0;
         }
 
+        /// <summary>Ensures backing lists can hold at least <paramref name="additionalPoints"/> more polyline points without reallocating.</summary>
+        void Reserve(int additionalPoints)
+        {
+            int needVerts = vertices.Count + additionalPoints * 2;
+            if (vertices.Capacity < needVerts) vertices.Capacity = Mathf.Max(vertices.Capacity * 2, needVerts);
+            int needIdx = indices.Count + Mathf.Max(0, additionalPoints - 1) * 6;
+            if (indices.Capacity < needIdx) indices.Capacity = Mathf.Max(indices.Capacity * 2, needIdx);
+        }
+
         /// <summary>Adds a polyline with uniform styling.</summary>
         public void AddPolyline(IReadOnlyList<Vector3> points, Color32 color, float widthPx, float widthWorld, float id,
             float intensity = 1, float flow = 0)
         {
             int n = points.Count;
             if (n < 2) return;
+            Reserve(n);
             int baseIndex = vertices.Count;
             for (int i = 0; i < n; i++)
             {
@@ -98,6 +108,7 @@ namespace Why
         {
             int n = points.Count;
             if (n < 2) return;
+            Reserve(n);
             int baseIndex = vertices.Count;
             for (int i = 0; i < n; i++)
             {
@@ -115,6 +126,7 @@ namespace Why
         {
             int n = Mathf.Min(points.Count, ids.Count);
             if (n < 2) return;
+            Reserve(n);
             int baseIndex = vertices.Count;
             for (int i = 0; i < n; i++)
             {
@@ -139,6 +151,7 @@ namespace Why
         {
             int n = points.Count;
             if (n < 2) return;
+            Reserve(n);
             int baseIndex = vertices.Count;
             float distance = 0;
             for (int i = 0; i < n; i++)

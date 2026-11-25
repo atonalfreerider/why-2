@@ -16,7 +16,10 @@ import sys
 import urllib.error
 import urllib.request
 
-KEY_FILE = os.path.expanduser("~/Desktop/jev-key.txt")
+KEY_FILES = (
+    os.path.expanduser("~/Desktop/jev-key.txt"),
+    os.path.expanduser("~/.secrets/api-keys/jev-key.txt"),
+)
 DIRECT_URL = "https://api.typesafe.ai/v1/systemone"
 GATEWAY_URL = "https://ai-gateway.vercel.sh/typesafe/v1/systemone"
 
@@ -29,11 +32,12 @@ def _key():
     k = os.environ.get("AI_GATEWAY_API_KEY", "").strip()
     if k:
         return k, False
-    if os.path.exists(KEY_FILE):
-        with open(KEY_FILE, encoding="utf-8") as f:
-            k = f.readline().strip()
-        if k:
-            return k, k.startswith("apikey_")
+    for path in KEY_FILES:
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as f:
+                k = f.readline().strip()
+            if k:
+                return k, k.startswith("apikey_")
     return None, False
 
 

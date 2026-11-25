@@ -127,6 +127,7 @@ namespace Why.UI
                     Row("Double-click a dot", "the simulated people in that group; click one to follow them"),
                     Row("Click a line on the road", "look inside one simulated person (in views 1 and 2 it also opens that year)"),
                     Row("N", "the next notable person (owner, striver, the indebted ...); the person views follow them; with a group open, its next member"),
+                    Row("F", "find any individual actor (simulated Americans or Instagram social cloud) and read their Jev-calibrated causal behavior & mobility prediction"),
                     Row("What if? ►", "change one group's reason, fear or the pressure from sellers, and step the years; Reset undoes it"),
                     Row("Explore the hill ►", "the tiers and their industries, down to one company, one group and one person"),
                     Row("Other states", "the tabs choose the government the US hills stand on"),

@@ -81,17 +81,23 @@ namespace Why.Economy.Model
                 if (lives.TryGet(person, y, out PersonYear r) && r.Adult) { years.Add(y); records.Add(r); }
             if (records.Count == 0) return null;
             var life = new PersonLife(person, why, years, records, lives.Traits(person), lives.Sim.People[person]);
+            // Filter the person's marriages once instead of scanning the entire population marriage log every year.
+            var ownMarriages = new List<(double start, double end, int other)>(2);
+            foreach (SmvMarriage m in lives.Sim.MarriageLog)
+            {
+                if (m.Wife == person) ownMarriages.Add((m.Start, m.End, m.Husband));
+                else if (m.Husband == person) ownMarriages.Add((m.Start, m.End, m.Wife));
+            }
             for (int k = 0; k < life.Years.Length; k++)
             {
                 life.Spouse[k] = life.SpouseIndustry[k] = -1;
                 double mid = life.Years[k] + .5;
-                foreach (SmvMarriage m in lives.Sim.MarriageLog)
+                for (int m = 0; m < ownMarriages.Count; m++)
                 {
-                    if (m.Start > mid || m.End <= mid) continue;
-                    int other = m.Wife == person ? m.Husband : m.Husband == person ? m.Wife : -1;
-                    if (other < 0) continue;
-                    life.Spouse[k] = other;
-                    if (lives.TryGet(other, life.Years[k], out PersonYear o) && o.Employed && o.Industry >= 0) life.SpouseIndustry[k] = o.Industry;
+                    var entry = ownMarriages[m];
+                    if (entry.start > mid || entry.end <= mid) continue;
+                    life.Spouse[k] = entry.other;
+                    if (lives.TryGet(entry.other, life.Years[k], out PersonYear o) && o.Employed && o.Industry >= 0) life.SpouseIndustry[k] = o.Industry;
                     break;
                 }
             }

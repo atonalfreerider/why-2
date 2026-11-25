@@ -85,6 +85,20 @@ namespace Why
                 default: return MatterY;
             }
         }
+
+        /// <summary>Returns <paramref name="c"/> with its alpha set to <paramref name="alpha"/>.</summary>
+        public static Color WithAlpha(this Color c, float alpha)
+        {
+            c.a = alpha;
+            return c;
+        }
+
+        /// <summary>Returns <paramref name="c"/> with its alpha scaled to <paramref name="alpha"/> (0..1).</summary>
+        public static Color32 WithAlpha(this Color32 c, float alpha)
+        {
+            c.a = (byte)Mathf.Clamp(Mathf.RoundToInt(alpha * 255f), 0, 255);
+            return c;
+        }
     }
 
     public enum GraphLevel

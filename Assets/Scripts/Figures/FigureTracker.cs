@@ -67,6 +67,7 @@ namespace Why.Figures
         RectTransform panelRect, cardRect;
         TextMeshProUGUI panelTitle, panelYear;
         readonly List<Button> rows = new List<Button>();
+        readonly List<TextMeshProUGUI> rowLabels = new List<TextMeshProUGUI>();
         readonly List<Figure> rowFigures = new List<Figure>();
         TextMeshProUGUI cardName, cardMeta, cardBlurb;
         /// <summary>The state the card names now (it follows <see cref="CardYear"/> while the life is followed).</summary>
@@ -178,6 +179,7 @@ namespace Why.Figures
                 label.alignment = TextAlignmentOptions.MidlineLeft;
                 label.richText = true;
                 rows.Add(b);
+                rowLabels.Add(label);
                 rowFigures.Add(null);
             }
 
@@ -243,7 +245,7 @@ namespace Why.Figures
 
             // the portrait columns are narrow: a long name and civilization end in an ellipsis
             TextOverflowModes overflow = portraitLayout ? TextOverflowModes.Ellipsis : TextOverflowModes.Overflow;
-            foreach (Button row in rows) row.GetComponentInChildren<TextMeshProUGUI>().overflowMode = overflow;
+            for (int i = 0; i < rowLabels.Count; i++) rowLabels[i].overflowMode = overflow;
 
             // the card's height and links depend on its content in portrait
             if (following != null && Anchors.TryGet(following.AnchorKey, out Anchor a)) FillCard(following, a);
@@ -369,7 +371,7 @@ namespace Why.Figures
                 if (f == null) continue;
                 string civ = StateAt(f, year);
                 int age = (int)(year - f.born);
-                rows[i].GetComponentInChildren<TextMeshProUGUI>().text =
+                rowLabels[i].text =
                     $"<b>{f.name}</b>  <color=#{UiFactory.Hex(GraphStyle.TextDim)}><size=85%>{civ}, age {age}</size></color>";
             }
         }

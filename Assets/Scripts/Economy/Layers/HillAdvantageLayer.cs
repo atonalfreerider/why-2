@@ -227,6 +227,8 @@ namespace Why.Economy.Layers
             }
         }
 
+        static readonly Part[] ExternalParts = { Part.People, Part.Thread };
+
         public override void Tick(GraphContext ctx, CameraRig rig)
         {
             if (HillLandscapeLayer.Current == null || LandService.Current == null) return;
@@ -236,14 +238,14 @@ namespace Why.Economy.Layers
             {
                 if (content) content.SetActive(false);
                 // the parts that stand on the layer itself, outside the arena's opening scale, go with the view too
-                foreach (var p in new[] { Part.People, Part.Thread })
-                    if (partRenderer[(int)p]) partRenderer[(int)p].enabled = false;
+                for (int i = 0; i < ExternalParts.Length; i++)
+                    if (partRenderer[(int)ExternalParts[i]]) partRenderer[(int)ExternalParts[i]].enabled = false;
                 ShowLabels(false);
                 return;
             }
 
-            foreach (var p in new[] { Part.People, Part.Thread })
-                if (partRenderer[(int)p] && !partRenderer[(int)p].enabled) partRenderer[(int)p].enabled = true;
+            for (int i = 0; i < ExternalParts.Length; i++)
+                if (partRenderer[(int)ExternalParts[i]] && !partRenderer[(int)ExternalParts[i]].enabled) partRenderer[(int)ExternalParts[i]].enabled = true;
 
             model = Advantage.Get();
             if (model == null) return;

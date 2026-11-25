@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using Why.Economy.Draw;
 using Why.Economy.Emphasis;
 using Why.Economy.Land;
 using Why.Economy.Model;
@@ -97,10 +98,7 @@ namespace Why.Economy.Layers
         readonly List<UnityEngine.Object> owned = new List<UnityEngine.Object>();
         string json;
         LandSnapshot snapshot; HillLandscape land; Regimes regimes; GameObject content;
-        /// <summary>The font's material drawn after the regime's marks (queue 3252), for every name the layer writes; and the
-        /// dark plate behind the names read over gold, a line or the light strata (a unit square scaled to each name, and its
-        /// material drawn under the summits' rings, the names' leaders (3251) and the raised text, queue 3250).</summary>
-        Material raisedText, plateMaterial; Mesh plateQuad;
+        readonly WorldLabelPlates plates = new WorldLabelPlates("Regime plate", .9f, 3250, 3252);
         /// <summary>The trade gauge's name, which steps aside with its lanes while the tour's card covers the far border.</summary>
         TextMeshPro tradeLabel;
         /// <summary>The names written on the bedrock's face, which lie in it instead of turning to the camera, and whether they
@@ -947,30 +945,13 @@ namespace Why.Economy.Layers
             t.textWrappingMode = TextWrappingModes.NoWrap; t.rectTransform.sizeDelta = new Vector2(90, 8);
             // the names are read over the summits' rings and beams and the bedrock's translucent face, which the font's own
             // queue would draw over them: they take a copy of its material drawn last
-            if (raisedText == null && t.fontSharedMaterial != null) { raisedText = new Material(t.fontSharedMaterial) { renderQueue = 3252 }; owned.Add(raisedText); }
-            if (raisedText != null) t.fontSharedMaterial = raisedText;
+            plates.Raise(t);
             go.transform.localScale = Vector3.one * size; labels.Add(t); return t;
         }
 
-        /// <summary>A dark plate behind a label: its text with the label system's margin, .35 em sideways and .12 em above and
-        /// below (TextMeshPro sets 2.4 local units per em at its font size 24), drawn after the regime's other marks (queue
-        /// 3250) and before the summits' rings and the names' leaders (3251), which stay whole over it, and the raised text
-        /// (3252). At .9 rather than the .75 of the plates elsewhere: names stand on lines about as light as their letters
-        /// (VOTES on its white threads, TRADE on the first hill's outline, the oil's name on a steel beam) or of their hue
-        /// (the firms' gold on the wave's gold ridges), and a quarter of such a line would leave the first ones about 3 to
-        /// 4:1. It is the label's child, so it turns with it.</summary>
         TextMeshPro Plate(TextMeshPro t)
         {
-            if (plateQuad == null)
-            {
-                var b = new SurfaceMeshBuilder();
-                b.AddBand(new[] { new Vector3(-.5f, -.5f, 0), new Vector3(.5f, -.5f, 0) }, new[] { new Vector3(-.5f, .5f, 0), new Vector3(.5f, .5f, 0) },
-                    new[] { (Color32)WithAlpha(GraphStyle.Background, .9f) }, 0, 1);
-                plateQuad = b.ToMesh("Regime plate"); owned.Add(plateQuad);
-                plateMaterial = GraphMaterials.Raw(GraphMaterials.Surface(Color.white, 1, 3250)); plateMaterial.SetFloat("_EdgeSoft", 0); owned.Add(plateMaterial);
-            }
-            Vector2 s = t.GetPreferredValues(t.text) + new Vector2(.7f, .24f) * 2.4f;
-            var r = AddMesh("Regime plate", plateQuad, plateMaterial); r.transform.SetParent(t.transform, false); r.transform.localScale = new Vector3(s.x, s.y, 1);
+            plates.AttachPlate(t, AddMesh);
             return t;
         }
 
@@ -979,13 +960,14 @@ namespace Why.Economy.Layers
         /// round: its +x then runs along the land's -x, left to right on the screen from there.</summary>
         static Quaternion Facing(bool front) => front ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
 
-        static Color WithAlpha(Color c, float a) { c.a = a; return c; }
+        static Color WithAlpha(Color c, float a) => c.WithAlpha(a);
 
         void Clear()
         {
             foreach (var o in owned) if (o) Destroy(o);
             if (content) Destroy(content);
-            owned.Clear(); renderers.Clear(); labels.Clear(); inFace.Clear(); content = null; raisedText = plateMaterial = null; plateQuad = null; tradeLabel = null;
+            plates.Clear();
+            owned.Clear(); renderers.Clear(); labels.Clear(); inFace.Clear(); content = null; tradeLabel = null;
         }
 
         void OnDestroy() { Clear(); Shown = -1; ReadoutText = DrawingText = ""; }

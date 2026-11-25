@@ -45,6 +45,8 @@ namespace Why.Economy.UI
         UnityEngine.UI.Button evidence,dependency,previous,next;
         readonly List<(string label,Action open)> items=new List<(string,Action)>();
         readonly List<UnityEngine.UI.Button> rows=new List<UnityEngine.UI.Button>();
+        readonly List<TextMeshProUGUI> rowLabels=new List<TextMeshProUGUI>();
+        TextMeshProUGUI evidenceLabel;
         readonly List<int> members=new List<int>();
         readonly List<Vector3> memberAt=new List<Vector3>();
         readonly List<int> memberIds=new List<int>();
@@ -70,8 +72,9 @@ namespace Why.Economy.UI
             details=Text("Evidence",11,10,37,334,56);details.textWrappingMode=TextWrappingModes.Normal;
             Button("Up",10,97,70,()=>Up());Button("Go into",84,97,112,()=>DiveSelected());
             dependency=Button("Trades with",200,97,144,()=>{dependencies=!dependencies;page=0;Refresh();});
-            for(int i=0;i<MaxRows;i++){int row=i;rows.Add(Button("",10,RowsTop+i*RowStep,334,()=>{int n=First+row;if(n<items.Count)items[n].open();}));}
-            evidence=Button("Show only measured links",10,0,334,()=>{EvidenceOnly=!EvidenceOnly;Label(evidence,EvidenceOnly?"Show all links (some illustrative)":"Show only measured links");});
+            for(int i=0;i<MaxRows;i++){int row=i;var b=Button("",10,RowsTop+i*RowStep,334,()=>{int n=First+row;if(n<items.Count)items[n].open();});rows.Add(b);rowLabels.Add(b.GetComponentInChildren<TextMeshProUGUI>());}
+            evidence=Button("Show only measured links",10,0,334,()=>{EvidenceOnly=!EvidenceOnly;evidenceLabel.text=EvidenceOnly?"Show all links (some illustrative)":"Show only measured links";});
+            evidenceLabel=evidence.GetComponentInChildren<TextMeshProUGUI>();
             previous=Button("Previous",10,0,83,()=>{page=Math.Max(0,page-1);RefreshRows();});
             pagination=Text("Page",11,105,0,140,22);
             next=Button("Next",262,0,82,()=>{page=Math.Min(Pages-1,page+1);RefreshRows();});
@@ -224,7 +227,7 @@ namespace Why.Economy.UI
         void RefreshRows()
         {
             int first=First,count=Math.Max(0,Math.Min(items.Count-first,Depth==0?MaxRows:PageRows));
-            for(int row=0;row<rows.Count;row++){bool on=row<count;rows[row].gameObject.SetActive(on);if(on)Label(rows[row],items[first+row].label);}
+            for(int row=0;row<rows.Count;row++){bool on=row<count;rows[row].gameObject.SetActive(on);if(on)rowLabels[row].text=items[first+row].label;}
             float y=RowsTop+count*RowStep+4;
             Place((RectTransform)evidence.transform,10,y,334,21);y+=27;
             bool paged=Depth>0&&items.Count>PageRows;
@@ -305,8 +308,8 @@ namespace Why.Economy.UI
             hud??=new HudBlocks(root);
             HudFrame f=hud.Measure(canvasRect,UiFactory.CanvasSize);
             float column=f.Margin+target.sizeDelta.x,bottom=f.Margin;
-            foreach(var box in new[]{f.Legend,f.Readout})
-                if(!box.IsEmpty&&box.X<column)bottom=Mathf.Max(bottom,f.Canvas.y-box.Y+f.Gap);
+            if(!f.Legend.IsEmpty&&f.Legend.X<column)bottom=Mathf.Max(bottom,f.Canvas.y-f.Legend.Y+f.Gap);
+            if(!f.Readout.IsEmpty&&f.Readout.X<column)bottom=Mathf.Max(bottom,f.Canvas.y-f.Readout.Y+f.Gap);
             bottom=Mathf.Min(bottom,Mathf.Max(f.Margin,f.Canvas.y-target.sizeDelta.y-f.Margin));
             if(Mathf.Abs(target.anchoredPosition.y-bottom)>.5f||Mathf.Abs(target.anchoredPosition.x-f.Margin)>.5f)target.anchoredPosition=new Vector2(f.Margin,bottom);
             Occupied=new UiBox(f.Margin,f.Canvas.y-bottom-target.sizeDelta.y,target.sizeDelta.x,target.sizeDelta.y);
